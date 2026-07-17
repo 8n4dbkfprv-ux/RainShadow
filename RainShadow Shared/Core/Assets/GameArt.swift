@@ -1,0 +1,87 @@
+import SpriteKit
+
+@MainActor
+enum GameArt {
+    static func texture(named name: String) -> SKTexture? {
+        let direct = Bundle.main.url(forResource: name, withExtension: "png")
+        let atlasTexture = SKTexture(imageNamed: name)
+
+        guard direct != nil || atlasTexture.size() != .zero else {
+            return nil
+        }
+
+        atlasTexture.filteringMode = .nearest
+        return atlasTexture
+    }
+
+    static func preloadOfficeAssets() {
+        let textureNames = [
+            "det_paperdoll_front_rgba_v02",
+            "office_shell_base",
+            "office_radiator",
+            "office_door_leaf",
+            "office_desk_chair",
+            "office_filing_cabinet",
+            "office_coat_rack",
+            "office_visitor_armchair",
+            "office_desk_bare",
+            "office_desk_lamp",
+            "office_desk_phone",
+            "office_desk_mug",
+            "office_desk_ashtray",
+            "office_desk_files",
+            "office_desk_papers",
+            "office_desk_actor_occluder",
+            "office_desk_front_occluder_v03"
+        ]
+        let textures = textureNames.compactMap(texture(named:))
+        SKTexture.preload(textures) {}
+
+        let atlases = [
+            "ClientArrival",
+            "DetectiveIdle",
+            "DetectiveSeatedArms",
+            "DetectiveSeatedIdle",
+            "DetectiveStandUp",
+            "DetectiveWalk"
+        ]
+            .map(SKTextureAtlas.init(named:))
+        SKTextureAtlas.preloadTextureAtlases(atlases) {}
+    }
+
+    static func rainStreakTexture() -> SKTexture {
+        let width = 4
+        let height = 48
+        let bytesPerRow = width * 4
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return SKTexture()
+        }
+
+        let colors = [
+            CGColor(red: 0.72, green: 0.80, blue: 0.92, alpha: 0.0),
+            CGColor(red: 0.72, green: 0.80, blue: 0.92, alpha: 0.75),
+            CGColor(red: 0.72, green: 0.80, blue: 0.92, alpha: 0.0)
+        ] as CFArray
+        let locations: [CGFloat] = [0.0, 0.55, 1.0]
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: locations)
+        context.drawLinearGradient(
+            gradient!,
+            start: CGPoint(x: 2, y: 0),
+            end: CGPoint(x: 2, y: 48),
+            options: []
+        )
+        guard let image = context.makeImage() else { return SKTexture() }
+        let texture = SKTexture(cgImage: image)
+        texture.filteringMode = .linear
+        return texture
+    }
+}
