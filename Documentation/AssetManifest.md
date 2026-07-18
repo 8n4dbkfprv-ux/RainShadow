@@ -293,6 +293,9 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter used beside the paperdoll in the reference-relative position. |
 | P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel used at the left edge of the lower bag grid. |
 | P0 | `det_paperdoll_front_rgba_v02` | 1 | 1024×1536 | Identity-locked Elias Vale inventory paperdoll with transparent background. |
+| P0 | `dialogue_outer_frame_overlay_v02` | 1 | 1720×730 | Transparent rail-free noir dialogue perimeter; nine-sliced in code while the fixed-size scroll control stays independent. |
+| P0 | `dialogue_portrait_vivian_hart_v01` | 1 | 512×512 | Identity-locked hand-painted Vivian portrait for the dialogue crop. |
+| P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 

@@ -21,7 +21,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 - Exterior is a short non-interactive establishing scene. The office becomes playable after the cinematic transition.
 - World props, the office door, the window treatment, the detective, foreground occluders, lighting overlays, and effects are separate runtime assets. The office architecture plate does not contain those objects.
 - The actor target is explicitly the Baldur's Gate: Enhanced Edition in-game avatar look: a deliberately low-resolution, limited-palette, pre-rendered 3D-derived sprite rather than a smooth or realistically illustrated figure. Locomotion resolves to 16 facing bins using nine source orientations plus seven mirrored eastern orientations, following the legacy character-animation convention.
-- The playable interaction slice includes first client Vivian Hart's authored front-view arrival and rear-view departure, a short player-advanced case conversation, then inspection, standing, walking, inventory access, and five office hotspots. Full branching dialogue and deduction UI remain later work.
+- The playable interaction slice includes first client Vivian Hart's authored front-view arrival and rear-view departure, a compact branching case conversation with response, Continue, and End Dialogue states, then inspection, standing, walking, inventory access, and five office hotspots. The full evidence-gated dialogue system and deduction UI remain later work.
 - The current project includes iOS, macOS, and tvOS template targets. Milestone scope is iOS/iPadOS and macOS; tvOS remains excluded from shared resource membership and release validation.
 
 ## Art-reference research summary

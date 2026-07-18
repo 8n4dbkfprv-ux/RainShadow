@@ -6,7 +6,7 @@ RainShadow is a shared Swift/SpriteKit noir detective RPG prototype for iOS/iPad
 
 1. Open `RainShadow.xcodeproj` in Xcode.
 2. Select **RainShadow iOS** or **RainShadow macOS**.
-3. Run in landscape. Tap/click to skip the exterior after one second. Vivian then enters with the case; tap, click, or press Return to advance the conversation and watch her leave through the office door.
+3. Run in landscape. Tap/click to skip the exterior after one second. Vivian then enters with the case. Select a numbered response, use **Continue** for the next passage, and finish with **End Dialogue**. On macOS, arrows/WASD change the focused response and Return/Space activates it.
 4. After the introduction, tap/click the office floor to move and select its objects to inspect them.
 5. Open **Personal Effects** from the lower-left office control. On macOS, `I` also toggles the inventory, arrows/WASD move its selection, and Return/Space/Escape closes it.
 

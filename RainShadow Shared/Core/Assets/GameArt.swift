@@ -16,6 +16,9 @@ enum GameArt {
 
     static func preloadOfficeAssets() {
         let textureNames = [
+            "dialogue_outer_frame_overlay_v02",
+            "dialogue_portrait_vivian_hart_v01",
+            "dialogue_portrait_elias_vale_v01",
             "inventory_outer_frame_overlay_v01",
             "inventory_slot_frame_v01",
             "inventory_case_bag_v01",

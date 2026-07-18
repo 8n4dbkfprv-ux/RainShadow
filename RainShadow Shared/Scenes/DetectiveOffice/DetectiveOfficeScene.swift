@@ -141,7 +141,9 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     override func handlePointerUp(_ event: GamePointerEvent) {
         if caseIntroductionIsActive {
-            caseIntroductionPresenter.advance()
+            let hudPoint = hudRoot.convert(event.location, from: self)
+            let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
+            caseIntroductionPresenter.handlePointer(at: dialoguePoint)
             return
         }
 
@@ -172,7 +174,11 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
-        guard !caseIntroductionIsActive else { return }
+        if caseIntroductionIsActive {
+            let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
+            caseIntroductionPresenter.moveSelection(selectionDirection)
+            return
+        }
         if inventoryIsPresented {
             let previous = direction.dx < 0 || direction.dy > 0
             inventoryOverlay.moveSelection(previous ? -1 : 1)
@@ -190,11 +196,13 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
         #if os(macOS)
-        guard !caseIntroductionIsActive else {
-            NSCursor.arrow.set()
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        if caseIntroductionIsActive {
+            let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
+            let isInteractive = caseIntroductionPresenter.updatePointer(at: dialoguePoint)
+            (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
-        let hudPoint = hudRoot.convert(event.location, from: self)
         if inventoryIsPresented {
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
             (inventoryOverlay.isInteractive(at: overlayPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -221,7 +229,7 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     override func handleConfirmInput() {
         if caseIntroductionIsActive {
-            caseIntroductionPresenter.advance()
+            caseIntroductionPresenter.activateFocusedControl()
             return
         }
         guard inventoryIsPresented else { return }
@@ -247,40 +255,98 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func startCaseIntroduction() {
         client.performEntrance(along: OfficeNavigationLayout.clientArrivalPath) { [weak self] in
             guard let self else { return }
+            let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+            let dialogueCameraPosition = CGPoint(
+                x: normalCameraPosition.x,
+                y: normalCameraPosition.y - 55
+            )
+            let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
+            cameraLift.timingMode = .easeOut
+            self.gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
             self.caseIntroductionPresenter.present([
-                CaseDialogueLine(
+                CaseDialogueNode(
+                    id: "vivian.opening",
                     speaker: "Vivian Hart",
-                    text: "Mr. Vale? My sister Lillian vanished Tuesday night."
+                    text: "Mr. Vale? My sister Lillian vanished Tuesday night.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    choices: [
+                        CaseDialogueChoice(
+                            text: "And the police?",
+                            destinationID: "vivian.police"
+                        ),
+                        CaseDialogueChoice(
+                            text: "Why are you certain she didn't go into the river?",
+                            destinationID: "vivian.doubt"
+                        )
+                    ]
                 ),
-                CaseDialogueLine(
+                CaseDialogueNode(
+                    id: "vivian.police",
+                    speaker: "Vivian Hart",
+                    text: "They found her coat by the river. Said that was answer enough.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    nextNodeID: "vivian.key"
+                ),
+                CaseDialogueNode(
+                    id: "vivian.doubt",
+                    speaker: "Vivian Hart",
+                    text: "Because Lillian hated the river, and because whoever left that coat wanted the police to stop looking.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    nextNodeID: "vivian.key"
+                ),
+                CaseDialogueNode(
+                    id: "vivian.key",
+                    speaker: "Vivian Hart",
+                    text: "This brass key was sewn inside the lining. Since I found it, a man has been following me.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    choices: [
+                        CaseDialogueChoice(
+                            text: "Leave the key. I'll find out what it opens.",
+                            destinationID: "vivian.plea"
+                        ),
+                        CaseDialogueChoice(
+                            text: "Describe the man who's been following you.",
+                            destinationID: "vivian.follower"
+                        )
+                    ]
+                ),
+                CaseDialogueNode(
+                    id: "vivian.follower",
+                    speaker: "Vivian Hart",
+                    text: "Gray overcoat. Black gloves. He waits across the street and turns away whenever I look at him.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    nextNodeID: "elias.accept"
+                ),
+                CaseDialogueNode(
+                    id: "elias.accept",
                     speaker: "Elias Vale",
-                    text: "And the police?"
+                    text: "Leave the key. I'll find out what it opens.",
+                    portraitName: "dialogue_portrait_elias_vale_v01",
+                    nextNodeID: "vivian.plea"
                 ),
-                CaseDialogueLine(
+                CaseDialogueNode(
+                    id: "vivian.plea",
                     speaker: "Vivian Hart",
-                    text: "They found her coat by the river. Said that was answer enough."
+                    text: "Please find her, Mr. Vale.",
+                    portraitName: "dialogue_portrait_vivian_hart_v01",
+                    nextNodeID: "case.opened"
                 ),
-                CaseDialogueLine(
-                    speaker: "Vivian Hart",
-                    text: "This brass key was sewn inside the lining. Since I found it, a man has been following me."
-                ),
-                CaseDialogueLine(
-                    speaker: "Elias Vale",
-                    text: "Leave the key. I'll find out what it opens."
-                ),
-                CaseDialogueLine(
-                    speaker: "Vivian Hart",
-                    text: "Please find her, Mr. Vale."
-                ),
-                CaseDialogueLine(
+                CaseDialogueNode(
+                    id: "case.opened",
                     speaker: "Case opened",
-                    text: "THE EMPTY COAT"
+                    text: "THE EMPTY COAT",
+                    portraitName: "dialogue_portrait_elias_vale_v01",
+                    endsDialogue: true
                 )
-            ])
+            ], startingAt: "vivian.opening")
         }
     }
 
     private func finishCaseIntroduction() {
+        let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+        let cameraRestore = SKAction.move(to: normalCameraPosition, duration: 0.3)
+        cameraRestore.timingMode = .easeInEaseOut
+        gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
         client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
             guard let self else { return }
             self.caseIntroductionIsActive = false
