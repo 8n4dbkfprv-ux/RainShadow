@@ -287,8 +287,16 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |
 | P0 | `ui_input_touch` | 1 | 128×128 | First-run touch hint symbol. |
 | P0 | `ui_input_pointer` | 1 | 128×128 | First-run mouse hint symbol. |
+| P0 | `inventory_outer_frame_overlay_v01` | 1 | 1960×1080 | Transparent original noir perimeter frame; code owns all interior panel geometry and text. |
+| P0 | `inventory_slot_frame_v01` | 1 | 256×256 | Reusable alpha slot frame scaled to code-defined equipment, quick-item, bag, and nearby bounds. |
+| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
+| P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter used beside the paperdoll in the reference-relative position. |
+| P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel used at the left edge of the lower bag grid. |
+| P0 | `det_paperdoll_front_rgba_v02` | 1 | 1024×1536 | Identity-locked Elias Vale inventory paperdoll with transparent background. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
+
+Major inventory panels are separate code-rendered surfaces with precise bounds and inset rules. The generated panel-texture study was rejected after in-engine QA because it competed with the item hierarchy; it remains only as a source-art provenance record and is not a runtime asset.
 
 ## 9. Audio asset list
 

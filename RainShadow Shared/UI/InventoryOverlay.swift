@@ -19,6 +19,7 @@ struct InventoryItem: Identifiable, Equatable {
     let description: String
     let note: String
     let symbolName: String
+    let artName: String
     let quantity: Int
 }
 
@@ -29,9 +30,9 @@ final class InventoryOverlay: SKNode {
     }
 
     private enum Palette {
-        static let ink = SKColor(red: 0.018, green: 0.021, blue: 0.027, alpha: 0.97)
-        static let panel = SKColor(red: 0.038, green: 0.043, blue: 0.052, alpha: 0.96)
-        static let raised = SKColor(red: 0.068, green: 0.072, blue: 0.079, alpha: 0.96)
+        static let ink = SKColor(red: 0.018, green: 0.021, blue: 0.027, alpha: 0.94)
+        static let panel = SKColor(red: 0.038, green: 0.043, blue: 0.052, alpha: 0.92)
+        static let raised = SKColor(red: 0.068, green: 0.072, blue: 0.079, alpha: 0.94)
         static let line = SKColor(red: 0.46, green: 0.49, blue: 0.50, alpha: 0.48)
         static let paleLine = SKColor(red: 0.72, green: 0.74, blue: 0.72, alpha: 0.72)
         static let paper = SKColor(red: 0.82, green: 0.80, blue: 0.72, alpha: 1)
@@ -48,6 +49,7 @@ final class InventoryOverlay: SKNode {
             description: "A six-shot Webley with a tired action and a clean barrel.",
             note: "Registered to Det. E. Vale · 5 rounds loaded",
             symbolName: "scope",
+            artName: "inventory_item_service_revolver_v01",
             quantity: 1
         ),
         InventoryItem(
@@ -57,6 +59,7 @@ final class InventoryOverlay: SKNode {
             description: "Names, times, and three pages someone tried to tear out.",
             note: "Active file: The Marlowe Disappearance",
             symbolName: "book.closed.fill",
+            artName: "inventory_item_case_notebook_v01",
             quantity: 1
         ),
         InventoryItem(
@@ -66,6 +69,7 @@ final class InventoryOverlay: SKNode {
             description: "A cheap key cut for an expensive lock. Rain still beads in the grooves.",
             note: "Recovered beneath the office window",
             symbolName: "key.fill",
+            artName: "inventory_item_brass_key_v01",
             quantity: 1
         ),
         InventoryItem(
@@ -75,6 +79,7 @@ final class InventoryOverlay: SKNode {
             description: "Eleven matches and a nightclub address embossed in silver.",
             note: "The Blue Room · Wardour Street",
             symbolName: "flame.fill",
+            artName: "inventory_item_matchbook_v01",
             quantity: 11
         ),
         InventoryItem(
@@ -84,6 +89,7 @@ final class InventoryOverlay: SKNode {
             description: "Dented steel, unreliable switch, enough battery for one long night.",
             note: "Condition: worn",
             symbolName: "flashlight.on.fill",
+            artName: "inventory_item_flashlight_v01",
             quantity: 1
         ),
         InventoryItem(
@@ -93,6 +99,7 @@ final class InventoryOverlay: SKNode {
             description: "Licence, tram pass, and the kind of money that disappears quickly.",
             note: "Cash on hand: £7  4s",
             symbolName: "creditcard.fill",
+            artName: "inventory_item_wallet_v01",
             quantity: 1
         ),
         InventoryItem(
@@ -102,6 +109,7 @@ final class InventoryOverlay: SKNode {
             description: "Gunmetal silver. Initials scratched away with deliberate care.",
             note: "4 cigarettes remaining",
             symbolName: "cigarette.fill",
+            artName: "inventory_item_cigarette_case_v01",
             quantity: 4
         )
     ]
@@ -196,12 +204,14 @@ final class InventoryOverlay: SKNode {
         shadow.zPosition = -10
         sheet.addChild(shadow)
 
-        let frame = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: Palette.paleLine, lineWidth: 2)
-        sheet.addChild(frame)
-        addInnerBorder(to: sheet, size: CGSize(width: 1_928, height: 1_048))
-        addFilmGrainLines(to: sheet)
+        if !addGeneratedOuterFrame() {
+            let frame = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: Palette.paleLine, lineWidth: 2)
+            sheet.addChild(frame)
+            addInnerBorder(to: sheet, size: CGSize(width: 1_928, height: 1_048))
+            addFilmGrainLines(to: sheet)
+        }
 
-        let title = Self.label(size: 42, color: Palette.paper, weight: .demibold)
+        let title = Self.label(size: 39, color: Palette.paper, weight: .display)
         title.text = "INVENTORY"
         title.position = CGPoint(x: 0, y: 474)
         sheet.addChild(title)
@@ -233,6 +243,22 @@ final class InventoryOverlay: SKNode {
         addChild(sheet)
     }
 
+    @discardableResult
+    private func addGeneratedOuterFrame() -> Bool {
+        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v01") else { return false }
+        texture.filteringMode = .linear
+
+        let backing = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: .clear, lineWidth: 0)
+        backing.zPosition = -9
+        sheet.addChild(backing)
+
+        let overlay = SKSpriteNode(texture: texture, size: Metrics.canvas)
+        overlay.name = "inventory.outer-frame-overlay"
+        overlay.zPosition = -8
+        sheet.addChild(overlay)
+        return true
+    }
+
     private func buildCloseButton() {
         let button = panel(size: CGSize(width: 116, height: 48), radius: 3, fill: Palette.raised, stroke: Palette.line, lineWidth: 2)
         button.name = "inventory.close"
@@ -249,7 +275,7 @@ final class InventoryOverlay: SKNode {
     private func buildLoadoutPanel() {
         let root = SKNode()
         root.position = CGPoint(x: -665, y: 58)
-        root.addChild(panel(size: CGSize(width: 470, height: 620), radius: 4, fill: Palette.panel, stroke: Palette.line, lineWidth: 2))
+        root.addChild(majorPanel(size: CGSize(width: 470, height: 620)))
 
         addSlotSection("READY WEAPONS", items: [items[0], nil, nil], to: root, headerY: 258, slotY: 174)
         addSlotSection("QUICK ITEMS", items: [items[4], items[1], items[6]], to: root, headerY: 78, slotY: -6)
@@ -267,7 +293,7 @@ final class InventoryOverlay: SKNode {
     private func buildPaperdollPanel() {
         let root = SKNode()
         root.position = CGPoint(x: -50, y: 58)
-        root.addChild(panel(size: CGSize(width: 730, height: 620), radius: 4, fill: Palette.panel, stroke: Palette.line, lineWidth: 2))
+        root.addChild(majorPanel(size: CGSize(width: 730, height: 620)))
 
         let chamber = panel(size: CGSize(width: 390, height: 390), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
         chamber.position = CGPoint(x: 50, y: -15)
@@ -315,13 +341,14 @@ final class InventoryOverlay: SKNode {
             ("hand.raised.fill", "HANDS", CGPoint(x: -285, y: -74)),
             ("scope", "WEAPON", CGPoint(x: 285, y: 73)),
             ("creditcard.fill", "POCKET", CGPoint(x: 285, y: -74)),
-            ("shoe.fill", "SHOES", CGPoint(x: -119, y: -244)),
-            ("figure.walk", "STANCE", CGPoint(x: 0, y: -244)),
-            ("circle.hexagongrid.fill", "LUCK", CGPoint(x: 119, y: -244))
+            ("shoe.fill", "SHOES", CGPoint(x: -176, y: -244)),
+            ("figure.walk", "STANCE", CGPoint(x: -58, y: -244)),
+            ("circle.hexagongrid.fill", "LUCK", CGPoint(x: 60, y: -244))
         ]
         for equipmentItem in equipment {
             root.addChild(equipmentSlot(symbol: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
         }
+        root.addChild(coinDisplay(at: CGPoint(x: 245, y: -244)))
 
         sheet.addChild(root)
     }
@@ -329,7 +356,7 @@ final class InventoryOverlay: SKNode {
     private func buildCasePanel() {
         let rail = SKNode()
         rail.position = CGPoint(x: 390, y: 58)
-        rail.addChild(panel(size: CGSize(width: 140, height: 620), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2))
+        rail.addChild(majorPanel(size: CGSize(width: 140, height: 620)))
         rail.addChild(statBadge(title: "DEFENCE", value: "8", subtitle: "COAT", at: CGPoint(x: 0, y: 220)))
         rail.addChild(statBadge(title: "VITALITY", value: "8/10", subtitle: "STEADY", at: CGPoint(x: 0, y: 74)))
         rail.addChild(statBadge(title: "FOCUS", value: "6", subtitle: "RESOLVE", at: CGPoint(x: 0, y: -72)))
@@ -338,11 +365,11 @@ final class InventoryOverlay: SKNode {
 
         let root = SKNode()
         root.position = CGPoint(x: 690, y: 58)
-        root.addChild(panel(size: CGSize(width: 450, height: 620), radius: 4, fill: Palette.panel, stroke: Palette.line, lineWidth: 2))
+        root.addChild(majorPanel(size: CGSize(width: 450, height: 620)))
 
         let condition = detailBox(title: "CASE CONDITION", size: CGSize(width: 410, height: 166), at: CGPoint(x: 0, y: 212))
-        addMeter(to: condition, title: "VITALITY", value: "8 / 10", fraction: 0.8, y: 38, width: 350, color: Palette.blood)
-        addMeter(to: condition, title: "COMPOSURE", value: "6 / 8", fraction: 0.75, y: -32, width: 350, color: SKColor(red: 0.30, green: 0.43, blue: 0.51, alpha: 1))
+        addMeter(to: condition, title: "VITALITY", value: "8 / 10", fraction: 0.8, y: 24, width: 350, color: Palette.blood)
+        addMeter(to: condition, title: "COMPOSURE", value: "6 / 8", fraction: 0.75, y: -42, width: 350, color: SKColor(red: 0.30, green: 0.43, blue: 0.51, alpha: 1))
         root.addChild(condition)
 
         let traits = detailBox(title: "FIELD ABILITIES", size: CGSize(width: 410, height: 154), at: CGPoint(x: 0, y: 37))
@@ -378,14 +405,29 @@ final class InventoryOverlay: SKNode {
     private func buildBagPanel() {
         let bag = SKNode()
         bag.position = CGPoint(x: -270, y: -394)
-        bag.addChild(panel(size: CGSize(width: 1_260, height: 230), radius: 4, fill: Palette.panel, stroke: Palette.line, lineWidth: 2))
-        addGridHeader("CASE BAG", counter: "7 / 20", to: bag, width: 1_210)
+        bag.addChild(majorPanel(size: CGSize(width: 1_260, height: 230)))
+        addGridHeader("CASE BAG", counter: "7 / 18", to: bag, width: 1_210)
 
-        let bagItems: [InventoryItem?] = items.map(Optional.some) + Array(repeating: nil, count: 13)
-        for index in 0..<20 {
-            let column = index % 10
-            let row = index / 10
-            let position = CGPoint(x: -548 + CGFloat(column) * 122, y: 25 - CGFloat(row) * 96)
+        if let bagTexture = GameArt.texture(named: "inventory_case_bag_v01") {
+            bagTexture.filteringMode = .linear
+            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 150, height: 150))
+            bagArt.position = CGPoint(x: -548, y: -21)
+            bag.addChild(bagArt)
+        }
+        let carriedWeight = Self.label(size: 14, color: Palette.amber, weight: .demibold)
+        carriedWeight.text = "14 lb"
+        carriedWeight.position = CGPoint(x: -548, y: 52)
+        bag.addChild(carriedWeight)
+        let maximumWeight = Self.label(size: 13, color: Palette.quiet, weight: .demibold)
+        maximumWeight.text = "70 lb MAX"
+        maximumWeight.position = CGPoint(x: -548, y: -104)
+        bag.addChild(maximumWeight)
+
+        let bagItems: [InventoryItem?] = items.map(Optional.some) + Array(repeating: nil, count: 11)
+        for index in 0..<18 {
+            let column = index % 9
+            let row = index / 9
+            let position = CGPoint(x: -400 + CGFloat(column) * 112, y: 25 - CGFloat(row) * 96)
             if let item = bagItems[index] {
                 bag.addChild(itemSlot(item, size: 82, at: position, showQuantity: true))
             } else {
@@ -396,7 +438,7 @@ final class InventoryOverlay: SKNode {
 
         let ground = SKNode()
         ground.position = CGPoint(x: 650, y: -394)
-        ground.addChild(panel(size: CGSize(width: 500, height: 230), radius: 4, fill: Palette.panel, stroke: Palette.line, lineWidth: 2))
+        ground.addChild(majorPanel(size: CGSize(width: 500, height: 230)))
         addGridHeader("NEARBY", counter: "0 / 8", to: ground, width: 450)
         for index in 0..<8 {
             let column = index % 4
@@ -407,15 +449,22 @@ final class InventoryOverlay: SKNode {
     }
 
     private func itemSlot(_ item: InventoryItem, size: CGFloat, at position: CGPoint, showQuantity: Bool) -> SKShapeNode {
-        let slot = panel(size: CGSize(width: size, height: size), radius: 5, fill: Palette.raised, stroke: Palette.line, lineWidth: 2)
+        let slot = slotBase(size: CGSize(width: size, height: size))
         slot.name = "inventory.item.\(item.id)"
         slot.position = position
 
-        let icon = Self.symbol(item.symbolName, pointSize: size * 0.42)
-        icon.color = Palette.paper
-        icon.colorBlendFactor = 1
-        icon.alpha = 0.88
-        slot.addChild(icon)
+        if let texture = GameArt.texture(named: item.artName) {
+            texture.filteringMode = .linear
+            let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.72, height: size * 0.72))
+            icon.name = "inventory.item-art"
+            slot.addChild(icon)
+        } else {
+            let icon = Self.symbol(item.symbolName, pointSize: size * 0.42)
+            icon.color = Palette.paper
+            icon.colorBlendFactor = 1
+            icon.alpha = 0.88
+            slot.addChild(icon)
+        }
 
         if showQuantity, item.quantity > 1 {
             let countPlate = panel(size: CGSize(width: 30, height: 24), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
@@ -431,19 +480,15 @@ final class InventoryOverlay: SKNode {
     }
 
     private func emptySlot(size: CGFloat, at position: CGPoint) -> SKShapeNode {
-        let slot = panel(size: CGSize(width: size, height: size), radius: 5, fill: Palette.ink, stroke: Palette.line.withAlphaComponent(0.46), lineWidth: 1)
+        let slot = slotBase(size: CGSize(width: size, height: size))
         slot.position = position
-        let corner = Self.label(size: 11, color: Palette.quiet.withAlphaComponent(0.35), weight: .regular)
-        corner.text = "—"
-        corner.verticalAlignmentMode = .center
-        slot.addChild(corner)
         return slot
     }
 
     private func equipmentSlot(symbol: String, caption: String, at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
-        let slot = panel(size: CGSize(width: 88, height: 82), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
+        let slot = slotBase(size: CGSize(width: 88, height: 82))
         let icon = Self.symbol(symbol, pointSize: 31)
         icon.color = Palette.quiet
         icon.colorBlendFactor = 1
@@ -455,6 +500,74 @@ final class InventoryOverlay: SKNode {
         label.text = caption
         label.position.y = -58
         root.addChild(label)
+        return root
+    }
+
+    private func slotBase(size: CGSize) -> SKShapeNode {
+        let slot = panel(size: size, radius: 5, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+        if let texture = GameArt.texture(named: "inventory_slot_frame_v01") {
+            texture.filteringMode = .linear
+            slot.fillColor = .clear
+            slot.strokeColor = .clear
+            let art = SKSpriteNode(texture: texture, size: size)
+            art.name = "inventory.slot-art"
+            art.zPosition = -1
+            slot.addChild(art)
+        }
+        return slot
+    }
+
+    private func majorPanel(size: CGSize) -> SKNode {
+        let root = SKNode()
+        root.name = "inventory.panel"
+
+        let surface = panel(
+            size: size,
+            radius: 5,
+            fill: Palette.panel,
+            stroke: Palette.paleLine.withAlphaComponent(0.50),
+            lineWidth: 2
+        )
+        root.addChild(surface)
+
+        let insetSize = CGSize(width: max(0, size.width - 14), height: max(0, size.height - 14))
+        let inset = panel(
+            size: insetSize,
+            radius: 3,
+            fill: .clear,
+            stroke: Palette.line.withAlphaComponent(0.42),
+            lineWidth: 1
+        )
+        inset.zPosition = 1
+        root.addChild(inset)
+
+        return root
+    }
+
+    private func coinDisplay(at position: CGPoint) -> SKNode {
+        let root = SKNode()
+        root.position = position
+
+        if let texture = GameArt.texture(named: "inventory_coin_stack_v01") {
+            texture.filteringMode = .linear
+            let coins = SKSpriteNode(texture: texture, size: CGSize(width: 112, height: 82))
+            coins.position.y = 20
+            root.addChild(coins)
+        }
+
+        let valuePlate = panel(size: CGSize(width: 150, height: 34), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+        valuePlate.position.y = -43
+        let value = Self.label(size: 17, color: Palette.paper, weight: .demibold)
+        value.text = "£7  4s"
+        value.verticalAlignmentMode = .center
+        value.position.y = 1
+        valuePlate.addChild(value)
+        root.addChild(valuePlate)
+
+        let caption = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
+        caption.text = "COINS"
+        caption.position.y = -70
+        root.addChild(caption)
         return root
     }
 
@@ -637,7 +750,8 @@ final class InventoryOverlay: SKNode {
         for (id, slots) in slotFrames {
             let selected = id == selectedItemID
             for slot in slots {
-                slot.strokeColor = selected ? Palette.amber : Palette.line
+                let hasGeneratedFrame = slot.childNode(withName: "inventory.slot-art") != nil
+                slot.strokeColor = selected ? Palette.amber : (hasGeneratedFrame ? .clear : Palette.line)
                 slot.lineWidth = selected ? 3 : 2
                 slot.glowWidth = selected ? 3 : 0
             }
@@ -686,10 +800,19 @@ final class InventoryOverlay: SKNode {
     private enum LabelWeight {
         case regular
         case demibold
+        case display
     }
 
     private static func label(size: CGFloat, color: SKColor, weight: LabelWeight) -> SKLabelNode {
-        let fontName = weight == .demibold ? "AvenirNextCondensed-DemiBold" : "AvenirNext-Regular"
+        let fontName: String
+        switch weight {
+        case .regular:
+            fontName = "AvenirNext-Regular"
+        case .demibold:
+            fontName = "AvenirNextCondensed-DemiBold"
+        case .display:
+            fontName = "Copperplate-Bold"
+        }
         let label = SKLabelNode(fontNamed: fontName)
         label.fontSize = size
         label.fontColor = color
@@ -699,11 +822,13 @@ final class InventoryOverlay: SKNode {
     private static func symbol(_ systemName: String, pointSize: CGFloat) -> SKSpriteNode {
         #if os(iOS)
         let configuration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .regular)
+            .applying(UIImage.SymbolConfiguration(hierarchicalColor: .white))
         let image = UIImage(systemName: systemName, withConfiguration: configuration)
             ?? UIImage(systemName: "square.dashed", withConfiguration: configuration)!
         return SKSpriteNode(texture: SKTexture(image: image))
         #elseif os(macOS)
         let configuration = NSImage.SymbolConfiguration(pointSize: pointSize, weight: .regular)
+            .applying(NSImage.SymbolConfiguration(hierarchicalColor: .white))
         let image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)?.withSymbolConfiguration(configuration)
             ?? NSImage(systemSymbolName: "square.dashed", accessibilityDescription: nil)!.withSymbolConfiguration(configuration)!
         return SKSpriteNode(texture: SKTexture(image: image))
