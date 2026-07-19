@@ -175,6 +175,16 @@ final class PortraitBarNode: SKNode {
         ]), withKey: "damageFlash")
     }
 
+    func hitTestPortrait(_ point: CGPoint) -> Bool {
+        let portraitPoint = portraitRoot.convert(point, from: self)
+        return CGRect(
+            x: -Metrics.frameSize.width / 2,
+            y: -Metrics.frameSize.height / 2,
+            width: Metrics.frameSize.width,
+            height: Metrics.frameSize.height
+        ).contains(portraitPoint)
+    }
+
     private func buildRail() {
         zPosition = 18
 

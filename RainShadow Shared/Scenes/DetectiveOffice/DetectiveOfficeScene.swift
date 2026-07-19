@@ -10,7 +10,6 @@ final class DetectiveOfficeScene: BaseGameScene {
     private let observationPresenter = ObservationPresenter()
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
-    private let inventoryButton = InventoryToggleButton()
     private let portraitBar = PortraitBarNode()
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
@@ -133,10 +132,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             self?.setInventoryPresented(false)
         }
         hudRoot.addChild(inventoryOverlay)
-
-        inventoryButton.zPosition = 20
-        inventoryButton.isHidden = true
-        hudRoot.addChild(inventoryButton)
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
     }
 
@@ -187,8 +182,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        let buttonPoint = inventoryButton.convert(hudPoint, from: hudRoot)
-        if inventoryButton.hitTest(buttonPoint) {
+        let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
+        if portraitBar.hitTestPortrait(portraitPoint) {
             setInventoryPresented(true)
             return
         }
@@ -245,10 +240,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        let buttonPoint = inventoryButton.convert(hudPoint, from: hudRoot)
-        let isInventoryButton = inventoryButton.hitTest(buttonPoint)
-        inventoryButton.setHovered(isInventoryButton)
-        if isInventoryButton {
+        let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
+        if portraitBar.hitTestPortrait(portraitPoint) {
             NSCursor.pointingHand.set()
             return
         }
@@ -286,10 +279,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         // follow the authored visible-world canvas, while the edge rail must span
         // the physical viewport from top to bottom.
         portraitBar.layout(for: size)
-        inventoryButton.position = CGPoint(
-            x: -visibleSize.width / 2 + 150,
-            y: -visibleSize.height / 2 + 62
-        )
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -400,7 +389,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
             guard let self else { return }
             self.caseIntroductionIsActive = false
-            self.inventoryButton.isHidden = false
             self.showOfficeHintIfNeeded()
         }
     }
@@ -443,7 +431,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             cinematicRoot
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
-        inventoryButton.isHidden = presented
         portraitBar.isHidden = presented
 
         if presented {
