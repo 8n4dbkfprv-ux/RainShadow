@@ -294,6 +294,7 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel used at the left edge of the lower bag grid. |
 | P0 | `det_paperdoll_front_rgba_v02` | 1 | 1024×1536 | Identity-locked Elias Vale inventory paperdoll with transparent background. |
 | P0 | `dialogue_outer_frame_overlay_v02` | 1 | 1720×730 | Transparent rail-free noir dialogue perimeter; nine-sliced in code while the fixed-size scroll control stays independent. |
+| P0 | `dialogue_scroll_up_v01`, `dialogue_scroll_down_v01`, `dialogue_scroll_track_v01`, `dialogue_scroll_thumb_v01` | 4 | 96×96 buttons; 64×320 track; 72×256 thumb | Independent Mac OS 9–influenced scrollbar components in RainShadow gunmetal/oxblood materials. Buttons stay fixed-size; track and proportional thumb are nine-sliced in code. |
 | P0 | `dialogue_portrait_vivian_hart_v01` | 1 | 512×512 | Identity-locked hand-painted Vivian portrait for the dialogue crop. |
 | P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
 

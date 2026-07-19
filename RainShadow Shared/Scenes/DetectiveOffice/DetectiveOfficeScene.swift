@@ -139,11 +139,34 @@ final class DetectiveOfficeScene: BaseGameScene {
         ]), withKey: "caseIntroductionDelay")
     }
 
+    override func handlePointerDown(_ event: GamePointerEvent) {
+        guard caseIntroductionIsActive else { return }
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
+        _ = caseIntroductionPresenter.handlePointerDown(at: dialoguePoint)
+    }
+
+    override func handlePointerDragged(_ event: GamePointerEvent) {
+        guard caseIntroductionIsActive else { return }
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
+        _ = caseIntroductionPresenter.handlePointerDragged(at: dialoguePoint)
+    }
+
+    override func handlePointerCancelled(_ event: GamePointerEvent) {
+        guard caseIntroductionIsActive else { return }
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
+        _ = caseIntroductionPresenter.handlePointerUp(at: dialoguePoint)
+    }
+
     override func handlePointerUp(_ event: GamePointerEvent) {
         if caseIntroductionIsActive {
             let hudPoint = hudRoot.convert(event.location, from: self)
             let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-            caseIntroductionPresenter.handlePointer(at: dialoguePoint)
+            if !caseIntroductionPresenter.handlePointerUp(at: dialoguePoint) {
+                caseIntroductionPresenter.handlePointer(at: dialoguePoint)
+            }
             return
         }
 
@@ -176,7 +199,10 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handleDirectionalInput(_ direction: CGVector) {
         if caseIntroductionIsActive {
             let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
-            caseIntroductionPresenter.moveSelection(selectionDirection)
+            if !caseIntroductionPresenter.moveSelection(selectionDirection) {
+                let scrollStep: CGFloat = direction.dx < 0 || direction.dy > 0 ? -44 : 44
+                _ = caseIntroductionPresenter.scrollContent(by: scrollStep)
+            }
             return
         }
         if inventoryIsPresented {
@@ -225,6 +251,11 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handleInventoryInput() {
         guard !caseIntroductionIsActive else { return }
         setInventoryPresented(!inventoryIsPresented)
+    }
+
+    override func handleScrollInput(_ deltaY: CGFloat) {
+        guard caseIntroductionIsActive else { return }
+        _ = caseIntroductionPresenter.scrollContent(by: -deltaY)
     }
 
     override func handleConfirmInput() {

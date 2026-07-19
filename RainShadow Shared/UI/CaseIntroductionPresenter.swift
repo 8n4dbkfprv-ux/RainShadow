@@ -49,7 +49,6 @@ final class CaseIntroductionPresenter: SKNode {
         static let vivian = SKColor(red: 0.72, green: 0.16, blue: 0.36, alpha: 1)
         static let elias = SKColor(red: 0.78, green: 0.55, blue: 0.25, alpha: 1)
         static let caseTitle = SKColor(red: 0.82, green: 0.68, blue: 0.34, alpha: 1)
-        static let jewel = SKColor(red: 0.62, green: 0.025, blue: 0.018, alpha: 1)
     }
 
     private struct ChoiceRow {
@@ -73,15 +72,16 @@ final class CaseIntroductionPresenter: SKNode {
     private let frameOverlay = SKSpriteNode()
     private let topClasp = SKShapeNode()
     private let cornerBrackets = SKShapeNode()
-    private let scrollRail = SKShapeNode()
-    private let scrollThumb = SKShapeNode()
-    private let scrollJewel = SKShapeNode(circleOfRadius: 7)
+    private let dialogueScrollbar = DialogueScrollbarNode()
     private let portraitShadow = SKShapeNode()
     private let portraitBacking = SKShapeNode()
     private let portraitBorder = SKShapeNode()
     private let portraitPins = SKShapeNode()
     private let portrait = SKSpriteNode()
     private let speakerLabel = SKLabelNode(fontNamed: "Palatino-Bold")
+    private let contentCrop = SKCropNode()
+    private let contentMask = SKShapeNode()
+    private let scrollContentRoot = SKNode()
     private let dialogueLabel = SKLabelNode(fontNamed: "Palatino-Roman")
     private let choicesRoot = SKNode()
     private let commandShadow = SKShapeNode()
@@ -98,6 +98,8 @@ final class CaseIntroductionPresenter: SKNode {
     private var hoveredChoiceIndex: Int?
     private var commandIsHovered = false
     private var panelRect = CGRect.zero
+    private var contentViewportRect = CGRect.zero
+    private var scrollOffset: CGFloat = 0
     private var usesGeneratedFrame = false
 
     private(set) var isPresenting = false
@@ -148,6 +150,14 @@ final class CaseIntroductionPresenter: SKNode {
         frameOverlay.size = panelRect.size
         layoutOrnament()
 
+        let scrollbarRect = CGRect(
+            x: panelRect.maxX - 176,
+            y: panelRect.minY + 36,
+            width: 30,
+            height: panelRect.height - 86
+        )
+        dialogueScrollbar.layout(in: scrollbarRect)
+
         let portraitSize = CGSize(width: 100, height: 116)
         let portraitCenter = CGPoint(
             x: panelRect.minX + 48 + portraitSize.width / 2,
@@ -178,9 +188,16 @@ final class CaseIntroductionPresenter: SKNode {
         portrait.size = CGSize(width: portraitSize.width - 8, height: portraitSize.height - 8)
 
         let textLeft = portraitRect.maxX + 22
-        let textRight = panelRect.maxX - 58
+        let textRight = scrollbarRect.minX - 14
         speakerLabel.position = CGPoint(x: textLeft, y: panelRect.maxY - 42)
-        dialogueLabel.position = CGPoint(x: textLeft, y: panelRect.maxY - 72)
+        contentViewportRect = CGRect(
+            x: textLeft,
+            y: panelRect.minY + 32,
+            width: textRight - textLeft,
+            height: panelRect.maxY - 70 - (panelRect.minY + 32)
+        )
+        contentMask.path = CGPath(rect: contentViewportRect, transform: nil)
+        dialogueLabel.position = CGPoint(x: textLeft, y: contentViewportRect.maxY)
         dialogueLabel.preferredMaxLayoutWidth = textRight - textLeft
 
         commandHitRect = CGRect(
@@ -218,8 +235,10 @@ final class CaseIntroductionPresenter: SKNode {
     func handlePointer(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
+        let contentPoint = scrollContentRoot.convert(panelPoint, from: panelRoot)
 
-        if let index = choiceRows.firstIndex(where: { $0.hitRect.contains(panelPoint) }) {
+        if contentViewportRect.contains(panelPoint),
+           let index = choiceRows.firstIndex(where: { $0.hitRect.contains(contentPoint) }) {
             focusedChoiceIndex = index
             activateFocusedControl()
             return true
@@ -234,20 +253,57 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     @discardableResult
+    func handlePointerDown(at point: CGPoint) -> Bool {
+        guard isPresenting else { return false }
+        let panelPoint = panelRoot.convert(point, from: self)
+        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
+        return dialogueScrollbar.handlePointerDown(at: scrollbarPoint)
+    }
+
+    @discardableResult
+    func handlePointerDragged(at point: CGPoint) -> Bool {
+        guard isPresenting else { return false }
+        let panelPoint = panelRoot.convert(point, from: self)
+        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
+        return dialogueScrollbar.handlePointerDragged(at: scrollbarPoint)
+    }
+
+    @discardableResult
+    func handlePointerUp(at point: CGPoint) -> Bool {
+        guard isPresenting else { return false }
+        let panelPoint = panelRoot.convert(point, from: self)
+        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
+        return dialogueScrollbar.handlePointerUp(at: scrollbarPoint)
+    }
+
+    @discardableResult
     func updatePointer(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        hoveredChoiceIndex = choiceRows.firstIndex { $0.hitRect.contains(panelPoint) }
+        let contentPoint = scrollContentRoot.convert(panelPoint, from: panelRoot)
+        hoveredChoiceIndex = contentViewportRect.contains(panelPoint)
+            ? choiceRows.firstIndex { $0.hitRect.contains(contentPoint) }
+            : nil
         commandIsHovered = commandHitRect.contains(point) && !commandButton.isHidden
+        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
+        let scrollbarIsHovered = dialogueScrollbar.updatePointer(at: scrollbarPoint)
         refreshInteractionColors()
-        return hoveredChoiceIndex != nil || commandIsHovered
+        return hoveredChoiceIndex != nil || commandIsHovered || scrollbarIsHovered
     }
 
-    func moveSelection(_ direction: Int) {
-        guard !choiceRows.isEmpty else { return }
+    @discardableResult
+    func moveSelection(_ direction: Int) -> Bool {
+        guard !choiceRows.isEmpty else { return false }
         let current = focusedChoiceIndex ?? (direction < 0 ? 0 : -1)
         focusedChoiceIndex = (current + direction + choiceRows.count) % choiceRows.count
+        ensureFocusedChoiceIsVisible()
         refreshInteractionColors()
+        return true
+    }
+
+    @discardableResult
+    func scrollContent(by points: CGFloat) -> Bool {
+        dialogueScrollbar.scroll(by: points)
     }
 
     func activateFocusedControl() {
@@ -310,7 +366,7 @@ final class CaseIntroductionPresenter: SKNode {
             innerBorder.strokeColor = .clear
         }
 
-        [topClasp, cornerBrackets, scrollRail].forEach {
+        [topClasp, cornerBrackets].forEach {
             $0.fillColor = .clear
             $0.strokeColor = Palette.edge
             $0.lineWidth = 4
@@ -319,18 +375,11 @@ final class CaseIntroductionPresenter: SKNode {
         }
         topClasp.isHidden = usesGeneratedFrame
         cornerBrackets.isHidden = usesGeneratedFrame
-        scrollRail.isHidden = false
-
-        scrollThumb.fillColor = Palette.gunmetal
-        scrollThumb.strokeColor = Palette.edge
-        scrollThumb.lineWidth = 2
-        scrollThumb.isHidden = false
-        panelRoot.addChild(scrollThumb)
-        scrollJewel.fillColor = Palette.jewel
-        scrollJewel.strokeColor = SKColor(red: 0.88, green: 0.22, blue: 0.15, alpha: 1)
-        scrollJewel.lineWidth = 2
-        scrollJewel.isHidden = false
-        panelRoot.addChild(scrollJewel)
+        dialogueScrollbar.zPosition = 3
+        dialogueScrollbar.onScroll = { [weak self] offset in
+            self?.applyScrollOffset(offset)
+        }
+        panelRoot.addChild(dialogueScrollbar)
 
         portraitShadow.fillColor = SKColor(white: 0, alpha: 0.72)
         portraitShadow.strokeColor = .clear
@@ -362,13 +411,20 @@ final class CaseIntroductionPresenter: SKNode {
         speakerLabel.verticalAlignmentMode = .top
         panelRoot.addChild(speakerLabel)
 
+        contentMask.fillColor = .white
+        contentMask.strokeColor = .clear
+        contentCrop.maskNode = contentMask
+        contentCrop.zPosition = 1
+        panelRoot.addChild(contentCrop)
+        contentCrop.addChild(scrollContentRoot)
+
         dialogueLabel.fontSize = 20
         dialogueLabel.fontColor = Palette.parchment
         dialogueLabel.horizontalAlignmentMode = .left
         dialogueLabel.verticalAlignmentMode = .top
-        dialogueLabel.numberOfLines = 4
-        panelRoot.addChild(dialogueLabel)
-        panelRoot.addChild(choicesRoot)
+        dialogueLabel.numberOfLines = 0
+        scrollContentRoot.addChild(dialogueLabel)
+        scrollContentRoot.addChild(choicesRoot)
 
         commandShadow.fillColor = Palette.shadow
         commandShadow.strokeColor = .clear
@@ -438,23 +494,6 @@ final class CaseIntroductionPresenter: SKNode {
         }
         cornerBrackets.path = brackets
 
-        let railX = panelRect.maxX - 31
-        let railTop = panelRect.maxY - 65
-        let railBottom = panelRect.maxY - 196
-        let rail = CGMutablePath()
-        rail.move(to: CGPoint(x: railX, y: railTop))
-        rail.addLine(to: CGPoint(x: railX, y: railBottom))
-        rail.move(to: CGPoint(x: railX - 10, y: railTop - 2))
-        rail.addLine(to: CGPoint(x: railX, y: railTop + 13))
-        rail.addLine(to: CGPoint(x: railX + 10, y: railTop - 2))
-        rail.move(to: CGPoint(x: railX - 10, y: railBottom + 2))
-        rail.addLine(to: CGPoint(x: railX, y: railBottom - 13))
-        rail.addLine(to: CGPoint(x: railX + 10, y: railBottom + 2))
-        scrollRail.path = rail
-
-        let thumbRect = CGRect(x: railX - 7, y: railBottom + 33, width: 14, height: 66)
-        scrollThumb.path = roundedRect(thumbRect, radius: 3)
-        scrollJewel.position = CGPoint(x: railX, y: thumbRect.midY)
     }
 
     private func showCurrentNode(animated: Bool) {
@@ -468,6 +507,7 @@ final class CaseIntroductionPresenter: SKNode {
         commandIsHovered = false
         speakerLabel.text = node.speaker
         speakerLabel.fontColor = speakerColor(for: node.speaker)
+        applyScrollOffset(0)
         dialogueLabel.text = node.text
 
         let isCaseTitle = node.speaker == "Case opened"
@@ -522,22 +562,16 @@ final class CaseIntroductionPresenter: SKNode {
     private func rebuildChoices(_ choices: [CaseDialogueChoice]) {
         choicesRoot.removeAllChildren()
         choiceRows.removeAll()
-        guard !choices.isEmpty else { return }
 
-        let portraitRight = panelRect.minX + 48 + 100
-        let left = portraitRight + 22
-        let right = panelRect.maxX - 58
-        let rowHeight: CGFloat = 38
+        let left = contentViewportRect.minX
+        let right = contentViewportRect.maxX
+        let minimumRowHeight: CGFloat = 44
         let rowSpacing: CGFloat = 4
-        var rowTop = panelRect.maxY - 130
+        let dialogueHeight = max(dialogueLabel.fontSize * 1.25, dialogueLabel.frame.height)
+        var rowTop = contentViewportRect.maxY - dialogueHeight - 14
+        var choicesHeight: CGFloat = 0
 
         for (index, choice) in choices.enumerated() {
-            let hitRect = CGRect(x: left, y: rowTop - rowHeight, width: right - left, height: rowHeight)
-            let background = SKShapeNode(path: roundedRect(hitRect, radius: 2))
-            background.fillColor = .clear
-            background.strokeColor = .clear
-            choicesRoot.addChild(background)
-
             let label = SKLabelNode(fontNamed: "Palatino-Roman")
             label.text = "\(index + 1):  \(choice.text)"
             label.fontSize = 20
@@ -545,12 +579,44 @@ final class CaseIntroductionPresenter: SKNode {
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .center
             label.numberOfLines = 2
-            label.preferredMaxLayoutWidth = hitRect.width - 28
+            label.preferredMaxLayoutWidth = right - left - 28
+            let rowHeight = max(minimumRowHeight, label.frame.height + 12)
+            let hitRect = CGRect(x: left, y: rowTop - rowHeight, width: right - left, height: rowHeight)
+
+            let background = SKShapeNode(path: roundedRect(hitRect, radius: 2))
+            background.fillColor = .clear
+            background.strokeColor = .clear
+            choicesRoot.addChild(background)
+
             label.position = CGPoint(x: hitRect.minX + 14, y: hitRect.midY - 2)
             choicesRoot.addChild(label)
 
             choiceRows.append(ChoiceRow(background: background, label: label, hitRect: hitRect))
             rowTop -= rowHeight + rowSpacing
+            choicesHeight += rowHeight + (index == 0 ? 0 : rowSpacing)
+        }
+
+        let contentHeight = dialogueHeight + (choices.isEmpty ? 0 : choicesHeight + 14) + 12
+        dialogueScrollbar.configure(
+            viewportExtent: contentViewportRect.height,
+            contentExtent: contentHeight,
+            scrollOffset: 0
+        )
+        applyScrollOffset(0)
+    }
+
+    private func applyScrollOffset(_ offset: CGFloat) {
+        scrollOffset = max(0, offset)
+        scrollContentRoot.position.y = scrollOffset
+    }
+
+    private func ensureFocusedChoiceIsVisible() {
+        guard let focusedChoiceIndex, choiceRows.indices.contains(focusedChoiceIndex) else { return }
+        let rowRect = choiceRows[focusedChoiceIndex].hitRect.offsetBy(dx: 0, dy: scrollOffset)
+        if rowRect.minY < contentViewportRect.minY {
+            _ = dialogueScrollbar.scroll(by: contentViewportRect.minY - rowRect.minY + 4)
+        } else if rowRect.maxY > contentViewportRect.maxY {
+            _ = dialogueScrollbar.scroll(by: -(rowRect.maxY - contentViewportRect.maxY + 4))
         }
     }
 
