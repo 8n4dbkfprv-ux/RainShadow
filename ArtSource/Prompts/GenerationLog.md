@@ -77,6 +77,13 @@ All prompts use the supplied Baldur's Gate-era screenshots as style-analysis ref
 |---|---|---|---|---|
 | Elias Vale portrait bezel V1 | `exec-7e52d738-3ef9-47cb-aad4-ce4f6b57bf50.png` | `Generated/UI/HUD/hud_portrait_frame_chroma_v01.png` | `Art/UI/HUD/hud_portrait_frame_v01.png`, 1086×1448 | Original RainShadow gunmetal, oxblood and brass portrait bezel. The reference screenshot informed only the tall portrait-cell proportion and overlaid current/max health hierarchy. Runtime reuses the approved Elias dialogue portrait and renders `12/12` as live text; the generated art contains no text, character, icon, or copied ornament. |
 
+## Area map production
+
+| Asset | Generator output | Source master | Runtime derivative | Notes |
+|---|---|---|---|---|
+| Detective office area map V1 | `exec-85cb996d-0b33-4b68-bdce-02583960370f.png` | `Generated/UI/Map/map_detective_office_v01.png` | `Art/UI/Map/map_detective_office_v01.png`, 1774×887 | Original wide local-area rendering of Elias Vale's office, structurally anchored to the approved room composite. The Baldur's Gate manual and Beamdog release notes informed only the functional conventions: a left-panel map action, illuminated explored area, current-position marker, and location markers. Runtime draws all UI, text, and markers. Exact prompt and sources: `Prompts/area_map_v1.md`. |
+| Detective office area map V2 | `exec-94e7d426-5eb1-48c0-90bd-b7ffc3f82803.png` | `Generated/UI/Map/map_detective_office_v02.png` | `Art/UI/Map/map_detective_office_v02.png`, 1847×851 | Corrected against a clean capture of the assembled runtime shell and modular props. Removes V1's obsolete side table, notice board, wall art, rug, boxes, and other invented clutter; retains only the actual window/radiator, desk ensemble, filing cabinet, open door, coat rack, and visitor chair. Runtime uses the user-referenced thin green 2:1 ground ellipse for current position. Exact prompt and source roles: `Prompts/area_map_v2.md`. |
+
 ## Derivative processing
 
 - Chroma removal used the Image Generator skill's `remove_chroma_key.py` helper with sampled corner keys, soft alpha, one-pixel contraction, and spill cleanup.

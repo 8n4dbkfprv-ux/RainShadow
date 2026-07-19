@@ -11,10 +11,13 @@ final class DetectiveOfficeScene: BaseGameScene {
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
+    private let actionBar = ActionBarNode()
+    private let areaMapOverlay = AreaMapOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
     private var inventoryIsPresented = false
+    private var mapIsPresented = false
     private var caseIntroductionStarted = false
     private var caseIntroductionIsActive = true
 
@@ -122,6 +125,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             animated: false
         )
         hudRoot.addChild(portraitBar)
+        hudRoot.addChild(actionBar)
         caseIntroductionPresenter.zPosition = 60
         caseIntroductionPresenter.onComplete = { [weak self] in
             self?.finishCaseIntroduction()
@@ -132,6 +136,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             self?.setInventoryPresented(false)
         }
         hudRoot.addChild(inventoryOverlay)
+        areaMapOverlay.zPosition = 110
+        areaMapOverlay.onDismiss = { [weak self] in
+            self?.setMapPresented(false)
+        }
+        hudRoot.addChild(areaMapOverlay)
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
     }
 
@@ -176,6 +185,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let hudPoint = hudRoot.convert(event.location, from: self)
+        if mapIsPresented {
+            let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
+            areaMapOverlay.handlePointer(at: mapPoint)
+            return
+        }
         if inventoryIsPresented {
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
             inventoryOverlay.handlePointer(at: overlayPoint)
@@ -185,6 +199,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
         if portraitBar.hitTestPortrait(portraitPoint) {
             setInventoryPresented(true)
+            return
+        }
+
+        let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
+        if actionBar.hitTestMap(actionPoint) {
+            setMapPresented(true)
             return
         }
 
@@ -210,6 +230,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             }
             return
         }
+        if mapIsPresented { return }
         if inventoryIsPresented {
             let previous = direction.dx < 0 || direction.dy > 0
             inventoryOverlay.moveSelection(previous ? -1 : 1)
@@ -234,9 +255,22 @@ final class DetectiveOfficeScene: BaseGameScene {
             (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
+        if mapIsPresented {
+            let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
+            (areaMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+            return
+        }
         if inventoryIsPresented {
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
             (inventoryOverlay.isInteractive(at: overlayPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+            return
+        }
+
+        let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
+        let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
+        actionBar.setMapButtonHighlighted(mapIsHighlighted)
+        if mapIsHighlighted {
+            NSCursor.pointingHand.set()
             return
         }
 
@@ -252,8 +286,13 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleInventoryInput() {
-        guard !caseIntroductionIsActive else { return }
+        guard !caseIntroductionIsActive, !mapIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
+    }
+
+    override func handleMapInput() {
+        guard !caseIntroductionIsActive, !inventoryIsPresented else { return }
+        setMapPresented(!mapIsPresented)
     }
 
     override func handleScrollInput(_ deltaY: CGFloat) {
@@ -262,6 +301,10 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleConfirmInput() {
+        if mapIsPresented {
+            setMapPresented(false)
+            return
+        }
         if caseIntroductionIsActive {
             caseIntroductionPresenter.activateFocusedControl()
             return
@@ -274,11 +317,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         super.layoutViewport()
         let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
         inventoryOverlay.layout(for: visibleSize)
+        areaMapOverlay.layout(for: visibleSize)
         caseIntroductionPresenter.layout(for: visibleSize)
         // Camera children use screen-space points. The other overlays intentionally
         // follow the authored visible-world canvas, while the edge rail must span
         // the physical viewport from top to bottom.
         portraitBar.layout(for: size)
+        actionBar.layout(for: size)
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -286,6 +331,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
         )
+        areaMapOverlay.updateCurrentPosition(detective.position)
         updateDepth(of: detective)
         updateDepth(of: client)
         fogOfWar?.reveal(at: detective.position)
@@ -432,6 +478,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
         portraitBar.isHidden = presented
+        actionBar.isHidden = presented
 
         if presented {
             observationPresenter.removeAllActions()
@@ -439,6 +486,32 @@ final class DetectiveOfficeScene: BaseGameScene {
             inventoryOverlay.present()
         } else {
             inventoryOverlay.hideAnimated()
+        }
+    }
+
+    private func setMapPresented(_ presented: Bool) {
+        guard mapIsPresented != presented else { return }
+        mapIsPresented = presented
+
+        let pausedWorldRoots = [
+            backgroundRoot,
+            floorEffectRoot,
+            rearFixtureRoot,
+            depthWorldRoot,
+            occlusionRoot,
+            weatherRoot,
+            cinematicRoot
+        ]
+        pausedWorldRoots.forEach { $0.isPaused = presented }
+        portraitBar.isHidden = presented
+        actionBar.isHidden = presented
+
+        if presented {
+            observationPresenter.removeAllActions()
+            observationPresenter.alpha = 0
+            areaMapOverlay.present(currentPosition: detective.position)
+        } else {
+            areaMapOverlay.hideAnimated()
         }
     }
 
