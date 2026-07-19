@@ -6,6 +6,7 @@ final class GameSession {
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
     private(set) var inspectedHotspotIDs: Set<String>
+    private(set) var cityFogRevealPoints: [CGPoint] = []
     private(set) var currentHealth = 12
     let maximumHealth = 12
 
@@ -36,6 +37,11 @@ final class GameSession {
 
     func setCurrentHealth(_ health: Int) {
         currentHealth = min(max(0, health), maximumHealth)
+    }
+
+    func recordCityFogReveal(_ point: CGPoint) {
+        guard cityFogRevealPoints.last != point else { return }
+        cityFogRevealPoints.append(point)
     }
 
     private func persist() {

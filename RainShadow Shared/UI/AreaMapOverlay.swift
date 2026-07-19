@@ -1,10 +1,37 @@
 import SpriteKit
 
-/// Full-screen local map for the detective office. The generated texture owns
-/// the painted location; labels, explored-state language, markers, and input
-/// remain deterministic SpriteKit UI.
+/// Full-screen local-area map. The generated texture owns the painted location;
+/// labels, markers, and input remain deterministic SpriteKit UI.
 @MainActor
 final class AreaMapOverlay: SKNode {
+    struct PointOfInterest {
+        let label: String
+        let worldPoint: CGPoint
+        let color: SKColor
+    }
+
+    struct Configuration {
+        let textureName: String
+        let locationName: String
+        let worldBounds: CGRect
+        let pointsOfInterest: [PointOfInterest]
+        let fogRevealRadius: CGFloat?
+
+        init(
+            textureName: String,
+            locationName: String,
+            worldBounds: CGRect,
+            pointsOfInterest: [PointOfInterest],
+            fogRevealRadius: CGFloat? = nil
+        ) {
+            self.textureName = textureName
+            self.locationName = locationName
+            self.worldBounds = worldBounds
+            self.pointsOfInterest = pointsOfInterest
+            self.fogRevealRadius = fogRevealRadius
+        }
+    }
+
     private enum Metrics {
         static let canvas = CGSize(width: 1_920, height: 1_080)
         /// Preserve the generated plate's 1847:851 aspect ratio so the room's
@@ -27,18 +54,57 @@ final class AreaMapOverlay: SKNode {
 
     var onDismiss: (() -> Void)?
 
+    private let configuration: Configuration
     private let sheet = SKNode()
     private let mapContent = SKNode()
     private let positionMarker = SKNode()
     private let markerPulse = SKShapeNode(ellipseOf: CGSize(width: 38, height: 19))
+    private var explorationFog: LocalMapFogNode?
 
     override init() {
+        configuration = Self.detectiveOffice
         super.init()
+        finishInitialization()
+    }
+
+    init(configuration: Configuration) {
+        self.configuration = configuration
+        super.init()
+        finishInitialization()
+    }
+
+    private func finishInitialization() {
         name = "map.overlay"
         isUserInteractionEnabled = false
         buildInterface()
         isHidden = true
     }
+
+    static let detectiveOffice = Configuration(
+        textureName: "map_detective_office_v02",
+        locationName: "ELIAS VALE'S OFFICE",
+        worldBounds: CGRect(
+            origin: OfficeInteriorScale.shellOrigin,
+            size: OfficeInteriorScale.scaledArtSize
+        ),
+        pointsOfInterest: [
+            PointOfInterest(
+                label: "WINDOW",
+                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 640, y: 1_380)),
+                color: Palette.rain
+            ),
+            PointOfInterest(
+                label: "DESK",
+                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 1_435, y: 760)),
+                color: Palette.amber
+            ),
+            PointOfInterest(
+                label: "EXIT",
+                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 2_450, y: 875)),
+                color: Palette.oxblood
+            )
+        ]
+    )
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("AreaMapOverlay is created programmatically")
@@ -85,6 +151,10 @@ final class AreaMapOverlay: SKNode {
 
     func updateCurrentPosition(_ worldPosition: CGPoint) {
         positionMarker.position = mapPosition(forWorldPoint: worldPosition)
+    }
+
+    func updateExploredPoints(_ worldPoints: [CGPoint]) {
+        explorationFog?.update(revealedPoints: worldPoints.map(mapPosition(forWorldPoint:)))
     }
 
     @discardableResult
@@ -155,7 +225,7 @@ final class AreaMapOverlay: SKNode {
         sheet.addChild(title)
 
         let location = Self.label(size: 13, color: Palette.amber, font: "AvenirNext-DemiBold")
-        location.text = "ELIAS VALE'S OFFICE"
+        location.text = configuration.locationName
         location.position = CGPoint(x: 0, y: 281)
         location.zPosition = 31
         sheet.addChild(location)
@@ -181,10 +251,10 @@ final class AreaMapOverlay: SKNode {
         mapContent.zPosition = 2
         sheet.addChild(mapContent)
 
-        if let texture = GameArt.texture(named: "map_detective_office_v02") {
+        if let texture = GameArt.texture(named: configuration.textureName) {
             texture.filteringMode = .linear
             let map = SKSpriteNode(texture: texture, size: Metrics.mapSize)
-            map.name = "map.office-art"
+            map.name = "map.area-art"
             mapContent.addChild(map)
         } else {
             let fallback = SKShapeNode(rectOf: Metrics.mapSize)
@@ -193,9 +263,16 @@ final class AreaMapOverlay: SKNode {
             mapContent.addChild(fallback)
         }
 
-        addPointOfInterest("WINDOW", authoredPoint: CGPoint(x: 640, y: 1_380), color: Palette.rain)
-        addPointOfInterest("DESK", authoredPoint: CGPoint(x: 1_435, y: 760), color: Palette.amber)
-        addPointOfInterest("EXIT", authoredPoint: CGPoint(x: 2_450, y: 875), color: Palette.oxblood)
+        for point in configuration.pointsOfInterest {
+            addPointOfInterest(point)
+        }
+        if let worldRadius = configuration.fogRevealRadius {
+            let mapRadius = worldRadius / configuration.worldBounds.width * Metrics.mapSize.width
+            let fog = LocalMapFogNode(size: Metrics.mapSize, revealRadius: mapRadius)
+            fog.zPosition = 10
+            mapContent.addChild(fog)
+            explorationFog = fog
+        }
         buildCurrentPositionMarker()
     }
 
@@ -224,9 +301,9 @@ final class AreaMapOverlay: SKNode {
         mapContent.addChild(positionMarker)
     }
 
-    private func addPointOfInterest(_ text: String, authoredPoint: CGPoint, color: SKColor) {
+    private func addPointOfInterest(_ pointOfInterest: PointOfInterest) {
         let root = SKNode()
-        root.position = mapPosition(forWorldPoint: OfficeInteriorScale.mapPoint(authoredPoint))
+        root.position = mapPosition(forWorldPoint: pointOfInterest.worldPoint)
         root.zPosition = 12
 
         let diamondPath = CGMutablePath()
@@ -236,20 +313,20 @@ final class AreaMapOverlay: SKNode {
         diamondPath.addLine(to: CGPoint(x: -7, y: 0))
         diamondPath.closeSubpath()
         let diamond = SKShapeNode(path: diamondPath)
-        diamond.fillColor = color
+        diamond.fillColor = pointOfInterest.color
         diamond.strokeColor = Palette.paper.withAlphaComponent(0.82)
         diamond.lineWidth = 1.5
         root.addChild(diamond)
 
         let plate = SKShapeNode(rectOf: CGSize(width: 70, height: 21), cornerRadius: 2)
         plate.fillColor = SKColor(white: 0.005, alpha: 0.76)
-        plate.strokeColor = color.withAlphaComponent(0.58)
+        plate.strokeColor = pointOfInterest.color.withAlphaComponent(0.58)
         plate.lineWidth = 1
         plate.position = CGPoint(x: 0, y: -20)
         root.addChild(plate)
 
         let label = Self.label(size: 10, color: Palette.paper, font: "AvenirNext-DemiBold")
-        label.text = text
+        label.text = pointOfInterest.label
         label.verticalAlignmentMode = .center
         label.position.y = 1
         plate.addChild(label)
@@ -310,16 +387,10 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func mapPosition(forWorldPoint worldPoint: CGPoint) -> CGPoint {
-        let authored = CGPoint(
-            x: OfficeInteriorScale.layoutFocus.x
-                + (worldPoint.x - OfficeInteriorScale.layoutFocus.x) / OfficeInteriorScale.environment,
-            y: OfficeInteriorScale.layoutFocus.y
-                + (worldPoint.y - OfficeInteriorScale.layoutFocus.y) / OfficeInteriorScale.environment
-        )
-        let normalizedX = (authored.x - OfficeInteriorScale.sourceArtOrigin.x)
-            / OfficeInteriorScale.sourceArtSize.width
-        let normalizedY = (authored.y - OfficeInteriorScale.sourceArtOrigin.y)
-            / OfficeInteriorScale.sourceArtSize.height
+        let normalizedX = (worldPoint.x - configuration.worldBounds.minX)
+            / configuration.worldBounds.width
+        let normalizedY = (worldPoint.y - configuration.worldBounds.minY)
+            / configuration.worldBounds.height
         let x = min(max(normalizedX, 0.035), 0.965)
         let y = min(max(normalizedY, 0.055), 0.945)
         return CGPoint(
@@ -348,5 +419,91 @@ final class AreaMapOverlay: SKNode {
         label.horizontalAlignmentMode = .center
         label.verticalAlignmentMode = .baseline
         return label
+    }
+}
+
+/// Compact counterpart to the world-space city fog. It keeps the generated
+/// local map honest: the current-position ring is visible, but streets remain
+/// black until Elias has physically explored them.
+@MainActor
+private final class LocalMapFogNode: SKSpriteNode {
+    private let maskPixelSize = CGSize(width: 512, height: 236)
+    private let revealRadius: CGFloat
+    private var displayedPoints: [CGPoint] = []
+
+    init(size: CGSize, revealRadius: CGFloat) {
+        self.revealRadius = revealRadius
+        super.init(texture: nil, color: .black, size: size)
+        anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        updateTexture()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("LocalMapFogNode is created programmatically")
+    }
+
+    func update(revealedPoints: [CGPoint]) {
+        guard revealedPoints != displayedPoints else { return }
+        displayedPoints = revealedPoints
+        updateTexture()
+    }
+
+    private func updateTexture() {
+        let pixelWidth = Int(maskPixelSize.width)
+        let pixelHeight = Int(maskPixelSize.height)
+        let bytesPerRow = pixelWidth * 4
+        guard let context = CGContext(
+            data: nil,
+            width: pixelWidth,
+            height: pixelHeight,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return }
+
+        context.setBlendMode(.copy)
+        context.setFillColor(CGColor(gray: 0, alpha: 0.94))
+        context.fill(CGRect(origin: .zero, size: maskPixelSize))
+        context.setBlendMode(.destinationOut)
+
+        let scale = maskPixelSize.width / size.width
+        for (index, point) in displayedPoints.enumerated() {
+            let center = CGPoint(
+                x: (point.x + size.width / 2) * scale,
+                y: (point.y + size.height / 2) * scale
+            )
+            let phase = CGFloat(index) * 0.61
+            for layer in [(1.08, 0.20), (1.02, 0.42), (0.96, 1.0)] {
+                context.addPath(Self.revealPath(
+                    center: center,
+                    radius: revealRadius * scale * layer.0,
+                    phase: phase
+                ))
+                context.setFillColor(CGColor(gray: 1, alpha: layer.1))
+                context.fillPath()
+            }
+        }
+
+        guard let image = context.makeImage() else { return }
+        let texture = SKTexture(cgImage: image)
+        texture.filteringMode = .linear
+        self.texture = texture
+    }
+
+    private static func revealPath(center: CGPoint, radius: CGFloat, phase: CGFloat) -> CGPath {
+        let path = CGMutablePath()
+        let segments = 48
+        for segment in 0..<segments {
+            let angle = CGFloat(segment) / CGFloat(segments) * .pi * 2
+            let wobble = sin(angle * 7 + phase) * 2.2 + sin(angle * 13 - phase) * 1.1
+            let point = CGPoint(
+                x: center.x + cos(angle) * (radius + wobble),
+                y: center.y + sin(angle) * (radius + wobble)
+            )
+            segment == 0 ? path.move(to: point) : path.addLine(to: point)
+        }
+        path.closeSubpath()
+        return path
     }
 }

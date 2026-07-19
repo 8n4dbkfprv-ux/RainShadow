@@ -121,6 +121,34 @@ struct NavigationGridTests {
         #expect(OfficeNavigationLayout.authoredDoorObstacle.height > 0)
     }
 
+    @Test func cityDistrictIsMateriallyLargerThanTheOffice() {
+        let cityArea = CityDistrictLayout.worldArtSize.width * CityDistrictLayout.worldArtSize.height
+        let officeArea = OfficeInteriorScale.scaledArtSize.width * OfficeInteriorScale.scaledArtSize.height
+
+        #expect(cityArea > officeArea * 4)
+        #expect(CityDistrictLayout.environmentScale == 2)
+    }
+
+    @Test func cityEntranceStartsOnWalkableStreet() {
+        let grid = CityDistrictLayout.makeGrid()
+        let start = CityDistrictLayout.actorStart
+
+        #expect(CityDistrictLayout.worldBounds.contains(start))
+        #expect(!CityDistrictLayout.isBlocked(start))
+        #expect(grid.path(from: start, to: start) == [])
+    }
+
+    @Test func cityLandmarksAreReachableThroughStreetNetwork() {
+        let grid = CityDistrictLayout.makeGrid()
+        for pointOfInterest in CityDistrictLayout.pointsOfInterest {
+            let path = grid.path(
+                from: CityDistrictLayout.actorStart,
+                to: pointOfInterest.worldPoint
+            )
+            #expect(path != nil, "Expected a route to \(pointOfInterest.label)")
+        }
+    }
+
     private func makeGrid(obstacles: [CGRect] = []) -> NavigationGrid {
         NavigationGrid(
             origin: .zero,

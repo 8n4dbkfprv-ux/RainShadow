@@ -86,6 +86,12 @@ All prompts use the supplied Baldur's Gate-era screenshots as style-analysis ref
 | Noir map icon V2 | `exec-411a33e4-1b87-40af-9fe9-c4ece5393141.png` | `Generated/UI/Map/map_icon_noir_v02.png` | `Art/UI/Map/map_icon_noir_v02.png`, 768×512 | Replaces the procedural compass button with a readable painted `N` compass, rain-worn pewter, recessed black enamel, and restrained Art Deco engraving. The supplied toolbar screenshot informed only the compact landscape proportion and compass-map concept. Runtime retains the original 108×108 hit target and hover behavior. Exact prompt: `Prompts/map_icon_noir_v2.md`. |
 | Noir map icon V3 | `exec-ddeb86ba-c0af-463a-a16b-2c3b9bc72f6f.png` | `Generated/UI/Map/map_icon_noir_v03.png` | `Art/UI/Map/map_icon_noir_v03.png`, 768×512 | Palette-matched edit of V2 using the shipped portrait bezel and inventory frame as material anchors. Bright neutral silver is replaced by blue-black gunmetal, muted oxblood engraving recesses, four restrained aged-brass pins, and a smoked-pewter `N`; the compact 3:2 compass concept and runtime interaction contract remain unchanged. Exact prompt: `Prompts/map_icon_noir_v3.md`. |
 
+## City district production
+
+| Asset | Generator output | Retained master | Runtime derivative | Prompt contract |
+|---|---|---|---|---|
+| Sable Row city block V1 | `exec-af0485c6-1d02-4ae0-8463-717e9b85170c.png` | `Generated/CityDistrict/city_district_block_v01.png` | `Areas/CityDistrict/city_district_block_v01.png`, 1774×887 | Original rain-soaked 1930s noir city district, rendered in a fixed 2:1 dimetric camera with small human-scale props and multiple connected streets. Tactical CRPG/Baldur's Gate references informed only density and local-reveal behavior. The runtime expands this source plate to 3548×1774 world points (well over four office footprints) and layers a deterministic persistent fog mask; neither fog nor UI is baked into the asset. Exact prompt: `Prompts/city_district_block_v01.md`. |
+
 ## Derivative processing
 
 - Chroma removal used the Image Generator skill's `remove_chroma_key.py` helper with sampled corner keys, soft alpha, one-pixel contraction, and spill cleanup.

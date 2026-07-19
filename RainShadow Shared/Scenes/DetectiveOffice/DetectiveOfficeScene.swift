@@ -205,6 +205,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         if let hotspot = hotspots.first(where: { $0.hitArea.contains(event.location) }) {
+            if hotspot.id == "office.door" {
+                moveDetective(to: hotspot.approachPoint) { [weak self] in
+                    self?.context.router.showCityDistrict()
+                }
+                return
+            }
             moveDetective(to: hotspot.approachPoint) { [weak self] in
                 guard let self else { return }
                 self.context.session.markInspected(hotspot.id)

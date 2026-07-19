@@ -3,6 +3,7 @@ import SpriteKit
 enum GameRoute {
     case openingExterior
     case detectiveOffice
+    case cityDistrict
 }
 
 @MainActor
@@ -35,6 +36,20 @@ final class SceneRouter {
         }
     }
 
+    func showCityDistrict() {
+        guard !isTransitioning else { return }
+        isTransitioning = true
+
+        let transition = SKTransition.crossFade(withDuration: 0.75)
+        transition.pausesOutgoingScene = false
+        transition.pausesIncomingScene = false
+        present(.cityDistrict, transition: transition)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+            self?.isTransitioning = false
+        }
+    }
+
     private func present(_ route: GameRoute, transition: SKTransition?) {
         guard let view else { return }
         let scene: BaseGameScene
@@ -43,6 +58,8 @@ final class SceneRouter {
             scene = OpeningExteriorScene(context: context)
         case .detectiveOffice:
             scene = DetectiveOfficeScene(context: context)
+        case .cityDistrict:
+            scene = CityDistrictScene(context: context)
         }
 
         scene.scaleMode = .resizeFill

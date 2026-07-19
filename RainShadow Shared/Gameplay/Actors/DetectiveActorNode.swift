@@ -132,6 +132,27 @@ final class DetectiveActorNode: SKNode {
         beginWalking(path: path, completion: completion)
     }
 
+    /// The office starts Elias seated at his desk. Outdoor areas instead need a
+    /// planted, immediately controllable actor without replaying that office-only
+    /// transition or leaving a desk-registered shadow on the pavement.
+    func beginOpenWorldStanding() {
+        removeAllActions()
+        body.removeAllActions()
+        foregroundArms.removeAllActions()
+        pendingWalk = nil
+        needsSeatEgress = false
+        state = .standingIdle
+        body.position = .zero
+        body.zRotation = 0
+        foregroundArms.isHidden = true
+        foregroundArms.alpha = 0
+        contactShadow.position = CGPoint(x: 0, y: 4)
+        contactShadow.xScale = 1
+        contactShadow.yScale = 1
+        contactShadow.alpha = 0.38
+        startStandingIdle()
+    }
+
     private func beginWalking(path: [CGPoint], completion: (() -> Void)?) {
         removeAction(forKey: "actorPath")
         let isCompletingSeatEgress = needsSeatEgress || body.action(forKey: "seatEgress") != nil
