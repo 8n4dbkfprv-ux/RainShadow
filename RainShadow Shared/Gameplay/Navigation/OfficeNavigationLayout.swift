@@ -17,14 +17,14 @@ enum OfficeNavigationLayout {
         authoredDoorObstacle
     ]
 
-    /// Door leaf floor solid in authored space (door prop at (2650, 875), ~360×720 source).
-    static let authoredDoorObstacle = CGRect(x: 2_460, y: 800, width: 400, height: 180)
+    /// Door leaf floor solid in authored space (registered to the V2 shell opening).
+    static let authoredDoorObstacle = CGRect(x: 2_260, y: 800, width: 400, height: 180)
 
     /// Sample points on the door leaf footprint used by tests (authored space).
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_650, y: 875),
-        CGPoint(x: 2_580, y: 860),
-        CGPoint(x: 2_720, y: 900)
+        CGPoint(x: 2_450, y: 875),
+        CGPoint(x: 2_380, y: 860),
+        CGPoint(x: 2_520, y: 900)
     ]
 
     private static let authoredApproachPoints: [String: CGPoint] = [
@@ -72,11 +72,11 @@ enum OfficeNavigationLayout {
     /// Authoring-space prop anchors (pre-scale); scene maps through `OfficeInteriorScale`.
     enum AuthoredPlacement {
         static let radiator = CGPoint(x: 545, y: 900)
-        static let doorLeaf = CGPoint(x: 2_650, y: 875)
+        static let doorLeaf = CGPoint(x: 2_450, y: 875)
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
         static let deskChair = CGPoint(x: 1_430, y: 723)
         static let filingCabinet = CGPoint(x: 2_065, y: 990)
-        static let coatRack = CGPoint(x: 2_425, y: 890)
+        static let coatRack = CGPoint(x: 2_920, y: 890)
         static let visitorArmchair = CGPoint(x: 2_300, y: 390)
         static let deskEnsemble = CGPoint(x: 1_435, y: 535)
         static let camera = CGPoint(x: 1_536, y: 1_040)

@@ -44,7 +44,7 @@ The Image Generator produces source material. Every result still passes registra
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office shell | 6144×4096 | 3072×2048 | Empty architecture only. |
+| Office shell | 4096×2048 V2 plate | 4096×2048 | Empty panoramic architecture only; V1 3072-wide coordinates remain centered. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | 768×768 | 256×256 | Render large, then deliberately reduce/quantize into the coarse avatar scale; same untrimmed canvas and ground pivot in every frame. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -97,7 +97,7 @@ The word **empty** is strict. The shell may contain built architecture, fixed wa
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 3072×2048 | Opaque | Empty original office architecture, isometric floor and walls, door/window openings, baked low cool ambient only. |
+| P0 | `office_shell_base` | 4096×2048 | Opaque | Empty original panoramic office architecture, isometric floor and walls, door/window openings, baked low cool ambient only. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 

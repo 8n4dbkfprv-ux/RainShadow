@@ -24,15 +24,18 @@ enum OfficeInteriorScale {
     /// Chosen so door leaf ≈ 2.0× body (BG band 1.8–2.5).
     static let environment: CGFloat = 0.28
 
-    /// Frames the scaled room at roughly 86% of viewport height. The previous
-    /// global 1152-unit framing made this 573-unit-high interior appear tiny.
+    /// Frames the scaled room at roughly 86% of viewport height. The panoramic
+    /// V2 shell adds authored floor area horizontally, so this deliberately
+    /// keeps the prior actor/prop scale and vertical camera framing unchanged.
     static var cameraVisibleHeight: CGFloat { scaledArtSize.height / 0.86 }
 
     /// Layout focus for scale-about transform (matches prior camera center / room mid).
     static let layoutFocus = CGPoint(x: 1_536, y: 1_024)
 
-    /// Source art plate size before environment scale.
-    static let sourceArtSize = CGSize(width: 3_072, height: 2_048)
+    /// Panoramic V2 area plate. The original 3072-wide authoring coordinates
+    /// remain stable; the new shell extends 512 source pixels on either side.
+    static let sourceArtOrigin = CGPoint(x: -512, y: 0)
+    static let sourceArtSize = CGSize(width: 4_096, height: 2_048)
 
     // MARK: - Measured source content heights (opaque bbox of runtime PNGs)
     // Kept here so tests and scene code share one source of truth.
@@ -129,5 +132,5 @@ enum OfficeInteriorScale {
 
     static var scaledArtSize: CGSize { mapSize(sourceArtSize) }
 
-    static var shellOrigin: CGPoint { mapPoint(.zero) }
+    static var shellOrigin: CGPoint { mapPoint(sourceArtOrigin) }
 }

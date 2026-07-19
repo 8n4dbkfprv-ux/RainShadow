@@ -82,7 +82,7 @@ Platform app target
 
 - One logical world unit equals one pixel in the baseline runtime export.
 - Exterior art space: 3072×1728 units.
-- Office art space: 3072×2048 units.
+- Office V2 area plate: 4096×2048 pixels, mapped into the established 0.28-scale world while preserving the centered V1 authoring coordinates and every prop/actor size.
 - Reference playable camera height: 1152 units.
 - Reference 16:9 viewport: 2048×1152 units.
 - Narrow composition-safe viewport: central 1536×1152 units, covering 4:3 landscape.

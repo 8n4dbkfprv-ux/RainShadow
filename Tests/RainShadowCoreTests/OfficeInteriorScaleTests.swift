@@ -128,6 +128,17 @@ struct OfficeInteriorScaleTests {
         #expect(shell.height == OfficeInteriorScale.sourceArtSize.height * OfficeInteriorScale.environment)
     }
 
+    @Test func panoramicShellExtendsWithoutMovingAuthoredGameplay() {
+        #expect(OfficeInteriorScale.sourceArtSize == CGSize(width: 4_096, height: 2_048))
+        #expect(OfficeInteriorScale.sourceArtOrigin == CGPoint(x: -512, y: 0))
+        #expect(OfficeInteriorScale.mapPoint(OfficeInteriorScale.layoutFocus) == OfficeInteriorScale.layoutFocus)
+        #expect(
+            OfficeInteriorScale.shellOrigin.x
+                + OfficeInteriorScale.scaledArtSize.width / 2
+                == OfficeInteriorScale.layoutFocus.x
+        )
+    }
+
     @Test func everyOfficeHotspotApproachIsReachableAfterScale() {
         let grid = OfficeNavigationLayout.makeGrid()
         for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
@@ -201,6 +212,7 @@ struct OfficeInteriorScaleTests {
             / OfficeInteriorScale.cameraVisibleHeight
         #expect(abs(visibleFraction - 0.86) < 0.001)
         #expect(OfficeInteriorScale.cameraVisibleHeight < 700)
+        #expect(OfficeInteriorScale.scaledArtSize.width > 1_100)
     }
 
     @Test func scaleReportMatchesShippedContract() {
