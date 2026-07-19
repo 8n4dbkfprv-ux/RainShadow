@@ -41,6 +41,7 @@ final class DetectiveActorNode: SKNode {
     private let body: SKSpriteNode
     private let foregroundArms: SKSpriteNode
     private let standingTexture: SKTexture?
+    private let standingIdleTextures: [Facing: SKTexture]
     private let seatedIdleTextures: [SKTexture]
     private let seatedArmTextures: [SKTexture]
     private let standUpTextures: [SKTexture]
@@ -52,6 +53,12 @@ final class DetectiveActorNode: SKNode {
 
     override init() {
         standingTexture = GameArt.texture(named: "det_standing_idle_se_00")
+        standingIdleTextures = Dictionary(uniqueKeysWithValues: Facing.allCases.compactMap { facing in
+            guard let texture = GameArt.texture(
+                named: String(format: "det_standing_idle_%@_00", facing.sourceName)
+            ) else { return nil }
+            return (facing, texture)
+        })
         seatedIdleTextures = (0..<4).compactMap {
             GameArt.texture(named: String(format: "det_seated_idle_se_%02d", $0))
         }
@@ -146,6 +153,9 @@ final class DetectiveActorNode: SKNode {
 
         state = .walking
         body.removeAction(forKey: "standingIdle")
+        if !isCompletingSeatEgress {
+            body.position.y = 0
+        }
 
         var actions: [SKAction] = []
         var prior = position
@@ -288,6 +298,8 @@ final class DetectiveActorNode: SKNode {
 
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
+        body.removeAction(forKey: "walkCycle")
+        applyStandingIdleTexture()
         let settle = SKAction.sequence([
             .moveBy(x: 0, y: 1, duration: 0.7),
             .moveBy(x: 0, y: -1, duration: 0.75)
@@ -340,15 +352,19 @@ final class DetectiveActorNode: SKNode {
 
     private func stopWalkAnimation() {
         body.removeAction(forKey: "walkCycle")
-        if let restFrame = walkTextures[facing]?.first {
-            body.texture = restFrame
+        applyStandingIdleTexture()
+        body.position.y = 0
+        body.zRotation = 0
+    }
+
+    private func applyStandingIdleTexture() {
+        if let idleTexture = standingIdleTextures[facing] ?? standingTexture {
+            body.texture = idleTexture
             body.texture?.filteringMode = .nearest
         }
         body.xScale = facing.isMirrored
             ? -OfficeInteriorScale.ActorDisplay.standingScale
             : OfficeInteriorScale.ActorDisplay.standingScale
         body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
-        body.position.y = 0
-        body.zRotation = 0
     }
 }
