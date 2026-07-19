@@ -433,15 +433,31 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func finishCaseIntroduction() {
-        let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
-        let cameraRestore = SKAction.move(to: normalCameraPosition, duration: 0.3)
-        cameraRestore.timingMode = .easeInEaseOut
-        gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
-        animateDoorReturning()
-        client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
-            guard let self else { return }
-            self.dialogueIsActive = false
-            self.showOfficeHintIfNeeded()
+        for action in OfficeClientVisitSequencer.actions(for: .finishCaseIntroductionStarted) {
+            applyClientVisitAction(action)
+        }
+    }
+
+    private func applyClientVisitAction(_ action: OfficeClientVisitSequencer.Action) {
+        switch action {
+        case .restoreCamera:
+            let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+            let cameraRestore = SKAction.move(to: normalCameraPosition, duration: 0.3)
+            cameraRestore.timingMode = .easeInEaseOut
+            gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
+        case .beginClientExit:
+            client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
+                guard let self else { return }
+                for next in OfficeClientVisitSequencer.actions(for: .clientExitCompleted) {
+                    self.applyClientVisitAction(next)
+                }
+            }
+        case .returnDoor:
+            // After Vivian has finished the departure path and faded out.
+            animateDoorReturning()
+        case .unlockPlayerControl:
+            dialogueIsActive = false
+            showOfficeHintIfNeeded()
         }
     }
 
@@ -634,8 +650,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoor.run(.sequence([.wait(forDuration: 0.16), fall, settle, rest]), withKey: "officeDoorMotion")
     }
 
-    /// The door is restored as Vivian turns back toward the threshold, ready for
-    /// the next visitor once she has cleared the room.
+    /// The door is restored only after Vivian has finished her exit path and
+    /// cleared the room, ready for the next visitor.
     private func animateDoorReturning() {
         guard let officeDoor else { return }
 
