@@ -7,6 +7,7 @@ import AppKit
 final class DetectiveOfficeScene: BaseGameScene {
     private let detective = DetectiveActorNode()
     private let client = ClientActorNode()
+    private var officeDoor: SKSpriteNode?
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
@@ -53,7 +54,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
             scale: env
         )
-        addRearFixture(
+        officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
             scale: env
@@ -333,6 +334,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func startCaseIntroduction() {
+        animateDoorFalling()
         client.performEntrance(along: OfficeNavigationLayout.clientArrivalPath) { [weak self] in
             guard let self else { return }
             let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
@@ -429,6 +431,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         let cameraRestore = SKAction.move(to: normalCameraPosition, duration: 0.3)
         cameraRestore.timingMode = .easeInEaseOut
         gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
+        animateDoorReturning()
         client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
             guard let self else { return }
             self.dialogueIsActive = false
@@ -588,14 +591,56 @@ final class DetectiveOfficeScene: BaseGameScene {
         fogOfWar = fog
     }
 
-    private func addRearFixture(named textureName: String, at position: CGPoint, scale: CGFloat) {
-        guard let texture = GameArt.texture(named: textureName) else { return }
+    @discardableResult
+    private func addRearFixture(named textureName: String, at position: CGPoint, scale: CGFloat) -> SKSpriteNode? {
+        guard let texture = GameArt.texture(named: textureName) else { return nil }
         let fixture = SKSpriteNode(texture: texture)
         fixture.anchorPoint = CGPoint(x: 0.5, y: 0.04)
         fixture.position = position
         fixture.setScale(scale)
         fixture.texture?.filteringMode = .linear
         rearFixtureRoot.addChild(fixture)
+        return fixture
+    }
+
+    /// Vivian's entrance knocks the already damaged leaf off its hinges. Keeping
+    /// the low anchor makes the swing read as a door tipping from its threshold.
+    private func animateDoorFalling() {
+        guard let officeDoor else { return }
+
+        officeDoor.removeAction(forKey: "officeDoorMotion")
+        let environment = OfficeInteriorScale.environment
+        let fall = SKAction.group([
+            .rotate(toAngle: -.pi / 2, duration: 0.32, shortestUnitArc: false),
+            .moveBy(x: 18 * environment, y: -30 * environment, duration: 0.32)
+        ])
+        fall.timingMode = .easeIn
+        let settle = SKAction.group([
+            .moveBy(x: -4 * environment, y: 3 * environment, duration: 0.11),
+            .rotate(byAngle: 0.035, duration: 0.11)
+        ])
+        settle.timingMode = .easeOut
+        let rest = SKAction.group([
+            .moveBy(x: 4 * environment, y: -3 * environment, duration: 0.09),
+            .rotate(toAngle: -.pi / 2, duration: 0.09, shortestUnitArc: false)
+        ])
+        rest.timingMode = .easeIn
+        officeDoor.run(.sequence([.wait(forDuration: 0.16), fall, settle, rest]), withKey: "officeDoorMotion")
+    }
+
+    /// The door is restored as Vivian turns back toward the threshold, ready for
+    /// the next visitor once she has cleared the room.
+    private func animateDoorReturning() {
+        guard let officeDoor else { return }
+
+        officeDoor.removeAction(forKey: "officeDoorMotion")
+        let uprightPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf)
+        let returnToFrame = SKAction.group([
+            .rotate(toAngle: 0, duration: 0.34, shortestUnitArc: false),
+            .move(to: uprightPosition, duration: 0.34)
+        ])
+        returnToFrame.timingMode = .easeOut
+        officeDoor.run(returnToFrame, withKey: "officeDoorMotion")
     }
 
     private func addDepthProp(
