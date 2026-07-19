@@ -32,7 +32,7 @@ final class CityDistrictScene: BaseGameScene {
     override func buildScene() {
         addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_exterior.m4a", volume: 0.34))
 
-        if let texture = GameArt.texture(named: "city_district_block_v01") {
+        if let texture = GameArt.texture(named: "city_district_ground_v01") {
             texture.filteringMode = .linear
             let background = SKSpriteNode(texture: texture, size: CityDistrictLayout.worldArtSize)
             background.anchorPoint = .zero
@@ -41,6 +41,7 @@ final class CityDistrictScene: BaseGameScene {
         } else {
             buildFallbackCity()
         }
+        addModularDistrictSprites()
 
         navigation = CityDistrictLayout.makeGrid()
         detective.position = CityDistrictLayout.actorStart
@@ -267,6 +268,23 @@ final class CityDistrictScene: BaseGameScene {
         )
         rain.zPosition = 1
         weatherRoot.addChild(rain)
+    }
+
+    /// Buildings and street furniture are deliberately independent nodes. This
+    /// retains the city plate's authored density while allowing each object to
+    /// participate in the same south-to-north depth sorting as the detective.
+    private func addModularDistrictSprites() {
+        for visual in CityDistrictLayout.visualSprites {
+            guard let texture = GameArt.texture(named: visual.textureName) else { continue }
+            let sprite = SKSpriteNode(texture: texture)
+            sprite.name = "city.modular.\(visual.textureName)"
+            sprite.anchorPoint = CGPoint(x: 0.5, y: visual.anchorY)
+            sprite.position = visual.groundPoint
+            sprite.setScale(visual.scale)
+            sprite.texture?.filteringMode = .linear
+            updateDepth(of: sprite, bias: visual.depthBias)
+            depthWorldRoot.addChild(sprite)
+        }
     }
 
     private func updateCameraPosition() {

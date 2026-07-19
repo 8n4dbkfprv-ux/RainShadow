@@ -149,6 +149,29 @@ struct NavigationGridTests {
         }
     }
 
+    @Test func cityUsesIndependentBuildingAndStreetSprites() {
+        let sprites = CityDistrictLayout.visualSprites
+        let textureNames = sprites.map(\.textureName)
+
+        #expect(sprites.count >= 30)
+        #expect(textureNames.contains("city_building_nw"))
+        #expect(textureNames.contains("city_building_central"))
+        #expect(textureNames.contains("city_building_ne"))
+        #expect(textureNames.contains("city_building_sw"))
+        #expect(textureNames.contains("city_building_mid"))
+        #expect(textureNames.contains("city_building_se"))
+        #expect(textureNames.contains("city_lamp"))
+        #expect(textureNames.contains("city_statue"))
+        #expect(textureNames.contains("city_bench"))
+        #expect(textureNames.contains("city_car_black"))
+        #expect(textureNames.contains("city_car_olive"))
+        #expect(textureNames.contains("city_car_maroon"))
+        #expect(textureNames.contains("city_kiosk"))
+        #expect(textureNames.contains("city_crates_mail"))
+        #expect(textureNames.contains("city_gate"))
+        #expect(sprites.allSatisfy { CityDistrictLayout.worldBounds.contains($0.groundPoint) })
+    }
+
     private func makeGrid(obstacles: [CGRect] = []) -> NavigationGrid {
         NavigationGrid(
             origin: .zero,
