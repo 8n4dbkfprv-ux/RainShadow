@@ -196,13 +196,13 @@ final class ActionBarNode: SKNode {
         mapButtonShadow.zPosition = -3
         mapButtonRoot.addChild(mapButtonShadow)
 
-        if let texture = GameArt.texture(named: "map_icon_noir_v02") {
+        if let texture = GameArt.texture(named: "map_icon_noir_v03") {
             texture.filteringMode = .linear
             mapButtonArtwork.texture = texture
             mapButtonArtwork.size = Metrics.mapButtonArtworkSize
             mapButtonRoot.addChild(mapButtonArtwork)
         } else {
-            assertionFailure("Missing map_icon_noir_v02.png")
+            assertionFailure("Missing map_icon_noir_v03.png")
         }
 
         mapButtonHighlight.fillColor = .clear

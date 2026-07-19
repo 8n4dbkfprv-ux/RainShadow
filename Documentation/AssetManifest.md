@@ -299,7 +299,7 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
 | P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Elias portrait crop, dynamic health text, condition tint, and viewport anchoring. |
 | P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area rendition of the assembled office; code owns the left action rail, overlay frame, point-of-interest labels, and live thin-green 2:1 current-position ground ring. |
-| P0 | `map_icon_noir_v02` | 1 | 768×512 | Painted landscape compass-map button with a centered `N`, tarnished pewter frame, black inset, and restrained Art Deco engraving; code owns its hover, hit target, and rail placement. |
+| P0 | `map_icon_noir_v03` | 1 | 768×512 | Painted landscape compass-map button recolored to the shared UI palette: blue-black gunmetal, muted oxblood engraving insets, tiny aged-brass fasteners, smoked-pewter `N`, and a black well. Code owns its hover, hit target, and rail placement. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 
