@@ -207,6 +207,134 @@ struct OfficeInteriorScaleTests {
         #expect(pathOntoDoor == nil, "Must not pathfind onto the door leaf")
     }
 
+    @Test func deskObstacleIsPresentInShippedLayout() {
+        #expect(OfficeNavigationLayout.obstacles.contains(where: { $0 == OfficeNavigationLayout.deskObstacle }))
+        #expect(OfficeNavigationLayout.authoredDeskObstacle.width > 0)
+        #expect(OfficeNavigationLayout.authoredDeskObstacle.height > 0)
+        // Desktop band must be solid: solid extends well past the old pedestal-only maxY (800).
+        #expect(OfficeNavigationLayout.authoredDeskObstacle.maxY > 1_000)
+    }
+
+    @Test func deskSamplesAreBlocked() {
+        for point in OfficeNavigationLayout.deskSamplePoints {
+            #expect(OfficeNavigationLayout.isBlocked(point), "Desk sample \(point) should be blocked")
+            #expect(OfficeNavigationLayout.deskObstacle.contains(point), "Desk sample \(point) should lie in deskObstacle")
+        }
+    }
+
+    @Test func nearestWalkableLeavesTheDesk() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        for point in OfficeNavigationLayout.deskSamplePoints {
+            let resolved = grid.nearestWalkablePoint(to: point)
+            #expect(resolved != nil, "Expected nearest walkable near desk sample \(point)")
+            if let resolved {
+                #expect(!OfficeNavigationLayout.deskObstacle.contains(resolved))
+                #expect(!OfficeNavigationLayout.isBlocked(resolved))
+            }
+        }
+    }
+
+    @Test func pathOntoDeskIsNil() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        for point in OfficeNavigationLayout.deskSamplePoints {
+            let path = grid.path(from: OfficeNavigationLayout.actorStart, to: point)
+            #expect(path == nil, "Must not pathfind onto desk sample \(point)")
+        }
+    }
+
+    @Test func majorPropSamplesAreBlocked() {
+        let namedSamples: [(String, [CGPoint], CGRect)] = [
+            ("desk", OfficeNavigationLayout.deskSamplePoints, OfficeNavigationLayout.deskObstacle),
+            ("visitor armchair", OfficeNavigationLayout.visitorArmchairSamplePoints, OfficeNavigationLayout.visitorArmchairObstacle),
+            ("filing cabinet", OfficeNavigationLayout.filingCabinetSamplePoints, OfficeNavigationLayout.filingCabinetObstacle),
+            ("radiator", OfficeNavigationLayout.radiatorSamplePoints, OfficeNavigationLayout.radiatorObstacle),
+            ("coat rack", OfficeNavigationLayout.coatRackSamplePoints, OfficeNavigationLayout.coatRackObstacle),
+            ("door", OfficeNavigationLayout.doorLeafSamplePoints, OfficeNavigationLayout.doorObstacle)
+        ]
+        for (name, samples, obstacle) in namedSamples {
+            #expect(OfficeNavigationLayout.obstacles.contains(where: { $0 == obstacle }), "\(name) obstacle missing from shipped layout")
+            for point in samples {
+                #expect(OfficeNavigationLayout.isBlocked(point), "\(name) sample \(point) should be blocked")
+                #expect(obstacle.contains(point), "\(name) sample \(point) should lie in its obstacle")
+            }
+        }
+    }
+
+    @Test func nearestWalkableLeavesMajorProps() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        for point in OfficeNavigationLayout.majorPropSamplePoints {
+            let resolved = grid.nearestWalkablePoint(to: point)
+            #expect(resolved != nil, "Expected nearest walkable near \(point)")
+            if let resolved {
+                #expect(!OfficeNavigationLayout.isBlocked(resolved), "Resolved \(resolved) still blocked for sample \(point)")
+            }
+        }
+    }
+
+    @Test func pathOntoMajorPropsIsNil() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        for point in OfficeNavigationLayout.majorPropSamplePoints {
+            let path = grid.path(from: OfficeNavigationLayout.actorStart, to: point)
+            #expect(path == nil, "Must not pathfind onto prop sample \(point)")
+        }
+    }
+
+    @Test func hotspotApproachesStayOutsideObstaclesAndAvoidThemOnPath() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
+            #expect(!OfficeNavigationLayout.isBlocked(destination), "Approach \(hotspotID) must sit outside obstacles")
+            let path = grid.path(from: OfficeNavigationLayout.actorStart, to: destination)
+            #expect(path?.isEmpty == false, "Expected a route to \(hotspotID)")
+            #expect(path?.allSatisfy { !OfficeNavigationLayout.isBlocked($0) } == true,
+                    "Path to \(hotspotID) entered an office obstacle")
+        }
+    }
+
+    @Test func pathsThatWouldCrossTheDeskNeverEnterOfficeObstacles() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        let desk = OfficeNavigationLayout.deskObstacle
+
+        // Resolve walkable anchors just outside the desk that a naïve straight line would cross.
+        let rawPairs: [(CGPoint, CGPoint)] = [
+            (
+                CGPoint(x: desk.midX, y: desk.minY - 25),
+                CGPoint(x: desk.midX, y: desk.maxY + 25)
+            ),
+            (
+                CGPoint(x: desk.minX - 30, y: desk.midY),
+                CGPoint(x: desk.maxX + 30, y: desk.midY)
+            ),
+            (
+                CGPoint(x: desk.minX - 20, y: desk.minY - 20),
+                CGPoint(x: desk.maxX + 20, y: desk.maxY + 20)
+            ),
+            (
+                OfficeNavigationLayout.actorStart,
+                OfficeNavigationLayout.approachPoints["office.door"]!
+            )
+        ]
+
+        var exercised = 0
+        for (rawStart, rawEnd) in rawPairs {
+            guard let start = grid.nearestWalkablePoint(to: rawStart),
+                  let end = grid.nearestWalkablePoint(to: rawEnd) else {
+                continue
+            }
+            #expect(!OfficeNavigationLayout.isBlocked(start))
+            #expect(!OfficeNavigationLayout.isBlocked(end))
+            let path = grid.path(from: start, to: end)
+            if let path {
+                exercised += 1
+                #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) },
+                        "Path \(start)->\(end) placed a waypoint inside an obstacle")
+                #expect(path.allSatisfy { !desk.contains($0) },
+                        "Path \(start)->\(end) placed a waypoint inside the desk")
+            }
+            // nil is acceptable when the corridor is fully sealed; non-nil must stay clear.
+        }
+        #expect(exercised >= 1, "Expected at least one successful around-desk path to inspect")
+    }
+
     @Test func officeCameraFramesTheScaledRoom() {
         let visibleFraction = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight

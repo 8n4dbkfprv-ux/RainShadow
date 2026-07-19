@@ -5,26 +5,81 @@ enum OfficeNavigationLayout {
 
     private static let authoredActorStart = CGPoint(x: 1_430, y: 1_080)
 
-    /// Ground-contact footprints in authored (pre-scale) space. These deliberately
-    /// exclude the tall visible portions of props: those are handled by depth
-    /// sorting, while navigation only blocks the area touching the floor.
+    /// Ground-contact footprints in authored (pre-scale) space. Tall vertical props
+    /// (door, cabinet, radiator, coat rack) only block their base; desk and
+    /// seating cover the full floor projection so pathfinding cannot walk over
+    /// the desktop or chair seats. Depth sorting still handles drawing order.
     private static let authoredObstacles = [
-        CGRect(x: 945, y: 500, width: 1_015, height: 300), // desk and chair
-        CGRect(x: 2_080, y: 285, width: 530, height: 260), // visitor armchair
-        CGRect(x: 1_865, y: 900, width: 430, height: 180), // filing cabinet
-        CGRect(x: 285, y: 840, width: 535, height: 120), // radiator
-        CGRect(x: 2_285, y: 790, width: 300, height: 160), // coat rack
+        authoredDeskObstacle,
+        authoredVisitorArmchairObstacle,
+        authoredFilingCabinetObstacle,
+        authoredRadiatorObstacle,
+        authoredCoatRackObstacle,
         authoredDoorObstacle
     ]
 
+    /// Desk + detective chair floor solid. Matches the bare-desk sprite ground
+    /// projection (≈1118…1752 × 514…1044) closely enough that desktop taps stay
+    /// solid, while the east edge is cut short of the filing cabinet so the
+    /// corridor to the door remains pathfindable.
+    static let authoredDeskObstacle = CGRect(x: 1_050, y: 500, width: 720, height: 520)
+
+    /// Visitor armchair floor solid (base + lower seat mass).
+    static let authoredVisitorArmchairObstacle = CGRect(x: 2_080, y: 285, width: 530, height: 300)
+
+    /// Filing cabinet base solid.
+    static let authoredFilingCabinetObstacle = CGRect(x: 1_865, y: 900, width: 430, height: 180)
+
+    /// Radiator base solid along the west wall.
+    static let authoredRadiatorObstacle = CGRect(x: 285, y: 840, width: 535, height: 120)
+
+    /// Coat rack base solid, registered to `AuthoredPlacement.coatRack`.
+    static let authoredCoatRackObstacle = CGRect(x: 2_790, y: 850, width: 280, height: 120)
+
     /// Door leaf floor solid in authored space (registered to the V2 shell opening).
     static let authoredDoorObstacle = CGRect(x: 2_260, y: 800, width: 400, height: 180)
+
+    /// Sample points on the desk / chair footprint used by tests (authored space).
+    static let authoredDeskSamplePoints: [CGPoint] = [
+        CGPoint(x: 1_435, y: 535),  // desk ensemble anchor
+        CGPoint(x: 1_430, y: 723),  // chair anchor
+        CGPoint(x: 1_430, y: 850),  // mid desktop band
+        CGPoint(x: 1_430, y: 920),  // upper desktop band
+        CGPoint(x: 1_430, y: 1_000), // near back edge of desktop
+        CGPoint(x: 1_200, y: 700),  // west pedestal
+        CGPoint(x: 1_700, y: 850)   // east desktop
+    ]
 
     /// Sample points on the door leaf footprint used by tests (authored space).
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
         CGPoint(x: 2_450, y: 875),
         CGPoint(x: 2_380, y: 860),
         CGPoint(x: 2_520, y: 900)
+    ]
+
+    /// Sample points on other major floor solids (authored space).
+    static let authoredVisitorArmchairSamplePoints: [CGPoint] = [
+        CGPoint(x: 2_300, y: 390),
+        CGPoint(x: 2_300, y: 520),
+        CGPoint(x: 2_200, y: 450)
+    ]
+
+    static let authoredFilingCabinetSamplePoints: [CGPoint] = [
+        CGPoint(x: 2_065, y: 990),
+        CGPoint(x: 2_000, y: 960),
+        CGPoint(x: 2_150, y: 1_020)
+    ]
+
+    static let authoredRadiatorSamplePoints: [CGPoint] = [
+        CGPoint(x: 545, y: 900),
+        CGPoint(x: 400, y: 900),
+        CGPoint(x: 700, y: 920)
+    ]
+
+    static let authoredCoatRackSamplePoints: [CGPoint] = [
+        CGPoint(x: 2_920, y: 890),
+        CGPoint(x: 2_850, y: 900),
+        CGPoint(x: 3_000, y: 910)
     ]
 
     private static let authoredApproachPoints: [String: CGPoint] = [
@@ -57,12 +112,62 @@ enum OfficeNavigationLayout {
         authoredObstacles.map(OfficeInteriorScale.mapRect)
     }
 
+    static var deskObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredDeskObstacle)
+    }
+
+    static var visitorArmchairObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredVisitorArmchairObstacle)
+    }
+
+    static var filingCabinetObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredFilingCabinetObstacle)
+    }
+
+    static var radiatorObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredRadiatorObstacle)
+    }
+
+    static var coatRackObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredCoatRackObstacle)
+    }
+
     static var doorObstacle: CGRect {
         OfficeInteriorScale.mapRect(authoredDoorObstacle)
     }
 
+    static var deskSamplePoints: [CGPoint] {
+        authoredDeskSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
     static var doorLeafSamplePoints: [CGPoint] {
         authoredDoorLeafSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var visitorArmchairSamplePoints: [CGPoint] {
+        authoredVisitorArmchairSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var filingCabinetSamplePoints: [CGPoint] {
+        authoredFilingCabinetSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var radiatorSamplePoints: [CGPoint] {
+        authoredRadiatorSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var coatRackSamplePoints: [CGPoint] {
+        authoredCoatRackSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    /// All major prop sample points used by office-obstacle tests.
+    static var majorPropSamplePoints: [CGPoint] {
+        deskSamplePoints
+            + visitorArmchairSamplePoints
+            + filingCabinetSamplePoints
+            + radiatorSamplePoints
+            + coatRackSamplePoints
+            + doorLeafSamplePoints
     }
 
     static var approachPoints: [String: CGPoint] {
