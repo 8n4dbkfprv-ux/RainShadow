@@ -297,6 +297,7 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `dialogue_scroll_up_v01`, `dialogue_scroll_down_v01`, `dialogue_scroll_track_v01`, `dialogue_scroll_thumb_v01` | 4 | 96×96 buttons; 64×320 track; 72×256 thumb | Independent Mac OS 9–influenced scrollbar components in RainShadow gunmetal/oxblood materials. Buttons stay fixed-size; track and proportional thumb are nine-sliced in code. |
 | P0 | `dialogue_portrait_vivian_hart_v01` | 1 | 512×512 | Identity-locked hand-painted Vivian portrait for the dialogue crop. |
 | P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
+| P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Elias portrait crop, dynamic health text, condition tint, and viewport anchoring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 

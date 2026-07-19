@@ -6,6 +6,8 @@ final class GameSession {
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
     private(set) var inspectedHotspotIDs: Set<String>
+    private(set) var currentHealth = 12
+    let maximumHealth = 12
 
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
@@ -30,6 +32,10 @@ final class GameSession {
         guard !hasSeenOfficeHint else { return }
         hasSeenOfficeHint = true
         persist()
+    }
+
+    func setCurrentHealth(_ health: Int) {
+        currentHealth = min(max(0, health), maximumHealth)
     }
 
     private func persist() {

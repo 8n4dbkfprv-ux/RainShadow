@@ -11,6 +11,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let inventoryButton = InventoryToggleButton()
+    private let portraitBar = PortraitBarNode()
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
@@ -116,6 +117,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         configureHotspots()
 
         hudRoot.addChild(observationPresenter)
+        portraitBar.setHealth(
+            current: context.session.currentHealth,
+            maximum: context.session.maximumHealth,
+            animated: false
+        )
+        hudRoot.addChild(portraitBar)
         caseIntroductionPresenter.zPosition = 60
         caseIntroductionPresenter.onComplete = { [weak self] in
             self?.finishCaseIntroduction()
@@ -275,6 +282,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
         inventoryOverlay.layout(for: visibleSize)
         caseIntroductionPresenter.layout(for: visibleSize)
+        // Camera children use screen-space points. The other overlays intentionally
+        // follow the authored visible-world canvas, while the edge rail must span
+        // the physical viewport from top to bottom.
+        portraitBar.layout(for: size)
         inventoryButton.position = CGPoint(
             x: -visibleSize.width / 2 + 150,
             y: -visibleSize.height / 2 + 62
@@ -282,6 +293,10 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        portraitBar.setHealth(
+            current: context.session.currentHealth,
+            maximum: context.session.maximumHealth
+        )
         updateDepth(of: detective)
         updateDepth(of: client)
         fogOfWar?.reveal(at: detective.position)
@@ -429,6 +444,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
         inventoryButton.isHidden = presented
+        portraitBar.isHidden = presented
 
         if presented {
             observationPresenter.removeAllActions()

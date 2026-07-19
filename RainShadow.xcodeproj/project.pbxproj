@@ -65,6 +65,7 @@
 				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_scroll_track_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_scroll_up_v01.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v01.png,
 				Resources/Art/UI/Inventory/det_paperdoll_front_rgba_v02.png,
 				Resources/Art/UI/Inventory/inventory_case_bag_v01.png,
 				Resources/Art/UI/Inventory/inventory_coin_stack_v01.png,
@@ -85,6 +86,7 @@
 				UI/DialogueScrollbarNode.swift,
 				UI/InventoryOverlay.swift,
 				UI/ObservationPresenter.swift,
+				UI/PortraitBarNode.swift,
 			);
 			target = DAAF9D21300A69350071746D /* RainShadow iOS */;
 		};
@@ -164,6 +166,7 @@
 				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_scroll_track_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_scroll_up_v01.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v01.png,
 				Resources/Art/UI/Inventory/det_paperdoll_front_rgba_v02.png,
 				Resources/Art/UI/Inventory/inventory_case_bag_v01.png,
 				Resources/Art/UI/Inventory/inventory_coin_stack_v01.png,
@@ -184,6 +187,7 @@
 				UI/DialogueScrollbarNode.swift,
 				UI/InventoryOverlay.swift,
 				UI/ObservationPresenter.swift,
+				UI/PortraitBarNode.swift,
 			);
 			target = DAAF9D42300A69350071746D /* RainShadow macOS */;
 		};
