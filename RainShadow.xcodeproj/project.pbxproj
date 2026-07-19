@@ -88,7 +88,6 @@
 				UI/CaseIntroductionPresenter.swift,
 				UI/DialogueScrollbarNode.swift,
 				UI/InventoryOverlay.swift,
-				UI/ObservationPresenter.swift,
 				UI/PortraitBarNode.swift,
 			);
 			target = DAAF9D21300A69350071746D /* RainShadow iOS */;
@@ -192,7 +191,6 @@
 				UI/CaseIntroductionPresenter.swift,
 				UI/DialogueScrollbarNode.swift,
 				UI/InventoryOverlay.swift,
-				UI/ObservationPresenter.swift,
 				UI/PortraitBarNode.swift,
 			);
 			target = DAAF9D42300A69350071746D /* RainShadow macOS */;

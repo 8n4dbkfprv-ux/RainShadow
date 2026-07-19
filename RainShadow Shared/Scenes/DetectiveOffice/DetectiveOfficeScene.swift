@@ -7,7 +7,6 @@ import AppKit
 final class DetectiveOfficeScene: BaseGameScene {
     private let detective = DetectiveActorNode()
     private let client = ClientActorNode()
-    private let observationPresenter = ObservationPresenter()
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
@@ -19,7 +18,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var inventoryIsPresented = false
     private var mapIsPresented = false
     private var caseIntroductionStarted = false
-    private var caseIntroductionIsActive = true
+    private var dialogueIsActive = true
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
@@ -118,7 +117,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         configureNavigation()
         configureHotspots()
 
-        hudRoot.addChild(observationPresenter)
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth,
@@ -127,9 +125,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         hudRoot.addChild(portraitBar)
         hudRoot.addChild(actionBar)
         caseIntroductionPresenter.zPosition = 60
-        caseIntroductionPresenter.onComplete = { [weak self] in
-            self?.finishCaseIntroduction()
-        }
         hudRoot.addChild(caseIntroductionPresenter)
         inventoryOverlay.zPosition = 100
         inventoryOverlay.onDismiss = { [weak self] in
@@ -154,28 +149,28 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
-        guard caseIntroductionIsActive else { return }
+        guard dialogueIsActive else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerDown(at: dialoguePoint)
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
-        guard caseIntroductionIsActive else { return }
+        guard dialogueIsActive else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerDragged(at: dialoguePoint)
     }
 
     override func handlePointerCancelled(_ event: GamePointerEvent) {
-        guard caseIntroductionIsActive else { return }
+        guard dialogueIsActive else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerUp(at: dialoguePoint)
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
-        if caseIntroductionIsActive {
+        if dialogueIsActive {
             let hudPoint = hudRoot.convert(event.location, from: self)
             let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
             if !caseIntroductionPresenter.handlePointerUp(at: dialoguePoint) {
@@ -212,7 +207,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             moveDetective(to: hotspot.approachPoint) { [weak self] in
                 guard let self else { return }
                 self.context.session.markInspected(hotspot.id)
-                self.observationPresenter.show(name: hotspot.name, observation: hotspot.observation)
+                self.presentInspection(hotspot)
             }
             return
         }
@@ -222,7 +217,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
-        if caseIntroductionIsActive {
+        if dialogueIsActive {
             let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
             if !caseIntroductionPresenter.moveSelection(selectionDirection) {
                 let scrollStep: CGFloat = direction.dx < 0 || direction.dy > 0 ? -44 : 44
@@ -249,7 +244,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handlePointerMoved(_ event: GamePointerEvent) {
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
-        if caseIntroductionIsActive {
+        if dialogueIsActive {
             let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
             let isInteractive = caseIntroductionPresenter.updatePointer(at: dialoguePoint)
             (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -286,17 +281,17 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleInventoryInput() {
-        guard !caseIntroductionIsActive, !mapIsPresented else { return }
+        guard !dialogueIsActive, !mapIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
     }
 
     override func handleMapInput() {
-        guard !caseIntroductionIsActive, !inventoryIsPresented else { return }
+        guard !dialogueIsActive, !inventoryIsPresented else { return }
         setMapPresented(!mapIsPresented)
     }
 
     override func handleScrollInput(_ deltaY: CGFloat) {
-        guard caseIntroductionIsActive else { return }
+        guard dialogueIsActive else { return }
         _ = caseIntroductionPresenter.scrollContent(by: -deltaY)
     }
 
@@ -305,7 +300,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             setMapPresented(false)
             return
         }
-        if caseIntroductionIsActive {
+        if dialogueIsActive {
             caseIntroductionPresenter.activateFocusedControl()
             return
         }
@@ -423,7 +418,9 @@ final class DetectiveOfficeScene: BaseGameScene {
                     portraitName: "dialogue_portrait_elias_vale_v01",
                     endsDialogue: true
                 )
-            ], startingAt: "vivian.opening")
+            ], startingAt: "vivian.opening") { [weak self] in
+                self?.finishCaseIntroduction()
+            }
         }
     }
 
@@ -434,8 +431,24 @@ final class DetectiveOfficeScene: BaseGameScene {
         gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
         client.performExit(along: OfficeNavigationLayout.clientDeparturePath) { [weak self] in
             guard let self else { return }
-            self.caseIntroductionIsActive = false
+            self.dialogueIsActive = false
             self.showOfficeHintIfNeeded()
+        }
+    }
+
+    private func presentInspection(_ hotspot: OfficeHotspot) {
+        let nodeID = "inspection.\(hotspot.id)"
+        dialogueIsActive = true
+        caseIntroductionPresenter.present([
+            CaseDialogueNode(
+                id: nodeID,
+                speaker: hotspot.name,
+                text: hotspot.observation,
+                portraitName: "dialogue_portrait_elias_vale_v01",
+                endsDialogue: true
+            )
+        ], startingAt: nodeID) { [weak self] in
+            self?.dialogueIsActive = false
         }
     }
 
@@ -481,8 +494,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         actionBar.isHidden = presented
 
         if presented {
-            observationPresenter.removeAllActions()
-            observationPresenter.alpha = 0
             inventoryOverlay.present()
         } else {
             inventoryOverlay.hideAnimated()
@@ -507,8 +518,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         actionBar.isHidden = presented
 
         if presented {
-            observationPresenter.removeAllActions()
-            observationPresenter.alpha = 0
             areaMapOverlay.present(currentPosition: detective.position)
         } else {
             areaMapOverlay.hideAnimated()

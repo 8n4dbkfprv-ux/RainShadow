@@ -101,9 +101,9 @@ final class CaseIntroductionPresenter: SKNode {
     private var contentViewportRect = CGRect.zero
     private var scrollOffset: CGFloat = 0
     private var usesGeneratedFrame = false
+    private var presentationCompletion: (() -> Void)?
 
     private(set) var isPresenting = false
-    var onComplete: (() -> Void)?
 
     override init() {
         super.init()
@@ -216,13 +216,18 @@ final class CaseIntroductionPresenter: SKNode {
         }
     }
 
-    func present(_ nodes: [CaseDialogueNode], startingAt startID: String) {
+    func present(
+        _ nodes: [CaseDialogueNode],
+        startingAt startID: String,
+        onComplete: (() -> Void)? = nil
+    ) {
         guard !nodes.isEmpty, nodes.contains(where: { $0.id == startID }) else {
             onComplete?()
             return
         }
 
         removeAllActions()
+        presentationCompletion = onComplete
         nodesByID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
         currentNodeID = startID
         isPresenting = true
@@ -665,10 +670,12 @@ final class CaseIntroductionPresenter: SKNode {
     private func finish() {
         guard isPresenting else { return }
         isPresenting = false
+        let completion = presentationCompletion
+        presentationCompletion = nil
         run(.sequence([
             .fadeOut(withDuration: 0.24),
             .hide(),
-            .run { [weak self] in self?.onComplete?() }
+            .run { completion?() }
         ]))
     }
 
