@@ -16,7 +16,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
-    private let hotspotHoverOutline = SKShapeNode()
+    /// Prop sprites that receive IE-style blue color-blend on hover, keyed by hotspot id.
+    private var hotspotHoverSprites: [String: [SKSpriteNode]] = [:]
     private var hoveredHotspotID: String?
     private var inventoryIsPresented = false
     private var mapIsPresented = false
@@ -51,23 +52,31 @@ final class DetectiveOfficeScene: BaseGameScene {
         addWindowRain()
         addLampAtmosphere()
 
-        addRearFixture(
+        if let radiator = addRearFixture(
             named: "office_radiator",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
             scale: env
-        )
+        ) {
+            // No separate window frame prop; radiator sits in the window bay hit area.
+            registerHoverSprite(radiator, for: "office.window")
+        }
         officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
             scale: env
         )
+        if let officeDoor {
+            registerHoverSprite(officeDoor, for: "office.door")
+        }
 
-        addDepthProp(
+        if let chair = addDepthProp(
             named: "office_desk_chair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair),
             scale: env * OfficeInteriorScale.PropRelativeScale.deskChair,
             bias: -70
-        )
+        ) {
+            registerHoverSprite(chair, for: "office.desk")
+        }
         addDepthProp(
             named: "office_filing_cabinet",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
@@ -85,7 +94,14 @@ final class DetectiveOfficeScene: BaseGameScene {
         )
         let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         let deskScale = OfficeInteriorScale.deskDisplayScale
-        addDepthProp(named: "office_desk_bare", at: deskPosition, scale: deskScale, bias: -500)
+        if let deskBare = addDepthProp(
+            named: "office_desk_bare",
+            at: deskPosition,
+            scale: deskScale,
+            bias: -500
+        ) {
+            registerHoverSprite(deskBare, for: "office.desk")
+        }
         addDeskItems(at: deskPosition, scale: deskScale)
 
         detective.position = OfficeNavigationLayout.actorStart
@@ -119,7 +135,6 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         configureNavigation()
         configureHotspots()
-        configureHotspotHoverOutline()
 
         portraitBar.setHealth(
             current: context.session.currentHealth,
@@ -582,27 +597,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
     }
 
-    private func configureHotspotHoverOutline() {
-        hotspotHoverOutline.name = "hotspot.hoverOutline"
-        hotspotHoverOutline.fillColor = SKColor(
-            red: HotspotHoverHighlight.outlineRed,
-            green: HotspotHoverHighlight.outlineGreen,
-            blue: HotspotHoverHighlight.outlineBlue,
-            alpha: HotspotHoverHighlight.fillAlpha
-        )
-        hotspotHoverOutline.strokeColor = SKColor(
-            red: HotspotHoverHighlight.outlineRed,
-            green: HotspotHoverHighlight.outlineGreen,
-            blue: HotspotHoverHighlight.outlineBlue,
-            alpha: HotspotHoverHighlight.outlineAlpha
-        )
-        hotspotHoverOutline.lineWidth = HotspotHoverHighlight.lineWidth
-        hotspotHoverOutline.glowWidth = 1.2
-        hotspotHoverOutline.lineJoin = .round
-        hotspotHoverOutline.zPosition = SceneLayer.cinematic.rawValue + 5
-        hotspotHoverOutline.isHidden = true
-        hotspotHoverOutline.isUserInteractionEnabled = false
-        addChild(hotspotHoverOutline)
+    private func registerHoverSprite(_ sprite: SKSpriteNode, for hotspotID: String) {
+        hotspotHoverSprites[hotspotID, default: []].append(sprite)
     }
 
     /// Applies the shipped hover presentation contract for free exploration.
@@ -623,32 +619,31 @@ final class DetectiveOfficeScene: BaseGameScene {
         applyHotspotHoverPresentation(.hidden)
     }
 
+    /// Drives BG blue sprite tint on registered props (not a hit-rect outline).
     private func applyHotspotHoverPresentation(_ presentation: HotspotHoverHighlight.Presentation) {
         hoveredHotspotID = presentation.hotspotID
-        guard presentation.isVisible, let hitArea = presentation.hitArea else {
-            hotspotHoverOutline.isHidden = true
-            hotspotHoverOutline.path = nil
+        // Reset every hover-capable prop to neutral art.
+        for sprites in hotspotHoverSprites.values {
+            for sprite in sprites {
+                sprite.color = .white
+                sprite.colorBlendFactor = HotspotHoverHighlight.clearedColorBlendFactor
+            }
+        }
+        guard presentation.isVisible,
+              presentation.usesSpriteTint,
+              let id = presentation.hotspotID else {
             return
         }
-        hotspotHoverOutline.path = CGPath(
-            roundedRect: hitArea,
-            cornerWidth: 4,
-            cornerHeight: 4,
-            transform: nil
-        )
-        hotspotHoverOutline.strokeColor = SKColor(
+        let tint = SKColor(
             red: presentation.red,
             green: presentation.green,
             blue: presentation.blue,
-            alpha: presentation.alpha
+            alpha: 1
         )
-        hotspotHoverOutline.fillColor = SKColor(
-            red: presentation.red,
-            green: presentation.green,
-            blue: presentation.blue,
-            alpha: HotspotHoverHighlight.fillAlpha
-        )
-        hotspotHoverOutline.isHidden = false
+        for sprite in hotspotHoverSprites[id] ?? [] {
+            sprite.color = tint
+            sprite.colorBlendFactor = presentation.colorBlendFactor
+        }
     }
 
     private func addWindowRain() {
@@ -751,13 +746,14 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoor.run(returnToFrame, withKey: "officeDoorMotion")
     }
 
+    @discardableResult
     private func addDepthProp(
         named textureName: String,
         at position: CGPoint,
         scale: CGFloat = 1,
         bias: CGFloat = 0
-    ) {
-        guard let texture = GameArt.texture(named: textureName) else { return }
+    ) -> SKSpriteNode? {
+        guard let texture = GameArt.texture(named: textureName) else { return nil }
         let prop = SKSpriteNode(texture: texture)
         prop.name = textureName
         prop.anchorPoint = CGPoint(x: 0.5, y: 0.04)
@@ -766,18 +762,19 @@ final class DetectiveOfficeScene: BaseGameScene {
         prop.texture?.filteringMode = .linear
         updateDepth(of: prop, bias: bias)
         depthWorldRoot.addChild(prop)
+        return prop
     }
 
     /// Desk items are independent sprites registered to the 932x780 bare-desk texture.
     /// Their native content sizes deliberately reproduce the tiny BG-era room scale.
     private func addDeskItems(at deskPosition: CGPoint, scale: CGFloat) {
-        let itemCenters: [(name: String, center: CGPoint)] = [
-            ("office_desk_papers", CGPoint(x: 423, y: 224)),
-            ("office_desk_files", CGPoint(x: 186, y: 301)),
-            ("office_desk_lamp", CGPoint(x: 716, y: 120)),
-            ("office_desk_phone", CGPoint(x: 648, y: 213)),
-            ("office_desk_mug", CGPoint(x: 391, y: 298)),
-            ("office_desk_ashtray", CGPoint(x: 502, y: 313))
+        let itemCenters: [(name: String, center: CGPoint, hotspotID: String)] = [
+            ("office_desk_papers", CGPoint(x: 423, y: 224), "office.desk"),
+            ("office_desk_files", CGPoint(x: 186, y: 301), "office.files"),
+            ("office_desk_lamp", CGPoint(x: 716, y: 120), "office.desk"),
+            ("office_desk_phone", CGPoint(x: 648, y: 213), "office.phone"),
+            ("office_desk_mug", CGPoint(x: 391, y: 298), "office.desk"),
+            ("office_desk_ashtray", CGPoint(x: 502, y: 313), "office.desk")
         ]
         let deskCanvas = CGSize(width: 932, height: 780)
         let deskAnchor = CGPoint(x: 0.5, y: 0.04)
@@ -794,6 +791,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             node.texture?.filteringMode = .linear
             updateDepth(of: node)
             depthWorldRoot.addChild(node)
+            registerHoverSprite(node, for: item.hotspotID)
+            // Desk ensemble also recolors desktop clutter when the desk hotspot wins.
+            if item.hotspotID != "office.desk" {
+                registerHoverSprite(node, for: "office.desk")
+            }
         }
     }
 

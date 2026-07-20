@@ -1,52 +1,62 @@
 import CoreGraphics
 
 /// Baldur's Gate / Infinity Engine–style hover selection for office hotspots.
-/// Pure hit-test + presentation contract so tests and the scene share one entry.
+/// Selected props recolor with a blue sprite tint (IE “highlight selected sprite”),
+/// not an axis-aligned outline box.
 enum HotspotHoverHighlight {
     struct Target: Equatable {
         let id: String
         let hitArea: CGRect
     }
 
-    /// Classic IE selection blue (cyan-leaning outline, not UI chrome gray).
-    static let outlineRed: CGFloat = 0.22
-    static let outlineGreen: CGFloat = 0.58
-    static let outlineBlue: CGFloat = 0.98
-    static let outlineAlpha: CGFloat = 0.95
-    /// Soft fill so the rect reads as a selected region without hiding art.
-    static let fillAlpha: CGFloat = 0.12
-    static let lineWidth: CGFloat = 2.5
+    /// Classic IE selection blue mixed into the prop’s opaque texels.
+    static let tintRed: CGFloat = 0.22
+    static let tintGreen: CGFloat = 0.58
+    static let tintBlue: CGFloat = 0.98
 
-    /// Inclusive sRGB band for “BG blue” regression checks (stroke components).
+    /// SpriteKit `colorBlendFactor` when selected (0 = neutral art, 1 = solid tint).
+    static let selectedColorBlendFactor: CGFloat = 0.42
+    static let clearedColorBlendFactor: CGFloat = 0
+
+    /// Inclusive bands for “BG blue sprite tint” regression checks.
     static let blueRedBand: ClosedRange<CGFloat> = 0.05...0.45
     static let blueGreenBand: ClosedRange<CGFloat> = 0.35...0.80
     static let blueBlueBand: ClosedRange<CGFloat> = 0.75...1.0
+    static let selectedBlendBand: ClosedRange<CGFloat> = 0.25...0.65
 
     struct Presentation: Equatable {
         let isVisible: Bool
         let hotspotID: String?
-        let hitArea: CGRect?
         let red: CGFloat
         let green: CGFloat
         let blue: CGFloat
-        let alpha: CGFloat
+        /// Blend factor to apply on registered prop sprites (0 clears selection).
+        let colorBlendFactor: CGFloat
+        /// True when the primary visual is sprite recolor (not rect chrome).
+        let usesSpriteTint: Bool
 
         static let hidden = Presentation(
             isVisible: false,
             hotspotID: nil,
-            hitArea: nil,
-            red: outlineRed,
-            green: outlineGreen,
-            blue: outlineBlue,
-            alpha: 0
+            red: tintRed,
+            green: tintGreen,
+            blue: tintBlue,
+            colorBlendFactor: clearedColorBlendFactor,
+            usesSpriteTint: true
         )
 
-        var isBGBlueStroke: Bool {
-            guard isVisible else { return false }
+        /// Selected presentation uses documented BG blue tint parameters.
+        var isBGBlueSpriteTint: Bool {
+            guard isVisible, usesSpriteTint else { return false }
             return blueRedBand.contains(red)
                 && blueGreenBand.contains(green)
                 && blueBlueBand.contains(blue)
-                && alpha > 0.5
+                && selectedBlendBand.contains(colorBlendFactor)
+        }
+
+        /// Neutral / cleared sprite state the scene applies on miss or blocked UI.
+        var isClearedSpriteTint: Bool {
+            !isVisible && colorBlendFactor == clearedColorBlendFactor
         }
     }
 
@@ -55,7 +65,7 @@ enum HotspotHoverHighlight {
         targets.first { $0.hitArea.contains(point) }?.id
     }
 
-    /// Full presentation for pointer position. Blocked world UI forces hidden.
+    /// Full presentation for pointer position. Blocked world UI forces cleared tint.
     static func presentation(
         at point: CGPoint?,
         among targets: [Target],
@@ -64,22 +74,20 @@ enum HotspotHoverHighlight {
         guard !worldInteractionBlocked, let point else {
             return .hidden
         }
-        guard let id = selectedID(at: point, among: targets),
-              let target = targets.first(where: { $0.id == id }) else {
+        guard let id = selectedID(at: point, among: targets) else {
             return .hidden
         }
         return Presentation(
             isVisible: true,
             hotspotID: id,
-            hitArea: target.hitArea,
-            red: outlineRed,
-            green: outlineGreen,
-            blue: outlineBlue,
-            alpha: outlineAlpha
+            red: tintRed,
+            green: tintGreen,
+            blue: tintBlue,
+            colorBlendFactor: selectedColorBlendFactor,
+            usesSpriteTint: true
         )
     }
 
-    /// Converts office hotspots to selection targets (id + hit rect only).
     static func targets(
         from hotspots: [(id: String, hitArea: CGRect)]
     ) -> [Target] {

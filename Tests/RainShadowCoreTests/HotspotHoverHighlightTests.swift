@@ -31,12 +31,10 @@ struct HotspotHoverHighlightTests {
             HotspotHoverHighlight.selectedID(at: CGPoint(x: 40, y: 450), among: targets)
                 == "office.window"
         )
-        // Phone rect sits inside desk; list order prefers desk (same as scene click).
         #expect(
             HotspotHoverHighlight.selectedID(at: CGPoint(x: 280, y: 300), among: targets)
                 == "office.desk"
         )
-        // Phone-first list selects phone for the same point.
         #expect(
             HotspotHoverHighlight.selectedID(at: CGPoint(x: 280, y: 300), among: [phone, desk])
                 == "office.phone"
@@ -46,7 +44,7 @@ struct HotspotHoverHighlightTests {
         )
     }
 
-    @Test func presentationShowsBGBlueWhenHotspotSelected() {
+    @Test func presentationAppliesBGBlueSpriteTintWhenSelected() {
         let presentation = HotspotHoverHighlight.presentation(
             at: CGPoint(x: 150, y: 250),
             among: targets,
@@ -54,15 +52,20 @@ struct HotspotHoverHighlightTests {
         )
         #expect(presentation.isVisible)
         #expect(presentation.hotspotID == "office.desk")
-        #expect(presentation.hitArea == desk.hitArea)
-        #expect(presentation.isBGBlueStroke)
+        #expect(presentation.usesSpriteTint)
+        #expect(presentation.isBGBlueSpriteTint)
         #expect(HotspotHoverHighlight.blueRedBand.contains(presentation.red))
         #expect(HotspotHoverHighlight.blueGreenBand.contains(presentation.green))
         #expect(HotspotHoverHighlight.blueBlueBand.contains(presentation.blue))
-        #expect(presentation.alpha > 0.5)
+        #expect(
+            HotspotHoverHighlight.selectedBlendBand.contains(presentation.colorBlendFactor)
+        )
+        #expect(
+            presentation.colorBlendFactor == HotspotHoverHighlight.selectedColorBlendFactor
+        )
     }
 
-    @Test func presentationClearsOnMiss() {
+    @Test func presentationClearsSpriteTintOnMiss() {
         let presentation = HotspotHoverHighlight.presentation(
             at: CGPoint(x: -50, y: -50),
             among: targets,
@@ -70,33 +73,35 @@ struct HotspotHoverHighlightTests {
         )
         #expect(!presentation.isVisible)
         #expect(presentation.hotspotID == nil)
-        #expect(presentation.hitArea == nil)
-        #expect(!presentation.isBGBlueStroke)
+        #expect(presentation.isClearedSpriteTint)
+        #expect(!presentation.isBGBlueSpriteTint)
+        #expect(
+            presentation.colorBlendFactor == HotspotHoverHighlight.clearedColorBlendFactor
+        )
     }
 
     @Test func presentationClearsWhenWorldInteractionBlocked() {
-        let blockedCases = [true]
-        for blocked in blockedCases {
-            let presentation = HotspotHoverHighlight.presentation(
-                at: CGPoint(x: 150, y: 250),
-                among: targets,
-                worldInteractionBlocked: blocked
-            )
-            #expect(!presentation.isVisible)
-            #expect(presentation.hotspotID == nil)
-            #expect(presentation == .hidden || !presentation.isVisible)
-        }
+        let presentation = HotspotHoverHighlight.presentation(
+            at: CGPoint(x: 150, y: 250),
+            among: targets,
+            worldInteractionBlocked: true
+        )
+        #expect(!presentation.isVisible)
+        #expect(presentation.hotspotID == nil)
+        #expect(presentation.isClearedSpriteTint)
+        #expect(
+            presentation.colorBlendFactor == HotspotHoverHighlight.clearedColorBlendFactor
+        )
 
-        // Nil point also clears.
         let noPoint = HotspotHoverHighlight.presentation(
             at: nil,
             among: targets,
             worldInteractionBlocked: false
         )
-        #expect(!noPoint.isVisible)
+        #expect(noPoint.isClearedSpriteTint)
     }
 
-    @Test func updateWithHitThenMissTogglesVisibility() {
+    @Test func updateWithHitThenMissTogglesSpriteTint() {
         // Drive the real presentation entry the scene calls for pointer-move.
         let hit = HotspotHoverHighlight.presentation(
             at: CGPoint(x: 40, y: 450),
@@ -105,7 +110,8 @@ struct HotspotHoverHighlightTests {
         )
         #expect(hit.isVisible)
         #expect(hit.hotspotID == "office.window")
-        #expect(hit.isBGBlueStroke)
+        #expect(hit.isBGBlueSpriteTint)
+        #expect(hit.usesSpriteTint)
 
         let miss = HotspotHoverHighlight.presentation(
             at: CGPoint(x: 999, y: 999),
@@ -113,12 +119,11 @@ struct HotspotHoverHighlightTests {
             worldInteractionBlocked: false
         )
         #expect(!miss.isVisible)
-        #expect(miss.hotspotID == nil)
+        #expect(miss.isClearedSpriteTint)
+        #expect(miss.colorBlendFactor == 0)
     }
 
     @Test func officeAuthoredHotspotsSelectViaShippedLayoutRects() {
-        // Real office hotspots (mapped). Prefer non-overlapping samples: window + door
-        // sit outside the large desk rect; desk mid selects desk; blocked UI clears all.
         let targets = HotspotHoverHighlight.targets(
             from: OfficeNavigationLayout.authoredHotspots.map {
                 (id: $0.id, hitArea: OfficeInteriorScale.mapRect($0.hitArea))
@@ -148,17 +153,17 @@ struct HotspotHoverHighlightTests {
                 worldInteractionBlocked: false
             )
             #expect(shown.isVisible)
-            #expect(shown.isBGBlueStroke)
+            #expect(shown.isBGBlueSpriteTint)
             let blocked = HotspotHoverHighlight.presentation(
                 at: point,
                 among: targets,
                 worldInteractionBlocked: true
             )
-            #expect(!blocked.isVisible)
+            #expect(blocked.isClearedSpriteTint)
         }
     }
 
-    @Test func sceneWiresPointerMoveToShippedHoverEntry() throws {
+    @Test func sceneWiresSpriteTintNotOutlineChrome() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -170,8 +175,13 @@ struct HotspotHoverHighlightTests {
         #expect(source.contains("updateHotspotHoverHighlight(at:"))
         #expect(source.contains("HotspotHoverHighlight.presentation("))
         #expect(source.contains("clearHotspotHoverHighlight()"))
-        #expect(source.contains("hotspotHoverOutline"))
-        #expect(source.contains("HotspotHoverHighlight.outlineBlue")
-            || source.contains("HotspotHoverHighlight.outlineRed"))
+        #expect(source.contains("hotspotHoverSprites"))
+        #expect(source.contains("registerHoverSprite"))
+        #expect(source.contains("colorBlendFactor"))
+        #expect(source.contains("selectedColorBlendFactor")
+            || source.contains("presentation.colorBlendFactor"))
+        // Rect outline is no longer the primary hover chrome.
+        #expect(!source.contains("hotspotHoverOutline"))
+        #expect(!source.contains("configureHotspotHoverOutline"))
     }
 }
