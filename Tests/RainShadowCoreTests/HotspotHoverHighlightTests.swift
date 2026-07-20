@@ -63,6 +63,12 @@ struct HotspotHoverHighlightTests {
         #expect(
             presentation.colorBlendFactor == HotspotHoverHighlight.selectedColorBlendFactor
         )
+        // Stronger than the prior subtle 0.42 wash.
+        #expect(
+            HotspotHoverHighlight.selectedColorBlendFactor
+                > HotspotHoverHighlight.legacySubtleColorBlendFactor
+        )
+        #expect(presentation.colorBlendFactor > 0.42)
     }
 
     @Test func presentationClearsSpriteTintOnMiss() {
@@ -183,5 +189,27 @@ struct HotspotHoverHighlightTests {
         // Rect outline is no longer the primary hover chrome.
         #expect(!source.contains("hotspotHoverOutline"))
         #expect(!source.contains("configureHotspotHoverOutline"))
+    }
+
+    @Test func windowIsNotBoundToRadiatorAndDeskMapsToDeskProps() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let sceneURL = root.appendingPathComponent(
+            "RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift"
+        )
+        let source = try String(contentsOf: sceneURL, encoding: .utf8)
+
+        // Must not register any hover sprites for office.window (no window-frame prop).
+        #expect(!source.contains("registerHoverSprite(radiator, for: \"office.window\")"))
+        #expect(!source.contains("for: \"office.window\""))
+
+        // Desk still registers desk ensemble props.
+        #expect(source.contains("registerHoverSprite(deskBare, for: \"office.desk\")")
+            || source.contains("for: \"office.desk\""))
+        #expect(source.contains("registerHoverSprite(chair, for: \"office.desk\")")
+            || source.contains("office_desk_chair"))
+        #expect(source.contains("office_desk_bare"))
     }
 }

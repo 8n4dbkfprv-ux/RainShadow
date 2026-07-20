@@ -52,14 +52,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         addWindowRain()
         addLampAtmosphere()
 
-        if let radiator = addRearFixture(
+        // Radiator is its own prop — never bind it to office.window (wrong sprite tint).
+        addRearFixture(
             named: "office_radiator",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
             scale: env
-        ) {
-            // No separate window frame prop; radiator sits in the window bay hit area.
-            registerHoverSprite(radiator, for: "office.window")
-        }
+        )
         officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),

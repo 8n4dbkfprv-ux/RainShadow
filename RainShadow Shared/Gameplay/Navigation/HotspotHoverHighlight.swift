@@ -14,15 +14,19 @@ enum HotspotHoverHighlight {
     static let tintGreen: CGFloat = 0.58
     static let tintBlue: CGFloat = 0.98
 
+    /// Prior subtle wash (regression floor — new tint must read stronger than this).
+    static let legacySubtleColorBlendFactor: CGFloat = 0.42
+
     /// SpriteKit `colorBlendFactor` when selected (0 = neutral art, 1 = solid tint).
-    static let selectedColorBlendFactor: CGFloat = 0.42
+    /// Stronger than the prior 0.42 wash so selection reads clearly while art stays readable.
+    static let selectedColorBlendFactor: CGFloat = 0.62
     static let clearedColorBlendFactor: CGFloat = 0
 
     /// Inclusive bands for “BG blue sprite tint” regression checks.
     static let blueRedBand: ClosedRange<CGFloat> = 0.05...0.45
     static let blueGreenBand: ClosedRange<CGFloat> = 0.35...0.80
     static let blueBlueBand: ClosedRange<CGFloat> = 0.75...1.0
-    static let selectedBlendBand: ClosedRange<CGFloat> = 0.25...0.65
+    static let selectedBlendBand: ClosedRange<CGFloat> = 0.50...0.78
 
     struct Presentation: Equatable {
         let isVisible: Bool
