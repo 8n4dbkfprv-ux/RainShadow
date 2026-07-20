@@ -99,6 +99,7 @@ final class CaseIntroductionPresenter: SKNode {
     private var commandIsHovered = false
     private var panelRect = CGRect.zero
     private var contentViewportRect = CGRect.zero
+    private var panelLayout = DialoguePanelLayout.layout(panelRect: CGRect(x: 0, y: 0, width: 1_000, height: 320))
     private var scrollOffset: CGFloat = 0
     private var usesGeneratedFrame = false
     private var presentationCompletion: (() -> Void)?
@@ -118,19 +119,14 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     func layout(for visibleSize: CGSize) {
-        let horizontalMargin = min(72, max(36, visibleSize.width * 0.035))
-        let panelWidth = min(1_500, visibleSize.width - horizontalMargin * 2)
+        let geometry = DialoguePanelLayout.layout(for: visibleSize)
+        panelLayout = geometry
+        panelRect = geometry.panelRect
+        contentViewportRect = geometry.contentViewportRect
+
+        let panelWidth = panelRect.width
         let commandSize = CGSize(width: min(380, panelWidth * 0.32), height: 46)
         let commandY = -visibleSize.height / 2 + 25
-        let panelBottom = commandY + commandSize.height / 2 + 8
-        let panelHeight = min(360, visibleSize.height * 0.42)
-
-        panelRect = CGRect(
-            x: -panelWidth / 2,
-            y: panelBottom,
-            width: panelWidth,
-            height: panelHeight
-        )
 
         veil.path = CGPath(
             rect: CGRect(
@@ -150,25 +146,9 @@ final class CaseIntroductionPresenter: SKNode {
         frameOverlay.size = panelRect.size
         layoutOrnament()
 
-        let scrollbarRect = CGRect(
-            x: panelRect.maxX - 176,
-            y: panelRect.minY + 36,
-            width: 30,
-            height: panelRect.height - 86
-        )
-        dialogueScrollbar.layout(in: scrollbarRect)
+        dialogueScrollbar.layout(in: geometry.scrollbarRect)
 
-        let portraitSize = CGSize(width: 100, height: 116)
-        let portraitCenter = CGPoint(
-            x: panelRect.minX + 48 + portraitSize.width / 2,
-            y: panelRect.maxY - 23 - portraitSize.height / 2
-        )
-        let portraitRect = CGRect(
-            x: portraitCenter.x - portraitSize.width / 2,
-            y: portraitCenter.y - portraitSize.height / 2,
-            width: portraitSize.width,
-            height: portraitSize.height
-        )
+        let portraitRect = geometry.portraitRect
         let portraitOuterRect = portraitRect.insetBy(dx: -10, dy: -10)
         portraitShadow.path = roundedRect(portraitOuterRect.offsetBy(dx: 4, dy: -5), radius: 2)
         portraitBorder.path = roundedRect(portraitOuterRect, radius: 2)
@@ -184,21 +164,15 @@ final class CaseIntroductionPresenter: SKNode {
             pinPath.addEllipse(in: CGRect(x: center.x - 2.2, y: center.y - 2.2, width: 4.4, height: 4.4))
         }
         portraitPins.path = pinPath
-        portrait.position = portraitCenter
-        portrait.size = CGSize(width: portraitSize.width - 8, height: portraitSize.height - 8)
+        portrait.position = CGPoint(x: portraitRect.midX, y: portraitRect.midY)
+        portrait.size = CGSize(width: portraitRect.width - 8, height: portraitRect.height - 8)
 
-        let textLeft = portraitRect.maxX + 22
-        let textRight = scrollbarRect.minX - 14
+        let textLeft = contentViewportRect.minX
         speakerLabel.position = CGPoint(x: textLeft, y: panelRect.maxY - 42)
-        contentViewportRect = CGRect(
-            x: textLeft,
-            y: panelRect.minY + 32,
-            width: textRight - textLeft,
-            height: panelRect.maxY - 70 - (panelRect.minY + 32)
-        )
+        // Crop matches the content viewport so scrolled text cannot paint into the scrollbar gutter.
         contentMask.path = CGPath(rect: contentViewportRect, transform: nil)
         dialogueLabel.position = CGPoint(x: textLeft, y: contentViewportRect.maxY)
-        dialogueLabel.preferredMaxLayoutWidth = textRight - textLeft
+        dialogueLabel.preferredMaxLayoutWidth = geometry.bodyTextMaxWidth
 
         commandHitRect = CGRect(
             x: -commandSize.width / 2,
@@ -570,8 +544,11 @@ final class CaseIntroductionPresenter: SKNode {
 
         let left = contentViewportRect.minX
         let right = contentViewportRect.maxX
+        let labelInset = DialoguePanelLayout.choiceLabelHorizontalInset
         let minimumRowHeight: CGFloat = 44
         let rowSpacing: CGFloat = 4
+        // Body preferred width is set in layout(); re-assert so choice stacking uses the shipped contract.
+        dialogueLabel.preferredMaxLayoutWidth = panelLayout.bodyTextMaxWidth
         let dialogueHeight = max(dialogueLabel.fontSize * 1.25, dialogueLabel.frame.height)
         var rowTop = contentViewportRect.maxY - dialogueHeight - 14
         var choicesHeight: CGFloat = 0
@@ -583,8 +560,9 @@ final class CaseIntroductionPresenter: SKNode {
             label.fontColor = Palette.response
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .center
-            label.numberOfLines = 2
-            label.preferredMaxLayoutWidth = right - left - 28
+            // Unlimited lines + max width from layout so long choices wrap inside the content viewport.
+            label.numberOfLines = 0
+            label.preferredMaxLayoutWidth = panelLayout.choiceTextMaxWidth
             let rowHeight = max(minimumRowHeight, label.frame.height + 12)
             let hitRect = CGRect(x: left, y: rowTop - rowHeight, width: right - left, height: rowHeight)
 
@@ -593,7 +571,7 @@ final class CaseIntroductionPresenter: SKNode {
             background.strokeColor = .clear
             choicesRoot.addChild(background)
 
-            label.position = CGPoint(x: hitRect.minX + 14, y: hitRect.midY - 2)
+            label.position = CGPoint(x: hitRect.minX + labelInset, y: hitRect.midY - 2)
             choicesRoot.addChild(label)
 
             choiceRows.append(ChoiceRow(background: background, label: label, hitRect: hitRect))
