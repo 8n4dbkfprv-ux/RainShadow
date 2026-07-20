@@ -16,6 +16,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
+    private let hotspotHoverOutline = SKShapeNode()
+    private var hoveredHotspotID: String?
     private var inventoryIsPresented = false
     private var mapIsPresented = false
     private var caseIntroductionStarted = false
@@ -117,6 +119,7 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         configureNavigation()
         configureHotspots()
+        configureHotspotHoverOutline()
 
         portraitBar.setHealth(
             current: context.session.currentHealth,
@@ -252,17 +255,20 @@ final class DetectiveOfficeScene: BaseGameScene {
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
         if dialogueIsActive {
+            clearHotspotHoverHighlight()
             let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
             let isInteractive = caseIntroductionPresenter.updatePointer(at: dialoguePoint)
             (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
         if mapIsPresented {
+            clearHotspotHoverHighlight()
             let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
             (areaMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
         if inventoryIsPresented {
+            clearHotspotHoverHighlight()
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
             (inventoryOverlay.isInteractive(at: overlayPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
@@ -272,17 +278,21 @@ final class DetectiveOfficeScene: BaseGameScene {
         let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
         actionBar.setMapButtonHighlighted(mapIsHighlighted)
         if mapIsHighlighted {
+            clearHotspotHoverHighlight()
             NSCursor.pointingHand.set()
             return
         }
 
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
         if portraitBar.hitTestPortrait(portraitPoint) {
+            clearHotspotHoverHighlight()
             NSCursor.pointingHand.set()
             return
         }
 
-        let isInteractive = hotspots.contains { $0.hitArea.contains(event.location) }
+        // BG blue outline before click; selection uses the same hit list as inspect/door.
+        updateHotspotHoverHighlight(at: event.location)
+        let isInteractive = hoveredHotspotID != nil
         (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
         #endif
     }
@@ -463,6 +473,7 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     private func presentInspection(_ hotspot: OfficeHotspot) {
         let nodeID = "inspection.\(hotspot.id)"
+        clearHotspotHoverHighlight()
         dialogueIsActive = true
         caseIntroductionPresenter.present([
             CaseDialogueNode(
@@ -504,6 +515,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func setInventoryPresented(_ presented: Bool) {
         guard inventoryIsPresented != presented else { return }
         inventoryIsPresented = presented
+        if presented {
+            clearHotspotHoverHighlight()
+        }
 
         let pausedWorldRoots = [
             backgroundRoot,
@@ -528,6 +542,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func setMapPresented(_ presented: Bool) {
         guard mapIsPresented != presented else { return }
         mapIsPresented = presented
+        if presented {
+            clearHotspotHoverHighlight()
+        }
 
         let pausedWorldRoots = [
             backgroundRoot,
@@ -563,6 +580,75 @@ final class DetectiveOfficeScene: BaseGameScene {
                 observation: item.observation
             )
         }
+    }
+
+    private func configureHotspotHoverOutline() {
+        hotspotHoverOutline.name = "hotspot.hoverOutline"
+        hotspotHoverOutline.fillColor = SKColor(
+            red: HotspotHoverHighlight.outlineRed,
+            green: HotspotHoverHighlight.outlineGreen,
+            blue: HotspotHoverHighlight.outlineBlue,
+            alpha: HotspotHoverHighlight.fillAlpha
+        )
+        hotspotHoverOutline.strokeColor = SKColor(
+            red: HotspotHoverHighlight.outlineRed,
+            green: HotspotHoverHighlight.outlineGreen,
+            blue: HotspotHoverHighlight.outlineBlue,
+            alpha: HotspotHoverHighlight.outlineAlpha
+        )
+        hotspotHoverOutline.lineWidth = HotspotHoverHighlight.lineWidth
+        hotspotHoverOutline.glowWidth = 1.2
+        hotspotHoverOutline.lineJoin = .round
+        hotspotHoverOutline.zPosition = SceneLayer.cinematic.rawValue + 5
+        hotspotHoverOutline.isHidden = true
+        hotspotHoverOutline.isUserInteractionEnabled = false
+        addChild(hotspotHoverOutline)
+    }
+
+    /// Applies the shipped hover presentation contract for free exploration.
+    private func updateHotspotHoverHighlight(at worldPoint: CGPoint) {
+        let blocked = dialogueIsActive || mapIsPresented || inventoryIsPresented
+        let targets = hotspots.map {
+            HotspotHoverHighlight.Target(id: $0.id, hitArea: $0.hitArea)
+        }
+        let presentation = HotspotHoverHighlight.presentation(
+            at: worldPoint,
+            among: targets,
+            worldInteractionBlocked: blocked
+        )
+        applyHotspotHoverPresentation(presentation)
+    }
+
+    private func clearHotspotHoverHighlight() {
+        applyHotspotHoverPresentation(.hidden)
+    }
+
+    private func applyHotspotHoverPresentation(_ presentation: HotspotHoverHighlight.Presentation) {
+        hoveredHotspotID = presentation.hotspotID
+        guard presentation.isVisible, let hitArea = presentation.hitArea else {
+            hotspotHoverOutline.isHidden = true
+            hotspotHoverOutline.path = nil
+            return
+        }
+        hotspotHoverOutline.path = CGPath(
+            roundedRect: hitArea,
+            cornerWidth: 4,
+            cornerHeight: 4,
+            transform: nil
+        )
+        hotspotHoverOutline.strokeColor = SKColor(
+            red: presentation.red,
+            green: presentation.green,
+            blue: presentation.blue,
+            alpha: presentation.alpha
+        )
+        hotspotHoverOutline.fillColor = SKColor(
+            red: presentation.red,
+            green: presentation.green,
+            blue: presentation.blue,
+            alpha: HotspotHoverHighlight.fillAlpha
+        )
+        hotspotHoverOutline.isHidden = false
     }
 
     private func addWindowRain() {
