@@ -192,7 +192,7 @@ final class DetectiveActorNode: SKNode {
             let dx = destination.x - segmentStart.x
             let dy = destination.y - segmentStart.y
             let distance = hypot(dx, dy)
-            let duration = max(0.04, distance / 270)
+            let duration = ActorLocomotionPacing.pathDuration(distance: distance)
             actions.append(.run { [weak self] in
                 guard let self else { return }
                 self.setFacing(dx: dx, dy: dy)
@@ -246,7 +246,7 @@ final class DetectiveActorNode: SKNode {
         standUpTextures.forEach { $0.filteringMode = .nearest }
         let standUp = SKAction.animate(
             with: standUpTextures,
-            timePerFrame: 0.1,
+            timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame,
             resize: false,
             restore: false
         )
@@ -367,7 +367,12 @@ final class DetectiveActorNode: SKNode {
             return
         }
         textures.forEach { $0.filteringMode = .nearest }
-        let cycle = SKAction.animate(with: textures, timePerFrame: 0.14, resize: false, restore: false)
+        let cycle = SKAction.animate(
+            with: textures,
+            timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame,
+            resize: false,
+            restore: false
+        )
         body.run(.repeatForever(cycle), withKey: "walkCycle")
     }
 

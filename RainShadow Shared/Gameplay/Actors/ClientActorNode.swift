@@ -59,7 +59,10 @@ final class ClientActorNode: SKNode {
         if walkingFrames.count == 4 {
             walkingFrames.forEach { $0.filteringMode = .nearest }
             body.run(
-                .repeatForever(.animate(with: walkingFrames, timePerFrame: 0.15)),
+                .repeatForever(.animate(
+                    with: walkingFrames,
+                    timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
+                )),
                 withKey: "clientWalkCycle"
             )
         }
@@ -68,7 +71,10 @@ final class ClientActorNode: SKNode {
         var prior = start
         for destination in points.dropFirst() {
             let distance = hypot(destination.x - prior.x, destination.y - prior.y)
-            let movement = SKAction.move(to: destination, duration: max(0.15, distance / 82))
+            let movement = SKAction.move(
+                to: destination,
+                duration: ActorLocomotionPacing.pathDuration(distance: distance)
+            )
             movement.timingMode = .linear
             actions.append(movement)
             prior = destination
@@ -101,7 +107,10 @@ final class ClientActorNode: SKNode {
             departureTextures.forEach { $0.filteringMode = .nearest }
             body.texture = departureTextures[0]
             body.run(
-                .repeatForever(.animate(with: departureTextures, timePerFrame: 0.15)),
+                .repeatForever(.animate(
+                    with: departureTextures,
+                    timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
+                )),
                 withKey: "clientWalkCycle"
             )
         }
@@ -110,7 +119,10 @@ final class ClientActorNode: SKNode {
         var prior = start
         for destination in points.dropFirst() {
             let distance = hypot(destination.x - prior.x, destination.y - prior.y)
-            let movement = SKAction.move(to: destination, duration: max(0.15, distance / 82))
+            let movement = SKAction.move(
+                to: destination,
+                duration: ActorLocomotionPacing.pathDuration(distance: distance)
+            )
             movement.timingMode = .linear
             actions.append(movement)
             prior = destination
