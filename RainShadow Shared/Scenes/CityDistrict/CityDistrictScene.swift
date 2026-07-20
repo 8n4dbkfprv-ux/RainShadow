@@ -13,10 +13,12 @@ final class CityDistrictScene: BaseGameScene {
     private let portraitBar = PortraitBarNode()
     private let actionBar = ActionBarNode()
     private lazy var areaMapOverlay = AreaMapOverlay(configuration: makeMapConfiguration())
+    private let journalOverlay = JournalOverlay()
     private var fogOfWar: CityFogOfWarNode?
     private var navigation: NavigationGrid!
     private var inventoryIsPresented = false
     private var mapIsPresented = false
+    private var journalIsPresented = false
     private var hasShownArrivalHint = false
 
     override var referenceVisibleHeight: CGFloat { CityDistrictLayout.cameraVisibleHeight }
@@ -77,6 +79,10 @@ final class CityDistrictScene: BaseGameScene {
 
     override func handlePointerUp(_ event: GamePointerEvent) {
         let hudPoint = hudRoot.convert(event.location, from: self)
+        if journalIsPresented {
+            journalOverlay.handlePointer(at: journalOverlay.convert(hudPoint, from: hudRoot))
+            return
+        }
         if mapIsPresented {
             areaMapOverlay.handlePointer(at: areaMapOverlay.convert(hudPoint, from: hudRoot))
             return
@@ -96,6 +102,10 @@ final class CityDistrictScene: BaseGameScene {
             setMapPresented(true)
             return
         }
+        if actionBar.hitTestJournal(actionPoint) {
+            setJournalPresented(true)
+            return
+        }
 
         guard CityDistrictLayout.worldBounds.contains(event.location),
               let target = navigation.nearestWalkablePoint(to: event.location) else {
@@ -106,6 +116,10 @@ final class CityDistrictScene: BaseGameScene {
 
     override func handleDirectionalInput(_ direction: CGVector) {
         if mapIsPresented { return }
+        if journalIsPresented {
+            journalOverlay.handleDirectionalInput(direction)
+            return
+        }
         if inventoryIsPresented {
             inventoryOverlay.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1)
             return
@@ -124,6 +138,11 @@ final class CityDistrictScene: BaseGameScene {
     override func handlePointerMoved(_ event: GamePointerEvent) {
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
+        if journalIsPresented {
+            let journalPoint = journalOverlay.convert(hudPoint, from: hudRoot)
+            (journalOverlay.isInteractive(at: journalPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+            return
+        }
         if mapIsPresented {
             let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
             (areaMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -137,7 +156,14 @@ final class CityDistrictScene: BaseGameScene {
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
         let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
         actionBar.setMapButtonHighlighted(mapIsHighlighted)
+        actionBar.setJournalButtonHighlighted(false)
         if mapIsHighlighted {
+            NSCursor.pointingHand.set()
+            return
+        }
+        let journalIsHighlighted = actionBar.hitTestJournal(actionPoint)
+        actionBar.setJournalButtonHighlighted(journalIsHighlighted)
+        if journalIsHighlighted {
             NSCursor.pointingHand.set()
             return
         }
@@ -147,17 +173,29 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func handleInventoryInput() {
-        guard !mapIsPresented else { return }
+        guard !mapIsPresented, !journalIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
     }
 
     override func handleMapInput() {
-        guard !inventoryIsPresented else { return }
+        guard !inventoryIsPresented, !journalIsPresented else { return }
         setMapPresented(!mapIsPresented)
     }
 
+    override func handleJournalInput() {
+        guard !inventoryIsPresented, !mapIsPresented else { return }
+        setJournalPresented(!journalIsPresented)
+    }
+
+    override func handleScrollInput(_ deltaY: CGFloat) {
+        guard journalIsPresented else { return }
+        journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
+    }
+
     override func handleConfirmInput() {
-        if mapIsPresented {
+        if journalIsPresented {
+            setJournalPresented(false)
+        } else if mapIsPresented {
             setMapPresented(false)
         } else if inventoryIsPresented {
             setInventoryPresented(false)
@@ -169,6 +207,7 @@ final class CityDistrictScene: BaseGameScene {
         let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
         inventoryOverlay.layout(for: visibleSize)
         areaMapOverlay.layout(for: visibleSize)
+        journalOverlay.layout(for: size)
         portraitBar.layout(for: size)
         actionBar.layout(for: size)
         updateCameraPosition()
@@ -204,6 +243,10 @@ final class CityDistrictScene: BaseGameScene {
         areaMapOverlay.zPosition = 110
         areaMapOverlay.onDismiss = { [weak self] in self?.setMapPresented(false) }
         hudRoot.addChild(areaMapOverlay)
+
+        journalOverlay.zPosition = 120
+        journalOverlay.onDismiss = { [weak self] in self?.setJournalPresented(false) }
+        hudRoot.addChild(journalOverlay)
     }
 
     private func moveDetective(to target: CGPoint) {
@@ -234,6 +277,19 @@ final class CityDistrictScene: BaseGameScene {
             areaMapOverlay.present(currentPosition: detective.position)
         } else {
             areaMapOverlay.hideAnimated()
+        }
+    }
+
+    private func setJournalPresented(_ presented: Bool) {
+        guard journalIsPresented != presented else { return }
+        journalIsPresented = presented
+        setWorldPaused(presented)
+        portraitBar.isHidden = presented
+        actionBar.isHidden = presented
+        if presented {
+            journalOverlay.present(inspectedHotspotIDs: context.session.inspectedHotspotIDs)
+        } else {
+            journalOverlay.hideAnimated()
         }
     }
 

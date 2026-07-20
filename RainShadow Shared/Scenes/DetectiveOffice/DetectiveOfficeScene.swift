@@ -13,6 +13,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private let portraitBar = PortraitBarNode()
     private let actionBar = ActionBarNode()
     private let areaMapOverlay = AreaMapOverlay()
+    private let journalOverlay = JournalOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
@@ -21,6 +22,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var hoveredHotspotID: String?
     private var inventoryIsPresented = false
     private var mapIsPresented = false
+    private var journalIsPresented = false
     private var caseIntroductionStarted = false
     private var dialogueIsActive = true
 
@@ -153,6 +155,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             self?.setMapPresented(false)
         }
         hudRoot.addChild(areaMapOverlay)
+        journalOverlay.zPosition = 120
+        journalOverlay.onDismiss = { [weak self] in
+            self?.setJournalPresented(false)
+        }
+        hudRoot.addChild(journalOverlay)
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
     }
 
@@ -197,6 +204,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let hudPoint = hudRoot.convert(event.location, from: self)
+        if journalIsPresented {
+            let journalPoint = journalOverlay.convert(hudPoint, from: hudRoot)
+            journalOverlay.handlePointer(at: journalPoint)
+            return
+        }
         if mapIsPresented {
             let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
             areaMapOverlay.handlePointer(at: mapPoint)
@@ -217,6 +229,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
         if actionBar.hitTestMap(actionPoint) {
             setMapPresented(true)
+            return
+        }
+        if actionBar.hitTestJournal(actionPoint) {
+            setJournalPresented(true)
             return
         }
 
@@ -249,6 +265,10 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
         if mapIsPresented { return }
+        if journalIsPresented {
+            journalOverlay.handleDirectionalInput(direction)
+            return
+        }
         if inventoryIsPresented {
             let previous = direction.dx < 0 || direction.dy > 0
             inventoryOverlay.moveSelection(previous ? -1 : 1)
@@ -280,6 +300,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             (areaMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
+        if journalIsPresented {
+            clearHotspotHoverHighlight()
+            let journalPoint = journalOverlay.convert(hudPoint, from: hudRoot)
+            (journalOverlay.isInteractive(at: journalPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+            return
+        }
         if inventoryIsPresented {
             clearHotspotHoverHighlight()
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
@@ -290,7 +316,16 @@ final class DetectiveOfficeScene: BaseGameScene {
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
         let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
         actionBar.setMapButtonHighlighted(mapIsHighlighted)
+        actionBar.setJournalButtonHighlighted(false)
         if mapIsHighlighted {
+            clearHotspotHoverHighlight()
+            NSCursor.pointingHand.set()
+            return
+        }
+
+        let journalIsHighlighted = actionBar.hitTestJournal(actionPoint)
+        actionBar.setJournalButtonHighlighted(journalIsHighlighted)
+        if journalIsHighlighted {
             clearHotspotHoverHighlight()
             NSCursor.pointingHand.set()
             return
@@ -311,21 +346,33 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleInventoryInput() {
-        guard !dialogueIsActive, !mapIsPresented else { return }
+        guard !dialogueIsActive, !mapIsPresented, !journalIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
     }
 
     override func handleMapInput() {
-        guard !dialogueIsActive, !inventoryIsPresented else { return }
+        guard !dialogueIsActive, !inventoryIsPresented, !journalIsPresented else { return }
         setMapPresented(!mapIsPresented)
     }
 
+    override func handleJournalInput() {
+        guard !dialogueIsActive, !inventoryIsPresented, !mapIsPresented else { return }
+        setJournalPresented(!journalIsPresented)
+    }
+
     override func handleScrollInput(_ deltaY: CGFloat) {
-        guard dialogueIsActive else { return }
-        _ = caseIntroductionPresenter.scrollContent(by: -deltaY)
+        if journalIsPresented {
+            journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
+        } else if dialogueIsActive {
+            _ = caseIntroductionPresenter.scrollContent(by: -deltaY)
+        }
     }
 
     override func handleConfirmInput() {
+        if journalIsPresented {
+            setJournalPresented(false)
+            return
+        }
         if mapIsPresented {
             setMapPresented(false)
             return
@@ -343,6 +390,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
         inventoryOverlay.layout(for: visibleSize)
         areaMapOverlay.layout(for: visibleSize)
+        journalOverlay.layout(for: size)
         caseIntroductionPresenter.layout(for: visibleSize)
         // Camera children use screen-space points. The other overlays intentionally
         // follow the authored visible-world canvas, while the edge rail must span
@@ -579,6 +627,31 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
     }
 
+    private func setJournalPresented(_ presented: Bool) {
+        guard journalIsPresented != presented else { return }
+        journalIsPresented = presented
+        if presented { clearHotspotHoverHighlight() }
+
+        let pausedWorldRoots = [
+            backgroundRoot,
+            floorEffectRoot,
+            rearFixtureRoot,
+            depthWorldRoot,
+            occlusionRoot,
+            weatherRoot,
+            cinematicRoot
+        ]
+        pausedWorldRoots.forEach { $0.isPaused = presented }
+        portraitBar.isHidden = presented
+        actionBar.isHidden = presented
+
+        if presented {
+            journalOverlay.present(inspectedHotspotIDs: context.session.inspectedHotspotIDs)
+        } else {
+            journalOverlay.hideAnimated()
+        }
+    }
+
     private func configureNavigation() {
         navigation = OfficeNavigationLayout.makeGrid()
     }
@@ -601,7 +674,7 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     /// Applies the shipped hover presentation contract for free exploration.
     private func updateHotspotHoverHighlight(at worldPoint: CGPoint) {
-        let blocked = dialogueIsActive || mapIsPresented || inventoryIsPresented
+        let blocked = dialogueIsActive || mapIsPresented || inventoryIsPresented || journalIsPresented
         let targets = hotspots.map {
             HotspotHoverHighlight.Target(id: $0.id, hitArea: $0.hitArea)
         }

@@ -9,6 +9,8 @@ final class ActionBarNode: SKNode {
         static let railWidth: CGFloat = 142
         static let mapButtonHitSize = CGSize(width: 108, height: 108)
         static let mapButtonArtworkSize = CGSize(width: 108, height: 72)
+        static let journalButtonHitSize = CGSize(width: 108, height: 92)
+        static let journalButtonArtworkSize = CGSize(width: 70, height: 62)
         static let topInset: CGFloat = 30
     }
 
@@ -31,6 +33,9 @@ final class ActionBarNode: SKNode {
     private let mapButtonShadow = SKShapeNode(rectOf: Metrics.mapButtonArtworkSize, cornerRadius: 7)
     private let mapButtonArtwork = SKSpriteNode()
     private let mapButtonHighlight = SKShapeNode(rectOf: Metrics.mapButtonArtworkSize, cornerRadius: 7)
+    private let journalButtonRoot = SKNode()
+    private let journalButtonArtwork = SKNode()
+    private let journalButtonHighlight = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
     private let separatorShadow = SKShapeNode()
     private let separator = SKShapeNode()
     private let rivetLeft = SKShapeNode(circleOfRadius: 2.6)
@@ -41,6 +46,7 @@ final class ActionBarNode: SKNode {
         name = "hud.action-bar"
         buildRail()
         buildMapButton()
+        buildJournalButton()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -99,8 +105,12 @@ final class ActionBarNode: SKNode {
 
         let buttonCenterY = visibleSize.height / 2 - Metrics.topInset - Metrics.mapButtonHitSize.height / 2
         mapButtonRoot.position = CGPoint(x: -1, y: buttonCenterY)
+        journalButtonRoot.position = CGPoint(
+            x: -1,
+            y: buttonCenterY - Metrics.mapButtonHitSize.height - 14
+        )
 
-        let separatorY = buttonCenterY - Metrics.mapButtonHitSize.height / 2 - 13
+        let separatorY = journalButtonRoot.position.y - Metrics.journalButtonHitSize.height / 2 - 13
         let path = CGMutablePath()
         path.move(to: CGPoint(x: -Metrics.railWidth / 2 + 11, y: separatorY))
         path.addLine(to: CGPoint(x: Metrics.railWidth / 2 - 13, y: separatorY))
@@ -123,6 +133,16 @@ final class ActionBarNode: SKNode {
         ).contains(localPoint)
     }
 
+    func hitTestJournal(_ point: CGPoint) -> Bool {
+        let localPoint = journalButtonRoot.convert(point, from: self)
+        return CGRect(
+            x: -Metrics.journalButtonHitSize.width / 2,
+            y: -Metrics.journalButtonHitSize.height / 2,
+            width: Metrics.journalButtonHitSize.width,
+            height: Metrics.journalButtonHitSize.height
+        ).contains(localPoint)
+    }
+
     func setMapButtonHighlighted(_ highlighted: Bool) {
         mapButtonRoot.removeAction(forKey: "hover")
         mapButtonRoot.run(.scale(to: highlighted ? 1.035 : 1, duration: 0.10), withKey: "hover")
@@ -132,6 +152,16 @@ final class ActionBarNode: SKNode {
             ? Palette.paper.withAlphaComponent(0.82)
             : .clear
         mapButtonHighlight.glowWidth = highlighted ? 1.5 : 0
+    }
+
+    func setJournalButtonHighlighted(_ highlighted: Bool) {
+        journalButtonRoot.removeAction(forKey: "hover")
+        journalButtonRoot.run(.scale(to: highlighted ? 1.04 : 1, duration: 0.10), withKey: "hover")
+        journalButtonArtwork.alpha = highlighted ? 1 : 0.82
+        journalButtonHighlight.strokeColor = highlighted
+            ? Palette.paper.withAlphaComponent(0.88)
+            : .clear
+        journalButtonHighlight.glowWidth = highlighted ? 1.5 : 0
     }
 
     private func buildRail() {
@@ -210,6 +240,53 @@ final class ActionBarNode: SKNode {
         mapButtonHighlight.lineWidth = 2
         mapButtonHighlight.zPosition = 1
         mapButtonRoot.addChild(mapButtonHighlight)
+    }
+
+    private func buildJournalButton() {
+        journalButtonRoot.name = "hud.journal-button"
+        addChild(journalButtonRoot)
+
+        let shadow = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
+        shadow.fillColor = SKColor(white: 0, alpha: 0.84)
+        shadow.strokeColor = .clear
+        shadow.position = CGPoint(x: 3, y: -4)
+        shadow.zPosition = -3
+        journalButtonRoot.addChild(shadow)
+
+        let cover = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
+        cover.fillColor = SKColor(red: 0.14, green: 0.045, blue: 0.043, alpha: 1)
+        cover.strokeColor = Palette.steel
+        cover.lineWidth = 2
+        journalButtonArtwork.addChild(cover)
+
+        let spine = SKShapeNode(rectOf: CGSize(width: 8, height: 54), cornerRadius: 2)
+        spine.fillColor = Palette.steelDark
+        spine.strokeColor = Palette.brass.withAlphaComponent(0.72)
+        spine.lineWidth = 1
+        spine.position.x = -25
+        journalButtonArtwork.addChild(spine)
+
+        let page = SKShapeNode(rectOf: CGSize(width: 42, height: 43), cornerRadius: 2)
+        page.fillColor = SKColor(red: 0.72, green: 0.69, blue: 0.59, alpha: 0.95)
+        page.strokeColor = SKColor(white: 0.12, alpha: 0.8)
+        page.lineWidth = 1
+        page.position.x = 6
+        journalButtonArtwork.addChild(page)
+
+        for y in [-11, -2, 7] as [CGFloat] {
+            let line = SKShapeNode(rectOf: CGSize(width: 29, height: 1))
+            line.fillColor = SKColor(red: 0.34, green: 0.11, blue: 0.10, alpha: 0.72)
+            line.strokeColor = .clear
+            line.position = CGPoint(x: 6, y: y)
+            journalButtonArtwork.addChild(line)
+        }
+        journalButtonRoot.addChild(journalButtonArtwork)
+
+        journalButtonHighlight.fillColor = .clear
+        journalButtonHighlight.strokeColor = .clear
+        journalButtonHighlight.lineWidth = 2
+        journalButtonHighlight.zPosition = 2
+        journalButtonRoot.addChild(journalButtonHighlight)
     }
 
     private func layoutScratches(railHeight: CGFloat, below separatorY: CGFloat) {

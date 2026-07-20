@@ -61,6 +61,7 @@ class BaseGameScene: SKScene {
     func handleConfirmInput() {}
     func handleInventoryInput() {}
     func handleMapInput() {}
+    func handleJournalInput() {}
 
     func layoutViewport() {
         guard size.height > 0 else { return }
@@ -155,6 +156,7 @@ extension BaseGameScene {
         case 13, 126: handleDirectionalInput(CGVector(dx: 0, dy: 1)) // W / up
         case 34: handleInventoryInput() // I
         case 46: handleMapInput() // M
+        case 38: handleJournalInput() // J
         case 36, 49, 53: handleConfirmInput() // return / space / escape
         default: super.keyDown(with: event)
         }

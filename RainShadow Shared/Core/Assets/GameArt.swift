@@ -37,6 +37,7 @@ enum GameArt {
             "inventory_item_flashlight_v01",
             "inventory_item_wallet_v01",
             "inventory_item_cigarette_case_v01",
+            "journal_casebook_plate_v01",
             "det_paperdoll_front_rgba_v02",
             "det_standing_idle_s_00",
             "det_standing_idle_sw_00",
