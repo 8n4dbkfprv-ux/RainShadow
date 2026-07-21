@@ -6,12 +6,13 @@ import SpriteKit
 @MainActor
 final class ActionBarNode: SKNode {
     private enum Metrics {
-        static let railWidth: CGFloat = 142
-        static let mapButtonHitSize = CGSize(width: 108, height: 108)
-        static let mapButtonArtworkSize = CGSize(width: 108, height: 72)
-        static let journalButtonHitSize = CGSize(width: 108, height: 92)
-        static let journalButtonArtworkSize = CGSize(width: 70, height: 62)
-        static let topInset: CGFloat = 30
+        static let railWidth: CGFloat = 128
+        static let mapButtonHitSize = CGSize(width: 100, height: 92)
+        static let mapButtonArtworkSize = CGSize(width: 96, height: 64)
+        static let journalButtonHitSize = CGSize(width: 100, height: 80)
+        static let journalButtonArtworkSize = CGSize(width: 96, height: 64)
+        static let topInset: CGFloat = 22
+        static let buttonSpacing: CGFloat = 6
     }
 
     private enum Palette {
@@ -34,7 +35,7 @@ final class ActionBarNode: SKNode {
     private let mapButtonArtwork = SKSpriteNode()
     private let mapButtonHighlight = SKShapeNode(rectOf: Metrics.mapButtonArtworkSize, cornerRadius: 7)
     private let journalButtonRoot = SKNode()
-    private let journalButtonArtwork = SKNode()
+    private let journalButtonArtwork = SKSpriteNode()
     private let journalButtonHighlight = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
     private let separatorShadow = SKShapeNode()
     private let separator = SKShapeNode()
@@ -107,10 +108,13 @@ final class ActionBarNode: SKNode {
         mapButtonRoot.position = CGPoint(x: -1, y: buttonCenterY)
         journalButtonRoot.position = CGPoint(
             x: -1,
-            y: buttonCenterY - Metrics.mapButtonHitSize.height - 14
+            y: buttonCenterY
+                - Metrics.mapButtonHitSize.height / 2
+                - Metrics.journalButtonHitSize.height / 2
+                - Metrics.buttonSpacing
         )
 
-        let separatorY = journalButtonRoot.position.y - Metrics.journalButtonHitSize.height / 2 - 13
+        let separatorY = journalButtonRoot.position.y - Metrics.journalButtonHitSize.height / 2 - 9
         let path = CGMutablePath()
         path.move(to: CGPoint(x: -Metrics.railWidth / 2 + 11, y: separatorY))
         path.addLine(to: CGPoint(x: Metrics.railWidth / 2 - 13, y: separatorY))
@@ -253,32 +257,12 @@ final class ActionBarNode: SKNode {
         shadow.zPosition = -3
         journalButtonRoot.addChild(shadow)
 
-        let cover = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
-        cover.fillColor = SKColor(red: 0.14, green: 0.045, blue: 0.043, alpha: 1)
-        cover.strokeColor = Palette.steel
-        cover.lineWidth = 2
-        journalButtonArtwork.addChild(cover)
-
-        let spine = SKShapeNode(rectOf: CGSize(width: 8, height: 54), cornerRadius: 2)
-        spine.fillColor = Palette.steelDark
-        spine.strokeColor = Palette.brass.withAlphaComponent(0.72)
-        spine.lineWidth = 1
-        spine.position.x = -25
-        journalButtonArtwork.addChild(spine)
-
-        let page = SKShapeNode(rectOf: CGSize(width: 42, height: 43), cornerRadius: 2)
-        page.fillColor = SKColor(red: 0.72, green: 0.69, blue: 0.59, alpha: 0.95)
-        page.strokeColor = SKColor(white: 0.12, alpha: 0.8)
-        page.lineWidth = 1
-        page.position.x = 6
-        journalButtonArtwork.addChild(page)
-
-        for y in [-11, -2, 7] as [CGFloat] {
-            let line = SKShapeNode(rectOf: CGSize(width: 29, height: 1))
-            line.fillColor = SKColor(red: 0.34, green: 0.11, blue: 0.10, alpha: 0.72)
-            line.strokeColor = .clear
-            line.position = CGPoint(x: 6, y: y)
-            journalButtonArtwork.addChild(line)
+        if let texture = GameArt.texture(named: "journal_icon_noir_v01") {
+            texture.filteringMode = .linear
+            journalButtonArtwork.texture = texture
+            journalButtonArtwork.size = Metrics.journalButtonArtworkSize
+        } else {
+            assertionFailure("Missing journal_icon_noir_v01.png")
         }
         journalButtonRoot.addChild(journalButtonArtwork)
 
