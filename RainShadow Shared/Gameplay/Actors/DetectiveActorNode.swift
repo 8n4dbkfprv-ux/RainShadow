@@ -75,7 +75,8 @@ final class DetectiveActorNode: SKNode {
             return (facing, textures)
         })
 
-        // Sized for the 100px source body and shown at its native room scale.
+        // V4 atlases carry a 2x copy of a 100px native raster. Nearest filtering
+        // resolves it back to the intended lightly pixelated gameplay scale.
         contactShadow = SKShapeNode(ellipseOf: CGSize(width: 54, height: 20))
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
         contactShadow.strokeColor = .clear

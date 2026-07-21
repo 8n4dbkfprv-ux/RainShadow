@@ -41,9 +41,9 @@ The player connects facts into hypotheses. Several hypotheses may fit the known 
 
 The tone is bruised and unsentimental, but not empty cynicism. Small acts of care, humor, dignity, and restraint make the darkness meaningful. Violence is possible, rarely clean, and never the default reward loop.
 
-### 2.5 Painterly clarity
+### 2.5 Pre-rendered clarity
 
-Detailed pre-rendered locations and deliberately coarse, chunky avatar sprites evoke Baldur's Gate: Enhanced Edition specifically. The actor is not a smooth high-resolution illustration: he reads like a low-resolution early-3D miniature rendered into directional frames, with simplified body masses, palette-banded shading, and minimal facial information. Interactive objects remain readable through silhouette, value, controlled highlights, cursor feedback, and authored occlusion—not through modern neon outlines everywhere.
+Detailed pre-rendered locations and crude era-authentic 3D character meshes evoke the production logic of classic Infinity Engine games. Characters are modeled, rigged, lit, and rendered offline into directional 2D frames. Their geometry and textures remain deliberately simple, then resolve through a small native raster and restrained palette so the play-scale result is lightly pixelated without becoming hand-authored pixel art. Interactive objects remain readable through silhouette, value, controlled highlights, cursor feedback, and authored occlusion—not through modern neon outlines everywhere.
 
 ## 3. Audience, rating, and format
 
@@ -228,7 +228,7 @@ The target is the production language associated with classic Infinity Engine ga
 
 - richly painted or pre-rendered static area art;
 - a fixed three-quarter isometric/dimetric projection;
-- low-resolution, pre-rendered 3D-derived avatar sprites with chunky simplified anatomy, broad readable clothing/equipment masses, limited palette ramps, and multi-orientation animation;
+- crude hundreds-of-triangles 3D avatar meshes rendered offline into lightly pixelated 2D sprite frames with readable clothing/equipment masses and multi-orientation animation;
 - baked environmental lighting plus selective live overlays;
 - ground-contact shadows that keep sprites attached to the room;
 - separate doors, actors, effects, and interactive props;
@@ -263,7 +263,7 @@ Lighting rules:
 - One cool environmental source: rain-window spill.
 - Deep but readable shadows; black values retain texture on calibrated displays.
 - Highlights describe wetness, glass, metal, and paper edges rather than coating every surface.
-- Environment objects must obey the scene's fixed light direction. The BG:EE-style actor uses one consistent neutral baked sprite rig and limited palette; subtle runtime tint, a lamp overlay, and the separate contact shadow integrate it without turning it into a smoother scene-relit illustration.
+- Environment objects must obey the scene's fixed light direction. Actors use one consistent neutral baked sprite rig; subtle runtime tint, a lamp overlay, and the separate contact shadow integrate them without requiring per-frame scene relighting.
 
 ### 5.4 Texture and detail
 
@@ -272,22 +272,22 @@ Lighting rules:
 - Downsample from larger masters to unify texture and soften generation artifacts.
 - Assess every asset at final on-screen scale. Detail that turns into noise must be regrouped, not merely sharpened.
 
-### 5.5 Character presentation — Baldur's Gate: Enhanced Edition avatar target
+### 5.5 Character presentation — crude era-authentic pre-rendered 3D target
 
-The in-world detective must match the supplied Baldur's Gate sprite references more closely than the higher-resolution portraits or environment art. The defining contrast is intentional: a richly rendered area contains a visibly coarser animated avatar.
+The in-world detective and clients use the same historical production principle as the supplied Baldur's Gate references—3D source models rendered into 2D directional frames—with a restrained play-scale raster treatment that recalls the original era without imitating hand-drawn pixel art.
 
-- Source construction should look like an early low-poly 3D maquette rendered to 2D, then reduced—not like a hand-painted full-resolution figure.
-- Proportions are compact and game-readable rather than anatomically delicate: roughly 6.5–7 heads tall, slightly top-heavy, with broad shoulders, thick forearm/hand shapes, sturdy shoes, and a trench coat simplified into a few strong masses. This is not super-deformed or cute.
-- At the reference 2048×1152 view, the standing body is only about 125–145 screen pixels tall. Facial stubble and age read as a few controlled value clusters; they are not portrait-level details.
-- Shading uses a restricted shared sprite palette, obvious light/dark ramps, restrained dithering, and a slightly hard raster edge. Avoid smooth painterly gradients, high-frequency cloth texture, modern subpixel hair, or high-resolution antialiasing.
-- Clothing colors form large, legible zones like the robe/armor color blocks in the references. The coat silhouette matters more than buttons or seams.
+- Source construction must read as a crude 1998-era textured game mesh rendered offline, not as hand-painted art, polished modern low-poly concept art, or a high-detail PBR character. Prompt for the production technology explicitly: hundreds rather than thousands of triangles, broad planar faces, solid-shell hair, mitten hands, tiny diffuse maps, and primitive vertex/Gouraud lighting.
+- Proportions use simplified realistic anatomy: readable shoulders and coat masses, but ordinary-sized head, hands, and shoes rather than a top-heavy pixel-sprite silhouette.
+- At the reference 2048×1152 view, the standing body remains about 125–145 screen pixels tall. The character stays small relative to architecture without being low-density.
+- Shading uses broad baked diffuse planes, low-resolution texture maps, restrained ambient occlusion, and limited muted color ramps. Generator masters are reduced to a 100-pixel native body, limited to 96 colors without dithering, and stored at 2× nearest scale; SpriteKit resolves them with nearest filtering. Avoid hand-placed pixels, coarse decorative pixel clusters, painterly brushwork, and modern pore/strand-level detail.
+- Clothing colors form large, legible zones. The coat silhouette matters more than buttons or seams.
 - Locomotion resolves to 16 facing bins. Nine source orientations—S, SSW, SW, WSW, W, WNW, NW, NNW, N—supply the remaining seven eastern orientations by horizontal mirroring, echoing the legacy BG2/BG:EE convention.
 - The detective design is kept near-bilateral at sprite scale so mirroring does not expose a swapped holster, lapel badge, or other continuity-breaking prop.
-- Sprite lighting is a consistent neutral baked rig suited to palette/tint adjustment, not a new scene-specific high-resolution relight for every frame. The office integrates him with subtle tint, lamp overlay, and contact shadow.
+- Sprite lighting is a consistent neutral baked rig suited to subtle tint adjustment, not a new scene-specific relight for every frame. The office integrates him with a lamp overlay and contact shadow.
 - A shared ground pivot sits under the midpoint between the feet. A separate soft contact-shadow sprite is not baked into each animation frame.
-- Do not bake a heavy black outline. Edge separation comes from the limited palette; an optional outline/ring is reserved for accessibility and debug display.
+- Do not bake a heavy black outline. Edge separation comes from value and material contrast; an optional outline/ring is reserved for accessibility and debug display.
 
-This specification is grounded in Beamdog's description of orientation-specific character frames and 256-color palette remapping in the [Baldur's Gate: Enhanced Edition postmortem](https://www.gamedeveloper.com/programming/postmortem-overhaul-games-i-baldur-s-gate-enhanced-edition-i-) and the legacy orientation/mirroring behavior documented by [IESDP](https://gibberlings3.github.io/iesdp/file_formats/ie_formats/ini_anim.htm).
+This specification is grounded in Beamdog's description of the lost 3D character models it had planned to re-render at higher resolution in the [Baldur's Gate: Enhanced Edition postmortem](https://www.gamedeveloper.com/programming/postmortem-overhaul-games-i-baldur-s-gate-enhanced-edition-i-) and the legacy orientation/mirroring behavior documented by [IESDP](https://gibberlings3.github.io/iesdp/file_formats/ie_formats/ini_anim.htm).
 
 ## 6. Core gameplay loops
 

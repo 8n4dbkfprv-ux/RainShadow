@@ -27,7 +27,7 @@ The Image Generator produces source material. Every result still passes registra
 - Visual elevation: approximately 30 degrees.
 - Screen-space diamond: 128×64 pixels in baseline runtime art space.
 - Camera remains orthographic/fixed. Props must be generated against the office shell registration image.
-- Office environment art uses a desk-lamp key and cool window fill. Character sprites use one consistent neutral baked sprite rig with restricted palette ramps; subtle runtime tint/light overlays integrate them without smoothing away the BG:EE-style raster character.
+- Office environment art uses a desk-lamp key and cool window fill. Character sprites use one consistent neutral baked 3D rig; subtle runtime tint/light overlays and separate contact shadows integrate them with the room.
 
 ### 2.3 Files and color
 
@@ -46,7 +46,7 @@ The Image Generator produces source material. Every result still passes registra
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
 | Office shell | 4096×2048 V2 plate | 4096×2048 | Empty panoramic architecture only; V1 3072-wide coordinates remain centered. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
-| Actor frame | 768×768 | 256×256 | Render large, then deliberately reduce/quantize into the coarse avatar scale; same untrimmed canvas and ground pivot in every frame. |
+| Actor frame | Generator master | 512×512 | Reduce to a 100px native body, limit to 96 colors without dithering, enlarge 2× with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
 | UI | 2× listed runtime | Listed runtime | Original RainShadow design, high readability. |
 
@@ -60,7 +60,7 @@ These assets are gates, not shippable final art. Do not generate the complete ma
 |---|---:|---|---|
 | `style_office_corner_v01` | 2048×1536 | One original office corner with empty worn floor, stained plaster, rain window, and desk-lamp test light; fixed projection. | Materials and value grouping read like a pre-rendered painted CRPG area, not a modern 3D render. |
 | `style_desk_composite_v01` | 2048×1536 | Desk, chair, detective, papers, and lamp temporarily composed for scale/light review. | Actor scale, contact, and warm/cool lighting are coherent. |
-| `style_detective_key_se_v01` | 1536×1536 | Full-body detective standing, facing SE, neutral pose, transparent background; shown both before and after 256×256 sprite reduction. | Chunky early-3D silhouette, clothing blocks, restricted shading, and low-resolution read are approved. |
+| `det_key_se_chroma_v04` | Generator master | Full-body detective standing, facing SE, neutral pose; crude 1998-era textured game mesh on removable chroma. | Broad planar construction, solid-shell hair, mitten hands, tiny diffuse-map texture, primitive vertex/Gouraud light, and play-scale raster read are approved; polished modern low-poly art is rejected. |
 | `style_play_scale_v01` | 2048×1152 | Mock gameplay frame with the style tests reduced to intended play size. | Primary shapes remain legible on phone and macOS; detail does not become noise. |
 
 Freeze approved results as reference inputs for every later generation. Record palette swatches, actor pixel height, camera grid, light direction, and desk dimensions in `art_style_lock.json`.
@@ -188,11 +188,9 @@ Design continuity rules:
 
 ### 6.2 Runtime animation set
 
-All stored runtime frames are 256×256 transparent PNGs, derived from 768×768 masters, untrimmed, with ground pivot at `(128, 40)` unless the final scale test establishes a different single shared value.
+All stored runtime frames are 512×512 transparent PNGs with a 200px opaque body and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. SpriteKit displays every frame at 256×256 points, preserving the established 100-world-unit actor height while providing 2× texture density. The seated pose gets its apparent height from authored posture and desk occlusion and retains its −100pt visual offset into the chair/desk registration.
 
-The shipped atlas cells use a 100px source body. SpriteKit displays standing, walking, and seated frames at their shared native 1.0× room scale. The seated pose gets its apparent height from the authored posture and desk occlusion rather than a mismatched display scale. It uses a −100pt visual offset into the registered chair/desk while its actor root remains on the walkable navigation cell.
-
-The body target is intentionally coarse: about 125–145 pixels from shoe sole to crown in the reference 2048×1152 view. Each clip shares a restricted 128–192 color palette with banded light/dark ramps, selective one-pixel antialiasing, and restrained dithering. Do not retain smooth master gradients or portrait-scale facial detail. The result should resemble a pre-rendered early-3D game avatar, not conventional painted pixel art.
+The body remains about 125–145 screen pixels from shoe sole to crown in the reference 2048×1152 view. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 100-pixel native body, limit it to 96 colors without dithering, enlarge it 2× with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
 
@@ -202,11 +200,11 @@ Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw
 | P0 | `det_stand_up` | SE only | 12 | 12 | 12 | 10 fps, once | Clears chair/desk without pivot jump; event on final standing frame. |
 | P1 | `det_sit_down` | SE only | 12 | 12 | 12 | 10 fps, once | Authored sequence, not a reversed stand-up clip. |
 | P0 | `det_standing_idle` | 9 source / 16 displayed | 4 | 36 | 64 | 5 fps with long holds | Broad readable mass shift, not smooth high-resolution breathing. |
-| P0 | `det_walk` | 9 source / 16 displayed | 8 | 72 | 128 | 10 fps loop | Clear contact/pass cycle, chunky silhouette, stable crown. |
+| P0 | `det_walk` | 9 source / 16 displayed | 8 | 72 | 128 | 10 fps loop | Clear contact/pass cycle, stable simplified silhouette and crown. |
 
 Required stored character texture frames: **140**. Required displayed facing/frame combinations, including runtime mirroring: **224**.
 
-The first client uses a deliberately smaller authored set: `ClientArrival.atlas` contains four southwest entrance phases, one southwest standing idle, and four rear three-quarter northeast departure phases. All use the same 256×256 canvas, 100px body height, and `(128, 39)` ground pivot as the detective.
+The first client uses a deliberately smaller authored set: `ClientArrival.atlas` contains four southwest entrance phases, one southwest standing idle, and four rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's 100-unit world height.
 
 Filename examples:
 
@@ -239,7 +237,7 @@ Additional character texture:
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.
 - Alpha-edge fringe: none over warm lamp light or cool window shadow.
 - Coat, tie, face, and hand identity: no unmotivated frame-to-frame change.
-- Sprite-style gate: the runtime result must show chunky simplified volumes, restricted palette ramps, and minimal facial detail; reject it if it reads as a smooth high-resolution painted figure merely scaled down.
+- Sprite-style gate: runtime must show simplified faceted 3D volumes, broad baked light, minimal facial detail, and a restrained visible native raster; reject painterly, modern-PBR, overly smooth realistic, or chunky hand-authored pixel-art results.
 
 ## 7. Weather and ambient effect assets
 
@@ -355,7 +353,7 @@ Master-only QA overlays:
 | `office_flattened_reference.png` | 3072×2048 | Approved composite used to compare SpriteKit assembly. |
 | `office_depth_reference.png` | 3072×2048 | Color-coded depth anchors and intended occluder splits. |
 | `office_hotspot_reference.png` | 3072×2048 | Visible hotspot polygons and approach arrows. |
-| `detective_pivot_reference.png` | 256×256 | Ground pivot, target coarse body bounds, head-height guide, and palette-ramp swatches. |
+| `detective_pivot_reference.png` | 512×512 | Doubled ground pivot, 200px body bounds, head-height guide, and baked-light swatches. |
 
 These overlays are excluded from release target membership.
 
@@ -383,13 +381,13 @@ Stop here if the look reads as generic AI art, modern 3D, pixel art, or a litera
 
 1. Finalize character sheet and isometric turnaround.
 2. Generate standing-idle key frames for the nine stored western-arc source orientations.
-3. Generate one complete SW walk cycle; reduce it to 256×256, quantize it, and test it in graybox at target scale.
+3. Generate one complete SW walk cycle; register it at 512×512 with a 200px body and test it in graybox at the 100-unit target scale.
 4. Expand walking to the remaining eight source orientations, then review all 16 displayed/mirrored facings.
 5. Generate seated idle and test behind the registered desk/chair.
 6. Generate stand-up and sit-down transitions.
-7. Downsample, align pivots, pack atlases, and inspect at 0.25× speed.
+7. Downsample with premultiplied-alpha resampling, align doubled pivots, pack 2× atlases, and inspect at 0.25× speed.
 
-Do not ask for all 140 stored final frames in one unreferenced prompt. Use the approved character image as the reference for every edit, change only pose/phase/direction, and reject identity drift immediately. The high-resolution generations are not the finished style: the shared downsample, palette reduction, edge, and dither pass is mandatory.
+Do not ask for all stored final frames in one unreferenced prompt. Use the approved low-detail 3D character image as the reference for every edit, change only pose/phase/direction, and reject identity drift immediately. High-resolution generations are registered through one shared premultiplied-alpha 2× downsample; palette reduction, dithering, and hard edge passes are prohibited.
 
 ### Batch 3 — effects, UI, and polish
 
@@ -416,7 +414,7 @@ Use an edit/reference chain rather than regenerating the room.
 
 ### 12.3 Character frame prompt skeleton
 
-> The exact approved RainShadow detective, constructed like a late-1990s low-poly game maquette for later pre-rendering: compact 6.5–7-head body, slightly top-heavy, broad shoulders, thick readable hands and shoes, rumpled trench coat simplified into strong nearly bilateral masses, loosened shirt and tie. Same face, stubble block, hair shape, body, clothes, and palette. Fixed approved isometric camera with neutral consistent sprite-render lighting. Pose: [animation/state/source orientation/frame phase]. Full body inside the exact shared transparent canvas, feet aligned to the approved ground pivot, no background, no floor, no contact shadow, no props unless specified, no text, no added clothing, no identity change. This is a high-resolution source to be reduced to a coarse 256×256 limited-palette sprite; do not make it a painterly portrait illustration.
+> The exact approved RainShadow detective, constructed as a genuinely crude 1998-era textured 3D VIDEO GAME MODEL captured from an old engine and baked into a sprite—not polished low-poly concept art. Use roughly 600–900 triangles, a face made from a few broad planar wedges, solid-shell hair, mitten-like hands, blunt shoes, broad rigid coat planes, tiny 32×32–64×64 diffuse maps, primitive vertex/Gouraud shading, one neutral directional light, and modest baked occlusion. Same face, stubble, hair, body, clothes, and colors. Fixed approved isometric camera. Pose: [animation/state/source orientation/frame phase]. Full body inside the shared transparent canvas, feet aligned to the approved ground pivot, no background, floor, contact shadow, props unless specified, text, added clothing, or identity change. Avoid PBR maps, pores, wrinkles, strands, fine weave, delicate seams, cinematic lighting, painterly illustration, cel shading, comic outlines, and hand-authored pixel art.
 
 ### 12.4 Effect prompt skeleton
 
@@ -446,7 +444,7 @@ The first production generation batch is approved only when:
 - every major prop can be removed without leaving a painted duplicate or implausible baked shadow;
 - the flattened runtime assembly matches the approved reference within registration tolerance;
 - desk front, door jamb, window sill, and foreground wall correctly occlude the detective;
-- all 140 stored frames and 224 displayed facing/frame combinations preserve identity, coarse scale, pivot, projection, palette behavior, and readable mirroring;
+- all stored frames and displayed facing/frame combinations preserve identity, world scale, 2× pivot, projection, baked-light behavior, controlled native raster texture, and readable mirroring;
 - rain and window effects loop without seams or mask leakage;
 - the room reads coherently at 2048×1152 and the narrow 1536×1152 safe view;
 - all content is original RainShadow content and contains no copied franchise assets, text, logos, or distinctive existing room composition.

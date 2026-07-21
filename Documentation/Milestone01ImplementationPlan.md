@@ -11,7 +11,7 @@ M01 delivers a polished opening slice on iOS/iPadOS and macOS:
 1. launch into a dark apartment-building exterior;
 2. play a 10–14 second skippable rain cinematic;
 3. transition smoothly toward the lit office window and into the office;
-4. reveal the detective seated behind his desk in the deliberately coarse Baldur's Gate: Enhanced Edition in-game avatar style;
+4. reveal the detective seated behind his desk as a crude era-authentic 3D game mesh pre-rendered into small 2D frames;
 5. allow the detective to stand, idle, and walk with 16-facing presentation;
 6. allow the player to inspect the window, desk, telephone, case files, and door;
 7. preserve correct depth and occlusion around the desk, chair, cabinet, door jamb, window sill, and foreground wall;
@@ -115,11 +115,11 @@ Exit gate: environment, prop, effect, and actor assets can be judged without ass
 - Retain original outputs and generation metadata.
 - Do not generate animation batches yet.
 
-Exit gate: the environment reads as a richly pre-rendered isometric area and the actor reads specifically as a coarse BG:EE-style in-game avatar after reduction—not as a high-resolution painted detective.
+Exit gate: the environment reads as a richly pre-rendered isometric area and the actor reads as a crude late-1990s textured 3D game mesh baked into 2D—not as pixel art, a painted detective, polished modern low-poly concept art, or a high-detail PBR character.
 
 #### Step 10: Freeze the style lock
 
-- Approve projection, palette, actor body height, 256×256 frame canvas, ground pivot, neutral sprite light rig, limited palette ramps, and environment light direction.
+- Approve projection, actor body height, 512×512 2× frame canvas, doubled ground pivot, neutral sprite light rig, broad baked shading, and environment light direction.
 - Create `art_style_lock.json` and master registration overlays.
 - Test the 125–145 pixel standing height on phone and macOS.
 
@@ -176,12 +176,12 @@ Exit gate: no office prop coordinate or depth bias is hard-coded in `DetectiveOf
 - Keep features readable as large masses at final size: stubble block, hair shape, coat body, shirt/tie zone, hands, shoes.
 - Remove small asymmetrical elements that would expose eastern mirroring.
 
-Exit gate: all source directions clearly depict the same compact early-3D-derived avatar after 256×256 reduction.
+Exit gate: all source directions clearly depict the same low-detail 3D maquette after 512×512 registration and 100-unit display scaling.
 
 #### Step 17: Produce and test one walk cycle
 
 - Generate the SW eight-frame source walk using a reference-edit chain.
-- Align root motion, downsample, quantize to the shared sprite palette, tune one-pixel edge treatment, and pack a test atlas.
+- Align root motion, downsample in premultiplied-alpha space to the 100px native body, apply the restrained 96-color ramp, enlarge 2× with nearest sampling, and pack a test atlas.
 - Play at 10 fps and 0.25× in the office graybox.
 
 Exit gate: no foot slide, crown jitter, identity drift, smooth painted look, or alpha halo; body reads at 125–145 pixels.
@@ -290,7 +290,7 @@ Exit gate: the room feels lived-in at full view and remains readable at phone sc
 - Clip glass flow, droplets, and impacts with `office_window_glass_mask`.
 - Add reduced-rain and reduced-motion behavior.
 
-Exit gate: the detective reads as a coarse BG:EE-style avatar grounded inside a coherent painterly room; rain never crosses the glass bounds.
+Exit gate: the detective reads as a low-detail pre-rendered 3D avatar grounded inside a coherent painterly room; rain never crosses the glass bounds.
 
 ### Phase 8 — implement playable interaction
 
@@ -386,7 +386,7 @@ Exit gate: the definition of done below passes with no open P0/P1 defect.
 
 | Risk | Early signal | Mitigation | Gate owner |
 |---|---|---|---|
-| Generated detective looks like smooth concept art | Fine pores, flowing cloth gradients, narrow natural anatomy at play size | Mandatory 256×256 reduction, restricted palette, edge/dither pass, play-scale style gate before batch animation | Character art |
+| Generated detective looks like smooth concept art or modern PBR | Fine pores, strand hair, painted brushwork, dense cloth response | Enforce faceted low-detail geometry, low-resolution diffuse maps, broad baked light, 512×512 2× registration, and a play-scale style gate | Character art |
 | Identity drift across 140 stored frames | Face/coat/hair changes in first test cycle | Reference-edit chain, one source direction at a time, reject on first drift, use animation harness | Character art |
 | Mirroring exposes asymmetry/light reversal | Lapel/prop swaps or glaring highlight flip | Near-bilateral sprite design, neutral baked sprite light, preview all 16 facings before locomotion batch | Art + engineering |
 | Props do not register to shell | Floating legs, mismatched projection, double shadows | Generate as edits against locked shell, full-canvas registered QA, flattened difference comparison | Environment art |
@@ -413,7 +413,7 @@ Exit gate: the definition of done below passes with no open P0/P1 defect.
 ### Visual
 
 - Environment meets the approved pre-rendered painterly isometric quality bar.
-- Detective specifically meets the supplied BG/BG:EE in-game sprite target: coarse scale, early-3D miniature silhouette, compact/chunky masses, limited palette ramps, minimal face, hard readable raster edge.
+- Detective uses the confirmed classic production technique—low-detail 3D source rendered into directional 2D frames—with a controlled 100px native raster, restrained palette, 2× storage, and no hand-authored pixel-art pass.
 - Office shell contains no duplicated interactive prop.
 - Props, door, actor, light overlays, rain, and occluders are separate and registered.
 - Depth/occlusion passes every authored route.

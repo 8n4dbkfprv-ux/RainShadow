@@ -331,7 +331,7 @@ final class InventoryOverlay: SKNode {
             paperdoll.position = CGPoint(x: 0, y: -8)
             chamber.addChild(paperdoll)
         } else if let detectiveTexture = GameArt.texture(named: "det_standing_idle_se_00") {
-            detectiveTexture.filteringMode = .nearest
+            detectiveTexture.filteringMode = .linear
             let fallbackPaperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 256, height: 256))
             fallbackPaperdoll.name = "inventory.paperdoll"
             fallbackPaperdoll.setScale(3.15)

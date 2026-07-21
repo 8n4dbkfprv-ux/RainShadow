@@ -8,8 +8,8 @@ enum OfficeInteriorScale {
     static let seatedDetectiveSourceHeight: CGFloat = 100
 
     enum ActorDisplay {
-        /// Actor atlases were authored against the room at their native 100px
-        /// opaque height. Enlarging standing frames to 130% made the detective
+        /// Actor atlases use a 200px opaque body at 2x texture density, shown as
+        /// a 100-unit body. Enlarging the world scale to 130% made the detective
         /// nearly as tall as the door and broke the fixed room perspective.
         static let standingScale: CGFloat = 1
         static let seatedScale: CGFloat = 1
