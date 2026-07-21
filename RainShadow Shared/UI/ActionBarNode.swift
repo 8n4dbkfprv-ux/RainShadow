@@ -257,12 +257,12 @@ final class ActionBarNode: SKNode {
         shadow.zPosition = -3
         journalButtonRoot.addChild(shadow)
 
-        if let texture = GameArt.texture(named: "journal_icon_noir_v01") {
+        if let texture = GameArt.texture(named: "journal_icon_noir_v02") {
             texture.filteringMode = .linear
             journalButtonArtwork.texture = texture
             journalButtonArtwork.size = Metrics.journalButtonArtworkSize
         } else {
-            assertionFailure("Missing journal_icon_noir_v01.png")
+            assertionFailure("Missing journal_icon_noir_v02.png")
         }
         journalButtonRoot.addChild(journalButtonArtwork)
 

@@ -19,7 +19,7 @@ enum GameArt {
             "hud_portrait_frame_v01",
             "ui_close_box_macos9_v01",
             "map_icon_noir_v03",
-            "journal_icon_noir_v01",
+            "journal_icon_noir_v02",
             "map_detective_office_v02",
             "dialogue_outer_frame_overlay_v02",
             "dialogue_scroll_up_v01",
