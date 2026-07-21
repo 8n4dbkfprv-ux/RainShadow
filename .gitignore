@@ -4,3 +4,5 @@ Artifacts/Screenshots/
 *.xcuserstate
 xcuserdata/
 DerivedData/
+output/
+tmp/
