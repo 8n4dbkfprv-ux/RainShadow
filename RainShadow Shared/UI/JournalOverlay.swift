@@ -203,13 +203,14 @@ final class JournalOverlay: SKNode {
         subtitle.position = CGPoint(x: 0, y: 431)
         sheet.addChild(subtitle)
 
-        let close = Self.button(size: CGSize(width: 108, height: 46), fill: Palette.raised, stroke: Palette.steel)
-        close.name = "journal.close"
-        close.position = CGPoint(x: 835, y: 468)
-        let closeLabel = Self.label(text: "CLOSE  ×", size: 15, color: Palette.paper, font: "AvenirNext-DemiBold")
-        closeLabel.verticalAlignmentMode = .center
-        closeLabel.position.y = 1
-        close.addChild(closeLabel)
+        let close = ClassicMacCloseButtonNode(
+            targetName: "journal.close",
+            fill: Palette.raised,
+            stroke: Palette.steel,
+            highlight: Palette.paper,
+            accent: Palette.redPencil
+        )
+        close.position = CGPoint(x: -872, y: 468)
         sheet.addChild(close)
 
         indexRoot.position = CGPoint(x: Metrics.leftCenterX, y: 0)

@@ -1,5 +1,107 @@
 import SpriteKit
 
+/// RainShadow's interpretation of the classic Mac OS 9 close box: a compact,
+/// square, bevelled control with no modern X glyph. The visible box remains
+/// period-sized while the transparent hit area stays comfortable for touch.
+@MainActor
+final class ClassicMacCloseButtonNode: SKNode {
+    private enum Metrics {
+        static let hitExtent: CGFloat = 100
+        static let outerExtent: CGFloat = 34
+        static let innerExtent: CGFloat = 18
+    }
+
+    init(
+        targetName: String,
+        fill: SKColor,
+        stroke: SKColor,
+        highlight: SKColor,
+        accent: SKColor
+    ) {
+        super.init()
+        name = targetName
+
+        let hitArea = SKShapeNode(
+            rectOf: CGSize(width: Metrics.hitExtent, height: Metrics.hitExtent)
+        )
+        hitArea.fillColor = SKColor(white: 1, alpha: 0.001)
+        hitArea.strokeColor = .clear
+        addChild(hitArea)
+
+        if let texture = GameArt.texture(named: "ui_close_box_macos9_v01") {
+            texture.filteringMode = .linear
+            let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 52))
+            artwork.name = "\(targetName).artwork"
+            artwork.zPosition = 1
+            addChild(artwork)
+            return
+        }
+
+        let shadow = SKShapeNode(
+            rectOf: CGSize(width: Metrics.outerExtent, height: Metrics.outerExtent)
+        )
+        shadow.fillColor = SKColor(white: 0, alpha: 0.72)
+        shadow.strokeColor = .clear
+        shadow.position = CGPoint(x: 2, y: -2)
+        shadow.zPosition = 1
+        addChild(shadow)
+
+        let outer = SKShapeNode(
+            rectOf: CGSize(width: Metrics.outerExtent, height: Metrics.outerExtent)
+        )
+        outer.fillColor = fill
+        outer.strokeColor = stroke
+        outer.lineWidth = 2
+        outer.zPosition = 2
+        addChild(outer)
+
+        let upperLeftBevel = CGMutablePath()
+        let outerInset = Metrics.outerExtent / 2 - 3
+        upperLeftBevel.move(to: CGPoint(x: -outerInset, y: -outerInset))
+        upperLeftBevel.addLine(to: CGPoint(x: -outerInset, y: outerInset))
+        upperLeftBevel.addLine(to: CGPoint(x: outerInset, y: outerInset))
+        let outerHighlight = SKShapeNode(path: upperLeftBevel)
+        outerHighlight.strokeColor = highlight.withAlphaComponent(0.78)
+        outerHighlight.lineWidth = 1.5
+        outerHighlight.zPosition = 3
+        addChild(outerHighlight)
+
+        let lowerRightBevel = CGMutablePath()
+        lowerRightBevel.move(to: CGPoint(x: outerInset, y: outerInset))
+        lowerRightBevel.addLine(to: CGPoint(x: outerInset, y: -outerInset))
+        lowerRightBevel.addLine(to: CGPoint(x: -outerInset, y: -outerInset))
+        let outerShade = SKShapeNode(path: lowerRightBevel)
+        outerShade.strokeColor = SKColor(white: 0.005, alpha: 0.92)
+        outerShade.lineWidth = 1.5
+        outerShade.zPosition = 3
+        addChild(outerShade)
+
+        let inset = SKShapeNode(
+            rectOf: CGSize(width: Metrics.innerExtent, height: Metrics.innerExtent)
+        )
+        inset.fillColor = accent
+        inset.strokeColor = stroke.withAlphaComponent(0.88)
+        inset.lineWidth = 1.5
+        inset.zPosition = 4
+        addChild(inset)
+
+        let insetHighlight = CGMutablePath()
+        let innerInset = Metrics.innerExtent / 2 - 2
+        insetHighlight.move(to: CGPoint(x: -innerInset, y: -innerInset))
+        insetHighlight.addLine(to: CGPoint(x: -innerInset, y: innerInset))
+        insetHighlight.addLine(to: CGPoint(x: innerInset, y: innerInset))
+        let insetBevel = SKShapeNode(path: insetHighlight)
+        insetBevel.strokeColor = highlight.withAlphaComponent(0.52)
+        insetBevel.lineWidth = 1
+        insetBevel.zPosition = 5
+        addChild(insetBevel)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("ClassicMacCloseButtonNode is created programmatically")
+    }
+}
+
 /// Full-screen local-area map. The generated texture owns the painted location;
 /// labels, markers, and input remain deterministic SpriteKit UI.
 @MainActor
@@ -369,21 +471,16 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func buildCloseButton() {
-        let button = SKShapeNode(rectOf: CGSize(width: 126, height: 54), cornerRadius: 3)
-        button.name = "map.close"
-        button.fillColor = Palette.raised
-        button.strokeColor = Palette.steel
-        button.lineWidth = 2
-        button.position = CGPoint(x: 620, y: 300)
+        let button = ClassicMacCloseButtonNode(
+            targetName: "map.close",
+            fill: Palette.raised,
+            stroke: Palette.steel,
+            highlight: Palette.paper,
+            accent: Palette.oxblood
+        )
+        button.position = CGPoint(x: -781, y: 300)
         button.zPosition = 32
         sheet.addChild(button)
-
-        let label = Self.label(size: 15, color: Palette.paper, font: "AvenirNext-DemiBold")
-        label.text = "CLOSE  ×"
-        label.name = "map.close"
-        label.verticalAlignmentMode = .center
-        label.position.y = 1
-        button.addChild(label)
     }
 
     private func mapPosition(forWorldPoint worldPoint: CGPoint) -> CGPoint {

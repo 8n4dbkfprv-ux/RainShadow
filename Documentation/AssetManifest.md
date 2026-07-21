@@ -295,6 +295,7 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `det_paperdoll_front_rgba_v02` | 1 | 1024×1536 | Identity-locked Elias Vale inventory paperdoll with transparent background. |
 | P0 | `dialogue_outer_frame_overlay_v02` | 1 | 1720×730 | Transparent rail-free noir dialogue perimeter; nine-sliced in code while the fixed-size scroll control stays independent. |
 | P0 | `dialogue_scroll_up_v01`, `dialogue_scroll_down_v01`, `dialogue_scroll_track_v01`, `dialogue_scroll_thumb_v01` | 4 | 96×96 buttons; 64×320 track; 72×256 thumb | Independent Mac OS 9–influenced scrollbar components in RainShadow gunmetal/oxblood materials. Buttons stay fixed-size; track and proportional thumb are nine-sliced in code. |
+| P0 | `ui_close_box_macos9_v01` | 1 | 128×128 | Generated RainShadow gunmetal/oxblood interpretation of the classic Mac OS 9 nested-square close box; shared by overlay title bars with a larger code-owned hit target. |
 | P0 | `dialogue_portrait_vivian_hart_v01` | 1 | 512×512 | Identity-locked hand-painted Vivian portrait for the dialogue crop. |
 | P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
 | P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Elias portrait crop, dynamic health text, condition tint, and viewport anchoring. |

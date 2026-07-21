@@ -1,4 +1,5 @@
 import SpriteKit
+import ImageIO
 #if os(macOS)
 import AppKit
 #endif
@@ -17,7 +18,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var fogOfWar: OfficeFogOfWarNode?
     private var navigation: NavigationGrid!
     private var hotspots: [OfficeHotspot] = []
-    /// Prop sprites that receive IE-style blue color-blend on hover, keyed by hotspot id.
+    /// Prop sprites that receive Image #1 cyan edge + teal wash on hover, keyed by hotspot id.
     private var hotspotHoverSprites: [String: [SKSpriteNode]] = [:]
     private var hoveredHotspotID: String?
     private var inventoryIsPresented = false
@@ -69,14 +70,14 @@ final class DetectiveOfficeScene: BaseGameScene {
             registerHoverSprite(officeDoor, for: "office.door")
         }
 
-        if let chair = addDepthProp(
+        // Chair is separate furniture behind the desk — do not register for office.desk
+        // (it invented false under/behind-desk highlight geometry; see Image #2).
+        addDepthProp(
             named: "office_desk_chair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair),
             scale: env * OfficeInteriorScale.PropRelativeScale.deskChair,
             bias: -70
-        ) {
-            registerHoverSprite(chair, for: "office.desk")
-        }
+        )
         addDepthProp(
             named: "office_filing_cabinet",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
@@ -338,7 +339,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        // BG blue outline before click; selection uses the same hit list as inspect/door.
+        // Image #1 cyan silhouette + teal wash before click; same hit list as inspect/door.
         updateHotspotHoverHighlight(at: event.location)
         let isInteractive = hoveredHotspotID != nil
         (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -690,14 +691,17 @@ final class DetectiveOfficeScene: BaseGameScene {
         applyHotspotHoverPresentation(.hidden)
     }
 
-    /// Drives BG blue sprite tint on registered props (not a hit-rect outline).
+    /// Cached cyan rim textures keyed by prop asset name (CPU-built, rim pixels only).
+    private var hoverEdgeTextureCache: [String: SKTexture] = [:]
+
+    /// Drives Image #1 cyan silhouette **edge** + teal body wash on registered props.
+    /// Wash = colorBlendFactor; edge = CPU overlay texture (no SKShader solid-fill).
     private func applyHotspotHoverPresentation(_ presentation: HotspotHoverHighlight.Presentation) {
         hoveredHotspotID = presentation.hotspotID
-        // Reset every hover-capable prop to neutral art.
+        // Reset every hover-capable prop to neutral art (wash + outline off).
         for sprites in hotspotHoverSprites.values {
             for sprite in sprites {
-                sprite.color = .white
-                sprite.colorBlendFactor = HotspotHoverHighlight.clearedColorBlendFactor
+                clearHoverVisual(on: sprite)
             }
         }
         guard presentation.isVisible,
@@ -705,16 +709,160 @@ final class DetectiveOfficeScene: BaseGameScene {
               let id = presentation.hotspotID else {
             return
         }
-        let tint = SKColor(
-            red: presentation.red,
-            green: presentation.green,
-            blue: presentation.blue,
+        for sprite in hotspotHoverSprites[id] ?? [] {
+            applyHoverWashAndEdgeOverlay(to: sprite, presentation: presentation)
+        }
+    }
+
+    private func clearHoverVisual(on sprite: SKSpriteNode) {
+        sprite.shader = nil
+        sprite.color = .white
+        sprite.colorBlendFactor = HotspotHoverHighlight.clearedColorBlendFactor
+        sprite.children
+            .filter {
+                $0.name == HotspotHoverHighlight.edgeOverlayNodeName
+                    || $0.name == "hoverSilhouetteOutline"
+            }
+            .forEach { $0.removeFromParent() }
+    }
+
+    /// Teal body wash + thin pure-cyan rim overlay (Image #1). Overlay never fills the body.
+    private func applyHoverWashAndEdgeOverlay(
+        to sprite: SKSpriteNode,
+        presentation: HotspotHoverHighlight.Presentation
+    ) {
+        // 1) Body wash — original art still reads under teal tint.
+        sprite.shader = nil
+        sprite.color = SKColor(
+            red: presentation.washRed,
+            green: presentation.washGreen,
+            blue: presentation.washBlue,
             alpha: 1
         )
-        for sprite in hotspotHoverSprites[id] ?? [] {
-            sprite.color = tint
-            sprite.colorBlendFactor = presentation.colorBlendFactor
+        sprite.colorBlendFactor = presentation.outlineEnabled
+            ? presentation.colorBlendFactor
+            : HotspotHoverHighlight.clearedColorBlendFactor
+
+        guard presentation.outlineEnabled else { return }
+
+        // 2) Cyan rim overlay (rim texels only; body stays clear in the overlay).
+        guard let edgeTexture = cyanEdgeTexture(for: sprite, presentation: presentation) else {
+            return
         }
+        let overlay = SKSpriteNode(texture: edgeTexture, size: sprite.size)
+        overlay.name = HotspotHoverHighlight.edgeOverlayNodeName
+        overlay.anchorPoint = sprite.anchorPoint
+        overlay.position = .zero
+        overlay.zPosition = 1
+        overlay.color = .white
+        overlay.colorBlendFactor = 0
+        overlay.blendMode = .alpha
+        overlay.isUserInteractionEnabled = false
+        sprite.addChild(overlay)
+    }
+
+    /// Builds or returns a cached rim-only texture for this prop asset.
+    private func cyanEdgeTexture(
+        for sprite: SKSpriteNode,
+        presentation: HotspotHoverHighlight.Presentation
+    ) -> SKTexture? {
+        let key = sprite.name ?? "anonymous"
+        if let cached = hoverEdgeTextureCache[key] {
+            return cached
+        }
+        guard let source = loadStraightRGBA(named: key) else { return nil }
+        let steps = HotspotHoverHighlight.outlineTexelSteps(
+            worldWidth: presentation.outlineWidth,
+            pixelWidth: source.width,
+            pixelHeight: source.height,
+            scaleX: sprite.xScale,
+            scaleY: sprite.yScale
+        )
+        let overlayRGBA = HotspotHoverHighlight.makeCyanEdgeOverlayPremultipliedRGBA(
+            sourceRGBA: source.rgba,
+            width: source.width,
+            height: source.height,
+            stepX: steps.x,
+            stepY: steps.y,
+            presentation: presentation
+        )
+        guard let cgImage = makePremultipliedCGImage(
+            rgba: overlayRGBA,
+            width: source.width,
+            height: source.height
+        ) else {
+            return nil
+        }
+        let texture = SKTexture(cgImage: cgImage)
+        texture.filteringMode = .linear
+        hoverEdgeTextureCache[key] = texture
+        return texture
+    }
+
+    private func loadStraightRGBA(named name: String) -> (rgba: [UInt8], width: Int, height: Int)? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "png") else {
+            return nil
+        }
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            return nil
+        }
+        let width = image.width
+        let height = image.height
+        var premul = [UInt8](repeating: 0, count: width * height * 4)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let ctx = CGContext(
+            data: &premul,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+        ctx.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+        var straight = [UInt8](repeating: 0, count: premul.count)
+        for i in Swift.stride(from: 0, to: premul.count, by: 4) {
+            let a = premul[i + 3]
+            straight[i + 3] = a
+            if a == 0 {
+                continue
+            }
+            if a == 255 {
+                straight[i] = premul[i]
+                straight[i + 1] = premul[i + 1]
+                straight[i + 2] = premul[i + 2]
+            } else {
+                let fa = CGFloat(a)
+                straight[i] = UInt8(min(255, (CGFloat(premul[i]) * 255.0 / fa).rounded()))
+                straight[i + 1] = UInt8(min(255, (CGFloat(premul[i + 1]) * 255.0 / fa).rounded()))
+                straight[i + 2] = UInt8(min(255, (CGFloat(premul[i + 2]) * 255.0 / fa).rounded()))
+            }
+        }
+        return (straight, width, height)
+    }
+
+    private func makePremultipliedCGImage(
+        rgba: [UInt8],
+        width: Int,
+        height: Int
+    ) -> CGImage? {
+        var bytes = rgba
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let ctx = CGContext(
+            data: &bytes,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+        return ctx.makeImage()
     }
 
     private func addWindowRain() {

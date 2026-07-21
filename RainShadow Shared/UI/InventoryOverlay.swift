@@ -274,15 +274,14 @@ final class InventoryOverlay: SKNode {
     }
 
     private func buildCloseButton() {
-        let button = panel(size: CGSize(width: 116, height: 58), radius: 3, fill: Palette.raised, stroke: Palette.line, lineWidth: 2)
-        button.name = "inventory.close"
-        button.position = CGPoint(x: 856, y: 415)
-
-        let label = Self.label(size: 16, color: Palette.paper, weight: .demibold)
-        label.text = "CLOSE  ×"
-        label.verticalAlignmentMode = .center
-        label.position.y = 1
-        button.addChild(label)
+        let button = ClassicMacCloseButtonNode(
+            targetName: "inventory.close",
+            fill: Palette.raised,
+            stroke: Palette.line,
+            highlight: Palette.paleLine,
+            accent: Palette.blood
+        )
+        button.position = CGPoint(x: -873, y: 487)
         content.addChild(button)
     }
 
