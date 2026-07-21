@@ -75,7 +75,7 @@ final class DetectiveActorNode: SKNode {
             return (facing, textures)
         })
 
-        // V4 atlases carry a 2x copy of a 100px native raster. Nearest filtering
+        // V5 walk and V4 state atlases carry a 2x copy of a 100px native raster. Nearest filtering
         // resolves it back to the intended lightly pixelated gameplay scale.
         contactShadow = SKShapeNode(ellipseOf: CGSize(width: 54, height: 20))
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
