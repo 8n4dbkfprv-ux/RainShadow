@@ -1,18 +1,19 @@
 # RainShadow — Game Design Document
 
 - Status: pre-production baseline
-- Version: 0.1
+- Version: 0.2
 - Milestone covered: M01 — The Office in the Rain
+- Canon leads: **Harlan Voss** (player detective), **Lila March** (first client / the dame)
 
 ## 1. High-level vision
 
-RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence.
+RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence—and, when the city refuses to talk, rare **Baldur’s Gate–style real-time-with-pause combat** that is authored, high-stakes, and never a loot grind.
 
-The player inhabits a weary private detective in his mid-forties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, compromised place where evidence can be true but incomplete, people can lie for defensible reasons, and the player's chosen interpretation matters.
+The player inhabits **Harlan Voss**, a weary private detective in his mid-forties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
 ### Elevator pitch
 
-In a rain-strangled city, a down-on-his-luck detective studies scenes, questions people, connects imperfect evidence, and makes deductions that change both the case and the person he becomes.
+In rain-strangled Harborpoint, private detective Harlan Voss studies scenes, questions people, connects imperfect evidence, survives the rare fight he cannot talk past, and makes deductions that change both the case and the man he becomes—until a Poirot-like summation forces every lie into the open.
 
 ### Player promise
 
@@ -53,35 +54,171 @@ Detailed pre-rendered locations and deliberately coarse, chunky avatar sprites e
 - Platforms: iPhone, iPad, and macOS.
 - Presentation: fixed three-quarter isometric 2D scenes rendered in SpriteKit.
 
-## 4. World and tone
+## 4. World, characters, and story
 
-### 4.1 Setting
+This section is the **narrative canon** for Harborpoint, the two established leads, and the spine of the campaign. Earlier shipping art and code may still label the leads with retired working names (**Elias Vale**, **Vivian Hart**); those strings are superseded here and are scheduled for a later identity migration. Design, dialogue, and new writing use only the names below.
 
-An original mid-century-inspired city with no exact historical date. Architecture, clothing, vehicles, paper records, wired telephones, and radio place it in an analogue world, while selective anachronism keeps the fiction from becoming a history simulation.
+### 4.1 World — Harborpoint under the rain
 
-Rain is both atmosphere and theme: it obscures, reflects, cleans, erodes, and makes private lives visible through lit windows. The city should feel dense beyond the current frame—pipes knock in walls, trains pass unseen, signs hum, neighbors argue through plaster.
+**Harborpoint** is an original mid-century-inspired port city with no exact historical date. Architecture, clothing, vehicles, paper records, wired telephones, and radio place it in an analogue world; selective anachronism keeps the fiction from becoming a history simulation. The player never gets a tourist map of the whole metropolis—only rain-cut fragments that feel continuous beyond the frame: pipes knock in walls, trains pass unseen, signs hum, neighbors argue through plaster.
 
-### 4.2 The detective
+**Rain** is atmosphere and theme at once. It obscures footprints, reflects neon into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes private lives visible through lit windows. Every district smells slightly different when wet: coal and brine on the docks, printer’s ink and cigarette ash downtown, wet wool and cooking oil in the tenements.
 
-Working description for M01:
+#### Power structure (corruption is structural)
 
-- Male, mid-forties.
-- Unshaven stubble, tired eyes, once-careful haircut grown out.
-- Rumpled dark trench coat over a loosened shirt and tie; worn shoes; no glamorous silhouette.
-- Economical movements, guarded posture, capable hands.
-- Seated idle communicates fatigue without making him inert: breathing, a small shift, rubbing a thumb along a mug, checking the rain, or suppressing a cough.
-- Voice: dry, observant, occasionally compassionate, never omniscient.
+Corruption in RainShadow is not a mood filter or a single crooked cop. It is **how Harborpoint keeps running**:
 
-The protagonist's final name, exact history, ethnicity, and voice casting remain narrative decisions; the visual pipeline should use a stable working design sheet before animation generation.
+| Layer | What it pretends to be | What it actually is |
+|---|---|---|
+| **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that go missing on purpose |
+| **Harborpoint PD** | Law and investigation | Political pressure, selective blindness, and a few honest officers trapped inside a machine that punishes curiosity |
+| **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, and silence bought with overtime and threats |
+| **Press & radio** | Public truth | Ownership strings; editors who know which names never print; one or two reporters who still dig |
+| **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
+| **Street networks** | Crime as chaos | Predictable tribute systems that feed upward into “respectable” ledgers |
 
-### 4.3 Tonal rules
+The player feels this structure through locked doors, altered reports, witnesses who suddenly change their minds, and evidence that is **true but incomplete** because someone above the case needed it that way. Not every authority figure is rotten, and not every victim is pure—but **institutions default to self-preservation**. Voss survives by reading which layer he has just kicked.
+
+#### Districts (playable texture, not open-world tourism)
+
+- **Sable Row** — mixed tenements and small shops; Voss’s office building sits in this rain-dark block. First city expansion uses its modular streets.
+- **The Docks / Wharf Ladder** — cargo, warehouses, boarding houses, and the river mouth where empty coats wash up.
+- **Civic Spine** — courthouse, central station house, records annex; marble that still looks clean in the rain.
+- **Printers’ Quarter** — newspapers, radio offices, cheap cafés that never close; gossip as a second economy.
+- **Ashfield Yards** — industry, company housing, blacked-out windows; the city’s muscle and its smog.
+
+Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, newspapers that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
+
+### 4.2 Characters — the two established leads
+
+RainShadow’s first cast is deliberately small and sharp. Supporting players (cops, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
+
+#### Harlan Voss — player protagonist
+
+- **Role:** Private detective; the player’s body, voice, and moral weather.
+- **Age / look:** Male, mid-forties. Unshaven stubble, tired eyes, once-careful haircut grown out. Rumpled dark trench coat over a loosened shirt and loose tie; worn shoes; no glamorous silhouette. Economical movements, guarded posture, capable hands.
+- **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
+- **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
+- **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
+- **Voice sample (design target):** “The rain had opinions about my rent. The dame in the doorway had better ones about my time.”
+- **Superseded working name:** Elias Vale (art pipelines, portraits, and some code identifiers until identity migration).
+
+Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
+
+#### Lila March — the dame / first client
+
+- **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
+- **Age / look:** Adult woman in a charcoal raincoat over a burgundy period suit, small hat, handbag; composed enough that the cracks show only if Voss presses.
+- **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
+- **Apparent need:** Her sister is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
+- **Deeper tension:** She knows more than the first conversation admits—about the sister’s work, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
+- **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
+- **Superseded working name:** Vivian Hart (arrival/departure atlases, dialogue portrait IDs, and some narrative copy until identity migration).
+
+#### Supporting cast (named only as needed by the outline)
+
+Do not expand into full sheets here. Story beats may introduce: a tired sergeant who still returns Voss’s calls; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
+
+### 4.3 Story outline
+
+#### Premise
+
+Harborpoint sells the public a city that works. **Harlan Voss** rents an office that barely does. When **Lila March** walks out of the rain with a key and a coat that no longer has a body in it, the apparent missing-person case becomes a vertical cut through the city’s corrupt layers—from Sable Row up to ledgers that were never meant to be read aloud.
+
+#### Design commitments woven into the plot
+
+| Commitment | How the story delivers it |
+|---|---|
+| **Wit** | Voss’s internal captions and dialogue stay dry, specific, and human. Lila matches him beat for beat. Humor comes from weary precision and character, never spoof-noir or constant purple prose. |
+| **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest cop in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
+| **Corruption** | Each act peels a higher institutional layer. Evidence is altered by people with badges, letterheads, and good manners—not only by street thugs. |
+| **Combat (BG-like)** | When investigation turns kinetic, encounters use **real-time-with-pause**, tactical positioning, and small allied or temporary party composition in the Infinity Engine spirit—**authored set pieces**, not random trash fights or loot-grind loops. See §4.3.5. |
+| **Immersion** | Continuous rain beds, reactive districts, NPCs who remember, case journal that feels like Voss’s mind on paper, and environmental storytelling before exposition. |
+| **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, station house, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
+
+#### 4.3.1 Act structure (campaign spine)
+
+**Act I — The Empty Coat (M01 and first case)**  
+Lila arrives. Voss takes the case. The office, the key, and the river coat establish method: observe, inspect, interview, commit. Early noir beats land hard—the dame, the rain, the first polite door that will not open. The player learns that Harborpoint’s smallest mysteries already have municipal fingerprints.
+
+**Act II — Follow the key**  
+The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both police blotters and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
+
+**Act III — The city answers back**  
+Commitments on the deduction board close routes. Lila’s partial truths come due. A faction above the docks tries to buy Voss off, bury him in paperwork, or remove him. Allies may join for a fight or a testimony. Corruption is no longer ambient; it has a face, a budget, and a preferred ending in which nobody important is embarrassed.
+
+**Act IV — Summation (Poirot close)**  
+Voss engineers (or is forced into) a gathering of the remaining principals. In a controlled space, he reconstructs the timeline: the sister’s last movements, who emptied the coat, which institution needed the silence, and which personal betrayal made the machine efficient. The player’s prior hypotheses and failed-forward choices color **how complete and how merciful** the reveal is—but the design center is always the **dramatic laying-out of the chain**, not a sudden unearned twist from nowhere. After the truth is spoken, a final irreversible commitment: accuse, expose, bargain, or walk away—and live with Harborpoint’s echo.
+
+#### 4.3.2 First case seed — “The Empty Coat”
+
+Carried from M01 into the full game:
+
+1. Lila March’s sister is missing.
+2. A coat is recovered by the river—worn, wrong size or wrong season in one careful detail, and **empty** in a way that feels arranged.
+3. A concealed brass key is sewn or slipped into the lining.
+4. Someone with institutional reach wanted the coat found without a body, or the body gone without the coat.
+5. Voss’s office becomes the first board where facts, testimony, and distrust share a desk lamp.
+
+M01 ships the arrival, the key handoff, and office freeroam; later milestones open the river, docks, and civic records that make the seed a case.
+
+#### 4.3.3 Noir tropes (checklist for writers)
+
+Use these as **load-bearing beats**, not window dressing:
+
+- The client who hires honesty and practices omission.
+- The coat / photograph / key as a mute witness.
+- Rain that erases tracks and forces people indoors where they can be overheard.
+- A bar or café where everyone lies better after the second drink.
+- The “routine inquiry” that is actually a warning.
+- Files that exist twice—once for the public, once for the drawer that does not open.
+- A romantic possibility that investigation may destroy.
+- Violence as punctuation, not vocabulary.
+
+#### 4.3.4 Wit and voice
+
+- Internal narration: short, concrete, occasionally funny because it is accurate.
+- Dialogue intentions (Open / Press / Feign / Trade / Observe / Leave) carry **tone**, not morality meters.
+- Lila and Voss can out-dry each other; supporting cast get one sharp line rather than constant quips.
+- Avoid genre parody, cartoon hardboiled, and monologues that explain the theme.
+
+#### 4.3.5 Combat — Baldur’s Gate spirit, RainShadow stakes
+
+Combat is a **designed system**, not the primary loop:
+
+- **Model:** Real-time with pause (RTWP). The player issues orders, pauses to reassess, repositions, and uses the environment (cover, chokepoints, rain-slick floors, breakable lights) in the spirit of Infinity Engine party tactics—even when the “party” is Voss alone plus a temporary ally.
+- **Frequency:** Rare. Authored. High-stakes. No random street trash packs, no level-scaled loot treadmill, no grinding for XP (see §12).
+- **Triggers:** Ambush after a dangerous deduction, failed escape from a corrupt raid, defending a witness, or forcing entry when all civil routes are sealed.
+- **Expression:** Strain, injury, and reputation matter more than gear score. Winning a fight can still lose a witness or expose Voss to the wrong newspaper.
+- **Tone:** Ugly, brief when possible, and narratively accountable. A gunshot should change the next conversation.
+
+#### 4.3.6 Immersion checklist
+
+- Continuous spatial audio of rain across exterior→office and later district transitions.
+- Hotspots that yield sensory writing before inventory icons.
+- NPCs with thresholds, schedules, and memory of prior tone.
+- Case journal / deduction board as Voss’s organized doubt, not a quest log of green checkmarks.
+- Districts that feel economically linked (dock money in civic marble; tenement silence bought downtown).
+
+#### 4.3.7 Poirot-like conclusion (endgame contract)
+
+The finale must satisfy:
+
+1. **Gathering** — relevant living suspects, clients, and institutional faces in one scene (voluntary or compelled).
+2. **Chain of deduction** — Voss recounts evidence the player could have found, marks which claims were lies, and shows how the empty coat, the key, and the sister’s fate interlock.
+3. **Fair play** — no essential killer identity that depended on unobtainable content; optional details may deepen but not sole-source the truth.
+4. **Human cost** — the reveal wounds someone Voss or Lila might have preferred to spare.
+5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, PD, docks), not a binary credits slide alone.
+
+### 4.4 Tonal rules
 
 - Favor implication over exposition.
 - Let humor come from character and weary specificity, not genre parody.
 - Avoid constant purple prose. Internal narration is brief and concrete.
 - Use silence and ambient sound as dramatic beats.
-- Do not make every authority corrupt or every victim saintly.
-- The detective can be harsh, but the game does not confuse cruelty with competence.
+- Do not make every authority corrupt or every victim saintly—but do show **systems** that reward looking away.
+- Harlan Voss can be harsh; the game does not confuse cruelty with competence.
+- Lila March is a person under archetype pressure, never a prop.
 
 ## 5. Visual direction
 
@@ -176,7 +313,7 @@ This specification is grounded in Beamdog's description of orientation-specific 
 
 ### 6.3 Character loop
 
-The detective changes through repeated method, not XP grinding:
+Harlan Voss changes through repeated method, not XP grinding:
 
 - **Composure** — remain controlled under pressure; notice without reacting.
 - **Empathy** — read emotional stakes and create trust.
@@ -299,9 +436,9 @@ Failed checks produce information with a cost, a changed relationship, time loss
 
 Before the first case arrives, the opening establishes three facts without exposition:
 
-1. The city is larger and colder than the detective.
+1. Harborpoint is larger and colder than Harlan Voss.
 2. His office is both workplace and refuge, and neither is in good condition.
-3. He is waiting, tired enough to leave, broke enough to stay.
+3. He is waiting, tired enough to leave, broke enough to stay—and then **Lila March** makes leaving impossible.
 
 ### 9.2 Exterior beat sheet
 
@@ -321,26 +458,26 @@ No title card should obscure the best establishing composition. If a title is us
 
 The office is a single isometric room with enough floor for a short path loop. Required story zones:
 
-- **Desk island**: detective, battered desk, chair, lamp, phone, mug, ashtray, files, pencil, unpaid notices.
+- **Desk island**: Harlan Voss, battered desk, chair, lamp, phone, mug, ashtray, files, pencil, unpaid notices.
 - **Rain window**: visible animated rain, condensation, intermittent water trail, cool spill on the floor.
 - **Door**: visibly usable, worn jamb, opaque hall beyond for M01.
 - **Case storage**: dented filing cabinet and leaning archive boxes.
 - **Personal residue**: coat hook, old photograph or framed clipping turned partly away, wastebasket, bottle hidden rather than showcased.
 - **Negative space**: a navigable floor wedge that makes walking and depth sorting visible.
 
-The room should feel cluttered but compositionally controlled. The lamp, detective silhouette, window, and door must remain readable at phone scale.
+The room should feel cluttered but compositionally controlled. The lamp, Voss silhouette, window, and door must remain readable at phone scale.
 
 ### 9.4 Interior beat sheet
 
 1. The interior resolves while rain continues over the window.
-2. The lamp pool reveals the seated detective at his desk.
+2. The lamp pool reveals seated Harlan Voss at his desk.
 3. He completes one authored seated-idle beat: breath, small shoulder shift, brief glance toward the rain.
-4. Vivian Hart enters from the office door and crosses to the visitor side of the desk.
-5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat**.
-6. Vivian leaves the key, turns away from the desk, and walks back through the office door using a dedicated rear northeast cycle.
+4. **Lila March** enters from the office door and crosses to the visitor side of the desk.
+5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat** (see §4.3.2).
+6. Lila leaves the key, turns away from the desk, and walks back through the office door using a dedicated rear northeast cycle.
 7. Input becomes active; a minimal unobtrusive hint appears only on first run.
 8. The player can inspect the window, lamp/desk, phone, case files, and door.
-9. Selecting a floor destination or the door makes the detective stand, transition to standing idle, and walk.
+9. Selecting a floor destination or the door makes Voss stand, transition to standing idle, and walk.
 
 ### 9.5 M01 hotspot set
 
@@ -350,7 +487,7 @@ The room should feel cluttered but compositionally controlled. The lamp, detecti
 | `office.desk` | Desk | “Three old cases, two unpaid bills, one clean page.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. |
 | `office.phone` | Telephone | “Quiet. For once it had the decency to look guilty.” | Sets `checkedPhone`; reserves later incoming-call state. |
 | `office.files` | Case files | “Closed, abandoned, and one I still lied about.” | Adds `oldCaseReference`; seeds later narrative. |
-| `office.door` | Office door | “The hall smelled worse, but at least it led somewhere.” | Makes detective approach; door stays locked to M02 with an authored response. |
+| `office.door` | Office door | “The hall smelled worse, but at least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
 
 Copy is provisional and should be revised with the narrative voice pass.
 
@@ -370,7 +507,7 @@ Copy is provisional and should be revised with the narrative voice pass.
 - Exterior detail emitters: gutter, puddle impacts, distant traffic, sign/electrical buzz.
 - Interior rain-on-glass bed.
 - Interior room tone and radiator/pipe one-shots.
-- Detective foley: chair, cloth, shoes, breath.
+- Voss foley: chair, cloth, shoes, breath.
 - Door, paper, phone, mug, and lamp interaction one-shots.
 - One sparse music cue with a clean loop or tail for skipping.
 
@@ -404,7 +541,10 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 - Deduction board and hypothesis commitment.
 - Branching dialogue UI and relationship thresholds.
 - Trait advancement and strain consequences.
-- Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over, combat or chase systems.
+- Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over.
+- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only.
+- Full **Poirot-style summation** scene framework for the campaign finale (§4.3.7).
+- Identity migration of art/code IDs from retired working names (Elias Vale / Vivian Hart) to Harlan Voss / Lila March.
 
 ### Explicitly out of scope for the game vision
 
@@ -432,8 +572,9 @@ M01 succeeds when a first-time player can:
 - identify the office window during the exterior shot;
 - experience a transition with no obvious loading hitch or rain discontinuity;
 - immediately understand the office's navigable floor and primary props;
-- see the detective read as tired, middle-aged, and physically grounded at the desk;
+- see Harlan Voss read as tired, middle-aged, and physically grounded at the desk;
 - make him stand, walk in any needed direction, pass correctly behind/in front of the desk and foreground occluders, and return to idle;
+- experience Lila March’s arrival, Empty Coat handoff, and departure as the first case seed;
 - inspect all five hotspots using touch on iOS and mouse on macOS;
 - run the scene at the agreed performance target with no stretched sprites, edge halos, unsafe UI, or aspect-ratio-critical crop.
 
@@ -441,11 +582,15 @@ The art gate is qualitative but strict: at final display scale, the office must 
 
 ## 15. Open design decisions after M01
 
-- Final protagonist identity, history, and core wound.
-- Whether the first full case arrives by phone, visitor, or an object pushed under the door.
+- Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
+- Full biography for **Lila March** beyond the dame/client outline (sister’s given name, exact employment, romance branch density).
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor: desk papers, wall board, or abstract journal.
 - Degree of camera control in later, larger areas.
 - Save-slot presentation and cross-device strategy.
+- Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
+- First combat set-piece location and temporary-ally roster for Act II.
 
-None of these decisions blocks the opening-sequence architecture.
+**Closed by §4:** lead names (Harlan Voss / Lila March); first-case arrival by visitor (Lila); first case title **The Empty Coat**; corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+
+None of the remaining open decisions blocks the opening-sequence architecture.

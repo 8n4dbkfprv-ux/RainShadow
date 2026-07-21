@@ -415,90 +415,15 @@ final class DetectiveOfficeScene: BaseGameScene {
         animateDoorFalling()
         client.performEntrance(along: OfficeNavigationLayout.clientArrivalPath) { [weak self] in
             guard let self else { return }
-            let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
-            let dialogueCameraPosition = CGPoint(
-                x: normalCameraPosition.x,
-                y: normalCameraPosition.y - 55
-            )
+            let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
             let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
             cameraLift.timingMode = .easeOut
             self.gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
-            self.caseIntroductionPresenter.present([
-                CaseDialogueNode(
-                    id: "vivian.opening",
-                    speaker: "Vivian Hart",
-                    text: "Mr. Vale? My sister Lillian vanished Tuesday night.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    choices: [
-                        CaseDialogueChoice(
-                            text: "And the police?",
-                            destinationID: "vivian.police"
-                        ),
-                        CaseDialogueChoice(
-                            text: "Why are you certain she didn't go into the river?",
-                            destinationID: "vivian.doubt"
-                        )
-                    ]
-                ),
-                CaseDialogueNode(
-                    id: "vivian.police",
-                    speaker: "Vivian Hart",
-                    text: "They found her coat by the river. Said that was answer enough.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    nextNodeID: "vivian.key"
-                ),
-                CaseDialogueNode(
-                    id: "vivian.doubt",
-                    speaker: "Vivian Hart",
-                    text: "Because Lillian hated the river, and because whoever left that coat wanted the police to stop looking.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    nextNodeID: "vivian.key"
-                ),
-                CaseDialogueNode(
-                    id: "vivian.key",
-                    speaker: "Vivian Hart",
-                    text: "This brass key was sewn inside the lining. Since I found it, a man has been following me.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    choices: [
-                        CaseDialogueChoice(
-                            text: "Leave the key. I'll find out what it opens.",
-                            destinationID: "vivian.plea"
-                        ),
-                        CaseDialogueChoice(
-                            text: "Describe the man who's been following you.",
-                            destinationID: "vivian.follower"
-                        )
-                    ]
-                ),
-                CaseDialogueNode(
-                    id: "vivian.follower",
-                    speaker: "Vivian Hart",
-                    text: "Gray overcoat. Black gloves. He waits across the street and turns away whenever I look at him.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    nextNodeID: "elias.accept"
-                ),
-                CaseDialogueNode(
-                    id: "elias.accept",
-                    speaker: "Elias Vale",
-                    text: "Leave the key. I'll find out what it opens.",
-                    portraitName: "dialogue_portrait_elias_vale_v01",
-                    nextNodeID: "vivian.plea"
-                ),
-                CaseDialogueNode(
-                    id: "vivian.plea",
-                    speaker: "Vivian Hart",
-                    text: "Please find her, Mr. Vale.",
-                    portraitName: "dialogue_portrait_vivian_hart_v01",
-                    nextNodeID: "case.opened"
-                ),
-                CaseDialogueNode(
-                    id: "case.opened",
-                    speaker: "Case opened",
-                    text: "THE EMPTY COAT",
-                    portraitName: "dialogue_portrait_elias_vale_v01",
-                    endsDialogue: true
-                )
-            ], startingAt: "vivian.opening") { [weak self] in
+            // Shipped Empty Coat intro: noir monologue + Lila March triad dialogue.
+            self.caseIntroductionPresenter.present(
+                EmptyCoatCaseIntroduction.nodes,
+                startingAt: EmptyCoatCaseIntroduction.startNodeID
+            ) { [weak self] in
                 self?.finishCaseIntroduction()
             }
         }
@@ -525,7 +450,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                 }
             }
         case .returnDoor:
-            // After Vivian has finished the departure path and faded out.
+            // After Lila has finished the departure path and faded out.
             animateDoorReturning()
         case .unlockPlayerControl:
             dialogueIsActive = false

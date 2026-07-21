@@ -425,14 +425,14 @@ final class JournalOverlay: SKNode {
             status: "Open / Priority",
             summary: "Lillian Hart vanished Tuesday night. Her coat was recovered beside the river; her body was not.",
             body: [
-                "The police called the coat an answer. Vivian Hart called it a lie. Someone wanted the search to end at the waterline, and they almost got their wish.",
+                "The police called the coat an answer. Lila March called it a lie. Someone wanted the search to end at the waterline, and they almost got their wish.",
                 "A brass key was sewn inside the lining. Since Vivian recovered it, a man in a gray overcoat and black gloves has been following her."
             ],
             leads: ["Identify what the brass key opens.", "Trace Lillian's movements on Tuesday night.", "Find the man in the gray overcoat."],
             isNew: false
         )
         let people = [
-            JournalEntry(id: "person.vivian", title: "Vivian Hart", eyebrow: "Person of interest · client", status: "Interviewed", summary: "Lillian's sister and the only person still insisting this is not a drowning.", body: ["Arrived at the office after midnight, frightened but precise. She recovered the key from the coat lining and believes she is being watched."], leads: ["Keep her address off the police paperwork."], isNew: false),
+            JournalEntry(id: "person.lila", title: "Lila March", eyebrow: "Person of interest · client", status: "Interviewed", summary: "Lillian's sister and the only person still insisting this is not a drowning.", body: ["Arrived at the office after midnight, frightened but precise. She recovered the key from the coat lining and believes she is being watched."], leads: ["Keep her address off the police paperwork."], isNew: false),
             JournalEntry(id: "person.lillian", title: "Lillian Hart", eyebrow: "Missing person", status: "Whereabouts unknown", summary: "Twenty-nine. Last reliably seen Tuesday evening. Hated the river.", body: ["The coat at the waterline was staged well enough for a hurried constable, but not for her sister. No witness has placed Lillian near the river."], leads: ["Build a last-known-movements timeline."], isNew: true),
             JournalEntry(id: "person.gray-man", title: "The Gray Man", eyebrow: "Unknown suspect", status: "Unidentified", summary: "Gray overcoat, black gloves. Watches Vivian from across the street.", body: ["He turns away whenever she looks directly at him. That makes him cautious, not shy."], leads: ["Check the street outside Vivian's rooms."], isNew: true)
         ]
@@ -465,7 +465,7 @@ final class JournalOverlay: SKNode {
             JournalEntry(id: "log.coat", title: "Coat recovered", eyebrow: "Tuesday · 9:20 PM", status: "Riverside", summary: "Police recover Lillian Hart's coat beside the river. No body is found.", body: ["The search begins and ends at the same convenient conclusion."], leads: ["The coat enters police custody."], isNew: false),
             JournalEntry(id: "log.key", title: "Key discovered", eyebrow: "Tuesday · 10:05 PM", status: "Hart residence", summary: "Vivian finds a brass key sewn into the coat lining before surrendering the garment.", body: ["Someone hid the key where it would survive a hurried search."], leads: ["Vivian keeps the key out of the police property log."], isNew: false),
             JournalEntry(id: "log.followed", title: "Vivian followed", eyebrow: "Tuesday · 10:40 PM", status: "Lower Ward", summary: "A man in a gray overcoat follows Vivian from her rooms.", body: ["Black gloves. No attempt at conversation. He wants to know where she takes the key."], leads: ["The follower now knows about Vale's office."], isNew: true),
-            JournalEntry(id: "log.case-open", title: "Case opened", eyebrow: "Tuesday · 11:40 PM", status: "Vale's office", summary: "Elias Vale accepts the Hart disappearance and takes possession of the brass key.", body: ["Working title: The Empty Coat."], leads: ["First objective: identify the lock."], isNew: true)
+            JournalEntry(id: "log.case-open", title: "Case opened", eyebrow: "Tuesday · 11:40 PM", status: "Voss's office", summary: "Harlan Voss accepts the March disappearance and takes possession of the brass key.", body: ["Working title: The Empty Coat."], leads: ["First objective: identify the lock."], isNew: true)
         ]
         if !inspectedHotspotIDs.isEmpty {
             entries.append(JournalEntry(id: "log.office", title: "Office searched", eyebrow: "Wednesday · 12:10 AM", status: "Vale's office", summary: "Vale checks the office and records \(inspectedHotspotIDs.count) field observation\(inspectedHotspotIDs.count == 1 ? "" : "s").", body: ["Routine is useful. It tells you when something is out of place."], leads: ["Field notes added to the case file."], isNew: true))

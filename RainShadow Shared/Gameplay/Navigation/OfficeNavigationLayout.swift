@@ -191,6 +191,57 @@ enum OfficeNavigationLayout {
         static let lampPool = CGPoint(x: 1_475, y: 780)
     }
 
+    /// Case-intro dialogue camera: frame seated Voss + standing Lila in the free band above the panel.
+    enum DialogueCameraFraming {
+        /// Old play-camera-relative drop that only cropped heads (kept for regression tests).
+        static let legacyDownwardOffset: CGFloat = 55
+        /// Prior fixed drop from play camera (left the desk under the taller dialogue panel).
+        static let priorDownwardOffset: CGFloat = 28
+        /// Place the camera this far **below** the Voss–Lila midpoint so both sit in the upper free band.
+        static let cameraBelowActorMidpoint: CGFloat = 110
+        /// Slight pull toward Lila’s side of the desk.
+        static let lateralBiasTowardClient: CGFloat = 24
+
+        /// Midpoint between seated Voss and Lila’s arrival stop (world space).
+        static var actorFocusPoint: CGPoint {
+            let voss = OfficeInteriorScale.mapPoint(AuthoredPlacement.deskChair)
+            let lila = clientArrivalPath.last
+                ?? OfficeInteriorScale.mapPoint(AuthoredPlacement.visitorArmchair)
+            return CGPoint(
+                x: (voss.x + lila.x) * 0.5 + lateralBiasTowardClient,
+                y: (voss.y + lila.y) * 0.5
+            )
+        }
+
+        /// World-space camera target used by `DetectiveOfficeScene` during case intro dialogue.
+        static var dialogueCameraWorldPosition: CGPoint {
+            let focus = actorFocusPoint
+            return CGPoint(
+                x: focus.x,
+                y: focus.y - cameraBelowActorMidpoint
+            )
+        }
+
+        /// Play-camera-relative helper (tests / diagnostics). Prefer `dialogueCameraWorldPosition`.
+        static func dialogueCameraPosition(playCamera: CGPoint) -> CGPoint {
+            let target = dialogueCameraWorldPosition
+            // Preserve the signature; actual framing is actor-focused, not play-camera delta.
+            _ = playCamera
+            return target
+        }
+
+        /// Downward delta from the authored play camera to the dialogue target (for tests).
+        static var downwardOffsetFromPlayCamera: CGFloat {
+            let play = OfficeInteriorScale.mapPoint(AuthoredPlacement.camera)
+            return play.y - dialogueCameraWorldPosition.y
+        }
+
+        static var lateralOffsetFromPlayCamera: CGFloat {
+            let play = OfficeInteriorScale.mapPoint(AuthoredPlacement.camera)
+            return dialogueCameraWorldPosition.x - play.x
+        }
+    }
+
     static let authoredHotspots: [(id: String, name: String, hitArea: CGRect, observation: String)] = [
         (
             "office.window",

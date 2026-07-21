@@ -33,8 +33,18 @@ final class DialogueScrollbarNode: SKNode {
     }
 
     private var isScrollable: Bool {
-        maximumScrollOffset > 0.5
+        DialogueScrollbarGeometry.isScrollable(
+            viewportExtent: viewportExtent,
+            contentExtent: contentExtent
+        )
     }
+
+    /// Exposed for tests that inspect the last laid-out thumb without SpriteKit scene bootstrap.
+    private(set) var lastThumbLayout = DialogueScrollbarGeometry.ThumbLayout(
+        isScrollable: false,
+        thumbVisible: false,
+        thumbRect: .zero
+    )
 
     override init() {
         super.init()
@@ -44,8 +54,10 @@ final class DialogueScrollbarNode: SKNode {
         installTexture(named: "dialogue_scroll_track_v01", on: track)
         installTexture(named: "dialogue_scroll_thumb_v01", on: thumb)
 
+        // Track nine-slices cleanly. Thumb uses a larger fixed end-cap fraction so the
+        // diamond and beveled caps never squash into a thin stretched strip.
         track.centerRect = CGRect(x: 0.23, y: 0.12, width: 0.54, height: 0.76)
-        thumb.centerRect = CGRect(x: 0.24, y: 0.18, width: 0.52, height: 0.64)
+        thumb.centerRect = CGRect(x: 0.28, y: 0.22, width: 0.44, height: 0.56)
         track.zPosition = 0
         upButton.zPosition = 1
         downButton.zPosition = 1
@@ -175,12 +187,13 @@ final class DialogueScrollbarNode: SKNode {
         texture.filteringMode = .linear
         sprite.texture = texture
         sprite.color = .white
+        sprite.colorBlendFactor = 0
     }
 
     private func part(at point: CGPoint) -> Part {
         if upButtonRect.contains(point) { return .upButton }
         if downButtonRect.contains(point) { return .downButton }
-        if thumbRect.contains(point), isScrollable { return .thumb }
+        if thumbRect.contains(point), isScrollable, !thumb.isHidden { return .thumb }
         return .track
     }
 
@@ -200,29 +213,30 @@ final class DialogueScrollbarNode: SKNode {
 
     private func refreshThumbGeometry() {
         guard trackRect.height > 0 else { return }
-        let visibleFraction = min(1, viewportExtent / contentExtent)
-        let thumbHeight = isScrollable
-            ? max(42, trackRect.height * visibleFraction)
-            : trackRect.height
-        let travel = max(0, trackRect.height - thumbHeight)
-        let fraction = maximumScrollOffset > 0 ? scrollOffset / maximumScrollOffset : 0
-        let centerY = trackRect.maxY - thumbHeight / 2 - travel * fraction
-
-        thumbRect = CGRect(
-            x: trackRect.midX - max(18, trackRect.width - 4) / 2,
-            y: centerY - thumbHeight / 2,
-            width: max(18, trackRect.width - 4),
-            height: thumbHeight
+        let layout = DialogueScrollbarGeometry.thumbLayout(
+            trackRect: trackRect,
+            viewportExtent: viewportExtent,
+            contentExtent: contentExtent,
+            scrollOffset: scrollOffset
         )
-        thumb.position = CGPoint(x: thumbRect.midX, y: thumbRect.midY)
-        thumb.size = thumbRect.size
+        lastThumbLayout = layout
+        thumbRect = layout.thumbRect
+        thumb.isHidden = !layout.thumbVisible
+        if layout.thumbVisible {
+            thumb.position = CGPoint(x: thumbRect.midX, y: thumbRect.midY)
+            thumb.size = thumbRect.size
+        }
     }
 
     private func refreshAppearance() {
         let disabledAlpha: CGFloat = isScrollable ? 1 : 0.42
         upButton.alpha = disabledAlpha
         downButton.alpha = disabledAlpha
-        thumb.alpha = isScrollable ? 1 : 0.36
+        track.alpha = 1
+        // Hidden when not scrollable — never show a stretched full-track “handle”.
+        if !thumb.isHidden {
+            thumb.alpha = isScrollable ? 1 : 0
+        }
 
         applyAppearance(to: upButton, for: .upButton)
         applyAppearance(to: downButton, for: .downButton)
