@@ -174,21 +174,33 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
-        guard dialogueIsActive else { return }
+        guard dialogueIsActive else {
+            guard !mapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
+            let hudPoint = hudRoot.convert(event.location, from: self)
+            actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
+            return
+        }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerDown(at: dialoguePoint)
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
-        guard dialogueIsActive else { return }
+        guard dialogueIsActive else {
+            let hudPoint = hudRoot.convert(event.location, from: self)
+            actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
+            return
+        }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerDragged(at: dialoguePoint)
     }
 
     override func handlePointerCancelled(_ event: GamePointerEvent) {
-        guard dialogueIsActive else { return }
+        guard dialogueIsActive else {
+            actionBar.cancelPress()
+            return
+        }
         let hudPoint = hudRoot.convert(event.location, from: self)
         let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
         _ = caseIntroductionPresenter.handlePointerUp(at: dialoguePoint)
@@ -228,11 +240,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
-        if actionBar.hitTestMap(actionPoint) {
+        let activatedButton = actionBar.endPress(at: actionPoint)
+        if activatedButton == .map {
             setMapPresented(true)
             return
         }
-        if actionBar.hitTestJournal(actionPoint) {
+        if activatedButton == .journal {
             setJournalPresented(true)
             return
         }

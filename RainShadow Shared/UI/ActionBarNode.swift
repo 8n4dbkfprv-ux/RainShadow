@@ -5,6 +5,11 @@ import SpriteKit
 /// belongs to RainShadow's noir interface language.
 @MainActor
 final class ActionBarNode: SKNode {
+    enum Button {
+        case map
+        case journal
+    }
+
     private enum Metrics {
         static let railWidth: CGFloat = 128
         static let mapButtonHitSize = CGSize(width: 100, height: 92)
@@ -41,6 +46,12 @@ final class ActionBarNode: SKNode {
     private let separator = SKShapeNode()
     private let rivetLeft = SKShapeNode(circleOfRadius: 2.6)
     private let rivetRight = SKShapeNode(circleOfRadius: 2.6)
+    private var mapTextures: (normal: SKTexture, hover: SKTexture, pressed: SKTexture)?
+    private var journalTextures: (normal: SKTexture, hover: SKTexture, pressed: SKTexture)?
+    private var mapIsHighlighted = false
+    private var journalIsHighlighted = false
+    private var pressedButton: Button?
+    private var pressIsInside = false
 
     override init() {
         super.init()
@@ -148,6 +159,7 @@ final class ActionBarNode: SKNode {
     }
 
     func setMapButtonHighlighted(_ highlighted: Bool) {
+        mapIsHighlighted = highlighted
         mapButtonRoot.removeAction(forKey: "hover")
         mapButtonRoot.run(.scale(to: highlighted ? 1.035 : 1, duration: 0.10), withKey: "hover")
         mapButtonArtwork.color = highlighted ? Palette.paper : .white
@@ -156,9 +168,11 @@ final class ActionBarNode: SKNode {
             ? Palette.paper.withAlphaComponent(0.82)
             : .clear
         mapButtonHighlight.glowWidth = highlighted ? 1.5 : 0
+        updateButtonTextures()
     }
 
     func setJournalButtonHighlighted(_ highlighted: Bool) {
+        journalIsHighlighted = highlighted
         journalButtonRoot.removeAction(forKey: "hover")
         journalButtonRoot.run(.scale(to: highlighted ? 1.04 : 1, duration: 0.10), withKey: "hover")
         journalButtonArtwork.alpha = highlighted ? 1 : 0.82
@@ -166,6 +180,44 @@ final class ActionBarNode: SKNode {
             ? Palette.paper.withAlphaComponent(0.88)
             : .clear
         journalButtonHighlight.glowWidth = highlighted ? 1.5 : 0
+        updateButtonTextures()
+    }
+
+    func beginPress(at point: CGPoint) {
+        if hitTestMap(point) {
+            pressedButton = .map
+        } else if hitTestJournal(point) {
+            pressedButton = .journal
+        } else {
+            pressedButton = nil
+        }
+        pressIsInside = pressedButton != nil
+        updateButtonTextures()
+    }
+
+    func updatePress(at point: CGPoint) {
+        switch pressedButton {
+        case .map: pressIsInside = hitTestMap(point)
+        case .journal: pressIsInside = hitTestJournal(point)
+        case nil: return
+        }
+        updateButtonTextures()
+    }
+
+    @discardableResult
+    func endPress(at point: CGPoint) -> Button? {
+        updatePress(at: point)
+        let activated = pressIsInside ? pressedButton : nil
+        pressedButton = nil
+        pressIsInside = false
+        updateButtonTextures()
+        return activated
+    }
+
+    func cancelPress() {
+        pressedButton = nil
+        pressIsInside = false
+        updateButtonTextures()
     }
 
     private func buildRail() {
@@ -230,9 +282,12 @@ final class ActionBarNode: SKNode {
         mapButtonShadow.zPosition = -3
         mapButtonRoot.addChild(mapButtonShadow)
 
-        if let texture = GameArt.texture(named: "map_icon_noir_v03") {
-            texture.filteringMode = .linear
-            mapButtonArtwork.texture = texture
+        if let normal = GameArt.texture(named: "map_icon_noir_v03"),
+           let hover = GameArt.texture(named: "map_icon_noir_v03_hover"),
+           let pressed = GameArt.texture(named: "map_icon_noir_v03_pressed") {
+            for texture in [normal, hover, pressed] { texture.filteringMode = .linear }
+            mapTextures = (normal, hover, pressed)
+            mapButtonArtwork.texture = normal
             mapButtonArtwork.size = Metrics.mapButtonArtworkSize
             mapButtonRoot.addChild(mapButtonArtwork)
         } else {
@@ -257,9 +312,12 @@ final class ActionBarNode: SKNode {
         shadow.zPosition = -3
         journalButtonRoot.addChild(shadow)
 
-        if let texture = GameArt.texture(named: "journal_icon_noir_v02") {
-            texture.filteringMode = .linear
-            journalButtonArtwork.texture = texture
+        if let normal = GameArt.texture(named: "journal_icon_noir_v02"),
+           let hover = GameArt.texture(named: "journal_icon_noir_v02_hover"),
+           let pressed = GameArt.texture(named: "journal_icon_noir_v02_pressed") {
+            for texture in [normal, hover, pressed] { texture.filteringMode = .linear }
+            journalTextures = (normal, hover, pressed)
+            journalButtonArtwork.texture = normal
             journalButtonArtwork.size = Metrics.journalButtonArtworkSize
         } else {
             assertionFailure("Missing journal_icon_noir_v02.png")
@@ -271,6 +329,19 @@ final class ActionBarNode: SKNode {
         journalButtonHighlight.lineWidth = 2
         journalButtonHighlight.zPosition = 2
         journalButtonRoot.addChild(journalButtonHighlight)
+    }
+
+    private func updateButtonTextures() {
+        if let textures = mapTextures {
+            mapButtonArtwork.texture = pressedButton == .map && pressIsInside
+                ? textures.pressed
+                : (mapIsHighlighted ? textures.hover : textures.normal)
+        }
+        if let textures = journalTextures {
+            journalButtonArtwork.texture = pressedButton == .journal && pressIsInside
+                ? textures.pressed
+                : (journalIsHighlighted ? textures.hover : textures.normal)
+        }
     }
 
     private func layoutScratches(railHeight: CGFloat, below separatorY: CGFloat) {

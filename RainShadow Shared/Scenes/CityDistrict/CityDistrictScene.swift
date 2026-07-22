@@ -77,6 +77,21 @@ final class CityDistrictScene: BaseGameScene {
         ]))
     }
 
+    override func handlePointerDown(_ event: GamePointerEvent) {
+        guard !mapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
+    }
+
+    override func handlePointerDragged(_ event: GamePointerEvent) {
+        let hudPoint = hudRoot.convert(event.location, from: self)
+        actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
+    }
+
+    override func handlePointerCancelled(_ event: GamePointerEvent) {
+        actionBar.cancelPress()
+    }
+
     override func handlePointerUp(_ event: GamePointerEvent) {
         let hudPoint = hudRoot.convert(event.location, from: self)
         if journalIsPresented {
@@ -98,11 +113,12 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
-        if actionBar.hitTestMap(actionPoint) {
+        let activatedButton = actionBar.endPress(at: actionPoint)
+        if activatedButton == .map {
             setMapPresented(true)
             return
         }
-        if actionBar.hitTestJournal(actionPoint) {
+        if activatedButton == .journal {
             setJournalPresented(true)
             return
         }
