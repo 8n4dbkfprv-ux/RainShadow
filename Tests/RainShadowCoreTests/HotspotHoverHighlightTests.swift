@@ -215,12 +215,13 @@ struct HotspotHoverHighlightTests {
             || source.contains("washRed"))
         // Must not use the broken SKShader path or offset slabs.
         #expect(!source.contains("SKShader(source:"))
+        #expect(!source.contains(".shader ="))
         #expect(!source.contains("silhouetteOutlineLocalOffsets("))
         #expect(!source.contains("let hotspotHoverOutline"))
         #expect(!source.contains("configureHotspotHoverOutline"))
     }
 
-    @Test func deskRegistrationTracksBareDeskNotChairOrOccluders() throws {
+    @Test func everyOfficeHotspotHasARegisteredHighlightSprite() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -230,26 +231,74 @@ struct HotspotHoverHighlightTests {
         )
         let source = try String(contentsOf: sceneURL, encoding: .utf8)
 
-        // Must not register any hover sprites for office.window (no window-frame prop).
+        // The baked shell window is mirrored as an exact transparent prop for highlighting.
         #expect(!source.contains("registerHoverSprite(radiator, for: \"office.window\")"))
-        #expect(!source.contains("for: \"office.window\""))
+        #expect(source.contains("registerHoverSprite(window, for: \"office.window\")"))
+        #expect(source.contains("office_window"))
 
-        // Desk bare is the accurate desk silhouette.
+        #expect(source.contains("registerHoverSprite(officeDoor, for: \"office.door\")"))
+        #expect(source.contains("fixture.name = textureName"))
+        #expect(source.contains("\"office.files\""))
+        #expect(source.contains("\"office.phone\""))
+
+        // All visible desk-only layers wash together so the selection covers the full desk.
         #expect(source.contains("registerHoverSprite(deskBare, for: \"office.desk\")"))
+        #expect(source.contains("registerHoverSprite(deskActorOccluder, for: \"office.desk\")"))
+        #expect(source.contains("registerHoverSprite(deskFrontOccluder, for: \"office.desk\")"))
         #expect(source.contains("office_desk_bare"))
 
-        // Chair must NOT be registered for desk — false under/behind-desk geometry (Image #2).
+        // Chair and desk-top props remain independent and never inherit desk selection.
         #expect(!source.contains("registerHoverSprite(chair, for: \"office.desk\")"))
-
-        // Occluders / chair: no registerHoverSprite line may mention them for desk hover.
         let lines = source.components(separatedBy: .newlines)
         for line in lines where line.contains("registerHoverSprite") {
-            #expect(!line.contains("occluder"), "Occluder must not be hover-registered: \(line)")
             #expect(
                 !(line.contains("chair") && line.contains("office.desk")),
                 "Chair must not be desk-hover-registered: \(line)"
             )
+            for prop in ["papers", "files", "lamp", "phone", "mug", "ashtray"] {
+                #expect(
+                    !(line.contains(prop) && line.contains("office.desk")),
+                    "Desk-top prop must not be desk-hover-registered: \(line)"
+                )
+            }
         }
+    }
+
+    @Test func extractedWindowPropHasTransparentSilhouetteAndReadableInterior() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let windowURL = root.appendingPathComponent(
+            "RainShadow Shared/Resources/Art/Props/Office/office_window.png"
+        )
+        let (rgba, width, height) = try loadStraightRGBA(from: windowURL)
+        #expect(width == 304)
+        #expect(height == 422)
+
+        var clearPixels = 0
+        var opaquePixels = 0
+        for index in stride(from: 3, to: rgba.count, by: 4) {
+            if rgba[index] == 0 { clearPixels += 1 }
+            if rgba[index] == 255 { opaquePixels += 1 }
+        }
+        #expect(clearPixels > 40_000)
+        #expect(opaquePixels > 40_000)
+        #expect(rgba[3] == 0)
+
+        let presentation = HotspotHoverHighlight.selectedPresentationTemplate
+        let stats = HotspotHoverHighlight.evaluateHighlightStats(
+            rgba: rgba,
+            width: width,
+            height: height,
+            spriteScaleX: OfficeInteriorScale.environment,
+            spriteScaleY: OfficeInteriorScale.environment,
+            presentation: presentation,
+            sampleStride: 1
+        )
+        #expect(stats.allEdgesAreCyan)
+        #expect(stats.allWashesNotPureCyan)
+        #expect(stats.washCount > stats.edgeCount)
     }
 
     @Test func selectedConstantsMatchImageOneCyanEdgeAndTealWash() {

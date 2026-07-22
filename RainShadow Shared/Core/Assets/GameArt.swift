@@ -51,6 +51,7 @@ enum GameArt {
             "det_standing_idle_nw_00",
             "det_standing_idle_n_00",
             "office_shell_base",
+            "office_window",
             "city_district_block_v01",
             "city_district_ground_v01",
             "city_building_nw",

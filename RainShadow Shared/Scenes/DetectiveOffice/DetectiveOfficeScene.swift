@@ -52,6 +52,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             buildFallbackOffice()
         }
 
+        addWindowHighlightProp()
         addWindowRain()
         addLampAtmosphere()
 
@@ -118,19 +119,25 @@ final class DetectiveOfficeScene: BaseGameScene {
         // Covers only the seated lap/legs with registered desk pixels. Its depth sits
         // above the actor but below every independent desktop item, so papers, mug,
         // phone, and lamp remain visible while the lower body stays behind the desk.
-        addDepthProp(
+        if let deskActorOccluder = addDepthProp(
             named: "office_desk_actor_occluder",
             at: deskPosition,
             scale: deskScale,
             bias: -70
-        )
+        ) {
+            // This is desk artwork used to conceal the seated actor, not a desk-top prop.
+            registerHoverSprite(deskActorOccluder, for: "office.desk")
+        }
 
-        addDepthProp(
+        if let deskFrontOccluder = addDepthProp(
             named: "office_desk_front_occluder_v03",
             at: deskPosition,
             scale: deskScale,
             bias: 10
-        )
+        ) {
+            // The visible front layer must wash with the desk or it masks most of the selection.
+            registerHoverSprite(deskFrontOccluder, for: "office.desk")
+        }
 
         addFogOfWar()
 
@@ -653,7 +660,6 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func clearHoverVisual(on sprite: SKSpriteNode) {
-        sprite.shader = nil
         sprite.color = .white
         sprite.colorBlendFactor = HotspotHoverHighlight.clearedColorBlendFactor
         sprite.children
@@ -670,7 +676,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         presentation: HotspotHoverHighlight.Presentation
     ) {
         // 1) Body wash — original art still reads under teal tint.
-        sprite.shader = nil
         sprite.color = SKColor(
             red: presentation.washRed,
             green: presentation.washGreen,
@@ -824,6 +829,19 @@ final class DetectiveOfficeScene: BaseGameScene {
         rearFixtureRoot.addChild(crop)
     }
 
+    /// Mirrors the window pixels baked into the shell as an independent sprite so the
+    /// same shader-free wash + edge overlay used by every other hotspot can target it.
+    private func addWindowHighlightProp() {
+        guard let texture = GameArt.texture(named: "office_window") else { return }
+        let window = SKSpriteNode(texture: texture)
+        window.name = "office_window"
+        window.position = OfficeInteriorScale.mapPoint(CGPoint(x: 768, y: 1_507))
+        window.setScale(OfficeInteriorScale.environment)
+        window.texture?.filteringMode = .linear
+        rearFixtureRoot.addChild(window)
+        registerHoverSprite(window, for: "office.window")
+    }
+
     private func addLampAtmosphere() {
         let pool = SKShapeNode(ellipseOf: CGSize(
             width: 1_050 * OfficeInteriorScale.environment,
@@ -855,6 +873,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func addRearFixture(named textureName: String, at position: CGPoint, scale: CGFloat) -> SKSpriteNode? {
         guard let texture = GameArt.texture(named: textureName) else { return nil }
         let fixture = SKSpriteNode(texture: texture)
+        fixture.name = textureName
         fixture.anchorPoint = CGPoint(x: 0.5, y: 0.04)
         fixture.position = position
         fixture.setScale(scale)
@@ -922,16 +941,17 @@ final class DetectiveOfficeScene: BaseGameScene {
         return prop
     }
 
-    /// Desk items are independent sprites registered to the 932x780 bare-desk texture.
-    /// Their native content sizes deliberately reproduce the tiny BG-era room scale.
+    /// Desk items are independent sprites aligned to the 932x780 bare-desk canvas.
+    /// Only items with their own hotspot are highlight-registered; desk selection never
+    /// leaks into loose props. Native content sizes reproduce the tiny BG-era room scale.
     private func addDeskItems(at deskPosition: CGPoint, scale: CGFloat) {
-        let itemCenters: [(name: String, center: CGPoint, hotspotID: String)] = [
-            ("office_desk_papers", CGPoint(x: 423, y: 224), "office.desk"),
+        let itemCenters: [(name: String, center: CGPoint, hotspotID: String?)] = [
+            ("office_desk_papers", CGPoint(x: 423, y: 224), nil),
             ("office_desk_files", CGPoint(x: 186, y: 301), "office.files"),
-            ("office_desk_lamp", CGPoint(x: 716, y: 120), "office.desk"),
+            ("office_desk_lamp", CGPoint(x: 716, y: 120), nil),
             ("office_desk_phone", CGPoint(x: 648, y: 213), "office.phone"),
-            ("office_desk_mug", CGPoint(x: 391, y: 298), "office.desk"),
-            ("office_desk_ashtray", CGPoint(x: 502, y: 313), "office.desk")
+            ("office_desk_mug", CGPoint(x: 391, y: 298), nil),
+            ("office_desk_ashtray", CGPoint(x: 502, y: 313), nil)
         ]
         let deskCanvas = CGSize(width: 932, height: 780)
         let deskAnchor = CGPoint(x: 0.5, y: 0.04)
@@ -948,10 +968,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             node.texture?.filteringMode = .linear
             updateDepth(of: node)
             depthWorldRoot.addChild(node)
-            registerHoverSprite(node, for: item.hotspotID)
-            // Desk ensemble also recolors desktop clutter when the desk hotspot wins.
-            if item.hotspotID != "office.desk" {
-                registerHoverSprite(node, for: "office.desk")
+            if let hotspotID = item.hotspotID {
+                registerHoverSprite(node, for: hotspotID)
             }
         }
     }
