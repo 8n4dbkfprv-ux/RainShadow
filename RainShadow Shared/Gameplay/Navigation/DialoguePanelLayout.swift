@@ -93,7 +93,9 @@ struct DialoguePanelLayout: Equatable {
     static let choiceBandTopPadding: CGFloat = 12
     static let choiceBandBottomPadding: CGFloat = 8
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
-    static let choiceBandMaxViewportFraction: CGFloat = 0.74
+    /// The 0.80 ceiling lets the longest shipped three-choice page fit at the supported
+    /// 800×600 window while `minBodyViewportHeight` still protects the dialogue body.
+    static let choiceBandMaxViewportFraction: CGFloat = 0.80
     /// Minimum height reserved for scrolling body text above the choice strip.
     static let minBodyViewportHeight: CGFloat = 88
     /// Extra headroom per choice when estimating multi-line options before measure.

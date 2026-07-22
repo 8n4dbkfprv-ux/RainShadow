@@ -27,7 +27,27 @@ enum CityDistrictLayout {
         let scale: CGFloat
         let anchorY: CGFloat
         let depthBias: CGFloat
+
+        init(
+            textureName: String,
+            groundPoint: CGPoint,
+            scale: CGFloat,
+            anchorY: CGFloat,
+            depthBias: CGFloat
+        ) {
+            self.textureName = textureName
+            self.groundPoint = groundPoint
+            self.scale = scale * CityDistrictLayout.spriteScaleRelativeToLegacyAdult
+            self.anchorY = anchorY
+            self.depthBias = depthBias
+        }
     }
+
+    /// Same adult body as the office detective / client (BG:EE humanoid class).
+    static let standingAdultBodyHeight = OfficeInteriorScale.standingAdultBodyHeight
+    /// Existing city sprite authoring used a 100-unit adult. Scale the whole
+    /// independent prop set with the corrected shared 82-unit actor contract.
+    private static let spriteScaleRelativeToLegacyAdult = standingAdultBodyHeight / 100
 
     static let sourceArtSize = CGSize(width: 1_774, height: 887)
     static let environmentScale: CGFloat = 2
@@ -37,9 +57,69 @@ enum CityDistrictLayout {
     )
     static let worldBounds = CGRect(origin: .zero, size: worldArtSize)
 
-    /// Wider than the office's 666-point visible height, but still close enough
-    /// that Elias and the street furniture retain the intended CRPG density.
-    static let cameraVisibleHeight: CGFloat = 780
+    /// Same BG:EE default-play density as the office: standing body ≈ 9% of
+    /// visible world height so multi-story blocks read taller than the actor.
+    static var cameraVisibleHeight: CGFloat {
+        DefaultPlayZoom.cameraVisibleHeight(standingBodyHeight: standingAdultBodyHeight)
+    }
+
+    // MARK: - Measured opaque content heights (runtime city prop PNGs)
+
+    /// Opaque bbox heights of shipped city prop textures. Display height in
+    /// world units is `contentHeight * VisualSprite.scale` (matches
+    /// `SKSpriteNode(texture:)` + `setScale`).
+    enum SourceContentHeight {
+        static let buildingCentral: CGFloat = 491
+        static let buildingMid: CGFloat = 496
+        static let buildingSE: CGFloat = 496
+        static let buildingNW: CGFloat = 364
+        static let buildingNE: CGFloat = 368
+        static let buildingSW: CGFloat = 358
+        static let carBlack: CGFloat = 248
+        static let carOlive: CGFloat = 248
+        static let carMaroon: CGFloat = 242
+        static let lamp: CGFloat = 273
+        static let bench: CGFloat = 188
+        static let kiosk: CGFloat = 250
+        static let statue: CGFloat = 271
+        static let gate: CGFloat = 241
+        static let cratesMail: CGFloat = 239
+    }
+
+    // MARK: - BG:EE-derived height-vs-body bands
+
+    enum Band {
+        /// Multi-story facades clearly taller than a standing adult (exterior #2 grammar).
+        static let multiStoryBuilding: ClosedRange<CGFloat> = 4.0...12.0
+        /// Cars stay near adult height — not multi-story set pieces.
+        static let car: ClosedRange<CGFloat> = 0.80...1.60
+        /// Street lamps stand above head height, below building eave.
+        static let streetLamp: ClosedRange<CGFloat> = 1.40...2.50
+        /// Bench with backrest / seat mass under adult standing height.
+        static let bench: ClosedRange<CGFloat> = 0.50...1.40
+        /// Single-storey kiosk / newsstand.
+        static let kiosk: ClosedRange<CGFloat> = 1.00...2.20
+    }
+
+    /// Representative authored scale for a texture name (first matching sprite).
+    static func representativeScale(forTextureName name: String) -> CGFloat? {
+        visualSprites.first(where: { $0.textureName == name })?.scale
+    }
+
+    /// World display height of a city prop after its sprite scale.
+    static func displayHeight(contentHeight: CGFloat, scale: CGFloat) -> CGFloat {
+        contentHeight * scale
+    }
+
+    /// Prop height as a multiple of the shared standing adult body.
+    static func bodyMultiple(contentHeight: CGFloat, scale: CGFloat) -> CGFloat {
+        displayHeight(contentHeight: contentHeight, scale: scale) / standingAdultBodyHeight
+    }
+
+    static func bodyMultiple(contentHeight: CGFloat, textureName: String) -> CGFloat? {
+        guard let scale = representativeScale(forTextureName: textureName) else { return nil }
+        return bodyMultiple(contentHeight: contentHeight, scale: scale)
+    }
 
     /// The illuminated office stoop is at the southeast edge of the generated
     /// block; the start is placed on the clear wet pavement immediately outside.

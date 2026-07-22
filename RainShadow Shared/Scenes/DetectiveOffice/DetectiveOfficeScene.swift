@@ -45,7 +45,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func buildScene() {
         addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_window.m4a", volume: 0.27))
 
-        let env = OfficeInteriorScale.environment
+        let standardPropScale = OfficeInteriorScale.standardPropDisplayScale
 
         if let texture = GameArt.texture(named: "office_shell_base") {
             texture.filteringMode = .linear
@@ -65,12 +65,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         addRearFixture(
             named: "office_radiator",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
-            scale: env
+            scale: standardPropScale
         )
         officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
-            scale: env
+            scale: standardPropScale
         )
         if let officeDoor {
             registerHoverSprite(officeDoor, for: "office.door")
@@ -81,23 +81,23 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_desk_chair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair),
-            scale: env * OfficeInteriorScale.PropRelativeScale.deskChair,
+            scale: OfficeInteriorScale.seatingPropDisplayScale,
             bias: -70
         )
         addDepthProp(
             named: "office_filing_cabinet",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
-            scale: env
+            scale: standardPropScale
         )
         addDepthProp(
             named: "office_coat_rack",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.coatRack),
-            scale: env
+            scale: standardPropScale
         )
         addDepthProp(
             named: "office_visitor_armchair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchair),
-            scale: env
+            scale: OfficeInteriorScale.visitorArmchairDisplayScale
         )
         let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         let deskScale = OfficeInteriorScale.deskDisplayScale
@@ -432,16 +432,17 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     override func layoutViewport() {
         super.layoutViewport()
-        let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
-        inventoryOverlay.layout(for: visibleSize)
-        areaMapOverlay.layout(for: visibleSize)
-        journalOverlay.layout(for: size)
-        caseIntroductionPresenter.layout(for: visibleSize)
-        // Camera children use screen-space points. The other overlays intentionally
-        // follow the authored visible-world canvas, while the edge rail must span
-        // the physical viewport from top to bottom.
-        portraitBar.layout(for: size)
-        actionBar.layout(for: size)
+        // Every HUD node is a child of `gameCamera`, so camera zoom is cancelled
+        // from its inherited transform. Lay out all HUD in physical scene points;
+        // using the world-visible size here made the dialogue and overlays grow
+        // whenever the play camera zoomed out.
+        let hudViewportSize = size
+        inventoryOverlay.layout(for: hudViewportSize)
+        areaMapOverlay.layout(for: hudViewportSize)
+        journalOverlay.layout(for: hudViewportSize)
+        caseIntroductionPresenter.layout(for: hudViewportSize)
+        portraitBar.layout(for: hudViewportSize)
+        actionBar.layout(for: hudViewportSize)
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -734,8 +735,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         guard let texture = GameArt.standaloneTexture(named: "office_window") else { return }
         let window = SKSpriteNode(texture: texture)
         window.name = "office_window"
-        window.position = OfficeInteriorScale.mapPoint(CGPoint(x: 768, y: 1_507))
-        window.setScale(OfficeInteriorScale.environment)
+        window.position = OfficeInteriorScale.mapPoint(CGPoint(x: 1_215, y: 1_720))
+        window.setScale(OfficeInteriorScale.windowDisplayScale)
         window.texture?.filteringMode = .linear
         rearFixtureRoot.addChild(window)
         registerHoverSprite(window, for: "office.window")

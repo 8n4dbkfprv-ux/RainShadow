@@ -44,7 +44,7 @@ The Image Generator produces source material. Every result still passes registra
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office shell | 4096×2048 V2 plate | 4096×2048 | Empty panoramic architecture only; V1 3072-wide coordinates remain centered. |
+| Office shell | 3840×2160 V3 master | 4096×2304 | Empty 16:9 architecture rebuilt at the BG:EE tavern camera height and feature scale. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 100px native body, limit to 96 colors without dithering, enlarge 2× with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -97,7 +97,7 @@ The word **empty** is strict. The shell may contain built architecture, fixed wa
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 4096×2048 | Opaque | Empty original panoramic office architecture, isometric floor and walls, door/window openings, baked low cool ambient only. |
+| P0 | `office_shell_base` | 4096×2304 | Opaque | Empty original V3 office architecture, high 2:1 dimetric floor and walls, small door/window openings, baked low cool ambient only. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
@@ -190,7 +190,7 @@ Design continuity rules:
 
 All stored runtime frames are 512×512 transparent PNGs with a 200px opaque body and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. SpriteKit displays every frame at 256×256 points, preserving the established 100-world-unit actor height while providing 2× texture density. The seated pose gets its apparent height from authored posture and desk occlusion and retains its −100pt visual offset into the chair/desk registration.
 
-The body remains about 125–145 screen pixels from shoe sole to crown in the reference 2048×1152 view. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 100-pixel native body, limit it to 96 colors without dithering, enlarge it 2× with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
+The body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 100-pixel native body, limit it to 96 colors without dithering, enlarge it 2× with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
 
@@ -204,7 +204,7 @@ Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw
 
 Required stored character texture frames: **140**. Required displayed facing/frame combinations, including runtime mirroring: **224**.
 
-The first client uses a deliberately smaller authored set: `ClientArrival.atlas` contains four southwest entrance phases, one southwest standing idle, and four rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's 100-unit world height.
+The first client uses a deliberately smaller authored set: `ClientArrival.atlas` contains four southwest entrance phases, one southwest standing idle, and four rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
 
 Filename examples:
 
@@ -232,7 +232,7 @@ Additional character texture:
 
 - Ground pivot movement: ≤ 2 runtime pixels except when intentional movement is represented by root motion; root motion is removed from walk frames.
 - Standing head-height jitter: ≤ 2 runtime pixels.
-- Apparent actor height at reference office pose: target 125–145 screen pixels in a 2048×1152 view, roughly preserving the reference games' low actor-to-viewport ratio.
+- Apparent actor height at reference office pose: target 9% of playable height, with an acceptable 8–11% band (about 92–127 screen pixels in a 2048×1152 rendered view).
 - Walk-cycle first/last continuity: no visible pop at 0.25× speed.
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.
 - Alpha-edge fringe: none over warm lamp light or cool window shadow.
@@ -381,7 +381,7 @@ Stop here if the look reads as generic AI art, modern 3D, pixel art, or a litera
 
 1. Finalize character sheet and isometric turnaround.
 2. Generate standing-idle key frames for the nine stored western-arc source orientations.
-3. Generate one complete SW walk cycle; register it at 512×512 with a 200px body and test it in graybox at the 100-unit target scale.
+3. Generate one complete SW walk cycle; register it at 512×512 with a 200px body and test it in graybox at the 82-unit target scale.
 4. Expand walking to the remaining eight source orientations, then review all 16 displayed/mirrored facings.
 5. Generate seated idle and test behind the registered desk/chair.
 6. Generate stand-up and sit-down transitions.
@@ -446,5 +446,5 @@ The first production generation batch is approved only when:
 - desk front, door jamb, window sill, and foreground wall correctly occlude the detective;
 - all stored frames and displayed facing/frame combinations preserve identity, world scale, 2× pivot, projection, baked-light behavior, controlled native raster texture, and readable mirroring;
 - rain and window effects loop without seams or mask leakage;
-- the room reads coherently at 2048×1152 and the narrow 1536×1152 safe view;
+- the room reads coherently in both 2048×1152 (16:9) and 1536×1152 (4:3) rendered outputs at the shared 1,111-world-unit camera height;
 - all content is original RainShadow content and contains no copied franchise assets, text, logos, or distinctive existing room composition.

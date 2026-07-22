@@ -82,13 +82,13 @@ Platform app target
 
 - One logical world unit equals one pixel in the baseline runtime export.
 - Exterior art space: 3072×1728 units.
-- Office V2 area plate: 4096×2048 pixels, mapped into the established 0.28-scale world while preserving the centered V1 authoring coordinates and every prop/actor size.
-- Reference playable camera height: 1152 units.
-- Reference 16:9 viewport: 2048×1152 units.
-- Narrow composition-safe viewport: central 1536×1152 units, covering 4:3 landscape.
-- Wide composition-safe viewport: 2496×1152 units, covering common wide phones.
+- Office V3 area plate: 4096×2304 pixels, rebuilt at a high 2:1 dimetric camera and mapped at 0.395 independently from the smaller runtime prop scales.
+- Reference playable camera height: 911 units, so the 82-unit standing adult occupies 9% of playable height.
+- Reference 16:9 viewport: approximately 1975×1111 world units.
+- Narrow composition-safe viewport: central 1481×1111 world units, covering 4:3 landscape.
+- Wide composition-safe viewport: approximately 2407×1111 world units, covering common wide phones.
 
-Critical actors, paths, hotspots, and captions must remain readable in the central 1536-unit width. Wide framing reveals intentional environmental overscan rather than stretching or inventing content.
+Critical actors, paths, hotspots, and captions must remain readable in the central 1481-unit width. Wide framing reveals intentional environmental overscan rather than stretching or inventing content.
 
 ### 4.2 Scene and camera behavior
 

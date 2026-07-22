@@ -67,6 +67,7 @@ final class DetectiveActorNode: SKNode {
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
         contactShadow.strokeColor = .clear
         contactShadow.position = CGPoint(x: 0, y: 4)
+        contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
 
         if let texture = seatedIdleTextures.first ?? standingTexture {
             body = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))

@@ -230,12 +230,14 @@ final class CityDistrictScene: BaseGameScene {
 
     override func layoutViewport() {
         super.layoutViewport()
-        let visibleSize = CGSize(width: size.width * baseCameraScale, height: referenceVisibleHeight)
-        inventoryOverlay.layout(for: visibleSize)
-        areaMapOverlay.layout(for: visibleSize)
-        journalOverlay.layout(for: size)
-        portraitBar.layout(for: size)
-        actionBar.layout(for: size)
+        // Camera-child HUD geometry is screen-space and must not change when the
+        // world camera zoom changes between the office and the district.
+        let hudViewportSize = size
+        inventoryOverlay.layout(for: hudViewportSize)
+        areaMapOverlay.layout(for: hudViewportSize)
+        journalOverlay.layout(for: hudViewportSize)
+        portraitBar.layout(for: hudViewportSize)
+        actionBar.layout(for: hudViewportSize)
         updateCameraPosition()
     }
 

@@ -19,17 +19,21 @@ final class ClientActorNode: SKNode {
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.32)
         contactShadow.strokeColor = .clear
         contactShadow.position = CGPoint(x: 0, y: 3)
+        contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
 
         if let texture = arrivalTextures.last {
             body = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))
         } else {
             body = SKSpriteNode(
                 color: SKColor(red: 0.18, green: 0.08, blue: 0.1, alpha: 1),
-                size: CGSize(width: 42, height: 100)
+                size: CGSize(width: 42, height: OfficeInteriorScale.clientBodyHeight)
             )
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 39 / 256)
         body.texture?.filteringMode = .nearest
+        // Same adult standing scale as DetectiveActorNode (BG:EE shared party height).
+        body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
+        body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
 
         super.init()
         name = "client.vivianHart"

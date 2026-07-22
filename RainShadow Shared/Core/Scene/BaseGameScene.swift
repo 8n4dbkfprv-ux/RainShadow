@@ -69,7 +69,11 @@ class BaseGameScene: SKScene {
 
     func layoutViewport() {
         guard size.height > 0 else { return }
-        baseCameraScale = referenceVisibleHeight / size.height
+        // Uniform orthographic scale only — fixed dimetric projection; no pitch/yaw/FOV.
+        baseCameraScale = DefaultPlayZoom.cameraScale(
+            visibleWorldHeight: referenceVisibleHeight,
+            sceneHeight: size.height
+        )
         gameCamera.setScale(baseCameraScale)
     }
 

@@ -5,8 +5,15 @@ import Testing
 struct OfficeInteriorScaleTests {
     @Test func actorFramesUseTheSameNativeRoomScale() {
         #expect(OfficeInteriorScale.Band.standingBody.contains(OfficeInteriorScale.detectiveBodyHeight))
-        #expect(OfficeInteriorScale.ActorDisplay.standingScale == 1)
+        #expect(OfficeInteriorScale.ActorDisplay.standingScale == 0.82)
         #expect(OfficeInteriorScale.ActorDisplay.standingScale == OfficeInteriorScale.ActorDisplay.seatedScale)
+    }
+
+    @Test func detectiveAndClientShareAdultStandingBodyHeight() {
+        #expect(OfficeInteriorScale.clientBodyHeight == OfficeInteriorScale.detectiveBodyHeight)
+        #expect(OfficeInteriorScale.standingAdultBodyHeight == OfficeInteriorScale.detectiveBodyHeight)
+        #expect(OfficeInteriorScale.Band.standingBody.contains(OfficeInteriorScale.clientBodyHeight))
+        #expect(OfficeInteriorScale.standingClientSourceHeight == OfficeInteriorScale.standingDetectiveSourceHeight)
     }
 
     @Test func chairMatchesTheSeatedVisualBaseline() {
@@ -19,7 +26,8 @@ struct OfficeInteriorScaleTests {
 
     @Test func doorMultipleFallsInBGBand() {
         let multiple = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf
+            contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
         )
         #expect(OfficeInteriorScale.Band.door.contains(multiple))
     }
@@ -76,7 +84,8 @@ struct OfficeInteriorScaleTests {
 
     @Test func cabinetMultipleFallsInBGBand() {
         let multiple = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.filingCabinet
+            contentHeight: OfficeInteriorScale.SourceContentHeight.filingCabinet,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
         )
         #expect(OfficeInteriorScale.Band.cabinet.contains(multiple))
     }
@@ -120,7 +129,7 @@ struct OfficeInteriorScaleTests {
         #expect(mapped.origin == OfficeInteriorScale.mapPoint(rect.origin))
     }
 
-    @Test func environmentIsUniformForShellAndProps() {
+    @Test func shellUsesItsOwnCoordinateScale() {
         #expect(OfficeInteriorScale.environment > 0)
         #expect(OfficeInteriorScale.environment < 1)
         let shell = OfficeInteriorScale.scaledArtSize
@@ -128,9 +137,9 @@ struct OfficeInteriorScaleTests {
         #expect(shell.height == OfficeInteriorScale.sourceArtSize.height * OfficeInteriorScale.environment)
     }
 
-    @Test func panoramicShellExtendsWithoutMovingAuthoredGameplay() {
-        #expect(OfficeInteriorScale.sourceArtSize == CGSize(width: 4_096, height: 2_048))
-        #expect(OfficeInteriorScale.sourceArtOrigin == CGPoint(x: -512, y: 0))
+    @Test func v3ShellUsesFullSixteenByNinePlate() {
+        #expect(OfficeInteriorScale.sourceArtSize == CGSize(width: 4_096, height: 2_304))
+        #expect(OfficeInteriorScale.sourceArtOrigin == .zero)
         #expect(OfficeInteriorScale.mapPoint(OfficeInteriorScale.layoutFocus) == OfficeInteriorScale.layoutFocus)
         #expect(
             OfficeInteriorScale.shellOrigin.x
@@ -148,9 +157,9 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
-        let authoredStart = CGPoint(x: 1_430, y: 1_080)
+        let authoredStart = CGPoint(x: 2_000, y: 1_218)
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
-        #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 1_235, y: 1_085)))
+        #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 1_600, y: 1_100)))
     }
 
     @Test func clientArrivalMovesSouthWestAlongClearFloor() {
@@ -335,17 +344,26 @@ struct OfficeInteriorScaleTests {
         #expect(exercised >= 1, "Expected at least one successful around-desk path to inspect")
     }
 
-    @Test func officeCameraFramesTheScaledRoom() {
-        let visibleFraction = OfficeInteriorScale.scaledArtSize.height
+    @Test func officeCameraUsesBGEEHumanScaleDensity() {
+        let bodyFraction = DefaultPlayZoom.standingBodyFraction(
+            bodyHeight: OfficeInteriorScale.detectiveBodyHeight,
+            visibleWorldHeight: OfficeInteriorScale.cameraVisibleHeight
+        )
+        #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(bodyFraction))
+        #expect(abs(bodyFraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
+
+        // The V3 room was authored at the correct human-relative scale, so it can
+        // fill the playfield without magnifying actors or furniture.
+        let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        #expect(abs(visibleFraction - 0.86) < 0.001)
-        #expect(OfficeInteriorScale.cameraVisibleHeight < 700)
-        #expect(OfficeInteriorScale.scaledArtSize.width > 1_100)
+        #expect(shellFill > 0.95 && shellFill < 1.05)
+        #expect(OfficeInteriorScale.scaledArtSize.width > 1_600)
     }
 
     @Test func scaleReportMatchesShippedContract() {
         let door = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf
+            contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
         )
         let drawers = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.deskDrawerFace,
@@ -354,8 +372,8 @@ struct OfficeInteriorScaleTests {
         let window = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.windowGlassOpening
         )
-        #expect(OfficeInteriorScale.environment == 0.28)
-        #expect(OfficeInteriorScale.detectiveBodyHeight == 100)
+        #expect(OfficeInteriorScale.environment == 0.395)
+        #expect(OfficeInteriorScale.detectiveBodyHeight == 82)
         #expect(OfficeInteriorScale.Band.door.contains(door))
         #expect(OfficeInteriorScale.Band.deskDrawerFace.contains(drawers))
         #expect(OfficeInteriorScale.Band.windowGlass.contains(window))

@@ -1,41 +1,50 @@
 import CoreGraphics
 
-/// Single interior scale contract: standing detective stays ~100 world units;
-/// shell + props share one environment scale so furniture-to-body ratios
-/// match Baldur's Gate playable-view proportions from the user reference shots.
+/// Baldur's Gate-scale office contract. The generated shell, prop sprites and
+/// actors have independent display scales but share one authored coordinate map.
 enum OfficeInteriorScale {
     static let standingDetectiveSourceHeight: CGFloat = 100
     static let seatedDetectiveSourceHeight: CGFloat = 100
+    /// Client atlases use the same 100-unit adult body as the detective (BG:EE
+    /// party-member height class — no child-scale or giant-scale adults).
+    static let standingClientSourceHeight: CGFloat = 100
 
     enum ActorDisplay {
-        /// Actor atlases use a 200px opaque body at 2x texture density, shown as
-        /// a 100-unit body. Enlarging the world scale to 130% made the detective
-        /// nearly as tall as the door and broke the fixed room perspective.
-        static let standingScale: CGFloat = 1
-        static let seatedScale: CGFloat = 1
+        /// Actor atlases carry a 200px opaque body at 2x texture density. The V3
+        /// office presents it as an 82-unit body, matching the tavern references.
+        static let standingScale: CGFloat = 0.82
+        static let seatedScale: CGFloat = 0.82
         /// Visual-only shift from the walkable navigation root into the chair/desk registration.
-        static let seatedYOffset: CGFloat = -100
+        static let seatedYOffset: CGFloat = -82
     }
 
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
     static let seatedDetectiveBodyHeight = seatedDetectiveSourceHeight * ActorDisplay.seatedScale
+    /// Same adult height as the detective — shared humanoid contract for office play.
+    static let clientBodyHeight = standingClientSourceHeight * ActorDisplay.standingScale
+    /// Canonical standing adult used by office furniture body-multiples and city props.
+    static var standingAdultBodyHeight: CGFloat { detectiveBodyHeight }
 
-    /// Uniform display scale for shell architecture and free props.
-    /// Chosen so door leaf ≈ 2.0× body (BG band 1.8–2.5).
-    static let environment: CGFloat = 0.28
+    /// V3 shell / coordinate-map scale. The shell was regenerated with much
+    /// smaller built features and a genuinely larger floor footprint; this is
+    /// deliberately not reused as a prop scale.
+    static let environment: CGFloat = 0.395
 
-    /// Frames the scaled room at roughly 86% of viewport height. The panoramic
-    /// V2 shell adds authored floor area horizontally, so this deliberately
-    /// keeps the prior actor/prop scale and vertical camera framing unchanged.
-    static var cameraVisibleHeight: CGFloat { scaledArtSize.height / 0.86 }
+    /// Default play camera follows the same human-scale density as the reference
+    /// CRPG area view. The compact office therefore sits inside a dark area-map
+    /// surround instead of being enlarged until one adult fills ~16% of the view.
+    /// This changes presentation scale only; the fixed 2:1 dimetric projection and
+    /// all furniture/body proportions remain registered in world space.
+    static var cameraVisibleHeight: CGFloat {
+        DefaultPlayZoom.cameraVisibleHeight(standingBodyHeight: standingAdultBodyHeight)
+    }
 
-    /// Layout focus for scale-about transform (matches prior camera center / room mid).
-    static let layoutFocus = CGPoint(x: 1_536, y: 1_024)
+    /// V3 plate centre and scale-about focus.
+    static let layoutFocus = CGPoint(x: 2_048, y: 1_152)
 
-    /// Panoramic V2 area plate. The original 3072-wide authoring coordinates
-    /// remain stable; the new shell extends 512 source pixels on either side.
-    static let sourceArtOrigin = CGPoint(x: -512, y: 0)
-    static let sourceArtSize = CGSize(width: 4_096, height: 2_048)
+    /// 16:9 V3 area plate derived from the 3840x2160 generated master.
+    static let sourceArtOrigin = CGPoint.zero
+    static let sourceArtSize = CGSize(width: 4_096, height: 2_304)
 
     // MARK: - Measured source content heights (opaque bbox of runtime PNGs)
     // Kept here so tests and scene code share one source of truth.
@@ -60,22 +69,24 @@ enum OfficeInteriorScale {
         static let coatRack: CGFloat = 557
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight
-        /// Shell window glass opening height after shrink (source pixels on office_shell_base).
-        static let windowGlassOpening: CGFloat = 367
+        /// V3 shell window glass opening (source pixels on office_shell_base).
+        static let windowGlassOpening: CGFloat = 230
     }
 
-    /// Additional per-prop scale relative to environment.
+    /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
+    /// targets: standard 0.22, seating 0.17, desk 0.14, window overlay 0.24.
     enum PropRelativeScale {
-        /// Shrinks desk pedestal/drawers into the knee–hip band vs the 100px standing body.
-        static let deskEnsemble: CGFloat = 0.68
-        static let deskChair: CGFloat = 0.72
-        static let standard: CGFloat = 1
+        static let standard: CGFloat = 0.22 / environment
+        static let deskEnsemble: CGFloat = 0.14 / environment
+        static let deskChair: CGFloat = 0.17 / environment
+        static let visitorArmchair: CGFloat = 0.17 / environment
+        static let window: CGFloat = 0.24 / environment
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
 
     enum Band {
-        static let standingBody: ClosedRange<CGFloat> = 95...110
+        static let standingBody: ClosedRange<CGFloat> = 78...90
         static let door: ClosedRange<CGFloat> = 1.80...2.20
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
@@ -128,6 +139,22 @@ enum OfficeInteriorScale {
     /// Desk ensemble world display scale (environment × desk-relative).
     static var deskDisplayScale: CGFloat {
         environment * PropRelativeScale.deskEnsemble
+    }
+
+    static var standardPropDisplayScale: CGFloat {
+        environment * PropRelativeScale.standard
+    }
+
+    static var seatingPropDisplayScale: CGFloat {
+        environment * PropRelativeScale.deskChair
+    }
+
+    static var visitorArmchairDisplayScale: CGFloat {
+        environment * PropRelativeScale.visitorArmchair
+    }
+
+    static var windowDisplayScale: CGFloat {
+        environment * PropRelativeScale.window
     }
 
     static var scaledArtSize: CGSize { mapSize(sourceArtSize) }

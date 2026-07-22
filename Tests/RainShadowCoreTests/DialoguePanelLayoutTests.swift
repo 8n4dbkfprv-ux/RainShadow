@@ -99,8 +99,9 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func officeHUDGrowsSoMultilineTriadFitsWithoutClipping() {
-        // DetectiveOfficeScene uses height = cameraVisibleHeight and width from aspect.
-        let camH = OfficeInteriorScale.cameraVisibleHeight
+        // HUD is camera-attached and therefore uses the physical scene viewport,
+        // independent of the world camera's visible height.
+        let viewportHeights: [CGFloat] = [600, 768, 1_152]
         let aspects: [CGFloat] = [4.0 / 3.0, 16.0 / 10.0, 16.0 / 9.0]
         let choiceTexts = [
             "Come in out of the wet. Tell me everything you know, and I'll treat it like it matters—because it does.",
@@ -108,63 +109,65 @@ struct DialoguePanelLayoutTests {
             "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt."
         ]
 
-        for aspect in aspects {
-            let visible = CGSize(width: camH * aspect, height: camH)
-            // First pass: base layout (what was too short for natural multi-line rows).
-            let base = DialoguePanelLayout.layout(for: visible)
-            var heights: [CGFloat] = []
-            for (index, text) in choiceTexts.enumerated() {
-                heights.append(
-                    DialogueTextMetrics.choiceRowHeight(
-                        choiceText: text,
-                        index: index,
-                        fontSize: DialoguePanelLayout.Typography.choiceFontSize,
-                        maxWidth: base.choiceTextMaxWidth,
-                        minimumRowHeight: DialoguePanelLayout.choiceRowMinimumHeight,
-                        verticalPadding: DialoguePanelLayout.choiceRowVerticalPadding
+        for viewportHeight in viewportHeights {
+            for aspect in aspects {
+                let visible = CGSize(width: viewportHeight * aspect, height: viewportHeight)
+                // First pass: base layout (what was too short for natural multi-line rows).
+                let base = DialoguePanelLayout.layout(for: visible)
+                var heights: [CGFloat] = []
+                for (index, text) in choiceTexts.enumerated() {
+                    heights.append(
+                        DialogueTextMetrics.choiceRowHeight(
+                            choiceText: text,
+                            index: index,
+                            fontSize: DialoguePanelLayout.Typography.choiceFontSize,
+                            maxWidth: base.choiceTextMaxWidth,
+                            minimumRowHeight: DialoguePanelLayout.choiceRowMinimumHeight,
+                            verticalPadding: DialoguePanelLayout.choiceRowVerticalPadding
+                        )
                     )
+                }
+                let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
+                let baseMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
+                    contentViewportHeight: base.contentViewportRect.height
                 )
-            }
-            let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
-            let baseMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
-                contentViewportHeight: base.contentViewportRect.height
-            )
-            // Office HUD is the case that overflowed when natural > baseMaxBand.
-            // Grown layout must fit natural stack fully.
-            let grown = DialoguePanelLayout.layout(
-                for: visible,
-                requiredChoicesBandHeight: natural
-            )
-            #expect(grown.panelRect.height >= base.panelRect.height - 0.001)
-            let grownMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
-                contentViewportHeight: grown.contentViewportRect.height
-            )
-            #expect(
-                grownMaxBand + 0.5 >= natural,
-                "Grown maxBand \(grownMaxBand) < natural \(natural) at aspect \(aspect) camH=\(camH)"
-            )
-            let bandH = DialoguePanelLayout.choicesBandHeight(
-                measuredRowHeights: heights,
-                contentViewportHeight: grown.contentViewportRect.height
-            )
-            #expect(abs(bandH - natural) < 1.0 || bandH >= natural - 0.5)
-            let band = DialoguePanelLayout.choicesBandRect(
-                contentViewport: grown.contentViewportRect,
-                choicesBandHeight: bandH
-            )
-            let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
-            #expect(frames.count == 3)
-            #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
-            #expect(
-                DialoguePanelLayout.choiceFramesFitInBand(frames, band: band),
-                "Frames overflow band at aspect \(aspect); last.minY=\(frames.last?.minY ?? 0) band.minY=\(band.minY)"
-            )
-            for frame in frames {
-                #expect(frame.minY >= grown.contentViewportRect.minY - 0.5)
-            }
-            // Document the skeptic scenario: base often cannot hold natural without growth.
-            if natural > baseMaxBand + 0.5 {
-                #expect(grown.panelRect.height > base.panelRect.height + 0.5)
+                // Office HUD is the case that overflowed when natural > baseMaxBand.
+                // Grown layout must fit natural stack fully.
+                let grown = DialoguePanelLayout.layout(
+                    for: visible,
+                    requiredChoicesBandHeight: natural
+                )
+                #expect(grown.panelRect.height >= base.panelRect.height - 0.001)
+                let grownMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
+                    contentViewportHeight: grown.contentViewportRect.height
+                )
+                #expect(
+                    grownMaxBand + 0.5 >= natural,
+                    "Grown maxBand \(grownMaxBand) < natural \(natural) at \(visible)"
+                )
+                let bandH = DialoguePanelLayout.choicesBandHeight(
+                    measuredRowHeights: heights,
+                    contentViewportHeight: grown.contentViewportRect.height
+                )
+                #expect(abs(bandH - natural) < 1.0 || bandH >= natural - 0.5)
+                let band = DialoguePanelLayout.choicesBandRect(
+                    contentViewport: grown.contentViewportRect,
+                    choicesBandHeight: bandH
+                )
+                let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
+                #expect(frames.count == 3)
+                #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
+                #expect(
+                    DialoguePanelLayout.choiceFramesFitInBand(frames, band: band),
+                    "Frames overflow band at aspect \(aspect); last.minY=\(frames.last?.minY ?? 0) band.minY=\(band.minY)"
+                )
+                for frame in frames {
+                    #expect(frame.minY >= grown.contentViewportRect.minY - 0.5)
+                }
+                // Document the skeptic scenario: base often cannot hold natural without growth.
+                if natural > baseMaxBand + 0.5 {
+                    #expect(grown.panelRect.height > base.panelRect.height + 0.5)
+                }
             }
         }
     }
@@ -545,6 +548,38 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("DialogueCameraFraming.dialogueCameraWorldPosition"))
         #expect(!source.contains("y: normalCameraPosition.y - 55"))
         #expect(!source.contains("y - 55"))
+    }
+
+    @Test func cameraChildHUDUsesPhysicalViewportAtEveryWorldZoom() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let scenePaths = [
+            "RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift",
+            "RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift"
+        ]
+
+        for path in scenePaths {
+            let source = try String(
+                contentsOf: root.appendingPathComponent(path),
+                encoding: .utf8
+            )
+            #expect(source.contains("let hudViewportSize = size"), "Missing HUD viewport contract in \(path)")
+            #expect(!source.contains("layout(for: visibleSize)"), "World-size HUD layout returned in \(path)")
+            for overlay in ["inventoryOverlay", "areaMapOverlay", "journalOverlay", "portraitBar", "actionBar"] {
+                #expect(
+                    source.contains("\(overlay).layout(for: hudViewportSize)"),
+                    "\(overlay) is not screen-space in \(path)"
+                )
+            }
+        }
+
+        let officeSource = try String(
+            contentsOf: root.appendingPathComponent(scenePaths[0]),
+            encoding: .utf8
+        )
+        #expect(officeSource.contains("caseIntroductionPresenter.layout(for: hudViewportSize)"))
     }
 
     @Test func contentWellCoversTextViewportInsidePanelNotOuterChrome() {

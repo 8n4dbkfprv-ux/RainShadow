@@ -121,7 +121,7 @@ Exit gate: the environment reads as a richly pre-rendered isometric area and the
 
 - Approve projection, actor body height, 512×512 2× frame canvas, doubled ground pivot, neutral sprite light rig, broad baked shading, and environment light direction.
 - Create `art_style_lock.json` and master registration overlays.
-- Test the 125–145 pixel standing height on phone and macOS.
+- Test the 9% standing-height target on phone and macOS: about 104 pixels in a 1152-pixel-tall rendered view, with an acceptable 92–127 pixel (8–11%) band.
 
 Exit gate: a reviewer can compare any later asset to measurable locked values.
 
@@ -130,7 +130,7 @@ Exit gate: a reviewer can compare any later asset to measurable locked values.
 #### Step 11: Implement viewport and camera coordination
 
 - Use `.resizeFill` and `SKCameraNode`.
-- Fit a 1152-unit reference height while respecting 4:3 and wide aspect safety.
+- Fit a 911-unit reference world height so the 82-unit standing body occupies 9% of the playable view, while respecting 4:3 and wide aspect safety.
 - Recalculate on orientation/window resize without stretching.
 - Add camera-bounds debug display.
 
@@ -176,7 +176,7 @@ Exit gate: no office prop coordinate or depth bias is hard-coded in `DetectiveOf
 - Keep features readable as large masses at final size: stubble block, hair shape, coat body, shirt/tie zone, hands, shoes.
 - Remove small asymmetrical elements that would expose eastern mirroring.
 
-Exit gate: all source directions clearly depict the same low-detail 3D maquette after 512×512 registration and 100-unit display scaling.
+Exit gate: all source directions clearly depict the same low-detail 3D maquette after 512×512 registration and 82-unit display scaling.
 
 #### Step 17: Produce and test one walk cycle
 
@@ -184,7 +184,7 @@ Exit gate: all source directions clearly depict the same low-detail 3D maquette 
 - Align root motion, downsample in premultiplied-alpha space to the 100px native body, apply the restrained 96-color ramp, enlarge 2× with nearest sampling, and pack a test atlas.
 - Play at 10 fps and 0.25× in the office graybox.
 
-Exit gate: no foot slide, crown jitter, identity drift, smooth painted look, or alpha halo; body reads at 125–145 pixels.
+Exit gate: no foot slide, crown jitter, identity drift, smooth painted look, or alpha halo; body reads at 9% of playable height (8–11% acceptable).
 
 #### Step 18: Implement animation playback and actor state
 
@@ -374,7 +374,7 @@ Exit gate: the definition of done below passes with no open P0/P1 defect.
 | Surface | Required checks |
 |---|---|
 | 4:3 iPad landscape | Narrow safe composition, touch targets, caption placement, camera bounds. |
-| 16:9 iPhone/Simulator landscape | Reference framing, actor 125–145 px, transition alignment. |
+| 16:9 iPhone/Simulator landscape | Reference framing, actor near 9% of playable height, transition alignment. |
 | Wide iPhone landscape | Overscan quality, no excessive vertical crop, safe-area controls. |
 | macOS 16:9 window | Mouse hover, cursor states, keyboard cancel/focus, audio. |
 | macOS resized 4:3 and wide | Live camera relayout, no stretched art, labels stay attached. |
@@ -391,12 +391,12 @@ Exit gate: the definition of done below passes with no open P0/P1 defect.
 | Mirroring exposes asymmetry/light reversal | Lapel/prop swaps or glaring highlight flip | Near-bilateral sprite design, neutral baked sprite light, preview all 16 facings before locomotion batch | Art + engineering |
 | Props do not register to shell | Floating legs, mismatched projection, double shadows | Generate as edits against locked shell, full-canvas registered QA, flattened difference comparison | Environment art |
 | Shell contains baked objects | Duplicate prop after runtime placement | Strict forbidden-object prompt and shell acceptance gate; do not paint over after prop production begins | Environment art |
-| Actor is too large relative to the room | Detective dominates desk/door at reference view | Lock 125–145 px body height in Batch 0 and reject deviations | Art direction |
+| Actor is too large relative to the room | Detective dominates desk/door at reference view | Lock the 9% body-to-playable-height target in Batch 0 and reject results outside the 8–11% band | Art direction |
 | Transition hitches | First office frame stalls or black hold grows | Preload/build before cue, instrument decode, split bundles, retain audio curtain fallback | Engineering |
 | Rain overwhelms fill rate/visibility | Frame drops or office shapes disappear | Three bounded quality tiers, particle caps, painted wetness carries look at lower rate | VFX + engineering |
 | Depth artifacts | Actor flickers or clips around desk/jamb | Root anchors, stable tie-breaks, authored split occluders, debug overlay route sweep | Engineering + art |
 | Platform input diverges | Touch works but hover/cancel or resize fails | Common event model, injected integration tests, validate each phase on both targets | Engineering |
-| Aspect ratio destroys composition | Door/window/hotspot leaves narrow view | Central 1536×1152 safety from style mock onward, overscan outside it | Art + UI |
+| Aspect ratio destroys composition | Door/window/hotspot leaves narrow view | Central 1481×1111 world-unit safety from style mock onward, overscan outside it | Art + UI |
 | Template target settings block users | App requires only the newest beta OS | Decide minimums in Phase 0 and test deployment before content work | Build engineering |
 
 ## 6. M01 definition of done
