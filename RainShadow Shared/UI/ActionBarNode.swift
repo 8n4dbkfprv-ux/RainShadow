@@ -12,12 +12,12 @@ final class ActionBarNode: SKNode {
 
     private enum Metrics {
         static let railWidth: CGFloat = 128
-        static let mapButtonHitSize = CGSize(width: 100, height: 92)
-        static let mapButtonArtworkSize = CGSize(width: 96, height: 64)
-        static let journalButtonHitSize = CGSize(width: 100, height: 80)
-        static let journalButtonArtworkSize = CGSize(width: 96, height: 64)
+        static let mapButtonHitSize = CGSize(width: 100, height: 72)
+        static let mapButtonArtworkSize = CGSize(width: 88, height: 64)
+        static let journalButtonHitSize = CGSize(width: 100, height: 72)
+        static let journalButtonArtworkSize = CGSize(width: 88, height: 64)
         static let topInset: CGFloat = 22
-        static let buttonSpacing: CGFloat = 6
+        static let buttonSpacing: CGFloat = 8
     }
 
     private enum Palette {
@@ -117,8 +117,8 @@ final class ActionBarNode: SKNode {
         journalButtonRoot.position = CGPoint(
             x: -1,
             y: buttonCenterY
-                - Metrics.mapButtonHitSize.height / 2
-                - Metrics.journalButtonHitSize.height / 2
+                - Metrics.mapButtonArtworkSize.height / 2
+                - Metrics.journalButtonArtworkSize.height / 2
                 - Metrics.buttonSpacing
         )
 
