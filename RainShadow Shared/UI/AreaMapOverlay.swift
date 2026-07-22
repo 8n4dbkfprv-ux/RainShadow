@@ -31,7 +31,6 @@ final class ClassicMacCloseButtonNode: SKNode {
         if let texture = GameArt.texture(named: "ui_close_box_macos9_v01") {
             texture.filteringMode = .linear
             let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 52))
-            artwork.name = "\(targetName).artwork"
             artwork.zPosition = 1
             addChild(artwork)
             return

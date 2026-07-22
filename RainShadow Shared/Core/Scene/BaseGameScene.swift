@@ -148,16 +148,15 @@ extension BaseGameScene {
     }
 
     override func keyDown(with event: NSEvent) {
-        guard !event.isARepeat else { return }
         switch event.keyCode {
         case 0, 123: handleDirectionalInput(CGVector(dx: -1, dy: 0)) // A / left
         case 2, 124: handleDirectionalInput(CGVector(dx: 1, dy: 0)) // D / right
         case 1, 125: handleDirectionalInput(CGVector(dx: 0, dy: -1)) // S / down
         case 13, 126: handleDirectionalInput(CGVector(dx: 0, dy: 1)) // W / up
-        case 34: handleInventoryInput() // I
-        case 46: handleMapInput() // M
-        case 38: handleJournalInput() // J
-        case 36, 49, 53: handleConfirmInput() // return / space / escape
+        case 34 where !event.isARepeat: handleInventoryInput() // I
+        case 46 where !event.isARepeat: handleMapInput() // M
+        case 38 where !event.isARepeat: handleJournalInput() // J
+        case 36, 49, 53 where !event.isARepeat: handleConfirmInput() // return / space / escape
         default: super.keyDown(with: event)
         }
     }
