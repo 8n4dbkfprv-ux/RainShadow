@@ -4,11 +4,12 @@ import Testing
 @testable import RainShadowCore
 
 struct ActorLocomotionPacingTests {
-    @Test func walkSpeedIsSlowerThanLegacyDetectiveAndClientDefaults() {
+    @Test func walkSpeedUsesNormalizedHumanoidBaseline() {
         let speed = ActorLocomotionPacing.walkSpeed
         #expect(speed < ActorLocomotionPacing.legacyDetectiveWalkSpeed)
-        #expect(speed < ActorLocomotionPacing.legacyClientWalkSpeed)
+        #expect(speed > 0)
         #expect(ActorLocomotionPacing.walkSpeedBand.contains(speed))
+        #expect(ActorLocomotionPacing.infinityEngineHumanoidMoveScale == 9)
     }
 
     @Test func walkCycleFrameDurationIsSlowerThanLegacyDefaults() {
@@ -18,14 +19,18 @@ struct ActorLocomotionPacingTests {
         #expect(ActorLocomotionPacing.walkCycleSecondsPerFrameBand.contains(frame))
     }
 
-    @Test func pathDurationIsLongerThanLegacyDetectiveFormula() {
+    @Test func pathDurationUsesOneConstantMovementRate() {
         let distance: CGFloat = 400
         let shipped = ActorLocomotionPacing.pathDuration(distance: distance)
         let legacyDetective = TimeInterval(distance / ActorLocomotionPacing.legacyDetectiveWalkSpeed)
-        let legacyClient = TimeInterval(distance / ActorLocomotionPacing.legacyClientWalkSpeed)
         #expect(shipped > legacyDetective)
-        #expect(shipped > legacyClient)
         #expect(abs(shipped - TimeInterval(distance / ActorLocomotionPacing.walkSpeed)) < 0.0001)
+    }
+
+    @Test func walkCycleTravelsApproximatelyOneBodyLength() {
+        let cycleDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame * 4
+        let distancePerCycle = ActorLocomotionPacing.walkSpeed * CGFloat(cycleDuration)
+        #expect((75 as CGFloat)...(110 as CGFloat) ~= distancePerCycle)
     }
 
     @Test func pathDurationUsesWalkSpeedEntryPoint() {
@@ -35,8 +40,10 @@ struct ActorLocomotionPacingTests {
             let duration = ActorLocomotionPacing.pathDuration(distance: distance)
             #expect(duration >= ActorLocomotionPacing.minimumSegmentDuration)
             #expect(duration >= TimeInterval(distance / ActorLocomotionPacing.walkSpeed) - 0.0001)
-            // Strictly slower travel than the old detective divisor for any non-trivial leg.
-            #expect(duration > TimeInterval(distance / ActorLocomotionPacing.legacyDetectiveWalkSpeed))
+            #expect(abs(duration - max(
+                ActorLocomotionPacing.minimumSegmentDuration,
+                TimeInterval(distance / ActorLocomotionPacing.walkSpeed)
+            )) < 0.0001)
         }
     }
 
@@ -53,7 +60,7 @@ struct ActorLocomotionPacingTests {
         #expect(twelveFrameStandUp < 2.5)
     }
 
-    @Test func actorsWireShippedPacingConstants() throws {
+    @Test func actorsWireDeltaLocomotionAndShippedPacingConstants() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -71,9 +78,15 @@ struct ActorLocomotionPacingTests {
             encoding: .utf8
         )
 
-        #expect(detective.contains("ActorLocomotionPacing.pathDuration"))
+        #expect(detective.contains("RouteFollower"))
+        #expect(detective.contains("routeFollower.advance"))
+        #expect(detective.contains("func updateLocomotion"))
+        #expect(detective.contains("ActorLocomotionPacing.maximumFrameDelta"))
         #expect(detective.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(detective.contains("ActorLocomotionPacing.standUpSecondsPerFrame"))
+        #expect(!detective.contains("actions.append(.move(to:"))
+        #expect(!detective.contains("withKey: \"actorPath\""))
+        #expect(!detective.contains("withKey: \"walkCycle\""))
         #expect(!detective.contains("distance / 270"))
         #expect(!detective.contains("timePerFrame: 0.14"))
 

@@ -9,55 +9,36 @@ final class DetectiveActorNode: SKNode {
         case walking
     }
 
-    private enum Facing: CaseIterable {
-        case south
-        case southWest
-        case west
-        case northWest
-        case north
-        case northEast
-        case east
-        case southEast
-
-        var sourceName: String {
-            switch self {
-            case .south: "s"
-            case .southWest, .southEast: "sw"
-            case .west, .east: "w"
-            case .northWest, .northEast: "nw"
-            case .north: "n"
-            }
-        }
-
-        var isMirrored: Bool {
-            switch self {
-            case .northEast, .east, .southEast: true
-            default: false
-            }
-        }
-    }
-
     private let contactShadow: SKShapeNode
     private let body: SKSpriteNode
     private let foregroundArms: SKSpriteNode
     private let standingTexture: SKTexture?
-    private let standingIdleTextures: [Facing: SKTexture]
+    private let standingIdleTextures: [ActorFacing: SKTexture]
     private let seatedIdleTextures: [SKTexture]
     private let seatedArmTextures: [SKTexture]
     private let standUpTextures: [SKTexture]
-    private let walkTextures: [Facing: [SKTexture]]
-    private var facing: Facing = .southEast
+    private let walkTextures: [ActorFacing: [SKTexture]]
+    private var facing: ActorFacing = .southEast
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
     private var needsSeatEgress = true
+    private var routeFollower = RouteFollower()
+    private var movementCompletion: (() -> Void)?
+    private var lastLocomotionUpdateTime: TimeInterval?
+    private var walkFrameAccumulator: TimeInterval = 0
+    private var walkFrameIndex = 0
 
     override init() {
         standingTexture = GameArt.texture(named: "det_standing_idle_se_00")
-        standingIdleTextures = Dictionary(uniqueKeysWithValues: Facing.allCases.compactMap { facing in
-            guard let texture = GameArt.texture(
-                named: String(format: "det_standing_idle_%@_00", facing.sourceName)
-            ) else { return nil }
-            return (facing, texture)
+        standingIdleTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, SKTexture)? in
+            for sourceName in facing.textureSourceCandidates {
+                if let texture = GameArt.texture(
+                    named: String(format: "det_standing_idle_%@_00", sourceName)
+                ) {
+                    return (facing, texture)
+                }
+            }
+            return nil
         })
         seatedIdleTextures = (0..<4).compactMap {
             GameArt.texture(named: String(format: "det_seated_idle_se_%02d", $0))
@@ -68,11 +49,16 @@ final class DetectiveActorNode: SKNode {
         standUpTextures = (0..<12).compactMap {
             GameArt.texture(named: String(format: "det_stand_up_se_%02d", $0))
         }
-        walkTextures = Dictionary(uniqueKeysWithValues: Facing.allCases.map { facing in
-            let textures = (0..<4).compactMap {
-                GameArt.texture(named: String(format: "det_walk_%@_%02d", facing.sourceName, $0))
+        walkTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
+            for sourceName in facing.textureSourceCandidates {
+                let textures = (0..<4).compactMap {
+                    GameArt.texture(named: String(format: "det_walk_%@_%02d", sourceName, $0))
+                }
+                if textures.count == 4 {
+                    return (facing, textures)
+                }
             }
-            return (facing, textures)
+            return nil
         })
 
         // V5 walk and V4 state atlases carry a 2x copy of a 100px native raster. Nearest filtering
@@ -123,7 +109,11 @@ final class DetectiveActorNode: SKNode {
         if state == .seatedIdle {
             pendingWalk = (path, completion)
             ensureStanding { [weak self] in
-                guard let self, let pendingWalk = self.pendingWalk else { return }
+                guard let self else { return }
+                guard let pendingWalk = self.pendingWalk else {
+                    self.startStandingIdle()
+                    return
+                }
                 self.pendingWalk = nil
                 self.beginWalking(path: pendingWalk.path, completion: pendingWalk.completion)
             }
@@ -131,6 +121,72 @@ final class DetectiveActorNode: SKNode {
         }
 
         beginWalking(path: path, completion: completion)
+    }
+
+    var movementDestination: CGPoint? {
+        pendingWalk?.path.last ?? routeFollower.destination
+    }
+
+    /// Advances root motion and the walk cycle from the scene clock. Calling
+    /// this while the world is paused intentionally refreshes the timestamp but
+    /// spends no movement delta, so opening a modal cannot cause a resume jump.
+    func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
+        defer { lastLocomotionUpdateTime = currentTime }
+        guard !worldIsPaused,
+              state == .walking,
+              let previousTime = lastLocomotionUpdateTime else {
+            return
+        }
+
+        let deltaTime = min(
+            max(0, currentTime - previousTime),
+            ActorLocomotionPacing.maximumFrameDelta
+        )
+        guard deltaTime > 0 else { return }
+
+        let step = routeFollower.advance(
+            from: position,
+            deltaTime: deltaTime,
+            speed: ActorLocomotionPacing.walkSpeed
+        )
+        position = step.position
+        if step.direction != .zero {
+            setFacing(dx: step.direction.dx, dy: step.direction.dy)
+            advanceWalkAnimation(by: deltaTime)
+        }
+        if step.didArrive {
+            finishWalking()
+        }
+    }
+
+    /// BG-style Stop/right-click behavior. A cancelled approach never invokes
+    /// its interaction or scene-transition completion.
+    func cancelMovement() {
+        pendingWalk = nil
+        routeFollower.cancel()
+        movementCompletion = nil
+
+        switch state {
+        case .seatedIdle, .standingIdle:
+            return
+        case .standingUp, .walking:
+            break
+        }
+
+        body.removeAction(forKey: "standTransition")
+        body.removeAction(forKey: "seatEgress")
+        foregroundArms.removeAction(forKey: "standTransition")
+        contactShadow.removeAction(forKey: "seatEgress")
+        body.position = .zero
+        body.alpha = 1
+        foregroundArms.isHidden = true
+        foregroundArms.alpha = 0
+        contactShadow.position.y = 4
+        contactShadow.alpha = 0.38
+        needsSeatEgress = false
+        state = .standingIdle
+        stopWalkAnimation()
+        startStandingIdle()
     }
 
     /// The office starts Elias seated at his desk. Outdoor areas instead need a
@@ -141,6 +197,9 @@ final class DetectiveActorNode: SKNode {
         body.removeAllActions()
         foregroundArms.removeAllActions()
         pendingWalk = nil
+        routeFollower.cancel()
+        movementCompletion = nil
+        lastLocomotionUpdateTime = nil
         needsSeatEgress = false
         state = .standingIdle
         body.position = .zero
@@ -155,17 +214,23 @@ final class DetectiveActorNode: SKNode {
     }
 
     private func beginWalking(path: [CGPoint], completion: (() -> Void)?) {
-        removeAction(forKey: "actorPath")
         let isCompletingSeatEgress = needsSeatEgress || body.action(forKey: "seatEgress") != nil
-        guard !path.isEmpty else {
+        routeFollower.replaceRoute(with: path, from: position)
+        movementCompletion = completion
+        guard routeFollower.isMoving else {
             if isCompletingSeatEgress {
+                // Remain cancellable until the visual root has actually reached
+                // the ground point. Stop/right-click must be able to suppress an
+                // interaction completion even when no route distance remains.
                 needsSeatEgress = false
-                state = .standingIdle
+                state = .walking
+                body.removeAction(forKey: "standingIdle")
                 animateSeatEgress(duration: 0.42) { [weak self] in
-                    self?.startStandingIdle()
-                    completion?()
+                    guard let self, self.state == .walking else { return }
+                    self.finishWalking()
                 }
             } else {
+                movementCompletion = nil
                 state = .standingIdle
                 startStandingIdle()
                 completion?()
@@ -179,40 +244,26 @@ final class DetectiveActorNode: SKNode {
             body.position.y = 0
         }
 
-        var actions: [SKAction] = []
-        var prior = position
-        let seatOffset = isCompletingSeatEgress ? body.position : .zero
-        for (index, destination) in path.enumerated() {
-            // The navigation root is already on the walkable floor in front of the
-            // desk, while the seated artwork is registered back at the chair. Make
-            // that visual offset part of the first leg so the actor walks out of the
-            // chair instead of rising vertically before movement begins.
-            let segmentStart = index == 0
-                ? CGPoint(x: prior.x + seatOffset.x, y: prior.y + seatOffset.y)
-                : prior
-            let dx = destination.x - segmentStart.x
-            let dy = destination.y - segmentStart.y
-            let distance = hypot(dx, dy)
-            let duration = ActorLocomotionPacing.pathDuration(distance: distance)
-            actions.append(.run { [weak self] in
-                guard let self else { return }
-                self.setFacing(dx: dx, dy: dy)
-                if index == 0, isCompletingSeatEgress {
-                    self.needsSeatEgress = false
-                    self.animateSeatEgress(duration: duration)
-                }
-            })
-            actions.append(.move(to: destination, duration: duration))
-            prior = destination
+        if let first = routeFollower.waypoints.first {
+            setFacing(dx: first.x - position.x, dy: first.y - position.y)
+            if isCompletingSeatEgress {
+                needsSeatEgress = false
+                let firstLegDistance = hypot(first.x - position.x, first.y - position.y)
+                animateSeatEgress(
+                    duration: ActorLocomotionPacing.pathDuration(distance: firstLegDistance)
+                )
+            }
         }
-        actions.append(.run { [weak self] in
-            guard let self else { return }
-            self.stopWalkAnimation()
-            self.state = .standingIdle
-            self.startStandingIdle()
-            completion?()
-        })
-        run(.sequence(actions), withKey: "actorPath")
+    }
+
+    private func finishWalking() {
+        routeFollower.cancel()
+        stopWalkAnimation()
+        state = .standingIdle
+        startStandingIdle()
+        let completion = movementCompletion
+        movementCompletion = nil
+        completion?()
     }
 
     private func ensureStanding(completion: @escaping () -> Void) {
@@ -320,7 +371,6 @@ final class DetectiveActorNode: SKNode {
 
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
-        body.removeAction(forKey: "walkCycle")
         applyStandingIdleTexture()
         let settle = SKAction.sequence([
             .moveBy(x: 0, y: 1, duration: 0.7),
@@ -330,55 +380,35 @@ final class DetectiveActorNode: SKNode {
     }
 
     private func setFacing(dx: CGFloat, dy: CGFloat) {
-        let angle = atan2(dy, dx)
-        let eighthTurn = CGFloat.pi / 8
-        let nextFacing: Facing
-        switch angle {
-        case -eighthTurn..<eighthTurn: nextFacing = .east
-        case eighthTurn..<(3 * eighthTurn): nextFacing = .northEast
-        case (3 * eighthTurn)..<(5 * eighthTurn): nextFacing = .north
-        case (5 * eighthTurn)..<(7 * eighthTurn): nextFacing = .northWest
-        case let value where value >= 7 * eighthTurn || value < -7 * eighthTurn: nextFacing = .west
-        case (-7 * eighthTurn)..<(-5 * eighthTurn): nextFacing = .southWest
-        case (-5 * eighthTurn)..<(-3 * eighthTurn): nextFacing = .south
-        default: nextFacing = .southEast
-        }
-
-        if facing != nextFacing {
-            facing = nextFacing
-            startWalkAnimation(for: nextFacing)
-        } else if body.action(forKey: "walkCycle") == nil {
-            startWalkAnimation(for: nextFacing)
-        }
+        let nextFacing = ActorFacing.resolve(dx: dx, dy: dy, retaining: facing)
+        facing = nextFacing
+        applyWalkTexture()
     }
 
-    private func startWalkAnimation(for facing: Facing) {
-        body.removeAction(forKey: "walkCycle")
+    private func applyWalkTexture() {
         body.xScale = facing.isMirrored
             ? -OfficeInteriorScale.ActorDisplay.standingScale
             : OfficeInteriorScale.ActorDisplay.standingScale
         body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
         body.zRotation = 0
-        guard let textures = walkTextures[facing], textures.count == 4 else {
-            let pulse = SKAction.sequence([
-                .moveBy(x: 0, y: 2, duration: 0.1),
-                .moveBy(x: 0, y: -2, duration: 0.1)
-            ])
-            body.run(.repeatForever(pulse), withKey: "walkCycle")
-            return
-        }
+        guard let textures = walkTextures[facing], !textures.isEmpty else { return }
         textures.forEach { $0.filteringMode = .nearest }
-        let cycle = SKAction.animate(
-            with: textures,
-            timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame,
-            resize: false,
-            restore: false
-        )
-        body.run(.repeatForever(cycle), withKey: "walkCycle")
+        walkFrameIndex %= textures.count
+        body.texture = textures[walkFrameIndex]
+    }
+
+    private func advanceWalkAnimation(by deltaTime: TimeInterval) {
+        guard let textures = walkTextures[facing], !textures.isEmpty else { return }
+        walkFrameAccumulator += deltaTime
+        while walkFrameAccumulator >= ActorLocomotionPacing.walkCycleSecondsPerFrame {
+            walkFrameAccumulator -= ActorLocomotionPacing.walkCycleSecondsPerFrame
+            walkFrameIndex = (walkFrameIndex + 1) % textures.count
+        }
+        applyWalkTexture()
     }
 
     private func stopWalkAnimation() {
-        body.removeAction(forKey: "walkCycle")
+        walkFrameAccumulator = 0
         applyStandingIdleTexture()
         body.position.y = 0
         body.zRotation = 0

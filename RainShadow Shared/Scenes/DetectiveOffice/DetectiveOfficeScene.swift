@@ -259,12 +259,18 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         if let hotspot = hotspots.first(where: { $0.hitArea.contains(event.location) }) {
             if hotspot.id == "office.door" {
-                moveDetective(to: hotspot.approachPoint) { [weak self] in
+                moveDetective(
+                    to: hotspot.approachPoint,
+                    requiresExactDestination: true
+                ) { [weak self] in
                     self?.context.router.showCityDistrict()
                 }
                 return
             }
-            moveDetective(to: hotspot.approachPoint) { [weak self] in
+            moveDetective(
+                to: hotspot.approachPoint,
+                requiresExactDestination: true
+            ) { [weak self] in
                 guard let self else { return }
                 self.context.session.markInspected(hotspot.id)
                 self.presentInspection(hotspot)
@@ -272,8 +278,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        guard let target = navigation.nearestWalkablePoint(to: event.location) else { return }
-        moveDetective(to: target)
+        moveDetective(to: event.location)
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
@@ -301,8 +306,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             x: detective.position.x + direction.dx * step,
             y: detective.position.y + direction.dy * (step * 0.5)
         )
-        guard let target = navigation.nearestWalkablePoint(to: candidate) else { return }
-        moveDetective(to: target)
+        moveDetective(to: candidate)
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
@@ -381,6 +385,18 @@ final class DetectiveOfficeScene: BaseGameScene {
         setJournalPresented(!journalIsPresented)
     }
 
+    override func handleCancelInput() {
+        if journalIsPresented {
+            setJournalPresented(false)
+        } else if mapIsPresented {
+            setMapPresented(false)
+        } else if inventoryIsPresented {
+            setInventoryPresented(false)
+        } else if !dialogueIsActive {
+            detective.cancelMovement()
+        }
+    }
+
     override func handleScrollInput(_ deltaY: CGFloat) {
         if journalIsPresented {
             journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
@@ -421,6 +437,13 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        detective.updateLocomotion(
+            at: currentTime,
+            worldIsPaused: dialogueIsActive
+                || mapIsPresented
+                || journalIsPresented
+                || inventoryIsPresented
+        )
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -514,9 +537,21 @@ final class DetectiveOfficeScene: BaseGameScene {
         context.session.markOfficeHintSeen()
     }
 
-    private func moveDetective(to target: CGPoint, completion: (() -> Void)? = nil) {
-        guard let path = navigation.path(from: detective.position, to: target) else { return }
-        detective.walk(path: path, completion: completion)
+    private func moveDetective(
+        to target: CGPoint,
+        requiresExactDestination: Bool = false,
+        completion: (() -> Void)? = nil
+    ) {
+        guard let route = navigation.route(from: detective.position, to: target) else {
+            showMovementFeedback(at: target, isValid: false)
+            return
+        }
+        guard !requiresExactDestination || !route.destinationWasAdjusted else {
+            showMovementFeedback(at: target, isValid: false)
+            return
+        }
+        showMovementFeedback(at: route.resolvedDestination, isValid: true)
+        detective.walk(path: route.waypoints, completion: completion)
     }
 
     private func setInventoryPresented(_ presented: Bool) {

@@ -283,7 +283,8 @@ enum OfficeNavigationLayout {
             ),
             columns: 21,
             rows: 21,
-            obstacles: obstacles
+            obstacles: obstacles,
+            agentProfile: .officeDetective
         )
     }
 

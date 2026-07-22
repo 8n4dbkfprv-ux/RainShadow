@@ -114,7 +114,9 @@ enum CityDistrictLayout {
             columns: Int(ceil(worldArtSize.width / 64)),
             rows: Int(ceil(worldArtSize.height / 64)),
             cellSize: CGSize(width: 64, height: 64),
-            obstacles: obstacles
+            obstacles: obstacles,
+            agentProfile: .detective,
+            worldBounds: worldBounds
         )
     }
 

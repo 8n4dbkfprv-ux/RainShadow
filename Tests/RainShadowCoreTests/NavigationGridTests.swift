@@ -56,6 +56,113 @@ struct NavigationGridTests {
         }
     }
 
+    @Test func sameCellRouteCannotCrossAThinObstacle() {
+        let thinBarrier = CGRect(x: 5.4, y: 0, width: 0.2, height: 10)
+        let grid = NavigationGrid(
+            origin: .zero,
+            columns: 1,
+            rows: 1,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [thinBarrier]
+        )
+
+        // The cell center remains walkable, so only full-segment clearance can
+        // catch the barrier between these two points.
+        #expect(grid.blocked.isEmpty)
+        #expect(grid.path(
+            from: CGPoint(x: 2, y: 5),
+            to: CGPoint(x: 8, y: 5)
+        ) == nil)
+    }
+
+    @Test func disconnectedDestinationFallsBackToReachableSideOfWall() {
+        let sealedWall = CGRect(x: 20, y: 0, width: 10, height: 50)
+        let grid = NavigationGrid(
+            origin: .zero,
+            columns: 5,
+            rows: 5,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [sealedWall]
+        )
+
+        let route = grid.route(
+            from: CGPoint(x: 5, y: 25),
+            to: CGPoint(x: 35, y: 25),
+            maximumFallbackCellRadius: 2
+        )
+
+        #expect(route?.destinationWasAdjusted == true)
+        #expect(route?.resolvedDestination == CGPoint(x: 15, y: 25))
+        #expect(route?.waypoints.last == route?.resolvedDestination)
+    }
+
+    @Test func fallbackSearchDoesNotJumpBeyondItsBoundedRing() {
+        let sealedWall = CGRect(x: 20, y: 0, width: 10, height: 50)
+        let grid = NavigationGrid(
+            origin: .zero,
+            columns: 5,
+            rows: 5,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [sealedWall]
+        )
+
+        let route = grid.route(
+            from: CGPoint(x: 5, y: 25),
+            to: CGPoint(x: 45, y: 25),
+            maximumFallbackCellRadius: 1
+        )
+
+        #expect(route == nil)
+    }
+
+    @Test func actorFootprintRejectsGapThatOnlyFitsAPoint() {
+        let lowerBlock = CGRect(x: 0, y: 0, width: 60, height: 22)
+        let upperBlock = CGRect(x: 0, y: 28, width: 60, height: 22)
+        let start = CGPoint(x: 5, y: 25)
+        let target = CGPoint(x: 55, y: 25)
+        let pointGrid = NavigationGrid(
+            origin: .zero,
+            columns: 6,
+            rows: 5,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [lowerBlock, upperBlock]
+        )
+        let actorGrid = NavigationGrid(
+            origin: .zero,
+            columns: 6,
+            rows: 5,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [lowerBlock, upperBlock],
+            agentProfile: NavigationAgentProfile(halfWidth: 2, halfHeight: 4)
+        )
+
+        #expect(pointGrid.path(from: start, to: target) == [target])
+        #expect(actorGrid.path(from: start, to: target) == nil)
+    }
+
+    @Test func actorFootprintTreatsNavigationBoundaryAsSolid() {
+        let pointGrid = NavigationGrid(
+            origin: .zero,
+            columns: 4,
+            rows: 4,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: []
+        )
+        let actorGrid = NavigationGrid(
+            origin: .zero,
+            columns: 4,
+            rows: 4,
+            cellSize: CGSize(width: 10, height: 10),
+            obstacles: [],
+            agentProfile: NavigationAgentProfile(halfWidth: 4, halfHeight: 4)
+        )
+        let start = CGPoint(x: 15, y: 15)
+        let edge = CGPoint(x: 1, y: 15)
+
+        #expect(pointGrid.path(from: start, to: edge) == [edge])
+        #expect(actorGrid.path(from: start, to: edge) == nil)
+    }
+
     @Test func everyOfficeHotspotApproachIsReachable() {
         let grid = OfficeNavigationLayout.makeGrid()
 

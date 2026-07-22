@@ -123,11 +123,10 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        guard CityDistrictLayout.worldBounds.contains(event.location),
-              let target = navigation.nearestWalkablePoint(to: event.location) else {
+        guard CityDistrictLayout.worldBounds.contains(event.location) else {
             return
         }
-        moveDetective(to: target)
+        moveDetective(to: event.location)
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
@@ -147,8 +146,7 @@ final class CityDistrictScene: BaseGameScene {
             x: detective.position.x + direction.dx * step,
             y: detective.position.y + direction.dy * (step * 0.5)
         )
-        guard let target = navigation.nearestWalkablePoint(to: candidate) else { return }
-        moveDetective(to: target)
+        moveDetective(to: candidate)
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
@@ -203,6 +201,18 @@ final class CityDistrictScene: BaseGameScene {
         setJournalPresented(!journalIsPresented)
     }
 
+    override func handleCancelInput() {
+        if journalIsPresented {
+            setJournalPresented(false)
+        } else if mapIsPresented {
+            setMapPresented(false)
+        } else if inventoryIsPresented {
+            setInventoryPresented(false)
+        } else {
+            detective.cancelMovement()
+        }
+    }
+
     override func handleScrollInput(_ deltaY: CGFloat) {
         guard journalIsPresented else { return }
         journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
@@ -230,6 +240,10 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        detective.updateLocomotion(
+            at: currentTime,
+            worldIsPaused: mapIsPresented || journalIsPresented || inventoryIsPresented
+        )
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -266,8 +280,12 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private func moveDetective(to target: CGPoint) {
-        guard let path = navigation.path(from: detective.position, to: target) else { return }
-        detective.walk(path: path)
+        guard let route = navigation.route(from: detective.position, to: target) else {
+            showMovementFeedback(at: target, isValid: false)
+            return
+        }
+        showMovementFeedback(at: route.resolvedDestination, isValid: true)
+        detective.walk(path: route.waypoints)
     }
 
     private func setInventoryPresented(_ presented: Bool) {

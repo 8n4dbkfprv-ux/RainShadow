@@ -18,6 +18,9 @@ class BaseGameScene: SKScene {
 
     private var hasBuiltScene = false
     private(set) var baseCameraScale: CGFloat = 1
+    #if os(iOS)
+    private var twoFingerCancelIsActive = false
+    #endif
 
     var referenceVisibleHeight: CGFloat { 1_152 }
 
@@ -62,6 +65,7 @@ class BaseGameScene: SKScene {
     func handleInventoryInput() {}
     func handleMapInput() {}
     func handleJournalInput() {}
+    func handleCancelInput() {}
 
     func layoutViewport() {
         guard size.height > 0 else { return }
@@ -73,6 +77,35 @@ class BaseGameScene: SKScene {
         node.zPosition = SceneLayer.depthWorld.rawValue
             + (artSize.height - node.position.y) * 0.5
             + bias
+    }
+
+    /// Compact Infinity-Engine-style order feedback. Valid orders land on the
+    /// resolved ground point; invalid ones briefly mark the rejected click.
+    func showMovementFeedback(at point: CGPoint, isValid: Bool) {
+        let markerName = "movement.command.feedback"
+        floorEffectRoot.childNode(withName: markerName)?.removeFromParent()
+
+        let marker = SKShapeNode(ellipseOf: CGSize(width: 38, height: 19))
+        marker.name = markerName
+        marker.position = point
+        marker.fillColor = .clear
+        marker.strokeColor = isValid
+            ? SKColor(red: 0.28, green: 0.86, blue: 0.78, alpha: 0.95)
+            : SKColor(red: 0.9, green: 0.25, blue: 0.22, alpha: 0.95)
+        marker.lineWidth = 3
+        marker.alpha = 0
+        marker.zPosition = 20
+        floorEffectRoot.addChild(marker)
+
+        marker.run(.sequence([
+            .group([
+                .fadeIn(withDuration: 0.05),
+                .scale(to: 0.82, duration: 0.12)
+            ]),
+            .wait(forDuration: 0.28),
+            .fadeOut(withDuration: 0.25),
+            .removeFromParent()
+        ]))
     }
 
     private func installLayerTree() {
@@ -103,21 +136,52 @@ import UIKit
 
 extension BaseGameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let activeTouchCount = event?.allTouches?.filter {
+            $0.phase != .ended && $0.phase != .cancelled
+        }.count ?? touches.count
+        if activeTouchCount >= 2 {
+            if !twoFingerCancelIsActive {
+                twoFingerCancelIsActive = true
+                if let touch = touches.first {
+                    handlePointerCancelled(
+                        GamePointerEvent(location: touch.location(in: self), kind: .touch)
+                    )
+                }
+                handleCancelInput()
+            }
+            return
+        }
+        guard !twoFingerCancelIsActive else { return }
         guard let touch = touches.first else { return }
         handlePointerDown(GamePointerEvent(location: touch.location(in: self), kind: .touch))
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard !twoFingerCancelIsActive else { return }
         guard let touch = touches.first else { return }
         handlePointerDragged(GamePointerEvent(location: touch.location(in: self), kind: .touch))
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if twoFingerCancelIsActive {
+            let hasActiveTouches = event?.allTouches?.contains {
+                $0.phase != .ended && $0.phase != .cancelled
+            } ?? false
+            if !hasActiveTouches { twoFingerCancelIsActive = false }
+            return
+        }
         guard let touch = touches.first else { return }
         handlePointerUp(GamePointerEvent(location: touch.location(in: self), kind: .touch))
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if twoFingerCancelIsActive {
+            let hasActiveTouches = event?.allTouches?.contains {
+                $0.phase != .ended && $0.phase != .cancelled
+            } ?? false
+            if !hasActiveTouches { twoFingerCancelIsActive = false }
+            return
+        }
         guard let touch = touches.first else { return }
         handlePointerCancelled(GamePointerEvent(location: touch.location(in: self), kind: .touch))
     }
@@ -156,9 +220,15 @@ extension BaseGameScene {
         case 34 where !event.isARepeat: handleInventoryInput() // I
         case 46 where !event.isARepeat: handleMapInput() // M
         case 38 where !event.isARepeat: handleJournalInput() // J
-        case 36, 49, 53 where !event.isARepeat: handleConfirmInput() // return / space / escape
+        case 36, 49: // return / space
+            if !event.isARepeat { handleConfirmInput() }
+        case 53 where !event.isARepeat: handleCancelInput() // escape
         default: super.keyDown(with: event)
         }
+    }
+
+    override func rightMouseDown(with event: NSEvent) {
+        handleCancelInput()
     }
 }
 #endif

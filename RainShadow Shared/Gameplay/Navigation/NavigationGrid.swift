@@ -5,6 +5,43 @@ struct NavigationCell: Hashable {
     let row: Int
 }
 
+/// Ground-space clearance used while planning and smoothing a route. The
+/// anisotropic footprint matches an isometric actor's contact ellipse more
+/// closely than a large circle, which would close narrow north/south passages.
+struct NavigationAgentProfile: Equatable {
+    let halfWidth: CGFloat
+    let halfHeight: CGFloat
+
+    static let point = NavigationAgentProfile(halfWidth: 0, halfHeight: 0)
+    /// A conservative personal-space core inside the 54×20 painted shadow. The
+    /// authored office doorway is intentionally tighter than the full shadow,
+    /// matching BG's practice of separating selection ellipse from path space.
+    static let detective = NavigationAgentProfile(halfWidth: 16, halfHeight: 4)
+    /// Office obstacle art already includes its floor-contact clearance. This
+    /// small additional core is the largest margin that preserves the authored
+    /// chair/door passage when segments are checked exactly.
+    static let officeDetective = NavigationAgentProfile(halfWidth: 3, halfHeight: 0)
+
+    init(halfWidth: CGFloat, halfHeight: CGFloat) {
+        precondition(halfWidth >= 0 && halfHeight >= 0)
+        self.halfWidth = halfWidth
+        self.halfHeight = halfHeight
+    }
+}
+
+struct NavigationRoute: Equatable {
+    let requestedDestination: CGPoint
+    let resolvedDestination: CGPoint
+    let waypoints: [CGPoint]
+
+    var destinationWasAdjusted: Bool {
+        hypot(
+            requestedDestination.x - resolvedDestination.x,
+            requestedDestination.y - resolvedDestination.y
+        ) > 0.25
+    }
+}
+
 /// Converts between authored navigation cells and world-space ground points.
 /// The dimetric variant is the room's 2:1 isometric projection; keeping this
 /// transform here prevents input, A*, and actor movement from disagreeing.
@@ -89,31 +126,59 @@ final class NavigationGrid {
     let projection: NavigationProjection
     let columns: Int
     let rows: Int
+    let agentProfile: NavigationAgentProfile
     private let obstacles: [CGRect]
+    private let worldBounds: CGRect?
     private(set) var blocked: Set<NavigationCell> = []
 
+    static let defaultDestinationSearchRadius = 8
+
     /// Compatibility initializer for ordinary screen-aligned grids and tests.
-    convenience init(origin: CGPoint, columns: Int, rows: Int, cellSize: CGSize, obstacles: [CGRect]) {
+    convenience init(
+        origin: CGPoint,
+        columns: Int,
+        rows: Int,
+        cellSize: CGSize,
+        obstacles: [CGRect],
+        agentProfile: NavigationAgentProfile = .point,
+        worldBounds: CGRect? = nil
+    ) {
         self.init(
             projection: .orthogonal(origin: origin, cellSize: cellSize),
             columns: columns,
             rows: rows,
-            obstacles: obstacles
+            obstacles: obstacles,
+            agentProfile: agentProfile,
+            worldBounds: worldBounds
         )
     }
 
-    init(projection: NavigationProjection, columns: Int, rows: Int, obstacles: [CGRect]) {
+    init(
+        projection: NavigationProjection,
+        columns: Int,
+        rows: Int,
+        obstacles: [CGRect],
+        agentProfile: NavigationAgentProfile = .point,
+        worldBounds: CGRect? = nil
+    ) {
         precondition(columns > 0 && rows > 0)
         precondition(projection.tileSize.width > 0 && projection.tileSize.height > 0)
+        if let worldBounds {
+            precondition(!worldBounds.isNull && !worldBounds.isEmpty)
+        }
         self.projection = projection
         self.columns = columns
         self.rows = rows
-        self.obstacles = obstacles
+        self.agentProfile = agentProfile
+        self.worldBounds = worldBounds?.standardized
+        self.obstacles = obstacles.map {
+            $0.insetBy(dx: -agentProfile.halfWidth, dy: -agentProfile.halfHeight)
+        }
 
         for column in 0..<columns {
             for row in 0..<rows {
                 let cell = NavigationCell(column: column, row: row)
-                if obstacles.contains(where: { $0.contains(projection.point(for: cell)) }) {
+                if self.obstacles.contains(where: { $0.contains(projection.point(for: cell)) }) {
                     blocked.insert(cell)
                 }
             }
@@ -125,7 +190,9 @@ final class NavigationGrid {
     /// works beside large props and at the edge of the room.
     func nearestWalkablePoint(to point: CGPoint) -> CGPoint? {
         let targetCell = projection.cell(for: point)
-        if isWalkable(targetCell), !isInsideObstacle(point) {
+        if fitsWithinNavigationBounds(point),
+           isWalkable(targetCell),
+           !isInsideObstacle(point) {
             return point
         }
 
@@ -146,16 +213,79 @@ final class NavigationGrid {
         return best?.point
     }
 
+    /// Produces the exact route when possible. If the requested point is blocked
+    /// or belongs to a disconnected component, only a bounded ring around that
+    /// point is considered and the nearest *reachable* cell is used. This keeps
+    /// wall clicks responsive without selecting a point on the far side of a
+    /// sealed room.
+    func route(
+        from startPoint: CGPoint,
+        to requestedPoint: CGPoint,
+        maximumFallbackCellRadius: Int = NavigationGrid.defaultDestinationSearchRadius
+    ) -> NavigationRoute? {
+        if let exactPath = path(from: startPoint, to: requestedPoint) {
+            return NavigationRoute(
+                requestedDestination: requestedPoint,
+                resolvedDestination: requestedPoint,
+                waypoints: exactPath
+            )
+        }
+
+        guard maximumFallbackCellRadius >= 0,
+              fitsWithinNavigationBounds(startPoint),
+              !isInsideObstacle(startPoint),
+              isWalkable(projection.cell(for: startPoint)) else {
+            return nil
+        }
+
+        let targetCell = projection.cell(for: requestedPoint)
+        let reachable = reachableCells(from: projection.cell(for: startPoint))
+        let candidates = reachable
+            .filter { cell in
+                max(
+                    abs(cell.column - targetCell.column),
+                    abs(cell.row - targetCell.row)
+                ) <= maximumFallbackCellRadius
+            }
+            .map { cell in (cell: cell, point: projection.point(for: cell)) }
+            .sorted { lhs, rhs in
+                let lhsDistance = squaredDistance(lhs.point, requestedPoint)
+                let rhsDistance = squaredDistance(rhs.point, requestedPoint)
+                if lhsDistance != rhsDistance { return lhsDistance < rhsDistance }
+                if lhs.cell.row != rhs.cell.row { return lhs.cell.row < rhs.cell.row }
+                return lhs.cell.column < rhs.cell.column
+            }
+
+        for candidate in candidates {
+            guard let fallbackPath = path(from: startPoint, to: candidate.point) else { continue }
+            return NavigationRoute(
+                requestedDestination: requestedPoint,
+                resolvedDestination: candidate.point,
+                waypoints: fallbackPath
+            )
+        }
+        return nil
+    }
+
     /// Returns nil when no route exists. An empty route means the actor is
     /// already at the destination, which is intentionally distinct from failure.
     func path(from startPoint: CGPoint, to targetPoint: CGPoint) -> [CGPoint]? {
-        guard !isInsideObstacle(startPoint), !isInsideObstacle(targetPoint) else { return nil }
+        guard fitsWithinNavigationBounds(startPoint),
+              fitsWithinNavigationBounds(targetPoint),
+              !isInsideObstacle(startPoint),
+              !isInsideObstacle(targetPoint) else {
+            return nil
+        }
 
         let start = projection.cell(for: startPoint)
         let goal = projection.cell(for: targetPoint)
         guard isWalkable(start), isWalkable(goal) else { return nil }
         if start == goal {
-            return distance(from: startPoint, to: targetPoint) > 0.25 ? [targetPoint] : []
+            let targetDistance = distance(from: startPoint, to: targetPoint)
+            guard targetDistance <= 0.25 || canTravelDirectly(from: startPoint, to: targetPoint) else {
+                return nil
+            }
+            return targetDistance > 0.25 ? [targetPoint] : []
         }
 
         var open: Set<NavigationCell> = [start]
@@ -249,6 +379,14 @@ final class NavigationGrid {
     }
 
     private func canTravelDirectly(from start: CGPoint, to end: CGPoint) -> Bool {
+        guard fitsWithinNavigationBounds(start),
+              fitsWithinNavigationBounds(end),
+              !obstacles.contains(where: {
+                  segmentIntersectsInterior(from: start, to: end, of: $0)
+              }) else {
+            return false
+        }
+
         let length = distance(from: start, to: end)
         let samples = max(1, Int(ceil(length / max(0.5, projection.samplingStep))))
         var previousCell = projection.cell(for: start)
@@ -260,7 +398,11 @@ final class NavigationGrid {
                 y: start.y + (end.y - start.y) * progress
             )
             let cell = projection.cell(for: point)
-            guard isWalkable(cell), !isInsideObstacle(point) else { return false }
+            guard fitsWithinNavigationBounds(point),
+                  isWalkable(cell),
+                  !isInsideObstacle(point) else {
+                return false
+            }
 
             let dx = cell.column - previousCell.column
             let dy = cell.row - previousCell.row
@@ -282,6 +424,101 @@ final class NavigationGrid {
         cell.column >= 0 && cell.column < columns
             && cell.row >= 0 && cell.row < rows
             && !blocked.contains(cell)
+            && fitsWithinNavigationBounds(projection.point(for: cell))
+    }
+
+    /// The search map boundary is a solid just like an obstacle. Checking the
+    /// four corners of the contact footprint works for both the orthogonal city
+    /// grid and the office's convex dimetric grid polygon.
+    private func fitsWithinNavigationBounds(_ point: CGPoint) -> Bool {
+        let offsets: [CGPoint]
+        if agentProfile == .point {
+            offsets = [.zero]
+        } else {
+            offsets = [
+                CGPoint(x: -agentProfile.halfWidth, y: -agentProfile.halfHeight),
+                CGPoint(x: agentProfile.halfWidth, y: -agentProfile.halfHeight),
+                CGPoint(x: -agentProfile.halfWidth, y: agentProfile.halfHeight),
+                CGPoint(x: agentProfile.halfWidth, y: agentProfile.halfHeight)
+            ]
+        }
+
+        let epsilon: CGFloat = 0.001
+        for offset in offsets {
+            let sample = CGPoint(x: point.x + offset.x, y: point.y + offset.y)
+            if let worldBounds {
+                guard sample.x >= worldBounds.minX - epsilon,
+                      sample.x <= worldBounds.maxX + epsilon,
+                      sample.y >= worldBounds.minY - epsilon,
+                      sample.y <= worldBounds.maxY + epsilon else {
+                    return false
+                }
+            }
+
+            let fractional = projection.fractionalCell(for: sample)
+            guard fractional.x >= -0.5 - epsilon,
+                  fractional.x <= CGFloat(columns) - 0.5 + epsilon,
+                  fractional.y >= -0.5 - epsilon,
+                  fractional.y <= CGFloat(rows) - 0.5 + epsilon else {
+                return false
+            }
+        }
+        return true
+    }
+
+    /// Exact segment/rectangle clipping prevents narrow solids from falling
+    /// between clearance samples. The tiny inset preserves the existing rule
+    /// that merely touching an authored obstacle edge remains legal.
+    private func segmentIntersectsInterior(
+        from start: CGPoint,
+        to end: CGPoint,
+        of obstacle: CGRect
+    ) -> Bool {
+        let rect = obstacle.standardized
+        guard rect.width > 0, rect.height > 0 else { return false }
+        let interior = rect.insetBy(
+            dx: min(0.001, rect.width * 0.25),
+            dy: min(0.001, rect.height * 0.25)
+        )
+        let deltaX = end.x - start.x
+        let deltaY = end.y - start.y
+        var minimumT: CGFloat = 0
+        var maximumT: CGFloat = 1
+
+        func clip(origin: CGFloat, delta: CGFloat, lower: CGFloat, upper: CGFloat) -> Bool {
+            if abs(delta) <= CGFloat.ulpOfOne {
+                return origin >= lower && origin <= upper
+            }
+            let first = (lower - origin) / delta
+            let second = (upper - origin) / delta
+            minimumT = max(minimumT, min(first, second))
+            maximumT = min(maximumT, max(first, second))
+            return minimumT <= maximumT
+        }
+
+        return clip(origin: start.x, delta: deltaX, lower: interior.minX, upper: interior.maxX)
+            && clip(origin: start.y, delta: deltaY, lower: interior.minY, upper: interior.maxY)
+    }
+
+    private func reachableCells(from start: NavigationCell) -> Set<NavigationCell> {
+        guard isWalkable(start) else { return [] }
+        var visited: Set<NavigationCell> = [start]
+        var queue: [NavigationCell] = [start]
+        var index = 0
+
+        while index < queue.count {
+            let current = queue[index]
+            index += 1
+            for neighbor in neighbors(of: current) where !visited.contains(neighbor) {
+                guard canTravelDirectly(
+                    from: projection.point(for: current),
+                    to: projection.point(for: neighbor)
+                ) else { continue }
+                visited.insert(neighbor)
+                queue.append(neighbor)
+            }
+        }
+        return visited
     }
 
     private func neighbors(of cell: NavigationCell) -> [NavigationCell] {
@@ -311,5 +548,11 @@ final class NavigationGrid {
 
     private func distance(from a: CGPoint, to b: CGPoint) -> CGFloat {
         hypot(a.x - b.x, a.y - b.y)
+    }
+
+    private func squaredDistance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
+        let dx = a.x - b.x
+        let dy = a.y - b.y
+        return dx * dx + dy * dy
     }
 }
