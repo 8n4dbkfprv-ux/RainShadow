@@ -26,7 +26,6 @@ final class ActionBarNode: SKNode {
         static let steel = SKColor(red: 0.30, green: 0.33, blue: 0.33, alpha: 0.82)
         static let steelDark = SKColor(red: 0.052, green: 0.061, blue: 0.063, alpha: 1)
         static let brass = SKColor(red: 0.68, green: 0.47, blue: 0.23, alpha: 1)
-        static let paper = SKColor(red: 0.78, green: 0.77, blue: 0.69, alpha: 1)
     }
 
     private let railShadow = SKShapeNode()
@@ -38,10 +37,8 @@ final class ActionBarNode: SKNode {
     private let mapButtonRoot = SKNode()
     private let mapButtonShadow = SKShapeNode(rectOf: Metrics.mapButtonArtworkSize, cornerRadius: 7)
     private let mapButtonArtwork = SKSpriteNode()
-    private let mapButtonHighlight = SKShapeNode(rectOf: Metrics.mapButtonArtworkSize, cornerRadius: 7)
     private let journalButtonRoot = SKNode()
     private let journalButtonArtwork = SKSpriteNode()
-    private let journalButtonHighlight = SKShapeNode(rectOf: Metrics.journalButtonArtworkSize, cornerRadius: 5)
     private let separatorShadow = SKShapeNode()
     private let separator = SKShapeNode()
     private let rivetLeft = SKShapeNode(circleOfRadius: 2.6)
@@ -160,26 +157,11 @@ final class ActionBarNode: SKNode {
 
     func setMapButtonHighlighted(_ highlighted: Bool) {
         mapIsHighlighted = highlighted
-        mapButtonRoot.removeAction(forKey: "hover")
-        mapButtonRoot.run(.scale(to: highlighted ? 1.035 : 1, duration: 0.10), withKey: "hover")
-        mapButtonArtwork.color = highlighted ? Palette.paper : .white
-        mapButtonArtwork.colorBlendFactor = highlighted ? 0.08 : 0
-        mapButtonHighlight.strokeColor = highlighted
-            ? Palette.paper.withAlphaComponent(0.82)
-            : .clear
-        mapButtonHighlight.glowWidth = highlighted ? 1.5 : 0
         updateButtonTextures()
     }
 
     func setJournalButtonHighlighted(_ highlighted: Bool) {
         journalIsHighlighted = highlighted
-        journalButtonRoot.removeAction(forKey: "hover")
-        journalButtonRoot.run(.scale(to: highlighted ? 1.04 : 1, duration: 0.10), withKey: "hover")
-        journalButtonArtwork.alpha = highlighted ? 1 : 0.82
-        journalButtonHighlight.strokeColor = highlighted
-            ? Palette.paper.withAlphaComponent(0.88)
-            : .clear
-        journalButtonHighlight.glowWidth = highlighted ? 1.5 : 0
         updateButtonTextures()
     }
 
@@ -294,11 +276,6 @@ final class ActionBarNode: SKNode {
             assertionFailure("Missing map_icon_noir_v03.png")
         }
 
-        mapButtonHighlight.fillColor = .clear
-        mapButtonHighlight.strokeColor = .clear
-        mapButtonHighlight.lineWidth = 2
-        mapButtonHighlight.zPosition = 1
-        mapButtonRoot.addChild(mapButtonHighlight)
     }
 
     private func buildJournalButton() {
@@ -324,11 +301,6 @@ final class ActionBarNode: SKNode {
         }
         journalButtonRoot.addChild(journalButtonArtwork)
 
-        journalButtonHighlight.fillColor = .clear
-        journalButtonHighlight.strokeColor = .clear
-        journalButtonHighlight.lineWidth = 2
-        journalButtonHighlight.zPosition = 2
-        journalButtonRoot.addChild(journalButtonHighlight)
     }
 
     private func updateButtonTextures() {
