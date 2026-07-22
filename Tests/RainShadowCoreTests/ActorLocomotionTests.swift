@@ -193,4 +193,21 @@ struct ActorFacingTests {
         #expect(!ActorFacing.north.isMirrored)
         #expect(!ActorFacing.south.isMirrored)
     }
+
+    @Test func gameArtRejectsMissingAtlasCandidatesInsteadOfRenderingRedX() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let gameArtURL = root.appendingPathComponent(
+            "RainShadow Shared/Core/Assets/GameArt.swift"
+        )
+        let source = try String(contentsOf: gameArtURL, encoding: .utf8)
+
+        // SpriteKit returns a non-zero red-X texture for unknown names. Candidate
+        // fallback must be driven by the atlas manifest, never placeholder size.
+        #expect(source.contains("atlas.textureNames.first"))
+        #expect(source.contains("deletingPathExtension == name"))
+        #expect(!source.contains("atlasTexture.size() != .zero"))
+    }
 }

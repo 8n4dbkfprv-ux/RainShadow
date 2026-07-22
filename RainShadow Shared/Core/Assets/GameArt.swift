@@ -1,17 +1,49 @@
 import SpriteKit
+import ImageIO
 
 @MainActor
 enum GameArt {
-    static func texture(named name: String) -> SKTexture? {
-        let direct = Bundle.main.url(forResource: name, withExtension: "png")
-        let atlasTexture = SKTexture(imageNamed: name)
+    private static let atlasByTexturePrefix: [(prefix: String, atlas: String)] = [
+        ("client_arrival_", "ClientArrival"),
+        ("client_departure_", "ClientArrival"),
+        ("det_standing_idle_", "DetectiveIdle"),
+        ("det_seated_arms_", "DetectiveSeatedArms"),
+        ("det_seated_idle_", "DetectiveSeatedIdle"),
+        ("det_stand_up_", "DetectiveStandUp"),
+        ("det_walk_", "DetectiveWalk")
+    ]
 
-        guard direct != nil || atlasTexture.size() != .zero else {
-            return nil
+    static func texture(named name: String) -> SKTexture? {
+        if let standalone = standaloneTexture(named: name) {
+            return standalone
         }
 
-        atlasTexture.filteringMode = .nearest
-        return atlasTexture
+        guard let atlasName = atlasByTexturePrefix.first(where: {
+            name.hasPrefix($0.prefix)
+        })?.atlas else { return nil }
+
+        let atlas = SKTextureAtlas(named: atlasName)
+        guard let storedName = atlas.textureNames.first(where: {
+            ($0 as NSString).deletingPathExtension == name
+        }) else { return nil }
+
+        let texture = atlas.textureNamed(storedName)
+        texture.filteringMode = .nearest
+        return texture
+    }
+
+    /// Loads a standalone PNG only when the file is actually present in the app bundle.
+    /// `SKTexture(imageNamed:)` returns SpriteKit's red-X placeholder for a missing name,
+    /// so its non-zero size cannot be used to validate newly added runtime resources.
+    static func standaloneTexture(named name: String) -> SKTexture? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "png"),
+              let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            return nil
+        }
+        let texture = SKTexture(cgImage: image)
+        texture.filteringMode = .nearest
+        return texture
     }
 
     static func preloadOfficeAssets() {
@@ -52,6 +84,7 @@ enum GameArt {
             "det_standing_idle_n_00",
             "office_shell_base",
             "office_window",
+            "office_window_hover",
             "city_district_block_v01",
             "city_district_ground_v01",
             "city_building_nw",
@@ -71,19 +104,25 @@ enum GameArt {
             "city_gate",
             "office_radiator",
             "office_door_leaf",
+            "office_door_leaf_hover",
             "office_desk_chair",
             "office_filing_cabinet",
             "office_coat_rack",
             "office_visitor_armchair",
             "office_desk_bare",
+            "office_desk_bare_hover",
             "office_desk_lamp",
             "office_desk_phone",
+            "office_desk_phone_hover",
             "office_desk_mug",
             "office_desk_ashtray",
             "office_desk_files",
+            "office_desk_files_hover",
             "office_desk_papers",
             "office_desk_actor_occluder",
-            "office_desk_front_occluder_v03"
+            "office_desk_actor_occluder_hover",
+            "office_desk_front_occluder_v03",
+            "office_desk_front_occluder_v03_hover"
         ]
         let textures = textureNames.compactMap(texture(named:))
         SKTexture.preload(textures) {}
