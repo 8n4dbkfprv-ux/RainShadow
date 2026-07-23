@@ -88,6 +88,14 @@ enum GameArt {
             "voss_standing_idle_nnw_00",
             "voss_standing_idle_n_00",
             "office_shell_base",
+            "office_shadow_vignette",
+            "office_floor_wear_decal",
+            "office_light_lamp_pool",
+            "office_light_window_spill",
+            "office_desk_floor_shadow",
+            "office_cabinet_floor_shadow",
+            "office_bookshelf",
+            "office_archive_stack",
             "office_window",
             "office_window_hover",
             "city_district_block_v01",
@@ -136,8 +144,8 @@ enum GameArt {
             "office_desk_papers",
             "office_desk_actor_occluder",
             "office_desk_actor_occluder_hover",
-            "office_desk_front_occluder_v03",
-            "office_desk_front_occluder_v03_hover"
+            "office_desk_front_occluder_v04",
+            "office_desk_front_occluder_v04_hover"
         ]
         let textures = textureNames.compactMap(texture(named:))
         SKTexture.preload(textures) {}

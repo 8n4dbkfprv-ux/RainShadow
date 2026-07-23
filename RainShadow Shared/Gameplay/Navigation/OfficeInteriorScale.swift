@@ -30,13 +30,14 @@ enum OfficeInteriorScale {
     /// deliberately not reused as a prop scale.
     static let environment: CGFloat = 0.395
 
-    /// Default play camera follows the same human-scale density as the reference
-    /// CRPG area view. The compact office therefore sits inside a dark area-map
-    /// surround instead of being enlarged until one adult fills ~16% of the view.
-    /// This changes presentation scale only; the fixed 2:1 dimetric projection and
-    /// all furniture/body proportions remain registered in world space.
+    /// Slightly tighter than the shared BG:EE mid-band (~9%): the office plate is
+    /// cavernous, so ~10.5% body density crops empty foreground without breaking
+    /// the 8–11% play-density band.
+    static let playBodyToVisibleHeight: CGFloat = 0.105
+
+    /// Presentation scale only; furniture/body proportions stay in world space.
     static var cameraVisibleHeight: CGFloat {
-        DefaultPlayZoom.cameraVisibleHeight(standingBodyHeight: standingAdultBodyHeight)
+        standingAdultBodyHeight / playBodyToVisibleHeight
     }
 
     /// V3 plate centre and scale-about focus.
@@ -82,15 +83,18 @@ enum OfficeInteriorScale {
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
     /// targets: standard 0.22, seating 0.17, desk 0.14, window overlay 0.24,
-    /// floor decal 0.28, floor clutter 0.16.
+    /// floor decal 0.18, small props 0.12, pocket props 0.10.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
         static let deskEnsemble: CGFloat = 0.14 / environment
         static let deskChair: CGFloat = 0.17 / environment
         static let visitorArmchair: CGFloat = 0.17 / environment
         static let window: CGFloat = 0.24 / environment
-        static let floorDecal: CGFloat = 0.28 / environment
-        static let clutter: CGFloat = 0.16 / environment
+        static let floorDecal: CGFloat = 0.22 / environment
+        static let smallProp: CGFloat = 0.12 / environment
+        static let pocketProp: CGFloat = 0.10 / environment
+        /// Full-plate overlays sized against the shell art (no extra relative inflate).
+        static let plateOverlay: CGFloat = 1.0 / environment
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
@@ -173,8 +177,22 @@ enum OfficeInteriorScale {
         environment * PropRelativeScale.floorDecal
     }
 
-    static var clutterDisplayScale: CGFloat {
-        environment * PropRelativeScale.clutter
+    /// Archive boxes, wastebasket, and floor trash — knee-high clutter, not furniture.
+    static var smallPropDisplayScale: CGFloat {
+        environment * PropRelativeScale.smallProp
+    }
+
+    /// Pocket-scale props tucked under the desk (e.g. hidden bottle).
+    static var pocketPropDisplayScale: CGFloat {
+        environment * PropRelativeScale.pocketProp
+    }
+
+    /// Alias kept for call sites that mean floor scrap clutter.
+    static var clutterDisplayScale: CGFloat { smallPropDisplayScale }
+
+    /// Display scale so a runtime texture matches shell world size 1:1 with art pixels.
+    static var plateOverlayDisplayScale: CGFloat {
+        environment * PropRelativeScale.plateOverlay
     }
 
     static var scaledArtSize: CGSize { mapSize(sourceArtSize) }

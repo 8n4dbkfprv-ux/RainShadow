@@ -157,18 +157,22 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
-        let authoredStart = CGPoint(x: 2_000, y: 1_218)
+        let authoredStart = CGPoint(x: 2_020, y: 1_138)
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
-        #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 1_600, y: 1_100)))
+        #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 2_280, y: 1_200)))
     }
 
-    @Test func clientArrivalMovesSouthWestAlongClearFloor() {
+    @Test func clientArrivalMovesTowardVisitorSideOfDesk() {
         let path = OfficeNavigationLayout.clientArrivalPath
         #expect(path.count == 3)
         #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard let first = path.first, let last = path.last else { return }
+        // Door (NE) → visitor chair: end is west/south of the door threshold, still NE of the desk.
         #expect(last.x < first.x)
         #expect(last.y < first.y)
+        let desk = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
+        #expect(last.x > desk.x)
+        #expect(last.y > desk.y)
     }
 
     @Test func clientDepartureRetracesClearFloorToTheDoor() {
@@ -260,6 +264,8 @@ struct OfficeInteriorScaleTests {
             ("archive box b", OfficeNavigationLayout.archiveBoxBSamplePoints, OfficeNavigationLayout.archiveBoxBObstacle),
             ("wastebasket", OfficeNavigationLayout.wastebasketSamplePoints, OfficeNavigationLayout.wastebasketObstacle),
             ("radiator", OfficeNavigationLayout.radiatorSamplePoints, OfficeNavigationLayout.radiatorObstacle),
+            ("bookshelf", OfficeNavigationLayout.bookshelfSamplePoints, OfficeNavigationLayout.bookshelfObstacle),
+            ("archive stack", OfficeNavigationLayout.archiveStackSamplePoints, OfficeNavigationLayout.archiveStackObstacle),
             ("coat rack", OfficeNavigationLayout.coatRackSamplePoints, OfficeNavigationLayout.coatRackObstacle),
             ("door", OfficeNavigationLayout.doorLeafSamplePoints, OfficeNavigationLayout.doorObstacle)
         ]
@@ -353,13 +359,12 @@ struct OfficeInteriorScaleTests {
             visibleWorldHeight: OfficeInteriorScale.cameraVisibleHeight
         )
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(bodyFraction))
-        #expect(abs(bodyFraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
+        #expect(abs(bodyFraction - OfficeInteriorScale.playBodyToVisibleHeight) < 0.0001)
 
-        // The V3 room was authored at the correct human-relative scale, so it can
-        // fill the playfield without magnifying actors or furniture.
+        // Tighter office framing crops empty floor; shell may slightly overflow the view.
         let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        #expect(shellFill > 0.95 && shellFill < 1.05)
+        #expect(shellFill > 1.05 && shellFill < 1.25)
         #expect(OfficeInteriorScale.scaledArtSize.width > 1_600)
     }
 

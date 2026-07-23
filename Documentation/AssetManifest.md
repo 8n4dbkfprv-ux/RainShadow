@@ -126,7 +126,7 @@ The door leaf and frame must match projection, hinge position, texture, damage, 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
 | P0 | `office_desk_bare` | 932×780 | Yes | Battered wooden desk shell with a completely clear top. The hidden rear/detective side contains the knee opening and drawers; the visible visitor side is a plain modesty panel. Ground anchor is `(0.5, 0.04)` and matches the earlier ensemble registration. |
-| P0 | `office_desk_front_occluder_v03` | 932×780 registered | Yes | Visitor-side modesty panel, legs, and near half of the top only; used over the seated actor/near crossings. |
+| P0 | `office_desk_front_occluder_v04` | 932×780 registered | Yes | Camera-near (SW knee) half of the NE-facing V4 desk; used over the seated actor/near crossings. |
 | P0 | `office_desk_floor_shadow` | 1024×512 | Yes | Soft painted floor/contact shadow only, placed below actors. |
 | P0 | `office_chair` | 512×512 | Yes | Old swivel office chair, arms and torn upholstery, designed around seated actor pose. |
 | P0 | `office_chair_floor_shadow` | 512×256 | Yes | Chair-only floor/contact shadow. |

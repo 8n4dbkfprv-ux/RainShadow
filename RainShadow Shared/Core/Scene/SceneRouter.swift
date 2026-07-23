@@ -18,6 +18,12 @@ final class SceneRouter {
 
     func start(in view: SKView) {
         self.view = view
+        // QA hook: jump straight to a scene, e.g. RAINSHADOW_START_SCENE=office.
+        if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "office" {
+            context.session.markOpeningSeen()
+            present(.detectiveOffice, transition: nil)
+            return
+        }
         present(.openingExterior, transition: nil)
     }
 

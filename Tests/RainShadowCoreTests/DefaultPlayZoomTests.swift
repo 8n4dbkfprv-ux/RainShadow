@@ -34,16 +34,12 @@ struct DefaultPlayZoomTests {
         )
     }
 
-    @Test func officeUsesTheSharedHumanScaleDensity() {
-        let expectedVisible = DefaultPlayZoom.cameraVisibleHeight(
-            standingBodyHeight: OfficeInteriorScale.detectiveBodyHeight
-        )
-        #expect(abs(OfficeInteriorScale.cameraVisibleHeight - expectedVisible) < 0.0001)
-
+    @Test func officeUsesTighterPlayDensityInsideBGEEBand() {
         let officeFraction = OfficeInteriorScale.detectiveBodyHeight
             / OfficeInteriorScale.cameraVisibleHeight
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(officeFraction))
-        #expect(abs(officeFraction - 0.09) < 0.0001)
+        #expect(abs(officeFraction - OfficeInteriorScale.playBodyToVisibleHeight) < 0.0001)
+        #expect(officeFraction > DefaultPlayZoom.targetBodyToVisibleHeight)
     }
 
     @Test func cameraScaleIsUniformVisibleHeightOverSceneHeight() {
@@ -63,7 +59,8 @@ struct DefaultPlayZoomTests {
     @Test func correctlyAuthoredOfficeFillsThePlayableHeight() {
         let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        #expect(shellFill > 0.95 && shellFill < 1.05)
+        // Office camera is denser than city mid-band, so the plate overflows slightly.
+        #expect(shellFill > 1.05 && shellFill < 1.25)
     }
 
     @Test func furnitureBodyMultiplesStillHoldWithSharedCameraDensity() {

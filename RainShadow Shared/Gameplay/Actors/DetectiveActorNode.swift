@@ -20,7 +20,7 @@ final class DetectiveActorNode: SKNode {
     private let standUpTextures: [SKTexture]
     private let sitDownTextures: [SKTexture]
     private let walkTextures: [ActorFacing: [SKTexture]]
-    private var facing: ActorFacing = .southEast
+    private var facing: ActorFacing = .northEast
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
     private var needsSeatEgress = true
@@ -43,17 +43,22 @@ final class DetectiveActorNode: SKNode {
             }
             return nil
         })
+        // Desk faces the NE door: seated work pose looks toward the visitor/door.
         seatedIdleTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_idle_se_%02d", $0))
+            GameArt.texture(named: String(format: "voss_seated_idle_ne_%02d", $0))
+                ?? GameArt.texture(named: String(format: "voss_seated_idle_se_%02d", $0))
         }
         seatedArmTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_arms_se_%02d", $0))
+            GameArt.texture(named: String(format: "voss_seated_arms_ne_%02d", $0))
+                ?? GameArt.texture(named: String(format: "voss_seated_arms_se_%02d", $0))
         }
         standUpTextures = (0..<12).compactMap {
-            GameArt.texture(named: String(format: "voss_stand_up_se_%02d", $0))
+            GameArt.texture(named: String(format: "voss_stand_up_ne_%02d", $0))
+                ?? GameArt.texture(named: String(format: "voss_stand_up_se_%02d", $0))
         }
         sitDownTextures = (0..<12).compactMap {
-            GameArt.texture(named: String(format: "voss_sit_down_se_%02d", $0))
+            GameArt.texture(named: String(format: "voss_sit_down_ne_%02d", $0))
+                ?? GameArt.texture(named: String(format: "voss_sit_down_se_%02d", $0))
         }
         walkTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
             for sourceName in facing.textureSourceCandidates {
@@ -287,7 +292,7 @@ final class DetectiveActorNode: SKNode {
         )
         let finishStanding = SKAction.run { [weak self] in
             guard let self else { return }
-            self.body.texture = self.standingTexture ?? self.walkTextures[.southEast]?.first
+            self.body.texture = self.standingTexture ?? self.walkTextures[.northEast]?.first
             self.body.texture?.filteringMode = .nearest
             self.body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
             self.body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
@@ -322,7 +327,7 @@ final class DetectiveActorNode: SKNode {
         }
         state = .sittingDown
         body.removeAction(forKey: "standingIdle")
-        facing = .southEast
+        facing = .northEast
 
         let finishSitting = SKAction.run { [weak self] in
             guard let self else { return }
