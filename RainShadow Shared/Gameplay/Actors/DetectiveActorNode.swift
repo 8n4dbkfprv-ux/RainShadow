@@ -67,8 +67,8 @@ final class DetectiveActorNode: SKNode {
             return nil
         })
 
-        // V6 atlases carry a 2x copy of a 100px native raster. Nearest filtering
-        // resolves it back to the intended lightly pixelated BGEE gameplay scale.
+        // V7 atlases carry a 200px nearest-upscaled copy of an 80px native raster.
+        // Nearest filtering resolves it back to the intended pixelated BGEE gameplay scale.
         contactShadow = SKShapeNode(ellipseOf: CGSize(width: 54, height: 20))
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
         contactShadow.strokeColor = .clear

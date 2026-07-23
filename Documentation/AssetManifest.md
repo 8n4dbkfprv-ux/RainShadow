@@ -46,7 +46,7 @@ The Image Generator produces source material. Every result still passes registra
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
 | Office shell | 3840×2160 V3 master | 4096×2304 | Empty 16:9 architecture rebuilt at the BG:EE tavern camera height and feature scale. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
-| Actor frame | Generator master | 512×512 | Reduce to a 100px native body, limit to 96 colors without dithering, enlarge 2× with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
+| Actor frame | Generator master | 512×512 | Reduce to an 80px native body, limit to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
 | UI | 2× listed runtime | Listed runtime | Original RainShadow design, high readability. |
 
@@ -190,7 +190,7 @@ Design continuity rules:
 
 All stored runtime frames are 512×512 transparent PNGs with a 200px opaque body and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. SpriteKit displays every frame at 256×256 points, preserving the established 100-world-unit actor height while providing 2× texture density. The seated pose gets its apparent height from authored posture and desk occlusion and retains its −100pt visual offset into the chair/desk registration.
 
-The body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 100-pixel native body, limit it to 96 colors without dithering, enlarge it 2× with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
+The body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to an 80-pixel native body, limit it to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
 

@@ -6,3 +6,5 @@ xcuserdata/
 DerivedData/
 output/
 tmp/
+__pycache__/
+* [0-9].png
