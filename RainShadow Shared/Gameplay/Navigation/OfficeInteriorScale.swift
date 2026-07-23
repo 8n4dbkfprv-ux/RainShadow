@@ -16,6 +16,9 @@ enum OfficeInteriorScale {
         static let seatedScale: CGFloat = 0.82
         /// Visual-only shift from the walkable navigation root into the chair/desk registration.
         static let seatedYOffset: CGFloat = -82
+        /// Extra seated body nudge into the desk. Zero for NE rear-view — NE nudges
+        /// read as sitting on the desktop.
+        static let seatedDeskNudge = CGPoint.zero
     }
 
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale

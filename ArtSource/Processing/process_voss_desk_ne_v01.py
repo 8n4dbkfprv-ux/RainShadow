@@ -121,6 +121,30 @@ def expand_to(frames: list[Image.Image], count: int) -> list[Image.Image]:
     return out
 
 
+def split_upper_lower(cell: Image.Image, lap_frac: float = 0.78) -> tuple[Image.Image, Image.Image]:
+    """Split a registered seated cell on a horizontal feet seam.
+
+    Upper = torso/fedora/arms + chair back (must stay camera-near / in front of
+    the desk). Lower = only the under-desk feet / front chair legs that the
+    kneehole apron should hide. Both keep the same 512 feet registration.
+    """
+    arr = np.array(cell.convert("RGBA"))
+    a = arr[:, :, 3]
+    ys = np.where(a > 40)[0]
+    if len(ys) == 0:
+        empty = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
+        empty.putpixel((FRAME // 2, FRAME // 2), (0, 0, 0, 1))
+        return empty.copy(), empty.copy()
+    y0, y1 = int(ys.min()), int(ys.max())
+    # Low seam: keep chair back with the upper layer for rear-view.
+    seam = y0 + int((y1 - y0) * lap_frac)
+    upper = arr.copy()
+    upper[seam:, :, 3] = 0
+    lower = arr.copy()
+    lower[:seam, :, 3] = 0
+    return Image.fromarray(upper, "RGBA"), Image.fromarray(lower, "RGBA")
+
+
 def opaque_bbox(im: Image.Image, threshold: int = 40) -> tuple[int, int, int, int]:
     a = np.array(im.split()[-1])
     ys, xs = np.where(a > threshold)
@@ -155,27 +179,31 @@ def register_arms(im: Image.Image, idle_ref: Image.Image) -> Image.Image:
 def build_actor_occluder(bare_path: Path, seated_path: Path, out_path: Path) -> None:
     bare = np.array(Image.open(bare_path).convert("RGBA"))
     seated = Image.open(seated_path).convert("RGBA")
-    # Place seated approx on desk canvas: center-lower where SW seat sits.
+    # Place seated in the SW knee well (slightly left of desk center, low).
     canvas = Image.new("RGBA", (bare.shape[1], bare.shape[0]), (0, 0, 0, 0))
-    # Scale seated to desk canvas height fraction
-    target_h = int(bare.shape[0] * 0.55)
+    target_h = int(bare.shape[0] * 0.50)
     scale = target_h / seated.height
     sw = max(1, int(seated.width * scale))
     sh = max(1, int(seated.height * scale))
     seated_r = seated.resize((sw, sh), Image.Resampling.LANCZOS)
-    # Detective seat SW: left-center of desk
-    x = bare.shape[1] // 2 - sw // 2 - int(bare.shape[1] * 0.08)
-    y = bare.shape[0] - sh - int(bare.shape[0] * 0.08)
+    x = bare.shape[1] // 2 - sw // 2 - int(bare.shape[1] * 0.04)
+    y = bare.shape[0] - sh - int(bare.shape[0] * 0.04)
     canvas.alpha_composite(seated_r, (max(0, x), max(0, y)))
     seated_a = np.array(canvas)[:, :, 3] > 40
     bare_a = bare[:, :, 3] > 40
-    # Lap band: lower half of seated silhouette ∩ desk
     yy = np.arange(bare.shape[0])[:, None]
-    lap = seated_a & (yy > bare.shape[0] * 0.45)
-    mask = bare_a & lap
-    # If intersection tiny, fall back to lower third of bare desk
-    if mask.mean() < 0.01:
-        mask = bare_a & (yy > bare.shape[0] * 0.55)
+    # Tight lap band only (lower ~30% of seated silhouette) so the pedestal
+    # cannot paint over the rear-view torso/fedora when this layer is in front.
+    seated_ys = np.where(seated_a.any(axis=1))[0]
+    if len(seated_ys) == 0:
+        mask = bare_a & (yy > bare.shape[0] * 0.70)
+    else:
+        s0, s1 = int(seated_ys.min()), int(seated_ys.max())
+        lap_cut = s0 + int((s1 - s0) * 0.70)
+        lap = seated_a & (yy >= lap_cut)
+        mask = bare_a & lap
+    if mask.mean() < 0.005:
+        mask = bare_a & (yy > bare.shape[0] * 0.72)
     out = bare.copy()
     out[:, :, 3] = np.where(mask, bare[:, :, 3], 0)
     Image.fromarray(out, "RGBA").save(out_path)
@@ -203,6 +231,11 @@ def main() -> None:
         cell.save(IDLE_ATLAS / f"voss_seated_idle_ne_{i:02d}.png")
         # Keep SE names as aliases for any leftover references during transition.
         cell.save(IDLE_ATLAS / f"voss_seated_idle_se_{i:02d}.png")
+        upper, lower = split_upper_lower(cell)
+        upper.save(GEN / f"voss_seated_upper_ne_{i:02d}.png")
+        lower.save(GEN / f"voss_seated_lower_ne_{i:02d}.png")
+        upper.save(IDLE_ATLAS / f"voss_seated_upper_ne_{i:02d}.png")
+        lower.save(IDLE_ATLAS / f"voss_seated_lower_ne_{i:02d}.png")
 
     # Rear view: the body sprite carries its own hands; the foreground-arms
     # overlay (front-view desk hands) must be empty or it doubles the arms.

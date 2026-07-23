@@ -157,7 +157,7 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
-        let authoredStart = CGPoint(x: 2_020, y: 1_138)
+        let authoredStart = CGPoint(x: 2_070, y: 1_163)
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
         #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 2_280, y: 1_200)))
     }

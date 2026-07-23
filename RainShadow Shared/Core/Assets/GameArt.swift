@@ -9,6 +9,8 @@ enum GameArt {
         ("voss_standing_idle_", "VossIdle"),
         ("voss_seated_arms_", "VossSeatedArms"),
         ("voss_seated_idle_", "VossSeatedIdle"),
+        ("voss_seated_upper_", "VossSeatedIdle"),
+        ("voss_seated_lower_", "VossSeatedIdle"),
         ("voss_stand_up_", "VossSeatTransitions"),
         ("voss_sit_down_", "VossSeatTransitions"),
         ("voss_walk_", "VossWalk")

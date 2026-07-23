@@ -11,15 +11,24 @@ final class DetectiveActorNode: SKNode {
     }
 
     private let contactShadow: SKShapeNode
+    /// Standing / transitions / seated upper (torso, fedora, arms).
     private let body: SKSpriteNode
+    /// Seated lower only (chair legs + coat tails); hidden while standing.
+    private let lowerBody: SKSpriteNode
     private let foregroundArms: SKSpriteNode
     private let standingTexture: SKTexture?
     private let standingIdleTextures: [ActorFacing: [SKTexture]]
     private let seatedIdleTextures: [SKTexture]
+    private let seatedUpperTextures: [SKTexture]
+    private let seatedLowerTextures: [SKTexture]
     private let seatedArmTextures: [SKTexture]
     private let standUpTextures: [SKTexture]
     private let sitDownTextures: [SKTexture]
     private let walkTextures: [ActorFacing: [SKTexture]]
+
+    /// Local z so the desk apron occluder can sit between lower and upper while seated.
+    private static let seatedUpperLocalZ: CGFloat = 70
+    private static let seatedLowerLocalZ: CGFloat = 0
     private var facing: ActorFacing = .northEast
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
@@ -29,6 +38,17 @@ final class DetectiveActorNode: SKNode {
     private var lastLocomotionUpdateTime: TimeInterval?
     private var walkFrameAccumulator: TimeInterval = 0
     private var walkFrameIndex = 0
+
+    /// True while the body is still registered to the chair (idle or sitting down).
+    /// Used by the office scene to cancel the elevated nav-root in Y-depth sorting.
+    var isSeated: Bool {
+        switch state {
+        case .seatedIdle, .sittingDown:
+            return true
+        case .standingUp, .standingIdle, .walking:
+            return false
+        }
+    }
 
     override init() {
         standingTexture = GameArt.texture(named: "voss_standing_idle_se_00")
@@ -47,6 +67,12 @@ final class DetectiveActorNode: SKNode {
         seatedIdleTextures = (0..<8).compactMap {
             GameArt.texture(named: String(format: "voss_seated_idle_ne_%02d", $0))
                 ?? GameArt.texture(named: String(format: "voss_seated_idle_se_%02d", $0))
+        }
+        seatedUpperTextures = (0..<8).compactMap {
+            GameArt.texture(named: String(format: "voss_seated_upper_ne_%02d", $0))
+        }
+        seatedLowerTextures = (0..<8).compactMap {
+            GameArt.texture(named: String(format: "voss_seated_lower_ne_%02d", $0))
         }
         seatedArmTextures = (0..<8).compactMap {
             GameArt.texture(named: String(format: "voss_seated_arms_ne_%02d", $0))
@@ -80,13 +106,23 @@ final class DetectiveActorNode: SKNode {
         contactShadow.position = CGPoint(x: 0, y: 4)
         contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
 
-        if let texture = seatedIdleTextures.first ?? standingTexture {
+        let initialSeated = seatedUpperTextures.first ?? seatedIdleTextures.first ?? standingTexture
+        if let texture = initialSeated {
             body = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))
         } else {
             body = SKSpriteNode(color: SKColor(red: 0.12, green: 0.1, blue: 0.1, alpha: 1), size: CGSize(width: 76, height: 142))
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 40 / 256)
         body.texture?.filteringMode = .nearest
+
+        if let texture = seatedLowerTextures.first {
+            lowerBody = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))
+        } else {
+            lowerBody = SKSpriteNode()
+        }
+        lowerBody.anchorPoint = body.anchorPoint
+        lowerBody.texture?.filteringMode = .nearest
+        lowerBody.zPosition = Self.seatedLowerLocalZ
 
         if let texture = seatedArmTextures.first {
             foregroundArms = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))
@@ -95,13 +131,12 @@ final class DetectiveActorNode: SKNode {
         }
         foregroundArms.anchorPoint = body.anchorPoint
         foregroundArms.texture?.filteringMode = .nearest
-        // The desk's front occluder is 86 depth units above the seated actor.
-        // This derived arm-only layer clears it without lifting the torso, and
-        // also lets the hands naturally overlap loose papers on the desktop.
-        foregroundArms.zPosition = 60
+        // Upper body clears the kneehole apron; arms stay above that for desk papers.
+        foregroundArms.zPosition = Self.seatedUpperLocalZ + 15
 
         super.init()
         addChild(contactShadow)
+        addChild(lowerBody)
         addChild(body)
         addChild(foregroundArms)
         applySeatedPose(animated: false)
@@ -187,10 +222,14 @@ final class DetectiveActorNode: SKNode {
 
         body.removeAction(forKey: "standTransition")
         body.removeAction(forKey: "seatEgress")
+        lowerBody.removeAction(forKey: "standTransition")
+        lowerBody.removeAction(forKey: "seatEgress")
         foregroundArms.removeAction(forKey: "standTransition")
         contactShadow.removeAction(forKey: "seatEgress")
         body.position = .zero
+        body.zPosition = 0
         body.alpha = 1
+        hideLowerBody()
         foregroundArms.isHidden = true
         foregroundArms.alpha = 0
         contactShadow.position.y = 4
@@ -207,6 +246,7 @@ final class DetectiveActorNode: SKNode {
     func beginOpenWorldStanding() {
         removeAllActions()
         body.removeAllActions()
+        lowerBody.removeAllActions()
         foregroundArms.removeAllActions()
         pendingWalk = nil
         routeFollower.cancel()
@@ -215,7 +255,9 @@ final class DetectiveActorNode: SKNode {
         needsSeatEgress = false
         state = .standingIdle
         body.position = .zero
+        body.zPosition = 0
         body.zRotation = 0
+        hideLowerBody()
         foregroundArms.isHidden = true
         foregroundArms.alpha = 0
         contactShadow.position = CGPoint(x: 0, y: 4)
@@ -254,6 +296,9 @@ final class DetectiveActorNode: SKNode {
         body.removeAction(forKey: "standingIdle")
         if !isCompletingSeatEgress {
             body.position.y = 0
+            lowerBody.position = .zero
+            body.zPosition = 0
+            hideLowerBody()
         }
 
         if let first = routeFollower.waypoints.first {
@@ -285,7 +330,12 @@ final class DetectiveActorNode: SKNode {
         }
         state = .standingUp
         body.removeAction(forKey: "seatedIdle")
+        lowerBody.removeAction(forKey: "seatedIdle")
         foregroundArms.removeAction(forKey: "seatedIdle")
+        // Collapse to a single full-body layer for the stand-up strip.
+        body.texture = seatedIdleTextures.first ?? body.texture
+        body.zPosition = 0
+        hideLowerBody()
         foregroundArms.run(
             .sequence([.fadeOut(withDuration: 0.12), .hide()]),
             withKey: "standTransition"
@@ -296,6 +346,8 @@ final class DetectiveActorNode: SKNode {
             self.body.texture?.filteringMode = .nearest
             self.body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
             self.body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
+            self.body.zPosition = 0
+            self.hideLowerBody()
             self.state = .standingIdle
             completion()
         }
@@ -328,6 +380,8 @@ final class DetectiveActorNode: SKNode {
         state = .sittingDown
         body.removeAction(forKey: "standingIdle")
         facing = .northEast
+        body.zPosition = 0
+        hideLowerBody()
 
         let finishSitting = SKAction.run { [weak self] in
             guard let self else { return }
@@ -359,10 +413,12 @@ final class DetectiveActorNode: SKNode {
             resize: false,
             restore: false
         )
-        let settle = SKAction.moveTo(
-            y: OfficeInteriorScale.ActorDisplay.seatedYOffset,
-            duration: duration
+        let nudge = OfficeInteriorScale.ActorDisplay.seatedDeskNudge
+        let seat = CGPoint(
+            x: nudge.x,
+            y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y
         )
+        let settle = SKAction.move(to: seat, duration: duration)
         settle.timingMode = .linear
         body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
         body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
@@ -372,6 +428,7 @@ final class DetectiveActorNode: SKNode {
 
     private func animateSeatEgress(duration: TimeInterval, completion: (() -> Void)? = nil) {
         body.removeAction(forKey: "seatEgress")
+        lowerBody.removeAction(forKey: "seatEgress")
         let settleBody = SKAction.move(to: .zero, duration: duration)
         settleBody.timingMode = .linear
         body.run(
@@ -381,6 +438,7 @@ final class DetectiveActorNode: SKNode {
             ]),
             withKey: "seatEgress"
         )
+        lowerBody.run(settleBody, withKey: "seatEgress")
 
         contactShadow.removeAllActions()
         let settleShadow = SKAction.moveTo(y: 4, duration: duration)
@@ -397,20 +455,54 @@ final class DetectiveActorNode: SKNode {
         )
     }
 
+    private func hideLowerBody() {
+        lowerBody.removeAllActions()
+        lowerBody.isHidden = true
+        lowerBody.alpha = 0
+        lowerBody.zPosition = Self.seatedLowerLocalZ
+    }
+
     private func applySeatedPose(animated: Bool) {
-        body.texture = seatedIdleTextures.first ?? standingTexture
+        let nudge = OfficeInteriorScale.ActorDisplay.seatedDeskNudge
+        let seat = CGPoint(
+            x: nudge.x,
+            y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y
+        )
+        let useSplit = !seatedUpperTextures.isEmpty && !seatedLowerTextures.isEmpty
+        if useSplit {
+            body.texture = seatedUpperTextures.first
+            body.zPosition = Self.seatedUpperLocalZ
+            lowerBody.texture = seatedLowerTextures.first
+            lowerBody.texture?.filteringMode = .nearest
+            lowerBody.xScale = OfficeInteriorScale.ActorDisplay.seatedScale
+            lowerBody.yScale = OfficeInteriorScale.ActorDisplay.seatedScale
+            lowerBody.position = seat
+            lowerBody.zPosition = Self.seatedLowerLocalZ
+            lowerBody.alpha = 1
+            lowerBody.isHidden = false
+        } else {
+            body.texture = seatedIdleTextures.first ?? standingTexture
+            body.zPosition = 0
+            hideLowerBody()
+        }
+        body.texture?.filteringMode = .nearest
         body.xScale = OfficeInteriorScale.ActorDisplay.seatedScale
-        body.yScale = seatedIdleTextures.isEmpty ? 0.73 : OfficeInteriorScale.ActorDisplay.seatedScale
-        body.position.y = OfficeInteriorScale.ActorDisplay.seatedYOffset
+        body.yScale = (useSplit || !seatedIdleTextures.isEmpty)
+            ? OfficeInteriorScale.ActorDisplay.seatedScale
+            : 0.73
+        body.position = seat
+        // Upper already carries hands for the NE rear view; keep arms overlay empty.
         foregroundArms.texture = seatedArmTextures.first
         foregroundArms.xScale = OfficeInteriorScale.ActorDisplay.seatedScale
         foregroundArms.yScale = OfficeInteriorScale.ActorDisplay.seatedScale
-        foregroundArms.position.y = OfficeInteriorScale.ActorDisplay.seatedYOffset
-        foregroundArms.alpha = seatedArmTextures.isEmpty ? 0 : 1
-        foregroundArms.isHidden = seatedArmTextures.isEmpty
+        foregroundArms.position = seat
+        foregroundArms.zPosition = Self.seatedUpperLocalZ + 15
+        let armsVisible = !useSplit && !seatedArmTextures.isEmpty
+        foregroundArms.alpha = armsVisible ? 1 : 0
+        foregroundArms.isHidden = !armsVisible
         contactShadow.xScale = 0.82
         contactShadow.yScale = 1
-        contactShadow.position.y = OfficeInteriorScale.ActorDisplay.seatedYOffset + 4
+        contactShadow.position = CGPoint(x: seat.x, y: seat.y + 4)
         // The seated baseline is visually registered behind the desk. A ground
         // contact shadow at that offset projects onto the desktop, so keep it
         // hidden until the first walking leg carries it to the walkable floor root.
@@ -424,6 +516,18 @@ final class DetectiveActorNode: SKNode {
     }
 
     private func startSeatedIdle() {
+        let useSplit = seatedUpperTextures.count > 1 && seatedLowerTextures.count == seatedUpperTextures.count
+        if useSplit {
+            let indices = Self.breathCycleIndices(frameCount: seatedUpperTextures.count)
+            let upperCycle = indices.map { seatedUpperTextures[$0] }
+            let lowerCycle = indices.map { seatedLowerTextures[$0] }
+            let animateUpper = SKAction.animate(with: upperCycle, timePerFrame: 0.21, resize: false, restore: false)
+            let animateLower = SKAction.animate(with: lowerCycle, timePerFrame: 0.21, resize: false, restore: false)
+            body.run(.repeatForever(animateUpper), withKey: "seatedIdle")
+            lowerBody.run(.repeatForever(animateLower), withKey: "seatedIdle")
+            return
+        }
+
         guard seatedIdleTextures.count > 1 else { return }
         let indices = Self.breathCycleIndices(frameCount: seatedIdleTextures.count)
         let breathCycle = indices.map { seatedIdleTextures[$0] }

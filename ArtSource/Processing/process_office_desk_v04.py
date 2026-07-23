@@ -66,10 +66,11 @@ def fit_canvas(im: Image.Image, canvas: tuple[int, int] = CANVAS) -> Image.Image
 
 
 def front_occluder(bare: Image.Image) -> Image.Image:
-    """Keep the camera-near / lower half of opaque desk as front occluder.
+    """SW kneehole apron: floor → desktop underside, camera-near band only.
 
-    For V4 the knee/detective side is camera-near (SW); visitor modesty is NE/far.
-    Front occluder covers the near mass (legs + near top edge) for walk-past.
+    Used between seated lower-body and upper-body layers so legs tuck under the
+    desk while the fedora/arms stay in front. Excludes the desktop top surface
+    and the NE visitor face.
     """
     arr = np.array(bare, dtype=np.uint8)
     a = arr[:, :, 3]
@@ -77,13 +78,17 @@ def front_occluder(bare: Image.Image) -> Image.Image:
     if len(ys) == 0:
         return bare.copy()
     y0, y1 = int(ys.min()), int(ys.max())
-    mid = y0 + int((y1 - y0) * 0.42)
-    # Keep lower portion (near camera in this orientation) + a band of the top edge.
-    keep = a.copy()
-    keep[:mid, :] = 0
-    # Also keep a thin silhouette rim of the whole desk for selection wash.
+    x0, x1 = int(xs.min()), int(xs.max())
+    h, w = a.shape
+    yy, xx = np.mgrid[0:h, 0:w]
+    # Desktop underside ≈ mid-bbox; keep a little extra height so chair feet tuck.
+    apron_top = y0 + int((y1 - y0) * 0.48)
+    # SW / camera-near kneehole band (left-center); drop far NE visitor mass.
+    x_lo = x0 + int((x1 - x0) * 0.06)
+    x_hi = x0 + int((x1 - x0) * 0.78)
+    keep = (a > 40) & (yy >= apron_top) & (xx >= x_lo) & (xx <= x_hi)
     out = arr.copy()
-    out[:, :, 3] = keep
+    out[:, :, 3] = np.where(keep, a, 0)
     return Image.fromarray(out, "RGBA")
 
 

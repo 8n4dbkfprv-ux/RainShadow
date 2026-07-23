@@ -4,7 +4,8 @@ enum OfficeNavigationLayout {
     /// Authoring-space (pre-scale) layout, then mapped through `OfficeInteriorScale`.
 
     /// Nav root for seated Voss; visual seat is `deskChair` via `seatedYOffset`.
-    private static let authoredActorStart = CGPoint(x: 2_020, y: 1_138)
+    // deskChair.y + seatedYOffset/environment (82/0.395 ≈ 208)
+    private static let authoredActorStart = CGPoint(x: 2_070, y: 1_163)
 
     /// Ground-contact footprints in authored (pre-scale) space. Tall vertical props
     /// (door, cabinet, radiator, coat rack) only block their base; desk and
@@ -43,7 +44,7 @@ enum OfficeNavigationLayout {
     static let authoredArchiveBoxBObstacle = CGRect(x: 1_620, y: 970, width: 130, height: 90)
 
     /// Wastebasket at detective-side SW desk foot.
-    static let authoredWastebasketObstacle = CGRect(x: 1_800, y: 780, width: 110, height: 90)
+    static let authoredWastebasketObstacle = CGRect(x: 1_850, y: 820, width: 110, height: 90)
 
     /// Radiator base solid along the west wall.
     static let authoredRadiatorObstacle = CGRect(x: 930, y: 1_390, width: 340, height: 110)
@@ -63,7 +64,7 @@ enum OfficeNavigationLayout {
     /// Sample points on the desk / chair footprint used by tests (authored space).
     static let authoredDeskSamplePoints: [CGPoint] = [
         CGPoint(x: 2_100, y: 980),  // desk ensemble anchor
-        CGPoint(x: 2_020, y: 930),  // chair / detective seat
+        CGPoint(x: 2_070, y: 955),  // chair / detective seat (kneehole center)
         CGPoint(x: 2_100, y: 1_040), // mid desktop band
         CGPoint(x: 2_140, y: 1_050), // NE desktop toward visitor
         CGPoint(x: 1_940, y: 940),  // SW pedestal
@@ -115,9 +116,9 @@ enum OfficeNavigationLayout {
     ]
 
     static let authoredWastebasketSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_850, y: 820),
-        CGPoint(x: 1_820, y: 810),
-        CGPoint(x: 1_880, y: 850)
+        CGPoint(x: 1_900, y: 860),
+        CGPoint(x: 1_870, y: 850),
+        CGPoint(x: 1_930, y: 890)
     ]
 
     static let authoredBookshelfSamplePoints: [CGPoint] = [
@@ -277,17 +278,17 @@ enum OfficeNavigationLayout {
         /// Door leaf ground contact on the V5 doorway threshold (SK y-up).
         static let doorLeaf = CGPoint(x: 3_114, y: 1_554)
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
-        // Tucked into the desk's SW knee well.
-        static let deskChair = CGPoint(x: 2_020, y: 930)
+        // SW kneehole center — deep enough that lower body overlaps the apron strip.
+        static let deskChair = CGPoint(x: 2_070, y: 955)
         static let filingCabinet = CGPoint(x: 1_820, y: 1_090)
         static let archiveBoxA = CGPoint(x: 1_720, y: 1_060)
         static let archiveBoxB = CGPoint(x: 1_680, y: 1_010)
-        static let wastebasket = CGPoint(x: 1_850, y: 820)
+        static let wastebasket = CGPoint(x: 1_900, y: 860)
         static let wornRug = CGPoint(x: 2_360, y: 1_100)
-        static let floorTrashA = CGPoint(x: 1_830, y: 860)
+        static let floorTrashA = CGPoint(x: 1_880, y: 900)
         static let floorTrashB = CGPoint(x: 2_280, y: 1_060)
         static let floorTrashC = CGPoint(x: 2_920, y: 1_420)
-        static let hiddenBottle = CGPoint(x: 1_900, y: 900)
+        static let hiddenBottle = CGPoint(x: 1_950, y: 940)
         static let bookshelf = CGPoint(x: 1_520, y: 1_290)
         static let archiveStack = CGPoint(x: 2_800, y: 1_370)
         static let floorWear = CGPoint(x: 2_100, y: 980)
