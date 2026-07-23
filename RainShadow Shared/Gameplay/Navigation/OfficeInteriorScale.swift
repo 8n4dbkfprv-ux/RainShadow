@@ -67,6 +67,13 @@ enum OfficeInteriorScale {
         static let visitorArmchair: CGFloat = 430
         static let radiator: CGFloat = 340
         static let coatRack: CGFloat = 557
+        static let archiveBox: CGFloat = 300
+        static let wastebasket: CGFloat = 220
+        static let floorTrash: CGFloat = 140
+        static let wornRug: CGFloat = 500
+        static let hiddenBottle: CGFloat = 200
+        static let framedPhoto: CGFloat = 180
+        static let pencilTray: CGFloat = 70
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight
         /// V6 shell window glass opening (source pixels on office_shell_base).
@@ -74,13 +81,16 @@ enum OfficeInteriorScale {
     }
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
-    /// targets: standard 0.22, seating 0.17, desk 0.14, window overlay 0.24.
+    /// targets: standard 0.22, seating 0.17, desk 0.14, window overlay 0.24,
+    /// floor decal 0.28, floor clutter 0.16.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
         static let deskEnsemble: CGFloat = 0.14 / environment
         static let deskChair: CGFloat = 0.17 / environment
         static let visitorArmchair: CGFloat = 0.17 / environment
         static let window: CGFloat = 0.24 / environment
+        static let floorDecal: CGFloat = 0.28 / environment
+        static let clutter: CGFloat = 0.16 / environment
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
@@ -157,6 +167,14 @@ enum OfficeInteriorScale {
 
     static var windowDisplayScale: CGFloat {
         environment * PropRelativeScale.window
+    }
+
+    static var floorDecalDisplayScale: CGFloat {
+        environment * PropRelativeScale.floorDecal
+    }
+
+    static var clutterDisplayScale: CGFloat {
+        environment * PropRelativeScale.clutter
     }
 
     static var scaledArtSize: CGSize { mapSize(sourceArtSize) }

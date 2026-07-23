@@ -33,6 +33,8 @@ All prompts use the supplied Baldur's Gate-era screenshots as style-analysis ref
 | Desk files V2 | `exec-50d708da-54be-43ea-9b5f-449c19750ab3.png` | `Generated/Office/Props/DeskItems/office_desk_files_*_v02.png` | `Props/Office/office_desk_files.png` | Compact stack of worn files and a dark ledger with illegible marks only. |
 | Desk papers V2 | `exec-ef5bbb68-6f77-41e2-bce1-69b7bc787231.png` | `Generated/Office/Props/DeskItems/office_desk_papers_*_v02.png` | `Props/Office/office_desk_papers.png` | Low loose-paper grouping with invoices, notes, folder and pencil; no readable text. |
 | Secondary office props | `exec-c53f4ea0-9aeb-4ec7-809e-cd43278cee5c.png` | `Generated/Office/Props/office_secondary_props_chroma_v01.png` plus RGBA master | Six individual alpha props | Strict 3×2 sheet: office chair, filing cabinet, visitor chair, radiator, coat rack, door leaf; same camera, materials and lighting; chroma background, no labels or scenery. |
+| Noir clutter sheet V1 | Cursor Image Generator `office_noir_clutter_sheet_v01.png` | `Generated/Office/Props/office_noir_clutter_sheet_chroma_v01.png` plus per-prop RGBA masters | Nine P1 runtime props: archive boxes a/b, wastebasket, floor trash a/b/c, framed photo, hidden bottle, pencil tray | Strict 3×3 chroma sheet; film-noir lived-in clutter; 2:1 dimetric; no text/brands/room scenery (`Prompts/office_noir_clutter_sheet_v01.md`). |
+| Worn rug V1 | Cursor Image Generator `office_worn_rug_v01.png` | `Generated/Office/Props/office_worn_rug_chroma_v01.png` plus RGBA master | `Props/Office/office_worn_rug.png`, 1024×768 | Thin low-contrast floor decal; tobacco/oxblood wear; no baked contact shadow (`Prompts/office_worn_rug_v01.md`). |
 
 ## Character animation production
 

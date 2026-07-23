@@ -13,6 +13,9 @@ enum OfficeNavigationLayout {
         authoredDeskObstacle,
         authoredVisitorArmchairObstacle,
         authoredFilingCabinetObstacle,
+        authoredArchiveBoxAObstacle,
+        authoredArchiveBoxBObstacle,
+        authoredWastebasketObstacle,
         authoredRadiatorObstacle,
         authoredCoatRackObstacle,
         authoredDoorObstacle
@@ -29,6 +32,15 @@ enum OfficeNavigationLayout {
 
     /// Filing cabinet base solid.
     static let authoredFilingCabinetObstacle = CGRect(x: 2_540, y: 1_380, width: 250, height: 120)
+
+    /// Closed archive box base solid (flush against cabinet west face).
+    static let authoredArchiveBoxAObstacle = CGRect(x: 2_460, y: 1_370, width: 120, height: 90)
+
+    /// Open archive box base solid (slightly forward stack of `a`).
+    static let authoredArchiveBoxBObstacle = CGRect(x: 2_420, y: 1_315, width: 130, height: 90)
+
+    /// Wastebasket base solid (detective-side west desk foot).
+    static let authoredWastebasketObstacle = CGRect(x: 1_660, y: 880, width: 110, height: 90)
 
     /// Radiator base solid along the west wall.
     static let authoredRadiatorObstacle = CGRect(x: 930, y: 1_390, width: 340, height: 110)
@@ -81,6 +93,24 @@ enum OfficeNavigationLayout {
         CGPoint(x: 3_200, y: 1_460)
     ]
 
+    static let authoredArchiveBoxASamplePoints: [CGPoint] = [
+        CGPoint(x: 2_520, y: 1_410),
+        CGPoint(x: 2_490, y: 1_400),
+        CGPoint(x: 2_550, y: 1_430)
+    ]
+
+    static let authoredArchiveBoxBSamplePoints: [CGPoint] = [
+        CGPoint(x: 2_480, y: 1_355),
+        CGPoint(x: 2_450, y: 1_345),
+        CGPoint(x: 2_510, y: 1_375)
+    ]
+
+    static let authoredWastebasketSamplePoints: [CGPoint] = [
+        CGPoint(x: 1_720, y: 920),
+        CGPoint(x: 1_690, y: 910),
+        CGPoint(x: 1_750, y: 950)
+    ]
+
     private static let authoredApproachPoints: [String: CGPoint] = [
         "office.window": CGPoint(x: 1_350, y: 1_400),
         "office.desk": CGPoint(x: 1_600, y: 1_100),
@@ -131,6 +161,18 @@ enum OfficeNavigationLayout {
         OfficeInteriorScale.mapRect(authoredCoatRackObstacle)
     }
 
+    static var archiveBoxAObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredArchiveBoxAObstacle)
+    }
+
+    static var archiveBoxBObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredArchiveBoxBObstacle)
+    }
+
+    static var wastebasketObstacle: CGRect {
+        OfficeInteriorScale.mapRect(authoredWastebasketObstacle)
+    }
+
     static var doorObstacle: CGRect {
         OfficeInteriorScale.mapRect(authoredDoorObstacle)
     }
@@ -159,11 +201,26 @@ enum OfficeNavigationLayout {
         authoredCoatRackSamplePoints.map(OfficeInteriorScale.mapPoint)
     }
 
+    static var archiveBoxASamplePoints: [CGPoint] {
+        authoredArchiveBoxASamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var archiveBoxBSamplePoints: [CGPoint] {
+        authoredArchiveBoxBSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
+    static var wastebasketSamplePoints: [CGPoint] {
+        authoredWastebasketSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
+
     /// All major prop sample points used by office-obstacle tests.
     static var majorPropSamplePoints: [CGPoint] {
         deskSamplePoints
             + visitorArmchairSamplePoints
             + filingCabinetSamplePoints
+            + archiveBoxASamplePoints
+            + archiveBoxBSamplePoints
+            + wastebasketSamplePoints
             + radiatorSamplePoints
             + coatRackSamplePoints
             + doorLeafSamplePoints
@@ -181,6 +238,14 @@ enum OfficeNavigationLayout {
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
         static let deskChair = CGPoint(x: 2_000, y: 1_010)
         static let filingCabinet = CGPoint(x: 2_650, y: 1_430)
+        static let archiveBoxA = CGPoint(x: 2_520, y: 1_410)
+        static let archiveBoxB = CGPoint(x: 2_480, y: 1_355)
+        static let wastebasket = CGPoint(x: 1_720, y: 920)
+        static let wornRug = CGPoint(x: 2_550, y: 760)
+        static let floorTrashA = CGPoint(x: 1_700, y: 960)
+        static let floorTrashB = CGPoint(x: 2_380, y: 720)
+        static let floorTrashC = CGPoint(x: 2_860, y: 1_360)
+        static let hiddenBottle = CGPoint(x: 1_910, y: 980)
         static let coatRack = CGPoint(x: 3_140, y: 1_430)
         static let visitorArmchair = CGPoint(x: 2_580, y: 780)
         static let deskEnsemble = CGPoint(x: 2_000, y: 900)

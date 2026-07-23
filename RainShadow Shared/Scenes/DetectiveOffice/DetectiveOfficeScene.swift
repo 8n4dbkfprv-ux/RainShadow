@@ -91,14 +91,49 @@ final class DetectiveOfficeScene: BaseGameScene {
             scale: standardPropScale
         )
         addDepthProp(
+            named: "office_archive_box_a",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxA),
+            scale: standardPropScale
+        )
+        addDepthProp(
+            named: "office_archive_box_b",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxB),
+            scale: standardPropScale
+        )
+        addDepthProp(
             named: "office_coat_rack",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.coatRack),
             scale: standardPropScale
         )
+        addWornRug()
         addDepthProp(
             named: "office_visitor_armchair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchair),
             scale: OfficeInteriorScale.visitorArmchairDisplayScale
+        )
+        addDepthProp(
+            named: "office_wastebasket",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wastebasket),
+            scale: standardPropScale
+        )
+        let clutterScale = OfficeInteriorScale.clutterDisplayScale
+        addDepthProp(
+            named: "office_floor_trash_a",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashA),
+            scale: clutterScale,
+            bias: -40
+        )
+        addDepthProp(
+            named: "office_floor_trash_b",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashB),
+            scale: clutterScale,
+            bias: -40
+        )
+        addDepthProp(
+            named: "office_floor_trash_c",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashC),
+            scale: clutterScale,
+            bias: -40
         )
         let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         let deskScale = OfficeInteriorScale.deskDisplayScale
@@ -111,6 +146,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             registerHoverSprite(deskBare, for: "office.desk")
         }
         addDeskItems(at: deskPosition, scale: deskScale)
+        addDepthProp(
+            named: "office_hidden_bottle",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.hiddenBottle),
+            scale: standardPropScale,
+            bias: -120
+        )
 
         detective.position = OfficeNavigationLayout.actorStart
         updateDepth(of: detective)
@@ -756,6 +797,18 @@ final class DetectiveOfficeScene: BaseGameScene {
         floorEffectRoot.addChild(pool)
     }
 
+    /// Thin worn rug as a floor decal under the visitor approach / armchair.
+    private func addWornRug() {
+        guard let texture = GameArt.texture(named: "office_worn_rug") else { return }
+        let rug = SKSpriteNode(texture: texture)
+        rug.name = "office_worn_rug"
+        rug.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        rug.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wornRug)
+        rug.setScale(OfficeInteriorScale.floorDecalDisplayScale)
+        rug.texture?.filteringMode = .linear
+        floorEffectRoot.addChild(rug)
+    }
+
     private func addFogOfWar() {
         let fog = OfficeFogOfWarNode(
             size: OfficeInteriorScale.scaledArtSize,
@@ -853,7 +906,9 @@ final class DetectiveOfficeScene: BaseGameScene {
             ("office_desk_lamp", CGPoint(x: 716, y: 120), nil),
             ("office_desk_phone", CGPoint(x: 648, y: 213), "office.phone"),
             ("office_desk_mug", CGPoint(x: 391, y: 298), nil),
-            ("office_desk_ashtray", CGPoint(x: 502, y: 313), nil)
+            ("office_desk_ashtray", CGPoint(x: 502, y: 313), nil),
+            ("office_framed_photo", CGPoint(x: 240, y: 210), nil),
+            ("office_pencil_tray", CGPoint(x: 470, y: 300), nil)
         ]
         let deskCanvas = CGSize(width: 932, height: 780)
         let deskAnchor = CGPoint(x: 0.5, y: 0.04)

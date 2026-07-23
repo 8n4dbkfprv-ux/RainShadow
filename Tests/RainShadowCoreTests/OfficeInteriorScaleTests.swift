@@ -256,6 +256,9 @@ struct OfficeInteriorScaleTests {
             ("desk", OfficeNavigationLayout.deskSamplePoints, OfficeNavigationLayout.deskObstacle),
             ("visitor armchair", OfficeNavigationLayout.visitorArmchairSamplePoints, OfficeNavigationLayout.visitorArmchairObstacle),
             ("filing cabinet", OfficeNavigationLayout.filingCabinetSamplePoints, OfficeNavigationLayout.filingCabinetObstacle),
+            ("archive box a", OfficeNavigationLayout.archiveBoxASamplePoints, OfficeNavigationLayout.archiveBoxAObstacle),
+            ("archive box b", OfficeNavigationLayout.archiveBoxBSamplePoints, OfficeNavigationLayout.archiveBoxBObstacle),
+            ("wastebasket", OfficeNavigationLayout.wastebasketSamplePoints, OfficeNavigationLayout.wastebasketObstacle),
             ("radiator", OfficeNavigationLayout.radiatorSamplePoints, OfficeNavigationLayout.radiatorObstacle),
             ("coat rack", OfficeNavigationLayout.coatRackSamplePoints, OfficeNavigationLayout.coatRackObstacle),
             ("door", OfficeNavigationLayout.doorLeafSamplePoints, OfficeNavigationLayout.doorObstacle)
