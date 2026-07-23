@@ -4,13 +4,14 @@ import ImageIO
 @MainActor
 enum GameArt {
     private static let atlasByTexturePrefix: [(prefix: String, atlas: String)] = [
-        ("client_arrival_", "ClientArrival"),
-        ("client_departure_", "ClientArrival"),
-        ("det_standing_idle_", "DetectiveIdle"),
-        ("det_seated_arms_", "DetectiveSeatedArms"),
-        ("det_seated_idle_", "DetectiveSeatedIdle"),
-        ("det_stand_up_", "DetectiveStandUp"),
-        ("det_walk_", "DetectiveWalk")
+        ("lila_arrival_", "LilaArrival"),
+        ("lila_departure_", "LilaArrival"),
+        ("voss_standing_idle_", "VossIdle"),
+        ("voss_seated_arms_", "VossSeatedArms"),
+        ("voss_seated_idle_", "VossSeatedIdle"),
+        ("voss_stand_up_", "VossSeatTransitions"),
+        ("voss_sit_down_", "VossSeatTransitions"),
+        ("voss_walk_", "VossWalk")
     ]
 
     static func texture(named name: String) -> SKTexture? {
@@ -62,8 +63,8 @@ enum GameArt {
             "dialogue_scroll_down_v01",
             "dialogue_scroll_track_v01",
             "dialogue_scroll_thumb_v01",
-            "dialogue_portrait_vivian_hart_v01",
-            "dialogue_portrait_elias_vale_v01",
+            "dialogue_portrait_lila_march_v01",
+            "dialogue_portrait_harlan_voss_v01",
             "inventory_outer_frame_overlay_v01",
             "inventory_slot_frame_v01",
             "inventory_case_bag_v01",
@@ -76,12 +77,16 @@ enum GameArt {
             "inventory_item_wallet_v01",
             "inventory_item_cigarette_case_v01",
             "journal_casebook_plate_v01",
-            "det_paperdoll_front_rgba_v02",
-            "det_standing_idle_s_00",
-            "det_standing_idle_sw_00",
-            "det_standing_idle_w_00",
-            "det_standing_idle_nw_00",
-            "det_standing_idle_n_00",
+            "voss_paperdoll_front_rgba_v01",
+            "voss_standing_idle_s_00",
+            "voss_standing_idle_ssw_00",
+            "voss_standing_idle_sw_00",
+            "voss_standing_idle_wsw_00",
+            "voss_standing_idle_w_00",
+            "voss_standing_idle_wnw_00",
+            "voss_standing_idle_nw_00",
+            "voss_standing_idle_nnw_00",
+            "voss_standing_idle_n_00",
             "office_shell_base",
             "office_window",
             "office_window_hover",
@@ -128,12 +133,12 @@ enum GameArt {
         SKTexture.preload(textures) {}
 
         let atlases = [
-            "ClientArrival",
-            "DetectiveIdle",
-            "DetectiveSeatedArms",
-            "DetectiveSeatedIdle",
-            "DetectiveStandUp",
-            "DetectiveWalk"
+            "LilaArrival",
+            "VossIdle",
+            "VossSeatedArms",
+            "VossSeatedIdle",
+            "VossSeatTransitions",
+            "VossWalk"
         ]
             .map(SKTextureAtlas.init(named:))
         SKTextureAtlas.preloadTextureAtlases(atlases) {}

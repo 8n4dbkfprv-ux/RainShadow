@@ -5,6 +5,7 @@ final class DetectiveActorNode: SKNode {
     enum State {
         case seatedIdle
         case standingUp
+        case sittingDown
         case standingIdle
         case walking
     }
@@ -13,10 +14,11 @@ final class DetectiveActorNode: SKNode {
     private let body: SKSpriteNode
     private let foregroundArms: SKSpriteNode
     private let standingTexture: SKTexture?
-    private let standingIdleTextures: [ActorFacing: SKTexture]
+    private let standingIdleTextures: [ActorFacing: [SKTexture]]
     private let seatedIdleTextures: [SKTexture]
     private let seatedArmTextures: [SKTexture]
     private let standUpTextures: [SKTexture]
+    private let sitDownTextures: [SKTexture]
     private let walkTextures: [ActorFacing: [SKTexture]]
     private var facing: ActorFacing = .southEast
     private(set) var state: State = .seatedIdle
@@ -29,40 +31,44 @@ final class DetectiveActorNode: SKNode {
     private var walkFrameIndex = 0
 
     override init() {
-        standingTexture = GameArt.texture(named: "det_standing_idle_se_00")
-        standingIdleTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, SKTexture)? in
+        standingTexture = GameArt.texture(named: "voss_standing_idle_se_00")
+        standingIdleTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
             for sourceName in facing.textureSourceCandidates {
-                if let texture = GameArt.texture(
-                    named: String(format: "det_standing_idle_%@_00", sourceName)
-                ) {
-                    return (facing, texture)
+                let textures = (0..<4).compactMap {
+                    GameArt.texture(named: String(format: "voss_standing_idle_%@_%02d", sourceName, $0))
+                }
+                if !textures.isEmpty {
+                    return (facing, textures)
                 }
             }
             return nil
         })
-        seatedIdleTextures = (0..<4).compactMap {
-            GameArt.texture(named: String(format: "det_seated_idle_se_%02d", $0))
+        seatedIdleTextures = (0..<8).compactMap {
+            GameArt.texture(named: String(format: "voss_seated_idle_se_%02d", $0))
         }
-        seatedArmTextures = (0..<4).compactMap {
-            GameArt.texture(named: String(format: "det_seated_arms_se_%02d", $0))
+        seatedArmTextures = (0..<8).compactMap {
+            GameArt.texture(named: String(format: "voss_seated_arms_se_%02d", $0))
         }
         standUpTextures = (0..<12).compactMap {
-            GameArt.texture(named: String(format: "det_stand_up_se_%02d", $0))
+            GameArt.texture(named: String(format: "voss_stand_up_se_%02d", $0))
+        }
+        sitDownTextures = (0..<12).compactMap {
+            GameArt.texture(named: String(format: "voss_sit_down_se_%02d", $0))
         }
         walkTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
             for sourceName in facing.textureSourceCandidates {
-                let textures = (0..<4).compactMap {
-                    GameArt.texture(named: String(format: "det_walk_%@_%02d", sourceName, $0))
+                let textures = (0..<ActorLocomotionPacing.walkFramesPerCycle).compactMap {
+                    GameArt.texture(named: String(format: "voss_walk_%@_%02d", sourceName, $0))
                 }
-                if textures.count == 4 {
+                if textures.count == ActorLocomotionPacing.walkFramesPerCycle {
                     return (facing, textures)
                 }
             }
             return nil
         })
 
-        // V5 walk and V4 state atlases carry a 2x copy of a 100px native raster. Nearest filtering
-        // resolves it back to the intended lightly pixelated gameplay scale.
+        // V6 atlases carry a 2x copy of a 100px native raster. Nearest filtering
+        // resolves it back to the intended lightly pixelated BGEE gameplay scale.
         contactShadow = SKShapeNode(ellipseOf: CGSize(width: 54, height: 20))
         contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
         contactShadow.strokeColor = .clear
@@ -102,7 +108,7 @@ final class DetectiveActorNode: SKNode {
     }
 
     func walk(path: [CGPoint], completion: (() -> Void)? = nil) {
-        if state == .standingUp {
+        if state == .standingUp || state == .sittingDown {
             pendingWalk = (path, completion)
             return
         }
@@ -168,7 +174,7 @@ final class DetectiveActorNode: SKNode {
         movementCompletion = nil
 
         switch state {
-        case .seatedIdle, .standingIdle:
+        case .seatedIdle, .standingIdle, .sittingDown:
             return
         case .standingUp, .walking:
             break
@@ -190,7 +196,7 @@ final class DetectiveActorNode: SKNode {
         startStandingIdle()
     }
 
-    /// The office starts Elias seated at his desk. Outdoor areas instead need a
+    /// The office starts Voss seated at his desk. Outdoor areas instead need a
     /// planted, immediately controllable actor without replaying that office-only
     /// transition or leaving a desk-registered shadow on the pavement.
     func beginOpenWorldStanding() {
@@ -306,6 +312,59 @@ final class DetectiveActorNode: SKNode {
         body.run(.sequence([standUp, finishStanding]), withKey: "standTransition")
     }
 
+    /// Plays the authored V6 sit-down clip (not a reversed stand-up) and
+    /// re-enters the seated desk idle. A walk order issued mid-sit queues and
+    /// replays the stand-up chain once the actor has settled.
+    func sitDown(completion: (() -> Void)? = nil) {
+        guard state == .standingIdle else {
+            completion?()
+            return
+        }
+        state = .sittingDown
+        body.removeAction(forKey: "standingIdle")
+        facing = .southEast
+
+        let finishSitting = SKAction.run { [weak self] in
+            guard let self else { return }
+            self.applySeatedPose(animated: false)
+            self.startSeatedIdle()
+            self.needsSeatEgress = true
+            self.state = .seatedIdle
+            if let pendingWalk = self.pendingWalk {
+                self.pendingWalk = nil
+                self.walk(path: pendingWalk.path, completion: pendingWalk.completion)
+            } else {
+                completion?()
+            }
+        }
+
+        guard sitDownTextures.count == 12 else {
+            body.run(
+                .sequence([.fadeOut(withDuration: 0.08), finishSitting, .fadeIn(withDuration: 0.12)]),
+                withKey: "standTransition"
+            )
+            return
+        }
+
+        sitDownTextures.forEach { $0.filteringMode = .nearest }
+        let duration = ActorLocomotionPacing.standUpSecondsPerFrame * TimeInterval(sitDownTextures.count)
+        let sitDown = SKAction.animate(
+            with: sitDownTextures,
+            timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame,
+            resize: false,
+            restore: false
+        )
+        let settle = SKAction.moveTo(
+            y: OfficeInteriorScale.ActorDisplay.seatedYOffset,
+            duration: duration
+        )
+        settle.timingMode = .linear
+        body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
+        body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
+        contactShadow.run(.fadeOut(withDuration: duration * 0.5))
+        body.run(.sequence([.group([sitDown, settle]), finishSitting]), withKey: "standTransition")
+    }
+
     private func animateSeatEgress(duration: TimeInterval, completion: (() -> Void)? = nil) {
         body.removeAction(forKey: "seatEgress")
         let settleBody = SKAction.move(to: .zero, duration: duration)
@@ -353,17 +412,24 @@ final class DetectiveActorNode: SKNode {
         contactShadow.alpha = 0
     }
 
+    /// Ping-pong breath indices for an authored strip (e.g. 8 frames -> 0...7...1).
+    private static func breathCycleIndices(frameCount: Int) -> [Int] {
+        guard frameCount > 1 else { return Array(0..<max(1, frameCount)) }
+        return Array(0..<frameCount) + Array((1..<(frameCount - 1)).reversed())
+    }
+
     private func startSeatedIdle() {
         guard seatedIdleTextures.count > 1 else { return }
-        let breathCycle = [0, 1, 2, 3, 2, 1].map { seatedIdleTextures[$0] }
-        let animate = SKAction.animate(with: breathCycle, timePerFrame: 0.42, resize: false, restore: false)
+        let indices = Self.breathCycleIndices(frameCount: seatedIdleTextures.count)
+        let breathCycle = indices.map { seatedIdleTextures[$0] }
+        let animate = SKAction.animate(with: breathCycle, timePerFrame: 0.21, resize: false, restore: false)
         body.run(.repeatForever(animate), withKey: "seatedIdle")
 
         guard seatedArmTextures.count == seatedIdleTextures.count else { return }
-        let armCycle = [0, 1, 2, 3, 2, 1].map { seatedArmTextures[$0] }
+        let armCycle = indices.map { seatedArmTextures[$0] }
         let animateArms = SKAction.animate(
             with: armCycle,
-            timePerFrame: 0.42,
+            timePerFrame: 0.21,
             resize: false,
             restore: false
         )
@@ -373,11 +439,26 @@ final class DetectiveActorNode: SKNode {
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
         applyStandingIdleTexture()
-        let settle = SKAction.sequence([
-            .moveBy(x: 0, y: 1, duration: 0.7),
-            .moveBy(x: 0, y: -1, duration: 0.75)
-        ])
-        body.run(.repeatForever(settle), withKey: "standingIdle")
+        if let frames = standingIdleTextures[facing], frames.count > 1 {
+            // Authored 4-frame breath loop with a long neutral hold, replacing
+            // the former single-frame position bob.
+            frames.forEach { $0.filteringMode = .nearest }
+            let indices = Self.breathCycleIndices(frameCount: frames.count)
+            let breath = SKAction.animate(
+                with: indices.map { frames[$0] },
+                timePerFrame: 0.42,
+                resize: false,
+                restore: false
+            )
+            let hold = SKAction.wait(forDuration: 0.9)
+            body.run(.repeatForever(.sequence([breath, hold])), withKey: "standingIdle")
+        } else {
+            let settle = SKAction.sequence([
+                .moveBy(x: 0, y: 1, duration: 0.7),
+                .moveBy(x: 0, y: -1, duration: 0.75)
+            ])
+            body.run(.repeatForever(settle), withKey: "standingIdle")
+        }
     }
 
     private func setFacing(dx: CGFloat, dy: CGFloat) {
@@ -416,7 +497,7 @@ final class DetectiveActorNode: SKNode {
     }
 
     private func applyStandingIdleTexture() {
-        if let idleTexture = standingIdleTextures[facing] ?? standingTexture {
+        if let idleTexture = standingIdleTextures[facing]?.first ?? standingTexture {
             body.texture = idleTexture
             body.texture?.filteringMode = .nearest
         }

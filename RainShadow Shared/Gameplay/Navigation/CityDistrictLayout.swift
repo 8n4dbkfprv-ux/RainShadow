@@ -2,7 +2,7 @@ import CoreGraphics
 
 /// Geometry contract for Sable Row, the first open city district. The generated
 /// plate is shown at 2× its source resolution: its street doors, cars, lamps,
-/// and stairs then remain in the same compact, human-scale range as Elias's
+/// and stairs then remain in the same compact, human-scale range as Voss's
 /// 100-point runtime body instead of reading as oversized set dressing.
 enum CityDistrictLayout {
     struct PointOfInterest: Equatable {
@@ -20,7 +20,7 @@ enum CityDistrictLayout {
 
     /// A separately rendered piece of the district. Ground points mark the
     /// physical contact point, not the centre of the transparent image, so
-    /// depth sorting still lets Elias pass behind or in front of each object.
+    /// depth sorting still lets Voss pass behind or in front of each object.
     struct VisualSprite: Equatable {
         let textureName: String
         let groundPoint: CGPoint
@@ -127,7 +127,7 @@ enum CityDistrictLayout {
 
     /// The authored city plate remains the map reference, while play uses this
     /// compact set of independently registered sprites over the clean street
-    /// underlay. Their scale deliberately keeps a car near Elias's height and
+    /// underlay. Their scale deliberately keeps a car near Voss's height and
     /// a street block within a single fog reveal, rather than turning scenery
     /// into oversized set pieces.
     static let visualSprites: [VisualSprite] = [

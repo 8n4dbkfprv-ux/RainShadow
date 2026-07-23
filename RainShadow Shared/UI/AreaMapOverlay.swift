@@ -183,7 +183,7 @@ final class AreaMapOverlay: SKNode {
 
     static let detectiveOffice = Configuration(
         textureName: "map_detective_office_v02",
-        locationName: "ELIAS VALE'S OFFICE",
+        locationName: "HARLAN VOSS'S OFFICE",
         worldBounds: CGRect(
             origin: OfficeInteriorScale.shellOrigin,
             size: OfficeInteriorScale.scaledArtSize
@@ -520,7 +520,7 @@ final class AreaMapOverlay: SKNode {
 
 /// Compact counterpart to the world-space city fog. It keeps the generated
 /// local map honest: the current-position ring is visible, but streets remain
-/// black until Elias has physically explored them.
+/// black until Voss has physically explored them.
 @MainActor
 private final class LocalMapFogNode: SKSpriteNode {
     private let maskPixelSize = CGSize(width: 512, height: 236)

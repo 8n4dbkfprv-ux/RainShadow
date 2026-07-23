@@ -12,11 +12,18 @@ struct ActorLocomotionPacingTests {
         #expect(ActorLocomotionPacing.infinityEngineHumanoidMoveScale == 9)
     }
 
-    @Test func walkCycleFrameDurationIsSlowerThanLegacyDefaults() {
+    @Test func walkCycleDurationIsSlowerThanLegacyDefaults() {
+        // The V6 gait doubled frame density (8 frames) without changing stride
+        // time, so the deliberate pace is asserted on the full cycle duration.
         let frame = ActorLocomotionPacing.walkCycleSecondsPerFrame
-        #expect(frame > ActorLocomotionPacing.legacyDetectiveWalkFrameDuration)
-        #expect(frame > ActorLocomotionPacing.legacyClientWalkFrameDuration)
+        let cycle = frame * TimeInterval(ActorLocomotionPacing.walkFramesPerCycle)
+        let legacyDetectiveCycle = ActorLocomotionPacing.legacyDetectiveWalkFrameDuration * 4
+        let legacyClientCycle = ActorLocomotionPacing.legacyClientWalkFrameDuration * 4
+        #expect(cycle > legacyDetectiveCycle)
+        #expect(cycle > legacyClientCycle)
         #expect(ActorLocomotionPacing.walkCycleSecondsPerFrameBand.contains(frame))
+        #expect(ActorLocomotionPacing.walkCycleDurationBand.contains(cycle))
+        #expect(ActorLocomotionPacing.walkFramesPerCycle == 8)
     }
 
     @Test func pathDurationUsesOneConstantMovementRate() {
@@ -28,7 +35,8 @@ struct ActorLocomotionPacingTests {
     }
 
     @Test func walkCycleTravelsApproximatelyOneBodyLength() {
-        let cycleDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame * 4
+        let cycleDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame
+            * TimeInterval(ActorLocomotionPacing.walkFramesPerCycle)
         let distancePerCycle = ActorLocomotionPacing.walkSpeed * CGFloat(cycleDuration)
         #expect((75 as CGFloat)...(110 as CGFloat) ~= distancePerCycle)
     }

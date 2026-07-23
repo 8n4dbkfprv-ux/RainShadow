@@ -13,6 +13,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 3. [Initial Asset Manifest](AssetManifest.md) — exact first-pass image, animation, effect, data-mask, audio, naming, sizing, and generation requirements.
 4. [Milestone 01 Implementation Plan](Milestone01ImplementationPlan.md) — ordered planning-mode work breakdown, gates, acceptance criteria, risks, and definition of done.
 5. [Proposed Xcode Project Structure](ProjectStructure.md) — target strategy, folder tree, key Swift files, resource organization, and migration map from the stock template.
+6. [BGEE Character Sprite Redo Plan (V5)](BGEECharacterSpriteRedoPlan.md) — superseded plan document; the shipped V6 redesign (see `ArtSource/Prompts/character_prerendered_3d_v06.md`) regenerated the actors as Harlan Voss / Lila March with new BGEE-style identities at full AssetManifest density.
 
 ## Decisions frozen for Milestone 01
 
@@ -21,7 +22,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 - Exterior is a short non-interactive establishing scene. The office becomes playable after the cinematic transition.
 - World props, the office door, the window treatment, the detective, foreground occluders, lighting overlays, and effects are separate runtime assets. The office architecture plate does not contain those objects.
 - The actor target adopts Baldur's Gate's pre-rendered-3D-to-2D technique with controlled era-appropriate raster texture: crude hundreds-of-triangles meshes, tiny diffuse maps, primitive Gouraud/vertex light, a 100-pixel native body, a restrained 96-color ramp, 2× storage, and nearest sampling. Locomotion resolves to 16 facing bins using nine source orientations plus seven mirrored eastern orientations, following the legacy character-animation convention.
-- The playable interaction slice includes first client Vivian Hart's authored front-view arrival and rear-view departure, a compact branching case conversation with response, Continue, and End Dialogue states, then inspection, standing, walking, inventory access, and five office hotspots. The full evidence-gated dialogue system and deduction UI remain later work.
+- The playable interaction slice includes first client Lila March's authored front-view arrival and rear-view departure, a compact branching case conversation with response, Continue, and End Dialogue states, then inspection, standing, walking, inventory access, and five office hotspots. The full evidence-gated dialogue system and deduction UI remain later work.
 - The current project includes iOS, macOS, and tvOS template targets. Milestone scope is iOS/iPadOS and macOS; tvOS remains excluded from shared resource membership and release validation.
 
 ## Art-reference research summary

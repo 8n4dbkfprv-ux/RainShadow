@@ -60,7 +60,7 @@ These assets are gates, not shippable final art. Do not generate the complete ma
 |---|---:|---|---|
 | `style_office_corner_v01` | 2048×1536 | One original office corner with empty worn floor, stained plaster, rain window, and desk-lamp test light; fixed projection. | Materials and value grouping read like a pre-rendered painted CRPG area, not a modern 3D render. |
 | `style_desk_composite_v01` | 2048×1536 | Desk, chair, detective, papers, and lamp temporarily composed for scale/light review. | Actor scale, contact, and warm/cool lighting are coherent. |
-| `det_key_se_chroma_v04` | Generator master | Full-body detective standing, facing SE, neutral pose; crude 1998-era textured game mesh on removable chroma. | Broad planar construction, solid-shell hair, mitten hands, tiny diffuse-map texture, primitive vertex/Gouraud light, and play-scale raster read are approved; polished modern low-poly art is rejected. |
+| `voss_key_se_chroma_v06` | Generator master | Full-body Harlan Voss standing, facing SE, neutral pose; BGEE-era pre-rendered 3D avatar on removable chroma (supersedes `det_key_se_chroma_v04`). | Soft baked upper-left light, compact readable costume masses, and BGEE play-scale raster read are approved; modern PBR or hand-outlined art is rejected. |
 | `style_play_scale_v01` | 2048×1152 | Mock gameplay frame with the style tests reduced to intended play size. | Primary shapes remain legible on phone and macOS; detail does not become noise. |
 
 Freeze approved results as reference inputs for every later generation. Record palette swatches, actor pixel height, camera grid, light direction, and desk dimensions in `art_style_lock.json`.
@@ -179,9 +179,9 @@ Before animation, approve:
 
 Design continuity rules:
 
-- same face, stubble, hairline, body proportions, tie, coat damage, pocket placement, and shoe shape in every frame;
-- the trench coat is designed as a few compact, nearly bilateral masses at sprite scale so legacy-style mirroring remains readable;
-- no hat in M01 actor sprites unless it is approved as part of the final design;
+- same face, mustache, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
+- the overcoat is designed as a few compact, nearly bilateral masses at sprite scale so legacy-style mirroring remains readable;
+- the slate-gray fedora is part of the approved V6 Voss identity and appears in every actor sprite (the inventory paperdoll holds it in hand so the face reads);
 - hands never gain/remove fingers or swap object silhouettes;
 - no baked background or contact shadow;
 - feet/seat use the same ground pivot across the sequence.
@@ -196,31 +196,35 @@ Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw
 
 | Priority | Clip | Stored directions | Frames per direction | Stored frames | Displayed facing/frame combinations | Playback target | Notes |
 |---|---|---:|---:|---:|---:|---|---|
-| P0 | `det_seated_idle` | SE only | 8 | 8 | 8 | 5 fps with authored holds; 2.5–4.0 s perceived loop | Coarse breath/shoulder shift and brief rainward glance; avoid subpixel flutter. |
-| P0 | `det_stand_up` | SE only | 12 | 12 | 12 | 10 fps, once | Clears chair/desk without pivot jump; event on final standing frame. |
-| P1 | `det_sit_down` | SE only | 12 | 12 | 12 | 10 fps, once | Authored sequence, not a reversed stand-up clip. |
-| P0 | `det_standing_idle` | 9 source / 16 displayed | 4 | 36 | 64 | 5 fps with long holds | Broad readable mass shift, not smooth high-resolution breathing. |
-| P0 | `det_walk` | 9 source / 16 displayed | 8 | 72 | 128 | 10 fps loop | Clear contact/pass cycle, stable simplified silhouette and crown. |
+| P0 | `voss_seated_idle` | SE only | 8 | 8 | 8 | 5 fps with authored holds; 2.5–4.0 s perceived loop | Coarse breath/shoulder shift and brief rainward glance; avoid subpixel flutter. Ships with a derived `voss_seated_arms` desk-overlay layer per frame. |
+| P0 | `voss_stand_up` | SE only | 12 | 12 | 12 | 10 fps, once | Clears chair/desk without pivot jump; event on final standing frame. |
+| P1 | `voss_sit_down` | SE only | 12 | 12 | 12 | 10 fps, once | Authored sequence, not a reversed stand-up clip. |
+| P0 | `voss_standing_idle` | 9 source / 16 displayed | 4 | 36 | 64 | 5 fps with long holds | Broad readable mass shift, not smooth high-resolution breathing. Mirrored SE copies are also stored for the desk chain. |
+| P0 | `voss_walk` | 9 source / 16 displayed | 8 | 72 | 128 | 10 fps loop | Clear contact/pass cycle, stable simplified silhouette and crown. |
 
 Required stored character texture frames: **140**. Required displayed facing/frame combinations, including runtime mirroring: **224**.
 
-The first client uses a deliberately smaller authored set: `ClientArrival.atlas` contains four southwest entrance phases, one southwest standing idle, and four rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
+The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, and eight rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
 
 Filename examples:
 
 ```text
-det_seated_idle_se_00.png ... det_seated_idle_se_07.png
-det_stand_up_se_00.png ... det_stand_up_se_11.png
-det_standing_idle_s_00.png ... det_standing_idle_n_03.png
-det_walk_s_00.png ... det_walk_n_07.png
+voss_seated_idle_se_00.png ... voss_seated_idle_se_07.png
+voss_stand_up_se_00.png ... voss_stand_up_se_11.png
+voss_standing_idle_s_00.png ... voss_standing_idle_n_03.png
+voss_walk_s_00.png ... voss_walk_n_07.png
+lila_arrival_sw_00.png ... lila_arrival_sw_08.png
+lila_departure_ne_00.png ... lila_departure_ne_07.png
 ```
 
-Atlases:
+Atlases (shipped V6 set):
 
-- `DetectiveSeated.atlas` — seated idle, stand-up, sit-down.
-- `DetectiveIdle.atlas` — all standing idles.
-- `DetectiveWalk.atlas` — all walk directions.
-- `DetectiveCommon.atlas` — `det_contact_shadow_soft`, selection/accessibility overlays if used.
+- `VossSeatedIdle.atlas` — seated idle body frames.
+- `VossSeatedArms.atlas` — derived seated forearm overlay (draws above the desk's front occluder).
+- `VossSeatTransitions.atlas` — stand-up and sit-down clips.
+- `VossIdle.atlas` — all standing idles (including mirrored SE copies).
+- `VossWalk.atlas` — all walk directions.
+- `LilaArrival.atlas` — Lila arrival, standing idle, and departure.
 
 Additional character texture:
 
@@ -290,13 +294,13 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
 | P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter used beside the paperdoll in the reference-relative position. |
 | P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel used at the left edge of the lower bag grid. |
-| P0 | `det_paperdoll_front_rgba_v02` | 1 | 1024×1536 | Identity-locked Elias Vale inventory paperdoll with transparent background. |
+| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background; fedora held in hand for face readability. |
 | P0 | `dialogue_outer_frame_overlay_v02` | 1 | 1720×730 | Transparent rail-free noir dialogue perimeter; nine-sliced in code while the fixed-size scroll control stays independent. |
 | P0 | `dialogue_scroll_up_v01`, `dialogue_scroll_down_v01`, `dialogue_scroll_track_v01`, `dialogue_scroll_thumb_v01` | 4 | 96×96 buttons; 64×320 track; 72×256 thumb | Independent Mac OS 9–influenced scrollbar components in RainShadow gunmetal/oxblood materials. Buttons stay fixed-size; track and proportional thumb are nine-sliced in code. |
 | P0 | `ui_close_box_macos9_v01` | 1 | 128×128 | Generated RainShadow gunmetal/oxblood interpretation of the classic Mac OS 9 nested-square close box; shared by overlay title bars with a larger code-owned hit target. |
-| P0 | `dialogue_portrait_vivian_hart_v01` | 1 | 512×512 | Identity-locked hand-painted Vivian portrait for the dialogue crop. |
-| P0 | `dialogue_portrait_elias_vale_v01` | 1 | 512×512 | Identity-locked hand-painted Elias portrait for the dialogue crop. |
-| P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Elias portrait crop, dynamic health text, condition tint, and viewport anchoring. |
+| P0 | `dialogue_portrait_lila_march_v01` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop. |
+| P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
+| P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Voss portrait crop, dynamic health text, condition tint, and viewport anchoring. |
 | P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area rendition of the assembled office; code owns the left action rail, overlay frame, point-of-interest labels, and live thin-green 2:1 current-position ground ring. |
 | P0 | `map_icon_noir_v03` | 1 | 768×512 | Painted landscape compass-map button recolored to the shared UI palette: blue-black gunmetal, muted oxblood engraving insets, tiny aged-brass fasteners, smoked-pewter `N`, and a black well. Code owns its hover, hit target, and rail placement. |
 

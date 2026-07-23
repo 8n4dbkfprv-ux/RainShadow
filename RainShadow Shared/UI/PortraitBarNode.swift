@@ -257,7 +257,7 @@ final class PortraitBarNode: SKNode {
         portraitCrop.zPosition = 1
         portraitRoot.addChild(portraitCrop)
 
-        if let texture = GameArt.texture(named: "dialogue_portrait_elias_vale_v01") {
+        if let texture = GameArt.texture(named: "dialogue_portrait_harlan_voss_v01") {
             texture.filteringMode = .linear
             portrait.texture = texture
             portrait.size = CGSize(

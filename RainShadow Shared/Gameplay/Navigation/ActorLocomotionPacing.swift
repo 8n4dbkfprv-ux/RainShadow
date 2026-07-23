@@ -7,7 +7,7 @@ import Foundation
 ///
 /// BG:EE exposes movement as an animation-relative scale and applies modifiers
 /// such as Haste on top. RainShadow therefore defines its ordinary walk as 1.0,
-/// then calibrates that baseline to its 100-unit actor and four-frame gait.
+/// then calibrates that baseline to its 100-unit actor and eight-frame V6 gait.
 enum ActorLocomotionPacing {
     // MARK: - Prior defaults (regression anchors for tests)
 
@@ -33,12 +33,19 @@ enum ActorLocomotionPacing {
     /// Inclusive acceptance band for `walkSpeed` (used by tests).
     static let walkSpeedBand: ClosedRange<CGFloat> = 100...160
 
-    /// Four frames produce a 0.72-second gait and travel 86.4 units per cycle,
-    /// keeping the feet approximately aligned with one actor-length of travel.
-    static let walkCycleSecondsPerFrame: TimeInterval = 0.18
+    /// V6 BGEE-density gait: 8 authored frames per cycle for every walking actor.
+    static let walkFramesPerCycle = 8
+
+    /// Eight frames at 0.09s keep the same 0.72-second gait and 86.4 units of
+    /// travel per cycle as the retired 4-frame/0.18s loop, so stride feel and
+    /// foot-to-ground alignment carry over unchanged.
+    static let walkCycleSecondsPerFrame: TimeInterval = 0.09
 
     /// Inclusive acceptance band for walk-cycle frame duration.
-    static let walkCycleSecondsPerFrameBand: ClosedRange<TimeInterval> = 0.15...0.22
+    static let walkCycleSecondsPerFrameBand: ClosedRange<TimeInterval> = 0.075...0.11
+
+    /// Inclusive acceptance band for the full walk-cycle duration (all frames).
+    static let walkCycleDurationBand: ClosedRange<TimeInterval> = 0.60...0.88
 
     /// Stand-up sequence frame hold (12 frames); slightly slower than the old 0.1s
     /// so egress does not snap relative to the new walk.

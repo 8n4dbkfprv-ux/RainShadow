@@ -158,9 +158,12 @@ RainShadow/
 │       │   │   └── DetectiveOffice/
 │       │   ├── Atlases/
 │       │   │   ├── DetectiveCommon.atlas/
-│       │   │   ├── DetectiveSeated.atlas/
-│       │   │   ├── DetectiveIdle.atlas/
-│       │   │   ├── DetectiveWalk.atlas/
+│       │   │   ├── VossSeatedIdle.atlas/
+│       │   │   ├── VossSeatedArms.atlas/
+│       │   │   ├── VossSeatTransitions.atlas/
+│       │   │   ├── VossIdle.atlas/
+│       │   │   ├── VossWalk.atlas/
+│       │   │   ├── LilaArrival.atlas/
 │       │   │   ├── WeatherCommon.atlas/
 │       │   │   └── UICommon.atlas/
 │       │   └── Assets.xcassets/

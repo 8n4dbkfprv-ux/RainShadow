@@ -519,7 +519,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                 id: nodeID,
                 speaker: hotspot.name,
                 text: hotspot.observation,
-                portraitName: "dialogue_portrait_elias_vale_v01",
+                portraitName: "dialogue_portrait_harlan_voss_v01",
                 endsDialogue: true
             )
         ], startingAt: nodeID) { [weak self] in
@@ -760,7 +760,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             origin: OfficeInteriorScale.shellOrigin,
             initialReveal: OfficeNavigationLayout.actorStart
         )
-        // The opening conversation starts with Vivian crossing from the door,
+        // The opening conversation starts with Lila crossing from the door,
         // so her authored entrance is part of the initially explored office.
         for point in OfficeNavigationLayout.clientArrivalPath {
             fog.reveal(at: point, forceTrailPoint: true)
@@ -782,7 +782,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         return fixture
     }
 
-    /// Vivian's entrance knocks the already damaged leaf off its hinges. Keeping
+    /// Lila's entrance knocks the already damaged leaf off its hinges. Keeping
     /// the low anchor makes the swing read as a door tipping from its threshold.
     private func animateDoorFalling() {
         guard let officeDoor else { return }
@@ -807,7 +807,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoor.run(.sequence([.wait(forDuration: 0.16), fall, settle, rest]), withKey: "officeDoorMotion")
     }
 
-    /// The door is restored only after Vivian has finished her exit path and
+    /// The door is restored only after Lila has finished her exit path and
     /// cleared the room, ready for the next visitor.
     private func animateDoorReturning() {
         guard let officeDoor else { return }

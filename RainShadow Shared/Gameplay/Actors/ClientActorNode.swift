@@ -8,11 +8,12 @@ final class ClientActorNode: SKNode {
     private let departureTextures: [SKTexture]
 
     override init() {
-        arrivalTextures = (0..<5).compactMap {
-            GameArt.texture(named: String(format: "client_arrival_sw_%02d", $0))
+        // 8 authored walk phases + a final standing idle frame (index 08).
+        arrivalTextures = (0..<(ActorLocomotionPacing.walkFramesPerCycle + 1)).compactMap {
+            GameArt.texture(named: String(format: "lila_arrival_sw_%02d", $0))
         }
-        departureTextures = (0..<4).compactMap {
-            GameArt.texture(named: String(format: "client_departure_ne_%02d", $0))
+        departureTextures = (0..<ActorLocomotionPacing.walkFramesPerCycle).compactMap {
+            GameArt.texture(named: String(format: "lila_departure_ne_%02d", $0))
         }
 
         contactShadow = SKShapeNode(ellipseOf: CGSize(width: 44, height: 15))
@@ -36,7 +37,7 @@ final class ClientActorNode: SKNode {
         body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
 
         super.init()
-        name = "client.vivianHart"
+        name = "client.lilaMarch"
         addChild(contactShadow)
         addChild(body)
         isHidden = true
@@ -59,8 +60,8 @@ final class ClientActorNode: SKNode {
         alpha = 0
         isHidden = false
 
-        let walkingFrames = Array(arrivalTextures.prefix(4))
-        if walkingFrames.count == 4 {
+        let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
+        if walkingFrames.count == ActorLocomotionPacing.walkFramesPerCycle {
             walkingFrames.forEach { $0.filteringMode = .nearest }
             body.run(
                 .repeatForever(.animate(
@@ -107,7 +108,7 @@ final class ClientActorNode: SKNode {
         body.position = .zero
         position = start
 
-        if departureTextures.count == 4 {
+        if departureTextures.count == ActorLocomotionPacing.walkFramesPerCycle {
             departureTextures.forEach { $0.filteringMode = .nearest }
             body.texture = departureTextures[0]
             body.run(

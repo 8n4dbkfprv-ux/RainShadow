@@ -56,7 +56,7 @@ Detailed pre-rendered locations and crude era-authentic 3D character meshes evok
 
 ## 4. World, characters, and story
 
-This section is the **narrative canon** for Harborpoint, the two established leads, and the spine of the campaign. Earlier shipping art and code may still label the leads with retired working names (**Elias Vale**, **Vivian Hart**); those strings are superseded here and are scheduled for a later identity migration. Design, dialogue, and new writing use only the names below.
+This section is the **narrative canon** for Harborpoint, the two established leads, and the spine of the campaign. The retired working names (**Elias Vale**, **Vivian Hart**) were fully migrated to the canon names with the V6 BGEE-style character redesign: sprites, atlases, portraits, UI text, and code identifiers now all use the names below. Design, dialogue, and new writing use only these names.
 
 ### 4.1 World — Harborpoint under the rain
 
@@ -101,7 +101,7 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
 - **Voice sample (design target):** “The rain had opinions about my rent. The dame in the doorway had better ones about my time.”
-- **Superseded working name:** Elias Vale (art pipelines, portraits, and some code identifiers until identity migration).
+- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
 
@@ -113,7 +113,7 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 - **Apparent need:** Her sister is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
 - **Deeper tension:** She knows more than the first conversation admits—about the sister’s work, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
 - **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
-- **Superseded working name:** Vivian Hart (arrival/departure atlases, dialogue portrait IDs, and some narrative copy until identity migration).
+- **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
 
 #### Supporting cast (named only as needed by the outline)
 
@@ -544,7 +544,6 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 - Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over.
 - **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only.
 - Full **Poirot-style summation** scene framework for the campaign finale (§4.3.7).
-- Identity migration of art/code IDs from retired working names (Elias Vale / Vivian Hart) to Harlan Voss / Lila March.
 
 ### Explicitly out of scope for the game vision
 

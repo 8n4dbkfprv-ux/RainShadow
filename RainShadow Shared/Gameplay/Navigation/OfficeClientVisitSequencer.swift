@@ -1,11 +1,11 @@
-/// Pure ordering contract for Vivian’s office visit: door fall → entrance →
+/// Pure ordering contract for Lila’s office visit: door fall → entrance →
 /// dialogue → exit → door return → player control. The scene applies these
 /// actions; tests assert the shipped sequence without re-implementing it.
 enum OfficeClientVisitSequencer {
     enum Event: Equatable {
-        /// Case-opening dialogue finished; Vivian should leave.
+        /// Case-opening dialogue finished; Lila should leave.
         case finishCaseIntroductionStarted
-        /// Vivian finished the authored departure path (cleared the room).
+        /// Lila finished the authored departure path (cleared the room).
         case clientExitCompleted
     }
 

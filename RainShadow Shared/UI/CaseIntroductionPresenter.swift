@@ -15,9 +15,9 @@ final class CaseIntroductionPresenter: SKNode {
         static let parchment = SKColor(red: 0.86, green: 0.84, blue: 0.70, alpha: 1)
         static let response = SKColor(red: 0.76, green: 0.19, blue: 0.13, alpha: 1)
         static let responseHot = SKColor(red: 0.96, green: 0.69, blue: 0.28, alpha: 1)
-        /// Lila March (and retired Vivian Hart speaker string, if any residual copy remains).
+        /// Lila March.
         static let lila = SKColor(red: 0.72, green: 0.16, blue: 0.36, alpha: 1)
-        /// Harlan Voss (and retired Elias Vale speaker string).
+        /// Harlan Voss.
         static let voss = SKColor(red: 0.78, green: 0.55, blue: 0.25, alpha: 1)
         static let caseTitle = SKColor(red: 0.82, green: 0.68, blue: 0.34, alpha: 1)
     }
@@ -860,9 +860,9 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func speakerColor(for speaker: String) -> SKColor {
         switch speaker {
-        case EmptyCoatCaseIntroduction.lilaSpeaker, "Vivian Hart":
+        case EmptyCoatCaseIntroduction.lilaSpeaker:
             Palette.lila
-        case EmptyCoatCaseIntroduction.vossSpeaker, "Elias Vale":
+        case EmptyCoatCaseIntroduction.vossSpeaker:
             Palette.voss
         case EmptyCoatCaseIntroduction.caseOpenedSpeaker, "Case opened":
             Palette.caseTitle

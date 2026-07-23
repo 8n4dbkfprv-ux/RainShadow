@@ -53,7 +53,7 @@ final class InventoryOverlay: SKNode {
             name: "Service Revolver",
             category: .weapon,
             description: "A six-shot Webley with a tired action and a clean barrel.",
-            note: "Registered to Det. E. Vale · 5 rounds loaded",
+            note: "Registered to Det. H. Voss · 5 rounds loaded",
             symbolName: "scope",
             artName: "inventory_item_service_revolver_v01",
             quantity: 1
@@ -234,7 +234,7 @@ final class InventoryOverlay: SKNode {
         identityBand.position = CGPoint(x: -235, y: 415)
         let identityColumnCenterX = identityBandSize.width / 4
         let detectiveName = Self.label(size: 23, color: Palette.paper, weight: .demibold)
-        detectiveName.text = "ELIAS VALE"
+        detectiveName.text = "HARLAN VOSS"
         detectiveName.verticalAlignmentMode = .center
         detectiveName.position = CGPoint(x: -identityColumnCenterX, y: 1)
         identityBand.addChild(detectiveName)
@@ -324,13 +324,13 @@ final class InventoryOverlay: SKNode {
         floorLight.position = CGPoint(x: 0, y: -145)
         chamber.addChild(floorLight)
 
-        if let detectiveTexture = GameArt.texture(named: "det_paperdoll_front_rgba_v02") {
+        if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
             detectiveTexture.filteringMode = .linear
             let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 246, height: 369))
             paperdoll.name = "inventory.paperdoll"
             paperdoll.position = CGPoint(x: 0, y: -8)
             chamber.addChild(paperdoll)
-        } else if let detectiveTexture = GameArt.texture(named: "det_standing_idle_se_00") {
+        } else if let detectiveTexture = GameArt.texture(named: "voss_standing_idle_se_00") {
             detectiveTexture.filteringMode = .linear
             let fallbackPaperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 256, height: 256))
             fallbackPaperdoll.name = "inventory.paperdoll"
