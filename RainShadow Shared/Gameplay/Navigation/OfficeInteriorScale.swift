@@ -62,15 +62,15 @@ enum OfficeInteriorScale {
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
         static let deskChair: CGFloat = 438
-        static let doorLeaf: CGFloat = 705
+        static let doorLeaf: CGFloat = 720
         static let filingCabinet: CGFloat = 549
         static let visitorArmchair: CGFloat = 430
         static let radiator: CGFloat = 340
         static let coatRack: CGFloat = 557
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight
-        /// V3 shell window glass opening (source pixels on office_shell_base).
-        static let windowGlassOpening: CGFloat = 230
+        /// V6 shell window glass opening (source pixels on office_shell_base).
+        static let windowGlassOpening: CGFloat = 136
     }
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
@@ -100,7 +100,9 @@ enum OfficeInteriorScale {
         static let chair: ClosedRange<CGFloat> = 0.6...1.0
         static let cabinet: ClosedRange<CGFloat> = 1.10...1.80
         /// Single rain window glass opening (not multi-story glass).
-        static let windowGlass: ClosedRange<CGFloat> = 0.75...1.25
+        /// Smaller than classic BG tavern glass: this office's short upper-wall band
+        /// cannot host a 0.75–1.25× adult window without dominating the west wall.
+        static let windowGlass: ClosedRange<CGFloat> = 0.55...0.90
     }
 
     // MARK: - Mapping

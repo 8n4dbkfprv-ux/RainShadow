@@ -36,8 +36,8 @@ enum OfficeNavigationLayout {
     /// Coat rack base solid, registered to `AuthoredPlacement.coatRack`.
     static let authoredCoatRackObstacle = CGRect(x: 3_030, y: 1_370, width: 210, height: 120)
 
-    /// Door leaf floor solid in authored space (registered to the V2 shell opening).
-    static let authoredDoorObstacle = CGRect(x: 2_800, y: 1_560, width: 270, height: 140)
+    /// Door leaf floor solid in authored space (registered to the V5 shell opening).
+    static let authoredDoorObstacle = CGRect(x: 3_029, y: 1_539, width: 170, height: 140)
 
     /// Sample points on the desk / chair footprint used by tests (authored space).
     static let authoredDeskSamplePoints: [CGPoint] = [
@@ -51,9 +51,9 @@ enum OfficeNavigationLayout {
 
     /// Sample points on the door leaf footprint used by tests (authored space).
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_930, y: 1_630),
-        CGPoint(x: 2_865, y: 1_620),
-        CGPoint(x: 3_000, y: 1_650)
+        CGPoint(x: 3_114, y: 1_554),
+        CGPoint(x: 3_060, y: 1_545),
+        CGPoint(x: 3_160, y: 1_565)
     ]
 
     /// Sample points on other major floor solids (authored space).
@@ -87,7 +87,7 @@ enum OfficeNavigationLayout {
         "office.phone": CGPoint(x: 1_600, y: 1_200),
         "office.files": CGPoint(x: 1_650, y: 1_200),
         // In front of the door, clear of the leaf solid and the visitor armchair obstacle.
-        "office.door": CGPoint(x: 2_500, y: 1_300)
+        "office.door": CGPoint(x: 2_700, y: 1_300)
     ]
 
     /// Near corner of the projected floor diamond. A 128×64 tile yields the
@@ -98,8 +98,8 @@ enum OfficeNavigationLayout {
     static var actorStart: CGPoint { OfficeInteriorScale.mapPoint(authoredActorStart) }
 
     static let clientArrivalPath: [CGPoint] = [
-        CGPoint(x: 2_850, y: 1_520),
-        CGPoint(x: 2_670, y: 1_320),
+        CGPoint(x: 3_000, y: 1_480),
+        CGPoint(x: 2_700, y: 1_300),
         CGPoint(x: 2_430, y: 1_080)
     ].map(OfficeInteriorScale.mapPoint)
 
@@ -176,7 +176,8 @@ enum OfficeNavigationLayout {
     /// Authoring-space prop anchors (pre-scale); scene maps through `OfficeInteriorScale`.
     enum AuthoredPlacement {
         static let radiator = CGPoint(x: 1_100, y: 1_450)
-        static let doorLeaf = CGPoint(x: 2_930, y: 1_630)
+        /// Door leaf ground contact on the V5 doorway threshold (SK y-up).
+        static let doorLeaf = CGPoint(x: 3_114, y: 1_554)
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
         static let deskChair = CGPoint(x: 2_000, y: 1_010)
         static let filingCabinet = CGPoint(x: 2_650, y: 1_430)
@@ -184,9 +185,14 @@ enum OfficeNavigationLayout {
         static let visitorArmchair = CGPoint(x: 2_580, y: 780)
         static let deskEnsemble = CGPoint(x: 2_000, y: 900)
         static let camera = CGPoint(x: 2_048, y: 1_152)
-        /// Matches the V3 glass opening on `office_shell_base` (SK y-up).
-        static let windowRainMask = CGRect(x: 1_100, y: 1_600, width: 230, height: 240)
-        static let windowRainEmitter = CGPoint(x: 1_215, y: 1_850)
+        /// Window insert centre on the V6 left-wall recess (SK y-up, sprite anchor 0.5).
+        /// Nudged down so the sash covers the recess sill ledge.
+        static let window = CGPoint(x: 1_220, y: 1_812)
+        /// Slight clockwise tilt to match the left-wall dimetric sill (~6°).
+        static let windowRotation: CGFloat = -0.105
+        /// Matches the V6 glass opening / sash display on `office_shell_base` (SK y-up).
+        static let windowRainMask = CGRect(x: 1_182, y: 1_744, width: 76, height: 136)
+        static let windowRainEmitter = CGPoint(x: 1_220, y: 1_884)
         static let lampPool = CGPoint(x: 2_000, y: 1_040)
     }
 
@@ -245,7 +251,7 @@ enum OfficeNavigationLayout {
         (
             "office.window",
             "Rain-streaked window",
-            CGRect(x: 1_080, y: 1_560, width: 280, height: 340),
+            CGRect(x: 1_174, y: 1_758, width: 92, height: 160),
             "The rain had been working the glass harder than I had worked a case."
         ),
         (
@@ -269,7 +275,7 @@ enum OfficeNavigationLayout {
         (
             "office.door",
             "Office door",
-            CGRect(x: 2_800, y: 1_540, width: 310, height: 480),
+            CGRect(x: 3_000, y: 1_400, width: 240, height: 480),
             "The hall smelled worse, but at least it led somewhere."
         )
     ]

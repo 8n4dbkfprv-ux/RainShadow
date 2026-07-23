@@ -67,6 +67,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
             scale: standardPropScale
         )
+        // Doorway architecture is baked into the shell; only the leaf is a separate prop.
         officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
@@ -730,12 +731,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         rearFixtureRoot.addChild(crop)
     }
 
-    /// Mirrors the shell's window pixels as an independent, texture-swappable prop.
+    /// Window insert only — recess architecture is baked into the shell plate.
     private func addWindowHighlightProp() {
         guard let texture = GameArt.standaloneTexture(named: "office_window") else { return }
         let window = SKSpriteNode(texture: texture)
         window.name = "office_window"
-        window.position = OfficeInteriorScale.mapPoint(CGPoint(x: 1_215, y: 1_720))
+        window.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.window)
+        window.zRotation = OfficeNavigationLayout.AuthoredPlacement.windowRotation
         window.setScale(OfficeInteriorScale.windowDisplayScale)
         window.texture?.filteringMode = .linear
         rearFixtureRoot.addChild(window)
