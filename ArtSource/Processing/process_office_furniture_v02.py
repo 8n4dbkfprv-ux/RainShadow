@@ -121,24 +121,6 @@ def opaque_content_height(im: Image.Image, threshold: int = 40) -> int:
     return bbox[3] - bbox[1]
 
 
-def strip_soft_ground_shadow(im: Image.Image) -> Image.Image:
-    """Remove dark soft ellipses under upright props (baked contact shadows)."""
-    arr = np.array(im.convert("RGBA"), dtype=np.float32)
-    rgb, a = arr[:, :, :3], arr[:, :, 3]
-    lum = rgb.mean(axis=2)
-    h = arr.shape[0]
-    # Only consider lower third and very dark, low-chroma pixels.
-    yy = np.arange(h)[:, None]
-    in_lower = yy > (h * 0.62)
-    dark = lum < 55
-    chroma = rgb.max(axis=2) - rgb.min(axis=2)
-    low_chroma = chroma < 28
-    shadow = in_lower & dark & low_chroma & (a > 20)
-    a = np.where(shadow, 0, a)
-    rgb = np.where(a[..., None] < 8, 0, rgb)
-    return Image.fromarray(np.dstack([rgb, a]).astype(np.uint8), "RGBA")
-
-
 def make_cabinet_floor_shadow(cabinet: Image.Image) -> Image.Image:
     """Soft elliptical contact shadow sized from the cabinet footprint."""
     bbox = opaque_bbox(cabinet)
@@ -176,8 +158,6 @@ def main() -> None:
             keyed = trim_alpha(chroma_key(Image.open(DESK_CHAIR_SOLO)))
         else:
             keyed = trim_alpha(chroma_key(cell))
-        keyed = strip_soft_ground_shadow(keyed)
-        keyed = trim_alpha(keyed)
         out = fit_into_canvas(keyed, canvas, bottom_bias=True, target_content_h=target_h)
         out_path = RUNTIME / f"{name}.png"
         out.save(out_path)

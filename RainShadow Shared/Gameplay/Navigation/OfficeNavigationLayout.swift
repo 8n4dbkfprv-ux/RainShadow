@@ -34,27 +34,27 @@ enum OfficeNavigationLayout {
     /// Kept east of phone/files approaches so desk-item routes stay walkable.
     static let authoredVisitorArmchairObstacle = CGRect(x: 2_280, y: 1_030, width: 260, height: 160)
 
-    /// Filing cabinet on the detective’s west flank (case-storage cluster).
-    static let authoredFilingCabinetObstacle = CGRect(x: 1_670, y: 940, width: 190, height: 120)
+    /// Filing cabinet in the west-wall case-storage run (right of the bookshelf).
+    static let authoredFilingCabinetObstacle = CGRect(x: 1_530, y: 1_470, width: 190, height: 120)
 
-    /// Closed archive box base solid (flush against cabinet).
-    static let authoredArchiveBoxAObstacle = CGRect(x: 1_600, y: 920, width: 120, height: 90)
+    /// Closed archive box base solid (at the cabinet's front foot).
+    static let authoredArchiveBoxAObstacle = CGRect(x: 1_670, y: 1_445, width: 120, height: 90)
 
     /// Open archive box base solid (slightly forward stack of `a`).
-    static let authoredArchiveBoxBObstacle = CGRect(x: 1_560, y: 870, width: 130, height: 90)
+    static let authoredArchiveBoxBObstacle = CGRect(x: 1_625, y: 1_385, width: 130, height: 90)
 
     /// Wastebasket at detective-side SW desk foot.
-    static let authoredWastebasketObstacle = CGRect(x: 1_850, y: 820, width: 110, height: 90)
+    static let authoredWastebasketObstacle = CGRect(x: 1_765, y: 960, width: 110, height: 90)
 
-    /// Radiator base solid along the west wall.
-    static let authoredRadiatorObstacle = CGRect(x: 930, y: 1_390, width: 340, height: 110)
+    /// Radiator base solid against the west wall, left of the window recess.
+    static let authoredRadiatorObstacle = CGRect(x: 880, y: 1_580, width: 340, height: 110)
 
-    /// Bookshelf base solid flush to the left/back wall near the radiator.
-    /// Kept clear of the window approach at (1350, 1400).
-    static let authoredBookshelfObstacle = CGRect(x: 1_160, y: 1_290, width: 160, height: 90)
+    /// Bookshelf base solid in the west-wall run, left of the filing cabinet.
+    /// Kept clear of the window approach at (1360, 1700).
+    static let authoredBookshelfObstacle = CGRect(x: 1_300, y: 1_375, width: 160, height: 90)
 
     /// Archive box stack near the door / coat-rack wall.
-    static let authoredArchiveStackObstacle = CGRect(x: 2_720, y: 1_330, width: 160, height: 100)
+    static let authoredArchiveStackObstacle = CGRect(x: 2_690, y: 1_450, width: 160, height: 100)
 
     /// Coat rack base solid, registered to `AuthoredPlacement.coatRack`.
     static let authoredCoatRackObstacle = CGRect(x: 2_900, y: 1_340, width: 210, height: 120)
@@ -87,15 +87,15 @@ enum OfficeNavigationLayout {
     ]
 
     static let authoredFilingCabinetSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_760, y: 1_000),
-        CGPoint(x: 1_710, y: 990),
-        CGPoint(x: 1_820, y: 1_030)
+        CGPoint(x: 1_620, y: 1_530),
+        CGPoint(x: 1_570, y: 1_500),
+        CGPoint(x: 1_680, y: 1_560)
     ]
 
     static let authoredRadiatorSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_100, y: 1_450),
-        CGPoint(x: 1_000, y: 1_440),
-        CGPoint(x: 1_200, y: 1_470)
+        CGPoint(x: 1_050, y: 1_640),
+        CGPoint(x: 950, y: 1_620),
+        CGPoint(x: 1_150, y: 1_670)
     ]
 
     static let authoredCoatRackSamplePoints: [CGPoint] = [
@@ -105,37 +105,38 @@ enum OfficeNavigationLayout {
     ]
 
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
-        CGPoint(x: 1_660, y: 960),
-        CGPoint(x: 1_630, y: 950),
-        CGPoint(x: 1_690, y: 980)
+        CGPoint(x: 1_730, y: 1_485),
+        CGPoint(x: 1_700, y: 1_470),
+        CGPoint(x: 1_760, y: 1_500)
     ]
 
     static let authoredArchiveBoxBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_620, y: 910),
-        CGPoint(x: 1_590, y: 900),
-        CGPoint(x: 1_650, y: 930)
+        CGPoint(x: 1_690, y: 1_425),
+        CGPoint(x: 1_660, y: 1_410),
+        CGPoint(x: 1_720, y: 1_450)
     ]
 
     static let authoredWastebasketSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_900, y: 860),
-        CGPoint(x: 1_870, y: 850),
-        CGPoint(x: 1_930, y: 890)
+        CGPoint(x: 1_820, y: 1_000),
+        CGPoint(x: 1_790, y: 980),
+        CGPoint(x: 1_850, y: 1_030)
     ]
 
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_240, y: 1_340),
-        CGPoint(x: 1_200, y: 1_330),
-        CGPoint(x: 1_280, y: 1_360)
+        CGPoint(x: 1_380, y: 1_415),
+        CGPoint(x: 1_340, y: 1_400),
+        CGPoint(x: 1_420, y: 1_440)
     ]
 
     static let authoredArchiveStackSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_800, y: 1_370),
-        CGPoint(x: 2_760, y: 1_360),
-        CGPoint(x: 2_840, y: 1_400)
+        CGPoint(x: 2_770, y: 1_490),
+        CGPoint(x: 2_730, y: 1_470),
+        CGPoint(x: 2_810, y: 1_520)
     ]
 
     private static let authoredApproachPoints: [String: CGPoint] = [
-        "office.window": CGPoint(x: 1_350, y: 1_400),
+        // In the pocket between the west furniture run and the window wall.
+        "office.window": CGPoint(x: 1_360, y: 1_700),
         // Visitor face of the NE-facing desk (approach from door corridor).
         "office.desk": CGPoint(x: 2_280, y: 1_200),
         "office.phone": CGPoint(x: 2_260, y: 1_180),
@@ -275,25 +276,32 @@ enum OfficeNavigationLayout {
 
     /// Authoring-space prop anchors (pre-scale); scene maps through `OfficeInteriorScale`.
     enum AuthoredPlacement {
-        static let radiator = CGPoint(x: 1_100, y: 1_450)
+        /// Against the painted NW wall (junction ≈ 1130 + 0.5x), left of the window recess.
+        static let radiator = CGPoint(x: 1_050, y: 1_640)
         /// Door leaf ground contact on the V5 doorway threshold (SK y-up).
         static let doorLeaf = CGPoint(x: 3_114, y: 1_554)
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
         // SW kneehole center — deep enough that lower body overlaps the apron strip.
         static let deskChair = CGPoint(x: 2_070, y: 955)
-        static let filingCabinet = CGPoint(x: 1_760, y: 1_000)
-        static let archiveBoxA = CGPoint(x: 1_660, y: 960)
-        static let archiveBoxB = CGPoint(x: 1_620, y: 910)
-        static let wastebasket = CGPoint(x: 1_900, y: 860)
-        static let wornRug = CGPoint(x: 2_340, y: 1_090)
-        static let floorTrashA = CGPoint(x: 1_880, y: 900)
-        static let floorTrashB = CGPoint(x: 2_280, y: 1_060)
+        /// Case-storage run along the west wall: bookshelf + cabinet share the
+        /// depth line y = 720 + 0.5x so they read as one wall-parallel group.
+        static let filingCabinet = CGPoint(x: 1_620, y: 1_530)
+        static let archiveBoxA = CGPoint(x: 1_730, y: 1_485)
+        static let archiveBoxB = CGPoint(x: 1_690, y: 1_425)
+        /// Tucked at the desk's SW pedestal foot.
+        static let wastebasket = CGPoint(x: 1_820, y: 1_000)
+        /// Centered under the visitor armchair, extending toward the door approach.
+        static let wornRug = CGPoint(x: 2_420, y: 1_100)
+        static let floorTrashA = CGPoint(x: 1_780, y: 940)
+        static let floorTrashB = CGPoint(x: 2_210, y: 1_010)
         static let floorTrashC = CGPoint(x: 2_920, y: 1_420)
-        static let hiddenBottle = CGPoint(x: 1_950, y: 940)
-        static let bookshelf = CGPoint(x: 1_240, y: 1_340)
-        static let archiveStack = CGPoint(x: 2_800, y: 1_370)
+        /// Peeking from under the desk's SW front edge.
+        static let hiddenBottle = CGPoint(x: 1_940, y: 890)
+        static let bookshelf = CGPoint(x: 1_380, y: 1_415)
+        static let archiveStack = CGPoint(x: 2_770, y: 1_490)
         static let floorWear = CGPoint(x: 2_100, y: 980)
-        static let windowSpill = CGPoint(x: 1_350, y: 1_420)
+        /// Cool window light cast on the floor in front of the window recess.
+        static let windowSpill = CGPoint(x: 1_290, y: 1_580)
         static let coatRack = CGPoint(x: 3_000, y: 1_400)
         static let visitorArmchair = CGPoint(x: 2_360, y: 1_100)
         static let deskEnsemble = CGPoint(x: 2_100, y: 980)
