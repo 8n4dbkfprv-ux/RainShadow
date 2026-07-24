@@ -53,11 +53,23 @@ def pixelize_figure(figure: Image.Image, crop_to_alpha: bool = True) -> Image.Im
     )
 
 
+def lock_atlas_canvas(canvas: Image.Image) -> Image.Image:
+    """Near-invisible corner sentinels so Xcode .atlas trim keeps the 512 canvas."""
+    for x, y in (
+        (0, 0),
+        (FRAME_SIZE - 1, 0),
+        (0, FRAME_SIZE - 1),
+        (FRAME_SIZE - 1, FRAME_SIZE - 1),
+    ):
+        canvas.putpixel((x, y), (0, 0, 0, 1))
+    return canvas
+
+
 def register(figure: Image.Image, crop_to_alpha: bool = True) -> Image.Image:
     figure = pixelize_figure(figure, crop_to_alpha=crop_to_alpha)
     canvas = Image.new("RGBA", (FRAME_SIZE, FRAME_SIZE))
     canvas.alpha_composite(figure, ((FRAME_SIZE - figure.width) // 2, FOOT_Y - BODY_HEIGHT))
-    return canvas
+    return lock_atlas_canvas(canvas)
 
 
 def save_frame(frame: Image.Image, atlas_name: str, filename: str, source_dir: Path) -> None:

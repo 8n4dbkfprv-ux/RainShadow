@@ -32,7 +32,7 @@ ENVIRONMENT = 0.395
 
 # PropRelativeScale (authored-space sprite multiplier = displayScale / environment).
 REL_STANDARD = 0.22 / ENVIRONMENT
-REL_DESK = 0.14 / ENVIRONMENT
+REL_DESK = 0.12 / ENVIRONMENT
 REL_SEATING = 0.17 / ENVIRONMENT
 REL_WINDOW = 0.24 / ENVIRONMENT
 REL_FLOOR_DECAL = 0.22 / ENVIRONMENT
@@ -48,7 +48,7 @@ CENTER_ANCHOR = (0.5, 0.5)
 AUTHORED: dict[str, tuple[float, float]] = {
     "radiator": (1_050, 1_640),
     "doorLeaf": (3_114, 1_554),
-    "deskChair": (2_070, 955),
+    "deskChair": (2_045, 940),
     "filingCabinet": (1_620, 1_530),
     "archiveBoxA": (1_730, 1_485),
     "archiveBoxB": (1_690, 1_425),

@@ -88,6 +88,7 @@ struct HotspotHoverHighlightTests {
         #expect(source.contains("registerHoverSprite(deskBare, for: \"office.desk\")"))
         #expect(source.contains("registerHoverSprite(deskActorOccluder, for: \"office.desk\")"))
         #expect(source.contains("registerHoverSprite(deskFrontOccluder, for: \"office.desk\")"))
+        #expect(source.contains("registerHoverSprite(deskTopOccluder, for: \"office.desk\")"))
         #expect(source.contains("registerHoverSprite(window, for: \"office.window\")"))
         #expect(source.contains("registerHoverSprite(officeDoor, for: \"office.door\")"))
 
@@ -107,6 +108,7 @@ struct HotspotHoverHighlightTests {
         let names = [
             "office_window", "office_door_leaf", "office_desk_bare",
             "office_desk_actor_occluder", "office_desk_front_occluder_v04",
+            "office_desk_top_occluder",
             "office_desk_phone", "office_desk_files"
         ]
 

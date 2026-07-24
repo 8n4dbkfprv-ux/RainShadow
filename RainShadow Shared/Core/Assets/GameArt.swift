@@ -147,7 +147,9 @@ enum GameArt {
             "office_desk_actor_occluder",
             "office_desk_actor_occluder_hover",
             "office_desk_front_occluder_v04",
-            "office_desk_front_occluder_v04_hover"
+            "office_desk_front_occluder_v04_hover",
+            "office_desk_top_occluder",
+            "office_desk_top_occluder_hover"
         ]
         let textures = textureNames.compactMap(texture(named:))
         SKTexture.preload(textures) {}

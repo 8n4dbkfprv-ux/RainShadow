@@ -5,7 +5,8 @@ enum OfficeNavigationLayout {
 
     /// Nav root for seated Voss; visual seat is `deskChair` via `seatedYOffset`.
     // deskChair.y + seatedYOffset/environment (82/0.395 ≈ 208)
-    private static let authoredActorStart = CGPoint(x: 2_070, y: 1_163)
+    // deskChair.y + 208; chair stays south of desk for the SW kneehole
+    private static let authoredActorStart = CGPoint(x: 2_045, y: 1_148)
 
     /// Ground-contact footprints in authored (pre-scale) space. Tall vertical props
     /// (door, cabinet, radiator, coat rack) only block their base; desk and
@@ -28,7 +29,7 @@ enum OfficeNavigationLayout {
     /// Desk + detective chair floor solid (NE-facing desk island).
     /// maxY stays below `authoredActorStart` so sit-to-stand egress pathfinds.
     /// East edge leaves a corridor to the visitor chair / door.
-    static let authoredDeskObstacle = CGRect(x: 1_860, y: 820, width: 400, height: 250)
+    static let authoredDeskObstacle = CGRect(x: 1_860, y: 800, width: 400, height: 250)
 
     /// Visitor armchair on the NE / door approach side of the desk (on the client rug).
     /// Kept east of phone/files approaches so desk-item routes stay walkable.
@@ -65,7 +66,7 @@ enum OfficeNavigationLayout {
     /// Sample points on the desk / chair footprint used by tests (authored space).
     static let authoredDeskSamplePoints: [CGPoint] = [
         CGPoint(x: 2_100, y: 980),  // desk ensemble anchor
-        CGPoint(x: 2_070, y: 955),  // chair / detective seat (kneehole center)
+        CGPoint(x: 2_045, y: 940),  // chair / detective seat (SW kneehole under files/book)
         CGPoint(x: 2_100, y: 1_040), // mid desktop band
         CGPoint(x: 2_140, y: 1_050), // NE desktop toward visitor
         CGPoint(x: 1_940, y: 940),  // SW pedestal
@@ -281,8 +282,9 @@ enum OfficeNavigationLayout {
         /// Door leaf ground contact on the V5 doorway threshold (SK y-up).
         static let doorLeaf = CGPoint(x: 3_114, y: 1_554)
         // Maps to the actor's seated visual baseline (navigation root + seatedYOffset).
-        // SW kneehole center — deep enough that lower body overlaps the apron strip.
-        static let deskChair = CGPoint(x: 2_070, y: 955)
+        // SW of desk ensemble (y < desk) so the kneehole opens toward the camera.
+        // X under the green book / files stack (desk-canvas ~280 on the 932 plate).
+        static let deskChair = CGPoint(x: 2_045, y: 940)
         /// Case-storage run along the west wall: bookshelf + cabinet share the
         /// depth line y = 720 + 0.5x so they read as one wall-parallel group.
         static let filingCabinet = CGPoint(x: 1_620, y: 1_530)

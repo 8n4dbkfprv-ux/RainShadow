@@ -14,11 +14,21 @@ enum OfficeInteriorScale {
         /// office presents it as an 82-unit body, matching the tavern references.
         static let standingScale: CGFloat = 0.82
         static let seatedScale: CGFloat = 0.82
+        /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
+        /// 232 ≈ prior 210 plus ~10% so adults read correctly against office furniture.
+        static let spriteDisplaySize = CGSize(width: 232, height: 232)
+        /// Seated crouch reads short at the desk; larger integer size while desk-registered.
+        static let seatedSpriteDisplaySize = CGSize(width: 252, height: 252)
+        static let spriteScale: CGFloat = 1.0
         /// Visual-only shift from the walkable navigation root into the chair/desk registration.
         static let seatedYOffset: CGFloat = -82
-        /// Extra seated body nudge into the desk. Zero for NE rear-view — NE nudges
-        /// read as sitting on the desktop.
-        static let seatedDeskNudge = CGPoint.zero
+        /// Whole-body seat nudge (world space). Stay on the SW / camera-near
+        /// kneehole side of the desk ground (desk.y − chair.y ≈ 16). Nudges
+        /// past ~14 put feet on the visitor / far side of the writing surface.
+        /// Chair X is authored under the green-book/files band; keep nudge X at 0.
+        static let seatedDeskNudge = CGPoint(x: 0, y: 8)
+        /// Extra upper lean toward the desktop past the apron lip.
+        static let seatedUpperDeskReach = CGPoint(x: 0, y: 4)
     }
 
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
@@ -86,11 +96,11 @@ enum OfficeInteriorScale {
     }
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
-    /// targets: standard 0.22, seating 0.17, desk 0.14, window overlay 0.24,
+    /// targets: standard 0.22, seating 0.17, desk 0.12, window overlay 0.24,
     /// floor decal 0.18, small props 0.12, pocket props 0.10.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
-        static let deskEnsemble: CGFloat = 0.14 / environment
+        static let deskEnsemble: CGFloat = 0.12 / environment
         static let deskChair: CGFloat = 0.17 / environment
         static let visitorArmchair: CGFloat = 0.17 / environment
         static let window: CGFloat = 0.24 / environment

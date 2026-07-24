@@ -13,6 +13,10 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var deskChairProp: SKSpriteNode?
     private var deskActorOccluder: SKSpriteNode?
     private var deskFrontOccluder: SKSpriteNode?
+    /// Writing-surface mask above seated torso (coat under wood).
+    private var deskTopOccluder: SKSpriteNode?
+    /// Loose desk props — lifted above the top occluder while seated.
+    private var deskItemNodes: [SKSpriteNode] = []
     private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
@@ -210,6 +214,16 @@ final class DetectiveOfficeScene: BaseGameScene {
         )
         if let deskFrontOccluder {
             registerHoverSprite(deskFrontOccluder, for: "office.desk")
+        }
+
+        deskTopOccluder = addDepthProp(
+            named: "office_desk_top_occluder",
+            at: deskPosition,
+            scale: deskScale,
+            bias: -40
+        )
+        if let deskTopOccluder {
+            registerHoverSprite(deskTopOccluder, for: "office.desk")
         }
 
         addFogOfWar()
@@ -536,24 +550,33 @@ final class DetectiveOfficeScene: BaseGameScene {
         fogOfWar?.reveal(at: detective.position)
     }
 
-    /// Seated NE rear-view: split upper/lower body with the SW kneehole apron
-    /// between them (legs tuck under wood; torso/arms/fedora stay in front).
-    /// Bare desk stays at -500. Desk items stay desk-native.
-    /// Desk-registered transitions (stand-up / seat egress) keep the same apron
-    /// sandwich so the full-body strip does not vanish behind wood.
-    /// Standing: full body; front apron rises for walk-past.
+    /// Seated NE rear-view: torso/head above the front apron.
+    /// Actor occluder stays desk-native — elevating it stamped a wood rectangle
+    /// over the chair feet (the floor-band clipping under the seat).
+    /// Desk-top stays desk-native. Bare desk stays at -500.
+    /// Standing: front apron rises for walk-past.
     private func updateDetectiveDepth() {
         if detective.isDeskRegistered {
-            // seatedYOffset drops the body from the nav root; half cancels (H - y) * 0.5.
-            let seatedDepthBias = -OfficeInteriorScale.ActorDisplay.seatedYOffset * 0.5
-            updateDepth(of: detective, bias: seatedDepthBias)
+            // Pin the sort key to the desk ground anchor so local upper z and
+            // apron bias form a stable order. The nav root sits ~80px north of
+            // the desk; a plain y-sort would put the whole actor behind the wood.
+            let deskY = OfficeInteriorScale.mapPoint(
+                OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
+            ).y
+            let deskSortBias = (detective.position.y - deskY) * 0.5
+            updateDepth(of: detective, bias: deskSortBias)
+            // Only the camera-facing apron rises between the desk and the torso.
             if let deskActorOccluder {
-                // Lap band sits with the apron (between lower z=0 and upper z=70).
-                updateDepth(of: deskActorOccluder, bias: 52)
+                updateDepth(of: deskActorOccluder, bias: -60)
             }
             if let deskFrontOccluder {
-                // Between seated lowerBody (local 0) and upper body (local 70).
-                updateDepth(of: deskFrontOccluder, bias: 55)
+                deskFrontOccluder.zPosition = detective.zPosition + 55
+            }
+            if let deskTopOccluder {
+                updateDepth(of: deskTopOccluder, bias: -40)
+            }
+            for item in deskItemNodes {
+                updateDepth(of: item)
             }
         } else {
             updateDepth(of: detective)
@@ -562,6 +585,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             }
             if let deskFrontOccluder {
                 updateDepth(of: deskFrontOccluder, bias: 40)
+            }
+            if let deskTopOccluder {
+                updateDepth(of: deskTopOccluder, bias: -40)
+            }
+            for item in deskItemNodes {
+                updateDepth(of: item)
             }
         }
         // Avoid a second empty chair beside the baked-in seated prop / stand-up strip.
@@ -1048,10 +1077,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             )
             node.setScale(scale)
             node.texture?.filteringMode = .linear
-            // Desk-native depth (with the bare top). Do not lift above the seated
-            // detective — that reads as props floating over his coat/head.
+            // Desk-native depth while standing. While seated, `updateDetectiveDepth`
+            // lifts these above the writing-surface occluder (coat stays under wood).
             updateDepth(of: node)
             depthWorldRoot.addChild(node)
+            deskItemNodes.append(node)
             if let hotspotID = item.hotspotID {
                 registerHoverSprite(node, for: hotspotID)
             }

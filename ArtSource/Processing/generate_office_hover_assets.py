@@ -20,6 +20,7 @@ SOURCE_NAMES = (
     "office_desk_bare",
     "office_desk_actor_occluder",
     "office_desk_front_occluder_v04",
+    "office_desk_top_occluder",
     "office_desk_phone",
     "office_desk_files",
 )
@@ -106,6 +107,7 @@ def main() -> None:
             if name in {
                 "office_desk_actor_occluder",
                 "office_desk_front_occluder_v04",
+                "office_desk_top_occluder",
             }
             else name
         )

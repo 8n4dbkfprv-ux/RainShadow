@@ -23,7 +23,7 @@ final class ClientActorNode: SKNode {
         contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
 
         if let texture = arrivalTextures.last {
-            body = SKSpriteNode(texture: texture, size: CGSize(width: 256, height: 256))
+            body = SKSpriteNode(texture: texture, size: OfficeInteriorScale.ActorDisplay.spriteDisplaySize)
         } else {
             body = SKSpriteNode(
                 color: SKColor(red: 0.18, green: 0.08, blue: 0.1, alpha: 1),
@@ -32,9 +32,9 @@ final class ClientActorNode: SKNode {
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 39 / 256)
         body.texture?.filteringMode = .nearest
-        // Same adult standing scale as DetectiveActorNode (BG:EE shared party height).
-        body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
-        body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
+        // Same adult standing presentation as DetectiveActorNode (integer-pixel sprite scale).
+        body.xScale = OfficeInteriorScale.ActorDisplay.spriteScale
+        body.yScale = OfficeInteriorScale.ActorDisplay.spriteScale
 
         super.init()
         name = "client.lilaMarch"

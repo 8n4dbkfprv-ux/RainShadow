@@ -155,19 +155,75 @@ def pixelize_shared(figure: Image.Image, reference_height: int) -> Image.Image:
     return native.resize((texture_w, texture_h), Image.Resampling.NEAREST)
 
 
+def lock_atlas_canvas(canvas: Image.Image) -> Image.Image:
+    """Stamp near-invisible corner sentinels so Xcode .atlas trim keeps 512×512.
+
+    SpriteKit packs trim transparent edges. With SKAction.animate(resize: false)
+    into a fixed 256 node, trimmed sit frames stretch differently every frame.
+    Alpha-1 corners preserve the authored canvas without a visible speck.
+    """
+    for x, y in ((0, 0), (FRAME - 1, 0), (0, FRAME - 1), (FRAME - 1, FRAME - 1)):
+        canvas.putpixel((x, y), (0, 0, 0, 1))
+    return canvas
+
+
 def register_shared(im: Image.Image, reference_height: int) -> Image.Image:
     """Shared-scale V7 pixelize; feet on FOOT_Y (same pivot as standing/walk)."""
     pix = pixelize_shared(trim_alpha(im), reference_height)
+    # Never exceed the standing texture body — mid sit frames were ~208px and
+    # read as a brief inflate before the crouch.
+    if pix.height > TEXTURE_BODY_HEIGHT:
+        new_w = max(1, round(pix.width * TEXTURE_BODY_HEIGHT / pix.height))
+        pix = pix.resize((new_w, TEXTURE_BODY_HEIGHT), Image.Resampling.NEAREST)
     canvas = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
     x = (FRAME - pix.width) // 2
     y = FOOT_Y - pix.height
     canvas.alpha_composite(pix, (x, max(0, min(FRAME - pix.height, y))))
-    return canvas
+    return lock_atlas_canvas(canvas)
+
+
+def lock_cycle_scale(cell: Image.Image, ref: Image.Image) -> Image.Image:
+    """Rescale a foot-registered cell so its opaque bbox matches `ref`.
+
+    Seated breath sources are nearly the same size, but nearest crunch rounds
+    each cell differently (e.g. 148→145px / hat 70→65). On a fixed SpriteKit
+    node that reads as the detective pulsing larger and smaller every frame.
+    Uniform height lock plus a final width match keep pose deltas without a
+    visible scale pulse (width match is a ≤4% anisotropic nudge).
+    """
+    ref_bbox = opaque_bbox(ref)
+    ref_w = ref_bbox[2] - ref_bbox[0] + 1
+    ref_h = ref_bbox[3] - ref_bbox[1] + 1
+    if ref_h <= 1 or ref_w <= 1:
+        return cell
+
+    bbox = opaque_bbox(cell)
+    x0, y0, x1, y1 = bbox
+    crop = cell.crop((x0, y0, x1 + 1, y1 + 1))
+    if crop.height <= 1 or crop.width <= 1:
+        return cell
+
+    # Pass 1: uniform scale to reference height.
+    scale = ref_h / crop.height
+    nw = max(1, round(crop.width * scale))
+    nh = max(1, round(crop.height * scale))
+    if (nw, nh) != crop.size:
+        crop = crop.resize((nw, nh), Image.Resampling.NEAREST)
+
+    # Pass 2: match reference width (small anisotropic fix for NN rounding).
+    if crop.width != ref_w:
+        crop = crop.resize((ref_w, crop.height), Image.Resampling.NEAREST)
+
+    out = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
+    x = (FRAME - crop.width) // 2
+    y = FOOT_Y - crop.height
+    out.alpha_composite(crop, (x, max(0, min(FRAME - crop.height, y))))
+    return lock_atlas_canvas(out)
 
 
 def register(im: Image.Image) -> Image.Image:
     """Legacy per-frame normalize — prefer register_shared for desk strips."""
-    return raster.register(trim_alpha(im))
+    return lock_atlas_canvas(raster.register(trim_alpha(im)))
 
 
 def expand_to(frames: list[Image.Image], count: int) -> list[Image.Image]:
@@ -191,19 +247,34 @@ def expand_to(frames: list[Image.Image], count: int) -> list[Image.Image]:
     return out
 
 
+def harden_silhouette_alpha(cell: Image.Image, threshold: int = 96) -> Image.Image:
+    """Binary alpha for under-desk layers — kills soft fringes on the floor.
+
+    Soft mid-alphas at chair feet read as a fuzzy haze where the lower layer
+    meets the floorboards past the apron.
+    """
+    arr = np.array(cell.convert("RGBA"))
+    a = arr[:, :, 3]
+    hard = a >= threshold
+    arr[:, :, 3] = np.where(hard, 255, 0).astype(np.uint8)
+    arr[~hard, :3] = 0
+    return Image.fromarray(arr, "RGBA")
+
+
 def split_upper_lower(cell: Image.Image, lap_frac: float = 0.78) -> tuple[Image.Image, Image.Image]:
     """Split a registered seated cell on a horizontal feet seam.
 
     Upper = torso/fedora/arms + chair back (must stay camera-near / in front of
     the desk). Lower = only the under-desk feet / front chair legs that the
-    kneehole apron should hide. Both keep the same 512 feet registration.
+    kneehole apron should hide. Seam stays ~0.78 so desk-reaching hands remain
+    on the upper layer (a lower seam buried the hands behind the apron).
+    Both keep the same 512 feet registration.
     """
     arr = np.array(cell.convert("RGBA"))
     a = arr[:, :, 3]
     ys = np.where(a > 40)[0]
     if len(ys) == 0:
-        empty = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
-        empty.putpixel((FRAME // 2, FRAME // 2), (0, 0, 0, 1))
+        empty = lock_atlas_canvas(Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0)))
         return empty.copy(), empty.copy()
     y0, y1 = int(ys.min()), int(ys.max())
     # Low seam: keep chair back with the upper layer for rear-view.
@@ -212,7 +283,57 @@ def split_upper_lower(cell: Image.Image, lap_frac: float = 0.78) -> tuple[Image.
     upper[seam:, :, 3] = 0
     lower = arr.copy()
     lower[:seam, :, 3] = 0
-    return Image.fromarray(upper, "RGBA"), Image.fromarray(lower, "RGBA")
+    # Harden feet/chair-leg alpha so soft fringes do not haze the floor.
+    lower_im = harden_silhouette_alpha(Image.fromarray(lower, "RGBA"))
+    return (
+        lock_atlas_canvas(Image.fromarray(upper, "RGBA")),
+        lock_atlas_canvas(lower_im),
+    )
+
+
+def split_hands_from_upper(
+    upper: Image.Image, hand_frac: float = 0.32
+) -> tuple[Image.Image, Image.Image]:
+    """Peel desk-reaching hands off the upper cell into a foreground arms layer.
+
+    Rear-view upper includes coat + hands at similar heights. Without a separate
+    hands layer the whole upper draws above the desk top and reads as sitting
+    *on* the wood. Hands stay above `office_desk_top_occluder`; torso stays below.
+    """
+    arr = np.array(upper.convert("RGBA"))
+    a = arr[:, :, 3]
+    ys = np.where(a > 40)[0]
+    if len(ys) == 0:
+        empty = lock_atlas_canvas(Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0)))
+        return upper, empty
+    y0, y1 = int(ys.min()), int(ys.max())
+    hand_cut = y1 - max(1, int((y1 - y0) * hand_frac))
+    hands = arr.copy()
+    hands[:hand_cut, :, 3] = 0
+    torso = arr.copy()
+    torso[hand_cut:, :, 3] = 0
+    return (
+        lock_atlas_canvas(Image.fromarray(torso, "RGBA")),
+        lock_atlas_canvas(Image.fromarray(hands, "RGBA")),
+    )
+
+
+def build_desk_top_occluder(bare_path: Path, front_path: Path, out_path: Path) -> None:
+    """Non-apron desk surface: hides coat that would paint on top/pedestal wood.
+
+    Everything in the bare desk that is not the camera-facing apron. Apron stays
+    a separate layer so the sandwich is: legs < apron < torso < desk-top.
+    A short band above the apron lip left coat on the near pedestal.
+    """
+    bare = np.array(Image.open(bare_path).convert("RGBA"))
+    front = np.array(Image.open(front_path).convert("RGBA"))
+    bare_a = bare[:, :, 3] > 40
+    front_a = front[:, :, 3] > 40
+    top_mask = bare_a & ~front_a
+    out = bare.copy()
+    out[:, :, 3] = np.where(top_mask, bare[:, :, 3], 0)
+    Image.fromarray(out, "RGBA").save(out_path)
+    print("desk top occluder opaque%", float(top_mask.mean()))
 
 
 def opaque_bbox(im: Image.Image, threshold: int = 40) -> tuple[int, int, int, int]:
@@ -309,6 +430,10 @@ def main() -> None:
     idle_ref_h = max(1, round(idle_head * stand_ref_h / max(1, stand_ref_head)))
 
     idle_cells = [register_shared(c, idle_ref_h) for c in idle_src_cells]
+    # Nearest crunch drifts seated breath cells by a few pixels; lock every
+    # frame to cell 0 so idle no longer reads as a size pulse at the desk.
+    idle_ref = idle_cells[0]
+    idle_cells = [lock_cycle_scale(c, idle_ref) for c in idle_cells]
     for i, cell in enumerate(idle_cells):
         cell.save(GEN / f"voss_seated_idle_ne_{i:02d}.png")
         cell.save(IDLE_ATLAS / f"voss_seated_idle_ne_{i:02d}.png")
@@ -320,11 +445,9 @@ def main() -> None:
         upper.save(IDLE_ATLAS / f"voss_seated_upper_ne_{i:02d}.png")
         lower.save(IDLE_ATLAS / f"voss_seated_lower_ne_{i:02d}.png")
 
-    # Rear view: the body sprite carries its own hands; the foreground-arms
-    # overlay (front-view desk hands) must be empty or it doubles the arms.
-    empty = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
-    # Single near-invisible pixel keeps atlas packing tools happy.
-    empty.putpixel((FRAME // 2, FRAME // 2), (0, 0, 0, 1))
+    # Rear-view hands sit inside the upper cell. Keep the arms overlay empty —
+    # peeling a mid-band just put coat on top of the desk-top occluder.
+    empty = lock_atlas_canvas(Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0)))
     for i in range(8):
         empty.save(GEN / f"voss_seated_arms_ne_{i:02d}.png")
         empty.save(ARMS_ATLAS / f"voss_seated_arms_ne_{i:02d}.png")
@@ -343,6 +466,11 @@ def main() -> None:
         OFFICE / "office_desk_bare.png",
         IDLE_ATLAS / "voss_seated_idle_ne_00.png",
         OFFICE / "office_desk_actor_occluder.png",
+    )
+    build_desk_top_occluder(
+        OFFICE / "office_desk_bare.png",
+        OFFICE / "office_desk_front_occluder_v04.png",
+        OFFICE / "office_desk_top_occluder.png",
     )
     print(
         "idle",
