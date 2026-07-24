@@ -92,11 +92,22 @@ struct ActorLocomotionPacingTests {
         #expect(detective.contains("ActorLocomotionPacing.maximumFrameDelta"))
         #expect(detective.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(detective.contains("ActorLocomotionPacing.standUpSecondsPerFrame"))
+        #expect(detective.contains("var isDeskRegistered"))
+        #expect(detective.contains("seatedUpperLocalZ"))
         #expect(!detective.contains("actions.append(.move(to:"))
         #expect(!detective.contains("withKey: \"actorPath\""))
         #expect(!detective.contains("withKey: \"walkCycle\""))
         #expect(!detective.contains("distance / 270"))
         #expect(!detective.contains("timePerFrame: 0.14"))
+
+        let office = try String(
+            contentsOf: root.appendingPathComponent(
+                "RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift"
+            ),
+            encoding: .utf8
+        )
+        #expect(office.contains("detective.isDeskRegistered"))
+        #expect(!office.contains("deskChairProp?.isHidden = detective.isSeated"))
 
         #expect(client.contains("ActorLocomotionPacing.pathDuration"))
         #expect(client.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))

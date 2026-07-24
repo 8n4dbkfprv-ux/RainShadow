@@ -1,4 +1,8 @@
-"""Slice/chroma/register Voss NE seated desk chain into runtime atlases."""
+"""Slice/chroma/register Voss NE seated desk chain into runtime atlases.
+
+Registration matches standing/walk: V7 BGEE pixelize (80px native, 64 colors,
+nearest → 200px texture) then FOOT_Y = 434 on a 512 canvas.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +11,9 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+
+import process_pre_rendered_characters_v3 as raster
+from process_pre_rendered_characters_v7 import pixelize_figure_v7
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,12 +27,13 @@ ARMS_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "Vos
 TRANS_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "VossSeatTransitions.atlas"
 OFFICE = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 
-FRAME = 512
-# Runtime atlases carry a 200px opaque body at 2x texture density
-# (matches the original SE seated/transition registration: bbox 234..433).
-BODY_H = 200
-# Ground pivot y in 512 canvas (matches prior Voss registration band).
-FOOT_Y = 433
+FRAME = raster.FRAME_SIZE
+NATIVE_BODY_HEIGHT = 80  # V7
+TEXTURE_BODY_HEIGHT = 200
+FOOT_Y = raster.FOOT_Y
+
+# Same crunch as process_pre_rendered_characters_v7 (standing/walk atlases).
+raster.pixelize_figure = pixelize_figure_v7
 
 
 def chroma_key(im: Image.Image, key=(0, 255, 0), tol=50.0, soft=18.0) -> Image.Image:
@@ -90,34 +98,96 @@ def slice_strip(path: Path, expected_min: int = 4) -> list[Image.Image]:
     return cells
 
 
+def head_width(im: Image.Image, threshold: int = 40) -> int:
+    """Opaque width of the top ~12% of the silhouette (fedora band)."""
+    a = np.asarray(im.convert("RGBA"))
+    mask = a[:, :, 3] > threshold
+    ys, xs = np.where(mask)
+    if len(xs) == 0:
+        return 1
+    y0, y1 = int(ys.min()), int(ys.max())
+    band_h = max(1, int((y1 - y0 + 1) * 0.12))
+    cols = np.where(mask[y0 : y0 + band_h].any(axis=0))[0]
+    if len(cols) == 0:
+        return 1
+    return int(cols.max() - cols.min() + 1)
+
+
+def pixelize_shared(figure: Image.Image, reference_height: int) -> Image.Image:
+    """V7 crunch with a fixed source→native scale (no per-frame height normalize).
+
+    `reference_height` source pixels map to NATIVE_BODY_HEIGHT, then nearest-up
+    to texture. Crouched frames stay shorter on the canvas; head size stays
+    locked to the standing-end reference so sit/stand-up do not look oversized.
+    """
+    pixels = np.asarray(figure.convert("RGBA")).copy()
+    pixels[pixels[..., 3] < 16] = 0
+    figure = Image.fromarray(pixels, "RGBA")
+    bbox = figure.getchannel("A").getbbox()
+    if bbox is None:
+        raise RuntimeError("Figure has no opaque subject")
+    figure = figure.crop(bbox)
+
+    ref_h = max(1, reference_height)
+    native_h = max(1, round(figure.height * NATIVE_BODY_HEIGHT / ref_h))
+    native_w = max(1, round(figure.width * NATIVE_BODY_HEIGHT / ref_h))
+    native = raster.premultiplied_resize(figure, (native_w, native_h))
+    alpha = native.getchannel("A")
+
+    opaque = np.asarray(native)
+    opaque_rgb = opaque[opaque[..., 3] > 0][:, :3]
+    if len(opaque_rgb) == 0:
+        raise RuntimeError("Figure has no opaque pixels after resize")
+    palette_source = Image.fromarray(opaque_rgb.reshape((1, -1, 3)), "RGB")
+    palette = palette_source.quantize(
+        colors=64,
+        method=Image.Quantize.MEDIANCUT,
+        dither=Image.Dither.NONE,
+    )
+    limited_rgb = (
+        native.convert("RGB")
+        .quantize(palette=palette, dither=Image.Dither.NONE)
+        .convert("RGB")
+    )
+    native = Image.merge("RGBA", (*limited_rgb.split(), alpha))
+    texture_h = max(1, round(native_h * TEXTURE_BODY_HEIGHT / NATIVE_BODY_HEIGHT))
+    texture_w = max(1, round(native_w * TEXTURE_BODY_HEIGHT / NATIVE_BODY_HEIGHT))
+    return native.resize((texture_w, texture_h), Image.Resampling.NEAREST)
+
+
+def register_shared(im: Image.Image, reference_height: int) -> Image.Image:
+    """Shared-scale V7 pixelize; feet on FOOT_Y (same pivot as standing/walk)."""
+    pix = pixelize_shared(trim_alpha(im), reference_height)
+    canvas = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
+    x = (FRAME - pix.width) // 2
+    y = FOOT_Y - pix.height
+    canvas.alpha_composite(pix, (x, max(0, min(FRAME - pix.height, y))))
+    return canvas
+
+
 def register(im: Image.Image) -> Image.Image:
-    im = trim_alpha(im)
-    a = np.array(im.split()[-1])
-    ys = np.where(a > 40)[0]
-    h = max(1, int(ys.max() - ys.min() + 1))
-    scale = BODY_H / h
-    nw = max(1, int(round(im.width * scale)))
-    nh = max(1, int(round(im.height * scale)))
-    resized = im.resize((nw, nh), Image.Resampling.LANCZOS)
-    out = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
-    x = (FRAME - nw) // 2
-    # Put feet near FOOT_Y
-    y = FOOT_Y - nh
-    y = max(0, min(FRAME - nh, y))
-    out.alpha_composite(resized, (x, y))
-    return out
+    """Legacy per-frame normalize — prefer register_shared for desk strips."""
+    return raster.register(trim_alpha(im))
 
 
 def expand_to(frames: list[Image.Image], count: int) -> list[Image.Image]:
+    """Stretch a short strip to `count` frames without restarting the motion.
+
+    Looping from frame 0 (the old pad) made stand-up play twice: an 8-cell
+    rise became frames 0..7 then 0..3 again. Temporal remapping keeps a single
+    seated→standing progression across the full clip length.
+    """
     if not frames:
         return frames
     if len(frames) >= count:
         return frames[:count]
-    out = list(frames)
-    i = 0
-    while len(out) < count:
-        out.append(frames[i % len(frames)])
-        i += 1
+    if len(frames) == 1:
+        return [frames[0]] * count
+    out: list[Image.Image] = []
+    last = len(frames) - 1
+    for i in range(count):
+        t = i / (count - 1) * last
+        out.append(frames[int(round(t))])
     return out
 
 
@@ -216,16 +286,29 @@ def main() -> None:
     ARMS_ATLAS.mkdir(parents=True, exist_ok=True)
     TRANS_ATLAS.mkdir(parents=True, exist_ok=True)
 
-    # V2 rear-view strips: detective faces NE (into the desk, away from camera),
-    # so the camera sees his back three-quarter — hands are part of the body.
-    idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v02.png"
-    stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v02.png"
+    # V3 rear-view strips: same NE rear pose as V2, olive-brown V6 coat lock
+    # (V2 drifted charcoal). Hands stay on the body sprite.
+    idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v03.png"
+    stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v03.png"
     for src in (idle_src, stand_src):
         if src.exists():
             shutil.copy(src, GEN / src.name)
 
-    idle_cells = [register(c) for c in slice_strip(idle_src, 4)]
-    idle_cells = expand_to(idle_cells, 8)
+    # Expand source cells first, then register with one shared scale so crouched
+    # frames are not zoomed to full body height (that made sit/stand look huge).
+    stand_src_cells = expand_to(slice_strip(stand_src, 8), 12)
+    # Standing-end frame maps to the full 200px texture body (matches walk/idle).
+    stand_ref = stand_src_cells[-1]
+    stand_ref_h = stand_ref.height
+    stand_ref_head = head_width(stand_ref)
+
+    idle_src_cells = expand_to(slice_strip(idle_src, 4), 8)
+    # Idle strip was authored larger than stand-up; pick reference height so its
+    # fedora width matches the stand-up standing-end after shared scale.
+    idle_head = head_width(idle_src_cells[0])
+    idle_ref_h = max(1, round(idle_head * stand_ref_h / max(1, stand_ref_head)))
+
+    idle_cells = [register_shared(c, idle_ref_h) for c in idle_src_cells]
     for i, cell in enumerate(idle_cells):
         cell.save(GEN / f"voss_seated_idle_ne_{i:02d}.png")
         cell.save(IDLE_ATLAS / f"voss_seated_idle_ne_{i:02d}.png")
@@ -247,8 +330,7 @@ def main() -> None:
         empty.save(ARMS_ATLAS / f"voss_seated_arms_ne_{i:02d}.png")
         empty.save(ARMS_ATLAS / f"voss_seated_arms_se_{i:02d}.png")
 
-    stand_cells = [register(c) for c in slice_strip(stand_src, 8)]
-    stand_cells = expand_to(stand_cells, 12)
+    stand_cells = [register_shared(c, stand_ref_h) for c in stand_src_cells]
     sit_cells = list(reversed(stand_cells))
     for i, cell in enumerate(stand_cells):
         cell.save(TRANS_ATLAS / f"voss_stand_up_ne_{i:02d}.png")
@@ -262,8 +344,14 @@ def main() -> None:
         IDLE_ATLAS / "voss_seated_idle_ne_00.png",
         OFFICE / "office_desk_actor_occluder.png",
     )
-    print("idle", len(idle_cells), "stand", len(stand_cells))
-
+    print(
+        "idle",
+        len(idle_cells),
+        "stand",
+        len(stand_cells),
+        f"stand_ref_h={stand_ref_h}",
+        f"idle_ref_h={idle_ref_h}",
+    )
 
 if __name__ == "__main__":
     main()

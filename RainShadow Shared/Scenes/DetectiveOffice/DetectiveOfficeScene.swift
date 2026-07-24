@@ -539,9 +539,11 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// Seated NE rear-view: split upper/lower body with the SW kneehole apron
     /// between them (legs tuck under wood; torso/arms/fedora stay in front).
     /// Bare desk stays at -500. Desk items stay desk-native.
+    /// Desk-registered transitions (stand-up / seat egress) keep the same apron
+    /// sandwich so the full-body strip does not vanish behind wood.
     /// Standing: full body; front apron rises for walk-past.
     private func updateDetectiveDepth() {
-        if detective.isSeated {
+        if detective.isDeskRegistered {
             // seatedYOffset drops the body from the nav root; half cancels (H - y) * 0.5.
             let seatedDepthBias = -OfficeInteriorScale.ActorDisplay.seatedYOffset * 0.5
             updateDepth(of: detective, bias: seatedDepthBias)
@@ -562,8 +564,8 @@ final class DetectiveOfficeScene: BaseGameScene {
                 updateDepth(of: deskFrontOccluder, bias: 40)
             }
         }
-        // Avoid a second empty chair beside the baked-in seated prop.
-        deskChairProp?.isHidden = detective.isSeated
+        // Avoid a second empty chair beside the baked-in seated prop / stand-up strip.
+        deskChairProp?.isHidden = detective.isDeskRegistered
     }
 
     private func startCaseIntroduction() {

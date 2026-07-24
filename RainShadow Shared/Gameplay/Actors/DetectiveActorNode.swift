@@ -50,6 +50,23 @@ final class DetectiveActorNode: SKNode {
         }
     }
 
+    /// True while the visual body is still at the desk kneehole (seated, stand/sit
+    /// transition, or seat egress). Keeps apron depth and above-apron body z so
+    /// the full-body stand-up strip does not bury behind the SW apron.
+    var isDeskRegistered: Bool {
+        switch state {
+        case .seatedIdle, .sittingDown, .standingUp:
+            return true
+        case .standingIdle, .walking:
+            if body.action(forKey: "seatEgress") != nil {
+                return true
+            }
+            // Still settling out of the seated local offset (negative Y toward zero).
+            let seatedY = OfficeInteriorScale.ActorDisplay.seatedYOffset
+            return body.position.y < seatedY * 0.15
+        }
+    }
+
     override init() {
         standingTexture = GameArt.texture(named: "voss_standing_idle_se_00")
         standingIdleTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
@@ -332,9 +349,10 @@ final class DetectiveActorNode: SKNode {
         body.removeAction(forKey: "seatedIdle")
         lowerBody.removeAction(forKey: "seatedIdle")
         foregroundArms.removeAction(forKey: "seatedIdle")
-        // Collapse to a single full-body layer for the stand-up strip.
+        // Collapse to a single full-body layer for the stand-up strip, kept above
+        // the kneehole apron until seat egress clears the chair offset.
         body.texture = seatedIdleTextures.first ?? body.texture
-        body.zPosition = 0
+        body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
         foregroundArms.run(
             .sequence([.fadeOut(withDuration: 0.12), .hide()]),
@@ -346,7 +364,7 @@ final class DetectiveActorNode: SKNode {
             self.body.texture?.filteringMode = .nearest
             self.body.xScale = OfficeInteriorScale.ActorDisplay.standingScale
             self.body.yScale = OfficeInteriorScale.ActorDisplay.standingScale
-            self.body.zPosition = 0
+            self.body.zPosition = Self.seatedUpperLocalZ
             self.hideLowerBody()
             self.state = .standingIdle
             completion()
@@ -380,7 +398,7 @@ final class DetectiveActorNode: SKNode {
         state = .sittingDown
         body.removeAction(forKey: "standingIdle")
         facing = .northEast
-        body.zPosition = 0
+        body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
 
         let finishSitting = SKAction.run { [weak self] in
@@ -429,12 +447,17 @@ final class DetectiveActorNode: SKNode {
     private func animateSeatEgress(duration: TimeInterval, completion: (() -> Void)? = nil) {
         body.removeAction(forKey: "seatEgress")
         lowerBody.removeAction(forKey: "seatEgress")
+        // Stay above the apron while the visual root leaves the kneehole.
+        body.zPosition = Self.seatedUpperLocalZ
         let settleBody = SKAction.move(to: .zero, duration: duration)
         settleBody.timingMode = .linear
         body.run(
             .sequence([
                 settleBody,
-                .run { completion?() }
+                .run { [weak self] in
+                    self?.body.zPosition = 0
+                    completion?()
+                }
             ]),
             withKey: "seatEgress"
         )
