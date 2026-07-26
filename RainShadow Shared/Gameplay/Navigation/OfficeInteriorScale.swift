@@ -87,7 +87,7 @@ enum OfficeInteriorScale {
         static let wornRug: CGFloat = 573
         static let hiddenBottle: CGFloat = 200
         static let framedPhoto: CGFloat = 180
-        static let bookshelf: CGFloat = 687
+        static let bookshelf: CGFloat = 673
         static let pencilTray: CGFloat = 70
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight

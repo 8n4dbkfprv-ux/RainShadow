@@ -693,7 +693,7 @@ enum OfficeNavigationLayout {
     static let authoredSafeObstacle = CGRect(x: 1027, y: 1439, width: 173, height: 76)
     static let authoredFilingCabinetBObstacle = CGRect(x: 900, y: 1386, width: 161, height: 71)
     static let authoredFilingCabinetObstacle = CGRect(x: 764, y: 1329, width: 161, height: 71)
-    static let authoredBookshelfObstacle = CGRect(x: 583, y: 1251, width: 223, height: 101)
+    static let authoredBookshelfObstacle = CGRect(x: 603, y: 1_189, width: 223, height: 101)
     static let authoredArchiveBoxAObstacle = CGRect(x: 782, y: 1253, width: 137, height: 60)
     static let authoredRadiatorObstacle = CGRect(x: 1202, y: 1519, width: 173, height: 79)
     static let authoredPersonalSideboardObstacle = CGRect(x: 1465, y: 1620, width: 245, height: 110)
@@ -753,9 +753,9 @@ enum OfficeNavigationLayout {
         CGPoint(x: 876, y: 1_375),
     ]
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 694, y: 1_301),
-        CGPoint(x: 650, y: 1_286),
-        CGPoint(x: 739, y: 1_316),
+        CGPoint(x: 714, y: 1_239),
+        CGPoint(x: 670, y: 1_224),
+        CGPoint(x: 759, y: 1_254),
     ]
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
         CGPoint(x: 850, y: 1_284),
@@ -863,7 +863,8 @@ enum OfficeNavigationLayout {
         static let safe = CGPoint(x: 1_113, y: 1_477)  // records run, east end
         static let filingCabinetB = CGPoint(x: 981, y: 1_421)
         static let filingCabinet = CGPoint(x: 844, y: 1_364)  // drawer half open
-        static let bookshelf = CGPoint(x: 694, y: 1_301)
+        /// SE-facing v03 foot tip is pivot-centered; sit on the records-wall floor line.
+        static let bookshelf = CGPoint(x: 714, y: 1_239)
         static let archiveBoxOnCabinet = CGPoint(x: 981, y: 1_421)  // on cabinet B
         static let archiveStackOnCabinet = CGPoint(x: 844, y: 1_364)  // on cabinet A
         static let archiveBoxA = CGPoint(x: 850, y: 1_284)  // only floor stack
