@@ -256,29 +256,36 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
+        // Drive the real shipped polyline + the pure strip mapper exit uses.
         // Authored departure: NW chair→door, then NE through the door/corridor.
-        // Strip choice must follow heading (no east-hold moonwalk at the door).
-        let authored: [(CGFloat, CGFloat)] = [
-            (1_984, 1_366),
-            (1_780, 1_644),
-            (1_920, 1_710),
-            (2_125, 1_708),
-            (2_544, 1_709),
-            (3_041, 1_728),
-        ]
-        var bins: [String] = []
-        for index in 0..<(authored.count - 1) {
-            let dx = authored[index + 1].0 - authored[index].0
-            let dy = authored[index + 1].1 - authored[index].1
-            let facing = ActorFacing.resolve(dx: dx, dy: dy, retaining: .northEast, hysteresis: 0)
-            switch facing {
-            case .northWest, .northNorthWest, .westNorthWest, .west, .westSouthWest, .north:
-                bins.append("NW")
-            default:
-                bins.append("NE")
-            }
+        // Post-internal-door segments must not hold NW (eastbound moonwalk).
+        let path = OfficeNavigationLayout.clientDeparturePath
+        #expect(path.count >= 3)
+        let bins = ClientDepartureFacing.bins(along: path)
+        #expect(bins.count == path.count - 1)
+        #expect(bins.first == .northWest, "Chair→internal door is NW rear")
+        #expect(bins.dropFirst().allSatisfy { $0 == .northEast },
+                "After the internal door every segment must use NE (no eastbound NW hold)")
+        #expect(bins == [.northWest, .northEast, .northEast, .northEast, .northEast])
+
+        // Each post-door segment's raw heading is eastern (not western/northern).
+        for index in 1..<(path.count - 1) {
+            let dx = path[index + 1].x - path[index].x
+            let dy = path[index + 1].y - path[index].y
+            #expect(dx > 0, "Post-door segment \(index) should travel eastward (dx=\(dx))")
+            #expect(ClientDepartureFacing.bin(dx: dx, dy: dy) == .northEast)
         }
-        #expect(bins == ["NW", "NE", "NE", "NE", "NE"])
+    }
+
+    @Test func clientDepartureWalkPhaseRotatesWithoutRestartingAtZero() {
+        // Door handoff continues stride phase instead of hard-resetting to frame 0.
+        let frames = ["0", "1", "2", "3", "4", "5", "6", "7"]
+        #expect(ClientDepartureFacing.texturesStartingAtPhase(frames, phase: 0) == frames)
+        #expect(ClientDepartureFacing.texturesStartingAtPhase(frames, phase: 3)
+                == ["3", "4", "5", "6", "7", "0", "1", "2"])
+        #expect(ClientDepartureFacing.texturesStartingAtPhase(frames, phase: 8) == frames)
+        #expect(ClientDepartureFacing.texturesStartingAtPhase(frames, phase: -1)
+                == ["7", "0", "1", "2", "3", "4", "5", "6"])
     }
 
     @Test func doorLeafSamplesAreBlocked() {

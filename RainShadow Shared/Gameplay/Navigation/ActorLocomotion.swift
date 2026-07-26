@@ -181,3 +181,43 @@ enum ActorFacing: Int, CaseIterable {
         return min(raw, fullTurn - raw)
     }
 }
+
+/// Authored Lila exit strips: NW for western/northern travel (chair→internal door),
+/// NE for eastern travel (door→corridor→exterior). Never mirror — handbag stays left.
+enum ClientDepartureFacing: Equatable, Sendable {
+    case northEast
+    case northWest
+
+    /// Map a path segment heading to the authored departure strip without mirroring.
+    static func bin(dx: CGFloat, dy: CGFloat) -> ClientDepartureFacing {
+        let facing = ActorFacing.resolve(dx: dx, dy: dy, retaining: .northEast, hysteresis: 0)
+        switch facing {
+        case .northWest, .northNorthWest, .westNorthWest, .west, .westSouthWest, .north:
+            return .northWest
+        default:
+            return .northEast
+        }
+    }
+
+    /// Per-segment strip bins along a departure polyline (skips zero-length edges).
+    static func bins(along points: [CGPoint]) -> [ClientDepartureFacing] {
+        guard points.count >= 2 else { return [] }
+        var result: [ClientDepartureFacing] = []
+        for index in 0..<(points.count - 1) {
+            let dx = points[index + 1].x - points[index].x
+            let dy = points[index + 1].y - points[index].y
+            if dx == 0 && dy == 0 { continue }
+            result.append(bin(dx: dx, dy: dy))
+        }
+        return result
+    }
+
+    /// Rotate an 8-frame walk strip so playback continues at `phase` (handoff continuity).
+    static func texturesStartingAtPhase<T>(_ textures: [T], phase: Int) -> [T] {
+        guard !textures.isEmpty else { return textures }
+        let count = textures.count
+        let start = ((phase % count) + count) % count
+        if start == 0 { return textures }
+        return Array(textures[start...]) + Array(textures[..<start])
+    }
+}

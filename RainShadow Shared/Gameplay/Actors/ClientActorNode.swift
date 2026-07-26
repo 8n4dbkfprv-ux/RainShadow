@@ -2,11 +2,6 @@ import SpriteKit
 
 @MainActor
 final class ClientActorNode: SKNode {
-    private enum DepartureFacingBin {
-        case northEast
-        case northWest
-    }
-
     private static let stripHandoffDuration: TimeInterval = 0.16
 
     private let contactShadow: SKShapeNode
@@ -16,6 +11,8 @@ final class ClientActorNode: SKNode {
     private let arrivalTextures: [SKTexture]
     private let departureNETextures: [SKTexture]
     private let departureNWTextures: [SKTexture]
+    /// Wall-clock origin of the current departure walk cycle (for phase-continuous handoff).
+    private var departureWalkPhaseOrigin: TimeInterval = 0
 
     override init() {
         // 8 authored walk phases + a final standing idle frame (index 08).
@@ -149,11 +146,15 @@ final class ClientActorNode: SKNode {
 
         var actions: [SKAction] = []
         var prior = start
-        var activeBin: DepartureFacingBin?
+        var activeBin: ClientDepartureFacing?
         for destination in points.dropFirst() {
             let dx = destination.x - prior.x
             let dy = destination.y - prior.y
-            let bin = Self.departureFacingBin(dx: dx, dy: dy)
+            if dx == 0 && dy == 0 {
+                prior = destination
+                continue
+            }
+            let bin = ClientDepartureFacing.bin(dx: dx, dy: dy)
             if activeBin != bin {
                 let textures = departureTextures(for: bin)
                 let crossfade = activeBin != nil
@@ -192,7 +193,7 @@ final class ClientActorNode: SKNode {
         run(.sequence(actions), withKey: "clientExit")
     }
 
-    private func departureTextures(for bin: DepartureFacingBin) -> [SKTexture] {
+    private func departureTextures(for bin: ClientDepartureFacing) -> [SKTexture] {
         let expected = ActorLocomotionPacing.walkFramesPerCycle
         switch bin {
         case .northWest:
@@ -208,6 +209,19 @@ final class ClientActorNode: SKNode {
     private func startDepartureWalkCycle(_ textures: [SKTexture], crossfade: Bool) {
         guard textures.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
         textures.forEach { $0.filteringMode = .nearest }
+
+        // Keep stride phase across the NW→NE door handoff so the turn does not
+        // hard-restart mid-step (reads as haywire gait even with correct facing).
+        let frameDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame
+        let phase: Int
+        if crossfade, departureWalkPhaseOrigin > 0 {
+            let elapsed = Date.timeIntervalSinceReferenceDate - departureWalkPhaseOrigin
+            phase = Int(elapsed / frameDuration) % textures.count
+        } else {
+            phase = 0
+            departureWalkPhaseOrigin = Date.timeIntervalSinceReferenceDate
+        }
+        let ordered = ClientDepartureFacing.texturesStartingAtPhase(textures, phase: phase)
 
         if crossfade, let outgoing = body.texture {
             bodyHandoff.removeAllActions()
@@ -230,13 +244,13 @@ final class ClientActorNode: SKNode {
         }
 
         body.removeAction(forKey: "clientWalkCycle")
-        body.texture = textures[0]
+        body.texture = ordered[0]
         body.texture?.filteringMode = .nearest
         body.xScale = abs(OfficeInteriorScale.ActorDisplay.spriteScale)
         body.run(
             .repeatForever(.animate(
-                with: textures,
-                timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
+                with: ordered,
+                timePerFrame: frameDuration
             )),
             withKey: "clientWalkCycle"
         )
@@ -247,19 +261,6 @@ final class ClientActorNode: SKNode {
         bodyHandoff.isHidden = true
         bodyHandoff.alpha = 0
         bodyHandoff.texture = nil
-    }
-
-    /// Map a path segment to authored departure art without mirroring.
-    /// Western/northern bins use NW; eastern bins use NE. Heading and strip stay matched
-    /// so the internal-door turn never moonwalks (NW art while moving east).
-    private static func departureFacingBin(dx: CGFloat, dy: CGFloat) -> DepartureFacingBin {
-        let facing = ActorFacing.resolve(dx: dx, dy: dy, retaining: .northEast, hysteresis: 0)
-        switch facing {
-        case .northWest, .northNorthWest, .westNorthWest, .west, .westSouthWest, .north:
-            return .northWest
-        default:
-            return .northEast
-        }
     }
 
     private func startIdle() {
