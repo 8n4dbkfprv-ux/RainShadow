@@ -16,8 +16,8 @@ enum OfficeNavigationLayout {
         static let partitionLineA: CGFloat = 0.36
         static let partitionThicknessA: CGFloat = 0.005018169305952131
         static let partitionDoorB0: CGFloat = 0.078
-        static let partitionDoorB1: CGFloat = 0.17099999999999999
-        static let partitionReturnB1: CGFloat = 0.205
+        static let partitionDoorB1: CGFloat = 0.1865
+        static let partitionReturnB1: CGFloat = 0.2205
         static let wallThicknessPx: CGFloat = 12.0
         static let axisNW = CGVector(dx: -2206.0, dy: 923.0)
         static let axisNE = CGVector(dx: 1650.0, dy: 763.0)
@@ -38,6 +38,10 @@ enum OfficeNavigationLayout {
 
         /// Exterior leaf closed inside the shell's baked opening.
         static let entranceLeafDisplayScale: CGFloat = 0.2162
+        /// Exterior frame/casing ring (~6% larger than the leaf).
+        static let entranceFrameDisplayScale: CGFloat = 0.2171
+        /// Internal leaf fitted to the partition opening (sheared texture ≠ 1:1 env).
+        static let internalLeafDisplayScale: CGFloat = 0.3304
     }
 
     private static let authoredActorStart = CGPoint(
@@ -896,7 +900,7 @@ enum OfficeNavigationLayout {
         static let hallwayLight = CGPoint(x: 3_130, y: 1_664)
         static let lampPool = deskEnsemble
         /// Leaf swung 90° into the private office, hinged on the up-run jamb.
-        static let internalDoorLeaf = CGPoint(x: 1_693, y: 1_662)
+        static let internalDoorLeaf = CGPoint(x: 1_680, y: 1_652)
     }
 
     private static let authoredApproachPoints: [String: CGPoint] = [
@@ -923,7 +927,7 @@ enum OfficeNavigationLayout {
         CGPoint(x: 3_041, y: 1_728),
         CGPoint(x: 2_544, y: 1_709),
         CGPoint(x: 2_125, y: 1_708),
-        CGPoint(x: 1_780, y: 1_644),
+        CGPoint(x: 1_793, y: 1_639),
         CGPoint(x: 1_984, y: 1_366),
     ].map(OfficeInteriorScale.mapPoint)
 
@@ -937,7 +941,7 @@ enum OfficeNavigationLayout {
 
     static let internalDoorToClientPath: [CGPoint] = [
         CGPoint(x: 2_125, y: 1_708),
-        CGPoint(x: 1_780, y: 1_644),
+        CGPoint(x: 1_793, y: 1_639),
         CGPoint(x: 1_984, y: 1_366),
     ].map(OfficeInteriorScale.mapPoint)
 
@@ -1028,7 +1032,7 @@ enum OfficeNavigationLayout {
     /// in the internal doorway, and beside the waiting chair.
     static let authoredScaleReferenceStands: [CGPoint] = [
         CGPoint(x: 1_174, y: 1_216),
-        CGPoint(x: 1_780, y: 1_644),
+        CGPoint(x: 1_793, y: 1_639),
         CGPoint(x: 2_907, y: 1_570),
     ]
 

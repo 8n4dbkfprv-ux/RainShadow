@@ -150,7 +150,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             scale: smallPropScale
         )
 
-        // Doorway architecture is baked into the shell; only the leaf is a separate prop.
+        // Exterior doorway: character-scale frame shell + separate leaf prop.
+        addRearFixture(
+            named: "office_door_frame",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
+            scale: OfficeNavigationLayout.Architecture.entranceFrameDisplayScale
+        )
         officeDoor = addRearFixture(
             named: "office_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
@@ -1228,13 +1233,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         occlusionRoot.addChild(void)
     }
 
-    /// Frosted internal door, swung open into the private office. The sprite is
-    /// authored in shell art pixels, so it draws at the plate's own scale.
+    /// Frosted internal door, swung open into the private office. Scale fits the
+    /// sheared leaf into the partition opening (~1.9× adult), matching the exterior.
     private func addInternalOfficeDoor() {
         guard let door = addDepthProp(
             named: "office_internal_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf),
-            scale: OfficeInteriorScale.environment
+            scale: OfficeNavigationLayout.Architecture.internalLeafDisplayScale
         ) else { return }
         door.name = "office_internal_door_leaf"
     }

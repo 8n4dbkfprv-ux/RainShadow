@@ -330,9 +330,9 @@ def paint_partition_plate(mats: dict[str, np.ndarray]) -> tuple[Image.Image, dic
         WOOD * 0.9,
         grain=5.0,
     )
-    # Face casings (header + jambs) — part of the plate, not a separate prop.
-    casing_h = P.casing_h
-    jamb_w = max(7.0, rp.WALL_THICKNESS_PX * 0.6)
+    # Face casings (header + jambs) — readable door shell, not a punched hole.
+    casing_h = max(P.casing_h, 22.0)
+    jamb_w = max(12.0, rp.WALL_THICKNESS_PX * 1.05)
     quad(
         rgb,
         alpha,
@@ -632,7 +632,13 @@ def main() -> None:
 
     mask = build_cutaway_mask()
     cutaway = apply_mask(plate, mask)
-    leaf_master = MASTERS / "internal_door_leaf_gen_v01.png"
+    # Prefer lettered IG leaf pipeline; do not clobber with a blank constructed leaf.
+    lettered = GENERATED / "office_internal_door_leaf_lettered_master.png"
+    leaf_master = (
+        lettered
+        if lettered.exists()
+        else MASTERS / "internal_door_leaf_gen_v01.png"
+    )
     leaf = export_leaf(opening, leaf_master if leaf_master.exists() else None)
     void = paint_soft_void()
 
@@ -640,9 +646,12 @@ def main() -> None:
         (plate, "office_partition_wall.png"),
         (mask, "office_partition_cutaway_mask.png"),
         (cutaway, "office_partition_wall_cutaway.png"),
-        (leaf, "office_internal_door_leaf.png"),
         (void, "office_foreground_cutaway.png"),
     ]
+    if lettered.exists():
+        print("skipping office_internal_door_leaf.png — use process_office_door_lettered_v01.py")
+    else:
+        outputs.insert(3, (leaf, "office_internal_door_leaf.png"))
     for image, name in outputs:
         image.save(RUNTIME / name)
         image.save(GENERATED / name)

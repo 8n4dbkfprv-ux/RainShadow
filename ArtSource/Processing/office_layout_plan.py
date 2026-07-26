@@ -391,6 +391,10 @@ def emit() -> str:
     add("")
     add("        /// Exterior leaf closed inside the shell's baked opening.")
     add(f"        static let entranceLeafDisplayScale: CGFloat = {exterior_leaf_scale():.4f}")
+    add("        /// Exterior frame/casing ring (~6% larger than the leaf).")
+    add(f"        static let entranceFrameDisplayScale: CGFloat = {exterior_frame_scale():.4f}")
+    add("        /// Internal leaf fitted to the partition opening (sheared texture ≠ 1:1 env).")
+    add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -602,6 +606,35 @@ def exterior_leaf_scale() -> float:
     ys, _ = np.where(alpha > 16)
     content_h = float(ys.max() - ys.min() + 1)
     return rp.BAKED_DOORWAY_H * ENV / content_h
+
+
+def exterior_frame_scale() -> float:
+    """Door frame ring slightly larger than the leaf so casing reads around it."""
+    path = ART / "office_door_frame.png"
+    if not path.exists():
+        return exterior_leaf_scale() * 1.06
+    alpha = np.asarray(Image.open(path).convert("RGBA"))[:, :, 3]
+    ys, _ = np.where(alpha > 16)
+    content_h = float(ys.max() - ys.min() + 1)
+    return rp.BAKED_DOORWAY_H * ENV * 1.06 / max(content_h, 1.0)
+
+
+def internal_leaf_scale() -> float:
+    """Fit the sheared internal leaf into the partition opening (not raw env 1:1).
+
+    The NW-shear export makes the texture taller than `opening_h_px`. Drawing at
+    bare `environment` overshoots the doorway (~2.27× adult vs ~1.90× opening).
+    """
+    import json
+
+    opening_path = ART / "office_partition_opening.json"
+    with Image.open(ART / "office_internal_door_leaf.png") as im:
+        tex_h = float(im.size[1])
+    door_h = float(P.door_h)
+    if opening_path.exists():
+        meta = json.loads(opening_path.read_text(encoding="utf-8"))
+        door_h = float(meta.get("opening_h_px", door_h))
+    return door_h * ENV / max(tex_h, 1.0)
 
 
 CLIENT_PATH = [

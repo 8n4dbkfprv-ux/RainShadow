@@ -65,9 +65,10 @@ BODY_PLATE_H = 229.0
 # V8 classic BG:EE doorway/adult ≈ 1.94; measured opening on raised shell ≈ 394 px.
 BAKED_DOORWAY_H = 394.0
 
-# Exterior doorway opening width along AXIS_NE, measured from the shell plate
-# (~153 screen-x px of continuous dark hall ≈ 0.093 plan-b).
-EXTERIOR_DOOR_OPENING_B = 0.093
+# Exterior doorway opening width along AXIS_NE.
+# V8.1: widened so opening H/W ≈ 2.2 (classic door) at door_h 394 → ~179 screen-x px.
+# Prior 0.093 (~153 px) read as a stretched tall strip (H/W ≈ 2.57).
+EXTERIOR_DOOR_OPENING_B = 0.1085
 
 
 def nw_wall_top(x: float) -> float:
