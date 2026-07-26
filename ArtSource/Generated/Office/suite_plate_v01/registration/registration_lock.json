@@ -1,0 +1,36 @@
+{
+  "plate_size": [
+    4096,
+    2304
+  ],
+  "environment_scale": 0.395,
+  "camera_authored": [
+    1960,
+    1340
+  ],
+  "rear": [
+    2446.0,
+    200.0
+  ],
+  "axis_nw": [
+    -2206.0,
+    923.0
+  ],
+  "axis_ne": [
+    1650.0,
+    763.0
+  ],
+  "a_room": 1.0,
+  "b_room": 0.58,
+  "partition_a_line": 0.36,
+  "partition_thickness_a": 0.005018169305952131,
+  "b_door0": 0.078,
+  "b_door1": 0.17099999999999999,
+  "exterior_door_plan": [
+    0.004,
+    0.425
+  ],
+  "window_a": 0.556,
+  "frozen": true,
+  "note": "Do not change camera/axes after Stage 1 suite plate approval."
+}

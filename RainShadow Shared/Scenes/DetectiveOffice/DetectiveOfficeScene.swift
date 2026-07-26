@@ -57,19 +57,44 @@ final class DetectiveOfficeScene: BaseGameScene {
         let standardPropScale = OfficeInteriorScale.standardPropDisplayScale
         let smallPropScale = OfficeInteriorScale.smallPropDisplayScale
 
-        if let texture = GameArt.texture(named: "office_shell_base") {
+        // Stage 1+: one pre-rendered suite plate replaces shell + partition overlays.
+        let usingSuitePlate: Bool
+        if let texture = GameArt.texture(named: "office_suite_plate") {
             texture.filteringMode = .linear
             let background = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+            background.name = "office_suite_plate"
             background.anchorPoint = .zero
             background.position = OfficeInteriorScale.shellOrigin
             backgroundRoot.addChild(background)
+            usingSuitePlate = true
+        } else if let texture = GameArt.texture(named: "office_shell_base") {
+            texture.filteringMode = .linear
+            let background = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+            background.name = "office_shell_base"
+            background.anchorPoint = .zero
+            background.position = OfficeInteriorScale.shellOrigin
+            backgroundRoot.addChild(background)
+            usingSuitePlate = false
         } else {
             buildFallbackOffice()
+            usingSuitePlate = false
         }
 
         addOfficeAtmosphere()
         addWindowHighlightProp()
         addWindowRain()
+        addRecordsWallArt()
+        // Partition strips / cutaway mask / foreground void are obsolete in
+        // production when the suite plate is present. Opt back in only for
+        // legacy A/B: RAINSHADOW_LEGACY_PARTITION=1
+        let legacyPartition = ProcessInfo.processInfo.environment["RAINSHADOW_LEGACY_PARTITION"] == "1"
+        if !usingSuitePlate || legacyPartition {
+            addPartitionWall()
+            addForegroundCutaway()
+        }
+        addInternalOfficeDoor()
+        addScaleReferenceStandsIfRequested()
+        addArchitectureDebugOverlayIfRequested()
 
         // Radiator is its own prop — never bind it to the office.window hover texture.
         addRearFixture(
@@ -77,61 +102,143 @@ final class DetectiveOfficeScene: BaseGameScene {
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
             scale: standardPropScale
         )
+
+        // MARK: Records wall
         addDepthProp(
             named: "office_bookshelf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.bookshelf),
             scale: standardPropScale
         )
-        // Doorway architecture is baked into the shell; only the leaf is a separate prop.
-        officeDoor = addRearFixture(
-            named: "office_door_leaf",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
-            scale: standardPropScale
-        )
-        if let officeDoor {
-            registerHoverSprite(officeDoor, for: "office.door")
-        }
-
-        // Chair is separate furniture behind the desk — do not register for office.desk
-        // (it invented false under/behind-desk highlight geometry; see Image #2).
-        // Hidden while seated: NE rear-view cells already include the chair.
-        deskChairProp = addDepthProp(
-            named: "office_desk_chair",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair),
-            scale: OfficeInteriorScale.seatingPropDisplayScale,
-            bias: -70
-        )
-        deskChairProp?.isHidden = true
         addFloorContactShadow(
             named: "office_cabinet_floor_shadow",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
             scale: standardPropScale
         )
+        // Open-drawer cabinet is the interactive files hotspot; closed twin beside it.
         addDepthProp(
-            named: "office_filing_cabinet",
+            named: "office_filing_cabinet_open",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
             scale: standardPropScale
+        )
+        // Closed twin beside the open-drawer cabinet (distinct art, same scale).
+        addDepthProp(
+            named: "office_filing_cabinet",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinetB),
+            scale: standardPropScale
+        )
+        addDepthProp(
+            named: "office_safe",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.safe),
+            scale: smallPropScale
+        )
+        addDepthProp(
+            named: "office_archive_box_b",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxOnCabinet),
+            scale: smallPropScale * 0.9,
+            bias: 40
+        )
+        addDepthProp(
+            named: "office_archive_stack",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveStackOnCabinet),
+            scale: smallPropScale,
+            bias: 45
         )
         addDepthProp(
             named: "office_archive_box_a",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxA),
             scale: smallPropScale
         )
-        addDepthProp(
-            named: "office_archive_box_b",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxB),
-            scale: smallPropScale
+
+        // Doorway architecture is baked into the shell; only the leaf is a separate prop.
+        officeDoor = addRearFixture(
+            named: "office_door_leaf",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
+            scale: OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         )
-        addDepthProp(
-            named: "office_archive_stack",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveStack),
-            scale: smallPropScale
-        )
+        if let officeDoor {
+            registerHoverSprite(officeDoor, for: "office.door")
+            addDoorAgencyLettering(to: officeDoor)
+        }
+
+        // MARK: Entrance / waiting nook (rack + two chairs + table)
         addDepthProp(
             named: "office_coat_rack",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.coatRack),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.coatRackDisplayScale
         )
+        addDepthProp(
+            named: "office_umbrella_stand",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.umbrellaStand),
+            scale: smallPropScale
+        )
+        addDepthProp(
+            named: "office_waiting_chair_a",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingChairA),
+            scale: OfficeInteriorScale.waitingChairDisplayScale
+        )
+        addDepthProp(
+            named: "office_waiting_table",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingTable),
+            scale: OfficeInteriorScale.waitingTableDisplayScale
+        )
+        addDepthProp(
+            named: "office_waiting_chair_b",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingChairB),
+            scale: OfficeInteriorScale.waitingChairDisplayScale * 0.96
+        )
+        addDepthProp(
+            named: "office_newspaper",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.newspaper),
+            scale: OfficeInteriorScale.pocketPropDisplayScale,
+            bias: -20
+        )
+        addDepthProp(
+            named: "office_waiting_ashtray",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingAshtray),
+            scale: OfficeInteriorScale.pocketPropDisplayScale,
+            bias: -15
+        )
+
+        // MARK: Personal corner (west wall, own group near desk)
+        addDepthProp(
+            named: "office_personal_sideboard",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalSideboard),
+            scale: OfficeInteriorScale.standardPropDisplayScale * 0.92,
+            bias: -10
+        )
+        addDepthProp(
+            named: "office_hidden_bottle",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalBottle),
+            scale: OfficeInteriorScale.pocketPropDisplayScale,
+            bias: -20
+        )
+        addDepthProp(
+            named: "office_personal_glass",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalGlass),
+            scale: OfficeInteriorScale.pocketPropDisplayScale,
+            bias: -25
+        )
+        addDepthProp(
+            named: "office_personal_fan",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalFan),
+            scale: OfficeInteriorScale.standingFanDisplayScale,
+            bias: -5
+        )
+        addDepthProp(
+            named: "office_personal_washbasin",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalWashbasin),
+            scale: OfficeInteriorScale.standardPropDisplayScale * 0.82,
+            bias: -8
+        )
+
+        // MARK: Desk cluster
+        deskChairProp = addDepthProp(
+            named: "office_desk_chair",
+            at: OfficeNavigationLayout.emptyDeskChairWorldPosition,
+            scale: OfficeInteriorScale.seatingPropDisplayScale,
+            bias: -40
+        )
+        deskChairProp?.isHidden = true
         addWornRug()
         addDepthProp(
             named: "office_visitor_armchair",
@@ -139,27 +246,14 @@ final class DetectiveOfficeScene: BaseGameScene {
             scale: OfficeInteriorScale.visitorArmchairDisplayScale
         )
         addDepthProp(
+            named: "office_visitor_armchair",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchairB),
+            scale: OfficeInteriorScale.visitorArmchairDisplayScale * 0.96
+        )
+        addDepthProp(
             named: "office_wastebasket",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wastebasket),
             scale: smallPropScale
-        )
-        addDepthProp(
-            named: "office_floor_trash_a",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashA),
-            scale: smallPropScale,
-            bias: -40
-        )
-        addDepthProp(
-            named: "office_floor_trash_b",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashB),
-            scale: smallPropScale,
-            bias: -40
-        )
-        addDepthProp(
-            named: "office_floor_trash_c",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashC),
-            scale: smallPropScale,
-            bias: -40
         )
         let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         let deskScale = OfficeInteriorScale.deskDisplayScale
@@ -177,12 +271,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             registerHoverSprite(deskBare, for: "office.desk")
         }
         addDeskItems(at: deskPosition, scale: deskScale)
-        addDepthProp(
-            named: "office_hidden_bottle",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.hiddenBottle),
-            scale: OfficeInteriorScale.pocketPropDisplayScale,
-            bias: -120
-        )
 
         detective.position = OfficeNavigationLayout.actorStart
         updateDetectiveDepth()
@@ -256,6 +344,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         hudRoot.addChild(journalOverlay)
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+        addNodePositionMarkersIfRequested()
     }
 
     override func sceneDidBecomeReady() {
@@ -593,8 +682,9 @@ final class DetectiveOfficeScene: BaseGameScene {
                 updateDepth(of: item)
             }
         }
-        // Avoid a second empty chair beside the baked-in seated prop / stand-up strip.
-        deskChairProp?.isHidden = detective.isDeskRegistered
+        // Hide only while the NE atlas still bakes a chair; late stand-up / egress
+        // reveal the matching empty prop so the kneehole never goes empty.
+        deskChairProp?.isHidden = detective.shouldHideEmptyDeskChair
     }
 
     private func startCaseIntroduction() {
@@ -875,9 +965,290 @@ final class DetectiveOfficeScene: BaseGameScene {
         window.texture?.filteringMode = .linear
         rearFixtureRoot.addChild(window)
         registerHoverSprite(window, for: "office.window")
+
+        if let blindsTex = GameArt.texture(named: "office_window_blinds") {
+            let blinds = SKSpriteNode(texture: blindsTex)
+            blinds.name = "office_window_blinds"
+            blinds.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowBlinds)
+            blinds.zRotation = OfficeNavigationLayout.AuthoredPlacement.windowRotation
+            blinds.setScale(OfficeInteriorScale.windowDisplayScale * 0.92)
+            blinds.alpha = 0.88
+            blinds.texture?.filteringMode = .linear
+            blinds.zPosition = window.zPosition + 1
+            rearFixtureRoot.addChild(blinds)
+        }
     }
 
-    /// Floor wear, painted lamp/window light, and cool edge vignette.
+    /// Dense records-wall art — board, map, and photos clustered (not evenly spaced).
+    private func addRecordsWallArt() {
+        let wallScale = OfficeInteriorScale.standardPropDisplayScale * 0.72
+        let wallProps: [(String, CGPoint)] = [
+            ("office_case_board", OfficeNavigationLayout.AuthoredPlacement.caseBoard),
+            ("office_wall_city_map", OfficeNavigationLayout.AuthoredPlacement.wallCityMap),
+            ("office_wall_photos", OfficeNavigationLayout.AuthoredPlacement.wallPhotos)
+        ]
+        for (name, authored) in wallProps {
+            guard let texture = GameArt.texture(named: name) else { continue }
+            let node = SKSpriteNode(texture: texture)
+            node.name = name
+            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            node.position = OfficeInteriorScale.mapPoint(authored)
+            node.setScale(wallScale)
+            node.texture?.filteringMode = .linear
+            rearFixtureRoot.addChild(node)
+        }
+    }
+
+    /// Full-height authored partition plate, sliced for depth sort.
+    ///
+    /// Cutaway is a separate visibility mask applied offline into
+    /// `office_partition_wall_cutaway` (default). Set `RAINSHADOW_PARTITION_MASK=0`
+    /// to load the unmasked full-height plate for review.
+    private func addPartitionWall() {
+        let maskOff = ProcessInfo.processInfo.environment["RAINSHADOW_PARTITION_MASK"] == "0"
+        let textureName = maskOff ? "office_partition_wall" : "office_partition_wall_cutaway"
+        guard let texture = GameArt.texture(named: textureName)
+            ?? GameArt.texture(named: "office_partition_wall") else { return }
+        texture.filteringMode = .linear
+
+        let plate = OfficeInteriorScale.sourceArtSize
+        let geometry = OfficeNavigationLayout.Architecture.self
+        let sliceWidth: CGFloat = 64
+        var left = geometry.partitionPlateX0
+
+        while left < geometry.partitionPlateX1 {
+            let width = min(sliceWidth, geometry.partitionPlateX1 - left)
+            let base = geometry.partitionPlateBaseY(atPlateX: left + width / 2)
+            // The painted run climbs across each slice, so the window has to carry
+            // half that climb at both ends or the cap comes out stair-stepped.
+            let climb = geometry.partitionPlateBaseY(atPlateX: left + width)
+                - geometry.partitionPlateBaseY(atPlateX: left)
+            let headroom = climb / 2 + 6
+            let bottom = base + 24 + headroom
+            let top = base - geometry.partitionPlateFaceHeight
+                - geometry.partitionPlateCapHeight - headroom
+            let size = CGSize(width: width, height: bottom - top)
+            let crop = CGRect(
+                x: left / plate.width,
+                y: 1 - bottom / plate.height,
+                width: width / plate.width,
+                height: size.height / plate.height
+            )
+            let slice = SKSpriteNode(
+                texture: SKTexture(rect: crop, in: texture),
+                size: OfficeInteriorScale.mapSize(size)
+            )
+            slice.name = "office_partition_wall"
+            slice.anchorPoint = CGPoint(x: 0.5, y: 0)
+            slice.position = OfficeInteriorScale.mapPoint(
+                CGPoint(x: left + width / 2, y: plate.height - bottom)
+            )
+            updateDepth(of: slice)
+            depthWorldRoot.addChild(slice)
+            left += sliceWidth
+        }
+    }
+
+    /// QA hook: mark every placed node's own position, so a capture shows whether
+    /// the art sits on the point the layout authored for it.
+    private func addNodePositionMarkersIfRequested() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_QA_MARKERS"] == "1" else { return }
+        for root in [rearFixtureRoot, depthWorldRoot] {
+            for node in root.children {
+                let cross = SKShapeNode()
+                let path = CGMutablePath()
+                path.move(to: CGPoint(x: -9, y: 0))
+                path.addLine(to: CGPoint(x: 9, y: 0))
+                path.move(to: CGPoint(x: 0, y: -9))
+                path.addLine(to: CGPoint(x: 0, y: 9))
+                cross.path = path
+                cross.strokeColor = SKColor(red: 1, green: 0.2, blue: 0.85, alpha: 1)
+                cross.lineWidth = 2
+                cross.position = node.position
+                debugRoot.addChild(cross)
+            }
+        }
+    }
+
+    /// QA hook: park idle stand-ins behind the desk, in the internal doorway,
+    /// and beside the waiting chair for architecture visibility review.
+    private func addScaleReferenceStandsIfRequested() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_SCALE_RIG"] == "1",
+              let texture = GameArt.texture(named: "voss_standing_idle_s_00") else { return }
+        for position in OfficeNavigationLayout.scaleReferenceStands {
+            let stand = SKSpriteNode(texture: texture, size: OfficeInteriorScale.ActorDisplay.spriteDisplaySize)
+            stand.name = "qa_scale_reference_stand"
+            stand.anchorPoint = CGPoint(x: 0.5, y: 40 / 256)
+            stand.position = position
+            stand.texture?.filteringMode = .nearest
+            updateDepth(of: stand)
+            depthWorldRoot.addChild(stand)
+        }
+    }
+
+    /// QA overlay: shell axes, wall thickness and doorway footprint for architecture review.
+    private func addArchitectureDebugOverlayIfRequested() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_MODE"] == "architecture_debug"
+        else { return }
+
+        let arch = OfficeNavigationLayout.Architecture.self
+        let root = SKNode()
+        root.name = "qa_architecture_debug"
+        root.zPosition = 9_000
+        debugRoot.addChild(root)
+
+        func mapAuthored(_ point: CGPoint) -> CGPoint {
+            OfficeInteriorScale.mapPoint(point)
+        }
+
+        func line(from a: CGPoint, to b: CGPoint, color: SKColor, width: CGFloat = 2) {
+            let path = CGMutablePath()
+            path.move(to: a)
+            path.addLine(to: b)
+            let node = SKShapeNode(path: path)
+            node.strokeColor = color
+            node.lineWidth = width
+            node.glowWidth = 0
+            root.addChild(node)
+        }
+
+        // Shell axes from the measured rear corner (authored y-up).
+        let rear = arch.rearCorner
+        let nwEnd = CGPoint(x: rear.x + arch.axisNW.dx * 0.55, y: rear.y - arch.axisNW.dy * 0.55)
+        let neEnd = CGPoint(x: rear.x + arch.axisNE.dx * 0.55, y: rear.y - arch.axisNE.dy * 0.55)
+        line(from: mapAuthored(rear), to: mapAuthored(nwEnd), color: SKColor(red: 0.2, green: 0.85, blue: 1, alpha: 0.95), width: 3)
+        line(from: mapAuthored(rear), to: mapAuthored(neEnd), color: SKColor(red: 1, green: 0.55, blue: 0.15, alpha: 0.95), width: 3)
+
+        // Partition face + back edges (thickness), both parallel to AXIS_NE.
+        let aFace = arch.partitionLineA + arch.partitionThicknessA
+        let aBack = arch.partitionLineA
+        func planAuthored(a: CGFloat, b: CGFloat) -> CGPoint {
+            // Match office_room_plan.authored: REAR + a*NW + b*NE, y flipped.
+            let x = 2_446 + a * arch.axisNW.dx + b * arch.axisNE.dx
+            let yDown = 200 + a * arch.axisNW.dy + b * arch.axisNE.dy
+            return CGPoint(x: x, y: 2_304 - yDown)
+        }
+        let face0 = mapAuthored(planAuthored(a: aFace, b: -0.01))
+        let face1 = mapAuthored(planAuthored(a: aFace, b: 0.58))
+        let back0 = mapAuthored(planAuthored(a: aBack, b: -0.01))
+        let back1 = mapAuthored(planAuthored(a: aBack, b: 0.58))
+        line(from: face0, to: face1, color: SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.9), width: 2)
+        line(from: back0, to: back1, color: SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.55), width: 1.5)
+        line(from: face0, to: back0, color: SKColor(red: 1, green: 0.3, blue: 0.7, alpha: 0.9), width: 2)
+        line(from: face1, to: back1, color: SKColor(red: 1, green: 0.3, blue: 0.7, alpha: 0.55), width: 1.5)
+
+        // Doorway footprint (threshold rectangle in plan).
+        let d0f = mapAuthored(planAuthored(a: aFace, b: arch.partitionDoorB0))
+        let d1f = mapAuthored(planAuthored(a: aFace, b: arch.partitionDoorB1))
+        let d0b = mapAuthored(planAuthored(a: aBack, b: arch.partitionDoorB0))
+        let d1b = mapAuthored(planAuthored(a: aBack, b: arch.partitionDoorB1))
+        let doorPath = CGMutablePath()
+        doorPath.move(to: d0f)
+        doorPath.addLine(to: d1f)
+        doorPath.addLine(to: d1b)
+        doorPath.addLine(to: d0b)
+        doorPath.closeSubpath()
+        let door = SKShapeNode(path: doorPath)
+        door.strokeColor = SKColor(red: 0.3, green: 1, blue: 0.45, alpha: 0.95)
+        door.fillColor = SKColor(red: 0.3, green: 1, blue: 0.45, alpha: 0.18)
+        door.lineWidth = 2.5
+        root.addChild(door)
+
+        // Full-height → cutaway mask transition mark.
+        let cut = mapAuthored(planAuthored(a: aFace, b: arch.partitionReturnB1))
+        let cutMark = SKShapeNode(circleOfRadius: 6)
+        cutMark.position = cut
+        cutMark.strokeColor = .white
+        cutMark.fillColor = SKColor(red: 1, green: 0.2, blue: 0.2, alpha: 0.85)
+        cutMark.lineWidth = 1.5
+        root.addChild(cutMark)
+
+        // Collision footprint (nav solids) — magenta outlines, separate from visuals.
+        for rect in OfficeNavigationLayout.authoredPartitionSegments {
+            let mapped = OfficeInteriorScale.mapRect(rect)
+            let box = SKShapeNode(rect: CGRect(origin: .zero, size: mapped.size))
+            box.position = mapped.origin
+            box.strokeColor = SKColor(red: 1, green: 0.2, blue: 0.85, alpha: 0.9)
+            box.fillColor = SKColor(red: 1, green: 0.2, blue: 0.85, alpha: 0.12)
+            box.lineWidth = 1.5
+            root.addChild(box)
+        }
+
+        let maskState = ProcessInfo.processInfo.environment["RAINSHADOW_PARTITION_MASK"] == "0" ? "OFF" : "ON"
+        let label = SKLabelNode(text: String(
+            format: "mask=%@  thickness=%.0fpx  door b=[%.3f,%.3f]  cut@%.3f  collision cells=%d",
+            maskState,
+            arch.wallThicknessPx,
+            arch.partitionDoorB0,
+            arch.partitionDoorB1,
+            arch.partitionReturnB1,
+            OfficeNavigationLayout.authoredPartitionSegments.count
+        ))
+        label.fontName = "Menlo-Bold"
+        label.fontSize = 13
+        label.fontColor = SKColor(white: 0.95, alpha: 0.95)
+        label.horizontalAlignmentMode = .left
+        label.verticalAlignmentMode = .top
+        label.zPosition = 1
+        if let camera = camera {
+            label.position = CGPoint(x: camera.position.x - size.width * camera.xScale * 0.48,
+                                     y: camera.position.y + size.height * camera.yScale * 0.46)
+        } else {
+            label.position = CGPoint(x: 24, y: -24)
+        }
+        root.addChild(label)
+    }
+
+    /// Soft void past the design boundary only — no kerb rails or end strips.
+    private func addForegroundCutaway() {
+        guard let texture = GameArt.texture(named: "office_foreground_cutaway") else { return }
+        let void = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+        void.name = "office_foreground_cutaway"
+        void.anchorPoint = .zero
+        void.position = OfficeInteriorScale.shellOrigin
+        void.texture?.filteringMode = .linear
+        void.zPosition = 2
+        occlusionRoot.addChild(void)
+    }
+
+    /// Frosted internal door, swung open into the private office. The sprite is
+    /// authored in shell art pixels, so it draws at the plate's own scale.
+    private func addInternalOfficeDoor() {
+        guard let door = addDepthProp(
+            named: "office_internal_door_leaf",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf),
+            scale: OfficeInteriorScale.environment
+        ) else { return }
+        door.name = "office_internal_door_leaf"
+        addDoorAgencyLettering(to: door)
+    }
+
+    /// Deterministic frosted agency lettering on the door glass (not Image-Generated).
+    private func addDoorAgencyLettering(to door: SKSpriteNode) {
+        let title = SKLabelNode(text: "H. VOSS")
+        title.name = "office_door_lettering_title"
+        title.fontName = "HelveticaNeue-Bold"
+        title.fontSize = 11
+        title.fontColor = SKColor(white: 0.92, alpha: 0.55)
+        title.verticalAlignmentMode = .center
+        title.horizontalAlignmentMode = .center
+        title.position = CGPoint(x: 0, y: door.size.height * 0.22)
+        title.zPosition = 2
+        door.addChild(title)
+
+        let subtitle = SKLabelNode(text: "PRIVATE INVESTIGATOR")
+        subtitle.name = "office_door_lettering_subtitle"
+        subtitle.fontName = "HelveticaNeue"
+        subtitle.fontSize = 7
+        subtitle.fontColor = SKColor(white: 0.88, alpha: 0.45)
+        subtitle.verticalAlignmentMode = .center
+        subtitle.horizontalAlignmentMode = .center
+        subtitle.position = CGPoint(x: 0, y: door.size.height * 0.14)
+        subtitle.zPosition = 2
+        door.addChild(subtitle)
+    }
+
+    /// Floor wear, warm lamp key, cool blind-striped window fill, hallway slit, vignette.
     private func addOfficeAtmosphere() {
         if let wear = GameArt.texture(named: "office_floor_wear_decal") {
             let node = SKSpriteNode(texture: wear)
@@ -896,10 +1267,62 @@ final class DetectiveOfficeScene: BaseGameScene {
             spill.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             spill.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowSpill)
             spill.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.1)
-            spill.alpha = 0.45
+            spill.alpha = 0.32
             spill.blendMode = .add
             spill.texture?.filteringMode = .linear
             floorEffectRoot.addChild(spill)
+        }
+
+        if let stripesTex = GameArt.texture(named: "office_light_blind_stripes") {
+            let stripes = SKSpriteNode(texture: stripesTex)
+            stripes.name = "office_light_blind_stripes"
+            stripes.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            stripes.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.blindStripes)
+            // Rake cool bands from the window across the rug and desk cluster.
+            stripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.28)
+            stripes.alpha = 0.55
+            stripes.blendMode = .add
+            stripes.texture?.filteringMode = .linear
+            floorEffectRoot.addChild(stripes)
+
+            // Soft wall-face stripes, dimmer than the floor cast.
+            let wallStripes = SKSpriteNode(texture: stripesTex)
+            wallStripes.name = "office_light_blind_stripes_wall"
+            wallStripes.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            wallStripes.position = OfficeInteriorScale.mapPoint(
+                CGPoint(x: OfficeNavigationLayout.AuthoredPlacement.window.x + 40,
+                        y: OfficeNavigationLayout.AuthoredPlacement.window.y - 180)
+            )
+            wallStripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.72)
+            wallStripes.alpha = 0.28
+            wallStripes.blendMode = .add
+            wallStripes.zRotation = -0.18
+            wallStripes.texture?.filteringMode = .linear
+            rearFixtureRoot.addChild(wallStripes)
+        }
+
+        if let fanTex = GameArt.texture(named: "office_shadow_ceiling_fan") {
+            let fan = SKSpriteNode(texture: fanTex)
+            fan.name = "office_shadow_ceiling_fan"
+            fan.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            fan.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
+            fan.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.4)
+            fan.alpha = 0.28
+            fan.texture?.filteringMode = .linear
+            floorEffectRoot.addChild(fan)
+            fan.run(.repeatForever(.rotate(byAngle: .pi * 2, duration: 12.0)))
+        }
+
+        if let hallwayTex = GameArt.texture(named: "office_light_hallway") {
+            let hallway = SKSpriteNode(texture: hallwayTex)
+            hallway.name = "office_light_hallway"
+            hallway.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            hallway.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.hallwayLight)
+            hallway.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.85)
+            hallway.alpha = 0.42
+            hallway.blendMode = .add
+            hallway.texture?.filteringMode = .linear
+            floorEffectRoot.addChild(hallway)
         }
 
         if let poolTex = GameArt.texture(named: "office_light_lamp_pool") {
@@ -908,7 +1331,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             pool.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             pool.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.lampPool)
             pool.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.95)
-            pool.alpha = 0.55
+            pool.alpha = 0.58
             pool.blendMode = .add
             pool.texture?.filteringMode = .linear
             floorEffectRoot.addChild(pool)
@@ -950,14 +1373,16 @@ final class DetectiveOfficeScene: BaseGameScene {
         floorEffectRoot.addChild(shadow)
     }
 
-    /// Thin worn rug as a floor decal under the visitor approach / armchair.
+    /// One large burgundy rug anchoring the full desk + chair island.
     private func addWornRug() {
-        guard let texture = GameArt.texture(named: "office_worn_rug") else { return }
+        guard let texture = GameArt.texture(named: "office_worn_rug_burgundy")
+            ?? GameArt.texture(named: "office_worn_rug") else { return }
         let rug = SKSpriteNode(texture: texture)
         rug.name = "office_worn_rug"
         rug.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         rug.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wornRug)
-        rug.setScale(OfficeInteriorScale.floorDecalDisplayScale)
+        // Matches compose_office_redesign_preview.RUG_FACTOR so art and game agree.
+        rug.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.45)
         rug.texture?.filteringMode = .linear
         floorEffectRoot.addChild(rug)
     }
@@ -1054,15 +1479,19 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// leaks into loose props. Native content sizes reproduce the tiny BG-era room scale.
     private func addDeskItems(at deskPosition: CGPoint, scale: CGFloat) {
         // Canvas centers for the NE-facing V4 top plane (visitor face toward door).
+        // Working detective layout: lamp/phone on Voss's SW writing side; papers +
+        // mug/ashtray/pencil center; files + photo toward the NE visitor/door side.
         let itemCenters: [(name: String, center: CGPoint, hotspotID: String?)] = [
-            ("office_desk_papers", CGPoint(x: 450, y: 240), nil),
-            ("office_desk_files", CGPoint(x: 280, y: 290), "office.files"),
-            ("office_desk_lamp", CGPoint(x: 680, y: 150), nil),
-            ("office_desk_phone", CGPoint(x: 620, y: 230), "office.phone"),
-            ("office_desk_mug", CGPoint(x: 400, y: 300), nil),
-            ("office_desk_ashtray", CGPoint(x: 510, y: 310), nil),
-            ("office_framed_photo", CGPoint(x: 300, y: 220), nil),
-            ("office_pencil_tray", CGPoint(x: 480, y: 295), nil)
+            ("office_desk_lamp", CGPoint(x: 280, y: 190), nil),
+            ("office_desk_typewriter", CGPoint(x: 360, y: 230), nil),
+            ("office_desk_phone", CGPoint(x: 430, y: 255), "office.phone"),
+            ("office_desk_notebook", CGPoint(x: 500, y: 300), nil),
+            ("office_desk_papers", CGPoint(x: 540, y: 250), nil),
+            ("office_pencil_tray", CGPoint(x: 580, y: 310), nil),
+            ("office_desk_mug", CGPoint(x: 480, y: 330), nil),
+            ("office_desk_ashtray", CGPoint(x: 600, y: 325), nil),
+            ("office_desk_files", CGPoint(x: 680, y: 265), "office.files"),
+            ("office_framed_photo", CGPoint(x: 720, y: 195), nil)
         ]
         let deskCanvas = CGSize(width: 932, height: 780)
         let deskAnchor = CGPoint(x: 0.5, y: 0.04)

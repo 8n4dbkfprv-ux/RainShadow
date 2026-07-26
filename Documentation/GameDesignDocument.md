@@ -458,14 +458,12 @@ No title card should obscure the best establishing composition. If a title is us
 
 The office is a single isometric room with enough floor for a short path loop. Required story zones:
 
-- **Desk island**: Harlan Voss, battered desk, chair, lamp, phone, mug, ashtray, files, pencil, unpaid notices.
-- **Rain window**: visible animated rain, condensation, intermittent water trail, cool spill on the floor.
-- **Door**: visibly usable, worn jamb, opaque hall beyond for M01.
-- **Case storage**: dented filing cabinet and leaning archive boxes.
-- **Personal residue**: coat hook, old photograph or framed clipping turned partly away, wastebasket, bottle hidden rather than showcased.
-- **Negative space**: a navigable floor wedge that makes walking and depth sorting visible.
+- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, black phone, typewriter, notebook, mug, ashtray, case folders, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
+- **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and radiator below; cool blind-striped spill on the floor.
+- **Zone 3 — Entrance and waiting**: door with coat stand and umbrella stand beside it; two mismatched waiting chairs and a small table (newspaper + ashtray) against the right wall; narrow worn runner from the entrance toward the desk; doorway kept clear of boxes.
+- **Negative space**: a navigable floor wedge in the lower foreground; warm amber lamp key against cold window light and a narrow warm hallway slit through the open door.
 
-The room should feel cluttered but compositionally controlled. The lamp, Voss silhouette, window, and door must remain readable at phone scale.
+The room should feel used and cramped but compositionally controlled. Every major prop belongs to a recognizable cluster. The lamp, Voss silhouette, window, and door must remain readable at phone scale.
 
 ### 9.4 Interior beat sheet
 

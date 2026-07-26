@@ -132,6 +132,8 @@ The door leaf and frame must match projection, hinge position, texture, damage, 
 | P0 | `office_chair_floor_shadow` | 512×256 | Yes | Chair-only floor/contact shadow. |
 | P0 | `office_desk_lamp` | 217×262 | Yes | Worn metal lamp with warm lit shade; 250px content height before the shared 0.1904 desk display scale. |
 | P0 | `office_desk_phone` | 210×154 | Yes | Period wired desk telephone and readable coiled cord; 142px content height. |
+| P1 | `office_desk_typewriter` | 280×200 | Yes | Black 1940s office typewriter with paper; desk-scale clutter, no legible text. |
+| P1 | `office_desk_notebook` | 160×120 | Yes | Closed case notebook on the writing surface. |
 | P0 | `office_desk_mug` | 104×135 | Yes | Chipped ceramic mug and dark coffee, no logo or text; 123px content height. |
 | P0 | `office_desk_ashtray` | 115×85 | Yes | Battered metal ashtray with old stubs and ash; 73px content height. |
 | P0 | `office_desk_files` | 240×190 | Yes | Dog-eared folders and worn ledger; no legible generated text; 178px content height. |
@@ -145,14 +147,27 @@ The door leaf and frame must match projection, hinge position, texture, damage, 
 |---|---|---:|---|---|
 | P0 | `office_filing_cabinet` | 512×768 | Yes | Dented tall metal cabinet, closed drawers, original label shapes with no legible text. |
 | P0 | `office_cabinet_floor_shadow` | 512×384 | Yes | Cabinet-only floor shadow. |
+| P1 | `office_safe` | 256×280 | Yes | Small floor safe beside the filing cabinet. |
 | P1 | `office_archive_box_a` | 384×384 | Yes | Closed, worn archive box with tied folder; no legible text. |
 | P1 | `office_archive_box_b` | 384×384 | Yes | Sagging/open variant with paper edges; designed to stack near `a`. |
-| P1 | `office_wastebasket` | 256×256 | Yes | Dented wire or metal wastebasket with crumpled paper. |
-| P1 | `office_coat_stand` | 384×768 | Yes | Leaning coat stand with an old hat/scarf, not the detective's active trench coat. |
+| P1 | `office_wastebasket` | 256×256 | Yes | Dented painted-metal 1940s office wastebasket with crumpled paper (V2 solo). |
+| P1 | `office_coat_stand` | 384×768 | Yes | Leaning coat stand with an old hat/scarf, not the detective's active trench coat. Runtime ID ships as `office_coat_rack`. |
+| P1 | `office_umbrella_stand` | 160×220 | Yes | Umbrella stand at the coat-rack foot with two closed umbrellas. |
+| P1 | `office_waiting_chair_a` | 220×280 | Yes | Straight wood waiting chair (entrance cluster). |
+| P1 | `office_waiting_chair_b` | 220×280 | Yes | Mismatched upholstered waiting chair. |
+| P1 | `office_waiting_table` | 200×160 | Yes | Small side table between waiting chairs. |
+| P1 | `office_newspaper` | 140×100 | Yes | Folded newspaper on the waiting table; no legible masthead. |
+| P1 | `office_waiting_ashtray` | 115×85 | Yes | Second ashtray for the waiting table. |
+| P1 | `office_entrance_runner` | 768×384 | Yes | Narrow worn runner from door toward desk; non-blocking floor decal. |
+| P1 | `office_case_board` | 320×280 | Yes | Cork case board with pinned notes and string; no legible text. |
+| P1 | `office_wall_city_map` | 280×240 | Yes | Framed wall city map (abstract streets). |
+| P1 | `office_framed_licence` | 160×180 | Yes | Framed private investigator licence; abstract seals/lines only. |
+| P1 | `office_wall_photos` | 220×160 | Yes | Cluster of pinned/framed wall photographs. |
+| P1 | `office_window_blinds` | 180×220 | Yes | Venetian blinds registered to the window insert. |
 | P0 | `office_radiator` | 640×384 | Yes | Chipped cast-iron radiator and short visible pipe. |
 | P1 | `office_hidden_bottle` | 128×256 | Yes | Partly empty unlabeled bottle, staged below/behind desk rather than glamorized. |
 | P1 | `office_framed_photo` | 256×256 | Yes | Small turned/obscured personal photo; faces need not be legible at play scale. |
-| P1 | `office_worn_rug` | 1024×768 | Yes | Thin worn rug/floor decal, no contact shadow, low contrast. |
+| P1 | `office_worn_rug` | 1024×768 | Yes | Thin worn rug/floor decal under the desk island, no contact shadow, low contrast. |
 | P1 | `office_floor_trash_a` | 256×192 | Yes | Crumpled page/envelope cluster. |
 | P1 | `office_floor_trash_b` | 256×192 | Yes | Matchbook/string/paper cluster with no brands. |
 | P1 | `office_floor_trash_c` | 256×192 | Yes | Small alternate cluster for composition balance. |
@@ -163,6 +178,9 @@ The door leaf and frame must match projection, hinge position, texture, damage, 
 |---|---|---:|---|---|---|
 | P0 | `office_light_lamp_pool` | 1536×1024 | Yes | alpha/add | Warm irregular desk/floor pool with soft dust and strong falloff. |
 | P0 | `office_light_window_spill` | 1536×1024 | Yes | alpha/add | Cool broken window light on floor/wall, aligned to frame. |
+| P1 | `office_light_blind_stripes` | 1536×1024 | Yes | alpha/add | Cool blue-grey Venetian-blind stripe spill on floor/furniture. |
+| P1 | `office_light_hallway` | 768×512 | Yes | alpha/add | Narrow warm hallway-light rectangle through the open door. |
+| P1 | `office_shadow_ceiling_fan` | 1536×1024 | Yes | alpha | Soft ceiling-fan blade shadow; scene may rotate slowly. |
 | P0 | `office_shadow_vignette` | 3072×2048 | Yes | multiply/alpha | Registered edge shadow and value grouping; must not crush hotspot silhouettes. |
 
 The final room is composited from shell + registered overlays + independent props in SpriteKit. A flattened reference composite is exported for QA but is never shipped as the interactive office.
@@ -204,7 +222,7 @@ Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw
 
 Required stored character texture frames: **140**. Required displayed facing/frame combinations, including runtime mirroring: **224**.
 
-The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, and eight rear three-quarter northeast departure phases. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
+The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, eight rear three-quarter northeast departure phases, and eight rear three-quarter northwest departure phases (chair→door leg). Exit playback selects NE vs NW strips from path-segment facing without mirroring. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
 
 Filename examples:
 
@@ -215,6 +233,7 @@ voss_standing_idle_s_00.png ... voss_standing_idle_n_03.png
 voss_walk_s_00.png ... voss_walk_n_07.png
 lila_arrival_sw_00.png ... lila_arrival_sw_08.png
 lila_departure_ne_00.png ... lila_departure_ne_07.png
+lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
 Atlases (shipped V6 set):

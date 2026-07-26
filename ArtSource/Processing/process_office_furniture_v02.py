@@ -14,7 +14,12 @@ RUNTIME = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 
 FURNITURE_SHEET = GEN / "office_furniture_core_sheet_chroma_v02.png"
 # Optional solo override: matches NE seated bake (no swivel/casters).
-DESK_CHAIR_SOLO = GEN / "office_desk_chair_solo_chroma_v02b.png"
+# Prefer newest V3 silhouette lock; fall back to V2b.
+DESK_CHAIR_SOLO_CANDIDATES = [
+    GEN / "office_desk_chair_solo_chroma_v04.png",
+    GEN / "office_desk_chair_solo_chroma_v03.png",
+    GEN / "office_desk_chair_solo_chroma_v02b.png",
+]
 RUG_SRC = GEN / "office_worn_rug_chroma_v02.png"
 
 # 2×2 sheet cell order (row-major).
@@ -153,9 +158,12 @@ def main() -> None:
     heights: dict[str, int] = {}
     cabinet_out: Image.Image | None = None
 
+    desk_chair_solo = next((p for p in DESK_CHAIR_SOLO_CANDIDATES if p.exists()), None)
+
     for cell, (name, canvas, target_h) in zip(cells, FURNITURE_CELLS, strict=True):
-        if name == "office_desk_chair" and DESK_CHAIR_SOLO.exists():
-            keyed = trim_alpha(chroma_key(Image.open(DESK_CHAIR_SOLO)))
+        if name == "office_desk_chair" and desk_chair_solo is not None:
+            keyed = trim_alpha(chroma_key(Image.open(desk_chair_solo)))
+            print(f"office_desk_chair: using solo override {desk_chair_solo.name}")
         else:
             keyed = trim_alpha(chroma_key(cell))
         out = fit_into_canvas(keyed, canvas, bottom_bias=True, target_content_h=target_h)

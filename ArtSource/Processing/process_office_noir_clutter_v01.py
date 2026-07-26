@@ -13,6 +13,8 @@ GEN = ROOT / "ArtSource" / "Generated" / "Office" / "Props"
 RUNTIME = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 
 CLUTTER_SHEET = GEN / "office_noir_clutter_sheet_chroma_v01.png"
+# Optional solo override: darker period metal bin (sheet cell kept as fallback).
+WASTEBASKET_SOLO = GEN / "office_wastebasket_solo_chroma_v02.png"
 RUG_SRC = GEN / "office_worn_rug_chroma_v01.png"
 
 # 3×3 sheet cell order (row-major).
@@ -115,7 +117,11 @@ def main() -> None:
     assert len(cells) == len(CLUTTER_CELLS)
 
     for cell, (name, canvas) in zip(cells, CLUTTER_CELLS, strict=True):
-        keyed = trim_alpha(chroma_key(cell))
+        if name == "office_wastebasket" and WASTEBASKET_SOLO.exists():
+            keyed = trim_alpha(chroma_key(Image.open(WASTEBASKET_SOLO)))
+            print(f"office_wastebasket: using solo override {WASTEBASKET_SOLO.name}")
+        else:
+            keyed = trim_alpha(chroma_key(cell))
         # Floor trash / pencil tray sit flatter; still bottom-bias for ground contact.
         bottom_bias = name != "office_pencil_tray"
         out = fit_into_canvas(keyed, canvas, bottom_bias=bottom_bias)
@@ -125,15 +131,21 @@ def main() -> None:
         print(f"{name}: canvas={canvas} bbox={bbox} -> {out_path}")
 
         # Retain per-prop RGBA masters for provenance.
-        master = GEN / f"{name}_rgba_v01.png"
+        master_suffix = "v02" if name == "office_wastebasket" and WASTEBASKET_SOLO.exists() else "v01"
+        master = GEN / f"{name}_rgba_{master_suffix}.png"
         keyed.save(master)
 
-    rug_keyed = trim_alpha(chroma_key(Image.open(RUG_SRC)))
-    rug = fit_into_canvas(rug_keyed, RUG_CANVAS, bottom_bias=False)
-    rug_path = RUNTIME / "office_worn_rug.png"
-    rug.save(rug_path)
-    rug_keyed.save(GEN / "office_worn_rug_rgba_v01.png")
-    print(f"office_worn_rug: canvas={RUG_CANVAS} bbox={opaque_bbox(rug)} -> {rug_path}")
+    # Furniture V2 owns the runtime rug when present; do not clobber it with V1.
+    rug_v02 = GEN / "office_worn_rug_chroma_v02.png"
+    if rug_v02.exists():
+        print(f"office_worn_rug: skipped (owned by {rug_v02.name})")
+    else:
+        rug_keyed = trim_alpha(chroma_key(Image.open(RUG_SRC)))
+        rug = fit_into_canvas(rug_keyed, RUG_CANVAS, bottom_bias=False)
+        rug_path = RUNTIME / "office_worn_rug.png"
+        rug.save(rug_path)
+        rug_keyed.save(GEN / "office_worn_rug_rgba_v01.png")
+        print(f"office_worn_rug: canvas={RUG_CANVAS} bbox={opaque_bbox(rug)} -> {rug_path}")
 
 
 if __name__ == "__main__":

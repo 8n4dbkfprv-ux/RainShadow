@@ -45,6 +45,13 @@ final class DetectiveActorNode: SKNode {
     private var lastLocomotionUpdateTime: TimeInterval?
     private var walkFrameAccumulator: TimeInterval = 0
     private var walkFrameIndex = 0
+    /// Current cell while `standingUp` / `sittingDown`; nil outside those clips.
+    private var seatTransitionFrameIndex: Int?
+
+    /// Stand-up atlas cells keep a baked chair through this exclusive upper bound.
+    /// From this frame onward the empty world prop must be visible (no kneehole gap).
+    private static let standUpEmptyChairHandoffFrame = 10
+    private static let seatTransitionLastFrameIndex = 11
 
     /// True while the body is still registered to the chair (idle or sitting down).
     /// Used by the office scene to cancel the elevated nav-root in Y-depth sorting.
@@ -71,6 +78,26 @@ final class DetectiveActorNode: SKNode {
             // Still settling out of the seated local offset (negative Y toward zero).
             let seatedY = OfficeInteriorScale.ActorDisplay.seatedYOffset
             return body.position.y < seatedY * 0.15
+        }
+    }
+
+    /// Hide the empty desk-chair prop only while a chair is still baked into the
+    /// seated / early stand-up / late sit-down atlas cells. Late stand-up frames
+    /// and seat egress show the world prop so the kneehole never goes empty.
+    var shouldHideEmptyDeskChair: Bool {
+        switch state {
+        case .seatedIdle:
+            return true
+        case .standingUp:
+            let frame = seatTransitionFrameIndex ?? 0
+            return frame < Self.standUpEmptyChairHandoffFrame
+        case .sittingDown:
+            // Sit-down cells are the reverse of stand-up; map back before comparing.
+            let frame = seatTransitionFrameIndex ?? 0
+            let standEquivalent = Self.seatTransitionLastFrameIndex - frame
+            return standEquivalent < Self.standUpEmptyChairHandoffFrame
+        case .standingIdle, .walking:
+            return false
         }
     }
 
@@ -204,6 +231,29 @@ final class DetectiveActorNode: SKNode {
             .sequence([
                 .run { [weak self, weak node] in
                     guard let self, let node else { return }
+                    node.texture = texture
+                    node.texture?.filteringMode = .nearest
+                    self.assertFrameDisplaySizes()
+                },
+                .wait(forDuration: timePerFrame)
+            ])
+        }
+        return .sequence(steps)
+    }
+
+    /// Seat stand/sit clip that also publishes `seatTransitionFrameIndex` for the
+    /// empty-chair handoff (`shouldHideEmptyDeskChair`).
+    private func animateSeatTransition(
+        on node: SKSpriteNode,
+        textures: [SKTexture],
+        timePerFrame: TimeInterval
+    ) -> SKAction {
+        textures.forEach { $0.filteringMode = .nearest }
+        let steps: [SKAction] = textures.enumerated().map { index, texture in
+            .sequence([
+                .run { [weak self, weak node] in
+                    guard let self, let node else { return }
+                    self.seatTransitionFrameIndex = index
                     node.texture = texture
                     node.texture?.filteringMode = .nearest
                     self.assertFrameDisplaySizes()
@@ -414,6 +464,7 @@ final class DetectiveActorNode: SKNode {
         )
         let finishStanding = SKAction.run { [weak self] in
             guard let self else { return }
+            self.seatTransitionFrameIndex = nil
             self.body.texture = self.standingTexture ?? self.walkTextures[.northEast]?.first
             self.body.texture?.filteringMode = .nearest
             self.applySpriteScale()
@@ -424,6 +475,7 @@ final class DetectiveActorNode: SKNode {
             completion()
         }
         guard standUpTextures.count == 12 else {
+            seatTransitionFrameIndex = Self.standUpEmptyChairHandoffFrame
             body.run(
                 .sequence([.fadeOut(withDuration: 0.08), finishStanding, .fadeIn(withDuration: 0.12)]),
                 withKey: "standTransition"
@@ -433,7 +485,8 @@ final class DetectiveActorNode: SKNode {
 
         standUpTextures.forEach { $0.filteringMode = .nearest }
         assertFrameDisplaySizes()
-        let standUp = animateFixedSize(
+        seatTransitionFrameIndex = 0
+        let standUp = animateSeatTransition(
             on: body,
             textures: standUpTextures,
             timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame
@@ -457,6 +510,7 @@ final class DetectiveActorNode: SKNode {
 
         let finishSitting = SKAction.run { [weak self] in
             guard let self else { return }
+            self.seatTransitionFrameIndex = nil
             self.applySeatedPose(animated: false)
             self.startSeatedIdle()
             self.needsSeatEgress = true
@@ -470,6 +524,7 @@ final class DetectiveActorNode: SKNode {
         }
 
         guard sitDownTextures.count == 12 else {
+            seatTransitionFrameIndex = Self.seatTransitionLastFrameIndex
             body.run(
                 .sequence([.fadeOut(withDuration: 0.08), finishSitting, .fadeIn(withDuration: 0.12)]),
                 withKey: "standTransition"
@@ -480,7 +535,8 @@ final class DetectiveActorNode: SKNode {
         sitDownTextures.forEach { $0.filteringMode = .nearest }
         let duration = ActorLocomotionPacing.standUpSecondsPerFrame * TimeInterval(sitDownTextures.count)
         assertFrameDisplaySizes()
-        let sitDown = animateFixedSize(
+        seatTransitionFrameIndex = 0
+        let sitDown = animateSeatTransition(
             on: body,
             textures: sitDownTextures,
             timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame

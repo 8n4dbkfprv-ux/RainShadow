@@ -23,12 +23,12 @@ enum OfficeInteriorScale {
         /// Visual-only shift from the walkable navigation root into the chair/desk registration.
         static let seatedYOffset: CGFloat = -82
         /// Whole-body seat nudge (world space). Stay on the SW / camera-near
-        /// kneehole side of the desk ground (desk.y − chair.y ≈ 16). Nudges
-        /// past ~14 put feet on the visitor / far side of the writing surface.
-        /// Chair X is authored under the green-book/files band; keep nudge X at 0.
-        static let seatedDeskNudge = CGPoint(x: 0, y: 8)
+        /// kneehole side of the desk ground (desk.y − chair.y ≈ 12–16). Nudges
+        /// past ~18 put feet on the visitor / far side of the writing surface.
+        /// Pull far enough that baked forearms read over the writing surface.
+        static let seatedDeskNudge = CGPoint(x: 0, y: 16)
         /// Extra upper lean toward the desktop past the apron lip.
-        static let seatedUpperDeskReach = CGPoint(x: 0, y: 4)
+        static let seatedUpperDeskReach = CGPoint(x: 0, y: 10)
     }
 
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
@@ -82,7 +82,7 @@ enum OfficeInteriorScale {
         static let radiator: CGFloat = 340
         static let coatRack: CGFloat = 557
         static let archiveBox: CGFloat = 300
-        static let wastebasket: CGFloat = 220
+        static let wastebasket: CGFloat = 241
         static let floorTrash: CGFloat = 140
         static let wornRug: CGFloat = 573
         static let hiddenBottle: CGFloat = 200
@@ -96,13 +96,23 @@ enum OfficeInteriorScale {
     }
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
-    /// targets: standard 0.22, seating 0.17, desk 0.12, window overlay 0.24,
-    /// floor decal 0.18, small props 0.12, pocket props 0.10.
+    /// targets: standard 0.22, desk chair 0.135, visitor 0.17, desk 0.12,
+    /// window overlay 0.24, floor decal 0.18, small props 0.12, pocket 0.10.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
         static let deskEnsemble: CGFloat = 0.12 / environment
-        static let deskChair: CGFloat = 0.17 / environment
+        /// Empty desk chair — desk family with a slight bump so seat height matches
+        /// the seated-bake chair; 0.16+ clips the pedestals.
+        static let deskChair: CGFloat = 0.135 / environment
         static let visitorArmchair: CGFloat = 0.17 / environment
+        /// Waiting-room seat and table, sized against the character rather than the
+        /// clutter family they were originally scaled with.
+        static let waitingChair: CGFloat = 0.208 / environment
+        static let waitingTable: CGFloat = 0.217 / environment
+        /// Standing fan: tall enough that its head and base stay readable.
+        static let standingFan: CGFloat = 0.2085 / environment
+        /// Coat rack, a touch taller than a standing adult.
+        static let coatRack: CGFloat = 0.191 / environment
         static let window: CGFloat = 0.24 / environment
         static let floorDecal: CGFloat = 0.22 / environment
         static let smallProp: CGFloat = 0.12 / environment
@@ -125,7 +135,8 @@ enum OfficeInteriorScale {
         static let deskAshtray: ClosedRange<CGFloat> = 0.08...0.18
         static let deskFiles: ClosedRange<CGFloat> = 0.20...0.40
         static let deskPapers: ClosedRange<CGFloat> = 0.25...0.50
-        static let chair: ClosedRange<CGFloat> = 0.6...1.0
+        /// Desk kneehole side chair (not a tall visitor armchair).
+        static let chair: ClosedRange<CGFloat> = 0.45...0.75
         static let cabinet: ClosedRange<CGFloat> = 1.10...1.80
         /// Single rain window glass opening (not multi-story glass).
         /// Smaller than classic BG tavern glass: this office's short upper-wall band
@@ -139,6 +150,14 @@ enum OfficeInteriorScale {
         CGPoint(
             x: layoutFocus.x + (point.x - layoutFocus.x) * environment,
             y: layoutFocus.y + (point.y - layoutFocus.y) * environment
+        )
+    }
+
+    /// Inverse of `mapPoint`, for QA that reports scene nodes in authored pixels.
+    static func unmapPoint(_ point: CGPoint) -> CGPoint {
+        CGPoint(
+            x: layoutFocus.x + (point.x - layoutFocus.x) / environment,
+            y: layoutFocus.y + (point.y - layoutFocus.y) / environment
         )
     }
 
@@ -181,6 +200,22 @@ enum OfficeInteriorScale {
 
     static var visitorArmchairDisplayScale: CGFloat {
         environment * PropRelativeScale.visitorArmchair
+    }
+
+    static var waitingChairDisplayScale: CGFloat {
+        environment * PropRelativeScale.waitingChair
+    }
+
+    static var waitingTableDisplayScale: CGFloat {
+        environment * PropRelativeScale.waitingTable
+    }
+
+    static var standingFanDisplayScale: CGFloat {
+        environment * PropRelativeScale.standingFan
+    }
+
+    static var coatRackDisplayScale: CGFloat {
+        environment * PropRelativeScale.coatRack
     }
 
     static var windowDisplayScale: CGFloat {

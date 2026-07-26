@@ -41,7 +41,7 @@ Avoid: labels, watermarks, extra objects, scenery, heavy baked floor ellipses, m
 
 `ArtSource/Processing/process_office_furniture_v02.py` slices cells, chroma-keys, trims, and writes manifest canvases under `RainShadow Shared/Resources/Art/Props/Office/`.
 
-If `ArtSource/Generated/Office/Props/office_desk_chair_solo_chroma_v02b.png` is present, that solo plate replaces sheet cell 0 so the standing chair matches the NE seated bake (straight wooden slat-back, no swivel/casters).
+If `ArtSource/Generated/Office/Props/office_desk_chair_solo_chroma_v04.png` (or older solo fallbacks) is present, that solo plate replaces sheet cell 0 so the standing chair matches the NE seated bake (straight wooden 4-slat back, no swivel/casters).
 
 ## Acceptance
 

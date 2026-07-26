@@ -1,0 +1,56 @@
+{
+  "plate_size": [
+    4096,
+    2304
+  ],
+  "source": "registered_bake: shell + partition + cutaway readability + void",
+  "suite_full_b": 0.58,
+  "b_room": 0.58,
+  "cutaway_return_len": 0.055,
+  "movable_leaves_baked": false,
+  "internal_door": {
+    "a_face": 0.3650181693059521,
+    "a_back": 0.36,
+    "b_door0": 0.078,
+    "b_door1": 0.17099999999999999,
+    "door_h": 228.0,
+    "hinge_b": 0.078,
+    "opening_w_px": 153.45000000000005,
+    "opening_h_px": 228.0,
+    "hinge_plate_xy": [
+      1769.4699185110696,
+      596.4257702693939
+    ],
+    "latch_plate_xy": [
+      1922.9199185110697,
+      667.3847702693938
+    ]
+  },
+  "exterior_door_plan": [
+    0.004,
+    0.425
+  ],
+  "note": "Mouth open; L-returns + dark tip feet + hard void for cutaway readability.",
+  "authored_jambs": {
+    "hinge_face": [
+      1769.47,
+      1707.57
+    ],
+    "strike_face": [
+      1922.92,
+      1636.62
+    ],
+    "hinge_back": [
+      1780.54,
+      1712.21
+    ],
+    "strike_back": [
+      1933.99,
+      1641.25
+    ],
+    "b_door0": 0.078,
+    "b_door1": 0.17099999999999999,
+    "a_face": 0.3650181693059521,
+    "a_back": 0.36
+  }
+}

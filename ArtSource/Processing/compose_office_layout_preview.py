@@ -34,10 +34,14 @@ ENVIRONMENT = 0.395
 REL_STANDARD = 0.22 / ENVIRONMENT
 REL_DESK = 0.12 / ENVIRONMENT
 REL_SEATING = 0.17 / ENVIRONMENT
+REL_DESK_CHAIR = 0.135 / ENVIRONMENT
+# Matches OfficeInteriorScale.ActorDisplay.seatedDeskNudge (world units).
+SEATED_DESK_NUDGE = (0.0, 16.0)
 REL_WINDOW = 0.24 / ENVIRONMENT
 REL_FLOOR_DECAL = 0.22 / ENVIRONMENT
 REL_SMALL = 0.12 / ENVIRONMENT
 REL_POCKET = 0.10 / ENVIRONMENT
+REL_WALL = REL_STANDARD * 0.72
 
 GROUND_ANCHOR = (0.5, 0.04)
 CENTER_ANCHOR = (0.5, 0.5)
@@ -45,43 +49,56 @@ CENTER_ANCHOR = (0.5, 0.5)
 # ---------------------------------------------------------------------------
 # Mirror of OfficeNavigationLayout.AuthoredPlacement (SK y-up authored space).
 # ---------------------------------------------------------------------------
+# Mirror of OfficeNavigationLayout.AuthoredPlacement (graybox Pass A).
 AUTHORED: dict[str, tuple[float, float]] = {
     "radiator": (1_050, 1_640),
     "doorLeaf": (3_114, 1_554),
-    "deskChair": (2_045, 940),
+    "deskChair": (2_005, 1_205),
     "filingCabinet": (1_620, 1_530),
-    "archiveBoxA": (1_730, 1_485),
-    "archiveBoxB": (1_690, 1_425),
-    "wastebasket": (1_820, 1_000),
-    "wornRug": (2_420, 1_100),
-    "floorTrashA": (1_780, 940),
-    "floorTrashB": (2_210, 1_010),
-    "floorTrashC": (2_920, 1_420),
-    "hiddenBottle": (1_940, 890),
-    "bookshelf": (1_380, 1_415),
-    "archiveStack": (2_770, 1_490),
-    "floorWear": (2_100, 980),
+    "filingCabinetB": (1_780, 1_610),
+    "safe": (1_920, 1_680),
+    "archiveBoxA": (1_700, 1_490),
+    "archiveBoxOnCabinet": (1_700, 1_630),
+    "wastebasket": (1_900, 1_150),
+    "wornRug": (2_200, 1_280),
+    "floorTrashA": (1_940, 1_120),
+    "bookshelf": (1_380, 1_410),
+    "floorWear": (2_020, 1_240),
     "windowSpill": (1_290, 1_580),
-    "coatRack": (3_000, 1_400),
-    "visitorArmchair": (2_360, 1_100),
-    "deskEnsemble": (2_100, 980),
+    "blindStripes": (1_360, 1_520),
+    "hallwayLight": (3_080, 1_540),
+    "coatRack": (3_140, 1_500),
+    "umbrellaStand": (3_160, 1_460),
+    "visitorArmchair": (2_280, 1_360),
+    "visitorArmchairB": (2_440, 1_320),
+    "waitingChairA": (3_020, 1_450),
+    "waitingTable": (2_920, 1_430),
+    "newspaper": (2_920, 1_450),
+    "waitingAshtray": (2_940, 1_440),
+    "deskEnsemble": (2_020, 1_240),
     "window": (1_220, 1_812),
+    "caseBoard": (1_680, 1_720),
+    "wallCityMap": (1_840, 1_740),
+    "wallPhotos": (1_760, 1_680),
+    "personalBottle": (1_360, 980),
 }
 WINDOW_ROTATION = -0.105  # SK radians
-LAMP_POOL = (2_100, 1_020)
+LAMP_POOL = (2_020, 1_280)
 
 # Desk item canvas centres on the 932x780 bare-desk plate (image y-down),
 # mirrored from DetectiveOfficeScene.addDeskItems.
 DESK_CANVAS = (932, 780)
 DESK_ITEMS: list[tuple[str, tuple[float, float]]] = [
-    ("office_desk_papers", (450, 240)),
-    ("office_desk_files", (280, 290)),
-    ("office_desk_lamp", (680, 150)),
-    ("office_desk_phone", (620, 230)),
-    ("office_desk_mug", (400, 300)),
-    ("office_desk_ashtray", (510, 310)),
-    ("office_framed_photo", (300, 220)),
-    ("office_pencil_tray", (480, 295)),
+    ("office_desk_lamp", (280, 190)),
+    ("office_desk_typewriter", (360, 230)),
+    ("office_desk_phone", (430, 255)),
+    ("office_desk_notebook", (500, 300)),
+    ("office_desk_papers", (540, 250)),
+    ("office_pencil_tray", (580, 310)),
+    ("office_desk_mug", (480, 330)),
+    ("office_desk_ashtray", (600, 325)),
+    ("office_desk_files", (680, 265)),
+    ("office_framed_photo", (720, 195)),
 ]
 
 
@@ -146,21 +163,32 @@ def main() -> None:
     # --- floorEffectRoot (painted in add order; all center-anchored) ---
     wear = scaled(load("office_floor_wear_decal"), REL_FLOOR_DECAL * 1.35)
     paste_anchored(canvas, wear, AUTHORED["floorWear"], CENTER_ANCHOR, alpha=0.55)
-    additive(canvas, scaled(load("office_light_window_spill"), REL_FLOOR_DECAL * 1.1), AUTHORED["windowSpill"], 0.45)
-    additive(canvas, scaled(load("office_light_lamp_pool"), REL_FLOOR_DECAL * 0.95), LAMP_POOL, 0.55)
+    additive(canvas, scaled(load("office_light_window_spill"), REL_FLOOR_DECAL * 1.1), AUTHORED["windowSpill"], 0.32)
+    additive(canvas, scaled(load("office_light_blind_stripes"), REL_FLOOR_DECAL * 1.05), AUTHORED["blindStripes"], 0.50)
+    additive(canvas, scaled(load("office_light_hallway"), REL_FLOOR_DECAL * 0.85), AUTHORED["hallwayLight"], 0.42)
+    additive(canvas, scaled(load("office_light_lamp_pool"), REL_FLOOR_DECAL * 0.95), LAMP_POOL, 0.58)
     cab_shadow = scaled(load("office_cabinet_floor_shadow"), REL_STANDARD)
     paste_anchored(canvas, cab_shadow, AUTHORED["filingCabinet"], CENTER_ANCHOR, alpha=0.55)
     desk_shadow = scaled(load("office_desk_floor_shadow"), REL_DESK * 1.15)
     paste_anchored(canvas, desk_shadow, AUTHORED["deskEnsemble"], CENTER_ANCHOR, alpha=0.55)
-    rug = scaled(load("office_worn_rug"), REL_FLOOR_DECAL)
+    rug = scaled(load("office_worn_rug"), REL_FLOOR_DECAL * 1.35)
     paste_anchored(canvas, rug, AUTHORED["wornRug"], CENTER_ANCHOR)
 
     # --- rearFixtureRoot ---
     paste_anchored(canvas, scaled(load("office_radiator"), REL_STANDARD), AUTHORED["radiator"], GROUND_ANCHOR)
     paste_anchored(canvas, scaled(load("office_door_leaf"), REL_STANDARD), AUTHORED["doorLeaf"], GROUND_ANCHOR)
+    for name, key in [
+        ("office_case_board", "caseBoard"),
+        ("office_wall_city_map", "wallCityMap"),
+        ("office_wall_photos", "wallPhotos"),
+    ]:
+        paste_anchored(canvas, scaled(load(name), REL_WALL), AUTHORED[key], CENTER_ANCHOR)
     window = scaled(load("office_window"), REL_WINDOW)
     window = window.rotate(math.degrees(WINDOW_ROTATION), expand=True, resample=Image.Resampling.BICUBIC)
     paste_anchored(canvas, window, AUTHORED["window"], CENTER_ANCHOR)
+    blinds = scaled(load("office_window_blinds"), REL_WINDOW * 0.92)
+    blinds = blinds.rotate(math.degrees(WINDOW_ROTATION), expand=True, resample=Image.Resampling.BICUBIC)
+    paste_anchored(canvas, blinds, AUTHORED["window"], CENTER_ANCHOR, alpha=0.88)
 
     # --- depthWorldRoot: z = 1000 + (artHeight - worldY) * 0.5 + bias ---
     def world_y(authored_y: float) -> float:
@@ -170,17 +198,27 @@ def main() -> None:
         # (bias, texture, authored point, relative scale, anchor)
         (0, "office_bookshelf", AUTHORED["bookshelf"], REL_STANDARD, GROUND_ANCHOR),
         (0, "office_filing_cabinet", AUTHORED["filingCabinet"], REL_STANDARD, GROUND_ANCHOR),
+        (0, "office_filing_cabinet", AUTHORED["filingCabinetB"], REL_STANDARD * 0.96, GROUND_ANCHOR),
+        (0, "office_safe", AUTHORED["safe"], REL_SMALL, GROUND_ANCHOR),
         (0, "office_archive_box_a", AUTHORED["archiveBoxA"], REL_SMALL, GROUND_ANCHOR),
-        (0, "office_archive_box_b", AUTHORED["archiveBoxB"], REL_SMALL, GROUND_ANCHOR),
-        (0, "office_archive_stack", AUTHORED["archiveStack"], REL_SMALL, GROUND_ANCHOR),
+        (40, "office_archive_box_b", AUTHORED["archiveBoxOnCabinet"], REL_SMALL * 0.9, GROUND_ANCHOR),
         (0, "office_coat_rack", AUTHORED["coatRack"], REL_STANDARD, GROUND_ANCHOR),
+        (0, "office_umbrella_stand", AUTHORED["umbrellaStand"], REL_SMALL, GROUND_ANCHOR),
         (0, "office_visitor_armchair", AUTHORED["visitorArmchair"], REL_SEATING, GROUND_ANCHOR),
+        (0, "office_visitor_armchair", AUTHORED["visitorArmchairB"], REL_SEATING * 0.96, GROUND_ANCHOR),
+        (0, "office_waiting_chair_a", AUTHORED["waitingChairA"], REL_SEATING * 0.88, GROUND_ANCHOR),
+        (0, "office_waiting_table", AUTHORED["waitingTable"], REL_SMALL, GROUND_ANCHOR),
+        (-20, "office_newspaper", AUTHORED["newspaper"], REL_POCKET, GROUND_ANCHOR),
+        (-15, "office_waiting_ashtray", AUTHORED["waitingAshtray"], REL_POCKET, GROUND_ANCHOR),
+        # Empty chair uses baseline + seated desk nudge (world), same as runtime.
+        (-40, "office_desk_chair", (
+            AUTHORED["deskChair"][0] + SEATED_DESK_NUDGE[0] / ENVIRONMENT,
+            AUTHORED["deskChair"][1] + SEATED_DESK_NUDGE[1] / ENVIRONMENT,
+        ), REL_DESK_CHAIR, GROUND_ANCHOR),
         (0, "office_wastebasket", AUTHORED["wastebasket"], REL_SMALL, GROUND_ANCHOR),
         (-40, "office_floor_trash_a", AUTHORED["floorTrashA"], REL_SMALL, GROUND_ANCHOR),
-        (-40, "office_floor_trash_b", AUTHORED["floorTrashB"], REL_SMALL, GROUND_ANCHOR),
-        (-40, "office_floor_trash_c", AUTHORED["floorTrashC"], REL_SMALL, GROUND_ANCHOR),
         (-500, "office_desk_bare", AUTHORED["deskEnsemble"], REL_DESK, GROUND_ANCHOR),
-        (-120, "office_hidden_bottle", AUTHORED["hiddenBottle"], REL_POCKET, GROUND_ANCHOR),
+        (-20, "office_hidden_bottle", AUTHORED["personalBottle"], REL_POCKET, GROUND_ANCHOR),
     ]
 
     # Desk items ride the bare-desk canvas (default center anchor, desk scale).

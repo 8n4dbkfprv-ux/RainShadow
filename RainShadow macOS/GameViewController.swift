@@ -20,5 +20,164 @@ class GameViewController: NSViewController {
         super.viewDidAppear()
         view.window?.acceptsMouseMovedEvents = true
         view.window?.makeFirstResponder(view)
+        scheduleReviewCaptureIfRequested()
+    }
+
+    /// QA hook: `RAINSHADOW_CAPTURE=<path>` writes one PNG of the live scene and
+    /// quits, so review frames come from the shipping renderer rather than a
+    /// re-implementation of it.
+    ///
+    /// `RAINSHADOW_CAPTURE_MODE`
+    ///   `camera` (default) exactly what the play camera frames
+    ///   `room`             the whole room plate
+    ///   `shell`            shell plate only
+    ///   `suite_plate`      suite background plate only (Stage 1 architecture review)
+    ///   `architecture`     suite/shell + doors (no furniture); legacy partition if enabled
+    ///   `architecture_debug` architecture plus collision / axis / doorway overlays
+    ///
+    /// `RAINSHADOW_PARTITION_MASK=0` loads the full-height partition (mask off).
+    /// `RAINSHADOW_LEGACY_PARTITION=1` restores partition/foreground overlays with suite plate.
+    private func scheduleReviewCaptureIfRequested() {
+        let environment = ProcessInfo.processInfo.environment
+        guard let path = environment["RAINSHADOW_CAPTURE"] else { return }
+        FileHandle.standardError.write(Data("capture: armed for \(path)\n".utf8))
+        let delay = Double(environment["RAINSHADOW_CAPTURE_DELAY"] ?? "") ?? 2.0
+        let mode = environment["RAINSHADOW_CAPTURE_MODE"] ?? "camera"
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            if environment["RAINSHADOW_CAPTURE_DUMP"] != nil {
+                self?.dumpSceneGraph()
+            }
+            self?.writeCapture(to: path, mode: mode)
+            NSApp.terminate(nil)
+        }
+    }
+
+    /// Reports every placed node back in authored plate pixels so the offline
+    /// layout plan can be diffed against what the scene actually built.
+    private func dumpSceneGraph() {
+        guard let scene = (view as? SKView)?.scene as? BaseGameScene else { return }
+        let roots: [(String, SKNode)] = [
+            ("background", scene.backgroundRoot),
+            ("floor", scene.floorEffectRoot),
+            ("rear", scene.rearFixtureRoot),
+            ("depth", scene.depthWorldRoot),
+            ("occlusion", scene.occlusionRoot)
+        ]
+        var lines = ["RAINSHADOW_DUMP_BEGIN"]
+        for (label, root) in roots {
+            for node in root.children {
+                let authored = OfficeInteriorScale.unmapPoint(node.position)
+                let size = (node as? SKSpriteNode)?.size ?? node.calculateAccumulatedFrame().size
+                lines.append(
+                    String(
+                        format: "%@ %@ authored=(%.0f, %.0f) world=(%.0f, %.0f) size=(%.0f, %.0f) z=%.0f",
+                        label, node.name ?? "unnamed",
+                        authored.x, authored.y,
+                        node.position.x, node.position.y,
+                        size.width, size.height,
+                        node.zPosition
+                    )
+                )
+            }
+        }
+        lines.append("RAINSHADOW_DUMP_END")
+        FileHandle.standardError.write(Data(lines.joined(separator: "\n").appending("\n").utf8))
+    }
+
+    private static let architectureNodeNames: Set<String> = [
+        "office_suite_plate",
+        "office_shell_base",
+        "office_partition_wall",
+        "office_internal_door_leaf",
+        "office_foreground_cutaway",
+        "office_door_leaf"
+    ]
+
+    private func writeCapture(to path: String, mode: String) {
+        guard let skView = view as? SKView, let scene = skView.scene else { return }
+        let game = scene as? BaseGameScene
+
+        if mode != "camera" {
+            // Room-wide frames render the plate itself, so the camera-space HUD
+            // would otherwise sit across the middle of the room.
+            game?.hudRoot.isHidden = true
+        }
+        if mode == "shell" || mode == "suite_plate" {
+            for root in [game?.floorEffectRoot, game?.rearFixtureRoot, game?.depthWorldRoot, game?.occlusionRoot, game?.weatherRoot] {
+                for node in root?.children ?? [] {
+                    node.isHidden = true
+                }
+            }
+            if mode == "suite_plate" {
+                for node in game?.backgroundRoot.children ?? []
+                where node.name != "office_suite_plate" && node.name != "office_shell_base" {
+                    node.isHidden = true
+                }
+            }
+        } else if mode == "architecture" || mode == "architecture_debug" {
+            for root in [game?.floorEffectRoot, game?.rearFixtureRoot, game?.depthWorldRoot, game?.weatherRoot, game?.occlusionRoot] {
+                for node in root?.children ?? [] where !Self.architectureNodeNames.contains(node.name ?? "") {
+                    node.isHidden = true
+                }
+            }
+            // Stage 1 suite-plate review: hide door leaves so the capture is
+            // architecture paint only (leaves return in Stage 3).
+            if ProcessInfo.processInfo.environment["RAINSHADOW_SUITE_PLATE_ARCH"] == "1" {
+                for root in [game?.depthWorldRoot, game?.occlusionRoot] {
+                    for node in root?.children ?? []
+                    where node.name == "office_internal_door_leaf" || node.name == "office_door_leaf" {
+                        node.isHidden = true
+                    }
+                }
+            }
+        }
+
+        let crop: CGRect
+        if mode == "camera", let camera = scene.camera {
+            let visible = CGSize(
+                width: scene.size.width * camera.xScale,
+                height: scene.size.height * camera.yScale
+            )
+            crop = CGRect(
+                x: camera.position.x - visible.width / 2,
+                y: camera.position.y - visible.height / 2,
+                width: visible.width,
+                height: visible.height
+            )
+        } else if let plate = game?.backgroundRoot.calculateAccumulatedFrame(), !plate.isEmpty {
+            crop = plate
+        } else {
+            crop = scene.calculateAccumulatedFrame()
+        }
+
+        guard let texture = skView.texture(from: scene, crop: crop) else {
+            FileHandle.standardError.write(Data("capture: no texture for crop \(crop)\n".utf8))
+            return
+        }
+        let cgImage = texture.cgImage()
+        let bitmap = NSBitmapImageRep(cgImage: cgImage)
+        guard let png = bitmap.representation(using: .png, properties: [:]) else {
+            FileHandle.standardError.write(Data("capture: png encode failed\n".utf8))
+            return
+        }
+        // The app sandbox refuses paths outside its container, so the PNG goes out
+        // over stdout in base64 and the caller writes the file.
+        do {
+            try png.write(to: URL(fileURLWithPath: path))
+        } catch {
+            FileHandle.standardOutput.write(Data("RAINSHADOW_CAPTURE_BEGIN\n".utf8))
+            FileHandle.standardOutput.write(Data(png.base64EncodedString().utf8))
+            FileHandle.standardOutput.write(Data("\nRAINSHADOW_CAPTURE_END\n".utf8))
+        }
+        FileHandle.standardError.write(
+            Data(
+                """
+                capture: rendered \(cgImage.width)x\(cgImage.height) \
+                crop=(\(crop.origin.x), \(crop.origin.y), \(crop.width), \(crop.height))
+
+                """.utf8
+            )
+        )
     }
 }
