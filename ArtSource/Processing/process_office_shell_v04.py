@@ -12,7 +12,7 @@ from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[2]
-MASTER = ROOT / "ArtSource" / "Generated" / "Office" / "office_shell_base_v06.png"
+MASTER = ROOT / "ArtSource" / "Generated" / "Office" / "office_shell_base_v08.png"
 RUNTIME = (
     ROOT
     / "RainShadow Shared"
@@ -28,10 +28,14 @@ def main() -> None:
     if not MASTER.exists():
         raise SystemExit(f"Missing approved master: {MASTER}")
     master = Image.open(MASTER).convert("RGB")
-    if master.size != (3840, 2160):
-        master = master.resize((3840, 2160), Image.Resampling.LANCZOS)
-        master.save(MASTER)
-    runtime = master.resize((4096, 2304), Image.Resampling.LANCZOS)
+    # V8 ships as a native 4096×2304 runtime master; older masters are 3840×2160.
+    if master.size == (4096, 2304):
+        runtime = master
+    else:
+        if master.size != (3840, 2160):
+            master = master.resize((3840, 2160), Image.Resampling.LANCZOS)
+            master.save(MASTER)
+        runtime = master.resize((4096, 2304), Image.Resampling.LANCZOS)
     RUNTIME.parent.mkdir(parents=True, exist_ok=True)
     runtime.save(RUNTIME)
     print("exported", RUNTIME, runtime.size)

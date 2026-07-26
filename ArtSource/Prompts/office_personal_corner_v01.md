@@ -18,7 +18,7 @@
 | `office_personal_fan` | 256×384 | Floor-standing pedestal fan (V2) |
 | `office_personal_washbasin` | 280×300 | Porcelain basin on iron legs |
 | `office_personal_glass` | 96×128 | Short whiskey glass |
-| `office_internal_door_leaf` | 320×560 | Frosted interior leaf; glass blanked in process (no IG lettering) |
+| `office_internal_door_leaf` | opening-sized | Frosted interior leaf; **H. VOSS / PRIVATE INVESTIGATOR baked into glass** (IG v03); process must not blank lettering |
 
 ## Processing
 
@@ -33,5 +33,5 @@ geometry) into `office_suite_architecture.png`. Door leaf is a separate prop.
 ## Acceptance
 
 - Personal cluster reads as its own west-wall group near the desk.
-- No readable text baked into the internal door texture (agency lettering is code).
+- Agency lettering is baked into the glass (not runtime SKLabels).
 - Projection matches office 2:1 dimetric.

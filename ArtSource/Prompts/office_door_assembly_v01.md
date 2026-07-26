@@ -17,5 +17,5 @@
 ## Acceptance
 
 - Leaf opaque height lands in body-multiple band **1.80–2.20** at `standardPropDisplayScale` (0.22).
-- No readable business lettering on glass.
+- Agency lettering baked into glass: **H. VOSS** / **PRIVATE INVESTIGATOR** (IG v06+).
 - Projection matches shell 2:1 dimetric doorway.

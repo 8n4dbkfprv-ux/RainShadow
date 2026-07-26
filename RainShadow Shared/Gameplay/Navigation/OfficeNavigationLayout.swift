@@ -28,7 +28,7 @@ enum OfficeNavigationLayout {
         /// standing on the wall's own ground line.
         static let partitionPlateX0: CGFloat = 1621
         static let partitionPlateX1: CGFloat = 2598
-        static let partitionPlateFaceHeight: CGFloat = 348
+        static let partitionPlateFaceHeight: CGFloat = 440
         static let partitionPlateCapHeight: CGFloat = 4
 
         /// Ground line of the partition face at a shell-art x (y down).
@@ -37,7 +37,7 @@ enum OfficeNavigationLayout {
         }
 
         /// Exterior leaf closed inside the shell's baked opening.
-        static let entranceLeafDisplayScale: CGFloat = 0.1207
+        static let entranceLeafDisplayScale: CGFloat = 0.2162
     }
 
     private static let authoredActorStart = CGPoint(
@@ -693,7 +693,7 @@ enum OfficeNavigationLayout {
     static let authoredSafeObstacle = CGRect(x: 1027, y: 1439, width: 173, height: 76)
     static let authoredFilingCabinetBObstacle = CGRect(x: 900, y: 1386, width: 161, height: 71)
     static let authoredFilingCabinetObstacle = CGRect(x: 764, y: 1329, width: 161, height: 71)
-    static let authoredBookshelfObstacle = CGRect(x: 603, y: 1_189, width: 223, height: 101)
+    static let authoredBookshelfObstacle = CGRect(x: 583, y: 1251, width: 223, height: 101)
     static let authoredArchiveBoxAObstacle = CGRect(x: 782, y: 1253, width: 137, height: 60)
     static let authoredRadiatorObstacle = CGRect(x: 1202, y: 1519, width: 173, height: 79)
     static let authoredPersonalSideboardObstacle = CGRect(x: 1465, y: 1620, width: 245, height: 110)
@@ -753,9 +753,9 @@ enum OfficeNavigationLayout {
         CGPoint(x: 876, y: 1_375),
     ]
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 714, y: 1_239),
-        CGPoint(x: 670, y: 1_224),
-        CGPoint(x: 759, y: 1_254),
+        CGPoint(x: 694, y: 1_301),
+        CGPoint(x: 650, y: 1_286),
+        CGPoint(x: 739, y: 1_316),
     ]
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
         CGPoint(x: 850, y: 1_284),
@@ -863,8 +863,7 @@ enum OfficeNavigationLayout {
         static let safe = CGPoint(x: 1_113, y: 1_477)  // records run, east end
         static let filingCabinetB = CGPoint(x: 981, y: 1_421)
         static let filingCabinet = CGPoint(x: 844, y: 1_364)  // drawer half open
-        /// SE-facing v03 foot tip is pivot-centered; sit on the records-wall floor line.
-        static let bookshelf = CGPoint(x: 714, y: 1_239)
+        static let bookshelf = CGPoint(x: 694, y: 1_301)
         static let archiveBoxOnCabinet = CGPoint(x: 981, y: 1_421)  // on cabinet B
         static let archiveStackOnCabinet = CGPoint(x: 844, y: 1_364)  // on cabinet A
         static let archiveBoxA = CGPoint(x: 850, y: 1_284)  // only floor stack
@@ -897,7 +896,7 @@ enum OfficeNavigationLayout {
         static let hallwayLight = CGPoint(x: 3_130, y: 1_664)
         static let lampPool = deskEnsemble
         /// Leaf swung 90° into the private office, hinged on the up-run jamb.
-        static let internalDoorLeaf = CGPoint(x: 1_693, y: 1_655)
+        static let internalDoorLeaf = CGPoint(x: 1_693, y: 1_662)
     }
 
     private static let authoredApproachPoints: [String: CGPoint] = [
@@ -928,17 +927,7 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1_984, y: 1_366),
     ].map(OfficeInteriorScale.mapPoint)
 
-    /// Client chair → internal-door approach → eased door turn → waiting room → exterior.
-    /// Near-retrace of arrival with an exit-only easing waypoint after `(1780, 1644)` so
-    /// the NW→NE facing handoff is a milder heading change than a pure reverse polyline.
-    static let clientDeparturePath: [CGPoint] = [
-        CGPoint(x: 1_984, y: 1_366),
-        CGPoint(x: 1_780, y: 1_644),
-        CGPoint(x: 1_920, y: 1_710),
-        CGPoint(x: 2_125, y: 1_708),
-        CGPoint(x: 2_544, y: 1_709),
-        CGPoint(x: 3_041, y: 1_728),
-    ].map(OfficeInteriorScale.mapPoint)
+    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
     static let exteriorToInternalDoorPath: [CGPoint] = [
         CGPoint(x: 3_041, y: 1_728),

@@ -39,6 +39,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var mapIsPresented = false
     private var journalIsPresented = false
     private var caseIntroductionStarted = false
+    private var clientEntranceStarted = false
     private var dialogueIsActive = true
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
@@ -157,7 +158,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         )
         if let officeDoor {
             registerHoverSprite(officeDoor, for: "office.door")
-            addDoorAgencyLettering(to: officeDoor)
         }
 
         // MARK: Entrance / waiting nook (rack + two chairs + table)
@@ -688,6 +688,30 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func startCaseIntroduction() {
+        // Monologue first: do not start door/entrance until the authored cue node is shown.
+        // VO is intentionally off for now (re-enable when opener clips return).
+        clientEntranceStarted = false
+        caseIntroductionPresenter.onNodeShown = { [weak self] node in
+            self?.handleCaseIntroductionNodeShown(node)
+        }
+        // Shipped Empty Coat intro: noir monologue (with late entrance cue) + Lila March triad dialogue.
+        caseIntroductionPresenter.present(
+            EmptyCoatCaseIntroduction.nodes,
+            startingAt: EmptyCoatCaseIntroduction.startNodeID
+        ) { [weak self] in
+            self?.finishCaseIntroduction()
+        }
+    }
+
+    private func handleCaseIntroductionNodeShown(_ node: CaseDialogueNode) {
+        if EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: node.id) {
+            beginClientEntranceIfNeeded()
+        }
+    }
+
+    private func beginClientEntranceIfNeeded() {
+        guard !clientEntranceStarted else { return }
+        clientEntranceStarted = true
         animateDoorFalling()
         client.performEntrance(along: OfficeNavigationLayout.clientArrivalPath) { [weak self] in
             guard let self else { return }
@@ -695,13 +719,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
             cameraLift.timingMode = .easeOut
             self.gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
-            // Shipped Empty Coat intro: noir monologue + Lila March triad dialogue.
-            self.caseIntroductionPresenter.present(
-                EmptyCoatCaseIntroduction.nodes,
-                startingAt: EmptyCoatCaseIntroduction.startNodeID
-            ) { [weak self] in
-                self?.finishCaseIntroduction()
-            }
         }
     }
 
@@ -1220,32 +1237,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             scale: OfficeInteriorScale.environment
         ) else { return }
         door.name = "office_internal_door_leaf"
-        addDoorAgencyLettering(to: door)
-    }
-
-    /// Deterministic frosted agency lettering on the door glass (not Image-Generated).
-    private func addDoorAgencyLettering(to door: SKSpriteNode) {
-        let title = SKLabelNode(text: "H. VOSS")
-        title.name = "office_door_lettering_title"
-        title.fontName = "HelveticaNeue-Bold"
-        title.fontSize = 11
-        title.fontColor = SKColor(white: 0.92, alpha: 0.55)
-        title.verticalAlignmentMode = .center
-        title.horizontalAlignmentMode = .center
-        title.position = CGPoint(x: 0, y: door.size.height * 0.22)
-        title.zPosition = 2
-        door.addChild(title)
-
-        let subtitle = SKLabelNode(text: "PRIVATE INVESTIGATOR")
-        subtitle.name = "office_door_lettering_subtitle"
-        subtitle.fontName = "HelveticaNeue"
-        subtitle.fontSize = 7
-        subtitle.fontColor = SKColor(white: 0.88, alpha: 0.45)
-        subtitle.verticalAlignmentMode = .center
-        subtitle.horizontalAlignmentMode = .center
-        subtitle.position = CGPoint(x: 0, y: door.size.height * 0.14)
-        subtitle.zPosition = 2
-        door.addChild(subtitle)
     }
 
     /// Floor wear, warm lamp key, cool blind-striped window fill, hallway slit, vignette.

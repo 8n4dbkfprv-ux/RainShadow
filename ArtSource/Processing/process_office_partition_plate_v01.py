@@ -80,10 +80,10 @@ def rectified_strip(shell: np.ndarray, x0: int, x1: int, top_fn, y0: float, y1: 
 
 
 def tile_columns(strip: np.ndarray, width: int, offset: int = 0) -> np.ndarray:
+    """Repeat columns without mirroring — mirror tiling reads as wallpaper flip artifacts."""
     src_w = strip.shape[1]
-    mirrored = np.concatenate([strip, strip[:, ::-1]], axis=1)
-    index = (np.arange(width) + offset) % (2 * src_w)
-    return mirrored[:, index]
+    index = (np.arange(width) + offset) % src_w
+    return strip[:, index]
 
 
 def build_face(plaster: np.ndarray, rail: np.ndarray, wainscot: np.ndarray, width: int) -> np.ndarray:

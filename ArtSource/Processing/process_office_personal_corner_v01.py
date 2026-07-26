@@ -17,7 +17,8 @@ SOURCES: list[tuple[str, Path, tuple[int, int], int | None]] = [
     ("office_personal_fan", GEN / "office_personal_fan_solo_chroma_v02.png", (256, 384), 300),
     ("office_personal_washbasin", GEN / "office_personal_washbasin_solo_chroma_v01.png", (280, 300), 210),
     ("office_personal_glass", GEN / "office_personal_glass_solo_chroma_v01.png", (96, 128), 70),
-    ("office_internal_door_leaf", GEN / "office_internal_door_leaf_solo_chroma_v02.png", (320, 560), 480),
+    # Canvas/target track partition opening (~394 px); prefer partition export for shear.
+    ("office_internal_door_leaf", GEN / "office_internal_door_leaf_solo_chroma_v02.png", (320, 560), 394),
 ]
 
 
@@ -149,10 +150,7 @@ def main() -> None:
         keyed = trim_alpha(chroma_key(Image.open(src)))
         if "washbasin" in name:
             keyed = trim_alpha(strip_low_floor_ellipse(keyed))
-        if "door_leaf" in name:
-            keyed = blank_frosted_door_glass(keyed)
-            # Re-trim after paint
-            keyed = trim_alpha(keyed)
+        # Lettering is baked into IG door masters (H. VOSS). Do not blank glass.
         out = fit_into_canvas(keyed, canvas, target_content_h=target_h)
         dest = RUNTIME / f"{name}.png"
         master = GEN / f"{name}_rgba_v01.png"

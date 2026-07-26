@@ -128,17 +128,17 @@ enum OfficeInteriorScale {
         static let hiddenBottle: CGFloat = 0.0829 / environment
         /// Full-plate overlays sized against the shell art (no extra relative inflate).
         static let plateOverlay: CGFloat = 1.0 / environment
-        /// Exterior leaf fitted to the shell's baked doorway (not standard furniture).
-        /// Absolute 0.1207 matches `OfficeNavigationLayout.Architecture.entranceLeafDisplayScale`.
-        static let entranceDoorLeaf: CGFloat = 0.1207 / environment
+        /// Exterior leaf fitted to the shell's baked doorway (classic BG ~1.94× adult).
+        /// Absolute matches `OfficeNavigationLayout.Architecture.entranceLeafDisplayScale`.
+        static let entranceDoorLeaf: CGFloat = 0.2162 / environment
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 78...90
-        /// Exterior leaf fitted inside the baked doorway (~1.06× adult), not a classic BG 2× door.
-        static let door: ClosedRange<CGFloat> = 1.00...1.15
+        /// Exterior leaf fills the baked doorway (BG:EE doorway/adult ≈ 1.94).
+        static let door: ClosedRange<CGFloat> = 1.80...2.20
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48

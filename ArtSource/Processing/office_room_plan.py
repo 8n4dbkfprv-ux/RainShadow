@@ -24,12 +24,13 @@ from dataclasses import dataclass
 ART_W, ART_H = 4096, 2304
 
 # Fitted wall silhouettes: y_top = slope * x + intercept (plate pixels, y down).
-NW_TOP_SLOPE, NW_TOP_INTERCEPT = -0.419, 867.0
-NE_TOP_SLOPE, NE_TOP_INTERCEPT = 0.463, -1290.0
+# V8 raised crowns by 92 px (classic BG doorway clearance).
+NW_TOP_SLOPE, NW_TOP_INTERCEPT = -0.419, 775.0
+NE_TOP_SLOPE, NE_TOP_INTERCEPT = 0.463, -1382.0
 
-PLASTER_H = 227.0
+PLASTER_H = 319.0
 WAINSCOT_H = 121.0
-WALL_FACE_H = PLASTER_H + WAINSCOT_H  # 348
+WALL_FACE_H = PLASTER_H + WAINSCOT_H  # 440
 
 # Room corners in plate pixels. REAR is where the two fitted wall bases meet;
 # the west/east corners are where those bases leave the painted plate.
@@ -61,7 +62,8 @@ BODY_PLATE_H = 229.0
 
 # Height of the doorway opening the shell painted into the north-east wall,
 # measured from the wall's ground line to the top of the dark hall beyond.
-BAKED_DOORWAY_H = 220.0
+# V8 classic BG:EE doorway/adult ≈ 1.94; measured opening on raised shell ≈ 394 px.
+BAKED_DOORWAY_H = 394.0
 
 # Exterior doorway opening width along AXIS_NE, measured from the shell plate
 # (~153 screen-x px of continuous dark hall ≈ 0.093 plan-b).
@@ -149,8 +151,8 @@ class Partition:
     # Chair-seat / desk-height cutaway for the long camera-near run.
     cutaway_face_h: float = 72.0
     wainscot_h: float = WAINSCOT_H
-    # Interior opening height near the shell's baked exterior doorway.
-    door_h: float = 228.0
+    # Interior opening height matching the shell's baked exterior doorway (BG ~1.94×).
+    door_h: float = 394.0
     casing_h: float = 16.0
     overrun_b: float = 0.012
 
