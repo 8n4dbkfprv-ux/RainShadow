@@ -7,41 +7,50 @@ import CoreGraphics
 /// a measured room axis, so furniture lines up with the painted walls.
 enum OfficeNavigationLayout {
     enum Architecture {
-        /// Exterior leaf closed inside the shell's baked opening.
-        static let entranceAnchor = CGPoint(x: 3_138, y: 1_776)
+        /// Shell-authoritative centre of the painted exterior threshold.
+        static let entranceAnchor = CGPoint(x: 2_608.750, y: 1_441.500)
         /// Window insert centre on the shell's left-wall recess.
         static let windowAnchor = CGPoint(x: 1_220, y: 1_812)
         /// Interior partition: one wall on the room's north-east axis (a = 0.36),
         /// with a single framed doorway as the only connection between rooms.
         static let partitionLineA: CGFloat = 0.36
-        static let partitionThicknessA: CGFloat = 0.005018169305952131
+        static let partitionThicknessA: CGFloat = 0.04196555555001597
         static let partitionDoorB0: CGFloat = 0.078
-        static let partitionDoorB1: CGFloat = 0.1865
-        static let partitionReturnB1: CGFloat = 0.2205
+        static let partitionDoorB1: CGFloat = 0.19657707509881422
+        static let partitionReturnB1: CGFloat = 0.23057707509881423
         static let wallThicknessPx: CGFloat = 12.0
-        static let axisNW = CGVector(dx: -2206.0, dy: 923.0)
-        static let axisNE = CGVector(dx: 1650.0, dy: 763.0)
-        static let rearCorner = CGPoint(x: 2446.0, y: 2104.0)
+        static let axisNW = CGVector(dx: -679.0, dy: 442.0)
+        static let axisNE = CGVector(dx: 897.0, dy: 534.0)
+        static let rearCorner = CGPoint(x: 1936.0, y: 1842.0)
 
         /// Partition plate geometry in shell art pixels (y down), so the scene can
         /// slice the painted wall into depth-sorted columns that sort like props
         /// standing on the wall's own ground line.
-        static let partitionPlateX0: CGFloat = 1621
-        static let partitionPlateX1: CGFloat = 2598
-        static let partitionPlateFaceHeight: CGFloat = 440
-        static let partitionPlateCapHeight: CGFloat = 4
+        static let partitionPlateX0: CGFloat = 1652
+        static let partitionPlateX1: CGFloat = 2560
+        static let partitionPlateFaceHeight: CGFloat = 303
+        static let partitionPlateCapHeight: CGFloat = 5
 
         /// Ground line of the partition face at a shell-art x (y down).
         static func partitionPlateBaseY(atPlateX x: CGFloat) -> CGFloat {
-            527.8 + (x - 1621) * 0.4624
+            633.3 + (x - 1652) * 0.5953
         }
 
-        /// Exterior leaf closed inside the shell's baked opening.
-        static let entranceLeafDisplayScale: CGFloat = 0.2162
-        /// Exterior frame/casing ring (~6% larger than the leaf).
-        static let entranceFrameDisplayScale: CGFloat = 0.2171
-        /// Internal leaf fitted to the partition opening (sheared texture ≠ 1:1 env).
-        static let internalLeafDisplayScale: CGFloat = 0.3304
+        /// Clear doorway size, derived from the shipped detective silhouette.
+        static let entranceOpeningPlateSize = CGSize(width: 106.364, height: 234.0)
+        static let entranceOpeningToDetectiveRatio: CGFloat = 1.70
+        static let entranceHandleHeightToDetective: CGFloat = 0.575
+
+        /// Exterior leaf/frame projected onto the sloped NE wall opening.
+        static let entranceLeafDisplayScale: CGFloat = 0.1449
+        static let entranceLeafAnchorY: CGFloat = 0.08903
+        static let entranceFrameDisplayScale: CGFloat = 0.1446
+        static let entranceFrameAnchorX: CGFloat = 0.49155
+        static let entranceFrameAnchorY: CGFloat = 0.11529
+        /// Floor-projected presentation used after the leaf breaks free.
+        static let entranceFallenLeafScaleRatio: CGFloat = 0.92
+        /// Internal sheared leaf stays at plate scale so its hinge matches the shell.
+        static let internalLeafDisplayScale: CGFloat = 0.3950
     }
 
     private static let authoredActorStart = CGPoint(
@@ -52,8 +61,8 @@ enum OfficeNavigationLayout {
     // MARK: - Obstacles (authored AABBs around each floor footprint)
 
     /// One cell of the camera-near boundary, kept named for the layout tests.
-    static let authoredForegroundWallObstacle = CGRect(x: 2325, y: 1235, width: 104, height: 52)
-    static let authoredDoorObstacle = CGRect(x: 3029, y: 1539, width: 170, height: 140)
+    static let authoredForegroundWallObstacle = CGRect(x: 2458, y: 1094, width: 104, height: 52)
+    static let authoredDoorObstacle = CGRect(x: 2519, y: 1372, width: 180, height: 140)
 
     /// Room boundary: the rear and side walls plus the camera-near cutaway
     /// wall, one solid per navigation cell outside the painted floor.
@@ -115,6 +124,7 @@ enum OfficeNavigationLayout {
         CGRect(x: 588, y: 1052, width: 104, height: 52),
         CGRect(x: 524, y: 1084, width: 104, height: 52),
         CGRect(x: 460, y: 1116, width: 104, height: 52),
+        CGRect(x: 396, y: 1148, width: 104, height: 52),
         CGRect(x: 332, y: 1180, width: 104, height: 52),
         CGRect(x: 268, y: 1212, width: 104, height: 52),
         CGRect(x: 204, y: 1244, width: 104, height: 52),
@@ -134,6 +144,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1356, y: 732, width: 104, height: 52),
         CGRect(x: 1292, y: 764, width: 104, height: 52),
         CGRect(x: 1228, y: 796, width: 104, height: 52),
+        CGRect(x: 1164, y: 828, width: 104, height: 52),
+        CGRect(x: 1100, y: 860, width: 104, height: 52),
+        CGRect(x: 1036, y: 892, width: 104, height: 52),
+        CGRect(x: 972, y: 924, width: 104, height: 52),
+        CGRect(x: 908, y: 956, width: 104, height: 52),
+        CGRect(x: 844, y: 988, width: 104, height: 52),
+        CGRect(x: 780, y: 1020, width: 104, height: 52),
+        CGRect(x: 716, y: 1052, width: 104, height: 52),
+        CGRect(x: 652, y: 1084, width: 104, height: 52),
+        CGRect(x: 588, y: 1116, width: 104, height: 52),
+        CGRect(x: 524, y: 1148, width: 104, height: 52),
+        CGRect(x: 460, y: 1180, width: 104, height: 52),
         CGRect(x: 396, y: 1212, width: 104, height: 52),
         CGRect(x: 332, y: 1244, width: 104, height: 52),
         CGRect(x: 268, y: 1276, width: 104, height: 52),
@@ -153,6 +175,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1420, y: 764, width: 104, height: 52),
         CGRect(x: 1356, y: 796, width: 104, height: 52),
         CGRect(x: 1292, y: 828, width: 104, height: 52),
+        CGRect(x: 1228, y: 860, width: 104, height: 52),
+        CGRect(x: 1164, y: 892, width: 104, height: 52),
+        CGRect(x: 1100, y: 924, width: 104, height: 52),
+        CGRect(x: 1036, y: 956, width: 104, height: 52),
+        CGRect(x: 972, y: 988, width: 104, height: 52),
+        CGRect(x: 908, y: 1020, width: 104, height: 52),
+        CGRect(x: 844, y: 1052, width: 104, height: 52),
+        CGRect(x: 780, y: 1084, width: 104, height: 52),
+        CGRect(x: 716, y: 1116, width: 104, height: 52),
+        CGRect(x: 652, y: 1148, width: 104, height: 52),
+        CGRect(x: 588, y: 1180, width: 104, height: 52),
+        CGRect(x: 524, y: 1212, width: 104, height: 52),
         CGRect(x: 460, y: 1244, width: 104, height: 52),
         CGRect(x: 396, y: 1276, width: 104, height: 52),
         CGRect(x: 332, y: 1308, width: 104, height: 52),
@@ -172,6 +206,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1484, y: 796, width: 104, height: 52),
         CGRect(x: 1420, y: 828, width: 104, height: 52),
         CGRect(x: 1356, y: 860, width: 104, height: 52),
+        CGRect(x: 1292, y: 892, width: 104, height: 52),
+        CGRect(x: 1228, y: 924, width: 104, height: 52),
+        CGRect(x: 1164, y: 956, width: 104, height: 52),
+        CGRect(x: 1100, y: 988, width: 104, height: 52),
+        CGRect(x: 1036, y: 1020, width: 104, height: 52),
+        CGRect(x: 972, y: 1052, width: 104, height: 52),
+        CGRect(x: 908, y: 1084, width: 104, height: 52),
+        CGRect(x: 844, y: 1116, width: 104, height: 52),
+        CGRect(x: 780, y: 1148, width: 104, height: 52),
+        CGRect(x: 716, y: 1180, width: 104, height: 52),
+        CGRect(x: 652, y: 1212, width: 104, height: 52),
+        CGRect(x: 588, y: 1244, width: 104, height: 52),
         CGRect(x: 524, y: 1276, width: 104, height: 52),
         CGRect(x: 460, y: 1308, width: 104, height: 52),
         CGRect(x: 396, y: 1340, width: 104, height: 52),
@@ -191,6 +237,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1548, y: 828, width: 104, height: 52),
         CGRect(x: 1484, y: 860, width: 104, height: 52),
         CGRect(x: 1420, y: 892, width: 104, height: 52),
+        CGRect(x: 1356, y: 924, width: 104, height: 52),
+        CGRect(x: 1292, y: 956, width: 104, height: 52),
+        CGRect(x: 1228, y: 988, width: 104, height: 52),
+        CGRect(x: 1164, y: 1020, width: 104, height: 52),
+        CGRect(x: 1100, y: 1052, width: 104, height: 52),
+        CGRect(x: 1036, y: 1084, width: 104, height: 52),
+        CGRect(x: 972, y: 1116, width: 104, height: 52),
+        CGRect(x: 908, y: 1148, width: 104, height: 52),
+        CGRect(x: 844, y: 1180, width: 104, height: 52),
+        CGRect(x: 780, y: 1212, width: 104, height: 52),
+        CGRect(x: 716, y: 1244, width: 104, height: 52),
+        CGRect(x: 652, y: 1276, width: 104, height: 52),
         CGRect(x: 588, y: 1308, width: 104, height: 52),
         CGRect(x: 524, y: 1340, width: 104, height: 52),
         CGRect(x: 460, y: 1372, width: 104, height: 52),
@@ -210,6 +268,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1612, y: 860, width: 104, height: 52),
         CGRect(x: 1548, y: 892, width: 104, height: 52),
         CGRect(x: 1484, y: 924, width: 104, height: 52),
+        CGRect(x: 1420, y: 956, width: 104, height: 52),
+        CGRect(x: 1356, y: 988, width: 104, height: 52),
+        CGRect(x: 1292, y: 1020, width: 104, height: 52),
+        CGRect(x: 1228, y: 1052, width: 104, height: 52),
+        CGRect(x: 1164, y: 1084, width: 104, height: 52),
+        CGRect(x: 1100, y: 1116, width: 104, height: 52),
+        CGRect(x: 1036, y: 1148, width: 104, height: 52),
+        CGRect(x: 972, y: 1180, width: 104, height: 52),
+        CGRect(x: 908, y: 1212, width: 104, height: 52),
+        CGRect(x: 844, y: 1244, width: 104, height: 52),
+        CGRect(x: 780, y: 1276, width: 104, height: 52),
+        CGRect(x: 716, y: 1308, width: 104, height: 52),
         CGRect(x: 652, y: 1340, width: 104, height: 52),
         CGRect(x: 588, y: 1372, width: 104, height: 52),
         CGRect(x: 524, y: 1404, width: 104, height: 52),
@@ -228,6 +298,19 @@ enum OfficeNavigationLayout {
         CGRect(x: 1740, y: 860, width: 104, height: 52),
         CGRect(x: 1676, y: 892, width: 104, height: 52),
         CGRect(x: 1612, y: 924, width: 104, height: 52),
+        CGRect(x: 1548, y: 956, width: 104, height: 52),
+        CGRect(x: 1484, y: 988, width: 104, height: 52),
+        CGRect(x: 1420, y: 1020, width: 104, height: 52),
+        CGRect(x: 1356, y: 1052, width: 104, height: 52),
+        CGRect(x: 1292, y: 1084, width: 104, height: 52),
+        CGRect(x: 1228, y: 1116, width: 104, height: 52),
+        CGRect(x: 1164, y: 1148, width: 104, height: 52),
+        CGRect(x: 1100, y: 1180, width: 104, height: 52),
+        CGRect(x: 1036, y: 1212, width: 104, height: 52),
+        CGRect(x: 972, y: 1244, width: 104, height: 52),
+        CGRect(x: 908, y: 1276, width: 104, height: 52),
+        CGRect(x: 844, y: 1308, width: 104, height: 52),
+        CGRect(x: 780, y: 1340, width: 104, height: 52),
         CGRect(x: 716, y: 1372, width: 104, height: 52),
         CGRect(x: 652, y: 1404, width: 104, height: 52),
         CGRect(x: 588, y: 1436, width: 104, height: 52),
@@ -246,6 +329,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1804, y: 892, width: 104, height: 52),
         CGRect(x: 1740, y: 924, width: 104, height: 52),
         CGRect(x: 1676, y: 956, width: 104, height: 52),
+        CGRect(x: 1612, y: 988, width: 104, height: 52),
+        CGRect(x: 1548, y: 1020, width: 104, height: 52),
+        CGRect(x: 1484, y: 1052, width: 104, height: 52),
+        CGRect(x: 1420, y: 1084, width: 104, height: 52),
+        CGRect(x: 1356, y: 1116, width: 104, height: 52),
+        CGRect(x: 1292, y: 1148, width: 104, height: 52),
+        CGRect(x: 1228, y: 1180, width: 104, height: 52),
+        CGRect(x: 1164, y: 1212, width: 104, height: 52),
+        CGRect(x: 1100, y: 1244, width: 104, height: 52),
+        CGRect(x: 1036, y: 1276, width: 104, height: 52),
+        CGRect(x: 972, y: 1308, width: 104, height: 52),
+        CGRect(x: 908, y: 1340, width: 104, height: 52),
         CGRect(x: 844, y: 1372, width: 104, height: 52),
         CGRect(x: 780, y: 1404, width: 104, height: 52),
         CGRect(x: 716, y: 1436, width: 104, height: 52),
@@ -265,6 +360,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1868, y: 924, width: 104, height: 52),
         CGRect(x: 1804, y: 956, width: 104, height: 52),
         CGRect(x: 1740, y: 988, width: 104, height: 52),
+        CGRect(x: 1676, y: 1020, width: 104, height: 52),
+        CGRect(x: 1612, y: 1052, width: 104, height: 52),
+        CGRect(x: 1548, y: 1084, width: 104, height: 52),
+        CGRect(x: 1484, y: 1116, width: 104, height: 52),
+        CGRect(x: 1420, y: 1148, width: 104, height: 52),
+        CGRect(x: 1356, y: 1180, width: 104, height: 52),
+        CGRect(x: 1292, y: 1212, width: 104, height: 52),
+        CGRect(x: 1228, y: 1244, width: 104, height: 52),
+        CGRect(x: 1164, y: 1276, width: 104, height: 52),
+        CGRect(x: 1100, y: 1308, width: 104, height: 52),
+        CGRect(x: 1036, y: 1340, width: 104, height: 52),
+        CGRect(x: 972, y: 1372, width: 104, height: 52),
         CGRect(x: 908, y: 1404, width: 104, height: 52),
         CGRect(x: 844, y: 1436, width: 104, height: 52),
         CGRect(x: 780, y: 1468, width: 104, height: 52),
@@ -284,6 +391,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 1932, y: 956, width: 104, height: 52),
         CGRect(x: 1868, y: 988, width: 104, height: 52),
         CGRect(x: 1804, y: 1020, width: 104, height: 52),
+        CGRect(x: 1740, y: 1052, width: 104, height: 52),
+        CGRect(x: 1676, y: 1084, width: 104, height: 52),
+        CGRect(x: 1612, y: 1116, width: 104, height: 52),
+        CGRect(x: 1548, y: 1148, width: 104, height: 52),
+        CGRect(x: 1484, y: 1180, width: 104, height: 52),
+        CGRect(x: 1420, y: 1212, width: 104, height: 52),
+        CGRect(x: 1356, y: 1244, width: 104, height: 52),
+        CGRect(x: 1292, y: 1276, width: 104, height: 52),
+        CGRect(x: 1228, y: 1308, width: 104, height: 52),
+        CGRect(x: 1164, y: 1340, width: 104, height: 52),
+        CGRect(x: 1100, y: 1372, width: 104, height: 52),
+        CGRect(x: 1036, y: 1404, width: 104, height: 52),
         CGRect(x: 972, y: 1436, width: 104, height: 52),
         CGRect(x: 908, y: 1468, width: 104, height: 52),
         CGRect(x: 844, y: 1500, width: 104, height: 52),
@@ -298,11 +417,13 @@ enum OfficeNavigationLayout {
         CGRect(x: 2316, y: 828, width: 104, height: 52),
         CGRect(x: 2252, y: 860, width: 104, height: 52),
         CGRect(x: 2188, y: 892, width: 104, height: 52),
-        CGRect(x: 2124, y: 924, width: 104, height: 52),
-        CGRect(x: 2060, y: 956, width: 104, height: 52),
-        CGRect(x: 1996, y: 988, width: 104, height: 52),
-        CGRect(x: 1932, y: 1020, width: 104, height: 52),
-        CGRect(x: 1868, y: 1052, width: 104, height: 52),
+        CGRect(x: 1484, y: 1244, width: 104, height: 52),
+        CGRect(x: 1420, y: 1276, width: 104, height: 52),
+        CGRect(x: 1356, y: 1308, width: 104, height: 52),
+        CGRect(x: 1292, y: 1340, width: 104, height: 52),
+        CGRect(x: 1228, y: 1372, width: 104, height: 52),
+        CGRect(x: 1164, y: 1404, width: 104, height: 52),
+        CGRect(x: 1100, y: 1436, width: 104, height: 52),
         CGRect(x: 1036, y: 1468, width: 104, height: 52),
         CGRect(x: 972, y: 1500, width: 104, height: 52),
         CGRect(x: 908, y: 1532, width: 104, height: 52),
@@ -317,11 +438,9 @@ enum OfficeNavigationLayout {
         CGRect(x: 2380, y: 860, width: 104, height: 52),
         CGRect(x: 2316, y: 892, width: 104, height: 52),
         CGRect(x: 2252, y: 924, width: 104, height: 52),
-        CGRect(x: 2188, y: 956, width: 104, height: 52),
-        CGRect(x: 2124, y: 988, width: 104, height: 52),
-        CGRect(x: 2060, y: 1020, width: 104, height: 52),
-        CGRect(x: 1996, y: 1052, width: 104, height: 52),
-        CGRect(x: 1932, y: 1084, width: 104, height: 52),
+        CGRect(x: 1292, y: 1404, width: 104, height: 52),
+        CGRect(x: 1228, y: 1436, width: 104, height: 52),
+        CGRect(x: 1164, y: 1468, width: 104, height: 52),
         CGRect(x: 1100, y: 1500, width: 104, height: 52),
         CGRect(x: 1036, y: 1532, width: 104, height: 52),
         CGRect(x: 972, y: 1564, width: 104, height: 52),
@@ -337,10 +456,9 @@ enum OfficeNavigationLayout {
         CGRect(x: 2380, y: 924, width: 104, height: 52),
         CGRect(x: 2316, y: 956, width: 104, height: 52),
         CGRect(x: 2252, y: 988, width: 104, height: 52),
-        CGRect(x: 2188, y: 1020, width: 104, height: 52),
-        CGRect(x: 2124, y: 1052, width: 104, height: 52),
-        CGRect(x: 2060, y: 1084, width: 104, height: 52),
-        CGRect(x: 1996, y: 1116, width: 104, height: 52),
+        CGRect(x: 1356, y: 1436, width: 104, height: 52),
+        CGRect(x: 1292, y: 1468, width: 104, height: 52),
+        CGRect(x: 1228, y: 1500, width: 104, height: 52),
         CGRect(x: 1164, y: 1532, width: 104, height: 52),
         CGRect(x: 1100, y: 1564, width: 104, height: 52),
         CGRect(x: 1036, y: 1596, width: 104, height: 52),
@@ -356,10 +474,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2444, y: 956, width: 104, height: 52),
         CGRect(x: 2380, y: 988, width: 104, height: 52),
         CGRect(x: 2316, y: 1020, width: 104, height: 52),
-        CGRect(x: 2252, y: 1052, width: 104, height: 52),
-        CGRect(x: 2188, y: 1084, width: 104, height: 52),
-        CGRect(x: 2124, y: 1116, width: 104, height: 52),
-        CGRect(x: 2060, y: 1148, width: 104, height: 52),
+        CGRect(x: 1356, y: 1500, width: 104, height: 52),
+        CGRect(x: 1292, y: 1532, width: 104, height: 52),
         CGRect(x: 1228, y: 1564, width: 104, height: 52),
         CGRect(x: 1164, y: 1596, width: 104, height: 52),
         CGRect(x: 1100, y: 1628, width: 104, height: 52),
@@ -375,10 +491,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2508, y: 988, width: 104, height: 52),
         CGRect(x: 2444, y: 1020, width: 104, height: 52),
         CGRect(x: 2380, y: 1052, width: 104, height: 52),
-        CGRect(x: 2316, y: 1084, width: 104, height: 52),
-        CGRect(x: 2252, y: 1116, width: 104, height: 52),
-        CGRect(x: 2188, y: 1148, width: 104, height: 52),
-        CGRect(x: 2124, y: 1180, width: 104, height: 52),
+        CGRect(x: 1420, y: 1532, width: 104, height: 52),
+        CGRect(x: 1356, y: 1564, width: 104, height: 52),
         CGRect(x: 1292, y: 1596, width: 104, height: 52),
         CGRect(x: 1228, y: 1628, width: 104, height: 52),
         CGRect(x: 1164, y: 1660, width: 104, height: 52),
@@ -394,10 +508,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2572, y: 1020, width: 104, height: 52),
         CGRect(x: 2508, y: 1052, width: 104, height: 52),
         CGRect(x: 2444, y: 1084, width: 104, height: 52),
-        CGRect(x: 2380, y: 1116, width: 104, height: 52),
-        CGRect(x: 2316, y: 1148, width: 104, height: 52),
-        CGRect(x: 2252, y: 1180, width: 104, height: 52),
-        CGRect(x: 2188, y: 1212, width: 104, height: 52),
+        CGRect(x: 1484, y: 1564, width: 104, height: 52),
+        CGRect(x: 1420, y: 1596, width: 104, height: 52),
         CGRect(x: 1356, y: 1628, width: 104, height: 52),
         CGRect(x: 1292, y: 1660, width: 104, height: 52),
         CGRect(x: 1228, y: 1692, width: 104, height: 52),
@@ -413,10 +525,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2636, y: 1052, width: 104, height: 52),
         CGRect(x: 2572, y: 1084, width: 104, height: 52),
         CGRect(x: 2508, y: 1116, width: 104, height: 52),
-        CGRect(x: 2444, y: 1148, width: 104, height: 52),
-        CGRect(x: 2380, y: 1180, width: 104, height: 52),
-        CGRect(x: 2316, y: 1212, width: 104, height: 52),
-        CGRect(x: 2252, y: 1244, width: 104, height: 52),
+        CGRect(x: 1548, y: 1596, width: 104, height: 52),
+        CGRect(x: 1484, y: 1628, width: 104, height: 52),
         CGRect(x: 1420, y: 1660, width: 104, height: 52),
         CGRect(x: 1356, y: 1692, width: 104, height: 52),
         CGRect(x: 1292, y: 1724, width: 104, height: 52),
@@ -432,9 +542,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2700, y: 1084, width: 104, height: 52),
         CGRect(x: 2636, y: 1116, width: 104, height: 52),
         CGRect(x: 2572, y: 1148, width: 104, height: 52),
-        CGRect(x: 2508, y: 1180, width: 104, height: 52),
-        CGRect(x: 2444, y: 1212, width: 104, height: 52),
-        CGRect(x: 2380, y: 1244, width: 104, height: 52),
+        CGRect(x: 1612, y: 1628, width: 104, height: 52),
+        CGRect(x: 1548, y: 1660, width: 104, height: 52),
         CGRect(x: 1484, y: 1692, width: 104, height: 52),
         CGRect(x: 1420, y: 1724, width: 104, height: 52),
         CGRect(x: 1356, y: 1756, width: 104, height: 52),
@@ -450,9 +559,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 2764, y: 1116, width: 104, height: 52),
         CGRect(x: 2700, y: 1148, width: 104, height: 52),
         CGRect(x: 2636, y: 1180, width: 104, height: 52),
-        CGRect(x: 2572, y: 1212, width: 104, height: 52),
-        CGRect(x: 2508, y: 1244, width: 104, height: 52),
-        CGRect(x: 2444, y: 1276, width: 104, height: 52),
+        CGRect(x: 1676, y: 1660, width: 104, height: 52),
+        CGRect(x: 1612, y: 1692, width: 104, height: 52),
         CGRect(x: 1548, y: 1724, width: 104, height: 52),
         CGRect(x: 1484, y: 1756, width: 104, height: 52),
         CGRect(x: 1420, y: 1788, width: 104, height: 52),
@@ -468,9 +576,7 @@ enum OfficeNavigationLayout {
         CGRect(x: 2828, y: 1148, width: 104, height: 52),
         CGRect(x: 2764, y: 1180, width: 104, height: 52),
         CGRect(x: 2700, y: 1212, width: 104, height: 52),
-        CGRect(x: 2636, y: 1244, width: 104, height: 52),
-        CGRect(x: 2572, y: 1276, width: 104, height: 52),
-        CGRect(x: 2508, y: 1308, width: 104, height: 52),
+        CGRect(x: 1740, y: 1692, width: 104, height: 52),
         CGRect(x: 1676, y: 1724, width: 104, height: 52),
         CGRect(x: 1612, y: 1756, width: 104, height: 52),
         CGRect(x: 1548, y: 1788, width: 104, height: 52),
@@ -488,8 +594,7 @@ enum OfficeNavigationLayout {
         CGRect(x: 2828, y: 1212, width: 104, height: 52),
         CGRect(x: 2764, y: 1244, width: 104, height: 52),
         CGRect(x: 2700, y: 1276, width: 104, height: 52),
-        CGRect(x: 2636, y: 1308, width: 104, height: 52),
-        CGRect(x: 2572, y: 1340, width: 104, height: 52),
+        CGRect(x: 1804, y: 1724, width: 104, height: 52),
         CGRect(x: 1740, y: 1756, width: 104, height: 52),
         CGRect(x: 1676, y: 1788, width: 104, height: 52),
         CGRect(x: 1612, y: 1820, width: 104, height: 52),
@@ -509,6 +614,12 @@ enum OfficeNavigationLayout {
         CGRect(x: 2764, y: 1308, width: 104, height: 52),
         CGRect(x: 2700, y: 1340, width: 104, height: 52),
         CGRect(x: 2636, y: 1372, width: 104, height: 52),
+        CGRect(x: 2572, y: 1404, width: 104, height: 52),
+        CGRect(x: 2508, y: 1436, width: 104, height: 52),
+        CGRect(x: 2444, y: 1468, width: 104, height: 52),
+        CGRect(x: 2380, y: 1500, width: 104, height: 52),
+        CGRect(x: 2316, y: 1532, width: 104, height: 52),
+        CGRect(x: 2252, y: 1564, width: 104, height: 52),
         CGRect(x: 1804, y: 1788, width: 104, height: 52),
         CGRect(x: 1740, y: 1820, width: 104, height: 52),
         CGRect(x: 1676, y: 1852, width: 104, height: 52),
@@ -528,6 +639,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 2828, y: 1340, width: 104, height: 52),
         CGRect(x: 2764, y: 1372, width: 104, height: 52),
         CGRect(x: 2700, y: 1404, width: 104, height: 52),
+        CGRect(x: 2636, y: 1436, width: 104, height: 52),
+        CGRect(x: 2572, y: 1468, width: 104, height: 52),
+        CGRect(x: 2508, y: 1500, width: 104, height: 52),
+        CGRect(x: 2444, y: 1532, width: 104, height: 52),
+        CGRect(x: 2380, y: 1564, width: 104, height: 52),
+        CGRect(x: 2316, y: 1596, width: 104, height: 52),
+        CGRect(x: 2252, y: 1628, width: 104, height: 52),
+        CGRect(x: 2188, y: 1660, width: 104, height: 52),
+        CGRect(x: 2124, y: 1692, width: 104, height: 52),
+        CGRect(x: 2060, y: 1724, width: 104, height: 52),
+        CGRect(x: 1996, y: 1756, width: 104, height: 52),
+        CGRect(x: 1932, y: 1788, width: 104, height: 52),
         CGRect(x: 1868, y: 1820, width: 104, height: 52),
         CGRect(x: 1804, y: 1852, width: 104, height: 52),
         CGRect(x: 1740, y: 1884, width: 104, height: 52),
@@ -547,6 +670,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 2892, y: 1372, width: 104, height: 52),
         CGRect(x: 2828, y: 1404, width: 104, height: 52),
         CGRect(x: 2764, y: 1436, width: 104, height: 52),
+        CGRect(x: 2700, y: 1468, width: 104, height: 52),
+        CGRect(x: 2636, y: 1500, width: 104, height: 52),
+        CGRect(x: 2572, y: 1532, width: 104, height: 52),
+        CGRect(x: 2508, y: 1564, width: 104, height: 52),
+        CGRect(x: 2444, y: 1596, width: 104, height: 52),
+        CGRect(x: 2380, y: 1628, width: 104, height: 52),
+        CGRect(x: 2316, y: 1660, width: 104, height: 52),
+        CGRect(x: 2252, y: 1692, width: 104, height: 52),
+        CGRect(x: 2188, y: 1724, width: 104, height: 52),
+        CGRect(x: 2124, y: 1756, width: 104, height: 52),
+        CGRect(x: 2060, y: 1788, width: 104, height: 52),
+        CGRect(x: 1996, y: 1820, width: 104, height: 52),
         CGRect(x: 1932, y: 1852, width: 104, height: 52),
         CGRect(x: 1868, y: 1884, width: 104, height: 52),
         CGRect(x: 1804, y: 1916, width: 104, height: 52),
@@ -566,6 +701,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 2956, y: 1404, width: 104, height: 52),
         CGRect(x: 2892, y: 1436, width: 104, height: 52),
         CGRect(x: 2828, y: 1468, width: 104, height: 52),
+        CGRect(x: 2764, y: 1500, width: 104, height: 52),
+        CGRect(x: 2700, y: 1532, width: 104, height: 52),
+        CGRect(x: 2636, y: 1564, width: 104, height: 52),
+        CGRect(x: 2572, y: 1596, width: 104, height: 52),
+        CGRect(x: 2508, y: 1628, width: 104, height: 52),
+        CGRect(x: 2444, y: 1660, width: 104, height: 52),
+        CGRect(x: 2380, y: 1692, width: 104, height: 52),
+        CGRect(x: 2316, y: 1724, width: 104, height: 52),
+        CGRect(x: 2252, y: 1756, width: 104, height: 52),
+        CGRect(x: 2188, y: 1788, width: 104, height: 52),
+        CGRect(x: 2124, y: 1820, width: 104, height: 52),
+        CGRect(x: 2060, y: 1852, width: 104, height: 52),
         CGRect(x: 1996, y: 1884, width: 104, height: 52),
         CGRect(x: 1932, y: 1916, width: 104, height: 52),
         CGRect(x: 1868, y: 1948, width: 104, height: 52),
@@ -585,6 +732,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 3020, y: 1436, width: 104, height: 52),
         CGRect(x: 2956, y: 1468, width: 104, height: 52),
         CGRect(x: 2892, y: 1500, width: 104, height: 52),
+        CGRect(x: 2828, y: 1532, width: 104, height: 52),
+        CGRect(x: 2764, y: 1564, width: 104, height: 52),
+        CGRect(x: 2700, y: 1596, width: 104, height: 52),
+        CGRect(x: 2636, y: 1628, width: 104, height: 52),
+        CGRect(x: 2572, y: 1660, width: 104, height: 52),
+        CGRect(x: 2508, y: 1692, width: 104, height: 52),
+        CGRect(x: 2444, y: 1724, width: 104, height: 52),
+        CGRect(x: 2380, y: 1756, width: 104, height: 52),
+        CGRect(x: 2316, y: 1788, width: 104, height: 52),
+        CGRect(x: 2252, y: 1820, width: 104, height: 52),
+        CGRect(x: 2188, y: 1852, width: 104, height: 52),
+        CGRect(x: 2124, y: 1884, width: 104, height: 52),
         CGRect(x: 2060, y: 1916, width: 104, height: 52),
         CGRect(x: 1996, y: 1948, width: 104, height: 52),
         CGRect(x: 1932, y: 1980, width: 104, height: 52),
@@ -604,6 +763,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 3084, y: 1468, width: 104, height: 52),
         CGRect(x: 3020, y: 1500, width: 104, height: 52),
         CGRect(x: 2956, y: 1532, width: 104, height: 52),
+        CGRect(x: 2892, y: 1564, width: 104, height: 52),
+        CGRect(x: 2828, y: 1596, width: 104, height: 52),
+        CGRect(x: 2764, y: 1628, width: 104, height: 52),
+        CGRect(x: 2700, y: 1660, width: 104, height: 52),
+        CGRect(x: 2636, y: 1692, width: 104, height: 52),
+        CGRect(x: 2572, y: 1724, width: 104, height: 52),
+        CGRect(x: 2508, y: 1756, width: 104, height: 52),
+        CGRect(x: 2444, y: 1788, width: 104, height: 52),
+        CGRect(x: 2380, y: 1820, width: 104, height: 52),
+        CGRect(x: 2316, y: 1852, width: 104, height: 52),
+        CGRect(x: 2252, y: 1884, width: 104, height: 52),
+        CGRect(x: 2188, y: 1916, width: 104, height: 52),
         CGRect(x: 2124, y: 1948, width: 104, height: 52),
         CGRect(x: 2060, y: 1980, width: 104, height: 52),
         CGRect(x: 1996, y: 2012, width: 104, height: 52),
@@ -623,6 +794,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 3148, y: 1500, width: 104, height: 52),
         CGRect(x: 3084, y: 1532, width: 104, height: 52),
         CGRect(x: 3020, y: 1564, width: 104, height: 52),
+        CGRect(x: 2956, y: 1596, width: 104, height: 52),
+        CGRect(x: 2892, y: 1628, width: 104, height: 52),
+        CGRect(x: 2828, y: 1660, width: 104, height: 52),
+        CGRect(x: 2764, y: 1692, width: 104, height: 52),
+        CGRect(x: 2700, y: 1724, width: 104, height: 52),
+        CGRect(x: 2636, y: 1756, width: 104, height: 52),
+        CGRect(x: 2572, y: 1788, width: 104, height: 52),
+        CGRect(x: 2508, y: 1820, width: 104, height: 52),
+        CGRect(x: 2444, y: 1852, width: 104, height: 52),
+        CGRect(x: 2380, y: 1884, width: 104, height: 52),
+        CGRect(x: 2316, y: 1916, width: 104, height: 52),
+        CGRect(x: 2252, y: 1948, width: 104, height: 52),
         CGRect(x: 2188, y: 1980, width: 104, height: 52),
         CGRect(x: 2124, y: 2012, width: 104, height: 52),
         CGRect(x: 2060, y: 2044, width: 104, height: 52),
@@ -642,6 +825,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 3212, y: 1532, width: 104, height: 52),
         CGRect(x: 3148, y: 1564, width: 104, height: 52),
         CGRect(x: 3084, y: 1596, width: 104, height: 52),
+        CGRect(x: 3020, y: 1628, width: 104, height: 52),
+        CGRect(x: 2956, y: 1660, width: 104, height: 52),
+        CGRect(x: 2892, y: 1692, width: 104, height: 52),
+        CGRect(x: 2828, y: 1724, width: 104, height: 52),
+        CGRect(x: 2764, y: 1756, width: 104, height: 52),
+        CGRect(x: 2700, y: 1788, width: 104, height: 52),
+        CGRect(x: 2636, y: 1820, width: 104, height: 52),
+        CGRect(x: 2572, y: 1852, width: 104, height: 52),
+        CGRect(x: 2508, y: 1884, width: 104, height: 52),
+        CGRect(x: 2444, y: 1916, width: 104, height: 52),
+        CGRect(x: 2380, y: 1948, width: 104, height: 52),
+        CGRect(x: 2316, y: 1980, width: 104, height: 52),
         CGRect(x: 2252, y: 2012, width: 104, height: 52),
         CGRect(x: 2188, y: 2044, width: 104, height: 52),
         CGRect(x: 2124, y: 2076, width: 104, height: 52),
@@ -660,6 +855,12 @@ enum OfficeNavigationLayout {
         CGRect(x: 3340, y: 1532, width: 104, height: 52),
         CGRect(x: 3276, y: 1564, width: 104, height: 52),
         CGRect(x: 3212, y: 1596, width: 104, height: 52),
+        CGRect(x: 3148, y: 1628, width: 104, height: 52),
+        CGRect(x: 3084, y: 1660, width: 104, height: 52),
+        CGRect(x: 3020, y: 1692, width: 104, height: 52),
+        CGRect(x: 2956, y: 1724, width: 104, height: 52),
+        CGRect(x: 2892, y: 1756, width: 104, height: 52),
+        CGRect(x: 2828, y: 1788, width: 104, height: 52),
         CGRect(x: 2764, y: 1820, width: 104, height: 52),
         CGRect(x: 2700, y: 1852, width: 104, height: 52),
         CGRect(x: 2636, y: 1884, width: 104, height: 52),
@@ -676,42 +877,38 @@ enum OfficeNavigationLayout {
     ]
 
     /// Partition solids, one per navigation cell, doorway cells omitted.
-    static let authoredPartitionWallNorthObstacle = CGRect(x: 2572, y: 1276, width: 104, height: 52)
-    static let authoredPartitionWallSouthObstacle = CGRect(x: 1612, y: 1756, width: 104, height: 52)
+    static let authoredPartitionWallNorthObstacle = CGRect(x: 2508, y: 1116, width: 104, height: 52)
+    static let authoredPartitionWallSouthObstacle = CGRect(x: 1868, y: 1500, width: 104, height: 52)
     static let authoredPartitionSegments: [CGRect] = [
-        CGRect(x: 2572, y: 1276, width: 104, height: 52),
-        CGRect(x: 2508, y: 1308, width: 104, height: 52),
-        CGRect(x: 2444, y: 1340, width: 104, height: 52),
-        CGRect(x: 2380, y: 1372, width: 104, height: 52),
-        CGRect(x: 2316, y: 1404, width: 104, height: 52),
-        CGRect(x: 2252, y: 1436, width: 104, height: 52),
-        CGRect(x: 2188, y: 1468, width: 104, height: 52),
-        CGRect(x: 2124, y: 1500, width: 104, height: 52),
-        CGRect(x: 2060, y: 1532, width: 104, height: 52),
-        CGRect(x: 1996, y: 1564, width: 104, height: 52),
-        CGRect(x: 1932, y: 1596, width: 104, height: 52),
-        CGRect(x: 1676, y: 1724, width: 104, height: 52),
-        CGRect(x: 1612, y: 1756, width: 104, height: 52),
+        CGRect(x: 2508, y: 1116, width: 104, height: 52),
+        CGRect(x: 2444, y: 1148, width: 104, height: 52),
+        CGRect(x: 2380, y: 1180, width: 104, height: 52),
+        CGRect(x: 2316, y: 1212, width: 104, height: 52),
+        CGRect(x: 2124, y: 1372, width: 104, height: 52),
+        CGRect(x: 2060, y: 1404, width: 104, height: 52),
+        CGRect(x: 1996, y: 1436, width: 104, height: 52),
+        CGRect(x: 1932, y: 1468, width: 104, height: 52),
+        CGRect(x: 1868, y: 1500, width: 104, height: 52),
     ]
 
-    static let authoredSafeObstacle = CGRect(x: 1027, y: 1439, width: 173, height: 76)
-    static let authoredFilingCabinetBObstacle = CGRect(x: 900, y: 1386, width: 161, height: 71)
-    static let authoredFilingCabinetObstacle = CGRect(x: 764, y: 1329, width: 161, height: 71)
-    static let authoredBookshelfObstacle = CGRect(x: 583, y: 1251, width: 223, height: 101)
-    static let authoredArchiveBoxAObstacle = CGRect(x: 782, y: 1253, width: 137, height: 60)
-    static let authoredRadiatorObstacle = CGRect(x: 1202, y: 1519, width: 173, height: 79)
-    static let authoredPersonalSideboardObstacle = CGRect(x: 1465, y: 1620, width: 245, height: 110)
-    static let authoredPersonalWashbasinObstacle = CGRect(x: 1402, y: 1595, width: 173, height: 77)
-    static let authoredPersonalFanObstacle = CGRect(x: 1621, y: 1634, width: 144, height: 63)
-    static let authoredDeskEnsembleObstacle = CGRect(x: 1218, y: 1229, width: 374, height: 167)
-    static let authoredVisitorArmchairObstacle = CGRect(x: 1412, y: 1400, width: 230, height: 101)
-    static let authoredVisitorArmchairBObstacle = CGRect(x: 1618, y: 1304, width: 230, height: 101)
-    static let authoredWastebasketObstacle = CGRect(x: 1064, y: 1292, width: 115, height: 51)
-    static let authoredCoatRackObstacle = CGRect(x: 2985, y: 1637, width: 173, height: 76)
-    static let authoredUmbrellaStandObstacle = CGRect(x: 3136, y: 1639, width: 101, height: 44)
-    static let authoredWaitingChairAObstacle = CGRect(x: 2907, y: 1590, width: 158, height: 70)
-    static let authoredWaitingTableObstacle = CGRect(x: 2973, y: 1560, width: 158, height: 70)
-    static let authoredWaitingChairBObstacle = CGRect(x: 3034, y: 1531, width: 158, height: 70)
+    static let authoredSafeObstacle = CGRect(x: 1508, y: 1511, width: 74, height: 45)
+    static let authoredFilingCabinetBObstacle = CGRect(x: 1470, y: 1486, width: 67, height: 41)
+    static let authoredFilingCabinetObstacle = CGRect(x: 1428, y: 1459, width: 67, height: 41)
+    static let authoredBookshelfObstacle = CGRect(x: 1361, y: 1416, width: 109, height: 66)
+    static let authoredArchiveBoxAObstacle = CGRect(x: 1456, y: 1413, width: 59, height: 36)
+    static let authoredRadiatorObstacle = CGRect(x: 1726, y: 1661, width: 87, height: 52)
+    static let authoredPersonalSideboardObstacle = CGRect(x: 1632, y: 1593, width: 116, height: 70)
+    static let authoredPersonalWashbasinObstacle = CGRect(x: 1621, y: 1585, width: 77, height: 47)
+    static let authoredPersonalFanObstacle = CGRect(x: 1707, y: 1599, width: 61, height: 38)
+    static let authoredDeskEnsembleObstacle = CGRect(x: 1716, y: 1344, width: 173, height: 105)
+    static let authoredVisitorArmchairObstacle = CGRect(x: 1763, y: 1446, width: 98, height: 60)
+    static let authoredVisitorArmchairBObstacle = CGRect(x: 1879, y: 1376, width: 98, height: 60)
+    static let authoredWastebasketObstacle = CGRect(x: 1653, y: 1401, width: 49, height: 30)
+    static let authoredCoatRackObstacle = CGRect(x: 2614, y: 1368, width: 74, height: 45)
+    static let authoredUmbrellaStandObstacle = CGRect(x: 2573, y: 1386, width: 43, height: 26)
+    static let authoredWaitingChairAObstacle = CGRect(x: 2435, y: 1386, width: 67, height: 42)
+    static let authoredWaitingTableObstacle = CGRect(x: 2475, y: 1362, width: 67, height: 42)
+    static let authoredWaitingChairBObstacle = CGRect(x: 2516, y: 1338, width: 67, height: 42)
 
     private static var authoredObstacles: [CGRect] {
         [authoredDoorObstacle, authoredForegroundWallObstacle]
@@ -742,120 +939,125 @@ enum OfficeNavigationLayout {
     // MARK: - Sample points (interior to each obstacle)
 
     static let authoredSafeSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_113, y: 1_477),
-        CGPoint(x: 1_079, y: 1_465),
-        CGPoint(x: 1_148, y: 1_488),
+        CGPoint(x: 1_544, y: 1_533),
+        CGPoint(x: 1_530, y: 1_527),
+        CGPoint(x: 1_559, y: 1_540),
     ]
     static let authoredFilingCabinetBSamplePoints: [CGPoint] = [
-        CGPoint(x: 981, y: 1_421),
-        CGPoint(x: 949, y: 1_411),
-        CGPoint(x: 1_013, y: 1_432),
+        CGPoint(x: 1_504, y: 1_507),
+        CGPoint(x: 1_490, y: 1_501),
+        CGPoint(x: 1_517, y: 1_513),
     ]
     static let authoredFilingCabinetSamplePoints: [CGPoint] = [
-        CGPoint(x: 844, y: 1_364),
-        CGPoint(x: 812, y: 1_353),
-        CGPoint(x: 876, y: 1_375),
+        CGPoint(x: 1_462, y: 1_480),
+        CGPoint(x: 1_448, y: 1_473),
+        CGPoint(x: 1_475, y: 1_486),
     ]
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 694, y: 1_301),
-        CGPoint(x: 650, y: 1_286),
-        CGPoint(x: 739, y: 1_316),
+        CGPoint(x: 1_415, y: 1_450),
+        CGPoint(x: 1_394, y: 1_440),
+        CGPoint(x: 1_437, y: 1_459),
     ]
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
-        CGPoint(x: 850, y: 1_284),
-        CGPoint(x: 823, y: 1_275),
-        CGPoint(x: 877, y: 1_293),
+        CGPoint(x: 1_486, y: 1_431),
+        CGPoint(x: 1_474, y: 1_426),
+        CGPoint(x: 1_497, y: 1_437),
     ]
     static let authoredRadiatorSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_289, y: 1_559),
-        CGPoint(x: 1_254, y: 1_547),
-        CGPoint(x: 1_323, y: 1_571),
+        CGPoint(x: 1_770, y: 1_687),
+        CGPoint(x: 1_753, y: 1_679),
+        CGPoint(x: 1_787, y: 1_695),
     ]
     static let authoredPersonalSideboardSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_588, y: 1_675),
-        CGPoint(x: 1_539, y: 1_659),
-        CGPoint(x: 1_637, y: 1_692),
+        CGPoint(x: 1_690, y: 1_629),
+        CGPoint(x: 1_667, y: 1_618),
+        CGPoint(x: 1_714, y: 1_639),
     ]
     static let authoredPersonalWashbasinSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_488, y: 1_634),
-        CGPoint(x: 1_454, y: 1_622),
-        CGPoint(x: 1_523, y: 1_645),
+        CGPoint(x: 1_660, y: 1_609),
+        CGPoint(x: 1_645, y: 1_602),
+        CGPoint(x: 1_675, y: 1_616),
     ]
     static let authoredPersonalFanSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_693, y: 1_665),
-        CGPoint(x: 1_664, y: 1_656),
-        CGPoint(x: 1_722, y: 1_675),
+        CGPoint(x: 1_737, y: 1_618),
+        CGPoint(x: 1_725, y: 1_612),
+        CGPoint(x: 1_750, y: 1_623),
     ]
     static let authoredDeskEnsembleSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_405, y: 1_312),
-        CGPoint(x: 1_330, y: 1_287),
-        CGPoint(x: 1_480, y: 1_338),
+        CGPoint(x: 1_802, y: 1_397),
+        CGPoint(x: 1_767, y: 1_381),
+        CGPoint(x: 1_837, y: 1_413),
     ]
     static let authoredVisitorArmchairSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_527, y: 1_451),
-        CGPoint(x: 1_481, y: 1_435),
-        CGPoint(x: 1_573, y: 1_466),
+        CGPoint(x: 1_812, y: 1_476),
+        CGPoint(x: 1_792, y: 1_467),
+        CGPoint(x: 1_831, y: 1_485),
     ]
     static let authoredVisitorArmchairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_733, y: 1_355),
-        CGPoint(x: 1_687, y: 1_340),
-        CGPoint(x: 1_779, y: 1_370),
+        CGPoint(x: 1_928, y: 1_407),
+        CGPoint(x: 1_909, y: 1_398),
+        CGPoint(x: 1_948, y: 1_416),
     ]
     static let authoredWastebasketSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_122, y: 1_317),
-        CGPoint(x: 1_099, y: 1_310),
-        CGPoint(x: 1_145, y: 1_325),
+        CGPoint(x: 1_677, y: 1_416),
+        CGPoint(x: 1_667, y: 1_412),
+        CGPoint(x: 1_687, y: 1_421),
     ]
     static let authoredCoatRackSamplePoints: [CGPoint] = [
-        CGPoint(x: 3_071, y: 1_675),
-        CGPoint(x: 3_036, y: 1_664),
-        CGPoint(x: 3_105, y: 1_687),
+        CGPoint(x: 2_651, y: 1_391),
+        CGPoint(x: 2_636, y: 1_384),
+        CGPoint(x: 2_666, y: 1_398),
     ]
     static let authoredUmbrellaStandSamplePoints: [CGPoint] = [
-        CGPoint(x: 3_186, y: 1_661),
-        CGPoint(x: 3_166, y: 1_654),
-        CGPoint(x: 3_206, y: 1_667),
+        CGPoint(x: 2_595, y: 1_399),
+        CGPoint(x: 2_586, y: 1_395),
+        CGPoint(x: 2_604, y: 1_403),
     ]
     static let authoredWaitingChairASamplePoints: [CGPoint] = [
-        CGPoint(x: 2_986, y: 1_625),
-        CGPoint(x: 2_954, y: 1_615),
-        CGPoint(x: 3_018, y: 1_635),
+        CGPoint(x: 2_469, y: 1_406),
+        CGPoint(x: 2_455, y: 1_400),
+        CGPoint(x: 2_482, y: 1_413),
     ]
     static let authoredWaitingTableSamplePoints: [CGPoint] = [
-        CGPoint(x: 3_052, y: 1_595),
-        CGPoint(x: 3_020, y: 1_584),
-        CGPoint(x: 3_084, y: 1_605),
+        CGPoint(x: 2_509, y: 1_382),
+        CGPoint(x: 2_496, y: 1_376),
+        CGPoint(x: 2_523, y: 1_389),
     ]
     static let authoredWaitingChairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 3_113, y: 1_566),
-        CGPoint(x: 3_081, y: 1_556),
-        CGPoint(x: 3_145, y: 1_577),
+        CGPoint(x: 2_550, y: 1_358),
+        CGPoint(x: 2_536, y: 1_352),
+        CGPoint(x: 2_563, y: 1_364),
     ]
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
-        CGPoint(x: 3_114, y: 1_609),
-        CGPoint(x: 3_080, y: 1_588),
-        CGPoint(x: 3_148, y: 1_630),
+        CGPoint(x: 2_609, y: 1_442),
+        CGPoint(x: 2_573, y: 1_420),
+        CGPoint(x: 2_645, y: 1_462),
     ]
     static let authoredForegroundWallSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_377, y: 1_261),
-        CGPoint(x: 2_356, y: 1_254),
-        CGPoint(x: 2_398, y: 1_269),
+        CGPoint(x: 2_510, y: 1_120),
+        CGPoint(x: 2_489, y: 1_112),
+        CGPoint(x: 2_530, y: 1_128),
     ]
     static let authoredPartitionWallNorthSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_624, y: 1_302),
-        CGPoint(x: 2_603, y: 1_294),
-        CGPoint(x: 2_645, y: 1_310),
+        CGPoint(x: 2_560, y: 1_142),
+        CGPoint(x: 2_539, y: 1_134),
+        CGPoint(x: 2_581, y: 1_150),
     ]
     static let authoredPartitionWallSouthSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_664, y: 1_782),
-        CGPoint(x: 1_643, y: 1_774),
-        CGPoint(x: 1_685, y: 1_790),
+        CGPoint(x: 1_920, y: 1_526),
+        CGPoint(x: 1_899, y: 1_518),
+        CGPoint(x: 1_941, y: 1_534),
     ]
 
     // MARK: - Placements
 
     enum AuthoredPlacement {
-        static let doorLeaf = Architecture.entranceAnchor
+        /// Lowered beneath the sloped header so the complete top rail and
+        /// a narrow dark reveal remain visible instead of reading as clipped.
+        static let doorLeaf = CGPoint(
+            x: Architecture.entranceAnchor.x,
+            y: Architecture.entranceAnchor.y + 6
+        )
         static let window = Architecture.windowAnchor
         static let windowBlinds = window
         static let windowRotation: CGFloat = -0.105
@@ -864,51 +1066,51 @@ enum OfficeNavigationLayout {
         /// Recentred on the shrunken room (the plate's lower floor is gone).
         static let camera = CGPoint(x: 1_960, y: 1_340)
 
-        static let safe = CGPoint(x: 1_113, y: 1_477)  // records run, east end
-        static let filingCabinetB = CGPoint(x: 981, y: 1_421)
-        static let filingCabinet = CGPoint(x: 844, y: 1_364)  // drawer half open
-        static let bookshelf = CGPoint(x: 694, y: 1_301)
-        static let archiveBoxOnCabinet = CGPoint(x: 981, y: 1_421)  // on cabinet B
-        static let archiveStackOnCabinet = CGPoint(x: 844, y: 1_364)  // on cabinet A
-        static let archiveBoxA = CGPoint(x: 850, y: 1_284)  // only floor stack
-        static let radiator = CGPoint(x: 1_289, y: 1_559)
-        static let personalSideboard = CGPoint(x: 1_588, y: 1_675)
-        static let personalWashbasin = CGPoint(x: 1_488, y: 1_634)
-        static let personalFan = CGPoint(x: 1_693, y: 1_665)
-        static let personalBottle = CGPoint(x: 1_574, y: 1_664)  // on sideboard
-        static let personalGlass = CGPoint(x: 1_614, y: 1_680)  // on sideboard
-        static let deskEnsemble = CGPoint(x: 1_405, y: 1_312)
-        static let deskChair = CGPoint(x: 1_251, y: 1_248)
-        static let visitorArmchair = CGPoint(x: 1_527, y: 1_451)
-        static let visitorArmchairB = CGPoint(x: 1_733, y: 1_355)
-        static let wastebasket = CGPoint(x: 1_122, y: 1_317)
-        static let coatRack = CGPoint(x: 3_071, y: 1_675)
-        static let umbrellaStand = CGPoint(x: 3_186, y: 1_661)
-        static let waitingChairA = CGPoint(x: 2_986, y: 1_625)
-        static let waitingTable = CGPoint(x: 3_052, y: 1_595)
-        static let waitingChairB = CGPoint(x: 3_113, y: 1_566)
-        static let newspaper = CGPoint(x: 3_055, y: 1_605)  // on table
-        static let waitingAshtray = CGPoint(x: 3_046, y: 1_582)  // on table
+        static let safe = CGPoint(x: 1_544, y: 1_533)  // records run, east end
+        static let filingCabinetB = CGPoint(x: 1_504, y: 1_507)
+        static let filingCabinet = CGPoint(x: 1_462, y: 1_480)  // drawer half open
+        static let bookshelf = CGPoint(x: 1_415, y: 1_450)
+        static let archiveBoxOnCabinet = CGPoint(x: 1_504, y: 1_507)  // on cabinet B
+        static let archiveStackOnCabinet = CGPoint(x: 1_462, y: 1_480)  // on cabinet A
+        static let archiveBoxA = CGPoint(x: 1_486, y: 1_431)  // only floor stack
+        static let radiator = CGPoint(x: 1_770, y: 1_687)
+        static let personalSideboard = CGPoint(x: 1_690, y: 1_629)
+        static let personalWashbasin = CGPoint(x: 1_660, y: 1_609)
+        static let personalFan = CGPoint(x: 1_737, y: 1_618)
+        static let personalBottle = CGPoint(x: 1_688, y: 1_622)  // on sideboard
+        static let personalGlass = CGPoint(x: 1_700, y: 1_630)  // on sideboard
+        static let deskEnsemble = CGPoint(x: 1_802, y: 1_397)
+        static let deskChair = CGPoint(x: 1_755, y: 1_366)
+        static let visitorArmchair = CGPoint(x: 1_812, y: 1_476)
+        static let visitorArmchairB = CGPoint(x: 1_928, y: 1_407)
+        static let wastebasket = CGPoint(x: 1_677, y: 1_416)
+        static let coatRack = CGPoint(x: 2_651, y: 1_391)
+        static let umbrellaStand = CGPoint(x: 2_595, y: 1_399)
+        static let waitingChairA = CGPoint(x: 2_469, y: 1_406)
+        static let waitingTable = CGPoint(x: 2_509, y: 1_382)
+        static let waitingChairB = CGPoint(x: 2_550, y: 1_358)
+        static let newspaper = CGPoint(x: 2_508, y: 1_388)  // on table
+        static let waitingAshtray = CGPoint(x: 2_510, y: 1_375)  // on table
 
-        static let wornRug = CGPoint(x: 1_443, y: 1_324)
+        static let wornRug = CGPoint(x: 1_816, y: 1_406)
         static let floorWear = deskEnsemble
-        static let caseBoard = CGPoint(x: 900, y: 1_784)
-        static let wallCityMap = CGPoint(x: 1_070, y: 1_834)
-        static let wallPhotos = CGPoint(x: 760, y: 1_714)
-        static let windowSpill = CGPoint(x: 1_240, y: 1_504)
-        static let blindStripes = CGPoint(x: 1_330, y: 1_374)
-        static let hallwayLight = CGPoint(x: 3_130, y: 1_664)
+        static let caseBoard = CGPoint(x: 1_463, y: 1_640)
+        static let wallCityMap = CGPoint(x: 1_504, y: 1_707)
+        static let wallPhotos = CGPoint(x: 1_415, y: 1_590)
+        static let windowSpill = CGPoint(x: 1_822, y: 1_656)
+        static let blindStripes = CGPoint(x: 1_849, y: 1_606)
+        static let hallwayLight = CGPoint(x: 2_595, y: 1_433)
         static let lampPool = deskEnsemble
         /// Leaf swung 90° into the private office, hinged on the up-run jamb.
-        static let internalDoorLeaf = CGPoint(x: 1_680, y: 1_652)
+        static let internalDoorLeaf = CGPoint(x: 1_680.970, y: 1_651.754)
     }
 
     private static let authoredApproachPoints: [String: CGPoint] = [
-        "office.window": CGPoint(x: 1_533, y: 1_551),
-        "office.desk": CGPoint(x: 1_760, y: 1_236),
-        "office.phone": CGPoint(x: 1_672, y: 1_199),
-        "office.files": CGPoint(x: 1_042, y: 1_272),
-        "office.door": CGPoint(x: 2_882, y: 1_661),
+        "office.window": CGPoint(x: 1_838, y: 1_646),
+        "office.desk": CGPoint(x: 1_968, y: 1_349),
+        "office.phone": CGPoint(x: 1_941, y: 1_331),
+        "office.files": CGPoint(x: 1_569, y: 1_415),
+        "office.door": CGPoint(x: 2_370, y: 1_431),
     ]
 
     private static let authoredProjectionOrigin = CGPoint(x: 2_048, y: 310)
@@ -924,31 +1126,31 @@ enum OfficeNavigationLayout {
 
     /// Exterior door → waiting room → internal doorway → client chair.
     static let clientArrivalPath: [CGPoint] = [
-        CGPoint(x: 3_041, y: 1_728),
-        CGPoint(x: 2_544, y: 1_709),
-        CGPoint(x: 2_125, y: 1_708),
-        CGPoint(x: 1_793, y: 1_639),
-        CGPoint(x: 1_984, y: 1_366),
+        CGPoint(x: 2_261, y: 1_606),
+        CGPoint(x: 2_083, y: 1_602),
+        CGPoint(x: 1_907, y: 1_622),
+        CGPoint(x: 1_791, y: 1_594),
+        CGPoint(x: 2_000, y: 1_381),
     ].map(OfficeInteriorScale.mapPoint)
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
     static let exteriorToInternalDoorPath: [CGPoint] = [
-        CGPoint(x: 3_041, y: 1_728),
-        CGPoint(x: 2_544, y: 1_709),
-        CGPoint(x: 2_125, y: 1_708),
+        CGPoint(x: 2_261, y: 1_606),
+        CGPoint(x: 2_083, y: 1_602),
+        CGPoint(x: 1_907, y: 1_622),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let internalDoorToClientPath: [CGPoint] = [
-        CGPoint(x: 2_125, y: 1_708),
-        CGPoint(x: 1_793, y: 1_639),
-        CGPoint(x: 1_984, y: 1_366),
+        CGPoint(x: 1_907, y: 1_622),
+        CGPoint(x: 1_791, y: 1_594),
+        CGPoint(x: 2_000, y: 1_381),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let recordsApproachPath: [CGPoint] = [
-        CGPoint(x: 1_507, y: 1_217),
-        CGPoint(x: 1_221, y: 1_272),
-        CGPoint(x: 1_042, y: 1_272),
+        CGPoint(x: 1_779, y: 1_360),
+        CGPoint(x: 1_644, y: 1_406),
+        CGPoint(x: 1_569, y: 1_415),
     ].map(OfficeInteriorScale.mapPoint)
 
     static var obstacles: [CGRect] { authoredObstacles.map(OfficeInteriorScale.mapRect) }
@@ -1028,12 +1230,13 @@ enum OfficeNavigationLayout {
         authoredApproachPoints.mapValues(OfficeInteriorScale.mapPoint)
     }
 
-    /// Stand points for the architecture visibility capture: behind the desk,
-    /// in the internal doorway, and beside the waiting chair.
+    /// Actual Voss stand-ins for architecture scale review: exterior door,
+    /// desk, internal doorway, and waiting chair.
     static let authoredScaleReferenceStands: [CGPoint] = [
-        CGPoint(x: 1_174, y: 1_216),
-        CGPoint(x: 1_793, y: 1_639),
-        CGPoint(x: 2_907, y: 1_570),
+        CGPoint(x: 2_554, y: 1_406),
+        CGPoint(x: 1_734, y: 1_353),
+        CGPoint(x: 1_791, y: 1_594),
+        CGPoint(x: 2_272, y: 1_502),
     ]
 
     static var scaleReferenceStands: [CGPoint] {

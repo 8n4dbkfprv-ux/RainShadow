@@ -65,7 +65,10 @@ def main() -> None:
     for prop in lp.PROPS:
         prop.measure()
 
-    canvas = Image.open(AREAS / "office_shell_base.png").convert("RGBA")
+    # Cramped suite plate already includes partition + cutaway architecture.
+    suite = AREAS / "office_suite_plate.png"
+    shell = AREAS / "office_shell_base.png"
+    canvas = Image.open(suite if suite.exists() else shell).convert("RGBA")
     if canvas.size != (rp.ART_W, rp.ART_H):
         canvas = canvas.resize((rp.ART_W, rp.ART_H), Image.Resampling.LANCZOS)
 
@@ -78,9 +81,6 @@ def main() -> None:
     w, h = int(content.width * scale), int(content.height * scale)
     content = content.resize((w, h), Image.Resampling.LANCZOS)
     canvas.alpha_composite(content, (int(rug_plate[0] - w / 2), int(rug_plate[1] - h / 2)))
-
-    # Partition (full plate, painted in place).
-    canvas.alpha_composite(load("office_partition_wall.png"))
 
     # Wall art on the north-west wall face.
     for key, (px, py) in lp.WALL_ART.items():
@@ -97,8 +97,7 @@ def main() -> None:
         content = content.resize((w, h), Image.Resampling.LANCZOS)
         canvas.alpha_composite(content, (int(px - w / 2), int(py - h / 2)))
 
-    # Radiator is a rear fixture, then all depth props sorted far-to-near on
-    # their plate ground line.
+    # Depth props sorted far-to-near on their plate ground line.
     entries = []
     for prop in lp.PROPS:
         plate = plate_point(prop.authored)
@@ -122,9 +121,6 @@ def main() -> None:
         1.0,
         plate_point(lp.internal_door_leaf_anchor()),
     )
-
-    # Foreground cutaway always nearest.
-    canvas.alpha_composite(load("office_foreground_cutaway.png"))
 
     OUT.mkdir(parents=True, exist_ok=True)
     canvas.save(OUT / "redesign_preview.png")

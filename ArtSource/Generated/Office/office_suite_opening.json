@@ -1,0 +1,39 @@
+{
+  "plate_size": [
+    4096,
+    2304
+  ],
+  "source": "ig_cramped_tight:office_suite_plate_cramped_v03.png",
+  "scale_of_fullbleed": 0.6,
+  "paste_xywh": [
+    819,
+    276,
+    2458,
+    1382
+  ],
+  "REAR": [
+    1936.0,
+    462.0
+  ],
+  "AXIS_NW": [
+    -679.0,
+    442.0
+  ],
+  "AXIS_NE": [
+    897.0,
+    534.0
+  ],
+  "west": [
+    1257.0,
+    904.0
+  ],
+  "east": [
+    2833.0,
+    996.0
+  ],
+  "near": [
+    2154.0,
+    1438.0
+  ],
+  "note": "Empty cramped architecture placed smaller than full-bleed so modular props at unchanged body scale fill the floor. Update office_room_plan REAR/AXIS_* to match axes in this metrics file if they drift."
+}

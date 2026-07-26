@@ -23,52 +23,72 @@ from dataclasses import dataclass
 
 ART_W, ART_H = 4096, 2304
 
-# Fitted wall silhouettes: y_top = slope * x + intercept (plate pixels, y down).
-# V8 raised crowns by 92 px (classic BG doorway clearance).
-NW_TOP_SLOPE, NW_TOP_INTERCEPT = -0.419, 775.0
-NE_TOP_SLOPE, NE_TOP_INTERCEPT = 0.463, -1382.0
+# The shipped Voss idle body is 200 opaque pixels on a 512px texture, displayed
+# on a 232-point SpriteKit node. Convert that exact visible silhouette back into
+# shell-plate pixels; door architecture uses this rendered figure, not the
+# legacy 82-unit logical navigation/body contract.
+ENVIRONMENT_SCALE = 0.395
+DETECTIVE_TEXTURE_CANVAS_H = 512.0
+DETECTIVE_TEXTURE_BODY_H = 200.0
+DETECTIVE_DISPLAY_FRAME_H = 232.0
+DETECTIVE_VISIBLE_WORLD_H = (
+    DETECTIVE_TEXTURE_BODY_H / DETECTIVE_TEXTURE_CANVAS_H * DETECTIVE_DISPLAY_FRAME_H
+)
+BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 
-PLASTER_H = 319.0
-WAINSCOT_H = 121.0
-WALL_FACE_H = PLASTER_H + WAINSCOT_H  # 440
+# Cramped-tight suite places the IG architecture at 0.80 of full-bleed so
+# modular props (unchanged body scale) fill the floor. Wall face and baked
+# doorway openings scale with the plate; actor body scale does not.
+SUITE_PLATE_SCALE = 0.60
 
-# Room corners in plate pixels. REAR is where the two fitted wall bases meet;
-# the west/east corners are where those bases leave the painted plate.
-REAR = (2446.0, 200.0)
-AXIS_NW = (-2206.0, 923.0)  # rear corner -> west corner
-AXIS_NE = (1650.0, 763.0)  # rear corner -> east corner
+# Character-relative clear opening (V10.1), scaled to the painted plate.
+DOOR_OPENING_TO_DETECTIVE = 1.70
+DOOR_OPENING_ASPECT = 2.20
+BAKED_DOORWAY_H = float(
+    round(BODY_PLATE_H * DOOR_OPENING_TO_DETECTIVE * SUITE_PLATE_SCALE)
+)
+BAKED_DOORWAY_W = BAKED_DOORWAY_H / DOOR_OPENING_ASPECT
 
-# Camera-near floor boundary, measured off the painted plate rather than assumed
-# to be a = 1 / b = 1: the shell paints roughly a quarter of a wall-length more
-# floor past the north-east wall's fitted base line. Anything that has to sit on
-# the room's near edge (the cutaway wall, the partition's near end) belongs here,
-# not on the unit square, or it lands in the middle of the floor.
+OLD_WALL_FACE_H = 348.0
+WALL_FACE_H = 505.0 * SUITE_PLATE_SCALE
+DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
+WAINSCOT_H = 121.0 * SUITE_PLATE_SCALE
+PLASTER_H = WALL_FACE_H - WAINSCOT_H
+WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
+
+# Room corners for the shipped tight plate (cramped v03 placed at 0.60 on the
+# 4096×2304 canvas). REAR is where the two wall runs meet.
+REAR = (1936.0, 462.0)
+AXIS_NW = (-679.0, 442.0)  # rear corner -> west corner
+AXIS_NE = (897.0, 534.0)  # rear corner -> east corner
+
+# Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
+# base through REAR at WALL_FACE_H.
+NW_TOP_SLOPE = AXIS_NW[1] / AXIS_NW[0]
+NE_TOP_SLOPE = AXIS_NE[1] / AXIS_NE[0]
+NW_TOP_INTERCEPT = REAR[1] - WALL_FACE_H - NW_TOP_SLOPE * REAR[0]
+NE_TOP_INTERCEPT = REAR[1] - WALL_FACE_H - NE_TOP_SLOPE * REAR[0]
+
+# Painted plate already is the room; floor diamond is the fitted unit square.
 A_NEAR = 1.00
-B_NEAR = 1.12
-
-# Design boundary of the room itself, tighter than the painted plate: the office
-# reads far too large for a one-man agency at the plate's full extent, so the
-# cutaway wall stands at B_ROOM and everything camera-near of it is painted out.
-# Design near-boundary of the suite (matches the last shipped navigation write).
-# Architecture void / cutaway walls stand here; furniture layout is unchanged.
-A_ROOM = A_NEAR
-B_ROOM = 0.58
-
-# Character body height in plate pixels (Voss idle sprite frame at runtime
-# display size ≈ 232). Plan `body` multiples are relative to this plate figure.
-# Detective opaque world height remains 82 units (≈ 208 plate px at env 0.395);
-# convert plan body → detective multiples via worldH / 82, not via this constant.
-BODY_PLATE_H = 229.0
-
-# Height of the doorway opening the shell painted into the north-east wall,
-# measured from the wall's ground line to the top of the dark hall beyond.
-# V8 classic BG:EE doorway/adult ≈ 1.94; measured opening on raised shell ≈ 394 px.
-BAKED_DOORWAY_H = 394.0
+B_NEAR = 1.00
+A_ROOM = 1.00
+B_ROOM = 1.00
 
 # Exterior doorway opening width along AXIS_NE.
-# V8.1: widened so opening H/W ≈ 2.2 (classic door) at door_h 394 → ~179 screen-x px.
-# Prior 0.093 (~153 px) read as a stretched tall strip (H/W ≈ 2.57).
-EXTERIOR_DOOR_OPENING_B = 0.1085
+# Derived from Voss and the clear-opening aspect so shell, partition, leaves,
+# navigation and QA all share one character-relative source of truth.
+EXTERIOR_DOOR_OPENING_B = BAKED_DOORWAY_W / abs(AXIS_NE[0])
+
+# Character-relative hardware placement. Processing normalizes both leaf knobs
+# to this height above the threshold and inset from the latch edge.
+DOOR_HANDLE_TO_DETECTIVE = 0.575
+DOOR_HANDLE_HEIGHT = BODY_PLATE_H * DOOR_HANDLE_TO_DETECTIVE
+DOOR_HANDLE_LATCH_INSET = BAKED_DOORWAY_W * 0.13
+DOOR_HANDLE_DIAMETER = BODY_PLATE_H * 0.065
+# Painted hinge knuckles on both doorway jambs (partition + exterior recess).
+DOOR_HINGE_KNUCKLE_HALF_H = BODY_PLATE_H * 0.016
+DOOR_HINGE_KNUCKLE_W = BODY_PLATE_H * 0.018
 
 
 def nw_wall_top(x: float) -> float:
@@ -120,13 +140,18 @@ AXIS_NE_LEN = (AXIS_NE[0] ** 2 + AXIS_NE[1] ** 2) ** 0.5
 
 
 # Master wall thickness in plate pixels — measured to match the shell's thin
-# top lip (the painted rear walls show almost no cap mass). Partition, jambs,
-# returns and foreground kerbs all derive from this.
+# top lip (the painted rear walls show almost no cap mass). Jambs, returns and
+# foreground kerbs that must match the shell derive from this.
 WALL_THICKNESS_PX = 12.0
 
+# Interior partition mass — thicker than shell lips so the waiting-room wall
+# reads as a separate freestanding wall, not a flat continuation of the NE wall.
+PARTITION_THICKNESS_PX = 34.0
+
 # Visible top-cap depth as a fraction of wall thickness. Shell walls barely show
-# a sawn top; anything near 0.3+ reads as a thick graybox slab.
+# a sawn top; the partition uses a deeper fraction so its crown reads in-game.
 CAP_DEPTH_FRAC = 0.08
+PARTITION_CAP_DEPTH_FRAC = 0.42
 
 
 @dataclass(frozen=True)
@@ -137,6 +162,9 @@ class Partition:
 
         short full-height run → framed doorway → short full-height return
         → low cutaway continuation to B_ROOM
+
+    a_line is the waiting-room face; a_line + thickness_a is the office face.
+    Both faces are painted so the waiting bay is clearly enclosed.
     """
 
     a_line: float = 0.36
@@ -146,15 +174,17 @@ class Partition:
     b_door1: float = 0.078 + EXTERIOR_DOOR_OPENING_B
     # Short full-height return past the latch jamb before the cutaway drop.
     b_return1: float = 0.078 + EXTERIOR_DOOR_OPENING_B + 0.034
-    # Shell-matched thickness (plan units along AXIS_NW).
-    thickness_a: float = WALL_THICKNESS_PX / AXIS_NW_LEN
+    # Freestanding interior mass (plan units along AXIS_NW).
+    thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H
     # Chair-seat / desk-height cutaway for the long camera-near run.
     cutaway_face_h: float = 72.0
     wainscot_h: float = WAINSCOT_H
-    # Interior opening height matching the shell's baked exterior doorway (BG ~1.94×).
-    door_h: float = 394.0
-    casing_h: float = 16.0
+    # Interior opening height matches the detective-relative exterior doorway.
+    door_h: float = BAKED_DOORWAY_H
+    # Face casing thickness derived from the detective so it remains readable
+    # without becoming a second oversized door shell.
+    casing_h: float = round(BODY_PLATE_H * 0.14)
     overrun_b: float = 0.012
 
     def base(self, b: float) -> tuple[float, float]:
