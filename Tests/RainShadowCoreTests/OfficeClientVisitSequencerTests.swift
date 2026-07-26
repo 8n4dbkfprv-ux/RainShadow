@@ -52,7 +52,8 @@ struct OfficeClientVisitSequencerTests {
 
     @Test func clientDeparturePathStaysClearOfOfficeObstacles() {
         let path = OfficeNavigationLayout.clientDeparturePath
-        #expect(path.count == 3)
+        #expect(path.count == OfficeNavigationLayout.clientArrivalPath.count + 1)
+        #expect(path.count >= 3)
         #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
         let grid = OfficeNavigationLayout.makeGrid()
@@ -63,5 +64,10 @@ struct OfficeClientVisitSequencerTests {
         let route = grid.path(from: first, to: last)
         #expect(route != nil)
         #expect(route?.allSatisfy { !OfficeNavigationLayout.isBlocked($0) } != false)
+
+        // Segment-wise clearance: each authored waypoint (including the door-turn ease) is walkable.
+        for point in path {
+            #expect(grid.nearestWalkablePoint(to: point) != nil)
+        }
     }
 }

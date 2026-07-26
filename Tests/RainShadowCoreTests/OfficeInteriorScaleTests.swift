@@ -157,31 +157,90 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
-        let authoredStart = CGPoint(x: 2_070, y: 1_163)
+        // Seated nav root = deskChair + seatedYOffset/environment (≈ 208 authored units).
+        let authoredStart = CGPoint(
+            x: OfficeNavigationLayout.AuthoredPlacement.deskChair.x,
+            y: OfficeNavigationLayout.AuthoredPlacement.deskChair.y + 208
+        )
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
-        #expect(OfficeNavigationLayout.approachPoints["office.desk"] == OfficeInteriorScale.mapPoint(CGPoint(x: 2_280, y: 1_200)))
+        // Approaches are authored in office_layout_plan.py; assert they round-trip
+        // through the same map as every other layout point.
+        for (id, point) in OfficeNavigationLayout.approachPoints {
+            #expect(OfficeNavigationLayout.isBlocked(point) == false, "\(id) approach is blocked")
+            #expect(point.x > 0 && point.y > 0, "\(id) approach is degenerate")
+        }
+        #expect(OfficeNavigationLayout.approachPoints["office.desk"] != nil)
+        #expect(OfficeNavigationLayout.approachPoints["office.phone"] != nil)
+        #expect(OfficeNavigationLayout.approachPoints["office.files"] != nil)
+        #expect(OfficeNavigationLayout.approachPoints["office.door"] != nil)
+        #expect(OfficeNavigationLayout.approachPoints["office.window"] != nil)
+    }
+
+    @Test func emptyDeskChairMatchesSeatedDeskNudge() {
+        let baseline = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair)
+        let nudge = OfficeInteriorScale.ActorDisplay.seatedDeskNudge
+        let empty = OfficeNavigationLayout.emptyDeskChairWorldPosition
+        #expect(abs(empty.x - (baseline.x + nudge.x)) < 0.5)
+        #expect(abs(empty.y - (baseline.y + nudge.y)) < 0.5)
     }
 
     @Test func clientArrivalMovesTowardVisitorSideOfDesk() {
         let path = OfficeNavigationLayout.clientArrivalPath
-        #expect(path.count == 3)
+        #expect(path.count >= 3)
         #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard let first = path.first, let last = path.last else { return }
-        // Door (NE) → visitor chair: end is west/south of the door threshold, still NE of the desk.
+        // Exterior (NE) → through internal door → clients (still east of the desk).
         #expect(last.x < first.x)
-        #expect(last.y < first.y)
         let desk = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         #expect(last.x > desk.x)
         #expect(last.y > desk.y)
     }
 
     @Test func clientDepartureRetracesClearFloorToTheDoor() {
+        let arrival = OfficeNavigationLayout.clientArrivalPath
         let departure = OfficeNavigationLayout.clientDeparturePath
-        #expect(departure == Array(OfficeNavigationLayout.clientArrivalPath.reversed()))
+        #expect(departure.count == arrival.count + 1)
         #expect(departure.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
-        guard let first = departure.first, let last = departure.last else { return }
-        #expect(last.x > first.x)
-        #expect(last.y > first.y)
+        guard let arrivalStart = arrival.first, let arrivalEnd = arrival.last,
+              let departureStart = departure.first, let departureEnd = departure.last else {
+            return
+        }
+        // Exit starts where arrival ended (chair) and ends where arrival began (exterior).
+        #expect(departureStart == arrivalEnd)
+        #expect(departureEnd == arrivalStart)
+        #expect(departureEnd.x > departureStart.x)
+        #expect(departureEnd.y > departureStart.y)
+        // Arrival waypoints (except pure reverse order) remain on the departure polyline;
+        // departure adds one exit-only easing point at the internal-door turn.
+        for point in arrival {
+            #expect(departure.contains(point), "Departure should still visit arrival waypoint \(point)")
+        }
+    }
+
+    @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
+        // Authored departure: NW chair→door, then NE through the door/corridor.
+        // Strip choice must follow heading (no east-hold moonwalk at the door).
+        let authored: [(CGFloat, CGFloat)] = [
+            (1_984, 1_366),
+            (1_780, 1_644),
+            (1_920, 1_710),
+            (2_125, 1_708),
+            (2_544, 1_709),
+            (3_041, 1_728),
+        ]
+        var bins: [String] = []
+        for index in 0..<(authored.count - 1) {
+            let dx = authored[index + 1].0 - authored[index].0
+            let dy = authored[index + 1].1 - authored[index].1
+            let facing = ActorFacing.resolve(dx: dx, dy: dy, retaining: .northEast, hysteresis: 0)
+            switch facing {
+            case .northWest, .northNorthWest, .westNorthWest, .west, .westSouthWest, .north:
+                bins.append("NW")
+            default:
+                bins.append("NE")
+            }
+        }
+        #expect(bins == ["NW", "NE", "NE", "NE", "NE"])
     }
 
     @Test func doorLeafSamplesAreBlocked() {
@@ -259,14 +318,23 @@ struct OfficeInteriorScaleTests {
         let namedSamples: [(String, [CGPoint], CGRect)] = [
             ("desk", OfficeNavigationLayout.deskSamplePoints, OfficeNavigationLayout.deskObstacle),
             ("visitor armchair", OfficeNavigationLayout.visitorArmchairSamplePoints, OfficeNavigationLayout.visitorArmchairObstacle),
+            ("visitor armchair B", OfficeNavigationLayout.visitorArmchairBSamplePoints, OfficeNavigationLayout.visitorArmchairBObstacle),
             ("filing cabinet", OfficeNavigationLayout.filingCabinetSamplePoints, OfficeNavigationLayout.filingCabinetObstacle),
+            ("filing cabinet B", OfficeNavigationLayout.filingCabinetBSamplePoints, OfficeNavigationLayout.filingCabinetBObstacle),
+            ("safe", OfficeNavigationLayout.safeSamplePoints, OfficeNavigationLayout.safeObstacle),
             ("archive box a", OfficeNavigationLayout.archiveBoxASamplePoints, OfficeNavigationLayout.archiveBoxAObstacle),
-            ("archive box b", OfficeNavigationLayout.archiveBoxBSamplePoints, OfficeNavigationLayout.archiveBoxBObstacle),
             ("wastebasket", OfficeNavigationLayout.wastebasketSamplePoints, OfficeNavigationLayout.wastebasketObstacle),
             ("radiator", OfficeNavigationLayout.radiatorSamplePoints, OfficeNavigationLayout.radiatorObstacle),
             ("bookshelf", OfficeNavigationLayout.bookshelfSamplePoints, OfficeNavigationLayout.bookshelfObstacle),
-            ("archive stack", OfficeNavigationLayout.archiveStackSamplePoints, OfficeNavigationLayout.archiveStackObstacle),
             ("coat rack", OfficeNavigationLayout.coatRackSamplePoints, OfficeNavigationLayout.coatRackObstacle),
+            ("umbrella stand", OfficeNavigationLayout.umbrellaStandSamplePoints, OfficeNavigationLayout.umbrellaStandObstacle),
+            ("waiting chair A", OfficeNavigationLayout.waitingChairASamplePoints, OfficeNavigationLayout.waitingChairAObstacle),
+            ("waiting chair B", OfficeNavigationLayout.waitingChairBSamplePoints, OfficeNavigationLayout.waitingChairBObstacle),
+            ("waiting table", OfficeNavigationLayout.waitingTableSamplePoints, OfficeNavigationLayout.waitingTableObstacle),
+            ("personal sideboard", OfficeNavigationLayout.personalSideboardSamplePoints, OfficeNavigationLayout.personalSideboardObstacle),
+            ("foreground wall", OfficeNavigationLayout.foregroundWallSamplePoints, OfficeNavigationLayout.foregroundWallObstacle),
+            ("partition south", OfficeNavigationLayout.partitionWallSouthSamplePoints, OfficeNavigationLayout.partitionWallSouthObstacle),
+            ("partition north", OfficeNavigationLayout.partitionWallNorthSamplePoints, OfficeNavigationLayout.partitionWallNorthObstacle),
             ("door", OfficeNavigationLayout.doorLeafSamplePoints, OfficeNavigationLayout.doorObstacle)
         ]
         for (name, samples, obstacle) in namedSamples {

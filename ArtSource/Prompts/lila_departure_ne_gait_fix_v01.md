@@ -79,17 +79,28 @@ Pose-guide language for the generator:
    lacks a true opposite contact.
 3. Accept opposite contact only when the **image-left foot is higher** than the
    image-right foot after chroma extract (`dy = y_left - y_right < 0`) with a
-   wide stride. Pose-guide references (RED = anatomical right / image-left lead)
-   eventually produced `pose_opp_imgL_higher.png` plus mid/wide variants.
+   wide stride **and** the handbag stays on the NE bag side (screen-left of body
+   mid). Reject opposite contacts that flip the bag to screen-right — those read
+   as wrong-facing mid-cycle at play scale (gaitfix_v12 frames 03–05 defect).
 4. Composite eight equal cells on `#00ff00` with an explicit lead exchange, e.g.
    R-R-R-L-L-L-R-R, into
    `DepartureFacingFixV1/lila_departure_ne_strip_combined_gen.png`.
 5. Run `process_lila_departure_facing_fix_v01.py` (arrival untouched).
-6. Re-check registered atlas cells with the same height metric — V7 preserves
-   the opposite lead when the source pose is genuine.
+6. Re-check registered atlas cells: bag side constant across all 8; lead still
+   exchanges. V7 preserves opposite lead when the source pose is genuine.
 
-Shipped provenance: `DepartureFacingFixV1/GaitFixV1/lila_departure_ne_strip_gaitfix_v12_chroma.png`
-plus `v11_poses/`, `qa_v12_atlas_feet.png`, `preview_v12.gif`.
+Shipped provenance: `DepartureFacingFixV1/GaitFixV1/lila_departure_ne_strip_gaitfix_v14_chroma.png`
+(reinstates unique opposite half from `gaitfix_v12`; rejects `gaitfix_v13` which
+duplicated frames 03–05 and froze mid-cycle). QA: `preview_v14_ne.gif`,
+`qa_v14_atlas.png`.
+
+## NW departure strip (chair→door)
+
+`clientDeparturePath` seg 0 travels **NW**. Author a separate rear three-quarter
+**upper-left** strip `lila_departure_nw_{00–07}` (bag stays anatomical left —
+on NW rear that reads screen-right). Do not flip the NE strip. Processor:
+`process_lila_departure_nw_v01.py`. Runtime `ClientActorNode.performExit` swaps
+NE/NW strips per path segment via `ActorFacing` bins without mirroring.
 
 ## References
 

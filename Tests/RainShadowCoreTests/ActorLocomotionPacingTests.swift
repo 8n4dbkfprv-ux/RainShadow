@@ -93,6 +93,9 @@ struct ActorLocomotionPacingTests {
         #expect(detective.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(detective.contains("ActorLocomotionPacing.standUpSecondsPerFrame"))
         #expect(detective.contains("var isDeskRegistered"))
+        #expect(detective.contains("var shouldHideEmptyDeskChair"))
+        #expect(detective.contains("standUpEmptyChairHandoffFrame"))
+        #expect(detective.contains("animateSeatTransition"))
         #expect(detective.contains("seatedUpperLocalZ"))
         #expect(!detective.contains("actions.append(.move(to:"))
         #expect(!detective.contains("withKey: \"actorPath\""))
@@ -107,11 +110,26 @@ struct ActorLocomotionPacingTests {
             encoding: .utf8
         )
         #expect(office.contains("detective.isDeskRegistered"))
+        #expect(office.contains("detective.shouldHideEmptyDeskChair"))
+        #expect(office.contains("emptyDeskChairWorldPosition"))
         #expect(!office.contains("deskChairProp?.isHidden = detective.isSeated"))
+        #expect(!office.contains("deskChairProp?.isHidden = detective.isDeskRegistered"))
 
         #expect(client.contains("ActorLocomotionPacing.pathDuration"))
         #expect(client.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
+        #expect(client.contains("lila_departure_ne_"))
+        #expect(client.contains("lila_departure_nw_"))
+        #expect(client.contains("departureFacingBin"))
+        #expect(client.contains("startDepartureWalkCycle"))
+        // Door handoff: heading-matched strips with a short crossfade (no moonwalk hold).
+        #expect(client.contains("stripHandoffDuration"))
+        #expect(client.contains("bodyHandoff"))
+        #expect(client.contains("crossfade:"))
+        #expect(!client.contains("easternHandoffMaxAngle"))
+        #expect(!client.contains("currentDepartureWalkFrame"))
         #expect(!client.contains("distance / 82"))
         #expect(!client.contains("timePerFrame: 0.15"))
+        // Handbag/light contract: never mirror the client body for eastern bins.
+        #expect(!client.contains("body.xScale = -"))
     }
 }
