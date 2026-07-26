@@ -107,7 +107,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_bookshelf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.bookshelf),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.bookshelfDisplayScale
         )
         addFloorContactShadow(
             named: "office_cabinet_floor_shadow",
@@ -140,7 +140,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_archive_stack",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveStackOnCabinet),
-            scale: smallPropScale,
+            scale: OfficeInteriorScale.archiveStackDisplayScale,
             bias: 45
         )
         addDepthProp(
@@ -184,7 +184,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_waiting_chair_b",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingChairB),
-            scale: OfficeInteriorScale.waitingChairDisplayScale * 0.96
+            scale: OfficeInteriorScale.waitingChairBDisplayScale
         )
         addDepthProp(
             named: "office_newspaper",
@@ -209,7 +209,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_hidden_bottle",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalBottle),
-            scale: OfficeInteriorScale.pocketPropDisplayScale,
+            scale: OfficeInteriorScale.hiddenBottleDisplayScale,
             bias: -20
         )
         addDepthProp(

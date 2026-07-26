@@ -27,9 +27,16 @@ struct OfficeInteriorScaleTests {
     @Test func doorMultipleFallsInBGBand() {
         let multiple = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
-            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
+            relativeScale: OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf
         )
         #expect(OfficeInteriorScale.Band.door.contains(multiple))
+        // Live scene and relative scale share the architecture-fit absolute.
+        #expect(
+            abs(
+                OfficeInteriorScale.environment * OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf
+                    - OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
+            ) < 0.0001
+        )
     }
 
     @Test func deskWorkingSurfaceMultipleFallsInBGBand() {
@@ -88,6 +95,37 @@ struct OfficeInteriorScaleTests {
             relativeScale: OfficeInteriorScale.PropRelativeScale.standard
         )
         #expect(OfficeInteriorScale.Band.cabinet.contains(multiple))
+        let bookshelf = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.bookshelf,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.bookshelf
+        )
+        #expect(OfficeInteriorScale.Band.cabinet.contains(bookshelf))
+    }
+
+    @Test func visitorArmchairMultipleFallsInBGBand() {
+        let multiple = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.visitorArmchair,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.visitorArmchair
+        )
+        #expect(OfficeInteriorScale.Band.visitorArmchair.contains(multiple))
+        let chairB = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.visitorArmchair,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.visitorArmchair * 0.96
+        )
+        #expect(OfficeInteriorScale.Band.visitorArmchair.contains(chairB))
+    }
+
+    @Test func waitingChairBAndHiddenBottleMatchPlanBodyMultiples() {
+        let waitingB = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.waitingChairB,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.waitingChairB
+        )
+        #expect(abs(waitingB - 0.64) < 0.03)
+        let bottle = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.hiddenBottle,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.hiddenBottle
+        )
+        #expect(abs(bottle - 0.24) < 0.03)
     }
 
     @Test func preScaleDeskRegimeIsRejected() {
@@ -439,7 +477,7 @@ struct OfficeInteriorScaleTests {
     @Test func scaleReportMatchesShippedContract() {
         let door = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
-            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
+            relativeScale: OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf
         )
         let drawers = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.deskDrawerFace,

@@ -64,7 +64,7 @@ enum OfficeInteriorScale {
     // Kept here so tests and scene code share one source of truth.
 
     enum SourceContentHeight {
-        static let deskEnsemble: CGFloat = 760
+        static let deskEnsemble: CGFloat = 743
         /// Floor contact → desktop face (includes drawer pedestal).
         static let deskWorkingSurface: CGFloat = 249
         /// Vertical drawer-stack face only (floor contact through top drawer rail, no lamp/desktop clutter).
@@ -79,15 +79,16 @@ enum OfficeInteriorScale {
         static let doorLeaf: CGFloat = 720
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
-        static let radiator: CGFloat = 340
-        static let coatRack: CGFloat = 557
-        static let archiveBox: CGFloat = 300
+        static let radiator: CGFloat = 338
+        static let coatRack: CGFloat = 558
+        static let archiveBox: CGFloat = 297
         static let wastebasket: CGFloat = 241
-        static let floorTrash: CGFloat = 140
+        static let floorTrash: CGFloat = 173
         static let wornRug: CGFloat = 573
-        static let hiddenBottle: CGFloat = 200
-        static let framedPhoto: CGFloat = 180
-        static let bookshelf: CGFloat = 673
+        static let hiddenBottle: CGFloat = 240
+        static let framedPhoto: CGFloat = 239
+        static let bookshelf: CGFloat = 675
+        static let waitingChairB: CGFloat = 241
         static let pencilTray: CGFloat = 70
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight
@@ -100,7 +101,11 @@ enum OfficeInteriorScale {
     /// window overlay 0.24, floor decal 0.18, small props 0.12, pocket 0.10.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
+        /// Tall bookcase — plan absolute 0.2238 keeps it ~1.84× detective.
+        static let bookshelf: CGFloat = 0.2238 / environment
         static let deskEnsemble: CGFloat = 0.12 / environment
+        /// Archive stack on cabinet A — plan absolute 0.1121 (~0.49× detective).
+        static let archiveStack: CGFloat = 0.1121 / environment
         /// Empty desk chair — desk family with a slight bump so seat height matches
         /// the seated-bake chair; 0.16+ clips the pedestals.
         static let deskChair: CGFloat = 0.135 / environment
@@ -108,6 +113,8 @@ enum OfficeInteriorScale {
         /// Waiting-room seat and table, sized against the character rather than the
         /// clutter family they were originally scaled with.
         static let waitingChair: CGFloat = 0.208 / environment
+        /// Waiting chair B art is shorter; plan-derived absolute keeps it ~0.64× body.
+        static let waitingChairB: CGFloat = 0.2177 / environment
         static let waitingTable: CGFloat = 0.217 / environment
         /// Standing fan: tall enough that its head and base stay readable.
         static let standingFan: CGFloat = 0.2085 / environment
@@ -117,15 +124,21 @@ enum OfficeInteriorScale {
         static let floorDecal: CGFloat = 0.22 / environment
         static let smallProp: CGFloat = 0.12 / environment
         static let pocketProp: CGFloat = 0.10 / environment
+        /// Sideboard bottle — plan body 0.22 (~0.24× detective), below generic pocket.
+        static let hiddenBottle: CGFloat = 0.0829 / environment
         /// Full-plate overlays sized against the shell art (no extra relative inflate).
         static let plateOverlay: CGFloat = 1.0 / environment
+        /// Exterior leaf fitted to the shell's baked doorway (not standard furniture).
+        /// Absolute 0.1207 matches `OfficeNavigationLayout.Architecture.entranceLeafDisplayScale`.
+        static let entranceDoorLeaf: CGFloat = 0.1207 / environment
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 78...90
-        static let door: ClosedRange<CGFloat> = 1.80...2.20
+        /// Exterior leaf fitted inside the baked doorway (~1.06× adult), not a classic BG 2× door.
+        static let door: ClosedRange<CGFloat> = 1.00...1.15
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48
@@ -137,7 +150,10 @@ enum OfficeInteriorScale {
         static let deskPapers: ClosedRange<CGFloat> = 0.25...0.50
         /// Desk kneehole side chair (not a tall visitor armchair).
         static let chair: ClosedRange<CGFloat> = 0.45...0.75
-        static let cabinet: ClosedRange<CGFloat> = 1.10...1.80
+        /// Client-side leather armchairs — taller seat back than the desk chair.
+        static let visitorArmchair: ClosedRange<CGFloat> = 0.75...0.95
+        /// Filing cabinets and tall bookcase (bookcase sits near ~1.81–1.84×).
+        static let cabinet: ClosedRange<CGFloat> = 1.10...1.90
         /// Single rain window glass opening (not multi-story glass).
         /// Smaller than classic BG tavern glass: this office's short upper-wall band
         /// cannot host a 0.75–1.25× adult window without dominating the west wall.
@@ -194,6 +210,14 @@ enum OfficeInteriorScale {
         environment * PropRelativeScale.standard
     }
 
+    static var bookshelfDisplayScale: CGFloat {
+        environment * PropRelativeScale.bookshelf
+    }
+
+    static var archiveStackDisplayScale: CGFloat {
+        environment * PropRelativeScale.archiveStack
+    }
+
     static var seatingPropDisplayScale: CGFloat {
         environment * PropRelativeScale.deskChair
     }
@@ -206,8 +230,16 @@ enum OfficeInteriorScale {
         environment * PropRelativeScale.waitingChair
     }
 
+    static var waitingChairBDisplayScale: CGFloat {
+        environment * PropRelativeScale.waitingChairB
+    }
+
     static var waitingTableDisplayScale: CGFloat {
         environment * PropRelativeScale.waitingTable
+    }
+
+    static var hiddenBottleDisplayScale: CGFloat {
+        environment * PropRelativeScale.hiddenBottle
     }
 
     static var standingFanDisplayScale: CGFloat {

@@ -67,7 +67,7 @@ struct DefaultPlayZoomTests {
         // Camera framing must not require changing furniture vs body.
         let door = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
-            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
+            relativeScale: OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf
         )
         let window = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.windowGlassOpening

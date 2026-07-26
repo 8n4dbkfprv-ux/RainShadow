@@ -53,8 +53,10 @@ B_NEAR = 1.12
 A_ROOM = A_NEAR
 B_ROOM = 0.58
 
-# Character body height in plate pixels (Voss idle frame measured at runtime
-# display size). The master scale reference for every asset in the room.
+# Character body height in plate pixels (Voss idle sprite frame at runtime
+# display size ≈ 232). Plan `body` multiples are relative to this plate figure.
+# Detective opaque world height remains 82 units (≈ 208 plate px at env 0.395);
+# convert plan body → detective multiples via worldH / 82, not via this constant.
 BODY_PLATE_H = 229.0
 
 # Height of the doorway opening the shell painted into the north-east wall,
