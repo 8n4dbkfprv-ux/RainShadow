@@ -82,6 +82,10 @@ final class CaseIntroductionPresenter: SKNode {
     private var presentationCompletion: (() -> Void)?
     private var lastVisibleSize: CGSize = .zero
     private var currentPanelOffsetY: CGFloat = 0
+    /// Last node ID for which `onNodeShown` was delivered (avoids re-fire on layout-only refresh).
+    private var lastNotifiedNodeID: String?
+    /// Fired when a dialogue node is newly shown (initial present and each advance, not layout refresh).
+    var onNodeShown: ((CaseDialogueNode) -> Void)?
 
     private(set) var isPresenting = false
 
@@ -236,6 +240,7 @@ final class CaseIntroductionPresenter: SKNode {
         presentationCompletion = onComplete
         nodesByID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
         currentNodeID = startID
+        lastNotifiedNodeID = nil
         isPresenting = true
         isHidden = false
         showCurrentNode(animated: false)
@@ -645,6 +650,11 @@ final class CaseIntroductionPresenter: SKNode {
             contentNodes.forEach { $0.alpha = 0 }
             contentNodes.forEach { $0.run(.fadeIn(withDuration: 0.13)) }
         }
+        // Layout-only rebuilds call showCurrentNode for the same ID; notify once per node.
+        if lastNotifiedNodeID != node.id {
+            lastNotifiedNodeID = node.id
+            onNodeShown?(node)
+        }
     }
 
     private func rebuildChoices(_ choices: [CaseDialogueChoice]) {
@@ -849,6 +859,8 @@ final class CaseIntroductionPresenter: SKNode {
     private func finish() {
         guard isPresenting else { return }
         isPresenting = false
+        lastNotifiedNodeID = nil
+        onNodeShown = nil
         let completion = presentationCompletion
         presentationCompletion = nil
         run(.sequence([

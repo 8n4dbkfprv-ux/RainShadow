@@ -17,7 +17,8 @@ BIN="$(xcodebuild -project "$ROOT/RainShadow.xcodeproj" -scheme "RainShadow macO
         | sed -n 's/ *BUILT_PRODUCTS_DIR = //p' | head -1)/RainShadow.app/Contents/MacOS/RainShadow"
 
 LOG="$(mktemp)"
-trap 'rm -f "$LOG"' EXIT
+ERRLOG="$(mktemp)"
+trap 'rm -f "$LOG" "$ERRLOG"' EXIT
 
 mkdir -p "$(dirname "$OUT")"
 # Always clear the target so a prior capture cannot be mistaken for a fresh one
@@ -29,9 +30,15 @@ env RAINSHADOW_SKIP_INTRO=1 \
     RAINSHADOW_CAPTURE="$OUT" \
     RAINSHADOW_CAPTURE_MODE="$MODE" \
     RAINSHADOW_CAPTURE_DELAY="$DELAY" \
+    ${RAINSHADOW_CAPTURE_DUMP:+RAINSHADOW_CAPTURE_DUMP="$RAINSHADOW_CAPTURE_DUMP"} \
     ${RAINSHADOW_SCALE_RIG:+RAINSHADOW_SCALE_RIG="$RAINSHADOW_SCALE_RIG"} \
+    ${RAINSHADOW_CAPTURE_FALLEN_DOOR:+RAINSHADOW_CAPTURE_FALLEN_DOOR="$RAINSHADOW_CAPTURE_FALLEN_DOOR"} \
     ${RAINSHADOW_PARTITION_MASK:+RAINSHADOW_PARTITION_MASK="$RAINSHADOW_PARTITION_MASK"} \
-    "$BIN" >"$LOG" 2>/dev/null || true
+    "$BIN" >"$LOG" 2>"$ERRLOG" || true
+
+if [ -n "${RAINSHADOW_CAPTURE_DUMP:-}" ]; then
+    sed -n '/^capture:/p;/RAINSHADOW_DUMP_BEGIN/,/RAINSHADOW_DUMP_END/p' "$ERRLOG" >&2
+fi
 
 if [ ! -f "$OUT" ]; then
     sed -n '/RAINSHADOW_CAPTURE_BEGIN/,/RAINSHADOW_CAPTURE_END/p' "$LOG" \

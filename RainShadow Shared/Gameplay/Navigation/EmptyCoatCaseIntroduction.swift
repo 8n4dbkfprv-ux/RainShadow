@@ -10,6 +10,17 @@ import Foundation
 enum EmptyCoatCaseIntroduction {
     static let startNodeID = "voss.monologue.1"
     static let caseOpenedNodeID = "case.opened"
+    /// First spoken Lila beat after the monologue chain.
+    static let lilaConversationStartNodeID = "lila.entrance"
+
+    /// Late monologue beat that narratively introduces arrival (hallway / heels).
+    /// Office scene starts door-fall + client entrance only when this node is shown —
+    /// not at intro start, not on early setup pages, and not after the monologue ends.
+    static let clientEntranceCueNodeID = "voss.monologue.4"
+
+    /// Reserved filenames for a future VO pass (currently unassigned on all nodes).
+    static let monologueOpenerVoiceAsset = "vo_voss_monologue_1.m4a"
+    static let lilaEntranceVoiceAsset = "vo_lila_entrance.m4a"
 
     /// Baseline of the short pre-rewrite graph (8 nodes). New content must exceed this floor.
     static let legacyNodeCountFloor = 8
@@ -27,6 +38,17 @@ enum EmptyCoatCaseIntroduction {
     /// The exact node list the office scene presents. Tests must call this same source.
     static var nodes: [CaseDialogueNode] {
         monologueNodes + lilaConversationNodes + closingNodes
+    }
+
+    /// Whether showing this dialogue node should start client door/entrance motion.
+    /// Only the authored late-monologue cue returns true; early monologue pages do not.
+    static func shouldStartClientEntrance(whenShowing nodeID: String) -> Bool {
+        nodeID == clientEntranceCueNodeID
+    }
+
+    /// Voice-over resource for a node, read from the shipped graph (nil when silent).
+    static func voiceAssetName(for nodeID: String) -> String? {
+        nodes.first(where: { $0.id == nodeID })?.voiceAssetName
     }
 
     // MARK: - Noir monologue (what is about to happen)

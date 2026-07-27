@@ -1,10 +1,11 @@
-"""LEGACY — not used for production when office_suite_plate is shipping.
+"""Partition painter and standalone architecture/debug derivatives.
 
-Superseded by the full-suite plate path:
+The production full-suite bake imports this painter:
     ArtSource/Processing/process_office_suite_plate_v01.py
     ArtSource/Prompts/office_suite_plate_v01.md
 
-Kept for RAINSHADOW_LEGACY_PARTITION=1 A/B only. Do not extend for production walls.
+The standalone partition textures remain available for
+RAINSHADOW_LEGACY_PARTITION=1 A/B and architecture capture.
 
 Originally replaced the obsolete strip-painter (`process_office_architecture_v01.py`).
 
@@ -57,8 +58,8 @@ NE_SLOPE = rp.AXIS_NE[1] / rp.AXIS_NE[0]
 NW_SLOPE = rp.AXIS_NW[1] / rp.AXIS_NW[0]
 DEPTH = (-P.thickness_a * rp.AXIS_NW[0], -P.thickness_a * rp.AXIS_NW[1])
 CAP_DEPTH = (
-    -rp.CAP_DEPTH_FRAC * P.thickness_a * rp.AXIS_NW[0],
-    -rp.CAP_DEPTH_FRAC * P.thickness_a * rp.AXIS_NW[1],
+    -rp.PARTITION_CAP_DEPTH_FRAC * P.thickness_a * rp.AXIS_NW[0],
+    -rp.PARTITION_CAP_DEPTH_FRAC * P.thickness_a * rp.AXIS_NW[1],
 )
 
 # Narrow base lip left under the cutaway (wainscot remnant, not a half-wall).
@@ -183,9 +184,9 @@ def paint_continuous_face(
     return mask
 
 
-def punch_doorway(alpha: np.ndarray, a_face: float, door_h: float) -> None:
+def punch_doorway(alpha: np.ndarray, a_wall: float, door_h: float) -> None:
     """Clear the opening so the doorway is cut into the plate, not painted over."""
-    d0, d1 = rp.plan(a_face, P.b_door0), rp.plan(a_face, P.b_door1)
+    d0, d1 = rp.plan(a_wall, P.b_door0), rp.plan(a_wall, P.b_door1)
     hole = polygon_mask(
         [
             (d0[0] + 2, d0[1] - 2),
@@ -238,19 +239,46 @@ def shear_paste(
 
 def paint_partition_plate(mats: dict[str, np.ndarray]) -> tuple[Image.Image, dict]:
     """Full-height coherent partition with integrated doorway."""
+    # Re-seed per bake so callers can regenerate the standalone partition and
+    # suite plate in one process without advancing into different grain fields.
+    global RNG
+    RNG = np.random.default_rng(20_260_725)
+
     rgb = np.zeros((ART_H, ART_W, 3), np.float32)
     alpha = np.zeros((ART_H, ART_W), np.float32)
 
-    a_face = P.a_line + P.thickness_a
-    a_back = P.a_line
+    a_face = P.a_line + P.thickness_a  # office side
+    a_back = P.a_line  # waiting-room side
     face_h = P.face_h
     door_h = P.door_h
     tex = mats["face"] * OFFICE_TINT
-    cap_rgb = mats["plaster"].reshape(-1, 3).mean(0) * 0.52
+    # Waiting face: slightly warmer so the bay reads as its own room.
+    tex_wait = np.clip(
+        mats["face"] * OFFICE_TINT * np.array([1.06, 0.98, 0.90], np.float32), 0, 255
+    )
+    cap_rgb = mats["plaster"].reshape(-1, 3).mean(0) * 0.45
     reveal = mats["wainscot"].reshape(-1, 3).mean(0)
 
-    # Thin cap along the entire full-height run (rear → near design edge).
+    # Waiting-room face first (back of the mass from the office camera).
+    wait_mask = paint_continuous_face(
+        rgb, alpha, tex_wait, a_back, -P.overrun_b, rp.B_ROOM, face_h
+    )
+    # Solid top + office-side thickness so the wall is a volume, not a card.
     f0, f1 = rp.plan(a_face, -P.overrun_b), rp.plan(a_face, rp.B_ROOM)
+    bk0, bk1 = rp.plan(a_back, -P.overrun_b), rp.plan(a_back, rp.B_ROOM)
+    quad(
+        rgb,
+        alpha,
+        [
+            (f0[0], f0[1] - face_h),
+            (f1[0], f1[1] - face_h),
+            (bk1[0], bk1[1] - face_h),
+            (bk0[0], bk0[1] - face_h),
+        ],
+        cap_rgb,
+        grain=3.0,
+    )
+    # Soft crown lip (readable thickness without a graybox slab).
     quad(
         rgb,
         alpha,
@@ -260,19 +288,33 @@ def paint_partition_plate(mats: dict[str, np.ndarray]) -> tuple[Image.Image, dic
             (f1[0] + CAP_DEPTH[0], f1[1] + CAP_DEPTH[1] - face_h),
             (f0[0] + CAP_DEPTH[0], f0[1] + CAP_DEPTH[1] - face_h),
         ],
-        cap_rgb,
-        grain=3.0,
+        cap_rgb * 1.15,
+        grain=2.0,
     )
-
-    # ONE continuous full-height face — doorway will be punched out.
+    # Office face in front.
     wall_mask = paint_continuous_face(
         rgb, alpha, tex, a_face, -P.overrun_b, rp.B_ROOM, face_h
     )
+    wall_mask = np.maximum(wall_mask, wait_mask)
     punch_doorway(alpha, a_face, door_h)
-
-    # Doorway assembly cut into the wall thickness (same plate).
+    punch_doorway(alpha, a_back, door_h)
+    # Also clear the thickness between the two door openings.
     d0, d1 = rp.plan(a_face, P.b_door0), rp.plan(a_face, P.b_door1)
     b0, b1 = rp.plan(a_back, P.b_door0), rp.plan(a_back, P.b_door1)
+    hole = polygon_mask(
+        [
+            (d0[0], d0[1] - 2),
+            (d1[0], d1[1] - 2),
+            (b1[0], b1[1] - 2),
+            (b0[0], b0[1] - 2),
+            (b0[0], b0[1] - door_h + 2),
+            (b1[0], b1[1] - door_h + 2),
+            (d1[0], d1[1] - door_h + 2),
+            (d0[0], d0[1] - door_h + 2),
+        ],
+        blur=0.8,
+    )
+    alpha[:] = alpha * (1.0 - hole)
 
     # Header: top of the shell-matched face texture, sheared so its base sits on
     # the door head — continuous plaster, not a flat grey fill.
@@ -330,49 +372,98 @@ def paint_partition_plate(mats: dict[str, np.ndarray]) -> tuple[Image.Image, dic
         WOOD * 0.9,
         grain=5.0,
     )
-    # Face casings (header + jambs) — readable door shell, not a punched hole.
-    casing_h = max(P.casing_h, 22.0)
-    jamb_w = max(12.0, rp.WALL_THICKNESS_PX * 1.05)
-    quad(
-        rgb,
-        alpha,
-        [
-            (d0[0] - 2, d0[1] - door_h),
-            (d1[0] + 2, d1[1] - door_h),
-            (d1[0] + 2, d1[1] - door_h - casing_h),
-            (d0[0] - 2, d0[1] - door_h - casing_h),
-        ],
-        WOOD_LIT,
-        grain=4.0,
-    )
-    for gx, gy, sign in ((d0[0], d0[1], -1.0), (d1[0], d1[1], 1.0)):
+    # One shared Image-Generator wood finish for both door shells. Normalize the
+    # frame's real inner aperture to this opening, then shear it onto the
+    # partition plane. This replaces the flat gray/brown casing bars while
+    # preserving exact character-relative geometry.
+    # Use the upright processed master here; the runtime exterior frame is
+    # already sheared onto the outer NE wall and would otherwise be projected
+    # a second time onto this partition plane.
+    frame_path = GENERATED / "office_door_frame_upright_master.png"
+    frame_painted = False
+    if frame_path.exists():
+        frame = Image.open(frame_path).convert("RGBA")
+        fa = np.asarray(frame)[:, :, 3]
+        row = fa[frame.height // 2]
+        opaque_x = np.where(row > 16)[0]
+        left = opaque_x[opaque_x < frame.width // 2]
+        right = opaque_x[opaque_x > frame.width // 2]
+        if len(left) and len(right):
+            inner_x0, inner_x1 = int(left.max() + 1), int(right.min())
+            inner_cx = (inner_x0 + inner_x1) // 2
+            transparent_y = fa[:, inner_cx] < 16
+            seed = frame.height // 2
+            inner_y0 = seed
+            while inner_y0 > 0 and transparent_y[inner_y0 - 1]:
+                inner_y0 -= 1
+            inner_y1 = seed + 1
+            while inner_y1 < frame.height and transparent_y[inner_y1]:
+                inner_y1 += 1
+            inner_w = max(1, inner_x1 - inner_x0)
+            inner_h = max(1, inner_y1 - inner_y0)
+            sx, sy = (d1[0] - d0[0]) / inner_w, door_h / inner_h
+            target_w = max(1, int(round(frame.width * sx)))
+            target_h = max(1, int(round(frame.height * sy)))
+            frame = frame.resize((target_w, target_h), Image.Resampling.LANCZOS)
+            inner_x = inner_x0 * sx
+            inner_bottom_gap = target_h - inner_y1 * sy
+            x_left = d0[0] - inner_x
+            y_base = d0[1] + inner_bottom_gap - inner_x * NE_SLOPE
+            shear_paste(rgb, alpha, np.asarray(frame, np.float32), x_left, y_base, NE_SLOPE)
+            frame_painted = True
+            # Frame paste can nibble the clear aperture; re-punch exact plan size
+            # so the leaf's hinge run matches opening_h_px / opening_w_px.
+            punch_doorway(alpha, a_face, door_h)
+
+    # Deterministic fallback if the shared frame asset is unavailable.
+    # Scale casing with the detective-relative opening (not a fixed 32 px floor)
+    # so the smaller V10 doorway keeps a readable clear run.
+    casing_h = max(14.0, min(P.casing_h, rp.BAKED_DOORWAY_H * 0.10))
+    jamb_w = max(12.0, min(22.0, rp.BAKED_DOORWAY_W * 0.14))
+    if not frame_painted:
         quad(
             rgb,
             alpha,
             [
-                (gx, gy),
-                (gx + sign * jamb_w, gy + sign * jamb_w * NE_SLOPE),
-                (gx + sign * jamb_w, gy + sign * jamb_w * NE_SLOPE - door_h),
-                (gx, gy - door_h),
+                (d0[0] - 2, d0[1] - door_h),
+                (d1[0] + 2, d1[1] - door_h),
+                (d1[0] + 2, d1[1] - door_h - casing_h),
+                (d0[0] - 2, d0[1] - door_h - casing_h),
             ],
-            WOOD * 1.05,
+            WOOD_LIT,
             grain=4.0,
         )
-    # Hinge knuckles on hinge jamb (b_door0).
-    for k in (0.18, 0.48, 0.78):
+        for gx, gy, sign in ((d0[0], d0[1], -1.0), (d1[0], d1[1], 1.0)):
+            quad(
+                rgb,
+                alpha,
+                [
+                    (gx, gy),
+                    (gx + sign * jamb_w, gy + sign * jamb_w * NE_SLOPE),
+                    (gx + sign * jamb_w, gy + sign * jamb_w * NE_SLOPE - door_h),
+                    (gx, gy - door_h),
+                ],
+                WOOD * 1.05,
+                grain=4.0,
+            )
+
+    # Tiny dark hinge hints — bright tabs read as placeholders in the gap.
+    half_h = max(1.0, rp.DOOR_HINGE_KNUCKLE_HALF_H * 0.55)
+    kw = max(1.0, rp.DOOR_HINGE_KNUCKLE_W * 0.55)
+    for k in (0.22, 0.50, 0.78):
         hy = d0[1] - door_h * k
         quad(
             rgb,
             alpha,
             [
-                (d0[0] - 1, hy - 3),
-                (d0[0] + 4, hy - 3 + 4 * NE_SLOPE),
-                (d0[0] + 4, hy + 3 + 4 * NE_SLOPE),
-                (d0[0] - 1, hy + 3),
+                (d0[0] - 1, hy - half_h),
+                (d0[0] + kw, hy - half_h + kw * NE_SLOPE),
+                (d0[0] + kw, hy + half_h + kw * NE_SLOPE),
+                (d0[0] - 1, hy + half_h),
             ],
-            WOOD_LIT * 1.1,
-            grain=1.5,
-            blur=0.3,
+            WOOD * 0.85,
+            grain=1.0,
+            blur=0.45,
         )
 
     # Rear T-junction butt + AO.

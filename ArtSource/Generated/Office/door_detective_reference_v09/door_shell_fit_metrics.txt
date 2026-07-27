@@ -1,0 +1,64 @@
+=== Door shell fit metrics ===
+ENV=0.395 detectiveBodyH=90.625 detectivePlateH=229.430 doorTarget=1.940x BAKED_DOORWAY_H=445.0
+shipped Voss content=72x200 on 512x512; 232-point presentation=90.625 world / 229.430 plate px
+rear_fixture_anchor_x leaf=0.50000 frame=0.49244 leaf_y=0.08726 frame_y=0.11518
+
+-- Exterior --
+leaf content 325x719 scale=0.2445 display=79.45x175.78
+leaf body multiple=1.940 (band 1.8-2.2)
+opening body multiple=1.940 (detective-reference target 1.940)
+frame inner 327x719 display=79.94x175.78 scale=0.2445
+frame outer display=97.06x233.47 outer/open_w=1.215 (max 1.25)
+opening plate 202.3x445.0 display=79.90x175.78 H/W=2.20
+shell dark H≈448.0 vs plan 445.0 err=0.7%
+suite dark H≈448.0 vs plan 445.0 err=0.7%
+|leaf-open|/open H=0.00% W=0.56%
+|frame_inner-leaf|/leaf H=0.00% W=0.62%
+frame/shell silhouette IoU=0.9922 uncovered=0.0075 overhang=0.0003
+shell threshold centre=(3147.250,515.177) plate y-down
+
+-- Exterior projected-wall registration --
+gap_top_px=0.0 (max 8)
+overhang_bot_px=1.0 (max 8)
+uncovered_inner_frac=0.0050 (max 0.06)
+top10_uncovered_frac=0.0176 (max 0.2)
+
+-- Internal --
+opening plate 202.3x445.0 display=79.90x175.78 H/W=2.20
+upright master 202x445 display=79.79x175.78
+|master-open|/open H=0.00% W=0.13%
+live leaf 202x532 scale=0.3950 visible hinge=444.0px
+live hinge residual x=0.00px top=0.50px bottom=0.50px (max 2.0px)
+painted clear run 187x432 (casing-inclusive err W=7.6% H=2.9%)
+suite/current-partition patch MAE=0.0277 bad>2=0.0004
+
+PASS_exterior_height=True
+PASS_exterior_width=True
+PASS_frame_inner_height=True
+PASS_frame_inner_width=True
+PASS_door_band=True
+PASS_door_detective_reference=True
+PASS_detective_sprite_matches_reference=True
+PASS_exterior_aspect=True
+PASS_internal_height=True
+PASS_internal_width=True
+PASS_internal_aspect=True
+PASS_internal_detective_reference=True
+PASS_internal_live_plate_scale=True
+PASS_internal_live_hinge_x=True
+PASS_internal_live_hinge_top=True
+PASS_internal_live_hinge_bottom=True
+PASS_scales_from_helpers=True
+PASS_frame_leaf_gap_top=True
+PASS_frame_leaf_overhang_bot=True
+PASS_frame_inner_coverage=True
+PASS_frame_top_band_coverage=True
+PASS_frame_outer_not_freestanding=True
+PASS_frame_silhouette_matches_shell=True
+PASS_shell_opening_height=True
+PASS_suite_opening_height=True
+PASS_shell_detective_reference=True
+PASS_suite_detective_reference=True
+PASS_partition_pixels_fit_opening=True
+PASS_suite_contains_current_partition=True
+ALL_PASS=True

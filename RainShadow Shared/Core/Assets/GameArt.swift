@@ -133,6 +133,7 @@ enum GameArt {
             "office_radiator",
             "office_door_leaf",
             "office_door_leaf_hover",
+            "office_door_leaf_thickness",
             "office_desk_chair",
             "office_filing_cabinet",
             "office_filing_cabinet_open",

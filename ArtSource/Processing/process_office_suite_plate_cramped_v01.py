@@ -57,6 +57,13 @@ def place_plate(master: Image.Image, scale: float) -> tuple[Image.Image, tuple[i
 
 
 def fit_axes(rgb: np.ndarray) -> dict[str, list[float]]:
+    """Silhouette hull of the lower bright room mass — QA only, NOT placement.
+
+    Wall-shoe / floor-diamond constants live in `office_room_plan.py`. The hull
+    here tracks architecture mass (often the plaster crown or full room blob) and
+    will disagree with floor contact; metrics note that so it is never copy-pasted
+    into the room plan as REAR/AXIS_*.
+    """
     lum = rgb.mean(2)
     room = lum > 18
     ys, xs = np.where(room)
@@ -75,12 +82,28 @@ def fit_axes(rgb: np.ndarray) -> dict[str, list[float]]:
     axis_nw = west - rear
     axis_ne = east - rear
     return {
-        "REAR": [float(rear[0]), float(rear[1])],
-        "AXIS_NW": [float(axis_nw[0]), float(axis_nw[1])],
-        "AXIS_NE": [float(axis_ne[0]), float(axis_ne[1])],
-        "west": [float(west[0]), float(west[1])],
-        "east": [float(east[0]), float(east[1])],
-        "near": [float(near[0]), float(near[1])],
+        "silhouette_REAR": [float(rear[0]), float(rear[1])],
+        "silhouette_AXIS_NW": [float(axis_nw[0]), float(axis_nw[1])],
+        "silhouette_AXIS_NE": [float(axis_ne[0]), float(axis_ne[1])],
+        "silhouette_west": [float(west[0]), float(west[1])],
+        "silhouette_east": [float(east[0]), float(east[1])],
+        "silhouette_near": [float(near[0]), float(near[1])],
+        # Authoritative floor diamond (must match office_room_plan).
+        "REAR": [float(rp.REAR[0]), float(rp.REAR[1])],
+        "AXIS_NW": [float(rp.AXIS_NW[0]), float(rp.AXIS_NW[1])],
+        "AXIS_NE": [float(rp.AXIS_NE[0]), float(rp.AXIS_NE[1])],
+        "west": [
+            float(rp.REAR[0] + rp.AXIS_NW[0]),
+            float(rp.REAR[1] + rp.AXIS_NW[1]),
+        ],
+        "east": [
+            float(rp.REAR[0] + rp.AXIS_NE[0]),
+            float(rp.REAR[1] + rp.AXIS_NE[1]),
+        ],
+        "near": [
+            float(rp.REAR[0] + rp.AXIS_NW[0] + rp.AXIS_NE[0]),
+            float(rp.REAR[1] + rp.AXIS_NW[1] + rp.AXIS_NE[1]),
+        ],
     }
 
 
@@ -121,15 +144,20 @@ def main() -> None:
         "paste_xywh": list(box),
         **axes,
         "note": (
-            "Empty cramped architecture placed smaller than full-bleed so modular "
-            "props at unchanged body scale fill the floor. Update office_room_plan "
-            "REAR/AXIS_* to match axes in this metrics file if they drift."
+            "Empty cramped architecture at SUITE_PLATE_SCALE so modular props at "
+            "unchanged body scale fill the floor. REAR/AXIS_* are copied from "
+            "office_room_plan (painted wall-shoe diamond). silhouette_* is the "
+            "legacy bright-mass hull and must not be used for prop placement."
         ),
     }
     (GEN / "cramped_tight_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")
     (GEN / "office_suite_opening.json").write_text(json.dumps(metrics, indent=2) + "\n")
     print(f"shipped {RUNTIME} {plate.size} scale={args.scale} from {master_path.name}")
-    print(f"fitted REAR={axes['REAR']} AXIS_NW={axes['AXIS_NW']} AXIS_NE={axes['AXIS_NE']}")
+    print(f"floor REAR={axes['REAR']} AXIS_NW={axes['AXIS_NW']} AXIS_NE={axes['AXIS_NE']}")
+    print(
+        f"silhouette REAR={axes['silhouette_REAR']} "
+        f"(not for placement; room plan is authoritative)"
+    )
 
 
 if __name__ == "__main__":

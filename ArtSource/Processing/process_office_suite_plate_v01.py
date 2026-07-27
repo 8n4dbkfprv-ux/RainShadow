@@ -71,15 +71,22 @@ def suite_cutaway_mask() -> np.ndarray:
     """Keep partition solid through mid-room; only tip past SUITE_FULL_B is lip."""
     mask = np.zeros((ART_H, ART_W), np.float32)
     a_face = rp.PARTITION.a_line + rp.PARTITION.thickness_a
+    a_back = rp.PARTITION.a_line
     face_h = rp.PARTITION.face_h
 
-    g0, g1 = rp.plan(a_face, -rp.PARTITION.overrun_b), rp.plan(a_face, SUITE_FULL_B)
+    # Cover the full partition volume (waiting face → office face), not a card.
+    f0, f1 = rp.plan(a_face, -rp.PARTITION.overrun_b), rp.plan(a_face, SUITE_FULL_B)
+    b0, b1 = rp.plan(a_back, -rp.PARTITION.overrun_b), rp.plan(a_back, SUITE_FULL_B)
     full = part.polygon_mask(
         [
-            (g0[0] - 10, g0[1] + 24),
-            (g1[0] + 10, g1[1] + 24),
-            (g1[0] + 10, g1[1] - face_h - 24),
-            (g0[0] - 10, g0[1] - face_h - 24),
+            (f0[0] - 14, f0[1] + 28),
+            (f1[0] + 14, f1[1] + 28),
+            (b1[0] + 14, b1[1] + 28),
+            (b0[0] - 14, b0[1] + 28),
+            (b0[0] - 14, b0[1] - face_h - 28),
+            (b1[0] + 14, b1[1] - face_h - 28),
+            (f1[0] + 14, f1[1] - face_h - 28),
+            (f0[0] - 14, f0[1] - face_h - 28),
         ],
         blur=1.0,
     )
@@ -302,27 +309,47 @@ def paint_cutaway_readability(
         part.over(rgb, alpha, dark, shadow * 0.42)
 
     # Sill first (under tips), then tips overpaint flush into it.
-    a_part_stub = a_face - CUTAWAY_RETURN_LEN
-    a_ne_root = max(P.thickness_a * 1.5, 0.02)
-    a_ne_stub = a_ne_root + CUTAWAY_RETURN_LEN
+    a_part_stub = a_back - CUTAWAY_RETURN_LEN
+    # Entrance-wall end: chunky return so it doesn't read as a flat painted edge.
+    ne_return_len = CUTAWAY_RETURN_LEN * 1.35
+    ne_thick = max(P.thickness_a, rp.WALL_THICKNESS_PX * 2.2 / rp.AXIS_NW_LEN)
+    a_ne_root = max(ne_thick * 0.35, 0.012)
+    a_ne_stub = a_ne_root + ne_return_len
     floor_threshold(a_ne_stub + 0.008, a_part_stub - 0.008)
     floor_threshold(a_face + 0.02, min(rp.A_ROOM - 0.05, a_face + 0.55))
 
-    # Partition tip + L-return: clone lit columns from the partition face.
-    contact_shadow(a_back - 0.015, a_face + 0.025, rp.B_ROOM - 0.025, rp.B_ROOM + 0.025, 0.65)
+    # Partition tip + L-return: clone from the WAITING face so the bay wall
+    # continues around the cutaway corner as its own mass.
+    contact_shadow(a_back - 0.02, a_face + 0.03, rp.B_ROOM - 0.03, rp.B_ROOM + 0.03, 0.7)
     tip_reveal_cloned(
-        rp.plan(a_face, rp.B_ROOM), rp.plan(a_back, rp.B_ROOM), parent_a=a_face
+        rp.plan(a_face, rp.B_ROOM), rp.plan(a_back, rp.B_ROOM), parent_a=a_back
     )
-    l_return(a_face, a_part_stub, parent_a=a_face)
+    l_return(a_back, a_part_stub, parent_a=a_back)
 
-    # NE return: clone from the shell NE wall (a≈0) so wallpaper meets that face.
-    contact_shadow(a_ne_root - 0.015, a_ne_stub + 0.02, rp.B_ROOM - 0.025, rp.B_ROOM + 0.025, 0.65)
+    # NE entrance-wall end: thick return + dark reveal so it is clearly a wall
+    # mass, not a flat continuation into the void.
+    contact_shadow(
+        a_ne_root - 0.02, a_ne_stub + 0.03, rp.B_ROOM - 0.035, rp.B_ROOM + 0.035, 0.75
+    )
     tip_reveal_cloned(
         rp.plan(a_ne_root, rp.B_ROOM),
-        rp.plan(a_ne_root + P.thickness_a, rp.B_ROOM),
+        rp.plan(a_ne_root + ne_thick, rp.B_ROOM),
         parent_a=0.0,
     )
     l_return(a_ne_root, a_ne_stub, parent_a=0.0)
+    # Inner corner AO between NE shell and its return (separates the planes).
+    corner_ao = part.polygon_mask(
+        [
+            rp.plan(0.0, rp.B_ROOM - 0.04),
+            rp.plan(a_ne_stub + 0.02, rp.B_ROOM - 0.04),
+            rp.plan(a_ne_stub + 0.02, rp.B_ROOM + 0.01),
+            rp.plan(0.0, rp.B_ROOM + 0.01),
+        ],
+        blur=3.0,
+    )
+    dark = np.zeros((ART_H, ART_W, 3), np.float32)
+    dark[:] = (4.0, 5.0, 7.0)
+    part.over(rgb, alpha, dark, corner_ao * 0.35)
 
     # Wide protect so the void cannot turn tips into black slots.
     for a0, a1 in (

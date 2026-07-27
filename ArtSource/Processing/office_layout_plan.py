@@ -112,49 +112,50 @@ class Prop:
 
 # --------------------------------------------------------------- the layout
 
+# Fixed suite features on the floor-plane axes (props sit on the boards).
+# Door b re-derived from the painted NE threshold on the shoe-fitted diamond
+# (was 0.75 on the oversized diamond; plate threshold is fixed).
+EXTERIOR_DOOR = (0.0, 0.820)  # painted NE doorway centre on the floor diamond
+WINDOW_A = 0.30  # NW-wall window recess on the tight plate
+
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
-# personal corner. Nothing sits alone in open floor space.
+# personal corner. Floor anchors only — never wall-top plane.
 PROPS: list[Prop] = [
-    # ---- records cluster: one continuous storage run flush to the north-west
-    # wall — safe at the east end, two cabinets, bookcase — nearly touching.
-    Prop("safe", "office_safe", 0.640, FLUSH, 0.34, (0.6, 0.6), note="records run, east end"),
-    Prop("filingCabinetB", "office_filing_cabinet", 0.700, FLUSH, 1.31, (0.5, 0.62)),
-    Prop("filingCabinet", "office_filing_cabinet_open", 0.762, FLUSH, 1.31, (0.5, 0.62), note="drawer half open"),
-    Prop("bookshelf", "office_bookshelf", 0.830, FLUSH, 1.67, (1.2, 0.35)),
-    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.700, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
-    Prop("archiveStackOnCabinet", "office_archive_stack", 0.762, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
-    Prop("archiveBoxA", "office_archive_box_a", 0.802, 0.105, 0.40, (0.5, 0.45), note="only floor stack"),
-    # ---- radiator under the window (cramped plate window ≈ a = 0.30)
-    Prop("radiator", "office_radiator", 0.300, FLUSH - 0.006, 0.82, (1.0, 0.2)),
-    # ---- personal corner: one neglected group in the dark partition corner
-    Prop("personalSideboard", "office_personal_sideboard", 0.425, FLUSH, 0.48, (1.2, 0.5)),
-    Prop("personalWashbasin", "office_personal_washbasin", 0.470, FLUSH, 0.41, (0.7, 0.5)),
-    Prop("personalFan", "office_personal_fan", 0.405, 0.085, 0.68, (0.5, 0.5)),
-    Prop("personalBottle", "office_hidden_bottle", 0.434, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
-    Prop("personalGlass", "office_personal_glass", 0.416, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
-    # ---- desk cluster: packed into the private office so same-scale props
-    # fill the tight plate — detective behind the desk facing the door wall,
-    # clients side by side opposite, wastebasket at the desk end.
-    Prop("deskEnsemble", "office_desk_bare", 0.620, 0.320, 0.99, (1.7, 0.9)),
-    Prop("deskChair", "office_desk_chair", 0.690, 0.320, 0.64, (0.6, 0.6), obstacle=False),
-    Prop("visitorArmchair", "office_visitor_armchair", 0.520, 0.255, 0.79, (0.8, 0.8)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.520, 0.385, 0.76, (0.8, 0.8)),
-    Prop("wastebasket", "office_wastebasket", 0.685, 0.230, 0.32, (0.4, 0.4)),
-    # ---- entrance / waiting cluster — cramped plate door sits near b ≈ 0.75
-    Prop("coatRack", "office_coat_rack", 0.030, 0.820, 0.88, (0.6, 0.6)),
-    Prop("umbrellaStand", "office_umbrella_stand", 0.060, 0.780, 0.28, (0.35, 0.35)),
-    Prop("waitingChairA", "office_waiting_chair_a", 0.140, 0.700, 0.60, (0.55, 0.55)),
-    Prop("waitingTable", "office_waiting_table", 0.140, 0.745, 0.36, (0.55, 0.55)),
-    Prop("waitingChairB", "office_waiting_chair_b", 0.140, 0.790, 0.58, (0.55, 0.55)),
-    Prop("newspaper", "office_newspaper", 0.134, 0.739, 0.10, obstacle=False, note="on table"),
-    Prop("waitingAshtray", "office_waiting_ashtray", 0.148, 0.752, 0.07, obstacle=False, note="on table"),
+    # ---- records cluster: flush to the NW wall (b ≈ FLUSH)
+    Prop("safe", "office_safe", 0.620, FLUSH, 0.34, (0.6, 0.6), note="records run, east end"),
+    Prop("filingCabinetB", "office_filing_cabinet", 0.690, FLUSH, 1.31, (0.5, 0.62)),
+    Prop("filingCabinet", "office_filing_cabinet_open", 0.755, FLUSH, 1.31, (0.5, 0.62), note="drawer half open"),
+    Prop("bookshelf", "office_bookshelf", 0.835, FLUSH, 1.67, (1.2, 0.35)),
+    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.690, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
+    Prop("archiveStackOnCabinet", "office_archive_stack", 0.755, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
+    Prop("archiveBoxA", "office_archive_box_a", 0.800, 0.100, 0.40, (0.5, 0.45), note="only floor stack"),
+    # ---- radiator under the window
+    Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
+    # ---- personal corner: partition rear, private-office side
+    Prop("personalSideboard", "office_personal_sideboard", 0.430, FLUSH, 0.48, (1.2, 0.5)),
+    Prop("personalWashbasin", "office_personal_washbasin", 0.485, FLUSH, 0.41, (0.7, 0.5)),
+    Prop("personalFan", "office_personal_fan", 0.410, 0.080, 0.68, (0.5, 0.5)),
+    Prop("personalBottle", "office_hidden_bottle", 0.438, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
+    Prop("personalGlass", "office_personal_glass", 0.420, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
+    # ---- desk cluster: private office, on the floor boards
+    Prop("deskEnsemble", "office_desk_bare", 0.600, 0.380, 0.99, (1.7, 0.9)),
+    Prop("deskChair", "office_desk_chair", 0.675, 0.380, 0.64, (0.6, 0.6), obstacle=False),
+    # Footprint tightened so Lila can stand at the visitor side without being
+    # forced into the empty rear-wall band (segment-clear cells at b≈0.22 only).
+    Prop("visitorArmchair", "office_visitor_armchair", 0.500, 0.310, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.500, 0.450, 0.76, (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.670, 0.290, 0.32, (0.4, 0.4)),
+    # ---- entrance / waiting: corridor from exterior door to partition
+    Prop("coatRack", "office_coat_rack", 0.040, 0.880, 0.88, (0.6, 0.6)),
+    Prop("umbrellaStand", "office_umbrella_stand", 0.070, 0.840, 0.28, (0.35, 0.35)),
+    Prop("waitingChairA", "office_waiting_chair_a", 0.170, 0.580, 0.60, (0.55, 0.55)),
+    Prop("waitingTable", "office_waiting_table", 0.170, 0.640, 0.36, (0.55, 0.55)),
+    Prop("waitingChairB", "office_waiting_chair_b", 0.170, 0.700, 0.58, (0.55, 0.55)),
+    Prop("newspaper", "office_newspaper", 0.164, 0.634, 0.10, obstacle=False, note="on table"),
+    Prop("waitingAshtray", "office_waiting_ashtray", 0.178, 0.648, 0.07, obstacle=False, note="on table"),
 ]
 
 PROP_BY_KEY = {p.key: p for p in PROPS}
-
-# Fixed suite features, authored from the cramped IG plate fit.
-EXTERIOR_DOOR = (0.0, 0.75)  # centre of the baked doorway on the north-east wall
-WINDOW_A = 0.30
 
 
 def exterior_door_threshold_authored() -> tuple[float, float]:
@@ -162,10 +163,26 @@ def exterior_door_threshold_authored() -> tuple[float, float]:
     x, _ = rp.plan(*EXTERIOR_DOOR)
     return (x, rp.ART_H - rp.ne_wall_base(x))
 
-# One large worn burgundy rug: the desk, detective chair and both client chairs
-# sit completely on it, so the group reads as a single composition.
-RUG = (0.600, 0.320)
+
+def window_anchor_authored() -> tuple[float, float]:
+    """Centre of the painted window recess on the NW wall face (authored y-up)."""
+    x, y = rp.plan(WINDOW_A, 0.02)
+    # Recess sits about 42% of the wall face above the floor contact.
+    cy = y - rp.WALL_FACE_H * 0.42
+    return (x, rp.ART_H - cy)
+
+
+def camera_authored() -> tuple[float, float]:
+    """Camera recentred on the packed desk / private-office mass."""
+    return rp.authored(0.52, 0.42)
+
+
+# Worn burgundy rug under the desk island — office side of the partition only.
+# Sized so opaque pixels stay at a > partition office face (no overlap into the
+# waiting bay / doorway). Shared with addWornRug / compose_office_redesign_preview.
+RUG = (0.660, 0.380)
 RUG_BODY = 2.2
+RUG_FACTOR = 0.62
 
 # Wall art hangs on the north-west wall face directly above the records run —
 # board, map and photo cluster packed together, deliberately uneven; authored in
@@ -177,9 +194,9 @@ def _wall_art_plate(a: float, b: float, up: float) -> tuple[float, float]:
 
 
 WALL_ART = {
-    "caseBoard": _wall_art_plate(0.76, FLUSH, 160.0),
-    "wallCityMap": _wall_art_plate(0.70, FLUSH, 200.0),
-    "wallPhotos": _wall_art_plate(0.83, FLUSH, 140.0),
+    "caseBoard": _wall_art_plate(0.75, FLUSH, 100.0),
+    "wallCityMap": _wall_art_plate(0.69, FLUSH, 120.0),
+    "wallPhotos": _wall_art_plate(0.83, FLUSH, 90.0),
 }
 
 FLOOR_DECALS = {
@@ -190,21 +207,28 @@ FLOOR_DECALS = {
 }
 
 APPROACH = {
-    "office.window": (0.300, 0.118),
-    "office.desk": (0.560, 0.460),
-    "office.phone": (0.600, 0.460),
-    "office.files": (0.762, 0.168),
-    "office.door": (0.180, 0.620),
+    "office.window": (WINDOW_A, 0.120),
+    "office.desk": (0.540, 0.520),
+    "office.phone": (0.580, 0.520),
+    "office.files": (0.755, 0.160),
+    "office.door": (0.120, 0.540),  # waiting corridor; segment-clear from desk start
 }
 
-ACTOR_START_OFFSET = 208.0  # seated nav root sits south of the chair sprite
+# Seated nav root = deskChair + seatedYOffset/environment (82/0.395 ≈ 208).
+ACTOR_START_OFFSET = 208.0
 
 
 # --------------------------------------------------------------- architecture
 
 
+# Keep the dimetric grid locked to the floor plane as REAR moves.
+# 597.1 is the pre-correction plaster/wainscot rail y-down (legacy reference).
+_LEGACY_RAIL_Y = 597.1
+PROJECTION_ORIGIN_Y = 310.0 - (rp.REAR[1] - _LEGACY_RAIL_Y)
+
+
 def cell_point(c: int, r: int) -> tuple[float, float]:
-    return (2_048 + (c - r) * 64, 310 + (c + r) * 32)
+    return (2_048 + (c - r) * 64, PROJECTION_ORIGIN_Y + (c + r) * 32)
 
 
 CELL_RECT = (104.0, 52.0)  # slightly inset from the 128x64 cell so corners pass
@@ -276,8 +300,16 @@ def partition_open_cells() -> list[tuple[int, int]]:
 FOREGROUND_OBSTACLE = foreground_obstacle()
 
 # Exterior door leaf sits closed inside the suite's baked opening.
+# Obstacle tracks the painted clear opening (not the pre-cramped full-bleed door).
 _door = rp.authored(*EXTERIOR_DOOR)
-DOOR_OBSTACLE = (_door[0] - 90.0, _door[1] - 70.0, 180.0, 140.0)
+_door_hw = max(rp.BAKED_DOORWAY_W * 0.85, 40.0)
+_door_hh = max(rp.BAKED_DOORWAY_H * 0.35, 36.0)
+DOOR_OBSTACLE = (
+    _door[0] - _door_hw,
+    _door[1] - _door_hh,
+    _door_hw * 2.0,
+    _door_hh * 2.0,
+)
 
 
 # --------------------------------------------------------------- navigation
@@ -297,7 +329,7 @@ class Grid:
 
     def cell(self, p):
         px = (p[0] - 2_048) / 64.0
-        py = (p[1] - 310) / 32.0
+        py = (p[1] - PROJECTION_ORIGIN_Y) / 32.0
         return (round((px + py) / 2), round((py - px) / 2))
 
     def inside(self, p):
@@ -375,8 +407,8 @@ def emit() -> str:
     add("    enum Architecture {")
     add("        /// Shell-authoritative centre of the painted exterior threshold.")
     add(f"        static let entranceAnchor = {precise_pt(exterior_door_threshold_authored())}")
-    add("        /// Window insert centre on the shell's left-wall recess.")
-    add("        static let windowAnchor = CGPoint(x: 1_220, y: 1_812)")
+    add("        /// Window insert centre on the painted left-wall recess.")
+    add(f"        static let windowAnchor = {precise_pt(window_anchor_authored())}")
     add(f"        /// Interior partition: one wall on the room's north-east axis (a = {P.a_line}),")
     add("        /// with a single framed doorway as the only connection between rooms.")
     add(f"        static let partitionLineA: CGFloat = {P.a_line}")
@@ -422,14 +454,19 @@ def emit() -> str:
     )
     add("")
     add("        /// Exterior leaf/frame projected onto the sloped NE wall opening.")
+    add("        /// Uniform height-fit (keeps sheared master aspect; no X-squash).")
     add(f"        static let entranceLeafDisplayScale: CGFloat = {exterior_leaf_scale():.4f}")
+    add("        static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale")
+    add("        static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale")
     add(f"        static let entranceLeafAnchorY: CGFloat = {exterior_leaf_anchor_y():.5f}")
     add(f"        static let entranceFrameDisplayScale: CGFloat = {exterior_frame_scale():.4f}")
+    add("        static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale")
+    add("        static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale")
     add(f"        static let entranceFrameAnchorX: CGFloat = {exterior_frame_anchor_x():.5f}")
     add(f"        static let entranceFrameAnchorY: CGFloat = {exterior_frame_anchor_y():.5f}")
     add("        /// Floor-projected presentation used after the leaf breaks free.")
     add("        static let entranceFallenLeafScaleRatio: CGFloat = 0.92")
-    add("        /// Internal sheared leaf stays at plate scale so its hinge matches the shell.")
+    add("        /// Internal sheared leaf fitted to partition clear opening height.")
     add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
     add("    }")
     add("")
@@ -507,10 +544,17 @@ def emit() -> str:
     add("        static let window = Architecture.windowAnchor")
     add("        static let windowBlinds = window")
     add("        static let windowRotation: CGFloat = -0.105")
-    add("        static let windowRainMask = CGRect(x: 1_182, y: 1_744, width: 76, height: 136)")
-    add("        static let windowRainEmitter = CGPoint(x: 1_220, y: 1_884)")
-    add("        /// Recentred on the shrunken room (the plate's lower floor is gone).")
-    add("        static let camera = CGPoint(x: 1_960, y: 1_340)")
+    wx, wy = window_anchor_authored()
+    rain_w = 76.0 * rp.SUITE_PLATE_SCALE
+    rain_h = 136.0 * rp.SUITE_PLATE_SCALE
+    add(
+        "        static let windowRainMask = CGRect("
+        f"x: {wx - rain_w * 0.5:_.1f}, y: {wy - rain_h * 0.5:_.1f}, "
+        f"width: {rain_w:_.1f}, height: {rain_h:_.1f})"
+    )
+    add(f"        static let windowRainEmitter = CGPoint(x: {wx:_.1f}, y: {wy + 72.0 * rp.SUITE_PLATE_SCALE:_.1f})")
+    add("        /// Recentred on the fitted cramped room diamond.")
+    add(f"        static let camera = {pt(camera_authored())}")
     add("")
     for prop in PROPS:
         note = f"  // {prop.note}" if prop.note else ""
@@ -536,7 +580,13 @@ def emit() -> str:
         add(f'        "{name}": {pt(rp.authored(a, b))},')
     add("    ]")
     add("")
-    add("    private static let authoredProjectionOrigin = CGPoint(x: 2_048, y: 310)")
+    # The dimetric grid is registered to the same floor plane as the props.
+    # Moving the rear floor seam down by 121 plate pixels moves authored y-up
+    # coordinates down by the same amount; keep grid cells stable with it.
+    add(
+        "    private static let authoredProjectionOrigin = "
+        f"CGPoint(x: 2_048, y: {PROJECTION_ORIGIN_Y:_.0f})"
+    )
     add("    private static let authoredTileSize = CGSize(width: 128, height: 64)")
     add("")
     add("    static var actorStart: CGPoint { OfficeInteriorScale.mapPoint(authoredActorStart) }")
@@ -622,44 +672,61 @@ DEPTH_PROP_ANCHOR_Y = 0.04  # matches `addDepthProp` in DetectiveOfficeScene
 
 
 def internal_door_leaf_anchor() -> tuple[float, float]:
-    """Authored anchor for the open leaf — visible hinge centred on the jamb."""
+    """Authored (y-up) depth-prop anchor for the open leaf on the partition hinge.
+
+    Accounts for `internal_leaf_scale()` so the hinge-edge vertical run fills the
+    painted opening: the old plate-scale (1:1) formula parked a down-scaled leaf
+    near the rear wall instead of in the doorway.
+    """
     import json
 
     opening_path = ART / "office_partition_opening.json"
     with Image.open(ART / "office_internal_door_leaf.png") as im:
         w, h = im.size
         alpha = np.asarray(im.convert("RGBA"))[:, :, 3]
+
+    door_h = float(rp.BAKED_DOORWAY_H)
+    # Hinge jamb threshold on the office face of the partition (plate y-down).
+    jamb = rp.plan(P.a_line + P.thickness_a, P.b_door0)
+    hinge_x = float(jamb[0])
+    hinge_bottom_y = float(jamb[1])
     if opening_path.exists():
         meta = json.loads(opening_path.read_text(encoding="utf-8"))
-        hinge_x, hinge_y = meta["hinge_plate_xy"]
-        door_h = float(meta["opening_h_px"])
-        hinge_ys = np.where(alpha[:, w - 1] > 16)[0]
-        if len(hinge_ys):
-            # Centre the rasterized visible hinge run on the structural jamb.
-            # This shares the unavoidable one-pixel antialias residual evenly
-            # between the lintel and threshold instead of accumulating it at
-            # the bottom hinge.
-            hinge_run_center = (
-                float(hinge_ys.min()) + float(hinge_ys.max()) + 1.0
-            ) * 0.5
-            jamb_center = float(hinge_y) - door_h * 0.5
-            anchor_y = (
-                jamb_center
-                - hinge_run_center
-                + (1.0 - DEPTH_PROP_ANCHOR_Y) * h
-            )
-            anchor_plate = (float(hinge_x) - w / 2.0, anchor_y)
-        else:
-            bottom = hinge_y + abs(rp.AXIS_NW[1] / rp.AXIS_NW[0]) * w
-            anchor_plate = (
-                hinge_x - w / 2.0,
-                bottom - DEPTH_PROP_ANCHOR_Y * h,
-            )
+        door_h = float(meta.get("opening_h_px", door_h))
+        # hinge_plate_xy is the TOP of the painted opening; recover threshold.
+        hx, hy_top = meta["hinge_plate_xy"]
+        hinge_x = float(hx)
+        # The metadata predates the corrected floor seam and is registered to
+        # the plaster/wainscot rail. Carry its threshold down with the same
+        # authoritative floor-plane correction as every other placement.
+        hinge_bottom_y = (
+            float(hy_top)
+            + door_h
+            + (rp.REAR[1] - _LEGACY_RAIL_Y)
+        )
+
+    hinge_ys = np.where(alpha[:, w - 1] > 16)[0]
+    if len(hinge_ys):
+        content_h = float(hinge_ys.max() - hinge_ys.min() + 1)
+        hinge_run_center = (
+            float(hinge_ys.min()) + float(hinge_ys.max()) + 1.0
+        ) * 0.5
     else:
-        jamb = rp.plan(P.a_line + P.thickness_a, P.b_door0)
-        bottom = jamb[1] + abs(rp.AXIS_NW[1] / rp.AXIS_NW[0]) * w
-        anchor_plate = (jamb[0] - w / 2.0, bottom - DEPTH_PROP_ANCHOR_Y * h)
-    return (anchor_plate[0], rp.ART_H - anchor_plate[1])
+        content_h = float(h)
+        hinge_run_center = h * 0.5
+
+    plate_scale = door_h / max(content_h, 1.0)
+    jamb_center_y = hinge_bottom_y - door_h * 0.5  # plate y-down mid-jamb
+    # SpriteKit anchor (0.5, DEPTH_PROP_ANCHOR_Y): scale texture so hinge run
+    # centres on the structural jamb (same identity as the scale=1 derivation).
+    anchor_y = (
+        jamb_center_y
+        - hinge_run_center * plate_scale
+        + (1.0 - DEPTH_PROP_ANCHOR_Y) * h * plate_scale
+    )
+    # Hinge sits on the right edge of the open-leaf texture.
+    anchor_x = hinge_x - (0.5 * w) * plate_scale
+    return (anchor_x, rp.ART_H - anchor_y)
 
 
 def _flood_frame_inner(alpha: np.ndarray, thr: int = 16) -> np.ndarray:
@@ -704,10 +771,22 @@ def _vertical_run(mask: np.ndarray, x: int) -> tuple[float, int, int]:
 
 
 def exterior_leaf_scale() -> float:
-    """Fit the projected leaf by vertical jamb height, not sheared bbox height."""
+    """Uniform fit: vertical jamb height → painted clear opening height.
+
+    Non-uniform X stretch made the door too wide and short; keep aspect of the
+    sheared master and centre it on the painted aperture.
+    """
     alpha = np.asarray(Image.open(ART / "office_door_leaf.png").convert("RGBA"))[:, :, 3]
     content_h, _, _ = _vertical_run(alpha > 16, alpha.shape[1] // 2)
     return rp.BAKED_DOORWAY_H * ENV / max(content_h, 1.0)
+
+
+def exterior_leaf_scale_x() -> float:
+    return exterior_leaf_scale()
+
+
+def exterior_leaf_scale_y() -> float:
+    return exterior_leaf_scale()
 
 
 def exterior_leaf_anchor_y() -> float:
@@ -718,7 +797,7 @@ def exterior_leaf_anchor_y() -> float:
 
 
 def exterior_frame_scale() -> float:
-    """Fit the projected frame by its centre-jamb aperture height."""
+    """Uniform fit: frame inner aperture height → painted clear opening height."""
     path = ART / "office_door_frame.png"
     if not path.exists():
         return exterior_leaf_scale()
@@ -732,6 +811,14 @@ def exterior_frame_scale() -> float:
     inner_cx = int(round((ixs.min() + ixs.max()) * 0.5))
     inner_h, _, _ = _vertical_run(vis, inner_cx)
     return rp.BAKED_DOORWAY_H * ENV / max(inner_h, 1.0)
+
+
+def exterior_frame_scale_x() -> float:
+    return exterior_frame_scale()
+
+
+def exterior_frame_scale_y() -> float:
+    return exterior_frame_scale()
 
 
 def exterior_frame_anchor_x() -> float:
@@ -766,36 +853,51 @@ def exterior_frame_anchor_y() -> float:
 
 
 def internal_leaf_scale() -> float:
-    """Keep plate pixels 1:1 with the shell while the open leaf is NW-sheared.
+    """Fit the open leaf's hinge-jamb height to the partition clear opening.
 
-    The sheared texture's bounding box is taller than the physical door because
-    its free edge projects down-screen. Scaling by that bbox shortened the hinge
-    jamb and detached the leaf from the shell. The authored 202×445 master and
-    exported open leaf are both plate-space geometry, so environment scale is
-    the exact registration transform.
+    Plate-scale ENV registration was correct when the partition opening matched
+    the full leaf master (~390–462 px). On the tight suite the painted opening
+    is ~BAKED_DOORWAY_H, so scale from that measured height (or opening JSON).
+    Use the hinge-edge vertical run, not the sheared free-edge bbox.
     """
-    return ENV
+    import json
+
+    alpha = np.asarray(Image.open(ART / "office_internal_door_leaf.png").convert("RGBA"))[:, :, 3]
+    hinge_x = alpha.shape[1] - 1
+    content_h, _, _ = _vertical_run(alpha > 16, hinge_x)
+    if content_h < 1.0:
+        ys = np.where(alpha > 16)[0]
+        content_h = float(ys.max() - ys.min() + 1) if len(ys) else 1.0
+    door_h = float(rp.BAKED_DOORWAY_H)
+    opening_path = ART / "office_partition_opening.json"
+    if opening_path.exists():
+        meta = json.loads(opening_path.read_text(encoding="utf-8"))
+        door_h = float(meta.get("opening_h_px", door_h))
+    return door_h * ENV / max(content_h, 1.0)
 
 
+# Authored polyline with clear line-of-sight segments (entrance uses linear
+# SKAction moves, not grid pathfinding). Route: exterior → waiting → internal
+# door → stand just inside the office at the visitor approach.
 CLIENT_PATH = [
-    (0.050, 0.400),
-    (0.180, 0.300),
-    (0.280, 0.180),  # approach the rear doorway from the waiting room
-    (0.395, P.door_mid_b),  # through the internal doorway
-    (0.500, 0.450),  # standing beside the client chairs
+    (0.100, 0.550),  # exterior door / waiting entrance
+    (0.180, 0.400),  # waiting bay mid
+    (0.280, 0.220),  # approach internal doorway (waiting face)
+    (0.420, 0.160),  # through the partition doorway
+    (0.420, 0.220),  # stand inside office at visitor approach (not empty rear)
 ]
 
 SCALE_STANDS = [
     (0.080, EXTERIOR_DOOR[1]),  # directly beside the exterior doorway
-    (0.720, 0.320),  # behind the desk
-    (0.395, (P.b_door0 + P.b_door1) * 0.5),  # in the internal doorway
-    (0.165, 0.500),  # beside the waiting chair
+    (0.680, 0.380),  # behind the desk
+    (0.400, (P.b_door0 + P.b_door1) * 0.5),  # in the internal doorway
+    (0.170, 0.600),  # beside the waiting chair
 ]
 
 RECORDS_PATH = [
-    (0.680, 0.340),
-    (0.720, 0.220),
-    (0.762, 0.168),
+    (0.660, 0.300),
+    (0.720, 0.200),
+    (0.755, 0.160),
 ]
 
 HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String, hitArea: CGRect, observation: String)] = [

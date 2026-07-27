@@ -96,10 +96,17 @@ final class ClientActorNode: SKNode {
             )
         }
 
+        // Prefer pre-expanded walkable polylines (scene routes anchors through
+        // NavigationGrid). Skip zero-length micro-steps that can remain after
+        // snap/merge so timing stays stable.
         var actions: [SKAction] = [.fadeIn(withDuration: 0.22)]
         var prior = start
         for destination in points.dropFirst() {
             let distance = hypot(destination.x - prior.x, destination.y - prior.y)
+            guard distance > 0.25 else {
+                prior = destination
+                continue
+            }
             let movement = SKAction.move(
                 to: destination,
                 duration: ActorLocomotionPacing.pathDuration(distance: distance)
@@ -144,17 +151,30 @@ final class ClientActorNode: SKNode {
             assertionFailure("Expected \(expected) NW departure textures, found \(departureNWTextures.count)")
         }
 
+        // Facing uses a look-ahead along the remaining polyline so dense grid
+        // micro-steps (from NavigationGrid.waypoints) do not flip NW/NE strips
+        // every cell. Movement still visits every walkable point.
+        let lookAheadDistance: CGFloat = 48
         var actions: [SKAction] = []
         var prior = start
         var activeBin: ClientDepartureFacing?
-        for destination in points.dropFirst() {
-            let dx = destination.x - prior.x
-            let dy = destination.y - prior.y
-            if dx == 0 && dy == 0 {
+        let pathPoints = points
+        for (index, destination) in pathPoints.dropFirst().enumerated() {
+            let stepIndex = index + 1
+            let dxStep = destination.x - prior.x
+            let dyStep = destination.y - prior.y
+            let stepDistance = hypot(dxStep, dyStep)
+            if stepDistance <= 0.25 {
                 prior = destination
                 continue
             }
-            let bin = ClientDepartureFacing.bin(dx: dx, dy: dy)
+
+            let look = ClientDepartureFacing.lookAheadVector(
+                along: pathPoints,
+                fromIndex: stepIndex - 1,
+                minimumDistance: lookAheadDistance
+            )
+            let bin = ClientDepartureFacing.bin(dx: look.dx, dy: look.dy)
             if activeBin != bin {
                 let textures = departureTextures(for: bin)
                 let crossfade = activeBin != nil
@@ -164,10 +184,9 @@ final class ClientActorNode: SKNode {
                 activeBin = bin
             }
 
-            let distance = hypot(dx, dy)
             let movement = SKAction.move(
                 to: destination,
-                duration: ActorLocomotionPacing.pathDuration(distance: distance)
+                duration: ActorLocomotionPacing.pathDuration(distance: stepDistance)
             )
             movement.timingMode = .linear
             actions.append(movement)

@@ -158,4 +158,100 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(!source.contains("speaker: \"Elias Vale\""))
         #expect(!source.contains("vivian.opening"))
     }
+
+    // MARK: - Entrance cue + voice openers (shipped pure helpers)
+
+    @Test func monologueStartDoesNotTriggerClientEntrance() {
+        // Intro presents monologue first; entrance is a separate late-monologue cue.
+        #expect(startID == "voss.monologue.1")
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: startID))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "voss.monologue.2"))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "voss.monologue.3"))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "lila.entrance"))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: EmptyCoatCaseIntroduction.caseOpenedNodeID))
+    }
+
+    @Test func clientEntranceCueIsSoleLateMonologueTrigger() {
+        let cue = EmptyCoatCaseIntroduction.clientEntranceCueNodeID
+        #expect(cue == "voss.monologue.4")
+        #expect(EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: cue))
+
+        let monologueIDs = nodes
+            .map(\.id)
+            .filter { $0.hasPrefix("voss.monologue") }
+        #expect(monologueIDs.contains(cue))
+        #expect(monologueIDs.contains(startID))
+        // Only the designated cue among monologue nodes starts entrance.
+        for id in monologueIDs where id != cue {
+            #expect(
+                !EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: id),
+                "Unexpected entrance trigger on \(id)"
+            )
+        }
+
+        // Cue text narratively introduces arrival (hallway / heels / door / dame).
+        let cueNode = nodes.first { $0.id == cue }
+        #expect(cueNode != nil)
+        let body = (cueNode?.text ?? "").lowercased()
+        #expect(body.contains("hallway") || body.contains("heels") || body.contains("door"))
+        // Cue is before Lila speaks — monologue chain still continues.
+        #expect(cueNode?.nextNodeID != nil)
+        #expect(cueNode?.nextNodeID != EmptyCoatCaseIntroduction.lilaConversationStartNodeID || monologueIDs.count == 1)
+        #expect(nodes.contains { $0.id == "voss.monologue.5" })
+        #expect(cueNode?.nextNodeID == "voss.monologue.5")
+    }
+
+    @Test func dialogueNodesAreCurrentlySilentWithoutVoiceAssets() {
+        // VO is parked for a later pass — openers and full graph must not schedule clips.
+        #expect(EmptyCoatCaseIntroduction.voiceAssetName(for: startID) == nil)
+        #expect(
+            EmptyCoatCaseIntroduction.voiceAssetName(
+                for: EmptyCoatCaseIntroduction.lilaConversationStartNodeID
+            ) == nil
+        )
+        for node in nodes {
+            #expect(node.voiceAssetName == nil, "Unexpected VO on \(node.id)")
+            #expect(EmptyCoatCaseIntroduction.voiceAssetName(for: node.id) == nil)
+        }
+        // Reserved filenames remain documented for when VO returns.
+        #expect(EmptyCoatCaseIntroduction.monologueOpenerVoiceAsset.hasSuffix(".m4a"))
+        #expect(EmptyCoatCaseIntroduction.lilaEntranceVoiceAsset.hasSuffix(".m4a"))
+    }
+
+    @Test func officeIntroWiresEntranceCueWithoutVoicePlayback() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let sceneURL = root
+            .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
+        let presenterURL = root
+            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+        let scene = try String(contentsOf: sceneURL, encoding: .utf8)
+        let presenter = try String(contentsOf: presenterURL, encoding: .utf8)
+
+        // Monologue presents first; entrance is armed from the cue callback — not at intro start.
+        #expect(scene.contains("shouldStartClientEntrance"))
+        #expect(scene.contains("beginClientEntranceIfNeeded"))
+        #expect(scene.contains("handleCaseIntroductionNodeShown"))
+        #expect(scene.contains("onNodeShown"))
+        // VO playback is offline for now.
+        #expect(!scene.contains("playVoiceOver"))
+        #expect(scene.contains("EmptyCoatCaseIntroduction.startNodeID"))
+        // Door/entrance only inside the gated helper, not at the top of startCaseIntroduction before present.
+        if let startRange = scene.range(of: "private func startCaseIntroduction()") {
+            let afterStart = scene[startRange.lowerBound...]
+            if let nextFunc = afterStart.range(
+                of: "\n    private func ",
+                options: [],
+                range: afterStart.index(after: startRange.upperBound)..<afterStart.endIndex
+            ) {
+                let body = String(afterStart[..<nextFunc.lowerBound])
+                #expect(body.contains("caseIntroductionPresenter.present"))
+                #expect(!body.contains("animateDoorFalling()"))
+                #expect(!body.contains("performEntrance"))
+            }
+        }
+        #expect(presenter.contains("onNodeShown"))
+    }
 }

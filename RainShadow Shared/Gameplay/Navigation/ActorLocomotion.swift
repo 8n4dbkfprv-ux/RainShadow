@@ -212,6 +212,35 @@ enum ClientDepartureFacing: Equatable, Sendable {
         return result
     }
 
+    /// Direction used for strip selection on dense paths: accumulate along the
+    /// remaining polyline until at least `minimumDistance` of travel (or the end).
+    static func lookAheadVector(
+        along points: [CGPoint],
+        fromIndex: Int,
+        minimumDistance: CGFloat
+    ) -> (dx: CGFloat, dy: CGFloat) {
+        guard fromIndex >= 0, fromIndex < points.count - 1 else {
+            return (dx: 0, dy: 0)
+        }
+        let origin = points[fromIndex]
+        var traveled: CGFloat = 0
+        var cursor = origin
+        for index in (fromIndex + 1)..<points.count {
+            let next = points[index]
+            let step = hypot(next.x - cursor.x, next.y - cursor.y)
+            if step <= 0.25 {
+                cursor = next
+                continue
+            }
+            traveled += step
+            cursor = next
+            if traveled >= minimumDistance {
+                break
+            }
+        }
+        return (dx: cursor.x - origin.x, dy: cursor.y - origin.y)
+    }
+
     /// Rotate an 8-frame walk strip so playback continues at `phase` (handoff continuity).
     static func texturesStartingAtPhase<T>(_ textures: [T], phase: Int) -> [T] {
         guard !textures.isEmpty else { return textures }

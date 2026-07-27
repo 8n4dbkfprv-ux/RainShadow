@@ -31,6 +31,8 @@ struct CaseDialogueNode: Equatable, Sendable {
     let endsDialogue: Bool
     /// First-person interior narration (detective monologue). Presenter renders body text in italics.
     let isInteriorMonologue: Bool
+    /// Optional one-shot voice-over resource filename (e.g. `vo_voss_monologue_1.m4a`).
+    let voiceAssetName: String?
 
     init(
         id: String,
@@ -40,7 +42,8 @@ struct CaseDialogueNode: Equatable, Sendable {
         choices: [CaseDialogueChoice] = [],
         nextNodeID: String? = nil,
         endsDialogue: Bool = false,
-        isInteriorMonologue: Bool = false
+        isInteriorMonologue: Bool = false,
+        voiceAssetName: String? = nil
     ) {
         self.id = id
         self.speaker = speaker
@@ -50,6 +53,7 @@ struct CaseDialogueNode: Equatable, Sendable {
         self.nextNodeID = nextNodeID
         self.endsDialogue = endsDialogue
         self.isInteriorMonologue = isInteriorMonologue
+        self.voiceAssetName = voiceAssetName
     }
 }
 

@@ -36,31 +36,43 @@ DETECTIVE_VISIBLE_WORLD_H = (
 )
 BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 
-# Cramped-tight suite places the IG architecture at 0.80 of full-bleed so
-# modular props (unchanged body scale) fill the floor. Wall face and baked
-# doorway openings scale with the plate; actor body scale does not.
+# Cramped-tight suite places the IG architecture at 0.60 of full-bleed so
+# modular props (unchanged body scale) fill the floor. Actor body scale does
+# not shrink with the plate.
 SUITE_PLATE_SCALE = 0.60
 
-# Character-relative clear opening (V10.1), scaled to the painted plate.
-DOOR_OPENING_TO_DETECTIVE = 1.70
-DOOR_OPENING_ASPECT = 2.20
-BAKED_DOORWAY_H = float(
-    round(BODY_PLATE_H * DOOR_OPENING_TO_DETECTIVE * SUITE_PLATE_SCALE)
-)
-BAKED_DOORWAY_W = BAKED_DOORWAY_H / DOOR_OPENING_ASPECT
+# Painted clear doorway on the NE wall (tight plate), measured from floor contact
+# up to the lintel. Height-fit the leaf uniformly — non-uniform X stretch made
+# the door too wide and short.
+BAKED_DOORWAY_H = 170.0
+BAKED_DOORWAY_W = 112.0
+DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
+DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
 OLD_WALL_FACE_H = 348.0
-WALL_FACE_H = 505.0 * SUITE_PLATE_SCALE
+# Measured tight-plate wall face: 188 px of plaster plus the 121 px dark
+# wainscot.  The prior 188 px value stopped at the plaster/wainscot rail, so
+# every floor placement inherited that rail as its "ground" and floated one
+# full wainscot height above the boards.
+PLASTER_H = 188.0
+WAINSCOT_H = 121.0
+WALL_FACE_H = PLASTER_H + WAINSCOT_H
 DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
-WAINSCOT_H = 121.0 * SUITE_PLATE_SCALE
-PLASTER_H = WALL_FACE_H - WAINSCOT_H
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# Room corners for the shipped tight plate (cramped v03 placed at 0.60 on the
-# 4096×2304 canvas). REAR is where the two wall runs meet.
-REAR = (1936.0, 462.0)
-AXIS_NW = (-679.0, 442.0)  # rear corner -> west corner
-AXIS_NE = (897.0, 534.0)  # rear corner -> east corner
+# FLOOR diamond for the cramped suite (not wall-top silhouette).
+#
+# Fit against the shipped 0.60 suite plate (`office_suite_plate.png`):
+# - REAR / wall edges from painted wall-shoe samples (dark wainscot → boards)
+# - Axis lengths clipped so the unit square's near tip matches the painted
+#   floor cutaway (not the oversized silhouette hull in cramped_tight_metrics)
+#
+# History: treating the plaster/wainscot rail as ground floated every floor
+# placement by ~WAINSCOT_H. A later hand REAR at y=718 still sat ~34 px above
+# the shoes and overshot the camera-near floor into the void.
+REAR = (1932.1, 752.4)
+AXIS_NW = (-555.54, 311.86)  # rear floor -> west floor corner
+AXIS_NE = (812.23, 386.20)  # rear floor -> east floor corner
 
 # Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
 # base through REAR at WALL_FACE_H.
@@ -80,15 +92,16 @@ B_ROOM = 1.00
 # navigation and QA all share one character-relative source of truth.
 EXTERIOR_DOOR_OPENING_B = BAKED_DOORWAY_W / abs(AXIS_NE[0])
 
-# Character-relative hardware placement. Processing normalizes both leaf knobs
-# to this height above the threshold and inset from the latch edge.
-DOOR_HANDLE_TO_DETECTIVE = 0.575
-DOOR_HANDLE_HEIGHT = BODY_PLATE_H * DOOR_HANDLE_TO_DETECTIVE
+# Hardware placement relative to the painted doorway (not the full detective body,
+# which is taller than the tight-plate aperture).
+DOOR_HANDLE_TO_OPENING = 0.45
+DOOR_HANDLE_HEIGHT = BAKED_DOORWAY_H * DOOR_HANDLE_TO_OPENING
+DOOR_HANDLE_TO_DETECTIVE = DOOR_HANDLE_HEIGHT / BODY_PLATE_H
 DOOR_HANDLE_LATCH_INSET = BAKED_DOORWAY_W * 0.13
-DOOR_HANDLE_DIAMETER = BODY_PLATE_H * 0.065
+DOOR_HANDLE_DIAMETER = BAKED_DOORWAY_H * 0.04
 # Painted hinge knuckles on both doorway jambs (partition + exterior recess).
-DOOR_HINGE_KNUCKLE_HALF_H = BODY_PLATE_H * 0.016
-DOOR_HINGE_KNUCKLE_W = BODY_PLATE_H * 0.018
+DOOR_HINGE_KNUCKLE_HALF_H = BAKED_DOORWAY_H * 0.02
+DOOR_HINGE_KNUCKLE_W = BAKED_DOORWAY_W * 0.04
 
 
 def nw_wall_top(x: float) -> float:
@@ -167,7 +180,8 @@ class Partition:
     Both faces are painted so the waiting bay is clearly enclosed.
     """
 
-    a_line: float = 0.36
+    # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
+    a_line: float = 0.39
     # Door sits close to the rear wall so the full-height mass stays short.
     # Opening width matches the shell's exterior doorway (~EXTERIOR_DOOR_OPENING_B).
     b_door0: float = 0.078

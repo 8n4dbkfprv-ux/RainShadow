@@ -30,7 +30,7 @@ ANCHOR = (0.5, 0.04)  # matches addDepthProp / addRearFixture in the scene
 # Preview factor for the burgundy rug relative to floorDecalDisplayScale; the
 # scene must use the same number (see addWornRug).
 RUG_ART = "office_worn_rug_burgundy.png"
-RUG_FACTOR = 1.45
+RUG_FACTOR = lp.RUG_FACTOR
 
 WALL_ART_SCALE = 0.22 * 0.72 / ENV  # standardPropDisplayScale * 0.72 in plate px
 
@@ -45,16 +45,37 @@ def content_box(im: Image.Image) -> tuple[int, int, int, int]:
     return xs.min(), ys.min(), xs.max() + 1, ys.max() + 1
 
 
-def paste_scaled(canvas: Image.Image, im: Image.Image, plate_scale: float, anchor_plate: tuple[float, float]) -> None:
-    """Paste `im` so its content anchor (0.5, 0.04 from bottom) lands on `anchor_plate`."""
-    x0, y0, x1, y1 = content_box(im)
-    content = im.crop((x0, y0, x1, y1))
-    w = max(1, int(round(content.width * plate_scale)))
-    h = max(1, int(round(content.height * plate_scale)))
-    content = content.resize((w, h), Image.Resampling.LANCZOS)
-    px = int(round(anchor_plate[0] - w * ANCHOR[0]))
-    py = int(round(anchor_plate[1] - h * (1 - ANCHOR[1])))
-    canvas.alpha_composite(content, (px, py))
+def paste_scaled(
+    canvas: Image.Image,
+    im: Image.Image,
+    plate_scale: float,
+    anchor_plate: tuple[float, float],
+    *,
+    crop_content: bool = True,
+    anchor: tuple[float, float] = ANCHOR,
+    plate_scale_x: float | None = None,
+    plate_scale_y: float | None = None,
+) -> None:
+    """Paste `im` so UV `anchor` lands on `anchor_plate` (plate y-down).
+
+    Default matches addDepthProp (content crop, anchor 0.5/0.04). Exterior
+    leaf/frame use the full texture + Architecture entrance* anchors so the
+    preview matches DetectiveOfficeScene. Optional independent X/Y scales fill
+    a near-square painted aperture from a tall sheared master.
+    """
+    if crop_content:
+        x0, y0, x1, y1 = content_box(im)
+        src = im.crop((x0, y0, x1, y1))
+    else:
+        src = im
+    sx = plate_scale_x if plate_scale_x is not None else plate_scale
+    sy = plate_scale_y if plate_scale_y is not None else plate_scale
+    w = max(1, int(round(src.width * sx)))
+    h = max(1, int(round(src.height * sy)))
+    src = src.resize((w, h), Image.Resampling.LANCZOS)
+    px = int(round(anchor_plate[0] - w * anchor[0]))
+    py = int(round(anchor_plate[1] - h * (1.0 - anchor[1])))
+    canvas.alpha_composite(src, (px, py))
 
 
 def plate_point(authored: tuple[float, float]) -> tuple[float, float]:
@@ -110,15 +131,41 @@ def main() -> None:
             plate_point(prop.authored),
         )
 
-    # Exterior door leaf and internal door leaf.
-    leaf = load("office_door_leaf.png")
-    _, ly0, _, ly1 = content_box(leaf)
-    leaf_scale = rp.BAKED_DOORWAY_H / (ly1 - ly0)
-    paste_scaled(canvas, leaf, leaf_scale, plate_point(rp.authored(*lp.EXTERIOR_DOOR)))
+    # Exterior frame + leaf: same absolute X/Y scales + anchors as the scene.
+    thr = plate_point(lp.exterior_door_threshold_authored())
+    door_leaf_pt = plate_point(
+        (
+            lp.exterior_door_threshold_authored()[0],
+            lp.exterior_door_threshold_authored()[1] + 6.0,
+        )
+    )
+    frame_path = ART / "office_door_frame.png"
+    if frame_path.exists():
+        paste_scaled(
+            canvas,
+            load("office_door_frame.png"),
+            1.0,
+            thr,
+            crop_content=False,
+            anchor=(lp.exterior_frame_anchor_x(), lp.exterior_frame_anchor_y()),
+            plate_scale_x=lp.exterior_frame_scale_x() / ENV,
+            plate_scale_y=lp.exterior_frame_scale_y() / ENV,
+        )
+    paste_scaled(
+        canvas,
+        load("office_door_leaf.png"),
+        1.0,
+        door_leaf_pt,
+        crop_content=False,
+        anchor=(0.5, lp.exterior_leaf_anchor_y()),
+        plate_scale_x=lp.exterior_leaf_scale_x() / ENV,
+        plate_scale_y=lp.exterior_leaf_scale_y() / ENV,
+    )
+    # Internal open leaf still uses depth-prop anchor (0.5, 0.04).
     paste_scaled(
         canvas,
         load("office_internal_door_leaf.png"),
-        1.0,
+        lp.internal_leaf_scale() / ENV,
         plate_point(lp.internal_door_leaf_anchor()),
     )
 

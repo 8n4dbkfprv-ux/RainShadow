@@ -172,6 +172,71 @@ struct NavigationGridTests {
         }
     }
 
+    @Test func waypointsVisitingRoutesAroundAWall() {
+        let wall = CGRect(x: 10, y: 0, width: 10, height: 30)
+        let grid = makeGrid(obstacles: [wall])
+        // Three anchors: west of wall, (blocked midpoint on wall), east of wall.
+        let anchors = [
+            CGPoint(x: 5, y: 5),
+            CGPoint(x: 15, y: 5),
+            CGPoint(x: 25, y: 5)
+        ]
+        let path = grid.waypoints(visiting: anchors)
+        #expect(path != nil)
+        guard let path else { return }
+        #expect(path.count >= 2)
+        #expect(path.allSatisfy { !wall.contains($0) })
+        #expect(path.first == CGPoint(x: 5, y: 5))
+        #expect(path.last == CGPoint(x: 25, y: 5))
+    }
+
+    @Test func officeClientArrivalAnchorsExpandWithoutCrossingObstacles() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        let anchors = OfficeNavigationLayout.clientArrivalPath
+        let path = grid.waypoints(visiting: anchors)
+        #expect(path != nil, "Client arrival anchors must route through open floor")
+        guard let path else { return }
+        #expect(path.count >= anchors.count)
+        #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        // No straight-line leg may pierce an obstacle (the bug linear SKAction had).
+        for index in 0..<(path.count - 1) {
+            let a = path[index]
+            let b = path[index + 1]
+            #expect(
+                !segmentCrossesOfficeObstacle(from: a, to: b),
+                "Arrival leg \(index) crossed an office obstacle"
+            )
+        }
+    }
+
+    @Test func officeClientDepartureAnchorsExpandWithoutCrossingObstacles() {
+        let grid = OfficeNavigationLayout.makeGrid()
+        let anchors = OfficeNavigationLayout.clientDeparturePath
+        let path = grid.waypoints(visiting: anchors)
+        #expect(path != nil, "Client departure anchors must route through open floor")
+        guard let path else { return }
+        #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        for index in 0..<(path.count - 1) {
+            #expect(!segmentCrossesOfficeObstacle(from: path[index], to: path[index + 1]))
+        }
+    }
+
+    /// Sampled segment test against the authored (mapped) office obstacle list.
+    private func segmentCrossesOfficeObstacle(from start: CGPoint, to end: CGPoint) -> Bool {
+        let dx = end.x - start.x
+        let dy = end.y - start.y
+        let length = hypot(dx, dy)
+        let samples = max(2, Int(ceil(length / 4)))
+        for sample in 0...samples {
+            let t = CGFloat(sample) / CGFloat(samples)
+            let point = CGPoint(x: start.x + dx * t, y: start.y + dy * t)
+            if OfficeNavigationLayout.isBlocked(point) {
+                return true
+            }
+        }
+        return false
+    }
+
     @Test func dimetricProjectionRoundTripsAuthoredCells() {
         let projection = NavigationProjection.dimetric(
             origin: CGPoint(x: 100, y: 40),

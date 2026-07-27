@@ -267,6 +267,60 @@ final class NavigationGrid {
         return nil
     }
 
+    /// Expands a sparse authored anchor list into a walkable polyline by A*
+    /// between consecutive anchors. Blocked anchors snap to the nearest
+    /// walkable ground point. Returns nil if any leg cannot be routed without
+    /// crossing obstacles (walls, furniture, partition).
+    ///
+    /// Used for scripted client entrance/exit so linear SKAction moves never
+    /// cut through architecture — each micro-segment is already clearance-tested.
+    func waypoints(visiting anchors: [CGPoint]) -> [CGPoint]? {
+        guard !anchors.isEmpty else { return [] }
+        if anchors.count == 1 {
+            if let only = resolveWalkableAnchor(anchors[0]) {
+                return [only]
+            }
+            return nil
+        }
+
+        var resolved: [CGPoint] = []
+        resolved.reserveCapacity(anchors.count)
+        for anchor in anchors {
+            guard let point = resolveWalkableAnchor(anchor) else { return nil }
+            if let last = resolved.last, distance(from: last, to: point) <= 0.25 {
+                continue
+            }
+            resolved.append(point)
+        }
+        guard resolved.count >= 2 else { return resolved.isEmpty ? nil : resolved }
+
+        var combined: [CGPoint] = [resolved[0]]
+        for index in 1..<resolved.count {
+            let from = combined[combined.count - 1]
+            let to = resolved[index]
+            guard let leg = path(from: from, to: to) else { return nil }
+            if leg.isEmpty {
+                continue
+            }
+            for point in leg {
+                if let last = combined.last, distance(from: last, to: point) <= 0.25 {
+                    continue
+                }
+                combined.append(point)
+            }
+        }
+        return combined
+    }
+
+    private func resolveWalkableAnchor(_ point: CGPoint) -> CGPoint? {
+        if fitsWithinNavigationBounds(point),
+           !isInsideObstacle(point),
+           isWalkable(projection.cell(for: point)) {
+            return point
+        }
+        return nearestWalkablePoint(to: point)
+    }
+
     /// Returns nil when no route exists. An empty route means the actor is
     /// already at the destination, which is intentionally distinct from failure.
     func path(from startPoint: CGPoint, to targetPoint: CGPoint) -> [CGPoint]? {

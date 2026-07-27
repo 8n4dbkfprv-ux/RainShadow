@@ -1,9 +1,12 @@
-"""Raise V6 shell wall crowns + NE exterior doorway to classic BG ~1.94× adult.
+"""Raise V6 shell wall crowns + NE exterior doorway from the shipped detective.
 
 Registration-locked edit of the approved V6 runtime plate:
-  - grow wall face 348 → 440 (plaster band stretched upward)
-  - cut NE doorway to plan size (~179×394, H/W ≈ 2.2) with wood casing
-  - sample hall/plaster/wood from the existing plate (no pasted doorway modules)
+  - derive Voss's visible plate height from his real 200/512 × 232 presentation
+  - grow the wall face 348 → 505 (plaster band stretched upward)
+  - cut the clear doorway to ~202×445 (1.94× Voss, H/W ≈ 2.2)
+  - leave decorative casing to the independent `office_door_frame` prop, so
+    shell pixels and a freestanding frame do not draw two competing door shells
+  - sample hall/plaster from the existing plate (no pasted doorway modules)
 
 Writes:
   ArtSource/Generated/Office/office_shell_base_v08.png
@@ -36,12 +39,10 @@ OUT_RUNTIME = SRC_RUNTIME
 ART_W, ART_H = 4096, 2304
 OLD_FACE_H = 348.0
 OLD_PLASTER_H = 227.0
-RAISE = 92.0  # WALL_FACE_H 348 → 440
+RAISE = float(rp.WALL_RAISE_FROM_V06)
 TARGET_DOOR_H = float(rp.BAKED_DOORWAY_H)
 EXTERIOR_DOOR_B = 0.425
 DOOR_HALF_B = rp.EXTERIOR_DOOR_OPENING_B * 0.5
-WOOD = np.array([48.0, 34.0, 22.0], np.float32)
-WOOD_LIT = np.array([78.0, 58.0, 38.0], np.float32)
 
 
 def load_source() -> np.ndarray:
@@ -99,7 +100,7 @@ def _poly_mask(pts: list[tuple[float, float]], blur: float = 0.6) -> np.ndarray:
 
 
 def enlarge_exterior_doorway(src: np.ndarray, dst: np.ndarray) -> None:
-    """Cut a character-scale doorway shell with wood jambs / lintel / threshold."""
+    """Cut the detective-relative aperture behind the independent frame prop."""
     hall = sample_hall_color(src)
     b0 = EXTERIOR_DOOR_B - DOOR_HALF_B
     b1 = EXTERIOR_DOOR_B + DOOR_HALF_B
@@ -109,8 +110,8 @@ def enlarge_exterior_doorway(src: np.ndarray, dst: np.ndarray) -> None:
     g0 = rp.plan(a_face, b0)
     g1 = rp.plan(a_face, b1)
     # Keep floor contact on the pre-raise base so threshold stays on the boards.
-    base0 = (0.463 * g0[0] + (-1290.0)) + OLD_FACE_H
-    base1 = (0.463 * g1[0] + (-1290.0)) + OLD_FACE_H
+    base0 = rp.ne_wall_base(g0[0])
+    base1 = rp.ne_wall_base(g1[0])
     top0 = base0 - TARGET_DOOR_H
     top1 = base1 - TARGET_DOOR_H
 
@@ -129,72 +130,22 @@ def enlarge_exterior_doorway(src: np.ndarray, dst: np.ndarray) -> None:
     a = hole[..., None]
     dst[:] = dst * (1.0 - a) + hall_fill * a
 
-    # Wood casings (face trim).
-    casing = 14.0
-    jamb_w = 11.0
-    # Header casing
-    header = _poly_mask(
-        [
-            (g0[0] - 3, top0),
-            (g1[0] + 3, top1),
-            (g1[0] + 3, top1 - casing),
-            (g0[0] - 3, top0 - casing),
-        ],
-        blur=0.4,
-    )
-    # Jamb casings
-    j0 = _poly_mask(
-        [
-            (g0[0], base0),
-            (g0[0] - jamb_w, base0 - jamb_w * 0.46),
-            (g0[0] - jamb_w, top0 - jamb_w * 0.46),
-            (g0[0], top0),
-        ],
-        blur=0.35,
-    )
-    j1 = _poly_mask(
-        [
-            (g1[0], base1),
-            (g1[0] + jamb_w, base1 + jamb_w * 0.46),
-            (g1[0] + jamb_w, top1 + jamb_w * 0.46),
-            (g1[0], top1),
-        ],
-        blur=0.35,
-    )
-    # Threshold
-    thresh = _poly_mask(
-        [
-            (g0[0] - 2, base0 + 2),
-            (g1[0] + 2, base1 + 2),
-            (g1[0] + 2, base1 + 10),
-            (g0[0] - 2, base0 + 10),
-        ],
-        blur=0.5,
-    )
-
-    for mask, color in (
-        (header, WOOD_LIT),
-        (j0, WOOD),
-        (j1, WOOD * 1.08),
-        (thresh, WOOD * 0.85),
-    ):
-        m = mask[..., None]
-        dst[:] = dst * (1.0 - m) + color[None, None, :] * m
-
-    # Inner reveal (slightly lighter wood) for depth.
+    # A narrow recess shadow stays behind the generated frame. It gives the
+    # opening wall thickness when the leaf is open without reading as a second
+    # decorative jamb/header around the independent frame.
     reveal = _poly_mask(
         [
-            (g0[0] + 2, base0 - 2),
-            (g1[0] - 2, base1 - 2),
-            (g1[0] - 2, top1 + 2),
-            (g0[0] + 2, top0 + 2),
+            (g0[0] - 3, base0 + 3),
+            (g1[0] + 3, base1 + 3),
+            (g1[0] + 3, top1 - 3),
+            (g0[0] - 3, top0 - 3),
         ],
-        blur=0.3,
+        blur=0.35,
     )
-    # Only keep a thin ring: reveal minus eroded hole.
-    ring = np.clip(reveal - hole * 0.92, 0, 1)
+    ring = np.clip(reveal - hole, 0, 1)
     m = ring[..., None] * 0.55
-    dst[:] = dst * (1.0 - m) + (WOOD_LIT * 0.7)[None, None, :] * m
+    recess_color = np.clip(hall * 1.75, 0, 54)
+    dst[:] = dst * (1.0 - m) + recess_color[None, None, :] * m
 
 
 def raise_shell(src: np.ndarray) -> np.ndarray:
@@ -238,8 +189,7 @@ def raise_shell(src: np.ndarray) -> np.ndarray:
 def measure_doorway(rgb: np.ndarray) -> float:
     x, _ = rp.plan(0.012, EXTERIOR_DOOR_B)
     xi = int(round(x))
-    old_top = 0.463 * x + (-1290.0)
-    base = old_top + OLD_FACE_H
+    base = rp.ne_wall_base(x)
     dark_top = None
     for y in range(int(base), max(0, int(base - 520)), -1):
         if float(rgb[y, xi].mean()) < 28:

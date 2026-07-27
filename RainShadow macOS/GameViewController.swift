@@ -91,7 +91,10 @@ class GameViewController: NSViewController {
         "office_partition_wall",
         "office_internal_door_leaf",
         "office_foreground_cutaway",
-        "office_door_leaf"
+        "office_door_leaf",
+        "office_door_leaf_thickness",
+        "office_door_fall_contact_shadow",
+        "qa_scale_reference_stand"
     ]
 
     private func writeCapture(to path: String, mode: String) {

@@ -35,5 +35,27 @@
     2154.0,
     1438.0
   ],
-  "note": "Empty cramped architecture placed smaller than full-bleed so modular props at unchanged body scale fill the floor. Update office_room_plan REAR/AXIS_* to match axes in this metrics file if they drift."
+  "note": "Floor-plane axes; opening_h synced to BAKED_DOORWAY_H (not wall-top silhouette).",
+  "exterior_door_plan": [
+    0.0,
+    0.75
+  ],
+  "internal_door": {
+    "a_face": 0.4036807713500108,
+    "a_back": 0.36,
+    "b_door0": 0.078,
+    "b_door1": 0.20286064659977704,
+    "door_h": 170.0,
+    "hinge_b": 0.078,
+    "opening_w_px": 112.0,
+    "opening_h_px": 170.0,
+    "hinge_plate_xy": [
+      1731.8667562533426,
+      616.6297143449601
+    ],
+    "latch_plate_xy": [
+      1843.8667562533428,
+      674.1055671877696
+    ]
+  }
 }

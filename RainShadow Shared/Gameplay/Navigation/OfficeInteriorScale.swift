@@ -10,8 +10,12 @@ enum OfficeInteriorScale {
     static let standingClientSourceHeight: CGFloat = 100
 
     enum ActorDisplay {
-        /// Actor atlases carry a 200px opaque body at 2x texture density. The V3
-        /// office presents it as an 82-unit body, matching the tavern references.
+        /// Shipped standing frames carry a 200px opaque body on a 512px canvas.
+        /// Keep these measured texture values beside the display size so fixed
+        /// architecture can reference the detective actually drawn on screen.
+        static let textureCanvasSize = CGSize(width: 512, height: 512)
+        static let standingOpaqueBodyTextureHeight: CGFloat = 200
+        /// Legacy logical actor scale retained for locomotion, furniture and camera contracts.
         static let standingScale: CGFloat = 0.82
         static let seatedScale: CGFloat = 0.82
         /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
@@ -33,6 +37,14 @@ enum OfficeInteriorScale {
 
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
     static let seatedDetectiveBodyHeight = seatedDetectiveSourceHeight * ActorDisplay.seatedScale
+    /// Actual visible standing Voss body after SpriteKit maps the shipped 512px
+    /// texture canvas into the 232-point node. Door architecture uses this
+    /// rendered reference; unrelated gameplay retains the logical 82-unit body.
+    static let renderedStandingDetectiveBodyHeight =
+        ActorDisplay.standingOpaqueBodyTextureHeight
+        / ActorDisplay.textureCanvasSize.height
+        * ActorDisplay.spriteDisplaySize.height
+        * abs(ActorDisplay.spriteScale)
     /// Same adult height as the detective — shared humanoid contract for office play.
     static let clientBodyHeight = standingClientSourceHeight * ActorDisplay.standingScale
     /// Canonical standing adult used by office furniture body-multiples and city props.
@@ -76,7 +88,9 @@ enum OfficeInteriorScale {
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
         static let deskChair: CGFloat = 429
-        static let doorLeaf: CGFloat = 720
+        /// Vertical jamb height before NE-wall projection; the sheared texture
+        /// canvas is taller, but the physical door remains 720 source pixels.
+        static let doorLeaf: CGFloat = 640
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
         static let radiator: CGFloat = 338
@@ -118,8 +132,9 @@ enum OfficeInteriorScale {
         static let waitingTable: CGFloat = 0.217 / environment
         /// Standing fan: tall enough that its head and base stay readable.
         static let standingFan: CGFloat = 0.2085 / environment
-        /// Coat rack, a touch taller than a standing adult.
-        static let coatRack: CGFloat = 0.191 / environment
+        /// Entrance rack stays subordinate to the door and separate from its
+        /// falling silhouette; the old 1.18× body read as giant brass hinges.
+        static let coatRack: CGFloat = 0.143 / environment
         static let window: CGFloat = 0.24 / environment
         static let floorDecal: CGFloat = 0.22 / environment
         static let smallProp: CGFloat = 0.12 / environment
@@ -128,17 +143,20 @@ enum OfficeInteriorScale {
         static let hiddenBottle: CGFloat = 0.0829 / environment
         /// Full-plate overlays sized against the shell art (no extra relative inflate).
         static let plateOverlay: CGFloat = 1.0 / environment
-        /// Exterior leaf fitted to the shell's baked doorway (classic BG ~1.94× adult).
-        /// Absolute matches `OfficeNavigationLayout.Architecture.entranceLeafDisplayScale`.
-        static let entranceDoorLeaf: CGFloat = 0.2162 / environment
+        /// Exterior leaf fitted to the shell's baked doorway (~1.70× visible Voss).
+        /// The generated architecture scale is authoritative for this relative alias.
+        static var entranceDoorLeaf: CGFloat {
+            OfficeNavigationLayout.Architecture.entranceLeafDisplayScale / environment
+        }
     }
 
     // MARK: - BG acceptance bands (multiples of detective body)
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 78...90
-        /// Exterior leaf fills the baked doorway (BG:EE doorway/adult ≈ 1.94).
-        static let door: ClosedRange<CGFloat> = 1.80...2.20
+        /// Exterior leaf fills the painted tight-plate doorway (~0.7–0.8× detective
+        /// body — architecture is smaller than actors on the 0.60 suite).
+        static let door: ClosedRange<CGFloat> = 0.60...0.90
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48

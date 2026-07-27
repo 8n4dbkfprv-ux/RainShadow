@@ -52,7 +52,8 @@ struct OfficeClientVisitSequencerTests {
 
     @Test func clientDeparturePathStaysClearOfOfficeObstacles() {
         let path = OfficeNavigationLayout.clientDeparturePath
-        #expect(path.count == OfficeNavigationLayout.clientArrivalPath.count + 1)
+        // Departure is the arrival polyline reversed (no extra easing vertex).
+        #expect(path.count == OfficeNavigationLayout.clientArrivalPath.count)
         #expect(path.count >= 3)
         #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
