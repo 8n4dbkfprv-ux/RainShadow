@@ -170,7 +170,12 @@ final class CaseIntroductionPresenter: SKNode {
         portrait.size = CGSize(width: portraitRect.width - 8, height: portraitRect.height - 8)
 
         let textLeft = contentViewportRect.minX + DialoguePanelLayout.bodyTextHorizontalInset
-        speakerLabel.position = CGPoint(x: textLeft, y: panelRect.maxY - 42)
+        // Speaker sits in a reserved band under the crown; body starts at contentViewport.maxY
+        // (below speakerNameLineHeight + gap) so the name never overlaps conversation text.
+        speakerLabel.position = CGPoint(
+            x: textLeft,
+            y: panelRect.maxY - DialoguePanelLayout.speakerTopInset
+        )
         dialogueLabel.preferredMaxLayoutWidth = geometry.bodyTextMaxWidth
         dialogueLabel.lineBreakMode = .byWordWrapping
         applySplitContentRegions(
@@ -716,20 +721,6 @@ final class CaseIntroductionPresenter: SKNode {
             )
             applyPanelGeometry(geometry, preserveSplitRegions: false)
 
-            let bandHeight = DialoguePanelLayout.choicesBandHeight(
-                measuredRowHeights: heights,
-                contentViewportHeight: contentViewportRect.height
-            )
-            // After growth, bandHeight should equal natural (within maxBand of the new well).
-            let bodyViewport = DialoguePanelLayout.bodyViewportRect(
-                contentViewport: contentViewportRect,
-                choicesBandHeight: bandHeight
-            )
-            let choicesBand = DialoguePanelLayout.choicesBandRect(
-                contentViewport: contentViewportRect,
-                choicesBandHeight: bandHeight
-            )
-            let frames = DialoguePanelLayout.choiceRowFrames(band: choicesBand, rowHeights: heights)
             let dialogueHeight = max(
                 dialogueLabel.fontSize * 1.25,
                 DialogueTextMetrics.height(
@@ -739,7 +730,18 @@ final class CaseIntroductionPresenter: SKNode {
                     maxWidth: panelLayout.bodyTextMaxWidth
                 )
             )
-            return (choicesBand, bodyViewport, frames, dialogueHeight + 12)
+            let bodyContent = dialogueHeight + 12
+            // Snug choices under short body text so the well is not mostly empty black.
+            let snug = DialoguePanelLayout.snugBodyAndChoices(
+                contentViewport: contentViewportRect,
+                bodyContentHeight: bodyContent,
+                naturalChoicesBandHeight: natural
+            )
+            let frames = DialoguePanelLayout.choiceRowFrames(
+                band: snug.choices,
+                rowHeights: heights
+            )
+            return (snug.choices, snug.body, frames, bodyContent)
         }
 
         var heights = measuredHeights
@@ -760,7 +762,7 @@ final class CaseIntroductionPresenter: SKNode {
             background.fillColor = .clear
             background.strokeColor = .clear
             choicesRoot.addChild(background)
-            label.position = CGPoint(x: hitRect.minX + labelInset, y: hitRect.maxY - 4)
+            label.position = CGPoint(x: hitRect.minX + labelInset, y: hitRect.maxY - 6)
             choicesRoot.addChild(label)
             choiceRows.append(ChoiceRow(background: background, label: label, hitRect: hitRect))
         }
@@ -776,6 +778,10 @@ final class CaseIntroductionPresenter: SKNode {
                 heights[index] = needed
                 needsRepack = true
             }
+        }
+        // Also re-pack if any row was laid outside the choice band (frame-corner clip risk).
+        if !DialoguePanelLayout.choiceFramesFitInBand(packed.frames, band: packed.band) {
+            needsRepack = true
         }
         if needsRepack {
             packed = pack(with: heights)
@@ -793,7 +799,7 @@ final class CaseIntroductionPresenter: SKNode {
                 background.fillColor = .clear
                 background.strokeColor = .clear
                 choicesRoot.addChild(background)
-                label.position = CGPoint(x: hitRect.minX + labelInset, y: hitRect.maxY - 4)
+                label.position = CGPoint(x: hitRect.minX + labelInset, y: hitRect.maxY - 6)
                 choicesRoot.addChild(label)
                 choiceRows.append(ChoiceRow(background: background, label: label, hitRect: hitRect))
             }

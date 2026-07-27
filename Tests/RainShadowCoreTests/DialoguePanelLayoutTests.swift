@@ -610,6 +610,74 @@ struct DialoguePanelLayoutTests {
         #expect(DialoguePanelLayout.panelPresentationOffsetY(hasChoices: true) == DialoguePanelLayout.panelChoicesOffsetY)
     }
 
+    @Test func snugBodyAndChoicesClosesEmptyGapWithoutClippingChoices() {
+        let content = CGRect(x: 0, y: 0, width: 600, height: 280)
+        let bodyContent: CGFloat = 64
+        let rowHeights: [CGFloat] = [48, 48, 52]
+        let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: rowHeights)
+        let snug = DialoguePanelLayout.snugBodyAndChoices(
+            contentViewport: content,
+            bodyContentHeight: bodyContent,
+            naturalChoicesBandHeight: natural
+        )
+        #expect(snug.bandHeight == min(natural, DialoguePanelLayout.maxChoicesBandHeight(contentViewportHeight: content.height)))
+        #expect(snug.choices.height == snug.bandHeight)
+        #expect(snug.body.maxY == content.maxY)
+        #expect(snug.choices.maxY == snug.body.minY, "Choices should sit directly under body")
+        #expect(snug.choices.minY >= content.minY - 0.5)
+        let frames = DialoguePanelLayout.choiceRowFrames(band: snug.choices, rowHeights: rowHeights)
+        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: snug.choices))
+        #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
+        // Snug should not leave a huge void between body content and first choice.
+        let gapUnderBody = snug.body.height - bodyContent
+        #expect(gapUnderBody <= DialoguePanelLayout.minBodyViewportHeight + 1)
+    }
+
+    @Test func contentBottomInsetClearsFrameOrnamentBand() {
+        // Bottom inset must be at least the frame nine-slice bottom fraction on the compact cap.
+        let minOrnament = DialoguePanelLayout.panelHeightCap * DialoguePanelLayout.frameContentWellInsetBottomFraction
+        #expect(DialoguePanelLayout.contentInsetFromPanelBottom + 0.5 >= min(minOrnament, 48))
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let bottomClearance = layout.contentViewportRect.minY - layout.panelRect.minY
+            #expect(bottomClearance >= DialoguePanelLayout.contentInsetFromPanelBottom - 0.001)
+        }
+    }
+
+    @Test func speakerNameBandSitsAboveBodyViewport() {
+        // Content viewport must start below crown + speaker line + gap so name and body never share a line.
+        let expectedInset = DialoguePanelLayout.speakerTopInset
+            + DialoguePanelLayout.speakerNameLineHeight
+            + DialoguePanelLayout.speakerToBodyGap
+        #expect(DialoguePanelLayout.contentInsetFromPanelTop == expectedInset)
+        #expect(DialoguePanelLayout.speakerToBodyGap >= 8)
+        #expect(DialoguePanelLayout.speakerNameLineHeight >= DialoguePanelLayout.Typography.speakerFontSize)
+
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let speakerBottom = layout.panelRect.maxY
+                - DialoguePanelLayout.speakerTopInset
+                - DialoguePanelLayout.speakerNameLineHeight
+            #expect(
+                layout.contentViewportRect.maxY <= speakerBottom - DialoguePanelLayout.speakerToBodyGap + 0.001,
+                "Body viewport overlaps speaker band for \(size)"
+            )
+            #expect(layout.contentViewportRect.maxY < layout.panelRect.maxY - DialoguePanelLayout.speakerTopInset)
+        }
+    }
+
+    @Test func presenterPlacesSpeakerAboveBodyUsingLayoutInsets() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let presenterURL = root
+            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+        let source = try String(contentsOf: presenterURL, encoding: .utf8)
+        #expect(source.contains("DialoguePanelLayout.speakerTopInset"))
+        #expect(!source.contains("panelRect.maxY - 42"))
+    }
+
     @Test func presenterUsesContentWellAndPresentationOffsets() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()

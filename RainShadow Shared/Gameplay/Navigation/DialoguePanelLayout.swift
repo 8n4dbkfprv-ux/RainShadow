@@ -51,18 +51,27 @@ struct DialoguePanelLayout: Equatable {
     static let legacyHorizontalMarginMin: CGFloat = 20
     static let legacyHorizontalMarginMax: CGFloat = 40
 
-    /// Inset of the text viewport from the panel bottom so body text never paints
-    /// under the ornate bottom rail of the dialogue frame.
-    static let contentInsetFromPanelBottom: CGFloat = 28
+    /// Inset of the text viewport from the panel bottom so body/choices clear the
+    /// ornate oxblood corners and bottom rail of the dialogue frame (nine-slice ~15%).
+    static let contentInsetFromPanelBottom: CGFloat = 48
 
-    /// Inset of the text viewport from the panel top (below speaker name / frame crown).
-    static let contentInsetFromPanelTop: CGFloat = 42
+    /// Distance from panel top to the speaker name (under the frame crown).
+    static let speakerTopInset: CGFloat = 22
+    /// Vertical space reserved for the speaker name line (font + breathing room).
+    static let speakerNameLineHeight: CGFloat = 22
+    /// Gap between the speaker name and the dialogue body.
+    static let speakerToBodyGap: CGFloat = 10
+    /// Inset of the text viewport from the panel top (below frame crown + speaker name).
+    static let contentInsetFromPanelTop: CGFloat =
+        speakerTopInset + speakerNameLineHeight + speakerToBodyGap
 
     /// Extra inset of body text width inside the content viewport (keeps glyphs off the well edge).
     static let bodyTextHorizontalInset: CGFloat = 6
 
     /// Horizontal inset of choice labels inside the content viewport.
-    static let choiceLabelHorizontalInset: CGFloat = 14
+    static let choiceLabelHorizontalInset: CGFloat = 16
+    /// Extra slack under measured body text when snugging the choice band upward.
+    static let bodyContentBottomSlack: CGFloat = 10
 
     /// Matches `dialogue_outer_frame_overlay_v02` nine-slice center (content hole).
     static let frameContentWellInsetXFraction: CGFloat = 0.11
@@ -100,20 +109,21 @@ struct DialoguePanelLayout: Equatable {
     static let portraitToTextGap: CGFloat = 16
 
     /// Split layout: fixed choice band under a scrolling body (BG-like response strip).
-    static let choiceRowMinimumHeight: CGFloat = 44
-    static let choiceRowSpacing: CGFloat = 8
-    static let choiceBandTopPadding: CGFloat = 12
-    static let choiceBandBottomPadding: CGFloat = 8
+    static let choiceRowMinimumHeight: CGFloat = 40
+    static let choiceRowSpacing: CGFloat = 6
+    static let choiceBandTopPadding: CGFloat = 10
+    /// Keep choice text above the frame’s bottom-left / bottom-right ornaments.
+    static let choiceBandBottomPadding: CGFloat = 16
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
     /// The 0.80 ceiling lets the longest shipped three-choice page fit at the supported
     /// 800×600 window while `minBodyViewportHeight` still protects the dialogue body.
     static let choiceBandMaxViewportFraction: CGFloat = 0.80
     /// Minimum height reserved for scrolling body text above the choice strip.
-    static let minBodyViewportHeight: CGFloat = 88
+    static let minBodyViewportHeight: CGFloat = 72
     /// Extra headroom per choice when estimating multi-line options before measure.
     static let choiceRowEstimatedWrapSlack: CGFloat = 20
     /// Vertical padding inside a measured choice row around the label frame.
-    static let choiceRowVerticalPadding: CGFloat = 14
+    static let choiceRowVerticalPadding: CGFloat = 12
 
     let panelRect: CGRect
     let portraitRect: CGRect
@@ -434,6 +444,64 @@ struct DialoguePanelLayout: Equatable {
             width: contentViewport.width,
             height: band
         )
+    }
+
+    /// When body text is short, lift the choice band so a large empty black gap does not
+    /// sit between dialogue and responses. Choices keep their natural height and stay
+    /// inside the content well; body never shrinks below `minBodyViewportHeight`.
+    static func snugBodyAndChoices(
+        contentViewport: CGRect,
+        bodyContentHeight: CGFloat,
+        naturalChoicesBandHeight: CGFloat
+    ) -> (body: CGRect, choices: CGRect, bandHeight: CGFloat) {
+        let maxBand = maxChoicesBandHeight(contentViewportHeight: contentViewport.height)
+        let bandHeight = min(max(0, naturalChoicesBandHeight), maxBand)
+        guard bandHeight > 0.5 else {
+            return (contentViewport, .zero, 0)
+        }
+
+        let preferredBody = max(
+            minBodyViewportHeight,
+            bodyContentHeight + bodyContentBottomSlack
+        )
+        // Body takes only what it needs (or the minimum); leftover sits above choices.
+        let bodyHeight = min(preferredBody, contentViewport.height - bandHeight)
+        let resolvedBodyHeight = max(minBodyViewportHeight, bodyHeight)
+        // If min body + band exceeds the well, fall back to classic bottom-aligned split.
+        if resolvedBodyHeight + bandHeight > contentViewport.height + 0.5 {
+            let body = bodyViewportRect(
+                contentViewport: contentViewport,
+                choicesBandHeight: bandHeight
+            )
+            let choices = choicesBandRect(
+                contentViewport: contentViewport,
+                choicesBandHeight: bandHeight
+            )
+            return (body, choices, bandHeight)
+        }
+
+        let body = CGRect(
+            x: contentViewport.minX,
+            y: contentViewport.maxY - resolvedBodyHeight,
+            width: contentViewport.width,
+            height: resolvedBodyHeight
+        )
+        // Sit the choice band directly under the body (snug), not stuck to the well floor
+        // with a void in between — unless that would push under the well floor.
+        let choicesMinY = max(contentViewport.minY, body.minY - bandHeight)
+        let choices = CGRect(
+            x: contentViewport.minX,
+            y: choicesMinY,
+            width: contentViewport.width,
+            height: bandHeight
+        )
+        let finalBody = CGRect(
+            x: contentViewport.minX,
+            y: choices.maxY,
+            width: contentViewport.width,
+            height: max(1, contentViewport.maxY - choices.maxY)
+        )
+        return (finalBody, choices, bandHeight)
     }
 
     /// Scrollbar aligned to the body viewport only (not the fixed choice strip).
