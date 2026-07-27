@@ -426,8 +426,10 @@ final class InventoryOverlay: SKNode {
         maximumWeight.position = CGPoint(x: -548, y: -104)
         bag.addChild(maximumWeight)
 
-        let bagItems: [InventoryItem?] = items.map(Optional.some) + Array(repeating: nil, count: 11)
-        for index in 0..<18 {
+        let bagSlotCount = 18
+        let bagItems: [InventoryItem?] = items.map(Optional.some)
+            + Array(repeating: nil, count: max(0, bagSlotCount - items.count))
+        for index in 0..<bagSlotCount {
             let column = index % 9
             let row = index / 9
             let position = CGPoint(
