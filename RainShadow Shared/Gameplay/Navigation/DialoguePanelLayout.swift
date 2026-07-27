@@ -12,45 +12,51 @@ struct DialoguePanelLayout: Equatable {
 
     /// Minimum trailing space for the frame’s right ornament (oxblood corner + metal rail).
     /// Sized so the scrollbar sits on the black content well, not over the chrome.
-    static let minimumTrailingChrome: CGFloat = 168
+    static let minimumTrailingChrome: CGFloat = 100
 
     /// Fraction of panel width reserved for the right frame ornament (matches /
     /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v02`).
-    static let trailingChromeFraction: CGFloat = 0.145
+    static let trailingChromeFraction: CGFloat = 0.12
 
     /// Extra pad left of the trailing ornament so the bar clears engraved rails.
     static let scrollbarClearanceFromTrailingChrome: CGFloat = 10
 
-    /// Cap on panel height in points — tall enough for body + three multi-line responses.
-    static let panelHeightCap: CGFloat = 560
-    /// Prior height cap (pre this pass) for regression tests.
-    static let legacyPanelHeightCap: CGFloat = 460
+    /// Cap on panel height in points — compact monologue band; choice pages may grow.
+    /// Sized ~half the prior tall panel so actors stay visible above the dialogue UI.
+    static let panelHeightCap: CGFloat = 280
+    /// Prior tall-panel height cap (pre character-visibility compact pass).
+    static let legacyPanelHeightCap: CGFloat = 560
+    /// Older intermediate tall-panel bump.
+    static let intermediatePanelHeightCap: CGFloat = 460
     /// Older baseline before the first tall-panel bump.
     static let originalPanelHeightCap: CGFloat = 360
 
-    /// Fraction of visible height used for the panel.
-    static let panelHeightFraction: CGFloat = 0.62
-    /// Prior fraction (pre this pass) for regression tests.
-    static let legacyPanelHeightFraction: CGFloat = 0.52
+    /// Fraction of visible height used for the base (no-choice) panel.
+    static let panelHeightFraction: CGFloat = 0.30
+    /// Prior tall-panel fraction (pre character-visibility compact pass).
+    static let legacyPanelHeightFraction: CGFloat = 0.62
+    static let intermediatePanelHeightFraction: CGFloat = 0.52
     static let originalPanelHeightFraction: CGFloat = 0.42
 
-    /// Side margin fraction (BG-like near-full width; was 0.035).
-    static let horizontalMarginFraction: CGFloat = 0.02
-    static let horizontalMarginMin: CGFloat = 20
-    static let horizontalMarginMax: CGFloat = 40
-    /// Absolute width cap so ultrawide doesn’t make lines unreadably long (was 1500).
-    static let panelWidthCap: CGFloat = 2_000
-    static let legacyPanelWidthCap: CGFloat = 1_500
-    static let legacyHorizontalMarginFraction: CGFloat = 0.035
-    static let legacyHorizontalMarginMin: CGFloat = 36
-    static let legacyHorizontalMarginMax: CGFloat = 72
+    /// Side margin fraction — modest inset so the scene shows beside the panel.
+    static let horizontalMarginFraction: CGFloat = 0.06
+    static let horizontalMarginMin: CGFloat = 36
+    static let horizontalMarginMax: CGFloat = 96
+    /// Absolute width cap so ultrawide doesn’t make lines unreadably long.
+    static let panelWidthCap: CGFloat = 1_200
+    /// Prior near-full-width tall-panel era caps / margins (for regression tests).
+    static let legacyPanelWidthCap: CGFloat = 2_000
+    static let intermediatePanelWidthCap: CGFloat = 1_500
+    static let legacyHorizontalMarginFraction: CGFloat = 0.02
+    static let legacyHorizontalMarginMin: CGFloat = 20
+    static let legacyHorizontalMarginMax: CGFloat = 40
 
     /// Inset of the text viewport from the panel bottom so body text never paints
     /// under the ornate bottom rail of the dialogue frame.
-    static let contentInsetFromPanelBottom: CGFloat = 36
+    static let contentInsetFromPanelBottom: CGFloat = 28
 
     /// Inset of the text viewport from the panel top (below speaker name / frame crown).
-    static let contentInsetFromPanelTop: CGFloat = 54
+    static let contentInsetFromPanelTop: CGFloat = 42
 
     /// Extra inset of body text width inside the content viewport (keeps glyphs off the well edge).
     static let bodyTextHorizontalInset: CGFloat = 6
@@ -64,28 +70,34 @@ struct DialoguePanelLayout: Equatable {
     static let frameContentWellInsetTopFraction: CGFloat = 0.15
 
     /// Panel root Y offsets during presentation (negative = lower on screen = more room for actors).
-    static let panelRestOffsetY: CGFloat = -86
-    static let panelChoicesOffsetY: CGFloat = -110
+    static let panelRestOffsetY: CGFloat = -48
+    static let panelChoicesOffsetY: CGFloat = -64
     /// Prior rest offset (0) — tests document the intentional drop for character visibility.
     static let legacyPanelRestOffsetY: CGFloat = 0
 
     /// Continue / End control size and placement under the dialogue panel.
-    static let commandHeight: CGFloat = 46
-    static let commandGapBelowPanel: CGFloat = 12
+    static let commandHeight: CGFloat = 40
+    static let commandGapBelowPanel: CGFloat = 10
     /// Keep the control above the physical/home-indicator band when possible.
     static let commandMinScreenBottomInset: CGFloat = 14
 
     /// Type sizes used by `CaseIntroductionPresenter` (pure so tests assert the contract).
     enum Typography {
-        static let bodyFontSize: CGFloat = 18
-        static let speakerFontSize: CGFloat = 22
-        static let choiceFontSize: CGFloat = 18
-        static let commandFontSize: CGFloat = 21
-        static let caseTitleFontSize: CGFloat = 26
-        /// Pre-tweak body size — tests assert the new body size is modestly smaller.
-        static let legacyBodyFontSize: CGFloat = 20
-        static let legacySpeakerFontSize: CGFloat = 24
+        static let bodyFontSize: CGFloat = 16
+        static let speakerFontSize: CGFloat = 18
+        static let choiceFontSize: CGFloat = 16
+        static let commandFontSize: CGFloat = 18
+        static let caseTitleFontSize: CGFloat = 22
+        /// Pre-compact body size — tests assert the new body size is modestly smaller.
+        static let legacyBodyFontSize: CGFloat = 18
+        static let legacySpeakerFontSize: CGFloat = 22
     }
+
+    /// Portrait plate inside the compact dialogue frame.
+    static let portraitSize = CGSize(width: 72, height: 84)
+    static let portraitLeadingInset: CGFloat = 36
+    static let portraitTopInset: CGFloat = 18
+    static let portraitToTextGap: CGFloat = 16
 
     /// Split layout: fixed choice band under a scrolling body (BG-like response strip).
     static let choiceRowMinimumHeight: CGFloat = 44
@@ -212,10 +224,10 @@ struct DialoguePanelLayout: Equatable {
             height: scrollbarHeight
         )
 
-        let portraitSize = CGSize(width: 100, height: 116)
+        let portraitSize = Self.portraitSize
         let portraitCenter = CGPoint(
-            x: panelRect.minX + 48 + portraitSize.width / 2,
-            y: panelRect.maxY - 23 - portraitSize.height / 2
+            x: panelRect.minX + portraitLeadingInset + portraitSize.width / 2,
+            y: panelRect.maxY - portraitTopInset - portraitSize.height / 2
         )
         let portraitRect = CGRect(
             x: portraitCenter.x - portraitSize.width / 2,
@@ -224,7 +236,7 @@ struct DialoguePanelLayout: Equatable {
             height: portraitSize.height
         )
 
-        let textLeft = portraitRect.maxX + 22
+        let textLeft = portraitRect.maxX + portraitToTextGap
         let textRight = scrollbarRect.minX - contentToScrollbarGap
         let contentBottom = panelRect.minY + contentInsetFromPanelBottom
         let contentTop = panelRect.maxY - contentInsetFromPanelTop

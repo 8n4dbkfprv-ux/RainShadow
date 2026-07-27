@@ -46,11 +46,13 @@ struct DialoguePanelLayoutTests {
             "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
             "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt."
         ]
-        let layout = DialoguePanelLayout.layout(for: CGSize(width: 1_280, height: 800))
-        #expect(layout.panelRect.height > DialoguePanelLayout.legacyPanelHeightCap - 0.001)
+        let visible = CGSize(width: 1_280, height: 800)
+        let base = DialoguePanelLayout.layout(for: visible)
+        // Base monologue panel stays compact for character visibility.
+        #expect(base.panelRect.height <= DialoguePanelLayout.panelHeightCap + 0.001)
 
         // Force a content width where these lines wrap (matches typical in-game column).
-        let wrapWidth = min(420, layout.choiceTextMaxWidth)
+        let wrapWidth = min(420, base.choiceTextMaxWidth)
         var heights: [CGFloat] = []
         for (index, text) in choiceTexts.enumerated() {
             let h = DialogueTextMetrics.choiceRowHeight(
@@ -65,6 +67,8 @@ struct DialoguePanelLayoutTests {
             heights.append(h)
         }
 
+        let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
+        let layout = DialoguePanelLayout.layout(for: visible, requiredChoicesBandHeight: natural)
         let bandH = DialoguePanelLayout.choicesBandHeight(
             measuredRowHeights: heights,
             contentViewportHeight: layout.contentViewportRect.height
@@ -80,20 +84,24 @@ struct DialoguePanelLayoutTests {
             #expect(frame.height >= heights[index] - 0.01)
             #expect(frame.minY >= band.minY - 0.5, "Choice \(index) clipped below band")
         }
-        // Usable content viewport is much taller than the old short strip.
-        #expect(layout.contentViewportRect.height > 260)
+        // Grown choice panel still leaves a usable body strip above the responses.
+        #expect(layout.contentViewportRect.height > DialoguePanelLayout.minBodyViewportHeight)
+        #expect(layout.panelRect.height >= base.panelRect.height)
     }
 
-    @Test func panelHeightExceedsPreviousShortBaseline() {
-        // Prior “short” baseline users still saw: 380pt / 0.44 of height.
-        let shortCap: CGFloat = 380
-        let shortFraction: CGFloat = 0.44
+    @Test func panelIsCompactForCharacterVisibility() {
+        // Compact monologue band is ~half the prior tall panel so actors stay on screen.
+        #expect(DialoguePanelLayout.panelHeightCap <= DialoguePanelLayout.legacyPanelHeightCap * 0.5 + 0.001)
+        #expect(DialoguePanelLayout.panelHeightFraction <= DialoguePanelLayout.legacyPanelHeightFraction * 0.5 + 0.001)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            let shortHeight = min(shortCap, size.height * shortFraction)
+            let priorTall = min(
+                DialoguePanelLayout.legacyPanelHeightCap,
+                size.height * DialoguePanelLayout.legacyPanelHeightFraction
+            )
             #expect(
-                layout.panelRect.height > shortHeight + 8,
-                "Panel height \(layout.panelRect.height) not observably taller than short \(shortHeight) for \(size)"
+                layout.panelRect.height <= priorTall * 0.5 + 1,
+                "Panel height \(layout.panelRect.height) not ≤ half of prior tall \(priorTall) for \(size)"
             )
         }
     }
@@ -429,17 +437,12 @@ struct DialoguePanelLayoutTests {
         #expect(scrollbarZ > frameZ, "Scrollbar must not sit under the right frame rail")
     }
 
-    @Test func panelIsSlightlyTallerThanLegacyBaseline() {
-        #expect(DialoguePanelLayout.panelHeightCap > DialoguePanelLayout.legacyPanelHeightCap)
-        #expect(DialoguePanelLayout.panelHeightFraction > DialoguePanelLayout.legacyPanelHeightFraction)
+    @Test func basePanelUsesCompactHeightContract() {
+        #expect(DialoguePanelLayout.panelHeightCap < DialoguePanelLayout.legacyPanelHeightCap)
+        #expect(DialoguePanelLayout.panelHeightFraction < DialoguePanelLayout.legacyPanelHeightFraction)
         #expect(DialoguePanelLayout.legacyPanelHeightCap > DialoguePanelLayout.originalPanelHeightCap)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            let legacyHeight = min(
-                DialoguePanelLayout.legacyPanelHeightCap,
-                size.height * DialoguePanelLayout.legacyPanelHeightFraction
-            )
-            #expect(layout.panelRect.height > legacyHeight - 0.001, "Panel not taller for \(size)")
             #expect(
                 layout.panelRect.height
                     == min(
@@ -450,35 +453,27 @@ struct DialoguePanelLayoutTests {
         }
     }
 
-    @Test func panelIsWiderThanLegacyBaselineForMoreBodyText() {
-        #expect(DialoguePanelLayout.panelWidthCap > DialoguePanelLayout.legacyPanelWidthCap)
-        #expect(DialoguePanelLayout.horizontalMarginFraction < DialoguePanelLayout.legacyHorizontalMarginFraction)
-        #expect(DialoguePanelLayout.horizontalMarginMin < DialoguePanelLayout.legacyHorizontalMarginMin)
+    @Test func panelWidthIsCappedForSceneVisibility() {
+        #expect(DialoguePanelLayout.panelWidthCap < DialoguePanelLayout.legacyPanelWidthCap)
+        #expect(DialoguePanelLayout.horizontalMarginFraction > DialoguePanelLayout.legacyHorizontalMarginFraction)
+        #expect(DialoguePanelLayout.horizontalMarginMin >= DialoguePanelLayout.legacyHorizontalMarginMin)
 
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            let legacyMargin = min(
-                DialoguePanelLayout.legacyHorizontalMarginMax,
-                max(DialoguePanelLayout.legacyHorizontalMarginMin, size.width * DialoguePanelLayout.legacyHorizontalMarginFraction)
-            )
-            let legacyWidth = min(
-                DialoguePanelLayout.legacyPanelWidthCap,
-                size.width - legacyMargin * 2
-            )
-            #expect(layout.panelRect.width >= legacyWidth - 0.001, "Panel not wider for \(size)")
-            #expect(
-                layout.panelRect.width
-                    == DialoguePanelLayout.panelWidth(for: size)
-            )
-            // Body line length should gain most of any width increase (portrait/scrollbar fixed-ish).
+            #expect(layout.panelRect.width == DialoguePanelLayout.panelWidth(for: size))
             #expect(layout.bodyTextMaxWidth > 100)
+            // Compact width stays at or under the prior ultra-wide ceiling.
+            let priorWide = min(
+                DialoguePanelLayout.legacyPanelWidthCap,
+                size.width - DialoguePanelLayout.legacyHorizontalMarginMin * 2
+            )
+            #expect(layout.panelRect.width <= priorWide + 0.001, "Panel wider than prior for \(size)")
         }
 
-        // Wide display: no longer stuck at the old 1500pt ceiling.
         let ultrawide = CGSize(width: 2_200, height: 1_200)
         let wideLayout = DialoguePanelLayout.layout(for: ultrawide)
-        #expect(wideLayout.panelRect.width > DialoguePanelLayout.legacyPanelWidthCap)
         #expect(wideLayout.panelRect.width <= DialoguePanelLayout.panelWidthCap)
+        #expect(wideLayout.panelRect.width < DialoguePanelLayout.legacyPanelWidthCap)
     }
 
     @Test func typographyIsSlightlySmallerThanLegacyBodyAndSpeaker() {
@@ -486,9 +481,9 @@ struct DialoguePanelLayoutTests {
         let speaker = DialoguePanelLayout.Typography.speakerFontSize
         let choice = DialoguePanelLayout.Typography.choiceFontSize
         #expect(body < DialoguePanelLayout.Typography.legacyBodyFontSize)
-        #expect(body >= 17)
+        #expect(body >= 15)
         #expect(speaker < DialoguePanelLayout.Typography.legacySpeakerFontSize)
-        #expect(speaker >= 20)
+        #expect(speaker >= 17)
         #expect(choice == body)
         #expect(DialoguePanelLayout.Typography.caseTitleFontSize > body)
     }
