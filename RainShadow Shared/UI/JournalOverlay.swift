@@ -1,24 +1,9 @@
 import SpriteKit
 
-private struct JournalEntry: Identifiable {
-    let id: String
-    let title: String
-    let eyebrow: String
-    let status: String
-    let summary: String
-    let body: [String]
-    let leads: [String]
-    let isNew: Bool
-}
-
-private struct JournalSection {
-    let id: String
-    let title: String
-    let entries: [JournalEntry]
-}
-
 /// A camera-fixed casebook with the compact index/detail hierarchy of classic
 /// CRPG journals, translated into RainShadow's noir evidence-file language.
+///
+/// Case copy for M01 comes from `EmptyCoatJournalContent` (GDD §4.3.2 dossier).
 @MainActor
 final class JournalOverlay: SKNode {
     private enum Mode: String {
@@ -58,10 +43,10 @@ final class JournalOverlay: SKNode {
     private let detailRoot = SKNode()
     private let tabRoot = SKNode()
     private var mode: Mode = .cases
-    private var caseSections: [JournalSection] = []
-    private var chronologySections: [JournalSection] = []
+    private var caseSections: [CaseJournalSection] = []
+    private var chronologySections: [CaseJournalSection] = []
     private var expandedSectionIDs: Set<String> = ["active", "people", "evidence", "notes", "log"]
-    private var selectedEntryID = "case.empty-coat"
+    private var selectedEntryID = EmptyCoatJournalContent.defaultSelectedEntryID
 
     override init() {
         super.init()
@@ -82,10 +67,10 @@ final class JournalOverlay: SKNode {
     }
 
     func refresh(inspectedHotspotIDs: Set<String>) {
-        caseSections = Self.makeCaseSections(inspectedHotspotIDs: inspectedHotspotIDs)
-        chronologySections = Self.makeChronologySections(inspectedHotspotIDs: inspectedHotspotIDs)
+        caseSections = EmptyCoatJournalContent.caseSections(inspectedHotspotIDs: inspectedHotspotIDs)
+        chronologySections = EmptyCoatJournalContent.chronologySections(inspectedHotspotIDs: inspectedHotspotIDs)
         if entry(withID: selectedEntryID) == nil {
-            selectedEntryID = visibleEntries().first?.id ?? "case.empty-coat"
+            selectedEntryID = visibleEntries().first?.id ?? EmptyCoatJournalContent.defaultSelectedEntryID
         }
         rebuildTabs()
         rebuildIndex()
@@ -163,7 +148,7 @@ final class JournalOverlay: SKNode {
             || target.hasPrefix("journal.entry.")
     }
 
-    private var activeSections: [JournalSection] {
+    private var activeSections: [CaseJournalSection] {
         mode == .cases ? caseSections : chronologySections
     }
 
@@ -199,7 +184,12 @@ final class JournalOverlay: SKNode {
         title.position = CGPoint(x: 0, y: 463)
         sheet.addChild(title)
 
-        let subtitle = Self.label(text: "E. VALE  •  PRIVATE INVESTIGATIONS", size: 12, color: Palette.paperMuted, font: "AvenirNext-DemiBold")
+        let subtitle = Self.label(
+            text: EmptyCoatJournalContent.agencyLetterhead,
+            size: 12,
+            color: Palette.paperMuted,
+            font: "AvenirNext-DemiBold"
+        )
         subtitle.position = CGPoint(x: 0, y: 431)
         sheet.addChild(subtitle)
 
@@ -360,7 +350,12 @@ final class JournalOverlay: SKNode {
             }
         }
 
-        let pageMark = Self.label(text: "FILE 01  /  THE EMPTY COAT", size: 12, color: Palette.inkMuted.withAlphaComponent(0.68), font: "AvenirNext-DemiBold")
+        let pageMark = Self.label(
+            text: EmptyCoatJournalContent.pageMark,
+            size: 12,
+            color: Palette.inkMuted.withAlphaComponent(0.68),
+            font: "AvenirNext-DemiBold"
+        )
         pageMark.position = CGPoint(x: Metrics.rightLeftX + Metrics.rightWidth / 2, y: -372)
         detailRoot.addChild(pageMark)
     }
@@ -396,12 +391,12 @@ final class JournalOverlay: SKNode {
         rebuildDetail()
     }
 
-    private func visibleEntries() -> [JournalEntry] {
+    private func visibleEntries() -> [CaseJournalEntry] {
         let expanded = activeSections.filter { expandedSectionIDs.contains($0.id) }.flatMap(\.entries)
         return expanded.isEmpty ? activeSections.flatMap(\.entries) : expanded
     }
 
-    private func entry(withID id: String) -> JournalEntry? {
+    private func entry(withID id: String) -> CaseJournalEntry? {
         activeSections.lazy.flatMap(\.entries).first { $0.id == id }
     }
 
@@ -415,62 +410,6 @@ final class JournalOverlay: SKNode {
             }
         }
         return nil
-    }
-
-    private static func makeCaseSections(inspectedHotspotIDs: Set<String>) -> [JournalSection] {
-        let active = JournalEntry(
-            id: "case.empty-coat",
-            title: "The Empty Coat",
-            eyebrow: "Active case · opened Tuesday, 11:40 PM",
-            status: "Open / Priority",
-            summary: "Lillian Hart vanished Tuesday night. Her coat was recovered beside the river; her body was not.",
-            body: [
-                "The police called the coat an answer. Lila March called it a lie. Someone wanted the search to end at the waterline, and they almost got their wish.",
-                "A brass key was sewn inside the lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her."
-            ],
-            leads: ["Identify what the brass key opens.", "Trace Lillian's movements on Tuesday night.", "Find the man in the gray overcoat."],
-            isNew: false
-        )
-        let people = [
-            JournalEntry(id: "person.lila", title: "Lila March", eyebrow: "Person of interest · client", status: "Interviewed", summary: "Lillian's sister and the only person still insisting this is not a drowning.", body: ["Arrived at the office after midnight, frightened but precise. She recovered the key from the coat lining and believes she is being watched."], leads: ["Keep her address off the police paperwork."], isNew: false),
-            JournalEntry(id: "person.lillian", title: "Lillian Hart", eyebrow: "Missing person", status: "Whereabouts unknown", summary: "Twenty-nine. Last reliably seen Tuesday evening. Hated the river.", body: ["The coat at the waterline was staged well enough for a hurried constable, but not for her sister. No witness has placed Lillian near the river."], leads: ["Build a last-known-movements timeline."], isNew: true),
-            JournalEntry(id: "person.gray-man", title: "The Gray Man", eyebrow: "Unknown suspect", status: "Unidentified", summary: "Gray overcoat, black gloves. Watches Lila from across the street.", body: ["He turns away whenever she looks directly at him. That makes him cautious, not shy."], leads: ["Check the street outside Lila's rooms."], isNew: true)
-        ]
-        let evidence = [
-            JournalEntry(id: "evidence.key", title: "Brass Apartment Key", eyebrow: "Physical evidence · item 01", status: "In possession", summary: "A cheap brass key cut for an expensive lock, recovered from inside Lillian's coat lining.", body: ["The hiding place was deliberate. Rain still beads in the grooves. No maker's mark, room number, or address."], leads: ["Compare against Lillian's known addresses.", "Ask a locksmith to read the cut."], isNew: true),
-            JournalEntry(id: "evidence.coat", title: "Riverside Coat", eyebrow: "Physical evidence · police custody", status: "Not examined", summary: "Lillian's coat was left beside the river as a conclusion someone expected the police to accept.", body: ["Lila found the key before handing it over. The placement and the missing body point to staging."], leads: ["Inspect the riverside recovery site.", "Request the constable's property log."], isNew: false),
-            JournalEntry(id: "evidence.matches", title: "Blue Room Matchbook", eyebrow: "Background lead", status: "Unconfirmed link", summary: "A silver-embossed matchbook from the Blue Room on Wardour Street.", body: ["Eleven matches remain. Nothing yet proves it belonged to Lillian, but the club sits close to the last route Lila described."], leads: ["Visit the Blue Room after dark."], isNew: false)
-        ]
-        let noteMap: [(String, String, String)] = [
-            ("office.window", "Rain on the Window", "The rain had been working the glass harder than I had worked a case."),
-            ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. This case gets the clean page."),
-            ("office.phone", "Silent Telephone", "Quiet. For once it had the decency to look guilty."),
-            ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")
-        ]
-        let notes = noteMap.compactMap { id, title, observation -> JournalEntry? in
-            guard inspectedHotspotIDs.contains(id) else { return nil }
-            return JournalEntry(id: "note.\(id)", title: title, eyebrow: "Field note · detective's office", status: "Recorded", summary: observation, body: ["A small observation, but small observations are what survive when everyone starts lying."], leads: [], isNew: true)
-        }
-        var sections = [
-            JournalSection(id: "active", title: "ACTIVE CASES", entries: [active]),
-            JournalSection(id: "people", title: "PEOPLE", entries: people),
-            JournalSection(id: "evidence", title: "EVIDENCE & LEADS", entries: evidence)
-        ]
-        if !notes.isEmpty { sections.append(JournalSection(id: "notes", title: "FIELD NOTES", entries: notes)) }
-        return sections
-    }
-
-    private static func makeChronologySections(inspectedHotspotIDs: Set<String>) -> [JournalSection] {
-        var entries = [
-            JournalEntry(id: "log.coat", title: "Coat recovered", eyebrow: "Tuesday · 9:20 PM", status: "Riverside", summary: "Police recover Lillian Hart's coat beside the river. No body is found.", body: ["The search begins and ends at the same convenient conclusion."], leads: ["The coat enters police custody."], isNew: false),
-            JournalEntry(id: "log.key", title: "Key discovered", eyebrow: "Tuesday · 10:05 PM", status: "Hart residence", summary: "Lila finds a brass key sewn into the coat lining before surrendering the garment.", body: ["Someone hid the key where it would survive a hurried search."], leads: ["Lila keeps the key out of the police property log."], isNew: false),
-            JournalEntry(id: "log.followed", title: "Lila followed", eyebrow: "Tuesday · 10:40 PM", status: "Lower Ward", summary: "A man in a gray overcoat follows Lila from her rooms.", body: ["Black gloves. No attempt at conversation. He wants to know where she takes the key."], leads: ["The follower now knows about Voss's office."], isNew: true),
-            JournalEntry(id: "log.case-open", title: "Case opened", eyebrow: "Tuesday · 11:40 PM", status: "Voss's office", summary: "Harlan Voss accepts the March disappearance and takes possession of the brass key.", body: ["Working title: The Empty Coat."], leads: ["First objective: identify the lock."], isNew: true)
-        ]
-        if !inspectedHotspotIDs.isEmpty {
-            entries.append(JournalEntry(id: "log.office", title: "Office searched", eyebrow: "Wednesday · 12:10 AM", status: "Voss's office", summary: "Voss checks the office and records \(inspectedHotspotIDs.count) field observation\(inspectedHotspotIDs.count == 1 ? "" : "s").", body: ["Routine is useful. It tells you when something is out of place."], leads: ["Field notes added to the case file."], isNew: true))
-        }
-        return [JournalSection(id: "log", title: "CASE LOG · CHAPTER ONE", entries: entries)]
     }
 
     private static func wrappedLines(_ text: String, maxCharacters: Int) -> [String] {

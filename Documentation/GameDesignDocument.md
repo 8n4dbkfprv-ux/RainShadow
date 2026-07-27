@@ -1,9 +1,10 @@
 # RainShadow — Game Design Document
 
 - Status: pre-production baseline
-- Version: 0.2
+- Version: 0.3
 - Milestone covered: M01 — The Office in the Rain
 - Canon leads: **Harlan Voss** (player detective), **Lila March** (first client / the dame)
+- Case dossier: **The Empty Coat** (§4.3.2) — Act I structure + M01 journal surface
 
 ## 1. High-level vision
 
@@ -110,8 +111,8 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
 - **Age / look:** Adult woman in a charcoal raincoat over a burgundy period suit, small hat, handbag; composed enough that the cracks show only if Voss presses.
 - **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
-- **Apparent need:** Her sister is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
-- **Deeper tension:** She knows more than the first conversation admits—about the sister’s work, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
+- **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
+- **Deeper tension:** She knows more than the first conversation admits—about Lillian’s work near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
 - **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
 - **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
 
@@ -150,17 +151,107 @@ Commitments on the deduction board close routes. Lila’s partial truths come du
 **Act IV — Summation (Poirot close)**  
 Voss engineers (or is forced into) a gathering of the remaining principals. In a controlled space, he reconstructs the timeline: the sister’s last movements, who emptied the coat, which institution needed the silence, and which personal betrayal made the machine efficient. The player’s prior hypotheses and failed-forward choices color **how complete and how merciful** the reveal is—but the design center is always the **dramatic laying-out of the chain**, not a sudden unearned twist from nowhere. After the truth is spoken, a final irreversible commitment: accuse, expose, bargain, or walk away—and live with Harborpoint’s echo.
 
-#### 4.3.2 First case seed — “The Empty Coat”
+#### 4.3.2 First case — “The Empty Coat” (case dossier)
 
-Carried from M01 into the full game:
+This section is the **authoritative case structure** for Act I and the M01 case journal. Runtime journal copy (`EmptyCoatJournalContent`) must stay consistent with it. Dialogue may paraphrase; it must not invent facts the dossier has not established for that beat.
 
-1. Lila March’s sister is missing.
-2. A coat is recovered by the river—worn, wrong size or wrong season in one careful detail, and **empty** in a way that feels arranged.
-3. A concealed brass key is sewn or slipped into the lining.
+##### Seed (campaign spine)
+
+1. **Lila March**’s sister **Lillian March** is missing.
+2. A coat is recovered by the river—**empty** in a way that feels arranged, not merely abandoned.
+3. A concealed **brass key** is sewn into the lining (not left where a hurried search would “find” it).
 4. Someone with institutional reach wanted the coat found without a body, or the body gone without the coat.
 5. Voss’s office becomes the first board where facts, testimony, and distrust share a desk lamp.
 
-M01 ships the arrival, the key handoff, and office freeroam; later milestones open the river, docks, and civic records that make the seed a case.
+M01 ships the arrival, the key handoff, office freeroam, and the **case journal surface**. Later milestones open the river, docks, and civic records that turn the seed into a full investigation.
+
+##### Case header
+
+| Field | Value |
+|---|---|
+| Case ID | `case.empty-coat` |
+| Title | The Empty Coat |
+| Client | Lila March |
+| Missing person | Lillian March |
+| Status at M01 end | Open / Priority |
+| Apparent question | Where is Lillian March, and why was her coat left as a finished story? |
+| Working thesis (player-facing, uncertain) | Someone with institutional reach staged a drowning conclusion; the key is the thread they failed to cut. |
+| Journal letterhead | **H. VOSS · PRIVATE INVESTIGATIONS** |
+
+##### Known facts at case open (M01 intro must establish)
+
+Aligned to the shipped Empty Coat intro graph:
+
+1. Lillian vanished Tuesday night after work at a shipping office near **Wharf Ladder** (ledgers, manifests).
+2. Last known: left work about nine; told a clerk she had one more errand uptown; no cab called from the desk phone.
+3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body.
+4. Harborpoint PD soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried.
+5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands.
+6. Since the key: a **Gray Man** (gray overcoat, black gloves) follows Lila; professional habits (streetcar noise, doorway posts); he turns away when met with a direct look.
+7. Voss accepts the case; the key stays in his care.
+
+##### People
+
+| ID | Name | Role | Status at M01 | Notes |
+|---|---|---|---|---|
+| `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
+| `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen Tuesday evening |
+| `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Not yet proven badge vs private muscle; knows Lila came to Voss |
+| *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
+| *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
+
+##### Evidence
+
+| ID | Item | Custody | Reliability | M01 journal? | Leads |
+|---|---|---|---|---|---|
+| `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint machine oil and river fog |
+| `evidence.coat` | Riverside coat | Police / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
+| `evidence.pd-file` | Soft missing-person file | Harborpoint PD | Compromised / incomplete | No (later) | Ally sergeant; dual ledgers |
+| `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
+
+##### Objectives / leads (organized doubt, not quest checkboxes)
+
+**M01 (office only)**
+- Keep the key safe; case file open in the journal.
+- Record office field notes via hotspot inspections.
+- Journal leads (destinations still locked): identify the lock; build Lillian’s Tuesday timeline; find or name the Gray Man; re-check the river stones when the city opens.
+
+**Act I beyond M01 (design roadmap; non-spoiler)**
+- River recovery site + constable log.
+- Wharf Ladder shipping office / manifests Lillian was reading.
+- Gray Man identification or pressure.
+- Civic records / dual ledgers if she was reading the wrong books.
+- Lila’s partial truths due when the player presses with evidence.
+- Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
+
+##### Chronology (case log · approximate Voss notation)
+
+Prefer **narrative order** (coat → key → follower → office). Times are detective notation, not a forensic clock.
+
+| Approx. time | Event | Journal entry ID |
+|---|---|---|
+| Tue ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
+| Tue night | Gap: “errand uptown” / unknown | folded into movements |
+| Tue ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
+| After recovery | Lila finds brass key in lining | `log.key` |
+| Same night | Lila followed by the Gray Man | `log.followed` |
+| Tue ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
+| Wed ~12:10 AM | Office field notes (if hotspots inspected) | `log.office` |
+
+##### Open mysteries (writer hooks; not journal spoilers)
+
+- Who emptied the coat, and why leave the key?
+- What lock answers the brass key?
+- Is Lillian alive, dead, or “worse” (held / erased from ledgers)?
+- Which institutional layer benefits from a tidy drowning?
+
+##### Journal UX contract
+
+- Voice: Voss’s dry, concrete notes; short paragraphs. No green-checkmark quest language.
+- Status strings: Open, Interviewed, Unidentified, Not examined, Recorded—not “Complete.”
+- Sections: **ACTIVE CASES** · **PEOPLE** · **EVIDENCE & LEADS** · **FIELD NOTES** (hotspot-gated) · Chronology tab **CASE LOG**.
+- M01 journal surface is the case-facing UI; full deduction board remains later (§7.4).
+- Field notes appear only after corresponding office hotspot IDs (`office.window`, `office.desk`, `office.phone`, `office.files`).
 
 #### 4.3.3 Noir tropes (checklist for writers)
 
@@ -580,14 +671,14 @@ The art gate is qualitative but strict: at final display scale, the office must 
 ## 15. Open design decisions after M01
 
 - Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
-- Full biography for **Lila March** beyond the dame/client outline (sister’s given name, exact employment, romance branch density).
+- Full biography for **Lila March** beyond the dame/client outline (romance branch density; Lillian’s employment is locked as Wharf Ladder shipping office in §4.3.2).
 - Exact trait names and whether strain is visible numerically.
-- Case-board visual metaphor: desk papers, wall board, or abstract journal.
+- Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Degree of camera control in later, larger areas.
 - Save-slot presentation and cross-device strategy.
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - First combat set-piece location and temporary-ally roster for Act II.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); first-case arrival by visitor (Lila); first case title **The Empty Coat**; corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
 
 None of the remaining open decisions blocks the opening-sequence architecture.

@@ -62,7 +62,24 @@ struct GameDesignDocumentCanonTests {
         let text = try gddText
         #expect(text.contains("Closed by §4:") || text.contains("Closed by §4"))
         #expect(text.contains("Harlan Voss / Lila March"))
+        #expect(text.contains("Lillian March"))
         // Must not still list "Final protagonist identity" as open.
         #expect(!text.contains("Final protagonist identity, history, and core wound."))
+    }
+
+    @Test func gddEmptyCoatCaseDossierAnchors() throws {
+        let text = try gddText
+        #expect(text.contains("case dossier") || text.contains("Case dossier") || text.contains("#### 4.3.2 First case"))
+        #expect(text.contains("case.empty-coat") || text.contains("`case.empty-coat`"))
+        #expect(text.contains("Wharf Ladder"))
+        #expect(text.contains("brass key") || text.contains("Brass key") || text.contains("**brass key**"))
+        #expect(text.contains("Gray Man") || text.contains("gray overcoat"))
+        #expect(text.contains("H. VOSS") || text.contains("PRIVATE INVESTIGATIONS"))
+        #expect(text.contains("Journal UX contract") || text.contains("journal UX contract")
+            || text.contains("##### Journal UX contract"))
+        #expect(text.contains("Blue Room"))
+        #expect(text.contains("Lillian March"))
+        #expect(text.contains("Empty Coat case dossier") || text.contains("EmptyCoatJournalContent")
+            || text.contains("M01 journal"))
     }
 }

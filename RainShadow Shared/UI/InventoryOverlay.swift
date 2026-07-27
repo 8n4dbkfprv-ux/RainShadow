@@ -63,30 +63,20 @@ final class InventoryOverlay: SKNode {
             name: "Case Notebook",
             category: .evidence,
             description: "Names, times, and three pages someone tried to tear out.",
-            note: "Active file: The Marlowe Disappearance",
+            note: "Active file: The Empty Coat",
             symbolName: "book.closed.fill",
             artName: "inventory_item_case_notebook_v01",
             quantity: 1
         ),
         InventoryItem(
             id: "brass-key",
-            name: "Brass Apartment Key",
+            name: "Brass Key",
             category: .evidence,
-            description: "A cheap key cut for an expensive lock. Rain still beads in the grooves.",
-            note: "Recovered beneath the office window",
+            description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
+            note: "The Empty Coat · in Voss's care",
             symbolName: "key.fill",
             artName: "inventory_item_brass_key_v01",
             quantity: 1
-        ),
-        InventoryItem(
-            id: "matchbook",
-            name: "Blue Room Matches",
-            category: .evidence,
-            description: "Eleven matches and a nightclub address embossed in silver.",
-            note: "The Blue Room · Wardour Street",
-            symbolName: "flame.fill",
-            artName: "inventory_item_matchbook_v01",
-            quantity: 11
         ),
         InventoryItem(
             id: "flashlight",
@@ -290,9 +280,9 @@ final class InventoryOverlay: SKNode {
         root.position = CGPoint(x: -665, y: Metrics.primaryPanelY)
         root.addChild(majorPanel(size: CGSize(width: 470, height: 620)))
 
-        addSlotSection("READY WEAPONS", items: [items[0], nil, nil], to: root, headerY: 258, slotY: 174)
-        addSlotSection("QUICK ITEMS", items: [items[4], items[1], items[6]], to: root, headerY: 78, slotY: -6)
-        addSlotSection("COAT POCKETS", items: [items[2], items[3], items[5]], to: root, headerY: -102, slotY: -186)
+        addSlotSection("READY WEAPONS", items: [item(id: "service-revolver"), nil, nil], to: root, headerY: 258, slotY: 174)
+        addSlotSection("QUICK ITEMS", items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")], to: root, headerY: 78, slotY: -6)
+        addSlotSection("COAT POCKETS", items: [item(id: "brass-key"), nil, item(id: "wallet")], to: root, headerY: -102, slotY: -186)
 
         let paused = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
         paused.text = "CASEWORK PAUSED"
@@ -419,7 +409,7 @@ final class InventoryOverlay: SKNode {
         let bag = SKNode()
         bag.position = CGPoint(x: -270, y: Metrics.lowerPanelY)
         bag.addChild(majorPanel(size: CGSize(width: 1_260, height: 230)))
-        addGridHeader("CASE BAG", counter: "7 / 18", to: bag, width: 1_210)
+        addGridHeader("CASE BAG", counter: "\(items.count) / 18", to: bag, width: 1_210)
 
         if let bagTexture = GameArt.texture(named: "inventory_case_bag_v01") {
             bagTexture.filteringMode = .linear
@@ -765,6 +755,10 @@ final class InventoryOverlay: SKNode {
         rule.strokeColor = .clear
         rule.position = CGPoint(x: 0, y: y - 23)
         root.addChild(rule)
+    }
+
+    private func item(id: String) -> InventoryItem? {
+        items.first { $0.id == id }
     }
 
     private func refreshSelection() {
