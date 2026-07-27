@@ -297,7 +297,7 @@ Effect acceptance:
 
 ## 8. M01 interface assets
 
-UI is original RainShadow art. It may share the world's aged materials but must not reproduce Baldur's Gate/Infinity Engine button frames or iconography.
+UI is original RainShadow art following Infinity Engine **layout hierarchy** with film-noir materials. Do not copy copyrighted Baldur’s Gate/Infinity Engine frames or icons. All visible chrome is Image Generator PNG; code owns layout, hit-testing, live text, and ephemeral hover/selection tints only.
 
 | Priority | ID(s) | Count | Pixels each | Description |
 |---|---|---:|---:|---|
@@ -308,24 +308,29 @@ UI is original RainShadow art. It may share the world's aged materials but must 
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |
 | P0 | `ui_input_touch` | 1 | 128×128 | First-run touch hint symbol. |
 | P0 | `ui_input_pointer` | 1 | 128×128 | First-run mouse hint symbol. |
-| P0 | `inventory_outer_frame_overlay_v01` | 1 | 1960×1080 | Transparent original noir perimeter frame; code owns all interior panel geometry and text. |
-| P0 | `inventory_slot_frame_v01` | 1 | 256×256 | Reusable alpha slot frame scaled to code-defined equipment, quick-item, bag, and nearby bounds. |
-| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
-| P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter used beside the paperdoll in the reference-relative position. |
-| P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel used at the left edge of the lower bag grid. |
-| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background; fedora held in hand for face readability. |
-| P0 | `dialogue_outer_frame_overlay_v02` | 1 | 1720×730 | Transparent rail-free noir dialogue perimeter; nine-sliced in code while the fixed-size scroll control stays independent. |
-| P0 | `dialogue_scroll_up_v01`, `dialogue_scroll_down_v01`, `dialogue_scroll_track_v01`, `dialogue_scroll_thumb_v01` | 4 | 96×96 buttons; 64×320 track; 72×256 thumb | Independent Mac OS 9–influenced scrollbar components in RainShadow gunmetal/oxblood materials. Buttons stay fixed-size; track and proportional thumb are nine-sliced in code. |
-| P0 | `ui_close_box_macos9_v01` | 1 | 128×128 | Generated RainShadow gunmetal/oxblood interpretation of the classic Mac OS 9 nested-square close box; shared by overlay title bars with a larger code-owned hit target. |
+| P0 | `hud_left_rail_plate_v02` | 1 | 256×2048 | Full-height left action rail plate; transparent button wells; rain-slicked gunmetal. |
+| P0 | `hud_right_rail_plate_v02` | 1 | 320×2048 | Full-height right party rail plate; portrait well + utility wells. |
+| P0 | `hud_action_*_v02` | 12 | 128×128 | Painted noir action icons: menu, map, journal, inventory, character, leads, contacts, settings, rest, help, hide-ui, clock. Hover/pressed via code tint; disabled uses alpha. |
+| P0 | `hud_party_*_v02` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
+| P0 | `hud_portrait_frame_v02` | 1 | 1086×1448 | Transparent portrait bezel matching v02 rail language; code owns HP text and condition tint. |
+| P0 | `dialogue_outer_frame_overlay_v03` | 1 | 1720×730 | Thick BG-like dialogue plaque with black well and portrait window; rail-free for nine-slice. |
+| P0 | `dialogue_command_button_plate_v02` | 1 | 512×128 | Empty END/CONTINUE command plate; code draws label. |
+| P0 | `dialogue_scroll_*_v02` | 4 | 96×96 / 64×320 / 72×256 | Scrollbar up/down/track/thumb in matching gunmetal/oxblood. |
 | P0 | `dialogue_portrait_lila_march_v01` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop. |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
-| P0 | `hud_portrait_frame_v01` | 1 | 1086×1448 | Transparent original RainShadow portrait bezel; code owns the full-height rail, approved Voss portrait crop, dynamic health text, condition tint, and viewport anchoring. |
-| P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area rendition of the assembled office; code owns the left action rail, overlay frame, point-of-interest labels, and live thin-green 2:1 current-position ground ring. |
-| P0 | `map_icon_noir_v03` | 1 | 768×512 | Painted landscape compass-map button recolored to the shared UI palette: blue-black gunmetal, muted oxblood engraving insets, tiny aged-brass fasteners, smoked-pewter `N`, and a black well. Code owns its hover, hit target, and rail placement. |
+| P0 | `inventory_outer_frame_overlay_v02` | 1 | 1960×1080 | Full inventory hierarchy overlay (header, paperdoll chamber, slot rings, bag band, stats column) with transparent wells; no baked labels. |
+| P0 | `inventory_slot_frame_v01` | 1 | 256×256 | Reusable alpha slot frame scaled to code-defined bounds. |
+| P0 | `inventory_slot_silhouette_*_v02` | 8 | 256×256 | Painted empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
+| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
+| P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter. |
+| P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel. |
+| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background. |
+| P0 | `journal_casebook_plate_v02` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
+| P0 | `journal_row_marker_v02` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
+| P0 | `ui_close_box_noir_v02` | 1 | 128×128 | Shared overlay close control in IE-noir language (replaces Mac OS 9 close). |
+| P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area office map; code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
-
-Major inventory panels are separate code-rendered surfaces with precise bounds and inset rules. The generated panel-texture study was rejected after in-engine QA because it competed with the item hierarchy; it remains only as a source-art provenance record and is not a runtime asset.
 
 ## 9. Audio asset list
 

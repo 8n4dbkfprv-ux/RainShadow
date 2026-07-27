@@ -18,6 +18,7 @@ final class ClassicMacCloseButtonNode: SKNode {
         highlight: SKColor,
         accent: SKColor
     ) {
+        _ = (fill, stroke, highlight, accent)
         super.init()
         name = targetName
 
@@ -28,7 +29,8 @@ final class ClassicMacCloseButtonNode: SKNode {
         hitArea.strokeColor = .clear
         addChild(hitArea)
 
-        if let texture = GameArt.texture(named: "ui_close_box_macos9_v01") {
+        if let texture = GameArt.texture(named: "ui_close_box_noir_v02")
+            ?? GameArt.texture(named: "ui_close_box_macos9_v01") {
             texture.filteringMode = .linear
             let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 52))
             artwork.zPosition = 1
@@ -36,64 +38,7 @@ final class ClassicMacCloseButtonNode: SKNode {
             return
         }
 
-        let shadow = SKShapeNode(
-            rectOf: CGSize(width: Metrics.outerExtent, height: Metrics.outerExtent)
-        )
-        shadow.fillColor = SKColor(white: 0, alpha: 0.72)
-        shadow.strokeColor = .clear
-        shadow.position = CGPoint(x: 2, y: -2)
-        shadow.zPosition = 1
-        addChild(shadow)
-
-        let outer = SKShapeNode(
-            rectOf: CGSize(width: Metrics.outerExtent, height: Metrics.outerExtent)
-        )
-        outer.fillColor = fill
-        outer.strokeColor = stroke
-        outer.lineWidth = 2
-        outer.zPosition = 2
-        addChild(outer)
-
-        let upperLeftBevel = CGMutablePath()
-        let outerInset = Metrics.outerExtent / 2 - 3
-        upperLeftBevel.move(to: CGPoint(x: -outerInset, y: -outerInset))
-        upperLeftBevel.addLine(to: CGPoint(x: -outerInset, y: outerInset))
-        upperLeftBevel.addLine(to: CGPoint(x: outerInset, y: outerInset))
-        let outerHighlight = SKShapeNode(path: upperLeftBevel)
-        outerHighlight.strokeColor = highlight.withAlphaComponent(0.78)
-        outerHighlight.lineWidth = 1.5
-        outerHighlight.zPosition = 3
-        addChild(outerHighlight)
-
-        let lowerRightBevel = CGMutablePath()
-        lowerRightBevel.move(to: CGPoint(x: outerInset, y: outerInset))
-        lowerRightBevel.addLine(to: CGPoint(x: outerInset, y: -outerInset))
-        lowerRightBevel.addLine(to: CGPoint(x: -outerInset, y: -outerInset))
-        let outerShade = SKShapeNode(path: lowerRightBevel)
-        outerShade.strokeColor = SKColor(white: 0.005, alpha: 0.92)
-        outerShade.lineWidth = 1.5
-        outerShade.zPosition = 3
-        addChild(outerShade)
-
-        let inset = SKShapeNode(
-            rectOf: CGSize(width: Metrics.innerExtent, height: Metrics.innerExtent)
-        )
-        inset.fillColor = accent
-        inset.strokeColor = stroke.withAlphaComponent(0.88)
-        inset.lineWidth = 1.5
-        inset.zPosition = 4
-        addChild(inset)
-
-        let insetHighlight = CGMutablePath()
-        let innerInset = Metrics.innerExtent / 2 - 2
-        insetHighlight.move(to: CGPoint(x: -innerInset, y: -innerInset))
-        insetHighlight.addLine(to: CGPoint(x: -innerInset, y: innerInset))
-        insetHighlight.addLine(to: CGPoint(x: innerInset, y: innerInset))
-        let insetBevel = SKShapeNode(path: insetHighlight)
-        insetBevel.strokeColor = highlight.withAlphaComponent(0.52)
-        insetBevel.lineWidth = 1
-        insetBevel.zPosition = 5
-        addChild(insetBevel)
+        assertionFailure("Missing ui_close_box_noir_v02.png")
     }
 
     required init?(coder aDecoder: NSCoder) {

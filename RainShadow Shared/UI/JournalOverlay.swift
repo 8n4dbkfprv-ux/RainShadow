@@ -166,18 +166,14 @@ final class JournalOverlay: SKNode {
         shadow.zPosition = -12
         sheet.addChild(shadow)
 
-        if let texture = GameArt.texture(named: "journal_casebook_plate_v01") {
+        if let texture = GameArt.texture(named: "journal_casebook_plate_v02")
+            ?? GameArt.texture(named: "journal_casebook_plate_v01") {
             texture.filteringMode = .linear
             let plate = SKSpriteNode(texture: texture, size: Metrics.canvas)
             plate.zPosition = -10
             sheet.addChild(plate)
         } else {
-            let fallback = SKShapeNode(rectOf: Metrics.canvas, cornerRadius: 14)
-            fallback.fillColor = Palette.charcoal
-            fallback.strokeColor = Palette.steel
-            fallback.lineWidth = 3
-            fallback.zPosition = -10
-            sheet.addChild(fallback)
+            assertionFailure("Missing journal_casebook_plate_v02.png")
         }
 
         let title = Self.label(text: "CASE JOURNAL", size: 37, color: Palette.paper, font: "AvenirNextCondensed-DemiBold")
@@ -276,11 +272,12 @@ final class JournalOverlay: SKNode {
                 )
                 row.name = "journal.entry.\(entry.id)"
                 row.position = CGPoint(x: 9, y: y)
-                let marker = Self.label(text: selected ? "—" : "·", size: 18, color: selected ? Palette.brass : Palette.paperMuted, font: "AvenirNext-DemiBold")
-                marker.horizontalAlignmentMode = .left
-                marker.verticalAlignmentMode = .center
-                marker.position = CGPoint(x: -231, y: 1)
-                row.addChild(marker)
+                if let markerTexture = UIPaintedChrome.texture(named: "journal_row_marker_v02") {
+                    let marker = SKSpriteNode(texture: markerTexture, size: CGSize(width: 18, height: 18))
+                    marker.position = CGPoint(x: -231, y: 1)
+                    marker.alpha = selected ? 1 : 0.7
+                    row.addChild(marker)
+                }
                 let rowLabel = Self.label(text: entry.title, size: 16, color: selected ? Palette.paper : Palette.paperMuted, font: "AvenirNext-Medium")
                 rowLabel.horizontalAlignmentMode = .left
                 rowLabel.verticalAlignmentMode = .center

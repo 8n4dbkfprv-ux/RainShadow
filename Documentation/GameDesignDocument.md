@@ -604,11 +604,13 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 
 ## 11. UI direction
 
-- UI is diegetically sympathetic but not a reproduction of an Infinity Engine chrome frame.
-- Use charcoal, oxidized brass, dirty paper, and restrained burgundy accents.
+- Infinity Engine layout hierarchy is intentional: vertical left action rail, right party/portrait rail, bottom dialogue plaque, paperdoll inventory, and ledger journal.
+- Materials and iconography remain original RainShadow film-noir craft (rain-slicked gunmetal, smoked leather, oxblood accents). Do not copy copyrighted Baldur’s Gate/Infinity Engine frames or icons.
+- All visible chrome is painted Image Generator PNG art; code owns layout, hit-testing, live text, and ephemeral hover/selection tints only—no SF Symbols or decorative procedural chrome.
+- Use charcoal, oxidized brass, dirty paper, and restrained burgundy accents for text and tints.
 - Body text prioritizes readability over distressed styling.
 - World labels are short and placed near the target without obscuring it.
-- Dialogue and deduction panels can become more substantial later; M01 uses only a small observation caption and optional first-run hint.
+- Dialogue and deduction panels can become more substantial later; M01 ships the BG-noir chrome surfaces with stubs for unbuilt systems.
 - Support Dynamic Type-equivalent scaling within designed bounds, subtitles, reduced motion, reduced rain intensity, high-contrast hotspots, and independent audio sliders.
 
 ## 12. Scope boundaries

@@ -5,21 +5,16 @@ final class CaseIntroductionPresenter: SKNode {
     private enum Palette {
         static let veil = SKColor.clear
         static let shadow = SKColor(white: 0, alpha: 0.78)
-        static let well = SKColor(red: 0.012, green: 0.018, blue: 0.017, alpha: 0.96)
-        static let innerWell = SKColor(red: 0.018, green: 0.027, blue: 0.024, alpha: 0.80)
         /// Opaque black plate under the frame content hole only (text/portrait readability).
         static let contentWell = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        static let gunmetal = SKColor(red: 0.24, green: 0.27, blue: 0.27, alpha: 1)
-        static let edge = SKColor(red: 0.50, green: 0.51, blue: 0.48, alpha: 0.84)
-        static let darkEdge = SKColor(red: 0.075, green: 0.085, blue: 0.082, alpha: 1)
-        static let parchment = SKColor(red: 0.86, green: 0.84, blue: 0.70, alpha: 1)
-        static let response = SKColor(red: 0.76, green: 0.19, blue: 0.13, alpha: 1)
-        static let responseHot = SKColor(red: 0.96, green: 0.69, blue: 0.28, alpha: 1)
-        /// Lila March.
-        static let lila = SKColor(red: 0.72, green: 0.16, blue: 0.36, alpha: 1)
-        /// Harlan Voss.
-        static let voss = SKColor(red: 0.78, green: 0.55, blue: 0.25, alpha: 1)
-        static let caseTitle = SKColor(red: 0.82, green: 0.68, blue: 0.34, alpha: 1)
+        static let parchment = UITheme.Color.parchment
+        static let response = UITheme.Color.oxblood
+        static let responseHot = UITheme.Color.oxbloodHot
+        /// Lila March — oxblood accent.
+        static let lila = UITheme.Color.oxblood
+        /// Harlan Voss — oxblood accent (monochrome noir nameplate).
+        static let voss = UITheme.Color.oxblood
+        static let caseTitle = UITheme.Color.brass
     }
 
     private struct ChoiceRow {
@@ -36,31 +31,19 @@ final class CaseIntroductionPresenter: SKNode {
 
     private let veil = SKShapeNode()
     private let panelRoot = SKNode()
-    private let panelShadow = SKShapeNode()
-    private let panel = SKShapeNode()
-    private let innerPanel = SKShapeNode()
-    private let innerBorder = SKShapeNode()
-    /// Black fill for the frame's interior content hole only (not outer chrome underlay).
     private let contentWell = SKShapeNode()
     private let frameOverlay = SKSpriteNode()
-    private let topClasp = SKShapeNode()
-    private let cornerBrackets = SKShapeNode()
     private let dialogueScrollbar = DialogueScrollbarNode()
-    private let portraitShadow = SKShapeNode()
     private let portraitBacking = SKShapeNode()
-    private let portraitBorder = SKShapeNode()
-    private let portraitPins = SKShapeNode()
     private let portrait = SKSpriteNode()
-    private let speakerLabel = SKLabelNode(fontNamed: "Palatino-Bold")
+    private let speakerLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueName)
     private let contentCrop = SKCropNode()
     private let contentMask = SKShapeNode()
     private let scrollContentRoot = SKNode()
-    private let dialogueLabel = SKLabelNode(fontNamed: "Palatino-Roman")
+    private let dialogueLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBody)
     private let choicesRoot = SKNode()
-    private let commandShadow = SKShapeNode()
-    private let commandButton = SKShapeNode()
-    private let commandInnerBorder = SKShapeNode()
-    private let commandLabel = SKLabelNode(fontNamed: "Palatino-Bold")
+    private let commandPlate = SKSpriteNode()
+    private let commandLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBodyBold)
 
     private var nodesByID: [String: CaseDialogueNode] = [:]
     private var currentNodeID: String?
@@ -141,31 +124,12 @@ final class CaseIntroductionPresenter: SKNode {
             transform: nil
         )
 
-        panelShadow.path = roundedRect(panelRect.offsetBy(dx: 10, dy: -13), radius: 7)
-        panel.path = roundedRect(panelRect, radius: 5)
-        innerPanel.path = roundedRect(panelRect.insetBy(dx: 12, dy: 12), radius: 2)
-        innerBorder.path = roundedRect(panelRect.insetBy(dx: 20, dy: 20), radius: 1)
         contentWell.path = roundedRect(geometry.contentWellRect, radius: 2)
         frameOverlay.position = CGPoint(x: panelRect.midX, y: panelRect.midY)
         frameOverlay.size = panelRect.size
-        layoutOrnament()
 
         let portraitRect = geometry.portraitRect
-        let portraitOuterRect = portraitRect.insetBy(dx: -10, dy: -10)
-        portraitShadow.path = roundedRect(portraitOuterRect.offsetBy(dx: 4, dy: -5), radius: 2)
-        portraitBorder.path = roundedRect(portraitOuterRect, radius: 2)
         portraitBacking.path = roundedRect(portraitRect.insetBy(dx: -4, dy: -4), radius: 1)
-        let pinPath = CGMutablePath()
-        let pinInset: CGFloat = 5
-        for center in [
-            CGPoint(x: portraitOuterRect.minX + pinInset, y: portraitOuterRect.minY + pinInset),
-            CGPoint(x: portraitOuterRect.maxX - pinInset, y: portraitOuterRect.minY + pinInset),
-            CGPoint(x: portraitOuterRect.minX + pinInset, y: portraitOuterRect.maxY - pinInset),
-            CGPoint(x: portraitOuterRect.maxX - pinInset, y: portraitOuterRect.maxY - pinInset)
-        ] {
-            pinPath.addEllipse(in: CGRect(x: center.x - 2.2, y: center.y - 2.2, width: 4.4, height: 4.4))
-        }
-        portraitPins.path = pinPath
         portrait.position = CGPoint(x: portraitRect.midX, y: portraitRect.midY)
         portrait.size = CGSize(width: portraitRect.width - 8, height: portraitRect.height - 8)
 
@@ -225,9 +189,8 @@ final class CaseIntroductionPresenter: SKNode {
             panelWidth: panelRect.width > 1 ? panelRect.width : 1_000
         )
         let commandY = commandHitRect.midY
-        commandShadow.path = roundedRect(commandHitRect.offsetBy(dx: 7, dy: -8), radius: 5)
-        commandButton.path = roundedRect(commandHitRect, radius: 4)
-        commandInnerBorder.path = roundedRect(commandHitRect.insetBy(dx: 7, dy: 7), radius: 2)
+        commandPlate.position = CGPoint(x: commandHitRect.midX, y: commandY)
+        commandPlate.size = commandHitRect.size
         commandLabel.position = CGPoint(x: 0, y: commandY - 2)
     }
 
@@ -266,7 +229,7 @@ final class CaseIntroductionPresenter: SKNode {
             return true
         }
 
-        if commandHitRect.contains(point), !commandButton.isHidden {
+        if commandHitRect.contains(point), !commandPlate.isHidden {
             activateFocusedControl()
             return true
         }
@@ -303,7 +266,7 @@ final class CaseIntroductionPresenter: SKNode {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
         hoveredChoiceIndex = choiceRows.firstIndex { $0.hitRect.contains(panelPoint) }
-        commandIsHovered = commandHitRect.contains(point) && !commandButton.isHidden
+        commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
         let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
         let scrollbarIsHovered = dialogueScrollbar.updatePointer(at: scrollbarPoint)
         refreshInteractionColors()
@@ -355,30 +318,7 @@ final class CaseIntroductionPresenter: SKNode {
         addChild(veil)
         addChild(panelRoot)
 
-        panelShadow.fillColor = Palette.shadow
-        panelShadow.strokeColor = .clear
-        panelShadow.zPosition = -20
-        panelRoot.addChild(panelShadow)
-
-        panel.fillColor = Palette.darkEdge
-        panel.strokeColor = Palette.gunmetal
-        panel.lineWidth = 7
-        panel.zPosition = -15
-        panelRoot.addChild(panel)
-
-        innerPanel.fillColor = Palette.well
-        innerPanel.strokeColor = Palette.edge
-        innerPanel.lineWidth = 2
-        innerPanel.zPosition = -14
-        panelRoot.addChild(innerPanel)
-
-        innerBorder.fillColor = Palette.innerWell
-        innerBorder.strokeColor = SKColor(red: 0.12, green: 0.15, blue: 0.14, alpha: 1)
-        innerBorder.lineWidth = 2
-        innerBorder.zPosition = -13
-        panelRoot.addChild(innerBorder)
-
-        // Content well sits under text, above outer plates; frame rails draw over its edges.
+        // Content well sits under text; painted frame rails draw over its edges.
         contentWell.fillColor = Palette.contentWell
         contentWell.strokeColor = .clear
         contentWell.zPosition = 0
@@ -386,17 +326,8 @@ final class CaseIntroductionPresenter: SKNode {
         panelRoot.addChild(contentWell)
 
         usesGeneratedFrame = addGeneratedFrameOverlay()
-        applyUnderlayStyle(usesGeneratedFrame: usesGeneratedFrame)
+        assertionFailureIfMissingFrame()
 
-        [topClasp, cornerBrackets].forEach {
-            $0.fillColor = .clear
-            $0.strokeColor = Palette.edge
-            $0.lineWidth = 4
-            $0.lineJoin = .round
-            panelRoot.addChild($0)
-        }
-        topClasp.isHidden = usesGeneratedFrame
-        cornerBrackets.isHidden = usesGeneratedFrame
         // Scrollbar must sit above the ornate frame rails (frame is above body text).
         dialogueScrollbar.zPosition = 40
         dialogueScrollbar.onScroll = { [weak self] offset in
@@ -404,31 +335,13 @@ final class CaseIntroductionPresenter: SKNode {
         }
         panelRoot.addChild(dialogueScrollbar)
 
-        // Portrait stack above frame chrome so the bezel is never covered by the left rail.
-        portraitShadow.fillColor = SKColor(white: 0, alpha: 0.72)
-        portraitShadow.strokeColor = .clear
-        portraitShadow.zPosition = 30
-        panelRoot.addChild(portraitShadow)
-
         portraitBacking.fillColor = SKColor(white: 0.012, alpha: 1)
-        portraitBacking.strokeColor = SKColor(red: 0.34, green: 0.10, blue: 0.11, alpha: 1)
-        portraitBacking.lineWidth = 3
+        portraitBacking.strokeColor = UITheme.Color.oxblood
+        portraitBacking.lineWidth = 2
         portraitBacking.zPosition = 32
         panelRoot.addChild(portraitBacking)
-
-        portraitBorder.fillColor = Palette.darkEdge
-        portraitBorder.strokeColor = Palette.edge
-        portraitBorder.lineWidth = 2
-        portraitBorder.zPosition = 31
-        panelRoot.addChild(portraitBorder)
         portrait.zPosition = 33
         panelRoot.addChild(portrait)
-
-        portraitPins.fillColor = SKColor(red: 0.51, green: 0.42, blue: 0.29, alpha: 1)
-        portraitPins.strokeColor = SKColor(red: 0.16, green: 0.13, blue: 0.10, alpha: 1)
-        portraitPins.lineWidth = 1
-        portraitPins.zPosition = 34
-        panelRoot.addChild(portraitPins)
 
         speakerLabel.fontSize = DialoguePanelLayout.Typography.speakerFontSize
         speakerLabel.horizontalAlignmentMode = .left
@@ -439,7 +352,6 @@ final class CaseIntroductionPresenter: SKNode {
         contentMask.fillColor = .white
         contentMask.strokeColor = .clear
         contentCrop.maskNode = contentMask
-        // Body text under the frame rails; portrait/scrollbar sit higher.
         contentCrop.zPosition = 1
         panelRoot.addChild(contentCrop)
         contentCrop.addChild(scrollContentRoot)
@@ -449,130 +361,43 @@ final class CaseIntroductionPresenter: SKNode {
         dialogueLabel.horizontalAlignmentMode = .left
         dialogueLabel.verticalAlignmentMode = .top
         dialogueLabel.numberOfLines = 0
-        // Body only scrolls. Choices live in a fixed band under the body viewport.
         scrollContentRoot.addChild(dialogueLabel)
         choicesRoot.zPosition = 2
         choicesRoot.name = "dialogue.choices-band"
         panelRoot.addChild(choicesRoot)
 
-        commandShadow.fillColor = Palette.shadow
-        commandShadow.strokeColor = .clear
-        addChild(commandShadow)
-
-        commandButton.fillColor = SKColor(red: 0.035, green: 0.022, blue: 0.022, alpha: 0.98)
-        commandButton.strokeColor = Palette.edge
-        commandButton.lineWidth = 4
-        addChild(commandButton)
-
-        commandInnerBorder.fillColor = .clear
-        commandInnerBorder.strokeColor = SKColor(red: 0.22, green: 0.12, blue: 0.10, alpha: 0.9)
-        commandInnerBorder.lineWidth = 2
-        addChild(commandInnerBorder)
+        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v02") {
+            commandPlate.texture = texture
+            commandPlate.centerRect = CGRect(x: 0.18, y: 0.22, width: 0.64, height: 0.56)
+        }
+        commandPlate.zPosition = 51
+        addChild(commandPlate)
 
         commandLabel.fontSize = DialoguePanelLayout.Typography.commandFontSize
         commandLabel.fontColor = SKColor(white: 0.88, alpha: 1)
         commandLabel.horizontalAlignmentMode = .center
         commandLabel.verticalAlignmentMode = .center
-        // Above the dialogue panel so a lowered frame never paints over Continue.
-        commandShadow.zPosition = 50
-        commandButton.zPosition = 51
-        commandInnerBorder.zPosition = 52
         commandLabel.zPosition = 53
         addChild(commandLabel)
     }
 
-    /// When the generated frame art is present, hide full outer geometric plates but keep
-    /// an opaque black **content well** under the frame's interior hole for readability.
-    private func applyUnderlayStyle(usesGeneratedFrame: Bool) {
-        // Content well is always on for readability (matches frame content hole only).
-        contentWell.isHidden = false
-        contentWell.fillColor = Palette.contentWell
-        contentWell.strokeColor = .clear
-
-        if usesGeneratedFrame {
-            panel.fillColor = .clear
-            panel.strokeColor = .clear
-            panel.lineWidth = 0
-            panel.isHidden = true
-            innerPanel.fillColor = .clear
-            innerPanel.strokeColor = .clear
-            innerPanel.lineWidth = 0
-            innerPanel.isHidden = true
-            innerBorder.fillColor = .clear
-            innerBorder.strokeColor = .clear
-            innerBorder.lineWidth = 0
-            innerBorder.isHidden = true
-            panelShadow.fillColor = .clear
-            panelShadow.strokeColor = .clear
-            panelShadow.isHidden = true
-        } else {
-            panel.isHidden = false
-            innerPanel.isHidden = false
-            innerBorder.isHidden = false
-            panelShadow.isHidden = false
-            panel.fillColor = Palette.darkEdge
-            panel.strokeColor = Palette.gunmetal
-            panel.lineWidth = 7
-            innerPanel.fillColor = Palette.well
-            innerPanel.strokeColor = Palette.edge
-            innerPanel.lineWidth = 2
-            innerBorder.fillColor = Palette.innerWell
-            innerBorder.strokeColor = SKColor(red: 0.12, green: 0.15, blue: 0.14, alpha: 1)
-            innerBorder.lineWidth = 2
-            panelShadow.fillColor = Palette.shadow
-            panelShadow.strokeColor = .clear
+    private func assertionFailureIfMissingFrame() {
+        if !usesGeneratedFrame {
+            assertionFailure("Missing dialogue_outer_frame_overlay_v03.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        guard let texture = GameArt.texture(named: "dialogue_outer_frame_overlay_v02") else { return false }
-        texture.filteringMode = .linear
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
+        guard let texture else { return false }
         frameOverlay.texture = texture
         frameOverlay.name = "dialogue.outer-frame-overlay"
         frameOverlay.centerRect = CGRect(x: 0.11, y: 0.15, width: 0.78, height: 0.70)
-        // Above body text (z=1) so overflow cannot paint on chrome; below portrait (z≥30)
-        // and scrollbar (z=40) so those controls stay fully visible.
         frameOverlay.zPosition = 10
         panelRoot.addChild(frameOverlay)
         return true
-    }
-
-    private func layoutOrnament() {
-        let claspWidth: CGFloat = 88
-        let claspTop = panelRect.maxY + 3
-        let claspBottom = panelRect.maxY - 32
-        let claspRight = panelRect.maxX - 54
-        let claspLeft = claspRight - claspWidth
-        let clasp = CGMutablePath()
-        clasp.move(to: CGPoint(x: claspLeft, y: claspTop))
-        clasp.addLine(to: CGPoint(x: claspLeft + 18, y: claspBottom))
-        clasp.addLine(to: CGPoint(x: claspRight - 18, y: claspBottom))
-        clasp.addLine(to: CGPoint(x: claspRight, y: claspTop))
-        clasp.move(to: CGPoint(x: claspLeft + 32, y: claspBottom + 10))
-        clasp.addLine(to: CGPoint(x: claspLeft + 44, y: claspBottom + 23))
-        clasp.addLine(to: CGPoint(x: claspLeft + 56, y: claspBottom + 10))
-        topClasp.path = clasp
-
-        let brackets = CGMutablePath()
-        let inset: CGFloat = 13
-        let length: CGFloat = 34
-        let corners = [
-            CGPoint(x: panelRect.minX + inset, y: panelRect.minY + inset),
-            CGPoint(x: panelRect.maxX - inset, y: panelRect.minY + inset),
-            CGPoint(x: panelRect.minX + inset, y: panelRect.maxY - inset),
-            CGPoint(x: panelRect.maxX - inset, y: panelRect.maxY - inset)
-        ]
-        for (index, corner) in corners.enumerated() {
-            let horizontalDirection: CGFloat = index % 2 == 0 ? 1 : -1
-            let verticalDirection: CGFloat = index < 2 ? 1 : -1
-            brackets.move(to: corner)
-            brackets.addLine(to: CGPoint(x: corner.x + horizontalDirection * length, y: corner.y))
-            brackets.move(to: corner)
-            brackets.addLine(to: CGPoint(x: corner.x, y: corner.y + verticalDirection * length))
-        }
-        cornerBrackets.path = brackets
-
     }
 
     private func showCurrentNode(animated: Bool) {
@@ -646,10 +471,7 @@ final class CaseIntroductionPresenter: SKNode {
                 speakerLabel,
                 dialogueLabel,
                 portrait,
-                portraitShadow,
                 portraitBacking,
-                portraitBorder,
-                portraitPins,
                 choicesRoot
             ]
             contentNodes.forEach { $0.alpha = 0 }
@@ -834,7 +656,13 @@ final class CaseIntroductionPresenter: SKNode {
         }
 
         commandLabel.fontColor = commandIsHovered ? Palette.responseHot : SKColor(white: 0.88, alpha: 1)
-        commandButton.strokeColor = commandIsHovered ? Palette.responseHot : Palette.edge
+        if commandIsHovered {
+            commandPlate.color = UITheme.Tint.hoverColor
+            commandPlate.colorBlendFactor = UITheme.Tint.hoverBlend
+        } else {
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+        }
     }
 
     private func setPortrait(named name: String?) {
@@ -850,7 +678,7 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     private func setCommandHidden(_ hidden: Bool) {
-        [commandShadow, commandButton, commandInnerBorder, commandLabel].forEach { $0.isHidden = hidden }
+        [commandPlate, commandLabel].forEach { $0.isHidden = hidden }
     }
 
     private func transition(to destinationID: String) {

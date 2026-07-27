@@ -81,15 +81,18 @@ final class CityDistrictScene: BaseGameScene {
         guard !mapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
+        portraitBar.beginUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
         let hudPoint = hudRoot.convert(event.location, from: self)
         actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
+        portraitBar.updateUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
     }
 
     override func handlePointerCancelled(_ event: GamePointerEvent) {
         actionBar.cancelPress()
+        portraitBar.cancelUtilityPress()
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
@@ -113,6 +116,7 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
+        _ = portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
         let activatedButton = actionBar.endPress(at: actionPoint)
         if activatedButton == .map {
             setMapPresented(true)
@@ -120,6 +124,10 @@ final class CityDistrictScene: BaseGameScene {
         }
         if activatedButton == .journal {
             setJournalPresented(true)
+            return
+        }
+        if activatedButton == .inventory || activatedButton == .character {
+            setInventoryPresented(true)
             return
         }
 
@@ -168,21 +176,19 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
-        let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
-        actionBar.setMapButtonHighlighted(mapIsHighlighted)
-        actionBar.setJournalButtonHighlighted(false)
-        if mapIsHighlighted {
-            NSCursor.pointingHand.set()
-            return
-        }
-        let journalIsHighlighted = actionBar.hitTestJournal(actionPoint)
-        actionBar.setJournalButtonHighlighted(journalIsHighlighted)
-        if journalIsHighlighted {
+        let hoveredAction = actionBar.hitTest(actionPoint)
+        actionBar.setHighlightedButton(hoveredAction)
+        if let hoveredAction, hoveredAction.isInteractive {
             NSCursor.pointingHand.set()
             return
         }
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
-        (portraitBar.hitTestPortrait(portraitPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+        if portraitBar.hitTestPortrait(portraitPoint)
+            || portraitBar.hitTestUtility(portraitPoint) != nil {
+            NSCursor.pointingHand.set()
+            return
+        }
+        NSCursor.arrow.set()
         #endif
     }
 

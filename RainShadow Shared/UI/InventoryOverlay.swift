@@ -202,10 +202,7 @@ final class InventoryOverlay: SKNode {
         sheet.addChild(shadow)
 
         if !addGeneratedOuterFrame() {
-            let frame = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: Palette.paleLine, lineWidth: 2)
-            sheet.addChild(frame)
-            addInnerBorder(to: sheet, size: CGSize(width: 1_928, height: 1_048))
-            addFilmGrainLines(to: sheet)
+            assertionFailure("Missing inventory_outer_frame_overlay_v02.png")
         }
 
         content.setScale(Metrics.contentScale)
@@ -249,7 +246,8 @@ final class InventoryOverlay: SKNode {
 
     @discardableResult
     private func addGeneratedOuterFrame() -> Bool {
-        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v01") else { return false }
+        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v02")
+            ?? GameArt.texture(named: "inventory_outer_frame_overlay_v01") else { return false }
         texture.filteringMode = .linear
 
         let backing = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: .clear, lineWidth: 0)
@@ -320,36 +318,26 @@ final class InventoryOverlay: SKNode {
             paperdoll.name = "inventory.paperdoll"
             paperdoll.position = CGPoint(x: 0, y: -8)
             chamber.addChild(paperdoll)
-        } else if let detectiveTexture = GameArt.texture(named: "voss_standing_idle_se_00") {
-            detectiveTexture.filteringMode = .linear
-            let fallbackPaperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 256, height: 256))
-            fallbackPaperdoll.name = "inventory.paperdoll"
-            fallbackPaperdoll.setScale(3.15)
-            fallbackPaperdoll.position = CGPoint(x: 0, y: 108)
-            chamber.addChild(fallbackPaperdoll)
         } else {
-            let fallback = Self.label(size: 74, color: Palette.quiet, weight: .regular)
-            fallback.text = "♟"
-            fallback.verticalAlignmentMode = .center
-            chamber.addChild(fallback)
+            assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
         let equipment: [(String, String, CGPoint)] = [
-            ("hat.widebrim.fill", "FEDORA", CGPoint(x: -238, y: 244)),
-            ("hand.raised.fill", "GLOVES", CGPoint(x: -119, y: 244)),
-            ("shield.lefthalf.filled", "COAT", CGPoint(x: 0, y: 244)),
-            ("briefcase.fill", "HOLSTER", CGPoint(x: 119, y: 244)),
-            ("camera.metering.matrix", "CHARM", CGPoint(x: 238, y: 244)),
-            ("eyeglasses", "EYES", CGPoint(x: -285, y: 73)),
-            ("hand.raised.fill", "HANDS", CGPoint(x: -285, y: -74)),
-            ("scope", "WEAPON", CGPoint(x: 285, y: 73)),
-            ("creditcard.fill", "POCKET", CGPoint(x: 285, y: -74)),
-            ("shoe.fill", "SHOES", CGPoint(x: -176, y: -244)),
-            ("figure.walk", "STANCE", CGPoint(x: -58, y: -244)),
-            ("circle.hexagongrid.fill", "LUCK", CGPoint(x: 60, y: -244))
+            ("inventory_slot_silhouette_hat_v02", "FEDORA", CGPoint(x: -238, y: 244)),
+            ("inventory_slot_silhouette_hands_v02", "GLOVES", CGPoint(x: -119, y: 244)),
+            ("inventory_slot_silhouette_coat_v02", "COAT", CGPoint(x: 0, y: 244)),
+            ("inventory_slot_silhouette_weapon_v02", "HOLSTER", CGPoint(x: 119, y: 244)),
+            ("inventory_slot_silhouette_item_v02", "CHARM", CGPoint(x: 238, y: 244)),
+            ("inventory_slot_silhouette_item_v02", "EYES", CGPoint(x: -285, y: 73)),
+            ("inventory_slot_silhouette_hands_v02", "HANDS", CGPoint(x: -285, y: -74)),
+            ("inventory_slot_silhouette_weapon_v02", "WEAPON", CGPoint(x: 285, y: 73)),
+            ("inventory_slot_silhouette_item_v02", "POCKET", CGPoint(x: 285, y: -74)),
+            ("inventory_slot_silhouette_feet_v02", "SHOES", CGPoint(x: -176, y: -244)),
+            ("inventory_slot_silhouette_feet_v02", "STANCE", CGPoint(x: -58, y: -244)),
+            ("inventory_slot_silhouette_ring_v02", "LUCK", CGPoint(x: 60, y: -244))
         ]
         for equipmentItem in equipment {
-            root.addChild(equipmentSlot(symbol: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
+            root.addChild(equipmentSlot(artName: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
         }
         root.addChild(coinDisplay(at: CGPoint(x: 245, y: -244)))
 
@@ -478,11 +466,7 @@ final class InventoryOverlay: SKNode {
             icon.name = "inventory.item-art"
             slot.addChild(icon)
         } else {
-            let icon = Self.symbol(item.symbolName, pointSize: size * 0.42)
-            icon.color = Palette.paper
-            icon.colorBlendFactor = 1
-            icon.alpha = 0.88
-            slot.addChild(icon)
+            assertionFailure("Missing inventory item art: \(item.artName)")
         }
 
         if showQuantity, item.quantity > 1 {
@@ -501,18 +485,24 @@ final class InventoryOverlay: SKNode {
     private func emptySlot(size: CGFloat, at position: CGPoint) -> SKShapeNode {
         let slot = slotBase(size: CGSize(width: size, height: size))
         slot.position = position
+        if let texture = UIPaintedChrome.texture(named: "inventory_slot_silhouette_bag_v02") {
+            let silhouette = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.72, height: size * 0.72))
+            silhouette.alpha = 0.55
+            silhouette.zPosition = 0
+            slot.addChild(silhouette)
+        }
         return slot
     }
 
-    private func equipmentSlot(symbol: String, caption: String, at position: CGPoint) -> SKNode {
+    private func equipmentSlot(artName: String, caption: String, at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
         let slot = slotBase(size: CGSize(width: 88, height: 82))
-        let icon = Self.symbol(symbol, pointSize: 31)
-        icon.color = Palette.quiet
-        icon.colorBlendFactor = 1
-        icon.alpha = 0.82
-        slot.addChild(icon)
+        if let texture = UIPaintedChrome.texture(named: artName) {
+            let icon = SKSpriteNode(texture: texture, size: CGSize(width: 64, height: 58))
+            icon.alpha = 0.78
+            slot.addChild(icon)
+        }
         root.addChild(slot)
 
         let label = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
@@ -539,27 +529,15 @@ final class InventoryOverlay: SKNode {
     private func majorPanel(size: CGSize) -> SKNode {
         let root = SKNode()
         root.name = "inventory.panel"
-
+        // Layout anchor only — visible chrome comes from inventory_outer_frame_overlay_v02.
         let surface = panel(
             size: size,
-            radius: 5,
-            fill: Palette.panel,
-            stroke: Palette.paleLine.withAlphaComponent(0.50),
-            lineWidth: 2
+            radius: 0,
+            fill: .clear,
+            stroke: .clear,
+            lineWidth: 0
         )
         root.addChild(surface)
-
-        let insetSize = CGSize(width: max(0, size.width - 14), height: max(0, size.height - 14))
-        let inset = panel(
-            size: insetSize,
-            radius: 3,
-            fill: .clear,
-            stroke: Palette.line.withAlphaComponent(0.42),
-            lineWidth: 1
-        )
-        inset.zPosition = 1
-        root.addChild(inset)
-
         return root
     }
 
@@ -840,23 +818,5 @@ final class InventoryOverlay: SKNode {
         label.fontSize = size
         label.fontColor = color
         return label
-    }
-
-    private static func symbol(_ systemName: String, pointSize: CGFloat) -> SKSpriteNode {
-        #if os(iOS)
-        let configuration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .regular)
-            .applying(UIImage.SymbolConfiguration(hierarchicalColor: .white))
-        let image = UIImage(systemName: systemName, withConfiguration: configuration)
-            ?? UIImage(systemName: "square.dashed", withConfiguration: configuration)!
-        return SKSpriteNode(texture: SKTexture(image: image))
-        #elseif os(macOS)
-        let configuration = NSImage.SymbolConfiguration(pointSize: pointSize, weight: .regular)
-            .applying(NSImage.SymbolConfiguration(hierarchicalColor: .white))
-        let image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)?.withSymbolConfiguration(configuration)
-            ?? NSImage(systemSymbolName: "square.dashed", accessibilityDescription: nil)!.withSymbolConfiguration(configuration)!
-        return SKSpriteNode(texture: SKTexture(image: image))
-        #else
-        return SKSpriteNode(color: .clear, size: CGSize(width: pointSize, height: pointSize))
-        #endif
     }
 }

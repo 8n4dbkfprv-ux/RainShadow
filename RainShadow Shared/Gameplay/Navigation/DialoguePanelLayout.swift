@@ -15,7 +15,7 @@ struct DialoguePanelLayout: Equatable {
     static let minimumTrailingChrome: CGFloat = 100
 
     /// Fraction of panel width reserved for the right frame ornament (matches /
-    /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v02`).
+    /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v03`).
     static let trailingChromeFraction: CGFloat = 0.12
 
     /// Extra pad left of the trailing ornament so the bar clears engraved rails.
@@ -73,7 +73,7 @@ struct DialoguePanelLayout: Equatable {
     /// Extra slack under measured body text when snugging the choice band upward.
     static let bodyContentBottomSlack: CGFloat = 10
 
-    /// Matches `dialogue_outer_frame_overlay_v02` nine-slice center (content hole).
+    /// Matches `dialogue_outer_frame_overlay_v03` nine-slice center (content hole).
     static let frameContentWellInsetXFraction: CGFloat = 0.11
     static let frameContentWellInsetBottomFraction: CGFloat = 0.15
     static let frameContentWellInsetTopFraction: CGFloat = 0.15

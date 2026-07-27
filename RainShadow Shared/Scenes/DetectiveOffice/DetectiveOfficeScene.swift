@@ -384,6 +384,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             guard !mapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
             let hudPoint = hudRoot.convert(event.location, from: self)
             actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
+            portraitBar.beginUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
             // Touch has no pointer-move phase, and synthetic/rapid clicks may not deliver
             // one on macOS. Apply the same selection feedback immediately on press.
             updateHotspotHoverHighlight(at: event.location)
@@ -398,6 +399,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         guard dialogueIsActive else {
             let hudPoint = hudRoot.convert(event.location, from: self)
             actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
+            portraitBar.updateUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
             return
         }
         let hudPoint = hudRoot.convert(event.location, from: self)
@@ -408,6 +410,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handlePointerCancelled(_ event: GamePointerEvent) {
         guard dialogueIsActive else {
             actionBar.cancelPress()
+            portraitBar.cancelUtilityPress()
             return
         }
         let hudPoint = hudRoot.convert(event.location, from: self)
@@ -449,6 +452,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
+        _ = portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
         let activatedButton = actionBar.endPress(at: actionPoint)
         if activatedButton == .map {
             setMapPresented(true)
@@ -456,6 +460,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         if activatedButton == .journal {
             setJournalPresented(true)
+            return
+        }
+        if activatedButton == .inventory || activatedButton == .character {
+            setInventoryPresented(true)
             return
         }
 
@@ -541,25 +549,17 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
-        let mapIsHighlighted = actionBar.hitTestMap(actionPoint)
-        actionBar.setMapButtonHighlighted(mapIsHighlighted)
-        actionBar.setJournalButtonHighlighted(false)
-        if mapIsHighlighted {
-            clearHotspotHoverHighlight()
-            NSCursor.pointingHand.set()
-            return
-        }
-
-        let journalIsHighlighted = actionBar.hitTestJournal(actionPoint)
-        actionBar.setJournalButtonHighlighted(journalIsHighlighted)
-        if journalIsHighlighted {
+        let hoveredAction = actionBar.hitTest(actionPoint)
+        actionBar.setHighlightedButton(hoveredAction)
+        if let hoveredAction, hoveredAction.isInteractive {
             clearHotspotHoverHighlight()
             NSCursor.pointingHand.set()
             return
         }
 
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
-        if portraitBar.hitTestPortrait(portraitPoint) {
+        if portraitBar.hitTestPortrait(portraitPoint)
+            || portraitBar.hitTestUtility(portraitPoint) != nil {
             clearHotspotHoverHighlight()
             NSCursor.pointingHand.set()
             return

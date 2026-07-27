@@ -1,39 +1,43 @@
 import SpriteKit
 
-/// A compact, camera-fixed party rail: portrait first, vitals readable at a glance.
-/// The information hierarchy follows classic isometric CRPGs while the artwork and
-/// construction remain specific to RainShadow's noir interface language.
+/// Camera-fixed right party rail: painted chrome, live HP text, utility stubs.
 @MainActor
 final class PortraitBarNode: SKNode {
+    enum Utility: Int, CaseIterable {
+        case search
+        case lantern
+        case selectParty
+
+        var artName: String {
+            switch self {
+            case .search: return "hud_party_search_v02"
+            case .lantern: return "hud_party_lantern_v02"
+            case .selectParty: return "hud_party_select_v02"
+            }
+        }
+
+        var stubMessage: String {
+            switch self {
+            case .search: return "Search / loot — not yet"
+            case .lantern: return "Lantern — not yet"
+            case .selectParty: return "Select party — not yet"
+            }
+        }
+    }
+
     private enum Metrics {
-        static let railWidth: CGFloat = 162
-        static let frameSize = CGSize(width: 142, height: 190)
-        static let portraitWindowSize = CGSize(width: 104, height: 142)
-        static let topInset: CGFloat = 22
+        static let railWidth: CGFloat = 148
+        static let frameSize = CGSize(width: 128, height: 172)
+        static let portraitWindowSize = CGSize(width: 96, height: 130)
+        static let utilitySize = CGSize(width: 56, height: 56)
+        static let utilityHit = CGSize(width: 64, height: 60)
+        static let topInset: CGFloat = 18
+        static let utilitySpacing: CGFloat = 8
+        static let utilityBottomInset: CGFloat = 28
     }
 
-    private enum Palette {
-        static let rail = SKColor(red: 0.012, green: 0.016, blue: 0.019, alpha: 0.97)
-        static let railInset = SKColor(red: 0.022, green: 0.027, blue: 0.031, alpha: 0.96)
-        static let steel = SKColor(red: 0.28, green: 0.31, blue: 0.31, alpha: 0.76)
-        static let steelDark = SKColor(red: 0.055, green: 0.065, blue: 0.066, alpha: 1)
-        static let oxblood = SKColor(red: 0.19, green: 0.055, blue: 0.06, alpha: 0.78)
-        static let brass = SKColor(red: 0.58, green: 0.40, blue: 0.20, alpha: 0.88)
-        static let healthy = SKColor(red: 0.18, green: 0.74, blue: 0.35, alpha: 1)
-        static let wounded = SKColor(red: 0.86, green: 0.58, blue: 0.18, alpha: 1)
-        static let critical = SKColor(red: 0.82, green: 0.16, blue: 0.13, alpha: 1)
-    }
-
-    private let railShadow = SKShapeNode()
-    private let railBackground = SKShapeNode()
-    private let railInset = SKShapeNode()
-    private let leftSpine = SKShapeNode()
-    private let rightSpine = SKShapeNode()
+    private let railPlate = SKSpriteNode()
     private let portraitRoot = SKNode()
-    private let portraitBacking = SKShapeNode(
-        rectOf: Metrics.portraitWindowSize,
-        cornerRadius: 2
-    )
     private let portraitCrop = SKCropNode()
     private let portraitMask = SKShapeNode(
         rectOf: Metrics.portraitWindowSize,
@@ -45,22 +49,24 @@ final class PortraitBarNode: SKNode {
         cornerRadius: 2
     )
     private let portraitFrame = SKSpriteNode()
-    private let healthShadow = SKLabelNode(fontNamed: "Palatino-Bold")
-    private let healthLabel = SKLabelNode(fontNamed: "Palatino-Bold")
-    private let separatorShadow = SKShapeNode()
-    private let separator = SKShapeNode()
-    private let rivetLeft = SKShapeNode(circleOfRadius: 2.6)
-    private let rivetRight = SKShapeNode(circleOfRadius: 2.6)
-    private let scratches = SKShapeNode()
+    private let healthShadow = SKLabelNode(fontNamed: UITheme.Font.hudVital)
+    private let healthLabel = SKLabelNode(fontNamed: UITheme.Font.hudVital)
+    private var utilityRoots: [Utility: SKNode] = [:]
+    private var utilityArt: [Utility: SKSpriteNode] = [:]
+    private let stubCaption = SKLabelNode(fontNamed: UITheme.Font.typewriter)
 
     private var displayedHealth = 0
     private var displayedMaximumHealth = 0
+    private var pressedUtility: Utility?
+    private var pressIsInside = false
 
     override init() {
         super.init()
         name = "hud.portrait-bar"
         buildRail()
         buildPortraitCell()
+        buildUtilities()
+        buildStubCaption()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -70,67 +76,21 @@ final class PortraitBarNode: SKNode {
     func layout(for visibleSize: CGSize) {
         let railHeight = visibleSize.height + 12
         position = CGPoint(x: visibleSize.width / 2 - Metrics.railWidth / 2, y: 0)
-
-        railShadow.path = CGPath(
-            rect: CGRect(
-                x: -Metrics.railWidth / 2 - 7,
-                y: -railHeight / 2,
-                width: Metrics.railWidth + 7,
-                height: railHeight
-            ),
-            transform: nil
-        )
-        railBackground.path = CGPath(
-            rect: CGRect(
-                x: -Metrics.railWidth / 2,
-                y: -railHeight / 2,
-                width: Metrics.railWidth,
-                height: railHeight
-            ),
-            transform: nil
-        )
-        railInset.path = CGPath(
-            rect: CGRect(
-                x: -Metrics.railWidth / 2 + 12,
-                y: -railHeight / 2,
-                width: Metrics.railWidth - 22,
-                height: railHeight
-            ),
-            transform: nil
-        )
-        leftSpine.path = CGPath(
-            rect: CGRect(
-                x: -Metrics.railWidth / 2 + 2,
-                y: -railHeight / 2,
-                width: 8,
-                height: railHeight
-            ),
-            transform: nil
-        )
-        rightSpine.path = CGPath(
-            rect: CGRect(
-                x: Metrics.railWidth / 2 - 5,
-                y: -railHeight / 2,
-                width: 5,
-                height: railHeight
-            ),
-            transform: nil
-        )
+        railPlate.size = CGSize(width: Metrics.railWidth, height: railHeight)
 
         let frameCenterY = visibleSize.height / 2 - Metrics.topInset - Metrics.frameSize.height / 2
-        portraitRoot.position = CGPoint(x: 1, y: frameCenterY)
+        portraitRoot.position = CGPoint(x: 0, y: frameCenterY)
 
-        let separatorY = frameCenterY - Metrics.frameSize.height / 2 - 8
-        let separatorPath = CGMutablePath()
-        separatorPath.move(to: CGPoint(x: -Metrics.railWidth / 2 + 13, y: separatorY))
-        separatorPath.addLine(to: CGPoint(x: Metrics.railWidth / 2 - 9, y: separatorY))
-        separatorShadow.path = separatorPath
-        separator.path = separatorPath
-        separatorShadow.position.y = -2
-        rivetLeft.position = CGPoint(x: -Metrics.railWidth / 2 + 17, y: separatorY)
-        rivetRight.position = CGPoint(x: Metrics.railWidth / 2 - 13, y: separatorY)
-
-        layoutScratches(railHeight: railHeight, below: separatorY)
+        let bottomY = -visibleSize.height / 2 + Metrics.utilityBottomInset + Metrics.utilitySize.height / 2
+        for (index, utility) in Utility.allCases.enumerated() {
+            guard let root = utilityRoots[utility] else { continue }
+            let reverseIndex = Utility.allCases.count - 1 - index
+            root.position = CGPoint(
+                x: 0,
+                y: bottomY + CGFloat(reverseIndex) * (Metrics.utilitySize.height + Metrics.utilitySpacing)
+            )
+        }
+        stubCaption.position = CGPoint(x: -Metrics.railWidth / 2 - 120, y: bottomY)
     }
 
     func setHealth(current: Int, maximum: Int, animated: Bool = true) {
@@ -150,11 +110,11 @@ final class PortraitBarNode: SKNode {
         let conditionColor: SKColor
         switch ratio {
         case 0.51...:
-            conditionColor = Palette.healthy
+            conditionColor = UITheme.Color.healthy
         case 0.26...:
-            conditionColor = Palette.wounded
+            conditionColor = UITheme.Color.wounded
         default:
-            conditionColor = Palette.critical
+            conditionColor = UITheme.Color.critical
         }
         statusBorder.strokeColor = conditionColor
         healthLabel.fontColor = ratio > 0.25
@@ -185,59 +145,65 @@ final class PortraitBarNode: SKNode {
         ).contains(portraitPoint)
     }
 
+    func hitTestUtility(_ point: CGPoint) -> Utility? {
+        for utility in Utility.allCases {
+            guard let root = utilityRoots[utility] else { continue }
+            let local = root.convert(point, from: self)
+            let rect = CGRect(
+                x: -Metrics.utilityHit.width / 2,
+                y: -Metrics.utilityHit.height / 2,
+                width: Metrics.utilityHit.width,
+                height: Metrics.utilityHit.height
+            )
+            if rect.contains(local) { return utility }
+        }
+        return nil
+    }
+
+    func beginUtilityPress(at point: CGPoint) {
+        pressedUtility = hitTestUtility(point)
+        pressIsInside = pressedUtility != nil
+    }
+
+    func updateUtilityPress(at point: CGPoint) {
+        guard let pressedUtility else { return }
+        pressIsInside = hitTestUtility(point) == pressedUtility
+    }
+
+    @discardableResult
+    func endUtilityPress(at point: CGPoint) -> Utility? {
+        updateUtilityPress(at: point)
+        let activated = pressIsInside ? pressedUtility : nil
+        pressedUtility = nil
+        pressIsInside = false
+        if let activated {
+            showStubCaption(activated.stubMessage)
+        }
+        return activated
+    }
+
+    func cancelUtilityPress() {
+        pressedUtility = nil
+        pressIsInside = false
+    }
+
+    private func showStubCaption(_ text: String) {
+        stubCaption.removeAction(forKey: "stubFade")
+        stubCaption.text = text
+        stubCaption.alpha = 1
+        stubCaption.run(.sequence([
+            .wait(forDuration: 1.4),
+            .fadeOut(withDuration: 0.35)
+        ]), withKey: "stubFade")
+    }
+
     private func buildRail() {
         zPosition = 18
-
-        railShadow.fillColor = SKColor(white: 0, alpha: 0.62)
-        railShadow.strokeColor = .clear
-        railShadow.zPosition = -8
-        addChild(railShadow)
-
-        railBackground.fillColor = Palette.rail
-        railBackground.strokeColor = Palette.steel
-        railBackground.lineWidth = 2
-        railBackground.zPosition = -7
-        addChild(railBackground)
-
-        railInset.fillColor = Palette.railInset
-        railInset.strokeColor = Palette.steelDark
-        railInset.lineWidth = 2
-        railInset.zPosition = -6
-        addChild(railInset)
-
-        leftSpine.fillColor = Palette.steelDark
-        leftSpine.strokeColor = Palette.steel
-        leftSpine.lineWidth = 1
-        leftSpine.zPosition = -5
-        addChild(leftSpine)
-
-        rightSpine.fillColor = Palette.steelDark
-        rightSpine.strokeColor = Palette.steel
-        rightSpine.lineWidth = 1
-        rightSpine.zPosition = -5
-        addChild(rightSpine)
-
-        scratches.fillColor = .clear
-        scratches.strokeColor = SKColor(white: 0.38, alpha: 0.08)
-        scratches.lineWidth = 1
-        scratches.zPosition = -4
-        addChild(scratches)
-
-        separatorShadow.fillColor = .clear
-        separatorShadow.strokeColor = SKColor(white: 0, alpha: 0.8)
-        separatorShadow.lineWidth = 4
-        addChild(separatorShadow)
-
-        separator.fillColor = .clear
-        separator.strokeColor = Palette.steel
-        separator.lineWidth = 1.5
-        addChild(separator)
-
-        for rivet in [rivetLeft, rivetRight] {
-            rivet.fillColor = Palette.brass
-            rivet.strokeColor = SKColor(red: 0.16, green: 0.09, blue: 0.045, alpha: 1)
-            rivet.lineWidth = 1
-            addChild(rivet)
+        if let texture = UIPaintedChrome.texture(named: "hud_right_rail_plate_v02") {
+            railPlate.texture = texture
+            railPlate.size = CGSize(width: Metrics.railWidth, height: 800)
+            railPlate.zPosition = -7
+            addChild(railPlate)
         }
     }
 
@@ -245,41 +211,29 @@ final class PortraitBarNode: SKNode {
         portraitRoot.name = "hud.detective-portrait"
         addChild(portraitRoot)
 
-        portraitBacking.fillColor = SKColor(white: 0.005, alpha: 1)
-        portraitBacking.strokeColor = Palette.oxblood
-        portraitBacking.lineWidth = 5
-        portraitBacking.zPosition = 0
-        portraitRoot.addChild(portraitBacking)
-
         portraitMask.fillColor = .white
         portraitMask.strokeColor = .clear
         portraitCrop.maskNode = portraitMask
         portraitCrop.zPosition = 1
         portraitRoot.addChild(portraitCrop)
 
-        if let texture = GameArt.texture(named: "dialogue_portrait_harlan_voss_v01") {
-            texture.filteringMode = .linear
+        if let texture = UIPaintedChrome.texture(named: "dialogue_portrait_harlan_voss_v01") {
             portrait.texture = texture
             portrait.size = CGSize(
                 width: Metrics.portraitWindowSize.height,
                 height: Metrics.portraitWindowSize.height
             )
             portraitCrop.addChild(portrait)
-        } else {
-            let fallback = SKShapeNode(rectOf: Metrics.portraitWindowSize)
-            fallback.fillColor = SKColor(red: 0.085, green: 0.09, blue: 0.095, alpha: 1)
-            fallback.strokeColor = .clear
-            portraitCrop.addChild(fallback)
         }
 
         statusBorder.fillColor = .clear
-        statusBorder.strokeColor = Palette.healthy
+        statusBorder.strokeColor = UITheme.Color.healthy
         statusBorder.lineWidth = 2
         statusBorder.zPosition = 2
         portraitRoot.addChild(statusBorder)
 
-        if let texture = GameArt.texture(named: "hud_portrait_frame_v01") {
-            texture.filteringMode = .linear
+        if let texture = UIPaintedChrome.texture(named: "hud_portrait_frame_v02")
+            ?? UIPaintedChrome.texture(named: "hud_portrait_frame_v01") {
             portraitFrame.texture = texture
             portraitFrame.size = Metrics.frameSize
             portraitFrame.zPosition = 3
@@ -288,7 +242,7 @@ final class PortraitBarNode: SKNode {
 
         for label in [healthShadow, healthLabel] {
             label.text = "12/12"
-            label.fontSize = 22
+            label.fontSize = 20
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .top
             label.zPosition = 5
@@ -305,28 +259,30 @@ final class PortraitBarNode: SKNode {
         healthLabel.fontColor = SKColor(white: 0.96, alpha: 1)
     }
 
-    private func layoutScratches(railHeight: CGFloat, below separatorY: CGFloat) {
-        let bottom = -railHeight / 2 + 20
-        let top = separatorY - 24
-        guard top > bottom else {
-            scratches.path = nil
-            return
-        }
+    private func buildUtilities() {
+        for utility in Utility.allCases {
+            let root = SKNode()
+            root.name = "hud.party.\(utility)"
+            addChild(root)
+            utilityRoots[utility] = root
 
-        let path = CGMutablePath()
-        let lines: [(CGFloat, CGFloat, CGFloat)] = [
-            (-49, 0.08, 0.38),
-            (-34, 0.54, 0.87),
-            (-8, 0.19, 0.58),
-            (17, 0.02, 0.26),
-            (39, 0.43, 0.75),
-            (55, 0.69, 0.96)
-        ]
-        let span = top - bottom
-        for (x, start, end) in lines {
-            path.move(to: CGPoint(x: x, y: bottom + span * start))
-            path.addLine(to: CGPoint(x: x - 2, y: bottom + span * end))
+            if let texture = UIPaintedChrome.texture(named: utility.artName) {
+                let art = SKSpriteNode(texture: texture, size: Metrics.utilitySize)
+                art.alpha = UITheme.Tint.disabledAlpha
+                art.zPosition = 1
+                root.addChild(art)
+                utilityArt[utility] = art
+            }
         }
-        scratches.path = path
+    }
+
+    private func buildStubCaption() {
+        stubCaption.fontSize = 13
+        stubCaption.fontColor = UITheme.Color.stubCaption
+        stubCaption.horizontalAlignmentMode = .right
+        stubCaption.verticalAlignmentMode = .center
+        stubCaption.alpha = 0
+        stubCaption.zPosition = 20
+        addChild(stubCaption)
     }
 }
