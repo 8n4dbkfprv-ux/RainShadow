@@ -211,11 +211,27 @@ struct NavigationGridTests {
         #expect(doorway[1].x < exteriorDoor.x)
         #expect(segmentCrossesOfficeObstacle(from: doorway[0], to: doorway[1]))
 
-        // Once through the fallen exterior leaf, no straight-line leg may
-        // pierce furniture or the internal partition.
-        for index in 1..<(path.count - 1) {
+        let internalDoorway = OfficeNavigationLayout.clientInternalDoorwayPath
+        #expect(internalDoorway.count == 3)
+        guard internalDoorway.count == 3,
+              let thresholdIndex = path.firstIndex(of: internalDoorway[1]),
+              thresholdIndex > 0,
+              thresholdIndex + 1 < path.count else {
+            #expect(Bool(false), "Production internal doorway must be present in the arrival route")
+            return
+        }
+        #expect(internalDoorway[1] == OfficeInteriorScale.mapPoint(
+            CGPoint(x: 2_260, y: 1_084)
+        ))
+        #expect(path[thresholdIndex - 1] == internalDoorway[0])
+        #expect(path[thresholdIndex + 1] == internalDoorway[2])
+
+        // Same-room legs must avoid all obstacles. Only the two authored door
+        // crossings may pass through stale closed-leaf/partition collision.
+        for index in 0..<(path.count - 1) {
             let a = path[index]
             let b = path[index + 1]
+            if isAuthoredDoorwayLeg(from: a, to: b) { continue }
             #expect(
                 !segmentCrossesOfficeObstacle(from: a, to: b),
                 "Arrival leg \(index) crossed an office obstacle"
@@ -230,13 +246,28 @@ struct NavigationGridTests {
         #expect(path.dropLast().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard path.count >= 2 else { return }
 
-        for index in 0..<(path.count - 2) {
+        for index in 0..<(path.count - 1) {
+            if isAuthoredDoorwayLeg(from: path[index], to: path[index + 1]) { continue }
             #expect(!segmentCrossesOfficeObstacle(from: path[index], to: path[index + 1]))
         }
         #expect(segmentCrossesOfficeObstacle(
             from: path[path.count - 2],
             to: path[path.count - 1]
         ))
+    }
+
+    private func isAuthoredDoorwayLeg(from start: CGPoint, to end: CGPoint) -> Bool {
+        let doorwayPaths = [
+            OfficeNavigationLayout.clientDoorwayPath,
+            OfficeNavigationLayout.clientInternalDoorwayPath,
+        ]
+        return doorwayPaths.contains { doorway in
+            doorway.indices.dropLast().contains { index in
+                let next = doorway.index(after: index)
+                return (doorway[index] == start && doorway[next] == end)
+                    || (doorway[index] == end && doorway[next] == start)
+            }
+        }
     }
 
     /// Sampled segment test against the authored (mapped) office obstacle list.

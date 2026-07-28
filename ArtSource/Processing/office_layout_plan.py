@@ -602,16 +602,35 @@ def emit() -> str:
     add("    /// Exterior threshold crossing. This segment intentionally starts")
     add("    /// outside the navigation floor and passes through the fallen door leaf.")
     add("    static let clientDoorwayPath: [CGPoint] = [")
-    for a, b in CLIENT_DOORWAY_PATH:
-        add(f"        {pt(rp.authored(a, b))},")
+    for point in CLIENT_DOORWAY_PATH:
+        add(f"        {pt(point)},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
-    add("    /// Walkable anchors from just inside the exterior door, through the")
-    add("    /// waiting room and internal doorway, to the visitor approach.")
-    add("    static let clientInteriorArrivalPath: [CGPoint] = [")
-    for a, b in CLIENT_INTERIOR_PATH:
-        add(f"        {pt(rp.authored(a, b))},")
+    add("    /// Walkable waiting-room anchors, ending immediately before the")
+    add("    /// internal doorway baked into the production suite plate.")
+    add("    static let clientWaitingRoomPath: [CGPoint] = [")
+    for point in CLIENT_WAITING_ROOM_PATH:
+        add(f"        {pt(point)},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("")
+    add("    /// Explicit crossing through the production suite plate's internal")
+    add("    /// aperture. The legacy nav partition is misregistered with this door.")
+    add("    static let clientInternalDoorwayPath: [CGPoint] = [")
+    for point in CLIENT_INTERNAL_DOORWAY_PATH:
+        add(f"        {pt(point)},")
+    add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("")
+    add("    /// Walkable private-office anchors after clearing the internal door.")
+    add("    static let clientOfficeArrivalPath: [CGPoint] = [")
+    for point in CLIENT_OFFICE_ARRIVAL_PATH:
+        add(f"        {pt(point)},")
+    add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("")
+    add("    static let clientInteriorArrivalPath: [CGPoint] = [")
+    add("        clientWaitingRoomPath,")
+    add("        Array(clientInternalDoorwayPath.dropFirst()),")
+    add("        Array(clientOfficeArrivalPath.dropFirst()),")
+    add("    ].flatMap { $0 }")
     add("")
     add("    static var clientArrivalPath: [CGPoint] {")
     add("        Array(clientDoorwayPath.dropLast()) + clientInteriorArrivalPath")
@@ -619,12 +638,17 @@ def emit() -> str:
     add("")
     add("    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }")
     add("")
-    add("    /// Preserve the authored exterior-door crossing, then let A* expand")
-    add("    /// the interior anchors around waiting-room furniture and partition walls.")
+    add("    /// Route independently on each side of the production partition,")
+    add("    /// preserving explicit crossings through both painted door apertures.")
     add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
-    add("        let interior = navigation.waypoints(visiting: clientInteriorArrivalPath)")
-    add("            ?? clientInteriorArrivalPath")
-    add("        return Array(clientDoorwayPath.dropLast()) + interior")
+    add("        let waitingRoom = navigation.waypoints(visiting: clientWaitingRoomPath)")
+    add("            ?? clientWaitingRoomPath")
+    add("        let office = navigation.waypoints(visiting: clientOfficeArrivalPath)")
+    add("            ?? clientOfficeArrivalPath")
+    add("        return Array(clientDoorwayPath.dropLast())")
+    add("            + waitingRoom")
+    add("            + clientInternalDoorwayPath.dropFirst()")
+    add("            + office.dropFirst()")
     add("    }")
     add("")
     add("    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {")
@@ -632,14 +656,15 @@ def emit() -> str:
     add("    }")
     add("")
     add("    static let exteriorToInternalDoorPath: [CGPoint] = [")
-    for a, b in CLIENT_PATH[:-2]:
-        add(f"        {pt(rp.authored(a, b))},")
-    add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("        Array(clientDoorwayPath.dropLast()),")
+    add("        clientWaitingRoomPath,")
+    add("        Array(clientInternalDoorwayPath.dropFirst()),")
+    add("    ].flatMap { $0 }")
     add("")
     add("    static let internalDoorToClientPath: [CGPoint] = [")
-    for a, b in CLIENT_INTERIOR_PATH[-3:]:
-        add(f"        {pt(rp.authored(a, b))},")
-    add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("        clientInternalDoorwayPath,")
+    add("        Array(clientOfficeArrivalPath.dropFirst()),")
+    add("    ].flatMap { $0 }")
     add("")
     add("    static let recordsApproachPath: [CGPoint] = [")
     for a, b in RECORDS_PATH:
@@ -906,18 +931,35 @@ def internal_leaf_scale() -> float:
 # point is deliberately outside the floor boundary and the static grid still
 # contains the closed door-leaf obstacle. Keep this short segment authored
 # through the painted opening, then hand off to routed interior anchors.
-CLIENT_DOORWAY_PATH = [
+CLIENT_DOORWAY_PLAN_PATH = [
     (-0.080, 0.790),  # outside the department, centred in the clear opening
     (0.200, 0.790),  # inside and clear of the fallen leaf / umbrella stand
 ]
+CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-CLIENT_INTERIOR_PATH = [
+# The production `office_suite_plate` has a camera-near internal doorway that
+# does not match the older generated partition plate/nav gap. These measured
+# authored points (plate y converted to SpriteKit y-up) cross the centre of the
+# visible 112 px aperture: waiting side → threshold → private-office side.
+CLIENT_INTERNAL_DOORWAY_PATH = [
+    (2_310.0, rp.ART_H - 1_110.0),
+    (2_260.0, rp.ART_H - 1_220.0),
+    (2_210.0, rp.ART_H - 1_330.0),
+]
+
+CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
-    (0.100, 0.550),  # waiting entrance, beyond the exterior wall
-    (0.180, 0.400),  # waiting bay mid
-    (0.280, 0.220),  # approach internal doorway (waiting face)
-    (0.420, 0.160),  # through the partition doorway
-    (0.420, 0.220),  # stand inside office at visitor approach (not empty rear)
+    CLIENT_INTERNAL_DOORWAY_PATH[0],
+]
+
+CLIENT_OFFICE_ARRIVAL_PATH = [
+    CLIENT_INTERNAL_DOORWAY_PATH[-1],
+    rp.authored(0.420, 0.220),  # visitor approach beside the detective's desk
+]
+CLIENT_INTERIOR_PATH = [
+    *CLIENT_WAITING_ROOM_PATH,
+    *CLIENT_INTERNAL_DOORWAY_PATH[1:],
+    *CLIENT_OFFICE_ARRIVAL_PATH[1:],
 ]
 CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
@@ -1102,19 +1144,27 @@ def report() -> bool:
     open_share = len(reach) / max(len(room_cells), 1)
     print(f"  open floor: {len(reach)}/{len(room_cells)} room cells = {open_share:.0%}")
     doorway_ok = (
-        CLIENT_DOORWAY_PATH[0][0] < 0.0 < CLIENT_DOORWAY_PATH[-1][0]
+        CLIENT_DOORWAY_PLAN_PATH[0][0] < 0.0 < CLIENT_DOORWAY_PLAN_PATH[-1][0]
         and all(EXTERIOR_DOOR[1] - rp.EXTERIOR_DOOR_OPENING_B / 2
                 <= b
                 <= EXTERIOR_DOOR[1] + rp.EXTERIOR_DOOR_OPENING_B / 2
-                for _, b in CLIENT_DOORWAY_PATH)
+                for _, b in CLIENT_DOORWAY_PLAN_PATH)
     )
     ok &= doorway_ok
     print(f"  client exterior doorway crossing valid={doorway_ok}")
-    for a, b in CLIENT_INTERIOR_PATH:
-        cell = grid.cell(rp.authored(a, b))
-        good = cell in reach
-        ok &= good
-        print(f"  client interior ({a:.3f},{b:.3f}) cell={cell} reachable={good}")
+    for label, routed_path in (
+        ("waiting", CLIENT_WAITING_ROOM_PATH),
+        ("office", CLIENT_OFFICE_ARRIVAL_PATH),
+    ):
+        for point in routed_path:
+            cell = grid.cell(point)
+            good = cell in reach
+            ok &= good
+            print(f"  client {label:7s} authored=({point[0]:.0f},{point[1]:.0f}) "
+                  f"cell={cell} reachable={good}")
+    internal_door_ok = CLIENT_INTERNAL_DOORWAY_PATH[1] == (2_260.0, 1_084.0)
+    ok &= internal_door_ok
+    print(f"  client production internal doorway crossing valid={internal_door_ok}")
     ok &= any(door_ok) and len(waiting) > 15
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)

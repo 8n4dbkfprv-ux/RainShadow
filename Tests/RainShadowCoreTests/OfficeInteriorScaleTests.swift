@@ -422,23 +422,22 @@ struct OfficeInteriorScaleTests {
 
     @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
         // Drive the real shipped polyline + the pure strip mapper exit uses.
-        // Authored departure: NW chair→door, then NE through the door/corridor.
-        // Post-internal-door segments must not hold NW (eastbound moonwalk).
+        // The production suite doorway sits camera-near of the desk; every
+        // authored departure leg therefore travels east toward the corridor.
         let path = OfficeNavigationLayout.clientDeparturePath
         #expect(path.count >= 3)
         let bins = ClientDepartureFacing.bins(along: path)
         #expect(bins.count == path.count - 1)
-        #expect(bins.first == .northWest, "Chair→internal door is NW rear")
-        #expect(bins.dropFirst().allSatisfy { $0 == .northEast },
-                "After the internal door every segment must use NE (no eastbound NW hold)")
+        #expect(bins.allSatisfy { $0 == .northEast },
+                "Every production departure segment should use the eastbound strip")
         #expect(bins.count >= 3)
-        #expect(bins.filter { $0 == .northEast }.count >= 2)
+        #expect(bins.filter { $0 == .northEast }.count == bins.count)
 
-        // Each post-door segment's raw heading is eastern (not western/northern).
-        for index in 1..<(path.count - 1) {
+        // Every segment's raw heading is eastern (not western/northern).
+        for index in 0..<(path.count - 1) {
             let dx = path[index + 1].x - path[index].x
             let dy = path[index + 1].y - path[index].y
-            #expect(dx > 0, "Post-door segment \(index) should travel eastward (dx=\(dx))")
+            #expect(dx > 0, "Departure segment \(index) should travel eastward (dx=\(dx))")
             #expect(ClientDepartureFacing.bin(dx: dx, dy: dy) == .northEast)
         }
     }

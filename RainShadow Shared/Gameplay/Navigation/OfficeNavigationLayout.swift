@@ -1197,16 +1197,32 @@ enum OfficeNavigationLayout {
         CGPoint(x: 2_463, y: 1_184),
     ].map(OfficeInteriorScale.mapPoint)
 
-    /// Walkable anchors from just inside the exterior door, through the
-    /// waiting room and internal doorway, to the visitor approach.
-    static let clientInteriorArrivalPath: [CGPoint] = [
+    /// Walkable waiting-room anchors, ending immediately before the
+    /// internal doorway baked into the production suite plate.
+    static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2_463, y: 1_184),
-        CGPoint(x: 2_323, y: 1_308),
-        CGPoint(x: 2_157, y: 1_341),
-        CGPoint(x: 1_955, y: 1_379),
-        CGPoint(x: 1_829, y: 1_359),
+        CGPoint(x: 2_310, y: 1_194),
+    ].map(OfficeInteriorScale.mapPoint)
+
+    /// Explicit crossing through the production suite plate's internal
+    /// aperture. The legacy nav partition is misregistered with this door.
+    static let clientInternalDoorwayPath: [CGPoint] = [
+        CGPoint(x: 2_310, y: 1_194),
+        CGPoint(x: 2_260, y: 1_084),
+        CGPoint(x: 2_210, y: 974),
+    ].map(OfficeInteriorScale.mapPoint)
+
+    /// Walkable private-office anchors after clearing the internal door.
+    static let clientOfficeArrivalPath: [CGPoint] = [
+        CGPoint(x: 2_210, y: 974),
         CGPoint(x: 1_877, y: 1_336),
     ].map(OfficeInteriorScale.mapPoint)
+
+    static let clientInteriorArrivalPath: [CGPoint] = [
+        clientWaitingRoomPath,
+        Array(clientInternalDoorwayPath.dropFirst()),
+        Array(clientOfficeArrivalPath.dropFirst()),
+    ].flatMap { $0 }
 
     static var clientArrivalPath: [CGPoint] {
         Array(clientDoorwayPath.dropLast()) + clientInteriorArrivalPath
@@ -1214,12 +1230,17 @@ enum OfficeNavigationLayout {
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
-    /// Preserve the authored exterior-door crossing, then let A* expand
-    /// the interior anchors around waiting-room furniture and partition walls.
+    /// Route independently on each side of the production partition,
+    /// preserving explicit crossings through both painted door apertures.
     static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
-        let interior = navigation.waypoints(visiting: clientInteriorArrivalPath)
-            ?? clientInteriorArrivalPath
-        return Array(clientDoorwayPath.dropLast()) + interior
+        let waitingRoom = navigation.waypoints(visiting: clientWaitingRoomPath)
+            ?? clientWaitingRoomPath
+        let office = navigation.waypoints(visiting: clientOfficeArrivalPath)
+            ?? clientOfficeArrivalPath
+        return Array(clientDoorwayPath.dropLast())
+            + waitingRoom
+            + clientInternalDoorwayPath.dropFirst()
+            + office.dropFirst()
     }
 
     static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {
@@ -1227,18 +1248,15 @@ enum OfficeNavigationLayout {
     }
 
     static let exteriorToInternalDoorPath: [CGPoint] = [
-        CGPoint(x: 2_618, y: 1_271),
-        CGPoint(x: 2_463, y: 1_184),
-        CGPoint(x: 2_323, y: 1_308),
-        CGPoint(x: 2_157, y: 1_341),
-        CGPoint(x: 1_955, y: 1_379),
-    ].map(OfficeInteriorScale.mapPoint)
+        Array(clientDoorwayPath.dropLast()),
+        clientWaitingRoomPath,
+        Array(clientInternalDoorwayPath.dropFirst()),
+    ].flatMap { $0 }
 
     static let internalDoorToClientPath: [CGPoint] = [
-        CGPoint(x: 1_955, y: 1_379),
-        CGPoint(x: 1_829, y: 1_359),
-        CGPoint(x: 1_877, y: 1_336),
-    ].map(OfficeInteriorScale.mapPoint)
+        clientInternalDoorwayPath,
+        Array(clientOfficeArrivalPath.dropFirst()),
+    ].flatMap { $0 }
 
     static let recordsApproachPath: [CGPoint] = [
         CGPoint(x: 1_809, y: 1_230),
