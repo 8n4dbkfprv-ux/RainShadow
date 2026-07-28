@@ -12,17 +12,18 @@ struct DialoguePanelLayout: Equatable {
 
     /// Minimum trailing space for the frame’s right ornament (oxblood corner + metal rail).
     /// Sized so the scrollbar sits on the black content well, not over the chrome.
-    static let minimumTrailingChrome: CGFloat = 100
+    static let minimumTrailingChrome: CGFloat = 64
 
     /// Fraction of panel width reserved for the right frame ornament (matches /
-    /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v03`).
-    static let trailingChromeFraction: CGFloat = 0.12
+    /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v04`).
+    /// Art opaque right edge is ~0.13 of the texture (incl. outer padding).
+    static let trailingChromeFraction: CGFloat = 0.14
 
     /// Extra pad left of the trailing ornament so the bar clears engraved rails.
-    static let scrollbarClearanceFromTrailingChrome: CGFloat = 10
+    static let scrollbarClearanceFromTrailingChrome: CGFloat = 6
 
     /// Cap on panel height in points — compact monologue band; choice pages may grow.
-    /// Sized ~half the prior tall panel so actors stay visible above the dialogue UI.
+    /// Sized for art aspect (~2.36:1): height 280 → width ≈ 660 at lock, keeping actors visible.
     static let panelHeightCap: CGFloat = 280
     /// Prior tall-panel height cap (pre character-visibility compact pass).
     static let legacyPanelHeightCap: CGFloat = 560
@@ -52,48 +53,56 @@ struct DialoguePanelLayout: Equatable {
     static let legacyHorizontalMarginMax: CGFloat = 40
 
     /// Inset of the text viewport from the panel bottom so body/choices clear the
-    /// ornate oxblood corners and bottom rail of the dialogue frame (nine-slice ~15%).
-    static let contentInsetFromPanelBottom: CGFloat = 48
+    /// ornate oxblood corners and bottom rail of the dialogue frame (~10% of art).
+    static let contentInsetFromPanelBottom: CGFloat = 36
 
     /// Distance from panel top to the speaker name (under the frame crown).
-    static let speakerTopInset: CGFloat = 22
+    /// Measured against `dialogue_outer_frame_overlay_v04` top metal (~8–10% of texture).
+    static let speakerTopInset: CGFloat = 34
     /// Vertical space reserved for the speaker name line (font + breathing room).
     static let speakerNameLineHeight: CGFloat = 22
     /// Gap between the speaker name and the dialogue body.
-    static let speakerToBodyGap: CGFloat = 10
+    static let speakerToBodyGap: CGFloat = 8
     /// Inset of the text viewport from the panel top (below frame crown + speaker name).
     static let contentInsetFromPanelTop: CGFloat =
         speakerTopInset + speakerNameLineHeight + speakerToBodyGap
 
     /// Extra inset of body text width inside the content viewport (keeps glyphs off the well edge).
-    static let bodyTextHorizontalInset: CGFloat = 6
+    static let bodyTextHorizontalInset: CGFloat = 10
 
     /// Horizontal inset of choice labels inside the content viewport.
     static let choiceLabelHorizontalInset: CGFloat = 16
     /// Extra slack under measured body text when snugging the choice band upward.
     static let bodyContentBottomSlack: CGFloat = 10
 
-    /// Matches `dialogue_outer_frame_overlay_v03` nine-slice center (content hole).
-    static let frameContentWellInsetXFraction: CGFloat = 0.11
-    static let frameContentWellInsetBottomFraction: CGFloat = 0.15
-    static let frameContentWellInsetTopFraction: CGFloat = 0.15
+    /// Outer metal rails on the uniformly scaled frame (opaque art lives ~0.13–0.87).
+    /// The frame is drawn with **uniform scale** (no nine-slice) so the painted portrait
+    /// window stays aligned with layout fractions — nine-slice fixed corners previously
+    /// pushed the gold window right of the live portrait.
+    static let frameContentWellInsetXFraction: CGFloat = 0.145
+    static let frameContentWellInsetBottomFraction: CGFloat = 0.10
+    static let frameContentWellInsetTopFraction: CGFloat = 0.10
+    /// Identity centerRect = stretch whole texture uniformly with `size`.
+    static let frameNineSliceCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 
     /// Panel root Y offsets during presentation (negative = lower on screen = more room for actors).
-    static let panelRestOffsetY: CGFloat = -48
-    static let panelChoicesOffsetY: CGFloat = -64
+    static let panelRestOffsetY: CGFloat = -36
+    static let panelChoicesOffsetY: CGFloat = -48
     /// Prior rest offset (0) — tests document the intentional drop for character visibility.
     static let legacyPanelRestOffsetY: CGFloat = 0
 
     /// Continue / End control size and placement under the dialogue panel.
-    static let commandHeight: CGFloat = 40
+    static let commandHeight: CGFloat = 48
     static let commandGapBelowPanel: CGFloat = 10
     /// Keep the control above the physical/home-indicator band when possible.
     static let commandMinScreenBottomInset: CGFloat = 14
 
     /// Type sizes used by `CaseIntroductionPresenter` (pure so tests assert the contract).
     enum Typography {
-        static let bodyFontSize: CGFloat = 16
-        static let speakerFontSize: CGFloat = 18
+        /// Body reads at a distance on the compact plaque; 17pt keeps multi-line monologue legible.
+        static let bodyFontSize: CGFloat = 17
+        static let speakerFontSize: CGFloat = 19
+        /// Choices stay 16pt so the three-option Lila triad still packs on 800×600 without clipping.
         static let choiceFontSize: CGFloat = 16
         static let commandFontSize: CGFloat = 18
         static let caseTitleFontSize: CGFloat = 22
@@ -102,11 +111,32 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Portrait plate inside the compact dialogue frame.
-    static let portraitSize = CGSize(width: 72, height: 84)
-    static let portraitLeadingInset: CGFloat = 36
-    static let portraitTopInset: CGFloat = 18
-    static let portraitToTextGap: CGFloat = 16
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v04` 1720×730).
+    static let frameArtPixelSize = CGSize(width: 1_720, height: 730)
+    /// Width / height of the shipped frame art — panel draw size must preserve this
+    /// (no non-uniform squash of metal rails / portrait notch).
+    static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 730.0
+
+    /// Painted portrait window on `dialogue_outer_frame_overlay_v04` (unit fractions of the
+    /// full texture, including outer transparent padding). Measured from the shipped PNG
+    /// metal notch (left open band ~0.05–0.21, top rail under crown ~0.10–0.42).
+    /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
+    static let portraitWindowLeftFraction: CGFloat = 0.053
+    static let portraitWindowWidthFraction: CGFloat = 0.155
+    static let portraitWindowTopFraction: CGFloat = 0.10
+    static let portraitWindowHeightFraction: CGFloat = 0.32
+    /// Inset inside the painted window so the photo clears the rim metal.
+    static let portraitInnerInset: CGFloat = 4
+    /// Gap from portrait window’s right rail to the text column (must clear the bezel).
+    static let portraitToTextGap: CGFloat = 12
+    /// Main text well left edge on the art (right of the portrait column chrome) as a floor.
+    static let textColumnMinLeftFraction: CGFloat = 0.24
+
+    /// Fallback HUD rail widths when a viewport is not available (tests / early layout).
+    /// Prefer `HUDChromeLayout.leftRailClearance` / `rightRailClearance` when possible.
+    static let hudLeftRailWidth: CGFloat = 104
+    static let hudRightRailWidth: CGFloat = 124
+    static let hudRailClearance: CGFloat = 10
 
     /// Split layout: fixed choice band under a scrolling body (BG-like response strip).
     static let choiceRowMinimumHeight: CGFloat = 40
@@ -115,11 +145,11 @@ struct DialoguePanelLayout: Equatable {
     /// Keep choice text above the frame’s bottom-left / bottom-right ornaments.
     static let choiceBandBottomPadding: CGFloat = 16
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
-    /// The 0.80 ceiling lets the longest shipped three-choice page fit at the supported
+    /// The 0.86 ceiling lets the longest shipped three-choice page fit at the supported
     /// 800×600 window while `minBodyViewportHeight` still protects the dialogue body.
-    static let choiceBandMaxViewportFraction: CGFloat = 0.80
+    static let choiceBandMaxViewportFraction: CGFloat = 0.86
     /// Minimum height reserved for scrolling body text above the choice strip.
-    static let minBodyViewportHeight: CGFloat = 72
+    static let minBodyViewportHeight: CGFloat = 56
     /// Extra headroom per choice when estimating multi-line options before measure.
     static let choiceRowEstimatedWrapSlack: CGFloat = 20
     /// Vertical padding inside a measured choice row around the label frame.
@@ -137,6 +167,8 @@ struct DialoguePanelLayout: Equatable {
     let choiceTextMaxWidth: CGFloat
 
     /// Builds panel geometry from the visible HUD size (same entry the presenter uses).
+    /// Panel size is aspect-locked to `frameArtAspectWidthOverHeight` so the painted
+    /// plaque is never non-uniformly stretched.
     /// - Parameter requiredChoicesBandHeight: When multi-line choices need more than the
     ///   default well allows, pass the **natural** (uncapped) band height so the panel
     ///   grows and every row stays inside the content viewport without scaling.
@@ -144,7 +176,8 @@ struct DialoguePanelLayout: Equatable {
         for visibleSize: CGSize,
         requiredChoicesBandHeight: CGFloat = 0
     ) -> DialoguePanelLayout {
-        let panelWidth = panelWidth(for: visibleSize)
+        let leftClear = HUDChromeLayout.leftRailClearance(for: visibleSize)
+        let rightClear = HUDChromeLayout.rightRailClearance(for: visibleSize)
         let commandHeight: CGFloat = Self.commandHeight
         // Anchor the stack low: Continue sits under the panel inside the safe band.
         let panelBottom = -visibleSize.height / 2
@@ -152,19 +185,58 @@ struct DialoguePanelLayout: Equatable {
             + commandHeight
             + commandGapBelowPanel
             + 6
+        let maxWidth = panelWidth(for: visibleSize)
         let baseHeight = min(panelHeightCap, visibleSize.height * panelHeightFraction)
-        let panelHeight = panelHeight(
+        let neededHeight = panelHeight(
             forVisibleSize: visibleSize,
             baseHeight: baseHeight,
             requiredChoicesBandHeight: requiredChoicesBandHeight
         )
+        let locked = panelDrawSize(
+            maxWidth: maxWidth,
+            neededHeight: neededHeight,
+            preferChoiceHeight: requiredChoicesBandHeight > 0.5
+        )
+        // Center in the playfield between HUD rails, not the full window.
+        let playWidth = max(1, visibleSize.width - leftClear - rightClear)
+        let playCenterX = -visibleSize.width / 2 + leftClear + playWidth / 2
         let panelRect = CGRect(
-            x: -panelWidth / 2,
+            x: playCenterX - locked.width / 2,
             y: panelBottom,
-            width: panelWidth,
-            height: panelHeight
+            width: locked.width,
+            height: locked.height
         )
         return layout(panelRect: panelRect)
+    }
+
+    /// Largest panel size that fits in `maxWidth`×`maxHeight` while preserving frame art aspect.
+    static func aspectLockedPanelSize(maxWidth: CGFloat, maxHeight: CGFloat) -> CGSize {
+        let aspect = frameArtAspectWidthOverHeight
+        let byWidth = CGSize(width: maxWidth, height: maxWidth / aspect)
+        if byWidth.height <= maxHeight + 0.001 {
+            return CGSize(width: max(1, byWidth.width), height: max(1, byWidth.height))
+        }
+        let byHeight = CGSize(width: maxHeight * aspect, height: maxHeight)
+        return CGSize(width: max(1, byHeight.width), height: max(1, byHeight.height))
+    }
+
+    /// Monologue pages stay art-aspect locked. Choice pages prefer the height needed
+    /// for multi-line options; they keep art aspect when width allows, otherwise keep
+    /// the required height at max width so response rows never clip.
+    static func panelDrawSize(
+        maxWidth: CGFloat,
+        neededHeight: CGFloat,
+        preferChoiceHeight: Bool
+    ) -> CGSize {
+        let aspect = frameArtAspectWidthOverHeight
+        if preferChoiceHeight {
+            let idealWidth = neededHeight * aspect
+            if idealWidth <= maxWidth + 0.001 {
+                return CGSize(width: max(1, idealWidth), height: max(1, neededHeight))
+            }
+            return CGSize(width: max(1, maxWidth), height: max(1, neededHeight))
+        }
+        return aspectLockedPanelSize(maxWidth: maxWidth, maxHeight: neededHeight)
     }
 
     /// Max panel height that still leaves Continue on-screen with a sliver of free band above.
@@ -175,7 +247,7 @@ struct DialoguePanelLayout: Equatable {
                 - commandMinScreenBottomInset
                 - commandHeight
                 - commandGapBelowPanel
-                - 20
+                - 8
         )
     }
 
@@ -213,10 +285,27 @@ struct DialoguePanelLayout: Equatable {
         min(horizontalMarginMax, max(horizontalMarginMin, width * horizontalMarginFraction))
     }
 
-    /// Panel width: near-full HUD width (BG-like), soft-capped for ultrawide readability.
+    /// Panel width: fits between HUD rails with a soft ultrawide cap.
+    /// Rails already clear the chrome; only a small gap keeps the frame from kissing them.
     static func panelWidth(for visibleSize: CGSize) -> CGFloat {
-        let margin = horizontalMargin(forVisibleWidth: visibleSize.width)
-        return min(panelWidthCap, max(1, visibleSize.width - margin * 2))
+        let leftClear = HUDChromeLayout.leftRailClearance(for: visibleSize)
+        let rightClear = HUDChromeLayout.rightRailClearance(for: visibleSize)
+        let railGap: CGFloat = 16
+        let available = visibleSize.width - leftClear - rightClear - railGap
+        return min(panelWidthCap, max(1, available))
+    }
+
+    /// Live photo rect fully inside the painted portrait window (panel space).
+    static func portraitPhotoRect(in panelRect: CGRect) -> CGRect {
+        let window = portraitWindowRect(in: panelRect)
+        let inset = portraitInnerInset
+        let side = max(1, min(window.width, window.height) - inset * 2)
+        return CGRect(
+            x: window.midX - side / 2,
+            y: window.midY - side / 2,
+            width: side,
+            height: side
+        )
     }
 
     /// Core layout from an authored panel rect (also used by tests with fixed sizes).
@@ -225,29 +314,37 @@ struct DialoguePanelLayout: Equatable {
             minimumTrailingChrome,
             panelRect.width * trailingChromeFraction
         )
+        // Ornament bands scale with panel height (uniform frame); cap so choice growth
+        // still expands the text well rather than ever-thicker rails.
+        let wellInsetTop = min(
+            panelRect.height * frameContentWellInsetTopFraction,
+            panelHeightCap * frameContentWellInsetTopFraction
+        )
+        let wellInsetBottom = min(
+            panelRect.height * frameContentWellInsetBottomFraction,
+            panelHeightCap * frameContentWellInsetBottomFraction
+        )
+
         // Scrollbar lives in the black content hole, left of the right frame ornament.
-        let scrollbarHeight = max(1, panelRect.height - 86)
+        let scrollbarHeight = max(1, panelRect.height - wellInsetTop - wellInsetBottom - 8)
         let scrollbarRect = CGRect(
             x: panelRect.maxX - trailingChrome - scrollbarClearanceFromTrailingChrome - scrollbarWidth,
-            y: panelRect.minY + 36,
+            y: panelRect.minY + wellInsetBottom + 4,
             width: scrollbarWidth,
             height: scrollbarHeight
         )
 
-        let portraitSize = Self.portraitSize
-        let portraitCenter = CGPoint(
-            x: panelRect.minX + portraitLeadingInset + portraitSize.width / 2,
-            y: panelRect.maxY - portraitTopInset - portraitSize.height / 2
-        )
-        let portraitRect = CGRect(
-            x: portraitCenter.x - portraitSize.width / 2,
-            y: portraitCenter.y - portraitSize.height / 2,
-            width: portraitSize.width,
-            height: portraitSize.height
-        )
+        // Live portrait sits in the painted gold window (uniform-scale frame fractions).
+        let portraitRect = portraitWindowRect(in: panelRect)
 
-        let textLeft = portraitRect.maxX + portraitToTextGap
+        // Text column clears both the live portrait and the painted column chrome.
+        let textLeft = max(
+            portraitRect.maxX + portraitToTextGap,
+            panelRect.minX + panelRect.width * textColumnMinLeftFraction
+        )
         let textRight = scrollbarRect.minX - contentToScrollbarGap
+        // Fixed insets so choice-driven panel growth expands the text viewport 1:1.
+        // Body sits under the speaker line, to the right of the portrait column.
         let contentBottom = panelRect.minY + contentInsetFromPanelBottom
         let contentTop = panelRect.maxY - contentInsetFromPanelTop
         let contentViewportRect = CGRect(
@@ -283,11 +380,19 @@ struct DialoguePanelLayout: Equatable {
         )
     }
 
+    /// Painted portrait window rect in panel space (matches the gold rim on the frame art).
+    static func portraitWindowRect(in panelRect: CGRect) -> CGRect {
+        let x = panelRect.minX + panelRect.width * portraitWindowLeftFraction
+        let height = max(1, panelRect.height * portraitWindowHeightFraction)
+        let y = panelRect.maxY - panelRect.height * portraitWindowTopFraction - height
+        let width = max(1, panelRect.width * portraitWindowWidthFraction)
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+
     /// Black fill covering the dialogue interior, including the empty band next to the scrollbar.
     static func contentWellRect(for panelRect: CGRect, scrollbarRect: CGRect) -> CGRect {
-        // Tighter than frame rails (0.11 / 0.15) so chrome stays free; loose enough that the
-        // scrollbar gutter and track never show the room through the transparent frame center.
-        let insetX = panelRect.width * 0.07
+        // Opaque frame metal lives at ~0.13–0.87 of the texture; stay inside that hole.
+        let insetX = panelRect.width * 0.145
         let insetBottom = panelRect.height * 0.09
         let insetTop = panelRect.height * 0.09
         var well = CGRect(
@@ -299,7 +404,7 @@ struct DialoguePanelLayout: Equatable {
         // Guarantee the scrollbar column and its left gutter sit fully on black.
         let scrollCoverage = scrollbarRect.insetBy(dx: -contentToScrollbarGap - 4, dy: -12)
         well = well.union(scrollCoverage).intersection(
-            panelRect.insetBy(dx: panelRect.width * 0.04, dy: panelRect.height * 0.05)
+            panelRect.insetBy(dx: panelRect.width * 0.12, dy: panelRect.height * 0.06)
         )
         if well.isNull || well.isEmpty {
             return CGRect(
@@ -574,21 +679,21 @@ struct DialoguePanelLayout: Equatable {
         return panelBottom - commandGapBelowPanel - commandHeight / 2
     }
 
-    /// Hit rect for the command control, centered on X at the computed Y.
+    /// Hit rect for the command control, centered under the panel.
     static func commandHitRect(
         panelRect: CGRect,
         panelRootOffsetY: CGFloat,
         visibleHeight: CGFloat,
         panelWidth: CGFloat
     ) -> CGRect {
-        let width = min(380, panelWidth * 0.32)
+        let width = min(420, panelWidth * 0.38)
         let centerY = commandCenterY(
             panelRect: panelRect,
             panelRootOffsetY: panelRootOffsetY,
             visibleHeight: visibleHeight
         )
         return CGRect(
-            x: -width / 2,
+            x: panelRect.midX - width / 2,
             y: centerY - commandHeight / 2,
             width: width,
             height: commandHeight

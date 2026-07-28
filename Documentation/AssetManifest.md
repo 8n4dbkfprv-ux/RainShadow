@@ -308,26 +308,27 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |
 | P0 | `ui_input_touch` | 1 | 128×128 | First-run touch hint symbol. |
 | P0 | `ui_input_pointer` | 1 | 128×128 | First-run mouse hint symbol. |
-| P0 | `hud_left_rail_plate_v02` | 1 | 256×2048 | Full-height left action rail plate; transparent button wells; rain-slicked gunmetal. |
-| P0 | `hud_right_rail_plate_v02` | 1 | 320×2048 | Full-height right party rail plate; portrait well + utility wells. |
-| P0 | `hud_action_*_v02` | 12 | 128×128 | Painted noir action icons: menu, map, journal, inventory, character, leads, contacts, settings, rest, help, hide-ui, clock. Hover/pressed via code tint; disabled uses alpha. |
-| P0 | `hud_party_*_v02` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
-| P0 | `hud_portrait_frame_v02` | 1 | 1086×1448 | Transparent portrait bezel matching v02 rail language; code owns HP text and condition tint. |
-| P0 | `dialogue_outer_frame_overlay_v03` | 1 | 1720×730 | Thick BG-like dialogue plaque with black well and portrait window; rail-free for nine-slice. |
-| P0 | `dialogue_command_button_plate_v02` | 1 | 512×128 | Empty END/CONTINUE command plate; code draws label. |
-| P0 | `dialogue_scroll_*_v02` | 4 | 96×96 / 64×320 / 72×256 | Scrollbar up/down/track/thumb in matching gunmetal/oxblood. |
+| P0 | `hud_left_rail_plate_v03` | 1 | 256×2048 | Full-height left action rail plate; transparent button wells; rain-slicked gunmetal V03. |
+| P0 | `hud_right_rail_plate_v03` | 1 | 320×2048 | Compact right party rail plate (letterboxed); portrait well + utility wells. |
+| P0 | `hud_action_*_v03` | 12 | 128×128 | Painted noir action icons: menu, map, journal, inventory, character, leads, contacts, settings, rest, help, hide-ui, clock. Hover/pressed via code tint; disabled uses alpha. |
+| P0 | `hud_party_*_v03` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
+| P0 | `hud_portrait_frame_v03` | 1 | 1086×1448 | Transparent portrait bezel matching v03 rail language; code owns HP text and condition tint. |
+| P0 | `dialogue_outer_frame_overlay_v04` | 1 | 1720×730 | Thick BG-like dialogue plaque; **transparent** text well + portrait window (metal rails only) so live text/portrait show through; side mid-edge tabs. |
+| P0 | `dialogue_command_button_plate_v03` | 1 | 512×128 | Empty END/CONTINUE command plate; code draws label. |
+| P0 | `dialogue_scroll_*_v03` | 4 | 96×96 / 64×320 / 72×256 | Scrollbar up/down/track/thumb in matching gunmetal/oxblood-amber. |
 | P0 | `dialogue_portrait_lila_march_v01` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop. |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
-| P0 | `inventory_outer_frame_overlay_v02` | 1 | 1960×1080 | Full inventory hierarchy overlay (header, paperdoll chamber, slot rings, bag band, stats column) with transparent wells; no baked labels. |
+| P0 | `inventory_outer_frame_overlay_v03` | 1 | 1960×1080 | Full inventory hierarchy overlay (header, paperdoll chamber, slot rings, bag band, stats column) with transparent wells; no baked labels. |
 | P0 | `inventory_slot_frame_v01` | 1 | 256×256 | Reusable alpha slot frame scaled to code-defined bounds. |
-| P0 | `inventory_slot_silhouette_*_v02` | 8 | 256×256 | Painted empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
+| P0 | `inventory_slot_silhouette_*_v03` | 8 | 256×256 | Painted empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
 | P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter. |
 | P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel. |
 | P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background. |
-| P0 | `journal_casebook_plate_v02` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
-| P0 | `journal_row_marker_v02` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
-| P0 | `ui_close_box_noir_v02` | 1 | 128×128 | Shared overlay close control in IE-noir language (replaces Mac OS 9 close). |
+| P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
+| P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
+| P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Shared overlay close control in IE-noir language. |
+| P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
 | P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area office map; code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.

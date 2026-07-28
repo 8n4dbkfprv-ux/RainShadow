@@ -202,7 +202,7 @@ final class InventoryOverlay: SKNode {
         sheet.addChild(shadow)
 
         if !addGeneratedOuterFrame() {
-            assertionFailure("Missing inventory_outer_frame_overlay_v02.png")
+            assertionFailure("Missing inventory_outer_frame_overlay_v03.png")
         }
 
         content.setScale(Metrics.contentScale)
@@ -246,8 +246,8 @@ final class InventoryOverlay: SKNode {
 
     @discardableResult
     private func addGeneratedOuterFrame() -> Bool {
-        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v02")
-            ?? GameArt.texture(named: "inventory_outer_frame_overlay_v01") else { return false }
+        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v03")
+            ?? GameArt.texture(named: "inventory_outer_frame_overlay_v02") else { return false }
         texture.filteringMode = .linear
 
         let backing = panel(size: Metrics.canvas, radius: 14, fill: Palette.ink, stroke: .clear, lineWidth: 0)
@@ -323,18 +323,18 @@ final class InventoryOverlay: SKNode {
         }
 
         let equipment: [(String, String, CGPoint)] = [
-            ("inventory_slot_silhouette_hat_v02", "FEDORA", CGPoint(x: -238, y: 244)),
-            ("inventory_slot_silhouette_hands_v02", "GLOVES", CGPoint(x: -119, y: 244)),
-            ("inventory_slot_silhouette_coat_v02", "COAT", CGPoint(x: 0, y: 244)),
-            ("inventory_slot_silhouette_weapon_v02", "HOLSTER", CGPoint(x: 119, y: 244)),
-            ("inventory_slot_silhouette_item_v02", "CHARM", CGPoint(x: 238, y: 244)),
-            ("inventory_slot_silhouette_item_v02", "EYES", CGPoint(x: -285, y: 73)),
-            ("inventory_slot_silhouette_hands_v02", "HANDS", CGPoint(x: -285, y: -74)),
-            ("inventory_slot_silhouette_weapon_v02", "WEAPON", CGPoint(x: 285, y: 73)),
-            ("inventory_slot_silhouette_item_v02", "POCKET", CGPoint(x: 285, y: -74)),
-            ("inventory_slot_silhouette_feet_v02", "SHOES", CGPoint(x: -176, y: -244)),
-            ("inventory_slot_silhouette_feet_v02", "STANCE", CGPoint(x: -58, y: -244)),
-            ("inventory_slot_silhouette_ring_v02", "LUCK", CGPoint(x: 60, y: -244))
+            ("inventory_slot_silhouette_hat_v03", "FEDORA", CGPoint(x: -238, y: 244)),
+            ("inventory_slot_silhouette_hands_v03", "GLOVES", CGPoint(x: -119, y: 244)),
+            ("inventory_slot_silhouette_coat_v03", "COAT", CGPoint(x: 0, y: 244)),
+            ("inventory_slot_silhouette_weapon_v03", "HOLSTER", CGPoint(x: 119, y: 244)),
+            ("inventory_slot_silhouette_item_v03", "CHARM", CGPoint(x: 238, y: 244)),
+            ("inventory_slot_silhouette_item_v03", "EYES", CGPoint(x: -285, y: 73)),
+            ("inventory_slot_silhouette_hands_v03", "HANDS", CGPoint(x: -285, y: -74)),
+            ("inventory_slot_silhouette_weapon_v03", "WEAPON", CGPoint(x: 285, y: 73)),
+            ("inventory_slot_silhouette_item_v03", "POCKET", CGPoint(x: 285, y: -74)),
+            ("inventory_slot_silhouette_feet_v03", "SHOES", CGPoint(x: -176, y: -244)),
+            ("inventory_slot_silhouette_feet_v03", "STANCE", CGPoint(x: -58, y: -244)),
+            ("inventory_slot_silhouette_ring_v03", "LUCK", CGPoint(x: 60, y: -244))
         ]
         for equipmentItem in equipment {
             root.addChild(equipmentSlot(artName: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
@@ -485,7 +485,7 @@ final class InventoryOverlay: SKNode {
     private func emptySlot(size: CGFloat, at position: CGPoint) -> SKShapeNode {
         let slot = slotBase(size: CGSize(width: size, height: size))
         slot.position = position
-        if let texture = UIPaintedChrome.texture(named: "inventory_slot_silhouette_bag_v02") {
+        if let texture = UIPaintedChrome.texture(named: "inventory_slot_silhouette_bag_v03") {
             let silhouette = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.72, height: size * 0.72))
             silhouette.alpha = 0.55
             silhouette.zPosition = 0
@@ -529,7 +529,7 @@ final class InventoryOverlay: SKNode {
     private func majorPanel(size: CGSize) -> SKNode {
         let root = SKNode()
         root.name = "inventory.panel"
-        // Layout anchor only — visible chrome comes from inventory_outer_frame_overlay_v02.
+        // Layout anchor only — visible chrome comes from inventory_outer_frame_overlay_v03.
         let surface = panel(
             size: size,
             radius: 0,

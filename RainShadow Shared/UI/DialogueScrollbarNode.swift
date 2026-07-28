@@ -49,10 +49,10 @@ final class DialogueScrollbarNode: SKNode {
     override init() {
         super.init()
         name = "dialogue.scrollbar"
-        installTexture(named: "dialogue_scroll_up_v02", on: upButton)
-        installTexture(named: "dialogue_scroll_down_v02", on: downButton)
-        installTexture(named: "dialogue_scroll_track_v02", on: track)
-        installTexture(named: "dialogue_scroll_thumb_v02", on: thumb)
+        installTexture(named: "dialogue_scroll_up_v03", on: upButton)
+        installTexture(named: "dialogue_scroll_down_v03", on: downButton)
+        installTexture(named: "dialogue_scroll_track_v03", on: track)
+        installTexture(named: "dialogue_scroll_thumb_v03", on: thumb)
 
         // Track nine-slices cleanly. Thumb uses a larger fixed end-cap fraction so the
         // diamond and beveled caps never squash into a thin stretched strip.
@@ -180,7 +180,8 @@ final class DialogueScrollbarNode: SKNode {
 
     private func installTexture(named name: String, on sprite: SKSpriteNode) {
         let texture = UIPaintedChrome.texture(named: name)
-            ?? UIPaintedChrome.texture(named: name.replacingOccurrences(of: "_v02", with: "_v01"))
+            ?? UIPaintedChrome.texture(named: name.replacingOccurrences(of: "_v03", with: "_v02"))
+            ?? UIPaintedChrome.texture(named: name.replacingOccurrences(of: "_v03", with: "_v01"))
         guard let texture else {
             assertionFailure("Missing scrollbar chrome: \(name)")
             return

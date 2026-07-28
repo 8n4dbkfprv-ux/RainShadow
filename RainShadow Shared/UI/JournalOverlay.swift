@@ -24,16 +24,16 @@ final class JournalOverlay: SKNode {
     }
 
     private enum Palette {
-        static let paper = SKColor(red: 0.80, green: 0.77, blue: 0.66, alpha: 1)
-        static let paperMuted = SKColor(red: 0.58, green: 0.55, blue: 0.47, alpha: 1)
-        static let ink = SKColor(red: 0.085, green: 0.073, blue: 0.060, alpha: 1)
-        static let inkMuted = SKColor(red: 0.23, green: 0.20, blue: 0.17, alpha: 0.82)
+        static let paper = SKColor(red: 0.78, green: 0.78, blue: 0.76, alpha: 1)
+        static let paperMuted = SKColor(red: 0.55, green: 0.55, blue: 0.54, alpha: 1)
+        static let ink = SKColor(red: 0.08, green: 0.08, blue: 0.09, alpha: 1)
+        static let inkMuted = SKColor(red: 0.22, green: 0.22, blue: 0.24, alpha: 0.82)
         static let charcoal = SKColor(red: 0.035, green: 0.038, blue: 0.040, alpha: 0.94)
-        static let raised = SKColor(red: 0.11, green: 0.105, blue: 0.095, alpha: 0.96)
-        static let selected = SKColor(red: 0.31, green: 0.085, blue: 0.075, alpha: 0.92)
-        static let brass = SKColor(red: 0.70, green: 0.50, blue: 0.26, alpha: 1)
+        static let raised = SKColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 0.96)
+        static let selected = SKColor(red: 0.22, green: 0.085, blue: 0.08, alpha: 0.92)
+        static let brass = SKColor(red: 0.72, green: 0.72, blue: 0.70, alpha: 1)
         static let redPencil = SKColor(red: 0.46, green: 0.12, blue: 0.105, alpha: 0.88)
-        static let steel = SKColor(red: 0.43, green: 0.45, blue: 0.43, alpha: 0.62)
+        static let steel = SKColor(red: 0.43, green: 0.45, blue: 0.46, alpha: 0.62)
     }
 
     var onDismiss: (() -> Void)?
@@ -166,14 +166,14 @@ final class JournalOverlay: SKNode {
         shadow.zPosition = -12
         sheet.addChild(shadow)
 
-        if let texture = GameArt.texture(named: "journal_casebook_plate_v02")
-            ?? GameArt.texture(named: "journal_casebook_plate_v01") {
+        if let texture = GameArt.texture(named: "journal_casebook_plate_v03")
+            ?? GameArt.texture(named: "journal_casebook_plate_v02") {
             texture.filteringMode = .linear
             let plate = SKSpriteNode(texture: texture, size: Metrics.canvas)
             plate.zPosition = -10
             sheet.addChild(plate)
         } else {
-            assertionFailure("Missing journal_casebook_plate_v02.png")
+            assertionFailure("Missing journal_casebook_plate_v03.png")
         }
 
         let title = Self.label(text: "CASE JOURNAL", size: 37, color: Palette.paper, font: "AvenirNextCondensed-DemiBold")
@@ -272,7 +272,7 @@ final class JournalOverlay: SKNode {
                 )
                 row.name = "journal.entry.\(entry.id)"
                 row.position = CGPoint(x: 9, y: y)
-                if let markerTexture = UIPaintedChrome.texture(named: "journal_row_marker_v02") {
+                if let markerTexture = UIPaintedChrome.texture(named: "journal_row_marker_v03") {
                     let marker = SKSpriteNode(texture: markerTexture, size: CGSize(width: 18, height: 18))
                     marker.position = CGPoint(x: -231, y: 1)
                     marker.alpha = selected ? 1 : 0.7

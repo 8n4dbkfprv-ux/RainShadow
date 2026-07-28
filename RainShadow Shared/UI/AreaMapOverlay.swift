@@ -29,8 +29,8 @@ final class ClassicMacCloseButtonNode: SKNode {
         hitArea.strokeColor = .clear
         addChild(hitArea)
 
-        if let texture = GameArt.texture(named: "ui_close_box_noir_v02")
-            ?? GameArt.texture(named: "ui_close_box_macos9_v01") {
+        if let texture = GameArt.texture(named: "ui_close_box_noir_v03")
+            ?? GameArt.texture(named: "ui_close_box_noir_v02") {
             texture.filteringMode = .linear
             let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 52))
             artwork.zPosition = 1
@@ -38,7 +38,7 @@ final class ClassicMacCloseButtonNode: SKNode {
             return
         }
 
-        assertionFailure("Missing ui_close_box_noir_v02.png")
+        assertionFailure("Missing ui_close_box_noir_v03.png")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +95,7 @@ final class AreaMapOverlay: SKNode {
         static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
         static let oxblood = SKColor(red: 0.50, green: 0.13, blue: 0.12, alpha: 1)
         static let rain = SKColor(red: 0.32, green: 0.51, blue: 0.66, alpha: 1)
-        static let party = SKColor(red: 0.14, green: 0.78, blue: 0.26, alpha: 1)
+        static let party = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
     }
 
     var onDismiss: (() -> Void)?
@@ -253,26 +253,91 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func buildHeader() {
-        let band = SKShapeNode(
-            rectOf: CGSize(width: Metrics.mapSize.width - 36, height: 72),
-            cornerRadius: 3
-        )
-        band.fillColor = SKColor(white: 0.004, alpha: 0.80)
-        band.strokeColor = Palette.steel
-        band.lineWidth = 1.5
-        band.position = CGPoint(x: 0, y: 300)
-        band.zPosition = 30
-        sheet.addChild(band)
+        let barWidth = Metrics.mapSize.width + 40
+        let barHeight: CGFloat = 72
+        let barY: CGFloat = 300
 
-        let title = Self.label(size: 29, color: Palette.paper, font: "Palatino-Bold")
-        title.text = "AREA MAP"
-        title.position = CGPoint(x: 0, y: 307)
+        if let texture = GameArt.texture(named: "map_chrome_top_bar_v03") {
+            texture.filteringMode = .linear
+            let bar = SKSpriteNode(texture: texture, size: CGSize(width: barWidth, height: barHeight))
+            bar.name = "map.top-bar"
+            bar.position = CGPoint(x: 0, y: barY)
+            bar.zPosition = 30
+            sheet.addChild(bar)
+        } else {
+            let band = SKShapeNode(
+                rectOf: CGSize(width: barWidth, height: barHeight),
+                cornerRadius: 2
+            )
+            band.fillColor = SKColor(white: 0.004, alpha: 0.92)
+            band.strokeColor = Palette.steel
+            band.lineWidth = 1.5
+            band.position = CGPoint(x: 0, y: barY)
+            band.zPosition = 30
+            sheet.addChild(band)
+        }
+
+        let title = Self.label(size: 22, color: Palette.paper, font: UITheme.Font.overlayTitle)
+        title.text = "Area Map"
+        title.horizontalAlignmentMode = .left
+        title.position = CGPoint(x: -barWidth / 2 + 28, y: barY + 4)
         title.zPosition = 31
         sheet.addChild(title)
 
-        let location = Self.label(size: 13, color: Palette.amber, font: "AvenirNext-DemiBold")
+        let notesBox = SKShapeNode(rectOf: CGSize(width: 14, height: 14), cornerRadius: 1)
+        notesBox.fillColor = .clear
+        notesBox.strokeColor = Palette.paper
+        notesBox.lineWidth = 1.5
+        notesBox.position = CGPoint(x: -40, y: barY + 4)
+        notesBox.zPosition = 31
+        sheet.addChild(notesBox)
+
+        let notesCheck = Self.label(size: 14, color: UITheme.Color.oxbloodHot, font: UITheme.Font.overlayBodyBold)
+        notesCheck.text = "✓"
+        notesCheck.position = CGPoint(x: -40, y: barY + 3)
+        notesCheck.zPosition = 32
+        sheet.addChild(notesCheck)
+
+        let notesLabel = Self.label(size: 13, color: Palette.paper, font: UITheme.Font.overlayBody)
+        notesLabel.text = "Map Notes"
+        notesLabel.horizontalAlignmentMode = .left
+        notesLabel.position = CGPoint(x: -28, y: barY + 3)
+        notesLabel.zPosition = 31
+        sheet.addChild(notesLabel)
+
+        let bgBox = SKShapeNode(rectOf: CGSize(width: 14, height: 14), cornerRadius: 1)
+        bgBox.fillColor = .clear
+        bgBox.strokeColor = Palette.quiet
+        bgBox.lineWidth = 1.5
+        bgBox.position = CGPoint(x: -200, y: barY + 4)
+        bgBox.zPosition = 31
+        sheet.addChild(bgBox)
+
+        let bgLabel = Self.label(size: 13, color: Palette.quiet, font: UITheme.Font.overlayBody)
+        bgLabel.text = "Area Map Background"
+        bgLabel.horizontalAlignmentMode = .left
+        bgLabel.position = CGPoint(x: -188, y: barY + 3)
+        bgLabel.zPosition = 31
+        sheet.addChild(bgLabel)
+
+        let worldPlate = SKShapeNode(rectOf: CGSize(width: 148, height: 36), cornerRadius: 2)
+        worldPlate.fillColor = Palette.raised
+        worldPlate.strokeColor = Palette.steel
+        worldPlate.lineWidth = 1.5
+        worldPlate.position = CGPoint(x: barWidth / 2 - 100, y: barY + 2)
+        worldPlate.zPosition = 31
+        sheet.addChild(worldPlate)
+
+        let worldLabel = Self.label(size: 13, color: Palette.paper, font: UITheme.Font.overlayCondensed)
+        worldLabel.text = "WORLD MAP"
+        worldLabel.position = CGPoint(x: barWidth / 2 - 100, y: barY + 1)
+        worldLabel.zPosition = 32
+        sheet.addChild(worldLabel)
+
+        let location = Self.label(size: 12, color: Palette.amber, font: UITheme.Font.overlayBodyBold)
         location.text = configuration.locationName
-        location.position = CGPoint(x: 0, y: 281)
+        location.horizontalAlignmentMode = .left
+        location.position = CGPoint(x: -barWidth / 2 + 28, y: barY - 18)
         location.zPosition = 31
         sheet.addChild(location)
     }

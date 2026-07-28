@@ -10,10 +10,10 @@ final class CaseIntroductionPresenter: SKNode {
         static let parchment = UITheme.Color.parchment
         static let response = UITheme.Color.oxblood
         static let responseHot = UITheme.Color.oxbloodHot
-        /// Lila March — oxblood accent.
-        static let lila = UITheme.Color.oxblood
-        /// Harlan Voss — oxblood accent (monochrome noir nameplate).
-        static let voss = UITheme.Color.oxblood
+        /// Lila March — amber nameplate (noir, not fantasy magenta).
+        static let lila = UITheme.Color.brass
+        /// Harlan Voss — brass/amber nameplate.
+        static let voss = UITheme.Color.brass
         static let caseTitle = UITheme.Color.brass
     }
 
@@ -129,17 +129,17 @@ final class CaseIntroductionPresenter: SKNode {
         frameOverlay.size = panelRect.size
 
         let portraitRect = geometry.portraitRect
-        portraitBacking.path = roundedRect(portraitRect.insetBy(dx: -4, dy: -4), radius: 1)
-        portrait.position = CGPoint(x: portraitRect.midX, y: portraitRect.midY)
-        portrait.size = CGSize(width: portraitRect.width - 8, height: portraitRect.height - 8)
+        let photoRect = DialoguePanelLayout.portraitPhotoRect(in: geometry.panelRect)
+        // Backing fills the painted window; live photo is a square fully inside the rim.
+        portraitBacking.path = roundedRect(portraitRect, radius: 1)
+        portrait.position = CGPoint(x: photoRect.midX, y: photoRect.midY)
+        portrait.size = CGSize(width: photoRect.width, height: photoRect.height)
 
-        let textLeft = contentViewportRect.minX + DialoguePanelLayout.bodyTextHorizontalInset
-        // Speaker sits in a reserved band under the crown; body starts at contentViewport.maxY
-        // (below speakerNameLineHeight + gap) so the name never overlaps conversation text.
-        speakerLabel.position = CGPoint(
-            x: textLeft,
-            y: panelRect.maxY - DialoguePanelLayout.speakerTopInset
-        )
+        // Speaker sits in the text column only — never over the portrait gold rails.
+        let speakerX = geometry.contentViewportRect.minX
+            + DialoguePanelLayout.bodyTextHorizontalInset
+        let speakerTop = panelRect.maxY - DialoguePanelLayout.speakerTopInset
+        speakerLabel.position = CGPoint(x: speakerX, y: speakerTop)
         dialogueLabel.preferredMaxLayoutWidth = geometry.bodyTextMaxWidth
         dialogueLabel.lineBreakMode = .byWordWrapping
         applySplitContentRegions(
@@ -191,7 +191,7 @@ final class CaseIntroductionPresenter: SKNode {
         let commandY = commandHitRect.midY
         commandPlate.position = CGPoint(x: commandHitRect.midX, y: commandY)
         commandPlate.size = commandHitRect.size
-        commandLabel.position = CGPoint(x: 0, y: commandY - 2)
+        commandLabel.position = CGPoint(x: commandHitRect.midX, y: commandY - 2)
     }
 
     func present(
@@ -335,22 +335,28 @@ final class CaseIntroductionPresenter: SKNode {
         }
         panelRoot.addChild(dialogueScrollbar)
 
+        // Portrait sits under the frame so the painted gold window rim frames the photo
+        // (frame must keep a transparent portrait hole — see process_ui_chrome_v03).
         portraitBacking.fillColor = SKColor(white: 0.012, alpha: 1)
-        portraitBacking.strokeColor = UITheme.Color.oxblood
-        portraitBacking.lineWidth = 2
-        portraitBacking.zPosition = 32
+        portraitBacking.strokeColor = .clear
+        portraitBacking.lineWidth = 0
+        portraitBacking.zPosition = 2
         panelRoot.addChild(portraitBacking)
-        portrait.zPosition = 33
+        portrait.zPosition = 3
         panelRoot.addChild(portrait)
 
         speakerLabel.fontSize = DialoguePanelLayout.Typography.speakerFontSize
         speakerLabel.horizontalAlignmentMode = .left
         speakerLabel.verticalAlignmentMode = .top
+        // Above the frame rails so the name stays readable in the content hole.
         speakerLabel.zPosition = 25
         panelRoot.addChild(speakerLabel)
 
         contentMask.fillColor = .white
         contentMask.strokeColor = .clear
+        // Body text sits under the painted frame so transparent wells reveal it
+        // while metal rails still clip any overflow. (Wells must stay transparent —
+        // see process_ui_chrome_v03 dialogue pass.)
         contentCrop.maskNode = contentMask
         contentCrop.zPosition = 1
         panelRoot.addChild(contentCrop)
@@ -366,15 +372,19 @@ final class CaseIntroductionPresenter: SKNode {
         choicesRoot.name = "dialogue.choices-band"
         panelRoot.addChild(choicesRoot)
 
-        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v02") {
+        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
             commandPlate.texture = texture
-            commandPlate.centerRect = CGRect(x: 0.18, y: 0.22, width: 0.64, height: 0.56)
+            commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+            commandPlate.alpha = 1
         }
         commandPlate.zPosition = 51
         addChild(commandPlate)
 
         commandLabel.fontSize = DialoguePanelLayout.Typography.commandFontSize
-        commandLabel.fontColor = SKColor(white: 0.88, alpha: 1)
+        commandLabel.fontColor = UITheme.Color.commandLabel
+        commandLabel.fontName = UITheme.Font.overlayCondensed
         commandLabel.horizontalAlignmentMode = .center
         commandLabel.verticalAlignmentMode = .center
         commandLabel.zPosition = 53
@@ -383,18 +393,20 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v03.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v04.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
         guard let texture else { return false }
         frameOverlay.texture = texture
         frameOverlay.name = "dialogue.outer-frame-overlay"
-        frameOverlay.centerRect = CGRect(x: 0.11, y: 0.15, width: 0.78, height: 0.70)
+        // Large top-left fixed corner keeps the painted portrait window from stretching.
+        frameOverlay.centerRect = DialoguePanelLayout.frameNineSliceCenterRect
         frameOverlay.zPosition = 10
         panelRoot.addChild(frameOverlay)
         return true
@@ -655,7 +667,7 @@ final class CaseIntroductionPresenter: SKNode {
             row.background.lineWidth = 1
         }
 
-        commandLabel.fontColor = commandIsHovered ? Palette.responseHot : SKColor(white: 0.88, alpha: 1)
+        commandLabel.fontColor = commandIsHovered ? Palette.responseHot : UITheme.Color.commandLabel
         if commandIsHovered {
             commandPlate.color = UITheme.Tint.hoverColor
             commandPlate.colorBlendFactor = UITheme.Tint.hoverBlend

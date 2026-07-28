@@ -1,6 +1,7 @@
 import SpriteKit
 
-/// Camera-fixed right party rail: painted chrome, live HP text, utility stubs.
+/// Camera-fixed right party rail: cropped `hud_right_rail_plate_v03` as a compact top unit
+/// (portrait window + three utility slots). Aspect-locked; never stretched into a full-height spine.
 @MainActor
 final class PortraitBarNode: SKNode {
     enum Utility: Int, CaseIterable {
@@ -10,9 +11,9 @@ final class PortraitBarNode: SKNode {
 
         var artName: String {
             switch self {
-            case .search: return "hud_party_search_v02"
-            case .lantern: return "hud_party_lantern_v02"
-            case .selectParty: return "hud_party_select_v02"
+            case .search: return "hud_party_search_v03"
+            case .lantern: return "hud_party_lantern_v03"
+            case .selectParty: return "hud_party_select_v03"
             }
         }
 
@@ -25,30 +26,12 @@ final class PortraitBarNode: SKNode {
         }
     }
 
-    private enum Metrics {
-        static let railWidth: CGFloat = 148
-        static let frameSize = CGSize(width: 128, height: 172)
-        static let portraitWindowSize = CGSize(width: 96, height: 130)
-        static let utilitySize = CGSize(width: 56, height: 56)
-        static let utilityHit = CGSize(width: 64, height: 60)
-        static let topInset: CGFloat = 18
-        static let utilitySpacing: CGFloat = 8
-        static let utilityBottomInset: CGFloat = 28
-    }
-
     private let railPlate = SKSpriteNode()
     private let portraitRoot = SKNode()
     private let portraitCrop = SKCropNode()
-    private let portraitMask = SKShapeNode(
-        rectOf: Metrics.portraitWindowSize,
-        cornerRadius: 2
-    )
+    private let portraitMask = SKShapeNode()
     private let portrait = SKSpriteNode()
-    private let statusBorder = SKShapeNode(
-        rectOf: Metrics.portraitWindowSize,
-        cornerRadius: 2
-    )
-    private let portraitFrame = SKSpriteNode()
+    private let statusBorder = SKShapeNode()
     private let healthShadow = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private let healthLabel = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private var utilityRoots: [Utility: SKNode] = [:]
@@ -59,6 +42,10 @@ final class PortraitBarNode: SKNode {
     private var displayedMaximumHealth = 0
     private var pressedUtility: Utility?
     private var pressIsInside = false
+    private var currentLayout = HUDChromeLayout.rightRailLayout(for: CGSize(width: 1_280, height: 800))
+
+    /// Current rail width after layout (for HUD clearance consumers).
+    var railWidth: CGFloat { currentLayout.railWidth }
 
     override init() {
         super.init()
@@ -74,23 +61,20 @@ final class PortraitBarNode: SKNode {
     }
 
     func layout(for visibleSize: CGSize) {
-        let railHeight = visibleSize.height + 12
-        position = CGPoint(x: visibleSize.width / 2 - Metrics.railWidth / 2, y: 0)
-        railPlate.size = CGSize(width: Metrics.railWidth, height: railHeight)
+        let geometry = HUDChromeLayout.rightRailLayout(for: visibleSize)
+        currentLayout = geometry
+        position = geometry.plateCenter
 
-        let frameCenterY = visibleSize.height / 2 - Metrics.topInset - Metrics.frameSize.height / 2
-        portraitRoot.position = CGPoint(x: 0, y: frameCenterY)
+        railPlate.size = geometry.plateSize
+        railPlate.position = .zero
 
-        let bottomY = -visibleSize.height / 2 + Metrics.utilityBottomInset + Metrics.utilitySize.height / 2
-        for (index, utility) in Utility.allCases.enumerated() {
-            guard let root = utilityRoots[utility] else { continue }
-            let reverseIndex = Utility.allCases.count - 1 - index
-            root.position = CGPoint(
-                x: 0,
-                y: bottomY + CGFloat(reverseIndex) * (Metrics.utilitySize.height + Metrics.utilitySpacing)
-            )
-        }
-        stubCaption.position = CGPoint(x: -Metrics.railWidth / 2 - 120, y: bottomY)
+        layoutPortrait(geometry)
+        layoutUtilities(geometry)
+
+        stubCaption.position = CGPoint(
+            x: -geometry.plateSize.width / 2 - 12,
+            y: -geometry.plateSize.height / 2 + geometry.plateSize.height * 0.12
+        )
     }
 
     func setHealth(current: Int, maximum: Int, animated: Bool = true) {
@@ -136,26 +120,13 @@ final class PortraitBarNode: SKNode {
     }
 
     func hitTestPortrait(_ point: CGPoint) -> Bool {
-        let portraitPoint = portraitRoot.convert(point, from: self)
-        return CGRect(
-            x: -Metrics.frameSize.width / 2,
-            y: -Metrics.frameSize.height / 2,
-            width: Metrics.frameSize.width,
-            height: Metrics.frameSize.height
-        ).contains(portraitPoint)
+        currentLayout.portraitWindowRect.contains(point)
     }
 
     func hitTestUtility(_ point: CGPoint) -> Utility? {
-        for utility in Utility.allCases {
-            guard let root = utilityRoots[utility] else { continue }
-            let local = root.convert(point, from: self)
-            let rect = CGRect(
-                x: -Metrics.utilityHit.width / 2,
-                y: -Metrics.utilityHit.height / 2,
-                width: Metrics.utilityHit.width,
-                height: Metrics.utilityHit.height
-            )
-            if rect.contains(local) { return utility }
+        for (index, utility) in Utility.allCases.enumerated() {
+            guard currentLayout.utilityWellRects.indices.contains(index) else { continue }
+            if currentLayout.utilityWellRects[index].contains(point) { return utility }
         }
         return nil
     }
@@ -199,16 +170,23 @@ final class PortraitBarNode: SKNode {
 
     private func buildRail() {
         zPosition = 18
-        if let texture = UIPaintedChrome.texture(named: "hud_right_rail_plate_v02") {
-            railPlate.texture = texture
-            railPlate.size = CGSize(width: Metrics.railWidth, height: 800)
-            railPlate.zPosition = -7
+        if let full = UIPaintedChrome.texture(named: "hud_right_rail_plate_v03") {
+            let cropped = SKTexture(rect: HUDChromeLayout.RightRail.plateContentRect, in: full)
+            cropped.filteringMode = .linear
+            railPlate.texture = cropped
+            railPlate.size = CGSize(
+                width: HUDChromeLayout.RightRail.railWidth,
+                height: HUDChromeLayout.RightRail.plateHeight
+            )
+            // Plate draws over the portrait so the painted rim frames the photo.
+            railPlate.zPosition = 4
             addChild(railPlate)
         }
     }
 
     private func buildPortraitCell() {
         portraitRoot.name = "hud.detective-portrait"
+        portraitRoot.zPosition = 1
         addChild(portraitRoot)
 
         portraitMask.fillColor = .white
@@ -219,43 +197,25 @@ final class PortraitBarNode: SKNode {
 
         if let texture = UIPaintedChrome.texture(named: "dialogue_portrait_harlan_voss_v01") {
             portrait.texture = texture
-            portrait.size = CGSize(
-                width: Metrics.portraitWindowSize.height,
-                height: Metrics.portraitWindowSize.height
-            )
             portraitCrop.addChild(portrait)
         }
 
         statusBorder.fillColor = .clear
         statusBorder.strokeColor = UITheme.Color.healthy
-        statusBorder.lineWidth = 2
+        statusBorder.lineWidth = 1.5
         statusBorder.zPosition = 2
         portraitRoot.addChild(statusBorder)
 
-        if let texture = UIPaintedChrome.texture(named: "hud_portrait_frame_v02")
-            ?? UIPaintedChrome.texture(named: "hud_portrait_frame_v01") {
-            portraitFrame.texture = texture
-            portraitFrame.size = Metrics.frameSize
-            portraitFrame.zPosition = 3
-            portraitRoot.addChild(portraitFrame)
-        }
-
         for label in [healthShadow, healthLabel] {
             label.text = "12/12"
-            label.fontSize = 20
+            label.fontSize = 16
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .top
-            label.zPosition = 5
-            portraitRoot.addChild(label)
+            label.zPosition = 6
+            addChild(label)
         }
-        let labelPosition = CGPoint(
-            x: -Metrics.portraitWindowSize.width / 2 + 6,
-            y: Metrics.portraitWindowSize.height / 2 - 4
-        )
-        healthShadow.position = CGPoint(x: labelPosition.x + 2, y: labelPosition.y - 2)
         healthShadow.fontColor = SKColor(white: 0, alpha: 0.92)
-        healthShadow.zPosition = 4
-        healthLabel.position = labelPosition
+        healthShadow.zPosition = 5
         healthLabel.fontColor = SKColor(white: 0.96, alpha: 1)
     }
 
@@ -263,11 +223,12 @@ final class PortraitBarNode: SKNode {
         for utility in Utility.allCases {
             let root = SKNode()
             root.name = "hud.party.\(utility)"
+            root.zPosition = 5
             addChild(root)
             utilityRoots[utility] = root
 
             if let texture = UIPaintedChrome.texture(named: utility.artName) {
-                let art = SKSpriteNode(texture: texture, size: Metrics.utilitySize)
+                let art = SKSpriteNode(texture: texture, size: CGSize(width: 40, height: 40))
                 art.alpha = UITheme.Tint.disabledAlpha
                 art.zPosition = 1
                 root.addChild(art)
@@ -284,5 +245,54 @@ final class PortraitBarNode: SKNode {
         stubCaption.alpha = 0
         stubCaption.zPosition = 20
         addChild(stubCaption)
+    }
+
+    private func layoutPortrait(_ geometry: HUDChromeLayout.RightRailLayout) {
+        let window = geometry.portraitWindowRect
+        let photo = geometry.portraitPhotoRect
+        portraitRoot.position = .zero
+
+        portraitMask.path = CGPath(
+            rect: CGRect(
+                x: -window.width / 2,
+                y: -window.height / 2,
+                width: window.width,
+                height: window.height
+            ),
+            transform: nil
+        )
+        portraitCrop.position = CGPoint(x: window.midX, y: window.midY)
+
+        // Photo fully inside the window (never oversized past the rim).
+        portrait.size = CGSize(width: photo.width, height: photo.height)
+        portrait.position = .zero
+
+        statusBorder.path = CGPath(
+            rect: CGRect(
+                x: -window.width / 2,
+                y: -window.height / 2,
+                width: window.width,
+                height: window.height
+            ),
+            transform: nil
+        )
+        statusBorder.position = CGPoint(x: window.midX, y: window.midY)
+
+        let labelPos = CGPoint(x: window.minX + 4, y: window.maxY - 2)
+        healthShadow.position = CGPoint(x: labelPos.x + 1.5, y: labelPos.y - 1.5)
+        healthLabel.position = labelPos
+    }
+
+    private func layoutUtilities(_ geometry: HUDChromeLayout.RightRailLayout) {
+        for (index, utility) in Utility.allCases.enumerated() {
+            guard let root = utilityRoots[utility],
+                  geometry.utilityIconRects.indices.contains(index)
+            else { continue }
+            let icon = geometry.utilityIconRects[index]
+            root.position = CGPoint(x: icon.midX, y: icon.midY)
+            if let art = utilityArt[utility] {
+                art.size = CGSize(width: icon.width, height: icon.height)
+            }
+        }
     }
 }

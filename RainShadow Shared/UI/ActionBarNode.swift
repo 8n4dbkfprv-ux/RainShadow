@@ -1,6 +1,7 @@
 import SpriteKit
 
 /// Camera-fixed left action rail: Infinity Engine density with RainShadow noir painted chrome.
+/// Plate is aspect-locked to `hud_left_rail_plate_v03` (never non-uniformly stretched).
 @MainActor
 final class ActionBarNode: SKNode {
     enum Button: Int, CaseIterable {
@@ -19,18 +20,18 @@ final class ActionBarNode: SKNode {
 
         var artName: String {
             switch self {
-            case .menu: return "hud_action_menu_v02"
-            case .map: return "hud_action_map_v02"
-            case .journal: return "hud_action_journal_v02"
-            case .inventory: return "hud_action_inventory_v02"
-            case .character: return "hud_action_character_v02"
-            case .leads: return "hud_action_leads_v02"
-            case .contacts: return "hud_action_contacts_v02"
-            case .settings: return "hud_action_settings_v02"
-            case .rest: return "hud_action_rest_v02"
-            case .help: return "hud_action_help_v02"
-            case .hideUI: return "hud_action_hide_ui_v02"
-            case .clock: return "hud_action_clock_v02"
+            case .menu: return "hud_action_menu_v03"
+            case .map: return "hud_action_map_v03"
+            case .journal: return "hud_action_journal_v03"
+            case .inventory: return "hud_action_inventory_v03"
+            case .character: return "hud_action_character_v03"
+            case .leads: return "hud_action_leads_v03"
+            case .contacts: return "hud_action_contacts_v03"
+            case .settings: return "hud_action_settings_v03"
+            case .rest: return "hud_action_rest_v03"
+            case .help: return "hud_action_help_v03"
+            case .hideUI: return "hud_action_hide_ui_v03"
+            case .clock: return "hud_action_clock_v03"
             }
         }
 
@@ -56,14 +57,6 @@ final class ActionBarNode: SKNode {
         }
     }
 
-    private enum Metrics {
-        static let railWidth: CGFloat = 108
-        static let buttonSize = CGSize(width: 72, height: 56)
-        static let hitSize = CGSize(width: 88, height: 60)
-        static let topInset: CGFloat = 18
-        static let buttonSpacing: CGFloat = 4
-    }
-
     private let railPlate = SKSpriteNode()
     private var buttonRoots: [Button: SKNode] = [:]
     private var buttonArt: [Button: SKSpriteNode] = [:]
@@ -71,8 +64,12 @@ final class ActionBarNode: SKNode {
     private var pressedButton: Button?
     private var pressIsInside = false
     private let stubCaption = SKLabelNode(fontNamed: UITheme.Font.typewriter)
+    private var currentLayout = HUDChromeLayout.leftRailLayout(for: CGSize(width: 1_280, height: 800))
 
     var onStubActivated: ((Button) -> Void)?
+
+    /// Current rail width after aspect-locked layout (for HUD clearance consumers).
+    var railWidth: CGFloat { currentLayout.railWidth }
 
     override init() {
         super.init()
@@ -87,32 +84,38 @@ final class ActionBarNode: SKNode {
     }
 
     func layout(for visibleSize: CGSize) {
-        let railHeight = visibleSize.height + 12
-        position = CGPoint(x: -visibleSize.width / 2 + Metrics.railWidth / 2, y: 0)
-        railPlate.size = CGSize(width: Metrics.railWidth, height: railHeight)
+        let geometry = HUDChromeLayout.leftRailLayout(for: visibleSize)
+        currentLayout = geometry
+        position = geometry.plateCenter
 
-        let topY = visibleSize.height / 2 - Metrics.topInset - Metrics.buttonSize.height / 2
-        for (index, button) in Button.allCases.enumerated() {
-            guard let root = buttonRoots[button] else { continue }
-            root.position = CGPoint(
-                x: 0,
-                y: topY - CGFloat(index) * (Metrics.buttonSize.height + Metrics.buttonSpacing)
-            )
+        railPlate.size = geometry.plateSize
+        railPlate.position = .zero
+
+        let buttons = Button.allCases
+        for (index, button) in buttons.enumerated() {
+            guard let root = buttonRoots[button], geometry.iconRects.indices.contains(index) else { continue }
+            let iconRect = geometry.iconRects[index]
+            root.position = CGPoint(x: iconRect.midX, y: iconRect.midY)
+            if let art = buttonArt[button] {
+                art.size = CGSize(width: iconRect.width, height: iconRect.height)
+            }
         }
-        stubCaption.position = CGPoint(x: Metrics.railWidth / 2 + 110, y: 0)
+        stubCaption.position = CGPoint(x: geometry.plateSize.width / 2 + 14, y: 0)
     }
 
     func hitTest(_ point: CGPoint) -> Button? {
-        for button in Button.allCases {
-            guard let root = buttonRoots[button] else { continue }
+        let pad = HUDChromeLayout.LeftRail.hitPadding
+        for (index, button) in Button.allCases.enumerated() {
+            guard let root = buttonRoots[button], currentLayout.iconRects.indices.contains(index) else { continue }
             let local = root.convert(point, from: self)
-            let rect = CGRect(
-                x: -Metrics.hitSize.width / 2,
-                y: -Metrics.hitSize.height / 2,
-                width: Metrics.hitSize.width,
-                height: Metrics.hitSize.height
+            let icon = currentLayout.iconRects[index]
+            let hit = CGRect(
+                x: -icon.width / 2 - pad,
+                y: -icon.height / 2 - pad,
+                width: icon.width + pad * 2,
+                height: icon.height + pad * 2
             )
-            if rect.contains(local) { return button }
+            if hit.contains(local) { return button }
         }
         return nil
     }
@@ -192,9 +195,11 @@ final class ActionBarNode: SKNode {
 
     private func buildRail() {
         zPosition = 18
-        if let texture = UIPaintedChrome.texture(named: "hud_left_rail_plate_v02") {
-            railPlate.texture = texture
-            railPlate.size = CGSize(width: Metrics.railWidth, height: 800)
+        if let full = UIPaintedChrome.texture(named: "hud_left_rail_plate_v03") {
+            let cropped = SKTexture(rect: HUDChromeLayout.LeftRail.plateContentRect, in: full)
+            cropped.filteringMode = .linear
+            railPlate.texture = cropped
+            railPlate.size = CGSize(width: 80, height: 640)
             railPlate.zPosition = -7
             addChild(railPlate)
         }
@@ -208,7 +213,7 @@ final class ActionBarNode: SKNode {
             buttonRoots[button] = root
 
             if let texture = UIPaintedChrome.texture(named: button.artName) {
-                let art = SKSpriteNode(texture: texture, size: Metrics.buttonSize)
+                let art = SKSpriteNode(texture: texture, size: CGSize(width: 40, height: 40))
                 art.zPosition = 1
                 if !button.isInteractive {
                     art.alpha = UITheme.Tint.disabledAlpha

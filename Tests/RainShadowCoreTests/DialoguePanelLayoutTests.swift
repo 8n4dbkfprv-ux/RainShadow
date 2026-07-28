@@ -120,8 +120,15 @@ struct DialoguePanelLayoutTests {
         for viewportHeight in viewportHeights {
             for aspect in aspects {
                 let visible = CGSize(width: viewportHeight * aspect, height: viewportHeight)
-                // First pass: base layout (what was too short for natural multi-line rows).
+                // Compact monologue base (aspect-locked) — too short for multi-line rows.
                 let base = DialoguePanelLayout.layout(for: visible)
+                // Measure wrap width at the choice-growth path (height-first panel), not the
+                // narrow monologue plaque — production remeasures after growing the panel.
+                let provisional = DialoguePanelLayout.layout(
+                    for: visible,
+                    requiredChoicesBandHeight: 280
+                )
+                let measureWidth = max(provisional.choiceTextMaxWidth, base.choiceTextMaxWidth)
                 var heights: [CGFloat] = []
                 for (index, text) in choiceTexts.enumerated() {
                     heights.append(
@@ -129,7 +136,7 @@ struct DialoguePanelLayoutTests {
                             choiceText: text,
                             index: index,
                             fontSize: DialoguePanelLayout.Typography.choiceFontSize,
-                            maxWidth: base.choiceTextMaxWidth,
+                            maxWidth: measureWidth,
                             minimumRowHeight: DialoguePanelLayout.choiceRowMinimumHeight,
                             verticalPadding: DialoguePanelLayout.choiceRowVerticalPadding
                         )
@@ -405,8 +412,9 @@ struct DialoguePanelLayoutTests {
         #expect(!source.contains("panelRect.maxX - 176"), "Old fixed scrollbar inset must be gone")
     }
 
-    @Test func presenterKeepsPortraitAndScrollbarAboveFrameOverlay() throws {
-        // Frame sits above body text for rail clipping, but portrait/scrollbar must be higher.
+    @Test func presenterKeepsPortraitUnderFrameAndScrollbarAbove() throws {
+        // Portrait sits under the frame so the painted gold window rim frames the photo.
+        // Scrollbar stays above the rails; body text stays under the frame.
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -416,7 +424,7 @@ struct DialoguePanelLayoutTests {
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
 
         func zPosition(for assignmentPrefix: String) -> Int? {
-            // Match lines like `portrait.zPosition = 33` / `frameOverlay.zPosition = 10`.
+            // Match lines like `portrait.zPosition = 3` / `frameOverlay.zPosition = 10`.
             let pattern = "\(NSRegularExpression.escapedPattern(for: assignmentPrefix))\\s*=\\s*(\\d+)"
             guard let regex = try? NSRegularExpression(pattern: pattern) else { return nil }
             let range = NSRange(source.startIndex..<source.endIndex, in: source)
@@ -433,7 +441,7 @@ struct DialoguePanelLayoutTests {
         let scrollbarZ = try #require(zPosition(for: "dialogueScrollbar.zPosition"))
 
         #expect(frameZ > contentZ, "Frame must cover overflowing body text")
-        #expect(portraitZ > frameZ, "Portrait must not sit under the left frame rail")
+        #expect(portraitZ < frameZ, "Portrait must sit under the painted gold window rim")
         #expect(scrollbarZ > frameZ, "Scrollbar must not sit under the right frame rail")
     }
 
@@ -443,13 +451,15 @@ struct DialoguePanelLayoutTests {
         #expect(DialoguePanelLayout.legacyPanelHeightCap > DialoguePanelLayout.originalPanelHeightCap)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            #expect(
-                layout.panelRect.height
-                    == min(
-                        DialoguePanelLayout.panelHeightCap,
-                        size.height * DialoguePanelLayout.panelHeightFraction
-                    )
+            let maxH = min(
+                DialoguePanelLayout.panelHeightCap,
+                size.height * DialoguePanelLayout.panelHeightFraction
             )
+            // Aspect-locked: height is at most the compact cap (may be smaller if width-bound).
+            #expect(layout.panelRect.height <= maxH + 0.001)
+            #expect(layout.panelRect.height >= 120)
+            let aspect = layout.panelRect.width / layout.panelRect.height
+            #expect(abs(aspect - DialoguePanelLayout.frameArtAspectWidthOverHeight) < 0.01)
         }
     }
 
@@ -460,9 +470,9 @@ struct DialoguePanelLayoutTests {
 
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            #expect(layout.panelRect.width == DialoguePanelLayout.panelWidth(for: size))
-            #expect(layout.bodyTextMaxWidth > 100)
-            // Compact width stays at or under the prior ultra-wide ceiling.
+            // Aspect lock may shrink width below the rail-cleared max.
+            #expect(layout.panelRect.width <= DialoguePanelLayout.panelWidth(for: size) + 0.001)
+            #expect(layout.bodyTextMaxWidth > 80)
             let priorWide = min(
                 DialoguePanelLayout.legacyPanelWidthCap,
                 size.width - DialoguePanelLayout.legacyHorizontalMarginMin * 2
@@ -484,11 +494,13 @@ struct DialoguePanelLayoutTests {
         #expect(body >= 15)
         #expect(speaker < DialoguePanelLayout.Typography.legacySpeakerFontSize)
         #expect(speaker >= 17)
-        #expect(choice == body)
+        // Choices may be one step smaller than body so the Lila triad packs on 800×600.
+        #expect(choice <= body)
+        #expect(choice >= 15)
         #expect(DialoguePanelLayout.Typography.caseTitleFontSize > body)
     }
 
-    @Test func presenterUsesSharedTypographyAndClearsGeneratedFrameUnderlay() throws {
+    @Test func presenterUsesSharedTypographyAndContentWell() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -499,10 +511,9 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("DialoguePanelLayout.Typography.bodyFontSize"))
         #expect(source.contains("DialoguePanelLayout.Typography.speakerFontSize"))
         #expect(source.contains("DialoguePanelLayout.Typography.choiceFontSize"))
-        #expect(source.contains("applyUnderlayStyle(usesGeneratedFrame:"))
-        #expect(source.contains("panel.isHidden = true"))
-        #expect(source.contains("innerPanel.isHidden = true"))
-        #expect(source.contains("panelShadow.isHidden = true"))
+        #expect(source.contains("contentWell"))
+        #expect(source.contains("geometry.contentWellRect"))
+        #expect(!source.contains("applyUnderlayStyle(usesGeneratedFrame:"))
         // No hard-coded pre-tweak body size of 20 in font assignments.
         #expect(!source.contains("dialogueLabel.fontSize = 20"))
         #expect(!source.contains("speakerLabel.fontSize = 24"))
@@ -691,11 +702,45 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("Palette.contentWell") || source.contains("contentWell.fillColor"))
         #expect(source.contains("geometry.contentWellRect") || source.contains("contentWellRect"))
         #expect(source.contains("panelPresentationOffsetY"))
-        // Outer plates still hidden with generated frame; well is separate.
-        #expect(source.contains("panel.isHidden = true"))
-        #expect(source.contains("contentWell.isHidden = false"))
+        #expect(source.contains("contentWell.path"))
         #expect(source.contains("layoutCommandControl(panelRootOffsetY:"))
         #expect(source.contains("DialoguePanelLayout.commandHitRect"))
+    }
+
+    @Test func panelClearsHUDRailsAndCentersInPlayfield() {
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let leftClear = HUDChromeLayout.leftRailClearance(for: size)
+            let rightClear = HUDChromeLayout.rightRailClearance(for: size)
+            let playMinX = -size.width / 2 + leftClear
+            let playMaxX = size.width / 2 - rightClear
+            let playCenterX = (playMinX + playMaxX) / 2
+            #expect(layout.panelRect.minX >= playMinX - 0.001, "Panel overlaps left rail at \(size)")
+            #expect(layout.panelRect.maxX <= playMaxX + 0.001, "Panel overlaps right rail at \(size)")
+            #expect(abs(layout.panelRect.midX - playCenterX) < 0.5, "Panel not centered in playfield at \(size)")
+        }
+    }
+
+    @Test func portraitSitsInPaintedFrameWindow() {
+        // Live portrait must match the gold window measured on dialogue_outer_frame_overlay_v04
+        // (not a generic left-well inset — that put the photo in transparent padding).
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let expected = DialoguePanelLayout.portraitWindowRect(in: layout.panelRect)
+            #expect(abs(layout.portraitRect.minX - expected.minX) < 0.001)
+            #expect(abs(layout.portraitRect.minY - expected.minY) < 0.001)
+            #expect(abs(layout.portraitRect.width - expected.width) < 0.001)
+            #expect(abs(layout.portraitRect.height - expected.height) < 0.001)
+            // Window is inside the panel and left of the body text column.
+            #expect(layout.panelRect.contains(layout.portraitRect.insetBy(dx: 0.5, dy: 0.5)))
+            #expect(layout.portraitRect.maxX + DialoguePanelLayout.portraitToTextGap
+                <= layout.contentViewportRect.minX + 0.001)
+            // Past the outer transparent padding of the frame art (~0.04–0.06 on v04).
+            #expect(
+                layout.portraitRect.minX
+                    >= layout.panelRect.minX + layout.panelRect.width * 0.04 - 0.001
+            )
+        }
     }
 
     @Test func commandControlSitsBelowPanelAndTracksPanelOffset() {
@@ -735,7 +780,8 @@ struct DialoguePanelLayoutTests {
         #expect(restHit.minY >= -size.height / 2 - 0.001)
         #expect(choiceHit.minY >= -size.height / 2 - 0.001)
         #expect(restHit.height == DialoguePanelLayout.commandHeight)
-        #expect(restHit.midX == 0)
+        // Continue stays centered under the panel (playfield may be off-center when rails differ).
+        #expect(abs(restHit.midX - layout.panelRect.midX) < 0.001)
 
         // Center is the pure under-panel formula (no float-up over the frame).
         let expectedRestCenter = restPanelBottom
