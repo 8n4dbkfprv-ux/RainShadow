@@ -225,6 +225,24 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeInteriorScale.Band.windowGlass.contains(multiple))
     }
 
+    @Test func windowOverlayCoversRaisedWallRecess() {
+        let window = OfficeNavigationLayout.Architecture.windowAnchor
+        let radiator = OfficeNavigationLayout.AuthoredPlacement.radiator
+        let rainMask = OfficeNavigationLayout.AuthoredPlacement.windowRainMask
+
+        // Measured centre of the raised V6 recess in authored y-up plate space.
+        #expect((1_755.0...1_775.0).contains(window.x))
+        #expect((1_700.0...1_720.0).contains(window.y))
+        // Prevent the stale mid-wall registration that drew the insert over the radiator.
+        #expect(window.y - radiator.y > 250)
+        #expect(abs(rainMask.midX - window.x) < 0.5)
+        #expect(abs(rainMask.midY - window.y) < 0.5)
+        #expect(OfficeNavigationLayout.AuthoredPlacement.windowRotation == 0)
+        // Full-recess fit with enough overlap to hide every edge of the void.
+        #expect(abs(OfficeInteriorScale.windowDisplayScale - 0.35) < 0.0001)
+        #expect(abs(OfficeInteriorScale.windowVerticalDisplayScale - 0.32) < 0.0001)
+    }
+
     @Test func chairMultipleFallsInBGBand() {
         let multiple = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.deskChair,

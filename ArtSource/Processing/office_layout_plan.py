@@ -166,10 +166,12 @@ def exterior_door_threshold_authored() -> tuple[float, float]:
 
 def window_anchor_authored() -> tuple[float, float]:
     """Centre of the painted window recess on the NW wall face (authored y-up)."""
-    x, y = rp.plan(WINDOW_A, 0.02)
-    # Recess sits about 42% of the wall face above the floor contact.
-    cy = y - rp.WALL_FACE_H * 0.42
-    return (x, rp.ART_H - cy)
+    # Measured from the complete outer recess on the shipping suite plate. Using
+    # the darker inner opening's centre left the lower-right sill exposed.
+    # The rectification warp shifts the visual frame centre slightly upward, so
+    # register four pixels lower than the geometric recess centre.
+    recess_center_plate = (1768.5, 599.0)
+    return (recess_center_plate[0], rp.ART_H - recess_center_plate[1])
 
 
 def camera_authored() -> tuple[float, float]:
@@ -543,7 +545,7 @@ def emit() -> str:
     add("        )")
     add("        static let window = Architecture.windowAnchor")
     add("        static let windowBlinds = window")
-    add("        static let windowRotation: CGFloat = -0.105")
+    add("        static let windowRotation: CGFloat = 0")
     wx, wy = window_anchor_authored()
     rain_w = 76.0 * rp.SUITE_PLATE_SCALE
     rain_h = 136.0 * rp.SUITE_PLATE_SCALE

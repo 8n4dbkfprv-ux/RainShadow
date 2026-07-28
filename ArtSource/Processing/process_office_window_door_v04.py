@@ -1,8 +1,9 @@
 
 # Window texture sizing contract:
-# Shell is drawn at size art*environment (0.395). Window sprite uses setScale(0.24).
-# To match a recess of open_h art pixels: opaque_tex_h = open_h * 0.395 / 0.24
-# Do NOT size as open_h/0.24 — that makes the prop ~2.5× too large in world space.
+# Shell is drawn at size art*environment (0.395). The rectified window sprite
+# uses yScale 0.32 (xScale remains 0.35).
+# To match a recess of open_h art pixels: opaque_tex_h = open_h * 0.395 / 0.32
+# Do NOT size as open_h/0.32 — that makes the prop ~2.5× too large in world space.
 """Normalize V5 door leaf + window insert (architecture stays in the shell plate)."""
 
 from __future__ import annotations
@@ -81,8 +82,8 @@ def main() -> None:
     hints_path = HINTS if HINTS.exists() else HINTS_FALLBACK
     hints = json.loads(hints_path.read_text()) if hints_path.exists() else {}
     door_h = int(round(hints.get("doorOpeningH", 400) * 0.395 / 0.22))
-    # Match recess art height in world space: open_h * env / windowScale.
-    win_h = int(round(max(hints.get("windowOpeningH", 136), 100) * 0.395 / 0.24))
+    # Match the full raised recess (not only the clear glass) in world space.
+    win_h = int(round(max(hints.get("windowOpeningH", 176), 100) * 0.395 / 0.32))
 
     leaf_src = ASSETS / "office_door_leaf_v05.png"
     win_src = ASSETS / "office_window_v05.png"

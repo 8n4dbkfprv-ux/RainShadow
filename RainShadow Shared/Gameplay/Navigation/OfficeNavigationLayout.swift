@@ -10,7 +10,7 @@ enum OfficeNavigationLayout {
         /// Shell-authoritative centre of the painted exterior threshold.
         static let entranceAnchor = CGPoint(x: 2_598.129, y: 1_234.916)
         /// Window insert centre on the painted left-wall recess.
-        static let windowAnchor = CGPoint(x: 1_781.683, y: 1_580.098)
+        static let windowAnchor = CGPoint(x: 1_768.500, y: 1_705.000)
         /// Interior partition: one wall on the room's north-east axis (a = 0.39),
         /// with a single framed doorway as the only connection between rooms.
         static let partitionLineA: CGFloat = 0.39
@@ -1126,9 +1126,9 @@ enum OfficeNavigationLayout {
         )
         static let window = Architecture.windowAnchor
         static let windowBlinds = window
-        static let windowRotation: CGFloat = -0.105
-        static let windowRainMask = CGRect(x: 1_758.9, y: 1_539.3, width: 45.6, height: 81.6)
-        static let windowRainEmitter = CGPoint(x: 1_781.7, y: 1_623.3)
+        static let windowRotation: CGFloat = 0
+        static let windowRainMask = CGRect(x: 1_745.7, y: 1_664.2, width: 45.6, height: 81.6)
+        static let windowRainEmitter = CGPoint(x: 1_768.5, y: 1_748.2)
         /// Recentred on the fitted cramped room diamond.
         static let camera = CGPoint(x: 1_984, y: 1_227)
 
@@ -1423,4 +1423,3 @@ enum OfficeNavigationLayout {
         obstacles.contains { $0.contains(point) }
     }
 }
-

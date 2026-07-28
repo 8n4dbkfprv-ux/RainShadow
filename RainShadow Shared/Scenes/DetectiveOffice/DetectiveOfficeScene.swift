@@ -1002,22 +1002,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         window.name = "office_window"
         window.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.window)
         window.zRotation = OfficeNavigationLayout.AuthoredPlacement.windowRotation
-        window.setScale(OfficeInteriorScale.windowDisplayScale)
+        window.xScale = OfficeInteriorScale.windowDisplayScale
+        window.yScale = OfficeInteriorScale.windowVerticalDisplayScale
+        window.warpGeometry = uprightWindowWarp
+        window.subdivisionLevels = 1
         window.texture?.filteringMode = .linear
         rearFixtureRoot.addChild(window)
         registerHoverSprite(window, for: "office.window")
-
-        if let blindsTex = GameArt.texture(named: "office_window_blinds") {
-            let blinds = SKSpriteNode(texture: blindsTex)
-            blinds.name = "office_window_blinds"
-            blinds.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowBlinds)
-            blinds.zRotation = OfficeNavigationLayout.AuthoredPlacement.windowRotation
-            blinds.setScale(OfficeInteriorScale.windowDisplayScale * 0.92)
-            blinds.alpha = 0.88
-            blinds.texture?.filteringMode = .linear
-            blinds.zPosition = window.zPosition + 1
-            rearFixtureRoot.addChild(blinds)
-        }
     }
 
     /// Dense records-wall art — board, map, and photos clustered (not evenly spaced).
@@ -1467,6 +1458,16 @@ final class DetectiveOfficeScene: BaseGameScene {
             sourcePositions: source,
             destinationPositions: destination
         )
+    }
+
+    /// Project the window onto the NW wall plane: rails rise with the painted
+    /// wall trim while both side jambs remain vertical. Rotating the whole node
+    /// would lean the jambs and make the window look pasted onto the wall.
+    private var uprightWindowWarp: SKWarpGeometryGrid {
+        doorWarp([
+            SIMD2(0.000, 0.000), SIMD2(1.000, 0.150),
+            SIMD2(0.000, 0.774), SIMD2(1.000, 1.000)
+        ])
     }
 
     private var uprightDoorWarp: SKWarpGeometryGrid {

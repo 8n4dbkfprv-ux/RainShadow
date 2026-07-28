@@ -112,7 +112,7 @@ enum OfficeInteriorScale {
 
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
     /// targets: standard 0.22, desk chair 0.135, visitor 0.17, desk 0.12,
-    /// window overlay 0.24, floor decal 0.18, small props 0.12, pocket 0.10.
+    /// window overlay 0.35, floor decal 0.18, small props 0.12, pocket 0.10.
     enum PropRelativeScale {
         static let standard: CGFloat = 0.22 / environment
         /// Tall bookcase — plan absolute 0.2238 keeps it ~1.84× detective.
@@ -135,7 +135,10 @@ enum OfficeInteriorScale {
         /// Entrance rack stays subordinate to the door and separate from its
         /// falling silhouette; the old 1.18× body read as giant brass hinges.
         static let coatRack: CGFloat = 0.143 / environment
-        static let window: CGFloat = 0.24 / environment
+        /// Covers the complete outer recess after the straightening counter-warp.
+        static let window: CGFloat = 0.35 / environment
+        /// Independent height fit for the unblinded glass-and-frame insert.
+        static let windowVertical: CGFloat = 0.32 / environment
         static let floorDecal: CGFloat = 0.22 / environment
         static let smallProp: CGFloat = 0.12 / environment
         static let pocketProp: CGFloat = 0.10 / environment
@@ -270,6 +273,10 @@ enum OfficeInteriorScale {
 
     static var windowDisplayScale: CGFloat {
         environment * PropRelativeScale.window
+    }
+
+    static var windowVerticalDisplayScale: CGFloat {
+        environment * PropRelativeScale.windowVertical
     }
 
     static var floorDecalDisplayScale: CGFloat {
