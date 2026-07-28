@@ -599,21 +599,45 @@ def emit() -> str:
     add("        return CGPoint(x: baseline.x + nudge.x, y: baseline.y + nudge.y)")
     add("    }")
     add("")
-    add("    /// Exterior door → waiting room → internal doorway → client chair.")
-    add("    static let clientArrivalPath: [CGPoint] = [")
-    for a, b in CLIENT_PATH:
+    add("    /// Exterior threshold crossing. This segment intentionally starts")
+    add("    /// outside the navigation floor and passes through the fallen door leaf.")
+    add("    static let clientDoorwayPath: [CGPoint] = [")
+    for a, b in CLIENT_DOORWAY_PATH:
         add(f"        {pt(rp.authored(a, b))},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
+    add("    /// Walkable anchors from just inside the exterior door, through the")
+    add("    /// waiting room and internal doorway, to the visitor approach.")
+    add("    static let clientInteriorArrivalPath: [CGPoint] = [")
+    for a, b in CLIENT_INTERIOR_PATH:
+        add(f"        {pt(rp.authored(a, b))},")
+    add("    ].map(OfficeInteriorScale.mapPoint)")
+    add("")
+    add("    static var clientArrivalPath: [CGPoint] {")
+    add("        Array(clientDoorwayPath.dropLast()) + clientInteriorArrivalPath")
+    add("    }")
+    add("")
     add("    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }")
     add("")
+    add("    /// Preserve the authored exterior-door crossing, then let A* expand")
+    add("    /// the interior anchors around waiting-room furniture and partition walls.")
+    add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
+    add("        let interior = navigation.waypoints(visiting: clientInteriorArrivalPath)")
+    add("            ?? clientInteriorArrivalPath")
+    add("        return Array(clientDoorwayPath.dropLast()) + interior")
+    add("    }")
+    add("")
+    add("    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {")
+    add("        Array(clientArrivalRoute(in: navigation).reversed())")
+    add("    }")
+    add("")
     add("    static let exteriorToInternalDoorPath: [CGPoint] = [")
-    for a, b in CLIENT_PATH[:3]:
+    for a, b in CLIENT_PATH[:-2]:
         add(f"        {pt(rp.authored(a, b))},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
     add("    static let internalDoorToClientPath: [CGPoint] = [")
-    for a, b in CLIENT_PATH[2:]:
+    for a, b in CLIENT_INTERIOR_PATH[-3:]:
         add(f"        {pt(rp.authored(a, b))},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
@@ -667,7 +691,7 @@ def emit() -> str:
 
     add(HOTSPOTS_SWIFT)
     add(TAIL_SWIFT)
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines).rstrip() + "\n"
 
 
 DEPTH_PROP_ANCHOR_Y = 0.04  # matches `addDepthProp` in DetectiveOfficeScene
@@ -878,16 +902,24 @@ def internal_leaf_scale() -> float:
     return door_h * ENV / max(content_h, 1.0)
 
 
-# Authored polyline with clear line-of-sight segments (entrance uses linear
-# SKAction moves, not grid pathfinding). Route: exterior → waiting → internal
-# door → stand just inside the office at the visitor approach.
-CLIENT_PATH = [
-    (0.100, 0.550),  # exterior door / waiting entrance
+# The exterior doorway segment cannot be sent through NavigationGrid: its first
+# point is deliberately outside the floor boundary and the static grid still
+# contains the closed door-leaf obstacle. Keep this short segment authored
+# through the painted opening, then hand off to routed interior anchors.
+CLIENT_DOORWAY_PATH = [
+    (-0.080, 0.790),  # outside the department, centred in the clear opening
+    (0.200, 0.790),  # inside and clear of the fallen leaf / umbrella stand
+]
+
+CLIENT_INTERIOR_PATH = [
+    CLIENT_DOORWAY_PATH[-1],
+    (0.100, 0.550),  # waiting entrance, beyond the exterior wall
     (0.180, 0.400),  # waiting bay mid
     (0.280, 0.220),  # approach internal doorway (waiting face)
     (0.420, 0.160),  # through the partition doorway
     (0.420, 0.220),  # stand inside office at visitor approach (not empty rear)
 ]
+CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
 SCALE_STANDS = [
     (0.080, EXTERIOR_DOOR[1]),  # directly beside the exterior doorway
@@ -1069,11 +1101,20 @@ def report() -> bool:
     ]
     open_share = len(reach) / max(len(room_cells), 1)
     print(f"  open floor: {len(reach)}/{len(room_cells)} room cells = {open_share:.0%}")
-    for a, b in CLIENT_PATH:
+    doorway_ok = (
+        CLIENT_DOORWAY_PATH[0][0] < 0.0 < CLIENT_DOORWAY_PATH[-1][0]
+        and all(EXTERIOR_DOOR[1] - rp.EXTERIOR_DOOR_OPENING_B / 2
+                <= b
+                <= EXTERIOR_DOOR[1] + rp.EXTERIOR_DOOR_OPENING_B / 2
+                for _, b in CLIENT_DOORWAY_PATH)
+    )
+    ok &= doorway_ok
+    print(f"  client exterior doorway crossing valid={doorway_ok}")
+    for a, b in CLIENT_INTERIOR_PATH:
         cell = grid.cell(rp.authored(a, b))
         good = cell in reach
         ok &= good
-        print(f"  client path ({a:.3f},{b:.3f}) cell={cell} reachable={good}")
+        print(f"  client interior ({a:.3f},{b:.3f}) cell={cell} reachable={good}")
     ok &= any(door_ok) and len(waiting) > 15
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)

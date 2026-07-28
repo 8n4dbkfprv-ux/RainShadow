@@ -387,7 +387,9 @@ struct OfficeInteriorScaleTests {
     @Test func clientArrivalMovesTowardVisitorSideOfDesk() {
         let path = OfficeNavigationLayout.clientArrivalPath
         #expect(path.count >= 3)
-        #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        // The first point is intentionally outside the floor; every point after
+        // the exterior threshold is on walkable interior ground.
+        #expect(path.dropFirst().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard let first = path.first, let last = path.last else { return }
         // Exterior (NE waiting) → through internal door → visitor approach.
         #expect(last.x < first.x)
@@ -404,7 +406,7 @@ struct OfficeInteriorScaleTests {
         let departure = OfficeNavigationLayout.clientDeparturePath
         // Shipped departure is the arrival polyline reversed (no extra easing vertex).
         #expect(departure.count == arrival.count)
-        #expect(departure.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        #expect(departure.dropLast().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard let arrivalStart = arrival.first, let arrivalEnd = arrival.last,
               let departureStart = departure.first, let departureEnd = departure.last else {
             return

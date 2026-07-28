@@ -190,16 +190,30 @@ struct NavigationGridTests {
         #expect(path.last == CGPoint(x: 25, y: 5))
     }
 
-    @Test func officeClientArrivalAnchorsExpandWithoutCrossingObstacles() {
+    @Test func officeClientArrivalCrossesExteriorDoorThenRoutesAroundInteriorObstacles() {
         let grid = OfficeNavigationLayout.makeGrid()
-        let anchors = OfficeNavigationLayout.clientArrivalPath
-        let path = grid.waypoints(visiting: anchors)
-        #expect(path != nil, "Client arrival anchors must route through open floor")
-        guard let path else { return }
-        #expect(path.count >= anchors.count)
-        #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
-        // No straight-line leg may pierce an obstacle (the bug linear SKAction had).
-        for index in 0..<(path.count - 1) {
+        let path = OfficeNavigationLayout.clientArrivalRoute(in: grid)
+        let doorway = OfficeNavigationLayout.clientDoorwayPath
+        let exteriorDoor = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.Architecture.entranceAnchor
+        )
+
+        #expect(path.count >= OfficeNavigationLayout.clientArrivalPath.count)
+        #expect(path.first == doorway.first)
+        #expect(path.dropFirst().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        #expect(doorway.count == 2)
+        guard doorway.count == 2, path.count >= 2 else { return }
+
+        // Regression: the old start was already west of the doorway, so Lila
+        // materialized through the left wall. The authored threshold leg now
+        // straddles the painted exterior opening.
+        #expect(doorway[0].x > exteriorDoor.x)
+        #expect(doorway[1].x < exteriorDoor.x)
+        #expect(segmentCrossesOfficeObstacle(from: doorway[0], to: doorway[1]))
+
+        // Once through the fallen exterior leaf, no straight-line leg may
+        // pierce furniture or the internal partition.
+        for index in 1..<(path.count - 1) {
             let a = path[index]
             let b = path[index + 1]
             #expect(
@@ -209,16 +223,20 @@ struct NavigationGridTests {
         }
     }
 
-    @Test func officeClientDepartureAnchorsExpandWithoutCrossingObstacles() {
+    @Test func officeClientDepartureRetracesInteriorThenCrossesExteriorDoor() {
         let grid = OfficeNavigationLayout.makeGrid()
-        let anchors = OfficeNavigationLayout.clientDeparturePath
-        let path = grid.waypoints(visiting: anchors)
-        #expect(path != nil, "Client departure anchors must route through open floor")
-        guard let path else { return }
-        #expect(path.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
-        for index in 0..<(path.count - 1) {
+        let path = OfficeNavigationLayout.clientDepartureRoute(in: grid)
+        #expect(path.count >= 2)
+        #expect(path.dropLast().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
+        guard path.count >= 2 else { return }
+
+        for index in 0..<(path.count - 2) {
             #expect(!segmentCrossesOfficeObstacle(from: path[index], to: path[index + 1]))
         }
+        #expect(segmentCrossesOfficeObstacle(
+            from: path[path.count - 2],
+            to: path[path.count - 1]
+        ))
     }
 
     /// Sampled segment test against the authored (mapped) office obstacle list.

@@ -291,7 +291,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateDetectiveDepth()
         depthWorldRoot.addChild(detective)
 
-        if let clientStart = OfficeNavigationLayout.clientArrivalPath.first {
+        if let clientStart = OfficeNavigationLayout.clientDoorwayPath.first {
             client.position = clientStart
         }
         updateDepth(of: client)
@@ -731,10 +731,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         guard !clientEntranceStarted else { return }
         clientEntranceStarted = true
         animateDoorFalling()
-        // Expand authored anchors through the nav grid so Lila never lerps
-        // through the partition, exterior wall, or furniture.
-        let anchors = OfficeNavigationLayout.clientArrivalPath
-        let path = navigation.waypoints(visiting: anchors) ?? anchors
+        // The first leg is authored across the actual exterior threshold (its
+        // start is outside the nav floor). Once inside, A* takes over so Lila
+        // clears the waiting furniture and uses the internal office doorway.
+        let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }
             let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
@@ -758,8 +758,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             cameraRestore.timingMode = .easeInEaseOut
             gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
         case .beginClientExit:
-            let anchors = OfficeNavigationLayout.clientDeparturePath
-            let path = navigation.waypoints(visiting: anchors) ?? anchors
+            let path = OfficeNavigationLayout.clientDepartureRoute(in: navigation)
             client.performExit(along: path) { [weak self] in
                 guard let self else { return }
                 for next in OfficeClientVisitSequencer.actions(for: .clientExitCompleted) {

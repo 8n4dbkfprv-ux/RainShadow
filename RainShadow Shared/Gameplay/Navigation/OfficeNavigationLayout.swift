@@ -1190,8 +1190,17 @@ enum OfficeNavigationLayout {
         return CGPoint(x: baseline.x + nudge.x, y: baseline.y + nudge.y)
     }
 
-    /// Exterior door → waiting room → internal doorway → client chair.
-    static let clientArrivalPath: [CGPoint] = [
+    /// Exterior threshold crossing. This segment intentionally starts
+    /// outside the navigation floor and passes through the fallen door leaf.
+    static let clientDoorwayPath: [CGPoint] = [
+        CGPoint(x: 2_618, y: 1_271),
+        CGPoint(x: 2_463, y: 1_184),
+    ].map(OfficeInteriorScale.mapPoint)
+
+    /// Walkable anchors from just inside the exterior door, through the
+    /// waiting room and internal doorway, to the visitor approach.
+    static let clientInteriorArrivalPath: [CGPoint] = [
+        CGPoint(x: 2_463, y: 1_184),
         CGPoint(x: 2_323, y: 1_308),
         CGPoint(x: 2_157, y: 1_341),
         CGPoint(x: 1_955, y: 1_379),
@@ -1199,9 +1208,27 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1_877, y: 1_336),
     ].map(OfficeInteriorScale.mapPoint)
 
+    static var clientArrivalPath: [CGPoint] {
+        Array(clientDoorwayPath.dropLast()) + clientInteriorArrivalPath
+    }
+
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
+    /// Preserve the authored exterior-door crossing, then let A* expand
+    /// the interior anchors around waiting-room furniture and partition walls.
+    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
+        let interior = navigation.waypoints(visiting: clientInteriorArrivalPath)
+            ?? clientInteriorArrivalPath
+        return Array(clientDoorwayPath.dropLast()) + interior
+    }
+
+    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {
+        Array(clientArrivalRoute(in: navigation).reversed())
+    }
+
     static let exteriorToInternalDoorPath: [CGPoint] = [
+        CGPoint(x: 2_618, y: 1_271),
+        CGPoint(x: 2_463, y: 1_184),
         CGPoint(x: 2_323, y: 1_308),
         CGPoint(x: 2_157, y: 1_341),
         CGPoint(x: 1_955, y: 1_379),
