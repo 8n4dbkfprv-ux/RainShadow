@@ -68,7 +68,10 @@ struct DialoguePanelLayoutTests {
         }
 
         let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
+        // Fixed plaque — choice state must not change outer size (BG-style).
         let layout = DialoguePanelLayout.layout(for: visible, requiredChoicesBandHeight: natural)
+        #expect(abs(layout.panelRect.height - base.panelRect.height) < 0.01)
+        #expect(abs(layout.panelRect.width - base.panelRect.width) < 0.01)
         let bandH = DialoguePanelLayout.choicesBandHeight(
             measuredRowHeights: heights,
             contentViewportHeight: layout.contentViewportRect.height
@@ -80,13 +83,11 @@ struct DialoguePanelLayoutTests {
         let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
         #expect(frames.count == 3)
         #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
-        for (index, frame) in frames.enumerated() {
-            #expect(frame.height >= heights[index] - 0.01)
-            #expect(frame.minY >= band.minY - 0.5, "Choice \(index) clipped below band")
+        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: band))
+        for frame in frames {
+            #expect(frame.minY >= band.minY - 0.5, "Choice clipped below band")
         }
-        // Grown choice panel still leaves a usable body strip above the responses.
         #expect(layout.contentViewportRect.height > DialoguePanelLayout.minBodyViewportHeight)
-        #expect(layout.panelRect.height >= base.panelRect.height)
     }
 
     @Test func panelIsCompactForCharacterVisibility() {
@@ -106,9 +107,9 @@ struct DialoguePanelLayoutTests {
         }
     }
 
-    @Test func officeHUDGrowsSoMultilineTriadFitsWithoutClipping() {
-        // HUD is camera-attached and therefore uses the physical scene viewport,
-        // independent of the world camera's visible height.
+    @Test func officeHUDKeepsFixedPlaqueWhenChoicesAppear() {
+        // HUD is camera-attached and therefore uses the physical scene viewport.
+        // BG-style: outer plaque size is constant; multi-line choices pack inside.
         let viewportHeights: [CGFloat] = [600, 768, 1_152]
         let aspects: [CGFloat] = [4.0 / 3.0, 16.0 / 10.0, 16.0 / 9.0]
         let choiceTexts = [
@@ -120,15 +121,8 @@ struct DialoguePanelLayoutTests {
         for viewportHeight in viewportHeights {
             for aspect in aspects {
                 let visible = CGSize(width: viewportHeight * aspect, height: viewportHeight)
-                // Compact monologue base (aspect-locked) — too short for multi-line rows.
                 let base = DialoguePanelLayout.layout(for: visible)
-                // Measure wrap width at the choice-growth path (height-first panel), not the
-                // narrow monologue plaque — production remeasures after growing the panel.
-                let provisional = DialoguePanelLayout.layout(
-                    for: visible,
-                    requiredChoicesBandHeight: 280
-                )
-                let measureWidth = max(provisional.choiceTextMaxWidth, base.choiceTextMaxWidth)
+                let measureWidth = base.choiceTextMaxWidth
                 var heights: [CGFloat] = []
                 for (index, text) in choiceTexts.enumerated() {
                     heights.append(
@@ -143,46 +137,27 @@ struct DialoguePanelLayoutTests {
                     )
                 }
                 let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
-                let baseMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
-                    contentViewportHeight: base.contentViewportRect.height
-                )
-                // Office HUD is the case that overflowed when natural > baseMaxBand.
-                // Grown layout must fit natural stack fully.
-                let grown = DialoguePanelLayout.layout(
+                let withChoices = DialoguePanelLayout.layout(
                     for: visible,
                     requiredChoicesBandHeight: natural
                 )
-                #expect(grown.panelRect.height >= base.panelRect.height - 0.001)
-                let grownMaxBand = DialoguePanelLayout.maxChoicesBandHeight(
-                    contentViewportHeight: grown.contentViewportRect.height
-                )
-                #expect(
-                    grownMaxBand + 0.5 >= natural,
-                    "Grown maxBand \(grownMaxBand) < natural \(natural) at \(visible)"
-                )
+                // Outer chrome is identical with or without a required choices band.
+                #expect(abs(withChoices.panelRect.width - base.panelRect.width) < 0.01)
+                #expect(abs(withChoices.panelRect.height - base.panelRect.height) < 0.01)
+                // Choices still pack into the fixed well (may scale on short viewports).
                 let bandH = DialoguePanelLayout.choicesBandHeight(
                     measuredRowHeights: heights,
-                    contentViewportHeight: grown.contentViewportRect.height
+                    contentViewportHeight: withChoices.contentViewportRect.height
                 )
-                #expect(abs(bandH - natural) < 1.0 || bandH >= natural - 0.5)
+                #expect(bandH > 0)
                 let band = DialoguePanelLayout.choicesBandRect(
-                    contentViewport: grown.contentViewportRect,
+                    contentViewport: withChoices.contentViewportRect,
                     choicesBandHeight: bandH
                 )
                 let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
                 #expect(frames.count == 3)
                 #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
-                #expect(
-                    DialoguePanelLayout.choiceFramesFitInBand(frames, band: band),
-                    "Frames overflow band at aspect \(aspect); last.minY=\(frames.last?.minY ?? 0) band.minY=\(band.minY)"
-                )
-                for frame in frames {
-                    #expect(frame.minY >= grown.contentViewportRect.minY - 0.5)
-                }
-                // Document the skeptic scenario: base often cannot hold natural without growth.
-                if natural > baseMaxBand + 0.5 {
-                    #expect(grown.panelRect.height > base.panelRect.height + 0.5)
-                }
+                #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: band))
             }
         }
     }
@@ -616,9 +591,10 @@ struct DialoguePanelLayoutTests {
 
     @Test func panelPresentationOffsetsLowerUIForCharacterVisibility() {
         #expect(DialoguePanelLayout.panelRestOffsetY < DialoguePanelLayout.legacyPanelRestOffsetY)
-        #expect(DialoguePanelLayout.panelChoicesOffsetY < DialoguePanelLayout.panelRestOffsetY)
+        // Fixed plaque: monologue and choice pages share the same vertical offset (no jump).
+        #expect(DialoguePanelLayout.panelChoicesOffsetY == DialoguePanelLayout.panelRestOffsetY)
         #expect(DialoguePanelLayout.panelPresentationOffsetY(hasChoices: false) == DialoguePanelLayout.panelRestOffsetY)
-        #expect(DialoguePanelLayout.panelPresentationOffsetY(hasChoices: true) == DialoguePanelLayout.panelChoicesOffsetY)
+        #expect(DialoguePanelLayout.panelPresentationOffsetY(hasChoices: true) == DialoguePanelLayout.panelRestOffsetY)
     }
 
     @Test func snugBodyAndChoicesClosesEmptyGapWithoutClippingChoices() {

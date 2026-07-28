@@ -28,6 +28,8 @@ final class PortraitBarNode: SKNode {
 
     private let railPlate = SKSpriteNode()
     private let portraitRoot = SKNode()
+    /// Opaque well under the photo so the room never shows through the transparent hole.
+    private let portraitWell = SKShapeNode()
     private let portraitCrop = SKCropNode()
     private let portraitMask = SKShapeNode()
     private let portrait = SKSpriteNode()
@@ -189,6 +191,12 @@ final class PortraitBarNode: SKNode {
         portraitRoot.zPosition = 1
         addChild(portraitRoot)
 
+        // Solid well fills the painted hole so transparent chrome never shows the room.
+        portraitWell.fillColor = SKColor(white: 0.02, alpha: 1)
+        portraitWell.strokeColor = .clear
+        portraitWell.zPosition = 0
+        portraitRoot.addChild(portraitWell)
+
         portraitMask.fillColor = .white
         portraitMask.strokeColor = .clear
         portraitCrop.maskNode = portraitMask
@@ -208,7 +216,7 @@ final class PortraitBarNode: SKNode {
 
         for label in [healthShadow, healthLabel] {
             label.text = "12/12"
-            label.fontSize = 16
+            label.fontSize = 13
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .top
             label.zPosition = 6
@@ -252,6 +260,11 @@ final class PortraitBarNode: SKNode {
         let photo = geometry.portraitPhotoRect
         portraitRoot.position = .zero
 
+        // Black well = full painted hole (under the photo).
+        portraitWell.path = CGPath(rect: window, transform: nil)
+        portraitWell.position = .zero
+
+        // Crop mask matches the hole; photo is a smaller square centered inside.
         portraitMask.path = CGPath(
             rect: CGRect(
                 x: -window.width / 2,
@@ -263,24 +276,28 @@ final class PortraitBarNode: SKNode {
         )
         portraitCrop.position = CGPoint(x: window.midX, y: window.midY)
 
-        // Photo fully inside the window (never oversized past the rim).
+        // Square photo contained in the window (side = short axis − inset).
         portrait.size = CGSize(width: photo.width, height: photo.height)
         portrait.position = .zero
 
+        // Condition ring on the photo bounds.
         statusBorder.path = CGPath(
             rect: CGRect(
-                x: -window.width / 2,
-                y: -window.height / 2,
-                width: window.width,
-                height: window.height
+                x: -photo.width / 2,
+                y: -photo.height / 2,
+                width: photo.width,
+                height: photo.height
             ),
             transform: nil
         )
-        statusBorder.position = CGPoint(x: window.midX, y: window.midY)
+        statusBorder.position = CGPoint(x: photo.midX, y: photo.midY)
 
-        let labelPos = CGPoint(x: window.minX + 4, y: window.maxY - 2)
-        healthShadow.position = CGPoint(x: labelPos.x + 1.5, y: labelPos.y - 1.5)
+        let labelPos = CGPoint(x: photo.minX + 3, y: photo.maxY - 2)
+        healthShadow.position = CGPoint(x: labelPos.x + 1.2, y: labelPos.y - 1.2)
         healthLabel.position = labelPos
+        let hpSize = max(10, min(13, photo.height * 0.16))
+        healthShadow.fontSize = hpSize
+        healthLabel.fontSize = hpSize
     }
 
     private func layoutUtilities(_ geometry: HUDChromeLayout.RightRailLayout) {

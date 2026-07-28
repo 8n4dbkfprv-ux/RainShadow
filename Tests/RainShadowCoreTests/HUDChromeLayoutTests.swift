@@ -30,6 +30,12 @@ struct HUDChromeLayoutTests {
     }
 
     @Test func leftRailIconsSitInsideNonOverlappingWells() {
+        let measuredCenters = HUDChromeLayout.LeftRail.wellCenterFractionsFromTop
+        #expect(measuredCenters.count == HUDChromeLayout.LeftRail.wellCount)
+        // Measured art is not equal-spaced; bottom wells sit lower than (i+0.5)/N.
+        #expect(measuredCenters[11] > 0.92)
+        #expect(measuredCenters[0] < 0.09)
+
         for size in representativeSizes {
             let layout = HUDChromeLayout.leftRailLayout(for: size)
             #expect(layout.wellRects.count == HUDChromeLayout.LeftRail.wellCount)
@@ -41,6 +47,8 @@ struct HUDChromeLayoutTests {
                 width: layout.plateSize.width,
                 height: layout.plateSize.height
             )
+            let plateH = layout.plateSize.height
+            let plateTop = plateH / 2
 
             for index in layout.wellRects.indices {
                 let well = layout.wellRects[index]
@@ -55,6 +63,11 @@ struct HUDChromeLayoutTests {
                 )
                 // Square icons (no stretch).
                 #expect(abs(icon.width - icon.height) < 0.01)
+                // Icons must not overflow the painted circular recess (~54% of plate width).
+                #expect(icon.width <= layout.plateSize.width * 0.56 + 0.5)
+                // Centers match measured fractions (from top of plate).
+                let expectedY = plateTop - measuredCenters[index] * plateH
+                #expect(abs(well.midY - expectedY) < 0.5, "Well \(index) Y off measured art at \(size)")
             }
 
             // Wells do not overlap each other.
@@ -90,25 +103,45 @@ struct HUDChromeLayoutTests {
             let drawn = layout.plateSize.height / layout.plateSize.width
             #expect(abs(drawn - artAspect) < 0.01, "Right plate aspect \(drawn) at \(size)")
 
+            let window = layout.portraitWindowRect
+            let photo = layout.portraitPhotoRect
+            // Contain: square photo fully inside the painted window, centered.
+            #expect(abs(photo.midX - window.midX) < 0.5)
+            #expect(abs(photo.midY - window.midY) < 0.5)
+            #expect(abs(photo.width - photo.height) < 0.01)
             #expect(
-                layout.portraitWindowRect.contains(layout.portraitPhotoRect.insetBy(dx: 0.5, dy: 0.5)),
+                window.insetBy(dx: -0.5, dy: -0.5).contains(photo),
                 "Portrait photo spills past window at \(size)"
             )
-            #expect(layout.utilityWellRects.count == 3)
-            #expect(layout.utilityIconRects.count == 3)
-
+            #expect(photo.width <= min(window.width, window.height) + 0.01)
             let plateLocal = CGRect(
                 x: -layout.plateSize.width / 2,
                 y: -layout.plateSize.height / 2,
                 width: layout.plateSize.width,
                 height: layout.plateSize.height
             )
+            #expect(
+                plateLocal.contains(window.insetBy(dx: 0.5, dy: 0.5)),
+                "Portrait window outside plate at \(size)"
+            )
+            #expect(
+                plateLocal.contains(photo.insetBy(dx: 0.5, dy: 0.5)),
+                "Portrait photo outside plate at \(size)"
+            )
+            #expect(layout.utilityWellRects.count == 3)
+            #expect(layout.utilityIconRects.count == 3)
+
+            let plateH = layout.plateSize.height
+            let plateTop = plateH / 2
+            let measuredUtility = HUDChromeLayout.RightRail.utilityCenterFractionsFromTop
             for index in layout.utilityWellRects.indices {
                 let well = layout.utilityWellRects[index]
                 let icon = layout.utilityIconRects[index]
                 #expect(plateLocal.contains(well.insetBy(dx: 0.5, dy: 0.5)))
                 #expect(well.insetBy(dx: -0.5, dy: -0.5).contains(icon))
                 #expect(abs(icon.width - icon.height) < 0.01)
+                let expectedY = plateTop - measuredUtility[index] * plateH
+                #expect(abs(well.midY - expectedY) < 0.5, "Utility \(index) Y off measured art at \(size)")
             }
             for i in 0..<3 {
                 for j in (i + 1)..<3 {

@@ -545,14 +545,11 @@ final class CaseIntroductionPresenter: SKNode {
 
         func pack(with heights: [CGFloat]) -> (band: CGRect, body: CGRect, frames: [CGRect], bodyContent: CGFloat) {
             let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
-            // Grow the panel when natural multi-line rows exceed the current well.
+            // Fixed plaque size (BG-style) — choices pack into the well; frame does not grow.
             let visible = lastVisibleSize.height > 1
                 ? lastVisibleSize
                 : CGSize(width: 1_000, height: OfficeInteriorScale.cameraVisibleHeight)
-            let geometry = DialoguePanelLayout.layout(
-                for: visible,
-                requiredChoicesBandHeight: natural
-            )
+            let geometry = DialoguePanelLayout.layout(for: visible)
             applyPanelGeometry(geometry, preserveSplitRegions: false)
 
             let dialogueHeight = max(

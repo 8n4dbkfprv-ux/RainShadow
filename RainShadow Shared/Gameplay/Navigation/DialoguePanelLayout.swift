@@ -22,7 +22,7 @@ struct DialoguePanelLayout: Equatable {
     /// Extra pad left of the trailing ornament so the bar clears engraved rails.
     static let scrollbarClearanceFromTrailingChrome: CGFloat = 6
 
-    /// Cap on panel height in points — compact monologue band; choice pages may grow.
+    /// Cap on panel height in points — fixed plaque (BG-style; does not grow for choices).
     /// Sized for art aspect (~2.36:1): height 280 → width ≈ 660 at lock, keeping actors visible.
     static let panelHeightCap: CGFloat = 280
     /// Prior tall-panel height cap (pre character-visibility compact pass).
@@ -32,7 +32,7 @@ struct DialoguePanelLayout: Equatable {
     /// Older baseline before the first tall-panel bump.
     static let originalPanelHeightCap: CGFloat = 360
 
-    /// Fraction of visible height used for the base (no-choice) panel.
+    /// Fraction of visible height used for the fixed plaque.
     static let panelHeightFraction: CGFloat = 0.30
     /// Prior tall-panel fraction (pre character-visibility compact pass).
     static let legacyPanelHeightFraction: CGFloat = 0.62
@@ -85,9 +85,11 @@ struct DialoguePanelLayout: Equatable {
     /// Identity centerRect = stretch whole texture uniformly with `size`.
     static let frameNineSliceCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 
-    /// Panel root Y offsets during presentation (negative = lower on screen = more room for actors).
+    /// Panel root Y offset while presenting (negative = lower = more room for actors).
+    /// Same for monologue and choices so the plaque never jumps when options appear.
     static let panelRestOffsetY: CGFloat = -36
-    static let panelChoicesOffsetY: CGFloat = -48
+    /// Kept equal to `panelRestOffsetY` (legacy name used by older tests/call sites).
+    static let panelChoicesOffsetY: CGFloat = panelRestOffsetY
     /// Prior rest offset (0) — tests document the intentional drop for character visibility.
     static let legacyPanelRestOffsetY: CGFloat = 0
 
@@ -167,15 +169,16 @@ struct DialoguePanelLayout: Equatable {
     let choiceTextMaxWidth: CGFloat
 
     /// Builds panel geometry from the visible HUD size (same entry the presenter uses).
-    /// Panel size is aspect-locked to `frameArtAspectWidthOverHeight` so the painted
-    /// plaque is never non-uniformly stretched.
-    /// - Parameter requiredChoicesBandHeight: When multi-line choices need more than the
-    ///   default well allows, pass the **natural** (uncapped) band height so the panel
-    ///   grows and every row stays inside the content viewport without scaling.
+    /// Outer plaque size is **fixed** for a given viewport (Baldur’s Gate–style): aspect-locked
+    /// to the painted frame, never grown when multi-line choices appear. Choices pack into
+    /// the fixed content well (scaled if needed).
+    /// - Parameter requiredChoicesBandHeight: Ignored for outer size (kept for call-site
+    ///   compatibility). Choice packing uses `choicesBandHeight` / `choiceRowFrames` instead.
     static func layout(
         for visibleSize: CGSize,
         requiredChoicesBandHeight: CGFloat = 0
     ) -> DialoguePanelLayout {
+        _ = requiredChoicesBandHeight
         let leftClear = HUDChromeLayout.leftRailClearance(for: visibleSize)
         let rightClear = HUDChromeLayout.rightRailClearance(for: visibleSize)
         let commandHeight: CGFloat = Self.commandHeight
@@ -186,17 +189,8 @@ struct DialoguePanelLayout: Equatable {
             + commandGapBelowPanel
             + 6
         let maxWidth = panelWidth(for: visibleSize)
-        let baseHeight = min(panelHeightCap, visibleSize.height * panelHeightFraction)
-        let neededHeight = panelHeight(
-            forVisibleSize: visibleSize,
-            baseHeight: baseHeight,
-            requiredChoicesBandHeight: requiredChoicesBandHeight
-        )
-        let locked = panelDrawSize(
-            maxWidth: maxWidth,
-            neededHeight: neededHeight,
-            preferChoiceHeight: requiredChoicesBandHeight > 0.5
-        )
+        let fixedHeight = min(panelHeightCap, visibleSize.height * panelHeightFraction)
+        let locked = aspectLockedPanelSize(maxWidth: maxWidth, maxHeight: fixedHeight)
         // Center in the playfield between HUD rails, not the full window.
         let playWidth = max(1, visibleSize.width - leftClear - rightClear)
         let playCenterX = -visibleSize.width / 2 + leftClear + playWidth / 2
@@ -220,22 +214,14 @@ struct DialoguePanelLayout: Equatable {
         return CGSize(width: max(1, byHeight.width), height: max(1, byHeight.height))
     }
 
-    /// Monologue pages stay art-aspect locked. Choice pages prefer the height needed
-    /// for multi-line options; they keep art aspect when width allows, otherwise keep
-    /// the required height at max width so response rows never clip.
+    /// Fixed plaque size for a viewport (same monologue and choice pages).
     static func panelDrawSize(
         maxWidth: CGFloat,
         neededHeight: CGFloat,
         preferChoiceHeight: Bool
     ) -> CGSize {
-        let aspect = frameArtAspectWidthOverHeight
-        if preferChoiceHeight {
-            let idealWidth = neededHeight * aspect
-            if idealWidth <= maxWidth + 0.001 {
-                return CGSize(width: max(1, idealWidth), height: max(1, neededHeight))
-            }
-            return CGSize(width: max(1, maxWidth), height: max(1, neededHeight))
-        }
+        // preferChoiceHeight is ignored — outer chrome never grows with dialogue state.
+        _ = preferChoiceHeight
         return aspectLockedPanelSize(maxWidth: maxWidth, maxHeight: neededHeight)
     }
 
@@ -260,16 +246,15 @@ struct DialoguePanelLayout: Equatable {
         return max(byMinBody, byFraction) + 4
     }
 
+    /// Fixed plaque height for the viewport (choices no longer grow the outer frame).
     static func panelHeight(
         forVisibleSize visibleSize: CGSize,
         baseHeight: CGFloat,
         requiredChoicesBandHeight: CGFloat
     ) -> CGFloat {
-        guard requiredChoicesBandHeight > 0 else { return baseHeight }
-        let neededContent = contentHeightNeeded(forNaturalChoicesBand: requiredChoicesBandHeight)
-        let neededPanel = neededContent + contentInsetFromPanelTop + contentInsetFromPanelBottom
-        let maxPanel = maximumPanelHeight(for: visibleSize)
-        return min(maxPanel, max(baseHeight, neededPanel))
+        _ = visibleSize
+        _ = requiredChoicesBandHeight
+        return baseHeight
     }
 
     /// Uncapped band height for measured multi-line rows (source of truth for growth).
@@ -464,9 +449,7 @@ struct DialoguePanelLayout: Equatable {
         return min(estimated, maxChoicesBandHeight(contentViewportHeight: contentViewportHeight))
     }
 
-    /// Band height from real measured row heights (never scales rows — avoids label overlap).
-    /// Prefer growing the panel via `layout(for:requiredChoicesBandHeight:)` so `natural`
-    /// fits; only then this equals natural rather than a clipped maxBand.
+    /// Band height from measured row heights, clamped to the fixed plaque’s max band.
     static func choicesBandHeight(
         measuredRowHeights: [CGFloat],
         contentViewportHeight: CGFloat
@@ -477,24 +460,55 @@ struct DialoguePanelLayout: Equatable {
     }
 
     /// Top Y of each choice row (panel space), packed top-down with no overlap.
-    /// Caller must ensure `band.height >= naturalChoicesBandHeight` (grow panel first).
+    /// Row heights are distributed into the band (proportional to measured height) so the
+    /// fixed plaque never clips options off-screen when multi-line text is long.
     static func choiceRowFrames(
         band: CGRect,
         rowHeights: [CGFloat]
     ) -> [CGRect] {
         guard !rowHeights.isEmpty, band.height > 0.5 else { return [] }
+        let count = rowHeights.count
+        let weights = rowHeights.map { max(choiceRowMinimumHeight, $0) }
+        let weightSum = max(1, weights.reduce(0, +))
+
+        // Shrink padding/spacing on very short fixed plaques so rows never stack with
+        // more gap chrome than available height (which produced overlapping frames).
+        var topPad = choiceBandTopPadding
+        var bottomPad = choiceBandBottomPadding
+        var spacing = choiceRowSpacing
+        var gaps = CGFloat(max(0, count - 1)) * spacing
+        var chrome = topPad + bottomPad + gaps
+        if chrome + CGFloat(count) > band.height {
+            topPad = min(topPad, 4)
+            bottomPad = min(bottomPad, 4)
+            spacing = min(spacing, 2)
+            gaps = CGFloat(max(0, count - 1)) * spacing
+            chrome = topPad + bottomPad + gaps
+        }
+        if chrome + CGFloat(count) > band.height {
+            topPad = 0
+            bottomPad = 0
+            spacing = 0
+            gaps = 0
+            chrome = 0
+        }
+        let availableForRows = max(CGFloat(count), band.height - chrome)
+        let useNatural = weightSum <= availableForRows + 0.5
+
         var frames: [CGRect] = []
-        var rowTop = band.maxY - choiceBandTopPadding
-        for height in rowHeights {
-            let h = max(choiceRowMinimumHeight, height)
+        var rowTop = band.maxY - topPad
+        for weight in weights {
+            let h = useNatural
+                ? weight
+                : availableForRows * (weight / weightSum)
             let frame = CGRect(
                 x: band.minX,
                 y: rowTop - h,
                 width: max(1, band.width),
-                height: h
+                height: max(1, h)
             )
             frames.append(frame)
-            rowTop = frame.minY - choiceRowSpacing
+            rowTop = frame.minY - spacing
         }
         return frames
     }
@@ -507,12 +521,13 @@ struct DialoguePanelLayout: Equatable {
         }
     }
 
-    /// True when consecutive choice frames do not overlap (with spacing).
+    /// True when consecutive choice frames do not overlap (allowing zero gap on tight packs).
     static func choiceFramesAreNonOverlapping(_ frames: [CGRect]) -> Bool {
         guard frames.count >= 2 else { return true }
         for i in 0..<(frames.count - 1) {
-            // frames[i] is above frames[i+1]; lower edge of upper must be >= upper edge of lower + spacing
-            if frames[i].minY < frames[i + 1].maxY + choiceRowSpacing - 0.01 {
+            // frames[i] is above frames[i+1]; lower edge of upper must be at or below upper edge of lower.
+            // Do not require full `choiceRowSpacing` — fixed plaques may pack with reduced gaps.
+            if frames[i].minY < frames[i + 1].maxY - 0.01 {
                 return false
             }
         }
@@ -623,23 +638,25 @@ struct DialoguePanelLayout: Equatable {
     }
 
     /// Vertical panel root offset while presenting (lower = more room for actors above).
+    /// Constant for monologue and choices so the plaque does not jump when options appear.
     /// Clamped so Continue always fits under the panel inside the safe screen band.
     static func panelPresentationOffsetY(
         hasChoices: Bool,
         panelRect: CGRect,
         visibleHeight: CGFloat
     ) -> CGFloat {
-        let desired = hasChoices ? panelChoicesOffsetY : panelRestOffsetY
+        _ = hasChoices
         return clampedPanelOffsetY(
             panelRect: panelRect,
-            desiredOffsetY: desired,
+            desiredOffsetY: panelRestOffsetY,
             visibleHeight: visibleHeight
         )
     }
 
     /// Convenience for tests that only care about the rest/choices constants.
     static func panelPresentationOffsetY(hasChoices: Bool) -> CGFloat {
-        hasChoices ? panelChoicesOffsetY : panelRestOffsetY
+        _ = hasChoices
+        return panelRestOffsetY
     }
 
     /// Lowest panel bottom that still leaves room for Continue under the frame.

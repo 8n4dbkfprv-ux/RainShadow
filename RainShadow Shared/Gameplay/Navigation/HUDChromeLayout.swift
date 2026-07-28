@@ -11,13 +11,19 @@ enum HUDChromeLayout {
         /// Width / height of the painted plate — uniform scale must preserve this.
         static let artAspectWidthOverHeight: CGFloat = 256.0 / 2_048.0
         static let wellCount = 12
-        /// Usable well band as fractions from the **top** of the plate.
-        static let wellBandTop: CGFloat = 0.045
-        static let wellBandBottom: CGFloat = 0.955
-        /// Well width relative to plate width (dark icon recess on the art).
-        static let wellWidthFractionOfPlate: CGFloat = 0.72
-        /// Icons fill most of the well without overflowing the rim.
-        static let iconFillOfWell: CGFloat = 0.88
+        /// Well centers as fractions from the **top** of the cropped plate.
+        /// Measured from horizontal metal dividers on `hud_left_rail_plate_v03`
+        /// (equal spacing drifts ~2% low by the bottom well).
+        static let wellCenterFractionsFromTop: [CGFloat] = [
+            0.0770, 0.1614, 0.2409, 0.3186, 0.3961, 0.4738,
+            0.5513, 0.6286, 0.7043, 0.7815, 0.8600, 0.9375
+        ]
+        /// Dark icon recess width relative to plate width (measured ~0.54 on art).
+        static let wellWidthFractionOfPlate: CGFloat = 0.54
+        /// Well height relative to plate height (measured slot ~0.078; square via min with width).
+        static let wellHeightFractionOfPlate: CGFloat = 0.072
+        /// Icons fill the well without overflowing the painted rim.
+        static let iconFillOfWell: CGFloat = 0.90
         static let edgePad: CGFloat = 8
         /// Soft min/max so icons stay usable on short viewports without a huge bar on 4K.
         static let minPlateWidth: CGFloat = 64
@@ -74,19 +80,22 @@ enum HUDChromeLayout {
             y: 0
         )
 
-        let bandTop = LeftRail.wellBandTop
-        let bandBottom = LeftRail.wellBandBottom
-        let bandSpan = max(0.01, bandBottom - bandTop)
         let wellW = plateW * LeftRail.wellWidthFractionOfPlate
-        // Square wells: side is the minimum of width-based and equal-slot height budget.
-        let slotH = plateH * bandSpan / CGFloat(LeftRail.wellCount)
-        let wellSide = min(wellW, slotH * 0.92)
+        let wellH = plateH * LeftRail.wellHeightFractionOfPlate
+        // Square wells sized to the painted circular recesses (not oversize).
+        let wellSide = min(wellW, wellH)
         let iconSide = wellSide * LeftRail.iconFillOfWell
+        let centers = LeftRail.wellCenterFractionsFromTop
 
         var wellRects: [CGRect] = []
         var iconRects: [CGRect] = []
         for index in 0..<LeftRail.wellCount {
-            let frac = bandTop + (CGFloat(index) + 0.5) / CGFloat(LeftRail.wellCount) * bandSpan
+            let frac: CGFloat
+            if index < centers.count {
+                frac = centers[index]
+            } else {
+                frac = (CGFloat(index) + 0.5) / CGFloat(LeftRail.wellCount)
+            }
             // Plate-local: top of plate is +plateH/2.
             let y = plateH / 2 - frac * plateH
             let well = CGRect(
@@ -124,22 +133,26 @@ enum HUDChromeLayout {
         static let plateContentAspectHeightOverWidth: CGFloat = 479.0 / 320.0
 
         /// Portrait hole inside cropped plate (fractions from **top** of content).
-        /// Measured from the punched transparent window on the runtime PNG.
-        static let portraitTopFraction: CGFloat = 0.06
-        static let portraitHeightFraction: CGFloat = 0.40
-        static let portraitLeftFraction: CGFloat = 0.10
-        static let portraitWidthFraction: CGFloat = 0.80
-        /// Keep the photo inside the painted rim.
-        static let portraitInnerInset: CGFloat = 4
+        /// Matches the punched transparent window on `hud_right_rail_plate_v03`
+        /// (x≈0.10–0.90, y≈0.06–0.46 of the content crop).
+        static let portraitTopFraction: CGFloat = 0.060
+        static let portraitHeightFraction: CGFloat = 0.396
+        static let portraitLeftFraction: CGFloat = 0.100
+        static let portraitWidthFraction: CGFloat = 0.797
+        /// Keep square photo clear of the metal rim (fraction of the short window side).
+        static let portraitInnerInsetFraction: CGFloat = 0.08
+        /// Absolute floor on the inner inset (points).
+        static let portraitInnerInsetMin: CGFloat = 4
 
         /// Three utility slots below the portrait (centers from top of content).
-        static let utilityCenterFractionsFromTop: [CGFloat] = [0.62, 0.76, 0.90]
-        /// Well side as a fraction of plate **height** (slots are stacked; width alone oversizes).
-        static let utilitySizeFractionOfPlateHeight: CGFloat = 0.11
+        /// Measured from metal slot rails on the cropped plate (~0.53 / 0.67 / 0.79 / 0.91).
+        static let utilityCenterFractionsFromTop: [CGFloat] = [0.596, 0.729, 0.853]
+        /// Well side as a fraction of plate **height** (slot interior ~0.12 after rims).
+        static let utilitySizeFractionOfPlateHeight: CGFloat = 0.10
         /// Cap relative to plate width so icons stay inside the metal rim.
-        static let utilityMaxWidthFraction: CGFloat = 0.55
+        static let utilityMaxWidthFraction: CGFloat = 0.52
         static let utilityCenterXFractionFromLeft: CGFloat = 0.50
-        static let utilityIconFill: CGFloat = 0.88
+        static let utilityIconFill: CGFloat = 0.90
 
         static var plateHeight: CGFloat { railWidth * plateContentAspectHeightOverWidth }
     }
@@ -170,7 +183,12 @@ enum HUDChromeLayout {
         )
 
         let window = portraitWindowRect(in: plateSize)
-        let inset = RightRail.portraitInnerInset
+        // Square photo CONTAINED in the window (not aspect-fill cover). Cover sizing
+        // made the face too large for the short hole and looked like it spilled the bar.
+        let inset = max(
+            RightRail.portraitInnerInsetMin,
+            min(window.width, window.height) * RightRail.portraitInnerInsetFraction
+        )
         let photoSide = max(1, min(window.width, window.height) - inset * 2)
         let photo = CGRect(
             x: window.midX - photoSide / 2,
