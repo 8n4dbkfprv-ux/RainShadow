@@ -88,6 +88,10 @@ struct DialoguePanelLayoutTests {
         #expect(frames.count == 3)
         #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
         #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
+        #expect(
+            abs(frames[0].maxY - band.maxY) < 0.01,
+            "First response must be visible at the crop's top edge before any scrolling"
+        )
         for (index, frame) in frames.enumerated() {
             #expect(frame.height >= heights[index], "Choice row was compressed below its label")
         }
@@ -135,6 +139,7 @@ struct DialoguePanelLayoutTests {
         )
 
         #expect(contentBand.height > visibleBand.height, "Short viewport should scroll the choice list")
+        #expect(abs(frames[0].maxY - visibleBand.maxY) < 0.01)
         #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
         #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
         for (index, frame) in frames.enumerated() {
@@ -278,26 +283,27 @@ struct DialoguePanelLayoutTests {
             #expect(abs(choices.minY - content.minY) < 0.01)
             #expect(abs(body.height + choices.height - content.height) < 0.01)
 
-            let bars = DialoguePanelLayout.splitScrollbarRects(
-                fullScrollbarRect: layout.scrollbarRect,
-                contentViewport: content,
-                choicesBand: choices
+            let bodyBar = DialoguePanelLayout.inlineBodyScrollbarRect(
+                bodyViewport: body
             )
-            #expect(layout.scrollbarRect.contains(bars.body))
-            #expect(layout.scrollbarRect.contains(bars.choices))
-            #expect(bars.choices.maxY < bars.body.minY)
+            #expect(body.contains(bodyBar))
+            #expect(bodyBar.maxX == body.maxX)
+            #expect(bodyBar.height == body.height)
+            #expect(!bodyBar.intersects(layout.scrollbarRect))
+            let inlineTextWidth = DialoguePanelLayout.inlineBodyTextMaxWidth(
+                contentViewport: content
+            )
+            let textRight = content.minX
+                + DialoguePanelLayout.bodyTextHorizontalInset
+                + inlineTextWidth
             #expect(
-                abs(bars.body.minY - bars.choices.maxY - DialoguePanelLayout.splitScrollbarGap)
-                    < 0.01
+                textRight + DialoguePanelLayout.inlineBodyScrollbarGap
+                    <= bodyBar.minX + 0.001
             )
-            #expect(bars.body.minX == layout.scrollbarRect.minX)
-            #expect(bars.choices.minX == layout.scrollbarRect.minX)
-            let usableMinimum = min(
-                DialoguePanelLayout.minimumSplitScrollbarExtent,
-                (layout.scrollbarRect.height - DialoguePanelLayout.splitScrollbarGap) / 2
+            #expect(
+                DialoguePanelLayout.inlineBodyScrollbarGap >= 20,
+                "Inline body scrollbar needs visible breathing room beyond glyph overhang"
             )
-            #expect(bars.body.height >= usableMinimum - 0.01)
-            #expect(bars.choices.height >= usableMinimum - 0.01)
         }
 
         // No choices → body uses the full content viewport.
@@ -334,11 +340,17 @@ struct DialoguePanelLayoutTests {
         // Multi-line measure must use CoreText path, not crushed scale factors.
         #expect(source.contains("DialogueTextMetrics.choiceRowHeight"))
         #expect(source.contains("dialogueLabel.frame.height"))
+        #expect(source.contains("let bodyTextMaxWidth = resolvedBodyTextMaxWidth()"))
+        #expect(source.contains("dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth"))
+        #expect(source.contains("maxWidth: bodyTextMaxWidth"))
         #expect(!source.contains("scaledHeights"))
         #expect(!source.contains(" * scale"))
         #expect(source.contains("bodyScrollbar.isHidden"))
         #expect(source.contains("choicesScrollbar.isHidden"))
+        #expect(source.contains("let hasResponseChoices = !choicesViewport.isEmpty"))
+        #expect(source.contains("choicesScrollbar.isHidden = !hasResponseChoices || !choicesNeedScroll"))
         #expect(source.contains("configureScrollbars"))
+        #expect(source.contains("inlineBodyScrollbarRect"))
     }
 
     @Test func scrollbarOccupiesPaintedRightRail() {

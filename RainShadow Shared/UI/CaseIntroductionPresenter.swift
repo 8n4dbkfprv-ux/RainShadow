@@ -556,7 +556,14 @@ final class CaseIntroductionPresenter: SKNode {
         applyBodyScrollOffset(0)
         applyChoicesScrollOffset(0)
 
-        dialogueLabel.preferredMaxLayoutWidth = panelLayout.bodyTextMaxWidth
+        func resolvedBodyTextMaxWidth() -> CGFloat {
+            choices.isEmpty
+                ? panelLayout.bodyTextMaxWidth
+                : DialoguePanelLayout.inlineBodyTextMaxWidth(
+                    contentViewport: contentViewportRect
+                )
+        }
+        dialogueLabel.preferredMaxLayoutWidth = resolvedBodyTextMaxWidth()
         let labelInset = DialoguePanelLayout.choiceLabelHorizontalInset
         let fontSize = DialoguePanelLayout.Typography.choiceFontSize
         let maxWidth = panelLayout.choiceTextMaxWidth
@@ -613,6 +620,10 @@ final class CaseIntroductionPresenter: SKNode {
                 : CGSize(width: 1_000, height: OfficeInteriorScale.cameraVisibleHeight)
             let geometry = DialoguePanelLayout.layout(for: visible)
             applyPanelGeometry(geometry, preserveSplitRegions: false)
+            // `applyPanelGeometry` restores the general body width. Choice pages need
+            // the narrower inline-scrollbar width for both rendering and measurement.
+            let bodyTextMaxWidth = resolvedBodyTextMaxWidth()
+            dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth
 
             let dialogueHeight = max(
                 dialogueLabel.fontSize * 1.25,
@@ -622,7 +633,7 @@ final class CaseIntroductionPresenter: SKNode {
                         text: dialogueLabel.text ?? "",
                         fontName: dialogueLabel.fontName ?? "Palatino-Roman",
                         fontSize: dialogueLabel.fontSize,
-                        maxWidth: panelLayout.bodyTextMaxWidth
+                        maxWidth: bodyTextMaxWidth
                     )
                 )
             )
@@ -739,23 +750,16 @@ final class CaseIntroductionPresenter: SKNode {
             viewportExtent: bodyViewport.height,
             contentExtent: bodyContentExtent
         )
+        let hasResponseChoices = !choicesViewport.isEmpty
         bodyScrollbar.isHidden = !bodyNeedsScroll
-        choicesScrollbar.isHidden = !choicesNeedScroll
+        choicesScrollbar.isHidden = !hasResponseChoices || !choicesNeedScroll
 
-        let bodyRect: CGRect
-        let choicesRect: CGRect
-        if bodyNeedsScroll, choicesNeedScroll {
-            let split = DialoguePanelLayout.splitScrollbarRects(
-                fullScrollbarRect: panelLayout.scrollbarRect,
-                contentViewport: contentViewportRect,
-                choicesBand: choicesViewport
+        let bodyRect = choicesViewport.isEmpty
+            ? panelLayout.scrollbarRect
+            : DialoguePanelLayout.inlineBodyScrollbarRect(
+                bodyViewport: bodyViewport
             )
-            bodyRect = split.body
-            choicesRect = split.choices
-        } else {
-            bodyRect = panelLayout.scrollbarRect
-            choicesRect = panelLayout.scrollbarRect
-        }
+        let choicesRect = panelLayout.scrollbarRect
 
         if bodyNeedsScroll {
             bodyScrollbar.layout(in: bodyRect)
@@ -765,7 +769,7 @@ final class CaseIntroductionPresenter: SKNode {
                 scrollOffset: 0
             )
         }
-        if choicesNeedScroll {
+        if hasResponseChoices, choicesNeedScroll {
             choicesScrollbar.layout(in: choicesRect)
             choicesScrollbar.configure(
                 viewportExtent: choicesViewport.height,
@@ -774,7 +778,7 @@ final class CaseIntroductionPresenter: SKNode {
             )
         }
 
-        if choicesNeedScroll {
+        if hasResponseChoices, choicesNeedScroll {
             scrollTarget = .choices
         } else {
             scrollTarget = .body

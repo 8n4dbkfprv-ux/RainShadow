@@ -164,10 +164,10 @@ struct DialoguePanelLayout: Equatable {
     /// Minimum height reserved for the prompt above a scrollable response list.
     /// The body has its own crop, so compact plaques prioritize a complete option row.
     static let minBodyViewportHeight: CGFloat = 80
-    /// Gap between simultaneous body and response scrollbars in the painted rail.
-    static let splitScrollbarGap: CGFloat = 4
-    /// Enough room for two arrow buttons and a usable thumb/track between them.
-    static let minimumSplitScrollbarExtent: CGFloat = 72
+    /// Clear breathing room between Lila's body copy and its compact inline scrollbar.
+    /// Palatino glyphs can overhang their measured advance slightly, so this includes
+    /// enough safety space to remain visibly separate at large display scales.
+    static let inlineBodyScrollbarGap: CGFloat = 24
     /// Extra headroom per choice when estimating multi-line options before measure.
     static let choiceRowEstimatedWrapSlack: CGFloat = 20
     /// Vertical padding inside a measured choice row around the label frame.
@@ -487,7 +487,10 @@ struct DialoguePanelLayout: Equatable {
     ) -> [CGRect] {
         guard !rowHeights.isEmpty, band.height > 0.5 else { return [] }
         var frames: [CGRect] = []
-        var rowTop = band.maxY - choiceBandTopPadding
+        // Anchor the first row directly to the crop's top edge. SKLabelNode's multiline
+        // `.top` alignment has additional internal ascent; subtracting top padding here
+        // placed the first visible glyphs below short response bands until scrolling.
+        var rowTop = band.maxY
         for height in rowHeights {
             let h = max(choiceRowMinimumHeight, height)
             let frame = CGRect(
@@ -629,46 +632,26 @@ struct DialoguePanelLayout: Equatable {
         return (finalBody, choices, bandHeight)
     }
 
-    /// Splits the painted rail in the same proportion as the body/response viewports.
-    /// A single active scrollbar may still use the full rail; this is used when both
-    /// regions overflow and therefore need independent controls at the same time.
-    static func splitScrollbarRects(
-        fullScrollbarRect: CGRect,
-        contentViewport: CGRect,
-        choicesBand: CGRect
-    ) -> (body: CGRect, choices: CGRect) {
-        guard contentViewport.height > 1, choicesBand.height > 0.5 else {
-            return (fullScrollbarRect, .zero)
-        }
-        let choicesFraction = min(
-            0.9,
-            max(0.1, choicesBand.height / contentViewport.height)
+    /// Compact body scrollbar beside the upper text crop. Response choices retain the
+    /// full painted rail, avoiding two sets of arrows stacked in the same channel.
+    static func inlineBodyScrollbarRect(bodyViewport: CGRect) -> CGRect {
+        CGRect(
+            x: bodyViewport.maxX - scrollbarWidth,
+            y: bodyViewport.minY,
+            width: scrollbarWidth,
+            height: max(1, bodyViewport.height)
         )
-        let availableHeight = max(2, fullScrollbarRect.height - splitScrollbarGap)
-        let rawChoicesHeight = availableHeight * choicesFraction
-        let minimumSegment = min(
-            minimumSplitScrollbarExtent,
-            availableHeight / 2
+    }
+
+    /// Body wrap width when its compact scrollbar occupies the viewport's right edge.
+    static func inlineBodyTextMaxWidth(contentViewport: CGRect) -> CGFloat {
+        max(
+            1,
+            contentViewport.width
+                - bodyTextHorizontalInset
+                - scrollbarWidth
+                - inlineBodyScrollbarGap
         )
-        let choicesHeight = min(
-            availableHeight - minimumSegment,
-            max(minimumSegment, rawChoicesHeight)
-        )
-        let halfGap = splitScrollbarGap / 2
-        let splitY = fullScrollbarRect.minY + choicesHeight + halfGap
-        let choices = CGRect(
-            x: fullScrollbarRect.minX,
-            y: fullScrollbarRect.minY,
-            width: fullScrollbarRect.width,
-            height: max(1, choicesHeight)
-        )
-        let body = CGRect(
-            x: fullScrollbarRect.minX,
-            y: splitY + halfGap,
-            width: fullScrollbarRect.width,
-            height: max(1, fullScrollbarRect.maxY - splitY - halfGap)
-        )
-        return (body, choices)
     }
 
     /// Vertical panel root offset while presenting (lower = more room for actors above).
