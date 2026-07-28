@@ -29,11 +29,17 @@ final class CaseIntroductionPresenter: SKNode {
         case end
     }
 
+    private enum ScrollTarget {
+        case body
+        case choices
+    }
+
     private let veil = SKShapeNode()
     private let panelRoot = SKNode()
     private let contentWell = SKShapeNode()
     private let frameOverlay = SKSpriteNode()
-    private let dialogueScrollbar = DialogueScrollbarNode()
+    private let bodyScrollbar = DialogueScrollbarNode()
+    private let choicesScrollbar = DialogueScrollbarNode()
     private let portraitBacking = SKShapeNode()
     private let portrait = SKSpriteNode()
     private let speakerLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueName)
@@ -41,6 +47,8 @@ final class CaseIntroductionPresenter: SKNode {
     private let contentMask = SKShapeNode()
     private let scrollContentRoot = SKNode()
     private let dialogueLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBody)
+    private let choicesCrop = SKCropNode()
+    private let choicesMask = SKShapeNode()
     private let choicesRoot = SKNode()
     private let commandPlate = SKSpriteNode()
     private let commandLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBodyBold)
@@ -60,7 +68,10 @@ final class CaseIntroductionPresenter: SKNode {
     /// Fixed response strip at the bottom of the content viewport (empty when no choices).
     private var choicesBandRect = CGRect.zero
     private var panelLayout = DialoguePanelLayout.layout(panelRect: CGRect(x: 0, y: 0, width: 1_000, height: 320))
-    private var scrollOffset: CGFloat = 0
+    private var bodyScrollOffset: CGFloat = 0
+    private var choicesScrollOffset: CGFloat = 0
+    private var scrollTarget = ScrollTarget.body
+    private var choicesContentExtent: CGFloat = 0
     private var usesGeneratedFrame = false
     private var presentationCompletion: (() -> Void)?
     private var lastVisibleSize: CGSize = .zero
@@ -160,21 +171,7 @@ final class CaseIntroductionPresenter: SKNode {
         contentMask.path = CGPath(rect: bodyViewport, transform: nil)
         dialogueLabel.position = CGPoint(x: textLeft, y: bodyViewport.maxY)
 
-        let contentH = bodyContentHeight ?? max(dialogueLabel.fontSize * 1.25, dialogueLabel.frame.height) + 12
-        let needsScroll = DialogueScrollbarGeometry.isScrollable(
-            viewportExtent: bodyViewport.height,
-            contentExtent: contentH
-        )
-        // Hide the whole control when the body fits — no tiny stub between arrows.
-        dialogueScrollbar.isHidden = !needsScroll || bodyViewport.height < 48
-        if !dialogueScrollbar.isHidden {
-            dialogueScrollbar.layout(
-                in: DialoguePanelLayout.bodyScrollbarRect(
-                    fullScrollbarRect: panelLayout.scrollbarRect,
-                    bodyViewport: bodyViewport
-                )
-            )
-        }
+        _ = bodyContentHeight
     }
 
     /// Places Continue/End just under the dialogue panel so a lowered panel never covers it.
@@ -220,10 +217,7 @@ final class CaseIntroductionPresenter: SKNode {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
 
-        // Choices are fixed in panel space (not scrolled with body).
-        if !choiceRows.isEmpty,
-           choicesBandRect.contains(panelPoint) || choiceRows.contains(where: { $0.hitRect.contains(panelPoint) }),
-           let index = choiceRows.firstIndex(where: { $0.hitRect.contains(panelPoint) }) {
+        if let index = choiceIndex(at: panelPoint) {
             focusedChoiceIndex = index
             activateFocusedControl()
             return true
@@ -241,36 +235,69 @@ final class CaseIntroductionPresenter: SKNode {
     func handlePointerDown(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
-        return dialogueScrollbar.handlePointerDown(at: scrollbarPoint)
+        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+        if !choicesScrollbar.isHidden,
+           choicesScrollbar.handlePointerDown(at: choicesPoint) {
+            scrollTarget = .choices
+            return true
+        }
+        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+        if !bodyScrollbar.isHidden,
+           bodyScrollbar.handlePointerDown(at: bodyPoint) {
+            scrollTarget = .body
+            return true
+        }
+        return false
     }
 
     @discardableResult
     func handlePointerDragged(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
-        return dialogueScrollbar.handlePointerDragged(at: scrollbarPoint)
+        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+        let bodyHandled = !bodyScrollbar.isHidden
+            && bodyScrollbar.handlePointerDragged(at: bodyPoint)
+        let choicesHandled = !choicesScrollbar.isHidden
+            && choicesScrollbar.handlePointerDragged(at: choicesPoint)
+        return bodyHandled || choicesHandled
     }
 
     @discardableResult
     func handlePointerUp(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
-        return dialogueScrollbar.handlePointerUp(at: scrollbarPoint)
+        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+        let bodyHandled = !bodyScrollbar.isHidden
+            && bodyScrollbar.handlePointerUp(at: bodyPoint)
+        let choicesHandled = !choicesScrollbar.isHidden
+            && choicesScrollbar.handlePointerUp(at: choicesPoint)
+        return bodyHandled || choicesHandled
     }
 
     @discardableResult
     func updatePointer(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        hoveredChoiceIndex = choiceRows.firstIndex { $0.hitRect.contains(panelPoint) }
+        hoveredChoiceIndex = choiceIndex(at: panelPoint)
         commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
-        let scrollbarPoint = dialogueScrollbar.convert(panelPoint, from: panelRoot)
-        let scrollbarIsHovered = dialogueScrollbar.updatePointer(at: scrollbarPoint)
+        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+        let bodyScrollbarIsHovered = !bodyScrollbar.isHidden
+            && bodyScrollbar.updatePointer(at: bodyPoint)
+        let choicesScrollbarIsHovered = !choicesScrollbar.isHidden
+            && choicesScrollbar.updatePointer(at: choicesPoint)
+        if choicesBandRect.contains(panelPoint) || choicesScrollbarIsHovered {
+            scrollTarget = .choices
+        } else if bodyViewportRect.contains(panelPoint) || bodyScrollbarIsHovered {
+            scrollTarget = .body
+        }
         refreshInteractionColors()
-        return hoveredChoiceIndex != nil || commandIsHovered || scrollbarIsHovered
+        return hoveredChoiceIndex != nil
+            || commandIsHovered
+            || bodyScrollbarIsHovered
+            || choicesScrollbarIsHovered
     }
 
     @discardableResult
@@ -278,14 +305,21 @@ final class CaseIntroductionPresenter: SKNode {
         guard !choiceRows.isEmpty else { return false }
         let current = focusedChoiceIndex ?? (direction < 0 ? 0 : -1)
         focusedChoiceIndex = (current + direction + choiceRows.count) % choiceRows.count
-        // Choices are fixed on screen — no scroll chase required.
+        revealFocusedChoice()
         refreshInteractionColors()
         return true
     }
 
     @discardableResult
     func scrollContent(by points: CGFloat) -> Bool {
-        dialogueScrollbar.scroll(by: points)
+        switch scrollTarget {
+        case .body:
+            if !bodyScrollbar.isHidden, bodyScrollbar.scroll(by: points) { return true }
+            return !choicesScrollbar.isHidden && choicesScrollbar.scroll(by: points)
+        case .choices:
+            if !choicesScrollbar.isHidden, choicesScrollbar.scroll(by: points) { return true }
+            return !bodyScrollbar.isHidden && bodyScrollbar.scroll(by: points)
+        }
     }
 
     func activateFocusedControl() {
@@ -328,12 +362,22 @@ final class CaseIntroductionPresenter: SKNode {
         usesGeneratedFrame = addGeneratedFrameOverlay()
         assertionFailureIfMissingFrame()
 
-        // Scrollbar must sit above the ornate frame rails (frame is above body text).
-        dialogueScrollbar.zPosition = 40
-        dialogueScrollbar.onScroll = { [weak self] offset in
-            self?.applyScrollOffset(offset)
+        // Body and responses scroll independently. When both overflow they split the
+        // same painted right-hand rail vertically, matching their on-screen regions.
+        bodyScrollbar.name = "dialogue.scrollbar.body"
+        bodyScrollbar.zPosition = 40
+        bodyScrollbar.isHidden = true
+        bodyScrollbar.onScroll = { [weak self] offset in
+            self?.applyBodyScrollOffset(offset)
         }
-        panelRoot.addChild(dialogueScrollbar)
+        panelRoot.addChild(bodyScrollbar)
+        choicesScrollbar.name = "dialogue.scrollbar.choices"
+        choicesScrollbar.zPosition = 40
+        choicesScrollbar.isHidden = true
+        choicesScrollbar.onScroll = { [weak self] offset in
+            self?.applyChoicesScrollOffset(offset)
+        }
+        panelRoot.addChild(choicesScrollbar)
 
         // Portrait sits under the frame so the painted gold window rim frames the photo
         // (frame must keep a transparent portrait hole — see process_ui_chrome_v03).
@@ -368,9 +412,14 @@ final class CaseIntroductionPresenter: SKNode {
         dialogueLabel.verticalAlignmentMode = .top
         dialogueLabel.numberOfLines = 0
         scrollContentRoot.addChild(dialogueLabel)
-        choicesRoot.zPosition = 2
+        choicesMask.fillColor = .white
+        choicesMask.strokeColor = .clear
+        choicesCrop.maskNode = choicesMask
+        choicesCrop.zPosition = 2
+        panelRoot.addChild(choicesCrop)
+        choicesRoot.zPosition = 0
         choicesRoot.name = "dialogue.choices-band"
-        panelRoot.addChild(choicesRoot)
+        choicesCrop.addChild(choicesRoot)
 
         if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
             commandPlate.texture = texture
@@ -423,7 +472,8 @@ final class CaseIntroductionPresenter: SKNode {
         commandIsHovered = false
         speakerLabel.text = node.speaker
         speakerLabel.fontColor = speakerColor(for: node.speaker)
-        applyScrollOffset(0)
+        applyBodyScrollOffset(0)
+        applyChoicesScrollOffset(0)
         dialogueLabel.text = node.text
 
         let isCaseTitle = node.speaker == "Case opened" || node.speaker == EmptyCoatCaseIntroduction.caseOpenedSpeaker
@@ -498,7 +548,13 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func rebuildChoices(_ choices: [CaseDialogueChoice]) {
         choicesRoot.removeAllChildren()
+        choicesRoot.position = .zero
+        choicesMask.path = nil
         choiceRows.removeAll()
+        choicesContentExtent = 0
+        scrollTarget = .body
+        applyBodyScrollOffset(0)
+        applyChoicesScrollOffset(0)
 
         dialogueLabel.preferredMaxLayoutWidth = panelLayout.bodyTextMaxWidth
         let labelInset = DialoguePanelLayout.choiceLabelHorizontalInset
@@ -543,7 +599,13 @@ final class CaseIntroductionPresenter: SKNode {
             label.removeFromParent()
         }
 
-        func pack(with heights: [CGFloat]) -> (band: CGRect, body: CGRect, frames: [CGRect], bodyContent: CGFloat) {
+        func pack(with heights: [CGFloat]) -> (
+            band: CGRect,
+            contentBand: CGRect,
+            body: CGRect,
+            frames: [CGRect],
+            bodyContent: CGFloat
+        ) {
             let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
             // Fixed plaque size (BG-style) — choices pack into the well; frame does not grow.
             let visible = lastVisibleSize.height > 1
@@ -554,11 +616,14 @@ final class CaseIntroductionPresenter: SKNode {
 
             let dialogueHeight = max(
                 dialogueLabel.fontSize * 1.25,
-                DialogueTextMetrics.height(
-                    text: dialogueLabel.text ?? "",
-                    fontName: dialogueLabel.fontName ?? "Palatino-Roman",
-                    fontSize: dialogueLabel.fontSize,
-                    maxWidth: panelLayout.bodyTextMaxWidth
+                max(
+                    dialogueLabel.frame.height,
+                    DialogueTextMetrics.height(
+                        text: dialogueLabel.text ?? "",
+                        fontName: dialogueLabel.fontName ?? "Palatino-Roman",
+                        fontSize: dialogueLabel.fontSize,
+                        maxWidth: panelLayout.bodyTextMaxWidth
+                    )
                 )
             )
             let bodyContent = dialogueHeight + 12
@@ -568,11 +633,15 @@ final class CaseIntroductionPresenter: SKNode {
                 bodyContentHeight: bodyContent,
                 naturalChoicesBandHeight: natural
             )
+            let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
+                visibleBand: snug.choices,
+                naturalContentHeight: natural
+            )
             let frames = DialoguePanelLayout.choiceRowFrames(
-                band: snug.choices,
+                band: contentBand,
                 rowHeights: heights
             )
-            return (snug.choices, snug.body, frames, bodyContent)
+            return (snug.choices, contentBand, snug.body, frames, bodyContent)
         }
 
         var heights = measuredHeights
@@ -583,6 +652,9 @@ final class CaseIntroductionPresenter: SKNode {
             choicesBand: packed.band,
             bodyContentHeight: packed.bodyContent
         )
+        choicesMask.path = packed.band.isEmpty
+            ? nil
+            : CGPath(rect: packed.band, transform: nil)
 
         choiceRows.removeAll()
         choicesRoot.removeAllChildren()
@@ -610,8 +682,8 @@ final class CaseIntroductionPresenter: SKNode {
                 needsRepack = true
             }
         }
-        // Also re-pack if any row was laid outside the choice band (frame-corner clip risk).
-        if !DialoguePanelLayout.choiceFramesFitInBand(packed.frames, band: packed.band) {
+        // Also re-pack if any row escaped the natural scroll content.
+        if !DialoguePanelLayout.choiceFramesFitInBand(packed.frames, band: packed.contentBand) {
             needsRepack = true
         }
         if needsRepack {
@@ -621,6 +693,9 @@ final class CaseIntroductionPresenter: SKNode {
                 choicesBand: packed.band,
                 bodyContentHeight: packed.bodyContent
             )
+            choicesMask.path = packed.band.isEmpty
+                ? nil
+                : CGPath(rect: packed.band, transform: nil)
             choiceRows.removeAll()
             choicesRoot.removeAllChildren()
             for (index, label) in labels.enumerated() {
@@ -636,19 +711,115 @@ final class CaseIntroductionPresenter: SKNode {
             }
         }
 
-        if !dialogueScrollbar.isHidden {
-            dialogueScrollbar.configure(
-                viewportExtent: packed.body.height,
-                contentExtent: packed.bodyContent,
+        choicesContentExtent = packed.contentBand.height
+        let choicesNeedScroll = !packed.band.isEmpty
+            && DialogueScrollbarGeometry.isScrollable(
+                viewportExtent: packed.band.height,
+                contentExtent: packed.contentBand.height
+            )
+        configureScrollbars(
+            bodyViewport: packed.body,
+            bodyContentExtent: packed.bodyContent,
+            choicesViewport: packed.band,
+            choicesContentExtent: packed.contentBand.height,
+            choicesNeedScroll: choicesNeedScroll
+        )
+        applyBodyScrollOffset(0)
+        applyChoicesScrollOffset(0)
+    }
+
+    private func configureScrollbars(
+        bodyViewport: CGRect,
+        bodyContentExtent: CGFloat,
+        choicesViewport: CGRect,
+        choicesContentExtent: CGFloat,
+        choicesNeedScroll: Bool
+    ) {
+        let bodyNeedsScroll = DialogueScrollbarGeometry.isScrollable(
+            viewportExtent: bodyViewport.height,
+            contentExtent: bodyContentExtent
+        )
+        bodyScrollbar.isHidden = !bodyNeedsScroll
+        choicesScrollbar.isHidden = !choicesNeedScroll
+
+        let bodyRect: CGRect
+        let choicesRect: CGRect
+        if bodyNeedsScroll, choicesNeedScroll {
+            let split = DialoguePanelLayout.splitScrollbarRects(
+                fullScrollbarRect: panelLayout.scrollbarRect,
+                contentViewport: contentViewportRect,
+                choicesBand: choicesViewport
+            )
+            bodyRect = split.body
+            choicesRect = split.choices
+        } else {
+            bodyRect = panelLayout.scrollbarRect
+            choicesRect = panelLayout.scrollbarRect
+        }
+
+        if bodyNeedsScroll {
+            bodyScrollbar.layout(in: bodyRect)
+            bodyScrollbar.configure(
+                viewportExtent: bodyViewport.height,
+                contentExtent: bodyContentExtent,
                 scrollOffset: 0
             )
         }
-        applyScrollOffset(0)
+        if choicesNeedScroll {
+            choicesScrollbar.layout(in: choicesRect)
+            choicesScrollbar.configure(
+                viewportExtent: choicesViewport.height,
+                contentExtent: choicesContentExtent,
+                scrollOffset: 0
+            )
+        }
+
+        if choicesNeedScroll {
+            scrollTarget = .choices
+        } else {
+            scrollTarget = .body
+        }
     }
 
-    private func applyScrollOffset(_ offset: CGFloat) {
-        scrollOffset = max(0, offset)
-        scrollContentRoot.position.y = scrollOffset
+    private func applyBodyScrollOffset(_ offset: CGFloat) {
+        bodyScrollOffset = max(0, offset)
+        scrollContentRoot.position.y = bodyScrollOffset
+    }
+
+    private func applyChoicesScrollOffset(_ offset: CGFloat) {
+        choicesScrollOffset = max(0, offset)
+        choicesRoot.position.y = choicesScrollOffset
+    }
+
+    private func choiceIndex(at panelPoint: CGPoint) -> Int? {
+        guard choicesBandRect.contains(panelPoint) else { return nil }
+        let choicePoint = choicesRoot.convert(panelPoint, from: panelRoot)
+        return choiceRows.firstIndex { $0.hitRect.contains(choicePoint) }
+    }
+
+    private func revealFocusedChoice() {
+        guard !choicesScrollbar.isHidden,
+              let index = focusedChoiceIndex,
+              choiceRows.indices.contains(index)
+        else { return }
+
+        let visibleFrame = choiceRows[index].hitRect.offsetBy(
+            dx: 0,
+            dy: choicesRoot.position.y
+        )
+        var targetOffset = choicesScrollOffset
+        if visibleFrame.height > choicesBandRect.height {
+            // An unusually tall option cannot fit in one viewport; reveal its beginning
+            // instead of snapping to the final line.
+            targetOffset += choicesBandRect.maxY - visibleFrame.maxY
+        } else if visibleFrame.minY < choicesBandRect.minY {
+            targetOffset += choicesBandRect.minY - visibleFrame.minY
+        } else if visibleFrame.maxY > choicesBandRect.maxY {
+            targetOffset -= visibleFrame.maxY - choicesBandRect.maxY
+        }
+        let maximumOffset = max(0, choicesContentExtent - choicesBandRect.height)
+        targetOffset = min(maximumOffset, max(0, targetOffset))
+        _ = choicesScrollbar.scroll(by: targetOffset - choicesScrollOffset)
     }
 
     private func refreshInteractionColors() {

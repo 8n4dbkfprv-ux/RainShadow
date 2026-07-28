@@ -80,20 +80,90 @@ struct DialoguePanelLayoutTests {
             contentViewport: layout.contentViewportRect,
             choicesBandHeight: bandH
         )
-        let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
+        let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
+            visibleBand: band,
+            naturalContentHeight: natural
+        )
+        let frames = DialoguePanelLayout.choiceRowFrames(band: contentBand, rowHeights: heights)
         #expect(frames.count == 3)
         #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
-        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: band))
-        for frame in frames {
-            #expect(frame.minY >= band.minY - 0.5, "Choice clipped below band")
+        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
+        for (index, frame) in frames.enumerated() {
+            #expect(frame.height >= heights[index], "Choice row was compressed below its label")
         }
+        #expect(contentBand.maxY == band.maxY)
+        #expect(contentBand.height >= natural)
         #expect(layout.contentViewportRect.height > DialoguePanelLayout.minBodyViewportHeight)
     }
 
-    @Test func panelIsCompactForCharacterVisibility() {
-        // Compact monologue band is ~half the prior tall panel so actors stay on screen.
-        #expect(DialoguePanelLayout.panelHeightCap <= DialoguePanelLayout.legacyPanelHeightCap * 0.5 + 0.001)
-        #expect(DialoguePanelLayout.panelHeightFraction <= DialoguePanelLayout.legacyPanelHeightFraction * 0.5 + 0.001)
+    @Test func compactPlaqueScrollsNaturalChoiceRowsInsteadOfOverlappingThem() {
+        // Matches the capped 660×280 dialogue plaque visible in the reported capture.
+        let layout = DialoguePanelLayout.layout(
+            panelRect: CGRect(x: 0, y: 0, width: 660, height: 280)
+        )
+        let choiceTexts = [
+            "Come in out of the wet. Tell me everything you know, and I'll treat it like it matters—because it does.",
+            "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
+            "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt."
+        ]
+        let heights = choiceTexts.enumerated().map { index, text in
+            DialogueTextMetrics.choiceRowHeight(
+                choiceText: text,
+                index: index,
+                fontSize: DialoguePanelLayout.Typography.choiceFontSize,
+                maxWidth: layout.choiceTextMaxWidth,
+                minimumRowHeight: DialoguePanelLayout.choiceRowMinimumHeight,
+                verticalPadding: DialoguePanelLayout.choiceRowVerticalPadding
+            )
+        }
+        let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
+        let visibleHeight = DialoguePanelLayout.choicesBandHeight(
+            measuredRowHeights: heights,
+            contentViewportHeight: layout.contentViewportRect.height
+        )
+        let visibleBand = DialoguePanelLayout.choicesBandRect(
+            contentViewport: layout.contentViewportRect,
+            choicesBandHeight: visibleHeight
+        )
+        let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
+            visibleBand: visibleBand,
+            naturalContentHeight: natural
+        )
+        let frames = DialoguePanelLayout.choiceRowFrames(
+            band: contentBand,
+            rowHeights: heights
+        )
+
+        #expect(contentBand.height > visibleBand.height, "Short viewport should scroll the choice list")
+        #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
+        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
+        for (index, frame) in frames.enumerated() {
+            #expect(frame.height >= heights[index])
+        }
+    }
+
+    @Test func panelIsTenPercentLargerButRemainsCompact() {
+        #expect(
+            abs(
+                DialoguePanelLayout.panelHeightCap
+                    - DialoguePanelLayout.previousCompactPanelHeightCap * 1.10
+            ) < 0.001
+        )
+        #expect(
+            abs(
+                DialoguePanelLayout.panelHeightFraction
+                    - DialoguePanelLayout.previousCompactPanelHeightFraction * 1.10
+            ) < 0.001
+        )
+        #expect(
+            abs(
+                DialoguePanelLayout.panelWidthCap
+                    - DialoguePanelLayout.previousCompactPanelWidthCap * 1.10
+            ) < 0.001
+        )
+        // The enlarged plaque is still much smaller than the previous tall-panel era.
+        #expect(DialoguePanelLayout.panelHeightCap < DialoguePanelLayout.legacyPanelHeightCap * 0.56)
+        #expect(DialoguePanelLayout.panelHeightFraction < DialoguePanelLayout.legacyPanelHeightFraction * 0.56)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let priorTall = min(
@@ -101,8 +171,8 @@ struct DialoguePanelLayoutTests {
                 size.height * DialoguePanelLayout.legacyPanelHeightFraction
             )
             #expect(
-                layout.panelRect.height <= priorTall * 0.5 + 1,
-                "Panel height \(layout.panelRect.height) not ≤ half of prior tall \(priorTall) for \(size)"
+                layout.panelRect.height <= priorTall * 0.56 + 1,
+                "Panel height \(layout.panelRect.height) is no longer compact for \(size)"
             )
         }
     }
@@ -144,7 +214,7 @@ struct DialoguePanelLayoutTests {
                 // Outer chrome is identical with or without a required choices band.
                 #expect(abs(withChoices.panelRect.width - base.panelRect.width) < 0.01)
                 #expect(abs(withChoices.panelRect.height - base.panelRect.height) < 0.01)
-                // Choices still pack into the fixed well (may scale on short viewports).
+                // Choices keep their natural row heights; overflow scrolls inside the fixed well.
                 let bandH = DialoguePanelLayout.choicesBandHeight(
                     measuredRowHeights: heights,
                     contentViewportHeight: withChoices.contentViewportRect.height
@@ -154,10 +224,17 @@ struct DialoguePanelLayoutTests {
                     contentViewport: withChoices.contentViewportRect,
                     choicesBandHeight: bandH
                 )
-                let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
+                let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
+                    visibleBand: band,
+                    naturalContentHeight: natural
+                )
+                let frames = DialoguePanelLayout.choiceRowFrames(
+                    band: contentBand,
+                    rowHeights: heights
+                )
                 #expect(frames.count == 3)
                 #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
-                #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: band))
+                #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
             }
         }
     }
@@ -201,14 +278,26 @@ struct DialoguePanelLayoutTests {
             #expect(abs(choices.minY - content.minY) < 0.01)
             #expect(abs(body.height + choices.height - content.height) < 0.01)
 
-            let bar = DialoguePanelLayout.bodyScrollbarRect(
+            let bars = DialoguePanelLayout.splitScrollbarRects(
                 fullScrollbarRect: layout.scrollbarRect,
-                bodyViewport: body
+                contentViewport: content,
+                choicesBand: choices
             )
-            #expect(abs(bar.minY - body.minY) < 0.01)
-            #expect(abs(bar.height - body.height) < 0.01)
-            #expect(bar.maxY <= content.maxY + 0.01)
-            #expect(bar.minY >= choices.maxY - 0.01)
+            #expect(layout.scrollbarRect.contains(bars.body))
+            #expect(layout.scrollbarRect.contains(bars.choices))
+            #expect(bars.choices.maxY < bars.body.minY)
+            #expect(
+                abs(bars.body.minY - bars.choices.maxY - DialoguePanelLayout.splitScrollbarGap)
+                    < 0.01
+            )
+            #expect(bars.body.minX == layout.scrollbarRect.minX)
+            #expect(bars.choices.minX == layout.scrollbarRect.minX)
+            let usableMinimum = min(
+                DialoguePanelLayout.minimumSplitScrollbarExtent,
+                (layout.scrollbarRect.height - DialoguePanelLayout.splitScrollbarGap) / 2
+            )
+            #expect(bars.body.height >= usableMinimum - 0.01)
+            #expect(bars.choices.height >= usableMinimum - 0.01)
         }
 
         // No choices → body uses the full content viewport.
@@ -226,7 +315,7 @@ struct DialoguePanelLayoutTests {
         )
     }
 
-    @Test func presenterUsesFixedChoicesBandOutsideScrollContent() throws {
+    @Test func presenterUsesIndependentScrollableChoicesCrop() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -238,34 +327,28 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("applySplitContentRegions"))
         #expect(source.contains("bodyViewportRect"))
         #expect(source.contains("choicesBandRect"))
-        // Choices must not be children of the scrolling root.
-        #expect(source.contains("panelRoot.addChild(choicesRoot)"))
+        // Choices use their own crop/scroll layer and never share the body scroll root.
+        #expect(source.contains("choicesCrop.addChild(choicesRoot)"))
+        #expect(source.contains("choicesCrop.maskNode = choicesMask"))
         #expect(!source.contains("scrollContentRoot.addChild(choicesRoot)"))
         // Multi-line measure must use CoreText path, not crushed scale factors.
         #expect(source.contains("DialogueTextMetrics.choiceRowHeight"))
+        #expect(source.contains("dialogueLabel.frame.height"))
         #expect(!source.contains("scaledHeights"))
         #expect(!source.contains(" * scale"))
-        #expect(source.contains("dialogueScrollbar.isHidden"))
+        #expect(source.contains("bodyScrollbar.isHidden"))
+        #expect(source.contains("choicesScrollbar.isHidden"))
+        #expect(source.contains("configureScrollbars"))
     }
 
-    @Test func scrollbarSitsInContentWellClearOfRightFrameOrnament() {
+    @Test func scrollbarOccupiesPaintedRightRail() {
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
-            #expect(layout.scrollbarClearsTrailingFrameChrome, "Scrollbar overlaps frame chrome for \(size)")
-            // Entire bar is on the black well, not only the text column.
-            #expect(layout.contentWellRect.contains(layout.scrollbarRect.insetBy(dx: 1, dy: 1)))
-            // Leave the right ornament band empty of controls.
-            let trailingChrome = max(
-                DialoguePanelLayout.minimumTrailingChrome,
-                layout.panelRect.width * DialoguePanelLayout.trailingChromeFraction
-            )
-            let ornamentBand = CGRect(
-                x: layout.panelRect.maxX - trailingChrome,
-                y: layout.panelRect.minY,
-                width: trailingChrome,
-                height: layout.panelRect.height
-            )
-            #expect(!layout.scrollbarRect.intersects(ornamentBand.insetBy(dx: 0.5, dy: 0)))
+            #expect(layout.scrollbarFitsPaintedRail, "Scrollbar misses painted rail for \(size)")
+            let expectedCenterX = layout.panelRect.minX
+                + layout.panelRect.width * DialoguePanelLayout.paintedScrollbarCenterXFraction
+            #expect(abs(layout.scrollbarRect.midX - expectedCenterX) < 0.001)
+            #expect(layout.scrollbarRect.minX > layout.contentWellRect.maxX - 0.001)
         }
     }
 
@@ -413,11 +496,13 @@ struct DialoguePanelLayoutTests {
         let frameZ = try #require(zPosition(for: "frameOverlay.zPosition"))
         let contentZ = try #require(zPosition(for: "contentCrop.zPosition"))
         let portraitZ = try #require(zPosition(for: "portrait.zPosition"))
-        let scrollbarZ = try #require(zPosition(for: "dialogueScrollbar.zPosition"))
+        let bodyScrollbarZ = try #require(zPosition(for: "bodyScrollbar.zPosition"))
+        let choicesScrollbarZ = try #require(zPosition(for: "choicesScrollbar.zPosition"))
 
         #expect(frameZ > contentZ, "Frame must cover overflowing body text")
         #expect(portraitZ < frameZ, "Portrait must sit under the painted gold window rim")
-        #expect(scrollbarZ > frameZ, "Scrollbar must not sit under the right frame rail")
+        #expect(bodyScrollbarZ > frameZ, "Body scrollbar must not sit under the right frame rail")
+        #expect(choicesScrollbarZ > frameZ, "Choice scrollbar must not sit under the right frame rail")
     }
 
     @Test func basePanelUsesCompactHeightContract() {
@@ -575,8 +660,8 @@ struct DialoguePanelLayoutTests {
             #expect(layout.contentWellRect.maxY < layout.panelRect.maxY - 1)
             // Portrait sits inside the well so its backing also reads on black.
             #expect(layout.contentWellRect.intersects(layout.portraitRect))
-            // Scrollbar column + the empty gutter to its left must sit on black (no floor peek).
-            #expect(layout.contentWellRect.contains(layout.scrollbarRect.insetBy(dx: 1, dy: 1)))
+            // The main well reaches the rail, while the control itself uses the painted channel.
+            #expect(layout.contentWellRect.maxX <= layout.scrollbarRect.minX + 0.001)
             let gutter = CGRect(
                 x: layout.contentViewportRect.maxX,
                 y: layout.contentViewportRect.minY,
@@ -612,8 +697,15 @@ struct DialoguePanelLayoutTests {
         #expect(snug.body.maxY == content.maxY)
         #expect(snug.choices.maxY == snug.body.minY, "Choices should sit directly under body")
         #expect(snug.choices.minY >= content.minY - 0.5)
-        let frames = DialoguePanelLayout.choiceRowFrames(band: snug.choices, rowHeights: rowHeights)
-        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: snug.choices))
+        let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
+            visibleBand: snug.choices,
+            naturalContentHeight: natural
+        )
+        let frames = DialoguePanelLayout.choiceRowFrames(
+            band: contentBand,
+            rowHeights: rowHeights
+        )
+        #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: contentBand))
         #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
         // Snug should not leave a huge void between body content and first choice.
         let gapUnderBody = snug.body.height - bodyContent

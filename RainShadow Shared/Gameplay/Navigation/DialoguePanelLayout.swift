@@ -10,21 +10,30 @@ struct DialoguePanelLayout: Equatable {
     /// Fixed width of the Mac OS 9–style scrollbar chrome column.
     static let scrollbarWidth: CGFloat = 30
 
-    /// Minimum trailing space for the frame’s right ornament (oxblood corner + metal rail).
-    /// Sized so the scrollbar sits on the black content well, not over the chrome.
-    static let minimumTrailingChrome: CGFloat = 64
+    /// Horizontal center of the recessed scrollbar channel painted into
+    /// `dialogue_outer_frame_overlay_v04`, measured from the 1720 px source art.
+    static let paintedScrollbarCenterXFraction: CGFloat = 1_607.0 / 1_720.0
 
-    /// Fraction of panel width reserved for the right frame ornament (matches /
-    /// exceeds the nine-slice fixed trailing rail on `dialogue_outer_frame_overlay_v04`).
-    /// Art opaque right edge is ~0.13 of the texture (incl. outer padding).
-    static let trailingChromeFraction: CGFloat = 0.14
+    /// Inner horizontal limits of the painted right-hand channel. The live controls
+    /// must remain inside these bounds rather than floating in the dialogue well.
+    static let paintedScrollbarRailLeftFraction: CGFloat = 0.905
+    static let paintedScrollbarRailRightFraction: CGFloat = 0.965
 
-    /// Extra pad left of the trailing ornament so the bar clears engraved rails.
-    static let scrollbarClearanceFromTrailingChrome: CGFloat = 6
+    /// Vertical insets of the recessed channel measured from the frame artwork.
+    static let paintedScrollbarInsetBottomFraction: CGFloat = 0.075
+    static let paintedScrollbarInsetTopFraction: CGFloat = 0.075
+
+    /// Dialogue chrome is 10% larger than the prior compact plaque, while remaining
+    /// fixed for every node in a conversation.
+    static let panelScaleIncrease: CGFloat = 1.10
+    static let previousCompactPanelHeightCap: CGFloat = 280
+    static let previousCompactPanelHeightFraction: CGFloat = 0.30
+    static let previousCompactPanelWidthCap: CGFloat = 1_200
 
     /// Cap on panel height in points — fixed plaque (BG-style; does not grow for choices).
-    /// Sized for art aspect (~2.36:1): height 280 → width ≈ 660 at lock, keeping actors visible.
-    static let panelHeightCap: CGFloat = 280
+    /// Sized for art aspect (~2.36:1): height 308 → width ≈ 726 at lock.
+    static let panelHeightCap: CGFloat =
+        previousCompactPanelHeightCap * panelScaleIncrease
     /// Prior tall-panel height cap (pre character-visibility compact pass).
     static let legacyPanelHeightCap: CGFloat = 560
     /// Older intermediate tall-panel bump.
@@ -33,7 +42,8 @@ struct DialoguePanelLayout: Equatable {
     static let originalPanelHeightCap: CGFloat = 360
 
     /// Fraction of visible height used for the fixed plaque.
-    static let panelHeightFraction: CGFloat = 0.30
+    static let panelHeightFraction: CGFloat =
+        previousCompactPanelHeightFraction * panelScaleIncrease
     /// Prior tall-panel fraction (pre character-visibility compact pass).
     static let legacyPanelHeightFraction: CGFloat = 0.62
     static let intermediatePanelHeightFraction: CGFloat = 0.52
@@ -44,7 +54,8 @@ struct DialoguePanelLayout: Equatable {
     static let horizontalMarginMin: CGFloat = 36
     static let horizontalMarginMax: CGFloat = 96
     /// Absolute width cap so ultrawide doesn’t make lines unreadably long.
-    static let panelWidthCap: CGFloat = 1_200
+    static let panelWidthCap: CGFloat =
+        previousCompactPanelWidthCap * panelScaleIncrease
     /// Prior near-full-width tall-panel era caps / margins (for regression tests).
     static let legacyPanelWidthCap: CGFloat = 2_000
     static let intermediatePanelWidthCap: CGFloat = 1_500
@@ -104,8 +115,9 @@ struct DialoguePanelLayout: Equatable {
         /// Body reads at a distance on the compact plaque; 17pt keeps multi-line monologue legible.
         static let bodyFontSize: CGFloat = 17
         static let speakerFontSize: CGFloat = 19
-        /// Choices stay 16pt so the three-option Lila triad still packs on 800×600 without clipping.
-        static let choiceFontSize: CGFloat = 16
+        /// Slightly tighter than body copy so at least one complete multiline option
+        /// remains visible in the compact plaque while additional options scroll.
+        static let choiceFontSize: CGFloat = 15
         static let commandFontSize: CGFloat = 18
         static let caseTitleFontSize: CGFloat = 22
         /// Pre-compact body size — tests assert the new body size is modestly smaller.
@@ -147,15 +159,19 @@ struct DialoguePanelLayout: Equatable {
     /// Keep choice text above the frame’s bottom-left / bottom-right ornaments.
     static let choiceBandBottomPadding: CGFloat = 16
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
-    /// The 0.86 ceiling lets the longest shipped three-choice page fit at the supported
-    /// 800×600 window while `minBodyViewportHeight` still protects the dialogue body.
-    static let choiceBandMaxViewportFraction: CGFloat = 0.86
-    /// Minimum height reserved for scrolling body text above the choice strip.
-    static let minBodyViewportHeight: CGFloat = 56
+    /// Natural-height overflow scrolls inside this visible band.
+    static let choiceBandMaxViewportFraction: CGFloat = 0.64
+    /// Minimum height reserved for the prompt above a scrollable response list.
+    /// The body has its own crop, so compact plaques prioritize a complete option row.
+    static let minBodyViewportHeight: CGFloat = 80
+    /// Gap between simultaneous body and response scrollbars in the painted rail.
+    static let splitScrollbarGap: CGFloat = 4
+    /// Enough room for two arrow buttons and a usable thumb/track between them.
+    static let minimumSplitScrollbarExtent: CGFloat = 72
     /// Extra headroom per choice when estimating multi-line options before measure.
     static let choiceRowEstimatedWrapSlack: CGFloat = 20
     /// Vertical padding inside a measured choice row around the label frame.
-    static let choiceRowVerticalPadding: CGFloat = 12
+    static let choiceRowVerticalPadding: CGFloat = 8
 
     let panelRect: CGRect
     let portraitRect: CGRect
@@ -295,26 +311,20 @@ struct DialoguePanelLayout: Equatable {
 
     /// Core layout from an authored panel rect (also used by tests with fixed sizes).
     static func layout(panelRect: CGRect) -> DialoguePanelLayout {
-        let trailingChrome = max(
-            minimumTrailingChrome,
-            panelRect.width * trailingChromeFraction
+        // The scrollbar is a live control inside the dedicated recessed channel painted
+        // into the frame's right bar. The frame is aspect-locked, so source-art fractions
+        // keep the control aligned at every supported viewport size.
+        let scrollbarBottomInset = panelRect.height * paintedScrollbarInsetBottomFraction
+        let scrollbarTopInset = panelRect.height * paintedScrollbarInsetTopFraction
+        let scrollbarHeight = max(
+            1,
+            panelRect.height - scrollbarBottomInset - scrollbarTopInset
         )
-        // Ornament bands scale with panel height (uniform frame); cap so choice growth
-        // still expands the text well rather than ever-thicker rails.
-        let wellInsetTop = min(
-            panelRect.height * frameContentWellInsetTopFraction,
-            panelHeightCap * frameContentWellInsetTopFraction
-        )
-        let wellInsetBottom = min(
-            panelRect.height * frameContentWellInsetBottomFraction,
-            panelHeightCap * frameContentWellInsetBottomFraction
-        )
-
-        // Scrollbar lives in the black content hole, left of the right frame ornament.
-        let scrollbarHeight = max(1, panelRect.height - wellInsetTop - wellInsetBottom - 8)
+        let scrollbarCenterX = panelRect.minX
+            + panelRect.width * paintedScrollbarCenterXFraction
         let scrollbarRect = CGRect(
-            x: panelRect.maxX - trailingChrome - scrollbarClearanceFromTrailingChrome - scrollbarWidth,
-            y: panelRect.minY + wellInsetBottom + 4,
+            x: scrollbarCenterX - scrollbarWidth / 2,
+            y: panelRect.minY + scrollbarBottomInset,
             width: scrollbarWidth,
             height: scrollbarHeight
         )
@@ -348,10 +358,8 @@ struct DialoguePanelLayout: Equatable {
             contentViewportRect.width - choiceLabelHorizontalInset * 2
         )
 
-        // Opaque black plate for the frame's entire interior hole: portrait, body, the
-        // gutter beside the scrollbar, and the scrollbar column. Slightly inside the
-        // outer rails so we never reintroduce a full underlay under the chrome.
-        // Inset less than the nine-slice center so no floor peeks through near the bar.
+        // Opaque black plate for the frame's main interior hole: portrait and dialogue
+        // content. The painted right-hand rail supplies its own recessed background.
         let resolvedWell = contentWellRect(for: panelRect, scrollbarRect: scrollbarRect)
 
         return DialoguePanelLayout(
@@ -374,7 +382,7 @@ struct DialoguePanelLayout: Equatable {
         return CGRect(x: x, y: y, width: width, height: height)
     }
 
-    /// Black fill covering the dialogue interior, including the empty band next to the scrollbar.
+    /// Black fill covering the dialogue interior up to the painted scrollbar rail.
     static func contentWellRect(for panelRect: CGRect, scrollbarRect: CGRect) -> CGRect {
         // Opaque frame metal lives at ~0.13–0.87 of the texture; stay inside that hole.
         let insetX = panelRect.width * 0.145
@@ -386,10 +394,21 @@ struct DialoguePanelLayout: Equatable {
             width: max(1, panelRect.width - insetX * 2),
             height: max(1, panelRect.height - insetBottom - insetTop)
         )
-        // Guarantee the scrollbar column and its left gutter sit fully on black.
-        let scrollCoverage = scrollbarRect.insetBy(dx: -contentToScrollbarGap - 4, dy: -12)
+        // Fill the gutter up to the rail's left edge, but do not paint over the
+        // recessed channel artwork that now contains the live controls.
+        let scrollCoverage = CGRect(
+            x: well.maxX,
+            y: well.minY,
+            width: max(0, scrollbarRect.minX - well.maxX),
+            height: well.height
+        )
         well = well.union(scrollCoverage).intersection(
-            panelRect.insetBy(dx: panelRect.width * 0.12, dy: panelRect.height * 0.06)
+            CGRect(
+                x: panelRect.minX + panelRect.width * 0.12,
+                y: panelRect.minY + panelRect.height * 0.06,
+                width: max(1, scrollbarRect.minX - panelRect.minX - panelRect.width * 0.12),
+                height: panelRect.height * 0.88
+            )
         )
         if well.isNull || well.isEmpty {
             return CGRect(
@@ -412,17 +431,17 @@ struct DialoguePanelLayout: Equatable {
             && contentViewportRect.maxY <= panelRect.maxY - Self.contentInsetFromPanelTop + 0.001
             && contentWellRect.intersects(contentViewportRect)
             && panelRect.contains(contentWellRect.insetBy(dx: 1, dy: 1))
-            && scrollbarClearsTrailingFrameChrome
+            && scrollbarFitsPaintedRail
     }
 
-    /// Scrollbar is fully left of the reserved right ornament band (no overlap with frame art).
-    var scrollbarClearsTrailingFrameChrome: Bool {
-        let trailingChrome = max(
-            Self.minimumTrailingChrome,
-            panelRect.width * Self.trailingChromeFraction
-        )
-        let ornamentLeft = panelRect.maxX - trailingChrome
-        return scrollbarRect.maxX <= ornamentLeft - Self.scrollbarClearanceFromTrailingChrome + 0.001
+    /// Scrollbar controls are centered inside the recessed channel painted into the frame.
+    var scrollbarFitsPaintedRail: Bool {
+        let railLeft = panelRect.minX
+            + panelRect.width * Self.paintedScrollbarRailLeftFraction
+        let railRight = panelRect.minX
+            + panelRect.width * Self.paintedScrollbarRailRightFraction
+        return scrollbarRect.minX >= railLeft - 0.001
+            && scrollbarRect.maxX <= railRight + 0.001
     }
 
     /// Estimated height of the fixed choice band for `choiceCount` options (before measure).
@@ -459,58 +478,45 @@ struct DialoguePanelLayout: Equatable {
         return min(natural, maxChoicesBandHeight(contentViewportHeight: contentViewportHeight))
     }
 
-    /// Top Y of each choice row (panel space), packed top-down with no overlap.
-    /// Row heights are distributed into the band (proportional to measured height) so the
-    /// fixed plaque never clips options off-screen when multi-line text is long.
+    /// Top Y of each choice row (panel space), packed top-down at its measured height.
+    /// Long option lists use a cropped, scrollable content rect; row frames must never
+    /// be compressed below their labels because that makes multiline text overlap.
     static func choiceRowFrames(
         band: CGRect,
         rowHeights: [CGFloat]
     ) -> [CGRect] {
         guard !rowHeights.isEmpty, band.height > 0.5 else { return [] }
-        let count = rowHeights.count
-        let weights = rowHeights.map { max(choiceRowMinimumHeight, $0) }
-        let weightSum = max(1, weights.reduce(0, +))
-
-        // Shrink padding/spacing on very short fixed plaques so rows never stack with
-        // more gap chrome than available height (which produced overlapping frames).
-        var topPad = choiceBandTopPadding
-        var bottomPad = choiceBandBottomPadding
-        var spacing = choiceRowSpacing
-        var gaps = CGFloat(max(0, count - 1)) * spacing
-        var chrome = topPad + bottomPad + gaps
-        if chrome + CGFloat(count) > band.height {
-            topPad = min(topPad, 4)
-            bottomPad = min(bottomPad, 4)
-            spacing = min(spacing, 2)
-            gaps = CGFloat(max(0, count - 1)) * spacing
-            chrome = topPad + bottomPad + gaps
-        }
-        if chrome + CGFloat(count) > band.height {
-            topPad = 0
-            bottomPad = 0
-            spacing = 0
-            gaps = 0
-            chrome = 0
-        }
-        let availableForRows = max(CGFloat(count), band.height - chrome)
-        let useNatural = weightSum <= availableForRows + 0.5
-
         var frames: [CGRect] = []
-        var rowTop = band.maxY - topPad
-        for weight in weights {
-            let h = useNatural
-                ? weight
-                : availableForRows * (weight / weightSum)
+        var rowTop = band.maxY - choiceBandTopPadding
+        for height in rowHeights {
+            let h = max(choiceRowMinimumHeight, height)
             let frame = CGRect(
                 x: band.minX,
                 y: rowTop - h,
                 width: max(1, band.width),
-                height: max(1, h)
+                height: h
             )
             frames.append(frame)
-            rowTop = frame.minY - spacing
+            rowTop = frame.minY - choiceRowSpacing
         }
         return frames
+    }
+
+    /// Full natural-height choice content, top-aligned with its visible cropped band.
+    /// When `naturalContentHeight` exceeds the visible height, the content extends below
+    /// the mask and scrolls upward without changing any row's measured height.
+    static func scrollableChoicesContentRect(
+        visibleBand: CGRect,
+        naturalContentHeight: CGFloat
+    ) -> CGRect {
+        guard visibleBand.height > 0.5 else { return .zero }
+        let height = max(visibleBand.height, naturalContentHeight)
+        return CGRect(
+            x: visibleBand.minX,
+            y: visibleBand.maxY - height,
+            width: visibleBand.width,
+            height: height
+        )
     }
 
     /// True when every packed frame sits fully inside `band` (no bottom-rail clip).
@@ -521,13 +527,12 @@ struct DialoguePanelLayout: Equatable {
         }
     }
 
-    /// True when consecutive choice frames do not overlap (allowing zero gap on tight packs).
+    /// True when consecutive choice frames retain the authored inter-row spacing.
     static func choiceFramesAreNonOverlapping(_ frames: [CGRect]) -> Bool {
         guard frames.count >= 2 else { return true }
         for i in 0..<(frames.count - 1) {
-            // frames[i] is above frames[i+1]; lower edge of upper must be at or below upper edge of lower.
-            // Do not require full `choiceRowSpacing` — fixed plaques may pack with reduced gaps.
-            if frames[i].minY < frames[i + 1].maxY - 0.01 {
+            // frames[i] is above frames[i+1]; its lower edge must clear the next row.
+            if frames[i].minY < frames[i + 1].maxY + choiceRowSpacing - 0.01 {
                 return false
             }
         }
@@ -624,17 +629,46 @@ struct DialoguePanelLayout: Equatable {
         return (finalBody, choices, bandHeight)
     }
 
-    /// Scrollbar aligned to the body viewport only (not the fixed choice strip).
-    static func bodyScrollbarRect(
+    /// Splits the painted rail in the same proportion as the body/response viewports.
+    /// A single active scrollbar may still use the full rail; this is used when both
+    /// regions overflow and therefore need independent controls at the same time.
+    static func splitScrollbarRects(
         fullScrollbarRect: CGRect,
-        bodyViewport: CGRect
-    ) -> CGRect {
-        CGRect(
-            x: fullScrollbarRect.minX,
-            y: bodyViewport.minY,
-            width: fullScrollbarRect.width,
-            height: max(1, bodyViewport.height)
+        contentViewport: CGRect,
+        choicesBand: CGRect
+    ) -> (body: CGRect, choices: CGRect) {
+        guard contentViewport.height > 1, choicesBand.height > 0.5 else {
+            return (fullScrollbarRect, .zero)
+        }
+        let choicesFraction = min(
+            0.9,
+            max(0.1, choicesBand.height / contentViewport.height)
         )
+        let availableHeight = max(2, fullScrollbarRect.height - splitScrollbarGap)
+        let rawChoicesHeight = availableHeight * choicesFraction
+        let minimumSegment = min(
+            minimumSplitScrollbarExtent,
+            availableHeight / 2
+        )
+        let choicesHeight = min(
+            availableHeight - minimumSegment,
+            max(minimumSegment, rawChoicesHeight)
+        )
+        let halfGap = splitScrollbarGap / 2
+        let splitY = fullScrollbarRect.minY + choicesHeight + halfGap
+        let choices = CGRect(
+            x: fullScrollbarRect.minX,
+            y: fullScrollbarRect.minY,
+            width: fullScrollbarRect.width,
+            height: max(1, choicesHeight)
+        )
+        let body = CGRect(
+            x: fullScrollbarRect.minX,
+            y: splitY + halfGap,
+            width: fullScrollbarRect.width,
+            height: max(1, fullScrollbarRect.maxY - splitY - halfGap)
+        )
+        return (body, choices)
     }
 
     /// Vertical panel root offset while presenting (lower = more room for actors above).
