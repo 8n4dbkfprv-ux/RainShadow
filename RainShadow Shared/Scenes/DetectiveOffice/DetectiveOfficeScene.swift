@@ -11,6 +11,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var officeDoor: SKSpriteNode?
     private var officeDoorThickness: SKSpriteNode?
     private var officeDoorFallShadow: SKShapeNode?
+    private var officeDoorUsesFallenArtwork = false
     /// Separate chair prop; hidden while seated because the NE rear-view atlas
     /// already bakes the chair into the body sprite.
     private var deskChairProp: SKSpriteNode?
@@ -967,6 +968,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         hoveredHotspotID = presentation.hotspotID
         for entries in hotspotHoverSprites.values {
             for entry in entries {
+                if officeDoorUsesFallenArtwork,
+                   let officeDoor,
+                   entry.sprite === officeDoor {
+                    continue
+                }
                 entry.sprite.texture = entry.normalTexture
             }
         }
@@ -975,6 +981,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
         for entry in hotspotHoverSprites[id] ?? [] {
+            if officeDoorUsesFallenArtwork,
+               let officeDoor,
+               entry.sprite === officeDoor {
+                continue
+            }
             entry.sprite.texture = entry.hoverTexture
         }
     }
@@ -1533,6 +1544,20 @@ final class DetectiveOfficeScene: BaseGameScene {
         ])
     }
 
+    private var fallenDoorRestPosition: CGPoint {
+        let environment = OfficeInteriorScale.environment
+        let upright = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.AuthoredPlacement.doorLeaf
+        )
+        return CGPoint(
+            // Land just inside the waiting-room threshold: hinge end remains
+            // nearest the exterior opening while the near edge clears the
+            // partition wall instead of appearing to rest across its cap.
+            x: upright.x - 60 * environment,
+            y: upright.y - 185 * environment
+        )
+    }
+
     private var tippingDoorWarp: SKWarpGeometryGrid {
         doorWarp([
             SIMD2(0.00, 0.00), SIMD2(1.00, 0.04),
@@ -1567,20 +1592,81 @@ final class DetectiveOfficeScene: BaseGameScene {
         return shadow
     }
 
+    /// The generated landed state carries its own floor projection, edge
+    /// thickness, recessed panels and damaged hinge hardware. Swapping only at
+    /// impact preserves the registered upright leaf while avoiding the flat
+    /// billboard read of a front elevation compressed onto the floor.
+    @discardableResult
+    private func presentGeneratedFallenDoor(
+        _ officeDoor: SKSpriteNode,
+        thickness officeDoorThickness: SKSpriteNode
+    ) -> Bool {
+        guard let texture = GameArt.texture(named: "office_door_leaf_fallen") else {
+            return false
+        }
+
+        texture.filteringMode = .linear
+        officeDoor.texture = texture
+        // SpriteKit's `size` setter preserves the current rendered footprint
+        // through x/y scale. Normalize first or the old 0.117 fall scale is
+        // inverted into an 8.5× landed sprite.
+        officeDoor.setScale(1)
+        officeDoor.size =
+            OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplaySize
+        officeDoor.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        officeDoor.warpGeometry = nil
+        officeDoor.position = fallenDoorRestPosition
+        officeDoor.zRotation = 0
+        officeDoorThickness.alpha = 0
+        officeDoorUsesFallenArtwork = true
+        updateDepth(of: officeDoor, bias: 24)
+        return true
+    }
+
+    /// Reconstruct the old warped front elevation just before the reverse
+    /// animation. The generated landed art is presentation-only and must never
+    /// be stretched upright into the baked doorway.
+    private func prepareWarpedDoorForReturn(
+        _ officeDoor: SKSpriteNode,
+        thickness officeDoorThickness: SKSpriteNode
+    ) {
+        guard let uprightTexture = GameArt.texture(named: "office_door_leaf") else {
+            return
+        }
+
+        let fallenScale =
+            OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
+            * OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
+        officeDoor.texture = uprightTexture
+        officeDoor.size = uprightTexture.size()
+        officeDoorUsesFallenArtwork = false
+        officeDoor.anchorPoint = CGPoint(
+            x: 0.5,
+            y: OfficeNavigationLayout.Architecture.entranceLeafAnchorY
+        )
+        officeDoor.warpGeometry = floorDoorWarp
+        officeDoor.position = fallenDoorRestPosition
+        officeDoor.zRotation = -0.10
+        officeDoor.setScale(fallenScale)
+
+        officeDoorThickness.warpGeometry = floorDoorWarp
+        officeDoorThickness.position = fallenDoorRestPosition
+        officeDoorThickness.zRotation = -0.10
+        officeDoorThickness.setScale(fallenScale)
+        officeDoorThickness.alpha = 0.95
+        officeDoorThickness.zPosition = officeDoor.zPosition - 2
+    }
+
     /// Deterministic QA endpoint for renderer captures. Review frames should
     /// inspect the same resting geometry as the animation without depending on
     /// window-focus timing or SpriteKit action advancement.
     private func setDoorFallenForReview() {
         guard let officeDoor, let officeDoorThickness else { return }
 
-        let environment = OfficeInteriorScale.environment
         let fallenScale =
             OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
             * OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
-        let fallenPosition = CGPoint(
-            x: officeDoor.position.x - 135 * environment,
-            y: officeDoor.position.y - 70 * environment
-        )
+        let fallenPosition = fallenDoorRestPosition
 
         officeDoor.warpGeometry = floorDoorWarp
         officeDoorThickness.warpGeometry = floorDoorWarp
@@ -1597,6 +1683,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoorThickness.alpha = 0.95
         updateDepth(of: officeDoor, bias: 24)
         officeDoorThickness.zPosition = officeDoor.zPosition - 2
+        _ = presentGeneratedFallenDoor(
+            officeDoor,
+            thickness: officeDoorThickness
+        )
 
         officeDoorFallShadow?.removeFromParent()
         let shadow = makeDoorFallShadow(at: fallenPosition)
@@ -1649,19 +1739,35 @@ final class DetectiveOfficeScene: BaseGameScene {
         settle.timingMode = .easeOut
         let rest = SKAction.group([
             .moveBy(x: 4 * environment, y: -2 * environment, duration: 0.08),
-            .rotate(toAngle: -0.10, duration: 0.08, shortestUnitArc: false)
+            // The generated landed texture already owns the exact floor angle.
+            .rotate(toAngle: 0, duration: 0.08, shortestUnitArc: false)
         ])
         rest.timingMode = .easeIn
         let wait = SKAction.wait(forDuration: 0.16)
-        let motion = SKAction.sequence([wait, fall, settle, rest])
+        let landedArtwork = SKAction.run { [weak self, weak officeDoor, weak officeDoorThickness] in
+            guard
+                let self,
+                let officeDoor,
+                let officeDoorThickness
+            else { return }
+            _ = self.presentGeneratedFallenDoor(
+                officeDoor,
+                thickness: officeDoorThickness
+            )
+        }
+        let motion = SKAction.sequence([
+            wait,
+            fall,
+            landedArtwork,
+            settle,
+            rest
+        ])
         officeDoor.run(motion, withKey: "officeDoorMotion")
         officeDoorThickness.run(
-            .group([
-                motion,
-                .sequence([
-                    wait,
-                    .fadeAlpha(to: 0.95, duration: 0.22)
-                ])
+            .sequence([
+                wait,
+                fall,
+                .fadeOut(withDuration: 0.06)
             ]),
             withKey: "officeDoorThicknessMotion"
         )
@@ -1681,6 +1787,10 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         officeDoor.removeAction(forKey: "officeDoorMotion")
         officeDoorThickness.removeAction(forKey: "officeDoorThicknessMotion")
+        prepareWarpedDoorForReturn(
+            officeDoor,
+            thickness: officeDoorThickness
+        )
         let uprightPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf)
         let warpReturn = SKAction.animate(
             withWarps: [floorDoorWarp, tippingDoorWarp, uprightDoorWarp],

@@ -163,6 +163,7 @@ enum GameArt {
             "city_gate",
             "office_radiator",
             "office_door_leaf",
+            "office_door_leaf_fallen",
             "office_door_leaf_hover",
             "office_door_leaf_thickness",
             "office_desk_chair",

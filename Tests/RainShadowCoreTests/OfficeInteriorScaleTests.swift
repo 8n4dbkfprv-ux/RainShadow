@@ -172,10 +172,21 @@ struct OfficeInteriorScaleTests {
         let upright = OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         let ratio = OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
         let fallen = upright * ratio
+        let artworkScale =
+            OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplayScale
+        let artworkSize =
+            OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplaySize
 
         #expect((0.88...0.95).contains(ratio))
         #expect(fallen < upright)
         #expect(abs(fallen / upright - 0.92) < 0.001)
+        // 768×512 transparent canvas with a 575×477 opaque bbox produces a
+        // substantial floor footprint without becoming another billboard.
+        #expect((0.15...0.19).contains(artworkScale))
+        #expect((90...105).contains(575 * artworkScale))
+        #expect((75...90).contains(477 * artworkScale))
+        #expect(abs(artworkSize.width - 130.56) < 0.001)
+        #expect(abs(artworkSize.height - 87.04) < 0.001)
     }
 
     @Test func coatRackNoLongerReadsAsDoorHardware() {

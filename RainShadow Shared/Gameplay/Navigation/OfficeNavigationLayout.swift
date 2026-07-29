@@ -55,6 +55,16 @@ enum OfficeNavigationLayout {
         static let entranceFrameAnchorY: CGFloat = 0.11529
         /// Floor-projected presentation used after the leaf breaks free.
         static let entranceFallenLeafScaleRatio: CGFloat = 0.92
+        /// Purpose-built 768×512 landed-state art. The transparent source
+        /// canvas stays centered so this scale yields a ~98×81 point door body.
+        static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)
+        static let entranceFallenArtworkDisplayScale: CGFloat = 0.17
+        static let entranceFallenArtworkDisplaySize = CGSize(
+            width: entranceFallenArtworkCanvasSize.width
+                * entranceFallenArtworkDisplayScale,
+            height: entranceFallenArtworkCanvasSize.height
+                * entranceFallenArtworkDisplayScale
+        )
         /// Internal open leaf registered to the shipping partition hinge.
         static let internalHingePlateX: CGFloat = 2202.0
         static let internalHingePlateHeight: CGFloat = 220.0
