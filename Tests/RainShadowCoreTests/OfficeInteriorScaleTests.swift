@@ -287,6 +287,30 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeInteriorScale.Band.visitorArmchair.contains(chairB))
     }
 
+    @Test func visitorArmchairsStandClearOfAndBehindTheDesk() {
+        let clearance: CGFloat = 10
+        let paddedDesk = OfficeNavigationLayout.authoredDeskObstacle.insetBy(
+            dx: -clearance,
+            dy: -clearance
+        )
+        #expect(!paddedDesk.intersects(OfficeNavigationLayout.authoredVisitorArmchairObstacle))
+        #expect(!paddedDesk.intersects(OfficeNavigationLayout.authoredVisitorArmchairBObstacle))
+
+        let desk = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
+        )
+        let chairA = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.AuthoredPlacement.visitorArmchair
+        )
+        let chairB = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.AuthoredPlacement.visitorArmchairB
+        )
+        let deskTopSort = -desk.y * 0.5 + OfficeNavigationLayout.DeskDepth.topOccluderBias
+        let chairSortBias = OfficeNavigationLayout.DeskDepth.visitorChairBias
+        #expect(-chairA.y * 0.5 + chairSortBias < deskTopSort)
+        #expect(-chairB.y * 0.5 + chairSortBias < deskTopSort)
+    }
+
     @Test func waitingChairBAndHiddenBottleMatchPlanBodyMultiples() {
         let waitingB = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.waitingChairB,

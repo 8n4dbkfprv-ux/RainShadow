@@ -258,12 +258,14 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_visitor_armchair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchair),
-            scale: OfficeInteriorScale.visitorArmchairDisplayScale
+            scale: OfficeInteriorScale.visitorArmchairDisplayScale,
+            bias: OfficeNavigationLayout.DeskDepth.visitorChairBias
         )
         addDepthProp(
             named: "office_visitor_armchair",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchairB),
-            scale: OfficeInteriorScale.visitorArmchairDisplayScale * 0.96
+            scale: OfficeInteriorScale.visitorArmchairDisplayScale * 0.96,
+            bias: OfficeNavigationLayout.DeskDepth.visitorChairBias
         )
         addDepthProp(
             named: "office_wastebasket",
@@ -323,7 +325,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             named: "office_desk_top_occluder",
             at: deskPosition,
             scale: deskScale,
-            bias: -40
+            bias: OfficeNavigationLayout.DeskDepth.topOccluderBias
         )
         if let deskTopOccluder {
             registerHoverSprite(deskTopOccluder, for: "office.desk")
@@ -681,7 +683,10 @@ final class DetectiveOfficeScene: BaseGameScene {
                     + OfficeNavigationLayout.DeskDepth.seatedFrontApronBias
             }
             if let deskTopOccluder {
-                updateDepth(of: deskTopOccluder, bias: -40)
+                updateDepth(
+                    of: deskTopOccluder,
+                    bias: OfficeNavigationLayout.DeskDepth.topOccluderBias
+                )
             }
             for item in deskItemNodes {
                 updateDepth(of: item)
@@ -698,7 +703,10 @@ final class DetectiveOfficeScene: BaseGameScene {
                 )
             }
             if let deskTopOccluder {
-                updateDepth(of: deskTopOccluder, bias: -40)
+                updateDepth(
+                    of: deskTopOccluder,
+                    bias: OfficeNavigationLayout.DeskDepth.topOccluderBias
+                )
             }
             for item in deskItemNodes {
                 updateDepth(of: item)

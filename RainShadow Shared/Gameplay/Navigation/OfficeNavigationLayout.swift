@@ -971,8 +971,8 @@ enum OfficeNavigationLayout {
     static let authoredPersonalWashbasinObstacle = CGRect(x: 1668, y: 1365, width: 68, height: 34)
     static let authoredPersonalFanObstacle = CGRect(x: 1743, y: 1379, width: 54, height: 27)
     static let authoredDeskEnsembleObstacle = CGRect(x: 1831, y: 1180, width: 153, height: 76)
-    static let authoredVisitorArmchairObstacle = CGRect(x: 1871, y: 1258, width: 70, height: 35)
-    static let authoredVisitorArmchairBObstacle = CGRect(x: 1985, y: 1204, width: 70, height: 35)
+    static let authoredVisitorArmchairObstacle = CGRect(x: 1885, y: 1266, width: 70, height: 35)
+    static let authoredVisitorArmchairBObstacle = CGRect(x: 1999, y: 1212, width: 70, height: 35)
     static let authoredWastebasketObstacle = CGRect(x: 1774, y: 1220, width: 43, height: 22)
     static let authoredCoatRackObstacle = CGRect(x: 2592, y: 1183, width: 64, height: 32)
     static let authoredUmbrellaStandObstacle = CGRect(x: 2557, y: 1196, width: 38, height: 19)
@@ -1059,14 +1059,14 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1_938, y: 1_229),
     ]
     static let authoredVisitorArmchairSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_906, y: 1_276),
-        CGPoint(x: 1_892, y: 1_271),
-        CGPoint(x: 1_920, y: 1_281),
+        CGPoint(x: 1_920, y: 1_284),
+        CGPoint(x: 1_906, y: 1_278),
+        CGPoint(x: 1_934, y: 1_289),
     ]
     static let authoredVisitorArmchairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_020, y: 1_222),
-        CGPoint(x: 2_006, y: 1_217),
-        CGPoint(x: 2_034, y: 1_227),
+        CGPoint(x: 2_034, y: 1_230),
+        CGPoint(x: 2_020, y: 1_224),
+        CGPoint(x: 2_048, y: 1_235),
     ]
     static let authoredWastebasketSamplePoints: [CGPoint] = [
         CGPoint(x: 1_795, y: 1_231),
@@ -1147,8 +1147,8 @@ enum OfficeNavigationLayout {
         static let personalGlass = CGPoint(x: 1_741, y: 1_401)  // on sideboard
         static let deskEnsemble = CGPoint(x: 1_907, y: 1_218)
         static let deskChair = CGPoint(x: 1_866, y: 1_194)
-        static let visitorArmchair = CGPoint(x: 1_906, y: 1_276)
-        static let visitorArmchairB = CGPoint(x: 2_020, y: 1_222)
+        static let visitorArmchair = CGPoint(x: 1_920, y: 1_284)
+        static let visitorArmchairB = CGPoint(x: 2_034, y: 1_230)
         static let wastebasket = CGPoint(x: 1_795, y: 1_231)
         static let coatRack = CGPoint(x: 2_625, y: 1_199)
         static let umbrellaStand = CGPoint(x: 2_575, y: 1_205)
@@ -1191,6 +1191,9 @@ enum OfficeNavigationLayout {
     }
 
     enum DeskDepth {
+        /// Visitor chairs sit on the far side of the writing surface.
+        static let visitorChairBias: CGFloat = -50
+        static let topOccluderBias: CGFloat = -40
         /// Above seated Voss's lower layer, below a client passing camera-near.
         static let seatedFrontApronBias: CGFloat = 15
         static let standingFrontApronBias: CGFloat = 40

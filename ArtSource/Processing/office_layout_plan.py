@@ -152,10 +152,10 @@ PROPS: list[Prop] = [
     # ---- desk cluster: private office, on the floor boards
     Prop("deskEnsemble", "office_desk_bare", 0.600, 0.380, 0.99, (1.7, 0.9)),
     Prop("deskChair", "office_desk_chair", 0.675, 0.380, 0.64, (0.6, 0.6), obstacle=False),
-    # Footprint tightened so Lila can stand at the visitor side without being
-    # forced into the empty rear-wall band (segment-clear cells at b≈0.22 only).
-    Prop("visitorArmchair", "office_visitor_armchair", 0.500, 0.310, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.500, 0.450, 0.76, (0.65, 0.65)),
+    # Keep the client pair one step back from the writing surface. a=0.475 is
+    # the farthest visitor-side placement that also clears the partition face.
+    Prop("visitorArmchair", "office_visitor_armchair", 0.475, 0.310, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.475, 0.450, 0.76, (0.65, 0.65)),
     Prop("wastebasket", "office_wastebasket", 0.670, 0.290, 0.32, (0.4, 0.4)),
     # ---- entrance / waiting: corridor from exterior door to partition
     Prop("coatRack", "office_coat_rack", 0.040, 0.880, 0.88, (0.6, 0.6)),
@@ -616,6 +616,9 @@ def emit() -> str:
     add("    }")
     add("")
     add("    enum DeskDepth {")
+    add("        /// Visitor chairs sit on the far side of the writing surface.")
+    add(f"        static let visitorChairBias: CGFloat = {VISITOR_CHAIR_BIAS:.0f}")
+    add("        static let topOccluderBias: CGFloat = -40")
     add("        /// Above seated Voss's lower layer, below a client passing camera-near.")
     add(f"        static let seatedFrontApronBias: CGFloat = {SEATED_DESK_FRONT_APRON_BIAS:.0f}")
     add("        static let standingFrontApronBias: CGFloat = 40")
@@ -958,6 +961,7 @@ CLIENT_WAITING_ROOM_PATH = [
 # Keep the desk's seated front-apron layer above Voss's lower body but below
 # Lila while she is on the camera-near side. The old +55 bias covered her head
 # and torso, which made the otherwise clear ground route read as desk clipping.
+VISITOR_CHAIR_BIAS = -50.0
 SEATED_DESK_FRONT_APRON_BIAS = 15.0
 
 # The visitor stop is immediately inside the real partition door. No desk
