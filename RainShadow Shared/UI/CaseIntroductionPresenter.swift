@@ -785,7 +785,8 @@ final class CaseIntroductionPresenter: SKNode {
             bodyScrollbar.configure(
                 viewportExtent: bodyViewport.height,
                 contentExtent: bodyContentExtent,
-                scrollOffset: 0
+                scrollOffset: 0,
+                scrollUnit: DialoguePanelLayout.Typography.bodyFontSize * 1.25
             )
         }
         if choicesCanScroll {
@@ -793,7 +794,8 @@ final class CaseIntroductionPresenter: SKNode {
             choicesScrollbar.configure(
                 viewportExtent: choicesViewport.height,
                 contentExtent: choicesContentExtent,
-                scrollOffset: 0
+                scrollOffset: 0,
+                scrollUnit: DialoguePanelLayout.Typography.choiceFontSize * 1.25
             )
         }
 

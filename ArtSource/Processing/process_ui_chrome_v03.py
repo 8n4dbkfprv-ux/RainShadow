@@ -326,9 +326,138 @@ SCROLL_PARTS = [
     ("dialogue_scroll_down_v03", (96, 96)),
     ("dialogue_scroll_track_v03", (64, 320)),
     # The V03 source handle is compact and nearly square. Keep a tight runtime
-    # texture and let SpriteKit's centerRect elongate it without distorting the grip.
+    # texture so SpriteKit can scale it uniformly as a compact square handle.
     ("dialogue_scroll_thumb_v03", (72, 72)),
 ]
+
+# Mac OS 9 Classic shapes + RainShadow noir metal (proportional thumb).
+SCROLL_PARTS_V04 = [
+    ("dialogue_scroll_up_v04", (96, 96)),
+    ("dialogue_scroll_down_v04", (96, 96)),
+    ("dialogue_scroll_track_v04", (64, 320)),
+]
+
+THUMB_BODY_V06 = ("dialogue_scroll_thumb_v06", (64, 160))
+# The grip ships at its exact on-screen size: SpriteKit draws it 1:1 with nearest
+# filtering, so the ridges stay crisp instead of blurring like the scaled V06 sheet.
+THUMB_GRIP_V08 = "dialogue_scroll_thumb_grip_v08"
+GRIP_WIDTH = 24
+GRIP_PITCH = 4
+
+# V05 restores the literal Platinum control grammar V04 drifted away from: flat matte
+# faces, hard single-pixel bevels, solid (never engraved) triangles, and a plain
+# recessed channel in place of the woven-leather track.
+SCROLL_PARTS_V05 = [
+    ("dialogue_scroll_up_v05", (96, 96)),
+    ("dialogue_scroll_down_v05", (96, 96)),
+    ("dialogue_scroll_track_v05", (64, 320)),
+]
+THUMB_BODY_V07 = ("dialogue_scroll_thumb_v07", (64, 160))
+THUMB_GRIP_V09 = "dialogue_scroll_thumb_grip_v09"
+
+# System 7 (not Platinum): outlined arrowheads with a light face and dark rim.
+# Platinum replaced these with solid black filled triangles — do not draw those.
+SCROLL_PARTS_V06 = [
+    ("dialogue_scroll_up_v06", (96, 96)),
+    ("dialogue_scroll_down_v06", (96, 96)),
+    ("dialogue_scroll_up_pressed_v06", (96, 96)),
+    ("dialogue_scroll_down_pressed_v06", (96, 96)),
+]
+SCROLL_BOX_V06 = ("dialogue_scroll_box_v06", (96, 96))
+SCROLL_AREA_V06 = ("dialogue_scroll_area_v06", (30, 1024))
+SCROLL_AREA_SOLID_V06 = ("dialogue_scroll_area_solid_v06", (30, 1024))
+# Native 1× classic Mac glyph, traced from the reference bar; stamped
+# nearest-neighbour onto the 96px button (×6). O = outline, F = fill.
+# The arrow is an *outlined* head whose base flares into horizontal shoulder wings,
+# then a short wide stem — not a Platinum solid triangle and not a narrow long stalk.
+SYSTEM7_ARROW_UP = [
+    "......O......",  # tip
+    ".....OFO.....",
+    "....OFFFO....",
+    "...OFFFFFO...",
+    "..OFFFFFFFO..",
+    ".OFFFFFFFFFO.",
+    "OOOOFFFFFOOOO",  # shoulder wings: head base flares out, stem carries on
+    "...OFFFFFO...",  # stem / handle — 5 wide, 4 rows
+    "...OFFFFFO...",
+    "...OFFFFFO...",
+    "...OOOOOOO...",  # stem base
+]
+ARROW_OUTLINE = (18, 18, 20, 255)
+ARROW_FILL = (168, 170, 174, 255)
+ARROW_OUTLINE_PRESSED = (210, 212, 216, 255)
+ARROW_FILL_PRESSED = (28, 28, 30, 255)
+
+
+def pixel_exact_grip(im: Image.Image) -> Image.Image:
+    """Rebuild the painted grip so each ridge is one highlight row over one shadow row.
+
+    The generator paints each ridge ~18px tall. Scaling that down to the ~20pt grip
+    merges the highlight into the shadow, so the ridges read as smeared grooves. Here
+    the brightest and darkest painted row of every ridge is kept verbatim and stacked
+    at the runtime pitch, which preserves the generated look at its real size.
+    """
+    rgba = np.array(im.convert("RGBA"))
+    alpha = rgba[:, :, 3]
+    luma = rgba[:, :, 0].astype(np.float32)
+
+    rows = np.where((alpha > 40).sum(axis=1) > rgba.shape[1] * 0.2)[0]
+    if len(rows) == 0:
+        raise ValueError("Grip master has no painted ridges")
+    ridges: list[list[int]] = [[int(rows[0])]]
+    for y in rows[1:]:
+        if y - ridges[-1][-1] <= 2:
+            ridges[-1].append(int(y))
+        else:
+            ridges.append([int(y)])
+
+    columns = np.where((alpha > 40).any(axis=0))[0]
+    x0, x1 = int(columns.min()), int(columns.max()) + 1
+
+    height = (len(ridges) - 1) * GRIP_PITCH + 2
+    out = np.zeros((height, GRIP_WIDTH, 4), dtype=np.uint8)
+    for index, ridge in enumerate(ridges):
+        means = np.array([luma[y][alpha[y] > 40].mean() for y in ridge])
+        for offset, source_y in enumerate(
+            (ridge[int(means.argmax())], ridge[int(means.argmin())])
+        ):
+            strip = Image.fromarray(rgba[source_y : source_y + 1, x0:x1]).resize(
+                (GRIP_WIDTH, 1), Image.Resampling.LANCZOS
+            )
+            painted = np.array(strip)
+            painted[:, :, 3] = 255
+            out[index * GRIP_PITCH + offset] = painted
+    return Image.fromarray(out, "RGBA")
+
+
+def harden_rect_silhouette(im: Image.Image, alpha_threshold: int = 140) -> Image.Image:
+    """Force a crisp rectangular chrome plate (Mac OS 9 scroller grammar)."""
+    rgba = np.array(im.convert("RGBA"))
+    mask = rgba[:, :, 3] >= alpha_threshold
+    try:
+        from scipy import ndimage
+
+        mask = ndimage.binary_closing(mask, iterations=2)
+        mask = ndimage.binary_fill_holes(mask)
+    except Exception:
+        pass
+    ys, xs = np.where(mask)
+    if len(xs) == 0:
+        return im
+    y0, y1 = int(ys.min()), int(ys.max()) + 1
+    x0, x1 = int(xs.min()), int(xs.max()) + 1
+    crop = rgba[y0:y1, x0:x1].copy()
+    m = mask[y0:y1, x0:x1]
+    crop[~m, 3] = 0
+    crop[m, 3] = 255
+    return Image.fromarray(crop, "RGBA")
+
+
+def crop_square_button(im: Image.Image) -> Image.Image:
+    """Keep the leading square of a button cell; drop sheet bleed below it."""
+    trimmed = trim_alpha(im)
+    side = min(trimmed.width, trimmed.height)
+    return trimmed.crop((0, 0, side, side))
 
 
 def process_dialogue() -> None:
@@ -386,6 +515,239 @@ def process_dialogue() -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         out.save(path)
         print(f"wrote {path}")
+
+    master = copy_gen(
+        "dialogue_scroll_components_macos9_v04_gen.png",
+        GEN / "Dialogue/dialogue_scroll_components_macos9_v04_gen.png",
+    )
+    cells = slice_grid(force_grayscale(chroma_key(Image.open(master))), 2, 2, inset=0.06)
+    # The sheet's 4th cell was a draft thumb; the shipped thumb comes from its own master.
+    for idx, (cell, (name, canvas)) in enumerate(
+        zip(cells[: len(SCROLL_PARTS_V04)], SCROLL_PARTS_V04, strict=True)
+    ):
+        if idx < 2:
+            out = fit_canvas(crop_square_button(cell), canvas)
+        else:
+            out = stretch_to_canvas(trim_alpha(cell), canvas)
+        path = RUNTIME / "Dialogue" / f"{name}.png"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        out.save(path)
+        print(f"wrote {path}")
+
+    # Thumb body (nine-slice) + fixed grip overlay (never stretched with thumb height).
+    body_master = copy_gen(
+        "dialogue_scroll_thumb_body_macos9_v05_gen.png",
+        GEN / "Dialogue/dialogue_scroll_thumb_body_macos9_v05_gen.png",
+    )
+    body = harden_rect_silhouette(force_grayscale(chroma_key(Image.open(body_master))))
+    body = stretch_to_canvas(body, THUMB_BODY_V06[1])
+    arr = np.array(body)
+    arr[:, :, 3] = np.where(arr[:, :, 3] >= 128, 255, 0).astype(np.uint8)
+    body_path = RUNTIME / "Dialogue" / f"{THUMB_BODY_V06[0]}.png"
+    Image.fromarray(arr, "RGBA").save(body_path)
+    print(f"wrote {body_path}")
+
+    grip_master = copy_gen(
+        "dialogue_scroll_thumb_grip_macos9_v06b_gen.png",
+        GEN / "Dialogue/dialogue_scroll_thumb_grip_macos9_v06b_gen.png",
+    )
+    grip = pixel_exact_grip(force_grayscale(chroma_key(Image.open(grip_master))))
+    grip_path = RUNTIME / "Dialogue" / f"{THUMB_GRIP_V08}.png"
+    grip.save(grip_path)
+    print(f"wrote {grip_path} ({grip.size})")
+
+    process_dialogue_scrollbar_v05()
+
+
+def process_dialogue_scrollbar_v05() -> None:
+    """Ship the V05 Platinum-grammar scrollbar suite."""
+    # Style-lock only: the assembled bar is kept as the reference the parts must match.
+    copy_gen(
+        "dialogue_scrollbar_assembled_macos9_v05_gen.png",
+        GEN / "Dialogue/Scrollbar/dialogue_scrollbar_assembled_macos9_v05_gen.png",
+    )
+
+    # The v05b pass replaced v05's thick mitred rims with true Platinum hairlines.
+    master = copy_gen(
+        "dialogue_scroll_components_macos9_v05b_gen.png",
+        GEN / "Dialogue/dialogue_scroll_components_macos9_v05b_gen.png",
+    )
+    # A tight 2% inset: the V05 parts are drawn close to their cell edges, and the 6%
+    # crop V04 needed would shave the track's top bevel off.
+    cells = slice_grid(force_grayscale(chroma_key(Image.open(master))), 2, 2, inset=0.02)
+    # Cell 4 is deliberately empty — the thumb ships from its own master.
+    for cell, (name, canvas) in zip(cells[: len(SCROLL_PARTS_V05)], SCROLL_PARTS_V05, strict=True):
+        # Every part is authored to fill its canvas edge to edge, so stretching keeps
+        # the bevels flush instead of padding them away from the neighbouring part.
+        out = stretch_to_canvas(cell, canvas)
+        path = RUNTIME / "Dialogue" / f"{name}.png"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        out.save(path)
+        print(f"wrote {path} ({out.size})")
+
+    body_master = copy_gen(
+        "dialogue_scroll_thumb_body_macos9_v05c_gen.png",
+        GEN / "Dialogue/dialogue_scroll_thumb_body_macos9_v05c_gen.png",
+    )
+    body = harden_rect_silhouette(force_grayscale(chroma_key(Image.open(body_master))))
+    body = stretch_to_canvas(body, THUMB_BODY_V07[1])
+    arr = np.array(body)
+    arr[:, :, 3] = np.where(arr[:, :, 3] >= 128, 255, 0).astype(np.uint8)
+    body_path = RUNTIME / "Dialogue" / f"{THUMB_BODY_V07[0]}.png"
+    Image.fromarray(arr, "RGBA").save(body_path)
+    print(f"wrote {body_path} ({body.size})")
+
+    grip_master = copy_gen(
+        "dialogue_scroll_thumb_grip_macos9_v07_gen.png",
+        GEN / "Dialogue/dialogue_scroll_thumb_grip_macos9_v07_gen.png",
+    )
+    grip = pixel_exact_grip(force_grayscale(chroma_key(Image.open(grip_master))))
+    grip_path = RUNTIME / "Dialogue" / f"{THUMB_GRIP_V09}.png"
+    grip.save(grip_path)
+    print(f"wrote {grip_path} ({grip.size})")
+
+    process_dialogue_scrollbar_system7_v06()
+
+
+def system7_arrow_glyph(direction: str, scale: int, pressed: bool) -> Image.Image:
+    """Build the System 7 outlined arrowhead (not a Platinum solid triangle)."""
+    rows = SYSTEM7_ARROW_UP
+    if direction == "down":
+        rows = list(reversed(rows))
+    outline = ARROW_OUTLINE_PRESSED if pressed else ARROW_OUTLINE
+    fill = ARROW_FILL_PRESSED if pressed else ARROW_FILL
+    h, w = len(rows), len(rows[0])
+    native = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    px = native.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch == "O":
+                px[x, y] = outline
+            elif ch == "F":
+                px[x, y] = fill
+    return native.resize((w * scale, h * scale), Image.Resampling.NEAREST)
+
+
+def stamp_system7_arrow(button: Image.Image, direction: str, pressed: bool) -> Image.Image:
+    """Stamp a pixel-exact System 7 arrow onto a blank raised/pressed button face."""
+    out = button.convert("RGBA")
+    # 96px button ≈ 16px System 7 cell × 6.
+    scale = max(1, round(out.width / 16))
+    glyph = system7_arrow_glyph(direction, scale, pressed)
+    # Centred, then biased one native pixel toward the tip's end of the bar.
+    x = (out.width - glyph.width) // 2
+    centred = (out.height - glyph.height) // 2
+    y = centred - scale if direction == "up" else centred + scale
+    y = max(scale, min(out.height - glyph.height - scale, y))
+    out.alpha_composite(glyph, (x, y))
+    return out
+
+
+def pixel_exact_dither(im: Image.Image, size: tuple[int, int] = (30, 1024)) -> Image.Image:
+    """Rebuild the gray-area stipple at exact runtime scale (2pt checker cells).
+
+    A painted dither scaled down merges the two gunmetal values into grey mush, the
+    same failure mode as the grip ridges. Sample the two dominant painted values and
+    restack them as a crisp checker on the shipped canvas.
+    """
+    rgba = np.array(force_grayscale(chroma_key(im)).convert("RGBA"))
+    alpha = rgba[:, :, 3]
+    opaque = alpha > 40
+    if not opaque.any():
+        raise ValueError("Gray-area master has no painted dither")
+    luma = rgba[:, :, 0][opaque].astype(np.float32)
+    # Two clusters: darker + lighter gunmetal of the 50% stipple.
+    lo = float(np.percentile(luma, 20))
+    hi = float(np.percentile(luma, 80))
+    if hi - lo < 8:
+        lo, hi = max(0, lo - 18), min(255, hi + 18)
+    dark = (int(round(lo)),) * 3 + (255,)
+    light = (int(round(hi)),) * 3 + (255,)
+    w, h = size
+    out = np.zeros((h, w, 4), dtype=np.uint8)
+    for y in range(h):
+        for x in range(w):
+            # 2×2 checker cell matches System 7's gray-area pitch at 30pt width.
+            cell = ((x // 2) + (y // 2)) & 1
+            out[y, x] = light if cell else dark
+    # Left/right near-black outlines only — buttons supply the horizontal joints.
+    out[:, 0] = (12, 12, 14, 255)
+    out[:, -1] = (12, 12, 14, 255)
+    return Image.fromarray(out, "RGBA")
+
+
+def pixel_exact_solid_area(im: Image.Image, size: tuple[int, int] = (30, 1024)) -> Image.Image:
+    """Solid disabled gray area (System 7: no dither when content fits)."""
+    rgba = np.array(force_grayscale(chroma_key(im)).convert("RGBA"))
+    alpha = rgba[:, :, 3]
+    opaque = alpha > 40
+    if not opaque.any():
+        mid = 72
+    else:
+        mid = int(round(float(rgba[:, :, 0][opaque].mean())))
+    w, h = size
+    out = np.full((h, w, 4), (mid, mid, mid, 255), dtype=np.uint8)
+    out[:, 0] = (12, 12, 14, 255)
+    out[:, -1] = (12, 12, 14, 255)
+    return Image.fromarray(out, "RGBA")
+
+
+def process_dialogue_scrollbar_system7_v06() -> None:
+    """Ship the System 7 scrollbar suite: outlined arrows, fixed square box, dithered gray area."""
+    copy_gen(
+        "dialogue_scrollbar_assembled_system7_v06_gen.png",
+        GEN / "Dialogue/Scrollbar/dialogue_scrollbar_assembled_system7_v06_gen.png",
+    )
+
+    master = copy_gen(
+        "dialogue_scroll_components_system7_v06_gen.png",
+        GEN / "Dialogue/dialogue_scroll_components_system7_v06_gen.png",
+    )
+    cells = slice_grid(force_grayscale(chroma_key(Image.open(master))), 2, 2, inset=0.04)
+    # Sheet: TL normal, TR normal, BL pressed, BR pressed — blank faces; arrows stamped here.
+    specs = [
+        (0, "up", False, SCROLL_PARTS_V06[0]),
+        (1, "down", False, SCROLL_PARTS_V06[1]),
+        (2, "up", True, SCROLL_PARTS_V06[2]),
+        (3, "down", True, SCROLL_PARTS_V06[3]),
+    ]
+    for idx, direction, pressed, (name, canvas) in specs:
+        face = stretch_to_canvas(crop_square_button(cells[idx]), canvas)
+        out = stamp_system7_arrow(face, direction, pressed)
+        path = RUNTIME / "Dialogue" / f"{name}.png"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        out.save(path)
+        print(f"wrote {path} ({out.size})")
+
+    box_master = copy_gen(
+        "dialogue_scroll_box_system7_v06_gen.png",
+        GEN / "Dialogue/dialogue_scroll_box_system7_v06_gen.png",
+    )
+    box = harden_rect_silhouette(force_grayscale(chroma_key(Image.open(box_master))))
+    box = stretch_to_canvas(box, SCROLL_BOX_V06[1])
+    arr = np.array(box)
+    arr[:, :, 3] = np.where(arr[:, :, 3] >= 128, 255, 0).astype(np.uint8)
+    box_path = RUNTIME / "Dialogue" / f"{SCROLL_BOX_V06[0]}.png"
+    Image.fromarray(arr, "RGBA").save(box_path)
+    print(f"wrote {box_path} ({box.size})")
+
+    area_master = copy_gen(
+        "dialogue_scroll_area_system7_v06_gen.png",
+        GEN / "Dialogue/dialogue_scroll_area_system7_v06_gen.png",
+    )
+    area_img = Image.open(area_master)
+    # Left half = dither, right half = solid (generator sheet is side-by-side).
+    mid = area_img.width // 2
+    dither = pixel_exact_dither(area_img.crop((0, 0, mid, area_img.height)), SCROLL_AREA_V06[1])
+    solid = pixel_exact_solid_area(
+        area_img.crop((mid, 0, area_img.width, area_img.height)), SCROLL_AREA_SOLID_V06[1]
+    )
+    dither_path = RUNTIME / "Dialogue" / f"{SCROLL_AREA_V06[0]}.png"
+    solid_path = RUNTIME / "Dialogue" / f"{SCROLL_AREA_SOLID_V06[0]}.png"
+    dither.save(dither_path)
+    solid.save(solid_path)
+    print(f"wrote {dither_path} ({dither.size})")
+    print(f"wrote {solid_path} ({solid.size})")
 
 
 def process_hud() -> None:
@@ -484,6 +846,8 @@ def main() -> None:
         process_hud()
     if "dialogue" in targets:
         process_dialogue()
+    if "scrollbar" in targets:
+        process_dialogue_scrollbar_system7_v06()
     if "inventory" in targets:
         process_inventory()
     if "journal" in targets:

@@ -14,6 +14,13 @@ final class DialogueScrollbarNode: SKNode {
     private let track = SKSpriteNode()
     private let thumb = SKSpriteNode()
 
+    private var upNormalTexture: SKTexture?
+    private var upPressedTexture: SKTexture?
+    private var downNormalTexture: SKTexture?
+    private var downPressedTexture: SKTexture?
+    private var areaDitherTexture: SKTexture?
+    private var areaSolidTexture: SKTexture?
+
     private var controlBounds = CGRect.zero
     private var upButtonRect = CGRect.zero
     private var downButtonRect = CGRect.zero
@@ -22,8 +29,9 @@ final class DialogueScrollbarNode: SKNode {
     private var viewportExtent: CGFloat = 1
     private var contentExtent: CGFloat = 1
     private var scrollOffset: CGFloat = 0
+    private var scrollUnit: CGFloat = DialoguePanelLayout.Typography.bodyFontSize * 1.25
     private var activePart: Part?
-    private var hoveredPart: Part?
+    private var pointerInside = false
     private var dragGrabOffsetY: CGFloat = 0
 
     var onScroll: ((CGFloat) -> Void)?
@@ -49,15 +57,31 @@ final class DialogueScrollbarNode: SKNode {
     override init() {
         super.init()
         name = "dialogue.scrollbar"
-        installTexture(named: "dialogue_scroll_up_v03", on: upButton)
-        installTexture(named: "dialogue_scroll_down_v03", on: downButton)
-        installTexture(named: "dialogue_scroll_track_v03", on: track)
-        installTexture(named: "dialogue_scroll_thumb_v03", on: thumb)
+        upNormalTexture = loadTexture(named: "dialogue_scroll_up_v06", fallback: "dialogue_scroll_up_v05")
+        upPressedTexture = loadTexture(named: "dialogue_scroll_up_pressed_v06", fallback: "dialogue_scroll_up_v05")
+        downNormalTexture = loadTexture(named: "dialogue_scroll_down_v06", fallback: "dialogue_scroll_down_v05")
+        downPressedTexture = loadTexture(
+            named: "dialogue_scroll_down_pressed_v06",
+            fallback: "dialogue_scroll_down_v05"
+        )
+        areaDitherTexture = loadTexture(
+            named: "dialogue_scroll_area_v06",
+            fallback: "dialogue_scroll_track_v05",
+            filtering: .nearest
+        )
+        areaSolidTexture = loadTexture(
+            named: "dialogue_scroll_area_solid_v06",
+            fallback: "dialogue_scroll_track_v05",
+            filtering: .nearest
+        )
+        installTexture(upNormalTexture, on: upButton)
+        installTexture(downNormalTexture, on: downButton)
+        installTexture(areaDitherTexture, on: track)
+        installTexture(
+            loadTexture(named: "dialogue_scroll_box_v06", fallback: "dialogue_scroll_thumb_v07"),
+            on: thumb
+        )
 
-        // Track nine-slices cleanly. Thumb uses a larger fixed end-cap fraction so the
-        // diamond and beveled caps never squash into a thin stretched strip.
-        track.centerRect = CGRect(x: 0.23, y: 0.12, width: 0.54, height: 0.76)
-        thumb.centerRect = CGRect(x: 0.28, y: 0.22, width: 0.44, height: 0.56)
         track.zPosition = 0
         upButton.zPosition = 1
         downButton.zPosition = 1
@@ -74,26 +98,10 @@ final class DialogueScrollbarNode: SKNode {
         position = CGPoint(x: rect.midX, y: rect.midY)
         controlBounds = CGRect(x: -rect.width / 2, y: -rect.height / 2, width: rect.width, height: rect.height)
 
-        let buttonExtent = min(rect.width, 30)
-        let gap: CGFloat = 3
-        upButtonRect = CGRect(
-            x: controlBounds.midX - buttonExtent / 2,
-            y: controlBounds.maxY - buttonExtent,
-            width: buttonExtent,
-            height: buttonExtent
-        )
-        downButtonRect = CGRect(
-            x: controlBounds.midX - buttonExtent / 2,
-            y: controlBounds.minY,
-            width: buttonExtent,
-            height: buttonExtent
-        )
-        trackRect = CGRect(
-            x: controlBounds.minX,
-            y: downButtonRect.maxY + gap,
-            width: controlBounds.width,
-            height: max(1, upButtonRect.minY - downButtonRect.maxY - gap * 2)
-        )
+        let chrome = DialogueScrollbarGeometry.chromeLayout(bounds: controlBounds)
+        upButtonRect = chrome.upButton
+        downButtonRect = chrome.downButton
+        trackRect = chrome.track
 
         upButton.position = CGPoint(x: upButtonRect.midX, y: upButtonRect.midY)
         upButton.size = upButtonRect.size
@@ -101,13 +109,21 @@ final class DialogueScrollbarNode: SKNode {
         downButton.size = downButtonRect.size
         track.position = CGPoint(x: trackRect.midX, y: trackRect.midY)
         track.size = trackRect.size
+        refreshTrackTexture()
         refreshThumbGeometry()
     }
 
-    func configure(viewportExtent: CGFloat, contentExtent: CGFloat, scrollOffset: CGFloat = 0) {
+    func configure(
+        viewportExtent: CGFloat,
+        contentExtent: CGFloat,
+        scrollOffset: CGFloat = 0,
+        scrollUnit: CGFloat = DialoguePanelLayout.Typography.bodyFontSize * 1.25
+    ) {
         self.viewportExtent = max(1, viewportExtent)
         self.contentExtent = max(self.viewportExtent, contentExtent)
+        self.scrollUnit = max(1, scrollUnit)
         setScrollOffset(scrollOffset, notify: false)
+        refreshTrackTexture()
         refreshThumbGeometry()
         refreshAppearance()
     }
@@ -126,16 +142,21 @@ final class DialogueScrollbarNode: SKNode {
         let part = part(at: point)
         activePart = part
 
+        let step = DialogueScrollbarGeometry.arrowStep(lineHeight: scrollUnit)
+        let page = DialogueScrollbarGeometry.pageStep(
+            viewportExtent: viewportExtent,
+            lineHeight: scrollUnit
+        )
         switch part {
         case .upButton:
-            _ = scroll(by: -34)
+            _ = scroll(by: -step)
         case .downButton:
-            _ = scroll(by: 34)
+            _ = scroll(by: step)
         case .track:
             if point.y > thumbRect.maxY {
-                _ = scroll(by: -viewportExtent * 0.86)
+                _ = scroll(by: -page)
             } else if point.y < thumbRect.minY {
-                _ = scroll(by: viewportExtent * 0.86)
+                _ = scroll(by: page)
             }
         case .thumb:
             dragGrabOffsetY = point.y - thumb.position.y
@@ -166,24 +187,33 @@ final class DialogueScrollbarNode: SKNode {
         let handled = activePart != nil
         activePart = nil
         dragGrabOffsetY = 0
-        hoveredPart = controlBounds.contains(point) ? part(at: point) : nil
+        pointerInside = controlBounds.contains(point)
         refreshAppearance()
         return handled
     }
 
     @discardableResult
     func updatePointer(at point: CGPoint) -> Bool {
-        hoveredPart = controlBounds.contains(point) ? part(at: point) : nil
+        // System 7 has no hover tint; still report hit so the scene can show a hand cursor.
+        pointerInside = controlBounds.contains(point)
         refreshAppearance()
-        return hoveredPart != nil
+        return pointerInside
     }
 
-    private func installTexture(named name: String, on sprite: SKSpriteNode) {
-        let texture = UIPaintedChrome.texture(named: name)
-            ?? UIPaintedChrome.texture(named: name.replacingOccurrences(of: "_v03", with: "_v02"))
-            ?? UIPaintedChrome.texture(named: name.replacingOccurrences(of: "_v03", with: "_v01"))
+    private func loadTexture(
+        named name: String,
+        fallback: String,
+        filtering: SKTextureFilteringMode = .linear
+    ) -> SKTexture? {
+        if let texture = UIPaintedChrome.texture(named: name, filtering: filtering) {
+            return texture
+        }
+        return UIPaintedChrome.texture(named: fallback, filtering: filtering)
+    }
+
+    private func installTexture(_ texture: SKTexture?, on sprite: SKSpriteNode) {
         guard let texture else {
-            assertionFailure("Missing scrollbar chrome: \(name)")
+            assertionFailure("Missing scrollbar chrome")
             return
         }
         sprite.texture = texture
@@ -229,32 +259,39 @@ final class DialogueScrollbarNode: SKNode {
         }
     }
 
+    /// Crop the pixel-exact dither master instead of stretching — same failure mode as the old grip.
+    private func refreshTrackTexture() {
+        let master = isScrollable ? areaDitherTexture : areaSolidTexture
+        guard let master else { return }
+        let masterHeight = max(1, master.size().height)
+        let fraction = min(1, trackRect.height / masterHeight)
+        let cropped = SKTexture(
+            rect: CGRect(x: 0, y: 0, width: 1, height: max(0.001, fraction)),
+            in: master
+        )
+        cropped.filteringMode = .nearest
+        track.texture = cropped
+    }
+
     private func refreshAppearance() {
-        let disabledAlpha: CGFloat = isScrollable ? 1 : 0.42
-        upButton.alpha = disabledAlpha
-        downButton.alpha = disabledAlpha
+        // System 7 keeps arrows drawn when disabled; only the gray area goes solid and
+        // the scroll box disappears.
+        upButton.alpha = 1
+        downButton.alpha = 1
         track.alpha = 1
-        // Hidden when not scrollable — never show a stretched full-track “handle”.
         if !thumb.isHidden {
             thumb.alpha = isScrollable ? 1 : 0
         }
 
-        applyAppearance(to: upButton, for: .upButton)
-        applyAppearance(to: downButton, for: .downButton)
-        applyAppearance(to: track, for: .track)
-        applyAppearance(to: thumb, for: .thumb)
-    }
-
-    private func applyAppearance(to sprite: SKSpriteNode, for part: Part) {
-        if activePart == part {
-            sprite.color = .black
-            sprite.colorBlendFactor = 0.34
-        } else if hoveredPart == part, isScrollable {
-            sprite.color = SKColor(red: 0.55, green: 0.31, blue: 0.22, alpha: 1)
-            sprite.colorBlendFactor = 0.12
-        } else {
-            sprite.color = .white
-            sprite.colorBlendFactor = 0
-        }
+        upButton.texture = activePart == .upButton ? upPressedTexture : upNormalTexture
+        downButton.texture = activePart == .downButton ? downPressedTexture : downNormalTexture
+        upButton.color = .white
+        upButton.colorBlendFactor = 0
+        downButton.color = .white
+        downButton.colorBlendFactor = 0
+        track.color = .white
+        track.colorBlendFactor = 0
+        thumb.color = .white
+        thumb.colorBlendFactor = 0
     }
 }

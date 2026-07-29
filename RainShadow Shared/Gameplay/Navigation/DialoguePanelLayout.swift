@@ -746,26 +746,7 @@ struct DialoguePanelLayout: Equatable {
             width: scrollbarRect.width,
             height: scrollbarRect.height
         )
-        let buttonExtent = min(scrollbarRect.width, 30)
-        let gap: CGFloat = 3
-        let upButton = CGRect(
-            x: bounds.midX - buttonExtent / 2,
-            y: bounds.maxY - buttonExtent,
-            width: buttonExtent,
-            height: buttonExtent
-        )
-        let downButton = CGRect(
-            x: bounds.midX - buttonExtent / 2,
-            y: bounds.minY,
-            width: buttonExtent,
-            height: buttonExtent
-        )
-        let track = CGRect(
-            x: bounds.minX,
-            y: downButton.maxY + gap,
-            width: bounds.width,
-            height: max(1, upButton.minY - downButton.maxY - gap * 2)
-        )
-        return (upButton, downButton, track)
+        let chrome = DialogueScrollbarGeometry.chromeLayout(bounds: bounds)
+        return (chrome.upButton, chrome.downButton, chrome.track)
     }
 }
