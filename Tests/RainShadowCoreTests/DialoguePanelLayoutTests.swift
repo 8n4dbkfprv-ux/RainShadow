@@ -351,11 +351,11 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("configureScrollbars"))
         #expect(source.contains("setScrollTarget"))
         #expect(source.contains("refreshVisibleScrollbar"))
-        #expect(source.contains("bodyScrollbar.isHidden = !bodyCanScroll || scrollTarget != .body"))
-        #expect(source.contains("choicesScrollbar.isHidden = !choicesCanScroll || scrollTarget != .choices"))
-        #expect(source.contains("bodyScrollbar.layout(in: panelLayout.scrollbarRect)"))
+        #expect(source.contains("bodyScrollbar.isHidden = !bodyCanScroll"))
+        #expect(source.contains("choicesScrollbar.isHidden = !choicesCanScroll"))
+        #expect(source.contains("DialoguePanelLayout.inlineBodyScrollbarRect("))
         #expect(source.contains("choicesScrollbar.layout(in: panelLayout.scrollbarRect)"))
-        #expect(!source.contains("DialoguePanelLayout.inlineBodyScrollbarRect("))
+        #expect(!source.contains("bodyScrollbar.layout(in: panelLayout.scrollbarRect)"))
     }
 
     @Test func scrollbarOccupiesPaintedRightRail() {
@@ -480,7 +480,7 @@ struct DialoguePanelLayoutTests {
             .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("DialoguePanelLayout.layout(for:"))
-        #expect(source.contains("geometry.bodyTextMaxWidth") || source.contains("panelLayout.bodyTextMaxWidth"))
+        #expect(source.contains("DialoguePanelLayout.inlineBodyTextMaxWidth("))
         #expect(source.contains("panelLayout.choiceTextMaxWidth") || source.contains("geometry.choiceTextMaxWidth"))
         #expect(source.contains("contentMask.path = CGPath(rect:"))
         #expect(source.contains("bodyViewport") || source.contains("applySplitContentRegions"))
@@ -569,6 +569,7 @@ struct DialoguePanelLayoutTests {
         let choice = DialoguePanelLayout.Typography.choiceFontSize
         #expect(body < DialoguePanelLayout.Typography.legacyBodyFontSize)
         #expect(body >= 15)
+        #expect(body > choice)
         #expect(speaker < DialoguePanelLayout.Typography.legacySpeakerFontSize)
         #expect(speaker >= 17)
         // Choices may be one step smaller than body so the Lila triad packs on 800×600.

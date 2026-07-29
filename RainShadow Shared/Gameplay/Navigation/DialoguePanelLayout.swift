@@ -112,8 +112,9 @@ struct DialoguePanelLayout: Equatable {
 
     /// Type sizes used by `CaseIntroductionPresenter` (pure so tests assert the contract).
     enum Typography {
-        /// Body reads at a distance on the compact plaque; 17pt keeps multi-line monologue legible.
-        static let bodyFontSize: CGFloat = 17
+        /// Body reads at a distance on the compact plaque; 16pt keeps multi-line monologue
+        /// legible while staying a step above the 15pt choice rows.
+        static let bodyFontSize: CGFloat = 16
         static let speakerFontSize: CGFloat = 19
         /// Slightly tighter than body copy so at least one complete multiline option
         /// remains visible in the compact plaque while additional options scroll.
@@ -179,7 +180,9 @@ struct DialoguePanelLayout: Equatable {
     let scrollbarRect: CGRect
     /// Near-black plate under the frame's interior only (not the outer chrome).
     let contentWellRect: CGRect
-    /// Maximum layout width for body dialogue text (equals content viewport width).
+    /// Maximum layout width for body dialogue text with no inline scrollbar reserved
+    /// (content viewport minus horizontal insets). Runtime body wrapping uses
+    /// `inlineBodyTextMaxWidth` instead so glyphs clear the body scrollbar.
     let bodyTextMaxWidth: CGFloat
     /// Maximum layout width for choice labels (content width minus label insets).
     let choiceTextMaxWidth: CGFloat
@@ -632,8 +635,8 @@ struct DialoguePanelLayout: Equatable {
         return (finalBody, choices, bandHeight)
     }
 
-    /// Compact body scrollbar beside the upper text crop. Response choices retain the
-    /// full painted rail, avoiding two sets of arrows stacked in the same channel.
+    /// Body scrollbar beside the upper text crop. Response choices keep the painted
+    /// right-hand rail; the body bar never shares that channel.
     static func inlineBodyScrollbarRect(bodyViewport: CGRect) -> CGRect {
         CGRect(
             x: bodyViewport.maxX - scrollbarWidth,

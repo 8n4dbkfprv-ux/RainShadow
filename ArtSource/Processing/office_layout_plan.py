@@ -118,6 +118,18 @@ class Prop:
 EXTERIOR_DOOR = (0.0, 0.820)  # painted NE doorway centre on the floor diamond
 WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 
+# Visual door registration measured directly from the shipping suite plate.
+#
+# The navigation partition and `office_partition_opening.json` describe a
+# different generated bake. Keep those values for collision/pathing, but never
+# use them to place the two live leaf sprites against `office_suite_plate.png`.
+# Positions below use plate image coordinates (y down).
+SHIPPING_EXTERIOR_OPENING_SIZE = (93.0, 206.0)
+SHIPPING_EXTERIOR_THRESHOLD = (2600.65, 960.0)
+SHIPPING_INTERNAL_HINGE_X = 2202.0
+SHIPPING_INTERNAL_HINGE_TOP_Y = 1050.0
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1270.0
+
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
 PROPS: list[Prop] = [
@@ -441,14 +453,15 @@ def emit() -> str:
     add(f"            {p0[1]:.1f} + (x - {p0[0]:.0f}) * {rp.AXIS_NE[1] / rp.AXIS_NE[0]:.4f}")
     add("        }")
     add("")
-    add("        /// Clear doorway size, derived from the shipped detective silhouette.")
+    add("        /// Clear exterior opening measured from the shipping suite plate.")
     add(
         f"        static let entranceOpeningPlateSize = "
-        f"CGSize(width: {rp.BAKED_DOORWAY_W:.3f}, height: {rp.BAKED_DOORWAY_H:.1f})"
+        f"CGSize(width: {SHIPPING_EXTERIOR_OPENING_SIZE[0]:.3f}, "
+        f"height: {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.1f})"
     )
     add(
         f"        static let entranceOpeningToDetectiveRatio: CGFloat = "
-        f"{rp.DOOR_OPENING_TO_DETECTIVE:.2f}"
+        f"{SHIPPING_EXTERIOR_OPENING_SIZE[1] / BODY:.2f}"
     )
     add(
         f"        static let entranceHandleHeightToDetective: CGFloat = "
@@ -461,6 +474,7 @@ def emit() -> str:
     add("        static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale")
     add("        static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale")
     add(f"        static let entranceLeafAnchorY: CGFloat = {exterior_leaf_anchor_y():.5f}")
+    add(f"        static let entranceLeafAnchor = {precise_pt(exterior_leaf_anchor_authored())}")
     add(f"        static let entranceFrameDisplayScale: CGFloat = {exterior_frame_scale():.4f}")
     add("        static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale")
     add("        static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale")
@@ -468,8 +482,14 @@ def emit() -> str:
     add(f"        static let entranceFrameAnchorY: CGFloat = {exterior_frame_anchor_y():.5f}")
     add("        /// Floor-projected presentation used after the leaf breaks free.")
     add("        static let entranceFallenLeafScaleRatio: CGFloat = 0.92")
-    add("        /// Internal sheared leaf fitted to partition clear opening height.")
+    add("        /// Internal open leaf registered to the shipping partition hinge.")
+    add(f"        static let internalHingePlateX: CGFloat = {SHIPPING_INTERNAL_HINGE_X:.1f}")
+    add(
+        f"        static let internalHingePlateHeight: CGFloat = "
+        f"{SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y:.1f}"
+    )
     add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
+    add(f"        static let internalLeafAnchor = {precise_pt(internal_door_leaf_anchor())}")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -537,12 +557,8 @@ def emit() -> str:
     add("    // MARK: - Placements")
     add("")
     add("    enum AuthoredPlacement {")
-    add("        /// Lowered beneath the sloped header so the complete top rail and")
-    add("        /// a narrow dark reveal remain visible instead of reading as clipped.")
-    add("        static let doorLeaf = CGPoint(")
-    add("            x: Architecture.entranceAnchor.x,")
-    add("            y: Architecture.entranceAnchor.y + 6")
-    add("        )")
+    add("        /// Registered to the visual threshold baked into the shipping suite.")
+    add("        static let doorLeaf = Architecture.entranceLeafAnchor")
     add("        static let window = Architecture.windowAnchor")
     add("        static let windowBlinds = window")
     add("        static let windowRotation: CGFloat = 0")
@@ -572,7 +588,7 @@ def emit() -> str:
         add(f"        static let {key} = {pt((plate[0], rp.ART_H - plate[1]))}")
     add("        static let lampPool = deskEnsemble")
     add("        /// Leaf swung 90° into the private office, hinged on the up-run jamb.")
-    add(f"        static let internalDoorLeaf = {precise_pt(internal_door_leaf_anchor())}")
+    add("        static let internalDoorLeaf = Architecture.internalLeafAnchor")
     add("    }")
     add("")
 
@@ -727,62 +743,39 @@ def emit() -> str:
 DEPTH_PROP_ANCHOR_Y = 0.04  # matches `addDepthProp` in DetectiveOfficeScene
 
 
+def exterior_leaf_anchor_authored() -> tuple[float, float]:
+    """Authored node anchor registered to the shipping exterior threshold."""
+    x, y_down = SHIPPING_EXTERIOR_THRESHOLD
+    return (x, rp.ART_H - y_down)
+
+
 def internal_door_leaf_anchor() -> tuple[float, float]:
-    """Authored (y-up) depth-prop anchor for the open leaf on the partition hinge.
-
-    Accounts for `internal_leaf_scale()` so the hinge-edge vertical run fills the
-    painted opening: the old plate-scale (1:1) formula parked a down-scaled leaf
-    near the rear wall instead of in the doorway.
-    """
-    import json
-
-    opening_path = ART / "office_partition_opening.json"
+    """Authored node anchor for the shipping plate's open internal leaf."""
     with Image.open(ART / "office_internal_door_leaf.png") as im:
         w, h = im.size
         alpha = np.asarray(im.convert("RGBA"))[:, :, 3]
 
-    door_h = float(rp.BAKED_DOORWAY_H)
-    # Hinge jamb threshold on the office face of the partition (plate y-down).
-    jamb = rp.plan(P.a_line + P.thickness_a, P.b_door0)
-    hinge_x = float(jamb[0])
-    hinge_bottom_y = float(jamb[1])
-    if opening_path.exists():
-        meta = json.loads(opening_path.read_text(encoding="utf-8"))
-        door_h = float(meta.get("opening_h_px", door_h))
-        # hinge_plate_xy is the TOP of the painted opening; recover threshold.
-        hx, hy_top = meta["hinge_plate_xy"]
-        hinge_x = float(hx)
-        # The metadata predates the corrected floor seam and is registered to
-        # the plaster/wainscot rail. Carry its threshold down with the same
-        # authoritative floor-plane correction as every other placement.
-        hinge_bottom_y = (
-            float(hy_top)
-            + door_h
-            + (rp.REAR[1] - _LEGACY_RAIL_Y)
-        )
-
     hinge_ys = np.where(alpha[:, w - 1] > 16)[0]
     if len(hinge_ys):
         content_h = float(hinge_ys.max() - hinge_ys.min() + 1)
-        hinge_run_center = (
-            float(hinge_ys.min()) + float(hinge_ys.max()) + 1.0
-        ) * 0.5
+        hinge_bottom_row = float(hinge_ys.max() + 1)
     else:
         content_h = float(h)
-        hinge_run_center = h * 0.5
+        hinge_bottom_row = float(h)
 
-    plate_scale = door_h / max(content_h, 1.0)
-    jamb_center_y = hinge_bottom_y - door_h * 0.5  # plate y-down mid-jamb
-    # SpriteKit anchor (0.5, DEPTH_PROP_ANCHOR_Y): scale texture so hinge run
-    # centres on the structural jamb (same identity as the scale=1 derivation).
-    anchor_y = (
-        jamb_center_y
-        - hinge_run_center * plate_scale
-        + (1.0 - DEPTH_PROP_ANCHOR_Y) * h * plate_scale
+    hinge_height = SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y
+    plate_scale = hinge_height / max(content_h, 1.0)
+    # `addDepthProp` keeps its shared (0.5, 0.04) anchor. Solve the node
+    # position so the texture's right-edge alpha run lands exactly on the
+    # measured hinge jamb.
+    anchor_x = SHIPPING_INTERNAL_HINGE_X - (0.5 * w) * plate_scale
+    anchor_y_down = SHIPPING_INTERNAL_HINGE_BOTTOM_Y + (
+        (1.0 - DEPTH_PROP_ANCHOR_Y) * h - hinge_bottom_row
+    ) * plate_scale
+    return (
+        anchor_x,
+        rp.ART_H - anchor_y_down,
     )
-    # Hinge sits on the right edge of the open-leaf texture.
-    anchor_x = hinge_x - (0.5 * w) * plate_scale
-    return (anchor_x, rp.ART_H - anchor_y)
 
 
 def _flood_frame_inner(alpha: np.ndarray, thr: int = 16) -> np.ndarray:
@@ -827,14 +820,14 @@ def _vertical_run(mask: np.ndarray, x: int) -> tuple[float, int, int]:
 
 
 def exterior_leaf_scale() -> float:
-    """Uniform fit: vertical jamb height → painted clear opening height.
+    """Uniform fit: live leaf centre run → shipping exterior opening.
 
     Non-uniform X stretch made the door too wide and short; keep aspect of the
     sheared master and centre it on the painted aperture.
     """
     alpha = np.asarray(Image.open(ART / "office_door_leaf.png").convert("RGBA"))[:, :, 3]
     content_h, _, _ = _vertical_run(alpha > 16, alpha.shape[1] // 2)
-    return rp.BAKED_DOORWAY_H * ENV / max(content_h, 1.0)
+    return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / max(content_h, 1.0)
 
 
 def exterior_leaf_scale_x() -> float:
@@ -853,7 +846,7 @@ def exterior_leaf_anchor_y() -> float:
 
 
 def exterior_frame_scale() -> float:
-    """Uniform fit: frame inner aperture height → painted clear opening height."""
+    """Uniform fit: legacy frame inner aperture → shipping clear opening."""
     path = ART / "office_door_frame.png"
     if not path.exists():
         return exterior_leaf_scale()
@@ -863,10 +856,10 @@ def exterior_frame_scale() -> float:
     if len(iys) == 0:
         ys, _ = np.where(alpha > 16)
         content_h = float(ys.max() - ys.min() + 1) if len(ys) else 1.0
-        return rp.BAKED_DOORWAY_H * ENV / content_h
+        return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / content_h
     inner_cx = int(round((ixs.min() + ixs.max()) * 0.5))
     inner_h, _, _ = _vertical_run(vis, inner_cx)
-    return rp.BAKED_DOORWAY_H * ENV / max(inner_h, 1.0)
+    return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / max(inner_h, 1.0)
 
 
 def exterior_frame_scale_x() -> float:
@@ -909,27 +902,15 @@ def exterior_frame_anchor_y() -> float:
 
 
 def internal_leaf_scale() -> float:
-    """Fit the open leaf's hinge-jamb height to the partition clear opening.
-
-    Plate-scale ENV registration was correct when the partition opening matched
-    the full leaf master (~390–462 px). On the tight suite the painted opening
-    is ~BAKED_DOORWAY_H, so scale from that measured height (or opening JSON).
-    Use the hinge-edge vertical run, not the sheared free-edge bbox.
-    """
-    import json
-
+    """Fit the open leaf's right-edge hinge run to the shipping jamb."""
     alpha = np.asarray(Image.open(ART / "office_internal_door_leaf.png").convert("RGBA"))[:, :, 3]
     hinge_x = alpha.shape[1] - 1
     content_h, _, _ = _vertical_run(alpha > 16, hinge_x)
     if content_h < 1.0:
         ys = np.where(alpha > 16)[0]
         content_h = float(ys.max() - ys.min() + 1) if len(ys) else 1.0
-    door_h = float(rp.BAKED_DOORWAY_H)
-    opening_path = ART / "office_partition_opening.json"
-    if opening_path.exists():
-        meta = json.loads(opening_path.read_text(encoding="utf-8"))
-        door_h = float(meta.get("opening_h_px", door_h))
-    return door_h * ENV / max(content_h, 1.0)
+    hinge_height = SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y
+    return hinge_height * ENV / max(content_h, 1.0)
 
 
 # The exterior doorway segment cannot be sent through NavigationGrid: its first

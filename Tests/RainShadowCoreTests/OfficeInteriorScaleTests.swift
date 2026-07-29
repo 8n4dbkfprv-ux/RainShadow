@@ -46,8 +46,8 @@ struct OfficeInteriorScaleTests {
                     - OfficeNavigationLayout.Architecture.entranceOpeningToDetectiveRatio
             ) < 0.01
         )
-        // Painted tight-plate clear opening (~170 plate px), not the legacy 1.70× body.
-        #expect((0.60...0.90).contains(openingMultiple))
+        // Shipping suite clear opening is 206 plate px, roughly one standing body.
+        #expect((0.88...0.92).contains(openingMultiple))
 
         let leafWorldHeight =
             OfficeInteriorScale.SourceContentHeight.doorLeaf
@@ -108,54 +108,64 @@ struct OfficeInteriorScaleTests {
         // Threshold on the NE wall of the floor diamond (not wall-top silhouette).
         #expect((2_450.0...2_800.0).contains(entrance.x))
         #expect((1_200.0...1_600.0).contains(entrance.y))
-        // Partition opening matches the generated exterior opening width.
+        // The visible shell comes from the shipping suite plate. Keep this visual
+        // measurement independent of the older movement-partition metadata.
+        let opening = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
+        #expect(abs(opening.width - 93) < 0.001)
+        #expect(abs(opening.height - 206) < 0.001)
         let doorPlanWidth = OfficeNavigationLayout.Architecture.partitionDoorB1
             - OfficeNavigationLayout.Architecture.partitionDoorB0
-        let doorPlateWidth =
+        let navigationDoorPlateWidth =
             doorPlanWidth * abs(OfficeNavigationLayout.Architecture.axisNE.dx)
-        #expect(
-            abs(
-                doorPlateWidth
-                    - OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.width
-            ) < 0.5
-        )
+        #expect(abs(navigationDoorPlateWidth - opening.width) > 10)
         let openingAspect =
-            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
-            / OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.width
+            opening.height / opening.width
         // Height-fit keeps a tall door aspect (not the squashed wide short look).
-        #expect(openingAspect >= 1.3)
-        #expect(OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height >= 150)
-        // Internal leaf is fitted to the partition opening, not raw environment scale.
+        #expect(openingAspect >= 2.1)
+        #expect(opening.height >= 200)
+        // Internal leaf is fitted to its painted jamb, not raw environment scale.
         let internalLeaf = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
         let openingWorldHeight =
-            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
-            * OfficeInteriorScale.environment
-        #expect(internalLeaf < OfficeInteriorScale.environment * 0.55)
+            opening.height * OfficeInteriorScale.environment
+        #expect(internalLeaf < OfficeInteriorScale.environment * 0.65)
         #expect(internalLeaf > 0.05)
         #expect(openingWorldHeight > 50 && openingWorldHeight < 90)
     }
 
-    /// Internal leaf display scale is derived from partition opening height so the
-    /// second door cannot ship at full-plate ENV (oversized relative to furniture).
-    @Test func internalLeafScaleFitsPartitionOpening() {
-        let partitionLeaf = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
-        let openingPlateHeight =
-            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
-        let openingWorldHeight = openingPlateHeight * OfficeInteriorScale.environment
+    /// Internal leaf display scale is derived from the visible hinge run in the
+    /// shipping partition so the second door cannot drift back to stale metadata.
+    @Test func internalLeafScaleFitsShippingHinge() {
+        let leafScale = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
+        let displayedHingeHeight =
+            OfficeInteriorScale.SourceContentHeight.internalDoorLeafHinge * leafScale
+        let paintedJambWorldHeight =
+            OfficeNavigationLayout.Architecture.internalHingePlateHeight
+            * OfficeInteriorScale.environment
+
+        #expect(abs(displayedHingeHeight - paintedJambWorldHeight) / paintedJambWorldHeight < 0.01)
         // Must not remain at full environment plate scale (legacy oversized leaf).
-        #expect(partitionLeaf < OfficeInteriorScale.environment * 0.45)
-        #expect(partitionLeaf > 0.05)
-        // Opening is the measured tight-plate aperture, well under a full wall face.
-        #expect(openingPlateHeight < 200)
-        #expect(openingPlateHeight > 80)
-        #expect(openingWorldHeight < OfficeInteriorScale.renderedStandingDetectiveBodyHeight)
+        #expect(leafScale < OfficeInteriorScale.environment * 0.65)
+        #expect(leafScale > 0.05)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 220) < 0.001)
+
+        let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
+        let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
+        #expect(leaf == anchor)
+        #expect(abs(anchor.x - 2_151.949) < 0.001)
+        #expect(abs(anchor.y - 1_002.148) < 0.001)
     }
 
-    @Test func entranceDoorTopRailClearsTheSlopedHeader() {
-        let opening = OfficeNavigationLayout.Architecture.entranceAnchor
+    @Test func entranceDoorRegistersToShippingAperture() {
         let leaf = OfficeNavigationLayout.AuthoredPlacement.doorLeaf
-        #expect(abs(leaf.x - opening.x) < 0.001)
-        #expect((4.0...8.0).contains(leaf.y - opening.y))
+        let visualAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchor
+        #expect(leaf == visualAnchor)
+        #expect(abs(leaf.x - 2_600.650) < 0.001)
+        #expect(abs(leaf.y - 1_344.000) < 0.001)
+
+        // The movement threshold remains a navigation concern rather than the
+        // transform for the live leaf drawn over the baked aperture.
+        let navigationThreshold = OfficeNavigationLayout.Architecture.entranceAnchor
+        #expect(hypot(leaf.x - navigationThreshold.x, leaf.y - navigationThreshold.y) > 50)
     }
 
     @Test func fallenEntranceLeafUsesFloorPlaneForeshortening() {

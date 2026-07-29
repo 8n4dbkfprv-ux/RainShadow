@@ -36,26 +36,30 @@ enum OfficeNavigationLayout {
             886.0 + (x - 1676) * 0.4755
         }
 
-        /// Clear doorway size, derived from the shipped detective silhouette.
-        static let entranceOpeningPlateSize = CGSize(width: 112.000, height: 170.0)
-        static let entranceOpeningToDetectiveRatio: CGFloat = 0.74
+        /// Clear exterior opening measured from the shipping suite plate.
+        static let entranceOpeningPlateSize = CGSize(width: 93.000, height: 206.0)
+        static let entranceOpeningToDetectiveRatio: CGFloat = 0.90
         static let entranceHandleHeightToDetective: CGFloat = 0.333
 
         /// Exterior leaf/frame projected onto the sloped NE wall opening.
         /// Uniform height-fit (keeps sheared master aspect; no X-squash).
-        static let entranceLeafDisplayScale: CGFloat = 0.1053
+        static let entranceLeafDisplayScale: CGFloat = 0.1275
         static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale
         static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale
         static let entranceLeafAnchorY: CGFloat = 0.08903
-        static let entranceFrameDisplayScale: CGFloat = 0.1051
+        static let entranceLeafAnchor = CGPoint(x: 2_600.650, y: 1_344.000)
+        static let entranceFrameDisplayScale: CGFloat = 0.1273
         static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale
         static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale
         static let entranceFrameAnchorX: CGFloat = 0.49155
         static let entranceFrameAnchorY: CGFloat = 0.11529
         /// Floor-projected presentation used after the leaf breaks free.
         static let entranceFallenLeafScaleRatio: CGFloat = 0.92
-        /// Internal sheared leaf fitted to partition clear opening height.
-        static let internalLeafDisplayScale: CGFloat = 0.1726
+        /// Internal open leaf registered to the shipping partition hinge.
+        static let internalHingePlateX: CGFloat = 2202.0
+        static let internalHingePlateHeight: CGFloat = 220.0
+        static let internalLeafDisplayScale: CGFloat = 0.2234
+        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)
     }
 
     private static let authoredActorStart = CGPoint(
@@ -1118,12 +1122,8 @@ enum OfficeNavigationLayout {
     // MARK: - Placements
 
     enum AuthoredPlacement {
-        /// Lowered beneath the sloped header so the complete top rail and
-        /// a narrow dark reveal remain visible instead of reading as clipped.
-        static let doorLeaf = CGPoint(
-            x: Architecture.entranceAnchor.x,
-            y: Architecture.entranceAnchor.y + 6
-        )
+        /// Registered to the visual threshold baked into the shipping suite.
+        static let doorLeaf = Architecture.entranceLeafAnchor
         static let window = Architecture.windowAnchor
         static let windowBlinds = window
         static let windowRotation: CGFloat = 0
@@ -1168,7 +1168,7 @@ enum OfficeNavigationLayout {
         static let hallwayLight = CGPoint(x: 2_587, y: 1_229)
         static let lampPool = deskEnsemble
         /// Leaf swung 90° into the private office, hinged on the up-run jamb.
-        static let internalDoorLeaf = CGPoint(x: 1_693.191, y: 1_337.457)
+        static let internalDoorLeaf = Architecture.internalLeafAnchor
     }
 
     private static let authoredApproachPoints: [String: CGPoint] = [

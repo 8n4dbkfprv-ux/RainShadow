@@ -88,9 +88,10 @@ enum OfficeInteriorScale {
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
         static let deskChair: CGFloat = 429
-        /// Vertical jamb height before NE-wall projection; the sheared texture
-        /// canvas is taller, but the physical door remains 720 source pixels.
-        static let doorLeaf: CGFloat = 640
+        /// Opaque centre-column run of the projected exterior leaf.
+        static let doorLeaf: CGFloat = 638
+        /// Opaque right-edge hinge run of the open internal leaf.
+        static let internalDoorLeafHinge: CGFloat = 389
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
         static let radiator: CGFloat = 338
@@ -157,9 +158,9 @@ enum OfficeInteriorScale {
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 78...90
-        /// Exterior leaf fills the painted tight-plate doorway (~0.7–0.8× detective
-        /// body — architecture is smaller than actors on the 0.60 suite).
-        static let door: ClosedRange<CGFloat> = 0.60...0.90
+        /// Exterior leaf fills the shipping plate's baked frame at roughly one
+        /// logical standing-body height.
+        static let door: ClosedRange<CGFloat> = 0.85...1.05
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48

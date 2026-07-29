@@ -74,6 +74,8 @@ final class CaseIntroductionPresenter: SKNode {
     private var bodyCanScroll = false
     private var choicesCanScroll = false
     private var choicesContentExtent: CGFloat = 0
+    /// Scrollbar currently capturing a pointer drag (body or choices).
+    private weak var activeScrollbar: DialogueScrollbarNode?
     private var usesGeneratedFrame = false
     private var presentationCompletion: (() -> Void)?
     private var lastVisibleSize: CGSize = .zero
@@ -153,7 +155,9 @@ final class CaseIntroductionPresenter: SKNode {
             + DialoguePanelLayout.bodyTextHorizontalInset
         let speakerTop = panelRect.maxY - DialoguePanelLayout.speakerTopInset
         speakerLabel.position = CGPoint(x: speakerX, y: speakerTop)
-        dialogueLabel.preferredMaxLayoutWidth = geometry.bodyTextMaxWidth
+        dialogueLabel.preferredMaxLayoutWidth = DialoguePanelLayout.inlineBodyTextMaxWidth(
+            contentViewport: geometry.contentViewportRect
+        )
         dialogueLabel.lineBreakMode = .byWordWrapping
         applySplitContentRegions(
             bodyViewport: bodyViewportRect.height > 1 ? bodyViewportRect : contentViewportRect,
@@ -244,48 +248,43 @@ final class CaseIntroductionPresenter: SKNode {
         } else if bodyCanScroll, bodyViewportRect.contains(panelPoint) {
             setScrollTarget(.body)
         }
-        switch scrollTarget {
-        case .body where bodyCanScroll:
+        // Hit-test the bar under the cursor — body and choices no longer share a rail.
+        if bodyCanScroll {
             let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-            return bodyScrollbar.handlePointerDown(at: bodyPoint)
-        case .choices where choicesCanScroll:
-            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-            return choicesScrollbar.handlePointerDown(at: choicesPoint)
-        default:
-            return false
+            if bodyScrollbar.handlePointerDown(at: bodyPoint) {
+                activeScrollbar = bodyScrollbar
+                setScrollTarget(.body)
+                return true
+            }
         }
+        if choicesCanScroll {
+            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+            if choicesScrollbar.handlePointerDown(at: choicesPoint) {
+                activeScrollbar = choicesScrollbar
+                setScrollTarget(.choices)
+                return true
+            }
+        }
+        activeScrollbar = nil
+        return false
     }
 
     @discardableResult
     func handlePointerDragged(at point: CGPoint) -> Bool {
-        guard isPresenting else { return false }
+        guard isPresenting, let bar = activeScrollbar else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        switch scrollTarget {
-        case .body where bodyCanScroll:
-            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-            return bodyScrollbar.handlePointerDragged(at: bodyPoint)
-        case .choices where choicesCanScroll:
-            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-            return choicesScrollbar.handlePointerDragged(at: choicesPoint)
-        default:
-            return false
-        }
+        let localPoint = bar.convert(panelPoint, from: panelRoot)
+        return bar.handlePointerDragged(at: localPoint)
     }
 
     @discardableResult
     func handlePointerUp(at point: CGPoint) -> Bool {
-        guard isPresenting else { return false }
+        guard isPresenting, let bar = activeScrollbar else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        switch scrollTarget {
-        case .body where bodyCanScroll:
-            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-            return bodyScrollbar.handlePointerUp(at: bodyPoint)
-        case .choices where choicesCanScroll:
-            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-            return choicesScrollbar.handlePointerUp(at: choicesPoint)
-        default:
-            return false
-        }
+        let localPoint = bar.convert(panelPoint, from: panelRoot)
+        let handled = bar.handlePointerUp(at: localPoint)
+        activeScrollbar = nil
+        return handled
     }
 
     @discardableResult
@@ -300,16 +299,14 @@ final class CaseIntroductionPresenter: SKNode {
             setScrollTarget(.body)
         }
 
-        let scrollbarIsHovered: Bool
-        switch scrollTarget {
-        case .body where bodyCanScroll:
+        var scrollbarIsHovered = false
+        if bodyCanScroll {
             let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-            scrollbarIsHovered = bodyScrollbar.updatePointer(at: bodyPoint)
-        case .choices where choicesCanScroll:
+            scrollbarIsHovered = bodyScrollbar.updatePointer(at: bodyPoint) || scrollbarIsHovered
+        }
+        if choicesCanScroll {
             let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-            scrollbarIsHovered = choicesScrollbar.updatePointer(at: choicesPoint)
-        default:
-            scrollbarIsHovered = false
+            scrollbarIsHovered = choicesScrollbar.updatePointer(at: choicesPoint) || scrollbarIsHovered
         }
         refreshInteractionColors()
         return hoveredChoiceIndex != nil
@@ -386,8 +383,8 @@ final class CaseIntroductionPresenter: SKNode {
         usesGeneratedFrame = addGeneratedFrameOverlay()
         assertionFailureIfMissingFrame()
 
-        // Body and responses scroll independently. When both overflow they split the
-        // same painted right-hand rail vertically, matching their on-screen regions.
+        // Body scrolls on an inline bar beside the text crop; player choices keep the
+        // painted right-hand rail. Both can be visible at once when each region overflows.
         bodyScrollbar.name = "dialogue.scrollbar.body"
         bodyScrollbar.zPosition = 40
         bodyScrollbar.isHidden = true
@@ -579,16 +576,15 @@ final class CaseIntroductionPresenter: SKNode {
         scrollTarget = .body
         bodyCanScroll = false
         choicesCanScroll = false
+        activeScrollbar = nil
         refreshVisibleScrollbar()
         applyBodyScrollOffset(0)
         applyChoicesScrollOffset(0)
 
         func resolvedBodyTextMaxWidth() -> CGFloat {
-            choices.isEmpty
-                ? panelLayout.bodyTextMaxWidth
-                : DialoguePanelLayout.inlineBodyTextMaxWidth(
-                    contentViewport: contentViewportRect
-                )
+            DialoguePanelLayout.inlineBodyTextMaxWidth(
+                contentViewport: contentViewportRect
+            )
         }
         dialogueLabel.preferredMaxLayoutWidth = resolvedBodyTextMaxWidth()
         let labelInset = DialoguePanelLayout.choiceLabelHorizontalInset
@@ -647,8 +643,8 @@ final class CaseIntroductionPresenter: SKNode {
                 : CGSize(width: 1_000, height: OfficeInteriorScale.cameraVisibleHeight)
             let geometry = DialoguePanelLayout.layout(for: visible)
             applyPanelGeometry(geometry, preserveSplitRegions: false)
-            // `applyPanelGeometry` restores the general body width. Choice pages need
-            // the narrower inline-scrollbar width for both rendering and measurement.
+            // `applyPanelGeometry` restores the general body width. Always re-apply the
+            // narrower inline-scrollbar width for both rendering and measurement.
             let bodyTextMaxWidth = resolvedBodyTextMaxWidth()
             dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth
 
@@ -781,7 +777,9 @@ final class CaseIntroductionPresenter: SKNode {
         choicesCanScroll = hasResponseChoices && choicesNeedScroll
 
         if bodyCanScroll {
-            bodyScrollbar.layout(in: panelLayout.scrollbarRect)
+            bodyScrollbar.layout(
+                in: DialoguePanelLayout.inlineBodyScrollbarRect(bodyViewport: bodyViewport)
+            )
             bodyScrollbar.configure(
                 viewportExtent: bodyViewport.height,
                 contentExtent: bodyContentExtent,
@@ -799,15 +797,19 @@ final class CaseIntroductionPresenter: SKNode {
             )
         }
 
-        if choicesCanScroll {
+        // Prefer body for wheel/keyboard; hover still reassigns when over choices.
+        if bodyCanScroll {
+            setScrollTarget(.body)
+        } else if choicesCanScroll {
             setScrollTarget(.choices)
         } else {
             setScrollTarget(.body)
         }
     }
 
-    /// Body copy and response choices scroll independently, but the painted frame has
-    /// one scrollbar rail. Keep both controls' state while showing only the active one.
+    /// Body copy and response choices scroll independently: body uses an inline bar,
+    /// choices use the painted rail. `scrollTarget` only selects which region receives
+    /// wheel / keyboard scroll input.
     private func setScrollTarget(_ target: ScrollTarget) {
         switch target {
         case .body where bodyCanScroll:
@@ -825,8 +827,8 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     private func refreshVisibleScrollbar() {
-        bodyScrollbar.isHidden = !bodyCanScroll || scrollTarget != .body
-        choicesScrollbar.isHidden = !choicesCanScroll || scrollTarget != .choices
+        bodyScrollbar.isHidden = !bodyCanScroll
+        choicesScrollbar.isHidden = !choicesCanScroll
     }
 
     private func applyBodyScrollOffset(_ offset: CGFloat) {
