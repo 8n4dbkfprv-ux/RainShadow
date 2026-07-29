@@ -29,7 +29,7 @@ final class CaseIntroductionPresenter: SKNode {
         case end
     }
 
-    private enum ScrollTarget {
+    private enum ScrollTarget: Equatable {
         case body
         case choices
     }
@@ -71,6 +71,8 @@ final class CaseIntroductionPresenter: SKNode {
     private var bodyScrollOffset: CGFloat = 0
     private var choicesScrollOffset: CGFloat = 0
     private var scrollTarget = ScrollTarget.body
+    private var bodyCanScroll = false
+    private var choicesCanScroll = false
     private var choicesContentExtent: CGFloat = 0
     private var usesGeneratedFrame = false
     private var presentationCompletion: (() -> Void)?
@@ -235,45 +237,55 @@ final class CaseIntroductionPresenter: SKNode {
     func handlePointerDown(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-        if !choicesScrollbar.isHidden,
-           choicesScrollbar.handlePointerDown(at: choicesPoint) {
-            scrollTarget = .choices
-            return true
+        // Mouse hover normally selects the active region. A tap must do the same
+        // for touch input, where no pointer-move event precedes the press.
+        if choicesCanScroll, choicesBandRect.contains(panelPoint) {
+            setScrollTarget(.choices)
+        } else if bodyCanScroll, bodyViewportRect.contains(panelPoint) {
+            setScrollTarget(.body)
         }
-        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-        if !bodyScrollbar.isHidden,
-           bodyScrollbar.handlePointerDown(at: bodyPoint) {
-            scrollTarget = .body
-            return true
+        switch scrollTarget {
+        case .body where bodyCanScroll:
+            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+            return bodyScrollbar.handlePointerDown(at: bodyPoint)
+        case .choices where choicesCanScroll:
+            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+            return choicesScrollbar.handlePointerDown(at: choicesPoint)
+        default:
+            return false
         }
-        return false
     }
 
     @discardableResult
     func handlePointerDragged(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-        let bodyHandled = !bodyScrollbar.isHidden
-            && bodyScrollbar.handlePointerDragged(at: bodyPoint)
-        let choicesHandled = !choicesScrollbar.isHidden
-            && choicesScrollbar.handlePointerDragged(at: choicesPoint)
-        return bodyHandled || choicesHandled
+        switch scrollTarget {
+        case .body where bodyCanScroll:
+            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+            return bodyScrollbar.handlePointerDragged(at: bodyPoint)
+        case .choices where choicesCanScroll:
+            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+            return choicesScrollbar.handlePointerDragged(at: choicesPoint)
+        default:
+            return false
+        }
     }
 
     @discardableResult
     func handlePointerUp(at point: CGPoint) -> Bool {
         guard isPresenting else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
-        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-        let bodyHandled = !bodyScrollbar.isHidden
-            && bodyScrollbar.handlePointerUp(at: bodyPoint)
-        let choicesHandled = !choicesScrollbar.isHidden
-            && choicesScrollbar.handlePointerUp(at: choicesPoint)
-        return bodyHandled || choicesHandled
+        switch scrollTarget {
+        case .body where bodyCanScroll:
+            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+            return bodyScrollbar.handlePointerUp(at: bodyPoint)
+        case .choices where choicesCanScroll:
+            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+            return choicesScrollbar.handlePointerUp(at: choicesPoint)
+        default:
+            return false
+        }
     }
 
     @discardableResult
@@ -282,22 +294,27 @@ final class CaseIntroductionPresenter: SKNode {
         let panelPoint = panelRoot.convert(point, from: self)
         hoveredChoiceIndex = choiceIndex(at: panelPoint)
         commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
-        let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
-        let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
-        let bodyScrollbarIsHovered = !bodyScrollbar.isHidden
-            && bodyScrollbar.updatePointer(at: bodyPoint)
-        let choicesScrollbarIsHovered = !choicesScrollbar.isHidden
-            && choicesScrollbar.updatePointer(at: choicesPoint)
-        if choicesBandRect.contains(panelPoint) || choicesScrollbarIsHovered {
-            scrollTarget = .choices
-        } else if bodyViewportRect.contains(panelPoint) || bodyScrollbarIsHovered {
-            scrollTarget = .body
+        if choicesCanScroll, choicesBandRect.contains(panelPoint) {
+            setScrollTarget(.choices)
+        } else if bodyCanScroll, bodyViewportRect.contains(panelPoint) {
+            setScrollTarget(.body)
+        }
+
+        let scrollbarIsHovered: Bool
+        switch scrollTarget {
+        case .body where bodyCanScroll:
+            let bodyPoint = bodyScrollbar.convert(panelPoint, from: panelRoot)
+            scrollbarIsHovered = bodyScrollbar.updatePointer(at: bodyPoint)
+        case .choices where choicesCanScroll:
+            let choicesPoint = choicesScrollbar.convert(panelPoint, from: panelRoot)
+            scrollbarIsHovered = choicesScrollbar.updatePointer(at: choicesPoint)
+        default:
+            scrollbarIsHovered = false
         }
         refreshInteractionColors()
         return hoveredChoiceIndex != nil
             || commandIsHovered
-            || bodyScrollbarIsHovered
-            || choicesScrollbarIsHovered
+            || scrollbarIsHovered
     }
 
     @discardableResult
@@ -305,6 +322,9 @@ final class CaseIntroductionPresenter: SKNode {
         guard !choiceRows.isEmpty else { return false }
         let current = focusedChoiceIndex ?? (direction < 0 ? 0 : -1)
         focusedChoiceIndex = (current + direction + choiceRows.count) % choiceRows.count
+        if choicesCanScroll {
+            setScrollTarget(.choices)
+        }
         revealFocusedChoice()
         refreshInteractionColors()
         return true
@@ -314,11 +334,15 @@ final class CaseIntroductionPresenter: SKNode {
     func scrollContent(by points: CGFloat) -> Bool {
         switch scrollTarget {
         case .body:
-            if !bodyScrollbar.isHidden, bodyScrollbar.scroll(by: points) { return true }
-            return !choicesScrollbar.isHidden && choicesScrollbar.scroll(by: points)
+            if bodyCanScroll, bodyScrollbar.scroll(by: points) { return true }
+            guard choicesCanScroll else { return false }
+            setScrollTarget(.choices)
+            return choicesScrollbar.scroll(by: points)
         case .choices:
-            if !choicesScrollbar.isHidden, choicesScrollbar.scroll(by: points) { return true }
-            return !bodyScrollbar.isHidden && bodyScrollbar.scroll(by: points)
+            if choicesCanScroll, choicesScrollbar.scroll(by: points) { return true }
+            guard bodyCanScroll else { return false }
+            setScrollTarget(.body)
+            return bodyScrollbar.scroll(by: points)
         }
     }
 
@@ -553,6 +577,9 @@ final class CaseIntroductionPresenter: SKNode {
         choiceRows.removeAll()
         choicesContentExtent = 0
         scrollTarget = .body
+        bodyCanScroll = false
+        choicesCanScroll = false
+        refreshVisibleScrollbar()
         applyBodyScrollOffset(0)
         applyChoicesScrollOffset(0)
 
@@ -746,31 +773,23 @@ final class CaseIntroductionPresenter: SKNode {
         choicesContentExtent: CGFloat,
         choicesNeedScroll: Bool
     ) {
-        let bodyNeedsScroll = DialogueScrollbarGeometry.isScrollable(
+        bodyCanScroll = DialogueScrollbarGeometry.isScrollable(
             viewportExtent: bodyViewport.height,
             contentExtent: bodyContentExtent
         )
         let hasResponseChoices = !choicesViewport.isEmpty
-        bodyScrollbar.isHidden = !bodyNeedsScroll
-        choicesScrollbar.isHidden = !hasResponseChoices || !choicesNeedScroll
+        choicesCanScroll = hasResponseChoices && choicesNeedScroll
 
-        let bodyRect = choicesViewport.isEmpty
-            ? panelLayout.scrollbarRect
-            : DialoguePanelLayout.inlineBodyScrollbarRect(
-                bodyViewport: bodyViewport
-            )
-        let choicesRect = panelLayout.scrollbarRect
-
-        if bodyNeedsScroll {
-            bodyScrollbar.layout(in: bodyRect)
+        if bodyCanScroll {
+            bodyScrollbar.layout(in: panelLayout.scrollbarRect)
             bodyScrollbar.configure(
                 viewportExtent: bodyViewport.height,
                 contentExtent: bodyContentExtent,
                 scrollOffset: 0
             )
         }
-        if hasResponseChoices, choicesNeedScroll {
-            choicesScrollbar.layout(in: choicesRect)
+        if choicesCanScroll {
+            choicesScrollbar.layout(in: panelLayout.scrollbarRect)
             choicesScrollbar.configure(
                 viewportExtent: choicesViewport.height,
                 contentExtent: choicesContentExtent,
@@ -778,11 +797,34 @@ final class CaseIntroductionPresenter: SKNode {
             )
         }
 
-        if hasResponseChoices, choicesNeedScroll {
-            scrollTarget = .choices
+        if choicesCanScroll {
+            setScrollTarget(.choices)
         } else {
-            scrollTarget = .body
+            setScrollTarget(.body)
         }
+    }
+
+    /// Body copy and response choices scroll independently, but the painted frame has
+    /// one scrollbar rail. Keep both controls' state while showing only the active one.
+    private func setScrollTarget(_ target: ScrollTarget) {
+        switch target {
+        case .body where bodyCanScroll:
+            scrollTarget = .body
+        case .choices where choicesCanScroll:
+            scrollTarget = .choices
+        case .body where choicesCanScroll:
+            scrollTarget = .choices
+        case .choices where bodyCanScroll:
+            scrollTarget = .body
+        default:
+            scrollTarget = target
+        }
+        refreshVisibleScrollbar()
+    }
+
+    private func refreshVisibleScrollbar() {
+        bodyScrollbar.isHidden = !bodyCanScroll || scrollTarget != .body
+        choicesScrollbar.isHidden = !choicesCanScroll || scrollTarget != .choices
     }
 
     private func applyBodyScrollOffset(_ offset: CGFloat) {
@@ -802,7 +844,7 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     private func revealFocusedChoice() {
-        guard !choicesScrollbar.isHidden,
+        guard choicesCanScroll,
               let index = focusedChoiceIndex,
               choiceRows.indices.contains(index)
         else { return }

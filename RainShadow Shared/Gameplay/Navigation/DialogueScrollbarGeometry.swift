@@ -3,7 +3,7 @@ import CoreGraphics
 /// Pure thumb/track math for the dialogue scrollbar. `DialogueScrollbarNode` uses these
 /// formulas so tests exercise the same path as the running UI.
 enum DialogueScrollbarGeometry {
-    /// Minimum thumb height that preserves the 72×256 handle art (caps + diamond).
+    /// Minimum thumb height that preserves the handle art's caps and central grip.
     static let minThumbHeight: CGFloat = 56
     /// Maximum fraction of the track a thumb may fill while still looking like a handle.
     static let maxThumbTrackFraction: CGFloat = 0.92

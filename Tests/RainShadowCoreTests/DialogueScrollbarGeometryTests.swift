@@ -20,6 +20,8 @@ struct DialogueScrollbarGeometryTests {
 
         let width = image.width
         let height = image.height
+        #expect(width == 72)
+        #expect(height == 72)
         var pixels = [UInt8](repeating: 0, count: width * height * 4)
         let context = try #require(CGContext(
             data: &pixels,

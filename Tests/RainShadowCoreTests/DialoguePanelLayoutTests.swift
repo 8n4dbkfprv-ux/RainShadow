@@ -348,9 +348,14 @@ struct DialoguePanelLayoutTests {
         #expect(source.contains("bodyScrollbar.isHidden"))
         #expect(source.contains("choicesScrollbar.isHidden"))
         #expect(source.contains("let hasResponseChoices = !choicesViewport.isEmpty"))
-        #expect(source.contains("choicesScrollbar.isHidden = !hasResponseChoices || !choicesNeedScroll"))
         #expect(source.contains("configureScrollbars"))
-        #expect(source.contains("inlineBodyScrollbarRect"))
+        #expect(source.contains("setScrollTarget"))
+        #expect(source.contains("refreshVisibleScrollbar"))
+        #expect(source.contains("bodyScrollbar.isHidden = !bodyCanScroll || scrollTarget != .body"))
+        #expect(source.contains("choicesScrollbar.isHidden = !choicesCanScroll || scrollTarget != .choices"))
+        #expect(source.contains("bodyScrollbar.layout(in: panelLayout.scrollbarRect)"))
+        #expect(source.contains("choicesScrollbar.layout(in: panelLayout.scrollbarRect)"))
+        #expect(!source.contains("DialoguePanelLayout.inlineBodyScrollbarRect("))
     }
 
     @Test func scrollbarOccupiesPaintedRightRail() {
