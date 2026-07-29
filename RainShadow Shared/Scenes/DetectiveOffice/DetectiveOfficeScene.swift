@@ -85,6 +85,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         addOfficeAtmosphere()
+        addNoirStoryClutter()
         addWindowHighlightProp()
         addWindowRain()
         addRecordsWallArt()
@@ -239,13 +240,6 @@ final class DetectiveOfficeScene: BaseGameScene {
             scale: OfficeInteriorScale.standingFanDisplayScale,
             bias: -5
         )
-        addDepthProp(
-            named: "office_personal_washbasin",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalWashbasin),
-            scale: OfficeInteriorScale.standardPropDisplayScale * 0.82,
-            bias: -8
-        )
-
         // MARK: Desk cluster
         deskChairProp = addDepthProp(
             named: "office_desk_chair",
@@ -1022,21 +1016,41 @@ final class DetectiveOfficeScene: BaseGameScene {
         registerHoverSprite(window, for: "office.window")
     }
 
-    /// Dense records-wall art — board, map, and photos clustered (not evenly spaced).
+    /// A compact investigative wall: case board is the hero, with supporting
+    /// map, surveillance photographs, and Voss's framed licence. The authored
+    /// anchors keep the complete group above the records furniture.
     private func addRecordsWallArt() {
-        let wallScale = OfficeInteriorScale.standardPropDisplayScale * 0.72
-        let wallProps: [(String, CGPoint)] = [
-            ("office_case_board", OfficeNavigationLayout.AuthoredPlacement.caseBoard),
-            ("office_wall_city_map", OfficeNavigationLayout.AuthoredPlacement.wallCityMap),
-            ("office_wall_photos", OfficeNavigationLayout.AuthoredPlacement.wallPhotos)
+        let wallScale = OfficeInteriorScale.standardPropDisplayScale * 0.9
+        let wallProps: [(name: String, position: CGPoint, scale: CGFloat)] = [
+            (
+                "office_wall_photos",
+                OfficeNavigationLayout.AuthoredPlacement.wallPhotos,
+                wallScale * 0.8
+            ),
+            (
+                "office_case_board",
+                OfficeNavigationLayout.AuthoredPlacement.caseBoard,
+                wallScale * 1.14
+            ),
+            (
+                "office_wall_city_map",
+                OfficeNavigationLayout.AuthoredPlacement.wallCityMap,
+                wallScale * 0.88
+            ),
+            (
+                "office_framed_licence",
+                OfficeNavigationLayout.AuthoredPlacement.framedLicence,
+                wallScale * 0.78
+            )
         ]
-        for (name, authored) in wallProps {
+        for prop in wallProps {
+            let name = prop.name
             guard let texture = GameArt.texture(named: name) else { continue }
             let node = SKSpriteNode(texture: texture)
             node.name = name
             node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            node.position = OfficeInteriorScale.mapPoint(authored)
-            node.setScale(wallScale)
+            node.position = OfficeInteriorScale.mapPoint(prop.position)
+            node.setScale(prop.scale)
             node.texture?.filteringMode = .linear
             rearFixtureRoot.addChild(node)
         }
@@ -1297,7 +1311,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             stripes.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.blindStripes)
             // Rake cool bands from the window across the rug and desk cluster.
             stripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.28)
-            stripes.alpha = 0.55
+            stripes.alpha = 0.68
             stripes.blendMode = .add
             stripes.texture?.filteringMode = .linear
             floorEffectRoot.addChild(stripes)
@@ -1311,7 +1325,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                         y: OfficeNavigationLayout.AuthoredPlacement.window.y - 180)
             )
             wallStripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.72)
-            wallStripes.alpha = 0.28
+            wallStripes.alpha = 0.36
             wallStripes.blendMode = .add
             wallStripes.zRotation = -0.18
             wallStripes.texture?.filteringMode = .linear
@@ -1348,7 +1362,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             pool.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             pool.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.lampPool)
             pool.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.95)
-            pool.alpha = 0.58
+            pool.alpha = 0.66
             pool.blendMode = .add
             pool.texture?.filteringMode = .linear
             floorEffectRoot.addChild(pool)
@@ -1369,13 +1383,44 @@ final class DetectiveOfficeScene: BaseGameScene {
             vignette.name = "office_shadow_vignette"
             vignette.anchorPoint = .zero
             vignette.position = OfficeInteriorScale.shellOrigin
-            vignette.alpha = 0.85
+            vignette.alpha = 0.9
             vignette.blendMode = .alpha
             vignette.zPosition = 1
             vignette.texture?.filteringMode = .linear
             // Sit above the shell plate but under floor props / actors.
             backgroundRoot.addChild(vignette)
         }
+    }
+
+    /// Small, readable clues of a working detective's office: a damp runner at
+    /// the public entrance, discarded notes by the wastebasket, and a tied case
+    /// packet beside the records run. These stay non-blocking floor dressing.
+    private func addNoirStoryClutter() {
+        if let texture = GameArt.texture(named: "office_entrance_runner") {
+            let runner = SKSpriteNode(texture: texture)
+            runner.name = "office_entrance_runner"
+            runner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            runner.position = OfficeInteriorScale.mapPoint(
+                OfficeNavigationLayout.AuthoredPlacement.entranceRunner
+            )
+            runner.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.46)
+            runner.alpha = 0.72
+            runner.texture?.filteringMode = .linear
+            floorEffectRoot.addChild(runner)
+        }
+
+        addDepthProp(
+            named: "office_floor_trash_a",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashA),
+            scale: OfficeInteriorScale.clutterDisplayScale * 0.72,
+            bias: -80
+        )
+        addDepthProp(
+            named: "office_floor_trash_b",
+            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashB),
+            scale: OfficeInteriorScale.clutterDisplayScale * 0.82,
+            bias: -55
+        )
     }
 
     private func addFloorContactShadow(named textureName: String, at position: CGPoint, scale: CGFloat) {
@@ -1714,19 +1759,17 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// leaks into loose props. Native content sizes reproduce the tiny BG-era room scale.
     private func addDeskItems(at deskPosition: CGPoint, scale: CGFloat) {
         // Canvas centers for the NE-facing V4 top plane (visitor face toward door).
-        // Working detective layout: lamp/phone on Voss's SW writing side; papers +
-        // mug/ashtray/pencil center; files + photo toward the NE visitor/door side.
+        // Working detective layout: lamp and phone on Voss's writing side,
+        // typewriter as the central silhouette, then active papers, ashtray, and
+        // one case stack. Domestic odds and ends are deliberately omitted.
         let itemCenters: [(name: String, center: CGPoint, hotspotID: String?)] = [
-            ("office_desk_lamp", CGPoint(x: 280, y: 190), nil),
-            ("office_desk_typewriter", CGPoint(x: 360, y: 230), nil),
-            ("office_desk_phone", CGPoint(x: 430, y: 255), "office.phone"),
-            ("office_desk_notebook", CGPoint(x: 500, y: 300), nil),
-            ("office_desk_papers", CGPoint(x: 540, y: 250), nil),
-            ("office_pencil_tray", CGPoint(x: 580, y: 310), nil),
-            ("office_desk_mug", CGPoint(x: 480, y: 330), nil),
-            ("office_desk_ashtray", CGPoint(x: 600, y: 325), nil),
-            ("office_desk_files", CGPoint(x: 680, y: 265), "office.files"),
-            ("office_framed_photo", CGPoint(x: 720, y: 195), nil)
+            ("office_desk_lamp", CGPoint(x: 245, y: 185), nil),
+            ("office_desk_phone", CGPoint(x: 340, y: 260), "office.phone"),
+            ("office_desk_typewriter", CGPoint(x: 475, y: 215), nil),
+            ("office_desk_notebook", CGPoint(x: 520, y: 310), nil),
+            ("office_desk_papers", CGPoint(x: 600, y: 270), nil),
+            ("office_desk_ashtray", CGPoint(x: 655, y: 325), nil),
+            ("office_desk_files", CGPoint(x: 735, y: 245), "office.files")
         ]
         let deskCanvas = CGSize(width: 932, height: 780)
         let deskAnchor = CGPoint(x: 0.5, y: 0.04)

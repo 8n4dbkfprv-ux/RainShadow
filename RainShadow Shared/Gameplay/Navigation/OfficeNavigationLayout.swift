@@ -968,7 +968,6 @@ enum OfficeNavigationLayout {
     static let authoredArchiveBoxAObstacle = CGRect(x: 1543, y: 1250, width: 52, height: 26)
     static let authoredRadiatorObstacle = CGRect(x: 1760, y: 1423, width: 78, height: 38)
     static let authoredPersonalSideboardObstacle = CGRect(x: 1681, y: 1374, width: 103, height: 51)
-    static let authoredPersonalWashbasinObstacle = CGRect(x: 1668, y: 1365, width: 68, height: 34)
     static let authoredPersonalFanObstacle = CGRect(x: 1743, y: 1379, width: 54, height: 27)
     static let authoredDeskEnsembleObstacle = CGRect(x: 1831, y: 1180, width: 153, height: 76)
     static let authoredVisitorArmchairObstacle = CGRect(x: 1885, y: 1266, width: 70, height: 35)
@@ -992,7 +991,6 @@ enum OfficeNavigationLayout {
                 authoredArchiveBoxAObstacle,
                 authoredRadiatorObstacle,
                 authoredPersonalSideboardObstacle,
-                authoredPersonalWashbasinObstacle,
                 authoredPersonalFanObstacle,
                 authoredDeskEnsembleObstacle,
                 authoredVisitorArmchairObstacle,
@@ -1042,11 +1040,6 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1_732, y: 1_399),
         CGPoint(x: 1_712, y: 1_391),
         CGPoint(x: 1_753, y: 1_407),
-    ]
-    static let authoredPersonalWashbasinSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_702, y: 1_382),
-        CGPoint(x: 1_688, y: 1_377),
-        CGPoint(x: 1_715, y: 1_387),
     ]
     static let authoredPersonalFanSamplePoints: [CGPoint] = [
         CGPoint(x: 1_769, y: 1_393),
@@ -1141,7 +1134,7 @@ enum OfficeNavigationLayout {
         static let archiveBoxA = CGPoint(x: 1_569, y: 1_263)  // only floor stack
         static let radiator = CGPoint(x: 1_800, y: 1_442)
         static let personalSideboard = CGPoint(x: 1_732, y: 1_399)
-        static let personalWashbasin = CGPoint(x: 1_702, y: 1_382)
+        static let personalWashbasin = CGPoint(x: 1_702, y: 1_382)  // retired domestic fixture; placement retained for source lineage
         static let personalFan = CGPoint(x: 1_769, y: 1_393)
         static let personalBottle = CGPoint(x: 1_731, y: 1_395)  // on sideboard
         static let personalGlass = CGPoint(x: 1_741, y: 1_401)  // on sideboard
@@ -1160,12 +1153,16 @@ enum OfficeNavigationLayout {
 
         static let wornRug = CGPoint(x: 1_874, y: 1_199)
         static let floorWear = deskEnsemble
-        static let caseBoard = CGPoint(x: 1_554, y: 1_399)
-        static let wallCityMap = CGPoint(x: 1_588, y: 1_438)
-        static let wallPhotos = CGPoint(x: 1_510, y: 1_364)
+        static let wallPhotos = CGPoint(x: 1_371, y: 1_511)
+        static let caseBoard = CGPoint(x: 1_460, y: 1_656)
+        static let wallCityMap = CGPoint(x: 1_582, y: 1_685)
+        static let framedLicence = CGPoint(x: 1_682, y: 1_661)
         static let windowSpill = CGPoint(x: 1_847, y: 1_419)
         static let blindStripes = CGPoint(x: 1_873, y: 1_384)
         static let hallwayLight = CGPoint(x: 2_587, y: 1_229)
+        static let floorTrashA = CGPoint(x: 1_812, y: 1_240)
+        static let floorTrashB = CGPoint(x: 1_599, y: 1_255)
+        static let entranceRunner = CGPoint(x: 2_540, y: 1_219)
         static let lampPool = deskEnsemble
         /// Leaf swung 90° into the private office, hinged on the up-run jamb.
         static let internalDoorLeaf = Architecture.internalLeafAnchor
@@ -1283,7 +1280,6 @@ enum OfficeNavigationLayout {
     static var archiveBoxAObstacle: CGRect { OfficeInteriorScale.mapRect(authoredArchiveBoxAObstacle) }
     static var radiatorObstacle: CGRect { OfficeInteriorScale.mapRect(authoredRadiatorObstacle) }
     static var personalSideboardObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPersonalSideboardObstacle) }
-    static var personalWashbasinObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPersonalWashbasinObstacle) }
     static var personalFanObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPersonalFanObstacle) }
     static var deskEnsembleObstacle: CGRect { OfficeInteriorScale.mapRect(authoredDeskEnsembleObstacle) }
     static var visitorArmchairObstacle: CGRect { OfficeInteriorScale.mapRect(authoredVisitorArmchairObstacle) }
@@ -1306,7 +1302,6 @@ enum OfficeNavigationLayout {
     static var archiveBoxASamplePoints: [CGPoint] { authoredArchiveBoxASamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var radiatorSamplePoints: [CGPoint] { authoredRadiatorSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var personalSideboardSamplePoints: [CGPoint] { authoredPersonalSideboardSamplePoints.map(OfficeInteriorScale.mapPoint) }
-    static var personalWashbasinSamplePoints: [CGPoint] { authoredPersonalWashbasinSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var personalFanSamplePoints: [CGPoint] { authoredPersonalFanSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var deskEnsembleSamplePoints: [CGPoint] { authoredDeskEnsembleSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var visitorArmchairSamplePoints: [CGPoint] { authoredVisitorArmchairSamplePoints.map(OfficeInteriorScale.mapPoint) }
@@ -1330,7 +1325,6 @@ enum OfficeNavigationLayout {
             + archiveBoxASamplePoints
             + radiatorSamplePoints
             + personalSideboardSamplePoints
-            + personalWashbasinSamplePoints
             + personalFanSamplePoints
             + deskEnsembleSamplePoints
             + visitorArmchairSamplePoints

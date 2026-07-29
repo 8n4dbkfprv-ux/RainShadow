@@ -145,7 +145,18 @@ PROPS: list[Prop] = [
     Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
     # ---- personal corner: partition rear, private-office side
     Prop("personalSideboard", "office_personal_sideboard", 0.430, FLUSH, 0.48, (1.2, 0.5)),
-    Prop("personalWashbasin", "office_personal_washbasin", 0.485, FLUSH, 0.41, (0.7, 0.5)),
+    # The generated washbasin is intentionally retired from the runtime set:
+    # it made the room read as domestic rather than investigative.
+    Prop(
+        "personalWashbasin",
+        "office_personal_washbasin",
+        0.485,
+        FLUSH,
+        0.41,
+        (0.7, 0.5),
+        obstacle=False,
+        note="retired domestic fixture; placement retained for source lineage",
+    ),
     Prop("personalFan", "office_personal_fan", 0.410, 0.080, 0.68, (0.5, 0.5)),
     Prop("personalBottle", "office_hidden_bottle", 0.438, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
     Prop("personalGlass", "office_personal_glass", 0.420, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
@@ -208,15 +219,19 @@ def _wall_art_plate(a: float, b: float, up: float) -> tuple[float, float]:
 
 
 WALL_ART = {
-    "caseBoard": _wall_art_plate(0.75, FLUSH, 100.0),
-    "wallCityMap": _wall_art_plate(0.69, FLUSH, 120.0),
-    "wallPhotos": _wall_art_plate(0.83, FLUSH, 90.0),
+    "wallPhotos": _wall_art_plate(1.08, FLUSH, 315.0),
+    "caseBoard": _wall_art_plate(0.92, FLUSH, 410.0),
+    "wallCityMap": _wall_art_plate(0.70, FLUSH, 370.0),
+    "framedLicence": _wall_art_plate(0.52, FLUSH, 290.0),
 }
 
 FLOOR_DECALS = {
     "windowSpill": rp.plan(WINDOW_A, 0.10),
     "blindStripes": rp.plan(WINDOW_A + 0.04, 0.16),
     "hallwayLight": rp.plan(0.02, EXTERIOR_DOOR[1]),
+    "floorTrashA": rp.plan(0.64, 0.29),
+    "floorTrashB": rp.plan(0.79, 0.13),
+    "entranceRunner": rp.plan(0.075, 0.80),
     "lampPool": None,  # follows the desk
 }
 
