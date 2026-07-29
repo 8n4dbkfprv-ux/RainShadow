@@ -7,6 +7,13 @@ import Foundation
 ///
 /// Long beats are split across **Continue** pages so each panel fits the dialogue well
 /// without stacking multi-paragraph prose against triad choices.
+///
+/// **Classic Baldur’s Gate / Infinity Engine roles (frozen — GDD §7.5):**
+/// - NPC speech = node body; multi-page NPC beats may use `nextNodeID` / Continue.
+/// - PC (Voss) speech during the conversation = `CaseDialogueChoice` text the player selects
+///   (even a single option). Do **not** reintroduce mid-convo Voss speaker nodes with empty
+///   choices + `nextNodeID` (former `voss.accept` anti-pattern).
+/// - Exception: pre-Lila `voss.monologue.*` interior monologue may be Continue-only.
 enum EmptyCoatCaseIntroduction {
     static let startNodeID = "voss.monologue.1"
     static let caseOpenedNodeID = "case.opened"
@@ -113,6 +120,15 @@ enum EmptyCoatCaseIntroduction {
     }
 
     // MARK: - Lila conversation (triad choices; long beats use Continue)
+
+    /// Classic BG transition: PC acceptance as selectable reply text (not a speaker-state Continue page).
+    /// Destination reconverges all triad-3 paths onto Lila's plea, then case opened.
+    private static let caseAcceptanceChoice = CaseDialogueChoice(
+        text: """
+        All right, Miss March. The key stays on this desk until it opens something that can answer back. Harborpoint likes endings that fit in a paper bag. We're going to give it a longer sentence. If the river has Lillian, I'll make it say so in a language the police can't file under "finished." If it doesn't, somebody in a dry office is about to learn what wet shoes sound like in a hallway.
+        """,
+        destinationID: "lila.plea"
+    )
 
     private static var lilaConversationNodes: [CaseDialogueNode] {
         [
@@ -365,6 +381,8 @@ enum EmptyCoatCaseIntroduction {
                 portraitName: lilaPortrait,
                 nextNodeID: "lila.reply.good3.b"
             ),
+            // Classic BG: PC acceptance is a selectable reply on the NPC state (transition),
+            // not a main-speaker Continue page. Merged former voss.accept + voss.accept.b prose.
             CaseDialogueNode(
                 id: "lila.reply.good3.b",
                 speaker: lilaSpeaker,
@@ -372,7 +390,7 @@ enum EmptyCoatCaseIntroduction {
                 The follower: tall enough to make a doorway look narrow, hat brim low, gloves that never leave his hands even when he lights a cigarette for a man who isn't there. He never crosses the street. He only makes sure I know the street is already his.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "voss.accept"
+                choices: [caseAcceptanceChoice]
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral3",
@@ -390,7 +408,7 @@ enum EmptyCoatCaseIntroduction {
                 I'll stay with a friend on Printers' Quarter tonight. Real locks. Fewer witnesses who owe the docks a favor.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "voss.accept"
+                choices: [caseAcceptanceChoice]
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical3",
@@ -408,26 +426,7 @@ enum EmptyCoatCaseIntroduction {
                 Still—you'll take it. That's enough. The follower can have my shadow; you get the key. If the postcard arrives, make sure it's written in a hand that still shakes.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "voss.accept"
-            ),
-
-            CaseDialogueNode(
-                id: "voss.accept",
-                speaker: vossSpeaker,
-                text: """
-                All right, Miss March. The key stays on this desk until it opens something that can answer back.
-                """,
-                portraitName: vossPortrait,
-                nextNodeID: "voss.accept.b"
-            ),
-            CaseDialogueNode(
-                id: "voss.accept.b",
-                speaker: vossSpeaker,
-                text: """
-                Harborpoint likes endings that fit in a paper bag. We're going to give it a longer sentence. If the river has Lillian, I'll make it say so in a language the police can't file under "finished." If it doesn't, somebody in a dry office is about to learn what wet shoes sound like in a hallway.
-                """,
-                portraitName: vossPortrait,
-                nextNodeID: "lila.plea"
+                choices: [caseAcceptanceChoice]
             ),
 
             CaseDialogueNode(

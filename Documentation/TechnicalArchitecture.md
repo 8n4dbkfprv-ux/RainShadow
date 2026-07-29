@@ -439,6 +439,16 @@ Even though M01 exposes only a few flags, establish these value types early:
 
 All are `Codable`, versioned, and independent of SpriteKit.
 
+#### Dialogue graph authoring (classic BG roles)
+
+Shipped conversation data (`CaseDialogueNode` / `CaseDialogueChoice` in Navigation) follows **classic Baldur’s Gate / Infinity Engine DLG** roles (GDD §7.5):
+
+- **Node body** = actor speech (NPC or case-title end). Multi-page NPC beats use `nextNodeID` + Continue.
+- **Choice text** = player character speech. Mid-conversation PC lines must be choices, not Voss speaker nodes with empty choices and `nextNodeID`.
+- **Exception:** `isInteriorMonologue` Continue chains before the NPC exchange (Empty Coat `voss.monologue.*` only for that pattern today).
+
+Do not “simplify” PC acceptance or commitments into auto-Continue speaker states. See Dialogue System Roadmap frozen section and Empty Coat graph comments.
+
 ### 14.2 Scene definition schema
 
 Each scene JSON includes:

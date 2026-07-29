@@ -474,6 +474,25 @@ The deduction board is a focused reasoning workspace, not a freeform physics toy
 
 ### 7.5 Dialogue
 
+#### Classic Baldur’s Gate / Infinity Engine conversation roles (frozen)
+
+RainShadow case dialogue follows **classic Baldur’s Gate (Infinity Engine DLG) roles**, not free-form visual-novel paging for player speech:
+
+| Role | Who speaks | How the player advances |
+|---|---|---|
+| **State** (main speaker / body text) | NPC (or case-title end plate) | **Continue** only when the *same actor* keeps talking across pages |
+| **Transition** (response list) | **Player character (Harlan Voss)** | Player **selects a reply option**—even when there is only one line |
+
+**Do not** deliver mid-conversation Voss (PC) lines as main-speaker nodes the player only Continues through (`speaker: Harlan Voss`, empty `choices`, `nextNodeID` set). That is **not** classic BG. In IE, actor response text is the state; “what the player character says” is transition text (IESDP DLG V1).
+
+**Correct pattern (shipped Empty Coat acceptance):** Lila’s last triad-3 NPC state offers Voss’s acceptance prose as **`CaseDialogueChoice` text**; selecting it advances to the next NPC beat (`lila.plea`). See `EmptyCoatCaseIntroduction.caseAcceptanceChoice` and tests `midConversationPCLinesAreReplyOptionsNotContinueStates`.
+
+**Allowed exception:** the **pre-conversation interior monologue** (`voss.monologue.*`, `isInteriorMonologue`) may use Continue-only Voss pages. That is noir framing *before* the NPC exchange, not a DLG-style PC reply.
+
+Future authors and tools must preserve this convention when adding graphs. Reverting PC speech to auto-Continue speaker states is a design regression.
+
+#### Intentions
+
 Dialogue choices are tagged by intention rather than morality:
 
 - **Open** — invite detail, acknowledge, or wait.

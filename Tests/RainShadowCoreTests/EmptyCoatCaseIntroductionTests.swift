@@ -34,11 +34,62 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(monologueText.contains("about to happen"))
         #expect(monologueText.contains("dame") || monologueText.contains("door"))
 
-        // Spoken lines (Lila, case accept) are not monologue italics.
-        let spoken = nodes.filter { $0.id.hasPrefix("lila.") || $0.id.hasPrefix("voss.accept") }
+        // Spoken conversation lines (Lila + case title end) are not monologue italics.
+        // Classic BG: mid-convo PC speech is reply-option text, not speaker states.
+        let spoken = nodes.filter { $0.id.hasPrefix("lila.") || $0.id == EmptyCoatCaseIntroduction.caseOpenedNodeID }
         #expect(!spoken.isEmpty)
         for node in spoken {
             #expect(!node.isInteriorMonologue)
+        }
+    }
+
+    /// Classic BG roles: after the opening monologue, PC lines that commit the case are
+    /// player-selectable transitions—not main-speaker Continue pages (IESDP: state = actor,
+    /// transition = what the player character says).
+    @Test func midConversationPCLinesAreReplyOptionsNotContinueStates() {
+        let byID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
+
+        // No non-monologue Harlan Voss nodes that only Continue (empty choices + nextNodeID).
+        let midConvoPCContinuePages = nodes.filter { node in
+            node.speaker == EmptyCoatCaseIntroduction.vossSpeaker
+                && !node.isInteriorMonologue
+                && node.choices.isEmpty
+                && node.nextNodeID != nil
+                && !node.endsDialogue
+        }
+        #expect(
+            midConvoPCContinuePages.isEmpty,
+            "Mid-convo PC Continue pages (non-classic BG): \(midConvoPCContinuePages.map(\.id))"
+        )
+        #expect(byID["voss.accept"] == nil)
+        #expect(byID["voss.accept.b"] == nil)
+
+        // Acceptance / key desk / longer-sentence prose lives on reply choices toward the plea.
+        let acceptAnchors = ["all right, miss march", "key stays on this desk", "paper bag"]
+        let triad3Terminals = ["lila.reply.good3.b", "lila.reply.neutral3.b", "lila.reply.cynical3.b"]
+        for terminalID in triad3Terminals {
+            let terminal = byID[terminalID]
+            #expect(terminal != nil, "Missing \(terminalID)")
+            #expect(terminal?.speaker == EmptyCoatCaseIntroduction.lilaSpeaker)
+            #expect(terminal?.nextNodeID == nil)
+            #expect(terminal?.choices.isEmpty == false)
+            let choiceTexts = (terminal?.choices ?? []).map { $0.text.lowercased() }
+            #expect(
+                choiceTexts.contains { text in acceptAnchors.allSatisfy { text.contains($0) } },
+                "\(terminalID) must expose acceptance as choice text"
+            )
+            for choice in terminal?.choices ?? [] {
+                #expect(choice.destinationID == "lila.plea")
+                let fromChoice = CaseDialogueGraph.report(nodes: nodes, startID: choice.destinationID)
+                #expect(fromChoice.reachesEnding)
+            }
+        }
+
+        // Main-speaker Continue pages in the Lila conversation are NPC (or case-title end), not Voss.
+        let lilaChain = nodes.filter { $0.id.hasPrefix("lila.") || $0.id == EmptyCoatCaseIntroduction.caseOpenedNodeID }
+        for node in lilaChain where node.choices.isEmpty && node.nextNodeID != nil {
+            #expect(node.speaker == EmptyCoatCaseIntroduction.lilaSpeaker)
+            #expect(node.speaker != EmptyCoatCaseIntroduction.vossSpeaker)
         }
     }
 

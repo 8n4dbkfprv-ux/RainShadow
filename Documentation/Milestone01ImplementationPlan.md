@@ -435,7 +435,7 @@ Exit gate: the definition of done below passes with no open P0/P1 defect.
 
 ## 7. Work explicitly deferred after M01
 
-- Branching dialogue graph and voice-over beyond the implemented Lila March case-opening exchange.
+- Branching dialogue graph and voice-over beyond the implemented Lila March case-opening exchange. Prioritized follow-up plan: [Dialogue System Roadmap](DialogueSystemRoadmap.md) (state → triggers → actions → journal-on-transition → multi-graph).
 - Evidence journal and deduction board UI.
 - Trait/strain progression.
 - NPC navigation and crowd avoidance.
