@@ -599,6 +599,12 @@ def emit() -> str:
     add("        return CGPoint(x: baseline.x + nudge.x, y: baseline.y + nudge.y)")
     add("    }")
     add("")
+    add("    enum DeskDepth {")
+    add("        /// Above seated Voss's lower layer, below a client passing camera-near.")
+    add(f"        static let seatedFrontApronBias: CGFloat = {SEATED_DESK_FRONT_APRON_BIAS:.0f}")
+    add("        static let standingFrontApronBias: CGFloat = 40")
+    add("    }")
+    add("")
     add("    /// Exterior threshold crossing. This segment intentionally starts")
     add("    /// outside the navigation floor and passes through the fallen door leaf.")
     add("    static let clientDoorwayPath: [CGPoint] = [")
@@ -607,20 +613,19 @@ def emit() -> str:
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
     add("    /// Walkable waiting-room anchors, ending immediately before the")
-    add("    /// internal doorway baked into the production suite plate.")
+    add("    /// framed internal doorway in the production suite plate.")
     add("    static let clientWaitingRoomPath: [CGPoint] = [")
     for point in CLIENT_WAITING_ROOM_PATH:
         add(f"        {pt(point)},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
-    add("    /// Explicit crossing through the production suite plate's internal")
-    add("    /// aperture. The legacy nav partition is misregistered with this door.")
+    add("    /// Explicit crossing through the real framed partition aperture.")
     add("    static let clientInternalDoorwayPath: [CGPoint] = [")
     for point in CLIENT_INTERNAL_DOORWAY_PATH:
         add(f"        {pt(point)},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
-    add("    /// Walkable private-office anchors after clearing the internal door.")
+    add("    /// Direct private-office approach after clearing the internal door.")
     add("    static let clientOfficeArrivalPath: [CGPoint] = [")
     for point in CLIENT_OFFICE_ARRIVAL_PATH:
         add(f"        {pt(point)},")
@@ -638,17 +643,17 @@ def emit() -> str:
     add("")
     add("    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }")
     add("")
-    add("    /// Route independently on each side of the production partition,")
-    add("    /// preserving explicit crossings through both painted door apertures.")
+    add("    /// Expand the complete interior anchor chain as one collision-checked")
+    add("    /// polyline. The real partition doorway anchors prevent smoothing")
+    add("    /// across either jamb while keeping the route direct.")
     add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
-    add("        let waitingRoom = navigation.waypoints(visiting: clientWaitingRoomPath)")
-    add("            ?? clientWaitingRoomPath")
-    add("        let office = navigation.waypoints(visiting: clientOfficeArrivalPath)")
-    add("            ?? clientOfficeArrivalPath")
+    add("        guard let interior = navigation.waypoints(visiting: clientInteriorArrivalPath) else {")
+    add("            // Stop safely inside the exterior door if a future layout")
+    add("            // disconnects the rooms; never fall back to wall-cutting moves.")
+    add("            return clientDoorwayPath")
+    add("        }")
     add("        return Array(clientDoorwayPath.dropLast())")
-    add("            + waitingRoom")
-    add("            + clientInternalDoorwayPath.dropFirst()")
-    add("            + office.dropFirst()")
+    add("            + interior")
     add("    }")
     add("")
     add("    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {")
@@ -937,21 +942,46 @@ CLIENT_DOORWAY_PLAN_PATH = [
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# The production `office_suite_plate` has a camera-near internal doorway that
-# does not match the older generated partition plate/nav gap. These measured
-# authored points (plate y converted to SpriteKit y-up) cross the centre of the
-# visible 112 px aperture: waiting side → threshold → private-office side.
+# Cross the framed doorway that is actually painted into the production
+# partition. The former hand-measured points mistook the camera-near cutaway
+# for an aperture (b≈0.77), crossed the solid wall there, and forced a long
+# recovery loop around the desk. Keep all three anchors on the real clear
+# opening (b≈0.147): waiting side → threshold → private-office side.
+CLIENT_INTERNAL_DOOR_B = P.door_mid_b
+CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
+    (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
+    (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
+    (P.a_line + P.thickness_a + 0.060, CLIENT_INTERNAL_DOOR_B),
+]
 CLIENT_INTERNAL_DOORWAY_PATH = [
-    (2_310.0, rp.ART_H - 1_110.0),
-    (2_260.0, rp.ART_H - 1_220.0),
-    (2_210.0, rp.ART_H - 1_330.0),
+    rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
 
+# The actor body is wider than its navigation contact core. Keep the waiting
+# leg on the chair side of the partition instead of allowing A* to skim the
+# cutaway wall behind the two seats, then turn toward the framed door only
+# after clearing the furniture row.
+CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
+    (0.100, 0.420),
+    (P.a_line - 0.120, P.b_door1 + 0.045),
+]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
+    *[
+        rp.authored(a, b)
+        for a, b in CLIENT_WAITING_CLEARANCE_PLAN_PATH
+    ],
     CLIENT_INTERNAL_DOORWAY_PATH[0],
 ]
 
+# Keep the desk's seated front-apron layer above Voss's lower body but below
+# Lila while she is on the camera-near side. The old +55 bias covered her head
+# and torso, which made the otherwise clear ground route read as desk clipping.
+SEATED_DESK_FRONT_APRON_BIAS = 15.0
+
+# The visitor stop is immediately inside the real partition door. No desk
+# bypass is needed: routing through the framed opening makes the office-side
+# leg a short, unobstructed approach instead of a five-point furniture loop.
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
     rp.authored(0.420, 0.220),  # visitor approach beside the detective's desk
@@ -1162,9 +1192,55 @@ def report() -> bool:
             ok &= good
             print(f"  client {label:7s} authored=({point[0]:.0f},{point[1]:.0f}) "
                   f"cell={cell} reachable={good}")
-    internal_door_ok = CLIENT_INTERNAL_DOORWAY_PATH[1] == (2_260.0, 1_084.0)
+    internal_plans = [
+        rp.authored_to_plan(*point) for point in CLIENT_INTERNAL_DOORWAY_PATH
+    ]
+    internal_door_ok = (
+        internal_plans[0][0] < P.a_line
+        and P.a_line < internal_plans[1][0] < P.a_line + P.thickness_a
+        and internal_plans[2][0] > P.a_line + P.thickness_a
+        and all(P.b_door0 < b < P.b_door1 for _, b in internal_plans)
+    )
     ok &= internal_door_ok
-    print(f"  client production internal doorway crossing valid={internal_door_ok}")
+    print(
+        "  client production internal doorway crossing "
+        f"valid={internal_door_ok} b={internal_plans[1][1]:.3f}"
+    )
+
+    # Lila's navigation root is narrower than her rendered coat and shoulders.
+    # Preserve a full-body margin from the partition while she clears the two
+    # waiting chairs, then allow the route to turn into the framed opening.
+    waiting_clearance_ok = (
+        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) == 2
+        and all(
+            a <= P.a_line - 0.110
+            for a, _ in CLIENT_WAITING_CLEARANCE_PLAN_PATH
+        )
+        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= 0.400
+        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1 + 0.050
+    )
+    ok &= waiting_clearance_ok
+    print(
+        "  client chair-side body clearance "
+        f"valid={waiting_clearance_ok}"
+    )
+
+    # Once through the real partition door, the existing visitor stop is one
+    # short leg away. A route that dives toward the camera-near floor is the old
+    # impossible wall/desk detour returning.
+    office_plans = [
+        rp.authored_to_plan(*point) for point in CLIENT_OFFICE_ARRIVAL_PATH
+    ]
+    office_direct_ok = (
+        len(office_plans) == 2
+        and max(b for _, b in office_plans) <= 0.225
+        and max(a for a, _ in office_plans) <= P.a_line + P.thickness_a + 0.065
+    )
+    ok &= office_direct_ok
+    print(
+        "  client direct office approach "
+        f"valid={office_direct_ok} anchors={len(office_plans)}"
+    )
     ok &= any(door_ok) and len(waiting) > 15
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)

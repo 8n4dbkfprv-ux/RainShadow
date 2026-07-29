@@ -190,7 +190,7 @@ struct NavigationGridTests {
         #expect(path.last == CGPoint(x: 25, y: 5))
     }
 
-    @Test func officeClientArrivalCrossesExteriorDoorThenRoutesAroundInteriorObstacles() {
+    @Test func officeClientArrivalCrossesBothPaintedDoorsWithoutInteriorCollisions() {
         let grid = OfficeNavigationLayout.makeGrid()
         let path = OfficeNavigationLayout.clientArrivalRoute(in: grid)
         let doorway = OfficeNavigationLayout.clientDoorwayPath
@@ -221,22 +221,65 @@ struct NavigationGridTests {
             return
         }
         #expect(internalDoorway[1] == OfficeInteriorScale.mapPoint(
-            CGPoint(x: 2_260, y: 1_084)
+            CGPoint(x: 1_820, y: 1_365)
         ))
         #expect(path[thresholdIndex - 1] == internalDoorway[0])
         #expect(path[thresholdIndex + 1] == internalDoorway[2])
+        #expect(internalDoorway.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        // Same-room legs must avoid all obstacles. Only the two authored door
-        // crossings may pass through stale closed-leaf/partition collision.
+        // These two anchors keep Lila's full sprite on the chair side of the
+        // partition. Without them, her smaller navigation contact core can
+        // legally skim the wall behind the waiting chairs while the coat and
+        // shoulders visibly overlap it.
+        let waitingAuthored = OfficeNavigationLayout.clientWaitingRoomPath.map(
+            OfficeInteriorScale.unmapPoint
+        )
+        for clearanceAnchor in [
+            CGPoint(x: 2_218, y: 1_358),
+            CGPoint(x: 1_994, y: 1_367),
+        ] {
+            #expect(
+                waitingAuthored.contains {
+                    hypot($0.x - clearanceAnchor.x, $0.y - clearanceAnchor.y) < 0.01
+                },
+                "Chair-side body-clearance anchor must remain in the waiting-room route"
+            )
+        }
+
+        // Every authored interior anchor survives expansion in order. This keeps
+        // the route in the rear framed doorway and prevents the old foreground
+        // cutaway → wall → desk recovery loop.
+        var priorAnchorIndex = -1
+        for anchor in OfficeNavigationLayout.clientInteriorArrivalPath {
+            guard let anchorIndex = path.firstIndex(of: anchor) else {
+                #expect(Bool(false), "Interior doorway anchor \(anchor) must remain in the route")
+                return
+            }
+            #expect(anchorIndex > priorAnchorIndex)
+            priorAnchorIndex = anchorIndex
+        }
+
+        // Every interior leg avoids the real partition and furniture. Only the
+        // authored exterior crossing passes through the closed-leaf obstacle.
         for index in 0..<(path.count - 1) {
             let a = path[index]
             let b = path[index + 1]
-            if isAuthoredDoorwayLeg(from: a, to: b) { continue }
+            if isAuthoredExteriorDoorwayLeg(from: a, to: b) { continue }
             #expect(
                 !segmentCrossesOfficeObstacle(from: a, to: b),
                 "Arrival leg \(index) crossed an office obstacle"
             )
         }
+
+        let authoredInterior = path.dropFirst().map(OfficeInteriorScale.unmapPoint)
+        #expect(
+            authoredInterior.allSatisfy { $0.y > 1_150 },
+            "Arrival must remain in the rear corridor instead of diving to the foreground cutaway"
+        )
+        let routeLength = zip(path, path.dropFirst()).reduce(CGFloat.zero) { total, leg in
+            total + hypot(leg.1.x - leg.0.x, leg.1.y - leg.0.y)
+        }
+        #expect(routeLength < 475, "Arrival should not restore the old wall/desk detour")
     }
 
     @Test func officeClientDepartureRetracesInteriorThenCrossesExteriorDoor() {
@@ -247,7 +290,7 @@ struct NavigationGridTests {
         guard path.count >= 2 else { return }
 
         for index in 0..<(path.count - 1) {
-            if isAuthoredDoorwayLeg(from: path[index], to: path[index + 1]) { continue }
+            if isAuthoredExteriorDoorwayLeg(from: path[index], to: path[index + 1]) { continue }
             #expect(!segmentCrossesOfficeObstacle(from: path[index], to: path[index + 1]))
         }
         #expect(segmentCrossesOfficeObstacle(
@@ -256,17 +299,12 @@ struct NavigationGridTests {
         ))
     }
 
-    private func isAuthoredDoorwayLeg(from start: CGPoint, to end: CGPoint) -> Bool {
-        let doorwayPaths = [
-            OfficeNavigationLayout.clientDoorwayPath,
-            OfficeNavigationLayout.clientInternalDoorwayPath,
-        ]
-        return doorwayPaths.contains { doorway in
-            doorway.indices.dropLast().contains { index in
-                let next = doorway.index(after: index)
-                return (doorway[index] == start && doorway[next] == end)
-                    || (doorway[index] == end && doorway[next] == start)
-            }
+    private func isAuthoredExteriorDoorwayLeg(from start: CGPoint, to end: CGPoint) -> Bool {
+        let doorway = OfficeNavigationLayout.clientDoorwayPath
+        return doorway.indices.dropLast().contains { index in
+            let next = doorway.index(after: index)
+            return (doorway[index] == start && doorway[next] == end)
+                || (doorway[index] == end && doorway[next] == start)
         }
     }
 

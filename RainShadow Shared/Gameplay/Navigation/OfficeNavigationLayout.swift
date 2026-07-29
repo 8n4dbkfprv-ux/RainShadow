@@ -1190,6 +1190,12 @@ enum OfficeNavigationLayout {
         return CGPoint(x: baseline.x + nudge.x, y: baseline.y + nudge.y)
     }
 
+    enum DeskDepth {
+        /// Above seated Voss's lower layer, below a client passing camera-near.
+        static let seatedFrontApronBias: CGFloat = 15
+        static let standingFrontApronBias: CGFloat = 40
+    }
+
     /// Exterior threshold crossing. This segment intentionally starts
     /// outside the navigation floor and passes through the fallen door leaf.
     static let clientDoorwayPath: [CGPoint] = [
@@ -1198,23 +1204,24 @@ enum OfficeNavigationLayout {
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Walkable waiting-room anchors, ending immediately before the
-    /// internal doorway baked into the production suite plate.
+    /// framed internal doorway in the production suite plate.
     static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2_463, y: 1_184),
-        CGPoint(x: 2_310, y: 1_194),
+        CGPoint(x: 2_218, y: 1_358),
+        CGPoint(x: 1_994, y: 1_367),
+        CGPoint(x: 1_874, y: 1_395),
     ].map(OfficeInteriorScale.mapPoint)
 
-    /// Explicit crossing through the production suite plate's internal
-    /// aperture. The legacy nav partition is misregistered with this door.
+    /// Explicit crossing through the real framed partition aperture.
     static let clientInternalDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2_310, y: 1_194),
-        CGPoint(x: 2_260, y: 1_084),
-        CGPoint(x: 2_210, y: 974),
+        CGPoint(x: 1_874, y: 1_395),
+        CGPoint(x: 1_820, y: 1_365),
+        CGPoint(x: 1_772, y: 1_338),
     ].map(OfficeInteriorScale.mapPoint)
 
-    /// Walkable private-office anchors after clearing the internal door.
+    /// Direct private-office approach after clearing the internal door.
     static let clientOfficeArrivalPath: [CGPoint] = [
-        CGPoint(x: 2_210, y: 974),
+        CGPoint(x: 1_772, y: 1_338),
         CGPoint(x: 1_877, y: 1_336),
     ].map(OfficeInteriorScale.mapPoint)
 
@@ -1230,17 +1237,17 @@ enum OfficeNavigationLayout {
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
-    /// Route independently on each side of the production partition,
-    /// preserving explicit crossings through both painted door apertures.
+    /// Expand the complete interior anchor chain as one collision-checked
+    /// polyline. The real partition doorway anchors prevent smoothing
+    /// across either jamb while keeping the route direct.
     static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
-        let waitingRoom = navigation.waypoints(visiting: clientWaitingRoomPath)
-            ?? clientWaitingRoomPath
-        let office = navigation.waypoints(visiting: clientOfficeArrivalPath)
-            ?? clientOfficeArrivalPath
+        guard let interior = navigation.waypoints(visiting: clientInteriorArrivalPath) else {
+            // Stop safely inside the exterior door if a future layout
+            // disconnects the rooms; never fall back to wall-cutting moves.
+            return clientDoorwayPath
+        }
         return Array(clientDoorwayPath.dropLast())
-            + waitingRoom
-            + clientInternalDoorwayPath.dropFirst()
-            + office.dropFirst()
+            + interior
     }
 
     static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {

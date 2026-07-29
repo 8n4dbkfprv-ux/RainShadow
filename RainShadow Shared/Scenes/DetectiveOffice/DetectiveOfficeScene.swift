@@ -677,7 +677,8 @@ final class DetectiveOfficeScene: BaseGameScene {
                 updateDepth(of: deskActorOccluder, bias: -60)
             }
             if let deskFrontOccluder {
-                deskFrontOccluder.zPosition = detective.zPosition + 55
+                deskFrontOccluder.zPosition = detective.zPosition
+                    + OfficeNavigationLayout.DeskDepth.seatedFrontApronBias
             }
             if let deskTopOccluder {
                 updateDepth(of: deskTopOccluder, bias: -40)
@@ -691,7 +692,10 @@ final class DetectiveOfficeScene: BaseGameScene {
                 updateDepth(of: deskActorOccluder, bias: -60)
             }
             if let deskFrontOccluder {
-                updateDepth(of: deskFrontOccluder, bias: 40)
+                updateDepth(
+                    of: deskFrontOccluder,
+                    bias: OfficeNavigationLayout.DeskDepth.standingFrontApronBias
+                )
             }
             if let deskTopOccluder {
                 updateDepth(of: deskTopOccluder, bias: -40)
@@ -732,8 +736,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         clientEntranceStarted = true
         animateDoorFalling()
         // The first leg is authored across the actual exterior threshold (its
-        // start is outside the nav floor). Once inside, A* takes over so Lila
-        // clears the waiting furniture and uses the internal office doorway.
+        // start is outside the nav floor). One collision-checked interior route
+        // then clears the waiting furniture and crosses the framed partition door.
         let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }

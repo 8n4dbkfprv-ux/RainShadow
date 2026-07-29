@@ -422,24 +422,45 @@ struct OfficeInteriorScaleTests {
 
     @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
         // Drive the real shipped polyline + the pure strip mapper exit uses.
-        // The production suite doorway sits camera-near of the desk; every
-        // authored departure leg therefore travels east toward the corridor.
+        // The short visitor-stop leg begins westbound, then every doorway and
+        // corridor segment turns east toward the exterior.
         let path = OfficeNavigationLayout.clientDeparturePath
         #expect(path.count >= 3)
         let bins = ClientDepartureFacing.bins(along: path)
         #expect(bins.count == path.count - 1)
-        #expect(bins.allSatisfy { $0 == .northEast },
-                "Every production departure segment should use the eastbound strip")
+        #expect(bins.first == .northWest, "Visitor stop→door approach should use NW")
+        #expect(bins.dropFirst().allSatisfy { $0 == .northEast },
+                "After clearing the desk, every departure segment should use NE")
         #expect(bins.count >= 3)
-        #expect(bins.filter { $0 == .northEast }.count == bins.count)
+        #expect(bins.filter { $0 == .northEast }.count == bins.count - 1)
 
-        // Every segment's raw heading is eastern (not western/northern).
-        for index in 0..<(path.count - 1) {
+        // Every post-bypass segment uses the non-mirrored eastbound strip.
+        for index in 1..<(path.count - 1) {
             let dx = path[index + 1].x - path[index].x
             let dy = path[index + 1].y - path[index].y
-            #expect(dx > 0, "Departure segment \(index) should travel eastward (dx=\(dx))")
             #expect(ClientDepartureFacing.bin(dx: dx, dy: dy) == .northEast)
         }
+    }
+
+    @Test func clientUsesRearPartitionDoorWithoutForegroundDeskLoop() {
+        let route = OfficeNavigationLayout.clientOfficeArrivalPath
+            .map(OfficeInteriorScale.unmapPoint)
+        #expect(route.count == 2)
+        guard route.count == 2 else { return }
+
+        let internalDoor = OfficeNavigationLayout.clientInternalDoorwayPath
+            .map(OfficeInteriorScale.unmapPoint)
+        #expect(internalDoor.count == 3)
+        guard internalDoor.count == 3 else { return }
+
+        // The actual framed aperture is in the rear partition. The obsolete
+        // camera-near pseudo-door was around y=1_084 and triggered the wall/
+        // desk loop; all real doorway and office anchors remain in the rear band.
+        #expect(abs(internalDoor[1].x - 1_820) < 0.01)
+        #expect(abs(internalDoor[1].y - 1_365) < 0.01)
+        #expect(internalDoor.allSatisfy { $0.y > 1_300 })
+        #expect(route.allSatisfy { $0.y > 1_300 })
+        #expect(hypot(route[1].x - route[0].x, route[1].y - route[0].y) < 120)
     }
 
     @Test func clientDepartureWalkPhaseRotatesWithoutRestartingAtZero() {

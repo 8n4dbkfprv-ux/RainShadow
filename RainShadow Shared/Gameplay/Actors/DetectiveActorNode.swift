@@ -26,7 +26,7 @@ final class DetectiveActorNode: SKNode {
     private let sitDownTextures: [SKTexture]
     private let walkTextures: [ActorFacing: [SKTexture]]
 
-    /// Local z while seated: torso above the front apron (+55 on the desk prop).
+    /// Local z while seated: torso above the front apron depth band.
     /// Under-apron feet layer stays hidden (it caused the chair-to-floor wood band).
     private static let seatedUpperLocalZ: CGFloat = 90
     private static let seatedLowerLocalZ: CGFloat = 0
