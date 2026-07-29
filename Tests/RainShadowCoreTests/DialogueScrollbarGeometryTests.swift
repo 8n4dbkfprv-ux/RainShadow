@@ -1,9 +1,48 @@
 import CoreGraphics
 import Foundation
+import ImageIO
 import Testing
 @testable import RainShadowCore
 
 struct DialogueScrollbarGeometryTests {
+    @Test func shippedThumbFillsItsRuntimeCanvas() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let url = root.appendingPathComponent(
+            "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v03.png"
+        )
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+
+        let width = image.width
+        let height = image.height
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        let context = try #require(CGContext(
+            data: &pixels,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ))
+        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        let visibleRows = (0..<height).filter { y in
+            (0..<width).contains { x in
+                pixels[(y * width + x) * 4 + 3] > 12
+            }
+        }
+        let firstVisibleRow = try #require(visibleRows.first)
+        let lastVisibleRow = try #require(visibleRows.last)
+        #expect(firstVisibleRow <= height / 20)
+        #expect(lastVisibleRow >= height - height / 20 - 1)
+    }
+
     @Test func nonScrollableHidesThumbInsteadOfStretchingFullTrack() {
         let track = CGRect(x: -15, y: -100, width: 30, height: 200)
         let layout = DialogueScrollbarGeometry.thumbLayout(

@@ -379,7 +379,17 @@ def process_dialogue() -> None:
     )
     cells = slice_grid(force_grayscale(chroma_key(Image.open(master))), 2, 2)
     for cell, (name, canvas) in zip(cells, SCROLL_PARTS, strict=True):
-        out = fit_canvas(trim_alpha(cell), canvas)
+        trimmed = trim_alpha(cell)
+        # The generated V03 thumb is compact and nearly square. Aspect-fitting it
+        # into the 72×256 runtime canvas leaves most of the texture transparent,
+        # so SpriteKit's nine-slice has no visible handle to move along the track.
+        # Fill the thumb canvas here; its runtime centerRect preserves the caps and
+        # diamond when the proportional handle is resized.
+        out = (
+            stretch_to_canvas(trimmed, canvas)
+            if name == "dialogue_scroll_thumb_v03"
+            else fit_canvas(trimmed, canvas)
+        )
         path = RUNTIME / "Dialogue" / f"{name}.png"
         path.parent.mkdir(parents=True, exist_ok=True)
         out.save(path)
