@@ -197,7 +197,7 @@ Before animation, approve:
 
 Design continuity rules:
 
-- same face, mustache, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
+- same face, clean-shaven early-thirties features, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
 - the overcoat is designed as a few compact, nearly bilateral masses at sprite scale so legacy-style mirroring remains readable;
 - the slate-gray fedora is part of the approved V6 Voss identity and appears in every actor sprite (the inventory paperdoll holds it in hand so the face reads);
 - hands never gain/remove fingers or swap object silhouettes;
@@ -236,7 +236,7 @@ lila_departure_ne_00.png ... lila_departure_ne_07.png
 lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
-Atlases (shipped V6 set):
+Atlases (shipped V8 set — V7 BGEE crunch of V8 identity masters):
 
 - `VossSeatedIdle.atlas` — seated idle body frames.
 - `VossSeatedArms.atlas` — derived seated forearm overlay (draws above the desk's front occluder).

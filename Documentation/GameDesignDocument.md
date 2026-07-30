@@ -10,7 +10,7 @@
 
 RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence—and, when the city refuses to talk, rare **Baldur’s Gate–style real-time-with-pause combat** that is authored, high-stakes, and never a loot grind.
 
-The player inhabits **Harlan Voss**, a weary private detective in his mid-forties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
+The player inhabits **Harlan Voss**, a weary private detective in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
 ### Elevator pitch
 
@@ -97,7 +97,7 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 #### Harlan Voss — player protagonist
 
 - **Role:** Private detective; the player’s body, voice, and moral weather.
-- **Age / look:** Male, mid-forties. Unshaven stubble, tired eyes, once-careful haircut grown out. Rumpled dark trench coat over a loosened shirt and loose tie; worn shoes; no glamorous silhouette. Economical movements, guarded posture, capable hands.
+- **Age / look:** Male, early thirties. Clean-shaven handsome face with tired hollow eyes; dark hair under a slightly misshapen slate-gray fedora. Lived-in olive-brown belted overcoat over a mustard waistcoat, cream shirt, and loosened dark green tie; charcoal trousers; scuffed brown shoes. Handsome but broken down—no glamorous silhouette. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
@@ -681,7 +681,7 @@ M01 succeeds when a first-time player can:
 - identify the office window during the exterior shot;
 - experience a transition with no obvious loading hitch or rain discontinuity;
 - immediately understand the office's navigable floor and primary props;
-- see Harlan Voss read as tired, middle-aged, and physically grounded at the desk;
+- see Harlan Voss read as tired, early-thirties, and physically grounded at the desk;
 - make him stand, walk in any needed direction, pass correctly behind/in front of the desk and foreground occluders, and return to idle;
 - experience Lila March’s arrival, Empty Coat handoff, and departure as the first case seed;
 - inspect all five hotspots using touch on iOS and mouse on macOS;
