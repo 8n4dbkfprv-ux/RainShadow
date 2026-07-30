@@ -86,6 +86,9 @@ final class CaseIntroductionPresenter: SKNode {
     var onNodeShown: ((CaseDialogueNode) -> Void)?
 
     private(set) var isPresenting = false
+    /// True while an authored walk/cutscene owns the screen (BG cutscene mode).
+    /// Presentation graph stays live; panel and input are suppressed until resume.
+    private(set) var isCutsceneSuppressed = false
 
     override init() {
         super.init()
@@ -213,14 +216,61 @@ final class CaseIntroductionPresenter: SKNode {
         currentNodeID = startID
         lastNotifiedNodeID = nil
         isPresenting = true
+        isCutsceneSuppressed = false
         isHidden = false
         showCurrentNode(animated: false)
         run(.fadeIn(withDuration: 0.22))
     }
 
+    /// Baldur's Gate cutscene mode: hide the dialogue panel without ending the graph.
+    /// Input is blocked while suppressed so the player cannot advance mid-walk.
+    func setCutsceneSuppressed(_ suppressed: Bool, animated: Bool = true) {
+        guard isPresenting, isCutsceneSuppressed != suppressed else { return }
+        isCutsceneSuppressed = suppressed
+        removeAction(forKey: "cutsceneVisibility")
+        if suppressed {
+            if animated {
+                isHidden = false
+                run(.sequence([
+                    .fadeOut(withDuration: 0.2),
+                    .run { [weak self] in
+                        self?.alpha = 0
+                        self?.isHidden = true
+                    }
+                ]), withKey: "cutsceneVisibility")
+            } else {
+                alpha = 0
+                isHidden = true
+            }
+        } else {
+            isHidden = false
+            if animated {
+                if alpha >= 0.99 { return }
+                run(.fadeIn(withDuration: 0.22), withKey: "cutsceneVisibility")
+            } else {
+                alpha = 1
+            }
+        }
+    }
+
+    /// After an entrance walk finishes: leave the cue page if still on it, then re-show dialogue.
+    func resumeAfterCutscene(advancingIfOn cueNodeID: String? = nil) {
+        guard isPresenting else { return }
+        if let cueNodeID,
+           currentNodeID == cueNodeID,
+           let nextID = nodesByID[cueNodeID]?.nextNodeID,
+           nodesByID[nextID] != nil {
+            // Quiet advance while still hidden so the cue line is not re-read after the walk.
+            currentNodeID = nextID
+            lastNotifiedNodeID = nil
+            showCurrentNode(animated: false)
+        }
+        setCutsceneSuppressed(false)
+    }
+
     @discardableResult
     func handlePointer(at point: CGPoint) -> Bool {
-        guard isPresenting else { return false }
+        guard isPresenting, !isCutsceneSuppressed else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
 
         if let index = choiceIndex(at: panelPoint) {
@@ -239,7 +289,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func handlePointerDown(at point: CGPoint) -> Bool {
-        guard isPresenting else { return false }
+        guard isPresenting, !isCutsceneSuppressed else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
         // Mouse hover normally selects the active region. A tap must do the same
         // for touch input, where no pointer-move event precedes the press.
@@ -271,7 +321,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func handlePointerDragged(at point: CGPoint) -> Bool {
-        guard isPresenting, let bar = activeScrollbar else { return false }
+        guard isPresenting, !isCutsceneSuppressed, let bar = activeScrollbar else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
         let localPoint = bar.convert(panelPoint, from: panelRoot)
         return bar.handlePointerDragged(at: localPoint)
@@ -279,7 +329,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func handlePointerUp(at point: CGPoint) -> Bool {
-        guard isPresenting, let bar = activeScrollbar else { return false }
+        guard isPresenting, !isCutsceneSuppressed, let bar = activeScrollbar else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
         let localPoint = bar.convert(panelPoint, from: panelRoot)
         let handled = bar.handlePointerUp(at: localPoint)
@@ -289,7 +339,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func updatePointer(at point: CGPoint) -> Bool {
-        guard isPresenting else { return false }
+        guard isPresenting, !isCutsceneSuppressed else { return false }
         let panelPoint = panelRoot.convert(point, from: self)
         hoveredChoiceIndex = choiceIndex(at: panelPoint)
         commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
@@ -316,7 +366,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func moveSelection(_ direction: Int) -> Bool {
-        guard !choiceRows.isEmpty else { return false }
+        guard isPresenting, !isCutsceneSuppressed, !choiceRows.isEmpty else { return false }
         let current = focusedChoiceIndex ?? (direction < 0 ? 0 : -1)
         focusedChoiceIndex = (current + direction + choiceRows.count) % choiceRows.count
         if choicesCanScroll {
@@ -329,6 +379,7 @@ final class CaseIntroductionPresenter: SKNode {
 
     @discardableResult
     func scrollContent(by points: CGFloat) -> Bool {
+        guard isPresenting, !isCutsceneSuppressed else { return false }
         switch scrollTarget {
         case .body:
             if bodyCanScroll, bodyScrollbar.scroll(by: points) { return true }
@@ -344,7 +395,7 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     func activateFocusedControl() {
-        guard isPresenting else { return }
+        guard isPresenting, !isCutsceneSuppressed else { return }
 
         if !choiceRows.isEmpty {
             let index = focusedChoiceIndex ?? hoveredChoiceIndex ?? 0
@@ -923,10 +974,12 @@ final class CaseIntroductionPresenter: SKNode {
     private func finish() {
         guard isPresenting else { return }
         isPresenting = false
+        isCutsceneSuppressed = false
         lastNotifiedNodeID = nil
         onNodeShown = nil
         let completion = presentationCompletion
         presentationCompletion = nil
+        removeAction(forKey: "cutsceneVisibility")
         run(.sequence([
             .fadeOut(withDuration: 0.24),
             .hide(),

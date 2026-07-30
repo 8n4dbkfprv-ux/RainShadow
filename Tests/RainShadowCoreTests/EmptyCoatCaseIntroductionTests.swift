@@ -305,9 +305,15 @@ struct EmptyCoatCaseIntroductionTests {
         }
         #expect(presenter.contains("onNodeShown"))
 
-        // BG-classic cutscene chrome: suppress rails on enter/exit, restore for dialogue + unlock.
+        // BG-classic cutscene: suppress rails + dialogue panel for entrance walk;
+        // dialogue resumes after walk; free-play rails only after unlock.
         #expect(scene.contains("setCutsceneChromeSuppressed"))
         #expect(scene.contains("updateGameplayChromeVisibility"))
+        #expect(scene.contains("setCutsceneSuppressed(true)"))
+        #expect(scene.contains("resumeAfterCutscene"))
+        #expect(presenter.contains("setCutsceneSuppressed"))
+        #expect(presenter.contains("resumeAfterCutscene"))
+        #expect(presenter.contains("isCutsceneSuppressed"))
         if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
             let afterEntrance = scene[entranceRange.lowerBound...]
             if let nextFunc = afterEntrance.range(
@@ -317,7 +323,10 @@ struct EmptyCoatCaseIntroductionTests {
             ) {
                 let body = String(afterEntrance[..<nextFunc.lowerBound])
                 #expect(body.contains("setCutsceneChromeSuppressed(true)"))
-                #expect(body.contains("setCutsceneChromeSuppressed(false)"))
+                #expect(body.contains("setCutsceneSuppressed(true)"))
+                #expect(body.contains("resumeAfterCutscene"))
+                // Must not re-show free-play rails when the walk finishes.
+                #expect(!body.contains("setCutsceneChromeSuppressed(false)"))
             }
         }
         if let applyRange = scene.range(of: "private func applyClientVisitAction") {
@@ -328,8 +337,6 @@ struct EmptyCoatCaseIntroductionTests {
                 range: afterApply.index(after: applyRange.upperBound)..<afterApply.endIndex
             ) {
                 let body = String(afterApply[..<nextFunc.lowerBound])
-                #expect(body.contains("case .beginClientExit:"))
-                #expect(body.contains("setCutsceneChromeSuppressed(true)"))
                 #expect(body.contains("case .unlockPlayerControl:"))
                 #expect(body.contains("setCutsceneChromeSuppressed(false)"))
             }
