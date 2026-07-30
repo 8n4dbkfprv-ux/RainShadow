@@ -48,7 +48,7 @@ struct DialoguePanelLayoutTests {
         ]
         let visible = CGSize(width: 1_280, height: 800)
         let base = DialoguePanelLayout.layout(for: visible)
-        // Base monologue panel stays compact for character visibility.
+        // Base monologue panel stays fixed (does not grow when choices appear).
         #expect(base.panelRect.height <= DialoguePanelLayout.panelHeightCap + 0.001)
 
         // Force a content width where these lines wrap (matches typical in-game column).
@@ -147,28 +147,19 @@ struct DialoguePanelLayoutTests {
         }
     }
 
-    @Test func panelIsTenPercentLargerButRemainsCompact() {
-        #expect(
-            abs(
-                DialoguePanelLayout.panelHeightCap
-                    - DialoguePanelLayout.previousCompactPanelHeightCap * 1.10
-            ) < 0.001
-        )
-        #expect(
-            abs(
-                DialoguePanelLayout.panelHeightFraction
-                    - DialoguePanelLayout.previousCompactPanelHeightFraction * 1.10
-            ) < 0.001
-        )
+    @Test func panelSizedToFitTriadWithoutExceedingLegacyTallEra() {
+        // Triad-fit plaque is taller than the compact pass, but still below legacy tall.
+        #expect(DialoguePanelLayout.panelHeightCap > DialoguePanelLayout.previousCompactPanelHeightCap)
+        #expect(DialoguePanelLayout.panelHeightFraction > DialoguePanelLayout.previousCompactPanelHeightFraction)
         #expect(
             abs(
                 DialoguePanelLayout.panelWidthCap
-                    - DialoguePanelLayout.previousCompactPanelWidthCap * 1.10
+                    - DialoguePanelLayout.previousCompactPanelWidthCap * DialoguePanelLayout.panelScaleIncrease
             ) < 0.001
         )
-        // The enlarged plaque is still much smaller than the previous tall-panel era.
-        #expect(DialoguePanelLayout.panelHeightCap < DialoguePanelLayout.legacyPanelHeightCap * 0.56)
-        #expect(DialoguePanelLayout.panelHeightFraction < DialoguePanelLayout.legacyPanelHeightFraction * 0.56)
+        #expect(DialoguePanelLayout.panelHeightCap < DialoguePanelLayout.legacyPanelHeightCap)
+        #expect(DialoguePanelLayout.panelHeightFraction < DialoguePanelLayout.legacyPanelHeightFraction)
+        #expect(DialoguePanelLayout.panelHeightCap <= DialoguePanelLayout.intermediatePanelHeightCap)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let priorTall = min(
@@ -176,9 +167,61 @@ struct DialoguePanelLayoutTests {
                 size.height * DialoguePanelLayout.legacyPanelHeightFraction
             )
             #expect(
-                layout.panelRect.height <= priorTall * 0.56 + 1,
-                "Panel height \(layout.panelRect.height) is no longer compact for \(size)"
+                layout.panelRect.height <= priorTall + 1,
+                "Panel height \(layout.panelRect.height) exceeds legacy tall for \(size)"
             )
+        }
+    }
+
+    @Test func typicalDesktopFitsThreeMultilineChoicesWithoutScrolling() {
+        // Empty Coat triad — the longest shipped three-choice page.
+        let choiceTexts = [
+            "Come in out of the wet. Tell me everything you know, and I'll treat it like it matters—because it does.",
+            "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
+            "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt."
+        ]
+        let desktopSizes: [CGSize] = [
+            CGSize(width: 1_180, height: 820),
+            CGSize(width: 1_280, height: 800),
+            CGSize(width: 1_440, height: 900),
+            CGSize(width: 1_920, height: 1_080)
+        ]
+        for visible in desktopSizes {
+            let layout = DialoguePanelLayout.layout(for: visible)
+            let heights = choiceTexts.enumerated().map { index, text in
+                DialogueTextMetrics.choiceRowHeight(
+                    choiceText: text,
+                    index: index,
+                    fontSize: DialoguePanelLayout.Typography.choiceFontSize,
+                    maxWidth: layout.choiceTextMaxWidth,
+                    minimumRowHeight: DialoguePanelLayout.choiceRowMinimumHeight,
+                    verticalPadding: DialoguePanelLayout.choiceRowVerticalPadding
+                )
+            }
+            let natural = DialoguePanelLayout.naturalChoicesBandHeight(measuredRowHeights: heights)
+            let visibleBandHeight = DialoguePanelLayout.choicesBandHeight(
+                measuredRowHeights: heights,
+                contentViewportHeight: layout.contentViewportRect.height
+            )
+            #expect(
+                abs(visibleBandHeight - natural) < 0.5,
+                "Choices should not need scrolling at \(visible): natural=\(natural) visible=\(visibleBandHeight)"
+            )
+            let band = DialoguePanelLayout.choicesBandRect(
+                contentViewport: layout.contentViewportRect,
+                choicesBandHeight: visibleBandHeight
+            )
+            let frames = DialoguePanelLayout.choiceRowFrames(band: band, rowHeights: heights)
+            #expect(frames.count == 3)
+            #expect(DialoguePanelLayout.choiceFramesFitInBand(frames, band: band))
+            #expect(DialoguePanelLayout.choiceFramesAreNonOverlapping(frames))
+            // Outer plaque still identical with/without required band (fixed for conversation).
+            let withChoices = DialoguePanelLayout.layout(
+                for: visible,
+                requiredChoicesBandHeight: natural
+            )
+            #expect(abs(withChoices.panelRect.height - layout.panelRect.height) < 0.01)
+            #expect(abs(withChoices.panelRect.width - layout.panelRect.width) < 0.01)
         }
     }
 
@@ -522,17 +565,18 @@ struct DialoguePanelLayoutTests {
         #expect(choicesScrollbarZ > frameZ, "Choice scrollbar must not sit under the right frame rail")
     }
 
-    @Test func basePanelUsesCompactHeightContract() {
+    @Test func basePanelUsesTriadFitHeightContract() {
         #expect(DialoguePanelLayout.panelHeightCap < DialoguePanelLayout.legacyPanelHeightCap)
         #expect(DialoguePanelLayout.panelHeightFraction < DialoguePanelLayout.legacyPanelHeightFraction)
         #expect(DialoguePanelLayout.legacyPanelHeightCap > DialoguePanelLayout.originalPanelHeightCap)
+        #expect(DialoguePanelLayout.panelHeightCap > DialoguePanelLayout.previousCompactPanelHeightCap)
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let maxH = min(
                 DialoguePanelLayout.panelHeightCap,
                 size.height * DialoguePanelLayout.panelHeightFraction
             )
-            // Aspect-locked: height is at most the compact cap (may be smaller if width-bound).
+            // Aspect-locked: height is at most the triad-fit cap (may be smaller if width-bound).
             #expect(layout.panelRect.height <= maxH + 0.001)
             #expect(layout.panelRect.height >= 120)
             let aspect = layout.panelRect.width / layout.panelRect.height

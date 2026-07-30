@@ -23,17 +23,18 @@ struct DialoguePanelLayout: Equatable {
     static let paintedScrollbarInsetBottomFraction: CGFloat = 0.075
     static let paintedScrollbarInsetTopFraction: CGFloat = 0.075
 
-    /// Dialogue chrome is 10% larger than the prior compact plaque, while remaining
-    /// fixed for every node in a conversation.
-    static let panelScaleIncrease: CGFloat = 1.10
+    /// Prior compact plaque (character-visibility pass) — kept for regression tests.
     static let previousCompactPanelHeightCap: CGFloat = 280
     static let previousCompactPanelHeightFraction: CGFloat = 0.30
     static let previousCompactPanelWidthCap: CGFloat = 1_200
+    /// 10% bump that briefly sat between compact and triad-fit sizing.
+    static let panelScaleIncrease: CGFloat = 1.10
 
     /// Cap on panel height in points — fixed plaque (BG-style; does not grow for choices).
-    /// Sized for art aspect (~2.36:1): height 308 → width ≈ 726 at lock.
-    static let panelHeightCap: CGFloat =
-        previousCompactPanelHeightCap * panelScaleIncrease
+    /// Tall enough that a three-option multi-line response band fits without scrolling on
+    /// typical desktop HUDs, while staying below the legacy near-fullscreen tall panel.
+    /// Aspect-locked (~2.36:1): height 400 → width ≈ 942 at lock.
+    static let panelHeightCap: CGFloat = 400
     /// Prior tall-panel height cap (pre character-visibility compact pass).
     static let legacyPanelHeightCap: CGFloat = 560
     /// Older intermediate tall-panel bump.
@@ -42,8 +43,7 @@ struct DialoguePanelLayout: Equatable {
     static let originalPanelHeightCap: CGFloat = 360
 
     /// Fraction of visible height used for the fixed plaque.
-    static let panelHeightFraction: CGFloat =
-        previousCompactPanelHeightFraction * panelScaleIncrease
+    static let panelHeightFraction: CGFloat = 0.48
     /// Prior tall-panel fraction (pre character-visibility compact pass).
     static let legacyPanelHeightFraction: CGFloat = 0.62
     static let intermediatePanelHeightFraction: CGFloat = 0.52
@@ -116,8 +116,8 @@ struct DialoguePanelLayout: Equatable {
         /// legible while staying a step above the 15pt choice rows.
         static let bodyFontSize: CGFloat = 16
         static let speakerFontSize: CGFloat = 19
-        /// Slightly tighter than body copy so at least one complete multiline option
-        /// remains visible in the compact plaque while additional options scroll.
+        /// Slightly tighter than body copy so three multi-line options pack cleanly
+        /// into the fixed plaque’s response band on typical desktop HUDs.
         static let choiceFontSize: CGFloat = 15
         static let commandFontSize: CGFloat = 18
         static let caseTitleFontSize: CGFloat = 22
@@ -160,11 +160,12 @@ struct DialoguePanelLayout: Equatable {
     /// Keep choice text above the frame’s bottom-left / bottom-right ornaments.
     static let choiceBandBottomPadding: CGFloat = 16
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
-    /// Natural-height overflow scrolls inside this visible band.
-    static let choiceBandMaxViewportFraction: CGFloat = 0.64
-    /// Minimum height reserved for the prompt above a scrollable response list.
-    /// The body has its own crop, so compact plaques prioritize a complete option row.
-    static let minBodyViewportHeight: CGFloat = 80
+    /// Sized so a three-option multi-line band fits without scrolling when the plaque
+    /// reaches `panelHeightCap`; natural-height overflow still scrolls on tiny HUDs.
+    static let choiceBandMaxViewportFraction: CGFloat = 0.74
+    /// Minimum height reserved for the prompt above the response list.
+    /// The body has its own crop; kept modest so three choices can claim the well.
+    static let minBodyViewportHeight: CGFloat = 72
     /// Clear breathing room between Lila's body copy and its compact inline scrollbar.
     /// Palatino glyphs can overhang their measured advance slightly, so this includes
     /// enough safety space to remain visibly separate at large display scales.
@@ -257,7 +258,7 @@ struct DialoguePanelLayout: Equatable {
     }
 
     /// Content viewport height needed so `naturalBand` fits under `minBodyViewportHeight`
-    /// without the 0.74 fraction clipping the stack.
+    /// without the choice-band fraction clipping the stack.
     static func contentHeightNeeded(forNaturalChoicesBand naturalBand: CGFloat) -> CGFloat {
         guard naturalBand > 0 else { return minBodyViewportHeight }
         let byMinBody = naturalBand + minBodyViewportHeight
