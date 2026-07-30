@@ -88,6 +88,8 @@ final class AreaMapOverlay: SKNode {
         /// Preserve the layout-locked plate's 1847:1040 aspect so the cramped
         /// suite footprint is not stretched.
         static let mapSize = CGSize(width: 1_500, height: 845)
+        /// Shared vertical anchor for the map well, top strip, and legend.
+        static let mapWellCenterY: CGFloat = -12
     }
 
     private enum Palette {
@@ -276,112 +278,145 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func buildHeader() {
-        let barWidth = Metrics.mapSize.width + 40
-        let barHeight: CGFloat = 72
-        let barY: CGFloat = 300
+        // Baldur's Gate Classic area-map chrome: one thin framed strip over the
+        // map well — title left, stacked options center, World Map right.
+        let stripWidth = Metrics.mapSize.width - 48
+        let stripHeight: CGFloat = 78
+        let mapTopY = Metrics.mapWellCenterY + Metrics.mapSize.height / 2
+        let stripY = mapTopY - stripHeight / 2 - 12
 
-        if let texture = GameArt.texture(named: "map_chrome_top_bar_v03") {
-            texture.filteringMode = .linear
-            let bar = SKSpriteNode(texture: texture, size: CGSize(width: barWidth, height: barHeight))
-            bar.name = "map.top-bar"
-            bar.position = CGPoint(x: 0, y: barY)
-            bar.zPosition = 30
-            sheet.addChild(bar)
-        } else {
-            let band = SKShapeNode(
-                rectOf: CGSize(width: barWidth, height: barHeight),
-                cornerRadius: 2
-            )
-            band.fillColor = SKColor(white: 0.004, alpha: 0.92)
-            band.strokeColor = Palette.steel
-            band.lineWidth = 1.5
-            band.position = CGPoint(x: 0, y: barY)
-            band.zPosition = 30
-            sheet.addChild(band)
-        }
+        let panel = SKShapeNode(
+            rectOf: CGSize(width: stripWidth, height: stripHeight),
+            cornerRadius: 0
+        )
+        panel.fillColor = SKColor(white: 0.015, alpha: 0.94)
+        panel.strokeColor = SKColor(red: 0.70, green: 0.72, blue: 0.73, alpha: 0.82)
+        panel.lineWidth = 1.5
+        panel.name = "map.top-bar"
+        panel.position = CGPoint(x: 0, y: stripY)
+        panel.zPosition = 30
+        sheet.addChild(panel)
 
-        let title = Self.label(size: 22, color: Palette.paper, font: UITheme.Font.overlayTitle)
+        let inset = SKShapeNode(
+            rectOf: CGSize(width: stripWidth - 5, height: stripHeight - 5),
+            cornerRadius: 0
+        )
+        inset.fillColor = .clear
+        inset.strokeColor = SKColor(white: 0.42, alpha: 0.28)
+        inset.lineWidth = 1
+        inset.position = CGPoint(x: 0, y: stripY)
+        inset.zPosition = 30.5
+        sheet.addChild(inset)
+
+        let leftX = -stripWidth / 2 + 22
+        let titleBlockY = stripY + 6
+        let title = Self.label(size: 24, color: Palette.paper, font: UITheme.Font.overlayTitle)
         title.text = "Area Map"
         title.horizontalAlignmentMode = .left
-        title.position = CGPoint(x: -barWidth / 2 + 28, y: barY + 4)
+        title.verticalAlignmentMode = .center
+        title.position = CGPoint(x: leftX, y: titleBlockY)
         title.zPosition = 31
         sheet.addChild(title)
 
-        let notesBox = SKShapeNode(rectOf: CGSize(width: 14, height: 14), cornerRadius: 1)
-        notesBox.fillColor = .clear
-        notesBox.strokeColor = Palette.paper
-        notesBox.lineWidth = 1.5
-        notesBox.position = CGPoint(x: -40, y: barY + 4)
-        notesBox.zPosition = 31
-        sheet.addChild(notesBox)
+        let location = Self.label(size: 11, color: Palette.amber, font: UITheme.Font.overlayBodyBold)
+        location.text = configuration.locationName
+        location.horizontalAlignmentMode = .left
+        location.verticalAlignmentMode = .center
+        location.position = CGPoint(x: leftX, y: stripY - 16)
+        location.zPosition = 31
+        sheet.addChild(location)
 
-        let notesCheck = Self.label(size: 14, color: UITheme.Color.oxbloodHot, font: UITheme.Font.overlayBodyBold)
-        notesCheck.text = "✓"
-        notesCheck.position = CGPoint(x: -40, y: barY + 3)
-        notesCheck.zPosition = 32
-        sheet.addChild(notesCheck)
+        // Center column: stacked toggles (BG Classic hierarchy).
+        let optionX: CGFloat = -90
+        addMapOptionRow(
+            title: "Area Map Background",
+            checked: false,
+            position: CGPoint(x: optionX, y: stripY + 14)
+        )
+        addMapOptionRow(
+            title: "Map Notes",
+            checked: true,
+            position: CGPoint(x: optionX, y: stripY - 12)
+        )
 
-        let notesLabel = Self.label(size: 13, color: Palette.paper, font: UITheme.Font.overlayBody)
-        notesLabel.text = "Map Notes"
-        notesLabel.horizontalAlignmentMode = .left
-        notesLabel.position = CGPoint(x: -28, y: barY + 3)
-        notesLabel.zPosition = 31
-        sheet.addChild(notesLabel)
-
-        let bgBox = SKShapeNode(rectOf: CGSize(width: 14, height: 14), cornerRadius: 1)
-        bgBox.fillColor = .clear
-        bgBox.strokeColor = Palette.quiet
-        bgBox.lineWidth = 1.5
-        bgBox.position = CGPoint(x: -200, y: barY + 4)
-        bgBox.zPosition = 31
-        sheet.addChild(bgBox)
-
-        let bgLabel = Self.label(size: 13, color: Palette.quiet, font: UITheme.Font.overlayBody)
-        bgLabel.text = "Area Map Background"
-        bgLabel.horizontalAlignmentMode = .left
-        bgLabel.position = CGPoint(x: -188, y: barY + 3)
-        bgLabel.zPosition = 31
-        sheet.addChild(bgLabel)
-
-        let worldPlate = SKShapeNode(rectOf: CGSize(width: 148, height: 36), cornerRadius: 2)
-        worldPlate.fillColor = Palette.raised
-        worldPlate.strokeColor = Palette.steel
-        worldPlate.lineWidth = 1.5
-        worldPlate.position = CGPoint(x: barWidth / 2 - 100, y: barY + 2)
+        let buttonSize = CGSize(width: 158, height: 40)
+        let buttonX = stripWidth / 2 - 22 - buttonSize.width / 2
+        let worldPlate = SKShapeNode(rectOf: buttonSize, cornerRadius: 1)
+        worldPlate.fillColor = SKColor(red: 0.09, green: 0.095, blue: 0.10, alpha: 0.98)
+        worldPlate.strokeColor = SKColor(red: 0.62, green: 0.64, blue: 0.65, alpha: 0.92)
+        worldPlate.lineWidth = 1.25
+        worldPlate.position = CGPoint(x: buttonX, y: stripY)
         worldPlate.zPosition = 31
         sheet.addChild(worldPlate)
 
-        let worldLabel = Self.label(size: 13, color: Palette.paper, font: UITheme.Font.overlayCondensed)
+        let worldInset = SKShapeNode(
+            rectOf: CGSize(width: buttonSize.width - 5, height: buttonSize.height - 5),
+            cornerRadius: 0
+        )
+        worldInset.fillColor = .clear
+        worldInset.strokeColor = SKColor(white: 0.35, alpha: 0.45)
+        worldInset.lineWidth = 1
+        worldInset.position = CGPoint(x: buttonX, y: stripY)
+        worldInset.zPosition = 31.5
+        sheet.addChild(worldInset)
+
+        let worldLabel = Self.label(size: 14, color: Palette.paper, font: UITheme.Font.overlayCondensed)
         worldLabel.text = "WORLD MAP"
-        worldLabel.position = CGPoint(x: barWidth / 2 - 100, y: barY + 1)
+        worldLabel.verticalAlignmentMode = .center
+        worldLabel.position = CGPoint(x: buttonX, y: stripY)
         worldLabel.zPosition = 32
         sheet.addChild(worldLabel)
+    }
 
-        let location = Self.label(size: 12, color: Palette.amber, font: UITheme.Font.overlayBodyBold)
-        location.text = configuration.locationName
-        location.horizontalAlignmentMode = .left
-        location.position = CGPoint(x: -barWidth / 2 + 28, y: barY - 18)
-        location.zPosition = 31
-        sheet.addChild(location)
+    private func addMapOptionRow(title: String, checked: Bool, position: CGPoint) {
+        let box = SKShapeNode(rectOf: CGSize(width: 13, height: 13), cornerRadius: 1)
+        box.fillColor = .clear
+        box.strokeColor = checked ? Palette.paper : Palette.quiet
+        box.lineWidth = 1.4
+        box.position = position
+        box.zPosition = 31
+        sheet.addChild(box)
+
+        if checked {
+            let mark = Self.label(size: 13, color: UITheme.Color.oxbloodHot, font: UITheme.Font.overlayBodyBold)
+            mark.text = "✓"
+            mark.verticalAlignmentMode = .center
+            mark.position = position
+            mark.zPosition = 32
+            sheet.addChild(mark)
+        }
+
+        let caption = Self.label(
+            size: 13,
+            color: checked ? Palette.paper : Palette.quiet,
+            font: UITheme.Font.overlayBody
+        )
+        caption.text = title
+        caption.horizontalAlignmentMode = .left
+        caption.verticalAlignmentMode = .center
+        caption.position = CGPoint(x: position.x + 14, y: position.y)
+        caption.zPosition = 31
+        sheet.addChild(caption)
     }
 
     private func buildMapWell() {
+        let wellY = Metrics.mapWellCenterY
         let wellSize = CGSize(width: Metrics.mapSize.width + 22, height: Metrics.mapSize.height + 22)
         let well = SKShapeNode(rectOf: wellSize, cornerRadius: 5)
         well.fillColor = Palette.panel
         well.strokeColor = Palette.steel
         well.lineWidth = 2
-        well.position = CGPoint(x: 0, y: -12)
+        well.position = CGPoint(x: 0, y: wellY)
         sheet.addChild(well)
 
         let inner = SKShapeNode(rectOf: Metrics.mapSize, cornerRadius: 2)
         inner.fillColor = .black
         inner.strokeColor = SKColor(white: 0.06, alpha: 1)
         inner.lineWidth = 2
-        inner.position = CGPoint(x: 0, y: -12)
+        inner.position = CGPoint(x: 0, y: wellY)
         sheet.addChild(inner)
 
-        mapContent.position = CGPoint(x: 0, y: -12)
+        mapContent.position = CGPoint(x: 0, y: wellY)
         mapContent.zPosition = 2
         sheet.addChild(mapContent)
 
@@ -468,21 +503,28 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func buildLegend() {
+        let bandWidth = Metrics.mapSize.width - 48
+        let bandHeight: CGFloat = 40
+        let mapBottomY = Metrics.mapWellCenterY - Metrics.mapSize.height / 2
+        let bandY = mapBottomY + bandHeight / 2 + 14
+
         let band = SKShapeNode(
-            rectOf: CGSize(width: Metrics.mapSize.width - 36, height: 42),
-            cornerRadius: 3
+            rectOf: CGSize(width: bandWidth, height: bandHeight),
+            cornerRadius: 0
         )
-        band.fillColor = SKColor(white: 0.004, alpha: 0.76)
-        band.strokeColor = Palette.steel.withAlphaComponent(0.62)
+        band.fillColor = SKColor(white: 0.012, alpha: 0.88)
+        band.strokeColor = SKColor(red: 0.55, green: 0.57, blue: 0.58, alpha: 0.55)
         band.lineWidth = 1
-        band.position = CGPoint(x: 0, y: -300)
+        band.position = CGPoint(x: 0, y: bandY)
         band.zPosition = 30
         sheet.addChild(band)
 
-        let explored = Self.label(size: 13, color: Palette.quiet, font: "AvenirNext-DemiBold")
+        let leftX = -bandWidth / 2 + 24
+        let explored = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
         explored.text = "EXPLORED AREA"
         explored.horizontalAlignmentMode = .left
-        explored.position = CGPoint(x: -650, y: -305)
+        explored.verticalAlignmentMode = .center
+        explored.position = CGPoint(x: leftX, y: bandY)
         explored.zPosition = 31
         sheet.addChild(explored)
 
@@ -490,14 +532,15 @@ final class AreaMapOverlay: SKNode {
         currentDot.fillColor = .clear
         currentDot.strokeColor = Palette.party
         currentDot.lineWidth = 1.5
-        currentDot.position = CGPoint(x: -510, y: -300)
+        currentDot.position = CGPoint(x: leftX + 168, y: bandY)
         currentDot.zPosition = 31
         sheet.addChild(currentDot)
 
-        let current = Self.label(size: 13, color: Palette.quiet, font: "AvenirNext-DemiBold")
+        let current = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
         current.text = "CURRENT POSITION"
         current.horizontalAlignmentMode = .left
-        current.position = CGPoint(x: -495, y: -305)
+        current.verticalAlignmentMode = .center
+        current.position = CGPoint(x: leftX + 186, y: bandY)
         current.zPosition = 31
         sheet.addChild(current)
     }
@@ -510,7 +553,12 @@ final class AreaMapOverlay: SKNode {
             highlight: Palette.paper,
             accent: Palette.oxblood
         )
-        button.position = CGPoint(x: -781, y: 300)
+        // Sit just outside the top strip's left edge, aligned to its midline.
+        let stripWidth = Metrics.mapSize.width - 48
+        let stripHeight: CGFloat = 78
+        let mapTopY = Metrics.mapWellCenterY + Metrics.mapSize.height / 2
+        let stripY = mapTopY - stripHeight / 2 - 12
+        button.position = CGPoint(x: -stripWidth / 2 - 36, y: stripY)
         button.zPosition = 32
         sheet.addChild(button)
     }
