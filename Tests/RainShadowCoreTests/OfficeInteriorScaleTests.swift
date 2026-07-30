@@ -176,10 +176,14 @@ struct OfficeInteriorScaleTests {
             OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplayScale
         let artworkSize =
             OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplaySize
+        let transitionScale =
+            OfficeNavigationLayout.Architecture.entranceFallingTransitionScale
 
         #expect((0.88...0.95).contains(ratio))
         #expect(fallen < upright)
         #expect(abs(fallen / upright - 0.92) < 0.001)
+        #expect(transitionScale > upright)
+        #expect((0.16...0.18).contains(transitionScale))
         // 768×512 transparent canvas with a 575×477 opaque bbox produces a
         // substantial floor footprint without becoming another billboard.
         #expect((0.15...0.19).contains(artworkScale))

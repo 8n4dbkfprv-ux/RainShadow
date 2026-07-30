@@ -305,4 +305,21 @@ struct EmptyCoatCaseIntroductionTests {
         }
         #expect(presenter.contains("onNodeShown"))
     }
+
+    @Test func doorFallKeepsOneContinuousTrajectoryThroughImpact() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let sceneURL = root
+            .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
+        let scene = try String(contentsOf: sceneURL, encoding: .utf8)
+
+        #expect(scene.contains("makeGeneratedFallenDoorTransition"))
+        #expect(scene.contains(".move(to: fallenDoorRestPosition"))
+        #expect(scene.contains("makeDoorFallShadow(at: fallenDoorRestPosition)"))
+        #expect(scene.contains("entranceFallingTransitionScale"))
+        #expect(!scene.contains(".moveBy(x: -135 * environment, y: -70 * environment"))
+        #expect(scene.contains("Keep the old leaf visible beneath the transition art"))
+    }
 }

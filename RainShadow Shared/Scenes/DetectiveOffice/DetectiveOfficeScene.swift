@@ -366,6 +366,13 @@ final class DetectiveOfficeScene: BaseGameScene {
             caseIntroductionStarted = true
             if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] == "1" {
                 setDoorFallenForReview()
+            } else if ProcessInfo.processInfo.environment["RAINSHADOW_ANIMATE_DOOR_FALL"] == "1" {
+                // Let the review window finish appearing before the QA-only
+                // motion starts, so timed captures can sample the actual fall.
+                run(.sequence([
+                    .wait(forDuration: 0.75),
+                    .run { [weak self] in self?.animateDoorFalling() }
+                ]))
             }
             return
         }
@@ -1618,10 +1625,37 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoor.warpGeometry = nil
         officeDoor.position = fallenDoorRestPosition
         officeDoor.zRotation = 0
+        officeDoor.alpha = 1
         officeDoorThickness.alpha = 0
         officeDoorUsesFallenArtwork = true
         updateDepth(of: officeDoor, bias: 24)
         return true
+    }
+
+    /// A separate landed-state sprite lets the final two fall frames overlap
+    /// instead of changing one node's silhouette instantaneously at impact.
+    private func makeGeneratedFallenDoorTransition() -> SKSpriteNode? {
+        guard let texture = GameArt.texture(named: "office_door_leaf_fallen") else {
+            return nil
+        }
+
+        texture.filteringMode = .linear
+        let transition = SKSpriteNode(
+            texture: texture,
+            size: OfficeNavigationLayout.Architecture.entranceFallenArtworkDisplaySize
+        )
+        let environment = OfficeInteriorScale.environment
+        transition.name = "office_door_leaf_fallen_transition"
+        transition.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        transition.position = CGPoint(
+            x: fallenDoorRestPosition.x + 8 * environment,
+            y: fallenDoorRestPosition.y + 15 * environment
+        )
+        transition.setScale(0.88)
+        transition.alpha = 0
+        depthWorldRoot.addChild(transition)
+        updateDepth(of: transition, bias: 25)
+        return transition
     }
 
     /// Reconstruct the old warped front elevation just before the reverse
@@ -1636,8 +1670,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         let fallenScale =
-            OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-            * OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
+            OfficeNavigationLayout.Architecture.entranceFallingTransitionScale
         officeDoor.texture = uprightTexture
         officeDoor.size = uprightTexture.size()
         officeDoorUsesFallenArtwork = false
@@ -1704,10 +1737,15 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         officeDoor.removeAction(forKey: "officeDoorMotion")
         officeDoorThickness.removeAction(forKey: "officeDoorThicknessMotion")
+        officeDoor.alpha = 1
+        officeDoorUsesFallenArtwork = false
         let environment = OfficeInteriorScale.environment
         let fallenScale =
-            OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-            * OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
+            OfficeNavigationLayout.Architecture.entranceFallingTransitionScale
+        let fallDuration: TimeInterval = 0.68
+        let preImpactDuration: TimeInterval = 0.50
+        let crossfadeDuration: TimeInterval = 0.16
+        let wait = SKAction.wait(forDuration: 0.10)
 
         officeDoor.warpGeometry = uprightDoorWarp
         officeDoorThickness.warpGeometry = uprightDoorWarp
@@ -1719,32 +1757,37 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoorThickness.zPosition = officeDoor.zPosition - 2
 
         officeDoorFallShadow?.removeFromParent()
-        let shadow = makeDoorFallShadow(at: officeDoor.position)
+        let shadow = makeDoorFallShadow(at: fallenDoorRestPosition)
+        shadow.xScale = 0.62
+        shadow.yScale = 0.72
         officeDoorFallShadow = shadow
+        let landedTransition = makeGeneratedFallenDoorTransition()
 
         let warpFall = SKAction.animate(
             withWarps: [uprightDoorWarp, tippingDoorWarp, floorDoorWarp],
-            times: [0.0, 0.17, 0.38]
-        ) ?? .wait(forDuration: 0.38)
+            times: [0.0, 0.26, 0.68]
+        ) ?? .wait(forDuration: fallDuration)
         let fall = SKAction.group([
             warpFall,
-            .rotate(toAngle: -0.10, duration: 0.38, shortestUnitArc: false),
-            .moveBy(x: -135 * environment, y: -70 * environment, duration: 0.38),
-            .scale(to: fallenScale, duration: 0.38)
+            // The leaf is anchored near its threshold edge. A modest clockwise
+            // turn makes the camera-near top sweep diagonally across the floor
+            // instead of only collapsing vertically like a shrinking card.
+            .rotate(toAngle: -0.34, duration: fallDuration, shortestUnitArc: false),
+            .move(to: fallenDoorRestPosition, duration: fallDuration),
+            .scale(to: fallenScale, duration: fallDuration)
         ])
         fall.timingMode = .easeIn
         let settle = SKAction.group([
-            .moveBy(x: -4 * environment, y: 2 * environment, duration: 0.10),
-            .rotate(byAngle: 0.018, duration: 0.10)
+            .moveBy(x: -3 * environment, y: 1.5 * environment, duration: 0.08),
+            .rotate(byAngle: 0.012, duration: 0.08)
         ])
         settle.timingMode = .easeOut
         let rest = SKAction.group([
-            .moveBy(x: 4 * environment, y: -2 * environment, duration: 0.08),
+            .moveBy(x: 3 * environment, y: -1.5 * environment, duration: 0.07),
             // The generated landed texture already owns the exact floor angle.
-            .rotate(toAngle: 0, duration: 0.08, shortestUnitArc: false)
+            .rotate(toAngle: 0, duration: 0.07, shortestUnitArc: false)
         ])
         rest.timingMode = .easeIn
-        let wait = SKAction.wait(forDuration: 0.16)
         let landedArtwork = SKAction.run { [weak self, weak officeDoor, weak officeDoorThickness] in
             guard
                 let self,
@@ -1755,9 +1798,13 @@ final class DetectiveOfficeScene: BaseGameScene {
                 officeDoor,
                 thickness: officeDoorThickness
             )
+            landedTransition?.removeFromParent()
         }
         let motion = SKAction.sequence([
             wait,
+            // Keep the old leaf visible beneath the transition art through
+            // impact. This overlap behaves like motion blur and guarantees
+            // there can never be a one-frame disappearance between textures.
             fall,
             landedArtwork,
             settle,
@@ -1767,16 +1814,33 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoorThickness.run(
             .sequence([
                 wait,
-                fall,
-                .fadeOut(withDuration: 0.06)
+                .group([
+                    fall,
+                    .sequence([
+                        .fadeAlpha(to: 0.92, duration: 0.20),
+                        .wait(forDuration: 0.30),
+                        .fadeOut(withDuration: 0.14)
+                    ])
+                ])
             ]),
             withKey: "officeDoorThicknessMotion"
         )
+        landedTransition?.run(.sequence([
+            wait,
+            .wait(forDuration: preImpactDuration),
+            .group([
+                .fadeIn(withDuration: crossfadeDuration),
+                .scale(to: 1, duration: crossfadeDuration),
+                .move(to: fallenDoorRestPosition, duration: crossfadeDuration)
+            ])
+        ]))
         shadow.run(.sequence([
             wait,
+            .wait(forDuration: preImpactDuration - 0.10),
             .group([
-                .fadeAlpha(to: 0.42, duration: 0.30),
-                .scaleX(to: 1.08, duration: 0.38)
+                .fadeAlpha(to: 0.44, duration: crossfadeDuration + 0.08),
+                .scaleX(to: 1.12, duration: crossfadeDuration + 0.08),
+                .scaleY(to: 1.0, duration: crossfadeDuration + 0.08)
             ])
         ]))
     }

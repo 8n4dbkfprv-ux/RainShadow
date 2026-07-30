@@ -29,7 +29,8 @@ Avoid: billboard, advertising board, shop sign, poster, picture frame, freestand
 
 - The existing upright leaf and projective fall animation remain unchanged
   until impact.
-- At landing, SpriteKit swaps to this purpose-built floor-perspective texture
-  and hides the old generic edge extrusion.
+- During the final 0.16 seconds of impact, SpriteKit overlaps this purpose-built
+  floor-perspective texture with the tipping upright leaf, then hides the old
+  generic edge extrusion. The two states share one landing point.
 - The generated artwork owns the visible stiles, rails, recessed panel, knob,
   bottom/latch thickness, and damaged hinge edge.

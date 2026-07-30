@@ -55,6 +55,10 @@ enum OfficeNavigationLayout {
         static let entranceFrameAnchorY: CGFloat = 0.11529
         /// Floor-projected presentation used after the leaf breaks free.
         static let entranceFallenLeafScaleRatio: CGFloat = 0.92
+        /// The upright art grows slightly as its top swings toward the camera.
+        /// This is only the transition silhouette; the landed art has an
+        /// explicit world-space size below.
+        static let entranceFallingTransitionScale: CGFloat = 0.17
         /// Purpose-built 768×512 landed-state art. The transparent source
         /// canvas stays centered so this scale yields a ~98×81 point door body.
         static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)
