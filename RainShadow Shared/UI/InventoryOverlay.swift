@@ -25,14 +25,64 @@ struct InventoryItem: Identifiable, Equatable {
 
 @MainActor
 final class InventoryOverlay: SKNode {
+    /// Layout contract for the 1960×1080 canvas, tuned to BG EE Classic hierarchy
+    /// and sampled wells from `inventory_outer_frame_overlay_v03`.
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
-        static let contentScale: CGFloat = 0.9
-        static let primaryPanelY: CGFloat = 66
-        static let lowerPanelY: CGFloat = -382
-        static let lowerSlotSize: CGFloat = 78
-        static let lowerFirstRowY: CGFloat = 23
-        static let lowerRowSpacing: CGFloat = 88
+
+        static let titleY: CGFloat = 490
+        static let headerRailY: CGFloat = 505
+        static let identityBand = CGPoint(x: -40, y: 432)
+        static let identitySize = CGSize(width: 1_520, height: 52)
+        static let closeButton = CGPoint(x: -910, y: 505)
+
+        static let primaryY: CGFloat = 95
+
+        static let loadoutOrigin = CGPoint(x: -720, y: primaryY)
+        static let loadoutSize = CGSize(width: 420, height: 520)
+        static let loadoutSlotSize: CGFloat = 88
+        static let loadoutSlotPitch: CGFloat = 98
+        static let loadoutHeaderWidth: CGFloat = 400
+
+        static let paperdollOrigin = CGPoint(x: -40, y: primaryY)
+        static let paperdollSize = CGSize(width: 620, height: 520)
+        static let chamberSize = CGSize(width: 280, height: 400)
+        static let chamberOffset = CGPoint(x: 0, y: 10)
+        static let equipSlotSize = CGSize(width: 72, height: 68)
+
+        static let statsOrigin = CGPoint(x: 520, y: primaryY)
+        static let statsSize = CGSize(width: 500, height: 520)
+        static let statRowPitch: CGFloat = 118
+        static let statRowTopY: CGFloat = 175
+        static let statBadgeRadius: CGFloat = 38
+        static let statTextWidth: CGFloat = 340
+
+        static let midStripY: CGFloat = -210
+        static let midDescSize = CGSize(width: 980, height: 72)
+        static let midDescOrigin = CGPoint(x: -40, y: midStripY)
+        static let midPausedOrigin = CGPoint(x: -720, y: midStripY + 8)
+        static let midCoinsOrigin = CGPoint(x: 720, y: midStripY)
+
+        static let lowerY: CGFloat = -400
+        static let bagOrigin = CGPoint(x: -280, y: lowerY)
+        static let bagSize = CGSize(width: 1_100, height: 210)
+        static let bagColumns = 8
+        static let bagRows = 2
+        static let bagSlotCount = bagColumns * bagRows
+        static let bagSlotSize: CGFloat = 78
+        static let bagSlotPitchX: CGFloat = 92
+        static let bagSlotPitchY: CGFloat = 90
+        static let bagFirstSlotX: CGFloat = -280
+        static let bagFirstRowY: CGFloat = 18
+        static let bagArtOffset = CGPoint(x: -470, y: -10)
+
+        static let nearbyOrigin = CGPoint(x: 620, y: lowerY)
+        static let nearbySize = CGSize(width: 520, height: 210)
+        static let nearbySlotCount = 6
+        static let nearbySlotSize: CGFloat = 72
+        static let nearbySlotPitch: CGFloat = 82
+        static let nearbyFirstSlotX: CGFloat = -140
+        static let nearbySlotY: CGFloat = -10
     }
 
     private enum Palette {
@@ -114,11 +164,10 @@ final class InventoryOverlay: SKNode {
 
     private var slotFrames: [String: [SKShapeNode]] = [:]
     private var selectedItemID = "case-notes"
-    private let itemNameLabel = InventoryOverlay.label(size: 25, color: Palette.paper, weight: .demibold)
-    private let itemCategoryLabel = InventoryOverlay.label(size: 14, color: Palette.amber, weight: .demibold)
-    private let itemDescriptionLabel = InventoryOverlay.label(size: 18, color: Palette.paper, weight: .regular)
-    private let itemNoteLabel = InventoryOverlay.label(size: 15, color: Palette.quiet, weight: .regular)
-    private let caseStatusLabel = InventoryOverlay.label(size: 16, color: Palette.quiet, weight: .regular)
+    private let itemNameLabel = InventoryOverlay.label(size: 20, color: Palette.paper, weight: .demibold)
+    private let itemCategoryLabel = InventoryOverlay.label(size: 13, color: Palette.amber, weight: .demibold)
+    private let itemDescriptionLabel = InventoryOverlay.label(size: 15, color: Palette.paper, weight: .regular)
+    private let itemNoteLabel = InventoryOverlay.label(size: 13, color: Palette.quiet, weight: .regular)
     private let sheet = SKNode()
     private let content = SKNode()
 
@@ -205,32 +254,30 @@ final class InventoryOverlay: SKNode {
             assertionFailure("Missing inventory_outer_frame_overlay_v03.png")
         }
 
-        content.setScale(Metrics.contentScale)
         sheet.addChild(content)
 
-        let title = Self.label(size: 39, color: Palette.paper, weight: .display)
+        let title = Self.label(size: 36, color: Palette.paper, weight: .display)
         title.text = "INVENTORY"
-        title.position = CGPoint(x: 0, y: 474)
+        title.position = CGPoint(x: 0, y: Metrics.titleY)
         content.addChild(title)
 
-        addHeaderRail(from: -900, to: -170, y: 487)
-        addHeaderRail(from: 170, to: 900, y: 487)
+        addHeaderRail(from: -920, to: -160, y: Metrics.headerRailY)
+        addHeaderRail(from: 160, to: 920, y: Metrics.headerRailY)
 
-        let identityBandSize = CGSize(width: 1_300, height: 58)
-        let identityBand = panel(size: identityBandSize, radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
-        identityBand.position = CGPoint(x: -235, y: 415)
-        let identityColumnCenterX = identityBandSize.width / 4
-        let detectiveName = Self.label(size: 23, color: Palette.paper, weight: .demibold)
+        let identityBand = panel(size: Metrics.identitySize, radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
+        identityBand.position = Metrics.identityBand
+        let identityColumnCenterX = Metrics.identitySize.width / 4
+        let detectiveName = Self.label(size: 22, color: Palette.paper, weight: .demibold)
         detectiveName.text = "HARLAN VOSS"
         detectiveName.verticalAlignmentMode = .center
         detectiveName.position = CGPoint(x: -identityColumnCenterX, y: 1)
         identityBand.addChild(detectiveName)
-        let profession = Self.label(size: 21, color: Palette.paper, weight: .demibold)
+        let profession = Self.label(size: 20, color: Palette.paper, weight: .demibold)
         profession.text = "PRIVATE INVESTIGATOR"
         profession.verticalAlignmentMode = .center
         profession.position = CGPoint(x: identityColumnCenterX, y: 1)
         identityBand.addChild(profession)
-        let identityDivider = SKShapeNode(rectOf: CGSize(width: 1, height: 42))
+        let identityDivider = SKShapeNode(rectOf: CGSize(width: 1, height: 36))
         identityDivider.fillColor = Palette.line
         identityDivider.strokeColor = .clear
         identityBand.addChild(identityDivider)
@@ -239,7 +286,8 @@ final class InventoryOverlay: SKNode {
         buildCloseButton()
         buildLoadoutPanel()
         buildPaperdollPanel()
-        buildCasePanel()
+        buildStatsPanel()
+        buildMidStrip()
         buildBagPanel()
         addChild(sheet)
     }
@@ -269,186 +317,199 @@ final class InventoryOverlay: SKNode {
             highlight: Palette.paleLine,
             accent: Palette.blood
         )
-        button.position = CGPoint(x: -873, y: 487)
+        button.position = Metrics.closeButton
         content.addChild(button)
     }
 
     private func buildLoadoutPanel() {
         let root = SKNode()
-        root.position = CGPoint(x: -665, y: Metrics.primaryPanelY)
-        root.addChild(majorPanel(size: CGSize(width: 470, height: 620)))
+        root.position = Metrics.loadoutOrigin
+        root.addChild(majorPanel(size: Metrics.loadoutSize))
 
-        addSlotSection("READY WEAPONS", items: [item(id: "service-revolver"), nil, nil], to: root, headerY: 258, slotY: 174)
-        addSlotSection("QUICK ITEMS", items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")], to: root, headerY: 78, slotY: -6)
-        addSlotSection("COAT POCKETS", items: [item(id: "brass-key"), nil, item(id: "wallet")], to: root, headerY: -102, slotY: -186)
-
-        let paused = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
-        paused.text = "CASEWORK PAUSED"
-        paused.horizontalAlignmentMode = .left
-        paused.position = CGPoint(x: -205, y: -280)
-        root.addChild(paused)
+        addSlotSection(
+            "READY WEAPONS",
+            items: [item(id: "service-revolver"), nil, nil, nil],
+            to: root,
+            headerY: 210,
+            slotY: 130
+        )
+        addSlotSection(
+            "QUICK ITEMS",
+            items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")],
+            to: root,
+            headerY: 40,
+            slotY: -40
+        )
+        addSlotSection(
+            "COAT POCKETS",
+            items: [item(id: "brass-key"), nil, item(id: "wallet")],
+            to: root,
+            headerY: -130,
+            slotY: -210
+        )
 
         content.addChild(root)
     }
 
     private func buildPaperdollPanel() {
         let root = SKNode()
-        root.position = CGPoint(x: -50, y: Metrics.primaryPanelY)
-        root.addChild(majorPanel(size: CGSize(width: 730, height: 620)))
+        root.position = Metrics.paperdollOrigin
+        root.addChild(majorPanel(size: Metrics.paperdollSize))
 
-        let chamber = panel(size: CGSize(width: 390, height: 390), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
-        chamber.position = CGPoint(x: 50, y: -15)
+        let chamber = panel(
+            size: Metrics.chamberSize,
+            radius: 3,
+            fill: Palette.ink,
+            stroke: Palette.line,
+            lineWidth: 2
+        )
+        chamber.position = Metrics.chamberOffset
         root.addChild(chamber)
 
-        let glow = SKShapeNode(ellipseOf: CGSize(width: 270, height: 350))
-        glow.fillColor = SKColor(red: 0.48, green: 0.44, blue: 0.33, alpha: 0.065)
-        glow.strokeColor = SKColor(red: 0.52, green: 0.5, blue: 0.42, alpha: 0.12)
-        glow.lineWidth = 2
-        chamber.addChild(glow)
-
-        let floorLight = SKShapeNode(ellipseOf: CGSize(width: 250, height: 42))
+        let floorLight = SKShapeNode(ellipseOf: CGSize(width: 200, height: 36))
         floorLight.fillColor = SKColor(white: 0.66, alpha: 0.1)
         floorLight.strokeColor = .clear
-        floorLight.position = CGPoint(x: 0, y: -145)
+        floorLight.position = CGPoint(x: 0, y: -155)
         chamber.addChild(floorLight)
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
             detectiveTexture.filteringMode = .linear
-            let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 246, height: 369))
+            let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 210, height: 315))
             paperdoll.name = "inventory.paperdoll"
-            paperdoll.position = CGPoint(x: 0, y: -8)
+            paperdoll.position = CGPoint(x: 0, y: -6)
             chamber.addChild(paperdoll)
         } else {
             assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
+        // Classic density: top row, side rings, bottom row.
         let equipment: [(String, String, CGPoint)] = [
-            ("inventory_slot_silhouette_hat_v03", "FEDORA", CGPoint(x: -238, y: 244)),
-            ("inventory_slot_silhouette_hands_v03", "GLOVES", CGPoint(x: -119, y: 244)),
-            ("inventory_slot_silhouette_coat_v03", "COAT", CGPoint(x: 0, y: 244)),
-            ("inventory_slot_silhouette_weapon_v03", "HOLSTER", CGPoint(x: 119, y: 244)),
-            ("inventory_slot_silhouette_item_v03", "CHARM", CGPoint(x: 238, y: 244)),
-            ("inventory_slot_silhouette_item_v03", "EYES", CGPoint(x: -285, y: 73)),
-            ("inventory_slot_silhouette_hands_v03", "HANDS", CGPoint(x: -285, y: -74)),
-            ("inventory_slot_silhouette_weapon_v03", "WEAPON", CGPoint(x: 285, y: 73)),
-            ("inventory_slot_silhouette_item_v03", "POCKET", CGPoint(x: 285, y: -74)),
-            ("inventory_slot_silhouette_feet_v03", "SHOES", CGPoint(x: -176, y: -244)),
-            ("inventory_slot_silhouette_feet_v03", "STANCE", CGPoint(x: -58, y: -244)),
-            ("inventory_slot_silhouette_ring_v03", "LUCK", CGPoint(x: 60, y: -244))
+            ("inventory_slot_silhouette_hat_v03", "FEDORA", CGPoint(x: -168, y: 220)),
+            ("inventory_slot_silhouette_hands_v03", "GLOVES", CGPoint(x: -84, y: 220)),
+            ("inventory_slot_silhouette_coat_v03", "COAT", CGPoint(x: 0, y: 220)),
+            ("inventory_slot_silhouette_weapon_v03", "HOLSTER", CGPoint(x: 84, y: 220)),
+            ("inventory_slot_silhouette_item_v03", "CHARM", CGPoint(x: 168, y: 220)),
+            ("inventory_slot_silhouette_hands_v03", "HANDS", CGPoint(x: -210, y: 20)),
+            ("inventory_slot_silhouette_ring_v03", "LUCK", CGPoint(x: 210, y: 20)),
+            ("inventory_slot_silhouette_feet_v03", "SHOES", CGPoint(x: -84, y: -220)),
+            ("inventory_slot_silhouette_coat_v03", "STANCE", CGPoint(x: 0, y: -220)),
+            ("inventory_slot_silhouette_weapon_v03", "WEAPON", CGPoint(x: 84, y: -220))
         ]
         for equipmentItem in equipment {
             root.addChild(equipmentSlot(artName: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
         }
-        root.addChild(coinDisplay(at: CGPoint(x: 245, y: -244)))
 
         content.addChild(root)
     }
 
-    private func buildCasePanel() {
-        let rail = SKNode()
-        rail.position = CGPoint(x: 390, y: Metrics.primaryPanelY)
-        rail.addChild(majorPanel(size: CGSize(width: 140, height: 620)))
-        rail.addChild(statBadge(title: "DEFENCE", value: "8", subtitle: "COAT", at: CGPoint(x: 0, y: 220)))
-        rail.addChild(statBadge(title: "VITALITY", value: "8/10", subtitle: "STEADY", at: CGPoint(x: 0, y: 74)))
-        rail.addChild(statBadge(title: "FOCUS", value: "6", subtitle: "RESOLVE", at: CGPoint(x: 0, y: -72)))
-        rail.addChild(statBadge(title: "DAMAGE", value: "2–7", subtitle: "WEBLEY", at: CGPoint(x: 0, y: -218)))
-        content.addChild(rail)
-
+    private func buildStatsPanel() {
         let root = SKNode()
-        root.position = CGPoint(x: 690, y: Metrics.primaryPanelY)
-        root.addChild(majorPanel(size: CGSize(width: 450, height: 620)))
+        root.position = Metrics.statsOrigin
+        root.addChild(majorPanel(size: Metrics.statsSize))
 
-        let condition = detailBox(title: "CASE CONDITION", size: CGSize(width: 410, height: 166), at: CGPoint(x: 0, y: 212))
-        addMeter(to: condition, title: "VITALITY", value: "8 / 10", fraction: 0.8, y: 24, width: 350, color: Palette.blood)
-        addMeter(to: condition, title: "COMPOSURE", value: "6 / 8", fraction: 0.75, y: -42, width: 350, color: SKColor(red: 0.30, green: 0.43, blue: 0.51, alpha: 1))
-        root.addChild(condition)
+        let rows: [(String, String, [String])] = [
+            ("8", "DEFENCE", ["Defence: 8", "Coat & leather turn glancing blows."]),
+            ("8/10", "VITALITY", ["Vitality: 8 / 10", "Steady under night pressure."]),
+            ("6", "RESOLVE", ["Resolve: 6", "Keeps the case moving forward."]),
+            ("2–7", "DAMAGE", ["Damage: 2–7", "Webley · service load."])
+        ]
+        for (index, row) in rows.enumerated() {
+            let y = Metrics.statRowTopY - CGFloat(index) * Metrics.statRowPitch
+            root.addChild(statRow(value: row.0, caption: row.1, lines: row.2, at: CGPoint(x: 0, y: y)))
+        }
 
-        let traits = detailBox(title: "FIELD ABILITIES", size: CGSize(width: 410, height: 154), at: CGPoint(x: 0, y: 37))
-        addTrait("OBSERVATION", value: "7", to: traits, at: CGPoint(x: -174, y: 24))
-        addTrait("RESOLVE", value: "6", to: traits, at: CGPoint(x: 16, y: 24))
-        addTrait("INSTINCT", value: "8", to: traits, at: CGPoint(x: -174, y: -28))
-        addTrait("PERSUASION", value: "5", to: traits, at: CGPoint(x: 16, y: -28))
-        root.addChild(traits)
-
-        let detail = detailBox(title: "SELECTED ITEM", size: CGSize(width: 410, height: 246), at: CGPoint(x: 0, y: -185))
-        itemCategoryLabel.horizontalAlignmentMode = .left
-        itemCategoryLabel.position = CGPoint(x: -180, y: 69)
-        detail.addChild(itemCategoryLabel)
-        itemNameLabel.fontSize = 23
-        itemNameLabel.horizontalAlignmentMode = .left
-        itemNameLabel.position = CGPoint(x: -180, y: 37)
-        detail.addChild(itemNameLabel)
-        itemDescriptionLabel.fontSize = 17
-        itemDescriptionLabel.horizontalAlignmentMode = .left
-        itemDescriptionLabel.verticalAlignmentMode = .top
-        itemDescriptionLabel.preferredMaxLayoutWidth = 360
-        itemDescriptionLabel.numberOfLines = 3
-        itemDescriptionLabel.position = CGPoint(x: -180, y: 10)
-        detail.addChild(itemDescriptionLabel)
-        itemNoteLabel.fontSize = 14
-        itemNoteLabel.horizontalAlignmentMode = .left
-        itemNoteLabel.position = CGPoint(x: -180, y: -91)
-        detail.addChild(itemNoteLabel)
-        root.addChild(detail)
         content.addChild(root)
+    }
+
+    private func buildMidStrip() {
+        let paused = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
+        paused.text = "CASEWORK PAUSED"
+        paused.horizontalAlignmentMode = .left
+        paused.position = Metrics.midPausedOrigin
+        content.addChild(paused)
+
+        let desc = panel(size: Metrics.midDescSize, radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+        desc.position = Metrics.midDescOrigin
+        itemCategoryLabel.horizontalAlignmentMode = .left
+        itemCategoryLabel.verticalAlignmentMode = .center
+        itemCategoryLabel.position = CGPoint(x: -Metrics.midDescSize.width / 2 + 18, y: 18)
+        desc.addChild(itemCategoryLabel)
+        itemNameLabel.horizontalAlignmentMode = .left
+        itemNameLabel.verticalAlignmentMode = .center
+        itemNameLabel.position = CGPoint(x: -Metrics.midDescSize.width / 2 + 160, y: 18)
+        desc.addChild(itemNameLabel)
+        itemDescriptionLabel.horizontalAlignmentMode = .left
+        itemDescriptionLabel.verticalAlignmentMode = .center
+        itemDescriptionLabel.preferredMaxLayoutWidth = Metrics.midDescSize.width - 36
+        itemDescriptionLabel.numberOfLines = 1
+        itemDescriptionLabel.position = CGPoint(x: -Metrics.midDescSize.width / 2 + 18, y: -4)
+        desc.addChild(itemDescriptionLabel)
+        itemNoteLabel.horizontalAlignmentMode = .left
+        itemNoteLabel.verticalAlignmentMode = .center
+        itemNoteLabel.position = CGPoint(x: -Metrics.midDescSize.width / 2 + 18, y: -24)
+        desc.addChild(itemNoteLabel)
+        content.addChild(desc)
+
+        content.addChild(coinDisplay(at: Metrics.midCoinsOrigin))
     }
 
     private func buildBagPanel() {
         let bag = SKNode()
-        bag.position = CGPoint(x: -270, y: Metrics.lowerPanelY)
-        bag.addChild(majorPanel(size: CGSize(width: 1_260, height: 230)))
-        addGridHeader("CASE BAG", counter: "\(items.count) / 18", to: bag, width: 1_210)
+        bag.position = Metrics.bagOrigin
+        bag.addChild(majorPanel(size: Metrics.bagSize))
+        addGridHeader("CASE BAG", counter: "\(items.count) / \(Metrics.bagSlotCount)", to: bag, width: Metrics.bagSize.width - 40)
 
         if let bagTexture = GameArt.texture(named: "inventory_case_bag_v01") {
             bagTexture.filteringMode = .linear
-            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 150, height: 150))
-            bagArt.position = CGPoint(x: -548, y: -21)
+            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 120, height: 120))
+            bagArt.position = Metrics.bagArtOffset
             bag.addChild(bagArt)
         }
-        let carriedWeight = Self.label(size: 14, color: Palette.amber, weight: .demibold)
+        let carriedWeight = Self.label(size: 13, color: Palette.amber, weight: .demibold)
         carriedWeight.text = "14 lb"
-        carriedWeight.position = CGPoint(x: -548, y: 52)
+        carriedWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 72)
         bag.addChild(carriedWeight)
-        let maximumWeight = Self.label(size: 13, color: Palette.quiet, weight: .demibold)
+        let maximumWeight = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
         maximumWeight.text = "70 lb MAX"
-        maximumWeight.position = CGPoint(x: -548, y: -104)
+        maximumWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 72)
         bag.addChild(maximumWeight)
 
-        let bagSlotCount = 18
         let bagItems: [InventoryItem?] = items.map(Optional.some)
-            + Array(repeating: nil, count: max(0, bagSlotCount - items.count))
-        for index in 0..<bagSlotCount {
-            let column = index % 9
-            let row = index / 9
+            + Array(repeating: nil, count: max(0, Metrics.bagSlotCount - items.count))
+        for index in 0..<Metrics.bagSlotCount {
+            let column = index % Metrics.bagColumns
+            let row = index / Metrics.bagColumns
             let position = CGPoint(
-                x: -400 + CGFloat(column) * 112,
-                y: Metrics.lowerFirstRowY - CGFloat(row) * Metrics.lowerRowSpacing
+                x: Metrics.bagFirstSlotX + CGFloat(column) * Metrics.bagSlotPitchX,
+                y: Metrics.bagFirstRowY - CGFloat(row) * Metrics.bagSlotPitchY
             )
             if let item = bagItems[index] {
-                bag.addChild(itemSlot(
-                    item,
-                    size: Metrics.lowerSlotSize,
-                    at: position,
-                    showQuantity: true
-                ))
+                bag.addChild(itemSlot(item, size: Metrics.bagSlotSize, at: position, showQuantity: true))
             } else {
-                bag.addChild(emptySlot(size: Metrics.lowerSlotSize, at: position))
+                bag.addChild(emptySlot(size: Metrics.bagSlotSize, at: position))
             }
         }
         content.addChild(bag)
 
         let ground = SKNode()
-        ground.position = CGPoint(x: 650, y: Metrics.lowerPanelY)
-        ground.addChild(majorPanel(size: CGSize(width: 500, height: 230)))
-        addGridHeader("NEARBY", counter: "0 / 8", to: ground, width: 450)
-        for index in 0..<8 {
-            let column = index % 4
-            let row = index / 4
+        ground.position = Metrics.nearbyOrigin
+        ground.addChild(majorPanel(size: Metrics.nearbySize))
+        addGridHeader("NEARBY", counter: "0 / \(Metrics.nearbySlotCount)", to: ground, width: Metrics.nearbySize.width - 40)
+
+        let pageLabel = Self.label(size: 13, color: Palette.quiet, weight: .demibold)
+        pageLabel.text = "1 / 1"
+        pageLabel.position = CGPoint(x: 0, y: 52)
+        ground.addChild(pageLabel)
+
+        ground.addChild(pageArrow(direction: -1, at: CGPoint(x: -210, y: Metrics.nearbySlotY)))
+        ground.addChild(pageArrow(direction: 1, at: CGPoint(x: 210, y: Metrics.nearbySlotY)))
+
+        for index in 0..<Metrics.nearbySlotCount {
             ground.addChild(emptySlot(
-                size: Metrics.lowerSlotSize,
+                size: Metrics.nearbySlotSize,
                 at: CGPoint(
-                    x: -171 + CGFloat(column) * 114,
-                    y: Metrics.lowerFirstRowY - CGFloat(row) * Metrics.lowerRowSpacing
+                    x: Metrics.nearbyFirstSlotX + CGFloat(index) * Metrics.nearbySlotPitch,
+                    y: Metrics.nearbySlotY
                 )
             ))
         }
@@ -470,9 +531,9 @@ final class InventoryOverlay: SKNode {
         }
 
         if showQuantity, item.quantity > 1 {
-            let countPlate = panel(size: CGSize(width: 30, height: 24), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
-            countPlate.position = CGPoint(x: size / 2 - 17, y: -size / 2 + 14)
-            let count = Self.label(size: 13, color: Palette.paper, weight: .demibold)
+            let countPlate = panel(size: CGSize(width: 28, height: 22), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+            countPlate.position = CGPoint(x: size / 2 - 15, y: -size / 2 + 13)
+            let count = Self.label(size: 12, color: Palette.paper, weight: .demibold)
             count.text = "\(item.quantity)"
             count.verticalAlignmentMode = .center
             countPlate.addChild(count)
@@ -497,17 +558,17 @@ final class InventoryOverlay: SKNode {
     private func equipmentSlot(artName: String, caption: String, at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
-        let slot = slotBase(size: CGSize(width: 88, height: 82))
+        let slot = slotBase(size: Metrics.equipSlotSize)
         if let texture = UIPaintedChrome.texture(named: artName) {
-            let icon = SKSpriteNode(texture: texture, size: CGSize(width: 64, height: 58))
+            let icon = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 48))
             icon.alpha = 0.78
             slot.addChild(icon)
         }
         root.addChild(slot)
 
-        let label = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
+        let label = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
         label.text = caption
-        label.position.y = -58
+        label.position.y = -48
         root.addChild(label)
         return root
     }
@@ -547,59 +608,95 @@ final class InventoryOverlay: SKNode {
 
         if let texture = GameArt.texture(named: "inventory_coin_stack_v01") {
             texture.filteringMode = .linear
-            let coins = SKSpriteNode(texture: texture, size: CGSize(width: 112, height: 82))
-            coins.position.y = 20
+            let coins = SKSpriteNode(texture: texture, size: CGSize(width: 88, height: 64))
+            coins.position = CGPoint(x: -55, y: 4)
             root.addChild(coins)
         }
 
-        let valuePlate = panel(size: CGSize(width: 150, height: 34), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
-        valuePlate.position.y = -43
-        let value = Self.label(size: 17, color: Palette.paper, weight: .demibold)
+        let valuePlate = panel(size: CGSize(width: 110, height: 32), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+        valuePlate.position = CGPoint(x: 45, y: 0)
+        let value = Self.label(size: 16, color: Palette.paper, weight: .demibold)
         value.text = "£7  4s"
         value.verticalAlignmentMode = .center
         value.position.y = 1
         valuePlate.addChild(value)
         root.addChild(valuePlate)
-
-        let caption = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
-        caption.text = "COINS"
-        caption.position.y = -70
-        root.addChild(caption)
         return root
     }
 
-    private func addMeter(
-        to root: SKNode,
-        title: String,
-        value: String,
-        fraction: CGFloat,
-        y: CGFloat,
-        width: CGFloat,
-        color: SKColor
-    ) {
-        let titleLabel = Self.label(size: 15, color: Palette.quiet, weight: .demibold)
-        titleLabel.text = title
-        titleLabel.horizontalAlignmentMode = .left
-        titleLabel.position = CGPoint(x: -width / 2, y: y + 17)
-        root.addChild(titleLabel)
+    private func statRow(value: String, caption: String, lines: [String], at position: CGPoint) -> SKNode {
+        let root = SKNode()
+        root.position = position
 
-        let valueLabel = Self.label(size: 17, color: Palette.paper, weight: .demibold)
+        let badgeX: CGFloat = -Metrics.statsSize.width / 2 + 55
+        let halo = SKShapeNode(circleOfRadius: Metrics.statBadgeRadius)
+        halo.fillColor = Palette.panel
+        halo.strokeColor = Palette.paleLine
+        halo.lineWidth = 2
+        halo.position = CGPoint(x: badgeX, y: 0)
+        root.addChild(halo)
+
+        let inner = SKShapeNode(circleOfRadius: Metrics.statBadgeRadius - 8)
+        inner.fillColor = Palette.ink
+        inner.strokeColor = Palette.line
+        inner.lineWidth = 1
+        inner.position = halo.position
+        root.addChild(inner)
+
+        let valueLabel = Self.label(size: value.count > 3 ? 18 : 24, color: Palette.paper, weight: .demibold)
         valueLabel.text = value
-        valueLabel.horizontalAlignmentMode = .right
-        valueLabel.position = CGPoint(x: width / 2, y: y + 15)
+        valueLabel.verticalAlignmentMode = .center
+        valueLabel.position = CGPoint(x: badgeX, y: 1)
         root.addChild(valueLabel)
 
-        let track = panel(size: CGSize(width: width, height: 15), radius: 2, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
-        track.position = CGPoint(x: 0, y: y - 12)
-        root.addChild(track)
+        let captionLabel = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
+        captionLabel.text = caption
+        captionLabel.position = CGPoint(x: badgeX, y: -Metrics.statBadgeRadius - 14)
+        root.addChild(captionLabel)
 
-        let usableWidth = width - 8
-        let fillWidth = usableWidth * max(0, min(1, fraction))
-        let fill = SKShapeNode(rectOf: CGSize(width: fillWidth, height: 9), cornerRadius: 2)
-        fill.fillColor = color
-        fill.strokeColor = .clear
-        fill.position = CGPoint(x: -(usableWidth - fillWidth) / 2, y: 0)
-        track.addChild(fill)
+        let textX = badgeX + Metrics.statBadgeRadius + 28
+        let plate = panel(
+            size: CGSize(width: Metrics.statTextWidth, height: 88),
+            radius: 3,
+            fill: Palette.ink,
+            stroke: Palette.line,
+            lineWidth: 1
+        )
+        plate.position = CGPoint(x: textX + Metrics.statTextWidth / 2, y: 0)
+        root.addChild(plate)
+
+        for (index, line) in lines.enumerated() {
+            let label = Self.label(
+                size: index == 0 ? 16 : 14,
+                color: index == 0 ? Palette.paper : Palette.quiet,
+                weight: index == 0 ? .demibold : .regular
+            )
+            label.text = line
+            label.horizontalAlignmentMode = .left
+            label.verticalAlignmentMode = .center
+            label.preferredMaxLayoutWidth = Metrics.statTextWidth - 28
+            label.numberOfLines = 2
+            label.position = CGPoint(x: textX + 14, y: index == 0 ? 14 : -12)
+            root.addChild(label)
+        }
+
+        return root
+    }
+
+    private func pageArrow(direction: Int, at position: CGPoint) -> SKNode {
+        let root = SKNode()
+        root.position = position
+        root.name = direction < 0 ? "inventory.nearby.prev" : "inventory.nearby.next"
+
+        let plate = panel(size: CGSize(width: 36, height: 56), radius: 3, fill: Palette.raised, stroke: Palette.line, lineWidth: 1)
+        root.addChild(plate)
+
+        let mark = Self.label(size: 22, color: Palette.paper, weight: .demibold)
+        mark.text = direction < 0 ? "‹" : "›"
+        mark.verticalAlignmentMode = .center
+        mark.position.y = 1
+        root.addChild(mark)
+        return root
     }
 
     private func addHeaderRail(from startX: CGFloat, to endX: CGFloat, y: CGFloat) {
@@ -619,122 +716,58 @@ final class InventoryOverlay: SKNode {
         }
     }
 
-    private func addSlotSection(_ title: String, items: [InventoryItem?], to root: SKNode, headerY: CGFloat, slotY: CGFloat) {
-        let header = panel(size: CGSize(width: 420, height: 46), radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 2)
+    private func addSlotSection(
+        _ title: String,
+        items: [InventoryItem?],
+        to root: SKNode,
+        headerY: CGFloat,
+        slotY: CGFloat
+    ) {
+        let count = items.count
+        let header = panel(
+            size: CGSize(width: Metrics.loadoutHeaderWidth, height: 40),
+            radius: 3,
+            fill: Palette.ink,
+            stroke: Palette.line,
+            lineWidth: 2
+        )
         header.position = CGPoint(x: 0, y: headerY)
-        let label = Self.label(size: 18, color: Palette.paper, weight: .demibold)
+        let label = Self.label(size: 16, color: Palette.paper, weight: .demibold)
         label.text = title
         label.verticalAlignmentMode = .center
         label.position.y = 1
         header.addChild(label)
         root.addChild(header)
 
-        for index in 0..<3 {
-            let position = CGPoint(x: CGFloat(index - 1) * 132, y: slotY)
+        let startX = -CGFloat(count - 1) * Metrics.loadoutSlotPitch / 2
+        for index in 0..<count {
+            let position = CGPoint(x: startX + CGFloat(index) * Metrics.loadoutSlotPitch, y: slotY)
             if let item = items[index] {
-                root.addChild(itemSlot(item, size: 104, at: position, showQuantity: true))
+                root.addChild(itemSlot(item, size: Metrics.loadoutSlotSize, at: position, showQuantity: true))
             } else {
-                root.addChild(emptySlot(size: 104, at: position))
+                root.addChild(emptySlot(size: Metrics.loadoutSlotSize, at: position))
             }
         }
     }
 
-    private func statBadge(title: String, value: String, subtitle: String, at position: CGPoint) -> SKNode {
-        let root = SKNode()
-        root.position = position
-
-        let titleLabel = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
-        titleLabel.text = title
-        titleLabel.position.y = 57
-        root.addChild(titleLabel)
-
-        let halo = SKShapeNode(circleOfRadius: 44)
-        halo.fillColor = Palette.panel
-        halo.strokeColor = Palette.paleLine
-        halo.lineWidth = 2
-        root.addChild(halo)
-
-        let inner = SKShapeNode(circleOfRadius: 35)
-        inner.fillColor = Palette.ink
-        inner.strokeColor = Palette.line
-        inner.lineWidth = 1
-        root.addChild(inner)
-
-        let valueLabel = Self.label(size: value.count > 2 ? 22 : 29, color: Palette.paper, weight: .demibold)
-        valueLabel.text = value
-        valueLabel.verticalAlignmentMode = .center
-        valueLabel.position.y = 1
-        root.addChild(valueLabel)
-
-        let subtitleLabel = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
-        subtitleLabel.text = subtitle
-        subtitleLabel.position.y = -61
-        root.addChild(subtitleLabel)
-        return root
-    }
-
-    private func detailBox(title: String, size: CGSize, at position: CGPoint) -> SKShapeNode {
-        let box = panel(size: size, radius: 3, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
-        box.position = position
-
-        let titlePlate = panel(size: CGSize(width: size.width - 18, height: 30), radius: 2, fill: Palette.raised, stroke: Palette.line, lineWidth: 1)
-        titlePlate.position.y = size.height / 2 - 20
-        let titleLabel = Self.label(size: 13, color: Palette.paper, weight: .demibold)
-        titleLabel.text = title
-        titleLabel.horizontalAlignmentMode = .left
-        titleLabel.verticalAlignmentMode = .center
-        titleLabel.position = CGPoint(x: -size.width / 2 + 23, y: 1)
-        titlePlate.addChild(titleLabel)
-        box.addChild(titlePlate)
-        return box
-    }
-
-    private func addTrait(_ title: String, value: String, to root: SKNode, at position: CGPoint) {
-        let key = Self.label(size: 14, color: Palette.quiet, weight: .demibold)
-        key.text = title
-        key.horizontalAlignmentMode = .left
-        key.position = position
-        root.addChild(key)
-
-        let valueLabel = Self.label(size: 18, color: Palette.paper, weight: .demibold)
-        valueLabel.text = value
-        valueLabel.horizontalAlignmentMode = .right
-        valueLabel.position = CGPoint(x: position.x + 157, y: position.y - 2)
-        root.addChild(valueLabel)
-    }
-
     private func addGridHeader(_ title: String, counter: String, to root: SKNode, width: CGFloat) {
-        let header = panel(size: CGSize(width: width, height: 36), radius: 2, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
-        header.position.y = 88
+        let header = panel(size: CGSize(width: width, height: 34), radius: 2, fill: Palette.ink, stroke: Palette.line, lineWidth: 1)
+        header.position.y = 78
         root.addChild(header)
 
-        let titleLabel = Self.label(size: 15, color: Palette.paper, weight: .demibold)
+        let titleLabel = Self.label(size: 14, color: Palette.paper, weight: .demibold)
         titleLabel.text = title
         titleLabel.horizontalAlignmentMode = .left
         titleLabel.verticalAlignmentMode = .center
-        titleLabel.position = CGPoint(x: -width / 2 + 16, y: 1)
+        titleLabel.position = CGPoint(x: -width / 2 + 14, y: 1)
         header.addChild(titleLabel)
 
-        let countLabel = Self.label(size: 15, color: Palette.quiet, weight: .demibold)
+        let countLabel = Self.label(size: 14, color: Palette.quiet, weight: .demibold)
         countLabel.text = counter
         countLabel.horizontalAlignmentMode = .right
         countLabel.verticalAlignmentMode = .center
-        countLabel.position = CGPoint(x: width / 2 - 16, y: 1)
+        countLabel.position = CGPoint(x: width / 2 - 14, y: 1)
         header.addChild(countLabel)
-    }
-
-    private func addSectionTitle(_ text: String, to root: SKNode, y: CGFloat) {
-        let title = Self.label(size: 17, color: Palette.paper, weight: .demibold)
-        title.text = text
-        title.horizontalAlignmentMode = .left
-        title.position = CGPoint(x: -222, y: y)
-        root.addChild(title)
-
-        let rule = SKShapeNode(rectOf: CGSize(width: 444, height: 1))
-        rule.fillColor = Palette.line
-        rule.strokeColor = .clear
-        rule.position = CGPoint(x: 0, y: y - 23)
-        root.addChild(rule)
     }
 
     private func item(id: String) -> InventoryItem? {
@@ -770,24 +803,6 @@ final class InventoryOverlay: SKNode {
             }
         }
         return nil
-    }
-
-    private func addInnerBorder(to root: SKNode, size: CGSize) {
-        let border = SKShapeNode(rectOf: size, cornerRadius: 10)
-        border.fillColor = .clear
-        border.strokeColor = Palette.line.withAlphaComponent(0.36)
-        border.lineWidth = 1
-        root.addChild(border)
-    }
-
-    private func addFilmGrainLines(to root: SKNode) {
-        for index in 0..<18 {
-            let line = SKShapeNode(rectOf: CGSize(width: 1_880, height: 1))
-            line.fillColor = SKColor(white: 0.85, alpha: index.isMultiple(of: 3) ? 0.016 : 0.008)
-            line.strokeColor = .clear
-            line.position.y = -490 + CGFloat(index) * 57
-            root.addChild(line)
-        }
     }
 
     private func panel(size: CGSize, radius: CGFloat, fill: SKColor, stroke: SKColor, lineWidth: CGFloat) -> SKShapeNode {
