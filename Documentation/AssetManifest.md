@@ -329,7 +329,7 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Shared overlay close control in IE-noir language. |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
-| P0 | `map_detective_office_v02` | 1 | 1847×851 | Runtime-accurate local-area office map; code owns labels and position ring. |
+| P0 | `map_detective_office_v03` | 1 | 1847×1040 | Layout-locked cramped-suite area map (shipping plate + modular props); code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 

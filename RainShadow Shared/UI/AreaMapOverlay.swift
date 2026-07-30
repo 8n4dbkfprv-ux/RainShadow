@@ -60,6 +60,9 @@ final class AreaMapOverlay: SKNode {
         let textureName: String
         let locationName: String
         let worldBounds: CGRect
+        /// Painted room inside the map plate, in SpriteKit UV (origin bottom-left).
+        /// World points map into this rect so black void margins do not skew markers.
+        let mapContentUV: CGRect
         let pointsOfInterest: [PointOfInterest]
         let fogRevealRadius: CGFloat?
 
@@ -67,12 +70,14 @@ final class AreaMapOverlay: SKNode {
             textureName: String,
             locationName: String,
             worldBounds: CGRect,
+            mapContentUV: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1),
             pointsOfInterest: [PointOfInterest],
             fogRevealRadius: CGFloat? = nil
         ) {
             self.textureName = textureName
             self.locationName = locationName
             self.worldBounds = worldBounds
+            self.mapContentUV = mapContentUV
             self.pointsOfInterest = pointsOfInterest
             self.fogRevealRadius = fogRevealRadius
         }
@@ -80,9 +85,9 @@ final class AreaMapOverlay: SKNode {
 
     private enum Metrics {
         static let canvas = CGSize(width: 1_920, height: 1_080)
-        /// Preserve the generated plate's 1847:851 aspect ratio so the room's
-        /// dimetric floor and furniture registration are not stretched.
-        static let mapSize = CGSize(width: 1_660, height: 765)
+        /// Preserve the layout-locked plate's 1847:1040 aspect so the cramped
+        /// suite footprint is not stretched.
+        static let mapSize = CGSize(width: 1_500, height: 845)
     }
 
     private enum Palette {
@@ -127,26 +132,44 @@ final class AreaMapOverlay: SKNode {
     }
 
     static let detectiveOffice = Configuration(
-        textureName: "map_detective_office_v02",
+        textureName: "map_detective_office_v03",
         locationName: "HARLAN VOSS'S OFFICE",
-        worldBounds: CGRect(
-            origin: OfficeInteriorScale.shellOrigin,
-            size: OfficeInteriorScale.scaledArtSize
+        // Suite silhouette in authored y-up plate space (not raw PNG y-down).
+        // Plate content bbox y-down 403…1440 → y-up (2304-1440)…(2304-403).
+        worldBounds: OfficeInteriorScale.mapRect(
+            CGRect(x: 1_252, y: 864, width: 1_584, height: 1_037)
         ),
+        // Measured opaque content of map_detective_office_v03.png (SK UV).
+        mapContentUV: CGRect(x: 0.2171, y: 0.1712, width: 0.5652, height: 0.6557),
         pointsOfInterest: [
             PointOfInterest(
                 label: "WINDOW",
-                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 640, y: 1_380)),
+                worldPoint: OfficeInteriorScale.mapPoint(
+                    OfficeNavigationLayout.AuthoredPlacement.radiator
+                ),
                 color: Palette.rain
             ),
             PointOfInterest(
                 label: "DESK",
-                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 1_435, y: 760)),
+                worldPoint: OfficeInteriorScale.mapPoint(
+                    OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
+                ),
                 color: Palette.amber
             ),
             PointOfInterest(
+                label: "WAITING",
+                worldPoint: OfficeInteriorScale.mapPoint(
+                    OfficeNavigationLayout.AuthoredPlacement.waitingTable
+                ),
+                color: Palette.quiet
+            ),
+            PointOfInterest(
                 label: "EXIT",
-                worldPoint: OfficeInteriorScale.mapPoint(CGPoint(x: 2_450, y: 875)),
+                // Leaf anchor matches the painted NE-wall door, not the
+                // floor-threshold plan point (which sat short of the aperture).
+                worldPoint: OfficeInteriorScale.mapPoint(
+                    OfficeNavigationLayout.Architecture.entranceLeafAnchor
+                ),
                 color: Palette.oxblood
             )
         ]
@@ -493,15 +516,19 @@ final class AreaMapOverlay: SKNode {
     }
 
     private func mapPosition(forWorldPoint worldPoint: CGPoint) -> CGPoint {
-        let normalizedX = (worldPoint.x - configuration.worldBounds.minX)
-            / configuration.worldBounds.width
-        let normalizedY = (worldPoint.y - configuration.worldBounds.minY)
-            / configuration.worldBounds.height
-        let x = min(max(normalizedX, 0.035), 0.965)
-        let y = min(max(normalizedY, 0.055), 0.945)
+        let bounds = configuration.worldBounds
+        let content = configuration.mapContentUV
+        let normalizedX = (worldPoint.x - bounds.minX) / max(bounds.width, 1)
+        let normalizedY = (worldPoint.y - bounds.minY) / max(bounds.height, 1)
+        let clampedX = min(max(normalizedX, 0), 1)
+        let clampedY = min(max(normalizedY, 0), 1)
+        // Authored y-up: higher values are toward the rear wall / top of the
+        // plate PNG, which is the top of the SpriteKit map sprite.
+        let u = content.minX + clampedX * content.width
+        let v = content.minY + clampedY * content.height
         return CGPoint(
-            x: (x - 0.5) * Metrics.mapSize.width,
-            y: (y - 0.5) * Metrics.mapSize.height
+            x: (u - 0.5) * Metrics.mapSize.width,
+            y: (v - 0.5) * Metrics.mapSize.height
         )
     }
 

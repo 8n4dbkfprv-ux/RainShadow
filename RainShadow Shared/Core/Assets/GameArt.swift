@@ -77,7 +77,7 @@ enum GameArt {
             "journal_icon_noir_v02",
             "journal_icon_noir_v02_hover",
             "journal_icon_noir_v02_pressed",
-            "map_detective_office_v02",
+            "map_detective_office_v03",
             "dialogue_outer_frame_overlay_v04",
             "dialogue_command_button_plate_v03",
             "dialogue_scroll_up_v06",
