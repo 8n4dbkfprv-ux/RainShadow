@@ -1279,7 +1279,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         occlusionRoot.addChild(void)
     }
 
-    /// Frosted internal door, swung open into the private office. Its sheared
+    /// Plain frosted internal door, swung open into the private office. The
+    /// sprite carries its own hinge barrels and shaded return face; its sheared
     /// texture remains at plate scale so the hinge jamb stays flush with the shell.
     private func addInternalOfficeDoor() {
         guard let door = addDepthProp(
