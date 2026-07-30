@@ -304,6 +304,36 @@ struct EmptyCoatCaseIntroductionTests {
             }
         }
         #expect(presenter.contains("onNodeShown"))
+
+        // BG-classic cutscene chrome: suppress rails on enter/exit, restore for dialogue + unlock.
+        #expect(scene.contains("setCutsceneChromeSuppressed"))
+        #expect(scene.contains("updateGameplayChromeVisibility"))
+        if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
+            let afterEntrance = scene[entranceRange.lowerBound...]
+            if let nextFunc = afterEntrance.range(
+                of: "\n    private func ",
+                options: [],
+                range: afterEntrance.index(after: entranceRange.upperBound)..<afterEntrance.endIndex
+            ) {
+                let body = String(afterEntrance[..<nextFunc.lowerBound])
+                #expect(body.contains("setCutsceneChromeSuppressed(true)"))
+                #expect(body.contains("setCutsceneChromeSuppressed(false)"))
+            }
+        }
+        if let applyRange = scene.range(of: "private func applyClientVisitAction") {
+            let afterApply = scene[applyRange.lowerBound...]
+            if let nextFunc = afterApply.range(
+                of: "\n    private func ",
+                options: [],
+                range: afterApply.index(after: applyRange.upperBound)..<afterApply.endIndex
+            ) {
+                let body = String(afterApply[..<nextFunc.lowerBound])
+                #expect(body.contains("case .beginClientExit:"))
+                #expect(body.contains("setCutsceneChromeSuppressed(true)"))
+                #expect(body.contains("case .unlockPlayerControl:"))
+                #expect(body.contains("setCutsceneChromeSuppressed(false)"))
+            }
+        }
     }
 
     @Test func doorFallKeepsOneContinuousTrajectoryThroughImpact() throws {

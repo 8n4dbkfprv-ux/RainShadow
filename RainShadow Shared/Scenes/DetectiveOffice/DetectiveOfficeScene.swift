@@ -45,6 +45,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var caseIntroductionStarted = false
     private var clientEntranceStarted = false
     private var dialogueIsActive = true
+    /// Infinity Engine–style cutscene chrome: hide party/action rails while an
+    /// authored NPC enter/exit sequence runs; dialogue panel stays independent.
+    private var cutsceneChromeSuppressed = false
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
@@ -744,6 +747,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func beginClientEntranceIfNeeded() {
         guard !clientEntranceStarted else { return }
         clientEntranceStarted = true
+        // BG cutscene mode: strip gameplay chrome while the door/walk stages.
+        setCutsceneChromeSuppressed(true)
         animateDoorFalling()
         // The first leg is authored across the actual exterior threshold (its
         // start is outside the nav floor). One collision-checked interior route
@@ -751,6 +756,9 @@ final class DetectiveOfficeScene: BaseGameScene {
         let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }
+            // Entrance staging done — restore rails for seated dialogue (BG leaves
+            // cutscene mode before/with normal dialogue UI).
+            self.setCutsceneChromeSuppressed(false)
             let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
             let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
             cameraLift.timingMode = .easeOut
@@ -772,6 +780,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             cameraRestore.timingMode = .easeInEaseOut
             gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
         case .beginClientExit:
+            // Exit walk is cutscene mode again — hide rails until control returns.
+            setCutsceneChromeSuppressed(true)
             let path = OfficeNavigationLayout.clientDepartureRoute(in: navigation)
             client.performExit(along: path) { [weak self] in
                 guard let self else { return }
@@ -784,7 +794,47 @@ final class DetectiveOfficeScene: BaseGameScene {
             animateDoorReturning()
         case .unlockPlayerControl:
             dialogueIsActive = false
+            setCutsceneChromeSuppressed(false)
             showOfficeHintIfNeeded()
+        }
+    }
+
+    /// Baldur's Gate–style cutscene chrome: hide party portrait + action rails
+    /// during authored NPC enter/exit. Dialogue panel is not owned here.
+    private func setCutsceneChromeSuppressed(_ suppressed: Bool, animated: Bool = true) {
+        guard cutsceneChromeSuppressed != suppressed else {
+            updateGameplayChromeVisibility(animated: animated)
+            return
+        }
+        cutsceneChromeSuppressed = suppressed
+        updateGameplayChromeVisibility(animated: animated)
+    }
+
+    /// Single source of truth for rail visibility (cutscene + full-screen overlays).
+    private func updateGameplayChromeVisibility(animated: Bool) {
+        let hiddenByOverlay = inventoryIsPresented || mapIsPresented || journalIsPresented
+        let shouldHide = cutsceneChromeSuppressed || hiddenByOverlay
+        let duration: TimeInterval = 0.18
+        for node in [portraitBar as SKNode, actionBar as SKNode] {
+            node.removeAction(forKey: "chromeVisibility")
+            if !animated {
+                node.alpha = shouldHide ? 0 : 1
+                node.isHidden = shouldHide
+                continue
+            }
+            if shouldHide {
+                if node.isHidden, node.alpha <= 0.01 { continue }
+                node.isHidden = false
+                let fade = SKAction.sequence([
+                    SKAction.fadeOut(withDuration: duration),
+                    SKAction.run { node.isHidden = true }
+                ])
+                node.run(fade, withKey: "chromeVisibility")
+            } else {
+                node.isHidden = false
+                if node.alpha >= 0.99 { continue }
+                node.run(SKAction.fadeIn(withDuration: duration), withKey: "chromeVisibility")
+            }
         }
     }
 
@@ -858,8 +908,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             cinematicRoot
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        updateGameplayChromeVisibility(animated: true)
 
         if presented {
             inventoryOverlay.present()
@@ -885,8 +934,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             cinematicRoot
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        updateGameplayChromeVisibility(animated: true)
 
         if presented {
             areaMapOverlay.present(currentPosition: detective.position)
@@ -910,8 +958,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             cinematicRoot
         ]
         pausedWorldRoots.forEach { $0.isPaused = presented }
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        updateGameplayChromeVisibility(animated: true)
 
         if presented {
             journalOverlay.present(inspectedHotspotIDs: context.session.inspectedHotspotIDs)
