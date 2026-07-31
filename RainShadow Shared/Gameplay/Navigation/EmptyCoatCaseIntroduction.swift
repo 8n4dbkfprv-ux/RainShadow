@@ -21,11 +21,12 @@ enum EmptyCoatCaseIntroduction {
     static let lilaConversationStartNodeID = "lila.entrance"
 
     /// Late monologue beat that narratively introduces arrival (hallway / heels).
-    /// Office scene starts door-fall + client entrance only when this node is shown —
-    /// not at intro start, not on early setup pages, and not after the monologue ends.
+    /// Baldur’s Gate style: the player reads this page fully, then Continue starts the
+    /// door-fall / client entrance cinematic with **no** dialogue panel; dialogue
+    /// resumes on the next monologue page after the walk.
     static let clientEntranceCueNodeID = "voss.monologue.4"
 
-    /// Reserved filenames for a future VO pass (currently unassigned on all nodes).
+    /// Shipped Grok Voice openers (full monologue + Lila graph use per-node `voiceAssetName`).
     static let monologueOpenerVoiceAsset = "vo_voss_monologue_1.m4a"
     static let lilaEntranceVoiceAsset = "vo_lila_entrance.m4a"
 
@@ -47,9 +48,14 @@ enum EmptyCoatCaseIntroduction {
         monologueNodes + lilaConversationNodes + closingNodes
     }
 
-    /// Whether showing this dialogue node should start client door/entrance motion.
-    /// Only the authored late-monologue cue returns true; early monologue pages do not.
+    /// Entrance is **not** armed on show — the cue page must remain fully readable.
     static func shouldStartClientEntrance(whenShowing nodeID: String) -> Bool {
+        false
+    }
+
+    /// Whether Continue *from* this node should start the entrance cinematic (BG cutscene).
+    /// Only the authored late-monologue cue; early monologue pages and Lila speech do not.
+    static func shouldStartClientEntrance(whenLeaving nodeID: String) -> Bool {
         nodeID == clientEntranceCueNodeID
     }
 
@@ -57,6 +63,12 @@ enum EmptyCoatCaseIntroduction {
     static func voiceAssetName(for nodeID: String) -> String? {
         nodes.first(where: { $0.id == nodeID })?.voiceAssetName
     }
+
+    /// Grok Voice bundle filename for a dialogue node id (`voss.monologue.1` → `vo_voss_monologue_1.m4a`).
+    static func bundledVoiceFileName(for nodeID: String) -> String {
+        "vo_\(nodeID.replacingOccurrences(of: ".", with: "_")).m4a"
+    }
+
 
     // MARK: - Noir monologue (what is about to happen)
 
@@ -70,7 +82,8 @@ enum EmptyCoatCaseIntroduction {
                 """,
                 portraitName: vossPortrait,
                 nextNodeID: "voss.monologue.2",
-                isInteriorMonologue: true
+                isInteriorMonologue: true,
+                voiceAssetName: "vo_voss_monologue_1.m4a"
             ),
             CaseDialogueNode(
                 id: "voss.monologue.2",
@@ -80,7 +93,8 @@ enum EmptyCoatCaseIntroduction {
                 """,
                 portraitName: vossPortrait,
                 nextNodeID: "voss.monologue.3",
-                isInteriorMonologue: true
+                isInteriorMonologue: true,
+                voiceAssetName: "vo_voss_monologue_2.m4a"
             ),
             CaseDialogueNode(
                 id: "voss.monologue.3",
@@ -90,7 +104,8 @@ enum EmptyCoatCaseIntroduction {
                 """,
                 portraitName: vossPortrait,
                 nextNodeID: "voss.monologue.4",
-                isInteriorMonologue: true
+                isInteriorMonologue: true,
+                voiceAssetName: "vo_voss_monologue_3.m4a"
             ),
             CaseDialogueNode(
                 id: "voss.monologue.4",
@@ -102,7 +117,8 @@ enum EmptyCoatCaseIntroduction {
                 """,
                 portraitName: vossPortrait,
                 nextNodeID: "voss.monologue.5",
-                isInteriorMonologue: true
+                isInteriorMonologue: true,
+                voiceAssetName: "vo_voss_monologue_4.m4a"
             ),
             CaseDialogueNode(
                 id: "voss.monologue.5",
@@ -114,7 +130,8 @@ enum EmptyCoatCaseIntroduction {
                 """,
                 portraitName: vossPortrait,
                 nextNodeID: "lila.entrance",
-                isInteriorMonologue: true
+                isInteriorMonologue: true,
+                voiceAssetName: "vo_voss_monologue_5.m4a"
             )
         ]
     }
@@ -140,7 +157,8 @@ enum EmptyCoatCaseIntroduction {
                 Mr. Voss? Forgive the hour. The rain made a liar of my schedule—and of everyone who told me to wait until morning.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.entrance.case"
+                nextNodeID: "lila.entrance.case",
+                voiceAssetName: "vo_lila_entrance.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.entrance.case",
@@ -165,7 +183,8 @@ enum EmptyCoatCaseIntroduction {
                         destinationID: "lila.reply.cynical1",
                         tone: .cynicalSarcasm
                     )
-                ]
+                ],
+                voiceAssetName: "vo_lila_entrance_case.m4a"
             ),
 
             CaseDialogueNode(
@@ -175,7 +194,8 @@ enum EmptyCoatCaseIntroduction {
                 Thank you. Most men in this city offer umbrellas or excuses. You offered a chair and a spine.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.good1.b"
+                nextNodeID: "lila.reply.good1.b",
+                voiceAssetName: "vo_lila_reply_good1.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.good1.b",
@@ -184,7 +204,8 @@ enum EmptyCoatCaseIntroduction {
                 Lillian worked late at the shipping office near Wharf Ladder—ledgers, manifests, the dull ink that keeps cargo honest until it isn't. She never missed a tram. She never left a kettle half-boiled. Tuesday she left work at nine. By midnight, her coat was the only thing the river was willing to return.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.police.story"
+                nextNodeID: "lila.police.story",
+                voiceAssetName: "vo_lila_reply_good1_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral1",
@@ -193,7 +214,8 @@ enum EmptyCoatCaseIntroduction {
                 Good. Facts first—I can cry later if the rain leaves me any privacy.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.neutral1.b"
+                nextNodeID: "lila.reply.neutral1.b",
+                voiceAssetName: "vo_lila_reply_neutral1.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral1.b",
@@ -202,7 +224,8 @@ enum EmptyCoatCaseIntroduction {
                 Last confirmed: Wharf Ladder shipping office, Tuesday, nine o'clock. She told a clerk she had one more errand uptown. No name for the errand. No cab called from the desk phone. Midnight, the river watch found her coat on the stones below the old iron stairs—empty, arranged, and too convenient for anyone who likes tidy endings.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.police.story"
+                nextNodeID: "lila.police.story",
+                voiceAssetName: "vo_lila_reply_neutral1_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical1",
@@ -211,7 +234,8 @@ enum EmptyCoatCaseIntroduction {
                 If this were a taxi receipt, Mr. Voss, I would have spent my money on a better coat and a worse conscience.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.cynical1.b"
+                nextNodeID: "lila.reply.cynical1.b",
+                voiceAssetName: "vo_lila_reply_cynical1.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical1.b",
@@ -220,7 +244,8 @@ enum EmptyCoatCaseIntroduction {
                 Lillian hated the river. She hated unfinished books more. The police found her coat and called it an answer. I call it a prop. Someone wanted the search to end at the waterline—and they almost got their wish, until I put my hands in the lining.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.police.story"
+                nextNodeID: "lila.police.story",
+                voiceAssetName: "vo_lila_reply_cynical1_b.m4a"
             ),
 
             CaseDialogueNode(
@@ -230,7 +255,8 @@ enum EmptyCoatCaseIntroduction {
                 Harborpoint PD filed it soft: missing adult, no signs of struggle, coat recovered, probable drowning, case cooling before the ink dried. They were polite. Polite is how this city closes a door without slamming it.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.police.story.b"
+                nextNodeID: "lila.police.story.b",
+                voiceAssetName: "vo_lila_police_story.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.police.story.b",
@@ -239,7 +265,8 @@ enum EmptyCoatCaseIntroduction {
                 I asked for the night sergeant's notes. He offered coffee and a speech about tides. I asked who benefited if Lillian stopped reading manifests. That was when the politeness developed teeth.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.triad.police"
+                nextNodeID: "lila.triad.police",
+                voiceAssetName: "vo_lila_police_story_b.m4a"
             ),
 
             CaseDialogueNode(
@@ -267,7 +294,8 @@ enum EmptyCoatCaseIntroduction {
                         destinationID: "lila.reply.cynical2",
                         tone: .cynicalSarcasm
                     )
-                ]
+                ],
+                voiceAssetName: "vo_lila_triad_police.m4a"
             ),
 
             CaseDialogueNode(
@@ -277,7 +305,8 @@ enum EmptyCoatCaseIntroduction {
                 Then we understand each other. Lillian used to say courage was just stubbornness with better lighting. Tonight I'll take either.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.good2.b"
+                nextNodeID: "lila.reply.good2.b",
+                voiceAssetName: "vo_lila_reply_good2.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.good2.b",
@@ -286,7 +315,8 @@ enum EmptyCoatCaseIntroduction {
                 There's more. The coat wasn't only empty—it was prepared. The pockets were turned like someone wanted the world to see there was nothing left to steal. Except there was.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.key.reveal"
+                nextNodeID: "lila.key.reveal",
+                voiceAssetName: "vo_lila_reply_good2_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral2",
@@ -295,7 +325,8 @@ enum EmptyCoatCaseIntroduction {
                 That's the work I came to buy: not speeches, measurements. The river stones, the duty roster, the shipping office clock that runs three minutes fast when the night crew wants an alibi.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.neutral2.b"
+                nextNodeID: "lila.reply.neutral2.b",
+                voiceAssetName: "vo_lila_reply_neutral2.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral2.b",
@@ -304,7 +335,8 @@ enum EmptyCoatCaseIntroduction {
                 And the coat. Always the coat. They handed it back in a paper bag like laundry. I took it home and found what they were too finished to feel for.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.key.reveal"
+                nextNodeID: "lila.key.reveal",
+                voiceAssetName: "vo_lila_reply_neutral2_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical2",
@@ -313,7 +345,8 @@ enum EmptyCoatCaseIntroduction {
                 At least you're honest about the ink. Harborpoint prints truth on the cheap stock and saves the good paper for denials.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.cynical2.b"
+                nextNodeID: "lila.reply.cynical2.b",
+                voiceAssetName: "vo_lila_reply_cynical2.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical2.b",
@@ -322,7 +355,8 @@ enum EmptyCoatCaseIntroduction {
                 Fine. Bill your hours. But look at the coat first—really look. Whoever emptied it left me one insult they didn't mean to leave.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.key.reveal"
+                nextNodeID: "lila.key.reveal",
+                voiceAssetName: "vo_lila_reply_cynical2_b.m4a"
             ),
 
             CaseDialogueNode(
@@ -332,7 +366,8 @@ enum EmptyCoatCaseIntroduction {
                 Sewn into the lining—not dropped in a pocket where a night watchman might "find" it and lose it again—was a brass key. Small. Old teeth. No hotel tag. No landlord's number. Just brass that still smelled faintly of machine oil and river fog.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.key.reveal.b"
+                nextNodeID: "lila.key.reveal.b",
+                voiceAssetName: "vo_lila_key_reveal.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.key.reveal.b",
@@ -341,7 +376,8 @@ enum EmptyCoatCaseIntroduction {
                 Since I found it, a man has been following me. Gray overcoat. Black gloves. He waits across the street from my boarding house and turns away the moment my eyes get brave enough to meet his. He doesn't wave. Men who wave want something polite. Men who turn away already have what they want: your fear, on a schedule.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.triad.key"
+                nextNodeID: "lila.triad.key",
+                voiceAssetName: "vo_lila_key_reveal_b.m4a"
             ),
 
             CaseDialogueNode(
@@ -369,7 +405,8 @@ enum EmptyCoatCaseIntroduction {
                         destinationID: "lila.reply.cynical3",
                         tone: .cynicalSarcasm
                     )
-                ]
+                ],
+                voiceAssetName: "vo_lila_triad_key.m4a"
             ),
 
             CaseDialogueNode(
@@ -379,7 +416,8 @@ enum EmptyCoatCaseIntroduction {
                 Safe is a luxury in this weather—but I'll take the promise and walk carefully.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.good3.b"
+                nextNodeID: "lila.reply.good3.b",
+                voiceAssetName: "vo_lila_reply_good3.m4a"
             ),
             // Classic BG: PC acceptance is a selectable reply on the NPC state (transition),
             // not a main-speaker Continue page. Merged former voss.accept + voss.accept.b prose.
@@ -390,7 +428,8 @@ enum EmptyCoatCaseIntroduction {
                 The follower: tall enough to make a doorway look narrow, hat brim low, gloves that never leave his hands even when he lights a cigarette for a man who isn't there. He never crosses the street. He only makes sure I know the street is already his.
                 """,
                 portraitName: lilaPortrait,
-                choices: [caseAcceptanceChoice]
+                choices: [caseAcceptanceChoice],
+                voiceAssetName: "vo_lila_reply_good3_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral3",
@@ -399,7 +438,8 @@ enum EmptyCoatCaseIntroduction {
                 Gray overcoat, black gloves, no limp, no flash of a badge. He favors the bakery doorway across from my stairs between eleven and one. When a streetcar passes, he uses the noise to shift position. Professional habits. Ugly ones.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.neutral3.b"
+                nextNodeID: "lila.reply.neutral3.b",
+                voiceAssetName: "vo_lila_reply_neutral3.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.neutral3.b",
@@ -408,7 +448,8 @@ enum EmptyCoatCaseIntroduction {
                 I'll stay with a friend on Printers' Quarter tonight. Real locks. Fewer witnesses who owe the docks a favor.
                 """,
                 portraitName: lilaPortrait,
-                choices: [caseAcceptanceChoice]
+                choices: [caseAcceptanceChoice],
+                voiceAssetName: "vo_lila_reply_neutral3_b.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical3",
@@ -417,7 +458,8 @@ enum EmptyCoatCaseIntroduction {
                 Charming. If I wanted poetry about coffins I could have hired a priest.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.reply.cynical3.b"
+                nextNodeID: "lila.reply.cynical3.b",
+                voiceAssetName: "vo_lila_reply_cynical3.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.reply.cynical3.b",
@@ -426,7 +468,8 @@ enum EmptyCoatCaseIntroduction {
                 Still—you'll take it. That's enough. The follower can have my shadow; you get the key. If the postcard arrives, make sure it's written in a hand that still shakes.
                 """,
                 portraitName: lilaPortrait,
-                choices: [caseAcceptanceChoice]
+                choices: [caseAcceptanceChoice],
+                voiceAssetName: "vo_lila_reply_cynical3_b.m4a"
             ),
 
             CaseDialogueNode(
@@ -436,7 +479,8 @@ enum EmptyCoatCaseIntroduction {
                 Please find her, Mr. Voss. Find the sister—not the coat's alibi.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: "lila.plea.b"
+                nextNodeID: "lila.plea.b",
+                voiceAssetName: "vo_lila_plea.m4a"
             ),
             CaseDialogueNode(
                 id: "lila.plea.b",
@@ -445,7 +489,8 @@ enum EmptyCoatCaseIntroduction {
                 And if the gray overcoat comes looking for the key… tell him the rain already knows his name. I only hired you to teach him the rest.
                 """,
                 portraitName: lilaPortrait,
-                nextNodeID: caseOpenedNodeID
+                nextNodeID: caseOpenedNodeID,
+                voiceAssetName: "vo_lila_plea_b.m4a"
             )
         ]
     }

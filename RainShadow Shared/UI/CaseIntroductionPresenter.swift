@@ -84,6 +84,10 @@ final class CaseIntroductionPresenter: SKNode {
     private var lastNotifiedNodeID: String?
     /// Fired when a dialogue node is newly shown (initial present and each advance, not layout refresh).
     var onNodeShown: ((CaseDialogueNode) -> Void)?
+    /// Called before Continue (or a choice) leaves `from` for `toDestinationID`.
+    /// Return `true` to defer the transition (e.g. play a BG-style walk cinematic with
+    /// no dialogue); the scene later calls `resumeAfterCutscene(advancingTo:)`.
+    var shouldDeferAdvance: ((_ from: CaseDialogueNode, _ toDestinationID: String) -> Bool)?
 
     private(set) var isPresenting = false
     /// True while an authored walk/cutscene owns the screen (BG cutscene mode).
@@ -222,8 +226,8 @@ final class CaseIntroductionPresenter: SKNode {
         run(.fadeIn(withDuration: 0.22))
     }
 
-    /// Baldur's Gate cutscene mode: hide the dialogue panel without ending the graph.
-    /// Input is blocked while suppressed so the player cannot advance mid-walk.
+    /// Baldur’s Gate cutscene mode: hide the dialogue panel and block input without
+    /// ending the graph (walk/cinematic owns the screen).
     func setCutsceneSuppressed(_ suppressed: Bool, animated: Bool = true) {
         guard isPresenting, isCutsceneSuppressed != suppressed else { return }
         isCutsceneSuppressed = suppressed
@@ -253,19 +257,26 @@ final class CaseIntroductionPresenter: SKNode {
         }
     }
 
-    /// After an entrance walk finishes: leave the cue page if still on it, then re-show dialogue.
-    func resumeAfterCutscene(advancingIfOn cueNodeID: String? = nil) {
+    /// After a walk cinematic: optionally jump to the deferred destination, then re-show dialogue.
+    func resumeAfterCutscene(advancingTo destinationID: String? = nil) {
         guard isPresenting else { return }
-        if let cueNodeID,
-           currentNodeID == cueNodeID,
-           let nextID = nodesByID[cueNodeID]?.nextNodeID,
-           nodesByID[nextID] != nil {
-            // Quiet advance while still hidden so the cue line is not re-read after the walk.
-            currentNodeID = nextID
+        if let destinationID, nodesByID[destinationID] != nil {
+            currentNodeID = destinationID
             lastNotifiedNodeID = nil
             showCurrentNode(animated: false)
         }
         setCutsceneSuppressed(false)
+    }
+
+    /// Legacy name kept for call sites that still pass the cue id; prefers deferred advance.
+    func resumeAfterCutscene(advancingIfOn cueNodeID: String?) {
+        if let cueNodeID,
+           currentNodeID == cueNodeID,
+           let nextID = nodesByID[cueNodeID]?.nextNodeID {
+            resumeAfterCutscene(advancingTo: nextID)
+            return
+        }
+        resumeAfterCutscene(advancingTo: nil)
     }
 
     @discardableResult
@@ -403,7 +414,7 @@ final class CaseIntroductionPresenter: SKNode {
                 let node = currentNodeID.flatMap({ nodesByID[$0] }),
                 node.choices.indices.contains(index)
             else { return }
-            transition(to: node.choices[index].destinationID)
+            attemptTransition(from: node, to: node.choices[index].destinationID)
             return
         }
 
@@ -411,10 +422,22 @@ final class CaseIntroductionPresenter: SKNode {
         case .hidden:
             return
         case .next(let destinationID):
-            transition(to: destinationID)
+            guard let node = currentNodeID.flatMap({ nodesByID[$0] }) else {
+                transition(to: destinationID)
+                return
+            }
+            attemptTransition(from: node, to: destinationID)
         case .end:
             finish()
         }
+    }
+
+    /// Advances immediately unless `shouldDeferAdvance` claims the transition for a cutscene.
+    private func attemptTransition(from node: CaseDialogueNode, to destinationID: String) {
+        if shouldDeferAdvance?(node, destinationID) == true {
+            return
+        }
+        transition(to: destinationID)
     }
 
     private func buildInterface() {
@@ -977,6 +1000,7 @@ final class CaseIntroductionPresenter: SKNode {
         isCutsceneSuppressed = false
         lastNotifiedNodeID = nil
         onNodeShown = nil
+        shouldDeferAdvance = nil
         let completion = presentationCompletion
         presentationCompletion = nil
         removeAction(forKey: "cutsceneVisibility")

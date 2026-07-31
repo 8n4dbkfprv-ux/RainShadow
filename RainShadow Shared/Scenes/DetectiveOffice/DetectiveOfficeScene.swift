@@ -47,6 +47,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// Wall-clock origin of the forced/authored entrance (QA seek + pacing).
     private var clientEntranceStartedAt: TimeInterval?
     private var clientEntrancePath: [CGPoint] = []
+    /// Dialogue node to show after the BG-style entrance cinematic (deferred Continue).
+    private var pendingPostEntranceNodeID: String?
     private var dialogueIsActive = true
     /// Infinity Engine–style cutscene chrome: hide party/action rails while an
     /// authored NPC enter/exit sequence runs (dialogue panel is suppressed separately).
@@ -736,11 +738,24 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func startCaseIntroduction() {
-        // Monologue first: do not start door/entrance until the authored cue node is shown.
-        // VO is intentionally off for now (re-enable when opener clips return).
+        // Monologue first. Entrance is BG-style: Continue *from* the heels cue starts
+        // a no-dialogue cinematic, then dialogue resumes on the next monologue page.
+        // Grok Voice: play each monologue / Lila node clip on show (stops prior VO).
         clientEntranceStarted = false
+        pendingPostEntranceNodeID = nil
         caseIntroductionPresenter.onNodeShown = { [weak self] node in
             self?.handleCaseIntroductionNodeShown(node)
+        }
+        caseIntroductionPresenter.shouldDeferAdvance = { [weak self] from, toDestinationID in
+            guard let self else { return false }
+            guard EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: from.id) else {
+                return false
+            }
+            // Baldur’s Gate: dismiss dialogue, play walk cinematic, then continue.
+            self.pendingPostEntranceNodeID = toDestinationID
+            RainAudio.stopVoiceOver(on: self)
+            self.beginClientEntranceIfNeeded()
+            return true
         }
         // Shipped Empty Coat intro: noir monologue (with late entrance cue) + Lila March triad dialogue.
         caseIntroductionPresenter.present(
@@ -752,9 +767,12 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func handleCaseIntroductionNodeShown(_ node: CaseDialogueNode) {
-        if EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: node.id) {
-            beginClientEntranceIfNeeded()
+        if let voice = node.voiceAssetName {
+            RainAudio.playVoiceOver(fileNamed: voice, on: self)
+        } else {
+            RainAudio.stopVoiceOver(on: self)
         }
+        // Entrance is leave-gated (Continue from cue), not show-gated.
     }
 
     private func beginClientEntranceIfNeeded() {
@@ -779,10 +797,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         clientEntranceStartedAt = ProcessInfo.processInfo.systemUptime
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }
-            // End entrance cutscene: leave the heels cue page, re-show dialogue UI.
-            self.caseIntroductionPresenter.resumeAfterCutscene(
-                advancingIfOn: EmptyCoatCaseIntroduction.clientEntranceCueNodeID
-            )
+            // End entrance cutscene: open the deferred monologue page (post-cue).
+            let nextID = self.pendingPostEntranceNodeID
+                ?? EmptyCoatCaseIntroduction.nodes
+                    .first(where: { $0.id == EmptyCoatCaseIntroduction.clientEntranceCueNodeID })?
+                    .nextNodeID
+            self.pendingPostEntranceNodeID = nil
+            self.caseIntroductionPresenter.resumeAfterCutscene(advancingTo: nextID)
             let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
             let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
             cameraLift.timingMode = .easeOut
@@ -817,6 +838,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func finishCaseIntroduction() {
+        RainAudio.stopVoiceOver(on: self)
         for action in OfficeClientVisitSequencer.actions(for: .finishCaseIntroductionStarted) {
             applyClientVisitAction(action)
         }

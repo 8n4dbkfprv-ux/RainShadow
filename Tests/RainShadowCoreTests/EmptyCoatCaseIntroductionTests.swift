@@ -213,63 +213,93 @@ struct EmptyCoatCaseIntroductionTests {
     // MARK: - Entrance cue + voice openers (shipped pure helpers)
 
     @Test func monologueStartDoesNotTriggerClientEntrance() {
-        // Intro presents monologue first; entrance is a separate late-monologue cue.
+        // Intro presents monologue first; entrance is leave-gated (BG Continue → cinematic).
         #expect(startID == "voss.monologue.1")
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: startID))
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "voss.monologue.2"))
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "voss.monologue.3"))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "voss.monologue.4"))
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: "lila.entrance"))
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: EmptyCoatCaseIntroduction.caseOpenedNodeID))
+        // No monologue page arms entrance on *show* — only whenLeaving the cue.
+        for node in nodes where node.id.hasPrefix("voss.monologue") {
+            #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: node.id))
+        }
     }
 
-    @Test func clientEntranceCueIsSoleLateMonologueTrigger() {
+    @Test func clientEntranceCueIsSoleLateMonologueLeaveTrigger() {
         let cue = EmptyCoatCaseIntroduction.clientEntranceCueNodeID
         #expect(cue == "voss.monologue.4")
-        #expect(EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: cue))
+        // BG style: Continue *from* the cue starts the no-dialogue cinematic.
+        #expect(EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: cue))
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: cue))
 
         let monologueIDs = nodes
             .map(\.id)
             .filter { $0.hasPrefix("voss.monologue") }
         #expect(monologueIDs.contains(cue))
         #expect(monologueIDs.contains(startID))
-        // Only the designated cue among monologue nodes starts entrance.
+        // Only the designated cue among monologue nodes starts entrance on leave.
         for id in monologueIDs where id != cue {
             #expect(
-                !EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: id),
-                "Unexpected entrance trigger on \(id)"
+                !EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: id),
+                "Unexpected leave-entrance trigger on \(id)"
             )
         }
+        #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: "lila.entrance"))
 
         // Cue text narratively introduces arrival (hallway / heels / door / dame).
         let cueNode = nodes.first { $0.id == cue }
         #expect(cueNode != nil)
         let body = (cueNode?.text ?? "").lowercased()
         #expect(body.contains("hallway") || body.contains("heels") || body.contains("door"))
-        // Cue is before Lila speaks — monologue chain still continues.
-        #expect(cueNode?.nextNodeID != nil)
-        #expect(cueNode?.nextNodeID != EmptyCoatCaseIntroduction.lilaConversationStartNodeID || monologueIDs.count == 1)
-        #expect(nodes.contains { $0.id == "voss.monologue.5" })
+        // After cinematic, monologue continues (next page), then Lila speaks.
         #expect(cueNode?.nextNodeID == "voss.monologue.5")
+        #expect(nodes.contains { $0.id == "voss.monologue.5" })
     }
 
-    @Test func dialogueNodesAreCurrentlySilentWithoutVoiceAssets() {
-        // VO is parked for a later pass — openers and full graph must not schedule clips.
-        #expect(EmptyCoatCaseIntroduction.voiceAssetName(for: startID) == nil)
+    @Test func monologueAndLilaNodesShipGrokVoiceAssets() {
+        // Entire Voss monologue + entire Lila dialogue: one Grok Voice clip per speaker node.
+        let monologue = nodes.filter { $0.id.hasPrefix("voss.monologue") }
+        let lila = nodes.filter { $0.speaker == EmptyCoatCaseIntroduction.lilaSpeaker }
+        #expect(monologue.count == 5)
+        #expect(lila.count >= 20)
+
+        for node in monologue {
+            #expect(node.voiceAssetName != nil, "Missing VO on \(node.id)")
+            #expect(
+                node.voiceAssetName == EmptyCoatCaseIntroduction.bundledVoiceFileName(for: node.id),
+                "VO name mismatch on \(node.id)"
+            )
+            #expect(node.voiceAssetName?.hasPrefix("vo_voss_monologue_") == true)
+            #expect(node.voiceAssetName?.hasSuffix(".m4a") == true)
+        }
+        for node in lila {
+            #expect(node.voiceAssetName != nil, "Missing VO on \(node.id)")
+            #expect(
+                node.voiceAssetName == EmptyCoatCaseIntroduction.bundledVoiceFileName(for: node.id),
+                "VO name mismatch on \(node.id)"
+            )
+            #expect(node.voiceAssetName?.hasPrefix("vo_lila_") == true)
+            #expect(node.voiceAssetName?.hasSuffix(".m4a") == true)
+        }
+
+        // Case-title closer stays silent (UI sting, not spoken VO).
+        let closer = nodes.first { $0.id == EmptyCoatCaseIntroduction.caseOpenedNodeID }
+        #expect(closer?.voiceAssetName == nil)
+
+        #expect(
+            EmptyCoatCaseIntroduction.voiceAssetName(for: startID)
+                == EmptyCoatCaseIntroduction.monologueOpenerVoiceAsset
+        )
         #expect(
             EmptyCoatCaseIntroduction.voiceAssetName(
                 for: EmptyCoatCaseIntroduction.lilaConversationStartNodeID
-            ) == nil
+            ) == EmptyCoatCaseIntroduction.lilaEntranceVoiceAsset
         )
-        for node in nodes {
-            #expect(node.voiceAssetName == nil, "Unexpected VO on \(node.id)")
-            #expect(EmptyCoatCaseIntroduction.voiceAssetName(for: node.id) == nil)
-        }
-        // Reserved filenames remain documented for when VO returns.
-        #expect(EmptyCoatCaseIntroduction.monologueOpenerVoiceAsset.hasSuffix(".m4a"))
-        #expect(EmptyCoatCaseIntroduction.lilaEntranceVoiceAsset.hasSuffix(".m4a"))
     }
 
-    @Test func officeIntroWiresEntranceCueWithoutVoicePlayback() throws {
+    @Test func officeIntroWiresEntranceCueAndVoicePlayback() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -281,13 +311,17 @@ struct EmptyCoatCaseIntroductionTests {
         let scene = try String(contentsOf: sceneURL, encoding: .utf8)
         let presenter = try String(contentsOf: presenterURL, encoding: .utf8)
 
-        // Monologue presents first; entrance is armed from the cue callback — not at intro start.
-        #expect(scene.contains("shouldStartClientEntrance"))
+        // Monologue presents first; entrance is deferred until Continue *from* the cue.
+        #expect(scene.contains("shouldStartClientEntrance(whenLeaving:"))
+        #expect(scene.contains("shouldDeferAdvance"))
         #expect(scene.contains("beginClientEntranceIfNeeded"))
         #expect(scene.contains("handleCaseIntroductionNodeShown"))
         #expect(scene.contains("onNodeShown"))
-        // VO playback is offline for now.
-        #expect(!scene.contains("playVoiceOver"))
+        #expect(scene.contains("pendingPostEntranceNodeID"))
+        // Grok Voice plays on each node show; stops when dialogue finishes / cinematic starts.
+        #expect(scene.contains("playVoiceOver"))
+        #expect(scene.contains("stopVoiceOver"))
+        #expect(scene.contains("node.voiceAssetName"))
         #expect(scene.contains("EmptyCoatCaseIntroduction.startNodeID"))
         // Door/entrance only inside the gated helper, not at the top of startCaseIntroduction before present.
         if let startRange = scene.range(of: "private func startCaseIntroduction()") {
@@ -299,21 +333,26 @@ struct EmptyCoatCaseIntroductionTests {
             ) {
                 let body = String(afterStart[..<nextFunc.lowerBound])
                 #expect(body.contains("caseIntroductionPresenter.present"))
+                #expect(body.contains("shouldDeferAdvance"))
+                #expect(body.contains("whenLeaving:"))
                 #expect(!body.contains("animateDoorFalling()"))
                 #expect(!body.contains("performEntrance"))
             }
         }
         #expect(presenter.contains("onNodeShown"))
+        #expect(presenter.contains("shouldDeferAdvance"))
+        #expect(presenter.contains("attemptTransition"))
 
-        // BG-classic cutscene: suppress rails + dialogue panel for entrance walk;
-        // dialogue resumes after walk; free-play rails only after unlock.
+        // BG-classic: Continue from cue → hide dialogue + walk cinematic → resume next page.
         #expect(scene.contains("setCutsceneChromeSuppressed"))
         #expect(scene.contains("updateGameplayChromeVisibility"))
         #expect(scene.contains("setCutsceneSuppressed(true)"))
-        #expect(scene.contains("resumeAfterCutscene"))
+        #expect(scene.contains("resumeAfterCutscene(advancingTo:"))
         #expect(presenter.contains("setCutsceneSuppressed"))
-        #expect(presenter.contains("resumeAfterCutscene"))
+        #expect(presenter.contains("resumeAfterCutscene(advancingTo:"))
         #expect(presenter.contains("isCutsceneSuppressed"))
+        // Showing a node must not arm entrance (leave-gated only).
+        #expect(!scene.contains("shouldStartClientEntrance(whenShowing:"))
         if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
             let afterEntrance = scene[entranceRange.lowerBound...]
             if let nextFunc = afterEntrance.range(
@@ -324,7 +363,7 @@ struct EmptyCoatCaseIntroductionTests {
                 let body = String(afterEntrance[..<nextFunc.lowerBound])
                 #expect(body.contains("setCutsceneChromeSuppressed(true)"))
                 #expect(body.contains("setCutsceneSuppressed(true)"))
-                #expect(body.contains("resumeAfterCutscene"))
+                #expect(body.contains("resumeAfterCutscene(advancingTo:"))
                 // Must not re-show free-play rails when the walk finishes.
                 #expect(!body.contains("setCutsceneChromeSuppressed(false)"))
             }
