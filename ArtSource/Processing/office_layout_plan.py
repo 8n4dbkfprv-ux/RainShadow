@@ -992,8 +992,8 @@ def internal_leaf_scale() -> float:
 # contains the closed door-leaf obstacle. Keep this short segment authored
 # through the painted opening, then hand off to routed interior anchors.
 CLIENT_DOORWAY_PLAN_PATH = [
-    (-0.080, 0.790),  # outside the department, centred in the clear opening
-    (0.200, 0.790),  # inside and clear of the fallen leaf / umbrella stand
+    (-0.080, EXTERIOR_DOOR[1]),  # outside, centred on the painted threshold
+    (0.200, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
@@ -1280,8 +1280,8 @@ def report() -> bool:
     )
 
     # Lila's navigation root is narrower than her rendered coat and shoulders.
-    # Preserve a full-body margin from the partition while she clears the two
-    # waiting chairs, then allow the route to turn into the framed opening.
+    # Preserve a full-body corridor between the chair backs and partition
+    # instead of using the deceptively walkable strip against the exterior wall.
     waiting_clearance_ok = (
         len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) >= 2
         and all(

@@ -1409,14 +1409,14 @@ enum OfficeNavigationLayout {
     /// Exterior threshold crossing. This segment intentionally starts
     /// outside the navigation floor and passes through the fallen door leaf.
     static let clientDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2_618, y: 1_271),
-        CGPoint(x: 2_463, y: 1_184),
+        CGPoint(x: 2_643, y: 1_260),
+        CGPoint(x: 2_487, y: 1_173),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Walkable waiting-room anchors, ending immediately before the
     /// framed internal doorway in the production suite plate.
     static let clientWaitingRoomPath: [CGPoint] = [
-        CGPoint(x: 2_463, y: 1_184),
+        CGPoint(x: 2_487, y: 1_173),
         CGPoint(x: 2_471, y: 1_189),
         CGPoint(x: 2_452, y: 1_178),
         CGPoint(x: 2_440, y: 1_183),

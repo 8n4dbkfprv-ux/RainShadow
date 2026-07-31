@@ -204,12 +204,16 @@ struct NavigationGridTests {
         #expect(doorway.count == 2)
         guard doorway.count == 2, path.count >= 2 else { return }
 
-        // Regression: the old start was already west of the doorway, so Lila
-        // materialized through the left wall. The authored threshold leg now
-        // straddles the painted exterior opening.
+        // Regression: the crossing must not merely hit the broad door/wall
+        // obstacle; it must intersect the NE wall at the painted threshold.
         #expect(doorway[0].x > exteriorDoor.x)
         #expect(doorway[1].x < exteriorDoor.x)
         #expect(segmentCrossesOfficeObstacle(from: doorway[0], to: doorway[1]))
+        let thresholdProgress =
+            (exteriorDoor.x - doorway[0].x) / (doorway[1].x - doorway[0].x)
+        let crossingY =
+            doorway[0].y + (doorway[1].y - doorway[0].y) * thresholdProgress
+        #expect(abs(crossingY - exteriorDoor.y) < 0.5)
 
         let internalDoorway = OfficeNavigationLayout.clientInternalDoorwayPath
         #expect(internalDoorway.count == 3)
@@ -406,6 +410,22 @@ struct NavigationGridTests {
             return (doorway[index] == start && doorway[next] == end)
                 || (doorway[index] == end && doorway[next] == start)
         }
+    }
+
+    private func authoredPlanCoordinates(_ worldPoint: CGPoint) -> CGPoint {
+        let point = OfficeInteriorScale.unmapPoint(worldPoint)
+        let architecture = OfficeNavigationLayout.Architecture.self
+        let dx = point.x - architecture.rearCorner.x
+        let dy = architecture.rearCorner.y - point.y
+        let determinant =
+            architecture.axisNW.dx * architecture.axisNE.dy
+            - architecture.axisNE.dx * architecture.axisNW.dy
+        return CGPoint(
+            x: (dx * architecture.axisNE.dy - architecture.axisNE.dx * dy)
+                / determinant,
+            y: (architecture.axisNW.dx * dy - dx * architecture.axisNW.dy)
+                / determinant
+        )
     }
 
     /// Sampled segment test against the authored (mapped) office obstacle list.
