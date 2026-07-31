@@ -15,9 +15,9 @@ enum OfficeNavigationLayout {
         /// with a single framed doorway as the only connection between rooms.
         static let partitionLineA: CGFloat = 0.39
         static let partitionThicknessA: CGFloat = 0.05336780838072318
-        static let partitionDoorB0: CGFloat = 0.078
-        static let partitionDoorB1: CGFloat = 0.21589197641062258
-        static let partitionReturnB1: CGFloat = 0.24989197641062258
+        static let partitionDoorB0: CGFloat = 0.752
+        static let partitionDoorB1: CGFloat = 0.8
+        static let partitionReturnB1: CGFloat = 0.8300000000000001
         static let wallThicknessPx: CGFloat = 12.0
         static let axisNW = CGVector(dx: -555.5, dy: 311.9)
         static let axisNE = CGVector(dx: 812.2, dy: 386.2)
@@ -70,10 +70,10 @@ enum OfficeNavigationLayout {
                 * entranceFallenArtworkDisplayScale
         )
         /// Internal open leaf registered to the shipping partition hinge.
-        static let internalHingePlateX: CGFloat = 2202.0
-        static let internalHingePlateHeight: CGFloat = 220.0
+        static let internalHingePlateX: CGFloat = 2296.6
+        static let internalHingePlateHeight: CGFloat = 170.0
         static let internalLeafDisplayScale: CGFloat = 0.2234
-        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)
+        static let internalLeafAnchor = CGPoint(x: 2253.117, y: 1104.346)
     }
 
     private static let authoredActorStart = CGPoint(
@@ -961,18 +961,214 @@ enum OfficeNavigationLayout {
         CGRect(x: 1996, y: 2049, width: 104, height: 52),
     ]
 
-    /// Partition solids, one per navigation cell, doorway cells omitted.
-    static let authoredPartitionWallNorthObstacle = CGRect(x: 2252, y: 1089, width: 104, height: 52)
-    static let authoredPartitionWallSouthObstacle = CGRect(x: 1676, y: 1377, width: 104, height: 52)
+    /// Partition solids: overlapping tight AABBs along the wall; doorway open.
+    static let authoredPartitionWallNorthObstacle = CGRect(x: 1667, y: 1429, width: 40, height: 20)
+    static let authoredPartitionWallSouthObstacle = CGRect(x: 2508, y: 1007, width: 40, height: 20)
     static let authoredPartitionSegments: [CGRect] = [
-        CGRect(x: 2252, y: 1089, width: 104, height: 52),
-        CGRect(x: 2188, y: 1121, width: 104, height: 52),
-        CGRect(x: 2124, y: 1153, width: 104, height: 52),
-        CGRect(x: 2060, y: 1185, width: 104, height: 52),
-        CGRect(x: 1996, y: 1217, width: 104, height: 52),
-        CGRect(x: 1932, y: 1249, width: 104, height: 52),
-        CGRect(x: 1868, y: 1281, width: 104, height: 52),
-        CGRect(x: 1676, y: 1377, width: 104, height: 52),
+        CGRect(x: 1667, y: 1429, width: 40, height: 20),
+        CGRect(x: 1656, y: 1423, width: 40, height: 20),
+        CGRect(x: 1646, y: 1417, width: 40, height: 20),
+        CGRect(x: 1679, y: 1423, width: 40, height: 20),
+        CGRect(x: 1668, y: 1417, width: 40, height: 20),
+        CGRect(x: 1658, y: 1412, width: 40, height: 20),
+        CGRect(x: 1691, y: 1417, width: 40, height: 20),
+        CGRect(x: 1681, y: 1412, width: 40, height: 20),
+        CGRect(x: 1670, y: 1406, width: 40, height: 20),
+        CGRect(x: 1703, y: 1412, width: 40, height: 20),
+        CGRect(x: 1693, y: 1406, width: 40, height: 20),
+        CGRect(x: 1682, y: 1400, width: 40, height: 20),
+        CGRect(x: 1715, y: 1406, width: 40, height: 20),
+        CGRect(x: 1705, y: 1400, width: 40, height: 20),
+        CGRect(x: 1695, y: 1394, width: 40, height: 20),
+        CGRect(x: 1728, y: 1400, width: 40, height: 20),
+        CGRect(x: 1717, y: 1394, width: 40, height: 20),
+        CGRect(x: 1707, y: 1388, width: 40, height: 20),
+        CGRect(x: 1740, y: 1394, width: 40, height: 20),
+        CGRect(x: 1729, y: 1388, width: 40, height: 20),
+        CGRect(x: 1719, y: 1383, width: 40, height: 20),
+        CGRect(x: 1752, y: 1389, width: 40, height: 20),
+        CGRect(x: 1742, y: 1383, width: 40, height: 20),
+        CGRect(x: 1731, y: 1377, width: 40, height: 20),
+        CGRect(x: 1764, y: 1383, width: 40, height: 20),
+        CGRect(x: 1754, y: 1377, width: 40, height: 20),
+        CGRect(x: 1743, y: 1371, width: 40, height: 20),
+        CGRect(x: 1776, y: 1377, width: 40, height: 20),
+        CGRect(x: 1766, y: 1371, width: 40, height: 20),
+        CGRect(x: 1756, y: 1365, width: 40, height: 20),
+        CGRect(x: 1788, y: 1371, width: 40, height: 20),
+        CGRect(x: 1778, y: 1365, width: 40, height: 20),
+        CGRect(x: 1768, y: 1359, width: 40, height: 20),
+        CGRect(x: 1801, y: 1365, width: 40, height: 20),
+        CGRect(x: 1790, y: 1360, width: 40, height: 20),
+        CGRect(x: 1780, y: 1354, width: 40, height: 20),
+        CGRect(x: 1813, y: 1360, width: 40, height: 20),
+        CGRect(x: 1802, y: 1354, width: 40, height: 20),
+        CGRect(x: 1792, y: 1348, width: 40, height: 20),
+        CGRect(x: 1825, y: 1354, width: 40, height: 20),
+        CGRect(x: 1815, y: 1348, width: 40, height: 20),
+        CGRect(x: 1804, y: 1342, width: 40, height: 20),
+        CGRect(x: 1837, y: 1348, width: 40, height: 20),
+        CGRect(x: 1827, y: 1342, width: 40, height: 20),
+        CGRect(x: 1816, y: 1336, width: 40, height: 20),
+        CGRect(x: 1849, y: 1342, width: 40, height: 20),
+        CGRect(x: 1839, y: 1336, width: 40, height: 20),
+        CGRect(x: 1829, y: 1331, width: 40, height: 20),
+        CGRect(x: 1862, y: 1336, width: 40, height: 20),
+        CGRect(x: 1851, y: 1331, width: 40, height: 20),
+        CGRect(x: 1841, y: 1325, width: 40, height: 20),
+        CGRect(x: 1874, y: 1331, width: 40, height: 20),
+        CGRect(x: 1863, y: 1325, width: 40, height: 20),
+        CGRect(x: 1853, y: 1319, width: 40, height: 20),
+        CGRect(x: 1886, y: 1325, width: 40, height: 20),
+        CGRect(x: 1876, y: 1319, width: 40, height: 20),
+        CGRect(x: 1865, y: 1313, width: 40, height: 20),
+        CGRect(x: 1898, y: 1319, width: 40, height: 20),
+        CGRect(x: 1888, y: 1313, width: 40, height: 20),
+        CGRect(x: 1877, y: 1307, width: 40, height: 20),
+        CGRect(x: 1910, y: 1313, width: 40, height: 20),
+        CGRect(x: 1900, y: 1307, width: 40, height: 20),
+        CGRect(x: 1890, y: 1302, width: 40, height: 20),
+        CGRect(x: 1922, y: 1307, width: 40, height: 20),
+        CGRect(x: 1912, y: 1302, width: 40, height: 20),
+        CGRect(x: 1902, y: 1296, width: 40, height: 20),
+        CGRect(x: 1935, y: 1302, width: 40, height: 20),
+        CGRect(x: 1924, y: 1296, width: 40, height: 20),
+        CGRect(x: 1914, y: 1290, width: 40, height: 20),
+        CGRect(x: 1947, y: 1296, width: 40, height: 20),
+        CGRect(x: 1936, y: 1290, width: 40, height: 20),
+        CGRect(x: 1926, y: 1284, width: 40, height: 20),
+        CGRect(x: 1959, y: 1290, width: 40, height: 20),
+        CGRect(x: 1949, y: 1284, width: 40, height: 20),
+        CGRect(x: 1938, y: 1278, width: 40, height: 20),
+        CGRect(x: 1971, y: 1284, width: 40, height: 20),
+        CGRect(x: 1961, y: 1278, width: 40, height: 20),
+        CGRect(x: 1950, y: 1273, width: 40, height: 20),
+        CGRect(x: 1983, y: 1278, width: 40, height: 20),
+        CGRect(x: 1973, y: 1273, width: 40, height: 20),
+        CGRect(x: 1963, y: 1267, width: 40, height: 20),
+        CGRect(x: 1996, y: 1273, width: 40, height: 20),
+        CGRect(x: 1985, y: 1267, width: 40, height: 20),
+        CGRect(x: 1975, y: 1261, width: 40, height: 20),
+        CGRect(x: 2008, y: 1267, width: 40, height: 20),
+        CGRect(x: 1997, y: 1261, width: 40, height: 20),
+        CGRect(x: 1987, y: 1255, width: 40, height: 20),
+        CGRect(x: 2020, y: 1261, width: 40, height: 20),
+        CGRect(x: 2010, y: 1255, width: 40, height: 20),
+        CGRect(x: 1999, y: 1249, width: 40, height: 20),
+        CGRect(x: 2032, y: 1255, width: 40, height: 20),
+        CGRect(x: 2022, y: 1249, width: 40, height: 20),
+        CGRect(x: 2011, y: 1244, width: 40, height: 20),
+        CGRect(x: 2044, y: 1249, width: 40, height: 20),
+        CGRect(x: 2034, y: 1244, width: 40, height: 20),
+        CGRect(x: 2024, y: 1238, width: 40, height: 20),
+        CGRect(x: 2056, y: 1244, width: 40, height: 20),
+        CGRect(x: 2046, y: 1238, width: 40, height: 20),
+        CGRect(x: 2036, y: 1232, width: 40, height: 20),
+        CGRect(x: 2069, y: 1238, width: 40, height: 20),
+        CGRect(x: 2058, y: 1232, width: 40, height: 20),
+        CGRect(x: 2048, y: 1226, width: 40, height: 20),
+        CGRect(x: 2081, y: 1232, width: 40, height: 20),
+        CGRect(x: 2070, y: 1226, width: 40, height: 20),
+        CGRect(x: 2060, y: 1220, width: 40, height: 20),
+        CGRect(x: 2093, y: 1226, width: 40, height: 20),
+        CGRect(x: 2083, y: 1220, width: 40, height: 20),
+        CGRect(x: 2072, y: 1215, width: 40, height: 20),
+        CGRect(x: 2105, y: 1221, width: 40, height: 20),
+        CGRect(x: 2095, y: 1215, width: 40, height: 20),
+        CGRect(x: 2084, y: 1209, width: 40, height: 20),
+        CGRect(x: 2117, y: 1215, width: 40, height: 20),
+        CGRect(x: 2107, y: 1209, width: 40, height: 20),
+        CGRect(x: 2097, y: 1203, width: 40, height: 20),
+        CGRect(x: 2130, y: 1209, width: 40, height: 20),
+        CGRect(x: 2119, y: 1203, width: 40, height: 20),
+        CGRect(x: 2109, y: 1197, width: 40, height: 20),
+        CGRect(x: 2142, y: 1203, width: 40, height: 20),
+        CGRect(x: 2131, y: 1197, width: 40, height: 20),
+        CGRect(x: 2121, y: 1191, width: 40, height: 20),
+        CGRect(x: 2154, y: 1197, width: 40, height: 20),
+        CGRect(x: 2144, y: 1192, width: 40, height: 20),
+        CGRect(x: 2133, y: 1186, width: 40, height: 20),
+        CGRect(x: 2166, y: 1192, width: 40, height: 20),
+        CGRect(x: 2156, y: 1186, width: 40, height: 20),
+        CGRect(x: 2145, y: 1180, width: 40, height: 20),
+        CGRect(x: 2178, y: 1186, width: 40, height: 20),
+        CGRect(x: 2168, y: 1180, width: 40, height: 20),
+        CGRect(x: 2158, y: 1174, width: 40, height: 20),
+        CGRect(x: 2191, y: 1180, width: 40, height: 20),
+        CGRect(x: 2180, y: 1174, width: 40, height: 20),
+        CGRect(x: 2170, y: 1168, width: 40, height: 20),
+        CGRect(x: 2203, y: 1174, width: 40, height: 20),
+        CGRect(x: 2192, y: 1168, width: 40, height: 20),
+        CGRect(x: 2182, y: 1163, width: 40, height: 20),
+        CGRect(x: 2215, y: 1168, width: 40, height: 20),
+        CGRect(x: 2205, y: 1163, width: 40, height: 20),
+        CGRect(x: 2194, y: 1157, width: 40, height: 20),
+        CGRect(x: 2227, y: 1163, width: 40, height: 20),
+        CGRect(x: 2217, y: 1157, width: 40, height: 20),
+        CGRect(x: 2206, y: 1151, width: 40, height: 20),
+        CGRect(x: 2239, y: 1157, width: 40, height: 20),
+        CGRect(x: 2229, y: 1151, width: 40, height: 20),
+        CGRect(x: 2218, y: 1145, width: 40, height: 20),
+        CGRect(x: 2251, y: 1151, width: 40, height: 20),
+        CGRect(x: 2241, y: 1145, width: 40, height: 20),
+        CGRect(x: 2231, y: 1139, width: 40, height: 20),
+        CGRect(x: 2264, y: 1145, width: 40, height: 20),
+        CGRect(x: 2253, y: 1139, width: 40, height: 20),
+        CGRect(x: 2243, y: 1134, width: 40, height: 20),
+        CGRect(x: 2276, y: 1139, width: 40, height: 20),
+        CGRect(x: 2265, y: 1134, width: 40, height: 20),
+        CGRect(x: 2255, y: 1128, width: 40, height: 20),
+        CGRect(x: 2288, y: 1134, width: 40, height: 20),
+        CGRect(x: 2278, y: 1128, width: 40, height: 20),
+        CGRect(x: 2267, y: 1122, width: 40, height: 20),
+        CGRect(x: 2300, y: 1128, width: 40, height: 20),
+        CGRect(x: 2290, y: 1122, width: 40, height: 20),
+        CGRect(x: 2279, y: 1116, width: 40, height: 20),
+        CGRect(x: 2359, y: 1100, width: 40, height: 20),
+        CGRect(x: 2348, y: 1094, width: 40, height: 20),
+        CGRect(x: 2338, y: 1088, width: 40, height: 20),
+        CGRect(x: 2371, y: 1094, width: 40, height: 20),
+        CGRect(x: 2360, y: 1088, width: 40, height: 20),
+        CGRect(x: 2350, y: 1083, width: 40, height: 20),
+        CGRect(x: 2383, y: 1088, width: 40, height: 20),
+        CGRect(x: 2373, y: 1083, width: 40, height: 20),
+        CGRect(x: 2362, y: 1077, width: 40, height: 20),
+        CGRect(x: 2395, y: 1083, width: 40, height: 20),
+        CGRect(x: 2385, y: 1077, width: 40, height: 20),
+        CGRect(x: 2374, y: 1071, width: 40, height: 20),
+        CGRect(x: 2407, y: 1077, width: 40, height: 20),
+        CGRect(x: 2397, y: 1071, width: 40, height: 20),
+        CGRect(x: 2387, y: 1065, width: 40, height: 20),
+        CGRect(x: 2420, y: 1071, width: 40, height: 20),
+        CGRect(x: 2409, y: 1065, width: 40, height: 20),
+        CGRect(x: 2399, y: 1059, width: 40, height: 20),
+        CGRect(x: 2432, y: 1065, width: 40, height: 20),
+        CGRect(x: 2421, y: 1059, width: 40, height: 20),
+        CGRect(x: 2411, y: 1054, width: 40, height: 20),
+        CGRect(x: 2444, y: 1059, width: 40, height: 20),
+        CGRect(x: 2434, y: 1054, width: 40, height: 20),
+        CGRect(x: 2423, y: 1048, width: 40, height: 20),
+        CGRect(x: 2456, y: 1054, width: 40, height: 20),
+        CGRect(x: 2446, y: 1048, width: 40, height: 20),
+        CGRect(x: 2435, y: 1042, width: 40, height: 20),
+        CGRect(x: 2468, y: 1048, width: 40, height: 20),
+        CGRect(x: 2458, y: 1042, width: 40, height: 20),
+        CGRect(x: 2448, y: 1036, width: 40, height: 20),
+        CGRect(x: 2480, y: 1042, width: 40, height: 20),
+        CGRect(x: 2470, y: 1036, width: 40, height: 20),
+        CGRect(x: 2460, y: 1030, width: 40, height: 20),
+        CGRect(x: 2493, y: 1036, width: 40, height: 20),
+        CGRect(x: 2482, y: 1030, width: 40, height: 20),
+        CGRect(x: 2472, y: 1025, width: 40, height: 20),
+        CGRect(x: 2505, y: 1031, width: 40, height: 20),
+        CGRect(x: 2494, y: 1025, width: 40, height: 20),
+        CGRect(x: 2484, y: 1019, width: 40, height: 20),
+        CGRect(x: 2517, y: 1025, width: 40, height: 20),
+        CGRect(x: 2507, y: 1019, width: 40, height: 20),
+        CGRect(x: 2496, y: 1013, width: 40, height: 20),
+        CGRect(x: 2529, y: 1019, width: 40, height: 20),
+        CGRect(x: 2519, y: 1013, width: 40, height: 20),
+        CGRect(x: 2508, y: 1007, width: 40, height: 20),
     ]
 
     static let authoredSafeObstacle = CGRect(x: 1595, y: 1323, width: 64, height: 32)
@@ -1116,14 +1312,14 @@ enum OfficeNavigationLayout {
         CGPoint(x: 2_499, y: 1_041),
     ]
     static let authoredPartitionWallNorthSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_304, y: 1_115),
-        CGPoint(x: 2_283, y: 1_107),
-        CGPoint(x: 2_325, y: 1_122),
+        CGPoint(x: 1_687, y: 1_439),
+        CGPoint(x: 1_679, y: 1_436),
+        CGPoint(x: 1_695, y: 1_442),
     ]
     static let authoredPartitionWallSouthSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_728, y: 1_403),
-        CGPoint(x: 1_707, y: 1_395),
-        CGPoint(x: 1_749, y: 1_410),
+        CGPoint(x: 2_528, y: 1_017),
+        CGPoint(x: 2_520, y: 1_014),
+        CGPoint(x: 2_536, y: 1_020),
     ]
 
     // MARK: - Placements
@@ -1221,23 +1417,22 @@ enum OfficeNavigationLayout {
     /// framed internal doorway in the production suite plate.
     static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2_487, y: 1_173),
-        CGPoint(x: 2_399, y: 1_174),
-        CGPoint(x: 2_123, y: 1_305),
-        CGPoint(x: 1_994, y: 1_367),
-        CGPoint(x: 1_874, y: 1_395),
+        CGPoint(x: 2_424, y: 1_162),
+        CGPoint(x: 2_412, y: 1_168),
+        CGPoint(x: 2_385, y: 1_152),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Explicit crossing through the real framed partition aperture.
     static let clientInternalDoorwayPath: [CGPoint] = [
-        CGPoint(x: 1_874, y: 1_395),
-        CGPoint(x: 1_820, y: 1_365),
-        CGPoint(x: 1_772, y: 1_338),
+        CGPoint(x: 2_385, y: 1_152),
+        CGPoint(x: 2_331, y: 1_122),
+        CGPoint(x: 2_283, y: 1_095),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Direct private-office approach after clearing the internal door.
     static let clientOfficeArrivalPath: [CGPoint] = [
-        CGPoint(x: 1_772, y: 1_338),
-        CGPoint(x: 1_877, y: 1_336),
+        CGPoint(x: 2_283, y: 1_095),
+        CGPoint(x: 2_251, y: 1_077),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let clientInteriorArrivalPath: [CGPoint] = [
@@ -1252,17 +1447,13 @@ enum OfficeNavigationLayout {
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
-    /// Expand the complete interior anchor chain as one collision-checked
-    /// polyline. The real partition doorway anchors prevent smoothing
-    /// across either jamb while keeping the route direct.
+    /// Authored aperture polyline through the shipping painted doorway.
+    /// Do not A*-expand: snapping interior anchors onto nearest walkable
+    /// cells can walk the coat through frosted glass beside the real opening.
+    /// Anchors are collision-checked at layout generation.
     static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
-        guard let interior = navigation.waypoints(visiting: clientInteriorArrivalPath) else {
-            // Stop safely inside the exterior door if a future layout
-            // disconnects the rooms; never fall back to wall-cutting moves.
-            return clientDoorwayPath
-        }
-        return Array(clientDoorwayPath.dropLast())
-            + interior
+        _ = navigation
+        return clientArrivalPath
     }
 
     static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {
@@ -1365,7 +1556,7 @@ enum OfficeNavigationLayout {
     static let authoredScaleReferenceStands: [CGPoint] = [
         CGPoint(x: 2_554, y: 1_210),
         CGPoint(x: 1_863, y: 1_193),
-        CGPoint(x: 1_829, y: 1_370),
+        CGPoint(x: 2_340, y: 1_127),
         CGPoint(x: 2_325, y: 1_267),
     ]
 
@@ -1470,15 +1661,24 @@ enum OfficeNavigationLayout {
         }
     }
 
-    static func makeGrid() -> NavigationGrid {
-        NavigationGrid(
+    /// - Parameter entranceDoorBlocking: When false, the upright exterior leaf
+    ///   obstacle is omitted (door has fallen / opening is clear).
+    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationGrid {
+        let gridObstacles: [CGRect]
+        if entranceDoorBlocking {
+            gridObstacles = obstacles
+        } else {
+            let door = doorObstacle
+            gridObstacles = obstacles.filter { $0 != door }
+        }
+        return NavigationGrid(
             projection: .dimetric(
                 origin: OfficeInteriorScale.mapPoint(authoredProjectionOrigin),
                 tileSize: OfficeInteriorScale.mapSize(authoredTileSize)
             ),
             columns: 31,
             rows: 31,
-            obstacles: obstacles,
+            obstacles: gridObstacles,
             agentProfile: .officeDetective
         )
     }

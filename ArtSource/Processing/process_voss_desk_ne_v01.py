@@ -407,10 +407,13 @@ def main() -> None:
     ARMS_ATLAS.mkdir(parents=True, exist_ok=True)
     TRANS_ATLAS.mkdir(parents=True, exist_ok=True)
 
-    # V3 rear-view strips: same NE rear pose as V2, olive-brown V6 coat lock
-    # (V2 drifted charcoal). Hands stay on the body sprite.
-    idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v03.png"
-    stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v03.png"
+    # Prefer V8 clean-shaven rear desk chain; fall back to V3 olive V6-era strips.
+    idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v08.png"
+    stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v08.png"
+    if not idle_src.exists():
+        idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v03.png"
+    if not stand_src.exists():
+        stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v03.png"
     for src in (idle_src, stand_src):
         if src.exists():
             shutil.copy(src, GEN / src.name)

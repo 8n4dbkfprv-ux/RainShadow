@@ -182,12 +182,12 @@ class Partition:
 
     # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
     a_line: float = 0.39
-    # Door sits close to the rear wall so the full-height mass stays short.
-    # Opening width matches the shell's exterior doorway (~EXTERIOR_DOOR_OPENING_B).
-    b_door0: float = 0.078
-    b_door1: float = 0.078 + EXTERIOR_DOOR_OPENING_B
-    # Short full-height return past the latch jamb before the cutaway drop.
-    b_return1: float = 0.078 + EXTERIOR_DOOR_OPENING_B + 0.034
+    # Live mid-entrance captures: 0.753/0.772 still read hinge-side of the void
+    # (aperture tip-ward of Lila + leaf); 0.780 reads tip-side. Mid ≈ 0.776.
+    b_door0: float = 0.752
+    b_door1: float = 0.800
+    # Short full-height return past the high-b jamb before the cutaway drop.
+    b_return1: float = 0.800 + 0.030
     # Freestanding interior mass (plan units along AXIS_NW).
     thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H

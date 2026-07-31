@@ -39,14 +39,18 @@ enum GameArt {
     /// `SKTexture(imageNamed:)` returns SpriteKit's red-X placeholder for a missing name,
     /// so its non-zero size cannot be used to validate newly added runtime resources.
     static func standaloneTexture(named name: String) -> SKTexture? {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "png"),
-              let source = CGImageSourceCreateWithURL(url as CFURL, nil),
-              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
-            return nil
-        }
+        guard let image = standaloneCGImage(named: name) else { return nil }
         let texture = SKTexture(cgImage: image)
         texture.filteringMode = .nearest
         return texture
+    }
+
+    static func standaloneCGImage(named name: String) -> CGImage? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "png"),
+              let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
+            return nil
+        }
+        return CGImageSourceCreateImageAtIndex(source, 0, nil)
     }
 
     static func preloadOfficeAssets() {

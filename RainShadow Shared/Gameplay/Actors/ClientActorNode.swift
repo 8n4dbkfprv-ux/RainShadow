@@ -128,6 +128,57 @@ final class ClientActorNode: SKNode {
         run(.sequence(actions), withKey: "clientEntrance")
     }
 
+    /// Wall-clock seek for QA captures when the SKView may not advance actions
+    /// (no drawable / background launch). Mirrors `performEntrance` timing.
+    func seekEntrance(along points: [CGPoint], elapsed: TimeInterval) {
+        guard let start = points.first else { return }
+        removeAllActions()
+        body.removeAllActions()
+        clearDepartureHandoff()
+        body.position = .zero
+        body.alpha = 1
+        isHidden = false
+        alpha = 1
+
+        var prior = start
+        var t = elapsed
+        // Match fade-in occupying the first 0.22s of the entrance sequence.
+        t -= 0.22
+        if t <= 0 {
+            position = start
+            return
+        }
+        for destination in points.dropFirst() {
+            let distance = hypot(destination.x - prior.x, destination.y - prior.y)
+            guard distance > 0.25 else {
+                prior = destination
+                continue
+            }
+            let duration = ActorLocomotionPacing.pathDuration(distance: distance)
+            if t <= duration {
+                let u = CGFloat(t / duration)
+                position = CGPoint(
+                    x: prior.x + (destination.x - prior.x) * u,
+                    y: prior.y + (destination.y - prior.y) * u
+                )
+                let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
+                if let frame = walkingFrames.first {
+                    body.texture = frame
+                    body.texture?.filteringMode = .nearest
+                }
+                return
+            }
+            t -= duration
+            prior = destination
+        }
+        position = prior
+        if let idle = arrivalTextures.last {
+            body.texture = idle
+            body.texture?.filteringMode = .nearest
+        }
+        startIdle()
+    }
+
     func performExit(along points: [CGPoint], completion: @escaping () -> Void) {
         guard let start = points.first else {
             completion()
