@@ -15,9 +15,9 @@ enum OfficeNavigationLayout {
         /// with a single framed doorway as the only connection between rooms.
         static let partitionLineA: CGFloat = 0.39
         static let partitionThicknessA: CGFloat = 0.05336780838072318
-        static let partitionDoorB0: CGFloat = 0.695
-        static let partitionDoorB1: CGFloat = 0.775
-        static let partitionReturnB1: CGFloat = 0.809
+        static let partitionDoorB0: CGFloat = 0.752
+        static let partitionDoorB1: CGFloat = 0.8
+        static let partitionReturnB1: CGFloat = 0.8300000000000001
         static let wallThicknessPx: CGFloat = 12.0
         static let axisNW = CGVector(dx: -555.5, dy: 311.9)
         static let axisNE = CGVector(dx: 812.2, dy: 386.2)
@@ -70,10 +70,10 @@ enum OfficeNavigationLayout {
                 * entranceFallenArtworkDisplayScale
         )
         /// Internal open leaf registered to the shipping partition hinge.
-        static let internalHingePlateX: CGFloat = 2202.0
-        static let internalHingePlateHeight: CGFloat = 220.0
+        static let internalHingePlateX: CGFloat = 2296.6
+        static let internalHingePlateHeight: CGFloat = 170.0
         static let internalLeafDisplayScale: CGFloat = 0.2234
-        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)
+        static let internalLeafAnchor = CGPoint(x: 2253.117, y: 1104.346)
     }
 
     private static let authoredActorStart = CGPoint(
@@ -1112,12 +1112,18 @@ enum OfficeNavigationLayout {
         CGRect(x: 2251, y: 1151, width: 40, height: 20),
         CGRect(x: 2241, y: 1145, width: 40, height: 20),
         CGRect(x: 2231, y: 1139, width: 40, height: 20),
-        CGRect(x: 2334, y: 1112, width: 40, height: 20),
-        CGRect(x: 2324, y: 1106, width: 40, height: 20),
-        CGRect(x: 2314, y: 1100, width: 40, height: 20),
-        CGRect(x: 2346, y: 1106, width: 40, height: 20),
-        CGRect(x: 2336, y: 1100, width: 40, height: 20),
-        CGRect(x: 2326, y: 1094, width: 40, height: 20),
+        CGRect(x: 2264, y: 1145, width: 40, height: 20),
+        CGRect(x: 2253, y: 1139, width: 40, height: 20),
+        CGRect(x: 2243, y: 1134, width: 40, height: 20),
+        CGRect(x: 2276, y: 1139, width: 40, height: 20),
+        CGRect(x: 2265, y: 1134, width: 40, height: 20),
+        CGRect(x: 2255, y: 1128, width: 40, height: 20),
+        CGRect(x: 2288, y: 1134, width: 40, height: 20),
+        CGRect(x: 2278, y: 1128, width: 40, height: 20),
+        CGRect(x: 2267, y: 1122, width: 40, height: 20),
+        CGRect(x: 2300, y: 1128, width: 40, height: 20),
+        CGRect(x: 2290, y: 1122, width: 40, height: 20),
+        CGRect(x: 2279, y: 1116, width: 40, height: 20),
         CGRect(x: 2359, y: 1100, width: 40, height: 20),
         CGRect(x: 2348, y: 1094, width: 40, height: 20),
         CGRect(x: 2338, y: 1088, width: 40, height: 20),
@@ -1411,23 +1417,23 @@ enum OfficeNavigationLayout {
     /// framed internal doorway in the production suite plate.
     static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2_463, y: 1_184),
-        CGPoint(x: 2_447, y: 1_200),
-        CGPoint(x: 2_427, y: 1_189),
-        CGPoint(x: 2_407, y: 1_199),
-        CGPoint(x: 2_351, y: 1_168),
+        CGPoint(x: 2_471, y: 1_189),
+        CGPoint(x: 2_452, y: 1_178),
+        CGPoint(x: 2_440, y: 1_183),
+        CGPoint(x: 2_385, y: 1_152),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Explicit crossing through the real framed partition aperture.
     static let clientInternalDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2_351, y: 1_168),
-        CGPoint(x: 2_298, y: 1_138),
-        CGPoint(x: 2_249, y: 1_111),
+        CGPoint(x: 2_385, y: 1_152),
+        CGPoint(x: 2_331, y: 1_122),
+        CGPoint(x: 2_283, y: 1_095),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Direct private-office approach after clearing the internal door.
     static let clientOfficeArrivalPath: [CGPoint] = [
-        CGPoint(x: 2_249, y: 1_111),
-        CGPoint(x: 2_218, y: 1_093),
+        CGPoint(x: 2_283, y: 1_095),
+        CGPoint(x: 2_251, y: 1_077),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let clientInteriorArrivalPath: [CGPoint] = [
@@ -1551,7 +1557,7 @@ enum OfficeNavigationLayout {
     static let authoredScaleReferenceStands: [CGPoint] = [
         CGPoint(x: 2_554, y: 1_210),
         CGPoint(x: 1_863, y: 1_193),
-        CGPoint(x: 2_307, y: 1_143),
+        CGPoint(x: 2_340, y: 1_127),
         CGPoint(x: 2_325, y: 1_267),
     ]
 

@@ -182,14 +182,12 @@ class Partition:
 
     # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
     a_line: float = 0.39
-    # Painted clear doorway on the suite plate (measured on office_suite_plate):
-    # hinge stile ≈ b 0.60–0.64, frosted sidelight through ~0.69, empty aperture
-    # ≈ b 0.70–0.76. Nav opens that hole (slightly padded for cell centres).
-    # Do not move shipping leaf/hinge art to chase pathing.
-    b_door0: float = 0.695
-    b_door1: float = 0.775
+    # Live mid-entrance captures: 0.753/0.772 still read hinge-side of the void
+    # (aperture tip-ward of Lila + leaf); 0.780 reads tip-side. Mid ≈ 0.776.
+    b_door0: float = 0.752
+    b_door1: float = 0.800
     # Short full-height return past the high-b jamb before the cutaway drop.
-    b_return1: float = 0.775 + 0.034
+    b_return1: float = 0.800 + 0.030
     # Freestanding interior mass (plan units along AXIS_NW).
     thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H

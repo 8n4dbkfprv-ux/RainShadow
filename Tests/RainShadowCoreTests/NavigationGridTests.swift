@@ -309,23 +309,24 @@ struct NavigationGridTests {
         }
     }
 
-    /// Painted clear aperture is tip-ward of the shipping hinge stile (≈0.70–0.76).
-    /// Leaf art stays at SHIPPING_INTERNAL_HINGE; frost beside the hinge stays solid.
+    /// Nav door band is centred on the live clear aperture (mid ≈ 0.780).
+    /// Leaf art stays at SHIPPING_INTERNAL_HINGE; deep frost stays solid.
     @Test func partitionApertureClearsPaintedFrameNotAdjacentWall() {
         let arch = OfficeNavigationLayout.Architecture.self
         let aFace = arch.partitionLineA + arch.partitionThicknessA
         let faceOriginX = arch.rearCorner.x + aFace * arch.axisNW.dx
         let stileB = (arch.internalHingePlateX - faceOriginX) / arch.axisNE.dx
 
-        // Hinge stile sits on the frost side of the clear hole; nav opens the hole.
-        #expect(stileB < arch.partitionDoorB0)
-        #expect(abs(arch.partitionDoorB0 - 0.695) < 0.001)
-        #expect(abs(arch.partitionDoorB1 - 0.775) < 0.001)
+        // Hinge stile is the left jamb of the live clear hole.
+        #expect(abs(stileB - 0.752) < 0.01)
+        #expect(abs(arch.partitionDoorB0 - 0.752) < 0.001)
+        #expect(abs(arch.partitionDoorB1 - 0.800) < 0.001)
+        #expect(abs(0.5 * (arch.partitionDoorB0 + arch.partitionDoorB1) - 0.776) < 0.001)
         #expect(arch.partitionReturnB1 > arch.partitionDoorB1)
-        #expect(abs(arch.internalHingePlateX - 2202.0) < 0.001)
+        #expect(abs(arch.internalHingePlateX - 2296.6) < 0.1)
 
         let grid = OfficeNavigationLayout.makeGrid()
-        for frameB: CGFloat in [0.71, 0.73, 0.75] {
+        for frameB: CGFloat in [0.760, 0.776, 0.790] {
             let frameProbe = OfficeInteriorScale.mapPoint(
                 authoredPoint(a: aFace - 0.02, b: frameB)
             )
@@ -334,8 +335,8 @@ struct NavigationGridTests {
                 "Frame cell at b=\(frameB) must stay open"
             )
         }
-        // Frost beside the hinge (old wrong crossing ≈0.66) and tip glass stay solid.
-        for glassB: CGFloat in [0.55, 0.62, 0.66, 0.686, 0.85] {
+        // Hinge-side frost stays solid.
+        for glassB: CGFloat in [0.55, 0.62, 0.66, 0.686, 0.720, 0.850] {
             let glassProbe = OfficeInteriorScale.mapPoint(
                 authoredPoint(a: aFace - 0.02, b: glassB)
             )

@@ -802,8 +802,16 @@ final class DetectiveOfficeScene: BaseGameScene {
         let path = clientEntrancePath.isEmpty
             ? OfficeNavigationLayout.clientArrivalRoute(in: navigation)
             : clientEntrancePath
-        let started = clientEntranceStartedAt ?? ProcessInfo.processInfo.systemUptime
-        let elapsed = max(0, ProcessInfo.processInfo.systemUptime - started)
+        // Prefer CAPTURE_DELAY as the seek clock: headless launches often fire
+        // capture before the GCD entrance start, which zeroed wall-clock elapsed
+        // and left Lila frozen at the exterior threshold.
+        let elapsed: TimeInterval
+        if let delay = Double(ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_DELAY"] ?? "") {
+            elapsed = max(0, delay)
+        } else {
+            let started = clientEntranceStartedAt ?? ProcessInfo.processInfo.systemUptime
+            elapsed = max(0, ProcessInfo.processInfo.systemUptime - started)
+        }
         client.seekEntrance(along: path, elapsed: elapsed)
         updateDepth(of: client)
     }

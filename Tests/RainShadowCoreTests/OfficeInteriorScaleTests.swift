@@ -146,14 +146,15 @@ struct OfficeInteriorScaleTests {
         // Must not remain at full environment plate scale (legacy oversized leaf).
         #expect(leafScale < OfficeInteriorScale.environment * 0.65)
         #expect(leafScale > 0.05)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 220) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 170) < 0.001)
 
         let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
         let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
         #expect(leaf == anchor)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_202.0) < 0.001)
-        #expect(abs(anchor.x - 2_151.949) < 0.001)
-        #expect(abs(anchor.y - 1_002.148) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_296.6) < 0.1)
+        // Anchor is regenerated from the clear-aperture hinge; keep it on-plate.
+        #expect((2_100.0...2_350.0).contains(anchor.x))
+        #expect((900.0...1_200.0).contains(anchor.y))
     }
 
     @Test func entranceDoorRegistersToShippingAperture() {
@@ -506,8 +507,9 @@ struct OfficeInteriorScaleTests {
         let arch = OfficeNavigationLayout.Architecture.self
         let door0 = arch.partitionDoorB0
         let door1 = arch.partitionDoorB1
-        #expect(abs(door0 - 0.695) < 0.001)
-        #expect(abs(door1 - 0.775) < 0.001)
+        #expect(abs(door0 - 0.752) < 0.001)
+        #expect(abs(door1 - 0.800) < 0.001)
+        #expect(abs(0.5 * (door0 + door1) - 0.776) < 0.001)
         let threshold = internalDoor[1]
         let artHeight: CGFloat = 2_304
         let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)

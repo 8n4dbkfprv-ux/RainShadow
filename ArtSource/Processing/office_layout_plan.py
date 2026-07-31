@@ -127,10 +127,10 @@ WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 SHIPPING_EXTERIOR_OPENING_SIZE = (93.0, 206.0)
 SHIPPING_EXTERIOR_THRESHOLD = (2600.65, 960.0)
 # Low-b stile of the painted frosted opening (office face).
-# Shipping suite-plate measurements — leaf art registers here; do not relocate.
-SHIPPING_INTERNAL_HINGE_X = 2202.0
-SHIPPING_INTERNAL_HINGE_TOP_Y = 1050.0
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1270.0
+# Left jamb of the live clear aperture (office face ≈ b 0.752 → plate x ≈ 2297).
+SHIPPING_INTERNAL_HINGE_X = 2296.6
+SHIPPING_INTERNAL_HINGE_TOP_Y = 1001.0
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1171.0
 
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
@@ -561,10 +561,11 @@ def emit() -> str:
         f"        static let internalHingePlateHeight: CGFloat = "
         f"{SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y:.1f}"
     )
-    # Leaf scale + anchor stay the validated shipping fit against the suite plate.
-    # Re-deriving from sparse right-edge alpha drifted the leaf off the painted jamb.
+    # Leaf scale keeps the validated fit; anchor is solved from the measured
+    # clear-aperture hinge jamb so the open leaf tracks the painted frame.
     add("        static let internalLeafDisplayScale: CGFloat = 0.2234")
-    add("        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)")
+    leaf_x, leaf_y = internal_door_leaf_anchor()
+    add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -996,9 +997,8 @@ CLIENT_DOORWAY_PLAN_PATH = [
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# Cross the painted clear aperture (≈ b 0.70–0.76), not the frosted sidelight
-# beside the shipping hinge. Exact polyline (no A*); leaf art stays put.
-CLIENT_INTERNAL_DOOR_B = P.door_mid_b
+# Cross the live clear aperture mid (≈ 0.776). Exact polyline (no A*).
+CLIENT_INTERNAL_DOOR_B = 0.776
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
     (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
@@ -1008,11 +1008,10 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
 
-# Waiting leg stays chair-side (low a), then squares to the painted doorway b
-# without skimming tip glass.
+# Waiting leg stays chair-side (low a), then squares to the doorway b.
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.185, 0.760),  # clear of the fallen leaf / coat rack
-    (0.220, 0.760),  # sidestep — diagonal into aperture b clips tip solids
+    (0.185, 0.790),  # clear of the fallen leaf / coat rack
+    (0.220, 0.790),  # sidestep — diagonal into aperture b clips solids
     (0.220, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b, then square to the door
 ]
 CLIENT_WAITING_ROOM_PATH = [
