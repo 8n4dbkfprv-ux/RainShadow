@@ -63,7 +63,7 @@ Sheet prompts change only direction, pose, and phase while retaining this contra
 | Client arrival | `lila_arrival_sw_{00–08}` (08 = idle) | `LilaArrival.atlas` |
 | Client departure NE | `lila_departure_ne_{00–07}` | `LilaArrival.atlas` |
 | Client departure NW | `lila_departure_nw_{00–07}` | `LilaArrival.atlas` |
-| Dialogue portrait | `dialogue_portrait_lila_march_v01` | `UI/Dialogue/` |
+| Dialogue portrait | `dialogue_portrait_lila_march_v02` | `UI/Dialogue/` |
 
 ## Gate assets
 
