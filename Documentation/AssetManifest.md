@@ -236,14 +236,14 @@ lila_departure_ne_00.png ... lila_departure_ne_07.png
 lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
-Atlases (shipped V8 set — V7 BGEE crunch of V8 identity masters):
+Atlases (shipped set — Voss V8 identity + Lila V9 identity, both on V7 BGEE crunch):
 
 - `VossSeatedIdle.atlas` — seated idle body frames.
 - `VossSeatedArms.atlas` — derived seated forearm overlay (draws above the desk's front occluder).
 - `VossSeatTransitions.atlas` — stand-up and sit-down clips.
 - `VossIdle.atlas` — all standing idles (including mirrored SE copies).
 - `VossWalk.atlas` — all walk directions.
-- `LilaArrival.atlas` — Lila arrival, standing idle, and departure.
+- `LilaArrival.atlas` — Lila March V9 arrival, standing idle, and NE/NW departure.
 
 Additional character texture:
 
