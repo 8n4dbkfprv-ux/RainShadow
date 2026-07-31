@@ -10,29 +10,23 @@ struct OfficeClientVisitSequencerTests {
         #expect(!OfficeClientVisitSequencer.returnsDoor(on: .finishCaseIntroductionStarted))
     }
 
-    @Test func doorReturnIsOnlyArmedAfterClientExitCompletes() {
-        #expect(OfficeClientVisitSequencer.returnsDoor(on: .clientExitCompleted))
+    @Test func doorDoesNotReturnAfterClientExitCompletes() {
+        #expect(!OfficeClientVisitSequencer.returnsDoor(on: .clientExitCompleted))
         #expect(!OfficeClientVisitSequencer.returnsDoor(on: .finishCaseIntroductionStarted))
 
         let afterExit = OfficeClientVisitSequencer.actions(for: .clientExitCompleted)
-        #expect(afterExit.contains(.returnDoor))
-        #expect(afterExit.first == .returnDoor)
+        #expect(!afterExit.contains(.returnDoor))
+        #expect(afterExit == [.unlockPlayerControl])
     }
 
-    @Test func exitCompletionReturnsDoorBeforeUnlockingPlayerControl() {
+    @Test func exitCompletionUnlocksPlayerControlWithDoorStillOpen() {
         let actions = OfficeClientVisitSequencer.actions(for: .clientExitCompleted)
-        #expect(actions == [.returnDoor, .unlockPlayerControl])
-
-        let doorIndex = actions.firstIndex(of: .returnDoor)
-        let unlockIndex = actions.firstIndex(of: .unlockPlayerControl)
-        #expect(doorIndex != nil)
-        #expect(unlockIndex != nil)
-        if let doorIndex, let unlockIndex {
-            #expect(doorIndex < unlockIndex)
-        }
+        #expect(actions == [.unlockPlayerControl])
+        #expect(actions.firstIndex(of: .unlockPlayerControl) != nil)
+        #expect(actions.firstIndex(of: .returnDoor) == nil)
     }
 
-    @Test func fullPostDialogueOrderIsExitThenDoorThenControl() {
+    @Test func fullPostDialogueOrderIsExitThenControl() {
         // Drive the real shipped entry points in the same order the scene applies them.
         var timeline: [OfficeClientVisitSequencer.Action] = []
         timeline.append(contentsOf: OfficeClientVisitSequencer.actions(for: .finishCaseIntroductionStarted))
@@ -41,13 +35,13 @@ struct OfficeClientVisitSequencerTests {
         #expect(timeline == [
             .restoreCamera,
             .beginClientExit,
-            .returnDoor,
             .unlockPlayerControl
         ])
 
         let exitStart = timeline.firstIndex(of: .beginClientExit)!
-        let doorReturn = timeline.firstIndex(of: .returnDoor)!
-        #expect(exitStart < doorReturn, "Door must not return until after exit has been started and completed")
+        let unlock = timeline.firstIndex(of: .unlockPlayerControl)!
+        #expect(exitStart < unlock, "Player control unlocks only after exit has been started and completed")
+        #expect(!timeline.contains(.returnDoor), "Door stays open for free-play city exit")
     }
 
     @Test func clientDeparturePathStaysClearOfOfficeObstacles() {

@@ -1,6 +1,7 @@
 /// Pure ordering contract for Lila’s office visit: door fall → entrance →
-/// dialogue → exit → door return → player control. The scene applies these
-/// actions; tests assert the shipped sequence without re-implementing it.
+/// dialogue → exit → unlock player control. The door stays fallen/open so the
+/// player can leave for the city. The scene applies these actions; tests assert
+/// the shipped sequence without re-implementing it.
 enum OfficeClientVisitSequencer {
     enum Event: Equatable {
         /// Case-opening dialogue finished; Lila should leave.
@@ -23,7 +24,8 @@ enum OfficeClientVisitSequencer {
             // Door must stay down while she walks out — do not return the leaf here.
             return [.restoreCamera, .beginClientExit]
         case .clientExitCompleted:
-            return [.returnDoor, .unlockPlayerControl]
+            // Keep the leaf fallen so free-play exit to the city stays clear.
+            return [.unlockPlayerControl]
         }
     }
 

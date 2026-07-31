@@ -171,6 +171,22 @@ struct OfficeInteriorScaleTests {
         #expect(hypot(leaf.x - navigationThreshold.x, leaf.y - navigationThreshold.y) > 50)
     }
 
+    @Test func officeDoorHotspotCoversEntranceLeafAndThreshold() {
+        let door = OfficeNavigationLayout.authoredHotspots.first { $0.id == "office.door" }
+        #expect(door != nil)
+        guard let door else { return }
+
+        let leaf = OfficeNavigationLayout.Architecture.entranceLeafAnchor
+        #expect(door.hitArea.contains(leaf))
+
+        let mappedHit = OfficeInteriorScale.mapRect(door.hitArea)
+        let mappedLeaf = OfficeInteriorScale.mapPoint(leaf)
+        #expect(mappedHit.contains(mappedLeaf))
+
+        let mappedObstacle = OfficeNavigationLayout.doorObstacle
+        #expect(mappedHit.intersects(mappedObstacle))
+    }
+
     @Test func fallenEntranceLeafUsesFloorPlaneForeshortening() {
         let upright = OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         let ratio = OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
