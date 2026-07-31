@@ -13,6 +13,7 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeInteriorScale.ActorDisplay.textureCanvasSize.height == 512)
         #expect(OfficeInteriorScale.ActorDisplay.standingOpaqueBodyTextureHeight == 200)
         #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.height == 232)
+        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.width == 232)
         #expect(abs(OfficeInteriorScale.renderedStandingDetectiveBodyHeight - 90.625) < 0.0001)
         // Preserve the separate legacy gameplay contract.
         #expect(OfficeInteriorScale.detectiveBodyHeight == 82)

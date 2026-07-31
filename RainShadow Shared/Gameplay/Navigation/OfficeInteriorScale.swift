@@ -20,9 +20,10 @@ enum OfficeInteriorScale {
         static let seatedScale: CGFloat = 0.82
         /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
         /// 232 ≈ prior 210 plus ~10% so adults read correctly against office furniture.
+        /// Seated and standing share one size — DeskNE shared-scale atlases keep the
+        /// crouch shorter on the 512 canvas, so a larger seated node is unnecessary
+        /// and caused a height snap when leaving desk registration.
         static let spriteDisplaySize = CGSize(width: 232, height: 232)
-        /// Seated crouch reads short at the desk; larger integer size while desk-registered.
-        static let seatedSpriteDisplaySize = CGSize(width: 252, height: 252)
         static let spriteScale: CGFloat = 1.0
         /// Visual-only shift from the walkable navigation root into the chair/desk registration.
         static let seatedYOffset: CGFloat = -82

@@ -31,10 +31,8 @@ final class DetectiveActorNode: SKNode {
     private static let seatedUpperLocalZ: CGFloat = 90
     private static let seatedLowerLocalZ: CGFloat = 0
     private static let seatedArmsLocalZ: CGFloat = 110
-    /// Standing / walk presentation size (integer pixels — avoids nearest shimmer).
-    private static let standingFrameDisplaySize = OfficeInteriorScale.ActorDisplay.spriteDisplaySize
-    /// Seated / desk-registered size — crouch silhouette needs extra presentation scale.
-    private static let seatedFrameDisplaySize = OfficeInteriorScale.ActorDisplay.seatedSpriteDisplaySize
+    /// Shared seated/standing presentation size (integer pixels — avoids nearest shimmer).
+    private static let frameDisplaySizeConstant = OfficeInteriorScale.ActorDisplay.spriteDisplaySize
     private static let spriteScale = OfficeInteriorScale.ActorDisplay.spriteScale
     private var facing: ActorFacing = .northEast
     private(set) var state: State = .seatedIdle
@@ -159,7 +157,7 @@ final class DetectiveActorNode: SKNode {
 
         let initialSeated = seatedIdleTextures.first ?? seatedUpperTextures.first ?? standingTexture
         if let texture = initialSeated {
-            body = SKSpriteNode(texture: texture, size: Self.seatedFrameDisplaySize)
+            body = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
         } else {
             body = SKSpriteNode(color: SKColor(red: 0.12, green: 0.1, blue: 0.1, alpha: 1), size: CGSize(width: 76, height: 142))
         }
@@ -167,7 +165,7 @@ final class DetectiveActorNode: SKNode {
         body.texture?.filteringMode = .nearest
 
         if let texture = seatedLowerTextures.first {
-            lowerBody = SKSpriteNode(texture: texture, size: Self.seatedFrameDisplaySize)
+            lowerBody = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
         } else {
             lowerBody = SKSpriteNode()
         }
@@ -176,7 +174,7 @@ final class DetectiveActorNode: SKNode {
         lowerBody.zPosition = Self.seatedLowerLocalZ
 
         if let texture = seatedArmTextures.first {
-            foregroundArms = SKSpriteNode(texture: texture, size: Self.seatedFrameDisplaySize)
+            foregroundArms = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
         } else {
             foregroundArms = SKSpriteNode()
         }
@@ -195,12 +193,8 @@ final class DetectiveActorNode: SKNode {
         startSeatedIdle()
     }
 
-    /// Presentation size for the current desk/locomotion registration.
-    private var frameDisplaySize: CGSize {
-        isDeskRegistered
-            ? Self.seatedFrameDisplaySize
-            : Self.standingFrameDisplaySize
-    }
+    /// Fixed presentation size for every posture — atlas shared-scale carries crouch height.
+    private var frameDisplaySize: CGSize { Self.frameDisplaySizeConstant }
 
     /// Keeps every actor layer at the fixed display size after texture swaps.
     /// Sit frames vary in opaque height on a 512 canvas; if a node size drifts,

@@ -17,11 +17,14 @@ from process_pre_rendered_characters_v7 import pixelize_figure_v7
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ASSETS = Path(
+# Prefer local DeskNE generated strips (checked into the repo). Fall back to the
+# legacy absolute assets path used on the original authoring machine.
+GEN = ROOT / "ArtSource" / "Generated" / "Characters" / "Detective" / "DeskNEV1"
+_LEGACY_ASSETS = Path(
     "/Users/laurensvanoorschot/.cursor/projects/"
     "Users-laurensvanoorschot-Desktop-RainShadow/assets"
 )
-GEN = ROOT / "ArtSource" / "Generated" / "Characters" / "Detective" / "DeskNEV1"
+ASSETS = GEN if (GEN / "voss_seated_idle_ne_rear_strip_v03.png").exists() else _LEGACY_ASSETS
 IDLE_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "VossSeatedIdle.atlas"
 ARMS_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "VossSeatedArms.atlas"
 TRANS_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "VossSeatTransitions.atlas"
@@ -412,7 +415,7 @@ def main() -> None:
     idle_src = ASSETS / "voss_seated_idle_ne_rear_strip_v03.png"
     stand_src = ASSETS / "voss_stand_up_ne_rear_strip_v03.png"
     for src in (idle_src, stand_src):
-        if src.exists():
+        if src.exists() and src.resolve() != (GEN / src.name).resolve():
             shutil.copy(src, GEN / src.name)
 
     # Expand source cells first, then register with one shared scale so crouched
@@ -424,10 +427,17 @@ def main() -> None:
     stand_ref_head = head_width(stand_ref)
 
     idle_src_cells = expand_to(slice_strip(idle_src, 4), 8)
-    # Idle strip was authored larger than stand-up; pick reference height so its
-    # fedora width matches the stand-up standing-end after shared scale.
+    # Idle strip may be authored at a different absolute scale than stand-up.
+    # Prefer fedora-width matching against the standing-end; if that would
+    # overshrink the crouch into a full 200px body (the stand-up height pop),
+    # fall back to the same stand_ref_h used by the transition strip.
     idle_head = head_width(idle_src_cells[0])
     idle_ref_h = max(1, round(idle_head * stand_ref_h / max(1, stand_ref_head)))
+    probe = register_shared(idle_src_cells[0], idle_ref_h)
+    probe_head = head_width(probe)
+    stand_out_head = max(1, round(stand_ref_head * TEXTURE_BODY_HEIGHT / stand_ref_h))
+    if probe_head < stand_out_head * 0.85 or probe_head > stand_out_head * 1.15:
+        idle_ref_h = stand_ref_h
 
     idle_cells = [register_shared(c, idle_ref_h) for c in idle_src_cells]
     # Nearest crunch drifts seated breath cells by a few pixels; lock every
