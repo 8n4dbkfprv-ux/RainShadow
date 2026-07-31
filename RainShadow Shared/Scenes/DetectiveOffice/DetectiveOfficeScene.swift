@@ -44,6 +44,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var journalIsPresented = false
     private var caseIntroductionStarted = false
     private var clientEntranceStarted = false
+    /// Wall-clock origin of the forced/authored entrance (QA seek + pacing).
+    private var clientEntranceStartedAt: TimeInterval?
+    private var clientEntrancePath: [CGPoint] = []
     private var dialogueIsActive = true
     /// Infinity Engine–style cutscene chrome: hide party/action rails while an
     /// authored NPC enter/exit sequence runs (dialogue panel is suppressed separately).
@@ -65,10 +68,21 @@ final class DetectiveOfficeScene: BaseGameScene {
         let standardPropScale = OfficeInteriorScale.standardPropDisplayScale
         let smallPropScale = OfficeInteriorScale.smallPropDisplayScale
 
-        // Stage 1+: one pre-rendered suite plate replaces shell + partition overlays.
+        // Stage 1+: suite plate owns shell + floor paint. The frosted partition
+        // must stay depth-sorted so actors can pass behind the glass — punch it
+        // out of the plate and restore cutaway slices. `RAINSHADOW_LEGACY_PARTITION=1`
+        // keeps the baked glass (no punch) and double-draws slices for A/B.
+        let legacyPartition = ProcessInfo.processInfo.environment["RAINSHADOW_LEGACY_PARTITION"] == "1"
         let usingSuitePlate: Bool
-        if let texture = GameArt.texture(named: "office_suite_plate") {
+        if legacyPartition, let texture = GameArt.texture(named: "office_suite_plate") {
             texture.filteringMode = .linear
+            let background = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+            background.name = "office_suite_plate"
+            background.anchorPoint = .zero
+            background.position = OfficeInteriorScale.shellOrigin
+            backgroundRoot.addChild(background)
+            usingSuitePlate = true
+        } else if let texture = OfficePartitionOcclusion.suitePlatePunchingPartition() {
             let background = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
             background.name = "office_suite_plate"
             background.anchorPoint = .zero
@@ -93,12 +107,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         addWindowHighlightProp()
         addWindowRain()
         addRecordsWallArt()
-        // Partition strips / cutaway mask / foreground void are obsolete in
-        // production when the suite plate is present. Opt back in only for
-        // legacy A/B: RAINSHADOW_LEGACY_PARTITION=1
-        let legacyPartition = ProcessInfo.processInfo.environment["RAINSHADOW_LEGACY_PARTITION"] == "1"
+        // Depth-sorted partition slices occlude actors behind the frosted glass.
+        // Foreground cutaway void stays plate-owned unless legacy A/B requests it.
+        addPartitionWall()
         if !usingSuitePlate || legacyPartition {
-            addPartitionWall()
             addForegroundCutaway()
         }
         addInternalOfficeDoor()
@@ -376,6 +388,15 @@ final class DetectiveOfficeScene: BaseGameScene {
                     .wait(forDuration: 0.75),
                     .run { [weak self] in self?.animateDoorFalling() }
                 ]))
+            }
+            // QA: run Lila's entrance without the monologue cue (mid-door captures).
+            // Use GCD — SKAction waits do not fire when the capture launch has
+            // no drawable / does not tick the scene.
+            if ProcessInfo.processInfo.environment["RAINSHADOW_FORCE_CLIENT_ENTRANCE"] == "1" {
+                navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
+                    self?.beginClientEntranceIfNeeded()
+                }
             }
             return
         }
@@ -751,13 +772,25 @@ final class DetectiveOfficeScene: BaseGameScene {
         // Rails stay suppressed for the whole visit; dialogue returns after staging.
         setCutsceneChromeSuppressed(true)
         caseIntroductionPresenter.setCutsceneSuppressed(true)
-        animateDoorFalling()
+        // QA fallen-door captures already rest the leaf; replaying the fall
+        // would reset it upright under the walk and stall SpriteKit timing.
+        if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] != "1" {
+            animateDoorFalling()
+        } else {
+            navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+        }
+        // Open leaf frost still reads as glass in the aperture while she crosses;
+        // hide for the walk, restore when she arrives.
+        internalOfficeDoorLeaf?.isHidden = true
         // The first leg is authored across the actual exterior threshold (its
-        // start is outside the nav floor). One collision-checked interior route
-        // then clears the waiting furniture and crosses the framed partition door.
+        // start is outside the nav floor). Exact interior anchors then clear the
+        // waiting furniture and cross the framed partition door at fixed b.
         let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
+        clientEntrancePath = path
+        clientEntranceStartedAt = ProcessInfo.processInfo.systemUptime
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }
+            self.internalOfficeDoorLeaf?.isHidden = false
             // End entrance cutscene: leave the heels cue page, re-show dialogue UI.
             self.caseIntroductionPresenter.resumeAfterCutscene(
                 advancingIfOn: EmptyCoatCaseIntroduction.clientEntranceCueNodeID
@@ -767,6 +800,26 @@ final class DetectiveOfficeScene: BaseGameScene {
             cameraLift.timingMode = .easeOut
             self.gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
         }
+    }
+
+    /// QA: place Lila on the authored entrance polyline using wall-clock elapsed
+    /// time so mid-door captures work even when SpriteKit actions are frozen.
+    func seekForcedClientEntranceForCapture() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_FORCE_CLIENT_ENTRANCE"] == "1" else {
+            return
+        }
+        if !clientEntranceStarted {
+            beginClientEntranceIfNeeded()
+        }
+        let path = clientEntrancePath.isEmpty
+            ? OfficeNavigationLayout.clientArrivalRoute(in: navigation)
+            : clientEntrancePath
+        let started = clientEntranceStartedAt ?? ProcessInfo.processInfo.systemUptime
+        let elapsed = max(0, ProcessInfo.processInfo.systemUptime - started)
+        client.seekEntrance(along: path, elapsed: elapsed)
+        updateDepth(of: client)
+        // Keep the frosted leaf hidden while she is still on the entrance path.
+        internalOfficeDoorLeaf?.isHidden = true
     }
 
     private func finishCaseIntroduction() {
@@ -1138,10 +1191,19 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// `office_partition_wall_cutaway` (default). Set `RAINSHADOW_PARTITION_MASK=0`
     /// to load the unmasked full-height plate for review.
     private func addPartitionWall() {
+        // Prefer the full wall with only the door aperture cleared so latch-side
+        // frosted glass still occludes. Cutaway art strips that glass. Legacy
+        // mask-off loads the uncut plate for review.
         let maskOff = ProcessInfo.processInfo.environment["RAINSHADOW_PARTITION_MASK"] == "0"
-        let textureName = maskOff ? "office_partition_wall" : "office_partition_wall_cutaway"
-        guard let texture = GameArt.texture(named: textureName)
-            ?? GameArt.texture(named: "office_partition_wall") else { return }
+        let texture: SKTexture?
+        if maskOff {
+            texture = GameArt.texture(named: "office_partition_wall")
+        } else {
+            texture = OfficePartitionOcclusion.wallTextureWithDoorCleared()
+                ?? GameArt.texture(named: "office_partition_wall_cutaway")
+                ?? GameArt.texture(named: "office_partition_wall")
+        }
+        guard let texture else { return }
         texture.filteringMode = .linear
 
         let plate = OfficeInteriorScale.sourceArtSize
@@ -1167,6 +1229,16 @@ final class DetectiveOfficeScene: BaseGameScene {
                 width: width / plate.width,
                 height: size.height / plate.height
             )
+            // Skip any slice that intersects the door columns. Fully-inside-only
+            // skipping left edge slices that still painted frost into the
+            // aperture over walkers whose feet were already in the clear reveal.
+            let doorX0 = OfficePartitionOcclusion.doorApertureMinImageX
+            let doorX1 = OfficePartitionOcclusion.doorApertureMaxImageX
+            let sliceRight = left + width
+            if left <= doorX1 && sliceRight >= doorX0 {
+                left += sliceWidth
+                continue
+            }
             let slice = SKSpriteNode(
                 texture: SKTexture(rect: crop, in: texture),
                 size: OfficeInteriorScale.mapSize(size)
@@ -1261,14 +1333,26 @@ final class DetectiveOfficeScene: BaseGameScene {
             let y = rear.y - a * arch.axisNW.dy - b * arch.axisNE.dy
             return CGPoint(x: x, y: y)
         }
-        let face0 = mapAuthored(planAuthored(a: aFace, b: -0.01))
-        let face1 = mapAuthored(planAuthored(a: aFace, b: 0.58))
-        let back0 = mapAuthored(planAuthored(a: aBack, b: -0.01))
-        let back1 = mapAuthored(planAuthored(a: aBack, b: 0.58))
-        line(from: face0, to: face1, color: SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.9), width: 2)
-        line(from: back0, to: back1, color: SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.55), width: 1.5)
-        line(from: face0, to: back0, color: SKColor(red: 1, green: 0.3, blue: 0.7, alpha: 0.9), width: 2)
-        line(from: face1, to: back1, color: SKColor(red: 1, green: 0.3, blue: 0.7, alpha: 0.55), width: 1.5)
+        // Partition face/back edges — gapped at the door so yellow/pink debug
+        // strokes do not cut through the green aperture (those were easy to
+        // mistake for magenta no-go solids in the frame).
+        let faceLo0 = mapAuthored(planAuthored(a: aFace, b: -0.01))
+        let faceLo1 = mapAuthored(planAuthored(a: aFace, b: arch.partitionDoorB0))
+        let faceHi0 = mapAuthored(planAuthored(a: aFace, b: arch.partitionDoorB1))
+        let faceHi1 = mapAuthored(planAuthored(a: aFace, b: max(arch.partitionReturnB1 + 0.08, 1.05)))
+        let backLo0 = mapAuthored(planAuthored(a: aBack, b: -0.01))
+        let backLo1 = mapAuthored(planAuthored(a: aBack, b: arch.partitionDoorB0))
+        let backHi0 = mapAuthored(planAuthored(a: aBack, b: arch.partitionDoorB1))
+        let backHi1 = mapAuthored(planAuthored(a: aBack, b: max(arch.partitionReturnB1 + 0.08, 1.05)))
+        let wallYellow = SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.9)
+        let wallYellowDim = SKColor(red: 0.95, green: 0.9, blue: 0.2, alpha: 0.55)
+        let wallPink = SKColor(red: 1, green: 0.3, blue: 0.7, alpha: 0.9)
+        line(from: faceLo0, to: faceLo1, color: wallYellow, width: 2)
+        line(from: faceHi0, to: faceHi1, color: wallYellow, width: 2)
+        line(from: backLo0, to: backLo1, color: wallYellowDim, width: 1.5)
+        line(from: backHi0, to: backHi1, color: wallYellowDim, width: 1.5)
+        line(from: faceLo0, to: backLo0, color: wallPink, width: 2)
+        line(from: faceHi0, to: backHi0, color: wallPink, width: 2)
 
         // Doorway footprint (threshold rectangle in plan).
         let d0f = mapAuthored(planAuthored(a: aFace, b: arch.partitionDoorB0))
@@ -1306,6 +1390,14 @@ final class DetectiveOfficeScene: BaseGameScene {
             box.lineWidth = 1.5
             root.addChild(box)
         }
+
+        // Exterior upright-leaf obstacle (orange). Present while the door is
+        // closed; cleared from the live grid once the leaf has fallen.
+        let exteriorDoor = SKShapeNode(rect: OfficeNavigationLayout.doorObstacle)
+        exteriorDoor.strokeColor = SKColor(red: 1, green: 0.55, blue: 0.1, alpha: 0.95)
+        exteriorDoor.fillColor = SKColor(red: 1, green: 0.55, blue: 0.1, alpha: 0.18)
+        exteriorDoor.lineWidth = 2
+        root.addChild(exteriorDoor)
 
         let maskState = ProcessInfo.processInfo.environment["RAINSHADOW_PARTITION_MASK"] == "0" ? "OFF" : "ON"
         let label = SKLabelNode(text: String(
@@ -1347,13 +1439,21 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// Plain frosted internal door, swung open into the private office. The
     /// sprite carries its own hinge barrels and shaded return face; its sheared
     /// texture remains at plate scale so the hinge jamb stays flush with the shell.
+    ///
+    /// Depth bias: the open leaf's ground anchor sits camera-near of the doorway
+    /// floor, so unsorted z would paint its frosted pane over anyone walking the
+    /// aperture (reads as "through the glass"). Pull it behind doorway walkers.
+    private var internalOfficeDoorLeaf: SKSpriteNode?
+
     private func addInternalOfficeDoor() {
         guard let door = addDepthProp(
             named: "office_internal_door_leaf",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf),
-            scale: OfficeNavigationLayout.Architecture.internalLeafDisplayScale
+            scale: OfficeNavigationLayout.Architecture.internalLeafDisplayScale,
+            bias: -220
         ) else { return }
         door.name = "office_internal_door_leaf"
+        internalOfficeDoorLeaf = door
     }
 
     /// Floor wear, warm lamp key, cool blind-striped window fill, hallway slit, vignette.
@@ -1785,6 +1885,9 @@ final class DetectiveOfficeScene: BaseGameScene {
         shadow.alpha = 0.42
         shadow.xScale = 1.08
         officeDoorFallShadow = shadow
+
+        // Upright leaf is gone — open the exterior threshold for pathfinding.
+        navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
     }
 
     /// Lila's entrance knocks the already damaged leaf free. A projective warp
@@ -1857,6 +1960,8 @@ final class DetectiveOfficeScene: BaseGameScene {
                 thickness: officeDoorThickness
             )
             landedTransition?.removeFromParent()
+            // Threshold is open once the upright leaf is gone.
+            self.navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
         }
         let motion = SKAction.sequence([
             wait,
@@ -1941,6 +2046,8 @@ final class DetectiveOfficeScene: BaseGameScene {
                     officeDoor.warpGeometry = self.uprightDoorWarp
                     officeDoor.move(toParent: self.rearFixtureRoot)
                     officeDoor.zPosition = 0
+                    // Leaf is upright again — block the exterior threshold.
+                    self.navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: true)
                 }
             ]),
             withKey: "officeDoorMotion"

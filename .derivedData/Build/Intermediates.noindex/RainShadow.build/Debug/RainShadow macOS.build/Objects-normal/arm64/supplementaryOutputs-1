@@ -13,25 +13,25 @@
     "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameArt.o",
     "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameArt.swiftdeps"
   },
-  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Core/Input/GamePointerEvent.swift" : {
-    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GamePointerEvent.swiftconstvalues",
-    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GamePointerEvent.d",
-    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GamePointerEvent.dia",
-    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GamePointerEvent.o",
-    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GamePointerEvent.swiftdeps"
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Core/Assets/OfficePartitionOcclusion.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficePartitionOcclusion.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficePartitionOcclusion.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficePartitionOcclusion.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficePartitionOcclusion.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficePartitionOcclusion.swiftdeps"
   },
-  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Core/Persistence/SaveStore.swift" : {
-    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/SaveStore.swiftconstvalues",
-    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/SaveStore.d",
-    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/SaveStore.dia",
-    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/SaveStore.o",
-    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/SaveStore.swiftdeps"
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow macOS/AppDelegate.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/AppDelegate.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/AppDelegate.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/AppDelegate.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/AppDelegate.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/AppDelegate.swiftdeps"
   },
-  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Core/Scene/BaseGameScene.swift" : {
-    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/BaseGameScene.swiftconstvalues",
-    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/BaseGameScene.d",
-    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/BaseGameScene.dia",
-    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/BaseGameScene.o",
-    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/BaseGameScene.swiftdeps"
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow macOS/GameViewController.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameViewController.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameViewController.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameViewController.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameViewController.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/GameViewController.swiftdeps"
   }
 }

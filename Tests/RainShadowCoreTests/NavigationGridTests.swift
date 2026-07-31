@@ -220,35 +220,28 @@ struct NavigationGridTests {
             #expect(Bool(false), "Production internal doorway must be present in the arrival route")
             return
         }
-        #expect(internalDoorway[1] == OfficeInteriorScale.mapPoint(
-            CGPoint(x: 1_820, y: 1_365)
-        ))
+        // Shipping suite plate frosted doorway (painted clear width, hinge of
+        // mid so the coat clears latch frost beside the open leaf).
+        let thresholdPlan = officePlan(for: OfficeInteriorScale.unmapPoint(internalDoorway[1]))
+        let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
+        let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
+        #expect(thresholdPlan.b > door0 && thresholdPlan.b < door1)
+        #expect(abs(thresholdPlan.b - (door0 + (door1 - door0) * 0.40)) < 0.02)
         #expect(path[thresholdIndex - 1] == internalDoorway[0])
         #expect(path[thresholdIndex + 1] == internalDoorway[2])
         #expect(internalDoorway.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        // These two anchors keep Lila's full sprite on the chair side of the
-        // partition. Without them, her smaller navigation contact core can
-        // legally skim the wall behind the waiting chairs while the coat and
-        // shoulders visibly overlap it.
+        // Chair-side clearance ends on the aperture b before the door triad.
         let waitingAuthored = OfficeNavigationLayout.clientWaitingRoomPath.map(
             OfficeInteriorScale.unmapPoint
         )
-        for clearanceAnchor in [
-            CGPoint(x: 2_218, y: 1_358),
-            CGPoint(x: 1_994, y: 1_367),
-        ] {
-            #expect(
-                waitingAuthored.contains {
-                    hypot($0.x - clearanceAnchor.x, $0.y - clearanceAnchor.y) < 0.01
-                },
-                "Chair-side body-clearance anchor must remain in the waiting-room route"
-            )
+        #expect(waitingAuthored.count >= 3)
+        if let apertureApproach = waitingAuthored.dropLast().last {
+            let clearanceB = officePlan(for: apertureApproach).b
+            #expect(abs(clearanceB - thresholdPlan.b) < 0.02)
         }
 
-        // Every authored interior anchor survives expansion in order. This keeps
-        // the route in the rear framed doorway and prevents the old foreground
-        // cutaway → wall → desk recovery loop.
+        // Every authored interior anchor survives expansion in order.
         var priorAnchorIndex = -1
         for anchor in OfficeNavigationLayout.clientInteriorArrivalPath {
             guard let anchorIndex = path.firstIndex(of: anchor) else {
@@ -271,10 +264,24 @@ struct NavigationGridTests {
             )
         }
 
+        // Exactly one partition-midline crossing, and it must land inside the
+        // painted aperture — catches the old tip-hole shortcut that never
+        // touched a partition obstacle rect.
+        let crossings = partitionMidlineCrossings(along: path)
+        #expect(crossings.count == 1, "Arrival must cross the partition exactly once")
+        if let crossingB = crossings.first {
+            let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
+            let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
+            #expect(
+                crossingB >= door0 && crossingB <= door1,
+                "Partition crossing b=\(crossingB) must lie inside the painted aperture"
+            )
+        }
+
         let authoredInterior = path.dropFirst().map(OfficeInteriorScale.unmapPoint)
         #expect(
-            authoredInterior.allSatisfy { $0.y > 1_150 },
-            "Arrival must remain in the rear corridor instead of diving to the foreground cutaway"
+            authoredInterior.allSatisfy { $0.y > 1_100 },
+            "Arrival must stay on the suite floor instead of diving into the cutaway void"
         )
         let routeLength = zip(path, path.dropFirst()).reduce(CGFloat.zero) { total, leg in
             total + hypot(leg.1.x - leg.0.x, leg.1.y - leg.0.y)
@@ -297,6 +304,101 @@ struct NavigationGridTests {
             from: path[path.count - 2],
             to: path[path.count - 1]
         ))
+
+        let crossings = partitionMidlineCrossings(along: path)
+        #expect(crossings.count == 1, "Departure must cross the partition exactly once")
+        if let crossingB = crossings.first {
+            let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
+            let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
+            #expect(crossingB >= door0 && crossingB <= door1)
+        }
+    }
+
+    /// Painted aperture matches the clear opening (≈0.62–0.71).
+    /// Glass on either side must stay blocked so Lila cannot path through it.
+    @Test func partitionApertureClearsPaintedFrameNotAdjacentWall() {
+        let arch = OfficeNavigationLayout.Architecture.self
+        let aFace = arch.partitionLineA + arch.partitionThicknessA
+        let faceOriginX = arch.rearCorner.x + aFace * arch.axisNW.dx
+        let stileB = (arch.internalHingePlateX - faceOriginX) / arch.axisNE.dx
+
+        #expect(abs(arch.partitionDoorB0 - stileB) < 0.005)
+        #expect(abs(arch.partitionDoorB0 - 0.62) < 0.001)
+        #expect(abs(arch.partitionDoorB1 - 0.71) < 0.001)
+        #expect(arch.partitionReturnB1 > arch.partitionDoorB1)
+
+        let grid = OfficeNavigationLayout.makeGrid()
+        for frameB: CGFloat in [0.64, 0.66, 0.68] {
+            let frameProbe = OfficeInteriorScale.mapPoint(
+                authoredPoint(a: aFace - 0.02, b: frameB)
+            )
+            #expect(
+                !OfficeNavigationLayout.isBlocked(frameProbe),
+                "Frame cell at b=\(frameB) must stay open"
+            )
+        }
+        // Hinge-side and latch-side frosted glass stay solid.
+        for glassB: CGFloat in [0.50, 0.55, 0.78, 0.85] {
+            let glassProbe = OfficeInteriorScale.mapPoint(
+                authoredPoint(a: aFace - 0.02, b: glassB)
+            )
+            #expect(
+                OfficeNavigationLayout.isBlocked(glassProbe),
+                "Glass at b=\(glassB) must stay blocked"
+            )
+        }
+        let apertureMid = OfficeInteriorScale.mapPoint(
+            authoredPoint(a: aFace - 0.01, b: (arch.partitionDoorB0 + arch.partitionDoorB1) * 0.5)
+        )
+        var sawLatchJamb = false
+        for rect in OfficeNavigationLayout.authoredPartitionSegments {
+            let mapped = OfficeInteriorScale.mapRect(rect)
+            let mid = CGPoint(x: mapped.midX, y: mapped.midY)
+            let plan = officePlan(for: OfficeInteriorScale.unmapPoint(mid))
+            #expect(
+                plan.b < arch.partitionDoorB0 || plan.b > arch.partitionDoorB1,
+                "Partition solid centre b=\(plan.b) must stay outside the door aperture"
+            )
+            #expect(
+                !mapped.contains(apertureMid),
+                "Partition AABB must not cover the aperture mid-point"
+            )
+            #expect(rect.width <= 40.5 && rect.height <= 20.5)
+            if plan.b > arch.partitionDoorB1 && plan.b < arch.partitionDoorB1 + 0.12 {
+                sawLatchJamb = true
+            }
+        }
+        #expect(sawLatchJamb, "Latch-side glass must keep a partition solid just past the door")
+
+        for step in 1...8 {
+            let b = arch.partitionDoorB1 + CGFloat(step) * 0.05
+            guard b < 0.95 else { break }
+            let waitingSide = OfficeInteriorScale.mapPoint(
+                authoredPoint(a: arch.partitionLineA - 0.09, b: b)
+            )
+            let officeSide = OfficeInteriorScale.mapPoint(
+                authoredPoint(a: aFace + 0.09, b: b)
+            )
+            guard !OfficeNavigationLayout.isBlocked(waitingSide),
+                  !OfficeNavigationLayout.isBlocked(officeSide),
+                  let crossed = grid.path(from: waitingSide, to: officeSide) else { continue }
+            for crossingB in partitionMidlineCrossings(along: crossed) {
+                #expect(
+                    crossingB >= arch.partitionDoorB0 && crossingB <= arch.partitionDoorB1,
+                    "Crossing at b=\(b) walked the wall instead of the painted door frame"
+                )
+            }
+        }
+    }
+
+    /// Inverse of `officePlan`: plan (a, b) back to an authored layout point (y-up).
+    private func authoredPoint(a: CGFloat, b: CGFloat) -> CGPoint {
+        let arch = OfficeNavigationLayout.Architecture.self
+        // `Architecture.rearCorner` is already y-up (`ART_H - REAR`), matching
+        // `office_room_plan.authored`. Do not flip y again.
+        let x = arch.rearCorner.x + a * arch.axisNW.dx + b * arch.axisNE.dx
+        let y = arch.rearCorner.y - a * arch.axisNW.dy - b * arch.axisNE.dy
+        return CGPoint(x: x, y: y)
     }
 
     private func isAuthoredExteriorDoorwayLeg(from start: CGPoint, to end: CGPoint) -> Bool {
@@ -322,6 +424,39 @@ struct NavigationGridTests {
             }
         }
         return false
+    }
+
+    /// Plan-space (a, b) for an authored layout point. Matches
+    /// `office_room_plan.authored_to_plan`.
+    private func officePlan(for authored: CGPoint) -> (a: CGFloat, b: CGFloat) {
+        let arch = OfficeNavigationLayout.Architecture.self
+        let artHeight: CGFloat = 2_304
+        let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)
+        let axisNW = arch.axisNW
+        let axisNE = arch.axisNE
+        let det = axisNW.dx * axisNE.dy - axisNE.dx * axisNW.dy
+        let dx = authored.x - rear.x
+        let dy = (artHeight - authored.y) - rear.y
+        let a = (dx * axisNE.dy - axisNE.dx * dy) / det
+        let b = (axisNW.dx * dy - dx * axisNW.dy) / det
+        return (a, b)
+    }
+
+    /// b-coordinates where a world-space polyline crosses the partition midline.
+    private func partitionMidlineCrossings(along path: [CGPoint]) -> [CGFloat] {
+        let arch = OfficeNavigationLayout.Architecture.self
+        let aMid = arch.partitionLineA + arch.partitionThicknessA * 0.5
+        var crossings: [CGFloat] = []
+        for index in 0..<(path.count - 1) {
+            let start = officePlan(for: OfficeInteriorScale.unmapPoint(path[index]))
+            let end = officePlan(for: OfficeInteriorScale.unmapPoint(path[index + 1]))
+            let deltaA = end.a - start.a
+            guard abs(deltaA) > 1e-6 else { continue }
+            if (start.a - aMid) * (end.a - aMid) > 0 { continue }
+            let t = (aMid - start.a) / deltaA
+            crossings.append(start.b + t * (end.b - start.b))
+        }
+        return crossings
     }
 
     @Test func dimetricProjectionRoundTripsAuthoredCells() {
@@ -378,6 +513,12 @@ struct NavigationGridTests {
         #expect(OfficeNavigationLayout.obstacles.contains(where: { $0 == OfficeNavigationLayout.doorObstacle }))
         #expect(OfficeNavigationLayout.authoredDoorObstacle.width > 0)
         #expect(OfficeNavigationLayout.authoredDoorObstacle.height > 0)
+    }
+
+    @Test func fallenEntranceDoorOmitsLeafObstacleFromGrid() {
+        let closed = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: true)
+        let open = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+        #expect(closed.blocked.count > open.blocked.count)
     }
 
     @Test func cityDistrictIsMateriallyLargerThanTheOffice() {

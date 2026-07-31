@@ -182,12 +182,13 @@ class Partition:
 
     # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
     a_line: float = 0.39
-    # Door sits close to the rear wall so the full-height mass stays short.
-    # Opening width matches the shell's exterior doorway (~EXTERIOR_DOOR_OPENING_B).
-    b_door0: float = 0.078
-    b_door1: float = 0.078 + EXTERIOR_DOOR_OPENING_B
-    # Short full-height return past the latch jamb before the cutaway drop.
-    b_return1: float = 0.078 + EXTERIOR_DOOR_OPENING_B + 0.034
+    # Painted frosted opening on the suite plate (office-face hinge at
+    # SHIPPING_INTERNAL_HINGE_X). Band covers the sole partition-line nav cell
+    # (~b 0.686). Client route uses an exact hinge-biased b, not the cell centre.
+    b_door0: float = 0.62
+    b_door1: float = 0.71
+    # Short full-height return past the high-b jamb before the cutaway drop.
+    b_return1: float = 0.71 + 0.034
     # Freestanding interior mass (plan units along AXIS_NW).
     thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H

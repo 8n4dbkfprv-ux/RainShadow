@@ -690,11 +690,11 @@
 		</data>
 		<key>Resources/map_chrome_top_bar_v03.png</key>
 		<data>
-		lRvGppeSFiBI57pjD1ec9JUi3zE=
+		PWojKozyUfdtIvjcKvkvQ8Lr8PQ=
 		</data>
-		<key>Resources/map_detective_office_v02.png</key>
+		<key>Resources/map_detective_office_v03.png</key>
 		<data>
-		kZfXIA3kf8jLRqhgLLuRnAegI6Q=
+		5J345RM5jt7h3r0BDl2j7xFOHuY=
 		</data>
 		<key>Resources/map_icon_noir_v03.png</key>
 		<data>
@@ -730,7 +730,7 @@
 		</data>
 		<key>Resources/office_case_board.png</key>
 		<data>
-		d2Xh8du6W7woRdaiIJWZwkXMlTc=
+		8q01ompEBtIpD0IzdPXQsYgHGxY=
 		</data>
 		<key>Resources/office_coat_rack.png</key>
 		<data>
@@ -746,7 +746,7 @@
 		</data>
 		<key>Resources/office_desk_ashtray.png</key>
 		<data>
-		Tm0ZbR9yZbvlwMNQ6xD4eX7LEJI=
+		nDEA2y38X/HtIrUkxny2Ej8mRR4=
 		</data>
 		<key>Resources/office_desk_bare.png</key>
 		<data>
@@ -852,6 +852,10 @@
 		<data>
 		wPrWbwrqVW+ckkjDfsQKreiJTtg=
 		</data>
+		<key>Resources/office_door_leaf_fallen.png</key>
+		<data>
+		K26qL8rXEyKxduSOUgqsqY3yN8E=
+		</data>
 		<key>Resources/office_door_leaf_hover.png</key>
 		<data>
 		KSCrhUM3E7uvwCMA955oBL7nfQk=
@@ -906,7 +910,7 @@
 		</data>
 		<key>Resources/office_internal_door_leaf.png</key>
 		<data>
-		91KL5HSjzXW3QMDyV9TqSTblQNM=
+		h6vTwbE8v1pyLQo/4vbsek8paLI=
 		</data>
 		<key>Resources/office_light_blind_stripes.png</key>
 		<data>
@@ -958,7 +962,7 @@
 		</data>
 		<key>Resources/office_personal_washbasin.png</key>
 		<data>
-		VCbTwpekov9ViHsnA4wcpwPqU2o=
+		uCMOm5q0T2bPsn0DGfnXiGUt1ck=
 		</data>
 		<key>Resources/office_radiator.png</key>
 		<data>
@@ -994,7 +998,7 @@
 		</data>
 		<key>Resources/office_waiting_ashtray.png</key>
 		<data>
-		bcbB4Cuse3As7WrdwiFnySXMLA8=
+		cI1+OlUXlCndRvocC3keLcwgJvk=
 		</data>
 		<key>Resources/office_waiting_chair_a.png</key>
 		<data>
@@ -1018,7 +1022,7 @@
 		</data>
 		<key>Resources/office_wastebasket.png</key>
 		<data>
-		bFW5WvTj8WH0r6ksPnbeS/ZIcT8=
+		K/94Ji9Zu8C68VEc9SEqfWE9IS4=
 		</data>
 		<key>Resources/office_window.png</key>
 		<data>
@@ -1079,19 +1083,19 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			+UqKFXukLpopo1JrAv6K26wgL5k=
+			9CpCkFnn6eqfl2JS7IhqutIyGQI=
 			</data>
 			<key>requirement</key>
-			<string>identifier "RainShadow.debug" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Laurens van Oorschot (2AA4248F94)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>cdhash H"f42a429059e7e9ea9f976252ec886abad2321902"</string>
 		</dict>
 		<key>MacOS/__preview.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			MWhSHm+XLxr3iEHG8vYtra3DxeI=
+			VLPXwIfeGlhG2OS3alT+uda1NwE=
 			</data>
 			<key>requirement</key>
-			<string>identifier "__preview" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Laurens van Oorschot (2AA4248F94)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>cdhash H"54b3d7c087de1a5846d8e4b76a54feb9d6b53701"</string>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
@@ -2294,14 +2298,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			V6zd4bb2CJlBCDfTHPy/BQbTXBk8ocOAPmz6CpC7Ixc=
+			HYxDmc8rLBwE/gJVNcHkJyY5ZV0Dla46CQoK1xhsH+s=
 			</data>
 		</dict>
-		<key>Resources/map_detective_office_v02.png</key>
+		<key>Resources/map_detective_office_v03.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			stMo0p5fedUqidg2m/IVwMaJH/xY7z2Gh7adm2ifLpw=
+			ktXTbSAapMrfa+AvsZlaqw8/Mnlnj6ngljYL6rknMSs=
 			</data>
 		</dict>
 		<key>Resources/map_icon_noir_v03.png</key>
@@ -2364,7 +2368,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2i+E7YIL6G78IMfDGqP7A1iwLS+GYGpTAPUPu03niB4=
+			Fr5Shz+jpb45ZpfZOXnmv1gLgdFDNacWHlWBzOrtt4g=
 			</data>
 		</dict>
 		<key>Resources/office_coat_rack.png</key>
@@ -2392,7 +2396,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tWvzWnKf/Zfcsy7rlHks9Ij7Aq4pLMO7jhRcvvV3zf4=
+			Pd3QtqTExQWE8LNACmFx6QGwEmznXVcacQBpEo/Y0No=
 			</data>
 		</dict>
 		<key>Resources/office_desk_bare.png</key>
@@ -2577,6 +2581,13 @@
 			AgZsf3z5T7d8W90repGZgIIx4S6U58dbaif1WWhd3uA=
 			</data>
 		</dict>
+		<key>Resources/office_door_leaf_fallen.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jje3id2/gH+fmbtFcccDBOIO2qHT9L3AnRieEnMt3cM=
+			</data>
+		</dict>
 		<key>Resources/office_door_leaf_hover.png</key>
 		<dict>
 			<key>hash2</key>
@@ -2672,7 +2683,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yUxj1xNI6cMZuEGv0qkbk8rVvP7XxMlG1OrCrwHg3TI=
+			43k0jIcKAA1tlERpmHmax2TtXXYlJ1Fja0E/OH4SFbI=
 			</data>
 		</dict>
 		<key>Resources/office_light_blind_stripes.png</key>
@@ -2763,7 +2774,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lfQoL5yRKuqrAUCfCWC23HdmprE/BWqral8HqJ5nVQM=
+			IWWcmZf8rOpAWeRhZW4nXS1u0Iszzryno3jAOdUC5TM=
 			</data>
 		</dict>
 		<key>Resources/office_radiator.png</key>
@@ -2826,7 +2837,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Xm2ly1ZoMuILi5SKU23g07k+yvKBTuEVYt9x60DTh+k=
+			dtb3iNlnIdK4LKIVr5K8RJlIYP79A7koQeoNUrmM+vs=
 			</data>
 		</dict>
 		<key>Resources/office_waiting_chair_a.png</key>
@@ -2868,7 +2879,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vj/HR6EXCBWxz0a/XtVsZCknSz0WSIP/jNVIhB8Id+c=
+			T+x3ROETie7u+fkfjfmaiQY7KhyFv6wC/GVlcPiPDkw=
 			</data>
 		</dict>
 		<key>Resources/office_window.png</key>
