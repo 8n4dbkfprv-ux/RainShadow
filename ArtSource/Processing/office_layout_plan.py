@@ -1085,10 +1085,15 @@ HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String,
         (
             "office.door",
             "Office door",
-            CGRect(x: 3_000, y: 1_400, width: 240, height: 480),
+            doorHitArea,
             "The hall smelled worse, but at least it led somewhere."
         )
     ]
+
+    /// Tall aperture covering the entrance leaf and threshold obstacle.
+    private static var doorHitArea: CGRect {
+        CGRect(x: 2_480, y: 1_180, width: 240, height: 480)
+    }
 
     private static var deskHitArea: CGRect {
         authoredDeskEnsembleObstacle.insetBy(dx: -90, dy: -70)
