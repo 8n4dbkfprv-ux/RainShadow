@@ -497,14 +497,31 @@ def emit() -> str:
     add(f"        static let entranceFrameAnchorY: CGFloat = {exterior_frame_anchor_y():.5f}")
     add("        /// Floor-projected presentation used after the leaf breaks free.")
     add("        static let entranceFallenLeafScaleRatio: CGFloat = 0.92")
+    add("        /// The upright art grows slightly as its top swings toward the camera.")
+    add("        /// This is only the transition silhouette; the landed art has an")
+    add("        /// explicit world-space size below.")
+    add("        static let entranceFallingTransitionScale: CGFloat = 0.17")
+    add("        /// Purpose-built 768×512 landed-state art. The transparent source")
+    add("        /// canvas stays centered so this scale yields a ~98×81 point door body.")
+    add("        static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)")
+    add("        static let entranceFallenArtworkDisplayScale: CGFloat = 0.17")
+    add("        static let entranceFallenArtworkDisplaySize = CGSize(")
+    add("            width: entranceFallenArtworkCanvasSize.width")
+    add("                * entranceFallenArtworkDisplayScale,")
+    add("            height: entranceFallenArtworkCanvasSize.height")
+    add("                * entranceFallenArtworkDisplayScale")
+    add("        )")
     add("        /// Internal open leaf registered to the shipping partition hinge.")
     add(f"        static let internalHingePlateX: CGFloat = {SHIPPING_INTERNAL_HINGE_X:.1f}")
     add(
         f"        static let internalHingePlateHeight: CGFloat = "
         f"{SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y:.1f}"
     )
-    add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
-    add(f"        static let internalLeafAnchor = {precise_pt(internal_door_leaf_anchor())}")
+    # Preserve the visually validated shipping fit. The replacement depth art
+    # has a different alpha hull, so remeasuring it here would move and enlarge
+    # the already-registered leaf whenever unrelated navigation is regenerated.
+    add("        static let internalLeafDisplayScale: CGFloat = 0.2234")
+    add("        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -936,8 +953,8 @@ def internal_leaf_scale() -> float:
 # contains the closed door-leaf obstacle. Keep this short segment authored
 # through the painted opening, then hand off to routed interior anchors.
 CLIENT_DOORWAY_PLAN_PATH = [
-    (-0.080, 0.790),  # outside the department, centred in the clear opening
-    (0.200, 0.790),  # inside and clear of the fallen leaf / umbrella stand
+    (-0.080, EXTERIOR_DOOR[1]),  # outside, centred on the painted threshold
+    (0.200, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
@@ -957,11 +974,14 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
 ]
 
 # The actor body is wider than its navigation contact core. Keep the waiting
-# leg on the chair side of the partition instead of allowing A* to skim the
-# cutaway wall behind the two seats, then turn toward the framed door only
-# after clearing the furniture row.
+# leg in the narrow aisle between the chair backs and the partition. The old
+# a=0.100 waypoint sent Lila along the exterior wall; her navigation root was
+# legal there, but her coat and shoulders visibly passed through the wall.
+# Hold a=0.270 until she clears the final chair, then turn across the centre of
+# the painted exterior threshold.
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.100, 0.420),
+    (0.270, 0.760),
+    (0.270, 0.420),
     (P.a_line - 0.120, P.b_door1 + 0.045),
 ]
 CLIENT_WAITING_ROOM_PATH = [
@@ -1208,15 +1228,16 @@ def report() -> bool:
     )
 
     # Lila's navigation root is narrower than her rendered coat and shoulders.
-    # Preserve a full-body margin from the partition while she clears the two
-    # waiting chairs, then allow the route to turn into the framed opening.
+    # Preserve a full-body corridor between the chair backs and partition
+    # instead of using the deceptively walkable strip against the exterior wall.
     waiting_clearance_ok = (
-        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) == 2
+        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) == 3
         and all(
-            a <= P.a_line - 0.110
+            0.260 <= a <= P.a_line - 0.110
             for a, _ in CLIENT_WAITING_CLEARANCE_PLAN_PATH
         )
-        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= 0.400
+        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= 0.740
+        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[1][1] >= 0.400
         and CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1 + 0.050
     )
     ok &= waiting_clearance_ok

@@ -204,12 +204,16 @@ struct NavigationGridTests {
         #expect(doorway.count == 2)
         guard doorway.count == 2, path.count >= 2 else { return }
 
-        // Regression: the old start was already west of the doorway, so Lila
-        // materialized through the left wall. The authored threshold leg now
-        // straddles the painted exterior opening.
+        // Regression: the crossing must not merely hit the broad door/wall
+        // obstacle; it must intersect the NE wall at the painted threshold.
         #expect(doorway[0].x > exteriorDoor.x)
         #expect(doorway[1].x < exteriorDoor.x)
         #expect(segmentCrossesOfficeObstacle(from: doorway[0], to: doorway[1]))
+        let thresholdProgress =
+            (exteriorDoor.x - doorway[0].x) / (doorway[1].x - doorway[0].x)
+        let crossingY =
+            doorway[0].y + (doorway[1].y - doorway[0].y) * thresholdProgress
+        #expect(abs(crossingY - exteriorDoor.y) < 0.5)
 
         let internalDoorway = OfficeNavigationLayout.clientInternalDoorwayPath
         #expect(internalDoorway.count == 3)
@@ -227,22 +231,27 @@ struct NavigationGridTests {
         #expect(path[thresholdIndex + 1] == internalDoorway[2])
         #expect(internalDoorway.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        // These two anchors keep Lila's full sprite on the chair side of the
-        // partition. Without them, her smaller navigation contact core can
-        // legally skim the wall behind the waiting chairs while the coat and
-        // shoulders visibly overlap it.
-        let waitingAuthored = OfficeNavigationLayout.clientWaitingRoomPath.map(
-            OfficeInteriorScale.unmapPoint
-        )
-        for clearanceAnchor in [
-            CGPoint(x: 2_218, y: 1_358),
-            CGPoint(x: 1_994, y: 1_367),
-        ] {
+        // The intermediate waiting-room anchors stay in the aisle between the
+        // chair backs and the partition. The former a=0.100 detour was legal
+        // for Lila's small contact core but put her rendered coat through the
+        // exterior wall at the red-marked position.
+        let waitingClearance = OfficeNavigationLayout.clientWaitingRoomPath
+            .dropFirst()
+            .dropLast()
+            .map(authoredPlanCoordinates)
+        #expect(waitingClearance.count == 3)
+        for point in waitingClearance {
+            #expect(point.x >= 0.260)
+            #expect(point.x <= 0.280)
+        }
+        let expandedWaitingRoute = path
+            .map(authoredPlanCoordinates)
+            .filter { $0.y >= 0.260 && $0.y <= 0.760 }
+        #expect(!expandedWaitingRoute.isEmpty)
+        for point in expandedWaitingRoute {
             #expect(
-                waitingAuthored.contains {
-                    hypot($0.x - clearanceAnchor.x, $0.y - clearanceAnchor.y) < 0.01
-                },
-                "Chair-side body-clearance anchor must remain in the waiting-room route"
+                point.x >= 0.240 && point.x <= 0.300,
+                "Expanded client route must not return to either waiting-room wall"
             )
         }
 
@@ -306,6 +315,22 @@ struct NavigationGridTests {
             return (doorway[index] == start && doorway[next] == end)
                 || (doorway[index] == end && doorway[next] == start)
         }
+    }
+
+    private func authoredPlanCoordinates(_ worldPoint: CGPoint) -> CGPoint {
+        let point = OfficeInteriorScale.unmapPoint(worldPoint)
+        let architecture = OfficeNavigationLayout.Architecture.self
+        let dx = point.x - architecture.rearCorner.x
+        let dy = architecture.rearCorner.y - point.y
+        let determinant =
+            architecture.axisNW.dx * architecture.axisNE.dy
+            - architecture.axisNE.dx * architecture.axisNW.dy
+        return CGPoint(
+            x: (dx * architecture.axisNE.dy - architecture.axisNE.dx * dy)
+                / determinant,
+            y: (architecture.axisNW.dx * dy - dx * architecture.axisNW.dy)
+                / determinant
+        )
     }
 
     /// Sampled segment test against the authored (mapped) office obstacle list.
