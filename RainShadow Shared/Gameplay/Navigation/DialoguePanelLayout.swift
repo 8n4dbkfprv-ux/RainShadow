@@ -135,6 +135,8 @@ struct DialoguePanelLayout: Equatable {
     /// Painted portrait window on `dialogue_outer_frame_overlay_v04` (unit fractions of the
     /// full texture, including outer transparent padding). Measured from the shipped PNG
     /// metal notch (left open band ~0.05–0.21, top rail under crown ~0.10–0.42).
+    /// `process_ui_chrome_v03.process_dialogue` must punch this same well (plus a slight
+    /// inset) so leftover opaque scrap cannot float over the live portrait.
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
     static let portraitWindowLeftFraction: CGFloat = 0.053
     static let portraitWindowWidthFraction: CGFloat = 0.155
