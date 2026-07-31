@@ -36,8 +36,7 @@ class GameViewController: NSViewController {
     ///   `architecture_debug` architecture plus collision / axis / doorway overlays
     ///
     /// `RAINSHADOW_PARTITION_MASK=0` loads the full-height partition (mask off).
-    /// `RAINSHADOW_LEGACY_PARTITION=1` keeps baked suite-plate glass (no punch) and
-    /// double-draws depth slices / foreground cutaway for A/B.
+    /// `RAINSHADOW_LEGACY_PARTITION=1` restores partition/foreground overlays with suite plate.
     /// `RAINSHADOW_FORCE_CLIENT_ENTRANCE=1` with `RAINSHADOW_SKIP_INTRO=1` starts
     /// Lila's walk-in immediately for mid-doorway captures.
     private func scheduleReviewCaptureIfRequested() {

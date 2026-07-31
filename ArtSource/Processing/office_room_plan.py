@@ -182,9 +182,9 @@ class Partition:
 
     # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
     a_line: float = 0.39
-    # Painted frosted opening on the suite plate (office-face hinge at
-    # SHIPPING_INTERNAL_HINGE_X). Band covers the sole partition-line nav cell
-    # (~b 0.686). Client route uses an exact hinge-biased b, not the cell centre.
+    # Painted frosted opening on the suite plate — office-face stile lands at the
+    # shipping hinge (SHIPPING_INTERNAL_HINGE_X ≈ b 0.64). Nav must open this
+    # band; do not move the leaf/hinge art to chase a different b.
     b_door0: float = 0.62
     b_door1: float = 0.71
     # Short full-height return past the high-b jamb before the cutaway drop.

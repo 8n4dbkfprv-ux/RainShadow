@@ -70,10 +70,10 @@ enum OfficeNavigationLayout {
                 * entranceFallenArtworkDisplayScale
         )
         /// Internal open leaf registered to the shipping partition hinge.
-        static let internalHingePlateX: CGFloat = 2189.4
+        static let internalHingePlateX: CGFloat = 2202.0
         static let internalHingePlateHeight: CGFloat = 220.0
         static let internalLeafDisplayScale: CGFloat = 0.2234
-        static let internalLeafAnchor = CGPoint(x: 2133.128, y: 1136.918)
+        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)
     }
 
     private static let authoredActorStart = CGPoint(
@@ -1361,10 +1361,10 @@ enum OfficeNavigationLayout {
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
-    /// Authored aperture polyline. Do not A*-expand: the sole walkable
-    /// partition-line cell centre sits near the latch frost, and collapsing
-    /// the triad onto it walks the coat through glass camera-left of the
-    /// painted opening. Anchors are collision-checked at layout generation.
+    /// Authored aperture polyline through the shipping painted doorway.
+    /// Do not A*-expand: snapping interior anchors onto nearest walkable
+    /// cells can walk the coat through frosted glass beside the real opening.
+    /// Anchors are collision-checked at layout generation.
     static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
         _ = navigation
         return clientArrivalPath

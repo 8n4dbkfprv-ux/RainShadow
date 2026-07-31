@@ -151,6 +151,7 @@ struct OfficeInteriorScaleTests {
         let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
         let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
         #expect(leaf == anchor)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_202.0) < 0.001)
         #expect(abs(anchor.x - 2_151.949) < 0.001)
         #expect(abs(anchor.y - 1_002.148) < 0.001)
     }
@@ -501,8 +502,7 @@ struct OfficeInteriorScaleTests {
         #expect(internalDoor.count == 3)
         guard internalDoor.count == 3 else { return }
 
-        // Doorway matches the shipping suite plate's leaf-width clear opening,
-        // hinge-biased so the client sprite clears latch-side glass.
+        // Doorway matches the shipping suite-plate painted opening at the hinge.
         let arch = OfficeNavigationLayout.Architecture.self
         let door0 = arch.partitionDoorB0
         let door1 = arch.partitionDoorB1

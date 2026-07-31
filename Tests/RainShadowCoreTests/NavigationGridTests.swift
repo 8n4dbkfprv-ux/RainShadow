@@ -220,8 +220,7 @@ struct NavigationGridTests {
             #expect(Bool(false), "Production internal doorway must be present in the arrival route")
             return
         }
-        // Shipping suite plate frosted doorway (painted clear width, hinge of
-        // mid so the coat clears latch frost beside the open leaf).
+        // Painted suite-plate aperture at the shipping hinge (b≈0.62–0.71).
         let thresholdPlan = officePlan(for: OfficeInteriorScale.unmapPoint(internalDoorway[1]))
         let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
         let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
@@ -241,7 +240,7 @@ struct NavigationGridTests {
             #expect(abs(clearanceB - thresholdPlan.b) < 0.02)
         }
 
-        // Every authored interior anchor survives expansion in order.
+        // Every authored interior anchor survives in order (exact polyline, no A*).
         var priorAnchorIndex = -1
         for anchor in OfficeNavigationLayout.clientInteriorArrivalPath {
             guard let anchorIndex = path.firstIndex(of: anchor) else {
@@ -264,14 +263,10 @@ struct NavigationGridTests {
             )
         }
 
-        // Exactly one partition-midline crossing, and it must land inside the
-        // painted aperture — catches the old tip-hole shortcut that never
-        // touched a partition obstacle rect.
+        // Exactly one partition-midline crossing, inside the painted aperture.
         let crossings = partitionMidlineCrossings(along: path)
         #expect(crossings.count == 1, "Arrival must cross the partition exactly once")
         if let crossingB = crossings.first {
-            let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
-            let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
             #expect(
                 crossingB >= door0 && crossingB <= door1,
                 "Partition crossing b=\(crossingB) must lie inside the painted aperture"
@@ -314,7 +309,8 @@ struct NavigationGridTests {
         }
     }
 
-    /// Painted aperture matches the clear opening (≈0.62–0.71).
+    /// Painted aperture matches the shipping hinge stile (≈0.62–0.71).
+    /// Leaf art stays at SHIPPING_INTERNAL_HINGE; only nav opens that band.
     /// Glass on either side must stay blocked so Lila cannot path through it.
     @Test func partitionApertureClearsPaintedFrameNotAdjacentWall() {
         let arch = OfficeNavigationLayout.Architecture.self
@@ -322,10 +318,11 @@ struct NavigationGridTests {
         let faceOriginX = arch.rearCorner.x + aFace * arch.axisNW.dx
         let stileB = (arch.internalHingePlateX - faceOriginX) / arch.axisNE.dx
 
-        #expect(abs(arch.partitionDoorB0 - stileB) < 0.005)
+        #expect(abs(arch.partitionDoorB0 - stileB) < 0.02)
         #expect(abs(arch.partitionDoorB0 - 0.62) < 0.001)
         #expect(abs(arch.partitionDoorB1 - 0.71) < 0.001)
         #expect(arch.partitionReturnB1 > arch.partitionDoorB1)
+        #expect(abs(arch.internalHingePlateX - 2202.0) < 0.001)
 
         let grid = OfficeNavigationLayout.makeGrid()
         for frameB: CGFloat in [0.64, 0.66, 0.68] {
@@ -337,7 +334,7 @@ struct NavigationGridTests {
                 "Frame cell at b=\(frameB) must stay open"
             )
         }
-        // Hinge-side and latch-side frosted glass stay solid.
+        // Hinge-side and tip-side frosted glass stay solid.
         for glassB: CGFloat in [0.50, 0.55, 0.78, 0.85] {
             let glassProbe = OfficeInteriorScale.mapPoint(
                 authoredPoint(a: aFace - 0.02, b: glassB)

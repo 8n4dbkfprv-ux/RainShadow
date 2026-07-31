@@ -127,10 +127,10 @@ WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 SHIPPING_EXTERIOR_OPENING_SIZE = (93.0, 206.0)
 SHIPPING_EXTERIOR_THRESHOLD = (2600.65, 960.0)
 # Low-b stile of the painted frosted opening (office face).
-# Registered to suite-plate face at Partition.b_door0 (b≈0.62).
-SHIPPING_INTERNAL_HINGE_X = 2189.4
-SHIPPING_INTERNAL_HINGE_TOP_Y = 910.0
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1130.0
+# Shipping suite-plate measurements — leaf art registers here; do not relocate.
+SHIPPING_INTERNAL_HINGE_X = 2202.0
+SHIPPING_INTERNAL_HINGE_TOP_Y = 1050.0
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1270.0
 
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
@@ -554,11 +554,10 @@ def emit() -> str:
         f"        static let internalHingePlateHeight: CGFloat = "
         f"{SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y:.1f}"
     )
-    # Leaf scale stays the validated shipping fit; anchor follows the measured
-    # hinge stile so the open leaf tracks the painted aperture.
+    # Leaf scale + anchor stay the validated shipping fit against the suite plate.
+    # Re-deriving from sparse right-edge alpha drifted the leaf off the painted jamb.
     add("        static let internalLeafDisplayScale: CGFloat = 0.2234")
-    leaf_x, leaf_y = internal_door_leaf_anchor()
-    add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
+    add("        static let internalLeafAnchor = CGPoint(x: 2_151.949, y: 1_002.148)")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -730,10 +729,10 @@ def emit() -> str:
     add("")
     add("    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }")
     add("")
-    add("    /// Authored aperture polyline. Do not A*-expand: the sole walkable")
-    add("    /// partition-line cell centre sits near the latch frost, and collapsing")
-    add("    /// the triad onto it walks the coat through glass camera-left of the")
-    add("    /// painted opening. Anchors are collision-checked at layout generation.")
+    add("    /// Authored aperture polyline through the shipping painted doorway.")
+    add("    /// Do not A*-expand: snapping interior anchors onto nearest walkable")
+    add("    /// cells can walk the coat through frosted glass beside the real opening.")
+    add("    /// Anchors are collision-checked at layout generation.")
     add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
     add("        _ = navigation")
     add("        return clientArrivalPath")
@@ -990,9 +989,8 @@ CLIENT_DOORWAY_PLAN_PATH = [
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# Cross mid-aperture. Exact authored polyline (no A*) keeps this b. Partition
-# slices that intersect the padded door columns are skipped, and the open leaf
-# is hidden during the walk so frost cannot depth-sort over her coat.
+# Cross the painted suite-plate aperture (shipping hinge stile ≈ b 0.64).
+# Exact authored polyline (no A*) — do not relocate leaf art for pathing.
 CLIENT_INTERNAL_DOOR_B = P.b_door0 + (P.b_door1 - P.b_door0) * 0.40
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
@@ -1003,9 +1001,8 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
 
-# The actor body is wider than its navigation contact core. Keep the waiting
-# leg on the chair side of the partition (low a), clear of the seat/table
-# cluster and the fallen exterior leaf, then square up to the painted doorway.
+# Waiting leg stays chair-side (low a), then squares to the painted doorway b
+# without skimming tip glass.
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
     (0.185, 0.760),  # clear of the fallen leaf / coat rack
     (0.220, 0.760),  # sidestep — diagonal into aperture b clips tip solids
@@ -1026,9 +1023,8 @@ CLIENT_WAITING_ROOM_PATH = [
 VISITOR_CHAIR_BIAS = -50.0
 SEATED_DESK_FRONT_APRON_BIAS = 15.0
 
-# Visitor stop just inside the painted doorway, clear of the visitor armchairs.
-# Keep the same aperture b until clear of the partition so A* cannot clip a
-# diagonal back through latch frost (that nil'd the office leg and stalled her).
+# Visitor stop just inside the painted doorway; hold aperture b until clear of
+# the partition so a diagonal cannot clip latch frost.
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
     rp.authored(0.560, CLIENT_INTERNAL_DOOR_B),
