@@ -474,10 +474,16 @@ def process_dialogue() -> None:
     # gunmetal rails sit around 30–80 and must stay opaque as the frame.
     keyed = punch_dark_wells(keyed, luma_max=22.0)
     # Surgical opens for the painted portrait window + main text column (inset so
-    # gold/metal rims are not eaten). Fractions match DialoguePanelLayout windows.
-    keyed = punch_rect(keyed, (0.062, 0.22, 0.135, 0.50))
+    # gold/metal rims are not eaten). Portrait fractions must track
+    # DialoguePanelLayout.portraitWindow* — an older punch started at y=0.22 while
+    # layout opens the well at y=0.10, which left dark scrap pixels floating over
+    # the live portrait forehead.
+    keyed = punch_rect(keyed, (0.060, 0.115, 0.141, 0.290))
     keyed = punch_rect(keyed, (0.255, 0.14, 0.575, 0.72))
     out = stretch_to_canvas(keyed, (1720, 730))
+    # Final safety: clear any leftover interior floaters inside the live photo square
+    # (layout photo is inset from the painted window). Rim metal stays outside this rect.
+    out = punch_rect(out, (0.064, 0.106, 0.132, 0.308))
     runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v04.png"
     runtime.parent.mkdir(parents=True, exist_ok=True)
     out.save(runtime)
