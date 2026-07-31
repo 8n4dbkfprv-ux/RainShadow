@@ -234,15 +234,20 @@ struct NavigationGridTests {
         #expect(path[thresholdIndex + 1] == internalDoorway[2])
         #expect(internalDoorway.allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        // Chair-side clearance ends on the aperture b before the door triad.
-        let waitingAuthored = OfficeNavigationLayout.clientWaitingRoomPath.map(
-            OfficeInteriorScale.unmapPoint
-        )
-        #expect(waitingAuthored.count >= 3)
-        if let apertureApproach = waitingAuthored.dropLast().last {
-            let clearanceB = officePlan(for: apertureApproach).b
-            #expect(abs(clearanceB - thresholdPlan.b) < 0.02)
+        // Waiting aisle stays between chair backs and partition, then lands on
+        // the live aperture b before the door triad.
+        let waitingClearance = OfficeNavigationLayout.clientWaitingRoomPath
+            .dropFirst()
+            .dropLast()
+            .map(OfficeInteriorScale.unmapPoint)
+            .map(officePlan(for:))
+        #expect(waitingClearance.count >= 2)
+        for point in waitingClearance {
+            #expect(point.a >= 0.260)
+            #expect(point.a <= OfficeNavigationLayout.Architecture.partitionLineA - 0.110)
         }
+        #expect(waitingClearance[0].b >= thresholdPlan.b - 0.02)
+        #expect(abs(waitingClearance.last!.b - thresholdPlan.b) < 0.02)
 
         // Every authored interior anchor survives in order (exact polyline, no A*).
         var priorAnchorIndex = -1

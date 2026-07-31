@@ -1417,9 +1417,8 @@ enum OfficeNavigationLayout {
     /// framed internal doorway in the production suite plate.
     static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2_487, y: 1_173),
-        CGPoint(x: 2_471, y: 1_189),
-        CGPoint(x: 2_452, y: 1_178),
-        CGPoint(x: 2_440, y: 1_183),
+        CGPoint(x: 2_424, y: 1_162),
+        CGPoint(x: 2_412, y: 1_168),
         CGPoint(x: 2_385, y: 1_152),
     ].map(OfficeInteriorScale.mapPoint)
 

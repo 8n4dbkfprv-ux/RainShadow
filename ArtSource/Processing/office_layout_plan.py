@@ -1008,11 +1008,13 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
 
-# Waiting leg stays chair-side (low a), then squares to the doorway b.
+# The actor body is wider than its navigation contact core. Keep the waiting
+# leg in the aisle between the chair backs and the partition (a ≈ 0.27) so the
+# coat does not clip the exterior wall, then drop to the live aperture mid.
+# CLIENT_WAITING_ROOM_PATH then hands off to CLIENT_INTERNAL_DOORWAY_PATH[0].
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.185, 0.790),  # clear of the fallen leaf / coat rack
-    (0.220, 0.790),  # sidestep — diagonal into aperture b clips solids
-    (0.220, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b, then square to the door
+    (0.270, 0.790),  # aisle: clear of coat rack / exterior wall
+    (0.270, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b while still in aisle
 ]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
@@ -1280,15 +1282,15 @@ def report() -> bool:
     )
 
     # Lila's navigation root is narrower than her rendered coat and shoulders.
-    # Preserve a full-body corridor between the chair backs and partition
-    # instead of using the deceptively walkable strip against the exterior wall.
+    # Hold the aisle between chair backs and partition, then enter on aperture b.
     waiting_clearance_ok = (
         len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) >= 2
         and all(
-            a <= P.a_line - 0.110
+            0.260 <= a <= P.a_line - 0.110
             for a, _ in CLIENT_WAITING_CLEARANCE_PLAN_PATH
         )
         and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= P.door_mid_b
+        and abs(CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] - CLIENT_INTERNAL_DOOR_B) < 0.001
         and P.b_door0 <= CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1
     )
     ok &= waiting_clearance_ok
