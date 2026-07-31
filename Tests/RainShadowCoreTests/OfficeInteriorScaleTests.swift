@@ -502,12 +502,12 @@ struct OfficeInteriorScaleTests {
         #expect(internalDoor.count == 3)
         guard internalDoor.count == 3 else { return }
 
-        // Doorway matches the shipping suite-plate painted opening at the hinge.
+        // Doorway matches the suite-plate clear aperture (tip-ward of hinge frost).
         let arch = OfficeNavigationLayout.Architecture.self
         let door0 = arch.partitionDoorB0
         let door1 = arch.partitionDoorB1
-        #expect(abs(door0 - 0.62) < 0.001)
-        #expect(abs(door1 - 0.71) < 0.001)
+        #expect(abs(door0 - 0.695) < 0.001)
+        #expect(abs(door1 - 0.775) < 0.001)
         let threshold = internalDoor[1]
         let artHeight: CGFloat = 2_304
         let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)

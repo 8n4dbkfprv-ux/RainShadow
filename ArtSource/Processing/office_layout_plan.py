@@ -302,12 +302,13 @@ def partition_cell_rects() -> list[tuple[float, float, float, float]]:
         P.a_line + P.thickness_a * 0.5,
         a_face - 0.008,
     )
-    latch_nudge_b = 0.015
-    # Keep the solid skip flush with the painted stile. A large hinge pad used
-    # to open walkable glass below b_door0 (and fail the tip-seal check).
-    hinge_pad = 0.01
-    # 0.025·|AXIS_NE| ≈ 20px along the wall — under the 40×20 support length.
-    b_step = 0.025
+    latch_nudge_b = 0.012
+    # Keep the solid skip flush with the painted clear hole. No hinge pad —
+    # frost between the shipping stile (~0.64) and b_door0 must stay sealed.
+    hinge_pad = 0.0
+    # 0.015·|AXIS_NE| ≈ 12px; dense enough that 40×20 AABBs cover frost cells
+    # (the old 0.025 step left a walkable glass cell at b≈0.686).
+    b_step = 0.015
     b = -0.03
     while b <= rp.B_ROOM + 0.03:
         if (P.b_door0 - hinge_pad) <= b <= P.b_door1:
@@ -353,12 +354,18 @@ def foreground_obstacle() -> tuple[float, float, float, float]:
 
 
 def partition_open_cells() -> list[tuple[int, int]]:
+    """Nav cells that belong to the painted doorway corridor.
+
+    Cell centres can sit slightly outside the exact door b-band while still
+    covering the aperture; pad so tip-seal BFS treats them as the only gap.
+    """
     open_cells = []
+    a_mid = P.a_line + P.thickness_a / 2
     for c in range(31):
         for r in range(31):
             x, y = cell_point(c, r)
             a, b = rp.authored_to_plan(x, y)
-            if abs(a - (P.a_line + P.thickness_a / 2)) < 0.05 and P.b_door0 <= b <= P.b_door1:
+            if abs(a - a_mid) < 0.08 and (P.b_door0 - 0.025) <= b <= (P.b_door1 + 0.025):
                 open_cells.append((c, r))
     return open_cells
 
@@ -989,9 +996,9 @@ CLIENT_DOORWAY_PLAN_PATH = [
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# Cross the painted suite-plate aperture (shipping hinge stile ≈ b 0.64).
-# Exact authored polyline (no A*) — do not relocate leaf art for pathing.
-CLIENT_INTERNAL_DOOR_B = P.b_door0 + (P.b_door1 - P.b_door0) * 0.40
+# Cross the painted clear aperture (≈ b 0.70–0.76), not the frosted sidelight
+# beside the shipping hinge. Exact polyline (no A*); leaf art stays put.
+CLIENT_INTERNAL_DOOR_B = P.door_mid_b
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
     (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
