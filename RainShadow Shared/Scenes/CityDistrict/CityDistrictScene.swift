@@ -160,7 +160,7 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        let step: CGFloat = 112
+        let step: CGFloat = 72
         let candidate = CGPoint(
             x: detective.position.x + direction.dx * step,
             y: detective.position.y + direction.dy * (step * 0.5)
@@ -477,15 +477,15 @@ final class CityDistrictScene: BaseGameScene {
             locationName: district.locationName,
             worldBounds: CityDistrictDefinition.worldBounds,
             pointsOfInterest: mapPoints,
-            fogRevealRadius: 260
+            fogRevealRadius: CityDistrictDefinition.fogRevealRadius
         )
     }
 }
 
 @MainActor
 private final class CityFogOfWarNode: SKSpriteNode {
-    private static let revealRadius: CGFloat = 260
-    private static let revealSpacing: CGFloat = 56
+    private static let revealRadius = CityDistrictDefinition.fogRevealRadius
+    private static let revealSpacing: CGFloat = 72
     private static let maskPixelSize = CGSize(width: 1_024, height: 512)
 
     private var revealedPoints: [CGPoint]

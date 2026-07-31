@@ -548,8 +548,9 @@ struct NavigationGridTests {
         let cityArea = CityDistrictLayout.worldArtSize.width * CityDistrictLayout.worldArtSize.height
         let officeArea = OfficeInteriorScale.scaledArtSize.width * OfficeInteriorScale.scaledArtSize.height
 
-        #expect(cityArea > officeArea * 4)
-        #expect(CityDistrictLayout.environmentScale == 2)
+        // 1× V2 plates stay larger than the scaled office playfield without the old 2× blow-up.
+        #expect(cityArea > officeArea)
+        #expect(CityDistrictLayout.environmentScale == 1)
     }
 
     @Test func cityEntranceStartsOnWalkableStreet() {
