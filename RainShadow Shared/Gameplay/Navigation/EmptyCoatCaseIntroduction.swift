@@ -40,7 +40,7 @@ enum EmptyCoatCaseIntroduction {
 
     /// Portrait masters still use retired pipeline names.
     static let vossPortrait = "dialogue_portrait_harlan_voss_v01"
-    static let lilaPortrait = "dialogue_portrait_lila_march_v01"
+    static let lilaPortrait = "dialogue_portrait_lila_march_v02"
 
     /// The exact node list the office scene presents. Tests must call this same source.
     static var nodes: [CaseDialogueNode] {

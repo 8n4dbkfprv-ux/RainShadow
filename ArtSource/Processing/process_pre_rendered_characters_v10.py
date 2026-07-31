@@ -95,7 +95,7 @@ def backup_lila_runtime() -> None:
             shutil.copy2(path, destination / path.name)
     ui = BACKUP / "UI"
     ui.mkdir(exist_ok=True)
-    portrait = DIALOGUE_UI / "dialogue_portrait_lila_march_v01.png"
+    portrait = DIALOGUE_UI / "dialogue_portrait_lila_march_v02.png"
     if portrait.exists():
         shutil.copy2(portrait, ui / portrait.name)
 
@@ -141,13 +141,16 @@ def process_lila() -> None:
 
 
 def process_lila_portrait() -> None:
-    master = PORTRAIT_SOURCE / "dialogue_portrait_lila_march_v01_master.png"
+    master = PORTRAIT_SOURCE / "dialogue_portrait_lila_march_v02_master.png"
+    if not master.exists():
+        # Backward-compatible fallback for older V10 masters.
+        master = PORTRAIT_SOURCE / "dialogue_portrait_lila_march_v01_master.png"
     if not master.exists():
         raise FileNotFoundError(master)
     portrait = Image.open(master).convert("RGB")
     portrait = portrait.resize((512, 512), Image.Resampling.LANCZOS)
     DIALOGUE_UI.mkdir(parents=True, exist_ok=True)
-    portrait.save(DIALOGUE_UI / "dialogue_portrait_lila_march_v01.png", optimize=True)
+    portrait.save(DIALOGUE_UI / "dialogue_portrait_lila_march_v02.png", optimize=True)
 
 
 def make_previews_v10() -> None:
