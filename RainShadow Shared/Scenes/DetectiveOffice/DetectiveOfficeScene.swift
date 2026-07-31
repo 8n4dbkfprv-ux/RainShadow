@@ -493,7 +493,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                     to: hotspot.approachPoint,
                     requiresExactDestination: true
                 ) { [weak self] in
-                    self?.context.router.showCityDistrict()
+                    self?.context.router.showCityDistrict(.sableRow, arrivalKey: "from.office")
                 }
                 return
             }

@@ -11,12 +11,12 @@ struct CityDistrictScaleTests {
 
     @Test func multiStoryBuildingsAreClearlyTallerThanAdult() {
         let samples: [(String, CGFloat)] = [
-            ("city_building_central", CityDistrictLayout.SourceContentHeight.buildingCentral),
-            ("city_building_mid", CityDistrictLayout.SourceContentHeight.buildingMid),
-            ("city_building_se", CityDistrictLayout.SourceContentHeight.buildingSE),
-            ("city_building_nw", CityDistrictLayout.SourceContentHeight.buildingNW),
-            ("city_building_ne", CityDistrictLayout.SourceContentHeight.buildingNE),
-            ("city_building_sw", CityDistrictLayout.SourceContentHeight.buildingSW)
+            ("city_building_voss_stoop", CityDistrictLayout.SourceContentHeight.buildingVossStoop),
+            ("city_building_tenement", CityDistrictLayout.SourceContentHeight.buildingTenement),
+            ("city_building_storefront", CityDistrictLayout.SourceContentHeight.buildingStorefront),
+            ("city_building_rowhouse", CityDistrictLayout.SourceContentHeight.buildingRowhouse),
+            ("city_building_shop", CityDistrictLayout.SourceContentHeight.buildingShop),
+            ("city_building_gatehouse", CityDistrictLayout.SourceContentHeight.buildingGatehouse)
         ]
         for (name, height) in samples {
             let multiple = CityDistrictLayout.bodyMultiple(contentHeight: height, textureName: name)
@@ -33,9 +33,9 @@ struct CityDistrictScaleTests {
 
     @Test func carsStayNearAdultBodyHeight() {
         let samples: [(String, CGFloat)] = [
-            ("city_car_black", CityDistrictLayout.SourceContentHeight.carBlack),
-            ("city_car_olive", CityDistrictLayout.SourceContentHeight.carOlive),
-            ("city_car_maroon", CityDistrictLayout.SourceContentHeight.carMaroon)
+            ("city_prop_car_black", CityDistrictLayout.SourceContentHeight.carBlack),
+            ("city_prop_car_olive", CityDistrictLayout.SourceContentHeight.carOlive),
+            ("city_prop_car_maroon", CityDistrictLayout.SourceContentHeight.carMaroon)
         ]
         for (name, height) in samples {
             let multiple = CityDistrictLayout.bodyMultiple(contentHeight: height, textureName: name)
@@ -52,15 +52,15 @@ struct CityDistrictScaleTests {
     @Test func streetFurnitureStaysHumanScaleBelowBuildings() {
         let lamp = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.lamp,
-            textureName: "city_lamp"
+            textureName: "city_prop_lamp"
         )
         let bench = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.bench,
-            textureName: "city_bench"
+            textureName: "city_prop_bench"
         )
         let kiosk = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.kiosk,
-            textureName: "city_kiosk"
+            textureName: "city_prop_kiosk"
         )
         #expect(lamp != nil && bench != nil && kiosk != nil)
         if let lamp {
@@ -74,8 +74,8 @@ struct CityDistrictScaleTests {
         }
 
         let building = CityDistrictLayout.bodyMultiple(
-            contentHeight: CityDistrictLayout.SourceContentHeight.buildingCentral,
-            textureName: "city_building_central"
+            contentHeight: CityDistrictLayout.SourceContentHeight.buildingVossStoop,
+            textureName: "city_building_voss_stoop"
         )!
         if let lamp, let bench, let kiosk {
             #expect(lamp < building)
@@ -85,7 +85,7 @@ struct CityDistrictScaleTests {
     }
 
     @Test func displayHeightIsContentTimesSpriteScale() {
-        let scale = CityDistrictLayout.representativeScale(forTextureName: "city_car_black")!
+        let scale = CityDistrictLayout.representativeScale(forTextureName: "city_prop_car_black")!
         let content = CityDistrictLayout.SourceContentHeight.carBlack
         let display = CityDistrictLayout.displayHeight(contentHeight: content, scale: scale)
         #expect(abs(display - content * scale) < 0.0001)
@@ -102,18 +102,16 @@ struct CityDistrictScaleTests {
             #expect(sprite.scale > 0)
             #expect(sprite.scale < 4, "Sprite \(sprite.textureName) scale \(sprite.scale) looks like unscaled full-res art")
         }
-        // Cars must stay on the compact human-scale path (not building-sized).
         let carScales = CityDistrictLayout.visualSprites
-            .filter { $0.textureName.hasPrefix("city_car_") }
+            .filter { $0.textureName.contains("car_") }
             .map(\.scale)
         #expect(!carScales.isEmpty)
         #expect(carScales.allSatisfy { $0 <= 0.75 })
-        // Multi-story blocks use higher scales than street furniture.
         let buildingScales = CityDistrictLayout.visualSprites
             .filter { $0.textureName.hasPrefix("city_building_") }
             .map(\.scale)
         let lampScales = CityDistrictLayout.visualSprites
-            .filter { $0.textureName == "city_lamp" }
+            .filter { $0.textureName == "city_prop_lamp" }
             .map(\.scale)
         #expect(buildingScales.min()! > lampScales.max()!)
     }
@@ -124,5 +122,19 @@ struct CityDistrictScaleTests {
             visibleWorldHeight: CityDistrictLayout.cameraVisibleHeight
         )
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(fraction))
+    }
+
+    @Test func actICatalogCoversCaseTravelDistricts() {
+        let ids = Set(CityDistrictID.allCases)
+        #expect(ids.contains(.sableRow))
+        #expect(ids.contains(.wharfLadder))
+        #expect(ids.contains(.riverside))
+        #expect(ids.contains(.harborpointPD))
+        #expect(ids.contains(.lilaStreet))
+        #expect(ids.contains(.civicRecords))
+        #expect(CityDistrictCatalog.sableRow.portals.contains(where: {
+            if case .office = $0.destination { return true }
+            return false
+        }))
     }
 }

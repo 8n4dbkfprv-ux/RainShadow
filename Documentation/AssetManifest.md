@@ -89,6 +89,19 @@ Exterior base acceptance:
 - The central facade and office window remain inside 4:3 composition safety.
 - Painterly detail survives reduction to a 2048×1152 viewport.
 
+## 4b. Act I city districts (V2)
+
+Harborpoint outdoor travel art locked to the detective-office 2:1 dimetric camera (`ArtSource/Prompts/city_perspective_lock_v02.md`). Generator: built-in Image Generator only. Process: `ArtSource/Processing/process_city_districts_v02.py`.
+
+| Priority | Runtime ID pattern | Pixels | Alpha | Description |
+|---|---|---:|---|---|
+| P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
+| P0 | `city_<district>_ground_v02` | 2048×1152 | Opaque | Play underlay (streets only); world scale 2× → 4096×2304 |
+| P0 | `map_city_<district>_v02` | 1847×1040 | Opaque | HUD area-map crop |
+| P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks and shared street furniture |
+
+Districts: `sable_row` (hub + Voss apartment return), `wharf_ladder`, `riverside`, `harborpoint_pd`, `lila_street`, `civic_records`. Blue Room excluded until earned.
+
 ## 5. Office shell, props, and lighting
 
 ### 5.1 Empty shell

@@ -3,11 +3,12 @@ import SpriteKit
 import AppKit
 #endif
 
-/// The first open area beyond the detective's office. The city plate is much
-/// larger than the office and is paired with a persistent, tight fog reveal so
-/// discovery happens block by block instead of exposing oversized scenery.
+/// Playable Act I outdoor district. Loads a `CityDistrictDefinition` (hub or spoke)
+/// with modular V2 art, fog-of-war, and portal travel back to the office / hub.
 @MainActor
 final class CityDistrictScene: BaseGameScene {
+    private let district: CityDistrictDefinition
+    private let arrivalKey: String?
     private let detective = DetectiveActorNode()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
@@ -20,11 +21,14 @@ final class CityDistrictScene: BaseGameScene {
     private var mapIsPresented = false
     private var journalIsPresented = false
     private var hasShownArrivalHint = false
+    private var inspectBanner: SKLabelNode?
 
-    override var referenceVisibleHeight: CGFloat { CityDistrictLayout.cameraVisibleHeight }
+    override var referenceVisibleHeight: CGFloat { CityDistrictDefinition.cameraVisibleHeight }
 
-    init(context: GameContext) {
-        super.init(context: context, artSize: CityDistrictLayout.worldArtSize)
+    init(context: GameContext, districtID: CityDistrictID = .sableRow, arrivalKey: String? = nil) {
+        self.district = CityDistrictCatalog.definition(for: districtID)
+        self.arrivalKey = arrivalKey
+        super.init(context: context, artSize: CityDistrictDefinition.worldArtSize)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,21 +38,23 @@ final class CityDistrictScene: BaseGameScene {
     override func buildScene() {
         addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_exterior.m4a", volume: 0.34))
 
-        if let texture = GameArt.texture(named: "city_district_ground_v01") {
+        let groundName = district.groundTextureName
+        if let texture = GameArt.texture(named: groundName)
+            ?? GameArt.texture(named: "city_district_ground_v02") {
             texture.filteringMode = .linear
-            let background = SKSpriteNode(texture: texture, size: CityDistrictLayout.worldArtSize)
+            let background = SKSpriteNode(texture: texture, size: CityDistrictDefinition.worldArtSize)
             background.anchorPoint = .zero
             background.position = .zero
             backgroundRoot.addChild(background)
         } else {
-            buildFallbackCity()
+            assertionFailure("Missing city ground texture \(groundName)")
         }
         addModularDistrictSprites()
 
-        navigation = CityDistrictLayout.makeGrid()
-        detective.position = CityDistrictLayout.actorStart
+        navigation = district.makeGrid()
+        detective.position = district.spawnPoint(arrivalKey: arrivalKey)
         detective.beginOpenWorldStanding()
-        context.session.recordCityFogReveal(detective.position)
+        context.session.recordCityFogReveal(district.id, point: detective.position)
         updateDepth(of: detective)
         depthWorldRoot.addChild(detective)
 
@@ -62,8 +68,8 @@ final class CityDistrictScene: BaseGameScene {
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        hint.text = "SABLE ROW  •  Explore the streets. Unseen ground stays under fog."
-        hint.fontSize = 18
+        hint.text = district.arrivalHint
+        hint.fontSize = 17
         hint.fontColor = SKColor(white: 0.86, alpha: 0.90)
         hint.position = CGPoint(x: 0, y: 292)
         hint.alpha = 0
@@ -131,9 +137,15 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        guard CityDistrictLayout.worldBounds.contains(event.location) else {
+        guard CityDistrictDefinition.worldBounds.contains(event.location) else {
             return
         }
+
+        if let portal = district.portals.first(where: { $0.hitArea.contains(event.location) }) {
+            handlePortal(portal)
+            return
+        }
+
         moveDetective(to: event.location)
     }
 
@@ -148,7 +160,6 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        // The 2:1 camera sees a north/south block as half its screen height.
         let step: CGFloat = 112
         let candidate = CGPoint(
             x: detective.position.x + direction.dx * step,
@@ -185,6 +196,10 @@ final class CityDistrictScene: BaseGameScene {
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
         if portraitBar.hitTestPortrait(portraitPoint)
             || portraitBar.hitTestUtility(portraitPoint) != nil {
+            NSCursor.pointingHand.set()
+            return
+        }
+        if district.portals.contains(where: { $0.hitArea.contains(event.location) }) {
             NSCursor.pointingHand.set()
             return
         }
@@ -236,8 +251,6 @@ final class CityDistrictScene: BaseGameScene {
 
     override func layoutViewport() {
         super.layoutViewport()
-        // Camera-child HUD geometry is screen-space and must not change when the
-        // world camera zoom changes between the office and the district.
         let hudViewportSize = size
         inventoryOverlay.layout(for: hudViewportSize)
         areaMapOverlay.layout(for: hudViewportSize)
@@ -257,10 +270,10 @@ final class CityDistrictScene: BaseGameScene {
             maximum: context.session.maximumHealth
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
-        areaMapOverlay.updateExploredPoints(context.session.cityFogRevealPoints)
+        areaMapOverlay.updateExploredPoints(context.session.cityFogRevealPoints(for: district.id))
         updateDepth(of: detective)
         if fogOfWar?.reveal(at: detective.position) == true {
-            context.session.recordCityFogReveal(detective.position)
+            context.session.recordCityFogReveal(district.id, point: detective.position)
         }
         updateCameraPosition()
     }
@@ -287,13 +300,70 @@ final class CityDistrictScene: BaseGameScene {
         hudRoot.addChild(journalOverlay)
     }
 
-    private func moveDetective(to target: CGPoint) {
+    private func handlePortal(_ portal: CityDistrictDefinition.Portal) {
+        let cityOpen = context.session.isCityTravelOpen
+        if portal.requiresCityOpen && !cityOpen {
+            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
+                self?.showInspectLine(portal.lockedInspectLine)
+            }
+            return
+        }
+
+        switch portal.destination {
+        case .inspect:
+            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
+                self?.context.session.markInspected(portal.id)
+                self?.showInspectLine(portal.lockedInspectLine)
+            }
+        case .office:
+            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
+                self?.context.router.showOffice(arrivalKey: "from.city")
+            }
+        case .district(let destinationID):
+            let arrival = "from.\(district.id.rawValue)"
+            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
+                self?.context.router.showCityDistrict(destinationID, arrivalKey: arrival)
+            }
+        }
+    }
+
+    private func showInspectLine(_ text: String) {
+        guard !text.isEmpty else { return }
+        inspectBanner?.removeFromParent()
+        let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
+        label.text = text
+        label.fontSize = 16
+        label.fontColor = SKColor(white: 0.88, alpha: 0.94)
+        label.position = CGPoint(x: 0, y: -300)
+        label.alpha = 0
+        label.preferredMaxLayoutWidth = 920
+        label.numberOfLines = 3
+        label.verticalAlignmentMode = .center
+        hudRoot.addChild(label)
+        inspectBanner = label
+        label.run(.sequence([
+            .fadeIn(withDuration: 0.2),
+            .wait(forDuration: 3.6),
+            .fadeOut(withDuration: 0.45),
+            .removeFromParent()
+        ]))
+    }
+
+    private func moveDetective(
+        to target: CGPoint,
+        requiresExactDestination: Bool = false,
+        completion: (() -> Void)? = nil
+    ) {
         guard let route = navigation.route(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
             return
         }
+        guard !requiresExactDestination || !route.destinationWasAdjusted else {
+            showMovementFeedback(at: target, isValid: false)
+            return
+        }
         showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        detective.walk(path: route.waypoints)
+        detective.walk(path: route.waypoints, completion: completion)
     }
 
     private func setInventoryPresented(_ presented: Bool) {
@@ -342,8 +412,8 @@ final class CityDistrictScene: BaseGameScene {
 
     private func addFogOfWar() {
         let fog = CityFogOfWarNode(
-            size: CityDistrictLayout.worldArtSize,
-            revealedPoints: context.session.cityFogRevealPoints,
+            size: CityDistrictDefinition.worldArtSize,
+            revealedPoints: context.session.cityFogRevealPoints(for: district.id),
             initialReveal: detective.position
         )
         fog.zPosition = 10
@@ -353,26 +423,23 @@ final class CityDistrictScene: BaseGameScene {
 
     private func addCityRain() {
         let rain = RainSystem.makeEmitter(
-            width: CityDistrictLayout.worldArtSize.width + 280,
-            height: CityDistrictLayout.worldArtSize.height + 380,
+            width: CityDistrictDefinition.worldArtSize.width + 280,
+            height: CityDistrictDefinition.worldArtSize.height + 380,
             birthRate: 500,
             speed: 950,
             scale: 0.58,
             alpha: 0.28
         )
         rain.position = CGPoint(
-            x: CityDistrictLayout.worldArtSize.width / 2,
-            y: CityDistrictLayout.worldArtSize.height + 160
+            x: CityDistrictDefinition.worldArtSize.width / 2,
+            y: CityDistrictDefinition.worldArtSize.height + 160
         )
         rain.zPosition = 1
         weatherRoot.addChild(rain)
     }
 
-    /// Buildings and street furniture are deliberately independent nodes. This
-    /// retains the city plate's authored density while allowing each object to
-    /// participate in the same south-to-north depth sorting as the detective.
     private func addModularDistrictSprites() {
-        for visual in CityDistrictLayout.visualSprites {
+        for visual in district.visualSprites {
             guard let texture = GameArt.texture(named: visual.textureName) else { continue }
             let sprite = SKSpriteNode(texture: texture)
             sprite.name = "city.modular.\(visual.textureName)"
@@ -389,59 +456,32 @@ final class CityDistrictScene: BaseGameScene {
         guard size.width > 0, size.height > 0 else { return }
         let halfWidth = size.width * baseCameraScale / 2
         let halfHeight = referenceVisibleHeight / 2
+        let world = CityDistrictDefinition.worldArtSize
         gameCamera.position = CGPoint(
-            x: min(max(detective.position.x, halfWidth), CityDistrictLayout.worldArtSize.width - halfWidth),
-            y: min(max(detective.position.y, halfHeight), CityDistrictLayout.worldArtSize.height - halfHeight)
+            x: min(max(detective.position.x, halfWidth), world.width - halfWidth),
+            y: min(max(detective.position.y, halfHeight), world.height - halfHeight)
         )
     }
 
     private func makeMapConfiguration() -> AreaMapOverlay.Configuration {
-        // Do not leak the rest of the district through the map before it has
-        // been discovered; only the office entrance is marked at arrival.
-        let mapPoints = CityDistrictLayout.pointsOfInterest
-            .filter { $0.kind == .office }
-            .map { point in
-                let color: SKColor
-                switch point.kind {
-                case .office: color = SKColor(red: 0.72, green: 0.22, blue: 0.18, alpha: 1)
-                case .square: color = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
-                case .alley: color = SKColor(red: 0.32, green: 0.51, blue: 0.66, alpha: 1)
-                case .exit: color = SKColor(red: 0.58, green: 0.20, blue: 0.48, alpha: 1)
-                }
-                return AreaMapOverlay.PointOfInterest(
-                    label: point.label,
-                    worldPoint: point.worldPoint,
-                    color: color
-                )
-            }
+        let mapPoints = district.pointsOfInterest.map {
+            let (r, g, b, a) = $0.colorRGBA
+            return AreaMapOverlay.PointOfInterest(
+                label: $0.label,
+                worldPoint: $0.worldPoint,
+                color: SKColor(red: r, green: g, blue: b, alpha: a)
+            )
+        }
         return AreaMapOverlay.Configuration(
-            textureName: "city_district_block_v01",
-            locationName: "SABLE ROW — LOWER WARD",
-            worldBounds: CityDistrictLayout.worldBounds,
+            textureName: district.mapTextureName,
+            locationName: district.locationName,
+            worldBounds: CityDistrictDefinition.worldBounds,
             pointsOfInterest: mapPoints,
             fogRevealRadius: 260
         )
     }
-
-    private func buildFallbackCity() {
-        let ground = SKShapeNode(rect: CityDistrictLayout.worldBounds)
-        ground.fillColor = SKColor(red: 0.035, green: 0.052, blue: 0.07, alpha: 1)
-        ground.strokeColor = .clear
-        backgroundRoot.addChild(ground)
-
-        for building in CityDistrictLayout.obstacles {
-            let block = SKShapeNode(rect: building, cornerRadius: 8)
-            block.fillColor = SKColor(red: 0.075, green: 0.055, blue: 0.052, alpha: 1)
-            block.strokeColor = SKColor(red: 0.20, green: 0.16, blue: 0.13, alpha: 1)
-            block.lineWidth = 4
-            backgroundRoot.addChild(block)
-        }
-    }
 }
 
-/// Persistent city exploration mask. The local reveal is deliberately only
-/// 2.6 actor-heights in radius: streets are discovered at human scale, and the
-/// generated buildings never need to be shown as huge, distant set pieces.
 @MainActor
 private final class CityFogOfWarNode: SKSpriteNode {
     private static let revealRadius: CGFloat = 260

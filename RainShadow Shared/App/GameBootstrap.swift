@@ -6,7 +6,9 @@ final class GameSession {
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
     private(set) var inspectedHotspotIDs: Set<String>
-    private(set) var cityFogRevealPoints: [CGPoint] = []
+    private(set) var isCityTravelOpen = false
+    private(set) var currentCityDistrict: CityDistrictID = .sableRow
+    private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
     private(set) var currentHealth = 12
     let maximumHealth = 12
 
@@ -35,13 +37,36 @@ final class GameSession {
         persist()
     }
 
+    func markCityTravelOpen() {
+        isCityTravelOpen = true
+    }
+
+    func setCurrentCityDistrict(_ id: CityDistrictID) {
+        currentCityDistrict = id
+    }
+
     func setCurrentHealth(_ health: Int) {
         currentHealth = min(max(0, health), maximumHealth)
     }
 
+    func cityFogRevealPoints(for district: CityDistrictID) -> [CGPoint] {
+        cityFogByDistrict[district] ?? []
+    }
+
+    /// Legacy accessor used by older call sites; maps to current district fog.
+    var cityFogRevealPoints: [CGPoint] {
+        cityFogRevealPoints(for: currentCityDistrict)
+    }
+
+    func recordCityFogReveal(_ district: CityDistrictID, point: CGPoint) {
+        var points = cityFogByDistrict[district] ?? []
+        guard points.last != point else { return }
+        points.append(point)
+        cityFogByDistrict[district] = points
+    }
+
     func recordCityFogReveal(_ point: CGPoint) {
-        guard cityFogRevealPoints.last != point else { return }
-        cityFogRevealPoints.append(point)
+        recordCityFogReveal(currentCityDistrict, point: point)
     }
 
     private func persist() {
