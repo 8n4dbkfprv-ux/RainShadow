@@ -4,7 +4,7 @@ Generated 2026-07-31. Scope: **Lila March only** — SW arrival (8 walk + 1 idle
 
 ## Review finding
 
-V6/V7 locked the correct BGEE rendering language and costume palette for Lila, but she still reads as a generic mid-century adult dame. V9 keeps the V6 **silhouette, palette, and processing contract** and refreshes the **face and age**: early twenties, softer prettier bone structure, alert/guarded noir expression, so she reads younger and more attractive at portrait and play scale.
+V6/V7 locked the correct BGEE rendering language and costume palette for Lila, but she still reads as a generic mid-century adult dame. V9 keeps the V6 **coat silhouette and processing contract** and refreshes the **face, age, and hair**: early twenties, softer prettier bone structure, alert/guarded noir expression, and a **black chin-length bob** under the navy beret (replacing pale auburn pinned waves), so she reads younger and more attractive at portrait and play scale.
 
 ## Shared generation contract
 
@@ -25,7 +25,7 @@ Identity gate reference (V9 approved key — match this character in every sheet
 
 ## Character lock (V9 — Lila identity refresh)
 
-- **Lila March (client):** slim **early-twenties** mid-century silhouette; **pale auburn hair** loosely pinned / soft waves under a **small dark-navy beret**; **younger, prettier** face with soft cheekbones, fuller lips suggestion, large alert eyes, and a guarded noir expression (not matronly, not childlike); **deep emerald swing coat** flaring below the waist; cream day dress beneath; short dark gloves; compact **dark handbag on her anatomical left hand**; sensible dark shoes. She appears only in authored SW arrival / NE / NW departure directions, so the handbag is never mirrored.
+- **Lila March (client):** slim **early-twenties** mid-century silhouette; **jet-black chin-length bob** with a soft side part and slight inward curve at the jaw (not long waves, not a bun, not auburn), worn under a **small dark-navy beret** so the bob silhouette still reads at play scale; **younger, prettier** face with soft cheekbones, fuller lips suggestion, large alert eyes, and a guarded noir expression (not matronly, not childlike); **deep emerald swing coat** flaring below the waist; cream day dress beneath; short dark gloves; compact **dark handbag on her anatomical left hand**; sensible dark shoes. She appears only in authored SW arrival / NE / NW departure directions, so the handbag is never mirrored.
 
 - **Harlan Voss:** unchanged from V8. Do not regenerate.
 
@@ -34,12 +34,12 @@ Hard rejects:
 | Reject | Require |
 |---|---|
 | Older / matronly / mid-forties face | Early-twenties softer prettier face, alert eyes |
+| Pale auburn, copper, red, blonde, or long/pinned-up hair | Jet-black chin-length bob under navy beret |
 | Burgundy Vivian hat/suit costume | Navy beret, emerald swing coat, cream dress |
 | Modern PBR, photoreal, hand pixel art, comic outlines | BGEE pre-rendered 3D avatar craft |
 | Franchise / BG character copies | Original RainShadow Lila |
-| Whole-figure horizontal flip of sheets | Preserve upper-left light and anatomical-left handbag |
 
-Soft locks vs V6 key: same navy beret / emerald coat / cream dress / pale auburn / dark gloves / handbag-left palette and swing-coat silhouette; younger prettier face.
+Soft locks vs V6 key: same navy beret / emerald coat / cream dress / dark gloves / handbag-left palette and swing-coat silhouette; younger prettier face; black bob hair.
 
 Sheet prompts change only direction, pose, and phase while retaining this contract and the matching V9 identity key.
 
