@@ -104,12 +104,16 @@ def main() -> None:
     canvas.alpha_composite(content, (int(rug_plate[0] - w / 2), int(rug_plate[1] - h / 2)))
 
     # Wall art on the north-west wall face.
+    wall_art_files = {
+        "caseBoard": "office_case_board.png",
+        "wallCityMap": "office_wall_city_map.png",
+        "wallPhotos": "office_wall_photos.png",
+        "framedLicence": "office_framed_licence.png",
+    }
     for key, (px, py) in lp.WALL_ART.items():
-        art_name = {
-            "caseBoard": "office_case_board.png",
-            "wallCityMap": "office_wall_city_map.png",
-            "wallPhotos": "office_wall_photos.png",
-        }[key]
+        art_name = wall_art_files.get(key)
+        if art_name is None:
+            continue
         im = load(art_name)
         bx0, by0, bx1, by1 = content_box(im)
         content = im.crop((bx0, by0, bx1, by1))
@@ -119,8 +123,12 @@ def main() -> None:
         canvas.alpha_composite(content, (int(px - w / 2), int(py - h / 2)))
 
     # Depth props sorted far-to-near on their plate ground line.
+    # Skip retired domestic fixtures that are no longer spawned in-scene.
+    retired = {"personalWashbasin"}
     entries = []
     for prop in lp.PROPS:
+        if prop.key in retired:
+            continue
         plate = plate_point(prop.authored)
         entries.append((plate[1], prop))
     for _, prop in sorted(entries, key=lambda e: e[0]):
@@ -133,12 +141,7 @@ def main() -> None:
 
     # Exterior frame + leaf: same absolute X/Y scales + anchors as the scene.
     thr = plate_point(lp.exterior_door_threshold_authored())
-    door_leaf_pt = plate_point(
-        (
-            lp.exterior_door_threshold_authored()[0],
-            lp.exterior_door_threshold_authored()[1] + 6.0,
-        )
-    )
+    door_leaf_pt = plate_point(lp.exterior_leaf_anchor_authored())
     frame_path = ART / "office_door_frame.png"
     if frame_path.exists():
         paste_scaled(
@@ -168,6 +171,38 @@ def main() -> None:
         lp.internal_leaf_scale() / ENV,
         plate_point(lp.internal_door_leaf_anchor()),
     )
+
+    # Desk clutter matches DetectiveOfficeScene.addDeskItems (932×780 canvas).
+    desk_prop = lp.PROP_BY_KEY["deskEnsemble"]
+    desk_plate = plate_point(desk_prop.authored)
+    desk_scale = desk_prop.display_scale / ENV
+    desk_canvas = (932.0, 780.0)
+    desk_anchor = (0.5, 0.04)
+    for name, cx, cy in (
+        ("office_desk_lamp", 245.0, 185.0),
+        ("office_desk_phone", 340.0, 260.0),
+        ("office_desk_typewriter", 475.0, 215.0),
+        ("office_desk_notebook", 520.0, 310.0),
+        ("office_desk_papers", 600.0, 270.0),
+        ("office_desk_ashtray", 655.0, 325.0),
+        ("office_desk_files", 735.0, 245.0),
+    ):
+        path = ART / f"{name}.png"
+        if not path.exists():
+            continue
+        item = Image.open(path).convert("RGBA")
+        w = max(1, int(round(item.width * desk_scale)))
+        h = max(1, int(round(item.height * desk_scale)))
+        item = item.resize((w, h), Image.Resampling.LANCZOS)
+        # Scene: x = desk.x + (cx - canvas.w * ax) * scale
+        #         y = desk.y + (canvas.h * (1-ay) - cy) * scale  (SpriteKit y-up)
+        # Plate y-down paste uses the same offsets once desk_plate is y-flipped.
+        px = desk_plate[0] + (cx - desk_canvas[0] * desk_anchor[0]) * desk_scale - w / 2
+        # Convert scene y-up offset into plate y-down: scene +dy moves toward
+        # camera-near / higher authored y / lower plate y after flip.
+        scene_dy = (desk_canvas[1] * (1.0 - desk_anchor[1]) - cy) * desk_scale
+        py = desk_plate[1] - scene_dy - h / 2
+        canvas.alpha_composite(item, (int(round(px)), int(round(py))))
 
     OUT.mkdir(parents=True, exist_ok=True)
     canvas.save(OUT / "redesign_preview.png")

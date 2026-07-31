@@ -37,6 +37,8 @@ class GameViewController: NSViewController {
     ///
     /// `RAINSHADOW_PARTITION_MASK=0` loads the full-height partition (mask off).
     /// `RAINSHADOW_LEGACY_PARTITION=1` restores partition/foreground overlays with suite plate.
+    /// `RAINSHADOW_FORCE_CLIENT_ENTRANCE=1` with `RAINSHADOW_SKIP_INTRO=1` starts
+    /// Lila's walk-in immediately for mid-doorway captures.
     private func scheduleReviewCaptureIfRequested() {
         let environment = ProcessInfo.processInfo.environment
         guard let path = environment["RAINSHADOW_CAPTURE"] else { return }
@@ -45,6 +47,9 @@ class GameViewController: NSViewController {
         let mode = environment["RAINSHADOW_CAPTURE_MODE"] ?? "camera"
 
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            if let office = (self?.view as? SKView)?.scene as? DetectiveOfficeScene {
+                office.seekForcedClientEntranceForCapture()
+            }
             if environment["RAINSHADOW_CAPTURE_DUMP"] != nil {
                 self?.dumpSceneGraph()
             }

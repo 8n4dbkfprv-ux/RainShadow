@@ -126,9 +126,11 @@ WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 # Positions below use plate image coordinates (y down).
 SHIPPING_EXTERIOR_OPENING_SIZE = (93.0, 206.0)
 SHIPPING_EXTERIOR_THRESHOLD = (2600.65, 960.0)
-SHIPPING_INTERNAL_HINGE_X = 2202.0
-SHIPPING_INTERNAL_HINGE_TOP_Y = 1050.0
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1270.0
+# Low-b stile of the painted frosted opening (office face).
+# Left jamb of the live clear aperture (office face ≈ b 0.752 → plate x ≈ 2297).
+SHIPPING_INTERNAL_HINGE_X = 2296.6
+SHIPPING_INTERNAL_HINGE_TOP_Y = 1001.0
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1171.0
 
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
@@ -262,25 +264,61 @@ def cell_point(c: int, r: int) -> tuple[float, float]:
 
 CELL_RECT = (104.0, 52.0)  # slightly inset from the 128x64 cell so corners pass
 
+# Partition solids use a tighter AABB than floor/boundary cells. The dimetric
+# 104×52 footprint hangs into the painted doorway as a magenta box even when
+# the cell centre is outside the aperture; 40×20 keeps the tip sealed without
+# that screen-space overhang into the green aperture.
+PARTITION_CELL_RECT = (40.0, 20.0)
+
 
 def cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
     return (x - CELL_RECT[0] / 2, y - CELL_RECT[1] / 2, *CELL_RECT)
 
 
+def partition_cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
+    return (
+        x - PARTITION_CELL_RECT[0] / 2,
+        y - PARTITION_CELL_RECT[1] / 2,
+        *PARTITION_CELL_RECT,
+    )
+
+
 def partition_cell_rects() -> list[tuple[float, float, float, float]]:
-    """Per-cell solids along the partition, leaving the doorway open."""
+    """Continuous partition barrier as overlapping tight AABBs; doorway open.
+
+    Nav-cell centres sit ~72px apart along the NE diagonal. A 40×20 AABB only
+    covers ~45px of that run, so one solid per cell left walkable gaps through
+    the frosted glass. Sample densely in plan-b (and across wall thickness)
+    so neighbouring AABBs overlap into a sealed barrier while the leaf-width
+    door band stays clear.
+
+    Latch-side solids are nudged slightly toward the tip so the first jamb
+    AABB does not cover the green aperture mid-point.
+    """
     rects = []
-    a0 = P.a_line - 0.010
-    a1 = P.a_line + P.thickness_a + 0.010
-    for c in range(31):
-        for r in range(31):
-            x, y = cell_point(c, r)
-            a, b = rp.authored_to_plan(x, y)
-            if not (a0 <= a <= a1 and -0.03 <= b <= rp.B_ROOM + 0.03):
-                continue
-            if P.b_door0 - 0.012 <= b <= P.b_door1 + 0.012:
-                continue
-            rects.append(cell_rect(x, y))
+    a_face = P.a_line + P.thickness_a
+    a_samples = (
+        P.a_line + 0.008,
+        P.a_line + P.thickness_a * 0.5,
+        a_face - 0.008,
+    )
+    latch_nudge_b = 0.012
+    # Keep the solid skip flush with the painted clear hole. No hinge pad —
+    # frost between the shipping stile (~0.64) and b_door0 must stay sealed.
+    hinge_pad = 0.0
+    # 0.015·|AXIS_NE| ≈ 12px; dense enough that 40×20 AABBs cover frost cells
+    # (the old 0.025 step left a walkable glass cell at b≈0.686).
+    b_step = 0.015
+    b = -0.03
+    while b <= rp.B_ROOM + 0.03:
+        if (P.b_door0 - hinge_pad) <= b <= P.b_door1:
+            b += b_step
+            continue
+        bb = b + latch_nudge_b if b > P.b_door1 else b
+        for a in a_samples:
+            x, y = rp.authored(a, bb)
+            rects.append(partition_cell_rect(x, y))
+        b += b_step
     return rects
 
 
@@ -316,12 +354,18 @@ def foreground_obstacle() -> tuple[float, float, float, float]:
 
 
 def partition_open_cells() -> list[tuple[int, int]]:
+    """Nav cells that belong to the painted doorway corridor.
+
+    Cell centres can sit slightly outside the exact door b-band while still
+    covering the aperture; pad so tip-seal BFS treats them as the only gap.
+    """
     open_cells = []
+    a_mid = P.a_line + P.thickness_a / 2
     for c in range(31):
         for r in range(31):
             x, y = cell_point(c, r)
             a, b = rp.authored_to_plan(x, y)
-            if abs(a - (P.a_line + P.thickness_a / 2)) < 0.05 and P.b_door0 <= b <= P.b_door1:
+            if abs(a - a_mid) < 0.08 and (P.b_door0 - 0.025) <= b <= (P.b_door1 + 0.025):
                 open_cells.append((c, r))
     return open_cells
 
@@ -497,14 +541,31 @@ def emit() -> str:
     add(f"        static let entranceFrameAnchorY: CGFloat = {exterior_frame_anchor_y():.5f}")
     add("        /// Floor-projected presentation used after the leaf breaks free.")
     add("        static let entranceFallenLeafScaleRatio: CGFloat = 0.92")
+    add("        /// The upright art grows slightly as its top swings toward the camera.")
+    add("        /// This is only the transition silhouette; the landed art has an")
+    add("        /// explicit world-space size below.")
+    add("        static let entranceFallingTransitionScale: CGFloat = 0.17")
+    add("        /// Purpose-built 768×512 landed-state art. The transparent source")
+    add("        /// canvas stays centered so this scale yields a ~98×81 point door body.")
+    add("        static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)")
+    add("        static let entranceFallenArtworkDisplayScale: CGFloat = 0.17")
+    add("        static let entranceFallenArtworkDisplaySize = CGSize(")
+    add("            width: entranceFallenArtworkCanvasSize.width")
+    add("                * entranceFallenArtworkDisplayScale,")
+    add("            height: entranceFallenArtworkCanvasSize.height")
+    add("                * entranceFallenArtworkDisplayScale")
+    add("        )")
     add("        /// Internal open leaf registered to the shipping partition hinge.")
     add(f"        static let internalHingePlateX: CGFloat = {SHIPPING_INTERNAL_HINGE_X:.1f}")
     add(
         f"        static let internalHingePlateHeight: CGFloat = "
         f"{SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y:.1f}"
     )
-    add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
-    add(f"        static let internalLeafAnchor = {precise_pt(internal_door_leaf_anchor())}")
+    # Leaf scale keeps the validated fit; anchor is solved from the measured
+    # clear-aperture hinge jamb so the open leaf tracks the painted frame.
+    add("        static let internalLeafDisplayScale: CGFloat = 0.2234")
+    leaf_x, leaf_y = internal_door_leaf_anchor()
+    add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
     add("    }")
     add("")
     add("    private static let authoredActorStart = CGPoint(")
@@ -530,8 +591,7 @@ def emit() -> str:
     add("    ]")
     add("")
     part = partition_cell_rects()
-    mid = len(part) // 2
-    add("    /// Partition solids, one per navigation cell, doorway cells omitted.")
+    add("    /// Partition solids: overlapping tight AABBs along the wall; doorway open.")
     add(f"    static let authoredPartitionWallNorthObstacle = {rect(part[0])}")
     add(f"    static let authoredPartitionWallSouthObstacle = {rect(part[-1])}")
     add("    static let authoredPartitionSegments: [CGRect] = [")
@@ -677,17 +737,13 @@ def emit() -> str:
     add("")
     add("    static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }")
     add("")
-    add("    /// Expand the complete interior anchor chain as one collision-checked")
-    add("    /// polyline. The real partition doorway anchors prevent smoothing")
-    add("    /// across either jamb while keeping the route direct.")
+    add("    /// Authored aperture polyline through the shipping painted doorway.")
+    add("    /// Do not A*-expand: snapping interior anchors onto nearest walkable")
+    add("    /// cells can walk the coat through frosted glass beside the real opening.")
+    add("    /// Anchors are collision-checked at layout generation.")
     add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
-    add("        guard let interior = navigation.waypoints(visiting: clientInteriorArrivalPath) else {")
-    add("            // Stop safely inside the exterior door if a future layout")
-    add("            // disconnects the rooms; never fall back to wall-cutting moves.")
-    add("            return clientDoorwayPath")
-    add("        }")
-    add("        return Array(clientDoorwayPath.dropLast())")
-    add("            + interior")
+    add("        _ = navigation")
+    add("        return clientArrivalPath")
     add("    }")
     add("")
     add("    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {")
@@ -936,17 +992,13 @@ def internal_leaf_scale() -> float:
 # contains the closed door-leaf obstacle. Keep this short segment authored
 # through the painted opening, then hand off to routed interior anchors.
 CLIENT_DOORWAY_PLAN_PATH = [
-    (-0.080, 0.790),  # outside the department, centred in the clear opening
-    (0.200, 0.790),  # inside and clear of the fallen leaf / umbrella stand
+    (-0.080, EXTERIOR_DOOR[1]),  # outside, centred on the painted threshold
+    (0.200, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# Cross the framed doorway that is actually painted into the production
-# partition. The former hand-measured points mistook the camera-near cutaway
-# for an aperture (b≈0.77), crossed the solid wall there, and forced a long
-# recovery loop around the desk. Keep all three anchors on the real clear
-# opening (b≈0.147): waiting side → threshold → private-office side.
-CLIENT_INTERNAL_DOOR_B = P.door_mid_b
+# Cross the live clear aperture mid (≈ 0.776). Exact polyline (no A*).
+CLIENT_INTERNAL_DOOR_B = 0.776
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
     (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
@@ -957,12 +1009,12 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
 ]
 
 # The actor body is wider than its navigation contact core. Keep the waiting
-# leg on the chair side of the partition instead of allowing A* to skim the
-# cutaway wall behind the two seats, then turn toward the framed door only
-# after clearing the furniture row.
+# leg in the aisle between the chair backs and the partition (a ≈ 0.27) so the
+# coat does not clip the exterior wall, then drop to the live aperture mid.
+# CLIENT_WAITING_ROOM_PATH then hands off to CLIENT_INTERNAL_DOORWAY_PATH[0].
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.100, 0.420),
-    (P.a_line - 0.120, P.b_door1 + 0.045),
+    (0.270, 0.790),  # aisle: clear of coat rack / exterior wall
+    (0.270, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b while still in aisle
 ]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
@@ -979,12 +1031,11 @@ CLIENT_WAITING_ROOM_PATH = [
 VISITOR_CHAIR_BIAS = -50.0
 SEATED_DESK_FRONT_APRON_BIAS = 15.0
 
-# The visitor stop is immediately inside the real partition door. No desk
-# bypass is needed: routing through the framed opening makes the office-side
-# leg a short, unobstructed approach instead of a five-point furniture loop.
+# Visitor stop just inside the painted doorway; hold aperture b until clear of
+# the partition so a diagonal cannot clip latch frost.
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
-    rp.authored(0.420, 0.220),  # visitor approach beside the detective's desk
+    rp.authored(0.560, CLIENT_INTERNAL_DOOR_B),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1100,15 +1151,24 @@ TAIL_SWIFT = '''
         }
     }
 
-    static func makeGrid() -> NavigationGrid {
-        NavigationGrid(
+    /// - Parameter entranceDoorBlocking: When false, the upright exterior leaf
+    ///   obstacle is omitted (door has fallen / opening is clear).
+    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationGrid {
+        let gridObstacles: [CGRect]
+        if entranceDoorBlocking {
+            gridObstacles = obstacles
+        } else {
+            let door = doorObstacle
+            gridObstacles = obstacles.filter { $0 != door }
+        }
+        return NavigationGrid(
             projection: .dimetric(
                 origin: OfficeInteriorScale.mapPoint(authoredProjectionOrigin),
                 tileSize: OfficeInteriorScale.mapSize(authoredTileSize)
             ),
             columns: 31,
             rows: 31,
-            obstacles: obstacles,
+            obstacles: gridObstacles,
             agentProfile: .officeDetective
         )
     }
@@ -1192,6 +1252,20 @@ def report() -> bool:
             ok &= good
             print(f"  client {label:7s} authored=({point[0]:.0f},{point[1]:.0f}) "
                   f"cell={cell} reachable={good}")
+    # Cell centres can be walkable while the anchor itself still sits inside a
+    # neighbouring solid; the runtime tests point-test the rects, so do the same.
+    inside = [
+        point
+        for point in CLIENT_PATH[1:]
+        if any(
+            x <= point[0] <= x + w and y <= point[1] <= y + h
+            for x, y, w, h in obstacles
+        )
+    ]
+    anchors_clear = not inside
+    ok &= anchors_clear
+    print(f"  client anchors clear of solid rects={anchors_clear} inside={len(inside)}")
+
     internal_plans = [
         rp.authored_to_plan(*point) for point in CLIENT_INTERNAL_DOORWAY_PATH
     ]
@@ -1208,16 +1282,16 @@ def report() -> bool:
     )
 
     # Lila's navigation root is narrower than her rendered coat and shoulders.
-    # Preserve a full-body margin from the partition while she clears the two
-    # waiting chairs, then allow the route to turn into the framed opening.
+    # Hold the aisle between chair backs and partition, then enter on aperture b.
     waiting_clearance_ok = (
-        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) == 2
+        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) >= 2
         and all(
-            a <= P.a_line - 0.110
+            0.260 <= a <= P.a_line - 0.110
             for a, _ in CLIENT_WAITING_CLEARANCE_PLAN_PATH
         )
-        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= 0.400
-        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1 + 0.050
+        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= P.door_mid_b
+        and abs(CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] - CLIENT_INTERNAL_DOOR_B) < 0.001
+        and P.b_door0 <= CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1
     )
     ok &= waiting_clearance_ok
     print(
@@ -1225,22 +1299,54 @@ def report() -> bool:
         f"valid={waiting_clearance_ok}"
     )
 
-    # Once through the real partition door, the existing visitor stop is one
-    # short leg away. A route that dives toward the camera-near floor is the old
-    # impossible wall/desk detour returning.
+    # Once through the painted partition door, the visitor stop is one short
+    # leg away on the office side of the aperture.
     office_plans = [
         rp.authored_to_plan(*point) for point in CLIENT_OFFICE_ARRIVAL_PATH
     ]
+    door_exit_b = rp.authored_to_plan(*CLIENT_INTERNAL_DOORWAY_PATH[-1])[1]
     office_direct_ok = (
         len(office_plans) == 2
-        and max(b for _, b in office_plans) <= 0.225
-        and max(a for a, _ in office_plans) <= P.a_line + P.thickness_a + 0.065
+        and office_plans[-1][0] > P.a_line + P.thickness_a
+        and max(a for a, _ in office_plans) <= 0.58
+        and abs(office_plans[-1][1] - door_exit_b) <= 0.25
     )
     ok &= office_direct_ok
     print(
         "  client direct office approach "
         f"valid={office_direct_ok} anchors={len(office_plans)}"
     )
+
+    # Rooms must not connect around the partition tip — only through the door.
+    door_cells = set(partition_open_cells())
+    waiting_seed = grid.cell(CLIENT_WAITING_ROOM_PATH[1])
+    seen = {waiting_seed}
+    queue = deque([waiting_seed])
+    while queue:
+        c, r = queue.popleft()
+        for dc in (-1, 0, 1):
+            for dr in (-1, 0, 1):
+                if dc == dr == 0:
+                    continue
+                n = (c + dc, r + dr)
+                if n in seen or not grid.walkable(*n) or n in door_cells:
+                    continue
+                if dc and dr and not (
+                    grid.walkable(c + dc, r) and grid.walkable(c, r + dr)
+                ):
+                    continue
+                seen.add(n)
+                queue.append(n)
+    a_mid = P.a_line + P.thickness_a / 2
+    office_leaks = 0
+    for c, r in seen:
+        x, y = cell_point(c, r)
+        a, _ = rp.authored_to_plan(x, y)
+        if a > a_mid + 0.02:
+            office_leaks += 1
+    sealed_ok = office_leaks == 0
+    ok &= sealed_ok
+    print(f"  partition tip sealed (no office leak without door)={sealed_ok}")
     ok &= any(door_ok) and len(waiting) > 15
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)

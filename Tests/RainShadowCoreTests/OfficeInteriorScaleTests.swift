@@ -147,13 +147,15 @@ struct OfficeInteriorScaleTests {
         // Must not remain at full environment plate scale (legacy oversized leaf).
         #expect(leafScale < OfficeInteriorScale.environment * 0.65)
         #expect(leafScale > 0.05)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 220) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 170) < 0.001)
 
         let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
         let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
         #expect(leaf == anchor)
-        #expect(abs(anchor.x - 2_151.949) < 0.001)
-        #expect(abs(anchor.y - 1_002.148) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_296.6) < 0.1)
+        // Anchor is regenerated from the clear-aperture hinge; keep it on-plate.
+        #expect((2_100.0...2_350.0).contains(anchor.x))
+        #expect((900.0...1_200.0).contains(anchor.y))
     }
 
     @Test func entranceDoorRegistersToShippingAperture() {
@@ -472,27 +474,26 @@ struct OfficeInteriorScaleTests {
 
     @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
         // Drive the real shipped polyline + the pure strip mapper exit uses.
-        // The short visitor-stop leg begins westbound, then every doorway and
-        // corridor segment turns east toward the exterior.
+        // From the visitor stop through the painted doorway and waiting bay,
+        // every leg heads toward the exterior (eastbound NE strip).
         let path = OfficeNavigationLayout.clientDeparturePath
         #expect(path.count >= 3)
         let bins = ClientDepartureFacing.bins(along: path)
         #expect(bins.count == path.count - 1)
-        #expect(bins.first == .northWest, "Visitor stop→door approach should use NW")
-        #expect(bins.dropFirst().allSatisfy { $0 == .northEast },
-                "After clearing the desk, every departure segment should use NE")
         #expect(bins.count >= 3)
-        #expect(bins.filter { $0 == .northEast }.count == bins.count - 1)
+        #expect(
+            bins.allSatisfy { $0 == .northEast },
+            "Departure through the shipping doorway should stay on the NE strip"
+        )
 
-        // Every post-bypass segment uses the non-mirrored eastbound strip.
-        for index in 1..<(path.count - 1) {
+        for index in 0..<(path.count - 1) {
             let dx = path[index + 1].x - path[index].x
             let dy = path[index + 1].y - path[index].y
             #expect(ClientDepartureFacing.bin(dx: dx, dy: dy) == .northEast)
         }
     }
 
-    @Test func clientUsesRearPartitionDoorWithoutForegroundDeskLoop() {
+    @Test func clientUsesShippingPartitionDoorWithoutWallShortcut() {
         let route = OfficeNavigationLayout.clientOfficeArrivalPath
             .map(OfficeInteriorScale.unmapPoint)
         #expect(route.count == 2)
@@ -503,14 +504,22 @@ struct OfficeInteriorScaleTests {
         #expect(internalDoor.count == 3)
         guard internalDoor.count == 3 else { return }
 
-        // The actual framed aperture is in the rear partition. The obsolete
-        // camera-near pseudo-door was around y=1_084 and triggered the wall/
-        // desk loop; all real doorway and office anchors remain in the rear band.
-        #expect(abs(internalDoor[1].x - 1_820) < 0.01)
-        #expect(abs(internalDoor[1].y - 1_365) < 0.01)
-        #expect(internalDoor.allSatisfy { $0.y > 1_300 })
-        #expect(route.allSatisfy { $0.y > 1_300 })
-        #expect(hypot(route[1].x - route[0].x, route[1].y - route[0].y) < 120)
+        // Doorway matches the suite-plate clear aperture (tip-ward of hinge frost).
+        let arch = OfficeNavigationLayout.Architecture.self
+        let door0 = arch.partitionDoorB0
+        let door1 = arch.partitionDoorB1
+        #expect(abs(door0 - 0.752) < 0.001)
+        #expect(abs(door1 - 0.800) < 0.001)
+        #expect(abs(0.5 * (door0 + door1) - 0.776) < 0.001)
+        let threshold = internalDoor[1]
+        let artHeight: CGFloat = 2_304
+        let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)
+        let dx = threshold.x - rear.x
+        let dy = (artHeight - threshold.y) - rear.y
+        let det = arch.axisNW.dx * arch.axisNE.dy - arch.axisNE.dx * arch.axisNW.dy
+        let b = (arch.axisNW.dx * dy - dx * arch.axisNW.dy) / det
+        #expect(b > door0 && b < door1)
+        #expect(hypot(route[1].x - route[0].x, route[1].y - route[0].y) < 280)
     }
 
     @Test func clientDepartureWalkPhaseRotatesWithoutRestartingAtZero() {
