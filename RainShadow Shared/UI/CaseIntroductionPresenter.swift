@@ -67,6 +67,11 @@ final class CaseIntroductionPresenter: SKNode {
     private var focusedChoiceIndex: Int?
     private var hoveredChoiceIndex: Int?
     private var commandIsHovered = false
+    private var commandIsPressed = false
+    private var commandPressIsInside = false
+    private var commandIdleTexture: SKTexture?
+    private var commandHoverTexture: SKTexture?
+    private var commandPressedTexture: SKTexture?
     private var commandLabelText = ""
     private var panelRect = CGRect.zero
     private var contentViewportRect = CGRect.zero
@@ -254,6 +259,10 @@ final class CaseIntroductionPresenter: SKNode {
         isCutsceneSuppressed = suppressed
         removeAction(forKey: "cutsceneVisibility")
         if suppressed {
+            commandIsPressed = false
+            commandPressIsInside = false
+            commandIsHovered = false
+            refreshInteractionColors()
             if animated {
                 isHidden = false
                 run(.sequence([
@@ -348,25 +357,56 @@ final class CaseIntroductionPresenter: SKNode {
             }
         }
         activeScrollbar = nil
+
+        if !commandPlate.isHidden, commandHitRect.contains(point) {
+            commandIsPressed = true
+            commandPressIsInside = true
+            commandIsHovered = true
+            refreshInteractionColors()
+            return true
+        }
         return false
     }
 
     @discardableResult
     func handlePointerDragged(at point: CGPoint) -> Bool {
-        guard isPresenting, !isCutsceneSuppressed, let bar = activeScrollbar else { return false }
-        let panelPoint = panelRoot.convert(point, from: self)
-        let localPoint = bar.convert(panelPoint, from: panelRoot)
-        return bar.handlePointerDragged(at: localPoint)
+        guard isPresenting, !isCutsceneSuppressed else { return false }
+        if let bar = activeScrollbar {
+            let panelPoint = panelRoot.convert(point, from: self)
+            let localPoint = bar.convert(panelPoint, from: panelRoot)
+            return bar.handlePointerDragged(at: localPoint)
+        }
+        if commandIsPressed {
+            commandPressIsInside = commandHitRect.contains(point) && !commandPlate.isHidden
+            commandIsHovered = commandPressIsInside
+            refreshInteractionColors()
+            return true
+        }
+        return false
     }
 
     @discardableResult
     func handlePointerUp(at point: CGPoint) -> Bool {
-        guard isPresenting, !isCutsceneSuppressed, let bar = activeScrollbar else { return false }
-        let panelPoint = panelRoot.convert(point, from: self)
-        let localPoint = bar.convert(panelPoint, from: panelRoot)
-        let handled = bar.handlePointerUp(at: localPoint)
-        activeScrollbar = nil
-        return handled
+        guard isPresenting, !isCutsceneSuppressed else { return false }
+        if let bar = activeScrollbar {
+            let panelPoint = panelRoot.convert(point, from: self)
+            let localPoint = bar.convert(panelPoint, from: panelRoot)
+            let handled = bar.handlePointerUp(at: localPoint)
+            activeScrollbar = nil
+            return handled
+        }
+        if commandIsPressed {
+            let activate = commandPressIsInside && commandHitRect.contains(point) && !commandPlate.isHidden
+            commandIsPressed = false
+            commandPressIsInside = false
+            commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
+            refreshInteractionColors()
+            if activate {
+                activateFocusedControl()
+            }
+            return true
+        }
+        return false
     }
 
     @discardableResult
@@ -537,8 +577,12 @@ final class CaseIntroductionPresenter: SKNode {
         choicesRoot.name = "dialogue.choices-band"
         choicesCrop.addChild(choicesRoot)
 
-        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v06")
+        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07")
+            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v06")
             ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v05") {
+            commandIdleTexture = texture
+            commandHoverTexture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07_hover")
+            commandPressedTexture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07_pressed")
             commandPlate.texture = texture
             commandPlate.centerRect = DialoguePanelLayout.commandFrameCenterRect
             commandPlate.color = .white
@@ -547,6 +591,9 @@ final class CaseIntroductionPresenter: SKNode {
             usesWideCommandPlate = true
         } else if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
             ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
+            commandIdleTexture = texture
+            commandHoverTexture = nil
+            commandPressedTexture = nil
             commandPlate.texture = texture
             commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
             commandPlate.color = .white
@@ -604,6 +651,8 @@ final class CaseIntroductionPresenter: SKNode {
         focusedChoiceIndex = nil
         hoveredChoiceIndex = nil
         commandIsHovered = false
+        commandIsPressed = false
+        commandPressIsInside = false
         speakerLabel.text = node.speaker
         speakerLabel.fontColor = speakerColor(for: node.speaker)
         applyBodyScrollOffset(0)
@@ -999,7 +1048,28 @@ final class CaseIntroductionPresenter: SKNode {
         }
 
         updateCommandLabelAppearance()
-        if commandIsHovered {
+        updateCommandPlateAppearance()
+    }
+
+    private func updateCommandPlateAppearance() {
+        let isPressed = commandIsPressed && commandPressIsInside
+        let isHot = commandIsHovered || isPressed
+        if isPressed, let pressed = commandPressedTexture {
+            commandPlate.texture = pressed
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+        } else if isHot, let hover = commandHoverTexture {
+            commandPlate.texture = hover
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+        } else if let idle = commandIdleTexture {
+            commandPlate.texture = idle
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+        } else if isPressed {
+            commandPlate.color = UITheme.Tint.pressedColor
+            commandPlate.colorBlendFactor = UITheme.Tint.pressedBlend
+        } else if isHot {
             commandPlate.color = UITheme.Tint.hoverColor
             commandPlate.colorBlendFactor = UITheme.Tint.hoverBlend
         } else {
@@ -1034,7 +1104,8 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func updateCommandLabelAppearance() {
         guard !commandLabelText.isEmpty else { return }
-        let foreground = commandIsHovered ? Palette.responseHot : UITheme.Color.commandLabel
+        let isHot = commandIsHovered || (commandIsPressed && commandPressIsInside)
+        let foreground = isHot ? Palette.responseHot : UITheme.Color.commandLabel
         commandLabel.attributedText = commandAttributedText(commandLabelText, color: foreground)
         commandLabelShadow.attributedText = commandAttributedText(
             commandLabelText,
