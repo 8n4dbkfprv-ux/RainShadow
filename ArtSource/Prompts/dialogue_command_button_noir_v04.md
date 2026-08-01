@@ -2,29 +2,30 @@
 
 Date: 2026-08-01  
 Generator: Codex built-in default Image Generator  
-Master: `dialogue_command_button_plate_v04q_gen.png`
-Soft-matte source: `dialogue_command_button_plate_v04q_keyed.png`
+Master: `dialogue_command_button_plate_v04_gen.png`  
+Soft-matte source: `dialogue_command_button_plate_v04_keyed.png`
 
 ## Intent
 
-Empty CONTINUE / END DIALOGUE plate matching the revised dialogue frame: a reference-like 8.83:1 bar with blackened steel, rain scratches, a smoked-leather live-label face, thin cold highlights, shallow bevels, and almost-square corners. Runtime draws the label.
+Empty CONTINUE / END DIALOGUE plate matching the revised dialogue frame: blackened steel, rain scratches, a smoked-leather live-label face, thin cold highlights, shallow bevels, and clipped mid-century corners. Runtime draws the label.
 
 ## Final generator prompt
 
 ```text
-Use case: precise-object-edit
-Asset type: production 2D game UI command-button plate for RainShadow.
-Input images: Image 1 is the existing RainShadow plate edit target. Image 2 is a shape-and-proportion reference only; use its very wide, thin END DIALOGUE button silhouette and restrained outline without copying text, ornament, or franchise details. Image 3 is the revised RainShadow dialogue frame and authoritative material reference.
-Primary request: Reshape the plate to approximately 8.25:1 or wider so it aligns with the low 2.95:1 dialogue panel. Make one long, shallow, front-facing rectangular command bar with straight rails, almost-square subtly softened corners, and a thin uniform perimeter. Remove the deep 4:1 proportions, clipped corner wings, projecting end caps, and thick multi-step border.
-Style/materials: preserve RainShadow's aged blackened nickel, rain-scratched gunmetal, smoked-charcoal recessed face, fine cold-pewter hairline highlights, shallow top-left bevel lighting, and restrained practical 1940s construction.
-Composition/framing: one isolated symmetric button, centered and fully visible with generous padding. Border occupies about 12–15% of the button height, leaving a calm empty center for a code-drawn label.
-Background: perfectly flat uniform solid #00ff00 chroma-key outside the plate. No shadow, gradient, texture, reflection, floor plane, or lighting variation. Do not use #00ff00 in the plate.
-Text: none; runtime draws the label.
-Constraints: simple wide shallow silhouette; no notches, protrusions, icon, portrait, symbol, baked label, cast shadow, contact shadow, fantasy ornament, gold, jewel, watermark, or copied franchise detail.
+Use case: ui-mockup
+Asset type: production 2D game UI command-button plate, matching the supplied RainShadow dialogue frame.
+Primary request: Create one original empty noir command plate for the live CONTINUE / END DIALOGUE control. Match Image 1's aged blackened-steel frame, fine rain scratches, smoked-leather inset, cold pewter edge highlights, shallow machined bevels, and restrained 1940s utility Art Deco construction. Use Image 2 only for the required slim wide button proportion and empty center; redesign all visible artwork to match Image 1.
+Composition/framing: a single perfectly front-facing orthographic button plate, centered, fully visible, approximately 4:1 after trimming. Thin double gunmetal rim, very shallow bevel, subtly worn charcoal leather face, small stepped clipped corners. Quiet and practical, with enough empty face area for a code-drawn label. Symmetric.
+Lighting/mood: low-key top-left noir lighting, readable edge highlights at game scale.
+Color palette: near-black, graphite, pewter highlights, charcoal; at most two pinhead-sized muted oxblood enamel accents, but no bright color.
+Background: perfectly flat solid #00ff00 chroma-key everywhere outside the plate, one uniform color with no shadow, gradient, texture, reflection, floor plane, or lighting variation. Do not use #00ff00 in the plate.
+Text: none.
+Constraints: no baked label, icon, portrait, or symbol; crisp isolated edges; generous padding; no cast shadow or contact shadow; no attached dialogue frame.
+Avoid: letters, numbers, words, arrows, gems, fantasy jewelry, medieval ornament, gold, brass-heavy steampunk, bulky end caps, watermarks.
 ```
 
 ## Runtime
 
 The default generator source is chroma-keyed with the imagegen skill's border-sampled soft matte and despill helper, then trimmed, texture-preserving lifted, and stretched into:
 
-`RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png` — 1024×116 RGBA.
+`RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png` — 512×128 RGBA.

@@ -460,7 +460,7 @@ def crop_square_button(im: Image.Image) -> Image.Image:
     return trimmed.crop((0, 0, side, side))
 
 
-def _dialogue_v05_keep_chrome(im: Image.Image) -> Image.Image:
+def _dialogue_v05p_keep_chrome(im: Image.Image) -> Image.Image:
     """Clear fully transparent pixels while preserving the generated soft matte."""
     out = np.array(im.convert("RGBA"))
     transparent = out[:, :, 3] < 8
@@ -468,7 +468,248 @@ def _dialogue_v05_keep_chrome(im: Image.Image) -> Image.Image:
     return Image.fromarray(out, "RGBA")
 
 
+def _trim_dark_canvas(im: Image.Image, luma_threshold: float = 8.0) -> Image.Image:
+    """Trim an ImageGen RGB preview whose removable backdrop is near-black."""
+    rgba = np.array(im.convert("RGBA"), dtype=np.float32)
+    luma = rgba[:, :, :3].mean(axis=2)
+    ys, xs = np.where(luma > luma_threshold)
+    if len(xs) == 0:
+        return im.convert("RGBA")
+    return im.crop(
+        (
+            int(xs.min()),
+            int(ys.min()),
+            int(xs.max()) + 1,
+            int(ys.max()) + 1,
+        )
+    ).convert("RGBA")
+
+
+def _match_dialogue_to_sidebar_luma(im: Image.Image) -> Image.Image:
+    """Histogram-match dialogue chrome to the shipped HUD rail material."""
+    reference_path = RUNTIME / "HUD/hud_left_rail_plate_v03.png"
+    if not reference_path.exists():
+        raise FileNotFoundError(f"Missing dialogue material reference: {reference_path}")
+
+    source = np.array(force_grayscale(im), dtype=np.float32)
+    reference = np.array(force_grayscale(Image.open(reference_path)), dtype=np.float32)
+    source_mask = source[:, :, 3] > 32
+    reference_mask = reference[:, :, 3] > 32
+    if not source_mask.any() or not reference_mask.any():
+        return Image.fromarray(source.astype(np.uint8), "RGBA")
+
+    source_luma = source[:, :, :3].mean(axis=2)
+    reference_luma = reference[:, :, :3].mean(axis=2)
+    quantiles = np.linspace(0.0, 1.0, 257)
+    source_knots = np.quantile(source_luma[source_mask], quantiles)
+    reference_knots = np.quantile(reference_luma[reference_mask], quantiles)
+    source_knots, unique_indices = np.unique(source_knots, return_index=True)
+    reference_knots = reference_knots[unique_indices]
+    matched = np.interp(source_luma, source_knots, reference_knots)
+
+    # The HUD art is cold grayscale. A tiny blue lift preserves that established
+    # neutral-steel read while removing the generated burgundy/plum cast.
+    source[:, :, 0] = matched * 0.98
+    source[:, :, 1] = matched * 0.98
+    source[:, :, 2] = np.clip(matched, 0, 255)
+    source[:, :, :3] = np.clip(source[:, :, :3], 0, 255)
+    return Image.fromarray(source.astype(np.uint8), "RGBA")
+
+
+def _lock_dialogue_alpha(material: Image.Image, mask_source: Image.Image) -> Image.Image:
+    """Preserve the approved frame/command alpha geometry byte-for-byte."""
+    material_rgba = np.array(material.convert("RGBA"), dtype=np.uint8)
+    alpha = np.array(mask_source.convert("RGBA"))[:, :, 3]
+    if material_rgba.shape[:2] != alpha.shape:
+        raise ValueError(
+            "Dialogue material and alpha geometry must have identical dimensions: "
+            f"{material_rgba.shape[:2]} vs {alpha.shape}"
+        )
+    material_rgba[:, :, 3] = alpha
+    material_rgba[alpha < 8] = 0
+    return Image.fromarray(material_rgba, "RGBA")
+
+
+def _finish_sidebar_matched_dialogue(
+    material: Image.Image,
+    alpha_source: Image.Image,
+    size: tuple[int, int],
+) -> Image.Image:
+    """Resize, reference-tone-match, sharpen, then restore the approved alpha."""
+    resized = material.convert("RGBA").resize(size, Image.Resampling.LANCZOS)
+    # Exclude ImageGen's baked preview backdrop/checkerboard from the histogram.
+    # Only pixels surviving the approved geometry mask may influence tone matching.
+    masked = _lock_dialogue_alpha(resized, alpha_source)
+    # When ImageGen shifts an edge by a pixel or two, its preview backdrop can sit
+    # beneath a still-opaque pixel in the approved mask. Restore that tiny sliver
+    # from the prior material so checkerboard/black gaps never enter the runtime art.
+    masked_rgba = np.array(masked, dtype=np.uint8)
+    fallback_rgba = np.array(alpha_source.convert("RGBA"), dtype=np.uint8)
+    masked_luma = masked_rgba[:, :, :3].mean(axis=2)
+    fallback_luma = fallback_rgba[:, :, :3].mean(axis=2)
+    missing_material = (
+        (masked_rgba[:, :, 3] > 32)
+        & (masked_luma < 12)
+        & (fallback_luma >= 12)
+    )
+    masked_rgba[missing_material, :3] = fallback_rgba[missing_material, :3]
+    masked = Image.fromarray(masked_rgba, "RGBA")
+    matched = _match_dialogue_to_sidebar_luma(masked)
+    rgb = matched.convert("RGB").filter(
+        ImageFilter.UnsharpMask(radius=0.9, percent=85, threshold=2)
+    )
+    sharpened = rgb.convert("RGBA")
+    return _lock_dialogue_alpha(sharpened, alpha_source)
+
+
+def _apply_sidebar_well_texture_to_command(im: Image.Image) -> Image.Image:
+    """Replace the command face micrograin with the HUD wells' exact texture scale."""
+    reference = np.array(
+        force_grayscale(Image.open(RUNTIME / "HUD/hud_left_rail_plate_v03.png")),
+        dtype=np.uint8,
+    )
+    donor_boxes = (
+        (101, 321, 165, 385),
+        (95, 633, 159, 697),
+        (98, 1100, 162, 1164),
+        (100, 1715, 164, 1779),
+    )
+    donor_tiles: list[np.ndarray] = []
+    donor_values: list[np.ndarray] = []
+    for x0, y0, x1, y1 in donor_boxes:
+        crop = reference[y0:y1, x0:x1]
+        luma = crop[:, :, :3].mean(axis=2)
+        valid = crop[:, :, 3] > 32
+        if not valid.all():
+            luma = np.where(valid, luma, np.median(luma[valid]))
+        donor_values.append(luma[valid])
+        donor_tiles.append(
+            np.array(
+                Image.fromarray(luma.astype(np.uint8), "L").resize(
+                    (73, 73), Image.Resampling.LANCZOS
+                ),
+                dtype=np.float32,
+            )
+        )
+
+    rgba = np.array(force_grayscale(im), dtype=np.uint8)
+    x0, y0, x1, y1 = 20, 23, 1004, 94
+    face_h, face_w = y1 - y0, x1 - x0
+    pieces: list[np.ndarray] = []
+    index = 0
+    while sum(piece.shape[1] for piece in pieces) < face_w:
+        tile = donor_tiles[index % len(donor_tiles)]
+        if (index // len(donor_tiles)) % 2:
+            tile = np.fliplr(tile)
+        pieces.append(tile)
+        index += 1
+    field = np.concatenate(pieces, axis=1)[:face_h, :face_w]
+    field_blur = np.array(
+        Image.fromarray(field.astype(np.uint8), "L").filter(
+            ImageFilter.GaussianBlur(radius=12)
+        ),
+        dtype=np.float32,
+    )
+    residual = field - field_blur
+    rms = float(np.sqrt(np.mean(residual * residual)))
+    if rms > 0:
+        residual *= 13.0 / rms
+
+    face = rgba[y0:y1, x0:x1]
+    face_luma = face[:, :, :3].mean(axis=2)
+    base = np.array(
+        Image.fromarray(face_luma.astype(np.uint8), "L").filter(
+            ImageFilter.GaussianBlur(radius=3)
+        ),
+        dtype=np.float32,
+    )
+    candidate = np.clip(base + residual, 0, 255)
+    valid_face = face[:, :, 3] > 32
+    reference_values = np.concatenate(donor_values)
+    quantiles = np.linspace(0.0, 1.0, 257)
+    source_knots = np.quantile(candidate[valid_face], quantiles)
+    reference_knots = np.quantile(reference_values, quantiles)
+    source_knots, unique_indices = np.unique(source_knots, return_index=True)
+    reference_knots = reference_knots[unique_indices]
+    matched = np.interp(candidate, source_knots, reference_knots)
+    face[:, :, 0] = np.clip(matched, 0, 255).astype(np.uint8)
+    face[:, :, 1] = np.clip(matched, 0, 255).astype(np.uint8)
+    face[:, :, 2] = np.clip(matched + 1, 0, 255).astype(np.uint8)
+    rgba[y0:y1, x0:x1] = face
+    rgba[rgba[:, :, 3] < 8] = 0
+    return Image.fromarray(rgba, "RGBA")
+
+
+def process_dialogue_noir_v07() -> None:
+    """Build sidebar-material V07/V06 art on the approved V06/V05 geometry."""
+    frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v07_gen.png"
+    frame_alpha_path = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v06.png"
+    if not frame_master.exists() or not frame_alpha_path.exists():
+        raise FileNotFoundError(
+            f"Missing V07 dialogue frame input: {frame_master} or {frame_alpha_path}"
+        )
+    frame = _finish_sidebar_matched_dialogue(
+        Image.open(frame_master),
+        Image.open(frame_alpha_path),
+        (1720, 583),
+    )
+    frame_keyed = GEN / "Dialogue/dialogue_outer_frame_overlay_v07_keyed.png"
+    frame.save(frame_keyed)
+    frame_runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v07.png"
+    frame_runtime.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(frame_runtime)
+    print(f"wrote {frame_keyed} ({frame.size})")
+    print(f"wrote {frame_runtime} ({frame.size})")
+
+    command_master = GEN / "Dialogue/dialogue_command_button_plate_v06_gen.png"
+    command_alpha_path = RUNTIME / "Dialogue/dialogue_command_button_plate_v05.png"
+    if not command_master.exists() or not command_alpha_path.exists():
+        raise FileNotFoundError(
+            f"Missing V06 dialogue command input: {command_master} or {command_alpha_path}"
+        )
+    command_material = _trim_dark_canvas(Image.open(command_master))
+    command = _finish_sidebar_matched_dialogue(
+        command_material,
+        Image.open(command_alpha_path),
+        (1024, 116),
+    )
+    command = _apply_sidebar_well_texture_to_command(command)
+    command_keyed = GEN / "Dialogue/dialogue_command_button_plate_v06_keyed.png"
+    command.save(command_keyed)
+    command_runtime = RUNTIME / "Dialogue/dialogue_command_button_plate_v06.png"
+    command_runtime.parent.mkdir(parents=True, exist_ok=True)
+    command.save(command_runtime)
+    print(f"wrote {command_keyed} ({command.size})")
+    print(f"wrote {command_runtime} ({command.size})")
+
+
+def process_dialogue_noir_v06() -> None:
+    """Build the sparse reference-shaped noir frame and its matching command bar."""
+    frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v06_keyed.png"
+    if not frame_master.exists():
+        raise FileNotFoundError(f"Missing keyed dialogue frame master: {frame_master}")
+    frame = stretch_to_canvas(trim_alpha(Image.open(frame_master)), (1720, 583))
+    frame = _dialogue_v05p_keep_chrome(frame)
+    frame_runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v06.png"
+    frame_runtime.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(frame_runtime)
+    print(f"wrote {frame_runtime} ({frame.size})")
+
+    command_master = GEN / "Dialogue/dialogue_command_button_plate_v05_keyed.png"
+    if not command_master.exists():
+        raise FileNotFoundError(f"Missing keyed dialogue command master: {command_master}")
+    command = stretch_to_canvas(trim_alpha(Image.open(command_master)), (1024, 116))
+    command = _dialogue_v05p_keep_chrome(command)
+    command_runtime = RUNTIME / "Dialogue/dialogue_command_button_plate_v05.png"
+    command_runtime.parent.mkdir(parents=True, exist_ok=True)
+    command.save(command_runtime)
+    print(f"wrote {command_runtime} ({command.size})")
+
+
 def process_dialogue() -> None:
+    process_dialogue_noir_v07()
+    process_dialogue_noir_v06()
+
     # Overlay contract: metal rails stay opaque; portrait window + text well are
     # transparent so live portrait + SKLabel body text show through (code owns both).
     # V05q is rail-free on the right (no painted scrollbar channel) — continuous blank
@@ -485,25 +726,23 @@ def process_dialogue() -> None:
     keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
     keyed = trim_alpha(keyed)
     out = stretch_to_canvas(keyed, (1720, 583))
-    out = _dialogue_v05_keep_chrome(out)
+    out = _dialogue_v05p_keep_chrome(out)
     runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v05.png"
     runtime.parent.mkdir(parents=True, exist_ok=True)
     out.save(runtime)
     print(f"wrote {runtime} ({out.size})")
 
-    # V04q: reference-aligned low noir CONTINUE/END plate; no baked label.
-    master = GEN / "Dialogue/dialogue_command_button_plate_v04q_gen.png"
+    # V04: matching noir CONTINUE/END plate; the generated source has no baked label.
+    master = GEN / "Dialogue/dialogue_command_button_plate_v04_gen.png"
     if not master.exists():
         master = copy_gen(
-            "dialogue_command_button_plate_v04q_gen.png",
+            "dialogue_command_button_plate_v04_gen.png",
             master,
         )
-    keyed_master = GEN / "Dialogue/dialogue_command_button_plate_v04q_keyed.png"
+    keyed_master = GEN / "Dialogue/dialogue_command_button_plate_v04_keyed.png"
     keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
     keyed = trim_alpha(keyed)
-    # Preserve the generated 8.83:1 silhouette instead of compressing it into the old
-    # 4:1 source canvas and stretching it back out at runtime.
-    out = stretch_to_canvas(keyed, (1024, 116))
+    out = stretch_to_canvas(keyed, (512, 128))
     # Gently lift the leather face while keeping its generated grain under the live label.
     rgba = np.array(out)
     h, w = rgba.shape[:2]
@@ -860,6 +1099,10 @@ def main() -> None:
         process_hud()
     if "dialogue" in targets:
         process_dialogue()
+    if "dialogue-noir-v06" in targets:
+        process_dialogue_noir_v06()
+    if "dialogue-noir-v07" in targets:
+        process_dialogue_noir_v07()
     if "scrollbar" in targets:
         process_dialogue_scrollbar_system7_v06()
     if "inventory" in targets:

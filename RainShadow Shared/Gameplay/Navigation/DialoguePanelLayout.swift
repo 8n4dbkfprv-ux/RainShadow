@@ -11,7 +11,7 @@ struct DialoguePanelLayout: Equatable {
     static let scrollbarWidth: CGFloat = 30
 
     /// Horizontal center of the blank right gutter reserved for the live scrollbar
-    /// on `dialogue_outer_frame_overlay_v05` (no painted channel — continuous well).
+    /// on `dialogue_outer_frame_overlay_v07` (no painted channel — continuous well).
     static let paintedScrollbarCenterXFraction: CGFloat = 1_607.0 / 1_720.0
 
     /// Inner horizontal limits of the blank right gutter. The live controls
@@ -109,10 +109,10 @@ struct DialoguePanelLayout: Equatable {
 
     /// Continue / End control size and placement under the dialogue panel.
     static let commandHeight: CGFloat = 48
-    /// Reference-aligned command artwork (`dialogue_command_button_plate_v04` 1024×116).
+    /// Reference-shaped command artwork (`dialogue_command_button_plate_v06` 1024×116).
     static let commandArtPixelSize = CGSize(width: 1_024, height: 116)
     static let commandArtAspectWidthOverHeight: CGFloat = 1_024.0 / 116.0
-    /// The authored plate already has the correct low-wide aspect; scale it as one piece.
+    /// The authored bar already has the correct low-wide silhouette; scale it as one piece.
     static let commandFrameCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
     static let commandGapBelowPanel: CGFloat = 10
     /// Keep the control above the physical/home-indicator band when possible.
@@ -127,27 +127,30 @@ struct DialoguePanelLayout: Equatable {
         /// Slightly tighter than body copy so three multi-line options pack cleanly
         /// into the fixed plaque’s response band on typical desktop HUDs.
         static let choiceFontSize: CGFloat = 15
-        static let commandFontSize: CGFloat = 18
+        /// Engraved serif command copy: slightly smaller than the former condensed sans.
+        static let commandFontSize: CGFloat = 16
+        static let commandLetterSpacing: CGFloat = 1.25
+        static let commandShadowOffset = CGPoint(x: 0.75, y: -0.75)
         static let caseTitleFontSize: CGFloat = 22
         /// Pre-compact body size — tests assert the new body size is modestly smaller.
         static let legacyBodyFontSize: CGFloat = 18
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v05` 1720×583).
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v07` 1720×583).
     static let frameArtPixelSize = CGSize(width: 1_720, height: 583)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
     static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 583.0
 
-    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v05` (unit fractions
+    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v07` (unit fractions
     /// of the full 1720×583 texture). Measured from the transparent TL well (alpha punch).
-    /// `process_ui_chrome_v03.process_dialogue` must punch the interior only (keep the rim).
+    /// The source is keyed before processing so the narrow detached bezel stays intact.
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
-    static let portraitWindowLeftFraction: CGFloat = 0.0331
-    static let portraitWindowWidthFraction: CGFloat = 0.0709
-    static let portraitWindowTopFraction: CGFloat = 0.1046
-    static let portraitWindowHeightFraction: CGFloat = 0.3448
+    static let portraitWindowLeftFraction: CGFloat = 71.0 / 1_720.0
+    static let portraitWindowWidthFraction: CGFloat = 133.0 / 1_720.0
+    static let portraitWindowTopFraction: CGFloat = 54.0 / 583.0
+    static let portraitWindowHeightFraction: CGFloat = 199.0 / 583.0
     /// Hairline tuck under the bezel so the photo meets the metal with no black ring.
     /// Kept tiny — large insets left a visible gap between photo and frame.
     static let portraitInnerInset: CGFloat = 0.5
@@ -759,8 +762,8 @@ struct DialoguePanelLayout: Equatable {
         )
     }
 
-    /// Visual command plate fitted inside its accessible hit target without distorting
-    /// the reference-like low-wide silhouette on narrower HUDs.
+    /// Fits the very shallow command artwork inside its accessible hit target without
+    /// stretching the reference-like silhouette.
     static func commandPlateSize(in hitRect: CGRect) -> CGSize {
         let height = min(hitRect.height, hitRect.width / commandArtAspectWidthOverHeight)
         return CGSize(width: hitRect.width, height: max(1, height))

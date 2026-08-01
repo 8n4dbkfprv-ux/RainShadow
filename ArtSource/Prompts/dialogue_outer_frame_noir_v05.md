@@ -2,7 +2,7 @@
 
 Date: 2026-08-01  
 Generator: Codex built-in default Image Generator  
-Approved master: `dialogue_outer_frame_overlay_v05q_gen.png`
+Approved master: `dialogue_outer_frame_overlay_v05q_gen.png`  
 Soft-matte source: `dialogue_outer_frame_overlay_v05q_keyed.png`
 
 ## Intent
@@ -14,11 +14,11 @@ Soft-matte source: `dialogue_outer_frame_overlay_v05q_keyed.png`
 
 ## Final generator prompt set
 
-### Initial base generation (superseded geometry)
+### Base generation
 
 ```text
 Use case: ui-mockup
-Asset type: production 2D game UI artwork — a single dialogue-panel frame overlay for RainShadow, initially processed to 1720×730 before the final shape correction.
+Asset type: production 2D game UI artwork — a single dialogue-panel frame overlay for RainShadow, eventually processed to 1720×730.
 Primary request: Create a brand-new original film-noir dialogue plaque. It should preserve the readable late-1990s isometric-RPG hierarchy of a low wide rectangular conversation panel with a compact portrait well at the upper left, while clearly belonging to a 1940s private-detective noir game. Do not copy any franchise-specific ornament or exact frame shape.
 Input images:
 - Image 1: layout-and-weight reference only. Use only the low wide proportion, thin rugged perimeter, compact upper-left portrait placement, and generous text well. Do not reproduce its ornament, jewel, scrollbar, portrait, text, or exact silhouette.
@@ -34,7 +34,7 @@ Constraints: frame must be fully isolated from the key color with crisp edges an
 Avoid: people, faces, portraits, letters, numbers, labels, icons, scrollbar controls, gems, magic, swords, shields, skulls, gargoyles, Celtic knots, medieval filigree, fantasy jewelry, gold trim, brass-heavy steampunk, ornate Gothic arches, bulky top crowns, large decorative emblems, copied franchise shapes, watermarks, cast shadows, contact shadows.
 ```
 
-### Intermediate proportion refinement (superseded geometry)
+### Approved proportion refinement
 
 ```text
 Use case: precise-object-edit

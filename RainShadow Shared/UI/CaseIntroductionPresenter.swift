@@ -1,4 +1,9 @@
 import SpriteKit
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 @MainActor
 final class CaseIntroductionPresenter: SKNode {
@@ -51,7 +56,8 @@ final class CaseIntroductionPresenter: SKNode {
     private let choicesMask = SKShapeNode()
     private let choicesRoot = SKNode()
     private let commandPlate = SKSpriteNode()
-    private let commandLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBodyBold)
+    private let commandLabelShadow = SKLabelNode(fontNamed: UITheme.Font.dialogueCommand)
+    private let commandLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueCommand)
 
     private var nodesByID: [String: CaseDialogueNode] = [:]
     private var currentNodeID: String?
@@ -61,6 +67,7 @@ final class CaseIntroductionPresenter: SKNode {
     private var focusedChoiceIndex: Int?
     private var hoveredChoiceIndex: Int?
     private var commandIsHovered = false
+    private var commandLabelText = ""
     private var panelRect = CGRect.zero
     private var contentViewportRect = CGRect.zero
     /// Scrolling body region (shrinks when a fixed choice band is present).
@@ -77,6 +84,7 @@ final class CaseIntroductionPresenter: SKNode {
     /// Scrollbar currently capturing a pointer drag (body or choices).
     private weak var activeScrollbar: DialogueScrollbarNode?
     private var usesGeneratedFrame = false
+    private var usesWideCommandPlate = false
     private var presentationCompletion: (() -> Void)?
     private var lastVisibleSize: CGSize = .zero
     private var currentPanelOffsetY: CGFloat = 0
@@ -205,8 +213,16 @@ final class CaseIntroductionPresenter: SKNode {
         )
         let commandY = commandHitRect.midY
         commandPlate.position = CGPoint(x: commandHitRect.midX, y: commandY)
-        commandPlate.size = DialoguePanelLayout.commandPlateSize(in: commandHitRect)
-        commandLabel.position = CGPoint(x: commandHitRect.midX, y: commandY - 2)
+        commandPlate.size = usesWideCommandPlate
+            ? DialoguePanelLayout.commandPlateSize(in: commandHitRect)
+            : commandHitRect.size
+        // Palatino's centered glyph bounds need no legacy condensed-sans baseline offset.
+        let labelPosition = CGPoint(x: commandHitRect.midX, y: commandY)
+        commandLabel.position = labelPosition
+        commandLabelShadow.position = CGPoint(
+            x: labelPosition.x + DialoguePanelLayout.Typography.commandShadowOffset.x,
+            y: labelPosition.y + DialoguePanelLayout.Typography.commandShadowOffset.y
+        )
     }
 
     func present(
@@ -521,10 +537,18 @@ final class CaseIntroductionPresenter: SKNode {
         choicesRoot.name = "dialogue.choices-band"
         choicesCrop.addChild(choicesRoot)
 
-        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
-            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
+        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v06")
+            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v05") {
             commandPlate.texture = texture
             commandPlate.centerRect = DialoguePanelLayout.commandFrameCenterRect
+            commandPlate.color = .white
+            commandPlate.colorBlendFactor = 0
+            commandPlate.alpha = 1
+            usesWideCommandPlate = true
+        } else if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
+            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
+            commandPlate.texture = texture
+            commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
             commandPlate.color = .white
             commandPlate.colorBlendFactor = 0
             commandPlate.alpha = 1
@@ -532,24 +556,31 @@ final class CaseIntroductionPresenter: SKNode {
         commandPlate.zPosition = 51
         addChild(commandPlate)
 
-        commandLabel.fontSize = DialoguePanelLayout.Typography.commandFontSize
+        for label in [commandLabelShadow, commandLabel] {
+            label.fontSize = DialoguePanelLayout.Typography.commandFontSize
+            label.fontName = UITheme.Font.dialogueCommand
+            label.horizontalAlignmentMode = .center
+            label.verticalAlignmentMode = .center
+        }
+        commandLabelShadow.fontColor = Palette.shadow
+        commandLabelShadow.zPosition = 52
+        addChild(commandLabelShadow)
         commandLabel.fontColor = UITheme.Color.commandLabel
-        commandLabel.fontName = UITheme.Font.overlayCondensed
-        commandLabel.horizontalAlignmentMode = .center
-        commandLabel.verticalAlignmentMode = .center
         commandLabel.zPosition = 53
         addChild(commandLabel)
     }
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v05.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v07.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v06")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
@@ -617,15 +648,15 @@ final class CaseIntroductionPresenter: SKNode {
             setCommandHidden(true)
         } else if node.endsDialogue {
             commandKind = .end
-            commandLabel.text = "END DIALOGUE"
+            setCommandLabelText("END DIALOGUE")
             setCommandHidden(false)
         } else if let nextNodeID = node.nextNodeID {
             commandKind = .next(nextNodeID)
-            commandLabel.text = "CONTINUE"
+            setCommandLabelText("CONTINUE")
             setCommandHidden(false)
         } else {
             commandKind = .end
-            commandLabel.text = "END DIALOGUE"
+            setCommandLabelText("END DIALOGUE")
             setCommandHidden(false)
         }
 
@@ -966,7 +997,7 @@ final class CaseIntroductionPresenter: SKNode {
             row.background.lineWidth = 1
         }
 
-        commandLabel.fontColor = commandIsHovered ? Palette.responseHot : UITheme.Color.commandLabel
+        updateCommandLabelAppearance()
         if commandIsHovered {
             commandPlate.color = UITheme.Tint.hoverColor
             commandPlate.colorBlendFactor = UITheme.Tint.hoverBlend
@@ -990,7 +1021,50 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     private func setCommandHidden(_ hidden: Bool) {
-        [commandPlate, commandLabel].forEach { $0.isHidden = hidden }
+        [commandPlate, commandLabelShadow, commandLabel].forEach { $0.isHidden = hidden }
+    }
+
+    private func setCommandLabelText(_ text: String) {
+        commandLabelText = text.uppercased()
+        commandLabel.text = commandLabelText
+        commandLabelShadow.text = commandLabelText
+        updateCommandLabelAppearance()
+    }
+
+    private func updateCommandLabelAppearance() {
+        guard !commandLabelText.isEmpty else { return }
+        let foreground = commandIsHovered ? Palette.responseHot : UITheme.Color.commandLabel
+        commandLabel.attributedText = commandAttributedText(commandLabelText, color: foreground)
+        commandLabelShadow.attributedText = commandAttributedText(
+            commandLabelText,
+            color: SKColor(white: 0, alpha: 0.82)
+        )
+    }
+
+    private func commandAttributedText(_ text: String, color: SKColor) -> NSAttributedString {
+        let size = DialoguePanelLayout.Typography.commandFontSize
+#if os(macOS)
+        let font = NSFont(name: UITheme.Font.dialogueCommand, size: size)
+            ?? NSFont.boldSystemFont(ofSize: size)
+#else
+        let font = UIFont(name: UITheme.Font.dialogueCommand, size: size)
+            ?? UIFont.boldSystemFont(ofSize: size)
+#endif
+        let attributed = NSMutableAttributedString(
+            string: text,
+            attributes: [
+                .font: font,
+                .foregroundColor: color,
+            ]
+        )
+        if attributed.length > 1 {
+            attributed.addAttribute(
+                .kern,
+                value: DialoguePanelLayout.Typography.commandLetterSpacing,
+                range: NSRange(location: 0, length: attributed.length - 1)
+            )
+        }
+        return attributed
     }
 
     private func transition(to destinationID: String) {

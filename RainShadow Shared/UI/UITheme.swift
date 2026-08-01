@@ -7,6 +7,7 @@ enum UITheme {
         static let dialogueBody = "Palatino-Roman"
         static let dialogueBodyBold = "Palatino-Bold"
         static let dialogueName = "Palatino-Bold"
+        static let dialogueCommand = "Palatino-Bold"
         static let hudVital = "Palatino-Bold"
         static let overlayTitle = "Copperplate"
         static let overlayBody = "AvenirNext-Medium"
@@ -33,7 +34,7 @@ enum UITheme {
         static let paper = SKColor(red: 0.92, green: 0.89, blue: 0.82, alpha: 1)
         static let stubCaption = SKColor(red: 0.78, green: 0.72, blue: 0.62, alpha: 0.92)
         /// CONTINUE / END label on the gunmetal command plate.
-        static let commandLabel = SKColor(red: 0.96, green: 0.95, blue: 0.92, alpha: 1)
+        static let commandLabel = SKColor(red: 0.88, green: 0.86, blue: 0.78, alpha: 1)
     }
 
     enum Tint {

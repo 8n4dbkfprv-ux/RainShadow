@@ -622,6 +622,34 @@ struct DialoguePanelLayoutTests {
         #expect(DialoguePanelLayout.Typography.caseTitleFontSize > body)
     }
 
+    @Test func commandTypographyUsesCompactTrackedEngravedTreatment() throws {
+        #expect(DialoguePanelLayout.Typography.commandFontSize == 16)
+        #expect(DialoguePanelLayout.Typography.commandLetterSpacing > 0)
+        #expect(DialoguePanelLayout.Typography.commandShadowOffset.x > 0)
+        #expect(DialoguePanelLayout.Typography.commandShadowOffset.y < 0)
+
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let presenter = try String(
+            contentsOf: root.appendingPathComponent(
+                "RainShadow Shared/UI/CaseIntroductionPresenter.swift"
+            ),
+            encoding: .utf8
+        )
+        let theme = try String(
+            contentsOf: root.appendingPathComponent("RainShadow Shared/UI/UITheme.swift"),
+            encoding: .utf8
+        )
+        #expect(theme.contains("static let dialogueCommand = \"Palatino-Bold\""))
+        #expect(presenter.contains("commandLabelShadow"))
+        #expect(presenter.contains(".kern"))
+        #expect(presenter.contains("UITheme.Font.dialogueCommand"))
+        #expect(presenter.contains("CGPoint(x: commandHitRect.midX, y: commandY)"))
+        #expect(!presenter.contains("y: commandY - 2"))
+    }
+
     @Test func presenterUsesSharedTypographyAndContentWell() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
@@ -869,7 +897,7 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func portraitSitsInPaintedFrameWindow() {
-        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v05
+        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v07
         // (metal bezel is outside; photo fills the hole edge-to-edge).
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
