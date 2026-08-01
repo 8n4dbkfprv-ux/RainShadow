@@ -176,7 +176,9 @@ final class CaseIntroductionPresenter: SKNode {
             + DialoguePanelLayout.bodyTextHorizontalInset
         let speakerTop = panelRect.maxY - DialoguePanelLayout.speakerTopInset
         speakerLabel.position = CGPoint(x: textColumnX, y: speakerTop)
-        dialogueLabel.preferredMaxLayoutWidth = DialoguePanelLayout.inlineBodyTextMaxWidth(
+        // Default to full-column width; `rebuildChoices` re-resolves after measure so short
+        // monologues keep even left/right padding and long bodies still clear the scrollbar.
+        dialogueLabel.preferredMaxLayoutWidth = DialoguePanelLayout.bodyTextMaxWidth(
             contentViewport: geometry.contentViewportRect
         )
         dialogueLabel.lineBreakMode = .byWordWrapping
@@ -619,13 +621,16 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v08.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v10.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v08")
+        // v10 = v08 plaque with the existing portrait bezel resized to a square aperture.
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v10")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v08")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v09")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v06")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
@@ -743,12 +748,6 @@ final class CaseIntroductionPresenter: SKNode {
         applyBodyScrollOffset(0)
         applyChoicesScrollOffset(0)
 
-        func resolvedBodyTextMaxWidth() -> CGFloat {
-            DialoguePanelLayout.inlineBodyTextMaxWidth(
-                contentViewport: contentViewportRect
-            )
-        }
-        dialogueLabel.preferredMaxLayoutWidth = resolvedBodyTextMaxWidth()
         let labelInset = DialoguePanelLayout.choiceLabelHorizontalInset
         let fontSize = DialoguePanelLayout.Typography.choiceFontSize
         let maxWidth = panelLayout.choiceTextMaxWidth
@@ -791,6 +790,21 @@ final class CaseIntroductionPresenter: SKNode {
             label.removeFromParent()
         }
 
+        func measureBodyHeight(maxWidth: CGFloat) -> CGFloat {
+            max(
+                dialogueLabel.fontSize * 1.25,
+                max(
+                    dialogueLabel.frame.height,
+                    DialogueTextMetrics.height(
+                        text: dialogueLabel.text ?? "",
+                        fontName: dialogueLabel.fontName ?? "Palatino-Roman",
+                        fontSize: dialogueLabel.fontSize,
+                        maxWidth: maxWidth
+                    )
+                )
+            )
+        }
+
         func pack(with heights: [CGFloat]) -> (
             band: CGRect,
             contentBand: CGRect,
@@ -805,30 +819,36 @@ final class CaseIntroductionPresenter: SKNode {
                 : CGSize(width: 1_000, height: OfficeInteriorScale.cameraVisibleHeight)
             let geometry = DialoguePanelLayout.layout(for: visible)
             applyPanelGeometry(geometry, preserveSplitRegions: false)
-            // `applyPanelGeometry` restores the general body width. Always re-apply the
-            // narrower inline-scrollbar width for both rendering and measurement.
-            let bodyTextMaxWidth = resolvedBodyTextMaxWidth()
-            dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth
 
-            let dialogueHeight = max(
-                dialogueLabel.fontSize * 1.25,
-                max(
-                    dialogueLabel.frame.height,
-                    DialogueTextMetrics.height(
-                        text: dialogueLabel.text ?? "",
-                        fontName: dialogueLabel.fontName ?? "Palatino-Roman",
-                        fontSize: dialogueLabel.fontSize,
-                        maxWidth: bodyTextMaxWidth
-                    )
-                )
+            // Pass 1: measure at full symmetric column width (even left/right padding).
+            let fullWidth = DialoguePanelLayout.bodyTextMaxWidth(
+                contentViewport: contentViewportRect
             )
-            let bodyContent = dialogueHeight + 12
-            // Snug choices under short body text so the well is not mostly empty black.
-            let snug = DialoguePanelLayout.snugBodyAndChoices(
+            dialogueLabel.preferredMaxLayoutWidth = fullWidth
+            var bodyContent = measureBodyHeight(maxWidth: fullWidth) + 12
+            var snug = DialoguePanelLayout.snugBodyAndChoices(
                 contentViewport: contentViewportRect,
                 bodyContentHeight: bodyContent,
                 naturalChoicesBandHeight: natural
             )
+
+            // Pass 2: if body overflows its viewport, shrink to the inline-scrollbar width
+            // so glyphs clear the scroll chrome, then re-snug.
+            let bodyTextMaxWidth = DialoguePanelLayout.resolvedBodyTextMaxWidth(
+                contentViewport: contentViewportRect,
+                bodyContentHeight: bodyContent,
+                bodyViewportHeight: snug.body.height
+            )
+            if abs(bodyTextMaxWidth - fullWidth) > 0.5 {
+                dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth
+                bodyContent = measureBodyHeight(maxWidth: bodyTextMaxWidth) + 12
+                snug = DialoguePanelLayout.snugBodyAndChoices(
+                    contentViewport: contentViewportRect,
+                    bodyContentHeight: bodyContent,
+                    naturalChoicesBandHeight: natural
+                )
+            }
+
             let contentBand = DialoguePanelLayout.scrollableChoicesContentRect(
                 visibleBand: snug.choices,
                 naturalContentHeight: natural
@@ -1085,10 +1105,18 @@ final class CaseIntroductionPresenter: SKNode {
             portrait.colorBlendFactor = 1
             return
         }
-        let cropped = SKTexture(rect: DialoguePanelLayout.portraitTextureCropRect, in: texture)
-        cropped.filteringMode = .linear
-        portrait.texture = cropped
+        // Square photo rect + square source: use the full texture (identity crop).
+        // Linear filter keeps the hand-painted portrait smooth at UI scale.
+        let mapped = SKTexture(rect: DialoguePanelLayout.portraitTextureCropRect, in: texture)
+        mapped.filteringMode = .linear
+        portrait.texture = mapped
         portrait.colorBlendFactor = 0
+        // Re-assert square size in case geometry was laid out before the texture arrived.
+        let photo = DialoguePanelLayout.portraitPhotoRect(in: panelRect)
+        if photo.width > 1, photo.height > 1 {
+            portrait.size = CGSize(width: photo.width, height: photo.height)
+            portrait.position = CGPoint(x: photo.midX, y: photo.midY)
+        }
     }
 
     private func setCommandHidden(_ hidden: Bool) {

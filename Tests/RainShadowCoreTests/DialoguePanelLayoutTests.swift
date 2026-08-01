@@ -383,9 +383,12 @@ struct DialoguePanelLayoutTests {
         // Multi-line measure must use CoreText path, not crushed scale factors.
         #expect(source.contains("DialogueTextMetrics.choiceRowHeight"))
         #expect(source.contains("dialogueLabel.frame.height"))
-        #expect(source.contains("let bodyTextMaxWidth = resolvedBodyTextMaxWidth()"))
-        #expect(source.contains("dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth"))
-        #expect(source.contains("maxWidth: bodyTextMaxWidth"))
+        // Adaptive body width: full column when short, inline gutter only when scrolling.
+        #expect(source.contains("DialoguePanelLayout.resolvedBodyTextMaxWidth("))
+        #expect(source.contains("DialoguePanelLayout.bodyTextMaxWidth("))
+        #expect(source.contains("dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth")
+            || source.contains("dialogueLabel.preferredMaxLayoutWidth = fullWidth"))
+        #expect(source.contains("maxWidth: bodyTextMaxWidth") || source.contains("maxWidth: fullWidth"))
         #expect(!source.contains("scaledHeights"))
         #expect(!source.contains(" * scale"))
         #expect(source.contains("bodyScrollbar.isHidden"))
@@ -523,7 +526,10 @@ struct DialoguePanelLayoutTests {
             .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("DialoguePanelLayout.layout(for:"))
-        #expect(source.contains("DialoguePanelLayout.inlineBodyTextMaxWidth("))
+        #expect(source.contains("DialoguePanelLayout.bodyTextMaxWidth(")
+            || source.contains("DialoguePanelLayout.inlineBodyTextMaxWidth("))
+        #expect(source.contains("DialoguePanelLayout.resolvedBodyTextMaxWidth(")
+            || source.contains("DialoguePanelLayout.inlineBodyTextMaxWidth("))
         #expect(source.contains("panelLayout.choiceTextMaxWidth") || source.contains("geometry.choiceTextMaxWidth"))
         #expect(source.contains("contentMask.path = CGPath(rect:"))
         #expect(source.contains("bodyViewport") || source.contains("applySplitContentRegions"))
@@ -852,6 +858,7 @@ struct DialoguePanelLayoutTests {
         #expect(DialoguePanelLayout.contentInsetFromPanelTop == expectedInset)
         #expect(DialoguePanelLayout.speakerToBodyGap >= 8)
         #expect(DialoguePanelLayout.speakerNameLineHeight >= DialoguePanelLayout.Typography.speakerFontSize)
+        #expect(DialoguePanelLayout.bodyTextHorizontalInset >= 20)
 
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
@@ -911,8 +918,8 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func portraitSitsInPaintedFrameWindow() {
-        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v08
-        // (metal bezel is outside; photo fills the hole edge-to-edge).
+        // Live portrait sits in the square TL hole on dialogue_outer_frame_overlay_v10
+        // (v08 metal bezel resized; same style, square aperture).
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let expected = DialoguePanelLayout.portraitWindowRect(in: layout.panelRect)
@@ -920,6 +927,10 @@ struct DialoguePanelLayoutTests {
             #expect(abs(layout.portraitRect.minY - expected.minY) < 0.001)
             #expect(abs(layout.portraitRect.width - expected.width) < 0.001)
             #expect(abs(layout.portraitRect.height - expected.height) < 0.001)
+            #expect(
+                abs(layout.portraitRect.width - layout.portraitRect.height) < 0.5,
+                "v10 portrait window must be square for \(size)"
+            )
             // Window is inside the panel and left of the body text column.
             #expect(layout.panelRect.contains(layout.portraitRect.insetBy(dx: 0.5, dy: 0.5)))
             #expect(layout.portraitRect.maxX + DialoguePanelLayout.portraitToTextGap
@@ -929,14 +940,77 @@ struct DialoguePanelLayoutTests {
                 layout.portraitRect.minX
                     >= layout.panelRect.minX + layout.panelRect.width * 0.020 - 0.001
             )
-            // Photo fills the hole (no forced square leaving black letterbox).
+            // Square photo fills the square hole (no stretch).
             let photo = DialoguePanelLayout.portraitPhotoRect(in: layout.panelRect)
             let inset = DialoguePanelLayout.portraitInnerInset
-            #expect(abs(photo.width - (layout.portraitRect.width - inset * 2)) < 0.5)
-            #expect(abs(photo.height - (layout.portraitRect.height - inset * 2)) < 0.5)
+            let expectedSide = min(layout.portraitRect.width, layout.portraitRect.height) - inset * 2
+            #expect(abs(photo.width - expectedSide) < 0.5)
+            #expect(abs(photo.height - expectedSide) < 0.5)
+            #expect(abs(photo.width - photo.height) < 0.01, "Photo must be square")
             #expect(abs(photo.midX - layout.portraitRect.midX) < 0.5)
             #expect(abs(photo.midY - layout.portraitRect.midY) < 0.5)
+            #expect(layout.portraitRect.contains(photo.insetBy(dx: 0.5, dy: 0.5)))
         }
+    }
+
+    @Test func portraitPhotoIsSquareAndUsesFullTexture() {
+        // Square source art maps 1:1 into a square photo rect — no UV crop, no stretch.
+        let crop = DialoguePanelLayout.portraitTextureCropRect
+        #expect(crop == CGRect(x: 0, y: 0, width: 1, height: 1))
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let photo = DialoguePanelLayout.portraitPhotoRect(in: layout.panelRect)
+            #expect(abs(photo.width - photo.height) < 0.01)
+            #expect(photo.width <= layout.portraitRect.width + 0.001)
+            #expect(photo.height <= layout.portraitRect.height + 0.001)
+        }
+    }
+
+    @Test func panelFrameAndCommandPreserveArtAspect() {
+        // Dialogue plaque, portrait hole, and CONTINUE plate must never non-uniform stretch.
+        for size in representativeSizes {
+            let layout = DialoguePanelLayout.layout(for: size)
+            let panelAspect = layout.panelRect.width / layout.panelRect.height
+            #expect(
+                abs(panelAspect - DialoguePanelLayout.frameArtAspectWidthOverHeight) < 0.01,
+                "Panel stretched for \(size): \(panelAspect)"
+            )
+            let photo = DialoguePanelLayout.portraitPhotoRect(in: layout.panelRect)
+            #expect(abs(photo.width - photo.height) < 0.01, "Live photo must be square for \(size)")
+        }
+        let hit = CGRect(x: 0, y: 0, width: 360, height: DialoguePanelLayout.commandHeight)
+        let plate = DialoguePanelLayout.commandPlateSize(in: hit)
+        #expect(
+            abs(plate.width / plate.height - DialoguePanelLayout.commandArtAspectWidthOverHeight) < 0.01,
+            "Command plate stretched"
+        )
+        // Identity nine-slice / centerRect contracts (uniform scale of whole texture).
+        #expect(DialoguePanelLayout.frameNineSliceCenterRect == CGRect(x: 0, y: 0, width: 1, height: 1))
+        #expect(DialoguePanelLayout.commandFrameCenterRect == CGRect(x: 0, y: 0, width: 1, height: 1))
+    }
+
+    @Test func shortBodyUsesSymmetricTextWidth() {
+        // Short monologue: full column width (even padding). Long body: reserve scrollbar gutter.
+        let layout = DialoguePanelLayout.layout(for: CGSize(width: 1_280, height: 800))
+        let content = layout.contentViewportRect
+        let full = DialoguePanelLayout.bodyTextMaxWidth(contentViewport: content)
+        let inline = DialoguePanelLayout.inlineBodyTextMaxWidth(contentViewport: content)
+        #expect(full > inline)
+        #expect(abs(full - (content.width - DialoguePanelLayout.bodyTextHorizontalInset * 2)) < 0.01)
+
+        let short = DialoguePanelLayout.resolvedBodyTextMaxWidth(
+            contentViewport: content,
+            bodyContentHeight: 40,
+            bodyViewportHeight: content.height
+        )
+        #expect(abs(short - full) < 0.01, "Short body should use full symmetric width")
+
+        let long = DialoguePanelLayout.resolvedBodyTextMaxWidth(
+            contentViewport: content,
+            bodyContentHeight: content.height + 80,
+            bodyViewportHeight: content.height
+        )
+        #expect(abs(long - inline) < 0.01, "Overflowing body should reserve scrollbar gutter")
     }
 
     @Test func commandControlSitsBelowPanelAndTracksPanelOffset() {

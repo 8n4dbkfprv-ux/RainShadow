@@ -756,6 +756,144 @@ def process_dialogue_noir_v08() -> None:
     print(f"wrote {runtime_path} ({frame.size})")
 
 
+def process_dialogue_noir_v09() -> None:
+    """Install the V09 square-portrait-bezel experiment (kept as fallback art only)."""
+    composite = GEN / "Dialogue/dialogue_outer_frame_overlay_v09_composite.png"
+    keyed_src = GEN / "Dialogue/dialogue_outer_frame_overlay_v09_keyed.png"
+    master = keyed_src if keyed_src.exists() else composite
+    if not master.exists():
+        raise FileNotFoundError(
+            f"Missing V09 dialogue frame (run Imagine composite first): {composite}"
+        )
+    frame = Image.open(master).convert("RGBA")
+    if frame.size != (1720, 583):
+        frame = stretch_to_canvas(frame, (1720, 583))
+    out = np.array(frame)
+    pl, pt, side = 162, 82, 176
+    out[pt : pt + side, pl : pl + side] = 0
+    out[out[:, :, 3] < 8] = 0
+    frame = Image.fromarray(out, "RGBA")
+    keyed_path = GEN / "Dialogue/dialogue_outer_frame_overlay_v09_keyed.png"
+    runtime_path = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v09.png"
+    frame.save(keyed_path)
+    runtime_path.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(runtime_path)
+    print(f"wrote {keyed_path} ({frame.size})")
+    print(f"wrote {runtime_path} ({frame.size})")
+
+
+def process_dialogue_noir_v10() -> None:
+    """Resize the v08 portrait bezel to a square aperture (same metal pixels).
+
+    Extracts the detached v08 bezel ring, mildly shrinks width so the hole is square
+    (169×169), composites it back onto the untouched outer plaque. Matches
+    DialoguePanelLayout v10 fractions. Prefer this over v09 (redesigned bezel).
+    """
+    from collections import deque
+
+    src = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v08.png"
+    if not src.exists():
+        raise FileNotFoundError(f"Missing v08 runtime frame: {src}")
+    arr = np.array(Image.open(src).convert("RGBA"))
+    H, W = arr.shape[:2]
+    alpha = arr[:, :, 3]
+    lum = arr[:, :, :3].astype(np.float32).mean(axis=2)
+
+    # Measured v08 hole
+    hl, ht, hw, hh = 146, 86, 207, 169
+    pad = 55
+    sx0, sy0 = max(0, hl - pad), max(0, ht - pad)
+    sx1, sy1 = min(W, hl + hw + pad), min(H, ht + hh + pad)
+    metal = (alpha[sy0:sy1, sx0:sx1] > 40) & (lum[sy0:sy1, sx0:sx1] > 18)
+    rhl, rht = hl - sx0, ht - sy0
+    rh, rw = metal.shape
+    seeds = []
+    for y in range(max(0, rht - 2), min(rh, rht + hh + 2)):
+        for x in range(max(0, rhl - 2), min(rw, rhl + hw + 2)):
+            if not metal[y, x]:
+                continue
+            if x < rhl or x >= rhl + hw or y < rht or y >= rht + hh:
+                if (
+                    abs(x - rhl) <= 3
+                    or abs(x - (rhl + hw - 1)) <= 3
+                    or abs(y - rht) <= 3
+                    or abs(y - (rht + hh - 1)) <= 3
+                ):
+                    seeds.append((x, y))
+    vis = np.zeros_like(metal)
+    q = deque()
+    for x, y in seeds:
+        if metal[y, x] and not vis[y, x]:
+            vis[y, x] = True
+            q.append((x, y))
+    while q:
+        x, y = q.popleft()
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rw and 0 <= ny < rh and not vis[ny, nx] and metal[ny, nx]:
+                vis[ny, nx] = True
+                q.append((nx, ny))
+    bys, bxs = np.where(vis)
+    if len(bxs) == 0:
+        raise RuntimeError("v10: could not isolate v08 portrait bezel metal")
+    bx0, bx1 = int(bxs.min()), int(bxs.max()) + 1
+    by0, by1 = int(bys.min()), int(bys.max()) + 1
+    abs_x0, abs_y0 = sx0 + bx0, sy0 + by0
+    abs_x1, abs_y1 = sx0 + bx1, sy0 + by1
+    crop = arr[abs_y0:abs_y1, abs_x0:abs_x1].copy()
+    ch, cw = crop.shape[:2]
+    bezel_crop = vis[by0:by1, bx0:bx1]
+    hl_c, ht_c = hl - abs_x0, ht - abs_y0
+    hole_crop = np.zeros((ch, cw), dtype=bool)
+    hole_crop[ht_c : ht_c + hh, hl_c : hl_c + hw] = True
+    full = crop.copy()
+    full[~(bezel_crop | hole_crop)] = 0
+    full[hole_crop] = 0
+
+    target = min(hw, hh)
+    scale_x = target / float(hw)
+    scale_y = target / float(hh)
+    new_w = max(1, int(round(cw * scale_x)))
+    new_h = max(1, int(round(ch * scale_y)))
+    scaled = np.array(
+        Image.fromarray(full, "RGBA").resize((new_w, new_h), Image.Resampling.LANCZOS)
+    )
+    nhl = int(round(hl_c * scale_x))
+    nht = int(round(ht_c * scale_y))
+    ocx, ocy = hl + hw / 2.0, ht + hh / 2.0
+    phl = int(round(ocx - target / 2))
+    pht = int(round(ocy - target / 2))
+    paste_x, paste_y = phl - nhl, pht - nht
+
+    out = arr.copy()
+    for y in range(by0, by1):
+        for x in range(bx0, bx1):
+            if vis[y, x]:
+                out[sy0 + y, sx0 + x] = 0
+    out[ht : ht + hh, hl : hl + hw] = 0
+    base = Image.fromarray(out, "RGBA")
+    base.alpha_composite(Image.fromarray(scaled, "RGBA"), (paste_x, paste_y))
+    final = np.array(base)
+    final[pht : pht + target, phl : phl + target] = 0
+    rgb = final[:, :, :3].astype(np.float32)
+    a = final[:, :, 3]
+    opaque = a > 16
+    luma = rgb.mean(axis=2, keepdims=True)
+    rgb = np.where(opaque[..., None], luma * 0.82 + rgb * 0.18, rgb)
+    final = np.dstack([np.clip(rgb, 0, 255).astype(np.uint8), a])
+    final[pht : pht + target, phl : phl + target] = 0
+    final[final[:, :, 3] < 8] = 0
+    frame = Image.fromarray(final, "RGBA")
+
+    keyed_path = GEN / "Dialogue/dialogue_outer_frame_overlay_v10.png"
+    runtime_path = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v10.png"
+    frame.save(keyed_path)
+    runtime_path.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(runtime_path)
+    print(f"wrote {keyed_path} ({frame.size}) hole=({phl},{pht}) {target}x{target}")
+    print(f"wrote {runtime_path}")
+
+
 def process_dialogue_noir_v07() -> None:
     """Build sidebar-material V07/V06 art on the approved V06/V05 geometry."""
     frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v07_gen.png"
@@ -824,6 +962,7 @@ def process_dialogue_noir_v06() -> None:
 
 def process_dialogue() -> None:
     process_dialogue_noir_v08()
+    process_dialogue_noir_v10()
     process_dialogue_command_v07()
     process_dialogue_noir_v07()
     process_dialogue_noir_v06()
@@ -1223,6 +1362,10 @@ def main() -> None:
         process_dialogue_noir_v07()
     if "dialogue-noir-v08" in targets:
         process_dialogue_noir_v08()
+    if "dialogue-noir-v09" in targets:
+        process_dialogue_noir_v09()
+    if "dialogue-noir-v10" in targets:
+        process_dialogue_noir_v10()
     if "dialogue-command-v07" in targets:
         process_dialogue_command_v07()
     if "scrollbar" in targets:

@@ -78,10 +78,11 @@ struct DialoguePanelLayout: Equatable {
         speakerTopInset + speakerNameLineHeight + speakerToBodyGap
 
     /// Extra inset of body text width inside the content viewport (keeps glyphs off the well edge).
-    static let bodyTextHorizontalInset: CGFloat = 10
+    /// Symmetric left/right when no inline scrollbar is shown; the scroll path adds a separate gutter.
+    static let bodyTextHorizontalInset: CGFloat = 20
 
     /// Horizontal inset of choice labels inside the content viewport.
-    static let choiceLabelHorizontalInset: CGFloat = 16
+    static let choiceLabelHorizontalInset: CGFloat = 20
     /// Extra slack under measured body text when snugging the choice band upward.
     static let bodyContentBottomSlack: CGFloat = 10
 
@@ -137,38 +138,42 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v08` 1720×583).
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v10` 1720×583).
     static let frameArtPixelSize = CGSize(width: 1_720, height: 583)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
     static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 583.0
 
-    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v08` (unit fractions
-    /// of the full 1720×583 texture). Measured from the transparent TL well (alpha punch).
-    /// The source is keyed before processing so the detached bezel stays intact with a
-    /// clear green/transparent gap from the outer rails.
+    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v10` (unit fractions
+    /// of the full 1720×583 texture). V10 resizes the v08 metal bezel so the aperture is
+    /// square (169×169) while keeping the same hammered gunmetal pixels — only a mild
+    /// horizontal shrink of the ring (~18%), not a redesigned bezel.
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
-    static let portraitWindowLeftFraction: CGFloat = 146.0 / 1_720.0
-    static let portraitWindowWidthFraction: CGFloat = 207.0 / 1_720.0
+    static let portraitWindowLeftFraction: CGFloat = 165.0 / 1_720.0
+    static let portraitWindowWidthFraction: CGFloat = 169.0 / 1_720.0
     static let portraitWindowTopFraction: CGFloat = 86.0 / 583.0
     static let portraitWindowHeightFraction: CGFloat = 169.0 / 583.0
     /// Hairline tuck under the bezel so the photo meets the metal with no black ring.
-    /// Kept tiny — large insets left a visible gap between photo and frame.
-    static let portraitInnerInset: CGFloat = 0.5
+    static let portraitInnerInset: CGFloat = 1.0
     /// Gap from portrait window’s right rail to the text column (must clear the bezel).
     static let portraitToTextGap: CGFloat = 14
     /// Main text well left edge on the art (right of the portrait bezel) as a floor.
-    /// Measured past the v08 detached bezel outer right (~388/1720).
-    static let textColumnMinLeftFraction: CGFloat = 0.245
+    /// Measured past the v10 resized bezel outer right (~337/1720).
+    static let textColumnMinLeftFraction: CGFloat = 0.210
 
-    /// Center crop a square portrait into the reference-like vertical photo aperture
-    /// without stretching the character's face.
+    /// Full square source → square photo rect (no sub-rect crop). Identity UV map.
+    /// Stretch was caused by drawing the square art into a non-square hole; the photo
+    /// rect is now forced square (see `portraitPhotoRect`), so no texture crop is needed.
     static var portraitTextureCropRect: CGRect {
-        let displayedAspect = frameArtAspectWidthOverHeight
+        CGRect(x: 0, y: 0, width: 1, height: 1)
+    }
+
+    /// Width / height of the painted portrait **window** (not the live photo).
+    /// The live photo is always square; this is the hole aspect only.
+    static var portraitDisplayedAspectWidthOverHeight: CGFloat {
+        frameArtAspectWidthOverHeight
             * portraitWindowWidthFraction
             / portraitWindowHeightFraction
-        let width = min(1, max(0.01, displayedAspect))
-        return CGRect(x: (1 - width) / 2, y: 0, width: width, height: 1)
     }
 
     /// Fallback HUD rail widths when a viewport is not available (tests / early layout).
@@ -324,18 +329,22 @@ struct DialoguePanelLayout: Equatable {
         return min(panelWidthCap, max(1, available))
     }
 
-    /// Live photo rect filling the painted portrait hole (panel space).
-    /// Matches the hole aspect (slightly taller than wide on v05) so the square source
-    /// art covers edge-to-edge under the metal bezel — no forced square letterboxing.
+    /// Live photo rect **contained** in the painted portrait hole (panel space).
+    ///
+    /// Dialogue portraits are authored as square 512×512 art. The v08 painted hole is
+    /// slightly wider than tall; stretching the square into that hole made faces look
+    /// wide/flat. Match the HUD right-rail contract instead: a **square** photo on the
+    /// short axis of the hole, centered, with the near-black portrait backing filling
+    /// any leftover strips under the metal bezel.
     static func portraitPhotoRect(in panelRect: CGRect) -> CGRect {
         let window = portraitWindowRect(in: panelRect)
         let inset = portraitInnerInset
-        let photo = window.insetBy(dx: inset, dy: inset)
+        let side = max(1, min(window.width, window.height) - inset * 2)
         return CGRect(
-            x: photo.minX,
-            y: photo.minY,
-            width: max(1, photo.width),
-            height: max(1, photo.height)
+            x: window.midX - side / 2,
+            y: window.midY - side / 2,
+            width: side,
+            height: side
         )
     }
 
@@ -682,6 +691,28 @@ struct DialoguePanelLayout: Equatable {
                 - scrollbarWidth
                 - inlineBodyScrollbarGap
         )
+    }
+
+    /// Symmetric monologue wrap width (no inline scrollbar gutter).
+    /// Use this when body content fits the viewport so left/right padding stay even.
+    static func bodyTextMaxWidth(contentViewport: CGRect) -> CGFloat {
+        max(1, contentViewport.width - bodyTextHorizontalInset * 2)
+    }
+
+    /// Chooses full-column width when body content fits, otherwise the narrower
+    /// inline-scrollbar width so glyphs never run under the scroll chrome.
+    static func resolvedBodyTextMaxWidth(
+        contentViewport: CGRect,
+        bodyContentHeight: CGFloat,
+        bodyViewportHeight: CGFloat
+    ) -> CGFloat {
+        let full = bodyTextMaxWidth(contentViewport: contentViewport)
+        let inline = inlineBodyTextMaxWidth(contentViewport: contentViewport)
+        let needsScroll = DialogueScrollbarGeometry.isScrollable(
+            viewportExtent: bodyViewportHeight,
+            contentExtent: bodyContentHeight
+        )
+        return needsScroll ? inline : full
     }
 
     /// Vertical panel root offset while presenting (lower = more room for actors above).
