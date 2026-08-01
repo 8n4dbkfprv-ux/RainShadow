@@ -983,8 +983,9 @@ final class CaseIntroductionPresenter: SKNode {
             portrait.colorBlendFactor = 1
             return
         }
-        texture.filteringMode = .linear
-        portrait.texture = texture
+        let cropped = SKTexture(rect: DialoguePanelLayout.portraitTextureCropRect, in: texture)
+        cropped.filteringMode = .linear
+        portrait.texture = cropped
         portrait.colorBlendFactor = 0
     }
 

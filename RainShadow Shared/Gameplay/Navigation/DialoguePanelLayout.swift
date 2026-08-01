@@ -33,7 +33,7 @@ struct DialoguePanelLayout: Equatable {
     /// Cap on panel height in points — fixed plaque (BG-style; does not grow for choices).
     /// Tall enough that a three-option multi-line response band fits without scrolling on
     /// typical desktop HUDs, while staying below the legacy near-fullscreen tall panel.
-    /// Aspect-locked (~2.36:1): height 400 → width ≈ 942 at lock.
+    /// Aspect-locked (~2.95:1): height 400 → width ≈ 1,180 at lock.
     static let panelHeightCap: CGFloat = 400
     /// Prior tall-panel height cap (pre character-visibility compact pass).
     static let legacyPanelHeightCap: CGFloat = 560
@@ -64,11 +64,11 @@ struct DialoguePanelLayout: Equatable {
     static let legacyHorizontalMarginMax: CGFloat = 40
 
     /// Inset of the text viewport from the panel bottom so body/choices clear the
-    /// slightly weightier leather-faced lower rail of the v05p dialogue frame.
-    static let contentInsetFromPanelBottom: CGFloat = 20
+    /// slim, reference-like lower rail of the v05q dialogue frame.
+    static let contentInsetFromPanelBottom: CGFloat = 16
 
-    /// Distance from panel top to the speaker name (under the slim v05p top rim).
-    static let speakerTopInset: CGFloat = 22
+    /// Distance from panel top to the speaker name (under the slim v05q top rim).
+    static let speakerTopInset: CGFloat = 20
     /// Vertical space reserved for the speaker name line (font + breathing room).
     static let speakerNameLineHeight: CGFloat = 22
     /// Gap between the speaker name and the dialogue body.
@@ -85,17 +85,17 @@ struct DialoguePanelLayout: Equatable {
     /// Extra slack under measured body text when snugging the choice band upward.
     static let bodyContentBottomSlack: CGFloat = 10
 
-    /// Outer metal rails on the uniformly scaled v05p frame.
-    /// Measured on `dialogue_outer_frame_overlay_v05` (1720×730): the transparent main
-    /// opening begins about 0.025 from the left and 0.05 from the top. Keep the black plate
-    /// **under** the metal (inset ~0.018) so it fills flush to the frame — larger insets
+    /// Outer metal rails on the uniformly scaled v05q frame.
+    /// Measured on `dialogue_outer_frame_overlay_v05` (1720×583): the transparent main
+    /// opening begins about 0.017 from the left and 0.043 from the top. Keep the black plate
+    /// **under** the metal so it fills flush to the frame — larger insets
     /// left a strip of scene bleed at the top of the well.
     /// The frame is drawn with **uniform scale** (no nine-slice) so the painted portrait
     /// window stays aligned with layout fractions — nine-slice fixed corners previously
     /// pushed the gold window right of the live portrait.
-    static let frameContentWellInsetXFraction: CGFloat = 0.018
-    static let frameContentWellInsetBottomFraction: CGFloat = 0.018
-    static let frameContentWellInsetTopFraction: CGFloat = 0.018
+    static let frameContentWellInsetXFraction: CGFloat = 0.010
+    static let frameContentWellInsetBottomFraction: CGFloat = 0.010
+    static let frameContentWellInsetTopFraction: CGFloat = 0.010
     /// Identity centerRect = stretch whole texture uniformly with `size`.
     static let frameNineSliceCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 
@@ -129,28 +129,37 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v05` 1720×730).
-    static let frameArtPixelSize = CGSize(width: 1_720, height: 730)
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v05` 1720×583).
+    static let frameArtPixelSize = CGSize(width: 1_720, height: 583)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
-    static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 730.0
+    static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 583.0
 
     /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v05` (unit fractions
-    /// of the full 1720×730 texture). Measured from the transparent TL well (alpha punch):
-    /// x≈64…218, y≈58…222 — the metal bezel sits outside this rect and is drawn by the frame.
+    /// of the full 1720×583 texture). Measured from the transparent TL well (alpha punch).
     /// `process_ui_chrome_v03.process_dialogue` must punch the interior only (keep the rim).
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
-    static let portraitWindowLeftFraction: CGFloat = 0.0372
-    static let portraitWindowWidthFraction: CGFloat = 0.0895
-    static let portraitWindowTopFraction: CGFloat = 0.0795
-    static let portraitWindowHeightFraction: CGFloat = 0.2247
+    static let portraitWindowLeftFraction: CGFloat = 0.0331
+    static let portraitWindowWidthFraction: CGFloat = 0.0709
+    static let portraitWindowTopFraction: CGFloat = 0.1046
+    static let portraitWindowHeightFraction: CGFloat = 0.3448
     /// Hairline tuck under the bezel so the photo meets the metal with no black ring.
     /// Kept tiny — large insets left a visible gap between photo and frame.
     static let portraitInnerInset: CGFloat = 0.5
     /// Gap from portrait window’s right rail to the text column (must clear the bezel).
     static let portraitToTextGap: CGFloat = 14
     /// Main text well left edge on the art (right of the portrait bezel) as a floor.
-    static let textColumnMinLeftFraction: CGFloat = 0.185
+    static let textColumnMinLeftFraction: CGFloat = 0.155
+
+    /// Center crop a square portrait into the reference-like vertical photo aperture
+    /// without stretching the character's face.
+    static var portraitTextureCropRect: CGRect {
+        let displayedAspect = frameArtAspectWidthOverHeight
+            * portraitWindowWidthFraction
+            / portraitWindowHeightFraction
+        let width = min(1, max(0.01, displayedAspect))
+        return CGRect(x: (1 - width) / 2, y: 0, width: width, height: 1)
+    }
 
     /// Fallback HUD rail widths when a viewport is not available (tests / early layout).
     /// Prefer `HUDChromeLayout.leftRailClearance` / `rightRailClearance` when possible.
@@ -167,10 +176,10 @@ struct DialoguePanelLayout: Equatable {
     /// Choices may use most of the well when options are multi-line; body keeps a minimum strip.
     /// Sized so a three-option multi-line band fits without scrolling when the plaque
     /// reaches `panelHeightCap`; natural-height overflow still scrolls on tiny HUDs.
-    static let choiceBandMaxViewportFraction: CGFloat = 0.74
+    static let choiceBandMaxViewportFraction: CGFloat = 0.76
     /// Minimum height reserved for the prompt above the response list.
     /// The body has its own crop; kept modest so three choices can claim the well.
-    static let minBodyViewportHeight: CGFloat = 72
+    static let minBodyViewportHeight: CGFloat = 60
     /// Clear breathing room between Lila's body copy and its compact inline scrollbar.
     /// Palatino glyphs can overhang their measured advance slightly, so this includes
     /// enough safety space to remain visibly separate at large display scales.

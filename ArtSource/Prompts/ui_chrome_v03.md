@@ -41,7 +41,7 @@ Approve this before mass regeneration.
 
 | ID | Canvas | Notes |
 |---|---|---|
-| `dialogue_outer_frame_overlay_v05` | 1720×730 | Low wide blackened-steel / smoked-leather plaque; compact portrait window TL; transparent live-content well; **no** painted scrollbar channel |
+| `dialogue_outer_frame_overlay_v05` | 1720×583 | Reference-like low straight rectangle in blackened steel; thin uniform rails; inset vertical portrait window TL; transparent live-content well; **no** painted scrollbar channel |
 | `dialogue_command_button_plate_v04` | 512×128 | Empty rain-scratched noir END/CONTINUE plate with live-label leather face |
 | `dialogue_scroll_components_v03` | 2×2 sheet | up, down, track, thumb (oxblood/amber diamond thumb) |
 

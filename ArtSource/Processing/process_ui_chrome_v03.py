@@ -460,7 +460,7 @@ def crop_square_button(im: Image.Image) -> Image.Image:
     return trimmed.crop((0, 0, side, side))
 
 
-def _dialogue_v05p_keep_chrome(im: Image.Image) -> Image.Image:
+def _dialogue_v05_keep_chrome(im: Image.Image) -> Image.Image:
     """Clear fully transparent pixels while preserving the generated soft matte."""
     out = np.array(im.convert("RGBA"))
     transparent = out[:, :, 3] < 8
@@ -471,21 +471,21 @@ def _dialogue_v05p_keep_chrome(im: Image.Image) -> Image.Image:
 def process_dialogue() -> None:
     # Overlay contract: metal rails stay opaque; portrait window + text well are
     # transparent so live portrait + SKLabel body text show through (code owns both).
-    # V05 is rail-free on the right (no painted scrollbar channel) — continuous blank
-    # well; live scroll controls overlay that gutter when needed. The generated source
-    # already keys both live-content holes, so preserve its full blackened-steel / leather
-    # construction instead of reducing it to a synthetic uniform rim.
-    master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05p_gen.png"
+    # V05q is rail-free on the right (no painted scrollbar channel) — continuous blank
+    # well; live scroll controls overlay that gutter when needed. Its low 2.95:1 runtime
+    # silhouette follows the supplied dialogue reference's geometry while the generated
+    # blackened-steel finish remains original RainShadow artwork.
+    master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05q_gen.png"
     if not master.exists():
         master = copy_gen(
-            "dialogue_outer_frame_overlay_v05p_gen.png",
+            "dialogue_outer_frame_overlay_v05q_gen.png",
             master,
         )
-    keyed_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05_keyed.png"
+    keyed_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05q_keyed.png"
     keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
     keyed = trim_alpha(keyed)
-    out = stretch_to_canvas(keyed, (1720, 730))
-    out = _dialogue_v05p_keep_chrome(out)
+    out = stretch_to_canvas(keyed, (1720, 583))
+    out = _dialogue_v05_keep_chrome(out)
     runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v05.png"
     runtime.parent.mkdir(parents=True, exist_ok=True)
     out.save(runtime)

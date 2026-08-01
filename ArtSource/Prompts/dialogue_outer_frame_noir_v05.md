@@ -2,8 +2,8 @@
 
 Date: 2026-08-01  
 Generator: Codex built-in default Image Generator  
-Approved master: `dialogue_outer_frame_overlay_v05p_gen.png`  
-Soft-matte source: `dialogue_outer_frame_overlay_v05_keyed.png`
+Approved master: `dialogue_outer_frame_overlay_v05q_gen.png`
+Soft-matte source: `dialogue_outer_frame_overlay_v05q_keyed.png`
 
 ## Intent
 
@@ -14,11 +14,11 @@ Soft-matte source: `dialogue_outer_frame_overlay_v05_keyed.png`
 
 ## Final generator prompt set
 
-### Base generation
+### Initial base generation (superseded geometry)
 
 ```text
 Use case: ui-mockup
-Asset type: production 2D game UI artwork — a single dialogue-panel frame overlay for RainShadow, eventually processed to 1720×730.
+Asset type: production 2D game UI artwork — a single dialogue-panel frame overlay for RainShadow, initially processed to 1720×730 before the final shape correction.
 Primary request: Create a brand-new original film-noir dialogue plaque. It should preserve the readable late-1990s isometric-RPG hierarchy of a low wide rectangular conversation panel with a compact portrait well at the upper left, while clearly belonging to a 1940s private-detective noir game. Do not copy any franchise-specific ornament or exact frame shape.
 Input images:
 - Image 1: layout-and-weight reference only. Use only the low wide proportion, thin rugged perimeter, compact upper-left portrait placement, and generous text well. Do not reproduce its ornament, jewel, scrollbar, portrait, text, or exact silhouette.
@@ -34,7 +34,7 @@ Constraints: frame must be fully isolated from the key color with crisp edges an
 Avoid: people, faces, portraits, letters, numbers, labels, icons, scrollbar controls, gems, magic, swords, shields, skulls, gargoyles, Celtic knots, medieval filigree, fantasy jewelry, gold trim, brass-heavy steampunk, ornate Gothic arches, bulky top crowns, large decorative emblems, copied franchise shapes, watermarks, cast shadows, contact shadows.
 ```
 
-### Approved proportion refinement
+### Intermediate proportion refinement (superseded geometry)
 
 ```text
 Use case: precise-object-edit
@@ -54,6 +54,17 @@ Avoid: changing the overall design, changing the aspect ratio, cropping any part
 
 The default generator source is chroma-keyed with the imagegen skill's border-sampled soft matte and despill helper, then trimmed and stretched into:
 
-`RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v05.png` — 1720×730 RGBA.
+`RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v05.png` — 1720×583 RGBA.
 
-The shipped transparent portrait hole measures approximately x=0.0372, y-from-top=0.0795, width=0.0895, height=0.2247. `DialoguePanelLayout` uses the same fractions.
+The reference-shape follow-up replaced the earlier 2.36:1 plaque with a 2.95:1 runtime silhouette: straight uniform rails, near-square corners, no heavy lower band, no projecting portrait housing, and a narrow vertical portrait bezel contained inside the outer rectangle. The shipped portrait hole measures approximately x=0.0331, y-from-top=0.1046, width=0.0709, height=0.3448. `DialoguePanelLayout` uses those measured fractions and center-crops square portrait art into the vertical aperture without face distortion.
+
+## Final net shape prompt
+
+```text
+Use case: precise-object-edit
+Asset type: production 2D game UI dialogue-frame overlay.
+Preserve RainShadow's original noir materials: blackened nickel, rain-scratched gunmetal, smoked charcoal, cold pewter edge highlights, shallow top-left bevel lighting, and restrained practical 1940s construction.
+Use the supplied Baldur's Gate dialogue only as a shape-and-proportion reference. Create a low, wide rectangular silhouette close to 3:1 with straight continuous rails, nearly square worn miters, uniformly slim top/bottom/side edges, two tiny mid-edge fasteners, and one large uninterrupted transparent dialogue opening. Remove the thick leather bottom band, pointed/chamfered peaks, and projecting portrait housing.
+Place one thin vertical portrait bezel fully inside the upper-left of the continuous rectangle. It must not alter the outer silhouette or protrude into the content area. Leave the right side clear for code-drawn scrollbar controls.
+All areas outside the frame, inside the main opening, and inside the portrait hole must be perfectly flat uniform #00ff00 for removal. No text, portrait, face, label, icon, scrollbar part, jewel, fantasy ornament, gold, copied franchise detail, watermark, shadow, or reflection.
+```

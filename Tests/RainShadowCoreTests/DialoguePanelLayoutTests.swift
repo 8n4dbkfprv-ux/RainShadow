@@ -711,9 +711,9 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func contentWellCoversTextViewportInsidePanelNotOuterChrome() {
-        // The nearest edge of the v05 transparent main opening starts ~0.025 in.
+        // The nearest edge of the v05q transparent main opening starts ~0.017 in.
         // The black plate must sit under the rim so scene pixels never leak through.
-        let holeStart = 0.025 as CGFloat
+        let holeStart = 0.017 as CGFloat
         #expect(DialoguePanelLayout.frameContentWellInsetTopFraction < holeStart)
         #expect(DialoguePanelLayout.frameContentWellInsetBottomFraction < holeStart)
         #expect(DialoguePanelLayout.frameContentWellInsetXFraction < holeStart)
