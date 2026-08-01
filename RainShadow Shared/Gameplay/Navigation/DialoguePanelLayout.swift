@@ -11,7 +11,7 @@ struct DialoguePanelLayout: Equatable {
     static let scrollbarWidth: CGFloat = 30
 
     /// Horizontal center of the blank right gutter reserved for the live scrollbar
-    /// on `dialogue_outer_frame_overlay_v07` (no painted channel — continuous well).
+    /// on `dialogue_outer_frame_overlay_v08` (no painted channel — continuous well).
     static let paintedScrollbarCenterXFraction: CGFloat = 1_607.0 / 1_720.0
 
     /// Inner horizontal limits of the blank right gutter. The live controls
@@ -137,27 +137,29 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v07` 1720×583).
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v08` 1720×583).
     static let frameArtPixelSize = CGSize(width: 1_720, height: 583)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
     static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 583.0
 
-    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v07` (unit fractions
+    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v08` (unit fractions
     /// of the full 1720×583 texture). Measured from the transparent TL well (alpha punch).
-    /// The source is keyed before processing so the narrow detached bezel stays intact.
+    /// The source is keyed before processing so the detached bezel stays intact with a
+    /// clear green/transparent gap from the outer rails.
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
-    static let portraitWindowLeftFraction: CGFloat = 71.0 / 1_720.0
-    static let portraitWindowWidthFraction: CGFloat = 133.0 / 1_720.0
-    static let portraitWindowTopFraction: CGFloat = 54.0 / 583.0
-    static let portraitWindowHeightFraction: CGFloat = 199.0 / 583.0
+    static let portraitWindowLeftFraction: CGFloat = 146.0 / 1_720.0
+    static let portraitWindowWidthFraction: CGFloat = 207.0 / 1_720.0
+    static let portraitWindowTopFraction: CGFloat = 86.0 / 583.0
+    static let portraitWindowHeightFraction: CGFloat = 169.0 / 583.0
     /// Hairline tuck under the bezel so the photo meets the metal with no black ring.
     /// Kept tiny — large insets left a visible gap between photo and frame.
     static let portraitInnerInset: CGFloat = 0.5
     /// Gap from portrait window’s right rail to the text column (must clear the bezel).
     static let portraitToTextGap: CGFloat = 14
     /// Main text well left edge on the art (right of the portrait bezel) as a floor.
-    static let textColumnMinLeftFraction: CGFloat = 0.155
+    /// Measured past the v08 detached bezel outer right (~388/1720).
+    static let textColumnMinLeftFraction: CGFloat = 0.245
 
     /// Center crop a square portrait into the reference-like vertical photo aperture
     /// without stretching the character's face.

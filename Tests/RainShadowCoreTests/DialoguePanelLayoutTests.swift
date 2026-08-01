@@ -911,7 +911,7 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func portraitSitsInPaintedFrameWindow() {
-        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v07
+        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v08
         // (metal bezel is outside; photo fills the hole edge-to-edge).
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)

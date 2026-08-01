@@ -640,6 +640,49 @@ def _apply_sidebar_well_texture_to_command(im: Image.Image) -> Image.Image:
     return Image.fromarray(rgba, "RGBA")
 
 
+def process_dialogue_noir_v08() -> None:
+    """Finish the complete sidebar-matched V08 dialogue frame redo."""
+    frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v08_gen.png"
+    if not frame_master.exists():
+        # Prefer the approved no-sunburst master when present.
+        alt = GEN / "Dialogue/dialogue_outer_frame_overlay_v08b_gen.png"
+        if alt.exists():
+            frame_master = alt
+        else:
+            raise FileNotFoundError(f"Missing V08 dialogue frame master: {frame_master}")
+
+    keyed = force_grayscale(chroma_key(Image.open(frame_master)))
+    alpha = Image.fromarray(np.array(keyed)[:, :, 3]).filter(ImageFilter.MinFilter(3))
+    rgba = np.array(keyed)
+    rgba[:, :, 3] = np.array(alpha)
+    rgba[rgba[:, :, 3] < 8] = 0
+    trimmed = trim_alpha(Image.fromarray(rgba, "RGBA"), threshold=28, pad=2)
+    frame = stretch_to_canvas(trimmed, (1720, 583))
+    frame = _dialogue_v05p_keep_chrome(frame)
+    frame = _match_dialogue_to_sidebar_luma(frame)
+    rgb = frame.convert("RGB").filter(
+        ImageFilter.UnsharpMask(radius=0.9, percent=85, threshold=2)
+    )
+    out = np.array(rgb.convert("RGBA"))
+    out[:, :, 3] = np.array(stretch_to_canvas(trimmed, (1720, 583)))[:, :, 3]
+    out[out[:, :, 3] < 8] = 0
+
+    # Hard-clear the measured rectangular portrait space (no half-circle nibs).
+    # Fractions match DialoguePanelLayout v08 portrait window constants.
+    pl, pt, pw, ph = 146, 86, 207, 169
+    out[pt : pt + ph, pl : pl + pw] = 0
+
+    frame = Image.fromarray(out, "RGBA")
+    frame = _dialogue_v05p_keep_chrome(frame)
+    keyed_path = GEN / "Dialogue/dialogue_outer_frame_overlay_v08_keyed.png"
+    runtime_path = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v08.png"
+    frame.save(keyed_path)
+    runtime_path.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(runtime_path)
+    print(f"wrote {keyed_path} ({frame.size})")
+    print(f"wrote {runtime_path} ({frame.size})")
+
+
 def process_dialogue_noir_v07() -> None:
     """Build sidebar-material V07/V06 art on the approved V06/V05 geometry."""
     frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v07_gen.png"
@@ -707,6 +750,7 @@ def process_dialogue_noir_v06() -> None:
 
 
 def process_dialogue() -> None:
+    process_dialogue_noir_v08()
     process_dialogue_noir_v07()
     process_dialogue_noir_v06()
 
@@ -1103,6 +1147,8 @@ def main() -> None:
         process_dialogue_noir_v06()
     if "dialogue-noir-v07" in targets:
         process_dialogue_noir_v07()
+    if "dialogue-noir-v08" in targets:
+        process_dialogue_noir_v08()
     if "scrollbar" in targets:
         process_dialogue_scrollbar_system7_v06()
     if "inventory" in targets:

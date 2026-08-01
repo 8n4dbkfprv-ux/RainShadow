@@ -572,13 +572,14 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v07.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v08.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v08")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v06")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
