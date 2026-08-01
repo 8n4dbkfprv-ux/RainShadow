@@ -16,7 +16,11 @@ struct CityDistrictScaleTests {
             ("city_building_storefront", CityDistrictLayout.SourceContentHeight.buildingStorefront),
             ("city_building_rowhouse", CityDistrictLayout.SourceContentHeight.buildingRowhouse),
             ("city_building_shop", CityDistrictLayout.SourceContentHeight.buildingShop),
-            ("city_building_gatehouse", CityDistrictLayout.SourceContentHeight.buildingGatehouse)
+            ("city_building_gatehouse", CityDistrictLayout.SourceContentHeight.buildingGatehouse),
+            ("city_building_shipping_office", CityDistrictLayout.SourceContentHeight.buildingShippingOffice),
+            ("city_building_lila_rooms", CityDistrictLayout.SourceContentHeight.buildingLilaRooms),
+            ("city_building_pd_station", CityDistrictLayout.SourceContentHeight.buildingPDStation),
+            ("city_building_records_annex", CityDistrictLayout.SourceContentHeight.buildingRecordsAnnex)
         ]
         for (name, height) in samples {
             let multiple = CityDistrictLayout.bodyMultiple(contentHeight: height, textureName: name)
@@ -31,6 +35,47 @@ struct CityDistrictScaleTests {
         }
     }
 
+    @Test func landmarkDoorsClearStandingVoss() {
+        let samples: [(String, CGFloat)] = [
+            ("city_building_voss_stoop", CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop),
+            ("city_building_tenement", CityDistrictLayout.SourceDoorLeafHeight.buildingTenement),
+            ("city_building_storefront", CityDistrictLayout.SourceDoorLeafHeight.buildingStorefront),
+            ("city_building_rowhouse", CityDistrictLayout.SourceDoorLeafHeight.buildingRowhouse),
+            ("city_building_shop", CityDistrictLayout.SourceDoorLeafHeight.buildingShop),
+            ("city_building_gatehouse", CityDistrictLayout.SourceDoorLeafHeight.buildingGatehouse),
+            ("city_building_shipping_office", CityDistrictLayout.SourceDoorLeafHeight.buildingShippingOffice),
+            ("city_building_lila_rooms", CityDistrictLayout.SourceDoorLeafHeight.buildingLilaRooms),
+            ("city_building_pd_station", CityDistrictLayout.SourceDoorLeafHeight.buildingPDStation),
+            ("city_building_records_annex", CityDistrictLayout.SourceDoorLeafHeight.buildingRecordsAnnex)
+        ]
+        for (name, doorLeaf) in samples {
+            let multiple = CityDistrictLayout.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
+            #expect(multiple != nil, "Missing scale for door on \(name)")
+            if let multiple {
+                #expect(
+                    CityDistrictLayout.Band.doorLeaf.contains(multiple),
+                    "\(name) door body× \(multiple) outside readable door band (must clear Voss)"
+                )
+                #expect(
+                    multiple >= 1.0,
+                    "\(name) door \(multiple)× adult is shorter than standing Voss"
+                )
+            }
+        }
+    }
+
+    @Test func doorAnchoredScaleHitsTargetMultiple() {
+        let scale = CityDistrictLayout.doorAnchoredScale(
+            doorLeaf: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop
+        )
+        let multiple = CityDistrictLayout.bodyMultiple(
+            contentHeight: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop,
+            scale: scale
+        )
+        #expect(abs(multiple - CityDistrictLayout.targetDoorBodyMultiple) < 0.02)
+        #expect(abs(scale - CityDistrictLayout.BuildingDisplayScale.vossStoop) < 0.001)
+    }
+
     @Test func carsStayNearAdultBodyHeight() {
         let samples: [(String, CGFloat)] = [
             ("city_prop_car_black", CityDistrictLayout.SourceContentHeight.carBlack),
@@ -43,10 +88,20 @@ struct CityDistrictScaleTests {
             if let multiple {
                 #expect(
                     CityDistrictLayout.Band.car.contains(multiple),
-                    "\(name) body× \(multiple) outside car band (must not be multi-story tall)"
+                    "\(name) body× \(multiple) outside car band (must not scale with buildings)"
                 )
             }
         }
+    }
+
+    @Test func carsAreNotScaledUpWithBuildingFacades() {
+        let carScales = CityDistrictLayout.visualSprites
+            .filter { $0.textureName.contains("car_") }
+            .map(\.scale)
+        #expect(!carScales.isEmpty)
+        #expect(carScales.allSatisfy { $0 <= 0.40 })
+        #expect(carScales.allSatisfy { abs($0 - CityDistrictLayout.PropDisplayScale.car) < 0.001
+            || abs($0 - CityDistrictLayout.PropDisplayScale.carSpoke) < 0.001 })
     }
 
     @Test func streetFurnitureStaysHumanScaleBelowBuildings() {
@@ -116,6 +171,18 @@ struct CityDistrictScaleTests {
         #expect(buildingScales.min()! > lampScales.max()!)
     }
 
+    @Test func doorLeavesTallerThanCarRoofsOnSableRow() {
+        let stoopDoor = CityDistrictLayout.doorBodyMultiple(
+            doorLeafHeight: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop,
+            textureName: "city_building_voss_stoop"
+        )!
+        let car = CityDistrictLayout.bodyMultiple(
+            contentHeight: CityDistrictLayout.SourceContentHeight.carBlack,
+            textureName: "city_prop_car_black"
+        )!
+        #expect(stoopDoor > car * 0.95, "Doors should not read shorter than parked car roofs")
+    }
+
     @Test func sharedAdultBodyIsUsedByCityCameraDensity() {
         let fraction = DefaultPlayZoom.standingBodyFraction(
             bodyHeight: CityDistrictLayout.standingAdultBodyHeight,
@@ -136,5 +203,17 @@ struct CityDistrictScaleTests {
             if case .office = $0.destination { return true }
             return false
         }))
+    }
+
+    @Test func allDistrictsUseDoorAnchoredBuildingScales() {
+        for id in CityDistrictID.allCases {
+            let buildings = CityDistrictCatalog.definition(for: id).visualSprites
+                .filter { $0.textureName.hasPrefix("city_building_") }
+            #expect(!buildings.isEmpty, "District \(id) missing buildings")
+            for sprite in buildings {
+                #expect(sprite.scale >= 0.5, "\(sprite.textureName) in \(id) scale too small (\(sprite.scale))")
+                #expect(sprite.scale <= 2.5, "\(sprite.textureName) in \(id) scale too large (\(sprite.scale))")
+            }
+        }
     }
 }

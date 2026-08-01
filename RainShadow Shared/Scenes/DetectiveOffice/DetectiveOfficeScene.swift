@@ -365,6 +365,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         hudRoot.addChild(journalOverlay)
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+        syncHudToCamera()
         addNodePositionMarkersIfRequested()
     }
 
@@ -648,10 +649,8 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     override func layoutViewport() {
         super.layoutViewport()
-        // Every HUD node is a child of `gameCamera`, so camera zoom is cancelled
-        // from its inherited transform. Lay out all HUD in physical scene points;
-        // using the world-visible size here made the dialogue and overlays grow
-        // whenever the play camera zoomed out.
+        // After `super`, `size` matches the live SKView. Frame all chrome in those
+        // points (not world-visible size, which inflated HUD when the camera zoomed).
         let hudViewportSize = size
         inventoryOverlay.layout(for: hudViewportSize)
         areaMapOverlay.layout(for: hudViewportSize)
@@ -677,6 +676,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateDetectiveDepth()
         updateDepth(of: client)
         fogOfWar?.reveal(at: detective.position)
+        // Follow dialogue camera lifts / restores every frame.
+        syncHudToCamera()
     }
 
     /// Seated NE rear-view: torso/head above the front apron.

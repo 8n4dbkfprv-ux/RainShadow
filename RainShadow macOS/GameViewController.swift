@@ -20,7 +20,21 @@ class GameViewController: NSViewController {
         super.viewDidAppear()
         view.window?.acceptsMouseMovedEvents = true
         view.window?.makeFirstResponder(view)
+        syncSceneToViewBounds()
         scheduleReviewCaptureIfRequested()
+    }
+
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        // macOS can finish window layout after didMove(to:); re-sync so the left
+        // action rail is framed against the real point bounds, not the 800×600 IB size.
+        syncSceneToViewBounds()
+    }
+
+    private func syncSceneToViewBounds() {
+        guard let skView = view as? SKView, let scene = skView.scene as? BaseGameScene else { return }
+        scene.syncSizeFromViewIfNeeded()
+        scene.layoutViewport()
     }
 
     /// QA hook: `RAINSHADOW_CAPTURE=<path>` writes one PNG of the live scene and
@@ -107,7 +121,7 @@ class GameViewController: NSViewController {
         let game = scene as? BaseGameScene
 
         if mode != "camera" {
-            // Room-wide frames render the plate itself, so the camera-space HUD
+            // Room-wide frames render the plate itself, so the screen-locked HUD
             // would otherwise sit across the middle of the room.
             game?.hudRoot.isHidden = true
         }

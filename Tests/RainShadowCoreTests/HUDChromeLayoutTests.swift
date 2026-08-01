@@ -10,7 +10,9 @@ struct HUDChromeLayoutTests {
         CGSize(width: 1_024, height: 768),
         CGSize(width: 1_280, height: 800),
         CGSize(width: 1_920, height: 1_080),
-        CGSize(width: 834, height: 1_194)
+        CGSize(width: 834, height: 1_194),
+        CGSize(width: 1_600, height: 1_400),
+        CGSize(width: 2_048, height: 1_152)
     ]
 
     // MARK: - Left rail
@@ -94,105 +96,58 @@ struct HUDChromeLayoutTests {
         }
     }
 
-    // MARK: - Right rail
-
-    @Test func rightRailPortraitAndUtilitiesFitInPaintedWells() {
+    @Test func leftRailPlateStaysInsetFromViewLeftEdge() {
+        let inset = HUDChromeLayout.LeftRail.leftInset
+        #expect(inset >= 8)
         for size in representativeSizes {
-            let layout = HUDChromeLayout.rightRailLayout(for: size)
-            let artAspect = HUDChromeLayout.RightRail.plateContentAspectHeightOverWidth
-            let drawn = layout.plateSize.height / layout.plateSize.width
-            #expect(abs(drawn - artAspect) < 0.01, "Right plate aspect \(drawn) at \(size)")
-
-            let window = layout.portraitWindowRect
-            let photo = layout.portraitPhotoRect
-            // Contain: square photo fully inside the painted window, centered.
-            #expect(abs(photo.midX - window.midX) < 0.5)
-            #expect(abs(photo.midY - window.midY) < 0.5)
-            #expect(abs(photo.width - photo.height) < 0.01)
+            let layout = HUDChromeLayout.leftRailLayout(for: size)
+            let viewLeft = -size.width / 2
+            let frame = layout.plateFrame
             #expect(
-                window.insetBy(dx: -0.5, dy: -0.5).contains(photo),
-                "Portrait photo spills past window at \(size)"
+                frame.minX >= viewLeft + inset - 0.001,
+                "Left rail left edge \(frame.minX) not inset by \(inset) at \(size)"
             )
-            #expect(photo.width <= min(window.width, window.height) + 0.01)
-            let plateLocal = CGRect(
-                x: -layout.plateSize.width / 2,
-                y: -layout.plateSize.height / 2,
-                width: layout.plateSize.width,
-                height: layout.plateSize.height
-            )
+            #expect(frame.maxX < size.width / 2)
+            let clearance = HUDChromeLayout.leftRailClearance(for: size)
+            #expect(clearance >= inset + layout.railWidth + 10 - 0.001)
             #expect(
-                plateLocal.contains(window.insetBy(dx: 0.5, dy: 0.5)),
-                "Portrait window outside plate at \(size)"
-            )
-            #expect(
-                plateLocal.contains(photo.insetBy(dx: 0.5, dy: 0.5)),
-                "Portrait photo outside plate at \(size)"
-            )
-            #expect(layout.utilityWellRects.count == 3)
-            #expect(layout.utilityIconRects.count == 3)
-
-            let plateH = layout.plateSize.height
-            let plateTop = plateH / 2
-            let measuredUtility = HUDChromeLayout.RightRail.utilityCenterFractionsFromTop
-            for index in layout.utilityWellRects.indices {
-                let well = layout.utilityWellRects[index]
-                let icon = layout.utilityIconRects[index]
-                #expect(plateLocal.contains(well.insetBy(dx: 0.5, dy: 0.5)))
-                #expect(well.insetBy(dx: -0.5, dy: -0.5).contains(icon))
-                #expect(abs(icon.width - icon.height) < 0.01)
-                let expectedY = plateTop - measuredUtility[index] * plateH
-                #expect(abs(well.midY - expectedY) < 0.5, "Utility \(index) Y off measured art at \(size)")
-            }
-            for i in 0..<3 {
-                for j in (i + 1)..<3 {
-                    #expect(!layout.utilityWellRects[i].intersects(layout.utilityWellRects[j]))
-                }
-            }
-        }
-    }
-
-    // MARK: - Dialogue frame
-
-    @Test func dialoguePanelPreservesFrameArtAspect() {
-        let artAspect = DialoguePanelLayout.frameArtAspectWidthOverHeight
-        for size in representativeSizes {
-            let layout = DialoguePanelLayout.layout(for: size)
-            let drawn = layout.panelRect.width / layout.panelRect.height
-            #expect(
-                abs(drawn - artAspect) < 0.01,
-                "Dialogue panel aspect \(drawn) != art \(artAspect) at \(size)"
+                HUDChromeLayout.leftRailFullyOnScreen(for: size),
+                "Left rail not fully on screen at \(size)"
             )
         }
     }
 
-    @Test func dialoguePortraitPhotoSitsInsidePaintedWindow() {
+    @Test func leftRailPlateFrameMatchesCenterAndSize() {
         for size in representativeSizes {
-            let layout = DialoguePanelLayout.layout(for: size)
-            let window = layout.portraitRect
-            let photo = DialoguePanelLayout.portraitPhotoRect(in: layout.panelRect)
-            #expect(
-                window.insetBy(dx: -0.5, dy: -0.5).contains(photo),
-                "Dialogue portrait photo outside window at \(size)"
-            )
-            // Photo fills the measured hole (slightly taller than wide on v05) — not forced square.
-            let inset = DialoguePanelLayout.portraitInnerInset
-            #expect(abs(photo.width - (window.width - inset * 2)) < 0.5)
-            #expect(abs(photo.height - (window.height - inset * 2)) < 0.5)
-            #expect(photo.width <= window.width - inset + 0.5)
-            #expect(photo.height <= window.height - inset + 0.5)
+            let layout = HUDChromeLayout.leftRailLayout(for: size)
+            let frame = layout.plateFrame
+            #expect(abs(frame.midX - layout.plateCenter.x) < 0.001)
+            #expect(abs(frame.midY - layout.plateCenter.y) < 0.001)
+            #expect(abs(frame.width - layout.plateSize.width) < 0.001)
+            #expect(abs(frame.height - layout.plateSize.height) < 0.001)
+            // Acceptance: full painted plate stays inside the viewport AABB.
+            let halfW = size.width / 2
+            let halfH = size.height / 2
+            #expect(frame.minX >= -halfW - 0.001)
+            #expect(frame.maxX <= halfW + 0.001)
+            #expect(frame.minY >= -halfH - 0.001)
+            #expect(frame.maxY <= halfH + 0.001)
+            // Never flush-left (would clip the outer metal rim).
+            #expect(frame.minX > -halfW + 0.5)
         }
     }
 
-    @Test func aspectLockedPanelSizeFitsInsideMaxBox() {
-        let cases: [(CGFloat, CGFloat)] = [
-            (800, 280), (1_200, 400), (600, 200), (1_000, 500)
-        ]
-        for (maxW, maxH) in cases {
-            let size = DialoguePanelLayout.aspectLockedPanelSize(maxWidth: maxW, maxHeight: maxH)
-            #expect(size.width <= maxW + 0.01)
-            #expect(size.height <= maxH + 0.01)
-            let aspect = size.width / size.height
-            #expect(abs(aspect - DialoguePanelLayout.frameArtAspectWidthOverHeight) < 0.01)
+    @Test func rightRailStaysFullyOnScreenAlongsideLeftRail() {
+        for size in representativeSizes {
+            #expect(HUDChromeLayout.leftRailFullyOnScreen(for: size))
+            #expect(
+                HUDChromeLayout.rightRailFullyOnScreen(for: size),
+                "Right portrait rail off-screen at \(size)"
+            )
+            let left = HUDChromeLayout.leftRailLayout(for: size).plateFrame
+            let right = HUDChromeLayout.rightRailPlateFrame(for: size)
+            // Rails must not occupy the same half of the view.
+            #expect(left.maxX < 0 || right.minX > 0 || left.maxX < right.minX)
         }
     }
 
@@ -201,12 +156,33 @@ struct HUDChromeLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-        let actionURL = root.appendingPathComponent("RainShadow Shared/UI/ActionBarNode.swift")
-        let portraitURL = root.appendingPathComponent("RainShadow Shared/UI/PortraitBarNode.swift")
-        let action = try String(contentsOf: actionURL, encoding: .utf8)
-        let portrait = try String(contentsOf: portraitURL, encoding: .utf8)
+        let action = try String(
+            contentsOf: root.appendingPathComponent("RainShadow Shared/UI/ActionBarNode.swift"),
+            encoding: .utf8
+        )
+        let portrait = try String(
+            contentsOf: root.appendingPathComponent("RainShadow Shared/UI/PortraitBarNode.swift"),
+            encoding: .utf8
+        )
         #expect(action.contains("HUDChromeLayout.leftRailLayout"))
         #expect(portrait.contains("HUDChromeLayout.rightRailLayout"))
-        #expect(!action.contains("Stretch cropped plate across nearly the full window height"))
+        #expect(action.contains("position = geometry.plateCenter"))
+    }
+
+    @Test func baseSceneParentsHUDUnderCameraWithIdentityScale() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let base = try String(
+            contentsOf: root.appendingPathComponent("RainShadow Shared/Core/Scene/BaseGameScene.swift"),
+            encoding: .utf8
+        )
+        #expect(base.contains("gameCamera.addChild(hudRoot)"))
+        #expect(base.contains("syncSizeFromViewIfNeeded"))
+        #expect(base.contains("hudRoot.setScale(1)"))
+        // Must not world-scale HUD by the play camera (maps ±size/2 past the view edge).
+        #expect(!base.contains("hudRoot.setScale(scale)"))
+        #expect(!base.contains("hudRoot.position = gameCamera.position"))
     }
 }

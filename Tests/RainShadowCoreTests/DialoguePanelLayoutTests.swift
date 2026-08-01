@@ -706,7 +706,7 @@ struct DialoguePanelLayoutTests {
         #expect(!source.contains("y - 55"))
     }
 
-    @Test func cameraChildHUDUsesPhysicalViewportAtEveryWorldZoom() throws {
+    @Test func cameraChildHUDUsesSyncedSceneSizeForChrome() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -721,7 +721,11 @@ struct DialoguePanelLayoutTests {
                 contentsOf: root.appendingPathComponent(path),
                 encoding: .utf8
             )
-            #expect(source.contains("let hudViewportSize = size"), "Missing HUD viewport contract in \(path)")
+            // Chrome is framed from post-sync scene size (live view points).
+            #expect(
+                source.contains("let hudViewportSize = size"),
+                "Missing post-sync size HUD viewport contract in \(path)"
+            )
             #expect(!source.contains("layout(for: visibleSize)"), "World-size HUD layout returned in \(path)")
             for overlay in ["inventoryOverlay", "areaMapOverlay", "journalOverlay", "portraitBar", "actionBar"] {
                 #expect(
@@ -736,6 +740,16 @@ struct DialoguePanelLayoutTests {
             encoding: .utf8
         )
         #expect(officeSource.contains("caseIntroductionPresenter.layout(for: hudViewportSize)"))
+
+        let baseSource = try String(
+            contentsOf: root.appendingPathComponent("RainShadow Shared/Core/Scene/BaseGameScene.swift"),
+            encoding: .utf8
+        )
+        #expect(baseSource.contains("func syncSizeFromViewIfNeeded()"))
+        #expect(baseSource.contains("gameCamera.addChild(hudRoot)"))
+        // HUD must stay identity-scaled under the camera (no world-space frustum map).
+        #expect(baseSource.contains("hudRoot.setScale(1)"))
+        #expect(!baseSource.contains("hudRoot.setScale(scale)"))
     }
 
     @Test func contentWellCoversTextViewportInsidePanelNotOuterChrome() {

@@ -14,9 +14,12 @@ class BaseGameScene: SKScene {
     let cinematicRoot = SKNode()
     let debugRoot = SKNode()
     let gameCamera = SKCameraNode()
+    /// Screen-locked chrome parented to the camera (identity scale). Child positions
+    /// use viewport-centered points where `±size/2` are the view edges.
     let hudRoot = SKNode()
 
     private var hasBuiltScene = false
+    private var isPerformingLayout = false
     private(set) var baseCameraScale: CGFloat = 1
     #if os(iOS)
     private var twoFingerCancelIsActive = false
@@ -38,6 +41,9 @@ class BaseGameScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        // First present can still carry the init size (2048×1152). Match the live
+        // SKView *before* any HUD layout so the left rail is not framed off-screen.
+        syncSizeFromViewIfNeeded()
         if !hasBuiltScene {
             installLayerTree()
             buildScene()
@@ -67,14 +73,49 @@ class BaseGameScene: SKScene {
     func handleJournalInput() {}
     func handleCancelInput() {}
 
+    /// Viewport used for all HUD chrome. After `syncSizeFromViewIfNeeded()`, this is
+    /// the live SKView point size (and equals `scene.size`).
+    var hudViewportSize: CGSize { size }
+
+    /// Keep `scene.size` equal to the SKView's point bounds under `.resizeFill`.
+    @discardableResult
+    func syncSizeFromViewIfNeeded() -> Bool {
+        guard let view, view.bounds.width > 1, view.bounds.height > 1 else { return false }
+        let viewSize = view.bounds.size
+        guard abs(size.width - viewSize.width) > 0.5
+            || abs(size.height - viewSize.height) > 0.5 else { return false }
+        size = viewSize
+        return true
+    }
+
     func layoutViewport() {
-        guard size.height > 0 else { return }
-        // Uniform orthographic scale only — fixed dimetric projection; no pitch/yaw/FOV.
+        // Re-entrancy: assigning `size` triggers `didChangeSize` → `layoutViewport`.
+        // The nested call is ignored; this outer call continues with the new size.
+        if isPerformingLayout { return }
+        isPerformingLayout = true
+        defer { isPerformingLayout = false }
+
+        _ = syncSizeFromViewIfNeeded()
+        guard size.height > 0, size.width > 0 else { return }
+
+        // Uniform orthographic play zoom only — fixed dimetric projection.
         baseCameraScale = DefaultPlayZoom.cameraScale(
             visibleWorldHeight: referenceVisibleHeight,
             sceneHeight: size.height
         )
         gameCamera.setScale(baseCameraScale)
+
+        // Camera-child HUD: identity transform relative to the camera. Apple's
+        // camera counter-transform keeps ±size/2 on the view edges at any zoom.
+        hudRoot.position = .zero
+        hudRoot.setScale(1)
+    }
+
+    /// No-op kept for call sites that previously re-anchored a world-space HUD.
+    /// Camera-child chrome tracks the camera automatically.
+    func syncHudToCamera() {
+        hudRoot.position = .zero
+        hudRoot.setScale(1)
     }
 
     func updateDepth(of node: SKNode, bias: CGFloat = 0) {
@@ -130,7 +171,12 @@ class BaseGameScene: SKScene {
 
         camera = gameCamera
         addChild(gameCamera)
+        // Screen-locked HUD as camera child (identity scale). This is the SpriteKit
+        // contract for fixed chrome; world-space scaling previously allowed a stale
+        // init size to map the left rail past the visible left edge.
         hudRoot.zPosition = SceneLayer.hud.rawValue
+        hudRoot.position = .zero
+        hudRoot.setScale(1)
         gameCamera.addChild(hudRoot)
     }
 }

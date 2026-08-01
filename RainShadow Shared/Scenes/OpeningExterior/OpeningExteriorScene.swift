@@ -41,6 +41,7 @@ final class OpeningExteriorScene: BaseGameScene {
         weatherRoot.addChild(near)
 
         gameCamera.position = CGPoint(x: 1_536, y: 760)
+        syncHudToCamera()
 
         let title = SKLabelNode(fontNamed: "AvenirNextCondensed-DemiBold")
         title.text = "RAINSHADOW"
@@ -50,6 +51,11 @@ final class OpeningExteriorScene: BaseGameScene {
         title.alpha = 0
         hudRoot.addChild(title)
         title.run(.sequence([.wait(forDuration: 1.2), .fadeIn(withDuration: 1.4), .wait(forDuration: 3.2), .fadeOut(withDuration: 1.2)]))
+    }
+
+    override func update(_ currentTime: TimeInterval) {
+        // Opening pans/zooms the camera; keep title HUD locked to the view.
+        syncHudToCamera()
     }
 
     override func sceneDidBecomeReady() {

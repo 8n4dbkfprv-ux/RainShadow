@@ -16,6 +16,13 @@ class GameViewController: UIViewController {
         GameBootstrap.start(in: skView)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let skView = view as? SKView, let scene = skView.scene as? BaseGameScene else { return }
+        scene.syncSizeFromViewIfNeeded()
+        scene.layoutViewport()
+    }
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .landscape
     }

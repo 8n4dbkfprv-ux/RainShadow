@@ -251,6 +251,7 @@ final class CityDistrictScene: BaseGameScene {
 
     override func layoutViewport() {
         super.layoutViewport()
+        // Same contract as the office: chrome uses post-sync `size` (live view points).
         let hudViewportSize = size
         inventoryOverlay.layout(for: hudViewportSize)
         areaMapOverlay.layout(for: hudViewportSize)
@@ -461,6 +462,7 @@ final class CityDistrictScene: BaseGameScene {
             x: min(max(detective.position.x, halfWidth), world.width - halfWidth),
             y: min(max(detective.position.y, halfHeight), world.height - halfHeight)
         )
+        syncHudToCamera()
     }
 
     private func makeMapConfiguration() -> AreaMapOverlay.Configuration {

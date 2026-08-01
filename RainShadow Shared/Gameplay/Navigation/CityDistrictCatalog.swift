@@ -140,42 +140,44 @@ enum CityDistrictCatalog {
             "from.civicRecords": CGPoint(x: 850, y: 550)
         ],
         visualSprites: [
-            .init(textureName: "city_building_tenement", groundPoint: CGPoint(x: 240, y: 810), scale: 0.81, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_storefront", groundPoint: CGPoint(x: 710, y: 830), scale: 0.75, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_rowhouse", groundPoint: CGPoint(x: 1225, y: 820), scale: 0.78, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_shop", groundPoint: CGPoint(x: 390, y: 410), scale: 0.80, anchorY: 0.14, depthBias: 0),
-            .init(textureName: "city_building_gatehouse", groundPoint: CGPoint(x: 840, y: 380), scale: 0.85, anchorY: 0.16, depthBias: 0),
-            .init(textureName: "city_building_voss_stoop", groundPoint: CGPoint(x: 1700, y: 260), scale: 0.81, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 525, y: 590), scale: 0.4, anchorY: 0.10, depthBias: 3),
-            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 460, y: 540), scale: 0.3, anchorY: 0.15, depthBias: 2),
-            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 610, y: 550), scale: 0.29, anchorY: 0.15, depthBias: 2),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 280, y: 600), scale: 0.35, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 650, y: 610), scale: 0.35, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1100, y: 600), scale: 0.35, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1550, y: 450), scale: 0.35, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 950, y: 190), scale: 0.35, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 740, y: 490), scale: 0.32, anchorY: 0.18, depthBias: 2),
-            .init(textureName: "city_prop_car_olive", groundPoint: CGPoint(x: 1200, y: 430), scale: 0.32, anchorY: 0.18, depthBias: 2),
-            .init(textureName: "city_prop_car_maroon", groundPoint: CGPoint(x: 1425, y: 190), scale: 0.32, anchorY: 0.18, depthBias: 2),
-            .init(textureName: "city_prop_kiosk", groundPoint: CGPoint(x: 1025, y: 160), scale: 0.36, anchorY: 0.20, depthBias: 2),
-            .init(textureName: "city_prop_crates_mail", groundPoint: CGPoint(x: 1110, y: 140), scale: 0.35, anchorY: 0.24, depthBias: 2),
-            .init(textureName: "city_prop_gate", groundPoint: CGPoint(x: 525, y: 310), scale: 0.36, anchorY: 0.22, depthBias: 2)
+            // Buildings: door-anchored so painted entrances clear Harlan Voss (~1.15× adult).
+            .init(textureName: "city_building_tenement", groundPoint: CGPoint(x: 240, y: 810), scale: CityDistrictLayout.BuildingDisplayScale.tenement, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_storefront", groundPoint: CGPoint(x: 710, y: 830), scale: CityDistrictLayout.BuildingDisplayScale.storefront, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_rowhouse", groundPoint: CGPoint(x: 1225, y: 820), scale: CityDistrictLayout.BuildingDisplayScale.rowhouse, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_shop", groundPoint: CGPoint(x: 390, y: 410), scale: CityDistrictLayout.BuildingDisplayScale.shop, anchorY: 0.14, depthBias: 0),
+            .init(textureName: "city_building_gatehouse", groundPoint: CGPoint(x: 840, y: 380), scale: CityDistrictLayout.BuildingDisplayScale.gatehouse, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_building_voss_stoop", groundPoint: CGPoint(x: 1700, y: 260), scale: CityDistrictLayout.BuildingDisplayScale.vossStoop, anchorY: 0.10, depthBias: 0),
+            // Street props: cars stay near adult roof height (not scaled with facades).
+            .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 525, y: 590), scale: CityDistrictLayout.PropDisplayScale.statue, anchorY: 0.10, depthBias: 3),
+            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 460, y: 540), scale: CityDistrictLayout.PropDisplayScale.bench, anchorY: 0.15, depthBias: 2),
+            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 610, y: 550), scale: CityDistrictLayout.PropDisplayScale.bench, anchorY: 0.15, depthBias: 2),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 280, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampHub, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 650, y: 610), scale: CityDistrictLayout.PropDisplayScale.lampHub, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1100, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampHub, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1550, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampHub, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 950, y: 190), scale: CityDistrictLayout.PropDisplayScale.lampHub, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 740, y: 490), scale: CityDistrictLayout.PropDisplayScale.car, anchorY: 0.18, depthBias: 2),
+            .init(textureName: "city_prop_car_olive", groundPoint: CGPoint(x: 1200, y: 430), scale: CityDistrictLayout.PropDisplayScale.car, anchorY: 0.18, depthBias: 2),
+            .init(textureName: "city_prop_car_maroon", groundPoint: CGPoint(x: 1425, y: 190), scale: CityDistrictLayout.PropDisplayScale.car, anchorY: 0.18, depthBias: 2),
+            .init(textureName: "city_prop_kiosk", groundPoint: CGPoint(x: 1025, y: 160), scale: CityDistrictLayout.PropDisplayScale.kiosk, anchorY: 0.20, depthBias: 2),
+            .init(textureName: "city_prop_crates_mail", groundPoint: CGPoint(x: 1110, y: 140), scale: CityDistrictLayout.PropDisplayScale.crates, anchorY: 0.24, depthBias: 2),
+            .init(textureName: "city_prop_gate", groundPoint: CGPoint(x: 525, y: 310), scale: CityDistrictLayout.PropDisplayScale.gate, anchorY: 0.22, depthBias: 2)
         ],
-        // Building footprints leave a central cross of streets walkable.
+        // Building footprints leave a central cross of streets walkable (expanded for door-anchored scales).
         obstacles: [
-            CGRect(x: 40, y: 690, width: 390, height: 410),
-            CGRect(x: 520, y: 710, width: 390, height: 390),
-            CGRect(x: 1020, y: 700, width: 450, height: 400),
-            CGRect(x: 60, y: 260, width: 410, height: 260),
-            CGRect(x: 610, y: 240, width: 350, height: 240),
-            CGRect(x: 1525, y: 180, width: 450, height: 350)
+            CGRect(x: 20, y: 640, width: 460, height: 480),
+            CGRect(x: 480, y: 660, width: 480, height: 460),
+            CGRect(x: 980, y: 660, width: 520, height: 460),
+            CGRect(x: 40, y: 220, width: 460, height: 300),
+            CGRect(x: 580, y: 200, width: 400, height: 280),
+            CGRect(x: 1480, y: 140, width: 520, height: 420)
         ],
         portals: [
             .init(
                 id: "portal.office",
                 label: "VOSS APT",
                 approachPoint: CGPoint(x: 1600, y: 90),
-                hitArea: CGRect(x: 1480, y: 20, width: 280, height: 150),
+                hitArea: CGRect(x: 1460, y: 10, width: 320, height: 180),
                 destination: .office,
                 requiresCityOpen: false,
                 lockedInspectLine: "The office door is locked from this side."
@@ -249,20 +251,20 @@ enum CityDistrictCatalog {
             "from.sableRow": CGPoint(x: 310, y: 210)
         ],
         visualSprites: [
-            .init(textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1100, y: 490), scale: 0.81, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_building_warehouse", groundPoint: CGPoint(x: 550, y: 740), scale: 0.86, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_building_boarding", groundPoint: CGPoint(x: 1600, y: 680), scale: 0.73, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_dock_shed", groundPoint: CGPoint(x: 430, y: 360), scale: 0.62, anchorY: 0.16, depthBias: 0),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1300, y: 390), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_crates_mail", groundPoint: CGPoint(x: 840, y: 310), scale: 0.42, anchorY: 0.24, depthBias: 2),
-            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 950, y: 240), scale: 0.35, anchorY: 0.18, depthBias: 2)
+            .init(textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1100, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.shippingOffice, anchorY: 0.10, depthBias: 0),
+            .init(textureName: "city_building_warehouse", groundPoint: CGPoint(x: 550, y: 740), scale: CityDistrictLayout.BuildingDisplayScale.warehouse, anchorY: 0.10, depthBias: 0),
+            .init(textureName: "city_building_boarding", groundPoint: CGPoint(x: 1600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.boarding, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_dock_shed", groundPoint: CGPoint(x: 430, y: 360), scale: CityDistrictLayout.BuildingDisplayScale.dockShed, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1300, y: 390), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_crates_mail", groundPoint: CGPoint(x: 840, y: 310), scale: CityDistrictLayout.PropDisplayScale.cratesSpoke, anchorY: 0.24, depthBias: 2),
+            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 950, y: 240), scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18, depthBias: 2)
         ],
         obstacles: [
-            CGRect(x: 200, y: 600, width: 700, height: 450),
-            CGRect(x: 850, y: 350, width: 550, height: 450),
-            CGRect(x: 1400, y: 550, width: 500, height: 450),
-            CGRect(x: 200, y: 240, width: 400, height: 260)
+            CGRect(x: 160, y: 560, width: 780, height: 520),
+            CGRect(x: 800, y: 300, width: 620, height: 520),
+            CGRect(x: 1340, y: 500, width: 580, height: 520),
+            CGRect(x: 160, y: 200, width: 460, height: 300)
         ],
         portals: [
             .init(
@@ -278,7 +280,7 @@ enum CityDistrictCatalog {
                 id: "portal.shippingOffice",
                 label: "SHIPPING",
                 approachPoint: CGPoint(x: 1050, y: 410),
-                hitArea: CGRect(x: 925, y: 340, width: 350, height: 260),
+                hitArea: CGRect(x: 900, y: 320, width: 400, height: 300),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "Lillian's shipping office. Ledgers and a late errand uptown — exterior only for now."
@@ -303,17 +305,17 @@ enum CityDistrictCatalog {
             "from.sableRow": CGPoint(x: 450, y: 700)
         ],
         visualSprites: [
-            .init(textureName: "city_building_iron_stairs", groundPoint: CGPoint(x: 1200, y: 390), scale: 0.75, anchorY: 0.08, depthBias: 0),
-            .init(textureName: "city_building_river_watch", groundPoint: CGPoint(x: 600, y: 680), scale: 0.6, anchorY: 0.14, depthBias: 0),
-            .init(textureName: "city_building_rail_lamp", groundPoint: CGPoint(x: 900, y: 490), scale: 0.55, anchorY: 0.14, depthBias: 1),
-            .init(textureName: "city_building_abutment", groundPoint: CGPoint(x: 1550, y: 280), scale: 0.65, anchorY: 0.16, depthBias: 0),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 525, y: 600), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 450), scale: 0.45, anchorY: 0.12, depthBias: 1)
+            .init(textureName: "city_building_iron_stairs", groundPoint: CGPoint(x: 1200, y: 390), scale: CityDistrictLayout.BuildingDisplayScale.ironStairs, anchorY: 0.08, depthBias: 0),
+            .init(textureName: "city_building_river_watch", groundPoint: CGPoint(x: 600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.riverWatch, anchorY: 0.14, depthBias: 0),
+            .init(textureName: "city_building_rail_lamp", groundPoint: CGPoint(x: 900, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.railLamp, anchorY: 0.14, depthBias: 1),
+            .init(textureName: "city_building_abutment", groundPoint: CGPoint(x: 1550, y: 280), scale: CityDistrictLayout.BuildingDisplayScale.abutment, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 525, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1)
         ],
         obstacles: [
-            CGRect(x: 450, y: 550, width: 350, height: 350),
-            CGRect(x: 950, y: 260, width: 550, height: 390),
-            CGRect(x: 1350, y: 140, width: 500, height: 350),
+            CGRect(x: 400, y: 500, width: 420, height: 420),
+            CGRect(x: 900, y: 220, width: 620, height: 450),
+            CGRect(x: 1300, y: 100, width: 560, height: 400),
             CGRect(x: 0, y: 0, width: 2048, height: 110)
         ],
         portals: [
@@ -330,7 +332,7 @@ enum CityDistrictCatalog {
                 id: "portal.ironStairs",
                 label: "STAIRS",
                 approachPoint: CGPoint(x: 1150, y: 340),
-                hitArea: CGRect(x: 1000, y: 240, width: 350, height: 260),
+                hitArea: CGRect(x: 980, y: 220, width: 400, height: 300),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "Wet iron and staged stones. The coat is already in police custody."
@@ -355,19 +357,19 @@ enum CityDistrictCatalog {
             "from.sableRow": CGPoint(x: 390, y: 260)
         ],
         visualSprites: [
-            .init(textureName: "city_building_pd_station", groundPoint: CGPoint(x: 1150, y: 600), scale: 0.88, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_building_pd_annex", groundPoint: CGPoint(x: 1650, y: 500), scale: 0.7, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_pd_alley", groundPoint: CGPoint(x: 550, y: 700), scale: 0.62, anchorY: 0.14, depthBias: 0),
-            .init(textureName: "city_building_pd_plaza_wall", groundPoint: CGPoint(x: 800, y: 350), scale: 0.52, anchorY: 0.18, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 410), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 850, y: 280), scale: 0.35, anchorY: 0.18, depthBias: 2)
+            .init(textureName: "city_building_pd_station", groundPoint: CGPoint(x: 1150, y: 600), scale: CityDistrictLayout.BuildingDisplayScale.pdStation, anchorY: 0.10, depthBias: 0),
+            .init(textureName: "city_building_pd_annex", groundPoint: CGPoint(x: 1650, y: 500), scale: CityDistrictLayout.BuildingDisplayScale.pdAnnex, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_pd_alley", groundPoint: CGPoint(x: 550, y: 700), scale: CityDistrictLayout.BuildingDisplayScale.pdAlley, anchorY: 0.14, depthBias: 0),
+            .init(textureName: "city_building_pd_plaza_wall", groundPoint: CGPoint(x: 800, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.pdPlazaWall, anchorY: 0.18, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 410), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 850, y: 280), scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18, depthBias: 2)
         ],
         obstacles: [
-            CGRect(x: 850, y: 430, width: 700, height: 550),
-            CGRect(x: 1450, y: 350, width: 500, height: 450),
-            CGRect(x: 350, y: 575, width: 400, height: 400),
-            CGRect(x: 650, y: 250, width: 350, height: 210)
+            CGRect(x: 780, y: 360, width: 820, height: 680),
+            CGRect(x: 1400, y: 300, width: 560, height: 520),
+            CGRect(x: 300, y: 520, width: 480, height: 480),
+            CGRect(x: 600, y: 200, width: 420, height: 280)
         ],
         portals: [
             .init(
@@ -383,7 +385,7 @@ enum CityDistrictCatalog {
                 id: "portal.pdEntrance",
                 label: "STATION",
                 approachPoint: CGPoint(x: 1100, y: 490),
-                hitArea: CGRect(x: 950, y: 400, width: 400, height: 300),
+                hitArea: CGRect(x: 920, y: 360, width: 460, height: 360),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "The desk sergeant keeps soft conclusions behind glass. Exterior only for now."
@@ -408,20 +410,20 @@ enum CityDistrictCatalog {
             "from.sableRow": CGPoint(x: 350, y: 250)
         ],
         visualSprites: [
-            .init(textureName: "city_building_lila_rooms", groundPoint: CGPoint(x: 1250, y: 550), scale: 0.81, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_building_lila_neighbor", groundPoint: CGPoint(x: 700, y: 680), scale: 0.73, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_lila_opposite", groundPoint: CGPoint(x: 1650, y: 640), scale: 0.7, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_lila_alcove", groundPoint: CGPoint(x: 950, y: 350), scale: 0.57, anchorY: 0.16, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 600, y: 450), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 410), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_car_olive", groundPoint: CGPoint(x: 800, y: 260), scale: 0.35, anchorY: 0.18, depthBias: 2),
-            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 1050, y: 390), scale: 0.42, anchorY: 0.15, depthBias: 2)
+            .init(textureName: "city_building_lila_rooms", groundPoint: CGPoint(x: 1250, y: 550), scale: CityDistrictLayout.BuildingDisplayScale.lilaRooms, anchorY: 0.10, depthBias: 0),
+            .init(textureName: "city_building_lila_neighbor", groundPoint: CGPoint(x: 700, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.lilaNeighbor, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_lila_opposite", groundPoint: CGPoint(x: 1650, y: 640), scale: CityDistrictLayout.BuildingDisplayScale.lilaOpposite, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_lila_alcove", groundPoint: CGPoint(x: 950, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.lilaAlcove, anchorY: 0.16, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 600, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 410), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_car_olive", groundPoint: CGPoint(x: 800, y: 260), scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18, depthBias: 2),
+            .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 1050, y: 390), scale: CityDistrictLayout.PropDisplayScale.benchSpoke, anchorY: 0.15, depthBias: 2)
         ],
         obstacles: [
-            CGRect(x: 500, y: 550, width: 450, height: 450),
-            CGRect(x: 1000, y: 410, width: 550, height: 500),
-            CGRect(x: 1450, y: 500, width: 450, height: 450),
-            CGRect(x: 800, y: 260, width: 300, height: 210)
+            CGRect(x: 450, y: 500, width: 520, height: 520),
+            CGRect(x: 960, y: 360, width: 620, height: 560),
+            CGRect(x: 1400, y: 460, width: 520, height: 520),
+            CGRect(x: 760, y: 220, width: 360, height: 260)
         ],
         portals: [
             .init(
@@ -437,7 +439,7 @@ enum CityDistrictCatalog {
                 id: "portal.lilaRooms",
                 label: "ROOMS",
                 approachPoint: CGPoint(x: 1200, y: 460),
-                hitArea: CGRect(x: 1050, y: 370, width: 350, height: 280),
+                hitArea: CGRect(x: 1020, y: 350, width: 400, height: 320),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "Lila's rooms stay private. Watch the doorway posts instead."
@@ -462,19 +464,19 @@ enum CityDistrictCatalog {
             "from.sableRow": CGPoint(x: 380, y: 240)
         ],
         visualSprites: [
-            .init(textureName: "city_building_records_annex", groundPoint: CGPoint(x: 1200, y: 590), scale: 0.88, anchorY: 0.10, depthBias: 0),
-            .init(textureName: "city_building_records_wing", groundPoint: CGPoint(x: 1650, y: 490), scale: 0.73, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_records_colonnade", groundPoint: CGPoint(x: 600, y: 680), scale: 0.68, anchorY: 0.12, depthBias: 0),
-            .init(textureName: "city_building_records_plaza", groundPoint: CGPoint(x: 850, y: 350), scale: 0.55, anchorY: 0.18, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 675, y: 440), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 400), scale: 0.45, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 950, y: 450), scale: 0.5, anchorY: 0.10, depthBias: 3)
+            .init(textureName: "city_building_records_annex", groundPoint: CGPoint(x: 1200, y: 590), scale: CityDistrictLayout.BuildingDisplayScale.recordsAnnex, anchorY: 0.10, depthBias: 0),
+            .init(textureName: "city_building_records_wing", groundPoint: CGPoint(x: 1650, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.recordsWing, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_records_colonnade", groundPoint: CGPoint(x: 600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.recordsColonnade, anchorY: 0.12, depthBias: 0),
+            .init(textureName: "city_building_records_plaza", groundPoint: CGPoint(x: 850, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.recordsPlaza, anchorY: 0.18, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 675, y: 440), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 400), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 950, y: 450), scale: CityDistrictLayout.PropDisplayScale.statueSpoke, anchorY: 0.10, depthBias: 3)
         ],
         obstacles: [
-            CGRect(x: 900, y: 430, width: 700, height: 550),
-            CGRect(x: 1450, y: 350, width: 500, height: 450),
-            CGRect(x: 400, y: 550, width: 450, height: 450),
-            CGRect(x: 700, y: 250, width: 350, height: 210)
+            CGRect(x: 860, y: 380, width: 780, height: 620),
+            CGRect(x: 1400, y: 300, width: 560, height: 520),
+            CGRect(x: 360, y: 500, width: 520, height: 520),
+            CGRect(x: 660, y: 200, width: 400, height: 280)
         ],
         portals: [
             .init(
@@ -490,7 +492,7 @@ enum CityDistrictCatalog {
                 id: "portal.recordsEntrance",
                 label: "ANNEX",
                 approachPoint: CGPoint(x: 1140, y: 490),
-                hitArea: CGRect(x: 980, y: 390, width: 400, height: 300),
+                hitArea: CGRect(x: 960, y: 360, width: 440, height: 340),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "Dual ledgers wait behind polite glass. Exterior only for now."

@@ -24,7 +24,11 @@ enum HUDChromeLayout {
         static let wellHeightFractionOfPlate: CGFloat = 0.072
         /// Icons fill the well without overflowing the painted rim.
         static let iconFillOfWell: CGFloat = 0.90
-        static let edgePad: CGFloat = 8
+        /// Vertical inset so top/bottom metal caps clear the view edge.
+        static let edgePad: CGFloat = 10
+        /// Horizontal inset so the painted left rim is not clipped by the SKView edge.
+        /// Must stay ≥ 8; flush-left placement loses the outer metal bevel.
+        static let leftInset: CGFloat = 16
         /// Soft min/max so icons stay usable on short viewports without a huge bar on 4K.
         static let minPlateWidth: CGFloat = 64
         static let maxPlateWidth: CGFloat = 120
@@ -46,6 +50,16 @@ enum HUDChromeLayout {
         let iconRects: [CGRect]
 
         var railWidth: CGFloat { plateSize.width }
+
+        /// Axis-aligned plate bounds in viewport-centered HUD space.
+        var plateFrame: CGRect {
+            CGRect(
+                x: plateCenter.x - plateSize.width / 2,
+                y: plateCenter.y - plateSize.height / 2,
+                width: plateSize.width,
+                height: plateSize.height
+            )
+        }
 
         /// Icon extent (side length) shared by all wells when wells are square.
         var iconExtent: CGFloat {
@@ -75,8 +89,9 @@ enum HUDChromeLayout {
         }
 
         // Center the plate vertically (when shorter than the window after max-width clamp).
+        // Inset from the left so the full painted metal rim stays inside the view.
         let plateCenter = CGPoint(
-            x: -visibleSize.width / 2 + plateW / 2,
+            x: -visibleSize.width / 2 + LeftRail.leftInset + plateW / 2,
             y: 0
         )
 
@@ -246,7 +261,42 @@ enum HUDChromeLayout {
 
     /// Width reserved on the left for the action rail + breathing room.
     static func leftRailClearance(for visibleSize: CGSize) -> CGFloat {
-        leftRailLayout(for: visibleSize).railWidth + 10
+        LeftRail.leftInset + leftRailLayout(for: visibleSize).railWidth + 10
+    }
+
+    /// True when the plate's axis-aligned bounds sit fully inside the viewport
+    /// (HUD root space with origin at the view center) with the configured left inset.
+    static func leftRailFullyOnScreen(for visibleSize: CGSize) -> Bool {
+        let layout = leftRailLayout(for: visibleSize)
+        let halfW = visibleSize.width / 2
+        let halfH = visibleSize.height / 2
+        let frame = layout.plateFrame
+        let minLeft = -halfW + LeftRail.leftInset
+        return frame.minX >= minLeft - 0.001
+            && frame.maxX <= halfW + 0.001
+            && frame.minY >= -halfH - 0.001
+            && frame.maxY <= halfH + 0.001
+    }
+
+    /// Right portrait plate frame in viewport-centered HUD space.
+    static func rightRailPlateFrame(for visibleSize: CGSize) -> CGRect {
+        let layout = rightRailLayout(for: visibleSize)
+        return CGRect(
+            x: layout.plateCenter.x - layout.plateSize.width / 2,
+            y: layout.plateCenter.y - layout.plateSize.height / 2,
+            width: layout.plateSize.width,
+            height: layout.plateSize.height
+        )
+    }
+
+    static func rightRailFullyOnScreen(for visibleSize: CGSize) -> Bool {
+        let frame = rightRailPlateFrame(for: visibleSize)
+        let halfW = visibleSize.width / 2
+        let halfH = visibleSize.height / 2
+        return frame.minX >= -halfW - 0.001
+            && frame.maxX <= halfW + 0.001
+            && frame.minY >= -halfH - 0.001
+            && frame.maxY <= halfH + 0.001
     }
 
     /// Width reserved on the right for the party rail + breathing room.
