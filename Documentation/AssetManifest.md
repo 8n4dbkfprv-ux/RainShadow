@@ -327,7 +327,7 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `hud_party_*_v03` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
 | P0 | `hud_portrait_frame_v03` | 1 | 1086×1448 | Transparent portrait bezel matching v03 rail language; code owns HP text and condition tint. |
 | P0 | `dialogue_outer_frame_overlay_v05` | 1 | 1720×583 | Original noir plaque using the reference's low straight rectangular hierarchy: thin uniform blackened-steel rails, near-square corners, contained TL portrait bezel, **transparent** text well + portrait window, and **no painted scrollbar channel**. |
-| P0 | `dialogue_command_button_plate_v04` | 1 | 512×128 | Matching rain-scratched noir END/CONTINUE command plate with an empty leather face; code draws label. |
+| P0 | `dialogue_command_button_plate_v04` | 1 | 1024×116 | Reference-aligned 8.83:1 rain-scratched noir END/CONTINUE bar with thin rails and an empty leather face; code draws label. |
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |

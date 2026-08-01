@@ -109,6 +109,11 @@ struct DialoguePanelLayout: Equatable {
 
     /// Continue / End control size and placement under the dialogue panel.
     static let commandHeight: CGFloat = 48
+    /// Reference-aligned command artwork (`dialogue_command_button_plate_v04` 1024×116).
+    static let commandArtPixelSize = CGSize(width: 1_024, height: 116)
+    static let commandArtAspectWidthOverHeight: CGFloat = 1_024.0 / 116.0
+    /// The authored plate already has the correct low-wide aspect; scale it as one piece.
+    static let commandFrameCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
     static let commandGapBelowPanel: CGFloat = 10
     /// Keep the control above the physical/home-indicator band when possible.
     static let commandMinScreenBottomInset: CGFloat = 14
@@ -752,6 +757,13 @@ struct DialoguePanelLayout: Equatable {
             width: width,
             height: commandHeight
         )
+    }
+
+    /// Visual command plate fitted inside its accessible hit target without distorting
+    /// the reference-like low-wide silhouette on narrower HUDs.
+    static func commandPlateSize(in hitRect: CGRect) -> CGSize {
+        let height = min(hitRect.height, hitRect.width / commandArtAspectWidthOverHeight)
+        return CGSize(width: hitRect.width, height: max(1, height))
     }
 
     /// Scrollbar chrome pieces laid out inside `scrollbarRect` (local space of the bar node).

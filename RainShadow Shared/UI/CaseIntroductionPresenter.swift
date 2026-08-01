@@ -205,7 +205,7 @@ final class CaseIntroductionPresenter: SKNode {
         )
         let commandY = commandHitRect.midY
         commandPlate.position = CGPoint(x: commandHitRect.midX, y: commandY)
-        commandPlate.size = commandHitRect.size
+        commandPlate.size = DialoguePanelLayout.commandPlateSize(in: commandHitRect)
         commandLabel.position = CGPoint(x: commandHitRect.midX, y: commandY - 2)
     }
 
@@ -524,7 +524,7 @@ final class CaseIntroductionPresenter: SKNode {
         if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
             ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
             commandPlate.texture = texture
-            commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
+            commandPlate.centerRect = DialoguePanelLayout.commandFrameCenterRect
             commandPlate.color = .white
             commandPlate.colorBlendFactor = 0
             commandPlate.alpha = 1

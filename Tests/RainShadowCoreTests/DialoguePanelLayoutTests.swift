@@ -934,6 +934,14 @@ struct DialoguePanelLayoutTests {
         #expect(restHit.minY >= -size.height / 2 - 0.001)
         #expect(choiceHit.minY >= -size.height / 2 - 0.001)
         #expect(restHit.height == DialoguePanelLayout.commandHeight)
+        let plateSize = DialoguePanelLayout.commandPlateSize(in: restHit)
+        #expect(plateSize.height <= restHit.height)
+        #expect(
+            abs(
+                plateSize.width / plateSize.height
+                    - DialoguePanelLayout.commandArtAspectWidthOverHeight
+            ) < 0.01
+        )
         // Continue stays centered under the panel (playfield may be off-center when rails differ).
         #expect(abs(restHit.midX - layout.panelRect.midX) < 0.001)
 

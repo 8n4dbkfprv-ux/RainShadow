@@ -491,17 +491,19 @@ def process_dialogue() -> None:
     out.save(runtime)
     print(f"wrote {runtime} ({out.size})")
 
-    # V04: matching noir CONTINUE/END plate; the generated source has no baked label.
-    master = GEN / "Dialogue/dialogue_command_button_plate_v04_gen.png"
+    # V04q: reference-aligned low noir CONTINUE/END plate; no baked label.
+    master = GEN / "Dialogue/dialogue_command_button_plate_v04q_gen.png"
     if not master.exists():
         master = copy_gen(
-            "dialogue_command_button_plate_v04_gen.png",
+            "dialogue_command_button_plate_v04q_gen.png",
             master,
         )
-    keyed_master = GEN / "Dialogue/dialogue_command_button_plate_v04_keyed.png"
+    keyed_master = GEN / "Dialogue/dialogue_command_button_plate_v04q_keyed.png"
     keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
     keyed = trim_alpha(keyed)
-    out = stretch_to_canvas(keyed, (512, 128))
+    # Preserve the generated 8.83:1 silhouette instead of compressing it into the old
+    # 4:1 source canvas and stretching it back out at runtime.
+    out = stretch_to_canvas(keyed, (1024, 116))
     # Gently lift the leather face while keeping its generated grain under the live label.
     rgba = np.array(out)
     h, w = rgba.shape[:2]
