@@ -17,6 +17,14 @@ struct HUDChromeLayoutTests {
 
     // MARK: - Left rail
 
+    @Test func leftRailKeepsEntirePaintedTexture() {
+        #expect(
+            HUDChromeLayout.LeftRail.plateContentRect
+                == CGRect(x: 0, y: 0, width: 1, height: 1),
+            "Cropping the source texture flattens the painted top and bottom caps"
+        )
+    }
+
     @Test func leftRailPlatePreservesArtAspect() {
         let artAspect = HUDChromeLayout.LeftRail.artAspectWidthOverHeight
         for size in representativeSizes {

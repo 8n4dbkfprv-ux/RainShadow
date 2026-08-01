@@ -35,8 +35,9 @@ enum HUDChromeLayout {
         /// Hit target is slightly larger than the icon for fat-finger / mouse ease.
         static let hitPadding: CGFloat = 6
 
-        /// Texture crop of the opaque plate (SpriteKit bottom-left origin).
-        static let plateContentRect = CGRect(x: 0.01, y: 0.01, width: 0.98, height: 0.98)
+        /// Full texture bounds (SpriteKit bottom-left origin). The painted top and
+        /// bottom ornaments reach the source edges, so even a 1% crop clips them.
+        static let plateContentRect = CGRect(x: 0, y: 0, width: 1, height: 1)
     }
 
     struct LeftRailLayout: Equatable {
