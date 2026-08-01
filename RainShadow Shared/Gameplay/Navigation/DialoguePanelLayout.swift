@@ -109,7 +109,7 @@ struct DialoguePanelLayout: Equatable {
 
     /// Continue / End control size and placement under the dialogue panel.
     static let commandHeight: CGFloat = 48
-    /// Reference-shaped command artwork (`dialogue_command_button_plate_v06` 1024×116).
+    /// Reference-shaped command artwork (`dialogue_command_button_plate_v07` 1024×116).
     static let commandArtPixelSize = CGSize(width: 1_024, height: 116)
     static let commandArtAspectWidthOverHeight: CGFloat = 1_024.0 / 116.0
     /// The authored bar already has the correct low-wide silhouette; scale it as one piece.

@@ -640,6 +640,79 @@ def _apply_sidebar_well_texture_to_command(im: Image.Image) -> Image.Image:
     return Image.fromarray(rgba, "RGBA")
 
 
+def process_dialogue_command_v07() -> None:
+    """Finish sidebar-matched CONTINUE/END plates (idle/hover/pressed)."""
+    idle_master = GEN / "Dialogue/dialogue_command_button_plate_v07_gen.png"
+    if not idle_master.exists():
+        raise FileNotFoundError(f"Missing V07 command master: {idle_master}")
+
+    keyed = force_grayscale(chroma_key(Image.open(idle_master)))
+    alpha = Image.fromarray(np.array(keyed)[:, :, 3]).filter(ImageFilter.MinFilter(3))
+    rgba = np.array(keyed)
+    rgba[:, :, 3] = np.array(alpha)
+    rgba[rgba[:, :, 3] < 8] = 0
+    trimmed = trim_alpha(Image.fromarray(rgba, "RGBA"), threshold=28, pad=2)
+    idle = stretch_to_canvas(trimmed, (1024, 116))
+    idle = _dialogue_v05p_keep_chrome(idle)
+    idle = _match_dialogue_to_sidebar_luma(idle)
+    rgb = idle.convert("RGB").filter(
+        ImageFilter.UnsharpMask(radius=0.8, percent=70, threshold=2)
+    )
+    out = np.array(rgb.convert("RGBA"))
+    out[:, :, 3] = np.array(stretch_to_canvas(trimmed, (1024, 116)))[:, :, 3]
+    out[out[:, :, 3] < 8] = 0
+    idle = Image.fromarray(out, "RGBA")
+    idle = _dialogue_v05p_keep_chrome(idle)
+
+    idle_keyed = GEN / "Dialogue/dialogue_command_button_plate_v07_keyed.png"
+    idle_runtime = RUNTIME / "Dialogue/dialogue_command_button_plate_v07.png"
+    idle.save(idle_keyed)
+    idle_runtime.parent.mkdir(parents=True, exist_ok=True)
+    idle.save(idle_runtime)
+    print(f"wrote {idle_keyed} ({idle.size})")
+    print(f"wrote {idle_runtime} ({idle.size})")
+
+    # Deterministic hover/pressed derivatives keep the idle silhouette byte-for-byte.
+    arr = np.array(idle).astype(np.float32)
+    alpha_f = arr[:, :, 3:4]
+    rgb_f = arr[:, :, :3]
+    mask = arr[:, :, 3] > 32
+    gray = rgb_f.mean(axis=2, keepdims=True)
+    blur = np.array(
+        Image.fromarray(gray[:, :, 0].astype(np.uint8), "L").filter(
+            ImageFilter.GaussianBlur(2)
+        ),
+        dtype=np.float32,
+    )[..., None]
+    high = np.clip(gray - blur, -40, 40)
+
+    hover_rgb = np.clip(rgb_f * 1.14 + 12 + np.maximum(high, 0) * 0.55, 0, 255)
+    hover = np.dstack([hover_rgb, alpha_f[:, :, 0]])
+    hover[~mask] = 0
+    hover_im = Image.fromarray(hover.astype(np.uint8), "RGBA")
+
+    press_rgb = np.clip(rgb_f * 0.78 - 6 - high * 0.85, 0, 255)
+    shifted = np.zeros_like(press_rgb)
+    shifted[1:, 1:] = press_rgb[:-1, :-1]
+    valid = np.zeros(press_rgb.shape[:2], dtype=bool)
+    valid[1:, 1:] = mask[:-1, :-1]
+    press_rgb[valid] = shifted[valid]
+    press = np.dstack([press_rgb, alpha_f[:, :, 0]])
+    press[~mask] = 0
+    press_im = Image.fromarray(press.astype(np.uint8), "RGBA")
+
+    for label, image in (
+        ("hover", hover_im),
+        ("pressed", press_im),
+    ):
+        keyed_path = GEN / f"Dialogue/dialogue_command_button_plate_v07_{label}_keyed.png"
+        runtime_path = RUNTIME / f"Dialogue/dialogue_command_button_plate_v07_{label}.png"
+        image.save(keyed_path)
+        image.save(runtime_path)
+        print(f"wrote {keyed_path} ({image.size})")
+        print(f"wrote {runtime_path} ({image.size})")
+
+
 def process_dialogue_noir_v08() -> None:
     """Finish the complete sidebar-matched V08 dialogue frame redo."""
     frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v08_gen.png"
@@ -751,6 +824,7 @@ def process_dialogue_noir_v06() -> None:
 
 def process_dialogue() -> None:
     process_dialogue_noir_v08()
+    process_dialogue_command_v07()
     process_dialogue_noir_v07()
     process_dialogue_noir_v06()
 
@@ -1149,6 +1223,8 @@ def main() -> None:
         process_dialogue_noir_v07()
     if "dialogue-noir-v08" in targets:
         process_dialogue_noir_v08()
+    if "dialogue-command-v07" in targets:
+        process_dialogue_command_v07()
     if "scrollbar" in targets:
         process_dialogue_scrollbar_system7_v06()
     if "inventory" in targets:
