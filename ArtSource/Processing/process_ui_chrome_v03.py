@@ -460,53 +460,59 @@ def crop_square_button(im: Image.Image) -> Image.Image:
     return trimmed.crop((0, 0, side, side))
 
 
+def _dialogue_v05p_keep_chrome(im: Image.Image) -> Image.Image:
+    """Clear fully transparent pixels while preserving the generated soft matte."""
+    out = np.array(im.convert("RGBA"))
+    transparent = out[:, :, 3] < 8
+    out[transparent] = 0
+    return Image.fromarray(out, "RGBA")
+
+
 def process_dialogue() -> None:
     # Overlay contract: metal rails stay opaque; portrait window + text well are
     # transparent so live portrait + SKLabel body text show through (code owns both).
-    # Earlier builds left those wells opaque near-black, which buried speech entirely.
-    master = copy_gen(
-        "dialogue_outer_frame_overlay_v04e_gen.png",
-        GEN / "Dialogue/dialogue_outer_frame_overlay_v04_gen.png",
-    )
-    keyed = force_grayscale(chroma_key(Image.open(master)))
+    # V05 is rail-free on the right (no painted scrollbar channel) — continuous blank
+    # well; live scroll controls overlay that gutter when needed. The generated source
+    # already keys both live-content holes, so preserve its full blackened-steel / leather
+    # construction instead of reducing it to a synthetic uniform rim.
+    master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05p_gen.png"
+    if not master.exists():
+        master = copy_gen(
+            "dialogue_outer_frame_overlay_v05p_gen.png",
+            master,
+        )
+    keyed_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v05_keyed.png"
+    keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
     keyed = trim_alpha(keyed)
-    # Flat black wells only (lum ~0–17). Do not use a high luma threshold — dark
-    # gunmetal rails sit around 30–80 and must stay opaque as the frame.
-    keyed = punch_dark_wells(keyed, luma_max=22.0)
-    # Surgical opens for the painted portrait window + main text column (inset so
-    # gold/metal rims are not eaten). Portrait fractions must track
-    # DialoguePanelLayout.portraitWindow* — an older punch started at y=0.22 while
-    # layout opens the well at y=0.10, which left dark scrap pixels floating over
-    # the live portrait forehead.
-    keyed = punch_rect(keyed, (0.060, 0.115, 0.141, 0.290))
-    keyed = punch_rect(keyed, (0.255, 0.14, 0.575, 0.72))
     out = stretch_to_canvas(keyed, (1720, 730))
-    # Final safety: clear any leftover interior floaters inside the live photo square
-    # (layout photo is inset from the painted window). Rim metal stays outside this rect.
-    out = punch_rect(out, (0.064, 0.106, 0.132, 0.308))
-    runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v04.png"
+    out = _dialogue_v05p_keep_chrome(out)
+    runtime = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v05.png"
     runtime.parent.mkdir(parents=True, exist_ok=True)
     out.save(runtime)
     print(f"wrote {runtime} ({out.size})")
 
-    master = copy_gen(
-        "dialogue_command_button_plate_v03d_gen.png",
-        GEN / "Dialogue/dialogue_command_button_plate_v03_gen.png",
-    )
-    keyed = force_grayscale(chroma_key(Image.open(master)))
-    keyed = blank_button_interior(trim_alpha(keyed))
+    # V04: matching noir CONTINUE/END plate; the generated source has no baked label.
+    master = GEN / "Dialogue/dialogue_command_button_plate_v04_gen.png"
+    if not master.exists():
+        master = copy_gen(
+            "dialogue_command_button_plate_v04_gen.png",
+            master,
+        )
+    keyed_master = GEN / "Dialogue/dialogue_command_button_plate_v04_keyed.png"
+    keyed = Image.open(keyed_master) if keyed_master.exists() else chroma_key(Image.open(master))
+    keyed = trim_alpha(keyed)
     out = stretch_to_canvas(keyed, (512, 128))
-    # Lift interior so CONTINUE plate reads under dark scene lighting.
+    # Gently lift the leather face while keeping its generated grain under the live label.
     rgba = np.array(out)
     h, w = rgba.shape[:2]
-    y0, y1 = int(0.18 * h), int(0.82 * h)
-    x0, x1 = int(0.06 * w), int(0.94 * w)
+    y0, y1 = int(0.16 * h), int(0.84 * h)
+    x0, x1 = int(0.05 * w), int(0.95 * w)
     face = rgba[y0:y1, x0:x1]
     rgb = face[:, :, :3].astype(np.float32)
-    face[:, :, :3] = np.clip(rgb * 0.55 + 95 * 0.45, 55, 160).astype(np.uint8)
+    face[:, :, :3] = np.clip(rgb * 0.78 + 52 * 0.22, 18, 130).astype(np.uint8)
     rgba[y0:y1, x0:x1] = face
     out = Image.fromarray(rgba, "RGBA")
-    runtime = RUNTIME / "Dialogue/dialogue_command_button_plate_v03.png"
+    runtime = RUNTIME / "Dialogue/dialogue_command_button_plate_v04.png"
     out.save(runtime)
     print(f"wrote {runtime} ({out.size})")
 

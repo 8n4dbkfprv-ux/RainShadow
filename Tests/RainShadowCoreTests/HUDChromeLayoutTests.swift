@@ -174,10 +174,12 @@ struct HUDChromeLayoutTests {
                 window.insetBy(dx: -0.5, dy: -0.5).contains(photo),
                 "Dialogue portrait photo outside window at \(size)"
             )
-            #expect(abs(photo.width - photo.height) < 0.01)
-            // Photo must be strictly smaller than (or equal with inset) the window.
-            #expect(photo.width <= window.width - DialoguePanelLayout.portraitInnerInset + 0.5)
-            #expect(photo.height <= window.height - DialoguePanelLayout.portraitInnerInset + 0.5)
+            // Photo fills the measured hole (slightly taller than wide on v05) — not forced square.
+            let inset = DialoguePanelLayout.portraitInnerInset
+            #expect(abs(photo.width - (window.width - inset * 2)) < 0.5)
+            #expect(abs(photo.height - (window.height - inset * 2)) < 0.5)
+            #expect(photo.width <= window.width - inset + 0.5)
+            #expect(photo.height <= window.height - inset + 0.5)
         }
     }
 

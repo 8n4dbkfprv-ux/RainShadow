@@ -10,16 +10,16 @@ struct DialoguePanelLayout: Equatable {
     /// Fixed width of the Mac OS 9–style scrollbar chrome column.
     static let scrollbarWidth: CGFloat = 30
 
-    /// Horizontal center of the recessed scrollbar channel painted into
-    /// `dialogue_outer_frame_overlay_v04`, measured from the 1720 px source art.
+    /// Horizontal center of the blank right gutter reserved for the live scrollbar
+    /// on `dialogue_outer_frame_overlay_v05` (no painted channel — continuous well).
     static let paintedScrollbarCenterXFraction: CGFloat = 1_607.0 / 1_720.0
 
-    /// Inner horizontal limits of the painted right-hand channel. The live controls
-    /// must remain inside these bounds rather than floating in the dialogue well.
+    /// Inner horizontal limits of the blank right gutter. The live controls
+    /// must remain inside these bounds rather than floating over dialogue text.
     static let paintedScrollbarRailLeftFraction: CGFloat = 0.905
     static let paintedScrollbarRailRightFraction: CGFloat = 0.965
 
-    /// Vertical insets of the recessed channel measured from the frame artwork.
+    /// Vertical insets of the blank right gutter measured from the frame artwork.
     static let paintedScrollbarInsetBottomFraction: CGFloat = 0.075
     static let paintedScrollbarInsetTopFraction: CGFloat = 0.075
 
@@ -64,12 +64,11 @@ struct DialoguePanelLayout: Equatable {
     static let legacyHorizontalMarginMax: CGFloat = 40
 
     /// Inset of the text viewport from the panel bottom so body/choices clear the
-    /// ornate oxblood corners and bottom rail of the dialogue frame (~10% of art).
-    static let contentInsetFromPanelBottom: CGFloat = 36
+    /// slightly weightier leather-faced lower rail of the v05p dialogue frame.
+    static let contentInsetFromPanelBottom: CGFloat = 20
 
-    /// Distance from panel top to the speaker name (under the frame crown).
-    /// Measured against `dialogue_outer_frame_overlay_v04` top metal (~8–10% of texture).
-    static let speakerTopInset: CGFloat = 34
+    /// Distance from panel top to the speaker name (under the slim v05p top rim).
+    static let speakerTopInset: CGFloat = 22
     /// Vertical space reserved for the speaker name line (font + breathing room).
     static let speakerNameLineHeight: CGFloat = 22
     /// Gap between the speaker name and the dialogue body.
@@ -86,13 +85,17 @@ struct DialoguePanelLayout: Equatable {
     /// Extra slack under measured body text when snugging the choice band upward.
     static let bodyContentBottomSlack: CGFloat = 10
 
-    /// Outer metal rails on the uniformly scaled frame (opaque art lives ~0.13–0.87).
+    /// Outer metal rails on the uniformly scaled v05p frame.
+    /// Measured on `dialogue_outer_frame_overlay_v05` (1720×730): the transparent main
+    /// opening begins about 0.025 from the left and 0.05 from the top. Keep the black plate
+    /// **under** the metal (inset ~0.018) so it fills flush to the frame — larger insets
+    /// left a strip of scene bleed at the top of the well.
     /// The frame is drawn with **uniform scale** (no nine-slice) so the painted portrait
     /// window stays aligned with layout fractions — nine-slice fixed corners previously
     /// pushed the gold window right of the live portrait.
-    static let frameContentWellInsetXFraction: CGFloat = 0.145
-    static let frameContentWellInsetBottomFraction: CGFloat = 0.10
-    static let frameContentWellInsetTopFraction: CGFloat = 0.10
+    static let frameContentWellInsetXFraction: CGFloat = 0.018
+    static let frameContentWellInsetBottomFraction: CGFloat = 0.018
+    static let frameContentWellInsetTopFraction: CGFloat = 0.018
     /// Identity centerRect = stretch whole texture uniformly with `size`.
     static let frameNineSliceCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 
@@ -126,28 +129,28 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v04` 1720×730).
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v05` 1720×730).
     static let frameArtPixelSize = CGSize(width: 1_720, height: 730)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
     static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 730.0
 
-    /// Painted portrait window on `dialogue_outer_frame_overlay_v04` (unit fractions of the
-    /// full texture, including outer transparent padding). Measured from the shipped PNG
-    /// metal notch (left open band ~0.05–0.21, top rail under crown ~0.10–0.42).
-    /// `process_ui_chrome_v03.process_dialogue` must punch this same well (plus a slight
-    /// inset) so leftover opaque scrap cannot float over the live portrait.
+    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v05` (unit fractions
+    /// of the full 1720×730 texture). Measured from the transparent TL well (alpha punch):
+    /// x≈64…218, y≈58…222 — the metal bezel sits outside this rect and is drawn by the frame.
+    /// `process_ui_chrome_v03.process_dialogue` must punch the interior only (keep the rim).
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
-    static let portraitWindowLeftFraction: CGFloat = 0.053
-    static let portraitWindowWidthFraction: CGFloat = 0.155
-    static let portraitWindowTopFraction: CGFloat = 0.10
-    static let portraitWindowHeightFraction: CGFloat = 0.32
-    /// Inset inside the painted window so the photo clears the rim metal.
-    static let portraitInnerInset: CGFloat = 4
+    static let portraitWindowLeftFraction: CGFloat = 0.0372
+    static let portraitWindowWidthFraction: CGFloat = 0.0895
+    static let portraitWindowTopFraction: CGFloat = 0.0795
+    static let portraitWindowHeightFraction: CGFloat = 0.2247
+    /// Hairline tuck under the bezel so the photo meets the metal with no black ring.
+    /// Kept tiny — large insets left a visible gap between photo and frame.
+    static let portraitInnerInset: CGFloat = 0.5
     /// Gap from portrait window’s right rail to the text column (must clear the bezel).
-    static let portraitToTextGap: CGFloat = 12
-    /// Main text well left edge on the art (right of the portrait column chrome) as a floor.
-    static let textColumnMinLeftFraction: CGFloat = 0.24
+    static let portraitToTextGap: CGFloat = 14
+    /// Main text well left edge on the art (right of the portrait bezel) as a floor.
+    static let textColumnMinLeftFraction: CGFloat = 0.185
 
     /// Fallback HUD rail widths when a viewport is not available (tests / early layout).
     /// Prefer `HUDChromeLayout.leftRailClearance` / `rightRailClearance` when possible.
@@ -302,24 +305,26 @@ struct DialoguePanelLayout: Equatable {
         return min(panelWidthCap, max(1, available))
     }
 
-    /// Live photo rect fully inside the painted portrait window (panel space).
+    /// Live photo rect filling the painted portrait hole (panel space).
+    /// Matches the hole aspect (slightly taller than wide on v05) so the square source
+    /// art covers edge-to-edge under the metal bezel — no forced square letterboxing.
     static func portraitPhotoRect(in panelRect: CGRect) -> CGRect {
         let window = portraitWindowRect(in: panelRect)
         let inset = portraitInnerInset
-        let side = max(1, min(window.width, window.height) - inset * 2)
+        let photo = window.insetBy(dx: inset, dy: inset)
         return CGRect(
-            x: window.midX - side / 2,
-            y: window.midY - side / 2,
-            width: side,
-            height: side
+            x: photo.minX,
+            y: photo.minY,
+            width: max(1, photo.width),
+            height: max(1, photo.height)
         )
     }
 
     /// Core layout from an authored panel rect (also used by tests with fixed sizes).
     static func layout(panelRect: CGRect) -> DialoguePanelLayout {
-        // The scrollbar is a live control inside the dedicated recessed channel painted
-        // into the frame's right bar. The frame is aspect-locked, so source-art fractions
-        // keep the control aligned at every supported viewport size.
+        // The scrollbar is a live control in the blank right gutter of the rail-free
+        // v05 frame (no painted channel). The frame is aspect-locked, so source-art
+        // fractions keep the control aligned at every supported viewport size.
         let scrollbarBottomInset = panelRect.height * paintedScrollbarInsetBottomFraction
         let scrollbarTopInset = panelRect.height * paintedScrollbarInsetTopFraction
         let scrollbarHeight = max(
@@ -365,7 +370,7 @@ struct DialoguePanelLayout: Equatable {
         )
 
         // Opaque black plate for the frame's main interior hole: portrait and dialogue
-        // content. The painted right-hand rail supplies its own recessed background.
+        // content. The blank right gutter stays clear for the live scrollbar overlay.
         let resolvedWell = contentWellRect(for: panelRect, scrollbarRect: scrollbarRect)
 
         return DialoguePanelLayout(
@@ -388,20 +393,20 @@ struct DialoguePanelLayout: Equatable {
         return CGRect(x: x, y: y, width: width, height: height)
     }
 
-    /// Black fill covering the dialogue interior up to the painted scrollbar rail.
+    /// Black fill covering the dialogue interior up to the blank right scrollbar gutter.
+    /// Sized to sit under the slim v05 metal rim so the transparent well never shows the scene.
     static func contentWellRect(for panelRect: CGRect, scrollbarRect: CGRect) -> CGRect {
-        // Opaque frame metal lives at ~0.13–0.87 of the texture; stay inside that hole.
-        let insetX = panelRect.width * 0.145
-        let insetBottom = panelRect.height * 0.09
-        let insetTop = panelRect.height * 0.09
+        let insetX = panelRect.width * frameContentWellInsetXFraction
+        let insetBottom = panelRect.height * frameContentWellInsetBottomFraction
+        let insetTop = panelRect.height * frameContentWellInsetTopFraction
         var well = CGRect(
             x: panelRect.minX + insetX,
             y: panelRect.minY + insetBottom,
             width: max(1, panelRect.width - insetX * 2),
             height: max(1, panelRect.height - insetBottom - insetTop)
         )
-        // Fill the gutter up to the rail's left edge, but do not paint over the
-        // recessed channel artwork that now contains the live controls.
+        // Fill the gutter up to the rail's left edge so the blank right column is also black
+        // under the live scrollbar chrome.
         let scrollCoverage = CGRect(
             x: well.maxX,
             y: well.minY,
@@ -410,10 +415,10 @@ struct DialoguePanelLayout: Equatable {
         )
         well = well.union(scrollCoverage).intersection(
             CGRect(
-                x: panelRect.minX + panelRect.width * 0.12,
-                y: panelRect.minY + panelRect.height * 0.06,
-                width: max(1, scrollbarRect.minX - panelRect.minX - panelRect.width * 0.12),
-                height: panelRect.height * 0.88
+                x: panelRect.minX + insetX,
+                y: panelRect.minY + insetBottom,
+                width: max(1, scrollbarRect.minX - panelRect.minX - insetX),
+                height: max(1, panelRect.height - insetBottom - insetTop)
             )
         )
         if well.isNull || well.isEmpty {

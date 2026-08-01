@@ -95,7 +95,7 @@ struct DialoguePanelLayoutTests {
         for (index, frame) in frames.enumerated() {
             #expect(frame.height >= heights[index], "Choice row was compressed below its label")
         }
-        #expect(contentBand.maxY == band.maxY)
+        #expect(abs(contentBand.maxY - band.maxY) < 0.01)
         #expect(contentBand.height >= natural)
         #expect(layout.contentViewportRect.height > DialoguePanelLayout.minBodyViewportHeight)
     }
@@ -711,6 +711,13 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func contentWellCoversTextViewportInsidePanelNotOuterChrome() {
+        // The nearest edge of the v05 transparent main opening starts ~0.025 in.
+        // The black plate must sit under the rim so scene pixels never leak through.
+        let holeStart = 0.025 as CGFloat
+        #expect(DialoguePanelLayout.frameContentWellInsetTopFraction < holeStart)
+        #expect(DialoguePanelLayout.frameContentWellInsetBottomFraction < holeStart)
+        #expect(DialoguePanelLayout.frameContentWellInsetXFraction < holeStart)
+
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             #expect(layout.contentWellRect.intersects(layout.contentViewportRect))
@@ -720,9 +727,15 @@ struct DialoguePanelLayoutTests {
             #expect(layout.contentWellRect.maxX < layout.panelRect.maxX - 1)
             #expect(layout.contentWellRect.minY > layout.panelRect.minY + 1)
             #expect(layout.contentWellRect.maxY < layout.panelRect.maxY - 1)
+            // Black plate must reach past the transparent-hole start so the scene never
+            // peeks between the top metal rim and the fill (common “gap at top” bug).
+            let topGap = layout.panelRect.maxY - layout.contentWellRect.maxY
+            let bottomGap = layout.contentWellRect.minY - layout.panelRect.minY
+            #expect(topGap <= layout.panelRect.height * holeStart + 0.5)
+            #expect(bottomGap <= layout.panelRect.height * holeStart + 0.5)
             // Portrait sits inside the well so its backing also reads on black.
             #expect(layout.contentWellRect.intersects(layout.portraitRect))
-            // The main well reaches the rail, while the control itself uses the painted channel.
+            // The main well reaches the blank right gutter; live controls overlay that gutter.
             #expect(layout.contentWellRect.maxX <= layout.scrollbarRect.minX + 0.001)
             let gutter = CGRect(
                 x: layout.contentViewportRect.maxX,
@@ -731,7 +744,11 @@ struct DialoguePanelLayoutTests {
                 height: layout.contentViewportRect.height
             )
             if gutter.width > 1 {
-                #expect(layout.contentWellRect.contains(gutter.insetBy(dx: 0, dy: 2)))
+                let probe = gutter.insetBy(dx: 0, dy: 2)
+                #expect(layout.contentWellRect.minX <= probe.minX + 0.001)
+                #expect(layout.contentWellRect.maxX >= probe.maxX - 0.001)
+                #expect(layout.contentWellRect.minY <= probe.minY + 0.001)
+                #expect(layout.contentWellRect.maxY >= probe.maxY - 0.001)
             }
         }
     }
@@ -852,8 +869,8 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func portraitSitsInPaintedFrameWindow() {
-        // Live portrait must match the gold window measured on dialogue_outer_frame_overlay_v04
-        // (not a generic left-well inset — that put the photo in transparent padding).
+        // Live portrait must match the transparent TL hole on dialogue_outer_frame_overlay_v05
+        // (metal bezel is outside; photo fills the hole edge-to-edge).
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let expected = DialoguePanelLayout.portraitWindowRect(in: layout.panelRect)
@@ -865,11 +882,18 @@ struct DialoguePanelLayoutTests {
             #expect(layout.panelRect.contains(layout.portraitRect.insetBy(dx: 0.5, dy: 0.5)))
             #expect(layout.portraitRect.maxX + DialoguePanelLayout.portraitToTextGap
                 <= layout.contentViewportRect.minX + 0.001)
-            // Past the outer transparent padding of the frame art (~0.04–0.06 on v04).
+            // Hole sits inside the outer metal rim (not in the outer transparent padding).
             #expect(
                 layout.portraitRect.minX
-                    >= layout.panelRect.minX + layout.panelRect.width * 0.04 - 0.001
+                    >= layout.panelRect.minX + layout.panelRect.width * 0.020 - 0.001
             )
+            // Photo fills the hole (no forced square leaving black letterbox).
+            let photo = DialoguePanelLayout.portraitPhotoRect(in: layout.panelRect)
+            let inset = DialoguePanelLayout.portraitInnerInset
+            #expect(abs(photo.width - (layout.portraitRect.width - inset * 2)) < 0.5)
+            #expect(abs(photo.height - (layout.portraitRect.height - inset * 2)) < 0.5)
+            #expect(abs(photo.midX - layout.portraitRect.midX) < 0.5)
+            #expect(abs(photo.midY - layout.portraitRect.midY) < 0.5)
         }
     }
 

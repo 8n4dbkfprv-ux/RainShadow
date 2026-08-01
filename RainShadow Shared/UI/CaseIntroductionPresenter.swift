@@ -146,22 +146,23 @@ final class CaseIntroductionPresenter: SKNode {
             transform: nil
         )
 
-        contentWell.path = roundedRect(geometry.contentWellRect, radius: 2)
+        // Square plate under the slim metal rim — no corner radius gap at the top of the well.
+        contentWell.path = roundedRect(geometry.contentWellRect, radius: 0)
         frameOverlay.position = CGPoint(x: panelRect.midX, y: panelRect.midY)
         frameOverlay.size = panelRect.size
 
         let portraitRect = geometry.portraitRect
         let photoRect = DialoguePanelLayout.portraitPhotoRect(in: geometry.panelRect)
-        // Backing fills the painted window; live photo is a square fully inside the rim.
-        portraitBacking.path = roundedRect(portraitRect, radius: 1)
+        // Backing + photo both fill the measured portrait hole; frame metal draws the rim on top.
+        portraitBacking.path = roundedRect(portraitRect, radius: 0)
         portrait.position = CGPoint(x: photoRect.midX, y: photoRect.midY)
         portrait.size = CGSize(width: photoRect.width, height: photoRect.height)
 
-        // Speaker sits in the text column only — never over the portrait gold rails.
-        let speakerX = geometry.contentViewportRect.minX
+        // Speaker + body share one text-column left edge (no stair-step indent).
+        let textColumnX = geometry.contentViewportRect.minX
             + DialoguePanelLayout.bodyTextHorizontalInset
         let speakerTop = panelRect.maxY - DialoguePanelLayout.speakerTopInset
-        speakerLabel.position = CGPoint(x: speakerX, y: speakerTop)
+        speakerLabel.position = CGPoint(x: textColumnX, y: speakerTop)
         dialogueLabel.preferredMaxLayoutWidth = DialoguePanelLayout.inlineBodyTextMaxWidth(
             contentViewport: geometry.contentViewportRect
         )
@@ -180,9 +181,13 @@ final class CaseIntroductionPresenter: SKNode {
     ) {
         bodyViewportRect = bodyViewport
         choicesBandRect = choicesBand
+        // Match speaker X exactly (same inset from the shared content column).
         let textLeft = bodyViewport.minX + DialoguePanelLayout.bodyTextHorizontalInset
         contentMask.path = CGPath(rect: bodyViewport, transform: nil)
         dialogueLabel.position = CGPoint(x: textLeft, y: bodyViewport.maxY)
+        if abs(speakerLabel.position.x - textLeft) > 0.01 {
+            speakerLabel.position.x = textLeft
+        }
 
         _ = bodyContentHeight
     }
@@ -516,7 +521,8 @@ final class CaseIntroductionPresenter: SKNode {
         choicesRoot.name = "dialogue.choices-band"
         choicesCrop.addChild(choicesRoot)
 
-        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
+        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
+            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
             commandPlate.texture = texture
             commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
             commandPlate.color = .white
@@ -537,13 +543,14 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v04.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v05.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
         guard let texture else { return false }

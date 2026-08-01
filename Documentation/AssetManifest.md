@@ -326,8 +326,8 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `hud_action_*_v03` | 12 | 128×128 | Painted noir action icons: menu, map, journal, inventory, character, leads, contacts, settings, rest, help, hide-ui, clock. Hover/pressed via code tint; disabled uses alpha. |
 | P0 | `hud_party_*_v03` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
 | P0 | `hud_portrait_frame_v03` | 1 | 1086×1448 | Transparent portrait bezel matching v03 rail language; code owns HP text and condition tint. |
-| P0 | `dialogue_outer_frame_overlay_v04` | 1 | 1720×730 | Thick BG-like dialogue plaque; **transparent** text well + portrait window (metal rails only) so live text/portrait show through; side mid-edge tabs. |
-| P0 | `dialogue_command_button_plate_v03` | 1 | 512×128 | Empty END/CONTINUE command plate; code draws label. |
+| P0 | `dialogue_outer_frame_overlay_v05` | 1 | 1720×730 | Original BG-hierarchy × noir dialogue plaque in blackened steel and smoked leather; compact TL portrait bezel; **transparent** text well + portrait window; **no painted scrollbar channel**. |
+| P0 | `dialogue_command_button_plate_v04` | 1 | 512×128 | Matching rain-scratched noir END/CONTINUE command plate with an empty leather face; code draws label. |
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
