@@ -215,7 +215,7 @@ Design continuity rules:
 
 - same face, clean-shaven early-thirties features, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
 - the overcoat is designed as a few compact, nearly bilateral masses at sprite scale so legacy-style mirroring remains readable;
-- V11 actor sprites are bare-headed to match the inventory paperdoll (short dark hair only; no fedora). The paperdoll remains a relaxed BG inventory idle so the face reads;
+- V12 actor sprites are bare-headed and craft-locked to the inventory paperdoll (short dark hair only; no fedora; clean coat hem; paperdoll detail density). The paperdoll remains a relaxed BG inventory idle so the face reads;
 - hands never gain/remove fingers or swap object silhouettes;
 - no baked background or contact shadow;
 - feet/seat use the same ground pivot across the sequence.
@@ -252,11 +252,11 @@ lila_departure_ne_00.png ... lila_departure_ne_07.png
 lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
-Atlases (target shipped set — Voss V11 paperdoll identity + Lila V11 bob/dress, both on V7 BGEE crunch; until V11 cells land, runtime still carries V8 Voss + V10 Lila):
+Atlases (shipped set — Voss V12 paperdoll identity/craft + Lila V11 bob/dress, both on V7 BGEE crunch):
 
-- `VossSeatedIdle.atlas` — seated idle body frames.
+- `VossSeatedIdle.atlas` — seated idle body frames (SE from V12; NE desk from V12 shared-scale).
 - `VossSeatedArms.atlas` — derived seated forearm overlay (draws above the desk's front occluder).
-- `VossSeatTransitions.atlas` — stand-up and sit-down clips.
+- `VossSeatTransitions.atlas` — stand-up and sit-down clips (SE + NE).
 - `VossIdle.atlas` — all standing idles (including mirrored SE copies).
 - `VossWalk.atlas` — all walk directions.
 - `LilaArrival.atlas` — Lila March V11 arrival, standing idle, and NE/NW departure.

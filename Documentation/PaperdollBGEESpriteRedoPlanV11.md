@@ -1,6 +1,6 @@
 # Paperdoll → BGEE Sprite Redo Plan (V11)
 
-- Status: ready for generation gate
+- Status: superseded for Voss room sprites by [PaperdollBGEESpriteRedoPlanV12](PaperdollBGEESpriteRedoPlanV12.md) (Voss V12 installed). Lila V11 bob/dress content from this pass remains current.
 - Version: 1.0
 - Date: 2 August 2026
 - Scope: **Harlan Voss full atlas set** + **Lila March arrival/departure set** + matching dialogue portraits; inventory paperdoll already shipped as pose V11

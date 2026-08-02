@@ -15,7 +15,8 @@ This package defines the creative and technical baseline for RainShadow's first 
 5. [Proposed Xcode Project Structure](ProjectStructure.md) — target strategy, folder tree, key Swift files, resource organization, and migration map from the stock template.
 6. [Dialogue System Roadmap](DialogueSystemRoadmap.md) — prioritized plan to close evidence-gated dialogue gaps vs Infinity Engine–class systems (state, triggers, actions, journal-on-transition, multi-graph). Docs only until a dialogue milestone is scheduled.
 7. [BGEE Character Sprite Redo Plan (V5)](BGEECharacterSpriteRedoPlan.md) — superseded plan document; the shipped V6 redesign (see `ArtSource/Prompts/character_prerendered_3d_v06.md`) regenerated the actors as Harlan Voss / Lila March with new BGEE-style identities at full AssetManifest density.
-8. [Paperdoll → BGEE Sprite Redo Plan (V11)](PaperdollBGEESpriteRedoPlanV11.md) — active plan: drive Voss gameplay atlases from the approved inventory paperdoll through the V7 BGEE preprocess (bare-headed); regenerate Lila with blunt bob + fitted 1940s emerald day dress.
+8. [Paperdoll → BGEE Sprite Redo Plan (V11)](PaperdollBGEESpriteRedoPlanV11.md) — superseded for Voss room sprites; Lila V11 bob/dress from this pass remains current.
+9. [Paperdoll → BGEE Sprite Redo Plan (V12)](PaperdollBGEESpriteRedoPlanV12.md) — installed: Voss atlases re-locked to paperdoll identity + craft density through V7 BGEE preprocess (SE + NE desk); Lila untouched.
 
 ## Decisions frozen for Milestone 01
 
