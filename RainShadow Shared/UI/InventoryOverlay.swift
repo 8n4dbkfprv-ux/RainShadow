@@ -33,7 +33,8 @@ final class InventoryOverlay: SKNode {
 
         static let titleY: CGFloat = 490
         static let identityBand = CGPoint(x: -40, y: 432)
-        static let closeButton = CGPoint(x: -910, y: 505)
+        // Centered in the painted V04 close well (smaller top-left square).
+        static let closeButton = CGPoint(x: -748, y: 484)
 
         static let primaryY: CGFloat = 95
 
