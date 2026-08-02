@@ -373,7 +373,8 @@ final class InventoryOverlay: SKNode {
         chamber.addChild(floorLight)
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
-            detectiveTexture.filteringMode = .linear
+            // Nearest keeps the paperdoll crunch sharp; linear re-fuzzes the raster.
+            detectiveTexture.filteringMode = .nearest
             let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 210, height: 315))
             paperdoll.name = "inventory.paperdoll"
             paperdoll.position = CGPoint(x: 0, y: -6)
