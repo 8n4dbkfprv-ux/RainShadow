@@ -429,9 +429,8 @@ SWIFT_CLASS("_TtC10RainShadow25CaseIntroductionPresenter")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-/// The first open area beyond the detective’s office. The city plate is much
-/// larger than the office and is paired with a persistent, tight fog reveal so
-/// discovery happens block by block instead of exposing oversized scenery.
+/// Playable Act I outdoor district. Loads a <code>CityDistrictDefinition</code> (hub or spoke)
+/// with modular V2 art, fog-of-war, and portal travel back to the office / hub.
 SWIFT_CLASS("_TtC10RainShadow17CityDistrictScene")
 @interface CityDistrictScene : BaseGameScene
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -477,10 +476,12 @@ SWIFT_CLASS("_TtC10RainShadow18GameViewController")
 @interface GameViewController : NSViewController
 - (void)viewDidLoad;
 - (void)viewDidAppear;
+- (void)viewDidLayout;
 - (nonnull instancetype)initWithNibName:(NSNibName _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
 SWIFT_CLASS("_TtC10RainShadow16InventoryOverlay")
 @interface InventoryOverlay : SKNode
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -499,6 +500,7 @@ SWIFT_CLASS("_TtC10RainShadow14JournalOverlay")
 SWIFT_CLASS("_TtC10RainShadow20OpeningExteriorScene")
 @interface OpeningExteriorScene : BaseGameScene
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)update:(NSTimeInterval)currentTime;
 @end
 
 /// Camera-fixed right party rail: cropped <code>hud_right_rail_plate_v03</code> as a compact top unit

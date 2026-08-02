@@ -262,7 +262,7 @@ final class AreaMapOverlay: SKNode {
         backing.zPosition = -11
         sheet.addChild(backing)
 
-        if let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v01") {
+        if let texture = GameArt.texture(named: "inventory_outer_frame_v05") {
             texture.filteringMode = .linear
             let frame = SKSpriteNode(texture: texture, size: Metrics.canvas)
             frame.name = "map.outer-frame"

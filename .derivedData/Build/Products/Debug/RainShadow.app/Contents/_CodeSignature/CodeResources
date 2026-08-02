@@ -6,55 +6,47 @@
 	<dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		xrpwJxwAoo4Q9+yZW4HwVXOD7Ow=
+		ShIslDCOCveSygwUJPt73pA4uKw=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		noAcONqnDE6+itdxH9rlcSC6ncQ=
+		BteS1ZVmZyFJQC4cBZWlUW5yTmU=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<data>
-		o0YRgN8E9kznFpQ7bjA4tyU7y/g=
+		jMV5hjQJUPa0i0Yh858yunT4P8U=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		pJyMig/A9w0+M6ft2Feb1yLB/s4=
+		1APMU5crncWuvS4/8kuTUE2W9tM=
 		</data>
 		<key>Resources/LilaArrival.atlasc/LilaArrival.1.png</key>
 		<data>
-		nN+t3vC19Jg84prL5l+/P+ZIHlc=
-		</data>
-		<key>Resources/LilaArrival.atlasc/LilaArrival.2.png</key>
-		<data>
-		uT8IPjr/8czNvJxbn0ipFpvPF/8=
-		</data>
-		<key>Resources/LilaArrival.atlasc/LilaArrival.3.png</key>
-		<data>
-		nMiZdMYyRCckQ4NaRH7ce1mg8Z4=
+		zSS4RHSGHW/WAvlqGLljfNF3JFw=
 		</data>
 		<key>Resources/LilaArrival.atlasc/LilaArrival.plist</key>
 		<data>
-		yNqvqi3CJLVm0bOTJG/9ZdPNlMU=
+		0DXLGfhLx9BkySYY5mL/7WAE84Q=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.1.png</key>
 		<data>
-		8VLXrUgqkqw6goA5w6kGO9glBPo=
+		LyWj//TDIUjPXi/fzGwQCTWcJls=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.2.png</key>
 		<data>
-		p3+td1xyKc6thV6D+IsDjCKuMYY=
+		tymYf6RJgDTMnvg9oW1FmW/4GNs=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.3.png</key>
 		<data>
-		Si19MPAogb8aQSXE9qwQhPaSTlA=
+		EXO+N+AQmJqe6ggDlfhKBG9ZvTA=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.4.png</key>
 		<data>
-		lN+czJxEKMcazu/TZBtWPVh2ONI=
+		Jvmid742BiTY6Emt2JLl6KpKbrY=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.5.png</key>
 		<data>
-		DkPMoVzzeNJvfhFzpy/6P96pSYU=
+		xT29n+US78BiCK6bwrf3IAZqlso=
 		</data>
 		<key>Resources/VossIdle.atlasc/VossIdle.plist</key>
 		<data>
@@ -62,27 +54,27 @@
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.1.png</key>
 		<data>
-		Rqa2r6AhGeKl/Mk2gEu+8ZS/Z7w=
+		7x9wUmeONBuFylE8kTqDKTLoL6s=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.2.png</key>
 		<data>
-		oPSQglxe2FOte/SdVBLq3AcATIk=
+		S3PDLU1SQS/lyESgThqrI0vAULE=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.3.png</key>
 		<data>
-		tNAqYs43hqpO3TahVVKstEhB2Mg=
+		tw8e2nlLJ82IcrOxKvv3RXMstGQ=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.4.png</key>
 		<data>
-		LdyaZ/S5ayty8ao1DWqRxIcNt3I=
+		Q2VzAgn/BEo5CFdUSHD08WaKDSM=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.5.png</key>
 		<data>
-		Uax1LbiqMjf/u5k0cvFOesLNeeA=
+		Ufmd1CTQmoOJUMs3NX0R9JJMOIU=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.6.png</key>
 		<data>
-		7+sMFHanu9fg89XTOXx7jvmnRIE=
+		qO5uivr8cpqsMOb4pxjDtNkACwA=
 		</data>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.plist</key>
 		<data>
@@ -102,19 +94,19 @@
 		</data>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.1.png</key>
 		<data>
-		B3a0GkdLIjRYjNmFVrF7d6krKU8=
+		jMhnNzY5OXyinRY8B2TIPvZrXMc=
 		</data>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.2.png</key>
 		<data>
-		iYtxG4V2wRgjNJ9kWRS9reIQVdI=
+		mN067JHrR/rFQ8zZQl8i5HzgkSM=
 		</data>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.3.png</key>
 		<data>
-		Q57wlJVFCvHwEoX+Pk4uP93HKQA=
+		QJJRaVP7k5KnM//Of1BMxgf0PIo=
 		</data>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.4.png</key>
 		<data>
-		gm1fA7GLZdnVVqHrmzWUq91Cf9g=
+		ej0Wa94MTEpWPy6FfOWeq5579ow=
 		</data>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.plist</key>
 		<data>
@@ -122,35 +114,35 @@
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.1.png</key>
 		<data>
-		BHII1ys/RWiK4GtM2ZL1R8o8q9k=
+		ZftuHSQv6+PcbwXMCEBppKiMYJk=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.2.png</key>
 		<data>
-		AzCS+r0FJtQxrKNXgYNA9OJEqS4=
+		Kk4f53/40JaO5Qc3O12QfBBWVn4=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.3.png</key>
 		<data>
-		crnOGgXXE+lO7TITPA3IkURhOFI=
+		ftkj4Qjbma+GE5cAHSDDu/LBkBo=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.4.png</key>
 		<data>
-		Mqq5A0z05iHZGn4FuSff/YMYFMY=
+		HlfXMsGlYnoisK/xBn07610IqsE=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.5.png</key>
 		<data>
-		kf0a9caFV8WGcY7AWlbfDXgB/ik=
+		SB2ILUzE+3QCzFPXI/1hg5ePqqI=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.6.png</key>
 		<data>
-		I72IbDZTS1gdM+RI61aS8vPkV3c=
+		xipovS+bDDEkRgBntU9zXKhNKio=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.7.png</key>
 		<data>
-		s/lR6LekJUV7WbmZaK+pFs/L51g=
+		vP3I58XzQ64YLUH33q842p2+Tf0=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.8.png</key>
 		<data>
-		bUMtnaWhmxvEOrUmNSHRCtY3HVQ=
+		jo0Cv/A/m7r0l3pV9eVm0xdloew=
 		</data>
 		<key>Resources/VossWalk.atlasc/VossWalk.plist</key>
 		<data>
@@ -168,9 +160,45 @@
 		<data>
 		slFBa5PcZUTkMeodXwFruqX70IE=
 		</data>
+		<key>Resources/city_building_abutment.png</key>
+		<data>
+		2LD1kuKp7w+FBJuARhEU6V9u0XQ=
+		</data>
+		<key>Resources/city_building_boarding.png</key>
+		<data>
+		8W9dFp+weZDz6hOJL+cCyIl7ZLM=
+		</data>
 		<key>Resources/city_building_central.png</key>
 		<data>
 		6V/3TnK8fAmp2wsRVJ+XHaYbJpo=
+		</data>
+		<key>Resources/city_building_dock_shed.png</key>
+		<data>
+		jOBGnMAHgS8Ydv3tvsQyvCWyy1g=
+		</data>
+		<key>Resources/city_building_gatehouse.png</key>
+		<data>
+		Xy3emZ/6FI91Mhk/Oti0Z8B7jkg=
+		</data>
+		<key>Resources/city_building_iron_stairs.png</key>
+		<data>
+		SqkVLT6lP1MPMOK4h7FkezmyIOM=
+		</data>
+		<key>Resources/city_building_lila_alcove.png</key>
+		<data>
+		CilKh/RwwXUCXEVCwI5FUcDVzOU=
+		</data>
+		<key>Resources/city_building_lila_neighbor.png</key>
+		<data>
+		HTJhZX+rKkOlEtD+cFnbaSHyfuU=
+		</data>
+		<key>Resources/city_building_lila_opposite.png</key>
+		<data>
+		KvABaVSGARMO1k33a5Q8KOLl5VA=
+		</data>
+		<key>Resources/city_building_lila_rooms.png</key>
+		<data>
+		m5jR3V9ABQ/FLljbsWmGT/CrHxg=
 		</data>
 		<key>Resources/city_building_mid.png</key>
 		<data>
@@ -184,13 +212,81 @@
 		<data>
 		anfqz00eKmzcXpl5YmaphmipGo8=
 		</data>
+		<key>Resources/city_building_pd_alley.png</key>
+		<data>
+		F9xIsjCoKcbXSOwJc9bSyUdJBqE=
+		</data>
+		<key>Resources/city_building_pd_annex.png</key>
+		<data>
+		Snd8Ho1jazs23fvvpmBMu9wr/7k=
+		</data>
+		<key>Resources/city_building_pd_plaza_wall.png</key>
+		<data>
+		gy7mfEmW6cDeiLe+HkBzfmbUB+g=
+		</data>
+		<key>Resources/city_building_pd_station.png</key>
+		<data>
+		6aSixYULadtKeHUb/kKwx8CPuno=
+		</data>
+		<key>Resources/city_building_rail_lamp.png</key>
+		<data>
+		66L8Yr38gW5uEHPfC5PCcqb6tF0=
+		</data>
+		<key>Resources/city_building_records_annex.png</key>
+		<data>
+		2h+a/lrAmtiF4wTdvkLn0ePnxyo=
+		</data>
+		<key>Resources/city_building_records_colonnade.png</key>
+		<data>
+		D8uJZQKGKkFIFtJMEHoCYcO7TC8=
+		</data>
+		<key>Resources/city_building_records_plaza.png</key>
+		<data>
+		aYLFS3ATOOPKPJUVElsAvDjwA6E=
+		</data>
+		<key>Resources/city_building_records_wing.png</key>
+		<data>
+		lTlMpkaMwtVocazqpiPEbNykPio=
+		</data>
+		<key>Resources/city_building_river_watch.png</key>
+		<data>
+		7z791HaH8yvjtydxyP1svcTKfaU=
+		</data>
+		<key>Resources/city_building_rowhouse.png</key>
+		<data>
+		gnyQF8qiRGj12UegTYym0Mq++VM=
+		</data>
 		<key>Resources/city_building_se.png</key>
 		<data>
 		C/KNptYXVbHWn+O4ZjIwKN8mp34=
 		</data>
+		<key>Resources/city_building_shipping_office.png</key>
+		<data>
+		Pzn9lnSeaaSuTOv2eSnM3Xdqldw=
+		</data>
+		<key>Resources/city_building_shop.png</key>
+		<data>
+		igXqkDbnb6YEPJ1v32LrHx5paSU=
+		</data>
+		<key>Resources/city_building_storefront.png</key>
+		<data>
+		DsiMkQInK0NxTGTcO1mnWW6AS50=
+		</data>
 		<key>Resources/city_building_sw.png</key>
 		<data>
 		oIBX1wv4r10v5A6lkMo9309tYkk=
+		</data>
+		<key>Resources/city_building_tenement.png</key>
+		<data>
+		uGziAuX11BufalWN+p7NUhBABug=
+		</data>
+		<key>Resources/city_building_voss_stoop.png</key>
+		<data>
+		lppSqoTM0202zkdAhHp4M4QWzHQ=
+		</data>
+		<key>Resources/city_building_warehouse.png</key>
+		<data>
+		E9Ug4c9m45t8U/1ebDzN1Xbe1vs=
 		</data>
 		<key>Resources/city_car_black.png</key>
 		<data>
@@ -204,6 +300,14 @@
 		<data>
 		Hq/kZ331zXApU/OMSFfZkmaupjA=
 		</data>
+		<key>Resources/city_civic_records_block_v02.png</key>
+		<data>
+		yl9vaoCNZMQ2kPQ+4h5XuN3t9Oc=
+		</data>
+		<key>Resources/city_civic_records_ground_v02.png</key>
+		<data>
+		KeTc2+tNsbfr29ovNDrhOaVBQGY=
+		</data>
 		<key>Resources/city_crates_mail.png</key>
 		<data>
 		wbCtbm49O3POBivEJ0FWB13cahc=
@@ -212,13 +316,125 @@
 		<data>
 		bN/rVIHU9ZPIuEsjLYyJ0E8dbOg=
 		</data>
+		<key>Resources/city_district_block_v02.png</key>
+		<data>
+		9mXqhxQ9Hx7wezb1zzI+Oi1XHRo=
+		</data>
 		<key>Resources/city_district_ground_v01.png</key>
 		<data>
 		9rDnIZRDwJod7GinsIu9AJtxi2c=
 		</data>
+		<key>Resources/city_district_ground_v02.png</key>
+		<data>
+		7MPca8b8qTGTB1wByE3Vz320qk0=
+		</data>
+		<key>Resources/city_door_boarding.png</key>
+		<data>
+		OjiBK52qe1nmtsq+/H7VivTpFZM=
+		</data>
+		<key>Resources/city_door_dock_shed.png</key>
+		<data>
+		rtLdScDEcqVE+lg+e2Z/S0Qjaz4=
+		</data>
+		<key>Resources/city_door_gatehouse.png</key>
+		<data>
+		F9Ah0OvKFj0t+31DKEmM/iY6MUE=
+		</data>
+		<key>Resources/city_door_iron_stairs.png</key>
+		<data>
+		BKsnQZSOkiljEdYa8nxM6zSdKZM=
+		</data>
+		<key>Resources/city_door_lila_alcove.png</key>
+		<data>
+		1OglYty7MQZ0+qnvm1foksBuLQ4=
+		</data>
+		<key>Resources/city_door_lila_neighbor.png</key>
+		<data>
+		bSglhP1YG6eG2va0THQWoLEMLmw=
+		</data>
+		<key>Resources/city_door_lila_opposite.png</key>
+		<data>
+		C58a8MhQ3uhxM6TfdXnS2ro+3K0=
+		</data>
+		<key>Resources/city_door_lila_rooms.png</key>
+		<data>
+		J2NL/kYjNUOpFyU7MNF3EZMyCLU=
+		</data>
+		<key>Resources/city_door_lila_rooms_b.png</key>
+		<data>
+		OoOt94jP/RXwQ56FdM1fUR9XSZA=
+		</data>
+		<key>Resources/city_door_pd_alley.png</key>
+		<data>
+		0FuecioglqV34BT9bN0M07FzE5w=
+		</data>
+		<key>Resources/city_door_pd_annex.png</key>
+		<data>
+		afNYJQd0XK0OifBqtITxV2MCQ7Q=
+		</data>
+		<key>Resources/city_door_pd_station.png</key>
+		<data>
+		/IXE51sS4pIJuszdwewH4V7yh+M=
+		</data>
+		<key>Resources/city_door_records_annex.png</key>
+		<data>
+		tmS2j0mgJbbFwD6zgEnQ1+TuO60=
+		</data>
+		<key>Resources/city_door_records_colonnade.png</key>
+		<data>
+		0ElqFwC2SCcQ7lHT1mneT/Y3fLI=
+		</data>
+		<key>Resources/city_door_records_wing.png</key>
+		<data>
+		5fEEAaIrjVNsN8dFzJ9ysL8/22U=
+		</data>
+		<key>Resources/city_door_river_watch.png</key>
+		<data>
+		zWdWoqxBa+Fj/eSM401F1fV8hHU=
+		</data>
+		<key>Resources/city_door_rowhouse.png</key>
+		<data>
+		P5cEP+uFJ4jbZVPH3MUppFUdSEk=
+		</data>
+		<key>Resources/city_door_shipping_office.png</key>
+		<data>
+		BkXb2GTkC75YkPb+frDzg12mgwU=
+		</data>
+		<key>Resources/city_door_shop.png</key>
+		<data>
+		Zk4tnf4tyOknl2SB4LjL67lErjc=
+		</data>
+		<key>Resources/city_door_storefront.png</key>
+		<data>
+		FPABvUao/5V1xdleZrcUVG8dYak=
+		</data>
+		<key>Resources/city_door_tenement.png</key>
+		<data>
+		5T7GMeeMl3Og5xH+3UHIdeb0Ba8=
+		</data>
+		<key>Resources/city_door_voss_stoop.png</key>
+		<data>
+		lbEocA8J5ZhaYWXVGXkztqJkfyI=
+		</data>
+		<key>Resources/city_door_voss_stoop_garage.png</key>
+		<data>
+		ud/RMFQxU7GTGFRzZFyq3eIPowc=
+		</data>
+		<key>Resources/city_door_warehouse.png</key>
+		<data>
+		f9Pw3eMp2D1XVQGg0Jgy2RqUWC0=
+		</data>
 		<key>Resources/city_gate.png</key>
 		<data>
 		1avIizTVZsUzBpx1hUJT5mOnzYs=
+		</data>
+		<key>Resources/city_harborpoint_pd_block_v02.png</key>
+		<data>
+		JLHfNdC7ptKfX7gUjvqogAgZqbg=
+		</data>
+		<key>Resources/city_harborpoint_pd_ground_v02.png</key>
+		<data>
+		pWFagoYzZs4dGrt8tRoYqDYK+vs=
 		</data>
 		<key>Resources/city_kiosk.png</key>
 		<data>
@@ -228,9 +444,77 @@
 		<data>
 		LUBxJlQSmqcwZPGz9o6gPHZdws8=
 		</data>
+		<key>Resources/city_lila_street_block_v02.png</key>
+		<data>
+		tQmmjue9bAywMTaCMK0xFPYiLw8=
+		</data>
+		<key>Resources/city_lila_street_ground_v02.png</key>
+		<data>
+		kSERC04Y93+Wk/U01mL0U9bBmBY=
+		</data>
+		<key>Resources/city_prop_bench.png</key>
+		<data>
+		7F/RS+C8EgTTu4l0cJrt0NRCsoo=
+		</data>
+		<key>Resources/city_prop_car_black.png</key>
+		<data>
+		qZO2sSIDfV2bopppn8aUPQ2Cx94=
+		</data>
+		<key>Resources/city_prop_car_maroon.png</key>
+		<data>
+		3ig8V4ee+iG4jDitSpwA43L66rU=
+		</data>
+		<key>Resources/city_prop_car_olive.png</key>
+		<data>
+		meDdsb1WjgbESbWYnA167JIuP6w=
+		</data>
+		<key>Resources/city_prop_crates_mail.png</key>
+		<data>
+		sgl7qrrLXjYTNIEnV975a9kjrw4=
+		</data>
+		<key>Resources/city_prop_gate.png</key>
+		<data>
+		RPoSfv2m6POPXjNVmi0M2cXq9Cg=
+		</data>
+		<key>Resources/city_prop_kiosk.png</key>
+		<data>
+		+bYeDVCdB5GVZGl6y2rreTHyk3Q=
+		</data>
+		<key>Resources/city_prop_lamp.png</key>
+		<data>
+		zIKczffBYXxFOynQGkMPVpgvLqY=
+		</data>
+		<key>Resources/city_prop_statue.png</key>
+		<data>
+		wMbZKHQjnLzyd1/gwZkPUJtWA8U=
+		</data>
+		<key>Resources/city_riverside_block_v02.png</key>
+		<data>
+		QHTHias9qAdsBHGvBm4kzgTP/cI=
+		</data>
+		<key>Resources/city_riverside_ground_v02.png</key>
+		<data>
+		HJTn59rKug4J2L59v2HRm202jl8=
+		</data>
+		<key>Resources/city_sable_row_block_v02.png</key>
+		<data>
+		9mXqhxQ9Hx7wezb1zzI+Oi1XHRo=
+		</data>
+		<key>Resources/city_sable_row_ground_v02.png</key>
+		<data>
+		7MPca8b8qTGTB1wByE3Vz320qk0=
+		</data>
 		<key>Resources/city_statue.png</key>
 		<data>
 		VgTWqB++L4cv6p54pfgNmnegPNg=
+		</data>
+		<key>Resources/city_wharf_ladder_block_v02.png</key>
+		<data>
+		zKmhifCnIAaJMWy1PZDmeQ/bq38=
+		</data>
+		<key>Resources/city_wharf_ladder_ground_v02.png</key>
+		<data>
+		515HS1rjSQAcNTvUSjXiZ5AWAco=
 		</data>
 		<key>Resources/dialogue_command_button_plate_v02.png</key>
 		<data>
@@ -239,6 +523,30 @@
 		<key>Resources/dialogue_command_button_plate_v03.png</key>
 		<data>
 		FCA2hW643LGUPpadDIzcUjIZeuE=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v04.png</key>
+		<data>
+		Ci62FEa4uox7F3hx6pdB6j+hQr8=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v05.png</key>
+		<data>
+		ZZEyXNnJvDw3IbQYzoTRzAHGnC8=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v06.png</key>
+		<data>
+		XQTwQSrEpQ5kPBbx0WX+TDyfz0I=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v07.png</key>
+		<data>
+		Bk06b38LMxiTz1ue5AbQnRlg/Lg=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v07_hover.png</key>
+		<data>
+		sCs0zDg2OoPKnfp3xU7+cjjaCd4=
+		</data>
+		<key>Resources/dialogue_command_button_plate_v07_pressed.png</key>
+		<data>
+		1oYRnhR/LAU3pBiWlBmjCTAasTU=
 		</data>
 		<key>Resources/dialogue_outer_frame_overlay_v02.png</key>
 		<data>
@@ -250,15 +558,43 @@
 		</data>
 		<key>Resources/dialogue_outer_frame_overlay_v04.png</key>
 		<data>
-		VwEQaCGgVS6W1CtinhRI0S2oDaY=
+		7V4NXOc6g/acuVMjE3zbzAIMNWY=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v05.png</key>
+		<data>
+		32Z7bMzmGpEYZBOhAaobRp6hy9U=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v06.png</key>
+		<data>
+		3FTfnsXcWqnZ9GuIT+4I1FGyIrM=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v07.png</key>
+		<data>
+		bqWTM07SLWBTOC61fn1FHCIYbPk=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v08.png</key>
+		<data>
+		kcAFf0eZD/7P2gY39j2E/gBpacY=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v09.png</key>
+		<data>
+		tfBOR77hycRK0cC2IyIwo6M5TRI=
+		</data>
+		<key>Resources/dialogue_outer_frame_overlay_v10.png</key>
+		<data>
+		WpyHWQ8R1Thr2FVdsWnUIxPidX0=
 		</data>
 		<key>Resources/dialogue_portrait_harlan_voss_v01.png</key>
 		<data>
-		L5KVo0Sg3YEn/MNvODLP7YGgqHM=
+		keB3Zl0ztUxfMObRaVb86toFE9Y=
 		</data>
 		<key>Resources/dialogue_portrait_lila_march_v01.png</key>
 		<data>
-		OD3pBYye6l5GSblp1ABCkVMH6l8=
+		1KAmoX/5KhpBlm6Qp3U6dMAc2yM=
+		</data>
+		<key>Resources/dialogue_portrait_lila_march_v02.png</key>
+		<data>
+		1KAmoX/5KhpBlm6Qp3U6dMAc2yM=
 		</data>
 		<key>Resources/dialogue_scroll_area_solid_v06.png</key>
 		<data>
@@ -540,121 +876,133 @@
 		<data>
 		33sasCCQtd6ArR7No4uCO0x1Hhs=
 		</data>
-		<key>Resources/inventory_case_bag_v01.png</key>
+		<key>Resources/inventory_case_bag_v05.png</key>
 		<data>
-		ikkRvneCy3q/OoqqMkBGHd2rJCo=
+		coKVxjRcJAn3thbFM2JymNKdDVQ=
 		</data>
-		<key>Resources/inventory_coin_stack_v01.png</key>
+		<key>Resources/inventory_coin_stack_v05.png</key>
 		<data>
-		5jFZ/uQJwEtpDFYb9UYOwPfeWek=
+		cISO0HVAcZoplsnqSuf1ygIU9gE=
 		</data>
 		<key>Resources/inventory_item_brass_key_v01.png</key>
 		<data>
-		u0iK9o7BSkXICJKRpXF9vNjXjKg=
+		rPHa4uBjszlv6vWPzEUU6RceK9U=
 		</data>
 		<key>Resources/inventory_item_case_notebook_v01.png</key>
 		<data>
-		+i1ARPqaBojBLG2ccJtzqI1a2KM=
+		DqUxW4H+mjHDCpkwXB4Hotf1iH8=
 		</data>
 		<key>Resources/inventory_item_cigarette_case_v01.png</key>
 		<data>
-		ZQc6Pbhtdmtn193NqM7hUpnCNZk=
+		nZ+NSnsfUs+gd3l/+DzycxXClv4=
 		</data>
 		<key>Resources/inventory_item_flashlight_v01.png</key>
 		<data>
-		JjzQkeR4Godh4D8v/ZeOsJPRnns=
+		7SmHAMW5ZeQNnrpqd88AaUJIRcM=
 		</data>
 		<key>Resources/inventory_item_matchbook_v01.png</key>
 		<data>
-		rMKxsKHtqbsE5JbXEt+lkjFpsy8=
+		DuVkf3B9yi3q9E3wls94aV3C9HU=
 		</data>
 		<key>Resources/inventory_item_service_revolver_v01.png</key>
 		<data>
-		1fvNkcl+KemNnDR73c/vbP2zQ8U=
+		wwPlusIdNO19nCO8UKBlYWFcPD4=
 		</data>
 		<key>Resources/inventory_item_wallet_v01.png</key>
 		<data>
-		Xo8i6FlXRBQvqrpg7etnY3O+gxI=
+		4cdsfQhNWNnvbHMNQiSpJVFWdD4=
 		</data>
-		<key>Resources/inventory_outer_frame_overlay_v01.png</key>
+		<key>Resources/inventory_outer_frame_v05.png</key>
 		<data>
-		oxR/TKl2u0t3vscNoYtu2j9x8zY=
+		SF5y9nlhKgTA8U6QZV9k8JO1aUk=
 		</data>
-		<key>Resources/inventory_outer_frame_overlay_v02.png</key>
+		<key>Resources/inventory_page_arrow_next_v05.png</key>
 		<data>
-		BDNQnJ9OGfx6gKSq+YeXhtmbfHE=
+		YvC46MPlRCxWmz7oGiyOZcwtweM=
 		</data>
-		<key>Resources/inventory_outer_frame_overlay_v03.png</key>
+		<key>Resources/inventory_page_arrow_prev_v05.png</key>
 		<data>
-		Px0q7tP4+FO8eeACuG37FxLyYks=
+		9Ia2UrtN0YfYy0eI8ZIjdXiWqTs=
 		</data>
-		<key>Resources/inventory_slot_frame_v01.png</key>
+		<key>Resources/inventory_section_bag_v05.png</key>
 		<data>
-		WDlW3nnTKqwLFBtBO27XOONlG9s=
+		Y/yrOz9b6/thB/pNQL7eat/pqNY=
 		</data>
-		<key>Resources/inventory_slot_silhouette_bag_v02.png</key>
+		<key>Resources/inventory_section_loadout_v05.png</key>
 		<data>
-		HO37XR+YI1/AivQq0bV8BAEv7v8=
+		SWJ4lxSVXnZAG/1E2UxBCzXE9Go=
 		</data>
-		<key>Resources/inventory_slot_silhouette_bag_v03.png</key>
+		<key>Resources/inventory_section_mid_v05.png</key>
 		<data>
-		nKQjKFFRbhfqu4syBVG4JuOijXM=
+		WbwudFLt7tNworBjB4tKrXyIH8o=
 		</data>
-		<key>Resources/inventory_slot_silhouette_coat_v02.png</key>
+		<key>Resources/inventory_section_nearby_v05.png</key>
 		<data>
-		W7gBBMC6FMT+NkO9j1tOmH3UCnw=
+		okYSRnxmpme8nT/YqSZuC5yZa9U=
 		</data>
-		<key>Resources/inventory_slot_silhouette_coat_v03.png</key>
+		<key>Resources/inventory_section_paperdoll_v05.png</key>
 		<data>
-		jYqjBgOWo1MYZ9bxyPO9sAc35x0=
+		l2pKfAc+T1xafIWLNNCPzFBLCS8=
 		</data>
-		<key>Resources/inventory_slot_silhouette_feet_v02.png</key>
+		<key>Resources/inventory_section_stats_v05.png</key>
 		<data>
-		HemwBEjqUhulCf/t/bHer17dyQ4=
+		4UgPaY+ujIynVB+NpHQgtlPtlEI=
 		</data>
-		<key>Resources/inventory_slot_silhouette_feet_v03.png</key>
+		<key>Resources/inventory_selection_frame_v05.png</key>
 		<data>
-		xYbR1B2pw67JDT6BjnbwsgNC3ls=
+		wNO5qAplKucdPXMLV6tGziZuSBI=
 		</data>
-		<key>Resources/inventory_slot_silhouette_hands_v02.png</key>
+		<key>Resources/inventory_slot_frame_v05.png</key>
 		<data>
-		jDilRbUlXXLaMo2vX1h1owSgitE=
+		nnCf4eHaTRiFiha/fAtBcq2s96o=
 		</data>
-		<key>Resources/inventory_slot_silhouette_hands_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_bag_v05.png</key>
 		<data>
-		Ji6ADvmjRuZ4Fry3WrdMzS3iQiI=
+		KGYCKanA2VlqUYBjE6GsmY+D+2M=
 		</data>
-		<key>Resources/inventory_slot_silhouette_hat_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_coat_v05.png</key>
 		<data>
-		7gXDOBdIBF8qvjGCxjwYdI2LQrE=
+		ZY04ErTqyRPw/tW7WeHl9zj3Ejw=
 		</data>
-		<key>Resources/inventory_slot_silhouette_hat_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_feet_v05.png</key>
 		<data>
-		+6YBRy+n0o07H2WpOFaMgZadJN0=
+		QBJcqUKvbP6H632xxQCkc5IE2p4=
 		</data>
-		<key>Resources/inventory_slot_silhouette_item_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_hands_v05.png</key>
 		<data>
-		SjjXselfPB4ypY986yOvU2QgQrw=
+		7qu6k9wsZTGOJ192xFh2snCVzvI=
 		</data>
-		<key>Resources/inventory_slot_silhouette_item_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_hat_v05.png</key>
 		<data>
-		Te1vWvHgO1npgg+zOFmmJFWQrzk=
+		jQ1DvfGbtXU96fj8H2n8FI5p4QI=
 		</data>
-		<key>Resources/inventory_slot_silhouette_ring_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_item_v05.png</key>
 		<data>
-		08MLfXcnmdar2c0PgunhoaVo7s0=
+		BeWx3tDrBXwcxM60mm9UUmJ0Su8=
 		</data>
-		<key>Resources/inventory_slot_silhouette_ring_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_ring_v05.png</key>
 		<data>
-		J645M7yW2AHxhuQX0vLov4Htyq4=
+		PMFZC8vM4XLw9nI24PbJ9ICFXws=
 		</data>
-		<key>Resources/inventory_slot_silhouette_weapon_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_weapon_v05.png</key>
 		<data>
-		uqor5IACbcIAhS46sTgSG5IQwn0=
+		bhzusJF693+7jCYQf1PZ+kI4+WE=
 		</data>
-		<key>Resources/inventory_slot_silhouette_weapon_v03.png</key>
+		<key>Resources/inventory_stat_badge_damage_v05.png</key>
 		<data>
-		2dhRtbK8RY9+VMQ85Mx7o4glnaI=
+		+y/xPQmtPJL51sqTGlFlGduv4ZA=
+		</data>
+		<key>Resources/inventory_stat_badge_defence_v05.png</key>
+		<data>
+		w9bPMzAqbdqbdeUY/VG6VAg1gq8=
+		</data>
+		<key>Resources/inventory_stat_badge_resolve_v05.png</key>
+		<data>
+		BJZNGBeNVJeb+gK4NcK5P7AeQcg=
+		</data>
+		<key>Resources/inventory_stat_badge_vitality_v05.png</key>
+		<data>
+		Q+36Rc1b7sbhX8XpsCOBgH3AAoU=
 		</data>
 		<key>Resources/journal_casebook_plate_v01.png</key>
 		<data>
@@ -691,6 +1039,30 @@
 		<key>Resources/map_chrome_top_bar_v03.png</key>
 		<data>
 		PWojKozyUfdtIvjcKvkvQ8Lr8PQ=
+		</data>
+		<key>Resources/map_city_civic_records_v02.png</key>
+		<data>
+		1fcSzG4D3G9+FVPJp5bttPODOw8=
+		</data>
+		<key>Resources/map_city_harborpoint_pd_v02.png</key>
+		<data>
+		MtRT3vuCYXByl9+OeuK4249dEIk=
+		</data>
+		<key>Resources/map_city_lila_street_v02.png</key>
+		<data>
+		r0JHYRsKBcr6B7xZ0JYwtr/kczI=
+		</data>
+		<key>Resources/map_city_riverside_v02.png</key>
+		<data>
+		/4/l0q+53yp8Kzvt7jUMnmId7NE=
+		</data>
+		<key>Resources/map_city_sable_row_v02.png</key>
+		<data>
+		HRFS/a6Zp4aq5vUprvCPA614i2g=
+		</data>
+		<key>Resources/map_city_wharf_ladder_v02.png</key>
+		<data>
+		cVq9KVI3eNczf4EK4VBdUf11FGU=
 		</data>
 		<key>Resources/map_detective_office_v03.png</key>
 		<data>
@@ -738,7 +1110,7 @@
 		</data>
 		<key>Resources/office_desk_actor_occluder.png</key>
 		<data>
-		6bPi3w+CyO35S+V10kgf78+MdIk=
+		1kbviIACswz/1eOI4CQpzYdHvFw=
 		</data>
 		<key>Resources/office_desk_actor_occluder_hover.png</key>
 		<data>
@@ -826,7 +1198,7 @@
 		</data>
 		<key>Resources/office_desk_top_occluder.png</key>
 		<data>
-		SvKQqo1cKpYb/YRBuZKxzSkU3J0=
+		Nm7sGBy0PLXPYm/VlY93pN04cG4=
 		</data>
 		<key>Resources/office_desk_top_occluder_hover.png</key>
 		<data>
@@ -1072,9 +1444,141 @@
 		<data>
 		+aq+PNNjr/aCRbyHsO+Ht4F193U=
 		</data>
+		<key>Resources/vo_lila_entrance.m4a</key>
+		<data>
+		jsd6KXH4YEny4qGlzMcfpy5nYfU=
+		</data>
+		<key>Resources/vo_lila_entrance_case.m4a</key>
+		<data>
+		P4Onml90r4dBqilY8mAlxF/K0tU=
+		</data>
+		<key>Resources/vo_lila_key_reveal.m4a</key>
+		<data>
+		DBcfX5Xs0Oi20ja8EeGawnBIj2I=
+		</data>
+		<key>Resources/vo_lila_key_reveal_b.m4a</key>
+		<data>
+		S5keYYBJn/EYoj4i7WTSCg6oHIM=
+		</data>
+		<key>Resources/vo_lila_plea.m4a</key>
+		<data>
+		eo0Fk1n27weCRkyK4pBJ+txKPH0=
+		</data>
+		<key>Resources/vo_lila_plea_b.m4a</key>
+		<data>
+		uQu+yIRubfCZwiXsiSHeXQIFbZw=
+		</data>
+		<key>Resources/vo_lila_police_story.m4a</key>
+		<data>
+		1/pSDAv2PDfyGMAAAW47ZX67DPQ=
+		</data>
+		<key>Resources/vo_lila_police_story_b.m4a</key>
+		<data>
+		fQc+Ep1Q8KhrANzvbaxn5SxWhKI=
+		</data>
+		<key>Resources/vo_lila_reply_cynical1.m4a</key>
+		<data>
+		AXvksPdGVeMxyqw+ZiwOflYRXJM=
+		</data>
+		<key>Resources/vo_lila_reply_cynical1_b.m4a</key>
+		<data>
+		yrUqvUQQkX13Rz/U43Xox1Nr08U=
+		</data>
+		<key>Resources/vo_lila_reply_cynical2.m4a</key>
+		<data>
+		1k7vDIvEjQ7QyZ7t6f9o1kCP6co=
+		</data>
+		<key>Resources/vo_lila_reply_cynical2_b.m4a</key>
+		<data>
+		xCriOoDNkL6eBQmy3/hahedumCs=
+		</data>
+		<key>Resources/vo_lila_reply_cynical3.m4a</key>
+		<data>
+		OK7JMucVgttfT+yGQgcw07/+xHc=
+		</data>
+		<key>Resources/vo_lila_reply_cynical3_b.m4a</key>
+		<data>
+		vxNPBNW9fuO15N7HXEqF5RjDcHE=
+		</data>
+		<key>Resources/vo_lila_reply_good1.m4a</key>
+		<data>
+		NBUW7olQSt5hehopFXhERkCoR6c=
+		</data>
+		<key>Resources/vo_lila_reply_good1_b.m4a</key>
+		<data>
+		gAMmXRElA7z2xr4m82tr7Q0Rkls=
+		</data>
+		<key>Resources/vo_lila_reply_good2.m4a</key>
+		<data>
+		AFLjBOpxb0xkb4Mj0HTh1rsPAM0=
+		</data>
+		<key>Resources/vo_lila_reply_good2_b.m4a</key>
+		<data>
+		zEFXa6SxzlT7QuKkAHgj8tRrzh4=
+		</data>
+		<key>Resources/vo_lila_reply_good3.m4a</key>
+		<data>
+		rVFpY+FnfR/yjHKZPN2PKomckaY=
+		</data>
+		<key>Resources/vo_lila_reply_good3_b.m4a</key>
+		<data>
+		YTZTqSzZCoYsgFkz+scWrrC4zyM=
+		</data>
+		<key>Resources/vo_lila_reply_neutral1.m4a</key>
+		<data>
+		lXlTgXmGvVlflSUMUf/KUZHcx2o=
+		</data>
+		<key>Resources/vo_lila_reply_neutral1_b.m4a</key>
+		<data>
+		9Racax5cRctMCpWCC7Olig/1aSs=
+		</data>
+		<key>Resources/vo_lila_reply_neutral2.m4a</key>
+		<data>
+		wk6KkUTS0xRFPNkwWp2cwlA3XSA=
+		</data>
+		<key>Resources/vo_lila_reply_neutral2_b.m4a</key>
+		<data>
+		BjNiAxtJZH7qR23BLUuDhjj2XsU=
+		</data>
+		<key>Resources/vo_lila_reply_neutral3.m4a</key>
+		<data>
+		jz1qhvjuYEpV9ghimjaT26XECO4=
+		</data>
+		<key>Resources/vo_lila_reply_neutral3_b.m4a</key>
+		<data>
+		sbfMPh5EaUz/QMqjMJ4SeiXsYSw=
+		</data>
+		<key>Resources/vo_lila_triad_key.m4a</key>
+		<data>
+		cJhRi1BOyHhq+J7RlzX425vZVOk=
+		</data>
+		<key>Resources/vo_lila_triad_police.m4a</key>
+		<data>
+		NFwtC6tgkSrXyzL70B/7Hw7dSbU=
+		</data>
+		<key>Resources/vo_voss_monologue_1.m4a</key>
+		<data>
+		rWNH+UdufEZsH+dTUveFxUwauLU=
+		</data>
+		<key>Resources/vo_voss_monologue_2.m4a</key>
+		<data>
+		Dw6fcVTuN+S2VcfRFMUFeiSWFXM=
+		</data>
+		<key>Resources/vo_voss_monologue_3.m4a</key>
+		<data>
+		ph8q09Cgqp8qNrbZ308UI65IYL4=
+		</data>
+		<key>Resources/vo_voss_monologue_4.m4a</key>
+		<data>
+		XpTeeFNK5NBHbHNiAM+jlk91fbI=
+		</data>
+		<key>Resources/vo_voss_monologue_5.m4a</key>
+		<data>
+		guN8ToQruRJnheCao/eqANtpkBo=
+		</data>
 		<key>Resources/voss_paperdoll_front_rgba_v01.png</key>
 		<data>
-		7i4x3a8ojBr5WY4kd3OYElYukFA=
+		fUm7b1ek7H1EFuIeawWm7Psor+c=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -1083,109 +1587,95 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			9CpCkFnn6eqfl2JS7IhqutIyGQI=
+			ixCmcfGpkfkIfC2z2NBZcYtxtnY=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"f42a429059e7e9ea9f976252ec886abad2321902"</string>
+			<string>identifier "RainShadow.debug" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Laurens van Oorschot (2AA4248F94)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>MacOS/__preview.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			VLPXwIfeGlhG2OS3alT+uda1NwE=
+			MWhSHm+XLxr3iEHG8vYtra3DxeI=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"54b3d7c087de1a5846d8e4b76a54feb9d6b53701"</string>
+			<string>identifier "__preview" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Laurens van Oorschot (2AA4248F94)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1+44rE9ksgRf/EmFeDcozjW+BWDz+aR2rpQ3nIsUmBo=
+			8EUOEgMuzFOaOMhCLdbkEhvSYxM3DNzjoK6mhBsW75g=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0N06gGCnz9oFt8pwdf6PPv/JRiFf8BVXFCzYre99EHs=
+			hc+X8SLsQFGwAG93O8kWFquYq1u1sDBNWFAZ3/EwgW8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N3yiWorE2zvN8SU2nVvotCGVypXae2pm/D+OXHekkJE=
+			8UrG19j2gLd7aCf903lyOAE0201nVdKIvzuejWIKKOw=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yyCriqrdYj19CdTRXaCgU36Q49eyzjnwIFKu0reZAVE=
+			jMCLgemuA2mmve4ucMYFTSZzdKWgCfk/gYQx5pNXALg=
 			</data>
 		</dict>
 		<key>Resources/LilaArrival.atlasc/LilaArrival.1.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gk5VxRILZ/vDJekYuHqKoSBGIeWoBoWL4kZeX3BPvHI=
-			</data>
-		</dict>
-		<key>Resources/LilaArrival.atlasc/LilaArrival.2.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1ojtvohCHcQCsCeyDmcE4cgOE61Ik95EVy/Hpol063Y=
-			</data>
-		</dict>
-		<key>Resources/LilaArrival.atlasc/LilaArrival.3.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+AmtST9cbQenSGpgW2Yf4nBgDGiybXZ4gHm9ZEwMGwI=
+			Dl9LsULhn2FuMf8I2I8O3q2J0JZ4mJGK21HgujEDUi4=
 			</data>
 		</dict>
 		<key>Resources/LilaArrival.atlasc/LilaArrival.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			n/3tO928J5LNIpszUBTP3xxz6Bble3BSP2S5+hUmlMw=
+			6Fyopx/S0862sIp86osfBrcn93v5KD3EFn8qbAB6oBA=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.1.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			n9r6SbLhCF4o7GPNEEYCG4ZlU/lR41eStROCEqVSDEs=
+			Y2szwm5CrY/CqMnavAZFvRaR1dcU36krtPM1RhdK2bM=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.2.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fOz7s62usy8NDwr4lb3MbpzI35KNK2xl5E6qTNWX3N8=
+			uNxPvgqq/TxjlGfgzaxpS72oEhJ5psJac0xOBTL29As=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.3.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			p+fN5Aw6WAtYtLTdsCDkhJ2C/c8C64MPv+cd0JrYCsU=
+			JWJRVj+rUHO7Q4ZCMwWTfiKEgjnypMTQ7GP8WEv226E=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.4.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UaxsjAEw2kvF5lh43r9Kdm/wal+p3dcxshBSzJmQLsw=
+			x90UIev02LJFZ+geip7OMe71f2Sv3+6DVjLnNlDaSV4=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.5.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vAWysLY+fgsUfGlJwlqjzn78lqsWDn3BvJn8KE4MiNc=
+			Qs/Pso8al5lbAp+DLNNsU0BelQuhSXXCIkJGhouCOBc=
 			</data>
 		</dict>
 		<key>Resources/VossIdle.atlasc/VossIdle.plist</key>
@@ -1199,42 +1689,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GDF/sBXdP7D9i4lMm3RJP/ksMRk7OnSRpGJT6RQwl5U=
+			bab7e1vmuqvv0JE/FeGaw5DXTSqq0qnQ1/efnsnnqSI=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.2.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mAe2iukYlwOkz2g8dnB3GH+pXBEjPwmAT/dVwAy8kz8=
+			L5iHrpbbFja3dVnVy8eYHRolRSyFCXas0RHwEP6DM6w=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.3.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7u3Fha+79FWCJW/AyoOH5R8nZUgvlCwHJqCv2khA9gE=
+			FOhfE3eXeZkHyI/xIUEk+JYvx501+lVyfXVHjmsiIZg=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.4.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BaxAY7cmv8xdLoSkTqlzUPovMDfYZfM5Bzv4W3zTxdk=
+			56uFdatGCcVA7f5wasxHTwFeT7R7inLMefmFk9wGlYo=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.5.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XoBJRR6QJoSk2+ich3zEgOE64OXMyZ1WaWsAGg0q6qw=
+			oQ0P6tYWtpPg4rlAymQGX0eJaxRWL2rCXWATP6a9LOI=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.6.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hil2KIiDttH7+hwNnFZ/PgryeztXbpH7EYu2v5MPMT0=
+			dOj9yOWzTKVbLkW9w1y6La0yqD5IpE/HV4v3bYiKArI=
 			</data>
 		</dict>
 		<key>Resources/VossSeatTransitions.atlasc/VossSeatTransitions.plist</key>
@@ -1269,28 +1759,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1uykK/mdNFXMeArzCOGjwwC3TyzHePzaNfOKe/1hHtM=
+			4rx6WlJM5wunL0EBty5ras7Ual5WTqCmGZq9EjNvHm0=
 			</data>
 		</dict>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.2.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			PbOAvDZ/B2TIbISp3ROGg0eX07Knt3UaAmf9dgP2l7w=
+			e+Iy5RSdmQRngtdgEeyX3xUwhR/rT1Kzw0aIlCHeNAw=
 			</data>
 		</dict>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.3.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nCOOZ4wQ47l8yxX3oTYiK5fZPHJnWp1UJi37i60i4Q0=
+			bSYLvSednWlGNaYctH+imkSxaujos1Nf5tVnwh1cEio=
 			</data>
 		</dict>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.4.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZzvXOd+reP+9uyQBhZcNqO2C0GJaS4JYsUEezF5rJjI=
+			OOYQTBQQRcKXI3vc1RdsD8cM+lUjscdxraujcfGJusQ=
 			</data>
 		</dict>
 		<key>Resources/VossSeatedIdle.atlasc/VossSeatedIdle.plist</key>
@@ -1304,56 +1794,56 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/JXs9u3C96AvXcQ+kADIsUtR42sKoSF6xNG8bxBlCYY=
+			kBQrsH8wo2f6Q4ma1wggTmsFdfmGgO/VJtGDYWvwRBI=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.2.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			adSwqZrpj6/3T0ZvVHKE1NtqXpLr1l14dY/TnySlgLY=
+			26lz8BU29wItQ3BGb4tQnFT04zVs0bYZJ10oDr6lw9Y=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.3.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zM6l/D02W0odJC8CrDHyyKY1l1DdForlNJiaoW1OME4=
+			CzpaDmoyQMvAFSkiSuwqJbwnBB2JE77udnVgQ7lnpLs=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.4.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0d38hP9FS8G+SnEU4AZXdkuqa+wWIk435DYAVDLwOts=
+			J0N4Lj56mov/ugvIW52Q2jS/+HYPKAVSRtyMuO3ktmg=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.5.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TplQhBTgKjRrBElkgFfLyggDBGdnTZsa9eYpCtHLfXQ=
+			aG1nXauc3SbozZv30L47L8Fqij0iYuw4JN7hZ3itdqg=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.6.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wplynBpsgIkSTnM1RTcJPt6kNssvuuMg642lNXtMnMU=
+			HkGDE1ZG0nugpK60N8R+7TXlxIY2N8Bau7wA8nPviqo=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.7.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eGGf67feqQnwYt4hyrfzS6VyuNv1dceVAD51dcjecT8=
+			/ksart6DEs77Wekfa33k1trtxXl2I9owsqID37YooiY=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.8.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wOmTrliK7BiaDk+/NdvpCqEtHoKtnVb7zui27QQ8AQY=
+			dHSw5ocepJ0EmCD0OqJY2UkY/ELmqh7t/9c/0g0dZ24=
 			</data>
 		</dict>
 		<key>Resources/VossWalk.atlasc/VossWalk.plist</key>
@@ -1384,11 +1874,74 @@
 			SvysMfPafVlJWRPMVwxfz+INre4ryMhu6+MSCfndwo8=
 			</data>
 		</dict>
+		<key>Resources/city_building_abutment.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ul4076MRTA9GbSrhALK33AlgNEh+e2gYaa4c0W/7EnI=
+			</data>
+		</dict>
+		<key>Resources/city_building_boarding.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wR6WXLqm7pXReD60WKasr9w1K+6U3fjdF9NIy/31YkM=
+			</data>
+		</dict>
 		<key>Resources/city_building_central.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			AdF8neory5sJrREie+HiQ6FWs9TPkhknAwxwuUwEmt0=
+			</data>
+		</dict>
+		<key>Resources/city_building_dock_shed.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			htfNTFdJA84eu0Zg8fNJN58nHxRMWhl/ufiXARBMitg=
+			</data>
+		</dict>
+		<key>Resources/city_building_gatehouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fxoXmtYqfnm+3OWe20+aie4g79oP4tzGeNX6ZDIOMcg=
+			</data>
+		</dict>
+		<key>Resources/city_building_iron_stairs.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YML3EqQmLIwjLo9wsS/QMrOScq6mcsoVjX3raoUfQlg=
+			</data>
+		</dict>
+		<key>Resources/city_building_lila_alcove.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DUWSSxKMLBp9bM9jEMi+zRdcVoiVYOL+E8i13EgP1ls=
+			</data>
+		</dict>
+		<key>Resources/city_building_lila_neighbor.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oQnE8Af7fVuGgWFSzy/FEi8RzeUaD4at25eN/+tDt+c=
+			</data>
+		</dict>
+		<key>Resources/city_building_lila_opposite.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7+SuNdW1fXPRH4LMgrvgRSU3ILjM6Egk9DKqETgisKw=
+			</data>
+		</dict>
+		<key>Resources/city_building_lila_rooms.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3IaaQPD3pnSM6LqJArDJolHK/Il15TJ/OOJ8KUkexa8=
 			</data>
 		</dict>
 		<key>Resources/city_building_mid.png</key>
@@ -1412,6 +1965,83 @@
 			kGCvwnanQP69EFY1luMKUfWFALRokJyQksa0KwTdpik=
 			</data>
 		</dict>
+		<key>Resources/city_building_pd_alley.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qxB9hb9ieysGoHqtj9VfD+5qU2n4yfCwEyLaavCQynY=
+			</data>
+		</dict>
+		<key>Resources/city_building_pd_annex.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/y6zzC02FCivGDalwG67mHuw5fjdQtMg8F8dZQg2GUs=
+			</data>
+		</dict>
+		<key>Resources/city_building_pd_plaza_wall.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YWu/OTqGPA1h/2ublizsFO72cPxE7EHvrbBZ4AYIVas=
+			</data>
+		</dict>
+		<key>Resources/city_building_pd_station.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5ehKCZAkMx7Q6Vdb+Azu/Z9ol2yAY880XHiSs9b1cKo=
+			</data>
+		</dict>
+		<key>Resources/city_building_rail_lamp.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DZnGIZ2a2fZjUrm198SUN/jja/nx7YnNjLKxI8mz0Bc=
+			</data>
+		</dict>
+		<key>Resources/city_building_records_annex.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BZfHxIL+/8WcIfv75JZuenS9y2sRq8Ins3tU4auzeOY=
+			</data>
+		</dict>
+		<key>Resources/city_building_records_colonnade.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8QoitFJLbMbG3KtdeU/aQRteRXP/ri3GhvluR94pzEk=
+			</data>
+		</dict>
+		<key>Resources/city_building_records_plaza.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WE41Cl09c3XxftDU6uSojUhTNYw8yHvRPimQwiIdLbU=
+			</data>
+		</dict>
+		<key>Resources/city_building_records_wing.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			n7h8qaMwaXu50V0VkDOL0CSXu8FPcM3t7YGfI7JWHIA=
+			</data>
+		</dict>
+		<key>Resources/city_building_river_watch.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VA2p7lJj86VTPSJUn88RHJSStj5P3CA2DiVy27YgGW4=
+			</data>
+		</dict>
+		<key>Resources/city_building_rowhouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EcOhFeR8VdHyRdHqGBLeO+g759iS4S43wU8MhigZy9Q=
+			</data>
+		</dict>
 		<key>Resources/city_building_se.png</key>
 		<dict>
 			<key>hash2</key>
@@ -1419,11 +2049,53 @@
 			KapPVKgBZsBL02hzn4+NAhbHicUCSEv/Q66iagPRFZs=
 			</data>
 		</dict>
+		<key>Resources/city_building_shipping_office.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sJcAnjeuwzG2fdnyFNa4QDMpHi9bK9Bu6gOWpUN4Tek=
+			</data>
+		</dict>
+		<key>Resources/city_building_shop.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			U9A0krTS52bXz5EtSoUmkTA7ii+OTVCfUW/ifSagfxY=
+			</data>
+		</dict>
+		<key>Resources/city_building_storefront.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MqvpiFwobqHyAw3dOaeGyrPtvSr0H5NIHWbPo7Vn86w=
+			</data>
+		</dict>
 		<key>Resources/city_building_sw.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			UGWZs2bDxFZE220cA1QEevXAZffG4fxeclBq06ZECMg=
+			</data>
+		</dict>
+		<key>Resources/city_building_tenement.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mv0AUbSNbscy+WvdG2vRDqTrR+x8f8g/ozAVpZjvpRw=
+			</data>
+		</dict>
+		<key>Resources/city_building_voss_stoop.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nDhGC7LwFMs2LwPy0fUPpRPxR+wO9QGIhQGNBWwBZiU=
+			</data>
+		</dict>
+		<key>Resources/city_building_warehouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			H1Y+3OEG9zLmLRc/VQABZxIwh7Rh624i5Ah6U4Aw89g=
 			</data>
 		</dict>
 		<key>Resources/city_car_black.png</key>
@@ -1447,6 +2119,20 @@
 			nhR4cn5U/vRl4C5HByEyZnRrkGhzsWP3Ewwd0VPcsQQ=
 			</data>
 		</dict>
+		<key>Resources/city_civic_records_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			C+DBjdnmVIRN7xnWoM6aAEILq5vPfW5PJnsE6PyaGuo=
+			</data>
+		</dict>
+		<key>Resources/city_civic_records_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dBy3dMXfWikUe7p80i+Gr+MJogpGE4mo3fH+KYwF0ME=
+			</data>
+		</dict>
 		<key>Resources/city_crates_mail.png</key>
 		<dict>
 			<key>hash2</key>
@@ -1461,6 +2147,13 @@
 			DgzV43s4MxBTJL0QlhnVLIOEmtrfajgCcPu4Rq8zics=
 			</data>
 		</dict>
+		<key>Resources/city_district_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hWcXj+rVxJQ1RZ1WVKxA0+YobaiUYsSk59vQwWIGIA0=
+			</data>
+		</dict>
 		<key>Resources/city_district_ground_v01.png</key>
 		<dict>
 			<key>hash2</key>
@@ -1468,11 +2161,200 @@
 			FlvKa61qjdqJULjSUZ5j80YuZ3iFdxDNHmPoFNaSGE0=
 			</data>
 		</dict>
+		<key>Resources/city_district_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			r4PDIeLBYmo23VvFTyBANBLdDR8lVQM1f1tF9udHrZY=
+			</data>
+		</dict>
+		<key>Resources/city_door_boarding.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BAj4axFvertfzXSDvfj5wSwbGM3s+/txXm6eVckYspU=
+			</data>
+		</dict>
+		<key>Resources/city_door_dock_shed.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			swvX1yw90tIP2AYsy/4Zq0lLPokq32O9amux230PIq0=
+			</data>
+		</dict>
+		<key>Resources/city_door_gatehouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2hE47djJj63yBbRp8JwZ07G+1zBEAPRrKS47EvtXQwU=
+			</data>
+		</dict>
+		<key>Resources/city_door_iron_stairs.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7j7I3Omsv6969cRJqXd03wRbrZIyGecu880UyraSp6M=
+			</data>
+		</dict>
+		<key>Resources/city_door_lila_alcove.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ae6fBFNPXFXkLxmxUHo9dbntgLmwdAwUEhf1xy64cgc=
+			</data>
+		</dict>
+		<key>Resources/city_door_lila_neighbor.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/GFiVTwJdwxZ7nG3nHacnh2bMfG3o3bykvR9gDy1osw=
+			</data>
+		</dict>
+		<key>Resources/city_door_lila_opposite.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			40rsVMbLY/D+L+/HM+5JJni7dS0+VvMem/+xPWHUu1M=
+			</data>
+		</dict>
+		<key>Resources/city_door_lila_rooms.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/I5dlpyA3WVzDM0u1RKeJSyO0bN9JxcajI8X3qaLLvU=
+			</data>
+		</dict>
+		<key>Resources/city_door_lila_rooms_b.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			r9O+L/VNa1UmxuF7Rp2bb5ZT8lS7mEycAs/98A94ivE=
+			</data>
+		</dict>
+		<key>Resources/city_door_pd_alley.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			F/1HXcEXYQ2Wchobmup53nsWPTbRipeDwhHITWqUIMg=
+			</data>
+		</dict>
+		<key>Resources/city_door_pd_annex.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GQNPNVRPwNiW7w/GyvqkG01nXkhrBt9KFZ3iu9TrE2U=
+			</data>
+		</dict>
+		<key>Resources/city_door_pd_station.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9jTy6yN+MtIpfQ474NXRzeykEjWPziWx6wsb29aT6g4=
+			</data>
+		</dict>
+		<key>Resources/city_door_records_annex.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fFLaBQMNOWcT8nxCyZwyzyMtO7Wt/5awyfECZ9p2k+I=
+			</data>
+		</dict>
+		<key>Resources/city_door_records_colonnade.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			V/P2ZU8wE/bm3AklpP3Y2r7dOUR0xxZ7vaE3naKHSTk=
+			</data>
+		</dict>
+		<key>Resources/city_door_records_wing.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2LDDnJzpD6vqDdQhFBCKRP3U8BCCCWRGK+boEHZ+iZk=
+			</data>
+		</dict>
+		<key>Resources/city_door_river_watch.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sW8cKrIk+4zQbVJCq1QJuBYu5u3yIIrD/Wpwee+Lgrg=
+			</data>
+		</dict>
+		<key>Resources/city_door_rowhouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qBXGr41/RqXfAXcB5fG8H95+bUJ5f6RiPqEeRDJiQmA=
+			</data>
+		</dict>
+		<key>Resources/city_door_shipping_office.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			X2xo/8DlQSoJoH9JROGXJekVkhIvBhe05MV6lrarnoE=
+			</data>
+		</dict>
+		<key>Resources/city_door_shop.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HIf/TV8dZbJ/zv4+kmewII3aLc8RQbEughClxI8iCNo=
+			</data>
+		</dict>
+		<key>Resources/city_door_storefront.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bUsHesk9QBRdI+j3egnqdjNMzaKPLxKvz5IZ7fCsfwA=
+			</data>
+		</dict>
+		<key>Resources/city_door_tenement.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3kUV751cmL6PRM80Hi3zMgaYUDIGiJ9zgA0eUEXaHh8=
+			</data>
+		</dict>
+		<key>Resources/city_door_voss_stoop.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PKAq7N3Qv09Z13NMNE+QYNXqsOQdvjL7tr3BbyJi/CE=
+			</data>
+		</dict>
+		<key>Resources/city_door_voss_stoop_garage.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			izW/XucY4910tWeqw7VQzQXNYeihgXci53Eqg15WLYQ=
+			</data>
+		</dict>
+		<key>Resources/city_door_warehouse.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zr0073/Iljl347GzcET0eWFfQHs80qwvXdybaX6Wlks=
+			</data>
+		</dict>
 		<key>Resources/city_gate.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			NqwvzStM1+/0a0/gPQfd2Bj7Py/kZrsdtnmFLRi4kwQ=
+			</data>
+		</dict>
+		<key>Resources/city_harborpoint_pd_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7o6vxc87gZW2qx6L03iQrfniTYuKLon4EsRC8ZAwlgA=
+			</data>
+		</dict>
+		<key>Resources/city_harborpoint_pd_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FxpfI6GSCe0KRNuAyhFif2NM009V7vK/X3xFuIVD2jg=
 			</data>
 		</dict>
 		<key>Resources/city_kiosk.png</key>
@@ -1489,11 +2371,130 @@
 			TZN+bOCSOG0/nlHQMOnHwOq3O7zhVoxoSSCW5YRw3RU=
 			</data>
 		</dict>
+		<key>Resources/city_lila_street_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CpxIHmXIfQLqcfgTdVnfpQjp3E50jnqvl59C7BVaaDM=
+			</data>
+		</dict>
+		<key>Resources/city_lila_street_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GjyJaTWQBtHCwFqLR2DSIryI+0SilRv6otnx6b8fQm4=
+			</data>
+		</dict>
+		<key>Resources/city_prop_bench.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MG/Hs+hC8fwbShJyygefmMd051BKQhZ+j0WWhlgndgE=
+			</data>
+		</dict>
+		<key>Resources/city_prop_car_black.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SWa1L25kZLEAxvcoh9kibl2MGTOny9aKLq3y4AxUw9o=
+			</data>
+		</dict>
+		<key>Resources/city_prop_car_maroon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KEFSYEBYDfjjGR7VNhWmnBoE16h8c1Nixi99ou2KSuI=
+			</data>
+		</dict>
+		<key>Resources/city_prop_car_olive.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ejTTUzuUckO1w7yYnhJSO6cnMJk8xvl13judKVSmUV0=
+			</data>
+		</dict>
+		<key>Resources/city_prop_crates_mail.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6TpypTspM+tIeIhPrCWPjMuIpyiCOZk9/QVWpP3thww=
+			</data>
+		</dict>
+		<key>Resources/city_prop_gate.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mV+5j1p8aV5abnPYWReAlfK8FYek3Mw0I0GNI3XBgD8=
+			</data>
+		</dict>
+		<key>Resources/city_prop_kiosk.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OsdLAOgQiGZO0o+aUxWpocNvCdNPMV+cTQPF/t3nRcA=
+			</data>
+		</dict>
+		<key>Resources/city_prop_lamp.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Vc9Psdd18K8OIVVQX2SeP7BmVCmTyGKPunKB9ziKf9Q=
+			</data>
+		</dict>
+		<key>Resources/city_prop_statue.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uOuLVyBHZFG1mLi0bO6FIyn3rBPuZZDdeSN5lyN7xmc=
+			</data>
+		</dict>
+		<key>Resources/city_riverside_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pbPyNXpMdXTclAo3JUoXrKna+BmNSIqJU8mHmADD1I8=
+			</data>
+		</dict>
+		<key>Resources/city_riverside_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nY7SWtWBt1sxDaBvYGXDvMoN5qLDaNsJK8pTZjD6ooo=
+			</data>
+		</dict>
+		<key>Resources/city_sable_row_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hWcXj+rVxJQ1RZ1WVKxA0+YobaiUYsSk59vQwWIGIA0=
+			</data>
+		</dict>
+		<key>Resources/city_sable_row_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			r4PDIeLBYmo23VvFTyBANBLdDR8lVQM1f1tF9udHrZY=
+			</data>
+		</dict>
 		<key>Resources/city_statue.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			ldvQmRAFeBNZMpWcum1C+YLV/vG6+9+jUCb50Q8UlGU=
+			</data>
+		</dict>
+		<key>Resources/city_wharf_ladder_block_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nLx2pJXAqhnoFxuAgesTxnfKdKHXzJvewxYhNba+GfQ=
+			</data>
+		</dict>
+		<key>Resources/city_wharf_ladder_ground_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Oti5Qffks0dH/bIJYGwdNmFVWO/aXHI+aBklCLug7NI=
 			</data>
 		</dict>
 		<key>Resources/dialogue_command_button_plate_v02.png</key>
@@ -1508,6 +2509,48 @@
 			<key>hash2</key>
 			<data>
 			/HeRP0BwO+AAu2gD6mP5+EXDgoR65S2sZTKjUUCHqd8=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v04.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qFeUGWvygnaJrdXJPqd/opWrv7JHQD4FbSLPaOXnuHw=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v05.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0Sr0mfNHwrqbKqV/Z3gbOfpszgHIxzPymVG+QHs9OpA=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v06.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KG2C5AbrQlIXNXg4WiuXXiM957T0EFUQQST6N9i2ZZ0=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v07.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8SdLQycjk57ZGG67avI9fq6c7UCxU655eWWVeB/pJR0=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v07_hover.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VJJhC5bOFwRmjpJegJBmPhvNGFtAGcLe2Wts5S00PoA=
+			</data>
+		</dict>
+		<key>Resources/dialogue_command_button_plate_v07_pressed.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YY5AONE8HxjpGRJzOeaGA2qZC9eZZbyP5vbbyI9MMc0=
 			</data>
 		</dict>
 		<key>Resources/dialogue_outer_frame_overlay_v02.png</key>
@@ -1528,21 +2571,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EljnhrxBULfa5gJuFMlcFLtbi5ryjSwpLOdex+W+pjY=
+			1sludpZmgeSmwwJU9TCLJekPNTQSLhnU41x6zqUj2XE=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v05.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vp5r9/h5y/P9CF/eVqO9ypumRr73S8M7GrzoEXui56s=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v06.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FPGqGj50VQoobiaIbe8Ak31lwFL/q3ckC/01teDCg4U=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v07.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aOgAKQtUTAP1WKOlc3d257zrsL84hkD/9i8aJ+dGlbg=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v08.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GYOYKjk20o2s9ZCmj1DH71foKFLIGxQDipGgVo2QE1w=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v09.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9zAr8XBtw6GudJEx60yqSjjRe1iKNGMTgMhcDb7icMw=
+			</data>
+		</dict>
+		<key>Resources/dialogue_outer_frame_overlay_v10.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			363vgw35ah3fivY3ZVXVpBa7swz2utXi1h5k1+lUjKE=
 			</data>
 		</dict>
 		<key>Resources/dialogue_portrait_harlan_voss_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hpDIenlPE/FGepFk2fRzlbF6vu+sN6YBFmOjTJUkyRY=
+			a5/iVpssFZ77GBuZjSlz/ShY6ETAfifYQj2C6gq7KSY=
 			</data>
 		</dict>
 		<key>Resources/dialogue_portrait_lila_march_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nyMYfrTUUPY0G7Dn07mXqBEKX/UjmehrZ6tgpYiY8lA=
+			67DWfU6X0FKxLNBANockH517OwNwAowAzncwMYSMcHI=
+			</data>
+		</dict>
+		<key>Resources/dialogue_portrait_lila_march_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			67DWfU6X0FKxLNBANockH517OwNwAowAzncwMYSMcHI=
 			</data>
 		</dict>
 		<key>Resources/dialogue_scroll_area_solid_v06.png</key>
@@ -2035,207 +3127,228 @@
 			N+xvnP5v3hEH/AUMpEGpENTsUjoGw4o/bBUFu2aptmU=
 			</data>
 		</dict>
-		<key>Resources/inventory_case_bag_v01.png</key>
+		<key>Resources/inventory_case_bag_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BCZnU1kLpFwTq5hL1O5TUwUtr+xXwx7yoRuTIHhPviM=
+			pYrI4GDvUE0dwliGE7EF/lmCQBRkJcs3e04Lytda5EQ=
 			</data>
 		</dict>
-		<key>Resources/inventory_coin_stack_v01.png</key>
+		<key>Resources/inventory_coin_stack_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2flGMF2ra+hl+IvJlkWwL26vh8OhODqVoGgVRJHxlsA=
+			Hg2bRx3iX98JkgUgb5krzxB/h6KKT+vZp1naEfhIJwk=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_brass_key_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			p1686xitKyqH2hU3S9F4HKylvfd5HvChXO6n5WGRW4c=
+			igWKjmGIGWcT8viCbYWTpGuTIeWt3+Q0I9oWCuzKz14=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_case_notebook_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9ChWFYVFv+NFpgvCSUpbURWeHyc38bdiTiM7/WxDTPY=
+			DUqObGcZs9ASO82s4FBRKTD7zLsXxYK2tonPuBZQvPg=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_cigarette_case_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			suL7/QAw9IbNhGWYovm4hwAPj/YXxzjbpb6Ka4/rH2Q=
+			IYyDKBjJ2XalY8EU+V6tmil+kv2CoEJnbJS8tJQFFOU=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_flashlight_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			h/N7eBeeWvV5Lzm9pN9tMwqMvlpbQWdssAsL5D4Y20Y=
+			RnFrcLPcIYVz1Xg1cMdp/WHS+f7FmEO0YKRhOckd0lQ=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_matchbook_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LoB356nA0jOf3fjZulTH4ef4KmFNfDHp4XE3unJdmDc=
+			TaKc2VQ8QAkTasi7/k/w2vD2puE/0YmcRf69MCbEpso=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_service_revolver_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Z7BAT/7yGFAkhAOw8gRN1H0x2jqCLlHPgty3vDE9REQ=
+			YUxNNqty6tqvbGmd4SsECMRqN/BmOV1Qyp/r8YqsHkI=
 			</data>
 		</dict>
 		<key>Resources/inventory_item_wallet_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uw5h9swEumUvt9Jm9v7e2uUcvsdA867DJs14GNGHQYs=
+			beDcK5BvW2viDFO0JC6MGXKWwff65XfJxTf4EA/s7nI=
 			</data>
 		</dict>
-		<key>Resources/inventory_outer_frame_overlay_v01.png</key>
+		<key>Resources/inventory_outer_frame_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G09lqKPyoUbcsBq2WVq/ccsDml89DrHDNs9ODk0yNMU=
+			KYqdQUbyfoVsu3JxDdWBO2x5iOgxdX0zak2q+cUA/z0=
 			</data>
 		</dict>
-		<key>Resources/inventory_outer_frame_overlay_v02.png</key>
+		<key>Resources/inventory_page_arrow_next_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uuoS6ubTTp4Qs4UwwKJjorreY1XBfDy7YKCFql6diFs=
+			BDXmS4Fd4rFGivPbFvZpcmSavjMiPvYRpJyWOw9U1aw=
 			</data>
 		</dict>
-		<key>Resources/inventory_outer_frame_overlay_v03.png</key>
+		<key>Resources/inventory_page_arrow_prev_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FyHHa9aXwFjk3WhMY133Q8fqYCHMe/TLGAFey3/RFaI=
+			9QyJ+xI649zg1uIkn228epw1A3BeTvuWmY//B1I3AXY=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_frame_v01.png</key>
+		<key>Resources/inventory_section_bag_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9m08hRCq8xeEtBnCCU5YO14KTKPYlO/uuyydPbwN1ig=
+			itaQdG4BIYBRbfM7n03OSeP4QAn+mZr/MDGeMiwuOyQ=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_bag_v02.png</key>
+		<key>Resources/inventory_section_loadout_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2T7etmgwNTCJ5J1KYcFiemK8wk+BoHpj8h+4dfcLECI=
+			e8DWV7VzOv4HM/yMjZx7YPenoKcvmPSnkA5gXjbu7Z0=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_bag_v03.png</key>
+		<key>Resources/inventory_section_mid_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vjsOnFAM8kyfC0O3vm6lgIdBb67PE1YV8l/dhiHFePo=
+			whLAj5BzcJW6/Gnbp2Xudmg3TvPm5TGBC2AMtQdDp+U=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_coat_v02.png</key>
+		<key>Resources/inventory_section_nearby_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			3AvciDdxvULY8UO+BOo+oIYWLOILfHqZPZDk8yxXQSA=
+			yJ1jtw0Ju8lljcK4b5TXujl8VgqZxHxYkl/eTo+KwhM=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_coat_v03.png</key>
+		<key>Resources/inventory_section_paperdoll_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xMdQ2HKz9PCoVe0+t9dGpQY79FEmS6YRsQaWOM1xf88=
+			X8kAqxpivLFDy8Jm8NL6uYwzWIqErQLlig2LG9TGzVw=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_feet_v02.png</key>
+		<key>Resources/inventory_section_stats_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M7rUfAi9Of1wfiKXeip/6M98fiOJDnI3C00sm1rCGZo=
+			RZzWJ/30HqlFlg/qTpmuOz4vA4KAT1xpzpm9XwXPE6o=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_feet_v03.png</key>
+		<key>Resources/inventory_selection_frame_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SpQg8F5XfZ0i80HrdBLeA8bzmcv/KQI2vX0rMILcqn0=
+			zWNSfxBcsTduoW6Fdqjs1N7o4+DvN+X+qZh4B5g96kI=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_hands_v02.png</key>
+		<key>Resources/inventory_slot_frame_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			y2Ioo/hYwBtX6u1mlMWLLBDNNE9LDWhWriXAOKjxa50=
+			SgZWfdEbvvL9ojKPvJStZ6tfW/z7eyVuoEmHH5hI/ts=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_hands_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_bag_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FkyD550pF+aetGYohR97glLSmFz5oblZTWUlglTehIk=
+			RUFV6Z/YP9fRdqH0NG3F7SRiVp3tGSG4Snp04Z5wdvI=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_hat_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_coat_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vEKMu/c/pHRdCTRDfMEhvYPEzTKnN6hjBzbtcBZmmAw=
+			1qmx09rnMnosJudoeKXmmxOvNctYB4NU2bVbQmL1UKc=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_hat_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_feet_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kVT9GqONLUUTELFnHzAO4CTm9D0rA1sXBMaiX0lAWJ0=
+			KmL4T7bKHPTp2L0S+m0myuF1ZYUms3w4EedR4EG8yGg=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_item_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_hands_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AjUVutEtPZyKyWnXEAMlliyOdlVngRjTF0ldoGQ02Gs=
+			5+o/T90Wt2r1pnUPkK5YOa3+W3jxN2erv5pnzDERgr8=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_item_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_hat_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eIKUx4FLO4MBs2qYtGu+BxYTwgQBMCpXI1aluiDMIKk=
+			JdF6Y5VqpeixYovDm2I/acoKRgesv0oDj5HD8ZwZmgU=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_ring_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_item_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9f1IQncVa0ObRmmvVb+lLoMfZQUwDnVDHF9xPEwonLc=
+			kgYtpqfONW9g0cNpe30w6k+bB+e6MHrqI6r2Xe6B+MM=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_ring_v03.png</key>
+		<key>Resources/inventory_slot_silhouette_ring_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			PK4vfQJ9Ks58qusNhD850RIzhIkdRW4WSHaneaxGdkI=
+			rDIxJXj5sDTieSTAcQ+Tj0ZgD2vMEaMqSKyaqF1av6g=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_weapon_v02.png</key>
+		<key>Resources/inventory_slot_silhouette_weapon_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Euld3RCeGSOF09ftZYyfhYuOjhK+6HPaQQqEIxb78sI=
+			epLGZvVtD8XxNZt/It8kcUgxS0A/yQ3AQ0jltdtbvx0=
 			</data>
 		</dict>
-		<key>Resources/inventory_slot_silhouette_weapon_v03.png</key>
+		<key>Resources/inventory_stat_badge_damage_v05.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5hL9QmcC8ZcKqxd0jTwi9hzXhNV9gbz/uUo7Ad6DYOg=
+			X68KeMYCWA7s6AuUpTuMv0ZBgR1U+I33bHOdeVnOYiU=
+			</data>
+		</dict>
+		<key>Resources/inventory_stat_badge_defence_v05.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			U+cWgZzk2fDO012/rysBSF/lMoFp7K41sqJ7R5JpjYo=
+			</data>
+		</dict>
+		<key>Resources/inventory_stat_badge_resolve_v05.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			D4SuhpQ60L//q/q4DNqDPm7DXcAQHX0fFtMepsPxhHY=
+			</data>
+		</dict>
+		<key>Resources/inventory_stat_badge_vitality_v05.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JZ2Oz8jhp6xb9btdscW2k+s1v5eml2GMEXytHdeGsJ4=
 			</data>
 		</dict>
 		<key>Resources/journal_casebook_plate_v01.png</key>
@@ -2299,6 +3412,48 @@
 			<key>hash2</key>
 			<data>
 			HYxDmc8rLBwE/gJVNcHkJyY5ZV0Dla46CQoK1xhsH+s=
+			</data>
+		</dict>
+		<key>Resources/map_city_civic_records_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6zAFIxy2jbkojTjz/SMLeW7Sasnp7az5So7HiYgzE4I=
+			</data>
+		</dict>
+		<key>Resources/map_city_harborpoint_pd_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			34dsfy5V6ayrTTNm1PYmeqoqJsF7iJxFyKVj/zEpdUc=
+			</data>
+		</dict>
+		<key>Resources/map_city_lila_street_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			orkpyxxcRL45bJ2cidzSwzYrjpvvVLBt9QUCAcdvgW0=
+			</data>
+		</dict>
+		<key>Resources/map_city_riverside_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RuM8I9OyqBtxNPjNZa50qWcml1ePOFr+u11wBkDa6+8=
+			</data>
+		</dict>
+		<key>Resources/map_city_sable_row_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9qp5SpxRrHt2kI34HzVleYKsGjHiqXkxxr+1OtwoK8w=
+			</data>
+		</dict>
+		<key>Resources/map_city_wharf_ladder_v02.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			40Q+6dg/bFKpag6lHzRP/IXvDT67LXXIc03GfMelj04=
 			</data>
 		</dict>
 		<key>Resources/map_detective_office_v03.png</key>
@@ -2382,7 +3537,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			C3ZGYsIy2JqVBolThrWecolqXXQjJ1dtgUE0MeTNHYI=
+			K4W4n6QuK2wIp2/o7H5iTUkyaabxUGndqReMLejZkSw=
 			</data>
 		</dict>
 		<key>Resources/office_desk_actor_occluder_hover.png</key>
@@ -2536,7 +3691,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PMWTFJ6Gt/jOSlHOtcJGl8rb5iX/S6mDBIEEqC2X6VM=
+			EgJlUc8ZgL2/BBHhHNPXwGewy+enDdR7UP0PrOINxxo=
 			</data>
 		</dict>
 		<key>Resources/office_desk_top_occluder_hover.png</key>
@@ -2966,11 +4121,242 @@
 			8gmNabQAPqGu1wedJZTrLMJXT3QmamARXvSgYQeTObo=
 			</data>
 		</dict>
+		<key>Resources/vo_lila_entrance.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rtWo07M6RBM3zEarTcEq0e+Q5rKaoQ5hU/DOBqSCmgw=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_entrance_case.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cpEejVhbrf7t7wVpIB3/EFLoUadfdm0KDPeHGbWZLPA=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_key_reveal.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Z1+LqRc4fggNQAetGhQ5j+tSDCCh5aX21/3kj9FGYv8=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_key_reveal_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			IeAbVJ8AYKMQldiGBXZjE29o7w7/XgcZC0kSfUZgenY=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_plea.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wwzbFIlTZJUmtoad9AOlJaAEJYQUxamHUUMJkKREQjc=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_plea_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			m2bhCkhScLAkgeCpD9YScDm4erD/APNMIWFk4uGvwIc=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_police_story.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fHFMAaH0K+pMI6WveaLK/aTi/3NZspMfGRlAB+dqam0=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_police_story_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SrHBklvVBqL2BWrGFvbGCkdT9mVTxFV9IJ/ggi0IHic=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical1.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Qk0deQTvC65aAb3sba/HcAEY52oxJomSOVi4hSSS1w0=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical1_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			w0nFll/UtoMxMIqoBYg4zBKfvAVRiZnfbq08sFV+LpY=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical2.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Tl8vz9vW/nx0zkFPik3rIhGThbEaDReDIzxEN1A+rw0=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical2_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hBPUudzcQ8kyMQnVQngJfZhHzPA0d/owq5uW3b479f8=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical3.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ht92hdqhvxOgzIH4jMzR32CoTdHYjYvJ45ivFzt7fmA=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_cynical3_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			agb221kdKFjEWPLA6spxsvvlhM53HrSzXMoGUx5RrQI=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good1.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			n1fiBTIQAIdeDW/JilIM39qDLHaJWDXSxWiQiQrx2n8=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good1_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WqN7vk9LCh13pYWKZj695FDzzAO69/Hq1+ENFpWBGFc=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good2.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JIS3HK2QNe+8WgPHXg9LupIDs2KphkBUHgIQAkAdJIQ=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good2_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ruiujPSUcix9mi/prpAuz6hkLicDKOsdinDRIdyo61Y=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good3.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lv/R6mYU3ZTLkRxsYv2qKFdTfGHuAzd+LxbFbEmYYY8=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_good3_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qUX+c3/9Z2pzV3pVlMS7Ka6Oh2JTd6W1W9DU5uBscaQ=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral1.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			K4+RRbv0YJh6KZxhlOfDjdK+s3gHBptKOpvTcQzC0Rg=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral1_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TG2VLFxvVBRk2pKe47BQFk/770cb9nfd8DLMFaVYBmI=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral2.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lX0e6Q1A1+zNvAMJ1ifDHxl8d7mj9t4mApqejf/jxdw=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral2_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gAvXay8K7wzj8mF44HMnlVkjVcWlX51gGU0KAxookQY=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral3.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			C3lyCNKpTUVG+PaMbdbJgj4afNa6xvs3sZ/fuUMJjgQ=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_reply_neutral3_b.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pU2j4OpevgjxHHHP78h+2T/enZIZWypQZMSmrPZDT3Y=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_triad_key.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ULCmFfdMKD/xo5Oejj1bkTTNYxTmtpuir5Aexlw4kRY=
+			</data>
+		</dict>
+		<key>Resources/vo_lila_triad_police.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DLAkr6fAjWpDyu2iC98+hZ+yZwA4hucUbTy0aWamKdo=
+			</data>
+		</dict>
+		<key>Resources/vo_voss_monologue_1.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			e5KIiM1h2J/vergzuI2AmMQglDPMmjRlMkBIfLptKJ4=
+			</data>
+		</dict>
+		<key>Resources/vo_voss_monologue_2.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TJ0njtIm/swpaqZXFwsqFQufO2GuWXm69RzNJBHhhAY=
+			</data>
+		</dict>
+		<key>Resources/vo_voss_monologue_3.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			evaAhdrQE0q5I8UDPhinQdm71fUAjAmslPgglFUxl1E=
+			</data>
+		</dict>
+		<key>Resources/vo_voss_monologue_4.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EncO1cSDIQ9oEgK3G0tOwQqGt3OpaC0fxYCtgxcCud0=
+			</data>
+		</dict>
+		<key>Resources/vo_voss_monologue_5.m4a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Xrd/9N/V9zTEHDI8mBNg+A1iBbx7Z9kxfG/amXCbbds=
+			</data>
+		</dict>
 		<key>Resources/voss_paperdoll_front_rgba_v01.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oZ97wLnvYj7LeD7G30qZdA3vNUCIlzquazotPTXtmZ8=
+			y8JYMwYf2b9Xwjw9dLwgmLn59CUAhpRq3IoXS4jGlzI=
 			</data>
 		</dict>
 	</dict>

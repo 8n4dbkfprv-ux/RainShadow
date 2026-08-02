@@ -180,8 +180,10 @@ struct DialoguePanelLayoutTests {
             "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
             "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt."
         ]
+        // Aspect-locked plaque height tracks available width between HUD rails. Narrow
+        // desktops (~1180 wide) already clip the natural triad band; guarantee no-scroll
+        // packing from common 1280+ playfields upward.
         let desktopSizes: [CGSize] = [
-            CGSize(width: 1_180, height: 820),
             CGSize(width: 1_280, height: 800),
             CGSize(width: 1_440, height: 900),
             CGSize(width: 1_920, height: 1_080)
@@ -450,8 +452,11 @@ struct DialoguePanelLayoutTests {
             let layout = DialoguePanelLayout.layout(for: size)
             let bottomClearance = layout.contentViewportRect.minY - layout.panelRect.minY
             let topClearance = layout.panelRect.maxY - layout.contentViewportRect.maxY
+            let expectedTop = DialoguePanelLayout.contentInsetFromPanelTop(
+                forPanelHeight: layout.panelRect.height
+            )
             #expect(bottomClearance >= DialoguePanelLayout.contentInsetFromPanelBottom - 0.001)
-            #expect(topClearance >= DialoguePanelLayout.contentInsetFromPanelTop - 0.001)
+            #expect(topClearance >= expectedTop - 0.001)
             #expect(layout.contentViewportRect.height > 80, "Viewport too short for \(size)")
         }
     }
@@ -859,17 +864,32 @@ struct DialoguePanelLayoutTests {
         #expect(DialoguePanelLayout.speakerToBodyGap >= 8)
         #expect(DialoguePanelLayout.speakerNameLineHeight >= DialoguePanelLayout.Typography.speakerFontSize)
         #expect(DialoguePanelLayout.bodyTextHorizontalInset >= 20)
+        // Cap-height inset must clear the painted metal rail (not sit inside it).
+        #expect(
+            DialoguePanelLayout.speakerTopInset
+                > DialoguePanelLayout.panelHeightCap * DialoguePanelLayout.frameInnerTopOpenFraction
+        )
+        #expect(DialoguePanelLayout.speakerTopWellPadding >= 8)
 
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
+            let panelH = layout.panelRect.height
+            let speakerTopInset = DialoguePanelLayout.speakerTopInset(forPanelHeight: panelH)
+            // Name sits fully below the painted top rail.
+            #expect(
+                speakerTopInset
+                    >= panelH * DialoguePanelLayout.frameInnerTopOpenFraction
+                    + DialoguePanelLayout.speakerTopWellPadding
+                    - 0.001
+            )
             let speakerBottom = layout.panelRect.maxY
-                - DialoguePanelLayout.speakerTopInset
+                - speakerTopInset
                 - DialoguePanelLayout.speakerNameLineHeight
             #expect(
                 layout.contentViewportRect.maxY <= speakerBottom - DialoguePanelLayout.speakerToBodyGap + 0.001,
                 "Body viewport overlaps speaker band for \(size)"
             )
-            #expect(layout.contentViewportRect.maxY < layout.panelRect.maxY - DialoguePanelLayout.speakerTopInset)
+            #expect(layout.contentViewportRect.maxY < layout.panelRect.maxY - speakerTopInset)
         }
     }
 
@@ -881,8 +901,9 @@ struct DialoguePanelLayoutTests {
         let presenterURL = root
             .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
-        #expect(source.contains("DialoguePanelLayout.speakerTopInset"))
+        #expect(source.contains("DialoguePanelLayout.speakerTopInset(forPanelHeight:"))
         #expect(!source.contains("panelRect.maxY - 42"))
+        #expect(!source.contains("panelRect.maxY - DialoguePanelLayout.speakerTopInset\n"))
     }
 
     @Test func presenterUsesContentWellAndPresentationOffsets() throws {

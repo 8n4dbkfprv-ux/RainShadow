@@ -334,13 +334,16 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
-| P0 | `inventory_outer_frame_overlay_v04` | 1 | 1960×1080 | Active BG-structure inventory hierarchy plate (loadout / paperdoll chamber / equipment wells / stats / mid strip / 8×2 bag / nearby) with chroma-punched wells; no baked labels. |
-| P0 | `inventory_slot_frame_v04` | 1 | 256×256 | Reusable recessed slot frame scaled to code-defined bounds. |
-| P0 | `inventory_slot_silhouette_*_v04` | 8 | 256×256 | Noir empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag) matching BG slot roles. |
-| P0 | `inventory_stat_badge_*_v04` | 4 | 256×256 | Painted badge frames with open centers: defence (shield), vitality (spiked), resolve (sunburst), damage (ring). |
+| P0 | `inventory_outer_frame_v05` | 1 | 1960×1080 | Modular border-only inventory frame (straight rails, stepped corners; no half-circle crests); transparent interior; HUD/dialogue gunmetal match. |
+| P0 | `inventory_section_{loadout,paperdoll,stats,mid,bag,nearby}_v05` | 6 | varies | Separate section backplates composed by code (BG hierarchy; no baked labels). |
+| P0 | `inventory_slot_frame_v05` | 1 | 256×256 | Reusable recessed squircle slot frame scaled to code-defined bounds. |
+| P0 | `inventory_selection_frame_v05` | 1 | 256×256 | Painted selection highlight rim (replaces coded SKShapeNode rings). |
+| P0 | `inventory_slot_silhouette_*_v05` | 8 | 256×256 | Empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
+| P0 | `inventory_stat_badge_*_v05` | 4 | 256×256 | Badge frames with open centers: defence / vitality / resolve / damage. |
+| P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | Painted nearby-page chevrons. |
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
-| P0 | `inventory_coin_stack_v01` | 1 | 512×512 | Independent worn coin stack/scatter. |
-| P0 | `inventory_case_bag_v01` | 1 | 512×512 | Independent investigator satchel. |
+| P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
+| P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |
 | P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background. |
 | P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |

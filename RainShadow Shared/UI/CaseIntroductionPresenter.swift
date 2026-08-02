@@ -172,9 +172,11 @@ final class CaseIntroductionPresenter: SKNode {
         portrait.size = CGSize(width: photoRect.width, height: photoRect.height)
 
         // Speaker + body share one text-column left edge (no stair-step indent).
+        // Top inset clears the painted metal rim so the name never overlaps the frame.
         let textColumnX = geometry.contentViewportRect.minX
             + DialoguePanelLayout.bodyTextHorizontalInset
-        let speakerTop = panelRect.maxY - DialoguePanelLayout.speakerTopInset
+        let speakerTop = panelRect.maxY
+            - DialoguePanelLayout.speakerTopInset(forPanelHeight: panelRect.height)
         speakerLabel.position = CGPoint(x: textColumnX, y: speakerTop)
         // Default to full-column width; `rebuildChoices` re-resolves after measure so short
         // monologues keep even left/right padding and long bodies still clear the scrollbar.

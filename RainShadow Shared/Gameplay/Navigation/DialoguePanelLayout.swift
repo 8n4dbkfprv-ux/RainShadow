@@ -67,15 +67,38 @@ struct DialoguePanelLayout: Equatable {
     /// slim, reference-like lower rail of the v05q dialogue frame.
     static let contentInsetFromPanelBottom: CGFloat = 16
 
-    /// Distance from panel top to the speaker name (under the slim v05q top rim).
-    static let speakerTopInset: CGFloat = 20
+    /// Measured on `dialogue_outer_frame_overlay_v10` (1720×583): the transparent
+    /// text well first opens at row y≈48. The speaker name must sit fully below this
+    /// metal rail so it never paints over the frame chrome.
+    static let frameInnerTopOpenFraction: CGFloat = 48.0 / 583.0
+    /// Breathing room inside the open well above the speaker name (after clearing the rail).
+    static let speakerTopWellPadding: CGFloat = 8
     /// Vertical space reserved for the speaker name line (font + breathing room).
     static let speakerNameLineHeight: CGFloat = 22
     /// Gap between the speaker name and the dialogue body.
     static let speakerToBodyGap: CGFloat = 8
+
+    /// Distance from panel top to the speaker name for a given panel height.
+    /// Scales with the painted top rail so the name clears the frame at every size.
+    static func speakerTopInset(forPanelHeight height: CGFloat) -> CGFloat {
+        max(1, height) * frameInnerTopOpenFraction + speakerTopWellPadding
+    }
+
     /// Inset of the text viewport from the panel top (below frame crown + speaker name).
-    static let contentInsetFromPanelTop: CGFloat =
-        speakerTopInset + speakerNameLineHeight + speakerToBodyGap
+    static func contentInsetFromPanelTop(forPanelHeight height: CGFloat) -> CGFloat {
+        speakerTopInset(forPanelHeight: height) + speakerNameLineHeight + speakerToBodyGap
+    }
+
+    /// Floor / cap-height value used by tests and call sites that only need a minimum.
+    /// Prefer the height-aware helpers when laying out a live panel.
+    static var speakerTopInset: CGFloat {
+        speakerTopInset(forPanelHeight: panelHeightCap)
+    }
+
+    /// Floor / cap-height content top inset (see `contentInsetFromPanelTop(forPanelHeight:)`).
+    static var contentInsetFromPanelTop: CGFloat {
+        contentInsetFromPanelTop(forPanelHeight: panelHeightCap)
+    }
 
     /// Extra inset of body text width inside the content viewport (keeps glyphs off the well edge).
     /// Symmetric left/right when no inline scrollbar is shown; the scroll path adds a separate gutter.
@@ -379,8 +402,10 @@ struct DialoguePanelLayout: Equatable {
         let textRight = scrollbarRect.minX - contentToScrollbarGap
         // Fixed insets so choice-driven panel growth expands the text viewport 1:1.
         // Body sits under the speaker line, to the right of the portrait column.
+        // Top inset scales with panel height so the speaker name clears the painted rim.
         let contentBottom = panelRect.minY + contentInsetFromPanelBottom
-        let contentTop = panelRect.maxY - contentInsetFromPanelTop
+        let topInset = contentInsetFromPanelTop(forPanelHeight: panelRect.height)
+        let contentTop = panelRect.maxY - topInset
         let contentViewportRect = CGRect(
             x: textLeft,
             y: contentBottom,
@@ -467,7 +492,10 @@ struct DialoguePanelLayout: Equatable {
             && bodyTextMaxWidth <= contentViewportRect.width + 0.001
             && choiceTextMaxWidth <= contentViewportRect.width + 0.001
             && contentViewportRect.minY >= panelRect.minY + Self.contentInsetFromPanelBottom - 0.001
-            && contentViewportRect.maxY <= panelRect.maxY - Self.contentInsetFromPanelTop + 0.001
+            && contentViewportRect.maxY
+                <= panelRect.maxY
+                - Self.contentInsetFromPanelTop(forPanelHeight: panelRect.height)
+                + 0.001
             && contentWellRect.intersects(contentViewportRect)
             && panelRect.contains(contentWellRect.insetBy(dx: 1, dy: 1))
             && scrollbarFitsPaintedRail

@@ -1,0 +1,30 @@
+{
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Gameplay/Navigation/HUDChromeLayout.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HUDChromeLayout.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HUDChromeLayout.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HUDChromeLayout.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HUDChromeLayout.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HUDChromeLayout.swiftdeps"
+  },
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Gameplay/Navigation/HotspotHoverHighlight.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HotspotHoverHighlight.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HotspotHoverHighlight.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HotspotHoverHighlight.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HotspotHoverHighlight.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/HotspotHoverHighlight.swiftdeps"
+  },
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Gameplay/Navigation/NavigationGrid.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/NavigationGrid.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/NavigationGrid.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/NavigationGrid.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/NavigationGrid.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/NavigationGrid.swiftdeps"
+  },
+  "/Users/laurensvanoorschot/Desktop/RainShadow/RainShadow Shared/Gameplay/Navigation/OfficeClientVisitSequencer.swift" : {
+    "const-values" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficeClientVisitSequencer.swiftconstvalues",
+    "dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficeClientVisitSequencer.d",
+    "diagnostics" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficeClientVisitSequencer.dia",
+    "object" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficeClientVisitSequencer.o",
+    "swift-dependencies" : "/Users/laurensvanoorschot/Desktop/RainShadow/.derivedData/Build/Intermediates.noindex/RainShadow.build/Debug/RainShadow macOS.build/Objects-normal/arm64/OfficeClientVisitSequencer.swiftdeps"
+  }
+}

@@ -23,68 +23,86 @@ struct InventoryItem: Identifiable, Equatable {
     let quantity: Int
 }
 
-/// Art-first inventory: painted V04 plate owns chrome; code places icons, live labels, and hit targets.
+/// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
 @MainActor
 final class InventoryOverlay: SKNode {
-    /// Layout contract for the 1960×1080 canvas, tuned to BG EE Classic hierarchy
-    /// and punched wells from `inventory_outer_frame_overlay_v04`.
+    /// Layout contract for the 1960×1080 canvas — BG EE Classic hierarchy.
+    /// Loadout rows share one left edge; bag + nearby share one lower band.
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
 
-        static let titleY: CGFloat = 490
-        static let identityBand = CGPoint(x: -40, y: 432)
-        // Centered in the painted V04 close well (smaller top-left square).
-        static let closeButton = CGPoint(x: -748, y: 484)
+        static let titleY: CGFloat = 478
+        static let identityBand = CGPoint(x: 0, y: 428)
+        /// Center of the close well painted into `inventory_outer_frame_v05`.
+        static let closeButton = CGPoint(x: -838, y: 410)
 
-        static let primaryY: CGFloat = 95
+        /// One shared content rectangle inside the outer frame's inner rails.
+        /// Keeping every opaque plate on these edges prevents uneven gutters
+        /// and stops the lower band from covering the frame itself.
+        static let contentLeft: CGFloat = -840
+        static let contentRight: CGFloat = 840
+        static let contentWidth = contentRight - contentLeft
+        static let sectionGap: CGFloat = 25
 
-        static let loadoutOrigin = CGPoint(x: -720, y: primaryY)
-        static let loadoutSlotSize: CGFloat = 88
-        static let loadoutSlotPitch: CGFloat = 98
+        static let primaryY: CGFloat = 90
 
-        static let paperdollOrigin = CGPoint(x: -40, y: primaryY)
+        /// Column center; slots left-align from `loadoutSlotLeft` (not centered per row).
+        static let loadoutSize = CGSize(width: 460, height: 520)
+        static let loadoutOrigin = CGPoint(x: contentLeft + loadoutSize.width / 2, y: primaryY)
+        static let loadoutSlotLeft: CGFloat = -168
+        static let loadoutSlotSize: CGFloat = 92
+        static let loadoutSlotPitch: CGFloat = 108
+
+        static let paperdollSize = CGSize(width: 520, height: 520)
+        static let paperdollOrigin = CGPoint(
+            x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
+            y: primaryY
+        )
         static let chamberOffset = CGPoint(x: 0, y: 10)
         static let equipSlotSize = CGSize(width: 72, height: 68)
 
-        static let statsOrigin = CGPoint(x: 520, y: primaryY)
-        static let statsSize = CGSize(width: 500, height: 520)
-        static let statRowPitch: CGFloat = 118
-        static let statRowTopY: CGFloat = 175
+        static let statsSize = CGSize(width: 650, height: 560)
+        static let statsOrigin = CGPoint(x: contentRight - statsSize.width / 2, y: primaryY)
+        static let statRowPitch: CGFloat = 116
+        static let statRowTopY: CGFloat = 195
         static let statBadgeSize: CGFloat = 84
-        static let statTextWidth: CGFloat = 340
+        static let statTextWidth: CGFloat = 490
 
-        static let midStripY: CGFloat = -210
-        static let midDescOrigin = CGPoint(x: -40, y: midStripY)
-        static let midPausedOrigin = CGPoint(x: -720, y: midStripY + 8)
-        static let midCoinsOrigin = CGPoint(x: 720, y: midStripY)
+        static let midStripY: CGFloat = -225
+        static let midSize = CGSize(width: contentWidth, height: 80)
+        static let midDescOrigin = CGPoint(x: 0, y: midStripY)
+        static let midPausedOrigin = CGPoint(x: -790, y: midStripY)
+        static let midCoinsOrigin = CGPoint(x: 750, y: midStripY)
 
-        static let lowerY: CGFloat = -400
-        static let bagOrigin = CGPoint(x: -280, y: lowerY)
-        static let bagSize = CGSize(width: 1_100, height: 210)
+        /// One lower band: satchel + bag grid + nearby.
+        static let lowerY: CGFloat = -365
+        static let bagSize = CGSize(width: 1_130, height: 190)
+        static let bagOrigin = CGPoint(x: contentLeft + bagSize.width / 2, y: lowerY)
         static let bagColumns = 8
         static let bagRows = 2
         static let bagSlotCount = bagColumns * bagRows
-        static let bagSlotSize: CGFloat = 78
-        static let bagSlotPitchX: CGFloat = 92
-        static let bagSlotPitchY: CGFloat = 90
-        static let bagFirstSlotX: CGFloat = -280
-        static let bagFirstRowY: CGFloat = 18
-        static let bagArtOffset = CGPoint(x: -470, y: -10)
+        static let bagSlotSize: CGFloat = 70
+        static let bagSlotPitchX: CGFloat = 104
+        static let bagSlotPitchY: CGFloat = 75
+        static let bagFirstSlotX: CGFloat = -310
+        static let bagFirstRowY: CGFloat = 34
+        static let bagArtOffset = CGPoint(x: -505, y: 0)
 
-        static let nearbyOrigin = CGPoint(x: 620, y: lowerY)
-        static let nearbySize = CGSize(width: 520, height: 210)
+        static let nearbySize = CGSize(width: 525, height: 190)
+        static let nearbyOrigin = CGPoint(x: contentRight - nearbySize.width / 2, y: lowerY)
         static let nearbySlotCount = 6
-        static let nearbySlotSize: CGFloat = 72
-        static let nearbySlotPitch: CGFloat = 82
-        static let nearbyFirstSlotX: CGFloat = -140
-        static let nearbySlotY: CGFloat = -10
+        static let nearbySlotSize: CGFloat = 68
+        static let nearbySlotPitch: CGFloat = 76
+        static let nearbyFirstSlotX: CGFloat = -190
+        static let nearbySlotY: CGFloat = -26
+        static let nearbyArrowX: CGFloat = 236
+        static let nearbyHeaderY: CGFloat = 66
     }
 
     private enum Palette {
         static let paper = SKColor(red: 0.82, green: 0.80, blue: 0.72, alpha: 1)
         static let quiet = SKColor(red: 0.55, green: 0.57, blue: 0.57, alpha: 1)
         static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
-        static let selection = SKColor(red: 0.86, green: 0.62, blue: 0.28, alpha: 0.95)
     }
 
     private let items: [InventoryItem] = [
@@ -233,32 +251,36 @@ final class InventoryOverlay: SKNode {
         veil.zPosition = -20
         addChild(veil)
 
-        let shadow = SKSpriteNode(color: SKColor(white: 0, alpha: 0.55), size: Metrics.canvas)
-        shadow.position = CGPoint(x: 11, y: -14)
-        shadow.zPosition = -10
-        sheet.addChild(shadow)
-
-        if !addGeneratedOuterFrame() {
-            assertionFailure("Missing inventory_outer_frame_overlay_v04.png")
-        }
+        addChromeSprite(named: "inventory_outer_frame_v05", size: Metrics.canvas, z: -8, parent: sheet)
 
         sheet.addChild(content)
+        content.zPosition = 0
 
         let title = Self.label(size: 36, color: Palette.paper, weight: .display)
         title.text = "INVENTORY"
         title.position = CGPoint(x: 0, y: Metrics.titleY)
+        title.zPosition = 20
         content.addChild(title)
 
-        let detectiveName = Self.label(size: 22, color: Palette.paper, weight: .demibold)
+        let detectiveName = Self.label(size: 20, color: Palette.paper, weight: .demibold)
         detectiveName.text = "HARLAN VOSS"
         detectiveName.horizontalAlignmentMode = .right
-        detectiveName.position = CGPoint(x: Metrics.identityBand.x - 24, y: Metrics.identityBand.y)
+        detectiveName.position = CGPoint(x: Metrics.identityBand.x - 18, y: Metrics.identityBand.y)
+        detectiveName.zPosition = 20
         content.addChild(detectiveName)
 
-        let profession = Self.label(size: 20, color: Palette.paper, weight: .demibold)
+        let divider = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
+        divider.text = "·"
+        divider.horizontalAlignmentMode = .center
+        divider.position = Metrics.identityBand
+        divider.zPosition = 20
+        content.addChild(divider)
+
+        let profession = Self.label(size: 18, color: Palette.paper, weight: .demibold)
         profession.text = "PRIVATE INVESTIGATOR"
         profession.horizontalAlignmentMode = .left
-        profession.position = CGPoint(x: Metrics.identityBand.x + 24, y: Metrics.identityBand.y)
+        profession.position = CGPoint(x: Metrics.identityBand.x + 18, y: Metrics.identityBand.y)
+        profession.zPosition = 20
         content.addChild(profession)
 
         buildCloseButton()
@@ -270,19 +292,6 @@ final class InventoryOverlay: SKNode {
         addChild(sheet)
     }
 
-    @discardableResult
-    private func addGeneratedOuterFrame() -> Bool {
-        guard let texture = GameArt.texture(named: "inventory_outer_frame_overlay_v04")
-            ?? GameArt.texture(named: "inventory_outer_frame_overlay_v03") else { return false }
-        texture.filteringMode = .linear
-
-        let overlay = SKSpriteNode(texture: texture, size: Metrics.canvas)
-        overlay.name = "inventory.outer-frame-overlay"
-        overlay.zPosition = -8
-        sheet.addChild(overlay)
-        return true
-    }
-
     private func buildCloseButton() {
         let button = ClassicMacCloseButtonNode(
             targetName: "inventory.close",
@@ -292,33 +301,45 @@ final class InventoryOverlay: SKNode {
             accent: .clear
         )
         button.position = Metrics.closeButton
+        button.zPosition = 30
         content.addChild(button)
     }
 
     private func buildLoadoutPanel() {
         let root = SKNode()
         root.position = Metrics.loadoutOrigin
+        root.zPosition = 1
+
+        addChromeSprite(
+            named: "inventory_section_loadout_v05",
+            size: Metrics.loadoutSize,
+            z: -1,
+            parent: root
+        )
 
         addSlotSection(
             "READY WEAPONS",
             items: [item(id: "service-revolver"), nil, nil, nil],
+            emptySilhouette: "inventory_slot_silhouette_weapon_v05",
             to: root,
-            headerY: 210,
-            slotY: 130
+            headerY: 200,
+            slotY: 144
         )
         addSlotSection(
             "QUICK ITEMS",
             items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")],
+            emptySilhouette: "inventory_slot_silhouette_item_v05",
             to: root,
-            headerY: 40,
-            slotY: -40
+            headerY: 55,
+            slotY: -5
         )
         addSlotSection(
             "COAT POCKETS",
             items: [item(id: "brass-key"), nil, item(id: "wallet")],
+            emptySilhouette: "inventory_slot_silhouette_item_v05",
             to: root,
-            headerY: -130,
-            slotY: -210
+            headerY: -110,
+            slotY: -180
         )
 
         content.addChild(root)
@@ -327,28 +348,37 @@ final class InventoryOverlay: SKNode {
     private func buildPaperdollPanel() {
         let root = SKNode()
         root.position = Metrics.paperdollOrigin
+        root.zPosition = 1
+
+        addChromeSprite(
+            named: "inventory_section_paperdoll_v05",
+            size: Metrics.paperdollSize,
+            z: -1,
+            parent: root
+        )
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
             detectiveTexture.filteringMode = .nearest
-            let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 210, height: 315))
+            let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 220, height: 315))
             paperdoll.name = "inventory.paperdoll"
             paperdoll.position = Metrics.chamberOffset
+            paperdoll.zPosition = 0
             root.addChild(paperdoll)
         } else {
             assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
         let equipment: [(String, String, CGPoint)] = [
-            ("inventory_slot_silhouette_hat_v04", "FEDORA", CGPoint(x: -168, y: 220)),
-            ("inventory_slot_silhouette_hands_v04", "GLOVES", CGPoint(x: -84, y: 220)),
-            ("inventory_slot_silhouette_coat_v04", "COAT", CGPoint(x: 0, y: 220)),
-            ("inventory_slot_silhouette_weapon_v04", "HOLSTER", CGPoint(x: 84, y: 220)),
-            ("inventory_slot_silhouette_item_v04", "CHARM", CGPoint(x: 168, y: 220)),
-            ("inventory_slot_silhouette_hands_v04", "HANDS", CGPoint(x: -210, y: 20)),
-            ("inventory_slot_silhouette_ring_v04", "LUCK", CGPoint(x: 210, y: 20)),
-            ("inventory_slot_silhouette_feet_v04", "SHOES", CGPoint(x: -84, y: -220)),
-            ("inventory_slot_silhouette_coat_v04", "STANCE", CGPoint(x: 0, y: -220)),
-            ("inventory_slot_silhouette_weapon_v04", "WEAPON", CGPoint(x: 84, y: -220))
+            ("inventory_slot_silhouette_hat_v05", "FEDORA", CGPoint(x: -200, y: 220)),
+            ("inventory_slot_silhouette_hands_v05", "GLOVES", CGPoint(x: -100, y: 220)),
+            ("inventory_slot_silhouette_coat_v05", "COAT", CGPoint(x: 0, y: 220)),
+            ("inventory_slot_silhouette_weapon_v05", "HOLSTER", CGPoint(x: 100, y: 220)),
+            ("inventory_slot_silhouette_item_v05", "CHARM", CGPoint(x: 200, y: 220)),
+            ("inventory_slot_silhouette_hands_v05", "HANDS", CGPoint(x: -248, y: 20)),
+            ("inventory_slot_silhouette_ring_v05", "LUCK", CGPoint(x: 248, y: 20)),
+            ("inventory_slot_silhouette_feet_v05", "SHOES", CGPoint(x: -100, y: -180)),
+            ("inventory_slot_silhouette_coat_v05", "STANCE", CGPoint(x: 0, y: -180)),
+            ("inventory_slot_silhouette_weapon_v05", "WEAPON", CGPoint(x: 100, y: -180))
         ]
         for equipmentItem in equipment {
             root.addChild(equipmentSlot(artName: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
@@ -360,12 +390,20 @@ final class InventoryOverlay: SKNode {
     private func buildStatsPanel() {
         let root = SKNode()
         root.position = Metrics.statsOrigin
+        root.zPosition = 1
+
+        addChromeSprite(
+            named: "inventory_section_stats_v05",
+            size: Metrics.statsSize,
+            z: -1,
+            parent: root
+        )
 
         let rows: [(String, String, String, [String])] = [
-            ("inventory_stat_badge_defence_v04", "8", "DEFENCE", ["Defence: 8", "Coat & leather turn glancing blows."]),
-            ("inventory_stat_badge_vitality_v04", "8/10", "VITALITY", ["Vitality: 8 / 10", "Steady under night pressure."]),
-            ("inventory_stat_badge_resolve_v04", "6", "RESOLVE", ["Resolve: 6", "Keeps the case moving forward."]),
-            ("inventory_stat_badge_damage_v04", "2–7", "DAMAGE", ["Damage: 2–7", "Webley · service load."])
+            ("inventory_stat_badge_defence_v05", "8", "DEFENCE", ["Defence: 8", "Coat & leather turn glancing blows."]),
+            ("inventory_stat_badge_vitality_v05", "8/10", "VITALITY", ["Vitality: 8 / 10", "Steady under night pressure."]),
+            ("inventory_stat_badge_resolve_v05", "6", "RESOLVE", ["Resolve: 6", "Keeps the case moving forward."]),
+            ("inventory_stat_badge_damage_v05", "2–7", "DAMAGE", ["Damage: 2–7", "Webley · service load."])
         ]
         for (index, row) in rows.enumerated() {
             let y = Metrics.statRowTopY - CGFloat(index) * Metrics.statRowPitch
@@ -376,31 +414,42 @@ final class InventoryOverlay: SKNode {
     }
 
     private func buildMidStrip() {
-        let paused = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
+        addChromeSprite(
+            named: "inventory_section_mid_v05",
+            size: Metrics.midSize,
+            at: CGPoint(x: 0, y: Metrics.midStripY),
+            z: 0,
+            parent: content
+        )
+
+        let paused = Self.label(size: 16, color: Palette.quiet, weight: .demibold)
         paused.text = "CASEWORK PAUSED"
         paused.horizontalAlignmentMode = .left
+        paused.verticalAlignmentMode = .center
         paused.position = Metrics.midPausedOrigin
+        paused.zPosition = 2
         content.addChild(paused)
 
         let desc = SKNode()
         desc.position = Metrics.midDescOrigin
+        desc.zPosition = 2
         itemCategoryLabel.horizontalAlignmentMode = .left
         itemCategoryLabel.verticalAlignmentMode = .center
-        itemCategoryLabel.position = CGPoint(x: -470, y: 18)
+        itemCategoryLabel.position = CGPoint(x: -520, y: 18)
         desc.addChild(itemCategoryLabel)
         itemNameLabel.horizontalAlignmentMode = .left
         itemNameLabel.verticalAlignmentMode = .center
-        itemNameLabel.position = CGPoint(x: -320, y: 18)
+        itemNameLabel.position = CGPoint(x: -370, y: 18)
         desc.addChild(itemNameLabel)
         itemDescriptionLabel.horizontalAlignmentMode = .left
         itemDescriptionLabel.verticalAlignmentMode = .center
-        itemDescriptionLabel.preferredMaxLayoutWidth = 940
+        itemDescriptionLabel.preferredMaxLayoutWidth = 1_040
         itemDescriptionLabel.numberOfLines = 1
-        itemDescriptionLabel.position = CGPoint(x: -470, y: -4)
+        itemDescriptionLabel.position = CGPoint(x: -520, y: -4)
         desc.addChild(itemDescriptionLabel)
         itemNoteLabel.horizontalAlignmentMode = .left
         itemNoteLabel.verticalAlignmentMode = .center
-        itemNoteLabel.position = CGPoint(x: -470, y: -24)
+        itemNoteLabel.position = CGPoint(x: -520, y: -24)
         desc.addChild(itemNoteLabel)
         content.addChild(desc)
 
@@ -410,21 +459,34 @@ final class InventoryOverlay: SKNode {
     private func buildBagPanel() {
         let bag = SKNode()
         bag.position = Metrics.bagOrigin
-        addGridHeader("CASE BAG", counter: "\(items.count) / \(Metrics.bagSlotCount)", to: bag, width: Metrics.bagSize.width - 40)
+        bag.zPosition = 1
+        addChromeSprite(named: "inventory_section_bag_v05", size: Metrics.bagSize, z: -1, parent: bag)
+        addGridHeader(
+            "CASE BAG",
+            counter: "\(items.count) / \(Metrics.bagSlotCount)",
+            to: bag,
+            width: Metrics.bagSize.width - 20,
+            y: 83
+        )
 
-        if let bagTexture = GameArt.texture(named: "inventory_case_bag_v01") {
+        if let bagTexture = GameArt.texture(named: "inventory_case_bag_v05") {
             bagTexture.filteringMode = .linear
-            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 120, height: 120))
+            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 92, height: 92))
             bagArt.position = Metrics.bagArtOffset
+            bagArt.zPosition = 1
             bag.addChild(bagArt)
+        } else {
+            assertionFailure("Missing inventory_case_bag_v05.png")
         }
-        let carriedWeight = Self.label(size: 13, color: Palette.amber, weight: .demibold)
+        let carriedWeight = Self.label(size: 12, color: Palette.amber, weight: .demibold)
         carriedWeight.text = "14 lb"
-        carriedWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 72)
+        carriedWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 55)
+        carriedWeight.zPosition = 2
         bag.addChild(carriedWeight)
-        let maximumWeight = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
+        let maximumWeight = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
         maximumWeight.text = "70 lb MAX"
-        maximumWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 72)
+        maximumWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 60)
+        maximumWeight.zPosition = 2
         bag.addChild(maximumWeight)
 
         let bagItems: [InventoryItem?] = items.map(Optional.some)
@@ -439,22 +501,30 @@ final class InventoryOverlay: SKNode {
             if let item = bagItems[index] {
                 bag.addChild(itemSlot(item, size: Metrics.bagSlotSize, at: position, showQuantity: true))
             } else {
-                bag.addChild(emptySlot(size: Metrics.bagSlotSize, at: position))
+                bag.addChild(emptySlot(
+                    size: Metrics.bagSlotSize,
+                    at: position,
+                    silhouette: "inventory_slot_silhouette_bag_v05",
+                    silhouetteAlpha: 0.16
+                ))
             }
         }
         content.addChild(bag)
 
         let ground = SKNode()
         ground.position = Metrics.nearbyOrigin
-        addGridHeader("NEARBY", counter: "0 / \(Metrics.nearbySlotCount)", to: ground, width: Metrics.nearbySize.width - 40)
+        ground.zPosition = 1
+        addChromeSprite(named: "inventory_section_nearby_v05", size: Metrics.nearbySize, z: -1, parent: ground)
+        addNearbyHeader(to: ground)
 
-        let pageLabel = Self.label(size: 13, color: Palette.quiet, weight: .demibold)
-        pageLabel.text = "1 / 1"
-        pageLabel.position = CGPoint(x: 0, y: 52)
-        ground.addChild(pageLabel)
-
-        ground.addChild(pageArrow(direction: -1, at: CGPoint(x: -210, y: Metrics.nearbySlotY)))
-        ground.addChild(pageArrow(direction: 1, at: CGPoint(x: 210, y: Metrics.nearbySlotY)))
+        ground.addChild(pageArrow(
+            direction: -1,
+            at: CGPoint(x: -Metrics.nearbyArrowX, y: Metrics.nearbyHeaderY)
+        ))
+        ground.addChild(pageArrow(
+            direction: 1,
+            at: CGPoint(x: Metrics.nearbyArrowX, y: Metrics.nearbyHeaderY)
+        ))
 
         for index in 0..<Metrics.nearbySlotCount {
             ground.addChild(emptySlot(
@@ -462,7 +532,9 @@ final class InventoryOverlay: SKNode {
                 at: CGPoint(
                     x: Metrics.nearbyFirstSlotX + CGFloat(index) * Metrics.nearbySlotPitch,
                     y: Metrics.nearbySlotY
-                )
+                ),
+                silhouette: "inventory_slot_silhouette_bag_v05",
+                silhouetteAlpha: 0.16
             ))
         }
         content.addChild(ground)
@@ -472,6 +544,7 @@ final class InventoryOverlay: SKNode {
         let slot = slotBase(size: CGSize(width: size, height: size))
         slot.name = "inventory.item.\(item.id)"
         slot.position = position
+        slot.zPosition = 2
 
         if let texture = GameArt.texture(named: item.artName) {
             texture.filteringMode = .linear
@@ -493,27 +566,33 @@ final class InventoryOverlay: SKNode {
             slot.addChild(count)
         }
 
-        let ring = SKShapeNode(rectOf: CGSize(width: size + 4, height: size + 4), cornerRadius: 6)
-        ring.name = "inventory.selection-ring"
-        ring.fillColor = .clear
-        ring.strokeColor = .clear
-        ring.lineWidth = 2.5
-        ring.zPosition = 3
-        slot.addChild(ring)
+        if let texture = GameArt.texture(named: "inventory_selection_frame_v05") {
+            texture.filteringMode = .linear
+            let selection = SKSpriteNode(texture: texture, size: CGSize(width: size + 8, height: size + 8))
+            selection.name = "inventory.selection-frame"
+            selection.zPosition = 3
+            selection.isHidden = true
+            slot.addChild(selection)
+        }
 
         slotFrames[item.id, default: []].append(slot)
         return slot
     }
 
-    private func emptySlot(size: CGFloat, at position: CGPoint) -> SKNode {
+    private func emptySlot(
+        size: CGFloat,
+        at position: CGPoint,
+        silhouette: String,
+        silhouetteAlpha: CGFloat = 0.45
+    ) -> SKNode {
         let slot = slotBase(size: CGSize(width: size, height: size))
         slot.position = position
-        if let texture = GameArt.texture(named: "inventory_slot_silhouette_bag_v04")
-            ?? UIPaintedChrome.texture(named: "inventory_slot_silhouette_bag_v04") {
-            let silhouette = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.72, height: size * 0.72))
-            silhouette.alpha = 0.55
-            silhouette.zPosition = 0
-            slot.addChild(silhouette)
+        slot.zPosition = 2
+        if let texture = GameArt.texture(named: silhouette) ?? UIPaintedChrome.texture(named: silhouette) {
+            let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.62, height: size * 0.62))
+            icon.alpha = silhouetteAlpha
+            icon.zPosition = 0
+            slot.addChild(icon)
         }
         return slot
     }
@@ -521,6 +600,7 @@ final class InventoryOverlay: SKNode {
     private func equipmentSlot(artName: String, caption: String, at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
+        root.zPosition = 2
         let slot = slotBase(size: Metrics.equipSlotSize)
         if let texture = GameArt.texture(named: artName) ?? UIPaintedChrome.texture(named: artName) {
             let icon = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 48))
@@ -529,27 +609,27 @@ final class InventoryOverlay: SKNode {
         }
         root.addChild(slot)
 
-        let label = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
+        let label = Self.label(size: 10, color: Palette.quiet, weight: .demibold)
         label.text = caption
-        label.position.y = -48
+        label.position.y = -42
         root.addChild(label)
         return root
     }
 
     private func slotBase(size: CGSize) -> SKNode {
         let root = SKNode()
-        // Invisible hit surface — painted slot frame provides the visible chrome.
         let hit = SKSpriteNode(color: SKColor(white: 1, alpha: 0.001), size: size)
         hit.zPosition = -2
         root.addChild(hit)
 
-        if let texture = GameArt.texture(named: "inventory_slot_frame_v04")
-            ?? GameArt.texture(named: "inventory_slot_frame_v01") {
+        if let texture = GameArt.texture(named: "inventory_slot_frame_v05") {
             texture.filteringMode = .linear
             let art = SKSpriteNode(texture: texture, size: size)
             art.name = "inventory.slot-art"
             art.zPosition = -1
             root.addChild(art)
+        } else {
+            assertionFailure("Missing inventory_slot_frame_v05.png")
         }
         return root
     }
@@ -557,12 +637,15 @@ final class InventoryOverlay: SKNode {
     private func coinDisplay(at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
+        root.zPosition = 2
 
-        if let texture = GameArt.texture(named: "inventory_coin_stack_v01") {
+        if let texture = GameArt.texture(named: "inventory_coin_stack_v05") {
             texture.filteringMode = .linear
             let coins = SKSpriteNode(texture: texture, size: CGSize(width: 88, height: 64))
             coins.position = CGPoint(x: -55, y: 4)
             root.addChild(coins)
+        } else {
+            assertionFailure("Missing inventory_coin_stack_v05.png")
         }
 
         let value = Self.label(size: 16, color: Palette.paper, weight: .demibold)
@@ -577,8 +660,9 @@ final class InventoryOverlay: SKNode {
     private func statRow(badgeArt: String, value: String, caption: String, lines: [String], at position: CGPoint) -> SKNode {
         let root = SKNode()
         root.position = position
+        root.zPosition = 2
 
-        let badgeX: CGFloat = -Metrics.statsSize.width / 2 + 55
+        let badgeX: CGFloat = -Metrics.statsSize.width / 2 + 62
         if let texture = GameArt.texture(named: badgeArt) {
             texture.filteringMode = .linear
             let badge = SKSpriteNode(texture: texture, size: CGSize(width: Metrics.statBadgeSize, height: Metrics.statBadgeSize))
@@ -623,57 +707,116 @@ final class InventoryOverlay: SKNode {
         let root = SKNode()
         root.position = position
         root.name = direction < 0 ? "inventory.nearby.prev" : "inventory.nearby.next"
+        root.zPosition = 2
 
         let hit = SKSpriteNode(color: SKColor(white: 1, alpha: 0.001), size: CGSize(width: 36, height: 56))
         root.addChild(hit)
-
-        let mark = Self.label(size: 22, color: Palette.paper, weight: .demibold)
-        mark.text = direction < 0 ? "‹" : "›"
-        mark.verticalAlignmentMode = .center
-        mark.position.y = 1
-        root.addChild(mark)
         return root
     }
 
     private func addSlotSection(
         _ title: String,
         items: [InventoryItem?],
+        emptySilhouette: String,
         to root: SKNode,
         headerY: CGFloat,
         slotY: CGFloat
     ) {
         let count = items.count
-        let label = Self.label(size: 16, color: Palette.paper, weight: .demibold)
+        let label = Self.label(size: 15, color: Palette.paper, weight: .demibold)
         label.text = title
+        label.horizontalAlignmentMode = .left
         label.verticalAlignmentMode = .center
-        label.position = CGPoint(x: 0, y: headerY)
+        label.position = CGPoint(x: Metrics.loadoutSlotLeft, y: headerY)
+        label.zPosition = 3
         root.addChild(label)
 
-        let startX = -CGFloat(count - 1) * Metrics.loadoutSlotPitch / 2
+        // Shared left edge for every loadout row (4-slot and 3-slot rows align).
         for index in 0..<count {
-            let position = CGPoint(x: startX + CGFloat(index) * Metrics.loadoutSlotPitch, y: slotY)
+            let position = CGPoint(
+                x: Metrics.loadoutSlotLeft + CGFloat(index) * Metrics.loadoutSlotPitch,
+                y: slotY
+            )
             if let item = items[index] {
                 root.addChild(itemSlot(item, size: Metrics.loadoutSlotSize, at: position, showQuantity: true))
             } else {
-                root.addChild(emptySlot(size: Metrics.loadoutSlotSize, at: position))
+                root.addChild(emptySlot(
+                    size: Metrics.loadoutSlotSize,
+                    at: position,
+                    silhouette: emptySilhouette
+                ))
             }
         }
     }
 
-    private func addGridHeader(_ title: String, counter: String, to root: SKNode, width: CGFloat) {
+    private func addGridHeader(
+        _ title: String,
+        counter: String,
+        to root: SKNode,
+        width: CGFloat,
+        y: CGFloat = 72
+    ) {
         let titleLabel = Self.label(size: 14, color: Palette.paper, weight: .demibold)
         titleLabel.text = title
         titleLabel.horizontalAlignmentMode = .left
         titleLabel.verticalAlignmentMode = .center
-        titleLabel.position = CGPoint(x: -width / 2 + 14, y: 78)
+        titleLabel.position = CGPoint(x: -width / 2 + 12, y: y)
+        titleLabel.zPosition = 3
         root.addChild(titleLabel)
 
         let countLabel = Self.label(size: 14, color: Palette.quiet, weight: .demibold)
         countLabel.text = counter
         countLabel.horizontalAlignmentMode = .right
         countLabel.verticalAlignmentMode = .center
-        countLabel.position = CGPoint(x: width / 2 - 14, y: 78)
+        countLabel.position = CGPoint(x: width / 2 - 12, y: y)
+        countLabel.zPosition = 3
         root.addChild(countLabel)
+    }
+
+    private func addNearbyHeader(to root: SKNode) {
+        let title = Self.label(size: 12, color: Palette.paper, weight: .demibold)
+        title.text = "NEARBY"
+        title.horizontalAlignmentMode = .left
+        title.verticalAlignmentMode = .center
+        title.position = CGPoint(x: -166, y: Metrics.nearbyHeaderY)
+        title.zPosition = 3
+        root.addChild(title)
+
+        let page = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
+        page.text = "1 / 1"
+        page.verticalAlignmentMode = .center
+        page.position = CGPoint(x: 0, y: Metrics.nearbyHeaderY)
+        page.zPosition = 3
+        root.addChild(page)
+
+        let count = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
+        count.text = "0 / \(Metrics.nearbySlotCount)"
+        count.horizontalAlignmentMode = .right
+        count.verticalAlignmentMode = .center
+        count.position = CGPoint(x: 166, y: Metrics.nearbyHeaderY)
+        count.zPosition = 3
+        root.addChild(count)
+    }
+
+    @discardableResult
+    private func addChromeSprite(
+        named name: String,
+        size: CGSize,
+        at position: CGPoint = .zero,
+        z: CGFloat,
+        parent: SKNode
+    ) -> Bool {
+        guard let texture = GameArt.texture(named: name) else {
+            assertionFailure("Missing \(name).png")
+            return false
+        }
+        texture.filteringMode = .linear
+        let sprite = SKSpriteNode(texture: texture, size: size)
+        sprite.name = "inventory.chrome.\(name)"
+        sprite.position = position
+        sprite.zPosition = z
+        parent.addChild(sprite)
+        return true
     }
 
     private func item(id: String) -> InventoryItem? {
@@ -690,9 +833,8 @@ final class InventoryOverlay: SKNode {
         for (id, slots) in slotFrames {
             let selected = id == selectedItemID
             for slot in slots {
-                if let ring = slot.childNode(withName: "inventory.selection-ring") as? SKShapeNode {
-                    ring.strokeColor = selected ? Palette.selection : .clear
-                    ring.glowWidth = selected ? 2 : 0
+                if let frame = slot.childNode(withName: "inventory.selection-frame") {
+                    frame.isHidden = !selected
                 }
             }
         }
@@ -702,7 +844,8 @@ final class InventoryOverlay: SKNode {
         for hit in nodes(at: point) {
             var candidate: SKNode? = hit
             while let node = candidate, node !== self {
-                if let name = node.name, name.hasPrefix("inventory.") {
+                if let name = node.name,
+                   name == "inventory.close" || name.hasPrefix("inventory.item.") {
                     return name
                 }
                 candidate = node.parent
