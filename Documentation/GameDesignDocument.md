@@ -97,7 +97,7 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 #### Harlan Voss — player protagonist
 
 - **Role:** Private detective; the player’s body, voice, and moral weather.
-- **Age / look:** Male, early thirties. Clean-shaven handsome face with tired hollow eyes; dark hair under a slightly misshapen slate-gray fedora. Lived-in olive-brown belted overcoat over a mustard waistcoat, cream shirt, and loosened dark green tie; charcoal trousers; scuffed brown shoes. Handsome but broken down—no glamorous silhouette. Economical movements, guarded posture, capable hands.
+- **Age / look:** Male, early thirties. Clean-shaven handsome face with tired hollow eyes; short dark hair, bare-headed (no fedora). Lived-in olive-brown belted overcoat over a mustard waistcoat, cream shirt, and loosened dark green tie; charcoal trousers; scuffed brown shoes. Handsome but broken down—no glamorous silhouette. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
@@ -109,7 +109,7 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 #### Lila March — the dame / first client
 
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
-- **Age / look:** Adult woman in a charcoal raincoat over a burgundy period suit, small hat, handbag; composed enough that the cracks show only if Voss presses.
+- **Age / look:** Early-twenties adult woman with a chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald 1940s day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
 - **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
 - **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
 - **Deeper tension:** She knows more than the first conversation admits—about Lillian’s work near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
