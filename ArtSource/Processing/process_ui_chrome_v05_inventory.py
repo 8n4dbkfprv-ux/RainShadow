@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSETS = Path.home() / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainShadow/assets"
 GEN = ROOT / "ArtSource/Generated/UI/Inventory"
 RUNTIME = ROOT / "RainShadow Shared/Resources/Art/UI/Inventory"
+RUNTIME_COMMON = ROOT / "RainShadow Shared/Resources/Art/UI/Common"
+GEN_COMMON = ROOT / "ArtSource/Generated/UI/Common"
 
 SLOT_SILHOUETTES = [
     "inventory_slot_silhouette_hat_v05",
@@ -35,10 +37,17 @@ STAT_BADGES = [
 
 # Prefer cooler HUD-matched remasters (b/c) over first warm passes.
 SOURCE_MAP = {
+    "outer_v06": [
+        "inventory_outer_frame_v06b_gen.png",
+        "inventory_outer_frame_v06_gen.png",
+    ],
     "outer": [
         "inventory_outer_frame_v05c_gen.png",
         "inventory_outer_frame_v05b_gen.png",
         "inventory_outer_frame_v05_gen.png",
+    ],
+    "close_macos9": [
+        "ui_close_box_macos9_noir_v04_gen.png",
     ],
     "loadout": [
         "inventory_section_loadout_v05e_gen.png",
@@ -345,10 +354,35 @@ def process_arrows() -> None:
         print(f"wrote {path}")
 
 
+def process_close_macos9() -> None:
+    master = copy_gen(SOURCE_MAP["close_macos9"], GEN_COMMON / "ui_close_box_macos9_noir_v04_gen.png")
+    keyed = scrub_green_spill(force_grayscale(chroma_key(Image.open(master), tol=48.0, soft=16.0)))
+    out = fit_canvas(trim_alpha(keyed), (128, 128))
+    write_png(out, GEN_COMMON / "ui_close_box_macos9_noir_v04_keyed.png")
+    runtime = RUNTIME_COMMON / "ui_close_box_macos9_noir_v04.png"
+    write_png(out, runtime)
+    print(f"wrote {runtime} ({out.size[0]}x{out.size[1]}) from {master.name}")
+
+
+def process_outer_v06() -> None:
+    # Chroma clears the live well; keep the painted TL rail seat recess opaque.
+    process_keyed(
+        "outer_v06",
+        "inventory_outer_frame_v06",
+        (1960, 1080),
+        punch_interior=False,
+        horizontal_seam=(0.25, 0.75),
+    )
+
+
 def main() -> None:
     targets = sys.argv[1:] or ["all"]
     run_all = "all" in targets
 
+    if run_all or "outer_v06" in targets:
+        process_outer_v06()
+    if run_all or "close_macos9" in targets:
+        process_close_macos9()
     if run_all or "outer" in targets:
         process_keyed(
             "outer",

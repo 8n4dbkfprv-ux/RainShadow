@@ -29,16 +29,17 @@ final class ClassicMacCloseButtonNode: SKNode {
         hitArea.strokeColor = .clear
         addChild(hitArea)
 
-        if let texture = GameArt.texture(named: "ui_close_box_noir_v03")
+        if let texture = GameArt.texture(named: "ui_close_box_macos9_noir_v04")
+            ?? GameArt.texture(named: "ui_close_box_noir_v03")
             ?? GameArt.texture(named: "ui_close_box_noir_v02") {
             texture.filteringMode = .linear
-            let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 52))
+            let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 44, height: 44))
             artwork.zPosition = 1
             addChild(artwork)
             return
         }
 
-        assertionFailure("Missing ui_close_box_noir_v03.png")
+        assertionFailure("Missing ui_close_box_macos9_noir_v04.png")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -262,7 +263,8 @@ final class AreaMapOverlay: SKNode {
         backing.zPosition = -11
         sheet.addChild(backing)
 
-        if let texture = GameArt.texture(named: "inventory_outer_frame_v05") {
+        if let texture = GameArt.texture(named: "inventory_outer_frame_v06")
+            ?? GameArt.texture(named: "inventory_outer_frame_v05") {
             texture.filteringMode = .linear
             let frame = SKSpriteNode(texture: texture, size: Metrics.canvas)
             frame.name = "map.outer-frame"

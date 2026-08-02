@@ -54,7 +54,7 @@ Inventory chrome must read as the same family when placed next to those assets.
 Approximate Metrics → image mapping (`y_img = 540 − y_sk`, `x_img = 980 + x_sk`):
 
 1. **Outer frame** — thick bevelled border around the full canvas; Art Deco pins at corners; interior 100% chroma.
-2. **Close well** — small square near top-left (~x 0.02–0.06, y 0.01–0.08) left empty in the outer frame (runtime close button).
+2. **Close seat (V06)** — shallow recess on the TL **title rail** for `ui_close_box_macos9_noir_v04` (no floating interior well). See `inventory_outer_frame_macos_close_v06.md`.
 3. **Loadout section** — placed ~x 0.04–0.30, y 0.16–0.64; three stacked bands (4 / 3 / 3 slot seats).
 4. **Paperdoll chamber** — centered vertically in primary band ~x 0.36–0.56; empty interior.
 5. **Equipment slots** — runtime places 10 reusable `inventory_slot_frame_v05` + silhouettes around the chamber (BG geometry: 5 top, 2 sides, 3 bottom).
