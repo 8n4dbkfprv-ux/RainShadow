@@ -77,7 +77,7 @@ PROP_CELLS = [
 ]
 
 SOLOS = [
-    ("city_voss_stoop_solo_v02.png", "city_building_voss_stoop", "SableRow"),
+    ("city_voss_stoop_solo_v03.png", "city_building_voss_stoop", "SableRow"),
     ("city_shipping_office_solo_v02.png", "city_building_shipping_office", "WharfLadder"),
     ("city_iron_stairs_solo_v02.png", "city_building_iron_stairs", "Riverside"),
 ]

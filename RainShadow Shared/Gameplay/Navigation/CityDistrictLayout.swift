@@ -30,7 +30,7 @@ enum CityDistrictLayout {
 
     /// Opaque bbox heights of shipped V2 city prop textures (texture pixels).
     enum SourceContentHeight {
-        static let buildingVossStoop: CGFloat = 491
+        static let buildingVossStoop: CGFloat = 490
         static let buildingTenement: CGFloat = 471
         static let buildingStorefront: CGFloat = 471
         static let buildingRowhouse: CGFloat = 440
@@ -54,7 +54,7 @@ enum CityDistrictLayout {
     /// Measured painted door-leaf heights (threshold → lintel underside, texture px).
     /// Used for door-anchored runtime scale; not the full facade opaque height.
     enum SourceDoorLeafHeight {
-        static let buildingVossStoop: CGFloat = 83
+        static let buildingVossStoop: CGFloat = 52
         static let buildingTenement: CGFloat = 62
         static let buildingStorefront: CGFloat = 64
         static let buildingRowhouse: CGFloat = 65
