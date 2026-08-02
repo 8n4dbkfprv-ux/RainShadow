@@ -13,5 +13,5 @@ Create a clean empty version of this exact rain-soaked dimetric residential stre
 ```text
 Use case: stylized-concept
 Asset type: modular isometric architecture sprite sheet
-Create one 2-column × 2-row sheet on vivid green #00FF00: (1) Lila's rooms tenement entrance with stoop and upper lit window; (2) neighboring rowhouse; (3) opposite street tenement; (4) doorway-post / alcove facade chunk. Fixed 2:1 dimetric matching RainShadow office suite plate. Isolated cells, no people text UI.
+Create one 2-column × 2-row sheet on vivid green #00FF00: (1) Lila's rooms tenement entrance with stoop, empty doorway apertures (no door leaves), and upper lit window; (2) neighboring rowhouse with empty doorway aperture; (3) opposite street tenement with empty doorway aperture; (4) doorway-post / alcove facade chunk with empty doorway aperture. Fixed 2:1 dimetric matching RainShadow office suite plate. Door leaves are separate props. Isolated cells, no people text UI.
 ```

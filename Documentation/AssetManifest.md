@@ -93,12 +93,15 @@ Exterior base acceptance:
 
 Harborpoint outdoor travel art locked to the detective-office 2:1 dimetric camera (`ArtSource/Prompts/city_perspective_lock_v02.md`). Generator: built-in Image Generator only. Process: `ArtSource/Processing/process_city_districts_v02.py`.
 
+Modular buildings follow the office separation rule for entrances: facades may paint jamb, threshold, stoop, and warm interior spill, but **must not bake opaque door leaves**. Closed leaves ship as separate `city_door_*` props (`ArtSource/Prompts/city_door_leaves_v01.md`). Area-map block plates may keep baked buildings for layout reference.
+
 | Priority | Runtime ID pattern | Pixels | Alpha | Description |
 |---|---|---:|---|---|
 | P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
 | P0 | `city_<district>_ground_v02` | 2048×1152 | Opaque | Play underlay (streets only); world scale 1× → 2048×1152 |
 | P0 | `map_city_<district>_v02` | 1847×1040 | Opaque | HUD area-map crop |
-| P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks and shared street furniture |
+| P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks (empty doorway apertures) and shared street furniture |
+| P0 | `city_door_*` | 256×384-class | Yes | Dimetric closed outdoor door leaves registered to building openings |
 
 Districts: `sable_row` (hub + Voss apartment return), `wharf_ladder`, `riverside`, `harborpoint_pd`, `lila_street`, `civic_records`. Blue Room excluded until earned.
 

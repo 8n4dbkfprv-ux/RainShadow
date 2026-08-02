@@ -51,8 +51,8 @@ enum CityDistrictLayout {
         static let kiosk: CGFloat = 276
     }
 
-    /// Measured painted door-leaf heights (threshold → lintel underside, texture px).
-    /// Used for door-anchored runtime scale; not the full facade opaque height.
+    /// Measured clear doorway opening heights on empty-aperture building textures
+    /// (threshold → lintel underside, texture px). Anchors building display scale.
     enum SourceDoorLeafHeight {
         static let buildingVossStoop: CGFloat = 52
         static let buildingTenement: CGFloat = 62
@@ -76,6 +76,12 @@ enum CityDistrictLayout {
         static let buildingRecordsColonnade: CGFloat = 80
         static let buildingIronStairs: CGFloat = 80
         static let buildingRiverWatch: CGFloat = 75
+    }
+
+    /// Measured opaque heights of separate `city_door_*` leaf textures (texture px).
+    enum SourceSeparateDoorLeafHeight {
+        static let standard: CGFloat = 275
+        static let wide: CGFloat = 275
     }
 
     /// Door-anchored display scales: `targetDoorBodyMultiple × adult / doorLeafPx`.
@@ -107,6 +113,12 @@ enum CityDistrictLayout {
         static let riverWatch = doorAnchoredScale(doorLeaf: SourceDoorLeafHeight.buildingRiverWatch)
         static let railLamp = facadeAnchoredScale(contentHeight: 472)
         static let abutment = facadeAnchoredScale(contentHeight: 453)
+    }
+
+    /// Separate outdoor door leaves — door-anchored to clear Voss at ~1.15× adult.
+    enum DoorDisplayScale {
+        static let standard = doorAnchoredScale(doorLeaf: SourceSeparateDoorLeafHeight.standard)
+        static let wide = doorAnchoredScale(doorLeaf: SourceSeparateDoorLeafHeight.wide)
     }
 
     /// Street props stay human-scale vs Voss (cars intentionally not scaled with buildings).

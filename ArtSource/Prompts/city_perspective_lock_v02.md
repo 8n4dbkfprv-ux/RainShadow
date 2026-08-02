@@ -29,7 +29,8 @@ Avoid: aerial panorama, top-down map, modern photoreal city, purple neon cyberpu
 |---|---|---|---|
 | District block (map) | Generator 16:9 | 2048×1152 | Area-map plate; buildings may be baked |
 | District ground underlay | Generator 16:9 | 2048×1152 | Streets/pavement only; play underlay at 2× → 4096×2304 world |
-| Landmark / building modules | Chroma sheet or solo | 512×512–768 canvases | Depth-sorted props |
+| Landmark / building modules | Chroma sheet or solo | 512×512–768 canvases | Depth-sorted props; empty doorway apertures only (no baked door leaves) |
+| Outdoor door leaves | Chroma solo/sheet | 256×384-class crops | Separate `city_door_*` props; see `city_door_leaves_v01.md` |
 | Street props | Chroma sheet | 512×341-class crops | Shared across districts |
 
 ## Districts in this lock

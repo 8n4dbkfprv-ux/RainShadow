@@ -140,13 +140,21 @@ enum CityDistrictCatalog {
             "from.civicRecords": CGPoint(x: 850, y: 550)
         ],
         visualSprites: [
-            // Buildings: door-anchored so painted entrances clear Harlan Voss (~1.15× adult).
+            // Buildings: empty doorway apertures; door-anchored openings clear Harlan Voss (~1.15× adult).
             .init(textureName: "city_building_tenement", groundPoint: CGPoint(x: 240, y: 810), scale: CityDistrictLayout.BuildingDisplayScale.tenement, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_storefront", groundPoint: CGPoint(x: 710, y: 830), scale: CityDistrictLayout.BuildingDisplayScale.storefront, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_rowhouse", groundPoint: CGPoint(x: 1225, y: 820), scale: CityDistrictLayout.BuildingDisplayScale.rowhouse, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_shop", groundPoint: CGPoint(x: 390, y: 410), scale: CityDistrictLayout.BuildingDisplayScale.shop, anchorY: 0.14, depthBias: 0),
             .init(textureName: "city_building_gatehouse", groundPoint: CGPoint(x: 840, y: 380), scale: CityDistrictLayout.BuildingDisplayScale.gatehouse, anchorY: 0.16, depthBias: 0),
             .init(textureName: "city_building_voss_stoop", groundPoint: CGPoint(x: 1700, y: 260), scale: CityDistrictLayout.BuildingDisplayScale.vossStoop, anchorY: 0.10, depthBias: 0),
+            // Separate closed door leaves registered to openings (depthBias ahead of facade).
+            .init(textureName: "city_door_tenement", groundPoint: CGPoint(x: 250, y: 780), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_storefront", groundPoint: CGPoint(x: 720, y: 800), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_rowhouse", groundPoint: CGPoint(x: 1235, y: 790), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_shop", groundPoint: CGPoint(x: 400, y: 390), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_gatehouse", groundPoint: CGPoint(x: 850, y: 360), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_voss_stoop", groundPoint: CGPoint(x: 1685, y: 175), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_voss_stoop_garage", groundPoint: CGPoint(x: 1620, y: 195), scale: CityDistrictLayout.DoorDisplayScale.wide, anchorY: 0.08, depthBias: 1),
             // Street props: cars stay near adult roof height (not scaled with facades).
             .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 525, y: 590), scale: CityDistrictLayout.PropDisplayScale.statue, anchorY: 0.10, depthBias: 3),
             .init(textureName: "city_prop_bench", groundPoint: CGPoint(x: 460, y: 540), scale: CityDistrictLayout.PropDisplayScale.bench, anchorY: 0.15, depthBias: 2),
@@ -255,6 +263,10 @@ enum CityDistrictCatalog {
             .init(textureName: "city_building_warehouse", groundPoint: CGPoint(x: 550, y: 740), scale: CityDistrictLayout.BuildingDisplayScale.warehouse, anchorY: 0.10, depthBias: 0),
             .init(textureName: "city_building_boarding", groundPoint: CGPoint(x: 1600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.boarding, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_dock_shed", groundPoint: CGPoint(x: 430, y: 360), scale: CityDistrictLayout.BuildingDisplayScale.dockShed, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_door_shipping_office", groundPoint: CGPoint(x: 1085, y: 430), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_warehouse", groundPoint: CGPoint(x: 560, y: 710), scale: CityDistrictLayout.DoorDisplayScale.wide, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_boarding", groundPoint: CGPoint(x: 1610, y: 650), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_dock_shed", groundPoint: CGPoint(x: 440, y: 340), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1300, y: 390), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_crates_mail", groundPoint: CGPoint(x: 840, y: 310), scale: CityDistrictLayout.PropDisplayScale.cratesSpoke, anchorY: 0.24, depthBias: 2),
@@ -309,6 +321,8 @@ enum CityDistrictCatalog {
             .init(textureName: "city_building_river_watch", groundPoint: CGPoint(x: 600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.riverWatch, anchorY: 0.14, depthBias: 0),
             .init(textureName: "city_building_rail_lamp", groundPoint: CGPoint(x: 900, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.railLamp, anchorY: 0.14, depthBias: 1),
             .init(textureName: "city_building_abutment", groundPoint: CGPoint(x: 1550, y: 280), scale: CityDistrictLayout.BuildingDisplayScale.abutment, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_door_iron_stairs", groundPoint: CGPoint(x: 1185, y: 360), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_river_watch", groundPoint: CGPoint(x: 610, y: 655), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 525, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1)
         ],
@@ -361,6 +375,9 @@ enum CityDistrictCatalog {
             .init(textureName: "city_building_pd_annex", groundPoint: CGPoint(x: 1650, y: 500), scale: CityDistrictLayout.BuildingDisplayScale.pdAnnex, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_pd_alley", groundPoint: CGPoint(x: 550, y: 700), scale: CityDistrictLayout.BuildingDisplayScale.pdAlley, anchorY: 0.14, depthBias: 0),
             .init(textureName: "city_building_pd_plaza_wall", groundPoint: CGPoint(x: 800, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.pdPlazaWall, anchorY: 0.18, depthBias: 1),
+            .init(textureName: "city_door_pd_station", groundPoint: CGPoint(x: 1140, y: 520), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_pd_annex", groundPoint: CGPoint(x: 1660, y: 470), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_pd_alley", groundPoint: CGPoint(x: 560, y: 670), scale: CityDistrictLayout.DoorDisplayScale.wide, anchorY: 0.08, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 700, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 410), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_car_black", groundPoint: CGPoint(x: 850, y: 280), scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18, depthBias: 2)
@@ -414,6 +431,11 @@ enum CityDistrictCatalog {
             .init(textureName: "city_building_lila_neighbor", groundPoint: CGPoint(x: 700, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.lilaNeighbor, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_lila_opposite", groundPoint: CGPoint(x: 1650, y: 640), scale: CityDistrictLayout.BuildingDisplayScale.lilaOpposite, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_lila_alcove", groundPoint: CGPoint(x: 950, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.lilaAlcove, anchorY: 0.16, depthBias: 1),
+            .init(textureName: "city_door_lila_rooms", groundPoint: CGPoint(x: 1270, y: 495), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 2),
+            .init(textureName: "city_door_lila_rooms_b", groundPoint: CGPoint(x: 1225, y: 495), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 2),
+            .init(textureName: "city_door_lila_neighbor", groundPoint: CGPoint(x: 710, y: 650), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 2),
+            .init(textureName: "city_door_lila_opposite", groundPoint: CGPoint(x: 1660, y: 610), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 2),
+            .init(textureName: "city_door_lila_alcove", groundPoint: CGPoint(x: 960, y: 330), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 2),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 600, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 410), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_car_olive", groundPoint: CGPoint(x: 800, y: 260), scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18, depthBias: 2),
@@ -468,6 +490,9 @@ enum CityDistrictCatalog {
             .init(textureName: "city_building_records_wing", groundPoint: CGPoint(x: 1650, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.recordsWing, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_records_colonnade", groundPoint: CGPoint(x: 600, y: 680), scale: CityDistrictLayout.BuildingDisplayScale.recordsColonnade, anchorY: 0.12, depthBias: 0),
             .init(textureName: "city_building_records_plaza", groundPoint: CGPoint(x: 850, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.recordsPlaza, anchorY: 0.18, depthBias: 1),
+            .init(textureName: "city_door_records_annex", groundPoint: CGPoint(x: 1190, y: 520), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_records_wing", groundPoint: CGPoint(x: 1660, y: 460), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
+            .init(textureName: "city_door_records_colonnade", groundPoint: CGPoint(x: 610, y: 650), scale: CityDistrictLayout.DoorDisplayScale.standard, anchorY: 0.08, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 675, y: 440), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1350, y: 400), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
             .init(textureName: "city_prop_statue", groundPoint: CGPoint(x: 950, y: 450), scale: CityDistrictLayout.PropDisplayScale.statueSpoke, anchorY: 0.10, depthBias: 3)

@@ -13,5 +13,5 @@ Create a clean empty version of this exact rain-soaked dimetric riverside plate.
 ```text
 Use case: stylized-concept
 Asset type: modular isometric architecture sprite sheet
-Create one 2-column × 2-row sheet on vivid green #00FF00: (1) old iron stair flight to river stones; (2) river-watch booth/kiosk; (3) low embankment railing segment with lamp; (4) stone abutment / wall chunk. Fixed 2:1 dimetric matching RainShadow office suite plate. Isolated cells, generous green, no people text UI.
+Create one 2-column × 2-row sheet on vivid green #00FF00: (1) old iron stair flight to river stones (empty doorway aperture if any painted leaf exists); (2) river-watch booth/kiosk with empty doorway aperture (no door leaf); (3) low embankment railing segment with lamp (no door); (4) stone abutment / wall chunk (no door). Fixed 2:1 dimetric matching RainShadow office suite plate. Door leaves are separate props. Isolated cells, generous green, no people text UI.
 ```

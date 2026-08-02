@@ -13,5 +13,5 @@ Create a clean empty version of this exact rain-soaked dimetric Wharf Ladder doc
 ```text
 Use case: stylized-concept
 Asset type: modular isometric architecture sprite sheet
-Create one 2-column × 2-row production sheet on vivid green #00FF00 chroma: (1) Wharf Ladder shipping office facade with stoop door and lit windows; (2) long cargo warehouse; (3) boarding-house tenement edge; (4) low dock shed. Fixed 2:1 dimetric matching RainShadow office suite plate. Each building isolated in its cell with generous green clearance. No ground, people, text, UI, watermark.
+Create one 2-column × 2-row production sheet on vivid green #00FF00 chroma: (1) Wharf Ladder shipping office facade with empty warm stoop doorway aperture (no door leaf) and lit windows; (2) long cargo warehouse with empty doorway aperture; (3) boarding-house tenement edge with empty doorway aperture; (4) low dock shed with empty doorway aperture. Fixed 2:1 dimetric matching RainShadow office suite plate. Each building isolated in its cell with generous green clearance. Door leaves are separate props — never bake opaque door leaves into facades. No ground, people, text, UI, watermark.
 ```

@@ -77,18 +77,80 @@ PROP_CELLS = [
 ]
 
 SOLOS = [
+    # Prefer empty-aperture solos (door leaves are separate city_door_* props).
+    ("city_voss_stoop_solo_v04.png", "city_building_voss_stoop", "SableRow"),
     ("city_voss_stoop_solo_v03.png", "city_building_voss_stoop", "SableRow"),
+    ("city_shipping_office_solo_v03.png", "city_building_shipping_office", "WharfLadder"),
     ("city_shipping_office_solo_v02.png", "city_building_shipping_office", "WharfLadder"),
+    ("city_iron_stairs_solo_v03.png", "city_building_iron_stairs", "Riverside"),
     ("city_iron_stairs_solo_v02.png", "city_building_iron_stairs", "Riverside"),
+]
+
+# Per-building empty-aperture masters (precise-object-edit). Override sheet slices.
+EMPTY_APERTURE_BUILDINGS = [
+    ("city_building_voss_stoop_empty_v01.png", "city_building_voss_stoop", "SableRow"),
+    ("city_building_tenement_empty_v01.png", "city_building_tenement", "SableRow"),
+    ("city_building_storefront_empty_v01.png", "city_building_storefront", "SableRow"),
+    ("city_building_rowhouse_empty_v01.png", "city_building_rowhouse", "SableRow"),
+    ("city_building_shop_empty_v01.png", "city_building_shop", "SableRow"),
+    ("city_building_gatehouse_empty_v01.png", "city_building_gatehouse", "SableRow"),
+    ("city_building_shipping_office_empty_v01.png", "city_building_shipping_office", "WharfLadder"),
+    ("city_building_warehouse_empty_v01.png", "city_building_warehouse", "WharfLadder"),
+    ("city_building_boarding_empty_v01.png", "city_building_boarding", "WharfLadder"),
+    ("city_building_dock_shed_empty_v01.png", "city_building_dock_shed", "WharfLadder"),
+    ("city_building_iron_stairs_empty_v01.png", "city_building_iron_stairs", "Riverside"),
+    ("city_building_river_watch_empty_v01.png", "city_building_river_watch", "Riverside"),
+    ("city_building_pd_station_empty_v01.png", "city_building_pd_station", "HarborpointPD"),
+    ("city_building_pd_annex_empty_v01.png", "city_building_pd_annex", "HarborpointPD"),
+    ("city_building_pd_alley_empty_v01.png", "city_building_pd_alley", "HarborpointPD"),
+    ("city_building_lila_rooms_empty_v01.png", "city_building_lila_rooms", "LilaStreet"),
+    ("city_building_lila_neighbor_empty_v01.png", "city_building_lila_neighbor", "LilaStreet"),
+    ("city_building_lila_opposite_empty_v01.png", "city_building_lila_opposite", "LilaStreet"),
+    ("city_building_lila_alcove_empty_v01.png", "city_building_lila_alcove", "LilaStreet"),
+    ("city_building_records_annex_empty_v01.png", "city_building_records_annex", "CivicRecords"),
+    ("city_building_records_wing_empty_v01.png", "city_building_records_wing", "CivicRecords"),
+    ("city_building_records_colonnade_empty_v01.png", "city_building_records_colonnade", "CivicRecords"),
+]
+
+DOOR_SOLOS = [
+    ("city_door_voss_stoop_v01.png", "city_door_voss_stoop"),
+    ("city_door_voss_stoop_garage_v01.png", "city_door_voss_stoop_garage"),
+    ("city_door_tenement_v01.png", "city_door_tenement"),
+    ("city_door_storefront_v01.png", "city_door_storefront"),
+    ("city_door_rowhouse_v01.png", "city_door_rowhouse"),
+    ("city_door_shop_v01.png", "city_door_shop"),
+    ("city_door_gatehouse_v01.png", "city_door_gatehouse"),
+    ("city_door_shipping_office_v01.png", "city_door_shipping_office"),
+    ("city_door_warehouse_v01.png", "city_door_warehouse"),
+    ("city_door_boarding_v01.png", "city_door_boarding"),
+    ("city_door_dock_shed_v01.png", "city_door_dock_shed"),
+    ("city_door_iron_stairs_v01.png", "city_door_iron_stairs"),
+    ("city_door_river_watch_v01.png", "city_door_river_watch"),
+    ("city_door_pd_station_v01.png", "city_door_pd_station"),
+    ("city_door_pd_annex_v01.png", "city_door_pd_annex"),
+    ("city_door_pd_alley_v01.png", "city_door_pd_alley"),
+    ("city_door_lila_rooms_v01.png", "city_door_lila_rooms"),
+    ("city_door_lila_rooms_b_v01.png", "city_door_lila_rooms_b"),
+    ("city_door_lila_neighbor_v01.png", "city_door_lila_neighbor"),
+    ("city_door_lila_opposite_v01.png", "city_door_lila_opposite"),
+    ("city_door_lila_alcove_v01.png", "city_door_lila_alcove"),
+    ("city_door_records_annex_v01.png", "city_door_records_annex"),
+    ("city_door_records_wing_v01.png", "city_door_records_wing"),
+    ("city_door_records_colonnade_v01.png", "city_door_records_colonnade"),
 ]
 
 
 def find_source(name: str) -> Path | None:
-    for base in (ASSETS, GEN / "Shared", *(GEN / d for _, d, *_ in DISTRICTS)):
+    search_roots = (
+        ASSETS,
+        GEN / "Doors",
+        GEN / "Shared",
+        *(GEN / d for _, d, *_ in DISTRICTS),
+    )
+    for base in search_roots:
         candidate = base / name
         if candidate.exists():
             return candidate
-    # Also search Generated district folders for copied masters
     for path in GEN.rglob(name):
         return path
     return None
@@ -243,7 +305,10 @@ def process_shared_props() -> None:
 
 
 def process_solos() -> None:
+    shipped: set[str] = set()
     for filename, runtime_name, folder in SOLOS:
+        if runtime_name in shipped:
+            continue
         src = find_source(filename)
         if not src:
             print(f"skip solo {filename}")
@@ -255,7 +320,48 @@ def process_solos() -> None:
         RUNTIME_PROPS.mkdir(parents=True, exist_ok=True)
         prop.save(out, "PNG", optimize=True)
         prop.save(gen_dir / f"{runtime_name}_solo.png", "PNG")
-        print(f"solo override {out.name}")
+        shipped.add(runtime_name)
+        print(f"solo override {out.name} <- {filename}")
+
+
+def process_empty_aperture_buildings() -> None:
+    """Ship precise-object-edit facades with door leaves removed."""
+    for filename, runtime_name, folder in EMPTY_APERTURE_BUILDINGS:
+        src = find_source(filename)
+        if not src:
+            print(f"skip empty aperture {filename}")
+            continue
+        gen_dir = GEN / folder
+        retain_master(src, gen_dir, filename)
+        src_im = Image.open(src).convert("RGBA")
+        alpha = np.array(src_im.split()[-1])
+        # Keep true alpha masters; otherwise key flat black/green surrounds.
+        keyed = src_im if float((alpha < 8).mean()) > 0.05 else chroma_or_corner_key(src_im)
+        prop = fit_canvas(trim_alpha(keyed), (512, 640), target_h=500)
+        out = RUNTIME_PROPS / f"{runtime_name}.png"
+        RUNTIME_PROPS.mkdir(parents=True, exist_ok=True)
+        prop.save(out, "PNG", optimize=True)
+        prop.save(gen_dir / f"{runtime_name}_empty.png", "PNG")
+        print(f"empty aperture {out.name}")
+
+
+def process_doors() -> None:
+    """Ship separate dimetric outdoor door leaves."""
+    doors_dir = GEN / "Doors"
+    doors_dir.mkdir(parents=True, exist_ok=True)
+    for filename, runtime_name in DOOR_SOLOS:
+        src = find_source(filename)
+        if not src:
+            print(f"skip door {filename}")
+            continue
+        retain_master(src, doors_dir, filename)
+        keyed = chroma_or_corner_key(Image.open(src))
+        prop = fit_canvas(trim_alpha(keyed), (256, 384), target_h=280)
+        out = RUNTIME_PROPS / f"{runtime_name}.png"
+        RUNTIME_PROPS.mkdir(parents=True, exist_ok=True)
+        prop.save(out, "PNG", optimize=True)
+        prop.save(doors_dir / f"{runtime_name}.png", "PNG")
+        print(f"door {out.name}")
 
 
 def main() -> None:
@@ -265,6 +371,8 @@ def main() -> None:
         process_district(slug, folder, cols, rows, names)
     process_shared_props()
     process_solos()
+    process_empty_aperture_buildings()
+    process_doors()
     # Compatibility aliases used by Sable Row hub (primary playable names)
     shutil.copy2(
         RUNTIME_AREAS / "city_sable_row_block_v02.png",
@@ -278,4 +386,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "doors":
+        RUNTIME_PROPS.mkdir(parents=True, exist_ok=True)
+        process_empty_aperture_buildings()
+        process_doors()
+        print("doors pass done")
+    else:
+        main()
