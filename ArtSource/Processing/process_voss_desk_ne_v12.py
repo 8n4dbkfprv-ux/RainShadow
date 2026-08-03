@@ -21,8 +21,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import process_voss_desk_ne_v01 as ne  # noqa: E402
 from process_character_gait_v5 import remove_green_screen  # noqa: E402
 from process_pre_rendered_characters_v12 import (  # noqa: E402
+    identity_wardrobe_lock,
     soften_for_paperdoll_craft,
-    warm_brown_lock,
 )
 
 V12_NE = ROOT / "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE"
@@ -64,11 +64,11 @@ def main() -> None:
     stand_ref_h = ne.source_opaque_height(stand_src_cells[-1])
 
     stand_cells = [
-        warm_brown_lock(ne.register_shared(soften_for_paperdoll_craft(c), stand_ref_h))
+        identity_wardrobe_lock(ne.register_shared(soften_for_paperdoll_craft(c), stand_ref_h))
         for c in stand_src_cells
     ]
     idle_cells = [
-        warm_brown_lock(ne.register_shared(soften_for_paperdoll_craft(c), stand_ref_h))
+        identity_wardrobe_lock(ne.register_shared(soften_for_paperdoll_craft(c), stand_ref_h))
         for c in idle_src_cells
     ]
     standing_reference = Image.open(

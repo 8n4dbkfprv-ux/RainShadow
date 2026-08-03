@@ -57,6 +57,7 @@ python3 ArtSource/Processing/generate_voss_seat_qa_v12.py
 - Identity/craft: `voss_paperdoll_front_chroma_v11.png` / runtime `voss_paperdoll_front_rgba_v01`
 - SE key: `Detective/PreRendered3DV12/voss_key_se_chroma_v12.png`
 - Seat pose authority: one approved seated neutral per direction plus the prior coherent stand-up geometry; edit the pose without reframing the camera or changing body scale
+- Wardrobe color authority: inventory paperdoll coat/midtone means via `identity_wardrobe_lock` on **all** Voss atlases (walk, idle, seated, transitions). Walk is not the color target.
 - Hard reject: more detailed than paperdoll; frayed coat hem; fedora; baked chair; independently reframed or resized seat cells
 - Prompt: [`voss_key_se_v12.md`](../ArtSource/Prompts/voss_key_se_v12.md)
 

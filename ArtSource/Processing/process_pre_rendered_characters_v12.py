@@ -37,59 +37,6 @@ def soften_for_paperdoll_craft(figure: Image.Image, radius: float = 2.2) -> Imag
     return Image.merge("RGBA", (*rgb.split(), alpha))
 
 
-def warm_brown_lock(figure: Image.Image) -> Image.Image:
-    """Pull olive/yellow-green coat spill toward paperdoll + walk warm brown.
-
-    Soften + V7 crunch can reintroduce G-dominant midtones on desk cells; enforce
-    R > G on coat and match walk coat mean so seated/NE no longer reads olive.
-
-    Always re-stamps atlas corner sentinels afterward: the soft-alpha wipe would
-    otherwise clear lock_atlas_canvas's alpha=1 corners and let Xcode trim each
-    frame to a different rect (fixed 232 node then stretches → size pulse).
-    """
-    import numpy as np
-
-    import process_voss_desk_ne_v01 as ne
-
-    walk_path = ATLASES / "VossWalk.atlas" / "voss_walk_s_00.png"
-    px = np.asarray(figure.convert("RGBA")).copy()
-    rgb = px[..., :3].astype(np.float32)
-    a = px[..., 3].astype(np.float32)
-    mask = a > 40
-    if not mask.any():
-        return ne.lock_atlas_canvas(figure.convert("RGBA"))
-
-    # Target from walk coat (authoritative play-scale brown).
-    if walk_path.exists():
-        walk = np.asarray(Image.open(walk_path).convert("RGBA"))
-        wa = walk[..., 3] > 40
-        wrgb = walk[..., :3][wa].astype(np.float32)
-        coat = wrgb[(wrgb[:, 0] > wrgb[:, 2]) & (wrgb[:, 0] > 55) & (wrgb[:, 0] < 190)]
-        tgt = coat.mean(0) if len(coat) else np.array([90.0, 62.0, 30.0], dtype=np.float32)
-    else:
-        tgt = np.array([90.0, 62.0, 30.0], dtype=np.float32)
-
-    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    other = np.maximum(r, b)
-    spill = mask & ((g - other) > 4)
-    g = np.where(spill, np.minimum(g, other + 1), g)
-    cur = np.stack([r[mask], g[mask], b[mask]], 1).mean(0)
-    scale = np.clip(tgt / (cur + 1e-5), 0.8, 1.25)
-    r = np.where(mask, np.clip(r * scale[0], 0, 255), r)
-    g = np.where(mask, np.clip(g * scale[1], 0, 255), g)
-    b = np.where(mask, np.clip(b * scale[2], 0, 255), b)
-    coat_m = mask & (r > b) & (r > 45) & (r < 210)
-    g = np.where(coat_m & (g > r - 8), r - 12, g)
-    b = np.where(coat_m, np.minimum(255, b + 8), b)
-    still = mask & (g > r + 5) & (g > b + 5)
-    a[still] = 0
-    out = np.stack([r, g, b, a], -1)
-    # Soft fringe cleanup — corners restored by lock_atlas_canvas below.
-    out[out[..., 3] < 8] = 0
-    locked = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGBA")
-    return ne.lock_atlas_canvas(locked)
-
-
 ROOT = Path(__file__).resolve().parents[2]
 DETECTIVE_SOURCE = ROOT / "ArtSource/Generated/Characters/Detective/PreRendered3DV12"
 PORTRAIT_SOURCE = ROOT / "ArtSource/Generated/UI/Dialogue"
@@ -99,6 +46,256 @@ BACKUP = ROOT / "ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV12Pri
 PAPERDOLL = (
     ROOT / "ArtSource/Generated/Characters/Detective/Paperdoll/voss_paperdoll_front_chroma_v11.png"
 )
+SEATED_COLOR_FALLBACK = (
+    ATLASES / "VossSeatedIdle.atlas" / "voss_seated_idle_ne_00.png"
+)
+
+# Cached play-scale face/coat targets (seated NE00 preferred; paperdoll fallback).
+_WARDROBE_TARGET: dict[str, list[float]] | None = None
+
+
+def _is_chroma_green(rgb: "np.ndarray") -> "np.ndarray":
+    import numpy as np
+
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    return (g > 140) & (g > r + 40) & (g > b + 40)
+
+
+def _opaque_body_box(alpha_mask: "np.ndarray") -> tuple[int, int, int, int] | None:
+    import numpy as np
+
+    ys, xs = np.where(alpha_mask)
+    if len(xs) == 0:
+        return None
+    return int(ys.min()), int(ys.max()), int(xs.min()), int(xs.max())
+
+
+def _coat_mask(rgb: "np.ndarray", alpha_mask: "np.ndarray") -> "np.ndarray":
+    """Opaque brown wardrobe (coat/vest), including darker folds."""
+    import numpy as np
+
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    lum = (r + g + b) / 3.0
+    # Broader than the first lock so shaded coat folds still grade with the body.
+    return (
+        alpha_mask
+        & (r > b + 4)
+        & (r > 28)
+        & (r < 210)
+        & (lum > 22)
+        & (lum < 175)
+        & (g < r + 8)
+        & ((r - g) > -2)
+    )
+
+
+def _skin_mask(rgb: "np.ndarray", alpha_mask: "np.ndarray") -> "np.ndarray":
+    """Face/hand skin: warm mid-high luminance, not coat brown."""
+    import numpy as np
+
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    lum = (r + g + b) / 3.0
+    return (
+        alpha_mask
+        & (r > g)
+        & (g > b)
+        & (r > 70)
+        & (lum > 55)
+        & (lum < 210)
+        & ((r - b) > 18)
+        & ((r - b) < 110)
+        & ((r - g) < 55)
+        # Coat is darker and more R-led; keep high-sat dark brown out of skin.
+        & ~((lum < 95) & ((r - b) > 40) & (r < 130))
+    )
+
+
+def _face_roi_mask(alpha_mask: "np.ndarray") -> "np.ndarray":
+    """Upper silhouette band where the head/face lives on foot-registered cells."""
+    import numpy as np
+
+    box = _opaque_body_box(alpha_mask)
+    out = np.zeros_like(alpha_mask, dtype=bool)
+    if box is None:
+        return out
+    y0, y1, x0, x1 = box
+    h = max(1, y1 - y0 + 1)
+    w = max(1, x1 - x0 + 1)
+    # Top ~28% of body height, centre 70% of width.
+    fy0 = y0
+    fy1 = y0 + max(2, int(h * 0.30))
+    fx0 = x0 + int(w * 0.15)
+    fx1 = x0 + max(fx0 + 1, int(w * 0.85))
+    out[fy0:fy1, fx0:fx1] = alpha_mask[fy0:fy1, fx0:fx1]
+    return out
+
+
+def _coat_roi_mask(alpha_mask: "np.ndarray") -> "np.ndarray":
+    """Torso band used for play-scale coat measurement (excludes head/feet)."""
+    import numpy as np
+
+    box = _opaque_body_box(alpha_mask)
+    out = np.zeros_like(alpha_mask, dtype=bool)
+    if box is None:
+        return out
+    y0, y1, x0, x1 = box
+    h = max(1, y1 - y0 + 1)
+    w = max(1, x1 - x0 + 1)
+    cy0 = y0 + int(h * 0.28)
+    cy1 = y0 + max(cy0 + 1, int(h * 0.72))
+    cx0 = x0 + int(w * 0.12)
+    cx1 = x0 + max(cx0 + 1, int(w * 0.88))
+    out[cy0:cy1, cx0:cx1] = alpha_mask[cy0:cy1, cx0:cx1]
+    return out
+
+
+def _match_region(
+    r: "np.ndarray",
+    g: "np.ndarray",
+    b: "np.ndarray",
+    region: "np.ndarray",
+    target: "np.ndarray",
+    *,
+    scale_lo: float,
+    scale_hi: float,
+    chroma_boost: float = 1.0,
+) -> tuple["np.ndarray", "np.ndarray", "np.ndarray"]:
+    """Mean-match + optional chroma expand a pixel region toward target RGB."""
+    import numpy as np
+
+    if int(region.sum()) < 12:
+        return r, g, b
+    stacked = np.stack([r, g, b], axis=-1)
+    cur = stacked[region].mean(axis=0)
+    scale = np.clip(target / (cur + 1e-5), scale_lo, scale_hi)
+    rr = np.where(region, np.clip(r * scale[0], 0, 255), r)
+    gg = np.where(region, np.clip(g * scale[1], 0, 255), g)
+    bb = np.where(region, np.clip(b * scale[2], 0, 255), b)
+    if chroma_boost != 1.0 and int(region.sum()) >= 12:
+        stacked2 = np.stack([rr, gg, bb], axis=-1)
+        mean = stacked2[region].mean(axis=0)
+        # Expand away from the local mean so muddy walk coats regain seated punch.
+        for channel, arr in enumerate((rr, gg, bb)):
+            delta = stacked2[..., channel] - mean[channel]
+            boosted = mean[channel] + delta * chroma_boost
+            arr_new = np.where(region, np.clip(boosted, 0, 255), arr)
+            if channel == 0:
+                rr = arr_new
+            elif channel == 1:
+                gg = arr_new
+            else:
+                bb = arr_new
+    return rr, gg, bb
+
+
+def play_scale_wardrobe_stats() -> dict[str, "np.ndarray"]:
+    """Frozen face + coat targets from the accepted seated NE desk pose.
+
+    Live atlas sampling is intentionally disabled: a single bad reinstall used
+    to poison every other clip. Values measured from the committed seated NE00
+    that reads correct at the desk in-game.
+    """
+    import numpy as np
+
+    global _WARDROBE_TARGET
+    if _WARDROBE_TARGET is not None:
+        return {
+            key: np.asarray(val, dtype=np.float32)
+            for key, val in _WARDROBE_TARGET.items()
+        }
+
+    face_tgt = np.array([140.6, 98.8, 56.0], dtype=np.float32)
+    coat_tgt = np.array([98.3, 66.7, 35.6], dtype=np.float32)
+    _WARDROBE_TARGET = {
+        "face": [float(x) for x in face_tgt],
+        "coat": [float(x) for x in coat_tgt],
+    }
+    return {"face": face_tgt, "coat": coat_tgt}
+
+
+def paperdoll_wardrobe_stats() -> dict[str, "np.ndarray"]:
+    """Compat: expose coat/mid keys used by older helpers."""
+    stats = play_scale_wardrobe_stats()
+    return {"coat": stats["coat"], "mid": stats["coat"], "face": stats["face"]}
+
+
+def paperdoll_wardrobe_target() -> "np.ndarray":
+    """Mean RGB of the play-scale coat (compat helper for tests/QA)."""
+    return play_scale_wardrobe_stats()["coat"]
+
+
+def identity_wardrobe_lock(figure: Image.Image) -> Image.Image:
+    """Match face + coat to the seated play-scale grade on every Voss cell.
+
+    Idle/walk masters still painted darker faces and muddier coats than the desk
+    seated pose. Mean-match the face ROI and coat ROI separately toward seated
+    NE00 (paperdoll fallback), then chroma-boost the coat so standing no longer
+    reads washed next to the chair.
+
+    Always re-stamps atlas corner sentinels afterward.
+    """
+    import numpy as np
+
+    import process_voss_desk_ne_v01 as ne
+
+    px = np.asarray(figure.convert("RGBA")).copy()
+    rgb = px[..., :3].astype(np.float32)
+    a = px[..., 3].astype(np.float32)
+    mask = a > 40
+    if not mask.any():
+        return ne.lock_atlas_canvas(figure.convert("RGBA"))
+
+    targets = play_scale_wardrobe_stats()
+    face_tgt = targets["face"]
+    coat_tgt = targets["coat"]
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+
+    # Kill olive/green spill before grading.
+    other = np.maximum(r, b)
+    spill = mask & ((g - other) > 4)
+    g = np.where(spill, np.minimum(g, other + 1), g)
+
+    # Geometric ROIs (not color masks) so dark walk masters still get lifted.
+    # Exclude near-black shadow only.
+    lum = (r + g + b) / 3.0
+    lit = mask & (lum > 18)
+
+    face_m = _face_roi_mask(mask) & lit
+    coat_m = _coat_roi_mask(mask) & lit & ~face_m
+
+    # Face first so later coat passes cannot darken the head.
+    r, g, b = _match_region(
+        r, g, b, face_m, face_tgt, scale_lo=0.90, scale_hi=1.75, chroma_boost=1.12
+    )
+    r, g, b = _match_region(
+        r, g, b, coat_m, coat_tgt, scale_lo=0.80, scale_hi=1.85, chroma_boost=1.28
+    )
+
+    # Remaining cloth: lower body / coat hem outside the torso ROI.
+    stacked = np.stack([r, g, b], axis=-1)
+    lum = stacked.mean(axis=-1)
+    rest = mask & ~face_m & ~coat_m & (lum > 18) & (lum < 170) & (r > b + 2)
+    if int(rest.sum()) >= 20:
+        r, g, b = _match_region(
+            r, g, b, rest, coat_tgt, scale_lo=0.85, scale_hi=1.65, chroma_boost=1.15
+        )
+
+    # Warm coat bias: keep R ahead of G on coat pixels.
+    coat_m = _coat_mask(np.stack([r, g, b], axis=-1), mask)
+    g = np.where(coat_m & (g > r - 8), r - 12, g)
+    b = np.where(coat_m, np.minimum(255.0, b + 2.0), b)
+
+    still = mask & (g > r + 5) & (g > b + 5)
+    a[still] = 0
+    out = np.stack([r, g, b, a], axis=-1)
+    out[out[..., 3] < 8] = 0
+    locked = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGBA")
+    return ne.lock_atlas_canvas(locked)
+
+
+def warm_brown_lock(figure: Image.Image) -> Image.Image:
+    """Backward-compatible alias — wardrobe authority is now the paperdoll."""
+    return identity_wardrobe_lock(figure)
 
 VOSS_ATLASES = (
     "VossWalk.atlas",
@@ -133,8 +330,8 @@ def install_locked_frame_v12(
 
 
 def save_frame_v12(frame: Image.Image, atlas_name: str, filename: str, source_dir: Path) -> None:
-    # warm_brown_lock ends with lock_atlas_canvas so trim cannot shrink cells.
-    install_locked_frame_v12(warm_brown_lock(frame), atlas_name, filename, source_dir)
+    # identity_wardrobe_lock ends with lock_atlas_canvas so trim cannot shrink cells.
+    install_locked_frame_v12(identity_wardrobe_lock(frame), atlas_name, filename, source_dir)
 
 
 def load_required_chroma_frames(source_dir: Path, stem: str, count: int) -> list[Image.Image]:
@@ -236,13 +433,13 @@ def process_voss_desk_chain_se() -> None:
     ne.validate_source_camera_scale("SE V12 chairless source", idle_figures + stand_figures)
     stand_ref_h = ne.source_opaque_height(stand_figures[-1])
     idle_cells = [
-        warm_brown_lock(
+        identity_wardrobe_lock(
             ne.register_shared(soften_for_paperdoll_craft(figure), stand_ref_h)
         )
         for figure in idle_figures
     ]
     stand_cells = [
-        warm_brown_lock(
+        identity_wardrobe_lock(
             ne.register_shared(soften_for_paperdoll_craft(figure), stand_ref_h)
         )
         for figure in stand_figures
@@ -394,6 +591,15 @@ def main() -> None:
             f"Missing V12 master directory {DETECTIVE_SOURCE}. "
             "Run relock_voss_identity_v12.py first."
         )
+
+    global _WARDROBE_TARGET
+    _WARDROBE_TARGET = None
+    # Snapshot face/coat targets before any atlas write can poison the sample.
+    targets = play_scale_wardrobe_stats()
+    print(
+        "Wardrobe targets face="
+        f"{targets['face'].round(1).tolist()} coat={targets['coat'].round(1).tolist()}"
+    )
 
     backup_prior_runtime()
     raster.pixelize_figure = pixelize_figure_v7
