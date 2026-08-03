@@ -18,3 +18,5 @@ python3 ArtSource/Processing/relock_voss_identity_v12.py
 python3 ArtSource/Processing/process_pre_rendered_characters_v12.py
 python3 ArtSource/Processing/process_voss_desk_ne_v12.py
 ```
+
+Superseded for idle/walk craft: see [`character_sheets_v13.md`](character_sheets_v13.md) (Image Generator locomotion match to seated).
