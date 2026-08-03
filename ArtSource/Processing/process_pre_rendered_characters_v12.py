@@ -22,16 +22,16 @@ from process_pre_rendered_characters_v7 import pixelize_figure_v7
 from process_character_gait_v5 import remove_green_screen
 
 
-def soften_for_paperdoll_craft(figure: Image.Image, radius: float = 2.2) -> Image.Image:
-    """Drop micro-detail/contrast so V7 crunch matches paperdoll craft density."""
+def soften_for_paperdoll_craft(figure: Image.Image, radius: float = 3.4) -> Image.Image:
+    """Drop micro-detail/contrast so V7 crunch matches seated/paperdoll craft density."""
     import numpy as np
 
     rgba = figure.convert("RGBA")
     rgb = Image.merge("RGB", rgba.split()[:3]).filter(ImageFilter.GaussianBlur(radius=radius))
-    # Mild contrast pull toward midtones (paperdoll is softer than V11 masters).
+    # Stronger midtone pull — V13 IG masters still carry more micro-contrast than seated.
     arr = np.asarray(rgb).astype(np.float32)
     mean = arr.mean(axis=(0, 1), keepdims=True)
-    arr = mean + (arr - mean) * 0.78
+    arr = mean + (arr - mean) * 0.68
     rgb = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
     alpha = rgba.split()[-1]
     return Image.merge("RGBA", (*rgb.split(), alpha))
@@ -379,10 +379,43 @@ def backup_prior_runtime() -> None:
             shutil.copy2(path, ui / path.name)
 
 
+def crop_strip_cells(rgba_path: Path, columns: int) -> list[Image.Image]:
+    """Equal-width strip cells; keep the largest opaque component per cell.
+
+    Image-Generator strips sometimes leave tiny chroma crumbs that make
+    connected-component slicing over-count. Grid cells match compose layout.
+    """
+    import numpy as np
+    from scipy import ndimage
+
+    sheet = Image.open(rgba_path).convert("RGBA")
+    cell_w = sheet.width // columns
+    figures: list[Image.Image] = []
+    for index in range(columns):
+        left = index * cell_w
+        right = sheet.width if index == columns - 1 else (index + 1) * cell_w
+        cell = sheet.crop((left, 0, right, sheet.height))
+        alpha = np.asarray(cell)[..., 3]
+        labels, count = ndimage.label(alpha >= 16, structure=np.ones((3, 3), dtype=np.uint8))
+        if count == 0:
+            raise RuntimeError(f"No figure in cell {index} of {rgba_path.name}")
+        areas = ndimage.sum(labels > 0, labels, range(1, count + 1))
+        best = int(np.argmax(areas)) + 1
+        mask = labels == best
+        pixels = np.asarray(cell).copy()
+        pixels[~mask] = 0
+        figure = Image.fromarray(pixels, "RGBA")
+        bbox = figure.getchannel("A").getbbox()
+        if bbox is None:
+            raise RuntimeError(f"Empty figure in cell {index} of {rgba_path.name}")
+        figures.append(figure.crop(bbox))
+    return figures
+
+
 def process_voss_locomotion() -> None:
     for direction in v6.DIRECTIONS:
         rgba = keyed(DETECTIVE_SOURCE, f"voss_walk_{direction}_cycle")
-        for phase, figure in enumerate(raster.crop_components(rgba, 8, 1)):
+        for phase, figure in enumerate(crop_strip_cells(rgba, 8)):
             save_frame_v12(
                 raster.register(soften_for_paperdoll_craft(figure)),
                 "VossWalk.atlas",
@@ -393,7 +426,7 @@ def process_voss_locomotion() -> None:
     southwest_idle: list[Image.Image] = []
     for direction in v6.DIRECTIONS:
         rgba = keyed(DETECTIVE_SOURCE, f"voss_idle_{direction}_strip")
-        for phase, figure in enumerate(raster.crop_components(rgba, 4, 1)):
+        for phase, figure in enumerate(crop_strip_cells(rgba, 4)):
             frame = raster.register(soften_for_paperdoll_craft(figure))
             if direction == "sw":
                 southwest_idle.append(frame)

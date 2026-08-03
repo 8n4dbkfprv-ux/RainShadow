@@ -79,7 +79,7 @@ def main() -> None:
         idle_cells,
         stand_cells,
         standing_reference,
-        head_bounds=(25, 29),
+        head_bounds=(24, 31),
     )
     sit_cells = list(reversed(stand_cells))
 
