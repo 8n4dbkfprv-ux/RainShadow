@@ -10,20 +10,37 @@ final class DetectiveActorNode: SKNode {
         case walking
     }
 
+    private enum SeatVisualDirection: String, CaseIterable {
+        case northEast = "ne"
+        case southEast = "se"
+
+        var facing: ActorFacing {
+            switch self {
+            case .northEast: .northEast
+            case .southEast: .southEast
+            }
+        }
+    }
+
+    private struct SeatAnimationTextures {
+        let direction: SeatVisualDirection
+        let seatedIdle: [SKTexture]
+        let standUp: [SKTexture]
+    }
+
     private let contactShadow: SKShapeNode
-    /// Standing / transitions / seated upper (torso, fedora, arms).
+    /// Standing, transition, and full chairless seated body.
     private let body: SKSpriteNode
-    /// Seated lower only (chair legs + coat tails); hidden while standing.
+    /// Legacy split seated fallback; hidden when the full seated cell is available.
     private let lowerBody: SKSpriteNode
     private let foregroundArms: SKSpriteNode
-    private let standingTexture: SKTexture?
     private let standingIdleTextures: [ActorFacing: [SKTexture]]
+    private let seatVisualDirection: SeatVisualDirection
     private let seatedIdleTextures: [SKTexture]
     private let seatedUpperTextures: [SKTexture]
     private let seatedLowerTextures: [SKTexture]
     private let seatedArmTextures: [SKTexture]
     private let standUpTextures: [SKTexture]
-    private let sitDownTextures: [SKTexture]
     private let walkTextures: [ActorFacing: [SKTexture]]
 
     /// Local z while seated: torso above the front apron depth band.
@@ -43,13 +60,6 @@ final class DetectiveActorNode: SKNode {
     private var lastLocomotionUpdateTime: TimeInterval?
     private var walkFrameAccumulator: TimeInterval = 0
     private var walkFrameIndex = 0
-    /// Current cell while `standingUp` / `sittingDown`; nil outside those clips.
-    private var seatTransitionFrameIndex: Int?
-
-    /// Stand-up atlas cells keep a baked chair through this exclusive upper bound.
-    /// From this frame onward the empty world prop must be visible (no kneehole gap).
-    private static let standUpEmptyChairHandoffFrame = 10
-    private static let seatTransitionLastFrameIndex = 11
 
     /// True while the body is still registered to the chair (idle or sitting down).
     /// Used by the office scene to cancel the elevated nav-root in Y-depth sorting.
@@ -79,62 +89,40 @@ final class DetectiveActorNode: SKNode {
         }
     }
 
-    /// Hide the empty desk-chair prop only while a chair is still baked into the
-    /// seated / early stand-up / late sit-down atlas cells. Late stand-up frames
-    /// and seat egress show the world prop so the kneehole never goes empty.
-    var shouldHideEmptyDeskChair: Bool {
-        switch state {
-        case .seatedIdle:
-            return true
-        case .standingUp:
-            let frame = seatTransitionFrameIndex ?? 0
-            return frame < Self.standUpEmptyChairHandoffFrame
-        case .sittingDown:
-            // Sit-down cells are the reverse of stand-up; map back before comparing.
-            let frame = seatTransitionFrameIndex ?? 0
-            let standEquivalent = Self.seatTransitionLastFrameIndex - frame
-            return standEquivalent < Self.standUpEmptyChairHandoffFrame
-        case .standingIdle, .walking:
-            return false
-        }
-    }
-
     override init() {
-        standingTexture = GameArt.texture(named: "voss_standing_idle_se_00")
         standingIdleTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
             for sourceName in facing.textureSourceCandidates {
                 let textures = (0..<4).compactMap {
                     GameArt.texture(named: String(format: "voss_standing_idle_%@_%02d", sourceName, $0))
                 }
-                if !textures.isEmpty {
+                if textures.count == 4 {
                     return (facing, textures)
                 }
             }
             return nil
         })
-        // Desk faces the NE door: seated work pose looks toward the visitor/door.
-        seatedIdleTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_idle_ne_%02d", $0))
-                ?? GameArt.texture(named: String(format: "voss_seated_idle_se_%02d", $0))
-        }
-        seatedUpperTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_upper_ne_%02d", $0))
-        }
-        seatedLowerTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_lower_ne_%02d", $0))
-        }
-        seatedArmTextures = (0..<8).compactMap {
-            GameArt.texture(named: String(format: "voss_seated_arms_ne_%02d", $0))
-                ?? GameArt.texture(named: String(format: "voss_seated_arms_se_%02d", $0))
-        }
-        standUpTextures = (0..<12).compactMap {
-            GameArt.texture(named: String(format: "voss_stand_up_ne_%02d", $0))
-                ?? GameArt.texture(named: String(format: "voss_stand_up_se_%02d", $0))
-        }
-        sitDownTextures = (0..<12).compactMap {
-            GameArt.texture(named: String(format: "voss_sit_down_ne_%02d", $0))
-                ?? GameArt.texture(named: String(format: "voss_sit_down_se_%02d", $0))
-        }
+        // The desk's primary view is NE. If that authored set is incomplete,
+        // choose the complete SE set as one atomic fallback; never mix directions
+        // between cells or between the seated and transition clips.
+        let seatAnimations = Self.loadSeatAnimationTextures()
+        seatVisualDirection = seatAnimations.direction
+        seatedIdleTextures = seatAnimations.seatedIdle
+        standUpTextures = seatAnimations.standUp
+        seatedUpperTextures = Self.completeSeatTextureSequence(
+            prefix: "voss_seated_upper",
+            direction: seatAnimations.direction,
+            frameCount: 8
+        ) ?? []
+        seatedLowerTextures = Self.completeSeatTextureSequence(
+            prefix: "voss_seated_lower",
+            direction: seatAnimations.direction,
+            frameCount: 8
+        ) ?? []
+        seatedArmTextures = Self.completeSeatTextureSequence(
+            prefix: "voss_seated_arms",
+            direction: seatAnimations.direction,
+            frameCount: 8
+        ) ?? []
         walkTextures = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [SKTexture])? in
             for sourceName in facing.textureSourceCandidates {
                 let textures = (0..<ActorLocomotionPacing.walkFramesPerCycle).compactMap {
@@ -155,7 +143,9 @@ final class DetectiveActorNode: SKNode {
         contactShadow.position = CGPoint(x: 0, y: 4)
         contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
 
-        let initialSeated = seatedIdleTextures.first ?? seatedUpperTextures.first ?? standingTexture
+        let initialSeated = seatedIdleTextures.first
+            ?? seatedUpperTextures.first
+            ?? standingIdleTextures[seatAnimations.direction.facing]?.first
         if let texture = initialSeated {
             body = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
         } else {
@@ -184,6 +174,7 @@ final class DetectiveActorNode: SKNode {
         foregroundArms.zPosition = Self.seatedArmsLocalZ
 
         super.init()
+        facing = seatVisualDirection.facing
         addChild(contactShadow)
         addChild(lowerBody)
         addChild(body)
@@ -235,27 +226,40 @@ final class DetectiveActorNode: SKNode {
         return .sequence(steps)
     }
 
-    /// Seat stand/sit clip that also publishes `seatTransitionFrameIndex` for the
-    /// empty-chair handoff (`shouldHideEmptyDeskChair`).
-    private func animateSeatTransition(
-        on node: SKSpriteNode,
-        textures: [SKTexture],
-        timePerFrame: TimeInterval
-    ) -> SKAction {
-        textures.forEach { $0.filteringMode = .nearest }
-        let steps: [SKAction] = textures.enumerated().map { index, texture in
-            .sequence([
-                .run { [weak self, weak node] in
-                    guard let self, let node else { return }
-                    self.seatTransitionFrameIndex = index
-                    node.texture = texture
-                    node.texture?.filteringMode = .nearest
-                    self.assertFrameDisplaySizes()
-                },
-                .wait(forDuration: timePerFrame)
-            ])
+    private static func completeSeatTextureSequence(
+        prefix: String,
+        direction: SeatVisualDirection,
+        frameCount: Int
+    ) -> [SKTexture]? {
+        var textures: [SKTexture] = []
+        textures.reserveCapacity(frameCount)
+        for index in 0..<frameCount {
+            let name = String(format: "%@_%@_%02d", prefix, direction.rawValue, index)
+            guard let texture = GameArt.texture(named: name) else { return nil }
+            textures.append(texture)
         }
-        return .sequence(steps)
+        return textures
+    }
+
+    private static func loadSeatAnimationTextures() -> SeatAnimationTextures {
+        // Case order intentionally makes the office's NE desk view primary.
+        for direction in SeatVisualDirection.allCases {
+            guard let seatedIdle = completeSeatTextureSequence(
+                prefix: "voss_seated_idle",
+                direction: direction,
+                frameCount: 8
+            ), let standUp = completeSeatTextureSequence(
+                prefix: "voss_stand_up",
+                direction: direction,
+                frameCount: 12
+            ) else { continue }
+            return SeatAnimationTextures(
+                direction: direction,
+                seatedIdle: seatedIdle,
+                standUp: standUp
+            )
+        }
+        return SeatAnimationTextures(direction: .northEast, seatedIdle: [], standUp: [])
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -444,6 +448,7 @@ final class DetectiveActorNode: SKNode {
             return
         }
         state = .standingUp
+        facing = seatVisualDirection.facing
         body.removeAction(forKey: "seatedIdle")
         lowerBody.removeAction(forKey: "seatedIdle")
         foregroundArms.removeAction(forKey: "seatedIdle")
@@ -458,10 +463,8 @@ final class DetectiveActorNode: SKNode {
         )
         let finishStanding = SKAction.run { [weak self] in
             guard let self else { return }
-            self.seatTransitionFrameIndex = nil
-            self.body.texture = self.standingTexture ?? self.walkTextures[.northEast]?.first
-            self.body.texture?.filteringMode = .nearest
-            self.applySpriteScale()
+            self.facing = self.seatVisualDirection.facing
+            self.applyStandingIdleTexture()
             self.body.zPosition = Self.seatedUpperLocalZ
             self.assertFrameDisplaySizes()
             self.hideLowerBody()
@@ -469,7 +472,6 @@ final class DetectiveActorNode: SKNode {
             completion()
         }
         guard standUpTextures.count == 12 else {
-            seatTransitionFrameIndex = Self.standUpEmptyChairHandoffFrame
             body.run(
                 .sequence([.fadeOut(withDuration: 0.08), finishStanding, .fadeIn(withDuration: 0.12)]),
                 withKey: "standTransition"
@@ -479,8 +481,7 @@ final class DetectiveActorNode: SKNode {
 
         standUpTextures.forEach { $0.filteringMode = .nearest }
         assertFrameDisplaySizes()
-        seatTransitionFrameIndex = 0
-        let standUp = animateSeatTransition(
+        let standUp = animateFixedSize(
             on: body,
             textures: standUpTextures,
             timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame
@@ -488,9 +489,9 @@ final class DetectiveActorNode: SKNode {
         body.run(.sequence([standUp, finishStanding]), withKey: "standTransition")
     }
 
-    /// Plays the authored V6 sit-down clip (not a reversed stand-up) and
-    /// re-enters the seated desk idle. A walk order issued mid-sit queues and
-    /// replays the stand-up chain once the actor has settled.
+    /// Plays the stand-up clip in exact reverse and re-enters the seated desk
+    /// idle. A walk order issued mid-sit queues and replays the stand-up chain
+    /// once the actor has settled.
     func sitDown(completion: (() -> Void)? = nil) {
         guard state == .standingIdle else {
             completion?()
@@ -498,13 +499,12 @@ final class DetectiveActorNode: SKNode {
         }
         state = .sittingDown
         body.removeAction(forKey: "standingIdle")
-        facing = .northEast
+        facing = seatVisualDirection.facing
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
 
         let finishSitting = SKAction.run { [weak self] in
             guard let self else { return }
-            self.seatTransitionFrameIndex = nil
             self.applySeatedPose(animated: false)
             self.startSeatedIdle()
             self.needsSeatEgress = true
@@ -517,8 +517,8 @@ final class DetectiveActorNode: SKNode {
             }
         }
 
+        let sitDownTextures = Array(standUpTextures.reversed())
         guard sitDownTextures.count == 12 else {
-            seatTransitionFrameIndex = Self.seatTransitionLastFrameIndex
             body.run(
                 .sequence([.fadeOut(withDuration: 0.08), finishSitting, .fadeIn(withDuration: 0.12)]),
                 withKey: "standTransition"
@@ -529,8 +529,7 @@ final class DetectiveActorNode: SKNode {
         sitDownTextures.forEach { $0.filteringMode = .nearest }
         let duration = ActorLocomotionPacing.standUpSecondsPerFrame * TimeInterval(sitDownTextures.count)
         assertFrameDisplaySizes()
-        seatTransitionFrameIndex = 0
-        let sitDown = animateSeatTransition(
+        let sitDown = animateFixedSize(
             on: body,
             textures: sitDownTextures,
             timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame
@@ -599,19 +598,17 @@ final class DetectiveActorNode: SKNode {
             y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y
         )
         let upperSeat = CGPoint(x: seat.x + reach.x, y: seat.y + reach.y)
-        // Full seated cell (chair + legs intact). Split upper/lower is unused at
-        // the desk: hiding lower cut the chair in half; drawing lower under the
-        // actor occluder stamped a wood band over the feet.
+        // The full seated cell owns Voss only; the separate world prop owns the
+        // chair throughout idle, transitions, egress, and walking. The legacy
+        // split upper/lower fallback remains hidden at the desk.
         body.texture = seatedIdleTextures.first
             ?? seatedUpperTextures.first
-            ?? standingTexture
+            ?? standingIdleTextures[seatVisualDirection.facing]?.first
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
         body.texture?.filteringMode = .nearest
         body.xScale = Self.spriteScale
-        body.yScale = seatedIdleTextures.isEmpty && seatedUpperTextures.isEmpty
-            ? Self.spriteScale * (0.73 / 0.82)
-            : Self.spriteScale
+        body.yScale = Self.spriteScale
         body.position = upperSeat
         // NE rear view bakes hands into the body cell.
         foregroundArms.texture = seatedArmTextures.first
@@ -706,7 +703,7 @@ final class DetectiveActorNode: SKNode {
     }
 
     private func applyStandingIdleTexture() {
-        if let idleTexture = standingIdleTextures[facing]?.first ?? standingTexture {
+        if let idleTexture = standingIdleTextures[facing]?.first {
             body.texture = idleTexture
             body.texture?.filteringMode = .nearest
         }

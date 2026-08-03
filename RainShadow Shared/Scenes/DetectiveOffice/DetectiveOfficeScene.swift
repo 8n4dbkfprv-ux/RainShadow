@@ -12,9 +12,6 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var officeDoorThickness: SKSpriteNode?
     private var officeDoorFallShadow: SKShapeNode?
     private var officeDoorUsesFallenArtwork = false
-    /// Separate chair prop; hidden while seated because the NE rear-view atlas
-    /// already bakes the chair into the body sprite.
-    private var deskChairProp: SKSpriteNode?
     private var deskActorOccluder: SKSpriteNode?
     private var deskFrontOccluder: SKSpriteNode?
     /// Writing-surface mask above seated torso (coat under wood).
@@ -251,13 +248,14 @@ final class DetectiveOfficeScene: BaseGameScene {
             bias: -5
         )
         // MARK: Desk cluster
-        deskChairProp = addDepthProp(
+        // The world prop is the sole chair owner. Voss's seated and transition
+        // atlases are chairless, so this remains visible in every actor state.
+        addDepthProp(
             named: "office_desk_chair",
             at: OfficeNavigationLayout.emptyDeskChairWorldPosition,
             scale: OfficeInteriorScale.seatingPropDisplayScale,
             bias: -40
         )
-        deskChairProp?.isHidden = true
         addWornRug()
         addDepthProp(
             named: "office_visitor_armchair",
@@ -733,9 +731,6 @@ final class DetectiveOfficeScene: BaseGameScene {
                 updateDepth(of: item)
             }
         }
-        // Hide only while the NE atlas still bakes a chair; late stand-up / egress
-        // reveal the matching empty prop so the kneehole never goes empty.
-        deskChairProp?.isHidden = detective.shouldHideEmptyDeskChair
     }
 
     private func startCaseIntroduction() {

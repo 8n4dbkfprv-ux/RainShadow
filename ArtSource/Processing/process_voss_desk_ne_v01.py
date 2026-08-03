@@ -6,6 +6,7 @@ nearest → 200px texture) then FOOT_Y = 434 on a 512 canvas.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import shutil
 from pathlib import Path
 
@@ -107,14 +108,16 @@ def slice_strip(path: Path, expected_min: int = 4) -> list[Image.Image]:
 
 
 def head_width(im: Image.Image, threshold: int = 40) -> int:
-    """Opaque width of the top ~12% of the silhouette (fedora band)."""
+    """Opaque width of the top 10% of the bare-headed V12 silhouette."""
     a = np.asarray(im.convert("RGBA"))
     mask = a[:, :, 3] > threshold
     ys, xs = np.where(mask)
     if len(xs) == 0:
         return 1
     y0, y1 = int(ys.min()), int(ys.max())
-    band_h = max(1, int((y1 - y0 + 1) * 0.12))
+    # Twelve percent reaches the raised SE shoulder and reports it as a 30px
+    # "head". Ten percent stays above the neck in both desk directions.
+    band_h = max(1, int((y1 - y0 + 1) * 0.10))
     cols = np.where(mask[y0 : y0 + band_h].any(axis=0))[0]
     if len(cols) == 0:
         return 1
@@ -167,7 +170,7 @@ def lock_atlas_canvas(canvas: Image.Image) -> Image.Image:
     """Stamp near-invisible corner sentinels so Xcode .atlas trim keeps 512×512.
 
     SpriteKit packs trim transparent edges. With SKAction.animate(resize: false)
-    into a fixed 256 node, trimmed sit frames stretch differently every frame.
+    into the fixed 232 node, trimmed sit frames stretch differently every frame.
     Alpha-1 corners preserve the authored canvas without a visible speck.
     """
     for x, y in ((0, 0), (FRAME - 1, 0), (0, FRAME - 1), (FRAME - 1, FRAME - 1)):
@@ -178,16 +181,24 @@ def lock_atlas_canvas(canvas: Image.Image) -> Image.Image:
 def register_shared(im: Image.Image, reference_height: int) -> Image.Image:
     """Shared-scale V7 pixelize; feet on FOOT_Y (same pivot as standing/walk)."""
     pix = pixelize_shared(trim_alpha(im), reference_height)
-    # Never exceed the standing texture body — mid sit frames were ~208px and
-    # read as a brief inflate before the crouch.
-    if pix.height > TEXTURE_BODY_HEIGHT:
-        new_w = max(1, round(pix.width * TEXTURE_BODY_HEIGHT / pix.height))
-        pix = pix.resize((new_w, TEXTURE_BODY_HEIGHT), Image.Resampling.NEAREST)
+    if pix.width > FRAME or pix.height > FOOT_Y:
+        raise RuntimeError(
+            f"Shared-scale figure {pix.size} cannot fit the {FRAME}px atlas at FOOT_Y={FOOT_Y}"
+        )
     canvas = Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0))
     x = (FRAME - pix.width) // 2
     y = FOOT_Y - pix.height
-    canvas.alpha_composite(pix, (x, max(0, min(FRAME - pix.height, y))))
+    canvas.alpha_composite(pix, (x, y))
     return lock_atlas_canvas(canvas)
+
+
+def source_opaque_height(im: Image.Image, threshold: int = 16) -> int:
+    """Height used to derive one source-to-texture scale for a whole clip."""
+    alpha = np.asarray(im.convert("RGBA"))[..., 3]
+    rows = np.where((alpha >= threshold).any(axis=1))[0]
+    if len(rows) == 0:
+        raise RuntimeError("Figure has no visible source pixels")
+    return int(rows.max() - rows.min() + 1)
 
 
 def lock_cycle_scale(cell: Image.Image, ref: Image.Image) -> Image.Image:
@@ -227,6 +238,172 @@ def lock_cycle_scale(cell: Image.Image, ref: Image.Image) -> Image.Image:
     y = FOOT_Y - crop.height
     out.alpha_composite(crop, (x, max(0, min(FRAME - crop.height, y))))
     return lock_atlas_canvas(out)
+
+
+@dataclass(frozen=True)
+class SpriteMetrics:
+    width: int
+    height: int
+    head_width: int
+    foot_y: int
+    center_x: float
+    centroid_x: float
+    centroid_y: float
+
+
+def opaque_mask(cell: Image.Image, threshold: int = 16) -> np.ndarray:
+    """Return the visible subject mask, excluding the four atlas sentinels."""
+    alpha = np.asarray(cell.convert("RGBA"))[..., 3]
+    mask = alpha >= threshold
+    if mask.shape == (FRAME, FRAME):
+        mask[0, 0] = False
+        mask[0, FRAME - 1] = False
+        mask[FRAME - 1, 0] = False
+        mask[FRAME - 1, FRAME - 1] = False
+    return mask
+
+
+def sprite_metrics(cell: Image.Image, threshold: int = 16) -> SpriteMetrics:
+    """Measure a top-down PNG silhouette without changing its scale."""
+    mask = opaque_mask(cell, threshold=threshold)
+    ys, xs = np.where(mask)
+    if len(xs) == 0:
+        raise RuntimeError("Sprite frame has no visible subject")
+    min_x, max_x = int(xs.min()), int(xs.max())
+    min_y, max_y = int(ys.min()), int(ys.max())
+    body_height = max_y - min_y + 1
+    band_height = max(1, body_height * 10 // 100)
+    head_rows = mask[min_y : min_y + band_height]
+    head_columns = np.where(head_rows.any(axis=0))[0]
+    if len(head_columns) == 0:
+        raise RuntimeError("Sprite frame has no visible head band")
+    return SpriteMetrics(
+        width=max_x - min_x + 1,
+        height=body_height,
+        head_width=int(head_columns.max() - head_columns.min() + 1),
+        foot_y=max_y,
+        center_x=(min_x + max_x) / 2,
+        centroid_x=float(xs.mean()),
+        centroid_y=float(ys.mean()),
+    )
+
+
+def validate_source_camera_scale(label: str, cells: list[Image.Image]) -> None:
+    """Reject independently framed masters before the V7 crunch can hide drift."""
+    if not cells:
+        raise RuntimeError(f"{label}: missing source cells")
+    widths = [head_width(cell) for cell in cells]
+    if min(widths) <= 0 or max(widths) / min(widths) > 1.12:
+        raise RuntimeError(
+            f"{label}: source head scale drifts more than 12% ({widths}); "
+            "replace the offending master instead of resizing it"
+        )
+
+
+def validate_shared_scale_chain(
+    label: str,
+    idle_cells: list[Image.Image],
+    stand_cells: list[Image.Image],
+    standing_reference: Image.Image,
+    *,
+    head_bounds: tuple[int, int] | None = None,
+) -> None:
+    """Enforce the chairless seated/stand asset contract after final processing."""
+    if len(idle_cells) != 8 or len(stand_cells) != 12:
+        raise RuntimeError(
+            f"{label}: expected 8 idle + 12 stand frames, got "
+            f"{len(idle_cells)} + {len(stand_cells)}"
+        )
+
+    named_cells = [
+        (f"idle {i:02d}", cell) for i, cell in enumerate(idle_cells)
+    ] + [
+        (f"stand {i:02d}", cell) for i, cell in enumerate(stand_cells)
+    ]
+    metrics: dict[str, SpriteMetrics] = {}
+    for frame_name, cell in named_cells:
+        if cell.size != (FRAME, FRAME):
+            raise RuntimeError(f"{label} {frame_name}: canvas {cell.size}, expected 512x512")
+        alpha = np.asarray(cell.convert("RGBA"))[..., 3]
+        corners = (alpha[0, 0], alpha[0, -1], alpha[-1, 0], alpha[-1, -1])
+        if any(int(value) != 1 for value in corners):
+            raise RuntimeError(f"{label} {frame_name}: missing alpha-1 atlas sentinels")
+        measured = sprite_metrics(cell)
+        metrics[frame_name] = measured
+        if measured.foot_y != FOOT_Y - 1:
+            raise RuntimeError(
+                f"{label} {frame_name}: foot row {measured.foot_y}, expected {FOOT_Y - 1}"
+            )
+        if abs(measured.center_x - (FRAME - 1) / 2) > 2:
+            raise RuntimeError(
+                f"{label} {frame_name}: bbox center {measured.center_x:.1f} is off canvas center"
+            )
+
+    reference = sprite_metrics(standing_reference)
+    if not 198 <= reference.height <= 202:
+        raise RuntimeError(f"{label}: standing reference height {reference.height}, expected 198...202")
+
+    idle_metrics = [metrics[f"idle {i:02d}"] for i in range(8)]
+    stand_metrics = [metrics[f"stand {i:02d}"] for i in range(12)]
+    if not 198 <= stand_metrics[-1].height <= 202:
+        raise RuntimeError(
+            f"{label}: standing endpoint height {stand_metrics[-1].height}, expected 198...202"
+        )
+    for i, measured in enumerate(idle_metrics):
+        if not 150 <= measured.height <= 160:
+            raise RuntimeError(f"{label} idle {i:02d}: height {measured.height}, expected 150...160")
+
+    idle_neutral = idle_metrics[0]
+    if abs(stand_metrics[0].height - idle_neutral.height) > 3:
+        raise RuntimeError(
+            f"{label}: idle/stand frame-00 height mismatch "
+            f"{idle_neutral.height}->{stand_metrics[0].height}"
+        )
+    if abs(stand_metrics[-1].height - reference.height) > 2:
+        raise RuntimeError(
+            f"{label}: stand endpoint/reference mismatch "
+            f"{stand_metrics[-1].height}->{reference.height}"
+        )
+
+    all_head_widths = [m.head_width for m in idle_metrics + stand_metrics]
+    if head_bounds is not None:
+        lower_head, upper_head = head_bounds
+        if any(not lower_head <= width <= upper_head for width in all_head_widths):
+            raise RuntimeError(
+                f"{label}: head widths {all_head_widths}, expected {lower_head}...{upper_head}"
+            )
+    else:
+        head_ratios = [width / reference.head_width for width in all_head_widths]
+        if any(not 0.90 <= ratio <= 1.10 for ratio in head_ratios):
+            raise RuntimeError(
+                f"{label}: head widths {all_head_widths}, standing reference "
+                f"{reference.head_width}; expected every ratio within 0.90...1.10"
+            )
+    if max(all_head_widths) / min(all_head_widths) > 1.12:
+        raise RuntimeError(f"{label}: baked head scale drifts more than 12% ({all_head_widths})")
+
+    neutral_mask = opaque_mask(idle_cells[0])
+    for i, (cell, measured) in enumerate(zip(idle_cells[1:], idle_metrics[1:]), start=1):
+        if abs(measured.centroid_x - idle_neutral.centroid_x) > 2 or abs(
+            measured.centroid_y - idle_neutral.centroid_y
+        ) > 2:
+            raise RuntimeError(f"{label} idle {i:02d}: silhouette centroid drifts more than 2px")
+        mask = opaque_mask(cell)
+        union = int(np.logical_or(neutral_mask, mask).sum())
+        intersection = int(np.logical_and(neutral_mask, mask).sum())
+        iou = intersection / max(1, union)
+        if iou < 0.86:
+            raise RuntimeError(f"{label} idle {i:02d}: neutral-mask IoU {iou:.3f}, expected >= 0.86")
+
+    heights = [m.height for m in stand_metrics]
+    for index, (before, after) in enumerate(zip(heights, heights[1:]), start=1):
+        if after < before - 4:
+            raise RuntimeError(
+                f"{label} stand {index:02d}: crown retreats {before}->{after} by more than 4px"
+            )
+    total_rise = heights[-1] - heights[0]
+    if not 38 <= total_rise <= 50:
+        raise RuntimeError(f"{label}: transition rise {total_rise}px, expected 38...50")
 
 
 def register(im: Image.Image) -> Image.Image:
@@ -270,13 +447,12 @@ def harden_silhouette_alpha(cell: Image.Image, threshold: int = 96) -> Image.Ima
 
 
 def split_upper_lower(cell: Image.Image, lap_frac: float = 0.78) -> tuple[Image.Image, Image.Image]:
-    """Split a registered seated cell on a horizontal feet seam.
+    """Split a legacy registered seated-body fallback on a horizontal seam.
 
-    Upper = torso/fedora/arms + chair back (must stay camera-near / in front of
-    the desk). Lower = only the under-desk feet / front chair legs that the
-    kneehole apron should hide. Seam stays ~0.78 so desk-reaching hands remain
-    on the upper layer (a lower seam buried the hands behind the apron).
-    Both keep the same 512 feet registration.
+    Upper = head/torso/arms; lower = under-desk coat/legs/feet. Chair pixels are
+    forbidden in V12 because the world prop is the sole chair owner. Both
+    compatibility layers keep the same 512 feet registration and remain hidden
+    when the complete seated body is available.
     """
     arr = np.array(cell.convert("RGBA"))
     a = arr[:, :, 3]
@@ -285,7 +461,7 @@ def split_upper_lower(cell: Image.Image, lap_frac: float = 0.78) -> tuple[Image.
         empty = lock_atlas_canvas(Image.new("RGBA", (FRAME, FRAME), (0, 0, 0, 0)))
         return empty.copy(), empty.copy()
     y0, y1 = int(ys.min()), int(ys.max())
-    # Low seam: keep chair back with the upper layer for rear-view.
+    # Low seam keeps Voss's desk-reaching hands in the upper body layer.
     seam = y0 + int((y1 - y0) * lap_frac)
     upper = arr.copy()
     upper[seam:, :, 3] = 0

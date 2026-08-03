@@ -222,7 +222,7 @@ Design continuity rules:
 
 ### 6.2 Runtime animation set
 
-All stored runtime frames are 512×512 transparent PNGs with a 200px opaque body and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. SpriteKit displays every frame at 256×256 points, preserving the established 100-world-unit actor height while providing 2× texture density. The seated pose gets its apparent height from authored posture and desk occlusion and retains its −100pt visual offset into the chair/desk registration.
+All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sentinels and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. Standing cells are 198–202px tall; the chairless seated pose is 150–160px tall at the same endpoint-derived source scale. SpriteKit displays every posture in the existing fixed 232×232 node at scale 1, retaining the current anchor, offsets, and desk registration. Apparent seated height comes only from authored posture and desk occlusion.
 
 The body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to an 80-pixel native body, limit it to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
@@ -230,13 +230,13 @@ Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw
 
 | Priority | Clip | Stored directions | Frames per direction | Stored frames | Displayed facing/frame combinations | Playback target | Notes |
 |---|---|---:|---:|---:|---:|---|---|
-| P0 | `voss_seated_idle` | SE only | 8 | 8 | 8 | 5 fps with authored holds; 2.5–4.0 s perceived loop | Coarse breath/shoulder shift and brief rainward glance; avoid subpixel flutter. Ships with a derived `voss_seated_arms` desk-overlay layer per frame. |
-| P0 | `voss_stand_up` | SE only | 12 | 12 | 12 | 10 fps, once | Clears chair/desk without pivot jump; event on final standing frame. |
-| P1 | `voss_sit_down` | SE only | 12 | 12 | 12 | 10 fps, once | Authored sequence, not a reversed stand-up clip. |
-| P0 | `voss_standing_idle` | 9 source / 16 displayed | 4 | 36 | 64 | 5 fps with long holds | Broad readable mass shift, not smooth high-resolution breathing. Mirrored SE copies are also stored for the desk chain. |
+| P0 | `voss_seated_idle` | NE + SE | 8 | 16 | 16 | 5 fps with authored holds; 2.5–4.0 s perceived loop | Chairless constrained pose edits; fixed pelvis, feet, camera, and scale; world chair remains visible. |
+| P0 | `voss_stand_up` | NE + SE | 12 | 24 | 24 | 0.13 s/frame, once | Chairless, endpoint-scaled rise; frame 00 matches seated neutral and frame 11 matches the same-direction idle. |
+| P1 | `voss_sit_down` | NE + SE | 12 | 24 | 24 | 0.13 s/frame, once | Exact reverse of the corresponding stand-up clip. |
+| P0 | `voss_standing_idle` | 9 source + stored SE mirror / 16 displayed | 4 | 40 | 64 | 5 fps with long holds | Broad readable mass shift, not smooth high-resolution breathing. NE seat handoff selects mirrored NW; SE selects stored SE. |
 | P0 | `voss_walk` | 9 source / 16 displayed | 8 | 72 | 128 | 10 fps loop | Clear contact/pass cycle, stable simplified silhouette and crown. |
 
-Required stored character texture frames: **140**. Required displayed facing/frame combinations, including runtime mirroring: **224**.
+Required primary body texture frames: **176**. Required displayed facing/frame combinations, including runtime mirroring: **256**. Legacy seated upper/lower and arms cells are excluded from this count and remain transparent or hidden compatibility layers.
 
 The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, eight rear three-quarter northeast departure phases, and eight rear three-quarter northwest departure phases (chair→door leg). Exit playback selects NE vs NW strips from path-segment facing without mirroring. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
 
@@ -244,7 +244,9 @@ Filename examples:
 
 ```text
 voss_seated_idle_se_00.png ... voss_seated_idle_se_07.png
+voss_seated_idle_ne_00.png ... voss_seated_idle_ne_07.png
 voss_stand_up_se_00.png ... voss_stand_up_se_11.png
+voss_stand_up_ne_00.png ... voss_stand_up_ne_11.png
 voss_standing_idle_s_00.png ... voss_standing_idle_n_03.png
 voss_walk_s_00.png ... voss_walk_n_07.png
 lila_arrival_sw_00.png ... lila_arrival_sw_08.png
@@ -254,9 +256,9 @@ lila_departure_nw_00.png ... lila_departure_nw_07.png
 
 Atlases (shipped set — Voss V12 paperdoll identity/craft + Lila V11 bob/dress, both on V7 BGEE crunch):
 
-- `VossSeatedIdle.atlas` — seated idle body frames (SE from V12; NE desk from V12 shared-scale).
-- `VossSeatedArms.atlas` — derived seated forearm overlay (draws above the desk's front occluder).
-- `VossSeatTransitions.atlas` — stand-up and sit-down clips (SE + NE).
+- `VossSeatedIdle.atlas` — chairless NE and SE seated-idle body frames at the same directional scale as their standing endpoint; legacy NE split cells are not used by the desk runtime.
+- `VossSeatedArms.atlas` — transparent compatibility cells; each full seated body already includes Voss's arms.
+- `VossSeatTransitions.atlas` — chairless NE and SE stand-up clips plus their exact reversed sit-down cells.
 - `VossIdle.atlas` — all standing idles (including mirrored SE copies).
 - `VossWalk.atlas` — all walk directions.
 - `LilaArrival.atlas` — Lila March V11 arrival, standing idle, and NE/NW departure.
@@ -276,6 +278,9 @@ Additional character texture:
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.
 - Alpha-edge fringe: none over warm lamp light or cool window shadow.
 - Coat, tie, face, and hand identity: no unmotivated frame-to-frame change.
+- Seat-chain geometry: standing endpoint 198–202px; idle 150–160px; feet row 433; bbox centre within 2px; idle centroid drift ≤2px and neutral IoU ≥0.86; adjacent crown retreat ≤4px with 38–50px total rise; exact reversed sit-down.
+- Seat-chain visual-top head scale (top 10%, above the bare-headed SE shoulder): NE 25–29px; SE within ±10% of its standing reference; no clip-wide drift above 12%.
+- Chair ownership: Voss desk cells are chairless; the separate world `office_desk_chair` is visible exactly once throughout idle, transitions, egress, and walking.
 - Sprite-style gate: runtime must show simplified faceted 3D volumes, broad baked light, minimal facial detail, and a restrained visible native raster; reject painterly, modern-PBR, overly smooth realistic, or chunky hand-authored pixel-art results.
 
 ## 7. Weather and ambient effect assets
