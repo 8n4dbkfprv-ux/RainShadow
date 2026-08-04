@@ -59,16 +59,26 @@ final class CaseIntroductionPresenter: SKNode {
     private let commandLabelShadow = SKLabelNode(fontNamed: UITheme.Font.dialogueCommand)
     private let commandLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueCommand)
 
-    private var nodesByID: [String: CaseDialogueNode] = [:]
-    private var currentNodeID: String?
-    /// Case/dialogue flags and queued journal fragments (Phase 1–3).
+    /// Pure multi-graph walker (Phase 4). Presenter is a view over this session.
+    private var session: DialogueSession?
+    /// Case/dialogue flags and queued journal fragments.
     /// Scene merges `caseState` into `GameSession` when dialogue completes.
-    private(set) var runtimeContext = DialogueRuntimeContext(
-        caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
-        dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
-    )
-    /// Visible (condition-passing) choices for the current node — index source of truth.
-    private var visibleChoices: [CaseDialogueChoice] = []
+    var runtimeContext: DialogueRuntimeContext {
+        session?.context
+            ?? DialogueRuntimeContext(
+                caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
+                dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
+            )
+    }
+    private var nodesByID: [String: CaseDialogueNode] {
+        session?.graph.nodesByID ?? [:]
+    }
+    private var currentNodeID: String? {
+        session?.currentNodeID
+    }
+    private var visibleChoices: [CaseDialogueChoice] {
+        session?.visibleChoices ?? []
+    }
     private var choiceRows: [ChoiceRow] = []
     private var commandKind = CommandKind.hidden
     private var commandHitRect = CGRect.zero
@@ -242,43 +252,47 @@ final class CaseIntroductionPresenter: SKNode {
         )
     }
 
+    /// Present any authored graph through the shared session (Phase 4).
     func present(
-        _ nodes: [CaseDialogueNode],
-        startingAt startID: String,
+        graph: DialogueGraph,
         context: DialogueRuntimeContext? = nil,
         onComplete: (() -> Void)? = nil
     ) {
-        guard !nodes.isEmpty, nodes.contains(where: { $0.id == startID }) else {
+        guard !graph.nodes.isEmpty, graph.node(id: graph.startNodeID) != nil else {
             onComplete?()
             return
         }
 
         removeAllActions()
         presentationCompletion = onComplete
-        nodesByID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
-        currentNodeID = startID
-        if var seeded = context {
-            seeded.dialogueState.graphID = seeded.dialogueState.graphID.isEmpty
-                ? EmptyCoatDialogueKeys.graphID
-                : seeded.dialogueState.graphID
-            seeded.dialogueState.currentNodeID = startID
-            runtimeContext = seeded
-        } else {
-            runtimeContext = DialogueRuntimeContext(
-                caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
-                dialogueState: DialogueState(
-                    graphID: EmptyCoatDialogueKeys.graphID,
-                    currentNodeID: startID
-                )
-            )
+        var seed = context
+        if seed != nil {
+            seed?.dialogueState.currentNodeID = graph.startNodeID
         }
-        visibleChoices = []
+        session = DialogueSession(graph: graph, context: seed)
         lastNotifiedNodeID = nil
         isPresenting = true
         isCutsceneSuppressed = false
         isHidden = false
         showCurrentNode(animated: false)
         run(.fadeIn(withDuration: 0.22))
+    }
+
+    /// Compatibility wrapper — builds an ad-hoc graph for legacy call sites.
+    func present(
+        _ nodes: [CaseDialogueNode],
+        startingAt startID: String,
+        context: DialogueRuntimeContext? = nil,
+        onComplete: (() -> Void)? = nil
+    ) {
+        let graphID = context?.dialogueState.graphID.isEmpty == false
+            ? (context?.dialogueState.graphID ?? "ad-hoc")
+            : "ad-hoc"
+        present(
+            graph: DialogueGraph(id: graphID, startNodeID: startID, nodes: nodes),
+            context: context,
+            onComplete: onComplete
+        )
     }
 
     /// Baldur’s Gate cutscene mode: hide the dialogue panel and block input without
@@ -318,9 +332,10 @@ final class CaseIntroductionPresenter: SKNode {
 
     /// After a walk cinematic: optionally jump to the deferred destination, then re-show dialogue.
     func resumeAfterCutscene(advancingTo destinationID: String? = nil) {
-        guard isPresenting else { return }
-        if let destinationID, nodesByID[destinationID] != nil {
-            currentNodeID = destinationID
+        guard isPresenting, var session else { return }
+        if let destinationID, session.graph.node(id: destinationID) != nil {
+            _ = session.jump(to: destinationID)
+            self.session = session
             lastNotifiedNodeID = nil
             showCurrentNode(animated: false)
         }
@@ -496,17 +511,22 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     func activateFocusedControl() {
-        guard isPresenting, !isCutsceneSuppressed else { return }
+        guard isPresenting, !isCutsceneSuppressed, var session else { return }
 
         if !choiceRows.isEmpty {
             let index = focusedChoiceIndex ?? hoveredChoiceIndex ?? 0
             guard
-                let node = currentNodeID.flatMap({ nodesByID[$0] }),
-                visibleChoices.indices.contains(index)
+                let node = session.currentNode,
+                session.visibleChoices.indices.contains(index)
             else { return }
-            let choice = visibleChoices[index]
-            applyChoiceSelect(choice)
-            attemptTransition(from: node, to: choice.destinationID)
+            let destinationID = session.visibleChoices[index].destinationID
+            // Apply select (actions + advance) then optionally defer presentation for cutscene.
+            let result = session.selectChoice(at: index)
+            self.session = session
+            if shouldDeferAdvance?(node, destinationID) == true {
+                return
+            }
+            applyStepResult(result, animated: true)
             return
         }
 
@@ -514,28 +534,31 @@ final class CaseIntroductionPresenter: SKNode {
         case .hidden:
             return
         case .next(let destinationID):
-            guard let node = currentNodeID.flatMap({ nodesByID[$0] }) else {
-                transition(to: destinationID)
+            guard let node = session.currentNode else {
+                let result = session.jump(to: destinationID)
+                self.session = session
+                applyStepResult(result, animated: true)
                 return
             }
-            attemptTransition(from: node, to: destinationID)
+            if shouldDeferAdvance?(node, destinationID) == true {
+                return
+            }
+            let result = session.advanceContinue()
+            self.session = session
+            applyStepResult(result, animated: true)
         case .end:
             finish()
         }
     }
 
-    /// Phase 2 order: apply `onSelect` actions, record history, then advance.
-    private func applyChoiceSelect(_ choice: CaseDialogueChoice) {
-        DialogueActionRuntime.apply(choice.onSelect, to: &runtimeContext)
-        runtimeContext.dialogueState.recordChoice(destinationID: choice.destinationID)
-    }
-
-    /// Advances immediately unless `shouldDeferAdvance` claims the transition for a cutscene.
-    private func attemptTransition(from node: CaseDialogueNode, to destinationID: String) {
-        if shouldDeferAdvance?(node, destinationID) == true {
-            return
+    /// Map pure session steps to presentation.
+    private func applyStepResult(_ result: DialogueStepResult, animated: Bool) {
+        switch result {
+        case .showing:
+            showCurrentNode(animated: animated)
+        case .finished, .invalid:
+            finish()
         }
-        transition(to: destinationID)
     }
 
     private func buildInterface() {
@@ -683,10 +706,12 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     private func showCurrentNode(animated: Bool) {
-        guard let node = currentNodeID.flatMap({ nodesByID[$0] }) else {
+        guard var session, let node = session.currentNode else {
             finish()
             return
         }
+        session.noteCurrentNodeShown()
+        self.session = session
 
         focusedChoiceIndex = nil
         hoveredChoiceIndex = nil
@@ -715,18 +740,17 @@ final class CaseIntroductionPresenter: SKNode {
             dialogueLabel.fontColor = Palette.parchment
         }
         setPortrait(named: node.portraitName)
-        runtimeContext.dialogueState.advance(to: node.id)
-        visibleChoices = CaseDialogueGraph.visibleChoices(node.choices, in: runtimeContext)
+        let choices = session.visibleChoices
         #if DEBUG
-        if CaseDialogueGraph.isSoftStuck(node: node, visibleChoices: visibleChoices) {
+        if session.isSoftStuck {
             assertionFailure(
                 "Dialogue node \(node.id) has no visible choices, nextNodeID, or endsDialogue (authoring/gate error)"
             )
         }
         #endif
-        rebuildChoices(visibleChoices)
+        rebuildChoices(choices)
 
-        let hasVisibleChoices = !visibleChoices.isEmpty
+        let hasVisibleChoices = !choices.isEmpty
         let visibleHeight = lastVisibleSize.height > 1 ? lastVisibleSize.height : 820
         let panelTargetY = DialoguePanelLayout.panelPresentationOffsetY(
             hasChoices: hasVisibleChoices,
@@ -1214,15 +1238,6 @@ final class CaseIntroductionPresenter: SKNode {
         return attributed
     }
 
-    private func transition(to destinationID: String) {
-        guard nodesByID[destinationID] != nil else {
-            finish()
-            return
-        }
-        currentNodeID = destinationID
-        showCurrentNode(animated: true)
-    }
-
     private func finish() {
         guard isPresenting else { return }
         isPresenting = false
@@ -1230,6 +1245,7 @@ final class CaseIntroductionPresenter: SKNode {
         lastNotifiedNodeID = nil
         onNodeShown = nil
         shouldDeferAdvance = nil
+        // Keep session until next present so callers can still read runtimeContext.caseState.
         let completion = presentationCompletion
         presentationCompletion = nil
         removeAction(forKey: "cutsceneVisibility")

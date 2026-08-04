@@ -40,6 +40,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var mapIsPresented = false
     private var journalIsPresented = false
     private var caseIntroductionStarted = false
+    /// Phase 4: second graph — desk monologue after Empty Coat is open (once).
+    private var deskCaseFileMonologuePlayed = false
     private var clientEntranceStarted = false
     /// Wall-clock origin of the forced/authored entrance (QA seek + pacing).
     private var clientEntranceStartedAt: TimeInterval?
@@ -755,8 +757,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         // Shipped Empty Coat intro: noir monologue (with late entrance cue) + Lila March triad dialogue.
         caseIntroductionPresenter.present(
-            EmptyCoatCaseIntroduction.nodes,
-            startingAt: EmptyCoatCaseIntroduction.startNodeID
+            graph: EmptyCoatCaseIntroduction.graph
         ) { [weak self] in
             guard let self else { return }
             // Phase 3: hoist dialogue case flags / journal queue into the session.
@@ -920,9 +921,32 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     private func presentInspection(_ hotspot: OfficeHotspot) {
-        let nodeID = "inspection.\(hotspot.id)"
         clearHotspotHoverHighlight()
         dialogueIsActive = true
+
+        // Shared multi-graph presenter: desk monologue after the case is retained.
+        if hotspot.id == "office.desk",
+           !deskCaseFileMonologuePlayed,
+           context.session.caseState.hasFlag(EmptyCoatDialogueKeys.clientRetained)
+        {
+            deskCaseFileMonologuePlayed = true
+            caseIntroductionPresenter.present(
+                graph: OfficeCaseFileMonologue.graph,
+                context: DialogueRuntimeContext(
+                    caseState: context.session.caseState,
+                    dialogueState: DialogueState(graphID: OfficeCaseFileMonologue.graphID)
+                )
+            ) { [weak self] in
+                guard let self else { return }
+                self.context.session.mergeCaseStateFromDialogue(
+                    self.caseIntroductionPresenter.runtimeContext.caseState
+                )
+                self.dialogueIsActive = false
+            }
+            return
+        }
+
+        let nodeID = "inspection.\(hotspot.id)"
         caseIntroductionPresenter.present([
             CaseDialogueNode(
                 id: nodeID,

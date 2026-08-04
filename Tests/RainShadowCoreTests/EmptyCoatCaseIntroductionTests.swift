@@ -206,8 +206,8 @@ struct EmptyCoatCaseIntroductionTests {
         let sceneURL = root
             .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let source = try String(contentsOf: sceneURL, encoding: .utf8)
-        #expect(source.contains("EmptyCoatCaseIntroduction.nodes"))
-        #expect(source.contains("EmptyCoatCaseIntroduction.startNodeID"))
+        #expect(source.contains("EmptyCoatCaseIntroduction.graph"))
+        #expect(source.contains("present(\n            graph:") || source.contains("present(graph:"))
         #expect(!source.contains("speaker: \"Vivian Hart\""))
         #expect(!source.contains("speaker: \"Elias Vale\""))
         #expect(!source.contains("vivian.opening"))
@@ -331,7 +331,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(scene.contains("playVoiceOver"))
         #expect(scene.contains("stopVoiceOver"))
         #expect(scene.contains("node.voiceAssetName"))
-        #expect(scene.contains("EmptyCoatCaseIntroduction.startNodeID"))
+        #expect(scene.contains("EmptyCoatCaseIntroduction.graph"))
         // Door/entrance only inside the gated helper, not at the top of startCaseIntroduction before present.
         if let startRange = scene.range(of: "private func startCaseIntroduction()") {
             let afterStart = scene[startRange.lowerBound...]
@@ -350,7 +350,8 @@ struct EmptyCoatCaseIntroductionTests {
         }
         #expect(presenter.contains("onNodeShown"))
         #expect(presenter.contains("shouldDeferAdvance"))
-        #expect(presenter.contains("attemptTransition"))
+        #expect(presenter.contains("selectChoice") || presenter.contains("advanceContinue"))
+        #expect(presenter.contains("present(\n        graph:") || presenter.contains("func present(\n        graph:"))
 
         // BG-classic: Continue from cue → hide dialogue + walk cinematic → resume next page.
         #expect(scene.contains("setCutsceneChromeSuppressed"))

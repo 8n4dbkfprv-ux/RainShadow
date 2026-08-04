@@ -48,6 +48,15 @@ enum EmptyCoatCaseIntroduction {
         monologueNodes + lilaConversationNodes + closingNodes
     }
 
+    /// Phase 4 multi-graph package for the shared dialogue session/presenter.
+    static var graph: DialogueGraph {
+        DialogueGraph(
+            id: EmptyCoatDialogueKeys.graphID,
+            startNodeID: startNodeID,
+            nodes: nodes
+        )
+    }
+
     /// Entrance is **not** armed on show — the cue page must remain fully readable.
     static func shouldStartClientEntrance(whenShowing nodeID: String) -> Bool {
         false

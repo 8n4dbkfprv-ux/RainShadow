@@ -1,7 +1,7 @@
 # Dialogue system roadmap
 
-- Status: Phase 0–3 complete (state + conditions + actions + journal projection); P4+ still planning
-- Version: 0.5
+- Status: Phase 0–4 complete (state → journal → multi-graph session); P5 still planning
+- Version: 0.6
 - Date: 4 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
 
@@ -28,6 +28,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator; P1 flag bridge removed |
 | Queued journal fragments on case state | **Shipped (P2 store)** |
 | Journal-on-transition projection | **Shipped (P3)** — `JournalProjectionInput`, session merge, Press vs accept paths |
+| Multi-graph session + presenter | **Shipped (P4)** — `DialogueGraph` / `DialogueSession`; desk monologue second graph |
 
 Empty Coat is intentionally compact. Broader evidence-gated branching is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
@@ -258,6 +259,8 @@ Keep scene-level `onNodeShown` for **presentation** (entrance cues). Move **game
 - A second stub graph (re-talk, hotspot monologue, etc.) runs through the same presenter
 - Save may restore mid-conversation via `DialogueState` only if product needs it; otherwise persist “intro completed” only
 
+**Status: met** (`DialogueGraph` + `DialogueSession`; presenter `present(graph:)`; Empty Coat `.graph`; `OfficeCaseFileMonologue` on desk after client retained; pure tests in `DialogueSessionTests`).
+
 ---
 
 ## Phase 5 — Intentions, tone, and VO
@@ -327,6 +330,8 @@ CaseState / flags
 | Path | Role today |
 |---|---|
 | `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Node/choice schema, `DialogueCondition`, graph integrity + visibleChoices |
+| `RainShadow Shared/Gameplay/Navigation/DialogueSession.swift` | P4 `DialogueGraph` + pure `DialogueSession` walker |
+| `RainShadow Shared/Gameplay/Navigation/OfficeCaseFileMonologue.swift` | P4 stub second graph (desk monologue) |
 | `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
 | `Tests/RainShadowCoreTests/DialogueConditionTests.swift` | P1 condition filter / disclosure / Empty Coat Press gate |
 | `Tests/RainShadowCoreTests/DialogueActionTests.swift` | P2 action apply + Empty Coat acceptance journal queue |
