@@ -122,11 +122,11 @@ RainShadow/
 │   │   │   ├── InteractionSystem.swift
 │   │   │   └── HotspotActionExecutor.swift
 │   │   ├── Navigation/
-│   │   │   ├── IsoProjection.swift
-│   │   │   ├── NavCell.swift
-│   │   │   ├── NavigationGrid.swift
-│   │   │   ├── Pathfinder.swift
-│   │   │   └── MovementController.swift
+│   │   │   ├── SearchMap.swift
+│   │   │   ├── PathFinder.swift
+│   │   │   ├── ActorOccupancy.swift
+│   │   │   ├── NavigationMap.swift
+│   │   │   └── ActorLocomotion.swift
 │   │   └── Weather/
 │   │       ├── RainConfiguration.swift
 │   │       ├── ExteriorRainSystem.swift
@@ -253,9 +253,9 @@ Add these for movement, depth, and one hotspot:
 | Order | File | Responsibility |
 |---:|---|---|
 | 18 | `SceneDefinition.swift` | Codable placement/schema model. |
-| 19 | `IsoProjection.swift` | Shared world/grid/screen transforms. |
-| 20 | `NavigationGrid.swift` | Walkable/cost data and reach-cell lookup. |
-| 21 | `Pathfinder.swift` | Deterministic A* implementation. |
+| 19 | `SearchMap.swift` | Raster passability/door/actor flag map and radius-line queries. |
+| 20 | `NavigationMap.swift` | Scene-facing routing API, door stamping, actor registration. |
+| 21 | `PathFinder.swift` | Deterministic Lazy Theta\* implementation. See [Pathfinding and NPC locomotion](PathfindingSystem.md). |
 | 22 | `DepthSortableNode.swift` | Ground-pivot root and bias metadata. |
 | 23 | `DepthSortSystem.swift` | Static/dynamic depth-key calculation. |
 | 24 | `SpriteAnimationClip.swift` | Frame/duration/event model. |

@@ -1,9 +1,9 @@
 # Movement system roadmap
 
-- Status: Phase 0 complete; P1+ not scheduled
-- Version: 0.2
+- Status: Phase 0 complete; Phase 3 locomotion shipped via the pathfinding rewrite; P1/P2 and P3 control surface not scheduled
+- Version: 0.3
 - Date: 4 August 2026
-- Related: GDD §8 (Controls), Technical Architecture §10–12 (actors, navigation, input), Dialogue System Roadmap (pause / modal interaction patterns)
+- Related: GDD §8 (Controls), Technical Architecture §10–12 (actors, navigation, input), [Pathfinding and NPC locomotion](PathfindingSystem.md) (shipped navigation stack and NPC authoring rules), Dialogue System Roadmap (pause / modal interaction patterns)
 
 ## Purpose
 
@@ -26,7 +26,7 @@ This document does **not** propose dual “classic vs modern” control schemes.
 | Encumbrance | Str weight: 100–120% half speed; >120% immobile | Optional later; strength/inventory only if RPG weight ships |
 | Fatigue | Long-term continuous-play exhaustion | Out of scope until rest/day systems exist |
 | Time scale | 6 s personal rounds; same compression for combat & world | Investigation pacing first; combat round scale when combat ships |
-| Pathfinding | Per-character A*; weak multi-agent IE behavior | Single-agent A* (shipped); multi-agent only when party moves |
+| Pathfinding | Per-character any-angle search over a raster search map; weak multi-agent IE behavior | Same stack, shipped: Lazy Theta\* over a search map with actor stamping and bumping (see [Pathfinding and NPC locomotion](PathfindingSystem.md)); formations only when party moves |
 
 **Explicitly out of scope for early phases:** full IE multi-agent doorway stacking fidelity, gamepad-only classic mappings, race/armor-scaled tabletop rates, outdoor yards vs indoor feet, continuous auto-reform while walking, free-form scripted movement AI.
 
@@ -37,7 +37,7 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 - Exact default facing when only left-clicking a group (no R-drag) is under-documented in manuals.
 - Automatic mid-path re-formation when pathfinding splits the party is **not** a named IE feature—community practice is manual regroup.
 - Exact 100%/120% encumbrance thresholds are secondary (wiki), not printed in manuals checked.
-- Heuristic doc/code mismatch from early drafts is **resolved in Phase 0**: Technical Architecture §11.2 and `NavigationGrid.heuristic` both use projected Euclidean distance between cell centers.
+- Heuristic doc/code mismatch from early drafts was resolved in Phase 0 and then superseded by the pathfinding rewrite: the shipped search uses a weighted Euclidean heuristic (weight 1.5) with cross-product tie-breaking, matching GemRB's `Map::FindPath`. Technical Architecture §11.3 and `PathFinder` agree.
 
 ---
 
@@ -45,18 +45,24 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 
 | Piece | Status |
 |---|---|
-| A* over eight-connected cells; no diagonal corner cutting | **Shipped** (`NavigationGrid`) |
-| String-pull / path simplify only on fully walkable segments | **Shipped** |
-| Footprint-expanded AABB obstacles; boundary as solid | **Shipped** |
-| Office dimetric nav grid + authored furniture/door/wall AABBs | **Shipped** (`OfficeNavigationLayout`) |
-| Unreachable tap → nearest cell in bounded Chebyshev ring | **Shipped** (+ tests) |
+| Raster search map with BG-style flag bits; radius/line queries | **Shipped** (`SearchMap`) |
+| Lazy Theta\* any-angle search; no diagonal corner cutting | **Shipped** (`PathFinder`) |
+| Weighted heuristic (1.5) + cross-product tie-break; node budget 32 000 | **Shipped** |
+| Any-angle path emitted by the search (no separate string-pull pass) | **Shipped** |
+| Footprint clearance tested against obstacle geometry; boundary as solid | **Shipped** |
+| Office dimetric search map + authored furniture/door/wall AABBs | **Shipped** (`OfficeNavigationLayout`) |
+| Blocked tap → directed destination adjustment, then nearest *reachable* cell in bounded radius | **Shipped** (+ tests) |
 | Constant-speed waypoint following (`RouteFollower`) | **Shipped** |
 | New input **replaces** route (not append) for single actor | **Shipped** |
 | Cancel route (Escape / right-click / two-finger) without new destination | **Shipped** (`handleCancelInput` → `cancelMovement`) |
 | Move-order ground feedback (procedural teal/red ellipse) | **Shipped**; sprite `ui_move_marker_*` deferred |
-| A* heuristic = projected Euclidean (docs + code aligned) | **Shipped (P0)** |
 | `appendRoute` stub for future party waypoint queuing | **Modeled only** |
-| Single detective pathfinding; no dynamic multi-agent avoidance | **Shipped (M01)** |
+| Actor occupancy stamping (PC/NPC bits) for every floor actor | **Shipped** (`ActorOccupancy`) |
+| Bumpable idle actors: sidestep-and-return on contact | **Shipped** |
+| Congestion back-off after repeated blocked steps | **Shipped** |
+| Corrective repath while walking (0.75 s, "Enhanced Path Search") | **Shipped** |
+| Door open/close stamps cells in place, no map rebuild | **Shipped** (`setEntranceDoorBlocking`) |
+| Client NPC (Lila) on pathfinder + `RouteFollower`, not `SKAction` | **Shipped** |
 | Actor state machine (seated → stand → walk → sit) | **Shipped** |
 | Projected-world speed so diagonals are not faster on screen | **Shipped** |
 | 16-bin facing from velocity; 9 sources + mirror | **Shipped** |
@@ -69,7 +75,7 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 | Encumbrance / Haste-style speed modifiers | **Not shipped** |
 | Fatigue / rest-linked movement | **Not shipped** |
 
-M01 intentionally paths only the detective. Companions, combat spacing, and party AI are deferred until multi-actor scenes exist.
+The pathfinding rewrite moved multi-actor *locomotion* forward of its original P3 slot: the detective and the client both path through the same stack, occupy the same search map, and resolve contact by bumping. What remains deferred is multi-actor *control* — selection sets, formations, portrait order, combat spacing, and party AI.
 
 ---
 
@@ -80,7 +86,7 @@ M01 intentionally paths only the detective. Companions, combat spacing, and part
 | **P0** | Single-actor classic feel (stop, cancel, pause queue, path polish) | Unlocks IE-like control with zero party systems |
 | **P1** | Input & selection model (pointer kinds, cancel vs move, HUD stop) | Shared event surface for later multi-select |
 | **P2** | Speed model (base rate, modifiers, optional encumbrance hooks) | Data spine before combat/items change walk rate |
-| **P3** | Multi-actor locomotion + independent A* | Second walker without formations yet |
+| **P3** | Multi-actor locomotion + independent search | **Locomotion shipped** with the pathfinding rewrite; selection/control remains |
 | **P4** | Formations + portrait order + destination facing | Classic party identity once ≥2 selectable actors exist |
 | **P5** | Party pathing polish (chokepoints, regroup, optional append routes) | Comfort and IE familiarity; not required for first companion beat |
 | **P6** | Combat-time movement (initiative scale, engagement) | Only when combat ships |
@@ -95,7 +101,7 @@ P0 before multi-actor: one reliable IE-feeling detective walk is the M01 promise
 
 ### Ship
 
-- Technical Architecture §11.2 + `NavigationGrid.heuristic` both document/use **projected Euclidean** between cell centers (same metric as step cost)
+- Technical Architecture §11.3 and the pathfinder agree on the heuristic metric (originally projected Euclidean between cell centers; now the weighted Euclidean of `PathFinder` after the search-map rewrite)
 - Explicit **cancel route**: Escape / right-click / two-finger → `cancelMovement()`; cancel also clears the live move-order feedback ring
 - Mid-segment **retarget** via `replaceRoute` from the live interpolated position (pure tests cover cancel mid-route, replace discarding old tail, replace-after-cancel, zero-speed hold)
 - Click-destination feedback: procedural teal (valid) / red (invalid) ellipse; authored `ui_move_marker_*` art remains optional later polish
@@ -163,25 +169,31 @@ IE kept one readable rate rather than tabletop exploration/combat dual scales. R
 
 ## Phase 3 — Multi-actor locomotion
 
-**Goal:** A second (then N) actor can path independently with the same `RouteFollower` / A* stack.
+**Goal:** A second (then N) actor can path independently with the same `RouteFollower` / search stack.
 
-### Ship
+### Shipped ahead of schedule (pathfinding rewrite)
 
-- Multiple `ActorController` (or shared controller + per-actor state) instances
+- Per-actor path requests through one shared `NavigationMap`; the detective and client both use it
+- Other actors are modelled as **search-map occupancy** rather than static obstacles: idle friendly actors are bumpable and traversable during planning, moving actors are not
+- Contact resolution is BG:EE bumping — the idle blocker sidesteps and returns — with a congestion counter so a blocked mover waits instead of repathing forever
+- Corrective repathing so a mover benefits when a blocker clears
+- Client NPC migrated off `SKAction` polylines onto the pathfinder; `ClientActorNode` is the template for future NPCs (see [Pathfinding and NPC locomotion](PathfindingSystem.md), "How NPCs are written from here on")
+
+### Still to ship
+
+- Multiple `ActorController` (or shared controller + per-actor state) instances for *player-controlled* actors
 - Selection set: who receives the next move order (default: player-controlled detective)
-- Per-actor path requests; other actors are **static obstacles** first (simplest correct behavior)
-- Optional: treat allies as soft costs later—not required for exit
 - Portrait bar (or existing party rail) selects active member; no formation required yet
 
 ### Exit criteria
 
-- Two actors can each receive sequential move orders without shared route corruption
-- Depth sort, facing, and footstep events remain correct per actor
-- Companion can be ordered to a hotspot approach cell for future dialogue staging
+- Two actors can each receive sequential move orders without shared route corruption — **met for scripted/reactive NPC movement; not yet exercised by player selection**
+- Depth sort, facing, and footstep events remain correct per actor — **met**
+- Companion can be ordered to a hotspot approach point for future dialogue staging — **available via `NavigationMap.route`; no ordering UI yet**
 
 ### Rationale
 
-Classic IE is multi-select real-time, but the first companion beat only needs “send X there.” Formations without a second body are pure UI cost.
+Classic IE is multi-select real-time, but the first companion beat only needs “send X there.” The rewrite delivered the locomotion and avoidance half because a second walking body (the client) needed it; what is left is control surface, and formations without a selectable second body are still pure UI cost.
 
 ---
 
@@ -218,7 +230,7 @@ This is the signature IE party identity. RainShadow only pays for it once compan
 ### Ship
 
 - `RouteFollower.appendRoute` wired for optional waypoint queue (IE-style queued clicks) behind an explicit input mode or modifier—not default if it fights replace-on-click muscle memory
-- Narrow-gap behavior: followers wait or repath when leader occupies choke cell
+- Narrow-gap behavior: followers wait or repath when leader occupies choke cell (the primitive exists — occupancy congestion back-off; what is missing is party-level policy)
 - Optional “gather to leader” command (one-shot regroup at leader position)
 - Fail soft: if a slot is blocked, claim nearest free cell rather than cancel whole party move
 - Debug overlays for multi-agent paths (dev only)
@@ -259,6 +271,10 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 4. **Portrait order drives formation slots** when formations exist—not free-form drag-to-slot unless design revisits.
 5. **No continuous auto-follow reform** as the primary party AI; regroup is reissue formation move.
 6. **Single-agent correctness first**—multi-agent must not break detective-only office navigation tests.
+7. **All floor-bound movement goes through `NavigationMap`.** No `SKAction` locomotion chains and no authored polyline consumed directly as a path; authored anchors are input to `waypoints(visiting:)`. See [Pathfinding and NPC locomotion](PathfindingSystem.md).
+8. **Every floor-occupying actor registers with `ActorOccupancy`** while visible, and unregisters when hidden.
+9. **Idle NPCs are bumpable, moving NPCs are not.** A body that must be immovable is authored as a static obstacle, never as an unbumpable actor.
+10. **Dynamic geometry stamps in place.** Doors and equivalents toggle search-map cells; nothing rebuilds a navigation map to change one obstacle.
 
 ---
 
@@ -266,10 +282,10 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 
 | Phase | Primary code / docs homes |
 |---|---|
-| P0 | `NavigationGrid.swift`, `ActorLocomotion.swift`, `NavigationGridTests`, Technical Architecture §11.2 |
+| P0 | `SearchMap.swift`, `PathFinder.swift`, `ActorLocomotion.swift`, `NavigationMapTests`, Technical Architecture §11.2–11.4 |
 | P1 | `GameInputEvent` / `InputRouter`, scene pause helpers in `DetectiveOfficeScene`, HUD clock/stop controls |
 | P2 | New pure `MovementProfile` (RainShadowCore), `RouteFollower.advance` speed parameter wiring |
-| P3 | Actor controllers, selection set, companion spawn/scene ownership |
+| P3 | `ActorOccupancy.swift`, `NavigationMap.swift` (shipped); actor controllers, selection set, companion spawn/scene ownership (remaining) |
 | P4 | Formation presets (pure math), party rail reorder, multi-select input |
 | P5 | Multi-agent costs / wait policies, `appendRoute` input binding |
 | P6 | Future combat roadmap |

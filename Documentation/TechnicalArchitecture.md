@@ -1,8 +1,9 @@
 # RainShadow — Technical Architecture
 
-- Status: proposed architecture
-- Version: 0.1
+- Status: proposed architecture; §11 Navigation describes the shipped implementation
+- Version: 0.2
 - Scope: M01 exterior, transition, playable office, and foundations for later investigation systems
+- Related: [Pathfinding and NPC Locomotion](PathfindingSystem.md) — authoritative navigation reference and NPC authoring rules
 
 ## 1. Architecture goals
 
@@ -26,7 +27,7 @@ The architecture must:
 - Foundation and CoreGraphics support data, geometry, files, and timing.
 - AVFoundation may provide persistent audio crossfades because audio must survive scene replacement; it does not render game visuals.
 - No SceneKit, `SK3DNode`, RealityKit, third-party engine, custom Metal renderer, or runtime 3D assets.
-- M01 pathfinding is a small A* implementation over authored isometric navigation cells. GameplayKit is not required, keeping the “pure SpriteKit” runtime boundary unambiguous.
+- Pathfinding is a self-contained Lazy Theta\* search over a raster search map built from authored obstacle geometry (§11). GameplayKit is not required, keeping the “pure SpriteKit” runtime boundary unambiguous.
 
 ### 2.2 Current-project findings
 
@@ -326,35 +327,44 @@ Movement velocity in projected screen space maps to one of 16 facing bins. A sma
 
 ## 11. Navigation
 
+Navigation follows Baldur's Gate: Enhanced Edition / Infinity Engine practice: a raster search map, Lazy Theta\* any-angle search, runtime actor and door stamping, and directed destination adjustment. This section is the architectural summary; [Pathfinding and NPC locomotion](PathfindingSystem.md) is the authoritative reference, including the NPC authoring convention.
+
 ### 11.1 Authored navigation data
 
-`office.nav.json` contains:
+Navigation geometry is authored in Swift rather than a data file; no `office.nav.json` ships. `OfficeNavigationLayout`, `CityDistrictLayout`, and `CityDistrictCatalog` each declare:
 
-- projection origin and tile size;
-- grid dimensions;
-- blocked cells or compact row bitsets;
-- per-cell movement cost;
-- special approach cells and required facing for hotspots;
-- optional door portal cells;
-- camera-safe walkable bounds.
+- world bounds for the walkable area;
+- static obstacle rects for walls, furniture, and fixtures, expressed with the floor-contact clearance already baked into the art;
+- door obstacle rects, held separately so they can be stamped and cleared without rebuilding;
+- hotspot approach anchors and the sparse anchors for scripted actor beats;
+- the agent profile the scene's actors plan with.
 
-### 11.2 Pathfinding
+Each layout exposes `makeGrid()`, which returns a configured `NavigationMap`.
 
-- A* over eight-connected cells.
-- Diagonal corner cutting is forbidden when either adjacent orthogonal cell is blocked.
-- Heuristic uses projected Euclidean distance between cell centers, matching step costs in the same projected metric (not grid-index octile).
-- Returned path is simplified only when a straight segment remains fully within walkable cells.
+### 11.2 Search map
+
+`SearchMap` is a byte-per-cell raster over world space, cells defaulting to 16×12 logical units to match the BG:EE cell aspect. Flag bits mirror GemRB's `PathMapFlags`: `passable`, `doorImpassable`, `playerActor`, `npcActor`. Static obstacles rasterize once at construction; doors and actors stamp into the same raster at runtime, so dynamic obstacles cost a stamp rather than a map rebuild.
+
+Radius queries test authored obstacle geometry in addition to cell flags, so an agent with real clearance cannot pass a gap that only fits a point, and the map boundary is solid for any agent with radius greater than zero.
+
+### 11.3 Pathfinding
+
+- **Lazy Theta\*** (`PathFinder`, following GemRB's `Map::FindPath`): 4-connected expansion with lazy parent relinking whenever a line-of-sight check clears the direct segment. The any-angle polyline is produced by the search itself, so there is no separate string-pull pass.
+- Heuristic weight is 1.5 (GemRB's default), trading strict optimality for responsiveness; equal-cost frontiers break on the cross product against the straight start-to-goal line, biasing paths toward the visual straight line rather than a staircase.
+- Expansion is capped by a node budget (default 32 000, BG:EE's "Path Search Nodes"). Exceeding it fails the search instead of stalling a frame.
+- Results are three-valued: `nil` is no route, `[]` is already at the destination (success), non-empty is the waypoint list. Callers must distinguish all three.
 - Actor speed is measured in projected world distance so diagonal screen movement does not appear faster.
-- M01 has no dynamic obstacle avoidance; the single detective is the only moving world actor.
+- Actors are stamped into the map by `ActorOccupancy`. Idle friendly actors are bumpable and traversable during planning; when a mover is blocked by one, the blocker sidesteps and returns. Repeated blocks trip a congestion counter that makes the mover wait instead of repathing forever.
+- Scenes recompute the active route every 0.75 s while walking (BG:EE "Enhanced Path Search"), so a bottleneck that clears mid-walk yields the shorter path.
 
-### 11.3 Click/tap resolution
+### 11.4 Click/tap resolution
 
 1. Convert view input to scene coordinates.
 2. Query active hotspots by polygon, interaction priority, and z/depth.
-3. If a hotspot wins, request its authored approach cell.
-4. Otherwise inverse-project to the nearest walkable navigation cell.
-5. If the cell is blocked, search a limited ring for the nearest reachable cell and show no move marker when none exists.
-6. Build path and hand it to `ActorController`.
+3. If a hotspot wins, request its authored approach anchor.
+4. Otherwise call `NavigationMap.route`, which returns an exact path when one exists.
+5. If the requested point is blocked, `route` adjusts the destination back along the line toward the actor, then falls back to the nearest *reachable* cell centre within a bounded radius. Show no move marker when nothing qualifies.
+6. Hand the waypoints to the actor's `RouteFollower` and record the requested destination for corrective repathing.
 
 ## 12. Cross-platform input
 
@@ -560,7 +570,9 @@ Release defaults disable SpriteKit performance overlays and debug shapes.
 
 - `IsoProjection` round-trip within tolerance.
 - depth keys order near objects in front of far objects and honor bias.
-- A* routes around the desk, forbids corner cutting, and rejects unreachable cells.
+- pathfinding routes around the desk, takes any-angle shortcuts when line of sight is clear, forbids corner cutting, respects actor footprint clearance through thin gaps, and rejects unreachable destinations while distinguishing them from “already there”.
+- actor occupancy blocks on unbumpable actors, offers a sidestep for idle bumpable ones, and backs off under repeated congestion.
+- door cells stamp and clear in place without rebuilding the navigation map.
 - actor state transitions queue movement correctly from seated state.
 - animation player emits events once and handles large/resumed deltas.
 - hotspot predicates and mutations are deterministic.
@@ -603,7 +615,7 @@ Architecture is accepted for M01 when a graybox proves:
 
 - one shared `SceneRouter` can present exterior and office in both app targets;
 - a preloaded transition completes without synchronous texture decoding on the cut;
-- a placeholder actor starts seated, stands, walks an A* route, and changes 16-facing animation state from nine source orientations;
+- a placeholder actor starts seated, stands, walks a pathfinder route, and changes 16-facing animation state from nine source orientations;
 - depth ordering is correct around at least three split occluders;
 - touch and mouse produce the same `InteractionCommand` for the same hotspot;
 - all scene placement comes from decoded definitions;
