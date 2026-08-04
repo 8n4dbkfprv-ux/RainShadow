@@ -8,6 +8,62 @@ enum DialogueTone: String, Equatable, CaseIterable, Sendable {
     case cynicalSarcasm = "Cynical/Sarcasm"
 }
 
+// MARK: - Phase 2 transition actions
+
+/// Dialogue-earned journal payload. Projected into the casebook in Phase 3.
+struct QueuedJournalFragment: Codable, Equatable, Sendable {
+    var id: String
+    /// e.g. `"chronology"` or `"lead"`.
+    var kind: String
+    var text: String
+
+    init(id: String, kind: String, text: String) {
+        self.id = id
+        self.kind = kind
+        self.text = text
+    }
+}
+
+/// Typed side effects applied when the player selects a choice (before advance).
+/// No free-form script strings; no dual end-dialogue path (use `endsDialogue` on nodes).
+enum DialogueAction: Equatable, Sendable {
+    case setConversationFlag(String)
+    case clearConversationFlag(String)
+    case setCaseFlag(String)
+    case clearCaseFlag(String)
+    case grantKnowledge(String)
+    case grantEvidence(String)
+    case queueJournal(QueuedJournalFragment)
+}
+
+/// Pure applicator for choice `onSelect` lists. SpriteKit-free.
+enum DialogueActionRuntime {
+    static func apply(_ actions: [DialogueAction], to context: inout DialogueRuntimeContext) {
+        for action in actions {
+            apply(action, to: &context)
+        }
+    }
+
+    static func apply(_ action: DialogueAction, to context: inout DialogueRuntimeContext) {
+        switch action {
+        case .setConversationFlag(let id):
+            context.dialogueState.setConversationFlag(id)
+        case .clearConversationFlag(let id):
+            context.dialogueState.clearConversationFlag(id)
+        case .setCaseFlag(let id):
+            context.caseState.setFlag(id)
+        case .clearCaseFlag(let id):
+            context.caseState.clearFlag(id)
+        case .grantKnowledge(let id):
+            context.caseState.grantKnowledge(id)
+        case .grantEvidence(let id):
+            context.caseState.grantEvidence(id)
+        case .queueJournal(let fragment):
+            context.caseState.queueJournal(fragment)
+        }
+    }
+}
+
 // MARK: - Phase 1 conditions / triggers
 
 /// Typed condition DSL for choice (and later node) availability.
@@ -64,9 +120,8 @@ struct CaseDialogueChoice: Equatable, Sendable {
     /// Optional player-facing gate reason override (e.g. `"Press"`). Else first
     /// non-nil `conditions.disclosureLabel`.
     let gateDisclosure: String?
-    /// P1 bridge: conversation flags granted when this choice is selected, before advance.
-    /// Full `DialogueAction` DSL is Phase 2.
-    let grantsConversationFlags: [String]
+    /// Side effects applied on select, before advancing (roadmap Phase 2 runtime order).
+    let onSelect: [DialogueAction]
 
     init(
         text: String,
@@ -74,14 +129,14 @@ struct CaseDialogueChoice: Equatable, Sendable {
         tone: DialogueTone? = nil,
         conditions: [DialogueCondition] = [],
         gateDisclosure: String? = nil,
-        grantsConversationFlags: [String] = []
+        onSelect: [DialogueAction] = []
     ) {
         self.text = text
         self.destinationID = destinationID
         self.tone = tone
         self.conditions = conditions
         self.gateDisclosure = gateDisclosure
-        self.grantsConversationFlags = grantsConversationFlags
+        self.onSelect = onSelect
     }
 
     /// True when every condition is satisfied (or there are none).
@@ -159,6 +214,8 @@ enum CaseDialogueGraph {
         var totalBodyCharacters: Int
         /// Choices that carry at least one condition (diagnostic only).
         var gatedChoiceCount: Int
+        /// Choices that author at least one `onSelect` action (diagnostic).
+        var actionChoiceCount: Int
 
         var isSound: Bool {
             missingDestinationIDs.isEmpty && reachesEnding
@@ -191,6 +248,7 @@ enum CaseDialogueGraph {
         var triadBeats = 0
         var bodyChars = 0
         var gatedChoiceCount = 0
+        var actionChoiceCount = 0
 
         for node in nodes {
             bodyChars += node.text.count
@@ -203,6 +261,9 @@ enum CaseDialogueGraph {
             for choice in node.choices {
                 if !choice.conditions.isEmpty {
                     gatedChoiceCount += 1
+                }
+                if !choice.onSelect.isEmpty {
+                    actionChoiceCount += 1
                 }
                 if byID[choice.destinationID] == nil {
                     missing.append("\(node.id)->\(choice.destinationID)")
@@ -246,7 +307,8 @@ enum CaseDialogueGraph {
             reachesEnding: reachesEnding,
             triadChoiceBeats: triadBeats,
             totalBodyCharacters: bodyChars,
-            gatedChoiceCount: gatedChoiceCount
+            gatedChoiceCount: gatedChoiceCount,
+            actionChoiceCount: actionChoiceCount
         )
     }
 }

@@ -504,7 +504,7 @@ final class CaseIntroductionPresenter: SKNode {
                 visibleChoices.indices.contains(index)
             else { return }
             let choice = visibleChoices[index]
-            applyChoiceGrants(choice)
+            applyChoiceSelect(choice)
             attemptTransition(from: node, to: choice.destinationID)
             return
         }
@@ -523,11 +523,9 @@ final class CaseIntroductionPresenter: SKNode {
         }
     }
 
-    /// P1 bridge: conversation flags granted on select, before advance (full actions in P2).
-    private func applyChoiceGrants(_ choice: CaseDialogueChoice) {
-        for flag in choice.grantsConversationFlags {
-            runtimeContext.dialogueState.setConversationFlag(flag)
-        }
+    /// Phase 2 order: apply `onSelect` actions, record history, then advance.
+    private func applyChoiceSelect(_ choice: CaseDialogueChoice) {
+        DialogueActionRuntime.apply(choice.onSelect, to: &runtimeContext)
         runtimeContext.dialogueState.recordChoice(destinationID: choice.destinationID)
     }
 

@@ -1,7 +1,7 @@
 # Dialogue system roadmap
 
-- Status: Phase 0–1 complete (state spine + gated choices); P2+ still planning
-- Version: 0.3
+- Status: Phase 0–2 complete (state + conditions + actions); P3+ still planning
+- Version: 0.4
 - Date: 4 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
 
@@ -25,7 +25,8 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | `voiceAssetName` on nodes | Modeled; Empty Coat VO wired via `onNodeShown` in office |
 | `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift` |
 | Choice conditions + filtered UI + gate disclosure | **Shipped (P1)** — `DialogueCondition`, presenter filters, Empty Coat Press gate |
-| Thin `grantsConversationFlags` on select | **Shipped (P1 bridge)** — full `DialogueAction` remains P2 |
+| Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator; P1 flag bridge removed |
+| Queued journal fragments on case state | **Shipped (P2 store)** — projected into casebook UI in P3 |
 
 Empty Coat is intentionally compact. Broader evidence-gated branching is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
@@ -190,6 +191,8 @@ Keep scene-level `onNodeShown` for **presentation** (entrance cues). Move **game
 - BGEE immediate vs delayed action bits
 - Free-form script strings
 
+**Status: met** (`DialogueAction` / `DialogueActionRuntime`, Empty Coat cynical → conversation flag and acceptance → case flag + `queueJournal`; tests in `DialogueActionTests`).
+
 ---
 
 ## Phase 3 — Journal-on-transition
@@ -323,6 +326,7 @@ CaseState / flags
 | `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Node/choice schema, `DialogueCondition`, graph integrity + visibleChoices |
 | `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
 | `Tests/RainShadowCoreTests/DialogueConditionTests.swift` | P1 condition filter / disclosure / Empty Coat Press gate |
+| `Tests/RainShadowCoreTests/DialogueActionTests.swift` | P2 action apply + Empty Coat acceptance journal queue |
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Authored Empty Coat graph |
 | `RainShadow Shared/UI/CaseIntroductionPresenter.swift` | Presentation + walk |
 | `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift` | `onNodeShown` / entrance sequencing |

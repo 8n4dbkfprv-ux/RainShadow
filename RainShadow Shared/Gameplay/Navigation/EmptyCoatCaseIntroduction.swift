@@ -144,7 +144,18 @@ enum EmptyCoatCaseIntroduction {
         text: """
         All right, Miss March. The key stays on this desk until it opens something that can answer back. Harborpoint likes endings that fit in a paper bag. We're going to give it a longer sentence. If the river has Lillian, I'll make it say so in a language the police can't file under "finished." If it doesn't, somebody in a dry office is about to learn what wet shoes sound like in a hallway.
         """,
-        destinationID: "lila.plea"
+        destinationID: "lila.plea",
+        // Phase 2: accepting the case mutates case state (journal projection in P3).
+        onSelect: [
+            .setCaseFlag(EmptyCoatDialogueKeys.clientRetained),
+            .queueJournal(
+                QueuedJournalFragment(
+                    id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                    kind: "chronology",
+                    text: "Retained by Lila March. The Empty Coat is open."
+                )
+            )
+        ]
     )
 
     private static var lilaConversationNodes: [CaseDialogueNode] {
@@ -182,8 +193,8 @@ enum EmptyCoatCaseIntroduction {
                         text: "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt.",
                         destinationID: "lila.reply.cynical1",
                         tone: .cynicalSarcasm,
-                        // P1: hard push unlocks a later Press option on the key triad.
-                        grantsConversationFlags: [EmptyCoatDialogueKeys.pressedHardOnStory]
+                        // Hard push unlocks a later Press option on the key triad (P1 gate / P2 action).
+                        onSelect: [.setConversationFlag(EmptyCoatDialogueKeys.pressedHardOnStory)]
                     )
                 ],
                 voiceAssetName: "vo_lila_entrance_case.m4a"

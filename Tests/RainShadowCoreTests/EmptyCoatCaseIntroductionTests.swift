@@ -157,6 +157,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(report.isSound)
         #expect(report.triadChoiceBeats >= 2)
         #expect(report.gatedChoiceCount >= 1)
+        #expect(report.actionChoiceCount >= 2)
         #expect(report.reachableNodeIDs.contains(EmptyCoatCaseIntroduction.caseOpenedNodeID))
         #expect(report.reachableNodeIDs.contains("lila.reply.press.gated"))
 

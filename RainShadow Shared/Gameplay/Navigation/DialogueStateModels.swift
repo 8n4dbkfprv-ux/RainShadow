@@ -26,22 +26,27 @@ struct WorldFlag: RawRepresentable, Hashable, Codable, Sendable {
 ///
 /// Evidence and knowledge are id sets only — full records come later.
 /// Flags feed Phase 1 `DialogueCondition` evaluation.
+/// `queuedJournalFragments` accumulate for Phase 3 journal projection.
 struct CaseState: Codable, Equatable, Sendable {
     var caseID: String
     var flags: Set<String>
     var knowledgeIDs: Set<String>
     var evidenceIDs: Set<String>
+    /// Dialogue-earned journal beats not yet projected into the casebook UI (P3).
+    var queuedJournalFragments: [QueuedJournalFragment]
 
     init(
         caseID: String,
         flags: Set<String> = [],
         knowledgeIDs: Set<String> = [],
-        evidenceIDs: Set<String> = []
+        evidenceIDs: Set<String> = [],
+        queuedJournalFragments: [QueuedJournalFragment] = []
     ) {
         self.caseID = caseID
         self.flags = flags
         self.knowledgeIDs = knowledgeIDs
         self.evidenceIDs = evidenceIDs
+        self.queuedJournalFragments = queuedJournalFragments
     }
 
     func hasFlag(_ id: String) -> Bool {
@@ -82,6 +87,14 @@ struct CaseState: Codable, Equatable, Sendable {
 
     mutating func grantEvidence(_ id: String) {
         evidenceIDs.insert(id)
+    }
+
+    mutating func queueJournal(_ fragment: QueuedJournalFragment) {
+        if let index = queuedJournalFragments.firstIndex(where: { $0.id == fragment.id }) {
+            queuedJournalFragments[index] = fragment
+        } else {
+            queuedJournalFragments.append(fragment)
+        }
     }
 }
 
@@ -189,4 +202,8 @@ enum EmptyCoatDialogueKeys {
     static let graphID = "case.empty-coat.intro"
     /// Set when Voss picks a hard cynical push earlier; unlocks a later Press option.
     static let pressedHardOnStory = "empty-coat.dialogue.pressed-hard-on-story"
+    /// Case flag: player retained Lila / opened The Empty Coat (acceptance choice).
+    static let clientRetained = "empty-coat.case.client-retained"
+    /// Queued chronology fragment id for P3 journal projection.
+    static let clientRetainedJournalID = "chrono.client-retained"
 }
