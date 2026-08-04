@@ -83,9 +83,12 @@ final class DetectiveActorNode: SKNode {
             if body.action(forKey: "seatEgress") != nil {
                 return true
             }
-            // Still settling out of the seated local offset (negative Y toward zero).
-            let seatedY = OfficeInteriorScale.ActorDisplay.seatedYOffset
-            return body.position.y < seatedY * 0.15
+            // Still settling out of the seated local offset toward the walk root.
+            // Offset may be positive Y (chair-side root → kneehole) or include a
+            // desk-lean nudge; magnitude covers both signs.
+            let seatMagnitude = hypot(body.position.x, body.position.y)
+            let expected = abs(OfficeInteriorScale.ActorDisplay.seatedYOffset)
+            return seatMagnitude > max(2, expected * 0.15)
         }
     }
 

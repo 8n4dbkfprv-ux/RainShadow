@@ -25,8 +25,11 @@ enum OfficeInteriorScale {
         /// and caused a height snap when leaving desk registration.
         static let spriteDisplaySize = CGSize(width: 232, height: 232)
         static let spriteScale: CGFloat = 1.0
-        /// Visual-only shift from the walkable navigation root into the chair/desk registration.
-        static let seatedYOffset: CGFloat = -82
+        /// Visual-only shift from the walkable chair-side navigation root into
+        /// the chair/desk registration. Positive Y reaches from the camera-near
+        /// egress stop north into the kneehole (actorStart is deskChair − 30
+        /// authored units; 30 × environment ≈ 11.85).
+        static let seatedYOffset: CGFloat = 11.85
         /// Whole-body seat nudge (world space). Stay on the SW / camera-near
         /// kneehole side of the desk ground (desk.y − chair.y ≈ 12–16). Nudges
         /// past ~18 put feet on the visitor / far side of the writing surface.

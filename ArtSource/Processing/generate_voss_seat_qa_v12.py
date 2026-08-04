@@ -55,7 +55,8 @@ ACCENT_NE = (106, 178, 187, 255)
 ACTOR_NODE_SIZE = (232, 232)
 ACTOR_ANCHOR = (0.5, 40 / 256)
 ACTOR_SCALE = 1.0
-SEATED_LOCAL_Y = -82 + 16
+# Chair-side root: seatedYOffset (+11.85) + seatedDeskNudge.y (+16).
+SEATED_LOCAL_Y = 11.85 + 16
 
 # addDepthProp runtime presentation contract for office_desk_chair.
 CHAIR_SCALE = 0.135

@@ -425,12 +425,19 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
-        // Seated nav root = deskChair + seatedYOffset/environment (≈ 208 authored units).
+        // Chair-side seat egress: camera-near of the kneehole (deskChair − 30 authored).
+        // seatedYOffset = 30 × environment so actorStart + offset lands on the chair.
         let authoredStart = CGPoint(
             x: OfficeNavigationLayout.AuthoredPlacement.deskChair.x,
-            y: OfficeNavigationLayout.AuthoredPlacement.deskChair.y + 208
+            y: OfficeNavigationLayout.AuthoredPlacement.deskChair.y - 30
         )
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
+        #expect(
+            abs(
+                OfficeInteriorScale.ActorDisplay.seatedYOffset
+                    - 30 * OfficeInteriorScale.environment
+            ) < 0.01
+        )
         // Approaches are authored in office_layout_plan.py; assert they round-trip
         // through the same map as every other layout point.
         for (id, point) in OfficeNavigationLayout.approachPoints {
@@ -442,6 +449,44 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeNavigationLayout.approachPoints["office.files"] != nil)
         #expect(OfficeNavigationLayout.approachPoints["office.door"] != nil)
         #expect(OfficeNavigationLayout.approachPoints["office.window"] != nil)
+    }
+
+    @Test func actorStartStaysOnChairSideOfDesk() {
+        let start = OfficeNavigationLayout.actorStart
+        let desk = OfficeNavigationLayout.deskObstacle
+        let chair = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair)
+        // Walkable chair-side aisle: south of the desk obstacle, near the chair.
+        #expect(!OfficeNavigationLayout.isBlocked(start), "actorStart must be walkable")
+        #expect(!desk.contains(start), "actorStart must not sit inside the desk")
+        #expect(start.y < desk.minY + 1, "actorStart must be camera-near of the desk band")
+        #expect(start.y < chair.y, "actorStart must sit on the chair side, not the visitor side")
+        #expect(abs(start.x - chair.x) < 1, "actorStart should share the chair's column")
+    }
+
+    @Test func seatEgressSegmentDoesNotCrossDeskInterior() {
+        // The visual seat registration is at the chair; the standing root is actorStart.
+        // Leave-seat animates the body between those two — that segment must not
+        // pass through the desk mass (the old far-side root did exactly that).
+        let chair = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskChair)
+        let root = OfficeNavigationLayout.actorStart
+        let desk = OfficeNavigationLayout.deskObstacle
+        #expect(root.y < chair.y, "Standing root must stay camera-near of the chair")
+        #expect(root.y < desk.minY + 1, "Standing root must stay camera-near of the desk band")
+        // Skip the chair contact itself (chair sits inside the desk footprint);
+        // sample the open egress step from just clear of the desk lip to the root.
+        let clearStart = CGPoint(x: chair.x, y: min(chair.y, desk.minY) - 1)
+        let samples = 10
+        for index in 0...samples {
+            let t = CGFloat(index) / CGFloat(samples)
+            let point = CGPoint(
+                x: clearStart.x + (root.x - clearStart.x) * t,
+                y: clearStart.y + (root.y - clearStart.y) * t
+            )
+            #expect(
+                !desk.contains(point),
+                "Egress sample \(point) crossed the desk interior (t=\(t))"
+            )
+        }
     }
 
     @Test func emptyDeskChairMatchesSeatedDeskNudge() {

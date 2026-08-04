@@ -10,7 +10,9 @@ let package = Package(
     targets: [
         .target(
             name: "RainShadowCore",
-            path: "RainShadow Shared/Gameplay/Navigation"
+            path: "RainShadow Shared/Gameplay/Navigation",
+            // Finder "Name 2.swift" duplicates break the target with redeclarations.
+            exclude: ["DialogueStateModels 2.swift"]
         ),
         .target(
             name: "RainShadowPersistence",
@@ -19,7 +21,8 @@ let package = Package(
         .testTarget(
             name: "RainShadowCoreTests",
             dependencies: ["RainShadowCore", "RainShadowPersistence"],
-            path: "Tests/RainShadowCoreTests"
+            path: "Tests/RainShadowCoreTests",
+            exclude: ["DialogueStateModelsTests 2.swift"]
         )
     ]
 )

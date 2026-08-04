@@ -688,8 +688,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func updateDetectiveDepth() {
         if detective.isDeskRegistered {
             // Pin the sort key to the desk ground anchor so local upper z and
-            // apron bias form a stable order. The nav root sits ~80px north of
-            // the desk; a plain y-sort would put the whole actor behind the wood.
+            // apron bias form a stable order. The nav root sits on the chair-side
+            // aisle (camera-near of the kneehole); a plain y-sort would bury the
+            // seated body under the desk apron.
             let deskY = OfficeInteriorScale.mapPoint(
                 OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
             ).y

@@ -245,8 +245,14 @@ APPROACH = {
     "office.door": (0.120, 0.540),  # waiting corridor; segment-clear from desk start
 }
 
-# Seated nav root = deskChair + seatedYOffset/environment (82/0.395 ≈ 208).
-ACTOR_START_OFFSET = 208.0
+# Chair-side seat egress: walkable stand/walk root just camera-near (south) of
+# the desk kneehole. Seat-egress settles the body offset from the chair into
+# this root without sliding through the desktop (the old +208 put the root on
+# the visitor/rear side of the desk).
+#
+# World seatedYOffset = -ACTOR_START_OFFSET_Y * ENV
+#   (−(−30) * 0.395 ≈ +11.85) so actorStart + seatedYOffset lands on the chair.
+ACTOR_START_OFFSET_Y = -30.0
 
 
 # --------------------------------------------------------------- architecture
@@ -303,15 +309,19 @@ def partition_cell_rects() -> list[tuple[float, float, float, float]]:
         a_face - 0.008,
     )
     latch_nudge_b = 0.012
-    # Keep the solid skip flush with the painted clear hole. No hinge pad —
-    # frost between the shipping stile (~0.64) and b_door0 must stay sealed.
-    hinge_pad = 0.0
+    # Keep frost sealed, but leave a hair more clear aperture than the painted
+    # hole so segment-clear A* can cross the doorway cells. Without this pad,
+    # 40×20 partition AABBs clip the (17,13)↔(18,13) corridor and split the
+    # private office into disconnected components (chair-side start could not
+    # reach the window/door after moving the nav root off the far side of the
+    # desk). 0.01 plan-b ≈ one dense sample; leak checks still pass.
+    door_clear_pad = 0.01
     # 0.015·|AXIS_NE| ≈ 12px; dense enough that 40×20 AABBs cover frost cells
     # (the old 0.025 step left a walkable glass cell at b≈0.686).
     b_step = 0.015
     b = -0.03
     while b <= rp.B_ROOM + 0.03:
-        if (P.b_door0 - hinge_pad) <= b <= P.b_door1:
+        if (P.b_door0 - door_clear_pad) <= b <= (P.b_door1 + door_clear_pad):
             b += b_step
             continue
         bb = b + latch_nudge_b if b > P.b_door1 else b
@@ -568,9 +578,16 @@ def emit() -> str:
     add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
     add("    }")
     add("")
+    add("    /// Walkable chair-side stand point (camera-near of the kneehole).")
+    add("    /// Kept outside the desk obstacle so leave-seat never starts on the")
+    add("    /// visitor/rear side of the writing surface.")
     add("    private static let authoredActorStart = CGPoint(")
     add("        x: AuthoredPlacement.deskChair.x,")
-    add(f"        y: AuthoredPlacement.deskChair.y + {ACTOR_START_OFFSET:.0f}")
+    offset_y = ACTOR_START_OFFSET_Y
+    if offset_y < 0:
+        add(f"        y: AuthoredPlacement.deskChair.y - {abs(offset_y):.0f}")
+    else:
+        add(f"        y: AuthoredPlacement.deskChair.y + {offset_y:.0f}")
     add("    )")
     add("")
 
@@ -1203,7 +1220,7 @@ def report() -> bool:
     obstacles = build_obstacles()
     grid = Grid(obstacles)
     chair = PROP_BY_KEY["deskChair"].authored
-    start = (chair[0], chair[1] + ACTOR_START_OFFSET)
+    start = (chair[0], chair[1] + ACTOR_START_OFFSET_Y)
     start_cell = grid.cell(start)
     reach = grid.reachable(start_cell)
 

@@ -76,9 +76,12 @@ enum OfficeNavigationLayout {
         static let internalLeafAnchor = CGPoint(x: 2253.117, y: 1104.346)
     }
 
+    /// Walkable chair-side stand point (camera-near of the kneehole).
+    /// Kept outside the desk obstacle so leave-seat never starts on the
+    /// visitor/rear side of the writing surface.
     private static let authoredActorStart = CGPoint(
         x: AuthoredPlacement.deskChair.x,
-        y: AuthoredPlacement.deskChair.y + 208
+        y: AuthoredPlacement.deskChair.y - 30
     )
 
     // MARK: - Obstacles (authored AABBs around each floor footprint)
@@ -1121,9 +1124,6 @@ enum OfficeNavigationLayout {
         CGRect(x: 2288, y: 1134, width: 40, height: 20),
         CGRect(x: 2278, y: 1128, width: 40, height: 20),
         CGRect(x: 2267, y: 1122, width: 40, height: 20),
-        CGRect(x: 2300, y: 1128, width: 40, height: 20),
-        CGRect(x: 2290, y: 1122, width: 40, height: 20),
-        CGRect(x: 2279, y: 1116, width: 40, height: 20),
         CGRect(x: 2359, y: 1100, width: 40, height: 20),
         CGRect(x: 2348, y: 1094, width: 40, height: 20),
         CGRect(x: 2338, y: 1088, width: 40, height: 20),
