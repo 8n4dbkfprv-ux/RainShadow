@@ -28,6 +28,7 @@ final class SceneRouter {
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "city" {
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
+            context.session.markCityDistrictVisited(.sableRow)
             present(.cityDistrict(.sableRow), transition: nil)
             return
         }

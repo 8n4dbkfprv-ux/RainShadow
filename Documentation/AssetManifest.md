@@ -100,10 +100,11 @@ Modular buildings follow the office separation rule for entrances: facades may p
 | P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
 | P0 | `city_<district>_ground_v02` | 2048×1152 | Opaque | Play underlay (streets only); world scale 1× → 2048×1152 |
 | P0 | `map_city_<district>_v02` | 1847×1040 | Opaque | HUD area-map crop |
+| P0 | `map_world_harborpoint_v02` | 1536×1024 | Opaque | BG Classic–style Harborpoint world map: flat parchment-and-ink cartography, unlettered wards, compass rose + cartouche. District names, reveal wash, and party marker are drawn by `WorldMapOverlay` at runtime. |
 | P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks (empty doorway apertures) and shared street furniture |
 | P0 | `city_door_*` | 256×384-class | Yes | Dimetric closed outdoor door leaves registered to building openings |
 
-Districts: `sable_row` (hub + Voss apartment return), `wharf_ladder`, `riverside`, `harborpoint_pd`, `lila_street`, `civic_records`. Blue Room excluded until earned.
+Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apartment return), `wharf_ladder` (west), `riverside` (southwest), `harborpoint_pd` (south), `lila_street` (east), `civic_records` (north). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals).
 
 ## 5. Office shell, props, and lighting
 

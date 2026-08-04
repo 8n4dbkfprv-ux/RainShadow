@@ -10,6 +10,8 @@ final class GameSession {
     private(set) var caseState: CaseState
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
+    /// Districts Voss has physically entered (BG Classic world-map reveal seed).
+    private(set) var visitedCityDistricts: Set<CityDistrictID> = []
     private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
     private(set) var currentHealth = 12
     let maximumHealth = 12
@@ -67,6 +69,11 @@ final class GameSession {
 
     func setCurrentCityDistrict(_ id: CityDistrictID) {
         currentCityDistrict = id
+        visitedCityDistricts.insert(id)
+    }
+
+    func markCityDistrictVisited(_ id: CityDistrictID) {
+        visitedCityDistricts.insert(id)
     }
 
     func setCurrentHealth(_ health: Int) {

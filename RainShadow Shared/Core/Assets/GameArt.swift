@@ -210,6 +210,7 @@ enum GameArt {
             "map_city_harborpoint_pd_v02",
             "map_city_lila_street_v02",
             "map_city_civic_records_v02",
+            "map_world_harborpoint_v02",
             "city_building_voss_stoop",
             "city_building_tenement",
             "city_building_storefront",

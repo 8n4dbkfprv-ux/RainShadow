@@ -3,10 +3,16 @@ import SpriteKit
 import AppKit
 #endif
 
-/// Playable Act I outdoor district. Loads a `CityDistrictDefinition` (hub or spoke)
-/// with modular V2 art, fog-of-war, and portal travel back to the office / hub.
+/// Playable Act I outdoor district. Loads a `CityDistrictDefinition` with modular
+/// V2 art, fog-of-war, building portals, and BG Classic edge exits → World Map.
 @MainActor
 final class CityDistrictScene: BaseGameScene {
+    private struct EdgeExit {
+        let edge: CityMapEdge
+        let hitArea: CGRect
+        let approachPoint: CGPoint
+    }
+
     private let district: CityDistrictDefinition
     private let arrivalKey: String?
     private let detective = DetectiveActorNode()
@@ -14,11 +20,14 @@ final class CityDistrictScene: BaseGameScene {
     private let portraitBar = PortraitBarNode()
     private let actionBar = ActionBarNode()
     private lazy var areaMapOverlay = AreaMapOverlay(configuration: makeMapConfiguration())
+    private let worldMapOverlay = WorldMapOverlay()
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: CityFogOfWarNode?
     private var navigation: NavigationMap!
+    private var edgeExits: [EdgeExit] = []
     private var inventoryIsPresented = false
     private var mapIsPresented = false
+    private var worldMapIsPresented = false
     private var journalIsPresented = false
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
@@ -57,6 +66,7 @@ final class CityDistrictScene: BaseGameScene {
         addModularDistrictSprites()
 
         navigation = district.makeGrid()
+        edgeExits = makeEdgeExits()
         detective.position = district.spawnPoint(arrivalKey: arrivalKey)
         detective.beginOpenWorldStanding()
         navigation.registerActor(
@@ -95,7 +105,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
-        guard !mapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
+        guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
         portraitBar.beginUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
@@ -116,6 +126,10 @@ final class CityDistrictScene: BaseGameScene {
         let hudPoint = hudRoot.convert(event.location, from: self)
         if journalIsPresented {
             journalOverlay.handlePointer(at: journalOverlay.convert(hudPoint, from: hudRoot))
+            return
+        }
+        if worldMapIsPresented {
+            worldMapOverlay.handlePointer(at: worldMapOverlay.convert(hudPoint, from: hudRoot))
             return
         }
         if mapIsPresented {
@@ -157,11 +171,16 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
+        if let exit = edgeExits.first(where: { $0.hitArea.contains(event.location) }) {
+            handleEdgeExit(exit)
+            return
+        }
+
         moveDetective(to: event.location, queueWaypoint: event.isWaypointQueue)
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
-        if mapIsPresented { return }
+        if mapIsPresented || worldMapIsPresented { return }
         if journalIsPresented {
             journalOverlay.handleDirectionalInput(direction)
             return
@@ -187,6 +206,11 @@ final class CityDistrictScene: BaseGameScene {
             (journalOverlay.isInteractive(at: journalPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
+        if worldMapIsPresented {
+            let mapPoint = worldMapOverlay.convert(hudPoint, from: hudRoot)
+            (worldMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
+            return
+        }
         if mapIsPresented {
             let mapPoint = areaMapOverlay.convert(hudPoint, from: hudRoot)
             (areaMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -210,7 +234,8 @@ final class CityDistrictScene: BaseGameScene {
             NSCursor.pointingHand.set()
             return
         }
-        if district.portals.contains(where: { $0.hitArea.contains(event.location) }) {
+        if district.portals.contains(where: { $0.hitArea.contains(event.location) })
+            || edgeExits.contains(where: { $0.hitArea.contains(event.location) }) {
             NSCursor.pointingHand.set()
             return
         }
@@ -219,23 +244,25 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func handleInventoryInput() {
-        guard !mapIsPresented, !journalIsPresented else { return }
+        guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
     }
 
     override func handleMapInput() {
-        guard !inventoryIsPresented, !journalIsPresented else { return }
+        guard !inventoryIsPresented, !journalIsPresented, !worldMapIsPresented else { return }
         setMapPresented(!mapIsPresented)
     }
 
     override func handleJournalInput() {
-        guard !inventoryIsPresented, !mapIsPresented else { return }
+        guard !inventoryIsPresented, !mapIsPresented, !worldMapIsPresented else { return }
         setJournalPresented(!journalIsPresented)
     }
 
     override func handleCancelInput() {
         if journalIsPresented {
             setJournalPresented(false)
+        } else if worldMapIsPresented {
+            setWorldMapPresented(false)
         } else if mapIsPresented {
             setMapPresented(false)
         } else if inventoryIsPresented {
@@ -256,6 +283,8 @@ final class CityDistrictScene: BaseGameScene {
     override func handleConfirmInput() {
         if journalIsPresented {
             setJournalPresented(false)
+        } else if worldMapIsPresented {
+            setWorldMapPresented(false)
         } else if mapIsPresented {
             setMapPresented(false)
         } else if inventoryIsPresented {
@@ -269,6 +298,7 @@ final class CityDistrictScene: BaseGameScene {
         let hudViewportSize = size
         inventoryOverlay.layout(for: hudViewportSize)
         areaMapOverlay.layout(for: hudViewportSize)
+        worldMapOverlay.layout(for: hudViewportSize)
         journalOverlay.layout(for: hudViewportSize)
         portraitBar.layout(for: hudViewportSize)
         actionBar.layout(for: hudViewportSize)
@@ -276,7 +306,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        let worldIsPaused = mapIsPresented || journalIsPresented || inventoryIsPresented
+        let worldIsPaused = mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
             pruneCompletedQueuedGoals()
@@ -315,11 +345,55 @@ final class CityDistrictScene: BaseGameScene {
 
         areaMapOverlay.zPosition = 110
         areaMapOverlay.onDismiss = { [weak self] in self?.setMapPresented(false) }
+        areaMapOverlay.onRequestWorldMap = { [weak self] in
+            self?.presentWorldMapFromAreaMap()
+        }
         hudRoot.addChild(areaMapOverlay)
+
+        worldMapOverlay.zPosition = 115
+        worldMapOverlay.onDismiss = { [weak self] in self?.setWorldMapPresented(false) }
+        worldMapOverlay.onTravel = { [weak self] destinationID, arrivalKey in
+            self?.travelViaWorldMap(to: destinationID, arrivalKey: arrivalKey)
+        }
+        worldMapOverlay.onStatusLine = { [weak self] line in
+            self?.showInspectLine(line)
+        }
+        hudRoot.addChild(worldMapOverlay)
 
         journalOverlay.zPosition = 120
         journalOverlay.onDismiss = { [weak self] in self?.setJournalPresented(false) }
         hudRoot.addChild(journalOverlay)
+    }
+
+    private func makeEdgeExits() -> [EdgeExit] {
+        CityWorldMap.travelableExitEdges(from: district.id).map { edge in
+            EdgeExit(
+                edge: edge,
+                hitArea: CityWorldMap.exitHitArea(for: edge),
+                approachPoint: CityWorldMap.exitApproachPoint(for: edge)
+            )
+        }
+    }
+
+    private func handleEdgeExit(_ exit: EdgeExit) {
+        guard context.session.isCityTravelOpen else {
+            showInspectLine("The street stays closed until the case leaves the office.")
+            return
+        }
+        // BG Classic: reaching a map edge opens the World Map for travel.
+        moveDetective(to: exit.approachPoint, requiresExactDestination: false) { [weak self] in
+            self?.setWorldMapPresented(true, mode: .travel, exitEdge: exit.edge)
+        }
+    }
+
+    private func presentWorldMapFromAreaMap() {
+        setMapPresented(false)
+        setWorldMapPresented(true, mode: .view)
+    }
+
+    private func travelViaWorldMap(to destinationID: CityDistrictID, arrivalKey: String) {
+        setWorldMapPresented(false)
+        context.router.showCityDistrict(destinationID, arrivalKey: arrivalKey)
     }
 
     private func handlePortal(_ portal: CityDistrictDefinition.Portal) {
@@ -341,10 +415,10 @@ final class CityDistrictScene: BaseGameScene {
             moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
                 self?.context.router.showOffice(arrivalKey: "from.city")
             }
-        case .district(let destinationID):
-            let arrival = "from.\(district.id.rawValue)"
+        case .district:
+            // District-to-district portals are retired; travel is edge → World Map.
             moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
-                self?.context.router.showCityDistrict(destinationID, arrivalKey: arrival)
+                self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
             }
         }
     }
@@ -469,9 +543,7 @@ final class CityDistrictScene: BaseGameScene {
     private func setInventoryPresented(_ presented: Bool) {
         guard inventoryIsPresented != presented else { return }
         inventoryIsPresented = presented
-        setWorldPaused(presented)
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        refreshOverlayPauseState()
         if presented {
             inventoryOverlay.present()
         } else {
@@ -482,9 +554,7 @@ final class CityDistrictScene: BaseGameScene {
     private func setMapPresented(_ presented: Bool) {
         guard mapIsPresented != presented else { return }
         mapIsPresented = presented
-        setWorldPaused(presented)
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        refreshOverlayPauseState()
         if presented {
             areaMapOverlay.present(currentPosition: detective.position)
         } else {
@@ -492,12 +562,37 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
+    private func setWorldMapPresented(
+        _ presented: Bool,
+        mode: WorldMapOverlay.Mode = .view,
+        exitEdge: CityMapEdge? = nil
+    ) {
+        guard worldMapIsPresented != presented else { return }
+        worldMapIsPresented = presented
+        refreshOverlayPauseState()
+        if presented {
+            worldMapOverlay.present(
+                mode: mode,
+                currentDistrict: district.id,
+                visited: context.session.visitedCityDistricts,
+                exitEdge: exitEdge
+            )
+        } else {
+            worldMapOverlay.hideAnimated()
+        }
+    }
+
+    private func refreshOverlayPauseState() {
+        let anyOverlay = mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
+        setWorldPaused(anyOverlay)
+        portraitBar.isHidden = anyOverlay
+        actionBar.isHidden = anyOverlay
+    }
+
     private func setJournalPresented(_ presented: Bool) {
         guard journalIsPresented != presented else { return }
         journalIsPresented = presented
-        setWorldPaused(presented)
-        portraitBar.isHidden = presented
-        actionBar.isHidden = presented
+        refreshOverlayPauseState()
         if presented {
             journalOverlay.present(input: context.session.journalProjectionInput)
         } else {

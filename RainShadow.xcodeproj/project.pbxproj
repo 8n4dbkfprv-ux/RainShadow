@@ -34,6 +34,7 @@
 				Gameplay/Navigation/CaseDialogueModels.swift,
 				Gameplay/Navigation/CityDistrictCatalog.swift,
 				Gameplay/Navigation/CityDistrictLayout.swift,
+				Gameplay/Navigation/CityWorldMap.swift,
 				Gameplay/Navigation/DefaultPlayZoom.swift,
 				Gameplay/Navigation/DialoguePanelLayout.swift,
 				Gameplay/Navigation/DialogueScrollbarGeometry.swift,
@@ -249,7 +250,6 @@
 				Resources/Art/UI/Common/ui_move_marker_05.png,
 				Resources/Art/UI/Common/ui_move_marker_06.png,
 				Resources/Art/UI/Common/ui_move_marker_07.png,
-				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_00.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_01.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_02.png,
@@ -258,6 +258,7 @@
 				Resources/Art/UI/Common/ui_move_marker_blocked_05.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_06.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_waypoint_pip.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
@@ -401,6 +402,7 @@
 				Resources/Art/UI/Map/map_icon_noir_v03_hover.png,
 				Resources/Art/UI/Map/map_icon_noir_v03_pressed.png,
 				Resources/Art/UI/Map/map_icon_noir_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v02.png,
 				Resources/Audio/Ambience/amb_rain_exterior.m4a,
 				Resources/Audio/Ambience/amb_rain_window.m4a,
 				Resources/Audio/Voice/vo_lila_entrance_case.m4a,
@@ -448,6 +450,7 @@
 				UI/PortraitBarNode.swift,
 				UI/UIPaintedChrome.swift,
 				UI/UITheme.swift,
+				UI/WorldMapOverlay.swift,
 			);
 			target = DAAF9D21300A69350071746D /* RainShadow iOS */;
 		};
@@ -496,6 +499,7 @@
 				Gameplay/Navigation/CaseDialogueModels.swift,
 				Gameplay/Navigation/CityDistrictCatalog.swift,
 				Gameplay/Navigation/CityDistrictLayout.swift,
+				Gameplay/Navigation/CityWorldMap.swift,
 				Gameplay/Navigation/DefaultPlayZoom.swift,
 				Gameplay/Navigation/DialoguePanelLayout.swift,
 				Gameplay/Navigation/DialogueScrollbarGeometry.swift,
@@ -711,7 +715,6 @@
 				Resources/Art/UI/Common/ui_move_marker_05.png,
 				Resources/Art/UI/Common/ui_move_marker_06.png,
 				Resources/Art/UI/Common/ui_move_marker_07.png,
-				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_00.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_01.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_02.png,
@@ -720,6 +723,7 @@
 				Resources/Art/UI/Common/ui_move_marker_blocked_05.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_06.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_waypoint_pip.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
@@ -863,6 +867,7 @@
 				Resources/Art/UI/Map/map_icon_noir_v03_hover.png,
 				Resources/Art/UI/Map/map_icon_noir_v03_pressed.png,
 				Resources/Art/UI/Map/map_icon_noir_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v02.png,
 				Resources/Audio/Ambience/amb_rain_exterior.m4a,
 				Resources/Audio/Ambience/amb_rain_window.m4a,
 				Resources/Audio/Voice/vo_lila_entrance_case.m4a,
@@ -910,6 +915,7 @@
 				UI/PortraitBarNode.swift,
 				UI/UIPaintedChrome.swift,
 				UI/UITheme.swift,
+				UI/WorldMapOverlay.swift,
 			);
 			target = DAAF9D42300A69350071746D /* RainShadow macOS */;
 		};

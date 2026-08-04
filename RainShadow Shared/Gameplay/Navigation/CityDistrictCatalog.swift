@@ -1,6 +1,6 @@
 import CoreGraphics
 
-/// Act I Harborpoint travel districts. Hub is Sable Row; spokes are case leads.
+/// Act I Harborpoint travel districts on the Baldur's Gate–style 3×3 ward grid.
 enum CityDistrictID: String, CaseIterable, Equatable {
     case sableRow
     case wharfLadder
@@ -121,22 +121,21 @@ enum CityDistrictCatalog {
         }
     }
 
-    // MARK: - Sable Row (hub)
+    // MARK: - Sable Row (center / lower ward)
 
     static let sableRow = CityDistrictDefinition(
         id: .sableRow,
         locationName: "SABLE ROW — LOWER WARD",
-        arrivalHint: "SABLE ROW  •  Voss's apartment is on the southeast stoop. Case streets open from here.",
+        arrivalHint: "SABLE ROW  •  Voss's apartment is on the southeast stoop. Walk the edges to leave the ward.",
         groundTextureName: "city_sable_row_ground_v02",
         mapTextureName: "map_city_sable_row_v02",
         actorStart: CGPoint(x: 1600, y: 90),
         spawnByArrivalKey: [
             "from.office": CGPoint(x: 1600, y: 90),
-            "from.wharfLadder": CGPoint(x: 450, y: 550),
-            "from.riverside": CGPoint(x: 600, y: 100),
-            "from.harborpointPD": CGPoint(x: 1100, y: 550),
-            "from.lilaStreet": CGPoint(x: 1775, y: 600),
-            "from.civicRecords": CGPoint(x: 850, y: 550)
+            "from.north": CGPoint(x: 1024, y: 980),
+            "from.south": CGPoint(x: 1024, y: 140),
+            "from.east": CGPoint(x: 1880, y: 520),
+            "from.west": CGPoint(x: 160, y: 520)
         ],
         visualSprites: [
             // Buildings: empty doorway apertures; door-anchored openings clear Harlan Voss (~1.15× adult).
@@ -188,64 +187,14 @@ enum CityDistrictCatalog {
                 destination: .office,
                 requiresCityOpen: false,
                 lockedInspectLine: "The office door is locked from this side."
-            ),
-            .init(
-                id: "portal.wharfLadder",
-                label: "WHARF",
-                approachPoint: CGPoint(x: 450, y: 550),
-                hitArea: CGRect(x: 340, y: 480, width: 220, height: 140),
-                destination: .district(.wharfLadder),
-                requiresCityOpen: true,
-                lockedInspectLine: "The street toward Wharf Ladder stays closed until the case leaves the office."
-            ),
-            .init(
-                id: "portal.riverside",
-                label: "RIVER",
-                approachPoint: CGPoint(x: 600, y: 100),
-                hitArea: CGRect(x: 480, y: 20, width: 240, height: 130),
-                destination: .district(.riverside),
-                requiresCityOpen: true,
-                lockedInspectLine: "The river stones can wait until the city opens."
-            ),
-            .init(
-                id: "portal.harborpointPD",
-                label: "PD",
-                approachPoint: CGPoint(x: 1100, y: 550),
-                hitArea: CGRect(x: 980, y: 480, width: 240, height: 140),
-                destination: .district(.harborpointPD),
-                requiresCityOpen: true,
-                lockedInspectLine: "Harborpoint PD will still be filing soft conclusions when you are ready."
-            ),
-            .init(
-                id: "portal.lilaStreet",
-                label: "LILA",
-                approachPoint: CGPoint(x: 1775, y: 600),
-                hitArea: CGRect(x: 1650, y: 530, width: 240, height: 140),
-                destination: .district(.lilaStreet),
-                requiresCityOpen: true,
-                lockedInspectLine: "The street outside Lila's rooms opens with the city."
-            ),
-            .init(
-                id: "portal.civicRecords",
-                label: "RECORDS",
-                approachPoint: CGPoint(x: 850, y: 550),
-                hitArea: CGRect(x: 730, y: 480, width: 240, height: 140),
-                destination: .district(.civicRecords),
-                requiresCityOpen: true,
-                lockedInspectLine: "Civic Records keeps dual ledgers behind a polite door."
             )
         ],
         pointsOfInterest: [
-            .init(label: "VOSS APT", worldPoint: CGPoint(x: 1600, y: 90), colorRGBA: (0.72, 0.22, 0.18, 1)),
-            .init(label: "WHARF", worldPoint: CGPoint(x: 450, y: 550), colorRGBA: (0.32, 0.51, 0.66, 1)),
-            .init(label: "RIVER", worldPoint: CGPoint(x: 600, y: 100), colorRGBA: (0.28, 0.45, 0.58, 1)),
-            .init(label: "PD", worldPoint: CGPoint(x: 1100, y: 550), colorRGBA: (0.79, 0.55, 0.26, 1)),
-            .init(label: "LILA", worldPoint: CGPoint(x: 1775, y: 600), colorRGBA: (0.58, 0.20, 0.48, 1)),
-            .init(label: "RECORDS", worldPoint: CGPoint(x: 850, y: 550), colorRGBA: (0.55, 0.48, 0.32, 1))
+            .init(label: "VOSS APT", worldPoint: CGPoint(x: 1600, y: 90), colorRGBA: (0.72, 0.22, 0.18, 1))
         ]
     )
 
-    // MARK: - Wharf Ladder
+    // MARK: - Wharf Ladder (west)
 
     static let wharfLadder = CityDistrictDefinition(
         id: .wharfLadder,
@@ -253,9 +202,12 @@ enum CityDistrictCatalog {
         arrivalHint: "WHARF LADDER  •  Lillian's shipping office faces the wet pier.",
         groundTextureName: "city_wharf_ladder_ground_v02",
         mapTextureName: "map_city_wharf_ladder_v02",
-        actorStart: CGPoint(x: 310, y: 210),
+        actorStart: CGPoint(x: 1880, y: 420),
         spawnByArrivalKey: [
-            "from.sableRow": CGPoint(x: 310, y: 210)
+            "from.east": CGPoint(x: 1880, y: 420),
+            "from.south": CGPoint(x: 1024, y: 140),
+            "from.north": CGPoint(x: 1024, y: 980),
+            "from.west": CGPoint(x: 160, y: 420)
         ],
         visualSprites: [
             .init(textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1100, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.shippingOffice, anchorY: 0.10, depthBias: 0),
@@ -279,15 +231,6 @@ enum CityDistrictCatalog {
         ],
         portals: [
             .init(
-                id: "portal.sableRow",
-                label: "SABLE ROW",
-                approachPoint: CGPoint(x: 310, y: 210),
-                hitArea: CGRect(x: 180, y: 120, width: 260, height: 160),
-                destination: .district(.sableRow),
-                requiresCityOpen: false,
-                lockedInspectLine: ""
-            ),
-            .init(
                 id: "portal.shippingOffice",
                 label: "SHIPPING",
                 approachPoint: CGPoint(x: 1050, y: 410),
@@ -298,12 +241,11 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "SHIPPING", worldPoint: CGPoint(x: 1100, y: 490), colorRGBA: (0.72, 0.22, 0.18, 1)),
-            .init(label: "SABLE ROW", worldPoint: CGPoint(x: 310, y: 210), colorRGBA: (0.55, 0.48, 0.32, 1))
+            .init(label: "SHIPPING", worldPoint: CGPoint(x: 1100, y: 490), colorRGBA: (0.72, 0.22, 0.18, 1))
         ]
     )
 
-    // MARK: - Riverside
+    // MARK: - Riverside (southwest)
 
     static let riverside = CityDistrictDefinition(
         id: .riverside,
@@ -311,9 +253,12 @@ enum CityDistrictCatalog {
         arrivalHint: "RIVERSIDE  •  The old iron stairs drop to the coat stones.",
         groundTextureName: "city_riverside_ground_v02",
         mapTextureName: "map_city_riverside_v02",
-        actorStart: CGPoint(x: 450, y: 700),
+        actorStart: CGPoint(x: 1880, y: 700),
         spawnByArrivalKey: [
-            "from.sableRow": CGPoint(x: 450, y: 700)
+            "from.east": CGPoint(x: 1880, y: 700),
+            "from.north": CGPoint(x: 1024, y: 980),
+            "from.south": CGPoint(x: 1024, y: 180),
+            "from.west": CGPoint(x: 160, y: 520)
         ],
         visualSprites: [
             .init(textureName: "city_building_iron_stairs", groundPoint: CGPoint(x: 1200, y: 390), scale: CityDistrictLayout.BuildingDisplayScale.ironStairs, anchorY: 0.08, depthBias: 0),
@@ -333,15 +278,6 @@ enum CityDistrictCatalog {
         ],
         portals: [
             .init(
-                id: "portal.sableRow",
-                label: "SABLE ROW",
-                approachPoint: CGPoint(x: 450, y: 700),
-                hitArea: CGRect(x: 320, y: 610, width: 260, height: 180),
-                destination: .district(.sableRow),
-                requiresCityOpen: false,
-                lockedInspectLine: ""
-            ),
-            .init(
                 id: "portal.ironStairs",
                 label: "STAIRS",
                 approachPoint: CGPoint(x: 1150, y: 340),
@@ -352,12 +288,11 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "STAIRS", worldPoint: CGPoint(x: 1200, y: 390), colorRGBA: (0.32, 0.51, 0.66, 1)),
-            .init(label: "SABLE ROW", worldPoint: CGPoint(x: 450, y: 700), colorRGBA: (0.55, 0.48, 0.32, 1))
+            .init(label: "STAIRS", worldPoint: CGPoint(x: 1200, y: 390), colorRGBA: (0.32, 0.51, 0.66, 1))
         ]
     )
 
-    // MARK: - Harborpoint PD
+    // MARK: - Harborpoint PD (south)
 
     static let harborpointPD = CityDistrictDefinition(
         id: .harborpointPD,
@@ -365,9 +300,12 @@ enum CityDistrictCatalog {
         arrivalHint: "HARBORPOINT PD  •  Soft files cool faster than the rain.",
         groundTextureName: "city_harborpoint_pd_ground_v02",
         mapTextureName: "map_city_harborpoint_pd_v02",
-        actorStart: CGPoint(x: 390, y: 260),
+        actorStart: CGPoint(x: 1024, y: 980),
         spawnByArrivalKey: [
-            "from.sableRow": CGPoint(x: 390, y: 260)
+            "from.north": CGPoint(x: 1024, y: 980),
+            "from.west": CGPoint(x: 160, y: 420),
+            "from.east": CGPoint(x: 1880, y: 420),
+            "from.south": CGPoint(x: 1024, y: 140)
         ],
         visualSprites: [
             .init(textureName: "city_building_pd_station", groundPoint: CGPoint(x: 1150, y: 600), scale: CityDistrictLayout.BuildingDisplayScale.pdStation, anchorY: 0.10, depthBias: 0),
@@ -389,15 +327,6 @@ enum CityDistrictCatalog {
         ],
         portals: [
             .init(
-                id: "portal.sableRow",
-                label: "SABLE ROW",
-                approachPoint: CGPoint(x: 390, y: 260),
-                hitArea: CGRect(x: 260, y: 170, width: 260, height: 160),
-                destination: .district(.sableRow),
-                requiresCityOpen: false,
-                lockedInspectLine: ""
-            ),
-            .init(
                 id: "portal.pdEntrance",
                 label: "STATION",
                 approachPoint: CGPoint(x: 1100, y: 490),
@@ -408,12 +337,11 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "STATION", worldPoint: CGPoint(x: 1150, y: 600), colorRGBA: (0.79, 0.55, 0.26, 1)),
-            .init(label: "SABLE ROW", worldPoint: CGPoint(x: 390, y: 260), colorRGBA: (0.55, 0.48, 0.32, 1))
+            .init(label: "STATION", worldPoint: CGPoint(x: 1150, y: 600), colorRGBA: (0.79, 0.55, 0.26, 1))
         ]
     )
 
-    // MARK: - Lila Street
+    // MARK: - Lila Street (east)
 
     static let lilaStreet = CityDistrictDefinition(
         id: .lilaStreet,
@@ -421,9 +349,12 @@ enum CityDistrictCatalog {
         arrivalHint: "LILA'S STREET  •  Doorway posts remember the Gray Man.",
         groundTextureName: "city_lila_street_ground_v02",
         mapTextureName: "map_city_lila_street_v02",
-        actorStart: CGPoint(x: 350, y: 250),
+        actorStart: CGPoint(x: 160, y: 420),
         spawnByArrivalKey: [
-            "from.sableRow": CGPoint(x: 350, y: 250)
+            "from.west": CGPoint(x: 160, y: 420),
+            "from.north": CGPoint(x: 1024, y: 980),
+            "from.south": CGPoint(x: 1024, y: 140),
+            "from.east": CGPoint(x: 1880, y: 420)
         ],
         visualSprites: [
             .init(textureName: "city_building_lila_rooms", groundPoint: CGPoint(x: 1250, y: 550), scale: CityDistrictLayout.BuildingDisplayScale.lilaRooms, anchorY: 0.10, depthBias: 0),
@@ -448,15 +379,6 @@ enum CityDistrictCatalog {
         ],
         portals: [
             .init(
-                id: "portal.sableRow",
-                label: "SABLE ROW",
-                approachPoint: CGPoint(x: 350, y: 250),
-                hitArea: CGRect(x: 220, y: 160, width: 260, height: 160),
-                destination: .district(.sableRow),
-                requiresCityOpen: false,
-                lockedInspectLine: ""
-            ),
-            .init(
                 id: "portal.lilaRooms",
                 label: "ROOMS",
                 approachPoint: CGPoint(x: 1200, y: 460),
@@ -467,12 +389,11 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "ROOMS", worldPoint: CGPoint(x: 1250, y: 550), colorRGBA: (0.58, 0.20, 0.48, 1)),
-            .init(label: "SABLE ROW", worldPoint: CGPoint(x: 350, y: 250), colorRGBA: (0.55, 0.48, 0.32, 1))
+            .init(label: "ROOMS", worldPoint: CGPoint(x: 1250, y: 550), colorRGBA: (0.58, 0.20, 0.48, 1))
         ]
     )
 
-    // MARK: - Civic Records
+    // MARK: - Civic Records (north)
 
     static let civicRecords = CityDistrictDefinition(
         id: .civicRecords,
@@ -480,9 +401,12 @@ enum CityDistrictCatalog {
         arrivalHint: "CIVIC RECORDS  •  Marble that still looks clean in the rain.",
         groundTextureName: "city_civic_records_ground_v02",
         mapTextureName: "map_city_civic_records_v02",
-        actorStart: CGPoint(x: 380, y: 240),
+        actorStart: CGPoint(x: 1024, y: 140),
         spawnByArrivalKey: [
-            "from.sableRow": CGPoint(x: 380, y: 240)
+            "from.south": CGPoint(x: 1024, y: 140),
+            "from.west": CGPoint(x: 160, y: 420),
+            "from.east": CGPoint(x: 1880, y: 420),
+            "from.north": CGPoint(x: 1024, y: 980)
         ],
         visualSprites: [
             .init(textureName: "city_building_records_annex", groundPoint: CGPoint(x: 1200, y: 590), scale: CityDistrictLayout.BuildingDisplayScale.recordsAnnex, anchorY: 0.10, depthBias: 0),
@@ -504,15 +428,6 @@ enum CityDistrictCatalog {
         ],
         portals: [
             .init(
-                id: "portal.sableRow",
-                label: "SABLE ROW",
-                approachPoint: CGPoint(x: 380, y: 240),
-                hitArea: CGRect(x: 250, y: 150, width: 260, height: 160),
-                destination: .district(.sableRow),
-                requiresCityOpen: false,
-                lockedInspectLine: ""
-            ),
-            .init(
                 id: "portal.recordsEntrance",
                 label: "ANNEX",
                 approachPoint: CGPoint(x: 1140, y: 490),
@@ -523,8 +438,7 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "ANNEX", worldPoint: CGPoint(x: 1200, y: 590), colorRGBA: (0.55, 0.48, 0.32, 1)),
-            .init(label: "SABLE ROW", worldPoint: CGPoint(x: 380, y: 240), colorRGBA: (0.72, 0.22, 0.18, 1))
+            .init(label: "ANNEX", worldPoint: CGPoint(x: 1200, y: 590), colorRGBA: (0.55, 0.48, 0.32, 1))
         ]
     )
 }

@@ -107,6 +107,8 @@ final class AreaMapOverlay: SKNode {
     }
 
     var onDismiss: (() -> Void)?
+    /// Fired when the player activates the BG Classic WORLD MAP control.
+    var onRequestWorldMap: (() -> Void)?
 
     private let configuration: Configuration
     private let sheet = SKNode()
@@ -232,14 +234,20 @@ final class AreaMapOverlay: SKNode {
     @discardableResult
     func handlePointer(at point: CGPoint) -> Bool {
         guard !isHidden else { return false }
-        if targetName(at: point) == "map.close" {
+        switch targetName(at: point) {
+        case "map.close":
             onDismiss?()
+        case "map.world":
+            onRequestWorldMap?()
+        default:
+            break
         }
         return true
     }
 
     func isInteractive(at point: CGPoint) -> Bool {
-        targetName(at: point) == "map.close"
+        let name = targetName(at: point)
+        return name == "map.close" || name == "map.world"
     }
 
     private func buildInterface() {
@@ -344,6 +352,7 @@ final class AreaMapOverlay: SKNode {
         let buttonSize = CGSize(width: 158, height: 40)
         let buttonX = stripWidth / 2 - 22 - buttonSize.width / 2
         let worldPlate = SKShapeNode(rectOf: buttonSize, cornerRadius: 1)
+        worldPlate.name = "map.world"
         worldPlate.fillColor = SKColor(red: 0.09, green: 0.095, blue: 0.10, alpha: 0.98)
         worldPlate.strokeColor = SKColor(red: 0.62, green: 0.64, blue: 0.65, alpha: 0.92)
         worldPlate.lineWidth = 1.25
@@ -368,6 +377,15 @@ final class AreaMapOverlay: SKNode {
         worldLabel.position = CGPoint(x: buttonX, y: stripY)
         worldLabel.zPosition = 32
         sheet.addChild(worldLabel)
+
+        // Transparent hit plate above chrome so the whole button is clickable.
+        let worldHit = SKShapeNode(rectOf: buttonSize, cornerRadius: 1)
+        worldHit.name = "map.world"
+        worldHit.fillColor = SKColor(white: 1, alpha: 0.001)
+        worldHit.strokeColor = .clear
+        worldHit.position = CGPoint(x: buttonX, y: stripY)
+        worldHit.zPosition = 33
+        sheet.addChild(worldHit)
     }
 
     private func addMapOptionRow(title: String, checked: Bool, position: CGPoint) {
