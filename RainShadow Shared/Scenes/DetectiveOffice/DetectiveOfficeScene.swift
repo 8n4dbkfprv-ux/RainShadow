@@ -50,6 +50,8 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var worldMapIsPresented = false
     private var journalIsPresented = false
     private var caseIntroductionStarted = false
+    /// Hotspot/container currently feeding the inventory NEARBY panel (BG container loot).
+    private var activeLootContainerID: String?
     /// Phase 4: second graph — desk monologue after Empty Coat is open (once).
     private var deskCaseFileMonologuePlayed = false
     private var clientEntranceStarted = false
@@ -349,6 +351,7 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         configureNavigation()
         configureHotspots()
+        context.session.resolveOfficeLootIfNeeded()
 
         portraitBar.setHealth(
             current: context.session.currentHealth,
@@ -362,6 +365,9 @@ final class DetectiveOfficeScene: BaseGameScene {
         inventoryOverlay.zPosition = 100
         inventoryOverlay.onDismiss = { [weak self] in
             self?.setInventoryPresented(false)
+        }
+        inventoryOverlay.onTakeNearby = { [weak self] index in
+            self?.takeNearbyLoot(at: index)
         }
         hudRoot.addChild(inventoryOverlay)
         areaMapOverlay.zPosition = 110
@@ -1003,6 +1009,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                     self.caseIntroductionPresenter.runtimeContext.caseState
                 )
                 self.dialogueIsActive = false
+                self.presentLootInventoryIfNeeded(for: hotspot)
             }
             return
         }
@@ -1017,8 +1024,34 @@ final class DetectiveOfficeScene: BaseGameScene {
                 endsDialogue: true
             )
         ], startingAt: nodeID) { [weak self] in
-            self?.dialogueIsActive = false
+            guard let self else { return }
+            self.dialogueIsActive = false
+            self.presentLootInventoryIfNeeded(for: hotspot)
         }
+    }
+
+    /// After observation text, open inventory with the container's contents in NEARBY (BG flow).
+    private func presentLootInventoryIfNeeded(for hotspot: OfficeHotspot) {
+        guard context.session.hasLootContainer(for: hotspot.id) else { return }
+        let stacks = context.session.lootContents(for: hotspot.id)
+        guard !stacks.isEmpty else { return }
+        activeLootContainerID = hotspot.id
+        setInventoryPresented(true, nearbyTitle: hotspot.name, nearbyStacks: stacks)
+    }
+
+    private func takeNearbyLoot(at index: Int) {
+        guard let containerID = activeLootContainerID else { return }
+        guard context.session.takeCoins(at: index, from: containerID) != nil else { return }
+        let stacks = context.session.lootContents(for: containerID)
+        inventoryOverlay.applyWallet(context.session.walletPence)
+        inventoryOverlay.presentNearby(title: hotspotName(for: containerID), stacks: stacks)
+        if stacks.isEmpty {
+            activeLootContainerID = nil
+        }
+    }
+
+    private func hotspotName(for containerID: String) -> String {
+        hotspots.first(where: { $0.id == containerID })?.name ?? "NEARBY"
     }
 
     private func showOfficeHintIfNeeded() {
@@ -1228,11 +1261,26 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
     }
 
-    private func setInventoryPresented(_ presented: Bool) {
+    private func setInventoryPresented(
+        _ presented: Bool,
+        nearbyTitle: String = "NEARBY",
+        nearbyStacks: [ResolvedLootStack] = []
+    ) {
+        if presented, inventoryIsPresented {
+            // Already open (e.g. action-bar inventory) — refresh NEARBY / wallet in place.
+            inventoryOverlay.present(
+                walletPence: context.session.walletPence,
+                nearbyTitle: nearbyTitle,
+                nearbyStacks: nearbyStacks
+            )
+            return
+        }
         guard inventoryIsPresented != presented else { return }
         inventoryIsPresented = presented
         if presented {
             clearHotspotHoverHighlight()
+        } else {
+            activeLootContainerID = nil
         }
 
         let pausedWorldRoots = [
@@ -1248,7 +1296,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateGameplayChromeVisibility(animated: true)
 
         if presented {
-            inventoryOverlay.present()
+            inventoryOverlay.present(
+                walletPence: context.session.walletPence,
+                nearbyTitle: nearbyTitle,
+                nearbyStacks: nearbyStacks
+            )
         } else {
             inventoryOverlay.hideAnimated()
         }

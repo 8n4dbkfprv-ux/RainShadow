@@ -1609,6 +1609,31 @@ enum OfficeNavigationLayout {
         )
     ]
 
+    /// BG-style authored loot for searchable office containers (resolve-once on area entry).
+    static let lootContainers: [LootContainerDefinition] = [
+        LootContainerDefinition(
+            id: "office.desk",
+            entries: [
+                .coins(pence: 36), // 3s loose change in the drawer
+                .randomCoins(table: RandomCoinTable(penceForRolls2to20: [
+                    1, 2, 3, 4, 6, 6, 8, 8, 12, 12, 12, 18, 18, 24, 24, 30, 36, 36, 48
+                ]))
+            ]
+        ),
+        LootContainerDefinition(
+            id: "office.files",
+            entries: [
+                .randomCoins(table: RandomCoinTable(penceForRolls2to20: [
+                    1, 1, 2, 2, 3, 3, 4, 4, 6, 6, 6, 8, 8, 12, 12, 12, 18, 18, 24
+                ]))
+            ]
+        )
+    ]
+
+    static func lootContainer(for hotspotID: String) -> LootContainerDefinition? {
+        lootContainers.first { $0.id == hotspotID }
+    }
+
     /// Tall aperture covering the entrance leaf and threshold obstacle.
     private static var doorHitArea: CGRect {
         CGRect(x: 2_480, y: 1_180, width: 240, height: 480)

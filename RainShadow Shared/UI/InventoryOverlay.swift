@@ -105,70 +105,13 @@ final class InventoryOverlay: SKNode {
         static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
     }
 
-    private let items: [InventoryItem] = [
-        InventoryItem(
-            id: "service-revolver",
-            name: "Service Revolver",
-            category: .weapon,
-            description: "A six-shot Webley with a tired action and a clean barrel.",
-            note: "Registered to Det. H. Voss · 5 rounds loaded",
-            symbolName: "scope",
-            artName: "inventory_item_service_revolver_v01",
-            quantity: 1
-        ),
-        InventoryItem(
-            id: "case-notes",
-            name: "Case Notebook",
-            category: .evidence,
-            description: "Names, times, and three pages someone tried to tear out.",
-            note: "Active file: The Empty Coat",
-            symbolName: "book.closed.fill",
-            artName: "inventory_item_case_notebook_v01",
-            quantity: 1
-        ),
-        InventoryItem(
-            id: "brass-key",
-            name: "Brass Key",
-            category: .evidence,
-            description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
-            note: "The Empty Coat · in Voss's care",
-            symbolName: "key.fill",
-            artName: "inventory_item_brass_key_v01",
-            quantity: 1
-        ),
-        InventoryItem(
-            id: "flashlight",
-            name: "Pocket Torch",
-            category: .tool,
-            description: "Dented steel, unreliable switch, enough battery for one long night.",
-            note: "Condition: worn",
-            symbolName: "flashlight.on.fill",
-            artName: "inventory_item_flashlight_v01",
-            quantity: 1
-        ),
-        InventoryItem(
-            id: "wallet",
-            name: "Leather Wallet",
-            category: .personal,
-            description: "Licence, tram pass, and the kind of money that disappears quickly.",
-            note: "Cash on hand: £7  4s",
-            symbolName: "creditcard.fill",
-            artName: "inventory_item_wallet_v01",
-            quantity: 1
-        ),
-        InventoryItem(
-            id: "cigarette-case",
-            name: "Cigarette Case",
-            category: .personal,
-            description: "Gunmetal silver. Initials scratched away with deliberate care.",
-            note: "4 cigarettes remaining",
-            symbolName: "cigarette.fill",
-            artName: "inventory_item_cigarette_case_v01",
-            quantity: 4
-        )
-    ]
+    private var items: [InventoryItem] = InventoryOverlay.makeStarterItems(
+        walletPence: CurrencyAmount.startingWalletPence
+    )
 
     var onDismiss: (() -> Void)?
+    /// Called with the NEARBY slot index when the player takes a stack (BG: gold → wallet).
+    var onTakeNearby: ((Int) -> Void)?
 
     private var slotFrames: [String: [SKNode]] = [:]
     private var selectedItemID = "case-notes"
@@ -178,6 +121,12 @@ final class InventoryOverlay: SKNode {
     private let itemNoteLabel = InventoryOverlay.label(size: 13, color: Palette.quiet, weight: .regular)
     private let sheet = SKNode()
     private let content = SKNode()
+    private let coinValueLabel = InventoryOverlay.label(size: 16, color: Palette.paper, weight: .demibold)
+    private let nearbyTitleLabel = InventoryOverlay.label(size: 12, color: Palette.paper, weight: .demibold)
+    private let nearbyCountLabel = InventoryOverlay.label(size: 12, color: Palette.quiet, weight: .demibold)
+    private let nearbySlotsRoot = SKNode()
+    private var nearbyStacks: [ResolvedLootStack] = []
+    private var walletPence = CurrencyAmount.startingWalletPence
 
     override init() {
         super.init()
@@ -186,6 +135,72 @@ final class InventoryOverlay: SKNode {
         buildInterface()
         refreshSelection()
         isHidden = true
+    }
+
+    private static func makeStarterItems(walletPence: Int) -> [InventoryItem] {
+        let cashNote = "Cash on hand: \(CurrencyAmount(pence: walletPence).formatted)"
+        return [
+            InventoryItem(
+                id: "service-revolver",
+                name: "Service Revolver",
+                category: .weapon,
+                description: "A six-shot Webley with a tired action and a clean barrel.",
+                note: "Registered to Det. H. Voss · 5 rounds loaded",
+                symbolName: "scope",
+                artName: "inventory_item_service_revolver_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "case-notes",
+                name: "Case Notebook",
+                category: .evidence,
+                description: "Names, times, and three pages someone tried to tear out.",
+                note: "Active file: The Empty Coat",
+                symbolName: "book.closed.fill",
+                artName: "inventory_item_case_notebook_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "brass-key",
+                name: "Brass Key",
+                category: .evidence,
+                description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
+                note: "The Empty Coat · in Voss's care",
+                symbolName: "key.fill",
+                artName: "inventory_item_brass_key_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "flashlight",
+                name: "Pocket Torch",
+                category: .tool,
+                description: "Dented steel, unreliable switch, enough battery for one long night.",
+                note: "Condition: worn",
+                symbolName: "flashlight.on.fill",
+                artName: "inventory_item_flashlight_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "wallet",
+                name: "Leather Wallet",
+                category: .personal,
+                description: "Licence, tram pass, and the kind of money that disappears quickly.",
+                note: cashNote,
+                symbolName: "creditcard.fill",
+                artName: "inventory_item_wallet_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "cigarette-case",
+                name: "Cigarette Case",
+                category: .personal,
+                description: "Gunmetal silver. Initials scratched away with deliberate care.",
+                note: "4 cigarettes remaining",
+                symbolName: "cigarette.fill",
+                artName: "inventory_item_cigarette_case_v01",
+                quantity: 4
+            )
+        ]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -198,7 +213,13 @@ final class InventoryOverlay: SKNode {
         setScale(min(1, horizontalFit, verticalFit))
     }
 
-    func present() {
+    func present(
+        walletPence: Int,
+        nearbyTitle: String = "NEARBY",
+        nearbyStacks: [ResolvedLootStack] = []
+    ) {
+        applyWallet(walletPence)
+        presentNearby(title: nearbyTitle, stacks: nearbyStacks)
         removeAllActions()
         isHidden = false
         alpha = 0
@@ -211,8 +232,32 @@ final class InventoryOverlay: SKNode {
         removeAllActions()
         run(.sequence([
             .fadeOut(withDuration: 0.14),
-            .run { [weak self] in self?.isHidden = true }
+            .run { [weak self] in
+                self?.clearNearby()
+                self?.isHidden = true
+            }
         ]))
+    }
+
+    func presentNearby(title: String, stacks: [ResolvedLootStack]) {
+        nearbyTitleLabel.text = title.uppercased()
+        nearbyStacks = stacks
+        rebuildNearbySlots()
+    }
+
+    func clearNearby() {
+        nearbyStacks = []
+        nearbyTitleLabel.text = "NEARBY"
+        rebuildNearbySlots()
+    }
+
+    func applyWallet(_ pence: Int) {
+        walletPence = max(0, pence)
+        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
+        items = Self.makeStarterItems(walletPence: walletPence)
+        if selectedItemID == "wallet" {
+            refreshSelection()
+        }
     }
 
     @discardableResult
@@ -222,6 +267,13 @@ final class InventoryOverlay: SKNode {
 
         if target == "inventory.close" {
             onDismiss?()
+            return true
+        }
+        if target.hasPrefix("inventory.nearby.slot.") {
+            let indexString = String(target.dropFirst("inventory.nearby.slot.".count))
+            if let index = Int(indexString), nearbyStacks.indices.contains(index) {
+                onTakeNearby?(index)
+            }
             return true
         }
         if target.hasPrefix("inventory.item.") {
@@ -241,7 +293,9 @@ final class InventoryOverlay: SKNode {
 
     func isInteractive(at point: CGPoint) -> Bool {
         guard let target = targetName(at: point) else { return false }
-        return target == "inventory.close" || target.hasPrefix("inventory.item.")
+        return target == "inventory.close"
+            || target.hasPrefix("inventory.item.")
+            || target.hasPrefix("inventory.nearby.slot.")
     }
 
     private func buildInterface() {
@@ -512,6 +566,7 @@ final class InventoryOverlay: SKNode {
         content.addChild(bag)
 
         let ground = SKNode()
+        ground.name = "inventory.nearby"
         ground.position = Metrics.nearbyOrigin
         ground.zPosition = 1
         addChromeSprite(named: "inventory_section_nearby_v05", size: Metrics.nearbySize, z: -1, parent: ground)
@@ -526,17 +581,9 @@ final class InventoryOverlay: SKNode {
             at: CGPoint(x: Metrics.nearbyArrowX, y: Metrics.nearbyHeaderY)
         ))
 
-        for index in 0..<Metrics.nearbySlotCount {
-            ground.addChild(emptySlot(
-                size: Metrics.nearbySlotSize,
-                at: CGPoint(
-                    x: Metrics.nearbyFirstSlotX + CGFloat(index) * Metrics.nearbySlotPitch,
-                    y: Metrics.nearbySlotY
-                ),
-                silhouette: "inventory_slot_silhouette_bag_v05",
-                silhouetteAlpha: 0.16
-            ))
-        }
+        nearbySlotsRoot.zPosition = 2
+        ground.addChild(nearbySlotsRoot)
+        rebuildNearbySlots()
         content.addChild(ground)
     }
 
@@ -648,12 +695,11 @@ final class InventoryOverlay: SKNode {
             assertionFailure("Missing inventory_coin_stack_v05.png")
         }
 
-        let value = Self.label(size: 16, color: Palette.paper, weight: .demibold)
-        value.text = "£7  4s"
-        value.verticalAlignmentMode = .center
-        value.horizontalAlignmentMode = .left
-        value.position = CGPoint(x: 8, y: 0)
-        root.addChild(value)
+        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
+        coinValueLabel.verticalAlignmentMode = .center
+        coinValueLabel.horizontalAlignmentMode = .left
+        coinValueLabel.position = CGPoint(x: 8, y: 0)
+        root.addChild(coinValueLabel)
         return root
     }
 
@@ -774,13 +820,12 @@ final class InventoryOverlay: SKNode {
     }
 
     private func addNearbyHeader(to root: SKNode) {
-        let title = Self.label(size: 12, color: Palette.paper, weight: .demibold)
-        title.text = "NEARBY"
-        title.horizontalAlignmentMode = .left
-        title.verticalAlignmentMode = .center
-        title.position = CGPoint(x: -166, y: Metrics.nearbyHeaderY)
-        title.zPosition = 3
-        root.addChild(title)
+        nearbyTitleLabel.text = "NEARBY"
+        nearbyTitleLabel.horizontalAlignmentMode = .left
+        nearbyTitleLabel.verticalAlignmentMode = .center
+        nearbyTitleLabel.position = CGPoint(x: -166, y: Metrics.nearbyHeaderY)
+        nearbyTitleLabel.zPosition = 3
+        root.addChild(nearbyTitleLabel)
 
         let page = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
         page.text = "1 / 1"
@@ -789,13 +834,70 @@ final class InventoryOverlay: SKNode {
         page.zPosition = 3
         root.addChild(page)
 
-        let count = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
-        count.text = "0 / \(Metrics.nearbySlotCount)"
-        count.horizontalAlignmentMode = .right
-        count.verticalAlignmentMode = .center
-        count.position = CGPoint(x: 166, y: Metrics.nearbyHeaderY)
-        count.zPosition = 3
-        root.addChild(count)
+        nearbyCountLabel.text = "0 / \(Metrics.nearbySlotCount)"
+        nearbyCountLabel.horizontalAlignmentMode = .right
+        nearbyCountLabel.verticalAlignmentMode = .center
+        nearbyCountLabel.position = CGPoint(x: 166, y: Metrics.nearbyHeaderY)
+        nearbyCountLabel.zPosition = 3
+        root.addChild(nearbyCountLabel)
+    }
+
+    private func rebuildNearbySlots() {
+        nearbySlotsRoot.removeAllChildren()
+        let visible = Array(nearbyStacks.prefix(Metrics.nearbySlotCount))
+        nearbyCountLabel.text = "\(visible.count) / \(Metrics.nearbySlotCount)"
+
+        for index in 0..<Metrics.nearbySlotCount {
+            let position = CGPoint(
+                x: Metrics.nearbyFirstSlotX + CGFloat(index) * Metrics.nearbySlotPitch,
+                y: Metrics.nearbySlotY
+            )
+            if index < visible.count {
+                nearbySlotsRoot.addChild(nearbySlot(visible[index], index: index, at: position))
+            } else {
+                nearbySlotsRoot.addChild(emptySlot(
+                    size: Metrics.nearbySlotSize,
+                    at: position,
+                    silhouette: "inventory_slot_silhouette_bag_v05",
+                    silhouetteAlpha: 0.16
+                ))
+            }
+        }
+    }
+
+    private func nearbySlot(_ stack: ResolvedLootStack, index: Int, at position: CGPoint) -> SKNode {
+        let size = Metrics.nearbySlotSize
+        let slot = slotBase(size: CGSize(width: size, height: size))
+        slot.name = "inventory.nearby.slot.\(index)"
+        slot.position = position
+        slot.zPosition = 2
+
+        switch stack {
+        case .coins(let pence):
+            if let texture = GameArt.texture(named: "inventory_coin_stack_v05") {
+                texture.filteringMode = .linear
+                let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.78, height: size * 0.58))
+                icon.zPosition = 1
+                slot.addChild(icon)
+            }
+            let badge = Self.label(size: 11, color: Palette.paper, weight: .demibold)
+            badge.text = CurrencyAmount(pence: pence).formatted
+            badge.verticalAlignmentMode = .center
+            badge.horizontalAlignmentMode = .right
+            badge.position = CGPoint(x: size / 2 - 6, y: -size / 2 + 12)
+            badge.zPosition = 2
+            slot.addChild(badge)
+        case .item(_, let quantity):
+            // Item art wiring arrives with the real inventory model; show quantity only for now.
+            let badge = Self.label(size: 12, color: Palette.paper, weight: .demibold)
+            badge.text = quantity > 1 ? "\(quantity)" : ""
+            badge.verticalAlignmentMode = .center
+            badge.horizontalAlignmentMode = .right
+            badge.position = CGPoint(x: size / 2 - 8, y: -size / 2 + 12)
+            badge.zPosition = 2
+            slot.addChild(badge)
+        }
+        return slot
     }
 
     @discardableResult

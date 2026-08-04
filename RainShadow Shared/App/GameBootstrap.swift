@@ -15,6 +15,10 @@ final class GameSession {
     private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
     private(set) var currentHealth = 12
     let maximumHealth = 12
+    /// Wallet balance in pence (£/s/d via `CurrencyAmount`).
+    private(set) var walletPence: Int
+    /// BG resolve-once loot state for searchable containers.
+    private(set) var lootContainers: LootContainerState
 
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
@@ -23,6 +27,10 @@ final class GameSession {
         hasSeenOfficeHint = snapshot.hasSeenOfficeHint
         inspectedHotspotIDs = snapshot.inspectedHotspotIDs
         caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
+        walletPence = snapshot.walletPence
+        lootContainers = LootContainerState(
+            resolved: snapshot.lootContainers.mapValues { $0.map(Self.toResolved) }
+        )
     }
 
     /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, journal queue).
@@ -100,12 +108,58 @@ final class GameSession {
         recordCityFogReveal(currentCityDistrict, point: point)
     }
 
+    /// BG: resolve random treasure when the area is first entered, then lock.
+    func resolveOfficeLootIfNeeded() {
+        var state = lootContainers
+        var rng = SystemRandomNumberGenerator()
+        state.resolveIfNeeded(definitions: OfficeNavigationLayout.lootContainers, using: &rng)
+        guard state != lootContainers else { return }
+        lootContainers = state
+        persist()
+    }
+
+    func lootContents(for hotspotID: String) -> [ResolvedLootStack] {
+        lootContainers.contents(of: hotspotID) ?? []
+    }
+
+    func hasLootContainer(for hotspotID: String) -> Bool {
+        OfficeNavigationLayout.lootContainer(for: hotspotID) != nil
+    }
+
+    /// Take a coin stack from a container into the wallet (BG: gold never occupies a bag slot).
+    @discardableResult
+    func takeCoins(at index: Int, from containerID: String) -> Int? {
+        var state = lootContainers
+        guard let stack = state.takeStack(at: index, from: containerID),
+              case .coins(let pence) = stack else { return nil }
+        lootContainers = state
+        walletPence += pence
+        persist()
+        return pence
+    }
+
     private func persist() {
         saveStore.save(SaveSnapshot(
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,
-            inspectedHotspotIDs: inspectedHotspotIDs
+            inspectedHotspotIDs: inspectedHotspotIDs,
+            walletPence: walletPence,
+            lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) }
         ))
+    }
+
+    private static func toResolved(_ stack: PersistedLootStack) -> ResolvedLootStack {
+        switch stack {
+        case .coins(let pence): return .coins(pence: pence)
+        case .item(let id, let quantity): return .item(id: id, quantity: quantity)
+        }
+    }
+
+    private static func toPersisted(_ stack: ResolvedLootStack) -> PersistedLootStack {
+        switch stack {
+        case .coins(let pence): return .coins(pence: pence)
+        case .item(let id, let quantity): return .item(id: id, quantity: quantity)
+        }
     }
 }
 
