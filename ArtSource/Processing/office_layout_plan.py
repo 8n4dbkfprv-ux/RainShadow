@@ -329,7 +329,18 @@ def partition_cell_rects() -> list[tuple[float, float, float, float]]:
             x, y = rp.authored(a, bb)
             rects.append(partition_cell_rect(x, y))
         b += b_step
-    return rects
+    # Drop the one latch-side AABB whose centre seals the scaled search-map
+    # doorway cell (officeDetective radius 3). Broadening door_clear_pad to
+    # remove its whole b-band also strips neighbouring frost and lets client
+    # arrival shortcut through prop AABBs.
+    sealed_doorway_cell = (2288.0, 1134.0, 40.0, 20.0)
+    return [
+        r for r in rects
+        if not (
+            abs(r[0] - sealed_doorway_cell[0]) < 0.5
+            and abs(r[1] - sealed_doorway_cell[1]) < 0.5
+        )
+    ]
 
 
 # Walkable floor, in plan units: wall stand-off at the rear and sides, and the

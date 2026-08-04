@@ -427,6 +427,57 @@ struct OfficeInteriorScaleTests {
         }
     }
 
+    /// Scene interactions use `requiresExactDestination: true`. A snapped route
+    /// cancels the office-door → city transition, so every approach must remain
+    /// exact with the door leaf both upright and fallen.
+    @Test func everyOfficeHotspotApproachIsExactWithDoorBlockingOnAndOff() {
+        for blocking in [true, false] {
+            let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: blocking)
+            for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
+                let exact = map.path(
+                    from: OfficeNavigationLayout.actorStart,
+                    to: destination
+                )
+                #expect(
+                    exact != nil,
+                    "Exact path to \(hotspotID) missing (doorBlocking=\(blocking))"
+                )
+                let route = map.route(
+                    from: OfficeNavigationLayout.actorStart,
+                    to: destination
+                )
+                #expect(
+                    route?.destinationWasAdjusted == false,
+                    "Approach \(hotspotID) was snapped (doorBlocking=\(blocking))"
+                )
+                #expect(
+                    route?.resolvedDestination == destination,
+                    "Approach \(hotspotID) resolved away from authored point"
+                )
+            }
+        }
+    }
+
+    @Test func officeDoorApproachSurvivesGoalCellCenterQuantization() {
+        let map = OfficeNavigationLayout.makeGrid()
+        let approach = OfficeNavigationLayout.approachPoints["office.door"]!
+        let radius = NavigationAgentProfile.officeDetective.radius
+
+        #expect(map.searchMap.isPassable(at: approach, radius: radius))
+
+        let cell = map.searchMap.cell(for: approach)
+        let center = map.searchMap.center(of: cell)
+        // The bug class: world-space approach is legal, cell center is not.
+        #expect(!map.searchMap.isPassable(at: center, radius: radius))
+
+        let exact = map.path(from: OfficeNavigationLayout.actorStart, to: approach)
+        #expect(exact != nil)
+        #expect(exact?.last == approach)
+
+        let route = map.route(from: OfficeNavigationLayout.actorStart, to: approach)
+        #expect(route?.destinationWasAdjusted == false)
+    }
+
     @Test func actorStartAndApproachesUseMappedCoordinates() {
         // Chair-side seat egress: camera-near of the kneehole (deskChair − 30 authored).
         // seatedYOffset = 30 × environment so actorStart + offset lands on the chair.

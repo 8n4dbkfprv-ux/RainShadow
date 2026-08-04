@@ -365,6 +365,60 @@ struct NavigationMapTests {
         }
     }
 
+    @Test func sableRowOfficePortalApproachIsExact() {
+        let district = CityDistrictCatalog.definition(for: .sableRow)
+        let portal = district.portals.first { $0.id == "portal.office" }
+        #expect(portal != nil)
+        guard let portal else { return }
+
+        let map = district.makeGrid()
+        let exact = map.path(from: district.actorStart, to: portal.approachPoint)
+        #expect(exact != nil)
+        let route = map.route(from: district.actorStart, to: portal.approachPoint)
+        #expect(route?.destinationWasAdjusted == false)
+        #expect(route?.resolvedDestination == portal.approachPoint)
+    }
+
+    /// Goal point walkable, goal cell center inside an obstacle — exact path
+    /// must still terminate at the requested destination (office door class).
+    @Test func exactPathAcceptsDestinationWhenGoalCellCenterIsBlocked() {
+        // 16×12 cells; place a thin obstacle over the goal cell center only.
+        let cellSize = SearchMap.defaultCellSize
+        let worldBounds = CGRect(x: 0, y: 0, width: cellSize.width * 6, height: cellSize.height * 4)
+        // Goal in cell (4, 1): center at (4.5*16, 1.5*12) = (72, 18).
+        let goalCenter = CGPoint(x: 72, y: 18)
+        // Sit toward the east edge so LOS from cell (5, 1) clears the blob.
+        let destination = CGPoint(x: 78, y: 22)
+        let obstacle = CGRect(
+            x: goalCenter.x - 2,
+            y: goalCenter.y - 2,
+            width: 4,
+            height: 4
+        )
+        let map = NavigationMap(
+            worldBounds: worldBounds,
+            obstacles: [obstacle],
+            agentProfile: .officeDetective,
+            doorObstacles: [],
+            entranceDoorBlocking: false,
+            cellSize: cellSize
+        )
+
+        let radius = NavigationAgentProfile.officeDetective.radius
+        #expect(map.searchMap.isPassable(at: destination, radius: radius))
+        #expect(!map.searchMap.isPassable(at: goalCenter, radius: radius))
+
+        let start = CGPoint(x: 8, y: 18)
+        #expect(map.searchMap.isPassable(at: start, radius: radius))
+
+        let path = map.path(from: start, to: destination)
+        #expect(path != nil)
+        #expect(path?.last == destination)
+
+        let route = map.route(from: start, to: destination)
+        #expect(route?.destinationWasAdjusted == false)
+    }
+
     @Test func cityUsesIndependentBuildingAndStreetSprites() {
         let sprites = CityDistrictLayout.visualSprites
         let textureNames = sprites.map(\.textureName)
@@ -504,11 +558,18 @@ struct NavigationMapTests {
 
     private func isAuthoredExteriorDoorwayLeg(from start: CGPoint, to end: CGPoint) -> Bool {
         let doorway = OfficeNavigationLayout.clientDoorwayPath
-        return doorway.indices.dropLast().contains { index in
+        let matchesAuthoredPair = doorway.indices.dropLast().contains(where: { index in
             let next = doorway.index(after: index)
             return (doorway[index] == start && doorway[next] == end)
                 || (doorway[index] == end && doorway[next] == start)
-        }
+        })
+        if matchesAuthoredPair { return true }
+        // Arrival keeps the authored off-floor threshold start as its own leg;
+        // the pathfinder may land on a nearby waiting-bay cell rather than the
+        // exact second doorway anchor, but the leg still is the exterior cross.
+        guard let thresholdStart = doorway.first else { return false }
+        return hypot(start.x - thresholdStart.x, start.y - thresholdStart.y) <= 0.25
+            || hypot(end.x - thresholdStart.x, end.y - thresholdStart.y) <= 0.25
     }
 
     private func segmentCrossesOfficeObstacle(from start: CGPoint, to end: CGPoint) -> Bool {

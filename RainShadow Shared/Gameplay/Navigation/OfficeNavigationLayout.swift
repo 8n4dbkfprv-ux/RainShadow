@@ -964,7 +964,8 @@ enum OfficeNavigationLayout {
         CGRect(x: 1996, y: 2049, width: 104, height: 52),
     ]
 
-    /// Partition solids: overlapping tight AABBs along the wall; doorway open.
+    /// Partition solids: overlapping tight AABBs along the wall; doorway open
+    /// (one latch-side sample omitted so officeDetective radius clears the gap).
     static let authoredPartitionWallNorthObstacle = CGRect(x: 1667, y: 1429, width: 40, height: 20)
     static let authoredPartitionWallSouthObstacle = CGRect(x: 2508, y: 1007, width: 40, height: 20)
     static let authoredPartitionSegments: [CGRect] = [
@@ -1121,7 +1122,9 @@ enum OfficeNavigationLayout {
         CGRect(x: 2276, y: 1139, width: 40, height: 20),
         CGRect(x: 2265, y: 1134, width: 40, height: 20),
         CGRect(x: 2255, y: 1128, width: 40, height: 20),
-        CGRect(x: 2288, y: 1134, width: 40, height: 20),
+        // Omit the latch-side solid that sealed the search-map cell centre at
+        // the painted doorway (world ~2159,1147) for officeDetective radius 3.
+        // Neighbouring frost solids stay so the glass wall does not leak.
         CGRect(x: 2278, y: 1128, width: 40, height: 20),
         CGRect(x: 2267, y: 1122, width: 40, height: 20),
         CGRect(x: 2359, y: 1100, width: 40, height: 20),
@@ -1445,21 +1448,20 @@ enum OfficeNavigationLayout {
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
     /// Route Lila through the painted doorways via BG:EE Theta* between the
-    /// authored aperture anchors. The exterior threshold leg is prepended when
-    /// the pathfinder snaps the off-floor start onto the first walkable cell.
+    /// authored aperture anchors. The exterior threshold start is always kept
+    /// as its own authored leg so pathfinder cell-centres cannot rewrite the
+    /// off-floor doorway crossing (which intentionally clips the door AABB).
     static func clientArrivalRoute(in navigation: NavigationMap) -> [CGPoint] {
-        let anchors = clientArrivalPath
-        guard let routed = navigation.waypoints(visiting: anchors), !routed.isEmpty else {
-            return anchors
+        let exteriorStart = clientDoorwayPath[0]
+        let interiorAnchors = clientInteriorArrivalPath
+        guard let routed = navigation.waypoints(visiting: interiorAnchors), !routed.isEmpty else {
+            return clientArrivalPath
         }
-        // Preserve the authored exterior threshold crossing when the first
-        // anchor sits outside the search-map floor (BG cutscene entrance).
-        if let authoredStart = anchors.first,
-           let routedStart = routed.first,
-           hypot(authoredStart.x - routedStart.x, authoredStart.y - routedStart.y) > 0.25 {
-            return [authoredStart] + routed
+        if let routedStart = routed.first,
+           hypot(exteriorStart.x - routedStart.x, exteriorStart.y - routedStart.y) <= 0.25 {
+            return routed
         }
-        return routed
+        return [exteriorStart] + routed
     }
 
     static func clientDepartureRoute(in navigation: NavigationMap) -> [CGPoint] {

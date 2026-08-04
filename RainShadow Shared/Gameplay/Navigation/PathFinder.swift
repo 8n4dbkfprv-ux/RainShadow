@@ -195,11 +195,35 @@ struct PathFinder {
                 if isClosed[childIndex] { continue }
 
                 let childPoint = searchMap.center(of: childCell)
-                guard searchMap.isPassable(
+                let centerPassable = searchMap.isPassable(
                     at: childPoint,
                     radius: actorRadius,
                     treatActorsAsBlocking: treatActorsAsBlocking
-                ) else { continue }
+                )
+
+                // Exact destinations can sit in a cell whose *center* is blocked by
+                // search-map quantization (e.g. office door approach next to a
+                // chair AABB). Accept the world-space goal as a terminal node when
+                // LOS from the Theta* parent (or current cell) still clears.
+                if !centerPassable {
+                    if childCell == goalCell,
+                       targetPassable,
+                       acceptExactDestination(
+                           from: currentPoint,
+                           currentIndex: currentIndex,
+                           destination: destination,
+                           goalIndex: childIndex,
+                           actorRadius: actorRadius,
+                           treatActorsAsBlocking: treatActorsAsBlocking,
+                           parents: &parents,
+                           distFromStart: &distFromStart
+                       ) {
+                        foundDestination = destination
+                        found = true
+                        break
+                    }
+                    continue
+                }
 
                 // Lazy Theta*: try parent → child LOS shortcut first.
                 let parentPoint = parents[currentIndex] ?? currentPoint
@@ -254,6 +278,8 @@ struct PathFinder {
                 )
                 open.push(childPoint, cost: distFromStart[childIndex] + heuristic)
             }
+
+            if found { break }
         }
 
         guard found else { return nil }
@@ -345,6 +371,45 @@ struct PathFinder {
     }
 
     // MARK: - Private
+
+    /// Wire the goal cell to a parent that has clear LOS to the exact destination
+    /// even when the goal cell center itself is impassable.
+    private func acceptExactDestination(
+        from currentPoint: CGPoint,
+        currentIndex: Int,
+        destination: CGPoint,
+        goalIndex: Int,
+        actorRadius: CGFloat,
+        treatActorsAsBlocking: Bool,
+        parents: inout [CGPoint?],
+        distFromStart: inout [CGFloat]
+    ) -> Bool {
+        let thetaParent = parents[currentIndex] ?? currentPoint
+        if searchMap.isWalkableLine(
+            from: thetaParent,
+            to: destination,
+            radius: actorRadius,
+            treatActorsAsBlocking: treatActorsAsBlocking
+        ) {
+            let parentIndex = cellIndex(searchMap.cell(for: thetaParent))
+            parents[goalIndex] = thetaParent
+            distFromStart[goalIndex] = distFromStart[parentIndex]
+                + hypot(destination.x - thetaParent.x, destination.y - thetaParent.y)
+            return true
+        }
+        if searchMap.isWalkableLine(
+            from: currentPoint,
+            to: destination,
+            radius: actorRadius,
+            treatActorsAsBlocking: treatActorsAsBlocking
+        ) {
+            parents[goalIndex] = currentPoint
+            distFromStart[goalIndex] = distFromStart[currentIndex]
+                + hypot(destination.x - currentPoint.x, destination.y - currentPoint.y)
+            return true
+        }
+        return false
+    }
 
     private func cellIndex(_ cell: SearchMapCell) -> Int {
         cell.row * searchMap.columns + cell.column

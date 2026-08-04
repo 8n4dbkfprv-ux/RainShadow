@@ -135,6 +135,13 @@ class BaseGameScene: SKScene {
     private static let moveMarkerDisplaySize = CGSize(width: 48, height: 24)
     private static let waypointPipDisplaySize = CGSize(width: 28, height: 14)
 
+    /// Local z that clears `SceneLayer.occlusion` while still parented under
+    /// `floorEffectRoot` (whose layer z is `SceneLayer.floorEffects`). Tall door /
+    /// cutaway art otherwise swallows blocked markers near exit approaches.
+    private static var movementFeedbackLocalZ: CGFloat {
+        SceneLayer.occlusion.rawValue - SceneLayer.floorEffects.rawValue + 20
+    }
+
     /// Compact Infinity-Engine-style order feedback. Valid orders land on the
     /// resolved ground point; invalid ones briefly mark the rejected click.
     /// Prefer painted `ui_move_marker_*` / blocked frames; fall back to a coded ellipse.
@@ -145,7 +152,7 @@ class BaseGameScene: SKScene {
             let marker = SKSpriteNode(texture: textures[0], size: Self.moveMarkerDisplaySize)
             marker.name = Self.movementFeedbackNodeName
             marker.position = point
-            marker.zPosition = 20
+            marker.zPosition = Self.movementFeedbackLocalZ
             marker.alpha = 0
             floorEffectRoot.addChild(marker)
 
@@ -171,7 +178,7 @@ class BaseGameScene: SKScene {
             : SKColor(red: 0.9, green: 0.25, blue: 0.22, alpha: 0.95)
         marker.lineWidth = 3
         marker.alpha = 0
-        marker.zPosition = 20
+        marker.zPosition = Self.movementFeedbackLocalZ
         floorEffectRoot.addChild(marker)
 
         marker.run(.sequence([
