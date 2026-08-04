@@ -679,14 +679,15 @@ final class CaseIntroductionPresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v10.png")
+            assertionFailure("Missing dialogue_outer_frame_overlay_v11.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        // v10 = v08 plaque with the existing portrait bezel resized to a square aperture.
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v10")
+        // v11 = v10 plaque with a thinner portrait bezel (same square aperture / metal style).
+        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v11")
+            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v10")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v08")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v09")
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")

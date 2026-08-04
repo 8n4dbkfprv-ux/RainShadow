@@ -939,8 +939,8 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func portraitSitsInPaintedFrameWindow() {
-        // Live portrait sits in the square TL hole on dialogue_outer_frame_overlay_v10
-        // (v08 metal bezel resized; same style, square aperture).
+        // Live portrait sits in the square TL hole on dialogue_outer_frame_overlay_v11
+        // (v10 bezel thinned; same square aperture).
         for size in representativeSizes {
             let layout = DialoguePanelLayout.layout(for: size)
             let expected = DialoguePanelLayout.portraitWindowRect(in: layout.panelRect)
@@ -950,7 +950,7 @@ struct DialoguePanelLayoutTests {
             #expect(abs(layout.portraitRect.height - expected.height) < 0.001)
             #expect(
                 abs(layout.portraitRect.width - layout.portraitRect.height) < 0.5,
-                "v10 portrait window must be square for \(size)"
+                "v11 portrait window must be square for \(size)"
             )
             // Window is inside the panel and left of the body text column.
             #expect(layout.panelRect.contains(layout.portraitRect.insetBy(dx: 0.5, dy: 0.5)))

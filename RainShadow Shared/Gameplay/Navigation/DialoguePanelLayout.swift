@@ -67,7 +67,7 @@ struct DialoguePanelLayout: Equatable {
     /// slim, reference-like lower rail of the v05q dialogue frame.
     static let contentInsetFromPanelBottom: CGFloat = 16
 
-    /// Measured on `dialogue_outer_frame_overlay_v10` (1720×583): the transparent
+    /// Measured on `dialogue_outer_frame_overlay_v11` (1720×583): the transparent
     /// text well first opens at row y≈48. The speaker name must sit fully below this
     /// metal rail so it never paints over the frame chrome.
     static let frameInnerTopOpenFraction: CGFloat = 48.0 / 583.0
@@ -161,16 +161,15 @@ struct DialoguePanelLayout: Equatable {
         static let legacySpeakerFontSize: CGFloat = 22
     }
 
-    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v10` 1720×583).
+    /// Painted frame pixel size (`dialogue_outer_frame_overlay_v11` 1720×583).
     static let frameArtPixelSize = CGSize(width: 1_720, height: 583)
     /// Width / height of the shipped frame art — panel draw size must preserve this
     /// (no non-uniform squash of metal rails / portrait notch).
     static let frameArtAspectWidthOverHeight: CGFloat = 1_720.0 / 583.0
 
-    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v10` (unit fractions
-    /// of the full 1720×583 texture). V10 resizes the v08 metal bezel so the aperture is
-    /// square (169×169) while keeping the same hammered gunmetal pixels — only a mild
-    /// horizontal shrink of the ring (~18%), not a redesigned bezel.
+    /// Painted portrait **interior hole** on `dialogue_outer_frame_overlay_v11` (unit fractions
+    /// of the full 1720×583 texture). Same square aperture as v10 (169×169); v11 only thins
+    /// the detached hammered-gunmetal ring (~60% thickness) — not a redesigned bezel.
     /// Valid only while the frame uses uniform scale (`frameNineSliceCenterRect` full).
     static let portraitWindowLeftFraction: CGFloat = 165.0 / 1_720.0
     static let portraitWindowWidthFraction: CGFloat = 169.0 / 1_720.0
@@ -181,7 +180,7 @@ struct DialoguePanelLayout: Equatable {
     /// Gap from portrait window’s right rail to the text column (must clear the bezel).
     static let portraitToTextGap: CGFloat = 14
     /// Main text well left edge on the art (right of the portrait bezel) as a floor.
-    /// Measured past the v10 resized bezel outer right (~337/1720).
+    /// Measured past the v11 thinned bezel outer right (~351/1720).
     static let textColumnMinLeftFraction: CGFloat = 0.210
 
     /// Full square source → square photo rect (no sub-rect crop). Identity UV map.

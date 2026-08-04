@@ -894,6 +894,211 @@ def process_dialogue_noir_v10() -> None:
     print(f"wrote {runtime_path}")
 
 
+def _bilinear_sample_rgba(img: np.ndarray, xs: np.ndarray, ys: np.ndarray) -> np.ndarray:
+    """Sample HxWx4 uint8 at float coords → float32 RGBA."""
+    h, w = img.shape[:2]
+    xs = np.clip(xs, 0, w - 1.001)
+    ys = np.clip(ys, 0, h - 1.001)
+    x0 = np.floor(xs).astype(np.int32)
+    y0 = np.floor(ys).astype(np.int32)
+    x1 = np.minimum(x0 + 1, w - 1)
+    y1 = np.minimum(y0 + 1, h - 1)
+    wx = (xs - x0)[..., None]
+    wy = (ys - y0)[..., None]
+    imgf = img.astype(np.float32)
+    top = imgf[y0, x0] * (1.0 - wx) + imgf[y0, x1] * wx
+    bot = imgf[y1, x0] * (1.0 - wx) + imgf[y1, x1] * wx
+    return top * (1.0 - wy) + bot * wy
+
+
+def _isolate_dialogue_portrait_bezel(
+    arr: np.ndarray,
+    hl: int,
+    ht: int,
+    hw: int,
+    hh: int,
+    pad: int = 90,
+) -> dict:
+    """Flood-fill the detached portrait bezel ring around a known transparent hole."""
+    from collections import deque
+
+    H, W = arr.shape[:2]
+    alpha = arr[:, :, 3]
+    lum = arr[:, :, :3].astype(np.float32).mean(axis=2)
+    sx0, sy0 = max(0, hl - pad), max(0, ht - pad)
+    sx1, sy1 = min(W, hl + hw + pad), min(H, ht + hh + pad)
+    metal = (alpha[sy0:sy1, sx0:sx1] > 40) & (lum[sy0:sy1, sx0:sx1] > 18)
+    rhl, rht = hl - sx0, ht - sy0
+    rh, rw = metal.shape
+    seeds: list[tuple[int, int]] = []
+    for y in range(max(0, rht - 2), min(rh, rht + hh + 2)):
+        for x in range(max(0, rhl - 2), min(rw, rhl + hw + 2)):
+            if not metal[y, x]:
+                continue
+            if x < rhl or x >= rhl + hw or y < rht or y >= rht + hh:
+                if (
+                    abs(x - rhl) <= 3
+                    or abs(x - (rhl + hw - 1)) <= 3
+                    or abs(y - rht) <= 3
+                    or abs(y - (rht + hh - 1)) <= 3
+                ):
+                    seeds.append((x, y))
+    vis = np.zeros_like(metal)
+    q: deque[tuple[int, int]] = deque()
+    for x, y in seeds:
+        if metal[y, x] and not vis[y, x]:
+            vis[y, x] = True
+            q.append((x, y))
+    while q:
+        x, y = q.popleft()
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rw and 0 <= ny < rh and not vis[ny, nx] and metal[ny, nx]:
+                vis[ny, nx] = True
+                q.append((nx, ny))
+    bys, bxs = np.where(vis)
+    if len(bxs) == 0:
+        raise RuntimeError("could not isolate dialogue portrait bezel metal")
+    bx0, bx1 = int(bxs.min()), int(bxs.max()) + 1
+    by0, by1 = int(bys.min()), int(bys.max()) + 1
+    abs_x0, abs_y0 = sx0 + bx0, sy0 + by0
+    abs_x1, abs_y1 = sx0 + bx1, sy0 + by1
+    crop = arr[abs_y0:abs_y1, abs_x0:abs_x1].copy()
+    bezel = vis[by0:by1, bx0:bx1]
+    hl_c, ht_c = hl - abs_x0, ht - abs_y0
+    crop[~bezel] = 0
+    crop[ht_c : ht_c + hh, hl_c : hl_c + hw] = 0
+    return {
+        "crop": crop,
+        "vis": vis,
+        "sx0": sx0,
+        "sy0": sy0,
+        "bx0": bx0,
+        "by0": by0,
+        "bx1": bx1,
+        "by1": by1,
+        "abs": (abs_x0, abs_y0, abs_x1, abs_y1),
+        "hole_c": (hl_c, ht_c, hw, hh),
+    }
+
+
+def _thin_square_bezel(
+    crop: np.ndarray,
+    hl_c: int,
+    ht_c: int,
+    hw: int,
+    hh: int,
+    factor: float,
+) -> tuple[np.ndarray, tuple[int, int, int, int]]:
+    """Remap a square bezel ring to a thinner annulus; hole size unchanged."""
+    ch, cw = crop.shape[:2]
+    ring_l, ring_r = hl_c, cw - (hl_c + hw)
+    ring_t, ring_b = ht_c, ch - (ht_c + hh)
+    ln = max(1, int(round(ring_l * factor)))
+    rn = max(1, int(round(ring_r * factor)))
+    tn = max(1, int(round(ring_t * factor)))
+    bn = max(1, int(round(ring_b * factor)))
+    nw, nh = ln + hw + rn, tn + hh + bn
+    yy, xx = np.mgrid[0:nh, 0:nw].astype(np.float32)
+    nhl, nht = ln, tn
+
+    sx = np.empty_like(xx)
+    left = xx < nhl
+    t = (nhl - xx) / float(ln)
+    sx[left] = hl_c - t[left] * ring_l
+    right = xx >= nhl + hw
+    t = (xx - (nhl + hw - 1)) / float(rn)
+    sx[right] = (hl_c + hw - 1) + t[right] * ring_r
+    mid = ~left & ~right
+    sx[mid] = hl_c + (xx[mid] - nhl)
+
+    sy = np.empty_like(yy)
+    top = yy < nht
+    t = (nht - yy) / float(tn)
+    sy[top] = ht_c - t[top] * ring_t
+    bot = yy >= nht + hh
+    t = (yy - (nht + hh - 1)) / float(bn)
+    sy[bot] = (ht_c + hh - 1) + t[bot] * ring_b
+    midy = ~top & ~bot
+    sy[midy] = ht_c + (yy[midy] - nht)
+
+    sampled = _bilinear_sample_rgba(crop, sx, sy)
+    sampled[nht : nht + hh, nhl : nhl + hw] = 0
+    out = np.clip(sampled, 0, 255).astype(np.uint8)
+    out[out[:, :, 3] < 8] = 0
+    return out, (nhl, nht, hw, hh)
+
+
+def process_dialogue_noir_v11() -> None:
+    """Thin the v10 portrait bezel ring; keep the same square aperture + metal style.
+
+    Remaps the detached hammered-gunmetal ring to ~60% thickness so the portrait
+    reads larger without redesigning the stepped corners / dual ridges. Hole stays
+    at the v10 layout fractions (165,86 / 169×169).
+    """
+    src = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v10.png"
+    if not src.exists():
+        raise FileNotFoundError(f"Missing v10 runtime frame: {src}")
+    arr = np.array(Image.open(src).convert("RGBA"))
+    hl, ht, hw, hh = 165, 86, 169, 169
+    thin_factor = 0.60
+
+    info = _isolate_dialogue_portrait_bezel(arr, hl, ht, hw, hh)
+    crop = info["crop"]
+    hl_c, ht_c, chw, chh = info["hole_c"]
+    thin, (nhl, nht, _, _) = _thin_square_bezel(crop, hl_c, ht_c, chw, chh, thin_factor)
+
+    out = arr.copy()
+    vis = info["vis"]
+    sx0, sy0 = info["sx0"], info["sy0"]
+    bx0, by0, bx1, by1 = info["bx0"], info["by0"], info["bx1"], info["by1"]
+    for y in range(by0, by1):
+        for x in range(bx0, bx1):
+            if vis[y, x]:
+                out[sy0 + y, sx0 + x] = 0
+    out[ht : ht + hh, hl : hl + hw] = 0
+
+    paste_x, paste_y = hl - nhl, ht - nht
+    base = Image.fromarray(out, "RGBA")
+    base.alpha_composite(Image.fromarray(thin, "RGBA"), (paste_x, paste_y))
+    final = np.array(base)
+    final[ht : ht + hh, hl : hl + hw] = 0
+    # Match v10 cool gunmetal grade so the thinned ring doesn't read warmer.
+    rgb = final[:, :, :3].astype(np.float32)
+    a = final[:, :, 3]
+    opaque = a > 16
+    luma = rgb.mean(axis=2, keepdims=True)
+    rgb = np.where(opaque[..., None], luma * 0.82 + rgb * 0.18, rgb)
+    final = np.dstack([np.clip(rgb, 0, 255).astype(np.uint8), a])
+    final[ht : ht + hh, hl : hl + hw] = 0
+    final[final[:, :, 3] < 8] = 0
+    frame = Image.fromarray(final, "RGBA")
+
+    keyed_path = GEN / "Dialogue/dialogue_outer_frame_overlay_v11.png"
+    runtime_path = RUNTIME / "Dialogue/dialogue_outer_frame_overlay_v11.png"
+    frame.save(keyed_path)
+    runtime_path.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(runtime_path)
+    print(
+        f"wrote {keyed_path} ({frame.size}) hole=({hl},{ht}) {hw}x{hh} "
+        f"thin_factor={thin_factor} bezel={thin.shape[1]}x{thin.shape[0]}"
+    )
+    print(f"wrote {runtime_path}")
+
+    # Portrait preview for art review (Harlan if present).
+    portrait_path = RUNTIME / "Dialogue/dialogue_portrait_harlan_voss_v01.png"
+    if portrait_path.exists():
+        preview = Image.new("RGBA", frame.size, (8, 8, 10, 255))
+        photo = Image.open(portrait_path).convert("RGBA").resize(
+            (hw, hh), Image.Resampling.LANCZOS
+        )
+        preview.paste(photo, (hl, ht), photo)
+        preview.alpha_composite(frame)
+        preview_path = GEN / "Dialogue/dialogue_outer_frame_v11_portrait_preview.png"
+        preview.save(preview_path)
+        print(f"wrote {preview_path}")
+
+
 def process_dialogue_noir_v07() -> None:
     """Build sidebar-material V07/V06 art on the approved V06/V05 geometry."""
     frame_master = GEN / "Dialogue/dialogue_outer_frame_overlay_v07_gen.png"
@@ -963,6 +1168,7 @@ def process_dialogue_noir_v06() -> None:
 def process_dialogue() -> None:
     process_dialogue_noir_v08()
     process_dialogue_noir_v10()
+    process_dialogue_noir_v11()
     process_dialogue_command_v07()
     process_dialogue_noir_v07()
     process_dialogue_noir_v06()
@@ -1366,6 +1572,8 @@ def main() -> None:
         process_dialogue_noir_v09()
     if "dialogue-noir-v10" in targets:
         process_dialogue_noir_v10()
+    if "dialogue-noir-v11" in targets:
+        process_dialogue_noir_v11()
     if "dialogue-command-v07" in targets:
         process_dialogue_command_v07()
     if "scrollbar" in targets:
