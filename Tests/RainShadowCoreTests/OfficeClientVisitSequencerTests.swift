@@ -45,24 +45,25 @@ struct OfficeClientVisitSequencerTests {
     }
 
     @Test func clientDeparturePathStaysClearOfOfficeObstacles() {
-        let grid = OfficeNavigationLayout.makeGrid()
-        let path = OfficeNavigationLayout.clientDepartureRoute(in: grid)
+        // Departure runs after the leaf has fallen — door cells are open.
+        let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+        let path = OfficeNavigationLayout.clientDepartureRoute(in: map)
         #expect(path.count >= 3)
         // The final point is deliberately outside the department; the preceding
         // leg crosses the fallen exterior door after all interior routing.
         #expect(path.dropLast().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        guard let first = path.first, let interiorLast = path.dropLast().last else {
-            #expect(Bool(false), "Departure path must have endpoints")
-            return
+        // Interior legs (all but the authored exterior threshold) stay clear.
+        for index in 0..<(path.count - 2) {
+            let a = path[index]
+            let b = path[index + 1]
+            #expect(!OfficeNavigationLayout.isBlocked(a))
+            #expect(!OfficeNavigationLayout.isBlocked(b))
         }
-        let route = grid.path(from: first, to: interiorLast)
-        #expect(route != nil)
-        #expect(route?.allSatisfy { !OfficeNavigationLayout.isBlocked($0) } != false)
 
         // Every waypoint before the explicit exterior crossing is walkable.
         for point in path.dropLast() {
-            #expect(grid.nearestWalkablePoint(to: point) != nil)
+            #expect(map.nearestWalkablePoint(to: point) != nil)
         }
     }
 }

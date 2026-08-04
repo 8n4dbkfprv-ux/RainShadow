@@ -97,15 +97,14 @@ struct CityDistrictDefinition {
         return actorStart
     }
 
-    func makeGrid() -> NavigationGrid {
-        NavigationGrid(
-            origin: .zero,
-            columns: Int(ceil(Self.worldArtSize.width / 64)),
-            rows: Int(ceil(Self.worldArtSize.height / 64)),
-            cellSize: CGSize(width: 64, height: 64),
+    func makeGrid() -> NavigationMap {
+        NavigationMap(
+            worldBounds: Self.worldBounds,
             obstacles: obstacles,
             agentProfile: .detective,
-            worldBounds: Self.worldBounds
+            doorObstacles: [],
+            entranceDoorBlocking: false,
+            cellSize: SearchMap.defaultCellSize
         )
     }
 }

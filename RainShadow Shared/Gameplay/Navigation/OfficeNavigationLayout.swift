@@ -1386,9 +1386,6 @@ enum OfficeNavigationLayout {
         "office.door": CGPoint(x: 2_304, y: 1_306),
     ]
 
-    private static let authoredProjectionOrigin = CGPoint(x: 2_048, y: 155)
-    private static let authoredTileSize = CGSize(width: 128, height: 64)
-
     static var actorStart: CGPoint { OfficeInteriorScale.mapPoint(authoredActorStart) }
 
     static var emptyDeskChairWorldPosition: CGPoint {
@@ -1447,16 +1444,25 @@ enum OfficeNavigationLayout {
 
     static var clientDeparturePath: [CGPoint] { Array(clientArrivalPath.reversed()) }
 
-    /// Authored aperture polyline through the shipping painted doorway.
-    /// Do not A*-expand: snapping interior anchors onto nearest walkable
-    /// cells can walk the coat through frosted glass beside the real opening.
-    /// Anchors are collision-checked at layout generation.
-    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {
-        _ = navigation
-        return clientArrivalPath
+    /// Route Lila through the painted doorways via BG:EE Theta* between the
+    /// authored aperture anchors. The exterior threshold leg is prepended when
+    /// the pathfinder snaps the off-floor start onto the first walkable cell.
+    static func clientArrivalRoute(in navigation: NavigationMap) -> [CGPoint] {
+        let anchors = clientArrivalPath
+        guard let routed = navigation.waypoints(visiting: anchors), !routed.isEmpty else {
+            return anchors
+        }
+        // Preserve the authored exterior threshold crossing when the first
+        // anchor sits outside the search-map floor (BG cutscene entrance).
+        if let authoredStart = anchors.first,
+           let routedStart = routed.first,
+           hypot(authoredStart.x - routedStart.x, authoredStart.y - routedStart.y) > 0.25 {
+            return [authoredStart] + routed
+        }
+        return routed
     }
 
-    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {
+    static func clientDepartureRoute(in navigation: NavigationMap) -> [CGPoint] {
         Array(clientArrivalRoute(in: navigation).reversed())
     }
 
@@ -1666,25 +1672,21 @@ enum OfficeNavigationLayout {
         }
     }
 
-    /// - Parameter entranceDoorBlocking: When false, the upright exterior leaf
-    ///   obstacle is omitted (door has fallen / opening is clear).
-    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationGrid {
-        let gridObstacles: [CGRect]
-        if entranceDoorBlocking {
-            gridObstacles = obstacles
-        } else {
-            let door = doorObstacle
-            gridObstacles = obstacles.filter { $0 != door }
-        }
-        return NavigationGrid(
-            projection: .dimetric(
-                origin: OfficeInteriorScale.mapPoint(authoredProjectionOrigin),
-                tileSize: OfficeInteriorScale.mapSize(authoredTileSize)
-            ),
-            columns: 31,
-            rows: 31,
-            obstacles: gridObstacles,
-            agentProfile: .officeDetective
+    /// World-space bounds of the scaled office plate (BG search-map frame).
+    static var navigationWorldBounds: CGRect {
+        CGRect(origin: OfficeInteriorScale.shellOrigin, size: OfficeInteriorScale.scaledArtSize)
+    }
+
+    /// - Parameter entranceDoorBlocking: When false, exterior door cells are
+    ///   clear (door has fallen / opening is open). Toggle later via
+    ///   `NavigationMap.setEntranceDoorBlocking` without rebuilding.
+    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationMap {
+        NavigationMap(
+            worldBounds: navigationWorldBounds,
+            obstacles: obstacles,
+            agentProfile: .officeDetective,
+            doorObstacles: [doorObstacle],
+            entranceDoorBlocking: entranceDoorBlocking
         )
     }
 

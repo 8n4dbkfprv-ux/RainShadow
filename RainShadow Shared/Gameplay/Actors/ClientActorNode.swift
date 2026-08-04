@@ -14,6 +14,25 @@ final class ClientActorNode: SKNode {
     /// Wall-clock origin of the current departure walk cycle (for phase-continuous handoff).
     private var departureWalkPhaseOrigin: TimeInterval = 0
 
+    private var routeFollower = RouteFollower()
+    private var lastLocomotionUpdateTime: TimeInterval?
+    private var movementCompletion: (() -> Void)?
+    private var activePath: [CGPoint] = []
+    private var locomotionMode: LocomotionMode = .idle
+    private var activeDepartureBin: ClientDepartureFacing?
+    private var entranceFadeRemaining: TimeInterval = 0
+    private var exitFadeRemaining: TimeInterval = 0
+    private let lookAheadDistance: CGFloat = 48
+
+    private enum LocomotionMode {
+        case idle
+        case entrance
+        case exit
+        case bumped
+    }
+
+    var isLocomoting: Bool { routeFollower.isMoving || locomotionMode != .idle }
+
     override init() {
         // 8 authored walk phases + a final standing idle frame (index 08).
         arrivalTextures = (0..<(ActorLocomotionPacing.walkFramesPerCycle + 1)).compactMap {
@@ -67,6 +86,33 @@ final class ClientActorNode: SKNode {
         fatalError("ClientActorNode is created programmatically")
     }
 
+    /// BG:EE-style RouteFollower walk used for bump sidesteps and scripted moves.
+    func walk(path: [CGPoint], completion: (() -> Void)? = nil) {
+        guard let start = path.first else {
+            completion?()
+            return
+        }
+        removeAllActions()
+        body.removeAllActions()
+        clearDepartureHandoff()
+        body.position = .zero
+        body.alpha = 1
+        if isHidden {
+            position = start
+            isHidden = false
+            alpha = 1
+        }
+        locomotionMode = .bumped
+        activePath = path
+        movementCompletion = completion
+        lastLocomotionUpdateTime = nil
+        routeFollower.replaceRoute(with: Array(path.dropFirst()), from: position)
+        startArrivalWalkCycle()
+        if !routeFollower.isMoving {
+            finishLocomotion()
+        }
+    }
+
     func performEntrance(along points: [CGPoint], completion: @escaping () -> Void) {
         guard let start = points.first else {
             completion()
@@ -83,49 +129,19 @@ final class ClientActorNode: SKNode {
         position = start
         alpha = 0
         isHidden = false
-
-        let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
-        if walkingFrames.count == ActorLocomotionPacing.walkFramesPerCycle {
-            walkingFrames.forEach { $0.filteringMode = .nearest }
-            body.run(
-                .repeatForever(.animate(
-                    with: walkingFrames,
-                    timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
-                )),
-                withKey: "clientWalkCycle"
-            )
+        entranceFadeRemaining = 0.22
+        exitFadeRemaining = 0
+        locomotionMode = .entrance
+        activePath = points
+        activeDepartureBin = nil
+        movementCompletion = completion
+        lastLocomotionUpdateTime = nil
+        routeFollower.replaceRoute(with: Array(points.dropFirst()), from: start)
+        startArrivalWalkCycle()
+        if !routeFollower.isMoving {
+            alpha = 1
+            finishLocomotion()
         }
-
-        // Prefer pre-expanded walkable polylines (scene routes anchors through
-        // NavigationGrid). Skip zero-length micro-steps that can remain after
-        // snap/merge so timing stays stable.
-        var actions: [SKAction] = [.fadeIn(withDuration: 0.22)]
-        var prior = start
-        for destination in points.dropFirst() {
-            let distance = hypot(destination.x - prior.x, destination.y - prior.y)
-            guard distance > 0.25 else {
-                prior = destination
-                continue
-            }
-            let movement = SKAction.move(
-                to: destination,
-                duration: ActorLocomotionPacing.pathDuration(distance: distance)
-            )
-            movement.timingMode = .linear
-            actions.append(movement)
-            prior = destination
-        }
-        actions.append(.run { [weak self] in
-            guard let self else { return }
-            self.body.removeAction(forKey: "clientWalkCycle")
-            if let idle = self.arrivalTextures.last {
-                self.body.texture = idle
-                self.body.texture?.filteringMode = .nearest
-            }
-            self.startIdle()
-            completion()
-        })
-        run(.sequence(actions), withKey: "clientEntrance")
     }
 
     /// Wall-clock seek for QA captures when the SKView may not advance actions
@@ -139,6 +155,8 @@ final class ClientActorNode: SKNode {
         body.alpha = 1
         isHidden = false
         alpha = 1
+        locomotionMode = .idle
+        routeFollower.cancel()
 
         var prior = start
         var t = elapsed
@@ -193,6 +211,15 @@ final class ClientActorNode: SKNode {
         bodyHandoff.position = .zero
         body.alpha = 1
         position = start
+        alpha = 1
+        entranceFadeRemaining = 0
+        exitFadeRemaining = 0
+        locomotionMode = .exit
+        activePath = points
+        activeDepartureBin = nil
+        movementCompletion = completion
+        lastLocomotionUpdateTime = nil
+        routeFollower.replaceRoute(with: Array(points.dropFirst()), from: start)
 
         let expected = ActorLocomotionPacing.walkFramesPerCycle
         if departureNETextures.count != expected {
@@ -202,65 +229,142 @@ final class ClientActorNode: SKNode {
             assertionFailure("Expected \(expected) NW departure textures, found \(departureNWTextures.count)")
         }
 
-        // Facing uses a look-ahead along the remaining polyline so dense grid
-        // micro-steps (from NavigationGrid.waypoints) do not flip NW/NE strips
-        // every cell. Movement still visits every walkable point.
-        let lookAheadDistance: CGFloat = 48
-        var actions: [SKAction] = []
-        var prior = start
-        var activeBin: ClientDepartureFacing?
-        let pathPoints = points
-        for (index, destination) in pathPoints.dropFirst().enumerated() {
-            let stepIndex = index + 1
-            let dxStep = destination.x - prior.x
-            let dyStep = destination.y - prior.y
-            let stepDistance = hypot(dxStep, dyStep)
-            if stepDistance <= 0.25 {
-                prior = destination
-                continue
-            }
+        updateDepartureFacing(fromIndex: 0)
+        if !routeFollower.isMoving {
+            finishLocomotion()
+        }
+    }
 
-            let look = ClientDepartureFacing.lookAheadVector(
-                along: pathPoints,
-                fromIndex: stepIndex - 1,
-                minimumDistance: lookAheadDistance
-            )
-            let bin = ClientDepartureFacing.bin(dx: look.dx, dy: look.dy)
-            if activeBin != bin {
-                let textures = departureTextures(for: bin)
-                let crossfade = activeBin != nil
-                actions.append(.run { [weak self] in
-                    self?.startDepartureWalkCycle(textures, crossfade: crossfade)
-                })
-                activeBin = bin
-            }
+    /// Advances RouteFollower locomotion from the scene clock (BG P-regulator).
+    func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
+        defer { lastLocomotionUpdateTime = currentTime }
+        guard !worldIsPaused, locomotionMode != .idle else { return }
 
-            let movement = SKAction.move(
-                to: destination,
-                duration: ActorLocomotionPacing.pathDuration(distance: stepDistance)
+        let previousTime = lastLocomotionUpdateTime
+        let deltaTime: TimeInterval
+        if let previousTime {
+            deltaTime = min(
+                max(0, currentTime - previousTime),
+                ActorLocomotionPacing.maximumFrameDelta
             )
-            movement.timingMode = .linear
-            actions.append(movement)
-            prior = destination
+        } else {
+            // First tick after a route is armed — spend no movement yet.
+            return
+        }
+        guard deltaTime > 0 else { return }
+
+        if entranceFadeRemaining > 0 {
+            entranceFadeRemaining = max(0, entranceFadeRemaining - deltaTime)
+            alpha = max(0, min(1, 1 - CGFloat(entranceFadeRemaining / 0.22)))
         }
 
-        if activeBin == nil {
-            // Degenerate single-point path — still try to show a strip if available.
-            actions.insert(.run { [weak self] in
-                guard let self else { return }
-                self.startDepartureWalkCycle(self.departureTextures(for: .northEast), crossfade: false)
-            }, at: 0)
+        if exitFadeRemaining > 0 {
+            exitFadeRemaining = max(0, exitFadeRemaining - deltaTime)
+            alpha = max(0, min(1, CGFloat(exitFadeRemaining / 0.2)))
+            if exitFadeRemaining <= 0 {
+                finishExitFade()
+            }
+            return
         }
 
-        actions.append(.fadeOut(withDuration: 0.2))
-        actions.append(.run { [weak self] in
-            guard let self else { return }
-            self.body.removeAction(forKey: "clientWalkCycle")
-            self.clearDepartureHandoff()
-            self.isHidden = true
-            completion()
-        })
-        run(.sequence(actions), withKey: "clientExit")
+        guard routeFollower.isMoving else {
+            if locomotionMode == .exit {
+                beginExitFade()
+            } else {
+                finishLocomotion()
+            }
+            return
+        }
+
+        let step = routeFollower.advance(
+            from: position,
+            deltaTime: deltaTime,
+            speed: ActorLocomotionPacing.walkSpeed
+        )
+        position = step.position
+
+        if locomotionMode == .exit {
+            let fromIndex = max(0, activePath.count - routeFollower.waypoints.count - 1)
+            updateDepartureFacing(fromIndex: fromIndex)
+        }
+
+        if step.didArrive {
+            if locomotionMode == .exit {
+                beginExitFade()
+            } else {
+                finishLocomotion()
+            }
+        }
+    }
+
+    // MARK: - Private
+
+    private func startArrivalWalkCycle() {
+        let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
+        guard walkingFrames.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
+        walkingFrames.forEach { $0.filteringMode = .nearest }
+        body.removeAction(forKey: "clientWalkCycle")
+        body.run(
+            .repeatForever(.animate(
+                with: walkingFrames,
+                timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
+            )),
+            withKey: "clientWalkCycle"
+        )
+    }
+
+    private func updateDepartureFacing(fromIndex: Int) {
+        let look = ClientDepartureFacing.lookAheadVector(
+            along: activePath,
+            fromIndex: max(0, min(fromIndex, max(0, activePath.count - 2))),
+            minimumDistance: lookAheadDistance
+        )
+        let bin = ClientDepartureFacing.bin(dx: look.dx, dy: look.dy)
+        if activeDepartureBin != bin {
+            let crossfade = activeDepartureBin != nil
+            startDepartureWalkCycle(departureTextures(for: bin), crossfade: crossfade)
+            activeDepartureBin = bin
+        } else if activeDepartureBin == nil {
+            startDepartureWalkCycle(departureTextures(for: .northEast), crossfade: false)
+            activeDepartureBin = .northEast
+        }
+    }
+
+    private func beginExitFade() {
+        body.removeAction(forKey: "clientWalkCycle")
+        clearDepartureHandoff()
+        exitFadeRemaining = 0.2
+    }
+
+    private func finishExitFade() {
+        isHidden = true
+        alpha = 1
+        finishLocomotion()
+    }
+
+    private func finishLocomotion() {
+        let completion = movementCompletion
+        movementCompletion = nil
+        routeFollower.cancel()
+        let mode = locomotionMode
+        locomotionMode = .idle
+        activePath = []
+        body.removeAction(forKey: "clientWalkCycle")
+        clearDepartureHandoff()
+
+        switch mode {
+        case .entrance, .bumped:
+            if let idle = arrivalTextures.last {
+                body.texture = idle
+                body.texture?.filteringMode = .nearest
+            }
+            startIdle()
+        case .exit:
+            break
+        case .idle:
+            break
+        }
+        completion?()
     }
 
     private func departureTextures(for bin: ClientDepartureFacing) -> [SKTexture] {

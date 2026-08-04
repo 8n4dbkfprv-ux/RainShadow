@@ -197,7 +197,7 @@ enum CityDistrictLayout {
         return bodyMultiple(contentHeight: doorLeafHeight, scale: scale)
     }
 
-    static func makeGrid() -> NavigationGrid {
+    static func makeGrid() -> NavigationMap {
         CityDistrictCatalog.sableRow.makeGrid()
     }
 

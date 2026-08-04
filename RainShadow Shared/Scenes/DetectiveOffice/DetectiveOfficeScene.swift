@@ -25,8 +25,15 @@ final class DetectiveOfficeScene: BaseGameScene {
     private let areaMapOverlay = AreaMapOverlay()
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
-    private var navigation: NavigationGrid!
+    private var navigation: NavigationMap!
     private var hotspots: [OfficeHotspot] = []
+    /// BG:EE Enhanced Path Search — last corrective repath wall-clock time.
+    private var lastCorrectiveRepathTime: TimeInterval = 0
+    private var pendingMovementDestination: CGPoint?
+    private var pendingBumpReturn: [String: CGPoint] = [:]
+    private static let detectiveActorID = "detective.voss"
+    private static let clientActorID = "client.lila"
+    private static let correctiveRepathInterval: TimeInterval = 0.75
     private struct HotspotHoverSprite {
         let sprite: SKSpriteNode
         let normalTexture: SKTexture
@@ -388,7 +395,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             // Use GCD — SKAction waits do not fire when the capture launch has
             // no drawable / does not tick the scene.
             if ProcessInfo.processInfo.environment["RAINSHADOW_FORCE_CLIENT_ENTRANCE"] == "1" {
-                navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+                navigation.setEntranceDoorBlocking(false)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
                     self?.beginClientEntranceIfNeeded()
                 }
@@ -662,13 +669,17 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        detective.updateLocomotion(
-            at: currentTime,
-            worldIsPaused: dialogueIsActive
-                || mapIsPresented
-                || journalIsPresented
-                || inventoryIsPresented
-        )
+        let worldIsPaused = dialogueIsActive
+            || mapIsPresented
+            || journalIsPresented
+            || inventoryIsPresented
+        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
+        client.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
+        if !worldIsPaused {
+            updateActorOccupancy()
+            performCorrectiveRepathIfNeeded(at: currentTime)
+            processBumpRequests()
+        }
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -791,7 +802,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] != "1" {
             animateDoorFalling()
         } else {
-            navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+            navigation.setEntranceDoorBlocking(false)
         }
         // The first leg is authored across the actual exterior threshold (its
         // start is outside the nav floor). Exact interior anchors then clear the
@@ -799,6 +810,13 @@ final class DetectiveOfficeScene: BaseGameScene {
         let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
         clientEntrancePath = path
         clientEntranceStartedAt = ProcessInfo.processInfo.systemUptime
+        navigation.registerActor(
+            id: Self.clientActorID,
+            kind: .npc,
+            at: path.first ?? OfficeNavigationLayout.actorStart,
+            radius: NavigationAgentProfile.officeClient.radius,
+            isMoving: true
+        )
         client.performEntrance(along: path) { [weak self] in
             guard let self else { return }
             // End entrance cutscene: open the deferred monologue page (post-cue).
@@ -988,14 +1006,74 @@ final class DetectiveOfficeScene: BaseGameScene {
     ) {
         guard let route = navigation.route(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
+            pendingMovementDestination = nil
             return
         }
         guard !requiresExactDestination || !route.destinationWasAdjusted else {
             showMovementFeedback(at: target, isValid: false)
+            pendingMovementDestination = nil
             return
         }
         showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        detective.walk(path: route.waypoints, completion: completion)
+        pendingMovementDestination = route.resolvedDestination
+        detective.walk(path: route.waypoints, completion: { [weak self] in
+            self?.pendingMovementDestination = nil
+            completion?()
+        })
+    }
+
+    private func updateActorOccupancy() {
+        navigation.updateActor(
+            id: Self.detectiveActorID,
+            position: detective.position,
+            isMoving: detective.movementDestination != nil
+        )
+        if !client.isHidden {
+            navigation.updateActor(
+                id: Self.clientActorID,
+                position: client.position,
+                isMoving: client.isLocomoting
+            )
+        } else {
+            navigation.unregisterActor(id: Self.clientActorID)
+        }
+    }
+
+    /// BG:EE Enhanced Path Search — periodically recompute while walking so a
+    /// cleared bottleneck (door, bumped NPC) yields a shorter path.
+    private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
+        guard let destination = pendingMovementDestination,
+              detective.movementDestination != nil,
+              currentTime - lastCorrectiveRepathTime >= Self.correctiveRepathInterval else {
+            return
+        }
+        lastCorrectiveRepathTime = currentTime
+        guard let repath = navigation.repath(from: detective.position, to: destination),
+              !repath.isEmpty else {
+            return
+        }
+        detective.walk(path: repath, completion: { [weak self] in
+            self?.pendingMovementDestination = nil
+        })
+    }
+
+    private func processBumpRequests() {
+        guard detective.movementDestination != nil else { return }
+        if let bump = navigation.occupancy.bumpRequest(
+            forMover: Self.detectiveActorID,
+            at: detective.position,
+            moverRadius: navigation.agentProfile.radius
+        ) {
+            pendingBumpReturn[bump.actorID] = bump.returnPoint
+            if bump.actorID == Self.clientActorID, !client.isHidden {
+                client.walk(path: [bump.sidestepPoint]) { [weak self] in
+                    guard let self,
+                          let returnPoint = self.pendingBumpReturn.removeValue(forKey: bump.actorID)
+                    else { return }
+                    self.client.walk(path: [returnPoint])
+                }
+            }
+        }
     }
 
     private func setInventoryPresented(_ presented: Bool) {
@@ -1076,6 +1154,12 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     private func configureNavigation() {
         navigation = OfficeNavigationLayout.makeGrid()
+        navigation.registerActor(
+            id: Self.detectiveActorID,
+            kind: .player,
+            at: OfficeNavigationLayout.actorStart,
+            radius: NavigationAgentProfile.officeDetective.radius
+        )
     }
 
     private func configureHotspots() {
@@ -1906,7 +1990,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         officeDoorFallShadow = shadow
 
         // Upright leaf is gone — open the exterior threshold for pathfinding.
-        navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+        navigation.setEntranceDoorBlocking(false)
     }
 
     /// Lila's entrance knocks the already damaged leaf free. A projective warp
@@ -1980,7 +2064,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             )
             landedTransition?.removeFromParent()
             // Threshold is open once the upright leaf is gone.
-            self.navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+            self.navigation.setEntranceDoorBlocking(false)
         }
         let motion = SKAction.sequence([
             wait,
@@ -2066,7 +2150,7 @@ final class DetectiveOfficeScene: BaseGameScene {
                     officeDoor.move(toParent: self.rearFixtureRoot)
                     officeDoor.zPosition = 0
                     // Leaf is upright again — block the exterior threshold.
-                    self.navigation = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: true)
+                    self.navigation.setEntranceDoorBlocking(true)
                 }
             ]),
             withKey: "officeDoorMotion"

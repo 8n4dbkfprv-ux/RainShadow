@@ -1,0 +1,478 @@
+import CoreGraphics
+import Foundation
+
+/// One search-map cell, matching Infinity Engine / BG:EE search-map indexing.
+struct SearchMapCell: Hashable, Sendable {
+    let column: Int
+    let row: Int
+}
+
+/// Per-cell flags mirroring GemRB `PathMapFlags` for the subset RainShadow needs.
+struct SearchMapFlags: OptionSet, Hashable, Sendable {
+    let rawValue: UInt8
+
+    init(rawValue: UInt8) {
+        self.rawValue = rawValue
+    }
+
+    /// Cell is walkable terrain (set at rasterization for open floor).
+    static let passable = SearchMapFlags(rawValue: 1 << 0)
+    /// Closed / blocking door leaf stamped at runtime.
+    static let doorImpassable = SearchMapFlags(rawValue: 1 << 1)
+    /// Player character occupancy stamp.
+    static let playerActor = SearchMapFlags(rawValue: 1 << 2)
+    /// NPC occupancy stamp.
+    static let npcActor = SearchMapFlags(rawValue: 1 << 3)
+
+    static let actor: SearchMapFlags = [.playerActor, .npcActor]
+    /// Area terrain bits that survive actor/door restamps.
+    static let areaMask: SearchMapFlags = [.passable]
+}
+
+/// BG:EE-style world-space search map: a byte-per-cell raster in screen/world
+/// space (default 16×12 unit cells). Pathfinding expands on these cells;
+/// movement follows any-angle waypoints in world space.
+final class SearchMap {
+    /// Infinity Engine search-map cell footprint in world units.
+    static let defaultCellSize = CGSize(width: 16, height: 12)
+
+    let origin: CGPoint
+    let columns: Int
+    let rows: Int
+    let cellSize: CGSize
+    let worldBounds: CGRect
+
+    private var cells: [UInt8]
+
+    /// Authored static obstacle AABBs used for line-of-sight segment tests at
+    /// world resolution (Theta* shortcuts), independent of the coarse raster.
+    private(set) var staticObstacles: [CGRect]
+
+    /// Door leaf AABBs that can be stamped/cleared without rebuilding the map.
+    private var doorObstacles: [CGRect] = []
+
+    var cellCount: Int { columns * rows }
+
+    var impassableCellCount: Int {
+        var count = 0
+        for flags in cells where !isTerrainPassable(SearchMapFlags(rawValue: flags)) {
+            count += 1
+        }
+        return count
+    }
+
+    init(
+        worldBounds: CGRect,
+        obstacles: [CGRect],
+        cellSize: CGSize = SearchMap.defaultCellSize,
+        doorObstacles: [CGRect] = []
+    ) {
+        precondition(cellSize.width > 0 && cellSize.height > 0)
+        let bounds = worldBounds.standardized
+        precondition(!bounds.isNull && !bounds.isEmpty)
+        self.worldBounds = bounds
+        self.origin = bounds.origin
+        self.cellSize = cellSize
+        self.columns = max(1, Int(ceil(bounds.width / cellSize.width)))
+        self.rows = max(1, Int(ceil(bounds.height / cellSize.height)))
+        self.staticObstacles = obstacles.map(\.standardized)
+        self.doorObstacles = doorObstacles.map(\.standardized)
+        self.cells = Array(repeating: SearchMapFlags.passable.rawValue, count: columns * rows)
+        rasterizeStaticObstacles()
+        if !self.doorObstacles.isEmpty {
+            stampDoors(blocking: true)
+        }
+    }
+
+    // MARK: - Coordinate conversion
+
+    func cell(for point: CGPoint) -> SearchMapCell {
+        SearchMapCell(
+            column: Int(floor((point.x - origin.x) / cellSize.width)),
+            row: Int(floor((point.y - origin.y) / cellSize.height))
+        )
+    }
+
+    func center(of cell: SearchMapCell) -> CGPoint {
+        CGPoint(
+            x: origin.x + (CGFloat(cell.column) + 0.5) * cellSize.width,
+            y: origin.y + (CGFloat(cell.row) + 0.5) * cellSize.height
+        )
+    }
+
+    func contains(_ cell: SearchMapCell) -> Bool {
+        cell.column >= 0 && cell.column < columns && cell.row >= 0 && cell.row < rows
+    }
+
+    func contains(_ point: CGPoint) -> Bool {
+        let epsilon: CGFloat = 0.001
+        return point.x >= worldBounds.minX - epsilon
+            && point.x <= worldBounds.maxX + epsilon
+            && point.y >= worldBounds.minY - epsilon
+            && point.y <= worldBounds.maxY + epsilon
+    }
+
+    // MARK: - Queries
+
+    func flags(at cell: SearchMapCell) -> SearchMapFlags {
+        guard contains(cell) else { return [] }
+        return SearchMapFlags(rawValue: cells[index(of: cell)])
+    }
+
+    func flags(at point: CGPoint) -> SearchMapFlags {
+        flags(at: cell(for: point))
+    }
+
+    /// True when the cell's terrain allows walking (ignores actor stamps).
+    func isTerrainPassable(_ flags: SearchMapFlags) -> Bool {
+        flags.contains(.passable) && !flags.contains(.doorImpassable)
+    }
+
+    /// Point query with optional actor radius (BG circle-size clearance).
+    func blocked(
+        at point: CGPoint,
+        radius: CGFloat = 0,
+        treatActorsAsBlocking: Bool = false
+    ) -> SearchMapFlags {
+        if radius <= 0 {
+            var flags = flags(at: point)
+            if !contains(point) {
+                return []
+            }
+            if !treatActorsAsBlocking {
+                flags.subtract(.actor)
+            }
+            return flags
+        }
+        return blockedInRadius(
+            at: point,
+            radius: radius,
+            treatActorsAsBlocking: treatActorsAsBlocking
+        )
+    }
+
+    func isPassable(
+        at point: CGPoint,
+        radius: CGFloat = 0,
+        treatActorsAsBlocking: Bool = false
+    ) -> Bool {
+        guard contains(point) else { return false }
+        // Search-map boundary is solid, matching BG / prior NavigationGrid.
+        if radius > 0 {
+            let inset = worldBounds.insetBy(dx: radius, dy: radius)
+            if inset.isNull || inset.isEmpty || !inset.contains(point) {
+                return false
+            }
+        }
+        if discOverlapsObstacle(at: point, radius: radius) {
+            return false
+        }
+        let flags = blocked(
+            at: point,
+            radius: radius,
+            treatActorsAsBlocking: treatActorsAsBlocking
+        )
+        guard isTerrainPassable(flags) else { return false }
+        if treatActorsAsBlocking, flags.contains(.actor) {
+            return false
+        }
+        return true
+    }
+
+    /// True when a disc of `radius` (or the point itself) overlaps a static or
+    /// door obstacle AABB — BG circle-size clearance against painted solids.
+    func discOverlapsObstacle(at point: CGPoint, radius: CGFloat) -> Bool {
+        if radius <= 0 {
+            return staticObstacles.contains(where: { $0.contains(point) })
+                || doorObstacles.contains(where: { $0.contains(point) })
+        }
+        let probe = CGRect(
+            x: point.x - radius,
+            y: point.y - radius,
+            width: radius * 2,
+            height: radius * 2
+        )
+        for obstacle in staticObstacles + doorObstacles {
+            if obstacle.intersects(probe) {
+                // Refine the axis-aligned probe with a true circle test against
+                // the obstacle's closest point so diagonal clearance stays fair.
+                let closest = CGPoint(
+                    x: min(max(point.x, obstacle.minX), obstacle.maxX),
+                    y: min(max(point.y, obstacle.minY), obstacle.maxY)
+                )
+                let dx = closest.x - point.x
+                let dy = closest.y - point.y
+                if dx * dx + dy * dy <= radius * radius {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    func isPassable(
+        cell: SearchMapCell,
+        radius: CGFloat = 0,
+        treatActorsAsBlocking: Bool = false
+    ) -> Bool {
+        guard contains(cell) else { return false }
+        return isPassable(
+            at: center(of: cell),
+            radius: radius,
+            treatActorsAsBlocking: treatActorsAsBlocking
+        )
+    }
+
+    /// Samples a disc of `radius` world units for any non-passable / actor cell.
+    func blockedInRadius(
+        at point: CGPoint,
+        radius: CGFloat,
+        treatActorsAsBlocking: Bool = false
+    ) -> SearchMapFlags {
+        guard radius > 0 else {
+            return blocked(at: point, radius: 0, treatActorsAsBlocking: treatActorsAsBlocking)
+        }
+
+        let minCell = cell(for: CGPoint(x: point.x - radius, y: point.y - radius))
+        let maxCell = cell(for: CGPoint(x: point.x + radius, y: point.y + radius))
+        var combined: SearchMapFlags = [.passable]
+        var sawImpassable = false
+        let radiusSquared = radius * radius
+
+        for column in minCell.column...maxCell.column {
+            for row in minCell.row...maxCell.row {
+                let candidate = SearchMapCell(column: column, row: row)
+                guard contains(candidate) else {
+                    sawImpassable = true
+                    continue
+                }
+                let center = center(of: candidate)
+                let dx = center.x - point.x
+                let dy = center.y - point.y
+                guard dx * dx + dy * dy <= radiusSquared else { continue }
+
+                var flags = flags(at: candidate)
+                if !treatActorsAsBlocking {
+                    flags.subtract(.actor)
+                }
+                if !isTerrainPassable(flags) || (treatActorsAsBlocking && flags.contains(.actor)) {
+                    sawImpassable = true
+                }
+                combined.formUnion(flags)
+            }
+        }
+
+        if sawImpassable {
+            combined.remove(.passable)
+        }
+        return combined
+    }
+
+    /// Bresenham / supercover line test used by Theta* LOS and walkability.
+    func blockedInLine(
+        from start: CGPoint,
+        to end: CGPoint,
+        radius: CGFloat = 0,
+        treatActorsAsBlocking: Bool = false,
+        stopOnImpassable: Bool = true
+    ) -> SearchMapFlags {
+        guard contains(start), contains(end) else { return [] }
+
+        // World-resolution obstacle segment test (navmap fidelity).
+        if segmentCrossesStaticObstacle(from: start, to: end) {
+            return []
+        }
+        if doorObstacles.contains(where: {
+            segmentIntersectsInterior(from: start, to: end, of: $0)
+        }) {
+            return []
+        }
+
+        let length = hypot(end.x - start.x, end.y - start.y)
+        let step = max(1, min(cellSize.width, cellSize.height) * 0.25)
+        let samples = max(1, Int(ceil(length / step)))
+        var combined: SearchMapFlags = [.passable]
+
+        for sample in 0...samples {
+            let t = CGFloat(sample) / CGFloat(samples)
+            let point = CGPoint(
+                x: start.x + (end.x - start.x) * t,
+                y: start.y + (end.y - start.y) * t
+            )
+            let flags = blocked(
+                at: point,
+                radius: radius,
+                treatActorsAsBlocking: treatActorsAsBlocking
+            )
+            if !isTerrainPassable(flags) || (treatActorsAsBlocking && flags.contains(.actor)) {
+                if stopOnImpassable {
+                    return flags.subtracting(.passable)
+                }
+            }
+            combined.formUnion(flags)
+        }
+        return combined
+    }
+
+    func isWalkableLine(
+        from start: CGPoint,
+        to end: CGPoint,
+        radius: CGFloat = 0,
+        treatActorsAsBlocking: Bool = false
+    ) -> Bool {
+        let length = hypot(end.x - start.x, end.y - start.y)
+        let step = max(1, min(cellSize.width, cellSize.height) * 0.25)
+        let samples = max(1, Int(ceil(length / step)))
+        for sample in 0...samples {
+            let t = CGFloat(sample) / CGFloat(samples)
+            let point = CGPoint(
+                x: start.x + (end.x - start.x) * t,
+                y: start.y + (end.y - start.y) * t
+            )
+            if discOverlapsObstacle(at: point, radius: radius) {
+                return false
+            }
+        }
+        let flags = blockedInLine(
+            from: start,
+            to: end,
+            radius: radius,
+            treatActorsAsBlocking: treatActorsAsBlocking,
+            stopOnImpassable: true
+        )
+        return isTerrainPassable(flags) && !(treatActorsAsBlocking && flags.contains(.actor))
+    }
+
+    // MARK: - Stamping
+
+    /// Stamp or clear door-impassable cells for the registered door obstacles.
+    func stampDoors(blocking: Bool) {
+        for rect in doorObstacles {
+            stamp(rect: rect, flag: .doorImpassable, set: blocking)
+        }
+    }
+
+    func setDoorObstacles(_ rects: [CGRect], blocking: Bool) {
+        // Clear previous door stamps first.
+        stampDoors(blocking: false)
+        doorObstacles = rects.map(\.standardized)
+        stampDoors(blocking: blocking)
+    }
+
+    func stampActor(
+        at point: CGPoint,
+        radius: CGFloat,
+        flag: SearchMapFlags,
+        set: Bool
+    ) {
+        precondition(flag == .playerActor || flag == .npcActor)
+        stamp(circleAt: point, radius: max(radius, 1), flag: flag, set: set)
+    }
+
+    func clearActorFlags() {
+        for index in cells.indices {
+            cells[index] &= ~SearchMapFlags.actor.rawValue
+        }
+    }
+
+    // MARK: - Private
+
+    private func index(of cell: SearchMapCell) -> Int {
+        cell.row * columns + cell.column
+    }
+
+    private func rasterizeStaticObstacles() {
+        for column in 0..<columns {
+            for row in 0..<rows {
+                let cell = SearchMapCell(column: column, row: row)
+                let point = center(of: cell)
+                if !contains(point) || staticObstacles.contains(where: { $0.contains(point) }) {
+                    cells[index(of: cell)] = 0
+                } else {
+                    cells[index(of: cell)] = SearchMapFlags.passable.rawValue
+                }
+            }
+        }
+    }
+
+    private func stamp(rect: CGRect, flag: SearchMapFlags, set: Bool) {
+        let bounds = rect.standardized
+        let minCell = cell(for: CGPoint(x: bounds.minX, y: bounds.minY))
+        let maxCell = cell(for: CGPoint(x: bounds.maxX, y: bounds.maxY))
+        for column in minCell.column...maxCell.column {
+            for row in minCell.row...maxCell.row {
+                let candidate = SearchMapCell(column: column, row: row)
+                guard contains(candidate) else { continue }
+                let center = center(of: candidate)
+                guard bounds.contains(center) else { continue }
+                let idx = index(of: candidate)
+                if set {
+                    cells[idx] |= flag.rawValue
+                } else {
+                    cells[idx] &= ~flag.rawValue
+                }
+            }
+        }
+    }
+
+    private func stamp(circleAt point: CGPoint, radius: CGFloat, flag: SearchMapFlags, set: Bool) {
+        let minCell = cell(for: CGPoint(x: point.x - radius, y: point.y - radius))
+        let maxCell = cell(for: CGPoint(x: point.x + radius, y: point.y + radius))
+        let radiusSquared = radius * radius
+        for column in minCell.column...maxCell.column {
+            for row in minCell.row...maxCell.row {
+                let candidate = SearchMapCell(column: column, row: row)
+                guard contains(candidate) else { continue }
+                let center = center(of: candidate)
+                let dx = center.x - point.x
+                let dy = center.y - point.y
+                guard dx * dx + dy * dy <= radiusSquared else { continue }
+                let idx = index(of: candidate)
+                if set {
+                    cells[idx] |= flag.rawValue
+                } else {
+                    cells[idx] &= ~flag.rawValue
+                }
+            }
+        }
+    }
+
+    private func segmentCrossesStaticObstacle(from start: CGPoint, to end: CGPoint) -> Bool {
+        staticObstacles.contains {
+            segmentIntersectsInterior(from: start, to: end, of: $0)
+        }
+    }
+
+    /// Exact segment/rectangle clipping. A tiny inset keeps merely touching an
+    /// authored obstacle edge legal (same rule as the prior NavigationGrid).
+    private func segmentIntersectsInterior(
+        from start: CGPoint,
+        to end: CGPoint,
+        of obstacle: CGRect
+    ) -> Bool {
+        let rect = obstacle.standardized
+        guard rect.width > 0, rect.height > 0 else { return false }
+        let interior = rect.insetBy(
+            dx: min(0.001, rect.width * 0.25),
+            dy: min(0.001, rect.height * 0.25)
+        )
+        let deltaX = end.x - start.x
+        let deltaY = end.y - start.y
+        var minimumT: CGFloat = 0
+        var maximumT: CGFloat = 1
+
+        func clip(origin: CGFloat, delta: CGFloat, lower: CGFloat, upper: CGFloat) -> Bool {
+            if abs(delta) <= CGFloat.ulpOfOne {
+                return origin >= lower && origin <= upper
+            }
+            let first = (lower - origin) / delta
+            let second = (upper - origin) / delta
+            minimumT = max(minimumT, min(first, second))
+            maximumT = min(maximumT, max(first, second))
+            return minimumT <= maximumT
+        }
+
+        return clip(origin: start.x, delta: deltaX, lower: interior.minX, upper: interior.maxX)
+            && clip(origin: start.y, delta: deltaY, lower: interior.minY, upper: interior.maxY)
+    }
+}

@@ -417,10 +417,13 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func everyOfficeHotspotApproachIsReachableAfterScale() {
-        let grid = OfficeNavigationLayout.makeGrid()
+        let map = OfficeNavigationLayout.makeGrid()
         for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
-            let path = grid.path(from: OfficeNavigationLayout.actorStart, to: destination)
-            #expect(path?.isEmpty == false, "Expected a route to \(hotspotID) after interior scale")
+            let route = map.route(from: OfficeNavigationLayout.actorStart, to: destination)
+            #expect(
+                route?.waypoints.isEmpty == false,
+                "Expected a route to \(hotspotID) after interior scale"
+            )
         }
     }
 
@@ -632,12 +635,14 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func pathToDoorApproachNeverEntersDoorObstacle() {
-        let grid = OfficeNavigationLayout.makeGrid()
+        let map = OfficeNavigationLayout.makeGrid()
         let destination = OfficeNavigationLayout.approachPoints["office.door"]!
-        let path = grid.path(from: OfficeNavigationLayout.actorStart, to: destination)
-        #expect(path?.isEmpty == false)
+        let route = map.route(from: OfficeNavigationLayout.actorStart, to: destination)
+        #expect(route?.waypoints.isEmpty == false)
         #expect(!OfficeNavigationLayout.doorObstacle.contains(destination))
-        #expect(path?.allSatisfy { !OfficeNavigationLayout.doorObstacle.contains($0) } == true)
+        #expect(
+            route?.waypoints.allSatisfy { !OfficeNavigationLayout.doorObstacle.contains($0) } == true
+        )
     }
 
     @Test func pathAcrossDoorwayIsBlockedOrRoutedAround() {
@@ -735,13 +740,15 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func hotspotApproachesStayOutsideObstaclesAndAvoidThemOnPath() {
-        let grid = OfficeNavigationLayout.makeGrid()
+        let map = OfficeNavigationLayout.makeGrid()
         for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
             #expect(!OfficeNavigationLayout.isBlocked(destination), "Approach \(hotspotID) must sit outside obstacles")
-            let path = grid.path(from: OfficeNavigationLayout.actorStart, to: destination)
-            #expect(path?.isEmpty == false, "Expected a route to \(hotspotID)")
-            #expect(path?.allSatisfy { !OfficeNavigationLayout.isBlocked($0) } == true,
-                    "Path to \(hotspotID) entered an office obstacle")
+            let route = map.route(from: OfficeNavigationLayout.actorStart, to: destination)
+            #expect(route?.waypoints.isEmpty == false, "Expected a route to \(hotspotID)")
+            #expect(
+                route?.waypoints.allSatisfy { !OfficeNavigationLayout.isBlocked($0) } == true,
+                "Path to \(hotspotID) entered an office obstacle"
+            )
         }
     }
 

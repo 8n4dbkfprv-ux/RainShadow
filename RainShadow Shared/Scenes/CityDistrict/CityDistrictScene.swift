@@ -16,12 +16,16 @@ final class CityDistrictScene: BaseGameScene {
     private lazy var areaMapOverlay = AreaMapOverlay(configuration: makeMapConfiguration())
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: CityFogOfWarNode?
-    private var navigation: NavigationGrid!
+    private var navigation: NavigationMap!
     private var inventoryIsPresented = false
     private var mapIsPresented = false
     private var journalIsPresented = false
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
+    private var pendingMovementDestination: CGPoint?
+    private var lastCorrectiveRepathTime: TimeInterval = 0
+    private static let detectiveActorID = "detective.voss"
+    private static let correctiveRepathInterval: TimeInterval = 0.75
 
     override var referenceVisibleHeight: CGFloat { CityDistrictDefinition.cameraVisibleHeight }
 
@@ -54,6 +58,12 @@ final class CityDistrictScene: BaseGameScene {
         navigation = district.makeGrid()
         detective.position = district.spawnPoint(arrivalKey: arrivalKey)
         detective.beginOpenWorldStanding()
+        navigation.registerActor(
+            id: Self.detectiveActorID,
+            kind: .player,
+            at: detective.position,
+            radius: NavigationAgentProfile.detective.radius
+        )
         context.session.recordCityFogReveal(district.id, point: detective.position)
         updateDepth(of: detective)
         depthWorldRoot.addChild(detective)
@@ -263,10 +273,26 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        detective.updateLocomotion(
-            at: currentTime,
-            worldIsPaused: mapIsPresented || journalIsPresented || inventoryIsPresented
-        )
+        let worldIsPaused = mapIsPresented || journalIsPresented || inventoryIsPresented
+        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
+        if !worldIsPaused {
+            navigation.updateActor(
+                id: Self.detectiveActorID,
+                position: detective.position,
+                isMoving: detective.movementDestination != nil
+            )
+            if let destination = pendingMovementDestination,
+               detective.movementDestination != nil,
+               currentTime - lastCorrectiveRepathTime >= Self.correctiveRepathInterval {
+                lastCorrectiveRepathTime = currentTime
+                if let repath = navigation.repath(from: detective.position, to: destination),
+                   !repath.isEmpty {
+                    detective.walk(path: repath) { [weak self] in
+                        self?.pendingMovementDestination = nil
+                    }
+                }
+            }
+        }
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -358,14 +384,20 @@ final class CityDistrictScene: BaseGameScene {
     ) {
         guard let route = navigation.route(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
+            pendingMovementDestination = nil
             return
         }
         guard !requiresExactDestination || !route.destinationWasAdjusted else {
             showMovementFeedback(at: target, isValid: false)
+            pendingMovementDestination = nil
             return
         }
         showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        detective.walk(path: route.waypoints, completion: completion)
+        pendingMovementDestination = route.resolvedDestination
+        detective.walk(path: route.waypoints, completion: { [weak self] in
+            self?.pendingMovementDestination = nil
+            completion?()
+        })
     }
 
     private func setInventoryPresented(_ presented: Bool) {
