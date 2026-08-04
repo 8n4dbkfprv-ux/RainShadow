@@ -52,7 +52,7 @@ final class JournalOverlay: SKNode {
         super.init()
         name = "journal.overlay"
         buildInterface()
-        refresh(inspectedHotspotIDs: [])
+        refresh(input: JournalProjectionInput())
         isHidden = true
     }
 
@@ -67,8 +67,12 @@ final class JournalOverlay: SKNode {
     }
 
     func refresh(inspectedHotspotIDs: Set<String>) {
-        caseSections = EmptyCoatJournalContent.caseSections(inspectedHotspotIDs: inspectedHotspotIDs)
-        chronologySections = EmptyCoatJournalContent.chronologySections(inspectedHotspotIDs: inspectedHotspotIDs)
+        refresh(input: JournalProjectionInput(inspectedHotspotIDs: inspectedHotspotIDs))
+    }
+
+    func refresh(input: JournalProjectionInput) {
+        caseSections = EmptyCoatJournalContent.caseSections(input: input)
+        chronologySections = EmptyCoatJournalContent.chronologySections(input: input)
         if entry(withID: selectedEntryID) == nil {
             selectedEntryID = visibleEntries().first?.id ?? EmptyCoatJournalContent.defaultSelectedEntryID
         }
@@ -78,7 +82,11 @@ final class JournalOverlay: SKNode {
     }
 
     func present(inspectedHotspotIDs: Set<String>) {
-        refresh(inspectedHotspotIDs: inspectedHotspotIDs)
+        present(input: JournalProjectionInput(inspectedHotspotIDs: inspectedHotspotIDs))
+    }
+
+    func present(input: JournalProjectionInput) {
+        refresh(input: input)
         removeAllActions()
         isHidden = false
         alpha = 0

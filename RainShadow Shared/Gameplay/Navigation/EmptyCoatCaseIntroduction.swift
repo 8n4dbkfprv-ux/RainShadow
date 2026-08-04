@@ -423,7 +423,17 @@ enum EmptyCoatCaseIntroduction {
                         text: "Leave the key—and tell me what you're still not saying. The police were too finished, the coat too empty, and that gray overcoat too professional for a simple river story. What did Lillian find that makes polite men grow teeth?",
                         destinationID: "lila.reply.press.gated",
                         conditions: [.hasFlag(EmptyCoatDialogueKeys.pressedHardOnStory)],
-                        gateDisclosure: "Press"
+                        gateDisclosure: "Press",
+                        // Phase 3: Press path leaves a distinct case-log beat.
+                        onSelect: [
+                            .queueJournal(
+                                QueuedJournalFragment(
+                                    id: EmptyCoatDialogueKeys.pressedHardJournalID,
+                                    kind: "chronology",
+                                    text: "Pushed Lila on what the police finished too early. Manifests and men who prefer anonymity."
+                                )
+                            )
+                        ]
                     )
                 ],
                 voiceAssetName: "vo_lila_triad_key.m4a"

@@ -11,13 +11,13 @@ enum DialogueTone: String, Equatable, CaseIterable, Sendable {
 // MARK: - Phase 2 transition actions
 
 /// Dialogue-earned journal payload. Projected into the casebook in Phase 3.
-struct QueuedJournalFragment: Codable, Equatable, Sendable {
-    var id: String
+public struct QueuedJournalFragment: Codable, Equatable, Sendable {
+    public var id: String
     /// e.g. `"chronology"` or `"lead"`.
-    var kind: String
-    var text: String
+    public var kind: String
+    public var text: String
 
-    init(id: String, kind: String, text: String) {
+    public init(id: String, kind: String, text: String) {
         self.id = id
         self.kind = kind
         self.text = text

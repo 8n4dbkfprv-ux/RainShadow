@@ -61,8 +61,9 @@ final class CaseIntroductionPresenter: SKNode {
 
     private var nodesByID: [String: CaseDialogueNode] = [:]
     private var currentNodeID: String?
-    /// Phase 1 case/dialogue flags; filters choice rows and receives grant flags.
-    private var runtimeContext = DialogueRuntimeContext(
+    /// Case/dialogue flags and queued journal fragments (Phase 1–3).
+    /// Scene merges `caseState` into `GameSession` when dialogue completes.
+    private(set) var runtimeContext = DialogueRuntimeContext(
         caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
         dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
     )

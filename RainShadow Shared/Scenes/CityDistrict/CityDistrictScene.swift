@@ -400,7 +400,7 @@ final class CityDistrictScene: BaseGameScene {
         portraitBar.isHidden = presented
         actionBar.isHidden = presented
         if presented {
-            journalOverlay.present(inspectedHotspotIDs: context.session.inspectedHotspotIDs)
+            journalOverlay.present(input: context.session.journalProjectionInput)
         } else {
             journalOverlay.hideAnimated()
         }

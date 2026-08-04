@@ -758,7 +758,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             EmptyCoatCaseIntroduction.nodes,
             startingAt: EmptyCoatCaseIntroduction.startNodeID
         ) { [weak self] in
-            self?.finishCaseIntroduction()
+            guard let self else { return }
+            // Phase 3: hoist dialogue case flags / journal queue into the session.
+            self.context.session.mergeCaseStateFromDialogue(
+                self.caseIntroductionPresenter.runtimeContext.caseState
+            )
+            self.finishCaseIntroduction()
         }
     }
 
@@ -1037,7 +1042,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateGameplayChromeVisibility(animated: true)
 
         if presented {
-            journalOverlay.present(inspectedHotspotIDs: context.session.inspectedHotspotIDs)
+            journalOverlay.present(input: context.session.journalProjectionInput)
         } else {
             journalOverlay.hideAnimated()
         }

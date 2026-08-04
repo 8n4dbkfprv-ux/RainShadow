@@ -27,15 +27,15 @@ struct WorldFlag: RawRepresentable, Hashable, Codable, Sendable {
 /// Evidence and knowledge are id sets only — full records come later.
 /// Flags feed Phase 1 `DialogueCondition` evaluation.
 /// `queuedJournalFragments` accumulate for Phase 3 journal projection.
-struct CaseState: Codable, Equatable, Sendable {
-    var caseID: String
-    var flags: Set<String>
-    var knowledgeIDs: Set<String>
-    var evidenceIDs: Set<String>
-    /// Dialogue-earned journal beats not yet projected into the casebook UI (P3).
-    var queuedJournalFragments: [QueuedJournalFragment]
+public struct CaseState: Codable, Equatable, Sendable {
+    public var caseID: String
+    public var flags: Set<String>
+    public var knowledgeIDs: Set<String>
+    public var evidenceIDs: Set<String>
+    /// Dialogue-earned journal beats projected into the casebook via `JournalProjectionInput`.
+    public var queuedJournalFragments: [QueuedJournalFragment]
 
-    init(
+    public init(
         caseID: String,
         flags: Set<String> = [],
         knowledgeIDs: Set<String> = [],
@@ -206,4 +206,31 @@ enum EmptyCoatDialogueKeys {
     static let clientRetained = "empty-coat.case.client-retained"
     /// Queued chronology fragment id for P3 journal projection.
     static let clientRetainedJournalID = "chrono.client-retained"
+    /// Queued chronology fragment when Press path is taken on the key triad.
+    static let pressedHardJournalID = "chrono.pressed-hard"
+}
+
+// MARK: - Journal projection (Phase 3)
+
+/// Read model for casebook projection: hotspots + dialogue-earned fragments/flags.
+public struct JournalProjectionInput: Equatable, Sendable {
+    public var inspectedHotspotIDs: Set<String>
+    public var queuedJournalFragments: [QueuedJournalFragment]
+    public var caseFlags: Set<String>
+
+    public init(
+        inspectedHotspotIDs: Set<String> = [],
+        queuedJournalFragments: [QueuedJournalFragment] = [],
+        caseFlags: Set<String> = []
+    ) {
+        self.inspectedHotspotIDs = inspectedHotspotIDs
+        self.queuedJournalFragments = queuedJournalFragments
+        self.caseFlags = caseFlags
+    }
+
+    public init(inspectedHotspotIDs: Set<String> = [], caseState: CaseState) {
+        self.inspectedHotspotIDs = inspectedHotspotIDs
+        self.queuedJournalFragments = caseState.queuedJournalFragments
+        self.caseFlags = caseState.flags
+    }
 }

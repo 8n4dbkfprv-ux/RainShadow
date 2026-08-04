@@ -1,7 +1,7 @@
 # Dialogue system roadmap
 
-- Status: Phase 0–2 complete (state + conditions + actions); P3+ still planning
-- Version: 0.4
+- Status: Phase 0–3 complete (state + conditions + actions + journal projection); P4+ still planning
+- Version: 0.5
 - Date: 4 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
 
@@ -21,12 +21,13 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | Author tone triad metadata (`DialogueTone`) | Shipped (not UI) |
 | `onNodeShown` side channel (e.g. entrance cues) | Shipped |
 | Graph integrity helpers (`CaseDialogueGraph.report`) | Shipped |
-| Static case journal dossier (`EmptyCoatJournalContent`) | Shipped (hotspot-driven notes, not dialogue actions) |
+| Static case journal dossier (`EmptyCoatJournalContent`) | Shipped (hotspot-driven notes + dialogue projection) |
 | `voiceAssetName` on nodes | Modeled; Empty Coat VO wired via `onNodeShown` in office |
 | `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift` |
 | Choice conditions + filtered UI + gate disclosure | **Shipped (P1)** — `DialogueCondition`, presenter filters, Empty Coat Press gate |
 | Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator; P1 flag bridge removed |
-| Queued journal fragments on case state | **Shipped (P2 store)** — projected into casebook UI in P3 |
+| Queued journal fragments on case state | **Shipped (P2 store)** |
+| Journal-on-transition projection | **Shipped (P3)** — `JournalProjectionInput`, session merge, Press vs accept paths |
 
 Empty Coat is intentionally compact. Broader evidence-gated branching is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
@@ -223,6 +224,8 @@ Keep scene-level `onNodeShown` for **presentation** (entrance cues). Move **game
 
 - Completing intro with different paths can leave different journal leads
 - Tests assert journal sections without opening SpriteKit
+
+**Status: met** (`JournalProjectionInput` + chronology/lead projection; session merge on intro complete; Press queues `chrono.pressed-hard` vs acceptance-only `chrono.client-retained`; pure tests in `EmptyCoatJournalContentTests`).
 
 ---
 

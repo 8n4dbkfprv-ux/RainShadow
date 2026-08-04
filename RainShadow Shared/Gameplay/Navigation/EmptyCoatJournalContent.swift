@@ -68,12 +68,16 @@ public enum EmptyCoatJournalContent {
     ]
 
     public static func caseSections(inspectedHotspotIDs: Set<String>) -> [CaseJournalSection] {
+        caseSections(input: JournalProjectionInput(inspectedHotspotIDs: inspectedHotspotIDs))
+    }
+
+    public static func caseSections(input: JournalProjectionInput) -> [CaseJournalSection] {
         var sections = [
-            CaseJournalSection(id: "active", title: "ACTIVE CASES", entries: [activeCase]),
+            CaseJournalSection(id: "active", title: "ACTIVE CASES", entries: [activeCase(for: input)]),
             CaseJournalSection(id: "people", title: "PEOPLE", entries: people),
             CaseJournalSection(id: "evidence", title: "EVIDENCE & LEADS", entries: evidence)
         ]
-        let notes = fieldNotes(inspectedHotspotIDs: inspectedHotspotIDs)
+        let notes = fieldNotes(inspectedHotspotIDs: input.inspectedHotspotIDs)
         if !notes.isEmpty {
             sections.append(CaseJournalSection(id: "notes", title: "FIELD NOTES", entries: notes))
         }
@@ -81,9 +85,20 @@ public enum EmptyCoatJournalContent {
     }
 
     public static func chronologySections(inspectedHotspotIDs: Set<String>) -> [CaseJournalSection] {
+        chronologySections(input: JournalProjectionInput(inspectedHotspotIDs: inspectedHotspotIDs))
+    }
+
+    /// CASE LOG: static narrative base → dialogue-earned fragments → office search beat.
+    public static func chronologySections(input: JournalProjectionInput) -> [CaseJournalSection] {
         var entries = chronologyBase
-        if !inspectedHotspotIDs.isEmpty {
-            let count = inspectedHotspotIDs.count
+        for fragment in input.queuedJournalFragments {
+            let entry = chronologyEntry(for: fragment)
+            if !entries.contains(where: { $0.id == entry.id }) {
+                entries.append(entry)
+            }
+        }
+        if !input.inspectedHotspotIDs.isEmpty {
+            let count = input.inspectedHotspotIDs.count
             let plural = count == 1 ? "" : "s"
             entries.append(
                 CaseJournalEntry(
@@ -105,23 +120,79 @@ public enum EmptyCoatJournalContent {
 
     // MARK: - Case files
 
-    private static let activeCase = CaseJournalEntry(
-        id: caseID,
-        title: caseTitle,
-        eyebrow: "Active case · opened Tuesday, 11:40 PM",
-        status: "Open / Priority",
-        summary: "Lillian March vanished Tuesday night. Her coat came back from the river. She did not.",
-        body: [
-            "Harborpoint PD called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila March called it a prop. Someone wanted the search to end at the waterline.",
-            "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key is on this desk until it opens something that can answer back."
-        ],
-        leads: [
+    private static func activeCase(for input: JournalProjectionInput) -> CaseJournalEntry {
+        var leads = [
             "Identify what the brass key opens.",
             "Trace Lillian's Tuesday: Wharf Ladder shipping office to the river stones.",
             "Find or name the man in the gray overcoat."
-        ],
-        isNew: false
-    )
+        ]
+        if input.caseFlags.contains(EmptyCoatDialogueKeys.clientRetained)
+            || input.queuedJournalFragments.contains(where: { $0.id == EmptyCoatDialogueKeys.clientRetainedJournalID })
+        {
+            if !leads.contains(where: { $0.localizedCaseInsensitiveContains("Client retained") }) {
+                leads.insert("Client retained · The Empty Coat is open on this desk.", at: 0)
+            }
+        }
+        if input.queuedJournalFragments.contains(where: { $0.id == EmptyCoatDialogueKeys.pressedHardJournalID }) {
+            leads.append("Press the shipping manifests Lila would not name cleanly in court.")
+        }
+        return CaseJournalEntry(
+            id: caseID,
+            title: caseTitle,
+            eyebrow: "Active case · opened Tuesday, 11:40 PM",
+            status: "Open / Priority",
+            summary: "Lillian March vanished Tuesday night. Her coat came back from the river. She did not.",
+            body: [
+                "Harborpoint PD called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila March called it a prop. Someone wanted the search to end at the waterline.",
+                "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key is on this desk until it opens something that can answer back."
+            ],
+            leads: leads,
+            isNew: false
+        )
+    }
+
+    /// Map dialogue-queued fragments to chronology entries (known ids get authored copy).
+    private static func chronologyEntry(for fragment: QueuedJournalFragment) -> CaseJournalEntry {
+        switch fragment.id {
+        case EmptyCoatDialogueKeys.clientRetainedJournalID:
+            return CaseJournalEntry(
+                id: "log.client-retained",
+                title: "Client retained",
+                eyebrow: "Tuesday · 11:40 PM",
+                status: "Voss's office",
+                summary: fragment.text,
+                body: [
+                    "The key stays on this desk. Harborpoint can keep its paper-bag endings; this case gets a longer sentence."
+                ],
+                leads: ["First objective: identify the lock."],
+                isNew: true
+            )
+        case EmptyCoatDialogueKeys.pressedHardJournalID:
+            return CaseJournalEntry(
+                id: "log.pressed-hard",
+                title: "Hard questions",
+                eyebrow: "Tuesday · late",
+                status: "Interview · Lila March",
+                summary: fragment.text,
+                body: [
+                    "Soft answers crack under pressure. The police finished too early; the coat was too empty; someone wanted the search to end at the waterline."
+                ],
+                leads: ["Follow the manifests Lila still will not name in open court."],
+                isNew: true
+            )
+        default:
+            return CaseJournalEntry(
+                id: "log.dialogue.\(fragment.id)",
+                title: "Case note",
+                eyebrow: "From conversation",
+                status: fragment.kind,
+                summary: fragment.text,
+                body: [fragment.text],
+                leads: [],
+                isNew: true
+            )
+        }
+    }
 
     private static let people: [CaseJournalEntry] = [
         CaseJournalEntry(

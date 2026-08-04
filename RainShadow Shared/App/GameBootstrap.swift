@@ -6,6 +6,8 @@ final class GameSession {
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
     private(set) var inspectedHotspotIDs: Set<String>
+    /// Dialogue/case flags and queued journal fragments (session memory; not yet saved).
+    private(set) var caseState: CaseState
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
     private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
@@ -18,6 +20,28 @@ final class GameSession {
         hasSeenOpening = snapshot.hasSeenOpening
         hasSeenOfficeHint = snapshot.hasSeenOfficeHint
         inspectedHotspotIDs = snapshot.inspectedHotspotIDs
+        caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
+    }
+
+    /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, journal queue).
+    func mergeCaseStateFromDialogue(_ state: CaseState) {
+        caseState.flags.formUnion(state.flags)
+        caseState.knowledgeIDs.formUnion(state.knowledgeIDs)
+        caseState.evidenceIDs.formUnion(state.evidenceIDs)
+        for fragment in state.queuedJournalFragments {
+            caseState.queueJournal(fragment)
+        }
+        if caseState.caseID.isEmpty {
+            caseState.caseID = state.caseID
+        }
+    }
+
+    /// Snapshot for journal projection (hotspots + dialogue-earned state).
+    var journalProjectionInput: JournalProjectionInput {
+        JournalProjectionInput(
+            inspectedHotspotIDs: inspectedHotspotIDs,
+            caseState: caseState
+        )
     }
 
     func markInspected(_ id: String) {

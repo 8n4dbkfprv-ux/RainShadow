@@ -98,6 +98,109 @@ struct EmptyCoatJournalContentTests {
         #expect(office?.summary.contains("2 field observation") == true)
     }
 
+    @Test func dialogueFragmentsProjectIntoChronologyAfterCaseOpen() {
+        let bare = EmptyCoatJournalContent.chronologySections(input: JournalProjectionInput())
+            .flatMap(\.entries)
+        #expect(!bare.contains { $0.id == "log.client-retained" })
+        #expect(!bare.contains { $0.id == "log.pressed-hard" })
+
+        let retainedOnly = EmptyCoatJournalContent.chronologySections(
+            input: JournalProjectionInput(
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                        kind: "chronology",
+                        text: "Retained by Lila March. The Empty Coat is open."
+                    )
+                ]
+            )
+        ).flatMap(\.entries)
+        #expect(retainedOnly.contains { $0.id == "log.client-retained" })
+        #expect(!retainedOnly.contains { $0.id == "log.pressed-hard" })
+        let retainedIndex = retainedOnly.firstIndex { $0.id == "log.client-retained" }!
+        let caseOpenIndex = retainedOnly.firstIndex { $0.id == "log.case-open" }!
+        #expect(caseOpenIndex < retainedIndex)
+
+        let pressPath = EmptyCoatJournalContent.chronologySections(
+            input: JournalProjectionInput(
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.pressedHardJournalID,
+                        kind: "chronology",
+                        text: "Pushed Lila on what the police finished too early."
+                    ),
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                        kind: "chronology",
+                        text: "Retained by Lila March. The Empty Coat is open."
+                    )
+                ]
+            )
+        ).flatMap(\.entries)
+        #expect(pressPath.contains { $0.id == "log.pressed-hard" })
+        #expect(pressPath.contains { $0.id == "log.client-retained" })
+        #expect(pressPath.count == retainedOnly.count + 1)
+    }
+
+    @Test func dialoguePathsYieldDifferentActiveCaseLeads() {
+        let noDialogue = EmptyCoatJournalContent.caseSections(input: JournalProjectionInput())
+            .first { $0.id == "active" }?
+            .entries.first { $0.id == EmptyCoatJournalContent.caseID }
+        #expect(noDialogue?.leads.contains(where: { $0.contains("Client retained") }) != true)
+
+        let retained = EmptyCoatJournalContent.caseSections(
+            input: JournalProjectionInput(
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                        kind: "chronology",
+                        text: "Retained."
+                    )
+                ],
+                caseFlags: [EmptyCoatDialogueKeys.clientRetained]
+            )
+        ).first { $0.id == "active" }?.entries.first { $0.id == EmptyCoatJournalContent.caseID }
+        #expect(retained?.leads.contains(where: { $0.contains("Client retained") }) == true)
+        #expect(retained?.leads.contains(where: { $0.localizedCaseInsensitiveContains("manifest") }) != true)
+
+        let pressed = EmptyCoatJournalContent.caseSections(
+            input: JournalProjectionInput(
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.pressedHardJournalID,
+                        kind: "chronology",
+                        text: "Pushed."
+                    ),
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                        kind: "chronology",
+                        text: "Retained."
+                    )
+                ],
+                caseFlags: [EmptyCoatDialogueKeys.clientRetained]
+            )
+        ).first { $0.id == "active" }?.entries.first { $0.id == EmptyCoatJournalContent.caseID }
+        #expect(pressed?.leads.contains(where: { $0.localizedCaseInsensitiveContains("manifest") }) == true)
+    }
+
+    @Test func dialogueThenOfficeSearchKeepsOfficeLogLast() {
+        let entries = EmptyCoatJournalContent.chronologySections(
+            input: JournalProjectionInput(
+                inspectedHotspotIDs: ["office.window"],
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.clientRetainedJournalID,
+                        kind: "chronology",
+                        text: "Retained."
+                    )
+                ]
+            )
+        ).flatMap(\.entries)
+        let retained = entries.firstIndex { $0.id == "log.client-retained" }!
+        let office = entries.firstIndex { $0.id == "log.office" }!
+        #expect(retained < office)
+    }
+
     @Test func journalOverlaySourceDoesNotHardcodeRetiredLetterhead() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()

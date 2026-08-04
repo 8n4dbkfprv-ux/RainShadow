@@ -151,4 +151,35 @@ struct DialogueActionTests {
         #expect(report.actionChoiceCount >= 2)
         #expect(report.isSound)
     }
+
+    @Test func emptyCoatPressChoiceQueuesJournalFragment() {
+        let nodes = EmptyCoatCaseIntroduction.nodes
+        let byID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
+        guard
+            let keyTriad = byID["lila.triad.key"],
+            let press = keyTriad.choices.first(where: { $0.destinationID == "lila.reply.press.gated" })
+        else {
+            Issue.record("Missing Press choice")
+            return
+        }
+        #expect(
+            press.onSelect.contains {
+                if case .queueJournal(let fragment) = $0 {
+                    return fragment.id == EmptyCoatDialogueKeys.pressedHardJournalID
+                }
+                return false
+            }
+        )
+
+        var context = DialogueRuntimeContext(
+            caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
+            dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
+        )
+        DialogueActionRuntime.apply(press.onSelect, to: &context)
+        #expect(
+            context.caseState.queuedJournalFragments.contains {
+                $0.id == EmptyCoatDialogueKeys.pressedHardJournalID
+            }
+        )
+    }
 }
