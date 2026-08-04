@@ -156,7 +156,9 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(report.reachesEnding)
         #expect(report.isSound)
         #expect(report.triadChoiceBeats >= 2)
+        #expect(report.gatedChoiceCount >= 1)
         #expect(report.reachableNodeIDs.contains(EmptyCoatCaseIntroduction.caseOpenedNodeID))
+        #expect(report.reachableNodeIDs.contains("lila.reply.press.gated"))
 
         // Every choice destination is inside the graph and can still reach an ending.
         let byID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
@@ -274,7 +276,13 @@ struct EmptyCoatCaseIntroductionTests {
             #expect(node.voiceAssetName?.hasPrefix("vo_voss_monologue_") == true)
             #expect(node.voiceAssetName?.hasSuffix(".m4a") == true)
         }
+        // Phase 1 gated Press beat has no VO clip yet; keep silent until assets exist.
+        let lilaAwaitingVO: Set<String> = ["lila.reply.press.gated"]
         for node in lila {
+            if lilaAwaitingVO.contains(node.id) {
+                #expect(node.voiceAssetName == nil, "Unexpected VO on unvoiced \(node.id)")
+                continue
+            }
             #expect(node.voiceAssetName != nil, "Missing VO on \(node.id)")
             #expect(
                 node.voiceAssetName == EmptyCoatCaseIntroduction.bundledVoiceFileName(for: node.id),

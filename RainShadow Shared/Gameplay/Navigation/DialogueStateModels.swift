@@ -174,12 +174,19 @@ struct DialogueRuntimeContext: Equatable, Sendable {
     func hasKnowledge(_ id: String) -> Bool {
         caseState.hasKnowledge(id)
     }
+
+    /// Choices on a node that pass Phase 1 conditions under this context.
+    func availableChoices(from node: CaseDialogueNode) -> [CaseDialogueChoice] {
+        CaseDialogueGraph.visibleChoices(node.choices, in: self)
+    }
 }
 
-// MARK: - Empty Coat keys (reserved for later phases)
+// MARK: - Empty Coat keys
 
-/// Stable graph / flag ids for the Empty Coat intro. Unused by runtime until P1/P2.
+/// Stable graph / flag ids for the Empty Coat intro.
 enum EmptyCoatDialogueKeys {
     /// Graph id for the shipped office case introduction.
     static let graphID = "case.empty-coat.intro"
+    /// Set when Voss picks a hard cynical push earlier; unlocks a later Press option.
+    static let pressedHardOnStory = "empty-coat.dialogue.pressed-hard-on-story"
 }

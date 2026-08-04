@@ -8,16 +8,107 @@ enum DialogueTone: String, Equatable, CaseIterable, Sendable {
     case cynicalSarcasm = "Cynical/Sarcasm"
 }
 
+// MARK: - Phase 1 conditions / triggers
+
+/// Typed condition DSL for choice (and later node) availability.
+/// Evaluated against `DialogueRuntimeContext` — no free-form script strings.
+enum DialogueCondition: Equatable, Sendable {
+    case hasFlag(String)
+    case hasEvidence(String)
+    case hasKnowledge(String)
+
+    func isSatisfied(by context: DialogueRuntimeContext) -> Bool {
+        switch self {
+        case .hasFlag(let id):
+            context.hasFlag(id)
+        case .hasEvidence(let id):
+            context.hasEvidence(id)
+        case .hasKnowledge(let id):
+            context.hasKnowledge(id)
+        }
+    }
+
+    /// Default player-facing gate reason (GDD §7.5). Flags stay silent unless the
+    /// choice authors an explicit `gateDisclosure`.
+    var disclosureLabel: String? {
+        switch self {
+        case .hasFlag:
+            nil
+        case .hasEvidence(let id):
+            "Evidence: \(Self.humanizeID(id))"
+        case .hasKnowledge(let id):
+            "Knowledge: \(Self.humanizeID(id))"
+        }
+    }
+
+    /// `ev.tram-receipt` → `Tram Receipt`; last path segment title-cased.
+    private static func humanizeID(_ id: String) -> String {
+        let leaf = id.split(separator: ".").last.map(String.init) ?? id
+        return leaf
+            .split(separator: "-")
+            .map { part in
+                guard let first = part.first else { return "" }
+                return String(first).uppercased() + part.dropFirst().lowercased()
+            }
+            .joined(separator: " ")
+    }
+}
+
 struct CaseDialogueChoice: Equatable, Sendable {
     let text: String
     let destinationID: String
     /// When set, this is one leg of a Good / Neutral / Cynical triad beat (metadata only).
     let tone: DialogueTone?
+    /// All conditions must pass (AND) for the choice to appear. Empty = always available.
+    let conditions: [DialogueCondition]
+    /// Optional player-facing gate reason override (e.g. `"Press"`). Else first
+    /// non-nil `conditions.disclosureLabel`.
+    let gateDisclosure: String?
+    /// P1 bridge: conversation flags granted when this choice is selected, before advance.
+    /// Full `DialogueAction` DSL is Phase 2.
+    let grantsConversationFlags: [String]
 
-    init(text: String, destinationID: String, tone: DialogueTone? = nil) {
+    init(
+        text: String,
+        destinationID: String,
+        tone: DialogueTone? = nil,
+        conditions: [DialogueCondition] = [],
+        gateDisclosure: String? = nil,
+        grantsConversationFlags: [String] = []
+    ) {
         self.text = text
         self.destinationID = destinationID
         self.tone = tone
+        self.conditions = conditions
+        self.gateDisclosure = gateDisclosure
+        self.grantsConversationFlags = grantsConversationFlags
+    }
+
+    /// True when every condition is satisfied (or there are none).
+    func isAvailable(in context: DialogueRuntimeContext) -> Bool {
+        conditions.allSatisfy { $0.isSatisfied(by: context) }
+    }
+
+    /// Bracketed gate reason for the choice row, if any.
+    var resolvedGateDisclosure: String? {
+        if let gateDisclosure, !gateDisclosure.isEmpty {
+            return gateDisclosure
+        }
+        return conditions.lazy.compactMap(\.disclosureLabel).first
+    }
+
+    /// Choice body for the row, optionally with GDD-style `[Evidence: …]` prefix.
+    /// Callers that number rows themselves (e.g. `DialogueTextMetrics.choiceRowHeight`) use this.
+    var labeledBodyText: String {
+        if let disclosure = resolvedGateDisclosure {
+            return "[\(disclosure)]  \(text)"
+        }
+        return text
+    }
+
+    /// Fully numbered row text shown in the dialogue panel.
+    func displayText(index: Int) -> String {
+        "\(index + 1):  \(labeledBodyText)"
     }
 }
 
@@ -66,10 +157,31 @@ enum CaseDialogueGraph {
         var reachesEnding: Bool
         var triadChoiceBeats: Int
         var totalBodyCharacters: Int
+        /// Choices that carry at least one condition (diagnostic only).
+        var gatedChoiceCount: Int
 
         var isSound: Bool {
             missingDestinationIDs.isEmpty && reachesEnding
         }
+    }
+
+    /// Choices available under the given context (AND conditions). Order preserved.
+    static func visibleChoices(
+        _ choices: [CaseDialogueChoice],
+        in context: DialogueRuntimeContext
+    ) -> [CaseDialogueChoice] {
+        choices.filter { $0.isAvailable(in: context) }
+    }
+
+    /// True when a node has no player path forward given current visibility.
+    /// Authoring risk if conditions leave only a dead end (debug soft-fail).
+    static func isSoftStuck(
+        node: CaseDialogueNode,
+        visibleChoices: [CaseDialogueChoice]
+    ) -> Bool {
+        visibleChoices.isEmpty
+            && node.nextNodeID == nil
+            && !node.endsDialogue
     }
 
     static func report(nodes: [CaseDialogueNode], startID: String) -> IntegrityReport {
@@ -78,14 +190,20 @@ enum CaseDialogueGraph {
         var reachable: Set<String> = []
         var triadBeats = 0
         var bodyChars = 0
+        var gatedChoiceCount = 0
 
         for node in nodes {
             bodyChars += node.text.count
             let tones = Set(node.choices.compactMap(\.tone))
-            if tones == Set(DialogueTone.allCases) && node.choices.count >= 3 {
+            // Triad = all three tones present among *ungated or any* tone-tagged legs.
+            let toneTagged = node.choices.filter { $0.tone != nil }
+            if tones == Set(DialogueTone.allCases) && toneTagged.count >= 3 {
                 triadBeats += 1
             }
             for choice in node.choices {
+                if !choice.conditions.isEmpty {
+                    gatedChoiceCount += 1
+                }
                 if byID[choice.destinationID] == nil {
                     missing.append("\(node.id)->\(choice.destinationID)")
                 }
@@ -95,6 +213,8 @@ enum CaseDialogueGraph {
             }
         }
 
+        // Reachability ignores conditions: gates may unlock mid-conversation.
+        // Gated-only endings still need an ungated path for isSound.
         var queue = [startID]
         if byID[startID] != nil {
             reachable.insert(startID)
@@ -125,7 +245,8 @@ enum CaseDialogueGraph {
             reachableNodeIDs: reachable,
             reachesEnding: reachesEnding,
             triadChoiceBeats: triadBeats,
-            totalBodyCharacters: bodyChars
+            totalBodyCharacters: bodyChars,
+            gatedChoiceCount: gatedChoiceCount
         )
     }
 }

@@ -181,7 +181,9 @@ enum EmptyCoatCaseIntroduction {
                     CaseDialogueChoice(
                         text: "Vanished is a word people buy when 'ran off' won't pay the detective. Convince me this isn't a family argument with a taxi receipt.",
                         destinationID: "lila.reply.cynical1",
-                        tone: .cynicalSarcasm
+                        tone: .cynicalSarcasm,
+                        // P1: hard push unlocks a later Press option on the key triad.
+                        grantsConversationFlags: [EmptyCoatDialogueKeys.pressedHardOnStory]
                     )
                 ],
                 voiceAssetName: "vo_lila_entrance_case.m4a"
@@ -404,9 +406,26 @@ enum EmptyCoatCaseIntroduction {
                         text: "Leave the key. If it opens a coffin or a vault, I'll send you the postcard. Try not to die before the retainer clears.",
                         destinationID: "lila.reply.cynical3",
                         tone: .cynicalSarcasm
+                    ),
+                    // Phase 1 gated Press: only after Voss already pushed hard (cynical triad-1).
+                    CaseDialogueChoice(
+                        text: "Leave the key—and tell me what you're still not saying. The police were too finished, the coat too empty, and that gray overcoat too professional for a simple river story. What did Lillian find that makes polite men grow teeth?",
+                        destinationID: "lila.reply.press.gated",
+                        conditions: [.hasFlag(EmptyCoatDialogueKeys.pressedHardOnStory)],
+                        gateDisclosure: "Press"
                     )
                 ],
                 voiceAssetName: "vo_lila_triad_key.m4a"
+            ),
+
+            CaseDialogueNode(
+                id: "lila.reply.press.gated",
+                speaker: lilaSpeaker,
+                text: """
+                You push when you want the soft version to crack. Fine. Lillian was reading manifests that named men who prefer their cargo—and their sisters—anonymous. I don't have the names clean enough for a courtroom. I have a sister, a key, and a city that files people under finished.
+                """,
+                portraitName: lilaPortrait,
+                choices: [caseAcceptanceChoice]
             ),
 
             CaseDialogueNode(

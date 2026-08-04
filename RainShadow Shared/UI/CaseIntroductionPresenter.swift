@@ -61,6 +61,13 @@ final class CaseIntroductionPresenter: SKNode {
 
     private var nodesByID: [String: CaseDialogueNode] = [:]
     private var currentNodeID: String?
+    /// Phase 1 case/dialogue flags; filters choice rows and receives grant flags.
+    private var runtimeContext = DialogueRuntimeContext(
+        caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
+        dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
+    )
+    /// Visible (condition-passing) choices for the current node — index source of truth.
+    private var visibleChoices: [CaseDialogueChoice] = []
     private var choiceRows: [ChoiceRow] = []
     private var commandKind = CommandKind.hidden
     private var commandHitRect = CGRect.zero
@@ -237,6 +244,7 @@ final class CaseIntroductionPresenter: SKNode {
     func present(
         _ nodes: [CaseDialogueNode],
         startingAt startID: String,
+        context: DialogueRuntimeContext? = nil,
         onComplete: (() -> Void)? = nil
     ) {
         guard !nodes.isEmpty, nodes.contains(where: { $0.id == startID }) else {
@@ -248,6 +256,22 @@ final class CaseIntroductionPresenter: SKNode {
         presentationCompletion = onComplete
         nodesByID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
         currentNodeID = startID
+        if var seeded = context {
+            seeded.dialogueState.graphID = seeded.dialogueState.graphID.isEmpty
+                ? EmptyCoatDialogueKeys.graphID
+                : seeded.dialogueState.graphID
+            seeded.dialogueState.currentNodeID = startID
+            runtimeContext = seeded
+        } else {
+            runtimeContext = DialogueRuntimeContext(
+                caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
+                dialogueState: DialogueState(
+                    graphID: EmptyCoatDialogueKeys.graphID,
+                    currentNodeID: startID
+                )
+            )
+        }
+        visibleChoices = []
         lastNotifiedNodeID = nil
         isPresenting = true
         isCutsceneSuppressed = false
@@ -477,9 +501,11 @@ final class CaseIntroductionPresenter: SKNode {
             let index = focusedChoiceIndex ?? hoveredChoiceIndex ?? 0
             guard
                 let node = currentNodeID.flatMap({ nodesByID[$0] }),
-                node.choices.indices.contains(index)
+                visibleChoices.indices.contains(index)
             else { return }
-            attemptTransition(from: node, to: node.choices[index].destinationID)
+            let choice = visibleChoices[index]
+            applyChoiceGrants(choice)
+            attemptTransition(from: node, to: choice.destinationID)
             return
         }
 
@@ -495,6 +521,14 @@ final class CaseIntroductionPresenter: SKNode {
         case .end:
             finish()
         }
+    }
+
+    /// P1 bridge: conversation flags granted on select, before advance (full actions in P2).
+    private func applyChoiceGrants(_ choice: CaseDialogueChoice) {
+        for flag in choice.grantsConversationFlags {
+            runtimeContext.dialogueState.setConversationFlag(flag)
+        }
+        runtimeContext.dialogueState.recordChoice(destinationID: choice.destinationID)
     }
 
     /// Advances immediately unless `shouldDeferAdvance` claims the transition for a cutscene.
@@ -682,11 +716,21 @@ final class CaseIntroductionPresenter: SKNode {
             dialogueLabel.fontColor = Palette.parchment
         }
         setPortrait(named: node.portraitName)
-        rebuildChoices(node.choices)
+        runtimeContext.dialogueState.advance(to: node.id)
+        visibleChoices = CaseDialogueGraph.visibleChoices(node.choices, in: runtimeContext)
+        #if DEBUG
+        if CaseDialogueGraph.isSoftStuck(node: node, visibleChoices: visibleChoices) {
+            assertionFailure(
+                "Dialogue node \(node.id) has no visible choices, nextNodeID, or endsDialogue (authoring/gate error)"
+            )
+        }
+        #endif
+        rebuildChoices(visibleChoices)
 
+        let hasVisibleChoices = !visibleChoices.isEmpty
         let visibleHeight = lastVisibleSize.height > 1 ? lastVisibleSize.height : 820
         let panelTargetY = DialoguePanelLayout.panelPresentationOffsetY(
-            hasChoices: !node.choices.isEmpty,
+            hasChoices: hasVisibleChoices,
             panelRect: panelRect,
             visibleHeight: visibleHeight
         )
@@ -700,7 +744,7 @@ final class CaseIntroductionPresenter: SKNode {
         // Track the panel so Continue stays visible under the frame, not buried by it.
         layoutCommandControl(panelRootOffsetY: panelTargetY)
 
-        if !node.choices.isEmpty {
+        if hasVisibleChoices {
             commandKind = .hidden
             setCommandHidden(true)
         } else if node.endsDialogue {
@@ -758,9 +802,11 @@ final class CaseIntroductionPresenter: SKNode {
         var measuredHeights: [CGFloat] = []
         var labels: [SKLabelNode] = []
         for (index, choice) in choices.enumerated() {
-            let numbered = "\(index + 1):  \(choice.text)"
+            // Body may include GDD gate disclosure; metrics helper adds the "n:  " prefix.
+            let body = choice.labeledBodyText
+            let numbered = choice.displayText(index: index)
             let rowH = DialogueTextMetrics.choiceRowHeight(
-                choiceText: choice.text,
+                choiceText: body,
                 index: index,
                 fontSize: fontSize,
                 maxWidth: maxWidth,
