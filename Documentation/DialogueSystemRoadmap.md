@@ -1,8 +1,8 @@
 # Dialogue system roadmap
 
-- Status: planning (docs only)
-- Version: 0.1
-- Date: 29 July 2026
+- Status: Phase 0 complete (P0 value types shipped); P1+ still planning
+- Version: 0.2
+- Date: 4 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
 
 ## Purpose
@@ -23,7 +23,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | Graph integrity helpers (`CaseDialogueGraph.report`) | Shipped |
 | Static case journal dossier (`EmptyCoatJournalContent`) | Shipped (hotspot-driven notes, not dialogue actions) |
 | `voiceAssetName` on nodes | Modeled; Empty Coat VO nil / not wired |
-| `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | Named; not implemented as dialogue runtime types |
+| `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift`; not wired to presenter/save yet |
 
 Empty Coat is intentionally compact. Broader evidence-gated branching is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
@@ -93,6 +93,8 @@ Both systems treat conversation as a directed graph of actor states plus player 
 
 - Pure unit tests: set/get flags, Codable round-trip
 - No presenter changes required
+
+**Status: met** (`DialogueStateModels.swift` + `DialogueStateModelsTests`; presenter untouched).
 
 ### Rationale
 
@@ -315,6 +317,7 @@ CaseState / flags
 | Path | Role today |
 |---|---|
 | `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Node/choice schema + graph integrity |
+| `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Authored Empty Coat graph |
 | `RainShadow Shared/UI/CaseIntroductionPresenter.swift` | Presentation + walk |
 | `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift` | `onNodeShown` / entrance sequencing |

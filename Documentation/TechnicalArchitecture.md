@@ -439,6 +439,8 @@ Even though M01 exposes only a few flags, establish these value types early:
 
 All are `Codable`, versioned, and independent of SpriteKit.
 
+**Dialogue roadmap Phase 0 (shipped):** `WorldFlag`, `CaseState`, `DialogueState`, and `DialogueRuntimeContext` live in `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` (RainShadowCore). They are not yet threaded through `CaseIntroductionPresenter` or `SaveSnapshot`. Full `EvidenceRecord` / `KnowledgeRecord` payloads and the remaining §14.1 types remain deferred.
+
 #### Dialogue graph authoring (classic BG roles)
 
 Shipped conversation data (`CaseDialogueNode` / `CaseDialogueChoice` in Navigation) follows **classic Baldur’s Gate / Infinity Engine DLG** roles (GDD §7.5):
