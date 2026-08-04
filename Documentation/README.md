@@ -14,9 +14,10 @@ This package defines the creative and technical baseline for RainShadow's first 
 4. [Milestone 01 Implementation Plan](Milestone01ImplementationPlan.md) — ordered planning-mode work breakdown, gates, acceptance criteria, risks, and definition of done.
 5. [Proposed Xcode Project Structure](ProjectStructure.md) — target strategy, folder tree, key Swift files, resource organization, and migration map from the stock template.
 6. [Dialogue System Roadmap](DialogueSystemRoadmap.md) — prioritized plan to close evidence-gated dialogue gaps vs Infinity Engine–class systems (state, triggers, actions, journal-on-transition, multi-graph). Docs only until a dialogue milestone is scheduled.
-7. [BGEE Character Sprite Redo Plan (V5)](BGEECharacterSpriteRedoPlan.md) — superseded plan document; the shipped V6 redesign (see `ArtSource/Prompts/character_prerendered_3d_v06.md`) regenerated the actors as Harlan Voss / Lila March with new BGEE-style identities at full AssetManifest density.
-8. [Paperdoll → BGEE Sprite Redo Plan (V11)](PaperdollBGEESpriteRedoPlanV11.md) — superseded for Voss room sprites; Lila V11 bob/dress from this pass remains current.
-9. [Paperdoll → BGEE Sprite Redo Plan (V12)](PaperdollBGEESpriteRedoPlanV12.md) — installed: Voss atlases re-locked to paperdoll identity + craft density through V7 BGEE preprocess (SE + NE desk); Lila untouched.
+7. [Movement System Roadmap](MovementSystemRoadmap.md) — prioritized plan to close classic Baldur’s Gate / Infinity Engine movement gaps (pause/stop/cancel, speed model, multi-actor pathing, formations). Docs only until a movement milestone is scheduled.
+8. [BGEE Character Sprite Redo Plan (V5)](BGEECharacterSpriteRedoPlan.md) — superseded plan document; the shipped V6 redesign (see `ArtSource/Prompts/character_prerendered_3d_v06.md`) regenerated the actors as Harlan Voss / Lila March with new BGEE-style identities at full AssetManifest density.
+9. [Paperdoll → BGEE Sprite Redo Plan (V11)](PaperdollBGEESpriteRedoPlanV11.md) — superseded for Voss room sprites; Lila V11 bob/dress from this pass remains current.
+10. [Paperdoll → BGEE Sprite Redo Plan (V12)](PaperdollBGEESpriteRedoPlanV12.md) — installed: Voss atlases re-locked to paperdoll identity + craft density through V7 BGEE preprocess (SE + NE desk); Lila untouched.
 
 ## Decisions frozen for Milestone 01
 
