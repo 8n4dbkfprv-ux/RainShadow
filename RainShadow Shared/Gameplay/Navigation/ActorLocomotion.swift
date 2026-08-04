@@ -43,6 +43,46 @@ struct RouteFollower {
         waypoints.removeAll(keepingCapacity: true)
     }
 
+    /// Polyline length from `position` through the remaining waypoints.
+    func remainingPathLength(from position: CGPoint) -> CGFloat {
+        guard let first = waypoints.first else { return 0 }
+        var length = distance(position, first)
+        var previous = first
+        for point in waypoints.dropFirst() {
+            length += distance(previous, point)
+            previous = point
+        }
+        return length
+    }
+
+    /// Heading that leads corners: accumulate along the remaining polyline until
+    /// at least `minimumDistance` of travel (or the end). Used so 16-bin facing
+    /// changes before a waypoint corner instead of popping on the segment.
+    func lookAheadVector(
+        from position: CGPoint,
+        minimumDistance: CGFloat
+    ) -> CGVector {
+        guard !waypoints.isEmpty else { return .zero }
+        var traveled: CGFloat = 0
+        var cursor = position
+        for point in waypoints {
+            let step = distance(cursor, point)
+            if step <= arrivalTolerance {
+                cursor = point
+                continue
+            }
+            traveled += step
+            cursor = point
+            if traveled >= minimumDistance {
+                break
+            }
+        }
+        let dx = cursor.x - position.x
+        let dy = cursor.y - position.y
+        guard dx != 0 || dy != 0 else { return .zero }
+        return CGVector(dx: dx, dy: dy)
+    }
+
     mutating func advance(
         from position: CGPoint,
         deltaTime: TimeInterval,

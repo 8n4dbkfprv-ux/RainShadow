@@ -7,21 +7,21 @@ import Testing
 struct ActorLocomotionPacingTests {
     @Test func walkSpeedUsesNormalizedHumanoidBaseline() {
         let speed = ActorLocomotionPacing.walkSpeed
+        // BG:EE parity (~2.25 heights/s) sits just under the retired 270 u/s
+        // detective default while remaining well above the slow 120 u/s amble.
         #expect(speed < ActorLocomotionPacing.legacyDetectiveWalkSpeed)
-        #expect(speed > 0)
+        #expect(speed > 180)
         #expect(ActorLocomotionPacing.walkSpeedBand.contains(speed))
         #expect(ActorLocomotionPacing.infinityEngineHumanoidMoveScale == 9)
     }
 
-    @Test func walkCycleDurationIsSlowerThanLegacyDefaults() {
-        // The V6 gait doubled frame density (8 frames) without changing stride
-        // time, so the deliberate pace is asserted on the full cycle duration.
+    @Test func walkCycleDurationMatchesBGParityGait() {
+        // Faster on-screen pace shortens the cycle while stride length stays
+        // near one body (~86 units); frame density remains eight cells.
         let frame = ActorLocomotionPacing.walkCycleSecondsPerFrame
         let cycle = frame * TimeInterval(ActorLocomotionPacing.walkFramesPerCycle)
         let legacyDetectiveCycle = ActorLocomotionPacing.legacyDetectiveWalkFrameDuration * 4
-        let legacyClientCycle = ActorLocomotionPacing.legacyClientWalkFrameDuration * 4
-        #expect(cycle > legacyDetectiveCycle)
-        #expect(cycle > legacyClientCycle)
+        #expect(cycle < legacyDetectiveCycle)
         #expect(ActorLocomotionPacing.walkCycleSecondsPerFrameBand.contains(frame))
         #expect(ActorLocomotionPacing.walkCycleDurationBand.contains(cycle))
         #expect(ActorLocomotionPacing.walkFramesPerCycle == 8)
@@ -31,6 +31,7 @@ struct ActorLocomotionPacingTests {
         let distance: CGFloat = 400
         let shipped = ActorLocomotionPacing.pathDuration(distance: distance)
         let legacyDetective = TimeInterval(distance / ActorLocomotionPacing.legacyDetectiveWalkSpeed)
+        // 225 u/s is still slightly slower than the retired 270 u/s default.
         #expect(shipped > legacyDetective)
         #expect(abs(shipped - TimeInterval(distance / ActorLocomotionPacing.walkSpeed)) < 0.0001)
     }
@@ -93,6 +94,8 @@ struct ActorLocomotionPacingTests {
         #expect(detective.contains("ActorLocomotionPacing.maximumFrameDelta"))
         #expect(detective.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(detective.contains("ActorLocomotionPacing.standUpSecondsPerFrame"))
+        #expect(detective.contains("lookAheadVector"))
+        #expect(detective.contains("facingLookAheadDistance"))
         #expect(detective.contains("var isDeskRegistered"))
         // Seat clips are selected as one complete NE-or-SE set. Sit-down is the
         // exact reverse, and the endpoint goes through the facing-aware idle path.
@@ -124,6 +127,8 @@ struct ActorLocomotionPacingTests {
         #expect(office.contains("detective.isDeskRegistered"))
         #expect(office.contains("emptyDeskChairWorldPosition"))
         #expect(office.contains("The world prop is the sole chair owner"))
+        #expect(office.contains("meaningfullyShorter"))
+        #expect(office.contains("isRouteBlocked"))
         #expect(!office.contains("deskChairProp"))
         #expect(!office.contains("shouldHideEmptyDeskChair"))
 

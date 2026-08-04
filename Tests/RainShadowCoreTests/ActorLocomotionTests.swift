@@ -273,6 +273,34 @@ struct RouteFollowerTests {
         #expect(!next.didArrive)
         #expect(follower.destination == laterGoal)
     }
+
+    @Test func remainingPathLengthSumsPolylineFromPosition() {
+        var follower = RouteFollower()
+        follower.replaceRoute(
+            with: [CGPoint(x: 30, y: 0), CGPoint(x: 30, y: 40)],
+            from: .zero
+        )
+        #expect(abs(follower.remainingPathLength(from: .zero) - 70) < 0.0001)
+        #expect(abs(follower.remainingPathLength(from: CGPoint(x: 10, y: 0)) - 60) < 0.0001)
+    }
+
+    @Test func lookAheadVectorLeadsCornersBeforeArrival() {
+        var follower = RouteFollower()
+        follower.replaceRoute(
+            with: [CGPoint(x: 20, y: 0), CGPoint(x: 20, y: 40)],
+            from: .zero
+        )
+        // Short look-ahead stays on the first segment (east).
+        let near = follower.lookAheadVector(from: .zero, minimumDistance: 10)
+        #expect(near.dx > 0)
+        #expect(abs(near.dy) < 0.0001)
+
+        // 24-unit look-ahead reaches past the corner and includes the north leg.
+        let far = follower.lookAheadVector(from: .zero, minimumDistance: 24)
+        #expect(far.dx > 0)
+        #expect(far.dy > 0)
+        #expect(far.dy > near.dy)
+    }
 }
 
 struct ActorFacingTests {

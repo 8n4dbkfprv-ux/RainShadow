@@ -48,6 +48,8 @@ final class DetectiveActorNode: SKNode {
     private static let seatedUpperLocalZ: CGFloat = 90
     private static let seatedLowerLocalZ: CGFloat = 0
     private static let seatedArmsLocalZ: CGFloat = 110
+    /// Look ahead along the live route so 16-bin facing leads corners (~0.24 body).
+    private static let facingLookAheadDistance: CGFloat = 24
     /// Shared seated/standing presentation size (integer pixels — avoids nearest shimmer).
     private static let frameDisplaySizeConstant = OfficeInteriorScale.ActorDisplay.spriteDisplaySize
     private static let spriteScale = OfficeInteriorScale.ActorDisplay.spriteScale
@@ -334,7 +336,13 @@ final class DetectiveActorNode: SKNode {
             finishWalking()
             return
         }
-        if let first = routeFollower.waypoints.first {
+        let look = routeFollower.lookAheadVector(
+            from: position,
+            minimumDistance: Self.facingLookAheadDistance
+        )
+        if look != .zero {
+            setFacing(dx: look.dx, dy: look.dy)
+        } else if let first = routeFollower.waypoints.first {
             setFacing(dx: first.x - position.x, dy: first.y - position.y)
         }
     }
@@ -346,6 +354,30 @@ final class DetectiveActorNode: SKNode {
     /// True while a replace or append walk order is active (including seat-egress / stand-up wait).
     var isLocomoting: Bool {
         pendingWalk != nil || routeFollower.isMoving || state == .walking
+    }
+
+    /// Remaining live route polyline (empty while seated / idle). Used by
+    /// corrective repath to compare lengths and detect blocked legs.
+    var remainingRouteWaypoints: [CGPoint] {
+        if let pending = pendingWalk {
+            return pending.path
+        }
+        return routeFollower.waypoints
+    }
+
+    /// World-space length of the remaining live route from the current position.
+    var remainingRouteLength: CGFloat {
+        if let pending = pendingWalk {
+            guard let first = pending.path.first else { return 0 }
+            var length = hypot(first.x - position.x, first.y - position.y)
+            var previous = first
+            for point in pending.path.dropFirst() {
+                length += hypot(point.x - previous.x, point.y - previous.y)
+                previous = point
+            }
+            return length
+        }
+        return routeFollower.remainingPathLength(from: position)
     }
 
     /// Advances root motion and the walk cycle from the scene clock. Calling
@@ -372,7 +404,15 @@ final class DetectiveActorNode: SKNode {
         )
         position = step.position
         if step.direction != .zero {
-            setFacing(dx: step.direction.dx, dy: step.direction.dy)
+            let look = routeFollower.lookAheadVector(
+                from: position,
+                minimumDistance: Self.facingLookAheadDistance
+            )
+            if look != .zero {
+                setFacing(dx: look.dx, dy: look.dy)
+            } else {
+                setFacing(dx: step.direction.dx, dy: step.direction.dy)
+            }
             advanceWalkAnimation(by: deltaTime)
         }
         if step.didArrive {
@@ -476,7 +516,15 @@ final class DetectiveActorNode: SKNode {
         }
 
         if let first = routeFollower.waypoints.first {
-            setFacing(dx: first.x - position.x, dy: first.y - position.y)
+            let look = routeFollower.lookAheadVector(
+                from: position,
+                minimumDistance: Self.facingLookAheadDistance
+            )
+            if look != .zero {
+                setFacing(dx: look.dx, dy: look.dy)
+            } else {
+                setFacing(dx: first.x - position.x, dy: first.y - position.y)
+            }
             if isCompletingSeatEgress {
                 needsSeatEgress = false
                 let firstLegDistance = hypot(first.x - position.x, first.y - position.y)

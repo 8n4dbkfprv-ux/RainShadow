@@ -1133,7 +1133,9 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     /// BG:EE Enhanced Path Search — periodically recompute the *current* leg so a
     /// cleared bottleneck (door, bumped NPC) yields a shorter path. Later queued
-    /// goals stay intact and are re-appended after the repath.
+    /// goals stay intact and are re-appended after the repath. Skip adoption when
+    /// the new route is not meaningfully shorter and the live route is still clear,
+    /// so mid-walk kinks from near-identical replacements do not show.
     private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
         guard let destination = queuedMovementGoals.first,
               detective.movementDestination != nil,
@@ -1143,6 +1145,14 @@ final class DetectiveOfficeScene: BaseGameScene {
         lastCorrectiveRepathTime = currentTime
         guard let repath = navigation.repath(from: detective.position, to: destination),
               !repath.isEmpty else {
+            return
+        }
+        let currentLeg = currentLegWaypoints(to: destination)
+        let remainingLength = Self.polylineLength(currentLeg, from: detective.position)
+        let newLength = Self.polylineLength(repath, from: detective.position)
+        let meaningfullyShorter = remainingLength > 0 && newLength < remainingLength * 0.9
+        let currentBlocked = isRouteBlocked(currentLeg)
+        guard meaningfullyShorter || currentBlocked else {
             return
         }
         let remainingGoals = Array(queuedMovementGoals.dropFirst())
@@ -1157,6 +1167,46 @@ final class DetectiveOfficeScene: BaseGameScene {
         detective.walk(path: combined, completion: { [weak self] in
             self?.finishQueuedMovement()
         })
+    }
+
+    /// Waypoints for the active queued goal only (excludes later Shift-click legs).
+    private func currentLegWaypoints(to destination: CGPoint) -> [CGPoint] {
+        let arrivalSlop: CGFloat = 18
+        var points: [CGPoint] = []
+        for point in detective.remainingRouteWaypoints {
+            points.append(point)
+            if hypot(point.x - destination.x, point.y - destination.y) <= arrivalSlop {
+                break
+            }
+        }
+        return points
+    }
+
+    private func isRouteBlocked(_ points: [CGPoint]) -> Bool {
+        var cursor = detective.position
+        for point in points {
+            if !navigation.searchMap.isWalkableLine(
+                from: cursor,
+                to: point,
+                radius: navigation.agentProfile.radius,
+                treatActorsAsBlocking: true
+            ) {
+                return true
+            }
+            cursor = point
+        }
+        return false
+    }
+
+    private static func polylineLength(_ points: [CGPoint], from origin: CGPoint) -> CGFloat {
+        guard let first = points.first else { return 0 }
+        var length = hypot(first.x - origin.x, first.y - origin.y)
+        var previous = first
+        for point in points.dropFirst() {
+            length += hypot(point.x - previous.x, point.y - previous.y)
+            previous = point
+        }
+        return length
     }
 
     private func processBumpRequests() {
