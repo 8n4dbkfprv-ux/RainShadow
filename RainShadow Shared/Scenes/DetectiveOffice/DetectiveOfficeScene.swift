@@ -669,7 +669,12 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        let worldIsPaused = dialogueIsActive
+        // BG:EE semantics: dialogue pauses the world, but CutSceneMode does not —
+        // scripted actors (Lila's entrance/exit walks) keep moving while only
+        // player input is locked. `cutsceneChromeSuppressed` is true for the
+        // whole authored visit, so it stands in for CutSceneMode here.
+        let cutsceneActive = cutsceneChromeSuppressed
+        let worldIsPaused = (dialogueIsActive && !cutsceneActive)
             || mapIsPresented
             || journalIsPresented
             || inventoryIsPresented
@@ -801,9 +806,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         // would reset it upright under the walk and stall SpriteKit timing.
         if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] != "1" {
             animateDoorFalling()
-        } else {
-            navigation.setEntranceDoorBlocking(false)
         }
+        // BG:EE order: an opening door clears its search-map cells before the
+        // creature paths through it. The fall animation re-clears on landing,
+        // which is idempotent; routing below must already see the open threshold.
+        navigation.setEntranceDoorBlocking(false)
         // The first leg is authored across the actual exterior threshold (its
         // start is outside the nav floor). Exact interior anchors then clear the
         // waiting furniture and cross the shipping painted partition door.
