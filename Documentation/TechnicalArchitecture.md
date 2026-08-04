@@ -342,7 +342,7 @@ Movement velocity in projected screen space maps to one of 16 facing bins. A sma
 
 - A* over eight-connected cells.
 - Diagonal corner cutting is forbidden when either adjacent orthogonal cell is blocked.
-- Heuristic uses octile distance.
+- Heuristic uses projected Euclidean distance between cell centers, matching step costs in the same projected metric (not grid-index octile).
 - Returned path is simplified only when a straight segment remains fully within walkable cells.
 - Actor speed is measured in projected world distance so diagonal screen movement does not appear faster.
 - M01 has no dynamic obstacle avoidance; the single detective is the only moving world actor.

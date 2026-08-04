@@ -110,6 +110,70 @@ struct RouteFollowerTests {
         #expect(follower.destination == nil)
     }
 
+    @Test func cancelMidRouteHoldsLivePositionWithoutArrival() {
+        var follower = RouteFollower()
+        follower.replaceRoute(
+            with: [CGPoint(x: 40, y: 0), CGPoint(x: 40, y: 80)],
+            from: .zero
+        )
+        let mid = follower.advance(from: .zero, deltaTime: 0.25, speed: 100)
+        #expect(mid.position == CGPoint(x: 25, y: 0))
+        #expect(!mid.didArrive)
+
+        follower.cancel()
+        let afterCancel = follower.advance(from: mid.position, deltaTime: 1, speed: 100)
+
+        #expect(afterCancel.position == mid.position)
+        #expect(!afterCancel.didArrive)
+        #expect(!follower.isMoving)
+        #expect(follower.destination == nil)
+    }
+
+    @Test func replaceMidRouteDiscardsOldDestinationTail() {
+        var follower = RouteFollower()
+        follower.replaceRoute(
+            with: [CGPoint(x: 100, y: 0), CGPoint(x: 100, y: 50)],
+            from: .zero
+        )
+        let mid = follower.advance(from: .zero, deltaTime: 0.3, speed: 100)
+        #expect(mid.position == CGPoint(x: 30, y: 0))
+
+        follower.replaceRoute(with: [CGPoint(x: 30, y: 60)], from: mid.position)
+
+        #expect(follower.waypoints == [CGPoint(x: 30, y: 60)])
+        #expect(follower.destination == CGPoint(x: 30, y: 60))
+        #expect(follower.destination != CGPoint(x: 100, y: 50))
+    }
+
+    @Test func replaceAfterCancelStartsCleanRoute() {
+        var follower = RouteFollower()
+        follower.replaceRoute(with: [CGPoint(x: 80, y: 0)], from: .zero)
+        _ = follower.advance(from: .zero, deltaTime: 0.2, speed: 100)
+        follower.cancel()
+        #expect(!follower.isMoving)
+
+        follower.replaceRoute(with: [CGPoint(x: 20, y: 40)], from: CGPoint(x: 20, y: 0))
+        let step = follower.advance(from: CGPoint(x: 20, y: 0), deltaTime: 0.5, speed: 40)
+
+        #expect(step.position == CGPoint(x: 20, y: 20))
+        #expect(!step.didArrive)
+        #expect(follower.isMoving)
+        #expect(follower.destination == CGPoint(x: 20, y: 40))
+    }
+
+    @Test func zeroSpeedDoesNotConsumeWaypoints() {
+        var follower = RouteFollower()
+        follower.replaceRoute(with: [CGPoint(x: 50, y: 0)], from: .zero)
+
+        let step = follower.advance(from: .zero, deltaTime: 1, speed: 0)
+
+        #expect(step.position == .zero)
+        #expect(step.direction == .zero)
+        #expect(!step.didArrive)
+        #expect(follower.waypoints == [CGPoint(x: 50, y: 0)])
+        #expect(follower.isMoving)
+    }
+
     @Test func appendsDistinctWaypointsInOrder() {
         var follower = RouteFollower()
         follower.replaceRoute(with: [CGPoint(x: 20, y: 0)], from: .zero)

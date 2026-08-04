@@ -596,6 +596,9 @@ final class NavigationGrid {
         distance(from: projection.point(for: start), to: projection.point(for: end))
     }
 
+    /// Admissible estimate in the same projected-world metric as `movementCost`.
+    /// Euclidean between cell centers stays consistent with step costs; a pure
+    /// grid-index octile heuristic would be dimensionally mismatched here.
     private func heuristic(_ a: NavigationCell, _ b: NavigationCell) -> CGFloat {
         distance(from: projection.point(for: a), to: projection.point(for: b))
     }

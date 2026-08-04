@@ -124,14 +124,15 @@ class BaseGameScene: SKScene {
             + bias
     }
 
+    private static let movementFeedbackNodeName = "movement.command.feedback"
+
     /// Compact Infinity-Engine-style order feedback. Valid orders land on the
     /// resolved ground point; invalid ones briefly mark the rejected click.
     func showMovementFeedback(at point: CGPoint, isValid: Bool) {
-        let markerName = "movement.command.feedback"
-        floorEffectRoot.childNode(withName: markerName)?.removeFromParent()
+        clearMovementFeedback()
 
         let marker = SKShapeNode(ellipseOf: CGSize(width: 38, height: 19))
-        marker.name = markerName
+        marker.name = Self.movementFeedbackNodeName
         marker.position = point
         marker.fillColor = .clear
         marker.strokeColor = isValid
@@ -151,6 +152,11 @@ class BaseGameScene: SKScene {
             .fadeOut(withDuration: 0.25),
             .removeFromParent()
         ]))
+    }
+
+    /// Removes any live move-order ring (e.g. when Escape / right-click cancels a walk).
+    func clearMovementFeedback() {
+        floorEffectRoot.childNode(withName: Self.movementFeedbackNodeName)?.removeFromParent()
     }
 
     private func installLayerTree() {

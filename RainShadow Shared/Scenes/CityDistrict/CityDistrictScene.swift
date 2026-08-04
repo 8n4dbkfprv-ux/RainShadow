@@ -230,6 +230,7 @@ final class CityDistrictScene: BaseGameScene {
         } else if inventoryIsPresented {
             setInventoryPresented(false)
         } else {
+            clearMovementFeedback()
             detective.cancelMovement()
         }
     }

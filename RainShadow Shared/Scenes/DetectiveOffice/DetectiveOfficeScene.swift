@@ -618,6 +618,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         } else if inventoryIsPresented {
             setInventoryPresented(false)
         } else if !dialogueIsActive {
+            clearMovementFeedback()
             detective.cancelMovement()
         }
     }

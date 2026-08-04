@@ -1,7 +1,7 @@
 # Movement system roadmap
 
-- Status: planning — Phase 0 baseline already largely shipped; P1+ not scheduled
-- Version: 0.1
+- Status: Phase 0 complete; P1+ not scheduled
+- Version: 0.2
 - Date: 4 August 2026
 - Related: GDD §8 (Controls), Technical Architecture §10–12 (actors, navigation, input), Dialogue System Roadmap (pause / modal interaction patterns)
 
@@ -37,7 +37,7 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 - Exact default facing when only left-clicking a group (no R-drag) is under-documented in manuals.
 - Automatic mid-path re-formation when pathfinding splits the party is **not** a named IE feature—community practice is manual regroup.
 - Exact 100%/120% encumbrance thresholds are secondary (wiki), not printed in manuals checked.
-- Doc/code mismatch: Technical Architecture §11.2 mentions an octile heuristic; `NavigationGrid` uses projected Euclidean distance between cell centers—resolve in Phase 0 polish.
+- Heuristic doc/code mismatch from early drafts is **resolved in Phase 0**: Technical Architecture §11.2 and `NavigationGrid.heuristic` both use projected Euclidean distance between cell centers.
 
 ---
 
@@ -52,15 +52,18 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 | Unreachable tap → nearest cell in bounded Chebyshev ring | **Shipped** (+ tests) |
 | Constant-speed waypoint following (`RouteFollower`) | **Shipped** |
 | New input **replaces** route (not append) for single actor | **Shipped** |
+| Cancel route (Escape / right-click / two-finger) without new destination | **Shipped** (`handleCancelInput` → `cancelMovement`) |
+| Move-order ground feedback (procedural teal/red ellipse) | **Shipped**; sprite `ui_move_marker_*` deferred |
+| A* heuristic = projected Euclidean (docs + code aligned) | **Shipped (P0)** |
 | `appendRoute` stub for future party waypoint queuing | **Modeled only** |
 | Single detective pathfinding; no dynamic multi-agent avoidance | **Shipped (M01)** |
 | Actor state machine (seated → stand → walk → sit) | **Shipped** |
-| Projected-world speed so diagonals are not faster on screen | **Shipped** (architecture intent) |
+| Projected-world speed so diagonals are not faster on screen | **Shipped** |
 | 16-bin facing from velocity; 9 sources + mirror | **Shipped** |
 | Click/tap → hotspot vs walk resolution | **Shipped** |
 | World pause during modal dialogue / overlays | **Partial** (scene-level `isPaused` on roots) |
-| Player-driven tactical pause (queue moves while paused) | **Not shipped** |
-| Group stop / cancel route affordance (UI + input) | **Partial** (Escape/cancel patterns in GDD; not full IE Stop) |
+| Player-driven tactical pause (queue moves while paused) | **Not shipped** (P1) |
+| Group stop / cancel route affordance (UI + input) | **Partial** — cancel shipped; dedicated IE Stop UI is P1 |
 | Multi-select, party portraits as formation order | **UI chrome only** (party rail assets); no multi-actor runtime |
 | Formations / destination facing drag | **Not shipped** |
 | Encumbrance / Haste-style speed modifiers | **Not shipped** |
@@ -86,23 +89,23 @@ P0 before multi-actor: one reliable IE-feeling detective walk is the M01 promise
 
 ---
 
-## Phase 0 — Single-actor classic feel (mostly shipped)
+## Phase 0 — Single-actor classic feel
 
-**Goal:** Detective walk already feels like classic point-and-click IE locomotion: constant speed, replace-on-click, safe interrupt, predictable fallback.
+**Goal:** Detective walk feels like classic point-and-click IE locomotion: constant speed, replace-on-click, safe interrupt, predictable fallback.
 
-### Ship (remaining polish)
+### Ship
 
-- Resolve Technical Architecture §11.2 vs code: document the actual heuristic (projected Euclidean) **or** switch to octile and update tests
-- Explicit **cancel route** path: Escape / right-click / two-finger cancel stops walking without requiring a new destination
-- Safe mid-segment retarget (already intended: replace after current step reaches a safe point)—verify tests cover interrupt while walking
-- Optional click-destination marker (visual only) consistent with IE “move cursor” feedback—defer art if no asset exists
+- Technical Architecture §11.2 + `NavigationGrid.heuristic` both document/use **projected Euclidean** between cell centers (same metric as step cost)
+- Explicit **cancel route**: Escape / right-click / two-finger → `cancelMovement()`; cancel also clears the live move-order feedback ring
+- Mid-segment **retarget** via `replaceRoute` from the live interpolated position (pure tests cover cancel mid-route, replace discarding old tail, replace-after-cancel, zero-speed hold)
+- Click-destination feedback: procedural teal (valid) / red (invalid) ellipse; authored `ui_move_marker_*` art remains optional later polish
 
 ### Exit criteria
 
 - Unit tests: cancel clears waypoints; replace mid-route does not overshoot; unreachable taps fail or fall back within ring
 - Manual: tap walk, retarget, cancel, stand-from-chair walk all feel deterministic on office map
 
-**Status:** core locomotion **met**; cancel/heuristic doc polish **open**.
+**Status: met** (procedural marker; sprite move-marker art deferred).
 
 ### Rationale
 
