@@ -156,14 +156,15 @@ class BaseGameScene: SKScene {
             marker.alpha = 0
             floorEffectRoot.addChild(marker)
 
-            let frameTime = 0.055
+            // Match IE destination feedback pacing: readable snap-in, then settle/fade.
+            let frameTime = 0.065
             let animate = SKAction.animate(with: textures, timePerFrame: frameTime)
             marker.run(.sequence([
                 .group([
-                    .fadeIn(withDuration: 0.04),
+                    .fadeIn(withDuration: 0.03),
                     animate
                 ]),
-                .fadeOut(withDuration: 0.18),
+                .fadeOut(withDuration: 0.14),
                 .removeFromParent()
             ]))
             return
