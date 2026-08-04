@@ -22,7 +22,8 @@ final class CityDistrictScene: BaseGameScene {
     private var journalIsPresented = false
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
-    private var pendingMovementDestination: CGPoint?
+    /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
+    private var queuedMovementGoals: [CGPoint] = []
     private var lastCorrectiveRepathTime: TimeInterval = 0
     private static let detectiveActorID = "detective.voss"
     private static let correctiveRepathInterval: TimeInterval = 0.75
@@ -156,7 +157,7 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        moveDetective(to: event.location)
+        moveDetective(to: event.location, queueWaypoint: event.isWaypointQueue)
     }
 
     override func handleDirectionalInput(_ direction: CGVector) {
@@ -241,6 +242,8 @@ final class CityDistrictScene: BaseGameScene {
             setInventoryPresented(false)
         } else {
             clearMovementFeedback()
+            clearWaypointPips()
+            queuedMovementGoals.removeAll(keepingCapacity: true)
             detective.cancelMovement()
         }
     }
@@ -276,22 +279,13 @@ final class CityDistrictScene: BaseGameScene {
         let worldIsPaused = mapIsPresented || journalIsPresented || inventoryIsPresented
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
+            pruneCompletedQueuedGoals()
             navigation.updateActor(
                 id: Self.detectiveActorID,
                 position: detective.position,
                 isMoving: detective.movementDestination != nil
             )
-            if let destination = pendingMovementDestination,
-               detective.movementDestination != nil,
-               currentTime - lastCorrectiveRepathTime >= Self.correctiveRepathInterval {
-                lastCorrectiveRepathTime = currentTime
-                if let repath = navigation.repath(from: detective.position, to: destination),
-                   !repath.isEmpty {
-                    detective.walk(path: repath) { [weak self] in
-                        self?.pendingMovementDestination = nil
-                    }
-                }
-            }
+            performCorrectiveRepathIfNeeded(at: currentTime)
         }
         portraitBar.setHealth(
             current: context.session.currentHealth,
@@ -380,23 +374,95 @@ final class CityDistrictScene: BaseGameScene {
     private func moveDetective(
         to target: CGPoint,
         requiresExactDestination: Bool = false,
+        queueWaypoint: Bool = false,
         completion: (() -> Void)? = nil
     ) {
+        let shouldQueue = queueWaypoint && !requiresExactDestination && !queuedMovementGoals.isEmpty
+
+        if shouldQueue {
+            appendQueuedWaypoint(to: target)
+            return
+        }
+
         guard let route = navigation.route(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
-            pendingMovementDestination = nil
+            if !queueWaypoint {
+                clearWaypointPips()
+                queuedMovementGoals.removeAll(keepingCapacity: true)
+            }
             return
         }
         guard !requiresExactDestination || !route.destinationWasAdjusted else {
             showMovementFeedback(at: target, isValid: false)
-            pendingMovementDestination = nil
+            clearWaypointPips()
+            queuedMovementGoals.removeAll(keepingCapacity: true)
+            return
+        }
+
+        clearWaypointPips()
+        showMovementFeedback(at: route.resolvedDestination, isValid: true)
+        queuedMovementGoals = [route.resolvedDestination]
+        detective.walk(path: route.waypoints, completion: { [weak self] in
+            self?.finishQueuedMovement(completion: completion)
+        })
+    }
+
+    private func appendQueuedWaypoint(to target: CGPoint) {
+        guard let origin = queuedMovementGoals.last else {
+            moveDetective(to: target, queueWaypoint: false)
+            return
+        }
+        guard let route = navigation.route(from: origin, to: target) else {
+            showMovementFeedback(at: target, isValid: false)
             return
         }
         showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        pendingMovementDestination = route.resolvedDestination
-        detective.walk(path: route.waypoints, completion: { [weak self] in
-            self?.pendingMovementDestination = nil
-            completion?()
+        showWaypointPip(at: route.resolvedDestination)
+        queuedMovementGoals.append(route.resolvedDestination)
+        detective.walk(appending: route.waypoints, completion: { [weak self] in
+            self?.finishQueuedMovement()
+        })
+    }
+
+    private func finishQueuedMovement(completion: (() -> Void)? = nil) {
+        clearWaypointPips()
+        queuedMovementGoals.removeAll(keepingCapacity: true)
+        completion?()
+    }
+
+    private func pruneCompletedQueuedGoals() {
+        let arrivalSlop: CGFloat = 18
+        while queuedMovementGoals.count > 1,
+              let goal = queuedMovementGoals.first,
+              hypot(detective.position.x - goal.x, detective.position.y - goal.y) <= arrivalSlop {
+            removeWaypointPip(nearest: goal)
+            queuedMovementGoals.removeFirst()
+        }
+    }
+
+    /// BG:EE Enhanced Path Search — repath the current leg; keep later queued goals.
+    private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
+        guard let destination = queuedMovementGoals.first,
+              detective.movementDestination != nil,
+              currentTime - lastCorrectiveRepathTime >= Self.correctiveRepathInterval else {
+            return
+        }
+        lastCorrectiveRepathTime = currentTime
+        guard let repath = navigation.repath(from: detective.position, to: destination),
+              !repath.isEmpty else {
+            return
+        }
+        let remainingGoals = Array(queuedMovementGoals.dropFirst())
+        var combined = repath
+        var cursor = destination
+        for goal in remainingGoals {
+            if let leg = navigation.route(from: cursor, to: goal) {
+                combined.append(contentsOf: leg.waypoints)
+                cursor = leg.resolvedDestination
+            }
+        }
+        detective.walk(path: combined, completion: { [weak self] in
+            self?.finishQueuedMovement()
         })
     }
 

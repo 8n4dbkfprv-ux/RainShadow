@@ -323,7 +323,9 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | Priority | ID(s) | Count | Pixels each | Description |
 |---|---|---:|---:|---|
 | P0 | `ui_cursor_move`, `ui_cursor_inspect`, `ui_cursor_blocked` | 3 | 64×64 | macOS pointer states with clear hot point. |
-| P0 | `ui_move_marker_00...07` | 8 | 128×64 | Muted isometric ground marker loop, optional on touch and click. |
+| P0 | `ui_move_marker_00...07` | 8 | 128×64 | **Shipped.** Muted isometric teal ground marker converging loop on valid move orders. |
+| P0 | `ui_move_marker_blocked_00...07`, `ui_move_marker_blocked` | 9 | 128×64 | **Shipped.** Red denied variant (animated + single-frame fallback). |
+| P0 | `ui_waypoint_pip` | 1 | 64×32 | **Shipped.** Persistent teal pip at each BG:EE queued waypoint until reached. |
 | P0 | `ui_hotspot_focus_halo` | 1 | 512×512 | Neutral hand-painted halo, tintable, used only in focus mode. |
 | P0 | `ui_observation_panel` | 1 | 768×256 | Nine-slice-compatible dark translucent caption backing. |
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |

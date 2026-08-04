@@ -134,13 +134,14 @@ Scenes recompute the active route every `correctiveRepathInterval` (0.75 s) whil
 `DetectiveOfficeScene` and `CityDistrictScene` run the same per-frame order from `update(_:)`, and any new scene with walking actors must too:
 
 1. **Advance locomotion.** `updateLocomotion(at:worldIsPaused:)` on each actor node, which is where its `RouteFollower` steps.
-2. **Push occupancy.** Feed every visible actor's live position and `isMoving` to `NavigationMap.updateActor`. Unregister actors that are hidden.
-3. **Corrective repath.** If a destination is pending, the actor is still walking, and `correctiveRepathInterval` has elapsed, `repath` from the live position.
-4. **Process bump requests.** If the mover overlaps an idle bumpable actor, drive that actor's sidestep and queue its return.
+2. **Prune completed queue goals.** Drop goals the actor has already reached so the live leg stays accurate and waypoint pips disappear.
+3. **Push occupancy.** Feed every visible actor's live position and `isMoving` to `NavigationMap.updateActor`. Unregister actors that are hidden.
+4. **Corrective repath.** If a destination is pending, the actor is still walking, and `correctiveRepathInterval` has elapsed, `repath` the *current* leg from the live position and re-append later queued goals.
+5. **Process bump requests.** If the mover overlaps an idle bumpable actor, drive that actor's sidestep and queue its return.
 
-Everything after step 1 is gated on the world not being paused, so modal dialogue, the map, the journal, and the inventory freeze navigation without cancelling the active route. `CityDistrictScene` currently has a single actor and therefore no step 4; `DetectiveOfficeScene` implements all four as `updateActorOccupancy()`, `performCorrectiveRepathIfNeeded(at:)`, and `processBumpRequests()`.
+Everything after step 1 is gated on the world not being paused, so modal dialogue, the map, the journal, and the inventory freeze navigation without cancelling the active route. `CityDistrictScene` currently has a single actor and therefore no bump step; `DetectiveOfficeScene` implements the full loop as `pruneCompletedQueuedGoals()`, `updateActorOccupancy()`, `performCorrectiveRepathIfNeeded(at:)`, and `processBumpRequests()`.
 
-Each scene holds `pendingMovementDestination` — the goal the player asked for, as distinct from the current waypoint list — because corrective repathing needs the original intent, not the truncated tail of the active route.
+Each scene holds `queuedMovementGoals` — the ordered player goals (BG:EE waypoint queue), as distinct from the current pathfinder waypoint list — because corrective repathing needs the original intent, not the truncated tail of the active route. Plain click / tap replaces the queue; Shift+click (macOS) or long-press (iOS) appends a goal routed from the last queued point.
 
 ## Agent profiles
 

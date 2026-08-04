@@ -23,6 +23,11 @@ class BaseGameScene: SKScene {
     private(set) var baseCameraScale: CGFloat = 1
     #if os(iOS)
     private var twoFingerCancelIsActive = false
+    /// Wall-clock start of the active single-finger press (long-press → waypoint queue).
+    private var touchDownTime: TimeInterval?
+    private var touchDownLocation: CGPoint?
+    private static let longPressQueueDuration: TimeInterval = 0.45
+    private static let longPressMoveSlop: CGFloat = 12
     #endif
 
     var referenceVisibleHeight: CGFloat { 1_152 }
@@ -125,11 +130,37 @@ class BaseGameScene: SKScene {
     }
 
     private static let movementFeedbackNodeName = "movement.command.feedback"
+    private static let waypointPipNodeName = "movement.waypoint.pip"
+    private static let moveMarkerFrameCount = 8
+    private static let moveMarkerDisplaySize = CGSize(width: 48, height: 24)
+    private static let waypointPipDisplaySize = CGSize(width: 28, height: 14)
 
     /// Compact Infinity-Engine-style order feedback. Valid orders land on the
     /// resolved ground point; invalid ones briefly mark the rejected click.
+    /// Prefer painted `ui_move_marker_*` / blocked frames; fall back to a coded ellipse.
     func showMovementFeedback(at point: CGPoint, isValid: Bool) {
         clearMovementFeedback()
+
+        if let textures = moveMarkerTextures(isValid: isValid), !textures.isEmpty {
+            let marker = SKSpriteNode(texture: textures[0], size: Self.moveMarkerDisplaySize)
+            marker.name = Self.movementFeedbackNodeName
+            marker.position = point
+            marker.zPosition = 20
+            marker.alpha = 0
+            floorEffectRoot.addChild(marker)
+
+            let frameTime = 0.055
+            let animate = SKAction.animate(with: textures, timePerFrame: frameTime)
+            marker.run(.sequence([
+                .group([
+                    .fadeIn(withDuration: 0.04),
+                    animate
+                ]),
+                .fadeOut(withDuration: 0.18),
+                .removeFromParent()
+            ]))
+            return
+        }
 
         let marker = SKShapeNode(ellipseOf: CGSize(width: 38, height: 19))
         marker.name = Self.movementFeedbackNodeName
@@ -154,9 +185,69 @@ class BaseGameScene: SKScene {
         ]))
     }
 
-    /// Removes any live move-order ring (e.g. when Escape / right-click cancels a walk).
+    /// Removes any live move-order marker (e.g. when Escape / right-click cancels a walk).
     func clearMovementFeedback() {
         floorEffectRoot.childNode(withName: Self.movementFeedbackNodeName)?.removeFromParent()
+    }
+
+    /// Persistent pip at a queued BG:EE-style waypoint until that leg is reached.
+    func showWaypointPip(at point: CGPoint) {
+        let pip: SKNode
+        if let texture = GameArt.texture(named: "ui_waypoint_pip") {
+            let sprite = SKSpriteNode(texture: texture, size: Self.waypointPipDisplaySize)
+            sprite.alpha = 0.92
+            pip = sprite
+        } else {
+            let shape = SKShapeNode(ellipseOf: CGSize(width: 22, height: 11))
+            shape.fillColor = .clear
+            shape.strokeColor = SKColor(red: 0.28, green: 0.86, blue: 0.78, alpha: 0.85)
+            shape.lineWidth = 2
+            pip = shape
+        }
+        pip.name = Self.waypointPipNodeName
+        pip.position = point
+        pip.zPosition = 18
+        floorEffectRoot.addChild(pip)
+    }
+
+    /// Removes every queued-waypoint pip (cancel / replace-on-click).
+    func clearWaypointPips() {
+        while let pip = floorEffectRoot.childNode(withName: Self.waypointPipNodeName) {
+            pip.removeFromParent()
+        }
+    }
+
+    /// Removes the pip nearest `point` (leg completed).
+    func removeWaypointPip(nearest point: CGPoint, within tolerance: CGFloat = 24) {
+        var best: SKNode?
+        var bestDistance = CGFloat.greatestFiniteMagnitude
+        for child in floorEffectRoot.children where child.name == Self.waypointPipNodeName {
+            let distance = hypot(child.position.x - point.x, child.position.y - point.y)
+            if distance < bestDistance {
+                bestDistance = distance
+                best = child
+            }
+        }
+        if bestDistance <= tolerance {
+            best?.removeFromParent()
+        }
+    }
+
+    private func moveMarkerTextures(isValid: Bool) -> [SKTexture]? {
+        if isValid {
+            let frames = (0..<Self.moveMarkerFrameCount).compactMap { index in
+                GameArt.texture(named: String(format: "ui_move_marker_%02d", index))
+            }
+            return frames.count == Self.moveMarkerFrameCount ? frames : nil
+        }
+        let frames = (0..<Self.moveMarkerFrameCount).compactMap { index in
+            GameArt.texture(named: String(format: "ui_move_marker_blocked_%02d", index))
+        }
+        if frames.count == Self.moveMarkerFrameCount { return frames }
+        if let single = GameArt.texture(named: "ui_move_marker_blocked") {
+            return [single]
+        }
+        return nil
     }
 
     private func installLayerTree() {
@@ -198,6 +289,8 @@ extension BaseGameScene {
         if activeTouchCount >= 2 {
             if !twoFingerCancelIsActive {
                 twoFingerCancelIsActive = true
+                touchDownTime = nil
+                touchDownLocation = nil
                 if let touch = touches.first {
                     handlePointerCancelled(
                         GamePointerEvent(location: touch.location(in: self), kind: .touch)
@@ -209,13 +302,24 @@ extension BaseGameScene {
         }
         guard !twoFingerCancelIsActive else { return }
         guard let touch = touches.first else { return }
-        handlePointerDown(GamePointerEvent(location: touch.location(in: self), kind: .touch))
+        let location = touch.location(in: self)
+        touchDownTime = ProcessInfo.processInfo.systemUptime
+        touchDownLocation = location
+        handlePointerDown(GamePointerEvent(location: location, kind: .touch))
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard !twoFingerCancelIsActive else { return }
         guard let touch = touches.first else { return }
-        handlePointerDragged(GamePointerEvent(location: touch.location(in: self), kind: .touch))
+        let location = touch.location(in: self)
+        if let origin = touchDownLocation {
+            let moved = hypot(location.x - origin.x, location.y - origin.y)
+            if moved > Self.longPressMoveSlop {
+                // Dragged far enough that this is no longer a stationary long-press queue.
+                touchDownTime = nil
+            }
+        }
+        handlePointerDragged(GamePointerEvent(location: location, kind: .touch))
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -227,10 +331,23 @@ extension BaseGameScene {
             return
         }
         guard let touch = touches.first else { return }
-        handlePointerUp(GamePointerEvent(location: touch.location(in: self), kind: .touch))
+        let location = touch.location(in: self)
+        let isQueue: Bool
+        if let start = touchDownTime {
+            isQueue = ProcessInfo.processInfo.systemUptime - start >= Self.longPressQueueDuration
+        } else {
+            isQueue = false
+        }
+        touchDownTime = nil
+        touchDownLocation = nil
+        handlePointerUp(
+            GamePointerEvent(location: location, kind: .touch, isWaypointQueue: isQueue)
+        )
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchDownTime = nil
+        touchDownLocation = nil
         if twoFingerCancelIsActive {
             let hasActiveTouches = event?.allTouches?.contains {
                 $0.phase != .ended && $0.phase != .cancelled
@@ -255,7 +372,14 @@ extension BaseGameScene {
     }
 
     override func mouseUp(with event: NSEvent) {
-        handlePointerUp(GamePointerEvent(location: event.location(in: self), kind: .mouse))
+        let queue = event.modifierFlags.contains(.shift)
+        handlePointerUp(
+            GamePointerEvent(
+                location: event.location(in: self),
+                kind: .mouse,
+                isWaypointQueue: queue
+            )
+        )
     }
 
     override func mouseMoved(with event: NSEvent) {

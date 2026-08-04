@@ -292,8 +292,60 @@ final class DetectiveActorNode: SKNode {
         beginWalking(path: path, completion: completion)
     }
 
+    /// BG:EE Shift+click / long-press queue — append waypoints without discarding the active route.
+    /// Completion replaces any previous end-of-queue callback and fires only when the full queue empties.
+    func walk(appending path: [CGPoint], completion: (() -> Void)? = nil) {
+        if state == .standingUp || state == .sittingDown || state == .seatedIdle {
+            // No live route yet — a queue append with nothing to append onto is a replace.
+            if routeFollower.isMoving == false, pendingWalk == nil {
+                walk(path: path, completion: completion)
+                return
+            }
+            if var pending = pendingWalk {
+                pending.path.append(contentsOf: path)
+                pendingWalk = (pending.path, completion ?? pending.completion)
+            } else {
+                pendingWalk = (path, completion)
+            }
+            if state == .seatedIdle {
+                ensureStanding { [weak self] in
+                    guard let self else { return }
+                    guard let pendingWalk = self.pendingWalk else {
+                        self.startStandingIdle()
+                        return
+                    }
+                    self.pendingWalk = nil
+                    self.beginWalking(path: pendingWalk.path, completion: pendingWalk.completion)
+                }
+            }
+            return
+        }
+
+        if state != .walking {
+            beginWalking(path: path, completion: completion)
+            return
+        }
+
+        routeFollower.appendRoute(path)
+        if let completion {
+            movementCompletion = completion
+        }
+        guard routeFollower.isMoving else {
+            finishWalking()
+            return
+        }
+        if let first = routeFollower.waypoints.first {
+            setFacing(dx: first.x - position.x, dy: first.y - position.y)
+        }
+    }
+
     var movementDestination: CGPoint? {
         pendingWalk?.path.last ?? routeFollower.destination
+    }
+
+    /// True while a replace or append walk order is active (including seat-egress / stand-up wait).
+    var isLocomoting: Bool {
+        pendingWalk != nil || routeFollower.isMoving || state == .walking
     }
 
     /// Advances root motion and the walk cycle from the scene clock. Calling

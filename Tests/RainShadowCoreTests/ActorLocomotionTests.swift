@@ -184,6 +184,95 @@ struct RouteFollowerTests {
 
         #expect(follower.waypoints == [CGPoint(x: 20, y: 0), CGPoint(x: 20, y: 20)])
     }
+
+    @Test func appendDeduplicatesNearArrivalTolerance() {
+        var follower = RouteFollower(arrivalTolerance: 0.25)
+        follower.replaceRoute(with: [CGPoint(x: 40, y: 0)], from: .zero)
+        follower.appendRoute([
+            CGPoint(x: 40.1, y: 0),
+            CGPoint(x: 40, y: 30)
+        ])
+
+        #expect(follower.waypoints == [CGPoint(x: 40, y: 0), CGPoint(x: 40, y: 30)])
+    }
+
+    @Test func appendExtendsActiveRouteWithoutDiscardingHead() {
+        var follower = RouteFollower()
+        follower.replaceRoute(
+            with: [CGPoint(x: 40, y: 0), CGPoint(x: 40, y: 20)],
+            from: .zero
+        )
+        let mid = follower.advance(from: .zero, deltaTime: 0.2, speed: 100)
+        #expect(mid.position == CGPoint(x: 20, y: 0))
+
+        follower.appendRoute([CGPoint(x: 40, y: 60)])
+
+        #expect(follower.waypoints == [
+            CGPoint(x: 40, y: 0),
+            CGPoint(x: 40, y: 20),
+            CGPoint(x: 40, y: 60)
+        ])
+        #expect(follower.destination == CGPoint(x: 40, y: 60))
+    }
+
+    @Test func replaceClearsPreviouslyAppendedTail() {
+        var follower = RouteFollower()
+        follower.replaceRoute(with: [CGPoint(x: 50, y: 0)], from: .zero)
+        follower.appendRoute([CGPoint(x: 50, y: 40), CGPoint(x: 10, y: 40)])
+        #expect(follower.waypoints.count == 3)
+
+        follower.replaceRoute(with: [CGPoint(x: 0, y: 80)], from: CGPoint(x: 20, y: 0))
+
+        #expect(follower.waypoints == [CGPoint(x: 0, y: 80)])
+        #expect(follower.destination == CGPoint(x: 0, y: 80))
+    }
+
+    @Test func queuedLegsCompleteInOrder() {
+        var follower = RouteFollower()
+        follower.replaceRoute(with: [CGPoint(x: 30, y: 0)], from: .zero)
+        follower.appendRoute([CGPoint(x: 30, y: 30), CGPoint(x: 0, y: 30)])
+
+        var position = CGPoint.zero
+        var arrivals = 0
+        // Drive until empty; each advance that empties counts as arrival.
+        for _ in 0..<20 {
+            let step = follower.advance(from: position, deltaTime: 0.25, speed: 120)
+            position = step.position
+            if step.didArrive {
+                arrivals += 1
+                break
+            }
+        }
+
+        #expect(arrivals == 1)
+        #expect(position == CGPoint(x: 0, y: 30))
+        #expect(!follower.isMoving)
+    }
+
+    @Test func repathCurrentLegPreservesLaterAppendedGoals() {
+        // Scene-level queue model: replace current-leg waypoints, then re-append
+        // remaining goals (mirrors performCorrectiveRepathIfNeeded).
+        var follower = RouteFollower()
+        let currentGoal = CGPoint(x: 100, y: 0)
+        let laterGoal = CGPoint(x: 100, y: 80)
+        follower.replaceRoute(with: [currentGoal], from: .zero)
+        follower.appendRoute([laterGoal])
+
+        let mid = follower.advance(from: .zero, deltaTime: 0.25, speed: 100)
+        #expect(mid.position == CGPoint(x: 25, y: 0))
+
+        // Corrective repath of the current leg from the live position.
+        follower.replaceRoute(with: [currentGoal], from: mid.position)
+        follower.appendRoute([laterGoal])
+
+        #expect(follower.waypoints == [currentGoal, laterGoal])
+        #expect(follower.destination == laterGoal)
+
+        let next = follower.advance(from: mid.position, deltaTime: 0.5, speed: 100)
+        #expect(next.position == CGPoint(x: 75, y: 0))
+        #expect(!next.didArrive)
+        #expect(follower.destination == laterGoal)
+    }
 }
 
 struct ActorFacingTests {

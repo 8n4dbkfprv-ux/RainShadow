@@ -30,9 +30,9 @@ struct RouteFollower {
         discardReachedWaypoints(from: position)
     }
 
-    /// Supports BG-style queued waypoints without coupling the follower to a
-    /// particular input scheme. The current single-actor scenes use replacement
-    /// orders; party input can opt into this when it is introduced.
+    /// Supports BG:EE-style queued waypoints (Shift+click / long-press) without
+    /// coupling the follower to a particular input scheme. Scenes route from the
+    /// last queued goal and append; plain click still uses `replaceRoute`.
     mutating func appendRoute(_ route: [CGPoint]) {
         for point in route where waypoints.last.map({ distance($0, point) > arrivalTolerance }) ?? true {
             waypoints.append(point)

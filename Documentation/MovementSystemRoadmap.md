@@ -53,10 +53,10 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 | Office dimetric search map + authored furniture/door/wall AABBs | **Shipped** (`OfficeNavigationLayout`) |
 | Blocked tap → directed destination adjustment, then nearest *reachable* cell in bounded radius | **Shipped** (+ tests) |
 | Constant-speed waypoint following (`RouteFollower`) | **Shipped** |
-| New input **replaces** route (not append) for single actor | **Shipped** |
+| New input **replaces** route (not append) for single actor | **Shipped** (plain click / tap) |
 | Cancel route (Escape / right-click / two-finger) without new destination | **Shipped** (`handleCancelInput` → `cancelMovement`) |
-| Move-order ground feedback (procedural teal/red ellipse) | **Shipped**; sprite `ui_move_marker_*` deferred |
-| `appendRoute` stub for future party waypoint queuing | **Modeled only** |
+| Move-order ground feedback (`ui_move_marker_*` / blocked) | **Shipped** (painted 8-frame loop; coded ellipse fallback) |
+| BG:EE waypoint queue — Shift+click (macOS) / long-press (iOS) via `appendRoute` | **Shipped** (`queuedMovementGoals` + `ui_waypoint_pip`) |
 | Actor occupancy stamping (PC/NPC bits) for every floor actor | **Shipped** (`ActorOccupancy`) |
 | Bumpable idle actors: sidestep-and-return on contact | **Shipped** |
 | Congestion back-off after repeated blocked steps | **Shipped** |
@@ -104,14 +104,14 @@ P0 before multi-actor: one reliable IE-feeling detective walk is the M01 promise
 - Technical Architecture §11.3 and the pathfinder agree on the heuristic metric (originally projected Euclidean between cell centers; now the weighted Euclidean of `PathFinder` after the search-map rewrite)
 - Explicit **cancel route**: Escape / right-click / two-finger → `cancelMovement()`; cancel also clears the live move-order feedback ring
 - Mid-segment **retarget** via `replaceRoute` from the live interpolated position (pure tests cover cancel mid-route, replace discarding old tail, replace-after-cancel, zero-speed hold)
-- Click-destination feedback: procedural teal (valid) / red (invalid) ellipse; authored `ui_move_marker_*` art remains optional later polish
+- Click-destination feedback: painted `ui_move_marker_*` / blocked converging loop (coded teal/red ellipse fallback if art missing)
 
 ### Exit criteria
 
 - Unit tests: cancel clears waypoints; replace mid-route does not overshoot; unreachable taps fail or fall back within ring
 - Manual: tap walk, retarget, cancel, stand-from-chair walk all feel deterministic on office map
 
-**Status: met** (procedural marker; sprite move-marker art deferred).
+**Status: met** (painted move markers + BG:EE waypoint queue shipped).
 
 ### Rationale
 
@@ -229,7 +229,7 @@ This is the signature IE party identity. RainShadow only pays for it once compan
 
 ### Ship
 
-- `RouteFollower.appendRoute` wired for optional waypoint queue (IE-style queued clicks) behind an explicit input mode or modifier—not default if it fights replace-on-click muscle memory
+- ~~`RouteFollower.appendRoute` wired for optional waypoint queue~~ **Shipped** (Shift+click / long-press; plain click still replaces)
 - Narrow-gap behavior: followers wait or repath when leader occupies choke cell (the primitive exists — occupancy congestion back-off; what is missing is party-level policy)
 - Optional “gather to leader” command (one-shot regroup at leader position)
 - Fail soft: if a slot is blocked, claim nearest free cell rather than cancel whole party move
@@ -287,7 +287,7 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 | P2 | New pure `MovementProfile` (RainShadowCore), `RouteFollower.advance` speed parameter wiring |
 | P3 | `ActorOccupancy.swift`, `NavigationMap.swift` (shipped); actor controllers, selection set, companion spawn/scene ownership (remaining) |
 | P4 | Formation presets (pure math), party rail reorder, multi-select input |
-| P5 | Multi-agent costs / wait policies, `appendRoute` input binding |
+| P5 | Multi-agent costs / wait policies (single-actor `appendRoute` input binding shipped) |
 | P6 | Future combat roadmap |
 
 ---
