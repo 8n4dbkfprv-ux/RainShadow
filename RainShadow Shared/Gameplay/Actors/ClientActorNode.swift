@@ -255,6 +255,47 @@ final class ClientActorNode: SKNode {
         }
     }
 
+    /// Skip-safe snap to the authored entrance end state, then fires the same
+    /// completion as a natural path finish (idle pose at last path point).
+    func completeEntranceImmediately() {
+        guard locomotionMode == .entrance || movementCompletion != nil else { return }
+        // Prefer the live route path; fall back if already clearing.
+        let end = activePath.last ?? position
+        removeAllActions()
+        body.removeAllActions()
+        bodyHandoff.removeAllActions()
+        clearDepartureHandoff()
+        body.position = .zero
+        body.alpha = 1
+        entranceFadeRemaining = 0
+        exitFadeRemaining = 0
+        position = end
+        alpha = 1
+        isHidden = false
+        locomotionMode = .entrance
+        finishLocomotion()
+    }
+
+    /// Skip-safe snap to the authored exit end state (hidden past the door),
+    /// then fires the same completion as a natural exit finish.
+    func completeExitImmediately() {
+        let end = activePath.last ?? position
+        removeAllActions()
+        body.removeAllActions()
+        bodyHandoff.removeAllActions()
+        clearDepartureHandoff()
+        body.position = .zero
+        body.alpha = 1
+        entranceFadeRemaining = 0
+        exitFadeRemaining = 0
+        position = end
+        // Natural exit ends faded out and hidden.
+        isHidden = true
+        alpha = 1
+        locomotionMode = .exit
+        finishLocomotion()
+    }
+
     /// Advances RouteFollower locomotion from the scene clock (BG P-regulator).
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
         defer { lastLocomotionUpdateTime = currentTime }

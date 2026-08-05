@@ -361,6 +361,14 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("setCutsceneSuppressed"))
         #expect(presenter.contains("resumeAfterCutscene(advancingTo:"))
         #expect(presenter.contains("isCutsceneSuppressed"))
+        // Breakable skip: shared finish path + snap-to-end (BG SetCutSceneBreakable).
+        #expect(scene.contains("finishClientEntrance(reason:"))
+        #expect(scene.contains("trySkipActiveClientCutscene"))
+        #expect(scene.contains("completeEntranceImmediately"))
+        #expect(scene.contains("completeExitImmediately"))
+        #expect(scene.contains("BreakableCutsceneGate"))
+        #expect(scene.contains("ClientEntranceTerminalState"))
+        #expect(scene.contains("setCutsceneLetterboxVisible"))
         // Showing a node must not arm entrance (leave-gated only).
         #expect(!scene.contains("shouldStartClientEntrance(whenShowing:"))
         if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
@@ -373,9 +381,23 @@ struct EmptyCoatCaseIntroductionTests {
                 let body = String(afterEntrance[..<nextFunc.lowerBound])
                 #expect(body.contains("setCutsceneChromeSuppressed(true)"))
                 #expect(body.contains("setCutsceneSuppressed(true)"))
-                #expect(body.contains("resumeAfterCutscene(advancingTo:"))
+                #expect(body.contains("finishClientEntrance(reason: .natural)"))
+                #expect(body.contains("setCutsceneLetterboxVisible(true)"))
                 // Must not re-show free-play rails when the walk finishes.
                 #expect(!body.contains("setCutsceneChromeSuppressed(false)"))
+            }
+        }
+        if let finishRange = scene.range(of: "private func finishClientEntrance(reason:") {
+            let afterFinish = scene[finishRange.lowerBound...]
+            if let nextFunc = afterFinish.range(
+                of: "\n    private func ",
+                options: [],
+                range: afterFinish.index(after: finishRange.upperBound)..<afterFinish.endIndex
+            ) {
+                let body = String(afterFinish[..<nextFunc.lowerBound])
+                #expect(body.contains("resumeAfterCutscene(advancingTo:"))
+                #expect(body.contains("markCompleted()"))
+                #expect(body.contains("ClientEntranceTerminalState"))
             }
         }
         if let applyRange = scene.range(of: "private func applyClientVisitAction") {

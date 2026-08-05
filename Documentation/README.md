@@ -19,7 +19,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 9. [BGEE Character Sprite Redo Plan (V5)](BGEECharacterSpriteRedoPlan.md) — superseded plan document; the shipped V6 redesign (see `ArtSource/Prompts/character_prerendered_3d_v06.md`) regenerated the actors as Harlan Voss / Lila March with new BGEE-style identities at full AssetManifest density.
 10. [Paperdoll → BGEE Sprite Redo Plan (V11)](PaperdollBGEESpriteRedoPlanV11.md) — superseded for Voss room sprites; Lila V11 bob/dress from this pass remains current.
 11. [Paperdoll → BGEE Sprite Redo Plan (V12)](PaperdollBGEESpriteRedoPlanV12.md) — installed: Voss atlases re-locked to paperdoll identity + craft density through V7 BGEE preprocess (SE + NE desk); Lila untouched.
-12. [Cinematic System Roadmap](CinematicSystemRoadmap.md) — BG:EE vs RainShadow cinematic comparison (movies + in-engine cutscenes), skip/terminal-state gaps, and a cue-timeline plan. Docs only until a cinematic milestone is scheduled.
+12. [Cinematic System Roadmap](CinematicSystemRoadmap.md) — BG:EE vs RainShadow cinematic comparison; breakable office entrance/exit skip + terminal-state contract shipped; optional `CutsceneRunner` still open.
 
 ## Decisions frozen for Milestone 01
 

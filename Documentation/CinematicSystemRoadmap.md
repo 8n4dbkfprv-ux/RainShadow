@@ -1,7 +1,7 @@
 # Cinematic System Roadmap
 
-- Status: research + recommendations (docs only until a cinematic milestone is scheduled)
-- Version: 0.1
+- Status: Phase 1–3 implemented (breakable office walks + terminal-state contract + letterbox); Phase 4 `CutsceneRunner` still optional
+- Version: 0.2
 - Date: 5 August 2026
 - Scope: compare Baldur’s Gate: Enhanced Edition cinematic handling to RainShadow’s shipped prototype; propose a small, BG-shaped improvement path that fits SpriteKit and existing dialogue handoff
 
@@ -149,7 +149,8 @@ Shipped path in `DetectiveOfficeScene` / Empty Coat:
 | Sequence | Skip? | Same terminal state as natural finish? |
 |----------|-------|----------------------------------------|
 | Opening exterior | Yes (after 1.0s) | Yes — shared `completeCinematic` |
-| Lila entrance / office cutscene walks | No (path must finish) | N/A — no skip path |
+| Lila entrance walk | Yes (after 1.0s) | Yes — shared `finishClientEntrance` + snap-to-end |
+| Lila exit walk | Yes (after 1.0s) | Yes — shared `finishClientExit` + snap-to-end |
 | Pre-rendered FMV | Not shipped | — |
 
 ### 3.5 Audio and planned directors
@@ -270,13 +271,20 @@ Docs only until scheduled. Suggested order when work begins:
 
 | Phase | Deliverable | Notes |
 |-------|-------------|-------|
-| **C0** | Inventory terminal states | Document exterior `completeCinematic` and office `resumeAfterCutscene` as explicit “end state” structs (dialogue node, HUD, camera, input, door flags) |
-| **C1** | Shared completion API | One complete path per sequence; exterior already models this—port office walks |
-| **C2** | Breakable skip on Lila entrance | Same terminal state as natural finish; tests for node id + suppress |
-| **C3** | Cue runner MVP | `wait`, `actorPath`, `resumeDialogue`, `lockInput`; migrate exterior or Lila first (not both at once) |
-| **C4** | Chrome cues | `fade`, `letterbox`, `cameraRail` on `cinematicRoot` |
-| **C5** | Optional JSON/data cues | Only if second and third sequences prove copy-paste pain in Swift |
+| **C0** | Inventory terminal states | **Done** — `ClientEntranceTerminalState` + `BreakableCutsceneGate` |
+| **C1** | Shared completion API | **Done** — `finishClientEntrance` / `finishClientExit` (single-fire via gate) |
+| **C2** | Breakable skip on Lila entrance | **Done** — grace 1.0s; snap-to-end via `completeEntranceImmediately`; same resume node as natural |
+| **C2b** | Breakable skip on Lila exit | **Done** — `completeExitImmediately` → same unlock path |
+| **C3** | Cue runner MVP | Optional later — office walks still scene-authored |
+| **C4** | Chrome cues | **Partial** — letterbox on entrance/exit walks; camera lift unchanged |
+| **C5** | Optional JSON/data cues | Deferred |
 | **C6** | FMV path | Deferred; multi-res + subtitles + catalog |
+
+### Shipped types (2026-08)
+
+- `BreakableCutsceneGate` / `CutsceneCompletionReason` / `ClientEntranceTerminalState` — `RainShadow Shared/Gameplay/Navigation/BreakableCutsceneGate.swift`
+- `ClientActorNode.completeEntranceImmediately()` / `completeExitImmediately()`
+- `DetectiveOfficeScene.trySkipActiveClientCutscene()` + letterbox chrome on `hudRoot`
 
 ---
 
