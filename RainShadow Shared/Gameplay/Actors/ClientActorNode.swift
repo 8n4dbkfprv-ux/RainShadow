@@ -4,10 +4,14 @@ import SpriteKit
 final class ClientActorNode: SKNode {
     private static let stripHandoffDuration: TimeInterval = 0.16
 
-    private let contactShadow: SKShapeNode
+    private let contactShadow: SKSpriteNode
+    private let contactShadowKind: ContactShadowKind = .npc
+    private let selectionRing: SKSpriteNode
     private let body: SKSpriteNode
     /// Holds the outgoing departure strip during a facing handoff crossfade.
     private let bodyHandoff: SKSpriteNode
+    /// Scene grade for the neutral bake (office warm / city night cool).
+    private var sceneLighting: ActorSceneLighting = .officeInterior
     private let arrivalTextures: [SKTexture]
     private let departureNETextures: [SKTexture]
     private let departureNWTextures: [SKTexture]
@@ -45,11 +49,14 @@ final class ClientActorNode: SKNode {
             GameArt.texture(named: String(format: "lila_departure_nw_%02d", $0))
         }
 
-        contactShadow = SKShapeNode(ellipseOf: CGSize(width: 44, height: 15))
-        contactShadow.fillColor = SKColor(white: 0, alpha: 0.32)
-        contactShadow.strokeColor = .clear
-        contactShadow.position = CGPoint(x: 0, y: 3)
-        contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
+        contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
+
+        selectionRing = SelectionRingFactory.make(
+            kind: .npc,
+            displaySize: contactShadowKind.displaySize,
+            position: contactShadowKind.footPosition,
+            scale: OfficeInteriorScale.ActorDisplay.standingScale
+        )
 
         if let texture = arrivalTextures.last {
             body = SKSpriteNode(texture: texture, size: OfficeInteriorScale.ActorDisplay.spriteDisplaySize)
@@ -77,13 +84,26 @@ final class ClientActorNode: SKNode {
         super.init()
         name = "client.lilaMarch"
         addChild(contactShadow)
+        addChild(selectionRing)
         addChild(bodyHandoff)
         addChild(body)
+        applySceneLighting(.officeInterior)
         isHidden = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("ClientActorNode is created programmatically")
+    }
+
+    /// Pull the neutral-baked body into the current scene’s value/colour grade.
+    func applySceneLighting(_ lighting: ActorSceneLighting) {
+        sceneLighting = lighting
+        for layer in [body, bodyHandoff] {
+            layer.color = lighting.bodyTint
+            layer.colorBlendFactor = lighting.bodyBlend
+        }
+        selectionRing.alpha = lighting.selectionRingAlpha
+        contactShadow.alpha = contactShadowKind.standingAlpha * lighting.contactShadowAlphaScale
     }
 
     /// BG:EE-style RouteFollower walk used for bump sidesteps and scripted moves.

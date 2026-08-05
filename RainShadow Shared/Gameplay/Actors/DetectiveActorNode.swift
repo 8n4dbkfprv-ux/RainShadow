@@ -28,12 +28,16 @@ final class DetectiveActorNode: SKNode {
         let standUp: [SKTexture]
     }
 
-    private let contactShadow: SKShapeNode
+    private let contactShadow: SKSpriteNode
+    private let contactShadowKind: ContactShadowKind = .party
+    private let selectionRing: SKSpriteNode
     /// Standing, transition, and full chairless seated body.
     private let body: SKSpriteNode
     /// Legacy split seated fallback; hidden when the full seated cell is available.
     private let lowerBody: SKSpriteNode
     private let foregroundArms: SKSpriteNode
+    /// Scene grade for the neutral bake (office warm / city night cool).
+    private var sceneLighting: ActorSceneLighting = .officeInterior
     private let standingIdleTextures: [ActorFacing: [SKTexture]]
     private let seatVisualDirection: SeatVisualDirection
     private let seatedIdleTextures: [SKTexture]
@@ -142,11 +146,15 @@ final class DetectiveActorNode: SKNode {
 
         // V7 atlases carry a 200px nearest-upscaled copy of an 80px native raster.
         // Nearest filtering resolves it back to the intended pixelated BGEE gameplay scale.
-        contactShadow = SKShapeNode(ellipseOf: CGSize(width: 54, height: 20))
-        contactShadow.fillColor = SKColor(white: 0, alpha: 0.38)
-        contactShadow.strokeColor = .clear
-        contactShadow.position = CGPoint(x: 0, y: 4)
-        contactShadow.setScale(OfficeInteriorScale.ActorDisplay.standingScale)
+        // Soft contact shadow is a separate sprite (not baked into walk/sit frames).
+        contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
+
+        selectionRing = SelectionRingFactory.make(
+            kind: .party,
+            displaySize: contactShadowKind.displaySize,
+            position: contactShadowKind.footPosition,
+            scale: OfficeInteriorScale.ActorDisplay.standingScale
+        )
 
         let initialSeated = seatedIdleTextures.first
             ?? seatedUpperTextures.first
@@ -181,12 +189,34 @@ final class DetectiveActorNode: SKNode {
         super.init()
         facing = seatVisualDirection.facing
         addChild(contactShadow)
+        addChild(selectionRing)
         addChild(lowerBody)
         addChild(body)
         addChild(foregroundArms)
         assertFrameDisplaySizes()
         applySeatedPose(animated: false)
+        applySceneLighting(.officeInterior)
         startSeatedIdle()
+    }
+
+    /// Pull the neutral-baked body into the current scene’s value/colour grade.
+    /// Call from the hosting scene after spawn (office interior vs city night).
+    func applySceneLighting(_ lighting: ActorSceneLighting) {
+        sceneLighting = lighting
+        for layer in [body, lowerBody, foregroundArms] {
+            layer.color = lighting.bodyTint
+            layer.colorBlendFactor = lighting.bodyBlend
+        }
+        selectionRing.alpha = lighting.selectionRingAlpha
+        // Keep seated shadow hidden; only refresh weight when already planted.
+        if contactShadow.alpha > 0.02 {
+            contactShadow.alpha = contactStandingAlpha
+        }
+    }
+
+    /// Standing contact-shadow opacity after scene scale (wet streets read denser).
+    private var contactStandingAlpha: CGFloat {
+        contactShadowKind.standingAlpha * sceneLighting.contactShadowAlphaScale
     }
 
     /// Fixed presentation size for every posture — atlas shared-scale carries crouch height.
@@ -446,8 +476,7 @@ final class DetectiveActorNode: SKNode {
         hideLowerBody()
         foregroundArms.isHidden = true
         foregroundArms.alpha = 0
-        contactShadow.position.y = 4
-        contactShadow.alpha = 0.38
+        restoreStandingContactShadow(animated: false)
         needsSeatEgress = false
         state = .standingIdle
         stopWalkAnimation()
@@ -474,10 +503,7 @@ final class DetectiveActorNode: SKNode {
         hideLowerBody()
         foregroundArms.isHidden = true
         foregroundArms.alpha = 0
-        contactShadow.position = CGPoint(x: 0, y: 4)
-        contactShadow.xScale = 1
-        contactShadow.yScale = 1
-        contactShadow.alpha = 0.38
+        restoreStandingContactShadow(animated: false)
         startStandingIdle()
     }
 
@@ -672,18 +698,43 @@ final class DetectiveActorNode: SKNode {
         lowerBody.run(settleBody, withKey: "seatEgress")
 
         contactShadow.removeAllActions()
-        let settleShadow = SKAction.moveTo(y: 4, duration: duration)
+        let footY = contactShadowKind.footPosition.y
+        let settleShadow = SKAction.moveTo(y: footY, duration: duration)
         settleShadow.timingMode = .linear
         contactShadow.run(
             .group([
                 settleShadow,
                 .sequence([
                     .wait(forDuration: duration * 0.45),
-                    .fadeIn(withDuration: duration * 0.55)
+                    ContactShadowFactory.fadeToStanding(
+                        contactShadow,
+                        to: contactStandingAlpha,
+                        duration: duration * 0.55
+                    )
                 ])
             ]),
             withKey: "seatEgress"
         )
+    }
+
+    /// Plant the soft floor blob at the walkable foot pivot with standing weight.
+    private func restoreStandingContactShadow(animated: Bool) {
+        contactShadow.removeAllActions()
+        let scale = OfficeInteriorScale.ActorDisplay.standingScale
+        contactShadow.position = contactShadowKind.footPosition
+        contactShadow.xScale = scale * 1.06
+        contactShadow.yScale = scale
+        if animated {
+            contactShadow.run(
+                ContactShadowFactory.fadeToStanding(
+                    contactShadow,
+                    to: contactStandingAlpha,
+                    duration: 0.2
+                )
+            )
+        } else {
+            contactShadow.alpha = contactStandingAlpha
+        }
     }
 
     private func hideLowerBody() {
@@ -722,9 +773,13 @@ final class DetectiveActorNode: SKNode {
         foregroundArms.zPosition = Self.seatedArmsLocalZ
         foregroundArms.alpha = 0
         foregroundArms.isHidden = true
-        contactShadow.xScale = OfficeInteriorScale.ActorDisplay.standingScale
-        contactShadow.yScale = 1
-        contactShadow.position = CGPoint(x: seat.x, y: seat.y + 4)
+        let scale = OfficeInteriorScale.ActorDisplay.standingScale
+        contactShadow.xScale = scale * 1.06
+        contactShadow.yScale = scale
+        contactShadow.position = CGPoint(
+            x: seat.x + contactShadowKind.footPosition.x,
+            y: seat.y + contactShadowKind.footPosition.y
+        )
         // The seated baseline is visually registered behind the desk. A ground
         // contact shadow at that offset projects onto the desktop, so keep it
         // hidden until the first walking leg carries it to the walkable floor root.

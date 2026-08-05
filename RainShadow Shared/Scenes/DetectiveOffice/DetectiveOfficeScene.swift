@@ -306,12 +306,15 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDeskItems(at: deskPosition, scale: deskScale)
 
         detective.position = OfficeNavigationLayout.actorStart
+        // Warm desk-lamp grade (actors default here; re-assert for scene clarity).
+        detective.applySceneLighting(.officeInterior)
         updateDetectiveDepth()
         depthWorldRoot.addChild(detective)
 
         if let clientStart = OfficeNavigationLayout.clientDoorwayPath.first {
             client.position = clientStart
         }
+        client.applySceneLighting(.officeInterior)
         updateDepth(of: client)
         depthWorldRoot.addChild(client)
 

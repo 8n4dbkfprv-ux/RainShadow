@@ -69,6 +69,8 @@ final class CityDistrictScene: BaseGameScene {
         edgeExits = makeEdgeExits()
         detective.position = district.spawnPoint(arrivalKey: arrivalKey)
         detective.beginOpenWorldStanding()
+        // Neutral bake is office-bright; cool night grade seats him in wet cobbles.
+        detective.applySceneLighting(.cityNight)
         navigation.registerActor(
             id: Self.detectiveActorID,
             kind: .player,
