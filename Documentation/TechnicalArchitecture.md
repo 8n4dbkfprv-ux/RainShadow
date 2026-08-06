@@ -462,7 +462,7 @@ All are `Codable`, versioned, and independent of SpriteKit.
 | **Runtime graph** | `DialogueGraph` of `CaseDialogueNode` / `CaseDialogueChoice` (resolved strings only) |
 | **Walker** | `DialogueSession` — conditions, actions, advance (SpriteKit-free) |
 | **View** | `CaseIntroductionPresenter` — panel, choices, Continue/End; hooks `onNodeShown`, `shouldDeferAdvance` |
-| **Scene** | Maps presentation cues (`onLeaveCue` → cinematics), VO from `voiceAssetName`, presents graphs by facade |
+| **Scene** | Maps presentation cues (`onLeaveCue` → cinematics), plays resolved `voiceAssetName` on show, presents graphs by facade |
 
 Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotDialogue`) load cached graphs; they do not embed prose constructors.
 
@@ -472,7 +472,8 @@ Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotD
 
 - `schemaVersion` (currently `1`), `id`, `startNodeID`, `nodes[]`
 - Optional document-level `stringTable` resource override (default `strings.en`)
-- Node fields: `id`, `speaker` **or** `speakerKey`, `text` **or** `textKey`, `portraitName`, `choices`, `nextNodeID`, `endsDialogue`, `isInteriorMonologue`, `voiceAssetName`, `onLeaveCue`, `onShowCue`
+- Node fields: `id`, `speaker` **or** `speakerKey`, `text` **or** `textKey`, `portraitName`, `choices`, `nextNodeID`, `endsDialogue`, `isInteriorMonologue`, optional `voiceKey` (string-table voice resref), legacy `voiceAssetName` (deprecated inline filename), `onLeaveCue`, `onShowCue`
+- **Voice (BGEE-style):** prose keys end in `.text`; optional companion keys end in `.voice` and hold a media **resref** (no extension). Loader resolves resref → playable `voiceAssetName` (default `.m4a`). Prefer companions over graph-inline filenames.
 - Choice fields: `text` **or** `textKey`, `destinationID`, `tone`, `intention` (GDD §7.5: `open` / `press` / `feign` / `trade` / `observe` / `leave`), `conditions`, `gateDisclosure`, `onSelect`
 - Conditions/actions: tagged unions (`{ "type": "hasFlag", "id": "…" }`, etc.); `queueJournal` may use `textKey`
 

@@ -58,6 +58,11 @@ struct DialogueStringTable: Equatable, Sendable {
         return value
     }
 
+    /// Optional lookup (e.g. companion `.voice` keys).
+    func stringIfPresent(for key: String) -> String? {
+        strings[key]
+    }
+
     /// Prefer key when present; else inline; else error.
     func resolve(inline: String?, key: String?, field: String) throws -> String {
         if let key, !key.isEmpty {
@@ -67,6 +72,31 @@ struct DialogueStringTable: Equatable, Sendable {
             return inline
         }
         throw DialogueStringTableError.missingTextAndKey(field: field)
+    }
+
+    /// Resolve optional VO for a node (BGEE-style text+sound pairing).
+    ///
+    /// Order: explicit `voiceKey` → companion of `textKey` (`*.text` → `*.voice`) →
+    /// legacy inline `voiceAssetName` → silent.
+    func resolveVoiceAssetName(
+        voiceKey: String?,
+        textKey: String?,
+        legacyVoiceAssetName: String?,
+        nodeID: String
+    ) throws -> String? {
+        if let voiceKey, !voiceKey.isEmpty {
+            let resref = try string(for: voiceKey)
+            return DialogueVoiceResref.playableFileName(from: resref)
+        }
+        if let textKey, let companion = DialogueVoiceResref.companionVoiceKey(forTextKey: textKey) {
+            if let resref = stringIfPresent(for: companion) {
+                return DialogueVoiceResref.playableFileName(from: resref)
+            }
+        }
+        if let legacy = legacyVoiceAssetName, !legacy.isEmpty {
+            return DialogueVoiceResref.playableFileName(from: legacy)
+        }
+        return nil
     }
 
     // MARK: - Load
@@ -182,6 +212,9 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
     var nextNodeID: String?
     var endsDialogue: Bool
     var isInteriorMonologue: Bool
+    /// String-table key for voice resref (IE sound-on-strref). Prefer over inline filenames.
+    var voiceKey: String?
+    /// Legacy inline playable filename (e.g. `vo_x.m4a`). Deprecated for authoring; fixtures may still use it.
     var voiceAssetName: String?
     var onLeaveCue: String?
     var onShowCue: String?
@@ -197,6 +230,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         case nextNodeID
         case endsDialogue
         case isInteriorMonologue
+        case voiceKey
         case voiceAssetName
         case onLeaveCue
         case onShowCue
@@ -213,6 +247,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         nextNodeID: String? = nil,
         endsDialogue: Bool = false,
         isInteriorMonologue: Bool = false,
+        voiceKey: String? = nil,
         voiceAssetName: String? = nil,
         onLeaveCue: String? = nil,
         onShowCue: String? = nil
@@ -227,6 +262,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         self.nextNodeID = nextNodeID
         self.endsDialogue = endsDialogue
         self.isInteriorMonologue = isInteriorMonologue
+        self.voiceKey = voiceKey
         self.voiceAssetName = voiceAssetName
         self.onLeaveCue = onLeaveCue
         self.onShowCue = onShowCue
@@ -244,6 +280,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         nextNodeID = try container.decodeIfPresent(String.self, forKey: .nextNodeID)
         endsDialogue = try container.decodeIfPresent(Bool.self, forKey: .endsDialogue) ?? false
         isInteriorMonologue = try container.decodeIfPresent(Bool.self, forKey: .isInteriorMonologue) ?? false
+        voiceKey = try container.decodeIfPresent(String.self, forKey: .voiceKey)
         voiceAssetName = try container.decodeIfPresent(String.self, forKey: .voiceAssetName)
         onLeaveCue = try container.decodeIfPresent(String.self, forKey: .onLeaveCue)
         onShowCue = try container.decodeIfPresent(String.self, forKey: .onShowCue)
@@ -267,6 +304,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         if isInteriorMonologue {
             try container.encode(isInteriorMonologue, forKey: .isInteriorMonologue)
         }
+        try container.encodeIfPresent(voiceKey, forKey: .voiceKey)
         try container.encodeIfPresent(voiceAssetName, forKey: .voiceAssetName)
         try container.encodeIfPresent(onLeaveCue, forKey: .onLeaveCue)
         try container.encodeIfPresent(onShowCue, forKey: .onShowCue)
@@ -461,6 +499,12 @@ extension DialogueStringTable {
             key: node.textKey,
             field: "node[\(node.id)].text"
         )
+        let voiceAssetName = try resolveVoiceAssetName(
+            voiceKey: node.voiceKey,
+            textKey: node.textKey,
+            legacyVoiceAssetName: node.voiceAssetName,
+            nodeID: node.id
+        )
         let choices = try node.choices.enumerated().map { index, choice in
             try resolve(choice, nodeID: node.id, choiceIndex: index)
         }
@@ -473,7 +517,7 @@ extension DialogueStringTable {
             nextNodeID: node.nextNodeID,
             endsDialogue: node.endsDialogue,
             isInteriorMonologue: node.isInteriorMonologue,
-            voiceAssetName: node.voiceAssetName,
+            voiceAssetName: voiceAssetName,
             onLeaveCue: node.onLeaveCue,
             onShowCue: node.onShowCue
         )

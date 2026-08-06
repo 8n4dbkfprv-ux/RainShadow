@@ -22,7 +22,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | `onNodeShown` side channel (VO / presentation) | Shipped |
 | Graph integrity helpers (`CaseDialogueGraph.report`) | Shipped |
 | Static case journal dossier (`EmptyCoatJournalContent`) | Shipped (hotspot-driven notes + dialogue projection) |
-| `voiceAssetName` on nodes | **Shipped** — Empty Coat monologue + Lila nodes via `onNodeShown` |
+| VO on nodes | **Shipped** — string-table `.voice` companions (IE TLK analogue); resolved to `voiceAssetName` at load; played on `onNodeShown` |
 | `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift`; presenter holds `DialogueSession` / runtime context |
 | Choice conditions + filtered UI + gate disclosure | **Shipped (P1)** — `DialogueCondition`, presenter filters, Empty Coat Press gate |
 | Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator |
@@ -406,7 +406,8 @@ CaseState / flags
 | `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Runtime node/choice schema, `DialogueCondition` / `DialogueAction`, graph integrity |
 | `RainShadow Shared/Gameplay/Navigation/DialogueSession.swift` | `DialogueGraph` + pure `DialogueSession` walker |
 | `RainShadow Shared/Gameplay/Navigation/DialogueGraphLoader.swift` | Versioned JSON load/encode, catalogs, resource resolution, cache |
-| `RainShadow Shared/Gameplay/Navigation/DialogueStringTable.swift` | String table + authored document models + key resolution |
+| `RainShadow Shared/Gameplay/Navigation/DialogueStringTable.swift` | String table + authored document models + key / voice resolution |
+| `RainShadow Shared/Gameplay/Navigation/DialogueVoiceResref.swift` | Companion `.voice` keys + resref → playable filename |
 | `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Facade: IDs + load Empty Coat intro graph |
 | `RainShadow Shared/Gameplay/Navigation/OfficeCaseFileMonologue.swift` | Facade: desk monologue graph |
