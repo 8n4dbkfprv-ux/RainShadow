@@ -10,26 +10,34 @@ struct SaveSnapshot: Codable, Equatable {
     var schemaVersion = 1
     var hasSeenOpening = false
     var hasSeenOfficeHint = false
+    /// BG:EE-style one-shot: Empty Coat office intro + Lila visit finished (no replay on re-enter).
+    var hasCompletedOfficeCaseIntro = false
     var inspectedHotspotIDs: Set<String> = []
     /// Wallet balance in pence. Default matches the prior cosmetic £7 4s display.
     var walletPence: Int = 1_728
     /// BG resolve-once container contents, keyed by container/hotspot ID.
     var lootContainers: [String: [PersistedLootStack]] = [:]
+    /// Case flags earned in dialogue (e.g. client retained) — survives area change / relaunch.
+    var caseFlags: Set<String> = []
 
     init(
         schemaVersion: Int = 1,
         hasSeenOpening: Bool = false,
         hasSeenOfficeHint: Bool = false,
+        hasCompletedOfficeCaseIntro: Bool = false,
         inspectedHotspotIDs: Set<String> = [],
         walletPence: Int = 1_728,
-        lootContainers: [String: [PersistedLootStack]] = [:]
+        lootContainers: [String: [PersistedLootStack]] = [:],
+        caseFlags: Set<String> = []
     ) {
         self.schemaVersion = schemaVersion
         self.hasSeenOpening = hasSeenOpening
         self.hasSeenOfficeHint = hasSeenOfficeHint
+        self.hasCompletedOfficeCaseIntro = hasCompletedOfficeCaseIntro
         self.inspectedHotspotIDs = inspectedHotspotIDs
         self.walletPence = walletPence
         self.lootContainers = lootContainers
+        self.caseFlags = caseFlags
     }
 
     init(from decoder: Decoder) throws {
@@ -37,12 +45,15 @@ struct SaveSnapshot: Codable, Equatable {
         schemaVersion = try container.decodeIfPresent(Int.self, forKey: .schemaVersion) ?? 1
         hasSeenOpening = try container.decodeIfPresent(Bool.self, forKey: .hasSeenOpening) ?? false
         hasSeenOfficeHint = try container.decodeIfPresent(Bool.self, forKey: .hasSeenOfficeHint) ?? false
+        hasCompletedOfficeCaseIntro =
+            try container.decodeIfPresent(Bool.self, forKey: .hasCompletedOfficeCaseIntro) ?? false
         inspectedHotspotIDs = try container.decodeIfPresent(Set<String>.self, forKey: .inspectedHotspotIDs) ?? []
         walletPence = try container.decodeIfPresent(Int.self, forKey: .walletPence) ?? 1_728
         lootContainers = try container.decodeIfPresent(
             [String: [PersistedLootStack]].self,
             forKey: .lootContainers
         ) ?? [:]
+        caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
     }
 }
 

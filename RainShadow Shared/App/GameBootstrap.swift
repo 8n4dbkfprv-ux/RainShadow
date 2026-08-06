@@ -5,8 +5,10 @@ final class GameSession {
     private let saveStore: SaveStore
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
+    /// One-shot Empty Coat office intro (monologue + Lila visit). BG:EE-style: does not replay.
+    private(set) var hasCompletedOfficeCaseIntro: Bool
     private(set) var inspectedHotspotIDs: Set<String>
-    /// Dialogue/case flags and queued journal fragments (session memory; not yet saved).
+    /// Dialogue/case flags and queued journal fragments (flags persist in save).
     private(set) var caseState: CaseState
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
@@ -25,12 +27,18 @@ final class GameSession {
         let snapshot = saveStore.load()
         hasSeenOpening = snapshot.hasSeenOpening
         hasSeenOfficeHint = snapshot.hasSeenOfficeHint
+        hasCompletedOfficeCaseIntro = snapshot.hasCompletedOfficeCaseIntro
         inspectedHotspotIDs = snapshot.inspectedHotspotIDs
         caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
+        caseState.flags.formUnion(snapshot.caseFlags)
         walletPence = snapshot.walletPence
         lootContainers = LootContainerState(
             resolved: snapshot.lootContainers.mapValues { $0.map(Self.toResolved) }
         )
+        // After intro, city travel is available whenever free-play is restored.
+        if hasCompletedOfficeCaseIntro {
+            isCityTravelOpen = true
+        }
     }
 
     /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, journal queue).
@@ -44,6 +52,15 @@ final class GameSession {
         if caseState.caseID.isEmpty {
             caseState.caseID = state.caseID
         }
+        persist()
+    }
+
+    /// Mark the Empty Coat office intro + client visit finished (no cinematic replay).
+    func markOfficeCaseIntroCompleted() {
+        guard !hasCompletedOfficeCaseIntro else { return }
+        hasCompletedOfficeCaseIntro = true
+        isCityTravelOpen = true
+        persist()
     }
 
     /// Snapshot for journal projection (hotspots + dialogue-earned state).
@@ -142,9 +159,11 @@ final class GameSession {
         saveStore.save(SaveSnapshot(
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,
+            hasCompletedOfficeCaseIntro: hasCompletedOfficeCaseIntro,
             inspectedHotspotIDs: inspectedHotspotIDs,
             walletPence: walletPence,
-            lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) }
+            lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) },
+            caseFlags: caseState.flags
         ))
     }
 

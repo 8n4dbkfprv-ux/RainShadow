@@ -12,12 +12,28 @@ struct SaveStoreTests {
         let expected = SaveSnapshot(
             hasSeenOpening: true,
             hasSeenOfficeHint: true,
-            inspectedHotspotIDs: ["office.window", "office.files"]
+            hasCompletedOfficeCaseIntro: true,
+            inspectedHotspotIDs: ["office.window", "office.files"],
+            caseFlags: ["empty-coat.case.client-retained"]
         )
 
         store.save(expected)
 
         #expect(store.load() == expected)
+        #expect(store.load().hasCompletedOfficeCaseIntro)
+        #expect(store.load().caseFlags.contains("empty-coat.case.client-retained"))
+    }
+
+    @Test func legacySaveWithoutIntroFlagDefaultsFalse() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let store = SaveStore(defaults: defaults, key: "save")
+        store.save(SaveSnapshot(hasSeenOpening: true))
+        let loaded = store.load()
+        #expect(loaded.hasSeenOpening)
+        #expect(!loaded.hasCompletedOfficeCaseIntro)
+        #expect(loaded.caseFlags.isEmpty)
     }
 
     @Test func returnsSafeDefaultsForCorruptData() throws {

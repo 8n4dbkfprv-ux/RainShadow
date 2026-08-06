@@ -372,6 +372,10 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("func activateCommandControl"))
         #expect(presenter.contains("func selectChoice(at"))
         #expect(presenter.contains("!choiceRows.isEmpty") && presenter.contains("return"))
+        // BG:EE one-shot intro: completed visit must not replay on office re-enter.
+        #expect(scene.contains("hasCompletedOfficeCaseIntro"))
+        #expect(scene.contains("applyCompletedOfficeCaseIntroFreeplayState"))
+        #expect(scene.contains("markOfficeCaseIntroCompleted"))
 
         // BG-classic: Continue from cue → hide dialogue + walk cinematic → resume next page.
         #expect(scene.contains("setCutsceneChromeSuppressed"))

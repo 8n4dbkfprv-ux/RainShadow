@@ -430,11 +430,32 @@ final class DetectiveOfficeScene: BaseGameScene {
             }
             return
         }
+        // BG:EE one-shot: finished intro does not replay on re-enter (city → office).
+        if context.session.hasCompletedOfficeCaseIntro {
+            applyCompletedOfficeCaseIntroFreeplayState()
+            return
+        }
         caseIntroductionStarted = true
         run(.sequence([
             .wait(forDuration: 0.8),
             .run { [weak self] in self?.startCaseIntroduction() }
         ]), withKey: "caseIntroductionDelay")
+    }
+
+    /// Restore free-play office after the Empty Coat visit has already run once.
+    private func applyCompletedOfficeCaseIntroFreeplayState() {
+        caseIntroductionStarted = true
+        clientEntranceStarted = true
+        dialogueIsActive = false
+        cutsceneChromeSuppressed = false
+        setCutsceneLetterboxVisible(false, animated: false)
+        client.isHidden = true
+        client.alpha = 1
+        navigation.setEntranceDoorBlocking(false)
+        // Post-visit free play keeps the leaf open for city exit (sequencer contract).
+        setDoorFallenForReview()
+        setCutsceneChromeSuppressed(false, animated: false)
+        showOfficeHintIfNeeded()
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
@@ -1015,6 +1036,8 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     private func finishCaseIntroduction() {
         RainAudio.stopVoiceOver(on: self)
+        // One-shot gate: next office load skips monologue + entrance cinematic.
+        context.session.markOfficeCaseIntroCompleted()
         for action in OfficeClientVisitSequencer.actions(for: .finishCaseIntroductionStarted) {
             applyClientVisitAction(action)
         }
