@@ -2,9 +2,9 @@ import Foundation
 
 // MARK: - Dialogue roadmap Phase 0 (state spine)
 //
-// Codable, SpriteKit-free value types so Phase 1 conditions and Phase 2 actions
-// have a shared context to read and write. See Documentation/DialogueSystemRoadmap.md.
-// Not wired to CaseIntroductionPresenter or SaveSnapshot yet (P0 exit criteria).
+// Codable, SpriteKit-free value types for conditions, actions, and session context.
+// Presenter owns DialogueSession (which holds DialogueRuntimeContext). Mid-conversation
+// DialogueState is not yet part of SaveSnapshot. See Documentation/DialogueSystemRoadmap.md.
 
 /// Stable string key for world / case / dialogue flags.
 ///

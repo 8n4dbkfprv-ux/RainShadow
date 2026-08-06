@@ -99,6 +99,37 @@ struct DialogueConditionTests {
             conditions: [.hasEvidence("ev.tram-receipt")]
         )
         #expect(auto.displayText(index: 0) == "1:  [Evidence: Tram Receipt]  Show it")
+
+        // Phase 5: intention tag is player-facing; dedupes matching gateDisclosure.
+        let withIntention = CaseDialogueChoice(
+            text: "Come in out of the wet.",
+            destinationID: "n8",
+            intention: .open
+        )
+        #expect(withIntention.labeledBodyText == "[Open]  Come in out of the wet.")
+        #expect(withIntention.displayText(index: 0) == "1:  [Open]  Come in out of the wet.")
+
+        let pressWithIntention = CaseDialogueChoice(
+            text: "What are you not saying?",
+            destinationID: "n9",
+            intention: .press,
+            conditions: [.hasFlag("x")],
+            gateDisclosure: "Press"
+        )
+        #expect(pressWithIntention.rowPrefixLabels == ["Press"])
+        #expect(pressWithIntention.labeledBodyText == "[Press]  What are you not saying?")
+
+        let intentionPlusEvidence = CaseDialogueChoice(
+            text: "Show the receipt.",
+            destinationID: "n10",
+            intention: .press,
+            conditions: [.hasEvidence("ev.tram-receipt")]
+        )
+        #expect(intentionPlusEvidence.rowPrefixLabels == ["Press", "Evidence: Tram Receipt"])
+        #expect(
+            intentionPlusEvidence.labeledBodyText
+                == "[Press]  [Evidence: Tram Receipt]  Show the receipt."
+        )
     }
 
     @Test func visibleChoicesPreservesOrderAndFilters() {

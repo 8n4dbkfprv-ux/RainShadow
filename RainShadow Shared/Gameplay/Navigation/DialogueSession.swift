@@ -3,7 +3,7 @@ import Foundation
 // MARK: - Dialogue roadmap Phase 4 (multi-graph)
 
 /// Authored conversation package: id + start + nodes.
-struct DialogueGraph: Equatable, Sendable {
+struct DialogueGraph: Equatable, Codable, Sendable {
     let id: String
     let startNodeID: String
     let nodes: [CaseDialogueNode]

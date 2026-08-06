@@ -449,17 +449,49 @@ Even though M01 exposes only a few flags, establish these value types early:
 
 All are `Codable`, versioned, and independent of SpriteKit.
 
-**Dialogue roadmap Phase 0 (shipped):** `WorldFlag`, `CaseState`, `DialogueState`, and `DialogueRuntimeContext` live in `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` (RainShadowCore). They are not yet threaded through `CaseIntroductionPresenter` or `SaveSnapshot`. Full `EvidenceRecord` / `KnowledgeRecord` payloads and the remaining §14.1 types remain deferred.
+**Dialogue roadmap Phase 0 (shipped):** `WorldFlag`, `CaseState`, `DialogueState`, and `DialogueRuntimeContext` live in `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` (RainShadowCore).
+
+**Presenter wiring (shipped):** `CaseIntroductionPresenter` owns a pure `DialogueSession` and exposes `runtimeContext` for case-state merge after conversations. `SaveSnapshot` still does not persist mid-conversation `DialogueState` (intro-completed / case flags only unless product expands saves). Full `EvidenceRecord` / `KnowledgeRecord` payloads and the remaining §14.1 types remain deferred.
+
+#### Dialogue runtime stack
+
+| Layer | Responsibility |
+|---|---|
+| **Resources** | Versioned JSON graphs / catalogs + `strings.en.json` under `RainShadow Shared/Resources/Dialogue/` |
+| **Loader** | `DialogueGraphLoader` + `DialogueStringTable` — decode authored keys/inline prose, resolve keys at load, validate start node |
+| **Runtime graph** | `DialogueGraph` of `CaseDialogueNode` / `CaseDialogueChoice` (resolved strings only) |
+| **Walker** | `DialogueSession` — conditions, actions, advance (SpriteKit-free) |
+| **View** | `CaseIntroductionPresenter` — panel, choices, Continue/End; hooks `onNodeShown`, `shouldDeferAdvance` |
+| **Scene** | Maps presentation cues (`onLeaveCue` → cinematics), VO from `voiceAssetName`, presents graphs by facade |
+
+Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotDialogue`) load cached graphs; they do not embed prose constructors.
+
+#### Dialogue resource schema (v1)
+
+**Single graph** (`*.dialogue.json`):
+
+- `schemaVersion` (currently `1`), `id`, `startNodeID`, `nodes[]`
+- Optional document-level `stringTable` resource override (default `strings.en`)
+- Node fields: `id`, `speaker` **or** `speakerKey`, `text` **or** `textKey`, `portraitName`, `choices`, `nextNodeID`, `endsDialogue`, `isInteriorMonologue`, `voiceAssetName`, `onLeaveCue`, `onShowCue`
+- Choice fields: `text` **or** `textKey`, `destinationID`, `tone`, `intention` (GDD §7.5: `open` / `press` / `feign` / `trade` / `observe` / `leave`), `conditions`, `gateDisclosure`, `onSelect`
+- Conditions/actions: tagged unions (`{ "type": "hasFlag", "id": "…" }`, etc.); `queueJournal` may use `textKey`
+
+**Catalog** (`*.dialogue-catalog.json`): `schemaVersion`, `graphs[]` (each entry is id + start + nodes), optional `stringTable`.
+
+**String table** (`strings.en.json`): `schemaVersion`, `locale`, `strings` map (key → prose). IE TLK analogue without binary formats.
+
+Unknown schema versions fail at load. Missing required string keys fail at resolve. Missing hotspot inspect graphs fail-fast in debug via facade `preconditionFailure`.
 
 #### Dialogue graph authoring (classic BG roles)
 
-Shipped conversation data (`CaseDialogueNode` / `CaseDialogueChoice` in Navigation) follows **classic Baldur’s Gate / Infinity Engine DLG** roles (GDD §7.5):
+Shipped conversation data follows **classic Baldur’s Gate / Infinity Engine DLG** roles (GDD §7.5):
 
 - **Node body** = actor speech (NPC or case-title end). Multi-page NPC beats use `nextNodeID` + Continue.
 - **Choice text** = player character speech. Mid-conversation PC lines must be choices, not Voss speaker nodes with empty choices and `nextNodeID`.
 - **Exception:** `isInteriorMonologue` Continue chains before the NPC exchange (Empty Coat `voss.monologue.*` only for that pattern today).
+- **Presentation vs game state:** VO and cinematics use node presentation fields / scene cue maps; case flags and journal writes use `DialogueAction` on choices.
 
-Do not “simplify” PC acceptance or commitments into auto-Continue speaker states. See Dialogue System Roadmap frozen section and Empty Coat graph comments.
+Do not “simplify” PC acceptance or commitments into auto-Continue speaker states. See Dialogue System Roadmap frozen section and Empty Coat resource packages.
 
 ### 14.2 Scene definition schema
 

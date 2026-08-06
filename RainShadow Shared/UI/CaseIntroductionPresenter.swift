@@ -114,10 +114,12 @@ final class CaseIntroductionPresenter: SKNode {
     /// Last node ID for which `onNodeShown` was delivered (avoids re-fire on layout-only refresh).
     private var lastNotifiedNodeID: String?
     /// Fired when a dialogue node is newly shown (initial present and each advance, not layout refresh).
+    /// Scene maps presentation concerns from node data (e.g. `voiceAssetName`, `onShowCue`).
     var onNodeShown: ((CaseDialogueNode) -> Void)?
     /// Called before Continue (or a choice) leaves `from` for `toDestinationID`.
-    /// Return `true` to defer the transition (e.g. play a BG-style walk cinematic with
-    /// no dialogue); the scene later calls `resumeAfterCutscene(advancingTo:)`.
+    /// Inspect `from.onLeaveCue` (and similar) to decide whether to defer — the presenter
+    /// stays Empty Coat–agnostic. Return `true` to defer the transition (e.g. BG-style walk
+    /// cinematic with no dialogue); the scene later calls `resumeAfterCutscene(advancingTo:)`.
     var shouldDeferAdvance: ((_ from: CaseDialogueNode, _ toDestinationID: String) -> Bool)?
 
     private(set) var isPresenting = false

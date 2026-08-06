@@ -831,7 +831,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         caseIntroductionPresenter.shouldDeferAdvance = { [weak self] from, toDestinationID in
             guard let self else { return false }
-            guard EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: from.id) else {
+            // Presentation cue from dialogue data (not Empty Coat node-id helpers).
+            guard from.onLeaveCue == OfficeDialogueCues.clientEntrance else {
                 return false
             }
             // Baldur’s Gate: dismiss dialogue, play walk cinematic, then continue.
@@ -1178,16 +1179,15 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        let nodeID = "inspection.\(hotspot.id)"
-        caseIntroductionPresenter.present([
-            CaseDialogueNode(
-                id: nodeID,
-                speaker: hotspot.name,
-                text: hotspot.observation,
-                portraitName: "dialogue_portrait_harlan_voss_v01",
-                endsDialogue: true
+        // PR4: inspect prose is an authored one-node graph, not an ad-hoc constructor.
+        let graph = OfficeHotspotDialogue.graph(forHotspotID: hotspot.id)
+        caseIntroductionPresenter.present(
+            graph: graph,
+            context: DialogueRuntimeContext(
+                caseState: context.session.caseState,
+                dialogueState: DialogueState(graphID: graph.id)
             )
-        ], startingAt: nodeID) { [weak self] in
+        ) { [weak self] in
             guard let self else { return }
             self.dialogueIsActive = false
             self.presentLootInventoryIfNeeded(for: hotspot)

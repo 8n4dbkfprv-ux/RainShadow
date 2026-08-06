@@ -2,6 +2,7 @@ import Foundation
 
 /// Stub second dialogue graph (Phase 4): short post-intro desk monologue.
 ///
+/// Prose lives in `Resources/Dialogue/empty-coat.desk-monologue.dialogue.json`.
 /// Proves the shared presenter/session can run a graph other than Empty Coat intro.
 /// Classic BG monologue exception: Continue-only Voss interior pages.
 enum OfficeCaseFileMonologue {
@@ -9,43 +10,29 @@ enum OfficeCaseFileMonologue {
     static let startNodeID = "voss.desk.casefile.1"
     static let vossSpeaker = EmptyCoatCaseIntroduction.vossSpeaker
     static let vossPortrait = EmptyCoatCaseIntroduction.vossPortrait
+    static let resourceName = "empty-coat.desk-monologue.dialogue"
 
     static var graph: DialogueGraph {
-        DialogueGraph(id: graphID, startNodeID: startNodeID, nodes: nodes)
+        loadedGraph
     }
 
     static var nodes: [CaseDialogueNode] {
-        [
-            CaseDialogueNode(
-                id: "voss.desk.casefile.1",
-                speaker: vossSpeaker,
-                text: """
-                The key sits on the blotter like it owns the place. Brass, small teeth, no hotel tag—just machine oil and the smell of a river that already told one lie tonight.
-                """,
-                portraitName: vossPortrait,
-                nextNodeID: "voss.desk.casefile.2",
-                isInteriorMonologue: true
-            ),
-            CaseDialogueNode(
-                id: "voss.desk.casefile.2",
-                speaker: vossSpeaker,
-                text: """
-                Empty Coat is open. Harborpoint is not. Tomorrow I start measuring the gap between a police drowning and a sister who still buys umbrellas for a woman the river was supposed to keep.
-                """,
-                portraitName: vossPortrait,
-                nextNodeID: "voss.desk.casefile.end",
-                isInteriorMonologue: true
-            ),
-            CaseDialogueNode(
-                id: "voss.desk.casefile.end",
-                speaker: vossSpeaker,
-                text: """
-                File the night. Work the morning. If the gray overcoat comes looking for the key, he can take a number.
-                """,
-                portraitName: vossPortrait,
-                endsDialogue: true,
-                isInteriorMonologue: true
-            )
-        ]
+        graph.nodes
     }
+
+    private static let loadedGraph: DialogueGraph = {
+        do {
+            let graph = try DialogueGraphLoader.loadCached(
+                id: graphID,
+                resourceName: resourceName
+            )
+            assert(
+                graph.startNodeID == startNodeID,
+                "Desk monologue JSON start node mismatch: \(graph.startNodeID)"
+            )
+            return graph
+        } catch {
+            preconditionFailure("Failed to load office case-file monologue: \(error)")
+        }
+    }()
 }

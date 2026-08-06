@@ -233,7 +233,9 @@ struct EmptyCoatCaseIntroductionTests {
     @Test func clientEntranceCueIsSoleLateMonologueLeaveTrigger() {
         let cue = EmptyCoatCaseIntroduction.clientEntranceCueNodeID
         #expect(cue == "voss.monologue.4")
-        // BG style: Continue *from* the cue starts the no-dialogue cinematic.
+        // Data-driven: only the authored leave cue starts the no-dialogue cinematic.
+        let cueNode = nodes.first { $0.id == cue }
+        #expect(cueNode?.onLeaveCue == OfficeDialogueCues.clientEntrance)
         #expect(EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: cue))
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenShowing: cue))
 
@@ -242,17 +244,22 @@ struct EmptyCoatCaseIntroductionTests {
             .filter { $0.hasPrefix("voss.monologue") }
         #expect(monologueIDs.contains(cue))
         #expect(monologueIDs.contains(startID))
-        // Only the designated cue among monologue nodes starts entrance on leave.
+        // Exactly one monologue node authors the entrance leave cue.
+        let leaveCued = nodes.filter {
+            $0.id.hasPrefix("voss.monologue") && $0.onLeaveCue == OfficeDialogueCues.clientEntrance
+        }
+        #expect(leaveCued.map(\.id) == [cue])
         for id in monologueIDs where id != cue {
             #expect(
                 !EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: id),
                 "Unexpected leave-entrance trigger on \(id)"
             )
+            #expect(nodes.first { $0.id == id }?.onLeaveCue == nil)
         }
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: "lila.entrance"))
+        #expect(nodes.first { $0.id == "lila.entrance" }?.onLeaveCue == nil)
 
         // Cue text narratively introduces arrival (hallway / heels / door / dame).
-        let cueNode = nodes.first { $0.id == cue }
         #expect(cueNode != nil)
         let body = (cueNode?.text ?? "").lowercased()
         #expect(body.contains("hallway") || body.contains("heels") || body.contains("door"))
@@ -320,8 +327,10 @@ struct EmptyCoatCaseIntroductionTests {
         let scene = try String(contentsOf: sceneURL, encoding: .utf8)
         let presenter = try String(contentsOf: presenterURL, encoding: .utf8)
 
-        // Monologue presents first; entrance is deferred until Continue *from* the cue.
-        #expect(scene.contains("shouldStartClientEntrance(whenLeaving:"))
+        // Monologue presents first; entrance is deferred until Continue *from* the leave cue.
+        // PR3: scene maps `onLeaveCue` → cinematic (not Empty Coat node-id helpers).
+        #expect(scene.contains("onLeaveCue"))
+        #expect(scene.contains("OfficeDialogueCues.clientEntrance"))
         #expect(scene.contains("shouldDeferAdvance"))
         #expect(scene.contains("beginClientEntranceIfNeeded"))
         #expect(scene.contains("handleCaseIntroductionNodeShown"))
@@ -330,7 +339,7 @@ struct EmptyCoatCaseIntroductionTests {
         // Grok Voice plays on each node show; stops when dialogue finishes / cinematic starts.
         #expect(scene.contains("playVoiceOver"))
         #expect(scene.contains("stopVoiceOver"))
-        #expect(scene.contains("node.voiceAssetName"))
+        #expect(scene.contains("node.voiceAssetName") || scene.contains("voiceAssetName"))
         #expect(scene.contains("EmptyCoatCaseIntroduction.graph"))
         // Door/entrance only inside the gated helper, not at the top of startCaseIntroduction before present.
         if let startRange = scene.range(of: "private func startCaseIntroduction()") {
@@ -343,13 +352,16 @@ struct EmptyCoatCaseIntroductionTests {
                 let body = String(afterStart[..<nextFunc.lowerBound])
                 #expect(body.contains("caseIntroductionPresenter.present"))
                 #expect(body.contains("shouldDeferAdvance"))
-                #expect(body.contains("whenLeaving:"))
+                #expect(body.contains("onLeaveCue"))
+                #expect(body.contains("OfficeDialogueCues.clientEntrance"))
+                #expect(!body.contains("shouldStartClientEntrance"))
                 #expect(!body.contains("animateDoorFalling()"))
                 #expect(!body.contains("performEntrance"))
             }
         }
         #expect(presenter.contains("onNodeShown"))
         #expect(presenter.contains("shouldDeferAdvance"))
+        #expect(presenter.contains("onLeaveCue"))
         #expect(presenter.contains("selectChoice") || presenter.contains("advanceContinue"))
         #expect(presenter.contains("present(\n        graph:") || presenter.contains("func present(\n        graph:"))
 
@@ -371,6 +383,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(scene.contains("setCutsceneLetterboxVisible"))
         // Showing a node must not arm entrance (leave-gated only).
         #expect(!scene.contains("shouldStartClientEntrance(whenShowing:"))
+        #expect(!scene.contains("shouldStartClientEntrance(whenLeaving:"))
         if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
             let afterEntrance = scene[entranceRange.lowerBound...]
             if let nextFunc = afterEntrance.range(

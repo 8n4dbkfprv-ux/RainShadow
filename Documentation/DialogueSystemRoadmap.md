@@ -1,36 +1,41 @@
 # Dialogue system roadmap
 
-- Status: Phase 0–4 complete (state → journal → multi-graph session); P5 still planning
-- Version: 0.6
-- Date: 4 August 2026
+- Status: Phase 0–5 complete (state → journal → multi-graph → external resources → intention tags UI)
+- Version: 0.8
+- Date: 6 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
 
 ## Purpose
 
-Close the highest-value gaps between the shipped RainShadow intro dialogue and Infinity Engine–class conversation logic, in an order that unlocks real play: gated options, case-state consequences, then reusable multi-conversation graphs.
+Close the highest-value gaps between the shipped RainShadow intro dialogue and Infinity Engine–class conversation logic, in an order that unlocks real play: gated options, case-state consequences, reusable multi-conversation graphs, then **data/runtime separation** for authored content.
 
-This document does **not** propose importing full IE/WeiDU script languages. Stay RainShadow-shaped: GDD §7.5 **intentions**, evidence/knowledge/trait gates, and case flags.
+This document does **not** propose importing full IE/WeiDU script languages. Stay RainShadow-shaped: GDD §7.5 **intentions**, evidence/knowledge/trait gates, and case flags. Typed `DialogueCondition` / `DialogueAction` remain the control DSL (not free-form script strings).
 
 ## Current baseline
 
 | Piece | Status |
 |---|---|
 | String-id graph (`CaseDialogueNode` / `CaseDialogueChoice`) | Shipped |
-| Intro presenter walker (`CaseIntroductionPresenter`) | Shipped |
+| Intro presenter walker (`CaseIntroductionPresenter`) | Shipped — view over pure `DialogueSession` |
 | Linear Continue via `nextNodeID`; end via `endsDialogue` | Shipped |
 | Author tone triad metadata (`DialogueTone`) | Shipped (not UI) |
-| `onNodeShown` side channel (e.g. entrance cues) | Shipped |
+| `onNodeShown` side channel (VO / presentation) | Shipped |
 | Graph integrity helpers (`CaseDialogueGraph.report`) | Shipped |
 | Static case journal dossier (`EmptyCoatJournalContent`) | Shipped (hotspot-driven notes + dialogue projection) |
-| `voiceAssetName` on nodes | Modeled; Empty Coat VO wired via `onNodeShown` in office |
-| `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift` |
+| `voiceAssetName` on nodes | **Shipped** — Empty Coat monologue + Lila nodes via `onNodeShown` |
+| `DialogueState` / `CaseState` / `WorldFlag` (Technical Architecture §14.1) | **Shipped (P0)** — pure value types in `DialogueStateModels.swift`; presenter holds `DialogueSession` / runtime context |
 | Choice conditions + filtered UI + gate disclosure | **Shipped (P1)** — `DialogueCondition`, presenter filters, Empty Coat Press gate |
-| Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator; P1 flag bridge removed |
+| Transition `onSelect` actions | **Shipped (P2)** — `DialogueAction` + pure applicator |
 | Queued journal fragments on case state | **Shipped (P2 store)** |
 | Journal-on-transition projection | **Shipped (P3)** — `JournalProjectionInput`, session merge, Press vs accept paths |
 | Multi-graph session + presenter | **Shipped (P4)** — `DialogueGraph` / `DialogueSession`; desk monologue second graph |
+| Versioned JSON graph loader | **Shipped (P4.5)** — `DialogueGraphLoader` + `AuthoredDialogueDocument` |
+| Presentation leave/show cues | **Shipped (P4.5)** — `onLeaveCue` / `onShowCue`; office entrance uses `OfficeDialogueCues.clientEntrance` |
+| Hotspot inspect graphs | **Shipped (P4.5)** — `office.hotspot-inspect.dialogue-catalog.json` via `OfficeHotspotDialogue` |
+| String table (IE strref analogue) | **Shipped (P4.5)** — `strings.en.json` + `DialogueStringTable`; graphs use `textKey` / `speakerKey` |
+| Intention tags (GDD §7.5) | **Shipped (P5)** — `DialogueIntention` on choices; `[Open]` / `[Press]` / … in choice rows |
 
-Empty Coat is intentionally compact. Broader evidence-gated branching is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
+Empty Coat remains the compact M01 case opener. Broader evidence-gated branching beyond the Press path is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
 ## Frozen: classic Baldur’s Gate PC speech (do not regress)
 
@@ -62,24 +67,28 @@ Roadmap phases (triggers, actions, multi-graph) must **preserve** this authoring
 | **P2** | Transition **actions** (side effects) | Makes choices matter beyond which node you land on |
 | **P3** | **Journal-on-transition** | Player-visible consequence of P2; reuses existing journal UI |
 | **P4** | **Multi-graph / reusable runtime** | Second conversation without forking the intro presenter |
-| **P5** | Intentions UI + VO | Polish and GDD labeling; not required for branching logic |
+| **P4.5** | **External dialogue resources + string table** | IE-like data/runtime split; topology and prose out of Swift modules |
+| **P5** | Intentions UI (+ remaining VO polish) | Player-facing GDD taxonomy; not required for branching logic |
 
-Triggers before journal: journal entries without conditions stay static (current behavior). Multi-graph before VO: one solid walker for many dialogues is cheaper than wiring audio twice.
+Triggers before journal: journal entries without conditions stay static (current behavior). Multi-graph before externalization: one solid walker for many dialogues is cheaper than migrating content twice. String tables after graphs: resolve keys at load so the walker never sees keys.
 
 ## Design constraint vs Infinity Engine
 
 Both systems treat conversation as a directed graph of actor states plus player transitions that advance or end the talk.
 
-| Concern | Infinity Engine (DLG V1) | RainShadow target (this roadmap) |
+| Concern | Infinity Engine (DLG V1) | RainShadow (shipped) |
 |---|---|---|
-| Text | Strrefs → TLK | Authored strings (later localization if needed) |
+| Graph topology | External **DLG** state/transition tables | Versioned **JSON** graphs / catalogs under `Resources/Dialogue/` |
+| Text | Strrefs → **TLK** | **textKey / speakerKey → `strings.en.json`** (resolved at load) |
 | Conditions | Script trigger strings on states/transitions | Small typed `DialogueCondition` set |
-| Side effects | Script action strings on transitions | Small typed `DialogueAction` set |
+| Side effects | Script action strings on transitions | Small typed `DialogueAction` set (`queueJournal` text keyable) |
+| Presentation cues | Separate from game-state actions | Node `onLeaveCue` / `onShowCue` (scene maps cue IDs) |
 | Chaining | Within-file and cross-DLG (GOTO / EXTERN) | In-graph ids first; light `graphID + nodeID` later |
 | Journal | Text / type flags on transitions | Earned fragments projected into casebook |
 | Entry | Often state 0 + first-true triggers / WEIGHT | Explicit start node (+ optional `entryWhen` later) |
+| Walker vs UI | Engine evaluates DLG; presentation separate | Pure `DialogueSession`; `CaseIntroductionPresenter` is the view |
 
-**Explicitly out of scope for early phases:** free-form script strings, weighted first-true state selection, hostile interrupt headers, BGEE immediate/delayed action bit parity, full multi-NPC EXTERN interjection tooling.
+**Explicitly out of scope:** free-form script strings, binary DLG/TLK formats, WeiDU tooling, weighted first-true state selection from state 0, hostile interrupt headers, BGEE immediate/delayed action bit parity, full multi-NPC EXTERN interjection tooling.
 
 ---
 
@@ -181,7 +190,7 @@ Minimal action set:
 3. Advance to `destinationID`.
 4. Fire presentation hooks (`onNodeShown`) for the new node.
 
-Keep scene-level `onNodeShown` for **presentation** (entrance cues). Move **game-state** effects onto the choice so authors do not depend on scene callbacks.
+Keep scene-level `onNodeShown` for **presentation** (voice-over). Game-state effects live on choice `onSelect`. Cinematic leave cues are **data** on the node (`onLeaveCue`), not hard-coded node ids in the scene.
 
 ### Exit criteria
 
@@ -263,38 +272,100 @@ Keep scene-level `onNodeShown` for **presentation** (entrance cues). Move **game
 
 ---
 
-## Phase 5 — Intentions, tone, and VO
+## Phase 4.5 — External dialogue resources (data / runtime split)
 
-| Item | Approach |
+**Goal:** Match Baldur’s Gate EE’s separation of conversation **content** from **engine**: graphs and prose live as versioned resources; `DialogueSession` remains the pure walker; the presenter stays a view.
+
+### Ship
+
+1. **Codable graph model + loader**
+   - `DialogueDocument` / `AuthoredDialogueDocument` (`schemaVersion: 1`)
+   - `DialogueGraphLoader` (decode, validate, bundle + development resource paths, cache)
+   - Optional node presentation fields: `onLeaveCue`, `onShowCue`
+
+2. **Migrate shipped graphs out of Swift constructors**
+   - `empty-coat.intro.dialogue.json` — Empty Coat monologue + Lila triad
+   - `empty-coat.desk-monologue.dialogue.json` — post-retain desk monologue
+   - Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`) load + cache only
+
+3. **Data-driven presentation cues**
+   - Client entrance: monologue cue node authors `onLeaveCue: "office.clientEntrance"`
+   - `DetectiveOfficeScene` maps `from.onLeaveCue == OfficeDialogueCues.clientEntrance` (not node-id helpers)
+
+4. **Hotspot inspect packages**
+   - Catalog: `office.hotspot-inspect.dialogue-catalog.json`
+   - Facade: `OfficeHotspotDialogue.graph(forHotspotID:)` — fail-fast if missing
+   - Scene inspect path presents graphs; no ad-hoc `CaseDialogueNode` constructors
+
+5. **String table (IE strref analogue)**
+   - `strings.en.json` + `DialogueStringTable`
+   - Authored fields: `text` **or** `textKey`, `speaker` **or** `speakerKey`; `queueJournal` may use `textKey`
+   - Keys resolve at **load time** into runtime `DialogueGraph` (walker/UI see only strings)
+
+### Resource layout
+
+```text
+RainShadow Shared/Resources/Dialogue/
+  strings.en.json
+  empty-coat.intro.dialogue.json
+  empty-coat.desk-monologue.dialogue.json
+  office.hotspot-inspect.dialogue-catalog.json
+```
+
+SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets include the same files in Shared membership.
+
+### Authoring conventions
+
+| Item | Convention |
 |---|---|
-| **Intention tags** (Open / Press / Feign / Trade / Observe / Leave) | Player-facing taxonomy per GDD §7.5; can replace or complement `DialogueTone` |
-| **Tone** | May remain writer/test metadata only |
-| **UI** | Optional small label/icon; gate reason disclosure already from Phase 1 |
-| **VO** | Wire `voiceAssetName` through the dialogue bus on node show; Empty Coat may stay silent until assets exist |
-| **Docs / architecture** | Align Technical Architecture `DialogueState` with the implemented model; remove or implement any phantom type |
+| Graph id | e.g. `case.empty-coat.intro`, `inspect.office.desk` |
+| Resource base name | `defaultResourceName(for:)` → `empty-coat.intro.dialogue` (+ `.json`) |
+| String keys | `dlg.speaker.*`, `dlg.<graphShort>.node.<id>.text`, `dlg.journal.<fragmentID>` |
+| Leave cinematic | `onLeaveCue` string id; scene registers handlers |
+| Classic BG PC speech | Still frozen — PC mid-convo lines are choices in JSON, not Continue speaker nodes |
+
+### Exit criteria
+
+- Empty Coat + desk monologue + hotspot inspect prose live under `Resources/Dialogue/`
+- Facades load JSON; Swift modules do not embed multi-line dialogue constructors
+- Entrance cinematic fires from `onLeaveCue`, not hard-coded monologue node id in the scene
+- String table resolves for shipped packages; pure tests cover loader, catalog, and key resolution
+- Existing integrity / BG PC-speech / journal projection tests remain green
+
+**Status: met** (`DialogueGraphLoader`, `DialogueStringTable`, facades, office cue wiring, hotspot catalog; tests in `DialogueGraphLoaderTests`, `DialogueStringTableTests`, `OfficeHotspotDialogueTests`, Empty Coat suite).
+
+---
+
+## Phase 5 — Intentions, tone, and remaining VO polish
+
+| Item | Approach | Status |
+|---|---|---|
+| **Intention tags** (Open / Press / Feign / Trade / Observe / Leave) | `DialogueIntention` on choices; player-facing `[Open]` / `[Press]` / … prefixes via `labeledBodyText` | **Shipped** |
+| **Tone** | Writer/test metadata only (`DialogueTone`) — not shown in UI | Shipped (metadata) |
+| **UI** | Intention prefixes + Phase 1 gate disclosure (`[Evidence: …]`); matching intention/gate labels dedupe | **Shipped** |
+| **VO** | `voiceAssetName` on show via `onNodeShown` | **Shipped** for Empty Coat monologue + Lila graph (Press node may stay silent) |
+| **Docs / architecture** | Align Technical Architecture with session-backed presenter + external resources | **Shipped** |
+
+### Ship (intentions)
+
+- `DialogueIntention` enum (`open` / `press` / `feign` / `trade` / `observe` / `leave`) with GDD display labels
+- Optional `intention` on runtime + authored choices; JSON field `intention`
+- Row text: intention first, then gate disclosure (`[Press]  [Evidence: Tram Receipt]  …`); drop gate when it equals the intention label
+- Empty Coat: all player choices tagged (triads + acceptance); Press option uses `intention: press`
+
+**Status: met** (`DialogueIntention`, Empty Coat tags, `DialogueIntentionTests`, disclosure tests extended).
 
 ---
 
 ## Suggested milestone slices
 
-| Slice | Scope |
-|---|---|
-| **M-dialogue-A** | Phase 0 + Phase 1 (flags + gated choices) |
-| **M-dialogue-B** | Phase 2 + Phase 3 (actions + journal writes) |
-| **M-dialogue-C** | Phase 4 (walker extract + second graph) |
-| **M-dialogue-D** | Phase 5 (intentions UI, VO, doc cleanup) |
-
-**M-dialogue-A alone** closes the largest design gap vs BG (“why can’t I say that yet?”) and matches the README’s deferred “evidence-gated dialogue.”
-
-## First vertical slice (recommended kickoff when implementation starts)
-
-1. Add `DialogueCondition.hasFlag(String)` and `DialogueAction.setFlag(String)`.
-2. Thread a mutable dialogue/case context (flag set) into the conversation runtime.
-3. On Empty Coat, gate **one** extra choice or post-triad beat on a flag set earlier in the same graph.
-4. On END DIALOGUE, if that flag is set, append one chronology entry in journal content.
-5. Tests: condition filter + action + journal fragment.
-
-That is the smallest path through **triggers → side effects → journal** without multi-graph extraction.
+| Slice | Scope | Status |
+|---|---|---|
+| **M-dialogue-A** | Phase 0 + Phase 1 (flags + gated choices) | Met |
+| **M-dialogue-B** | Phase 2 + Phase 3 (actions + journal writes) | Met |
+| **M-dialogue-C** | Phase 4 (walker extract + second graph) | Met |
+| **M-dialogue-data** | Phase 4.5 (JSON graphs, cues, hotspots, string table) | Met |
+| **M-dialogue-D** | Phase 5 (intentions UI polish) | Met |
 
 ## Dependency sketch
 
@@ -311,10 +382,13 @@ CaseState / flags
   journal projections  ─────────►  casebook updates
        │
        ▼
-  extract DialogueWalker  ──────►  multi-graph + re-talk
+  DialogueSession + multi-graph  ─►  re-talk / desk monologue
        │
        ▼
-  intentions + VO
+  external JSON + string table  ─►  data/runtime split (P4.5)
+       │
+       ▼
+  intention tags on choices  ───►  [Open] / [Press] / … row UI (P5)
 ```
 
 ## What not to build yet
@@ -329,27 +403,34 @@ CaseState / flags
 
 | Path | Role today |
 |---|---|
-| `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Node/choice schema, `DialogueCondition`, graph integrity + visibleChoices |
-| `RainShadow Shared/Gameplay/Navigation/DialogueSession.swift` | P4 `DialogueGraph` + pure `DialogueSession` walker |
-| `RainShadow Shared/Gameplay/Navigation/OfficeCaseFileMonologue.swift` | P4 stub second graph (desk monologue) |
+| `RainShadow Shared/Gameplay/Navigation/CaseDialogueModels.swift` | Runtime node/choice schema, `DialogueCondition` / `DialogueAction`, graph integrity |
+| `RainShadow Shared/Gameplay/Navigation/DialogueSession.swift` | `DialogueGraph` + pure `DialogueSession` walker |
+| `RainShadow Shared/Gameplay/Navigation/DialogueGraphLoader.swift` | Versioned JSON load/encode, catalogs, resource resolution, cache |
+| `RainShadow Shared/Gameplay/Navigation/DialogueStringTable.swift` | String table + authored document models + key resolution |
 | `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
-| `Tests/RainShadowCoreTests/DialogueConditionTests.swift` | P1 condition filter / disclosure / Empty Coat Press gate |
-| `Tests/RainShadowCoreTests/DialogueActionTests.swift` | P2 action apply + Empty Coat acceptance journal queue |
-| `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Authored Empty Coat graph |
-| `RainShadow Shared/UI/CaseIntroductionPresenter.swift` | Presentation + walk |
-| `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift` | `onNodeShown` / entrance sequencing |
+| `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Facade: IDs + load Empty Coat intro graph |
+| `RainShadow Shared/Gameplay/Navigation/OfficeCaseFileMonologue.swift` | Facade: desk monologue graph |
+| `RainShadow Shared/Gameplay/Navigation/OfficeHotspotDialogue.swift` | Facade: inspect catalog by hotspot id |
+| `RainShadow Shared/Resources/Dialogue/` | Shipped graphs, catalog, `strings.en.json` |
+| `RainShadow Shared/UI/CaseIntroductionPresenter.swift` | Presentation view over session; `onNodeShown` / `shouldDeferAdvance` |
+| `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift` | Cue map (`onLeaveCue` → entrance), VO, present graphs |
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatJournalContent.swift` | Static + hotspot journal projection |
-| `Tests/RainShadowCoreTests/EmptyCoatCaseIntroductionTests.swift` | Graph and presenter contracts |
-| `Documentation/TechnicalArchitecture.md` §14.1 | Named `DialogueState` et al. |
+| `Tests/RainShadowCoreTests/DialogueGraphLoaderTests.swift` | Loader, schema, catalog, shipped package load |
+| `Tests/RainShadowCoreTests/DialogueStringTableTests.swift` | String table + key resolution contracts |
+| `Tests/RainShadowCoreTests/DialogueIntentionTests.swift` | GDD intention taxonomy + Empty Coat tags + row prefixes |
+| `Tests/RainShadowCoreTests/OfficeHotspotDialogueTests.swift` | Inspect catalog coverage vs layout observations |
+| `Tests/RainShadowCoreTests/EmptyCoatCaseIntroductionTests.swift` | Graph integrity, BG PC-speech, entrance cue contracts |
+| `Documentation/TechnicalArchitecture.md` §14.1 | Core state types + dialogue resource schema |
 | `Documentation/GameDesignDocument.md` §7.5 | Intentions and gate disclosure |
 
 ## Comparison snapshot (IE vs shipped local)
 
-See deep-research comparison (session research): both systems are directed graphs; IE adds strrefs, script triggers/actions, cross-resource chaining, and journal-on-transition. Local system is a single in-memory string-id graph with Continue paging, tone metadata, and a decoupled journal. Gaps listed above map to Phases 1–5.
+Both systems are directed graphs of actor states + player transitions. RainShadow now also externalizes topology (JSON) and prose (string table keys), with typed conditions/actions instead of IE script strings. Remaining gaps vs IE for later work: cross-graph EXTERN tooling, weighted entry selection, intentions UI (Phase 5), and mid-conversation save if product requires it.
 
-## Open questions (do not block Phase 0–1)
+## Open questions (do not block shipped phases)
 
-1. Are GDD §7.5 intention tags meant to approximate IE trigger/action scripting, or a deliberately different player-facing taxonomy? Current answer for this roadmap: **taxonomy + gates**, not script language.
-2. Should journal updates apply mid-conversation or only on END DIALOGUE? Prefer silent mid-conversation accumulate; batch if UX requires.
-3. Will later cases reuse the same presenter for non-intro graphs? Phase 4 assumes yes.
-4. Is mid-conversation save required for M-dialogue-A? Default **no** — only flags and “intro completed.”
+1. Are GDD §7.5 intention tags meant to approximate IE trigger/action scripting, or a deliberately different player-facing taxonomy? Current answer: **taxonomy + gates**, not script language.
+2. Should journal updates apply mid-conversation or only on END DIALOGUE? Prefer silent mid-conversation accumulate; batch if UX requires. **Current:** accumulate on choice select via `queueJournal`.
+3. Will later cases reuse the same presenter for non-intro graphs? **Yes** — Phase 4 + 4.5 assume `present(graph:)`.
+4. Is mid-conversation save required? Default **no** — only flags and “intro completed” unless product expands `SaveSnapshot`.
+5. Additional locales: add `strings.<locale>.json` and a locale picker on `DialogueStringTable.load`; graphs keep stable keys.

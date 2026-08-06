@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "id": "fixture.tiny",
+  "startNodeID": "npc.open",
+  "nodes": [
+    {
+      "id": "npc.open",
+      "speaker": "Test NPC",
+      "text": "Something is wrong at the pier.",
+      "portraitName": "dialogue_portrait_test",
+      "choices": [
+        {
+          "text": "Tell me more.",
+          "destinationID": "npc.more",
+          "tone": "neutralPragmatic"
+        },
+        {
+          "text": "I already have the receipt.",
+          "destinationID": "npc.press",
+          "tone": "cynicalSarcasm",
+          "gateDisclosure": "Press",
+          "conditions": [
+            {
+              "type": "hasFlag",
+              "id": "fixture.pressed-hard"
+            }
+          ],
+          "onSelect": [
+            {
+              "type": "setCaseFlag",
+              "id": "fixture.case.opened"
+            },
+            {
+              "type": "queueJournal",
+              "id": "chrono.fixture-press",
+              "kind": "chronology",
+              "text": "Pressed the pier story."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "npc.more",
+      "speaker": "Test NPC",
+      "text": "The night watch found an empty coat.",
+      "nextNodeID": "end",
+      "voiceAssetName": "vo_fixture_more.m4a"
+    },
+    {
+      "id": "npc.press",
+      "speaker": "Test NPC",
+      "text": "Fine. You already know too much.",
+      "nextNodeID": "end",
+      "onLeaveCue": "office.clientEntrance"
+    },
+    {
+      "id": "end",
+      "speaker": "Case opened",
+      "text": "The fixture case is open.",
+      "endsDialogue": true
+    }
+  ]
+}

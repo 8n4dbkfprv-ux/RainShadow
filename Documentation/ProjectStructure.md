@@ -171,7 +171,13 @@ RainShadow/
 │       │   ├── Ambience/
 │       │   ├── Foley/
 │       │   ├── Music/
+│       │   ├── Voice/          # Grok Voice dialogue clips (m4a)
 │       │   └── UI/
+│       ├── Dialogue/            # Versioned conversation packages (shipped)
+│       │   ├── strings.en.json
+│       │   ├── empty-coat.intro.dialogue.json
+│       │   ├── empty-coat.desk-monologue.dialogue.json
+│       │   └── office.hotspot-inspect.dialogue-catalog.json
 │       ├── Data/
 │       │   ├── Scenes/
 │       │   │   ├── opening_exterior.scene.json
@@ -308,7 +314,7 @@ Composition roots. A scene wires systems and content for one area; it does not r
 
 ### UI layer
 
-Camera-attached SpriteKit nodes and presenters. Later dialogue/evidence screens belong here but are not scaffolded prematurely.
+Camera-attached SpriteKit nodes and presenters. Dialogue presentation lives here as `CaseIntroductionPresenter` (a view over pure `DialogueSession`); conversation **content** lives under `Resources/Dialogue/`, not in UI types. Evidence/deduction screens remain later work.
 
 ### Platform layer
 
