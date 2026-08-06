@@ -26,12 +26,20 @@ enum ActorLocomotionPacing {
     /// Engine-relative ordinary humanoid movement baseline documented by BG:EE.
     static let infinityEngineHumanoidMoveScale: CGFloat = 9
 
-    /// Projected world-space speed. At a 100-unit body this is 2.25 body heights
-    /// per second — BG:EE parity, not the former deliberate 1.2 heights/s amble.
-    static let walkSpeed: CGFloat = 225
+    /// BG:EE gait in body-heights per second — the scale-free half of the
+    /// contract, not the former deliberate 1.2 heights/s amble.
+    static let walkBodyHeightsPerSecond: CGFloat = 2.25
+
+    /// Projected world-space speed, derived from the adult **as drawn on screen**.
+    /// The former literal 225 was set against a nominal 100-unit body while the
+    /// sprite rendered at 90.625, so the gait already ran ~10% hot; deriving it
+    /// keeps the pace correct at any sprite size.
+    static var walkSpeed: CGFloat {
+        walkBodyHeightsPerSecond * OfficeInteriorScale.standingAdultBodyHeight
+    }
 
     /// Inclusive acceptance band for `walkSpeed` (used by tests).
-    static let walkSpeedBand: ClosedRange<CGFloat> = 195...260
+    static let walkSpeedBand: ClosedRange<CGFloat> = 140...180
 
     /// V6 BGEE-density gait: 8 authored frames per cycle for every walking actor.
     static let walkFramesPerCycle = 8

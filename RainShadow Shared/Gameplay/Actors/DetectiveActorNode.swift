@@ -162,7 +162,11 @@ final class DetectiveActorNode: SKNode {
         if let texture = initialSeated {
             body = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
         } else {
-            body = SKSpriteNode(color: SKColor(red: 0.12, green: 0.1, blue: 0.1, alpha: 1), size: CGSize(width: 76, height: 142))
+            let ratio = OfficeInteriorScale.ActorDisplay.visualBodyRatio
+            body = SKSpriteNode(
+                color: SKColor(red: 0.12, green: 0.1, blue: 0.1, alpha: 1),
+                size: CGSize(width: 76 * ratio, height: 142 * ratio)
+            )
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 40 / 256)
         body.texture?.filteringMode = .nearest

@@ -19,7 +19,7 @@ struct VossSeatScaleTests {
     }
 
     @Test func actorDisplayUsesOneSizeForSeatedAndStanding() {
-        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize == CGSize(width: 232, height: 232))
+        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize == CGSize(width: 180, height: 180))
         // A posture-specific display size recreates the apparent growth that the
         // shared source-to-texture scale is designed to prevent.
         let scaleSource = try? String(

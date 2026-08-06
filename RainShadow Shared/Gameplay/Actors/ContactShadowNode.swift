@@ -20,19 +20,22 @@ enum ContactShadowKind {
         }
     }
 
-    /// On-screen ellipse before `standingScale` is applied.
+    /// On-screen ellipse before `standingScale` is applied. Tracks the sprite
+    /// presentation so the blob stays under the feet at any body size.
     var displaySize: CGSize {
+        let ratio = OfficeInteriorScale.ActorDisplay.visualBodyRatio
         switch self {
-        case .party: CGSize(width: 54, height: 20)
-        case .npc: CGSize(width: 44, height: 15)
+        case .party: return CGSize(width: 54 * ratio, height: 20 * ratio)
+        case .npc: return CGSize(width: 44 * ratio, height: 15 * ratio)
         }
     }
 
     /// Local offset so the blob sits under the shoe soles, not the sprite origin.
     var footPosition: CGPoint {
+        let ratio = OfficeInteriorScale.ActorDisplay.visualBodyRatio
         switch self {
-        case .party: CGPoint(x: 0, y: 4)
-        case .npc: CGPoint(x: 0, y: 3)
+        case .party: return CGPoint(x: 0, y: 4 * ratio)
+        case .npc: return CGPoint(x: 0, y: 3 * ratio)
         }
     }
 

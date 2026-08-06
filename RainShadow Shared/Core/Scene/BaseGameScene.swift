@@ -125,6 +125,37 @@ class BaseGameScene: SKScene {
         hudRoot.setScale(1)
     }
 
+    /// Camera position that follows `target` without ever showing past the world
+    /// edges — Infinity Engine framing, where the viewport pans inside the plate
+    /// rather than the plate floating inside a larger viewport.
+    ///
+    /// At the BG1 play density the visible height is well under any area plate,
+    /// so both the office and the city districts pan rather than sit fixed.
+    /// `bounds` is a rect, not a size: the office plate is centred on its layout
+    /// focus rather than anchored at the origin.
+    func clampedCameraPosition(following target: CGPoint, in bounds: CGRect) -> CGPoint {
+        let halfWidth = size.width * baseCameraScale / 2
+        let halfHeight = referenceVisibleHeight / 2
+        return CGPoint(
+            x: Self.clampAxis(target.x, half: halfWidth, min: bounds.minX, max: bounds.maxX),
+            y: Self.clampAxis(target.y, half: halfHeight, min: bounds.minY, max: bounds.maxY)
+        )
+    }
+
+    /// Centres the axis outright when the plate is narrower than the viewport,
+    /// instead of pinning it to the far edge.
+    private static func clampAxis(
+        _ value: CGFloat,
+        half: CGFloat,
+        min lowerEdge: CGFloat,
+        max upperEdge: CGFloat
+    ) -> CGFloat {
+        let lower = lowerEdge + half
+        let upper = upperEdge - half
+        guard upper > lower else { return (lowerEdge + upperEdge) / 2 }
+        return Swift.min(Swift.max(value, lower), upper)
+    }
+
     func updateDepth(of node: SKNode, bias: CGFloat = 0) {
         node.zPosition = SceneLayer.depthWorld.rawValue
             + (artSize.height - node.position.y) * 0.5

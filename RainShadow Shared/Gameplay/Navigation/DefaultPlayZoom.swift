@@ -1,22 +1,27 @@
 import CoreGraphics
 
-/// Default human-scale density for fixed-camera playable maps.
+/// Default human-scale density for playable maps.
 ///
-/// In the reference Baldur's Gate area view, a standing adult is roughly 8–11%
-/// of the unobstructed playfield. Small rooms may occupy less of the viewport
-/// than large maps; preserving the human scale is more important than enlarging
-/// a compact plate to fill every edge.
+/// Reference is the original Baldur's Gate (1998), not BG:EE. There the
+/// unobstructed playfield is 512×384 and a standing adult sprite is ~50 px, so
+/// the adult occupies ~13% of the visible height at the engine's native 1:1
+/// zoom. BG:EE's zoomable widescreen view shows far more world per adult (~9%),
+/// which is why the previous 9% target read as a camera pulled too far back.
 ///
-/// Presentation grammar matches BG:EE: fixed orthographic / dimetric view;
-/// only uniform camera scale and authored pan define the view — no free pitch,
-/// yaw, or perspective FOV.
+/// Small rooms may occupy less of the viewport than large maps; preserving the
+/// human scale is more important than enlarging a compact plate to fill every
+/// edge.
+///
+/// Presentation grammar matches the Infinity Engine: fixed orthographic /
+/// dimetric view; only uniform camera scale and authored or followed pan define
+/// the view — no free pitch, yaw, or perspective FOV.
 enum DefaultPlayZoom {
     /// Standing adult body height ÷ default camera-visible world height
     /// (default area-view density).
-    static let bodyToVisibleHeightBand: ClosedRange<CGFloat> = 0.08...0.11
+    static let bodyToVisibleHeightBand: ClosedRange<CGFloat> = 0.115...0.145
 
-    /// Mid-band target (~9%) measured from BG:EE play density.
-    static let targetBodyToVisibleHeight: CGFloat = 0.09
+    /// Mid-band target (~13%) measured from original BG1 play density.
+    static let targetBodyToVisibleHeight: CGFloat = 0.13
 
     /// World-unit height the camera should show so `standingBodyHeight` lands on
     /// `targetBodyToVisibleHeight`. Pass the **rendered** on-screen body height

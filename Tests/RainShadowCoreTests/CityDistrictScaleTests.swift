@@ -4,8 +4,11 @@ import Testing
 
 struct CityDistrictScaleTests {
     @Test func standingAdultMatchesOfficeDetective() {
-        #expect(CityDistrictLayout.standingAdultBodyHeight == OfficeInteriorScale.detectiveBodyHeight)
         #expect(CityDistrictLayout.standingAdultBodyHeight == OfficeInteriorScale.standingAdultBodyHeight)
+        #expect(
+            CityDistrictLayout.standingAdultBodyHeight
+                == OfficeInteriorScale.renderedStandingDetectiveBodyHeight
+        )
         #expect(OfficeInteriorScale.Band.standingBody.contains(CityDistrictLayout.standingAdultBodyHeight))
     }
 
@@ -99,7 +102,7 @@ struct CityDistrictScaleTests {
             .filter { $0.textureName.contains("car_") }
             .map(\.scale)
         #expect(!carScales.isEmpty)
-        #expect(carScales.allSatisfy { $0 <= 0.40 })
+        #expect(carScales.allSatisfy { $0 <= 0.30 })
         #expect(carScales.allSatisfy { abs($0 - CityDistrictLayout.PropDisplayScale.car) < 0.001
             || abs($0 - CityDistrictLayout.PropDisplayScale.carSpoke) < 0.001 })
     }

@@ -24,13 +24,19 @@ from dataclasses import dataclass
 ART_W, ART_H = 4096, 2304
 
 # The shipped Voss idle body is 200 opaque pixels on a 512px texture, displayed
-# on a 232-point SpriteKit node. Convert that exact visible silhouette back into
+# on a 180-point SpriteKit node. Convert that exact visible silhouette back into
 # shell-plate pixels; door architecture uses this rendered figure, not the
 # legacy 82-unit logical navigation/body contract.
+#
+# Keep DETECTIVE_DISPLAY_FRAME_H in step with
+# OfficeInteriorScale.ActorDisplay.spriteDisplaySize. It was 232 while the
+# shipped plates were generated, which put the baked doorway at 0.74x the
+# rendered body — Voss did not fit through his own door. Regenerating the shell
+# from this plan will widen the aperture to match.
 ENVIRONMENT_SCALE = 0.395
 DETECTIVE_TEXTURE_CANVAS_H = 512.0
 DETECTIVE_TEXTURE_BODY_H = 200.0
-DETECTIVE_DISPLAY_FRAME_H = 232.0
+DETECTIVE_DISPLAY_FRAME_H = 180.0
 DETECTIVE_VISIBLE_WORLD_H = (
     DETECTIVE_TEXTURE_BODY_H / DETECTIVE_TEXTURE_CANVAS_H * DETECTIVE_DISPLAY_FRAME_H
 )

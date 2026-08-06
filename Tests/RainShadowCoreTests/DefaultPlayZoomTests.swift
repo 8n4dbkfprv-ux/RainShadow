@@ -3,13 +3,15 @@ import Testing
 @testable import RainShadowCore
 
 struct DefaultPlayZoomTests {
-    @Test func bandIsEightToElevenPercent() {
-        #expect(DefaultPlayZoom.bodyToVisibleHeightBand == 0.08...0.11)
-        #expect(DefaultPlayZoom.targetBodyToVisibleHeight == 0.09)
+    /// Original BG1 density: a ~50 px adult on a 512×384 playfield ≈ 13%.
+    @Test func bandMatchesOriginalBaldursGateDensity() {
+        #expect(DefaultPlayZoom.bodyToVisibleHeightBand == 0.115...0.145)
+        #expect(DefaultPlayZoom.targetBodyToVisibleHeight == 0.13)
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(DefaultPlayZoom.targetBodyToVisibleHeight))
+        #expect(abs(50.0 / 384.0 - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.01)
     }
 
-    @Test func cityStandingBodyFallsInBGEEBand() {
+    @Test func cityStandingBodyFallsInBGBand() {
         let bodyHeight = OfficeInteriorScale.renderedStandingDetectiveBodyHeight
         let fraction = DefaultPlayZoom.standingBodyFraction(
             bodyHeight: bodyHeight,
@@ -19,7 +21,7 @@ struct DefaultPlayZoomTests {
             bodyHeight: bodyHeight,
             visibleWorldHeight: CityDistrictLayout.cameraVisibleHeight
         ))
-        #expect(fraction >= 0.08 && fraction <= 0.11)
+        #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(fraction))
         #expect(abs(fraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
     }
 
@@ -62,12 +64,18 @@ struct DefaultPlayZoomTests {
         #expect(DefaultPlayZoom.cameraScale(visibleWorldHeight: visible, sceneHeight: 0) == 1)
     }
 
-    @Test func correctlyAuthoredOfficeFillsThePlayableHeight() {
-        let shellFill = OfficeInteriorScale.scaledArtSize.height
-            / OfficeInteriorScale.cameraVisibleHeight
-        // Mid-band (rendered 9%) is slightly taller than the 0.395-mapped plate;
-        // a thin IE-style black void past the plate edge is acceptable.
-        #expect(shellFill > 0.85 && shellFill < 1.25)
+    @Test func officePlateFullyCoversTheViewportAtPlayDensity() {
+        // At the BG1 density the plate is larger than the viewport in both axes,
+        // so the room pans like a BG area and no black void shows past its edge.
+        // The old 9% framing was wider than the plate and accepted that void.
+        let visibleHeight = OfficeInteriorScale.cameraVisibleHeight
+        let visibleWidth = visibleHeight * 16 / 9
+        let heightCoverage = OfficeInteriorScale.scaledArtSize.height / visibleHeight
+        let widthCoverage = OfficeInteriorScale.scaledArtSize.width / visibleWidth
+        #expect(heightCoverage >= 1)
+        #expect(widthCoverage >= 1)
+        // Not so tight that the room becomes a keyhole.
+        #expect(heightCoverage < 2.5)
     }
 
     @Test func furnitureBodyMultiplesStillHoldWithSharedCameraDensity() {

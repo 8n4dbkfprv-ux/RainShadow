@@ -38,7 +38,9 @@ enum OfficeNavigationLayout {
 
         /// Clear exterior opening measured from the shipping suite plate.
         static let entranceOpeningPlateSize = CGSize(width: 93.000, height: 206.0)
-        static let entranceOpeningToDetectiveRatio: CGFloat = 0.90
+        /// 206 plate px × environment = 81.37 world units against a 70.31-unit
+        /// adult. Matches the ~1.16× real door-to-adult ratio.
+        static let entranceOpeningToDetectiveRatio: CGFloat = 1.157
         static let entranceHandleHeightToDetective: CGFloat = 0.333
 
         /// Exterior leaf/frame projected onto the sloped NE wall opening.
@@ -58,11 +60,14 @@ enum OfficeNavigationLayout {
         /// The upright art grows slightly as its top swings toward the camera.
         /// This is only the transition silhouette; the landed art has an
         /// explicit world-space size below.
-        static let entranceFallingTransitionScale: CGFloat = 0.17
+        static let entranceFallingTransitionScale: CGFloat =
+            0.17 * OfficeInteriorScale.ActorDisplay.visualBodyRatio
         /// Purpose-built 768×512 landed-state art. The transparent source
-        /// canvas stays centered so this scale yields a ~98×81 point door body.
+        /// canvas stays centered so this scale yields a door body proportional
+        /// to the upright leaf it fell from.
         static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)
-        static let entranceFallenArtworkDisplayScale: CGFloat = 0.17
+        static let entranceFallenArtworkDisplayScale: CGFloat =
+            0.17 * OfficeInteriorScale.ActorDisplay.visualBodyRatio
         static let entranceFallenArtworkDisplaySize = CGSize(
             width: entranceFallenArtworkCanvasSize.width
                 * entranceFallenArtworkDisplayScale,

@@ -19,50 +19,75 @@ enum OfficeInteriorScale {
         static let standingScale: CGFloat = 0.82
         static let seatedScale: CGFloat = 0.82
         /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
-        /// 232 ≈ prior 210 plus ~10% so adults read correctly against office furniture.
+        ///
+        /// Anchored to the architecture rather than picked by eye. The shipping plate's
+        /// clear entrance opening is 206 plate px → 81.37 world units; a real interior
+        /// door is ~1.16× an adult, so the visible body must land near 70 units. 180
+        /// yields 200/512 × 180 = 70.3125 and puts the opening at 1.157× the body.
+        /// The prior 232 made the body 90.625 — taller than the door it walks through.
+        ///
         /// Seated and standing share one size — DeskNE shared-scale atlases keep the
         /// crouch shorter on the 512 canvas, so a larger seated node is unnecessary
         /// and caused a height snap when leaving desk registration.
-        static let spriteDisplaySize = CGSize(width: 232, height: 232)
+        static let spriteDisplaySize = CGSize(width: 180, height: 180)
+        /// Prior display size, kept only to derive the offsets below. Visual offsets
+        /// hand-tuned against the old sprite scale by this factor; world-space and
+        /// nav-derived values must not.
+        static let previousSpriteDisplayHeight: CGFloat = 232
         static let spriteScale: CGFloat = 1.0
+        /// Ratio between the current sprite presentation and the one the seated
+        /// offsets and contact shadows below were originally tuned against.
+        /// Multiply sprite-derived visual offsets by this; never world geometry.
+        static var visualBodyRatio: CGFloat {
+            spriteDisplaySize.height / previousSpriteDisplayHeight
+        }
+
         /// Visual-only shift from the walkable chair-side navigation root into
         /// the chair/desk registration. Positive Y reaches from the camera-near
         /// egress stop north into the kneehole (actorStart is deskChair − 30
-        /// authored units; 30 × environment ≈ 11.85).
+        /// authored units; 30 × environment ≈ 11.85). Nav-derived, so it does
+        /// **not** follow the sprite size.
         static let seatedYOffset: CGFloat = 11.85
         /// Whole-body seat nudge (world space). Stay on the SW / camera-near
         /// kneehole side of the desk ground (desk.y − chair.y ≈ 12–16). Nudges
         /// past ~18 put feet on the visitor / far side of the writing surface.
         /// Pull far enough that baked forearms read over the writing surface.
-        static let seatedDeskNudge = CGPoint(x: 0, y: 16)
+        /// Scales with the sprite: the lean is measured in body-heights.
+        static var seatedDeskNudge: CGPoint { CGPoint(x: 0, y: 16 * visualBodyRatio) }
         /// Extra upper lean toward the desktop past the apron lip.
-        static let seatedUpperDeskReach = CGPoint(x: 0, y: 10)
+        static var seatedUpperDeskReach: CGPoint { CGPoint(x: 0, y: 10 * visualBodyRatio) }
     }
 
+    /// Legacy logical body (82 units). Retained only as the locomotion/authoring
+    /// unit some tuned constants were expressed in. It carries **no scale
+    /// authority** — sizing anything against it while the sprite renders at a
+    /// different height is what made Voss taller than his own door. Use
+    /// `standingAdultBodyHeight`.
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
     static let seatedDetectiveBodyHeight = seatedDetectiveSourceHeight * ActorDisplay.seatedScale
     /// Actual visible standing Voss body after SpriteKit maps the shipped 512px
-    /// texture canvas into the 232-point node. Camera density and door architecture
-    /// use this rendered reference; locomotion / furniture multiples retain the
-    /// logical 82-unit body.
+    /// texture canvas into the display node. This is the single scale authority:
+    /// camera density, door architecture, furniture multiples and city props all
+    /// measure against what is actually drawn on screen.
     static let renderedStandingDetectiveBodyHeight =
         ActorDisplay.standingOpaqueBodyTextureHeight
         / ActorDisplay.textureCanvasSize.height
         * ActorDisplay.spriteDisplaySize.height
         * abs(ActorDisplay.spriteScale)
     /// Same adult height as the detective — shared humanoid contract for office play.
-    static let clientBodyHeight = standingClientSourceHeight * ActorDisplay.standingScale
+    static var clientBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
     /// Canonical standing adult used by office furniture body-multiples and city props.
-    static var standingAdultBodyHeight: CGFloat { detectiveBodyHeight }
+    static var standingAdultBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
 
     /// Shell / coordinate-map scale. Kept at the nav-authored 0.395 contract so
-    /// search-map topology stays stable; the wider BG:EE mid-band camera may
-    /// show a thin black void past the plate edge (Infinity Engine–style).
+    /// search-map topology stays stable. At the BG1 13% density the camera
+    /// viewport (≈961×541) now fits inside the 1617.9×910.1 plate, so the black
+    /// void the wider BG:EE framing accepted past the plate edge is gone.
     /// Prop relative scales cancel this factor so furniture stays body-locked.
     static let environment: CGFloat = 0.395
 
     /// On-screen body ÷ camera-visible height. Matches `DefaultPlayZoom` mid-band
-    /// (~9% from the BG:EE playfield reference); must use the rendered body.
+    /// (~13% from the original BG1 playfield); must use the rendered body.
     static let playBodyToVisibleHeight: CGFloat = DefaultPlayZoom.targetBodyToVisibleHeight
 
     /// Presentation scale only; furniture/body proportions stay in world space.
@@ -122,28 +147,45 @@ enum OfficeInteriorScale {
     /// Per-prop scale relative to the V3 shell/coordinate scale. Absolute
     /// targets: standard 0.22, desk chair 0.135, visitor 0.17, desk 0.12,
     /// window overlay 0.35, floor decal 0.18, small props 0.12, pocket 0.10.
+    /// Absolute scales below are anchored to real 1930s–40s object heights
+    /// normalized to a 1.75 m adult, then carried ~10–15% above strict realism —
+    /// BG furniture skews slightly oversized for readability at play zoom.
+    /// New absolute for a target body multiple M is `M × standingAdultBodyHeight
+    /// / SourceContentHeight`.
     enum PropRelativeScale {
+        /// Shared sideboard/partition family. Not a furniture-height reference —
+        /// the partition wall slices depend on it, so leave it alone and give
+        /// mis-scaled props their own entry below.
         static let standard: CGFloat = 0.22 / environment
-        /// Tall bookcase — plan absolute 0.2238 keeps it ~1.84× detective.
-        static let bookshelf: CGFloat = 0.2238 / environment
+        /// Tall bookcase ~2.0 m → 1.30× body (was 0.2238, reading 2.15× / 2.9 m).
+        static let bookshelf: CGFloat = 0.1354 / environment
+        /// Four-drawer filing cabinet ~1.32 m → 0.90× body. Split off `standard`,
+        /// which was rendering it at 1.68× / 2.3 m.
+        static let filingCabinet: CGFloat = 0.1176 / environment
+        /// Cast-iron radiator ~0.7 m → 0.50× body (was 1.06× / 1.4 m on `standard`).
+        static let radiator: CGFloat = 0.1040 / environment
+        /// Desk ensemble left at 0.12: with the corrected body the working surface
+        /// lands at 0.425× ≈ 0.74 m, which is already a correct desk height.
         static let deskEnsemble: CGFloat = 0.12 / environment
-        /// Archive stack on cabinet A — plan absolute 0.1121 (~0.49× detective).
+        /// Archive stack on cabinet A — ~0.47× body.
         static let archiveStack: CGFloat = 0.1121 / environment
-        /// Empty desk chair — desk family with a slight bump so seat height matches
-        /// the seated-bake chair; 0.16+ clips the pedestals.
-        static let deskChair: CGFloat = 0.135 / environment
-        static let visitorArmchair: CGFloat = 0.17 / environment
-        /// Waiting-room seat and table, sized against the character rather than the
-        /// clutter family they were originally scaled with.
-        static let waitingChair: CGFloat = 0.208 / environment
-        /// Waiting chair B art is shorter; plan-derived absolute keeps it ~0.64× body.
-        static let waitingChairB: CGFloat = 0.2177 / environment
-        static let waitingTable: CGFloat = 0.217 / environment
+        /// Empty desk chair, back ~1.2 m → 0.70× body; matches the seated-bake
+        /// seat height. Do not exceed ~0.13 absolute or it clips the pedestals.
+        static let deskChair: CGFloat = 0.1147 / environment
+        /// Client-side leather armchair ~1.3 m → 0.75× body.
+        static let visitorArmchair: CGFloat = 0.1253 / environment
+        /// Waiting-room set, kept internally consistent with chair B.
+        static let waitingChair: CGFloat = 0.1784 / environment
+        /// Waiting chair B art is shorter; absolute keeps it ~0.64× body.
+        static let waitingChairB: CGFloat = 0.1867 / environment
+        static let waitingTable: CGFloat = 0.1861 / environment
         /// Standing fan: tall enough that its head and base stay readable.
-        static let standingFan: CGFloat = 0.2085 / environment
-        /// Entrance rack stays subordinate to the door and separate from its
-        /// falling silhouette; the old 1.18× body read as giant brass hinges.
-        static let coatRack: CGFloat = 0.143 / environment
+        static let standingFan: CGFloat = 0.1618 / environment
+        /// Entrance rack ~1.8 m → 1.05× body, subordinate to the door beside it.
+        static let coatRack: CGFloat = 0.1323 / environment
+        /// Wastebasket ~0.5 m → 0.28× body. Split off `smallProp`, which shares a
+        /// value with the safe, umbrella stand and archive boxes.
+        static let wastebasket: CGFloat = 0.0817 / environment
         /// Covers the complete outer recess after the straightening counter-warp.
         static let window: CGFloat = 0.35 / environment
         /// Independent height fit for the unblinded glass-and-frame insert.
@@ -151,11 +193,11 @@ enum OfficeInteriorScale {
         static let floorDecal: CGFloat = 0.22 / environment
         static let smallProp: CGFloat = 0.12 / environment
         static let pocketProp: CGFloat = 0.10 / environment
-        /// Sideboard bottle — plan body 0.22 (~0.24× detective), below generic pocket.
-        static let hiddenBottle: CGFloat = 0.0829 / environment
+        /// Sideboard bottle — ~0.24× body, below generic pocket.
+        static let hiddenBottle: CGFloat = 0.0703 / environment
         /// Full-plate overlays sized against the shell art (no extra relative inflate).
         static let plateOverlay: CGFloat = 1.0 / environment
-        /// Exterior leaf fitted to the shell's baked doorway (~1.70× visible Voss).
+        /// Exterior leaf fitted to the shell's baked doorway (~1.16× visible Voss).
         /// The generated architecture scale is authoritative for this relative alias.
         static var entranceDoorLeaf: CGFloat {
             OfficeNavigationLayout.Architecture.entranceLeafDisplayScale / environment
@@ -165,10 +207,11 @@ enum OfficeInteriorScale {
     // MARK: - BG acceptance bands (multiples of detective body)
 
     enum Band {
-        static let standingBody: ClosedRange<CGFloat> = 78...90
-        /// Exterior leaf fills the shipping plate's baked frame at roughly one
-        /// logical standing-body height.
-        static let door: ClosedRange<CGFloat> = 0.85...1.05
+        static let standingBody: ClosedRange<CGFloat> = 66...74
+        /// Exterior leaf fills the shipping plate's baked frame. A real interior
+        /// door is ~2.03 m against a 1.75 m adult (1.16×); the opening must clear
+        /// the character rather than sit under it.
+        static let door: ClosedRange<CGFloat> = 1.10...1.30
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48
@@ -179,11 +222,17 @@ enum OfficeInteriorScale {
         static let deskFiles: ClosedRange<CGFloat> = 0.20...0.40
         static let deskPapers: ClosedRange<CGFloat> = 0.25...0.50
         /// Desk kneehole side chair (not a tall visitor armchair).
-        static let chair: ClosedRange<CGFloat> = 0.45...0.75
+        static let chair: ClosedRange<CGFloat> = 0.55...0.78
         /// Client-side leather armchairs — taller seat back than the desk chair.
-        static let visitorArmchair: ClosedRange<CGFloat> = 0.75...0.95
-        /// Filing cabinets and tall bookcase (bookcase sits near ~1.81–1.84×).
-        static let cabinet: ClosedRange<CGFloat> = 1.10...1.90
+        static let visitorArmchair: ClosedRange<CGFloat> = 0.68...0.90
+        /// Four-drawer filing cabinet, ~1.3 m of steel. Was folded in with the
+        /// bookcase under one 1.10–1.90 band, which let it reach 2.3 m.
+        static let cabinet: ClosedRange<CGFloat> = 0.80...1.05
+        /// Tall bookcase — the only office prop that legitimately overtops an adult.
+        static let bookcase: ClosedRange<CGFloat> = 1.15...1.45
+        static let radiator: ClosedRange<CGFloat> = 0.40...0.62
+        static let wastebasket: ClosedRange<CGFloat> = 0.22...0.36
+        static let coatRack: ClosedRange<CGFloat> = 0.95...1.15
         /// Single rain window glass opening (not multi-story glass).
         /// Smaller than classic BG tavern glass: this office's short upper-wall band
         /// cannot host a 0.75–1.25× adult window without dominating the west wall.
@@ -226,9 +275,12 @@ enum OfficeInteriorScale {
         contentHeight * environment * relativeScale
     }
 
-    /// Furniture height as a multiple of standing detective body height.
+    /// Furniture height as a multiple of the standing adult **as drawn on screen**.
+    /// Previously divided by the logical 82-unit body while the sprite rendered at
+    /// 90.625, so every prop read ~9.5% short against the character.
     static func bodyMultiple(contentHeight: CGFloat, relativeScale: CGFloat = 1) -> CGFloat {
-        effectiveHeight(contentHeight: contentHeight, relativeScale: relativeScale) / detectiveBodyHeight
+        effectiveHeight(contentHeight: contentHeight, relativeScale: relativeScale)
+            / standingAdultBodyHeight
     }
 
     /// Desk ensemble world display scale (environment × desk-relative).
@@ -242,6 +294,19 @@ enum OfficeInteriorScale {
 
     static var bookshelfDisplayScale: CGFloat {
         environment * PropRelativeScale.bookshelf
+    }
+
+    /// Filing cabinets and their floor shadow (previously on `standard`).
+    static var filingCabinetDisplayScale: CGFloat {
+        environment * PropRelativeScale.filingCabinet
+    }
+
+    static var radiatorDisplayScale: CGFloat {
+        environment * PropRelativeScale.radiator
+    }
+
+    static var wastebasketDisplayScale: CGFloat {
+        environment * PropRelativeScale.wastebasket
     }
 
     static var archiveStackDisplayScale: CGFloat {
@@ -313,4 +378,23 @@ enum OfficeInteriorScale {
     static var scaledArtSize: CGSize { mapSize(sourceArtSize) }
 
     static var shellOrigin: CGPoint { mapPoint(sourceArtOrigin) }
+
+    /// World-space extent of the painted plate. The shell is centred on
+    /// `layoutFocus`, not anchored at the origin, so camera clamping needs the
+    /// rect rather than the size.
+    static var worldBounds: CGRect {
+        CGRect(origin: shellOrigin, size: scaledArtSize)
+    }
+
+    /// Opaque extent of the painted room inside the suite plate, measured from
+    /// `office_suite_plate.png` (art px x 1028…3064, y 414…1545 top-down; the
+    /// room covers under 10% of the 4096×2304 canvas — the rest is baked black).
+    ///
+    /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
+    /// followed camera swing out over the empty margin. In world units the room
+    /// is ~804×447, i.e. **shorter than the play viewport**, so the clamp
+    /// centres it vertically and pans only across its width.
+    static let paintedRoomSourceRect = CGRect(x: 1_028, y: 759, width: 2_036, height: 1_131)
+
+    static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

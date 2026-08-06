@@ -46,7 +46,7 @@ The Image Generator produces source material. Every result still passes registra
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
 | Office suite plate | Cramped V4 / BG:EE mid-band master | 4096×2304 @ env 0.395 | Empty 16:9 architecture for true 9% rendered-body play density (`office_suite_plate_bgee_v04.md`). |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
-| Actor frame | Generator master | 512×512 | Reduce to an 80px native body, limit to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
+| Actor frame | Generator master | 512×512 | Reduce to a 100px native body, limit to a 96-color per-sprite ramp (opaque pixels only) without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
 | UI | 2× listed runtime | Listed runtime | Original RainShadow design, high readability. |
 
@@ -149,7 +149,7 @@ The door leaf and frame must match projection, hinge position, texture, damage, 
 | P0 | `office_desk_floor_shadow` | 1024×512 | Yes | Soft painted floor/contact shadow only, placed below actors. |
 | P0 | `office_chair` | 512×512 | Yes | Old swivel office chair, arms and torn upholstery, designed around seated actor pose. |
 | P0 | `office_chair_floor_shadow` | 512×256 | Yes | Chair-only floor/contact shadow. |
-| P0 | `office_desk_lamp` | 217×262 | Yes | Worn metal lamp with warm lit shade; 250px content height before the shared 0.1904 desk display scale. |
+| P0 | `office_desk_lamp` | 217×262 | Yes | Worn metal lamp with warm lit shade; 250px content height before the shared 0.12 desk display scale. |
 | P0 | `office_desk_phone` | 210×154 | Yes | Period wired desk telephone and readable coiled cord; 142px content height. |
 | P1 | `office_desk_typewriter` | 280×200 | Yes | Black 1940s office typewriter with paper; desk-scale clutter, no legible text. |
 | P1 | `office_desk_notebook` | 160×120 | Yes | Closed case notebook on the writing surface. |
@@ -225,7 +225,7 @@ Design continuity rules:
 
 ### 6.2 Runtime animation set
 
-All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sentinels and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. Standing cells are 198–202px tall; the chairless seated pose is 150–160px tall at the same endpoint-derived source scale. SpriteKit displays every posture in the existing fixed 232×232 node at scale 1, retaining the current anchor, offsets, and desk registration. Apparent seated height comes only from authored posture and desk occlusion.
+All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sentinels and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. Standing cells are 198–202px tall; the chairless seated pose is 150–160px tall at the same endpoint-derived source scale. SpriteKit displays every posture in the fixed 180×180 node at scale 1, retaining the current anchor, offsets, and desk registration. The node is architecture-anchored: at 180 the rendered body is 70.3 world units, putting the painted entrance opening at ~1.16× the adult, the real door-to-adult ratio. Apparent seated height comes only from authored posture and desk occlusion.
 
 The **rendered** body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). `DefaultPlayZoom` / office camera height must use `renderedStandingDetectiveBodyHeight` (≈90.6), not the legacy 82-unit logical height. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to an 80-pixel native body, limit it to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 

@@ -83,8 +83,11 @@ struct CityDistrictDefinition {
         height: sourceArtSize.height * environmentScale
     )
     static let worldBounds = CGRect(origin: .zero, size: worldArtSize)
-    /// Wider local reveal so streets read at human scale (was 260 at 2× world).
-    static let fogRevealRadius: CGFloat = 400
+    /// Local reveal, held at ~0.8 of the camera half-height so the fog edge stays
+    /// on screen. A flat 400 was tuned against the old ~1007-unit visible height;
+    /// at the BG1 density (~541) it sat outside the viewport entirely, so the fog
+    /// never read in play.
+    static var fogRevealRadius: CGFloat { cameraVisibleHeight * 0.4 }
     static let standingAdultBodyHeight = OfficeInteriorScale.standingAdultBodyHeight
 
     /// Camera density uses the rendered adult body so city framing matches office.

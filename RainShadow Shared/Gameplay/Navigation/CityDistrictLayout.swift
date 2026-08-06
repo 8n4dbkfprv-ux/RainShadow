@@ -16,7 +16,9 @@ enum CityDistrictLayout {
     static let standingAdultBodyHeight = CityDistrictDefinition.standingAdultBodyHeight
 
     /// Mid-band outdoor door target used to derive door-anchored building scales.
-    /// Slightly above rendered Voss (~1.1× logical adult) so entrances read enterable.
+    /// Measured against the adult **as drawn on screen**, so 1.15 really is 15%
+    /// of clearance. It previously multiplied the logical 82-unit body while Voss
+    /// rendered at 90.625, leaving only ~4% — doors that barely cleared his head.
     static let targetDoorBodyMultiple: CGFloat = 1.15
 
     static var cameraVisibleHeight: CGFloat {
@@ -122,14 +124,22 @@ enum CityDistrictLayout {
     }
 
     /// Street props stay human-scale vs Voss (cars intentionally not scaled with buildings).
+    /// Unlike the building scales these are fixed absolutes and do **not** re-derive
+    /// from `standingAdultBodyHeight`, so they are retuned by hand against real
+    /// object heights normalized to a 1.75 m adult.
     enum PropDisplayScale {
-        static let car: CGFloat = 0.32
-        static let carSpoke: CGFloat = 0.35
+        /// Sedan roof ~1.6 m → 0.95× body (was 0.32, reading 1.26× / 2.2 m).
+        static let car: CGFloat = 0.242
+        static let carSpoke: CGFloat = 0.265
+        /// Street lamp ~4.1 m → 2.34× body. Already correct; left alone.
         static let lampHub: CGFloat = 0.40
-        static let lampSpoke: CGFloat = 0.48
-        static let bench: CGFloat = 0.32
-        static let benchSpoke: CGFloat = 0.40
-        static let kiosk: CGFloat = 0.38
+        static let lampSpoke: CGFloat = 0.47
+        /// Park bench back ~1.05 m → 0.60× body (was 0.32, reading 1.25× / 2.2 m —
+        /// a bench taller than the man sitting on it).
+        static let bench: CGFloat = 0.1534
+        static let benchSpoke: CGFloat = 0.1918
+        /// Newsstand kiosk ~2.45 m → 1.40× body.
+        static let kiosk: CGFloat = 0.357
         static let gate: CGFloat = 0.38
         static let statue: CGFloat = 0.42
         static let statueSpoke: CGFloat = 0.50
@@ -142,9 +152,10 @@ enum CityDistrictLayout {
         static let doorLeaf: ClosedRange<CGFloat> = 1.05...1.35
         /// Multi-story / landmark facade (door-anchored; low gatehouses may sit near floor).
         static let multiStoryBuilding: ClosedRange<CGFloat> = 3.5...12.0
-        static let car: ClosedRange<CGFloat> = 0.90...1.30
-        static let streetLamp: ClosedRange<CGFloat> = 1.80...2.80
-        static let bench: ClosedRange<CGFloat> = 0.50...1.50
+        static let car: ClosedRange<CGFloat> = 0.82...1.05
+        static let streetLamp: ClosedRange<CGFloat> = 1.80...2.90
+        /// Was 0.50…1.50 — loose enough to pass a 2.2 m bench.
+        static let bench: ClosedRange<CGFloat> = 0.50...0.75
         static let kiosk: ClosedRange<CGFloat> = 1.00...2.20
     }
 

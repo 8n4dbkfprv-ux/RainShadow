@@ -7,10 +7,12 @@ import Testing
 struct ActorLocomotionPacingTests {
     @Test func walkSpeedUsesNormalizedHumanoidBaseline() {
         let speed = ActorLocomotionPacing.walkSpeed
-        // BG:EE parity (~2.25 heights/s) sits just under the retired 270 u/s
-        // detective default while remaining well above the slow 120 u/s amble.
+        // The gait is defined in body-heights per second, so it is the ratio that
+        // must hold — a raw u/s figure is meaningless without the body it belongs to.
+        let heightsPerSecond = speed / OfficeInteriorScale.standingAdultBodyHeight
+        #expect(abs(heightsPerSecond - ActorLocomotionPacing.walkBodyHeightsPerSecond) < 0.0001)
+        #expect(abs(heightsPerSecond - 2.25) < 0.0001)
         #expect(speed < ActorLocomotionPacing.legacyDetectiveWalkSpeed)
-        #expect(speed > 180)
         #expect(ActorLocomotionPacing.walkSpeedBand.contains(speed))
         #expect(ActorLocomotionPacing.infinityEngineHumanoidMoveScale == 9)
     }
@@ -40,7 +42,9 @@ struct ActorLocomotionPacingTests {
         let cycleDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame
             * TimeInterval(ActorLocomotionPacing.walkFramesPerCycle)
         let distancePerCycle = ActorLocomotionPacing.walkSpeed * CGFloat(cycleDuration)
-        #expect((75 as CGFloat)...(110 as CGFloat) ~= distancePerCycle)
+        // Stride is a body-relative quantity: ~0.85 of a body per eight-frame cycle.
+        let stride = distancePerCycle / OfficeInteriorScale.standingAdultBodyHeight
+        #expect((0.75 as CGFloat)...(1.0 as CGFloat) ~= stride)
     }
 
     @Test func pathDurationUsesWalkSpeedEntryPoint() {

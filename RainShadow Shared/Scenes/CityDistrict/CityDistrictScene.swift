@@ -702,12 +702,9 @@ final class CityDistrictScene: BaseGameScene {
 
     private func updateCameraPosition() {
         guard size.width > 0, size.height > 0 else { return }
-        let halfWidth = size.width * baseCameraScale / 2
-        let halfHeight = referenceVisibleHeight / 2
-        let world = CityDistrictDefinition.worldArtSize
-        gameCamera.position = CGPoint(
-            x: min(max(detective.position.x, halfWidth), world.width - halfWidth),
-            y: min(max(detective.position.y, halfHeight), world.height - halfHeight)
+        gameCamera.position = clampedCameraPosition(
+            following: detective.position,
+            in: CGRect(origin: .zero, size: CityDistrictDefinition.worldArtSize)
         )
         syncHudToCamera()
     }

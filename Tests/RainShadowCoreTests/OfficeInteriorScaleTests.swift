@@ -4,7 +4,7 @@ import Testing
 
 struct OfficeInteriorScaleTests {
     @Test func actorFramesUseTheSameNativeRoomScale() {
-        #expect(OfficeInteriorScale.Band.standingBody.contains(OfficeInteriorScale.detectiveBodyHeight))
+        #expect(OfficeInteriorScale.Band.standingBody.contains(OfficeInteriorScale.standingAdultBodyHeight))
         #expect(OfficeInteriorScale.ActorDisplay.standingScale == 0.82)
         #expect(OfficeInteriorScale.ActorDisplay.standingScale == OfficeInteriorScale.ActorDisplay.seatedScale)
     }
@@ -12,16 +12,44 @@ struct OfficeInteriorScaleTests {
     @Test func renderedDetectiveHeightUsesShippedStandingSpriteGeometry() {
         #expect(OfficeInteriorScale.ActorDisplay.textureCanvasSize.height == 512)
         #expect(OfficeInteriorScale.ActorDisplay.standingOpaqueBodyTextureHeight == 200)
-        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.height == 232)
-        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.width == 232)
-        #expect(abs(OfficeInteriorScale.renderedStandingDetectiveBodyHeight - 90.625) < 0.0001)
-        // Preserve the separate legacy gameplay contract.
+        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.height == 180)
+        #expect(OfficeInteriorScale.ActorDisplay.spriteDisplaySize.width == 180)
+        // Derived, not restated: a literal here is what let the rendered body and
+        // the prop reference drift apart in the first place.
+        let expectedRendered =
+            OfficeInteriorScale.ActorDisplay.standingOpaqueBodyTextureHeight
+            / OfficeInteriorScale.ActorDisplay.textureCanvasSize.height
+            * OfficeInteriorScale.ActorDisplay.spriteDisplaySize.height
+        #expect(abs(OfficeInteriorScale.renderedStandingDetectiveBodyHeight - expectedRendered) < 0.0001)
+        #expect(abs(OfficeInteriorScale.renderedStandingDetectiveBodyHeight - 70.3125) < 0.0001)
+        // Legacy locomotion/authoring unit; carries no scale authority.
         #expect(OfficeInteriorScale.detectiveBodyHeight == 82)
     }
 
+    /// The defect this whole contract exists to prevent: props sized against a
+    /// body height that is not the one drawn on screen.
+    @Test func propsMeasureAgainstTheRenderedBodyNotTheLegacyLogicalOne() {
+        #expect(
+            OfficeInteriorScale.standingAdultBodyHeight
+                == OfficeInteriorScale.renderedStandingDetectiveBodyHeight
+        )
+        let unitProp = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.standingAdultBodyHeight / OfficeInteriorScale.environment
+        )
+        #expect(abs(unitProp - 1) < 0.0001)
+    }
+
+    /// Voss must clear his own office door. He did not before this contract.
+    @Test func entranceOpeningClearsTheStandingAdult() {
+        let openingWorldHeight =
+            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
+            * OfficeInteriorScale.environment
+        let multiple = openingWorldHeight / OfficeInteriorScale.standingAdultBodyHeight
+        #expect(multiple >= 1.10)
+    }
+
     @Test func detectiveAndClientShareAdultStandingBodyHeight() {
-        #expect(OfficeInteriorScale.clientBodyHeight == OfficeInteriorScale.detectiveBodyHeight)
-        #expect(OfficeInteriorScale.standingAdultBodyHeight == OfficeInteriorScale.detectiveBodyHeight)
+        #expect(OfficeInteriorScale.clientBodyHeight == OfficeInteriorScale.standingAdultBodyHeight)
         #expect(OfficeInteriorScale.Band.standingBody.contains(OfficeInteriorScale.clientBodyHeight))
         #expect(OfficeInteriorScale.standingClientSourceHeight == OfficeInteriorScale.standingDetectiveSourceHeight)
     }
@@ -47,8 +75,9 @@ struct OfficeInteriorScaleTests {
                     - OfficeNavigationLayout.Architecture.entranceOpeningToDetectiveRatio
             ) < 0.01
         )
-        // Shipping suite clear opening is 206 plate px, roughly one standing body.
-        #expect((0.88...0.92).contains(openingMultiple))
+        // Shipping suite clear opening is 206 plate px → ~1.16× the standing body,
+        // matching a real 2.03 m door against a 1.75 m adult.
+        #expect((1.14...1.18).contains(openingMultiple))
 
         let leafWorldHeight =
             OfficeInteriorScale.SourceContentHeight.doorLeaf
@@ -202,14 +231,19 @@ struct OfficeInteriorScaleTests {
         #expect(fallen < upright)
         #expect(abs(fallen / upright - 0.92) < 0.001)
         #expect(transitionScale > upright)
-        #expect((0.16...0.18).contains(transitionScale))
+        // Fallen-door scales track the sprite presentation, so assert the shape of
+        // the relationship rather than absolutes that a body-size change invalidates.
+        let ratioToBody = OfficeInteriorScale.ActorDisplay.visualBodyRatio
+        #expect(abs(transitionScale - 0.17 * ratioToBody) < 0.0001)
+        #expect(abs(artworkScale - 0.17 * ratioToBody) < 0.0001)
         // 768×512 transparent canvas with a 575×477 opaque bbox produces a
         // substantial floor footprint without becoming another billboard.
-        #expect((0.15...0.19).contains(artworkScale))
-        #expect((90...105).contains(575 * artworkScale))
-        #expect((75...90).contains(477 * artworkScale))
-        #expect(abs(artworkSize.width - 130.56) < 0.001)
-        #expect(abs(artworkSize.height - 87.04) < 0.001)
+        let fallenLeafWidth = 575 * artworkScale
+        let fallenLeafDepth = 477 * artworkScale
+        #expect((0.9...1.3).contains(fallenLeafWidth / OfficeInteriorScale.standingAdultBodyHeight))
+        #expect(fallenLeafDepth < fallenLeafWidth)
+        #expect(abs(artworkSize.width - 768 * artworkScale) < 0.001)
+        #expect(abs(artworkSize.height - 512 * artworkScale) < 0.001)
     }
 
     @Test func coatRackNoLongerReadsAsDoorHardware() {
@@ -224,7 +258,7 @@ struct OfficeInteriorScaleTests {
 
         #expect(rack.x > door.x)
         #expect(dx * dx + dy * dy > 40 * 40)
-        #expect((0.85...1.0).contains(rackMultiple))
+        #expect(OfficeInteriorScale.Band.coatRack.contains(rackMultiple))
     }
 
     @Test func deskWorkingSurfaceMultipleFallsInBGBand() {
@@ -298,14 +332,30 @@ struct OfficeInteriorScaleTests {
     @Test func cabinetMultipleFallsInBGBand() {
         let multiple = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.filingCabinet,
-            relativeScale: OfficeInteriorScale.PropRelativeScale.standard
+            relativeScale: OfficeInteriorScale.PropRelativeScale.filingCabinet
         )
         #expect(OfficeInteriorScale.Band.cabinet.contains(multiple))
+        // Bookcase gets its own band: folding it in with the filing cabinet is
+        // what let a 2.3 m cabinet and a 2.9 m bookcase both pass.
         let bookshelf = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.bookshelf,
             relativeScale: OfficeInteriorScale.PropRelativeScale.bookshelf
         )
-        #expect(OfficeInteriorScale.Band.cabinet.contains(bookshelf))
+        #expect(OfficeInteriorScale.Band.bookcase.contains(bookshelf))
+        #expect(bookshelf > multiple)
+    }
+
+    @Test func radiatorAndWastebasketAreKneeHeightNotFurniture() {
+        let radiator = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.radiator,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.radiator
+        )
+        #expect(OfficeInteriorScale.Band.radiator.contains(radiator))
+        let wastebasket = OfficeInteriorScale.bodyMultiple(
+            contentHeight: OfficeInteriorScale.SourceContentHeight.wastebasket,
+            relativeScale: OfficeInteriorScale.PropRelativeScale.wastebasket
+        )
+        #expect(OfficeInteriorScale.Band.wastebasket.contains(wastebasket))
     }
 
     @Test func visitorArmchairMultipleFallsInBGBand() {
@@ -848,7 +898,7 @@ struct OfficeInteriorScaleTests {
         #expect(exercised >= 1, "Expected at least one successful around-desk path to inspect")
     }
 
-    @Test func officeCameraUsesBGEEHumanScaleDensity() {
+    @Test func officeCameraUsesBGHumanScaleDensity() {
         let bodyFraction = DefaultPlayZoom.standingBodyFraction(
             bodyHeight: OfficeInteriorScale.renderedStandingDetectiveBodyHeight,
             visibleWorldHeight: OfficeInteriorScale.cameraVisibleHeight
@@ -857,10 +907,11 @@ struct OfficeInteriorScaleTests {
         #expect(abs(bodyFraction - OfficeInteriorScale.playBodyToVisibleHeight) < 0.0001)
         #expect(abs(bodyFraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
 
-        // Mid-band camera is slightly taller than the mapped plate (IE-style void OK).
+        // The plate now overtops the camera, so the office pans instead of
+        // letterboxing a too-small room inside a too-wide view.
         let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        #expect(shellFill > 0.85 && shellFill < 1.25)
+        #expect(shellFill >= 1)
         #expect(OfficeInteriorScale.scaledArtSize.width > 1_600)
     }
 

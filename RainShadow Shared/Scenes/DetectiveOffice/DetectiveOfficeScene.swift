@@ -72,6 +72,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// BG-style letterbox bars while a breakable walk owns the screen.
     private var cutsceneLetterboxNode: SKNode?
     private var cutsceneLetterboxVisible = false
+    /// True while an authored dialogue framing owns the camera; the per-frame
+    /// follow stands down until the restore finishes.
+    private var cameraFollowSuspended = false
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
@@ -134,7 +137,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addRearFixture(
             named: "office_radiator",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.radiatorDisplayScale
         )
 
         // MARK: Records wall
@@ -146,19 +149,19 @@ final class DetectiveOfficeScene: BaseGameScene {
         addFloorContactShadow(
             named: "office_cabinet_floor_shadow",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.filingCabinetDisplayScale
         )
         // Open-drawer cabinet is the interactive files hotspot; closed twin beside it.
         addDepthProp(
             named: "office_filing_cabinet_open",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.filingCabinetDisplayScale
         )
         // Closed twin beside the open-drawer cabinet (distinct art, same scale).
         addDepthProp(
             named: "office_filing_cabinet",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinetB),
-            scale: standardPropScale
+            scale: OfficeInteriorScale.filingCabinetDisplayScale
         )
         addDepthProp(
             named: "office_safe",
@@ -294,7 +297,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         addDepthProp(
             named: "office_wastebasket",
             at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wastebasket),
-            scale: smallPropScale
+            scale: OfficeInteriorScale.wastebasketDisplayScale
         )
         let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
         let deskScale = OfficeInteriorScale.deskDisplayScale
@@ -399,7 +402,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             self?.setJournalPresented(false)
         }
         hudRoot.addChild(journalOverlay)
+        // At the BG1 play density the viewport no longer spans the whole room, so
+        // the office pans with Voss like a BG area instead of sitting fixed on the
+        // authored framing. Authored placement is the pre-follow fallback.
         gameCamera.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
+        updateCameraPosition()
         syncHudToCamera()
         addNodePositionMarkersIfRequested()
     }
@@ -784,8 +791,20 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateDetectiveDepth()
         updateDepth(of: client)
         fogOfWar?.reveal(at: detective.position)
+        updateCameraPosition()
         // Follow dialogue camera lifts / restores every frame.
         syncHudToCamera()
+    }
+
+    /// Pans the office view with Voss, clamped to the painted plate. Suspended
+    /// while a dialogue lift owns the camera so the per-frame follow does not
+    /// fight the running `SKAction`.
+    private func updateCameraPosition() {
+        guard !cameraFollowSuspended, size.width > 0, size.height > 0 else { return }
+        gameCamera.position = clampedCameraPosition(
+            following: detective.position,
+            in: OfficeInteriorScale.paintedRoomBounds
+        )
     }
 
     /// Seated NE rear-view: torso/head above the front apron.
@@ -953,6 +972,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
         let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
         cameraLift.timingMode = .easeOut
+        cameraFollowSuspended = true
         gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
         updateActorOccupancy()
         updateDepth(of: client)
@@ -1046,10 +1066,19 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func applyClientVisitAction(_ action: OfficeClientVisitSequencer.Action) {
         switch action {
         case .restoreCamera:
-            let normalCameraPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.camera)
-            let cameraRestore = SKAction.move(to: normalCameraPosition, duration: 0.3)
+            // Ease back to wherever the follow camera would now be sitting, then
+            // hand control back to it — returning to the authored framing would
+            // snap the moment the follow resumed.
+            let followPosition = clampedCameraPosition(
+                following: detective.position,
+                in: OfficeInteriorScale.paintedRoomBounds
+            )
+            let cameraRestore = SKAction.move(to: followPosition, duration: 0.3)
             cameraRestore.timingMode = .easeInEaseOut
-            gameCamera.run(cameraRestore, withKey: "dialogueCameraLift")
+            gameCamera.run(
+                .sequence([cameraRestore, .run { [weak self] in self?.cameraFollowSuspended = false }]),
+                withKey: "dialogueCameraLift"
+            )
         case .beginClientExit:
             // Visit is still cutscene-locked; keep rails suppressed if not already.
             setCutsceneChromeSuppressed(true)
