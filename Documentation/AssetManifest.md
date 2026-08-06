@@ -44,7 +44,7 @@ The Image Generator produces source material. Every result still passes registra
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office shell | 3840×2160 V3 master | 4096×2304 | Empty 16:9 architecture rebuilt at the BG:EE tavern camera height and feature scale. |
+| Office suite plate | Cramped V4 / BG:EE mid-band master | 4096×2304 @ env 0.395 | Empty 16:9 architecture for true 9% rendered-body play density (`office_suite_plate_bgee_v04.md`). |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to an 80px native body, limit to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 256×256 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -227,7 +227,7 @@ Design continuity rules:
 
 All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sentinels and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. Standing cells are 198–202px tall; the chairless seated pose is 150–160px tall at the same endpoint-derived source scale. SpriteKit displays every posture in the existing fixed 232×232 node at scale 1, retaining the current anchor, offsets, and desk registration. Apparent seated height comes only from authored posture and desk occlusion.
 
-The body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to an 80-pixel native body, limit it to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
+The **rendered** body targets 9% of playable height from shoe sole to crown: about 104 screen pixels in the reference 2048×1152 rendered view, with an acceptable 8–11% band (92–127 pixels). `DefaultPlayZoom` / office camera height must use `renderedStandingDetectiveBodyHeight` (≈90.6), not the legacy 82-unit logical height. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to an 80-pixel native body, limit it to a 64-color per-sprite ramp (opaque pixels only) without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
 
@@ -276,7 +276,7 @@ Additional character texture:
 
 - Ground pivot movement: ≤ 2 runtime pixels except when intentional movement is represented by root motion; root motion is removed from walk frames.
 - Standing head-height jitter: ≤ 2 runtime pixels.
-- Apparent actor height at reference office pose: target 9% of playable height, with an acceptable 8–11% band (about 92–127 screen pixels in a 2048×1152 rendered view).
+- Apparent actor height at reference office pose: target 9% of playable height using the rendered body, with an acceptable 8–11% band (about 92–127 screen pixels in a 2048×1152 rendered view).
 - Walk-cycle first/last continuity: no visible pop at 0.25× speed.
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.
 - Alpha-edge fringe: none over warm lamp light or cool window shadow.

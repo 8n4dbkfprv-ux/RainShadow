@@ -584,7 +584,8 @@ def emit() -> str:
     )
     # Leaf scale keeps the validated fit; anchor is solved from the measured
     # clear-aperture hinge jamb so the open leaf tracks the painted frame.
-    add("        static let internalLeafDisplayScale: CGFloat = 0.2234")
+    add("        /// Height-fit to `internalHingePlateHeight` × environment / hinge texture.")
+    add("        static let internalLeafDisplayScale: CGFloat = 0.1726")
     leaf_x, leaf_y = internal_door_leaf_anchor()
     add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
     add("    }")
@@ -1150,7 +1151,9 @@ TAIL_SWIFT = '''
     enum DialogueCameraFraming {
         static let legacyDownwardOffset: CGFloat = 55
         static let priorDownwardOffset: CGFloat = 28
-        static let cameraBelowActorMidpoint: CGFloat = 110
+        /// Scaled with the BG:EE mid-band camera (~9% rendered body) so dialogue
+        /// framing keeps the prior on-screen downward bias after the zoom-out.
+        static let cameraBelowActorMidpoint: CGFloat = 142
         static let lateralBiasTowardClient: CGFloat = 24
 
         static var actorFocusPoint: CGPoint {

@@ -72,7 +72,8 @@ enum OfficeNavigationLayout {
         /// Internal open leaf registered to the shipping partition hinge.
         static let internalHingePlateX: CGFloat = 2296.6
         static let internalHingePlateHeight: CGFloat = 170.0
-        static let internalLeafDisplayScale: CGFloat = 0.2234
+        /// Height-fit to `internalHingePlateHeight` × environment / hinge texture.
+        static let internalLeafDisplayScale: CGFloat = 0.1726
         static let internalLeafAnchor = CGPoint(x: 2253.117, y: 1104.346)
     }
 
@@ -1665,7 +1666,9 @@ enum OfficeNavigationLayout {
     enum DialogueCameraFraming {
         static let legacyDownwardOffset: CGFloat = 55
         static let priorDownwardOffset: CGFloat = 28
-        static let cameraBelowActorMidpoint: CGFloat = 110
+        /// Scaled with the BG:EE mid-band camera (~9% rendered body) so dialogue
+        /// framing keeps the prior on-screen downward bias after the zoom-out.
+        static let cameraBelowActorMidpoint: CGFloat = 142
         static let lateralBiasTowardClient: CGFloat = 24
 
         static var actorFocusPoint: CGPoint {

@@ -19,7 +19,8 @@ enum DefaultPlayZoom {
     static let targetBodyToVisibleHeight: CGFloat = 0.09
 
     /// World-unit height the camera should show so `standingBodyHeight` lands on
-    /// `targetBodyToVisibleHeight`.
+    /// `targetBodyToVisibleHeight`. Pass the **rendered** on-screen body height
+    /// (not a logical locomotion height), or density will undershoot on screen.
     static func cameraVisibleHeight(standingBodyHeight: CGFloat) -> CGFloat {
         standingBodyHeight / targetBodyToVisibleHeight
     }

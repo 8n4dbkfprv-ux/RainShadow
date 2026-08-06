@@ -850,16 +850,17 @@ struct OfficeInteriorScaleTests {
 
     @Test func officeCameraUsesBGEEHumanScaleDensity() {
         let bodyFraction = DefaultPlayZoom.standingBodyFraction(
-            bodyHeight: OfficeInteriorScale.detectiveBodyHeight,
+            bodyHeight: OfficeInteriorScale.renderedStandingDetectiveBodyHeight,
             visibleWorldHeight: OfficeInteriorScale.cameraVisibleHeight
         )
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(bodyFraction))
         #expect(abs(bodyFraction - OfficeInteriorScale.playBodyToVisibleHeight) < 0.0001)
+        #expect(abs(bodyFraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
 
-        // Tighter office framing crops empty floor; shell may slightly overflow the view.
+        // Mid-band camera is slightly taller than the mapped plate (IE-style void OK).
         let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        #expect(shellFill > 1.05 && shellFill < 1.25)
+        #expect(shellFill > 0.85 && shellFill < 1.25)
         #expect(OfficeInteriorScale.scaledArtSize.width > 1_600)
     }
 

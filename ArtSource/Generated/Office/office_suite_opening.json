@@ -3,7 +3,7 @@
     4096,
     2304
   ],
-  "source": "ig_cramped_tight:office_suite_plate_cramped_v03.png",
+  "source": "ig_cramped_tight:office_suite_plate_cramped_v04.png",
   "scale_of_fullbleed": 0.6,
   "paste_xywh": [
     819,
@@ -11,51 +11,53 @@
     2458,
     1382
   ],
+  "silhouette_REAR": [
+    2009.0,
+    333.0
+  ],
+  "silhouette_AXIS_NW": [
+    -980.0,
+    615.0
+  ],
+  "silhouette_AXIS_NE": [
+    1038.0,
+    596.0
+  ],
+  "silhouette_west": [
+    1029.0,
+    948.0
+  ],
+  "silhouette_east": [
+    3047.0,
+    929.0
+  ],
+  "silhouette_near": [
+    2067.0,
+    1544.0
+  ],
   "REAR": [
-    1936.0,
-    462.0
+    1932.1,
+    752.4
   ],
   "AXIS_NW": [
-    -679.0,
-    442.0
+    -555.54,
+    311.86
   ],
   "AXIS_NE": [
-    897.0,
-    534.0
+    812.23,
+    386.2
   ],
   "west": [
-    1257.0,
-    904.0
+    1376.56,
+    1064.26
   ],
   "east": [
-    2833.0,
-    996.0
+    2744.33,
+    1138.6
   ],
   "near": [
-    2154.0,
-    1438.0
+    2188.79,
+    1450.46
   ],
-  "note": "Floor-plane axes; opening_h synced to BAKED_DOORWAY_H (not wall-top silhouette).",
-  "exterior_door_plan": [
-    0.0,
-    0.75
-  ],
-  "internal_door": {
-    "a_face": 0.4036807713500108,
-    "a_back": 0.36,
-    "b_door0": 0.078,
-    "b_door1": 0.20286064659977704,
-    "door_h": 170.0,
-    "hinge_b": 0.078,
-    "opening_w_px": 112.0,
-    "opening_h_px": 170.0,
-    "hinge_plate_xy": [
-      1731.8667562533426,
-      616.6297143449601
-    ],
-    "latch_plate_xy": [
-      1843.8667562533428,
-      674.1055671877696
-    ]
-  }
+  "note": "Empty cramped architecture at SUITE_PLATE_SCALE so modular props at unchanged body scale fill the floor. REAR/AXIS_* are copied from office_room_plan (painted wall-shoe diamond). silhouette_* is the legacy bright-mass hull and must not be used for prop placement."
 }

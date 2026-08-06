@@ -1,8 +1,8 @@
 """Ship the cramped Image Generator suite plate to runtime.
 
-Places `office_suite_plate_cramped_v03.png` onto the 4096×2304 canvas at
-`SUITE_PLATE_SCALE` (default 0.80) so modular props at unchanged body scale
-fill the floor. Archives the previous suite plate and writes metrics.
+Places the newest `office_suite_plate_cramped_v*.png` master onto the 4096×2304
+canvas at `SUITE_PLATE_SCALE` so modular props at unchanged body scale fill the
+floor. Archives the previous suite plate and writes metrics.
 
 Usage:
     python3 ArtSource/Processing/process_office_suite_plate_cramped_v01.py
@@ -29,6 +29,10 @@ RUNTIME = (
     / "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
 )
 MASTERS = (
+    GEN / "office_suite_plate_cramped_v04.png",
+    Path.home()
+    / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainShadow/assets"
+    / "office_suite_plate_bgee_v04b.png",
     GEN / "office_suite_plate_cramped_v03.png",
     Path.home()
     / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainShadow/assets"

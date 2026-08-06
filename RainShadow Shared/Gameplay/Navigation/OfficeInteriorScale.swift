@@ -15,7 +15,7 @@ enum OfficeInteriorScale {
         /// architecture can reference the detective actually drawn on screen.
         static let textureCanvasSize = CGSize(width: 512, height: 512)
         static let standingOpaqueBodyTextureHeight: CGFloat = 200
-        /// Legacy logical actor scale retained for locomotion, furniture and camera contracts.
+        /// Legacy logical actor scale retained for locomotion and furniture contracts.
         static let standingScale: CGFloat = 0.82
         static let seatedScale: CGFloat = 0.82
         /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
@@ -42,8 +42,9 @@ enum OfficeInteriorScale {
     static let detectiveBodyHeight = standingDetectiveSourceHeight * ActorDisplay.standingScale
     static let seatedDetectiveBodyHeight = seatedDetectiveSourceHeight * ActorDisplay.seatedScale
     /// Actual visible standing Voss body after SpriteKit maps the shipped 512px
-    /// texture canvas into the 232-point node. Door architecture uses this
-    /// rendered reference; unrelated gameplay retains the logical 82-unit body.
+    /// texture canvas into the 232-point node. Camera density and door architecture
+    /// use this rendered reference; locomotion / furniture multiples retain the
+    /// logical 82-unit body.
     static let renderedStandingDetectiveBodyHeight =
         ActorDisplay.standingOpaqueBodyTextureHeight
         / ActorDisplay.textureCanvasSize.height
@@ -54,19 +55,22 @@ enum OfficeInteriorScale {
     /// Canonical standing adult used by office furniture body-multiples and city props.
     static var standingAdultBodyHeight: CGFloat { detectiveBodyHeight }
 
-    /// V3 shell / coordinate-map scale. The shell was regenerated with much
-    /// smaller built features and a genuinely larger floor footprint; this is
-    /// deliberately not reused as a prop scale.
+    /// Shell / coordinate-map scale. Kept at the nav-authored 0.395 contract so
+    /// search-map topology stays stable; the wider BG:EE mid-band camera may
+    /// show a thin black void past the plate edge (Infinity Engine–style).
+    /// Prop relative scales cancel this factor so furniture stays body-locked.
     static let environment: CGFloat = 0.395
 
-    /// Slightly tighter than the shared BG:EE mid-band (~9%): the office plate is
-    /// cavernous, so ~10.5% body density crops empty foreground without breaking
-    /// the 8–11% play-density band.
-    static let playBodyToVisibleHeight: CGFloat = 0.105
+    /// On-screen body ÷ camera-visible height. Matches `DefaultPlayZoom` mid-band
+    /// (~9% from the BG:EE playfield reference); must use the rendered body.
+    static let playBodyToVisibleHeight: CGFloat = DefaultPlayZoom.targetBodyToVisibleHeight
 
     /// Presentation scale only; furniture/body proportions stay in world space.
+    /// Driven by the rendered sprite height so density matches what players see.
     static var cameraVisibleHeight: CGFloat {
-        standingAdultBodyHeight / playBodyToVisibleHeight
+        DefaultPlayZoom.cameraVisibleHeight(
+            standingBodyHeight: renderedStandingDetectiveBodyHeight
+        )
     }
 
     /// V3 plate centre and scale-about focus.

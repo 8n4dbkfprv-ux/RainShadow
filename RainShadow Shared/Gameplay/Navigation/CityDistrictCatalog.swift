@@ -19,6 +19,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .civicRecords: return "civic_records"
         }
     }
+
 }
 
 enum CityTravelDestination: Equatable {
@@ -86,8 +87,11 @@ struct CityDistrictDefinition {
     static let fogRevealRadius: CGFloat = 400
     static let standingAdultBodyHeight = OfficeInteriorScale.standingAdultBodyHeight
 
+    /// Camera density uses the rendered adult body so city framing matches office.
     static var cameraVisibleHeight: CGFloat {
-        DefaultPlayZoom.cameraVisibleHeight(standingBodyHeight: standingAdultBodyHeight)
+        DefaultPlayZoom.cameraVisibleHeight(
+            standingBodyHeight: OfficeInteriorScale.renderedStandingDetectiveBodyHeight
+        )
     }
 
     func spawnPoint(arrivalKey: String?) -> CGPoint {

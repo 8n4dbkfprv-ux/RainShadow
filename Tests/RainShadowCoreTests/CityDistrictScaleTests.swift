@@ -185,10 +185,11 @@ struct CityDistrictScaleTests {
 
     @Test func sharedAdultBodyIsUsedByCityCameraDensity() {
         let fraction = DefaultPlayZoom.standingBodyFraction(
-            bodyHeight: CityDistrictLayout.standingAdultBodyHeight,
+            bodyHeight: OfficeInteriorScale.renderedStandingDetectiveBodyHeight,
             visibleWorldHeight: CityDistrictLayout.cameraVisibleHeight
         )
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(fraction))
+        #expect(abs(fraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
     }
 
     @Test func actICatalogCoversCaseTravelDistricts() {

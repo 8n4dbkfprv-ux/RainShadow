@@ -10,7 +10,7 @@ struct DefaultPlayZoomTests {
     }
 
     @Test func cityStandingBodyFallsInBGEEBand() {
-        let bodyHeight = CityDistrictLayout.standingAdultBodyHeight
+        let bodyHeight = OfficeInteriorScale.renderedStandingDetectiveBodyHeight
         let fraction = DefaultPlayZoom.standingBodyFraction(
             bodyHeight: bodyHeight,
             visibleWorldHeight: CityDistrictLayout.cameraVisibleHeight
@@ -20,7 +20,7 @@ struct DefaultPlayZoomTests {
             visibleWorldHeight: CityDistrictLayout.cameraVisibleHeight
         ))
         #expect(fraction >= 0.08 && fraction <= 0.11)
-        #expect(abs(fraction - 0.09) < 0.0001)
+        #expect(abs(fraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
     }
 
     @Test func cityUsesDefaultPlayZoomVisibleHeight() {
@@ -28,18 +28,24 @@ struct DefaultPlayZoomTests {
             abs(
                 CityDistrictLayout.cameraVisibleHeight
                     - DefaultPlayZoom.cameraVisibleHeight(
-                        standingBodyHeight: CityDistrictLayout.standingAdultBodyHeight
+                        standingBodyHeight: OfficeInteriorScale.renderedStandingDetectiveBodyHeight
                     )
             ) < 0.0001
         )
     }
 
-    @Test func officeUsesTighterPlayDensityInsideBGEEBand() {
-        let officeFraction = OfficeInteriorScale.detectiveBodyHeight
+    @Test func officeMatchesSharedBGEEMidBandDensity() {
+        let officeFraction = OfficeInteriorScale.renderedStandingDetectiveBodyHeight
             / OfficeInteriorScale.cameraVisibleHeight
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(officeFraction))
         #expect(abs(officeFraction - OfficeInteriorScale.playBodyToVisibleHeight) < 0.0001)
-        #expect(officeFraction > DefaultPlayZoom.targetBodyToVisibleHeight)
+        #expect(abs(officeFraction - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.0001)
+        #expect(
+            abs(
+                OfficeInteriorScale.cameraVisibleHeight
+                    - CityDistrictLayout.cameraVisibleHeight
+            ) < 0.0001
+        )
     }
 
     @Test func cameraScaleIsUniformVisibleHeightOverSceneHeight() {
@@ -59,8 +65,9 @@ struct DefaultPlayZoomTests {
     @Test func correctlyAuthoredOfficeFillsThePlayableHeight() {
         let shellFill = OfficeInteriorScale.scaledArtSize.height
             / OfficeInteriorScale.cameraVisibleHeight
-        // Office camera is denser than city mid-band, so the plate overflows slightly.
-        #expect(shellFill > 1.05 && shellFill < 1.25)
+        // Mid-band (rendered 9%) is slightly taller than the 0.395-mapped plate;
+        // a thin IE-style black void past the plate edge is acceptable.
+        #expect(shellFill > 0.85 && shellFill < 1.25)
     }
 
     @Test func furnitureBodyMultiplesStillHoldWithSharedCameraDensity() {

@@ -83,11 +83,11 @@ Platform app target
 
 - One logical world unit equals one pixel in the baseline runtime export.
 - Exterior art space: 3072×1728 units.
-- Office V3 area plate: 4096×2304 pixels, rebuilt at a high 2:1 dimetric camera and mapped at 0.395 independently from the smaller runtime prop scales.
-- Reference playable camera height: 911 units, so the 82-unit standing adult occupies 9% of playable height.
-- Reference 16:9 viewport: approximately 1975×1111 world units.
-- Narrow composition-safe viewport: central 1481×1111 world units, covering 4:3 landscape.
-- Wide composition-safe viewport: approximately 2407×1111 world units, covering common wide phones.
+- Office area plate: 4096×2304 pixels, 2:1 dimetric, mapped at environment **0.395** independently from body-locked prop scales (prop relative scales cancel the environment factor).
+- Reference playable camera height: ≈1007 units, so the **rendered** ≈90.6-unit standing adult occupies 9% of playable height (logical 82-unit body remains for locomotion/furniture multiples only). The plate is slightly shorter than that camera height (~0.90 fill); a thin black void past the plate edge matches Infinity Engine area framing.
+- Reference 16:9 viewport: approximately 1789×1007 world units at the mid-band camera.
+- Narrow composition-safe viewport: central ≈1342×1007 world units, covering 4:3 landscape.
+- Wide composition-safe viewport: approximately 2182×1007 world units, covering common wide phones.
 
 Critical actors, paths, hotspots, and captions must remain readable in the central 1481-unit width. Wide framing reveals intentional environmental overscan rather than stretching or inventing content.
 
