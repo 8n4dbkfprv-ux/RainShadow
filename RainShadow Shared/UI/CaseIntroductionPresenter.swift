@@ -362,12 +362,13 @@ final class CaseIntroductionPresenter: SKNode {
 
         if let index = choiceIndex(at: panelPoint) {
             focusedChoiceIndex = index
-            activateFocusedControl()
+            // Click commits that reply (BG:EE: pick the line you click).
+            selectChoice(at: index)
             return true
         }
 
         if commandHitRect.contains(point), !commandPlate.isHidden {
-            activateFocusedControl()
+            activateCommandControl()
             return true
         }
 
@@ -448,7 +449,7 @@ final class CaseIntroductionPresenter: SKNode {
             commandIsHovered = commandHitRect.contains(point) && !commandPlate.isHidden
             refreshInteractionColors()
             if activate {
-                activateFocusedControl()
+                activateCommandControl()
             }
             return true
         }
@@ -512,23 +513,12 @@ final class CaseIntroductionPresenter: SKNode {
         }
     }
 
-    func activateFocusedControl() {
+    /// Keyboard confirm (Space / Return): **Continue / End Dialogue only**.
+    /// Never commits a PC reply — classic BG:EE replies are click or number keys.
+    func activateCommandControl() {
         guard isPresenting, !isCutsceneSuppressed, var session else { return }
-
+        // When PC options are visible, Space must not auto-pick option 1.
         if !choiceRows.isEmpty {
-            let index = focusedChoiceIndex ?? hoveredChoiceIndex ?? 0
-            guard
-                let node = session.currentNode,
-                session.visibleChoices.indices.contains(index)
-            else { return }
-            let destinationID = session.visibleChoices[index].destinationID
-            // Apply select (actions + advance) then optionally defer presentation for cutscene.
-            let result = session.selectChoice(at: index)
-            self.session = session
-            if shouldDeferAdvance?(node, destinationID) == true {
-                return
-            }
-            applyStepResult(result, animated: true)
             return
         }
 
@@ -551,6 +541,33 @@ final class CaseIntroductionPresenter: SKNode {
         case .end:
             finish()
         }
+    }
+
+    /// Commit a player reply by 0-based index (number key `1` → index `0`, or click).
+    func selectChoice(at index: Int) {
+        guard isPresenting, !isCutsceneSuppressed, var session else { return }
+        guard
+            let node = session.currentNode,
+            session.visibleChoices.indices.contains(index)
+        else { return }
+        focusedChoiceIndex = index
+        let destinationID = session.visibleChoices[index].destinationID
+        let result = session.selectChoice(at: index)
+        self.session = session
+        if shouldDeferAdvance?(node, destinationID) == true {
+            return
+        }
+        applyStepResult(result, animated: true)
+    }
+
+    /// True when the panel is showing player reply options (not pure Continue).
+    var hasVisiblePlayerChoices: Bool {
+        !choiceRows.isEmpty
+    }
+
+    /// Number of selectable PC replies currently shown.
+    var visiblePlayerChoiceCount: Int {
+        choiceRows.count
     }
 
     /// Map pure session steps to presentation.

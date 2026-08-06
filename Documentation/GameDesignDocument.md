@@ -536,7 +536,7 @@ Failed checks produce information with a cost, a changed relationship, time loss
 - Right click or Escape: cancel/back.
 - Pointer hover: target label and cursor affordance.
 - WASD/arrow keys: optional camera pan; not required for actor movement.
-- Return/Space: confirm focused dialogue or UI choice.
+- Return/Space: confirm Continue / End Dialogue or non-dialogue UI (inventory/map). Player dialogue **replies** use click or number keys **1–9** (classic BG:EE); Space does not auto-pick a reply.
 - Tab: hold/toggle hotspot focus according to accessibility setting.
 - Command-minus/plus or wheel modifier: constrained zoom.
 

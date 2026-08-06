@@ -73,6 +73,8 @@ class BaseGameScene: SKScene {
     func handleScrollInput(_ deltaY: CGFloat) {}
     func handleDirectionalInput(_ direction: CGVector) {}
     func handleConfirmInput() {}
+    /// Digit 1…9 for dialogue reply selection (BG:EE number-key choices). No-op by default.
+    func handleDialogueChoiceDigit(_ digit: Int) {}
     func handleInventoryInput() {}
     func handleMapInput() {}
     func handleJournalInput() {}
@@ -411,7 +413,18 @@ extension BaseGameScene {
         case 36, 49: // return / space
             if !event.isARepeat { handleConfirmInput() }
         case 53 where !event.isARepeat: handleCancelInput() // escape
-        default: super.keyDown(with: event)
+        default:
+            // BG:EE: 1–9 select dialogue reply options (not Space/Return).
+            if !event.isARepeat,
+               let chars = event.charactersIgnoringModifiers,
+               let ch = chars.first,
+               ch >= "1", ch <= "9",
+               let digit = Int(String(ch))
+            {
+                handleDialogueChoiceDigit(digit)
+            } else {
+                super.keyDown(with: event)
+            }
         }
     }
 

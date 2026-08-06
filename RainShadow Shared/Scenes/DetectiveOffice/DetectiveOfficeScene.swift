@@ -705,11 +705,18 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
         if dialogueIsActive {
-            caseIntroductionPresenter.activateFocusedControl()
+            // Space/Return: Continue/End only — never auto-pick a PC reply (BG:EE).
+            caseIntroductionPresenter.activateCommandControl()
             return
         }
         guard inventoryIsPresented else { return }
         setInventoryPresented(false)
+    }
+
+    override func handleDialogueChoiceDigit(_ digit: Int) {
+        guard dialogueIsActive else { return }
+        // Digit 1 → first visible reply (BG:EE number keys).
+        caseIntroductionPresenter.selectChoice(at: digit - 1)
     }
 
     override func layoutViewport() {

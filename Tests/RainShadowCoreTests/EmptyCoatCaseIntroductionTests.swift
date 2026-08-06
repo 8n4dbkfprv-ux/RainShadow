@@ -364,6 +364,14 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("onLeaveCue"))
         #expect(presenter.contains("selectChoice") || presenter.contains("advanceContinue"))
         #expect(presenter.contains("present(\n        graph:") || presenter.contains("func present(\n        graph:"))
+        // BG:EE keyboard: Space/Return = Continue/End only; 1–9 pick PC replies.
+        #expect(scene.contains("activateCommandControl"))
+        #expect(scene.contains("handleDialogueChoiceDigit"))
+        #expect(scene.contains("selectChoice(at: digit - 1)") || scene.contains("selectChoice(at:"))
+        #expect(!scene.contains("activateFocusedControl"))
+        #expect(presenter.contains("func activateCommandControl"))
+        #expect(presenter.contains("func selectChoice(at"))
+        #expect(presenter.contains("!choiceRows.isEmpty") && presenter.contains("return"))
 
         // BG-classic: Continue from cue → hide dialogue + walk cinematic → resume next page.
         #expect(scene.contains("setCutsceneChromeSuppressed"))
