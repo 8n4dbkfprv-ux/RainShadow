@@ -175,10 +175,26 @@ python3 -c "import process_pre_rendered_characters_v11 as v11, \
 process_pre_rendered_characters_v3 as raster; \
 from process_pre_rendered_characters_v7 import pixelize_figure_v7; \
 raster.pixelize_figure = pixelize_figure_v7; v11.process_lila()"
-python3 process_lila_departure_facing_fix_v01.py
-python3 process_lila_departure_nw_v01.py
 python3 qa_crunch_v14_compare.py                           # before/after sheets
 ```
+
+`process_lila_departure_facing_fix_v01.py` and `process_lila_departure_nw_v01.py`
+are **retired from the sequence**. Both install V6-era masters — the V10 swing
+coat, beret, gloves and auburn bun that `PaperdollBGEESpriteRedoPlanV11.md`
+retired — over the departure cells `v11.process_lila()` has just baked from the
+V11 emerald-dress masters. Running them made Lila arrive in the dress and leave
+as a visibly different woman (garment G-R ≈ 12 against the arrival's ≈ 30);
+`clientDepartureWardrobeMatchesArrivalEmeraldNotChromaGreen` now gates that.
+
+The cost of dropping them: `v11.process_lila()` derives NW by mirroring the NE
+frames, so in that one facing the handbag rides on Lila's anatomical right and
+the key light comes from the wrong side — the whole-figure mirroring the runtime
+contract otherwise forbids (`ClientActorNode.swift`, `ActorLocomotion.swift`).
+Foot registration is unaffected (row 433, body height 200, same as arrival).
+Retiring the mirror needs an NW dress render; there is currently no such master,
+only the V6 coat one. Drop an approved strip at
+`PreRendered3DV6/DepartureFacingFixV1/DepartureNW/lila_departure_nw_strip_combined_gen.png`
+and `process_lila_departure_nw_v01.py` will bake it.
 
 Order matters: the seat chains must run **before**
 `install_voss_idle_walk_seated_match_v02.py`, whose `lock_standup_handoff()`

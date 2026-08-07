@@ -221,9 +221,15 @@ struct ActorLocomotionPacingTests {
         #expect(neFaces != nwFaces)
     }
 
-    @Test func clientDepartureNECoatMatchesNWEmeraldNotChromaGreen() throws {
-        // Post-door NE cells must keep the deep emerald coat, not chroma-key green
-        // cast left by flip/bag-restore pipelines (user-visible "very green" bug).
+    @Test func clientDepartureWardrobeMatchesArrivalEmeraldNotChromaGreen() throws {
+        // Two contracts on one measurement:
+        //  - No chroma-key green cast left by flip/bag-restore pipelines
+        //    (user-visible "very green" bug).
+        //  - Lila leaves wearing what she arrived in. The absolute ceiling this
+        //    test used to carry was calibrated against the retired V10 swing
+        //    coat (G-R ≈ 12), so it passed while the shipped departure strips
+        //    were that coat and the arrival was the V11 emerald dress (≈ 30) —
+        //    she changed clothes mid-scene. Anchor to the arrival strip instead.
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -243,12 +249,23 @@ struct ActorLocomotionPacingTests {
             if let neDelta { neCoatDeltas.append(neDelta) }
             if let nwDelta { nwCoatDeltas.append(nwDelta) }
         }
+        var arrivalDeltas: [Double] = []
+        for index in 0..<9 {
+            let swURL = atlas.appendingPathComponent(String(format: "lila_arrival_sw_%02d.png", index))
+            if let delta = try DepartureSpriteFacing.coatGreenMinusRed(ofPNG: swURL) {
+                arrivalDeltas.append(delta)
+            }
+        }
+        #expect(arrivalDeltas.count == 9, "Arrival strip must have readable garment pixels")
+
         let neMean = neCoatDeltas.reduce(0, +) / Double(neCoatDeltas.count)
         let nwMean = nwCoatDeltas.reduce(0, +) / Double(nwCoatDeltas.count)
-        // Chroma-green bug sat near +18; clean emerald matches NW near +12.
-        #expect(neMean < 16.0, "NE coat too green (G-R=\(neMean)); chroma spill?")
+        let arrivalMean = arrivalDeltas.reduce(0, +) / Double(arrivalDeltas.count)
+        // A large gap means the departure strips are a different costume.
+        #expect(abs(neMean - arrivalMean) < 4.0,
+                "NE garment G-R \(neMean) must match the arrival dress \(arrivalMean)")
         #expect(abs(neMean - nwMean) < 4.0,
-                "NE coat G-R \(neMean) must stay near NW \(nwMean)")
+                "NE garment G-R \(neMean) must stay near NW \(nwMean)")
         // No near-pure #00ff00 opaque pixels in NE cells.
         for index in 0..<ActorLocomotionPacing.walkFramesPerCycle {
             let neURL = atlas.appendingPathComponent(String(format: "lila_departure_ne_%02d.png", index))

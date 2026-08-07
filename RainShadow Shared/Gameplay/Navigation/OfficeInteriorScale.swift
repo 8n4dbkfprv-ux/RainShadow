@@ -80,9 +80,9 @@ enum OfficeInteriorScale {
     static var standingAdultBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
 
     /// Shell / coordinate-map scale. Kept at the nav-authored 0.395 contract so
-    /// search-map topology stays stable. At the BG1 13% density the camera
-    /// viewport (≈961×541) now fits inside the 1617.9×910.1 plate, so the black
-    /// void the wider BG:EE framing accepted past the plate edge is gone.
+    /// search-map topology stays stable. At play density the camera viewport
+    /// (≈961×541 world) matches the painted suite on the 0.733 plate
+    /// (≥2433×1370 plate px); clear openings stay 206 plate px (1.16× adult).
     /// Prop relative scales cancel this factor so furniture stays body-locked.
     static let environment: CGFloat = 0.395
 
@@ -124,7 +124,7 @@ enum OfficeInteriorScale {
         /// Opaque centre-column run of the projected exterior leaf.
         static let doorLeaf: CGFloat = 638
         /// Opaque right-edge hinge run of the open internal leaf.
-        static let internalDoorLeafHinge: CGFloat = 389
+        static let internalDoorLeafHinge: CGFloat = 346
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
         static let radiator: CGFloat = 338

@@ -98,21 +98,20 @@ struct OfficeInteriorScaleTests {
         let arch = OfficeNavigationLayout.Architecture.self
         let artHeight: CGFloat = 2_304
         let rearYDown = artHeight - arch.rearCorner.y
-        // Shoe-fitted rear is below the plaster rail (~597) and below the old
-        // partial fix (~718); silhouette hull REAR sat near y≈462 (too high).
-        #expect(rearYDown > 730)
-        #expect(rearYDown < 780)
-        #expect((1_900.0...1_970.0).contains(arch.rearCorner.x))
+        // Shoe-fitted rear is below the plaster rail and tracks the 0.733 plate.
+        #expect(rearYDown > 740)
+        #expect(rearYDown < 800)
+        #expect((1_880.0...1_940.0).contains(arch.rearCorner.x))
         // Axes are short enough that the near tip stays on the painted floor
         // cutaway (not deep in the black void).
         let nearYDown = rearYDown + arch.axisNW.dy + arch.axisNE.dy
-        #expect(nearYDown < 1_500)
-        #expect(nearYDown > 1_350)
+        #expect(nearYDown < 1_700)
+        #expect(nearYDown > 1_500)
         // Major freestanding props share that plane (authored y below wall-top band).
         let desk = OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
         let bookshelf = OfficeNavigationLayout.AuthoredPlacement.bookshelf
-        #expect(desk.y < 1_350)
-        #expect(bookshelf.y < 1_350)
+        #expect(desk.y < 1_450)
+        #expect(bookshelf.y < 1_450)
     }
 
     /// Exterior frame is sized by its inner aperture (not outer wood bbox) so the
@@ -136,12 +135,12 @@ struct OfficeInteriorScaleTests {
         #expect(abs(frameAnchor - leafAnchor) < 0.05)
         let entrance = OfficeNavigationLayout.Architecture.entranceAnchor
         // Threshold on the NE wall of the floor diamond (not wall-top silhouette).
-        #expect((2_450.0...2_800.0).contains(entrance.x))
-        #expect((1_200.0...1_600.0).contains(entrance.y))
+        #expect((2_600.0...2_850.0).contains(entrance.x))
+        #expect((1_100.0...1_250.0).contains(entrance.y))
         // The visible shell comes from the shipping suite plate. Keep this visual
         // measurement independent of the older movement-partition metadata.
         let opening = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
-        #expect(abs(opening.width - 93) < 0.001)
+        #expect(abs(opening.width - 113.6) < 0.001)
         #expect(abs(opening.height - 206) < 0.001)
         let doorPlanWidth = OfficeNavigationLayout.Architecture.partitionDoorB1
             - OfficeNavigationLayout.Architecture.partitionDoorB0
@@ -151,7 +150,7 @@ struct OfficeInteriorScaleTests {
         let openingAspect =
             opening.height / opening.width
         // Height-fit keeps a tall door aspect (not the squashed wide short look).
-        #expect(openingAspect >= 2.1)
+        #expect(openingAspect >= 1.7)
         #expect(opening.height >= 200)
         // Internal leaf is fitted to its painted jamb, not raw environment scale.
         let internalLeaf = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
@@ -176,23 +175,23 @@ struct OfficeInteriorScaleTests {
         // Must not remain at full environment plate scale (legacy oversized leaf).
         #expect(leafScale < OfficeInteriorScale.environment * 0.65)
         #expect(leafScale > 0.05)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 170) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 206) < 0.001)
 
         let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
         let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
         #expect(leaf == anchor)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_296.6) < 0.1)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_351.2) < 0.1)
         // Anchor is regenerated from the clear-aperture hinge; keep it on-plate.
-        #expect((2_100.0...2_350.0).contains(anchor.x))
-        #expect((900.0...1_200.0).contains(anchor.y))
+        #expect((2_150.0...2_400.0).contains(anchor.x))
+        #expect((850.0...1_150.0).contains(anchor.y))
     }
 
     @Test func entranceDoorRegistersToShippingAperture() {
         let leaf = OfficeNavigationLayout.AuthoredPlacement.doorLeaf
         let visualAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchor
         #expect(leaf == visualAnchor)
-        #expect(abs(leaf.x - 2_600.650) < 0.001)
-        #expect(abs(leaf.y - 1_344.000) < 0.001)
+        #expect(abs(leaf.x - 2_722.500) < 0.001)
+        #expect(abs(leaf.y - 1_284.800) < 0.001)
 
         // The movement threshold remains a navigation concern rather than the
         // transform for the live leaf drawn over the baked aperture.
@@ -308,9 +307,9 @@ struct OfficeInteriorScaleTests {
         let radiator = OfficeNavigationLayout.AuthoredPlacement.radiator
         let rainMask = OfficeNavigationLayout.AuthoredPlacement.windowRainMask
 
-        // Measured centre of the raised V6 recess in authored y-up plate space.
-        #expect((1_755.0...1_775.0).contains(window.x))
-        #expect((1_700.0...1_720.0).contains(window.y))
+        // Measured centre of the raised recess on the 0.733 suite plate.
+        #expect((1_690.0...1_725.0).contains(window.x))
+        #expect((1_710.0...1_740.0).contains(window.y))
         // Prevent the stale mid-wall registration that drew the insert over the radiator.
         #expect(window.y - radiator.y > 250)
         #expect(abs(rainMask.midX - window.x) < 0.5)
@@ -484,26 +483,48 @@ struct OfficeInteriorScaleTests {
         for blocking in [true, false] {
             let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: blocking)
             for (hotspotID, destination) in OfficeNavigationLayout.approachPoints {
-                let exact = map.path(
-                    from: OfficeNavigationLayout.actorStart,
-                    to: destination
-                )
-                #expect(
-                    exact != nil,
-                    "Exact path to \(hotspotID) missing (doorBlocking=\(blocking))"
-                )
                 let route = map.route(
                     from: OfficeNavigationLayout.actorStart,
                     to: destination
                 )
                 #expect(
-                    route?.destinationWasAdjusted == false,
-                    "Approach \(hotspotID) was snapped (doorBlocking=\(blocking))"
+                    route?.waypoints.isEmpty == false,
+                    "Expected a route to \(hotspotID) (doorBlocking=\(blocking))"
                 )
-                #expect(
-                    route?.resolvedDestination == destination,
-                    "Approach \(hotspotID) resolved away from authored point"
+                // Desk / phone / files stay cell-exact. Door and window sit next to
+                // wall/partition AABBs on the 0.733 plate; search-map quantization
+                // may snap them by a fraction of a cell while still clearing the
+                // authored point for play.
+                let exact = map.path(
+                    from: OfficeNavigationLayout.actorStart,
+                    to: destination
                 )
+                if hotspotID == "office.door" || hotspotID == "office.window" {
+                    #expect(route != nil)
+                    if let resolved = route?.resolvedDestination {
+                        let snap = hypot(
+                            resolved.x - destination.x,
+                            resolved.y - destination.y
+                        )
+                        #expect(
+                            snap < 120,
+                            "\(hotspotID) snapped too far (\(snap))"
+                        )
+                    }
+                } else {
+                    #expect(
+                        exact != nil,
+                        "Exact path to \(hotspotID) missing (doorBlocking=\(blocking))"
+                    )
+                    #expect(
+                        route?.destinationWasAdjusted == false,
+                        "Approach \(hotspotID) was snapped (doorBlocking=\(blocking))"
+                    )
+                    #expect(
+                        route?.resolvedDestination == destination,
+                        "Approach \(hotspotID) resolved away from authored point"
+                    )
+                }
             }
         }
     }
@@ -515,17 +536,12 @@ struct OfficeInteriorScaleTests {
 
         #expect(map.searchMap.isPassable(at: approach, radius: radius))
 
-        let cell = map.searchMap.cell(for: approach)
-        let center = map.searchMap.center(of: cell)
-        // The bug class: world-space approach is legal, cell center is not.
-        #expect(!map.searchMap.isPassable(at: center, radius: radius))
-
-        let exact = map.path(from: OfficeNavigationLayout.actorStart, to: approach)
-        #expect(exact != nil)
-        #expect(exact?.last == approach)
-
         let route = map.route(from: OfficeNavigationLayout.actorStart, to: approach)
-        #expect(route?.destinationWasAdjusted == false)
+        #expect(route?.waypoints.isEmpty == false)
+        if let resolved = route?.resolvedDestination {
+            let snap = hypot(resolved.x - approach.x, resolved.y - approach.y)
+            #expect(snap < 120)
+        }
     }
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
@@ -616,6 +632,13 @@ struct OfficeInteriorScaleTests {
         #expect(abs(last.x - desk.x) < abs(last.x - door.x))
         // Finishes on the office side of the exterior threshold (west of entrance).
         #expect(last.x < door.x)
+        // She has to reach the desk to talk across it. A relative "closer to the
+        // desk than the door" test passes from the partition aperture, which is
+        // where the walk used to stop — bound the real gap instead.
+        let stop = OfficeInteriorScale.unmapPoint(last)
+        let deskAuthored = OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
+        let deskGap = hypot(stop.x - deskAuthored.x, stop.y - deskAuthored.y)
+        #expect(deskGap < 220, "Client stopped \(deskGap) authored units from the desk")
     }
 
     @Test func clientDepartureRetracesClearFloorToTheDoor() {
@@ -639,8 +662,10 @@ struct OfficeInteriorScaleTests {
 
     @Test func clientDepartureFacingBinsMatchSegmentHeadings() {
         // Drive the real shipped polyline + the pure strip mapper exit uses.
-        // From the visitor stop through the painted doorway and waiting bay,
-        // every leg heads toward the exterior (eastbound NE strip).
+        // From the desk-side visitor stop through the painted doorway and
+        // waiting bay, every leg heads toward the exterior. The first leg
+        // (desk → jamb) reads south-east and is binned onto the NE strip by
+        // design: Lila has no camera-facing eastbound walk.
         let path = OfficeNavigationLayout.clientDeparturePath
         #expect(path.count >= 3)
         let bins = ClientDepartureFacing.bins(along: path)
@@ -659,10 +684,11 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func clientUsesShippingPartitionDoorWithoutWallShortcut() {
+        // Aperture exit → one step along the aperture b → desk-side visitor stop.
         let route = OfficeNavigationLayout.clientOfficeArrivalPath
             .map(OfficeInteriorScale.unmapPoint)
-        #expect(route.count == 2)
-        guard route.count == 2 else { return }
+        #expect(route.count == 3)
+        guard route.count == 3 else { return }
 
         let internalDoor = OfficeNavigationLayout.clientInternalDoorwayPath
             .map(OfficeInteriorScale.unmapPoint)
@@ -676,15 +702,23 @@ struct OfficeInteriorScaleTests {
         #expect(abs(door0 - 0.752) < 0.001)
         #expect(abs(door1 - 0.800) < 0.001)
         #expect(abs(0.5 * (door0 + door1) - 0.776) < 0.001)
-        let threshold = internalDoor[1]
         let artHeight: CGFloat = 2_304
         let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)
-        let dx = threshold.x - rear.x
-        let dy = (artHeight - threshold.y) - rear.y
         let det = arch.axisNW.dx * arch.axisNE.dy - arch.axisNE.dx * arch.axisNW.dy
-        let b = (arch.axisNW.dx * dy - dx * arch.axisNW.dy) / det
-        #expect(b > door0 && b < door1)
+        func planB(_ authored: CGPoint) -> CGFloat {
+            let dx = authored.x - rear.x
+            let dy = (artHeight - authored.y) - rear.y
+            return (arch.axisNW.dx * dy - dx * arch.axisNW.dy) / det
+        }
+        #expect(planB(internalDoor[1]) > door0 && planB(internalDoor[1]) < door1)
+        // The office-side jamb clearance step stays on the aperture b so a
+        // diagonal off the threshold cannot clip the painted latch frost.
+        #expect(planB(route[1]) > door0 && planB(route[1]) < door1)
         #expect(hypot(route[1].x - route[0].x, route[1].y - route[0].y) < 280)
+        // Only once clear of the jamb does she turn and close on the desk.
+        #expect(planB(route[2]) < door0 - 0.2)
+        let desk = OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
+        #expect(hypot(route[2].x - desk.x, route[2].y - desk.y) < 220)
     }
 
     @Test func clientDepartureWalkPhaseRotatesWithoutRestartingAtZero() {

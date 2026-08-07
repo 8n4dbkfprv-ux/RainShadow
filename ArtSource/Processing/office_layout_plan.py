@@ -124,13 +124,13 @@ WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 # different generated bake. Keep those values for collision/pathing, but never
 # use them to place the two live leaf sprites against `office_suite_plate.png`.
 # Positions below use plate image coordinates (y down).
-SHIPPING_EXTERIOR_OPENING_SIZE = (93.0, 206.0)
-SHIPPING_EXTERIOR_THRESHOLD = (2600.65, 960.0)
+SHIPPING_EXTERIOR_OPENING_SIZE = (113.6, 206.0)
+SHIPPING_EXTERIOR_THRESHOLD = (2722.5, 1019.2)
 # Low-b stile of the painted frosted opening (office face).
-# Left jamb of the live clear aperture (office face ≈ b 0.752 → plate x ≈ 2297).
-SHIPPING_INTERNAL_HINGE_X = 2296.6
-SHIPPING_INTERNAL_HINGE_TOP_Y = 1001.0
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1171.0
+# Left jamb of the live clear aperture (office face ≈ b 0.752).
+SHIPPING_INTERNAL_HINGE_X = 2351.2
+SHIPPING_INTERNAL_HINGE_TOP_Y = 1069.2
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1275.2
 
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
@@ -195,7 +195,7 @@ def window_anchor_authored() -> tuple[float, float]:
     # the darker inner opening's centre left the lower-right sill exposed.
     # The rectification warp shifts the visual frame centre slightly upward, so
     # register four pixels lower than the geometric recess centre.
-    recess_center_plate = (1768.5, 599.0)
+    recess_center_plate = (1707.0, 578.6)
     return (recess_center_plate[0], rp.ART_H - recess_center_plate[1])
 
 
@@ -221,10 +221,10 @@ def _wall_art_plate(a: float, b: float, up: float) -> tuple[float, float]:
 
 
 WALL_ART = {
-    "wallPhotos": _wall_art_plate(1.08, FLUSH, 315.0),
-    "caseBoard": _wall_art_plate(0.92, FLUSH, 410.0),
-    "wallCityMap": _wall_art_plate(0.70, FLUSH, 370.0),
-    "framedLicence": _wall_art_plate(0.52, FLUSH, 290.0),
+    "wallPhotos": _wall_art_plate(1.08, FLUSH, 385.0),
+    "caseBoard": _wall_art_plate(0.92, FLUSH, 501.0),
+    "wallCityMap": _wall_art_plate(0.70, FLUSH, 452.0),
+    "framedLicence": _wall_art_plate(0.52, FLUSH, 354.0),
 }
 
 FLOOR_DECALS = {
@@ -333,7 +333,7 @@ def partition_cell_rects() -> list[tuple[float, float, float, float]]:
     # doorway cell (officeDetective radius 3). Broadening door_clear_pad to
     # remove its whole b-band also strips neighbouring frost and lets client
     # arrival shortcut through prop AABBs.
-    sealed_doorway_cell = (2288.0, 1134.0, 40.0, 20.0)
+    sealed_doorway_cell = (2341.6, 1232.2, 48.9, 24.4)
     return [
         r for r in rects
         if not (
@@ -540,8 +540,13 @@ def emit() -> str:
         f"height: {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.1f})"
     )
     add(
+        f"        /// {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.0f} plate px × environment = "
+        f"{SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV:.2f} world units against a "
+        f"{BODY * ENV:.2f}-unit adult. Matches the ~1.16× real door-to-adult ratio."
+    )
+    add(
         f"        static let entranceOpeningToDetectiveRatio: CGFloat = "
-        f"{SHIPPING_EXTERIOR_OPENING_SIZE[1] / BODY:.2f}"
+        f"{SHIPPING_EXTERIOR_OPENING_SIZE[1] / BODY:.3f}"
     )
     add(
         f"        static let entranceHandleHeightToDetective: CGFloat = "
@@ -565,11 +570,14 @@ def emit() -> str:
     add("        /// The upright art grows slightly as its top swings toward the camera.")
     add("        /// This is only the transition silhouette; the landed art has an")
     add("        /// explicit world-space size below.")
-    add("        static let entranceFallingTransitionScale: CGFloat = 0.17")
+    add("        static let entranceFallingTransitionScale: CGFloat =")
+    add("            0.17 * OfficeInteriorScale.ActorDisplay.visualBodyRatio")
     add("        /// Purpose-built 768×512 landed-state art. The transparent source")
-    add("        /// canvas stays centered so this scale yields a ~98×81 point door body.")
+    add("        /// canvas stays centered so this scale yields a door body proportional")
+    add("        /// to the upright leaf it fell from.")
     add("        static let entranceFallenArtworkCanvasSize = CGSize(width: 768, height: 512)")
-    add("        static let entranceFallenArtworkDisplayScale: CGFloat = 0.17")
+    add("        static let entranceFallenArtworkDisplayScale: CGFloat =")
+    add("            0.17 * OfficeInteriorScale.ActorDisplay.visualBodyRatio")
     add("        static let entranceFallenArtworkDisplaySize = CGSize(")
     add("            width: entranceFallenArtworkCanvasSize.width")
     add("                * entranceFallenArtworkDisplayScale,")
@@ -585,7 +593,7 @@ def emit() -> str:
     # Leaf scale keeps the validated fit; anchor is solved from the measured
     # clear-aperture hinge jamb so the open leaf tracks the painted frame.
     add("        /// Height-fit to `internalHingePlateHeight` × environment / hinge texture.")
-    add("        static let internalLeafDisplayScale: CGFloat = 0.1726")
+    add(f"        static let internalLeafDisplayScale: CGFloat = {internal_leaf_scale():.4f}")
     leaf_x, leaf_y = internal_door_leaf_anchor()
     add(f"        static let internalLeafAnchor = CGPoint(x: {leaf_x:.3f}, y: {leaf_y:.3f})")
     add("    }")
@@ -748,7 +756,9 @@ def emit() -> str:
         add(f"        {pt(point)},")
     add("    ].map(OfficeInteriorScale.mapPoint)")
     add("")
-    add("    /// Direct private-office approach after clearing the internal door.")
+    add("    /// Direct private-office approach after clearing the internal door:")
+    add("    /// one step along the aperture b to clear the jamb, then on to the")
+    add("    /// desk's camera-near corner where the visitor stands to talk.")
     add("    static let clientOfficeArrivalPath: [CGPoint] = [")
     for point in CLIENT_OFFICE_ARRIVAL_PATH:
         add(f"        {pt(point)},")
@@ -770,12 +780,12 @@ def emit() -> str:
     add("    /// Do not A*-expand: snapping interior anchors onto nearest walkable")
     add("    /// cells can walk the coat through frosted glass beside the real opening.")
     add("    /// Anchors are collision-checked at layout generation.")
-    add("    static func clientArrivalRoute(in navigation: NavigationGrid) -> [CGPoint] {")
+    add("    static func clientArrivalRoute(in navigation: NavigationMap) -> [CGPoint] {")
     add("        _ = navigation")
     add("        return clientArrivalPath")
     add("    }")
     add("")
-    add("    static func clientDepartureRoute(in navigation: NavigationGrid) -> [CGPoint] {")
+    add("    static func clientDepartureRoute(in navigation: NavigationMap) -> [CGPoint] {")
     add("        Array(clientArrivalRoute(in: navigation).reversed())")
     add("    }")
     add("")
@@ -1060,11 +1070,15 @@ CLIENT_WAITING_ROOM_PATH = [
 VISITOR_CHAIR_BIAS = -50.0
 SEATED_DESK_FRONT_APRON_BIAS = 15.0
 
-# Visitor stop just inside the painted doorway; hold aperture b until clear of
-# the partition so a diagonal cannot clip latch frost.
+# Hold aperture b until clear of the partition so a diagonal cannot clip latch
+# frost, then close on the desk's camera-near corner. Stopping on the aperture
+# left the visitor talking from ~3.3m away, with the dialogue camera framing
+# the floor between her and Voss. The stop sits camera-near of the writing
+# surface (drawn in front of it) and outside the armchair footprints.
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
     rp.authored(0.560, CLIENT_INTERNAL_DOOR_B),
+    rp.authored(0.545, 0.515),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1119,9 +1133,34 @@ HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String,
         )
     ]
 
+    /// BG-style authored loot for searchable office containers (resolve-once on area entry).
+    static let lootContainers: [LootContainerDefinition] = [
+        LootContainerDefinition(
+            id: "office.desk",
+            entries: [
+                .coins(pence: 36), // 3s loose change in the drawer
+                .randomCoins(table: RandomCoinTable(penceForRolls2to20: [
+                    1, 2, 3, 4, 6, 6, 8, 8, 12, 12, 12, 18, 18, 24, 24, 30, 36, 36, 48
+                ]))
+            ]
+        ),
+        LootContainerDefinition(
+            id: "office.files",
+            entries: [
+                .randomCoins(table: RandomCoinTable(penceForRolls2to20: [
+                    1, 1, 2, 2, 3, 3, 4, 4, 6, 6, 6, 8, 8, 12, 12, 12, 18, 18, 24
+                ]))
+            ]
+        )
+    ]
+
+    static func lootContainer(for hotspotID: String) -> LootContainerDefinition? {
+        lootContainers.first { $0.id == hotspotID }
+    }
+
     /// Tall aperture covering the entrance leaf and threshold obstacle.
     private static var doorHitArea: CGRect {
-        CGRect(x: 2_480, y: 1_180, width: 240, height: 480)
+        CGRect(x: 2_600, y: 1_100, width: 293, height: 586)
     }
 
     private static var deskHitArea: CGRect {
@@ -1187,25 +1226,22 @@ TAIL_SWIFT = '''
         }
     }
 
-    /// - Parameter entranceDoorBlocking: When false, the upright exterior leaf
-    ///   obstacle is omitted (door has fallen / opening is clear).
-    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationGrid {
-        let gridObstacles: [CGRect]
-        if entranceDoorBlocking {
-            gridObstacles = obstacles
-        } else {
-            let door = doorObstacle
-            gridObstacles = obstacles.filter { $0 != door }
-        }
-        return NavigationGrid(
-            projection: .dimetric(
-                origin: OfficeInteriorScale.mapPoint(authoredProjectionOrigin),
-                tileSize: OfficeInteriorScale.mapSize(authoredTileSize)
-            ),
-            columns: 31,
-            rows: 31,
-            obstacles: gridObstacles,
-            agentProfile: .officeDetective
+    /// World-space bounds of the scaled office plate (BG search-map frame).
+    static var navigationWorldBounds: CGRect {
+        CGRect(origin: OfficeInteriorScale.shellOrigin, size: OfficeInteriorScale.scaledArtSize)
+    }
+
+    /// - Parameter entranceDoorBlocking: When false, exterior door cells are
+    ///   clear (door has fallen / opening is open). Toggle later via
+    ///   `NavigationMap.setEntranceDoorBlocking` without rebuilding.
+    static func makeGrid(entranceDoorBlocking: Bool = true) -> NavigationMap {
+        NavigationMap(
+            worldBounds: navigationWorldBounds,
+            obstacles: obstacles,
+            agentProfile: .officeDetective,
+            doorObstacles: [doorObstacle],
+            entranceDoorBlocking: entranceDoorBlocking,
+            maxNodes: 96_000
         )
     }
 
@@ -1335,22 +1371,35 @@ def report() -> bool:
         f"valid={waiting_clearance_ok}"
     )
 
-    # Once through the painted partition door, the visitor stop is one short
-    # leg away on the office side of the aperture.
+    # Once through the painted partition door, the visitor clears the aperture
+    # on the door's own b and then walks on to the desk. A route that dives
+    # toward the camera-near floor is the old impossible wall/desk detour
+    # returning; a route that stops on the aperture is the visitor talking from
+    # across the room.
     office_plans = [
         rp.authored_to_plan(*point) for point in CLIENT_OFFICE_ARRIVAL_PATH
     ]
     door_exit_b = rp.authored_to_plan(*CLIENT_INTERNAL_DOORWAY_PATH[-1])[1]
+    desk_authored = PROP_BY_KEY["deskEnsemble"].authored
+    stop = CLIENT_OFFICE_ARRIVAL_PATH[-1]
+    stop_gap = (
+        (stop[0] - desk_authored[0]) ** 2 + (stop[1] - desk_authored[1]) ** 2
+    ) ** 0.5
     office_direct_ok = (
-        len(office_plans) == 2
-        and office_plans[-1][0] > P.a_line + P.thickness_a
+        len(office_plans) == 3
+        and all(a > P.a_line + P.thickness_a for a, _ in office_plans)
         and max(a for a, _ in office_plans) <= 0.58
-        and abs(office_plans[-1][1] - door_exit_b) <= 0.25
+        # First office leg holds the aperture b (no diagonal across the jamb).
+        and abs(office_plans[1][1] - door_exit_b) <= 0.001
+        # The stop actually leaves the doorway and lands at the desk.
+        and office_plans[-1][1] < door_exit_b - 0.20
+        and stop_gap <= 220
     )
     ok &= office_direct_ok
     print(
         "  client direct office approach "
-        f"valid={office_direct_ok} anchors={len(office_plans)}"
+        f"valid={office_direct_ok} anchors={len(office_plans)} "
+        f"desk_gap={stop_gap:.0f}"
     )
 
     # Rooms must not connect around the partition tip — only through the door.
