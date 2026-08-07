@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""V12 paperdoll-locked Voss atlas install with V7 BGEE crunch.
+"""V12 paperdoll-locked Voss atlas install, running the shared BGEE crunch.
 
 Harlan Voss only: PreRendered3DV12 masters re-locked to inventory paperdoll V11
 identity and SE key V12 craft (bare-headed; clean coat hem; no over-detail).
 LilaArrival.atlas is left untouched. Inventory paperdoll is not reprocessed.
 
-Reuses V6 slicing/mirroring/registration and V7 pixelization (80px / 64 colors /
-nearest → 200px). Portrait installs via Lanczos when a master is present.
+Reuses V6 slicing/mirroring/registration; pixelization comes from `crunch.py`
+(V14: 56px native, 1-bit alpha, per-material ramps, nearest → 200px). Portrait
+installs via Lanczos when a master is present.
 """
 
 from __future__ import annotations
@@ -16,25 +17,31 @@ import shutil
 
 from PIL import Image, ImageDraw, ImageFilter
 
+import crunch as crunch_mod
+# Material masks live in `crunch.py` so the palette can use them without a
+# circular import; these are the same functions this module used to define.
+from crunch import (
+    _coat_mask,
+    _coat_roi_mask,
+    _face_roi_mask,
+    _opaque_body_box,
+    _skin_mask,
+)
 import process_pre_rendered_characters_v3 as raster
 import process_pre_rendered_characters_v6 as v6
 from process_pre_rendered_characters_v7 import pixelize_figure_v7
 from process_character_gait_v5 import remove_green_screen
 
 
-def soften_for_paperdoll_craft(figure: Image.Image, radius: float = 3.4) -> Image.Image:
-    """Drop micro-detail/contrast so V7 crunch matches seated/paperdoll craft density."""
-    import numpy as np
+def soften_for_paperdoll_craft(
+    figure: Image.Image, radius: float = 3.4, contrast: float | None = None
+) -> Image.Image:
+    """Drop micro-detail so the crunch matches seated/paperdoll craft density.
 
-    rgba = figure.convert("RGBA")
-    rgb = Image.merge("RGB", rgba.split()[:3]).filter(ImageFilter.GaussianBlur(radius=radius))
-    # Stronger midtone pull — V13 IG masters still carry more micro-contrast than seated.
-    arr = np.asarray(rgb).astype(np.float32)
-    mean = arr.mean(axis=(0, 1), keepdims=True)
-    arr = mean + (arr - mean) * 0.68
-    rgb = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
-    alpha = rgba.split()[-1]
-    return Image.merge("RGBA", (*rgb.split(), alpha))
+    The midtone pull is now the crunch spec's (`contrast`, 1.00 under V14) rather
+    than a hardcoded 0.68 — see `crunch.soften`, which this delegates to.
+    """
+    return crunch_mod.soften(figure, radius=radius, contrast=contrast)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -61,94 +68,6 @@ def _is_chroma_green(rgb: "np.ndarray") -> "np.ndarray":
     return (g > 140) & (g > r + 40) & (g > b + 40)
 
 
-def _opaque_body_box(alpha_mask: "np.ndarray") -> tuple[int, int, int, int] | None:
-    import numpy as np
-
-    ys, xs = np.where(alpha_mask)
-    if len(xs) == 0:
-        return None
-    return int(ys.min()), int(ys.max()), int(xs.min()), int(xs.max())
-
-
-def _coat_mask(rgb: "np.ndarray", alpha_mask: "np.ndarray") -> "np.ndarray":
-    """Opaque brown wardrobe (coat/vest), including darker folds."""
-    import numpy as np
-
-    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    lum = (r + g + b) / 3.0
-    # Broader than the first lock so shaded coat folds still grade with the body.
-    return (
-        alpha_mask
-        & (r > b + 4)
-        & (r > 28)
-        & (r < 210)
-        & (lum > 22)
-        & (lum < 175)
-        & (g < r + 8)
-        & ((r - g) > -2)
-    )
-
-
-def _skin_mask(rgb: "np.ndarray", alpha_mask: "np.ndarray") -> "np.ndarray":
-    """Face/hand skin: warm mid-high luminance, not coat brown."""
-    import numpy as np
-
-    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    lum = (r + g + b) / 3.0
-    return (
-        alpha_mask
-        & (r > g)
-        & (g > b)
-        & (r > 70)
-        & (lum > 55)
-        & (lum < 210)
-        & ((r - b) > 18)
-        & ((r - b) < 110)
-        & ((r - g) < 55)
-        # Coat is darker and more R-led; keep high-sat dark brown out of skin.
-        & ~((lum < 95) & ((r - b) > 40) & (r < 130))
-    )
-
-
-def _face_roi_mask(alpha_mask: "np.ndarray") -> "np.ndarray":
-    """Upper silhouette band where the head/face lives on foot-registered cells."""
-    import numpy as np
-
-    box = _opaque_body_box(alpha_mask)
-    out = np.zeros_like(alpha_mask, dtype=bool)
-    if box is None:
-        return out
-    y0, y1, x0, x1 = box
-    h = max(1, y1 - y0 + 1)
-    w = max(1, x1 - x0 + 1)
-    # Top ~28% of body height, centre 70% of width.
-    fy0 = y0
-    fy1 = y0 + max(2, int(h * 0.30))
-    fx0 = x0 + int(w * 0.15)
-    fx1 = x0 + max(fx0 + 1, int(w * 0.85))
-    out[fy0:fy1, fx0:fx1] = alpha_mask[fy0:fy1, fx0:fx1]
-    return out
-
-
-def _coat_roi_mask(alpha_mask: "np.ndarray") -> "np.ndarray":
-    """Torso band used for play-scale coat measurement (excludes head/feet)."""
-    import numpy as np
-
-    box = _opaque_body_box(alpha_mask)
-    out = np.zeros_like(alpha_mask, dtype=bool)
-    if box is None:
-        return out
-    y0, y1, x0, x1 = box
-    h = max(1, y1 - y0 + 1)
-    w = max(1, x1 - x0 + 1)
-    cy0 = y0 + int(h * 0.28)
-    cy1 = y0 + max(cy0 + 1, int(h * 0.72))
-    cx0 = x0 + int(w * 0.12)
-    cx1 = x0 + max(cx0 + 1, int(w * 0.88))
-    out[cy0:cy1, cx0:cx1] = alpha_mask[cy0:cy1, cx0:cx1]
-    return out
-
-
 def _match_region(
     r: "np.ndarray",
     g: "np.ndarray",
@@ -159,15 +78,27 @@ def _match_region(
     scale_lo: float,
     scale_hi: float,
     chroma_boost: float = 1.0,
+    luminance_only: bool = False,
 ) -> tuple["np.ndarray", "np.ndarray", "np.ndarray"]:
-    """Mean-match + optional chroma expand a pixel region toward target RGB."""
+    """Mean-match + optional chroma expand a pixel region toward target RGB.
+
+    `luminance_only` scales all three channels by one factor instead of three, so
+    the region moves to the target's *brightness* without adopting its hue. That
+    is what keeps a wardrobe alive: these regions are geometric bands, so a torso
+    ROI contains the tie and waistcoat as well as the coat, and a per-channel
+    match drags all of them onto the coat's colour.
+    """
     import numpy as np
 
     if int(region.sum()) < 12:
         return r, g, b
     stacked = np.stack([r, g, b], axis=-1)
     cur = stacked[region].mean(axis=0)
-    scale = np.clip(target / (cur + 1e-5), scale_lo, scale_hi)
+    if luminance_only:
+        factor = float(np.clip(target.mean() / (cur.mean() + 1e-5), scale_lo, scale_hi))
+        scale = np.array([factor, factor, factor], dtype=np.float32)
+    else:
+        scale = np.clip(target / (cur + 1e-5), scale_lo, scale_hi)
     rr = np.where(region, np.clip(r * scale[0], 0, 255), r)
     gg = np.where(region, np.clip(g * scale[1], 0, 255), g)
     bb = np.where(region, np.clip(b * scale[2], 0, 255), b)
@@ -238,6 +169,12 @@ def identity_wardrobe_lock(figure: Image.Image) -> Image.Image:
 
     import process_voss_desk_ne_v01 as ne
 
+    # A frame that already carries wardrobe hue variety must keep it: the warm
+    # coat bias below forces G under R on every coat pixel, and the green-spill
+    # cull deletes anything greenish outright — which would erase a #364636 tie.
+    # Both are chroma-key cleanup for flat masters, so they run only on flat ones.
+    separated = crunch_mod.has_material_separation(figure)
+
     px = np.asarray(figure.convert("RGBA")).copy()
     rgb = px[..., :3].astype(np.float32)
     a = px[..., 3].astype(np.float32)
@@ -265,10 +202,12 @@ def identity_wardrobe_lock(figure: Image.Image) -> Image.Image:
 
     # Face first so later coat passes cannot darken the head.
     r, g, b = _match_region(
-        r, g, b, face_m, face_tgt, scale_lo=0.90, scale_hi=1.75, chroma_boost=1.12
+        r, g, b, face_m, face_tgt, scale_lo=0.90, scale_hi=1.75,
+        chroma_boost=1.0 if separated else 1.12, luminance_only=separated,
     )
     r, g, b = _match_region(
-        r, g, b, coat_m, coat_tgt, scale_lo=0.80, scale_hi=1.85, chroma_boost=1.28
+        r, g, b, coat_m, coat_tgt, scale_lo=0.80, scale_hi=1.85,
+        chroma_boost=1.0 if separated else 1.28, luminance_only=separated,
     )
 
     # Remaining cloth: lower body / coat hem outside the torso ROI.
@@ -277,16 +216,27 @@ def identity_wardrobe_lock(figure: Image.Image) -> Image.Image:
     rest = mask & ~face_m & ~coat_m & (lum > 18) & (lum < 170) & (r > b + 2)
     if int(rest.sum()) >= 20:
         r, g, b = _match_region(
-            r, g, b, rest, coat_tgt, scale_lo=0.85, scale_hi=1.65, chroma_boost=1.15
+            r, g, b, rest, coat_tgt, scale_lo=0.85, scale_hi=1.65,
+            chroma_boost=1.0 if separated else 1.15, luminance_only=separated,
         )
 
-    # Warm coat bias: keep R ahead of G on coat pixels.
-    coat_m = _coat_mask(np.stack([r, g, b], axis=-1), mask)
-    g = np.where(coat_m & (g > r - 8), r - 12, g)
-    b = np.where(coat_m, np.minimum(255.0, b + 2.0), b)
+    if not separated:
+        # Warm coat bias: keep R ahead of G on coat pixels.
+        coat_m = _coat_mask(np.stack([r, g, b], axis=-1), mask)
+        g = np.where(coat_m & (g > r - 8), r - 12, g)
+        b = np.where(coat_m, np.minimum(255.0, b + 2.0), b)
 
-    still = mask & (g > r + 5) & (g > b + 5)
-    a[still] = 0
+        still = mask & (g > r + 5) & (g > b + 5)
+        a[still] = 0
+    else:
+        # Still cull true chroma-key spill, but only on the silhouette edge where
+        # it actually occurs, so interior green wardrobe survives.
+        from scipy import ndimage
+
+        edge = mask & ~ndimage.binary_erosion(mask, iterations=2)
+        # Match `_is_chroma_green`'s threshold: real key spill is far greener than
+        # any wardrobe. At +20 this was clipping the dark green tie on rear cells.
+        a[edge & (g > r + 40) & (g > b + 40)] = 0
     out = np.stack([r, g, b, a], axis=-1)
     out[out[..., 3] < 8] = 0
     locked = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGBA")
@@ -318,8 +268,22 @@ def install_locked_frame_v12(
     atlas_name: str,
     filename: str,
     source_dir: Path,
+    *,
+    finalise: bool = True,
 ) -> None:
-    """Install a frame after all color/alpha processing and geometry validation."""
+    """Install a frame after all color/alpha processing and geometry validation.
+
+    `crunch.finalise` runs here, at the last possible moment, so the palette is
+    the last thing applied to the sprite rather than something the wardrobe locks
+    grade away afterwards.
+
+    Pass `finalise=False` for a frame that is already palette-correct and carries
+    a deliberate post-palette nudge — the stand/sit handoff endpoints. Re-ramping
+    those would snap the head band's non-skin pixels back onto the torso coat
+    ramp and undo the nudge.
+    """
+    if finalise:
+        frame = crunch_mod.finalise(frame)
     registered_dir = source_dir / "Registered_v12"
     registered_dir.mkdir(parents=True, exist_ok=True)
     atlas = ATLASES / atlas_name

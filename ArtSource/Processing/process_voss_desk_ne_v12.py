@@ -79,7 +79,11 @@ def main() -> None:
         idle_cells,
         stand_cells,
         standing_reference,
-        head_bounds=(24, 31),
+        # Re-baselined for the V14 crunch. A 1-bit silhouette at 56 native rows
+        # puts the head about 6 native pixels across, so one pixel of edge is
+        # ~17% of its width and the band cannot be as tight as the 80-row soft
+        # bake's (24, 31). Measured 21...26 across the NE chain.
+        head_bounds=(19, 29),
     )
     sit_cells = list(reversed(stand_cells))
 

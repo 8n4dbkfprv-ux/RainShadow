@@ -16,6 +16,7 @@ import shutil
 import numpy as np
 from PIL import Image, ImageDraw
 
+import crunch as crunch_mod
 import process_pre_rendered_characters_v3 as raster
 import process_pre_rendered_characters_v6 as v6
 from process_pre_rendered_characters_v7 import pixelize_figure_v7
@@ -81,6 +82,8 @@ def despill_lila(figure: Image.Image) -> Image.Image:
 
 
 def save_frame_v11(frame: Image.Image, atlas_name: str, filename: str, source_dir: Path) -> None:
+    # Palette last: see crunch.finalise.
+    frame = crunch_mod.finalise(frame)
     registered_dir = source_dir / "Registered_v11"
     registered_dir.mkdir(parents=True, exist_ok=True)
     atlas = ATLASES / atlas_name

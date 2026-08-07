@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-"""V7 BGEE pixelation crunch: rebake every V6 Voss/March gameplay cell with a
-denser raster, without regenerating any art.
+"""Rebake every V6 Voss/March gameplay cell through the crunch, without
+regenerating any art.
 
-Selected via the A/B study in `qa_pixelation_ab_v01.py` (variant C):
-
-- native body drops from 100 px to 80 px
-- palette drops from 96 to 64 colors (still no dithering), and the palette is
-  now derived from the figure's opaque pixels only, so transparent canvas and
-  dominant coat tones no longer squeeze skin/shirt hues out of the ramp
-- the native raster is nearest-upscaled back to the contract's 200 px texture
-  body (2.5x), so registration (`FOOT_Y = 434`, 512 canvas), display size, and
-  all runtime scale code stay untouched
+`pixelize_figure_v7` is now a thin wrapper over `crunch.crunch`. Six scripts
+import this name, so it stays; the parameters moved to `crunch.CrunchSpec` when
+V14 replaced V7's 80px/64-colour global median cut with a 56px 1-bit-alpha
+raster and per-material shade ramps. See `crunch.py` for the reasoning and
+`qa_pixelation_ab_v02.py` for the study that picked it.
 
 Everything else reuses the V6 flow verbatim: the same chroma masters, slicing,
 mirroring, arm-layer derivation, and atlas names. Portraits and paperdoll keep
@@ -23,6 +19,7 @@ import shutil
 import numpy as np
 from PIL import Image, ImageDraw
 
+import crunch as crunch_mod
 import process_pre_rendered_characters_v3 as raster
 import process_pre_rendered_characters_v6 as v6
 
@@ -31,46 +28,24 @@ ROOT = Path(__file__).resolve().parents[2]
 ATLASES = ROOT / "RainShadow Shared/Resources/Art/Atlases"
 BACKUP = ROOT / "ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV6"
 
-NATIVE_BODY_HEIGHT = 80
-PALETTE_COLORS = 64
-TEXTURE_BODY_HEIGHT = 200  # unchanged runtime contract
+NATIVE_BODY_HEIGHT = crunch_mod.ACTIVE.native_rows
+PALETTE_COLORS = crunch_mod.ACTIVE.colors
+TEXTURE_BODY_HEIGHT = crunch_mod.TEXTURE_BODY_HEIGHT  # unchanged runtime contract
 
 
 def pixelize_figure_v7(figure: Image.Image, crop_to_alpha: bool = True) -> Image.Image:
-    """V3 pixelize_figure with the V7 crunch parameters."""
-    pixels = np.asarray(figure.convert("RGBA")).copy()
-    pixels[pixels[..., 3] < 16] = 0
-    figure = Image.fromarray(pixels, "RGBA")
-    if crop_to_alpha:
-        bbox = figure.getchannel("A").getbbox()
-        if bbox is None:
-            raise RuntimeError("Generated figure has no opaque subject")
-        figure = figure.crop(bbox)
-    native_width = max(1, round(figure.width * NATIVE_BODY_HEIGHT / figure.height))
-    native = raster.premultiplied_resize(figure, (native_width, NATIVE_BODY_HEIGHT))
-    alpha = native.getchannel("A")
+    """The crunch every installer monkey-patches onto `raster.pixelize_figure`.
 
-    # Build the 64-color ramp from opaque figure pixels only; quantizing the
-    # whole canvas lets the transparent-black field waste palette entries and
-    # collapse minority hues (skin, shirt) into the dominant coat colors.
-    pixels = np.asarray(native)
-    opaque = pixels[pixels[..., 3] > 0][:, :3]
-    palette_source = Image.fromarray(opaque.reshape((1, -1, 3)), "RGB")
-    palette = palette_source.quantize(
-        colors=PALETTE_COLORS,
-        method=Image.Quantize.MEDIANCUT,
-        dither=Image.Dither.NONE,
-    )
-    limited_rgb = native.convert("RGB").quantize(
-        palette=palette, dither=Image.Dither.NONE
-    ).convert("RGB")
-    native = Image.merge("RGBA", (*limited_rgb.split(), alpha))
-    texture_width = max(1, round(native_width * TEXTURE_BODY_HEIGHT / NATIVE_BODY_HEIGHT))
-    return native.resize((texture_width, TEXTURE_BODY_HEIGHT), Image.Resampling.NEAREST)
+    Kept under this name because six scripts import it; the implementation now
+    lives in `crunch.py` and follows whatever `crunch.ACTIVE` is (V14 today).
+    """
+    return crunch_mod.crunch(figure, crop_to_alpha=crop_to_alpha)
 
 
 def save_frame_v7(frame: Image.Image, atlas_name: str, filename: str, source_dir: Path) -> None:
     """As v6.save_frame, but registered masters land in Registered_v07."""
+    # Palette last: see crunch.finalise.
+    frame = crunch_mod.finalise(frame)
     registered_dir = source_dir / "Registered_v07"
     registered_dir.mkdir(parents=True, exist_ok=True)
     atlas = ATLASES / atlas_name

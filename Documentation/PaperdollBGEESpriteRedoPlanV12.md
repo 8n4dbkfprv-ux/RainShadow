@@ -73,7 +73,7 @@ python3 ArtSource/Processing/generate_voss_seat_qa_v12.py
 - Stand-up frame 00 matches the seated neutral; 01–03 plant the feet and lean forward; 04–07 lift and rise; 08–10 straighten; frame 11 matches the same direction's standing idle. Sit-down is the exact reverse of this clip, not independently authored.
 - Voss cells never contain chair pixels. `office_desk_chair` is the sole chair owner and stays visible through seated idle, stand-up, sit-down, egress, and walking.
 - Runtime selects one complete NE or SE seat set atomically. It carries that visual direction through the endpoint handoff; the primary NE set finishes through the mirrored-NW standing-idle selector.
-- SpriteKit retains the fixed 232×232 node, scale 1, existing anchor/offsets, and 0.13-second transition frame timing.
+- SpriteKit retains the fixed 180×180 node (`OfficeInteriorScale.ActorDisplay.spriteDisplaySize`; 232 survives only as `previousSpriteDisplayHeight` for deriving legacy offsets), scale 1, existing anchor/offsets, and 0.13-second transition frame timing.
 
 ## 8. Corrected V12 scale and validation pipeline
 

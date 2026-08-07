@@ -13,6 +13,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+import crunch as crunch_mod
 import process_pre_rendered_characters_v3 as raster
 from process_pre_rendered_characters_v7 import pixelize_figure_v7
 
@@ -37,8 +38,8 @@ TRANS_ATLAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Atlases" / "Vo
 OFFICE = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 
 FRAME = raster.FRAME_SIZE
-NATIVE_BODY_HEIGHT = 80  # V7
-TEXTURE_BODY_HEIGHT = 200
+NATIVE_BODY_HEIGHT = crunch_mod.ACTIVE.native_rows
+TEXTURE_BODY_HEIGHT = crunch_mod.TEXTURE_BODY_HEIGHT
 FOOT_Y = raster.FOOT_Y
 
 # Same crunch as process_pre_rendered_characters_v7 (standing/walk atlases).
@@ -125,45 +126,15 @@ def head_width(im: Image.Image, threshold: int = 40) -> int:
 
 
 def pixelize_shared(figure: Image.Image, reference_height: int) -> Image.Image:
-    """V7 crunch with a fixed source→native scale (no per-frame height normalize).
+    """The crunch with a fixed source→native scale (no per-frame height normalize).
 
-    `reference_height` source pixels map to NATIVE_BODY_HEIGHT, then nearest-up
-    to texture. Crouched frames stay shorter on the canvas; head size stays
-    locked to the standing-end reference so sit/stand-up do not look oversized.
+    `reference_height` source pixels map to the spec's native rows, then
+    nearest-up to texture. Crouched frames stay shorter on the canvas; head size
+    stays locked to the standing-end reference so sit/stand-up do not look
+    oversized. This used to be a second copy of the crunch with its own
+    hardcoded palette size; it is now the same code path with one argument set.
     """
-    pixels = np.asarray(figure.convert("RGBA")).copy()
-    pixels[pixels[..., 3] < 16] = 0
-    figure = Image.fromarray(pixels, "RGBA")
-    bbox = figure.getchannel("A").getbbox()
-    if bbox is None:
-        raise RuntimeError("Figure has no opaque subject")
-    figure = figure.crop(bbox)
-
-    ref_h = max(1, reference_height)
-    native_h = max(1, round(figure.height * NATIVE_BODY_HEIGHT / ref_h))
-    native_w = max(1, round(figure.width * NATIVE_BODY_HEIGHT / ref_h))
-    native = raster.premultiplied_resize(figure, (native_w, native_h))
-    alpha = native.getchannel("A")
-
-    opaque = np.asarray(native)
-    opaque_rgb = opaque[opaque[..., 3] > 0][:, :3]
-    if len(opaque_rgb) == 0:
-        raise RuntimeError("Figure has no opaque pixels after resize")
-    palette_source = Image.fromarray(opaque_rgb.reshape((1, -1, 3)), "RGB")
-    palette = palette_source.quantize(
-        colors=64,
-        method=Image.Quantize.MEDIANCUT,
-        dither=Image.Dither.NONE,
-    )
-    limited_rgb = (
-        native.convert("RGB")
-        .quantize(palette=palette, dither=Image.Dither.NONE)
-        .convert("RGB")
-    )
-    native = Image.merge("RGBA", (*limited_rgb.split(), alpha))
-    texture_h = max(1, round(native_h * TEXTURE_BODY_HEIGHT / NATIVE_BODY_HEIGHT))
-    texture_w = max(1, round(native_w * TEXTURE_BODY_HEIGHT / NATIVE_BODY_HEIGHT))
-    return native.resize((texture_w, texture_h), Image.Resampling.NEAREST)
+    return crunch_mod.crunch(figure, reference_height=reference_height)
 
 
 def lock_atlas_canvas(canvas: Image.Image) -> Image.Image:
