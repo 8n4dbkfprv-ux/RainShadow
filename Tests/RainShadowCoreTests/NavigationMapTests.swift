@@ -160,6 +160,58 @@ struct NavigationMapTests {
         #expect(actorMap.path(from: start, to: edge) == nil)
     }
 
+    /// The office must be one connected room at the *runtime* search-map
+    /// resolution, and every authored approach exactly reachable.
+    ///
+    /// `office_layout_plan.py` validates its own 128x64 iso grid, which is 2.6x
+    /// coarser across and 1.7x taller than the 16x12 world cells the game
+    /// actually rasterises to. It once certified ALL CHECKS PASS on a layout
+    /// where the detective could reach 174 of 4,694 walkable cells and could not
+    /// reach the office door at all — the boundary solids overhung their cells
+    /// and ate the floor, and the two partition jambs pinched the doorway shut.
+    /// Nothing in Swift caught it because every test used `route`, which snaps to
+    /// the nearest *reachable* point and so passes inside any pocket.
+    ///
+    /// This asserts the thing the planner cannot: connectivity as shipped.
+    @Test func officeFloorIsOneConnectedRoomAtRuntimeResolution() {
+        for doorBlocking in [true, false] {
+            let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: doorBlocking)
+            let search = map.searchMap
+            let radius = NavigationAgentProfile.officeDetective.radius
+
+            var visited = Set<SearchMapCell>()
+            var queue = [search.cell(for: OfficeNavigationLayout.actorStart)]
+            visited.insert(queue[0])
+            var index = 0
+            while index < queue.count {
+                let cell = queue[index]
+                index += 1
+                for (dx, dy) in [(1, 0), (0, 1), (-1, 0), (0, -1)] {
+                    let next = SearchMapCell(column: cell.column + dx, row: cell.row + dy)
+                    guard search.contains(next),
+                          !visited.contains(next),
+                          search.isPassable(at: search.center(of: next), radius: radius)
+                    else { continue }
+                    visited.insert(next)
+                    queue.append(next)
+                }
+            }
+
+            // The walkable floor is ~420 cells; 300 leaves room for prop tuning
+            // while still failing loudly on a re-seal (the regression was 174).
+            #expect(visited.count > 300)
+
+            // Exactly reachable, not merely snap-reachable: scenes issue interact
+            // approaches with `requiresExactDestination` and refuse a snapped one.
+            for (id, approach) in OfficeNavigationLayout.approachPoints {
+                #expect(
+                    map.path(from: OfficeNavigationLayout.actorStart, to: approach) != nil,
+                    "\(id) has no exact path with entranceDoorBlocking: \(doorBlocking)"
+                )
+            }
+        }
+    }
+
     @Test func everyOfficeHotspotApproachIsReachable() {
         let map = OfficeNavigationLayout.makeGrid()
 

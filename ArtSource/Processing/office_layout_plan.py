@@ -16,6 +16,7 @@ emit the Swift layout and a navigation report:
 
 from __future__ import annotations
 
+import math
 import sys
 from collections import deque
 from dataclasses import dataclass, field
@@ -289,6 +290,16 @@ def partition_cell_rect(x: float, y: float) -> tuple[float, float, float, float]
     )
 
 
+def _rect_clear_of_doorway(rect: tuple[float, float, float, float]) -> bool:
+    """True when no part of `rect` lies inside the painted doorway aperture."""
+    x, y, w, h = rect
+    bs = [
+        rp.authored_to_plan(px, py)[1]
+        for px, py in ((x, y), (x + w, y), (x, y + h), (x + w, y + h))
+    ]
+    return max(bs) < P.b_door0 or min(bs) > P.b_door1
+
+
 def partition_cell_rects() -> list[tuple[float, float, float, float]]:
     """Continuous partition barrier as overlapping tight AABBs; doorway open.
 
@@ -309,38 +320,26 @@ def partition_cell_rects() -> list[tuple[float, float, float, float]]:
         a_face - 0.008,
     )
     latch_nudge_b = 0.012
-    # Keep frost sealed, but leave a hair more clear aperture than the painted
-    # hole so segment-clear A* can cross the doorway cells. Without this pad,
-    # 40×20 partition AABBs clip the (17,13)↔(18,13) corridor and split the
-    # private office into disconnected components (chair-side start could not
-    # reach the window/door after moving the nav root off the far side of the
-    # desk). 0.01 plan-b ≈ one dense sample; leak checks still pass.
-    door_clear_pad = 0.01
     # 0.015·|AXIS_NE| ≈ 12px; dense enough that 40×20 AABBs cover frost cells
     # (the old 0.025 step left a walkable glass cell at b≈0.686).
     b_step = 0.015
     b = -0.03
     while b <= rp.B_ROOM + 0.03:
-        if (P.b_door0 - door_clear_pad) <= b <= (P.b_door1 + door_clear_pad):
-            b += b_step
-            continue
         bb = b + latch_nudge_b if b > P.b_door1 else b
         for a in a_samples:
             x, y = rp.authored(a, bb)
-            rects.append(partition_cell_rect(x, y))
+            rect = partition_cell_rect(x, y)
+            # Reject by the solid's own extent, not its centre. A 40×20 AABB
+            # spans ~0.04 in plan-b, so centre-testing let the two jamb solids
+            # bite ~8 world units each into a 21-unit aperture. The remaining
+            # slot cleared the planner's coarse grid but sealed on the runtime
+            # 16×12 search map, cutting the waiting side — and the office door
+            # with it — off from the desk. This also retires the hand-picked
+            # `sealed_doorway_cell` patch that was papering over one such cell.
+            if _rect_clear_of_doorway(rect):
+                rects.append(rect)
         b += b_step
-    # Drop the one latch-side AABB whose centre seals the scaled search-map
-    # doorway cell (officeDetective radius 3). Broadening door_clear_pad to
-    # remove its whole b-band also strips neighbouring frost and lets client
-    # arrival shortcut through prop AABBs.
-    sealed_doorway_cell = (2341.6, 1232.2, 48.9, 24.4)
-    return [
-        r for r in rects
-        if not (
-            abs(r[0] - sealed_doorway_cell[0]) < 0.5
-            and abs(r[1] - sealed_doorway_cell[1]) < 0.5
-        )
-    ]
+    return rects
 
 
 # Walkable floor, in plan units: wall stand-off at the rear and sides, and the
@@ -350,21 +349,83 @@ FLOOR_A = (0.045, rp.A_ROOM - 0.045)
 FLOOR_B = (0.040, rp.B_ROOM - 0.050)
 
 
-def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
-    """Solids for every navigation cell outside the painted floor.
+# The runtime search map rasterises obstacles against *world* cells of 16x12
+# (`SearchMap.defaultCellSize`), which in authored units is this. The planner's
+# own navigation grid is 128x64 iso diamonds — 2.6x coarser across and 1.7x
+# taller — and that mismatch is what let a boundary measure open here and come
+# out sealed in the game.
+RUNTIME_CELL = (16.0 / ENV, 12.0 / ENV)
 
-    Without these the 31x31 grid lets the detective walk through the rear walls
-    and off the camera-near edge; the cutaway wall used to fake part of this with
-    one screen-axis rectangle that no longer matches the wall's position.
+# Thickness of the sealing ring, in runtime cells. The office agent radius is 3
+# world units, well under one cell, so three cells cannot be clipped through.
+BOUNDARY_RING_CELLS = 3
+
+
+def _rect_clear_of_floor(rect: tuple[float, float, float, float]) -> bool:
+    """True when `rect` provably cannot touch the walkable floor.
+
+    The floor is the plan-space band FLOOR_A x FLOOR_B, and `authored_to_plan` is
+    affine, so each bound is a half-plane. A convex rect that violates one of them
+    at all four corners is separated from the floor — a conservative test, which
+    is what we want: it may leave a cell un-stamped, never stamp one that eats
+    floor.
     """
+    x, y, w, h = rect
+    plans = [
+        rp.authored_to_plan(px, py)
+        for px, py in ((x, y), (x + w, y), (x, y + h), (x + w, y + h))
+    ]
+    return (
+        all(p[0] < FLOOR_A[0] for p in plans)
+        or all(p[0] > FLOOR_A[1] for p in plans)
+        or all(p[1] < FLOOR_B[0] for p in plans)
+        or all(p[1] > FLOOR_B[1] for p in plans)
+    )
+
+
+def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
+    """A sealing ring of solids just outside the walkable floor.
+
+    This used to stamp one 104x52 AABB per *iso* cell outside the floor. Those
+    boxes approximate a 128x64 diamond, so each overhangs its neighbours by 40x20
+    and the union bit ~20x10 authored units into the floor on every edge. On the
+    planner's coarse grid that rounded away; on the runtime 16x12 grid it ate the
+    room, leaving 174 of 4694 walkable cells reachable and sealing the waiting
+    side off entirely.
+    """
+    cw, ch = RUNTIME_CELL
+    points = [cell_point(c, r) for c in range(31) for r in range(31)]
+    pad = (BOUNDARY_RING_CELLS + 1)
+    x0 = min(p[0] for p in points) - pad * cw
+    x1 = max(p[0] for p in points) + pad * cw
+    y0 = min(p[1] for p in points) - pad * ch
+    y1 = max(p[1] for p in points) + pad * ch
+
+    columns = int(math.ceil((x1 - x0) / cw))
+    rows = int(math.ceil((y1 - y0) / ch))
+
+    def rect_at(i: int, j: int) -> tuple[float, float, float, float]:
+        return (x0 + i * cw, y0 + j * ch, cw, ch)
+
+    clear = {
+        (i, j): _rect_clear_of_floor(rect_at(i, j))
+        for i in range(columns)
+        for j in range(rows)
+    }
+
+    # Only the band hugging the floor needs solids: everything beyond it is
+    # unreachable once the band is sealed, and stamping it would multiply both
+    # the emitted literal and the per-cell rasterisation cost for nothing.
+    span = range(-BOUNDARY_RING_CELLS, BOUNDARY_RING_CELLS + 1)
     rects = []
-    for c in range(31):
-        for r in range(31):
-            x, y = cell_point(c, r)
-            a, b = rp.authored_to_plan(x, y)
-            if FLOOR_A[0] <= a <= FLOOR_A[1] and FLOOR_B[0] <= b <= FLOOR_B[1]:
-                continue
-            rects.append(cell_rect(x, y))
+    for (i, j), is_clear in sorted(clear.items()):
+        if not is_clear:
+            continue
+        touches_floor = any(
+            not clear.get((i + di, j + dj), True) for di in span for dj in span
+        )
+        if touches_floor:
+            rects.append(rect_at(i, j))
     return rects
 
 
