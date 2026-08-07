@@ -20,6 +20,22 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         }
     }
 
+    /// BG-style regional world-map destination icon texture.
+    var worldMapIconTextureName: String {
+        "map_district_icon_\(slug)_v01"
+    }
+
+    /// Second line under the world-map icon label stack.
+    var worldMapShortType: String {
+        switch self {
+        case .sableRow: return "Ward"
+        case .wharfLadder: return "Docks"
+        case .riverside: return "Riverfront"
+        case .harborpointPD: return "Precinct"
+        case .lilaStreet: return "Street"
+        case .civicRecords: return "Archives"
+        }
+    }
 }
 
 enum CityTravelDestination: Equatable {
@@ -139,10 +155,10 @@ enum CityDistrictCatalog {
         actorStart: CGPoint(x: 1600, y: 90),
         spawnByArrivalKey: [
             "from.office": CGPoint(x: 1600, y: 90),
-            "from.north": CGPoint(x: 1024, y: 980),
+            "from.north": CGPoint(x: 968, y: 1134),
             "from.south": CGPoint(x: 1024, y: 140),
-            "from.east": CGPoint(x: 1880, y: 520),
-            "from.west": CGPoint(x: 160, y: 520)
+            "from.east": CGPoint(x: 1880, y: 585),
+            "from.west": CGPoint(x: 150, y: 545)
         ],
         visualSprites: [
             // Buildings: empty doorway apertures; door-anchored openings clear Harlan Voss (~1.15× adult).
@@ -214,7 +230,7 @@ enum CityDistrictCatalog {
             "from.east": CGPoint(x: 1880, y: 420),
             "from.south": CGPoint(x: 1024, y: 140),
             "from.north": CGPoint(x: 1024, y: 980),
-            "from.west": CGPoint(x: 160, y: 420)
+            "from.west": CGPoint(x: 140, y: 415)
         ],
         visualSprites: [
             .init(textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1100, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.shippingOffice, anchorY: 0.10, depthBias: 0),
@@ -240,7 +256,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.shippingOffice",
                 label: "SHIPPING",
-                approachPoint: CGPoint(x: 1050, y: 410),
+                approachPoint: CGPoint(x: 1050, y: 280),
                 hitArea: CGRect(x: 900, y: 320, width: 400, height: 300),
                 destination: .inspect,
                 requiresCityOpen: false,
@@ -287,7 +303,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.ironStairs",
                 label: "STAIRS",
-                approachPoint: CGPoint(x: 1150, y: 340),
+                approachPoint: CGPoint(x: 1145, y: 200),
                 hitArea: CGRect(x: 980, y: 220, width: 400, height: 300),
                 destination: .inspect,
                 requiresCityOpen: false,
@@ -307,11 +323,11 @@ enum CityDistrictCatalog {
         arrivalHint: "HARBORPOINT PD  •  Soft files cool faster than the rain.",
         groundTextureName: "city_harborpoint_pd_ground_v02",
         mapTextureName: "map_city_harborpoint_pd_v02",
-        actorStart: CGPoint(x: 1024, y: 980),
+        actorStart: CGPoint(x: 1015, y: 1060),
         spawnByArrivalKey: [
-            "from.north": CGPoint(x: 1024, y: 980),
+            "from.north": CGPoint(x: 1015, y: 1060),
             "from.west": CGPoint(x: 160, y: 420),
-            "from.east": CGPoint(x: 1880, y: 420),
+            "from.east": CGPoint(x: 1976, y: 414),
             "from.south": CGPoint(x: 1024, y: 140)
         ],
         visualSprites: [
@@ -336,7 +352,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.pdEntrance",
                 label: "STATION",
-                approachPoint: CGPoint(x: 1100, y: 490),
+                approachPoint: CGPoint(x: 1095, y: 340),
                 hitArea: CGRect(x: 920, y: 360, width: 460, height: 360),
                 destination: .inspect,
                 requiresCityOpen: false,
@@ -388,7 +404,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.lilaRooms",
                 label: "ROOMS",
-                approachPoint: CGPoint(x: 1200, y: 460),
+                approachPoint: CGPoint(x: 1190, y: 340),
                 hitArea: CGRect(x: 1020, y: 350, width: 400, height: 320),
                 destination: .inspect,
                 requiresCityOpen: false,
@@ -412,8 +428,8 @@ enum CityDistrictCatalog {
         spawnByArrivalKey: [
             "from.south": CGPoint(x: 1024, y: 140),
             "from.west": CGPoint(x: 160, y: 420),
-            "from.east": CGPoint(x: 1880, y: 420),
-            "from.north": CGPoint(x: 1024, y: 980)
+            "from.east": CGPoint(x: 1976, y: 414),
+            "from.north": CGPoint(x: 1015, y: 1025)
         ],
         visualSprites: [
             .init(textureName: "city_building_records_annex", groundPoint: CGPoint(x: 1200, y: 590), scale: CityDistrictLayout.BuildingDisplayScale.recordsAnnex, anchorY: 0.10, depthBias: 0),
@@ -437,7 +453,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.recordsEntrance",
                 label: "ANNEX",
-                approachPoint: CGPoint(x: 1140, y: 490),
+                approachPoint: CGPoint(x: 1145, y: 355),
                 hitArea: CGRect(x: 960, y: 360, width: 440, height: 340),
                 destination: .inspect,
                 requiresCityOpen: false,

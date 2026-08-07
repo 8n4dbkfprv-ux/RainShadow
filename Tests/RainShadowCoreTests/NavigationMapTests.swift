@@ -406,6 +406,41 @@ struct NavigationMapTests {
         #expect(map.path(from: start, to: start) == [])
     }
 
+    /// Every authored point a city district can put the detective on, or send him
+    /// to, must be somewhere he can actually stand.
+    ///
+    /// Harborpoint PD shipped with `actorStart`, its `from.north` arrival spawn,
+    /// and the STATION portal approach all *inside* the 820x680 station building —
+    /// arriving there left him in a wall with 1 of 5,795 cells reachable. Nothing
+    /// caught it because the district tests only checked landmarks via `route`,
+    /// which snaps to the nearest reachable point and so passes from anywhere.
+    @Test func everyCityDistrictSpawnAndApproachIsStandable() {
+        for id in CityDistrictID.allCases {
+            let district = CityDistrictCatalog.definition(for: id)
+            let map = district.makeGrid()
+            let radius = NavigationAgentProfile.detective.radius
+
+            #expect(
+                map.searchMap.isPassable(at: district.actorStart, radius: radius),
+                "\(id) actorStart \(district.actorStart) is not standable"
+            )
+            for (key, spawn) in district.spawnByArrivalKey {
+                #expect(
+                    map.searchMap.isPassable(at: spawn, radius: radius),
+                    "\(id) spawn \(key) \(spawn) is not standable"
+                )
+            }
+            // Portal approaches are issued with `requiresExactDestination`, so a
+            // snapped route is refused — they must path exactly.
+            for portal in district.portals {
+                #expect(
+                    map.path(from: district.actorStart, to: portal.approachPoint) != nil,
+                    "\(id) portal \(portal.id) approach \(portal.approachPoint) has no exact path"
+                )
+            }
+        }
+    }
+
     @Test func cityLandmarksAreReachableThroughStreetNetwork() {
         let map = CityDistrictLayout.makeGrid()
         for pointOfInterest in CityDistrictLayout.pointsOfInterest {
