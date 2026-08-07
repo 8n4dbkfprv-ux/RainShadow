@@ -124,6 +124,8 @@ Three consequences worth stating plainly:
 | Group stop / cancel route affordance (UI + input) | **Partial** — cancel shipped; dedicated IE Stop UI is P1 |
 | Multi-select, party portraits as formation order | **UI chrome only** (party rail assets); no multi-actor runtime |
 | Formations / destination facing drag | **Not shipped** |
+| Anisotropic agent footprint (BG stamps `circleSize` in cell space = a 16:12 ellipse) | **Not shipped** — `NavigationAgentProfile.radius` collapses `halfWidth`/`halfHeight` with `max()`, so the city profile (16×4) acts as 16×16 and costs 12–20% of street per district. Narrowing, not blocking; see [Pathfinding](PathfindingSystem.md) §Divergences |
+| Per-creature movement rate (`IE_MOVEMENTRATE` / `moverate.2da`) | **Not shipped** — one `walkSpeed` for every actor |
 | Encumbrance / Haste-style speed modifiers | **Not shipped** |
 | Fatigue / rest-linked movement | **Not shipped** |
 

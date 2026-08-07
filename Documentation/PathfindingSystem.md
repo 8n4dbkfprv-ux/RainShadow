@@ -206,7 +206,8 @@ The client NPC (Lila) has been migrated off authored polylines and `SKAction.mov
 | Store an authored polyline as the NPC's path | Breaks the instant a door, prop, or actor changes state |
 | Skip occupancy registration for "background" NPCs | The player and other NPCs will path straight through them |
 | Treat an idle NPC as a hard blocker | Produces the doorway soft-locks this rewrite exists to avoid |
-| Call `path` for player click resolution | Player taps need `route`'s destination adjustment and reachable fallback |
+| Call `route` for player click resolution | It snaps to the nearest *reachable* point, so a click on unreachable ground silently walks somewhere else. Floor clicks use `pathAvoidingActors` → `path` and refuse honestly, as the engine does |
+| Use `route` to test whether somewhere is reachable | Same reason, and it is why three separate sealed-geometry bugs shipped green. See "Measuring reachability" below |
 | Re-derive a nav map to change one obstacle | Doors and dynamic geometry stamp in place |
 
 ### Scripted beats versus reactive movement
@@ -218,6 +219,69 @@ Both go through the pathfinder; they differ only in when the path is requested. 
 `Tests/RainShadowCoreTests/NavigationMapTests.swift` replaced `NavigationGridTests` and holds the full invariant set: any-angle shortcutting, corner-cut rejection, thin-obstacle rejection under a real footprint, boundary-as-solid, bounded fallback rings, disconnected-destination fallback, already-there versus unreachable, node-budget cutoff, `minDistance`, actor hard-blocking, bump sidestep, congestion back-off, in-place door stamping, and the office/city layout reachability suites. `OfficeInteriorScaleTests` and `OfficeClientVisitSequencerTests` were updated to the `route`/`path` split described above.
 
 Build and test commands are macOS-only; see the [repository README](../README.md) under "Verification". Use the documented `/tmp` scratch path when running `swift test` to avoid Finder-metadata codesigning failures on the test bundle.
+
+## Measuring reachability
+
+`route` is the wrong instrument. It flood-fills to the nearest reachable cell and
+returns a path there, so it succeeds from inside a sealed pocket — or inside a
+building — and reports nothing wrong. Three shipped bugs hid behind it: the office
+floor sealed to 174 of 4,694 cells, the office door unreachable, and Harborpoint PD
+spawning the detective inside an 820×680 station with 1 of 5,795 cells reachable.
+Every test covering those areas passed the whole time.
+
+To actually measure, flood-fill the **runtime** search map and demand exact paths:
+
+```swift
+let search = someLayout.makeGrid().searchMap
+var visited: Set<SearchMapCell> = [search.cell(for: actorStart)]
+// 4-connected expansion over search.isPassable(at: center, radius: profile.radius)
+```
+
+`officeFloorIsOneConnectedRoomAtRuntimeResolution` and
+`everyCityDistrictSpawnAndApproachIsStandable` (both in `NavigationMapTests`) are
+the shape to copy for any new area. Assert connected cell count *and*
+`path(...) != nil` for every authored approach — scenes issue approaches with
+`requiresExactDestination` and refuse a snapped one, so a merely route-reachable
+approach is a broken interaction.
+
+For a visual, capture the plate with `RAINSHADOW_START_SCENE=office
+RAINSHADOW_CAPTURE=<path> RAINSHADOW_CAPTURE_MODE=room`; the crop equals
+`navigationWorldBounds`, so a cell grid overlays onto it linearly.
+
+## Divergences from the Infinity Engine
+
+Deliberate. Do not "fix" these without a decision:
+
+| | Engine | Here | Why |
+|---|---|---|---|
+| Step quantisation | per-axis `ceil()` to whole pixels each tick | float positions | Our world units are ~2× denser than BG pixels; quantising reads as stair-stepping, not texture |
+| Camera | free by default | follows, detaches on any manual scroll | One detective is easier to lose than six portraits |
+| Unroutable waypoint | silently dropped | shows the blocked marker | Refusals should be legible |
+| Corrective repath | `Actor::NewPath` rebuilds to `Destination`, destroying queued waypoints | re-appends later goals | BG's behaviour here is a bug |
+| Appended leg planning | bare `FindPath`, actors ignored | same | Matched deliberately — a blocker will have moved by the time a later leg is walked. Not an oversight to tidy up |
+
+Known gaps, in priority order:
+
+- **Agent footprints are discs, not ellipses.** `NavigationAgentProfile` stores
+  `halfWidth`/`halfHeight`, then `radius` collapses them with `max()`. BG stamps
+  `circleSize` in *cell* space, which is a 16:12 ellipse in world space. The city
+  profile (16×4) therefore behaves as 16×16 and costs 12–20% of street per
+  district — 697 to 1,061 cells. Every district stays connected, so this is
+  narrowing, not blocking. Fixing it means threading half-extents through six
+  `SearchMap` entry points and every caller.
+- Search-map flags model passability, doors, and actors only. BG's `TRAVEL`,
+  `NO_SEE`, `SIDEWALL`, `DOOR_OPAQUE` and footstep material are absent. `TRAVEL`
+  is how BG triggers area transitions; we use hotspot and edge-exit rects instead.
+- One speed for every actor. BG reads `IE_MOVEMENTRATE` per creature from
+  `moverate.2da`.
+
+Two things that look like divergences and are not — do not add them:
+
+- **`WalkTo`'s 2-tick rate limit.** Its own comment says it exists because the
+  function "is called at each tick if an actor is following another actor". We have
+  no follow AI, so there is nothing to rate-limit.
+- **The `pathAbandoned` latch.** BG uses it so the next `WalkTo` clears rather than
+  resumes a given-up path. We cancel movement outright, which is equivalent.
 
 ## Known limits
 

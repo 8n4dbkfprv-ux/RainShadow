@@ -107,3 +107,58 @@ The atlases are deterministic. After any pipeline edit, run the full sequence an
 hash-compare against a snapshot taken before it. A change intended to be inert must
 come back 233/233 identical. This caught an auto-detection heuristic that silently
 diverged 86 of 233 frames.
+
+## Navigation authoring — traps that cost real time
+
+Read this before touching `ArtSource/Processing/office_layout_plan.py`,
+`CityDistrictCatalog.swift`, or anything that authors a nav point. Every item
+below is a bug that actually shipped, and each one shipped with a green suite.
+
+### `route` hides broken geometry — never test reachability with it
+
+`NavigationMap.route` flood-fills to the nearest *reachable* cell and paths there.
+It therefore succeeds from inside a sealed pocket, or from inside a building, and
+reports nothing wrong. Three bugs lived behind it:
+
+- the office floor sealed to **174 of 4,694** walkable cells,
+- the office door with **no exact path**, so the exit to the city was unclickable,
+- Harborpoint PD spawning the detective **inside an 820×680 station**, 1 of 5,795
+  cells reachable, on a district reachable from the world map.
+
+Use `path` (honest `nil`) and flood-fill the runtime search map. See "Measuring
+reachability" in `Documentation/PathfindingSystem.md`.
+
+### The layout planner validates a different grid than the game runs
+
+`office_layout_plan.py` checks its own **128×64 iso** grid. `SearchMap` rasterises
+what it emits onto **16×12 world** cells — 2.6× finer across, 1.7× taller.
+Geometry that rounds away in the planner is solid at runtime, and the planner
+printed `ALL CHECKS PASS` throughout the sealed-office bug.
+
+Two consequences, both fixed by testing a solid's **extent** rather than its centre:
+
+- Boundary solids were one 104×52 AABB per iso cell outside the floor. Those
+  approximate a 128×64 diamond, so each overhung its neighbours by 40×20 and the
+  union bit ~20×10 authored units into the floor on every edge.
+- The partition doorway was cleared by centre, so the two jamb AABBs still bit
+  ~8 world units each into a 21-unit aperture.
+
+If you add solids, reject by corners. Conservative is correct: better to leave a
+cell unstamped than to eat floor.
+
+### Do not round hand-authored nav coordinates
+
+Obstacles rasterise **by cell centre** on a 16×12 grid, so moving a point one unit
+can drop it into a blocked cell. Three city spawns failed re-validation purely
+because tidy numbers were substituted for computed ones. Take what
+`nearestWalkablePoint` gives you.
+
+### Door and portal approach points go on the street, not at the door
+
+All five city portal approaches were authored at the door **sprite's** coordinate.
+The sprite is painted on the facade, so its position is inside the building's
+obstacle, and every approach was unreachable. Approaches belong on the walkable
+side the door faces — camera-near, ~120–150 units out in the shipped districts.
+
+Interactions are issued with `requiresExactDestination`, so scenes refuse a snapped
+approach. "Route-reachable" is not good enough for an approach point.
