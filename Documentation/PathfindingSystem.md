@@ -150,6 +150,17 @@ Everything after step 1 is gated on the world not being paused, so modal dialogu
 
 Each scene holds `queuedMovementGoals` — the ordered player goals (BG:EE waypoint queue), as distinct from the current pathfinder waypoint list — because corrective repathing needs the original intent, not the truncated tail of the active route. Plain click / tap replaces the queue; Shift+click (macOS) or long-press (iOS) appends a goal routed from the last queued point.
 
+### Waypoint queue rules (from `Movable::AddWayPoint`)
+
+- **Append from the last node, not the actor.** Legs chain end-to-end, so the queue survives the actor being anywhere along the current leg.
+- **An append with nothing to append to is a plain move.** BG guards with `if (!path) { WalkTo(Des); return; }`; scenes check `queuedMovementGoals.isEmpty`.
+- **An empty leg is not a waypoint.** The three-valued search returns `[]` for "already there", which must be rejected rather than queued — BG notes "if the waypoint is too close to the current position, no path is generated". Queueing it would leave a goal with no waypoints behind it and a pip nothing consumes. No blocked marker: the ground is walkable, the order is simply empty.
+- **Appended legs ignore actors.** `AddWayPoint` calls bare `FindPath` where `WalkTo` passes `PF_SIGHT | PF_ACTORS_ARE_BLOCKING`. The asymmetry is deliberate — whoever is in the way now will have moved before a later leg is walked. Scenes mirror it: `pathAvoidingActors` → `path` for a fresh order, plain `path` for an append.
+- **A plain click wipes the queue**, as `actor->Stop()` clears the whole path.
+- **Every goal is marked on the ground, including the last.** `DrawTargetReticles` draws a reticle per waypoint node and then unconditionally at `Destination` ("always draw last step"), so both the replace and the append path place a pip.
+
+RainShadow deliberately diverges from the engine twice here. A waypoint that cannot be routed shows the blocked marker instead of being silently dropped; and corrective repathing re-appends later goals, where BG's `Actor::NewPath` rebuilds the path to `Destination` and destroys intermediate waypoints outright.
+
 ## Agent profiles
 
 `NavigationAgentProfile` separates planning clearance from the selection/display footprint. Radius is the larger half-extent, so anisotropic footprints still clear narrow gaps conservatively.

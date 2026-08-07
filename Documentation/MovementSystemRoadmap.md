@@ -103,7 +103,8 @@ Three consequences worth stating plainly:
 | Randomised backoff wait when a blocker cannot be bumped | **Shipped** (`beginMovementBackoff`) |
 | Abandon rather than shove when already near the goal | **Shipped** (`bumpAbandonDistance`) |
 | Move-order ground feedback (`ui_move_marker_*` / blocked) | **Shipped** (painted 8-frame loop; coded ellipse fallback) |
-| BG:EE waypoint queue — Shift+click (macOS) / long-press (iOS) via `appendRoute` | **Shipped** (`queuedMovementGoals` + `ui_waypoint_pip`) |
+| BG:EE waypoint queue — Shift+click (macOS) / long-press (iOS) via `appendRoute` | **Shipped** (`queuedMovementGoals` + `ui_waypoint_pip`); audited against `Movable::AddWayPoint`, see [Pathfinding](PathfindingSystem.md) for the rule list |
+| Ground marker on every queued goal **and** the destination (`DrawTargetReticles`) | **Shipped** |
 | Actor occupancy stamping (PC/NPC bits) for every floor actor | **Shipped** (`ActorOccupancy`) |
 | Bumpable idle actors: sidestep-and-return on contact | **Shipped** |
 | Replan budget — abandon the goal after N consecutive failed searches | **Shipped** (`recordCongestion` / `maxCongestionRetries` = 8, mirroring `Actor::NewPath`'s `MAX_PATH_TRIES`; reset on every new order as `WalkTo` resets `pathTries`) |

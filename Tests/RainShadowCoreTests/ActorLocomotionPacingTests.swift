@@ -244,6 +244,48 @@ struct ActorLocomotionPacingTests {
         #expect(!client.contains("body.xScale = -"))
     }
 
+    @Test func waypointQueueFollowsAddWayPoint() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+
+        // Both scenes implement the queue identically; neither may drift.
+        for relativePath in [
+            "RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift",
+            "RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift"
+        ] {
+            let scene = try String(
+                contentsOf: root.appendingPathComponent(relativePath),
+                encoding: .utf8
+            )
+
+            // `Movable::AddWayPoint` paths from the last node of the existing
+            // path, not from the actor, so legs chain end-to-end.
+            #expect(scene.contains("guard let origin = queuedMovementGoals.last"))
+            #expect(scene.contains("navigation.path(from: origin, to: target)"))
+
+            // An empty leg is "already there", not a route. BG returns without
+            // appending; queueing it would leave a goal with no waypoints behind it.
+            #expect(scene.contains("guard !waypoints.isEmpty else { return }"))
+
+            // `DrawTargetReticles` marks every queued waypoint *and* always the
+            // destination — so both the replace and the append path pip.
+            let pips = scene.components(separatedBy: "showWaypointPip(at: target)").count - 1
+            #expect(pips == 2)
+
+            // A plain click wipes the queue, as `actor->Stop()` clears the path.
+            #expect(scene.contains("queuedMovementGoals = [target]"))
+            #expect(scene.contains("clearWaypointPips()"))
+
+            // Appended legs are planned without actors blocking, unlike a fresh
+            // order: `AddWayPoint` calls bare `FindPath` where `WalkTo` passes
+            // PF_SIGHT | PF_ACTORS_ARE_BLOCKING. The asymmetry is deliberate —
+            // a blocker will have moved by the time a later leg is walked.
+            #expect(scene.contains("navigation.pathAvoidingActors"))
+        }
+    }
+
     @Test func viewportImplementsTheInfinityEngineCameraModel() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()

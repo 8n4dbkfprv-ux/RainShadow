@@ -1420,6 +1420,12 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         clearWaypointPips()
         showMovementFeedback(at: target, isValid: true)
+        // BG draws a reticle at every queued waypoint *and* unconditionally at
+        // the destination — `DrawTargetReticles` ends with "always draw last
+        // step". Without this the primary goal only ever got the transient
+        // move marker, so once it faded there was nothing on the ground saying
+        // where the detective was ultimately headed.
+        showWaypointPip(at: target)
         // A fresh order restarts the replan budget, as `Actor::WalkTo` resets
         // `pathTries` before planning.
         navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
@@ -1439,6 +1445,15 @@ final class DetectiveOfficeScene: BaseGameScene {
             showMovementFeedback(at: target, isValid: false)
             return
         }
+        // `[]` is the three-valued search's "already there", not a route. BG's
+        // `AddWayPoint` returns without appending in exactly this case — "if the
+        // waypoint is too close to the current position, no path is generated" —
+        // and it has to be rejected explicitly here, or the queue gains a goal
+        // the route has no waypoints for and a pip nothing will consume.
+        //
+        // No blocked marker: the ground is walkable, the order is simply empty.
+        guard !waypoints.isEmpty else { return }
+
         showMovementFeedback(at: target, isValid: true)
         showWaypointPip(at: target)
         queuedMovementGoals.append(target)
