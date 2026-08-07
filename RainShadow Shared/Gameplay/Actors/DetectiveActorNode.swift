@@ -58,14 +58,20 @@ final class DetectiveActorNode: SKNode {
     private static let frameDisplaySizeConstant = OfficeInteriorScale.ActorDisplay.spriteDisplaySize
     private static let spriteScale = OfficeInteriorScale.ActorDisplay.spriteScale
     private var facing: ActorFacing = .northEast
+    /// The engine's `NewOrientation`: a facing the actor is rotating toward one
+    /// bin per tick while standing. Nil once the turn completes.
+    private var pendingFacing: ActorFacing?
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
     private var needsSeatEgress = true
     private var routeFollower = RouteFollower()
     private var movementCompletion: (() -> Void)?
     private var lastLocomotionUpdateTime: TimeInterval?
-    private var walkFrameAccumulator: TimeInterval = 0
+    private var tickClock = LogicTickClock()
     private var walkFrameIndex = 0
+    /// Ticks left in a `Movable::Backoff` wait. The route is kept intact; only
+    /// stepping is suspended, so the walk resumes on the same path.
+    private var backoffTicksRemaining = 0
 
     /// True while the body is still registered to the chair (idle or sitting down).
     /// Used by the office scene to cancel the elevated nav-root in Y-depth sorting.
@@ -385,6 +391,16 @@ final class DetectiveActorNode: SKNode {
         pendingWalk?.path.last ?? routeFollower.destination
     }
 
+    /// Unit screen-space heading toward the next waypoint, `.zero` when idle.
+    /// Used for the engine's along-the-path collision probe, which looks ahead
+    /// of the mover rather than around it.
+    var currentHeading: CGVector {
+        let look = routeFollower.lookAheadVector(from: position, minimumDistance: 1)
+        let length = hypot(look.dx, look.dy)
+        guard length > CGFloat.ulpOfOne else { return .zero }
+        return CGVector(dx: look.dx / length, dy: look.dy / length)
+    }
+
     /// True while a replace or append walk order is active (including seat-egress / stand-up wait).
     var isLocomoting: Bool {
         pendingWalk != nil || routeFollower.isMoving || state == .walking
@@ -414,16 +430,17 @@ final class DetectiveActorNode: SKNode {
         return routeFollower.remainingPathLength(from: position)
     }
 
-    /// Advances root motion and the walk cycle from the scene clock. Calling
-    /// this while the world is paused intentionally refreshes the timestamp but
-    /// spends no movement delta, so opening a modal cannot cause a resume jump.
+    /// Advances root motion, the walk cycle, and idle turning on the engine's
+    /// fixed 15 Hz logic tick. Calling this while the world is paused
+    /// intentionally refreshes the timestamp but spends no movement delta, so
+    /// opening a modal cannot cause a resume jump.
+    ///
+    /// Everything happens per tick rather than per rendered frame, mirroring
+    /// `Movable::DoStep`: one displacement and one animation frame per tick,
+    /// which is why the gait cannot drift against distance travelled.
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
         defer { lastLocomotionUpdateTime = currentTime }
-        guard !worldIsPaused,
-              state == .walking,
-              let previousTime = lastLocomotionUpdateTime else {
-            return
-        }
+        guard !worldIsPaused, let previousTime = lastLocomotionUpdateTime else { return }
 
         let deltaTime = min(
             max(0, currentTime - previousTime),
@@ -431,9 +448,45 @@ final class DetectiveActorNode: SKNode {
         )
         guard deltaTime > 0 else { return }
 
+        for _ in 0..<tickClock.drain(deltaTime: deltaTime) {
+            switch state {
+            case .walking:
+                advanceWalkTick()
+                // Arrival can fire a completion that starts a scene transition;
+                // stop spending ticks the moment we are no longer walking.
+                if state != .walking { return }
+            case .standingIdle:
+                advanceIdleTurnTick()
+            case .seatedIdle, .standingUp, .sittingDown:
+                return
+            }
+        }
+    }
+
+    /// BG:EE `Movable::Backoff`. When a blocker cannot be bumped the engine
+    /// drops to a ready stance and waits a *random* number of ticks before
+    /// trying the same step again — GemRB describes the scheme as "inspired by
+    /// network media access control algorithms": two actors that block each
+    /// other draw different waits and so cannot deadlock in lockstep.
+    ///
+    /// The route is deliberately left intact; this is a pause, not a cancel.
+    func beginMovementBackoff(ticks: Int) {
+        guard state == .walking, backoffTicksRemaining == 0 else { return }
+        backoffTicksRemaining = max(1, ticks)
+        stopWalkAnimation()
+    }
+
+    var isBackingOff: Bool { backoffTicksRemaining > 0 }
+
+    private func advanceWalkTick() {
+        if backoffTicksRemaining > 0 {
+            backoffTicksRemaining -= 1
+            return
+        }
+
         let step = routeFollower.advance(
             from: position,
-            deltaTime: deltaTime,
+            deltaTime: LogicTickClock.tickDuration,
             speed: ActorLocomotionPacing.walkSpeed
         )
         position = step.position
@@ -447,11 +500,45 @@ final class DetectiveActorNode: SKNode {
             } else {
                 setFacing(dx: step.direction.dx, dy: step.direction.dy)
             }
-            advanceWalkAnimation(by: deltaTime)
+            advanceWalkFrame()
         }
         if step.didArrive {
             finishWalking()
         }
+    }
+
+    /// One 22.5° bin per tick toward `pendingFacing`, the engine's gradual turn
+    /// for standing creatures. The breath loop is suspended for the duration so
+    /// it does not fight the per-bin texture swap, then restarted on arrival.
+    private func advanceIdleTurnTick() {
+        guard let pending = pendingFacing else { return }
+        guard facing != pending else {
+            pendingFacing = nil
+            return
+        }
+
+        body.removeAction(forKey: "standingIdle")
+        facing = facing.stepped(toward: pending)
+        applyStandingIdleTexture()
+
+        if facing == pending {
+            pendingFacing = nil
+            startStandingIdle()
+        }
+    }
+
+    /// Requests the engine's "slow" orientation change toward a world point —
+    /// `Movable::SetOrientation(..., slow: true)`, which BG uses when a
+    /// conversation starts and when you click the tile you already occupy.
+    /// Ignored unless standing: a walking creature takes its facing from the path.
+    func turnToFace(_ point: CGPoint) {
+        guard state == .standingIdle else { return }
+        let dx = point.x - position.x
+        let dy = point.y - position.y
+        guard dx != 0 || dy != 0 else { return }
+
+        let target = ActorFacing.resolve(dx: dx, dy: dy, retaining: facing, hysteresis: 0)
+        pendingFacing = target == facing ? nil : target
     }
 
     /// BG-style Stop/right-click behavior. A cancelled approach never invokes
@@ -459,6 +546,7 @@ final class DetectiveActorNode: SKNode {
     func cancelMovement() {
         pendingWalk = nil
         routeFollower.cancel()
+        backoffTicksRemaining = 0
         movementCompletion = nil
 
         switch state {
@@ -499,6 +587,9 @@ final class DetectiveActorNode: SKNode {
         routeFollower.cancel()
         movementCompletion = nil
         lastLocomotionUpdateTime = nil
+        pendingFacing = nil
+        backoffTicksRemaining = 0
+        tickClock.reset()
         needsSeatEgress = false
         state = .standingIdle
         body.position = .zero
@@ -567,6 +658,7 @@ final class DetectiveActorNode: SKNode {
 
     private func finishWalking() {
         routeFollower.cancel()
+        backoffTicksRemaining = 0
         stopWalkAnimation()
         state = .standingIdle
         startStandingIdle()
@@ -831,9 +923,13 @@ final class DetectiveActorNode: SKNode {
         }
     }
 
+    /// Walking facing, which snaps — `DoStep` assigns the path node's
+    /// orientation with `slow: false`, setting current and pending together, so
+    /// any queued gradual turn is superseded.
     private func setFacing(dx: CGFloat, dy: CGFloat) {
         let nextFacing = ActorFacing.resolve(dx: dx, dy: dy, retaining: facing)
         facing = nextFacing
+        pendingFacing = nil
         applyWalkTexture()
     }
 
@@ -847,18 +943,16 @@ final class DetectiveActorNode: SKNode {
         assertFrameDisplaySizes()
     }
 
-    private func advanceWalkAnimation(by deltaTime: TimeInterval) {
+    /// Exactly one authored frame per logic tick, as the engine advances a
+    /// creature animation inside `DoStep`. There is deliberately no accumulator:
+    /// sharing the movement tick is what keeps the cycle locked to travel.
+    private func advanceWalkFrame() {
         guard let textures = walkTextures[facing], !textures.isEmpty else { return }
-        walkFrameAccumulator += deltaTime
-        while walkFrameAccumulator >= ActorLocomotionPacing.walkCycleSecondsPerFrame {
-            walkFrameAccumulator -= ActorLocomotionPacing.walkCycleSecondsPerFrame
-            walkFrameIndex = (walkFrameIndex + 1) % textures.count
-        }
+        walkFrameIndex = (walkFrameIndex + 1) % textures.count
         applyWalkTexture()
     }
 
     private func stopWalkAnimation() {
-        walkFrameAccumulator = 0
         applyStandingIdleTexture()
         body.position.y = 0
         body.zRotation = 0

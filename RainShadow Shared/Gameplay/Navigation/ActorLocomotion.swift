@@ -43,13 +43,15 @@ struct RouteFollower {
         waypoints.removeAll(keepingCapacity: true)
     }
 
-    /// Polyline length from `position` through the remaining waypoints.
+    /// Polyline length from `position` through the remaining waypoints, in the
+    /// projected metric `advance` spends its budget against. Callers compare
+    /// this against a candidate route's length, so both must use one metric.
     func remainingPathLength(from position: CGPoint) -> CGFloat {
         guard let first = waypoints.first else { return 0 }
-        var length = distance(position, first)
+        var length = ActorLocomotionPacing.projectedDistance(from: position, to: first)
         var previous = first
         for point in waypoints.dropFirst() {
-            length += distance(previous, point)
+            length += ActorLocomotionPacing.projectedDistance(from: previous, to: point)
             previous = point
         }
         return length
@@ -100,7 +102,9 @@ struct RouteFollower {
         while travelBudget > 0, let target = waypoints.first {
             let dx = target.x - current.x
             let dy = target.y - current.y
-            let segmentDistance = hypot(dx, dy)
+            // Budget is spent in the engine's projected metric: vertical screen
+            // travel is foreshortened to 0.75, so it costs 1/0.75 as much.
+            let segmentDistance = ActorLocomotionPacing.projectedDistance(from: current, to: target)
 
             if segmentDistance <= CGFloat.ulpOfOne {
                 current = target
@@ -108,6 +112,9 @@ struct RouteFollower {
                 continue
             }
 
+            // Normalizing by the projected length reproduces `NormalizeDeltas`'
+            // squashed step vector — full rate east/west, 0.75 rate north/south —
+            // while still travelling straight at the waypoint, so arrivals stay exact.
             lastDirection = CGVector(dx: dx / segmentDistance, dy: dy / segmentDistance)
             if travelBudget >= segmentDistance {
                 current = target
@@ -188,6 +195,26 @@ enum ActorFacing: Int, CaseIterable {
         case .northNorthWest, .northNorthEast: ["nnw", "nw", "n"]
         case .north: ["n"]
         }
+    }
+
+    /// One step of the engine's gradual turn, mirroring GemRB `GetNextFace`.
+    ///
+    /// A standing Infinity Engine creature does not snap to a new orientation:
+    /// it rotates one 22.5° bin per logic tick, taking the shorter arc. At
+    /// 15 Hz a half-turn therefore takes 8 ticks, about 0.53 s. Walking
+    /// creatures snap instead — `DoStep` assigns the path node's orientation
+    /// outright — so this is only applied while standing.
+    ///
+    /// Ties (a clean 180°) resolve the same way the engine's `<= MAX_ORIENT / 2`
+    /// comparison does, toward increasing raw value.
+    func stepped(toward target: ActorFacing) -> ActorFacing {
+        guard self != target else { return self }
+        let count = Self.allCases.count
+        let forward = (target.rawValue - rawValue + count) % count
+        let next = forward <= count / 2
+            ? (rawValue + 1) % count
+            : (rawValue - 1 + count) % count
+        return ActorFacing(rawValue: next) ?? self
     }
 
     static func resolve(

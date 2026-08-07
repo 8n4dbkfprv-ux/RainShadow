@@ -20,6 +20,7 @@ final class ClientActorNode: SKNode {
 
     private var routeFollower = RouteFollower()
     private var lastLocomotionUpdateTime: TimeInterval?
+    private var tickClock = LogicTickClock()
     private var movementCompletion: (() -> Void)?
     private var activePath: [CGPoint] = []
     private var locomotionMode: LocomotionMode = .idle
@@ -126,6 +127,7 @@ final class ClientActorNode: SKNode {
         activePath = path
         movementCompletion = completion
         lastLocomotionUpdateTime = nil
+        tickClock.reset()
         routeFollower.replaceRoute(with: Array(path.dropFirst()), from: position)
         startArrivalWalkCycle()
         if !routeFollower.isMoving {
@@ -156,6 +158,7 @@ final class ClientActorNode: SKNode {
         activeDepartureBin = nil
         movementCompletion = completion
         lastLocomotionUpdateTime = nil
+        tickClock.reset()
         routeFollower.replaceRoute(with: Array(points.dropFirst()), from: start)
         startArrivalWalkCycle()
         if !routeFollower.isMoving {
@@ -239,6 +242,7 @@ final class ClientActorNode: SKNode {
         activeDepartureBin = nil
         movementCompletion = completion
         lastLocomotionUpdateTime = nil
+        tickClock.reset()
         routeFollower.replaceRoute(with: Array(points.dropFirst()), from: start)
 
         let expected = ActorLocomotionPacing.walkFramesPerCycle
@@ -337,23 +341,28 @@ final class ClientActorNode: SKNode {
             return
         }
 
-        let step = routeFollower.advance(
-            from: position,
-            deltaTime: deltaTime,
-            speed: ActorLocomotionPacing.walkSpeed
-        )
-        position = step.position
+        // Root motion runs on the engine's fixed logic tick; the fades above stay
+        // on wall-clock delta because they are presentation, not locomotion.
+        for _ in 0..<tickClock.drain(deltaTime: deltaTime) {
+            let step = routeFollower.advance(
+                from: position,
+                deltaTime: LogicTickClock.tickDuration,
+                speed: ActorLocomotionPacing.walkSpeed
+            )
+            position = step.position
 
-        if locomotionMode == .exit {
-            let fromIndex = max(0, activePath.count - routeFollower.waypoints.count - 1)
-            updateDepartureFacing(fromIndex: fromIndex)
-        }
-
-        if step.didArrive {
             if locomotionMode == .exit {
-                beginExitFade()
-            } else {
-                finishLocomotion()
+                let fromIndex = max(0, activePath.count - routeFollower.waypoints.count - 1)
+                updateDepartureFacing(fromIndex: fromIndex)
+            }
+
+            if step.didArrive {
+                if locomotionMode == .exit {
+                    beginExitFade()
+                } else {
+                    finishLocomotion()
+                }
+                return
             }
         }
     }

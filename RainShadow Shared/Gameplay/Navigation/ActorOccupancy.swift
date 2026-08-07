@@ -37,10 +37,16 @@ struct BumpRequest: Equatable, Sendable {
 /// Congested movers back off with a retry counter instead of repathing forever.
 final class ActorOccupancy {
     private(set) var actors: [String: OccupyingActor] = [:]
-    /// Consecutive failed advance attempts per mover id.
+    /// Consecutive *failed replans* toward the same goal, per mover id.
     private var congestionRetries: [String: Int] = [:]
 
-    /// After this many blocked steps the mover waits (backs off) instead of repathing.
+    /// Replan budget, mirroring GemRB's `MAX_PATH_TRIES` in `Actor::NewPath`:
+    /// past this many consecutive searches that found nothing, the mover
+    /// abandons its goal instead of grinding a search forever against geometry
+    /// that is not going to open.
+    ///
+    /// This is *not* the per-step bump wait — the engine backs off immediately on
+    /// an unbumpable blocker (`Movable::Backoff`), without a retry count.
     var maxCongestionRetries: Int = 8
 
     weak var searchMap: SearchMap?
@@ -137,7 +143,8 @@ final class ActorOccupancy {
         return nil
     }
 
-    /// Record a blocked step. Returns true when the mover should back off and wait.
+    /// Record a replan that found no route. Returns true once the mover has
+    /// exhausted its budget and should abandon the goal.
     @discardableResult
     func recordCongestion(for moverID: String) -> Bool {
         let next = (congestionRetries[moverID] ?? 0) + 1

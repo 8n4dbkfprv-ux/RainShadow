@@ -1,14 +1,24 @@
 import CoreGraphics
 import Foundation
 
-/// Shared walk pace for office/world actors, calibrated to Baldur's Gate:EE
-/// on-screen humanoid walk energy.
+/// Shared walk pace for office/world actors, derived from the Infinity Engine's
+/// own movement arithmetic rather than tuned by eye.
 ///
-/// BG:EE documents `move_scale = 9` for ordinary humanoids. That value is
-/// animation-relative (9 px/tick × 15 AI ticks/s ≈ 135 px/s on ~55 px sprites),
-/// which reads as roughly 2.2–2.7 body heights per second on screen. RainShadow
-/// mirrors that feel on its 100-unit actor rather than treating `9` as world
-/// units per second.
+/// GemRB (the maintained open-source reimplementation of the engine BG:EE runs
+/// on) computes a walking step like this:
+///
+///     walkScale  = 1500 / IE_MOVEMENTRATE      Actor::CalculateSpeedFromRate
+///     factor     = StepTime / walkScale        Movable::DoStep
+///     step       = normalize(toNextNode) * STEP_RADIUS
+///     step.y    *= 0.75                        Map::NormalizeDeltas
+///     position  += step * factor               once per 15 Hz tick
+///
+/// With the shipped BG defaults — `IE_MOVEMENTRATE = 9` for an ordinary
+/// humanoid, `StepTime = 566`, `STEP_RADIUS = 2.0` — that is 6.79 px/tick
+/// horizontally and 5.09 px/tick vertically, or 101.9 and 76.4 px/s. BG1 draws
+/// a standing adult in roughly 50 native rows, so the gait is ~2.04 body
+/// heights per second horizontally. Everything below follows from those five
+/// engine constants, so the pace stays correct at any sprite size.
 enum ActorLocomotionPacing {
     // MARK: - Prior defaults (regression anchors for tests)
 
@@ -21,19 +31,59 @@ enum ActorLocomotionPacing {
     /// Previous client walk-cycle seconds per frame.
     static let legacyClientWalkFrameDuration: TimeInterval = 0.15
 
-    // MARK: - BG-inspired normalized baseline
+    // MARK: - Infinity Engine movement constants
 
-    /// Engine-relative ordinary humanoid movement baseline documented by BG:EE.
+    /// Game logic tick rate; GemRB `Interface.h`, `defaultTicksPerSec`.
+    static let logicTicksPerSecond: CGFloat = CGFloat(LogicTickClock.ticksPerSecond)
+
+    /// `StepTime` from the game INI, defaulting to BG2's value in GemRB
+    /// `Interface.cpp`. Divided by the walk scale it yields the per-tick step
+    /// multiplier.
+    static let infinityEngineStepTime: CGFloat = 566
+
+    /// `IE_MOVEMENTRATE` for an ordinary humanoid; GemRB `Actor.cpp` sets this
+    /// as the base before `moverate.2da` overrides per creature.
     static let infinityEngineHumanoidMoveScale: CGFloat = 9
 
-    /// BG:EE gait in body-heights per second — the scale-free half of the
-    /// contract, not the former deliberate 1.2 heights/s amble.
-    static let walkBodyHeightsPerSecond: CGFloat = 2.25
+    /// `STEP_RADIUS` in GemRB `Map::NormalizeDeltas` — the length every step
+    /// vector is normalized to before the perspective squash.
+    static let stepRadius: CGFloat = 2
 
-    /// Projected world-space speed, derived from the adult **as drawn on screen**.
-    /// The former literal 225 was set against a nominal 100-unit body while the
-    /// sprite rendered at 90.625, so the gait already ran ~10% hot; deriving it
-    /// keeps the pace correct at any sprite size.
+    /// Vertical foreshortening applied to every step vector by
+    /// `Map::NormalizeDeltas`. Walking north covers 0.75 screen units for each
+    /// one covered walking east, which is the same 12/16 ratio as the search
+    /// map cell (`SearchMap.defaultCellSize`).
+    static let verticalProjectionScale: CGFloat = 0.75
+
+    /// Height in native pixels of a BG1 standing adult, the denominator that
+    /// makes the engine's pixel rate scale-free. See
+    /// `Documentation/PaperdollBGEESpriteRedoPlanV14.md`.
+    static let infinityEngineBodyPixels: CGFloat = 50
+
+    // MARK: - Derived pace
+
+    /// `1500 / IE_MOVEMENTRATE`; larger means slower, as in the engine.
+    static var infinityEngineWalkScale: CGFloat {
+        1500 / infinityEngineHumanoidMoveScale
+    }
+
+    /// Per-tick step multiplier, `StepTime / walkScale`.
+    static var stepFactor: CGFloat {
+        infinityEngineStepTime / infinityEngineWalkScale
+    }
+
+    /// BG:EE gait in body-heights per second along the unforeshortened axis —
+    /// the scale-free half of the contract.
+    static var walkBodyHeightsPerSecond: CGFloat {
+        stepRadius * stepFactor * logicTicksPerSecond / infinityEngineBodyPixels
+    }
+
+    /// Projected world-space speed, derived from the adult **as drawn on
+    /// screen**. Deriving rather than hard-coding keeps the pace correct if the
+    /// sprite is ever rebaked at a different body height.
+    ///
+    /// This is a speed in the *projected* metric: one projected unit costs the
+    /// same wall-clock time in every direction. See `projectedDistance`.
     static var walkSpeed: CGFloat {
         walkBodyHeightsPerSecond * OfficeInteriorScale.standingAdultBodyHeight
     }
@@ -41,32 +91,48 @@ enum ActorLocomotionPacing {
     /// Inclusive acceptance band for `walkSpeed` (used by tests).
     static let walkSpeedBand: ClosedRange<CGFloat> = 140...180
 
+    // MARK: - Projected travel metric
+
+    /// Screen-space distance in the metric the engine actually walks.
+    ///
+    /// Because `Map::NormalizeDeltas` shrinks the y component of every step to
+    /// 0.75, covering a given screen distance vertically takes 1/0.75 as long
+    /// as covering it horizontally. Measuring travel as `hypot(dx, dy / 0.75)`
+    /// makes one unit cost the same time in every direction, so a single
+    /// `walkSpeed` still describes the whole gait.
+    static func projectedDistance(from start: CGPoint, to end: CGPoint) -> CGFloat {
+        hypot(end.x - start.x, (end.y - start.y) / verticalProjectionScale)
+    }
+
+    // MARK: - Animation
+
     /// V6 BGEE-density gait: 8 authored frames per cycle for every walking actor.
     static let walkFramesPerCycle = 8
 
-    /// Eight frames at 0.048s keep ~86.4 units of travel per cycle at 225 u/s,
-    /// so stride length and foot-to-ground alignment match the prior 120 u/s /
-    /// 0.09s gait while the on-screen pace matches BG:EE.
-    static let walkCycleSecondsPerFrame: TimeInterval = 0.048
+    /// One authored frame per logic tick, as in the engine: creature animations
+    /// advance a frame each time `DoStep` emits a displacement, which is why a
+    /// BG walk cycle cannot drift against the distance travelled.
+    static let walkCycleSecondsPerFrame: TimeInterval = LogicTickClock.tickDuration
 
     /// Inclusive acceptance band for walk-cycle frame duration.
-    static let walkCycleSecondsPerFrameBand: ClosedRange<TimeInterval> = 0.04...0.06
+    static let walkCycleSecondsPerFrameBand: ClosedRange<TimeInterval> = 0.06...0.075
 
     /// Inclusive acceptance band for the full walk-cycle duration (all frames).
-    static let walkCycleDurationBand: ClosedRange<TimeInterval> = 0.32...0.46
+    static let walkCycleDurationBand: ClosedRange<TimeInterval> = 0.48...0.60
 
     /// Stand-up sequence frame hold (12 frames); slightly slower than the old 0.1s
     /// so egress does not snap relative to the new walk.
     static let standUpSecondsPerFrame: TimeInterval = 0.13
 
-    /// Minimum duration for any path segment (avoids zero-length pops).
-    static let minimumSegmentDuration: TimeInterval = 0.08
+    /// Minimum duration for any path segment (avoids zero-length pops). One
+    /// logic tick is the shortest interval the engine can express.
+    static let minimumSegmentDuration: TimeInterval = LogicTickClock.tickDuration
 
     /// Prevents a foreground/background or modal resume from spending an entire
     /// stale wall-clock delta in one visible frame.
     static let maximumFrameDelta: TimeInterval = 0.10
 
-    /// Duration for a path segment of the given world-space length.
+    /// Duration for a path segment of the given projected length.
     static func pathDuration(distance: CGFloat) -> TimeInterval {
         TimeInterval(max(CGFloat(minimumSegmentDuration), distance / walkSpeed))
     }

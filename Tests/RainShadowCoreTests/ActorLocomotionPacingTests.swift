@@ -11,10 +11,56 @@ struct ActorLocomotionPacingTests {
         // must hold — a raw u/s figure is meaningless without the body it belongs to.
         let heightsPerSecond = speed / OfficeInteriorScale.standingAdultBodyHeight
         #expect(abs(heightsPerSecond - ActorLocomotionPacing.walkBodyHeightsPerSecond) < 0.0001)
-        #expect(abs(heightsPerSecond - 2.25) < 0.0001)
+
+        // Rebuild the engine's arithmetic independently rather than pinning a
+        // magic ratio: GemRB walks `STEP_RADIUS * (StepTime / walkScale)` pixels
+        // per tick, where `walkScale = 1500 / IE_MOVEMENTRATE`, against a BG1
+        // standing adult of ~50 native rows.
+        let walkScale = 1500 / ActorLocomotionPacing.infinityEngineHumanoidMoveScale
+        let pixelsPerTick = ActorLocomotionPacing.stepRadius
+            * (ActorLocomotionPacing.infinityEngineStepTime / walkScale)
+        let derived = pixelsPerTick
+            * ActorLocomotionPacing.logicTicksPerSecond
+            / ActorLocomotionPacing.infinityEngineBodyPixels
+        #expect(abs(heightsPerSecond - derived) < 0.0001)
+        // ~6.79 px/tick → ~101.9 px/s on a 50 px body.
+        #expect(abs(pixelsPerTick - 6.792) < 0.001)
+        #expect(abs(derived - 2.0376) < 0.001)
+
         #expect(speed < ActorLocomotionPacing.legacyDetectiveWalkSpeed)
         #expect(ActorLocomotionPacing.walkSpeedBand.contains(speed))
         #expect(ActorLocomotionPacing.infinityEngineHumanoidMoveScale == 9)
+    }
+
+    @Test func logicTickMatchesInfinityEngineRate() {
+        // `defaultTicksPerSec = 15`. Movement and the walk cycle share this tick,
+        // which is why an authored frame is exactly one step.
+        #expect(LogicTickClock.ticksPerSecond == 15)
+        #expect(abs(LogicTickClock.tickDuration - 1.0 / 15.0) < 0.000001)
+        #expect(ActorLocomotionPacing.walkCycleSecondsPerFrame == LogicTickClock.tickDuration)
+    }
+
+    @Test func verticalTravelIsForeshortenedToSearchCellAspect() {
+        // `Map::NormalizeDeltas` scales the step's y component to 0.75, the same
+        // ratio as the 16×12 search cell. Vertical screen travel therefore costs
+        // 1/0.75 of the budget that the same horizontal distance costs.
+        #expect(ActorLocomotionPacing.verticalProjectionScale == 0.75)
+        #expect(
+            ActorLocomotionPacing.verticalProjectionScale
+                == SearchMap.defaultCellSize.height / SearchMap.defaultCellSize.width
+        )
+
+        let horizontal = ActorLocomotionPacing.projectedDistance(
+            from: .zero,
+            to: CGPoint(x: 100, y: 0)
+        )
+        let vertical = ActorLocomotionPacing.projectedDistance(
+            from: .zero,
+            to: CGPoint(x: 0, y: 100)
+        )
+        #expect(abs(horizontal - 100) < 0.0001)
+        #expect(abs(vertical - 100 / 0.75) < 0.0001)
+        #expect(vertical > horizontal)
     }
 
     @Test func walkCycleDurationMatchesBGParityGait() {
@@ -44,7 +90,10 @@ struct ActorLocomotionPacingTests {
         let distancePerCycle = ActorLocomotionPacing.walkSpeed * CGFloat(cycleDuration)
         // Stride is a body-relative quantity: ~0.85 of a body per eight-frame cycle.
         let stride = distancePerCycle / OfficeInteriorScale.standingAdultBodyHeight
-        #expect((0.75 as CGFloat)...(1.0 as CGFloat) ~= stride)
+        // At one authored frame per 15 Hz tick an eight-frame cycle spans 0.533 s,
+        // so the stride lands near 1.09 bodies — the same order as BG's own
+        // (~101.9 px/s over a nine-frame 0.6 s cycle on a 50 px body ≈ 1.22).
+        #expect((1.0 as CGFloat)...(1.25 as CGFloat) ~= stride)
     }
 
     @Test func pathDurationUsesWalkSpeedEntryPoint() {
@@ -96,11 +145,27 @@ struct ActorLocomotionPacingTests {
         #expect(detective.contains("routeFollower.advance"))
         #expect(detective.contains("func updateLocomotion"))
         #expect(detective.contains("ActorLocomotionPacing.maximumFrameDelta"))
-        #expect(detective.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(detective.contains("ActorLocomotionPacing.standUpSecondsPerFrame"))
         #expect(detective.contains("lookAheadVector"))
         #expect(detective.contains("facingLookAheadDistance"))
         #expect(detective.contains("var isDeskRegistered"))
+
+        // Movement and the walk cycle both run on the engine's fixed logic tick.
+        // The per-frame accumulator is gone precisely so they cannot drift apart:
+        // one tick is one step and one authored frame.
+        #expect(detective.contains("LogicTickClock"))
+        #expect(detective.contains("tickClock.drain"))
+        #expect(detective.contains("LogicTickClock.tickDuration"))
+        #expect(detective.contains("func advanceWalkFrame"))
+        #expect(!detective.contains("walkFrameAccumulator"))
+        #expect(!detective.contains("advanceWalkAnimation"))
+
+        // Gradual turn-in-place while standing (`NewOrientation` + `GetNextFace`),
+        // and the backoff wait when a blocker cannot be bumped.
+        #expect(detective.contains("pendingFacing"))
+        #expect(detective.contains("func turnToFace"))
+        #expect(detective.contains("stepped(toward:"))
+        #expect(detective.contains("func beginMovementBackoff"))
         // Seat clips are selected as one complete NE-or-SE set. Sit-down is the
         // exact reverse, and the endpoint goes through the facing-aware idle path.
         #expect(detective.contains("enum SeatVisualDirection"))
@@ -136,6 +201,28 @@ struct ActorLocomotionPacingTests {
         #expect(!office.contains("deskChairProp"))
         #expect(!office.contains("shouldHideEmptyDeskChair"))
 
+        // A refused order stays refused: floor clicks path honestly and never
+        // fall back to `route`'s nearest-reachable snap.
+        #expect(office.contains("navigation.path(from:"))
+        #expect(!office.contains("navigation.route(from:"))
+        // Plan around actors first, bump only when nothing clear exists, and probe
+        // for the blocker ahead of the mover rather than around it.
+        #expect(office.contains("navigation.pathAvoidingActors"))
+        #expect(office.contains("detectiveCollisionProbe"))
+        #expect(office.contains("beginMovementBackoff"))
+        // Conversations turn participants gradually, as `GSUtils` does — and Voss
+        // is on his feet by then, via the empty-route seat egress.
+        #expect(office.contains("detective.turnToFace"))
+        #expect(office.contains("detective.walk(path: [])"))
+
+        // Replan budget: `Actor::NewPath` abandons past MAX_PATH_TRIES instead of
+        // grinding a search forever, and a fresh order resets the count.
+        #expect(office.contains("recordCongestion"))
+        #expect(office.contains("clearCongestion"))
+
+        // Arrow / WASD keys drive the viewport, never the actor.
+        #expect(!office.contains("moveDetective(to: candidate)"))
+
         #expect(client.contains("ActorLocomotionPacing.pathDuration"))
         #expect(client.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(client.contains("lila_departure_ne_"))
@@ -155,6 +242,45 @@ struct ActorLocomotionPacingTests {
         #expect(!client.contains("timePerFrame: 0.15"))
         // Handbag/light contract: never mirror the client body for eastern bins.
         #expect(!client.contains("body.xScale = -"))
+    }
+
+    @Test func viewportImplementsTheInfinityEngineCameraModel() throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let base = try String(
+            contentsOf: root.appendingPathComponent(
+                "RainShadow Shared/Core/Scene/BaseGameScene.swift"
+            ),
+            encoding: .utf8
+        )
+
+        // The viewport is a first-class thing the player owns, not a tether to
+        // the actor: it scrolls, detaches, and is re-centred deliberately.
+        #expect(base.contains("enum CameraMode"))
+        #expect(base.contains("case following"))
+        #expect(base.contains("case free"))
+        #expect(base.contains("func detachCamera"))
+        #expect(base.contains("func followCamera"))
+        #expect(base.contains("func updateCamera"))
+
+        // BG:EE `MoveViewportTo(p, center: true)` — the double-click recentre.
+        #expect(base.contains("func recenterCamera"))
+        // `OnMouseDrag` GEM_MB_MIDDLE, and the touch two-finger equivalent.
+        #expect(base.contains("func panCamera"))
+        #expect(base.contains("override func otherMouseDragged"))
+        #expect(base.contains("twoFingerAnchor"))
+        // `OnGlobalMouseMove` edge scrolling and `ApplyKeyScrolling`.
+        #expect(base.contains("func edgeScrollVector"))
+        #expect(base.contains("func applyKeyScrolling"))
+        #expect(base.contains("override func keyUp"))
+        // Double-click is plumbed through the pointer event, not re-derived.
+        #expect(base.contains("isDoubleClick: event.clickCount == 2"))
+
+        // Directional keys report whether an overlay consumed them; anything left
+        // over scrolls the viewport rather than moving the actor.
+        #expect(base.contains("func handleDirectionalInput(_ direction: CGVector) -> Bool"))
     }
 
     @Test func clientDepartureAtlasCellsExistAndNECycleIsNotPingPongReversed() throws {

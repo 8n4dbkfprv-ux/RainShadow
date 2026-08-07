@@ -203,10 +203,12 @@ final class GameContext {
 @MainActor
 enum GameBootstrap {
     private static var retainedContext: GameContext?
+    private static weak var retainedView: SKView?
 
     static func start(in view: SKView) {
         let context = GameContext()
         retainedContext = context
+        retainedView = view
 
         view.ignoresSiblingOrder = true
         view.shouldCullNonVisibleNodes = true
@@ -217,5 +219,26 @@ enum GameBootstrap {
         #endif
 
         context.router.start(in: view)
+    }
+
+    /// Discards persisted progress and starts over from the opening.
+    ///
+    /// The whole `GameContext` is rebuilt rather than mutated: `GameSession`
+    /// reads its snapshot once at construction, and scenes capture the context
+    /// they were built with, so resetting in place would leave live scenes and
+    /// the router holding the old session. This is the Infinity Engine's model
+    /// too — a new game is a fresh set of GLOBAL variables, not an edit to the
+    /// running one.
+    ///
+    /// Returns `false` when there is no view to restart into (nothing has
+    /// bootstrapped yet).
+    @discardableResult
+    static func startNewGame() -> Bool {
+        guard let view = retainedView else { return false }
+        // Clear through the live store so the wipe hits the same defaults suite
+        // and key the running session was loaded from.
+        retainedContext?.saveStore.reset()
+        start(in: view)
+        return true
     }
 }

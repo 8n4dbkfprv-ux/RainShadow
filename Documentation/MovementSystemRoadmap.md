@@ -22,7 +22,7 @@ This document does **not** propose dual “classic vs modern” control schemes.
 | Formations | ~12 presets; 5 quick slots; portrait order fills slots | Portrait-order slots when party size > 1; small preset set |
 | Facing at dest | R-hold-drag rotates formation before advance | Optional destination facing for groups; single actor uses path facing |
 | Regroup | Reissue group move under a formation | Same—no continuous auto-follow reform AI required early |
-| Speed | One constant map rate (~60′ AD&D-equivalent); Haste / gear | One base projected-world speed; later modifiers (status, gear) |
+| Speed | `walkScale = 1500 / IE_MOVEMENTRATE`; step of `STEP_RADIUS × StepTime / walkScale` per 15 Hz tick, y scaled 0.75 | Same derivation, expressed scale-free — see "Movement model" below |
 | Encumbrance | Str weight: 100–120% half speed; >120% immobile | Optional later; strength/inventory only if RPG weight ships |
 | Fatigue | Long-term continuous-play exhaustion | Out of scope until rest/day systems exist |
 | Time scale | 6 s personal rounds; same compression for combat & world | Investigation pacing first; combat round scale when combat ships |
@@ -41,6 +41,44 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 
 ---
 
+## Movement model (derived from the engine, not tuned by eye)
+
+Every constant below comes from GemRB `master`, the maintained open-source
+reimplementation of the engine BG:EE runs on. Read the code, not forum lore:
+
+| Quantity | Value | GemRB source |
+|---|---|---|
+| Logic tick rate | **15 Hz** | `core/Interface.h`, `defaultTicksPerSec` |
+| `StepTime` | **566** (BG2 default, from the game INI) | `core/Interface.cpp` |
+| `IE_MOVEMENTRATE`, ordinary humanoid | **9** | `core/Scriptable/Actor.cpp` |
+| `walkScale` | `1500 / rate` = **166.67** | `Actor::CalculateSpeedFromRate` |
+| `STEP_RADIUS` | **2.0** | `Map::NormalizeDeltas`, `core/PathFinder.cpp` |
+| Vertical step scale | **0.75** (= 12/16, the search-cell aspect) | `Map::NormalizeDeltas` |
+| Orientations | **16**, nine authored + seven mirrored | `core/Orientation.h`, `SixteenToNine` |
+| Turn rate when standing | **one bin per tick**, shorter arc | `GetNextFace` |
+
+Per tick the engine walks `STEP_RADIUS × (StepTime / walkScale)` = 6.79 px
+horizontally and 5.09 px vertically — 101.9 and 76.4 px/s. Against BG1's ~50-row
+standing adult that is **2.04 body-heights/second**, which is how
+`ActorLocomotionPacing` expresses it so the pace survives any sprite rebake.
+
+Three consequences worth stating plainly:
+
+1. **Movement and animation share the tick.** One tick is one step *and* one
+   authored frame, so the walk cycle cannot drift against distance travelled.
+   `LogicTickClock` drains wall-clock delta in whole ticks; there is no separate
+   animation accumulator. (This also means a speed modifier such as Haste would
+   foot-slide — as it genuinely does in BG.)
+2. **Vertical travel is slower on screen.** Travel is metered in a projected
+   metric, `hypot(dx, dy / 0.75)`. Anything comparing route lengths must use
+   `ActorLocomotionPacing.projectedDistance`, or it is mixing currencies.
+3. **We keep float positions.** BG `ceil()`s each axis to whole pixels per tick.
+   Our world units are ~2× denser than BG pixels, so quantizing would read as
+   stair-stepping rather than as BG's texture. This is the one deliberate
+   divergence in the step model.
+
+---
+
 ## Current baseline
 
 | Piece | Status |
@@ -51,15 +89,28 @@ Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mas
 | Any-angle path emitted by the search (no separate string-pull pass) | **Shipped** |
 | Footprint clearance tested against obstacle geometry; boundary as solid | **Shipped** |
 | Office dimetric search map + authored furniture/door/wall AABBs | **Shipped** (`OfficeNavigationLayout`) |
-| Blocked tap → directed destination adjustment, then nearest *reachable* cell in bounded radius | **Shipped** (+ tests) |
+| Blocked floor click issues **no order** (BG refuses rather than snapping); blocked hover cursor | **Shipped** — floor clicks use `path`, not `route`; `route`'s bounded fallback remains for scripted/approach use only |
+| Fixed 15 Hz logic tick shared by root motion and the walk cycle | **Shipped** (`LogicTickClock`) |
+| Perspective-foreshortened step: vertical travel at 0.75× horizontal | **Shipped** (`ActorLocomotionPacing.projectedDistance`) |
 | Constant-speed waypoint following (`RouteFollower`) | **Shipped** |
 | New input **replaces** route (not append) for single actor | **Shipped** (plain click / tap) |
-| Cancel route (Escape / right-click / two-finger) without new destination | **Shipped** (`handleCancelInput` → `cancelMovement`) |
+| Cancel route — **Escape only**; right-click / two-finger clear targeting instead | **Shipped** (`handleCancelInput` vs `handleClearTargetingInput`) |
+| Gradual turn-in-place while standing (one 22.5° bin per tick); snap while walking | **Shipped** (`ActorFacing.stepped(toward:)`, `pendingFacing`) |
+| Same-cell click = head turn, not a zero-length walk | **Shipped** (`turnToFace`) |
+| Dialogue participants turn toward each other gradually | **Shipped** (office scene, on entrance completion) |
+| Two-tier search: plan around actors first, through them only if needed | **Shipped** (`pathAvoidingActors` → `path`) |
+| Collision probe **ahead along the path**, not around the mover | **Shipped** (`detectiveCollisionProbe`) |
+| Randomised backoff wait when a blocker cannot be bumped | **Shipped** (`beginMovementBackoff`) |
+| Abandon rather than shove when already near the goal | **Shipped** (`bumpAbandonDistance`) |
 | Move-order ground feedback (`ui_move_marker_*` / blocked) | **Shipped** (painted 8-frame loop; coded ellipse fallback) |
 | BG:EE waypoint queue — Shift+click (macOS) / long-press (iOS) via `appendRoute` | **Shipped** (`queuedMovementGoals` + `ui_waypoint_pip`) |
 | Actor occupancy stamping (PC/NPC bits) for every floor actor | **Shipped** (`ActorOccupancy`) |
 | Bumpable idle actors: sidestep-and-return on contact | **Shipped** |
-| Congestion back-off after repeated blocked steps | **Shipped** |
+| Replan budget — abandon the goal after N consecutive failed searches | **Shipped** (`recordCongestion` / `maxCongestionRetries` = 8, mirroring `Actor::NewPath`'s `MAX_PATH_TRIES`; reset on every new order as `WalkTo` resets `pathTries`) |
+| Free/scrollable viewport: follow ⇄ free, edge scroll, middle-drag (two-finger on iOS), held arrow/WASD scroll | **Shipped** (`BaseGameScene.CameraMode`) |
+| Double-click recentres the viewport on the click (`MoveViewportTo(p, true)`) | **Shipped** |
+| Double-click a portrait to re-attach the viewport to the actor | **Shipped** |
+| Detective rises to meet the client instead of interviewing from his chair | **Shipped** (empty-route seat egress during her walk-in) |
 | Corrective repath while walking (0.75 s, "Enhanced Path Search") | **Shipped** |
 | Door open/close stamps cells in place, no map rebuild | **Shipped** (`setEntranceDoorBlocking`) |
 | Client NPC (Lila) on pathfinder + `RouteFollower`, not `SKAction` | **Shipped** |
@@ -265,7 +316,7 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 
 ## Frozen rules (do not regress)
 
-1. **Point-and-click owns movement.** WASD must not become required actor locomotion (GDD §8: camera pan only).
+1. **Point-and-click owns movement.** WASD and the arrow keys pan the viewport and never move the actor (GDD §8.3). They were wired to synthesised move orders until the free-camera work; if an overlay is open it consumes them, otherwise they scroll.
 2. **Replace route by default** for the primary click-to-move path; append is opt-in later.
 3. **One base player map speed** for exploration; no hidden race/armor dual scales.
 4. **Portrait order drives formation slots** when formations exist—not free-form drag-to-slot unless design revisits.
@@ -275,6 +326,11 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 8. **Every floor-occupying actor registers with `ActorOccupancy`** while visible, and unregisters when hidden.
 9. **Idle NPCs are bumpable, moving NPCs are not.** A body that must be immovable is authored as a static obstacle, never as an unbumpable actor.
 10. **Dynamic geometry stamps in place.** Doors and equivalents toggle search-map cells; nothing rebuilds a navigation map to change one obstacle.
+11. **Root motion and the walk cycle advance on the same logic tick.** Never reintroduce a separate animation timer — the shared tick is what keeps feet on the ground.
+12. **Travel is measured in the projected metric.** Any code comparing path lengths or deriving durations uses `ActorLocomotionPacing.projectedDistance`, never raw `hypot`.
+13. **A refused order is refused.** A floor click on unreachable ground shows the blocked marker and issues nothing; it is never silently redirected to a nearby tile. `NavigationMap.route`'s fallback is for scripted and approach moves only.
+14. **Escape is the only Stop.** Right-click and two-finger tap clear targeting state; they must not cancel an active route.
+15. **The viewport is the player's.** Any manual scroll detaches the camera to `free` and it stays there until the player re-attaches (portrait double-click). Nothing may silently re-tether it to the actor — that is what made BG's double-click recentre meaningless here before.
 
 ---
 

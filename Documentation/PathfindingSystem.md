@@ -98,7 +98,10 @@ Actors register with an id, a kind (`player` / `npc`), a position, and a radius;
 - **Bumpable by default when idle.** A registered actor is bumpable while it is not moving, matching BG:EE's treatment of party members and friendly NPCs as soft obstacles.
 - **Planning through bumpables.** `PathFinderFlags.allowBumpableActors` (the default for `NavigationMap.path`) lets a route pass through idle actors. `actorsAreBlocking` gives the strict variant for queries that must not assume a bump will happen.
 - **Bump request.** When a mover's next position overlaps an idle bumpable actor, `bumpRequest` returns the blocker's id, a `sidestepPoint` chosen on the passable side away from the mover, and the `returnPoint` it should walk back to. The scene is responsible for driving both legs, which keeps animation and state-machine ownership with the actor node.
-- **Congestion back-off.** `recordCongestion` counts consecutive blocked advances; at `maxCongestionRetries` (8) the mover should wait rather than repath forever. This is the guard against the two-actors-shuffling-in-a-doorway failure that IE is remembered for.
+- **Look ahead, not around.** The collision probe sits one step *along the heading*, not in a ring around the mover: GemRB's `DoStep` comments that it "want[s] to only check directly along the way and not be blocked by actors who are on the sides". Probing at the mover's own position — which is what this system did before — only fires after the two bodies have already interpenetrated.
+- **Backoff, not cancel.** When the blocker cannot be bumped, `Movable::Backoff` drops the walk stance and waits a *randomised* number of ticks, then retries the same step; the route is never discarded. GemRB describes the randomisation as "inspired by network media access control algorithms" — two actors blocking each other draw different waits and so cannot deadlock in lockstep. `DetectiveActorNode.beginMovementBackoff(ticks:)` implements the wait.
+- **Abandon near the goal.** A mover on its last path node and already within personal range gives up rather than shoving, so close-range approaches do not push furniture-adjacent NPCs around.
+- **Congestion back-off** (`recordCongestion` / `maxCongestionRetries`) is **built but unused**. It has no counterpart in `DoStep`, which backs off immediately on an unbumpable blocker rather than after N failed advances. Kept because a repath-attempt limiter (GemRB's separate `pathTries` / `MAX_PATH_TRIES`) will want it.
 
 ### NavigationMap — the scene API
 
@@ -106,7 +109,7 @@ The only navigation type scenes and layout helpers should use.
 
 | Member | Use |
 |---|---|
-| `route(from:to:maximumFallbackWorldRadius:)` | **Player click/tap resolution.** Exact path when possible, otherwise the nearest *reachable* point within the bound, reported via `NavigationRoute.resolvedDestination` / `destinationWasAdjusted`. |
+| `route(from:to:maximumFallbackWorldRadius:)` | **Scripted and approach moves only.** Exact path when possible, otherwise the nearest *reachable* point within the bound, reported via `NavigationRoute.resolvedDestination` / `destinationWasAdjusted`. **No longer used for player floor clicks** — see below. |
 | `path(from:to:)` | Direct route with bumpable actors traversable. Returns `nil` / `[]` / waypoints per the table above. |
 | `pathAvoidingActors(from:to:)` | Same, but other actors are hard blockers. |
 | `waypoints(visiting:)` | Expands sparse authored anchors into a walkable polyline by pathing between consecutive anchors. **This is how scripted NPC beats are authored.** |
@@ -115,7 +118,11 @@ The only navigation type scenes and layout helpers should use.
 | `setEntranceDoorBlocking(_:)` | Toggle door cells in place; no rebuild. |
 | `registerActor` / `updateActor` / `unregisterActor` | Occupancy lifecycle for anything that occupies floor. |
 
-`route` and `path` are not interchangeable. `route` is the forgiving, player-facing entry point that is allowed to move the goal; `path` is exact and fails honestly. Tests that assert "the player can get there by clicking" must use `route`; tests that assert "this specific line is walkable" must use `path`.
+`route` and `path` are not interchangeable. `route` is the forgiving entry point that is allowed to move the goal; `path` is exact and fails honestly. Tests that assert "this specific line is walkable" must use `path`.
+
+**Player floor clicks use `path`, not `route`.** The engine refuses an order onto impassable ground outright — `GameControl::OnMouseUp` returns early on `IE_CURSOR_BLOCKED`, and `UpdateCursor` has already swapped the cursor so the refusal is legible before the click. Snapping the player to a nearby tile they did not click is a convenience the engine does not offer, and it made blocked geometry unreadable. Scenes therefore call `pathAvoidingActors` and fall back to `path` (the two-tier order from `Movable::WalkTo`), showing the blocked marker and issuing nothing when both return `nil`.
+
+A useful side effect: `route`'s bounded fallback runs a 4-connected flood fill over every reachable cell — 7,752 in the office, 12,288 in the city — synchronously on the main thread. Off the click path, that no longer happens on every rejected tap.
 
 Fallback candidate selection inside `route` uses a 4-connected flood fill of reachable cell centres, sorted by distance to the request with deterministic tie-breaks, then tries the closest handful. Selecting from *reachable* cells rather than merely *passable* ones is what prevents the old failure where a tap across a wall snapped to a point the actor could not actually walk to.
 
@@ -133,7 +140,7 @@ Scenes recompute the active route every `correctiveRepathInterval` (0.75 s) whil
 
 `DetectiveOfficeScene` and `CityDistrictScene` run the same per-frame order from `update(_:)`, and any new scene with walking actors must too:
 
-1. **Advance locomotion.** `updateLocomotion(at:worldIsPaused:)` on each actor node, which is where its `RouteFollower` steps.
+1. **Advance locomotion.** `updateLocomotion(at:worldIsPaused:)` on each actor node. This drains wall-clock delta into whole 15 Hz logic ticks (`LogicTickClock`) and steps the `RouteFollower` once per tick, advancing one authored walk frame with it. A standing actor spends its ticks rotating one facing bin toward `pendingFacing` instead.
 2. **Prune completed queue goals.** Drop goals the actor has already reached so the live leg stays accurate and waypoint pips disappear.
 3. **Push occupancy.** Feed every visible actor's live position and `isMoving` to `NavigationMap.updateActor`. Unregister actors that are hidden.
 4. **Corrective repath.** If a destination is pending, the actor is still walking, and `correctiveRepathInterval` has elapsed, `repath` the *current* leg from the live position and re-append later queued goals.

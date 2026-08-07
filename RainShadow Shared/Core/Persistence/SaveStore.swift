@@ -64,9 +64,27 @@ final class SaveStore {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
-    init(defaults: UserDefaults = .standard, key: String = "RainShadow.Save.v1") {
+    /// Discards the persisted snapshot at launch, so one-shot state replays.
+    ///
+    /// The Infinity Engine keeps this kind of "already happened" state as GLOBAL
+    /// variables inside the `.gam` save, which means a finished cinematic can
+    /// only be seen again by starting a new game — or by zeroing the variable
+    /// from the console (`SetGlobal("...","GLOBAL",0)`). RainShadow has neither
+    /// a new-game affordance nor a console yet, so without this hook
+    /// `hasCompletedOfficeCaseIntro` is unreachable once it has been set and the
+    /// office intro can never be tested again on that machine.
+    ///
+    /// Set `RAINSHADOW_RESET_SAVE=1` in the environment to use it.
+    init(
+        defaults: UserDefaults = .standard,
+        key: String = "RainShadow.Save.v1",
+        resetsOnLaunch: Bool = ProcessInfo.processInfo.environment["RAINSHADOW_RESET_SAVE"] == "1"
+    ) {
         self.defaults = defaults
         self.key = key
+        if resetsOnLaunch {
+            defaults.removeObject(forKey: key)
+        }
     }
 
     func load() -> SaveSnapshot {
@@ -81,5 +99,16 @@ final class SaveStore {
     func save(_ snapshot: SaveSnapshot) {
         guard let data = try? encoder.encode(snapshot) else { return }
         defaults.set(data, forKey: key)
+    }
+
+    /// Discards persisted progress.
+    ///
+    /// A live `GameSession` copies the snapshot at construction, so this only
+    /// takes effect once the session is rebuilt — see `GameBootstrap.startNewGame`.
+    /// Clearing the key rather than writing a blank snapshot means a future
+    /// schema bump starts from `SaveSnapshot()`'s defaults rather than from
+    /// today's idea of "empty".
+    func reset() {
+        defaults.removeObject(forKey: key)
     }
 }

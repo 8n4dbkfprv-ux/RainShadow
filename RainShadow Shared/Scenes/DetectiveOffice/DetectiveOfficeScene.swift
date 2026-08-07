@@ -36,6 +36,14 @@ final class DetectiveOfficeScene: BaseGameScene {
     private static let detectiveActorID = "detective.voss"
     private static let clientActorID = "client.lila"
     private static let correctiveRepathInterval: TimeInterval = 0.75
+    /// Within this much projected travel of the goal the mover abandons rather
+    /// than shoving a blocker aside (`DoStep`'s `WithinPersonalRange` cut-off).
+    private static let bumpAbandonDistance: CGFloat = 24
+    /// Ticks to wait when a blocker cannot be bumped. GemRB draws from
+    /// `RAND(MAX_PATH_TRIES, MAX_PATH_TRIES * 2)`; the literal is not exposed in
+    /// its public headers, so this is the same shape — a randomised half-to-one
+    /// second at 15 Hz — chosen to read as "pause and let them pass".
+    private static let backoffTickRange = 8...16
     private struct HotspotHoverSprite {
         let sprite: SKSpriteNode
         let normalTexture: SKTexture
@@ -542,7 +550,13 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
         if portraitBar.hitTestPortrait(portraitPoint) {
-            setInventoryPresented(true)
+            // BG:EE: double-clicking a portrait centres the view on that character.
+            // This is the way back once the player has scrolled the viewport away.
+            if event.isDoubleClick {
+                followCamera()
+            } else {
+                setInventoryPresented(true)
+            }
             return
         }
 
@@ -585,39 +599,43 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         moveDetective(to: event.location, queueWaypoint: event.isWaypointQueue)
+        // BG:EE double-click also recentres the viewport on the click
+        // (`MoveViewportTo(p, true)`), so the camera holds the destination while
+        // the detective walks into frame instead of trailing him there.
+        if event.isDoubleClick {
+            recenterCamera(on: event.location)
+        }
     }
 
-    override func handleDirectionalInput(_ direction: CGVector) {
+    override func handleDirectionalInput(_ direction: CGVector) -> Bool {
         if dialogueIsActive {
             let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
             if !caseIntroductionPresenter.moveSelection(selectionDirection) {
                 let scrollStep: CGFloat = direction.dx < 0 || direction.dy > 0 ? -44 : 44
                 _ = caseIntroductionPresenter.scrollContent(by: scrollStep)
             }
-            return
+            return true
         }
-        if mapIsPresented || worldMapIsPresented { return }
+        if mapIsPresented || worldMapIsPresented { return true }
         if journalIsPresented {
             journalOverlay.handleDirectionalInput(direction)
-            return
+            return true
         }
         if inventoryIsPresented {
             let previous = direction.dx < 0 || direction.dy > 0
             inventoryOverlay.moveSelection(previous ? -1 : 1)
-            return
+            return true
         }
-
-        let step = 128 * OfficeInteriorScale.environment
-        let candidate = CGPoint(
-            x: detective.position.x + direction.dx * step,
-            y: detective.position.y + direction.dy * (step * 0.5)
-        )
-        moveDetective(to: candidate)
+        // No overlay: the key belongs to the viewport, not the detective.
+        return false
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
+        // Stop any running edge scroll up front; it is re-armed at the bottom only
+        // when the pointer is over the world rather than an overlay or HUD rail.
+        setCameraScroll(.zero)
         if dialogueIsActive {
             clearHotspotHoverHighlight()
             let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
@@ -668,12 +686,41 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
+        // BG:EE edge scrolling: the viewport drifts while the cursor rests against
+        // the frame (`GameControl::OnGlobalMouseMove`). Suppressed whenever an
+        // overlay is up, which the early returns above already guarantee.
+        setCameraScroll(edgeScrollVector(forHudPoint: hudPoint))
+
         // Image #1 cyan silhouette + teal wash before click; same hit list as inspect/door.
         updateHotspotHoverHighlight(at: event.location)
-        let isInteractive = hoveredHotspotID != nil
-        (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
+        if hoveredHotspotID != nil {
+            NSCursor.pointingHand.set()
+            return
+        }
+        // BG:EE swaps in a blocked cursor over impassable ground so the player
+        // knows the order will be refused before committing to the click
+        // (`GameControl::UpdateCursor` → `IE_CURSOR_BLOCKED`).
+        (isFloorOrderable(event.location) ? NSCursor.arrow : Self.blockedCursor).set()
         #endif
     }
+
+    #if os(macOS)
+    /// Cursor shown over ground the detective cannot be ordered onto.
+    private static let blockedCursor = NSCursor.operationNotAllowed
+
+    /// Whether a floor click here could produce a move order.
+    ///
+    /// This is a search-map sample, not a path search — the same thing
+    /// `GameControl::UpdateCursor` does via `Map::GetBlocked`. It runs on every
+    /// mouse-move, so it must stay O(footprint); a walled-off but passable tile
+    /// still reads as orderable here and is refused at click time instead.
+    private func isFloorOrderable(_ point: CGPoint) -> Bool {
+        navigation.searchMap.isPassable(
+            at: point,
+            radius: navigation.agentProfile.radius
+        )
+    }
+    #endif
 
     override func handleInventoryInput() {
         guard !dialogueIsActive, !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
@@ -704,6 +751,24 @@ final class DetectiveOfficeScene: BaseGameScene {
             clearWaypointPips()
             queuedMovementGoals.removeAll(keepingCapacity: true)
             detective.cancelMovement()
+        }
+    }
+
+    /// BG:EE right-click / two-finger tap. The engine drops the targeting mode
+    /// and resets the action bar here; it never stops the walk. Overlays are our
+    /// nearest equivalent of that targeting state, so they close — but an active
+    /// path keeps running. Stopping is Escape's job (`handleCancelInput`).
+    override func handleClearTargetingInput() {
+        if journalIsPresented {
+            setJournalPresented(false)
+        } else if worldMapIsPresented {
+            setWorldMapPresented(false)
+        } else if mapIsPresented {
+            setMapPresented(false)
+        } else if inventoryIsPresented {
+            setInventoryPresented(false)
+        } else if !dialogueIsActive {
+            clearMovementFeedback()
         }
     }
 
@@ -791,19 +856,20 @@ final class DetectiveOfficeScene: BaseGameScene {
         updateDetectiveDepth()
         updateDepth(of: client)
         fogOfWar?.reveal(at: detective.position)
-        updateCameraPosition()
+        updateCameraPosition(at: currentTime)
         // Follow dialogue camera lifts / restores every frame.
         syncHudToCamera()
     }
 
-    /// Pans the office view with Voss, clamped to the painted plate. Suspended
-    /// while a dialogue lift owns the camera so the per-frame follow does not
-    /// fight the running `SKAction`.
-    private func updateCameraPosition() {
-        guard !cameraFollowSuspended, size.width > 0, size.height > 0 else { return }
-        gameCamera.position = clampedCameraPosition(
+    /// Drives the office viewport — following Voss, or free-scrolling under the
+    /// player — clamped to the painted plate. Suspended while a dialogue lift
+    /// owns the camera so the per-frame update does not fight the `SKAction`.
+    private func updateCameraPosition(at currentTime: TimeInterval = 0) {
+        guard !cameraFollowSuspended else { return }
+        updateCamera(
             following: detective.position,
-            in: OfficeInteriorScale.paintedRoomBounds
+            in: OfficeInteriorScale.paintedRoomBounds,
+            at: currentTime
         )
     }
 
@@ -942,6 +1008,13 @@ final class DetectiveOfficeScene: BaseGameScene {
             radius: NavigationAgentProfile.officeClient.radius,
             isMoving: true
         )
+        // Voss rises as she comes through the door rather than conducting the
+        // interview from his chair. An empty route is the existing seat-egress
+        // path: stand-up strip, then the 0.42 s slide out of the kneehole, ending
+        // in standing idle at the same spot — he gets to his feet without walking
+        // anywhere. Timed to overlap her walk-in, so it costs no dead air, and it
+        // leaves him standing for the facing turn in `finishClientEntrance`.
+        detective.walk(path: [])
         client.performEntrance(along: path) { [weak self] in
             self?.finishClientEntrance(reason: .natural)
         }
@@ -974,6 +1047,14 @@ final class DetectiveOfficeScene: BaseGameScene {
         cameraLift.timingMode = .easeOut
         cameraFollowSuspended = true
         gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
+        // BG:EE turns conversation participants toward each other *slowly* when a
+        // dialogue opens — `GSUtils.cpp` calls `SetOrientation(..., slow: true)`
+        // for both talker and talkee. Voss stood during her walk-in, so this is
+        // the visible half-second pivot rather than a pop.
+        //
+        // Still guarded on standing: if the player skipped the entrance early he
+        // may not be up yet, in which case he simply keeps the facing he rose with.
+        detective.turnToFace(client.position)
         updateActorOccupancy()
         updateDepth(of: client)
     }
@@ -1310,15 +1391,27 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
-        guard let route = navigation.route(from: detective.position, to: target) else {
-            showMovementFeedback(at: target, isValid: false)
-            if !queueWaypoint {
-                clearWaypointPips()
-                queuedMovementGoals.removeAll(keepingCapacity: true)
-            }
+        // BG:EE: clicking the search cell you already occupy is not a move order.
+        // `Movable::WalkTo` clears the path and plays a head turn instead, so the
+        // actor pivots toward the click without taking a step.
+        if !requiresExactDestination,
+           navigation.searchMap.cell(for: detective.position)
+               == navigation.searchMap.cell(for: target) {
+            clearWaypointPips()
+            queuedMovementGoals.removeAll(keepingCapacity: true)
+            detective.turnToFace(target)
             return
         }
-        guard !requiresExactDestination || !route.destinationWasAdjusted else {
+
+        // Honest failure, as the engine does it: an order onto impassable ground
+        // is refused outright (`lastCursor == IE_CURSOR_BLOCKED` → no action)
+        // rather than silently redirected to the nearest reachable tile.
+        //
+        // Two-tier search from `Movable::WalkTo`: plan around other actors first,
+        // and only fall back to a route that runs through them — which the mover
+        // will resolve by bumping — when no clear route exists.
+        guard let waypoints = navigation.pathAvoidingActors(from: detective.position, to: target)
+            ?? navigation.path(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
             clearWaypointPips()
             queuedMovementGoals.removeAll(keepingCapacity: true)
@@ -1326,9 +1419,12 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         clearWaypointPips()
-        showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        queuedMovementGoals = [route.resolvedDestination]
-        detective.walk(path: route.waypoints, completion: { [weak self] in
+        showMovementFeedback(at: target, isValid: true)
+        // A fresh order restarts the replan budget, as `Actor::WalkTo` resets
+        // `pathTries` before planning.
+        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
+        queuedMovementGoals = [target]
+        detective.walk(path: waypoints, completion: { [weak self] in
             self?.finishQueuedMovement(completion: completion)
         })
     }
@@ -1339,14 +1435,14 @@ final class DetectiveOfficeScene: BaseGameScene {
             moveDetective(to: target, queueWaypoint: false)
             return
         }
-        guard let route = navigation.route(from: origin, to: target) else {
+        guard let waypoints = navigation.path(from: origin, to: target) else {
             showMovementFeedback(at: target, isValid: false)
             return
         }
-        showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        showWaypointPip(at: route.resolvedDestination)
-        queuedMovementGoals.append(route.resolvedDestination)
-        detective.walk(appending: route.waypoints, completion: { [weak self] in
+        showMovementFeedback(at: target, isValid: true)
+        showWaypointPip(at: target)
+        queuedMovementGoals.append(target)
+        detective.walk(appending: waypoints, completion: { [weak self] in
             self?.finishQueuedMovement()
         })
     }
@@ -1401,8 +1497,20 @@ final class DetectiveOfficeScene: BaseGameScene {
         lastCorrectiveRepathTime = currentTime
         guard let repath = navigation.repath(from: detective.position, to: destination),
               !repath.isEmpty else {
+            // BG:EE `Actor::NewPath`: count consecutive failed replans toward the
+            // same goal and abandon past `MAX_PATH_TRIES`, rather than retrying
+            // forever against geometry that is not going to open. Without this an
+            // actor whose goal became unreachable mid-walk keeps grinding a search
+            // every 0.75 s for the rest of the scene.
+            if navigation.occupancy.recordCongestion(for: Self.detectiveActorID) {
+                navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
+                clearWaypointPips()
+                queuedMovementGoals.removeAll(keepingCapacity: true)
+                detective.cancelMovement()
+            }
             return
         }
+        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
         let currentLeg = currentLegWaypoints(to: destination)
         let remainingLength = Self.polylineLength(currentLeg, from: detective.position)
         let newLength = Self.polylineLength(repath, from: detective.position)
@@ -1415,9 +1523,9 @@ final class DetectiveOfficeScene: BaseGameScene {
         var combined = repath
         var cursor = destination
         for goal in remainingGoals {
-            if let leg = navigation.route(from: cursor, to: goal) {
-                combined.append(contentsOf: leg.waypoints)
-                cursor = leg.resolvedDestination
+            if let leg = navigation.path(from: cursor, to: goal) {
+                combined.append(contentsOf: leg)
+                cursor = goal
             }
         }
         detective.walk(path: combined, completion: { [weak self] in
@@ -1454,23 +1562,42 @@ final class DetectiveOfficeScene: BaseGameScene {
         return false
     }
 
+    /// Route length in the projected metric the actor actually walks, so
+    /// "is the new route meaningfully shorter" compares travel time rather than
+    /// raw screen distance — a detour that trades vertical for horizontal travel
+    /// is genuinely faster even when the pixel length is the same.
     private static func polylineLength(_ points: [CGPoint], from origin: CGPoint) -> CGFloat {
         guard let first = points.first else { return 0 }
-        var length = hypot(first.x - origin.x, first.y - origin.y)
+        var length = ActorLocomotionPacing.projectedDistance(from: origin, to: first)
         var previous = first
         for point in points.dropFirst() {
-            length += hypot(point.x - previous.x, point.y - previous.y)
+            length += ActorLocomotionPacing.projectedDistance(from: previous, to: point)
             previous = point
         }
         return length
     }
 
+    /// BG:EE actor bumping, `Movable::DoStep`.
+    ///
+    /// The engine probes for a blocker *along the direction of travel* rather
+    /// than in a ring around the mover — "we want to only check directly along
+    /// the way and not be blocked by actors who are on the sides" — so an idle
+    /// NPC starts stepping aside before the walker reaches them instead of
+    /// after the two have already interpenetrated.
+    ///
+    /// When the blocker cannot be bumped the engine either abandons the path
+    /// (if it is nearly at its goal, so close-range approaches do not shove) or
+    /// backs off and waits.
     private func processBumpRequests() {
-        guard detective.movementDestination != nil else { return }
+        guard detective.movementDestination != nil, !detective.isBackingOff else { return }
+
+        let moverRadius = navigation.agentProfile.radius
+        let probe = detectiveCollisionProbe(radius: moverRadius)
+
         if let bump = navigation.occupancy.bumpRequest(
             forMover: Self.detectiveActorID,
-            at: detective.position,
-            moverRadius: navigation.agentProfile.radius
+            at: probe,
+            moverRadius: moverRadius
         ) {
             pendingBumpReturn[bump.actorID] = bump.returnPoint
             if bump.actorID == Self.clientActorID, !client.isHidden {
@@ -1481,7 +1608,43 @@ final class DetectiveOfficeScene: BaseGameScene {
                     self.client.walk(path: [returnPoint])
                 }
             }
+            return
         }
+
+        guard navigation.occupancy.isBlockedByUnbumpableActor(
+            at: probe,
+            radius: moverRadius,
+            exceptID: Self.detectiveActorID
+        ) else {
+            return
+        }
+
+        // "Give up instead of bumping if you are close to the goal."
+        if queuedMovementGoals.count == 1,
+           let goal = queuedMovementGoals.first,
+           ActorLocomotionPacing.projectedDistance(from: detective.position, to: goal)
+               <= Self.bumpAbandonDistance {
+            clearWaypointPips()
+            queuedMovementGoals.removeAll(keepingCapacity: true)
+            detective.cancelMovement()
+            return
+        }
+
+        detective.beginMovementBackoff(ticks: Self.backoffTickRange.randomElement() ?? 8)
+    }
+
+    /// Point the mover would collide at, one look-ahead step along the current
+    /// heading. GemRB scales this by `circleSize`; our office footprint is well
+    /// under one search cell, so the probe reaches one cell ahead — far enough
+    /// to react before contact, short enough not to trip on distant actors.
+    private func detectiveCollisionProbe(radius: CGFloat) -> CGPoint {
+        let heading = detective.currentHeading
+        guard heading != .zero else { return detective.position }
+        let reach = max(navigation.searchMap.cellSize.width, radius * 2)
+        return CGPoint(
+            x: detective.position.x + heading.dx * reach,
+            y: detective.position.y + heading.dy * reach
+        )
     }
 
     private func setInventoryPresented(

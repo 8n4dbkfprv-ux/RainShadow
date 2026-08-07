@@ -68,7 +68,9 @@ struct RouteFollowerTests {
             ).position
         }
 
-        #expect(expected.position == CGPoint(x: 30, y: 20))
+        // 50 units of budget: 30 spends the horizontal leg outright, and the
+        // remaining 20 buys 0.75 × 20 = 15 units of foreshortened vertical travel.
+        #expect(expected.position == CGPoint(x: 30, y: 15))
         #expect(position == expected.position)
     }
 
@@ -94,8 +96,10 @@ struct RouteFollowerTests {
         let redirected = follower.advance(from: first.position, deltaTime: 0.2, speed: 50)
 
         #expect(first.position == CGPoint(x: 30, y: 0))
-        #expect(redirected.position == CGPoint(x: 30, y: 10))
-        #expect(redirected.direction == CGVector(dx: 0, dy: 1))
+        // Due north: the emitted step is the engine's squashed vector, so 10 units
+        // of budget move 7.5 screen units and the heading is (0, 0.75), not a unit.
+        #expect(redirected.position == CGPoint(x: 30, y: 7.5))
+        #expect(redirected.direction == CGVector(dx: 0, dy: 0.75))
     }
 
     @Test func cancelStopsWithoutSyntheticArrival() {
@@ -155,7 +159,7 @@ struct RouteFollowerTests {
         follower.replaceRoute(with: [CGPoint(x: 20, y: 40)], from: CGPoint(x: 20, y: 0))
         let step = follower.advance(from: CGPoint(x: 20, y: 0), deltaTime: 0.5, speed: 40)
 
-        #expect(step.position == CGPoint(x: 20, y: 20))
+        #expect(step.position == CGPoint(x: 20, y: 15))
         #expect(!step.didArrive)
         #expect(follower.isMoving)
         #expect(follower.destination == CGPoint(x: 20, y: 40))
@@ -280,8 +284,50 @@ struct RouteFollowerTests {
             with: [CGPoint(x: 30, y: 0), CGPoint(x: 30, y: 40)],
             from: .zero
         )
-        #expect(abs(follower.remainingPathLength(from: .zero) - 70) < 0.0001)
-        #expect(abs(follower.remainingPathLength(from: CGPoint(x: 10, y: 0)) - 60) < 0.0001)
+        // Projected metric, not raw screen length: 30 horizontal + 40/0.75 vertical.
+        // Callers compare this against a candidate route, so it has to be the same
+        // currency the follower spends.
+        #expect(abs(follower.remainingPathLength(from: .zero) - (30 + 40 / 0.75)) < 0.0001)
+        #expect(
+            abs(follower.remainingPathLength(from: CGPoint(x: 10, y: 0)) - (20 + 40 / 0.75))
+                < 0.0001
+        )
+    }
+
+    @Test func verticalTravelIsSlowerOnScreenThanHorizontal() {
+        // The engine's perspective squash: for the same budget an actor covers
+        // 0.75 as much screen distance walking north as walking east.
+        var eastward = RouteFollower()
+        eastward.replaceRoute(with: [CGPoint(x: 1_000, y: 0)], from: .zero)
+        let east = eastward.advance(from: .zero, deltaTime: 1, speed: 100)
+
+        var northward = RouteFollower()
+        northward.replaceRoute(with: [CGPoint(x: 0, y: 1_000)], from: .zero)
+        let north = northward.advance(from: .zero, deltaTime: 1, speed: 100)
+
+        #expect(abs(east.position.x - 100) < 0.0001)
+        #expect(abs(north.position.y - 75) < 0.0001)
+        #expect(abs(north.position.y / east.position.x - 0.75) < 0.0001)
+    }
+
+    @Test func projectedTravelTakesEqualTimeInEveryDirection() {
+        // One projected unit is one unit of wall-clock cost whichever way the
+        // actor faces, which is what lets a single `walkSpeed` describe the gait.
+        let horizontalGoal = CGPoint(x: 60, y: 0)
+        let verticalGoal = CGPoint(x: 0, y: 45) // 45 / 0.75 == 60 projected
+
+        var horizontal = RouteFollower()
+        horizontal.replaceRoute(with: [horizontalGoal], from: .zero)
+        let horizontalStep = horizontal.advance(from: .zero, deltaTime: 0.6, speed: 100)
+
+        var vertical = RouteFollower()
+        vertical.replaceRoute(with: [verticalGoal], from: .zero)
+        let verticalStep = vertical.advance(from: .zero, deltaTime: 0.6, speed: 100)
+
+        #expect(horizontalStep.didArrive)
+        #expect(verticalStep.didArrive)
+        #expect(horizontalStep.position == horizontalGoal)
+        #expect(verticalStep.position == verticalGoal)
     }
 
     @Test func lookAheadVectorLeadsCornersBeforeArrival() {
@@ -363,6 +409,83 @@ struct ActorFacingTests {
 
     @Test func zeroVelocityRetainsIdleFacing() {
         #expect(ActorFacing.resolve(dx: 0, dy: 0, retaining: .northWest) == .northWest)
+    }
+
+    @Test func steppedTurnsOneBinAlongTheShorterArc() {
+        // GemRB `GetNextFace`: one 22.5° bin per tick, shorter way round.
+        #expect(ActorFacing.east.stepped(toward: .north) == .eastNorthEast)
+        #expect(ActorFacing.east.stepped(toward: .south) == .eastSouthEast)
+        #expect(ActorFacing.north.stepped(toward: .east) == .northNorthEast)
+        // Already there: no movement, and no oscillation.
+        #expect(ActorFacing.west.stepped(toward: .west) == .west)
+    }
+
+    @Test func steppedReachesAnyFacingWithinHalfATurn() {
+        // Sixteen bins, so the worst case is eight steps — 0.53 s at 15 Hz.
+        for start in ActorFacing.allCases {
+            for target in ActorFacing.allCases {
+                var facing = start
+                var steps = 0
+                while facing != target, steps <= ActorFacing.allCases.count {
+                    facing = facing.stepped(toward: target)
+                    steps += 1
+                }
+                #expect(facing == target)
+                #expect(steps <= ActorFacing.allCases.count / 2)
+            }
+        }
+    }
+
+    @Test func steppedResolvesAHalfTurnConsistently() {
+        // A clean 180° is a tie; the engine breaks it toward the next orientation
+        // rather than dithering between the two arcs.
+        for start in ActorFacing.allCases {
+            let opposite = ActorFacing(
+                rawValue: (start.rawValue + ActorFacing.allCases.count / 2)
+                    % ActorFacing.allCases.count
+            )!
+            let expected = ActorFacing(
+                rawValue: (start.rawValue + 1) % ActorFacing.allCases.count
+            )!
+            #expect(start.stepped(toward: opposite) == expected)
+        }
+    }
+
+    @Test func tickClockDrainsWholeTicksAndKeepsTheRemainder() {
+        var clock = LogicTickClock()
+        // A 60 Hz frame is a quarter tick: three frames buy nothing, the fourth
+        // buys exactly one. Dropping the remainder here would lose 25% of travel.
+        let frame = 1.0 / 60.0
+        #expect(clock.drain(deltaTime: frame) == 0)
+        #expect(clock.drain(deltaTime: frame) == 0)
+        #expect(clock.drain(deltaTime: frame) == 0)
+        #expect(clock.drain(deltaTime: frame) == 1)
+
+        // A long delta drains every whole tick it contains at once.
+        var burst = LogicTickClock()
+        #expect(burst.drain(deltaTime: LogicTickClock.tickDuration * 3.5) == 3)
+        #expect(burst.drain(deltaTime: LogicTickClock.tickDuration * 0.5) == 1)
+
+        // Non-positive deltas never advance, and reset drops the partial tick.
+        var idle = LogicTickClock()
+        #expect(idle.drain(deltaTime: 0) == 0)
+        #expect(idle.drain(deltaTime: -1) == 0)
+        _ = idle.drain(deltaTime: LogicTickClock.tickDuration * 0.9)
+        idle.reset()
+        #expect(idle.drain(deltaTime: LogicTickClock.tickDuration * 0.9) == 0)
+    }
+
+    @Test func tickClockKeepsMovementFrameRateIndependent() {
+        // The same wall-clock second yields the same number of steps whether the
+        // renderer runs at 30, 60, or 120 Hz.
+        for frameRate in [30.0, 60.0, 120.0] {
+            var clock = LogicTickClock()
+            var ticks = 0
+            for _ in 0..<Int(frameRate) {
+                ticks += clock.drain(deltaTime: 1 / frameRate)
+            }
+            #expect(ticks == 15)
+        }
     }
 
     @Test func easternFacingsReuseMirroredWesternSources() {

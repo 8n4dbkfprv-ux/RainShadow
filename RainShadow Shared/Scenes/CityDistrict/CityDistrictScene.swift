@@ -145,7 +145,12 @@ final class CityDistrictScene: BaseGameScene {
 
         let portraitPoint = portraitBar.convert(hudPoint, from: hudRoot)
         if portraitBar.hitTestPortrait(portraitPoint) {
-            setInventoryPresented(true)
+            // BG:EE: double-clicking a portrait centres the view on that character.
+            if event.isDoubleClick {
+                followCamera()
+            } else {
+                setInventoryPresented(true)
+            }
             return
         }
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
@@ -179,30 +184,32 @@ final class CityDistrictScene: BaseGameScene {
         }
 
         moveDetective(to: event.location, queueWaypoint: event.isWaypointQueue)
+        // BG:EE double-click also recentres the viewport on the click.
+        if event.isDoubleClick {
+            recenterCamera(on: event.location)
+        }
     }
 
-    override func handleDirectionalInput(_ direction: CGVector) {
-        if mapIsPresented || worldMapIsPresented { return }
+    override func handleDirectionalInput(_ direction: CGVector) -> Bool {
+        if mapIsPresented || worldMapIsPresented { return true }
         if journalIsPresented {
             journalOverlay.handleDirectionalInput(direction)
-            return
+            return true
         }
         if inventoryIsPresented {
             inventoryOverlay.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1)
-            return
+            return true
         }
-
-        let step: CGFloat = 72
-        let candidate = CGPoint(
-            x: detective.position.x + direction.dx * step,
-            y: detective.position.y + direction.dy * (step * 0.5)
-        )
-        moveDetective(to: candidate)
+        // No overlay: the key belongs to the viewport, not the detective.
+        return false
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
+        // Stop any running edge scroll up front; re-armed below only when the
+        // pointer is over the world rather than an overlay or HUD rail.
+        setCameraScroll(.zero)
         if journalIsPresented {
             let journalPoint = journalOverlay.convert(hudPoint, from: hudRoot)
             (journalOverlay.isInteractive(at: journalPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
@@ -210,6 +217,7 @@ final class CityDistrictScene: BaseGameScene {
         }
         if worldMapIsPresented {
             let mapPoint = worldMapOverlay.convert(hudPoint, from: hudRoot)
+            worldMapOverlay.handleHover(at: mapPoint)
             (worldMapOverlay.isInteractive(at: mapPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
@@ -241,9 +249,27 @@ final class CityDistrictScene: BaseGameScene {
             NSCursor.pointingHand.set()
             return
         }
-        NSCursor.arrow.set()
+        // BG:EE edge scrolling (`GameControl::OnGlobalMouseMove`).
+        setCameraScroll(edgeScrollVector(forHudPoint: hudPoint))
+
+        // BG:EE blocked cursor over impassable ground, so a refused order is
+        // legible before the click (`GameControl::UpdateCursor`).
+        (isFloorOrderable(event.location) ? NSCursor.arrow : Self.blockedCursor).set()
         #endif
     }
+
+    #if os(macOS)
+    private static let blockedCursor = NSCursor.operationNotAllowed
+
+    /// Search-map sample only — this runs on every mouse-move, so it never
+    /// path-searches. Mirrors `Map::GetBlocked` behind `UpdateCursor`.
+    private func isFloorOrderable(_ point: CGPoint) -> Bool {
+        navigation.searchMap.isPassable(
+            at: point,
+            radius: navigation.agentProfile.radius
+        )
+    }
+    #endif
 
     override func handleInventoryInput() {
         guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
@@ -274,6 +300,22 @@ final class CityDistrictScene: BaseGameScene {
             clearWaypointPips()
             queuedMovementGoals.removeAll(keepingCapacity: true)
             detective.cancelMovement()
+        }
+    }
+
+    /// BG:EE right-click / two-finger tap: clear targeting state without stopping
+    /// the walk. Escape remains the only Stop (`handleCancelInput`).
+    override func handleClearTargetingInput() {
+        if journalIsPresented {
+            setJournalPresented(false)
+        } else if worldMapIsPresented {
+            setWorldMapPresented(false)
+        } else if mapIsPresented {
+            setMapPresented(false)
+        } else if inventoryIsPresented {
+            setInventoryPresented(false)
+        } else {
+            clearMovementFeedback()
         }
     }
 
@@ -329,7 +371,7 @@ final class CityDistrictScene: BaseGameScene {
         if fogOfWar?.reveal(at: detective.position) == true {
             context.session.recordCityFogReveal(district.id, point: detective.position)
         }
-        updateCameraPosition()
+        updateCameraPosition(at: currentTime)
     }
 
     private func buildHud() {
@@ -460,15 +502,23 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        guard let route = navigation.route(from: detective.position, to: target) else {
-            showMovementFeedback(at: target, isValid: false)
-            if !queueWaypoint {
-                clearWaypointPips()
-                queuedMovementGoals.removeAll(keepingCapacity: true)
-            }
+        // BG:EE: a click inside the search cell you already occupy is a head turn,
+        // not a move order (`Movable::WalkTo`).
+        if !requiresExactDestination,
+           navigation.searchMap.cell(for: detective.position)
+               == navigation.searchMap.cell(for: target) {
+            clearWaypointPips()
+            queuedMovementGoals.removeAll(keepingCapacity: true)
+            detective.turnToFace(target)
             return
         }
-        guard !requiresExactDestination || !route.destinationWasAdjusted else {
+
+        // Orders onto impassable ground are refused outright, as the engine does
+        // with `IE_CURSOR_BLOCKED`, rather than snapped to a nearby tile. The
+        // two-tier search is `Movable::WalkTo`: route around other actors first,
+        // fall back to a route through them only when nothing clear exists.
+        guard let waypoints = navigation.pathAvoidingActors(from: detective.position, to: target)
+            ?? navigation.path(from: detective.position, to: target) else {
             showMovementFeedback(at: target, isValid: false)
             clearWaypointPips()
             queuedMovementGoals.removeAll(keepingCapacity: true)
@@ -476,9 +526,12 @@ final class CityDistrictScene: BaseGameScene {
         }
 
         clearWaypointPips()
-        showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        queuedMovementGoals = [route.resolvedDestination]
-        detective.walk(path: route.waypoints, completion: { [weak self] in
+        showMovementFeedback(at: target, isValid: true)
+        // A fresh order restarts the replan budget, as `Actor::WalkTo` resets
+        // `pathTries` before planning.
+        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
+        queuedMovementGoals = [target]
+        detective.walk(path: waypoints, completion: { [weak self] in
             self?.finishQueuedMovement(completion: completion)
         })
     }
@@ -488,14 +541,14 @@ final class CityDistrictScene: BaseGameScene {
             moveDetective(to: target, queueWaypoint: false)
             return
         }
-        guard let route = navigation.route(from: origin, to: target) else {
+        guard let waypoints = navigation.path(from: origin, to: target) else {
             showMovementFeedback(at: target, isValid: false)
             return
         }
-        showMovementFeedback(at: route.resolvedDestination, isValid: true)
-        showWaypointPip(at: route.resolvedDestination)
-        queuedMovementGoals.append(route.resolvedDestination)
-        detective.walk(appending: route.waypoints, completion: { [weak self] in
+        showMovementFeedback(at: target, isValid: true)
+        showWaypointPip(at: target)
+        queuedMovementGoals.append(target)
+        detective.walk(appending: waypoints, completion: { [weak self] in
             self?.finishQueuedMovement()
         })
     }
@@ -529,8 +582,20 @@ final class CityDistrictScene: BaseGameScene {
         lastCorrectiveRepathTime = currentTime
         guard let repath = navigation.repath(from: detective.position, to: destination),
               !repath.isEmpty else {
+            // BG:EE `Actor::NewPath`: count consecutive failed replans toward the
+            // same goal and abandon past `MAX_PATH_TRIES`, rather than retrying
+            // forever against geometry that is not going to open. Without this an
+            // actor whose goal became unreachable mid-walk keeps grinding a search
+            // every 0.75 s for the rest of the scene.
+            if navigation.occupancy.recordCongestion(for: Self.detectiveActorID) {
+                navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
+                clearWaypointPips()
+                queuedMovementGoals.removeAll(keepingCapacity: true)
+                detective.cancelMovement()
+            }
             return
         }
+        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
         let currentLeg = currentLegWaypoints(to: destination)
         let remainingLength = Self.polylineLength(currentLeg, from: detective.position)
         let newLength = Self.polylineLength(repath, from: detective.position)
@@ -543,9 +608,9 @@ final class CityDistrictScene: BaseGameScene {
         var combined = repath
         var cursor = destination
         for goal in remainingGoals {
-            if let leg = navigation.route(from: cursor, to: goal) {
-                combined.append(contentsOf: leg.waypoints)
-                cursor = leg.resolvedDestination
+            if let leg = navigation.path(from: cursor, to: goal) {
+                combined.append(contentsOf: leg)
+                cursor = goal
             }
         }
         detective.walk(path: combined, completion: { [weak self] in
@@ -582,12 +647,14 @@ final class CityDistrictScene: BaseGameScene {
         return false
     }
 
+    /// Route length in the projected metric the actor walks, so the corrective
+    /// repath compares travel time rather than raw screen distance.
     private static func polylineLength(_ points: [CGPoint], from origin: CGPoint) -> CGFloat {
         guard let first = points.first else { return 0 }
-        var length = hypot(first.x - origin.x, first.y - origin.y)
+        var length = ActorLocomotionPacing.projectedDistance(from: origin, to: first)
         var previous = first
         for point in points.dropFirst() {
-            length += hypot(point.x - previous.x, point.y - previous.y)
+            length += ActorLocomotionPacing.projectedDistance(from: previous, to: point)
             previous = point
         }
         return length
@@ -700,11 +767,13 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
-    private func updateCameraPosition() {
-        guard size.width > 0, size.height > 0 else { return }
-        gameCamera.position = clampedCameraPosition(
+    /// Drives the district viewport — following Voss, or free-scrolling under the
+    /// player — clamped to the district plate.
+    private func updateCameraPosition(at currentTime: TimeInterval = 0) {
+        updateCamera(
             following: detective.position,
-            in: CGRect(origin: .zero, size: CityDistrictDefinition.worldArtSize)
+            in: CGRect(origin: .zero, size: CityDistrictDefinition.worldArtSize),
+            at: currentTime
         )
         syncHudToCamera()
     }

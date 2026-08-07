@@ -22,12 +22,19 @@ class BaseGameScene: SKScene {
     private var isPerformingLayout = false
     private(set) var baseCameraScale: CGFloat = 1
     #if os(iOS)
-    private var twoFingerCancelIsActive = false
+    private var twoFingerGestureIsActive = false
     /// Wall-clock start of the active single-finger press (long-press → waypoint queue).
     private var touchDownTime: TimeInterval?
     private var touchDownLocation: CGPoint?
     private static let longPressQueueDuration: TimeInterval = 0.45
     private static let longPressMoveSlop: CGFloat = 12
+    /// Two-finger centroid in view points, tracked so the gesture can pan the
+    /// viewport — the touch stand-in for BG's middle-drag.
+    private var twoFingerAnchor: CGPoint?
+    private var twoFingerPanDistance: CGFloat = 0
+    /// Below this much travel the gesture is a two-finger *tap* (clear targeting)
+    /// rather than a pan.
+    private static let twoFingerTapSlop: CGFloat = 12
     #endif
 
     var referenceVisibleHeight: CGFloat { 1_152 }
@@ -71,14 +78,21 @@ class BaseGameScene: SKScene {
     func handlePointerCancelled(_ event: GamePointerEvent) {}
     func handlePointerMoved(_ event: GamePointerEvent) {}
     func handleScrollInput(_ deltaY: CGFloat) {}
-    func handleDirectionalInput(_ direction: CGVector) {}
+    /// Arrow / WASD press. Return `true` when an open overlay consumed it;
+    /// otherwise the key falls through to viewport scrolling. These keys never
+    /// move the actor (GDD §8.3, movement roadmap frozen rule 1).
+    func handleDirectionalInput(_ direction: CGVector) -> Bool { false }
     func handleConfirmInput() {}
     /// Digit 1…9 for dialogue reply selection (BG:EE number-key choices). No-op by default.
     func handleDialogueChoiceDigit(_ digit: Int) {}
     func handleInventoryInput() {}
     func handleMapInput() {}
     func handleJournalInput() {}
+    /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
+    /// BG:EE right-click / two-finger tap: drop any targeting mode and reset the
+    /// action bar, leaving an in-progress path alone.
+    func handleClearTargetingInput() {}
 
     /// Viewport used for all HUD chrome. After `syncSizeFromViewIfNeeded()`, this is
     /// the live SKView point size (and equals `scene.size`).
@@ -123,6 +137,125 @@ class BaseGameScene: SKScene {
     func syncHudToCamera() {
         hudRoot.position = .zero
         hudRoot.setScale(1)
+    }
+
+    // MARK: - Viewport
+
+    /// Infinity Engine viewport model.
+    ///
+    /// BG:EE does not tether the camera to the party. The player scrolls the
+    /// viewport freely — screen edge, middle-drag, arrow keys — and re-centres
+    /// deliberately, by double-clicking the ground (`MoveViewportTo(p, true)`)
+    /// or double-clicking a portrait.
+    ///
+    /// RainShadow keeps `following` as the *default* because a lone detective is
+    /// easier to lose than a six-portrait party, but any manual scroll detaches
+    /// to `free`, which is how the engine behaves the moment you touch the view.
+    enum CameraMode: Equatable {
+        case following
+        case free
+    }
+
+    private(set) var cameraMode: CameraMode = .following
+    /// Authoritative camera target while `free`; unused while `following`.
+    private var freeCameraTarget: CGPoint = .zero
+    /// Live scroll direction in scene axes (+y up) from edge or keyboard input.
+    private var cameraScrollVector: CGVector = .zero
+    private var lastCameraUpdateTime: TimeInterval?
+    #if os(macOS)
+    private var heldScrollKeys: Set<UInt16> = []
+    #endif
+
+    /// Viewport scroll rate: one visible screen height per second.
+    ///
+    /// BG stores `Keyboard Scroll Speed` (64) and `Mouse Scroll Speed` in engine
+    /// pixels per frame, which are bound to its fixed resolution and tick rate.
+    /// A screen-relative rate covers the same proportion of the view per second
+    /// on any window, which is the property those constants were really encoding.
+    var cameraScrollSpeed: CGFloat { referenceVisibleHeight }
+
+    /// Distance from the view edge that starts an edge scroll (BG `EdgeScrollOffset`).
+    static let edgeScrollInset: CGFloat = 16
+
+    /// Hands the viewport to the player at its current position. Called by every
+    /// manual scroll so the camera stops chasing the actor mid-gesture.
+    func detachCamera() {
+        guard cameraMode != .free else { return }
+        cameraMode = .free
+        freeCameraTarget = gameCamera.position
+    }
+
+    /// BG:EE `MoveViewportTo(p, center: true)` — the double-click recentre. Leaves
+    /// the viewport free so it holds the point instead of snapping back next frame.
+    func recenterCamera(on point: CGPoint) {
+        cameraMode = .free
+        freeCameraTarget = point
+    }
+
+    /// Re-attaches the viewport to the actor (BG:EE portrait double-click).
+    func followCamera() {
+        cameraMode = .following
+        cameraScrollVector = .zero
+    }
+
+    /// Scroll direction from edge hover or held keys; `.zero` stops the scroll.
+    func setCameraScroll(_ vector: CGVector) {
+        guard vector != cameraScrollVector else { return }
+        if vector != .zero { detachCamera() }
+        cameraScrollVector = vector
+    }
+
+    /// Middle-drag pan. `viewDelta` is in view points; BG scrolls the viewport
+    /// *with* the mouse (`Scroll(me.Delta())`) rather than dragging the world
+    /// under it, so the sign is not inverted here.
+    func panCamera(byViewDelta viewDelta: CGVector) {
+        guard viewDelta != .zero else { return }
+        detachCamera()
+        freeCameraTarget.x += viewDelta.dx * baseCameraScale
+        freeCameraTarget.y += viewDelta.dy * baseCameraScale
+    }
+
+    /// Per-frame viewport update. Scenes call this instead of assigning
+    /// `gameCamera.position` directly so follow, free scroll, and the world-edge
+    /// clamp all stay in one place.
+    func updateCamera(following target: CGPoint, in bounds: CGRect, at currentTime: TimeInterval) {
+        defer { lastCameraUpdateTime = currentTime }
+        guard size.width > 0, size.height > 0 else { return }
+
+        switch cameraMode {
+        case .following:
+            gameCamera.position = clampedCameraPosition(following: target, in: bounds)
+        case .free:
+            if cameraScrollVector != .zero, let previous = lastCameraUpdateTime {
+                let delta = min(
+                    max(0, currentTime - previous),
+                    ActorLocomotionPacing.maximumFrameDelta
+                )
+                let step = cameraScrollSpeed * CGFloat(delta)
+                freeCameraTarget.x += cameraScrollVector.dx * step
+                freeCameraTarget.y += cameraScrollVector.dy * step
+            }
+            gameCamera.position = clampedCameraPosition(following: freeCameraTarget, in: bounds)
+        }
+    }
+
+    /// Scroll vector implied by a pointer sitting near the view edge. `hudPoint`
+    /// is viewport-centred (`hudRoot` space), where `±size/2` are the edges.
+    func edgeScrollVector(forHudPoint hudPoint: CGPoint) -> CGVector {
+        let limitX = size.width / 2 - Self.edgeScrollInset
+        let limitY = size.height / 2 - Self.edgeScrollInset
+        var vector = CGVector.zero
+        if hudPoint.x < -limitX {
+            vector.dx = -1
+        } else if hudPoint.x > limitX {
+            vector.dx = 1
+        }
+        if hudPoint.y < -limitY {
+            vector.dy = -1
+        } else if hudPoint.y > limitY {
+            vector.dy = 1
+        }
+        return vector
     }
 
     /// Camera position that follows `target` without ever showing past the world
@@ -328,20 +461,23 @@ extension BaseGameScene {
             $0.phase != .ended && $0.phase != .cancelled
         }.count ?? touches.count
         if activeTouchCount >= 2 {
-            if !twoFingerCancelIsActive {
-                twoFingerCancelIsActive = true
+            if !twoFingerGestureIsActive {
+                twoFingerGestureIsActive = true
                 touchDownTime = nil
                 touchDownLocation = nil
+                twoFingerAnchor = Self.touchCentroid(in: event, view: view)
+                twoFingerPanDistance = 0
                 if let touch = touches.first {
                     handlePointerCancelled(
                         GamePointerEvent(location: touch.location(in: self), kind: .touch)
                     )
                 }
-                handleCancelInput()
+                // Whether this is a pan or the touch right-click is decided on
+                // release, by how far the centroid travelled.
             }
             return
         }
-        guard !twoFingerCancelIsActive else { return }
+        guard !twoFingerGestureIsActive else { return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         touchDownTime = ProcessInfo.processInfo.systemUptime
@@ -350,7 +486,18 @@ extension BaseGameScene {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard !twoFingerCancelIsActive else { return }
+        if twoFingerGestureIsActive {
+            // Two-finger drag pans the viewport (touch equivalent of BG's
+            // middle-drag). View points, not scene points: scene space moves with
+            // the camera, so reading it mid-pan would feed back into itself.
+            guard let anchor = twoFingerAnchor,
+                  let centroid = Self.touchCentroid(in: event, view: view) else { return }
+            let delta = CGVector(dx: centroid.x - anchor.x, dy: -(centroid.y - anchor.y))
+            twoFingerAnchor = centroid
+            twoFingerPanDistance += hypot(delta.dx, delta.dy)
+            panCamera(byViewDelta: delta)
+            return
+        }
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         if let origin = touchDownLocation {
@@ -364,11 +511,20 @@ extension BaseGameScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if twoFingerCancelIsActive {
+        if twoFingerGestureIsActive {
             let hasActiveTouches = event?.allTouches?.contains {
                 $0.phase != .ended && $0.phase != .cancelled
             } ?? false
-            if !hasActiveTouches { twoFingerCancelIsActive = false }
+            if !hasActiveTouches {
+                twoFingerGestureIsActive = false
+                // A two-finger tap that never became a pan is the touch
+                // equivalent of BG:EE right-click: clear targeting, keep walking.
+                if twoFingerPanDistance <= Self.twoFingerTapSlop {
+                    handleClearTargetingInput()
+                }
+                twoFingerAnchor = nil
+                twoFingerPanDistance = 0
+            }
             return
         }
         guard let touch = touches.first else { return }
@@ -389,15 +545,33 @@ extension BaseGameScene {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchDownTime = nil
         touchDownLocation = nil
-        if twoFingerCancelIsActive {
+        if twoFingerGestureIsActive {
             let hasActiveTouches = event?.allTouches?.contains {
                 $0.phase != .ended && $0.phase != .cancelled
             } ?? false
-            if !hasActiveTouches { twoFingerCancelIsActive = false }
+            if !hasActiveTouches {
+                twoFingerGestureIsActive = false
+                twoFingerAnchor = nil
+                twoFingerPanDistance = 0
+            }
             return
         }
         guard let touch = touches.first else { return }
         handlePointerCancelled(GamePointerEvent(location: touch.location(in: self), kind: .touch))
+    }
+
+    /// Mean position of the live touches in view points, which unlike scene
+    /// points does not move when the camera does.
+    private static func touchCentroid(in event: UIEvent?, view: SKView?) -> CGPoint? {
+        let live = event?.allTouches?.filter { $0.phase != .ended && $0.phase != .cancelled } ?? []
+        guard !live.isEmpty else { return nil }
+        var sum = CGPoint.zero
+        for touch in live {
+            let point = touch.location(in: view)
+            sum.x += point.x
+            sum.y += point.y
+        }
+        return CGPoint(x: sum.x / CGFloat(live.count), y: sum.y / CGFloat(live.count))
     }
 }
 #elseif os(macOS)
@@ -418,7 +592,8 @@ extension BaseGameScene {
             GamePointerEvent(
                 location: event.location(in: self),
                 kind: .mouse,
-                isWaypointQueue: queue
+                isWaypointQueue: queue,
+                isDoubleClick: event.clickCount == 2
             )
         )
     }
@@ -432,12 +607,28 @@ extension BaseGameScene {
         handleScrollInput(event.scrollingDeltaY * multiplier)
     }
 
+    /// Middle-button drag pans the viewport, as GemRB's `OnMouseDrag` does for
+    /// `GEM_MB_MIDDLE`. Device deltas are used rather than scene coordinates:
+    /// scene space moves with the camera, so reading it mid-pan feeds back.
+    override func otherMouseDragged(with event: NSEvent) {
+        guard event.buttonNumber == 2 else { return }
+        panCamera(byViewDelta: CGVector(dx: event.deltaX, dy: -event.deltaY))
+    }
+
     override func keyDown(with event: NSEvent) {
         switch event.keyCode {
-        case 0, 123: handleDirectionalInput(CGVector(dx: -1, dy: 0)) // A / left
-        case 2, 124: handleDirectionalInput(CGVector(dx: 1, dy: 0)) // D / right
-        case 1, 125: handleDirectionalInput(CGVector(dx: 0, dy: -1)) // S / down
-        case 13, 126: handleDirectionalInput(CGVector(dx: 0, dy: 1)) // W / up
+        // Arrows / WASD scroll the viewport, never the actor. GDD §8.3 and frozen
+        // rule 1 both say point-and-click owns movement and these keys are camera
+        // pan only; BG does the same in `ApplyKeyScrolling`. Open overlays get
+        // first refusal so the journal and reply list still take arrow keys.
+        case 0, 123, 2, 124, 1, 125, 13, 126:
+            if handleDirectionalInput(Self.scrollDirection(forKeyCode: event.keyCode)) {
+                heldScrollKeys.removeAll()
+                applyKeyScrolling()
+                return
+            }
+            if !event.isARepeat { heldScrollKeys.insert(event.keyCode) }
+            applyKeyScrolling()
         case 34 where !event.isARepeat: handleInventoryInput() // I
         case 46 where !event.isARepeat: handleMapInput() // M
         case 38 where !event.isARepeat: handleJournalInput() // J
@@ -459,8 +650,41 @@ extension BaseGameScene {
         }
     }
 
+    override func keyUp(with event: NSEvent) {
+        switch event.keyCode {
+        case 0, 123, 2, 124, 1, 125, 13, 126:
+            heldScrollKeys.remove(event.keyCode)
+            applyKeyScrolling()
+        default:
+            super.keyUp(with: event)
+        }
+    }
+
+    private static func scrollDirection(forKeyCode keyCode: UInt16) -> CGVector {
+        switch keyCode {
+        case 0, 123: CGVector(dx: -1, dy: 0) // A / left
+        case 2, 124: CGVector(dx: 1, dy: 0) // D / right
+        case 1, 125: CGVector(dx: 0, dy: -1) // S / down
+        default: CGVector(dx: 0, dy: 1) // W / up
+        }
+    }
+
+    /// GemRB `ApplyKeyScrolling`: held direction keys become a scroll vector that
+    /// the viewport spends per frame, rather than a one-shot jump per press.
+    private func applyKeyScrolling() {
+        var vector = CGVector.zero
+        if heldScrollKeys.contains(0) || heldScrollKeys.contains(123) { vector.dx -= 1 }
+        if heldScrollKeys.contains(2) || heldScrollKeys.contains(124) { vector.dx += 1 }
+        if heldScrollKeys.contains(1) || heldScrollKeys.contains(125) { vector.dy -= 1 }
+        if heldScrollKeys.contains(13) || heldScrollKeys.contains(126) { vector.dy += 1 }
+        setCameraScroll(vector)
+    }
+
+    /// BG:EE right-click clears the targeting mode and resets the action bar —
+    /// it does **not** stop movement (`GameControl::OnMouseUp`, `GEM_MB_MENU`).
+    /// Escape remains the only Stop.
     override func rightMouseDown(with event: NSEvent) {
-        handleCancelInput()
+        handleClearTargetingInput()
     }
 }
 #endif
