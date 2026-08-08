@@ -33,8 +33,8 @@ final class InventoryOverlay: SKNode {
 
         static let titleY: CGFloat = 478
         static let identityBand = CGPoint(x: 0, y: 428)
-        /// Center of the Classic Mac close seat on the TL title rail of `inventory_outer_frame_v06`.
-        static let closeButton = CGPoint(x: -743, y: 484)
+        /// Center of the Classic Mac close seat on the TL title rail of `inventory_outer_frame_v07`.
+        static let closeButton = CGPoint(x: -738, y: 498)
 
         /// One shared content rectangle inside the outer frame's inner rails.
         /// Keeping every opaque plate on these edges prevents uneven gutters
@@ -305,7 +305,7 @@ final class InventoryOverlay: SKNode {
         veil.zPosition = -20
         addChild(veil)
 
-        addChromeSprite(named: "inventory_outer_frame_v06", size: Metrics.canvas, z: -8, parent: sheet)
+        addChromeSprite(named: "inventory_outer_frame_v07", size: Metrics.canvas, z: -8, parent: sheet)
 
         sheet.addChild(content)
         content.zPosition = 0

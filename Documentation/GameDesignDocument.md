@@ -97,7 +97,7 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 #### Harlan Voss — player protagonist
 
 - **Role:** Private detective; the player’s body, voice, and moral weather.
-- **Age / look:** Male, early thirties. Clean-shaven handsome face with tired hollow eyes; short dark hair, bare-headed (no fedora). Lived-in olive-brown belted overcoat over a mustard waistcoat, cream shirt, and loosened dark green tie; charcoal trousers; scuffed brown shoes. Handsome but broken down—no glamorous silhouette. Economical movements, guarded posture, capable hands.
+- **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.

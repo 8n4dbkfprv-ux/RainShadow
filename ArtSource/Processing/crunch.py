@@ -217,7 +217,7 @@ HUE_SPREAD_TARGET = 0.45  # townsfolk 0.485; red tunic 0.948; mage robes 1.966
 WARDROBE = {
     "shirt": (206, 195, 170),      # old-paper cream
     "skin": (172, 126, 96),        # warm mid tan
-    "waistcoat": (156, 119, 47),   # mustard ochre
+    "waistcoat": (156, 119, 48),   # mustard ochre (#9C7730, V14/V16 lock)
     "coat": (112, 94, 60),         # olive-brown overcoat
     "tie": (54, 70, 54),           # muted forest green
     "shoes": (78, 55, 37),         # scuffed dark leather

@@ -37,6 +37,9 @@ STAT_BADGES = [
 
 # Prefer cooler HUD-matched remasters (b/c) over first warm passes.
 SOURCE_MAP = {
+    "outer_v07": [
+        "inventory_outer_frame_v07_gen.png",
+    ],
     "outer_v06": [
         "inventory_outer_frame_v06b_gen.png",
         "inventory_outer_frame_v06_gen.png",
@@ -264,13 +267,17 @@ def resolve_src(candidates: list[str]) -> Path:
         alt = ROOT / "assets" / name
         if alt.exists():
             return alt
+        for generated in (GEN / name, GEN_COMMON / name):
+            if generated.exists():
+                return generated
     raise FileNotFoundError(f"Missing generator asset; tried {candidates}")
 
 
 def copy_gen(candidates: list[str], dest: Path) -> Path:
     src = resolve_src(candidates)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(src, dest)
+    if src.resolve() != dest.resolve():
+        shutil.copy2(src, dest)
     return dest
 
 
@@ -375,10 +382,24 @@ def process_outer_v06() -> None:
     )
 
 
+def process_outer_v07() -> None:
+    # Slim noir rail with a compact Mac OS 9 close seat. Expand only the
+    # unadorned horizontal runs so the mitres and close geometry stay intact.
+    process_keyed(
+        "outer_v07",
+        "inventory_outer_frame_v07",
+        (1960, 1080),
+        punch_interior=False,
+        horizontal_seam=(0.28, 0.72),
+    )
+
+
 def main() -> None:
     targets = sys.argv[1:] or ["all"]
     run_all = "all" in targets
 
+    if run_all or "outer_v07" in targets:
+        process_outer_v07()
     if run_all or "outer_v06" in targets:
         process_outer_v06()
     if run_all or "close_macos9" in targets:

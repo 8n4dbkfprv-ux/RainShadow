@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "asset_version": "v16",
+  "character": "Harlan Voss",
+  "source_root": "Frames",
+  "anchors_root": "Anchors",
+  "staging_root": "Staging",
+  "qa_root": "QA",
+  "generated": {
+    "standing_idle": {
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "phases": 4,
+      "pattern": "voss_idle_{direction}_{phase:02d}_chroma_v16.png"
+    },
+    "walk": {
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "phases": 8,
+      "pattern": "voss_walk_{direction}_{phase:02d}_chroma_v16.png"
+    },
+    "seated_idle": {
+      "directions": ["ne", "se"],
+      "phases": 8,
+      "pattern": "voss_seated_idle_{direction}_{phase:02d}_chroma_v16.png"
+    },
+    "stand_up": {
+      "directions": ["ne", "se"],
+      "phases": 12,
+      "pattern": "voss_stand_up_{direction}_{phase:02d}_chroma_v16.png"
+    }
+  },
+  "required_anchors": [
+    "voss_anchor_front_chroma_v16.png",
+    "voss_anchor_profile_w_chroma_v16.png",
+    "voss_anchor_back_chroma_v16.png",
+    "voss_anchor_dimetric_se_chroma_v16.png"
+  ],
+  "derived": {
+    "standing_idle_se_mirror_of_sw": 4,
+    "sit_down_exact_reverse_of_stand_up": 24,
+    "seated_ne_upper_lower_compatibility": 16,
+    "transparent_seated_arms": 16
+  },
+  "runtime": {
+    "VossIdle.atlas": 40,
+    "VossWalk.atlas": 72,
+    "VossSeatedIdle.atlas": 32,
+    "VossSeatedArms.atlas": 16,
+    "VossSeatTransitions.atlas": 48
+  },
+  "counts": {
+    "imagegen_body_masters": 148,
+    "primary_body_presentations": 176,
+    "runtime_pngs": 208
+  },
+  "processing": {
+    "processor": "V14",
+    "native_body_rows": 56,
+    "texture_body_height": 200,
+    "canvas": [512, 512],
+    "foot_row": 433,
+    "corner_sentinel_alpha": 1,
+    "palette_colors": 64,
+    "dither": false,
+    "hard_alpha": true,
+    "preserve_wardrobe": true,
+    "seated_se_source_mirror_x": true,
+    "forbidden_legacy_locks": [
+      "seated_authority_lock",
+      "identity_wardrobe_lock",
+      "relock_voss_identity_v12"
+    ]
+  },
+  "wardrobe": {
+    "shirt": "#CEC3AA",
+    "skin": "#AC7E60",
+    "waistcoat": "#9C7730",
+    "coat": "#705E3C",
+    "trousers": "#3A383E",
+    "tie": "#364636",
+    "shoes": "#4E3725",
+    "hair": "#3A2D25"
+  },
+  "gates": {
+    "anchor_width_height_ratio": [0.40, 0.43],
+    "source_front_hue_spread_min": 0.45,
+    "processed_front_hue_spread_min": 0.18,
+    "standing_height": [198, 202],
+    "seated_height": [150, 160],
+    "center_tolerance": 2.0,
+    "idle_centroid_drift_max": 2.0,
+    "idle_neutral_iou_min": 0.86,
+    "adjacent_crown_retreat_max": 4,
+    "transition_rise": [38, 50],
+    "head_width": [19, 29],
+    "head_width_drift_ratio_max": 1.30,
+    "head_jitter_max": 2.0,
+    "minimum_recognizable_facings": 12
+  },
+  "runtime_contract": {
+    "paperdoll_id": "voss_paperdoll_front_rgba_v01",
+    "paperdoll_display": [220, 315],
+    "actor_node": [180, 180],
+    "anchor": [0.5, 0.15625],
+    "filtering": "nearest",
+    "chair_owner": "world"
+  }
+}

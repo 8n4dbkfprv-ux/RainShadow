@@ -1,0 +1,4861 @@
+{
+  "schema_version": 1,
+  "asset_version": "V16",
+  "title": "Voss V16 ImageGen frame inventory",
+  "baseline_commit": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+  "generated_master_root": "ArtSource/Generated/Characters/Detective/PreRendered3DV16",
+  "invariants": {
+    "generated_background_rgb": [
+      0,
+      255,
+      0
+    ],
+    "generated_background_hex": "#00ff00",
+    "generated_master_rule": "One built-in/default Image Generator constrained edit per generated_calls entry; never request a multi-frame sheet.",
+    "no_transfer_from_shape_references": [
+      "face",
+      "hair",
+      "clothing",
+      "materials",
+      "textures"
+    ],
+    "forbidden_content": [
+      "floor",
+      "shadow",
+      "chair",
+      "prop",
+      "weapon",
+      "text",
+      "UI",
+      "watermark"
+    ],
+    "source_pose_lock": [
+      "pose",
+      "direction",
+      "foot plant",
+      "gait phase",
+      "camera"
+    ],
+    "output_identity_lock": "Early-thirties clean-shaven Harlan Voss with the existing face, hair, open clean-hem mid-calf coat, shirt, waistcoat, tie, trousers, and shoes."
+  },
+  "counts": {
+    "imagegen_selected_masters": 148,
+    "imagegen_by_category": {
+      "standing_idle": 36,
+      "walk": 72,
+      "seated_idle": 16,
+      "stand_up": 24
+    },
+    "derived_primary": 28,
+    "derived_primary_by_category": {
+      "mirrored_se_standing_idle": 4,
+      "reversed_sit_down": 24
+    },
+    "primary_body_presentations": 176,
+    "compatibility_layers": 16,
+    "transparent_arms": 16,
+    "runtime_png_total": 208,
+    "runtime_by_atlas": {
+      "VossIdle.atlas": 40,
+      "VossWalk.atlas": 72,
+      "VossSeatedIdle.atlas": 32,
+      "VossSeatTransitions.atlas": 48,
+      "VossSeatedArms.atlas": 16
+    }
+  },
+  "direction_order": [
+    "s",
+    "ssw",
+    "sw",
+    "wsw",
+    "w",
+    "wnw",
+    "nw",
+    "nnw",
+    "n"
+  ],
+  "runtime_transform_rules": [
+    {
+      "match": {
+        "category": "seated_idle",
+        "direction": "se"
+      },
+      "operations_before_crunch": [
+        "mirror_x_exact"
+      ],
+      "reason": "The V12 raw pose sources face authoring lower-left and runtime SE faces lower-right."
+    },
+    {
+      "match": {
+        "category": "stand_up",
+        "direction": "se"
+      },
+      "operations_before_crunch": [
+        "mirror_x_exact"
+      ],
+      "reason": "The V12 raw pose sources face authoring lower-left and runtime SE faces lower-right."
+    },
+    {
+      "match": {
+        "category": "sit_down",
+        "direction": "se"
+      },
+      "operations_before_crunch": [
+        "reverse_stand_up_exact",
+        "mirror_x_exact"
+      ]
+    },
+    {
+      "match": {
+        "category": "standing_idle",
+        "direction": "se"
+      },
+      "operations_before_crunch": [],
+      "reason": "The derived V16 master is already mirrored exactly from SW; do not mirror it again."
+    },
+    {
+      "match": "default",
+      "operations_before_crunch": []
+    }
+  ],
+  "public_runtime_contract": {
+    "atlas_root": "RainShadow Shared/Resources/Art/Atlases",
+    "paperdoll_id": "voss_paperdoll_front_rgba_v01",
+    "paperdoll_path": "RainShadow Shared/Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png",
+    "portrait_id": "dialogue_portrait_harlan_voss_v01",
+    "actor_anchor": [
+      0.5,
+      0.15625
+    ],
+    "actor_node_size": [
+      180,
+      180
+    ]
+  },
+  "workflow_batches": {
+    "neutral_gameplay_keys": [
+      "idle_s_00",
+      "idle_ssw_00",
+      "idle_sw_00",
+      "idle_wsw_00",
+      "idle_w_00",
+      "idle_wnw_00",
+      "idle_nw_00",
+      "idle_nnw_00",
+      "idle_n_00"
+    ],
+    "sw_walk_proof": [
+      "walk_sw_00",
+      "walk_sw_01",
+      "walk_sw_02",
+      "walk_sw_03",
+      "walk_sw_04",
+      "walk_sw_05",
+      "walk_sw_06",
+      "walk_sw_07"
+    ],
+    "production_note": "Approve all neutral keys, then the complete eight-frame SW proof, before generating the remaining constrained edits."
+  },
+  "reference_assets": [
+    {
+      "id": "shape_front",
+      "authority": "body_geometry_and_silhouette_only",
+      "external_path": "/Users/laurensvanoorschot/Desktop/Screenshot 2026-08-08 at 1.29.55 PM.png",
+      "materialized_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/References/anatomy_shape_front.png",
+      "sha256": "4f51969c569d4aa454bda562ba23fb19add0c005acb51cd39f9c7fb713e060e3",
+      "mode": "RGBA",
+      "size": [
+        490,
+        766
+      ]
+    },
+    {
+      "id": "shape_back",
+      "authority": "body_geometry_and_silhouette_only",
+      "external_path": "/Users/laurensvanoorschot/Desktop/Screenshot 2026-08-08 at 1.30.21 PM.png",
+      "materialized_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/References/anatomy_shape_back.png",
+      "sha256": "6c8f923fde3c5cd74e7f95cff7fa8016822452e0adda8ebd9d4f74a471286fd9",
+      "mode": "RGBA",
+      "size": [
+        410,
+        748
+      ]
+    },
+    {
+      "id": "paperdoll_v11",
+      "authority": "face_hair_complete_wardrobe_materials_identity",
+      "path": "ArtSource/Generated/Characters/Detective/Paperdoll/voss_paperdoll_front_chroma_v11.png",
+      "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+      "sha256": "afde30e16b74ef4e856814a2d5521441dcea5e1edd3a133bb5f165ee91a42e47",
+      "mode": "RGB",
+      "size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "key_se_v12",
+      "authority": "camera_character_identity_and_dimetric_gameplay_read",
+      "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/voss_key_se_chroma_v12.png",
+      "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+      "sha256": "0300e2b1c2a617fe9b7ea001a8c30cced7d925bca40affe82fbd1381fc1476b8",
+      "mode": "RGB",
+      "size": [
+        591,
+        1431
+      ]
+    },
+    {
+      "id": "key_se_v13c",
+      "authority": "approved_soft_craft_density",
+      "source_revision": "17975c0c0206293eea3690e58367a15f8aaf34c6",
+      "source_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV13/voss_key_se_chroma_v13c_review.png",
+      "materialized_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/References/voss_key_se_chroma_v13c_review.png",
+      "availability_at_baseline": "absent",
+      "mode": "RGB",
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "e01ca01846409df90ccfcdd36a664861a24f5a333cecbdb35386a3066acc111b"
+    },
+    {
+      "id": "key_se_v13d",
+      "authority": "approved_separated_wardrobe_palette_and_microcontrast",
+      "source_revision": "17975c0c0206293eea3690e58367a15f8aaf34c6",
+      "source_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV13/voss_key_se_chroma_v13d_review.png",
+      "materialized_path": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/References/voss_key_se_chroma_v13d_review.png",
+      "availability_at_baseline": "absent",
+      "mode": "RGB",
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "d397696c5e8305c2dd1c053720bc62714846831aabe3cf0b2659f74c999af572"
+    }
+  ],
+  "generated_calls": [
+    {
+      "call": 1,
+      "id": "idle_s_00",
+      "category": "standing_idle",
+      "direction": "s",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_s_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_s_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_s_00.png"
+      }
+    },
+    {
+      "call": 2,
+      "id": "idle_s_01",
+      "category": "standing_idle",
+      "direction": "s",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_s_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_s_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_s_01.png"
+      }
+    },
+    {
+      "call": 3,
+      "id": "idle_s_02",
+      "category": "standing_idle",
+      "direction": "s",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_s_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_s_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_s_02.png"
+      }
+    },
+    {
+      "call": 4,
+      "id": "idle_s_03",
+      "category": "standing_idle",
+      "direction": "s",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_s_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_s_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_s_03.png"
+      }
+    },
+    {
+      "call": 5,
+      "id": "idle_ssw_00",
+      "category": "standing_idle",
+      "direction": "ssw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_ssw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_ssw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_ssw_00.png"
+      }
+    },
+    {
+      "call": 6,
+      "id": "idle_ssw_01",
+      "category": "standing_idle",
+      "direction": "ssw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_ssw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_ssw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_ssw_01.png"
+      }
+    },
+    {
+      "call": 7,
+      "id": "idle_ssw_02",
+      "category": "standing_idle",
+      "direction": "ssw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_ssw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_ssw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_ssw_02.png"
+      }
+    },
+    {
+      "call": 8,
+      "id": "idle_ssw_03",
+      "category": "standing_idle",
+      "direction": "ssw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_ssw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_ssw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_ssw_03.png"
+      }
+    },
+    {
+      "call": 9,
+      "id": "idle_sw_00",
+      "category": "standing_idle",
+      "direction": "sw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_sw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_sw_00.png"
+      }
+    },
+    {
+      "call": 10,
+      "id": "idle_sw_01",
+      "category": "standing_idle",
+      "direction": "sw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_sw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_sw_01.png"
+      }
+    },
+    {
+      "call": 11,
+      "id": "idle_sw_02",
+      "category": "standing_idle",
+      "direction": "sw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_sw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_sw_02.png"
+      }
+    },
+    {
+      "call": 12,
+      "id": "idle_sw_03",
+      "category": "standing_idle",
+      "direction": "sw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_sw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_sw_03.png"
+      }
+    },
+    {
+      "call": 13,
+      "id": "idle_wsw_00",
+      "category": "standing_idle",
+      "direction": "wsw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wsw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wsw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wsw_00.png"
+      }
+    },
+    {
+      "call": 14,
+      "id": "idle_wsw_01",
+      "category": "standing_idle",
+      "direction": "wsw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wsw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wsw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wsw_01.png"
+      }
+    },
+    {
+      "call": 15,
+      "id": "idle_wsw_02",
+      "category": "standing_idle",
+      "direction": "wsw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wsw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wsw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wsw_02.png"
+      }
+    },
+    {
+      "call": 16,
+      "id": "idle_wsw_03",
+      "category": "standing_idle",
+      "direction": "wsw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wsw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wsw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wsw_03.png"
+      }
+    },
+    {
+      "call": 17,
+      "id": "idle_w_00",
+      "category": "standing_idle",
+      "direction": "w",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_w_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_w_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_w_00.png"
+      }
+    },
+    {
+      "call": 18,
+      "id": "idle_w_01",
+      "category": "standing_idle",
+      "direction": "w",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_w_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_w_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_w_01.png"
+      }
+    },
+    {
+      "call": 19,
+      "id": "idle_w_02",
+      "category": "standing_idle",
+      "direction": "w",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_w_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_w_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_w_02.png"
+      }
+    },
+    {
+      "call": 20,
+      "id": "idle_w_03",
+      "category": "standing_idle",
+      "direction": "w",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_w_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_w_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_w_03.png"
+      }
+    },
+    {
+      "call": 21,
+      "id": "idle_wnw_00",
+      "category": "standing_idle",
+      "direction": "wnw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wnw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wnw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wnw_00.png"
+      }
+    },
+    {
+      "call": 22,
+      "id": "idle_wnw_01",
+      "category": "standing_idle",
+      "direction": "wnw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wnw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wnw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wnw_01.png"
+      }
+    },
+    {
+      "call": 23,
+      "id": "idle_wnw_02",
+      "category": "standing_idle",
+      "direction": "wnw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wnw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wnw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wnw_02.png"
+      }
+    },
+    {
+      "call": 24,
+      "id": "idle_wnw_03",
+      "category": "standing_idle",
+      "direction": "wnw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_wnw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_wnw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_wnw_03.png"
+      }
+    },
+    {
+      "call": 25,
+      "id": "idle_nw_00",
+      "category": "standing_idle",
+      "direction": "nw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nw_00.png"
+      }
+    },
+    {
+      "call": 26,
+      "id": "idle_nw_01",
+      "category": "standing_idle",
+      "direction": "nw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nw_01.png"
+      }
+    },
+    {
+      "call": 27,
+      "id": "idle_nw_02",
+      "category": "standing_idle",
+      "direction": "nw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nw_02.png"
+      }
+    },
+    {
+      "call": 28,
+      "id": "idle_nw_03",
+      "category": "standing_idle",
+      "direction": "nw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nw_03.png"
+      }
+    },
+    {
+      "call": 29,
+      "id": "idle_nnw_00",
+      "category": "standing_idle",
+      "direction": "nnw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nnw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nnw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nnw_00.png"
+      }
+    },
+    {
+      "call": 30,
+      "id": "idle_nnw_01",
+      "category": "standing_idle",
+      "direction": "nnw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nnw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nnw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nnw_01.png"
+      }
+    },
+    {
+      "call": 31,
+      "id": "idle_nnw_02",
+      "category": "standing_idle",
+      "direction": "nnw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nnw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nnw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nnw_02.png"
+      }
+    },
+    {
+      "call": 32,
+      "id": "idle_nnw_03",
+      "category": "standing_idle",
+      "direction": "nnw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_nnw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_nnw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_nnw_03.png"
+      }
+    },
+    {
+      "call": 33,
+      "id": "idle_n_00",
+      "category": "standing_idle",
+      "direction": "n",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_n_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_n_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_n_00.png"
+      }
+    },
+    {
+      "call": 34,
+      "id": "idle_n_01",
+      "category": "standing_idle",
+      "direction": "n",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_n_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_n_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_n_01.png"
+      }
+    },
+    {
+      "call": 35,
+      "id": "idle_n_02",
+      "category": "standing_idle",
+      "direction": "n",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_n_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_n_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_n_02.png"
+      }
+    },
+    {
+      "call": 36,
+      "id": "idle_n_03",
+      "category": "standing_idle",
+      "direction": "n",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_idle_n_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_n_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_n_03.png"
+      }
+    },
+    {
+      "call": 37,
+      "id": "walk_s_00",
+      "category": "walk",
+      "direction": "s",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_00.png"
+      }
+    },
+    {
+      "call": 38,
+      "id": "walk_s_01",
+      "category": "walk",
+      "direction": "s",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_01.png"
+      }
+    },
+    {
+      "call": 39,
+      "id": "walk_s_02",
+      "category": "walk",
+      "direction": "s",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_02.png"
+      }
+    },
+    {
+      "call": 40,
+      "id": "walk_s_03",
+      "category": "walk",
+      "direction": "s",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_03.png"
+      }
+    },
+    {
+      "call": 41,
+      "id": "walk_s_04",
+      "category": "walk",
+      "direction": "s",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_04.png"
+      }
+    },
+    {
+      "call": 42,
+      "id": "walk_s_05",
+      "category": "walk",
+      "direction": "s",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_05.png"
+      }
+    },
+    {
+      "call": 43,
+      "id": "walk_s_06",
+      "category": "walk",
+      "direction": "s",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_06.png"
+      }
+    },
+    {
+      "call": 44,
+      "id": "walk_s_07",
+      "category": "walk",
+      "direction": "s",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_s_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_s_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_s_07.png"
+      }
+    },
+    {
+      "call": 45,
+      "id": "walk_ssw_00",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_00.png"
+      }
+    },
+    {
+      "call": 46,
+      "id": "walk_ssw_01",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_01.png"
+      }
+    },
+    {
+      "call": 47,
+      "id": "walk_ssw_02",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_02.png"
+      }
+    },
+    {
+      "call": 48,
+      "id": "walk_ssw_03",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_03.png"
+      }
+    },
+    {
+      "call": 49,
+      "id": "walk_ssw_04",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_04.png"
+      }
+    },
+    {
+      "call": 50,
+      "id": "walk_ssw_05",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_05.png"
+      }
+    },
+    {
+      "call": 51,
+      "id": "walk_ssw_06",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_06.png"
+      }
+    },
+    {
+      "call": 52,
+      "id": "walk_ssw_07",
+      "category": "walk",
+      "direction": "ssw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_ssw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_ssw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_ssw_07.png"
+      }
+    },
+    {
+      "call": 53,
+      "id": "walk_sw_00",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_00.png"
+      }
+    },
+    {
+      "call": 54,
+      "id": "walk_sw_01",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_01.png"
+      }
+    },
+    {
+      "call": 55,
+      "id": "walk_sw_02",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_02.png"
+      }
+    },
+    {
+      "call": 56,
+      "id": "walk_sw_03",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_03.png"
+      }
+    },
+    {
+      "call": 57,
+      "id": "walk_sw_04",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_04.png"
+      }
+    },
+    {
+      "call": 58,
+      "id": "walk_sw_05",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_05.png"
+      }
+    },
+    {
+      "call": 59,
+      "id": "walk_sw_06",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_06.png"
+      }
+    },
+    {
+      "call": 60,
+      "id": "walk_sw_07",
+      "category": "walk",
+      "direction": "sw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_sw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_sw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_sw_07.png"
+      }
+    },
+    {
+      "call": 61,
+      "id": "walk_wsw_00",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_00.png"
+      }
+    },
+    {
+      "call": 62,
+      "id": "walk_wsw_01",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_01.png"
+      }
+    },
+    {
+      "call": 63,
+      "id": "walk_wsw_02",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_02.png"
+      }
+    },
+    {
+      "call": 64,
+      "id": "walk_wsw_03",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_03.png"
+      }
+    },
+    {
+      "call": 65,
+      "id": "walk_wsw_04",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_04.png"
+      }
+    },
+    {
+      "call": 66,
+      "id": "walk_wsw_05",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_05.png"
+      }
+    },
+    {
+      "call": 67,
+      "id": "walk_wsw_06",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_06.png"
+      }
+    },
+    {
+      "call": 68,
+      "id": "walk_wsw_07",
+      "category": "walk",
+      "direction": "wsw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wsw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wsw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wsw_07.png"
+      }
+    },
+    {
+      "call": 69,
+      "id": "walk_w_00",
+      "category": "walk",
+      "direction": "w",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_00.png"
+      }
+    },
+    {
+      "call": 70,
+      "id": "walk_w_01",
+      "category": "walk",
+      "direction": "w",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_01.png"
+      }
+    },
+    {
+      "call": 71,
+      "id": "walk_w_02",
+      "category": "walk",
+      "direction": "w",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_02.png"
+      }
+    },
+    {
+      "call": 72,
+      "id": "walk_w_03",
+      "category": "walk",
+      "direction": "w",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_03.png"
+      }
+    },
+    {
+      "call": 73,
+      "id": "walk_w_04",
+      "category": "walk",
+      "direction": "w",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_04.png"
+      }
+    },
+    {
+      "call": 74,
+      "id": "walk_w_05",
+      "category": "walk",
+      "direction": "w",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_05.png"
+      }
+    },
+    {
+      "call": 75,
+      "id": "walk_w_06",
+      "category": "walk",
+      "direction": "w",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_06.png"
+      }
+    },
+    {
+      "call": 76,
+      "id": "walk_w_07",
+      "category": "walk",
+      "direction": "w",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_w_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_w_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_w_07.png"
+      }
+    },
+    {
+      "call": 77,
+      "id": "walk_wnw_00",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_00.png"
+      }
+    },
+    {
+      "call": 78,
+      "id": "walk_wnw_01",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_01.png"
+      }
+    },
+    {
+      "call": 79,
+      "id": "walk_wnw_02",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_02.png"
+      }
+    },
+    {
+      "call": 80,
+      "id": "walk_wnw_03",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_03.png"
+      }
+    },
+    {
+      "call": 81,
+      "id": "walk_wnw_04",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_04.png"
+      }
+    },
+    {
+      "call": 82,
+      "id": "walk_wnw_05",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_05.png"
+      }
+    },
+    {
+      "call": 83,
+      "id": "walk_wnw_06",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_06.png"
+      }
+    },
+    {
+      "call": 84,
+      "id": "walk_wnw_07",
+      "category": "walk",
+      "direction": "wnw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_wnw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_wnw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_wnw_07.png"
+      }
+    },
+    {
+      "call": 85,
+      "id": "walk_nw_00",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_00.png"
+      }
+    },
+    {
+      "call": 86,
+      "id": "walk_nw_01",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_01.png"
+      }
+    },
+    {
+      "call": 87,
+      "id": "walk_nw_02",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_02.png"
+      }
+    },
+    {
+      "call": 88,
+      "id": "walk_nw_03",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_03.png"
+      }
+    },
+    {
+      "call": 89,
+      "id": "walk_nw_04",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_04.png"
+      }
+    },
+    {
+      "call": 90,
+      "id": "walk_nw_05",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_05.png"
+      }
+    },
+    {
+      "call": 91,
+      "id": "walk_nw_06",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_06.png"
+      }
+    },
+    {
+      "call": 92,
+      "id": "walk_nw_07",
+      "category": "walk",
+      "direction": "nw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nw_07.png"
+      }
+    },
+    {
+      "call": 93,
+      "id": "walk_nnw_00",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_00.png"
+      }
+    },
+    {
+      "call": 94,
+      "id": "walk_nnw_01",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_01.png"
+      }
+    },
+    {
+      "call": 95,
+      "id": "walk_nnw_02",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_02.png"
+      }
+    },
+    {
+      "call": 96,
+      "id": "walk_nnw_03",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_03.png"
+      }
+    },
+    {
+      "call": 97,
+      "id": "walk_nnw_04",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_04.png"
+      }
+    },
+    {
+      "call": 98,
+      "id": "walk_nnw_05",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_05.png"
+      }
+    },
+    {
+      "call": 99,
+      "id": "walk_nnw_06",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_06.png"
+      }
+    },
+    {
+      "call": 100,
+      "id": "walk_nnw_07",
+      "category": "walk",
+      "direction": "nnw",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_nnw_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_nnw_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_nnw_07.png"
+      }
+    },
+    {
+      "call": 101,
+      "id": "walk_n_00",
+      "category": "walk",
+      "direction": "n",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_00.png"
+      }
+    },
+    {
+      "call": 102,
+      "id": "walk_n_01",
+      "category": "walk",
+      "direction": "n",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_01.png"
+      }
+    },
+    {
+      "call": 103,
+      "id": "walk_n_02",
+      "category": "walk",
+      "direction": "n",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_02.png"
+      }
+    },
+    {
+      "call": 104,
+      "id": "walk_n_03",
+      "category": "walk",
+      "direction": "n",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_03.png"
+      }
+    },
+    {
+      "call": 105,
+      "id": "walk_n_04",
+      "category": "walk",
+      "direction": "n",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_04.png"
+      }
+    },
+    {
+      "call": 106,
+      "id": "walk_n_05",
+      "category": "walk",
+      "direction": "n",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_05.png"
+      }
+    },
+    {
+      "call": 107,
+      "id": "walk_n_06",
+      "category": "walk",
+      "direction": "n",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_06.png"
+      }
+    },
+    {
+      "call": 108,
+      "id": "walk_n_07",
+      "category": "walk",
+      "direction": "n",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_walk_n_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ]
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_walk_n_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossWalk.atlas",
+        "texture": "voss_walk_n_07.png"
+      }
+    },
+    {
+      "call": 109,
+      "id": "seated_idle_se_00",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_00.png"
+      }
+    },
+    {
+      "call": 110,
+      "id": "seated_idle_se_01",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_01.png"
+      }
+    },
+    {
+      "call": 111,
+      "id": "seated_idle_se_02",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_02.png"
+      }
+    },
+    {
+      "call": 112,
+      "id": "seated_idle_se_03",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_03.png"
+      }
+    },
+    {
+      "call": 113,
+      "id": "seated_idle_se_04",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_04.png"
+      }
+    },
+    {
+      "call": 114,
+      "id": "seated_idle_se_05",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_05.png"
+      }
+    },
+    {
+      "call": 115,
+      "id": "seated_idle_se_06",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_06.png"
+      }
+    },
+    {
+      "call": 116,
+      "id": "seated_idle_se_07",
+      "category": "seated_idle",
+      "direction": "se",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_seated_idle_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_se_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_se_07.png"
+      }
+    },
+    {
+      "call": 117,
+      "id": "seated_idle_ne_00",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_00.png"
+      }
+    },
+    {
+      "call": 118,
+      "id": "seated_idle_ne_01",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_01.png"
+      }
+    },
+    {
+      "call": 119,
+      "id": "seated_idle_ne_02",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_02.png"
+      }
+    },
+    {
+      "call": 120,
+      "id": "seated_idle_ne_03",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_03.png"
+      }
+    },
+    {
+      "call": 121,
+      "id": "seated_idle_ne_04",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_04.png"
+      }
+    },
+    {
+      "call": 122,
+      "id": "seated_idle_ne_05",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_05.png"
+      }
+    },
+    {
+      "call": 123,
+      "id": "seated_idle_ne_06",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_06.png"
+      }
+    },
+    {
+      "call": 124,
+      "id": "seated_idle_ne_07",
+      "category": "seated_idle",
+      "direction": "ne",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_seated_idle_ne_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_seated_idle_ne_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_idle_ne_07.png"
+      }
+    },
+    {
+      "call": 125,
+      "id": "stand_up_se_00",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_00.png"
+      }
+    },
+    {
+      "call": 126,
+      "id": "stand_up_se_01",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_01.png"
+      }
+    },
+    {
+      "call": 127,
+      "id": "stand_up_se_02",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_02.png"
+      }
+    },
+    {
+      "call": 128,
+      "id": "stand_up_se_03",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_03.png"
+      }
+    },
+    {
+      "call": 129,
+      "id": "stand_up_se_04",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_04.png"
+      }
+    },
+    {
+      "call": 130,
+      "id": "stand_up_se_05",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_05.png"
+      }
+    },
+    {
+      "call": 131,
+      "id": "stand_up_se_06",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_06.png"
+      }
+    },
+    {
+      "call": 132,
+      "id": "stand_up_se_07",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_07.png"
+      }
+    },
+    {
+      "call": 133,
+      "id": "stand_up_se_08",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 8,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_08_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_08_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_08.png"
+      }
+    },
+    {
+      "call": 134,
+      "id": "stand_up_se_09",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 9,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_09_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_09_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_09.png"
+      }
+    },
+    {
+      "call": 135,
+      "id": "stand_up_se_10",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 10,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_10_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_10_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_10.png"
+      }
+    },
+    {
+      "call": 136,
+      "id": "stand_up_se_11",
+      "category": "stand_up",
+      "direction": "se",
+      "phase": 11,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/Frames/voss_stand_up_11_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Legacy V12 filename omits the SE token; its subject/facing is the SE authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_11_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_se_11.png"
+      }
+    },
+    {
+      "call": 137,
+      "id": "stand_up_ne_00",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 0,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_00_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_00.png"
+      }
+    },
+    {
+      "call": 138,
+      "id": "stand_up_ne_01",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 1,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_01_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_01.png"
+      }
+    },
+    {
+      "call": 139,
+      "id": "stand_up_ne_02",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 2,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_02_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_02.png"
+      }
+    },
+    {
+      "call": 140,
+      "id": "stand_up_ne_03",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 3,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_03_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_03.png"
+      }
+    },
+    {
+      "call": 141,
+      "id": "stand_up_ne_04",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 4,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_04_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_04.png"
+      }
+    },
+    {
+      "call": 142,
+      "id": "stand_up_ne_05",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 5,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_05_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_05.png"
+      }
+    },
+    {
+      "call": 143,
+      "id": "stand_up_ne_06",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 6,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_06_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_06.png"
+      }
+    },
+    {
+      "call": 144,
+      "id": "stand_up_ne_07",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 7,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_07_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_07.png"
+      }
+    },
+    {
+      "call": 145,
+      "id": "stand_up_ne_08",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 8,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_08_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_08_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_08.png"
+      }
+    },
+    {
+      "call": 146,
+      "id": "stand_up_ne_09",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 9,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_09_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_09_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_09.png"
+      }
+    },
+    {
+      "call": 147,
+      "id": "stand_up_ne_10",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 10,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_10_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_10_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_10.png"
+      }
+    },
+    {
+      "call": 148,
+      "id": "stand_up_ne_11",
+      "category": "stand_up",
+      "direction": "ne",
+      "phase": 11,
+      "pose_source": {
+        "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV12/DeskNE/voss_stand_up_ne_11_chroma_v12.png",
+        "revision": "1d1f78cfb681e81ccdc3a1a1afff0d1dca05fc9f",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1536
+        ],
+        "note": "Authored rear NE chairless authority."
+      },
+      "selected_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_11_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_stand_up_ne_11.png"
+      }
+    }
+  ],
+  "derived_primary": [
+    {
+      "id": "idle_se_00",
+      "category": "standing_idle",
+      "direction": "se",
+      "phase": 0,
+      "operation": "mirror_x_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_00_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_idle_se_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_se_00.png"
+      }
+    },
+    {
+      "id": "idle_se_01",
+      "category": "standing_idle",
+      "direction": "se",
+      "phase": 1,
+      "operation": "mirror_x_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_01_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_idle_se_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_se_01.png"
+      }
+    },
+    {
+      "id": "idle_se_02",
+      "category": "standing_idle",
+      "direction": "se",
+      "phase": 2,
+      "operation": "mirror_x_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_02_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_idle_se_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_se_02.png"
+      }
+    },
+    {
+      "id": "idle_se_03",
+      "category": "standing_idle",
+      "direction": "se",
+      "phase": 3,
+      "operation": "mirror_x_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_idle_sw_03_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_idle_se_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossIdle.atlas",
+        "texture": "voss_standing_idle_se_03.png"
+      }
+    },
+    {
+      "id": "sit_down_se_00",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 0,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_11_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_00.png"
+      }
+    },
+    {
+      "id": "sit_down_se_01",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 1,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_10_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_01.png"
+      }
+    },
+    {
+      "id": "sit_down_se_02",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 2,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_09_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_02.png"
+      }
+    },
+    {
+      "id": "sit_down_se_03",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 3,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_08_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_03.png"
+      }
+    },
+    {
+      "id": "sit_down_se_04",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 4,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_07_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_04.png"
+      }
+    },
+    {
+      "id": "sit_down_se_05",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 5,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_06_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_05.png"
+      }
+    },
+    {
+      "id": "sit_down_se_06",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 6,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_05_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_06.png"
+      }
+    },
+    {
+      "id": "sit_down_se_07",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 7,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_04_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_07.png"
+      }
+    },
+    {
+      "id": "sit_down_se_08",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 8,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_03_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_08_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_08.png"
+      }
+    },
+    {
+      "id": "sit_down_se_09",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 9,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_02_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_09_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_09.png"
+      }
+    },
+    {
+      "id": "sit_down_se_10",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 10,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_01_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_10_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_10.png"
+      }
+    },
+    {
+      "id": "sit_down_se_11",
+      "category": "sit_down",
+      "direction": "se",
+      "phase": 11,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_se_00_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_se_11_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_se_11.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_00",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 0,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_11_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_00_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_00.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_01",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 1,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_10_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_01_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_01.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_02",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 2,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_09_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_02_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_02.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_03",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 3,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_08_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_03_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_03.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_04",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 4,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_07_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_04_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_04.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_05",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 5,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_06_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_05_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_05.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_06",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 6,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_05_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_06_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_06.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_07",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 7,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_04_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_07_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_07.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_08",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 8,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_03_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_08_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_08.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_09",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 9,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_02_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_09_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_09.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_10",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 10,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_01_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_10_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_10.png"
+      }
+    },
+    {
+      "id": "sit_down_ne_11",
+      "category": "sit_down",
+      "direction": "ne",
+      "phase": 11,
+      "operation": "reverse_frame_exact",
+      "source_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/voss_stand_up_ne_00_chroma_v16.png",
+      "derived_master": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Frames/Derived/voss_sit_down_ne_11_chroma_v16.png",
+      "runtime": {
+        "atlas": "VossSeatTransitions.atlas",
+        "texture": "voss_sit_down_ne_11.png"
+      }
+    }
+  ],
+  "compatibility_layers": [
+    {
+      "id": "seated_upper_ne_00",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 0,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_00.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_00.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_00.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_00",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 0,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_00.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_00.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_00.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_01",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 1,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_01.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_01.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_01.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_01",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 1,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_01.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_01.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_01.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_02",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 2,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_02.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_02.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_02.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_02",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 2,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_02.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_02.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_02.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_03",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 3,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_03.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_03.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_03.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_03",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 3,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_03.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_03.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_03.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_04",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 4,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_04.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_04.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_04.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_04",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 4,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_04.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_04.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_04.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_05",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 5,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_05.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_05.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_05.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_05",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 5,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_05.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_05.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_05.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_06",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 6,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_06.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_06.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_06.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_06",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 6,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_06.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_06.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_06.png"
+      }
+    },
+    {
+      "id": "seated_upper_ne_07",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 7,
+      "layer": "upper",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_07.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_upper_ne_07.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_upper_ne_07.png"
+      }
+    },
+    {
+      "id": "seated_lower_ne_07",
+      "category": "seated_compatibility_layer",
+      "direction": "ne",
+      "phase": 7,
+      "layer": "lower",
+      "operation": "split_processed_ne_seated_body",
+      "operation_parameters": {
+        "alpha_bounds_threshold": 40,
+        "seam_fraction_of_opaque_height": 0.78,
+        "lower_alpha_hardening_threshold": 96,
+        "preserve_512_canvas_and_corner_sentinels": true
+      },
+      "source_runtime_body": "VossSeatedIdle.atlas/voss_seated_idle_ne_07.png",
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedIdle.atlas/voss_seated_lower_ne_07.png",
+      "runtime": {
+        "atlas": "VossSeatedIdle.atlas",
+        "texture": "voss_seated_lower_ne_07.png"
+      }
+    }
+  ],
+  "transparent_arms": [
+    {
+      "id": "seated_arms_se_00",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 0,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_00.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_00.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_01",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 1,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_01.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_01.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_02",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 2,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_02.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_02.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_03",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 3,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_03.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_03.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_04",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 4,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_04.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_04.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_05",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 5,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_05.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_05.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_06",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 6,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_06.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_06.png"
+      }
+    },
+    {
+      "id": "seated_arms_se_07",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "se",
+      "phase": 7,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_se_07.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_se_07.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_00",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 0,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_00.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_00.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_01",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 1,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_01.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_01.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_02",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 2,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_02.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_02.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_03",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 3,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_03.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_03.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_04",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 4,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_04.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_04.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_05",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 5,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_05.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_05.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_06",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 6,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_06.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_06.png"
+      }
+    },
+    {
+      "id": "seated_arms_ne_07",
+      "category": "transparent_seated_arms_compatibility",
+      "direction": "ne",
+      "phase": 7,
+      "operation": "make_transparent_registered_canvas",
+      "operation_parameters": {
+        "mode": "RGBA",
+        "size": [
+          512,
+          512
+        ],
+        "interior_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "corner_sentinel_rgba": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "corner_coordinates": [
+          [
+            0,
+            0
+          ],
+          [
+            511,
+            0
+          ],
+          [
+            0,
+            511
+          ],
+          [
+            511,
+            511
+          ]
+        ]
+      },
+      "staged_output": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/Processed/VossSeatedArms.atlas/voss_seated_arms_ne_07.png",
+      "runtime": {
+        "atlas": "VossSeatedArms.atlas",
+        "texture": "voss_seated_arms_ne_07.png"
+      }
+    }
+  ]
+}

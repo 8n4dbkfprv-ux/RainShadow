@@ -1,0 +1,26 @@
+{
+  "backed_up": [
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_00_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_01_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_02_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_03_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_04_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_05_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_06_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/RendererBackup/20260808T160240Z/voss_walk_sw_07_chroma_v17.png"
+  ],
+  "mode": "proof",
+  "pose_inventory": "ArtSource/Generated/Characters/Detective/PreRendered3DV16/frame_inventory_v16.json",
+  "rendered_at_utc": "2026-08-08T16:02:49.914682+00:00",
+  "renderer": "v17 deterministic pose-controlled material transfer",
+  "written": [
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_00_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_01_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_02_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_03_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_04_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_05_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_06_chroma_v17.png",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_07_chroma_v17.png"
+  ]
+}

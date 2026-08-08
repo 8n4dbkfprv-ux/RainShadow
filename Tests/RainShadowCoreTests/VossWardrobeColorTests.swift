@@ -4,8 +4,9 @@ import ImageIO
 import Testing
 @testable import RainShadowCore
 
-/// Guards the shared paperdoll wardrobe grade across seated, idle, and walk atlases.
-/// Idle/walk used to bake darker, lower-chroma coats than the desk pose.
+/// Guards Voss's V17 material palette and separation across source and runtime
+/// art. V17 removes the mustard waistcoat and green tie, and uses seven frozen
+/// brown/cream/black/charcoal/skin/auburn material targets.
 struct VossWardrobeColorTests {
     private var repoRoot: URL {
         URL(fileURLWithPath: #filePath)
@@ -18,120 +19,173 @@ struct VossWardrobeColorTests {
         repoRoot.appendingPathComponent("RainShadow Shared/Resources/Art/Atlases")
     }
 
-    @Test func pipelineUsesSeatedPlayScaleWardrobeAuthority() throws {
-        let processor = try String(
-            contentsOf: repoRoot.appendingPathComponent(
-                "ArtSource/Processing/process_pre_rendered_characters_v12.py"
-            ),
+    private var v17: URL {
+        repoRoot.appendingPathComponent(
+            "ArtSource/Generated/Characters/Detective/PreRendered3DV17"
+        )
+    }
+
+    @Test func v17InstallerCarriesTheLockedSevenMaterialPalette() throws {
+        let installer = try String(
+            contentsOf: repoRoot.appendingPathComponent("ArtSource/Processing/install_voss_v17.py"),
             encoding: .utf8
         )
-        #expect(processor.contains("def identity_wardrobe_lock"))
-        #expect(processor.contains("play_scale_wardrobe_stats"))
-        #expect(processor.contains("identity_wardrobe_lock(frame)"))
-        #expect(processor.contains("_face_roi_mask"))
-        #expect(processor.contains("_coat_roi_mask"))
-        #expect(!processor.contains("Target from walk coat"))
-    }
 
-    @Test func gameplayAtlasesShareFaceAndCoatGrade() throws {
-        let seated = try loadRegions(
-            atlas: "VossSeatedIdle.atlas",
-            name: "voss_seated_idle_ne_00.png"
-        )
-        let standEndpoint = try loadRegions(
-            atlas: "VossSeatTransitions.atlas",
-            name: "voss_stand_up_ne_11.png"
-        )
-        let idleNW = try loadRegions(
-            atlas: "VossIdle.atlas",
-            name: "voss_standing_idle_nw_00.png"
-        )
-        let walkS = try loadRegions(
-            atlas: "VossWalk.atlas",
-            name: "voss_walk_s_00.png"
-        )
-        let walkNW = try loadRegions(
-            atlas: "VossWalk.atlas",
-            name: "voss_walk_nw_00.png"
-        )
-
-        // Frozen seated-desk targets: face ~140/99/56, coat ~98/67/36.
-        for (label, regions) in [
-            ("seated", seated),
-            ("stand-up 11", standEndpoint),
-            ("idle NW", idleNW),
-            ("walk S", walkS),
-            ("walk NW", walkNW)
-        ] {
-            #expect(regions.face.r > regions.face.b + 10, "\(label) face not warm: \(regions.face)")
-            #expect(regions.coat.r > regions.coat.g, "\(label) coat olive: \(regions.coat)")
-            #expect((120.0...165.0).contains(regions.face.r), "\(label) face R \(regions.face.r)")
-            #expect((85.0...120.0).contains(regions.coat.r), "\(label) coat R \(regions.coat.r)")
+        for material in VossMaterial.allCases {
+            let rgb = material.lockedRGB
+            let expected = "\"\(material.rawValue)\": (\(Int(rgb.r)), \(Int(rgb.g)), \(Int(rgb.b)))"
+            #expect(installer.contains(expected), "V17 installer is missing palette slot \(expected)")
         }
 
-        // Face and coat ROIs must track seated within a tight band.
-        for (label, regions) in [
-            ("stand-up 11", standEndpoint),
-            ("idle NW", idleNW),
-            ("walk S", walkS),
-            ("walk NW", walkNW)
-        ] {
-            let faceDelta = regions.face.distance(to: seated.face)
-            let coatDelta = regions.coat.distance(to: seated.coat)
-            // Pose/viewpoint still changes which folds are lit; keep a tight band
-            // without failing on S-facing walk silhouette sampling.
-            #expect(faceDelta <= 16.0, "\(label) face delta \(faceDelta) from seated \(seated.face)")
-            #expect(coatDelta <= 16.0, "\(label) coat delta \(coatDelta) from seated \(seated.coat)")
-        }
-
-        // End-of-stand handoff must not color-pop into standing idle.
-        #expect(standEndpoint.face.distance(to: idleNW.face) <= 6.0)
-        #expect(standEndpoint.coat.distance(to: idleNW.coat) <= 6.0)
+        #expect(installer.contains("material_separation_report"))
+        #expect(installer.contains("minimum_target_delta_e"))
+        #expect(installer.contains("minimum_luminance_gap"))
+        #expect(installer.contains("RAINSHADOW_PRESERVE_WARDROBE"))
     }
 
-    private func loadRegions(atlas: String, name: String) throws -> FaceCoatRGB {
-        let url = atlases.appendingPathComponent(atlas).appendingPathComponent(name)
+    @Test func approvedV17AnchorReachesTheSourceTarget() throws {
+        try expectPaletteCoverage(
+            label: "approved V17 front anchor",
+            url: v17.appendingPathComponent("Anchors/voss_anchor_front_chroma_v17.png"),
+            minimum: 0.60
+        )
+    }
+
+    @Test func v17FrontKeyReachesTheSourceTarget() throws {
+        try expectPaletteCoverage(
+            label: "V17 authored front key",
+            url: v17.appendingPathComponent("Frames/voss_idle_s_00_chroma_v17.png"),
+            minimum: 0.70
+        )
+    }
+
+    @Test func processedFrontAndThreeQuarterCellsKeepMaterialSeparation() throws {
+        let subjects = [
+            ("idle S", "VossIdle.atlas", "voss_standing_idle_s_00.png"),
+            ("idle SSW", "VossIdle.atlas", "voss_standing_idle_ssw_00.png"),
+            ("idle SW", "VossIdle.atlas", "voss_standing_idle_sw_00.png"),
+            ("walk S", "VossWalk.atlas", "voss_walk_s_00.png"),
+            ("walk SSW", "VossWalk.atlas", "voss_walk_ssw_00.png"),
+            ("walk SW", "VossWalk.atlas", "voss_walk_sw_00.png"),
+            ("seated SE", "VossSeatedIdle.atlas", "voss_seated_idle_se_00.png")
+        ]
+
+        for (label, atlas, name) in subjects {
+            let sample = try load(
+                atlases.appendingPathComponent(atlas).appendingPathComponent(name),
+                label: label
+            )
+            let recognized = sample.lockedPaletteCoverage
+            #expect(
+                recognized >= 0.70,
+                "\(label) locked-palette coverage \(format(recognized)); expected >= 0.70"
+            )
+        }
+    }
+
+    @Test func rearCellsDoNotPaintFrontGarmentsOntoVossBack() throws {
+        let subjects = [
+            (
+                "V17 authored rear key",
+                v17.appendingPathComponent("Frames/voss_idle_n_00_chroma_v17.png")
+            ),
+            (
+                "processed idle N",
+                atlases.appendingPathComponent("VossIdle.atlas/voss_standing_idle_n_00.png")
+            ),
+            (
+                "processed walk N",
+                atlases.appendingPathComponent("VossWalk.atlas/voss_walk_n_00.png")
+            )
+        ]
+
+        for (label, url) in subjects {
+            let sample = try load(url, label: label)
+            let fraction = sample.fractionNear(material: .shirt, tolerance: 0.10)
+            #expect(
+                fraction <= 0.005,
+                "\(label) has \(format(fraction)) of body pixels near front-only shirt; expected <= 0.005"
+            )
+        }
+    }
+
+    private func load(_ url: URL, label: String) throws -> VossWardrobeSample {
         guard FileManager.default.fileExists(atPath: url.path) else {
-            Issue.record("Missing \(atlas)/\(name)")
+            Issue.record("Missing \(label): \(url.path)")
             throw VossWardrobeColorError.missingPNG(url)
         }
-        return try VossCoatSampler.faceAndCoatMeans(contentsOf: url)
+        return try VossWardrobeSample(contentsOf: url)
+    }
+
+    private func expectPaletteCoverage(label: String, url: URL, minimum: Double) throws {
+        let coverage = try load(url, label: label).lockedPaletteCoverage
+        #expect(
+            coverage >= minimum,
+            "\(label) locked-palette coverage \(format(coverage)); expected >= \(format(minimum))"
+        )
+    }
+
+    private func format(_ value: Double) -> String {
+        String(format: "%.3f", value)
     }
 }
 
-private struct CoatRGB: Equatable, CustomStringConvertible {
+private enum VossMaterial: String, CaseIterable {
+    case shirt
+    case skin
+    case coat
+    case tie
+    case shoes
+    case trousers
+    case hair
+
+    var lockedRGB: VossRGB {
+        switch self {
+        case .coat: VossRGB(r: 101, g: 59, b: 38)          // #653B26
+        case .shirt: VossRGB(r: 211, g: 194, b: 160)       // #D3C2A0
+        case .tie: VossRGB(r: 31, g: 30, b: 31)            // #1F1E1F
+        case .trousers: VossRGB(r: 55, g: 55, b: 59)       // #37373B
+        case .shoes: VossRGB(r: 75, g: 47, b: 35)          // #4B2F23
+        case .skin: VossRGB(r: 202, g: 143, b: 108)        // #CA8F6C
+        case .hair: VossRGB(r: 112, g: 50, b: 29)          // #70321D
+        }
+    }
+}
+
+private struct VossRGB {
     var r: Double
     var g: Double
     var b: Double
 
-    var description: String {
-        String(format: "(%.1f, %.1f, %.1f)", r, g, b)
+    var mean: Double { (r + g + b) / 3.0 }
+
+    var normalized: VossRGB {
+        let divisor = max(mean, 1.0)
+        return VossRGB(r: r / divisor, g: g / divisor, b: b / divisor)
     }
 
-    func distance(to other: CoatRGB) -> Double {
+    func distance(to other: VossRGB) -> Double {
         let dr = r - other.r
         let dg = g - other.g
         let db = b - other.b
         return (dr * dr + dg * dg + db * db).squareRoot()
     }
-}
 
-private struct FaceCoatRGB {
-    var face: CoatRGB
-    var coat: CoatRGB
+    func hueDistance(to other: VossRGB) -> Double {
+        normalized.distance(to: other.normalized)
+    }
 }
 
 private enum VossWardrobeColorError: Error {
     case missingPNG(URL)
     case invalidPNG(URL)
-    case noCoatPixels(URL)
+    case noBodyPixels(URL)
 }
 
-private enum VossCoatSampler {
-    static let alphaThreshold: UInt8 = 40
+private struct VossWardrobeSample {
+    private let pixels: [VossRGB]
 
-    /// Geometric face/coat ROIs matching `identity_wardrobe_lock`.
-    static func faceAndCoatMeans(contentsOf url: URL) throws -> FaceCoatRGB {
+    init(contentsOf url: URL) throws {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
               let image = CGImageSourceCreateImageAtIndex(source, 0, nil),
               image.width > 0,
@@ -142,9 +196,9 @@ private enum VossCoatSampler {
         let width = image.width
         let height = image.height
         let bytesPerRow = width * 4
-        var pixels = [UInt8](repeating: 0, count: height * bytesPerRow)
+        var decoded = [UInt8](repeating: 0, count: height * bytesPerRow)
         guard let context = CGContext(
-            data: &pixels,
+            data: &decoded,
             width: width,
             height: height,
             bitsPerComponent: 8,
@@ -156,77 +210,121 @@ private enum VossCoatSampler {
         }
         context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
 
-        var minX = width
-        var minY = height
-        var maxX = -1
-        var maxY = -1
+        var body: [VossRGB] = []
+        body.reserveCapacity(width * height / 8)
         for y in 0..<height {
             for x in 0..<width {
-                if (x == 0 || x == width - 1) && (y == 0 || y == height - 1) { continue }
-                let a = pixels[y * bytesPerRow + x * 4 + 3]
-                guard a >= alphaThreshold else { continue }
-                minX = min(minX, x)
-                maxX = max(maxX, x)
-                minY = min(minY, y)
-                maxY = max(maxY, y)
-            }
-        }
-        guard maxX >= minX, maxY >= minY else {
-            throw VossWardrobeColorError.noCoatPixels(url)
-        }
-
-        let bodyH = max(1, maxY - minY + 1)
-        let bodyW = max(1, maxX - minX + 1)
-        let faceY1 = min(height - 1, minY + max(2, bodyH * 30 / 100))
-        let faceX0 = min(width - 1, minX + bodyW * 15 / 100)
-        let faceX1 = min(width - 1, max(faceX0, minX + bodyW * 85 / 100))
-        let coatY0 = min(height - 1, minY + bodyH * 28 / 100)
-        let coatY1 = min(height - 1, max(coatY0, minY + bodyH * 72 / 100))
-        let coatX0 = min(width - 1, minX + bodyW * 12 / 100)
-        let coatX1 = min(width - 1, max(coatX0, minX + bodyW * 88 / 100))
-
-        func mean(x0: Int, x1: Int, y0: Int, y1: Int, excludingFace: Bool) throws -> CoatRGB {
-            let xLo = max(0, min(x0, x1))
-            let xHi = min(width - 1, max(x0, x1))
-            let yLo = max(0, min(y0, y1))
-            let yHi = min(height - 1, max(y0, y1))
-            var sumR = 0.0, sumG = 0.0, sumB = 0.0
-            var count = 0
-            for y in yLo...yHi {
-                for x in xLo...xHi {
-                    if (x == 0 || x == width - 1) && (y == 0 || y == height - 1) { continue }
-                    if excludingFace,
-                       y >= minY, y < faceY1,
-                       x >= faceX0, x <= faceX1 {
-                        continue
-                    }
-                    let i = y * bytesPerRow + x * 4
-                    guard i + 3 < pixels.count else { continue }
-                    let a = pixels[i + 3]
-                    guard a >= alphaThreshold else { continue }
-                    let r = Double(pixels[i])
-                    let g = Double(pixels[i + 1])
-                    let b = Double(pixels[i + 2])
-                    let lum = (r + g + b) / 3.0
-                    guard lum > 18 else { continue }
-                    sumR += r
-                    sumG += g
-                    sumB += b
-                    count += 1
+                // V14 writes alpha-1 sentinels into all four canvas corners.
+                if (x == 0 || x == width - 1) && (y == 0 || y == height - 1) {
+                    continue
                 }
+                let index = y * bytesPerRow + x * 4
+                guard decoded[index + 3] >= 128 else { continue }
+                let pixel = VossRGB(
+                    r: Double(decoded[index]),
+                    g: Double(decoded[index + 1]),
+                    b: Double(decoded[index + 2])
+                )
+                // Image Generator masters are RGB chroma images; runtime cells
+                // are RGBA. This makes the same sampler authoritative for both.
+                let isChroma = pixel.g > 140 &&
+                    pixel.g > pixel.r + 40 &&
+                    pixel.g > pixel.b + 40
+                guard !isChroma, pixel.mean > 25 else { continue }
+                body.append(pixel)
             }
-            guard count >= 20 else {
-                throw VossWardrobeColorError.noCoatPixels(url)
-            }
-            return CoatRGB(
-                r: sumR / Double(count),
-                g: sumG / Double(count),
-                b: sumB / Double(count)
-            )
         }
 
-        let face = try mean(x0: faceX0, x1: faceX1, y0: minY, y1: faceY1, excludingFace: false)
-        let coat = try mean(x0: coatX0, x1: coatX1, y0: coatY0, y1: coatY1, excludingFace: true)
-        return FaceCoatRGB(face: face, coat: coat)
+        guard body.count >= 64 else {
+            throw VossWardrobeColorError.noBodyPixels(url)
+        }
+        pixels = body
+    }
+
+    /// Hue spread across the eight locked material slots. Each body pixel is
+    /// assigned to the nearest authored slot in normalized RGB; slots covering
+    /// at least 8% of the body then use the same (G/R, B/R) distance as the
+    /// Python V14 wardrobe QA. This deterministic palette-seeded form avoids a
+    /// k-means seed changing the pass/fail result.
+    var paletteHueSpread: Double {
+        var sums = Dictionary(
+            uniqueKeysWithValues: VossMaterial.allCases.map {
+                ($0, (r: 0.0, g: 0.0, b: 0.0, count: 0))
+            }
+        )
+
+        for pixel in pixels {
+            let material = nearestMaterial(to: pixel)
+            var current = sums[material]!
+            current.r += pixel.r
+            current.g += pixel.g
+            current.b += pixel.b
+            current.count += 1
+            sums[material] = current
+        }
+
+        let fractions = VossMaterial.allCases.map { material in
+            Double(sums[material]!.count) / Double(pixels.count)
+        }
+        let largest = fractions.max() ?? 0
+        var solid = VossMaterial.allCases.filter { material in
+            Double(sums[material]!.count) / Double(pixels.count) >= 0.08
+        }
+        if solid.count < 2 {
+            solid = VossMaterial.allCases.filter { material in
+                Double(sums[material]!.count) / Double(pixels.count) >= largest * 0.5
+            }
+        }
+        guard solid.count >= 2 else { return 0 }
+
+        var spread = 0.0
+        for firstIndex in 0..<(solid.count - 1) {
+            for secondIndex in (firstIndex + 1)..<solid.count {
+                let first = mean(for: sums[solid[firstIndex]]!)
+                let second = mean(for: sums[solid[secondIndex]]!)
+                let firstHue = VossRGB(
+                    r: 0,
+                    g: first.g / max(first.r, 1),
+                    b: first.b / max(first.r, 1)
+                )
+                let secondHue = VossRGB(
+                    r: 0,
+                    g: second.g / max(second.r, 1),
+                    b: second.b / max(second.r, 1)
+                )
+                spread = max(spread, firstHue.distance(to: secondHue))
+            }
+        }
+        return spread
+    }
+
+    /// Share of body pixels whose normalized hue sits near at least one of the
+    /// locked material midtones. Shadows and highlights may move value freely.
+    var lockedPaletteCoverage: Double {
+        let recognized = pixels.count { pixel in
+            VossMaterial.allCases.map {
+                pixel.hueDistance(to: $0.lockedRGB)
+            }.min()! <= 0.20
+        }
+        return Double(recognized) / Double(pixels.count)
+    }
+
+    func fractionNear(material: VossMaterial, tolerance: Double) -> Double {
+        let count = pixels.count {
+            $0.hueDistance(to: material.lockedRGB) <= tolerance
+        }
+        return Double(count) / Double(pixels.count)
+    }
+
+    private func nearestMaterial(to pixel: VossRGB) -> VossMaterial {
+        VossMaterial.allCases.min {
+            pixel.hueDistance(to: $0.lockedRGB) <
+                pixel.hueDistance(to: $1.lockedRGB)
+        }!
+    }
+
+    private func mean(for slot: (r: Double, g: Double, b: Double, count: Int)) -> VossRGB {
+        let count = Double(max(slot.count, 1))
+        return VossRGB(r: slot.r / count, g: slot.g / count, b: slot.b / count)
     }
 }

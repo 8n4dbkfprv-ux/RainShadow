@@ -1,0 +1,53 @@
+{
+  "asset_version": "v17",
+  "generator": "OpenAI built-in Image Generator (image_gen)",
+  "reference_mechanism": "referenced_image_paths",
+  "contract": "One tool call per output image; original RGB references remain reference-only; every gameplay master uses a flat #00ff00 field with no floor or shadow.",
+  "prompt_lock": "Exact supplied detective identity: swept-back auburn hair, pronounced long sideburns, stern face, chocolate-brown belted double-breasted mid-calf trench with lapels/epaulettes/cuff straps/rear storm flap and vent, cream open-collar shirt, loose black tie, charcoal cuffed trousers, brown lace-up shoes; preserve pose authority exactly; no hat, mustard waistcoat, green tie, olive palette, chair, prop, floor or shadow.",
+  "approved_outputs": {
+    "Anchors/voss_anchor_front_chroma_v17.png": "exec-91054b95-f7da-4485-9fc1-4ba47049ddfe.png",
+    "Anchors/voss_anchor_profile_w_chroma_v17.png": "exec-03bb7113-cefe-43b1-b0de-c9ab5d0b5a1a.png",
+    "Anchors/voss_anchor_back_chroma_v17.png": "exec-8273bdbb-6927-442b-9670-4a1ba4d044dd.png",
+    "Anchors/voss_anchor_dimetric_se_chroma_v17.png": "exec-cc9389c4-0fae-4196-a79a-6a3a5626bd8f.png",
+    "Keys/voss_key_s_chroma_v17.png": "exec-af92a884-3ee1-471c-9acf-de821519c84a.png",
+    "Keys/voss_key_ssw_chroma_v17.png": "exec-9858ea4e-5205-4f13-83db-f8c424e8960b.png",
+    "Keys/voss_key_sw_chroma_v17.png": "exec-30046393-6f90-48db-adf2-1d26043adf81.png",
+    "Keys/voss_key_wsw_chroma_v17.png": "exec-fb0ea404-e357-4e2b-a05d-a730d58b5e94.png",
+    "Keys/voss_key_w_chroma_v17.png": "exec-1155e931-e121-4137-95fd-132b758e595f.png",
+    "Keys/voss_key_wnw_chroma_v17.png": "exec-82847cde-cceb-44c5-8d4c-d19b1c2fba60.png",
+    "Keys/voss_key_nw_chroma_v17.png": "exec-4c085509-75fe-4dce-8ed2-be3791b7af1e.png",
+    "Keys/voss_key_nnw_chroma_v17.png": "exec-68fa4e7a-575b-414d-aee7-987d14c4ab5b.png",
+    "Keys/voss_key_n_chroma_v17.png": "exec-5e335398-043d-44b8-9894-07caf9b7769d.png",
+    "UI/dialogue_portrait_harlan_voss_v17_master.png": "exec-c2872608-d3dc-4100-9d78-cdaaa8bcfc3d.png"
+  },
+  "derived_ui": {
+    "UI/voss_paperdoll_front_rgba_v01.png": "Approved front anchor; chroma removed with the imagegen skill helper; smooth RGBA retained.",
+    "UI/dialogue_portrait_harlan_voss_v01.png": "Lanczos 512x512 derivative of the separately generated smooth portrait master."
+  },
+  "rejected_alternating_sw_outputs": {
+    "phase_00_not_admitted": "exec-aa181124-2cbf-47d9-a7bb-4dc91c99d62c.png",
+    "phase_01": "exec-622843d2-6d19-4d24-b2a7-03dfc029fd68.png",
+    "phase_02": "exec-3812bd93-67ff-4ef0-a65b-c0ff3c25bc6c.png",
+    "phase_03": "exec-ebec4752-6fda-4255-9901-24334e031803.png",
+    "phase_04": "exec-5dfa334c-583a-43ea-9e82-398767827cc1.png",
+    "phase_05": "exec-35de0ebe-4a40-42da-888f-88fb84c9669d.png",
+    "phase_06": "exec-3cce9d17-ca07-4a55-92f5-1b7148321d04.png",
+    "phase_07": "exec-b9f6e155-7d9e-4324-b33c-3dbf0e0dd92a.png"
+  },
+  "pose_controlled_production": {
+    "renderer": "ArtSource/Processing/render_voss_v17_pose_controlled.py",
+    "body_masters": 148,
+    "pose_authority": "V16-selected V12 cells for idle/seated/transitions; complete V11 eight-phase geometry for locomotion",
+    "identity_transfer": "Frozen V17 seven-material palette plus auburn sideburn treatment",
+    "registration": "Per-facing upper-body authority and deterministic alternating lower-leg foot plants",
+    "report": "render_report_all_v17.json"
+  },
+  "approval_state": {
+    "identity_anchors": "approved",
+    "nine_idle_keys": "approved",
+    "imagegen_sw_walk_proof": "rejected and retained as history",
+    "pose_controlled_sw_walk_proof": "approved; eight unique phases, alternating foot plants, 0px head jitter, 1.0x head and torso scale",
+    "seated_proof": "approved",
+    "remaining_batch": "approved and installed transactionally"
+  }
+}

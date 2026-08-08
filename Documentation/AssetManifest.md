@@ -216,9 +216,9 @@ Before animation, approve:
 
 Design continuity rules:
 
-- same face, clean-shaven early-thirties features, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
-- the overcoat is designed as a few compact, nearly bilateral masses at sprite scale so legacy-style mirroring remains readable;
-- V12 actor sprites are bare-headed and craft-locked to the inventory paperdoll (short dark hair only; no fedora; clean coat hem; paperdoll detail density). The paperdoll remains a relaxed BG inventory idle so the face reads;
+- same stern early-thirties face, auburn sideburns, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
+- the V17 overcoat is a dark chocolate-brown, double-breasted, belted mid-calf trench with lapels, epaulettes, cuff straps, rear storm flap and vent, designed as compact readable masses at sprite scale;
+- V17 Voss is bare-headed with swept-back auburn hair, pronounced long auburn sideburns and a stern angular face; his cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes replace the retired olive/mustard/green identity across gameplay, paperdoll and portrait;
 - hands never gain/remove fingers or swap object silhouettes;
 - no baked background or contact shadow;
 - feet/seat use the same ground pivot across the sequence.
@@ -257,7 +257,7 @@ lila_departure_ne_00.png ... lila_departure_ne_07.png
 lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
-Atlases (shipped set — Voss V12 paperdoll identity/craft + Lila V11 bob/dress, both on V7 BGEE crunch):
+Atlases (stable runtime interface; the V17 payload is installed and its pre-V17 transaction backup is retained):
 
 - `VossSeatedIdle.atlas` — chairless NE and SE seated-idle body frames at the same directional scale as their standing endpoint; legacy NE split cells are not used by the desk runtime.
 - `VossSeatedArms.atlas` — transparent compatibility cells; each full seated body already includes Voss's arms.
@@ -345,7 +345,7 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `dialogue_command_button_plate_v06` | 1 | 1024×116 | Active matching 8.8:1 END/CONTINUE bar retaining V05's exact alpha geometry; empty live-label face and rim use the same coarse mottled HUD-sidebar material. |
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
-| P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Identity-locked hand-painted Harlan Voss portrait for the dialogue crop. |
+| P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Stable ID for the smooth V17 auburn-hair/sideburn portrait; staged replacement is not V14-crunched. |
 | P0 | `inventory_outer_frame_v06` | 1 | 1960×1080 | Modular border-only inventory frame with Classic Mac close seat on the TL title rail (no interior close well); straight rails, stepped corners; HUD/dialogue gunmetal match. |
 | P0 | `inventory_outer_frame_v05` | 1 | 1960×1080 | Prior border-only frame (superseded at runtime by v06). |
 | P0 | `inventory_section_{loadout,paperdoll,stats,mid,bag,nearby}_v05` | 6 | varies | Separate section backplates composed by code (BG hierarchy; no baked labels). |
@@ -357,7 +357,7 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
 | P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
 | P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |
-| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Identity-locked Harlan Voss inventory paperdoll with transparent background. |
+| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Stable ID for the smooth RGBA V17 exact-reference paperdoll; staged replacement is not V14-crunched. |
 | P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
 | P0 | `ui_close_box_macos9_noir_v04` | 1 | 128×128 | Classic Mac OS 9 / Platinum close-box shape in RainShadow cool gunmetal; seats on inventory frame rail. |

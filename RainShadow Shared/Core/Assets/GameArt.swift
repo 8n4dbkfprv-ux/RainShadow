@@ -128,6 +128,7 @@ enum GameArt {
             "dialogue_scroll_area_solid_v06",
             "dialogue_portrait_lila_march_v02",
             "dialogue_portrait_harlan_voss_v01",
+            "inventory_outer_frame_v07",
             "inventory_outer_frame_v06",
             "inventory_outer_frame_v05",
             "inventory_section_loadout_v05",

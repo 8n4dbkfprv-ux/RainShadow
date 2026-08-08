@@ -1,0 +1,32 @@
+{
+  "asset_version": "v17-original-imagegen-gameplay",
+  "status": "installed-for-player-motion-review",
+  "runtime_touched": true,
+  "runtime_hashes": "112/112 original idle/walk staged outputs match installed resources",
+  "backup": "ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV17OriginalsPrior/v17-originals-20260808T170525Z",
+  "sources": {
+    "idle_and_non_sw_walk": "nine untouched approved V17 Image Generator direction keys",
+    "sw_walk": "eight untouched rejected V17 Image Generator alternating proof frames",
+    "seated_transitions_ui": "retained from the passing V17 installation"
+  },
+  "v14_contract": {
+    "native_body_rows": 56,
+    "palette_colours_max": 64,
+    "hard_alpha": true,
+    "texture_body_height": 200,
+    "canvas": [512, 512],
+    "foot_row": 433
+  },
+  "waived_motion_gates": [
+    "walk source uniqueness outside SW",
+    "planted-foot exchange outside SW",
+    "walk head jitter",
+    "walk head scale",
+    "walk torso scale",
+    "walk loop closure"
+  ],
+  "automated_tests": {
+    "original_runtime_hashes": "112/112 passed",
+    "voss_wardrobe_and_seat_scale": "7 passed in 2 suites"
+  }
+}
