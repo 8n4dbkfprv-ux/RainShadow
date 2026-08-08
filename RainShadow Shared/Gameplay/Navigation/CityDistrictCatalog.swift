@@ -25,6 +25,10 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         "map_district_icon_\(slug)_v01"
     }
 
+    var worldMapIconHoverTextureName: String {
+        "\(worldMapIconTextureName)_hover"
+    }
+
     /// Second line under the world-map icon label stack.
     var worldMapShortType: String {
         switch self {

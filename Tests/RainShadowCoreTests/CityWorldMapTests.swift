@@ -19,6 +19,13 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.coordinate(for: .harborpointPD) == .init(col: 1, row: 0))
     }
 
+    @Test func districtWorldMapMarkersHaveNormalAndHoverNames() {
+        for district in CityDistrictID.allCases {
+            #expect(district.worldMapIconTextureName == "map_district_icon_\(district.slug)_v01")
+            #expect(district.worldMapIconHoverTextureName == "map_district_icon_\(district.slug)_v01_hover")
+        }
+    }
+
     @Test func orthogonalNeighborsMatchBGCityAdjacency() {
         #expect(CityWorldMap.neighbor(of: .sableRow, toward: .west)?.districtID == .wharfLadder)
         #expect(CityWorldMap.neighbor(of: .sableRow, toward: .east)?.districtID == .lilaStreet)

@@ -47,6 +47,7 @@ final class WorldMapOverlay: SKNode {
     private var visited: Set<CityDistrictID> = []
     private var exitEdge: CityMapEdge?
     private var cellNodes: [String: SKNode] = [:]
+    private var hoveredDistrict: CityDistrictID?
     private let partyMarker = SKNode()
 
     override init() {
@@ -77,6 +78,7 @@ final class WorldMapOverlay: SKNode {
         self.currentDistrict = currentDistrict
         self.visited = visited
         self.exitEdge = exitEdge
+        hoveredDistrict = nil
         refreshCells()
         placePartyMarker()
 
@@ -89,6 +91,7 @@ final class WorldMapOverlay: SKNode {
     }
 
     func hideAnimated() {
+        hoveredDistrict = nil
         removeAllActions()
         run(.sequence([
             .fadeOut(withDuration: 0.13),
@@ -119,6 +122,19 @@ final class WorldMapOverlay: SKNode {
         if districtHit(at: point) != nil { return mode == .travel }
         if lockedWardHit(at: point) { return true }
         return false
+    }
+
+    func handleHover(at point: CGPoint) {
+        guard !isHidden else { return }
+        let candidate = districtHit(at: point)
+        let next = candidate.flatMap { districtID in
+            mode == .travel && CityWorldMap.isTravelable(districtID, visited: visited)
+                ? districtID
+                : nil
+        }
+        guard hoveredDistrict != next else { return }
+        hoveredDistrict = next
+        refreshMarkerHighlights()
     }
 
     // MARK: - Build
@@ -254,41 +270,43 @@ final class WorldMapOverlay: SKNode {
                     x: -Metrics.mapSize.width / 2 + cellWidth * (CGFloat(col) + 0.5),
                     y: Metrics.mapSize.height / 2 - cellHeight * (CGFloat(visualRow) + 0.5)
                 )
+                if case .district(let id) = cell {
+                    let offset = markerOffset(for: id)
+                    root.position.x += offset.x
+                    root.position.y += offset.y
+                }
                 root.zPosition = 8
 
-                let pad = CGSize(width: cellWidth - 6, height: cellHeight - 6)
-                let veil = SKShapeNode(rectOf: pad, cornerRadius: 4)
-                veil.name = "worldmap.cell.veil"
-                veil.fillColor = Palette.fog
-                veil.strokeColor = .clear
-                root.addChild(veil)
+                if case .district(let id) = cell {
+                    let icon = SKSpriteNode(
+                        texture: GameArt.texture(named: id.worldMapIconTextureName),
+                        size: CGSize(width: 148, height: 148)
+                    )
+                    icon.name = "worldmap.cell.icon"
+                    icon.position = CGPoint(x: 0, y: 25)
+                    icon.zPosition = 1
+                    root.addChild(icon)
 
-                let border = SKShapeNode(rectOf: CGSize(width: pad.width - 12, height: pad.height - 12), cornerRadius: 4)
-                border.name = "worldmap.cell.border"
-                border.fillColor = .clear
-                border.strokeColor = .clear
-                border.lineWidth = 2
-                root.addChild(border)
+                    let label = Self.label(size: 17, color: Palette.plateInk, font: UITheme.Font.overlayCondensed)
+                    label.name = "worldmap.cell.label"
+                    label.text = cell.shortLabel
+                    label.verticalAlignmentMode = .center
+                    label.position = CGPoint(x: 0, y: -57)
+                    label.zPosition = 2
+                    root.addChild(label)
 
-                // BG Classic draws area names on small plates over the map art;
-                // the painted plate itself stays unlettered.
-                let namePlate = SKShapeNode(rectOf: CGSize(width: 190, height: 30), cornerRadius: 2)
-                namePlate.name = "worldmap.cell.plate"
-                namePlate.fillColor = Palette.plate
-                namePlate.strokeColor = Palette.plateEdge
-                namePlate.lineWidth = 1.5
-                namePlate.position = CGPoint(x: 0, y: -pad.height / 2 + 30)
-                namePlate.zPosition = 2
-                root.addChild(namePlate)
+                    let type = Self.label(size: 12, color: Palette.plateInk, font: UITheme.Font.overlayBodyBold)
+                    type.name = "worldmap.cell.type"
+                    type.text = id.worldMapShortType.uppercased()
+                    type.verticalAlignmentMode = .center
+                    type.position = CGPoint(x: 0, y: -77)
+                    type.zPosition = 2
+                    root.addChild(type)
+                }
 
-                let label = Self.label(size: 15, color: Palette.plateInk, font: UITheme.Font.overlayCondensed)
-                label.name = "worldmap.cell.label"
-                label.text = cell.shortLabel
-                label.verticalAlignmentMode = .center
-                label.zPosition = 1
-                namePlate.addChild(label)
-
-                let hit = SKShapeNode(rectOf: pad)
+                // The reference uses compact location-sized targets, not visible
+                // rectangular ward cells.
+                let hit = SKShapeNode(rectOf: CGSize(width: 196, height: 206))
                 hit.name = "worldmap.hit.\(key)"
                 hit.fillColor = SKColor(white: 1, alpha: 0.001)
                 hit.strokeColor = .clear
@@ -410,47 +428,59 @@ final class WorldMapOverlay: SKNode {
                 let cell = CityWorldMap.cells[visualRow][col]
                 let key = cellKey(cell)
                 guard let root = cellNodes[key] else { continue }
-                let veil = root.childNode(withName: "worldmap.cell.veil") as? SKShapeNode
-                let border = root.childNode(withName: "worldmap.cell.border") as? SKShapeNode
-                let namePlate = root.childNode(withName: "worldmap.cell.plate") as? SKShapeNode
-                let label = namePlate?.childNode(withName: "worldmap.cell.label") as? SKLabelNode
+                let label = root.childNode(withName: "worldmap.cell.label") as? SKLabelNode
+                let type = root.childNode(withName: "worldmap.cell.type") as? SKLabelNode
 
                 switch cell {
                 case .district(let id):
                     let travelable = CityWorldMap.isTravelable(id, visited: visited)
                     let isCurrent = id == currentDistrict
                     let isVisited = visited.contains(id)
-                    // Walked wards read clean; hearsay wards keep a light haze.
-                    veil?.fillColor = Palette.fog
-                    veil?.alpha = isVisited ? 0 : (travelable ? 0.30 : 1)
-                    border?.strokeColor = isCurrent
-                        ? Palette.party
-                        : (travelable && mode == .travel ? Palette.travel : .clear)
+                    root.isHidden = !travelable
+                    root.alpha = isVisited ? 1 : 0.78
                     label?.text = cell.shortLabel
                     label?.fontColor = isCurrent ? Palette.party : Palette.plateInk
-                    namePlate?.alpha = travelable ? 1 : 0
-                case .lockedWard(let wardKey):
-                    let revealed = CityWorldMap.isLockedWardRevealed(wardKey, visited: visited)
-                    veil?.alpha = 1
-                    veil?.fillColor = revealed
-                        ? Palette.fog.withAlphaComponent(0.55)
-                        : Palette.fog
-                    border?.strokeColor = .clear
-                    namePlate?.alpha = 0
+                    type?.fontColor = isCurrent ? Palette.party : Palette.plateInk
+                case .lockedWard:
+                    root.isHidden = true
                 }
             }
+        }
+        refreshMarkerHighlights()
+    }
+
+    private func refreshMarkerHighlights() {
+        for id in CityDistrictID.allCases {
+            let key = cellKey(.district(id))
+            guard let icon = cellNodes[key]?.childNode(withName: "worldmap.cell.icon") as? SKSpriteNode else {
+                continue
+            }
+            let highlighted = id == hoveredDistrict
+            let textureName = highlighted
+                ? id.worldMapIconHoverTextureName
+                : id.worldMapIconTextureName
+            icon.texture = GameArt.texture(named: textureName)
+            icon.setScale(highlighted ? 1.08 : 1)
+            let color = highlighted || id == currentDistrict ? Palette.party : Palette.plateInk
+            (cellNodes[key]?.childNode(withName: "worldmap.cell.label") as? SKLabelNode)?.fontColor = color
+            (cellNodes[key]?.childNode(withName: "worldmap.cell.type") as? SKLabelNode)?.fontColor = color
         }
     }
 
     private func placePartyMarker() {
-        let point = CityWorldMap.coordinate(for: currentDistrict)
-        let visualRow = (CityWorldMap.gridRows - 1) - point.row
-        let cellWidth = Metrics.mapSize.width / CGFloat(CityWorldMap.gridColumns)
-        let cellHeight = Metrics.mapSize.height / CGFloat(CityWorldMap.gridRows)
-        partyMarker.position = CGPoint(
-            x: -Metrics.mapSize.width / 2 + cellWidth * (CGFloat(point.col) + 0.5),
-            y: Metrics.mapSize.height / 2 - cellHeight * (CGFloat(visualRow) + 0.5)
-        )
+        let key = cellKey(.district(currentDistrict))
+        guard let marker = cellNodes[key] else { return }
+        partyMarker.position = CGPoint(x: marker.position.x, y: marker.position.y - 38)
+    }
+
+    private func markerOffset(for district: CityDistrictID) -> CGPoint {
+        switch district {
+        case .harborpointPD:
+            // Keep the icon and label clear of the painted HARBORPOINT cartouche.
+            return CGPoint(x: 0, y: 74)
+        default:
+            return .zero
+        }
     }
 
     private func handleDistrictSelection(_ districtID: CityDistrictID) {
