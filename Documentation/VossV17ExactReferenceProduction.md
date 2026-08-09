@@ -60,13 +60,20 @@ python3 ArtSource/Processing/install_voss_v17.py stage
 python3 ArtSource/Processing/qa_voss_v17.py
 python3 ArtSource/Processing/install_voss_v17.py install --confirm-runtime-replace V17
 python3 ArtSource/Processing/install_voss_v17_originals.py stage
-python3 ArtSource/Processing/install_voss_v17_originals.py install --confirm-runtime-replace ORIGINALS
+python3 ArtSource/Processing/install_voss_v17_originals.py install --confirm-runtime-replace ANIMATED
 ```
 
 `validate-proof`, `validate`, `stage` and QA do not write runtime resources.
 Installation revalidates staging, hashes every staged payload, backs up five atlas
 directories plus both UI files, prepares seven siblings and swaps all seven with
 rollback on any failure.
+
+The animated-original installer is the player-approved exception path. It sends
+all 36 authored idle and 72 authored walk masters through V14 without the
+pose-lock compositor, backs up the current idle/walk atlases, replaces the 112
+canonical files in place, and quarantines Finder/iCloud ``* 2.png`` duplicates.
+It deliberately retains source motion errors for visual review while requiring
+at least two processed idle phases and four processed walk phases per facing.
 
 ## Automated acceptance
 

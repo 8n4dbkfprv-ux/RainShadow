@@ -100,9 +100,10 @@ Modular buildings follow the office separation rule for entrances: facades may p
 | P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
 | P0 | `city_<district>_ground_v02` | 2048×1152 | Opaque | Play underlay (streets only); world scale 1× → 2048×1152 |
 | P0 | `map_city_<district>_v02` | 1847×1040 | Opaque | HUD area-map crop |
-| P0 | `map_world_harborpoint_v02` | 1536×1024 | Opaque | Legacy continuous-city parchment (superseded by V3 for World Map UI). |
-| P0 | `map_world_harborpoint_v03` | 1536×1024 | Opaque | BG EE Classic regional-style Harborpoint parchment: harbor west, river south, unlettered landmass, compass + cartouche. District icons, labels, fog, party marker, and TRAVEL are drawn by `WorldMapOverlay`. |
-| P0 | `map_district_icon_<district>_v01` | 256×192 | Yes | Per-ward isometric building-cluster travel icons (six Act I districts). Process: `process_world_map_district_icons_v01.py`. |
+| P0 | `map_world_harborpoint_v02` | 1536×1024 | Opaque | Legacy continuous-city parchment (superseded). |
+| P0 | `map_world_harborpoint_v03` | 1536×1024 | Opaque | Legacy dense city-plan plate with compass + cartouche (superseded by V4). |
+| P0 | `map_world_harborpoint_v04` | 1536×1024 | Opaque | BG EE Classic sparse regional parchment: warm amber open land, thin west harbor wash, SW river, unlettered, no compass/cartouche. District stamps, labels, fog, party marker, and TRAVEL are drawn by `WorldMapOverlay`. |
+| P0 | `map_district_icon_<district>_v01` | 256×256 | Yes | Per-ward isometric building-cluster travel icons (six Act I districts). Process: `process_world_map_markers_v01.py`. |
 | P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks (empty doorway apertures) and shared street furniture |
 | P0 | `city_door_*` | 256×384-class | Yes | Dimetric closed outdoor door leaves registered to building openings |
 

@@ -16,6 +16,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import sys
 import uuid
 from typing import Any, Iterable, Sequence
@@ -628,6 +629,7 @@ def _swap_payload_transaction(
             os.replace(destination, old)
             retired.append((old, destination))
             os.replace(new, destination)
+            _clear_hidden_flags(destination)
             if fail_after is not None and index >= fail_after:
                 raise RuntimeError("deliberate V17 transaction failure")
     except Exception:
@@ -652,6 +654,23 @@ def _swap_payload_transaction(
             shutil.rmtree(old)
         elif old.exists():
             old.unlink()
+
+
+def _clear_hidden_flags(path: Path) -> None:
+    """Keep Xcode's TextureAtlas compiler from silently skipping installed art.
+
+    iCloud/File Provider can stamp newly replaced PNGs with ``UF_HIDDEN``.  The
+    compiler then succeeds with an empty 84-byte atlas plist, which SpriteKit
+    presents as the actor node's solid fallback rectangle.
+    """
+    hidden = getattr(stat, "UF_HIDDEN", 0x00008000)
+    targets = [path]
+    if path.is_dir():
+        targets.extend(path.rglob("*"))
+    for target in targets:
+        flags = target.stat(follow_symlinks=False).st_flags
+        if flags & hidden:
+            os.chflags(target, flags & ~hidden, follow_symlinks=False)
 
 
 def install_runtime_transaction(stage_root: Path, report: dict[str, Any]) -> Path:

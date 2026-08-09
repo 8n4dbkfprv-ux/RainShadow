@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import stat
 import sys
 import tempfile
 import unittest
@@ -17,6 +19,7 @@ if str(PROCESSING_DIR) not in sys.path:
     sys.path.insert(0, str(PROCESSING_DIR))
 
 import install_voss_v17 as v17
+import install_voss_v17_originals as animated_originals
 
 
 def synthetic_master() -> Image.Image:
@@ -38,6 +41,22 @@ def synthetic_master() -> Image.Image:
 
 
 class VossV17PipelineTests(unittest.TestCase):
+    def test_animated_originals_expand_every_idle_and_walk_source(self) -> None:
+        contract = animated_originals.source_contract()
+        self.assertEqual(len(contract), 108)
+        self.assertTrue(all("/Frames/" in name for name in contract))
+        expected = animated_originals._expected_names()
+        self.assertEqual({atlas: len(names) for atlas, names in expected.items()}, {
+            "VossIdle.atlas": 40,
+            "VossWalk.atlas": 72,
+        })
+
+    def test_animated_originals_keep_distinct_processed_phases(self) -> None:
+        report = animated_originals.validate_stage(animated_originals.STAGING_ROOT)
+        for direction in animated_originals.DIRECTIONS:
+            self.assertGreaterEqual(report["distinct_processed_phases"][f"idle_{direction}"], 2)
+            self.assertGreaterEqual(report["distinct_processed_phases"][f"walk_{direction}"], 4)
+
     def test_manifest_expands_to_exact_runtime_contract(self) -> None:
         manifest = v17.load_manifest()
         specs = v17.master_specs(manifest)
@@ -111,6 +130,17 @@ class VossV17PipelineTests(unittest.TestCase):
                 )
             self.assertEqual((old_a / "cell.png").read_bytes(), b"old-atlas")
             self.assertEqual(old_b.read_bytes(), b"old-b")
+
+    @unittest.skipUnless(hasattr(os, "chflags"), "filesystem flags are a macOS contract")
+    def test_transaction_clears_hidden_flag_from_installed_png(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source, destination = root / "stage.png", root / "runtime.png"
+            source.write_bytes(b"new")
+            destination.write_bytes(b"old")
+            os.chflags(source, source.stat().st_flags | stat.UF_HIDDEN)
+            v17._swap_payload_transaction(((source, destination),))
+            self.assertFalse(destination.stat().st_flags & stat.UF_HIDDEN)
 
     def test_manifest_rejects_old_mustard_identity(self) -> None:
         manifest = json.loads(v17.MANIFEST_PATH.read_text(encoding="utf-8"))

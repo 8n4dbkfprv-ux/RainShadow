@@ -1,0 +1,936 @@
+{
+  "asset_version": "v17-animated-original-imagegen-gameplay",
+  "built_at_utc": "2026-08-09T08:35:19.313860+00:00",
+  "counts": {
+    "VossIdle.atlas": 40,
+    "VossWalk.atlas": 72
+  },
+  "distinct_processed_phases": {
+    "idle_n": 3,
+    "idle_nnw": 3,
+    "idle_nw": 3,
+    "idle_s": 3,
+    "idle_ssw": 3,
+    "idle_sw": 3,
+    "idle_w": 3,
+    "idle_wnw": 3,
+    "idle_wsw": 3,
+    "walk_n": 8,
+    "walk_nnw": 8,
+    "walk_nw": 8,
+    "walk_s": 8,
+    "walk_ssw": 8,
+    "walk_sw": 8,
+    "walk_w": 8,
+    "walk_wnw": 8,
+    "walk_wsw": 8
+  },
+  "duplicate_quarantine": "ArtSource/Generated/Characters/Detective/PreRendered3DV17/AnimatedOriginalGameplay/RuntimeDuplicateQuarantine/duplicates-20260809T083520Z",
+  "frame_metrics": {
+    "VossIdle.atlas/voss_standing_idle_n_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_n_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_n_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_n_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_nnw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_nnw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_nnw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_nnw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_nw_00.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_nw_01.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_nw_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_nw_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_s_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_s_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_s_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_s_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_se_00.png": {
+      "center_x": 256.0,
+      "head_center_x": 256.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_se_01.png": {
+      "center_x": 256.0,
+      "head_center_x": 256.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_se_02.png": {
+      "center_x": 256.0,
+      "head_center_x": 256.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_se_03.png": {
+      "center_x": 256.0,
+      "head_center_x": 256.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_sw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_sw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_sw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_sw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossIdle.atlas/voss_standing_idle_w_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.0,
+      "height": 200,
+      "width": 61
+    },
+    "VossIdle.atlas/voss_standing_idle_w_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.0,
+      "height": 200,
+      "width": 61
+    },
+    "VossIdle.atlas/voss_standing_idle_w_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.0,
+      "height": 200,
+      "width": 61
+    },
+    "VossIdle.atlas/voss_standing_idle_w_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 57
+    },
+    "VossIdle.atlas/voss_standing_idle_wnw_00.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_wnw_01.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_wnw_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_wnw_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 253.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossIdle.atlas/voss_standing_idle_wsw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_wsw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_wsw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossIdle.atlas/voss_standing_idle_wsw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_n_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_n_01.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossWalk.atlas/voss_walk_n_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossWalk.atlas/voss_walk_n_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.5,
+      "height": 200,
+      "width": 64
+    },
+    "VossWalk.atlas/voss_walk_n_04.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossWalk.atlas/voss_walk_n_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_n_06.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_n_07.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.5,
+      "height": 200,
+      "width": 68
+    },
+    "VossWalk.atlas/voss_walk_nnw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 246.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_nnw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 244.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_nnw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_nnw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_nnw_04.png": {
+      "center_x": 255.5,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 64
+    },
+    "VossWalk.atlas/voss_walk_nnw_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_nnw_06.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_nnw_07.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_nw_00.png": {
+      "center_x": 255.5,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_nw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_nw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_nw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_nw_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_nw_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_nw_06.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_nw_07.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_s_00.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_s_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_s_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_s_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_s_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_s_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_s_06.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_s_07.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_ssw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 258.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_ssw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 259.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_ssw_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 260.5,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_ssw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 259.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_ssw_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 260.5,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_ssw_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 258.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_ssw_06.png": {
+      "center_x": 255.0,
+      "head_center_x": 258.5,
+      "height": 200,
+      "width": 71
+    },
+    "VossWalk.atlas/voss_walk_ssw_07.png": {
+      "center_x": 255.0,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_sw_00.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_sw_01.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_sw_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 254.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_sw_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_sw_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 251.5,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_sw_05.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_sw_06.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_sw_07.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_w_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_w_01.png": {
+      "center_x": 255.5,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 96
+    },
+    "VossWalk.atlas/voss_walk_w_02.png": {
+      "center_x": 255.0,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_w_03.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 96
+    },
+    "VossWalk.atlas/voss_walk_w_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_w_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 249.5,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_w_06.png": {
+      "center_x": 255.5,
+      "head_center_x": 250.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_w_07.png": {
+      "center_x": 255.5,
+      "head_center_x": 252.0,
+      "height": 200,
+      "width": 100
+    },
+    "VossWalk.atlas/voss_walk_wnw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 244.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_wnw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 248.0,
+      "height": 200,
+      "width": 79
+    },
+    "VossWalk.atlas/voss_walk_wnw_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 247.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_wnw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 244.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_wnw_04.png": {
+      "center_x": 255.0,
+      "head_center_x": 246.0,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_wnw_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 244.5,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_wnw_06.png": {
+      "center_x": 255.5,
+      "head_center_x": 243.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_wnw_07.png": {
+      "center_x": 255.0,
+      "head_center_x": 249.5,
+      "height": 200,
+      "width": 89
+    },
+    "VossWalk.atlas/voss_walk_wsw_00.png": {
+      "center_x": 255.0,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_wsw_01.png": {
+      "center_x": 255.0,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 75
+    },
+    "VossWalk.atlas/voss_walk_wsw_02.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 86
+    },
+    "VossWalk.atlas/voss_walk_wsw_03.png": {
+      "center_x": 255.0,
+      "head_center_x": 253.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_wsw_04.png": {
+      "center_x": 255.5,
+      "head_center_x": 257.0,
+      "height": 200,
+      "width": 82
+    },
+    "VossWalk.atlas/voss_walk_wsw_05.png": {
+      "center_x": 255.0,
+      "head_center_x": 255.0,
+      "height": 200,
+      "width": 93
+    },
+    "VossWalk.atlas/voss_walk_wsw_06.png": {
+      "center_x": 255.5,
+      "head_center_x": 259.0,
+      "height": 200,
+      "width": 100
+    },
+    "VossWalk.atlas/voss_walk_wsw_07.png": {
+      "center_x": 255.5,
+      "head_center_x": 255.5,
+      "height": 200,
+      "width": 86
+    }
+  },
+  "output_hashes": {
+    "VossIdle.atlas/voss_standing_idle_n_00.png": "9b72fb5e426810e3f768dff4895a49d1ff778d85f351703b61d67ffd0b341ec0",
+    "VossIdle.atlas/voss_standing_idle_n_01.png": "72c23b707a587012f26d4956b26519a305fd1766c50dc8a0407482c58fa01207",
+    "VossIdle.atlas/voss_standing_idle_n_02.png": "9b72fb5e426810e3f768dff4895a49d1ff778d85f351703b61d67ffd0b341ec0",
+    "VossIdle.atlas/voss_standing_idle_n_03.png": "87e21f284bf07eaa098f2bde6df3cd9da773b093a6566f293edbcd9c19d8b33e",
+    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "425ffa50d6ebe960167f02bdbd432cbc42e14da3192024bab8cd0a3fc3c79875",
+    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "9bd3d2c64ac0b10fd23038e68bbb29cd52c7fec71d638086465358b1c0269765",
+    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "425ffa50d6ebe960167f02bdbd432cbc42e14da3192024bab8cd0a3fc3c79875",
+    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "f9694ba98688b3f873f37b434894a3d8350a8d9c03e427d51e536825b3cc79ff",
+    "VossIdle.atlas/voss_standing_idle_nw_00.png": "c543a0f822f9c3b984fa743aa88170bacb1710240231826da762f4ab9633657b",
+    "VossIdle.atlas/voss_standing_idle_nw_01.png": "30659a566d52d96c6368bc15e489b7fbd54fec5b6bbeb445e26f41aefb0be4be",
+    "VossIdle.atlas/voss_standing_idle_nw_02.png": "c543a0f822f9c3b984fa743aa88170bacb1710240231826da762f4ab9633657b",
+    "VossIdle.atlas/voss_standing_idle_nw_03.png": "69a84d8fdd1cecc4689a98bf7a3637cc9f7e52f350c11e7a94ee07e1cab5bd54",
+    "VossIdle.atlas/voss_standing_idle_s_00.png": "f44b5d888470a11584bd91b2eaab53acf8c4a059443bfb0271defdea36ab582a",
+    "VossIdle.atlas/voss_standing_idle_s_01.png": "d936efc8c59a262319a543b107602873961a41895004e7394cb510d7d08c28f8",
+    "VossIdle.atlas/voss_standing_idle_s_02.png": "f44b5d888470a11584bd91b2eaab53acf8c4a059443bfb0271defdea36ab582a",
+    "VossIdle.atlas/voss_standing_idle_s_03.png": "ba0a2d236c2b866faf869d3f4e32c8d9f6838e023c3f9fd0c61c2164e6de08ac",
+    "VossIdle.atlas/voss_standing_idle_se_00.png": "b74eca8f02c3356d7bf96d60871174ea2ec4ea1e709b79f5f05a8dd847b31ca0",
+    "VossIdle.atlas/voss_standing_idle_se_01.png": "01cc7a41f4cf7d6afeef3c401622f9e4847d0a68f7bca0046f2323230f79f379",
+    "VossIdle.atlas/voss_standing_idle_se_02.png": "b74eca8f02c3356d7bf96d60871174ea2ec4ea1e709b79f5f05a8dd847b31ca0",
+    "VossIdle.atlas/voss_standing_idle_se_03.png": "e4d71241bdc50d0b2fd9113386ebdf854660edde71404480b535ad757053d7ac",
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "9bebb21b6421fb4426c332d19f21ff8ed5393136e109d9c8a2d5bddeecbfd283",
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "b4f93aba2e8b0cc1bda452659dd0254e64b245542b574c39c4cd37c5185d6c7d",
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "9bebb21b6421fb4426c332d19f21ff8ed5393136e109d9c8a2d5bddeecbfd283",
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "e57ac1997bc8e72d789d043bff30efac7df566f23852199767d2fc5c86e69478",
+    "VossIdle.atlas/voss_standing_idle_sw_00.png": "2580289aa69e240bf09fa846f8d70a9da485b7e53947f68da34c6395e4a10dee",
+    "VossIdle.atlas/voss_standing_idle_sw_01.png": "254dcba0458105ceda4ec2cca80b144f032503886cee156128d39fecc2881b8c",
+    "VossIdle.atlas/voss_standing_idle_sw_02.png": "2580289aa69e240bf09fa846f8d70a9da485b7e53947f68da34c6395e4a10dee",
+    "VossIdle.atlas/voss_standing_idle_sw_03.png": "989d2596af4d11fa6e7c382fd83175b4ecd12bc5175973b3fa40daaf131d17af",
+    "VossIdle.atlas/voss_standing_idle_w_00.png": "30b3994065297f0be0d6e529e763aff94ab2a2dd762b2f957debb10c72336bbe",
+    "VossIdle.atlas/voss_standing_idle_w_01.png": "3335ea0cdd39671b72841785cd516b853cf22cdfa03f38660b83afde8857e4d7",
+    "VossIdle.atlas/voss_standing_idle_w_02.png": "30b3994065297f0be0d6e529e763aff94ab2a2dd762b2f957debb10c72336bbe",
+    "VossIdle.atlas/voss_standing_idle_w_03.png": "74e71bfaea0c8fa3afd840b0bec42f9ecfbc0fd144e9a0d3bee0d8034b7aff23",
+    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "0706bb902c21c0b48dba95e4da6b08cb47e73c4c35553335caec6d65c5b12f63",
+    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "09651f39596b4642fe943b63d88793236841c412da0097429bc906e7214fed1a",
+    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "0706bb902c21c0b48dba95e4da6b08cb47e73c4c35553335caec6d65c5b12f63",
+    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "ddf6585e33b5fa91777b3e965cb15c5d8642fa4d9dab11a1023a69595003993b",
+    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "2f0c7b0ccf84507630eae578e279d1d9cc65f0101f00865f5cea8ee492d0db16",
+    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "3e95f5fbeb0027aa185296a39e6d8781845205865c365aef578318766ed08bf9",
+    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "2f0c7b0ccf84507630eae578e279d1d9cc65f0101f00865f5cea8ee492d0db16",
+    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "e62186105bf72d15354bcf0a4f6f9392916eb46db5025fc72c5445dac024e9e6",
+    "VossWalk.atlas/voss_walk_n_00.png": "76283d3be947cbe749c613f1a420ed1028d967a454433f5615290f7c95600a23",
+    "VossWalk.atlas/voss_walk_n_01.png": "ac2df6dfcf8796f736855a7230eef8263916fc2e498cfc549bfbf43be7d90039",
+    "VossWalk.atlas/voss_walk_n_02.png": "8baeb5613f622db88853d5b230ef028a0b92ac9da7aed076c57a3f6dc6535cd2",
+    "VossWalk.atlas/voss_walk_n_03.png": "e7674749aaf8cad537267e468467c0953447cf1af0c2c9f21fbe47dc53991792",
+    "VossWalk.atlas/voss_walk_n_04.png": "56f714f264579a5ad9a9345693c68a2f55c69922d73b65b1e112a4c9cb3de110",
+    "VossWalk.atlas/voss_walk_n_05.png": "462fae8f5e82d5e98a2d0faf15e4b6017fcb8f0d33c172125d7491c1da3fdef2",
+    "VossWalk.atlas/voss_walk_n_06.png": "7d1206d42e8f01ec51a7db68cd609ef1e400fa6076f45cf62e41aa1fbec1edc2",
+    "VossWalk.atlas/voss_walk_n_07.png": "bc43ae8917c4089b55a7354631f67303a0335827776c13061229e6a881f5e91f",
+    "VossWalk.atlas/voss_walk_nnw_00.png": "a5130d3a2ef7031c7284c2056bc921a8b0552a779833ec7e5aeb9139125e31ab",
+    "VossWalk.atlas/voss_walk_nnw_01.png": "939da8e40394e5f3feb4a0d2cebc9a79b7485937f2c8ee2adb92160969e3dd37",
+    "VossWalk.atlas/voss_walk_nnw_02.png": "8549208278090a12b9bdd303f7639ab6e65ed4b15acb462a6d69314c425db9a5",
+    "VossWalk.atlas/voss_walk_nnw_03.png": "344f8d1a03e18ae1d8730d4a81cd2f32d2b01b6b6d420e20bf5a241236fda61c",
+    "VossWalk.atlas/voss_walk_nnw_04.png": "886d36157db8c5a67268b6d8bc53e839e3754965ffdff665ee46fb862c6e406f",
+    "VossWalk.atlas/voss_walk_nnw_05.png": "b8c897965336bbd3b1e6d07a604c2413664611455ab5ad4af663b72f0003dc23",
+    "VossWalk.atlas/voss_walk_nnw_06.png": "e7aaacb64a900bc71b29242ffa3f2c10b5a374436ecc19fdd12bd650ce31bed9",
+    "VossWalk.atlas/voss_walk_nnw_07.png": "54c473224291b04d6aa715c81a354ca91284fe00b7714b87bc8a12d37bdfc5b4",
+    "VossWalk.atlas/voss_walk_nw_00.png": "44ceb1b5900b33019317532f203fa85d7c06622d283c99b5fde078662aa56f0e",
+    "VossWalk.atlas/voss_walk_nw_01.png": "97b1e28a69e8a8795c6f8bfb999e5f42a8dc8291113bc676f0e6a8e601ba547e",
+    "VossWalk.atlas/voss_walk_nw_02.png": "ba3ba7710d7215fd651a11dd72f714d64eb7814a2e43bba7cb55db2b71138af5",
+    "VossWalk.atlas/voss_walk_nw_03.png": "130bb10f238e7a90f224ed25970f1b224f254ae1d9c183c47adf40ab973f044a",
+    "VossWalk.atlas/voss_walk_nw_04.png": "68b0fbd5938e2bd0d09915ab06311542618c35c553ffcd671aeec66b9412c67e",
+    "VossWalk.atlas/voss_walk_nw_05.png": "1c7aa962f4fb17aa48f7979fb8427574f9f3f06592b7b36d920d3d9dd9246c36",
+    "VossWalk.atlas/voss_walk_nw_06.png": "e424551d81e40db3b366e849fd793c98cdcfe4de01cbfaf171a8fb25a76ec4de",
+    "VossWalk.atlas/voss_walk_nw_07.png": "4e18c5cd98fb0141116cbddf550a5872a323c613714a411ba560faa69abb1c43",
+    "VossWalk.atlas/voss_walk_s_00.png": "f715c80b8b720d98aaecd8412e1c7eec2bc1dac51d0c8043dda46dc4e61417ae",
+    "VossWalk.atlas/voss_walk_s_01.png": "704a44d8fce9b330e831e826ea999ccb4fafa6e2e58fd572c3f10a8a4ab3c6c7",
+    "VossWalk.atlas/voss_walk_s_02.png": "1a62468f184b60123a85596e8c4695b77a85838f0bf48bf863378efba8317771",
+    "VossWalk.atlas/voss_walk_s_03.png": "589c6a33e70e1dbe95d46d443b3d912b414dcd7cb40a6a3ee635245f2f6a4895",
+    "VossWalk.atlas/voss_walk_s_04.png": "2b1e2ecafdd22581b92e2d4e8b7b55b6d43441c334c56745933ca5618753db52",
+    "VossWalk.atlas/voss_walk_s_05.png": "3bd56d15687c581e2971aab119061d66a7cf77c4d185d1946956201fb0eac334",
+    "VossWalk.atlas/voss_walk_s_06.png": "3ab38f8a2e82da356237086b4e95583ff1441186aa09c494474e407e2a29a762",
+    "VossWalk.atlas/voss_walk_s_07.png": "99bb68172f4826bb18f75b050521ced30243b77c17d65a7fa5014be98ef11073",
+    "VossWalk.atlas/voss_walk_ssw_00.png": "e496ed2ff353f278cac76e476b80fac396f9715041d5d3de388370a92ac84b38",
+    "VossWalk.atlas/voss_walk_ssw_01.png": "f1b7bff3f59c1a1493c5672ecb43e9ff80b9e810a946ebb1f7ca2fc6f6ca30dc",
+    "VossWalk.atlas/voss_walk_ssw_02.png": "d546e04b3bf5d15e7d7932137169d57f07314d469cabac7f33c43c9f06ae8bf2",
+    "VossWalk.atlas/voss_walk_ssw_03.png": "befde5e736785af95d696c12894ef7de03188406efe2ec260cfdbc59e4162dcc",
+    "VossWalk.atlas/voss_walk_ssw_04.png": "e6a30638eb0a51fa7ad39c62ac861cfebe9b27831832a493418219a70c4dd207",
+    "VossWalk.atlas/voss_walk_ssw_05.png": "e6e5c993193183f56d9818bae150c2c8526d45cfa637b0276c918f8ce633cdaf",
+    "VossWalk.atlas/voss_walk_ssw_06.png": "fe7514a3bfef7691a4defeb02dd42ec35ac668bf389abb10626fc13d5c35f0ae",
+    "VossWalk.atlas/voss_walk_ssw_07.png": "82956c03d309fb978fc065f6e0ec3a9fa267808fa6a52dd822f91ad103410b2f",
+    "VossWalk.atlas/voss_walk_sw_00.png": "95865642ce86809f82ce69cdc7930fa80f7d79fe712b8809f7195d66ab8b646b",
+    "VossWalk.atlas/voss_walk_sw_01.png": "cc22aa82de8ac81ebb3d3ee09bb2efec32ff2fe7acd5d99b58ab416f2acb5c86",
+    "VossWalk.atlas/voss_walk_sw_02.png": "c596b2d95bbac98dc498f3415ebc6e06d7006c693b3d41642e4b325b81cffa77",
+    "VossWalk.atlas/voss_walk_sw_03.png": "695a0c5b7281adffc69efcb8d37cb4bcda07327002ffc2abb6d530442d9f5252",
+    "VossWalk.atlas/voss_walk_sw_04.png": "22538ef49aca5c338530be3c2fe7a5edcd075037f96fdbf3431aff875ace71d4",
+    "VossWalk.atlas/voss_walk_sw_05.png": "a7371e931cb6fa2b37a7f0407139d2058ddd1427f090315db0614b547900dd21",
+    "VossWalk.atlas/voss_walk_sw_06.png": "c78b243c3871070f35fb5752ca0f9a15828ea93878371a64113e4bb8415395f8",
+    "VossWalk.atlas/voss_walk_sw_07.png": "cbed6676e0b4ab1ab96dec0347314d1b6b068d7406367b0ad11256818a3aacca",
+    "VossWalk.atlas/voss_walk_w_00.png": "21c345fcb2dce7397ea95d210c053db98b16bfb7b9dee79a97567a6bab74cb3d",
+    "VossWalk.atlas/voss_walk_w_01.png": "c9244da15e3b237dcfe878152efbe77374141113f09b8354b545f2991036d613",
+    "VossWalk.atlas/voss_walk_w_02.png": "625e8f1a0b399f09b433fb737fcaa2b6317a5cf3bb5acd2fbce7d0cf338654a8",
+    "VossWalk.atlas/voss_walk_w_03.png": "04fd132645849501cf299f7a0868f5dca79777903a54cda87ccdfa4865ca3ecf",
+    "VossWalk.atlas/voss_walk_w_04.png": "dbfffc94ea81b3da0f16f8d6015218d11cf2e9d51ba47dd96fe42d36fc5d7e74",
+    "VossWalk.atlas/voss_walk_w_05.png": "07803ce8c0486c4b986ce3519d5acbc971bc7f3bec0c68d46ecc34a344179c2c",
+    "VossWalk.atlas/voss_walk_w_06.png": "62b924a1c59e0457ad55255fe10127c00a967b0410970b1f41fa777c8a902c92",
+    "VossWalk.atlas/voss_walk_w_07.png": "8340d4a8a97fcf0e72935c47e2646ac4197014f8575368d85826cf71bb76f83b",
+    "VossWalk.atlas/voss_walk_wnw_00.png": "5b64728bd0bb6da3e681cddb610d064e2e4eeb3767c3d9e16ec9d99949c6a028",
+    "VossWalk.atlas/voss_walk_wnw_01.png": "b01c53a8f4d98aa9968dfe6fb1b2d216b7d66a7ada760ff3e44b7b5958e97b83",
+    "VossWalk.atlas/voss_walk_wnw_02.png": "e034781db3c364a40d8ea629cec40cbb2e620643989eda7269da812ffe0b85d9",
+    "VossWalk.atlas/voss_walk_wnw_03.png": "329a3881cc3b0139a0691966797419a27728272977834d2c8dee0be2fcac77c9",
+    "VossWalk.atlas/voss_walk_wnw_04.png": "ed352c274e13c9004f8315d24748f62f49b386460a2e3269fa916231cee678c0",
+    "VossWalk.atlas/voss_walk_wnw_05.png": "5a6d8438a4801419cc5e8f074fb2b77b8b5a64515547094c66a1e32db7aab625",
+    "VossWalk.atlas/voss_walk_wnw_06.png": "7ef181f9ba6f31b9a27de5fd9cffa2482c42319fca21c858a67fc5cdb658eb49",
+    "VossWalk.atlas/voss_walk_wnw_07.png": "ffec7c32a7dbb3b032c336dc3e0e6465227a7b2f9bae82759d9679f368267900",
+    "VossWalk.atlas/voss_walk_wsw_00.png": "0a1274451d515866769d1758619660761c326ba2d17e1ef623ab8ab4a723bc3d",
+    "VossWalk.atlas/voss_walk_wsw_01.png": "7ff48635fbe8af08bbc6fd187e312ac7a7890e1afb6f300bb1defd5b2d014b6f",
+    "VossWalk.atlas/voss_walk_wsw_02.png": "17a71791d4f977427d27562fd709738dd564707b757935a2018f328b77cb0d09",
+    "VossWalk.atlas/voss_walk_wsw_03.png": "e0529131cc94e8a6c7e58b8c58ad11f53c05ebb512add848d3ee078ddf8ea0f4",
+    "VossWalk.atlas/voss_walk_wsw_04.png": "6520b8505ea18ff76477fb19a7e54beb07d9e357b6b983cbe0b4b05ce2b30a0c",
+    "VossWalk.atlas/voss_walk_wsw_05.png": "e180809b16b6818d75901eb6d40e8db864e6b9bcbd6035547228fb7a860e2148",
+    "VossWalk.atlas/voss_walk_wsw_06.png": "cdc3be74b6f8c79b9dc7138779e342d1fef400b0bf9db8481338b32f120bb69c",
+    "VossWalk.atlas/voss_walk_wsw_07.png": "3183a2a6d2a8f93f332c9e3880827dd8bec3e73a4027b23d0666480c7b1f598d"
+  },
+  "runtime_backup": "ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV17AnimatedPrior/v17-animated-20260809T083520Z",
+  "source_hashes": {
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_n_00_chroma_v17.png": "cf0eb7d2e1f370e730d4179fd911fcf56e53bba386aac10fb3c201f7d2bdda2a",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_n_01_chroma_v17.png": "330439fecbf3cdf03d3d143be91cc6a68d4ef0a0822aca30f6368b7e06ffcc79",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_n_02_chroma_v17.png": "0e719858731fe8e9d011b8cb25a8a85c9630f434325289a5a44fbe35ba6eba54",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_n_03_chroma_v17.png": "c7cd5c07e0d96f199efd5e9512423628aa3864f1a971a3649a233100634d3e98",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nnw_00_chroma_v17.png": "95b3ebb87e2e648fdf33a4dbfbd03becec9bfcbb327d3cd5e05ba9db66a9a6b4",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nnw_01_chroma_v17.png": "36b9b2d8b83b165957b028efa037107f6289719e465c05b0ca8a5dbc65316251",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nnw_02_chroma_v17.png": "0e53b284639a75ba873c6559e6adbd1bfdccca9884d77b45238d4736abc1ad0b",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nnw_03_chroma_v17.png": "a5367b4ac7f1235f718dc4dfa642723aa2cd7601fbdb8e3eabf608dfab65a85b",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nw_00_chroma_v17.png": "fd6af635ecf409ee2f343d93244ac99e7466713d5b68264c2963f1f8140e2b34",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nw_01_chroma_v17.png": "9cc1ba0c0d9476971328e0f93965c9f63884f0caf9f72734c7a515fc1c82536a",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nw_02_chroma_v17.png": "4d777dd3fa95e091406f071980d328a9d7f62669bd44dafb34eaaa441ded7376",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_nw_03_chroma_v17.png": "705a60ccadacd4319aa995ef1c3f8f458fb446fc21db81011131997e8cffbddd",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_s_00_chroma_v17.png": "d01ab3f9d4061bc75f31f5516d1bc10fe820e2a0bced90f10ae701a173f7086f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_s_01_chroma_v17.png": "ecbc68adbd966e006d07761a3ce09b4b9e18890c04565b9939fab3e96defe24c",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_s_02_chroma_v17.png": "4f3f3fa2ff405961b6984bff29a18a2bcea074c64f4b23c6d58c30be92b95771",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_s_03_chroma_v17.png": "97eb1b434688ad1b416cee66635827566e7bc86ec83b19f554e86a20fbf5cd97",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_ssw_00_chroma_v17.png": "e478761e54a2e2a956b1a52bf0d20ea675db28c4a57cea9605287ca4624c2be2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_ssw_01_chroma_v17.png": "5c6627d5522ca8cb3be25d962b0ed8ba87e7f4f2a4722ff45eb28a8bbb8b7ab6",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_ssw_02_chroma_v17.png": "4213896581da5c574d10de3e9f785ceb5bbf3ea785aea3dd724eaaf125789e7f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_ssw_03_chroma_v17.png": "46a20f35ac0dc950091c9c9333d834ea766db0a4ed92311bd3551f4fec00d277",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_sw_00_chroma_v17.png": "3e613bd02af072e203343e16611a7c8b9e4e352d68ca7c8f8bee0124088e9059",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_sw_01_chroma_v17.png": "f6edeff0aeca93f8451ca11cfdc51456e9fdc9fb9ac97a014964d8b77ccf1909",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_sw_02_chroma_v17.png": "0ad3d7430f5ed4fc4e1e036703c8956fdf387da1f10f210fd1a029a4b72bf489",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_sw_03_chroma_v17.png": "74d71536d24aa176ef55c68077187524f6eb755ce116a794902a2f882627a91c",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_w_00_chroma_v17.png": "6d648c918118cd4807c10751bf4260cbb2dff9a260bb5b55026dccfb87f7b4de",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_w_01_chroma_v17.png": "550ad7ef9ce79beedc112d79bd9b047af968d09b093a632c437df5167722b87c",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_w_02_chroma_v17.png": "d8154fa336577830fa4275e80d84907d9a6ab87c59a35897d0d1965d01d3cc73",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_w_03_chroma_v17.png": "4af692c727950afa7e13710de1b7e29d15707def3ecb71096f243f58427aba6d",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wnw_00_chroma_v17.png": "15b4d6cfed3bc390292ae886d8f977fd54391f3cc92c2e1cadc8bb522575da4f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wnw_01_chroma_v17.png": "dcf8dd3d7dedc00b8a43460b56d96d82c377bb33e9a6c212c1e130e943a3dd98",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wnw_02_chroma_v17.png": "f22da680e29d9fad8ec592f3a06e6d3f630b82097e70c583e0e92b7edf3b41ae",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wnw_03_chroma_v17.png": "9b787798b81d63fb54b8b6bb1507cd2194a28f13e1a7d3200d74fd9e7777c2a4",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wsw_00_chroma_v17.png": "65ef42f81aa5c1d2027f9d96a2889977db027ad8d27d30ba39744176a1c12cde",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wsw_01_chroma_v17.png": "211c5b51f694ea33bdcdf2c1b4aeea82bec7943cf64589f3a16da037c196389f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wsw_02_chroma_v17.png": "9432c25c817e535e2218f3ad67304167ecdce155ef0d2cbd44beca54215bba97",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_idle_wsw_03_chroma_v17.png": "8ac76bf6358ce0c7b24bae7ea95f6a6e3c646765b118555465445a89fdf67187",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_00_chroma_v17.png": "06fab4a02004d57ffe2a9c258fe6e5c3b7b9cf05891ea49480e207608ec3173d",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_01_chroma_v17.png": "a2fcf1949dd44b0543f020c4cee7a69f873c1724ef5479e33f0313ca06cd5782",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_02_chroma_v17.png": "5b03b3e7465e62b6c5d2dafa20b578b58b58a201d09e5b36a0d1c8ba934308d8",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_03_chroma_v17.png": "1d616a4097bfc722adfdff324e9f512483a52611a2ce31dcb00926813a1de422",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_04_chroma_v17.png": "44c63564ec3b59cb0a6ac6ce4f4e8328431d9a0db8f0074926e9a408192d9965",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_05_chroma_v17.png": "79219eb5c94f7b935e58f2b1fe86562ce634bc6f67a783d715b93a9c9a322cfe",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_06_chroma_v17.png": "4ed16023f8eabf13842bfec361e165da33232f2f5ee0e3445a8a1a910daf35f7",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_n_07_chroma_v17.png": "4ce037e940dd082f36b70c4f490fad1f5042eaba8f1a7f8429d6cb1669f17e22",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_00_chroma_v17.png": "660072b279ba18e7f156bfc0d9c8090973c22ae5334cad375200387e985eadd2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_01_chroma_v17.png": "673664813650e5a451b954c93c3bc50423d34e3e12ab069f23a98920ec215633",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_02_chroma_v17.png": "343ca5929713649bf7fcdc98715f17ca0562cfb20af6b2b21666fe12ee13a8b7",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_03_chroma_v17.png": "27c3dde8b03172b6e7d2f386e4f3228f7625163c43117ec13a53e7753e4f2bda",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_04_chroma_v17.png": "357ba219fe04a98d333ea97e42be3f824c4ed0ae11f6fa5de3e3b4fdb6108947",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_05_chroma_v17.png": "ccb362083a06674bc3397957f343ff1b764dda574861c3e4fce48b11e23d359a",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_06_chroma_v17.png": "7d77e9921f6c2fd75b3ce3bf8408a8bd0a1d92a4c3285a592581357d4124ec82",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nnw_07_chroma_v17.png": "f1903fc9f302b675641629aa936d08584b6422ccd91c96aa861bc8f5aa9e932a",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_00_chroma_v17.png": "edcf6b5140db59f38b4483926881ad3e06677e45bb06a2d392f28a68bef993fd",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_01_chroma_v17.png": "fe01ed48156e5087c2903b0446e06b52bf8a752c479081e219d64689cda01f54",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_02_chroma_v17.png": "c95a8505f24f0188fcb31ea3ffab97b5200aaf728a76a460f0a1be2378013d0e",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_03_chroma_v17.png": "50d60ca44adb9556dce1fdd0ce6a8204639f17d44985903d5898e8f663fc968b",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_04_chroma_v17.png": "664bc33700b44b171180464ac12feed5bc8112f000fd717739383db1fdb7daad",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_05_chroma_v17.png": "c3c751f8dc6e11bb1d5e8b9d3360c8af178ccde815e7b8ba07859dde70e1fa52",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_06_chroma_v17.png": "1e1b3bbd5d5e56c339af4a2a50984a9923e79e9800146496a3ae46a6be72bc0f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_nw_07_chroma_v17.png": "a43f27d0403f75932acd13a4ae6ca788f3f7cf1071a7fcd8ba89093e3dcbf9a3",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_00_chroma_v17.png": "b34f2bef63eddd171687233e9955002bf506caca2c692702cc88086fe4393d00",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_01_chroma_v17.png": "0cdf8bdeb4e4722191c92e99dfc25e53a3c98edf94151f0e364bdc142ede3666",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_02_chroma_v17.png": "e75b0e828553a6a51211aed9666d7257fc0d1e81a79c826a533c95f6c7bf2946",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_03_chroma_v17.png": "d038e0feaad627072d9ed41de9b94ff2652387903b161990f55e58ca428f226d",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_04_chroma_v17.png": "ac45e4b8c62b0aeb0d77107a9f274e53261750195964bd016137d1e04d219026",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_05_chroma_v17.png": "6b57c7f8eabf40f5bf15e6866c01f30e0bcde460e027693f111b4b11c46395ec",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_06_chroma_v17.png": "9ef06d82eab90f2349ff5cf30cac77913fab4e8ed4a3253d622c3d900408e1da",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_s_07_chroma_v17.png": "90976ee0ed107ec5a02a525c81bd15fa1b6f0293b89fe3694fc3d093d2d3fe26",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_00_chroma_v17.png": "a97be9de3cbe0d3c7f3d96344de3b4df40a064f75feaa92be9a7e5962566ffe2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_01_chroma_v17.png": "d1c95614140a996927acd93bf0e3d4c39018272afdb1439b95d4cb6463a42fd7",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_02_chroma_v17.png": "c4cb2ec8770959f6d1c9a035ad320a8d46d523e40aa7dcbb8f446c0f344b89d5",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_03_chroma_v17.png": "c1f9965b1a9df932d2dc252acba7413817983a7472d2a906543c23ea13c3adf7",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_04_chroma_v17.png": "26a98a2da189a216beed1a9fec693fc5c05b9e05131c6fc37cc516831fd3fac2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_05_chroma_v17.png": "d523f2da8b567005d6497b77c8ce8944d5c4c98fe31faf2dc94fc7538ce171c9",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_06_chroma_v17.png": "e9f7733388a72691ad6fd0c839b31bddd73bab27d3b2e422f0db4d565d8b7693",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_ssw_07_chroma_v17.png": "93cfce0acf3a5d2f28c83643a1e07b4e3260f09c9930448ebb3ce042bbae9655",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_00_chroma_v17.png": "60d2ce32de1a3275ec82bdc4d26ed7236e28b5cba353a50c3d1eb03a206e3f65",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_01_chroma_v17.png": "8baa9ee8319b568716f4373835fe254d4beaf2c40d4b960870fe84802ff0a3ca",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_02_chroma_v17.png": "ed5738b0193b861508126c490cfa954a4dd11b3953f5d4e1b292fb7f85c0c6c2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_03_chroma_v17.png": "051149ee885f142b16c46f4830859c019a83344aaaf801a7fb39a6453ebbce0e",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_04_chroma_v17.png": "c6c398e35e81454baa15386457ce9178c4eb2477f2cf04ffae5519b0ef35b2da",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_05_chroma_v17.png": "7c6ed6d8d3160135a39efbe1f48542ce4712bf7c4b888b1ce2328be991a6e557",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_06_chroma_v17.png": "0ee5e925fb4f269e5f66fe8c81149b7bf46ad1fbb9ed24e5bf9229f91820a7bc",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_sw_07_chroma_v17.png": "2cefd330291cd3edf5f6f1b5606446564291ff1594fd77fd5b48b5f348824e5e",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_00_chroma_v17.png": "a14007e8e2669c011dd894e2259c0366c3624e2a05cb8378009e68110ddc13b9",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_01_chroma_v17.png": "d47b476b0a58559427fb5781b4e4018133fa576e2d0ee747af98d70018191aa1",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_02_chroma_v17.png": "84156d4fc04963096f7a2b5f42717d0cf45ffb598a6d805ae5ced3bade20829f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_03_chroma_v17.png": "623a3462c38b2c1a15997b8b7412b90204a90864021317aa345d0c9f10218e7d",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_04_chroma_v17.png": "d10089010c66653fc60a5be472f87d5805a03fd29d36ee0a0bd53eb761ec2e80",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_05_chroma_v17.png": "77a4df319c977946b1f4b11e49ab986a5faad51967c754facf65be89abb0716f",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_06_chroma_v17.png": "4fc3b399450f44e976961267001f33146f33550692d7320f1800e2b42fbad895",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_w_07_chroma_v17.png": "6839a40b359f59732a170ac5cea75c127f8fd7d6998a3cde94c3f5c86938fd30",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_00_chroma_v17.png": "251cc7d3bc402d5734d99e0eabaceff9b45157c00dac76b8139cacae7316c131",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_01_chroma_v17.png": "023d999d0647750cfd8b75ad3e9dab671ab08405af5608b43e37fe4f3ba1c8b8",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_02_chroma_v17.png": "33090e75f6f4b0b3dc2257bc37dd14cfd3d9b5fcc647489f445ebefc5c9344c5",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_03_chroma_v17.png": "0111d0f931a83c3a2f1fb3e02422d80ba7d041beaf8977249acdf5d41427ce8a",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_04_chroma_v17.png": "2f66f269f22e6c30d8d74b4a18f3b24a23999af1e030587b3dcc2a037ee9d3c8",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_05_chroma_v17.png": "d384d76318bdb1497529ea05d0943be0b99fca97d80f1cc014eb61bec46cf5ff",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_06_chroma_v17.png": "caead6ce9ff8cc3bb640e3cbb5f5d18f06e2f979f4d08778fb5da2063586d5b2",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wnw_07_chroma_v17.png": "0062303fbb63cdad63844c3da85c124b96c6a61d196dea6149a8caa5f59e33a6",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_00_chroma_v17.png": "1b6497f501c208d68f3a553aabd6b747967e9f4f8765be18a80fecd0dea7e24b",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_01_chroma_v17.png": "fa602bf1a2b502bebddeffe6c0f38bc8dad06b541e81cd80942291cf2a23180e",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_02_chroma_v17.png": "cd5a2f09d09a7e7e2a6e4cf63a7b72e46b753c54150faeb62aff6e42e3d4e3c8",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_03_chroma_v17.png": "96e62b4f0a433e564351f3ce44c4a64dc8bb3aa4549402d8e6c31f99fd2bccc7",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_04_chroma_v17.png": "f91b6016dbf756b2382cd9e62cff6f36f81470d29cd0b01d1d26a13889327b87",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_05_chroma_v17.png": "91b225cb6e4d932ea2df3f7d26921c67c37607b929cd64477b3eefcb2d88577c",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_06_chroma_v17.png": "bd113b3324358d5e5d08d52a931b005c414468f0661aea51c8345acaf29fbca4",
+    "ArtSource/Generated/Characters/Detective/PreRendered3DV17/Frames/voss_walk_wsw_07_chroma_v17.png": "caeffdfe3c9cf40e202ef12ffacb16d370f23d7d64187bcb621b86eea31b7193"
+  },
+  "status": "passed-animated-with-motion-quality-waiver",
+  "waived_gates": [
+    "planted-foot exchange",
+    "walk head jitter",
+    "walk head scale",
+    "walk torso scale",
+    "walk loop closure"
+  ]
+}

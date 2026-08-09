@@ -15,7 +15,7 @@ final class WorldMapOverlay: SKNode {
         /// Preserves the 3:2 plate so the compass rose and cartouche stay round.
         static let mapSize = CGSize(width: 1_320, height: 880)
         static let mapWellCenterY: CGFloat = -12
-        static let textureName = "map_world_harborpoint_v02"
+        static let textureName = "map_world_harborpoint_v04"
     }
 
     private enum Palette {
@@ -23,17 +23,17 @@ final class WorldMapOverlay: SKNode {
         static let panel = SKColor(red: 0.030, green: 0.034, blue: 0.039, alpha: 0.96)
         static let raised = SKColor(red: 0.064, green: 0.069, blue: 0.075, alpha: 0.98)
         static let steel = SKColor(red: 0.46, green: 0.49, blue: 0.50, alpha: 0.62)
-        static let paper = SKColor(red: 0.82, green: 0.80, blue: 0.72, alpha: 1)
+        static let paper = SKColor(red: 0.86, green: 0.78, blue: 0.58, alpha: 1)
         static let quiet = SKColor(red: 0.53, green: 0.55, blue: 0.55, alpha: 1)
         static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
         static let oxblood = SKColor(red: 0.50, green: 0.13, blue: 0.12, alpha: 1)
         static let travel = SKColor(red: 0.32, green: 0.58, blue: 0.38, alpha: 1)
         static let party = SKColor(red: 0.62, green: 0.16, blue: 0.14, alpha: 1)
         /// Unsurveyed wash reads as aged blank paper, not a black hole.
-        static let fog = SKColor(red: 0.51, green: 0.44, blue: 0.32, alpha: 0.80)
-        static let plate = SKColor(red: 0.88, green: 0.84, blue: 0.73, alpha: 0.94)
-        static let plateInk = SKColor(red: 0.13, green: 0.11, blue: 0.09, alpha: 1)
-        static let plateEdge = SKColor(red: 0.29, green: 0.24, blue: 0.18, alpha: 0.90)
+        static let fog = SKColor(red: 0.55, green: 0.44, blue: 0.28, alpha: 0.80)
+        static let plate = SKColor(red: 0.90, green: 0.80, blue: 0.55, alpha: 0.94)
+        static let plateInk = SKColor(red: 0.18, green: 0.12, blue: 0.07, alpha: 1)
+        static let plateEdge = SKColor(red: 0.32, green: 0.24, blue: 0.14, alpha: 0.90)
     }
 
     var onDismiss: (() -> Void)?
@@ -119,7 +119,7 @@ final class WorldMapOverlay: SKNode {
 
     func isInteractive(at point: CGPoint) -> Bool {
         if targetName(at: point) == "worldmap.close" { return true }
-        if districtHit(at: point) != nil { return mode == .travel }
+        if districtHit(at: point) != nil { return true }
         if lockedWardHit(at: point) { return true }
         return false
     }
@@ -128,7 +128,7 @@ final class WorldMapOverlay: SKNode {
         guard !isHidden else { return }
         let candidate = districtHit(at: point)
         let next = candidate.flatMap { districtID in
-            mode == .travel && CityWorldMap.isTravelable(districtID, visited: visited)
+            CityWorldMap.isTravelable(districtID, visited: visited)
                 ? districtID
                 : nil
         }
@@ -437,10 +437,12 @@ final class WorldMapOverlay: SKNode {
                     let isCurrent = id == currentDistrict
                     let isVisited = visited.contains(id)
                     root.isHidden = !travelable
-                    root.alpha = isVisited ? 1 : 0.78
+                    root.alpha = 1
                     label?.text = cell.shortLabel
                     label?.fontColor = isCurrent ? Palette.party : Palette.plateInk
                     type?.fontColor = isCurrent ? Palette.party : Palette.plateInk
+                    label?.alpha = isVisited ? 1 : 0.78
+                    type?.alpha = isVisited ? 1 : 0.78
                 case .lockedWard:
                     root.isHidden = true
                 }
@@ -460,7 +462,11 @@ final class WorldMapOverlay: SKNode {
                 ? id.worldMapIconHoverTextureName
                 : id.worldMapIconTextureName
             icon.texture = GameArt.texture(named: textureName)
-            icon.setScale(highlighted ? 1.08 : 1)
+            // BG:EE Classic: painted stamps stay visible on the parchment;
+            // hover swaps to the oxblood treatment and a slight scale-up.
+            icon.isHidden = false
+            icon.alpha = 1
+            icon.setScale(highlighted ? 1.12 : 1)
             let color = highlighted || id == currentDistrict ? Palette.party : Palette.plateInk
             (cellNodes[key]?.childNode(withName: "worldmap.cell.label") as? SKLabelNode)?.fontColor = color
             (cellNodes[key]?.childNode(withName: "worldmap.cell.type") as? SKLabelNode)?.fontColor = color
@@ -473,14 +479,9 @@ final class WorldMapOverlay: SKNode {
         partyMarker.position = CGPoint(x: marker.position.x, y: marker.position.y - 38)
     }
 
-    private func markerOffset(for district: CityDistrictID) -> CGPoint {
-        switch district {
-        case .harborpointPD:
-            // Keep the icon and label clear of the painted HARBORPOINT cartouche.
-            return CGPoint(x: 0, y: 74)
-        default:
-            return .zero
-        }
+    private func markerOffset(for _: CityDistrictID) -> CGPoint {
+        // V4 drops the baked HARBORPOINT cartouche; grid centres are enough.
+        .zero
     }
 
     private func handleDistrictSelection(_ districtID: CityDistrictID) {

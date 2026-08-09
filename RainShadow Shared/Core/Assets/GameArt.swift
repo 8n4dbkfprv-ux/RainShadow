@@ -216,6 +216,8 @@ enum GameArt {
             "map_city_lila_street_v02",
             "map_city_civic_records_v02",
             "map_world_harborpoint_v02",
+            "map_world_harborpoint_v03",
+            "map_world_harborpoint_v04",
             "map_district_icon_sable_row_v01",
             "map_district_icon_sable_row_v01_hover",
             "map_district_icon_wharf_ladder_v01",
