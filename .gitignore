@@ -4,6 +4,8 @@ Artifacts/Screenshots/
 *.xcuserstate
 xcuserdata/
 DerivedData/
+.derivedData/
+.tmp_*/
 output/
 tmp/
 __pycache__/
