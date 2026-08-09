@@ -101,6 +101,25 @@ are spread across **eight** separate places, including a final "coat snap AFTER 
 block that runs last and overrides everything before it. Verify with
 `qa_wardrobe_lock_preservation.py`, not by eye.
 
+### A waiver looser than the Swift gate cannot make an install succeed
+
+`Tests/RainShadowCoreTests/VossSeatScaleTests.swift` and `VossWardrobeColorTests.swift`
+are what actually gate shipping. When an installer waives its Python-side check
+past the matching Swift threshold, it does not pass the payload — it moves the
+failure to a red suite *after* the runtime has been replaced. V19 shipped that
+way: a ≤2.5% rear-shirt waiver against a 0.1% gate let an entire rear hemisphere
+install as front views, so Voss walks away from the camera facing you. Keep every
+waiver at `Swift gate + a small raster margin`, and never waive a wrong pose or a
+wrong view — that is correctness, not craft. See
+`Documentation/VossV19AnimationAudit.md`.
+
+### One sampled cell does not validate a direction
+
+The core rear check reads exactly one cell, `voss_standing_idle_n_00.png`. The
+other 35 rear cells went unmeasured for four versions, and a generator can ignore
+the back scaffold for a whole direction. Validate every phase of every affected
+direction, not a representative.
+
 ### Verify a pipeline change by rebaking and diffing, not by reading
 
 The atlases are deterministic. After any pipeline edit, run the full sequence and

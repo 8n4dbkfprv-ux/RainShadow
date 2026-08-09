@@ -594,18 +594,29 @@ def _recenter_stage_cells(stage_root: Path, *, max_shift: int = 8) -> int:
 
 
 def _filter_v19_stage_errors(errors: Sequence[str]) -> list[str]:
-    """Waive known V19 pure-Imagine craft edge cases that do not block play.
+    """Waive V19 pure-Imagine raster edge cases that a 1-bit crunch cannot resolve.
 
-    Pure keyframe Imagine gaits (video blocked by ZDR) carry more crown jitter,
-    head/torso scale pulse, and imperfect foot-lead alternation than the old
-    pose-locked restyle path. Upper-body freeze is intentionally OFF — those
-    gates would force the sliding-torso look we already rejected. Soft seat
-    drift is also waived when crown rise and height bands are otherwise usable.
+    Pure keyframe Imagine gaits (video blocked by ZDR) carry a little more crown
+    jitter and scale pulse than the old pose-locked restyle path, and upper-body
+    freeze is intentionally OFF — those gates would force the sliding-torso look
+    we already rejected. That buys *raster* headroom, not pose headroom.
+
+    Every bound below is `Swift gate + a small raster margin`, because
+    `Tests/RainShadowCoreTests/VossSeatScaleTests.swift` and
+    `VossWardrobeColorTests.swift` are what actually gate shipping. A waiver
+    looser than its Swift counterpart cannot make an install succeed; it only
+    moves the failure from this script to a red suite after the runtime has
+    already been replaced. That is exactly how V19 shipped a rear hemisphere
+    rendered as front views — see `Documentation/VossV19AnimationAudit.md`.
+
+    Nothing here may waive a *wrong pose or wrong view*. Those are correctness,
+    not craft, and they belong in `_validate_rear_hemisphere` and the seat gates.
     """
     import re
 
     kept: list[str] = []
     for error in errors:
+        # Swift band is 19...29px; ±2px for a head only ~6 native pixels across.
         if "head widths" in error and "expected 19...29px" in error:
             start = error.find("[")
             end = error.find("]")
@@ -615,54 +626,117 @@ def _filter_v19_stage_errors(errors: Sequence[str]) -> list[str]:
                 except ValueError:
                     kept.append(error)
                     continue
-                if widths and min(widths) >= 12 and max(widths) <= 36:
+                if widths and min(widths) >= 17 and max(widths) <= 31:
                     continue
         # Imagine masters: hair LAB score can sit just over the 0.18 "present" gate.
         m = re.search(r"no material-specific hair palette sample \(score ([0-9.]+)\)", error)
         if m and float(m.group(1)) <= 0.22:
             continue
-        # Pure Imagine walk crown jitter (no upper freeze).
+        # Crown jitter without upper freeze. The best archived payloads measure
+        # 4...7px; 6px is craft, and anything past it is a different drawing.
         m = re.search(r"head jitter ([0-9.]+)px, expected <=2px", error)
-        if m and float(m.group(1)) <= 36.0:
+        if m and float(m.group(1)) <= 6.0:
             continue
-        # Keyframe scale pulse without upper-body freeze.
+        # Keyframe scale pulse without upper-body freeze. Past ~1.15x/1.25x the
+        # actor visibly grows and shrinks inside a single cycle.
         m = re.search(r"head scale pulses ([0-9.]+)x", error)
-        if m and float(m.group(1)) <= 1.45:
+        if m and float(m.group(1)) <= 1.15:
             continue
         m = re.search(r"torso scale pulses ([0-9.]+)x", error)
-        if m and float(m.group(1)) <= 1.80:
+        if m and float(m.group(1)) <= 1.25:
             continue
-        # Foot-lead heuristics are noisy on mid-calf coats; play still reads gait.
-        if "planted-foot" in error:
-            continue
-        # Soft seat craft: keep hard height/rise failures, waive mild drift/IoU.
+        # Soft seat craft: Swift allows 2px centroid drift and IoU >= 0.86.
         m = re.search(r"idle centroid drift ([0-9.]+)px", error)
-        if m and float(m.group(1)) <= 40.0:
+        if m and float(m.group(1)) <= 6.0:
             continue
         m = re.search(r"neutral IoU ([0-9.]+)", error)
-        if m and float(m.group(1)) >= 0.40:
+        if m and float(m.group(1)) >= 0.80:
             continue
+        # Swift allows a 4px crown retreat per stand-up step.
         m = re.search(r"adjacent crown retreats ([0-9]+)px", error)
-        if m and float(m.group(1)) <= 80:
+        if m and float(m.group(1)) <= 8:
             continue
+        # Swift clip-wide head drift gate is 1.30x.
         m = re.search(r"head width drift ([0-9.]+)x", error)
-        if m and float(m.group(1)) <= 2.0:
+        if m and float(m.group(1)) <= 1.35:
             continue
-        if "does not hand off from seated neutral" in error:
-            continue
-        m = re.search(r"rear key paints shirt onto the back \(([0-9.]+)% of body\)", error)
-        if m and float(m.group(1)) <= 2.5:
-            continue
-        # Seated height band: pure Imagine often lands 148–165 after V14.
+        # Seated height band: Swift is 150...160px.
         m = re.search(r"seated height ([0-9]+), expected 150\.\.\.160px", error)
-        if m and 145 <= int(m.group(1)) <= 175:
+        if m and 148 <= int(m.group(1)) <= 162:
             continue
-        # Rise band: pure Imagine stand-up may be a few px short/long.
+        # Rise band: Swift is 38...50px.
         m = re.search(r"total rise (-?[0-9]+)px, expected 38\.\.\.50px", error)
-        if m and 30 <= int(m.group(1)) <= 55:
+        if m and 36 <= int(m.group(1)) <= 52:
             continue
         kept.append(error)
     return kept
+
+
+# Rear-hemisphere material gates, from measurement rather than taste.
+#
+# `_rear_forbidden_fraction` on `voss_standing_idle_*_00` and `voss_walk_*_00`:
+#
+#     cell            V19 shirt / skin   V18 shirt / skin   V17 shirt / skin
+#     idle n            1.48% / 4.30%      0.00% / 0.00%      0.00% / 0.00%
+#     idle nnw          3.14% / 5.68%      0.00% / 1.22%      0.00% / 0.00%
+#     idle nw           2.25% / 5.15%      0.00% / 1.47%      0.00% / 0.00%
+#     walk n            0.96% / 4.11%      0.00% / 1.87%      0.00% / 0.00%
+#
+# Shirt separates cleanly: a correct rear or three-quarter-rear cell paints
+# *no* front shirt at all, so the core 0.1% gate is already the right line.
+# Skin does not — hands swing into view on a three-quarter back — so it is
+# only enforced on the pure rear `n` cells, where every correct payload reads
+# 0.00% and V19's front-facing render reads 4.1...4.3%.
+_REAR_SHIRT_MAX_FRACTION = 0.001
+_REAR_SKIN_MAX_FRACTION = 0.030
+_REAR_HEMISPHERE_DIRECTIONS = ("n", "nnw", "nw")
+
+
+def _validate_rear_hemisphere(stage_root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    """Reject a staged payload whose away-facing cells are drawn as front views.
+
+    The core V16 installer samples exactly one cell, `voss_standing_idle_n_00`.
+    That is not enough: a generator can ignore the back scaffold for a whole
+    direction, and every other rear cell goes unread. V19 shipped `n`, `nnw`
+    and `nw` — idle *and* walk, 36 cells — as front views with the face, open
+    coat, shirt and tie visible, and only one of them was ever measured.
+
+    `validate_staging` suppresses the tie comparison because V19's black tie is
+    indistinguishable from charcoal trousers. Shirt and skin carry the signal
+    instead, so this check deliberately calls the unsuppressed core function.
+    """
+    wardrobe = manifest["wardrobe"]
+    errors: list[str] = []
+    report: dict[str, dict[str, float]] = {}
+
+    for direction in _REAR_HEMISPHERE_DIRECTIONS:
+        cells = [
+            ("VossIdle.atlas", f"voss_standing_idle_{direction}_{phase:02d}.png")
+            for phase in range(4)
+        ] + [
+            ("VossWalk.atlas", f"voss_walk_{direction}_{phase:02d}.png")
+            for phase in range(8)
+        ]
+        for atlas, name in cells:
+            cell = core._load_stage_cell(stage_root, atlas, name)
+            shirt = core._rear_forbidden_fraction(cell, wardrobe["shirt"])
+            skin = core._rear_forbidden_fraction(cell, wardrobe["skin"])
+            report[name] = {"shirt": round(shirt, 6), "skin": round(skin, 6)}
+            if shirt > _REAR_SHIRT_MAX_FRACTION:
+                errors.append(
+                    f"{name} faces away but paints front shirt on the back "
+                    f"({shirt * 100:.2f}% of body, expected <= "
+                    f"{_REAR_SHIRT_MAX_FRACTION * 100:.2f}%) — the cell is a front view"
+                )
+            if direction == "n" and skin > _REAR_SKIN_MAX_FRACTION:
+                errors.append(
+                    f"{name} is the pure rear view but exposes "
+                    f"{skin * 100:.2f}% skin (expected <= "
+                    f"{_REAR_SKIN_MAX_FRACTION * 100:.2f}%) — the face is toward the camera"
+                )
+
+    _fail_if(errors)
+    return report
 
 
 def _collect_stage_hashes(stage_root: Path) -> dict[str, str]:
@@ -709,9 +783,13 @@ def validate_staging(stage_root: Path, manifest: dict[str, Any]) -> dict[str, An
             }
     finally:
         core._rear_forbidden_fraction = original_rear_fraction
+    # Runs unsuppressed and after the waiver pass on purpose: a face pointed at
+    # the camera while the actor walks away is never a waivable craft edge.
+    rear_report = _validate_rear_hemisphere(stage_root, manifest)
     front = core._load_stage_cell(stage_root, "VossIdle.atlas", "voss_standing_idle_s_00.png")
     report["asset_version"] = "v19"
     report["waived_seat_head_width_18px"] = waived_head_width
+    report["rear_hemisphere_v19"] = rear_report
     report["materials_v19"] = material_separation_report(front, manifest)
     ui_hashes = _validate_staged_ui(stage_root, manifest)
     report.setdefault("output_hashes", {})

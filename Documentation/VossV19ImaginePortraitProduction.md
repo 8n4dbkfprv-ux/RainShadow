@@ -2,6 +2,15 @@
 
 ## Status
 
+> **The installed V19 payload is defective — see `VossV19AnimationAudit.md`.**
+> The whole rear hemisphere (`n`, `nnw`, `nw` — idle and walk) is rendered as
+> front views, the walk cycles are eight unrelated stills rather than one gait,
+> and `swift test` is red with 46 Voss asset failures. It installed only because
+> `_filter_v19_stage_errors` waived the gates that catch exactly this; those
+> waivers have since been narrowed and a rear-hemisphere gate added, so this
+> payload can no longer be installed. Regeneration needs the prompt contract
+> fixed first: the north directions must use `voss_anchor_back_chroma_v19.png`.
+
 **Phase 7 installed.** V18 remains available under RuntimeBackupPreRendered3DV19Prior/. V18 remains the installed runtime authority until a
 successful V19 transaction.
 
