@@ -1,0 +1,66 @@
+{
+  "00": {
+    "source": "19.jpg",
+    "height": 200,
+    "width": 104,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "01": {
+    "source": "15.jpg",
+    "height": 200,
+    "width": 82,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "02": {
+    "source": "16.jpg",
+    "height": 200,
+    "width": 96,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "03": {
+    "source": "14.jpg",
+    "height": 200,
+    "width": 86,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "04": {
+    "source": "21.jpg",
+    "height": 200,
+    "width": 82,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "05": {
+    "source": "17.jpg",
+    "height": 200,
+    "width": 89,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "crown_y": 234
+  },
+  "06": {
+    "source": "20.jpg",
+    "height": 200,
+    "width": 82,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "crown_y": 234
+  },
+  "07": {
+    "source": "18.jpg",
+    "height": 200,
+    "width": 89,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "crown_y": 234
+  }
+}

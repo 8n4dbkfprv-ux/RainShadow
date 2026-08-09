@@ -1,0 +1,74 @@
+{
+  "s": {
+    "height": 200,
+    "width": 79,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.395,
+    "source": "6.jpg"
+  },
+  "ssw": {
+    "height": 200,
+    "width": 71,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.355,
+    "source": "8.jpg"
+  },
+  "sw": {
+    "height": 200,
+    "width": 71,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.355,
+    "source": "5.jpg"
+  },
+  "wsw": {
+    "height": 200,
+    "width": 64,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.32,
+    "source": "11.jpg"
+  },
+  "w": {
+    "height": 200,
+    "width": 46,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.23,
+    "source": "12.jpg"
+  },
+  "wnw": {
+    "height": 200,
+    "width": 64,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.32,
+    "source": "13.jpg"
+  },
+  "nw": {
+    "height": 200,
+    "width": 64,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.32,
+    "source": "10.jpg"
+  },
+  "nnw": {
+    "height": 200,
+    "width": 75,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.375,
+    "source": "7.jpg"
+  },
+  "n": {
+    "height": 200,
+    "width": 82,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.41,
+    "source": "9.jpg"
+  }
+}

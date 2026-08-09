@@ -1,0 +1,184 @@
+{
+  "schema_version": 2,
+  "asset_version": "v18",
+  "character": "Harlan Voss",
+  "authority": "Portrait-first Grok Imagine 2.0 detective replacement",
+  "production_method": "148 Imagine-authored body masters (image_edit + image_to_video); portrait is face authority; V14 registration; SE idle mirror and sit-down reverse are local",
+  "source_root": "Frames",
+  "anchors_root": "Anchors",
+  "references_root": "References",
+  "ui_root": "UI",
+  "staging_root": "Staging",
+  "qa_root": "QA",
+  "generated": {
+    "standing_idle": {
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "phases": 4,
+      "pattern": "voss_idle_{direction}_{phase:02d}_chroma_v18.png"
+    },
+    "walk": {
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "phases": 8,
+      "pattern": "voss_walk_{direction}_{phase:02d}_chroma_v18.png"
+    },
+    "seated_idle": {
+      "directions": ["ne", "se"],
+      "phases": 8,
+      "pattern": "voss_seated_idle_{direction}_{phase:02d}_chroma_v18.png"
+    },
+    "stand_up": {
+      "directions": ["ne", "se"],
+      "phases": 12,
+      "pattern": "voss_stand_up_{direction}_{phase:02d}_chroma_v18.png"
+    }
+  },
+  "required_anchors": [
+    "voss_anchor_front_chroma_v18.png",
+    "voss_anchor_profile_w_chroma_v18.png",
+    "voss_anchor_back_chroma_v18.png",
+    "voss_anchor_dimetric_se_chroma_v18.png"
+  ],
+  "references": {
+    "dialogue_portrait_harlan_voss_v01.png": {
+      "role": "face_identity_authority",
+      "source_name": "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_portrait_harlan_voss_v01.png",
+      "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+    },
+    "voss_target_profile_w.png": {
+      "role": "body_profile_scaffold",
+      "source_name": "PreRendered3DV17/References/voss_target_profile_w.png",
+      "sha256": "e69eaa5bcf80a78cb2d36a90daaf960e0ee48d5ddd99c80b52fe8d15997cbf74"
+    },
+    "voss_target_back.png": {
+      "role": "body_back_scaffold",
+      "source_name": "PreRendered3DV17/References/voss_target_back.png",
+      "sha256": "3e36953a2f7d653147c78c3f6c32f732ecfeacf3ad02c1b2c284aa5f9d964ef0"
+    },
+    "voss_target_front_three_quarter.png": {
+      "role": "body_front_scaffold",
+      "source_name": "PreRendered3DV17/References/voss_target_front_three_quarter.png",
+      "sha256": "aceb190e63a06b1ea3fadc9a4e971dab7e1f086e00f7752e6aeebe95823ac659"
+    }
+  },
+  "derived": {
+    "standing_idle_se_mirror_of_sw": 4,
+    "sit_down_exact_reverse_of_stand_up": 24,
+    "seated_ne_upper_lower_compatibility": 16,
+    "transparent_seated_arms": 16
+  },
+  "runtime": {
+    "VossIdle.atlas": 40,
+    "VossWalk.atlas": 72,
+    "VossSeatedIdle.atlas": 32,
+    "VossSeatedArms.atlas": 16,
+    "VossSeatTransitions.atlas": 48
+  },
+  "counts": {
+    "imagegen_body_masters": 148,
+    "primary_body_presentations": 176,
+    "runtime_pngs": 208
+  },
+  "processing": {
+    "processor": "V14",
+    "native_body_rows": 56,
+    "texture_body_height": 200,
+    "canvas": [512, 512],
+    "foot_row": 433,
+    "corner_sentinel_alpha": 1,
+    "palette_colors": 64,
+    "dither": false,
+    "hard_alpha": true,
+    "preserve_wardrobe": true,
+    "seated_se_source_mirror_x": true,
+    "forbidden_legacy_locks": [
+      "seated_authority_lock",
+      "identity_wardrobe_lock",
+      "relock_voss_identity_v12"
+    ]
+  },
+  "wardrobe": {
+    "coat": "#653B26",
+    "shirt": "#D3C2A0",
+    "tie": "#1F1E1F",
+    "trousers": "#37373B",
+    "shoes": "#4B2F23",
+    "skin": "#CA8F6C",
+    "hair": "#70321D"
+  },
+  "wardrobe_target_authority": "References/dialogue_portrait_harlan_voss_v01.png (face) + Anchors/voss_anchor_front_chroma_v18.png (body materials); frozen samples validated by CIE LAB distance and relative luminance",
+  "material_gates": {
+    "maximum_delta_e": 38.0,
+    "minimum_target_delta_e": 10.0,
+    "minimum_luminance_gap": 0.02,
+    "method": "CIE76-LAB plus WCAG relative luminance"
+  },
+  "gates": {
+    "anchor_width_height_ratio": [0.34, 0.58],
+    "source_front_hue_spread_min": 0.0,
+    "processed_front_hue_spread_min": 0.0,
+    "standing_height": [198, 202],
+    "seated_height": [150, 160],
+    "center_tolerance": 2.0,
+    "idle_centroid_drift_max": 2.0,
+    "idle_neutral_iou_min": 0.86,
+    "adjacent_crown_retreat_max": 4,
+    "transition_rise": [38, 50],
+    "head_width": [19, 29],
+    "head_width_drift_ratio_max": 1.30,
+    "head_jitter_max": 2.0,
+    "minimum_recognizable_facings": 12
+  },
+  "ui_outputs": {
+    "paperdoll": {
+      "id": "voss_paperdoll_front_rgba_v01",
+      "filename": "voss_paperdoll_front_rgba_v01.png",
+      "runtime": "Inventory/voss_paperdoll_front_rgba_v01.png",
+      "size": [1024, 1536],
+      "mode": "RGBA",
+      "processing": "smooth-high-resolution"
+    },
+    "portrait": {
+      "id": "dialogue_portrait_harlan_voss_v01",
+      "filename": "dialogue_portrait_harlan_voss_v01.png",
+      "runtime": "Dialogue/dialogue_portrait_harlan_voss_v01.png",
+      "size": [512, 512],
+      "mode": "RGB",
+      "processing": "smooth-high-resolution"
+    }
+  },
+  "runtime_contract": {
+    "paperdoll_id": "voss_paperdoll_front_rgba_v01",
+    "portrait_id": "dialogue_portrait_harlan_voss_v01",
+    "paperdoll_display": [220, 315],
+    "actor_node": [180, 180],
+    "anchor": [0.5, 0.15625],
+    "filtering": "nearest",
+    "chair_owner": "world",
+    "save_compatible": true
+  },
+  "transaction": {
+    "payloads": 7,
+    "backup_root": "ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV18Prior",
+    "metadata": ["source hashes", "output hashes", "captured_at_utc", "manifest_sha256"]
+  },
+  "reports": {
+    "imagegen_provenance": "imagegen_provenance_v18.json",
+    "source_hashes": "computed by validate-proof/validate and embedded in the stage report",
+    "stage": "Staging/voss_v18_stage_report.json",
+    "qa": "QA/qa_v18_report.json",
+    "current_gate_status": "QA/qa_v18_gate_status.json"
+  },
+  "production_phases": {
+    "current": "phase_0_scaffold",
+    "order": [
+      "phase_0_scaffold",
+      "phase_1_identity_anchors",
+      "phase_2_nine_keys",
+      "phase_3_sw_walk_proof",
+      "phase_4_remaining_locomotion",
+      "phase_5_seated",
+      "phase_6_smooth_ui",
+      "phase_7_stage_install"
+    ]
+  }
+}

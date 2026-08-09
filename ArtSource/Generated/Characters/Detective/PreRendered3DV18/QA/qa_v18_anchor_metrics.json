@@ -1,0 +1,30 @@
+{
+  "front": {
+    "height": 200,
+    "width": 79,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.395
+  },
+  "profile_w": {
+    "height": 200,
+    "width": 50,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.25
+  },
+  "dimetric_se": {
+    "height": 200,
+    "width": 71,
+    "foot_y": 433,
+    "center_x": 255.0,
+    "ratio": 0.355
+  },
+  "back": {
+    "height": 200,
+    "width": 82,
+    "foot_y": 433,
+    "center_x": 255.5,
+    "ratio": 0.41
+  }
+}

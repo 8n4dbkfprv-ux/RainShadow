@@ -1,0 +1,23 @@
+{
+  "installed": true,
+  "pure_imagine": true,
+  "walk_upper_stabilise": false,
+  "imagine_complete_dirs": [
+    "s",
+    "ssw",
+    "sw",
+    "wsw",
+    "w",
+    "wnw",
+    "nw",
+    "nnw",
+    "n"
+  ],
+  "seated_complete": true,
+  "pure_imagine_masters": 148,
+  "runtime_cells": 208,
+  "prior_backup": "v18-20260809T113218Z",
+  "rolled_back_from_partial_then_full_imagine": true,
+  "note": "Full pure Imagine install. No restyle mix. No walk upper freeze. All 9 facings + seat.",
+  "installed_at_utc": "2026-08-09T11:32:34.484793+00:00"
+}
