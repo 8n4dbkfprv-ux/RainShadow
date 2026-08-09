@@ -1,0 +1,685 @@
+{
+  "asset_version": "v19",
+  "generator": "Grok Imagine 2.0 (image_edit keyframes)",
+  "reference_mechanism": "portrait-first image_edit chains; pose authorities supply camera/gait only",
+  "contract": "One tool call per selected master. Portrait is face law. Gameplay masters use flat #00ff00 with no floor or shadow. V14 crunch for gameplay only.",
+  "prompt_lock": "Exact shipping portrait identity: stern face, pale blue-gray eyes, swept-back auburn hair, pronounced long sideburns; dark chocolate double-breasted belted mid-calf trench; cream open-collar shirt; loose black tie; charcoal cuffed trousers; brown lace-up shoes; late-1990s Infinity Engine pre-rendered craft.",
+  "sw_walk_method": {
+    "primary": "image_edit_keyframes",
+    "primary_result": "completed",
+    "fallback": null
+  },
+  "bulk_locomotion": {
+    "method": "image_edit_keyframes",
+    "reason": "image_to_video not used (ZDR risk from V18)"
+  },
+  "seated_production": {
+    "method": "image_edit_keyframes",
+    "masters": 40
+  },
+  "smooth_ui": {
+    "portrait": "kept shipping face law dialogue_portrait_harlan_voss_v01",
+    "paperdoll": "derived from Anchors/voss_anchor_front_chroma_v19.png via chroma key + Lanczos (no V14)"
+  },
+  "counts_on_disk": {
+    "chroma_masters": 148,
+    "anchors": 4,
+    "keys": 9,
+    "expected": 148
+  },
+  "approved_outputs": {
+    "Anchors/voss_anchor_back_chroma_v19.png": {
+      "sha256": "9d9aad006382a336f2e88941ec78a9adb5666f1164c996aa5f4ade5a029e7ebe",
+      "bytes": 150352
+    },
+    "Anchors/voss_anchor_dimetric_se_chroma_v19.png": {
+      "sha256": "43ccc898decfb2d576819b79f5e75cf99392f74c3cfb264ad3f897bf97ededb4",
+      "bytes": 839893
+    },
+    "Anchors/voss_anchor_front_chroma_v19.png": {
+      "sha256": "d7b8a4ecd40db506330a160011cbbdd4a4365180d0bd718a597b95e483c2add8",
+      "bytes": 550224
+    },
+    "Anchors/voss_anchor_profile_w_chroma_v19.png": {
+      "sha256": "aa1358ca33fbded0c2bc526c35fa343fed2d99fe3a5e3e69b861d7975c604468",
+      "bytes": 265275
+    },
+    "Keys/voss_key_n_chroma_v19.png": {
+      "sha256": "b5d729fc02a6d475a666a0c8e2cd7261243806d3651bd52e41c440c9bb65a232",
+      "bytes": 417349
+    },
+    "Keys/voss_key_nnw_chroma_v19.png": {
+      "sha256": "ed2731b038efd9c6212c08c069fc3249ae0046ab29e3fcc6c829207f161b927b",
+      "bytes": 333582
+    },
+    "Keys/voss_key_nw_chroma_v19.png": {
+      "sha256": "2678f34c4d2a24665416e5906a2dbed9275b5836987c2249dccaa0e22c934161",
+      "bytes": 354166
+    },
+    "Keys/voss_key_s_chroma_v19.png": {
+      "sha256": "2bed3144e07902d80d043b5b63ed798e2509107a119eb819eefc471a973071a2",
+      "bytes": 383703
+    },
+    "Keys/voss_key_ssw_chroma_v19.png": {
+      "sha256": "0b5941f0d1018c62a8ff9b1be61858c366786a0d50663be49282ff8beb3542c8",
+      "bytes": 384449
+    },
+    "Keys/voss_key_sw_chroma_v19.png": {
+      "sha256": "1aa1ae24bdb0e27e2cb1d3d5315c36d8190d7b80786e205a734f2584c210c381",
+      "bytes": 402225
+    },
+    "Keys/voss_key_w_chroma_v19.png": {
+      "sha256": "751f380454c75bf3a2b04f35e575ac1497be6cda0dd11ef27046f3a823d103c9",
+      "bytes": 344095
+    },
+    "Keys/voss_key_wnw_chroma_v19.png": {
+      "sha256": "85345ec88afe3a01c1467277c8156e8ece2ba744cc81133328cc65e64ed23052",
+      "bytes": 331630
+    },
+    "Keys/voss_key_wsw_chroma_v19.png": {
+      "sha256": "2a284422c3db1d91e65ae41d06faeed4d113c69f895908cf14a31d33980d8e5f",
+      "bytes": 430522
+    },
+    "Frames/voss_idle_n_00_chroma_v19.png": {
+      "sha256": "b5d729fc02a6d475a666a0c8e2cd7261243806d3651bd52e41c440c9bb65a232",
+      "bytes": 417349
+    },
+    "Frames/voss_idle_n_01_chroma_v19.png": {
+      "sha256": "5055dd881b22d76d829ae8959691ea7336bcaa8b7d64678a0886e7aadd5ff892",
+      "bytes": 392026
+    },
+    "Frames/voss_idle_n_02_chroma_v19.png": {
+      "sha256": "39ebc5a9b826ad27fb71dcd17e329e694949c818b1a099e065ea626f3c350405",
+      "bytes": 386140
+    },
+    "Frames/voss_idle_n_03_chroma_v19.png": {
+      "sha256": "10aabda3ea61394d86bd60f8a6295964b90f23b111200efffff2d76009b76d78",
+      "bytes": 390535
+    },
+    "Frames/voss_idle_nnw_00_chroma_v19.png": {
+      "sha256": "ed2731b038efd9c6212c08c069fc3249ae0046ab29e3fcc6c829207f161b927b",
+      "bytes": 333582
+    },
+    "Frames/voss_idle_nnw_01_chroma_v19.png": {
+      "sha256": "54693259538eb97088071a3b75c903dd425179fddb5ec14c3ddb5e042de6bfe3",
+      "bytes": 399668
+    },
+    "Frames/voss_idle_nnw_02_chroma_v19.png": {
+      "sha256": "8a82478779101191c572c8167be0bd44e4f7e034e640d1eeff373915b6f37776",
+      "bytes": 390807
+    },
+    "Frames/voss_idle_nnw_03_chroma_v19.png": {
+      "sha256": "37e04b8c1933870bfe2d243ee976d719c7cd34f44510167c2bbf93bb81082b37",
+      "bytes": 381439
+    },
+    "Frames/voss_idle_nw_00_chroma_v19.png": {
+      "sha256": "2678f34c4d2a24665416e5906a2dbed9275b5836987c2249dccaa0e22c934161",
+      "bytes": 354166
+    },
+    "Frames/voss_idle_nw_01_chroma_v19.png": {
+      "sha256": "bd522cdeef522299e6006b4a51ab223ff69ef1a085d961a14b54a843eb2d7821",
+      "bytes": 424238
+    },
+    "Frames/voss_idle_nw_02_chroma_v19.png": {
+      "sha256": "87f940c7974968ea3fb58deb2dec830c8fd916c122ae177ffe177a9a21605406",
+      "bytes": 420009
+    },
+    "Frames/voss_idle_nw_03_chroma_v19.png": {
+      "sha256": "362fbb122b2547d44660c534f42a49d13f37e66dbd9299ec895af572e23fa6d4",
+      "bytes": 409461
+    },
+    "Frames/voss_idle_s_00_chroma_v19.png": {
+      "sha256": "2bed3144e07902d80d043b5b63ed798e2509107a119eb819eefc471a973071a2",
+      "bytes": 383703
+    },
+    "Frames/voss_idle_s_01_chroma_v19.png": {
+      "sha256": "6689fe352ee0ff2dbb814810b72ca03b8967d66ce4c1aef10bb90d8ab0e5a5d0",
+      "bytes": 376022
+    },
+    "Frames/voss_idle_s_02_chroma_v19.png": {
+      "sha256": "3932fcc0bdaefeabb97e416eee8db4fed341e51070c3badecc4e86d7936d3fb1",
+      "bytes": 411291
+    },
+    "Frames/voss_idle_s_03_chroma_v19.png": {
+      "sha256": "a80bfe507287bcb2c0fa91971054db3b9b5d519b19db3dc66bdaa53324647a2f",
+      "bytes": 403923
+    },
+    "Frames/voss_idle_ssw_00_chroma_v19.png": {
+      "sha256": "0b5941f0d1018c62a8ff9b1be61858c366786a0d50663be49282ff8beb3542c8",
+      "bytes": 384449
+    },
+    "Frames/voss_idle_ssw_01_chroma_v19.png": {
+      "sha256": "0c422b555e69c673336a2e3d628036f46106bc6bcda7d576bcc20bf03546acc6",
+      "bytes": 419230
+    },
+    "Frames/voss_idle_ssw_02_chroma_v19.png": {
+      "sha256": "df433191e13038211ba38bd764e6f4fb4a6ae12cf5278e9764495a381f442dda",
+      "bytes": 396694
+    },
+    "Frames/voss_idle_ssw_03_chroma_v19.png": {
+      "sha256": "d7e0f49b9bfe5fa98043978f27d34d885ef43727a40397006914a882b4815415",
+      "bytes": 397584
+    },
+    "Frames/voss_idle_sw_00_chroma_v19.png": {
+      "sha256": "1aa1ae24bdb0e27e2cb1d3d5315c36d8190d7b80786e205a734f2584c210c381",
+      "bytes": 402225
+    },
+    "Frames/voss_idle_sw_01_chroma_v19.png": {
+      "sha256": "110b5982005fcf1a260351970691e0cfeb4a90daa94614e9de96598154c22ddf",
+      "bytes": 408037
+    },
+    "Frames/voss_idle_sw_02_chroma_v19.png": {
+      "sha256": "75840982d44b49e473c94462f95e864fa19f120a4039e0be7b4d387b62b386ea",
+      "bytes": 471348
+    },
+    "Frames/voss_idle_sw_03_chroma_v19.png": {
+      "sha256": "90473637b672ee2390e9b13c9445b2a1508e86e294b4bf09a2a123316bade770",
+      "bytes": 398855
+    },
+    "Frames/voss_idle_w_00_chroma_v19.png": {
+      "sha256": "751f380454c75bf3a2b04f35e575ac1497be6cda0dd11ef27046f3a823d103c9",
+      "bytes": 344095
+    },
+    "Frames/voss_idle_w_01_chroma_v19.png": {
+      "sha256": "d68f161c89d8b5a1b7b02b56c9d4033957ad14b9bcd89771f78449a1186f6da2",
+      "bytes": 457588
+    },
+    "Frames/voss_idle_w_02_chroma_v19.png": {
+      "sha256": "885e8e41a26b687fe3b5def056c3c3cde5b5e1ea4ea165282552aa2388fea29c",
+      "bytes": 463939
+    },
+    "Frames/voss_idle_w_03_chroma_v19.png": {
+      "sha256": "0c979120645e8d9728844aa0d96981816d2c54a0f78c90cf00cfef9786ab58c5",
+      "bytes": 430535
+    },
+    "Frames/voss_idle_wnw_00_chroma_v19.png": {
+      "sha256": "85345ec88afe3a01c1467277c8156e8ece2ba744cc81133328cc65e64ed23052",
+      "bytes": 331630
+    },
+    "Frames/voss_idle_wnw_01_chroma_v19.png": {
+      "sha256": "a94462d84df4f3884ea2e77f94d5304007c8559b74d97e477f869c4473d61e2f",
+      "bytes": 380313
+    },
+    "Frames/voss_idle_wnw_02_chroma_v19.png": {
+      "sha256": "ab3f6dcc2c8d857e99b20ba78091541f650435190133b05938118937e486d7b7",
+      "bytes": 403423
+    },
+    "Frames/voss_idle_wnw_03_chroma_v19.png": {
+      "sha256": "314646297bebe1e5a3d74b63e529c44a3ef3182b468f7404524fcc55ee9b19d0",
+      "bytes": 363821
+    },
+    "Frames/voss_idle_wsw_00_chroma_v19.png": {
+      "sha256": "2a284422c3db1d91e65ae41d06faeed4d113c69f895908cf14a31d33980d8e5f",
+      "bytes": 430522
+    },
+    "Frames/voss_idle_wsw_01_chroma_v19.png": {
+      "sha256": "efb143e60b31526cef1af7e70f1cb08eb44a0aa6c200786557d57f4e4759be05",
+      "bytes": 383471
+    },
+    "Frames/voss_idle_wsw_02_chroma_v19.png": {
+      "sha256": "6ed22322767ece76a44a222c3c5e3d1aae8abd8356a1160171bd45575006e969",
+      "bytes": 378355
+    },
+    "Frames/voss_idle_wsw_03_chroma_v19.png": {
+      "sha256": "e655adca1bbcdf2b17e83edc8a33ab15428c33f4a3b4cd765f69ad817903ec84",
+      "bytes": 405186
+    },
+    "Frames/voss_seated_idle_ne_00_chroma_v19.png": {
+      "sha256": "59c3c8010a9e6ce82adb75929280857f02b0636ce4bf323ab0d7d020273a175f",
+      "bytes": 440179
+    },
+    "Frames/voss_seated_idle_ne_01_chroma_v19.png": {
+      "sha256": "f92b7d3cdc5247d4a48d5d920fcc2e517e1cf822ae5349cfafabf67a660038de",
+      "bytes": 334748
+    },
+    "Frames/voss_seated_idle_ne_02_chroma_v19.png": {
+      "sha256": "8af883f61d56ab6a4a634fb8857fb677b08403b7fa0fe24ad899cf2e68fd4573",
+      "bytes": 348680
+    },
+    "Frames/voss_seated_idle_ne_03_chroma_v19.png": {
+      "sha256": "206948f9438db18f0d7628b2e61f4ce55c8c348e230c8ccca076006fec465ebc",
+      "bytes": 323408
+    },
+    "Frames/voss_seated_idle_ne_04_chroma_v19.png": {
+      "sha256": "c8c48077ddf6422d4510f9ed9a93e55ab245090d2e017030e99777828991dc8b",
+      "bytes": 380004
+    },
+    "Frames/voss_seated_idle_ne_05_chroma_v19.png": {
+      "sha256": "818fbb7ca267824d6df21ed2b1751eccf3a74e108c6cf58564180c541846455f",
+      "bytes": 433832
+    },
+    "Frames/voss_seated_idle_ne_06_chroma_v19.png": {
+      "sha256": "34942810165845a59f440a1a228e6ce87c0f4e29f92b4b616fbd9cb4e58e6d55",
+      "bytes": 339971
+    },
+    "Frames/voss_seated_idle_ne_07_chroma_v19.png": {
+      "sha256": "314bc7213381079802a02931607bb9df02f78f0dd710b5e086afda5e2bddd6b5",
+      "bytes": 472463
+    },
+    "Frames/voss_seated_idle_se_00_chroma_v19.png": {
+      "sha256": "cf26c9e840a5022fb679e78a042488bbfbd2354d6038119d56c8fd969cf0baf5",
+      "bytes": 394357
+    },
+    "Frames/voss_seated_idle_se_01_chroma_v19.png": {
+      "sha256": "7b448917d9bbfb1ffc79181569cf3ef46c32bb1686daae37a7ec18701bbd6d76",
+      "bytes": 360270
+    },
+    "Frames/voss_seated_idle_se_02_chroma_v19.png": {
+      "sha256": "a164275d6fbd42510052798e6d1adc2ce1f1d1921375ccade70735436569b13b",
+      "bytes": 407207
+    },
+    "Frames/voss_seated_idle_se_03_chroma_v19.png": {
+      "sha256": "d85ad8af0cdb91541fbb5717b7d1546f1fd6e9237328f976226e9cd5d0e2c0af",
+      "bytes": 336033
+    },
+    "Frames/voss_seated_idle_se_04_chroma_v19.png": {
+      "sha256": "64af159e01f672bf6106ed6b1d0c50948c3f0fe07cad4370803681183a641da3",
+      "bytes": 300723
+    },
+    "Frames/voss_seated_idle_se_05_chroma_v19.png": {
+      "sha256": "b6bc157b5a6943bcf30e3f018bdf8d39c3aed1269c7cf3cd22104822a1508d2a",
+      "bytes": 345259
+    },
+    "Frames/voss_seated_idle_se_06_chroma_v19.png": {
+      "sha256": "071cc67b605b2f0bf322d7ddd3992f8666e93e7973c5b919560ac5905ba9d6fb",
+      "bytes": 388989
+    },
+    "Frames/voss_seated_idle_se_07_chroma_v19.png": {
+      "sha256": "8bc7c40c2df8700d09b9f6e586b0db33db6d88dd25d00f3c26b1161f555d82e1",
+      "bytes": 333860
+    },
+    "Frames/voss_stand_up_ne_00_chroma_v19.png": {
+      "sha256": "2a682762931ee1e512ca5d4b81125550c84e79a8a1125d3ca0ea01d0886413e9",
+      "bytes": 314479
+    },
+    "Frames/voss_stand_up_ne_01_chroma_v19.png": {
+      "sha256": "e01e3d77472beab64197ddbc5aa53f97d2b880a2bba0384206bb92b3c30357d8",
+      "bytes": 335410
+    },
+    "Frames/voss_stand_up_ne_02_chroma_v19.png": {
+      "sha256": "a6eb22b0c3f62c280ef208783a4059bab4e609b3457b466cf6b387c403d21edd",
+      "bytes": 319028
+    },
+    "Frames/voss_stand_up_ne_03_chroma_v19.png": {
+      "sha256": "55171e5cebf6a9c387af14a4688cfd6c84ea7945887e89b9dbede257ae243465",
+      "bytes": 307446
+    },
+    "Frames/voss_stand_up_ne_04_chroma_v19.png": {
+      "sha256": "283686ce10e43faaebb64ab9cf68df39455e7f69bb9d9e54b676f952d2ac60c9",
+      "bytes": 380608
+    },
+    "Frames/voss_stand_up_ne_05_chroma_v19.png": {
+      "sha256": "868fd742fade1d576d39bb16f35203c65ef30b9ebb3fc17db7316bfbc7856d4b",
+      "bytes": 380507
+    },
+    "Frames/voss_stand_up_ne_06_chroma_v19.png": {
+      "sha256": "97481ce68090d9129bafc295306372557fb930827db9ea1e63136b517bce8ad2",
+      "bytes": 332273
+    },
+    "Frames/voss_stand_up_ne_07_chroma_v19.png": {
+      "sha256": "7c6b30cfe16d7f8eb67300b57ea354c9ab777cf3b3d9374449bc1b8559d78867",
+      "bytes": 325236
+    },
+    "Frames/voss_stand_up_ne_08_chroma_v19.png": {
+      "sha256": "2d5d8df1a5ab2a51800386441a7cb631f30dfb26634875b9c9f2e07548132078",
+      "bytes": 308800
+    },
+    "Frames/voss_stand_up_ne_09_chroma_v19.png": {
+      "sha256": "56afe218a17819a2a10e91ea55f9f408fe33a306dc539779a24b48b74ab2ba5f",
+      "bytes": 341326
+    },
+    "Frames/voss_stand_up_ne_10_chroma_v19.png": {
+      "sha256": "0f58bbacac39702b58ebf835d4692d287fb1739f1429d6755c1a4bd518a55e0d",
+      "bytes": 327849
+    },
+    "Frames/voss_stand_up_ne_11_chroma_v19.png": {
+      "sha256": "6bfb1a6a81deadad341b446ea2a4224765987976c0eab5231ccd1029cabd895f",
+      "bytes": 304344
+    },
+    "Frames/voss_stand_up_se_00_chroma_v19.png": {
+      "sha256": "6e3d80d94c84bc640663a8174bbba540ebc05c893b278123aed3f19a76285d4a",
+      "bytes": 388014
+    },
+    "Frames/voss_stand_up_se_01_chroma_v19.png": {
+      "sha256": "f6b2014502aa5a5e6f82e145c18a7df21e881c93217d54ea74bd7e9dd8945d72",
+      "bytes": 328283
+    },
+    "Frames/voss_stand_up_se_02_chroma_v19.png": {
+      "sha256": "b25c83b2c3562c6455a40178ea373a599c234c8ea2281afede51ea29a0a789c8",
+      "bytes": 124639
+    },
+    "Frames/voss_stand_up_se_03_chroma_v19.png": {
+      "sha256": "16edbbffacc17d9fb80497d03f4a168c5060c7d6a1af170bd7bb0b85728e5e42",
+      "bytes": 302491
+    },
+    "Frames/voss_stand_up_se_04_chroma_v19.png": {
+      "sha256": "1abc53fcab82c4b3113a95ab8eff81b0397342bf09d194b2a5aeb04ec758405b",
+      "bytes": 316458
+    },
+    "Frames/voss_stand_up_se_05_chroma_v19.png": {
+      "sha256": "61430a5784b1b8fbfad0b51921298abb19ae27e75131093a24db6b2ec1d35049",
+      "bytes": 334142
+    },
+    "Frames/voss_stand_up_se_06_chroma_v19.png": {
+      "sha256": "915c8822787edb1aaff245f789162e048d8ba59bdc62a10f3aaff28a21625dff",
+      "bytes": 297346
+    },
+    "Frames/voss_stand_up_se_07_chroma_v19.png": {
+      "sha256": "2dd994feeb9ed89fa1fad762fca699607d4b65bcc3ab4682f765d55041da194e",
+      "bytes": 360177
+    },
+    "Frames/voss_stand_up_se_08_chroma_v19.png": {
+      "sha256": "87d15d1603a9627aec8d939b027cc227ec07e5393671f22638a513b2cc9faf1e",
+      "bytes": 389650
+    },
+    "Frames/voss_stand_up_se_09_chroma_v19.png": {
+      "sha256": "0dc735cae1c705a5fc3c07a3184157e1202246e72104fc22bd0a8e4e66cca0af",
+      "bytes": 302052
+    },
+    "Frames/voss_stand_up_se_10_chroma_v19.png": {
+      "sha256": "a45fae551a9a41a2698b1cc595ea36838b1bb530d0694610d8246778bd15de81",
+      "bytes": 311465
+    },
+    "Frames/voss_stand_up_se_11_chroma_v19.png": {
+      "sha256": "f8b352a4157cdcdc5b8cb1008e7a0db8703e6f2d171e3d742609b33c20ec7b7e",
+      "bytes": 346766
+    },
+    "Frames/voss_walk_n_00_chroma_v19.png": {
+      "sha256": "8d55308377d1eb46f7bf383285d093713809949658ea80c5e3e57710ad3b3993",
+      "bytes": 433010
+    },
+    "Frames/voss_walk_n_01_chroma_v19.png": {
+      "sha256": "ebe272523ce41ac0e1d4c1da800574d8f7d890712cdb2bf20a20ae279cdfd1cb",
+      "bytes": 408538
+    },
+    "Frames/voss_walk_n_02_chroma_v19.png": {
+      "sha256": "371c274f471af9938aa48276aad7d15903881bbcfe5f3dca860c0d800b67b31e",
+      "bytes": 421126
+    },
+    "Frames/voss_walk_n_03_chroma_v19.png": {
+      "sha256": "a99b79f9e99eeb6e69e78ca3e204a02a561bc047c28938945370d9b31fc60a1d",
+      "bytes": 429779
+    },
+    "Frames/voss_walk_n_04_chroma_v19.png": {
+      "sha256": "bb7a52437484f744506325b07a9a93bbdeb518cf23d3ed2cbffb6374deec5d08",
+      "bytes": 449698
+    },
+    "Frames/voss_walk_n_05_chroma_v19.png": {
+      "sha256": "e0cd2fc640504eec84310ae7b2fb39d4a3790053b0d85ee3205154fd551f6b3f",
+      "bytes": 425746
+    },
+    "Frames/voss_walk_n_06_chroma_v19.png": {
+      "sha256": "f902fb5949a5a3c9b34120e754d9ae14ff3a6448198e9fb8e0c282833e987067",
+      "bytes": 445519
+    },
+    "Frames/voss_walk_n_07_chroma_v19.png": {
+      "sha256": "9fabccfcedc4241ece49b8e7f5e4b0db752527c72000c82ba932dc3b0447eb29",
+      "bytes": 323142
+    },
+    "Frames/voss_walk_nnw_00_chroma_v19.png": {
+      "sha256": "da992b20c7918fd254fe7d6d70bd9db6fd09f2044987c466a275a621ec6c39de",
+      "bytes": 457934
+    },
+    "Frames/voss_walk_nnw_01_chroma_v19.png": {
+      "sha256": "3ebada01066c79ac445c444bbdfe85b895a48326e215001ca420b3ea445de809",
+      "bytes": 457221
+    },
+    "Frames/voss_walk_nnw_02_chroma_v19.png": {
+      "sha256": "fe54f6dbe872e2ed293a97ec0b8d055b3757f866a1fc5efa6f9afb4fbffdc3c7",
+      "bytes": 386063
+    },
+    "Frames/voss_walk_nnw_03_chroma_v19.png": {
+      "sha256": "7cd37e134a943b0c7d06632f2a81c0b35a60dfdbf3dc97f0c3528dcab021a396",
+      "bytes": 423351
+    },
+    "Frames/voss_walk_nnw_04_chroma_v19.png": {
+      "sha256": "7af83a854cdbd9d166899fcfa053a4759d6b99e7aa92226f609244d8812a05d4",
+      "bytes": 410745
+    },
+    "Frames/voss_walk_nnw_05_chroma_v19.png": {
+      "sha256": "cd7460a89ba8d0dda3914376a126fb1828f5021c45c212dcdd1bb30337933d42",
+      "bytes": 366369
+    },
+    "Frames/voss_walk_nnw_06_chroma_v19.png": {
+      "sha256": "09559a383c3316959f69a5e3db0d7a4c71c8685a5ddd2f46137738786d8b1942",
+      "bytes": 462231
+    },
+    "Frames/voss_walk_nnw_07_chroma_v19.png": {
+      "sha256": "4a0128ede85e8126dc31ad11681b15cf19ae0ecc9e69baacd9b7bf745e9df327",
+      "bytes": 444246
+    },
+    "Frames/voss_walk_nw_00_chroma_v19.png": {
+      "sha256": "79622e51babdb9108ccfbbf8b5cbecb4cdb7badad8bbba718002ad0bd49b54d4",
+      "bytes": 420920
+    },
+    "Frames/voss_walk_nw_01_chroma_v19.png": {
+      "sha256": "ebb0ac36411afd4cd5b55367fa5fc06084936ecd219d4e8a9f9c9cf1afee29af",
+      "bytes": 422416
+    },
+    "Frames/voss_walk_nw_02_chroma_v19.png": {
+      "sha256": "454b72f88443e9accf2ea438a18bf92b81bb5bcf1485e82bcb4f563a9f038289",
+      "bytes": 457647
+    },
+    "Frames/voss_walk_nw_03_chroma_v19.png": {
+      "sha256": "09faf69fc12315dc3488c03e0b3b33c5ec318c53d59d4c93c6ded29779c38549",
+      "bytes": 377423
+    },
+    "Frames/voss_walk_nw_04_chroma_v19.png": {
+      "sha256": "581220c51f3585456cd3b7e5cfdcd5b09c0d01e433c3869d90892b9082896626",
+      "bytes": 452725
+    },
+    "Frames/voss_walk_nw_05_chroma_v19.png": {
+      "sha256": "fb7000a4b2690521ecb2701087c20be98a20a6547bd63b9a798782cfa2e84025",
+      "bytes": 393697
+    },
+    "Frames/voss_walk_nw_06_chroma_v19.png": {
+      "sha256": "4198c2a28696cab9cb7e15e7ad3a33afc2efb53fb4dd49224417f61098dba774",
+      "bytes": 412155
+    },
+    "Frames/voss_walk_nw_07_chroma_v19.png": {
+      "sha256": "88ca48b1883421808b649c1dde71dbccf9de71bb81fe98c7565938298adaa34e",
+      "bytes": 440430
+    },
+    "Frames/voss_walk_s_00_chroma_v19.png": {
+      "sha256": "eefad7481a751ae10101179abaa62824ae8d329e4e605184985585918acd0664",
+      "bytes": 428448
+    },
+    "Frames/voss_walk_s_01_chroma_v19.png": {
+      "sha256": "80198f0e486e6ca15a7d85e4481b9f758c26c40a236809eac010cf31c0df06d7",
+      "bytes": 455902
+    },
+    "Frames/voss_walk_s_02_chroma_v19.png": {
+      "sha256": "bb1738ff532627fc23f3951460e1b4b74373bc5c5dd360670f05345262c83664",
+      "bytes": 440437
+    },
+    "Frames/voss_walk_s_03_chroma_v19.png": {
+      "sha256": "42255c77b20ebeaca7e84bc8dfbf61e7c0fabdcd472295cae61bf05466da548c",
+      "bytes": 431303
+    },
+    "Frames/voss_walk_s_04_chroma_v19.png": {
+      "sha256": "71d2f9f36b6d149fdf51889c3baab268c97de83032c0db2128e5b181b8d8a7dd",
+      "bytes": 429028
+    },
+    "Frames/voss_walk_s_05_chroma_v19.png": {
+      "sha256": "b097456dfa7d831d13daef32f1ee5d1eea5de3376a6da8d28401f79679771cc1",
+      "bytes": 465077
+    },
+    "Frames/voss_walk_s_06_chroma_v19.png": {
+      "sha256": "98b8aa606e2a86424db49cf3aaa63667f5da29984c24a603948beea01dc54d41",
+      "bytes": 438401
+    },
+    "Frames/voss_walk_s_07_chroma_v19.png": {
+      "sha256": "7fc26e9b6d333c6a651105fa24e82ab6bb39c3cd7594eb81603920b1cdb92287",
+      "bytes": 470894
+    },
+    "Frames/voss_walk_ssw_00_chroma_v19.png": {
+      "sha256": "9a6043524bbcd20dade8fe5177a16c56068ed3305613a572ed085a8e8cce3e90",
+      "bytes": 429498
+    },
+    "Frames/voss_walk_ssw_01_chroma_v19.png": {
+      "sha256": "c4b98ba029818825c3463e29c12851af9c03c0a4cad0d4fddb5370eb58207e95",
+      "bytes": 464713
+    },
+    "Frames/voss_walk_ssw_02_chroma_v19.png": {
+      "sha256": "dfcc9ad80e654825414dc93a70753f32ec0c77e9e93bb96903ccbd5ede00fa7d",
+      "bytes": 180379
+    },
+    "Frames/voss_walk_ssw_03_chroma_v19.png": {
+      "sha256": "72d81d61843c0ff8590afb5a31fe810eccd95b158a663b44e41b7f68c5712b89",
+      "bytes": 490936
+    },
+    "Frames/voss_walk_ssw_04_chroma_v19.png": {
+      "sha256": "1c4c82c86175edc00d72ab92dfc5b33990962082d006a706810c31c56226fca1",
+      "bytes": 451217
+    },
+    "Frames/voss_walk_ssw_05_chroma_v19.png": {
+      "sha256": "7592746454c2527c1c6a9d03dd59984816e9ab74fd361cb5ce71fd4ad3c280ba",
+      "bytes": 442967
+    },
+    "Frames/voss_walk_ssw_06_chroma_v19.png": {
+      "sha256": "eceef917acc8f816f7b253ce7a1e9946267c8d2d78838b8c769c53590df5077a",
+      "bytes": 444839
+    },
+    "Frames/voss_walk_ssw_07_chroma_v19.png": {
+      "sha256": "c7806267be82f61fcbfd468b295cf87d8e4aee37abcc2ed0d4c4a75975f1bc91",
+      "bytes": 425113
+    },
+    "Frames/voss_walk_sw_00_chroma_v19.png": {
+      "sha256": "3b8c827e4e0e134d082947203146cf08cf18082432df158c36929088bfb8f58f",
+      "bytes": 466836
+    },
+    "Frames/voss_walk_sw_01_chroma_v19.png": {
+      "sha256": "72a3dea3531d7bd67ea2bddefc90e28853cdf42440dda2347a7359c2968f16b3",
+      "bytes": 455951
+    },
+    "Frames/voss_walk_sw_02_chroma_v19.png": {
+      "sha256": "8f91e67aa5ca4a4b78fab95713bf4c88c382e54a78ee85dc9880b4752ba1140d",
+      "bytes": 430233
+    },
+    "Frames/voss_walk_sw_03_chroma_v19.png": {
+      "sha256": "b897554cb2131bb79e3ad391632a326af43ffeb76d315d5cb3d3c41aac2447d4",
+      "bytes": 473452
+    },
+    "Frames/voss_walk_sw_04_chroma_v19.png": {
+      "sha256": "743eb2f26d2746b3c30aa40fb26bb8a58c066a162ce7616a8eae6613e47f9312",
+      "bytes": 445593
+    },
+    "Frames/voss_walk_sw_05_chroma_v19.png": {
+      "sha256": "31571fe2338a7e0692012140f69009f8ef2164b1e1ad6ff9f852582e4fc832b1",
+      "bytes": 458845
+    },
+    "Frames/voss_walk_sw_06_chroma_v19.png": {
+      "sha256": "8f01693e6cfd17bbae739ce39247261fdb4343c9ee3e29ef7a9620f8e2b15534",
+      "bytes": 416433
+    },
+    "Frames/voss_walk_sw_07_chroma_v19.png": {
+      "sha256": "e0e1a8efc7125768436c581b5feecefa9a73841057bd9c6c686a070aab5062d5",
+      "bytes": 505024
+    },
+    "Frames/voss_walk_w_00_chroma_v19.png": {
+      "sha256": "2bcdc355d83ce064e98409e38c22e203c593c78cbdfb08cc0118f6c0acf783f3",
+      "bytes": 432010
+    },
+    "Frames/voss_walk_w_01_chroma_v19.png": {
+      "sha256": "0a50c167c4dc0fde550317c8b2d19f8d67f55bb191c29cb1a2fa9a3cdd65e6c1",
+      "bytes": 456718
+    },
+    "Frames/voss_walk_w_02_chroma_v19.png": {
+      "sha256": "c13e185e31442814324d3d5c82419cb6a789d15338499df792b2f6c309231aaa",
+      "bytes": 476185
+    },
+    "Frames/voss_walk_w_03_chroma_v19.png": {
+      "sha256": "5f5ebad338e0f76c167acd6f47133ac20c3ec359d36f9e3198ef7c8c72563451",
+      "bytes": 426657
+    },
+    "Frames/voss_walk_w_04_chroma_v19.png": {
+      "sha256": "e328e59644b01e00d851ba8babe9f09a30b78c6c677ae5d0ae0c58f58a7f6320",
+      "bytes": 461186
+    },
+    "Frames/voss_walk_w_05_chroma_v19.png": {
+      "sha256": "762b18ae8fcc3fc05f02317dfab60bd6ff6ca39c56613e39e17c247455060354",
+      "bytes": 464815
+    },
+    "Frames/voss_walk_w_06_chroma_v19.png": {
+      "sha256": "6e4ecdfe5155646cdae0e9b630b548d4583a438362a1b844a3bfee86e2359276",
+      "bytes": 470084
+    },
+    "Frames/voss_walk_w_07_chroma_v19.png": {
+      "sha256": "cc953b4dfe7ff9a04e5b3ed135ee573e276b062af133af95bf73345ad0c2d968",
+      "bytes": 478094
+    },
+    "Frames/voss_walk_wnw_00_chroma_v19.png": {
+      "sha256": "fc7e00db329fd30b1022fabb129ecdfed483a00086bbfc7cf8e760ff976678f7",
+      "bytes": 459664
+    },
+    "Frames/voss_walk_wnw_01_chroma_v19.png": {
+      "sha256": "0b247b1fc6641bda9947c8ef8814361d0c958589e591e5dbe337c87d8b3f3e61",
+      "bytes": 450844
+    },
+    "Frames/voss_walk_wnw_02_chroma_v19.png": {
+      "sha256": "9494a075dccaf64aa8452253c84b32dcf0ee20f8462dedbec89cba0d18519a8b",
+      "bytes": 466665
+    },
+    "Frames/voss_walk_wnw_03_chroma_v19.png": {
+      "sha256": "da39d3040b6a2134d1d2420728f643ef01394edb9d1bbc59e0afe229701e7107",
+      "bytes": 354638
+    },
+    "Frames/voss_walk_wnw_04_chroma_v19.png": {
+      "sha256": "24d1d84a85a3f5d56423e42f2ef8487281c7d4f06b6f717642020b05dea63aa9",
+      "bytes": 382863
+    },
+    "Frames/voss_walk_wnw_05_chroma_v19.png": {
+      "sha256": "2440be89f9d448b99344cf06c25eefbd7bc60334b3486ebcc72df7f2c28d8534",
+      "bytes": 439719
+    },
+    "Frames/voss_walk_wnw_06_chroma_v19.png": {
+      "sha256": "3859ecd22fd33f721daba8eff4ec5106062ddc3d432fbcd7c03c52e3cbfe7c6e",
+      "bytes": 451040
+    },
+    "Frames/voss_walk_wnw_07_chroma_v19.png": {
+      "sha256": "5a030e2c09d717819bf5597285fc98f4baddf22e3121e3773c5da79e2a7abd42",
+      "bytes": 454038
+    },
+    "Frames/voss_walk_wsw_00_chroma_v19.png": {
+      "sha256": "b43a379075dca8ec6bba113ddc89f137e7fb4b52c4ab8f70ce53204997170d55",
+      "bytes": 369022
+    },
+    "Frames/voss_walk_wsw_01_chroma_v19.png": {
+      "sha256": "1ebfb9090836652cb171b7416125444c2fd17b67b83ac408db5673547d8eb3fe",
+      "bytes": 493335
+    },
+    "Frames/voss_walk_wsw_02_chroma_v19.png": {
+      "sha256": "f61a91587678293a66f7d49fe4c7d1e50ca31ab8c0be095c134482bc48be0028",
+      "bytes": 484877
+    },
+    "Frames/voss_walk_wsw_03_chroma_v19.png": {
+      "sha256": "1b241251446bd4f74793607a20e4d602f495406bbe320c9f38398a8df630104a",
+      "bytes": 422656
+    },
+    "Frames/voss_walk_wsw_04_chroma_v19.png": {
+      "sha256": "2ce34229fb243de83a36fa70db674e1995e03468e3b66be040358be6fe13e388",
+      "bytes": 439481
+    },
+    "Frames/voss_walk_wsw_05_chroma_v19.png": {
+      "sha256": "4a203b98c6033435e4ff124e1dba47ea2ec88af8c3752f16f72a48640b604cdf",
+      "bytes": 474623
+    },
+    "Frames/voss_walk_wsw_06_chroma_v19.png": {
+      "sha256": "e67fd0c47b2df77538c0aa71f59b552146eef69581ba532ea24ad9a8e091b5aa",
+      "bytes": 447318
+    },
+    "Frames/voss_walk_wsw_07_chroma_v19.png": {
+      "sha256": "01f95df5c0358ecf565381a2f47cf92da08c03eebe15b86126290322ce1bb83f",
+      "bytes": 448313
+    }
+  },
+  "generated_at_utc": "2026-08-09T14:15:34.792699+00:00",
+  "staging": {
+    "status": "passed",
+    "runtime_pngs": 208
+  },
+  "install": {
+    "status": "installed",
+    "confirm": "V19"
+  }
+}
