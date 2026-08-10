@@ -33,6 +33,7 @@ final class CityDistrictScene: BaseGameScene {
     private var inspectBanner: SKLabelNode?
     /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
     private var queuedMovementGoals: [CGPoint] = []
+    private let barks = MovementBarkPlayer()
     private var lastCorrectiveRepathTime: TimeInterval = 0
     private static let detectiveActorID = "detective.voss"
     private static let correctiveRepathInterval: TimeInterval = 0.75
@@ -371,6 +372,7 @@ final class CityDistrictScene: BaseGameScene {
     override func update(_ currentTime: TimeInterval) {
         pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
         let worldIsPaused = pause.isPaused
+        detective.footstepSurface = .wetStone
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
             pruneCompletedQueuedGoals()
@@ -547,6 +549,9 @@ final class CityDistrictScene: BaseGameScene {
 
         clearWaypointPips()
         showMovementFeedback(at: target, isValid: true)
+        // BG:EE `Actor::CommandActor` — accepted orders acknowledge, refused ones
+        // stay quiet.
+        barks.play(.command)
         // BG draws a reticle at every queued waypoint *and* unconditionally at
         // the destination — `DrawTargetReticles` ends with "always draw last
         // step". Without this the primary goal only ever got the transient

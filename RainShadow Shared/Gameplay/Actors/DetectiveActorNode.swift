@@ -63,6 +63,16 @@ final class DetectiveActorNode: SKNode {
     /// This actor's BG:EE `move_scale` and any rate modifiers. Ships at
     /// `humanoid` (9), which is the engine's one constant human rate.
     var movementProfile: MovementProfile = .humanoid
+
+    /// Which footstep set this actor's floor uses. Scenes set it; see
+    /// `FootstepSurface` for why the seam exists.
+    var footstepSurface: FootstepSurface = .floorboard
+    /// Silences footsteps and barks without stopping locomotion — used for the
+    /// scripted cutscene walks, where BG also keeps the world quiet.
+    var isAudioSilenced = false
+    private var footsteps = FootstepCadence()
+    private var footstepVariant = 0
+    private var idleClock = IdleBehaviourClock(phase: 3)
     private var pendingFacing: ActorFacing?
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
@@ -470,6 +480,7 @@ final class DetectiveActorNode: SKNode {
                 if state != .walking { return }
             case .standingIdle:
                 advanceIdleTurnTick()
+                advanceIdleBehaviourTick()
             case .seatedIdle, .standingUp, .sittingDown:
                 return
             }
@@ -514,10 +525,61 @@ final class DetectiveActorNode: SKNode {
                 setFacing(dx: step.direction.dx, dy: step.direction.dy)
             }
             advanceWalkFrame()
+            playFootstepIfDue()
         }
         if step.didArrive {
             finishWalking()
         }
+    }
+
+    /// BG:EE `Actor::PlayWalkSound` — see `FootstepCadence` for why this is gated
+    /// on the previous clip finishing rather than on a contact frame.
+    private func playFootstepIfDue() {
+        let now = CACurrentMediaTime()
+        guard footsteps.allowsStep(at: now, isWalking: true, silenced: isAudioSilenced) else {
+            return
+        }
+        footstepVariant += 1
+        let resource = footstepSurface.resource(variant: footstepVariant)
+        // Hold the next step off by the length of this one. A missing audio set
+        // returns nil and simply stays silent.
+        guard let clip = GameSFX.play(resource, on: .walkPlayer) else { return }
+        footsteps.noteStepStarted(at: now, clipDuration: clip)
+    }
+
+    /// BG:EE `Actor::IdleActions`: on its own 16-tick script pass, a standing
+    /// creature has one chance in 25 of glancing around. See `IdleBehaviourClock`.
+    private func advanceIdleBehaviourTick() {
+        guard idleClock.advanceTickRunsScript() else { return }
+        // Don't interrupt a turn the player just asked for.
+        guard pendingFacing == nil else { return }
+        guard IdleBehaviourClock.rollWantsHeadTurn(
+            Int.random(in: 0..<IdleBehaviourClock.headTurnOdds)
+        ) else { return }
+        playIdleHeadTurn()
+    }
+
+    /// A glance: step one bin off the current facing and back.
+    ///
+    /// BG has a dedicated `IE_ANI_HEAD_TURN` stance for this. We have no authored
+    /// head-turn frames, so the nearest honest thing is the gradual turn already
+    /// used for standing re-facing — one 22.5° bin out and back, at the engine's
+    /// own one-bin-per-tick rate. It reads as looking around rather than as a
+    /// new heading, which is the point.
+    private func playIdleHeadTurn() {
+        let away = Bool.random()
+            ? facing.stepped(toward: ActorFacing(rawValue: (facing.rawValue + 4) % 16) ?? facing)
+            : facing.stepped(toward: ActorFacing(rawValue: (facing.rawValue + 12) % 16) ?? facing)
+        guard away != facing else { return }
+        let home = facing
+        pendingFacing = away
+        run(.sequence([
+            .wait(forDuration: 0.9),
+            .run { [weak self] in
+                guard let self, self.state == .standingIdle else { return }
+                self.pendingFacing = home
+            }
+        ]), withKey: "idleHeadTurn")
     }
 
     /// One 22.5° bin per tick toward `pendingFacing`, the engine's gradual turn
@@ -673,6 +735,9 @@ final class DetectiveActorNode: SKNode {
         routeFollower.cancel()
         backoffTicksRemaining = 0
         stopWalkAnimation()
+        // Clear the hold so the next walk's first footfall is not swallowed by
+        // the tail of the last one.
+        footsteps.reset()
         state = .standingIdle
         startStandingIdle()
         let completion = movementCompletion

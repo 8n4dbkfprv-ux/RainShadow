@@ -23,6 +23,12 @@ final class ClientActorNode: SKNode {
     /// See `DetectiveActorNode.movementProfile`. Also `humanoid` — BG gives every
     /// ordinary adult the same rate.
     var movementProfile: MovementProfile = .humanoid
+
+    /// See `DetectiveActorNode` — same contract, and she walks on the same floor.
+    var footstepSurface: FootstepSurface = .floorboard
+    var isAudioSilenced = false
+    private var footsteps = FootstepCadence()
+    private var footstepVariant = 0
     private var tickClock = LogicTickClock()
     private var movementCompletion: (() -> Void)?
     private var activePath: [CGPoint] = []
@@ -377,6 +383,9 @@ final class ClientActorNode: SKNode {
                 speed: movementProfile.walkSpeed
             )
             position = step.position
+            if step.direction != .zero {
+                playFootstepIfDue()
+            }
 
             if locomotionMode == .exit {
                 let fromIndex = max(0, activePath.count - routeFollower.waypoints.count - 1)
@@ -439,7 +448,23 @@ final class ClientActorNode: SKNode {
         finishLocomotion()
     }
 
+    /// BG:EE `Actor::PlayWalkSound`, on the non-party channel. See
+    /// `FootstepCadence` for why this is gated on clip length.
+    private func playFootstepIfDue() {
+        let now = CACurrentMediaTime()
+        guard footsteps.allowsStep(at: now, isWalking: true, silenced: isAudioSilenced) else {
+            return
+        }
+        footstepVariant += 1
+        guard let clip = GameSFX.play(
+            footstepSurface.resource(variant: footstepVariant),
+            on: .walkOther
+        ) else { return }
+        footsteps.noteStepStarted(at: now, clipDuration: clip)
+    }
+
     private func finishLocomotion() {
+        footsteps.reset()
         let completion = movementCompletion
         movementCompletion = nil
         routeFollower.cancel()

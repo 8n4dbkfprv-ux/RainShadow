@@ -31,6 +31,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var lastCorrectiveRepathTime: TimeInterval = 0
     /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
     private var queuedMovementGoals: [CGPoint] = []
+    private let barks = MovementBarkPlayer()
     private var pendingBumpReturn: [String: CGPoint] = [:]
     private static let detectiveActorID = "detective.voss"
     private static let clientActorID = "client.lila"
@@ -883,6 +884,11 @@ final class DetectiveOfficeScene: BaseGameScene {
             overlay: anyOverlayIsPresented
         )
         let worldIsPaused = pause.isPaused
+        // BG silences footsteps while dialogue holds the world (`Actor::Update`
+        // checks DF_IN_DIALOG before it ever reaches PlayWalkSound), which matters
+        // here because a cutscene keeps scripted actors walking.
+        detective.isAudioSilenced = dialogueIsActive
+        client.isAudioSilenced = dialogueIsActive
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         client.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
@@ -1505,6 +1511,10 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         clearWaypointPips()
         showMovementFeedback(at: target, isValid: true)
+        // BG:EE `Actor::CommandActor`: an accepted order gets a spoken
+        // acknowledgement, frequency-gated. A refused one does not — the barks
+        // above this guard would have made a blocked click sound like a success.
+        barks.play(.command, silenced: dialogueIsActive)
         // BG draws a reticle at every queued waypoint *and* unconditionally at
         // the destination — `DrawTargetReticles` ends with "always draw last
         // step". Without this the primary goal only ever got the transient
