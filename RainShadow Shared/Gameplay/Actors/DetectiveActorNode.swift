@@ -60,6 +60,9 @@ final class DetectiveActorNode: SKNode {
     private var facing: ActorFacing = .northEast
     /// The engine's `NewOrientation`: a facing the actor is rotating toward one
     /// bin per tick while standing. Nil once the turn completes.
+    /// This actor's BG:EE `move_scale` and any rate modifiers. Ships at
+    /// `humanoid` (9), which is the engine's one constant human rate.
+    var movementProfile: MovementProfile = .humanoid
     private var pendingFacing: ActorFacing?
     private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: [CGPoint], completion: (() -> Void)?)?
@@ -487,7 +490,7 @@ final class DetectiveActorNode: SKNode {
         let step = routeFollower.advance(
             from: position,
             deltaTime: LogicTickClock.tickDuration,
-            speed: ActorLocomotionPacing.walkSpeed
+            speed: movementProfile.walkSpeed
         )
         position = step.position
         if step.direction != .zero {
@@ -650,7 +653,7 @@ final class DetectiveActorNode: SKNode {
                 needsSeatEgress = false
                 let firstLegDistance = hypot(first.x - position.x, first.y - position.y)
                 animateSeatEgress(
-                    duration: ActorLocomotionPacing.pathDuration(distance: firstLegDistance)
+                    duration: movementProfile.pathDuration(distance: firstLegDistance)
                 )
             }
         }

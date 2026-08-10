@@ -223,7 +223,16 @@ struct ActorLocomotionPacingTests {
         // Arrow / WASD keys drive the viewport, never the actor.
         #expect(!office.contains("moveDetective(to: candidate)"))
 
-        #expect(client.contains("ActorLocomotionPacing.pathDuration"))
+        #expect(detective.contains("movementProfile.walkSpeed"))
+        #expect(detective.contains("movementProfile.pathDuration"))
+        #expect(!detective.contains("ActorLocomotionPacing.walkSpeed"))
+
+        // Pace comes from the actor's own BG:EE `move_scale` profile, which
+        // resolves through the same five engine constants ActorLocomotionPacing
+        // documents — never from a number typed in at the call site.
+        #expect(client.contains("movementProfile.pathDuration"))
+        #expect(client.contains("movementProfile.walkSpeed"))
+        #expect(!client.contains("ActorLocomotionPacing.walkSpeed"))
         #expect(client.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
         #expect(client.contains("lila_departure_ne_"))
         #expect(client.contains("lila_departure_nw_"))

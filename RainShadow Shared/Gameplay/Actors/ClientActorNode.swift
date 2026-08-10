@@ -20,6 +20,9 @@ final class ClientActorNode: SKNode {
 
     private var routeFollower = RouteFollower()
     private var lastLocomotionUpdateTime: TimeInterval?
+    /// See `DetectiveActorNode.movementProfile`. Also `humanoid` — BG gives every
+    /// ordinary adult the same rate.
+    var movementProfile: MovementProfile = .humanoid
     private var tickClock = LogicTickClock()
     private var movementCompletion: (() -> Void)?
     private var activePath: [CGPoint] = []
@@ -210,7 +213,7 @@ final class ClientActorNode: SKNode {
                 prior = destination
                 continue
             }
-            let duration = ActorLocomotionPacing.pathDuration(distance: distance)
+            let duration = movementProfile.pathDuration(distance: distance)
             if t <= duration {
                 let u = CGFloat(t / duration)
                 position = CGPoint(
@@ -362,7 +365,7 @@ final class ClientActorNode: SKNode {
             let step = routeFollower.advance(
                 from: position,
                 deltaTime: LogicTickClock.tickDuration,
-                speed: ActorLocomotionPacing.walkSpeed
+                speed: movementProfile.walkSpeed
             )
             position = step.position
 
