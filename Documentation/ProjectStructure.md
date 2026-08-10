@@ -314,7 +314,7 @@ Composition roots. A scene wires systems and content for one area; it does not r
 
 ### UI layer
 
-Camera-attached SpriteKit nodes and presenters. Dialogue presentation lives here as `CaseIntroductionPresenter` (a view over pure `DialogueSession`); conversation **content** lives under `Resources/Dialogue/`, not in UI types. Evidence/deduction screens remain later work.
+Camera-attached SpriteKit nodes and presenters. Dialogue presentation lives here as `DialoguePresenter` (a view over pure `DialogueSession`); conversation **content** lives under `Resources/Dialogue/`, not in UI types. Evidence/deduction screens remain later work.
 
 ### Platform layer
 

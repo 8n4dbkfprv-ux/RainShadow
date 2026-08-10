@@ -11,17 +11,21 @@ struct DialogueDocument: Equatable, Codable, Sendable {
     var schemaVersion: Int
     var id: String
     var startNodeID: String
+    /// Ordered entry candidates (IE `FindFirstState`). Absent means `[startNodeID]`.
+    var entryNodeIDs: [String]?
     var nodes: [CaseDialogueNode]
 
     init(
         schemaVersion: Int = DialogueDocument.currentSchemaVersion,
         id: String,
         startNodeID: String,
+        entryNodeIDs: [String]? = nil,
         nodes: [CaseDialogueNode]
     ) {
         self.schemaVersion = schemaVersion
         self.id = id
         self.startNodeID = startNodeID
+        self.entryNodeIDs = entryNodeIDs
         self.nodes = nodes
     }
 
@@ -29,11 +33,17 @@ struct DialogueDocument: Equatable, Codable, Sendable {
         self.schemaVersion = schemaVersion
         self.id = graph.id
         self.startNodeID = graph.startNodeID
+        self.entryNodeIDs = graph.entryNodeIDs.isEmpty ? nil : graph.entryNodeIDs
         self.nodes = graph.nodes
     }
 
     var graph: DialogueGraph {
-        DialogueGraph(id: id, startNodeID: startNodeID, nodes: nodes)
+        DialogueGraph(
+            id: id,
+            startNodeID: startNodeID,
+            entryNodeIDs: entryNodeIDs ?? [],
+            nodes: nodes
+        )
     }
 }
 
@@ -56,34 +66,49 @@ struct DialogueCatalogDocument: Equatable, Codable, Sendable {
         self.graphs = graphs
     }
 
-    func makeGraphs() throws -> [DialogueGraph] {
+    /// Runtime graphs in authored order.
+    ///
+    /// A `graphsByID()` twin used to sit here built on `Dictionary(uniqueKeysWithValues:)`,
+    /// which trapped on a duplicate catalog id. Nothing called either one — the shipped
+    /// path is `DialogueGraphLoader.decodeCatalog`, which now rejects duplicates.
+    var runtimeGraphs: [DialogueGraph] {
         graphs.map(\.graph)
-    }
-
-    func graphsByID() throws -> [String: DialogueGraph] {
-        Dictionary(uniqueKeysWithValues: try makeGraphs().map { ($0.id, $0) })
     }
 }
 
 struct DialogueCatalogGraph: Equatable, Codable, Sendable {
     var id: String
     var startNodeID: String
+    /// Ordered entry candidates (IE `FindFirstState`). Absent means `[startNodeID]`.
+    var entryNodeIDs: [String]?
     var nodes: [CaseDialogueNode]
 
-    init(id: String, startNodeID: String, nodes: [CaseDialogueNode]) {
+    init(
+        id: String,
+        startNodeID: String,
+        entryNodeIDs: [String]? = nil,
+        nodes: [CaseDialogueNode]
+    ) {
         self.id = id
         self.startNodeID = startNodeID
+        self.entryNodeIDs = entryNodeIDs
         self.nodes = nodes
     }
 
     init(graph: DialogueGraph) {
         self.id = graph.id
         self.startNodeID = graph.startNodeID
+        self.entryNodeIDs = graph.entryNodeIDs.isEmpty ? nil : graph.entryNodeIDs
         self.nodes = graph.nodes
     }
 
     var graph: DialogueGraph {
-        DialogueGraph(id: id, startNodeID: startNodeID, nodes: nodes)
+        DialogueGraph(
+            id: id,
+            startNodeID: startNodeID,
+            entryNodeIDs: entryNodeIDs ?? [],
+            nodes: nodes
+        )
     }
 }
 
@@ -93,6 +118,11 @@ enum DialogueGraphLoaderError: Error, Equatable, CustomStringConvertible {
     case emptyGraph(id: String)
     case missingStartNode(graphID: String, startNodeID: String)
     case graphNotInCatalog(graphID: String, catalog: String)
+    case duplicateNodeID(graphID: String, nodeID: String)
+    case duplicateGraphID(catalog: String, graphID: String)
+    case conditionTooDeep(graphID: String, nodeID: String, depth: Int, limit: Int)
+    case missingEntryNode(graphID: String, entryNodeID: String)
+    case conditionalStartNode(graphID: String, startNodeID: String)
 
     var description: String {
         switch self {
@@ -106,6 +136,17 @@ enum DialogueGraphLoaderError: Error, Equatable, CustomStringConvertible {
             "Dialogue graph '\(graphID)' is missing start node '\(startNodeID)'"
         case .graphNotInCatalog(let graphID, let catalog):
             "Dialogue graph '\(graphID)' is not present in catalog '\(catalog)'"
+        case .duplicateNodeID(let graphID, let nodeID):
+            "Dialogue graph '\(graphID)' authors node '\(nodeID)' more than once"
+        case .duplicateGraphID(let catalog, let graphID):
+            "Dialogue catalog '\(catalog)' authors graph '\(graphID)' more than once"
+        case .conditionTooDeep(let graphID, let nodeID, let depth, let limit):
+            "Dialogue graph '\(graphID)' node '\(nodeID)' nests a condition \(depth) deep (limit \(limit))"
+        case .missingEntryNode(let graphID, let entryNodeID):
+            "Dialogue graph '\(graphID)' lists entry node '\(entryNodeID)', which does not exist"
+        case .conditionalStartNode(let graphID, let startNodeID):
+            "Dialogue graph '\(graphID)' gates its start node '\(startNodeID)'; the entry "
+                + "fallback ignores that condition — list the node in entryNodeIDs instead"
         }
     }
 }
@@ -160,7 +201,8 @@ enum DialogueGraphLoader {
     /// Decode and resolve a multi-graph catalog.
     static func decodeCatalog(
         _ data: Data,
-        stringTable: DialogueStringTable? = nil
+        stringTable: DialogueStringTable? = nil,
+        catalogName: String = "<catalog>"
     ) throws -> [String: DialogueGraph] {
         let authored = try decodeAuthoredCatalog(data)
         let table = try resolveStringTable(authored.stringTable, override: stringTable)
@@ -170,10 +212,18 @@ enum DialogueGraphLoader {
                 schemaVersion: DialogueDocument.currentSchemaVersion,
                 id: entry.id,
                 startNodeID: entry.startNodeID,
+                entryNodeIDs: entry.entryNodeIDs ?? [],
                 nodes: entry.nodes
             )
             let graph = try table.resolve(document)
-            result[graph.id] = graph
+            // Last-wins used to hide a duplicated catalog id entirely: one graph simply
+            // disappeared and the facade's "fail fast if missing" never fired.
+            guard result.updateValue(graph, forKey: graph.id) == nil else {
+                throw DialogueGraphLoaderError.duplicateGraphID(
+                    catalog: catalogName,
+                    graphID: graph.id
+                )
+            }
         }
         return result
     }
@@ -185,7 +235,7 @@ enum DialogueGraphLoader {
         stringTable: DialogueStringTable? = nil
     ) throws -> [String: DialogueGraph] {
         let data = try resourceData(resourceName: resourceName, bundle: bundle)
-        return try decodeCatalog(data, stringTable: stringTable)
+        return try decodeCatalog(data, stringTable: stringTable, catalogName: resourceName)
     }
 
     /// Load one graph from a catalog resource (cached by graph id).
@@ -354,15 +404,7 @@ enum DialogueGraphLoader {
 
     private static func makeGraph(from document: DialogueDocument) throws -> DialogueGraph {
         let graph = document.graph
-        if graph.nodes.isEmpty {
-            throw DialogueGraphLoaderError.emptyGraph(id: graph.id)
-        }
-        if graph.node(id: graph.startNodeID) == nil {
-            throw DialogueGraphLoaderError.missingStartNode(
-                graphID: graph.id,
-                startNodeID: graph.startNodeID
-            )
-        }
+        try graph.validateAuthoring()
         return graph
     }
 

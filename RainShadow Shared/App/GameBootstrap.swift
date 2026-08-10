@@ -31,6 +31,12 @@ final class GameSession {
         inspectedHotspotIDs = snapshot.inspectedHotspotIDs
         caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
         caseState.flags.formUnion(snapshot.caseFlags)
+        caseState.knowledgeIDs.formUnion(snapshot.caseKnowledgeIDs)
+        caseState.evidenceIDs.formUnion(snapshot.caseEvidenceIDs)
+        caseState.counters = snapshot.caseCounters
+        for fragment in snapshot.caseJournalFragments {
+            caseState.queueJournal(Self.toQueued(fragment))
+        }
         walletPence = snapshot.walletPence
         lootContainers = LootContainerState(
             resolved: snapshot.lootContainers.mapValues { $0.map(Self.toResolved) }
@@ -41,17 +47,11 @@ final class GameSession {
         }
     }
 
-    /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, journal queue).
-    func mergeCaseStateFromDialogue(_ state: CaseState) {
-        caseState.flags.formUnion(state.flags)
-        caseState.knowledgeIDs.formUnion(state.knowledgeIDs)
-        caseState.evidenceIDs.formUnion(state.evidenceIDs)
-        for fragment in state.queuedJournalFragments {
-            caseState.queueJournal(fragment)
-        }
-        if caseState.caseID.isEmpty {
-            caseState.caseID = state.caseID
-        }
+    /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, counters,
+    /// journal queue). See `CaseState.applying(_:wasSeeded:)` for why a seeded result
+    /// replaces rather than unions — unioning silently discarded every `clearCaseFlag`.
+    func mergeCaseStateFromDialogue(_ state: CaseState, wasSeeded: Bool = true) {
+        caseState = caseState.applying(state, wasSeeded: wasSeeded)
         persist()
     }
 
@@ -163,7 +163,11 @@ final class GameSession {
             inspectedHotspotIDs: inspectedHotspotIDs,
             walletPence: walletPence,
             lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) },
-            caseFlags: caseState.flags
+            caseFlags: caseState.flags,
+            caseKnowledgeIDs: caseState.knowledgeIDs,
+            caseEvidenceIDs: caseState.evidenceIDs,
+            caseJournalFragments: caseState.queuedJournalFragments.map(Self.toPersisted),
+            caseCounters: caseState.counters
         ))
     }
 
@@ -179,6 +183,20 @@ final class GameSession {
         case .coins(let pence): return .coins(pence: pence)
         case .item(let id, let quantity): return .item(id: id, quantity: quantity)
         }
+    }
+
+    private static func toQueued(_ fragment: PersistedJournalFragment) -> QueuedJournalFragment {
+        QueuedJournalFragment(
+            id: fragment.id,
+            // Persistence has no Core dependency, so the mirror stores a raw string.
+            // Unknown values degrade to `.note` rather than failing the load.
+            kind: JournalEntryKind(rawValue: fragment.kind) ?? .note,
+            text: fragment.text
+        )
+    }
+
+    private static func toPersisted(_ fragment: QueuedJournalFragment) -> PersistedJournalFragment {
+        PersistedJournalFragment(id: fragment.id, kind: fragment.kind.rawValue, text: fragment.text)
     }
 }
 

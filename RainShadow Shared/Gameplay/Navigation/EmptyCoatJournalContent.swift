@@ -185,7 +185,7 @@ public enum EmptyCoatJournalContent {
                 id: "log.dialogue.\(fragment.id)",
                 title: "Case note",
                 eyebrow: "From conversation",
-                status: fragment.kind,
+                status: fragment.kind.rawValue,
                 summary: fragment.text,
                 body: [fragment.text],
                 leads: [],

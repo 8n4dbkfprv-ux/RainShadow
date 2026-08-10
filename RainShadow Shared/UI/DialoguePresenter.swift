@@ -6,7 +6,7 @@ import UIKit
 #endif
 
 @MainActor
-final class CaseIntroductionPresenter: SKNode {
+final class DialoguePresenter: SKNode {
     private enum Palette {
         static let veil = SKColor.clear
         static let shadow = SKColor(white: 0, alpha: 0.78)
@@ -52,6 +52,12 @@ final class CaseIntroductionPresenter: SKNode {
     private let contentMask = SKShapeNode()
     private let scrollContentRoot = SKNode()
     private let dialogueLabel = SKLabelNode(fontNamed: UITheme.Font.dialogueBody)
+    /// Already-read lines, oldest first, stacked above `dialogueLabel` in the same scroll
+    /// region. BG:EE keeps the conversation readable; this panel used to discard it.
+    private var transcriptLabels: [SKLabelNode] = []
+    /// Total height of the stacked body content, so scrolling can clamp at the bottom
+    /// instead of running off into empty space.
+    private var bodyContentExtent: CGFloat = 0
     private let choicesCrop = SKCropNode()
     private let choicesMask = SKShapeNode()
     private let choicesRoot = SKNode()
@@ -61,13 +67,20 @@ final class CaseIntroductionPresenter: SKNode {
 
     /// Pure multi-graph walker (Phase 4). Presenter is a view over this session.
     private var session: DialogueSession?
+    /// A step whose view is held back while a cinematic owns the screen. The session
+    /// has already advanced — see `DialogueDeferralState`.
+    private var deferral = DialogueDeferralState()
     /// Case/dialogue flags and queued journal fragments.
     /// Scene merges `caseState` into `GameSession` when dialogue completes.
+    /// `finish()` deliberately keeps the session so the scene can still read this in
+    /// the completion. The fallback is only for "never presented", and it carries an
+    /// empty case id rather than impersonating Empty Coat — merging an empty state is
+    /// a no-op, whereas merging a fabricated Empty Coat one is a lie.
     var runtimeContext: DialogueRuntimeContext {
         session?.context
             ?? DialogueRuntimeContext(
-                caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),
-                dialogueState: DialogueState(graphID: EmptyCoatDialogueKeys.graphID)
+                caseState: CaseState(caseID: ""),
+                dialogueState: DialogueState(graphID: "")
             )
     }
     private var nodesByID: [String: CaseDialogueNode] {
@@ -136,7 +149,7 @@ final class CaseIntroductionPresenter: SKNode {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("CaseIntroductionPresenter is created programmatically")
+        fatalError("DialoguePresenter is created programmatically")
     }
 
     func layout(for visibleSize: CGSize) {
@@ -221,7 +234,7 @@ final class CaseIntroductionPresenter: SKNode {
         // Match speaker X exactly (same inset from the shared content column).
         let textLeft = bodyViewport.minX + DialoguePanelLayout.bodyTextHorizontalInset
         contentMask.path = CGPath(rect: bodyViewport, transform: nil)
-        dialogueLabel.position = CGPoint(x: textLeft, y: bodyViewport.maxY)
+        layoutBodyStack(textLeft: textLeft, top: bodyViewport.maxY)
         if abs(speakerLabel.position.x - textLeft) > 0.01 {
             speakerLabel.position.x = textLeft
         }
@@ -268,10 +281,21 @@ final class CaseIntroductionPresenter: SKNode {
         removeAllActions()
         presentationCompletion = onComplete
         var seed = context
-        if seed != nil {
-            seed?.dialogueState.currentNodeID = graph.startNodeID
-        }
-        session = DialogueSession(graph: graph, context: seed)
+        // Clear any live node so `DialogueSession` runs the entry scan (IE
+        // `FindFirstState`). Pinning `startNodeID` here made every conversation open on
+        // the same node no matter what the graph's entry conditions said — it would have
+        // silently defeated re-talk entirely.
+        seed?.dialogueState.currentNodeID = nil
+        var built = DialogueSession(graph: graph, context: seed)
+        // The transcript must attribute the player's own replies to the PC — IE
+        // transition text is Voss talking, not the NPC whose node it hung from.
+        built.playerSpeaker = EmptyCoatCaseIntroduction.vossSpeaker
+        built.titleSpeaker = EmptyCoatCaseIntroduction.caseOpenedSpeaker
+        session = built
+        transcriptLabels.forEach { $0.removeFromParent() }
+        transcriptLabels.removeAll()
+        bodyContentExtent = 0
+        deferral.clear()
         lastNotifiedNodeID = nil
         isPresenting = true
         isCutsceneSuppressed = false
@@ -332,14 +356,28 @@ final class CaseIntroductionPresenter: SKNode {
         }
     }
 
-    /// After a walk cinematic: optionally jump to the deferred destination, then re-show dialogue.
+    /// After a walk cinematic: replay the held step, then re-show dialogue.
+    ///
+    /// Both transition paths now advance the session before deferring, so the held step
+    /// is usually just "show where we already are". `destinationID` stays supported —
+    /// the scene's terminal-state plumbing passes it without knowing whether the
+    /// cinematic ended naturally or was skipped — but it only forces a jump when the
+    /// session is genuinely somewhere else.
     func resumeAfterCutscene(advancingTo destinationID: String? = nil) {
         guard isPresenting, var session else { return }
-        if let destinationID, session.graph.node(id: destinationID) != nil {
+        let held = deferral.resume()
+        let needsJump = destinationID.map {
+            session.currentNodeID != $0 && session.graph.node(id: $0) != nil
+        } ?? false
+
+        if needsJump, let destinationID {
             _ = session.jump(to: destinationID)
             self.session = session
             lastNotifiedNodeID = nil
             showCurrentNode(animated: false)
+        } else if let held {
+            lastNotifiedNodeID = nil
+            applyStepResult(held, animated: false)
         }
         setCutsceneSuppressed(false)
     }
@@ -526,18 +564,22 @@ final class CaseIntroductionPresenter: SKNode {
         case .hidden:
             return
         case .next(let destinationID):
-            guard let node = session.currentNode else {
+            guard let from = session.currentNode else {
                 let result = session.jump(to: destinationID)
                 self.session = session
+                deferral.clear()
                 applyStepResult(result, animated: true)
                 return
             }
-            if shouldDeferAdvance?(node, destinationID) == true {
-                return
-            }
+            // IE order: take the transition, *then* let whatever it started own the
+            // screen. Deferring before the advance parked the session on `from`.
             let result = session.advanceContinue()
             self.session = session
-            applyStepResult(result, animated: true)
+            let deferred = shouldDeferAdvance?(from, destinationID) == true
+            deferral.note(result, deferred: deferred)
+            if !deferred {
+                applyStepResult(result, animated: true)
+            }
         case .end:
             finish()
         }
@@ -554,10 +596,11 @@ final class CaseIntroductionPresenter: SKNode {
         let destinationID = session.visibleChoices[index].destinationID
         let result = session.selectChoice(at: index)
         self.session = session
-        if shouldDeferAdvance?(node, destinationID) == true {
-            return
+        let deferred = shouldDeferAdvance?(node, destinationID) == true
+        deferral.note(result, deferred: deferred)
+        if !deferred {
+            applyStepResult(result, animated: true)
         }
-        applyStepResult(result, animated: true)
     }
 
     /// True when the panel is showing player reply options (not pure Continue).
@@ -744,21 +787,13 @@ final class CaseIntroductionPresenter: SKNode {
         applyChoicesScrollOffset(0)
         dialogueLabel.text = node.text
 
-        let isCaseTitle = node.speaker == "Case opened" || node.speaker == EmptyCoatCaseIntroduction.caseOpenedSpeaker
-        if isCaseTitle {
-            dialogueLabel.fontName = "Palatino-Bold"
-            dialogueLabel.fontSize = DialoguePanelLayout.Typography.caseTitleFontSize
-            dialogueLabel.fontColor = Palette.caseTitle
-        } else if node.isInteriorMonologue {
-            // Interior narration: italics so players can tell Voss is thinking, not speaking aloud.
-            dialogueLabel.fontName = "Palatino-Italic"
-            dialogueLabel.fontSize = DialoguePanelLayout.Typography.bodyFontSize
-            dialogueLabel.fontColor = Palette.parchment
-        } else {
-            dialogueLabel.fontName = "Palatino-Roman"
-            dialogueLabel.fontSize = DialoguePanelLayout.Typography.bodyFontSize
-            dialogueLabel.fontColor = Palette.parchment
-        }
+        // Typography follows the transcript's classification of this line rather than a
+        // string compare against one case's prose (`node.speaker == "Case opened"`),
+        // which coupled rendering to content and would not survive localisation.
+        let kind = session.transcript.currentEntry?.kind
+            ?? (node.isInteriorMonologue ? .monologue : .speech)
+        applyBodyStyle(dialogueLabel, kind: kind, isCurrent: true)
+        rebuildTranscriptLabels()
         setPortrait(named: node.portraitName)
         let choices = session.visibleChoices
         #if DEBUG
@@ -815,6 +850,11 @@ final class CaseIntroductionPresenter: SKNode {
             ]
             contentNodes.forEach { $0.alpha = 0 }
             contentNodes.forEach { $0.run(.fadeIn(withDuration: 0.13)) }
+            // Prior lines fade back to their dimmed resting alpha, not to full strength.
+            transcriptLabels.forEach { label in
+                label.alpha = 0
+                label.run(.fadeAlpha(to: Self.priorEntryAlpha, duration: 0.13))
+            }
         }
         // Layout-only rebuilds call showCurrentNode for the same ID; notify once per node.
         if lastNotifiedNodeID != node.id {
@@ -882,18 +922,13 @@ final class CaseIntroductionPresenter: SKNode {
         }
 
         func measureBodyHeight(maxWidth: CGFloat) -> CGFloat {
-            max(
-                dialogueLabel.fontSize * 1.25,
-                max(
-                    dialogueLabel.frame.height,
-                    DialogueTextMetrics.height(
-                        text: dialogueLabel.text ?? "",
-                        fontName: dialogueLabel.fontName ?? "Palatino-Roman",
-                        fontSize: dialogueLabel.fontSize,
-                        maxWidth: maxWidth
-                    )
-                )
-            )
+            dialogueLabel.preferredMaxLayoutWidth = maxWidth
+            var total: CGFloat = 0
+            for label in transcriptLabels {
+                label.preferredMaxLayoutWidth = maxWidth
+                total += bodyLabelHeight(label) + Self.transcriptEntrySpacing
+            }
+            return total + bodyLabelHeight(dialogueLabel)
         }
 
         func pack(with heights: [CGFloat]) -> (
@@ -1031,7 +1066,7 @@ final class CaseIntroductionPresenter: SKNode {
             choicesContentExtent: packed.contentBand.height,
             choicesNeedScroll: choicesNeedScroll
         )
-        applyBodyScrollOffset(0)
+        scrollBodyToCurrentEntry()
         applyChoicesScrollOffset(0)
     }
 
@@ -1042,6 +1077,7 @@ final class CaseIntroductionPresenter: SKNode {
         choicesContentExtent: CGFloat,
         choicesNeedScroll: Bool
     ) {
+        self.bodyContentExtent = bodyContentExtent
         bodyCanScroll = DialogueScrollbarGeometry.isScrollable(
             viewportExtent: bodyViewport.height,
             contentExtent: bodyContentExtent
@@ -1104,9 +1140,122 @@ final class CaseIntroductionPresenter: SKNode {
         choicesScrollbar.isHidden = !choicesCanScroll
     }
 
+    /// Vertical gap between stacked transcript entries.
+    private static let transcriptEntrySpacing: CGFloat = 10
+    /// Already-read lines sit back without going unreadable.
+    private static let priorEntryAlpha: CGFloat = 0.55
+
+    /// Typography for one body line, driven by transcript `Kind` rather than by comparing
+    /// the speaker string against case prose.
+    private func applyBodyStyle(
+        _ label: SKLabelNode,
+        kind: DialogueTranscript.Entry.Kind,
+        isCurrent: Bool
+    ) {
+        switch kind {
+        case .title:
+            label.fontName = "Palatino-Bold"
+            label.fontSize = DialoguePanelLayout.Typography.caseTitleFontSize
+            label.fontColor = Palette.caseTitle
+        case .monologue:
+            // Interior narration: italics so players can tell Voss is thinking, not speaking aloud.
+            label.fontName = "Palatino-Italic"
+            label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
+            label.fontColor = Palette.parchment
+        case .playerReply:
+            // Same ink as the reply row the player just clicked, so the echo reads as theirs.
+            label.fontName = "Palatino-Roman"
+            label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
+            label.fontColor = Palette.response
+        case .speech:
+            label.fontName = "Palatino-Roman"
+            label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
+            label.fontColor = Palette.parchment
+        }
+        label.alpha = isCurrent ? 1 : Self.priorEntryAlpha
+    }
+
+    /// SKLabelNode frames are unreliable before layout, so take the larger of the
+    /// CoreText measure and the reported frame — the same idiom `rebuildChoices` uses.
+    private func bodyLabelHeight(_ label: SKLabelNode) -> CGFloat {
+        max(
+            label.fontSize * 1.25,
+            max(
+                label.frame.height,
+                DialogueTextMetrics.height(
+                    text: label.text ?? "",
+                    fontName: label.fontName ?? "Palatino-Roman",
+                    fontSize: label.fontSize,
+                    maxWidth: label.preferredMaxLayoutWidth
+                )
+            )
+        )
+    }
+
+    private func rebuildTranscriptLabels() {
+        transcriptLabels.forEach { $0.removeFromParent() }
+        transcriptLabels.removeAll()
+        guard let session else { return }
+        for entry in session.transcript.priorEntries {
+            let label = SKLabelNode(fontNamed: UITheme.Font.dialogueBody)
+            label.text = entry.text
+            label.horizontalAlignmentMode = .left
+            label.verticalAlignmentMode = .top
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.preferredMaxLayoutWidth = dialogueLabel.preferredMaxLayoutWidth
+            applyBodyStyle(label, kind: entry.kind, isCurrent: false)
+            transcriptLabels.append(label)
+            scrollContentRoot.addChild(label)
+        }
+    }
+
+    /// Prior lines stack downward from the top of the body viewport; the live line sits
+    /// under them. Everything shares `scrollContentRoot`, so the existing scroll and
+    /// scrollbar plumbing works unchanged.
+    private func layoutBodyStack(textLeft: CGFloat, top: CGFloat) {
+        var y = top
+        for label in transcriptLabels {
+            label.position = CGPoint(x: textLeft, y: y)
+            y -= bodyLabelHeight(label) + Self.transcriptEntrySpacing
+        }
+        dialogueLabel.position = CGPoint(x: textLeft, y: y)
+    }
+
+    /// Clamped at both ends. The upper bound used to be missing entirely, which was
+    /// invisible while the body was a single node but scrolls a transcript into blank
+    /// space the moment there is more content than viewport.
     private func applyBodyScrollOffset(_ offset: CGFloat) {
-        bodyScrollOffset = max(0, offset)
+        bodyScrollOffset = min(max(0, offset), maximumBodyScrollOffset)
         scrollContentRoot.position.y = bodyScrollOffset
+    }
+
+    private var maximumBodyScrollOffset: CGFloat {
+        max(0, bodyContentExtent - bodyViewportRect.height)
+    }
+
+    /// Rest at the **top of the live line**, with the already-read lines scrolled off
+    /// above it.
+    ///
+    /// Not the bottom of the content: a single node long enough to overflow the viewport
+    /// would then open partway through its own first sentence. Not the top of the
+    /// content either, or a new line could arrive off-screen below the fold. The clamp in
+    /// `applyBodyScrollOffset` handles the short-transcript case, where this target
+    /// exceeds what there is to scroll.
+    private func scrollBodyToCurrentEntry() {
+        var priors: CGFloat = 0
+        for label in transcriptLabels {
+            priors += bodyLabelHeight(label) + Self.transcriptEntrySpacing
+        }
+        applyBodyScrollOffset(priors)
+        if bodyCanScroll {
+            bodyScrollbar.configure(
+                viewportExtent: bodyViewportRect.height,
+                contentExtent: bodyContentExtent,
+                scrollOffset: bodyScrollOffset,
+                scrollUnit: DialoguePanelLayout.Typography.bodyFontSize * 1.25
+            )
+        }
     }
 
     private func applyChoicesScrollOffset(_ offset: CGFloat) {

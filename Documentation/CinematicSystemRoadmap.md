@@ -122,7 +122,7 @@ Cross-fades: office ~1.15s, city ~0.75s, with re-entry guards. City has its own 
 | Piece | Role |
 |-------|------|
 | `DialogueSession` | Pure graph walker (conditions, onSelect actions, multi-graph) |
-| `CaseIntroductionPresenter` | UI presenter; Continue/choices, VO hooks |
+| `DialoguePresenter` | UI presenter; Continue/choices, VO hooks |
 | `shouldDeferAdvance` | Cutscene handoff: leave a dialogue node without advancing the graph |
 | Suppress / resume | Hide dialogue panel + HUD rails during cutscene; reopen on completion |
 
@@ -307,7 +307,7 @@ Docs only until scheduled. Suggested order when work begins:
 - `RainShadow Shared/Core/Scene/BaseGameScene.swift`
 - `RainShadow Shared/Core/Scene/SceneLayer.swift`
 - `RainShadow Shared/Gameplay/Navigation/DialogueSession.swift`
-- `RainShadow Shared/Scenes/CaseIntroduction/CaseIntroductionPresenter.swift` (or equivalent presenter path under Shared)
+- `RainShadow Shared/Scenes/CaseIntroduction/DialoguePresenter.swift` (or equivalent presenter path under Shared)
 - `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift`
 - `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift`
 - `RainShadow Shared/Gameplay/Audio/RainAudio.swift`

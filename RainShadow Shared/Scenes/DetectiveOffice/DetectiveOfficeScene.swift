@@ -18,7 +18,6 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var deskTopOccluder: SKSpriteNode?
     /// Loose desk props — lifted above the top occluder while seated.
     private var deskItemNodes: [SKSpriteNode] = []
-    private let caseIntroductionPresenter = CaseIntroductionPresenter()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
     private let actionBar = ActionBarNode()
@@ -73,7 +72,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// Breakable exit gate: skip and natural finish share `finishClientExit`.
     private var clientExitGate = BreakableCutsceneGate()
     private var clientExitPath: [CGPoint] = []
-    private var dialogueIsActive = true
+    // `dialogueIsActive` is inherited; the office starts with the panel up.
     /// Infinity Engine–style cutscene chrome: hide party/action rails while an
     /// authored NPC enter/exit sequence runs (dialogue panel is suppressed separately).
     private var cutsceneChromeSuppressed = false
@@ -88,6 +87,10 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     init(context: GameContext) {
         super.init(context: context, artSize: OfficeInteriorScale.sourceArtSize)
+        // The office opens straight into the Empty Coat intro, so the panel owns input
+        // from the first frame. Other scenes start in free play (the inherited default);
+        // `applyCompletedOfficeCaseIntroFreeplayState` clears this on a replay visit.
+        dialogueIsActive = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -335,6 +338,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         client.applySceneLighting(.officeInterior)
         updateDepth(of: client)
+        // Bind the client as a talkable actor. Dormant in the shipped Act-I flow (she is
+        // hidden once her visit ends), but it is the binding a persistent NPC needs.
+        client.dialogueOwnerID = EmptyCoatCaseIntroduction.lilaOwnerID
+        client.dialogueGraphID = EmptyCoatDialogueKeys.graphID
         depthWorldRoot.addChild(client)
 
         // Occluder biases are refreshed each frame in `updateDetectiveDepth`
@@ -382,8 +389,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         )
         hudRoot.addChild(portraitBar)
         hudRoot.addChild(actionBar)
-        caseIntroductionPresenter.zPosition = 60
-        hudRoot.addChild(caseIntroductionPresenter)
         inventoryOverlay.zPosition = 100
         inventoryOverlay.onDismiss = { [weak self] in
             self?.setInventoryPresented(false)
@@ -484,9 +489,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             updateHotspotHoverHighlight(at: event.location)
             return
         }
-        let hudPoint = hudRoot.convert(event.location, from: self)
-        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-        _ = caseIntroductionPresenter.handlePointerDown(at: dialoguePoint)
+        let dialoguePoint = dialoguePanelPoint(for: event.location)
+        _ = dialoguePresenter.handlePointerDown(at: dialoguePoint)
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
@@ -496,9 +500,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             portraitBar.updateUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
             return
         }
-        let hudPoint = hudRoot.convert(event.location, from: self)
-        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-        _ = caseIntroductionPresenter.handlePointerDragged(at: dialoguePoint)
+        let dialoguePoint = dialoguePanelPoint(for: event.location)
+        _ = dialoguePresenter.handlePointerDragged(at: dialoguePoint)
     }
 
     override func handlePointerCancelled(_ event: GamePointerEvent) {
@@ -507,9 +510,8 @@ final class DetectiveOfficeScene: BaseGameScene {
             portraitBar.cancelUtilityPress()
             return
         }
-        let hudPoint = hudRoot.convert(event.location, from: self)
-        let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-        _ = caseIntroductionPresenter.handlePointerUp(at: dialoguePoint)
+        let dialoguePoint = dialoguePanelPoint(for: event.location)
+        _ = dialoguePresenter.handlePointerUp(at: dialoguePoint)
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
@@ -518,10 +520,9 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
         if dialogueIsActive {
-            let hudPoint = hudRoot.convert(event.location, from: self)
-            let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-            if !caseIntroductionPresenter.handlePointerUp(at: dialoguePoint) {
-                caseIntroductionPresenter.handlePointer(at: dialoguePoint)
+            let dialoguePoint = dialoguePanelPoint(for: event.location)
+            if !dialoguePresenter.handlePointerUp(at: dialoguePoint) {
+                dialoguePresenter.handlePointer(at: dialoguePoint)
             }
             return
         }
@@ -576,6 +577,12 @@ final class DetectiveOfficeScene: BaseGameScene {
             return
         }
 
+        // Talk to a person before inspecting scenery behind them (BG:EE click priority).
+        if let talkable = talkableActor(at: event.location) {
+            approachAndTalk(to: talkable)
+            return
+        }
+
         if let hotspot = hotspots.first(where: { $0.hitArea.contains(event.location) }) {
             // Interactions abandon any queued waypoints (BG:EE replace-on-interact).
             if hotspot.id == "office.door" {
@@ -610,9 +617,9 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handleDirectionalInput(_ direction: CGVector) -> Bool {
         if dialogueIsActive {
             let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
-            if !caseIntroductionPresenter.moveSelection(selectionDirection) {
+            if !dialoguePresenter.moveSelection(selectionDirection) {
                 let scrollStep: CGFloat = direction.dx < 0 || direction.dy > 0 ? -44 : 44
-                _ = caseIntroductionPresenter.scrollContent(by: scrollStep)
+                _ = dialoguePresenter.scrollContent(by: scrollStep)
             }
             return true
         }
@@ -638,8 +645,8 @@ final class DetectiveOfficeScene: BaseGameScene {
         setCameraScroll(.zero)
         if dialogueIsActive {
             clearHotspotHoverHighlight()
-            let dialoguePoint = caseIntroductionPresenter.convert(hudPoint, from: hudRoot)
-            let isInteractive = caseIntroductionPresenter.updatePointer(at: dialoguePoint)
+            let dialoguePoint = dialoguePresenter.convert(hudPoint, from: hudRoot)
+            let isInteractive = dialoguePresenter.updatePointer(at: dialoguePoint)
             (isInteractive ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
@@ -776,7 +783,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         if journalIsPresented {
             journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
         } else if dialogueIsActive {
-            _ = caseIntroductionPresenter.scrollContent(by: -deltaY)
+            _ = dialoguePresenter.scrollContent(by: -deltaY)
         }
     }
 
@@ -799,7 +806,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         if dialogueIsActive {
             // Space/Return: Continue/End only — never auto-pick a PC reply (BG:EE).
-            caseIntroductionPresenter.activateCommandControl()
+            dialoguePresenter.activateCommandControl()
             return
         }
         guard inventoryIsPresented else { return }
@@ -809,7 +816,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     override func handleDialogueChoiceDigit(_ digit: Int) {
         guard dialogueIsActive else { return }
         // Digit 1 → first visible reply (BG:EE number keys).
-        caseIntroductionPresenter.selectChoice(at: digit - 1)
+        dialoguePresenter.selectChoice(at: digit - 1)
     }
 
     override func layoutViewport() {
@@ -821,7 +828,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         areaMapOverlay.layout(for: hudViewportSize)
         worldMapOverlay.layout(for: hudViewportSize)
         journalOverlay.layout(for: hudViewportSize)
-        caseIntroductionPresenter.layout(for: hudViewportSize)
+        dialoguePresenter.layout(for: hudViewportSize)
         portraitBar.layout(for: hudViewportSize)
         actionBar.layout(for: hudViewportSize)
         if let cutsceneLetterboxNode {
@@ -939,41 +946,65 @@ final class DetectiveOfficeScene: BaseGameScene {
         clientExitGate.reset()
         clientExitPath = []
         setCutsceneLetterboxVisible(false, animated: false)
-        caseIntroductionPresenter.onNodeShown = { [weak self] node in
-            self?.handleCaseIntroductionNodeShown(node)
-        }
-        caseIntroductionPresenter.shouldDeferAdvance = { [weak self] from, toDestinationID in
+        dialoguePresenter.shouldDeferAdvance = { [weak self] from, toDestinationID in
             guard let self else { return false }
             // Presentation cue from dialogue data (not Empty Coat node-id helpers).
-            guard from.onLeaveCue == OfficeDialogueCues.clientEntrance else {
+            guard let cue = from.onLeaveCue,
+                  let handler = self.deferringLeaveCueHandler(for: cue) else {
                 return false
             }
             // Baldur’s Gate: dismiss dialogue, play walk cinematic, then continue.
             self.pendingPostEntranceNodeID = toDestinationID
             RainAudio.stopVoiceOver(on: self)
-            self.beginClientEntranceIfNeeded()
+            handler()
             return true
         }
         // Shipped Empty Coat intro: noir monologue (with late entrance cue) + Lila March triad dialogue.
-        caseIntroductionPresenter.present(
-            graph: EmptyCoatCaseIntroduction.graph
+        presentDialogue(
+            EmptyCoatCaseIntroduction.graph,
+            ownerID: EmptyCoatCaseIntroduction.lilaOwnerID
         ) { [weak self] in
-            guard let self else { return }
-            // Phase 3: hoist dialogue case flags / journal queue into the session.
-            self.context.session.mergeCaseStateFromDialogue(
-                self.caseIntroductionPresenter.runtimeContext.caseState
-            )
-            self.finishCaseIntroduction()
+            self?.finishCaseIntroduction()
         }
     }
 
-    private func handleCaseIntroductionNodeShown(_ node: CaseDialogueNode) {
+    /// The one door for presenting authored dialogue.
+    ///
+    /// Seeding and merging are a pair. A conversation that is not seeded from the live
+    /// case cannot evaluate `hasFlag` / `hasEvidence` / `hasKnowledge` gates at all, and
+    /// one that is not merged back discards everything it granted. Both used to be
+    /// per-call-site decisions and two of the three sites got it wrong: the intro seeded
+    /// nothing, and hotspot inspect merged nothing.
+    override func dialogueNodeDidShow(_ node: CaseDialogueNode) {
         if let voice = node.voiceAssetName {
             RainAudio.playVoiceOver(fileNamed: voice, on: self)
         } else {
             RainAudio.stopVoiceOver(on: self)
         }
-        // Entrance is leave-gated (Continue from cue), not show-gated.
+        if let cue = node.onShowCue {
+            handleDialogueShowCue(cue)
+        }
+    }
+
+    /// Cues that fire as a node appears and let dialogue continue underneath.
+    ///
+    /// No shipped node authors one yet — the entrance is leave-gated. The point of the
+    /// lookup is that an authored cue with no handler now trips in debug instead of
+    /// being decoded, carried onto `CaseDialogueNode`, and silently dropped, which is
+    /// what `onShowCue` did for its whole life.
+    private func handleDialogueShowCue(_ cue: String) {
+        assertionFailure("Dialogue node authored onShowCue \"\(cue)\" with no scene handler")
+    }
+
+    /// Cues that suspend the dialogue panel, play a cinematic, then resume the graph.
+    /// Data names the cue; the scene owns what it means.
+    private func deferringLeaveCueHandler(for cue: String) -> (() -> Void)? {
+        switch cue {
+        case OfficeDialogueCues.clientEntrance:
+            return { [weak self] in self?.beginClientEntranceIfNeeded() }
+        default:
+            return nil
+        }
     }
 
     private func beginClientEntranceIfNeeded() {
@@ -984,7 +1015,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         // BG CutSceneMode: strip free-play rails AND dialogue panel for the walk-in.
         // Rails stay suppressed for the whole visit; dialogue returns after staging.
         setCutsceneChromeSuppressed(true)
-        caseIntroductionPresenter.setCutsceneSuppressed(true)
+        dialoguePresenter.setCutsceneSuppressed(true)
         setCutsceneLetterboxVisible(true)
         // QA fallen-door captures already rest the leaf; replaying the fall
         // would reset it upright under the walk and stall SpriteKit timing.
@@ -1040,7 +1071,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             setCutsceneChromeSuppressed(true)
         }
         if terminal.restoreDialoguePanel {
-            caseIntroductionPresenter.resumeAfterCutscene(advancingTo: terminal.resumeDialogueNodeID)
+            dialoguePresenter.resumeAfterCutscene(advancingTo: terminal.resumeDialogueNodeID)
         }
         let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
         let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
@@ -1183,7 +1214,7 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     /// Baldur's Gate–style free-play chrome hide for the authored client visit.
-    /// Dialogue panel visibility is owned by `CaseIntroductionPresenter.setCutsceneSuppressed`.
+    /// Dialogue panel visibility is owned by `DialoguePresenter.setCutsceneSuppressed`.
     private func setCutsceneChromeSuppressed(_ suppressed: Bool, animated: Bool = true) {
         guard cutsceneChromeSuppressed != suppressed else {
             updateGameplayChromeVisibility(animated: animated)
@@ -1292,6 +1323,37 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
     }
 
+    /// A visible NPC bound to a dialogue graph under the click, if any.
+    ///
+    /// Lila is bound below, but in the shipped Act-I flow she is hidden the moment her
+    /// visit ends (`applyClientVisitAction` → `client.isHidden = true`) and the panel owns
+    /// input while she is on screen. So this path is dormant today by construction — it
+    /// is the generalisation the next NPC needs, not a change to the intro.
+    private func talkableActor(at point: CGPoint) -> ClientActorNode? {
+        guard !dialogueIsActive, !client.isHidden, client.dialogueGraphID != nil else { return nil }
+        return client.interactionFrame.contains(point) ? client : nil
+    }
+
+    /// BG: walk into conversation range, turn to face, then open the graph.
+    private func approachAndTalk(to actor: ClientActorNode) {
+        guard let graphID = actor.dialogueGraphID else { return }
+        guard let approach = DialogueApproach.approachPoint(
+            toActorAt: actor.position,
+            from: detective.position,
+            in: navigation
+        ) else { return }
+
+        moveDetective(to: approach, requiresExactDestination: true) { [weak self] in
+            guard let self else { return }
+            self.detective.turnToFace(actor.position)
+            guard let graph = try? DialogueGraphLoader.loadCached(id: graphID) else { return }
+            self.dialogueIsActive = true
+            self.presentDialogue(graph, ownerID: actor.dialogueOwnerID) { [weak self] in
+                self?.dialogueIsActive = false
+            }
+        }
+    }
+
     private func presentInspection(_ hotspot: OfficeHotspot) {
         clearHotspotHoverHighlight()
         dialogueIsActive = true
@@ -1302,17 +1364,8 @@ final class DetectiveOfficeScene: BaseGameScene {
            context.session.caseState.hasFlag(EmptyCoatDialogueKeys.clientRetained)
         {
             deskCaseFileMonologuePlayed = true
-            caseIntroductionPresenter.present(
-                graph: OfficeCaseFileMonologue.graph,
-                context: DialogueRuntimeContext(
-                    caseState: context.session.caseState,
-                    dialogueState: DialogueState(graphID: OfficeCaseFileMonologue.graphID)
-                )
-            ) { [weak self] in
+            presentDialogue(OfficeCaseFileMonologue.graph) { [weak self] in
                 guard let self else { return }
-                self.context.session.mergeCaseStateFromDialogue(
-                    self.caseIntroductionPresenter.runtimeContext.caseState
-                )
                 self.dialogueIsActive = false
                 self.presentLootInventoryIfNeeded(for: hotspot)
             }
@@ -1320,14 +1373,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
 
         // PR4: inspect prose is an authored one-node graph, not an ad-hoc constructor.
+        // The hotspot is its own conversation owner, so a second look can open on a
+        // different node (IE `NumTimesTalkedTo` applied to observation).
         let graph = OfficeHotspotDialogue.graph(forHotspotID: hotspot.id)
-        caseIntroductionPresenter.present(
-            graph: graph,
-            context: DialogueRuntimeContext(
-                caseState: context.session.caseState,
-                dialogueState: DialogueState(graphID: graph.id)
-            )
-        ) { [weak self] in
+        presentDialogue(graph, ownerID: hotspot.id) { [weak self] in
             guard let self else { return }
             self.dialogueIsActive = false
             self.presentLootInventoryIfNeeded(for: hotspot)

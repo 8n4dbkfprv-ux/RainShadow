@@ -449,7 +449,9 @@ All are `Codable`, versioned, and independent of SpriteKit.
 
 **Dialogue roadmap Phase 0 (shipped):** `WorldFlag`, `CaseState`, `DialogueState`, and `DialogueRuntimeContext` live in `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` (RainShadowCore).
 
-**Presenter wiring (shipped):** `CaseIntroductionPresenter` owns a pure `DialogueSession` and exposes `runtimeContext` for case-state merge after conversations. `SaveSnapshot` still does not persist mid-conversation `DialogueState` (intro-completed / case flags only unless product expands saves). Full `EvidenceRecord` / `KnowledgeRecord` payloads and the remaining §14.1 types remain deferred.
+**Presenter wiring (shipped):** `DialoguePresenter` owns a pure `DialogueSession` and exposes `runtimeContext` for case-state merge after conversations. `BaseGameScene` owns the presenter and the single `presentDialogue(_:ownerID:onComplete:)` door, so any scene can converse — the panel used to be private to `DetectiveOfficeScene`.
+
+`SaveSnapshot` persists the **whole** `CaseState`: flags, `knowledgeIDs`, `evidenceIDs`, queued journal fragments, and `counters` (including the reserved `talk.<ownerID>` counts). It previously stored flags alone, so evidence, knowledge, and earned casebook entries were merged into the live session and then lost on relaunch. Mid-conversation `DialogueState` is still **not** persisted, matching IE, which does not save mid-dialogue either. Full `EvidenceRecord` / `KnowledgeRecord` payloads and the remaining §14.1 types remain deferred.
 
 #### Dialogue runtime stack
 
@@ -458,8 +460,9 @@ All are `Codable`, versioned, and independent of SpriteKit.
 | **Resources** | Versioned JSON graphs / catalogs + `strings.en.json` under `RainShadow Shared/Resources/Dialogue/` |
 | **Loader** | `DialogueGraphLoader` + `DialogueStringTable` — decode authored keys/inline prose, resolve keys at load, validate start node |
 | **Runtime graph** | `DialogueGraph` of `CaseDialogueNode` / `CaseDialogueChoice` (resolved strings only) |
-| **Walker** | `DialogueSession` — conditions, actions, advance (SpriteKit-free) |
-| **View** | `CaseIntroductionPresenter` — panel, choices, Continue/End; hooks `onNodeShown`, `shouldDeferAdvance` |
+| **Walker** | `DialogueSession` — entry scan, conditions, actions, advance, cross-graph jumps, transcript (SpriteKit-free) |
+| **Catalog** | `DialogueGraphCatalog` — the graphs a conversation may EXTERN into; supplied by the caller, never loaded by the walker |
+| **View** | `DialoguePresenter` — panel, choices, Continue/End; hooks `onNodeShown`, `shouldDeferAdvance` |
 | **Scene** | Maps presentation cues (`onLeaveCue` → cinematics), plays resolved `voiceAssetName` on show, presents graphs by facade |
 
 Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotDialogue`) load cached graphs; they do not embed prose constructors.
@@ -470,12 +473,17 @@ Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotD
 
 - `schemaVersion` (currently `1`), `id`, `startNodeID`, `nodes[]`
 - Optional document-level `stringTable` resource override (default `strings.en`)
-- Node fields: `id`, `speaker` **or** `speakerKey`, `text` **or** `textKey`, `portraitName`, `choices`, `nextNodeID`, `endsDialogue`, `isInteriorMonologue`, optional `voiceKey` (string-table voice resref), legacy `voiceAssetName` (deprecated inline filename), `onLeaveCue`, `onShowCue`
+- Optional `entryNodeIDs[]` — ordered entry candidates, scanned first-true (IE `FindFirstState`). Absent means `[startNodeID]`, which is how every graph behaved before re-talk existed.
+- Node fields: `id`, `speaker` **or** `speakerKey`, `text` **or** `textKey`, `portraitName`, `choices`, `nextNodeID`, `endsDialogue`, `isInteriorMonologue`, optional `voiceKey` (string-table voice resref), legacy `voiceAssetName` (deprecated inline filename), `onLeaveCue`, `onShowCue`, `entryWhen`
+- `entryWhen` is the IE **state trigger**: it gates whether this node may *open* the conversation, and is ignored once the conversation is walking. The start node must not carry one — the entry fallback returns it unconditionally, so a gate there would silently never run, and the loader rejects it.
 - **Voice (BGEE-style):** prose keys end in `.text`; optional companion keys end in `.voice` and hold a media **resref** (no extension). Loader resolves resref → playable `voiceAssetName` (default `.m4a`). Prefer companions over graph-inline filenames.
-- Choice fields: `text` **or** `textKey`, `destinationID`, `tone`, `intention` (GDD §7.5: `open` / `press` / `feign` / `trade` / `observe` / `leave`), `conditions`, `gateDisclosure`, `onSelect`
-- Conditions/actions: tagged unions (`{ "type": "hasFlag", "id": "…" }`, etc.); `queueJournal` may use `textKey`
+- Choice fields: `text` **or** `textKey`, `destinationID`, optional `destinationGraphID` (IE **EXTERN** — choices only, as in DLG), `tone`, `intention` (GDD §7.5: `open` / `press` / `feign` / `trade` / `observe` / `leave`), `conditions`, `gateDisclosure`, `onSelect`
+- Conditions: tagged unions. Leaves are `hasFlag` / `hasEvidence` / `hasKnowledge`, the integer comparisons `counterAtLeast` / `counterAtMost` / `counterEquals` (IE `GlobalGT` / `GlobalLT` / `Global`), and `timesTalkedTo` (IE `NumTimesTalkedTo`, sugar over the reserved `talk.<ownerID>` counter). Composites are `not` (IE `!`) and `any` (IE `OR(n)`), plus `all` for nesting an AND inside an `any`. A choice's top-level `conditions` array is still ANDed. Nesting is capped at depth 8.
+- Actions: tagged unions — `setCaseFlag` / `clearCaseFlag` / `setConversationFlag` / `clearConversationFlag`, `grantKnowledge` / `grantEvidence`, `setCounter` (IE `SetGlobal`) / `addToCounter` (IE `IncrementGlobal`), and `queueJournal`, which may use `textKey` and takes a typed `kind` (`chronology` / `lead` / `note` / `quest` / `questDone` — the IE DLG journal bits 6/7/8). Unknown kinds decode as `note`.
 
-**Catalog** (`*.dialogue-catalog.json`): `schemaVersion`, `graphs[]` (each entry is id + start + nodes), optional `stringTable`.
+**Schema policy:** every field added since v1 is additive and optional, so all shipped resources stay at `schemaVersion: 1` and load byte-identically. New condition/action cases break *forward* compatibility (an old binary reading a new file), not backward — and there is exactly one binary. Do not bump.
+
+**Catalog** (`*.dialogue-catalog.json`): `schemaVersion`, `graphs[]` (each entry is id + start + optional `entryNodeIDs` + nodes), optional `stringTable`. Duplicate graph ids and duplicate node ids are rejected at load rather than silently shadowing each other.
 
 **String table** (`strings.en.json`): `schemaVersion`, `locale`, `strings` map (key → prose). IE TLK analogue without binary formats.
 

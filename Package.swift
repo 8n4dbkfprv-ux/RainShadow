@@ -11,8 +11,6 @@ let package = Package(
         .target(
             name: "RainShadowCore",
             path: "RainShadow Shared/Gameplay/Navigation",
-            // Finder "Name 2.swift" duplicates break the target with redeclarations.
-            exclude: ["DialogueStateModels 2.swift"],
             // Shipped dialogue packages (also under RainShadow Shared/Resources/Dialogue for the app).
             resources: [
                 .copy("../../Resources/Dialogue")
@@ -26,11 +24,8 @@ let package = Package(
             name: "RainShadowCoreTests",
             dependencies: ["RainShadowCore", "RainShadowPersistence"],
             path: "Tests/RainShadowCoreTests",
-            exclude: [
-                "DialogueStateModelsTests 2.swift",
-                // Loaded via filesystem path in DialogueGraphLoaderTests (#filePath).
-                "Fixtures"
-            ]
+            // Loaded via filesystem path in DialogueGraphLoaderTests (#filePath).
+            exclude: ["Fixtures"]
         )
     ]
 )

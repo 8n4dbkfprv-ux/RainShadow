@@ -142,7 +142,7 @@ struct DialoguePanelLayout: Equatable {
     /// Keep the control above the physical/home-indicator band when possible.
     static let commandMinScreenBottomInset: CGFloat = 14
 
-    /// Type sizes used by `CaseIntroductionPresenter` (pure so tests assert the contract).
+    /// Type sizes used by `DialoguePresenter` (pure so tests assert the contract).
     enum Typography {
         /// Body reads at a distance on the compact plaque; 16pt keeps multi-line monologue
         /// legible while staying a step above the 15pt choice rows.

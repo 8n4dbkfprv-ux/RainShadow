@@ -67,9 +67,9 @@ struct DialogueActionTests {
 
     @Test func queueJournalAppendsAndReplacesByID() {
         var context = emptyContext()
-        let first = QueuedJournalFragment(id: "chrono.1", kind: "chronology", text: "First")
-        let second = QueuedJournalFragment(id: "chrono.2", kind: "lead", text: "Second")
-        let updated = QueuedJournalFragment(id: "chrono.1", kind: "chronology", text: "First revised")
+        let first = QueuedJournalFragment(id: "chrono.1", kind: .chronology, text: "First")
+        let second = QueuedJournalFragment(id: "chrono.2", kind: .lead, text: "Second")
+        let updated = QueuedJournalFragment(id: "chrono.1", kind: .chronology, text: "First revised")
 
         DialogueActionRuntime.apply([.queueJournal(first), .queueJournal(second)], to: &context)
         #expect(context.caseState.queuedJournalFragments.map(\.id) == ["chrono.1", "chrono.2"])
@@ -82,7 +82,7 @@ struct DialogueActionTests {
     @Test func caseStateCodableIncludesQueuedFragments() throws {
         var state = CaseState(caseID: "case.test")
         state.queueJournal(
-            QueuedJournalFragment(id: "c1", kind: "chronology", text: "Note")
+            QueuedJournalFragment(id: "c1", kind: .chronology, text: "Note")
         )
         state.setFlag("f1")
         let data = try JSONEncoder().encode(state)
@@ -137,7 +137,7 @@ struct DialogueActionTests {
         #expect(
             context.caseState.queuedJournalFragments.contains {
                 $0.id == EmptyCoatDialogueKeys.clientRetainedJournalID
-                    && $0.kind == "chronology"
+                    && $0.kind == .chronology
                     && $0.text.contains("Empty Coat")
             }
         )
@@ -183,3 +183,48 @@ struct DialogueActionTests {
         )
     }
 }
+
+// MARK: - Typed journal kinds (IE DLG journal bits 6/7/8)
+
+extension DialogueActionTests {
+    /// `kind` used to be a free string, so `"chronolgy"` was a silent no-op that dropped
+    /// the beat into the default bucket. It is now typed, and unknown values from a newer
+    /// build degrade to `.note` rather than failing the whole casebook load.
+    @Test func unknownJournalKindsDecodeAsNotes() throws {
+        let json = Data(#"{"type":"queueJournal","id":"x","kind":"chronolgy","text":"typo"}"#.utf8)
+        let action = try JSONDecoder().decode(DialogueAction.self, from: json)
+
+        guard case .queueJournal(let fragment) = action else {
+            Issue.record("expected queueJournal")
+            return
+        }
+        #expect(fragment.kind == .note)
+    }
+
+    @Test func everyJournalKindRoundTrips() throws {
+        for kind in JournalEntryKind.allCases {
+            let action = DialogueAction.queueJournal(
+                QueuedJournalFragment(id: "x", kind: kind, text: "t")
+            )
+            let data = try JSONEncoder().encode(action)
+            #expect(try JSONDecoder().decode(DialogueAction.self, from: data) == action)
+        }
+    }
+
+    /// `quest` / `questDone` name the IE shape (DLG bits 6 and 8) but nothing writes them
+    /// yet — the unsolved→solved *status* transition waits until there are quests.
+    @Test func shippedContentOnlyUsesChronologyAndLead() {
+        let kinds = Set(
+            EmptyCoatCaseIntroduction.graph.nodes
+                .flatMap(\.choices)
+                .flatMap(\.onSelect)
+                .compactMap { action -> JournalEntryKind? in
+                    guard case .queueJournal(let fragment) = action else { return nil }
+                    return fragment.kind
+                }
+        )
+        #expect(kinds.isSubset(of: [.chronology, .lead]))
+        #expect(!kinds.isEmpty)
+    }
+}
+

@@ -38,6 +38,10 @@ enum EmptyCoatCaseIntroduction {
 
     static let vossSpeaker = "Harlan Voss"
     static let lilaSpeaker = "Lila March"
+
+    /// Conversation owner for talk counting (IE `NumTimesTalkedTo`). Distinct from the
+    /// display name so a localized speaker string can never move the counter.
+    static let lilaOwnerID = "npc.lila-march"
     static let caseOpenedSpeaker = "Case opened"
 
     /// Portrait masters still use retired pipeline names.

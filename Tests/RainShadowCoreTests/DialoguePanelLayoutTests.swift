@@ -372,7 +372,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("dialogue.choices-band"))
         #expect(source.contains("applySplitContentRegions"))
@@ -384,12 +384,23 @@ struct DialoguePanelLayoutTests {
         #expect(!source.contains("scrollContentRoot.addChild(choicesRoot)"))
         // Multi-line measure must use CoreText path, not crushed scale factors.
         #expect(source.contains("DialogueTextMetrics.choiceRowHeight"))
-        #expect(source.contains("dialogueLabel.frame.height"))
+        // Body height still takes the larger of the CoreText measure and the reported SK
+        // frame — that logic now serves every line in the transcript stack, so it lives in
+        // `bodyLabelHeight` rather than being inlined against `dialogueLabel`.
+        #expect(source.contains("func bodyLabelHeight"))
+        #expect(source.contains("label.frame.height"))
+        #expect(source.contains("DialogueTextMetrics.height("))
         // Adaptive body width: full column when short, inline gutter only when scrolling.
         #expect(source.contains("DialoguePanelLayout.resolvedBodyTextMaxWidth("))
         #expect(source.contains("DialoguePanelLayout.bodyTextMaxWidth("))
         #expect(source.contains("dialogueLabel.preferredMaxLayoutWidth = bodyTextMaxWidth")
-            || source.contains("dialogueLabel.preferredMaxLayoutWidth = fullWidth"))
+            || source.contains("dialogueLabel.preferredMaxLayoutWidth = fullWidth")
+            || source.contains("dialogueLabel.preferredMaxLayoutWidth = maxWidth"))
+        // Prior transcript lines wrap at the same resolved column as the live one.
+        #expect(source.contains("label.preferredMaxLayoutWidth = maxWidth"))
+        // Scrolling clamps at the bottom now that the body can exceed its viewport.
+        #expect(source.contains("maximumBodyScrollOffset"))
+        #expect(source.contains("scrollBodyToCurrentEntry"))
         #expect(source.contains("maxWidth: bodyTextMaxWidth") || source.contains("maxWidth: fullWidth"))
         #expect(!source.contains("scaledHeights"))
         #expect(!source.contains(" * scale"))
@@ -522,13 +533,13 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func presenterUsesShippedLayoutEntry() throws {
-        // Structural: CaseIntroductionPresenter must call DialoguePanelLayout.layout(for:).
+        // Structural: DialoguePresenter must call DialoguePanelLayout.layout(for:).
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("DialoguePanelLayout.layout(for:"))
         #expect(source.contains("DialoguePanelLayout.bodyTextMaxWidth(")
@@ -549,7 +560,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
 
         func zPosition(for assignmentPrefix: String) -> Int? {
@@ -645,7 +656,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
         let presenter = try String(
             contentsOf: root.appendingPathComponent(
-                "RainShadow Shared/UI/CaseIntroductionPresenter.swift"
+                "RainShadow Shared/UI/DialoguePresenter.swift"
             ),
             encoding: .utf8
         )
@@ -667,7 +678,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("DialoguePanelLayout.Typography.bodyFontSize"))
         #expect(source.contains("DialoguePanelLayout.Typography.speakerFontSize"))
@@ -750,7 +761,7 @@ struct DialoguePanelLayoutTests {
             contentsOf: root.appendingPathComponent(scenePaths[0]),
             encoding: .utf8
         )
-        #expect(officeSource.contains("caseIntroductionPresenter.layout(for: hudViewportSize)"))
+        #expect(officeSource.contains("dialoguePresenter.layout(for: hudViewportSize)"))
 
         let baseSource = try String(
             contentsOf: root.appendingPathComponent("RainShadow Shared/Core/Scene/BaseGameScene.swift"),
@@ -899,7 +910,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("DialoguePanelLayout.speakerTopInset(forPanelHeight:"))
         #expect(!source.contains("panelRect.maxY - 42"))
@@ -912,7 +923,7 @@ struct DialoguePanelLayoutTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("contentWell"))
         #expect(source.contains("dialogue.content-well") || source.contains("contentWell.path"))

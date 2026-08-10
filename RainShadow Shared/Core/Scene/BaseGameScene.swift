@@ -85,6 +85,62 @@ class BaseGameScene: SKScene {
     func handleConfirmInput() {}
     /// Digit 1…9 for dialogue reply selection (BG:EE number-key choices). No-op by default.
     func handleDialogueChoiceDigit(_ digit: Int) {}
+
+    // MARK: - Dialogue
+
+    /// Shared BG-style conversation panel.
+    ///
+    /// This used to be a `private let` on `DetectiveOfficeScene`, which meant the office
+    /// was the only place in the game where anyone could talk. Every scene now has the
+    /// panel and the one presentation door below; a scene opts in by forwarding input to
+    /// it, exactly as the office does.
+    let dialoguePresenter = DialoguePresenter()
+    /// True while the panel owns input and the world is paused.
+    var dialogueIsActive = false
+
+    /// Fired as each node appears — voice-over and presentation cues. Scenes override.
+    func dialogueNodeDidShow(_ node: CaseDialogueNode) {}
+
+    /// The one door for presenting authored dialogue.
+    ///
+    /// Seeding and merging are a pair. A conversation that is not seeded from the live
+    /// case cannot evaluate `hasFlag` / `hasEvidence` / `hasKnowledge` gates at all, and
+    /// one that is not merged back discards everything it granted.
+    ///
+    /// - Parameter ownerID: The conversation's owner, if any. Its talk count (IE
+    ///   `NumTimesTalkedTo`) is bumped when the conversation **ends**, so a graph can gate
+    ///   an alternate opening on `timesTalkedTo(ownerID:atLeast:)`.
+    func presentDialogue(
+        _ graph: DialogueGraph,
+        ownerID: String? = nil,
+        onComplete: (() -> Void)? = nil
+    ) {
+        dialoguePresenter.onNodeShown = { [weak self] node in
+            self?.dialogueNodeDidShow(node)
+        }
+        dialoguePresenter.present(
+            graph: graph,
+            context: DialogueRuntimeContext(
+                caseState: context.session.caseState,
+                dialogueState: DialogueState(graphID: graph.id)
+            )
+        ) { [weak self] in
+            guard let self else { return }
+            var finished = self.dialoguePresenter.runtimeContext.caseState
+            if let ownerID {
+                finished.noteTalk(with: ownerID)
+            }
+            self.context.session.mergeCaseStateFromDialogue(finished)
+            onComplete?()
+        }
+    }
+
+    /// Scene point → dialogue-panel point. Scenes decide *when* to forward input; this
+    /// only removes the two-hop conversion from every call site.
+    func dialoguePanelPoint(for sceneLocation: CGPoint) -> CGPoint {
+        let hudPoint = hudRoot.convert(sceneLocation, from: self)
+        return dialoguePresenter.convert(hudPoint, from: hudRoot)
+    }
     func handleInventoryInput() {}
     func handleMapInput() {}
     func handleJournalInput() {}
@@ -449,6 +505,8 @@ class BaseGameScene: SKScene {
         hudRoot.position = .zero
         hudRoot.setScale(1)
         gameCamera.addChild(hudRoot)
+        dialoguePresenter.zPosition = 60
+        hudRoot.addChild(dialoguePresenter)
     }
 }
 

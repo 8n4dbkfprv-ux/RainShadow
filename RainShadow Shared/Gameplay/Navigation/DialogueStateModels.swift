@@ -34,19 +34,25 @@ public struct CaseState: Codable, Equatable, Sendable {
     public var evidenceIDs: Set<String>
     /// Dialogue-earned journal beats projected into the casebook via `JournalProjectionInput`.
     public var queuedJournalFragments: [QueuedJournalFragment]
+    /// Integer case variables — the Infinity Engine's numeric `Global`, as opposed to
+    /// the boolean intent `flags` already carries. Storage lands with the save envelope
+    /// so the persisted shape changes once; the reading/writing DSL follows.
+    public var counters: [String: Int]
 
     public init(
         caseID: String,
         flags: Set<String> = [],
         knowledgeIDs: Set<String> = [],
         evidenceIDs: Set<String> = [],
-        queuedJournalFragments: [QueuedJournalFragment] = []
+        queuedJournalFragments: [QueuedJournalFragment] = [],
+        counters: [String: Int] = [:]
     ) {
         self.caseID = caseID
         self.flags = flags
         self.knowledgeIDs = knowledgeIDs
         self.evidenceIDs = evidenceIDs
         self.queuedJournalFragments = queuedJournalFragments
+        self.counters = counters
     }
 
     func hasFlag(_ id: String) -> Bool {
@@ -95,6 +101,79 @@ public struct CaseState: Codable, Equatable, Sendable {
         } else {
             queuedJournalFragments.append(fragment)
         }
+    }
+
+    /// Unset counters read as zero, matching IE, where an unassigned `Global` is 0
+    /// rather than an error.
+    func counter(_ id: String) -> Int {
+        counters[id] ?? 0
+    }
+
+    /// IE `SetGlobal`.
+    mutating func setCounter(_ id: String, to value: Int) {
+        counters[id] = value
+    }
+
+    /// IE `IncrementGlobal`. Negative deltas subtract.
+    mutating func addToCounter(_ id: String, _ delta: Int) {
+        counters[id, default: 0] += delta
+    }
+
+    /// Reserved counter namespace behind IE's `NumTimesTalkedTo`. Keeping talk counts in
+    /// `counters` rather than a parallel store means one save field, one merge path, and
+    /// one place integrity reporting has to look.
+    static func talkCounterID(_ ownerID: String) -> String {
+        "talk.\(ownerID)"
+    }
+
+    func timesTalkedTo(_ ownerID: String) -> Int {
+        counter(Self.talkCounterID(ownerID))
+    }
+
+    /// Bumped when a conversation **ends**, so `timesTalkedTo(x, atLeast: 1)` reads as
+    /// "has talked to x before" with no off-by-one to explain. IE's own `DF_TALKCOUNT`
+    /// timing varies between engine versions; this is the one that stays readable in
+    /// authored JSON.
+    mutating func noteTalk(with ownerID: String) {
+        addToCounter(Self.talkCounterID(ownerID), 1)
+    }
+}
+
+extension CaseState {
+    /// Fold a finished conversation's state back into the owning session.
+    ///
+    /// A **seeded** result already contains everything this state held when the
+    /// conversation opened, so it is authoritative: a flag the dialogue cleared must
+    /// stay cleared. Unioning instead — which is what the shipped merge did — makes
+    /// `clearCaseFlag` and `clearConversationFlag`'s case-level twin permanent no-ops.
+    ///
+    /// An **unseeded** result was built from a fresh `CaseState` and knows nothing of
+    /// prior progress, so it can only add. That path exists for the legacy ad-hoc
+    /// presenter wrapper and disappears once every call site seeds.
+    ///
+    /// Journal fragments always merge by id rather than being replaced wholesale:
+    /// there is no action that retracts one, and `queueJournal` is already
+    /// replace-by-id, so appending preserves both order and idempotence.
+    func applying(_ result: CaseState, wasSeeded: Bool) -> CaseState {
+        var merged = self
+        if wasSeeded {
+            merged.flags = result.flags
+            merged.knowledgeIDs = result.knowledgeIDs
+            merged.evidenceIDs = result.evidenceIDs
+            merged.counters = result.counters
+        } else {
+            merged.flags.formUnion(result.flags)
+            merged.knowledgeIDs.formUnion(result.knowledgeIDs)
+            merged.evidenceIDs.formUnion(result.evidenceIDs)
+            merged.counters.merge(result.counters) { _, dialogueValue in dialogueValue }
+        }
+        for fragment in result.queuedJournalFragments {
+            merged.queueJournal(fragment)
+        }
+        if merged.caseID.isEmpty {
+            merged.caseID = result.caseID
+        }
+        return merged
     }
 }
 
@@ -186,6 +265,12 @@ struct DialogueRuntimeContext: Equatable, Sendable {
 
     func hasKnowledge(_ id: String) -> Bool {
         caseState.hasKnowledge(id)
+    }
+
+    /// Counters live on the case only — IE's LOCALS (per-actor) scope has no analogue
+    /// here yet, and nothing has needed a conversation-scoped integer.
+    func counter(_ id: String) -> Int {
+        caseState.counter(id)
     }
 
     /// Choices on a node that pass Phase 1 conditions under this context.

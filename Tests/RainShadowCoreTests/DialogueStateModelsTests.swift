@@ -126,3 +126,95 @@ struct DialogueStateModelsTests {
         #expect(EmptyCoatDialogueKeys.graphID.hasPrefix("case.empty-coat"))
     }
 }
+
+extension DialogueStateModelsTests {
+    /// `CaseState` is what `GameSession.persist()` has to write out, but `App/` is in
+    /// no SPM target so no test can watch that mapping directly. Pin the shape instead:
+    /// adding a field here fails this test, which forces the "does this persist?"
+    /// decision to be made rather than skipped. That is how knowledge, evidence, and
+    /// journal fragments were lost in the first place.
+    @Test func caseStatePersistedSurfaceIsComplete() {
+        let labels = Mirror(reflecting: CaseState(caseID: "case.x")).children.compactMap(\.label)
+        #expect(Set(labels) == [
+            "caseID",
+            "flags",
+            "knowledgeIDs",
+            "evidenceIDs",
+            "queuedJournalFragments",
+            "counters"
+        ])
+    }
+
+    /// IE reads an unassigned `Global` as 0 rather than erroring.
+    @Test func unsetCountersReadAsZero() {
+        var state = CaseState(caseID: "case.x")
+        #expect(state.counter("talk.npc.lila-march") == 0)
+        state.counters["talk.npc.lila-march"] = 3
+        #expect(state.counter("talk.npc.lila-march") == 3)
+    }
+}
+
+// MARK: - Session merge (dialogue result folded back into the case)
+
+extension DialogueStateModelsTests {
+    /// The defect this replaced: `formUnion` meant a flag the conversation cleared
+    /// came straight back, so `clearCaseFlag` never did anything at session level.
+    @Test func seededMergeLetsDialogueClearAFlag() {
+        let live = CaseState(caseID: "case.x", flags: ["a", "b"])
+        var result = live
+        result.clearFlag("a")
+        result.setFlag("c")
+
+        let merged = live.applying(result, wasSeeded: true)
+
+        #expect(merged.flags == ["b", "c"])
+    }
+
+    /// An unseeded result never saw "b", so it must not be read as having removed it.
+    @Test func unseededMergeOnlyAdds() {
+        let live = CaseState(caseID: "case.x", flags: ["b"])
+        let result = CaseState(caseID: "case.x", flags: ["c"])
+
+        let merged = live.applying(result, wasSeeded: false)
+
+        #expect(merged.flags == ["b", "c"])
+    }
+
+    @Test func seededMergeCarriesKnowledgeEvidenceAndCounters() {
+        var live = CaseState(caseID: "case.x")
+        live.counters["talk.npc.lila-march"] = 1
+        var result = live
+        result.grantKnowledge("kn.lied-about-the-tram")
+        result.grantEvidence("ev.tram-receipt")
+        result.counters["talk.npc.lila-march"] = 2
+
+        let merged = live.applying(result, wasSeeded: true)
+
+        #expect(merged.knowledgeIDs == ["kn.lied-about-the-tram"])
+        #expect(merged.evidenceIDs == ["ev.tram-receipt"])
+        #expect(merged.counter("talk.npc.lila-march") == 2)
+    }
+
+    /// Fragments merge by id on both paths — there is no action that retracts one, and
+    /// `queueJournal` is already replace-by-id, so re-merging is idempotent.
+    @Test func journalFragmentsMergeByIDAndKeepOrder() {
+        var live = CaseState(caseID: "case.x")
+        live.queueJournal(QueuedJournalFragment(id: "one", kind: .chronology, text: "first"))
+        var result = live
+        result.queueJournal(QueuedJournalFragment(id: "one", kind: .chronology, text: "revised"))
+        result.queueJournal(QueuedJournalFragment(id: "two", kind: .lead, text: "second"))
+
+        let merged = live.applying(result, wasSeeded: true)
+
+        #expect(merged.queuedJournalFragments.map(\.id) == ["one", "two"])
+        #expect(merged.queuedJournalFragments.first?.text == "revised")
+        #expect(merged.applying(result, wasSeeded: true) == merged)
+    }
+
+    @Test func emptyCaseIDAdoptsTheDialogueCaseID() {
+        let live = CaseState(caseID: "")
+        let merged = live.applying(CaseState(caseID: "case.empty-coat"), wasSeeded: true)
+        #expect(merged.caseID == "case.empty-coat")
+    }
+}
+

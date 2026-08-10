@@ -109,7 +109,7 @@ struct EmptyCoatJournalContentTests {
                 queuedJournalFragments: [
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Retained by Lila March. The Empty Coat is open."
                     )
                 ]
@@ -126,12 +126,12 @@ struct EmptyCoatJournalContentTests {
                 queuedJournalFragments: [
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.pressedHardJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Pushed Lila on what the police finished too early."
                     ),
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Retained by Lila March. The Empty Coat is open."
                     )
                 ]
@@ -153,7 +153,7 @@ struct EmptyCoatJournalContentTests {
                 queuedJournalFragments: [
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Retained."
                     )
                 ],
@@ -168,12 +168,12 @@ struct EmptyCoatJournalContentTests {
                 queuedJournalFragments: [
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.pressedHardJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Pushed."
                     ),
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Retained."
                     )
                 ],
@@ -190,7 +190,7 @@ struct EmptyCoatJournalContentTests {
                 queuedJournalFragments: [
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Retained."
                     )
                 ]

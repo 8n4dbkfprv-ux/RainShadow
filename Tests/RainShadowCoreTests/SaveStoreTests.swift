@@ -36,6 +36,77 @@ struct SaveStoreTests {
         #expect(loaded.caseFlags.isEmpty)
     }
 
+    /// Everything a conversation grants must survive a relaunch, not just flags.
+    /// Knowledge, evidence, and earned journal fragments used to be merged into the
+    /// live session and then dropped by `persist()`, so `hasEvidence` gates silently
+    /// regressed on the next launch. The Infinity Engine persists every GLOBAL in the
+    /// `.gam` for exactly this reason.
+    @Test func persistsEveryDialogueEarnedField() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let store = SaveStore(defaults: defaults, key: "save")
+        let expected = SaveSnapshot(
+            caseFlags: ["empty-coat.case.client-retained"],
+            caseKnowledgeIDs: ["kn.lila-lied-about-the-tram"],
+            caseEvidenceIDs: ["ev.tram-receipt"],
+            caseJournalFragments: [
+                PersistedJournalFragment(id: "chrono.client-retained", kind: "chronology", text: "Retained.")
+            ],
+            caseCounters: ["talk.npc.lila-march": 2]
+        )
+
+        store.save(expected)
+        let loaded = store.load()
+
+        #expect(loaded == expected)
+        #expect(loaded.caseKnowledgeIDs.contains("kn.lila-lied-about-the-tram"))
+        #expect(loaded.caseEvidenceIDs.contains("ev.tram-receipt"))
+        #expect(loaded.caseJournalFragments.first?.id == "chrono.client-retained")
+        #expect(loaded.caseCounters["talk.npc.lila-march"] == 2)
+    }
+
+    /// A save written before these fields existed still loads — the fields are
+    /// additive and optional, which is why the envelope never has to bump.
+    @Test func legacySaveWithoutCaseStateFieldsLoadsWithDefaults() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let legacy = Data("""
+        {"schemaVersion":1,"hasSeenOpening":true,"caseFlags":["a"],"walletPence":12}
+        """.utf8)
+        defaults.set(legacy, forKey: "save")
+
+        let loaded = SaveStore(defaults: defaults, key: "save").load()
+
+        #expect(loaded.hasSeenOpening)
+        #expect(loaded.caseFlags == ["a"])
+        #expect(loaded.walletPence == 12)
+        #expect(loaded.caseKnowledgeIDs.isEmpty)
+        #expect(loaded.caseEvidenceIDs.isEmpty)
+        #expect(loaded.caseJournalFragments.isEmpty)
+        #expect(loaded.caseCounters.isEmpty)
+    }
+
+    /// `load()` accepts anything at or below the current envelope, so a future
+    /// additive bump cannot wipe existing saves. A *newer* snapshot is still
+    /// rejected — this binary would drop state it does not understand.
+    @Test func acceptsOlderEnvelopesAndRejectsNewerOnes() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let store = SaveStore(defaults: defaults, key: "save")
+
+        store.save(SaveSnapshot(schemaVersion: 0, hasSeenOpening: true))
+        #expect(store.load().hasSeenOpening)
+
+        store.save(SaveSnapshot(
+            schemaVersion: SaveSnapshot.currentSchemaVersion + 1,
+            hasSeenOpening: true
+        ))
+        #expect(store.load() == SaveSnapshot())
+    }
+
     @Test func returnsSafeDefaultsForCorruptData() throws {
         let suiteName = "RainShadowTests.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suiteName))

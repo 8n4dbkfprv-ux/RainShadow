@@ -1,70 +1,88 @@
 {
-  "graphs": [
+ "graphs": [
+  {
+   "id": "inspect.office.window",
+   "nodes": [
     {
-      "id": "inspect.office.window",
-      "nodes": [
-        {
-          "endsDialogue": true,
-          "id": "inspection.office.window",
-          "portraitName": "dialogue_portrait_harlan_voss_v01",
-          "speakerKey": "dlg.speaker.hotspot.window",
-          "textKey": "dlg.inspect.office.window.node.inspection.office.window.text"
-        }
-      ],
-      "startNodeID": "inspection.office.window"
+     "endsDialogue": true,
+     "id": "inspection.office.window",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.window",
+     "textKey": "dlg.inspect.office.window.node.inspection.office.window.text"
     },
     {
-      "id": "inspect.office.desk",
-      "nodes": [
-        {
-          "endsDialogue": true,
-          "id": "inspection.office.desk",
-          "portraitName": "dialogue_portrait_harlan_voss_v01",
-          "speakerKey": "dlg.speaker.hotspot.desk",
-          "textKey": "dlg.inspect.office.desk.node.inspection.office.desk.text"
-        }
-      ],
-      "startNodeID": "inspection.office.desk"
-    },
-    {
-      "id": "inspect.office.phone",
-      "nodes": [
-        {
-          "endsDialogue": true,
-          "id": "inspection.office.phone",
-          "portraitName": "dialogue_portrait_harlan_voss_v01",
-          "speakerKey": "dlg.speaker.hotspot.phone",
-          "textKey": "dlg.inspect.office.phone.node.inspection.office.phone.text"
-        }
-      ],
-      "startNodeID": "inspection.office.phone"
-    },
-    {
-      "id": "inspect.office.files",
-      "nodes": [
-        {
-          "endsDialogue": true,
-          "id": "inspection.office.files",
-          "portraitName": "dialogue_portrait_harlan_voss_v01",
-          "speakerKey": "dlg.speaker.hotspot.files",
-          "textKey": "dlg.inspect.office.files.node.inspection.office.files.text"
-        }
-      ],
-      "startNodeID": "inspection.office.files"
-    },
-    {
-      "id": "inspect.office.door",
-      "nodes": [
-        {
-          "endsDialogue": true,
-          "id": "inspection.office.door",
-          "portraitName": "dialogue_portrait_harlan_voss_v01",
-          "speakerKey": "dlg.speaker.hotspot.door",
-          "textKey": "dlg.inspect.office.door.node.inspection.office.door.text"
-        }
-      ],
-      "startNodeID": "inspection.office.door"
+     "endsDialogue": true,
+     "entryWhen": [
+      {
+       "type": "timesTalkedTo",
+       "id": "office.window",
+       "value": 1
+      }
+     ],
+     "id": "inspection.office.window.again",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.window",
+     "textKey": "dlg.inspect.office.window.node.inspection.office.window.again.text"
     }
-  ],
-  "schemaVersion": 1
+   ],
+   "startNodeID": "inspection.office.window",
+   "entryNodeIDs": [
+    "inspection.office.window.again",
+    "inspection.office.window"
+   ]
+  },
+  {
+   "id": "inspect.office.desk",
+   "nodes": [
+    {
+     "endsDialogue": true,
+     "id": "inspection.office.desk",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.desk",
+     "textKey": "dlg.inspect.office.desk.node.inspection.office.desk.text"
+    }
+   ],
+   "startNodeID": "inspection.office.desk"
+  },
+  {
+   "id": "inspect.office.phone",
+   "nodes": [
+    {
+     "endsDialogue": true,
+     "id": "inspection.office.phone",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.phone",
+     "textKey": "dlg.inspect.office.phone.node.inspection.office.phone.text"
+    }
+   ],
+   "startNodeID": "inspection.office.phone"
+  },
+  {
+   "id": "inspect.office.files",
+   "nodes": [
+    {
+     "endsDialogue": true,
+     "id": "inspection.office.files",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.files",
+     "textKey": "dlg.inspect.office.files.node.inspection.office.files.text"
+    }
+   ],
+   "startNodeID": "inspection.office.files"
+  },
+  {
+   "id": "inspect.office.door",
+   "nodes": [
+    {
+     "endsDialogue": true,
+     "id": "inspection.office.door",
+     "portraitName": "dialogue_portrait_harlan_voss_v01",
+     "speakerKey": "dlg.speaker.hotspot.door",
+     "textKey": "dlg.inspect.office.door.node.inspection.office.door.text"
+    }
+   ],
+   "startNodeID": "inspection.office.door"
+  }
+ ],
+ "schemaVersion": 1
 }

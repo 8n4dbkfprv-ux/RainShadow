@@ -182,22 +182,57 @@ struct AuthoredDialogueDocument: Equatable, Codable, Sendable {
     var schemaVersion: Int
     var id: String
     var startNodeID: String
+    /// Ordered entry candidates (IE `FindFirstState`). Absent means `[startNodeID]`.
+    var entryNodeIDs: [String]
     var nodes: [AuthoredDialogueNode]
     /// Optional string-table resource override (default `strings.en`).
     var stringTable: String?
+
+    enum CodingKeys: String, CodingKey {
+        case schemaVersion
+        case id
+        case startNodeID
+        case entryNodeIDs
+        case nodes
+        case stringTable
+    }
 
     init(
         schemaVersion: Int = DialogueDocument.currentSchemaVersion,
         id: String,
         startNodeID: String,
+        entryNodeIDs: [String] = [],
         nodes: [AuthoredDialogueNode],
         stringTable: String? = nil
     ) {
         self.schemaVersion = schemaVersion
         self.id = id
         self.startNodeID = startNodeID
+        self.entryNodeIDs = entryNodeIDs
         self.nodes = nodes
         self.stringTable = stringTable
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        schemaVersion = try container.decode(Int.self, forKey: .schemaVersion)
+        id = try container.decode(String.self, forKey: .id)
+        startNodeID = try container.decode(String.self, forKey: .startNodeID)
+        entryNodeIDs = try container.decodeIfPresent([String].self, forKey: .entryNodeIDs) ?? []
+        nodes = try container.decode([AuthoredDialogueNode].self, forKey: .nodes)
+        stringTable = try container.decodeIfPresent(String.self, forKey: .stringTable)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(schemaVersion, forKey: .schemaVersion)
+        try container.encode(id, forKey: .id)
+        try container.encode(startNodeID, forKey: .startNodeID)
+        if !entryNodeIDs.isEmpty {
+            try container.encode(entryNodeIDs, forKey: .entryNodeIDs)
+        }
+        try container.encode(nodes, forKey: .nodes)
+        try container.encodeIfPresent(stringTable, forKey: .stringTable)
     }
 }
 
@@ -218,6 +253,8 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
     var voiceAssetName: String?
     var onLeaveCue: String?
     var onShowCue: String?
+    /// IE state trigger — see `CaseDialogueNode.entryWhen`.
+    var entryWhen: [DialogueCondition]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -234,6 +271,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         case voiceAssetName
         case onLeaveCue
         case onShowCue
+        case entryWhen
     }
 
     init(
@@ -250,7 +288,8 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         voiceKey: String? = nil,
         voiceAssetName: String? = nil,
         onLeaveCue: String? = nil,
-        onShowCue: String? = nil
+        onShowCue: String? = nil,
+        entryWhen: [DialogueCondition] = []
     ) {
         self.id = id
         self.speaker = speaker
@@ -266,6 +305,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         self.voiceAssetName = voiceAssetName
         self.onLeaveCue = onLeaveCue
         self.onShowCue = onShowCue
+        self.entryWhen = entryWhen
     }
 
     init(from decoder: Decoder) throws {
@@ -284,6 +324,7 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         voiceAssetName = try container.decodeIfPresent(String.self, forKey: .voiceAssetName)
         onLeaveCue = try container.decodeIfPresent(String.self, forKey: .onLeaveCue)
         onShowCue = try container.decodeIfPresent(String.self, forKey: .onShowCue)
+        entryWhen = try container.decodeIfPresent([DialogueCondition].self, forKey: .entryWhen) ?? []
     }
 
     func encode(to encoder: Encoder) throws {
@@ -308,6 +349,9 @@ struct AuthoredDialogueNode: Equatable, Codable, Sendable {
         try container.encodeIfPresent(voiceAssetName, forKey: .voiceAssetName)
         try container.encodeIfPresent(onLeaveCue, forKey: .onLeaveCue)
         try container.encodeIfPresent(onShowCue, forKey: .onShowCue)
+        if !entryWhen.isEmpty {
+            try container.encode(entryWhen, forKey: .entryWhen)
+        }
     }
 }
 
@@ -315,6 +359,8 @@ struct AuthoredDialogueChoice: Equatable, Codable, Sendable {
     var text: String?
     var textKey: String?
     var destinationID: String
+    /// IE EXTERN target graph — see `CaseDialogueChoice.destinationGraphID`.
+    var destinationGraphID: String?
     var tone: DialogueTone?
     var intention: DialogueIntention?
     var conditions: [DialogueCondition]
@@ -389,7 +435,7 @@ enum AuthoredDialogueAction: Equatable, Codable, Sendable {
     case clearCaseFlag(String)
     case grantKnowledge(String)
     case grantEvidence(String)
-    case queueJournal(id: String, kind: String, text: String?, textKey: String?)
+    case queueJournal(id: String, kind: JournalEntryKind, text: String?, textKey: String?)
 
     private enum CodingKeys: String, CodingKey {
         case type
@@ -428,7 +474,7 @@ enum AuthoredDialogueAction: Equatable, Codable, Sendable {
         case .queueJournal:
             self = .queueJournal(
                 id: try container.decode(String.self, forKey: .id),
-                kind: try container.decode(String.self, forKey: .kind),
+                kind: try container.decode(JournalEntryKind.self, forKey: .kind),
                 text: try container.decodeIfPresent(String.self, forKey: .text),
                 textKey: try container.decodeIfPresent(String.self, forKey: .textKey)
             )
@@ -474,17 +520,10 @@ extension DialogueStringTable {
         let graph = DialogueGraph(
             id: document.id,
             startNodeID: document.startNodeID,
+            entryNodeIDs: document.entryNodeIDs,
             nodes: nodes
         )
-        if graph.nodes.isEmpty {
-            throw DialogueGraphLoaderError.emptyGraph(id: graph.id)
-        }
-        if graph.node(id: graph.startNodeID) == nil {
-            throw DialogueGraphLoaderError.missingStartNode(
-                graphID: graph.id,
-                startNodeID: graph.startNodeID
-            )
-        }
+        try graph.validateAuthoring()
         return graph
     }
 
@@ -519,7 +558,8 @@ extension DialogueStringTable {
             isInteriorMonologue: node.isInteriorMonologue,
             voiceAssetName: voiceAssetName,
             onLeaveCue: node.onLeaveCue,
-            onShowCue: node.onShowCue
+            onShowCue: node.onShowCue,
+            entryWhen: node.entryWhen
         )
     }
 
@@ -537,6 +577,7 @@ extension DialogueStringTable {
         return CaseDialogueChoice(
             text: text,
             destinationID: choice.destinationID,
+            destinationGraphID: choice.destinationGraphID,
             tone: choice.tone,
             intention: choice.intention,
             conditions: choice.conditions,
@@ -591,5 +632,7 @@ struct AuthoredDialogueCatalogDocument: Equatable, Codable, Sendable {
 struct AuthoredDialogueCatalogGraph: Equatable, Codable, Sendable {
     var id: String
     var startNodeID: String
+    /// Ordered entry candidates (IE `FindFirstState`). Absent means `[startNodeID]`.
+    var entryNodeIDs: [String]?
     var nodes: [AuthoredDialogueNode]
 }

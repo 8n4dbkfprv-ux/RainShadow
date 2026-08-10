@@ -40,7 +40,7 @@ struct DialogueGraphLoaderTests {
                 .queueJournal(
                     QueuedJournalFragment(
                         id: "chrono.fixture-press",
-                        kind: "chronology",
+                        kind: .chronology,
                         text: "Pressed the pier story."
                     )
                 )
@@ -128,6 +128,74 @@ struct DialogueGraphLoaderTests {
         #expect(throws: DialogueGraphLoaderError.missingStartNode(graphID: "no-start", startNodeID: "gone")) {
             try DialogueGraphLoader.decode(data)
         }
+    }
+
+    /// A duplicated node id silently shadows the earlier node in every lookup. The
+    /// index used to be built with `Dictionary(uniqueKeysWithValues:)`, so an authoring
+    /// typo **trapped** — the process died rather than reporting the mistake.
+    @Test func duplicateNodeIDThrowsInsteadOfTrapping() throws {
+        let json = """
+        {
+          "schemaVersion": 1,
+          "id": "dupe.nodes",
+          "startNodeID": "a",
+          "nodes": [
+            { "id": "a", "speaker": "S", "text": "First", "nextNodeID": "b" },
+            { "id": "b", "speaker": "S", "text": "Second", "endsDialogue": true },
+            { "id": "a", "speaker": "S", "text": "Shadow", "endsDialogue": true }
+          ]
+        }
+        """
+        #expect(throws: DialogueGraphLoaderError.duplicateNodeID(graphID: "dupe.nodes", nodeID: "a")) {
+            try DialogueGraphLoader.decode(Data(json.utf8))
+        }
+    }
+
+    /// The catalog path failed differently: `result[graph.id] = graph` was last-wins, so
+    /// a duplicated graph id made one graph vanish and the facade's "fail fast if
+    /// missing" lookup never fired.
+    @Test func duplicateCatalogGraphIDThrowsInsteadOfVanishing() throws {
+        let json = """
+        {
+          "schemaVersion": 1,
+          "graphs": [
+            {
+              "id": "inspect.office.window",
+              "startNodeID": "a",
+              "nodes": [{ "id": "a", "speaker": "S", "text": "Rain.", "endsDialogue": true }]
+            },
+            {
+              "id": "inspect.office.window",
+              "startNodeID": "b",
+              "nodes": [{ "id": "b", "speaker": "S", "text": "Shadow.", "endsDialogue": true }]
+            }
+          ]
+        }
+        """
+        #expect(
+            throws: DialogueGraphLoaderError.duplicateGraphID(
+                catalog: "office.inspect",
+                graphID: "inspect.office.window"
+            )
+        ) {
+            try DialogueGraphLoader.decodeCatalog(Data(json.utf8), catalogName: "office.inspect")
+        }
+    }
+
+    /// A graph carrying a duplicate is not sound even when every destination resolves.
+    @Test func integrityReportFlagsDuplicateNodeIDs() {
+        let nodes = [
+            CaseDialogueNode(id: "a", speaker: "S", text: "First", nextNodeID: "b"),
+            CaseDialogueNode(id: "b", speaker: "S", text: "Second", endsDialogue: true),
+            CaseDialogueNode(id: "a", speaker: "S", text: "Shadow", endsDialogue: true)
+        ]
+
+        let report = CaseDialogueGraph.report(nodes: nodes, startID: "a")
+
+        #expect(report.duplicateNodeIDs == ["a"])
+        #expect(report.missingDestinationIDs.isEmpty)
+        #expect(report.reachesEnding)
+        #expect(!report.isSound)
     }
 
     @Test func missingDestinationSurfacesInIntegrityReport() throws {

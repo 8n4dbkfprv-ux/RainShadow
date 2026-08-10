@@ -485,7 +485,7 @@ RainShadow case dialogue follows **classic Baldur’s Gate (Infinity Engine DLG)
 
 **Do not** deliver mid-conversation Voss (PC) lines as main-speaker nodes the player only Continues through (`speaker: Harlan Voss`, empty `choices`, `nextNodeID` set). That is **not** classic BG. In IE, actor response text is the state; “what the player character says” is transition text (IESDP DLG V1).
 
-**Correct pattern (shipped Empty Coat acceptance):** Lila’s last triad-3 NPC state offers Voss’s acceptance prose as **`CaseDialogueChoice` text**; selecting it advances to the next NPC beat (`lila.plea`). See `EmptyCoatCaseIntroduction.caseAcceptanceChoice` and tests `midConversationPCLinesAreReplyOptionsNotContinueStates`.
+**Correct pattern (shipped Empty Coat acceptance):** Lila’s last triad-3 NPC state offers Voss’s acceptance prose as **`CaseDialogueChoice` text**; selecting it advances to the next NPC beat (`lila.plea`). The acceptance prose lives in `empty-coat.intro.dialogue.json` (it is no longer a Swift constant); the rule is held by tests `midConversationPCLinesAreReplyOptionsNotContinueStates` and, across every shipped graph, `noShippedGraphDeliversMidConversationPCSpeechAsAContinuePage`.
 
 **Allowed exception:** the **pre-conversation interior monologue** (`voss.monologue.*`, `isInteriorMonologue`) may use Continue-only Voss pages. That is noir framing *before* the NPC exchange, not a DLG-style PC reply.
 

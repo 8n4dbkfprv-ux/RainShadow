@@ -99,7 +99,7 @@ struct EmptyCoatCaseIntroductionTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
         let source = try String(contentsOf: presenterURL, encoding: .utf8)
         #expect(source.contains("isInteriorMonologue"))
         #expect(source.contains("Palatino-Italic"))
@@ -207,7 +207,7 @@ struct EmptyCoatCaseIntroductionTests {
             .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let source = try String(contentsOf: sceneURL, encoding: .utf8)
         #expect(source.contains("EmptyCoatCaseIntroduction.graph"))
-        #expect(source.contains("present(\n            graph:") || source.contains("present(graph:"))
+        #expect(source.contains("presentDialogue("))
         #expect(!source.contains("speaker: \"Vivian Hart\""))
         #expect(!source.contains("speaker: \"Elias Vale\""))
         #expect(!source.contains("vivian.opening"))
@@ -249,6 +249,11 @@ struct EmptyCoatCaseIntroductionTests {
             $0.id.hasPrefix("voss.monologue") && $0.onLeaveCue == OfficeDialogueCues.clientEntrance
         }
         #expect(leaveCued.map(\.id) == [cue])
+
+        // No shipped node authors a show cue. `handleDialogueShowCue` trips in debug on
+        // an unhandled one, so authoring a cue here without wiring the scene now fails
+        // loudly instead of being decoded and dropped the way `onShowCue` always was.
+        #expect(nodes.allSatisfy { $0.onShowCue == nil })
         for id in monologueIDs where id != cue {
             #expect(
                 !EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: id),
@@ -323,18 +328,30 @@ struct EmptyCoatCaseIntroductionTests {
         let sceneURL = root
             .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let presenterURL = root
-            .appendingPathComponent("RainShadow Shared/UI/CaseIntroductionPresenter.swift")
+            .appendingPathComponent("RainShadow Shared/UI/DialoguePresenter.swift")
+        let baseURL = root
+            .appendingPathComponent("RainShadow Shared/Core/Scene/BaseGameScene.swift")
         let scene = try String(contentsOf: sceneURL, encoding: .utf8)
         let presenter = try String(contentsOf: presenterURL, encoding: .utf8)
+        let base = try String(contentsOf: baseURL, encoding: .utf8)
 
         // Monologue presents first; entrance is deferred until Continue *from* the leave cue.
         // PR3: scene maps `onLeaveCue` → cinematic (not Empty Coat node-id helpers).
         #expect(scene.contains("onLeaveCue"))
         #expect(scene.contains("OfficeDialogueCues.clientEntrance"))
+        // Both cue kinds resolve through a lookup, so an authored cue with no handler
+        // is a debug trip rather than a silent drop — which is what `onShowCue` was.
+        #expect(scene.contains("deferringLeaveCueHandler"))
+        #expect(scene.contains("onShowCue"))
+        #expect(scene.contains("handleDialogueShowCue"))
         #expect(scene.contains("shouldDeferAdvance"))
         #expect(scene.contains("beginClientEntranceIfNeeded"))
-        #expect(scene.contains("handleCaseIntroductionNodeShown"))
-        #expect(scene.contains("onNodeShown"))
+        // Voice-over and cue reaction are a scene concern; the `onNodeShown` closure that
+        // drives them now lives on `BaseGameScene` so every scene can converse.
+        #expect(scene.contains("override func dialogueNodeDidShow"))
+        #expect(base.contains("onNodeShown"))
+        #expect(base.contains("func presentDialogue("))
+        #expect(base.contains("noteTalk(with:"))
         #expect(scene.contains("pendingPostEntranceNodeID"))
         // Grok Voice plays on each node show; stops when dialogue finishes / cinematic starts.
         #expect(scene.contains("playVoiceOver"))
@@ -342,18 +359,13 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(scene.contains("node.voiceAssetName") || scene.contains("voiceAssetName"))
         #expect(scene.contains("EmptyCoatCaseIntroduction.graph"))
         // Door/entrance only inside the gated helper, not at the top of startCaseIntroduction before present.
-        if let startRange = scene.range(of: "private func startCaseIntroduction()") {
-            let afterStart = scene[startRange.lowerBound...]
-            if let nextFunc = afterStart.range(
-                of: "\n    private func ",
-                options: [],
-                range: afterStart.index(after: startRange.upperBound)..<afterStart.endIndex
-            ) {
-                let body = String(afterStart[..<nextFunc.lowerBound])
-                #expect(body.contains("caseIntroductionPresenter.present"))
+        if let body = Self.methodBody(startingAt: "private func startCaseIntroduction()", in: scene) {
+            do {
+                #expect(body.contains("presentDialogue("))
                 #expect(body.contains("shouldDeferAdvance"))
+                // The cue *id* lives in the handler table, not here: the scene reads
+                // whatever `onLeaveCue` the data names and looks it up.
                 #expect(body.contains("onLeaveCue"))
-                #expect(body.contains("OfficeDialogueCues.clientEntrance"))
                 #expect(!body.contains("shouldStartClientEntrance"))
                 #expect(!body.contains("animateDoorFalling()"))
                 #expect(!body.contains("performEntrance"))
@@ -363,7 +375,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("shouldDeferAdvance"))
         #expect(presenter.contains("onLeaveCue"))
         #expect(presenter.contains("selectChoice") || presenter.contains("advanceContinue"))
-        #expect(presenter.contains("present(\n        graph:") || presenter.contains("func present(\n        graph:"))
+        #expect(presenter.contains("func present("))
         // BG:EE keyboard: Space/Return = Continue/End only; 1–9 pick PC replies.
         #expect(scene.contains("activateCommandControl"))
         #expect(scene.contains("handleDialogueChoiceDigit"))
@@ -385,6 +397,11 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("setCutsceneSuppressed"))
         #expect(presenter.contains("resumeAfterCutscene(advancingTo:"))
         #expect(presenter.contains("isCutsceneSuppressed"))
+        // Continue and reply must defer identically: advance the session, hold only the
+        // view. See DialogueDeferralStateTests for the behaviour this symbol backs.
+        #expect(presenter.contains("DialogueDeferralState"))
+        #expect(presenter.contains("deferral.note("))
+        #expect(presenter.contains("deferral.resume()"))
         // Breakable skip: shared finish path + snap-to-end (BG SetCutSceneBreakable).
         #expect(scene.contains("finishClientEntrance(reason:"))
         #expect(scene.contains("trySkipActiveClientCutscene"))
@@ -396,14 +413,8 @@ struct EmptyCoatCaseIntroductionTests {
         // Showing a node must not arm entrance (leave-gated only).
         #expect(!scene.contains("shouldStartClientEntrance(whenShowing:"))
         #expect(!scene.contains("shouldStartClientEntrance(whenLeaving:"))
-        if let entranceRange = scene.range(of: "private func beginClientEntranceIfNeeded()") {
-            let afterEntrance = scene[entranceRange.lowerBound...]
-            if let nextFunc = afterEntrance.range(
-                of: "\n    private func ",
-                options: [],
-                range: afterEntrance.index(after: entranceRange.upperBound)..<afterEntrance.endIndex
-            ) {
-                let body = String(afterEntrance[..<nextFunc.lowerBound])
+        if let body = Self.methodBody(startingAt: "private func beginClientEntranceIfNeeded()", in: scene) {
+            do {
                 #expect(body.contains("setCutsceneChromeSuppressed(true)"))
                 #expect(body.contains("setCutsceneSuppressed(true)"))
                 #expect(body.contains("finishClientEntrance(reason: .natural)"))
@@ -412,27 +423,15 @@ struct EmptyCoatCaseIntroductionTests {
                 #expect(!body.contains("setCutsceneChromeSuppressed(false)"))
             }
         }
-        if let finishRange = scene.range(of: "private func finishClientEntrance(reason:") {
-            let afterFinish = scene[finishRange.lowerBound...]
-            if let nextFunc = afterFinish.range(
-                of: "\n    private func ",
-                options: [],
-                range: afterFinish.index(after: finishRange.upperBound)..<afterFinish.endIndex
-            ) {
-                let body = String(afterFinish[..<nextFunc.lowerBound])
+        if let body = Self.methodBody(startingAt: "private func finishClientEntrance(reason:", in: scene) {
+            do {
                 #expect(body.contains("resumeAfterCutscene(advancingTo:"))
                 #expect(body.contains("markCompleted()"))
                 #expect(body.contains("ClientEntranceTerminalState"))
             }
         }
-        if let applyRange = scene.range(of: "private func applyClientVisitAction") {
-            let afterApply = scene[applyRange.lowerBound...]
-            if let nextFunc = afterApply.range(
-                of: "\n    private func ",
-                options: [],
-                range: afterApply.index(after: applyRange.upperBound)..<afterApply.endIndex
-            ) {
-                let body = String(afterApply[..<nextFunc.lowerBound])
+        if let body = Self.methodBody(startingAt: "private func applyClientVisitAction", in: scene) {
+            do {
                 #expect(body.contains("case .unlockPlayerControl:"))
                 #expect(body.contains("setCutsceneChromeSuppressed(false)"))
             }
@@ -456,3 +455,64 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(scene.contains("Keep the old leaf visible beneath the transition art"))
     }
 }
+
+// MARK: - Condition reference validation
+
+extension EmptyCoatCaseIntroductionTests {
+    /// The failure mode that actually bites: a gate keyed on an id nothing ever sets.
+    /// It does not crash, it does not warn — the choice simply never appears, which
+    /// reads as intentional design. Every gate in the shipped intro is satisfiable by an
+    /// action in the same graph.
+    ///
+    /// When evidence starts arriving from hotspots and other conversations this grows an
+    /// allowlist of externally-supplied ids rather than being deleted.
+    @Test func everyGateInTheShippedIntroIsSatisfiableFromWithinIt() {
+        let report = EmptyCoatCaseIntroduction.graph.integrityReport()
+
+        #expect(!report.conditionLeafIDs.isEmpty)
+        #expect(
+            report.externallySuppliedConditionIDs.isEmpty,
+            "Gate ids no action sets: \(report.externallySuppliedConditionIDs)"
+        )
+        #expect(report.conditionLeafIDs.contains(EmptyCoatDialogueKeys.pressedHardOnStory))
+        #expect(report.isSound)
+    }
+
+    /// Composite conditions are available to authors but the shipped graph has not
+    /// needed one yet — every gate is still a single leaf.
+    @Test func shippedIntroGatesStayFlat() {
+        #expect(EmptyCoatCaseIntroduction.graph.integrityReport().maximumConditionDepth == 1)
+    }
+}
+
+// MARK: - Source-grep support
+
+extension EmptyCoatCaseIntroductionTests {
+    /// Slice a method body out of Swift source by indentation rather than by an exact
+    /// `"\n    private func "` literal, so a formatting change or a non-private
+    /// neighbour does not silently widen the slice (or fail the suite outright).
+    ///
+    /// This is still a source grep, and it exists for one reason: `Package.swift` gives
+    /// `RainShadowCore` `path: "RainShadow Shared/Gameplay/Navigation"`, so `UI/`,
+    /// `Scenes/`, and `App/` are compiled into **no** test target. Greps are the only
+    /// reach this suite has into scene wiring. Delete this helper — and the assertions
+    /// that use it — the day a UI/Scenes test target exists.
+    static func methodBody(startingAt signature: String, in source: String) -> String? {
+        guard let start = source.range(of: signature) else { return nil }
+        let lines = source[start.lowerBound...].split(
+            separator: "\n",
+            omittingEmptySubsequences: false
+        )
+        var body: [Substring] = []
+        for (index, line) in lines.enumerated() {
+            let startsNextMember = line.range(
+                of: "^    (private |fileprivate |internal |public )?(static |lazy )?(func|var|let) ",
+                options: .regularExpression
+            ) != nil
+            if index > 0, startsNextMember { break }
+            body.append(line)
+        }
+        return body.joined(separator: "\n")
+    }
+}
+

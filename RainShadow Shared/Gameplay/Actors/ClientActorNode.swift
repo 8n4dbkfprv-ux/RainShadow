@@ -38,6 +38,21 @@ final class ClientActorNode: SKNode {
 
     var isLocomoting: Bool { routeFollower.isMoving || locomotionMode != .idle }
 
+    /// Conversation owner id for talk counting (IE `NumTimesTalkedTo`), and the graph a
+    /// click on this actor opens. Both `nil` means "not talkable" — the scene skips it.
+    ///
+    /// NPC *facing* on approach is art-blocked, not code-blocked: this atlas is an
+    /// arrival idle plus two `ClientDepartureFacing` bins, so there is no frame for
+    /// "turns to look at you". The PC turns; the NPC does not. Do not fake it by reusing
+    /// a departure frame as an idle.
+    var dialogueOwnerID: String?
+    var dialogueGraphID: String?
+
+    /// Hit area for a talk click, in the parent's coordinate space.
+    var interactionFrame: CGRect {
+        calculateAccumulatedFrame()
+    }
+
     override init() {
         // 8 authored walk phases + a final standing idle frame (index 08).
         arrivalTextures = (0..<(ActorLocomotionPacing.walkFramesPerCycle + 1)).compactMap {
