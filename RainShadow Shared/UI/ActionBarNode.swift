@@ -37,7 +37,9 @@ final class ActionBarNode: SKNode {
 
         var isInteractive: Bool {
             switch self {
-            case .map, .journal, .inventory, .character: return true
+            // The clock is BG:EE's pause control — in the original it sits in this
+            // same corner and toggling it freezes the world.
+            case .map, .journal, .inventory, .character, .clock: return true
             default: return false
             }
         }
@@ -51,7 +53,7 @@ final class ActionBarNode: SKNode {
             case .rest: return "Rest — not yet"
             case .help: return "Help — not yet"
             case .hideUI: return "Hide UI — not yet"
-            case .clock: return "Time of day — not yet"
+            case .clock: return "Pause"
             default: return ""
             }
         }
@@ -125,6 +127,13 @@ final class ActionBarNode: SKNode {
     func hitTestInventory(_ point: CGPoint) -> Bool {
         let hit = hitTest(point)
         return hit == .inventory || hit == .character
+    }
+
+    /// Marks the clock as holding a player pause.
+    func setClockPaused(_ paused: Bool) {
+        guard let art = buttonArt[.clock] else { return }
+        art.color = UITheme.Color.brass
+        art.colorBlendFactor = paused ? 0.55 : 0
     }
 
     func setHighlightedButton(_ button: Button?) {

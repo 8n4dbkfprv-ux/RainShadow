@@ -319,6 +319,15 @@ final class ClientActorNode: SKNode {
     }
 
     /// Advances RouteFollower locomotion from the scene clock (BG P-regulator).
+    /// Drops the partial tick when the world resumes.
+    ///
+    /// `LogicTickClock` keeps a sub-tick remainder on purpose so a 60 Hz render
+    /// loop does not lose steps. Across a pause that remainder is stale, and
+    /// spending it would move the actor on the frame the player unfreezes.
+    func resetLocomotionClock() {
+        tickClock.reset()
+    }
+
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
         defer { lastLocomotionUpdateTime = currentTime }
         guard !worldIsPaused, locomotionMode != .idle else { return }

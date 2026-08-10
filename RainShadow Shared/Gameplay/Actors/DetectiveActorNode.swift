@@ -441,6 +441,16 @@ final class DetectiveActorNode: SKNode {
     /// Everything happens per tick rather than per rendered frame, mirroring
     /// `Movable::DoStep`: one displacement and one animation frame per tick,
     /// which is why the gait cannot drift against distance travelled.
+    /// Drops the partial tick when the world resumes.
+    ///
+    /// `LogicTickClock` keeps a sub-tick remainder on purpose so a 60 Hz render
+    /// loop does not lose steps. Across a pause that remainder is stale, and
+    /// spending it would move the actor on the frame the player unfreezes.
+    func resetLocomotionClock() {
+        tickClock.reset()
+        lastLocomotionUpdateTime = nil
+    }
+
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
         defer { lastLocomotionUpdateTime = currentTime }
         guard !worldIsPaused, let previousTime = lastLocomotionUpdateTime else { return }

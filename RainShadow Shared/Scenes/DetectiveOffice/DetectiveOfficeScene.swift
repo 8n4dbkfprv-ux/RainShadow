@@ -425,6 +425,12 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func sceneDidBecomeReady() {
+        // QA hook: hold the tactical pause from launch so the capture harness can
+        // frame the paused presentation (clock state, desaturation) without a
+        // keystroke.
+        if ProcessInfo.processInfo.environment["RAINSHADOW_FORCE_PAUSE"] == "1" {
+            handleTacticalPauseInput()
+        }
         guard !caseIntroductionStarted else { return }
         // QA hook: leave the office idle so art/layout can be inspected.
         if ProcessInfo.processInfo.environment["RAINSHADOW_SKIP_INTRO"] == "1" {
@@ -564,6 +570,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
         _ = portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
         let activatedButton = actionBar.endPress(at: actionPoint)
+        if activatedButton == .clock {
+            handleTacticalPauseInput()
+            return
+        }
         if activatedButton == .map {
             setMapPresented(true)
             return
@@ -744,6 +754,32 @@ final class DetectiveOfficeScene: BaseGameScene {
         setJournalPresented(!journalIsPresented)
     }
 
+    var anyOverlayIsPresented: Bool {
+        mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
+    }
+
+    override var isModalInputActive: Bool {
+        dialogueIsActive || anyOverlayIsPresented
+    }
+
+    /// BG:EE tactical pause. Orders issued while frozen are accepted and walked
+    /// on unpause, which is the point of it.
+    override func handleTacticalPauseInput() {
+        pause.togglePlayerPause()
+        applyPlayerPauseFeedback()
+    }
+
+    private func applyPlayerPauseFeedback() {
+        actionBar.setClockPaused(pause.isPausedByPlayer)
+        syncWorldNodePause()
+        // A stale sub-tick remainder would otherwise spend an extra step the
+        // instant the world resumes.
+        if !pause.isPaused {
+            detective.resetLocomotionClock()
+            client.resetLocomotionClock()
+        }
+    }
+
     override func handleCancelInput() {
         if journalIsPresented {
             setJournalPresented(false)
@@ -842,11 +878,11 @@ final class DetectiveOfficeScene: BaseGameScene {
         // player input is locked. `cutsceneChromeSuppressed` is true for the
         // whole authored visit, so it stands in for CutSceneMode here.
         let cutsceneActive = cutsceneChromeSuppressed
-        let worldIsPaused = (dialogueIsActive && !cutsceneActive)
-            || mapIsPresented
-            || worldMapIsPresented
-            || journalIsPresented
-            || inventoryIsPresented
+        pause.setModal(
+            dialogue: dialogueIsActive && !cutsceneActive,
+            overlay: anyOverlayIsPresented
+        )
+        let worldIsPaused = pause.isPaused
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         client.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
@@ -1733,16 +1769,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             activeLootContainerID = nil
         }
 
-        let pausedWorldRoots = [
-            backgroundRoot,
-            floorEffectRoot,
-            rearFixtureRoot,
-            depthWorldRoot,
-            occlusionRoot,
-            weatherRoot,
-            cinematicRoot
-        ]
-        pausedWorldRoots.forEach { $0.isPaused = presented }
+        syncWorldNodePause()
         updateGameplayChromeVisibility(animated: true)
 
         if presented {
@@ -1763,7 +1790,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             clearHotspotHoverHighlight()
         }
 
-        pauseWorldForOverlays(mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented)
+        syncWorldNodePause()
         updateGameplayChromeVisibility(animated: true)
 
         if presented {
@@ -1785,7 +1812,7 @@ final class DetectiveOfficeScene: BaseGameScene {
             clearHotspotHoverHighlight()
         }
 
-        pauseWorldForOverlays(mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented)
+        syncWorldNodePause()
         updateGameplayChromeVisibility(animated: true)
 
         if presented {
@@ -1804,7 +1831,15 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
     }
 
-    private func pauseWorldForOverlays(_ paused: Bool) {
+    /// Freezes the world node trees for every freeze the player can see.
+    ///
+    /// Overlays already did this; a player pause has to as well, or the rain keeps
+    /// falling and a walk cycle keeps cycling in place while the world is
+    /// nominally stopped. Recomputed from live state rather than passed a boolean,
+    /// because the old per-overlay calls each passed only *their* flag — closing
+    /// the inventory over an open map unpaused the world.
+    private func syncWorldNodePause() {
+        let paused = anyOverlayIsPresented || pause.isPausedByPlayer
         let pausedWorldRoots = [
             backgroundRoot,
             floorEffectRoot,
@@ -1822,16 +1857,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         journalIsPresented = presented
         if presented { clearHotspotHoverHighlight() }
 
-        let pausedWorldRoots = [
-            backgroundRoot,
-            floorEffectRoot,
-            rearFixtureRoot,
-            depthWorldRoot,
-            occlusionRoot,
-            weatherRoot,
-            cinematicRoot
-        ]
-        pausedWorldRoots.forEach { $0.isPaused = presented }
+        syncWorldNodePause()
         updateGameplayChromeVisibility(animated: true)
 
         if presented {

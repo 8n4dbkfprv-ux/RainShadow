@@ -146,6 +146,21 @@ class BaseGameScene: SKScene {
     func handleJournalInput() {}
     /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
+
+    /// Why the world is frozen. Replaces the per-scene boolean expressions that
+    /// had nowhere to put a pause the player asked for.
+    var pause = WorldPauseController()
+
+    /// True while dialogue or an overlay wants Return/Space for its own confirm.
+    ///
+    /// BG:EE binds Space to pause, but this game's dialogue contract (README,
+    /// GDD §8.3) also uses Space for Continue / End Dialogue. Scenes report here
+    /// so Space can mean pause in the world and confirm in a modal, without
+    /// either meaning leaking into the other.
+    var isModalInputActive: Bool { false }
+
+    /// Space, or the clock in the corner. BG:EE's clock *is* the pause button.
+    func handleTacticalPauseInput() {}
     /// BG:EE right-click / two-finger tap: drop any targeting mode and reset the
     /// action bar, leaving an in-progress path alone.
     func handleClearTargetingInput() {}
@@ -690,8 +705,18 @@ extension BaseGameScene {
         case 34 where !event.isARepeat: handleInventoryInput() // I
         case 46 where !event.isARepeat: handleMapInput() // M
         case 38 where !event.isARepeat: handleJournalInput() // J
-        case 36, 49: // return / space
+        case 36: // return
             if !event.isARepeat { handleConfirmInput() }
+        case 49: // space
+            // Modal first, so the dialogue contract is untouched; otherwise this
+            // is BG:EE's pause key.
+            if !event.isARepeat {
+                if isModalInputActive {
+                    handleConfirmInput()
+                } else {
+                    handleTacticalPauseInput()
+                }
+            }
         case 53 where !event.isARepeat: handleCancelInput() // escape
         default:
             // BG:EE: 1–9 select dialogue reply options (not Space/Return).

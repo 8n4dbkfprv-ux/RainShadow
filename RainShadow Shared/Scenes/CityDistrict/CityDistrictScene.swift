@@ -156,6 +156,10 @@ final class CityDistrictScene: BaseGameScene {
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
         _ = portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
         let activatedButton = actionBar.endPress(at: actionPoint)
+        if activatedButton == .clock {
+            handleTacticalPauseInput()
+            return
+        }
         if activatedButton == .map {
             setMapPresented(true)
             return
@@ -286,6 +290,21 @@ final class CityDistrictScene: BaseGameScene {
         setJournalPresented(!journalIsPresented)
     }
 
+    var anyOverlayIsPresented: Bool {
+        mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
+    }
+
+    override var isModalInputActive: Bool { anyOverlayIsPresented }
+
+    override func handleTacticalPauseInput() {
+        pause.togglePlayerPause()
+        actionBar.setClockPaused(pause.isPausedByPlayer)
+        refreshOverlayPauseState()
+        if !pause.isPaused {
+            detective.resetLocomotionClock()
+        }
+    }
+
     override func handleCancelInput() {
         if journalIsPresented {
             setJournalPresented(false)
@@ -350,7 +369,8 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        let worldIsPaused = mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
+        pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
+        let worldIsPaused = pause.isPaused
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
             pruneCompletedQueuedGoals()
@@ -718,8 +738,11 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private func refreshOverlayPauseState() {
-        let anyOverlay = mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
-        setWorldPaused(anyOverlay)
+        let anyOverlay = anyOverlayIsPresented
+        // A player pause freezes the node trees too, otherwise the rain keeps
+        // falling in a stopped world. The HUD stays up for it — unlike an overlay,
+        // the point of a tactical pause is to keep issuing orders.
+        setWorldPaused(anyOverlay || pause.isPausedByPlayer)
         portraitBar.isHidden = anyOverlay
         actionBar.isHidden = anyOverlay
     }
