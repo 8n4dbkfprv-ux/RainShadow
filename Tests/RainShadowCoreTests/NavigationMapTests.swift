@@ -550,47 +550,52 @@ struct NavigationMapTests {
     }
 
     @Test func actorOccupancyBlocksWhenActorsAreHardBlockers() {
-        let map = makeMap()
+        let map = makeActorMap()
+        let blockerAt = CGPoint(x: 320, y: 240)
         map.registerActor(
             id: "blocker",
             kind: .npc,
-            at: CGPoint(x: 20, y: 5),
-            radius: 4,
+            at: blockerAt,
+            radius: 16,
             isMoving: false
         )
         map.occupancy.setBumpable(id: "blocker", bumpable: false)
 
         let blocked = map.pathAvoidingActors(
-            from: CGPoint(x: 5, y: 5),
-            to: CGPoint(x: 35, y: 5)
+            from: CGPoint(x: 80, y: 240),
+            to: CGPoint(x: 560, y: 240)
         )
-        // With a hard blocker on the direct line, path may go around or fail.
+        // Avoidance may route around or give up, but it must never walk through
+        // the blocker's painted footprint.
         if let blocked {
-            #expect(blocked.allSatisfy { hypot($0.x - 20, $0.y - 5) > 3 })
+            #expect(blocked.allSatisfy {
+                !map.searchMap.flags(at: $0).contains(.npcActor)
+            })
         }
     }
 
     @Test func bumpRequestOffersSidestepForIdleActor() {
-        let map = makeMap()
+        let map = makeActorMap()
         map.registerActor(
             id: "mover",
             kind: .player,
-            at: CGPoint(x: 5, y: 5),
-            radius: 3,
+            at: CGPoint(x: 240, y: 240),
+            radius: 16,
             isMoving: true
         )
+        let idleAt = CGPoint(x: 288, y: 240)
         map.registerActor(
             id: "idle",
             kind: .npc,
-            at: CGPoint(x: 8, y: 5),
-            radius: 3,
+            at: idleAt,
+            radius: 16,
             isMoving: false
         )
 
         let bump = map.occupancy.bumpRequest(
             forMover: "mover",
-            at: CGPoint(x: 8, y: 5),
-            moverRadius: 3
+            at: idleAt,
+            moverRadius: 16
         )
         #expect(bump?.actorID == "idle")
         #expect(bump != nil)
@@ -710,6 +715,24 @@ struct NavigationMapTests {
             columns: 4,
             rows: 4,
             cellSize: CGSize(width: 10, height: 10),
+            obstacles: obstacles
+        )
+    }
+
+    /// Fixture for anything that places an actor.
+    ///
+    /// `makeMap` is 40×40 world units — smaller than a single BG:EE personal
+    /// space, which stamps `personalSpaceCells - 1` = 3 cells across. Actor tests
+    /// on that fixture cannot be meaningful: one body's footprint covers the
+    /// whole world, so every sidestep candidate is occupied and every avoidance
+    /// query fails for the wrong reason. This is one BG screen at the engine's
+    /// own 16×12 cell, which leaves room for two bodies and a gap.
+    private func makeActorMap(obstacles: [CGRect] = []) -> NavigationMap {
+        NavigationMap(
+            origin: .zero,
+            columns: 40,
+            rows: 40,
+            cellSize: SearchMap.defaultCellSize,
             obstacles: obstacles
         )
     }

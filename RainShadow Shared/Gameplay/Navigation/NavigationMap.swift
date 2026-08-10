@@ -273,7 +273,8 @@ final class NavigationMap {
         kind: NavigationActorKind,
         at position: CGPoint,
         radius: CGFloat? = nil,
-        isMoving: Bool = false
+        isMoving: Bool = false,
+        personalSpaceCells: Int = ActorLocomotionPacing.personalSpaceCells
     ) {
         occupancy.register(
             OccupyingActor(
@@ -282,7 +283,8 @@ final class NavigationMap {
                 position: position,
                 radius: radius ?? agentProfile.radius,
                 isBumpable: !isMoving,
-                isMoving: isMoving
+                isMoving: isMoving,
+                personalSpaceCells: personalSpaceCells
             )
         )
     }

@@ -19,10 +19,17 @@ struct OccupyingActor: Equatable, Sendable {
     let id: String
     let kind: NavigationActorKind
     var position: CGPoint
+    /// World-unit proximity radius. Used for bump/overlap decisions between two
+    /// bodies, *not* for the search-map stamp — see `personalSpaceCells`.
     var radius: CGFloat
     /// Idle / friendly actors are bumpable (BG:EE default for party/NPCs).
     var isBumpable: Bool
     var isMoving: Bool
+    /// BG:EE `personal_space`, in search-map cells. The occupancy stamp covers
+    /// `personalSpaceCells - 1` cells and the clearance test only
+    /// `personalSpaceCells - 2`; `SearchMap.stampActor` documents why the two
+    /// differ.
+    var personalSpaceCells: Int = ActorLocomotionPacing.personalSpaceCells
 }
 
 /// Result of a bump request: the blocker should sidestep, then return.
@@ -161,7 +168,7 @@ final class ActorOccupancy {
     private func stamp(_ actor: OccupyingActor) {
         searchMap?.stampActor(
             at: actor.position,
-            radius: actor.radius,
+            personalSpaceCells: actor.personalSpaceCells,
             flag: actor.kind.flag,
             set: true
         )
@@ -170,7 +177,7 @@ final class ActorOccupancy {
     private func clearStamp(_ actor: OccupyingActor) {
         searchMap?.stampActor(
             at: actor.position,
-            radius: actor.radius,
+            personalSpaceCells: actor.personalSpaceCells,
             flag: actor.kind.flag,
             set: false
         )

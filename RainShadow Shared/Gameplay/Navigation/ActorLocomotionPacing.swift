@@ -60,6 +60,18 @@ enum ActorLocomotionPacing {
     /// `Documentation/PaperdollBGEESpriteRedoPlanV14.md`.
     static let infinityEngineBodyPixels: CGFloat = 50
 
+    /// `personal_space` for a humanoid, read out of BG:EE's own animation data
+    /// (`6100.ini` and every other character animation in `CHAAnim.bif`):
+    ///
+    ///     [general]
+    ///     move_scale=9        ; = IE_MOVEMENTRATE
+    ///     ellipse=16          ; the drawn ground circle — a different number
+    ///     personal_space=3    ; the pathing footprint, in search-map cells
+    ///
+    /// `ellipse` and `personal_space` are separate fields for separate jobs; only
+    /// this one is navigation.
+    static let infinityEnginePersonalSpaceCells: CGFloat = 3
+
     // MARK: - Derived pace
 
     /// `1500 / IE_MOVEMENTRATE`; larger means slower, as in the engine.
@@ -90,6 +102,30 @@ enum ActorLocomotionPacing {
 
     /// Inclusive acceptance band for `walkSpeed` (used by tests).
     static let walkSpeedBand: ClosedRange<CGFloat> = 140...180
+
+    /// Humanoid personal space in *our* search-map cells.
+    ///
+    /// The engine's `3` cannot be copied across literally. BG measures 16×12 px
+    /// cells against a ~50px adult; RainShadow measures 16×12 world-unit cells
+    /// against a `standingAdultBodyHeight` of ~70, so its cells are relatively
+    /// ~1.4× finer and a literal `3` would draw a footprint 1.4× too small
+    /// against the body walking around inside it.
+    ///
+    /// Scaling the *radius* (`personalSpace - 1`) rather than the raw field is
+    /// what keeps the derivation honest, and it lands on 4. Checked against the
+    /// engine rather than assumed: BG's minimum centre-to-centre gap between two
+    /// humans is test(1) + paint(2) = 3 cells = 48px = 0.96 body heights; at 4
+    /// this yields test(2) + paint(3) = 5 cells = 80 units = 1.14 body heights,
+    /// a little roomier than BG. The literal 3 would give 0.68 — materially
+    /// tighter than the engine, in a direction that reads as actors clipping.
+    ///
+    /// Derived rather than written down so a sprite rebake cannot silently
+    /// invalidate it, exactly like `walkSpeed`.
+    static var personalSpaceCells: Int {
+        let scaled = (infinityEnginePersonalSpaceCells - 1)
+            * (OfficeInteriorScale.standingAdultBodyHeight / infinityEngineBodyPixels)
+        return Int(scaled.rounded()) + 1
+    }
 
     // MARK: - Projected travel metric
 

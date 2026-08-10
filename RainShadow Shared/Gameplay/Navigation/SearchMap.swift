@@ -128,6 +128,19 @@ final class SearchMap {
         flags.contains(.passable) && !flags.contains(.doorImpassable)
     }
 
+    /// True when *either* occupancy bit is set.
+    ///
+    /// `SearchMapFlags.actor` is a two-bit mask, and `OptionSet.contains` is a
+    /// superset test — so `flags.contains(.actor)` only answers "is this cell
+    /// occupied by a player **and** an NPC simultaneously", which never happens.
+    /// Every actor-blocking query in this file used that test, which meant actor
+    /// occupancy was stamped but never read: `treatActorsAsBlocking` was inert
+    /// and the two-tier "plan around actors first" search always came back with
+    /// the actor-ignoring answer. Membership has to be a disjointness test.
+    func containsActor(_ flags: SearchMapFlags) -> Bool {
+        !flags.isDisjoint(with: .actor)
+    }
+
     /// Point query with optional actor radius (BG circle-size clearance).
     func blocked(
         at point: CGPoint,
@@ -173,7 +186,7 @@ final class SearchMap {
             treatActorsAsBlocking: treatActorsAsBlocking
         )
         guard isTerrainPassable(flags) else { return false }
-        if treatActorsAsBlocking, flags.contains(.actor) {
+        if treatActorsAsBlocking, containsActor(flags) {
             return false
         }
         return true
@@ -255,7 +268,7 @@ final class SearchMap {
                 if !treatActorsAsBlocking {
                     flags.subtract(.actor)
                 }
-                if !isTerrainPassable(flags) || (treatActorsAsBlocking && flags.contains(.actor)) {
+                if !isTerrainPassable(flags) || (treatActorsAsBlocking && containsActor(flags)) {
                     sawImpassable = true
                 }
                 combined.formUnion(flags)
@@ -304,7 +317,7 @@ final class SearchMap {
                 radius: radius,
                 treatActorsAsBlocking: treatActorsAsBlocking
             )
-            if !isTerrainPassable(flags) || (treatActorsAsBlocking && flags.contains(.actor)) {
+            if !isTerrainPassable(flags) || (treatActorsAsBlocking && containsActor(flags)) {
                 if stopOnImpassable {
                     return flags.subtracting(.passable)
                 }
@@ -340,7 +353,7 @@ final class SearchMap {
             treatActorsAsBlocking: treatActorsAsBlocking,
             stopOnImpassable: true
         )
-        return isTerrainPassable(flags) && !(treatActorsAsBlocking && flags.contains(.actor))
+        return isTerrainPassable(flags) && !(treatActorsAsBlocking && containsActor(flags))
     }
 
     // MARK: - Stamping
@@ -474,5 +487,95 @@ final class SearchMap {
 
         return clip(origin: start.x, delta: deltaX, lower: interior.minX, upper: interior.maxX)
             && clip(origin: start.y, delta: deltaY, lower: interior.minY, upper: interior.maxY)
+    }
+}
+
+// MARK: - Cell-space actor footprints (BG:EE personal space)
+
+/// BG:EE keeps two different sizes for one body and the gap between them is
+/// deliberate. `TileProps::PaintSearchMap` marks a filled disc of radius
+/// `personalSpace - 1` **search-map cells**, while `Map::GetBlockedInRadiusTile`
+/// only tests `personalSpace - 2`, with the engine's own comment explaining why:
+///
+/// > Note: this is a larger circle than the one tested in GetBlocked. This means
+/// > that an actor can get closer to a wall than to another actor. This matches
+/// > the behaviour of the original BG2.
+///
+/// That asymmetry is the mechanical reason BG characters brush along walls but
+/// keep a wide berth around each other, and it is the half of the footprint
+/// model RainShadow was missing — a single radius gave walls and bodies the same
+/// clearance.
+///
+/// Both discs are plotted in **cell** space, not world space, so a 16×12 cell
+/// makes the footprint a 4:3 ellipse on screen. That is BG's shape too, and it
+/// matters here: a body is wider than it is deep in a dimetric view, so a
+/// world-space circle over-reserves depth and under-reserves width.
+///
+/// Static clearance against painted obstacle geometry is deliberately *not*
+/// routed through here — it stays on the tuned world-unit
+/// `NavigationAgentProfile` radius. See `Documentation/PathfindingSystem.md`.
+extension SearchMap {
+    /// Cells inside a filled disc of `radiusInCells` around `point`, clipped to
+    /// the map. Radius 0 is the single cell containing `point`.
+    func cellsInDisc(around point: CGPoint, radiusInCells: Int) -> [SearchMapCell] {
+        let origin = cell(for: point)
+        guard radiusInCells > 0 else {
+            return contains(origin) ? [origin] : []
+        }
+        var result: [SearchMapCell] = []
+        result.reserveCapacity((radiusInCells * 2 + 1) * (radiusInCells * 2 + 1))
+        let radiusSquared = radiusInCells * radiusInCells
+        for dx in -radiusInCells...radiusInCells {
+            for dy in -radiusInCells...radiusInCells {
+                guard dx * dx + dy * dy <= radiusSquared else { continue }
+                let candidate = SearchMapCell(column: origin.column + dx, row: origin.row + dy)
+                guard contains(candidate) else { continue }
+                result.append(candidate)
+            }
+        }
+        return result
+    }
+
+    /// Paint (or lift) an actor's occupancy over a cell-space disc of radius
+    /// `personalSpaceCells - 1`.
+    ///
+    /// Impassable cells are skipped, mirroring the engine's `PaintIfPassable`:
+    /// occupancy is a claim on walkable floor, and painting it into a wall would
+    /// leave an actor bit behind on a cell no one can stand in anyway.
+    func stampActor(
+        at point: CGPoint,
+        personalSpaceCells: Int,
+        flag: SearchMapFlags,
+        set: Bool
+    ) {
+        precondition(flag == .playerActor || flag == .npcActor)
+        let radius = max(0, personalSpaceCells - 1)
+        for candidate in cellsInDisc(around: point, radiusInCells: radius) {
+            guard isTerrainPassable(flags(at: candidate)) else { continue }
+            let idx = index(of: candidate)
+            if set {
+                cells[idx] |= flag.rawValue
+            } else {
+                cells[idx] &= ~flag.rawValue
+            }
+        }
+    }
+
+    /// True when no *other* actor's stamp overlaps a cell-space disc of radius
+    /// `personalSpaceCells - 2` around `point`.
+    ///
+    /// The smaller radius is what lets two bodies stand a believable distance
+    /// apart rather than a full footprint apart: this disc meeting a neighbour's
+    /// painted disc puts their centres `(personalSpace - 2) + (personalSpace - 1)`
+    /// cells away, which for a BG humanoid is 3 cells — 48px, or 0.96 body
+    /// heights.
+    func isClearOfActors(at point: CGPoint, personalSpaceCells: Int) -> Bool {
+        let radius = max(0, personalSpaceCells - 2)
+        for candidate in cellsInDisc(around: point, radiusInCells: radius) {
+            if containsActor(flags(at: candidate)) {
+                return false
+            }
+        }
+        return true
     }
 }
