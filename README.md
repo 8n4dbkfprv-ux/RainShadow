@@ -8,8 +8,9 @@ RainShadow is a shared Swift/SpriteKit noir detective RPG prototype for iOS/iPad
 2. Select **RainShadow iOS** or **RainShadow macOS**.
 3. Run in landscape. Tap/click to skip the exterior after one second. Lila then enters with the case. Select a numbered response (click the line, or on macOS press **1–9**), use **Continue** for the next passage, and finish with **End Dialogue**. On macOS, arrows/WASD move reply focus for reading; **Return/Space** only activates Continue/End Dialogue (classic BG:EE — Space does not pick a player reply).
 4. After the introduction, tap/click the office floor to move and select its objects to inspect them.
-5. Open the inventory by clicking or tapping Voss's portrait on the right-side HUD. On macOS, `I` also toggles the inventory, arrows/WASD move its selection, and Return/Space/Escape closes it.
-6. Open the current area map with the compass button on the left-side HUD. On macOS, `M` also toggles the map; Return/Space/Escape closes it.
+5. Out in the world, **Space** or the pocket-watch button on the left rail pauses (BG:EE's clock *is* the pause control). Orders issued while paused are walked when you unpause. **Escape** stops a walk; right-click and two-finger tap clear targeting without stopping one.
+6. Open the inventory by clicking or tapping Voss's portrait on the right-side HUD. On macOS, `I` also toggles the inventory, arrows/WASD move its selection, and Return/Space/Escape closes it.
+7. Open the current area map with the compass button on the left-side HUD. On macOS, `M` also toggles the map; Return/Space/Escape closes it.
 
 Minimum targets are iOS/iPadOS 18.0 and macOS 15.0. The legacy tvOS template target is outside this milestone.
 

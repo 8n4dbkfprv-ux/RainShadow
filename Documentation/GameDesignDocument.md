@@ -518,7 +518,7 @@ Failed checks produce information with a cost, a changed relationship, time loss
 - Tap/click hotspot: select and approach; interact on arrival when unambiguous.
 - Tap/click actor: approach or begin conversation.
 - Drag/pinch or scroll: camera pan/zoom only when a scene permits it.
-- Escape/two-finger tap: cancel current path, dismiss overlay, or step back one UI level.
+- Escape: stop the current path, dismiss an overlay, or step back one UI level. Two-finger tap / right-click clears targeting state and does **not** stop a walk — the *Sword Coast Survival Guide* lists R-click as cancelling "attacks or spellcasting", and the engine's right-click path only clears target mode.
 - Hold focus key/long press: optional hotspot reveal.
 
 ### 8.2 iOS and iPadOS
@@ -533,7 +533,7 @@ Failed checks produce information with a cost, a changed relationship, time loss
 ### 8.3 macOS
 
 - Left click: select, move, or interact.
-- Right click or Escape: cancel/back.
+- Escape: stop/back. Right click: clear targeting (never stops a walk).
 - Pointer hover: target label and cursor affordance.
 - WASD/arrow keys: optional camera pan; not required for actor movement.
 - Return/Space: confirm Continue / End Dialogue or non-dialogue UI (inventory/map). Player dialogue **replies** use click or number keys **1–9** (classic BG:EE); Space does not auto-pick a reply.

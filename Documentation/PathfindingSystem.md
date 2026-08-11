@@ -260,20 +260,70 @@ Deliberate. Do not "fix" these without a decision:
 | Corrective repath | `Actor::NewPath` rebuilds to `Destination`, destroying queued waypoints | re-appends later goals | BG's behaviour here is a bug |
 | Appended leg planning | bare `FindPath`, actors ignored | same | Matched deliberately — a blocker will have moved by the time a later leg is walked. Not an oversight to tidy up |
 
+### Actor footprints: painted wide, tested narrow
+
+BG keeps two sizes for one body, and the gap is deliberate.
+`TileProps::PaintSearchMap` marks a filled disc of radius `personal_space - 1`
+**search-map cells**; `Map::GetBlockedInRadiusTile` tests only
+`personal_space - 2`. The engine explains itself in a comment: *"this is a larger
+circle than the one tested in GetBlocked. This means that an actor can get closer
+to a wall than to another actor. This matches the behaviour of the original
+BG2."* That asymmetry is the mechanical reason BG characters brush along walls but
+keep a wide berth around each other.
+
+`personal_space` comes from BG:EE's own animation data — every character
+animation in `CHAAnim.bif` reads `move_scale=9, ellipse=16, personal_space=3`.
+`ellipse` is the *drawn* ground circle and is a different number for a different
+job; only `personal_space` is navigation.
+
+The value is **derived, not copied**. BG measures 16×12px cells against a ~50px
+adult; we measure 16×12 world-unit cells against a `standingAdultBodyHeight` of
+~70, so our cells are relatively ~1.4× finer. Scaling the radius lands on
+`personalSpaceCells = 4`, which puts two bodies 1.14 body heights apart against
+BG's 0.96; the literal `3` would give 0.68, tight enough to read as clipping.
+`ActorLocomotionPacing.personalSpaceCells` does the arithmetic so a sprite rebake
+cannot silently invalidate it.
+
+**Static clearance is deliberately not routed through this.** Obstacle geometry
+still uses the tuned world-unit `NavigationAgentProfile` radius. Measured
+reachability is byte-identical to before the change — office 373 of 7,752 cells in
+both door states, and all six districts unmoved (sableRow 5,039; wharfLadder
+5,485; riverside 7,202; harborpointPD 5,795; lilaStreet 6,863; civicRecords
+6,067). `ActorFootprintTests` asserts those counts, so a footprint change that
+leaks into geometry clearance fails loudly.
+
+With a body in the office, roughly 40% of approach orders can no longer route
+*around* her and fall through to the actor-ignoring path plus a bump. That is what
+BG does indoors. No approach becomes unreachable, which is the part that would
+have mattered.
+
+### The `.actor` mask bug
+
+`SearchMapFlags.actor` is a two-bit mask (`[.playerActor, .npcActor]`) and
+`OptionSet.contains` is a superset test — so `flags.contains(.actor)` asked
+whether a cell held a player **and** an NPC simultaneously. It never does. Every
+actor-blocking query in `SearchMap` read occupancy that way, which means the stamp
+was written and never honoured: `treatActorsAsBlocking` was inert, and the
+two-tier "plan around actors first" search always returned the actor-ignoring
+answer. Membership is `SearchMap.containsActor`, a disjointness test.
+`ActorFootprintTests` fails in three places if it regresses.
+
 Known gaps, in priority order:
 
-- **Agent footprints are discs, not ellipses.** `NavigationAgentProfile` stores
-  `halfWidth`/`halfHeight`, then `radius` collapses them with `max()`. BG stamps
-  `circleSize` in *cell* space, which is a 16:12 ellipse in world space. The city
-  profile (16×4) therefore behaves as 16×16 and costs 12–20% of street per
-  district — 697 to 1,061 cells. Every district stays connected, so this is
-  narrowing, not blocking. Fixing it means threading half-extents through six
-  `SearchMap` entry points and every caller.
 - Search-map flags model passability, doors, and actors only. BG's `TRAVEL`,
-  `NO_SEE`, `SIDEWALL`, `DOOR_OPAQUE` and footstep material are absent. `TRAVEL`
-  is how BG triggers area transitions; we use hotspot and edge-exit rects instead.
-- One speed for every actor. BG reads `IE_MOVEMENTRATE` per creature from
-  `moverate.2da`.
+  `NO_SEE`, `SIDEWALL` and `DOOR_OPAQUE` are absent. `TRAVEL` is how BG triggers
+  area transitions; we use hotspot and edge-exit rects instead, and
+  `WorldCursor` takes the travel state from those rects rather than from a flag.
+- Footstep **material** is modelled per scene (`FootstepSurface`) rather than per
+  cell. BG resolves it through the search map's material channel into
+  `terrain.2da`; BG:EE itself ships no `terrain.2da`, so this is a seam kept
+  deliberately, not an omission.
+- `NavigationAgentProfile` still collapses `halfWidth`/`halfHeight` with `max()`
+  for *static* clearance, so the city profile (16×4) behaves as 16×16 and costs
+  12–20% of street per district — 697 to 1,061 cells. Every district stays
+  connected, so this is narrowing, not blocking. Actor-vs-actor clearance no
+  longer has this problem; it is a cell-space disc, which is a 16:12 ellipse in
+  world space.
 
 Two things that look like divergences and are not — do not add them:
 

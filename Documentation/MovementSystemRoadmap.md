@@ -1,8 +1,8 @@
 # Movement system roadmap
 
-- Status: Phase 0 complete; Phase 3 locomotion shipped via the pathfinding rewrite; P1/P2 and P3 control surface not scheduled
-- Version: 0.3
-- Date: 4 August 2026
+- Status: Phases 0–2 complete; Phase 3 locomotion shipped via the pathfinding rewrite; P3 control surface and P4–P6 not scheduled
+- Version: 0.4
+- Date: 11 August 2026
 - Related: GDD §8 (Controls), Technical Architecture §10–12 (actors, navigation, input), [Pathfinding and NPC locomotion](PathfindingSystem.md) (shipped navigation stack and NPC authoring rules), Dialogue System Roadmap (pause / modal interaction patterns)
 
 ## Purpose
@@ -34,9 +34,10 @@ This document does **not** propose dual “classic vs modern” control schemes.
 
 Findings derive from BG/BGII manuals, Beamdog EE guides (Amn Survival Guide, Mastering Melee & Magic), BG wiki secondary notes on formations/encumbrance, and RainShadow’s own navigation code/docs. Uncertainties that remain open for implementation:
 
-- Exact default facing when only left-clicking a group (no R-drag) is under-documented in manuals.
+- ~~Exact default facing when only left-clicking a group (no R-drag) is under-documented in manuals.~~ **Closed from source.** `GameControl::OnMouseUp` calls `InitFormation(p, false)` on a plain left-click, which sets `formationBaseAngle = AngleFromPoints(clickPoint, leaderPos)` — the formation orients along the direction of travel. The comment above it says so outright: "Ensure that left-click movement also orients the formation in the direction of movement."
 - Automatic mid-path re-formation when pathfinding splits the party is **not** a named IE feature—community practice is manual regroup.
-- Exact 100%/120% encumbrance thresholds are secondary (wiki), not printed in manuals checked.
+- ~~Exact 100%/120% encumbrance thresholds are secondary (wiki), not printed in manuals checked.~~ **Closed from the shipped manual.** *Adventurer's Guide* p. 43: over the weight allowed by Strength "their movement speed is halved"; "Carrying more than 10% more than a character's allowed weight prevents them from moving altogether." So the bands are 100% and 110%, not 120%. `MovementProfile.Encumbrance` uses those.
+- **Right-click does not cancel movement.** The manual lists R-click as cancelling "attacks or spellcasting", and GemRB's right-click path only clears `targetMode` and resets the action bar. This settles the conflict between GDD §8.1's "Escape/two-finger tap: cancel current path" and frozen rule 14 in favour of rule 14 — the code was already right and the GDD text was wrong. GDD §8.1 has been corrected.
 - Heuristic doc/code mismatch from early drafts was resolved in Phase 0 and then superseded by the pathfinding rewrite: the shipped search uses a weighted Euclidean heuristic (weight 1.5) with cross-product tie-breaking, matching GemRB's `Map::FindPath`. Technical Architecture §11.3 and `PathFinder` agree.
 
 ---
@@ -56,6 +57,26 @@ reimplementation of the engine BG:EE runs on. Read the code, not forum lore:
 | Vertical step scale | **0.75** (= 12/16, the search-cell aspect) | `Map::NormalizeDeltas` |
 | Orientations | **16**, nine authored + seven mirrored | `core/Orientation.h`, `SixteenToNine` |
 | Turn rate when standing | **one bin per tick**, shorter arc | `GetNextFace` |
+| `move_scale` / `ellipse` / `personal_space` | **9 / 16 / 3** | BG:EE `CHAAnim.bif`, every character animation INI (e.g. `6100.ini`) |
+| Per-creature rate band | **5–10** | BG:EE `EXTSPEED.2da`; no character animation appears, so PCs take the default 9 |
+| Actor stamp radius | `personal_space − 1` cells | `TileProps::PaintSearchMap` |
+| Actor clearance radius | `personal_space − 2` cells | `Map::GetBlockedInRadiusTile` |
+| Path search nodes | **32 000** | `Baldur.lua` `Path Search Nodes` |
+| Script / idle stride | **16 ticks**, staggered per actor | `Scriptable::ProcessActions` (`Ticks % 16 != globalID % 16`) |
+| Idle head-turn odds | **1 in 25** per script pass (≈ every 27 s) | `Actor::IdleActions` (`RAND(0, 24)`) |
+| Footstep gate | previous **clip length**, not a contact frame | `Actor::PlayWalkSound` (`nextWalkSound = now + length`) |
+| Bark ladder | 1 never / 2 once per selection / 3 50% / 4 80% / 5 always, + ~5% rare | `Actor::CommandActor`, `Actor::PlaySelectionSound` |
+| Cursor | read straight off the search map, then object/actor overrides, `IE_CURSOR_GRAY` for "not now" | `Map::GetCursor`, `GameControl::UpdateCursor` |
+
+Shipped BG:EE option defaults, read from a live `Baldur.lua`: `Footsteps = 1`,
+`Command Sounds Frequency = 2`, `Selection Sounds Frequency = 3`,
+`Greyscale On Pause = 1`, `Bored Timeout = 3000`, `Maximum Frame Rate = 30`,
+`Mouse/Keyboard Scroll Speed = 40`, `Terrain Hugging = 0` (undocumented; not
+replicated).
+
+`StepTime` is per game in GemRB — `bg1 = 425`, `bgee/bg2/bg2ee = 566`,
+`iwd = 637`, `pst = 472` — so targeting BG:EE means a gait about a third quicker
+than original BG1. That is intended.
 
 Per tick the engine walks `STEP_RADIUS × (StepTime / walkScale)` = 6.79 px
 horizontally and 5.09 px vertically — 101.9 and 76.4 px/s. Against BG1's ~50-row
@@ -119,14 +140,19 @@ Three consequences worth stating plainly:
 | Projected-world speed so diagonals are not faster on screen | **Shipped** |
 | 16-bin facing from velocity; 9 sources + mirror | **Shipped** |
 | Click/tap → hotspot vs walk resolution | **Shipped** |
-| World pause during modal dialogue / overlays | **Partial** (scene-level `isPaused` on roots) |
-| Player-driven tactical pause (queue moves while paused) | **Not shipped** (P1) |
+| World pause during modal dialogue / overlays | **Shipped** (`WorldPauseController`; `syncWorldNodePause` replaced three duplicated root lists that each passed only their own overlay's flag) |
+| Player-driven tactical pause (queue moves while paused) | **Shipped** — Space (after modal first refusal) and the HUD clock, which is what BG:EE's clock is. Orders issued while frozen wait intact and walk on resume; the tick clock resets so a stale remainder cannot spend a step |
 | Group stop / cancel route affordance (UI + input) | **Partial** — cancel shipped; dedicated IE Stop UI is P1 |
 | Multi-select, party portraits as formation order | **UI chrome only** (party rail assets); no multi-actor runtime |
 | Formations / destination facing drag | **Not shipped** |
-| Anisotropic agent footprint (BG stamps `circleSize` in cell space = a 16:12 ellipse) | **Not shipped** — `NavigationAgentProfile.radius` collapses `halfWidth`/`halfHeight` with `max()`, so the city profile (16×4) acts as 16×16 and costs 12–20% of street per district. Narrowing, not blocking; see [Pathfinding](PathfindingSystem.md) §Divergences |
-| Per-creature movement rate (`IE_MOVEMENTRATE` / `moverate.2da`) | **Not shipped** — one `walkSpeed` for every actor |
-| Encumbrance / Haste-style speed modifiers | **Not shipped** |
+| Anisotropic agent footprint (BG stamps `circleSize` in cell space = a 16:12 ellipse) | **Shipped for actor-vs-actor**, with BG's paint(`size−1`)/test(`size−2`) asymmetry, so a body can hug a wall but not another body. Static clearance still collapses half-extents with `max()`; see [Pathfinding](PathfindingSystem.md) |
+| Per-creature movement rate (`IE_MOVEMENTRATE` / `moverate.2da`) | **Shipped** (`MovementProfile.moveScale`, humanoid 9, engine band 5–10). Both actors ship at 9, pinned to the previous `walkSpeed` so the change is provably inert |
+| Encumbrance / Haste-style speed modifiers | **Shipped as inert data** (`MovementProfile.Encumbrance`, `hastened()`); nothing constructs anything but `.unencumbered` until inventory weight exists |
+| Footsteps on BG's clip-length gate, terrain-set per scene, silent while paused / in dialogue | **Shipped** (`FootstepCadence`, `GameSFX`, `FootstepSurface`) |
+| Order-acknowledgement and selection barks on BG's frequency ladder | **Shipped** (`BarkGate`, `MovementBarkPlayer`); only *accepted* orders acknowledge |
+| Idle head-turn on BG's 16-tick / 1-in-25 schedule (a glance ≈ every 27 s) | **Shipped** (`IdleBehaviourClock`) |
+| Hover cursor read straight off the search map, with a travel state and BG's grey modifier | **Shipped** (`WorldCursor`); replaced two disagreeing per-scene `NSCursor` ladders |
+| Greyscale on pause (`Greyscale On Pause = 1`) | **Not shipped** — the world roots are separate scene children, so an `SKEffectNode` wrap would rasterise the whole ≈2400×1400 unit plate (~13M px at 2× backing). The cheap path is a screen-sized snapshot taken at pause time and re-taken if the camera scrolls |
 | Fatigue / rest-linked movement | **Not shipped** |
 
 The pathfinding rewrite moved multi-actor *locomotion* forward of its original P3 slot: the detective and the client both path through the same stack, occupy the same search map, and resolve contact by bumping. What remains deferred is multi-actor *control* — selection sets, formations, portrait order, combat spacing, and party AI.
@@ -333,9 +359,26 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 12. **Travel is measured in the projected metric.** Any code comparing path lengths or deriving durations uses `ActorLocomotionPacing.projectedDistance`, never raw `hypot`.
 13. **A refused order is refused.** A floor click on unreachable ground shows the blocked marker and issues nothing; it is never silently redirected to a nearby tile. `NavigationMap.route`'s fallback is for scripted and approach moves only.
 14. **Escape is the only Stop.** Right-click and two-finger tap clear targeting state; they must not cancel an active route.
-15. **The viewport is the player's.** Any manual scroll detaches the camera to `free` and it stays there until the player re-attaches (portrait double-click). Nothing may silently re-tether it to the actor — that is what made BG's double-click recentre meaningless here before.
+15. **Actor occupancy is painted wider than it is tested.** Paint `personalSpace − 1` cells, test `personalSpace − 2`, both in cell space. Collapsing them back to one radius is what made walls and bodies feel the same. Static clearance stays on the world-unit profile.
+16. **Occupancy membership is a disjointness test.** `SearchMapFlags.actor` is a two-bit mask; `contains` on it asks whether a cell holds a player *and* an NPC and is therefore always false. Use `SearchMap.containsActor`.
+17. **Only accepted orders acknowledge.** A bark above the refusal guard makes a blocked click sound like a success.
+18. **Footsteps are gated on clip length, floored by the stride.** Not on animation contact frames. See `FootstepCadence`.
+19. **Hover and the order decision read the same search-map sample.** If they diverge, the cursor starts lying about what a click will do.
+20. **The viewport is the player's.** Any manual scroll detaches the camera to `free` and it stays there until the player re-attaches (portrait double-click). Nothing may silently re-tether it to the actor — that is what made BG's double-click recentre meaningless here before.
 
 ---
+
+## Divergences introduced by this work
+
+Deliberate, and each one is the direction that fails safe:
+
+| | Engine | Here | Why |
+|---|---|---|---|
+| Footstep cadence | clip length alone | clip length, floored by the stride | BG's walk sounds were authored long enough to pace themselves; ours are not guaranteed to be, and a tight 0.1s sample fires six times a second. The gate is only sampled on logic ticks, and the stride is exactly four of them — so the shipped clips are 0.26s, under the stride, or footsteps drift 25% slow |
+| Bark frequency | `Command Sounds Frequency = 2` (once per selection) | `.half`, and "selection" means re-acquiring the actor | Level 2 works for a six-portrait party where selection changes constantly. With one always-selected detective a literal port barks once per session |
+| Idle head-turn | dedicated `IE_ANI_HEAD_TURN` stance | one bin out, hold, one bin back, using the gradual standing turn | No authored head-turn frames exist. The borrowed motion reads as looking around rather than as a new heading |
+| Travel cursor | painted directional arrow | `NSCursor.dragLink` | The system set has no travel arrow. A painted cursor is art, not code |
+| Middle-click zoom reset | resets zoom to 100% | not ported | Nothing to reset — `DefaultPlayZoom` fixes the projection deliberately and the wheel scrolls the journal |
 
 ## Suggested implementation map
 
