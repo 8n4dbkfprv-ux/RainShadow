@@ -147,6 +147,29 @@ class BaseGameScene: SKScene {
     /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
 
+    #if os(macOS)
+    /// Applies a resolved world cursor.
+    ///
+    /// The system cursor set has no travel arrow, so `dragLink` stands in — it at
+    /// least reads as "leaves here", which is the distinction BG draws and that
+    /// both scenes previously lost by drawing a district portal with the same
+    /// cursor as a lamp post. A painted cursor would be better and is art, not
+    /// code.
+    func applyWorldCursor(_ state: WorldCursorState) {
+        let cursor: NSCursor
+        switch state.cursor {
+        case .normal: cursor = .arrow
+        case .walk: cursor = .arrow
+        case .blocked: cursor = .operationNotAllowed
+        case .travel: cursor = .dragLink
+        case .interact, .talk: cursor = .pointingHand
+        }
+        // BG greys the cursor rather than swapping it; `operationNotAllowed` is the
+        // nearest system equivalent that keeps the refusal legible.
+        (state.isDisabled ? NSCursor.operationNotAllowed : cursor).set()
+    }
+    #endif
+
     /// Why the world is frozen. Replaces the per-scene boolean expressions that
     /// had nowhere to put a pause the player asked for.
     var pause = WorldPauseController()

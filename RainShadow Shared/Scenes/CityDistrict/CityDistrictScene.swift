@@ -249,23 +249,22 @@ final class CityDistrictScene: BaseGameScene {
             NSCursor.pointingHand.set()
             return
         }
-        if district.portals.contains(where: { $0.hitArea.contains(event.location) })
-            || edgeExits.contains(where: { $0.hitArea.contains(event.location) }) {
-            NSCursor.pointingHand.set()
-            return
-        }
+        let isTravel = district.portals.contains(where: { $0.hitArea.contains(event.location) })
+            || edgeExits.contains(where: { $0.hitArea.contains(event.location) })
+
         // BG:EE edge scrolling (`GameControl::OnGlobalMouseMove`).
         setCameraScroll(edgeScrollVector(forHudPoint: hudPoint))
 
-        // BG:EE blocked cursor over impassable ground, so a refused order is
-        // legible before the click (`GameControl::UpdateCursor`).
-        (isFloorOrderable(event.location) ? NSCursor.arrow : Self.blockedCursor).set()
+        // One search-map sample drives hover and the order decision alike; a
+        // portal now reads as a way out rather than as scenery. See `WorldCursor`.
+        applyWorldCursor(WorldCursorState.resolve(
+            isPassable: isFloorOrderable(event.location),
+            isTravel: isTravel
+        ))
         #endif
     }
 
     #if os(macOS)
-    private static let blockedCursor = NSCursor.operationNotAllowed
-
     /// Search-map sample only — this runs on every mouse-move, so it never
     /// path-searches. Mirrors `Map::GetBlocked` behind `UpdateCursor`.
     private func isFloorOrderable(_ point: CGPoint) -> Bool {

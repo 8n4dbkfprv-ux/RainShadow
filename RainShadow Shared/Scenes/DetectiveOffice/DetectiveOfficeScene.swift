@@ -711,21 +711,19 @@ final class DetectiveOfficeScene: BaseGameScene {
 
         // Image #1 cyan silhouette + teal wash before click; same hit list as inspect/door.
         updateHotspotHoverHighlight(at: event.location)
-        if hoveredHotspotID != nil {
-            NSCursor.pointingHand.set()
-            return
-        }
-        // BG:EE swaps in a blocked cursor over impassable ground so the player
-        // knows the order will be refused before committing to the click
-        // (`GameControl::UpdateCursor` → `IE_CURSOR_BLOCKED`).
-        (isFloorOrderable(event.location) ? NSCursor.arrow : Self.blockedCursor).set()
+
+        // One search-map sample drives both the hover feedback and the order
+        // decision, which is what keeps them from disagreeing. See `WorldCursor`.
+        applyWorldCursor(WorldCursorState.resolve(
+            isPassable: isFloorOrderable(event.location),
+            isTravel: hoveredHotspotID == "office.door",
+            hasInteractable: hoveredHotspotID != nil,
+            hasTalkableActor: talkableActor(at: event.location) != nil
+        ))
         #endif
     }
 
     #if os(macOS)
-    /// Cursor shown over ground the detective cannot be ordered onto.
-    private static let blockedCursor = NSCursor.operationNotAllowed
-
     /// Whether a floor click here could produce a move order.
     ///
     /// This is a search-map sample, not a path search — the same thing
