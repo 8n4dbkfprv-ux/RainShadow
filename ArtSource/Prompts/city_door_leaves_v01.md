@@ -4,6 +4,7 @@
 - Mode: built-in Image Generator
 - Refs: `city_perspective_lock_v02.md`, parent `city_building_*` facade (material + dimetric angle), office door separation rule
 - Intent: Ship closed outdoor door leaves as separate chroma props so modular buildings keep empty warm doorway apertures only (office shell pattern).
+- Placement: leaves are **not** positioned by hand. Each facade's opening is measured once — centre and threshold in 512×640 canvas pixels — into `CityDistrictLayout.SourceDoorAperture`, and `CityDistrictLayout.doorLeaf(...)` derives the leaf's world `groundPoint` from its building. Re-measure with `ArtSource/Processing/measure_city_door_apertures.py` whenever a facade in the table below is regenerated; a leaf added here without an aperture fails `CityDoorRegistrationTests`.
 
 ## Runtime IDs
 

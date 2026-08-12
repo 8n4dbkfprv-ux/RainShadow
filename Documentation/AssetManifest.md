@@ -95,6 +95,8 @@ Harborpoint outdoor travel art locked to the detective-office 2:1 dimetric camer
 
 Modular buildings follow the office separation rule for entrances: facades may paint jamb, threshold, stoop, and warm interior spill, but **must not bake opaque door leaves**. Closed leaves ship as separate `city_door_*` props (`ArtSource/Prompts/city_door_leaves_v01.md`). Area-map block plates may keep baked buildings for layout reference.
 
+Because the leaf and its opening ship as two textures, a facade re-export moves the opening and must be re-measured — the runtime derives every leaf's world position from that measurement. Both leaf canvas (256×384, content bottom-aligned with a 4 px margin) and facade canvas (512×640) are part of that contract; `CityDoorRegistrationTests` pins them, and `qa_city_door_registration.py` renders the result for eyeballing.
+
 | Priority | Runtime ID pattern | Pixels | Alpha | Description |
 |---|---|---:|---|---|
 | P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
@@ -105,7 +107,7 @@ Modular buildings follow the office separation rule for entrances: facades may p
 | P0 | `map_world_harborpoint_v04` | 1536×1024 | Opaque | BG EE Classic sparse regional parchment: warm amber open land, thin west harbor wash, SW river, unlettered, no compass/cartouche. District stamps, labels, fog, party marker, and TRAVEL are drawn by `WorldMapOverlay`. |
 | P0 | `map_district_icon_<district>_v01` | 256×256 | Yes | Per-ward isometric building-cluster travel icons (six Act I districts). Process: `process_world_map_markers_v01.py`. |
 | P0 | `city_building_*` / `city_prop_*` | 512×384–640 | Yes | Modular landmarks (empty doorway apertures) and shared street furniture |
-| P0 | `city_door_*` | 256×384-class | Yes | Dimetric closed outdoor door leaves registered to building openings |
+| P0 | `city_door_*` | 256×384 | Yes | Dimetric closed outdoor door leaves. Placement is **derived, not authored**: `CityDistrictLayout.SourceDoorAperture` records each facade's opening (centre + threshold, in 512×640 canvas px) and `doorLeaf(...)` drops the leaf onto it. Re-measure with `measure_city_door_apertures.py` if a facade is re-exported. |
 
 Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apartment return), `wharf_ladder` (west), `riverside` (southwest), `harborpoint_pd` (south), `lila_street` (east), `civic_records` (north). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals).
 

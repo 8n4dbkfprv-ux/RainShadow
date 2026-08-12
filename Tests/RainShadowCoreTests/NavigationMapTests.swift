@@ -527,6 +527,19 @@ struct NavigationMapTests {
         #expect(textureNames.contains("city_prop_crates_mail"))
         #expect(textureNames.contains("city_prop_gate"))
         #expect(sprites.allSatisfy { CityDistrictLayout.worldBounds.contains($0.groundPoint) })
+
+        // Leaves are derived from their facade's aperture, not authored beside it,
+        // so every door carries the shared threshold anchor rather than a per-sprite
+        // guess. Registration itself is covered by CityDoorRegistrationTests.
+        let leaves = sprites.filter { $0.textureName.hasPrefix("city_door_") }
+        #expect(!leaves.isEmpty)
+        #expect(leaves.allSatisfy { $0.anchorY == CityDistrictLayout.doorLeafAnchorY })
+        for leaf in leaves {
+            #expect(
+                CityDistrictLayout.aperturesByLeafTexture[leaf.textureName] != nil,
+                "\(leaf.textureName) has no measured aperture"
+            )
+        }
     }
 
     // MARK: - Theta* / occupancy / node budget

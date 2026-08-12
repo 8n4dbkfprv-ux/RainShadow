@@ -53,34 +53,82 @@ enum CityDistrictLayout {
         static let kiosk: CGFloat = 276
     }
 
-    /// Measured clear doorway opening heights on empty-aperture building textures
-    /// (threshold → lintel underside, texture px). Anchors building display scale.
+    /// A facade's painted doorway opening, measured in **texture-canvas pixels**
+    /// on the shipped 512x640 building canvas with the origin at the top-left.
+    ///
+    /// `centreX`/`thresholdY` are what let a leaf be *derived* rather than authored.
+    /// They were read off the grids emitted by
+    /// `ArtSource/Processing/measure_city_door_apertures.py`, which also re-renders
+    /// the recorded values back over the facade for confirmation.
+    struct SourceDoorAperture {
+        /// Horizontal centre of the opening.
+        let centreX: CGFloat
+        /// Threshold — the bottom of the opening, where a leaf's foot lands. This is
+        /// *not* the facade's painted foot: entrances up a stoop sit well above it
+        /// (`buildingTenement` is ~94 px up), which is exactly why it is measured.
+        let thresholdY: CGFloat
+        /// Clear opening height, threshold to lintel underside. Anchors display scale.
+        let leafHeight: CGFloat
+
+        // One entry per shipped `city_door_*` leaf. Buildings carrying two leaves
+        // (the Voss stoop and its bay, the Lila Street paired entry) get one each.
+        static let buildingVossStoop        = Self(centreX: 234, thresholdY: 588, leafHeight:  52)
+        static let buildingVossStoopGarage  = Self(centreX: 190, thresholdY: 588, leafHeight:  52)
+        static let buildingTenement         = Self(centreX: 205, thresholdY: 548, leafHeight:  62)
+        static let buildingStorefront       = Self(centreX: 288, thresholdY: 600, leafHeight:  64)
+        static let buildingRowhouse         = Self(centreX: 216, thresholdY: 498, leafHeight:  65)
+        static let buildingShop             = Self(centreX: 272, thresholdY: 550, leafHeight:  87)
+        static let buildingGatehouse        = Self(centreX: 127, thresholdY: 548, leafHeight:  90)
+        static let buildingShippingOffice   = Self(centreX: 270, thresholdY: 550, leafHeight: 100)
+        static let buildingWarehouse        = Self(centreX: 328, thresholdY: 575, leafHeight:  75)
+        static let buildingBoarding         = Self(centreX: 268, thresholdY: 540, leafHeight:  75)
+        static let buildingDockShed         = Self(centreX: 155, thresholdY: 553, leafHeight:  75)
+        static let buildingLilaRooms        = Self(centreX: 255, thresholdY: 500, leafHeight:  85)
+        static let buildingLilaRoomsB       = Self(centreX: 300, thresholdY: 500, leafHeight:  85)
+        static let buildingLilaNeighbor     = Self(centreX: 258, thresholdY: 478, leafHeight:  75)
+        static let buildingLilaOpposite     = Self(centreX: 360, thresholdY: 487, leafHeight:  75)
+        static let buildingLilaAlcove       = Self(centreX: 282, thresholdY: 505, leafHeight:  80)
+        static let buildingPDStation        = Self(centreX: 228, thresholdY: 548, leafHeight:  48)
+        static let buildingPDAnnex          = Self(centreX:  98, thresholdY: 516, leafHeight:  85)
+        static let buildingPDAlley          = Self(centreX: 276, thresholdY: 538, leafHeight:  80)
+        static let buildingRecordsAnnex     = Self(centreX: 232, thresholdY: 437, leafHeight:  90)
+        static let buildingRecordsWing      = Self(centreX:  72, thresholdY: 583, leafHeight:  80)
+        static let buildingRecordsColonnade = Self(centreX: 125, thresholdY: 452, leafHeight:  80)
+        static let buildingIronStairs       = Self(centreX: 140, thresholdY: 558, leafHeight:  80)
+        static let buildingRiverWatch       = Self(centreX: 268, thresholdY: 492, leafHeight:  75)
+    }
+
+    /// Measured clear doorway opening heights (texture px). Anchors building display
+    /// scale. Reads through `SourceDoorAperture` so an opening's height and its
+    /// position cannot drift apart.
     enum SourceDoorLeafHeight {
-        static let buildingVossStoop: CGFloat = 52
-        static let buildingTenement: CGFloat = 62
-        static let buildingStorefront: CGFloat = 64
-        static let buildingRowhouse: CGFloat = 65
-        static let buildingShop: CGFloat = 87
-        static let buildingGatehouse: CGFloat = 90
-        static let buildingShippingOffice: CGFloat = 100
-        static let buildingWarehouse: CGFloat = 75
-        static let buildingBoarding: CGFloat = 75
-        static let buildingDockShed: CGFloat = 75
-        static let buildingLilaRooms: CGFloat = 85
-        static let buildingLilaNeighbor: CGFloat = 75
-        static let buildingLilaOpposite: CGFloat = 75
-        static let buildingLilaAlcove: CGFloat = 80
-        static let buildingPDStation: CGFloat = 48
-        static let buildingPDAnnex: CGFloat = 85
-        static let buildingPDAlley: CGFloat = 80
-        static let buildingRecordsAnnex: CGFloat = 90
-        static let buildingRecordsWing: CGFloat = 80
-        static let buildingRecordsColonnade: CGFloat = 80
-        static let buildingIronStairs: CGFloat = 80
-        static let buildingRiverWatch: CGFloat = 75
+        static var buildingVossStoop: CGFloat { SourceDoorAperture.buildingVossStoop.leafHeight }
+        static var buildingTenement: CGFloat { SourceDoorAperture.buildingTenement.leafHeight }
+        static var buildingStorefront: CGFloat { SourceDoorAperture.buildingStorefront.leafHeight }
+        static var buildingRowhouse: CGFloat { SourceDoorAperture.buildingRowhouse.leafHeight }
+        static var buildingShop: CGFloat { SourceDoorAperture.buildingShop.leafHeight }
+        static var buildingGatehouse: CGFloat { SourceDoorAperture.buildingGatehouse.leafHeight }
+        static var buildingShippingOffice: CGFloat { SourceDoorAperture.buildingShippingOffice.leafHeight }
+        static var buildingWarehouse: CGFloat { SourceDoorAperture.buildingWarehouse.leafHeight }
+        static var buildingBoarding: CGFloat { SourceDoorAperture.buildingBoarding.leafHeight }
+        static var buildingDockShed: CGFloat { SourceDoorAperture.buildingDockShed.leafHeight }
+        static var buildingLilaRooms: CGFloat { SourceDoorAperture.buildingLilaRooms.leafHeight }
+        static var buildingLilaNeighbor: CGFloat { SourceDoorAperture.buildingLilaNeighbor.leafHeight }
+        static var buildingLilaOpposite: CGFloat { SourceDoorAperture.buildingLilaOpposite.leafHeight }
+        static var buildingLilaAlcove: CGFloat { SourceDoorAperture.buildingLilaAlcove.leafHeight }
+        static var buildingPDStation: CGFloat { SourceDoorAperture.buildingPDStation.leafHeight }
+        static var buildingPDAnnex: CGFloat { SourceDoorAperture.buildingPDAnnex.leafHeight }
+        static var buildingPDAlley: CGFloat { SourceDoorAperture.buildingPDAlley.leafHeight }
+        static var buildingRecordsAnnex: CGFloat { SourceDoorAperture.buildingRecordsAnnex.leafHeight }
+        static var buildingRecordsWing: CGFloat { SourceDoorAperture.buildingRecordsWing.leafHeight }
+        static var buildingRecordsColonnade: CGFloat { SourceDoorAperture.buildingRecordsColonnade.leafHeight }
+        static var buildingIronStairs: CGFloat { SourceDoorAperture.buildingIronStairs.leafHeight }
+        static var buildingRiverWatch: CGFloat { SourceDoorAperture.buildingRiverWatch.leafHeight }
     }
 
     /// Measured opaque heights of separate `city_door_*` leaf textures (texture px).
+    /// Every shipped leaf fits the same 256x384 canvas, so both bands share a height;
+    /// `wide` stays distinct because it names the bay leaves, not a different size.
     enum SourceSeparateDoorLeafHeight {
         static let standard: CGFloat = 275
         static let wide: CGFloat = 275
@@ -157,6 +205,124 @@ enum CityDistrictLayout {
         /// Was 0.50…1.50 — loose enough to pass a 2.2 m bench.
         static let bench: ClosedRange<CGFloat> = 0.50...0.75
         static let kiosk: ClosedRange<CGFloat> = 1.00...2.20
+    }
+
+    // MARK: - Registering leaves to openings
+
+    /// Every shipped leaf and the aperture it fills. The catalog names its aperture
+    /// explicitly at each call site; this is the same pairing in walkable form, for
+    /// tooling and for the tests that check no leaf has drifted off its opening.
+    static let aperturesByLeafTexture: [String: SourceDoorAperture] = [
+        "city_door_voss_stoop":        .buildingVossStoop,
+        "city_door_voss_stoop_garage": .buildingVossStoopGarage,
+        "city_door_tenement":          .buildingTenement,
+        "city_door_storefront":        .buildingStorefront,
+        "city_door_rowhouse":          .buildingRowhouse,
+        "city_door_shop":              .buildingShop,
+        "city_door_gatehouse":         .buildingGatehouse,
+        "city_door_shipping_office":   .buildingShippingOffice,
+        "city_door_warehouse":         .buildingWarehouse,
+        "city_door_boarding":          .buildingBoarding,
+        "city_door_dock_shed":         .buildingDockShed,
+        "city_door_lila_rooms":        .buildingLilaRooms,
+        "city_door_lila_rooms_b":      .buildingLilaRoomsB,
+        "city_door_lila_neighbor":     .buildingLilaNeighbor,
+        "city_door_lila_opposite":     .buildingLilaOpposite,
+        "city_door_lila_alcove":       .buildingLilaAlcove,
+        "city_door_pd_station":        .buildingPDStation,
+        "city_door_pd_annex":          .buildingPDAnnex,
+        "city_door_pd_alley":          .buildingPDAlley,
+        "city_door_records_annex":     .buildingRecordsAnnex,
+        "city_door_records_wing":      .buildingRecordsWing,
+        "city_door_records_colonnade": .buildingRecordsColonnade,
+        "city_door_iron_stairs":       .buildingIronStairs,
+        "city_door_river_watch":       .buildingRiverWatch
+    ]
+
+    /// Shipped texture canvases (`process_city_districts_v02.py` fits every facade
+    /// to 512x640 and every leaf to 256x384).
+    static let buildingCanvas = CGSize(width: 512, height: 640)
+    static let doorCanvas = CGSize(width: 256, height: 384)
+    /// `fit_canvas` bottom-aligns content with a 4 px margin, so a leaf's painted
+    /// threshold sits 4 px above its canvas bottom.
+    static let doorCanvasFootInset: CGFloat = 4
+
+    /// Anchor that puts a leaf's own painted threshold on its `groundPoint`, so the
+    /// authored point *is* the aperture rather than an offset from it.
+    static var doorLeafAnchorY: CGFloat { doorCanvasFootInset / doorCanvas.height }
+
+    /// World position of a texture-canvas pixel (origin top-left) on a placed sprite.
+    ///
+    /// `anchorY` is a fraction of the **full canvas**, transparent padding included,
+    /// so a sprite's painted foot can sit far below its `groundPoint` — 85-100 units
+    /// for a facade, 4 for a leaf. Going through canvas pixels is what keeps the two
+    /// comparable; offsets eyeballed between `groundPoint`s are not.
+    static func worldPoint(canvasPixel pixel: CGPoint, canvas: CGSize, sprite: VisualSprite) -> CGPoint {
+        let canvasBottomY = sprite.groundPoint.y - sprite.anchorY * canvas.height * sprite.scale
+        return CGPoint(
+            x: sprite.groundPoint.x + (pixel.x - canvas.width / 2) * sprite.scale,
+            y: canvasBottomY + (canvas.height - pixel.y) * sprite.scale
+        )
+    }
+
+    /// World point of a facade's painted doorway threshold.
+    static func aperturePoint(of aperture: SourceDoorAperture, on building: VisualSprite) -> CGPoint {
+        worldPoint(
+            canvasPixel: CGPoint(x: aperture.centreX, y: aperture.thresholdY),
+            canvas: buildingCanvas,
+            sprite: building
+        )
+    }
+
+    /// A closed leaf registered to its building's opening.
+    ///
+    /// The leaf is anchored on its own threshold and dropped straight onto the
+    /// aperture, so nothing is hand-authored and the pair cannot drift apart.
+    ///
+    /// `depthBias` is derived rather than passed: an entrance up a stoop puts the
+    /// leaf *above* its facade's `groundPoint`, and `BaseGameScene.updateDepth`
+    /// sorts by `(artHeight - y) * 0.5 + bias`, so a higher leaf would otherwise
+    /// sort behind the wall it is set into. Cancelling the y difference and adding
+    /// `ahead` leaves the leaf exactly that far in front, wherever the opening sits.
+    static func doorLeaf(
+        textureName: String,
+        on building: VisualSprite,
+        aperture: SourceDoorAperture,
+        scale: CGFloat = DoorDisplayScale.standard,
+        ahead: CGFloat = 1
+    ) -> VisualSprite {
+        let groundPoint = aperturePoint(of: aperture, on: building)
+        let depthBias = building.depthBias
+            + (groundPoint.y - building.groundPoint.y) * 0.5
+            + ahead
+        return VisualSprite(
+            textureName: textureName,
+            groundPoint: groundPoint,
+            scale: scale,
+            anchorY: doorLeafAnchorY,
+            depthBias: depthBias
+        )
+    }
+
+    /// Painted rect of a placed sprite, given its opaque bbox in canvas pixels.
+    static func paintedRect(
+        of sprite: VisualSprite,
+        canvas: CGSize,
+        contentX: ClosedRange<CGFloat>,
+        contentY: ClosedRange<CGFloat>
+    ) -> CGRect {
+        let topLeft = worldPoint(
+            canvasPixel: CGPoint(x: contentX.lowerBound, y: contentY.lowerBound),
+            canvas: canvas, sprite: sprite
+        )
+        let bottomRight = worldPoint(
+            canvasPixel: CGPoint(x: contentX.upperBound, y: contentY.upperBound),
+            canvas: canvas, sprite: sprite
+        )
+        return CGRect(
+            x: topLeft.x, y: bottomRight.y,
+            width: bottomRight.x - topLeft.x, height: topLeft.y - bottomRight.y
+        )
     }
 
     /// Scale so a measured door leaf lands on `targetDoorBodyMultiple` of the adult.
