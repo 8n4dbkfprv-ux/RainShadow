@@ -211,9 +211,16 @@ struct ActorLocomotionPacingTests {
         #expect(office.contains("detectiveCollisionProbe"))
         #expect(office.contains("beginMovementBackoff"))
         // Conversations turn participants gradually, as `GSUtils` does — and Voss
-        // is on his feet by then, via the empty-route seat egress.
-        #expect(office.contains("detective.turnToFace"))
-        #expect(office.contains("detective.walk(path: [])"))
+        // is on his feet by then, via the empty-route seat egress. Both moved onto
+        // the cutscene adapter when the office cutscenes became authored cue lists.
+        let adapters = try String(
+            contentsOf: root.appendingPathComponent(
+                "RainShadow Shared/Gameplay/Actors/CutsceneActorAdapters.swift"
+            ),
+            encoding: .utf8
+        )
+        #expect(adapters.contains("turnToFace"))
+        #expect(adapters.contains("walk(path: [], completion: completion)"))
 
         // Replan budget: `Actor::NewPath` abandons past MAX_PATH_TRIES instead of
         // grinding a search forever, and a fresh order resets the count.

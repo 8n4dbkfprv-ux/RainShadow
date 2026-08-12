@@ -70,6 +70,26 @@ class BaseGameScene: SKScene {
         layoutViewport()
     }
 
+    /// `SceneRouter` builds a fresh scene per route and never told the old one it
+    /// was leaving, so a transition during a cutscene left an armed gate, hidden
+    /// rails, and a camera with no owner. Nothing survives the scene now.
+    override func willMove(from view: SKView) {
+        super.willMove(from: view)
+        cutsceneDirector.tearDown()
+        sceneWillExit()
+    }
+
+    /// Last chance to unwind scene-owned state. Subclasses override.
+    func sceneWillExit() {}
+
+    /// QA only. The review capture launch drives the update loop far slower than
+    /// wall-clock, so a cutscene is only a few ticks in when the capture fires and
+    /// every timed cinematic reviews as its opening beat. This seeks the timeline
+    /// to where it should be. Scenes with their own time-seeded state override.
+    func seekForCapture(elapsed: TimeInterval) {
+        cutsceneDirector.seekForCapture(elapsed: elapsed)
+    }
+
     func buildScene() {}
     func sceneDidBecomeReady() {}
     func handlePointerDown(_ event: GamePointerEvent) {}
@@ -97,6 +117,12 @@ class BaseGameScene: SKScene {
     let dialoguePresenter = DialoguePresenter()
     /// True while the panel owns input and the world is paused.
     var dialogueIsActive = false
+
+    /// Plays authored cutscenes. Every scene has one for the same reason every
+    /// scene has the dialogue panel: the office used to be the only place in the
+    /// game that could run a cutscene, so the opening exterior grew its own
+    /// one-off timeline and the city districts simply could not have one.
+    private(set) lazy var cutsceneDirector = CutsceneDirector(scene: self)
 
     /// Fired as each node appears — voice-over and presentation cues. Scenes override.
     func dialogueNodeDidShow(_ node: CaseDialogueNode) {}
@@ -224,6 +250,13 @@ class BaseGameScene: SKScene {
         // camera counter-transform keeps ±size/2 on the view edges at any zoom.
         hudRoot.position = .zero
         hudRoot.setScale(1)
+        cinematicRoot.position = .zero
+        cinematicRoot.setScale(1)
+
+        // `baseCameraScale` was just re-applied above, which used to silently
+        // undo a cutscene push the moment the window was resized. Re-assert it.
+        cutsceneDirector.layoutChrome()
+        cutsceneDirector.applyCameraScale()
     }
 
     /// No-op kept for call sites that previously re-anchored a world-space HUD.
@@ -526,7 +559,6 @@ class BaseGameScene: SKScene {
             (depthWorldRoot, .depthWorld),
             (occlusionRoot, .occlusion),
             (weatherRoot, .weather),
-            (cinematicRoot, .cinematic),
             (debugRoot, .hud)
         ]
         for (root, layer) in layers {
@@ -539,6 +571,16 @@ class BaseGameScene: SKScene {
         // Screen-locked HUD as camera child (identity scale). This is the SpriteKit
         // contract for fixed chrome; world-space scaling previously allowed a stale
         // init size to map the left rail past the visible left edge.
+        // Cutscene chrome is screen-space — letterbox bars and a fade overlay
+        // must not drift when the camera pans — so `cinematicRoot` hangs off the
+        // camera exactly as the HUD does, one layer beneath it. It was installed
+        // in world space and used by nothing, which is why the office letterbox
+        // had to be parented to `hudRoot` instead.
+        cinematicRoot.zPosition = SceneLayer.cinematic.rawValue
+        cinematicRoot.position = .zero
+        cinematicRoot.setScale(1)
+        gameCamera.addChild(cinematicRoot)
+
         hudRoot.zPosition = SceneLayer.hud.rawValue
         hudRoot.position = .zero
         hudRoot.setScale(1)

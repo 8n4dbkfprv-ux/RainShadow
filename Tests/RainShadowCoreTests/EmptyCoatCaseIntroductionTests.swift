@@ -402,40 +402,64 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(presenter.contains("DialogueDeferralState"))
         #expect(presenter.contains("deferral.note("))
         #expect(presenter.contains("deferral.resume()"))
-        // Breakable skip: shared finish path + snap-to-end (BG SetCutSceneBreakable).
-        #expect(scene.contains("finishClientEntrance(reason:"))
+        // Breakable skip and the walk choreography are no longer text in this
+        // scene — they are `CutsceneCatalog.clientEntrance`, and the assertions
+        // that used to grep for them live in `CutsceneCatalogTests`. What still
+        // has to be true *here* is that the scene routes to that cutscene.
         #expect(scene.contains("trySkipActiveClientCutscene"))
-        #expect(scene.contains("completeEntranceImmediately"))
-        #expect(scene.contains("completeExitImmediately"))
-        #expect(scene.contains("BreakableCutsceneGate"))
-        #expect(scene.contains("ClientEntranceTerminalState"))
-        #expect(scene.contains("setCutsceneLetterboxVisible"))
+        #expect(scene.contains("cutsceneDirector.play("))
+        #expect(scene.contains("CutsceneCatalog.clientEntrance("))
+        #expect(scene.contains("CutsceneCatalog.clientExit("))
         // Showing a node must not arm entrance (leave-gated only).
         #expect(!scene.contains("shouldStartClientEntrance(whenShowing:"))
         #expect(!scene.contains("shouldStartClientEntrance(whenLeaving:"))
+        // The latch is gone: locomotion could not report *why* it stopped, so the
+        // scene set a flag around the snap and read it back on the terminal path.
+        // The runner hands the reason to the completion instead.
+        #expect(!scene.contains("cutsceneBreakRequested"))
+        #expect(!scene.contains("effectiveReason("))
         if let body = Self.methodBody(startingAt: "private func beginClientEntranceIfNeeded()", in: scene) {
             do {
-                #expect(body.contains("setCutsceneChromeSuppressed(true)"))
-                #expect(body.contains("setCutsceneSuppressed(true)"))
-                #expect(body.contains("finishClientEntrance(reason: .natural)"))
-                #expect(body.contains("setCutsceneLetterboxVisible(true)"))
+                #expect(body.contains("clientArrivalRoute(in: navigation)"))
+                #expect(body.contains("navigation.registerActor"))
+                #expect(body.contains("cutsceneDirector.play("))
                 // Must not re-show free-play rails when the walk finishes.
                 #expect(!body.contains("setCutsceneChromeSuppressed(false)"))
             }
         }
-        if let body = Self.methodBody(startingAt: "private func finishClientEntrance(reason:", in: scene) {
-            do {
-                #expect(body.contains("resumeAfterCutscene(advancingTo:"))
-                #expect(body.contains("markCompleted()"))
-                #expect(body.contains("ClientEntranceTerminalState"))
+    }
+
+    /// The entrance still resumes the graph exactly where the authored node says,
+    /// whether it plays out or the player breaks it. Previously this could only be
+    /// asserted by grepping the scene for `resumeAfterCutscene(advancingTo:`.
+    @Test func entranceCutsceneResumesTheAuthoredNodeOnBothPaths() throws {
+        let resumeNode = try #require(
+            EmptyCoatCaseIntroduction.nodes
+                .first { $0.id == EmptyCoatCaseIntroduction.clientEntranceCueNodeID }?
+                .nextNodeID
+        )
+        let cutscene = CutsceneCatalog.clientEntrance(
+            route: OfficeNavigationLayout.clientArrivalPath,
+            resumeDialogueNodeID: resumeNode
+        )
+        let resume = CutsceneCommand(.chrome, .resumeDialogue(nodeID: resumeNode))
+
+        var natural = CutsceneRunner()
+        var played = natural.begin(cutscene, at: 0).commands
+        for _ in 0..<400 where natural.isPlaying {
+            played += natural.advance(ticks: 1).commands
+            for subject in cutscene.tracks.map(\.subject) {
+                played += natural.noteCompleted(subject).commands
             }
         }
-        if let body = Self.methodBody(startingAt: "private func applyClientVisitAction", in: scene) {
-            do {
-                #expect(body.contains("case .unlockPlayerControl:"))
-                #expect(body.contains("setCutsceneChromeSuppressed(false)"))
-            }
-        }
+        #expect(played.contains(resume))
+
+        var broken = CutsceneRunner()
+        var interrupted = broken.begin(cutscene, at: 0).commands
+        interrupted += broken.advance(ticks: 30).commands
+        interrupted += broken.skip(at: 100).commands
+        #expect(interrupted.contains(resume))
+        #expect(broken.wasBroken)
     }
 
     @Test func doorFallKeepsOneContinuousTrajectoryThroughImpact() throws {

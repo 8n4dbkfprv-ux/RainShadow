@@ -5,7 +5,7 @@ import AppKit
 #endif
 
 @MainActor
-final class DetectiveOfficeScene: BaseGameScene {
+final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private let detective = DetectiveActorNode()
     private let client = ClientActorNode()
     private var officeDoor: SKSpriteNode?
@@ -68,21 +68,16 @@ final class DetectiveOfficeScene: BaseGameScene {
     private var clientEntrancePath: [CGPoint] = []
     /// Dialogue node to show after the BG-style entrance cinematic (deferred Continue).
     private var pendingPostEntranceNodeID: String?
-    /// Breakable entrance gate: skip and natural finish share `finishClientEntrance`.
-    private var clientEntranceGate = BreakableCutsceneGate()
-    /// Breakable exit gate: skip and natural finish share `finishClientExit`.
-    private var clientExitGate = BreakableCutsceneGate()
-    private var clientExitPath: [CGPoint] = []
     // `dialogueIsActive` is inherited; the office starts with the panel up.
     /// Infinity Engine–style cutscene chrome: hide party/action rails while an
     /// authored NPC enter/exit sequence runs (dialogue panel is suppressed separately).
+    ///
+    /// The gates, the skip latch, and the letterbox that used to sit beside this
+    /// are all `CutsceneDirector`'s now — this flag is only the office's own
+    /// answer to "are the rails down", which the room's pause policy still reads.
     private var cutsceneChromeSuppressed = false
-    /// BG-style letterbox bars while a breakable walk owns the screen.
-    private var cutsceneLetterboxNode: SKNode?
-    private var cutsceneLetterboxVisible = false
-    /// True while an authored dialogue framing owns the camera; the per-frame
-    /// follow stands down until the restore finishes.
-    private var cameraFollowSuspended = false
+    /// True only while the post-dialogue ease back to the follow camera plays.
+    private var cameraRestoreInProgress = false
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
@@ -475,7 +470,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         clientEntranceStarted = true
         dialogueIsActive = false
         cutsceneChromeSuppressed = false
-        setCutsceneLetterboxVisible(false, animated: false)
+        cutsceneDirector.tearDown()
         client.isHidden = true
         client.alpha = 1
         navigation.setEntranceDoorBlocking(false)
@@ -780,6 +775,11 @@ final class DetectiveOfficeScene: BaseGameScene {
     }
 
     override func handleCancelInput() {
+        // Escape is *the* cutscene skip in BG:EE — a breakable walk owns it before
+        // any overlay or the movement cancel below.
+        if trySkipActiveClientCutscene() {
+            return
+        }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -866,12 +866,10 @@ final class DetectiveOfficeScene: BaseGameScene {
         dialoguePresenter.layout(for: hudViewportSize)
         portraitBar.layout(for: hudViewportSize)
         actionBar.layout(for: hudViewportSize)
-        if let cutsceneLetterboxNode {
-            layoutCutsceneLetterbox(cutsceneLetterboxNode)
-        }
     }
 
     override func update(_ currentTime: TimeInterval) {
+        cutsceneDirector.update(currentTime)
         // BG:EE semantics: dialogue pauses the world, but CutSceneMode does not —
         // scripted actors (Lila's entrance/exit walks) keep moving while only
         // player input is locked. `cutsceneChromeSuppressed` is true for the
@@ -912,7 +910,14 @@ final class DetectiveOfficeScene: BaseGameScene {
     /// player — clamped to the painted plate. Suspended while a dialogue lift
     /// owns the camera so the per-frame update does not fight the `SKAction`.
     private func updateCameraPosition(at currentTime: TimeInterval = 0) {
-        guard !cameraFollowSuspended else { return }
+        // A running cutscene owns the viewport outright. This used to be a bare
+        // `cameraFollowSuspended` Bool with no owner, so two overlapping camera
+        // beats would race for it.
+        if let framing = cutsceneDirector.cameraOverride(in: OfficeInteriorScale.paintedRoomBounds) {
+            gameCamera.position = framing
+            return
+        }
+        guard !cameraRestoreInProgress else { return }
         updateCamera(
             following: detective.position,
             in: OfficeInteriorScale.paintedRoomBounds,
@@ -982,10 +987,7 @@ final class DetectiveOfficeScene: BaseGameScene {
         // Grok Voice: play each monologue / Lila node clip on show (stops prior VO).
         clientEntranceStarted = false
         pendingPostEntranceNodeID = nil
-        clientEntranceGate.reset()
-        clientExitGate.reset()
-        clientExitPath = []
-        setCutsceneLetterboxVisible(false, animated: false)
+        cutsceneDirector.tearDown()
         dialoguePresenter.shouldDeferAdvance = { [weak self] from, toDestinationID in
             guard let self else { return false }
             // Presentation cue from dialogue data (not Empty Coat node-id helpers).
@@ -1050,134 +1052,41 @@ final class DetectiveOfficeScene: BaseGameScene {
     private func beginClientEntranceIfNeeded() {
         guard !clientEntranceStarted else { return }
         clientEntranceStarted = true
-        let now = ProcessInfo.processInfo.systemUptime
-        clientEntranceGate.begin(at: now)
-        // BG CutSceneMode: strip free-play rails AND dialogue panel for the walk-in.
-        // Rails stay suppressed for the whole visit; dialogue returns after staging.
-        setCutsceneChromeSuppressed(true)
-        dialoguePresenter.setCutsceneSuppressed(true)
-        setCutsceneLetterboxVisible(true)
-        // QA fallen-door captures already rest the leaf; replaying the fall
-        // would reset it upright under the walk and stall SpriteKit timing.
-        if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] != "1" {
-            animateDoorFalling()
-        }
-        // BG:EE order: an opening door clears its search-map cells before the
-        // creature paths through it. The fall animation re-clears on landing,
-        // which is idempotent; routing below must already see the open threshold.
-        navigation.setEntranceDoorBlocking(false)
+        clientEntranceStartedAt = ProcessInfo.processInfo.systemUptime
+
         // The first leg is authored across the actual exterior threshold (its
         // start is outside the nav floor). Exact interior anchors then clear the
         // waiting furniture and cross the shipping painted partition door.
-        let path = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
-        clientEntrancePath = path
-        clientEntranceStartedAt = now
+        let route = OfficeNavigationLayout.clientArrivalRoute(in: navigation)
+        clientEntrancePath = route
         navigation.registerActor(
             id: Self.clientActorID,
             kind: .npc,
-            at: path.first ?? OfficeNavigationLayout.actorStart,
+            at: route.first ?? OfficeNavigationLayout.actorStart,
             radius: NavigationAgentProfile.officeClient.radius,
             isMoving: true
         )
-        // Voss rises as she comes through the door rather than conducting the
-        // interview from his chair. An empty route is the existing seat-egress
-        // path: stand-up strip, then the 0.42 s slide out of the kneehole, ending
-        // in standing idle at the same spot — he gets to his feet without walking
-        // anywhere. Timed to overlap her walk-in, so it costs no dead air, and it
-        // leaves him standing for the facing turn in `finishClientEntrance`.
-        detective.walk(path: [])
-        client.performEntrance(along: path) { [weak self] in
-            self?.finishClientEntrance(reason: .natural)
-        }
-    }
 
-    /// Shared terminal path for entrance (natural finish and skip).
-    /// Skip and natural must produce the same dialogue node, chrome, and camera.
-    private func finishClientEntrance(reason: CutsceneCompletionReason) {
-        _ = reason
-        guard clientEntranceGate.markCompleted() else { return }
-
-        let nextID = pendingPostEntranceNodeID
+        let resumeNodeID = pendingPostEntranceNodeID
             ?? EmptyCoatCaseIntroduction.nodes
                 .first(where: { $0.id == EmptyCoatCaseIntroduction.clientEntranceCueNodeID })?
                 .nextNodeID
-        let terminal = ClientEntranceTerminalState.forDeferredEntrance(
-            resumeDialogueNodeID: nextID
-        )
         pendingPostEntranceNodeID = nil
-        setCutsceneLetterboxVisible(false)
-        // Rails stay suppressed for the visit; dialogue panel returns.
-        if terminal.keepCutsceneChromeSuppressed {
-            setCutsceneChromeSuppressed(true)
-        }
-        if terminal.restoreDialoguePanel {
-            dialoguePresenter.resumeAfterCutscene(advancingTo: terminal.resumeDialogueNodeID)
-        }
-        let dialogueCameraPosition = OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
-        let cameraLift = SKAction.move(to: dialogueCameraPosition, duration: 0.3)
-        cameraLift.timingMode = .easeOut
-        cameraFollowSuspended = true
-        gameCamera.run(cameraLift, withKey: "dialogueCameraLift")
-        // BG:EE turns conversation participants toward each other *slowly* when a
-        // dialogue opens — `GSUtils.cpp` calls `SetOrientation(..., slow: true)`
-        // for both talker and talkee. Voss stood during her walk-in, so this is
-        // the visible half-second pivot rather than a pop.
-        //
-        // Still guarded on standing: if the player skipped the entrance early he
-        // may not be up yet, in which case he simply keeps the facing he rose with.
-        detective.turnToFace(client.position)
-        updateActorOccupancy()
-        updateDepth(of: client)
+        cutsceneDirector.play(
+            CutsceneCatalog.clientEntrance(route: route, resumeDialogueNodeID: resumeNodeID),
+            on: self
+        )
     }
 
-    /// Attempts skip on the active breakable entrance or exit walk.
+    /// Attempts skip on whichever breakable cutscene is running.
+    ///
+    /// This used to need a break-requested flag latched around the snap, because
+    /// `performEntrance`'s completion always reported `.natural` — locomotion
+    /// cannot know why it stopped. The runner does know, so the reason now
+    /// travels with the completion and the latch is gone.
     @discardableResult
     private func trySkipActiveClientCutscene() -> Bool {
-        let now = ProcessInfo.processInfo.systemUptime
-        if clientEntranceGate.canSkip(at: now) {
-            skipClientEntrance()
-            return true
-        }
-        if clientExitGate.canSkip(at: now) {
-            skipClientExit()
-            return true
-        }
-        return false
-    }
-
-    private func skipClientEntrance() {
-        guard clientEntranceGate.canSkip(at: ProcessInfo.processInfo.systemUptime) else { return }
-        // Snap world props to the same end state as waiting out the walk.
-        if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] != "1" {
-            setDoorFallenForReview()
-        }
-        navigation.setEntranceDoorBlocking(false)
-        // Snap fires the performEntrance completion → finishClientEntrance(.natural).
-        client.completeEntranceImmediately()
-        // If locomotion was already idle (no completion pending), finish explicitly.
-        if clientEntranceGate.isActive {
-            finishClientEntrance(reason: .skipped)
-        }
-    }
-
-    private func skipClientExit() {
-        guard clientExitGate.canSkip(at: ProcessInfo.processInfo.systemUptime) else { return }
-        // Snap fires the performExit completion → finishClientExit(.natural).
-        client.completeExitImmediately()
-        if clientExitGate.isActive {
-            finishClientExit(reason: .skipped)
-        }
-    }
-
-    /// Shared terminal path for exit (natural finish and skip).
-    private func finishClientExit(reason: CutsceneCompletionReason) {
-        _ = reason
-        guard clientExitGate.markCompleted() else { return }
-        setCutsceneLetterboxVisible(false)
-        for next in OfficeClientVisitSequencer.actions(for: .clientExitCompleted) {
-            applyClientVisitAction(next)
-        }
-        updateActorOccupancy()
+        cutsceneDirector.trySkip()
     }
 
     /// QA: place Lila on the authored entrance polyline using wall-clock elapsed
@@ -1208,8 +1117,9 @@ final class DetectiveOfficeScene: BaseGameScene {
 
     private func finishCaseIntroduction() {
         RainAudio.stopVoiceOver(on: self)
-        // One-shot gate: next office load skips monologue + entrance cinematic.
-        context.session.markOfficeCaseIntroCompleted()
+        // The one-shot gate that stops the next office load replaying the
+        // monologue and the entrance is authored on the exit cutscene now
+        // (`SetGlobal`), so there is exactly one place that sets it.
         for action in OfficeClientVisitSequencer.actions(for: .finishCaseIntroductionStarted) {
             applyClientVisitAction(action)
         }
@@ -1227,29 +1137,91 @@ final class DetectiveOfficeScene: BaseGameScene {
             )
             let cameraRestore = SKAction.move(to: followPosition, duration: 0.3)
             cameraRestore.timingMode = .easeInEaseOut
+            cameraRestoreInProgress = true
             gameCamera.run(
-                .sequence([cameraRestore, .run { [weak self] in self?.cameraFollowSuspended = false }]),
+                .sequence([cameraRestore, .run { [weak self] in self?.cameraRestoreInProgress = false }]),
                 withKey: "dialogueCameraLift"
             )
         case .beginClientExit:
-            // Visit is still cutscene-locked; keep rails suppressed if not already.
-            setCutsceneChromeSuppressed(true)
-            setCutsceneLetterboxVisible(true)
-            let path = OfficeNavigationLayout.clientDepartureRoute(in: navigation)
-            clientExitPath = path
-            clientExitGate.begin(at: ProcessInfo.processInfo.systemUptime)
-            client.performExit(along: path) { [weak self] in
-                self?.finishClientExit(reason: .natural)
-            }
+            cutsceneDirector.play(
+                CutsceneCatalog.clientExit(
+                    route: OfficeNavigationLayout.clientDepartureRoute(in: navigation)
+                ),
+                on: self
+            )
         case .returnDoor:
             // After Lila has finished the departure path and faded out.
             animateDoorReturning()
         case .unlockPlayerControl:
             dialogueIsActive = false
-            // EndCutSceneMode equivalent — free-play chrome returns.
-            setCutsceneChromeSuppressed(false)
-            setCutsceneLetterboxVisible(false)
             showOfficeHintIfNeeded()
+        }
+    }
+
+    // MARK: - CutsceneStage
+
+    /// The office is the only scene with actors a cutscene can drive.
+    func cutsceneActor(_ id: CutsceneActorID) -> CutsceneActorDriving? {
+        switch id {
+        case .detective: detective
+        case .client: client
+        }
+    }
+
+    /// BG:EE clears a door's search-map cells before a creature paths through it,
+    /// so the leaf and the navigation stamp move together and in that order.
+    func cutsceneSetDoor(_ door: CutsceneDoorID, open: Bool, reason: CutsceneCompletionReason) {
+        guard door == .officeEntrance else { return }
+        // QA fallen-door captures already rest the leaf; replaying the fall would
+        // reset it upright under the walk and stall SpriteKit timing.
+        let capturing = ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_FALLEN_DOOR"] == "1"
+        if open {
+            if !capturing {
+                // A broken cutscene cuts the leaf to its resting pose instead of
+                // playing the fall out under a camera that has already arrived.
+                reason == .skipped ? setDoorFallenForReview() : animateDoorFalling()
+            }
+            navigation.setEntranceDoorBlocking(false)
+        } else {
+            animateDoorReturning()
+            navigation.setEntranceDoorBlocking(true)
+        }
+    }
+
+    /// `SetGlobal` — the guard that stops the intro replaying on the next load.
+    func cutsceneSetFlag(_ flag: String) {
+        guard flag == CutsceneCatalog.CutsceneFlags.officeCaseIntroCompleted else { return }
+        context.session.markOfficeCaseIntroCompleted()
+    }
+
+    /// `StartCutSceneMode` / `EndCutSceneMode`.
+    func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) {
+        setCutsceneChromeSuppressed(active, animated: reason == .natural)
+    }
+
+    func cutsceneSuppressDialogue() {
+        RainAudio.stopVoiceOver(on: self)
+        dialoguePresenter.setCutsceneSuppressed(true)
+    }
+
+    func cutsceneResumeDialogue(nodeID: String?) {
+        dialoguePresenter.resumeAfterCutscene(advancingTo: nodeID)
+    }
+
+    func cutscenePlayVoiceOver(_ assetName: String) {
+        RainAudio.playVoiceOver(fileNamed: assetName, on: self)
+    }
+
+    func cutsceneText(forKey key: String) -> String? {
+        DialogueStringTable.shipped.stringIfPresent(for: key)
+    }
+
+    func cutsceneDidComplete(id: String, reason: CutsceneCompletionReason) {
+        updateActorOccupancy()
+        updateDepth(of: client)
+        guard id == CutsceneCatalog.ID.clientExit else { return }
+        for next in OfficeClientVisitSequencer.actions(for: .clientExitCompleted) {
+            applyClientVisitAction(next)
         }
     }
 
@@ -1262,70 +1234,6 @@ final class DetectiveOfficeScene: BaseGameScene {
         }
         cutsceneChromeSuppressed = suppressed
         updateGameplayChromeVisibility(animated: animated)
-    }
-
-    /// Letterbox chrome for breakable in-world walks (BG cutscene presentation).
-    private func setCutsceneLetterboxVisible(_ visible: Bool, animated: Bool = true) {
-        guard cutsceneLetterboxVisible != visible else { return }
-        cutsceneLetterboxVisible = visible
-        let bars = ensureCutsceneLetterbox()
-        bars.removeAction(forKey: "letterboxVisibility")
-        let duration: TimeInterval = animated ? 0.22 : 0
-        if visible {
-            bars.isHidden = false
-            bars.alpha = 0
-            bars.run(.fadeIn(withDuration: duration), withKey: "letterboxVisibility")
-        } else if duration <= 0 {
-            bars.alpha = 0
-            bars.isHidden = true
-        } else {
-            bars.run(
-                .sequence([
-                    .fadeOut(withDuration: duration),
-                    .run { bars.alpha = 0; bars.isHidden = true }
-                ]),
-                withKey: "letterboxVisibility"
-            )
-        }
-    }
-
-    private func ensureCutsceneLetterbox() -> SKNode {
-        if let cutsceneLetterboxNode {
-            layoutCutsceneLetterbox(cutsceneLetterboxNode)
-            return cutsceneLetterboxNode
-        }
-        let root = SKNode()
-        root.name = "cutscene.letterbox"
-        root.zPosition = 1
-        root.isHidden = true
-        root.alpha = 0
-        let top = SKSpriteNode(color: SKColor(white: 0.02, alpha: 1), size: .zero)
-        top.name = "cutscene.letterbox.top"
-        top.anchorPoint = CGPoint(x: 0.5, y: 1)
-        let bottom = SKSpriteNode(color: SKColor(white: 0.02, alpha: 1), size: .zero)
-        bottom.name = "cutscene.letterbox.bottom"
-        bottom.anchorPoint = CGPoint(x: 0.5, y: 0)
-        root.addChild(top)
-        root.addChild(bottom)
-        // HUD-locked so bars stay screen-fixed while the camera lifts.
-        hudRoot.addChild(root)
-        cutsceneLetterboxNode = root
-        layoutCutsceneLetterbox(root)
-        return root
-    }
-
-    private func layoutCutsceneLetterbox(_ root: SKNode) {
-        let viewSize = size.width > 1 ? size : CGSize(width: 1_000, height: 700)
-        // ~7.5% bars — readable CutSceneMode cue without burying the room.
-        let barHeight = max(28, viewSize.height * 0.075)
-        if let top = root.childNode(withName: "cutscene.letterbox.top") as? SKSpriteNode {
-            top.size = CGSize(width: viewSize.width + 40, height: barHeight)
-            top.position = CGPoint(x: 0, y: viewSize.height / 2)
-        }
-        if let bottom = root.childNode(withName: "cutscene.letterbox.bottom") as? SKSpriteNode {
-            bottom.size = CGSize(width: viewSize.width + 40, height: barHeight)
-            bottom.position = CGPoint(x: 0, y: -viewSize.height / 2)
-        }
     }
 
     /// Single source of truth for rail visibility (cutscene + full-screen overlays).

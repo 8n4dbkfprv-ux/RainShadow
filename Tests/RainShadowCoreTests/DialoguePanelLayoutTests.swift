@@ -715,7 +715,18 @@ struct DialoguePanelLayoutTests {
         #expect(focus.y > min(voss.y, lila.y) - 1 && focus.y < max(voss.y, lila.y) + 1)
     }
 
-    @Test func officeSceneUsesShippedDialogueCameraFraming() throws {
+    /// The conversation framing is a camera cue on the entrance cutscene now, so
+    /// this is a real assertion rather than a grep for the constant's name.
+    @Test func entranceCutsceneSettlesOnTheShippedDialogueFraming() throws {
+        let camera = try #require(
+            CutsceneCatalog.clientEntrance(route: [.zero], resumeDialogueNodeID: nil)
+                .tracks.first { $0.subject == .camera }
+        )
+        #expect(camera.cues.last == .moveViewPoint(
+            OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition,
+            .standard
+        ))
+
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -723,7 +734,6 @@ struct DialoguePanelLayoutTests {
         let sceneURL = root
             .appendingPathComponent("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let source = try String(contentsOf: sceneURL, encoding: .utf8)
-        #expect(source.contains("DialogueCameraFraming.dialogueCameraWorldPosition"))
         #expect(!source.contains("y: normalCameraPosition.y - 55"))
         #expect(!source.contains("y - 55"))
     }

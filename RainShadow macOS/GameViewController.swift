@@ -61,6 +61,12 @@ class GameViewController: NSViewController {
         let mode = environment["RAINSHADOW_CAPTURE_MODE"] ?? "camera"
 
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            // This launch draws one frame and never runs the update loop, so any
+            // cutscene is still on its first beat. Advance it to `delay` before
+            // rendering or every cinematic reviews as frame zero.
+            if let game = (self?.view as? SKView)?.scene as? BaseGameScene {
+                game.seekForCapture(elapsed: delay)
+            }
             if let office = (self?.view as? SKView)?.scene as? DetectiveOfficeScene {
                 office.seekForcedClientEntranceForCapture()
             }

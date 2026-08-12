@@ -1,10 +1,8 @@
 import SpriteKit
 
 @MainActor
-final class OpeningExteriorScene: BaseGameScene {
+final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
     private var cinematicStarted = false
-    private var transitionStarted = false
-    private var inputUnlockTime: TimeInterval = 0
 
     init(context: GameContext) {
         super.init(context: context, artSize: CGSize(width: 3_072, height: 1_728))
@@ -54,65 +52,57 @@ final class OpeningExteriorScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        cutsceneDirector.update(currentTime)
+        if let position = cutsceneDirector.cameraOverride(in: cinematicBounds) {
+            gameCamera.position = position
+        }
         // Opening pans/zooms the camera; keep title HUD locked to the view.
         syncHudToCamera()
+    }
+
+    /// The camera pans inside the painted plate rather than off its edges —
+    /// `clampedCameraPosition` needs the plate, not the world.
+    private var cinematicBounds: CGRect {
+        CGRect(origin: .zero, size: artSize)
     }
 
     override func sceneDidBecomeReady() {
         guard !cinematicStarted else { return }
         cinematicStarted = true
-        inputUnlockTime = CACurrentMediaTime() + 1
-
-        let startScale = baseCameraScale * 1.08
-        gameCamera.setScale(startScale)
-        let cameraMove = SKAction.move(to: CGPoint(x: 1_650, y: 1_000), duration: 11.5)
-        let cameraZoom = SKAction.scale(to: baseCameraScale * 0.82, duration: 11.5)
-        cameraMove.timingMode = .easeInEaseOut
-        cameraZoom.timingMode = .easeInEaseOut
-        gameCamera.run(.group([cameraMove, cameraZoom]))
-
-        run(.sequence([
-            .wait(forDuration: 12.0),
-            .run { [weak self] in self?.completeCinematic() }
-        ]), withKey: "openingTimeline")
+        gameCamera.position = CutsceneCatalog.OpeningExteriorFraming.streetLevel
+        cutsceneDirector.play(CutsceneCatalog.openingExterior, on: self)
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
-        guard CACurrentMediaTime() >= inputUnlockTime else { return }
-        completeCinematic()
+        cutsceneDirector.trySkip()
     }
 
     override func handleConfirmInput() {
-        guard CACurrentMediaTime() >= inputUnlockTime else { return }
-        completeCinematic()
+        cutsceneDirector.trySkip()
     }
 
-    private func completeCinematic() {
-        guard !transitionStarted else { return }
-        transitionStarted = true
-        removeAction(forKey: "openingTimeline")
+    /// Escape is the skip key in BG:EE. The office walks already honour it; the
+    /// opening used to swallow it, so the one cinematic a player replays most was
+    /// the one that ignored the key they'd reach for.
+    override func handleCancelInput() {
+        cutsceneDirector.trySkip()
+    }
 
-        let windowBloom = SKShapeNode(rectOf: CGSize(width: 330, height: 250), cornerRadius: 14)
-        windowBloom.fillColor = SKColor(red: 0.78, green: 0.48, blue: 0.2, alpha: 1)
-        windowBloom.strokeColor = .clear
-        windowBloom.blendMode = .add
-        windowBloom.position = CGPoint(x: 58, y: 34)
-        windowBloom.alpha = 0
-        hudRoot.addChild(windowBloom)
+    // MARK: - CutsceneStage
 
-        let bloom = SKAction.group([
-            .fadeAlpha(to: 0.34, duration: 0.72),
-            .scale(to: 11, duration: 0.72)
-        ])
-        bloom.timingMode = .easeIn
-        windowBloom.run(.sequence([
-            bloom,
-            .run { [weak self] in self?.context.router.showOffice() }
-        ]))
+    /// The opening has no actors, no doors, and no dialogue — it takes the
+    /// protocol's defaults for all of it and implements only the ending.
+    func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) {}
 
-        let finalPush = SKAction.scale(to: baseCameraScale * 0.68, duration: 0.8)
-        finalPush.timingMode = .easeIn
-        gameCamera.run(finalPush)
+    func cutsceneSetFlag(_ flag: String) {
+        guard flag == CutsceneCatalog.CutsceneFlags.openingSeen else { return }
+        // `showOffice()` marks this too; setting it here means a cutscene that is
+        // broken before the router runs still records that it was seen.
+        context.session.markOpeningSeen()
+    }
+
+    func cutsceneDidComplete(id: String, reason: CutsceneCompletionReason) {
+        context.router.showOffice()
     }
 
     private func buildFallbackExterior() {

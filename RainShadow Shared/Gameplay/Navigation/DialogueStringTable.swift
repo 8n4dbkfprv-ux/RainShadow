@@ -59,6 +59,15 @@ struct DialogueStringTable: Equatable, Sendable {
     }
 
     /// Optional lookup (e.g. companion `.voice` keys).
+    /// The shipped table, loaded once.
+    ///
+    /// Graph loading resolves its own table as part of decoding. Overhead text
+    /// (`DisplayStringHead`) needs a key resolved outside that path — it is a
+    /// cutscene cue, not a dialogue node — so this is the door for it.
+    static let shipped: DialogueStringTable = {
+        (try? load(resourceName: defaultResourceName)) ?? .empty
+    }()
+
     func stringIfPresent(for key: String) -> String? {
         strings[key]
     }
