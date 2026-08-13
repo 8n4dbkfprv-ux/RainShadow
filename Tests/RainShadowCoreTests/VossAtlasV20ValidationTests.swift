@@ -39,6 +39,50 @@ struct VossAtlasV20ValidationTests {
         }
     }
 
+    /// The standing idle went four asset versions with nothing gating it but a
+    /// height the raster forces, so it could not fail. These are the same
+    /// coherence checks the walk gets, minus the gait-specific ones.
+    @Test func everyIdleDirectionHoldsStillAndKeepsOnePalette() throws {
+        let thresholds = try VossV20ValidationThresholds.load()
+        for direction in authoredDirections + ["se"] {
+            let frames = try (0..<4).map { phase in
+                try VossAtlasFrame(contentsOf: VossAtlasTestAssets.cellURL(
+                    atlas: "VossIdle.atlas",
+                    name: String(format: "voss_standing_idle_%@_%02d.png", direction, phase)
+                ))
+            }
+            let metrics = try frames.map { try $0.metrics() }
+
+            let centroids = metrics.map(\.centroidX)
+            let drift = (centroids.max() ?? 0) - (centroids.min() ?? 0)
+            #expect(
+                drift <= thresholds.centroidDriftMaximum,
+                "idle \(direction) body centroid drifts \(format(drift))px, expected <=\(format(thresholds.centroidDriftMaximum))px"
+            )
+
+            let headWidths = metrics.map(\.headWidth)
+            if let minimum = headWidths.min(), let maximum = headWidths.max(), minimum > 0 {
+                let pulse = Double(maximum) / Double(minimum)
+                #expect(
+                    pulse <= thresholds.headPulseRatioMaximum,
+                    "idle \(direction) head scale pulses \(format(pulse))x, expected <=\(format(thresholds.headPulseRatioMaximum))x"
+                )
+            }
+
+            // One palette per clip: a loop carrying more colours than a palette
+            // has entries is one whose frames were quantised apart, which is
+            // what made the wardrobe shift between phases.
+            var clipColours = Set<UInt32>()
+            for frame in frames {
+                clipColours.formUnion(frame.opaqueColors)
+            }
+            #expect(
+                clipColours.count <= thresholds.maximumOpaqueColors,
+                "idle \(direction) carries \(clipColours.count) distinct colours across 4 phases, expected <=\(thresholds.maximumOpaqueColors)"
+            )
+        }
+    }
+
     @Test func everyWalkDirectionMeetsV20MotionGates() throws {
         let thresholds = try VossV20ValidationThresholds.load()
         for direction in authoredDirections {
@@ -83,9 +127,13 @@ struct VossAtlasV20ValidationTests {
             metrics.footY == thresholds.footRow,
             "\(label) visible feet end at row \(metrics.footY), expected \(thresholds.footRow)"
         )
+        // Registered on body mass, not on the silhouette bbox: a walking figure
+        // with a leg thrown forward has its bbox ahead of its body, and centring
+        // that bbox is what slid the body off-centre. This is the sanity bound;
+        // the tight gate is the per-clip centroid drift in validateMotion.
         #expect(
-            abs(metrics.centerX - 255.5) <= thresholds.centerTolerance,
-            "\(label) bbox centre \(format(metrics.centerX)), expected within \(format(thresholds.centerTolerance))px of 255.5"
+            abs(metrics.centerX - 255.5) <= thresholds.bodyAxisBBoxTolerance,
+            "\(label) bbox centre \(format(metrics.centerX)), expected within \(format(thresholds.bodyAxisBBoxTolerance))px of 255.5"
         )
     }
 
@@ -110,6 +158,17 @@ struct VossAtlasV20ValidationTests {
         #expect(
             headJitter <= thresholds.headJitterMaximum,
             "walk \(direction) head jitter is \(format(headJitter))px, expected <=\(format(thresholds.headJitterMaximum))px"
+        )
+
+        // The gate that carries the registration: with cells registered on body
+        // mass this is what says the figure holds still, and it is the number
+        // that moved (4.95px -> 0.85px on the walks) when it stopped being the
+        // silhouette bbox that was pinned.
+        let centroids = metrics.map(\.centroidX)
+        let centroidDrift = (centroids.max() ?? 0) - (centroids.min() ?? 0)
+        #expect(
+            centroidDrift <= thresholds.centroidDriftMaximum,
+            "walk \(direction) body centroid drifts \(format(centroidDrift))px, expected <=\(format(thresholds.centroidDriftMaximum))px"
         )
 
         let headWidths = metrics.map(\.headWidth)

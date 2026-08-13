@@ -264,9 +264,12 @@
       0.4,
       0.43
     ],
+    "body_axis_bbox_tolerance": 8.0,
     "center_tolerance": 2,
+    "centroid_drift_max": 2.0,
+    "clip_palette_colors_max": 64,
     "foot_row": 433,
-    "head_jitter_max": 2,
+    "head_jitter_max": 6.0,
     "head_pulse_ratio_max": 1.12,
     "head_scale_ratio_max": 1.12,
     "head_width": [
@@ -277,6 +280,10 @@
     "idle_centroid_drift_max": 2,
     "idle_neutral_iou_min": 0.86,
     "minimum_recognizable_facings": 12,
+    "motion_gated_clips": [
+      "walk",
+      "idle"
+    ],
     "palette_colors": 64,
     "processed_front_hue_spread_min": 0,
     "pure_rear_skin_fraction_max": 0.03,
@@ -3942,16 +3949,7 @@
     ],
     "preserve_wardrobe": true,
     "processor": "V14",
-    "runtime_registration_offsets": {
-      "walk:nw:04": [
-        2,
-        0
-      ],
-      "walk:nw:07": [
-        1,
-        0
-      ]
-    },
+    "runtime_registration_offsets": {},
     "seated_idle_scale_authority": "phase_00_opaque_height_minus_one",
     "seated_se_source_mirror_x": true,
     "seated_source_opaque_height_by_direction": {

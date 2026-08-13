@@ -378,13 +378,14 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
             errors.append(f"manifest.{key} must be {expected_path!r}")
 
     registration = manifest.get("processing", {}).get("runtime_registration_offsets", {})
-    expected_registration = {
-        "walk:nw:04": [2, 0],
-        "walk:nw:07": [1, 0],
-    }
-    if registration != expected_registration:
+    # The two audited NW nudges were a hand-authored patch for exactly the drift
+    # that bbox-centring caused. Mass-centroid registration fixes it for all 112
+    # cells instead of two, and leaving the nudges in double-corrects: NW walk
+    # measured 2.06px of centroid drift against a 2.0px gate with both applied.
+    if registration != {}:
         errors.append(
-            "processing.runtime_registration_offsets must contain only the two audited NW whole-cell offsets"
+            "processing.runtime_registration_offsets must be empty; whole-cell nudges "
+            "are superseded by mass-centroid registration in register_crunched"
         )
     if manifest.get("processing", {}).get("seated_idle_scale_authority") != "phase_00_opaque_height_minus_one":
         errors.append(
@@ -609,7 +610,13 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
         "standing_height": [198, 202],
         "seated_height": [150, 160],
         "center_tolerance": 2.0,
-        "head_jitter_max": 2.0,
+        # Raised with the move to mass-centroid registration: the old 2.0 was
+        # what bbox-centring produced by construction, not a property of the art.
+        # `centroid_drift_max` is the gate that replaced it. See body_axis_x.
+        "head_jitter_max": 6.0,
+        "centroid_drift_max": 2.0,
+        "clip_palette_colors_max": 64,
+        "motion_gated_clips": ["walk", "idle"],
         "head_scale_ratio_max": 1.12,
         "torso_scale_ratio_max": 1.18,
         "idle_centroid_drift_max": 2.0,

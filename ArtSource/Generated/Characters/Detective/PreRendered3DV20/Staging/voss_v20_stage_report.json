@@ -1,7 +1,7 @@
 {
-  "approval_ledger_sha256": "66c123999ad7882c4e575538ca503e7a47b6daea27d5033e5d2efe9e63abd6ca",
+  "approval_ledger_sha256": "e78310045b2057d282087bb2b6749d3e436727d36ba64b94176947742d563c2f",
   "asset_version": "v20",
-  "built_at_utc": "2026-08-13T09:51:44.533351+00:00",
+  "built_at_utc": "2026-08-13T11:38:22.195576+00:00",
   "counts": {
     "compatibility_layers": 16,
     "primary_body_presentations": 176,
@@ -10,7 +10,7 @@
     "ui_outputs": 1
   },
   "generation_provenance_sha256": "b8d0de457d9676e5143c6b98e335a1e20ffac15dc5571690852ecd374d599ad5",
-  "manifest_sha256": "74ddd1eefaf987cce4bb743b2058dd4092cddb981db5531b27669b1f32176adb",
+  "manifest_sha256": "7d7618db5e62f5681e302cc21caad689274b69ff6da283cbc9e00dae3db7f420",
   "manual_review_required": [
     "At least 12 of 16 unlabeled displayed facings are recognizable.",
     "SW walk has stable planted feet and a clean 0.25x first/last loop.",
@@ -18,146 +18,281 @@
     "Identity, coat fit, gait phase, and chroma edges remain stable by eye."
   ],
   "motion": {
-    "n": {
+    "idle:n": {
       "adjacent_iou": [
-        0.8246,
-        0.7512,
+        0.8764,
+        0.8581,
+        0.8628,
+        0.8656
+      ],
+      "centroid_drift_px": 0.304,
+      "clip_colours": 63,
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0588,
+      "torso_scale_ratio": 1.0933
+    },
+    "idle:nnw": {
+      "adjacent_iou": [
+        0.7539,
+        0.8162,
+        0.7972,
+        0.7341
+      ],
+      "centroid_drift_px": 0.905,
+      "clip_colours": 63,
+      "head_jitter_px": 2.5,
+      "head_scale_ratio": 1.0588,
+      "torso_scale_ratio": 1.1719
+    },
+    "idle:nw": {
+      "adjacent_iou": [
+        0.9231,
+        0.9124,
+        0.915,
+        0.8921
+      ],
+      "centroid_drift_px": 0.734,
+      "clip_colours": 63,
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "torso_scale_ratio": 1.0492
+    },
+    "idle:s": {
+      "adjacent_iou": [
+        0.9295,
+        0.9444,
+        0.9272,
+        0.9481
+      ],
+      "centroid_drift_px": 0.195,
+      "clip_colours": 63,
+      "head_jitter_px": 0.0,
+      "head_scale_ratio": 1.0,
+      "torso_scale_ratio": 1.0
+    },
+    "idle:ssw": {
+      "adjacent_iou": [
+        0.9132,
+        0.9697,
+        0.8941,
+        0.8723
+      ],
+      "centroid_drift_px": 0.536,
+      "clip_colours": 63,
+      "head_jitter_px": 2.5,
+      "head_scale_ratio": 1.0476,
+      "torso_scale_ratio": 1.1094
+    },
+    "idle:sw": {
+      "adjacent_iou": [
+        0.9666,
+        0.965,
+        0.9961,
+        0.9978
+      ],
+      "centroid_drift_px": 0.372,
+      "clip_colours": 63,
+      "head_jitter_px": 0.0,
+      "head_scale_ratio": 1.0,
+      "torso_scale_ratio": 1.0
+    },
+    "idle:w": {
+      "adjacent_iou": [
+        0.9017,
+        0.9109,
+        0.9053,
+        0.9155
+      ],
+      "centroid_drift_px": 0.762,
+      "clip_colours": 63,
+      "head_jitter_px": 1.0,
+      "head_scale_ratio": 1.0,
+      "torso_scale_ratio": 1.0263
+    },
+    "idle:wnw": {
+      "adjacent_iou": [
+        0.885,
+        0.9651,
+        0.9023,
+        0.9871
+      ],
+      "centroid_drift_px": 0.44,
+      "clip_colours": 63,
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "torso_scale_ratio": 1.1228
+    },
+    "idle:wsw": {
+      "adjacent_iou": [
+        0.9712,
+        0.8462,
+        0.8235,
+        0.8787
+      ],
+      "centroid_drift_px": 0.689,
+      "clip_colours": 63,
+      "head_jitter_px": 3.5,
+      "head_scale_ratio": 1.0476,
+      "torso_scale_ratio": 1.1094
+    },
+    "walk:n": {
+      "adjacent_iou": [
+        0.8212,
+        0.751,
         0.7708,
         0.8937,
         0.8665,
-        0.8972,
-        0.8625,
-        0.8838
+        0.8709,
+        0.8377,
+        0.8717
       ],
-      "head_jitter_px": 1.0,
+      "centroid_drift_px": 0.793,
+      "clip_colours": 61,
+      "head_jitter_px": 3.0,
       "head_scale_ratio": 1.0,
       "planted_foot_leads": "=R=LL=RL",
       "torso_scale_ratio": 1.1618
     },
-    "nnw": {
+    "walk:nnw": {
       "adjacent_iou": [
-        0.8414,
+        0.8696,
         0.8985,
-        0.7813,
-        0.7306,
-        0.6923,
-        0.7139,
+        0.7655,
+        0.7292,
+        0.7308,
+        0.7998,
         0.8449,
         0.857
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.819,
+      "clip_colours": 63,
+      "head_jitter_px": 5.0,
       "head_scale_ratio": 1.0476,
       "planted_foot_leads": "RRRL=RRR",
       "torso_scale_ratio": 1.1404
     },
-    "nw": {
+    "walk:nw": {
       "adjacent_iou": [
-        0.7391,
-        0.7935,
+        0.7454,
+        0.7954,
         0.8375,
-        0.8372,
-        0.6804,
-        0.7377,
-        0.7168,
-        0.8213
+        0.8497,
+        0.7161,
+        0.7073,
+        0.717,
+        0.8256
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.709,
+      "clip_colours": 63,
+      "head_jitter_px": 4.0,
       "head_scale_ratio": 1.0476,
       "planted_foot_leads": "L=RRRLRL",
       "torso_scale_ratio": 1.1639
     },
-    "s": {
+    "walk:s": {
       "adjacent_iou": [
-        0.8296,
-        0.8275,
+        0.8221,
+        0.8236,
         0.8773,
         0.7943,
         0.8255,
         0.914,
-        0.8489,
+        0.8668,
         0.866
       ],
-      "head_jitter_px": 1.5,
+      "centroid_drift_px": 0.729,
+      "clip_colours": 63,
+      "head_jitter_px": 2.5,
       "head_scale_ratio": 1.0588,
       "planted_foot_leads": "=R=LRL==",
       "torso_scale_ratio": 1.0563
     },
-    "ssw": {
+    "walk:ssw": {
       "adjacent_iou": [
         0.8582,
         0.8462,
-        0.827,
-        0.7936,
-        0.7594,
-        0.8548,
-        0.7799,
-        0.8025
+        0.8262,
+        0.8027,
+        0.7532,
+        0.8777,
+        0.7771,
+        0.7925
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.811,
+      "clip_colours": 63,
+      "head_jitter_px": 3.0,
       "head_scale_ratio": 1.0,
       "planted_foot_leads": "R===LRRL",
       "torso_scale_ratio": 1.1127
     },
-    "sw": {
+    "walk:sw": {
       "adjacent_iou": [
-        0.7032,
-        0.9295,
-        0.7094,
-        0.7529,
-        0.7581,
+        0.7287,
+        0.8916,
+        0.7282,
+        0.7541,
+        0.769,
         0.7013,
-        0.7119,
-        0.8275
+        0.7057,
+        0.8464
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.847,
+      "clip_colours": 63,
+      "head_jitter_px": 4.0,
       "head_scale_ratio": 1.0,
       "planted_foot_leads": "LRRLLLRL",
       "torso_scale_ratio": 1.1549
     },
-    "w": {
+    "walk:w": {
       "adjacent_iou": [
-        0.7684,
-        0.8079,
-        0.7567,
-        0.6673,
+        0.7802,
+        0.7922,
+        0.7453,
+        0.6826,
         0.8341,
-        0.8049,
-        0.7812,
-        0.808
+        0.8279,
+        0.7888,
+        0.7915
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.591,
+      "clip_colours": 63,
+      "head_jitter_px": 5.0,
       "head_scale_ratio": 1.0,
       "planted_foot_leads": "L==R=L=R",
       "torso_scale_ratio": 1.1404
     },
-    "wnw": {
+    "walk:wnw": {
       "adjacent_iou": [
-        0.8429,
-        0.6377,
+        0.8783,
+        0.6366,
         0.8243,
-        0.8465,
-        0.7963,
-        0.7382,
+        0.8979,
+        0.7803,
+        0.7308,
         0.7139,
-        0.7284
+        0.7195
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.658,
+      "clip_colours": 63,
+      "head_jitter_px": 3.5,
       "head_scale_ratio": 1.0476,
       "planted_foot_leads": "R=LLL=R=",
       "torso_scale_ratio": 1.1719
     },
-    "wsw": {
+    "walk:wsw": {
       "adjacent_iou": [
-        0.8503,
-        0.7359,
-        0.69,
-        0.7251,
-        0.8442,
-        0.6264,
+        0.8604,
+        0.7293,
+        0.6999,
+        0.7272,
+        0.8783,
+        0.6309,
         0.608,
-        0.6252
+        0.6302
       ],
-      "head_jitter_px": 2.0,
+      "centroid_drift_px": 0.642,
+      "clip_colours": 63,
+      "head_jitter_px": 5.0,
       "head_scale_ratio": 1.12,
       "planted_foot_leads": "LLL=R=L=",
       "torso_scale_ratio": 1.1467
@@ -165,46 +300,46 @@
   },
   "output_hashes": {
     "UI/Inventory/voss_paperdoll_front_rgba_v01.png": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964",
-    "VossIdle.atlas/voss_standing_idle_n_00.png": "55a58dd83f7f5eaf3a6da50d460d9c90ba899f69e53f065733bce26e0d210f06",
-    "VossIdle.atlas/voss_standing_idle_n_01.png": "c9579afb57b63a2ed9efc0f8120f41157a9ada7ea45d30ed10d8417a9adaf841",
-    "VossIdle.atlas/voss_standing_idle_n_02.png": "fa363bfb92a262f7a4990f84d059fcb59e760e536afc21ce8e9bd4e09fddc325",
-    "VossIdle.atlas/voss_standing_idle_n_03.png": "8c88c5d8e76660f19bbdfe25a1993a6c48cd499f75a7ef4ab2d864f9612460d1",
-    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "73846ed2ca58503d3a4ccff5c18719e729dc6790983f07a025b676cd900e5082",
-    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "94b35aea11ad9cfa7281d1163e9f71e47e1cbf47cba1ce5baff943922fbed0b7",
-    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "08b6eaf8a1b30d51c270f46409ec61dcf402916cb88a9b755fdbd408cab314e6",
-    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "5b2b10a3af601494c2d93c63606331fb4d6f11b7dbbc171fc4329265a1d25bbf",
-    "VossIdle.atlas/voss_standing_idle_nw_00.png": "7bced32710730de93c662bec230dc12069d54590c3fb2ea2ba3182772eb4d2aa",
-    "VossIdle.atlas/voss_standing_idle_nw_01.png": "43718377d2ddc74db3b407ec2c298ae8a8cf56c6bed2f9ba956b9d8227786609",
-    "VossIdle.atlas/voss_standing_idle_nw_02.png": "fd101508d928667b7a8a234804a5f36040c135d6c67959888a5f838c61c9842a",
-    "VossIdle.atlas/voss_standing_idle_nw_03.png": "e07b8dda91c9330f411590b54e062b0c82c3ccccba63be9b87b4db392457b002",
-    "VossIdle.atlas/voss_standing_idle_s_00.png": "fd03d1ab97ba3bd611a54f709d02e561a111d21e1ce919afaea4ad1c22eff66c",
-    "VossIdle.atlas/voss_standing_idle_s_01.png": "e0b0cd3d695efb0fdf14eb890bea26f8d2ab867dd023abceaca19131581d1c99",
-    "VossIdle.atlas/voss_standing_idle_s_02.png": "38be2e19fc58add0e4b047b221f92f3fc6fbbbd9c61a9fd84a26ff000e67b2da",
-    "VossIdle.atlas/voss_standing_idle_s_03.png": "3995aedab02ef61c3d6d99cb7529a1c8c57914c1447a83cf569b3390ebc8c9c4",
-    "VossIdle.atlas/voss_standing_idle_se_00.png": "afcefd37a8899bc1a97a85dd68eedf93356f772b2f27d19ebd998b63ad4bbadc",
-    "VossIdle.atlas/voss_standing_idle_se_01.png": "ea486aaacd7d191f328bec963e0abee961e2753f6e60e0c21ab02e6ab60a6a75",
-    "VossIdle.atlas/voss_standing_idle_se_02.png": "756d9d5bac48313b5017db998875b44e05de48ce38e9f0dd5f48386f28ab63e6",
-    "VossIdle.atlas/voss_standing_idle_se_03.png": "b58a794238daddd968c1e69b0c3359f327a7a86d7b4907c14605bd7aa5b2c55a",
-    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "f4e9e80e5bc60e98d9992f2a8f40108ffdf666a77ed7e0a2d8bc6ee5e4def167",
-    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "3997828d63a0c8b3b353110859c4c20d06755553d74ed7e2dfabbceb181de13c",
-    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "f2b1ebcfd06955f9b508bd84a21bb301c5c26c6f28dbfddd063069b693f7ecaf",
-    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "8f6706da00123de81649bdf8977c049002f07315d66c6c143c91b813230ba6c4",
-    "VossIdle.atlas/voss_standing_idle_sw_00.png": "8a13406a33dfe58a8392a946037183b2b4423d1caeb4c74c4266996852d8fc27",
-    "VossIdle.atlas/voss_standing_idle_sw_01.png": "a89f0ff97e4a1688dd62cf17b74a5d88b49cb91c31019fbea21709185eac3d4d",
-    "VossIdle.atlas/voss_standing_idle_sw_02.png": "62ceae4c11a3f88bf96377536461d354691b41086b67b0d13c2adf22997dee27",
-    "VossIdle.atlas/voss_standing_idle_sw_03.png": "c008eda3452c8eedfbcddb5682ba83e33ceddd7b048b86eecd652c84ed665b64",
-    "VossIdle.atlas/voss_standing_idle_w_00.png": "35771870cb6d628ca2b47bb8c149f2d434dcd11eae0a5f659869cffa287570c6",
-    "VossIdle.atlas/voss_standing_idle_w_01.png": "c24978feecdb67611547df34bfc3529eb7b80c24a4ca6f0b745438a67a1e04e8",
-    "VossIdle.atlas/voss_standing_idle_w_02.png": "e2e5e786c3b96c82c459611d09bedc4a31750c44dfcb0d15148d1430367cbc8f",
-    "VossIdle.atlas/voss_standing_idle_w_03.png": "aefa1ab69095f707c098bc291e3a3dad11a90e1284bc05dc4d1bd9b6a7aa03d4",
-    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "24a683fbcdbfd6b80411b55388dfeba2320494cbd6ad7a38cdb1b605c5a3101c",
-    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "4be5ace2a9b6f52514e3b47af0f7081d26fbd7eb3af594fd0f281445bcaacb5d",
-    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "f79d94e42128d19a5bf879810e7d44168224950a68d9ea47c6b7f37837287daa",
-    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "703d08c38a36861aee591677bcc542c45f39c2055334190f22fccc1953a5c05c",
-    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "6f849d56fb733b6166cc83c43aa70a2cbb2c44ef6b36df3e9522a817039d0284",
-    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "2e086d0ac898772517f8e6529d483f6d15c61efa744fc7cade9041ec9db426d7",
-    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "2618de7d25e3491f71c3811917d69038121344852482b30a0ecacb0b90ae60de",
-    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "49cffbeeb2f808eb1e11389e3c678a4fe2aa795b1a631b9b1139f04dd9e7b1a8",
+    "VossIdle.atlas/voss_standing_idle_n_00.png": "9bf8d813e9c4a5fcfb0bf8733afc369f5193dbeabf80ae9a24caa3a664790104",
+    "VossIdle.atlas/voss_standing_idle_n_01.png": "b7d157f125610e963742ac4e015c77525cf1a5268fb6d7bace3ede2d129040f2",
+    "VossIdle.atlas/voss_standing_idle_n_02.png": "e132012adb5020823857b9e237d0a1cb7bdf70b3c5029b45ba26fb7c18dae187",
+    "VossIdle.atlas/voss_standing_idle_n_03.png": "3bb8122fe51f61da989f0d911d21bcc6b75c7ec7f151d35682f75fdbf30a7571",
+    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "c54566c02c834fb87ed9f7e6af0a3f06e8b7f2ca4e1e272ce6bc22a3929bea2c",
+    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "237e99e6d77987865a4092092d083dd18941d0e6fb4f1a56bb921cfb81d48be2",
+    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "3ffeb935acd4c108a5cfc47b7fc6a6b4c20d1963ab9949d1ce9b1ea6135d1718",
+    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "a6444807581bcb23a1a27c2d914aa32a2b8da68fc8b3a2f35b4dc0393e9676c9",
+    "VossIdle.atlas/voss_standing_idle_nw_00.png": "1654b1ee842a6f0cb7fd8559ee163f8896c93ec176315ef2c6876486a30e4926",
+    "VossIdle.atlas/voss_standing_idle_nw_01.png": "07097def2b44eb6b0a9a8bd98de3fd1a0ff4ba2c7576ecf7258c2b389e0157a7",
+    "VossIdle.atlas/voss_standing_idle_nw_02.png": "19359d9652c56129c6628eb6bd2b4cdad9136d9917ffee9270c1e7cdb6360233",
+    "VossIdle.atlas/voss_standing_idle_nw_03.png": "d9608470c23dc2b9c4b0e8544b5742b3688476d011409227284e020828d3e127",
+    "VossIdle.atlas/voss_standing_idle_s_00.png": "59a12332e7329d4775ea33777aa7f21b372c30fad1786062f081ee52a7e6e8e0",
+    "VossIdle.atlas/voss_standing_idle_s_01.png": "49588a7f1bdd37e861d0c26034ac5aded3f63178b11ecd5a69466be8fb0a1e54",
+    "VossIdle.atlas/voss_standing_idle_s_02.png": "52c0f0b66fc080e91fb5f54e815451454fe3a66c0bbf35352fa69085fcfa011b",
+    "VossIdle.atlas/voss_standing_idle_s_03.png": "a8cc37ce5696cc661ee11f09e192a87e352356998fd6e74e69f4e358f41cd8b5",
+    "VossIdle.atlas/voss_standing_idle_se_00.png": "908827eac61ff2801cd25c50282123568df0a1a10440a6fd72ae6a952057dc42",
+    "VossIdle.atlas/voss_standing_idle_se_01.png": "a46a8cd3b7db5c3e024404d04c252a16b67d7fbd89faf37be7ba50a6f81ff289",
+    "VossIdle.atlas/voss_standing_idle_se_02.png": "647f2690c6d5482ee62431c1db147639ea675af4c6cd312589a1c4b210900f07",
+    "VossIdle.atlas/voss_standing_idle_se_03.png": "68fb8f638a9b77e99578a974cf8b03382448d46233efa108563161602707c824",
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "fc4df672ae809dbb7e15e426e87d70d569e3bf86745525739a24915890436a02",
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "a3d243b01d42306a020ad7a512bd754ffd4c4c6bac20304b4b07338fe5d3cdba",
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "28d718c376adc25110e4b1691ecb4ec94904246b5e1ccc9ad51d9de001516855",
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "63b4a438518f2b7ee605c8c98018290dd142efdf46b4c0084b9cf175ce34e294",
+    "VossIdle.atlas/voss_standing_idle_sw_00.png": "8086f28d801b88380d4990480f5206e04f56f46b6f46649fcbac6213d7891bad",
+    "VossIdle.atlas/voss_standing_idle_sw_01.png": "fbcdb8d3feb4e5c556c762ab61972205576ce6e817ac912fcd9cbca11509ea1b",
+    "VossIdle.atlas/voss_standing_idle_sw_02.png": "6391841410205622ca61751d2e047bcd4bf256c9883341bf1693340cc3a047ac",
+    "VossIdle.atlas/voss_standing_idle_sw_03.png": "7e656f5408e8500dcaf77f04493c51d2831db334ef8d51b67d72ce1480a6cfd5",
+    "VossIdle.atlas/voss_standing_idle_w_00.png": "c8657b9b9b2f33b3d4901eca11d3b7509112595a1e8d6a24451e43d2c7648f7f",
+    "VossIdle.atlas/voss_standing_idle_w_01.png": "b58b8ffa62fdf5c88b8e1cabf1326cdc49db546367024bf3f545b2b36e3f6b97",
+    "VossIdle.atlas/voss_standing_idle_w_02.png": "dcfd2829682fbdcac1500fed9bf635c415e77f244254863ace20bfbdb8e84e0c",
+    "VossIdle.atlas/voss_standing_idle_w_03.png": "cc638ed5b8e7e380afd06fdda1247424774e729374bec2cbb79b27407316fd82",
+    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "33caf92c2af05489edf0276bf289c76e5dd5b7f408f1170b3d9b3a2bfbb60d8f",
+    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "0e7e64f2f3792540f4ce7573dc1c609c1aa4dfa65e7c8062b17a7288d8d9793d",
+    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "bd703067bc6c2788597655cb62d71a2c0928fad1c27da5119806701ad41f6fd2",
+    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "f76986652ff05ff64268ac289b04d44ee840ab1bd3d3e2ac60426b9c3add65f5",
+    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "8e77dc97bf46da48437b9598cbdf1416a007cddc38c4d4bf86d987072c1e4df3",
+    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "4982f72dc5f01300a0062b09d100dd4c4c92a420d09c22101493e3d036f773c5",
+    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "29ff4b928e318d682bc48e54fd82d6d1b293bf94a735bf3bd0177c1b49cd8b71",
+    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "6efc788764f7dd79d2d6a5145bcf99de96847b190deda9724037ed2b6e08325c",
     "VossSeatTransitions.atlas/voss_sit_down_ne_00.png": "e3ccfc22a88185507aac061a976c09d516e74377d306fd651d4bbeefc9004e27",
     "VossSeatTransitions.atlas/voss_sit_down_ne_01.png": "7080649e24508160b0ae6468121fc9214bd2de1f51652085465eb9e5ea1268e3",
     "VossSeatTransitions.atlas/voss_sit_down_ne_02.png": "8a1dc0706015e145ed6aa7079d5847c6085fd4fe6947ddae300b2da321afa519",
@@ -301,91 +436,91 @@
     "VossSeatedIdle.atlas/voss_seated_upper_ne_05.png": "e5e86c52e464074512ef7fda6ebdd218fe1f19ec313f3d822d9bd4c7903e9d78",
     "VossSeatedIdle.atlas/voss_seated_upper_ne_06.png": "a5cc8e74dde641f5953284413daf0ee506a67d15820868b5c3cb073501b014f7",
     "VossSeatedIdle.atlas/voss_seated_upper_ne_07.png": "2a8b4ae3233017f7048c24c4e1d527c8581908b24a7a474bb34a7d7df31660b3",
-    "VossWalk.atlas/voss_walk_n_00.png": "5c5439109028baaace1f0e82146409ceb630570b20cab70171adb1137b5c209f",
-    "VossWalk.atlas/voss_walk_n_01.png": "be3375f8db570c071d19d7daa0f4042242ad1aebf31ad25499e044f787e3ff38",
-    "VossWalk.atlas/voss_walk_n_02.png": "80447ca589b453feed9402a5ff4eeb703726fc55769170f1df0127af3ab75ce0",
-    "VossWalk.atlas/voss_walk_n_03.png": "956ee4f576726efb22e93d2ee0f9d9163b2dbba182e971afdfd597c44876e11f",
-    "VossWalk.atlas/voss_walk_n_04.png": "ce83a9f0c75b76206ee46e81cd7ab883ca3c50e0efff3bd36c5136df6f9a4afe",
-    "VossWalk.atlas/voss_walk_n_05.png": "0c1509687a3c85928ec6d6daac167eee60d2eb055ddc40d5d024469cd2e6eb5e",
-    "VossWalk.atlas/voss_walk_n_06.png": "747ea3d75a8ba11f09151697c8a84815b87b6c683e6ba8153681b3a400581c4c",
-    "VossWalk.atlas/voss_walk_n_07.png": "511f76ca852caf961a4860a8c907071fefb045623af42b924aa1eb01777b8aaf",
-    "VossWalk.atlas/voss_walk_nnw_00.png": "14127d2afb8f59948d19e33ed806944728b90ac2d8296af6db92160d02ddeaf2",
-    "VossWalk.atlas/voss_walk_nnw_01.png": "c21c1fdbec064bbc8814d558665117f4ce5f7b38147343a447d1d502e8fae76f",
-    "VossWalk.atlas/voss_walk_nnw_02.png": "e7c8a1f9eb66447d5dde3519efcff35c6027b3a9d632e12bee2e74cdc59bc5b3",
-    "VossWalk.atlas/voss_walk_nnw_03.png": "8ea2a41a390fd32059b5597d8951a7486ad085b15183b1e3382cc67425673f30",
-    "VossWalk.atlas/voss_walk_nnw_04.png": "9da077077a9eeedb009a8f4d02e6894ade8f5f64c67383c3c0dd1fcf615dab89",
-    "VossWalk.atlas/voss_walk_nnw_05.png": "dfa85e1113c55c8df08f452ed1f00c03ded4455ce3f60fbe5a9e3e194ea0b330",
-    "VossWalk.atlas/voss_walk_nnw_06.png": "1ecf26a5751cca5888143a93fa354f1449851eac5fa9a099d27fd9c6003ed52f",
-    "VossWalk.atlas/voss_walk_nnw_07.png": "39d34a3c969fbc1196ce14994d0b52a68aace67a970354746eb95af1e920fa47",
-    "VossWalk.atlas/voss_walk_nw_00.png": "c4835d420cb5dea1cb620d48f613f328dc3130b17bf2aee7c284186b2e19bb8e",
-    "VossWalk.atlas/voss_walk_nw_01.png": "b026a49bbaf77ea64dc3398f8a6c0c8553cb0f47b9caa5eade2304a6ad543658",
-    "VossWalk.atlas/voss_walk_nw_02.png": "3d5e6035029eb60cd50ce1fc266e22a720045635284d4e6b68a90bd94a35354a",
-    "VossWalk.atlas/voss_walk_nw_03.png": "41ec37f3c52f444257af9668f777d5469112efba337d356b0def3dad6d049787",
-    "VossWalk.atlas/voss_walk_nw_04.png": "1a77d6eb1939222b242c990e84d983f7fa1b8cb6d7002f8160ce540bd01c6a4a",
-    "VossWalk.atlas/voss_walk_nw_05.png": "a9550570c35812948a3c808f72feb0cb17477761b57693f29a6b2ed8242a9173",
-    "VossWalk.atlas/voss_walk_nw_06.png": "6a70d3f3e338ad0226a29909c52f10eaecd0f289c245edee14c5190961365520",
-    "VossWalk.atlas/voss_walk_nw_07.png": "16080972ea2e2647a8eeea6c284553cef5552d89c4b3c5f5d6fe4f799db90136",
-    "VossWalk.atlas/voss_walk_s_00.png": "d6b719d26c5c9645f1dd3d73d0b52f5917757008a29e1e9c9036209ac2c116a3",
-    "VossWalk.atlas/voss_walk_s_01.png": "538e0e6b16d0896e8d44d98cee97524d6cb1274eac538c6dd9f699e69ad3b673",
-    "VossWalk.atlas/voss_walk_s_02.png": "65748b06adc74fb430445c063781f1787d689eeb16fcff504dadd156a9ddec2c",
-    "VossWalk.atlas/voss_walk_s_03.png": "8dbeeba90febe53a4a1a5050fbd388afe70d1e7a9463cb9c1ff09079483a36f4",
-    "VossWalk.atlas/voss_walk_s_04.png": "59e86fd3df74d13f924179de6ef3481a695b53c72f484e94fd6bf4ac8231bd32",
-    "VossWalk.atlas/voss_walk_s_05.png": "d0a61674ad1ed768b9540ea539045a4786f5e83a6b68809ceb8186424a1ff1f0",
-    "VossWalk.atlas/voss_walk_s_06.png": "b78d1e7af518b4790d18a974d56de0b2183c7e2cb791c6d3a849104f62f1228c",
-    "VossWalk.atlas/voss_walk_s_07.png": "e67d0ae4c24d9a4bd08772c8e39fbd4ccc058409c45ba7cd6b1222d3c9932db7",
-    "VossWalk.atlas/voss_walk_ssw_00.png": "3b0378a88b4fc359d2f47207032f3b748117bd7e487decb6a737ed7afc616ec2",
-    "VossWalk.atlas/voss_walk_ssw_01.png": "4a4a4e379e3e4c81ef110dae3460e1ff0a5bd07b0ad5104e2cde0ecdc130c227",
-    "VossWalk.atlas/voss_walk_ssw_02.png": "6b6c11086d0d38128221ba5a28fe0b4f304399f1eb320b82ec7ba107230186ad",
-    "VossWalk.atlas/voss_walk_ssw_03.png": "9320d0a53654556be60e02adc8a7ad518fa0da95f05f29d48e7e2662e9fd2386",
-    "VossWalk.atlas/voss_walk_ssw_04.png": "0b94fa981e48b70270d1380264a4bbba4e06f8309bed5c302fe3e5cacb4967b5",
-    "VossWalk.atlas/voss_walk_ssw_05.png": "6ff845106993806a224ac448c79bb2ff11eeaa60cdced23f074923ae1c0c31ef",
-    "VossWalk.atlas/voss_walk_ssw_06.png": "3563f584667ef9fd947e99395c00ff03142ef35a30edccea5b6b423c090e97cf",
-    "VossWalk.atlas/voss_walk_ssw_07.png": "21f2586f5ab0a38b4d8e132bae434544916bbbf42f261cdd7e0fa3f39c008547",
-    "VossWalk.atlas/voss_walk_sw_00.png": "753c5e00327966dce75a2f359188de488ad93c3859c77395fd37db3942898fec",
-    "VossWalk.atlas/voss_walk_sw_01.png": "217b42ed4bf8f256e617b2c01a17c3ee3bd15f93fbb97bed4526fbc836b9b7a5",
-    "VossWalk.atlas/voss_walk_sw_02.png": "64118292939428585b39757e391bccf055e4e11750b997691937d2617dfee15d",
-    "VossWalk.atlas/voss_walk_sw_03.png": "fd9c5d5c381218ff393c5c35084de0bd857bd01109a2bd6e07a0c0a7c7ad989c",
-    "VossWalk.atlas/voss_walk_sw_04.png": "9d80c8ebc6991af2ac7e1cb8622471bcf1a2873a4971355ed26a72853d1c542c",
-    "VossWalk.atlas/voss_walk_sw_05.png": "ad7bfda995f4e409fefb714fae7b3e1194b131c78518ec29152bc359535241e2",
-    "VossWalk.atlas/voss_walk_sw_06.png": "489021979cc3f7925e49d00dc752997a6688bf9645966ddf1e576fd119e13321",
-    "VossWalk.atlas/voss_walk_sw_07.png": "8fde61f247ba2a0c5e6768ee31a3e05fb9ddf948745ecdb262dae4ba34305830",
-    "VossWalk.atlas/voss_walk_w_00.png": "b636d4dbf960161605bb539fbd343a86d7301247a325c7a349abeaefcea11e1b",
-    "VossWalk.atlas/voss_walk_w_01.png": "5d71f648bebc3e2e36906c553f1c232eca0fa4ae982cea566742a7193d150cd4",
-    "VossWalk.atlas/voss_walk_w_02.png": "c96460b67727f4a58e6bc82eee045c6d060b23970c2f3c2580bcf19ba61b6ea4",
-    "VossWalk.atlas/voss_walk_w_03.png": "e1ef2c91adc7584de204be5bea52c623e4e891c9611761ce5ec84ce848c70481",
-    "VossWalk.atlas/voss_walk_w_04.png": "2b7ab86b3bd7805a0b3fba418ecd56ec31699f31d48ff2eeb1dad83fbbfb262a",
-    "VossWalk.atlas/voss_walk_w_05.png": "394bf8b601a50caff3ef2cac60914f6d806bbb01d73f92eeae5903d72059e0bc",
-    "VossWalk.atlas/voss_walk_w_06.png": "a2db68c269ebc888f252ce054953b38c5974c1b615d30733ee6453201f3e6c1a",
-    "VossWalk.atlas/voss_walk_w_07.png": "639201049181479f141d2510dbc6f492c144196c2c581775f5843ff99b409914",
-    "VossWalk.atlas/voss_walk_wnw_00.png": "5ffd1aa696f342ee6547d16bbee715f2dfdb3b3dc49aa0d578f2b91ae1098b21",
-    "VossWalk.atlas/voss_walk_wnw_01.png": "d5fc175230cf0e31102021c79f69cd9f5787197e10c7d0580d07de10cb13b3cc",
-    "VossWalk.atlas/voss_walk_wnw_02.png": "15c0815788eb38462c6e942f06e106d95fb93f34120a4f5d75554239d3026c1d",
-    "VossWalk.atlas/voss_walk_wnw_03.png": "b0ae0b7d300bf2207d26e64106aafd46e19febefddda5efc7625d1606d100897",
-    "VossWalk.atlas/voss_walk_wnw_04.png": "72c407bc82623a888fe7c0c36dbededbf09e0219fbf036cd689006e1eb24416c",
-    "VossWalk.atlas/voss_walk_wnw_05.png": "883a9db84b350d22f3f9e8dccbf620e9ff066b97adb9bad331e22d8f4d38f5b8",
-    "VossWalk.atlas/voss_walk_wnw_06.png": "4c074e6835e57d3473c9b7c54626585cabd6e313bff653303ac82c33f4a69e37",
-    "VossWalk.atlas/voss_walk_wnw_07.png": "f8b4d572a7054f2dff16f320c4b7dad1c4c7f2e0be578c92f8c3867b98e6ac58",
-    "VossWalk.atlas/voss_walk_wsw_00.png": "2c8c7864f17aa164b675aaf14c637197600e34af2cb1c67e7173068a03ab14b3",
-    "VossWalk.atlas/voss_walk_wsw_01.png": "c07046ec63770e951994c64f82f2dc761190a1b35d2fbeeb4412c97ee5a8b59d",
-    "VossWalk.atlas/voss_walk_wsw_02.png": "29e30580dbc205f7d7c33c12f81ed2e58c57fea6808e2bd35c44360d0615414f",
-    "VossWalk.atlas/voss_walk_wsw_03.png": "b1b8fb53c103b2bb8fe8d6fd31c0ab65130039238442032f9da9742460b1cad0",
-    "VossWalk.atlas/voss_walk_wsw_04.png": "3272f0030423dedc2c0f707616a0cb17503f88c55f45ec85366ee3d51d12d1ea",
-    "VossWalk.atlas/voss_walk_wsw_05.png": "563933b84da07dd1ae406b2a9121fd2020cb32df035bdd3d6718352254700175",
-    "VossWalk.atlas/voss_walk_wsw_06.png": "fc30b32864ce8f65f1e8a1dab7331b69c6b7690f27c06354bd771d2e28e86084",
-    "VossWalk.atlas/voss_walk_wsw_07.png": "6d0507efa09b8fcd3c49d612d7bd7bee36d9f0656f8539df277c30be93c20813"
+    "VossWalk.atlas/voss_walk_n_00.png": "d03904bdcc9fcc8597d5bf58e72cd6c43ac627609988cc75b134bd481eff769c",
+    "VossWalk.atlas/voss_walk_n_01.png": "a5dd6a98d4231461a44817296f69c9a660c6eeace70da251a335eff7f3522ce2",
+    "VossWalk.atlas/voss_walk_n_02.png": "1c6d86a730ab1da5198671f50ba1726fdf83aebeada02040aaf7a156076691ef",
+    "VossWalk.atlas/voss_walk_n_03.png": "9f7247327f45d4837ebde8f894065bb80ed1a1c56490d462b5b86a667e3d8817",
+    "VossWalk.atlas/voss_walk_n_04.png": "88cc86b8dde6e5ca7f08cb8425d0d57cb5747c889267b2c8fb098016926a6418",
+    "VossWalk.atlas/voss_walk_n_05.png": "0c23d60ddb99fb3be2a00e6694ec262c189b1b045675c2a4a5f4f72dc8fc1d57",
+    "VossWalk.atlas/voss_walk_n_06.png": "2b4a7a4a5c66834429e083ec8454c47974eebee1e07da445c9fd5f5bc5bdd0c1",
+    "VossWalk.atlas/voss_walk_n_07.png": "9257e8e62ced3d83cca7307f782e929d40b7babbd41ee3409ceb3c5feced99cb",
+    "VossWalk.atlas/voss_walk_nnw_00.png": "f7e1f3da962818248f9faa03e48ef7a7c6ad0b034df10a1d20209719823ee5b4",
+    "VossWalk.atlas/voss_walk_nnw_01.png": "4425e0e452b04185093dd6af97edcb038f6b2835a1620e4db7059d4cf0550148",
+    "VossWalk.atlas/voss_walk_nnw_02.png": "9d3f2cc5a92ebf4a8fecb34a368c2942dbdbe7c8bafa8aa2bfd33511c6895841",
+    "VossWalk.atlas/voss_walk_nnw_03.png": "06be39fa6a4bf91c986d5d0586d8e33e6e3e58c38557c9cc6a1c0f62f258fdd4",
+    "VossWalk.atlas/voss_walk_nnw_04.png": "2fdde700876ca5b0861ec975d834adfd00cb5f414f9b246cb3a5aba0e89ca355",
+    "VossWalk.atlas/voss_walk_nnw_05.png": "bfbba5a23af34d4d5c7140ab54a5849aff5575b9709e361e5f25368e094ddfbe",
+    "VossWalk.atlas/voss_walk_nnw_06.png": "3d5353112441bb7088aa0cce39dbe755a94df39e4f2939b2d655192ef62a6297",
+    "VossWalk.atlas/voss_walk_nnw_07.png": "7be7660caf3087519633e872f6b145a2a47e017175f1a7dc521d89e8a3c03cc4",
+    "VossWalk.atlas/voss_walk_nw_00.png": "958502dff4d95f3ac7b0ce564f75cd8da923aeb5f00c93be9b33ab8b9aa360d4",
+    "VossWalk.atlas/voss_walk_nw_01.png": "4717012a74daae45865eeda0b4d1d46034c9026a2fcb4c01913dea389c6563d2",
+    "VossWalk.atlas/voss_walk_nw_02.png": "145ba924efeebf2156afa25c2422537690d43c41e651bee956c9463b7d8c6929",
+    "VossWalk.atlas/voss_walk_nw_03.png": "5cd8276d8a1e04ef2aa3cadb6d00dba80323d7780ba44501fa30d7dd81ddb843",
+    "VossWalk.atlas/voss_walk_nw_04.png": "8857d1f1b5a39df91b9294e858bfeafdec14c0da509ab0e2119cdf15a69a33de",
+    "VossWalk.atlas/voss_walk_nw_05.png": "cc099a3baebcef15dfd319c37b950411724f6fef5624a34693fce94407e90ec3",
+    "VossWalk.atlas/voss_walk_nw_06.png": "1a5493d021546fd4535a465a2c830c5d3d23230eef8a562a75e5d53f0538d108",
+    "VossWalk.atlas/voss_walk_nw_07.png": "c20a3856a6a1037b9dfb81862033c5931554c7ab436ae39655a5590c7bf01257",
+    "VossWalk.atlas/voss_walk_s_00.png": "6989ba68a3624e0d44267e4900bf80981fea206c9f03c19ccf252f0cc5ce4556",
+    "VossWalk.atlas/voss_walk_s_01.png": "b41ab17d7e7902af038c2ac01c1cfb229d5268e64f98b48447e9ec5a1a757d96",
+    "VossWalk.atlas/voss_walk_s_02.png": "462b6a66398a2f32c0d71a4b1df2aab56abe9f88f36313281fcd00aec0f603be",
+    "VossWalk.atlas/voss_walk_s_03.png": "f545d7ebee4065f7d4db587fca7347933aa2258e03b7c24f95bab08c64f8bd59",
+    "VossWalk.atlas/voss_walk_s_04.png": "ef9fbe0dea9103f10438619661cfb1697c1bdffaab9c6a67a8f750faef664811",
+    "VossWalk.atlas/voss_walk_s_05.png": "aafa5adc238de012d235ce82f050144d00ff14c3988eafa4b412d44c33a08d6c",
+    "VossWalk.atlas/voss_walk_s_06.png": "98aa096e582a8a3b06f63a1a23bf24a953164efca83083047e89b198d9128bbb",
+    "VossWalk.atlas/voss_walk_s_07.png": "dff20a31f644b712a8134a528b87be499b390697be1fb335533992c31f5c43b0",
+    "VossWalk.atlas/voss_walk_ssw_00.png": "05ae40286bd000d8511921a05a0991b92fd20bff0627c49a38d1f2b19fd21d42",
+    "VossWalk.atlas/voss_walk_ssw_01.png": "245806131c9455f1f9c194ba9dffa7f1bd0f0c3322966dcb9253f1ad5c7d300b",
+    "VossWalk.atlas/voss_walk_ssw_02.png": "78c4e44fbba685b4041fd234236e0548ea9dfba8ef49d9f02793e24f35f3fe6f",
+    "VossWalk.atlas/voss_walk_ssw_03.png": "97ada307c06e4f02419d5523d4470b52576ea290733c76b8fa9da5482563a9b7",
+    "VossWalk.atlas/voss_walk_ssw_04.png": "3543fef9e469f8773e043826d1ceef0646c98394690df08a7992a17d43afc284",
+    "VossWalk.atlas/voss_walk_ssw_05.png": "92b86d2ccc055e2e547a6d13d68cc623074f2982aa6d590dcb4696390031e895",
+    "VossWalk.atlas/voss_walk_ssw_06.png": "d675fab269328ec116ba2fad676f723d7395b05fd79869de1f969491edb63180",
+    "VossWalk.atlas/voss_walk_ssw_07.png": "8637b3267ba9f1d5fd9e53d6e6f83dc30eb509d775d08fdd9ba975df2f700827",
+    "VossWalk.atlas/voss_walk_sw_00.png": "70b54029c8e1a6ebed4db338e9048233ad53fa801f66cf3185abe7c69223872c",
+    "VossWalk.atlas/voss_walk_sw_01.png": "6ee1e1b4dffaf8109b6a23cb6aac8f6f6f101896233d8ce828bed792e3daa26d",
+    "VossWalk.atlas/voss_walk_sw_02.png": "2765e7c68d4769d4b07968956809a7aaa481e94109012b5a4d678139aa992c64",
+    "VossWalk.atlas/voss_walk_sw_03.png": "29bd93f96854d8da4d5115ab2649fc6e9a915438dbe56b66939ff698bc18b833",
+    "VossWalk.atlas/voss_walk_sw_04.png": "bf0796af5edea60d02e5e16c6e5033d4fa5baefedf8b26c9096a484cbc11346d",
+    "VossWalk.atlas/voss_walk_sw_05.png": "3abedf4a4b7b9b73bd089246901f2e6964b341b26c024e2cbf966f0cd3f930d2",
+    "VossWalk.atlas/voss_walk_sw_06.png": "edbd29f0a7c77c5b3e2b228048fa5c79b62269c5e1147d8c49d45fe14cb350f8",
+    "VossWalk.atlas/voss_walk_sw_07.png": "739cf6b8de9e9ad79a5b5e825df9901c21d314257a99bb11668d221f395f7bc7",
+    "VossWalk.atlas/voss_walk_w_00.png": "b4b296f917285468e0ee6ddd6e55d66d052132064cf76651a818144ae40c417e",
+    "VossWalk.atlas/voss_walk_w_01.png": "92683c91560eec06f1f0d5fa1ae59e85332a881493674341502c1a37ee8731bc",
+    "VossWalk.atlas/voss_walk_w_02.png": "128b080b9768fedd871550cb6004c943b6d967a89b497baf3261d88da9fb5dcc",
+    "VossWalk.atlas/voss_walk_w_03.png": "813315493c21959870f94ce4b180161fe8694590190044ca30aa0043d6fa4760",
+    "VossWalk.atlas/voss_walk_w_04.png": "f153fff98298fb3b4896eb385f8c7d315de869b7f0c4b144399377016b8cfe85",
+    "VossWalk.atlas/voss_walk_w_05.png": "1aff19110aea3b776cc72154b3d12eb0b68e09df7bc7ffb93d65df074fccdb7c",
+    "VossWalk.atlas/voss_walk_w_06.png": "516709a8e0230e367235c6a48fceb54b42495617469532f2a744eaa741bd8837",
+    "VossWalk.atlas/voss_walk_w_07.png": "54d74fbca7412a0d2a4d3559e449bc50b4d77e8561a8d602061b6689adc12c7a",
+    "VossWalk.atlas/voss_walk_wnw_00.png": "3a1d3792f5eab1e2188e1698664520ae224702fbf57023159ef45a2c564ce97b",
+    "VossWalk.atlas/voss_walk_wnw_01.png": "484d15b7e9828e097cd19b86d759e8a973cc689c0ed9b5fa94e433052ea22154",
+    "VossWalk.atlas/voss_walk_wnw_02.png": "34fa4eeaf8839bfa21df6357963e7b60d678f963685df47d9c1ca61c8045a3df",
+    "VossWalk.atlas/voss_walk_wnw_03.png": "c509ee2252269ae4ed300ebea3b348e082477a672609f98ea78380930034e019",
+    "VossWalk.atlas/voss_walk_wnw_04.png": "87a8709bb671b573a1c1dd5f1d2166eae99cfb1c642bff70bd85050e3cfeb1b5",
+    "VossWalk.atlas/voss_walk_wnw_05.png": "4add28dc973610fb6d0a46fc2e0d6369de8ef1a5b1cd33db0b057aa33417cbf0",
+    "VossWalk.atlas/voss_walk_wnw_06.png": "fa33c9af29a5aa8ebfe8400c0defb409461190fd298b5d01724fa24b59a4caac",
+    "VossWalk.atlas/voss_walk_wnw_07.png": "23ac79277ca48f4ece33da846aac0feed0fba6729762df9684b7b6b8d7f32a91",
+    "VossWalk.atlas/voss_walk_wsw_00.png": "2050574edc25a9f10c88e5e67f1424e0abca5c106575254b4a1fc015aac4ab19",
+    "VossWalk.atlas/voss_walk_wsw_01.png": "115a34ac99e178a4c0734e17e46a2a6c71252c5ad6e3c7dc4969f91be6eeb611",
+    "VossWalk.atlas/voss_walk_wsw_02.png": "8a6fdb738b116cf828581fdfa2e268e8e0188926b3090a4de5b73276e1db81a2",
+    "VossWalk.atlas/voss_walk_wsw_03.png": "32e7a802342674ef4defa3b9a08358967005d51ebe6d674039eec8960e9e870b",
+    "VossWalk.atlas/voss_walk_wsw_04.png": "0cf76e2ffde01e6e0f3745879afafefe99a5502f8caca0a35a0067b0a872ef61",
+    "VossWalk.atlas/voss_walk_wsw_05.png": "6e2e2f44a4f3aa0289d27565d5a565fdc47697c6f4f7a562f91481675e12a843",
+    "VossWalk.atlas/voss_walk_wsw_06.png": "f38f2c504cc2af1ec3e0709286d5d254d3eac6084a1d0d6bac23dae07ff7d2bb",
+    "VossWalk.atlas/voss_walk_wsw_07.png": "26c0497ec7a1de14f55f67eae6cc12b2ada957b714691b692681cab9c43217e5"
   },
   "rear_hemisphere_v20": {
     "voss_standing_idle_n_00.png": {
       "shirt": 0.0,
-      "skin": 0.005125
+      "skin": 0.002417
     },
     "voss_standing_idle_n_01.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001617
     },
     "voss_standing_idle_n_02.png": {
       "shirt": 0.0,
-      "skin": 0.008667
+      "skin": 0.009642
     },
     "voss_standing_idle_n_03.png": {
       "shirt": 0.0,
@@ -393,19 +528,19 @@
     },
     "voss_standing_idle_nnw_00.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001018
     },
     "voss_standing_idle_nnw_01.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.003421
     },
     "voss_standing_idle_nnw_02.png": {
       "shirt": 0.0,
-      "skin": 0.008835
+      "skin": 0.007866
     },
     "voss_standing_idle_nnw_03.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001617
     },
     "voss_standing_idle_nw_00.png": {
       "shirt": 0.0,
@@ -425,19 +560,19 @@
     },
     "voss_walk_n_00.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001741
     },
     "voss_walk_n_01.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001956
     },
     "voss_walk_n_02.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.00337
     },
     "voss_walk_n_03.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.003848
     },
     "voss_walk_n_04.png": {
       "shirt": 0.0,
@@ -453,31 +588,31 @@
     },
     "voss_walk_n_07.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.003588
     },
     "voss_walk_nnw_00.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.003183
     },
     "voss_walk_nnw_01.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.001315
     },
     "voss_walk_nnw_02.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.002255
     },
     "voss_walk_nnw_03.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.003478
     },
     "voss_walk_nnw_04.png": {
       "shirt": 0.0,
-      "skin": 0.004425
+      "skin": 0.006748
     },
     "voss_walk_nnw_05.png": {
       "shirt": 0.0,
-      "skin": 0.002989
+      "skin": 0.001708
     },
     "voss_walk_nnw_06.png": {
       "shirt": 0.0,
@@ -485,11 +620,11 @@
     },
     "voss_walk_nnw_07.png": {
       "shirt": 0.0,
-      "skin": 0.0
+      "skin": 0.000995
     },
     "voss_walk_nw_00.png": {
       "shirt": 0.0,
-      "skin": 0.00569
+      "skin": 0.004297
     },
     "voss_walk_nw_01.png": {
       "shirt": 0.0,
@@ -497,11 +632,11 @@
     },
     "voss_walk_nw_02.png": {
       "shirt": 0.0,
-      "skin": 0.004241
+      "skin": 0.001157
     },
     "voss_walk_nw_03.png": {
       "shirt": 0.0,
-      "skin": 0.015146
+      "skin": 0.0
     },
     "voss_walk_nw_04.png": {
       "shirt": 0.0,
@@ -509,7 +644,7 @@
     },
     "voss_walk_nw_05.png": {
       "shirt": 0.0,
-      "skin": 0.009029
+      "skin": 0.0
     },
     "voss_walk_nw_06.png": {
       "shirt": 0.0,
@@ -517,7 +652,7 @@
     },
     "voss_walk_nw_07.png": {
       "shirt": 0.0,
-      "skin": 0.011707
+      "skin": 0.003746
     }
   },
   "seat": {
@@ -597,7 +732,7 @@
     "approvals": {
       "approvals_validated": 153,
       "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV20/approval_ledger_v20.json",
-      "sha256": "66c123999ad7882c4e575538ca503e7a47b6daea27d5033e5d2efe9e63abd6ca"
+      "sha256": "e78310045b2057d282087bb2b6749d3e436727d36ba64b94176947742d563c2f"
     },
     "asset_version": "v20",
     "masters_validated": 148,
@@ -814,17 +949,17 @@
   "strict_no_waivers": true,
   "wardrobe": {
     "front_material_scores": {
-      "coat": 0.016,
-      "hair": 0.0265,
-      "shirt": 0.0639,
-      "shoes": 0.0104,
-      "skin": 0.0144,
-      "tie": 0.0554,
-      "trousers": 0.1092
+      "coat": 0.0338,
+      "hair": 0.0343,
+      "shirt": 0.0478,
+      "shoes": 0.0301,
+      "skin": 0.0203,
+      "tie": 0.0702,
+      "trousers": 0.1234
     },
-    "processed_hue_spread_s": 0.6035,
-    "processed_hue_spread_ssw": 0.2756,
-    "processed_hue_spread_sw": 0.2257,
+    "processed_hue_spread_s": 0.1022,
+    "processed_hue_spread_ssw": 0.1173,
+    "processed_hue_spread_sw": 0.1605,
     "rear_forbidden_fraction": {
       "shirt": 0.0,
       "tie": 0.0

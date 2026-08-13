@@ -1131,109 +1131,109 @@
     {
       "approval_basis": "deterministic consolidated render of exact phase_1_identity_anchors approved assets",
       "approved": true,
-      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_front_profile_back_identity_shape.png",
-      "output_sha256": "728d1c37b6e036a59d91fdc0c72a0a9aa1595125d57b0c77b1d85577e237e436",
+      "output_sha256": "052f616a7d3b3e6c9ac3d881ac2f91027015de03510aa60352c5f590dc3f69ae",
       "phase": "phase_1_identity_anchors"
     },
     {
       "approval_basis": "deterministic consolidated render of exact phase_2_nine_idle_keys approved assets",
       "approved": true,
-      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_16_facings_unlabelled.png",
-      "output_sha256": "9ff107280a90bd693973b910fa893efc2e38da43c6a32d283e5a6c4808935523",
+      "output_sha256": "de260a4f66c41368ef6f9ee212b8fe876b3572c8523da917cfcc2c8fd476cc09",
       "phase": "phase_2_nine_idle_keys"
     },
     {
       "approval_basis": "deterministic consolidated render of exact phase_2_nine_idle_keys approved assets",
       "approved": true,
-      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_16_facings_labelled.png",
-      "output_sha256": "b724b4488641ae6d90cf719e7591f8c3aeba7128b32eae2f9c1055c1d710df70",
+      "output_sha256": "5ef1f3e1b3ad6f52b5cf74bb43dc0c76fd7ac0dda092cda40fdebf3fc21495ea",
       "phase": "phase_2_nine_idle_keys"
     },
     {
       "approval_basis": "deterministic consolidated render of exact phase_3_sw_n_walk_proofs approved assets",
       "approved": true,
-      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_sw_raw_processed_walk_proof.png",
-      "output_sha256": "4c04230632321fadf6f7bf2f21178b93836f09bdbe854426e648b85d0e666896",
+      "output_sha256": "0bde6cf1130aaeae10f76d471e2031d9ebb685a33cf907c96f3299c287195eaa",
       "phase": "phase_3_sw_n_walk_proofs"
     },
     {
       "approval_basis": "deterministic consolidated render of exact phase_3_sw_n_walk_proofs approved assets",
       "approved": true,
-      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_n_raw_processed_walk_proof.png",
-      "output_sha256": "8db1eb32e30ea8e74a373c1450ab669685de4d57923096f10a91f6f292f5ec91",
+      "output_sha256": "606f1f8152edcb4f00df520e7b2cf6e2ebb84ad73662c9dccd688ccbf51ac06c",
       "phase": "phase_3_sw_n_walk_proofs"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_s_quarter_speed.gif",
-      "output_sha256": "8785ad09a168b0bb4b5c12a6a082e8ffb0782c88ca9a588119d8518903d15fbd",
+      "output_sha256": "29c2b4008df8210247586c87c15700cd25561af1647b41af2b747b9709015df1",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_ssw_quarter_speed.gif",
-      "output_sha256": "d61429802a0bad9b5ffc5013dbf06681f9f4fc1d997f9b1a8df4608b41410842",
+      "output_sha256": "7546ed418299a430e7a7e6d2737177c6a5607e15ad439e84e06d65292320ba37",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_sw_quarter_speed.gif",
-      "output_sha256": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85",
+      "output_sha256": "d1298e5d8d35b131538e05100df89233aa39ce662e4da3f0509f9569bedd8031",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_wsw_quarter_speed.gif",
-      "output_sha256": "ca27a29c6723a6742cca0951202bc55e5b1520fda6f667b99e44c68c5c7bfcf8",
+      "output_sha256": "0d76800818080332a71af6b1a5db672a5d224347391a4e951be9a84b83ba024a",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_w_quarter_speed.gif",
-      "output_sha256": "4f246b636ac63bee03b9ed91ee99a71d61618fb7fa0d85eeed3d42056f4649a9",
+      "output_sha256": "073afc63df79d13a6bffda0701ab0c19eb2528dbe7282e50bf781372b923d504",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_wnw_quarter_speed.gif",
-      "output_sha256": "5de172e67d02b3821b10286c272021b46c162850d7ab195e1ef5a78281784d7c",
+      "output_sha256": "e3f7e010f008862cc44215f70ea511a6cc71ea08b2f11cca1ae072730161457d",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_nw_quarter_speed.gif",
-      "output_sha256": "9af71881513ef5cc1d211753e5ffa77fea9abb0312572178ea9824e1324d82fa",
+      "output_sha256": "084aadd001f5713edf9e27186db4458d489aa196f3cb5a5e5ea1943f0576b2d3",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_nnw_quarter_speed.gif",
-      "output_sha256": "2c9a99108c98931b7dc422e2087770d9c02de6f6b464a13bc0cfdf7ad253ad71",
+      "output_sha256": "cb3b73b8a916c1dc92671dbad27ca1535939f0768a6dc035743ef77cc578e7d9",
       "phase": "phase_4_remaining_locomotion"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "output": "QA/qa_v20_walk_n_quarter_speed.gif",
-      "output_sha256": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600",
+      "output_sha256": "1a91f985e0bed0141684251479f3f43ceaa9544a8d7699fc49fdca98e8ce5b61",
       "phase": "phase_4_remaining_locomotion"
     },
     {
@@ -1255,26 +1255,26 @@
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_inventory_220x315_vs_actor_180x180.png",
-      "output_sha256": "abbf08b9c07512f0a715d00c95aa981baa55bfeeca32e9fdb65e6bbafecf0827",
+      "output_sha256": "e7dfff6b8408ce6ea8f01f43e521e1e1198710c7ed0a2b5718461a78d385400b",
       "phase": "phase_6_smooth_paperdoll_and_scene_qa"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_office_actor_180x180.png",
-      "output_sha256": "34884e83c0e8efb40d60a585643237de92f23fb7219eed9bdac271f0e6dab768",
+      "output_sha256": "96cacd0a48fa92ef8e6ac589d3237183dd92312448916795b1ec286dfdb6e44c",
       "phase": "phase_6_smooth_paperdoll_and_scene_qa"
     },
     {
       "approved": true,
-      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_at_utc": "2026-08-13T11:34:07Z",
       "approved_by": "user",
       "output": "QA/qa_v20_city_actor_180x180.png",
-      "output_sha256": "c594e9de63c0411a4776659dd51652ccb181c2e34b39cc9145a9b0a175b33dfe",
+      "output_sha256": "397157ba698ac025cc13d0874c635775f3c95b7dffc8114f7c4792f8f373d6c8",
       "phase": "phase_6_smooth_paperdoll_and_scene_qa"
     },
     {

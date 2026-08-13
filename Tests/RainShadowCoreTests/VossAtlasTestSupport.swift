@@ -58,6 +58,11 @@ struct VossV20ValidationThresholds {
     var standingHeight = 198...202
     var seatedHeight = 150...160
     var centerTolerance = 2.0
+    /// Idle and walk cells register on body mass, so their bbox sits wherever
+    /// the pose puts it. This bounds how lopsided that may get; the tight gate
+    /// for those clips is `centroidDriftMaximum`.
+    var bodyAxisBBoxTolerance = 8.0
+    var centroidDriftMaximum = 2.0
     var seatedIdleCentroidDriftMaximum = 2.0
     var seatedIdleNeutralIoUMinimum = 0.86
     var adjacentCrownRetreatMaximum = 4
@@ -113,6 +118,10 @@ struct VossV20ValidationThresholds {
         }
         thresholds.centerTolerance = number(gates["center_tolerance"])
             ?? thresholds.centerTolerance
+        thresholds.bodyAxisBBoxTolerance = number(gates["body_axis_bbox_tolerance"])
+            ?? thresholds.bodyAxisBBoxTolerance
+        thresholds.centroidDriftMaximum = number(gates["centroid_drift_max"])
+            ?? thresholds.centroidDriftMaximum
         thresholds.seatedIdleCentroidDriftMaximum = number(gates["idle_centroid_drift_max"])
             ?? thresholds.seatedIdleCentroidDriftMaximum
         thresholds.seatedIdleNeutralIoUMinimum = number(gates["idle_neutral_iou_min"])
@@ -190,6 +199,10 @@ struct VossAtlasFrameMetrics {
     var crownY: Int
     var footY: Int
     var centerX: Double
+    /// Mean x of the opaque body. Idle and walk cells are registered on this
+    /// rather than on `centerX`, so it is the honest measure of whether the
+    /// figure holds still across a clip.
+    var centroidX: Double
     var headWidth: Int
     var headCenterX: Double
     var torsoWidth: Int
@@ -257,7 +270,10 @@ struct VossAtlasFrame {
         return result
     }
 
-    var opaqueColorCount: Int {
+    /// Distinct packed RGB values among opaque pixels. Exposed as a set so a
+    /// caller can union it across a clip and check the whole loop shares one
+    /// palette, not just that each frame stays inside a budget.
+    var opaqueColors: Set<UInt32> {
         var colors: Set<UInt32> = []
         for index in opaqueMask.indices where opaqueMask[index] {
             let pixel = index * 4
@@ -266,8 +282,10 @@ struct VossAtlasFrame {
                 | UInt32(pixels[pixel + 2])
             colors.insert(packed)
         }
-        return colors.count
+        return colors
     }
+
+    var opaqueColorCount: Int { opaqueColors.count }
 
     func metrics() throws -> VossAtlasFrameMetrics {
         var minX = width
@@ -301,6 +319,16 @@ struct VossAtlasFrame {
             throw VossAtlasTestError.emptyHeadBand
         }
 
+        var centroidSum = 0
+        var centroidCount = 0
+        for y in 0..<height {
+            for x in 0..<width where opaqueMask[y * width + x] {
+                centroidSum += x
+                centroidCount += 1
+            }
+        }
+        let centroidX = centroidCount > 0 ? Double(centroidSum) / Double(centroidCount) : 0
+
         let torsoStart = min(maxY, minY + Int((Double(bodyHeight) * 0.28).rounded()))
         let torsoEnd = min(maxY + 1, minY + Int((Double(bodyHeight) * 0.62).rounded()))
         var torsoMinX = width
@@ -320,6 +348,7 @@ struct VossAtlasFrame {
             crownY: minY,
             footY: maxY,
             centerX: Double(minX + maxX) / 2,
+            centroidX: centroidX,
             headWidth: headMaxX - headMinX + 1,
             headCenterX: Double(headMinX + headMaxX) / 2,
             torsoWidth: torsoMaxX >= torsoMinX ? torsoMaxX - torsoMinX + 1 : 0

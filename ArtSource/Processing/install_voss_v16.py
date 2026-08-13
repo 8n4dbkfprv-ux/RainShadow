@@ -522,31 +522,101 @@ def stamp_sentinels(canvas: Image.Image) -> Image.Image:
     return canvas
 
 
-def register_crunched(figure: Image.Image) -> Image.Image:
+#: How far body-axis registration may move a cell off bbox-centre. A frame that
+#: wants more than this has a silhouette problem the anchor cannot fix, and
+#: sliding it further would hide that instead of failing the gate.
+#: Set at the point where mass centring stops buying anything: worst walk
+#: centroid drift falls 4.95px -> 0.91px as this rises to 6 and is flat after.
+MAX_BODY_AXIS_SHIFT = 6
+
+#: How far a mass-registered cell's *bbox* may sit off canvas centre. Not a
+#: registration target — a bound on how lopsided a silhouette is allowed to be
+#: before it is treated as broken rather than as a pose.
+BODY_AXIS_BBOX_TOLERANCE = 8.0
+
+
+def body_axis_x(figure: Image.Image, threshold: int = 16) -> float | None:
+    """The x a frame should be registered on: the centroid of its own mass.
+
+    Registering on the silhouette bbox instead — `(FRAME_SIZE - width) // 2` —
+    lets anything that widens one side push the whole body the other way, because
+    the bbox is exactly as wide as the furthest-out pixel. A swinging arm or a
+    flaring coat hem then translates the body frame to frame, which reads as the
+    character sliding or yawing on the spot.
+
+    Chosen by measurement against bbox, torso-band, hip-band and foot-band
+    anchors, scored on how *still* the result is (mean IoU between adjacent
+    frames) rather than on any one landmark. The mass centroid wins the walk on
+    stillness and is level with bbox on the idle, while holding the body far
+    steadier: worst centroid drift 1.91px -> 0.91px on the idles and 4.95px ->
+    0.85px on the walks.
+
+    It does move the *head's* bbox midpoint around more (worst 4.0px -> 5.0px on
+    the walks), and that is the honest trade: the old number was low because the
+    old registration pinned the bbox the head sits at the top of, not because the
+    head was steady. `_validate_motion` gates the centroid for this reason.
+    """
+    mask = np.asarray(figure.convert("RGBA"))[..., 3] >= threshold
+    _, xs = np.where(mask)
+    if not len(xs):
+        return None
+    return float(xs.mean())
+
+
+def register_crunched(figure: Image.Image, body_axis: bool = False) -> Image.Image:
+    """Place a crunched figure on the runtime canvas, feet on FOOT_Y.
+
+    `body_axis` opts into mass-centroid registration. It is off by default so the
+    seat chain and every older installer keep the bbox centring they were graded
+    against — the seated cells are gated on bbox centre, and a chair is not a
+    body whose mass should be centred.
+    """
     figure = crunch.harden_alpha(figure.convert("RGBA"))
     if figure.width > FRAME_SIZE or figure.height > FOOT_Y:
         raise V16ValidationError(
             f"processed figure {figure.size} cannot fit 512px canvas at FOOT_Y={FOOT_Y}"
         )
+    centred = (FRAME_SIZE - figure.width) // 2
+    axis = body_axis_x(figure) if body_axis else None
+    if axis is None:
+        left = centred
+    else:
+        # Put the body axis on the canvas centre, then hold the result within
+        # MAX_BODY_AXIS_SHIFT of where bbox-centring would have put it.
+        wanted = round(FRAME_SIZE / 2 - axis)
+        left = max(centred - MAX_BODY_AXIS_SHIFT, min(centred + MAX_BODY_AXIS_SHIFT, wanted))
+        left = max(0, min(FRAME_SIZE - figure.width, left))
     canvas = Image.new("RGBA", (FRAME_SIZE, FRAME_SIZE), (0, 0, 0, 0))
-    canvas.alpha_composite(
-        figure,
-        ((FRAME_SIZE - figure.width) // 2, FOOT_Y - figure.height),
-    )
+    canvas.alpha_composite(figure, (left, FOOT_Y - figure.height))
     return stamp_sentinels(canvas)
 
 
-def process_keyed_figure(keyed: Image.Image, *, reference_height: int | None = None) -> Image.Image:
+def process_keyed_figure(
+    keyed: Image.Image,
+    *,
+    reference_height: int | None = None,
+    palette: "crunch.ClipPalette | None" = None,
+    body_axis: bool = False,
+) -> Image.Image:
     prepared = crunch.soften(keyed)
-    crunched = crunch.crunch(prepared, reference_height=reference_height)
+    crunched = crunch.crunch(prepared, reference_height=reference_height, palette=palette)
     # No grade runs between crunch and finalise in V16, but the final pass is kept
     # explicit so any future safe exposure adjustment cannot leave >64 colours.
-    crunched = crunch.finalise(crunched)
-    return register_crunched(crunched)
+    # `finalise` re-imposes the palette, so it has to be given the *same* clip
+    # ramps — refitting here would undo the shared fit one pass later.
+    crunched = crunch.finalise(crunched, palette)
+    return register_crunched(crunched, body_axis)
 
 
-def process_figure(source: Image.Image, *, reference_height: int | None = None) -> Image.Image:
-    return process_keyed_figure(key_chroma(source), reference_height=reference_height)
+def process_figure(
+    source: Image.Image,
+    *,
+    reference_height: int | None = None,
+    palette: "crunch.ClipPalette | None" = None,
+) -> Image.Image:
+    return process_keyed_figure(
+        key_chroma(source), reference_height=reference_height, palette=palette
+    )
 
 
 def normalise_source_resolution(source: Image.Image, canvas_height: int = 1536) -> Image.Image:
@@ -612,14 +682,49 @@ def _save_atlas_cell(stage_root: Path, atlas: str, name: str, image: Image.Image
     save_png(image, stage_root / atlas / name)
 
 
-def build_stage_contents(manifest: dict[str, Any], stage_root: Path) -> None:
-    """Build all 208 files under a new, otherwise empty staging directory."""
+def _process_clip(
+    keyed: Sequence[Image.Image], label: str, report: dict[str, Any]
+) -> list[Image.Image]:
+    """Process one animation against a single palette and a single exposure.
+
+    A clip is the unit that has to be coherent: the frames are shown in sequence,
+    so anything refitted per frame becomes visible motion. The ramps were refitted
+    per frame, which is why a four-frame idle loop shipped 210 distinct colours
+    instead of 64 and the wardrobe pulsed through it.
+
+    Scale is deliberately *not* shared here. It was tried, both within a clip and
+    across the idle/walk boundary, and measured worse: at 56 native rows the head
+    is about six pixels across, so a correction of a few percent cannot survive
+    quantisation — it rounds to the same six pixels, or to the wrong five. See
+    `body_axis_x` for the registration half of the same resolution limit.
+    """
+    levelled, factors = crunch.normalise_clip_exposure(list(keyed))
+    palette = crunch.build_clip_palette(levelled)
+    report[label] = {
+        "exposure_factors": [round(factor, 4) for factor in factors],
+        "shared_palette": palette is not None,
+    }
+    return [
+        process_keyed_figure(frame, palette=palette, body_axis=True) for frame in levelled
+    ]
+
+
+def build_stage_contents(manifest: dict[str, Any], stage_root: Path) -> dict[str, Any]:
+    """Build all 208 files under a new, otherwise empty staging directory.
+
+    Returns the per-clip scale report, whose `clamped_phases` name the masters
+    that came back proportioned differently from the rest of their clip.
+    """
     sources, _ = _load_keyed_body_sources(manifest)
+    clip_report: dict[str, Any] = {}
 
     southwest_idle: dict[int, Image.Image] = {}
     for direction in WESTERN_DIRECTIONS:
-        for phase in range(4):
-            cell = process_figure(sources[("standing_idle", direction, phase)])
+        keyed = [
+            key_chroma(sources[("standing_idle", direction, phase)]) for phase in range(4)
+        ]
+        cells = _process_clip(keyed, f"standing_idle:{direction}", clip_report)
+        for phase, cell in enumerate(cells):
             _save_atlas_cell(
                 stage_root,
                 "VossIdle.atlas",
@@ -638,8 +743,9 @@ def build_stage_contents(manifest: dict[str, Any], stage_root: Path) -> None:
         )
 
     for direction in WESTERN_DIRECTIONS:
-        for phase in range(8):
-            cell = process_figure(sources[("walk", direction, phase)])
+        keyed = [key_chroma(sources[("walk", direction, phase)]) for phase in range(8)]
+        cells = _process_clip(keyed, f"walk:{direction}", clip_report)
+        for phase, cell in enumerate(cells):
             _save_atlas_cell(
                 stage_root,
                 "VossWalk.atlas",
@@ -720,6 +826,8 @@ def build_stage_contents(manifest: dict[str, Any], stage_root: Path) -> None:
                 f"voss_sit_down_{direction}_{phase:02d}.png",
                 cell,
             )
+
+    return clip_report
 
 
 def frame_metrics(image: Image.Image) -> FrameMetrics:
@@ -879,65 +987,133 @@ def _rear_forbidden_fraction(image: Image.Image, target_hex: str) -> float:
     return float((close & value_close).mean())
 
 
+#: Clips whose frame-to-frame coherence is gated. The standing idle was absent
+#: for four asset versions: the only thing measured about it was that every cell
+#: was 198..202px tall, which the raster forces and so cannot fail.
+#: Registration moved from the silhouette bbox to the body's mass centroid, so
+#: the head's bbox midpoint is no longer pinned by construction and the honest
+#: jitter is 5px rather than the 2px the old registration reported. The gate that
+#: now carries the weight is CENTROID_DRIFT_MAX, which the same change took from
+#: 4.95px to 0.85px on the walks. See `body_axis_x`.
+HEAD_JITTER_MAX = 6.0
+CENTROID_DRIFT_MAX = 2.0
+HEAD_SCALE_RATIO_MAX = 1.12
+TORSO_SCALE_RATIO_MAX = 1.18
+CLIP_PALETTE_COLORS = 64
+
+MOTION_CLIPS = (
+    ("walk", "VossWalk.atlas", "voss_walk", 8),
+    ("idle", "VossIdle.atlas", "voss_standing_idle", 4),
+)
+
+
 def _validate_motion(stage_root: Path, errors: list[str]) -> dict[str, Any]:
     report: dict[str, Any] = {}
-    for direction in WESTERN_DIRECTIONS:
-        cells = [
-            _load_stage_cell(stage_root, "VossWalk.atlas", f"voss_walk_{direction}_{phase:02d}.png")
-            for phase in range(8)
-        ]
-        metrics = [frame_metrics(cell) for cell in cells]
-        digests = [
-            sha256(stage_root / "VossWalk.atlas" / f"voss_walk_{direction}_{phase:02d}.png")
-            for phase in range(8)
-        ]
-        if len(set(digests)) != 8:
-            errors.append(f"walk {direction}: eight processed gait cells are not unique")
-        head_jitter = max(metric.head_center_x for metric in metrics) - min(
-            metric.head_center_x for metric in metrics
-        )
-        if head_jitter > 2.0:
-            errors.append(f"walk {direction}: head jitter {head_jitter:.1f}px, expected <=2px")
-        head_scale = max(metric.head_width for metric in metrics) / min(
-            metric.head_width for metric in metrics
-        )
-        if head_scale > 1.12:
-            errors.append(f"walk {direction}: head scale pulses {head_scale:.3f}x (>1.12x)")
-        torso_widths = [metric.torso_width for metric in metrics if metric.torso_width > 0]
-        torso_scale = max(torso_widths) / min(torso_widths) if torso_widths else math.inf
-        if torso_scale > 1.18:
-            errors.append(f"walk {direction}: torso scale pulses {torso_scale:.3f}x (>1.18x)")
-        leads = "".join(foot_lead(cell) for cell in cells)
-        if "L" not in leads or "R" not in leads:
-            errors.append(f"walk {direction}: planted-foot sequence does not exchange L/R ({leads})")
-        longest_run = 1
-        run = 1
-        previous: str | None = None
-        for lead in leads:
-            if lead not in "LR":
-                previous = None
-                run = 1
-            elif lead == previous:
-                run += 1
-                longest_run = max(longest_run, run)
-            else:
-                previous = lead
-                run = 1
-        if longest_run >= 4:
-            errors.append(f"walk {direction}: planted-foot lead repeats {longest_run} cells ({leads})")
-        adjacent = [intersection_over_union(cells[index], cells[(index + 1) % 8]) for index in range(8)]
-        closure_floor = min(0.55, float(np.median(adjacent[:-1])) * 0.75)
-        if adjacent[-1] < closure_floor:
-            errors.append(
-                f"walk {direction}: loop closure IoU {adjacent[-1]:.3f}, expected >= {closure_floor:.3f}"
+    for group, atlas, stem, phases in MOTION_CLIPS:
+        for direction in WESTERN_DIRECTIONS:
+            cells = [
+                _load_stage_cell(stage_root, atlas, f"{stem}_{direction}_{phase:02d}.png")
+                for phase in range(phases)
+            ]
+            metrics = [frame_metrics(cell) for cell in cells]
+            digests = [
+                sha256(stage_root / atlas / f"{stem}_{direction}_{phase:02d}.png")
+                for phase in range(phases)
+            ]
+            if len(set(digests)) != phases:
+                errors.append(f"{group} {direction}: {phases} processed cells are not unique")
+            head_jitter = max(metric.head_center_x for metric in metrics) - min(
+                metric.head_center_x for metric in metrics
             )
-        report[direction] = {
-            "head_jitter_px": round(head_jitter, 3),
-            "head_scale_ratio": round(head_scale, 4),
-            "torso_scale_ratio": round(torso_scale, 4),
-            "planted_foot_leads": leads,
-            "adjacent_iou": [round(value, 4) for value in adjacent],
-        }
+            if head_jitter > HEAD_JITTER_MAX:
+                errors.append(
+                    f"{group} {direction}: head jitter {head_jitter:.1f}px, "
+                    f"expected <={HEAD_JITTER_MAX}px"
+                )
+            centroid_drift = max(metric.centroid_x for metric in metrics) - min(
+                metric.centroid_x for metric in metrics
+            )
+            if centroid_drift > CENTROID_DRIFT_MAX:
+                errors.append(
+                    f"{group} {direction}: body centroid drifts {centroid_drift:.2f}px, "
+                    f"expected <={CENTROID_DRIFT_MAX}px"
+                )
+            head_scale = max(metric.head_width for metric in metrics) / min(
+                metric.head_width for metric in metrics
+            )
+            if head_scale > HEAD_SCALE_RATIO_MAX:
+                errors.append(
+                    f"{group} {direction}: head scale pulses {head_scale:.3f}x "
+                    f"(>{HEAD_SCALE_RATIO_MAX}x)"
+                )
+            torso_widths = [metric.torso_width for metric in metrics if metric.torso_width > 0]
+            torso_scale = max(torso_widths) / min(torso_widths) if torso_widths else math.inf
+            if torso_scale > TORSO_SCALE_RATIO_MAX:
+                errors.append(
+                    f"{group} {direction}: torso scale pulses {torso_scale:.3f}x "
+                    f"(>{TORSO_SCALE_RATIO_MAX}x)"
+                )
+
+            # One palette per clip is the whole point of the shared fit: a loop that
+            # carries more distinct colours than the palette has entries is one whose
+            # frames were quantised apart, which is what made the wardrobe shift.
+            clip_colours = set()
+            for cell in cells:
+                pixels = np.asarray(cell.convert("RGBA"))
+                body = pixels[..., :3][pixels[..., 3] >= 128]
+                if len(body):
+                    clip_colours.update(map(tuple, np.unique(body.reshape(-1, 3), axis=0)))
+            if len(clip_colours) > CLIP_PALETTE_COLORS:
+                errors.append(
+                    f"{group} {direction}: clip carries {len(clip_colours)} distinct colours "
+                    f"across {phases} frames, expected <={CLIP_PALETTE_COLORS}"
+                )
+
+            adjacent = [
+                intersection_over_union(cells[index], cells[(index + 1) % phases])
+                for index in range(phases)
+            ]
+            entry: dict[str, Any] = {
+                "head_jitter_px": round(head_jitter, 3),
+                "centroid_drift_px": round(centroid_drift, 3),
+                "head_scale_ratio": round(head_scale, 4),
+                "torso_scale_ratio": round(torso_scale, 4),
+                "clip_colours": len(clip_colours),
+                "adjacent_iou": [round(value, 4) for value in adjacent],
+            }
+
+            if group == "walk":
+                leads = "".join(foot_lead(cell) for cell in cells)
+                if "L" not in leads or "R" not in leads:
+                    errors.append(
+                        f"walk {direction}: planted-foot sequence does not exchange L/R ({leads})"
+                    )
+                longest_run = 1
+                run = 1
+                previous: str | None = None
+                for lead in leads:
+                    if lead not in "LR":
+                        previous = None
+                        run = 1
+                    elif lead == previous:
+                        run += 1
+                        longest_run = max(longest_run, run)
+                    else:
+                        previous = lead
+                        run = 1
+                if longest_run >= 4:
+                    errors.append(
+                        f"walk {direction}: planted-foot lead repeats {longest_run} cells ({leads})"
+                    )
+                closure_floor = min(0.55, float(np.median(adjacent[:-1])) * 0.75)
+                if adjacent[-1] < closure_floor:
+                    errors.append(
+                        f"walk {direction}: loop closure IoU {adjacent[-1]:.3f}, "
+                        f"expected >= {closure_floor:.3f}"
+                    )
+                entry["planted_foot_leads"] = leads
+
+            report[f"{group}:{direction}"] = entry
     return report
 
 
@@ -1073,6 +1249,13 @@ def validate_staging(stage_root: Path, manifest: dict[str, Any]) -> dict[str, An
     _fail_if(errors)
 
     # Primary standing/walk cells are all independently normalised to 200px.
+    #
+    # These are registered on body mass, not on the silhouette bbox, so the bbox
+    # centre is deliberately allowed to sit off-centre — a walking figure with a
+    # leg and an arm thrown forward has its bbox ahead of its body, and centring
+    # that bbox is what put the body off-centre in the first place. The tight
+    # centring gate for these cells is the per-clip centroid drift in
+    # `_validate_motion`; what remains here is a sanity bound.
     for atlas in ("VossIdle.atlas", "VossWalk.atlas"):
         for name in expected[atlas]:
             metrics = raster_metrics.get(f"{atlas}/{name}")
@@ -1082,8 +1265,11 @@ def validate_staging(stage_root: Path, manifest: dict[str, Any]) -> dict[str, An
                 errors.append(f"{name}: standing height {metrics['height']}, expected 198...202px")
             if metrics["foot_y"] != VISIBLE_FOOT_ROW:
                 errors.append(f"{name}: feet row {metrics['foot_y']}, expected 433")
-            if abs(metrics["center_x"] - 255.5) > 2.0:
-                errors.append(f"{name}: bbox center {metrics['center_x']:.1f}, expected within 2px")
+            if abs(metrics["center_x"] - 255.5) > BODY_AXIS_BBOX_TOLERANCE:
+                errors.append(
+                    f"{name}: bbox center {metrics['center_x']:.1f}, "
+                    f"expected within {BODY_AXIS_BBOX_TOLERANCE}px"
+                )
 
     for direction in SEAT_DIRECTIONS:
         for phase in range(8):

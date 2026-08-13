@@ -20,6 +20,8 @@ if str(PROCESSING_DIR) not in sys.path:
     sys.path.insert(0, str(PROCESSING_DIR))
 
 import install_voss_v20 as v20
+import install_voss_v16 as core
+import crunch
 import qa_voss_v20 as qa20
 
 
@@ -116,12 +118,17 @@ class VossV20PipelineTests(unittest.TestCase):
         self.assertEqual(len(completed) + len(pending), 148)
         self.assertTrue(all(v20._valid_digest(digest) for digest in completed))
 
-    def test_v20_runtime_registration_is_whole_cell_and_nw_only(self) -> None:
+    def test_v20_ships_no_hand_authored_registration_offsets(self) -> None:
+        # The two NW nudges patched, by hand and for two cells, the drift that
+        # bbox-centring caused everywhere. register_crunched now registers all
+        # 112 locomotion cells on body mass, and leaving the nudges on top of
+        # that double-corrects.
         manifest = manifest_scaffold()
-        self.assertEqual(
-            manifest["processing"]["runtime_registration_offsets"],
-            {"walk:nw:04": [2, 0], "walk:nw:07": [1, 0]},
-        )
+        self.assertEqual(manifest["processing"]["runtime_registration_offsets"], {})
+
+    def test_v20_runtime_registration_is_whole_cell_when_an_offset_is_declared(self) -> None:
+        manifest = manifest_scaffold()
+        manifest["processing"]["runtime_registration_offsets"] = {"walk:nw:04": [2, 0]}
         pixels = np.zeros((16, 16, 4), dtype=np.uint8)
         pixels[5:9, 6:10] = (101, 59, 38, 255)
         source = Image.fromarray(pixels, "RGBA")
@@ -377,6 +384,138 @@ class VossV20PipelineTests(unittest.TestCase):
                 "_recenter_stage_cells",
             }.isdisjoint(called)
         )
+
+
+class VossClipCoherenceTests(unittest.TestCase):
+    """The three per-frame passes that made an animation incoherent.
+
+    All asset-independent: each builds its own clip out of `synthetic_master`
+    so a master regeneration cannot make these pass or fail.
+    """
+
+    @staticmethod
+    def _clip(exposures=(1.0, 1.0, 1.0, 1.0), shifts=(0, 0, 0, 0)):
+        """A clip of keyed masters differing only in exposure and arm reach."""
+        frames = []
+        for exposure, shift in zip(exposures, shifts):
+            master = synthetic_master()
+            pixels = np.asarray(master.convert("RGB")).astype(np.float64)
+            chroma = (np.asarray(master.convert("RGB")) == (0, 255, 0)).all(axis=2)
+            pixels = np.clip(pixels * exposure, 0, 255)
+            pixels[chroma] = (0, 255, 0)
+            lifted = Image.fromarray(pixels.astype(np.uint8), "RGB")
+            if shift:
+                # A raised arm: widens the silhouette on one side only.
+                draw = ImageDraw.Draw(lifted)
+                draw.rectangle((255, 150, 255 + shift, 230), fill=v20.V20_WARDROBE["coat"])
+            frames.append(core.key_chroma(lifted))
+        return frames
+
+    def test_a_clip_quantises_to_one_shared_palette(self) -> None:
+        clip = self._clip(exposures=(1.0, 0.93, 1.06, 0.97))
+        cells = core._process_clip(clip, "test", {})
+        colours = [
+            {
+                tuple(int(c) for c in colour)
+                for colour in np.unique(
+                    np.asarray(cell)[..., :3][np.asarray(cell)[..., 3] >= 128].reshape(-1, 3),
+                    axis=0,
+                )
+            }
+            for cell in cells
+        ]
+        union = set().union(*colours)
+        self.assertLessEqual(
+            len(union),
+            core.CLIP_PALETTE_COLORS,
+            "a clip must not carry more colours than one palette has entries",
+        )
+        for index, used in enumerate(colours):
+            self.assertLessEqual(used, union, f"phase {index} invented colours off-palette")
+
+    def test_per_frame_palettes_are_what_the_shared_fit_prevents(self) -> None:
+        # The control: same clip, processed the old way, one frame at a time.
+        clip = self._clip(exposures=(1.0, 0.93, 1.06, 0.97))
+        union = set()
+        for frame in clip:
+            cell = core.process_keyed_figure(frame)
+            pixels = np.asarray(cell)
+            union.update(
+                map(tuple, np.unique(pixels[..., :3][pixels[..., 3] >= 128].reshape(-1, 3), axis=0))
+            )
+        self.assertGreater(
+            len(union),
+            core.CLIP_PALETTE_COLORS,
+            "per-frame quantisation should overrun one palette; if it no longer "
+            "does, the shared-palette test above has stopped proving anything",
+        )
+
+    def test_clip_exposure_is_levelled_towards_the_median(self) -> None:
+        clip = self._clip(exposures=(1.0, 0.75, 1.25, 1.0))
+        levelled, factors = crunch.normalise_clip_exposure(clip)
+        self.assertAlmostEqual(factors[0], 1.0, places=2)
+        self.assertGreater(factors[1], 1.0, "a dark frame must be lifted")
+        self.assertLess(factors[2], 1.0, "a bright frame must be pulled down")
+        means = []
+        for frame in levelled:
+            pixels = np.asarray(frame.convert("RGBA"))
+            means.append(float(pixels[..., :3][pixels[..., 3] >= 128].mean()))
+        self.assertLess(
+            max(means) / min(means) - 1.0,
+            0.10,
+            "levelled frames should sit within 10% of each other",
+        )
+
+    def test_exposure_correction_is_bounded(self) -> None:
+        clip = self._clip(exposures=(1.0, 0.2, 1.0, 1.0))
+        _, factors = crunch.normalise_clip_exposure(clip)
+        self.assertLessEqual(max(factors), 1.0 + crunch.CLIP_EXPOSURE_LIMIT + 1e-9)
+        self.assertGreaterEqual(min(factors), 1.0 - crunch.CLIP_EXPOSURE_LIMIT - 1e-9)
+
+    def test_exposure_levelling_does_not_move_hue(self) -> None:
+        clip = self._clip(exposures=(1.0, 0.85, 1.15, 1.0))
+        levelled, _ = crunch.normalise_clip_exposure(clip)
+        for original, moved in zip(clip, levelled):
+            a = np.asarray(original.convert("RGBA")).astype(np.float64)
+            b = np.asarray(moved.convert("RGBA")).astype(np.float64)
+            body = (a[..., 3] >= 128) & (a[..., :3].sum(axis=2) > 30)
+            ratio_a = a[body][:, 0] / np.maximum(a[body][:, 1], 1.0)
+            ratio_b = b[body][:, 0] / np.maximum(b[body][:, 1], 1.0)
+            np.testing.assert_allclose(ratio_a, ratio_b, rtol=0.02)
+
+    def test_mass_registration_holds_the_body_still_against_a_swinging_arm(self) -> None:
+        clip = self._clip(shifts=(0, 30, 0, 30))
+        bbox = [core.register_crunched(f, body_axis=False) for f in
+                [crunch.finalise(crunch.crunch(crunch.soften(f))) for f in clip]]
+        mass = core._process_clip(clip, "test", {})
+        drift = lambda cells: max(core.frame_metrics(c).centroid_x for c in cells) - min(
+            core.frame_metrics(c).centroid_x for c in cells
+        )
+        self.assertLess(
+            drift(mass),
+            drift(bbox),
+            "mass registration must hold the body steadier than bbox centring "
+            "when one side of the silhouette grows",
+        )
+
+    def test_registration_shift_is_bounded(self) -> None:
+        clip = self._clip(shifts=(0, 120, 0, 0))
+        cells = core._process_clip(clip, "test", {})
+        for index, cell in enumerate(cells):
+            offset = abs(core.frame_metrics(cell).center_x - 255.5)
+            self.assertLessEqual(
+                offset,
+                core.MAX_BODY_AXIS_SHIFT + 2,
+                f"phase {index} slid {offset:.1f}px off centre",
+            )
+
+    def test_seat_cells_keep_bbox_centring(self) -> None:
+        # Scope guard: the seat chain is graded on bbox centre and must not pick
+        # up mass registration from the shared engine.
+        frame = self._clip(shifts=(40,))[0]
+        centred = core.process_keyed_figure(frame)
+        self.assertLessEqual(abs(core.frame_metrics(centred).center_x - 255.5), 1.0)
+
 
 
 if __name__ == "__main__":

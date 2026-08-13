@@ -61,6 +61,38 @@ V7 = CrunchSpec(native_rows=80, colors=64, hard_alpha=False, ramp_palette=False,
 ACTIVE = V14
 
 
+@dataclass(frozen=True)
+class ClipPalette:
+    """One set of material ramps fitted once and reused by every frame of a clip.
+
+    Without this the ramps are refitted per frame — `_colour_centroids` reseeds
+    from that frame's own pixels and `_region_ramp` medium-cuts them — so no two
+    frames of an animation can share a palette by construction. Small lighting
+    differences between the masters then land on different entries and the
+    wardrobe visibly shifts hue and value across a four-frame idle loop.
+
+    Fitting once over the clip's pooled pixels also *suppresses* master drift
+    rather than merely not adding to it: every frame snaps to the same entries,
+    so a master that rendered a stop darker quantises back onto the clip's shade.
+    """
+
+    seeds: np.ndarray
+    ramps: tuple[np.ndarray, ...]
+
+    def apply(self, body: np.ndarray) -> np.ndarray:
+        """Snap `body` (N,3 float) onto this clip's ramps, by nearest seed."""
+        assignment = ((body[:, None, :] - self.seeds[None]) ** 2).sum(2).argmin(1)
+        out = body.copy()
+        for index, ramp in enumerate(self.ramps):
+            member = assignment == index
+            if not member.any():
+                continue
+            sample = body[member].astype(np.int32)
+            distance = ((sample[:, None, :] - ramp[None, :, :].astype(np.int32)) ** 2).sum(axis=2)
+            out[member] = ramp[distance.argmin(axis=1)]
+        return out
+
+
 # ---------------------------------------------------------------------------
 # Pre-crunch soften
 # ---------------------------------------------------------------------------
@@ -347,7 +379,120 @@ def _region_ramp(sample: np.ndarray, steps: int) -> np.ndarray:
     return palette[: max(1, min(steps, used or steps))]
 
 
-def _quantise_material_clusters(native: Image.Image, spec: CrunchSpec) -> Image.Image:
+#: How far one frame's exposure may be moved to match its clip.
+#:
+#: Set where the correction stops asking for more: raising this past 0.25 changes
+#: nothing, because what is left after that is local contrast rather than a level
+#: shift. Across the 112 V20 idle and walk frames the median correction is 2.6%
+#: and the 90th percentile 9.9%; only eight frames want more than 12%, and all
+#: eight are walk masters that came back visibly mis-exposed against the rest of
+#: their own gait (NNW phase 5 alone is 28% brighter than its neighbours).
+CLIP_EXPOSURE_LIMIT = 0.25
+
+
+def normalise_clip_exposure(
+    frames: "list[Image.Image]", limit: float | None = None
+) -> "tuple[list[Image.Image], list[float]]":
+    """Hold every frame of a clip to the clip's own median body exposure.
+
+    A shared palette stops each frame *inventing* its own colours, but it cannot
+    stop a master that rendered a stop darker from landing on the darker entries
+    of that shared ramp — the entries are common, the distribution over them is
+    not. The V20 idle masters vary ~15% in mean value between phases of the same
+    loop, which reads as the wardrobe pulsing.
+
+    All three channels are scaled by one factor, so this is exposure only: it
+    cannot move a hue, and the wardrobe stays where `PRESERVE_WARDROBE` put it.
+    """
+    if limit is None:
+        limit = CLIP_EXPOSURE_LIMIT
+
+    means: list[float] = []
+    for frame in frames:
+        rgba = np.asarray(frame.convert("RGBA"))
+        body = rgba[..., :3][rgba[..., 3] >= 128]
+        means.append(float(body.mean()) if len(body) else 0.0)
+
+    lit = [mean for mean in means if mean > 0]
+    if not lit:
+        return list(frames), [1.0] * len(frames)
+    median = float(np.median(lit))
+
+    out: list[Image.Image] = []
+    factors: list[float] = []
+    for frame, mean in zip(frames, means):
+        if mean <= 0:
+            out.append(frame)
+            factors.append(1.0)
+            continue
+        factor = min(1.0 + limit, max(1.0 - limit, median / mean))
+        factors.append(factor)
+        if factor == 1.0:
+            out.append(frame)
+            continue
+        rgba = np.asarray(frame.convert("RGBA")).astype(np.float64)
+        rgba[..., :3] = np.clip(rgba[..., :3] * factor, 0.0, 255.0)
+        out.append(Image.fromarray(rgba.astype(np.uint8), "RGBA"))
+    return out, factors
+
+
+def build_clip_palette(
+    frames: "list[Image.Image]", spec: CrunchSpec | None = None, sample_cap: int = 24000
+) -> ClipPalette | None:
+    """Fit one set of material ramps over every frame of a clip, at native scale.
+
+    Sampling is done at `spec.native_rows` because that is the raster the ramps
+    are actually imposed on; fitting at master resolution would weight the fit by
+    detail the crunch is about to throw away. Returns None when the clip has too
+    little body to fit, in which case callers fall back to the per-frame path.
+    """
+    if spec is None:
+        spec = ACTIVE
+
+    pooled: list[np.ndarray] = []
+    for frame in frames:
+        rgba = frame.convert("RGBA")
+        bbox = rgba.getchannel("A").point(lambda value: 255 if value >= 16 else 0).getbbox()
+        if bbox is None:
+            continue
+        cropped = rgba.crop(bbox)
+        rows = max(1, spec.native_rows)
+        width = max(1, round(cropped.width * rows / cropped.height))
+        small = np.asarray(raster.premultiplied_resize(cropped, (width, rows)))
+        body = small[..., :3][small[..., 3] >= 128]
+        if len(body):
+            pooled.append(body)
+    if not pooled:
+        return None
+
+    body = np.concatenate(pooled).astype(np.float64)
+    if len(body) < 32:
+        return None
+    if len(body) > sample_cap:
+        body = body[:: max(1, len(body) // sample_cap)]
+
+    groups = max(3, min(8, spec.colors // spec.ramp_steps + 2))
+    seeds, _ = _colour_centroids(body, k=groups)
+    assignment = ((body[:, None, :] - seeds[None]) ** 2).sum(2).argmin(1)
+    steps = max(4, spec.colors // groups)
+
+    ramps: list[np.ndarray] = []
+    for index in range(len(seeds)):
+        member = assignment == index
+        count = int(member.sum())
+        if count < MIN_REGION_PX:
+            # Keep one entry per seed so `ClipPalette.apply` can index by seed:
+            # a cluster that is negligible clip-wide still has to map somewhere.
+            ramps.append(np.rint(seeds[index]).astype(np.int32).reshape(1, 3))
+            continue
+        sample = body[member].astype(np.uint8)
+        ramps.append(_region_ramp(sample, min(steps, max(2, count // 2))))
+    return ClipPalette(seeds=seeds, ramps=tuple(ramps))
+
+
+def _quantise_material_clusters(
+    native: Image.Image, spec: CrunchSpec, palette: ClipPalette | None = None
+) -> Image.Image:
     """Per-material ramps with the materials found by colour, not by heuristic.
 
     `_coat_mask` was written for a Voss who was monochrome brown, so it is broad
@@ -368,6 +513,10 @@ def _quantise_material_clusters(native: Image.Image, spec: CrunchSpec) -> Image.
     if len(body) < 32:
         return native
 
+    if palette is not None:
+        pixels[opaque, :3] = palette.apply(body).astype(np.uint8)
+        return Image.fromarray(pixels, "RGBA")
+
     groups = max(3, min(8, spec.colors // spec.ramp_steps + 2))
     seeds, _ = _colour_centroids(body, k=groups)
     assignment = ((body[:, None, :] - seeds[None]) ** 2).sum(2).argmin(1)
@@ -387,7 +536,12 @@ def _quantise_material_clusters(native: Image.Image, spec: CrunchSpec) -> Image.
     return Image.fromarray(pixels, "RGBA")
 
 
-def _quantise_ramps(native: Image.Image, labels: np.ndarray, spec: CrunchSpec) -> Image.Image:
+def _quantise_ramps(
+    native: Image.Image,
+    labels: np.ndarray,
+    spec: CrunchSpec,
+    palette: ClipPalette | None = None,
+) -> Image.Image:
     """Per-material shade ramps, the way Infinity Engine avatar palettes were built.
 
     Skin gets a protected ramp however little area it covers — that is the whole
@@ -398,6 +552,8 @@ def _quantise_ramps(native: Image.Image, labels: np.ndarray, spec: CrunchSpec) -
     """
     # A figure with a real wardrobe needs materials found by colour; the mask
     # heuristics below only make sense on a monochrome one.
+    if palette is not None:
+        return _quantise_material_clusters(native, spec, palette)
     if PRESERVE_WARDROBE and material_hue_spread(native) >= HUE_SPREAD_FLOOR:
         return _quantise_material_clusters(native, spec)
 
@@ -498,7 +654,7 @@ def _native(
     return result
 
 
-def finalise(frame: Image.Image) -> Image.Image:
+def finalise(frame: Image.Image, palette: ClipPalette | None = None) -> Image.Image:
     """Re-impose the palette *after* colour grading, and restore value contrast.
 
     In the Infinity Engine the palette is the sprite: a BAM carries its ramps and
@@ -526,7 +682,7 @@ def finalise(frame: Image.Image) -> Image.Image:
         return frame  # transparent compat cells have no palette to impose
 
     labels = _labels_from_coverage(material_coverage(rgba))
-    return _quantise_ramps(rgba, labels, ACTIVE)
+    return _quantise_ramps(rgba, labels, ACTIVE, palette)
 
 
 def crunch(
@@ -535,6 +691,7 @@ def crunch(
     *,
     crop_to_alpha: bool = True,
     reference_height: int | None = None,
+    palette: ClipPalette | None = None,
 ) -> Image.Image:
     """Crunch one figure to the 200px texture body.
 
@@ -542,6 +699,10 @@ def crunch(
     normalising every frame to a full standing body — the desk chain needs it so
     crouched sit/stand cells stay shorter than the standing endpoint rather than
     each being blown up to full height.
+
+    `palette` holds every frame of a clip to one set of material ramps. Without
+    it the ramps are refitted per frame and the wardrobe shifts across a loop;
+    see `ClipPalette`.
     """
     if spec is None:
         spec = ACTIVE
@@ -564,7 +725,7 @@ def crunch(
     native, labels = _native(figure, coverage, target_rows, spec, crop=crop_to_alpha)
 
     if spec.ramp_palette:
-        native = _quantise_ramps(native, labels, spec)
+        native = _quantise_ramps(native, labels, spec, palette)
     else:
         native = _quantise_medcut(native, spec.colors)
 
