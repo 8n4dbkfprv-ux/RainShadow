@@ -1,0 +1,105 @@
+{
+  "frames": [
+    {
+      "phase": 0,
+      "source_sha256": "b42c4dfc72785498af7330894fcdd2543745ceb01989bb3234b055837978e703",
+      "width": 111,
+      "height": 200,
+      "head_width": 29,
+      "head_center_x": 253.0,
+      "torso_width": 83,
+      "lead": "L"
+    },
+    {
+      "phase": 1,
+      "source_sha256": "8cb7f7a84cfa285331acd1a3ef8b32bcfd06d681ec68c82fbcb8d3bca1a1bb65",
+      "width": 107,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 253.0,
+      "torso_width": 78,
+      "lead": "L"
+    },
+    {
+      "phase": 2,
+      "source_sha256": "1469fd04fbe42626a656f14c258b24ef7a9abeec9a451e7f65fd56799f3216b1",
+      "width": 89,
+      "height": 200,
+      "head_width": 28,
+      "head_center_x": 249.5,
+      "torso_width": 78,
+      "lead": "L"
+    },
+    {
+      "phase": 3,
+      "source_sha256": "ae0c94b4a67d8403654797624fb40a996a8a236c13b4acae35199a92067a36db",
+      "width": 111,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 255.0,
+      "torso_width": 75,
+      "lead": "L"
+    },
+    {
+      "phase": 4,
+      "source_sha256": "ab4c8027f8eacbd6a83a74696cefe354499a414e574af6d34661b12f43b7a59a",
+      "width": 129,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 93,
+      "lead": "="
+    },
+    {
+      "phase": 5,
+      "source_sha256": "568643df15e7e289f993bf2322f1adc6e2f951026d342b3eb86a699c00534f01",
+      "width": 121,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 246.0,
+      "torso_width": 82,
+      "lead": "="
+    },
+    {
+      "phase": 6,
+      "source_sha256": "e52266c698f1fd18a79c695d09e1c6be2ce059055b28e160629700a306481a07",
+      "width": 86,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 75,
+      "lead": "L"
+    },
+    {
+      "phase": 7,
+      "source_sha256": "c05cd7cd5e1c81a8acde458bf2fa142261bf9d3398b6f31ba9107778ac76d7e1",
+      "width": 100,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 257.0,
+      "torso_width": 85,
+      "lead": "R"
+    }
+  ],
+  "summary": {
+    "unique": 8,
+    "head_jitter": 11.0,
+    "head_pulse": 1.16,
+    "torso_pulse": 1.24,
+    "leads": "LLLL==LR",
+    "longest_repeated_lead": 4,
+    "adjacent_iou": [
+      0.8765233821445442,
+      0.6457456855842706,
+      0.6032988302617184,
+      0.6915984489444205,
+      0.7921731123388582,
+      0.5914347668955547,
+      0.5468819302758804,
+      0.6018327416824899
+    ],
+    "closure_floor": 0.48430926418820297,
+    "closure_pass": true,
+    "strict_pass": false
+  }
+}

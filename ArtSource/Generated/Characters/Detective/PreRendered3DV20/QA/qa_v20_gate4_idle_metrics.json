@@ -1,0 +1,263 @@
+{
+  "s": {
+    "centers": [
+      255.0,
+      255.0,
+      255.0,
+      255.0
+    ],
+    "head_widths": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "torso_widths": [
+      79,
+      79,
+      79,
+      79
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 0.0,
+    "head_pulse": 1.0,
+    "torso_pulse": 1.0
+  },
+  "ssw": {
+    "centers": [
+      255.0,
+      253.5,
+      253.5,
+      255.5
+    ],
+    "head_widths": [
+      21,
+      22,
+      22,
+      22
+    ],
+    "torso_widths": [
+      71,
+      68,
+      68,
+      64
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.0476,
+    "torso_pulse": 1.1094
+  },
+  "sw": {
+    "centers": [
+      253.5,
+      253.5,
+      253.5,
+      253.5
+    ],
+    "head_widths": [
+      22,
+      22,
+      22,
+      22
+    ],
+    "torso_widths": [
+      68,
+      68,
+      68,
+      68
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 0.0,
+    "head_pulse": 1.0,
+    "torso_pulse": 1.0
+  },
+  "wsw": {
+    "centers": [
+      255.0,
+      255.0,
+      253.5,
+      255.5
+    ],
+    "head_widths": [
+      21,
+      21,
+      22,
+      22
+    ],
+    "torso_widths": [
+      71,
+      71,
+      68,
+      64
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.0476,
+    "torso_pulse": 1.1094
+  },
+  "w": {
+    "centers": [
+      254.0,
+      252.0,
+      252.0,
+      254.0
+    ],
+    "head_widths": [
+      25,
+      25,
+      25,
+      21
+    ],
+    "torso_widths": [
+      39,
+      38,
+      38,
+      38
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.1905,
+    "torso_pulse": 1.0263
+  },
+  "wnw": {
+    "centers": [
+      253.5,
+      255.5,
+      255.5,
+      253.5
+    ],
+    "head_widths": [
+      22,
+      22,
+      22,
+      22
+    ],
+    "torso_widths": [
+      64,
+      57,
+      60,
+      64
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.0,
+    "torso_pulse": 1.1228
+  },
+  "nw": {
+    "centers": [
+      255.5,
+      255.5,
+      257.5,
+      257.5
+    ],
+    "head_widths": [
+      22,
+      22,
+      22,
+      22
+    ],
+    "torso_widths": [
+      64,
+      64,
+      64,
+      61
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.0,
+    "torso_pulse": 1.0492
+  },
+  "nnw": {
+    "centers": [
+      253.5,
+      255.0,
+      255.5,
+      255.0
+    ],
+    "head_widths": [
+      18,
+      17,
+      18,
+      17
+    ],
+    "torso_widths": [
+      64,
+      75,
+      68,
+      75
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 2.0,
+    "head_pulse": 1.0588,
+    "torso_pulse": 1.1719
+  },
+  "n": {
+    "centers": [
+      255.5,
+      256.5,
+      255.0,
+      256.5
+    ],
+    "head_widths": [
+      18,
+      18,
+      17,
+      18
+    ],
+    "torso_widths": [
+      82,
+      79,
+      75,
+      79
+    ],
+    "heights": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "head_jitter": 1.5,
+    "head_pulse": 1.0588,
+    "torso_pulse": 1.0933
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "asset_version": "v20",
+  "paperdoll": {
+    "mode": "RGBA",
+    "partially_transparent_pixels": 19590,
+    "path": "UI/voss_paperdoll_front_rgba_v01.png",
+    "sha256": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964",
+    "size": [
+      1024,
+      1536
+    ],
+    "transparent_corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "previews": {
+    "QA/qa_v20_city_actor_180x180.png": "c594e9de63c0411a4776659dd51652ccb181c2e34b39cc9145a9b0a175b33dfe",
+    "QA/qa_v20_inventory_220x315_vs_actor_180x180.png": "abbf08b9c07512f0a715d00c95aa981baa55bfeeca32e9fdb65e6bbafecf0827",
+    "QA/qa_v20_office_actor_180x180.png": "34884e83c0e8efb40d60a585643237de92f23fb7219eed9bdac271f0e6dab768",
+    "QA/qa_v20_seated_one_world_chair.png": "74d8ef20223f4bf26ca4960fbbe0b844e667b3476d999808670a5d6357c93e49"
+  },
+  "status": "passed"
+}

@@ -4,9 +4,9 @@ import ImageIO
 import Testing
 @testable import RainShadowCore
 
-/// Guards Voss's V17 material palette and separation across source and runtime
-/// art. V17 removes the mustard waistcoat and green tie, and uses seven frozen
-/// brown/cream/black/charcoal/skin/auburn material targets.
+/// Guards Voss's locked material palette and separation across source and
+/// runtime art. V17 established the seven frozen brown/cream/black/charcoal/
+/// skin/auburn targets; V20 keeps that runtime contract.
 struct VossWardrobeColorTests {
     private var repoRoot: URL {
         URL(fileURLWithPath: #filePath)
@@ -16,7 +16,7 @@ struct VossWardrobeColorTests {
     }
 
     private var atlases: URL {
-        repoRoot.appendingPathComponent("RainShadow Shared/Resources/Art/Atlases")
+        VossAtlasTestAssets.atlasRoot
     }
 
     private var v17: URL {
@@ -83,30 +83,55 @@ struct VossWardrobeColorTests {
         }
     }
 
-    @Test func rearCellsDoNotPaintFrontGarmentsOntoVossBack() throws {
-        let subjects = [
-            (
-                "V17 authored rear key",
-                v17.appendingPathComponent("Frames/voss_idle_n_00_chroma_v17.png")
-            ),
-            (
-                "processed idle N",
-                atlases.appendingPathComponent("VossIdle.atlas/voss_standing_idle_n_00.png")
-            ),
-            (
-                "processed walk N",
-                atlases.appendingPathComponent("VossWalk.atlas/voss_walk_n_00.png")
-            )
-        ]
+    @Test func authoredV17RearKeyDoesNotPaintFrontGarmentsOntoVossBack() throws {
+        let label = "V17 authored rear key"
+        let sample = try load(
+            v17.appendingPathComponent("Frames/voss_idle_n_00_chroma_v17.png"),
+            label: label
+        )
+        let fraction = sample.fractionNear(material: .shirt, tolerance: 0.10)
+        #expect(
+            fraction <= 0.005,
+            "\(label) has \(format(fraction)) of body pixels near front-only shirt; expected <= 0.005"
+        )
+    }
 
-        for (label, url) in subjects {
-            let sample = try load(url, label: label)
-            let fraction = sample.fractionNear(material: .shirt, tolerance: 0.10)
-            #expect(
-                fraction <= 0.005,
-                "\(label) has \(format(fraction)) of body pixels near front-only shirt; expected <= 0.005"
-            )
+    @Test func allThirtySixRuntimeRearCellsExcludeFrontGarmentsAndFaces() throws {
+        let thresholds = try VossV20ValidationThresholds.load()
+        var checkedCells = 0
+        for direction in ["n", "nnw", "nw"] {
+            let sequences = [
+                ("idle", "VossIdle.atlas", "voss_standing_idle", 4),
+                ("walk", "VossWalk.atlas", "voss_walk", 8)
+            ]
+            for (animation, atlas, stem, count) in sequences {
+                for phase in 0..<count {
+                    checkedCells += 1
+                    let name = String(format: "%@_%@_%02d.png", stem, direction, phase)
+                    let label = "processed \(animation) \(direction.uppercased()) \(String(format: "%02d", phase))"
+                    let sample = try load(
+                        atlases.appendingPathComponent(atlas).appendingPathComponent(name),
+                        label: label
+                    )
+                    let shirtFraction = sample.strictFractionNear(material: .shirt)
+                    #expect(
+                        shirtFraction <= thresholds.rearShirtFractionMaximum,
+                        "\(label) has \(format(shirtFraction)) front-only shirt pixels; expected <= \(format(thresholds.rearShirtFractionMaximum))"
+                    )
+
+                    guard direction == "n" else { continue }
+                    let skinFraction = sample.strictFractionNear(material: .skin)
+                    #expect(
+                        skinFraction <= thresholds.rearNorthSkinFractionMaximum,
+                        "\(label) has \(format(skinFraction)) face/skin pixels; expected <= \(format(thresholds.rearNorthSkinFractionMaximum))"
+                    )
+                }
+            }
         }
+        #expect(
+            checkedCells == thresholds.requiredRearCells,
+            "Swift checked \(checkedCells) rear cells, V20 manifest requires \(thresholds.requiredRearCells)"
+        )
     }
 
     private func load(_ url: URL, label: String) throws -> VossWardrobeSample {
@@ -184,6 +209,7 @@ private enum VossWardrobeColorError: Error {
 
 private struct VossWardrobeSample {
     private let pixels: [VossRGB]
+    private let visiblePixels: [VossRGB]
 
     init(contentsOf url: URL) throws {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
@@ -211,7 +237,9 @@ private struct VossWardrobeSample {
         context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
 
         var body: [VossRGB] = []
+        var visible: [VossRGB] = []
         body.reserveCapacity(width * height / 8)
+        visible.reserveCapacity(width * height / 8)
         for y in 0..<height {
             for x in 0..<width {
                 // V14 writes alpha-1 sentinels into all four canvas corners.
@@ -230,8 +258,11 @@ private struct VossWardrobeSample {
                 let isChroma = pixel.g > 140 &&
                     pixel.g > pixel.r + 40 &&
                     pixel.g > pixel.b + 40
-                guard !isChroma, pixel.mean > 25 else { continue }
-                body.append(pixel)
+                visible.append(pixel)
+                guard !isChroma else { continue }
+                if pixel.mean > 25 {
+                    body.append(pixel)
+                }
             }
         }
 
@@ -239,6 +270,7 @@ private struct VossWardrobeSample {
             throw VossWardrobeColorError.noBodyPixels(url)
         }
         pixels = body
+        visiblePixels = visible
     }
 
     /// Hue spread across the eight locked material slots. Each body pixel is
@@ -314,6 +346,28 @@ private struct VossWardrobeSample {
             $0.hueDistance(to: material.lockedRGB) <= tolerance
         }
         return Double(count) / Double(pixels.count)
+    }
+
+    /// Matches the V20 pipeline's rear-material gate: normalized RGB distance
+    /// plus a value window, measured against every visible body pixel.
+    func strictFractionNear(material: VossMaterial) -> Double {
+        let target = material.lockedRGB
+        let targetSum = max(target.r + target.g + target.b, 1)
+        let count = visiblePixels.count { pixel in
+            let pixelSum = max(pixel.r + pixel.g + pixel.b, 1)
+            let chromaDistance = VossRGB(
+                r: pixel.r / pixelSum,
+                g: pixel.g / pixelSum,
+                b: pixel.b / pixelSum
+            ).distance(to: VossRGB(
+                r: target.r / targetSum,
+                g: target.g / targetSum,
+                b: target.b / targetSum
+            ))
+            let valueDistance = abs(log(max(pixel.mean, 1) / target.mean))
+            return chromaDistance < 0.035 && valueDistance < 0.30
+        }
+        return Double(count) / Double(max(visiblePixels.count, 1))
     }
 
     private func nearestMaterial(to pixel: VossRGB) -> VossMaterial {

@@ -1,0 +1,833 @@
+{
+  "approval_ledger_sha256": "66c123999ad7882c4e575538ca503e7a47b6daea27d5033e5d2efe9e63abd6ca",
+  "asset_version": "v20",
+  "built_at_utc": "2026-08-13T09:51:44.533351+00:00",
+  "counts": {
+    "compatibility_layers": 16,
+    "primary_body_presentations": 176,
+    "runtime_pngs": 208,
+    "transparent_seated_arms": 16,
+    "ui_outputs": 1
+  },
+  "generation_provenance_sha256": "b8d0de457d9676e5143c6b98e335a1e20ffac15dc5571690852ecd374d599ad5",
+  "manifest_sha256": "74ddd1eefaf987cce4bb743b2058dd4092cddb981db5531b27669b1f32176adb",
+  "manual_review_required": [
+    "At least 12 of 16 unlabeled displayed facings are recognizable.",
+    "SW walk has stable planted feet and a clean 0.25x first/last loop.",
+    "Office seated preview contains exactly one world-owned chair.",
+    "Identity, coat fit, gait phase, and chroma edges remain stable by eye."
+  ],
+  "motion": {
+    "n": {
+      "adjacent_iou": [
+        0.8246,
+        0.7512,
+        0.7708,
+        0.8937,
+        0.8665,
+        0.8972,
+        0.8625,
+        0.8838
+      ],
+      "head_jitter_px": 1.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "=R=LL=RL",
+      "torso_scale_ratio": 1.1618
+    },
+    "nnw": {
+      "adjacent_iou": [
+        0.8414,
+        0.8985,
+        0.7813,
+        0.7306,
+        0.6923,
+        0.7139,
+        0.8449,
+        0.857
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "RRRL=RRR",
+      "torso_scale_ratio": 1.1404
+    },
+    "nw": {
+      "adjacent_iou": [
+        0.7391,
+        0.7935,
+        0.8375,
+        0.8372,
+        0.6804,
+        0.7377,
+        0.7168,
+        0.8213
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "L=RRRLRL",
+      "torso_scale_ratio": 1.1639
+    },
+    "s": {
+      "adjacent_iou": [
+        0.8296,
+        0.8275,
+        0.8773,
+        0.7943,
+        0.8255,
+        0.914,
+        0.8489,
+        0.866
+      ],
+      "head_jitter_px": 1.5,
+      "head_scale_ratio": 1.0588,
+      "planted_foot_leads": "=R=LRL==",
+      "torso_scale_ratio": 1.0563
+    },
+    "ssw": {
+      "adjacent_iou": [
+        0.8582,
+        0.8462,
+        0.827,
+        0.7936,
+        0.7594,
+        0.8548,
+        0.7799,
+        0.8025
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "R===LRRL",
+      "torso_scale_ratio": 1.1127
+    },
+    "sw": {
+      "adjacent_iou": [
+        0.7032,
+        0.9295,
+        0.7094,
+        0.7529,
+        0.7581,
+        0.7013,
+        0.7119,
+        0.8275
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "LRRLLLRL",
+      "torso_scale_ratio": 1.1549
+    },
+    "w": {
+      "adjacent_iou": [
+        0.7684,
+        0.8079,
+        0.7567,
+        0.6673,
+        0.8341,
+        0.8049,
+        0.7812,
+        0.808
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "L==R=L=R",
+      "torso_scale_ratio": 1.1404
+    },
+    "wnw": {
+      "adjacent_iou": [
+        0.8429,
+        0.6377,
+        0.8243,
+        0.8465,
+        0.7963,
+        0.7382,
+        0.7139,
+        0.7284
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "R=LLL=R=",
+      "torso_scale_ratio": 1.1719
+    },
+    "wsw": {
+      "adjacent_iou": [
+        0.8503,
+        0.7359,
+        0.69,
+        0.7251,
+        0.8442,
+        0.6264,
+        0.608,
+        0.6252
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.12,
+      "planted_foot_leads": "LLL=R=L=",
+      "torso_scale_ratio": 1.1467
+    }
+  },
+  "output_hashes": {
+    "UI/Inventory/voss_paperdoll_front_rgba_v01.png": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964",
+    "VossIdle.atlas/voss_standing_idle_n_00.png": "55a58dd83f7f5eaf3a6da50d460d9c90ba899f69e53f065733bce26e0d210f06",
+    "VossIdle.atlas/voss_standing_idle_n_01.png": "c9579afb57b63a2ed9efc0f8120f41157a9ada7ea45d30ed10d8417a9adaf841",
+    "VossIdle.atlas/voss_standing_idle_n_02.png": "fa363bfb92a262f7a4990f84d059fcb59e760e536afc21ce8e9bd4e09fddc325",
+    "VossIdle.atlas/voss_standing_idle_n_03.png": "8c88c5d8e76660f19bbdfe25a1993a6c48cd499f75a7ef4ab2d864f9612460d1",
+    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "73846ed2ca58503d3a4ccff5c18719e729dc6790983f07a025b676cd900e5082",
+    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "94b35aea11ad9cfa7281d1163e9f71e47e1cbf47cba1ce5baff943922fbed0b7",
+    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "08b6eaf8a1b30d51c270f46409ec61dcf402916cb88a9b755fdbd408cab314e6",
+    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "5b2b10a3af601494c2d93c63606331fb4d6f11b7dbbc171fc4329265a1d25bbf",
+    "VossIdle.atlas/voss_standing_idle_nw_00.png": "7bced32710730de93c662bec230dc12069d54590c3fb2ea2ba3182772eb4d2aa",
+    "VossIdle.atlas/voss_standing_idle_nw_01.png": "43718377d2ddc74db3b407ec2c298ae8a8cf56c6bed2f9ba956b9d8227786609",
+    "VossIdle.atlas/voss_standing_idle_nw_02.png": "fd101508d928667b7a8a234804a5f36040c135d6c67959888a5f838c61c9842a",
+    "VossIdle.atlas/voss_standing_idle_nw_03.png": "e07b8dda91c9330f411590b54e062b0c82c3ccccba63be9b87b4db392457b002",
+    "VossIdle.atlas/voss_standing_idle_s_00.png": "fd03d1ab97ba3bd611a54f709d02e561a111d21e1ce919afaea4ad1c22eff66c",
+    "VossIdle.atlas/voss_standing_idle_s_01.png": "e0b0cd3d695efb0fdf14eb890bea26f8d2ab867dd023abceaca19131581d1c99",
+    "VossIdle.atlas/voss_standing_idle_s_02.png": "38be2e19fc58add0e4b047b221f92f3fc6fbbbd9c61a9fd84a26ff000e67b2da",
+    "VossIdle.atlas/voss_standing_idle_s_03.png": "3995aedab02ef61c3d6d99cb7529a1c8c57914c1447a83cf569b3390ebc8c9c4",
+    "VossIdle.atlas/voss_standing_idle_se_00.png": "afcefd37a8899bc1a97a85dd68eedf93356f772b2f27d19ebd998b63ad4bbadc",
+    "VossIdle.atlas/voss_standing_idle_se_01.png": "ea486aaacd7d191f328bec963e0abee961e2753f6e60e0c21ab02e6ab60a6a75",
+    "VossIdle.atlas/voss_standing_idle_se_02.png": "756d9d5bac48313b5017db998875b44e05de48ce38e9f0dd5f48386f28ab63e6",
+    "VossIdle.atlas/voss_standing_idle_se_03.png": "b58a794238daddd968c1e69b0c3359f327a7a86d7b4907c14605bd7aa5b2c55a",
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "f4e9e80e5bc60e98d9992f2a8f40108ffdf666a77ed7e0a2d8bc6ee5e4def167",
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "3997828d63a0c8b3b353110859c4c20d06755553d74ed7e2dfabbceb181de13c",
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "f2b1ebcfd06955f9b508bd84a21bb301c5c26c6f28dbfddd063069b693f7ecaf",
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "8f6706da00123de81649bdf8977c049002f07315d66c6c143c91b813230ba6c4",
+    "VossIdle.atlas/voss_standing_idle_sw_00.png": "8a13406a33dfe58a8392a946037183b2b4423d1caeb4c74c4266996852d8fc27",
+    "VossIdle.atlas/voss_standing_idle_sw_01.png": "a89f0ff97e4a1688dd62cf17b74a5d88b49cb91c31019fbea21709185eac3d4d",
+    "VossIdle.atlas/voss_standing_idle_sw_02.png": "62ceae4c11a3f88bf96377536461d354691b41086b67b0d13c2adf22997dee27",
+    "VossIdle.atlas/voss_standing_idle_sw_03.png": "c008eda3452c8eedfbcddb5682ba83e33ceddd7b048b86eecd652c84ed665b64",
+    "VossIdle.atlas/voss_standing_idle_w_00.png": "35771870cb6d628ca2b47bb8c149f2d434dcd11eae0a5f659869cffa287570c6",
+    "VossIdle.atlas/voss_standing_idle_w_01.png": "c24978feecdb67611547df34bfc3529eb7b80c24a4ca6f0b745438a67a1e04e8",
+    "VossIdle.atlas/voss_standing_idle_w_02.png": "e2e5e786c3b96c82c459611d09bedc4a31750c44dfcb0d15148d1430367cbc8f",
+    "VossIdle.atlas/voss_standing_idle_w_03.png": "aefa1ab69095f707c098bc291e3a3dad11a90e1284bc05dc4d1bd9b6a7aa03d4",
+    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "24a683fbcdbfd6b80411b55388dfeba2320494cbd6ad7a38cdb1b605c5a3101c",
+    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "4be5ace2a9b6f52514e3b47af0f7081d26fbd7eb3af594fd0f281445bcaacb5d",
+    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "f79d94e42128d19a5bf879810e7d44168224950a68d9ea47c6b7f37837287daa",
+    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "703d08c38a36861aee591677bcc542c45f39c2055334190f22fccc1953a5c05c",
+    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "6f849d56fb733b6166cc83c43aa70a2cbb2c44ef6b36df3e9522a817039d0284",
+    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "2e086d0ac898772517f8e6529d483f6d15c61efa744fc7cade9041ec9db426d7",
+    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "2618de7d25e3491f71c3811917d69038121344852482b30a0ecacb0b90ae60de",
+    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "49cffbeeb2f808eb1e11389e3c678a4fe2aa795b1a631b9b1139f04dd9e7b1a8",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_00.png": "e3ccfc22a88185507aac061a976c09d516e74377d306fd651d4bbeefc9004e27",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_01.png": "7080649e24508160b0ae6468121fc9214bd2de1f51652085465eb9e5ea1268e3",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_02.png": "8a1dc0706015e145ed6aa7079d5847c6085fd4fe6947ddae300b2da321afa519",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_03.png": "801dd1335a75f19e4bafb01a45881317405f47e36f0846bb305da8fd25a8f7d5",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_04.png": "31a30851ef2ee2e7e19182da6b6c44f07dcf1bab5f36234c2ffe839f9578e0c8",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_05.png": "7b27afbe0dd83b576cbddf27bfd102114685677a262264aa65fa5f2530ca7ec4",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_06.png": "bf8496af3010c041d04b618bd54680242519b4b96636bd0d66add2d8384fb2c5",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_07.png": "a4c7bdabd22d74805c82fb742c40879473aacb455a5363a38ac3f9e215f28cb0",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_08.png": "c21f1eb8bbb02f4a84aa8d7483ac9df5870d5839057835d1d5ec053f0a84332e",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_09.png": "5af37134de9f81921ec3f4513758cd3931a25d737dcfc7dc098ff1641642ce43",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_10.png": "0477d928de041a1d0772c20985537a3e046300a53bad2c9236200bf987c410ec",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_11.png": "de1f222586bc397a221d18dd7e6d03aa317d1d30a85c1aa6485cddcb30a421d8",
+    "VossSeatTransitions.atlas/voss_sit_down_se_00.png": "bd35dba5a88b387757a6ae647f14a5517edf200bf29249869f198ceb61e6979f",
+    "VossSeatTransitions.atlas/voss_sit_down_se_01.png": "b2ba792284fdac5a4eb6029f853004daa23456cdf38c19a5ce181a3cdf010c52",
+    "VossSeatTransitions.atlas/voss_sit_down_se_02.png": "92d41eae2736e1c7989cf4d23e1e147d166b81bf58e41058a8d6cba65c819583",
+    "VossSeatTransitions.atlas/voss_sit_down_se_03.png": "e8d0516c5f98bc8eff28eda7cf48205c1e3b005048abc8d295d66f4abe6cc629",
+    "VossSeatTransitions.atlas/voss_sit_down_se_04.png": "51d84622847c0d5ed719c1f51f9515550dfc7953ff6880b3e81ab438e0181a69",
+    "VossSeatTransitions.atlas/voss_sit_down_se_05.png": "dd5b3982bf1884b3930feca39a4e4f95455d7aaf9621f830a3400870b5e85882",
+    "VossSeatTransitions.atlas/voss_sit_down_se_06.png": "d49a845e345896eca821ebc0c8b3169ff79be4b3feef7b87e9a06e3f29b4fd19",
+    "VossSeatTransitions.atlas/voss_sit_down_se_07.png": "e955874f7a30653bc810bfdfdaf18ec8190ee9c5f994af95c630bdcb0be310a1",
+    "VossSeatTransitions.atlas/voss_sit_down_se_08.png": "73ff8e3262723bd0600d4559f9520031b748f7dfdbe280d286553328279e4605",
+    "VossSeatTransitions.atlas/voss_sit_down_se_09.png": "8c66e401a3157134a0324acbae3e7fbdda69303ef8354d9f29ea2489a23e3cfd",
+    "VossSeatTransitions.atlas/voss_sit_down_se_10.png": "09e9654a5531b394f64a57bfc0bf07de5959244544e4d1a5d9e1a0ed6b015c97",
+    "VossSeatTransitions.atlas/voss_sit_down_se_11.png": "5a62f39ee1e29b02770836aa21c746dea67ae8f28824dcd5787265996167786b",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_00.png": "de1f222586bc397a221d18dd7e6d03aa317d1d30a85c1aa6485cddcb30a421d8",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_01.png": "0477d928de041a1d0772c20985537a3e046300a53bad2c9236200bf987c410ec",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_02.png": "5af37134de9f81921ec3f4513758cd3931a25d737dcfc7dc098ff1641642ce43",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_03.png": "c21f1eb8bbb02f4a84aa8d7483ac9df5870d5839057835d1d5ec053f0a84332e",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_04.png": "a4c7bdabd22d74805c82fb742c40879473aacb455a5363a38ac3f9e215f28cb0",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_05.png": "bf8496af3010c041d04b618bd54680242519b4b96636bd0d66add2d8384fb2c5",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_06.png": "7b27afbe0dd83b576cbddf27bfd102114685677a262264aa65fa5f2530ca7ec4",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_07.png": "31a30851ef2ee2e7e19182da6b6c44f07dcf1bab5f36234c2ffe839f9578e0c8",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_08.png": "801dd1335a75f19e4bafb01a45881317405f47e36f0846bb305da8fd25a8f7d5",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_09.png": "8a1dc0706015e145ed6aa7079d5847c6085fd4fe6947ddae300b2da321afa519",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_10.png": "7080649e24508160b0ae6468121fc9214bd2de1f51652085465eb9e5ea1268e3",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_11.png": "e3ccfc22a88185507aac061a976c09d516e74377d306fd651d4bbeefc9004e27",
+    "VossSeatTransitions.atlas/voss_stand_up_se_00.png": "5a62f39ee1e29b02770836aa21c746dea67ae8f28824dcd5787265996167786b",
+    "VossSeatTransitions.atlas/voss_stand_up_se_01.png": "09e9654a5531b394f64a57bfc0bf07de5959244544e4d1a5d9e1a0ed6b015c97",
+    "VossSeatTransitions.atlas/voss_stand_up_se_02.png": "8c66e401a3157134a0324acbae3e7fbdda69303ef8354d9f29ea2489a23e3cfd",
+    "VossSeatTransitions.atlas/voss_stand_up_se_03.png": "73ff8e3262723bd0600d4559f9520031b748f7dfdbe280d286553328279e4605",
+    "VossSeatTransitions.atlas/voss_stand_up_se_04.png": "e955874f7a30653bc810bfdfdaf18ec8190ee9c5f994af95c630bdcb0be310a1",
+    "VossSeatTransitions.atlas/voss_stand_up_se_05.png": "d49a845e345896eca821ebc0c8b3169ff79be4b3feef7b87e9a06e3f29b4fd19",
+    "VossSeatTransitions.atlas/voss_stand_up_se_06.png": "dd5b3982bf1884b3930feca39a4e4f95455d7aaf9621f830a3400870b5e85882",
+    "VossSeatTransitions.atlas/voss_stand_up_se_07.png": "51d84622847c0d5ed719c1f51f9515550dfc7953ff6880b3e81ab438e0181a69",
+    "VossSeatTransitions.atlas/voss_stand_up_se_08.png": "e8d0516c5f98bc8eff28eda7cf48205c1e3b005048abc8d295d66f4abe6cc629",
+    "VossSeatTransitions.atlas/voss_stand_up_se_09.png": "92d41eae2736e1c7989cf4d23e1e147d166b81bf58e41058a8d6cba65c819583",
+    "VossSeatTransitions.atlas/voss_stand_up_se_10.png": "b2ba792284fdac5a4eb6029f853004daa23456cdf38c19a5ce181a3cdf010c52",
+    "VossSeatTransitions.atlas/voss_stand_up_se_11.png": "bd35dba5a88b387757a6ae647f14a5517edf200bf29249869f198ceb61e6979f",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_00.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_01.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_02.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_03.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_04.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_05.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_06.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_ne_07.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_00.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_01.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_02.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_03.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_04.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_05.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_06.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_se_07.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_00.png": "61537ff30fc8d610787738ee0628386aee2c446f8bcfa5fa135a0fff412f40ce",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_01.png": "61e052eefeecb259afd6ae7bd53c94b2dfc659571a78914f63af2a06c1e6ceb5",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_02.png": "6a984b5ff94ac8f2228f1f12258794ebc4b7987d36d932890ad92c415c2cff34",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_03.png": "5ea7455161a5b13630dfc4ae1017fd25e66a0e9c2bbb85a90a3a9bc80118be5d",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_04.png": "8b8b225cf509a2aa2e3b0366f28154eacc16611db007d7199b79b766f7620cc6",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_05.png": "a4469a9f69123a0dd626ae18a15e0f1849ba2ea663643ed314fcbb7b726f8e73",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_06.png": "079e8d15179846cffb145103f1c0fd236a2547f8565c5dcb729b450849f640cb",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_07.png": "5db861916acbc31c42e06ae438349803e04a14a7756c578b38fcc266df604caa",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_00.png": "015c1a38a51f33a062bcb355ec131c68974a5f1800ea3818955567ed3a4b9e5b",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_01.png": "6157c5b3577ba7e66e8273a211023b535555367dc7b55ea68cd41f8988165ebc",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_02.png": "ad6223ed1c28eaca6c6df34df38d013f763c4638a3e92b2304bcdcfc3eaf8898",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_03.png": "d67888386fc4f254a7b4f155103ed410c8d48da0739ebb72f5f83f0f0054750c",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_04.png": "b361f38e86f694b8b90490ab237a02f98d45fe8277ede51d60d73a6390ebaaab",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_05.png": "ebd96e42992fc09427a98c4282aec00e949ed6c1a5902a2f811033e369dda6d9",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_06.png": "bb3e03fa7d210d77020148b50875e947bfe238f1dfdd4546a50dfa8053f6725a",
+    "VossSeatedIdle.atlas/voss_seated_idle_se_07.png": "8c8349aef79423ccc0b1f789ad81354ceea0ec75079acf97ed82a91585709333",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_00.png": "017388488bb82b20cf9078538c9f11291339634ba46b5639eaa8ba1ec319d55c",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_01.png": "358f9273dbf1d9fcf1981a28d1370b23204c671e26937ba7a8dad3e22f786284",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_02.png": "cd0d36e1e620592a11525f86736e6acf37f33bbb54b630472baafc1840667d50",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_03.png": "fa46c0922762b00539bc99a8c0ec3e8587595c6c21f430c2b56b4b6007a491e5",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_04.png": "52d30c6901f641549d5d2120a1bd771d66d29667594ff8afe7454cabcaabc289",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_05.png": "c162e759ab97b604a374bb25f3801ade7c3ea4d49df2deff557e67271538b1a5",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_06.png": "d45ad65d318afbf3b5ad566e5c74b715d601750a5a1b6c223da9dc140fda646f",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_07.png": "711d3c103e43a4a52d4fc2fff9aac02e532ab8b45ee1ac54e1b18558a0849098",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_00.png": "3bed498fe9a6d86c44e9ad9c55d3cf7791d8e528eb1d4ff2f5ac00642f025792",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_01.png": "7b924f0b146a916533bc4191f4bb1c477d4fc61140eddb9a394d2d26aa7c4fb2",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_02.png": "572cf355141b3e6ff03cf8f8bc1a533ab450d4d6a511403fbdc06880fc2eec64",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_03.png": "8b8252f4b880f3738af19a0f83a28c98040b14916cc3cb7deab10251ee857ebb",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_04.png": "18a191e25df33fb594b69950a21bd8c4dca12eaf7ea4028c530c73a067c7ff1a",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_05.png": "e5e86c52e464074512ef7fda6ebdd218fe1f19ec313f3d822d9bd4c7903e9d78",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_06.png": "a5cc8e74dde641f5953284413daf0ee506a67d15820868b5c3cb073501b014f7",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_07.png": "2a8b4ae3233017f7048c24c4e1d527c8581908b24a7a474bb34a7d7df31660b3",
+    "VossWalk.atlas/voss_walk_n_00.png": "5c5439109028baaace1f0e82146409ceb630570b20cab70171adb1137b5c209f",
+    "VossWalk.atlas/voss_walk_n_01.png": "be3375f8db570c071d19d7daa0f4042242ad1aebf31ad25499e044f787e3ff38",
+    "VossWalk.atlas/voss_walk_n_02.png": "80447ca589b453feed9402a5ff4eeb703726fc55769170f1df0127af3ab75ce0",
+    "VossWalk.atlas/voss_walk_n_03.png": "956ee4f576726efb22e93d2ee0f9d9163b2dbba182e971afdfd597c44876e11f",
+    "VossWalk.atlas/voss_walk_n_04.png": "ce83a9f0c75b76206ee46e81cd7ab883ca3c50e0efff3bd36c5136df6f9a4afe",
+    "VossWalk.atlas/voss_walk_n_05.png": "0c1509687a3c85928ec6d6daac167eee60d2eb055ddc40d5d024469cd2e6eb5e",
+    "VossWalk.atlas/voss_walk_n_06.png": "747ea3d75a8ba11f09151697c8a84815b87b6c683e6ba8153681b3a400581c4c",
+    "VossWalk.atlas/voss_walk_n_07.png": "511f76ca852caf961a4860a8c907071fefb045623af42b924aa1eb01777b8aaf",
+    "VossWalk.atlas/voss_walk_nnw_00.png": "14127d2afb8f59948d19e33ed806944728b90ac2d8296af6db92160d02ddeaf2",
+    "VossWalk.atlas/voss_walk_nnw_01.png": "c21c1fdbec064bbc8814d558665117f4ce5f7b38147343a447d1d502e8fae76f",
+    "VossWalk.atlas/voss_walk_nnw_02.png": "e7c8a1f9eb66447d5dde3519efcff35c6027b3a9d632e12bee2e74cdc59bc5b3",
+    "VossWalk.atlas/voss_walk_nnw_03.png": "8ea2a41a390fd32059b5597d8951a7486ad085b15183b1e3382cc67425673f30",
+    "VossWalk.atlas/voss_walk_nnw_04.png": "9da077077a9eeedb009a8f4d02e6894ade8f5f64c67383c3c0dd1fcf615dab89",
+    "VossWalk.atlas/voss_walk_nnw_05.png": "dfa85e1113c55c8df08f452ed1f00c03ded4455ce3f60fbe5a9e3e194ea0b330",
+    "VossWalk.atlas/voss_walk_nnw_06.png": "1ecf26a5751cca5888143a93fa354f1449851eac5fa9a099d27fd9c6003ed52f",
+    "VossWalk.atlas/voss_walk_nnw_07.png": "39d34a3c969fbc1196ce14994d0b52a68aace67a970354746eb95af1e920fa47",
+    "VossWalk.atlas/voss_walk_nw_00.png": "c4835d420cb5dea1cb620d48f613f328dc3130b17bf2aee7c284186b2e19bb8e",
+    "VossWalk.atlas/voss_walk_nw_01.png": "b026a49bbaf77ea64dc3398f8a6c0c8553cb0f47b9caa5eade2304a6ad543658",
+    "VossWalk.atlas/voss_walk_nw_02.png": "3d5e6035029eb60cd50ce1fc266e22a720045635284d4e6b68a90bd94a35354a",
+    "VossWalk.atlas/voss_walk_nw_03.png": "41ec37f3c52f444257af9668f777d5469112efba337d356b0def3dad6d049787",
+    "VossWalk.atlas/voss_walk_nw_04.png": "1a77d6eb1939222b242c990e84d983f7fa1b8cb6d7002f8160ce540bd01c6a4a",
+    "VossWalk.atlas/voss_walk_nw_05.png": "a9550570c35812948a3c808f72feb0cb17477761b57693f29a6b2ed8242a9173",
+    "VossWalk.atlas/voss_walk_nw_06.png": "6a70d3f3e338ad0226a29909c52f10eaecd0f289c245edee14c5190961365520",
+    "VossWalk.atlas/voss_walk_nw_07.png": "16080972ea2e2647a8eeea6c284553cef5552d89c4b3c5f5d6fe4f799db90136",
+    "VossWalk.atlas/voss_walk_s_00.png": "d6b719d26c5c9645f1dd3d73d0b52f5917757008a29e1e9c9036209ac2c116a3",
+    "VossWalk.atlas/voss_walk_s_01.png": "538e0e6b16d0896e8d44d98cee97524d6cb1274eac538c6dd9f699e69ad3b673",
+    "VossWalk.atlas/voss_walk_s_02.png": "65748b06adc74fb430445c063781f1787d689eeb16fcff504dadd156a9ddec2c",
+    "VossWalk.atlas/voss_walk_s_03.png": "8dbeeba90febe53a4a1a5050fbd388afe70d1e7a9463cb9c1ff09079483a36f4",
+    "VossWalk.atlas/voss_walk_s_04.png": "59e86fd3df74d13f924179de6ef3481a695b53c72f484e94fd6bf4ac8231bd32",
+    "VossWalk.atlas/voss_walk_s_05.png": "d0a61674ad1ed768b9540ea539045a4786f5e83a6b68809ceb8186424a1ff1f0",
+    "VossWalk.atlas/voss_walk_s_06.png": "b78d1e7af518b4790d18a974d56de0b2183c7e2cb791c6d3a849104f62f1228c",
+    "VossWalk.atlas/voss_walk_s_07.png": "e67d0ae4c24d9a4bd08772c8e39fbd4ccc058409c45ba7cd6b1222d3c9932db7",
+    "VossWalk.atlas/voss_walk_ssw_00.png": "3b0378a88b4fc359d2f47207032f3b748117bd7e487decb6a737ed7afc616ec2",
+    "VossWalk.atlas/voss_walk_ssw_01.png": "4a4a4e379e3e4c81ef110dae3460e1ff0a5bd07b0ad5104e2cde0ecdc130c227",
+    "VossWalk.atlas/voss_walk_ssw_02.png": "6b6c11086d0d38128221ba5a28fe0b4f304399f1eb320b82ec7ba107230186ad",
+    "VossWalk.atlas/voss_walk_ssw_03.png": "9320d0a53654556be60e02adc8a7ad518fa0da95f05f29d48e7e2662e9fd2386",
+    "VossWalk.atlas/voss_walk_ssw_04.png": "0b94fa981e48b70270d1380264a4bbba4e06f8309bed5c302fe3e5cacb4967b5",
+    "VossWalk.atlas/voss_walk_ssw_05.png": "6ff845106993806a224ac448c79bb2ff11eeaa60cdced23f074923ae1c0c31ef",
+    "VossWalk.atlas/voss_walk_ssw_06.png": "3563f584667ef9fd947e99395c00ff03142ef35a30edccea5b6b423c090e97cf",
+    "VossWalk.atlas/voss_walk_ssw_07.png": "21f2586f5ab0a38b4d8e132bae434544916bbbf42f261cdd7e0fa3f39c008547",
+    "VossWalk.atlas/voss_walk_sw_00.png": "753c5e00327966dce75a2f359188de488ad93c3859c77395fd37db3942898fec",
+    "VossWalk.atlas/voss_walk_sw_01.png": "217b42ed4bf8f256e617b2c01a17c3ee3bd15f93fbb97bed4526fbc836b9b7a5",
+    "VossWalk.atlas/voss_walk_sw_02.png": "64118292939428585b39757e391bccf055e4e11750b997691937d2617dfee15d",
+    "VossWalk.atlas/voss_walk_sw_03.png": "fd9c5d5c381218ff393c5c35084de0bd857bd01109a2bd6e07a0c0a7c7ad989c",
+    "VossWalk.atlas/voss_walk_sw_04.png": "9d80c8ebc6991af2ac7e1cb8622471bcf1a2873a4971355ed26a72853d1c542c",
+    "VossWalk.atlas/voss_walk_sw_05.png": "ad7bfda995f4e409fefb714fae7b3e1194b131c78518ec29152bc359535241e2",
+    "VossWalk.atlas/voss_walk_sw_06.png": "489021979cc3f7925e49d00dc752997a6688bf9645966ddf1e576fd119e13321",
+    "VossWalk.atlas/voss_walk_sw_07.png": "8fde61f247ba2a0c5e6768ee31a3e05fb9ddf948745ecdb262dae4ba34305830",
+    "VossWalk.atlas/voss_walk_w_00.png": "b636d4dbf960161605bb539fbd343a86d7301247a325c7a349abeaefcea11e1b",
+    "VossWalk.atlas/voss_walk_w_01.png": "5d71f648bebc3e2e36906c553f1c232eca0fa4ae982cea566742a7193d150cd4",
+    "VossWalk.atlas/voss_walk_w_02.png": "c96460b67727f4a58e6bc82eee045c6d060b23970c2f3c2580bcf19ba61b6ea4",
+    "VossWalk.atlas/voss_walk_w_03.png": "e1ef2c91adc7584de204be5bea52c623e4e891c9611761ce5ec84ce848c70481",
+    "VossWalk.atlas/voss_walk_w_04.png": "2b7ab86b3bd7805a0b3fba418ecd56ec31699f31d48ff2eeb1dad83fbbfb262a",
+    "VossWalk.atlas/voss_walk_w_05.png": "394bf8b601a50caff3ef2cac60914f6d806bbb01d73f92eeae5903d72059e0bc",
+    "VossWalk.atlas/voss_walk_w_06.png": "a2db68c269ebc888f252ce054953b38c5974c1b615d30733ee6453201f3e6c1a",
+    "VossWalk.atlas/voss_walk_w_07.png": "639201049181479f141d2510dbc6f492c144196c2c581775f5843ff99b409914",
+    "VossWalk.atlas/voss_walk_wnw_00.png": "5ffd1aa696f342ee6547d16bbee715f2dfdb3b3dc49aa0d578f2b91ae1098b21",
+    "VossWalk.atlas/voss_walk_wnw_01.png": "d5fc175230cf0e31102021c79f69cd9f5787197e10c7d0580d07de10cb13b3cc",
+    "VossWalk.atlas/voss_walk_wnw_02.png": "15c0815788eb38462c6e942f06e106d95fb93f34120a4f5d75554239d3026c1d",
+    "VossWalk.atlas/voss_walk_wnw_03.png": "b0ae0b7d300bf2207d26e64106aafd46e19febefddda5efc7625d1606d100897",
+    "VossWalk.atlas/voss_walk_wnw_04.png": "72c407bc82623a888fe7c0c36dbededbf09e0219fbf036cd689006e1eb24416c",
+    "VossWalk.atlas/voss_walk_wnw_05.png": "883a9db84b350d22f3f9e8dccbf620e9ff066b97adb9bad331e22d8f4d38f5b8",
+    "VossWalk.atlas/voss_walk_wnw_06.png": "4c074e6835e57d3473c9b7c54626585cabd6e313bff653303ac82c33f4a69e37",
+    "VossWalk.atlas/voss_walk_wnw_07.png": "f8b4d572a7054f2dff16f320c4b7dad1c4c7f2e0be578c92f8c3867b98e6ac58",
+    "VossWalk.atlas/voss_walk_wsw_00.png": "2c8c7864f17aa164b675aaf14c637197600e34af2cb1c67e7173068a03ab14b3",
+    "VossWalk.atlas/voss_walk_wsw_01.png": "c07046ec63770e951994c64f82f2dc761190a1b35d2fbeeb4412c97ee5a8b59d",
+    "VossWalk.atlas/voss_walk_wsw_02.png": "29e30580dbc205f7d7c33c12f81ed2e58c57fea6808e2bd35c44360d0615414f",
+    "VossWalk.atlas/voss_walk_wsw_03.png": "b1b8fb53c103b2bb8fe8d6fd31c0ab65130039238442032f9da9742460b1cad0",
+    "VossWalk.atlas/voss_walk_wsw_04.png": "3272f0030423dedc2c0f707616a0cb17503f88c55f45ec85366ee3d51d12d1ea",
+    "VossWalk.atlas/voss_walk_wsw_05.png": "563933b84da07dd1ae406b2a9121fd2020cb32df035bdd3d6718352254700175",
+    "VossWalk.atlas/voss_walk_wsw_06.png": "fc30b32864ce8f65f1e8a1dab7331b69c6b7690f27c06354bd771d2e28e86084",
+    "VossWalk.atlas/voss_walk_wsw_07.png": "6d0507efa09b8fcd3c49d612d7bd7bee36d9f0656f8539df277c30be93c20813"
+  },
+  "rear_hemisphere_v20": {
+    "voss_standing_idle_n_00.png": {
+      "shirt": 0.0,
+      "skin": 0.005125
+    },
+    "voss_standing_idle_n_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_n_02.png": {
+      "shirt": 0.0,
+      "skin": 0.008667
+    },
+    "voss_standing_idle_n_03.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nnw_00.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nnw_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nnw_02.png": {
+      "shirt": 0.0,
+      "skin": 0.008835
+    },
+    "voss_standing_idle_nnw_03.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nw_00.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nw_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nw_02.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_standing_idle_nw_03.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_00.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_02.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_03.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_04.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_05.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_06.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_n_07.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nnw_00.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nnw_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nnw_02.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nnw_03.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nnw_04.png": {
+      "shirt": 0.0,
+      "skin": 0.004425
+    },
+    "voss_walk_nnw_05.png": {
+      "shirt": 0.0,
+      "skin": 0.002989
+    },
+    "voss_walk_nnw_06.png": {
+      "shirt": 0.0,
+      "skin": 0.002383
+    },
+    "voss_walk_nnw_07.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nw_00.png": {
+      "shirt": 0.0,
+      "skin": 0.00569
+    },
+    "voss_walk_nw_01.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nw_02.png": {
+      "shirt": 0.0,
+      "skin": 0.004241
+    },
+    "voss_walk_nw_03.png": {
+      "shirt": 0.0,
+      "skin": 0.015146
+    },
+    "voss_walk_nw_04.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nw_05.png": {
+      "shirt": 0.0,
+      "skin": 0.009029
+    },
+    "voss_walk_nw_06.png": {
+      "shirt": 0.0,
+      "skin": 0.0
+    },
+    "voss_walk_nw_07.png": {
+      "shirt": 0.0,
+      "skin": 0.011707
+    }
+  },
+  "seat": {
+    "ne": {
+      "head_width_drift_ratio": 1.2381,
+      "head_widths": [
+        25,
+        25,
+        21,
+        25,
+        26,
+        25,
+        25,
+        25,
+        21,
+        21,
+        25,
+        25,
+        25,
+        25,
+        25,
+        21,
+        25,
+        25,
+        22,
+        22
+      ],
+      "idle_centroid_drift_px": 1.745,
+      "maximum_adjacent_crown_retreat_px": -3,
+      "minimum_neutral_iou": 0.8619,
+      "total_rise_px": 43
+    },
+    "se": {
+      "head_width_drift_ratio": 1.0476,
+      "head_widths": [
+        22,
+        21,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        21,
+        22,
+        21,
+        21,
+        21,
+        22,
+        21,
+        22,
+        22,
+        22,
+        21,
+        22
+      ],
+      "idle_centroid_drift_px": 1.171,
+      "maximum_adjacent_crown_retreat_px": -3,
+      "minimum_neutral_iou": 0.8608,
+      "total_rise_px": 46
+    }
+  },
+  "shape": {
+    "back": {
+      "height": 200,
+      "ratio": 0.41,
+      "width": 82
+    },
+    "front": {
+      "height": 200,
+      "ratio": 0.41,
+      "width": 82
+    }
+  },
+  "source": {
+    "anchors_validated": 4,
+    "approvals": {
+      "approvals_validated": 153,
+      "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV20/approval_ledger_v20.json",
+      "sha256": "66c123999ad7882c4e575538ca503e7a47b6daea27d5033e5d2efe9e63abd6ca"
+    },
+    "asset_version": "v20",
+    "masters_validated": 148,
+    "portrait_hashes": {
+      "reference": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d",
+      "runtime": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+    },
+    "provenance": {
+      "calls_validated": 152,
+      "path": "ArtSource/Generated/Characters/Detective/PreRendered3DV20/imagegen_provenance_v20.json",
+      "sha256": "b8d0de457d9676e5143c6b98e335a1e20ffac15dc5571690852ecd374d599ad5"
+    },
+    "source_canvases": [
+      [
+        1023,
+        1537
+      ],
+      [
+        1024,
+        1536
+      ],
+      [
+        1086,
+        1448
+      ],
+      [
+        1108,
+        1420
+      ],
+      [
+        1122,
+        1402
+      ],
+      [
+        1199,
+        1312
+      ],
+      [
+        1254,
+        1254
+      ]
+    ],
+    "source_hashes": {
+      "Anchors/voss_anchor_back_chroma_v20.png": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f",
+      "Anchors/voss_anchor_dimetric_sw_chroma_v20.png": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c",
+      "Anchors/voss_anchor_front_chroma_v20.png": "b2b81e2290ce4c7280460dc450225e1f139dfbec681e35c946685b49d781c8ed",
+      "Anchors/voss_anchor_profile_w_chroma_v20.png": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e",
+      "Frames/voss_idle_n_00_chroma_v20.png": "ff4979dc4c705c3bf16108dee9eae839279cff3f2f47d17a271abaa379330325",
+      "Frames/voss_idle_n_01_chroma_v20.png": "2a8f073caf57fedac47f5f624f302c101fddb0b75c2a77a48eea5aef65f77d43",
+      "Frames/voss_idle_n_02_chroma_v20.png": "a03b1cd3cb189680275eabef4c8cc5e86736c4cd5a0519cc200d48715e70a4e6",
+      "Frames/voss_idle_n_03_chroma_v20.png": "674c4096f5a6c11a1198205947313602d992bf79b45155fd4f0b48bf7dfda637",
+      "Frames/voss_idle_nnw_00_chroma_v20.png": "d2dd2da8b8ae83447fd0d3b996d82b9bc97b46fa6e12b2f2be9e30d2a055ab71",
+      "Frames/voss_idle_nnw_01_chroma_v20.png": "455b4777608e2d687b6f4e1be636d5f46f9b0dd5a3b237553cc8e118ef6eec22",
+      "Frames/voss_idle_nnw_02_chroma_v20.png": "81c5c4b5b81a1e043180e1fc6fd49ddedc5f3c09e498e2acfca2828f8253820d",
+      "Frames/voss_idle_nnw_03_chroma_v20.png": "59dda24b0d9c742a6e1f1559dae97209a25891e5ed86fde112d39479b9a5cc53",
+      "Frames/voss_idle_nw_00_chroma_v20.png": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138",
+      "Frames/voss_idle_nw_01_chroma_v20.png": "bb75973404c59c911ef184c1b60ae386ab71445fd94ee6ea46f575b5961a86f5",
+      "Frames/voss_idle_nw_02_chroma_v20.png": "bb74640685add328da4b884179976e79f58fb4d3f4b0f4e768bfc7489d6df177",
+      "Frames/voss_idle_nw_03_chroma_v20.png": "73ac492d9348a6bbc8d09a721838a79bb80d3e4a1ad623a1d082096943b713b7",
+      "Frames/voss_idle_s_00_chroma_v20.png": "d7ff0747f56c52ddf9acea28adabebb558595bc31366cee444190d71c52e5424",
+      "Frames/voss_idle_s_01_chroma_v20.png": "a7a0fd2f24eeddec02d9fe2e3b830ad9bbe03251eb7a78120da07306c4b8e057",
+      "Frames/voss_idle_s_02_chroma_v20.png": "47d57fd03bc7fd5b3128ae648764acb289b9c00abddd4d9b7c564379e07e5758",
+      "Frames/voss_idle_s_03_chroma_v20.png": "696ead14b9f43ebc3d078c4efaf52751386817d9777aa90d93ddcda6dddbcc9a",
+      "Frames/voss_idle_ssw_00_chroma_v20.png": "b7c8de75b20773cb42d147d30023f39203093cbcc89d1983e6ce192174c8a22a",
+      "Frames/voss_idle_ssw_01_chroma_v20.png": "1f6daff9b0c2d0acc21561c2a7e446d7fc8824d8c873c531589007e47bdc97fd",
+      "Frames/voss_idle_ssw_02_chroma_v20.png": "dad5294afde8dad4c7ac04d713181f28bf2c340af02f117a6630fb0dea294a18",
+      "Frames/voss_idle_ssw_03_chroma_v20.png": "0523de9d85de707913279a838c5e37855072c696041aa859c0d75e40c90c9d5d",
+      "Frames/voss_idle_sw_00_chroma_v20.png": "613885b1144c4b3b3391bd2ccbfd072080a1f363140d5d413d0b8277ffc35e40",
+      "Frames/voss_idle_sw_01_chroma_v20.png": "c5f390c61a6c6df8116b9956f1610b777dfca8e5dbb307da5738f97e54b43da2",
+      "Frames/voss_idle_sw_02_chroma_v20.png": "ca73fd71adc0e314b5c84464fd96c2c3c5b6bb536732024fa8d5bad0b69dda39",
+      "Frames/voss_idle_sw_03_chroma_v20.png": "69a41d1012ed6dd733bdb28412a83f9ea222cdad4c437b1bb4f52c645c28096e",
+      "Frames/voss_idle_w_00_chroma_v20.png": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384",
+      "Frames/voss_idle_w_01_chroma_v20.png": "893d9d952d0dee3fc0d87e96bbec4096485fbf83110f6f9259db8b0061da68bc",
+      "Frames/voss_idle_w_02_chroma_v20.png": "76e9dddce91aacbc72f722fa142ca8c0bbdd417bc0f22f9f8b92bed25a1e2981",
+      "Frames/voss_idle_w_03_chroma_v20.png": "b8ca8113486bcf1cecf2d550f7e74b09ae171af9dbec61edf5073a6ee950445e",
+      "Frames/voss_idle_wnw_00_chroma_v20.png": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c",
+      "Frames/voss_idle_wnw_01_chroma_v20.png": "9f3dfc4b7ec7625f95d93ecac1f3cb1a8ba7b7c84676660bfe116de3f93f32a8",
+      "Frames/voss_idle_wnw_02_chroma_v20.png": "3f9c0529c29e2c07ed94a8459fd49ab39fc2573f6a83c5c842802565932ac587",
+      "Frames/voss_idle_wnw_03_chroma_v20.png": "e4824fdb718e4fb199aab0282049d71450e655ce295df0b9a964b8f98b646c40",
+      "Frames/voss_idle_wsw_00_chroma_v20.png": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803",
+      "Frames/voss_idle_wsw_01_chroma_v20.png": "f441c08c438ba108a6a4a3901d12978631e5f26c7120edde9748e7fd37d3ee32",
+      "Frames/voss_idle_wsw_02_chroma_v20.png": "2e6c36899c2fcd7678d84ef3a1fafe30e60d1732bcb6c39376c7297ff92545c4",
+      "Frames/voss_idle_wsw_03_chroma_v20.png": "6fb2bb51155fae53c4c5ac8832db28e050edf33cca91df0cebaf546f2d30f7d5",
+      "Frames/voss_seated_idle_ne_00_chroma_v20.png": "67f4490be94eb20a3270ff6d50177ffbf49cc6818b7b4cef974cf224dce01a81",
+      "Frames/voss_seated_idle_ne_01_chroma_v20.png": "6ba0e1b9d3ec351d46d04a68ff1598cd0f983800dc636510f0a7db9f63cc8c4e",
+      "Frames/voss_seated_idle_ne_02_chroma_v20.png": "1ca1ad0c7ae4056d67d753148f7575fa874b654172e327e42dbebd3b3df4f690",
+      "Frames/voss_seated_idle_ne_03_chroma_v20.png": "a99374b9a474b18c9e90efa58ebf17d7b99aa6ee4e49348e4fc3f8f5002a0f8c",
+      "Frames/voss_seated_idle_ne_04_chroma_v20.png": "b88a041c45bc8c0ddc323d1021827af951f6f2e01b0378eb72846487fb74c53e",
+      "Frames/voss_seated_idle_ne_05_chroma_v20.png": "5b9b46343182b9917db0a5b7bb3e640a027b445cb1d5129920f29f9afd94def5",
+      "Frames/voss_seated_idle_ne_06_chroma_v20.png": "c2fcb57f3949f3d366962bbf767d8e5e7716d73419740d9133f42708a35d94a5",
+      "Frames/voss_seated_idle_ne_07_chroma_v20.png": "142a51a1d02190030e6b8bf34eabb4c188a9bbe3cc6638bf6343c0d4ea449acc",
+      "Frames/voss_seated_idle_se_00_chroma_v20.png": "bc01ec539ff7f7ff5d7aa034342d3a530fa40577a1c56d09980dc2ec8f3e8545",
+      "Frames/voss_seated_idle_se_01_chroma_v20.png": "ff09a2dff92f3ce5c35dc5b6b26ec7322a895350d2faf9c1441b3b0ab4970a41",
+      "Frames/voss_seated_idle_se_02_chroma_v20.png": "7cacfe1abe4333b14ad6b5df2032f92bd93c9ee65b9ffc0875f448a580dd6d56",
+      "Frames/voss_seated_idle_se_03_chroma_v20.png": "e10f3374a79599f81fa1ec59d0fe36fbc68d757bc5032df7275e86a60db7aff7",
+      "Frames/voss_seated_idle_se_04_chroma_v20.png": "b522bf8ed163311177a31fcac97aa903696049d68702574b0df537cc9bc71558",
+      "Frames/voss_seated_idle_se_05_chroma_v20.png": "7ddade7e52399306d8ecfb86568f5a254b0abe30989fd26b90d86b871544bb4e",
+      "Frames/voss_seated_idle_se_06_chroma_v20.png": "01b53a430d94829eb7f6f4b1137754d2fff8fe98bfc5eaaa14bfead832d2b3ed",
+      "Frames/voss_seated_idle_se_07_chroma_v20.png": "290ed3fc4456c9c29c6f4843173480174282b0b93eca01526d17cc8558ba19e6",
+      "Frames/voss_stand_up_ne_00_chroma_v20.png": "2e48c5dd215c4fe488d4518621d77a3184d2e7664ba0cfb4544719497942cd5f",
+      "Frames/voss_stand_up_ne_01_chroma_v20.png": "718ff812259233117b23de4596fbdbd7bae6e809f43a17685fcb9fd4a1d16748",
+      "Frames/voss_stand_up_ne_02_chroma_v20.png": "859dedd0c6556c4096916e618e81171841ff8d20ee97cb34cef63bcf45dfd974",
+      "Frames/voss_stand_up_ne_03_chroma_v20.png": "8ea631405c069661bb70f331f80a59b66050804fbcc22680cd36dbd6c1427387",
+      "Frames/voss_stand_up_ne_04_chroma_v20.png": "0d430a7ab6a50d1bf7f733e7020fc7045ae025fa283894377e4bbc7bf5f70774",
+      "Frames/voss_stand_up_ne_05_chroma_v20.png": "37cda3d6080a2fa9ed7eec776146ebfe2e167ecd051c60ca486b62be4406117c",
+      "Frames/voss_stand_up_ne_06_chroma_v20.png": "98a9730dffcfc5bcceb3565b65d2f3a22176cc8f5cc983d998682a2ffb74fbdf",
+      "Frames/voss_stand_up_ne_07_chroma_v20.png": "55feaee183482ad07910ecce66fcc59dcdf5cfce301cc0db783cd8b2e54480fd",
+      "Frames/voss_stand_up_ne_08_chroma_v20.png": "3cdcd5ac4fc7d9354d080070abc885ac5f17895929b543ce2f3d6f83b58e7611",
+      "Frames/voss_stand_up_ne_09_chroma_v20.png": "70efebad4bd43ad979ce0c3464503304062f73c1bc1589eb6d4713090e836331",
+      "Frames/voss_stand_up_ne_10_chroma_v20.png": "febb2dd38f5b9704bef6d79595600946b38f2d5492b3ff8b6680d492cf67654d",
+      "Frames/voss_stand_up_ne_11_chroma_v20.png": "315d2b6f7fc77a11661cc0fef8725fbfd6cc1d35fb8e94218f3541e9b232547a",
+      "Frames/voss_stand_up_se_00_chroma_v20.png": "7a273eab1868e2032ca08cbadb32de1f8a6ea12a46cf0684d13fb80c9f460728",
+      "Frames/voss_stand_up_se_01_chroma_v20.png": "bf172c08dba614050194a8510d4e7c7b376480c9b862877935aa081c9ceba11c",
+      "Frames/voss_stand_up_se_02_chroma_v20.png": "3030e48523c35ebd67329464c5f76f2a382a48d38ac9f4d0ff67e3dd05ee135d",
+      "Frames/voss_stand_up_se_03_chroma_v20.png": "f3201bc9761131dbe50c6459cce478479892e8cdae053e8404e58f5813f8fa24",
+      "Frames/voss_stand_up_se_04_chroma_v20.png": "f15b988b4082a42129a2e32a45370ae0b9a5ff2378cb0b0d7ae86446371e0c46",
+      "Frames/voss_stand_up_se_05_chroma_v20.png": "4b1bfb9e6d1695187bc2534a7c177d3e9daca13d8a9721f59a212a9bd350f862",
+      "Frames/voss_stand_up_se_06_chroma_v20.png": "c744ce51637d08a3de660ce992dda1c13b97701f074629b87f8c0cea61c37987",
+      "Frames/voss_stand_up_se_07_chroma_v20.png": "6b7f00d7b6116f59ffb0ca3e911bfecb83b49dc142c33ac42d6d817676264428",
+      "Frames/voss_stand_up_se_08_chroma_v20.png": "6d986755a0af321461f75d63ee60f41173a895d1a217d9436a95d123d2aa8ff0",
+      "Frames/voss_stand_up_se_09_chroma_v20.png": "c272f9e15f117e6b8568d8974d5a0162e6570fe06d6a893d0db8407c4b45a413",
+      "Frames/voss_stand_up_se_10_chroma_v20.png": "dcd04847744ae2585e5d343a61baa7d189c5bbcbc671c73998922813ce749b71",
+      "Frames/voss_stand_up_se_11_chroma_v20.png": "5ad2a3be1aef196e89e1fa6a7aa2f1c90ed30eebb7271f0abc966d777977ab39",
+      "Frames/voss_walk_n_00_chroma_v20.png": "a6bbd5075341502d40e98313fea1bb0ba2abd776e6d71861f6252ff777594766",
+      "Frames/voss_walk_n_01_chroma_v20.png": "71fe5e385e3909de86a1036fea1066d10cbf51afbb975b614e21af2360bd5dd5",
+      "Frames/voss_walk_n_02_chroma_v20.png": "937111c2f6f8f17d07c3e6bdf556b6ef026c1f955f4d287379b8bde3cc8f8c10",
+      "Frames/voss_walk_n_03_chroma_v20.png": "c4cb77515c85c5f2653cacac57af3ef216080bbeda8b9620f1fb21805fdb57a7",
+      "Frames/voss_walk_n_04_chroma_v20.png": "02fb269334582d48108bee9c5b59eb3342aaf66132c31160c5b2e3a7bd484f4c",
+      "Frames/voss_walk_n_05_chroma_v20.png": "42a4ac37040b96925f18f0b107b5ccca364057e629197cd9af9d4a575853f181",
+      "Frames/voss_walk_n_06_chroma_v20.png": "63c08f7c2993739d7c03aa402d0e4065cdb00c87632104b0ad8fbb90b0ff8f7e",
+      "Frames/voss_walk_n_07_chroma_v20.png": "6530661cd03cccdb2c5844143bc42faf34cc457365900d43d0337c1fb43d7760",
+      "Frames/voss_walk_nnw_00_chroma_v20.png": "574219bc751d8f2d18d21cd84a56b92c687fcf4e693fb587a4dc092034243e1d",
+      "Frames/voss_walk_nnw_01_chroma_v20.png": "4fe3f671ea370e34119d420f643c5ceb7e897b8743e11669fd41645eb3749064",
+      "Frames/voss_walk_nnw_02_chroma_v20.png": "7cb06ddc0d4a5895a67dfc64a1567554567d6124ef419281b3225411e9bbf563",
+      "Frames/voss_walk_nnw_03_chroma_v20.png": "1512d7553a299c091dbe2699a3e849a109a1c0d9b72e38359e7980aa3c9e7281",
+      "Frames/voss_walk_nnw_04_chroma_v20.png": "821d2e1eddbe7a84027f38918cd0240beed5702424195bf19f0c1d75d026b7be",
+      "Frames/voss_walk_nnw_05_chroma_v20.png": "6aa2ce06acbe0887f482766c998872800fa686878e1f1113e3d1b3d7c2c556b7",
+      "Frames/voss_walk_nnw_06_chroma_v20.png": "c54b720c0c02ae1e4a677603761f1249a0a921ed74563010dae2f7fd3e97d93a",
+      "Frames/voss_walk_nnw_07_chroma_v20.png": "77352169b23942193808d5fe0b8925953cee8e43bcc4f7f618dab666b4e561b7",
+      "Frames/voss_walk_nw_00_chroma_v20.png": "e0a6580a1f82f9627ec80d592d902fe8988dbffd2379f8e447c773d09cf1d769",
+      "Frames/voss_walk_nw_01_chroma_v20.png": "8a1860dc8b47d2e4c45dd5eb6d26ff0041665fe570ca719856f858a24f4c923d",
+      "Frames/voss_walk_nw_02_chroma_v20.png": "e6c319433e73e33a1fcff796f67fed61c89f54f201baef570843178564ccdc9f",
+      "Frames/voss_walk_nw_03_chroma_v20.png": "14e079b3a0c6cceaf984aebe266b40ca8e5638d2d3b529f7d792236189d6f620",
+      "Frames/voss_walk_nw_04_chroma_v20.png": "9dc40e5d16643d09414a8adf2395853f35385562128faa7f4be18c94a409e1fe",
+      "Frames/voss_walk_nw_05_chroma_v20.png": "33ed8b1432721ea9d7b617d005fa607b44e9922964e437ad6259cd3f9c5d177e",
+      "Frames/voss_walk_nw_06_chroma_v20.png": "ed5b4f1a8baabfd254f9f007f3f8a88e1edbdc385d0c845c24c8c881666fab3c",
+      "Frames/voss_walk_nw_07_chroma_v20.png": "6d2c830bbf3372c3e13e0093772d5e441cd4e3dba00a6550a020299289891b9c",
+      "Frames/voss_walk_s_00_chroma_v20.png": "de9a914f2b1842a275189a6f05f2f8bb7fbe23a283b517e201cbe3906bf4f290",
+      "Frames/voss_walk_s_01_chroma_v20.png": "1a3f2fb898c9958bb195d14b061b8e4ca904a463b364dc9966bf0fdd58b9af87",
+      "Frames/voss_walk_s_02_chroma_v20.png": "64f152d2e83951c16680f55082a0088df27b218450459dacb3af37ccc7627b79",
+      "Frames/voss_walk_s_03_chroma_v20.png": "2f96fc1d42b227e0faeac5d85dc80222d6e8d0138d08b88d7e770e62dfbc9706",
+      "Frames/voss_walk_s_04_chroma_v20.png": "ae6794b2db62213d746820ad9eb52e0926f07b9d0760b8427be1206fbd0aa67b",
+      "Frames/voss_walk_s_05_chroma_v20.png": "41a9dbac12938583d8f1270e714ce1a2b81f69d535443e96bb1df1671388ce85",
+      "Frames/voss_walk_s_06_chroma_v20.png": "a8578adb632563ee860cc27a95bb90e819e3185454910d83b096923cf1818bfe",
+      "Frames/voss_walk_s_07_chroma_v20.png": "919515d1d2d334885cd7f1abea30f2785f79b563be3ce7eef7ee71eff3dc8f45",
+      "Frames/voss_walk_ssw_00_chroma_v20.png": "f4d98fbaa734f2b19d31cd1edcbf19731e6d878c657a62f9ae3ceab36589d273",
+      "Frames/voss_walk_ssw_01_chroma_v20.png": "04b995453ab4344b009ea1249421c07dce7ece0fe69f3406de1273c4127b1064",
+      "Frames/voss_walk_ssw_02_chroma_v20.png": "1281e5f2b15ca96664e98193bada98826f17e2736dcb5e05444c32353d5f6d48",
+      "Frames/voss_walk_ssw_03_chroma_v20.png": "3d11eeb0aa18fc8799959189e2857d139bcb09a4540574a7b04c07e36e940db0",
+      "Frames/voss_walk_ssw_04_chroma_v20.png": "bb10a1e6a3a2a9e6e3c0646986d7cd7ed9e4dcf6b67c5155bcac668a70495920",
+      "Frames/voss_walk_ssw_05_chroma_v20.png": "78faae9263dbb30a2b096f1603d7ad4d7631b1a4c7c5d44e38e07110690f40a4",
+      "Frames/voss_walk_ssw_06_chroma_v20.png": "4b4ff2feea4b70882fa2b9eb5ed68278e6f5206612b15a276e70507bd3b02059",
+      "Frames/voss_walk_ssw_07_chroma_v20.png": "b97f5ba177f225cd5d2c55639dae4e330587a346e8bc01d887d149c036d6d739",
+      "Frames/voss_walk_sw_00_chroma_v20.png": "11401e274bd694464d7fc6d1bc575ad1a09522edba489b147d507be32c8934d8",
+      "Frames/voss_walk_sw_01_chroma_v20.png": "ebcb3a45d9a75ba0947fff57f047ddfdf9d2feecbcfe30304232721400b988f8",
+      "Frames/voss_walk_sw_02_chroma_v20.png": "22eed6ab86b9cabc43d480a02cdf6cac82419a2309edbc61d5b9251e9d71c61f",
+      "Frames/voss_walk_sw_03_chroma_v20.png": "2b058779c1f754290eb0f1ae8a92348d64e855d2de85d21c9bed65a0c7a1d947",
+      "Frames/voss_walk_sw_04_chroma_v20.png": "b07a1fab6ad2cb5ed604fc1886b34aa5bfb9a388e09dc47ab4bca54bddd0ce97",
+      "Frames/voss_walk_sw_05_chroma_v20.png": "e9527a5c0c0f10de48ff8845847e5f8cb83d50eb63bffee2a23de03ecbfcc69c",
+      "Frames/voss_walk_sw_06_chroma_v20.png": "567c6be1973ee11079820f82b9f451f7dc1411e79923eb43cdbeb4685de29873",
+      "Frames/voss_walk_sw_07_chroma_v20.png": "655c8dfca6053cb955e514759118d25667420e288e99f3ee77c52a7c10bd147e",
+      "Frames/voss_walk_w_00_chroma_v20.png": "6ec86b8a32664a2f813a2ee38370bb61b13137d29a97c7dd31c941d866856cef",
+      "Frames/voss_walk_w_01_chroma_v20.png": "af086337b24999fd0af25e907565ddab0b137759618c0784891fd9fe8c3cd1a9",
+      "Frames/voss_walk_w_02_chroma_v20.png": "7a97a7696c0ef2ca8185c1e5b3f1bffd6a081946f4c779890e86baee119be813",
+      "Frames/voss_walk_w_03_chroma_v20.png": "4d0139931fe2769f728b9774c979a01e6c2943a12065beee382dcecce2e62fe0",
+      "Frames/voss_walk_w_04_chroma_v20.png": "d4be39276d8190fec7a4c6d2ddbf62947569de6ca745073bb49ed1ec46e956a6",
+      "Frames/voss_walk_w_05_chroma_v20.png": "73856560c97e8c314702422b1ceb8507d50b2b87254a3d9efb3051ba8a863b89",
+      "Frames/voss_walk_w_06_chroma_v20.png": "a27ffe340fb20bbae6d3be62e678c190fb661723944d3e2b7e5c56b334c4f63c",
+      "Frames/voss_walk_w_07_chroma_v20.png": "88ae01be1969e281f387329ee6bf490d34220f15247f87967f81ac44e23abedd",
+      "Frames/voss_walk_wnw_00_chroma_v20.png": "6164205bb6641aa8bc3f0658bd48316ca58983f452f4a0cf7cbb2dcf8b993190",
+      "Frames/voss_walk_wnw_01_chroma_v20.png": "cbc398f976a2858e13b1f6ebe233b85dfdbb80c60a95bd84bcc668d1563daed7",
+      "Frames/voss_walk_wnw_02_chroma_v20.png": "9ddc5226a11460da128187636a5c1bc9806ac4131ef033dde982a8773f8bf91f",
+      "Frames/voss_walk_wnw_03_chroma_v20.png": "8ed2ea95ed038d50ce47d9d6dc5203aebcdf6bc61000a90f3ea411e7b004e76a",
+      "Frames/voss_walk_wnw_04_chroma_v20.png": "8d7046122f6256631c132f6689b344f5a6af76793a62ce04d8cc69d1acbc3669",
+      "Frames/voss_walk_wnw_05_chroma_v20.png": "f20a0f61fa5142be9281f71a818311a9ad818e592af014e56f5cd80f0d9ddb7b",
+      "Frames/voss_walk_wnw_06_chroma_v20.png": "f94876e54001079b375b29fc9faa648c9ea52278d6431dfe1896d56c3cd03d79",
+      "Frames/voss_walk_wnw_07_chroma_v20.png": "1739a6cb3987c94f942b35380eee93c29975ceb277221b351fb6ce04c6410a84",
+      "Frames/voss_walk_wsw_00_chroma_v20.png": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77",
+      "Frames/voss_walk_wsw_01_chroma_v20.png": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a",
+      "Frames/voss_walk_wsw_02_chroma_v20.png": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1",
+      "Frames/voss_walk_wsw_03_chroma_v20.png": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb",
+      "Frames/voss_walk_wsw_04_chroma_v20.png": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63",
+      "Frames/voss_walk_wsw_05_chroma_v20.png": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c",
+      "Frames/voss_walk_wsw_06_chroma_v20.png": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc",
+      "Frames/voss_walk_wsw_07_chroma_v20.png": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7",
+      "Keys/voss_key_n_chroma_v20.png": "ff4979dc4c705c3bf16108dee9eae839279cff3f2f47d17a271abaa379330325",
+      "Keys/voss_key_nnw_chroma_v20.png": "d2dd2da8b8ae83447fd0d3b996d82b9bc97b46fa6e12b2f2be9e30d2a055ab71",
+      "Keys/voss_key_nw_chroma_v20.png": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138",
+      "Keys/voss_key_s_chroma_v20.png": "d7ff0747f56c52ddf9acea28adabebb558595bc31366cee444190d71c52e5424",
+      "Keys/voss_key_ssw_chroma_v20.png": "b7c8de75b20773cb42d147d30023f39203093cbcc89d1983e6ce192174c8a22a",
+      "Keys/voss_key_sw_chroma_v20.png": "613885b1144c4b3b3391bd2ccbfd072080a1f363140d5d413d0b8277ffc35e40",
+      "Keys/voss_key_w_chroma_v20.png": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384",
+      "Keys/voss_key_wnw_chroma_v20.png": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c",
+      "Keys/voss_key_wsw_chroma_v20.png": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803",
+      "References/dialogue_portrait_harlan_voss_v01.png": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d",
+      "References/voss_target_back.png": "3e36953a2f7d653147c78c3f6c32f732ecfeacf3ad02c1b2c284aa5f9d964ef0",
+      "References/voss_target_front_three_quarter.png": "aceb190e63a06b1ea3fadc9a4e971dab7e1f086e00f7752e6aeebe95823ac659",
+      "References/voss_target_profile_w.png": "e69eaa5bcf80a78cb2d36a90daaf960e0ee48d5ddd99c80b52fe8d15997cbf74",
+      "UI/voss_paperdoll_front_rgba_v01.png": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964"
+    },
+    "status": "passed"
+  },
+  "status": "passed",
+  "strict_no_waivers": true,
+  "wardrobe": {
+    "front_material_scores": {
+      "coat": 0.016,
+      "hair": 0.0265,
+      "shirt": 0.0639,
+      "shoes": 0.0104,
+      "skin": 0.0144,
+      "tie": 0.0554,
+      "trousers": 0.1092
+    },
+    "processed_hue_spread_s": 0.6035,
+    "processed_hue_spread_ssw": 0.2756,
+    "processed_hue_spread_sw": 0.2257,
+    "rear_forbidden_fraction": {
+      "shirt": 0.0,
+      "tie": 0.0
+    }
+  }
+}

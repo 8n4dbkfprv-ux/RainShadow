@@ -15,7 +15,7 @@ struct VossSeatScaleTests {
     }
 
     private var atlases: URL {
-        repoRoot.appendingPathComponent("RainShadow Shared/Resources/Art/Atlases")
+        VossAtlasTestAssets.atlasRoot
     }
 
     @Test func actorDisplayUsesOneSizeForSeatedAndStanding() {
@@ -43,11 +43,15 @@ struct VossSeatScaleTests {
     }
 
     @Test func allSeatedAndTransitionCellsMeetBakedAssetGates() throws {
-        try validateSeatChain(.northEast)
-        try validateSeatChain(.southEast)
+        let thresholds = try VossV20ValidationThresholds.load()
+        try validateSeatChain(.northEast, thresholds: thresholds)
+        try validateSeatChain(.southEast, thresholds: thresholds)
     }
 
-    private func validateSeatChain(_ direction: SeatVisualDirection) throws {
+    private func validateSeatChain(
+        _ direction: SeatVisualDirection,
+        thresholds: VossV20ValidationThresholds
+    ) throws {
         let idle = try loadSequence(
             atlas: "VossSeatedIdle.atlas",
             stem: "voss_seated_idle_\(direction.assetSuffix)",
@@ -72,8 +76,8 @@ struct VossSeatScaleTests {
             name: "voss_standing_idle_\(direction.standingReferenceSuffix)_00.png"
         )
         let referenceMetrics = try standingReference.metrics()
-        #expect((198...202).contains(referenceMetrics.height),
-                "\(direction.label) standing reference height \(referenceMetrics.height), expected 198...202")
+        #expect(thresholds.standingHeight.contains(referenceMetrics.height),
+                "\(direction.label) standing reference height \(referenceMetrics.height), expected \(thresholds.standingHeight)")
 
         let namedCells = idle.enumerated().map {
             ("\(direction.label) seated idle \(String(format: "%02d", $0.offset))", $0.element)
@@ -84,16 +88,16 @@ struct VossSeatScaleTests {
         }
 
         for (label, cell) in namedCells {
-            #expect(cell.width == 512 && cell.height == 512,
-                    "\(label) canvas is \(cell.width)x\(cell.height), expected 512x512")
-            #expect(cell.cornerAlphas == [1, 1, 1, 1],
-                    "\(label) corner alpha values \(cell.cornerAlphas), expected four alpha-1 sentinels")
+            #expect(cell.width == thresholds.canvasWidth && cell.height == thresholds.canvasHeight,
+                    "\(label) canvas is \(cell.width)x\(cell.height), expected \(thresholds.canvasWidth)x\(thresholds.canvasHeight)")
+            #expect(cell.cornerAlphas == Array(repeating: thresholds.sentinelAlpha, count: 4),
+                    "\(label) corner alpha values \(cell.cornerAlphas), expected four alpha-\(thresholds.sentinelAlpha) sentinels")
 
             let metrics = try cell.metrics()
-            #expect(metrics.footY == 433,
-                    "\(label) visible feet end at row \(metrics.footY), expected 433")
-            #expect(abs(metrics.centerX - 255.5) <= 2,
-                    "\(label) bbox centre \(metrics.centerX), expected within 2px of 255.5")
+            #expect(metrics.footY == thresholds.footRow,
+                    "\(label) visible feet end at row \(metrics.footY), expected \(thresholds.footRow)")
+            #expect(abs(metrics.centerX - 255.5) <= thresholds.centerTolerance,
+                    "\(label) bbox centre \(metrics.centerX), expected within \(thresholds.centerTolerance)px of 255.5")
         }
 
         let idleMetrics = try idle.map { try $0.metrics() }
@@ -101,11 +105,11 @@ struct VossSeatScaleTests {
         let sitMetrics = try sit.map { try $0.metrics() }
 
         for (index, metrics) in idleMetrics.enumerated() {
-            #expect((150...160).contains(metrics.height),
-                    "\(direction.label) seated idle \(String(format: "%02d", index)) height \(metrics.height), expected 150...160")
+            #expect(thresholds.seatedHeight.contains(metrics.height),
+                    "\(direction.label) seated idle \(String(format: "%02d", index)) height \(metrics.height), expected \(thresholds.seatedHeight)")
         }
-        #expect((198...202).contains(standMetrics[11].height),
-                "\(direction.label) standing endpoint height \(standMetrics[11].height), expected 198...202")
+        #expect(thresholds.standingHeight.contains(standMetrics[11].height),
+                "\(direction.label) standing endpoint height \(standMetrics[11].height), expected \(thresholds.standingHeight)")
 
         // With every frame foot-registered at row 433, comparing visual crown
         // rows is also an exact comparison of opaque body heights.
@@ -123,8 +127,8 @@ struct VossSeatScaleTests {
             // is finer than the raster can now resolve. Matches the pipeline's
             // own gate in process_voss_desk_ne_v12.py. Measured 21...26.
             for (index, metrics) in contractMetrics.enumerated() {
-                #expect((19...29).contains(metrics.headWidth),
-                        "NE cell \(index) head width \(metrics.headWidth), expected 19...29")
+                #expect(thresholds.seatedHeadWidth.contains(metrics.headWidth),
+                        "NE cell \(index) head width \(metrics.headWidth), expected \(thresholds.seatedHeadWidth)")
             }
         case .southEast:
             for (index, metrics) in contractMetrics.enumerated() {
@@ -140,7 +144,7 @@ struct VossSeatScaleTests {
             // 1.30 matches validate_shared_scale_chain in process_voss_desk_ne_v01.py.
             // At 56 native rows one pixel of head is ~4% of the clip-wide ratio, so
             // 1.12 cannot survive a 1-bit edge. NE measures 1.24, SE 1.05.
-            #expect(drift <= 1.30,
+            #expect(drift <= thresholds.seatedHeadWidthDriftRatioMaximum,
                     "\(direction.label) clip-wide head drift \(drift), widths \(headWidths)")
         } else {
             Issue.record("\(direction.label) clip contains no measurable head band")
@@ -150,22 +154,22 @@ struct VossSeatScaleTests {
         let neutralCentroid = idleMetrics[0].centroid
         for index in 1..<idle.count {
             let centroid = idleMetrics[index].centroid
-            #expect(abs(centroid.x - neutralCentroid.x) <= 2 &&
-                    abs(centroid.y - neutralCentroid.y) <= 2,
+            #expect(abs(centroid.x - neutralCentroid.x) <= thresholds.seatedIdleCentroidDriftMaximum &&
+                    abs(centroid.y - neutralCentroid.y) <= thresholds.seatedIdleCentroidDriftMaximum,
                     "\(direction.label) idle \(String(format: "%02d", index)) centroid \(centroid) vs neutral \(neutralCentroid)")
             let overlap = VossDecodedPNG.intersectionOverUnion(neutralMask, idle[index].opaqueMask)
-            #expect(overlap >= 0.86,
-                    "\(direction.label) idle \(String(format: "%02d", index)) neutral-mask IoU \(overlap), expected >= 0.86")
+            #expect(overlap >= thresholds.seatedIdleNeutralIoUMinimum,
+                    "\(direction.label) idle \(String(format: "%02d", index)) neutral-mask IoU \(overlap), expected >= \(thresholds.seatedIdleNeutralIoUMinimum)")
         }
 
         for index in 1..<standMetrics.count {
             let crownRetreat = standMetrics[index].crownY - standMetrics[index - 1].crownY
-            #expect(crownRetreat <= 4,
+            #expect(crownRetreat <= thresholds.adjacentCrownRetreatMaximum,
                     "\(direction.label) stand-up \(String(format: "%02d", index)) crown retreats \(crownRetreat)px")
         }
         let totalRise = standMetrics[0].crownY - standMetrics[11].crownY
-        #expect((38...50).contains(totalRise),
-                "\(direction.label) stand-up crown rises \(totalRise)px, expected 38...50")
+        #expect(thresholds.transitionRise.contains(totalRise),
+                "\(direction.label) stand-up crown rises \(totalRise)px, expected \(thresholds.transitionRise)")
 
         // Sit-down is an asset-level reversal, not a separately authored clip.
         for index in 0..<sit.count {

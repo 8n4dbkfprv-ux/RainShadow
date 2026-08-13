@@ -220,8 +220,8 @@ Before animation, approve:
 Design continuity rules:
 
 - same stern early-thirties face, auburn sideburns, hairline, body proportions, tie, coat silhouette, pocket placement, and shoe shape in every frame;
-- the V17 overcoat is a dark chocolate-brown, double-breasted, belted mid-calf trench with lapels, epaulettes, cuff straps, rear storm flap and vent, designed as compact readable masses at sprite scale;
-- V17 Voss is bare-headed with swept-back auburn hair, pronounced long auburn sideburns and a stern angular face; his cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes replace the retired olive/mustard/green identity across gameplay, paperdoll and portrait;
+- the V20 overcoat is a dark chocolate-brown, double-breasted, belted mid-calf trench with lapels, epaulettes, cuff straps, rear storm flap and vent, designed as compact readable masses at sprite scale;
+- V20 Voss is bare-headed with swept-back auburn hair, pronounced long auburn sideburns and a stern angular face; his cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes replace the retired olive/mustard/green identity across gameplay and paperdoll while the current portrait remains byte-identical face law;
 - hands never gain/remove fingers or swap object silhouettes;
 - no baked background or contact shadow;
 - feet/seat use the same ground pivot across the sequence.
@@ -233,6 +233,8 @@ All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sent
 The **rendered** body targets 13% of playable height from shoe sole to crown—about 150 screen points in the reference view—with an acceptable 11.5–14.5% band. That is original Baldur's Gate playfield density (a ~50px adult on a 512×384 view), not BG:EE's wider zoomable framing. `DefaultPlayZoom` / office camera height must use `renderedStandingDetectiveBodyHeight` (≈70.3), not the legacy 82-unit logical height. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 56-pixel native body, harden its alpha to a 1-bit silhouette the way Infinity Engine BAMs stored one, limit it to a 64-color per-material ramp palette without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
+
+V20 authors four identity anchors and all 148 gameplay masters with 152 separate calls to Codex's built-in default image generator. The portrait and three accepted body scaffolds are immutable; all 148 V17 pose authorities control only pose/camera. Rear WNW omits the portrait and uses profile + back anchors, while NW/NNW/N use the back anchor only. Every candidate, ordered reference list, prompt, hash, and approval is recorded under `PreRendered3DV20/` before V14 processing.
 
 | Priority | Clip | Stored directions | Frames per direction | Stored frames | Displayed facing/frame combinations | Playback target | Notes |
 |---|---|---:|---:|---:|---:|---|---|
@@ -260,7 +262,7 @@ lila_departure_ne_00.png ... lila_departure_ne_07.png
 lila_departure_nw_00.png ... lila_departure_nw_07.png
 ```
 
-Atlases (stable runtime interface; the V17 payload is installed and its pre-V17 transaction backup is retained):
+Atlases (stable runtime interface; the isolated V20 payload does not become runtime authority until its hash-locked transactional install succeeds):
 
 - `VossSeatedIdle.atlas` — chairless NE and SE seated-idle body frames at the same directional scale as their standing endpoint; legacy NE split cells are not used by the desk runtime.
 - `VossSeatedArms.atlas` — transparent compatibility cells; each full seated body already includes Voss's arms.
@@ -281,7 +283,9 @@ Additional character texture:
 - Standing head-height jitter: ≤ 2 runtime pixels.
 - Apparent actor height at reference office pose: target 13% of playable height using the rendered body, with an acceptable 11.5–14.5% band.
 - Walk-cycle first/last continuity: no visible pop at 0.25× speed.
+- Walk-cycle phase integrity: eight unique phases, head pulse ≤1.12×, torso pulse ≤1.18×, both planted-foot leads, and no four-phase repeated lead.
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.
+- Rear-view integrity: all 36 N/NNW/NW idle and walk cells contain ≤0.1% shirt pixels; pure N contains ≤3% skin pixels and never exposes face or front garments.
 - Alpha-edge fringe: none over warm lamp light or cool window shadow.
 - Coat, tie, face, and hand identity: no unmotivated frame-to-frame change.
 - Seat-chain geometry: standing endpoint 198–202px; idle 150–160px; feet row 433; bbox centre within 2px; idle centroid drift ≤2px and neutral IoU ≥0.86; adjacent crown retreat ≤4px with 38–50px total rise; exact reversed sit-down.
@@ -360,7 +364,7 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
 | P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
 | P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |
-| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Stable ID for the smooth RGBA V17 exact-reference paperdoll; staged replacement is not V14-crunched. |
+| P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Stable ID for the smooth RGBA V20 paperdoll derived from the approved front anchor; staged replacement is soft-matted/despilled and never V14-crunched. |
 | P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
 | P0 | `ui_close_box_macos9_noir_v04` | 1 | 128×128 | Classic Mac OS 9 / Platinum close-box shape in RainShadow cool gunmetal; seats on inventory frame rail. |
@@ -449,15 +453,15 @@ Stop here if the look reads as generic AI art, modern 3D, pixel art, or a litera
 
 ### Batch 2 — lock and animate the detective
 
-1. Finalize character sheet and isometric turnaround.
-2. Generate standing-idle key frames for the nine stored western-arc source orientations.
-3. Generate one complete SW walk cycle; register it at 512×512 with a 200px body and test it in graybox at the 82-unit target scale.
-4. Expand walking to the remaining eight source orientations, then review all 16 displayed/mirrored facings.
-5. Generate seated idle and test behind the registered desk/chair.
-6. Generate stand-up and sit-down transitions.
-7. Downsample with premultiplied-alpha resampling, align doubled pivots, pack 2× atlases, and inspect at 0.25× speed.
+1. Hash-lock the immutable portrait, accepted body scaffolds, and 148 V17 pose authorities.
+2. Generate and approve front, W-profile, back, and SW-dimetric anchors in four separate built-in Codex image-generation calls.
+3. Generate nine idle phase-00 keys and approve labelled/unlabelled 16-facing sheets, with explicit rear review.
+4. Generate complete SW and N eight-frame walk proofs; approve raw/processed strips and 0.25× loops before expanding locomotion.
+5. Generate the remaining 27 idle and 56 walk masters, then review all nine loops and all 16 displayed/mirrored facings.
+6. Generate and approve the NE seated/stand-up chain before SE; derive sit-down as the exact reverse and test behind the registered world chair.
+7. Derive the smooth paperdoll from the approved front anchor, approve inventory/office/city/desk presentations, then hash-lock, stage, validate, and install transactionally.
 
-Do not ask for all stored final frames in one unreferenced prompt. Use the approved low-detail 3D character image as the reference for every edit, change only pose/phase/direction, and reject identity drift immediately. High-resolution generations are registered through one shared premultiplied-alpha 2× downsample; palette reduction, dithering, and hard edge passes are prohibited.
+Never ask for a multi-figure sheet. Each of the four anchors and 148 masters requires one built-in Codex image-generation call using the manifest's exact route. Later phases reference their direction's idle phase-00 key, never the previous phase. Gameplay outputs alone pass through V14 soft chroma/despill, 56-row reduction, per-material 64-colour crunch, hard alpha, scale normalization, and registration; wrong art is regenerated rather than repaired.
 
 ### Batch 3 — effects, UI, and polish
 
@@ -484,7 +488,9 @@ Use an edit/reference chain rather than regenerating the room.
 
 ### 12.3 Character frame prompt skeleton
 
-> The exact approved RainShadow detective, constructed as a genuinely crude 1998-era textured 3D VIDEO GAME MODEL captured from an old engine and baked into a sprite—not polished low-poly concept art. Use roughly 600–900 triangles, a face made from a few broad planar wedges, solid-shell hair, mitten-like hands, blunt shoes, broad rigid coat planes, tiny 32×32–64×64 diffuse maps, primitive vertex/Gouraud shading, one neutral directional light, and modest baked occlusion. Same face, stubble, hair, body, clothes, and colors. Fixed approved isometric camera. Pose: [animation/state/source orientation/frame phase]. Full body inside the shared transparent canvas, feet aligned to the approved ground pivot, no background, floor, contact shadow, props unless specified, text, added clothing, or identity change. Avoid PBR maps, pores, wrinkles, strands, fine weave, delicate seams, cinematic lighting, painterly illustration, cel shading, comic outlines, and hand-authored pixel art.
+> Preserve the supplied V17 pose target's exact camera, facing, phase, silhouette, hands, and feet. Render portrait-authority Harlan Voss as one complete uncropped late-1990s Infinity Engine pre-rendered figure: stern angular face, blue-gray eyes, swept auburn hair and pronounced sideburns; chocolate double-breasted belted mid-calf trench, cream open shirt, loose black tie, charcoal cuffed trousers, brown lace-ups. Smooth broad matte forms with restrained upper-left baked light; not direct pixel art, photorealism, or modern PBR. Perfectly uniform flat `#00ff00`, generous clearance, no floor, shadow, chair, prop, weapon, text, border, or scenery. [Exact direction/pose sentence; rear views explicitly forbid face, shirt, tie, front buttons, and lapels.]
+
+The complete V20 prompt and reference-routing contract is `ArtSource/Prompts/character_codex_portrait_v20.md`; its manifest inventory is authoritative when this skeleton is abbreviated.
 
 ### 12.4 Effect prompt skeleton
 

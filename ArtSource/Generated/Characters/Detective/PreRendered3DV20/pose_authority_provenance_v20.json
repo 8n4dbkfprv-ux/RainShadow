@@ -1,0 +1,872 @@
+{
+  "asset_version": "v20",
+  "call_count": 35,
+  "calls": [
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nnw_03_pose_v17.png",
+      "authority_sha256": "fe73df1b2ce821742f6c0c686369a8f72820f6f519ef3c69830bf3aee4aade10",
+      "call_id": "exec-6a5f814a-2d70-480c-ba08-e67b33b9c6cc",
+      "direction": "nnw",
+      "generator": "codex-imagegen",
+      "phase": 3,
+      "prompt": "Edit this exact image into one corrected V20 NNW phase-03 pose authority. Preserve the entire image nearly identically: same rear-left camera, head, hair, face concealment, crown, shoulders, torso width, coat, arms, hands, lighting, colors, scale, registration, green background, and leg crossing. Change only the vertical planting of the two shoes. The shoe located on the SCREEN LEFT must become the sole planted lowest shoe, with its bottom at least 6 processed pixels lower than the other shoe. The shoe located on the SCREEN RIGHT must be visibly lifted upward and trailing, with clear green space below it. Do not mirror the full figure, rotate the body, change the upper body, change shoe identities, widen the torso, shrink the head, or reveal the face. The final lower silhouette must objectively classify screen-left planted-foot lead. Keep one complete uncropped figure on perfectly uniform #00ff00. No equal/right lead, floor, shadow, prop, text, scenery, crop, extra anatomy, front garments, or background variation.",
+      "raw_sha256": "800a64288108085da0c74b656e6a126773852885f669ad24f4c82650f1e4aa32",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nnw/walk_nnw_03_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nnw/walk_nnw_03_attempt_right_lead.png",
+          "sha256": "610789b249b7e4d6d09b2161c4d4f762a1dbf35050c49688a0551f2d5d905433"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nnw_04_pose_v17.png",
+      "authority_sha256": "6d0ebba5468bec3c6cedbbdbb57ad33e2990749d2266bf8b3fff72b5203f736c",
+      "call_id": "exec-d176c6a9-df3d-4ad0-8eda-75c276371584",
+      "direction": "nnw",
+      "generator": "codex-imagegen",
+      "phase": 4,
+      "prompt": "Create one exact intermediate version of the original NNW phase-04 crossing authority and its strongly left-shifted bracket. Preserve pose, camera, body, coat, limbs, equal-foot crossing and green background; interpolate only horizontal head registration while retaining a natural 21\u201322 pixel-read head, rear-only wardrobe, and no face/front garments.",
+      "raw_sha256": "6804528412bb96976b41622937634e3582f186054d5df8c2b25901cf352a5f70",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nnw/walk_nnw_04_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nnw/walk_nnw_04_attempt_left_registered.png",
+          "sha256": "99818b1d36a35f528ab7385e26add6727aba40f2703ba43601fe1523507355bc"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nnw_05_pose_v17.png",
+      "authority_sha256": "dd84955479fa09b6648b6c72fde627f989ac8a678fad4ae1ad9fa2acbc731ca8",
+      "call_id": "exec-423d5eb5-3289-4304-babd-c257bba9c2c2",
+      "direction": "nnw",
+      "generator": "codex-imagegen",
+      "phase": 5,
+      "prompt": "Edit this exact NNW phase-05 authority candidate. Preserve the entire body, right-leading gait, feet, legs, torso width 61, coat, shoulders, arms, hands, rear-left camera, head center x=251.0, crown center, scale, lighting and uniform green background. Change only the auburn hair-and-head silhouette: shrink its width by about 16% from 25 processed pixels to exactly 21\u201322 processed pixels. Keep the head centered at the same x=251.0; do not shift it and do not alter collar, shoulders, torso, pelvis, feet, or pose. Keep face concealed and rear garments unchanged. One uncropped figure on #00ff00. Reject head above 22 or below 21, horizontal drift, changed gait, widened torso, face/front garments, shadow, prop, text, scenery, crop, extra anatomy or background variation.",
+      "raw_sha256": "2bfe6c041fda9f80a59725197ac1a3d99cf55ca5292894ed41a41e9a372f6c4d",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nnw/walk_nnw_05_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nnw/walk_nnw_05_attempt_oversized_head.png",
+          "sha256": "e8e69a3dfd777a743b8722cce6e4bb97cb897b9c30c39ed2a972c20e5af902c0"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_00_pose_v17.png",
+      "authority_sha256": "d93da4d6aa1335ef10f5047f1bd41c16c3a854ec54568a6a10bd135f7249c5e9",
+      "call_id": "exec-e2901fd5-707b-46df-a3aa-d47fc164e07f",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 0,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, NW direction, phase 00 of 08.\nInput images: Image 1 controls only exact phase-00 gait mechanics; its due-north camera is wrong. Image 2 locks rear trench construction. Image 3 locks exact NW rear-left camera, scale, 22-pixel processed head size and x=255.5 head registration.\nPrimary request: Create the same correct NW rear-left phase-00 authority, preserving gait, body, coat, camera and zero front garments. Correct only registration: position the complete back-of-head, hair and neck anatomically toward SCREEN-RIGHT by about one quarter of its width relative to a left-biased interpretation, targeting processed head center x=254\u2013256 and width 21\u201323. Keep body centered and gait unchanged.\nRear identity/wardrobe: back/side of swept auburn hair, at most permitted ear/sideburn edge; chocolate belted trench from behind with epaulettes, cuff straps, rear storm flap, center seam and vent; charcoal cuffed trousers, brown lace-ups. No face, shirt, tie, front opening, lapels, front buttons or belt buckle.\nStyle: smooth late-1990s Infinity Engine matte pre-render, broad compact material masses, warm upper-left light; plain leather.\nComposition/background: one complete uncropped figure at Image 3 scale on perfectly uniform #00ff00, generous padding; no floor, shadow, prop, text, scenery, gradient or texture.\nHard reject: head center left of x=254, due-north/back camera, visible face/front garments, changed gait, flared coat, patterned leather, wrong hair, crop.",
+      "raw_sha256": "8ea3e1cc29a30b4ab9d70b1e09a7946b2156c86d6bb7f6bbe9018a690355991d",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_00_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthorities/RejectedCoherentGait/walk_nw_00_pose_v20_superseded_due_north.png",
+          "sha256": "80be212f2bd1f725ac5c3ca53f0da6cabb18384b89334b53c1e112c71a4a848b"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        },
+        {
+          "path": "Keys/voss_key_nw_chroma_v20.png",
+          "sha256": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_01_pose_v17.png",
+      "authority_sha256": "357b5683be3b79ea5c41e3bf64cce80cc3e6a34e70dd19a4655c076021b53145",
+      "call_id": "exec-0a68beb0-a70a-4020-94ed-b6516ee5bfb3",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 1,
+      "prompt": "Edit reference 1 into one final Harlan Voss northwest-walk phase-01 pose authority. Preserve reference 1 exactly for its correct northwest rear-left camera, phase-01 crossed/lifted-foot gait, 61-pixel processed torso width, centered registration, coat silhouette, limbs, and scale. Make one controlled proportional correction: enlarge the entire head, swept auburn hair mass, neck, and rear-left sideburn silhouette by about 25 percent relative to the body so its processed sprite head width matches reference 2 at about 22 pixels, safely within 19\u201329 pixels. Do not broaden the shoulders or torso; keep the torso around 61\u201364 processed pixels. Reference 2 is head-size and camera authority; reference 3 is rear wardrobe authority. Strict rear hemisphere: no face, eyes, cream shirt, tie, lapels, front buttons, front buckle, or front garments. Preserve chocolate belted trench with rear storm flap/vent and cuff straps, charcoal cuffed trousers, brown lace-ups. Smooth late-1990s Infinity Engine pre-rendered craft with broad matte shading and warm upper-left baked light; not pixel art, photorealism, or modern PBR. Exactly one centered uncropped full-body figure on perfectly uniform solid #00ff00. No floor, shadow, chair, prop, text, scenery, gradient, transparency, or extra figure.",
+      "raw_sha256": "ad467be840f9231ad000119a99590edeaacc43e7d87b6fde6815211f9388c666",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_01_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nw/walk_nw_01_attempt03_head17.png",
+          "sha256": "f884f186d9bc4bdd8271d514ff7b7766812a9beb61102af2a83071342bab0ea8"
+        },
+        {
+          "path": "PoseAuthorities/walk_nw_00_pose_v17.png",
+          "sha256": "d93da4d6aa1335ef10f5047f1bd41c16c3a854ec54568a6a10bd135f7249c5e9"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_02_pose_v17.png",
+      "authority_sha256": "e565ac5a42b586de131e31ca2c7c47299a6a5583542801385a2aa2236521229a",
+      "call_id": "exec-50f65763-c3e2-488f-af55-9797ba313928",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 2,
+      "prompt": "Make one surgical edit to reference 1 for the final NW phase-02 pose authority. Preserve its exact true NW rear-left camera, clear RIGHT-foot forward/planted lead, trailing left foot, arms, coat, stride, scale and crop. Replace only head/hair/neck placement from NW phase 00 while keeping strict rear wardrobe and uniform #00ff00.",
+      "raw_sha256": "2f272e8220e6a8e0d52f1b80cbb37cf8740d271a43941bd09660473717a32aed",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_02_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nw/walk_nw_02_attempt04_nw_head_right.png",
+          "sha256": "0a1d228aeb66fa336515fe08f979b60181960d34f39159f39cca74afdf4a6d6e"
+        },
+        {
+          "path": "PoseAuthorities/walk_nw_00_pose_v17.png",
+          "sha256": "d93da4d6aa1335ef10f5047f1bd41c16c3a854ec54568a6a10bd135f7249c5e9"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_03_pose_v17.png",
+      "authority_sha256": "dbc2974e1cc01446befd62cdf203d34303a0f6ea133c61a0ea98b76a13c180bb",
+      "call_id": "exec-b27a859d-416f-4020-9442-c280af7a0923",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 3,
+      "prompt": "Create NW phase-03 authority by preserving accepted NW02 camera, head, torso, scale and rear wardrobe while changing only the lower-body gait into the phase-03 recovery/compression timing from the superseded authority; uniform #00ff00, no face or front garments.",
+      "raw_sha256": "0ebb91e71176a9ee119f72c4a53e680fa2cc5fd4b93dfc12b322693e5f12e958",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_03_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_nw_02_chroma_v20.png",
+          "sha256": "e6c319433e73e33a1fcff796f67fed61c89f54f201baef570843178564ccdc9f"
+        },
+        {
+          "path": "PoseAuthorities/RejectedCoherentGait/walk_nw_03_pose_v20_superseded_due_north.png",
+          "sha256": "968ca5cda1acc1f6856ec5cad1e7f72af07b64a649c651239d2c075e7a6d95d0"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_04_pose_v17.png",
+      "authority_sha256": "3eca74a27edcfbce500f394776f2ea9b3a01952a2b388e2ba24ee6ff79655d2c",
+      "call_id": "exec-b58e4afc-3c8d-48db-986c-ef14ebf3a6a6",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 4,
+      "prompt": "Create coherent NW phase-04 midpoint from accepted NW02/NW03 frames, preserving their rear-left camera, identity, proportions and wardrobe while making a unique neutral crossover gait; uniform #00ff00, no front garments.",
+      "raw_sha256": "8f5a57f5903c99eaebbca46499bf886d49cbcc1e676c35b49e0339c0beda4700",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_04_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_nw_03_chroma_v20.png",
+          "sha256": "14e079b3a0c6cceaf984aebe266b40ca8e5638d2d3b529f7d792236189d6f620"
+        },
+        {
+          "path": "Frames/voss_walk_nw_02_chroma_v20.png",
+          "sha256": "e6c319433e73e33a1fcff796f67fed61c89f54f201baef570843178564ccdc9f"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_05_pose_v17.png",
+      "authority_sha256": "f9b8ea744727d78c2ae4ce40f51256335fb82a3565ccf37eaf68f416987d58d9",
+      "call_id": "exec-7a789530-2bd1-40b0-8ed6-4ecb513df7e0",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 5,
+      "prompt": "Create NW phase-05 authority with classifier-safe screen-left planted foot, screen-right lifted foot, 22-pixel head, 68-pixel torso, strict rear wardrobe and uniform #00ff00.",
+      "raw_sha256": "2474cfa8da5bfa91c75524c6064667fcb68515532dc868cb39cbd63322ed121a",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_05_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenRejected/nw/walk_nw_05_attempt_neutral.png",
+          "sha256": "75087a33fa83e1471a8ae4138d6c2759e67a2552d0ec49cf0810197ac91cc8af"
+        },
+        {
+          "path": "Frames/voss_walk_nw_04_chroma_v20.png",
+          "sha256": "9dc40e5d16643d09414a8adf2395853f35385562128faa7f4be18c94a409e1fe"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_06_pose_v17.png",
+      "authority_sha256": "4995454099d15e18a3659b6925b440f5bb49c142946e44a62e6986a1def9b1a1",
+      "call_id": "exec-30fbe5a5-626e-4ff5-88bd-0187abf12d24",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 6,
+      "prompt": "Create coherent NW phase-06 recovery authority from accepted NW05/NW04 frames, preserving rear-left camera, 22-pixel head, 68-pixel torso, rear wardrobe and uniform #00ff00.",
+      "raw_sha256": "3dea0081bc7710da5200da9648bbe85a8752eb32d0596c132c8a812383afb19b",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_06_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_nw_05_chroma_v20.png",
+          "sha256": "33ed8b1432721ea9d7b617d005fa607b44e9922964e437ad6259cd3f9c5d177e"
+        },
+        {
+          "path": "Frames/voss_walk_nw_04_chroma_v20.png",
+          "sha256": "9dc40e5d16643d09414a8adf2395853f35385562128faa7f4be18c94a409e1fe"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_nw_07_pose_v17.png",
+      "authority_sha256": "413069d7958da0678f59bd2aff46386de88cb4c30439c7b90a8e33e13216e1ba",
+      "call_id": "exec-9e7b188c-e41a-4b4d-a680-96a037179736",
+      "direction": "nw",
+      "generator": "codex-imagegen",
+      "phase": 7,
+      "prompt": "Create coherent NW phase-07 neutral closure from accepted NW06/NW05 frames, preserving rear-left camera and identity, even foot heights, 21-pixel head, rear wardrobe and uniform #00ff00.",
+      "raw_sha256": "c7681a3e21938be9bd992005a8e2b2d2bbbb314c9f04d1f1a7eac0f45a4769ef",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/nw/walk_nw_07_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_nw_06_chroma_v20.png",
+          "sha256": "ed5b4f1a8baabfd254f9f007f3f8a88e1edbdc385d0c845c24c8c881666fab3c"
+        },
+        {
+          "path": "Frames/voss_walk_nw_05_chroma_v20.png",
+          "sha256": "33ed8b1432721ea9d7b617d005fa607b44e9922964e437ad6259cd3f9c5d177e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_00_pose_v17.png",
+      "authority_sha256": "995644d2b1fa8f2dfb60e66ca4847e3b3f5c9fa4d671569ad1e21bb96b6ca54f",
+      "call_id": "exec-666faa5c-2275-4a5a-99f1-a6a7934947c4",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 0,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 0. Copy the exact phase-0 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "ed67ff5fdf0e4c0e186c46d5a1273880d8ba4e90bf8b387945e70fb3d434b1d1",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_00_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_00_chroma_v20.png",
+          "sha256": "11401e274bd694464d7fc6d1bc575ad1a09522edba489b147d507be32c8934d8"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_01_pose_v17.png",
+      "authority_sha256": "ea394fc1295d8c1bcc6026a4cde538e2fe7972ee7cb2c403873b04f40146ad81",
+      "call_id": "exec-f61a12e8-2da5-4026-a446-4fa8d5163837",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 1,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 1. Copy the exact phase-1 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "d1536f6db3d57fa213f4660bce11847d995df7dda0621f8a03eb270e42fb6563",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_01_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_01_chroma_v20.png",
+          "sha256": "ebcb3a45d9a75ba0947fff57f047ddfdf9d2feecbcfe30304232721400b988f8"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_02_pose_v17.png",
+      "authority_sha256": "09df0124a6e732d9a237fc54284f3dac9fde5c6c4bafaeb798bd16ba973ebddc",
+      "call_id": "exec-445501b4-c290-4eb6-aac4-39366b367bd6",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 2,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 2. Copy the exact phase-2 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "8aaf6a5eeadda3dfbfd33f6f240a241dc7689f3cda359dd6df801f4abb78a632",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_02_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_02_chroma_v20.png",
+          "sha256": "22eed6ab86b9cabc43d480a02cdf6cac82419a2309edbc61d5b9251e9d71c61f"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_03_pose_v17.png",
+      "authority_sha256": "c652026954a967b805f9585f51d86998f1ef8c057a6c068353570fa2742540e2",
+      "call_id": "exec-eee467f1-6383-4604-a8ba-a55969ca2778",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 3,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 3. Copy the exact phase-3 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "45b63ef29479107fb0af7e73818195207cb6d9a80a5514799bcc4827b353e1bc",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_03_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_03_chroma_v20.png",
+          "sha256": "2b058779c1f754290eb0f1ae8a92348d64e855d2de85d21c9bed65a0c7a1d947"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_04_pose_v17.png",
+      "authority_sha256": "76f1a763966e0bb7c42031768941db0397d3e6c9e577df47065146cf7dec66d7",
+      "call_id": "exec-9116b7ea-b1c0-4e87-86d3-12da7421db11",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 4,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 4. Copy the exact phase-4 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "3a567aa7bde3c09f53531b46f55d36d9be8766a02034b51e4588f5305ae3a3a1",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_04_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_04_chroma_v20.png",
+          "sha256": "b07a1fab6ad2cb5ed604fc1886b34aa5bfb9a388e09dc47ab4bca54bddd0ce97"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_05_pose_v17.png",
+      "authority_sha256": "d47c4a7fce3ebf515729137d82e36c56098fe93614ab636156b7f5c3542af53b",
+      "call_id": "exec-6ab62f2d-e296-4010-9710-0735d204e12f",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 5,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, W direction, phase 05 of 08.\nInput images: Image 1 controls only the exact phase-05 gait mechanics, lifted/planted foot relationship, hip height, compact stride and arm swing. Image 2 locks the exact anatomical left-facing W camera, Voss identity, profile head size, body scale and registration. Image 3 locks W-profile trench construction, silhouette and craft.\nPrimary request: Create one exact 90-degree left-facing W phase-05 pose authority using Image 1's gait mechanics. Correct the former authority's left-biased head: center the complete swept-auburn head, hair and neck naturally above the torso so the profile head is aligned with the W key's registration, about half a head-width toward SCREEN-RIGHT compared with a left-biased result. Keep a moderately broad stable torso matching Images 2\u20133 and a close controlled coat tail.\nSubject: stern angular Voss profile, auburn hair and long sideburn; chocolate belted double-breasted trench, cream shirt, loose black tie, charcoal cuffed trousers, brown lace-ups.\nStyle: smooth late-1990s Infinity Engine matte pre-render with warm upper-left light.\nComposition: one complete uncropped figure at Image 2 scale on perfectly uniform #00ff00, generous padding.\nConstraints: nose, gaze, chest and toes directly screen-left; exact phase-05 gait; head centered above neck/torso; stable moderate torso. No floor, shadow, prop, text, scenery, gradient or texture.\nAvoid: left-biased head, near-front view, three-quarter view, narrow/wide torso, flared coat, changed gait, merged feet, mustard waistcoat, green tie, olive coat, dark hair, crop.",
+      "raw_sha256": "187173fe6d3e290a32698a11372e3a87104e6687300684f94222e10d2e001a55",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_05_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_05_chroma_v20.png",
+          "sha256": "e9527a5c0c0f10de48ff8845847e5f8cb83d50eb63bffee2a23de03ecbfcc69c"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_06_pose_v17.png",
+      "authority_sha256": "e4163424624f57476cc12b185fd87665b5b24d0601242fef1aa33e529ff04f81",
+      "call_id": "exec-04f623e7-6b5f-48ec-ad33-d8049e05f7a3",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 6,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, W direction, phase 06 of 08.\nInput images: Image 1 supplies exact phase-06 legs, feet, hip height and closing stride. Image 2 locks exact W profile identity, scale, camera and registration. Image 3 locks exact profile trench construction.\nPrimary request: Create one strict anatomical left-facing W phase-06 authority. Use a moderate natural opposing arm swing: move the leading screen-left forearm/hand only about 7 cm forward and the trailing screen-right elbow/cuff/hand only about 7 cm backward\u2014half the exaggerated swing, targeting a 61\u201368-pixel-read upper-body silhouette. Keep the head/neck slightly toward SCREEN-LEFT relative to the centered placement, about one quarter of its own width, to compensate for registration while retaining natural anatomy. Preserve Image 1's exact leg gait and foot relationship.\nIdentity/style: Voss, auburn swept hair and sideburn, chocolate belted trench, cream shirt, black tie, charcoal trousers, brown shoes; late-1990s Infinity Engine matte pre-render.\nScene: one complete uncropped figure on perfectly uniform #00ff00, no floor, shadow, prop, text, scenery, gradient or texture.\nConstraints: exact 90-degree profile; moderate arm swing; 61\u201368-pixel-read torso; head aligned inside the loop envelope; exact leg gait.\nAvoid: front/three-quarter torso, extreme/thin arm silhouette, changed gait, flared coat, wrong identity/wardrobe, extra limbs, crop.",
+      "raw_sha256": "178d8584c52621637009acc55b66b7e5d560de000de646d308f203c5d13fd7ec",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_06_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_06_chroma_v20.png",
+          "sha256": "567c6be1973ee11079820f82b9f451f7dc1411e79923eb43cdbeb4685de29873"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_w_07_pose_v17.png",
+      "authority_sha256": "d8681e7a9ae60d15322d39e9f95e92ebff5aed22a5f0af4a37f5bf83b7cb8722",
+      "call_id": "exec-598985e6-497c-40f3-812b-6df66a99fefc",
+      "direction": "w",
+      "generator": "codex-imagegen",
+      "phase": 7,
+      "prompt": "Create one coherent V20 W walk pose authority for phase 7. Copy the exact phase-7 leg geometry, planted-foot relationship, hip height and arm swing from the approved SW gait proof; lock the approved W key and anchor camera, scale, identity and trench construction across the loop. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "4470c1a69f3497d2dfca9e77ac799000e3fbbae9d35bf3e9c5b4f7a5775b0f0f",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/w/walk_w_07_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_sw_07_chroma_v20.png",
+          "sha256": "655c8dfca6053cb955e514759118d25667420e288e99f3ee77c52a7c10bd147e"
+        },
+        {
+          "path": "Keys/voss_key_w_chroma_v20.png",
+          "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_00_pose_v17.png",
+      "authority_sha256": "94aa7363b4b0b5cae4a0114366c0c3a97205d5976495bd702b85c8960b5da7c7",
+      "call_id": "exec-46907e4a-9395-4700-8e9f-3034495ec2db",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 0,
+      "prompt": "Create one coherent V20 WNW walk pose authority for phase 0. Copy the exact phase-0 leg geometry, planted-foot relationship, hip height and arm swing from the approved N gait proof; lock the approved WNW key and anchor camera, scale, identity and trench construction across the loop. Rear hemisphere only: no face, cream shirt, tie, lapels or front opening; preserve storm flap, belt and center vent. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "92c8c47fbea01660371d9b803a639a71c8b9e67d7119a0ca1c17463d18135306",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_00_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_00_chroma_v20.png",
+          "sha256": "a6bbd5075341502d40e98313fea1bb0ba2abd776e6d71861f6252ff777594766"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_01_pose_v17.png",
+      "authority_sha256": "30a8f78c5c31b23ee5a59cfa860e8c9642c88d1aba1637c254a1dcfe6617da75",
+      "call_id": "exec-cd3473e8-bcbf-41fd-8b2e-a4b9cb0ac8d9",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 1,
+      "prompt": "Create one coherent V20 WNW walk pose authority for phase 1. Copy the exact phase-1 leg geometry, planted-foot relationship, hip height and arm swing from the approved N gait proof; lock the approved WNW key and anchor camera, scale, identity and trench construction across the loop. Rear hemisphere only: no face, cream shirt, tie, lapels or front opening; preserve storm flap, belt and center vent. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "5d8b9c8c23cedc5b6f09d260af6761794a6966b4019c47e92073c340b27effb2",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_01_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_01_chroma_v20.png",
+          "sha256": "71fe5e385e3909de86a1036fea1066d10cbf51afbb975b614e21af2360bd5dd5"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_02_pose_v17.png",
+      "authority_sha256": "b612ae91467aa7e0e21a7507a956aa6292477a7dfedafe3b08c5e960a3001314",
+      "call_id": "exec-87ca73d9-bbcd-45a7-90d8-7e7a04aa1753",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 2,
+      "prompt": "Create one coherent V20 WNW walk pose authority for phase 2. Copy the exact phase-2 leg geometry, planted-foot relationship, hip height and arm swing from the approved N gait proof; lock the approved WNW key and anchor camera, scale, identity and trench construction across the loop. Rear hemisphere only: no face, cream shirt, tie, lapels or front opening; preserve storm flap, belt and center vent. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "da643ee392fcf5debb5f4af15330a937a2c7140fcc8cb4baeab595e124268080",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_02_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_02_chroma_v20.png",
+          "sha256": "937111c2f6f8f17d07c3e6bdf556b6ef026c1f955f4d287379b8bde3cc8f8c10"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_03_pose_v17.png",
+      "authority_sha256": "957854afbb621b5fe07ab81cce5caea97c139c4bb1605e3f94d6d4b0a1cd71c7",
+      "call_id": "exec-b11208e0-1c0a-4457-8b67-79c1cf15ea97",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 3,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, WNW direction, phase 03 of 08.\nInput images: Image 1 supplies phase-03 gait mechanics, hip height, arm swing, and camera elevation. Image 2 locks WNW identity, scale, and framing. Images 3-4 lock trench construction.\nPrimary request: Create a clear SCREEN-LEFT planted-foot WNW gait extreme. The shoe located on the LEFT HALF OF THE FINAL IMAGE must extend visibly farther DOWN toward the bottom edge than the other shoe and be planted flat. The shoe on the RIGHT HALF OF THE FINAL IMAGE must be lifted clearly HIGHER, with its sole above the bottom of the screen-left shoe by a substantial visible amount. Preserve a compact stride and Image 2's rear-left WNW body angle.\nSubject: swept auburn hair; chocolate belted trench with rear storm flap, epaulettes, cuff straps, center seam and vent; charcoal cuffed trousers; brown lace-up shoes.\nStyle/medium: smooth late-1990s Infinity Engine pre-rendered craft with broad matte upper-left shading.\nComposition/framing: one complete uncropped figure at Image 2's scale; both shoes fully visible and separated.\nScene/backdrop: perfectly uniform solid #00ff00 only.\nConstraints: rear hemisphere only; screen-left shoe lowest; screen-right shoe clearly raised. No face, eyes, shirt, tie, lapels, front opening, front buttons, floor, shadow, prop, text, scenery, gradient, texture, or green spill.\nAvoid: screen-right shoe lower than screen-left, equal shoe-bottom height, neutral lead, symmetric north, west profile, hidden shoe, merged legs, exaggerated stride, waistcoat, green tie, olive coat, dark hair, crop.",
+      "raw_sha256": "8e8bbffa095fe36844dc02e5be84842102681743a260b4b400e344044e641eb2",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_03_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_03_chroma_v20.png",
+          "sha256": "c4cb77515c85c5f2653cacac57af3ef216080bbeda8b9620f1fb21805fdb57a7"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_04_pose_v17.png",
+      "authority_sha256": "d0ed080f5375edcecdd05cb6c4174ba6d3460f03ac64a30bd30baa459f618c1f",
+      "call_id": "exec-5fb1d0fe-84b3-41c5-af70-aeff27a77f50",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 4,
+      "prompt": "Create one coherent V20 WNW walk pose authority for phase 4. Copy the exact phase-4 leg geometry, planted-foot relationship, hip height and arm swing from the approved N gait proof; lock the approved WNW key and anchor camera, scale, identity and trench construction across the loop. Rear hemisphere only: no face, cream shirt, tie, lapels or front opening; preserve storm flap, belt and center vent. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "96e5d05ff5b559fd3464a8c4fcf5e61b6d4797384fef759dffd34ac4833f80f5",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_04_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_04_chroma_v20.png",
+          "sha256": "02fb269334582d48108bee9c5b59eb3342aaf66132c31160c5b2e3a7bd484f4c"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_05_pose_v17.png",
+      "authority_sha256": "d0b7d0891d8db4ac94ee134ecc3f2d9889c424b46891e13d734c50f1af66347f",
+      "call_id": "exec-9f4c8c7f-d335-4212-aeb1-c2c3ad275e85",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 5,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, WNW direction, phase 05 of 08.\nInput images: Image 1 is exact for phase-05 gait mechanics, hip height, arm swing, lifted-foot mechanics, and compact stride. Image 2 locks the true WNW rear three-quarter direction, identity, generous head scale, torso proportion, and framing. Images 3 and 4 lock trench construction and rear/profile anatomy.\nPrimary request: Create one coherent true-WNW phase-05 authority with Image 1's exact gait mechanics and lifted-foot relationship, rotated to Image 2's rear-left WNW camera angle. Keep a moderately broad stable torso matching Image 2. Relative to the natural centered head placement, position the complete head-and-hair silhouette only very subtly toward SCREEN-LEFT: approximately one quarter of the head's own width, about 0.4% of the full canvas width. This is a tiny calibration\u2014not a lean. Keep the neck natural and torso fixed. Preserve both separate shoes.\nSubject: swept copper-auburn hair, narrow ear/sideburn rim; chocolate belted trench with rear storm flap, epaulettes, cuff straps, center seam and vent; charcoal cuffed trousers; brown lace-up shoes.\nStyle/medium: smooth late-1990s Infinity Engine pre-rendered craft with broad matte upper-left shading.\nComposition/framing: one complete uncropped figure at Image 2's scale; both shoes visible; natural alternating arm swing.\nScene/backdrop: perfectly uniform solid #00ff00 only.\nConstraints: true WNW rear hemisphere, clearly more oblique than north but not west profile. No face, eyes, shirt, tie, lapel opening, front opening, front buttons, floor, shadow, prop, text, scenery, gradient, texture, or green spill.\nAvoid: pronounced head offset, near-north symmetry, west profile, small head, narrow torso, hidden shoe, merged legs, changed stride, waistcoat, green tie, olive coat, dark hair, crop.",
+      "raw_sha256": "240973b5145d0d92f8042f71ddf5d8be5594fbad5f024108d3546a0b3de147d7",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_05_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_05_chroma_v20.png",
+          "sha256": "42a4ac37040b96925f18f0b107b5ccca364057e629197cd9af9d4a575853f181"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_06_pose_v17.png",
+      "authority_sha256": "75ab6d2e226d30af03b2f28d7d0f6bb58e401f031b773b63202323ec3b0e57e3",
+      "call_id": "exec-8b3cb3d3-b737-4fb3-8a4e-29efcf5a6f45",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 6,
+      "prompt": "Create one coherent V20 WNW walk pose authority for phase 6. Copy the exact phase-6 leg geometry, planted-foot relationship, hip height and arm swing from the approved N gait proof; lock the approved WNW key and anchor camera, scale, identity and trench construction across the loop. Rear hemisphere only: no face, cream shirt, tie, lapels or front opening; preserve storm flap, belt and center vent. One uncropped fully clothed Voss on perfectly uniform #00ff00, no floor, shadow, prop, text or scenery; smooth late-1990s Infinity Engine pre-rendered craft with matte upper-left light.",
+      "raw_sha256": "da0e8717e1ab145e035474d07c0c085dcddf8e80281e4b02e04844e305157e3c",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_06_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_06_chroma_v20.png",
+          "sha256": "63c08f7c2993739d7c03aa402d0e4065cdb00c87632104b0ad8fbb90b0ff8f7e"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wnw_07_pose_v17.png",
+      "authority_sha256": "d7ed592bbabdf744cb8afe2ff09fbbccabb9c1f18cd4eb5a0e1a93bbe4ca34d5",
+      "call_id": "exec-6e597ded-af7e-43cd-8692-a9e0d32ac2fd",
+      "direction": "wnw",
+      "generator": "codex-imagegen",
+      "phase": 7,
+      "prompt": "Use case: identity-preserve\nAsset type: replacement V20 coherent gait pose authority, WNW direction, phase 07 of 08.\nInput images: Image 1 is authoritative for the exact phase-07 leg geometry, planted-foot relationship, hip height, compact stride, and arm swing. Image 2 is authoritative for the WNW three-quarter rear-left camera, scale, identity, and framing. Images 3 and 4 provide profile/back trench construction.\nPrimary request: Create one coherent WNW phase-07 pose authority. Copy Image 1's exact gait mechanics, but rotate the complete body and camera presentation into Image 2's unmistakable WNW three-quarter rear-left view. Preserve Image 2's head size and asymmetric hair/shoulder silhouette. Both legs and shoes must remain visible and mechanically match Image 1: left foot lifted/advancing and right foot planted/trailing.\nSubject: Harlan Voss with swept auburn hair and narrow sideburn rim; chocolate belted trench with rear storm flap, epaulettes, cuff straps, center seam and vent; charcoal cuffed trousers; brown lace-up shoes.\nStyle/medium: smooth late-1990s Infinity Engine pre-rendered craft, broad matte shading, upper-left baked light.\nComposition/framing: one complete uncropped fully clothed figure at Image 2's scale and registration, generous green padding.\nScene/backdrop: perfectly uniform solid #00ff00 chroma key only.\nConstraints: rear hemisphere only; no visible face, eyes, cream shirt, tie, lapels, front opening, or front buttons. No floor, shadow, prop, text, scenery, gradient, texture, or green spill.\nAvoid: symmetric north view, west profile, hidden leg, merged shoes, changed stride, waistcoat, green tie, olive coat, dark hair, crop.",
+      "raw_sha256": "2a09782e304315fad4c2fa09751b0d58fc6453b70228a93252066b2c1a50aa4f",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wnw/walk_wnw_07_imagegen_raw.png",
+      "references": [
+        {
+          "path": "Frames/voss_walk_n_07_chroma_v20.png",
+          "sha256": "6530661cd03cccdb2c5844143bc42faf34cc457365900d43d0337c1fb43d7760"
+        },
+        {
+          "path": "Keys/voss_key_wnw_chroma_v20.png",
+          "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+        },
+        {
+          "path": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+          "sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e"
+        },
+        {
+          "path": "Anchors/voss_anchor_back_chroma_v20.png",
+          "sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_00_pose_v17.png",
+      "authority_sha256": "ad24f6c8f0e3d34eea02091af4d697ace8f298728989640312eebc25b7d894f4",
+      "call_id": "exec-5fe0ec73-8ae8-48c3-96a4-a8c0332852c9",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 0,
+      "prompt": "Use case: identity-preserve. Refine the FIRST west-facing detective walk frame. Preserve its exact head, hair, face, head position, legs, feet, left-leading gait, arms, camera, scale, and centered framing. Change only the upper torso and trench-coat breadth to match the SECOND reference's broad shoulders, chest volume, and coat silhouette. Keep the waist, belt, head, and gait fixed. Same character, colors, lighting, and perfectly uniform #00ff00 background; one complete figure only.",
+      "raw_sha256": "675c7a910338bc4cb41d62e5bcf94582815a6d890c306bd69126bf8f181dece1",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_00_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenLineage/wsw/walk_wsw_00_pose_input.png",
+          "sha256": "b5d901d70e9e0ef2be9bb88213c2b4dfafff9434cb0124c9d4669edae6ce9786"
+        },
+        {
+          "path": "PoseAuthoritySources/ImageGenLineage/wsw/walk_wsw_00_breadth_input.png",
+          "sha256": "4db65b288dcbac0b87fe995db823b32564b78a8cdf7a9f6444e04dd3ab074d5b"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_01_pose_v17.png",
+      "authority_sha256": "2e831b2ad3d0942308f7d0e3e022f7f0f3d137f0e4b15f09de63f7dbcee0bfe3",
+      "call_id": "exec-4e130db6-bdbb-4752-820b-9bc9280d4b62",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 1,
+      "prompt": "Create one adjacent frame for an ordinary walking animation of this same fully clothed fictional detective. Keep the exact person, face, hair, coat, shirt, tie, camera angle, head size and position, torso size, colors, lighting, full-body scale, and flat green background. Keep the front shoe in place. Move the back shoe a little closer to the front shoe and raise its heel. Bend the knees slightly and change the arm positions a little. The new pose should be visibly different but remain a calm natural walk. One complete uncropped figure on exact uniform #00ff00. No ground, shadows, objects, scenery, words, gradient, or background texture. Same classic pre-rendered game-character style.",
+      "raw_sha256": "72c94924f4dc8d5b44e7c181c9455c1087c4029fabce35dbeadf4c24e6b10a68",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_01_imagegen_raw.png",
+      "references": [
+        {
+          "path": "QA/Gate4WSWCandidates/wsw_left_contact_broad_candidate.png",
+          "sha256": "675c7a910338bc4cb41d62e5bcf94582815a6d890c306bd69126bf8f181dece1"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_02_pose_v17.png",
+      "authority_sha256": "a6d3d17ef6c83403e14f250ef5a9fa630e5b320a598ccd90a0076142ca3b3ecf",
+      "call_id": "exec-821377df-8940-4d28-9ea5-76cec031ac70",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 2,
+      "prompt": "Make one exact head-only scale correction to this Voss WSW passing frame. Preserve every part below the neck exactly: shoulders, arms, hands, torso breadth, chocolate trench, cream shirt, black tie, belt, buttons, coat hem, legs, shoes, gait pose, camera, full-figure registration, lighting, style, and uniform green background. Reduce only the full head silhouette\u2014including swept auburn hair, stern face, ear, jaw and pronounced sideburns\u2014by approximately 14 percent around its own center, maintaining the natural neck. Target after 200-pixel-tall sprite processing: head width exactly 25 pixels and head center x=251. Preserve portrait identity. Do not change the body or pose. One full uncropped figure on perfectly uniform exact #00ff00; no floor, shadow, haze, prop, scenery, text, gradient or variation. Same smooth late-1990s Infinity Engine pre-rendered craft.",
+      "raw_sha256": "7eba5ca6214e7c808fd162c6dfd78905a828851520167c6faa02a46e7cb4ff63",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_02_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenLineage/wsw/walk_wsw_02_head_input.png",
+          "sha256": "d1ec3f5efba1f44eebd6f38303c2482bd25cfdcd48cbab5de0454a23cbb9e20d"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_03_pose_v17.png",
+      "authority_sha256": "e0708dd20fd6b724f2e478dcb2dab7df2244e194789d97a58d749e2f53ee44a9",
+      "call_id": "exec-bec1998e-4342-4075-955e-79207bf4659a",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 3,
+      "prompt": "Minimal animation-frame correction. Preserve this image exactly except for the screen-right rear lower leg and shoe. Move that screen-right shoe downward about 45\u201355 pixels on this 1254\u00d71254 source canvas so the bottom of its outsole sits on exactly the same horizontal ground line as the bottom of the screen-left shoe. Extend the trouser leg naturally to meet it. Keep the shoe's orientation and size, both knees softly bent, and retain a distinct mid-stride pose. Do not move or alter the screen-left leg, coat, torso, arms, hands, head, face, hair, camera, scale, lighting, or perfectly uniform #00ff00 background. Entire figure uncropped. No floor, shadow, object, text, scenery, transparency, extra anatomy, or redesign.",
+      "raw_sha256": "87cfd2535c12f948c13313211180e96d2aaad8f609a71ae230e7ceda5a1b5425",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_03_imagegen_raw.png",
+      "references": [
+        {
+          "path": "QA/Gate4WSWCandidates/wsw_left_up_neutral_candidate.png",
+          "sha256": "0e87ae1e1f72cda6b7b8ee0b14c8c8c55b549e8b75761e8a1f64c59560fec5b3"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_04_pose_v17.png",
+      "authority_sha256": "63ef91d1a059dbf2759f9f534cdecf4d7b2085c7a27815d256fb1b546c3b0320",
+      "call_id": "exec-6648afc1-53c6-4e7b-b2fa-7b70edec63ea",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 4,
+      "prompt": "Make one upper-body silhouette adjustment to this exact WSW Voss right-leading contact frame. Preserve the head exactly at its current size and position; preserve both legs, both shoes, screen-right planted-foot lead, stride, camera, full-body scale/registration, coat construction, lighting and uniform background. Move the forearm and hand on SCREEN LEFT slightly forward and away from the coat as a natural opposing arm swing, and let the nearby coat edge follow subtly. Increase the processed mid-body silhouette from 72 pixels to 75\u201378 pixels. Keep the screen-right arm fixed. Do not change head, shoulders, legs, foot lead, or overall figure width. One full uncropped figure on perfectly uniform exact #00ff00; no floor, shadow, haze, object, scenery, text, gradient or variation. Same smooth late-1990s pre-rendered game-character craft.",
+      "raw_sha256": "cf4de6a87cf4b781fe30187b527f2962fd7634bf29a709b165e477ca3c141810",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_04_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenLineage/wsw/walk_wsw_04_silhouette_input.png",
+          "sha256": "9f13975cee3e8fdbb05449cd1f1d0fb173efeeba208d7febc2d8cf7ab8a56b03"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_05_pose_v17.png",
+      "authority_sha256": "6a92b7e3b5556492444d85f789fb81d77ab24a8813f66a136b5ae34a5470044b",
+      "call_id": "exec-6696ee67-7a31-4117-95a7-92af7fe98a6a",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 5,
+      "prompt": "Create the immediate next WSW recoil frame after this exact Voss right-contact pose. Preserve the complete head and upper body exactly: stern auburn-haired identity, sideburns, head size and x=252 registration, strict west/WSW profile camera, chocolate belted double-breasted trench, cream shirt, black tie, shoulders, arms, hands, 86-pixel-target torso silhouette, body scale, colors and lighting. Keep the screen-right shoe planted at the baseline and the right-foot lead, but absorb the step subtly: bend both knees a little, bring the screen-left airborne shoe closer to the planted leg and slightly upward, shorten the stride by about 15 percent, and let the planted ankle roll flat. Move arms and coat hem only minimally. This must be a distinct low recoil timing, not a contact duplicate, not a passing pose, and not a crouch. Target processed head 25 pixels at x=251\u2013252 and torso 78\u201386 pixels. One full uncropped figure on perfectly uniform exact #00ff00; no floor, shadow, haze, object, scenery, text, gradient or variation. Same smooth late-1990s Infinity Engine pre-rendered game-character craft.",
+      "raw_sha256": "cd3b1de9bc58392f27febcacdb5757b4a0867eac3551e2c3213dcd3ec740359d",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_05_imagegen_raw.png",
+      "references": [
+        {
+          "path": "QA/Gate4WSWCandidates/wsw_right_contact_profile_matched_candidate.png",
+          "sha256": "cf4de6a87cf4b781fe30187b527f2962fd7634bf29a709b165e477ca3c141810"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_06_pose_v17.png",
+      "authority_sha256": "c43cf94eebc2d9667f556c04f64f07d4ea2f9a296d385ed2bf47e4794735e977",
+      "call_id": "exec-da9cd209-5c6c-4321-9cee-d2e3bca988f2",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 6,
+      "prompt": "Make an extremely small coat-tail adjustment to this exact WSW Voss passing frame. Preserve head, torso, shoulders, arms, hands, compact crossover legs, shoes, camera, scale, lighting and background exactly. Move only the farthest lower edge of the flared coat tail on SCREEN RIGHT inward toward the rear thigh by about one sixth of its current sideways reach\u2014half as much as a typical visible correction. Keep the coat full and broad; do not narrow the upper or mid coat. Target processed head center x=251\u2013252 instead of x=246 while preserving head width 25 and torso width 86\u201393. Do not alter any body part, head, arm, leg, or shoe. One full uncropped figure on perfectly uniform exact #00ff00; no floor, shadow, haze, objects, scenery, text, gradient or variation. Same smooth late-1990s pre-rendered game-character craft.",
+      "raw_sha256": "b1d04682f643a96569d9defc5cb6f1fbd53d1fa8b379ba19f4e54fea9a7efbc0",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_06_imagegen_raw.png",
+      "references": [
+        {
+          "path": "PoseAuthoritySources/ImageGenLineage/wsw/walk_wsw_06_coattail_input.png",
+          "sha256": "697753089dca5349ce380e976ac15c3959129a88c9cb1fa4a35cb4ce2e52ceaf"
+        }
+      ]
+    },
+    {
+      "accepted": true,
+      "authority": "PoseAuthorities/walk_wsw_07_pose_v17.png",
+      "authority_sha256": "543d13effd23403a23fc7e49519e190d742d68fbcb4b2ceb36aa3eb9788c36fa",
+      "call_id": "exec-5d6f30f8-94e2-4257-a691-13ac65f8f09c",
+      "direction": "wsw",
+      "generator": "codex-imagegen",
+      "phase": 7,
+      "prompt": "Refine only the raised-leg amplitude in the FIRST Voss WSW up frame. Preserve its entire head and upper body exactly: identity, auburn hair, sideburns, head size and x=251 registration, broad profile coat, arms, hands, 85-pixel torso width, camera, scale, palette, lighting and background. Use the SECOND image only as guidance for restrained ordinary stride amplitude. Lower the raised knee and brown shoe in the FIRST image so the lifted shoe sits only modestly above the ground and the knee bend matches the restrained opposite-half up timing; keep the planted leg and shoe at the same baseline. Maintain a clearly distinct up phase, but remove the high-step appearance. Do not change the coat, arms, head, torso or camera. One full uncropped figure on perfectly uniform exact #00ff00; no floor, shadow, haze, objects, scenery, text, gradient or variation. Same smooth late-1990s pre-rendered game-character craft.",
+      "raw_sha256": "db0eb9b11acfd3842a1150ee5dade2ac289e8275e12cf1ec2a0818cf289c256b",
+      "raw_source": "PoseAuthoritySources/ImageGenAccepted/wsw/walk_wsw_07_imagegen_raw.png",
+      "references": [
+        {
+          "path": "QA/Gate4WSWCandidates/wsw_right_up_broad_profile_matched_candidate.png",
+          "sha256": "8be01800b8b547355c5fab17a06c51f59116d1937ba27ca6f5d7915bea4f8154"
+        },
+        {
+          "path": "QA/Gate4WSWCandidates/wsw_left_up_alternate_candidate.png",
+          "sha256": "e3544f3de07f706b44b2fcb293fd048254017bca041b262bdea06a596da20dad"
+        }
+      ]
+    }
+  ],
+  "generator": "codex-imagegen",
+  "interface": "built-in image_gen",
+  "one_call_per_authority": true,
+  "schema_version": 1
+}

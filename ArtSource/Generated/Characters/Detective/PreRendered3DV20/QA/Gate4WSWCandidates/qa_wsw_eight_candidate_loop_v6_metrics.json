@@ -1,0 +1,111 @@
+{
+  "frames": [
+    {
+      "label": "00 L contact",
+      "source": "wsw_left_contact_broad_candidate.png",
+      "source_sha256": "675c7a910338bc4cb41d62e5bcf94582815a6d890c306bd69126bf8f181dece1",
+      "width": 111,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 251.0,
+      "torso_width": 83,
+      "lead": "L"
+    },
+    {
+      "label": "01 L recoil",
+      "source": "wsw_left_recoil_matched_candidate.png",
+      "source_sha256": "72c94924f4dc8d5b44e7c181c9455c1087c4029fabce35dbeadf4c24e6b10a68",
+      "width": 107,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 75,
+      "lead": "L"
+    },
+    {
+      "label": "02 L pass",
+      "source": "wsw_left_pass_broad_matched_candidate.png",
+      "source_sha256": "7eba5ca6214e7c808fd162c6dfd78905a828851520167c6faa02a46e7cb4ff63",
+      "width": 82,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 252.0,
+      "torso_width": 78,
+      "lead": "L"
+    },
+    {
+      "label": "03 L up",
+      "source": "wsw_left_up_alternate_candidate.png",
+      "source_sha256": "e3544f3de07f706b44b2fcb293fd048254017bca041b262bdea06a596da20dad",
+      "width": 104,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 252.0,
+      "torso_width": 86,
+      "lead": "L"
+    },
+    {
+      "label": "04 R contact",
+      "source": "wsw_right_contact_profile_matched_candidate.png",
+      "source_sha256": "cf4de6a87cf4b781fe30187b527f2962fd7634bf29a709b165e477ca3c141810",
+      "width": 118,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 252.0,
+      "torso_width": 86,
+      "lead": "R"
+    },
+    {
+      "label": "05 R recoil",
+      "source": "wsw_right_recoil_profile_matched_candidate.png",
+      "source_sha256": "cd3b1de9bc58392f27febcacdb5757b4a0867eac3551e2c3213dcd3ec740359d",
+      "width": 107,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 75,
+      "lead": "="
+    },
+    {
+      "label": "06 R pass",
+      "source": "wsw_right_pass_profile_matched_candidate.png",
+      "source_sha256": "b1d04682f643a96569d9defc5cb6f1fbd53d1fa8b379ba19f4e54fea9a7efbc0",
+      "width": 82,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 252.0,
+      "torso_width": 78,
+      "lead": "="
+    },
+    {
+      "label": "07 R up broad",
+      "source": "wsw_right_up_broad_profile_matched_candidate.png",
+      "source_sha256": "8be01800b8b547355c5fab17a06c51f59116d1937ba27ca6f5d7915bea4f8154",
+      "width": 89,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 251.0,
+      "torso_width": 85,
+      "lead": "="
+    }
+  ],
+  "summary": {
+    "unique": 8,
+    "head_jitter": 2.0,
+    "head_pulse": 1.0,
+    "torso_pulse": 1.1466666666666667,
+    "leads": "LLLLR===",
+    "adjacent_iou": [
+      0.8627525014158958,
+      0.6929928201399618,
+      0.6501198827812805,
+      0.6986068940882301,
+      0.7556481481481482,
+      0.6076986076986077,
+      0.5805771873568484,
+      0.5961618343441056
+    ],
+    "closure_floor": 0.5197446151049714,
+    "closure_pass": true
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "frames": [
+    {
+      "phase": 0,
+      "file": "wsw_final_route_00b_candidate.png",
+      "sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77",
+      "width": 111,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 251.0,
+      "torso_width": 83,
+      "lead": "L"
+    },
+    {
+      "phase": 1,
+      "file": "wsw_final_route_01f_candidate.png",
+      "sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a",
+      "width": 107,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 79,
+      "lead": "L"
+    },
+    {
+      "phase": 2,
+      "file": "wsw_final_route_02e_candidate.png",
+      "sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1",
+      "width": 86,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 79,
+      "lead": "L"
+    },
+    {
+      "phase": 3,
+      "file": "wsw_final_route_03b_candidate.png",
+      "sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb",
+      "width": 107,
+      "height": 200,
+      "head_width": 28,
+      "head_center_x": 251.5,
+      "torso_width": 78,
+      "lead": "="
+    },
+    {
+      "phase": 4,
+      "file": "wsw_final_route_04e_candidate.png",
+      "sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63",
+      "width": 118,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 252.0,
+      "torso_width": 86,
+      "lead": "R"
+    },
+    {
+      "phase": 5,
+      "file": "wsw_final_route_05c_candidate.png",
+      "sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c",
+      "width": 114,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 75,
+      "lead": "="
+    },
+    {
+      "phase": 6,
+      "file": "wsw_final_route_06c_candidate.png",
+      "sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc",
+      "width": 79,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 250.0,
+      "torso_width": 75,
+      "lead": "L"
+    },
+    {
+      "phase": 7,
+      "file": "wsw_final_route_07f_candidate.png",
+      "sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7",
+      "width": 89,
+      "height": 200,
+      "head_width": 25,
+      "head_center_x": 251.0,
+      "torso_width": 82,
+      "lead": "="
+    }
+  ],
+  "summary": {
+    "unique": 8,
+    "head_jitter": 2.0,
+    "head_pulse": 1.12,
+    "torso_pulse": 1.1466666666666667,
+    "leads": "LLL=R=L=",
+    "longest_repeated_lead": 3,
+    "adjacent_iou": [
+      0.8502954694681549,
+      0.7359468801164272,
+      0.6900323794521747,
+      0.7250957001691445,
+      0.8442039582723994,
+      0.6264236902050114,
+      0.6080266938548522,
+      0.6251604621309371
+    ],
+    "closure_floor": 0.45602002039113915,
+    "closure_pass": true,
+    "strict_pass": true
+  }
+}

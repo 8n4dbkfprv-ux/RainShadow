@@ -1,0 +1,434 @@
+{
+  "asset_version": "v20",
+  "automated_result": "pass",
+  "candidate_count": 9,
+  "candidates": {
+    "n": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_n_chroma_v20.png",
+        "sha256": "ff4979dc4c705c3bf16108dee9eae839279cff3f2f47d17a271abaa379330325"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 82,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 18,
+        "mode": "RGBA",
+        "opaque_colors": 61,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_n_00_processed_v20.png",
+        "rear_shirt_fraction": 0.0,
+        "rear_skin_fraction": 0.005125,
+        "sha256": "1fbc237d01c40bdb2c9ddb42291b0dae0a09a19d7a3d018ef2795b1192a2b42f",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 82
+      },
+      "source": {
+        "border_variation_max": 2.878,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_n_00_chroma_v20.png",
+        "sha256": "ff4979dc4c705c3bf16108dee9eae839279cff3f2f47d17a271abaa379330325",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "nnw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_nnw_chroma_v20.png",
+        "sha256": "d2dd2da8b8ae83447fd0d3b996d82b9bc97b46fa6e12b2f2be9e30d2a055ab71"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 64,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 18,
+        "mode": "RGBA",
+        "opaque_colors": 59,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_nnw_00_processed_v20.png",
+        "rear_shirt_fraction": 0.0,
+        "rear_skin_fraction": 0.0,
+        "sha256": "1019cb91c08ae6bb002cd4ce34fa1ecd78984efa63a6a97da5621bc104eab77c",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 64
+      },
+      "source": {
+        "border_variation_max": 1.774,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_nnw_00_chroma_v20.png",
+        "sha256": "d2dd2da8b8ae83447fd0d3b996d82b9bc97b46fa6e12b2f2be9e30d2a055ab71",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "nw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_nw_chroma_v20.png",
+        "sha256": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 64,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 22,
+        "mode": "RGBA",
+        "opaque_colors": 55,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_nw_00_processed_v20.png",
+        "rear_shirt_fraction": 0.0,
+        "rear_skin_fraction": 0.0,
+        "sha256": "306e618822e7d7af0ee3a352200e6d3f9e2fb4d54468744958240626347a1d32",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 64
+      },
+      "source": {
+        "border_variation_max": 2.739,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_nw_00_chroma_v20.png",
+        "sha256": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "s": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_s_chroma_v20.png",
+        "sha256": "d7ff0747f56c52ddf9acea28adabebb558595bc31366cee444190d71c52e5424"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 79,
+        "center_x": 255.0,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 21,
+        "mode": "RGBA",
+        "opaque_colors": 63,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_s_00_processed_v20.png",
+        "rear_shirt_fraction": null,
+        "rear_skin_fraction": null,
+        "sha256": "e5a55759a97f80569762cc312cf608d8a3d64a0142777f601c317d255a332753",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 79
+      },
+      "source": {
+        "border_variation_max": 2.762,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_s_00_chroma_v20.png",
+        "sha256": "d7ff0747f56c52ddf9acea28adabebb558595bc31366cee444190d71c52e5424",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "ssw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_ssw_chroma_v20.png",
+        "sha256": "b7c8de75b20773cb42d147d30023f39203093cbcc89d1983e6ce192174c8a22a"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 71,
+        "center_x": 255.0,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 21,
+        "mode": "RGBA",
+        "opaque_colors": 40,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_ssw_00_processed_v20.png",
+        "rear_shirt_fraction": null,
+        "rear_skin_fraction": null,
+        "sha256": "bcd08fa3e8e5a594029ceb21d99193f899b2e9d3466959672fefd14cb8976e65",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 71
+      },
+      "source": {
+        "border_variation_max": 1.706,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_ssw_00_chroma_v20.png",
+        "sha256": "b7c8de75b20773cb42d147d30023f39203093cbcc89d1983e6ce192174c8a22a",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "sw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_sw_chroma_v20.png",
+        "sha256": "613885b1144c4b3b3391bd2ccbfd072080a1f363140d5d413d0b8277ffc35e40"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 68,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 22,
+        "mode": "RGBA",
+        "opaque_colors": 34,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_sw_00_processed_v20.png",
+        "rear_shirt_fraction": null,
+        "rear_skin_fraction": null,
+        "sha256": "a6ee4a90ddec353384e2e06a90b20ddbdee6eb9ab0320e3f0596d850faa72dd5",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 68
+      },
+      "source": {
+        "border_variation_max": 3.607,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_sw_00_chroma_v20.png",
+        "sha256": "613885b1144c4b3b3391bd2ccbfd072080a1f363140d5d413d0b8277ffc35e40",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "w": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_w_chroma_v20.png",
+        "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 50,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 25,
+        "mode": "RGBA",
+        "opaque_colors": 44,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_w_00_processed_v20.png",
+        "rear_shirt_fraction": null,
+        "rear_skin_fraction": null,
+        "sha256": "cc1d724144192e2262051126ccac15c02d2ea17f4cee9716d3dbba112809808f",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 39
+      },
+      "source": {
+        "border_variation_max": 2.673,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_w_00_chroma_v20.png",
+        "sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384",
+        "significant_subjects": 1,
+        "size": [
+          1024,
+          1536
+        ],
+        "source_errors": []
+      }
+    },
+    "wnw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_wnw_chroma_v20.png",
+        "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 68,
+        "center_x": 255.5,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 22,
+        "mode": "RGBA",
+        "opaque_colors": 59,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_wnw_00_processed_v20.png",
+        "rear_shirt_fraction": 0.0,
+        "rear_skin_fraction": 0.0,
+        "sha256": "5c0ccdf51f4325f70b3d06863389b8e07404211106ac341a0c3f561f5b5f2d8d",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 64
+      },
+      "source": {
+        "border_variation_max": 2.848,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_wnw_00_chroma_v20.png",
+        "sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    },
+    "wsw": {
+      "key_alias": {
+        "byte_identical": true,
+        "path": "Keys/voss_key_wsw_chroma_v20.png",
+        "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+      },
+      "processed": {
+        "alpha_values": [
+          0,
+          1,
+          255
+        ],
+        "body_height": 200,
+        "body_width": 71,
+        "center_x": 255.0,
+        "corner_sentinels": 4,
+        "crown_y": 234,
+        "foot_y": 433,
+        "head_width": 21,
+        "mode": "RGBA",
+        "opaque_colors": 34,
+        "path": "Proofs/ProcessedIdleKeys/voss_idle_wsw_00_processed_v20.png",
+        "rear_shirt_fraction": null,
+        "rear_skin_fraction": null,
+        "sha256": "ef6327a918435107a5cdbdcc72c1a5e2a5deb1b804018bdd3a65fc90602fd3d9",
+        "size": [
+          512,
+          512
+        ],
+        "torso_width": 71
+      },
+      "source": {
+        "border_variation_max": 2.072,
+        "chroma_border_fraction": 1.0,
+        "path": "Frames/voss_idle_wsw_00_chroma_v20.png",
+        "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803",
+        "significant_subjects": 1,
+        "size": [
+          1254,
+          1254
+        ],
+        "source_errors": []
+      }
+    }
+  },
+  "gate": "phase_2_nine_idle_keys",
+  "generated_at_utc": "2026-08-09T17:47:20.844912Z",
+  "manual_approval": {
+    "criterion": "At least 12 of 16 facings recognizable without labels; stable identity/outfit; especially verify smooth front-oblique rotation and a true rear hemisphere with no face, shirt, or tie leakage.",
+    "status": "pending_user_approval"
+  },
+  "review_artifacts": [
+    {
+      "path": "QA/qa_v20_gate2_16_facings_unlabelled.png",
+      "sha256": "9ff107280a90bd693973b910fa893efc2e38da43c6a32d283e5a6c4808935523"
+    },
+    {
+      "path": "QA/qa_v20_gate2_16_facings_labelled.png",
+      "sha256": "b724b4488641ae6d90cf719e7591f8c3aeba7128b32eae2f9c1055c1d710df70"
+    }
+  ],
+  "schema_version": 1,
+  "thresholds": {
+    "center_tolerance": 2,
+    "foot_row": 433,
+    "palette_colors": 64,
+    "pure_rear_skin_fraction_max": 0.03,
+    "rear_shirt_fraction_max": 0.001,
+    "source_border_variation_max": 12,
+    "source_chroma_border_fraction_min": 0.98,
+    "standing_height": [
+      198,
+      202
+    ]
+  },
+  "unique_source_hashes": 9
+}

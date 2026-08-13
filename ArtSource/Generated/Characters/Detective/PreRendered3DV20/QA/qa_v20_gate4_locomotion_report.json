@@ -1,0 +1,174 @@
+{
+  "asset_version": "v20",
+  "gate": "phase_4_remaining_locomotion",
+  "imagegen_calls_added_for_resolution": 0,
+  "motion": {
+    "n": {
+      "adjacent_iou": [
+        0.8246,
+        0.7512,
+        0.7708,
+        0.8937,
+        0.8665,
+        0.8972,
+        0.8625,
+        0.8838
+      ],
+      "head_jitter_px": 1.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "=R=LL=RL",
+      "torso_scale_ratio": 1.1618
+    },
+    "nnw": {
+      "adjacent_iou": [
+        0.8414,
+        0.8985,
+        0.7813,
+        0.7306,
+        0.6923,
+        0.7139,
+        0.8449,
+        0.857
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "RRRL=RRR",
+      "torso_scale_ratio": 1.1404
+    },
+    "nw": {
+      "adjacent_iou": [
+        0.7391,
+        0.7935,
+        0.8375,
+        0.8372,
+        0.6804,
+        0.7377,
+        0.7168,
+        0.8213
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "L=RRRLRL",
+      "torso_scale_ratio": 1.1639
+    },
+    "s": {
+      "adjacent_iou": [
+        0.8296,
+        0.8275,
+        0.8773,
+        0.7943,
+        0.8255,
+        0.914,
+        0.8489,
+        0.866
+      ],
+      "head_jitter_px": 1.5,
+      "head_scale_ratio": 1.0588,
+      "planted_foot_leads": "=R=LRL==",
+      "torso_scale_ratio": 1.0563
+    },
+    "ssw": {
+      "adjacent_iou": [
+        0.8582,
+        0.8462,
+        0.827,
+        0.7936,
+        0.7594,
+        0.8548,
+        0.7799,
+        0.8025
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "R===LRRL",
+      "torso_scale_ratio": 1.1127
+    },
+    "sw": {
+      "adjacent_iou": [
+        0.7032,
+        0.9295,
+        0.7094,
+        0.7529,
+        0.7581,
+        0.7013,
+        0.7119,
+        0.8275
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "LRRLLLRL",
+      "torso_scale_ratio": 1.1549
+    },
+    "w": {
+      "adjacent_iou": [
+        0.7684,
+        0.8079,
+        0.7567,
+        0.6673,
+        0.8341,
+        0.8049,
+        0.7812,
+        0.808
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0,
+      "planted_foot_leads": "L==R=L=R",
+      "torso_scale_ratio": 1.1404
+    },
+    "wnw": {
+      "adjacent_iou": [
+        0.8429,
+        0.6377,
+        0.8243,
+        0.8465,
+        0.7963,
+        0.7382,
+        0.7139,
+        0.7284
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.0476,
+      "planted_foot_leads": "R=LLL=R=",
+      "torso_scale_ratio": 1.1719
+    },
+    "wsw": {
+      "adjacent_iou": [
+        0.8503,
+        0.7359,
+        0.69,
+        0.7251,
+        0.8442,
+        0.6264,
+        0.608,
+        0.6252
+      ],
+      "head_jitter_px": 2.0,
+      "head_scale_ratio": 1.12,
+      "planted_foot_leads": "LLL=R=L=",
+      "torso_scale_ratio": 1.1467
+    }
+  },
+  "review_outputs": {
+    "QA/qa_v20_walk_n_quarter_speed.gif": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600",
+    "QA/qa_v20_walk_nnw_quarter_speed.gif": "2c9a99108c98931b7dc422e2087770d9c02de6f6b464a13bc0cfdf7ad253ad71",
+    "QA/qa_v20_walk_nw_quarter_speed.gif": "9af71881513ef5cc1d211753e5ffa77fea9abb0312572178ea9824e1324d82fa",
+    "QA/qa_v20_walk_s_quarter_speed.gif": "8785ad09a168b0bb4b5c12a6a082e8ffb0782c88ca9a588119d8518903d15fbd",
+    "QA/qa_v20_walk_ssw_quarter_speed.gif": "d61429802a0bad9b5ffc5013dbf06681f9f4fc1d997f9b1a8df4608b41410842",
+    "QA/qa_v20_walk_sw_quarter_speed.gif": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85",
+    "QA/qa_v20_walk_w_quarter_speed.gif": "4f246b636ac63bee03b9ed91ee99a71d61618fb7fa0d85eeed3d42056f4649a9",
+    "QA/qa_v20_walk_wnw_quarter_speed.gif": "5de172e67d02b3821b10286c272021b46c162850d7ab195e1ef5a78281784d7c",
+    "QA/qa_v20_walk_wsw_quarter_speed.gif": "ca27a29c6723a6742cca0951202bc55e5b1520fda6f667b99e44c68c5c7bfcf8"
+  },
+  "runtime_registration_offsets": {
+    "walk:nw:04": [
+      2,
+      0
+    ],
+    "walk:nw:07": [
+      1,
+      0
+    ]
+  },
+  "status": "ready_for_user_approval",
+  "strict_no_waivers": true
+}

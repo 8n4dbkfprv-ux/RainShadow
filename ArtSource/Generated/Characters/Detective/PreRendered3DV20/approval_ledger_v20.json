@@ -1,0 +1,1466 @@
+{
+  "approvals": [
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "output": "Anchors/voss_anchor_front_chroma_v20.png",
+      "output_sha256": "b2b81e2290ce4c7280460dc450225e1f139dfbec681e35c946685b49d781c8ed",
+      "phase": "phase_1_identity_anchors"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "output": "Anchors/voss_anchor_profile_w_chroma_v20.png",
+      "output_sha256": "d966dfb69a7d616c7a8c64e549e29a94a693dcea1f35d5e94db34687d9ef136e",
+      "phase": "phase_1_identity_anchors"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "output": "Anchors/voss_anchor_back_chroma_v20.png",
+      "output_sha256": "5c5029adcb4fcb6defd4f576a891e3b1b05e9fd85757e4a08200f5be3944c27f",
+      "phase": "phase_1_identity_anchors"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "output": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+      "output_sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c",
+      "phase": "phase_1_identity_anchors"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_s_00_chroma_v20.png",
+      "output_sha256": "d7ff0747f56c52ddf9acea28adabebb558595bc31366cee444190d71c52e5424",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_s_01_chroma_v20.png",
+      "output_sha256": "a7a0fd2f24eeddec02d9fe2e3b830ad9bbe03251eb7a78120da07306c4b8e057",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_s_02_chroma_v20.png",
+      "output_sha256": "47d57fd03bc7fd5b3128ae648764acb289b9c00abddd4d9b7c564379e07e5758",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_s_03_chroma_v20.png",
+      "output_sha256": "696ead14b9f43ebc3d078c4efaf52751386817d9777aa90d93ddcda6dddbcc9a",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_ssw_00_chroma_v20.png",
+      "output_sha256": "b7c8de75b20773cb42d147d30023f39203093cbcc89d1983e6ce192174c8a22a",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_ssw_01_chroma_v20.png",
+      "output_sha256": "1f6daff9b0c2d0acc21561c2a7e446d7fc8824d8c873c531589007e47bdc97fd",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_ssw_02_chroma_v20.png",
+      "output_sha256": "dad5294afde8dad4c7ac04d713181f28bf2c340af02f117a6630fb0dea294a18",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_ssw_03_chroma_v20.png",
+      "output_sha256": "0523de9d85de707913279a838c5e37855072c696041aa859c0d75e40c90c9d5d",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_sw_00_chroma_v20.png",
+      "output_sha256": "613885b1144c4b3b3391bd2ccbfd072080a1f363140d5d413d0b8277ffc35e40",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_sw_01_chroma_v20.png",
+      "output_sha256": "c5f390c61a6c6df8116b9956f1610b777dfca8e5dbb307da5738f97e54b43da2",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_sw_02_chroma_v20.png",
+      "output_sha256": "ca73fd71adc0e314b5c84464fd96c2c3c5b6bb536732024fa8d5bad0b69dda39",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_sw_03_chroma_v20.png",
+      "output_sha256": "69a41d1012ed6dd733bdb28412a83f9ea222cdad4c437b1bb4f52c645c28096e",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_wsw_00_chroma_v20.png",
+      "output_sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wsw_01_chroma_v20.png",
+      "output_sha256": "f441c08c438ba108a6a4a3901d12978631e5f26c7120edde9748e7fd37d3ee32",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wsw_02_chroma_v20.png",
+      "output_sha256": "2e6c36899c2fcd7678d84ef3a1fafe30e60d1732bcb6c39376c7297ff92545c4",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wsw_03_chroma_v20.png",
+      "output_sha256": "6fb2bb51155fae53c4c5ac8832db28e050edf33cca91df0cebaf546f2d30f7d5",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_w_00_chroma_v20.png",
+      "output_sha256": "6fc379533c2f8f87ca43ad354d147f05f1f190c3eb80dd1435629226c55bb384",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_w_01_chroma_v20.png",
+      "output_sha256": "893d9d952d0dee3fc0d87e96bbec4096485fbf83110f6f9259db8b0061da68bc",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_w_02_chroma_v20.png",
+      "output_sha256": "76e9dddce91aacbc72f722fa142ca8c0bbdd417bc0f22f9f8b92bed25a1e2981",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_w_03_chroma_v20.png",
+      "output_sha256": "b8ca8113486bcf1cecf2d550f7e74b09ae171af9dbec61edf5073a6ee950445e",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_wnw_00_chroma_v20.png",
+      "output_sha256": "1496fe9cb4dcb048778fc59a83c878feafcbbc23969f0e19aedf57edf154938c",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wnw_01_chroma_v20.png",
+      "output_sha256": "9f3dfc4b7ec7625f95d93ecac1f3cb1a8ba7b7c84676660bfe116de3f93f32a8",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wnw_02_chroma_v20.png",
+      "output_sha256": "3f9c0529c29e2c07ed94a8459fd49ab39fc2573f6a83c5c842802565932ac587",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_wnw_03_chroma_v20.png",
+      "output_sha256": "e4824fdb718e4fb199aab0282049d71450e655ce295df0b9a964b8f98b646c40",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_nw_00_chroma_v20.png",
+      "output_sha256": "2ad2347962808b34e5f726d3caada957c9b17014b5f634843c62be36c204c138",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nw_01_chroma_v20.png",
+      "output_sha256": "bb75973404c59c911ef184c1b60ae386ab71445fd94ee6ea46f575b5961a86f5",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nw_02_chroma_v20.png",
+      "output_sha256": "bb74640685add328da4b884179976e79f58fb4d3f4b0f4e768bfc7489d6df177",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nw_03_chroma_v20.png",
+      "output_sha256": "73ac492d9348a6bbc8d09a721838a79bb80d3e4a1ad623a1d082096943b713b7",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_nnw_00_chroma_v20.png",
+      "output_sha256": "d2dd2da8b8ae83447fd0d3b996d82b9bc97b46fa6e12b2f2be9e30d2a055ab71",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nnw_01_chroma_v20.png",
+      "output_sha256": "455b4777608e2d687b6f4e1be636d5f46f9b0dd5a3b237553cc8e118ef6eec22",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nnw_02_chroma_v20.png",
+      "output_sha256": "81c5c4b5b81a1e043180e1fc6fd49ddedc5f3c09e498e2acfca2828f8253820d",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_nnw_03_chroma_v20.png",
+      "output_sha256": "59dda24b0d9c742a6e1f1559dae97209a25891e5ed86fde112d39479b9a5cc53",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "output": "Frames/voss_idle_n_00_chroma_v20.png",
+      "output_sha256": "ff4979dc4c705c3bf16108dee9eae839279cff3f2f47d17a271abaa379330325",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_n_01_chroma_v20.png",
+      "output_sha256": "2a8f073caf57fedac47f5f624f302c101fddb0b75c2a77a48eea5aef65f77d43",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_n_02_chroma_v20.png",
+      "output_sha256": "a03b1cd3cb189680275eabef4c8cc5e86736c4cd5a0519cc200d48715e70a4e6",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_idle_n_03_chroma_v20.png",
+      "output_sha256": "674c4096f5a6c11a1198205947313602d992bf79b45155fd4f0b48bf7dfda637",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_00_chroma_v20.png",
+      "output_sha256": "de9a914f2b1842a275189a6f05f2f8bb7fbe23a283b517e201cbe3906bf4f290",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_01_chroma_v20.png",
+      "output_sha256": "1a3f2fb898c9958bb195d14b061b8e4ca904a463b364dc9966bf0fdd58b9af87",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_02_chroma_v20.png",
+      "output_sha256": "64f152d2e83951c16680f55082a0088df27b218450459dacb3af37ccc7627b79",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_03_chroma_v20.png",
+      "output_sha256": "2f96fc1d42b227e0faeac5d85dc80222d6e8d0138d08b88d7e770e62dfbc9706",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_04_chroma_v20.png",
+      "output_sha256": "ae6794b2db62213d746820ad9eb52e0926f07b9d0760b8427be1206fbd0aa67b",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_05_chroma_v20.png",
+      "output_sha256": "41a9dbac12938583d8f1270e714ce1a2b81f69d535443e96bb1df1671388ce85",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_06_chroma_v20.png",
+      "output_sha256": "a8578adb632563ee860cc27a95bb90e819e3185454910d83b096923cf1818bfe",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_s_07_chroma_v20.png",
+      "output_sha256": "919515d1d2d334885cd7f1abea30f2785f79b563be3ce7eef7ee71eff3dc8f45",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_00_chroma_v20.png",
+      "output_sha256": "f4d98fbaa734f2b19d31cd1edcbf19731e6d878c657a62f9ae3ceab36589d273",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_01_chroma_v20.png",
+      "output_sha256": "04b995453ab4344b009ea1249421c07dce7ece0fe69f3406de1273c4127b1064",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_02_chroma_v20.png",
+      "output_sha256": "1281e5f2b15ca96664e98193bada98826f17e2736dcb5e05444c32353d5f6d48",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_03_chroma_v20.png",
+      "output_sha256": "3d11eeb0aa18fc8799959189e2857d139bcb09a4540574a7b04c07e36e940db0",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_04_chroma_v20.png",
+      "output_sha256": "bb10a1e6a3a2a9e6e3c0646986d7cd7ed9e4dcf6b67c5155bcac668a70495920",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_05_chroma_v20.png",
+      "output_sha256": "78faae9263dbb30a2b096f1603d7ad4d7631b1a4c7c5d44e38e07110690f40a4",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_06_chroma_v20.png",
+      "output_sha256": "4b4ff2feea4b70882fa2b9eb5ed68278e6f5206612b15a276e70507bd3b02059",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_ssw_07_chroma_v20.png",
+      "output_sha256": "b97f5ba177f225cd5d2c55639dae4e330587a346e8bc01d887d149c036d6d739",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_00_chroma_v20.png",
+      "output_sha256": "11401e274bd694464d7fc6d1bc575ad1a09522edba489b147d507be32c8934d8",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_01_chroma_v20.png",
+      "output_sha256": "ebcb3a45d9a75ba0947fff57f047ddfdf9d2feecbcfe30304232721400b988f8",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_02_chroma_v20.png",
+      "output_sha256": "22eed6ab86b9cabc43d480a02cdf6cac82419a2309edbc61d5b9251e9d71c61f",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_03_chroma_v20.png",
+      "output_sha256": "2b058779c1f754290eb0f1ae8a92348d64e855d2de85d21c9bed65a0c7a1d947",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_04_chroma_v20.png",
+      "output_sha256": "b07a1fab6ad2cb5ed604fc1886b34aa5bfb9a388e09dc47ab4bca54bddd0ce97",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_05_chroma_v20.png",
+      "output_sha256": "e9527a5c0c0f10de48ff8845847e5f8cb83d50eb63bffee2a23de03ecbfcc69c",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_06_chroma_v20.png",
+      "output_sha256": "567c6be1973ee11079820f82b9f451f7dc1411e79923eb43cdbeb4685de29873",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_sw_07_chroma_v20.png",
+      "output_sha256": "655c8dfca6053cb955e514759118d25667420e288e99f3ee77c52a7c10bd147e",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_00_chroma_v20.png",
+      "output_sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_01_chroma_v20.png",
+      "output_sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_02_chroma_v20.png",
+      "output_sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_03_chroma_v20.png",
+      "output_sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_04_chroma_v20.png",
+      "output_sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_05_chroma_v20.png",
+      "output_sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_06_chroma_v20.png",
+      "output_sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wsw_07_chroma_v20.png",
+      "output_sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_00_chroma_v20.png",
+      "output_sha256": "6ec86b8a32664a2f813a2ee38370bb61b13137d29a97c7dd31c941d866856cef",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_01_chroma_v20.png",
+      "output_sha256": "af086337b24999fd0af25e907565ddab0b137759618c0784891fd9fe8c3cd1a9",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_02_chroma_v20.png",
+      "output_sha256": "7a97a7696c0ef2ca8185c1e5b3f1bffd6a081946f4c779890e86baee119be813",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_03_chroma_v20.png",
+      "output_sha256": "4d0139931fe2769f728b9774c979a01e6c2943a12065beee382dcecce2e62fe0",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_04_chroma_v20.png",
+      "output_sha256": "d4be39276d8190fec7a4c6d2ddbf62947569de6ca745073bb49ed1ec46e956a6",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_05_chroma_v20.png",
+      "output_sha256": "73856560c97e8c314702422b1ceb8507d50b2b87254a3d9efb3051ba8a863b89",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_06_chroma_v20.png",
+      "output_sha256": "a27ffe340fb20bbae6d3be62e678c190fb661723944d3e2b7e5c56b334c4f63c",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_w_07_chroma_v20.png",
+      "output_sha256": "88ae01be1969e281f387329ee6bf490d34220f15247f87967f81ac44e23abedd",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_00_chroma_v20.png",
+      "output_sha256": "6164205bb6641aa8bc3f0658bd48316ca58983f452f4a0cf7cbb2dcf8b993190",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_01_chroma_v20.png",
+      "output_sha256": "cbc398f976a2858e13b1f6ebe233b85dfdbb80c60a95bd84bcc668d1563daed7",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_02_chroma_v20.png",
+      "output_sha256": "9ddc5226a11460da128187636a5c1bc9806ac4131ef033dde982a8773f8bf91f",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_03_chroma_v20.png",
+      "output_sha256": "8ed2ea95ed038d50ce47d9d6dc5203aebcdf6bc61000a90f3ea411e7b004e76a",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_04_chroma_v20.png",
+      "output_sha256": "8d7046122f6256631c132f6689b344f5a6af76793a62ce04d8cc69d1acbc3669",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_05_chroma_v20.png",
+      "output_sha256": "f20a0f61fa5142be9281f71a818311a9ad818e592af014e56f5cd80f0d9ddb7b",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_06_chroma_v20.png",
+      "output_sha256": "f94876e54001079b375b29fc9faa648c9ea52278d6431dfe1896d56c3cd03d79",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_wnw_07_chroma_v20.png",
+      "output_sha256": "1739a6cb3987c94f942b35380eee93c29975ceb277221b351fb6ce04c6410a84",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_00_chroma_v20.png",
+      "output_sha256": "e0a6580a1f82f9627ec80d592d902fe8988dbffd2379f8e447c773d09cf1d769",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_01_chroma_v20.png",
+      "output_sha256": "8a1860dc8b47d2e4c45dd5eb6d26ff0041665fe570ca719856f858a24f4c923d",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_02_chroma_v20.png",
+      "output_sha256": "e6c319433e73e33a1fcff796f67fed61c89f54f201baef570843178564ccdc9f",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_03_chroma_v20.png",
+      "output_sha256": "14e079b3a0c6cceaf984aebe266b40ca8e5638d2d3b529f7d792236189d6f620",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_04_chroma_v20.png",
+      "output_sha256": "9dc40e5d16643d09414a8adf2395853f35385562128faa7f4be18c94a409e1fe",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_05_chroma_v20.png",
+      "output_sha256": "33ed8b1432721ea9d7b617d005fa607b44e9922964e437ad6259cd3f9c5d177e",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_06_chroma_v20.png",
+      "output_sha256": "ed5b4f1a8baabfd254f9f007f3f8a88e1edbdc385d0c845c24c8c881666fab3c",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nw_07_chroma_v20.png",
+      "output_sha256": "6d2c830bbf3372c3e13e0093772d5e441cd4e3dba00a6550a020299289891b9c",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_00_chroma_v20.png",
+      "output_sha256": "574219bc751d8f2d18d21cd84a56b92c687fcf4e693fb587a4dc092034243e1d",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_01_chroma_v20.png",
+      "output_sha256": "4fe3f671ea370e34119d420f643c5ceb7e897b8743e11669fd41645eb3749064",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_02_chroma_v20.png",
+      "output_sha256": "7cb06ddc0d4a5895a67dfc64a1567554567d6124ef419281b3225411e9bbf563",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_03_chroma_v20.png",
+      "output_sha256": "1512d7553a299c091dbe2699a3e849a109a1c0d9b72e38359e7980aa3c9e7281",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_04_chroma_v20.png",
+      "output_sha256": "821d2e1eddbe7a84027f38918cd0240beed5702424195bf19f0c1d75d026b7be",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_05_chroma_v20.png",
+      "output_sha256": "6aa2ce06acbe0887f482766c998872800fa686878e1f1113e3d1b3d7c2c556b7",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_06_chroma_v20.png",
+      "output_sha256": "c54b720c0c02ae1e4a677603761f1249a0a921ed74563010dae2f7fd3e97d93a",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "Frames/voss_walk_nnw_07_chroma_v20.png",
+      "output_sha256": "77352169b23942193808d5fe0b8925953cee8e43bcc4f7f618dab666b4e561b7",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_00_chroma_v20.png",
+      "output_sha256": "a6bbd5075341502d40e98313fea1bb0ba2abd776e6d71861f6252ff777594766",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_01_chroma_v20.png",
+      "output_sha256": "71fe5e385e3909de86a1036fea1066d10cbf51afbb975b614e21af2360bd5dd5",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_02_chroma_v20.png",
+      "output_sha256": "937111c2f6f8f17d07c3e6bdf556b6ef026c1f955f4d287379b8bde3cc8f8c10",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_03_chroma_v20.png",
+      "output_sha256": "c4cb77515c85c5f2653cacac57af3ef216080bbeda8b9620f1fb21805fdb57a7",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_04_chroma_v20.png",
+      "output_sha256": "02fb269334582d48108bee9c5b59eb3342aaf66132c31160c5b2e3a7bd484f4c",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_05_chroma_v20.png",
+      "output_sha256": "42a4ac37040b96925f18f0b107b5ccca364057e629197cd9af9d4a575853f181",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_06_chroma_v20.png",
+      "output_sha256": "63c08f7c2993739d7c03aa402d0e4065cdb00c87632104b0ad8fbb90b0ff8f7e",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "Frames/voss_walk_n_07_chroma_v20.png",
+      "output_sha256": "6530661cd03cccdb2c5844143bc42faf34cc457365900d43d0337c1fb43d7760",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_00_chroma_v20.png",
+      "output_sha256": "67f4490be94eb20a3270ff6d50177ffbf49cc6818b7b4cef974cf224dce01a81",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_01_chroma_v20.png",
+      "output_sha256": "6ba0e1b9d3ec351d46d04a68ff1598cd0f983800dc636510f0a7db9f63cc8c4e",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_02_chroma_v20.png",
+      "output_sha256": "1ca1ad0c7ae4056d67d753148f7575fa874b654172e327e42dbebd3b3df4f690",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_03_chroma_v20.png",
+      "output_sha256": "a99374b9a474b18c9e90efa58ebf17d7b99aa6ee4e49348e4fc3f8f5002a0f8c",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_04_chroma_v20.png",
+      "output_sha256": "b88a041c45bc8c0ddc323d1021827af951f6f2e01b0378eb72846487fb74c53e",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_05_chroma_v20.png",
+      "output_sha256": "5b9b46343182b9917db0a5b7bb3e640a027b445cb1d5129920f29f9afd94def5",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_06_chroma_v20.png",
+      "output_sha256": "c2fcb57f3949f3d366962bbf767d8e5e7716d73419740d9133f42708a35d94a5",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_ne_07_chroma_v20.png",
+      "output_sha256": "142a51a1d02190030e6b8bf34eabb4c188a9bbe3cc6638bf6343c0d4ea449acc",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_00_chroma_v20.png",
+      "output_sha256": "bc01ec539ff7f7ff5d7aa034342d3a530fa40577a1c56d09980dc2ec8f3e8545",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_01_chroma_v20.png",
+      "output_sha256": "ff09a2dff92f3ce5c35dc5b6b26ec7322a895350d2faf9c1441b3b0ab4970a41",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_02_chroma_v20.png",
+      "output_sha256": "7cacfe1abe4333b14ad6b5df2032f92bd93c9ee65b9ffc0875f448a580dd6d56",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_03_chroma_v20.png",
+      "output_sha256": "e10f3374a79599f81fa1ec59d0fe36fbc68d757bc5032df7275e86a60db7aff7",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_04_chroma_v20.png",
+      "output_sha256": "b522bf8ed163311177a31fcac97aa903696049d68702574b0df537cc9bc71558",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_05_chroma_v20.png",
+      "output_sha256": "7ddade7e52399306d8ecfb86568f5a254b0abe30989fd26b90d86b871544bb4e",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_06_chroma_v20.png",
+      "output_sha256": "01b53a430d94829eb7f6f4b1137754d2fff8fe98bfc5eaaa14bfead832d2b3ed",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_seated_idle_se_07_chroma_v20.png",
+      "output_sha256": "290ed3fc4456c9c29c6f4843173480174282b0b93eca01526d17cc8558ba19e6",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_00_chroma_v20.png",
+      "output_sha256": "2e48c5dd215c4fe488d4518621d77a3184d2e7664ba0cfb4544719497942cd5f",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_01_chroma_v20.png",
+      "output_sha256": "718ff812259233117b23de4596fbdbd7bae6e809f43a17685fcb9fd4a1d16748",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_02_chroma_v20.png",
+      "output_sha256": "859dedd0c6556c4096916e618e81171841ff8d20ee97cb34cef63bcf45dfd974",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_03_chroma_v20.png",
+      "output_sha256": "8ea631405c069661bb70f331f80a59b66050804fbcc22680cd36dbd6c1427387",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_04_chroma_v20.png",
+      "output_sha256": "0d430a7ab6a50d1bf7f733e7020fc7045ae025fa283894377e4bbc7bf5f70774",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_05_chroma_v20.png",
+      "output_sha256": "37cda3d6080a2fa9ed7eec776146ebfe2e167ecd051c60ca486b62be4406117c",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_06_chroma_v20.png",
+      "output_sha256": "98a9730dffcfc5bcceb3565b65d2f3a22176cc8f5cc983d998682a2ffb74fbdf",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_07_chroma_v20.png",
+      "output_sha256": "55feaee183482ad07910ecce66fcc59dcdf5cfce301cc0db783cd8b2e54480fd",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_08_chroma_v20.png",
+      "output_sha256": "3cdcd5ac4fc7d9354d080070abc885ac5f17895929b543ce2f3d6f83b58e7611",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_09_chroma_v20.png",
+      "output_sha256": "70efebad4bd43ad979ce0c3464503304062f73c1bc1589eb6d4713090e836331",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_10_chroma_v20.png",
+      "output_sha256": "febb2dd38f5b9704bef6d79595600946b38f2d5492b3ff8b6680d492cf67654d",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_ne_11_chroma_v20.png",
+      "output_sha256": "315d2b6f7fc77a11661cc0fef8725fbfd6cc1d35fb8e94218f3541e9b232547a",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_00_chroma_v20.png",
+      "output_sha256": "7a273eab1868e2032ca08cbadb32de1f8a6ea12a46cf0684d13fb80c9f460728",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_01_chroma_v20.png",
+      "output_sha256": "bf172c08dba614050194a8510d4e7c7b376480c9b862877935aa081c9ceba11c",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_02_chroma_v20.png",
+      "output_sha256": "3030e48523c35ebd67329464c5f76f2a382a48d38ac9f4d0ff67e3dd05ee135d",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_03_chroma_v20.png",
+      "output_sha256": "f3201bc9761131dbe50c6459cce478479892e8cdae053e8404e58f5813f8fa24",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_04_chroma_v20.png",
+      "output_sha256": "f15b988b4082a42129a2e32a45370ae0b9a5ff2378cb0b0d7ae86446371e0c46",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_05_chroma_v20.png",
+      "output_sha256": "4b1bfb9e6d1695187bc2534a7c177d3e9daca13d8a9721f59a212a9bd350f862",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_06_chroma_v20.png",
+      "output_sha256": "c744ce51637d08a3de660ce992dda1c13b97701f074629b87f8c0cea61c37987",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_07_chroma_v20.png",
+      "output_sha256": "6b7f00d7b6116f59ffb0ca3e911bfecb83b49dc142c33ac42d6d817676264428",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_08_chroma_v20.png",
+      "output_sha256": "6d986755a0af321461f75d63ee60f41173a895d1a217d9436a95d123d2aa8ff0",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_09_chroma_v20.png",
+      "output_sha256": "c272f9e15f117e6b8568d8974d5a0162e6570fe06d6a893d0db8407c4b45a413",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_10_chroma_v20.png",
+      "output_sha256": "dcd04847744ae2585e5d343a61baa7d189c5bbcbc671c73998922813ce749b71",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "Frames/voss_stand_up_se_11_chroma_v20.png",
+      "output_sha256": "5ad2a3be1aef196e89e1fa6a7aa2f1c90ed30eebb7271f0abc966d777977ab39",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "output": "UI/voss_paperdoll_front_rgba_v01.png",
+      "output_sha256": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964",
+      "phase": "phase_6_smooth_paperdoll_and_scene_qa"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_1_identity_anchors approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_front_profile_back_identity_shape.png",
+      "output_sha256": "728d1c37b6e036a59d91fdc0c72a0a9aa1595125d57b0c77b1d85577e237e436",
+      "phase": "phase_1_identity_anchors"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_2_nine_idle_keys approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_16_facings_unlabelled.png",
+      "output_sha256": "9ff107280a90bd693973b910fa893efc2e38da43c6a32d283e5a6c4808935523",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_2_nine_idle_keys approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_16_facings_labelled.png",
+      "output_sha256": "b724b4488641ae6d90cf719e7591f8c3aeba7128b32eae2f9c1055c1d710df70",
+      "phase": "phase_2_nine_idle_keys"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_3_sw_n_walk_proofs approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_sw_raw_processed_walk_proof.png",
+      "output_sha256": "4c04230632321fadf6f7bf2f21178b93836f09bdbe854426e648b85d0e666896",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_3_sw_n_walk_proofs approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_n_raw_processed_walk_proof.png",
+      "output_sha256": "8db1eb32e30ea8e74a373c1450ab669685de4d57923096f10a91f6f292f5ec91",
+      "phase": "phase_3_sw_n_walk_proofs"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_s_quarter_speed.gif",
+      "output_sha256": "8785ad09a168b0bb4b5c12a6a082e8ffb0782c88ca9a588119d8518903d15fbd",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_ssw_quarter_speed.gif",
+      "output_sha256": "d61429802a0bad9b5ffc5013dbf06681f9f4fc1d997f9b1a8df4608b41410842",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_sw_quarter_speed.gif",
+      "output_sha256": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_wsw_quarter_speed.gif",
+      "output_sha256": "ca27a29c6723a6742cca0951202bc55e5b1520fda6f667b99e44c68c5c7bfcf8",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_w_quarter_speed.gif",
+      "output_sha256": "4f246b636ac63bee03b9ed91ee99a71d61618fb7fa0d85eeed3d42056f4649a9",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_wnw_quarter_speed.gif",
+      "output_sha256": "5de172e67d02b3821b10286c272021b46c162850d7ab195e1ef5a78281784d7c",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_nw_quarter_speed.gif",
+      "output_sha256": "9af71881513ef5cc1d211753e5ffa77fea9abb0312572178ea9824e1324d82fa",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_nnw_quarter_speed.gif",
+      "output_sha256": "2c9a99108c98931b7dc422e2087770d9c02de6f6b464a13bc0cfdf7ad253ad71",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "output": "QA/qa_v20_walk_n_quarter_speed.gif",
+      "output_sha256": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600",
+      "phase": "phase_4_remaining_locomotion"
+    },
+    {
+      "approval_basis": "deterministic consolidated render of exact phase_5_ne_seated_chain approved assets",
+      "approved": true,
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_stand_up_ne_strip.png",
+      "output_sha256": "3103575c852f239071c1a61d6319da83d1fbac08568739c431228d358813ddc8",
+      "phase": "phase_5_ne_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_stand_up_se_strip.png",
+      "output_sha256": "36e32d31e3d363ea255ff30a93dfca3a61fa3da8f956cd814d3217090d708e3a",
+      "phase": "phase_5_se_seated_chain"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_inventory_220x315_vs_actor_180x180.png",
+      "output_sha256": "abbf08b9c07512f0a715d00c95aa981baa55bfeeca32e9fdb65e6bbafecf0827",
+      "phase": "phase_6_smooth_paperdoll_and_scene_qa"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_office_actor_180x180.png",
+      "output_sha256": "34884e83c0e8efb40d60a585643237de92f23fb7219eed9bdac271f0e6dab768",
+      "phase": "phase_6_smooth_paperdoll_and_scene_qa"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_city_actor_180x180.png",
+      "output_sha256": "c594e9de63c0411a4776659dd51652ccb181c2e34b39cc9145a9b0a175b33dfe",
+      "phase": "phase_6_smooth_paperdoll_and_scene_qa"
+    },
+    {
+      "approved": true,
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "output": "QA/qa_v20_seated_one_world_chair.png",
+      "output_sha256": "74d8ef20223f4bf26ca4960fbbe0b844e667b3476d999808670a5d6357c93e49",
+      "phase": "phase_6_smooth_paperdoll_and_scene_qa"
+    }
+  ],
+  "asset_version": "v20",
+  "contract": "Every required source, mutable UI output, and install QA artifact must have a matching on-disk SHA-256 and an explicit approval before its consuming gate can pass.",
+  "hash_algorithm": "sha256",
+  "review_artifacts": {
+    "phase_1_identity_anchors": {
+      "approved_at_utc": "2026-08-09T17:29:50Z",
+      "approved_by": "user",
+      "path": "QA/qa_v20_gate1_anchors.png",
+      "sha256": "2954c8d8ddfb1553e07684e35b014432be6089dafaf3c4d98acc4bc2133fe969",
+      "status": "approved"
+    },
+    "phase_2_nine_idle_keys": {
+      "approved_at_utc": "2026-08-09T17:50:20Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "QA/qa_v20_gate2_16_facings_unlabelled.png",
+          "sha256": "9ff107280a90bd693973b910fa893efc2e38da43c6a32d283e5a6c4808935523"
+        },
+        {
+          "path": "QA/qa_v20_gate2_16_facings_labelled.png",
+          "sha256": "b724b4488641ae6d90cf719e7591f8c3aeba7128b32eae2f9c1055c1d710df70"
+        },
+        {
+          "path": "QA/qa_v20_gate2_metrics.json",
+          "sha256": "28602160d18ede01d9853bd0a70bb4b3312ed98d8877c6d5f7ce688c3c9c655f"
+        }
+      ],
+      "manual_gate": "At least 12 of 16 facings recognizable without labels; stable construction and identity; rear hemisphere has no face, shirt, or tie leakage.",
+      "status": "approved"
+    },
+    "phase_3_sw_n_walk_proofs": {
+      "approved_at_utc": "2026-08-09T19:24:10Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "QA/qa_v20_sw_raw_processed_walk_proof.png",
+          "sha256": "4c04230632321fadf6f7bf2f21178b93836f09bdbe854426e648b85d0e666896"
+        },
+        {
+          "path": "QA/qa_v20_n_raw_processed_walk_proof.png",
+          "sha256": "8db1eb32e30ea8e74a373c1450ab669685de4d57923096f10a91f6f292f5ec91"
+        },
+        {
+          "path": "QA/qa_v20_walk_sw_quarter_speed.gif",
+          "sha256": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85"
+        },
+        {
+          "path": "QA/qa_v20_walk_n_quarter_speed.gif",
+          "sha256": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600"
+        },
+        {
+          "path": "QA/qa_v20_gate3_metrics.json",
+          "sha256": "65ba8a0f2e36e49cc57739275039137766214cf99ecf7ff211a813e2b0f2b968"
+        }
+      ],
+      "manual_gate": "Approve raw/processed SW and N strips plus both quarter-speed loops for stable identity, outfit construction, facing, gait, foot exchange, and loop closure.",
+      "status": "approved"
+    },
+    "phase_4_remaining_locomotion": {
+      "approved_at_utc": "2026-08-12T23:18:44Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "QA/qa_v20_gate4_idle_processed.png",
+          "sha256": "679b98b5efcf464d409a0acd7d4087269bc45b5de2c5148a1a1def9a550eb5a8"
+        },
+        {
+          "path": "QA/qa_v20_walk_s_quarter_speed.gif",
+          "sha256": "8785ad09a168b0bb4b5c12a6a082e8ffb0782c88ca9a588119d8518903d15fbd"
+        },
+        {
+          "path": "QA/qa_v20_walk_ssw_quarter_speed.gif",
+          "sha256": "d61429802a0bad9b5ffc5013dbf06681f9f4fc1d997f9b1a8df4608b41410842"
+        },
+        {
+          "path": "QA/qa_v20_walk_sw_quarter_speed.gif",
+          "sha256": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85"
+        },
+        {
+          "path": "QA/qa_v20_walk_wsw_quarter_speed.gif",
+          "sha256": "ca27a29c6723a6742cca0951202bc55e5b1520fda6f667b99e44c68c5c7bfcf8"
+        },
+        {
+          "path": "QA/qa_v20_walk_w_quarter_speed.gif",
+          "sha256": "4f246b636ac63bee03b9ed91ee99a71d61618fb7fa0d85eeed3d42056f4649a9"
+        },
+        {
+          "path": "QA/qa_v20_walk_wnw_quarter_speed.gif",
+          "sha256": "5de172e67d02b3821b10286c272021b46c162850d7ab195e1ef5a78281784d7c"
+        },
+        {
+          "path": "QA/qa_v20_walk_nw_quarter_speed.gif",
+          "sha256": "9af71881513ef5cc1d211753e5ffa77fea9abb0312572178ea9824e1324d82fa"
+        },
+        {
+          "path": "QA/qa_v20_walk_nnw_quarter_speed.gif",
+          "sha256": "2c9a99108c98931b7dc422e2087770d9c02de6f6b464a13bc0cfdf7ad253ad71"
+        },
+        {
+          "path": "QA/qa_v20_walk_n_quarter_speed.gif",
+          "sha256": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600"
+        },
+        {
+          "path": "QA/qa_v20_gate4_locomotion_report.json",
+          "sha256": "6aa6b0b33f029455e255b9bf0e093abec04075c804af08f98210209a7a438e38"
+        }
+      ],
+      "manual_gate": "Approve the 27 remaining idle masters and all nine quarter-speed walk loops for stable identity, outfit construction, facing, gait, foot exchange, and loop closure.",
+      "status": "approved"
+    },
+    "phase_5_ne_seated_chain": {
+      "approved_at_utc": "2026-08-13T07:48:05Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "QA/qa_v20_stand_up_ne_strip.png",
+          "sha256": "f454eb9ba55673cc2dd079d8aa208780a11e4baa368539576906199e92156883"
+        },
+        {
+          "path": "QA/qa_v20_gate5_ne_report.json",
+          "sha256": "44abf82afbfa941fd39156029f957ef41f2931da6c218f4febb3af2a07efc7e7"
+        }
+      ],
+      "manual_gate": "Approve the processed NE seated idle and stand-up chain for stable identity, coat construction, rear-right facing, smooth rise, and chairless silhouettes before SE generation.",
+      "status": "approved"
+    },
+    "phase_5_se_seated_chain": {
+      "approved_at_utc": "2026-08-13T09:25:34Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "QA/qa_v20_stand_up_se_strip.png",
+          "sha256": "36e32d31e3d363ea255ff30a93dfca3a61fa3da8f956cd814d3217090d708e3a"
+        },
+        {
+          "path": "QA/qa_v20_gate5_se_report.json",
+          "sha256": "6a072ce77aaa1cee47d2792aaefc3462ce8f514a433100fa120f9af9666a4aff"
+        }
+      ],
+      "manual_gate": "Approve the processed SE seated idle and stand-up chain for stable identity, coat construction, front-right facing, smooth rise, chairless silhouettes, and exact reverse sit-down.",
+      "status": "approved"
+    },
+    "phase_6_smooth_paperdoll_and_scene_qa": {
+      "approved_at_utc": "2026-08-13T09:34:18Z",
+      "approved_by": "user",
+      "artifacts": [
+        {
+          "path": "UI/voss_paperdoll_front_rgba_v01.png",
+          "sha256": "099149ccf5be93ebdf9554568d29eed654521fb2532eb5210c0c7f6d7cbc8964"
+        },
+        {
+          "path": "QA/qa_v20_inventory_220x315_vs_actor_180x180.png",
+          "sha256": "abbf08b9c07512f0a715d00c95aa981baa55bfeeca32e9fdb65e6bbafecf0827"
+        },
+        {
+          "path": "QA/qa_v20_office_actor_180x180.png",
+          "sha256": "34884e83c0e8efb40d60a585643237de92f23fb7219eed9bdac271f0e6dab768"
+        },
+        {
+          "path": "QA/qa_v20_city_actor_180x180.png",
+          "sha256": "c594e9de63c0411a4776659dd51652ccb181c2e34b39cc9145a9b0a175b33dfe"
+        },
+        {
+          "path": "QA/qa_v20_seated_one_world_chair.png",
+          "sha256": "74d8ef20223f4bf26ca4960fbbe0b844e667b3476d999808670a5d6357c93e49"
+        },
+        {
+          "path": "QA/qa_v20_gate6_report.json",
+          "sha256": "4e3b8b36e4454aa6615afc5f781ddc7f8b42e209d282be8cb227b9da592d40fd"
+        }
+      ],
+      "manual_gate": "Approve the refreshed portrait-first paperdoll, inventory scale comparison, warm-office and cool-city actor read, clean chroma edges, and the one-world-chair desk scene.",
+      "status": "approved"
+    }
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,40 @@
+{
+  "asset_version": "v20",
+  "gate_summary": {
+    "runtime_pngs": 208,
+    "strict_no_waivers": true
+  },
+  "manual_acceptance": {
+    "facings": "Recognize at least 12 of 16 before consulting labels.",
+    "motion": "Approve SW/N proofs and every 0.25x loop for gait, identity, and closure.",
+    "rear": "Approve all rear facings as away-facing with no front garment/face leakage.",
+    "scale": "Approve paperdoll, exact 180x180 actors, and warm/cool scene read.",
+    "seat": "Approve NE before SE and confirm exactly one world-owned chair."
+  },
+  "output_hashes": {
+    "QA/qa_v20_16_facings_labelled.png": "b724b4488641ae6d90cf719e7591f8c3aeba7128b32eae2f9c1055c1d710df70",
+    "QA/qa_v20_16_facings_unlabelled.png": "9ff107280a90bd693973b910fa893efc2e38da43c6a32d283e5a6c4808935523",
+    "QA/qa_v20_city_actor_180x180.png": "c594e9de63c0411a4776659dd51652ccb181c2e34b39cc9145a9b0a175b33dfe",
+    "QA/qa_v20_front_profile_back_identity_shape.png": "728d1c37b6e036a59d91fdc0c72a0a9aa1595125d57b0c77b1d85577e237e436",
+    "QA/qa_v20_inventory_220x315_vs_actor_180x180.png": "abbf08b9c07512f0a715d00c95aa981baa55bfeeca32e9fdb65e6bbafecf0827",
+    "QA/qa_v20_n_raw_processed_walk_proof.png": "8db1eb32e30ea8e74a373c1450ab669685de4d57923096f10a91f6f292f5ec91",
+    "QA/qa_v20_office_actor_180x180.png": "34884e83c0e8efb40d60a585643237de92f23fb7219eed9bdac271f0e6dab768",
+    "QA/qa_v20_seated_one_world_chair.png": "74d8ef20223f4bf26ca4960fbbe0b844e667b3476d999808670a5d6357c93e49",
+    "QA/qa_v20_stand_up_ne_strip.png": "3103575c852f239071c1a61d6319da83d1fbac08568739c431228d358813ddc8",
+    "QA/qa_v20_stand_up_se_strip.png": "36e32d31e3d363ea255ff30a93dfca3a61fa3da8f956cd814d3217090d708e3a",
+    "QA/qa_v20_sw_raw_processed_walk_proof.png": "4c04230632321fadf6f7bf2f21178b93836f09bdbe854426e648b85d0e666896",
+    "QA/qa_v20_walk_n_quarter_speed.gif": "fe90055ead291fcc0ad7951be1c66962c8d364fcb1d9153fec418056dc62c600",
+    "QA/qa_v20_walk_nnw_quarter_speed.gif": "2c9a99108c98931b7dc422e2087770d9c02de6f6b464a13bc0cfdf7ad253ad71",
+    "QA/qa_v20_walk_nw_quarter_speed.gif": "9af71881513ef5cc1d211753e5ffa77fea9abb0312572178ea9824e1324d82fa",
+    "QA/qa_v20_walk_s_quarter_speed.gif": "8785ad09a168b0bb4b5c12a6a082e8ffb0782c88ca9a588119d8518903d15fbd",
+    "QA/qa_v20_walk_ssw_quarter_speed.gif": "d61429802a0bad9b5ffc5013dbf06681f9f4fc1d997f9b1a8df4608b41410842",
+    "QA/qa_v20_walk_sw_quarter_speed.gif": "de921e7e019687ea50c0f7956eaabd293858abe2425dd5e48489debc775e8f85",
+    "QA/qa_v20_walk_w_quarter_speed.gif": "4f246b636ac63bee03b9ed91ee99a71d61618fb7fa0d85eeed3d42056f4649a9",
+    "QA/qa_v20_walk_wnw_quarter_speed.gif": "5de172e67d02b3821b10286c272021b46c162850d7ab195e1ef5a78281784d7c",
+    "QA/qa_v20_walk_wsw_quarter_speed.gif": "ca27a29c6723a6742cca0951202bc55e5b1520fda6f667b99e44c68c5c7bfcf8"
+  },
+  "stage_report_sha256": "5afe9c47e4e37c6bc6220162cd25afb1e77246e006a0282c854fe2b979232320",
+  "staging": "ArtSource/Generated/Characters/Detective/PreRendered3DV20/Staging",
+  "status": "passed",
+  "strict_no_waivers": true
+}
