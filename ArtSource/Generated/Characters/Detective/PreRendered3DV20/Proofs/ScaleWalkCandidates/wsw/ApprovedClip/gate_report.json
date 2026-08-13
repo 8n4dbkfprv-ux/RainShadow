@@ -1,0 +1,12 @@
+{
+  "direction": "wsw",
+  "status": "kicks_replaced_natural_stride",
+  "source_head_shoulder_disagreement": 0.0148,
+  "processed_leads": "LLLLLLLL",
+  "centroid_drift_px": 0.789,
+  "head_pulse": 1.0,
+  "torso_pulse": 1.0417,
+  "longest_lead_run": 8,
+  "has_both_leads": false,
+  "note": "04 and 04b were kicks; replaced with natural strides. All eight are now L-lead."
+}

@@ -1,0 +1,10 @@
+{
+  "direction": "nnw",
+  "status": "dead_back_only_camera_locked",
+  "source_head_shoulder_disagreement": -0.0946,
+  "processed_leads": "RLL==L=R",
+  "centroid_drift_px": 0.842,
+  "head_pulse": 1.1667,
+  "torso_pulse": 1.1549,
+  "note": "Removed three-quarter rear cells. Entire clip is straight-on rear like the idle."
+}

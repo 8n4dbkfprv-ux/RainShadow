@@ -1,0 +1,98 @@
+{
+ "city_door_voss_stoop": [
+  234,
+  588
+ ],
+ "city_door_voss_stoop_garage": [
+  190,
+  588
+ ],
+ "city_door_tenement": [
+  205,
+  548
+ ],
+ "city_door_storefront": [
+  288,
+  600
+ ],
+ "city_door_rowhouse": [
+  216,
+  498
+ ],
+ "city_door_shop": [
+  272,
+  550
+ ],
+ "city_door_gatehouse": [
+  127,
+  548
+ ],
+ "city_door_shipping_office": [
+  270,
+  550
+ ],
+ "city_door_warehouse": [
+  328,
+  575
+ ],
+ "city_door_boarding": [
+  268,
+  540
+ ],
+ "city_door_dock_shed": [
+  155,
+  553
+ ],
+ "city_door_lila_rooms": [
+  255,
+  500
+ ],
+ "city_door_lila_rooms_b": [
+  300,
+  500
+ ],
+ "city_door_lila_neighbor": [
+  258,
+  478
+ ],
+ "city_door_lila_opposite": [
+  360,
+  487
+ ],
+ "city_door_lila_alcove": [
+  282,
+  505
+ ],
+ "city_door_pd_station": [
+  228,
+  548
+ ],
+ "city_door_pd_annex": [
+  98,
+  516
+ ],
+ "city_door_pd_alley": [
+  276,
+  538
+ ],
+ "city_door_records_annex": [
+  232,
+  437
+ ],
+ "city_door_records_wing": [
+  72,
+  583
+ ],
+ "city_door_records_colonnade": [
+  125,
+  452
+ ],
+ "city_door_iron_stairs": [
+  140,
+  558
+ ],
+ "city_door_river_watch": [
+  268,
+  492
+ ]
+}

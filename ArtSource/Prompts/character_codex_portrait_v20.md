@@ -100,6 +100,14 @@ For each target:
 5. Record visual approval separately in `approval_ledger_v20.json`. A file's
    existence or provenance record does not approve it.
 
+V20.1 idle↔walk scale lock is the one exception to the Codex-only generator
+rule. Replacement walks for `wsw`, `nnw`, `wnw`, `sw`, and `w` are authored
+with Grok `image_edit`, recorded as `generator: grok-image-edit`. Image 1 is
+that direction's approved idle phase-00 key (identity, scale, craft); Image 2
+is the V17 pose authority (pose and feet only). Historical V20 calls stay
+`codex-imagegen`. A direction's idle and walk must keep a scale-free
+head/shoulder ratio within `idle_walk_head_shoulder_ratio_max` (6%).
+
 Rejected results belong under `Proofs/Rejected*` and never in `Frames/`,
 `Keys/`, `UI/`, or `Staging/`.
 

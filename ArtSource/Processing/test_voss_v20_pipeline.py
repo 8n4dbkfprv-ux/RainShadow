@@ -516,6 +516,53 @@ class VossClipCoherenceTests(unittest.TestCase):
         centred = core.process_keyed_figure(frame)
         self.assertLessEqual(abs(core.frame_metrics(centred).center_x - 255.5), 1.0)
 
+    def test_matching_idle_and_walk_share_one_head_shoulder_ratio(self) -> None:
+        idle = self._clip()
+        walk = self._clip() + self._clip()
+        idle_anatomy = core.clip_anatomy(idle)
+        walk_anatomy = core.clip_anatomy(walk)
+        delta = core.idle_walk_ratio_disagreement(
+            idle_anatomy["head"],
+            idle_anatomy["shoulder"],
+            walk_anatomy["head"],
+            walk_anatomy["shoulder"],
+        )
+        self.assertLessEqual(abs(delta), 0.06)
+
+    def test_a_different_character_fails_the_idle_walk_ratio_gate(self) -> None:
+        idle = self._clip()
+        walk_master = synthetic_master()
+        draw = ImageDraw.Draw(walk_master)
+        # Widen the crown and pinch the shoulders: the scale-free ratio must move.
+        draw.ellipse((130, 40, 230, 120), fill=v20.V20_WARDROBE["hair"])
+        draw.rectangle((150, 115, 210, 200), fill=v20.V20_WARDROBE["coat"])
+        walk = [core.key_chroma(walk_master)] * 8
+        idle_anatomy = core.clip_anatomy(idle)
+        walk_anatomy = core.clip_anatomy(walk)
+        delta = core.idle_walk_ratio_disagreement(
+            idle_anatomy["head"],
+            idle_anatomy["shoulder"],
+            walk_anatomy["head"],
+            walk_anatomy["shoulder"],
+        )
+        self.assertGreater(
+            abs(delta),
+            0.06,
+            "a walk whose head/shoulders are a different character must fail "
+            f"the 6% gate; measured {delta:+.1%}",
+        )
+
+    def test_manifest_locks_the_idle_walk_ratio_gate(self) -> None:
+        manifest = manifest_scaffold()
+        self.assertEqual(manifest["gates"]["idle_walk_head_shoulder_ratio_max"], 0.06)
+        manifest["gates"]["idle_walk_head_shoulder_ratio_max"] = 0.5
+        with self.assertRaisesRegex(v20.V20ValidationError, "idle_walk_head_shoulder_ratio_max"):
+            v20.validate_manifest_contract(manifest)
+
+    def test_provenance_accepts_grok_image_edit_on_a_walk_replacement(self) -> None:
+        self.assertIn("grok-image-edit", v20.ALLOWED_MASTER_GENERATORS)
+        self.assertIn("codex-imagegen", v20.ALLOWED_MASTER_GENERATORS)
+
 
 
 if __name__ == "__main__":

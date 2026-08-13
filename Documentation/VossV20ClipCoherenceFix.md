@@ -137,6 +137,14 @@ a direction's idle and walk masters render the same character at the same size;
 generating a direction's idle and walk in one pass, from one anchor, is what would
 achieve it.
 
+## V20.1 follow-up
+
+Walk-only `image_edit` from each direction's idle key, with the V17 pose
+authority as pose-only. Idle, seats, and the four good walk cycles stay.
+`gates.idle_walk_head_shoulder_ratio_max` is 0.06 on keyed sources. Replacement
+walks record `generator: grok-image-edit`; the 200px pin, shared clip palette,
+and mass-centroid registration are unchanged.
+
 ## Gates added
 
 The standing idle went four asset versions with nothing gating it. The only idle

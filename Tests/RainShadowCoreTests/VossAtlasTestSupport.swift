@@ -43,6 +43,19 @@ enum VossAtlasTestAssets {
         ]
         return candidates.first { FileManager.default.fileExists(atPath: $0.path) }
     }
+
+    static var v20SourceRoot: URL {
+        repoRoot.appendingPathComponent(
+            "ArtSource/Generated/Characters/Detective/PreRendered3DV20/Frames",
+            isDirectory: true
+        )
+    }
+
+    static func v20SourceURL(group: String, direction: String, phase: Int) -> URL {
+        let prefix = group == "walk" ? "voss_walk" : "voss_idle"
+        let name = String(format: "%@_%@_%02d_chroma_v20.png", prefix, direction, phase)
+        return v20SourceRoot.appendingPathComponent(name, isDirectory: false)
+    }
 }
 
 /// The defaults are the locked V20 contract. When the V20 manifest is present,
@@ -79,6 +92,9 @@ struct VossV20ValidationThresholds {
     var requiresBothPlantedFootLeads = true
     var requiresWalkLoopClosure = true
     var maximumRepeatedFootLead = 3
+    /// Scale-free idle↔walk head/shoulder disagreement on keyed source masters.
+    /// Measured in source space because the 200px raster cannot express it.
+    var idleWalkHeadShoulderRatioMaximum = 0.06
 
     static func load() throws -> Self {
         guard let manifestURL = VossAtlasTestAssets.v20ManifestURL else {
@@ -165,6 +181,8 @@ struct VossV20ValidationThresholds {
             keys: ["walk_repeated_same_lead_run_max", "maximum_repeated_foot_lead"]
         )
             ?? thresholds.maximumRepeatedFootLead
+        thresholds.idleWalkHeadShoulderRatioMaximum = number(gates["idle_walk_head_shoulder_ratio_max"])
+            ?? thresholds.idleWalkHeadShoulderRatioMaximum
         return thresholds
     }
 
@@ -217,6 +235,16 @@ struct VossAtlasFrame {
     var opaqueMask: [Bool]
 
     init(contentsOf url: URL) throws {
+        try self.init(contentsOf: url, chromaKey: false)
+    }
+
+    /// Load a V20 chroma master: green-screen pixels are treated as transparent
+    /// so source-space head/shoulder bands match the Python `anatomy_bands`.
+    init(chromaContentsOf url: URL) throws {
+        try self.init(contentsOf: url, chromaKey: true)
+    }
+
+    private init(contentsOf url: URL, chromaKey: Bool) throws {
         guard FileManager.default.fileExists(atPath: url.path) else {
             throw VossAtlasTestError.missingPNG(url)
         }
@@ -247,7 +275,11 @@ struct VossAtlasFrame {
         opaqueMask = [Bool](repeating: false, count: width * height)
         for y in 0..<height {
             for x in 0..<width where !isCornerSentinel(x: x, y: y) {
-                opaqueMask[y * width + x] = alpha(x: x, y: y) >= Self.alphaThreshold
+                if chromaKey {
+                    opaqueMask[y * width + x] = !isChromaGreen(x: x, y: y)
+                } else {
+                    opaqueMask[y * width + x] = alpha(x: x, y: y) >= Self.alphaThreshold
+                }
             }
         }
     }
@@ -355,6 +387,24 @@ struct VossAtlasFrame {
         )
     }
 
+    /// Shoulder width on the 10–29% band used by the idle↔walk identity gate.
+    func shoulderWidth() throws -> Int {
+        let body = try metrics()
+        let start = min(body.footY, body.crownY + Int((Double(body.height) * 0.10).rounded()))
+        let end = min(body.footY + 1, body.crownY + Int((Double(body.height) * 0.29).rounded()))
+        var minX = width
+        var maxX = -1
+        if start < end {
+            for y in start..<end {
+                for x in 0..<width where opaqueMask[y * width + x] {
+                    minX = min(minX, x)
+                    maxX = max(maxX, x)
+                }
+            }
+        }
+        return maxX >= minX ? maxX - minX + 1 : 0
+    }
+
     func footLead() throws -> Character {
         let body = try metrics()
         var minX = width
@@ -401,6 +451,16 @@ struct VossAtlasFrame {
 
     private func alpha(x: Int, y: Int) -> UInt8 {
         pixels[(y * width + x) * 4 + 3]
+    }
+
+    private func isChromaGreen(x: Int, y: Int) -> Bool {
+        let pixel = (y * width + x) * 4
+        let red = Double(pixels[pixel])
+        let green = Double(pixels[pixel + 1])
+        let blue = Double(pixels[pixel + 2])
+        let other = max(red, blue)
+        let dominance = green - other
+        return dominance > 20 && green > 80 && green > other * 1.18
     }
 
     private func isCornerSentinel(x: Int, y: Int) -> Bool {

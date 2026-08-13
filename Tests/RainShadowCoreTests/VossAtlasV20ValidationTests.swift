@@ -83,6 +83,42 @@ struct VossAtlasV20ValidationTests {
         }
     }
 
+    /// Idle and walk of one direction must be the same character. Measured on
+    /// keyed V20 source masters: the 200px raster cannot express a few-percent
+    /// correction, which is why this is not a processed-cell check.
+    @Test func everyDirectionIdleAndWalkShareOneHeadShoulderRatio() throws {
+        let thresholds = try VossV20ValidationThresholds.load()
+        let sourceRoot = VossAtlasTestAssets.v20SourceRoot
+        guard FileManager.default.fileExists(atPath: sourceRoot.path) else {
+            Issue.record("V20 source Frames/ are not in this checkout; Python validate_sources is the gate")
+            return
+        }
+
+        for direction in authoredDirections {
+            let idle = try (0..<4).map { phase in
+                try VossAtlasFrame(chromaContentsOf: VossAtlasTestAssets.v20SourceURL(
+                    group: "idle", direction: direction, phase: phase
+                ))
+            }
+            let walk = try (0..<8).map { phase in
+                try VossAtlasFrame(chromaContentsOf: VossAtlasTestAssets.v20SourceURL(
+                    group: "walk", direction: direction, phase: phase
+                ))
+            }
+            let idleHeads = try idle.map { try $0.metrics().headWidth }
+            let idleShoulders = try idle.map { try $0.shoulderWidth() }
+            let walkHeads = try walk.map { try $0.metrics().headWidth }
+            let walkShoulders = try walk.map { try $0.shoulderWidth() }
+            let idleRatio = median(idleHeads) / max(median(idleShoulders), 1)
+            let walkRatio = median(walkHeads) / max(median(walkShoulders), 1)
+            let disagreement = (walkRatio - idleRatio) / idleRatio
+            #expect(
+                abs(disagreement) <= thresholds.idleWalkHeadShoulderRatioMaximum,
+                "idle/walk \(direction) head/shoulder ratio disagrees \(format(disagreement)), expected |delta| <=\(format(thresholds.idleWalkHeadShoulderRatioMaximum))"
+            )
+        }
+    }
+
     @Test func everyWalkDirectionMeetsV20MotionGates() throws {
         let thresholds = try VossV20ValidationThresholds.load()
         for direction in authoredDirections {
@@ -244,5 +280,15 @@ struct VossAtlasV20ValidationTests {
 
     private func format(_ value: Double) -> String {
         String(format: "%.3f", value)
+    }
+
+    private func median(_ values: [Int]) -> Double {
+        let sorted = values.sorted()
+        guard !sorted.isEmpty else { return 0 }
+        let middle = sorted.count / 2
+        if sorted.count.isMultiple(of: 2) {
+            return Double(sorted[middle - 1] + sorted[middle]) / 2
+        }
+        return Double(sorted[middle])
     }
 }

@@ -1571,209 +1571,217 @@
       "status": "approved"
     },
     {
-      "call_id": "exec-d0d4a204-04ac-4df4-9818-1bc4b656a3d6",
+      "call_id": "grok-image-edit-wsw-00-f1d8523d9686",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_00_chroma_v20.png",
-      "output_sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Final WSW phase-00 game frame. Copy image 1's exact left-contact pose, west-southwest camera, body proportions, 25-pixel-read head size and x=251 head registration. Do not enlarge or shift the head. Images 2\u20134 lock Voss identity, brown trench construction, palette, and WSW appearance. One uncropped centered figure on uniform #00ff00, classic matte pre-rendered game art. No shadow, floor, prop, text, scenery, crop, extra figure, pose change, or camera drift.",
+      "output_sha256": "f1d8523d96861be3a96be2418e9b0f9310e934dadc57d6afd48b0f498642f460",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_00_pose_v17.png",
           "sha256": "ad24f6c8f0e3d34eea02091af4d697ace8f298728989640312eebc25b7d894f4"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-463b5b4b-0a7a-4c09-8b28-5674f9464eb5",
+      "call_id": "grok-image-edit-wsw-01-5fe93c38976d",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_01_chroma_v20.png",
-      "output_sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Create one full-body WSW walking sprite of the same fictional adult detective. Copy reference 1's pose, registration, camera, stride, body proportions, and silhouette exactly. Use reference 2's face and references 3\u20134's brown belted trench outfit. Smooth classic isometric RPG character art. One complete uncropped figure on uniform pure #00ff00 only, with no floor, shadow, props, text, or scenery.",
+      "output_sha256": "5fe93c38976dbb60a599aa09cf5c0ee7165fcf2e1c9c02024274234dbc801e81",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_01_pose_v17.png",
           "sha256": "2e831b2ad3d0942308f7d0e3e022f7f0f3d137f0e4b15f09de63f7dbcee0bfe3"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-8ed29346-6754-4635-8bd5-9d64dc12c0e7",
+      "call_id": "grok-image-edit-wsw-02-f1a4a9a6439a",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_02_chroma_v20.png",
-      "output_sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its left-leg passing/raised pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and the chocolate double-breasted belted trench, cream open shirt, loose black tie, charcoal cuffed trousers, and brown lace-up shoes from references 3 and 4. Important consistency correction: keep the head compact like reference 1 while giving the shoulders and upper torso the same broad width as reference 4; keep the head vertically over the established body center, with no sideways lean. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or different gait phase.",
+      "output_sha256": "f1a4a9a6439abbb3d37ee786a69ea5cafd5a1585361e36caf549cf2db1e6ebd8",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_02_pose_v17.png",
           "sha256": "a6d3d17ef6c83403e14f250ef5a9fa630e5b320a598ccd90a0076142ca3b3ecf"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-41c59b34-13a2-4725-8f59-635053ee150e",
+      "call_id": "grok-image-edit-wsw-03-eba68920e3f3",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_03_chroma_v20.png",
-      "output_sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Game animation frame. Reproduce image 1's full-body neutral mid-step pose, equal shoe baseline, head placement, and proportions for the same fictional character shown in images 2\u20134. Keep the WSW camera and compact coat silhouette. Uniform solid #00ff00, full figure visible, no other objects.",
+      "output_sha256": "eba68920e3f31817f0e60640ed57a026be9b68f5680dd186de69a2865ac90801",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_03_pose_v17.png",
           "sha256": "e0708dd20fd6b724f2e478dcb2dab7df2244e194789d97a58d749e2f53ee44a9"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-66fb2ca1-f002-474f-97f8-59a23f359f76",
+      "call_id": "grok-image-edit-wsw-04-c4dac814901e",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_04_chroma_v20.png",
-      "output_sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Preserve reference 1 one-for-one: strict left-facing WSW side/dimetric camera, head profile, torso rotation, screen-left advancing shoe, screen-right trailing shoe planted on the lowest row, arms, stride, silhouette, and framing. Do not turn toward the viewer and do not swap the feet. Refresh only the fictional detective face from reference 2 and the chocolate trench outfit from references 3 and 4. Keep the head centered as in reference 1. Make the upper torso only modestly slimmer while retaining the exact pose and coat-tail direction. Smooth classic isometric RPG pre-rendered art. Exactly one uncropped figure on uniform pure #00ff00; no ground, shadow, objects, text, or scene.",
+      "output_sha256": "c4dac814901e899fdffc3c39dab56c55228abe27a667b8b550d9c67b77215a66",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_04_pose_v17.png",
           "sha256": "63ef91d1a059dbf2759f9f534cdecf4d7b2085c7a27815d256fb1b546c3b0320"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-701f728d-53f1-47d4-8d87-408a329b55bf",
+      "call_id": "grok-image-edit-wsw-05-362afbc6a7e9",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_05_chroma_v20.png",
-      "output_sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its right-side passing/contact pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and all chocolate trench-coat construction and colors from references 3 and 4. Important registration correction: center the crown, head, neck, and chest directly over the figure's established vertical axis, shifted slightly screen-right relative to reference 1; maintain stable broad shoulders and torso. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or changed gait phase.",
+      "output_sha256": "362afbc6a7e98bd5828005b6a192c160a5ffe2a69b27517658b14d4ff6dabdec",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_05_pose_v17.png",
           "sha256": "6a92b7e3b5556492444d85f789fb81d77ab24a8813f66a136b5ae34a5470044b"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-b66c55a9-1d5a-4565-8423-4c974c9a160a",
+      "call_id": "grok-image-edit-wsw-06-10e7bf8a3082",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_06_chroma_v20.png",
-      "output_sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its raised passing-foot pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and all chocolate trench-coat construction and colors from references 3 and 4. Important registration correction: center the crown, head, neck, and chest directly over the figure's established vertical axis, shifted slightly screen-right relative to reference 1; preserve the reference's stable torso breadth and compact head. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or changed gait phase.",
+      "output_sha256": "10e7bf8a3082d7393089c08be131ef5cd43fd4eb707215e2bb6e39bb05eb1d1d",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_06_pose_v17.png",
           "sha256": "c43cf94eebc2d9667f556c04f64f07d4ea2f9a296d385ed2bf47e4794735e977"
         },
         {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
-        },
-        {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
     },
     {
-      "call_id": "exec-cb7e7a83-c304-4178-9b1a-e04926d0163f",
+      "call_id": "grok-image-edit-wsw-07-734f0d088ea3",
+      "generator": "grok-image-edit",
       "output": "Frames/voss_walk_wsw_07_chroma_v20.png",
-      "output_sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7",
-      "phase": "phase_4_remaining_locomotion",
-      "prompt": "Preserve reference 1's composition one-for-one: same WSW three-quarter body angle, same head position over the torso, same raised screen-left knee and shoe, same planted screen-right leg and shoe, same stride, silhouette, camera, and framing. Refresh only the fictional detective's face from reference 2 and the consistent chocolate belted trench outfit from references 3 and 4. Keep every body part in reference 1's place. Smooth classic isometric RPG pre-rendered character art. Exactly one full uncropped figure on perfectly uniform pure #00ff00, with no ground, shadow, objects, writing, or scene.",
+      "output_sha256": "734f0d088ea3bf61c5593fb25593ea3d20ba30844eb150fd86c6abd08d81261f",
+      "phase": "phase_8_idle_walk_scale_lock",
+      "prompt": "Keep Image 1's exact Harlan Voss \u2014 same face, auburn hair, chocolate double-breasted belted mid-calf trench, cream shirt, black tie, charcoal cuffed trousers, brown shoes, same head size, same shoulder width, same coat length, same west-southwest three-quarter camera, same smooth late-1990s Infinity Engine pre-rendered craft. Change only the body pose to Image 2's walk phase. Uniform #00ff00, one uncropped figure, no shadow.",
       "references": [
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        },
         {
           "path": "PoseAuthorities/walk_wsw_07_pose_v17.png",
           "sha256": "543d13effd23403a23fc7e49519e190d742d68fbcb4b2ceb36aa3eb9788c36fa"
-        },
-        {
-          "path": "References/dialogue_portrait_harlan_voss_v01.png",
-          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         },
         {
           "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
           "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
         },
         {
-          "path": "Keys/voss_key_wsw_chroma_v20.png",
-          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
         }
       ],
       "status": "accepted"
@@ -6788,8 +6796,224 @@
       "references": [],
       "rejection_reason": "superseded during strict Gate 5 SE pose, routing, continuity, or geometry validation",
       "status": "rejected"
+    },
+    {
+      "call_id": "exec-d0d4a204-04ac-4df4-9818-1bc4b656a3d6",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_00_chroma_v20.png",
+      "output_sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Final WSW phase-00 game frame. Copy image 1's exact left-contact pose, west-southwest camera, body proportions, 25-pixel-read head size and x=251 head registration. Do not enlarge or shift the head. Images 2\u20134 lock Voss identity, brown trench construction, palette, and WSW appearance. One uncropped centered figure on uniform #00ff00, classic matte pre-rendered game art. No shadow, floor, prop, text, scenery, crop, extra figure, pose change, or camera drift.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_00_pose_v17.png",
+          "sha256": "ad24f6c8f0e3d34eea02091af4d697ace8f298728989640312eebc25b7d894f4"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-463b5b4b-0a7a-4c09-8b28-5674f9464eb5",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_01_chroma_v20.png",
+      "output_sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Create one full-body WSW walking sprite of the same fictional adult detective. Copy reference 1's pose, registration, camera, stride, body proportions, and silhouette exactly. Use reference 2's face and references 3\u20134's brown belted trench outfit. Smooth classic isometric RPG character art. One complete uncropped figure on uniform pure #00ff00 only, with no floor, shadow, props, text, or scenery.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_01_pose_v17.png",
+          "sha256": "2e831b2ad3d0942308f7d0e3e022f7f0f3d137f0e4b15f09de63f7dbcee0bfe3"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-8ed29346-6754-4635-8bd5-9d64dc12c0e7",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_02_chroma_v20.png",
+      "output_sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its left-leg passing/raised pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and the chocolate double-breasted belted trench, cream open shirt, loose black tie, charcoal cuffed trousers, and brown lace-up shoes from references 3 and 4. Important consistency correction: keep the head compact like reference 1 while giving the shoulders and upper torso the same broad width as reference 4; keep the head vertically over the established body center, with no sideways lean. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or different gait phase.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_02_pose_v17.png",
+          "sha256": "a6d3d17ef6c83403e14f250ef5a9fa630e5b320a598ccd90a0076142ca3b3ecf"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-41c59b34-13a2-4725-8f59-635053ee150e",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_03_chroma_v20.png",
+      "output_sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Game animation frame. Reproduce image 1's full-body neutral mid-step pose, equal shoe baseline, head placement, and proportions for the same fictional character shown in images 2\u20134. Keep the WSW camera and compact coat silhouette. Uniform solid #00ff00, full figure visible, no other objects.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_03_pose_v17.png",
+          "sha256": "e0708dd20fd6b724f2e478dcb2dab7df2244e194789d97a58d749e2f53ee44a9"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-66fb2ca1-f002-474f-97f8-59a23f359f76",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_04_chroma_v20.png",
+      "output_sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Preserve reference 1 one-for-one: strict left-facing WSW side/dimetric camera, head profile, torso rotation, screen-left advancing shoe, screen-right trailing shoe planted on the lowest row, arms, stride, silhouette, and framing. Do not turn toward the viewer and do not swap the feet. Refresh only the fictional detective face from reference 2 and the chocolate trench outfit from references 3 and 4. Keep the head centered as in reference 1. Make the upper torso only modestly slimmer while retaining the exact pose and coat-tail direction. Smooth classic isometric RPG pre-rendered art. Exactly one uncropped figure on uniform pure #00ff00; no ground, shadow, objects, text, or scene.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_04_pose_v17.png",
+          "sha256": "63ef91d1a059dbf2759f9f534cdecf4d7b2085c7a27815d256fb1b546c3b0320"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-701f728d-53f1-47d4-8d87-408a329b55bf",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_05_chroma_v20.png",
+      "output_sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its right-side passing/contact pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and all chocolate trench-coat construction and colors from references 3 and 4. Important registration correction: center the crown, head, neck, and chest directly over the figure's established vertical axis, shifted slightly screen-right relative to reference 1; maintain stable broad shoulders and torso. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or changed gait phase.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_05_pose_v17.png",
+          "sha256": "6a92b7e3b5556492444d85f789fb81d77ab24a8813f66a136b5ae34a5470044b"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-b66c55a9-1d5a-4565-8423-4c974c9a160a",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_06_chroma_v20.png",
+      "output_sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Create one clean production sprite master of this same fictional adult detective in the exact west-southwest walk phase shown by reference 1. Preserve its raised passing-foot pose, camera, scale, and foot placement exactly. Preserve the face from reference 2 and all chocolate trench-coat construction and colors from references 3 and 4. Important registration correction: center the crown, head, neck, and chest directly over the figure's established vertical axis, shifted slightly screen-right relative to reference 1; preserve the reference's stable torso breadth and compact head. Smooth late-1990s isometric RPG pre-rendered craft, broad matte shading, warm upper-left light. Exactly one complete uncropped figure centered on perfectly uniform pure #00ff00. No floor, shadow, chair, prop, text, scenery, waistcoat, green tie, olive coat, dark hair, extra limbs, cropped feet, or changed gait phase.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_06_pose_v17.png",
+          "sha256": "c43cf94eebc2d9667f556c04f64f07d4ea2f9a296d385ed2bf47e4794735e977"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
+    },
+    {
+      "call_id": "exec-cb7e7a83-c304-4178-9b1a-e04926d0163f",
+      "output": "Proofs/SupersededScaleWalk/voss_walk_wsw_07_chroma_v20.png",
+      "output_sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7",
+      "phase": "phase_4_remaining_locomotion",
+      "prompt": "Preserve reference 1's composition one-for-one: same WSW three-quarter body angle, same head position over the torso, same raised screen-left knee and shoe, same planted screen-right leg and shoe, same stride, silhouette, camera, and framing. Refresh only the fictional detective's face from reference 2 and the consistent chocolate belted trench outfit from references 3 and 4. Keep every body part in reference 1's place. Smooth classic isometric RPG pre-rendered character art. Exactly one full uncropped figure on perfectly uniform pure #00ff00, with no ground, shadow, objects, writing, or scene.",
+      "references": [
+        {
+          "path": "PoseAuthorities/walk_wsw_07_pose_v17.png",
+          "sha256": "543d13effd23403a23fc7e49519e190d742d68fbcb4b2ceb36aa3eb9788c36fa"
+        },
+        {
+          "path": "References/dialogue_portrait_harlan_voss_v01.png",
+          "sha256": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+        },
+        {
+          "path": "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
+          "sha256": "c011ddc61d6ba92f331d21bf175c6ed6f0a129ffbbb732fe411fa6f45fc5b83c"
+        },
+        {
+          "path": "Keys/voss_key_wsw_chroma_v20.png",
+          "sha256": "bad7134e531a70dfae65b03b21fa77f05f6d80b6128815f186ea2c00b5281803"
+        }
+      ],
+      "status": "superseded",
+      "rejection_reason": "V20.1 idle/walk scale lock: idle and walk were different characters (head/shoulder disagreement ~31%). Replaced by key-first grok-image-edit."
     }
   ],
   "schema_version": 1,
-  "successful_calls_to_date": 280
+  "successful_calls_to_date": 288
 }

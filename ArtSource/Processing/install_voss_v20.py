@@ -15,6 +15,7 @@ from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime, timezone
 import json
+import math
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -103,6 +104,10 @@ COHERENT_AUTHORITY_PATHS = {
     "PoseAuthorities/walk_nnw_04_pose_v17.png",
     "PoseAuthorities/walk_nnw_05_pose_v17.png",
 }
+# Historical V20 calls are Codex image_gen. The V20.1 idle↔walk scale lock
+# records replacement walks as Grok image_edit; pose-authority lineage stays Codex.
+ALLOWED_MASTER_GENERATORS = {"codex-imagegen", "grok-image-edit"}
+
 _PROMPT_REQUIREMENTS: tuple[tuple[str, ...], ...] = (
     ("auburn",),
     ("sideburn",),
@@ -625,6 +630,7 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
         "transition_rise": [38, 50],
         "head_width": [19, 29],
         "head_width_drift_ratio_max": 1.30,
+        "idle_walk_head_shoulder_ratio_max": 0.06,
         "rear_shirt_fraction_max": 0.001,
         "pure_rear_skin_fraction_max": 0.03,
         "minimum_recognizable_facings": 12,
@@ -953,8 +959,12 @@ def validate_generation_provenance(
             errors.append(f"{output}: call_id is missing or reused")
         else:
             call_ids.add(call_id)
-        if call.get("generator", "codex-imagegen") != "codex-imagegen":
-            errors.append(f"{output}: call used a non-Codex generator")
+        generator = call.get("generator", "codex-imagegen")
+        if generator not in ALLOWED_MASTER_GENERATORS:
+            errors.append(
+                f"{output}: call used unsupported generator {generator!r}; "
+                f"expected one of {sorted(ALLOWED_MASTER_GENERATORS)}"
+            )
         if not _valid_digest(call.get("output_sha256")):
             errors.append(f"{output}: provenance output_sha256 is missing")
         definition = manifest["master_inventory"].get(output) or manifest["anchor_inventory"].get(output)
@@ -1212,10 +1222,14 @@ def validate_sources(manifest: dict[str, Any], *, include_all: bool = True) -> d
         hashes = [source_hashes[relative] for relative in relatives]
         if len(set(hashes)) != len(hashes):
             errors.append(f"{label}: duplicate generated masters")
-        # Raw generated head boxes vary with pose and hair silhouette. The
-        # manifest-owned processed raster gates below are the authoritative
-        # scale/motion checks; do not reject approved art twice using a looser
-        # source-space proxy.
+        # Per-frame source head boxes still vary with hair and pose, so they
+        # are not gated here. The idle↔walk scale-free ratio below is the
+        # identity metric: it is independent of framing and is what the
+        # processed 200px pin cannot repair.
+
+    anatomy = {}
+    if include_all:
+        anatomy = _validate_idle_walk_anatomy(keyed, manifest, errors)
 
     try:
         provenance = validate_generation_provenance(
@@ -1249,9 +1263,121 @@ def validate_sources(manifest: dict[str, Any], *, include_all: bool = True) -> d
         "source_canvases": [list(size) for size in sorted(canvases)],
         "source_hashes": {**source_hashes, **key_hashes, **reference_hashes, **ui_hashes},
         "portrait_hashes": portrait_hashes,
+        "idle_walk_anatomy": anatomy,
         "provenance": provenance,
         "approvals": approvals,
     }
+
+
+def _validate_idle_walk_anatomy(
+    keyed: dict[str, Image.Image], manifest: dict[str, Any], errors: list[str]
+) -> dict[str, Any]:
+    """Gate the scale-free idle↔walk head/shoulder ratio on keyed masters.
+
+    Processed 200px cells cannot express a few-percent correction, so this is
+    measured on the chroma sources. A direction whose idle and walk disagree
+    by more than the manifest limit is two characters, not one stride.
+    """
+    limit = float(manifest["gates"]["idle_walk_head_shoulder_ratio_max"])
+    report: dict[str, Any] = {"limit": limit, "directions": {}}
+    for direction in WESTERN_DIRECTIONS:
+        idle_paths = [f"Frames/voss_idle_{direction}_{phase:02d}_chroma_v20.png" for phase in range(4)]
+        walk_paths = [f"Frames/voss_walk_{direction}_{phase:02d}_chroma_v20.png" for phase in range(8)]
+        if not all(path in keyed for path in idle_paths + walk_paths):
+            continue
+        idle = core.clip_anatomy([keyed[path] for path in idle_paths])
+        walk = core.clip_anatomy([keyed[path] for path in walk_paths])
+        delta = core.idle_walk_ratio_disagreement(
+            idle["head"], idle["shoulder"], walk["head"], walk["shoulder"]
+        )
+        entry = {
+            "idle_head": round(idle["head"], 3),
+            "walk_head": round(walk["head"], 3),
+            "idle_shoulder": round(idle["shoulder"], 3),
+            "walk_shoulder": round(walk["shoulder"], 3),
+            "idle_ratio": round(idle["ratio"], 4),
+            "walk_ratio": round(walk["ratio"], 4),
+            "disagreement": None if math.isinf(delta) else round(delta, 4),
+        }
+        report["directions"][direction] = entry
+        if math.isinf(delta) or abs(delta) > limit:
+            shown = "inf" if math.isinf(delta) else f"{delta:+.1%}"
+            errors.append(
+                f"idle/walk {direction}: head/shoulder ratio disagrees {shown}, "
+                f"expected |delta| <= {limit:.0%}"
+            )
+    return report
+
+
+def measure_idle_walk_anatomy(direction: str | None = None) -> dict[str, Any]:
+    """Score keyed V20 idle vs walk masters. Used to accept or reject candidates."""
+    wanted = WESTERN_DIRECTIONS if direction is None else (direction,)
+    report: dict[str, Any] = {}
+    for name in wanted:
+        idle = [
+            core.key_chroma(core.load_source(V20_ROOT / f"Frames/voss_idle_{name}_{phase:02d}_chroma_v20.png"))
+            for phase in range(4)
+        ]
+        walk = [
+            core.key_chroma(core.load_source(V20_ROOT / f"Frames/voss_walk_{name}_{phase:02d}_chroma_v20.png"))
+            for phase in range(8)
+        ]
+        idle_anatomy = core.clip_anatomy(idle)
+        walk_anatomy = core.clip_anatomy(walk)
+        delta = core.idle_walk_ratio_disagreement(
+            idle_anatomy["head"],
+            idle_anatomy["shoulder"],
+            walk_anatomy["head"],
+            walk_anatomy["shoulder"],
+        )
+        report[name] = {
+            "idle": idle_anatomy,
+            "walk": walk_anatomy,
+            "disagreement": delta,
+        }
+    return report
+
+
+def score_walk_candidate(direction: str, candidate: Image.Image) -> dict[str, float]:
+    """Compare one keyed-or-chroma walk candidate to that direction's idle clip."""
+    idle = [
+        core.key_chroma(core.load_source(V20_ROOT / f"Frames/voss_idle_{direction}_{phase:02d}_chroma_v20.png"))
+        for phase in range(4)
+    ]
+    idle_anatomy = core.clip_anatomy(idle)
+    walk_anatomy = core.clip_anatomy([core.key_chroma(candidate.convert("RGB"))])
+    delta = core.idle_walk_ratio_disagreement(
+        idle_anatomy["head"],
+        idle_anatomy["shoulder"],
+        walk_anatomy["head"],
+        walk_anatomy["shoulder"],
+    )
+    return {
+        "idle_head": idle_anatomy["head"],
+        "idle_shoulder": idle_anatomy["shoulder"],
+        "walk_head": walk_anatomy["head"],
+        "walk_shoulder": walk_anatomy["shoulder"],
+        "disagreement": delta,
+    }
+
+
+def print_idle_walk_anatomy(direction: str | None = None) -> None:
+    report = measure_idle_walk_anatomy(direction)
+    print(f"{'dir':4} {'iH':>6} {'wH':>6} {'dH%':>7} {'iS':>6} {'wS':>6} {'dS%':>7} {'dHS%':>7}")
+    for name, entry in report.items():
+        idle, walk = entry["idle"], entry["walk"]
+        d_head = 100.0 * (walk["head"] - idle["head"]) / idle["head"] if idle["head"] else 0.0
+        d_shoulder = (
+            100.0 * (walk["shoulder"] - idle["shoulder"]) / idle["shoulder"]
+            if idle["shoulder"]
+            else 0.0
+        )
+        delta = entry["disagreement"]
+        shown = "inf" if math.isinf(delta) else f"{100.0 * delta:7.1f}"
+        print(
+            f"{name:4} {idle['head']:6.1f} {walk['head']:6.1f} {d_head:7.1f} "
+            f"{idle['shoulder']:6.1f} {walk['shoulder']:6.1f} {d_shoulder:7.1f} {shown}"
+        )
 
 
 def key_chroma(image: Image.Image) -> Image.Image:

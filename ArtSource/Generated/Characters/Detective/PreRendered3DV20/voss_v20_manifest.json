@@ -277,6 +277,7 @@
       29
     ],
     "head_width_drift_ratio_max": 1.3,
+    "idle_walk_head_shoulder_ratio_max": 0.06,
     "idle_centroid_drift_max": 2,
     "idle_neutral_iou_min": 0.86,
     "minimum_recognizable_facings": 12,
@@ -1095,6 +1096,38 @@
     "References/GenerationInputs/voss_anchor_profile_w_scaffold_v19.png": {
       "role": "accepted_profile_wardrobe_and_composition_scaffold_only",
       "sha256": "aa1358ca33fbded0c2bc526c35fa343fed2d99fe3a5e3e69b861d7975c604468"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_00_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_01_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_02_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_03_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_04_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_05_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_06_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc"
+    },
+    "Proofs/SupersededScaleWalk/voss_walk_wsw_07_chroma_v20.png": {
+      "role": "superseded_v20_wsw_walk_prior_to_scale_lock",
+      "sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7"
     }
   },
   "generation_provenance": "imagegen_provenance_v20.json",
@@ -3215,124 +3248,124 @@
       "sha256": "1739a6cb3987c94f942b35380eee93c29975ceb277221b351fb6ce04c6410a84"
     },
     "Frames/voss_walk_wsw_00_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_00_pose_v17.png",
         "sha256": "ad24f6c8f0e3d34eea02091af4d697ace8f298728989640312eebc25b7d894f4"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_00_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "a5c8f5abbb72e9304393193c687dffb699d66cc5dcad6d16ef6516db09084f77"
+      "sha256": "f1d8523d96861be3a96be2418e9b0f9310e934dadc57d6afd48b0f498642f460"
     },
     "Frames/voss_walk_wsw_01_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_01_pose_v17.png",
         "sha256": "2e831b2ad3d0942308f7d0e3e022f7f0f3d137f0e4b15f09de63f7dbcee0bfe3"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_01_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "8f6154cf7e075f31e41095deb0baafede86231b2bf4c0f92cecd75dec226c93a"
+      "sha256": "5fe93c38976dbb60a599aa09cf5c0ee7165fcf2e1c9c02024274234dbc801e81"
     },
     "Frames/voss_walk_wsw_02_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_02_pose_v17.png",
         "sha256": "a6d3d17ef6c83403e14f250ef5a9fa630e5b320a598ccd90a0076142ca3b3ecf"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_02_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "c8460afdd4588467fa43a5a848c792c6f212331469c7f4aebbfdca86848f2ef1"
+      "sha256": "f1a4a9a6439abbb3d37ee786a69ea5cafd5a1585361e36caf549cf2db1e6ebd8"
     },
     "Frames/voss_walk_wsw_03_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_03_pose_v17.png",
         "sha256": "e0708dd20fd6b724f2e478dcb2dab7df2244e194789d97a58d749e2f53ee44a9"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_03_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "6fe3428909c38fc62dfe6acb1493ae5505406e798872f2435693d6b6d93c7fdb"
+      "sha256": "eba68920e3f31817f0e60640ed57a026be9b68f5680dd186de69a2865ac90801"
     },
     "Frames/voss_walk_wsw_04_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_04_pose_v17.png",
         "sha256": "63ef91d1a059dbf2759f9f534cdecf4d7b2085c7a27815d256fb1b546c3b0320"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_04_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "dc5d3b9eb41c53db623d5fafec74c7ba507129fb06addc86f175a990b5d57f63"
+      "sha256": "c4dac814901e899fdffc3c39dab56c55228abe27a667b8b550d9c67b77215a66"
     },
     "Frames/voss_walk_wsw_05_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_05_pose_v17.png",
         "sha256": "6a92b7e3b5556492444d85f789fb81d77ab24a8813f66a136b5ae34a5470044b"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_05_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "53d2090cedbab1c8fb9ee8a9aa493c62b14db6379d46db9860d4c732f0b9051c"
+      "sha256": "362afbc6a7e98bd5828005b6a192c160a5ffe2a69b27517658b14d4ff6dabdec"
     },
     "Frames/voss_walk_wsw_06_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_06_pose_v17.png",
         "sha256": "c43cf94eebc2d9667f556c04f64f07d4ea2f9a296d385ed2bf47e4794735e977"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_06_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "8903909c31e664d26c584dbe64d580126fc50449dd79b796f444429cc8ead5dc"
+      "sha256": "10e7bf8a3082d7393089c08be131ef5cd43fd4eb707215e2bb6e39bb05eb1d1d"
     },
     "Frames/voss_walk_wsw_07_chroma_v20.png": {
-      "phase": "phase_4_remaining_locomotion",
+      "phase": "phase_8_idle_walk_scale_lock",
       "pose_authority": {
         "path": "PoseAuthorities/walk_wsw_07_pose_v17.png",
         "sha256": "543d13effd23403a23fc7e49519e190d742d68fbcb4b2ceb36aa3eb9788c36fa"
       },
-      "reference_route": "dimetric_sw_with_phase00_key",
+      "reference_route": "key_first_dimetric_sw_with_pose",
       "references": [
+        "Keys/voss_key_wsw_chroma_v20.png",
         "PoseAuthorities/walk_wsw_07_pose_v17.png",
-        "References/dialogue_portrait_harlan_voss_v01.png",
         "Anchors/voss_anchor_dimetric_sw_chroma_v20.png",
-        "Keys/voss_key_wsw_chroma_v20.png"
+        "References/dialogue_portrait_harlan_voss_v01.png"
       ],
-      "sha256": "46bf366a5787e3ccb4ef98915db24ca49e855b83a279176cc0841a5d24a1e8c7"
+      "sha256": "734f0d088ea3bf61c5593fb25593ea3d20ba30844eb150fd86c6abd08d81261f"
     }
   },
   "pose_authorities": {

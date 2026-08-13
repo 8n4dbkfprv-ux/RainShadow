@@ -348,14 +348,78 @@ def source_opaque_height(image: Image.Image) -> int:
 
 
 def source_head_width(image: Image.Image) -> int:
+    return anatomy_bands(image)[0]
+
+
+#: Shoulder band that reproduces the V20 clip-coherence audit's shipped
+#: widths (s 71→67, wsw 64→56, nnw 66→56 on the 200px cells). Head stays the
+#: top 10% of the figure; this band is the next ~19% below the crown.
+SHOULDER_BAND = (0.10, 0.29)
+
+
+def anatomy_bands(image: Image.Image) -> tuple[int, int]:
+    """Return (head width, shoulder width) on a keyed figure.
+
+    Scale-free head/shoulder ratio is the idle↔walk identity metric: a uniform
+    resize cannot reconcile a head and a shoulder that disagree by 30%, and at
+    56 native rows a few percent of correction cannot survive the raster.
+    """
     mask = visible_mask(image)
     ys, xs = np.where(mask)
     if not len(xs):
-        return 0
+        return 0, 0
     y0, y1 = int(ys.min()), int(ys.max())
-    band = max(1, round((y1 - y0 + 1) * 0.10))
-    columns = np.where(mask[y0 : y0 + band].any(axis=0))[0]
-    return int(columns.max() - columns.min() + 1) if len(columns) else 0
+    height = y1 - y0 + 1
+    head_band = max(1, height * 10 // 100)
+    head_xs = np.where(mask[y0 : y0 + head_band].any(axis=0))[0]
+    head = int(head_xs.max() - head_xs.min() + 1) if len(head_xs) else 0
+    shoulder_y0 = y0 + round(height * SHOULDER_BAND[0])
+    shoulder_y1 = y0 + round(height * SHOULDER_BAND[1])
+    if shoulder_y1 <= shoulder_y0:
+        return head, 0
+    shoulder_xs = np.where(mask[shoulder_y0:shoulder_y1].any(axis=0))[0]
+    shoulder = int(shoulder_xs.max() - shoulder_xs.min() + 1) if len(shoulder_xs) else 0
+    return head, shoulder
+
+
+def median_number(values: Sequence[float]) -> float:
+    items = sorted(float(value) for value in values)
+    if not items:
+        return 0.0
+    middle = len(items) // 2
+    if len(items) % 2:
+        return items[middle]
+    return 0.5 * (items[middle - 1] + items[middle])
+
+
+def head_shoulder_ratio(head: float, shoulder: float) -> float:
+    if shoulder <= 0:
+        return 0.0
+    return float(head) / float(shoulder)
+
+
+def idle_walk_ratio_disagreement(
+    idle_head: float, idle_shoulder: float, walk_head: float, walk_shoulder: float
+) -> float:
+    """(walk_ratio - idle_ratio) / idle_ratio. Same character is near 0."""
+    idle_ratio = head_shoulder_ratio(idle_head, idle_shoulder)
+    walk_ratio = head_shoulder_ratio(walk_head, walk_shoulder)
+    if idle_ratio <= 0:
+        return math.inf
+    return (walk_ratio - idle_ratio) / idle_ratio
+
+
+def clip_anatomy(frames: Sequence[Image.Image]) -> dict[str, float]:
+    bands = [anatomy_bands(frame) for frame in frames]
+    heads = [head for head, _ in bands]
+    shoulders = [shoulder for _, shoulder in bands]
+    head = median_number(heads)
+    shoulder = median_number(shoulders)
+    return {
+        "head": head,
+        "shoulder": shoulder,
+        "ratio": head_shoulder_ratio(head, shoulder),
+    }
 
 
 def _source_chroma_errors(path: Path) -> tuple[list[str], Image.Image | None]:
