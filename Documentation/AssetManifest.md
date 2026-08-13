@@ -353,8 +353,12 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Stable ID for the smooth V17 auburn-hair/sideburn portrait; staged replacement is not V14-crunched. |
-| P0 | `inventory_outer_frame_v06` | 1 | 1960×1080 | Modular border-only inventory frame with Classic Mac close seat on the TL title rail (no interior close well); straight rails, stepped corners; HUD/dialogue gunmetal match. |
-| P0 | `inventory_outer_frame_v05` | 1 | 1960×1080 | Prior border-only frame (superseded at runtime by v06). |
+| P0 | `inventory_outer_frame_v11` | 1 | 1960×1080 | **Active.** Cache-busted Platinum/noir frame with two true stripe interruptions: a compact seamless unstriped far-left end reserve for the separate live close sprite, and a flat unoutlined center gap for the live title. No button, seat, plaque, box, or bevel is baked into either gap. |
+| P0 | `inventory_outer_frame_v09` | 1 | 1960×1080 | Prior frame-only separation pass; superseded by V11's corrected center text gap and explicitly visible end gutter. |
+| P0 | `inventory_outer_frame_v08` | 1 | 1960×1080 | Prior Platinum/noir frame; superseded because its baked close seat visually doubled the live close sprite. |
+| P0 | `inventory_outer_frame_v07` | 1 | 1960×1080 | Prior slim mitred border-only frame. |
+| P0 | `inventory_outer_frame_v06` | 1 | 1960×1080 | Prior modular border-only frame with a Classic Mac close seat on the TL rail. |
+| P0 | `inventory_outer_frame_v05` | 1 | 1960×1080 | Earlier border-only modular frame. |
 | P0 | `inventory_section_{loadout,paperdoll,stats,mid,bag,nearby}_v05` | 6 | varies | Separate section backplates composed by code (BG hierarchy; no baked labels). |
 | P0 | `inventory_slot_frame_v05` | 1 | 256×256 | Reusable recessed squircle slot frame scaled to code-defined bounds. |
 | P0 | `inventory_selection_frame_v05` | 1 | 256×256 | Painted selection highlight rim (replaces coded SKShapeNode rings). |
@@ -368,6 +372,8 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
 | P0 | `ui_close_box_macos9_noir_v04` | 1 | 128×128 | Classic Mac OS 9 / Platinum close-box shape in RainShadow cool gunmetal; seats on inventory frame rail. |
+| P0 | `inventory_close_box_macos9_noir_v10` | 1 | 128×128 | **Active for Inventory only.** Cache-busted single-bevel, no-X Platinum/noir live control, displayed at 64×64 over V11's empty end reserve; shared map/journal V04 control is unchanged. |
+| P0 | `inventory_close_box_macos9_noir_v09` | 1 | 128×128 | Prior Inventory-specific close pass. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Prior shared overlay close control (fallback). |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
 | P0 | `map_detective_office_v03` | 1 | 1847×1040 | Layout-locked cramped-suite area map (shipping plate + modular props); code owns labels and position ring. |

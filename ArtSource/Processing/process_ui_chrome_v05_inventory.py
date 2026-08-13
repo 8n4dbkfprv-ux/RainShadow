@@ -37,6 +37,18 @@ STAT_BADGES = [
 
 # Prefer cooler HUD-matched remasters (b/c) over first warm passes.
 SOURCE_MAP = {
+    "outer_v11": [
+        "inventory_outer_frame_v11_gen.png",
+    ],
+    "outer_v10": [
+        "inventory_outer_frame_v10_gen.png",
+    ],
+    "outer_v09": [
+        "inventory_outer_frame_v09_gen.png",
+    ],
+    "outer_v08": [
+        "inventory_outer_frame_v08_gen.png",
+    ],
     "outer_v07": [
         "inventory_outer_frame_v07_gen.png",
     ],
@@ -51,6 +63,12 @@ SOURCE_MAP = {
     ],
     "close_macos9": [
         "ui_close_box_macos9_noir_v04_gen.png",
+    ],
+    "close_inventory_macos9_v09": [
+        "inventory_close_box_macos9_noir_v09_gen.png",
+    ],
+    "close_inventory_macos9_v10": [
+        "inventory_close_box_macos9_noir_v10_gen.png",
     ],
     "loadout": [
         "inventory_section_loadout_v05e_gen.png",
@@ -304,12 +322,20 @@ def process_keyed(
     horizontal_seam: tuple[float, float] | None = None,
     horizontal_seams: tuple[tuple[float, float, float], ...] | None = None,
     clear_regions: tuple[tuple[int, int, int, int], ...] = (),
+    exact_resize: bool = False,
 ) -> None:
     master = copy_gen(SOURCE_MAP[key], GEN / f"{runtime_name}_gen.png")
-    keyed = scrub_green_spill(force_grayscale(chroma_key(Image.open(master), tol=tol, soft=20.0)))
+    source = Image.open(master)
+    if exact_resize:
+        # Resize the opaque chroma master first. Resizing straight-alpha art
+        # after keying pulls hidden green RGB back into the antialiased rim.
+        source = source.resize(canvas, Image.Resampling.LANCZOS)
+    keyed = scrub_green_spill(force_grayscale(chroma_key(source, tol=tol, soft=20.0)))
     if punch_interior:
         keyed = punch_dark_wells(keyed, luma_max=punch_luma)
-    if horizontal_seams is not None:
+    if exact_resize:
+        out = keyed
+    elif horizontal_seams is not None:
         out = expand_horizontal_seams(keyed, canvas, horizontal_seams)
     elif horizontal_seam is None:
         out = fit_canvas(trim_alpha(keyed), canvas)
@@ -371,6 +397,42 @@ def process_close_macos9() -> None:
     print(f"wrote {runtime} ({out.size[0]}x{out.size[1]}) from {master.name}")
 
 
+def process_inventory_close_macos9_v09() -> None:
+    master = copy_gen(
+        SOURCE_MAP["close_inventory_macos9_v09"],
+        GEN_COMMON / "inventory_close_box_macos9_noir_v09_gen.png",
+    )
+    keyed = scrub_green_spill(
+        force_grayscale(chroma_key(Image.open(master), tol=48.0, soft=16.0))
+    )
+    # Leave transparent breathing room in the runtime texture so the complete
+    # outer bevel is never clipped by SpriteKit's quad at small display sizes.
+    fitted = fit_canvas(trim_alpha(keyed, threshold=28, pad=3), (116, 116))
+    out = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+    out.alpha_composite(fitted, (6, 6))
+    write_png(out, GEN_COMMON / "inventory_close_box_macos9_noir_v09_keyed.png")
+    runtime = RUNTIME_COMMON / "inventory_close_box_macos9_noir_v09.png"
+    write_png(out, runtime)
+    print(f"wrote {runtime} ({out.size[0]}x{out.size[1]}) from {master.name}")
+
+
+def process_inventory_close_macos9_v10() -> None:
+    master = copy_gen(
+        SOURCE_MAP["close_inventory_macos9_v10"],
+        GEN_COMMON / "inventory_close_box_macos9_noir_v10_gen.png",
+    )
+    keyed = scrub_green_spill(
+        force_grayscale(chroma_key(Image.open(master), tol=48.0, soft=16.0))
+    )
+    fitted = fit_canvas(trim_alpha(keyed, threshold=28, pad=3), (116, 116))
+    out = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+    out.alpha_composite(fitted, (6, 6))
+    write_png(out, GEN_COMMON / "inventory_close_box_macos9_noir_v10_keyed.png")
+    runtime = RUNTIME_COMMON / "inventory_close_box_macos9_noir_v10.png"
+    write_png(out, runtime)
+    print(f"wrote {runtime} ({out.size[0]}x{out.size[1]}) from {master.name}")
+
+
 def process_outer_v06() -> None:
     # Chroma clears the live well; keep the painted TL rail seat recess opaque.
     process_keyed(
@@ -394,16 +456,77 @@ def process_outer_v07() -> None:
     )
 
 
+def process_outer_v08() -> None:
+    # The generated master already matches the 1960:1080 runtime aspect. An
+    # exact resize preserves the centered title reserve and both groove banks;
+    # seam expansion would pull those authored Mac-style features apart.
+    process_keyed(
+        "outer_v08",
+        "inventory_outer_frame_v08",
+        (1960, 1080),
+        punch_interior=False,
+        exact_resize=True,
+    )
+
+
+def process_outer_v09() -> None:
+    # V09 keeps the V08 Platinum geometry but replaces the baked close control
+    # with a quiet groove-free reserve for the separate live button sprite.
+    process_keyed(
+        "outer_v09",
+        "inventory_outer_frame_v09",
+        (1960, 1080),
+        punch_interior=False,
+        exact_resize=True,
+    )
+
+
+def process_outer_v10() -> None:
+    # V10 also removes the bordered center plaque: the live title now sits in
+    # a plain interruption of the stripes, with no box or bevel around it.
+    process_keyed(
+        "outer_v10",
+        "inventory_outer_frame_v10",
+        (1960, 1080),
+        punch_interior=False,
+        exact_resize=True,
+    )
+
+
+def process_outer_v11() -> None:
+    # V11 locks both title-bar gaps: a compact, seamless unstriped end reserve
+    # for the separate live close sprite and an unoutlined center text gap.
+    process_keyed(
+        "outer_v11",
+        "inventory_outer_frame_v11",
+        (1960, 1080),
+        punch_interior=False,
+        exact_resize=True,
+    )
+
+
 def main() -> None:
     targets = sys.argv[1:] or ["all"]
     run_all = "all" in targets
 
+    if run_all or "outer_v11" in targets:
+        process_outer_v11()
+    if run_all or "outer_v10" in targets:
+        process_outer_v10()
+    if run_all or "outer_v09" in targets:
+        process_outer_v09()
+    if run_all or "outer_v08" in targets:
+        process_outer_v08()
     if run_all or "outer_v07" in targets:
         process_outer_v07()
     if run_all or "outer_v06" in targets:
         process_outer_v06()
     if run_all or "close_macos9" in targets:
         process_close_macos9()
+    if run_all or "close_inventory_macos9_v09" in targets:
+        process_inventory_close_macos9_v09()
+    if run_all or "close_inventory_macos9_v10" in targets:
+        process_inventory_close_macos9_v10()
     if run_all or "outer" in targets:
         process_keyed(
             "outer",

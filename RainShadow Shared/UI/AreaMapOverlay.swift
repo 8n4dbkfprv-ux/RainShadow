@@ -16,7 +16,9 @@ final class ClassicMacCloseButtonNode: SKNode {
         fill: SKColor,
         stroke: SKColor,
         highlight: SKColor,
-        accent: SKColor
+        accent: SKColor,
+        artworkName: String = "ui_close_box_macos9_noir_v04",
+        artworkSize: CGSize = CGSize(width: 44, height: 44)
     ) {
         _ = (fill, stroke, highlight, accent)
         super.init()
@@ -29,17 +31,20 @@ final class ClassicMacCloseButtonNode: SKNode {
         hitArea.strokeColor = .clear
         addChild(hitArea)
 
-        if let texture = GameArt.texture(named: "ui_close_box_macos9_noir_v04")
-            ?? GameArt.texture(named: "ui_close_box_noir_v03")
-            ?? GameArt.texture(named: "ui_close_box_noir_v02") {
+        let texture = GameArt.texture(named: artworkName)
+            ?? (artworkName == "ui_close_box_macos9_noir_v04"
+                ? GameArt.texture(named: "ui_close_box_noir_v03")
+                    ?? GameArt.texture(named: "ui_close_box_noir_v02")
+                : nil)
+        if let texture {
             texture.filteringMode = .linear
-            let artwork = SKSpriteNode(texture: texture, size: CGSize(width: 44, height: 44))
+            let artwork = SKSpriteNode(texture: texture, size: artworkSize)
             artwork.zPosition = 1
             addChild(artwork)
             return
         }
 
-        assertionFailure("Missing ui_close_box_macos9_noir_v04.png")
+        assertionFailure("Missing \(artworkName).png")
     }
 
     required init?(coder aDecoder: NSCoder) {
