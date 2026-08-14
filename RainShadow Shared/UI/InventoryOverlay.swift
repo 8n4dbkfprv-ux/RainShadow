@@ -31,11 +31,12 @@ final class InventoryOverlay: SKNode {
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
 
-        static let titleY: CGFloat = 478
-        /// Sits in the clear strip between V11's deeper title bar and the panels.
+        static let titleY: CGFloat = 520
+        /// Sits in the content well just below V16's 39px Platinum title bar.
         static let identityBand = CGPoint(x: 0, y: 390)
-        /// Center of V11's quiet far-left reserve for the separate close control.
-        static let closeButton = CGPoint(x: -899, y: 469)
+        /// Center of the OS 9 close box stamped into V16's left stripe field.
+        static let closeButton = CGPoint(x: -957, y: 520)
+        static let closeArtworkSize = CGSize(width: 20, height: 20)
 
         /// One shared content rectangle inside the outer frame's inner rails.
         /// Keeping every opaque plate on these edges prevents uneven gutters
@@ -306,13 +307,14 @@ final class InventoryOverlay: SKNode {
         veil.zPosition = -20
         addChild(veil)
 
-        addChromeSprite(named: "inventory_outer_frame_v11", size: Metrics.canvas, z: -8, parent: sheet)
+        addChromeSprite(named: "inventory_outer_frame_v16", size: Metrics.canvas, z: -8, parent: sheet)
 
         sheet.addChild(content)
         content.zPosition = 0
 
         let title = Self.label(size: 36, color: Palette.paper, weight: .display)
         title.text = "INVENTORY"
+        title.verticalAlignmentMode = .center
         title.position = CGPoint(x: 0, y: Metrics.titleY)
         title.zPosition = 20
         content.addChild(title)
@@ -354,8 +356,8 @@ final class InventoryOverlay: SKNode {
             stroke: .clear,
             highlight: .clear,
             accent: .clear,
-            artworkName: "inventory_close_box_macos9_noir_v10",
-            artworkSize: CGSize(width: 64, height: 64)
+            artworkName: "inventory_close_box_macos9_noir_v15",
+            artworkSize: Metrics.closeArtworkSize
         )
         button.position = Metrics.closeButton
         button.zPosition = 30

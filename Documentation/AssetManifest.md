@@ -353,7 +353,12 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
 | P0 | `dialogue_portrait_lila_march_v02` | 1 | 512×512 | Identity-locked hand-painted Lila March portrait for the dialogue crop (v02 clears a forehead generation speck). |
 | P0 | `dialogue_portrait_harlan_voss_v01` | 1 | 512×512 | Stable ID for the smooth V17 auburn-hair/sideburn portrait; staged replacement is not V14-crunched. |
-| P0 | `inventory_outer_frame_v11` | 1 | 1960×1080 | **Active.** Cache-busted Platinum/noir frame with two true stripe interruptions: a compact seamless unstriped far-left end reserve for the separate live close sprite, and a flat unoutlined center gap for the live title. No button, seat, plaque, box, or bevel is baked into either gap. |
+| P0 | `inventory_outer_frame_v16` | 1 | 1960×1080 | **Active.** Literal Mac OS 9 Platinum window grammar in RainShadow noir: 39px title strip (~3.6% of 1080), six hairlines, snug rectangular unstriped title gap (slightly lighter field, no pill/plaque), nested-square close + Zoom/WindowShade stamped into the stripe field, slim single-bevel rails, sunken content well. Live INVENTORY label composites into the gap. |
+| P0 | `inventory_outer_frame_v15` | 1 | 1960×1080 | Prior generator Platinum strip; superseded by V16's nested-square close stamp from the Platinum photographs. |
+| P0 | `inventory_outer_frame_v14` | 1 | 1960×1080 | Prior Python-locked Platinum pass; superseded by V15's generator strip plus rectangular gap lock. |
+| P0 | `inventory_outer_frame_v13` | 1 | 1960×1080 | Prior literal-Platinum pass; superseded because the title bar stayed ~101px and the title gap was a bordered pill. |
+| P0 | `inventory_outer_frame_v12` | 1 | 1960×1080 | Prior OS 9-inspired pass; superseded because it used a deep title well, fat ridges, a left parking plate, and no Zoom/WindowShade. |
+| P0 | `inventory_outer_frame_v11` | 1 | 1960×1080 | Prior cache-busted Platinum/noir frame; superseded by V12's closer Mac OS 9 outline/pinstripe geometry. |
 | P0 | `inventory_outer_frame_v09` | 1 | 1960×1080 | Prior frame-only separation pass; superseded by V11's corrected center text gap and explicitly visible end gutter. |
 | P0 | `inventory_outer_frame_v08` | 1 | 1960×1080 | Prior Platinum/noir frame; superseded because its baked close seat visually doubled the live close sprite. |
 | P0 | `inventory_outer_frame_v07` | 1 | 1960×1080 | Prior slim mitred border-only frame. |
@@ -372,7 +377,12 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `journal_casebook_plate_v03` | 1 | 1400×1600 | Open black-leather ledger with newsprint pages and tab/chapter wells; no baked copy. |
 | P0 | `journal_row_marker_v03` | 1 | 64×64 | Small raven/bullet mark for journal list rows. |
 | P0 | `ui_close_box_macos9_noir_v04` | 1 | 128×128 | Classic Mac OS 9 / Platinum close-box shape in RainShadow cool gunmetal; seats on inventory frame rail. |
-| P0 | `inventory_close_box_macos9_noir_v10` | 1 | 128×128 | **Active for Inventory only.** Cache-busted single-bevel, no-X Platinum/noir live control, displayed at 64×64 over V11's empty end reserve; shared map/journal V04 control is unchanged. |
+| P0 | `inventory_close_box_macos9_noir_v15` | 1 | 128×128 | **Active for Inventory only.** OS 9 nested-square close box (outer outline, inset bevel, flat charcoal face, no X) generated against the Platinum photographs and stamped into V16's left stripe field with Platinum padding; displayed at 20×20. Shared map/journal V04 control is unchanged. |
+| P0 | `inventory_close_box_macos9_noir_v14` | 1 | 128×128 | Prior Inventory close cropped from V15's stamped-in title-bar widget. |
+| P0 | `inventory_close_box_macos9_noir_v13` | 1 | 128×128 | Prior Inventory close cropped from V14's 38×38 title-bar widget. |
+| P0 | `inventory_close_box_macos9_noir_v12` | 1 | 128×128 | Prior Inventory close cropped from V13's ~60×60 title-bar widget. |
+| P0 | `inventory_close_box_macos9_noir_v11` | 1 | 128×128 | Prior Inventory-specific square-within-square close; displayed at 64×64 over V12's empty end reserve. |
+| P0 | `inventory_close_box_macos9_noir_v10` | 1 | 128×128 | Prior Inventory-specific single-bevel close pass. |
 | P0 | `inventory_close_box_macos9_noir_v09` | 1 | 128×128 | Prior Inventory-specific close pass. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Prior shared overlay close control (fallback). |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
