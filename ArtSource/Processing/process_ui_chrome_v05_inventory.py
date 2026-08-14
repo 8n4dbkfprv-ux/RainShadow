@@ -34,6 +34,22 @@ SLOT_SILHOUETTES = [
     "inventory_slot_silhouette_bag_v05",
 ]
 
+# V06 4×3 sheet: BG:EE empty-slot roles + noir holster/revolver split.
+SLOT_SILHOUETTES_V06 = [
+    "inventory_slot_silhouette_hat_v06",
+    "inventory_slot_silhouette_coat_v06",
+    "inventory_slot_silhouette_hands_v06",
+    "inventory_slot_silhouette_charm_v06",
+    "inventory_slot_silhouette_cloak_v06",
+    "inventory_slot_silhouette_belt_v06",
+    "inventory_slot_silhouette_feet_v06",
+    "inventory_slot_silhouette_ring_v06",
+    "inventory_slot_silhouette_holster_v06",
+    "inventory_slot_silhouette_weapon_v06",
+    "inventory_slot_silhouette_item_v06",
+    "inventory_slot_silhouette_bag_v06",
+]
+
 STAT_BADGES = [
     "inventory_stat_badge_defence_v05",
     "inventory_stat_badge_vitality_v05",
@@ -136,6 +152,10 @@ SOURCE_MAP = {
     "slot": ["inventory_slot_frame_v05b_gen.png", "inventory_slot_frame_v05_gen.png"],
     "selection": ["inventory_selection_frame_v05b_gen.png", "inventory_selection_frame_v05_gen.png"],
     "silhouettes": ["inventory_slot_silhouettes_sheet_v05b_gen.png"],
+    "silhouettes_v06": [
+        "inventory_slot_silhouettes_sheet_v06_gen.png",
+        "inventory_slot_silhouettes_sheet_v06a_gen.png",
+    ],
     "badges": ["inventory_stat_badges_sheet_v05b_gen.png"],
     "arrows": ["inventory_page_arrow_sheet_v05b_gen.png"],
     "case_bag": ["inventory_case_bag_v05b_gen.png"],
@@ -436,6 +456,48 @@ def process_silhouettes() -> None:
     assert len(cells) == len(SLOT_SILHOUETTES)
     for cell, name in zip(cells, SLOT_SILHOUETTES, strict=True):
         out = fit_canvas(trim_alpha(cell), (256, 256))
+        path = RUNTIME / f"{name}.png"
+        write_png(out, path)
+        print(f"wrote {path}")
+
+
+def lighten_dark_strokes(im: Image.Image, target_luma: float = 186.0) -> Image.Image:
+    """Map near-black generator strokes to the light-gray v05 empty-slot language.
+
+    Dark wells hide black line art; shipped v05 silhouettes sit around luma 180.
+    """
+    arr = np.array(im.convert("RGBA"), dtype=np.float32)
+    alpha = arr[..., 3]
+    mask = alpha > 28.0
+    if not np.any(mask):
+        return im
+    rgb = arr[..., :3]
+    luma = 0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]
+    # Invert dark strokes toward the target light gray while keeping soft AA.
+    lifted = np.clip(target_luma + (target_luma - luma) * 0.15, 120.0, 245.0)
+    for c in range(3):
+        channel = rgb[..., c]
+        channel[mask] = lifted[mask]
+        rgb[..., c] = channel
+    arr[..., :3] = rgb
+    return Image.fromarray(arr.astype(np.uint8), "RGBA")
+
+
+def process_silhouettes_v06() -> None:
+    master = copy_gen(
+        SOURCE_MAP["silhouettes_v06"],
+        GEN / "inventory_slot_silhouettes_sheet_v06_gen.png",
+    )
+    sheet = force_grayscale(chroma_key(Image.open(master), tol=56.0, soft=18.0))
+    # Generator sometimes leaves a green gutter strip; trim to opaque content first.
+    sheet = trim_alpha(sheet, threshold=20, pad=0)
+    cells = slice_grid(sheet, 4, 3, inset=0.06)
+    assert len(cells) == len(SLOT_SILHOUETTES_V06)
+    for cell, name in zip(cells, SLOT_SILHOUETTES_V06, strict=True):
+        keyed = lighten_dark_strokes(trim_alpha(cell, threshold=24, pad=2))
+        out = fit_canvas(keyed, (256, 256))
+        gen_path = GEN / f"{name}.png"
+        write_png(out, gen_path)
         path = RUNTIME / f"{name}.png"
         write_png(out, path)
         print(f"wrote {path}")
@@ -1216,6 +1278,8 @@ def main() -> None:
         process_keyed("selection", "inventory_selection_frame_v05", (256, 256), punch_interior=True, punch_luma=70.0)
     if run_all or "silhouettes" in targets:
         process_silhouettes()
+    if run_all or "silhouettes_v06" in targets:
+        process_silhouettes_v06()
     if run_all or "badges" in targets:
         process_badges()
     if run_all or "arrows" in targets:

@@ -24,9 +24,10 @@ struct InventoryItem: Identifiable, Equatable {
 }
 
 /// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
+/// Paperdoll equipped slots follow BG:EE Enhanced ui.menu geometry (V06 silhouettes; noir holster/revolver).
 @MainActor
 final class InventoryOverlay: SKNode {
-    /// Layout contract for the 1960×1080 canvas — BG EE Classic hierarchy.
+    /// Layout contract for the 1960×1080 canvas — BG EE hierarchy with EE Enhanced equipped geometry.
     /// Loadout rows share one left edge; bag + nearby share one lower band.
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
@@ -60,8 +61,25 @@ final class InventoryOverlay: SKNode {
             x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
             y: primaryY
         )
-        static let chamberOffset = CGPoint(x: 0, y: 10)
+        /// Slightly below center so the EE top row clears the fedora/crown.
+        static let chamberOffset = CGPoint(x: 0, y: -8)
         static let equipSlotSize = CGSize(width: 72, height: 68)
+
+        /// BG:EE Enhanced ui.menu equipped-slot geometry, scaled into the paperdoll panel
+        /// (52px STONSLOT → ~72px; helmet on the head centerline).
+        /// Top row order is armor · gauntlets · helmet · amulet (helmet = paperdoll x=0).
+        static let equipTopY: CGFloat = 190
+        static let equipTopPitch: CGFloat = 78
+        static let equipArmor = CGPoint(x: -2 * equipTopPitch, y: equipTopY)
+        static let equipGauntlets = CGPoint(x: -1 * equipTopPitch, y: equipTopY)
+        static let equipHelmet = CGPoint(x: 0, y: equipTopY)
+        static let equipAmulet = CGPoint(x: 1 * equipTopPitch, y: equipTopY)
+        static let equipCloak = CGPoint(x: -177, y: 68)
+        static let equipHolster = CGPoint(x: 159, y: -21)
+        static let equipRingLeft = CGPoint(x: -177, y: -101)
+        static let equipRingRight = CGPoint(x: 159, y: -101)
+        static let equipBelt = CGPoint(x: -11, y: -126)
+        static let equipBoots = CGPoint(x: -11, y: -182)
 
         static let statsSize = CGSize(width: 650, height: 560)
         static let statsOrigin = CGPoint(x: contentRight - statsSize.width / 2, y: primaryY)
@@ -379,7 +397,7 @@ final class InventoryOverlay: SKNode {
         addSlotSection(
             "READY WEAPONS",
             items: [item(id: "service-revolver"), nil, nil, nil],
-            emptySilhouette: "inventory_slot_silhouette_weapon_v05",
+            emptySilhouette: "inventory_slot_silhouette_weapon_v06",
             to: root,
             headerY: 200,
             slotY: 144
@@ -387,7 +405,7 @@ final class InventoryOverlay: SKNode {
         addSlotSection(
             "QUICK ITEMS",
             items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")],
-            emptySilhouette: "inventory_slot_silhouette_item_v05",
+            emptySilhouette: "inventory_slot_silhouette_item_v06",
             to: root,
             headerY: 55,
             slotY: -5
@@ -395,7 +413,7 @@ final class InventoryOverlay: SKNode {
         addSlotSection(
             "COAT POCKETS",
             items: [item(id: "brass-key"), nil, item(id: "wallet")],
-            emptySilhouette: "inventory_slot_silhouette_item_v05",
+            emptySilhouette: "inventory_slot_silhouette_item_v06",
             to: root,
             headerY: -110,
             slotY: -180
@@ -427,20 +445,25 @@ final class InventoryOverlay: SKNode {
             assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
+        // BG:EE Enhanced equipped geometry: armor/gauntlets/helmet/amulet top row,
+        // cloak left shoulder, noir holster as off-hand, rings, belt, boots.
+        // No captions — BG:EE empty slots have none.
         let equipment: [(String, String, CGPoint)] = [
-            ("inventory_slot_silhouette_hat_v05", "FEDORA", CGPoint(x: -200, y: 220)),
-            ("inventory_slot_silhouette_hands_v05", "GLOVES", CGPoint(x: -100, y: 220)),
-            ("inventory_slot_silhouette_coat_v05", "COAT", CGPoint(x: 0, y: 220)),
-            ("inventory_slot_silhouette_weapon_v05", "HOLSTER", CGPoint(x: 100, y: 220)),
-            ("inventory_slot_silhouette_item_v05", "CHARM", CGPoint(x: 200, y: 220)),
-            ("inventory_slot_silhouette_hands_v05", "HANDS", CGPoint(x: -248, y: 20)),
-            ("inventory_slot_silhouette_ring_v05", "LUCK", CGPoint(x: 248, y: 20)),
-            ("inventory_slot_silhouette_feet_v05", "SHOES", CGPoint(x: -100, y: -180)),
-            ("inventory_slot_silhouette_coat_v05", "STANCE", CGPoint(x: 0, y: -180)),
-            ("inventory_slot_silhouette_weapon_v05", "WEAPON", CGPoint(x: 100, y: -180))
+            ("inventory_slot_silhouette_coat_v06", "inventory.equip.coat", Metrics.equipArmor),
+            ("inventory_slot_silhouette_hands_v06", "inventory.equip.gloves", Metrics.equipGauntlets),
+            ("inventory_slot_silhouette_hat_v06", "inventory.equip.fedora", Metrics.equipHelmet),
+            ("inventory_slot_silhouette_charm_v06", "inventory.equip.charm", Metrics.equipAmulet),
+            ("inventory_slot_silhouette_cloak_v06", "inventory.equip.cloak", Metrics.equipCloak),
+            ("inventory_slot_silhouette_holster_v06", "inventory.equip.holster", Metrics.equipHolster),
+            ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringLeft", Metrics.equipRingLeft),
+            ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringRight", Metrics.equipRingRight),
+            ("inventory_slot_silhouette_belt_v06", "inventory.equip.belt", Metrics.equipBelt),
+            ("inventory_slot_silhouette_feet_v06", "inventory.equip.shoes", Metrics.equipBoots)
         ]
         for equipmentItem in equipment {
-            root.addChild(equipmentSlot(artName: equipmentItem.0, caption: equipmentItem.1, at: equipmentItem.2))
+            root.addChild(
+                equipmentSlot(artName: equipmentItem.0, name: equipmentItem.1, at: equipmentItem.2)
+            )
         }
 
         content.addChild(root)
@@ -563,7 +586,7 @@ final class InventoryOverlay: SKNode {
                 bag.addChild(emptySlot(
                     size: Metrics.bagSlotSize,
                     at: position,
-                    silhouette: "inventory_slot_silhouette_bag_v05",
+                    silhouette: "inventory_slot_silhouette_bag_v06",
                     silhouetteAlpha: 0.16
                 ))
             }
@@ -649,8 +672,9 @@ final class InventoryOverlay: SKNode {
         return slot
     }
 
-    private func equipmentSlot(artName: String, caption: String, at position: CGPoint) -> SKNode {
+    private func equipmentSlot(artName: String, name: String, at position: CGPoint) -> SKNode {
         let root = SKNode()
+        root.name = name
         root.position = position
         root.zPosition = 2
         let slot = slotBase(size: Metrics.equipSlotSize)
@@ -660,11 +684,6 @@ final class InventoryOverlay: SKNode {
             slot.addChild(icon)
         }
         root.addChild(slot)
-
-        let label = Self.label(size: 10, color: Palette.quiet, weight: .demibold)
-        label.text = caption
-        label.position.y = -42
-        root.addChild(label)
         return root
     }
 
@@ -863,7 +882,7 @@ final class InventoryOverlay: SKNode {
                 nearbySlotsRoot.addChild(emptySlot(
                     size: Metrics.nearbySlotSize,
                     at: position,
-                    silhouette: "inventory_slot_silhouette_bag_v05",
+                    silhouette: "inventory_slot_silhouette_bag_v06",
                     silhouetteAlpha: 0.16
                 ))
             }

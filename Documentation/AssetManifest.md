@@ -367,7 +367,8 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `inventory_section_{loadout,paperdoll,stats,mid,bag,nearby}_v05` | 6 | varies | Separate section backplates composed by code (BG hierarchy; no baked labels). |
 | P0 | `inventory_slot_frame_v05` | 1 | 256×256 | Reusable recessed squircle slot frame scaled to code-defined bounds. |
 | P0 | `inventory_selection_frame_v05` | 1 | 256×256 | Painted selection highlight rim (replaces coded SKShapeNode rings). |
-| P0 | `inventory_slot_silhouette_*_v05` | 8 | 256×256 | Empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
+| P0 | `inventory_slot_silhouette_*_v05` | 8 | 256×256 | Prior empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
+| P0 | `inventory_slot_silhouette_*_v06` | 12 | 256×256 | **Active.** BG:EE Enhanced empty-slot roles in noir line art: hat, coat, hands, charm, cloak, belt, feet, ring, holster, weapon (revolver), item, bag. |
 | P0 | `inventory_stat_badge_*_v05` | 4 | 256×256 | Badge frames with open centers: defence / vitality / resolve / damage. |
 | P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | Painted nearby-page chevrons. |
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
