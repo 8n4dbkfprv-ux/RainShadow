@@ -10,13 +10,3 @@ output/
 tmp/
 __pycache__/
 * [0-9].png
-
-# Bulk pre-rendered character source and proof dumps. These are inputs to the
-# installers under ArtSource/Processing, not shipped assets — the atlases they
-# produce live under RainShadow Shared/Resources/Art. Keeping ~500MB of raw
-# renders out of history; regenerate or restore from the render pipeline.
-ArtSource/Generated/Characters/Detective/PreRendered3DV21/
-ArtSource/Generated/Characters/Detective/PreRendered3DV20/Proofs/V20_1_Candidates/
-ArtSource/Generated/Characters/Detective/PreRendered3DV20/Proofs/V20_1_Holding/
-ArtSource/Generated/Characters/Detective/PreRendered3DV20/Proofs/RejectedScaleWalk/
-ArtSource/Generated/Characters/RuntimeBackupPreRendered3DV21Prior/

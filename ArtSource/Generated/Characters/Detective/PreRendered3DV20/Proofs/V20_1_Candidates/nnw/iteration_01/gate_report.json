@@ -1,0 +1,414 @@
+{
+  "asset_version": "v20",
+  "candidate_directory": "/Users/laurensvanoorschot/RainShadow/ArtSource/Generated/Characters/Detective/PreRendered3DV20/Proofs/V20_1_Candidates/nnw/iteration_01",
+  "direction": "nnw",
+  "errors": [],
+  "gates": {
+    "anatomy": {
+      "head_change": -0.1872,
+      "head_shoulder_ratio_disagreement": -0.0212,
+      "idle": {
+        "head": 101.5,
+        "ratio": 0.3217,
+        "shoulder": 315.5
+      },
+      "maximum_absolute_disagreement": 0.06,
+      "passed": true,
+      "shoulder_change": -0.1696,
+      "walk": {
+        "head": 82.5,
+        "ratio": 0.3149,
+        "shoulder": 262.0
+      }
+    },
+    "candidate_count": {
+      "expected": 8,
+      "found": 8,
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    "centroid_drift": {
+      "maximum": 2.0,
+      "passed": true,
+      "per_frame_x": [
+        256.149,
+        256.215,
+        256.105,
+        255.92,
+        256.115,
+        256.228,
+        255.708,
+        256.009
+      ],
+      "pixels": 0.52
+    },
+    "gait": {
+      "has_left_lead": true,
+      "has_right_lead": true,
+      "longest_lead_run": 3,
+      "maximum_lead_run": 3,
+      "passed": true,
+      "planted_foot_leads": "RRRLR=LR"
+    },
+    "head_jitter": {
+      "maximum": 6.0,
+      "passed": true,
+      "pixels": 1.0
+    },
+    "head_pulse": {
+      "maximum": 1.12,
+      "passed": true,
+      "per_frame_width": [
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21
+      ],
+      "ratio": 1.0
+    },
+    "loop_closure": {
+      "adjacent_iou": [
+        0.9664,
+        0.9486,
+        0.7518,
+        0.7513,
+        0.8174,
+        0.7511,
+        0.733,
+        0.974
+      ],
+      "iou": 0.974,
+      "minimum": 0.55,
+      "passed": true
+    },
+    "palette": {
+      "clip_colours": 63,
+      "maximum": 64,
+      "passed": true,
+      "per_frame_colours": [
+        61,
+        62,
+        63,
+        60,
+        61,
+        56,
+        60,
+        61
+      ]
+    },
+    "processed_uniqueness": {
+      "expected": 8,
+      "passed": true,
+      "pixel_sha256": [
+        "7dc96a7a813ca6057e233706fe7f8d0f6c97529a28d5fd06cf3b702f176f2e90",
+        "66bdf57bc2d6bfdce0d0570713061fd2feb2da97e45992ea08953629777862f0",
+        "509bb9fe02619a426004f33569a39b7f5b83bbce6d62584158f99cd39da58e0e",
+        "e3378ef2bc954ffdf830cba82fdba58ca9bd040b9e933c6995f77e7dba64e504",
+        "1a80756247c3e53735c2434c9298e5ca81a64f948483dc93a84d639df9b657ac",
+        "3e4aeb34ca88aa1082b4a87362dd4c8768cd62acb61e2a429d8a750e308ee3e6",
+        "48448f3730b01e517a9abd524c8b259464729ccf49b283c272f3c1e3923d58a9",
+        "09e3d38d62217f431a9969aca4b5de18be0903ea485f99236f6b399fbd1a037a"
+      ],
+      "unique_frames": 8
+    },
+    "source_chroma": {
+      "border_green_fraction_min": 0.98,
+      "border_variation_max": 12.0,
+      "expected": 8,
+      "frames_passed": 8,
+      "passed": true,
+      "single_uncropped_subject_required": true
+    },
+    "source_uniqueness": {
+      "expected": 8,
+      "passed": true,
+      "sha256": [
+        "d01330808edfa88621ba9716631e46bbd61f9b54d94db4f9da2e3871faf65726",
+        "c6cb47b40c47a90b4f6d559f7475679e3b38484eaf2bc150a984b5b8fcd40cdc",
+        "83aa538a13c21eb66d08ba3df4337c9e9d0eb51a2ba9df497b57b38b48a7c00f",
+        "e7728a369473ecfe364cfa5fa0c1982fa1ea1fa206e2e41910598df7c279008a",
+        "9d5656b0b1149d2a721de660fa15d8a233852c39284aeda1f27de66be0842076",
+        "d9d07fa75eec71203e76a38d9af136ab7d1bdc1a00ad1d8cc59c0178d7b96eaa",
+        "fe2779ff7242d6687c2afed14b4284e78d546a49c97a181e07d6576dd38df7e6",
+        "d770608389f4b507794f4284baaeae4dacbc58ac168d81d2ee3ec9787edffea9"
+      ],
+      "unique_frames": 8
+    },
+    "torso_pulse": {
+      "maximum": 1.18,
+      "passed": true,
+      "per_frame_width": [
+        71,
+        71,
+        71,
+        71,
+        71,
+        71,
+        71,
+        71
+      ],
+      "ratio": 1.0
+    }
+  },
+  "inputs": [
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 1.948,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_00_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 0,
+      "sha256": "d01330808edfa88621ba9716631e46bbd61f9b54d94db4f9da2e3871faf65726",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        365,
+        106,
+        658,
+        928
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 1.88,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_01_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 1,
+      "sha256": "c6cb47b40c47a90b4f6d559f7475679e3b38484eaf2bc150a984b5b8fcd40cdc",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        365,
+        106,
+        659,
+        930
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.659,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_02_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 2,
+      "sha256": "83aa538a13c21eb66d08ba3df4337c9e9d0eb51a2ba9df497b57b38b48a7c00f",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        365,
+        106,
+        659,
+        930
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.222,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_03_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 3,
+      "sha256": "e7728a369473ecfe364cfa5fa0c1982fa1ea1fa206e2e41910598df7c279008a",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        366,
+        107,
+        658,
+        930
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.584,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_04_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 4,
+      "sha256": "9d5656b0b1149d2a721de660fa15d8a233852c39284aeda1f27de66be0842076",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        366,
+        107,
+        658,
+        930
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 1.831,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_05_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 5,
+      "sha256": "d9d07fa75eec71203e76a38d9af136ab7d1bdc1a00ad1d8cc59c0178d7b96eaa",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        371,
+        108,
+        662,
+        917
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.972,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_06_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 6,
+      "sha256": "fe2779ff7242d6687c2afed14b4284e78d546a49c97a181e07d6576dd38df7e6",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        370,
+        107,
+        670,
+        929
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.301,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_nnw_07_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 7,
+      "sha256": "d770608389f4b507794f4284baaeae4dacbc58ac168d81d2ee3ec9787edffea9",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        365,
+        107,
+        659,
+        932
+      ],
+      "subject_touches_border": false
+    }
+  ],
+  "kind": "voss-v20-walk-candidate-preflight",
+  "pipeline": {
+    "clip_exposure_normalization": true,
+    "exposure_factors": [
+      0.9858,
+      1.0039,
+      1.0092,
+      1.037,
+      0.9386,
+      0.8291,
+      1.0417,
+      0.9962
+    ],
+    "mass_centroid_registration": true,
+    "processor": "V14",
+    "runtime_registration_offsets_applied": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "shared_clip_palette": true,
+    "shared_palette": true
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

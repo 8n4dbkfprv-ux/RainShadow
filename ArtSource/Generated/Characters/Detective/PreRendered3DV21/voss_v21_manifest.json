@@ -1,0 +1,96 @@
+{
+  "schema_version": 4,
+  "asset_version": "v21",
+  "character": "Harlan Voss",
+  "authority": "Grok Imagine edit-chain + image_to_video, V14 crunch",
+  "source_root": "Frames",
+  "anchors_root": "Anchors",
+  "references_root": "References",
+  "ui_root": "UI",
+  "staging_root": "Staging",
+  "qa_root": "QA",
+  "generation_provenance": "imagegen_provenance_v21.json",
+  "required_anchors": [
+    "voss_anchor_front_chroma_v20.png",
+    "voss_anchor_profile_w_chroma_v20.png",
+    "voss_anchor_back_chroma_v20.png",
+    "voss_anchor_dimetric_sw_chroma_v20.png"
+  ],
+  "counts": {
+    "authored_gameplay_masters": 148,
+    "identity_anchors": 4,
+    "mutable_runtime_payloads": 6,
+    "primary_body_presentations": 176,
+    "runtime_pngs": 208
+  },
+  "derived": {
+    "sit_down_exact_reverse_of_stand_up": 24,
+    "standing_idle_se_exact_mirror_of_sw": 4,
+    "seated_ne_upper_lower_compatibility": 16,
+    "transparent_seated_arms": 16
+  },
+  "generated": {
+    "standing_idle": {
+      "count": 36,
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "pattern": "voss_idle_{direction}_{phase:02d}_chroma_v21.png",
+      "phases": 4
+    },
+    "walk": {
+      "count": 72,
+      "directions": ["s", "ssw", "sw", "wsw", "w", "wnw", "nw", "nnw", "n"],
+      "pattern": "voss_walk_{direction}_{phase:02d}_chroma_v21.png",
+      "phases": 8
+    },
+    "seated_idle": {
+      "count": 16,
+      "directions": ["ne", "se"],
+      "pattern": "voss_seated_idle_{direction}_{phase:02d}_chroma_v21.png",
+      "phases": 8
+    },
+    "stand_up": {
+      "count": 24,
+      "directions": ["ne", "se"],
+      "pattern": "voss_stand_up_{direction}_{phase:02d}_chroma_v21.png",
+      "phases": 12
+    }
+  },
+  "gates": {
+    "adjacent_crown_retreat_max": 4,
+    "anchor_width_height_ratio": [0.4, 0.43],
+    "body_axis_bbox_tolerance": 8.0,
+    "center_tolerance": 2,
+    "centroid_drift_max": 2.0,
+    "clip_palette_colors_max": 64,
+    "foot_row": 433,
+    "head_jitter_max": 6.0,
+    "head_pulse_ratio_max": 1.12,
+    "head_width": [19, 29],
+    "idle_walk_head_shoulder_ratio_max": 0.06,
+    "idle_centroid_drift_max": 2,
+    "idle_neutral_iou_min": 0.86,
+    "palette_colors": 64,
+    "pure_rear_skin_fraction_max": 0.03,
+    "rear_shirt_fraction_max": 0.001,
+    "seated_height": [150, 160],
+    "source_border_variation_max": 12,
+    "source_chroma_border_fraction_min": 0.98,
+    "source_front_hue_spread_min": 0,
+    "processed_front_hue_spread_min": 0,
+    "standing_height": [198, 202],
+    "torso_pulse_ratio_max": 1.18,
+    "walk_head_jitter_max": 16.0,
+    "walk_centroid_drift_max": 8.0,
+    "walk_head_scale_ratio_max": 1.32,
+    "walk_torso_scale_ratio_max": 2.2,
+    "transition_rise": [38, 50]
+  },
+  "processing": {
+    "processor": "V14",
+    "runtime_registration_offsets": {},
+    "seated_idle_scale_authority": "phase_00_opaque_height_minus_one"
+  },
+  "fixed_reference_hashes": {
+    "References/dialogue_portrait_harlan_voss_v01.png": "13a5f349a2c08fb7517ae9cbb8a1b3953489458e654286ae3e29631782e8ec1d"
+  }
+}

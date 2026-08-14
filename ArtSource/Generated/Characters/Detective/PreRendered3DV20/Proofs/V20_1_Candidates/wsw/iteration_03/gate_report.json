@@ -1,0 +1,420 @@
+{
+  "asset_version": "v20",
+  "candidate_directory": "/Users/laurensvanoorschot/RainShadow/ArtSource/Generated/Characters/Detective/PreRendered3DV20/Proofs/V20_1_Candidates/wsw/iteration_03",
+  "direction": "wsw",
+  "errors": [
+    "candidate walk wsw: idle/walk head/shoulder ratio disagrees +10.7%, expected |delta| <= 6%",
+    "candidate walk wsw: head jitter 25.0px, expected <= 6.0px",
+    "candidate walk wsw: head scale pulses 1.190x, expected <= 1.12x",
+    "candidate walk wsw: torso scale pulses 1.817x, expected <= 1.18x",
+    "candidate walk wsw: planted-foot lead repeats 5 cells (LLLLL=LR)"
+  ],
+  "gates": {
+    "anatomy": {
+      "head_change": -0.122,
+      "head_shoulder_ratio_disagreement": 0.1072,
+      "idle": {
+        "head": 123.0,
+        "ratio": 0.3716,
+        "shoulder": 331.0
+      },
+      "maximum_absolute_disagreement": 0.06,
+      "passed": false,
+      "shoulder_change": -0.2069,
+      "walk": {
+        "head": 108.0,
+        "ratio": 0.4114,
+        "shoulder": 262.5
+      }
+    },
+    "candidate_count": {
+      "expected": 8,
+      "found": 8,
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    "centroid_drift": {
+      "maximum": 2.0,
+      "passed": true,
+      "per_frame_x": [
+        256.322,
+        256.415,
+        255.686,
+        255.791,
+        256.339,
+        255.784,
+        256.403,
+        255.961
+      ],
+      "pixels": 0.728
+    },
+    "gait": {
+      "has_left_lead": true,
+      "has_right_lead": true,
+      "longest_lead_run": 5,
+      "maximum_lead_run": 3,
+      "passed": false,
+      "planted_foot_leads": "LLLLL=LR"
+    },
+    "head_jitter": {
+      "maximum": 6.0,
+      "passed": false,
+      "pixels": 25.0
+    },
+    "head_pulse": {
+      "maximum": 1.12,
+      "passed": false,
+      "per_frame_width": [
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        21,
+        25
+      ],
+      "ratio": 1.1905
+    },
+    "loop_closure": {
+      "adjacent_iou": [
+        0.7592,
+        0.731,
+        0.5865,
+        0.6555,
+        0.5903,
+        0.5666,
+        0.5424,
+        0.5947
+      ],
+      "iou": 0.5947,
+      "minimum": 0.4427,
+      "passed": true
+    },
+    "palette": {
+      "clip_colours": 63,
+      "maximum": 64,
+      "passed": true,
+      "per_frame_colours": [
+        63,
+        63,
+        57,
+        61,
+        63,
+        62,
+        61,
+        60
+      ]
+    },
+    "processed_uniqueness": {
+      "expected": 8,
+      "passed": true,
+      "pixel_sha256": [
+        "c83fc227a635cee1162a10733c211bb2e5d242a982fb5bf3bbe2d48d51843a70",
+        "74cb2477fb33200633d81e1ee5883446a8aa11437c59bbcea5871b4d9867ea9f",
+        "4bb3bb11fa6e0264456913e86fe7ef4e8bfcdf19e1fee9c8bfa71459c82ea91e",
+        "1f0018cd7be3de48e8c62199e0fe1c252b7fdf2243e75275e2a46e3c6c4cf0e6",
+        "eaae6b9027f3eee68dcc2ba35fbbb12974c3a9bdead1aa7043e3bf81aa441a9c",
+        "aecb911f3fd45db73c38d870ddf9879955d3e32c9c6d34553e1defb140a68f77",
+        "e11089d69e5cecf914585596903ea473ac5c427165aa008a7fc5490dad311a2d",
+        "434517e4cbe4700226e3512528f85032de847449c2ab776dee8219cd349fe18c"
+      ],
+      "unique_frames": 8
+    },
+    "source_chroma": {
+      "border_green_fraction_min": 0.98,
+      "border_variation_max": 12.0,
+      "expected": 8,
+      "frames_passed": 8,
+      "passed": true,
+      "single_uncropped_subject_required": true
+    },
+    "source_uniqueness": {
+      "expected": 8,
+      "passed": true,
+      "sha256": [
+        "5c49b51167d821a0debb3fed2f7ae285387197dd694141972f19f38fd40b7a9e",
+        "fe9e753ca3529b2beffb8404a7ae0c9c1d7ad1e895fce20cf6742481913b4167",
+        "d39861e23071681ea3a70aedf27ba7f465e53a9c88536a44cbab83462e2d21ba",
+        "66d5bad8e10c40cee6cb55dbd30323964a6e4373b197df8f2e1765561cd75349",
+        "9a53258a7426c01240d6c4a2fb48f4a43ebc7d322bbafd1dcca928f3d02260a0",
+        "ef4dc58b869c388d280cdbad925dad75a4dd975d0dffac305a2b3b30d1692b0a",
+        "37e871ddc9edb2d5474aa3542be6fad37b667b01f72f67cb00d84bcf3b95aa51",
+        "1484458636ef3fb48a79687c952b7c1d6ade8f9de96b659a24cb877d4945d27c"
+      ],
+      "unique_frames": 8
+    },
+    "torso_pulse": {
+      "maximum": 1.18,
+      "passed": false,
+      "per_frame_width": [
+        82,
+        79,
+        79,
+        104,
+        96,
+        75,
+        71,
+        129
+      ],
+      "ratio": 1.8169
+    }
+  },
+  "inputs": [
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 3.839,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_00_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 0,
+      "sha256": "5c49b51167d821a0debb3fed2f7ae285387197dd694141972f19f38fd40b7a9e",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        256,
+        89,
+        742,
+        945
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.482,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_01_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 1,
+      "sha256": "fe9e753ca3529b2beffb8404a7ae0c9c1d7ad1e895fce20cf6742481913b4167",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        284,
+        96,
+        723,
+        923
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 3.144,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_02_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 2,
+      "sha256": "d39861e23071681ea3a70aedf27ba7f465e53a9c88536a44cbab83462e2d21ba",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        334,
+        94,
+        695,
+        938
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 4.087,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_03_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 3,
+      "sha256": "66d5bad8e10c40cee6cb55dbd30323964a6e4373b197df8f2e1765561cd75349",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        261,
+        86,
+        808,
+        944
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.551,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_04_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 4,
+      "sha256": "9a53258a7426c01240d6c4a2fb48f4a43ebc7d322bbafd1dcca928f3d02260a0",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        306,
+        76,
+        781,
+        944
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 3.168,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_05_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 5,
+      "sha256": "ef4dc58b869c388d280cdbad925dad75a4dd975d0dffac305a2b3b30d1692b0a",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        254,
+        85,
+        737,
+        936
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 3.831,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_06_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 6,
+      "sha256": "37e871ddc9edb2d5474aa3542be6fad37b667b01f72f67cb00d84bcf3b95aa51",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        368,
+        92,
+        895,
+        945
+      ],
+      "subject_touches_border": false
+    },
+    {
+      "border_green_fraction": 1.0,
+      "border_green_fraction_min": 0.98,
+      "border_variation": 2.867,
+      "border_variation_max": 12.0,
+      "canvas": [
+        1024,
+        1024
+      ],
+      "errors": [],
+      "filename": "voss_walk_wsw_07_chroma_v20.png",
+      "format": "PNG",
+      "mode": "RGB",
+      "passed": true,
+      "phase": 7,
+      "sha256": "1484458636ef3fb48a79687c952b7c1d6ade8f9de96b659a24cb877d4945d27c",
+      "significant_subjects": 1,
+      "subject_bbox": [
+        291,
+        79,
+        840,
+        944
+      ],
+      "subject_touches_border": false
+    }
+  ],
+  "kind": "voss-v20-walk-candidate-preflight",
+  "pipeline": {
+    "clip_exposure_normalization": true,
+    "exposure_factors": [
+      1.0145,
+      0.9728,
+      0.9017,
+      1.0023,
+      1.0596,
+      0.9859,
+      0.9977,
+      1.0045
+    ],
+    "mass_centroid_registration": true,
+    "processor": "V14",
+    "runtime_registration_offsets_applied": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "shared_clip_palette": true,
+    "shared_palette": true
+  },
+  "schema_version": 1,
+  "status": "failed"
+}
