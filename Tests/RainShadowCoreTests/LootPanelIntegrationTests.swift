@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+@testable import RainShadowCore
 
 struct LootPanelIntegrationTests {
     @Test func officeInspectionUsesNonModalPanelAndPersistsBothTransferDirections() throws {
@@ -27,14 +28,13 @@ struct LootPanelIntegrationTests {
 
     @Test func inventoryHasOnePersistedSixteenSlotBagAndNoNearbyModel() throws {
         let source = try read("RainShadow Shared/UI/InventoryOverlay.swift")
-        #expect(source.contains("static let bagSlotCount = 16"))
+        // Slot geometry moved to InventoryScreenLayout so it could be tested;
+        // see InventoryScreenLayoutTests.
+        #expect(InventoryScreenLayout.bagSlotCount == 16)
         #expect(source.contains("inventory_section_bag_v06"))
-        #expect(source.contains("func present(walletPence: Int, carriedItems: [CarriedItemStack])"))
-        #expect(source.contains("InventoryItemCatalog.starterItems"))
-        #expect(
-            source.contains("carriedItems.map")
-                || source.contains("carriedItems.enumerated().map")
-        )
+        #expect(source.contains("func present("))
+        #expect(source.contains("inventory: CharacterInventory"))
+        #expect(source.contains("InventoryItemPresentation.carriedItems("))
         #expect(source.contains("rebuildBagSlots()"))
         #expect(!source.lowercased().contains("nearby"))
     }
@@ -48,8 +48,10 @@ struct LootPanelIntegrationTests {
         #expect(source.contains("onReturnCarriedStackAtIndex"))
         #expect(source.contains("case source(LootContainerPanelEntry)"))
         #expect(source.contains("case carried(acquiredIndex: Int)"))
-        #expect(source.contains("InventoryItemCatalog.starterItems"))
-        #expect(source.contains("carriedInventory.stacks.enumerated()"))
+        // The starter kit is real carried stacks now, so the panel reads the bag
+        // once instead of prepending a second copy of the six painted items.
+        #expect(source.contains("InventoryItemPresentation.carriedItems(carriedInventory.stacks"))
+        #expect(!source.contains("InventoryItemCatalog"))
         #expect(source.contains("CASE BAG FULL"))
         #expect(!source.contains("ui_close_box"))
         #expect(!source.contains("WALLET"))
@@ -86,8 +88,12 @@ struct LootPanelIntegrationTests {
     @Test func officeAndCityPresentTheSamePersistedCarriedBag() throws {
         let office = try read("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let city = try read("RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift")
-        #expect(office.contains("carriedItems: context.session.carriedInventory.stacks"))
-        #expect(city.contains("carriedItems: context.session.carriedInventory.stacks"))
+        #expect(office.contains("inventory: context.session.characterInventory"))
+        #expect(city.contains("inventory: context.session.characterInventory"))
+        // Both scenes push committed session state back into the window rather
+        // than letting it hold its own copy.
+        #expect(office.contains("refreshInventoryOverlay()"))
+        #expect(city.contains("refreshInventoryOverlay()"))
     }
 
     @Test func baseSceneOwnsPanelBelowDialogueAndLaysItOutWithHUD() throws {

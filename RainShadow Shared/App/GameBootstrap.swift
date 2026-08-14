@@ -25,9 +25,27 @@ final class GameSession {
     private(set) var walletPence: Int
     /// BG resolve-once loot state for searchable containers.
     private(set) var lootContainers: LootContainerState
-    /// Ordered acquired stacks. Static starter items are represented by reserved
-    /// capacity rather than duplicated into persistence.
-    private(set) var carriedInventory: CarriedInventoryState
+    /// Items lying on the floor, keyed by area id.
+    private(set) var groundPiles: GroundPileState
+    /// What Voss wears and carries. The starter kit lives here as real stacks —
+    /// it used to be a reserved slot count with nothing behind it, which meant
+    /// the six painted items could not be equipped, dropped, or moved.
+    private(set) var characterInventory: CharacterInventory
+    /// Whether the painted starter kit has been promoted into real stacks.
+    private(set) var hasSeededStarterKit: Bool
+
+    /// The case bag. Kept as a passthrough so every existing reader — the loot
+    /// panel, both scenes, the inventory window — keeps working unchanged.
+    var carriedInventory: CarriedInventoryState { characterInventory.backpack }
+
+    /// Authored item definitions. Loaded once; content, not state.
+    let itemCatalog: ItemCatalog = HarborpointItems.catalog
+
+    private var stackLimits: ItemStackLimits { ItemStackLimits(catalog: itemCatalog) }
+
+    /// Voss's Lore, in the AD&D sense: what he recognises on sight. A constant
+    /// until `PlayerTraits` ships, matching the Resolve the character sheet shows.
+    static let detectiveLore = 6
 
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
@@ -48,10 +66,30 @@ final class GameSession {
         lootContainers = LootContainerState(
             resolved: snapshot.lootContainers.mapValues { $0.map(Self.toResolved) }
         )
-        carriedInventory = CarriedInventoryState(
-            stacks: snapshot.carriedItems.map(Self.toCarried),
-            reservedSlotCount: Self.starterInventorySlotCount
+        groundPiles = GroundPileState(
+            pilesByArea: snapshot.groundPiles.mapValues { $0.map(Self.toGroundStack) }
         )
+        let catalog = HarborpointItems.catalog
+        var stacks = snapshot.carriedItems.map(Self.toCarried)
+        hasSeededStarterKit = snapshot.hasSeededStarterKit
+        if !hasSeededStarterKit {
+            // One-time promotion. Older saves recorded acquired stacks only and
+            // represented the starter kit as reserved capacity, so the six painted
+            // items go in front of whatever was already carried.
+            stacks = Self.starterStacks(catalog: catalog) + stacks
+            hasSeededStarterKit = true
+        }
+        var inventory = CharacterInventory(
+            backpack: CarriedInventoryState(stacks: stacks)
+        )
+        for (rawSlot, persisted) in snapshot.equippedItems {
+            // An unknown slot is dropped rather than failing the load; a renamed
+            // slot must not cost the player their save.
+            guard let slot = EquipmentSlot(rawValue: rawSlot) else { continue }
+            try? inventory.equip(Self.toCarried(persisted), in: slot, catalog: catalog)
+        }
+        _ = inventory.identifyEverythingKnown(lore: Self.detectiveLore, catalog: catalog)
+        characterInventory = inventory
         // After intro, city travel is available whenever free-play is restored.
         if hasCompletedOfficeCaseIntro {
             isCityTravelOpen = true
@@ -187,15 +225,27 @@ final class GameSession {
 
         case .item(let id, let quantity):
             guard quantity > 0 else { return nil }
-            guard !carriedInventory.isFull else { return .inventoryFull }
 
-            let item = CarriedItemStack(id: id, quantity: quantity)
+            let item = CarriedItemStack(
+                id: id,
+                quantity: quantity,
+                isIdentified: Self.isSelfEvident(id, catalog: itemCatalog)
+            )
             var nextContainers = lootContainers
-            var nextInventory = carriedInventory
-            guard nextInventory.append(item),
-                  nextContainers.takeStack(at: index, from: containerID) != nil else { return nil }
+            var nextInventory = characterInventory
+            do {
+                try nextInventory.addToBackpack(item, limits: stackLimits)
+            } catch {
+                return .inventoryFull
+            }
+            guard nextContainers.takeStack(at: index, from: containerID) != nil else { return nil }
+            // BG checks Lore the moment an item enters the pack.
+            _ = nextInventory.identifyEverythingKnown(
+                lore: Self.detectiveLore,
+                catalog: itemCatalog
+            )
             lootContainers = nextContainers
-            carriedInventory = nextInventory
+            characterInventory = nextInventory
             persist()
             return .item(item)
         }
@@ -209,11 +259,12 @@ final class GameSession {
         guard let item = carriedInventory.stack(at: index) else { return nil }
 
         var nextContainers = lootContainers
-        var nextInventory = carriedInventory
-        guard nextContainers.appendItem(item, to: containerID),
-              nextInventory.takeStack(at: index) == item else { return nil }
+        var nextInventory = characterInventory
+        guard let taken = try? nextInventory.removeFromBackpack(at: index, catalog: itemCatalog),
+              taken == item,
+              nextContainers.appendItem(item, to: containerID) else { return nil }
         lootContainers = nextContainers
-        carriedInventory = nextInventory
+        characterInventory = nextInventory
         persist()
         return item
     }
@@ -224,18 +275,250 @@ final class GameSession {
     @discardableResult
     func takeAllLoot(from containerID: String) -> LootTakeAllResult? {
         var nextContainers = lootContainers
-        var nextInventory = carriedInventory
+        var nextInventory = characterInventory
+        var nextBackpack = nextInventory.backpack
         guard let result = nextContainers.takeAll(
             from: containerID,
-            itemSlotCapacity: nextInventory.availableSlotCount
-        ), nextInventory.append(contentsOf: result.itemStacks) else { return nil }
+            itemSlotCapacity: nextBackpack.availableSlotCount
+        ) else { return nil }
+
+        let incoming = result.itemStacks.map {
+            CarriedItemStack(
+                id: $0.id,
+                quantity: $0.quantity,
+                isIdentified: Self.isSelfEvident($0.id, catalog: itemCatalog)
+            )
+        }
+        guard nextBackpack.append(contentsOf: incoming, limits: stackLimits) else { return nil }
+        nextInventory = CharacterInventory(
+            equipped: nextInventory.equipped,
+            backpack: nextBackpack
+        )
+        _ = nextInventory.identifyEverythingKnown(
+            lore: Self.detectiveLore,
+            catalog: itemCatalog
+        )
 
         guard result.didTransferAnything else { return result }
         lootContainers = nextContainers
-        carriedInventory = nextInventory
+        characterInventory = nextInventory
         walletPence += result.creditedPence
         persist()
         return result
+    }
+
+    // MARK: - Equipment
+
+    /// Equip the bag stack at `index` into `slot`. Returns the refusal when the
+    /// engine's rules say no, `nil` on success. Nothing is written on a refusal.
+    @discardableResult
+    func equipCarriedItem(at index: Int, to slot: EquipmentSlot) -> InventoryRefusal? {
+        var next = characterInventory
+        do {
+            try next.equipFromBackpack(
+                at: index,
+                to: slot,
+                catalog: itemCatalog,
+                limits: stackLimits
+            )
+        } catch let refusal as InventoryRefusal {
+            return refusal
+        } catch {
+            return .noSuchStack(index: index)
+        }
+        characterInventory = next
+        persist()
+        return nil
+    }
+
+    /// Take a slot off into the case bag. Cursed items and a full bag both refuse.
+    @discardableResult
+    func unequipItem(from slot: EquipmentSlot) -> InventoryRefusal? {
+        var next = characterInventory
+        do {
+            try next.unequipToBackpack(
+                from: slot,
+                catalog: itemCatalog,
+                limits: stackLimits
+            )
+        } catch let refusal as InventoryRefusal {
+            return refusal
+        } catch {
+            return .slotEmpty(slot: slot)
+        }
+        characterInventory = next
+        persist()
+        return nil
+    }
+
+    /// Move a stack straight from a slot into a container (BG lets you place from
+    /// the paperdoll without a stop in the bag).
+    @discardableResult
+    func unequipItem(from slot: EquipmentSlot, into containerID: String) -> InventoryRefusal? {
+        guard lootContainers.contents(of: containerID) != nil else {
+            return .slotEmpty(slot: slot)
+        }
+        var nextInventory = characterInventory
+        var nextContainers = lootContainers
+        let stack: CarriedItemStack
+        do {
+            stack = try nextInventory.unequip(from: slot, catalog: itemCatalog)
+        } catch let refusal as InventoryRefusal {
+            return refusal
+        } catch {
+            return .slotEmpty(slot: slot)
+        }
+        guard nextContainers.appendItem(stack, to: containerID) else {
+            return .slotEmpty(slot: slot)
+        }
+        characterInventory = nextInventory
+        lootContainers = nextContainers
+        persist()
+        return nil
+    }
+
+    /// Move a worn or readied item to another slot, swapping with its occupant.
+    @discardableResult
+    func moveEquippedItem(from source: EquipmentSlot, to destination: EquipmentSlot) -> InventoryRefusal? {
+        var next = characterInventory
+        do {
+            try next.moveEquipped(from: source, to: destination, catalog: itemCatalog)
+        } catch let refusal as InventoryRefusal {
+            return refusal
+        } catch {
+            return .slotEmpty(slot: source)
+        }
+        characterInventory = next
+        persist()
+        return nil
+    }
+
+    // MARK: - Bag operations
+
+    /// Reorder the case bag.
+    @discardableResult
+    func moveCarriedStack(from source: Int, to destination: Int) -> Bool {
+        var backpack = characterInventory.backpack
+        guard backpack.move(from: source, to: destination) else { return false }
+        characterInventory = CharacterInventory(
+            equipped: characterInventory.equipped,
+            backpack: backpack
+        )
+        persist()
+        return true
+    }
+
+
+    /// Remove a carried stack entirely — the caller owns where it lands. Returns
+    /// `nil` when the item refuses to be put down.
+    @discardableResult
+    func removeCarriedItem(at index: Int) -> CarriedItemStack? {
+        var next = characterInventory
+        guard let taken = try? next.removeFromBackpack(at: index, catalog: itemCatalog) else {
+            return nil
+        }
+        characterInventory = next
+        persist()
+        return taken
+    }
+
+    /// BG stack splitting.
+    @discardableResult
+    func splitCarriedStack(at index: Int, count: Int) -> Bool {
+        var next = characterInventory
+        guard (try? next.splitBackpackStack(at: index, count: count)) != nil else { return false }
+        characterInventory = next
+        persist()
+        return true
+    }
+
+    /// Right-click identification against Voss's Lore. `true` when this attempt
+    /// changed something — a repeat attempt reports `false` and writes nothing.
+    @discardableResult
+    func identifyCarriedItem(at index: Int) -> Bool {
+        var next = characterInventory
+        guard (try? next.identifyBackpackStack(
+            at: index,
+            lore: Self.detectiveLore,
+            catalog: itemCatalog
+        )) == true else { return false }
+        characterInventory = next
+        persist()
+        return true
+    }
+
+    // MARK: - Ground piles
+
+    /// How far the quick-loot bar reaches. BG:EE gathers ground items "in a fairly
+    /// large radius" around the selected character rather than only underfoot.
+    static let quickLootRadius: CGFloat = 420
+
+    func groundStacks(in areaID: String) -> [GroundItemStack] {
+        groundPiles.stacks(in: areaID)
+    }
+
+    func groundStacks(in areaID: String, near point: CGPoint) -> [GroundItemStack] {
+        groundPiles.stacks(in: areaID, near: point, radius: Self.quickLootRadius)
+    }
+
+    /// Put a carried stack on the floor at `position`. Undroppable items refuse
+    /// and nothing is written.
+    @discardableResult
+    func dropCarriedItem(at index: Int, in areaID: String, at position: CGPoint) -> CarriedItemStack? {
+        var nextInventory = characterInventory
+        guard let stack = try? nextInventory.removeFromBackpack(at: index, catalog: itemCatalog) else {
+            return nil
+        }
+        var nextPiles = groundPiles
+        nextPiles.drop(stack, in: areaID, at: position)
+        characterInventory = nextInventory
+        groundPiles = nextPiles
+        persist()
+        return stack
+    }
+
+    /// Lift one ground stack into the case bag. Returns `nil` when the bag is full,
+    /// leaving the pile untouched — BG never destroys what will not fit.
+    @discardableResult
+    func takeGroundStack(_ entry: GroundItemStack, in areaID: String) -> CarriedItemStack? {
+        var nextInventory = characterInventory
+        do {
+            try nextInventory.addToBackpack(entry.stack, limits: stackLimits)
+        } catch {
+            return nil
+        }
+        var nextPiles = groundPiles
+        guard nextPiles.take(entry, from: areaID) != nil else { return nil }
+        _ = nextInventory.identifyEverythingKnown(lore: Self.detectiveLore, catalog: itemCatalog)
+        characterInventory = nextInventory
+        groundPiles = nextPiles
+        persist()
+        return entry.stack
+    }
+
+    // MARK: - Derived
+
+    var carriedWeightOunces: Int {
+        characterInventory.carriedWeightOunces(catalog: itemCatalog)
+    }
+
+    var encumbrance: EncumbranceReadout {
+        characterInventory.encumbrance(catalog: itemCatalog)
+    }
+
+    /// The profile Voss should walk with right now. `DetectiveActorNode` reads
+    /// this whenever the bag changes; until inventory weight existed, nothing
+    /// ever constructed anything but `.unencumbered`.
+    var detectiveMovementProfile: MovementProfile {
+        MovementProfile.humanoid.encumbered(encumbrance.band)
+    }
+
+    var defenceBonus: Int {
+        characterInventory.defenceBonus(catalog: itemCatalog)
+    }
+
+    var readiedWeapon: ItemDefinition? {
+        characterInventory.readiedWeapon(catalog: itemCatalog)
     }
 
     private func persist() {
@@ -247,6 +530,13 @@ final class GameSession {
             walletPence: walletPence,
             lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) },
             carriedItems: carriedInventory.stacks.map(Self.toPersisted),
+            equippedItems: characterInventory.equipped.reduce(
+                into: [String: PersistedCarriedItemStack]()
+            ) { result, entry in
+                result[entry.key.rawValue] = Self.toPersisted(entry.value)
+            },
+            groundPiles: groundPiles.pilesByArea.mapValues { $0.map(Self.toPersisted) },
+            hasSeededStarterKit: hasSeededStarterKit,
             caseFlags: caseState.flags,
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,
@@ -270,11 +560,60 @@ final class GameSession {
     }
 
     private static func toCarried(_ stack: PersistedCarriedItemStack) -> CarriedItemStack {
-        CarriedItemStack(id: stack.id, quantity: stack.quantity)
+        CarriedItemStack(
+            id: stack.id,
+            quantity: stack.quantity,
+            isIdentified: stack.isIdentified,
+            charges: stack.charges
+        )
     }
 
     private static func toPersisted(_ stack: CarriedItemStack) -> PersistedCarriedItemStack {
-        PersistedCarriedItemStack(id: stack.id, quantity: stack.quantity)
+        PersistedCarriedItemStack(
+            id: stack.id,
+            quantity: stack.quantity,
+            isIdentified: stack.isIdentified,
+            charges: stack.charges
+        )
+    }
+
+    private static func toGroundStack(_ stack: PersistedGroundItemStack) -> GroundItemStack {
+        GroundItemStack(
+            stack: CarriedItemStack(
+                id: stack.id,
+                quantity: stack.quantity,
+                isIdentified: stack.isIdentified,
+                charges: stack.charges
+            ),
+            position: CGPoint(x: stack.x, y: stack.y)
+        )
+    }
+
+    private static func toPersisted(_ entry: GroundItemStack) -> PersistedGroundItemStack {
+        PersistedGroundItemStack(
+            id: entry.stack.id,
+            quantity: entry.stack.quantity,
+            isIdentified: entry.stack.isIdentified,
+            charges: entry.stack.charges,
+            x: Double(entry.x),
+            y: Double(entry.y)
+        )
+    }
+
+    /// The painted starter kit as real stacks, in the order the window draws them.
+    private static func starterStacks(catalog: ItemCatalog) -> [CarriedItemStack] {
+        HarborpointItems.starterItemIDs.compactMap { id in
+            guard let definition = catalog.definition(for: id) else { return nil }
+            return CarriedItemStack(
+                id: id,
+                quantity: 1,
+                isIdentified: definition.isSelfEvident
+            )
+        }
+    }
+
+    private static func isSelfEvident(_ id: String, catalog: ItemCatalog) -> Bool {
+        catalog.definition(for: id)?.isSelfEvident ?? true
     }
 
     private static func toQueued(_ fragment: PersistedJournalFragment) -> QueuedJournalFragment {

@@ -20,6 +20,9 @@ class BaseGameScene: SKScene {
     /// Reusable, non-modal container strip. Scenes supply container contents and
     /// forward input only while it is visible.
     let lootContainerPanel = LootContainerPanelNode()
+    /// BG:EE quick-loot strip over the area's ground pile. Non-modal like the
+    /// container strip; scenes supply nearby stacks and forward input.
+    let quickLootBar = QuickLootBarNode()
 
     private var hasBuiltScene = false
     private var isPerformingLayout = false
@@ -217,6 +220,13 @@ class BaseGameScene: SKScene {
     /// action bar, leaving an in-progress path alone.
     func handleClearTargetingInput() {}
 
+    /// Right-click with a location. BG uses the right button both to clear
+    /// targeting and, over the inventory, to attempt identification — so a scene
+    /// gets first refusal on the located event before the global clear runs.
+    /// Returning `true` means the scene consumed it.
+    @discardableResult
+    func handleSecondaryPointer(at point: CGPoint) -> Bool { false }
+
     /// Viewport used for all HUD chrome. After `syncSizeFromViewIfNeeded()`, this is
     /// the live SKView point size (and equals `scene.size`).
     var hudViewportSize: CGSize { size }
@@ -254,6 +264,7 @@ class BaseGameScene: SKScene {
         hudRoot.position = .zero
         hudRoot.setScale(1)
         lootContainerPanel.layout(for: hudViewportSize)
+        quickLootBar.layout(for: hudViewportSize)
         cinematicRoot.position = .zero
         cinematicRoot.setScale(1)
 
@@ -592,6 +603,9 @@ class BaseGameScene: SKScene {
         lootContainerPanel.zPosition = 50
         lootContainerPanel.isHidden = true
         hudRoot.addChild(lootContainerPanel)
+        quickLootBar.zPosition = 49
+        quickLootBar.isHidden = true
+        hudRoot.addChild(quickLootBar)
         dialoguePresenter.zPosition = 60
         hudRoot.addChild(dialoguePresenter)
     }
@@ -839,6 +853,7 @@ extension BaseGameScene {
     /// it does **not** stop movement (`GameControl::OnMouseUp`, `GEM_MB_MENU`).
     /// Escape remains the only Stop.
     override func rightMouseDown(with event: NSEvent) {
+        if handleSecondaryPointer(at: event.location(in: self)) { return }
         handleClearTargetingInput()
     }
 }

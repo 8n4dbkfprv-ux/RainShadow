@@ -6,15 +6,79 @@ enum PersistedLootStack: Codable, Equatable, Sendable {
     case item(id: String, quantity: Int)
 }
 
-/// Persistence mirror of Core `CarriedItemStack`. Static starter-kit entries are
-/// intentionally not stored; older saves therefore gain an empty acquired bag.
+/// Persistence mirror of Core `CarriedItemStack`.
+///
+/// `isIdentified` and `charges` arrived after the first saves were written, so
+/// both decode with a default: a stack recorded before identification existed
+/// was, in fact, identified.
 struct PersistedCarriedItemStack: Codable, Equatable, Sendable {
     var id: String
     var quantity: Int
+    var isIdentified: Bool
+    var charges: Int?
 
-    init(id: String, quantity: Int) {
+    init(id: String, quantity: Int, isIdentified: Bool = true, charges: Int? = nil) {
         self.id = id
         self.quantity = quantity
+        self.isIdentified = isIdentified
+        self.charges = charges
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, quantity, isIdentified, charges
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            id: try c.decode(String.self, forKey: .id),
+            quantity: try c.decode(Int.self, forKey: .quantity),
+            isIdentified: try c.decodeIfPresent(Bool.self, forKey: .isIdentified) ?? true,
+            charges: try c.decodeIfPresent(Int.self, forKey: .charges)
+        )
+    }
+}
+
+/// Persistence mirror of Core `GroundItemStack`. Items dropped on the floor of an
+/// area stay there across a relaunch, the way BG leaves a pile where it fell.
+struct PersistedGroundItemStack: Codable, Equatable, Sendable {
+    var id: String
+    var quantity: Int
+    var isIdentified: Bool
+    var charges: Int?
+    var x: Double
+    var y: Double
+
+    init(
+        id: String,
+        quantity: Int,
+        isIdentified: Bool = true,
+        charges: Int? = nil,
+        x: Double,
+        y: Double
+    ) {
+        self.id = id
+        self.quantity = quantity
+        self.isIdentified = isIdentified
+        self.charges = charges
+        self.x = x
+        self.y = y
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, quantity, isIdentified, charges, x, y
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            id: try c.decode(String.self, forKey: .id),
+            quantity: try c.decode(Int.self, forKey: .quantity),
+            isIdentified: try c.decodeIfPresent(Bool.self, forKey: .isIdentified) ?? true,
+            charges: try c.decodeIfPresent(Int.self, forKey: .charges),
+            x: try c.decodeIfPresent(Double.self, forKey: .x) ?? 0,
+            y: try c.decodeIfPresent(Double.self, forKey: .y) ?? 0
+        )
     }
 }
 
@@ -48,9 +112,20 @@ struct SaveSnapshot: Codable, Equatable {
     var walletPence: Int = 1_728
     /// BG resolve-once container contents, keyed by container/hotspot ID.
     var lootContainers: [String: [PersistedLootStack]] = [:]
-    /// Acquired item stacks only. Six static starter items are supplied by the
-    /// inventory presentation and occupy reserved slots at runtime.
+    /// Every stack in the case bag, including the starter kit once it has been
+    /// seeded. Saves written before `hasSeededStarterKit` existed hold acquired
+    /// stacks only; the seed pass tops them up on next load.
     var carriedItems: [PersistedCarriedItemStack] = []
+    /// Worn and readied items, keyed by `EquipmentSlot.rawValue`. Persistence has
+    /// no Core dependency, so the slot arrives as its raw string and an unknown
+    /// key is dropped on load rather than failing the save.
+    var equippedItems: [String: PersistedCarriedItemStack] = [:]
+    /// Items dropped on the floor, keyed by area id.
+    var groundPiles: [String: [PersistedGroundItemStack]] = [:]
+    /// Whether the six painted starter items have been promoted from a reserved
+    /// slot count into real stacks. One-way: it is set the first time a save is
+    /// loaded by a binary that knows how to seed them.
+    var hasSeededStarterKit = false
     /// Case flags earned in dialogue (e.g. client retained) — survives area change / relaunch.
     var caseFlags: Set<String> = []
     /// Knowledge ids granted in dialogue. The Infinity Engine persists every GLOBAL in
@@ -73,6 +148,9 @@ struct SaveSnapshot: Codable, Equatable {
         walletPence: Int = 1_728,
         lootContainers: [String: [PersistedLootStack]] = [:],
         carriedItems: [PersistedCarriedItemStack] = [],
+        equippedItems: [String: PersistedCarriedItemStack] = [:],
+        groundPiles: [String: [PersistedGroundItemStack]] = [:],
+        hasSeededStarterKit: Bool = false,
         caseFlags: Set<String> = [],
         caseKnowledgeIDs: Set<String> = [],
         caseEvidenceIDs: Set<String> = [],
@@ -87,6 +165,9 @@ struct SaveSnapshot: Codable, Equatable {
         self.walletPence = walletPence
         self.lootContainers = lootContainers
         self.carriedItems = carriedItems
+        self.equippedItems = equippedItems
+        self.groundPiles = groundPiles
+        self.hasSeededStarterKit = hasSeededStarterKit
         self.caseFlags = caseFlags
         self.caseKnowledgeIDs = caseKnowledgeIDs
         self.caseEvidenceIDs = caseEvidenceIDs
@@ -112,6 +193,16 @@ struct SaveSnapshot: Codable, Equatable {
             [PersistedCarriedItemStack].self,
             forKey: .carriedItems
         ) ?? []
+        equippedItems = try container.decodeIfPresent(
+            [String: PersistedCarriedItemStack].self,
+            forKey: .equippedItems
+        ) ?? [:]
+        groundPiles = try container.decodeIfPresent(
+            [String: [PersistedGroundItemStack]].self,
+            forKey: .groundPiles
+        ) ?? [:]
+        hasSeededStarterKit =
+            try container.decodeIfPresent(Bool.self, forKey: .hasSeededStarterKit) ?? false
         caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
         caseKnowledgeIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseKnowledgeIDs) ?? []
         caseEvidenceIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseEvidenceIDs) ?? []

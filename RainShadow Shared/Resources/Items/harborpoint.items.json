@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "harborpoint.items",
+  "items": [
+    {
+      "id": "service-revolver",
+      "identifiedName": "Service Revolver",
+      "category": "SERVICE WEAPON",
+      "weightOunces": 38,
+      "valuePence": 1440,
+      "iconArtName": "inventory_item_service_revolver_v01",
+      "identifiedDescription": "A six-shot Webley with a tired action and a clean barrel.",
+      "note": "Registered to Det. H. Voss · 5 rounds loaded",
+      "damageLow": 2,
+      "damageHigh": 7
+    },
+    {
+      "id": "case-notes",
+      "identifiedName": "Case Notebook",
+      "category": "EVIDENCE",
+      "weightOunces": 8,
+      "iconArtName": "inventory_item_case_notebook_v01",
+      "identifiedDescription": "Names, times, and three pages someone tried to tear out.",
+      "note": "Active file: The Empty Coat",
+      "flags": ["undroppable", "questCritical"]
+    },
+    {
+      "id": "brass-key",
+      "identifiedName": "Brass Key",
+      "category": "EVIDENCE",
+      "weightOunces": 2,
+      "iconArtName": "inventory_item_brass_key_v01",
+      "identifiedDescription": "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
+      "note": "The Empty Coat · in Voss's care",
+      "flags": ["questCritical"]
+    },
+    {
+      "id": "flashlight",
+      "identifiedName": "Pocket Torch",
+      "category": "FIELD TOOL",
+      "weightOunces": 16,
+      "valuePence": 120,
+      "iconArtName": "inventory_item_flashlight_v01",
+      "identifiedDescription": "Dented steel, unreliable switch, enough battery for one long night.",
+      "note": "Condition: worn"
+    },
+    {
+      "id": "wallet",
+      "identifiedName": "Leather Wallet",
+      "category": "PERSONAL EFFECT",
+      "weightOunces": 4,
+      "valuePence": 24,
+      "iconArtName": "inventory_item_wallet_v01",
+      "identifiedDescription": "Licence, tram pass, and the kind of money that disappears quickly.",
+      "note": "Cash rides in the purse, not the pocket"
+    },
+    {
+      "id": "cigarette-case",
+      "identifiedName": "Cigarette Case",
+      "category": "PERSONAL EFFECT",
+      "weightOunces": 5,
+      "valuePence": 60,
+      "maxStack": 20,
+      "iconArtName": "inventory_item_cigarette_case_v01",
+      "identifiedDescription": "Gunmetal silver. Initials scratched away with deliberate care.",
+      "note": "Steadies the hands, ruins the lungs"
+    },
+    {
+      "id": "matchbook",
+      "identifiedName": "Matchbook",
+      "unidentifiedName": "Paper Matchbook",
+      "category": "EVIDENCE",
+      "weightOunces": 1,
+      "valuePence": 1,
+      "maxStack": 10,
+      "loreToIdentify": 4,
+      "iconArtName": "inventory_item_matchbook_v01",
+      "identifiedDescription": "A paper matchbook kept as part of the case record. The flap carries a printed address, worn but legible.",
+      "unidentifiedDescription": "A paper matchbook, damp at one corner. Something is printed inside the flap, too faded to read at a glance.",
+      "note": "Recovered evidence"
+    }
+  ]
+}

@@ -76,9 +76,8 @@ final class LootContainerPanelNode: SKNode {
     private var sourceArtName = ""
     private var entries: [LootContainerPanelEntry] = []
     private var walletPence = 0
-    private var carriedInventory = CarriedInventoryState(
-        reservedSlotCount: InventoryItemCatalog.starterSlotCount
-    )
+    private var carriedInventory = CarriedInventoryState()
+    private var catalog: ItemCatalog = HarborpointItems.catalog
     private var requestedSourceRow = 0
     private var requestedBagRow = 0
     private var hoveredTarget: Target?
@@ -100,16 +99,9 @@ final class LootContainerPanelNode: SKNode {
     }
 
     private var allBagEntries: [BagEntry] {
-        let starter = InventoryItemCatalog.starterItems(walletPence: walletPence).map {
-            BagEntry(item: $0, acquiredIndex: nil)
-        }
-        let acquired = carriedInventory.stacks.enumerated().map { index, stack in
-            BagEntry(
-                item: InventoryItemCatalog.acquiredItem(id: stack.id, quantity: stack.quantity),
-                acquiredIndex: index
-            )
-        }
-        return starter + acquired
+        InventoryItemPresentation.carriedItems(carriedInventory.stacks, catalog: catalog)
+            .enumerated()
+            .map { index, item in BagEntry(item: item, acquiredIndex: index) }
     }
 
     private var bagViewport: HUDChromeLayout.LootContainerBagViewport {
@@ -533,8 +525,9 @@ final class LootContainerPanelNode: SKNode {
                 set(slot: slot, artName: "inventory_coin_stack_v05")
                 slot.amount.text = CurrencyAmount(pence: pence).formatted
             case .item(let id, let quantity):
-                let item = InventoryItemCatalog.acquiredItem(id: id, quantity: quantity)
-                set(slot: slot, artName: item.artName)
+                let artName = catalog.definition(for: id)?.iconArtName
+                    ?? "inventory_slot_silhouette_item_v06"
+                set(slot: slot, artName: artName)
                 slot.amount.text = quantity > 1 ? "×\(quantity)" : nil
             }
             slot.frame.alpha = 1
@@ -808,7 +801,9 @@ private extension LootContainerPanelFeedback {
         case .coins(let pence):
             return "+\(CurrencyAmount(pence: pence).formatted)"
         case .item(let id, let quantity):
-            let name = InventoryItemCatalog.acquiredItem(id: id, quantity: quantity).name.uppercased()
+            let name = InventoryItemPresentation
+                .displayName(forItemID: id, catalog: HarborpointItems.catalog)
+                .uppercased()
             return quantity > 1 ? "+\(quantity) × \(name)" : "+\(name)"
         case .batch(let pence, let itemStackCount, let bagIsFull):
             let currency = pence > 0 ? "+\(CurrencyAmount(pence: pence).formatted)" : nil

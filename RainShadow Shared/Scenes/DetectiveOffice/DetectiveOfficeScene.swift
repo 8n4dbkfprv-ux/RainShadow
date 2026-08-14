@@ -392,6 +392,67 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         inventoryOverlay.onDismiss = { [weak self] in
             self?.setInventoryPresented(false)
         }
+        inventoryOverlay.onEquipCarriedItem = { [weak self] index, slot in
+            guard let self else { return nil }
+            let refusal = context.session.equipCarriedItem(at: index, to: slot)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onUnequipItem = { [weak self] slot in
+            guard let self else { return nil }
+            let refusal = context.session.unequipItem(from: slot)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onMoveEquippedItem = { [weak self] source, destination in
+            guard let self else { return nil }
+            let refusal = context.session.moveEquippedItem(from: source, to: destination)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onMoveCarriedStack = { [weak self] source, destination in
+            guard let self else { return false }
+            let moved = context.session.moveCarriedStack(from: source, to: destination)
+            refreshInventoryOverlay()
+            return moved
+        }
+        inventoryOverlay.onSplitCarriedStack = { [weak self] index, count in
+            guard let self else { return false }
+            let split = context.session.splitCarriedStack(at: index, count: count)
+            refreshInventoryOverlay()
+            return split
+        }
+        inventoryOverlay.onIdentifyCarriedItem = { [weak self] index in
+            guard let self else { return false }
+            let identified = context.session.identifyCarriedItem(at: index)
+            refreshInventoryOverlay()
+            return identified
+        }
+        inventoryOverlay.onDropCarriedItem = { [weak self] index in
+            guard let self else { return nil }
+            var name: String?
+            if let stack = context.session.carriedInventory.stack(at: index) {
+                name = InventoryItemPresentation.displayName(
+                    forItemID: stack.id,
+                    catalog: context.session.itemCatalog,
+                    identified: stack.isIdentified
+                )
+            }
+            guard context.session.dropCarriedItem(
+                at: index,
+                in: groundAreaID,
+                at: detective.position
+            ) != nil else { return nil }
+            refreshInventoryOverlay()
+            refreshQuickLootBar()
+            return name
+        }
+        quickLootBar.onTakeGroundStack = { [weak self] entry in
+            guard let self else { return }
+            _ = context.session.takeGroundStack(entry, in: groundAreaID)
+            refreshQuickLootBar()
+            refreshInventoryOverlay()
+        }
         hudRoot.addChild(inventoryOverlay)
         lootContainerPanel.onTakeSourceStackAtIndex = { [weak self] sourceIndex in
             self?.takeLootStack(atSourceIndex: sourceIndex)
@@ -430,6 +491,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func sceneDidBecomeReady() {
+        syncDetectiveEncumbrance()
         // QA hook: hold the tactical pause from launch so the capture harness can
         // frame the paused presentation (clock state, desaturation) without a
         // keystroke.
@@ -461,15 +523,43 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             }
             let capturesLootUI = ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_LOOT_PANEL"] == "1"
                 || ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_INVENTORY"] == "1"
+                || ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_QUICK_LOOT"] != nil
             if capturesLootUI {
                 // These captures represent free play. Do not let the office's
                 // normal launch-time dialogue lock pause the world behind them.
                 dialogueIsActive = false
             }
+            if let dropCount = ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_QUICK_LOOT"],
+               let count = Int(dropCount) {
+                // QA hook: put a few stacks on the floor around Voss and open the
+                // strip, through the same session API a real drop uses.
+                for index in 0..<count {
+                    // From the back of the bag: the notebook near the front is
+                    // undroppable and would refuse every time.
+                    guard let slot = context.session.carriedInventory.stacks.indices.last
+                    else { break }
+                    let angle = CGFloat(index) * 0.7
+                    let offset = CGPoint(
+                        x: detective.position.x + cos(angle) * CGFloat(40 + index * 18),
+                        y: detective.position.y + sin(angle) * CGFloat(30 + index * 12)
+                    )
+                    context.session.dropCarriedItem(at: slot, in: groundAreaID, at: offset)
+                }
+                toggleQuickLootBar()
+                return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_LOOT_PANEL"] == "1",
                let desk = hotspots.first(where: { $0.id == "office.desk" }) {
                 presentLootContainerPanelIfNeeded(for: desk)
             } else if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_INVENTORY"] == "1" {
+                // QA hook: ready the revolver first, so a capture can show the
+                // equipped state without a click. Uses the same session API the
+                // window calls, so the proof is of the shipping path.
+                if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_EQUIPPED"] == "1",
+                   let index = context.session.carriedInventory.stacks
+                       .firstIndex(where: { $0.id == "service-revolver" }) {
+                    context.session.equipCarriedItem(at: index, to: .weapon1)
+                }
                 setInventoryPresented(true)
             }
             return
@@ -569,6 +659,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             lootContainerPanelOwnsPointerPress = false
             return
         }
+        let quickLootPoint = quickLootBar.convert(event.location, from: self)
+        if quickLootBar.containsBar(at: quickLootPoint) {
+            quickLootBar.activate(at: quickLootPoint)
+            return
+        }
         if lootContainerPanel.containsPanel(at: lootPoint) {
             // Pointer-up-only activation keeps synthetic/rapid macOS clicks usable.
             lootContainerPanel.beginPress(at: lootPoint)
@@ -611,7 +706,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
         if inventoryIsPresented {
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
-            inventoryOverlay.handlePointer(at: overlayPoint)
+            inventoryOverlay.handlePointer(at: overlayPoint, splitModifier: event.isWaypointQueue)
             return
         }
 
@@ -628,7 +723,10 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
 
         let actionPoint = actionBar.convert(hudPoint, from: hudRoot)
-        _ = portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
+        if portraitBar.endUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot)) == .search {
+            toggleQuickLootBar()
+            return
+        }
         let activatedButton = actionBar.endPress(at: actionPoint)
         if activatedButton == .clock {
             handleTacticalPauseInput()
@@ -713,6 +811,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // Stop any running edge scroll up front; it is re-armed at the bottom only
         // when the pointer is over the world rather than an overlay or HUD rail.
         setCameraScroll(.zero)
+        let quickLootHoverPoint = quickLootBar.convert(event.location, from: self)
+        if quickLootBar.containsBar(at: quickLootHoverPoint) {
+            let target = quickLootBar.updateHover(at: quickLootHoverPoint)
+            clearHotspotHoverHighlight()
+            actionBar.setHighlightedButton(nil)
+            (target == nil ? NSCursor.arrow : NSCursor.pointingHand).set()
+            return
+        }
         let lootPoint = lootContainerPanel.convert(event.location, from: self)
         let lootTarget = lootContainerPanel.updateHover(at: lootPoint)
         if lootContainerPanel.containsPanel(at: lootPoint) {
@@ -750,6 +856,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         if inventoryIsPresented {
             clearHotspotHoverHighlight()
             let overlayPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
+            // A lifted item rides the cursor, so the window needs every move.
+            inventoryOverlay.updateHover(at: overlayPoint)
             (inventoryOverlay.isInteractive(at: overlayPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
@@ -875,6 +983,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// and resets the action bar here; it never stops the walk. Overlays are our
     /// nearest equivalent of that targeting state, so they close — but an active
     /// path keeps running. Stopping is Escape's job (`handleCancelInput`).
+
+    override func handleSecondaryPointer(at point: CGPoint) -> Bool {
+        guard inventoryIsPresented else { return false }
+        return inventoryOverlay.handleSecondaryPointer(
+            at: inventoryOverlay.convert(hudRoot.convert(point, from: self), from: hudRoot)
+        )
+    }
+
     override func handleClearTargetingInput() {
         if dismissLootContainerPanel() {
             return
@@ -1467,13 +1583,60 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         refreshActiveLootContainer()
     }
 
-    private func refreshActiveLootContainer(feedback: LootContainerPanelFeedback? = nil) {
-        guard let containerID = activeLootContainerID else { return }
-        let entries = lootPanelEntries(for: containerID)
+
+    // MARK: - Ground piles
+
+    /// Area key for the ground pile. One pile per area, as in BG.
+    private var groundAreaID: String { "office" }
+
+    /// Re-read the ground near Voss and push it into the quick-loot bar.
+    private func refreshQuickLootBar() {
+        guard quickLootBar.isPresented else { return }
+        quickLootBar.refresh(
+            entries: context.session.groundStacks(
+                in: groundAreaID,
+                near: detective.position
+            )
+        )
+    }
+
+    /// BG:EE's Search control: show everything on the ground within reach.
+    private func toggleQuickLootBar() {
+        let showing = quickLootBar.toggle(
+            entries: context.session.groundStacks(in: groundAreaID, near: detective.position),
+            catalog: context.session.itemCatalog
+        )
+        if showing { refreshQuickLootBar() }
+    }
+
+    /// Weight decides the walk. BG divides the movement *rate* by the encumbrance
+    /// factor (`Actor::CalculateSpeedFromRate`), so an overloaded detective is
+    /// exactly half speed and an immobile one holds position. Called on every
+    /// path that can change what Voss is carrying.
+
+    /// Push current session state into the open inventory window. Every mutation
+    /// goes through `GameSession`, so the window never holds authoritative state —
+    /// it redraws from what was actually committed.
+    private func refreshInventoryOverlay() {
         inventoryOverlay.applyInventory(
             walletPence: context.session.walletPence,
-            carriedItems: context.session.carriedInventory.stacks
+            inventory: context.session.characterInventory,
+            catalog: context.session.itemCatalog,
+            currentHealth: context.session.currentHealth,
+            maximumHealth: context.session.maximumHealth
         )
+        syncDetectiveEncumbrance()
+    }
+
+    private func syncDetectiveEncumbrance() {
+        detective.movementProfile = context.session.detectiveMovementProfile
+    }
+
+    private func refreshActiveLootContainer(feedback: LootContainerPanelFeedback? = nil) {
+        syncDetectiveEncumbrance()
+        guard let containerID = activeLootContainerID else { return }
+        let entries = lootPanelEntries(for: containerID)
+        refreshInventoryOverlay()
         lootContainerPanel.refresh(
             entries: entries,
             walletPence: context.session.walletPence,
@@ -1821,14 +1984,20 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
     private func setInventoryPresented(_ presented: Bool) {
         if presented {
+            // The window, the container strip, and the quick-loot bar are mutually
+            // exclusive surfaces over the same bag.
             dismissLootContainerPanel()
+            quickLootBar.dismiss()
         }
         if presented, inventoryIsPresented {
             // Already open (e.g. portrait then action bar) — refresh wallet in place.
             inventoryOverlay.present(
-                walletPence: context.session.walletPence,
-                carriedItems: context.session.carriedInventory.stacks
-            )
+                    walletPence: context.session.walletPence,
+                    inventory: context.session.characterInventory,
+                    catalog: context.session.itemCatalog,
+                    currentHealth: context.session.currentHealth,
+                    maximumHealth: context.session.maximumHealth
+                )
             return
         }
         guard inventoryIsPresented != presented else { return }
@@ -1842,9 +2011,12 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
         if presented {
             inventoryOverlay.present(
-                walletPence: context.session.walletPence,
-                carriedItems: context.session.carriedInventory.stacks
-            )
+                    walletPence: context.session.walletPence,
+                    inventory: context.session.characterInventory,
+                    catalog: context.session.itemCatalog,
+                    currentHealth: context.session.currentHealth,
+                    maximumHealth: context.session.maximumHealth
+                )
         } else {
             inventoryOverlay.hideAnimated()
         }

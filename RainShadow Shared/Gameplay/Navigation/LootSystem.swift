@@ -98,6 +98,95 @@ enum ResolvedLootStack: Hashable, Codable, Sendable {
 struct CarriedItemStack: Hashable, Codable, Sendable {
     let id: String
     let quantity: Int
+    /// Per-stack, not per-definition. Two matchbooks lifted off two different
+    /// tables can differ in what Voss has worked out about them, which is why
+    /// the engine stores this bit on the creature's item entry
+    /// (`cre_v1.htm` offset 0x0010) and not in the shared `ITM` header.
+    let isIdentified: Bool
+    /// Remaining uses for a charged item; `nil` when the item has no charges.
+    let charges: Int?
+
+    init(id: String, quantity: Int, isIdentified: Bool = true, charges: Int? = nil) {
+        self.id = id
+        self.quantity = quantity
+        self.isIdentified = isIdentified
+        self.charges = charges
+    }
+
+    // Additive decoding: stacks written before identification existed load as
+    // identified, which is what they were.
+    private enum CodingKeys: String, CodingKey {
+        case id, quantity, isIdentified, charges
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            id: try c.decode(String.self, forKey: .id),
+            quantity: try c.decode(Int.self, forKey: .quantity),
+            isIdentified: try c.decodeIfPresent(Bool.self, forKey: .isIdentified) ?? true,
+            charges: try c.decodeIfPresent(Int.self, forKey: .charges)
+        )
+    }
+
+    func withQuantity(_ quantity: Int) -> CarriedItemStack {
+        CarriedItemStack(
+            id: id,
+            quantity: quantity,
+            isIdentified: isIdentified,
+            charges: charges
+        )
+    }
+
+    func identified() -> CarriedItemStack {
+        isIdentified ? self : withIdentified(true)
+    }
+
+    func withIdentified(_ identified: Bool) -> CarriedItemStack {
+        CarriedItemStack(
+            id: id,
+            quantity: quantity,
+            isIdentified: identified,
+            charges: charges
+        )
+    }
+
+    /// Two stacks combine only when they read identically. BG will not merge an
+    /// identified stack into an unidentified one — they draw differently and the
+    /// player would lose the distinction — and a charged item has a per-item
+    /// remainder that a merged quantity cannot express.
+    func canMerge(with other: CarriedItemStack) -> Bool {
+        id == other.id
+            && isIdentified == other.isIdentified
+            && charges == nil
+            && other.charges == nil
+    }
+}
+
+/// Per-item stack ceilings, read off the catalog. Passed into the bag rather than
+/// stored on it: the bag is a persisted value and must not carry content rules
+/// into the save file.
+struct ItemStackLimits: Sendable {
+    private let limitForID: @Sendable (String) -> Int
+
+    init(limitForID: @escaping @Sendable (String) -> Int) {
+        self.limitForID = limitForID
+    }
+
+    init(catalog: ItemCatalog) {
+        let limits = Dictionary(
+            uniqueKeysWithValues: catalog.allDefinitions.map { ($0.id, $0.maxStack) }
+        )
+        self.init { limits[$0] ?? 1 }
+    }
+
+    /// Nothing stacks. The behaviour the bag shipped with, kept as the default so
+    /// a caller that has no catalog cannot silently start merging.
+    static let nonStacking = ItemStackLimits { _ in 1 }
+
+    func maxStack(for id: String) -> Int {
+        max(1, limitForID(id))
+    }
 }
 
 /// Ordered, slot-limited acquired inventory. The UI also paints a fixed starter
@@ -138,16 +227,105 @@ struct CarriedInventoryState: Hashable, Sendable {
     }
 
     @discardableResult
-    mutating func append(_ stack: CarriedItemStack) -> Bool {
-        append(contentsOf: [stack])
+    mutating func append(
+        _ stack: CarriedItemStack,
+        limits: ItemStackLimits = .nonStacking
+    ) -> Bool {
+        append(contentsOf: [stack], limits: limits)
     }
 
     /// All-or-nothing append used by a take-all transaction.
+    ///
+    /// An incoming stack tops up a matching partial stack before it consumes a
+    /// fresh slot, the way BG fills a half-empty quiver rather than opening a
+    /// second one. The whole batch is solved against a copy first, so a batch
+    /// that cannot fit leaves the bag exactly as it was — the same
+    /// copy-then-commit discipline the transfer paths already use.
     @discardableResult
-    mutating func append(contentsOf newStacks: [CarriedItemStack]) -> Bool {
-        guard newStacks.allSatisfy({ $0.quantity > 0 }),
-              newStacks.count <= availableSlotCount else { return false }
-        stacks.append(contentsOf: newStacks)
+    mutating func append(
+        contentsOf newStacks: [CarriedItemStack],
+        limits: ItemStackLimits = .nonStacking
+    ) -> Bool {
+        guard newStacks.allSatisfy({ $0.quantity > 0 }) else { return false }
+        var candidate = stacks
+        for incoming in newStacks {
+            guard Self.absorb(
+                incoming,
+                into: &candidate,
+                limits: limits,
+                capacity: itemSlotCapacity
+            ) else { return false }
+        }
+        stacks = candidate
+        return true
+    }
+
+    /// Fills matching partial stacks in slot order, then spills the remainder
+    /// into new slots. `false` means the remainder ran out of room; the caller
+    /// discards `candidate` rather than committing a partial transfer.
+    private static func absorb(
+        _ incoming: CarriedItemStack,
+        into candidate: inout [CarriedItemStack],
+        limits: ItemStackLimits,
+        capacity: Int
+    ) -> Bool {
+        let ceiling = limits.maxStack(for: incoming.id)
+        var remaining = incoming.quantity
+
+        if ceiling > 1 {
+            for index in candidate.indices where remaining > 0 {
+                let existing = candidate[index]
+                guard existing.canMerge(with: incoming),
+                      existing.quantity < ceiling else { continue }
+                let moved = min(ceiling - existing.quantity, remaining)
+                candidate[index] = existing.withQuantity(existing.quantity + moved)
+                remaining -= moved
+            }
+        }
+
+        while remaining > 0 {
+            guard candidate.count < capacity else { return false }
+            // A non-stacking ceiling means "do not merge", not "break this stack
+            // into singles" — a loot entry authored as four of something has
+            // always occupied one slot, and must keep doing so.
+            let taken = ceiling > 1 ? min(ceiling, remaining) : remaining
+            candidate.append(incoming.withQuantity(taken))
+            remaining -= taken
+        }
+        return true
+    }
+
+    /// BG stack splitting: pull `count` off the stack at `index` into a new slot.
+    /// Refuses when the split would empty the source, when there is no free slot,
+    /// or when the stack is one the engine would not have let you split.
+    @discardableResult
+    mutating func split(at index: Int, count: Int) -> Bool {
+        guard let source = stack(at: index),
+              count > 0,
+              count < source.quantity,
+              source.charges == nil,
+              availableSlotCount > 0 else { return false }
+        stacks[index] = source.withQuantity(source.quantity - count)
+        stacks.insert(source.withQuantity(count), at: index + 1)
+        return true
+    }
+
+    /// Reorder the bag. The stacks array is dense — empty slots are always at the
+    /// end — so a move is a removal and a reinsertion rather than a swap.
+    @discardableResult
+    mutating func move(from source: Int, to destination: Int) -> Bool {
+        guard stacks.indices.contains(source), source != destination else { return false }
+        let stack = stacks.remove(at: source)
+        stacks.insert(stack, at: min(max(0, destination), stacks.count))
+        return true
+    }
+
+    /// Replace one stack in place — used by identification, which changes how a
+    /// stack reads without moving it.
+    @discardableResult
+    mutating func replace(at index: Int, with stack: CarriedItemStack) -> Bool {
+        guard stacks.indices.contains(index), stack.quantity > 0 else { return false }
+        stacks[index] = stack
         return true
     }
 

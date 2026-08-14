@@ -88,7 +88,25 @@ final class CityDistrictScene: BaseGameScene {
         updateCameraPosition()
     }
 
+
+    /// Push current session state into the open inventory window. Every mutation
+    /// goes through `GameSession`, so the window never holds authoritative state —
+    /// it redraws from what was actually committed.
+    private func refreshInventoryOverlay() {
+        inventoryOverlay.applyInventory(
+            walletPence: context.session.walletPence,
+            inventory: context.session.characterInventory,
+            catalog: context.session.itemCatalog,
+            currentHealth: context.session.currentHealth,
+            maximumHealth: context.session.maximumHealth
+        )
+        detective.movementProfile = context.session.detectiveMovementProfile
+    }
+
     override func sceneDidBecomeReady() {
+        // See DetectiveOfficeScene.syncDetectiveEncumbrance: a save loaded with a
+        // heavy bag must walk heavy from the first step, not from the first pickup.
+        detective.movementProfile = context.session.detectiveMovementProfile
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
@@ -140,7 +158,10 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
         if inventoryIsPresented {
-            inventoryOverlay.handlePointer(at: inventoryOverlay.convert(hudPoint, from: hudRoot))
+            inventoryOverlay.handlePointer(
+                at: inventoryOverlay.convert(hudPoint, from: hudRoot),
+                splitModifier: event.isWaypointQueue
+            )
             return
         }
 
@@ -233,6 +254,7 @@ final class CityDistrictScene: BaseGameScene {
         }
         if inventoryIsPresented {
             let inventoryPoint = inventoryOverlay.convert(hudPoint, from: hudRoot)
+            inventoryOverlay.updateHover(at: inventoryPoint)
             (inventoryOverlay.isInteractive(at: inventoryPoint) ? NSCursor.pointingHand : NSCursor.arrow).set()
             return
         }
@@ -324,6 +346,14 @@ final class CityDistrictScene: BaseGameScene {
 
     /// BG:EE right-click / two-finger tap: clear targeting state without stopping
     /// the walk. Escape remains the only Stop (`handleCancelInput`).
+
+    override func handleSecondaryPointer(at point: CGPoint) -> Bool {
+        guard inventoryIsPresented else { return false }
+        return inventoryOverlay.handleSecondaryPointer(
+            at: inventoryOverlay.convert(hudRoot.convert(point, from: self), from: hudRoot)
+        )
+    }
+
     override func handleClearTargetingInput() {
         if journalIsPresented {
             setJournalPresented(false)
@@ -406,6 +436,42 @@ final class CityDistrictScene: BaseGameScene {
 
         inventoryOverlay.zPosition = 100
         inventoryOverlay.onDismiss = { [weak self] in self?.setInventoryPresented(false) }
+        inventoryOverlay.onEquipCarriedItem = { [weak self] index, slot in
+            guard let self else { return nil }
+            let refusal = context.session.equipCarriedItem(at: index, to: slot)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onUnequipItem = { [weak self] slot in
+            guard let self else { return nil }
+            let refusal = context.session.unequipItem(from: slot)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onMoveEquippedItem = { [weak self] source, destination in
+            guard let self else { return nil }
+            let refusal = context.session.moveEquippedItem(from: source, to: destination)
+            refreshInventoryOverlay()
+            return refusal
+        }
+        inventoryOverlay.onMoveCarriedStack = { [weak self] source, destination in
+            guard let self else { return false }
+            let moved = context.session.moveCarriedStack(from: source, to: destination)
+            refreshInventoryOverlay()
+            return moved
+        }
+        inventoryOverlay.onSplitCarriedStack = { [weak self] index, count in
+            guard let self else { return false }
+            let split = context.session.splitCarriedStack(at: index, count: count)
+            refreshInventoryOverlay()
+            return split
+        }
+        inventoryOverlay.onIdentifyCarriedItem = { [weak self] index in
+            guard let self else { return false }
+            let identified = context.session.identifyCarriedItem(at: index)
+            refreshInventoryOverlay()
+            return identified
+        }
         hudRoot.addChild(inventoryOverlay)
 
         areaMapOverlay.zPosition = 110
@@ -706,7 +772,10 @@ final class CityDistrictScene: BaseGameScene {
         if presented {
             inventoryOverlay.present(
                 walletPence: context.session.walletPence,
-                carriedItems: context.session.carriedInventory.stacks
+                inventory: context.session.characterInventory,
+                catalog: context.session.itemCatalog,
+                currentHealth: context.session.currentHealth,
+                maximumHealth: context.session.maximumHealth
             )
         } else {
             inventoryOverlay.hideAnimated()

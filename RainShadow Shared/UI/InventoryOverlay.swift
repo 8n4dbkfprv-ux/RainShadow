@@ -1,310 +1,124 @@
 import SpriteKit
-#if os(iOS)
-import UIKit
-#elseif os(macOS)
-import AppKit
-#endif
 
-struct InventoryItem: Identifiable, Equatable {
-    enum Category: String {
-        case weapon = "SERVICE WEAPON"
-        case evidence = "EVIDENCE"
-        case tool = "FIELD TOOL"
-        case personal = "PERSONAL EFFECT"
-    }
-
-    /// Stable key for one painted/selectable occurrence. Starter keys equal their
-    /// authored IDs; acquired keys also include their carried-stack index.
-    let id: String
-    /// Definition/catalog identity, intentionally independent of presentation.
-    let authoredID: String
-    let name: String
-    let category: Category
-    let description: String
-    let note: String
-    let symbolName: String
-    let artName: String
-    let quantity: Int
-}
-
-/// One presentation catalogue shared by the full inventory and compact loot panel.
-/// Unknown authored IDs still get an honest generic item silhouette instead of
-/// disappearing from either transfer surface.
-enum InventoryItemCatalog {
-    static let starterSlotCount = 6
-
-    static func starterItems(walletPence: Int) -> [InventoryItem] {
-        let cashNote = "Cash on hand: \(CurrencyAmount(pence: walletPence).formatted)"
-        return [
-            InventoryItem(
-                id: "service-revolver",
-                authoredID: "service-revolver",
-                name: "Service Revolver",
-                category: .weapon,
-                description: "A six-shot Webley with a tired action and a clean barrel.",
-                note: "Registered to Det. H. Voss · 5 rounds loaded",
-                symbolName: "scope",
-                artName: "inventory_item_service_revolver_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "case-notes",
-                authoredID: "case-notes",
-                name: "Case Notebook",
-                category: .evidence,
-                description: "Names, times, and three pages someone tried to tear out.",
-                note: "Active file: The Empty Coat",
-                symbolName: "book.closed.fill",
-                artName: "inventory_item_case_notebook_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "brass-key",
-                authoredID: "brass-key",
-                name: "Brass Key",
-                category: .evidence,
-                description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
-                note: "The Empty Coat · in Voss's care",
-                symbolName: "key.fill",
-                artName: "inventory_item_brass_key_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "flashlight",
-                authoredID: "flashlight",
-                name: "Pocket Torch",
-                category: .tool,
-                description: "Dented steel, unreliable switch, enough battery for one long night.",
-                note: "Condition: worn",
-                symbolName: "flashlight.on.fill",
-                artName: "inventory_item_flashlight_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "wallet",
-                authoredID: "wallet",
-                name: "Leather Wallet",
-                category: .personal,
-                description: "Licence, tram pass, and the kind of money that disappears quickly.",
-                note: cashNote,
-                symbolName: "creditcard.fill",
-                artName: "inventory_item_wallet_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "cigarette-case",
-                authoredID: "cigarette-case",
-                name: "Cigarette Case",
-                category: .personal,
-                description: "Gunmetal silver. Initials scratched away with deliberate care.",
-                note: "4 cigarettes remaining",
-                symbolName: "cigarette.fill",
-                artName: "inventory_item_cigarette_case_v01",
-                quantity: 4
-            )
-        ]
-    }
-
-    /// Compatibility entry point for callers that do not own selectable slot
-    /// occurrences (for example, the compact loot panel).
-    static func acquiredItem(id: String, quantity: Int) -> InventoryItem {
-        acquiredItem(authoredID: id, quantity: quantity, presentationID: id)
-    }
-
-    static func acquiredItem(
-        authoredID: String,
-        quantity: Int,
-        presentationID: String
-    ) -> InventoryItem {
-        switch authoredID {
-        case "service-revolver":
-            return InventoryItem(
-                id: presentationID,
-                authoredID: authoredID,
-                name: "Service Revolver",
-                category: .weapon,
-                description: "A recovered service revolver carried in the case bag.",
-                note: "Carried item · not equipped",
-                symbolName: "scope",
-                artName: "inventory_item_service_revolver_v01",
-                quantity: max(1, quantity)
-            )
-        case "matchbook":
-            return InventoryItem(
-                id: presentationID,
-                authoredID: authoredID,
-                name: "Matchbook",
-                category: .evidence,
-                description: "A paper matchbook kept as part of the case record.",
-                note: "Recovered evidence",
-                symbolName: "flame.fill",
-                artName: "inventory_item_matchbook_v01",
-                quantity: max(1, quantity)
-            )
-        default:
-            let displayName = authoredID
-                .replacingOccurrences(of: "-", with: " ")
-                .replacingOccurrences(of: "_", with: " ")
-                .capitalized
-            return InventoryItem(
-                id: presentationID,
-                authoredID: authoredID,
-                name: displayName.isEmpty ? "Recovered Item" : displayName,
-                category: .evidence,
-                description: "An item recovered while working the case.",
-                note: "Recovered evidence",
-                symbolName: "shippingbox.fill",
-                artName: "inventory_slot_silhouette_item_v06",
-                quantity: max(1, quantity)
-            )
-        }
-    }
-}
-
-/// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
-/// Paperdoll equipped slots follow BG:EE Classic inventory geometry (V06 silhouettes; noir holster/revolver).
+/// The full-screen inventory window: a noir Mac OS 9 sheet over a darkened world.
+///
+/// Interaction is the Infinity Engine's, not the web's. A click lifts an item onto
+/// the cursor; a second click puts it down. There is no drag — BG never had one,
+/// and the loot strip beside this window is already click-only, so one idiom
+/// covers both surfaces.
+///
+/// Geometry lives in `InventoryScreenLayout` (RainShadowCore) so it can be tested;
+/// this file owns nodes, hit-testing, and ephemeral tints, and nothing else.
 @MainActor
 final class InventoryOverlay: SKNode {
-    /// Layout contract for the 1960×1080 canvas — BG EE hierarchy with Classic equipped geometry.
-    /// Loadout rows share one left edge; the case bag spans the full lower band.
-    private enum Metrics {
-        static let canvas = CGSize(width: 1_960, height: 1_080)
 
-        static let titleY: CGFloat = 520
-        /// Sits in the content well just below V16's 39px Platinum title bar.
-        static let identityBand = CGPoint(x: 0, y: 390)
-        /// Center of the OS 9 close box stamped into V16's left stripe field.
-        static let closeButton = CGPoint(x: -957, y: 520)
-        static let closeArtworkSize = CGSize(width: 20, height: 20)
+    // MARK: - Held item
 
-        /// One shared content rectangle inside the outer frame's inner rails.
-        /// Keeping every opaque plate on these edges prevents uneven gutters
-        /// and stops the lower band from covering the frame itself.
-        static let contentLeft: CGFloat = -840
-        static let contentRight: CGFloat = 840
-        static let contentWidth = contentRight - contentLeft
-        static let sectionGap: CGFloat = 25
-
-        static let primaryY: CGFloat = 90
-
-        /// Column center; slots left-align from `loadoutSlotLeft` (not centered per row).
-        static let loadoutSize = CGSize(width: 460, height: 520)
-        static let loadoutOrigin = CGPoint(x: contentLeft + loadoutSize.width / 2, y: primaryY)
-        static let loadoutSlotLeft: CGFloat = -168
-        static let loadoutSlotSize: CGFloat = 92
-        static let loadoutSlotPitch: CGFloat = 108
-
-        static let paperdollSize = CGSize(width: 520, height: 520)
-        static let paperdollOrigin = CGPoint(
-            x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
-            y: primaryY
-        )
-        /// Slightly below center: the doll sits between the two Classic slot bars,
-        /// clearing the fedora above and the boots bar below.
-        static let chamberOffset = CGPoint(x: 0, y: -8)
-        static let equipSlotSize = CGSize(width: 72, height: 68)
-
-        /// BG:EE (Classic) equipped-slot geometry, scaled into the paperdoll panel.
-        /// Classic hangs four slots in a bar across the top, shifted left so the doll's
-        /// head sits under the gap after the last one; the off-hand rides the right rail
-        /// at chest height with a ring below it and its twin mirrored on the left rail;
-        /// and cloak · boots · belt run as a second bar under the feet, sharing the top
-        /// bar's three right-hand columns. Everything sits on the plate's inner field.
-        static let equipColumnPitch: CGFloat = 78
-        /// Rightmost top-row column, just right of the doll's centerline, so the
-        /// fedora slot clears the head the way Classic's helmet slot does.
-        static let equipColumn4: CGFloat = 53
-        static let equipColumn3 = equipColumn4 - equipColumnPitch
-        static let equipColumn2 = equipColumn4 - 2 * equipColumnPitch
-        static let equipColumn1 = equipColumn4 - 3 * equipColumnPitch
-        static let equipTopY: CGFloat = 196
-        static let equipBottomY: CGFloat = -196
-        static let equipSideX: CGFloat = 195
-
-        static let equipArmor = CGPoint(x: equipColumn1, y: equipTopY)
-        static let equipGauntlets = CGPoint(x: equipColumn2, y: equipTopY)
-        static let equipHelmet = CGPoint(x: equipColumn3, y: equipTopY)
-        static let equipAmulet = CGPoint(x: equipColumn4, y: equipTopY)
-        static let equipHolster = CGPoint(x: equipSideX, y: -18)
-        static let equipRingLeft = CGPoint(x: -equipSideX, y: -102)
-        static let equipRingRight = CGPoint(x: equipSideX, y: -102)
-        static let equipCloak = CGPoint(x: equipColumn2, y: equipBottomY)
-        static let equipBoots = CGPoint(x: equipColumn3, y: equipBottomY)
-        static let equipBelt = CGPoint(x: equipColumn4, y: equipBottomY)
-
-        static let statsSize = CGSize(width: 650, height: 560)
-        static let statsOrigin = CGPoint(x: contentRight - statsSize.width / 2, y: primaryY)
-        static let statRowPitch: CGFloat = 116
-        static let statRowTopY: CGFloat = 195
-        static let statBadgeSize: CGFloat = 84
-        static let statTextWidth: CGFloat = 490
-
-        static let midStripY: CGFloat = -225
-        static let midSize = CGSize(width: contentWidth, height: 80)
-        static let midDescOrigin = CGPoint(x: 0, y: midStripY)
-        static let midPausedOrigin = CGPoint(x: -790, y: midStripY)
-        static let midCoinsOrigin = CGPoint(x: 750, y: midStripY)
-
-        /// Full-width lower band: satchel + one-row bag grid.
-        static let lowerY: CGFloat = -365
-        static let bagSize = CGSize(width: 1_680, height: 190)
-        static let bagOrigin = CGPoint(x: 0, y: lowerY)
-        static let bagSlotCount = 16
-        static let bagSlotSize: CGFloat = 70
-        static let bagSlotPitch: CGFloat = 84
-        static let bagFirstSlotX: CGFloat = -560
-        static let bagSlotY: CGFloat = -20
-        static let bagArtOffset = CGPoint(x: -750, y: 0)
+    /// Where a lifted stack came from, so it can be put back if the player
+    /// changes their mind or the destination refuses it.
+    enum HeldOrigin: Equatable {
+        case bag(index: Int)
+        case equipped(EquipmentSlot)
     }
 
-    private enum Palette {
-        static let paper = SKColor(red: 0.82, green: 0.80, blue: 0.72, alpha: 1)
-        static let quiet = SKColor(red: 0.55, green: 0.57, blue: 0.57, alpha: 1)
-        static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
+    private struct HeldItem: Equatable {
+        let stack: CarriedItemStack
+        let origin: HeldOrigin
+        let item: InventoryItem
     }
 
-    private var items: [InventoryItem] = InventoryItemCatalog.starterItems(
-        walletPence: CurrencyAmount.startingWalletPence
-    )
+    // MARK: - Callbacks
 
     var onDismiss: (() -> Void)?
+    /// Each returns the engine's refusal, or `nil` on success. The scene performs
+    /// the mutation against `GameSession` and pushes fresh state back in.
+    var onEquipCarriedItem: ((Int, EquipmentSlot) -> InventoryRefusal?)?
+    var onUnequipItem: ((EquipmentSlot) -> InventoryRefusal?)?
+    var onMoveEquippedItem: ((EquipmentSlot, EquipmentSlot) -> InventoryRefusal?)?
+    var onMoveCarriedStack: ((Int, Int) -> Bool)?
+    var onSplitCarriedStack: ((Int, Int) -> Bool)?
+    var onIdentifyCarriedItem: ((Int) -> Bool)?
+    /// Drop a carried stack on the floor. Returns the dropped stack's display
+    /// name, or `nil` when the item refused to be put down.
+    var onDropCarriedItem: ((Int) -> String?)?
 
-    private var slotFramesByPresentationID: [String: [SKNode]] = [:]
-    private var selectedPresentationID = "case-notes"
+    // MARK: - Palette
+
+    private enum Palette {
+        static let paper = SKColor(red: 0.88, green: 0.86, blue: 0.81, alpha: 1)
+        static let quiet = SKColor(red: 0.62, green: 0.60, blue: 0.57, alpha: 1)
+        static let amber = SKColor(red: 0.78, green: 0.62, blue: 0.32, alpha: 1)
+        static let oxblood = SKColor(red: 0.62, green: 0.20, blue: 0.19, alpha: 1)
+        /// The blue wash BG puts over an unidentified icon.
+        static let unidentified = SKColor(red: 0.36, green: 0.52, blue: 0.78, alpha: 1)
+    }
+
+    // MARK: - State
+
+    private var catalog: ItemCatalog = HarborpointItems.catalog
+    private var inventory = CharacterInventory()
+    private var walletPence = CurrencyAmount.startingWalletPence
+    private var currentHealth = 0
+    private var maximumHealth = 0
+    private var held: HeldItem?
+    private var selectedPresentationID: String?
+
+    private var carriedItems: [InventoryItem] = []
+
+    // MARK: - Nodes
+
+    private let sheet = SKNode()
+    private let content = SKNode()
+    private let paperdollSlotsRoot = SKNode()
+    private let loadoutSlotsRoot = SKNode()
+    private let bagSlotsRoot = SKNode()
+    private let heldItemRoot = SKNode()
+    private let heldItemIcon = SKSpriteNode()
+
     private let itemNameLabel = InventoryOverlay.label(size: 20, color: Palette.paper, weight: .demibold)
     private let itemCategoryLabel = InventoryOverlay.label(size: 13, color: Palette.amber, weight: .demibold)
     private let itemDescriptionLabel = InventoryOverlay.label(size: 15, color: Palette.paper, weight: .regular)
     private let itemNoteLabel = InventoryOverlay.label(size: 13, color: Palette.quiet, weight: .regular)
-    private let sheet = SKNode()
-    private let content = SKNode()
     private let coinValueLabel = InventoryOverlay.label(size: 16, color: Palette.paper, weight: .demibold)
-    private let bagSlotsRoot = SKNode()
+    private let weightLabel = InventoryOverlay.label(size: 14, color: Palette.quiet, weight: .demibold)
     private let bagCountLabel = InventoryOverlay.label(size: 14, color: Palette.quiet, weight: .demibold)
     private let bagOccupiedLabel = InventoryOverlay.label(size: 12, color: Palette.amber, weight: .demibold)
     private let bagCapacityLabel = InventoryOverlay.label(size: 11, color: Palette.quiet, weight: .demibold)
-    private var carriedItems: [CarriedItemStack] = []
-    private var walletPence = CurrencyAmount.startingWalletPence
+    private let feedbackLabel = InventoryOverlay.label(size: 15, color: Palette.oxblood, weight: .demibold)
+
+    private var statValueLabels: [StatRow: SKLabelNode] = [:]
+    private var statLineLabels: [StatRow: [SKLabelNode]] = [:]
+
+    private enum StatRow: Int, CaseIterable {
+        case defence, vitality, resolve, damage
+
+        var badgeArt: String {
+            switch self {
+            case .defence: "inventory_stat_badge_defence_v05"
+            case .vitality: "inventory_stat_badge_vitality_v05"
+            case .resolve: "inventory_stat_badge_resolve_v05"
+            case .damage: "inventory_stat_badge_damage_v05"
+            }
+        }
+
+        var caption: String {
+            switch self {
+            case .defence: "DEFENCE"
+            case .vitality: "VITALITY"
+            case .resolve: "RESOLVE"
+            case .damage: "DAMAGE"
+            }
+        }
+    }
+
+    // MARK: - Life cycle
 
     override init() {
         super.init()
         name = "inventory.overlay"
         isUserInteractionEnabled = false
         buildInterface()
-        refreshSelection()
         isHidden = true
-    }
-
-    private static func makeStarterItems(walletPence: Int) -> [InventoryItem] {
-        InventoryItemCatalog.starterItems(walletPence: walletPence)
-    }
-
-    /// Persistence currently stores ordered stacks rather than per-stack UUIDs,
-    /// so the carried index is the occurrence identity for this presentation.
-    private static func acquiredPresentationID(
-        authoredID: String,
-        carriedIndex: Int
-    ) -> String {
-        "acquired.\(carriedIndex).\(authoredID)"
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -312,13 +126,23 @@ final class InventoryOverlay: SKNode {
     }
 
     func layout(for visibleSize: CGSize) {
-        let horizontalFit = (visibleSize.width - 34) / Metrics.canvas.width
-        let verticalFit = (visibleSize.height - 30) / Metrics.canvas.height
-        setScale(min(1, horizontalFit, verticalFit))
+        setScale(InventoryScreenLayout.scale(for: visibleSize))
     }
 
-    func present(walletPence: Int, carriedItems: [CarriedItemStack]) {
-        applyInventory(walletPence: walletPence, carriedItems: carriedItems)
+    func present(
+        walletPence: Int,
+        inventory: CharacterInventory,
+        catalog: ItemCatalog,
+        currentHealth: Int,
+        maximumHealth: Int
+    ) {
+        applyInventory(
+            walletPence: walletPence,
+            inventory: inventory,
+            catalog: catalog,
+            currentHealth: currentHealth,
+            maximumHealth: maximumHealth
+        )
         removeAllActions()
         isHidden = false
         alpha = 0
@@ -328,6 +152,9 @@ final class InventoryOverlay: SKNode {
     }
 
     func hideAnimated() {
+        // A lifted item goes back where it came from; the engine never leaves one
+        // on a cursor that is about to disappear.
+        returnHeldItem()
         removeAllActions()
         run(.sequence([
             .fadeOut(withDuration: 0.14),
@@ -337,61 +164,262 @@ final class InventoryOverlay: SKNode {
         ]))
     }
 
-    func applyWallet(_ pence: Int) {
-        applyInventory(walletPence: pence, carriedItems: carriedItems)
-    }
-
-    func applyInventory(walletPence pence: Int, carriedItems: [CarriedItemStack]) {
-        walletPence = max(0, pence)
-        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
-        self.carriedItems = carriedItems
-        items = Self.makeStarterItems(walletPence: walletPence) + carriedItems.enumerated().map {
-            index, stack in
-            InventoryItemCatalog.acquiredItem(
-                authoredID: stack.id,
-                quantity: stack.quantity,
-                presentationID: Self.acquiredPresentationID(
-                    authoredID: stack.id,
-                    carriedIndex: index
-                )
-            )
+    func applyInventory(
+        walletPence pence: Int,
+        inventory: CharacterInventory,
+        catalog: ItemCatalog,
+        currentHealth: Int,
+        maximumHealth: Int
+    ) {
+        self.catalog = catalog
+        self.inventory = inventory
+        self.walletPence = max(0, pence)
+        self.currentHealth = currentHealth
+        self.maximumHealth = maximumHealth
+        carriedItems = InventoryItemPresentation.carriedItems(
+            inventory.backpack.stacks,
+            catalog: catalog
+        )
+        if let selected = selectedPresentationID,
+           !carriedItems.contains(where: { $0.id == selected }) {
+            selectedPresentationID = nil
         }
+        coinValueLabel.text = CurrencyAmount(pence: self.walletPence).formatted
         rebuildBagSlots()
-        if !items.contains(where: { $0.id == selectedPresentationID }) {
-            selectedPresentationID = items.first?.id ?? "case-notes"
-        }
+        rebuildEquippedSlots()
+        refreshCounters()
+        refreshStats()
         refreshSelection()
     }
 
-    @discardableResult
-    func handlePointer(at point: CGPoint) -> Bool {
-        guard !isHidden else { return false }
-        guard let target = targetName(at: point) else { return true }
+    // MARK: - Pointer
 
-        if target == "inventory.close" {
-            onDismiss?()
+    /// `true` when the window consumed the click. The window is modal, so that is
+    /// almost always — but a click on the veil now returns a held item rather than
+    /// being silently swallowed.
+    @discardableResult
+    func handlePointer(at point: CGPoint, splitModifier: Bool = false) -> Bool {
+        guard !isHidden else { return false }
+
+        guard let target = target(at: point) else {
+            // Outside every slot. BG drops what is on the cursor when you release
+            // it away from the panel; a case-critical item refuses and comes back.
+            dropHeldItemOnTheFloor()
             return true
         }
-        if target.hasPrefix("inventory.item.") {
-            selectedPresentationID = String(target.dropFirst("inventory.item.".count))
-            refreshSelection()
+
+        switch target {
+        case .close:
+            returnHeldItem()
+            onDismiss?()
+        case .bag(let index):
+            handleBagClick(index: index, splitModifier: splitModifier)
+        case .equipment(let slot):
+            handleEquipmentClick(slot: slot)
         }
         return true
     }
 
+    /// Right-click. BG uses it to attempt identification against Lore.
+    @discardableResult
+    func handleSecondaryPointer(at point: CGPoint) -> Bool {
+        guard !isHidden, held == nil else { return false }
+        guard case .bag(let index)? = target(at: point) else { return false }
+        guard inventory.backpack.stack(at: index) != nil else { return false }
+
+        if onIdentifyCarriedItem?(index) == true {
+            showFeedback("Identified.", tone: Palette.amber)
+        } else {
+            showFeedback("Nothing more comes to mind.", tone: Palette.quiet)
+        }
+        return true
+    }
+
+    /// Moves the held item's icon with the cursor.
+    func updateHover(at point: CGPoint) {
+        guard !isHidden, held != nil else { return }
+        heldItemRoot.position = convert(point, to: content)
+    }
+
     func moveSelection(_ direction: Int) {
-        guard !items.isEmpty else { return }
-        let current = items.firstIndex { $0.id == selectedPresentationID } ?? 0
-        let next = (current + direction + items.count) % items.count
-        selectedPresentationID = items[next].id
+        guard !carriedItems.isEmpty else { return }
+        let current = carriedItems.firstIndex { $0.id == selectedPresentationID } ?? 0
+        let next = (current + direction + carriedItems.count) % carriedItems.count
+        selectedPresentationID = carriedItems[next].id
         refreshSelection()
     }
 
     func isInteractive(at point: CGPoint) -> Bool {
-        guard let target = targetName(at: point) else { return false }
-        return target == "inventory.close"
-            || target.hasPrefix("inventory.item.")
+        target(at: point) != nil
     }
+
+    /// Whether a lifted item is riding the cursor — the scene uses this to keep
+    /// the pointer updating.
+    var isHoldingItem: Bool { held != nil }
+
+    // MARK: - Click handling
+
+    private func handleBagClick(index: Int, splitModifier: Bool) {
+        if let held {
+            place(held, intoBagAt: index)
+            return
+        }
+        guard let stack = inventory.backpack.stack(at: index) else { return }
+
+        if splitModifier, stack.quantity > 1 {
+            // BG splits a stack in half on a modified click; the halves land in
+            // adjacent slots and either can then be lifted.
+            if onSplitCarriedStack?(index, stack.quantity / 2) == true {
+                showFeedback("Split.", tone: Palette.quiet)
+            } else {
+                showFeedback("That stack will not divide.", tone: Palette.oxblood)
+            }
+            return
+        }
+
+        selectedPresentationID = carriedItems.indices.contains(index)
+            ? carriedItems[index].id
+            : nil
+        refreshSelection()
+        lift(stack, from: .bag(index: index))
+    }
+
+    private func handleEquipmentClick(slot: EquipmentSlot) {
+        if let held {
+            place(held, intoEquipment: slot)
+            return
+        }
+        guard let stack = inventory.item(in: slot) else { return }
+        selectedPresentationID = InventoryItemPresentation.presentationID(
+            authoredID: stack.id,
+            slot: slot
+        )
+        refreshSelection()
+        lift(stack, from: .equipped(slot))
+    }
+
+    private func lift(_ stack: CarriedItemStack, from origin: HeldOrigin) {
+        guard let item = InventoryItemPresentation.item(
+            for: stack,
+            catalog: catalog,
+            presentationID: "held.\(stack.id)"
+        ) else { return }
+        held = HeldItem(stack: stack, origin: origin, item: item)
+        showHeldIcon(item)
+        describe(item)
+        rebuildBagSlots()
+        rebuildEquippedSlots()
+    }
+
+    private func place(_ heldItem: HeldItem, intoEquipment slot: EquipmentSlot) {
+        let refusal: InventoryRefusal?
+        switch heldItem.origin {
+        case .bag(let index):
+            refusal = onEquipCarriedItem?(index, slot)
+        case .equipped(let source):
+            refusal = source == slot ? nil : onMoveEquippedItem?(source, slot)
+        }
+        finishPlacement(refusal: refusal)
+    }
+
+    private func place(_ heldItem: HeldItem, intoBagAt index: Int) {
+        let refusal: InventoryRefusal?
+        switch heldItem.origin {
+        case .equipped(let slot):
+            refusal = onUnequipItem?(slot)
+        case .bag(let source):
+            // Reordering inside the bag. A move onto itself is a put-down.
+            if source != index {
+                _ = onMoveCarriedStack?(source, index)
+            }
+            refusal = nil
+        }
+        finishPlacement(refusal: refusal)
+    }
+
+    private func finishPlacement(refusal: InventoryRefusal?) {
+        if let refusal {
+            showFeedback(refusal.description, tone: Palette.oxblood)
+        }
+        // Either way the cursor is empty again: on success the item landed, and on
+        // a refusal nothing moved, so it is still where it was lifted from.
+        clearHeldItem()
+    }
+
+    /// BG's drop: the held stack leaves the bag and lands at Voss's feet. Only a
+    /// carried stack can go straight to the floor — something worn has to come off
+    /// first, which is what putting it back in the bag is for.
+    private func dropHeldItemOnTheFloor() {
+        guard let held else { return }
+        guard case .bag(let index) = held.origin else {
+            showFeedback("Take it off first.", tone: Palette.quiet)
+            clearHeldItem()
+            return
+        }
+        if let name = onDropCarriedItem?(index) {
+            showFeedback("Dropped \(name).", tone: Palette.quiet)
+        } else {
+            showFeedback("That stays with him.", tone: Palette.oxblood)
+        }
+        clearHeldItem()
+    }
+
+    private func returnHeldItem() {
+        guard held != nil else { return }
+        clearHeldItem()
+    }
+
+    private func clearHeldItem() {
+        held = nil
+        heldItemRoot.isHidden = true
+        rebuildBagSlots()
+        rebuildEquippedSlots()
+        refreshSelection()
+    }
+
+    private func showHeldIcon(_ item: InventoryItem) {
+        guard let texture = GameArt.texture(named: item.artName) else {
+            assertionFailure("Missing inventory item art: \(item.artName)")
+            return
+        }
+        texture.filteringMode = .linear
+        heldItemIcon.texture = texture
+        heldItemIcon.size = CGSize(width: 56, height: 56)
+        heldItemRoot.isHidden = false
+    }
+
+    // MARK: - Hit testing
+
+    private enum Target: Equatable {
+        case close
+        case bag(index: Int)
+        case equipment(EquipmentSlot)
+    }
+
+    private func target(at point: CGPoint) -> Target? {
+        for hit in nodes(at: point) {
+            var candidate: SKNode? = hit
+            while let node = candidate, node !== self {
+                if let name = node.name {
+                    if name == "inventory.close" { return .close }
+                    if name.hasPrefix("inventory.bag."),
+                       let index = Int(name.dropFirst("inventory.bag.".count)) {
+                        return .bag(index: index)
+                    }
+                    if name.hasPrefix("inventory.equip."),
+                       let slot = EquipmentSlot(
+                           rawValue: String(name.dropFirst("inventory.equip.".count))
+                       ) {
+                        return .equipment(slot)
+                    }
+                }
+                candidate = node.parent
+            }
+        }
+        return nil
+    }
+
+    // MARK: - Building
 
     private func buildInterface() {
         let veil = SKShapeNode(rectOf: CGSize(width: 3_000, height: 1_600))
@@ -400,7 +428,12 @@ final class InventoryOverlay: SKNode {
         veil.zPosition = -20
         addChild(veil)
 
-        addChromeSprite(named: "inventory_outer_frame_v16", size: Metrics.canvas, z: -8, parent: sheet)
+        addChromeSprite(
+            named: "inventory_outer_frame_v16",
+            size: InventoryScreenLayout.canvas,
+            z: -8,
+            parent: sheet
+        )
 
         sheet.addChild(content)
         content.zPosition = 0
@@ -408,28 +441,29 @@ final class InventoryOverlay: SKNode {
         let title = Self.label(size: 36, color: Palette.paper, weight: .display)
         title.text = "INVENTORY"
         title.verticalAlignmentMode = .center
-        title.position = CGPoint(x: 0, y: Metrics.titleY)
+        title.position = CGPoint(x: 0, y: InventoryScreenLayout.titleY)
         title.zPosition = 20
         content.addChild(title)
 
+        let band = InventoryScreenLayout.identityBand
         let detectiveName = Self.label(size: 20, color: Palette.paper, weight: .demibold)
         detectiveName.text = "HARLAN VOSS"
         detectiveName.horizontalAlignmentMode = .right
-        detectiveName.position = CGPoint(x: Metrics.identityBand.x - 18, y: Metrics.identityBand.y)
+        detectiveName.position = CGPoint(x: band.x - 18, y: band.y)
         detectiveName.zPosition = 20
         content.addChild(detectiveName)
 
         let divider = Self.label(size: 18, color: Palette.quiet, weight: .demibold)
         divider.text = "·"
         divider.horizontalAlignmentMode = .center
-        divider.position = Metrics.identityBand
+        divider.position = band
         divider.zPosition = 20
         content.addChild(divider)
 
         let profession = Self.label(size: 18, color: Palette.paper, weight: .demibold)
         profession.text = "PRIVATE INVESTIGATOR"
         profession.horizontalAlignmentMode = .left
-        profession.position = CGPoint(x: Metrics.identityBand.x + 18, y: Metrics.identityBand.y)
+        profession.position = CGPoint(x: band.x + 18, y: band.y)
         profession.zPosition = 20
         content.addChild(profession)
 
@@ -439,6 +473,7 @@ final class InventoryOverlay: SKNode {
         buildStatsPanel()
         buildMidStrip()
         buildBagPanel()
+        buildHeldItemCursor()
         addChild(sheet)
     }
 
@@ -450,132 +485,157 @@ final class InventoryOverlay: SKNode {
             highlight: .clear,
             accent: .clear,
             artworkName: "inventory_close_box_macos9_noir_v15",
-            artworkSize: Metrics.closeArtworkSize
+            artworkSize: InventoryScreenLayout.closeArtworkSize
         )
-        button.position = Metrics.closeButton
+        button.position = InventoryScreenLayout.closeButton
         button.zPosition = 30
         content.addChild(button)
     }
 
+    private func buildHeldItemCursor() {
+        heldItemRoot.zPosition = 60
+        heldItemRoot.isHidden = true
+        heldItemIcon.zPosition = 1
+        heldItemIcon.alpha = 0.92
+        heldItemRoot.addChild(heldItemIcon)
+        content.addChild(heldItemRoot)
+    }
+
     private func buildLoadoutPanel() {
         let root = SKNode()
-        root.position = Metrics.loadoutOrigin
+        root.position = InventoryScreenLayout.loadoutOrigin
         root.zPosition = 1
 
         addChromeSprite(
             named: "inventory_section_loadout_v05",
-            size: Metrics.loadoutSize,
+            size: InventoryScreenLayout.loadoutSize,
             z: -1,
             parent: root
         )
 
-        addSlotSection(
-            "READY WEAPONS",
-            items: [item(id: "service-revolver"), nil, nil, nil],
-            emptySilhouette: "inventory_slot_silhouette_weapon_v06",
-            to: root,
-            headerY: 200,
-            slotY: 144
-        )
-        addSlotSection(
-            "QUICK ITEMS",
-            items: [item(id: "flashlight"), item(id: "case-notes"), item(id: "cigarette-case")],
-            emptySilhouette: "inventory_slot_silhouette_item_v06",
-            to: root,
-            headerY: 55,
-            slotY: -5
-        )
-        addSlotSection(
-            "COAT POCKETS",
-            items: [item(id: "brass-key"), nil, item(id: "wallet")],
-            emptySilhouette: "inventory_slot_silhouette_item_v06",
-            to: root,
-            headerY: -110,
-            slotY: -180
-        )
+        for row in InventoryScreenLayout.LoadoutRow.allCases {
+            let label = Self.label(size: 15, color: Palette.paper, weight: .demibold)
+            label.text = row.title
+            label.horizontalAlignmentMode = .left
+            label.verticalAlignmentMode = .center
+            label.position = CGPoint(x: InventoryScreenLayout.loadoutSlotLeft, y: row.headerY)
+            label.zPosition = 3
+            root.addChild(label)
+        }
 
+        loadoutSlotsRoot.zPosition = 2
+        root.addChild(loadoutSlotsRoot)
         content.addChild(root)
     }
 
     private func buildPaperdollPanel() {
         let root = SKNode()
-        root.position = Metrics.paperdollOrigin
+        root.position = InventoryScreenLayout.paperdollOrigin
         root.zPosition = 1
 
         addChromeSprite(
             named: "inventory_section_paperdoll_v05",
-            size: Metrics.paperdollSize,
+            size: InventoryScreenLayout.paperdollSize,
             z: -1,
             parent: root
         )
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
             detectiveTexture.filteringMode = .nearest
-            let paperdoll = SKSpriteNode(texture: detectiveTexture, size: CGSize(width: 220, height: 315))
+            let paperdoll = SKSpriteNode(
+                texture: detectiveTexture,
+                size: InventoryScreenLayout.paperdollBodySize
+            )
             paperdoll.name = "inventory.paperdoll"
-            paperdoll.position = Metrics.chamberOffset
+            paperdoll.position = InventoryScreenLayout.chamberOffset
             paperdoll.zPosition = 0
             root.addChild(paperdoll)
         } else {
             assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
-        // BG:EE Classic equipped geometry: armor/gauntlets/helmet/amulet along the top
-        // bar, noir holster as the off-hand on the right rail, a ring at each hip, and
-        // cloak/boots/belt in the bar under the feet.
-        // No captions — BG:EE empty slots have none.
-        let equipment: [(String, String, CGPoint)] = [
-            ("inventory_slot_silhouette_coat_v06", "inventory.equip.coat", Metrics.equipArmor),
-            ("inventory_slot_silhouette_hands_v06", "inventory.equip.gloves", Metrics.equipGauntlets),
-            ("inventory_slot_silhouette_hat_v06", "inventory.equip.fedora", Metrics.equipHelmet),
-            ("inventory_slot_silhouette_charm_v06", "inventory.equip.charm", Metrics.equipAmulet),
-            ("inventory_slot_silhouette_holster_v06", "inventory.equip.holster", Metrics.equipHolster),
-            ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringLeft", Metrics.equipRingLeft),
-            ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringRight", Metrics.equipRingRight),
-            ("inventory_slot_silhouette_cloak_v06", "inventory.equip.cloak", Metrics.equipCloak),
-            ("inventory_slot_silhouette_feet_v06", "inventory.equip.shoes", Metrics.equipBoots),
-            ("inventory_slot_silhouette_belt_v06", "inventory.equip.belt", Metrics.equipBelt)
-        ]
-        for equipmentItem in equipment {
-            root.addChild(
-                equipmentSlot(artName: equipmentItem.0, name: equipmentItem.1, at: equipmentItem.2)
-            )
-        }
-
+        paperdollSlotsRoot.zPosition = 2
+        root.addChild(paperdollSlotsRoot)
         content.addChild(root)
     }
 
     private func buildStatsPanel() {
         let root = SKNode()
-        root.position = Metrics.statsOrigin
+        root.position = InventoryScreenLayout.statsOrigin
         root.zPosition = 1
 
         addChromeSprite(
             named: "inventory_section_stats_v05",
-            size: Metrics.statsSize,
+            size: InventoryScreenLayout.statsSize,
             z: -1,
             parent: root
         )
 
-        let rows: [(String, String, String, [String])] = [
-            ("inventory_stat_badge_defence_v05", "8", "DEFENCE", ["Defence: 8", "Coat & leather turn glancing blows."]),
-            ("inventory_stat_badge_vitality_v05", "8/10", "VITALITY", ["Vitality: 8 / 10", "Steady under night pressure."]),
-            ("inventory_stat_badge_resolve_v05", "6", "RESOLVE", ["Resolve: 6", "Keeps the case moving forward."]),
-            ("inventory_stat_badge_damage_v05", "2–7", "DAMAGE", ["Damage: 2–7", "Webley · service load."])
-        ]
-        for (index, row) in rows.enumerated() {
-            let y = Metrics.statRowTopY - CGFloat(index) * Metrics.statRowPitch
-            root.addChild(statRow(badgeArt: row.0, value: row.1, caption: row.2, lines: row.3, at: CGPoint(x: 0, y: y)))
+        for row in StatRow.allCases {
+            root.addChild(buildStatRow(
+                row,
+                at: CGPoint(x: 0, y: InventoryScreenLayout.statRowY(index: row.rawValue))
+            ))
+        }
+        content.addChild(root)
+    }
+
+    private func buildStatRow(_ row: StatRow, at position: CGPoint) -> SKNode {
+        let root = SKNode()
+        root.position = position
+        root.zPosition = 2
+
+        let badgeX = InventoryScreenLayout.statBadgeX
+        let badgeSize = InventoryScreenLayout.statBadgeSize
+        if let texture = GameArt.texture(named: row.badgeArt) {
+            texture.filteringMode = .linear
+            let badge = SKSpriteNode(
+                texture: texture,
+                size: CGSize(width: badgeSize, height: badgeSize)
+            )
+            badge.position = CGPoint(x: badgeX, y: 0)
+            root.addChild(badge)
+        } else {
+            assertionFailure("Missing inventory stat badge: \(row.badgeArt)")
         }
 
-        content.addChild(root)
+        let valueLabel = Self.label(size: 24, color: Palette.paper, weight: .demibold)
+        valueLabel.verticalAlignmentMode = .center
+        valueLabel.position = CGPoint(x: badgeX, y: 1)
+        valueLabel.zPosition = 2
+        root.addChild(valueLabel)
+        statValueLabels[row] = valueLabel
+
+        let captionLabel = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
+        captionLabel.text = row.caption
+        captionLabel.position = CGPoint(x: badgeX, y: -badgeSize / 2 - 14)
+        root.addChild(captionLabel)
+
+        let textX = badgeX + badgeSize / 2 + 28
+        var lines: [SKLabelNode] = []
+        for index in 0..<2 {
+            let label = Self.label(
+                size: index == 0 ? 16 : 14,
+                color: index == 0 ? Palette.paper : Palette.quiet,
+                weight: index == 0 ? .demibold : .regular
+            )
+            label.horizontalAlignmentMode = .left
+            label.verticalAlignmentMode = .center
+            label.preferredMaxLayoutWidth = InventoryScreenLayout.statTextWidth - 28
+            label.numberOfLines = 2
+            label.position = CGPoint(x: textX + 14, y: index == 0 ? 14 : -12)
+            root.addChild(label)
+            lines.append(label)
+        }
+        statLineLabels[row] = lines
+        return root
     }
 
     private func buildMidStrip() {
         addChromeSprite(
             named: "inventory_section_mid_v05",
-            size: Metrics.midSize,
-            at: CGPoint(x: 0, y: Metrics.midStripY),
+            size: InventoryScreenLayout.midSize,
+            at: CGPoint(x: 0, y: InventoryScreenLayout.midStripY),
             z: 0,
             parent: content
         )
@@ -584,12 +644,12 @@ final class InventoryOverlay: SKNode {
         paused.text = "CASEWORK PAUSED"
         paused.horizontalAlignmentMode = .left
         paused.verticalAlignmentMode = .center
-        paused.position = Metrics.midPausedOrigin
+        paused.position = InventoryScreenLayout.midPausedOrigin
         paused.zPosition = 2
         content.addChild(paused)
 
         let desc = SKNode()
-        desc.position = Metrics.midDescOrigin
+        desc.position = InventoryScreenLayout.midDescOrigin
         desc.zPosition = 2
         itemCategoryLabel.horizontalAlignmentMode = .left
         itemCategoryLabel.verticalAlignmentMode = .center
@@ -611,155 +671,238 @@ final class InventoryOverlay: SKNode {
         desc.addChild(itemNoteLabel)
         content.addChild(desc)
 
-        content.addChild(coinDisplay(at: Metrics.midCoinsOrigin))
+        weightLabel.horizontalAlignmentMode = .right
+        weightLabel.verticalAlignmentMode = .center
+        weightLabel.position = InventoryScreenLayout.midWeightOrigin
+        weightLabel.zPosition = 2
+        content.addChild(weightLabel)
+
+        content.addChild(coinDisplay(at: InventoryScreenLayout.midCoinsOrigin))
+
+        feedbackLabel.horizontalAlignmentMode = .center
+        feedbackLabel.verticalAlignmentMode = .center
+        feedbackLabel.position = CGPoint(x: 0, y: InventoryScreenLayout.midStripY - 62)
+        feedbackLabel.zPosition = 40
+        feedbackLabel.alpha = 0
+        content.addChild(feedbackLabel)
     }
 
     private func buildBagPanel() {
         let bag = SKNode()
-        bag.position = Metrics.bagOrigin
+        bag.position = InventoryScreenLayout.bagOrigin
         bag.zPosition = 1
-        addChromeSprite(named: "inventory_section_bag_v06", size: Metrics.bagSize, z: -1, parent: bag)
+        addChromeSprite(
+            named: "inventory_section_bag_v06",
+            size: InventoryScreenLayout.bagSize,
+            z: -1,
+            parent: bag
+        )
+
         let bagTitle = Self.label(size: 14, color: Palette.paper, weight: .demibold)
         bagTitle.text = "CASE BAG"
         bagTitle.horizontalAlignmentMode = .left
         bagTitle.verticalAlignmentMode = .center
-        bagTitle.position = CGPoint(x: -Metrics.bagSize.width / 2 + 22, y: 83)
+        bagTitle.position = CGPoint(x: -InventoryScreenLayout.bagSize.width / 2 + 22, y: 83)
         bagTitle.zPosition = 3
         bag.addChild(bagTitle)
+
         bagCountLabel.horizontalAlignmentMode = .right
         bagCountLabel.verticalAlignmentMode = .center
-        bagCountLabel.position = CGPoint(x: Metrics.bagSize.width / 2 - 44, y: 68)
+        bagCountLabel.position = CGPoint(x: InventoryScreenLayout.bagSize.width / 2 - 44, y: 68)
         bagCountLabel.zPosition = 3
         bag.addChild(bagCountLabel)
 
         if let bagTexture = GameArt.texture(named: "inventory_case_bag_v05") {
             bagTexture.filteringMode = .linear
             let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 92, height: 92))
-            bagArt.position = Metrics.bagArtOffset
+            bagArt.position = InventoryScreenLayout.bagArtOffset
             bagArt.zPosition = 1
             bag.addChild(bagArt)
         } else {
             assertionFailure("Missing inventory_case_bag_v05.png")
         }
-        bagOccupiedLabel.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 55)
+
+        let bagArtOffset = InventoryScreenLayout.bagArtOffset
+        bagOccupiedLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y + 55)
         bagOccupiedLabel.zPosition = 2
         bag.addChild(bagOccupiedLabel)
-        bagCapacityLabel.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 60)
+        bagCapacityLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y - 60)
         bagCapacityLabel.zPosition = 2
         bag.addChild(bagCapacityLabel)
 
         bagSlotsRoot.zPosition = 2
         bag.addChild(bagSlotsRoot)
-        rebuildBagSlots()
         content.addChild(bag)
     }
 
+    // MARK: - Slot rebuilding
+
     private func rebuildBagSlots() {
         bagSlotsRoot.removeAllChildren()
-        slotFramesByPresentationID = slotFramesByPresentationID.reduce(
-            into: [String: [SKNode]]()
-        ) { result, pair in
-            let attached = pair.value.filter { $0.parent != nil }
-            if !attached.isEmpty { result[pair.key] = attached }
-        }
-        let visibleItems = Array(items.prefix(Metrics.bagSlotCount))
-        bagCountLabel.text = "\(visibleItems.count) / \(Metrics.bagSlotCount)"
-        bagOccupiedLabel.text = "\(visibleItems.count) OCCUPIED"
-        bagCapacityLabel.text = "\(Metrics.bagSlotCount) SLOTS"
-
-        for index in 0..<Metrics.bagSlotCount {
-            let position = CGPoint(
-                x: Metrics.bagFirstSlotX + CGFloat(index) * Metrics.bagSlotPitch,
-                y: Metrics.bagSlotY
-            )
-            if visibleItems.indices.contains(index) {
-                bagSlotsRoot.addChild(itemSlot(
-                    visibleItems[index],
-                    size: Metrics.bagSlotSize,
-                    at: position,
-                    showQuantity: true
-                ))
+        for index in 0..<InventoryScreenLayout.bagSlotCount {
+            let position = InventoryScreenLayout.bagSlotPosition(index: index)
+            let size = InventoryScreenLayout.bagSlotSize
+            let node: SKNode
+            if let item = visibleBagItem(at: index) {
+                node = itemSlot(item, size: CGSize(width: size, height: size))
             } else {
-                bagSlotsRoot.addChild(emptySlot(
-                    size: Metrics.bagSlotSize,
-                    at: position,
+                node = emptySlot(
+                    size: CGSize(width: size, height: size),
                     silhouette: "inventory_slot_silhouette_bag_v06",
                     silhouetteAlpha: 0.16
-                ))
+                )
+            }
+            node.name = "inventory.bag.\(index)"
+            node.position = position
+            node.zPosition = 2
+            bagSlotsRoot.addChild(node)
+        }
+    }
+
+    /// The lifted stack leaves a hole where it was, the way BG empties the slot an
+    /// item was picked up from.
+    private func visibleBagItem(at index: Int) -> InventoryItem? {
+        if case .bag(let heldIndex)? = held?.origin, heldIndex == index { return nil }
+        guard carriedItems.indices.contains(index) else { return nil }
+        return carriedItems[index]
+    }
+
+    private func rebuildEquippedSlots() {
+        paperdollSlotsRoot.removeAllChildren()
+        loadoutSlotsRoot.removeAllChildren()
+
+        for slot in EquipmentSlot.paperdollSlots {
+            guard let position = InventoryScreenLayout.paperdollSlotPosition(slot) else { continue }
+            let node = equipmentSlotNode(slot, size: InventoryScreenLayout.equipSlotSize)
+            node.position = position
+            paperdollSlotsRoot.addChild(node)
+        }
+
+        let loadoutSize = CGSize(
+            width: InventoryScreenLayout.loadoutSlotSize,
+            height: InventoryScreenLayout.loadoutSlotSize
+        )
+        for row in InventoryScreenLayout.LoadoutRow.allCases {
+            for (index, slot) in row.slots.enumerated() {
+                let node = equipmentSlotNode(slot, size: loadoutSize)
+                node.position = InventoryScreenLayout.loadoutSlotPosition(row: row, index: index)
+                loadoutSlotsRoot.addChild(node)
             }
         }
     }
 
-    private func itemSlot(_ item: InventoryItem, size: CGFloat, at position: CGPoint, showQuantity: Bool) -> SKNode {
-        let slot = slotBase(size: CGSize(width: size, height: size))
-        slot.name = "inventory.item.\(item.id)"
-        slot.position = position
-        slot.zPosition = 2
+    private func equipmentSlotNode(_ slot: EquipmentSlot, size: CGSize) -> SKNode {
+        let root = SKNode()
+        root.name = slot.nodeName
+        root.zPosition = 2
+
+        let lifted: Bool
+        if case .equipped(let heldSlot)? = held?.origin, heldSlot == slot {
+            lifted = true
+        } else {
+            lifted = false
+        }
+
+        if !lifted,
+           let stack = inventory.item(in: slot),
+           let item = InventoryItemPresentation.item(
+               for: stack,
+               catalog: catalog,
+               presentationID: InventoryItemPresentation.presentationID(
+                   authoredID: stack.id,
+                   slot: slot
+               )
+           ) {
+            root.addChild(itemSlot(item, size: size))
+        } else {
+            root.addChild(emptySlot(
+                size: size,
+                silhouette: InventoryScreenLayout.emptySilhouetteArtName(for: slot),
+                silhouetteAlpha: 0.78
+            ))
+        }
+
+        // While an item is on the cursor, every slot that would take it reads as a
+        // live target. BG lights the legal destinations rather than making you guess.
+        if let held, !lifted,
+           inventory.canEquip(held.stack, in: slot, catalog: catalog) {
+            let glow = SKSpriteNode(
+                color: Palette.amber.withAlphaComponent(0.16),
+                size: CGSize(width: size.width + 6, height: size.height + 6)
+            )
+            glow.zPosition = 4
+            root.addChild(glow)
+        }
+        return root
+    }
+
+    // MARK: - Slot nodes
+
+    private func itemSlot(_ item: InventoryItem, size: CGSize) -> SKNode {
+        let slot = slotBase(size: size)
+        let iconSize = CGSize(width: size.width * 0.72, height: size.height * 0.72)
 
         if let texture = GameArt.texture(named: item.artName) {
             texture.filteringMode = .linear
-            let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.72, height: size * 0.72))
+            let icon = SKSpriteNode(texture: texture, size: iconSize)
             icon.name = "inventory.item-art"
             icon.zPosition = 1
             slot.addChild(icon)
+
+            // BG washes an unidentified icon blue until its name is known.
+            if !item.isIdentified {
+                let wash = SKSpriteNode(texture: texture, size: iconSize)
+                wash.color = Palette.unidentified
+                wash.colorBlendFactor = 0.72
+                wash.alpha = 0.55
+                wash.zPosition = 2
+                slot.addChild(wash)
+            }
         } else {
             assertionFailure("Missing inventory item art: \(item.artName)")
         }
 
-        if showQuantity, item.quantity > 1 {
+        if item.quantity > 1 {
             let count = Self.label(size: 12, color: Palette.paper, weight: .demibold)
             count.text = "\(item.quantity)"
             count.verticalAlignmentMode = .center
             count.horizontalAlignmentMode = .right
-            count.position = CGPoint(x: size / 2 - 8, y: -size / 2 + 12)
-            count.zPosition = 2
+            count.position = CGPoint(x: size.width / 2 - 8, y: -size.height / 2 + 12)
+            count.zPosition = 3
             slot.addChild(count)
         }
 
         if let texture = GameArt.texture(named: "inventory_selection_frame_v05") {
             texture.filteringMode = .linear
-            let selection = SKSpriteNode(texture: texture, size: CGSize(width: size + 8, height: size + 8))
+            let selection = SKSpriteNode(
+                texture: texture,
+                size: CGSize(width: size.width + 8, height: size.height + 8)
+            )
             selection.name = "inventory.selection-frame"
-            selection.zPosition = 3
-            selection.isHidden = true
+            selection.zPosition = 5
+            selection.isHidden = item.id != selectedPresentationID
             slot.addChild(selection)
         }
-
-        slotFramesByPresentationID[item.id, default: []].append(slot)
         return slot
     }
 
     private func emptySlot(
-        size: CGFloat,
-        at position: CGPoint,
+        size: CGSize,
         silhouette: String,
-        silhouetteAlpha: CGFloat = 0.45
+        silhouetteAlpha: CGFloat
     ) -> SKNode {
-        let slot = slotBase(size: CGSize(width: size, height: size))
-        slot.position = position
-        slot.zPosition = 2
-        if let texture = GameArt.texture(named: silhouette) ?? UIPaintedChrome.texture(named: silhouette) {
-            let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.62, height: size * 0.62))
+        let slot = slotBase(size: size)
+        if let texture = GameArt.texture(named: silhouette)
+            ?? UIPaintedChrome.texture(named: silhouette) {
+            let icon = SKSpriteNode(
+                texture: texture,
+                size: CGSize(width: size.width * 0.62, height: size.height * 0.62)
+            )
             icon.alpha = silhouetteAlpha
             icon.zPosition = 0
             slot.addChild(icon)
         }
         return slot
-    }
-
-    private func equipmentSlot(artName: String, name: String, at position: CGPoint) -> SKNode {
-        let root = SKNode()
-        root.name = name
-        root.position = position
-        root.zPosition = 2
-        let slot = slotBase(size: Metrics.equipSlotSize)
-        if let texture = GameArt.texture(named: artName) ?? UIPaintedChrome.texture(named: artName) {
-            let icon = SKSpriteNode(texture: texture, size: CGSize(width: 52, height: 48))
-            icon.alpha = 0.78
-            slot.addChild(icon)
-        }
-        root.addChild(slot)
-        return root
     }
 
     private func slotBase(size: CGSize) -> SKNode {
@@ -802,110 +945,143 @@ final class InventoryOverlay: SKNode {
         return root
     }
 
-    private func statRow(badgeArt: String, value: String, caption: String, lines: [String], at position: CGPoint) -> SKNode {
-        let root = SKNode()
-        root.position = position
-        root.zPosition = 2
+    // MARK: - Refresh
 
-        let badgeX: CGFloat = -Metrics.statsSize.width / 2 + 62
-        if let texture = GameArt.texture(named: badgeArt) {
-            texture.filteringMode = .linear
-            let badge = SKSpriteNode(texture: texture, size: CGSize(width: Metrics.statBadgeSize, height: Metrics.statBadgeSize))
-            badge.position = CGPoint(x: badgeX, y: 0)
-            root.addChild(badge)
+    private func refreshCounters() {
+        let occupied = inventory.backpack.occupiedSlotCount
+        let capacity = InventoryScreenLayout.bagSlotCount
+        bagCountLabel.text = "\(occupied) / \(capacity)"
+        bagOccupiedLabel.text = "\(occupied) OCCUPIED"
+        bagCapacityLabel.text = "\(capacity) SLOTS"
+
+        let readout = inventory.encumbrance(catalog: catalog)
+        weightLabel.text = readout.formatted
+        // Amber warns before any penalty lands; oxblood means the engine has
+        // actually stopped him. BG's yellow is a warning and nothing more.
+        switch readout.band {
+        case .unencumbered:
+            weightLabel.fontColor = readout.isWarning ? Palette.amber : Palette.quiet
+        case .overloaded:
+            weightLabel.fontColor = Palette.amber
+        case .immobile:
+            weightLabel.fontColor = Palette.oxblood
+        }
+    }
+
+    private func refreshStats() {
+        let defence = inventory.defenceBonus(catalog: catalog)
+        setStat(
+            .defence,
+            value: "\(defence)",
+            lines: [
+                "Defence: \(defence)",
+                defence > 0
+                    ? "Worn gear turns glancing blows."
+                    : "Nothing worn but the clothes he stands in."
+            ]
+        )
+
+        setStat(
+            .vitality,
+            value: "\(currentHealth)/\(maximumHealth)",
+            lines: [
+                "Vitality: \(currentHealth) / \(maximumHealth)",
+                currentHealth >= maximumHealth
+                    ? "Steady under night pressure."
+                    : "Carrying an injury."
+            ]
+        )
+
+        setStat(
+            .resolve,
+            value: "\(GameSession.detectiveLore)",
+            lines: [
+                "Resolve: \(GameSession.detectiveLore)",
+                "What he recognises on sight."
+            ]
+        )
+
+        if let weapon = inventory.readiedWeapon(catalog: catalog),
+           let band = weapon.damageBand {
+            setStat(
+                .damage,
+                value: band,
+                lines: ["Damage: \(band)", "\(weapon.identifiedName) · readied"]
+            )
         } else {
-            assertionFailure("Missing inventory stat badge: \(badgeArt)")
+            setStat(.damage, value: "—", lines: ["Damage: —", "Nothing readied."])
         }
+    }
 
-        let valueLabel = Self.label(size: value.count > 3 ? 18 : 24, color: Palette.paper, weight: .demibold)
-        valueLabel.text = value
-        valueLabel.verticalAlignmentMode = .center
-        valueLabel.position = CGPoint(x: badgeX, y: 1)
-        valueLabel.zPosition = 2
-        root.addChild(valueLabel)
+    private func setStat(_ row: StatRow, value: String, lines: [String]) {
+        if let label = statValueLabels[row] {
+            label.text = value
+            label.fontSize = value.count > 3 ? 18 : 24
+        }
+        guard let labels = statLineLabels[row] else { return }
+        for (index, label) in labels.enumerated() {
+            label.text = lines.indices.contains(index) ? lines[index] : ""
+        }
+    }
 
-        let captionLabel = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
-        captionLabel.text = caption
-        captionLabel.position = CGPoint(x: badgeX, y: -Metrics.statBadgeSize / 2 - 14)
-        root.addChild(captionLabel)
+    private func refreshSelection() {
+        if let held {
+            describe(held.item)
+            return
+        }
+        guard let selected = selectedPresentationID,
+              let item = carriedItems.first(where: { $0.id == selected })
+                ?? equippedItem(withPresentationID: selected) else {
+            clearDescription()
+            return
+        }
+        describe(item)
+    }
 
-        let textX = badgeX + Metrics.statBadgeSize / 2 + 28
-        for (index, line) in lines.enumerated() {
-            let label = Self.label(
-                size: index == 0 ? 16 : 14,
-                color: index == 0 ? Palette.paper : Palette.quiet,
-                weight: index == 0 ? .demibold : .regular
+    private func equippedItem(withPresentationID id: String) -> InventoryItem? {
+        for slot in inventory.equippedSlots {
+            guard let stack = inventory.item(in: slot) else { continue }
+            let presentationID = InventoryItemPresentation.presentationID(
+                authoredID: stack.id,
+                slot: slot
             )
-            label.text = line
-            label.horizontalAlignmentMode = .left
-            label.verticalAlignmentMode = .center
-            label.preferredMaxLayoutWidth = Metrics.statTextWidth - 28
-            label.numberOfLines = 2
-            label.position = CGPoint(x: textX + 14, y: index == 0 ? 14 : -12)
-            root.addChild(label)
-        }
-
-        return root
-    }
-
-    private func addSlotSection(
-        _ title: String,
-        items: [InventoryItem?],
-        emptySilhouette: String,
-        to root: SKNode,
-        headerY: CGFloat,
-        slotY: CGFloat
-    ) {
-        let count = items.count
-        let label = Self.label(size: 15, color: Palette.paper, weight: .demibold)
-        label.text = title
-        label.horizontalAlignmentMode = .left
-        label.verticalAlignmentMode = .center
-        label.position = CGPoint(x: Metrics.loadoutSlotLeft, y: headerY)
-        label.zPosition = 3
-        root.addChild(label)
-
-        // Shared left edge for every loadout row (4-slot and 3-slot rows align).
-        for index in 0..<count {
-            let position = CGPoint(
-                x: Metrics.loadoutSlotLeft + CGFloat(index) * Metrics.loadoutSlotPitch,
-                y: slotY
+            guard presentationID == id else { continue }
+            return InventoryItemPresentation.item(
+                for: stack,
+                catalog: catalog,
+                presentationID: presentationID
             )
-            if let item = items[index] {
-                root.addChild(itemSlot(item, size: Metrics.loadoutSlotSize, at: position, showQuantity: true))
-            } else {
-                root.addChild(emptySlot(
-                    size: Metrics.loadoutSlotSize,
-                    at: position,
-                    silhouette: emptySilhouette
-                ))
-            }
         }
+        return nil
     }
 
-    private func addGridHeader(
-        _ title: String,
-        counter: String,
-        to root: SKNode,
-        width: CGFloat,
-        y: CGFloat = 72
-    ) {
-        let titleLabel = Self.label(size: 14, color: Palette.paper, weight: .demibold)
-        titleLabel.text = title
-        titleLabel.horizontalAlignmentMode = .left
-        titleLabel.verticalAlignmentMode = .center
-        titleLabel.position = CGPoint(x: -width / 2 + 12, y: y)
-        titleLabel.zPosition = 3
-        root.addChild(titleLabel)
-
-        let countLabel = Self.label(size: 14, color: Palette.quiet, weight: .demibold)
-        countLabel.text = counter
-        countLabel.horizontalAlignmentMode = .right
-        countLabel.verticalAlignmentMode = .center
-        countLabel.position = CGPoint(x: width / 2 - 12, y: y)
-        countLabel.zPosition = 3
-        root.addChild(countLabel)
+    private func describe(_ item: InventoryItem) {
+        itemCategoryLabel.text = item.categoryDisplayName
+        itemNameLabel.text = item.name
+        itemDescriptionLabel.text = item.description
+        itemNoteLabel.text = item.note
     }
+
+    private func clearDescription() {
+        itemCategoryLabel.text = ""
+        itemNameLabel.text = ""
+        itemDescriptionLabel.text = ""
+        itemNoteLabel.text = ""
+    }
+
+    private func showFeedback(_ message: String, tone: SKColor) {
+        feedbackLabel.removeAllActions()
+        feedbackLabel.text = message
+        feedbackLabel.fontColor = tone
+        feedbackLabel.alpha = 0
+        feedbackLabel.run(.sequence([
+            .fadeAlpha(to: 1, duration: 0.1),
+            .wait(forDuration: 1.6),
+            .fadeAlpha(to: 0, duration: 0.3)
+        ]))
+    }
+
+    // MARK: - Helpers
 
     @discardableResult
     private func addChromeSprite(
@@ -926,41 +1102,6 @@ final class InventoryOverlay: SKNode {
         sprite.zPosition = z
         parent.addChild(sprite)
         return true
-    }
-
-    private func item(id: String) -> InventoryItem? {
-        items.first { $0.id == id }
-    }
-
-    private func refreshSelection() {
-        guard let item = items.first(where: { $0.id == selectedPresentationID }) else { return }
-        itemCategoryLabel.text = item.category.rawValue
-        itemNameLabel.text = item.name
-        itemDescriptionLabel.text = item.description
-        itemNoteLabel.text = item.note
-
-        for (presentationID, slots) in slotFramesByPresentationID {
-            let selected = presentationID == selectedPresentationID
-            for slot in slots {
-                if let frame = slot.childNode(withName: "inventory.selection-frame") {
-                    frame.isHidden = !selected
-                }
-            }
-        }
-    }
-
-    private func targetName(at point: CGPoint) -> String? {
-        for hit in nodes(at: point) {
-            var candidate: SKNode? = hit
-            while let node = candidate, node !== self {
-                if let name = node.name,
-                   name == "inventory.close" || name.hasPrefix("inventory.item.") {
-                    return name
-                }
-                candidate = node.parent
-            }
-        }
-        return nil
     }
 
     private enum LabelWeight {

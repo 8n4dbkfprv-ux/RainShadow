@@ -756,6 +756,122 @@ enum HUDChromeLayout {
             && frame.maxY <= halfH + 0.001
     }
 
+    // MARK: - Quick-loot bar
+
+    /// The EE quick-loot strip: nearby ground items in one row, with page arrows
+    /// only once there are more than fit.
+    ///
+    /// BG:EE puts ten boxes on the bar and grows scroll buttons past that; the
+    /// slot count itself lives on `QuickLootPage` beside the paging maths.
+    enum QuickLootBar {
+        static let maxWidth: CGFloat = 900
+        /// A shallower strip than the container panel — one row, not two.
+        static let aspectWidthOverHeight: CGFloat = 10
+        static let horizontalMargin: CGFloat = 12
+        /// Clears the action bar's bottom edge the way the container strip does.
+        static let bottomInset: CGFloat = 18
+        static let sideInsetFraction: CGFloat = 0.026
+        static let slotToHeightFraction: CGFloat = 0.66
+        /// Matches the container strip's arrow proportion so the two read as one
+        /// family (`pageArrowToSlotFraction`).
+        static let arrowToSlotFraction: CGFloat = 0.82
+    }
+
+    struct QuickLootBarLayout: Equatable, Sendable {
+        let panelRect: CGRect
+        let slotArtRects: [CGRect]
+        let slotHitRects: [CGRect]
+        let previousArrowArtRect: CGRect
+        let previousArrowHitRect: CGRect
+        let nextArrowArtRect: CGRect
+        let nextArrowHitRect: CGRect
+        let showsPaging: Bool
+    }
+
+    static func quickLootBarLayout(
+        for visibleSize: CGSize,
+        showsPaging: Bool
+    ) -> QuickLootBarLayout {
+        let viewWidth = max(1, visibleSize.width)
+        let viewHeight = max(1, visibleSize.height)
+
+        let available = viewWidth
+            - leftRailClearance(for: visibleSize)
+            - rightRailClearance(for: visibleSize)
+            - 2 * QuickLootBar.horizontalMargin
+        let width = max(120, min(QuickLootBar.maxWidth, available))
+        let height = width / QuickLootBar.aspectWidthOverHeight
+
+        let centreX = leftRailClearance(for: visibleSize)
+            + (viewWidth - leftRailClearance(for: visibleSize) - rightRailClearance(for: visibleSize)) / 2
+            - viewWidth / 2
+        let minY = -viewHeight / 2 + QuickLootBar.bottomInset
+        let panelRect = CGRect(
+            x: centreX - width / 2,
+            y: minY,
+            width: width,
+            height: height
+        )
+
+        let sideInset = width * QuickLootBar.sideInsetFraction
+        let well = panelRect.insetBy(dx: sideInset, dy: height * 0.14)
+        let slotExtent = well.height * QuickLootBar.slotToHeightFraction
+        let arrowExtent = slotExtent * QuickLootBar.arrowToSlotFraction
+
+        // Arrows only take room when they are actually shown.
+        let arrowLane = showsPaging ? arrowExtent + 6 : 0
+        let slotLaneWidth = max(0, well.width - 2 * arrowLane)
+        let columns = CGFloat(QuickLootPage.slotsPerPage)
+        let pitch = columns > 0 ? slotLaneWidth / columns : 0
+        let slotSize = min(slotExtent, max(0, pitch - 4))
+        let slotY = well.midY - slotSize / 2
+        let laneStart = well.minX + arrowLane
+
+        var artRects: [CGRect] = []
+        var hitRects: [CGRect] = []
+        artRects.reserveCapacity(QuickLootPage.slotsPerPage)
+        hitRects.reserveCapacity(QuickLootPage.slotsPerPage)
+        for index in 0..<QuickLootPage.slotsPerPage {
+            let centre = laneStart + pitch * (CGFloat(index) + 0.5)
+            let art = CGRect(
+                x: centre - slotSize / 2,
+                y: slotY,
+                width: slotSize,
+                height: slotSize
+            )
+            artRects.append(art)
+            hitRects.append(touchTarget(around: art, clampedTo: panelRect))
+        }
+
+        let previousArt = CGRect(
+            x: well.minX,
+            y: well.midY - arrowExtent / 2,
+            width: showsPaging ? arrowExtent : 0,
+            height: showsPaging ? arrowExtent : 0
+        )
+        let nextArt = CGRect(
+            x: well.maxX - (showsPaging ? arrowExtent : 0),
+            y: well.midY - arrowExtent / 2,
+            width: showsPaging ? arrowExtent : 0,
+            height: showsPaging ? arrowExtent : 0
+        )
+
+        return QuickLootBarLayout(
+            panelRect: panelRect,
+            slotArtRects: artRects,
+            slotHitRects: hitRects,
+            previousArrowArtRect: previousArt,
+            previousArrowHitRect: showsPaging
+                ? touchTarget(around: previousArt, clampedTo: panelRect)
+                : .zero,
+            nextArrowArtRect: nextArt,
+            nextArrowHitRect: showsPaging
+                ? touchTarget(around: nextArt, clampedTo: panelRect)
+                : .zero,
+            showsPaging: showsPaging
+        )
+    }
+
     /// Width reserved on the right for the party rail + breathing room.
     static func rightRailClearance(for visibleSize: CGSize) -> CGFloat {
         rightRailLayout(for: visibleSize).railWidth + 10

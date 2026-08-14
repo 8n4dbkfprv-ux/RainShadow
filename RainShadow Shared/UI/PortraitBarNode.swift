@@ -19,7 +19,9 @@ final class PortraitBarNode: SKNode {
 
         var stubMessage: String {
             switch self {
-            case .search: return "Search / loot — not yet"
+            // Search now opens the quick-loot bar; the caption is only shown for
+            // controls that are still stubs.
+            case .search: return ""
             case .lantern: return "Lantern — not yet"
             case .selectParty: return "Select party — not yet"
             }
@@ -149,7 +151,7 @@ final class PortraitBarNode: SKNode {
         let activated = pressIsInside ? pressedUtility : nil
         pressedUtility = nil
         pressIsInside = false
-        if let activated {
+        if let activated, !activated.stubMessage.isEmpty {
             showStubCaption(activated.stubMessage)
         }
         return activated
