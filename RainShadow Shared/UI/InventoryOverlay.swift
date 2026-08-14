@@ -162,10 +162,10 @@ enum InventoryItemCatalog {
 }
 
 /// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
-/// Paperdoll equipped slots follow BG:EE Enhanced ui.menu geometry (V06 silhouettes; noir holster/revolver).
+/// Paperdoll equipped slots follow BG:EE Classic inventory geometry (V06 silhouettes; noir holster/revolver).
 @MainActor
 final class InventoryOverlay: SKNode {
-    /// Layout contract for the 1960×1080 canvas — BG EE hierarchy with EE Enhanced equipped geometry.
+    /// Layout contract for the 1960×1080 canvas — BG EE hierarchy with Classic equipped geometry.
     /// Loadout rows share one left edge; the case bag spans the full lower band.
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
@@ -199,25 +199,38 @@ final class InventoryOverlay: SKNode {
             x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
             y: primaryY
         )
-        /// Slightly below center so the EE top row clears the fedora/crown.
+        /// Slightly below center: the doll sits between the two Classic slot bars,
+        /// clearing the fedora above and the boots bar below.
         static let chamberOffset = CGPoint(x: 0, y: -8)
         static let equipSlotSize = CGSize(width: 72, height: 68)
 
-        /// BG:EE Enhanced ui.menu equipped-slot geometry, scaled into the paperdoll panel
-        /// (52px STONSLOT → ~72px; helmet on the head centerline).
-        /// Top row order is armor · gauntlets · helmet · amulet (helmet = paperdoll x=0).
-        static let equipTopY: CGFloat = 190
-        static let equipTopPitch: CGFloat = 78
-        static let equipArmor = CGPoint(x: -2 * equipTopPitch, y: equipTopY)
-        static let equipGauntlets = CGPoint(x: -1 * equipTopPitch, y: equipTopY)
-        static let equipHelmet = CGPoint(x: 0, y: equipTopY)
-        static let equipAmulet = CGPoint(x: 1 * equipTopPitch, y: equipTopY)
-        static let equipCloak = CGPoint(x: -177, y: 68)
-        static let equipHolster = CGPoint(x: 159, y: -21)
-        static let equipRingLeft = CGPoint(x: -177, y: -101)
-        static let equipRingRight = CGPoint(x: 159, y: -101)
-        static let equipBelt = CGPoint(x: -11, y: -126)
-        static let equipBoots = CGPoint(x: -11, y: -182)
+        /// BG:EE (Classic) equipped-slot geometry, scaled into the paperdoll panel.
+        /// Classic hangs four slots in a bar across the top, shifted left so the doll's
+        /// head sits under the gap after the last one; the off-hand rides the right rail
+        /// at chest height with a ring below it and its twin mirrored on the left rail;
+        /// and cloak · boots · belt run as a second bar under the feet, sharing the top
+        /// bar's three right-hand columns. Everything sits on the plate's inner field.
+        static let equipColumnPitch: CGFloat = 78
+        /// Rightmost top-row column, just right of the doll's centerline, so the
+        /// fedora slot clears the head the way Classic's helmet slot does.
+        static let equipColumn4: CGFloat = 53
+        static let equipColumn3 = equipColumn4 - equipColumnPitch
+        static let equipColumn2 = equipColumn4 - 2 * equipColumnPitch
+        static let equipColumn1 = equipColumn4 - 3 * equipColumnPitch
+        static let equipTopY: CGFloat = 196
+        static let equipBottomY: CGFloat = -196
+        static let equipSideX: CGFloat = 195
+
+        static let equipArmor = CGPoint(x: equipColumn1, y: equipTopY)
+        static let equipGauntlets = CGPoint(x: equipColumn2, y: equipTopY)
+        static let equipHelmet = CGPoint(x: equipColumn3, y: equipTopY)
+        static let equipAmulet = CGPoint(x: equipColumn4, y: equipTopY)
+        static let equipHolster = CGPoint(x: equipSideX, y: -18)
+        static let equipRingLeft = CGPoint(x: -equipSideX, y: -102)
+        static let equipRingRight = CGPoint(x: equipSideX, y: -102)
+        static let equipCloak = CGPoint(x: equipColumn2, y: equipBottomY)
+        static let equipBoots = CGPoint(x: equipColumn3, y: equipBottomY)
+        static let equipBelt = CGPoint(x: equipColumn4, y: equipBottomY)
 
         static let statsSize = CGSize(width: 650, height: 560)
         static let statsOrigin = CGPoint(x: contentRight - statsSize.width / 2, y: primaryY)
@@ -507,20 +520,21 @@ final class InventoryOverlay: SKNode {
             assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
         }
 
-        // BG:EE Enhanced equipped geometry: armor/gauntlets/helmet/amulet top row,
-        // cloak left shoulder, noir holster as off-hand, rings, belt, boots.
+        // BG:EE Classic equipped geometry: armor/gauntlets/helmet/amulet along the top
+        // bar, noir holster as the off-hand on the right rail, a ring at each hip, and
+        // cloak/boots/belt in the bar under the feet.
         // No captions — BG:EE empty slots have none.
         let equipment: [(String, String, CGPoint)] = [
             ("inventory_slot_silhouette_coat_v06", "inventory.equip.coat", Metrics.equipArmor),
             ("inventory_slot_silhouette_hands_v06", "inventory.equip.gloves", Metrics.equipGauntlets),
             ("inventory_slot_silhouette_hat_v06", "inventory.equip.fedora", Metrics.equipHelmet),
             ("inventory_slot_silhouette_charm_v06", "inventory.equip.charm", Metrics.equipAmulet),
-            ("inventory_slot_silhouette_cloak_v06", "inventory.equip.cloak", Metrics.equipCloak),
             ("inventory_slot_silhouette_holster_v06", "inventory.equip.holster", Metrics.equipHolster),
             ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringLeft", Metrics.equipRingLeft),
             ("inventory_slot_silhouette_ring_v06", "inventory.equip.ringRight", Metrics.equipRingRight),
-            ("inventory_slot_silhouette_belt_v06", "inventory.equip.belt", Metrics.equipBelt),
-            ("inventory_slot_silhouette_feet_v06", "inventory.equip.shoes", Metrics.equipBoots)
+            ("inventory_slot_silhouette_cloak_v06", "inventory.equip.cloak", Metrics.equipCloak),
+            ("inventory_slot_silhouette_feet_v06", "inventory.equip.shoes", Metrics.equipBoots),
+            ("inventory_slot_silhouette_belt_v06", "inventory.equip.belt", Metrics.equipBelt)
         ]
         for equipmentItem in equipment {
             root.addChild(
