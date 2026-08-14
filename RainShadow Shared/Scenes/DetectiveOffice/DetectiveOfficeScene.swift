@@ -58,8 +58,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private var worldMapIsPresented = false
     private var journalIsPresented = false
     private var caseIntroductionStarted = false
-    /// Hotspot/container currently feeding the inventory NEARBY panel (BG container loot).
+    /// Hotspot/container currently feeding the non-modal loot strip.
     private var activeLootContainerID: String?
+    /// Tracks a pointer sequence that began inside the loot strip, including its
+    /// painted gaps, so a cancelled control press never leaks through to the world.
+    private var lootContainerPanelOwnsPointerPress = false
     /// Phase 4: second graph — desk monologue after Empty Coat is open (once).
     private var deskCaseFileMonologuePlayed = false
     private var clientEntranceStarted = false
@@ -389,10 +392,16 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         inventoryOverlay.onDismiss = { [weak self] in
             self?.setInventoryPresented(false)
         }
-        inventoryOverlay.onTakeNearby = { [weak self] index in
-            self?.takeNearbyLoot(at: index)
-        }
         hudRoot.addChild(inventoryOverlay)
+        lootContainerPanel.onTakeSourceStackAtIndex = { [weak self] sourceIndex in
+            self?.takeLootStack(atSourceIndex: sourceIndex)
+        }
+        lootContainerPanel.onTakeAllLoot = { [weak self] in
+            self?.takeAllLootFromActiveContainer()
+        }
+        lootContainerPanel.onReturnCarriedStackAtIndex = { [weak self] acquiredIndex in
+            self?.returnCarriedStack(atAcquiredIndex: acquiredIndex)
+        }
         areaMapOverlay.zPosition = 110
         areaMapOverlay.onDismiss = { [weak self] in
             self?.setMapPresented(false)
@@ -450,6 +459,19 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
                     self?.beginClientEntranceIfNeeded()
                 }
             }
+            let capturesLootUI = ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_LOOT_PANEL"] == "1"
+                || ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_INVENTORY"] == "1"
+            if capturesLootUI {
+                // These captures represent free play. Do not let the office's
+                // normal launch-time dialogue lock pause the world behind them.
+                dialogueIsActive = false
+            }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_LOOT_PANEL"] == "1",
+               let desk = hotspots.first(where: { $0.id == "office.desk" }) {
+                presentLootContainerPanelIfNeeded(for: desk)
+            } else if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_INVENTORY"] == "1" {
+                setInventoryPresented(true)
+            }
             return
         }
         // BG:EE one-shot: finished intro does not replay on re-enter (city → office).
@@ -481,6 +503,20 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
+        lootContainerPanelOwnsPointerPress = false
+        let lootPoint = lootContainerPanel.convert(event.location, from: self)
+        if lootContainerPanel.containsPanel(at: lootPoint) {
+            lootContainerPanelOwnsPointerPress = true
+            lootContainerPanel.beginPress(at: lootPoint)
+            actionBar.cancelPress()
+            portraitBar.cancelUtilityPress()
+            clearHotspotHoverHighlight()
+            return
+        }
+        if !lootContainerPanel.isHidden {
+            dismissLootContainerPanel()
+        }
+
         guard dialogueIsActive else {
             guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
             let hudPoint = hudRoot.convert(event.location, from: self)
@@ -496,6 +532,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
+        if lootContainerPanelOwnsPointerPress {
+            let lootPoint = lootContainerPanel.convert(event.location, from: self)
+            lootContainerPanel.updatePress(at: lootPoint)
+            return
+        }
         guard dialogueIsActive else {
             let hudPoint = hudRoot.convert(event.location, from: self)
             actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
@@ -507,6 +548,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func handlePointerCancelled(_ event: GamePointerEvent) {
+        if lootContainerPanelOwnsPointerPress {
+            lootContainerPanel.cancelPress()
+            lootContainerPanelOwnsPointerPress = false
+            return
+        }
         guard dialogueIsActive else {
             actionBar.cancelPress()
             portraitBar.cancelUtilityPress()
@@ -517,6 +563,24 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
+        let lootPoint = lootContainerPanel.convert(event.location, from: self)
+        if lootContainerPanelOwnsPointerPress {
+            lootContainerPanel.endPress(at: lootPoint)
+            lootContainerPanelOwnsPointerPress = false
+            return
+        }
+        if lootContainerPanel.containsPanel(at: lootPoint) {
+            // Pointer-up-only activation keeps synthetic/rapid macOS clicks usable.
+            lootContainerPanel.beginPress(at: lootPoint)
+            lootContainerPanel.endPress(at: lootPoint)
+            return
+        }
+        if !lootContainerPanel.isHidden {
+            // The strip is non-modal: dismiss it, then let this same HUD/world
+            // command continue through the normal click path below.
+            dismissLootContainerPanel()
+        }
+
         // BG:EE SetCutSceneBreakable: tap skips entrance/exit after grace.
         if trySkipActiveClientCutscene() {
             return
@@ -649,6 +713,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // Stop any running edge scroll up front; it is re-armed at the bottom only
         // when the pointer is over the world rather than an overlay or HUD rail.
         setCameraScroll(.zero)
+        let lootPoint = lootContainerPanel.convert(event.location, from: self)
+        let lootTarget = lootContainerPanel.updateHover(at: lootPoint)
+        if lootContainerPanel.containsPanel(at: lootPoint) {
+            clearHotspotHoverHighlight()
+            actionBar.setHighlightedButton(nil)
+            (lootTarget == nil ? NSCursor.arrow : NSCursor.pointingHand).set()
+            return
+        }
         if dialogueIsActive {
             clearHotspotHoverHighlight()
             let dialoguePoint = dialoguePresenter.convert(hudPoint, from: hudRoot)
@@ -780,6 +852,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         if trySkipActiveClientCutscene() {
             return
         }
+        if dismissLootContainerPanel() {
+            return
+        }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -801,6 +876,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// nearest equivalent of that targeting state, so they close — but an active
     /// path keeps running. Stopping is Escape's job (`handleCancelInput`).
     override func handleClearTargetingInput() {
+        if dismissLootContainerPanel() {
+            return
+        }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -1303,6 +1381,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func presentInspection(_ hotspot: OfficeHotspot) {
+        dismissLootContainerPanel()
         clearHotspotHoverHighlight()
         dialogueIsActive = true
 
@@ -1315,7 +1394,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             presentDialogue(OfficeCaseFileMonologue.graph) { [weak self] in
                 guard let self else { return }
                 self.dialogueIsActive = false
-                self.presentLootInventoryIfNeeded(for: hotspot)
+                self.presentLootContainerPanelIfNeeded(for: hotspot)
             }
             return
         }
@@ -1327,32 +1406,109 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         presentDialogue(graph, ownerID: hotspot.id) { [weak self] in
             guard let self else { return }
             self.dialogueIsActive = false
-            self.presentLootInventoryIfNeeded(for: hotspot)
+            self.presentLootContainerPanelIfNeeded(for: hotspot)
         }
     }
 
-    /// After observation text, open inventory with the container's contents in NEARBY (BG flow).
-    private func presentLootInventoryIfNeeded(for hotspot: OfficeHotspot) {
+    /// After observation text, show every remaining stack in source order. Coins
+    /// bypass the bag; items transfer between the source and persisted case bag.
+    private func presentLootContainerPanelIfNeeded(for hotspot: OfficeHotspot) {
         guard context.session.hasLootContainer(for: hotspot.id) else { return }
-        let stacks = context.session.lootContents(for: hotspot.id)
-        guard !stacks.isEmpty else { return }
+        let entries = lootPanelEntries(for: hotspot.id)
+        guard !entries.isEmpty else { return }
         activeLootContainerID = hotspot.id
-        setInventoryPresented(true, nearbyTitle: hotspot.name, nearbyStacks: stacks)
+        lootContainerPanel.present(
+            sourceArtName: lootSourceArtName(for: hotspot.id),
+            entries: entries,
+            walletPence: context.session.walletPence,
+            carriedInventory: context.session.carriedInventory
+        )
     }
 
-    private func takeNearbyLoot(at index: Int) {
+    private func takeLootStack(atSourceIndex sourceIndex: Int) {
         guard let containerID = activeLootContainerID else { return }
-        guard context.session.takeCoins(at: index, from: containerID) != nil else { return }
-        let stacks = context.session.lootContents(for: containerID)
-        inventoryOverlay.applyWallet(context.session.walletPence)
-        inventoryOverlay.presentNearby(title: hotspotName(for: containerID), stacks: stacks)
-        if stacks.isEmpty {
+        guard let result = context.session.takeLootStack(at: sourceIndex, from: containerID) else {
+            return
+        }
+        switch result {
+        case .coins(let pence):
+            refreshActiveLootContainer(feedback: .coins(pence: pence))
+        case .item(let item):
+            refreshActiveLootContainer(feedback: .item(id: item.id, quantity: item.quantity))
+        case .inventoryFull:
+            refreshActiveLootContainer(feedback: .bagFull)
+        }
+    }
+
+    private func takeAllLootFromActiveContainer() {
+        guard let containerID = activeLootContainerID,
+              let result = context.session.takeAllLoot(from: containerID) else { return }
+        let hasItemOverflowAtFullCapacity = context.session.carriedInventory.isFull
+            && context.session.lootContents(for: containerID).contains(where: { stack in
+                if case .item(_, let quantity) = stack { return quantity > 0 }
+                return false
+            })
+        if result.didTransferAnything {
+            refreshActiveLootContainer(feedback: .batch(
+                pence: result.creditedPence,
+                itemStackCount: result.itemStacks.count,
+                bagIsFull: hasItemOverflowAtFullCapacity
+            ))
+        } else if hasItemOverflowAtFullCapacity {
+            refreshActiveLootContainer(feedback: .bagFull)
+        }
+    }
+
+    private func returnCarriedStack(atAcquiredIndex acquiredIndex: Int) {
+        guard let containerID = activeLootContainerID,
+              context.session.returnCarriedItem(at: acquiredIndex, to: containerID) != nil else {
+            return
+        }
+        refreshActiveLootContainer()
+    }
+
+    private func refreshActiveLootContainer(feedback: LootContainerPanelFeedback? = nil) {
+        guard let containerID = activeLootContainerID else { return }
+        let entries = lootPanelEntries(for: containerID)
+        inventoryOverlay.applyInventory(
+            walletPence: context.session.walletPence,
+            carriedItems: context.session.carriedInventory.stacks
+        )
+        lootContainerPanel.refresh(
+            entries: entries,
+            walletPence: context.session.walletPence,
+            carriedInventory: context.session.carriedInventory,
+            feedback: feedback
+        )
+        if entries.isEmpty && !lootContainerPanel.keepsEmptySourceOpenForReverseTransfer {
             activeLootContainerID = nil
         }
     }
 
-    private func hotspotName(for containerID: String) -> String {
-        hotspots.first(where: { $0.id == containerID })?.name ?? "NEARBY"
+    private func lootPanelEntries(for containerID: String) -> [LootContainerPanelEntry] {
+        context.session.lootContents(for: containerID).enumerated().map { index, stack in
+            LootContainerPanelEntry(sourceIndex: index, stack: stack)
+        }
+    }
+
+    private func lootSourceArtName(for containerID: String) -> String {
+        switch containerID {
+        case "office.files": return "office_filing_cabinet_open"
+        default: return "office_desk_bare"
+        }
+    }
+
+    /// Hides only presentation state. Container contents remain authoritative in
+    /// `GameSession`, so reinspection shows every untransferred stack in source order.
+    @discardableResult
+    private func dismissLootContainerPanel() -> Bool {
+        let wasPresented = !lootContainerPanel.isHidden || activeLootContainerID != nil
+        guard wasPresented else { return false }
+        lootContainerPanel.cancelPress()
+        lootContainerPanel.dismiss()
+        lootContainerPanelOwnsPointerPress = false
+        activeLootContainerID = nil
+        return true
     }
 
     private func showOfficeHintIfNeeded() {
@@ -1663,17 +1819,15 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         )
     }
 
-    private func setInventoryPresented(
-        _ presented: Bool,
-        nearbyTitle: String = "NEARBY",
-        nearbyStacks: [ResolvedLootStack] = []
-    ) {
+    private func setInventoryPresented(_ presented: Bool) {
+        if presented {
+            dismissLootContainerPanel()
+        }
         if presented, inventoryIsPresented {
-            // Already open (e.g. action-bar inventory) — refresh NEARBY / wallet in place.
+            // Already open (e.g. portrait then action bar) — refresh wallet in place.
             inventoryOverlay.present(
                 walletPence: context.session.walletPence,
-                nearbyTitle: nearbyTitle,
-                nearbyStacks: nearbyStacks
+                carriedItems: context.session.carriedInventory.stacks
             )
             return
         }
@@ -1681,8 +1835,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         inventoryIsPresented = presented
         if presented {
             clearHotspotHoverHighlight()
-        } else {
-            activeLootContainerID = nil
         }
 
         syncWorldNodePause()
@@ -1691,8 +1843,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         if presented {
             inventoryOverlay.present(
                 walletPence: context.session.walletPence,
-                nearbyTitle: nearbyTitle,
-                nearbyStacks: nearbyStacks
+                carriedItems: context.session.carriedInventory.stacks
             )
         } else {
             inventoryOverlay.hideAnimated()
@@ -1700,6 +1851,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func setMapPresented(_ presented: Bool) {
+        if presented {
+            dismissLootContainerPanel()
+        }
         guard mapIsPresented != presented else { return }
         mapIsPresented = presented
         if presented {
@@ -1722,6 +1876,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func setWorldMapPresented(_ presented: Bool) {
+        if presented {
+            dismissLootContainerPanel()
+        }
         guard worldMapIsPresented != presented else { return }
         worldMapIsPresented = presented
         if presented {
@@ -1769,6 +1926,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func setJournalPresented(_ presented: Bool) {
+        if presented {
+            dismissLootContainerPanel()
+        }
         guard journalIsPresented != presented else { return }
         journalIsPresented = presented
         if presented { clearHotspotHoverHighlight() }

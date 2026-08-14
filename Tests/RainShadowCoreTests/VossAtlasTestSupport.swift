@@ -31,14 +31,20 @@ enum VossAtlasTestAssets {
     }
 
     static var v20ManifestURL: URL? {
+        let fixedV21 = repoRoot.appendingPathComponent(
+            "ArtSource/Generated/Characters/Detective/PreRendered3DV21/voss_v21_manifest.json"
+        )
         let fixedV20 = repoRoot.appendingPathComponent(
             "ArtSource/Generated/Characters/Detective/PreRendered3DV20/voss_v20_manifest.json"
         )
         let candidates = [
+            atlasRoot.appendingPathComponent("voss_v21_manifest.json"),
+            atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v21_manifest.json"),
             atlasRoot.appendingPathComponent("voss_v20_manifest.json"),
             atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v20_manifest.json"),
             atlasRoot.deletingLastPathComponent().deletingLastPathComponent()
                 .appendingPathComponent("voss_v20_manifest.json"),
+            fixedV21,
             fixedV20
         ]
         return candidates.first { FileManager.default.fileExists(atPath: $0.path) }
@@ -85,6 +91,13 @@ struct VossV20ValidationThresholds {
     var headJitterMaximum = 2.0
     var headPulseRatioMaximum = 1.12
     var torsoPulseRatioMaximum = 1.18
+    /// Walk-only processed pulse/jitter. Defaults match the idle/V16 still-clip
+    /// bands. V21 sets wider walk_* keys so 56-row video noise can pass without
+    /// loosening idle or seat gates.
+    var walkHeadJitterMaximum = 6.0
+    var walkCentroidDriftMaximum = 2.0
+    var walkHeadPulseRatioMaximum = 1.12
+    var walkTorsoPulseRatioMaximum = 1.18
     var rearShirtFractionMaximum = 0.001
     var rearNorthSkinFractionMaximum = 0.03
     var requiredRearCells = 36
@@ -102,7 +115,8 @@ struct VossV20ValidationThresholds {
         }
         let data = try Data(contentsOf: manifestURL)
         guard let document = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              document["asset_version"] as? String == "v20" else {
+              let version = document["asset_version"] as? String,
+              version == "v20" || version == "v21" else {
             throw VossAtlasTestError.invalidV20Manifest(manifestURL)
         }
 
@@ -183,6 +197,14 @@ struct VossV20ValidationThresholds {
             ?? thresholds.maximumRepeatedFootLead
         thresholds.idleWalkHeadShoulderRatioMaximum = number(gates["idle_walk_head_shoulder_ratio_max"])
             ?? thresholds.idleWalkHeadShoulderRatioMaximum
+        thresholds.walkHeadJitterMaximum = number(gates["walk_head_jitter_max"])
+            ?? thresholds.headJitterMaximum
+        thresholds.walkCentroidDriftMaximum = number(gates["walk_centroid_drift_max"])
+            ?? thresholds.centroidDriftMaximum
+        thresholds.walkHeadPulseRatioMaximum = number(gates["walk_head_scale_ratio_max"])
+            ?? thresholds.headPulseRatioMaximum
+        thresholds.walkTorsoPulseRatioMaximum = number(gates["walk_torso_scale_ratio_max"])
+            ?? thresholds.torsoPulseRatioMaximum
         return thresholds
     }
 

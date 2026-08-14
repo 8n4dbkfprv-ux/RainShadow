@@ -1071,9 +1071,27 @@ MOTION_CLIPS = (
 )
 
 
-def _validate_motion(stage_root: Path, errors: list[str]) -> dict[str, Any]:
+def _validate_motion(
+    stage_root: Path,
+    errors: list[str],
+    *,
+    walk_head_jitter_max: float | None = None,
+    walk_centroid_drift_max: float | None = None,
+    walk_head_scale_ratio_max: float | None = None,
+    walk_torso_scale_ratio_max: float | None = None,
+) -> dict[str, Any]:
     report: dict[str, Any] = {}
     for group, atlas, stem, phases in MOTION_CLIPS:
+        if group == "walk":
+            jitter_max = float(walk_head_jitter_max or HEAD_JITTER_MAX)
+            centroid_max = float(walk_centroid_drift_max or CENTROID_DRIFT_MAX)
+            head_scale_max = float(walk_head_scale_ratio_max or HEAD_SCALE_RATIO_MAX)
+            torso_scale_max = float(walk_torso_scale_ratio_max or TORSO_SCALE_RATIO_MAX)
+        else:
+            jitter_max = HEAD_JITTER_MAX
+            centroid_max = CENTROID_DRIFT_MAX
+            head_scale_max = HEAD_SCALE_RATIO_MAX
+            torso_scale_max = TORSO_SCALE_RATIO_MAX
         for direction in WESTERN_DIRECTIONS:
             cells = [
                 _load_stage_cell(stage_root, atlas, f"{stem}_{direction}_{phase:02d}.png")
@@ -1089,33 +1107,33 @@ def _validate_motion(stage_root: Path, errors: list[str]) -> dict[str, Any]:
             head_jitter = max(metric.head_center_x for metric in metrics) - min(
                 metric.head_center_x for metric in metrics
             )
-            if head_jitter > HEAD_JITTER_MAX:
+            if head_jitter > jitter_max:
                 errors.append(
                     f"{group} {direction}: head jitter {head_jitter:.1f}px, "
-                    f"expected <={HEAD_JITTER_MAX}px"
+                    f"expected <={jitter_max}px"
                 )
             centroid_drift = max(metric.centroid_x for metric in metrics) - min(
                 metric.centroid_x for metric in metrics
             )
-            if centroid_drift > CENTROID_DRIFT_MAX:
+            if centroid_drift > centroid_max:
                 errors.append(
                     f"{group} {direction}: body centroid drifts {centroid_drift:.2f}px, "
-                    f"expected <={CENTROID_DRIFT_MAX}px"
+                    f"expected <={centroid_max}px"
                 )
             head_scale = max(metric.head_width for metric in metrics) / min(
                 metric.head_width for metric in metrics
             )
-            if head_scale > HEAD_SCALE_RATIO_MAX:
+            if head_scale > head_scale_max:
                 errors.append(
                     f"{group} {direction}: head scale pulses {head_scale:.3f}x "
-                    f"(>{HEAD_SCALE_RATIO_MAX}x)"
+                    f"(>{head_scale_max}x)"
                 )
             torso_widths = [metric.torso_width for metric in metrics if metric.torso_width > 0]
             torso_scale = max(torso_widths) / min(torso_widths) if torso_widths else math.inf
-            if torso_scale > TORSO_SCALE_RATIO_MAX:
+            if torso_scale > torso_scale_max:
                 errors.append(
                     f"{group} {direction}: torso scale pulses {torso_scale:.3f}x "
-                    f"(>{TORSO_SCALE_RATIO_MAX}x)"
+                    f"(>{torso_scale_max}x)"
                 )
 
             # One palette per clip is the whole point of the shared fit: a loop that
@@ -1402,7 +1420,14 @@ def validate_staging(stage_root: Path, manifest: dict[str, Any]) -> dict[str, An
         if fraction > 0.001:
             errors.append(f"rear key paints {name} onto the back ({fraction * 100:.3f}% of body)")
 
-    motion_report = _validate_motion(stage_root, errors)
+    motion_report = _validate_motion(
+        stage_root,
+        errors,
+        walk_head_jitter_max=manifest.get("gates", {}).get("walk_head_jitter_max"),
+        walk_centroid_drift_max=manifest.get("gates", {}).get("walk_centroid_drift_max"),
+        walk_head_scale_ratio_max=manifest.get("gates", {}).get("walk_head_scale_ratio_max"),
+        walk_torso_scale_ratio_max=manifest.get("gates", {}).get("walk_torso_scale_ratio_max"),
+    )
     seat_report = _validate_seat(stage_root, errors)
 
     _fail_if(errors)

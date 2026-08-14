@@ -14,6 +14,7 @@ import argparse
 from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime, timezone
+import hashlib
 import json
 import math
 import os
@@ -1380,6 +1381,456 @@ def print_idle_walk_anatomy(direction: str | None = None) -> None:
         )
 
 
+def _finite_round(value: float, places: int = 4) -> float | None:
+    return round(float(value), places) if math.isfinite(value) else None
+
+
+def _candidate_source_report(
+    path: Path, manifest: dict[str, Any]
+) -> tuple[list[str], Image.Image | None, dict[str, Any]]:
+    """Measure one chroma candidate while preserving the production source gate."""
+    errors, keyed = _source_chroma_errors(path, manifest)
+    report: dict[str, Any] = {
+        "filename": path.name,
+        "sha256": sha256(path) if path.is_file() else None,
+        "passed": False,
+        "errors": [],
+    }
+    try:
+        with Image.open(path) as opened:
+            report.update(
+                {
+                    "format": opened.format,
+                    "mode": opened.mode,
+                    "canvas": [opened.width, opened.height],
+                }
+            )
+            rgb = np.asarray(opened.convert("RGB"), dtype=np.float32)
+    except Exception:
+        # `_source_chroma_errors` already owns the user-facing Pillow error.
+        report["errors"] = list(dict.fromkeys(errors))
+        return errors, keyed, report
+
+    border = core._border_pixels(rgb)
+    greenish = (
+        (border[:, 1] > 140)
+        & (border[:, 1] > border[:, 0] + 40)
+        & (border[:, 1] > border[:, 2] + 40)
+    )
+    fraction = float(greenish.mean())
+    variation = float(border[greenish].std(axis=0).max()) if greenish.any() else math.inf
+    report["border_green_fraction"] = round(fraction, 6)
+    report["border_green_fraction_min"] = float(
+        manifest["gates"]["source_chroma_border_fraction_min"]
+    )
+    report["border_variation"] = _finite_round(variation, 3)
+    report["border_variation_max"] = float(manifest["gates"]["source_border_variation_max"])
+
+    if keyed is not None:
+        report["significant_subjects"] = _significant_subject_components(keyed)
+        try:
+            x0, y0, x1, y1 = core.visible_bbox(keyed)
+            report["subject_bbox"] = [x0, y0, x1, y1]
+            report["subject_touches_border"] = (
+                x0 <= 1 or y0 <= 1 or x1 >= keyed.width - 2 or y1 >= keyed.height - 2
+            )
+        except V20ValidationError:
+            report["subject_bbox"] = None
+            report["subject_touches_border"] = None
+    report["errors"] = list(dict.fromkeys(errors))
+    report["passed"] = not report["errors"]
+    return errors, keyed, report
+
+
+def _processed_image_sha256(image: Image.Image) -> str:
+    rgba = image.convert("RGBA")
+    digest = hashlib.sha256()
+    digest.update(f"{rgba.width}x{rgba.height}:RGBA\n".encode("ascii"))
+    digest.update(np.asarray(rgba).tobytes())
+    return digest.hexdigest()
+
+
+def _longest_planted_lead_run(leads: str) -> int:
+    longest = 0
+    current = 0
+    previous: str | None = None
+    for lead in leads:
+        if lead not in "LR":
+            previous = None
+            current = 0
+        elif lead == previous:
+            current += 1
+            longest = max(longest, current)
+        else:
+            previous = lead
+            current = 1
+            longest = max(longest, current)
+    return longest
+
+
+def preflight_walk_candidate(
+    direction: str, candidate_directory: Path, manifest: dict[str, Any]
+) -> dict[str, Any]:
+    """Run an isolated eight-frame walk candidate through every relevant gate.
+
+    The function is deliberately in-memory. It reads the approved idle masters
+    for the requested direction, but never writes candidates, Frames, Staging,
+    or runtime assets. Callers may explicitly persist the returned JSON report
+    with :func:`write_candidate_preflight_report`.
+    """
+    if direction not in WESTERN_DIRECTIONS:
+        raise V20ValidationError(
+            f"candidate direction {direction!r} is not one of {', '.join(WESTERN_DIRECTIONS)}"
+        )
+
+    candidate_directory = candidate_directory.expanduser().resolve()
+    expected_paths = [
+        candidate_directory / f"voss_walk_{direction}_{phase:02d}_chroma_v20.png"
+        for phase in range(8)
+    ]
+    matching_paths = (
+        sorted(candidate_directory.glob(f"voss_walk_{direction}_*_chroma_v20.png"))
+        if candidate_directory.is_dir()
+        else []
+    )
+    expected_set = set(expected_paths)
+    matching_set = set(matching_paths)
+    missing = [path for path in expected_paths if not path.is_file()]
+    unexpected = sorted(matching_set - expected_set)
+    count_passed = candidate_directory.is_dir() and not missing and not unexpected
+
+    errors: list[str] = []
+    if not candidate_directory.is_dir():
+        errors.append(f"candidate directory does not exist: {candidate_directory}")
+    errors.extend(f"missing candidate phase: {path.name}" for path in missing)
+    errors.extend(f"unexpected candidate phase: {path.name}" for path in unexpected)
+
+    report: dict[str, Any] = {
+        "schema_version": 1,
+        "kind": "voss-v20-walk-candidate-preflight",
+        "asset_version": "v20",
+        "direction": direction,
+        "candidate_directory": str(candidate_directory),
+        "status": "failed",
+        "pipeline": {
+            "processor": "V14",
+            "clip_exposure_normalization": True,
+            "shared_clip_palette": True,
+            "mass_centroid_registration": True,
+            "runtime_registration_offsets_applied": [
+                manifest.get("processing", {})
+                .get("runtime_registration_offsets", {})
+                .get(f"walk:{direction}:{phase:02d}", [0, 0])
+                for phase in range(8)
+            ],
+        },
+        "inputs": [],
+        "gates": {
+            "candidate_count": {
+                "passed": count_passed,
+                "expected": 8,
+                "found": len(matching_paths),
+                "missing": [path.name for path in missing],
+                "unexpected": [path.name for path in unexpected],
+            }
+        },
+        "errors": [],
+    }
+
+    keyed_by_phase: dict[int, Image.Image] = {}
+    source_digests: list[str] = []
+    chroma_errors: list[str] = []
+    for phase, path in enumerate(expected_paths):
+        if not path.is_file():
+            continue
+        phase_errors, keyed, phase_report = _candidate_source_report(path, manifest)
+        phase_report["phase"] = phase
+        report["inputs"].append(phase_report)
+        chroma_errors.extend(phase_errors)
+        if keyed is not None:
+            keyed_by_phase[phase] = keyed
+        if phase_report["sha256"] is not None:
+            source_digests.append(phase_report["sha256"])
+    errors.extend(chroma_errors)
+
+    chroma_passed = count_passed and len(keyed_by_phase) == 8 and not chroma_errors
+    report["gates"]["source_chroma"] = {
+        "passed": chroma_passed,
+        "frames_passed": sum(bool(item["passed"]) for item in report["inputs"]),
+        "expected": 8,
+        "border_green_fraction_min": float(
+            manifest["gates"]["source_chroma_border_fraction_min"]
+        ),
+        "border_variation_max": float(manifest["gates"]["source_border_variation_max"]),
+        "single_uncropped_subject_required": bool(
+            manifest["gates"].get("source_single_figure_required")
+        ),
+    }
+    source_unique = len(set(source_digests))
+    source_unique_passed = len(source_digests) == 8 and source_unique == 8
+    report["gates"]["source_uniqueness"] = {
+        "passed": source_unique_passed,
+        "unique_frames": source_unique,
+        "expected": 8,
+        "sha256": source_digests,
+    }
+    if count_passed and not source_unique_passed:
+        errors.append(
+            f"candidate walk {direction}: source clip has {source_unique}/8 unique frames"
+        )
+
+    if chroma_passed:
+        keyed = [keyed_by_phase[phase] for phase in range(8)]
+        idle = [
+            core.key_chroma(
+                core.load_source(
+                    V20_ROOT / f"Frames/voss_idle_{direction}_{phase:02d}_chroma_v20.png"
+                )
+            )
+            for phase in range(4)
+        ]
+        idle_anatomy = core.clip_anatomy(idle)
+        walk_anatomy = core.clip_anatomy(keyed)
+        disagreement = core.idle_walk_ratio_disagreement(
+            idle_anatomy["head"],
+            idle_anatomy["shoulder"],
+            walk_anatomy["head"],
+            walk_anatomy["shoulder"],
+        )
+        anatomy_limit = float(manifest["gates"]["idle_walk_head_shoulder_ratio_max"])
+        anatomy_passed = math.isfinite(disagreement) and abs(disagreement) <= anatomy_limit
+        head_change = (
+            (walk_anatomy["head"] - idle_anatomy["head"]) / idle_anatomy["head"]
+            if idle_anatomy["head"] > 0
+            else math.inf
+        )
+        shoulder_change = (
+            (walk_anatomy["shoulder"] - idle_anatomy["shoulder"])
+            / idle_anatomy["shoulder"]
+            if idle_anatomy["shoulder"] > 0
+            else math.inf
+        )
+        report["gates"]["anatomy"] = {
+            "passed": anatomy_passed,
+            "idle": {name: round(value, 4) for name, value in idle_anatomy.items()},
+            "walk": {name: round(value, 4) for name, value in walk_anatomy.items()},
+            "head_change": _finite_round(head_change),
+            "shoulder_change": _finite_round(shoulder_change),
+            "head_shoulder_ratio_disagreement": _finite_round(disagreement),
+            "maximum_absolute_disagreement": anatomy_limit,
+        }
+        if not anatomy_passed:
+            shown = "unmeasurable" if not math.isfinite(disagreement) else f"{disagreement:+.1%}"
+            errors.append(
+                f"candidate walk {direction}: idle/walk head/shoulder ratio disagrees {shown}, "
+                f"expected |delta| <= {anatomy_limit:.0%}"
+            )
+
+        clip_report: dict[str, Any] = {}
+        try:
+            with _v20_core_context():
+                processed = core._process_clip(
+                    keyed, f"candidate_walk:{direction}", clip_report
+                )
+            cells = [
+                register_runtime_cell(
+                    cell,
+                    manifest,
+                    group="walk",
+                    direction=direction,
+                    phase=phase,
+                )
+                for phase, cell in enumerate(processed)
+            ]
+            report["pipeline"].update(clip_report[f"candidate_walk:{direction}"])
+
+            metrics = [core.frame_metrics(cell) for cell in cells]
+            processed_digests = [_processed_image_sha256(cell) for cell in cells]
+            processed_unique = len(set(processed_digests))
+            processed_unique_passed = processed_unique == 8
+            report["gates"]["processed_uniqueness"] = {
+                "passed": processed_unique_passed,
+                "unique_frames": processed_unique,
+                "expected": 8,
+                "pixel_sha256": processed_digests,
+            }
+            if not processed_unique_passed:
+                errors.append(
+                    f"candidate walk {direction}: processed clip has {processed_unique}/8 unique frames"
+                )
+
+            head_jitter = max(metric.head_center_x for metric in metrics) - min(
+                metric.head_center_x for metric in metrics
+            )
+            head_jitter_limit = float(manifest["gates"]["head_jitter_max"])
+            head_jitter_passed = head_jitter <= head_jitter_limit
+            report["gates"]["head_jitter"] = {
+                "passed": head_jitter_passed,
+                "pixels": round(head_jitter, 3),
+                "maximum": head_jitter_limit,
+            }
+            if not head_jitter_passed:
+                errors.append(
+                    f"candidate walk {direction}: head jitter {head_jitter:.1f}px, "
+                    f"expected <= {head_jitter_limit:.1f}px"
+                )
+
+            centroid_drift = max(metric.centroid_x for metric in metrics) - min(
+                metric.centroid_x for metric in metrics
+            )
+            centroid_limit = float(manifest["gates"]["centroid_drift_max"])
+            centroid_passed = centroid_drift <= centroid_limit
+            report["gates"]["centroid_drift"] = {
+                "passed": centroid_passed,
+                "pixels": round(centroid_drift, 3),
+                "maximum": centroid_limit,
+                "per_frame_x": [round(metric.centroid_x, 3) for metric in metrics],
+            }
+            if not centroid_passed:
+                errors.append(
+                    f"candidate walk {direction}: body centroid drifts {centroid_drift:.2f}px, "
+                    f"expected <= {centroid_limit:.1f}px"
+                )
+
+            head_widths = [metric.head_width for metric in metrics]
+            head_pulse = max(head_widths) / min(head_widths) if min(head_widths) > 0 else math.inf
+            head_pulse_limit = float(manifest["gates"]["head_scale_ratio_max"])
+            head_pulse_passed = math.isfinite(head_pulse) and head_pulse <= head_pulse_limit
+            report["gates"]["head_pulse"] = {
+                "passed": head_pulse_passed,
+                "ratio": _finite_round(head_pulse),
+                "maximum": head_pulse_limit,
+                "per_frame_width": head_widths,
+            }
+            if not head_pulse_passed:
+                shown = "unmeasurable" if not math.isfinite(head_pulse) else f"{head_pulse:.3f}x"
+                errors.append(
+                    f"candidate walk {direction}: head scale pulses {shown}, "
+                    f"expected <= {head_pulse_limit:.2f}x"
+                )
+
+            torso_widths = [metric.torso_width for metric in metrics]
+            positive_torso_widths = [width for width in torso_widths if width > 0]
+            torso_pulse = (
+                max(positive_torso_widths) / min(positive_torso_widths)
+                if len(positive_torso_widths) == 8
+                else math.inf
+            )
+            torso_pulse_limit = float(manifest["gates"]["torso_scale_ratio_max"])
+            torso_pulse_passed = math.isfinite(torso_pulse) and torso_pulse <= torso_pulse_limit
+            report["gates"]["torso_pulse"] = {
+                "passed": torso_pulse_passed,
+                "ratio": _finite_round(torso_pulse),
+                "maximum": torso_pulse_limit,
+                "per_frame_width": torso_widths,
+            }
+            if not torso_pulse_passed:
+                shown = "unmeasurable" if not math.isfinite(torso_pulse) else f"{torso_pulse:.3f}x"
+                errors.append(
+                    f"candidate walk {direction}: torso scale pulses {shown}, "
+                    f"expected <= {torso_pulse_limit:.2f}x"
+                )
+
+            per_frame_colours: list[int] = []
+            clip_colours: set[tuple[int, int, int]] = set()
+            for cell in cells:
+                pixels = np.asarray(cell.convert("RGBA"))
+                body = pixels[..., :3][pixels[..., 3] >= 128]
+                colours = np.unique(body.reshape(-1, 3), axis=0) if len(body) else np.empty((0, 3))
+                per_frame_colours.append(len(colours))
+                clip_colours.update(map(tuple, colours))
+            palette_limit = int(manifest["gates"]["clip_palette_colors_max"])
+            palette_passed = len(clip_colours) <= palette_limit
+            report["gates"]["palette"] = {
+                "passed": palette_passed,
+                "clip_colours": len(clip_colours),
+                "maximum": palette_limit,
+                "per_frame_colours": per_frame_colours,
+            }
+            if not palette_passed:
+                errors.append(
+                    f"candidate walk {direction}: clip carries {len(clip_colours)} colours, "
+                    f"expected <= {palette_limit}"
+                )
+
+            leads = "".join(core.foot_lead(cell) for cell in cells)
+            longest_run = _longest_planted_lead_run(leads)
+            has_both_leads = "L" in leads and "R" in leads
+            gait_passed = has_both_leads and longest_run <= 3
+            report["gates"]["gait"] = {
+                "passed": gait_passed,
+                "planted_foot_leads": leads,
+                "has_left_lead": "L" in leads,
+                "has_right_lead": "R" in leads,
+                "longest_lead_run": longest_run,
+                "maximum_lead_run": 3,
+            }
+            if not has_both_leads:
+                errors.append(
+                    f"candidate walk {direction}: planted-foot sequence does not exchange L/R ({leads})"
+                )
+            if longest_run > 3:
+                errors.append(
+                    f"candidate walk {direction}: planted-foot lead repeats {longest_run} cells ({leads})"
+                )
+
+            adjacent = [
+                core.intersection_over_union(cells[index], cells[(index + 1) % 8])
+                for index in range(8)
+            ]
+            closure_floor = min(0.55, float(np.median(adjacent[:-1])) * 0.75)
+            closure = adjacent[-1]
+            closure_passed = closure >= closure_floor
+            report["gates"]["loop_closure"] = {
+                "passed": closure_passed,
+                "iou": round(closure, 4),
+                "minimum": round(closure_floor, 4),
+                "adjacent_iou": [round(value, 4) for value in adjacent],
+            }
+            if not closure_passed:
+                errors.append(
+                    f"candidate walk {direction}: loop closure IoU {closure:.3f}, "
+                    f"expected >= {closure_floor:.3f}"
+                )
+        except V20ValidationError as error:
+            errors.extend(error.errors)
+
+    errors = list(dict.fromkeys(errors))
+    report["errors"] = errors
+    report["status"] = "passed" if not errors else "failed"
+    return report
+
+
+def write_candidate_preflight_report(
+    path: Path, report: dict[str, Any], manifest: dict[str, Any]
+) -> Path:
+    """Persist a preflight report, refusing every production payload location."""
+    destination = path.expanduser().resolve()
+    protected_roots = (
+        V20_ROOT / manifest["source_root"],
+        V20_ROOT / manifest["staging_root"],
+        RUNTIME_ATLASES,
+        RUNTIME_UI,
+    )
+    if destination.suffix.lower() != ".json":
+        raise V20ValidationError("candidate preflight report path must end in .json")
+    if any(destination == root.resolve() or root.resolve() in destination.parents for root in protected_roots):
+        raise V20ValidationError(
+            f"candidate preflight report cannot be written into Frames, Staging, or runtime: {destination}"
+        )
+    protected_files = {
+        MANIFEST_PATH.resolve(),
+        (V20_ROOT / manifest["generation_provenance"]).resolve(),
+        (V20_ROOT / manifest["approval_ledger"]).resolve(),
+    }
+    if destination in protected_files:
+        raise V20ValidationError(
+            f"candidate preflight report cannot replace V20 contract metadata: {destination}"
+        )
+    write_json(destination, report)
+    return destination
+
+
 def key_chroma(image: Image.Image) -> Image.Image:
     return core.key_chroma(image)
 
@@ -2088,6 +2539,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("validate-proof", help="validate 4 anchors, 9 keys, and SW/N walk proofs")
     subparsers.add_parser("validate", help="validate all 148 masters, routes, hashes, and approvals")
+    candidate_parser = subparsers.add_parser(
+        "candidate-preflight",
+        help="gate an isolated eight-frame chroma walk candidate without promoting it",
+    )
+    candidate_parser.add_argument("direction", choices=WESTERN_DIRECTIONS)
+    candidate_parser.add_argument("candidate_directory", type=Path)
+    candidate_parser.add_argument(
+        "--report",
+        type=Path,
+        default=None,
+        help="optionally write the complete JSON report outside Frames/Staging/runtime",
+    )
     subparsers.add_parser("stage", help="build and strictly gate five atlases plus the paperdoll")
     validate_stage_parser = subparsers.add_parser("validate-stage", help="read-only strict stage validation")
     validate_stage_parser.add_argument("--staging", type=Path, default=None)
@@ -2107,6 +2570,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "validate":
             report = validate_sources(manifest, include_all=True)
             print(f"V20 source validation passed: {report['masters_validated']} masters; runtime untouched")
+        elif args.command == "candidate-preflight":
+            report = preflight_walk_candidate(
+                args.direction, args.candidate_directory, manifest
+            )
+            if args.report is not None:
+                write_candidate_preflight_report(args.report, report, manifest)
+            print(json.dumps(report, indent=2, sort_keys=True))
+            if report["status"] != "passed":
+                return 1
         elif args.command == "stage":
             staging, report = build_staging(manifest)
             print(

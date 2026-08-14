@@ -17,6 +17,9 @@ class BaseGameScene: SKScene {
     /// Screen-locked chrome parented to the camera (identity scale). Child positions
     /// use viewport-centered points where `±size/2` are the view edges.
     let hudRoot = SKNode()
+    /// Reusable, non-modal container strip. Scenes supply container contents and
+    /// forward input only while it is visible.
+    let lootContainerPanel = LootContainerPanelNode()
 
     private var hasBuiltScene = false
     private var isPerformingLayout = false
@@ -250,6 +253,7 @@ class BaseGameScene: SKScene {
         // camera counter-transform keeps ±size/2 on the view edges at any zoom.
         hudRoot.position = .zero
         hudRoot.setScale(1)
+        lootContainerPanel.layout(for: hudViewportSize)
         cinematicRoot.position = .zero
         cinematicRoot.setScale(1)
 
@@ -585,6 +589,9 @@ class BaseGameScene: SKScene {
         hudRoot.position = .zero
         hudRoot.setScale(1)
         gameCamera.addChild(hudRoot)
+        lootContainerPanel.zPosition = 50
+        lootContainerPanel.isHidden = true
+        hudRoot.addChild(lootContainerPanel)
         dialoguePresenter.zPosition = 60
         hudRoot.addChild(dialoguePresenter)
     }

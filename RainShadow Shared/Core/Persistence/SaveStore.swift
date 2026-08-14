@@ -6,6 +6,18 @@ enum PersistedLootStack: Codable, Equatable, Sendable {
     case item(id: String, quantity: Int)
 }
 
+/// Persistence mirror of Core `CarriedItemStack`. Static starter-kit entries are
+/// intentionally not stored; older saves therefore gain an empty acquired bag.
+struct PersistedCarriedItemStack: Codable, Equatable, Sendable {
+    var id: String
+    var quantity: Int
+
+    init(id: String, quantity: Int) {
+        self.id = id
+        self.quantity = quantity
+    }
+}
+
 /// Persistence mirror of Core `QueuedJournalFragment` — same no-Core-dependency rule
 /// as `PersistedLootStack`. Kept structurally identical so the two-way map stays trivial.
 struct PersistedJournalFragment: Codable, Equatable, Sendable {
@@ -36,6 +48,9 @@ struct SaveSnapshot: Codable, Equatable {
     var walletPence: Int = 1_728
     /// BG resolve-once container contents, keyed by container/hotspot ID.
     var lootContainers: [String: [PersistedLootStack]] = [:]
+    /// Acquired item stacks only. Six static starter items are supplied by the
+    /// inventory presentation and occupy reserved slots at runtime.
+    var carriedItems: [PersistedCarriedItemStack] = []
     /// Case flags earned in dialogue (e.g. client retained) — survives area change / relaunch.
     var caseFlags: Set<String> = []
     /// Knowledge ids granted in dialogue. The Infinity Engine persists every GLOBAL in
@@ -57,6 +72,7 @@ struct SaveSnapshot: Codable, Equatable {
         inspectedHotspotIDs: Set<String> = [],
         walletPence: Int = 1_728,
         lootContainers: [String: [PersistedLootStack]] = [:],
+        carriedItems: [PersistedCarriedItemStack] = [],
         caseFlags: Set<String> = [],
         caseKnowledgeIDs: Set<String> = [],
         caseEvidenceIDs: Set<String> = [],
@@ -70,6 +86,7 @@ struct SaveSnapshot: Codable, Equatable {
         self.inspectedHotspotIDs = inspectedHotspotIDs
         self.walletPence = walletPence
         self.lootContainers = lootContainers
+        self.carriedItems = carriedItems
         self.caseFlags = caseFlags
         self.caseKnowledgeIDs = caseKnowledgeIDs
         self.caseEvidenceIDs = caseEvidenceIDs
@@ -91,6 +108,10 @@ struct SaveSnapshot: Codable, Equatable {
             [String: [PersistedLootStack]].self,
             forKey: .lootContainers
         ) ?? [:]
+        carriedItems = try container.decodeIfPresent(
+            [PersistedCarriedItemStack].self,
+            forKey: .carriedItems
+        ) ?? []
         caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
         caseKnowledgeIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseKnowledgeIDs) ?? []
         caseEvidenceIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseEvidenceIDs) ?? []

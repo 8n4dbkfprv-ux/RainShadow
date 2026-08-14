@@ -704,7 +704,10 @@ final class CityDistrictScene: BaseGameScene {
         inventoryIsPresented = presented
         refreshOverlayPauseState()
         if presented {
-            inventoryOverlay.present(walletPence: context.session.walletPence)
+            inventoryOverlay.present(
+                walletPence: context.session.walletPence,
+                carriedItems: context.session.carriedInventory.stacks
+            )
         } else {
             inventoryOverlay.hideAnimated()
         }

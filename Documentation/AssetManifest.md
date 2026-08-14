@@ -328,7 +328,7 @@ Effect acceptance:
 
 ## 8. M01 interface assets
 
-UI is original RainShadow art following Infinity Engine **layout hierarchy** with film-noir materials. Do not copy copyrighted Baldur’s Gate/Infinity Engine frames or icons. All visible chrome is Image Generator PNG; code owns layout, hit-testing, live text, and ephemeral hover/selection tints only.
+UI is RainShadow art following Infinity Engine **layout hierarchy** with film-noir materials. Surrounding frames and icon systems remain original. The opened-container Take All control is a newly generated reconstruction of the red-diamond convention visible in the user-supplied BG2/BGII:EE screenshot, rather than extracted game pixels. The screenshot-matching installed BG:EE `WORLD_CONTAINER` definition separately verifies that this `ROUNDBUT` instance invokes Take All. All visible chrome is Image Generator PNG; code owns layout, hit-testing, live text, and ephemeral hover/selection tints only.
 
 | Priority | ID(s) | Count | Pixels each | Description |
 |---|---|---:|---:|---|
@@ -348,6 +348,11 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `hud_action_*_v03` | 12 | 128×128 | Painted noir action icons: menu, map, journal, inventory, character, leads, contacts, settings, rest, help, hide-ui, clock. Hover/pressed via code tint; disabled uses alpha. |
 | P0 | `hud_party_*_v03` | 3 | 128×128 | Painted party utilities: search, lantern, select-party (stubs). |
 | P0 | `hud_portrait_frame_v03` | 1 | 1086×1448 | Transparent portrait bezel matching v03 rail language; code owns HP text and condition tint. |
+| P0 | `hud_loot_container_panel_v02` | 1 | 1600×320 | **Active.** Original non-modal 5:1 BG2-style transfer backing: one open noir field for source identity, 3×2 source contents, case bag/capacity, 2×2 carried inventory, and party purse. Code owns every zone, value, slot, scroll state, and hit target. |
+| P0 | `hud_loot_take_all_v03` | 1 | 256×256 | **Active.** Newly generated red-diamond reconstruction for Take All. Visual authority is the supplied BG2/BGII:EE screenshot; the matching installed BG:EE UI definition identifies the control as `ROUNDBUT` and the action as Take All. No shipped BAM pixels were extracted. |
+| P2 | `hud_loot_take_all_v02` | 1 | 256×256 | **Retired history.** Prior content-neutral aged-brass down arrow; superseded at the user's request by the screenshot-faithful red-diamond control. |
+| P2 | `hud_loot_take_all_v01` | 1 | 256×256 | **Retired history.** Prior coin/key/document-and-tray pictogram; superseded because enumerating contents made the bulk action look type-specific. |
+| P2 | `hud_loot_container_panel_v01` | 1 | 1536×256 | **Retired history.** Prior 6:1 two-well coin-only composition; superseded by the corrected BG2 container-transfer hierarchy and no longer preloaded. |
 | P0 | `dialogue_outer_frame_overlay_v07` | 1 | 1720×583 | Active original noir plaque retaining V06's sparse silhouette and alpha geometry exactly, with neutral grayscale, coarse pitted gunmetal, and bright worn-silver bevels matched to the shipped HUD sidebars; detached TL portrait bezel, transparent live well, and no painted scrollbar channel. |
 | P0 | `dialogue_command_button_plate_v06` | 1 | 1024×116 | Active matching 8.8:1 END/CONTINUE bar retaining V05's exact alpha geometry; empty live-label face and rim use the same coarse mottled HUD-sidebar material. |
 | P0 | `dialogue_scroll_{up,down,up_pressed,down_pressed}_v06`, `dialogue_scroll_box_v06`, `dialogue_scroll_area_v06`, `dialogue_scroll_area_solid_v06` | 7 | 96×96 / 96×96 / 30×1024 | Exact Apple System 7 scrollbar grammar in RainShadow gunmetal: outlined arrowhead + stem handle (not Platinum solid triangles), fixed square scroll box, pixel-exact dithered gray area (solid when disabled), pressed arrow art, flush assembly, no grip ridges, no hover. |
@@ -364,13 +369,16 @@ UI is original RainShadow art following Infinity Engine **layout hierarchy** wit
 | P0 | `inventory_outer_frame_v07` | 1 | 1960×1080 | Prior slim mitred border-only frame. |
 | P0 | `inventory_outer_frame_v06` | 1 | 1960×1080 | Prior modular border-only frame with a Classic Mac close seat on the TL rail. |
 | P0 | `inventory_outer_frame_v05` | 1 | 1960×1080 | Earlier border-only modular frame. |
-| P0 | `inventory_section_{loadout,paperdoll,stats,mid,bag,nearby}_v05` | 6 | varies | Separate section backplates composed by code (BG hierarchy; no baked labels). |
+| P0 | `inventory_section_{loadout,paperdoll,stats,mid}_v05` | 4 | varies | **Active.** Separate upper and middle Inventory section backplates composed by code; no baked labels. |
+| P0 | `inventory_section_bag_v06` | 1 | 1680×190 | **Active.** Full-width case-bag backing with a narrow satchel/status well and one continuous contents well. Code lays all sixteen carried-item slots in a single row. |
+| P2 | `inventory_section_bag_v05` | 1 | 1130×190 | **Retired history.** Prior narrow two-row bag backing; replaced by full-width `inventory_section_bag_v06` and no longer preloaded. |
+| P2 | `inventory_section_nearby_v05` | 1 | 525×190 | **Retired history.** Prior modal Nearby backing; deliberate container access now uses `hud_loot_container_panel_v02` and this asset is no longer preloaded. |
 | P0 | `inventory_slot_frame_v05` | 1 | 256×256 | Reusable recessed squircle slot frame scaled to code-defined bounds. |
 | P0 | `inventory_selection_frame_v05` | 1 | 256×256 | Painted selection highlight rim (replaces coded SKShapeNode rings). |
 | P0 | `inventory_slot_silhouette_*_v05` | 8 | 256×256 | Prior empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
 | P0 | `inventory_slot_silhouette_*_v06` | 12 | 256×256 | **Active.** BG:EE Enhanced empty-slot roles in noir line art: hat, coat, hands, charm, cloak, belt, feet, ring, holster, weapon (revolver), item, bag. |
 | P0 | `inventory_stat_badge_*_v05` | 4 | 256×256 | Badge frames with open centers: defence / vitality / resolve / damage. |
-| P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | Painted nearby-page chevrons. |
+| P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | Painted inventory page chevrons retained for future manual page surfaces; the corrected vertical container and carried-item row controls reuse the active dialogue scroll arrows. |
 | P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
 | P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
 | P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |

@@ -20,6 +20,7 @@ class GameViewController: NSViewController {
         super.viewDidAppear()
         view.window?.acceptsMouseMovedEvents = true
         view.window?.makeFirstResponder(view)
+        applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         scheduleReviewCaptureIfRequested()
     }
@@ -37,6 +38,29 @@ class GameViewController: NSViewController {
         scene.layoutViewport()
     }
 
+    /// Optional viewport matrix for renderer QA, e.g.
+    /// `RAINSHADOW_CAPTURE_SIZE=1280x720`. This only applies when a capture path
+    /// is armed and lets one shipping macOS renderer exercise phone, tablet, and
+    /// desktop point layouts without changing the storyboard window.
+    private func applyReviewCaptureSizeIfRequested() {
+        let environment = ProcessInfo.processInfo.environment
+        guard environment["RAINSHADOW_CAPTURE"] != nil,
+              let specification = environment["RAINSHADOW_CAPTURE_SIZE"] else { return }
+        let components = specification.lowercased().split(separator: "x", maxSplits: 1)
+        guard components.count == 2,
+              let width = Double(components[0]),
+              let height = Double(components[1]),
+              width >= 320,
+              height >= 240 else {
+            FileHandle.standardError.write(
+                Data("capture: invalid RAINSHADOW_CAPTURE_SIZE=\(specification)\n".utf8)
+            )
+            return
+        }
+        view.window?.setContentSize(NSSize(width: width, height: height))
+        view.window?.contentView?.layoutSubtreeIfNeeded()
+    }
+
     /// QA hook: `RAINSHADOW_CAPTURE=<path>` writes one PNG of the live scene and
     /// quits, so review frames come from the shipping renderer rather than a
     /// re-implementation of it.
@@ -48,6 +72,9 @@ class GameViewController: NSViewController {
     ///   `suite_plate`      suite background plate only (Stage 1 architecture review)
     ///   `architecture`     suite/shell + doors (no furniture); legacy partition if enabled
     ///   `architecture_debug` architecture plus collision / axis / doorway overlays
+    ///
+    /// `RAINSHADOW_CAPTURE_SIZE=<width>x<height>` resizes the window in points
+    /// before layout and capture (for example `1280x720`).
     ///
     /// `RAINSHADOW_PARTITION_MASK=0` loads the full-height partition (mask off).
     /// `RAINSHADOW_LEGACY_PARTITION=1` restores partition/foreground overlays with suite plate.

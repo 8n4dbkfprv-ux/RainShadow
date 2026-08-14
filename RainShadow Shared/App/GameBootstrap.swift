@@ -2,6 +2,10 @@ import SpriteKit
 
 @MainActor
 final class GameSession {
+    /// The painted 16-slot case bag already contains these fixed starter items:
+    /// revolver, notebook, brass key, torch, wallet, and cigarette case.
+    static let starterInventorySlotCount = 6
+
     private let saveStore: SaveStore
     private(set) var hasSeenOpening: Bool
     private(set) var hasSeenOfficeHint: Bool
@@ -21,6 +25,9 @@ final class GameSession {
     private(set) var walletPence: Int
     /// BG resolve-once loot state for searchable containers.
     private(set) var lootContainers: LootContainerState
+    /// Ordered acquired stacks. Static starter items are represented by reserved
+    /// capacity rather than duplicated into persistence.
+    private(set) var carriedInventory: CarriedInventoryState
 
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
@@ -40,6 +47,10 @@ final class GameSession {
         walletPence = snapshot.walletPence
         lootContainers = LootContainerState(
             resolved: snapshot.lootContainers.mapValues { $0.map(Self.toResolved) }
+        )
+        carriedInventory = CarriedInventoryState(
+            stacks: snapshot.carriedItems.map(Self.toCarried),
+            reservedSlotCount: Self.starterInventorySlotCount
         )
         // After intro, city travel is available whenever free-play is restored.
         if hasCompletedOfficeCaseIntro {
@@ -148,11 +159,83 @@ final class GameSession {
     func takeCoins(at index: Int, from containerID: String) -> Int? {
         var state = lootContainers
         guard let stack = state.takeStack(at: index, from: containerID),
-              case .coins(let pence) = stack else { return nil }
+              case .coins(let pence) = stack,
+              pence > 0 else { return nil }
         lootContainers = state
         walletPence += pence
         persist()
         return pence
+    }
+
+    /// Transfers one source stack. Coins bypass the case bag; an item consumes
+    /// one acquired slot. Full/invalid attempts leave both source and inventory
+    /// untouched and do not write a save.
+    @discardableResult
+    func takeLootStack(at index: Int, from containerID: String) -> LootStackTransferResult? {
+        guard let stacks = lootContainers.contents(of: containerID),
+              stacks.indices.contains(index) else { return nil }
+
+        switch stacks[index] {
+        case .coins(let pence):
+            guard pence > 0 else { return nil }
+            var nextContainers = lootContainers
+            guard nextContainers.takeStack(at: index, from: containerID) != nil else { return nil }
+            lootContainers = nextContainers
+            walletPence += pence
+            persist()
+            return .coins(pence: pence)
+
+        case .item(let id, let quantity):
+            guard quantity > 0 else { return nil }
+            guard !carriedInventory.isFull else { return .inventoryFull }
+
+            let item = CarriedItemStack(id: id, quantity: quantity)
+            var nextContainers = lootContainers
+            var nextInventory = carriedInventory
+            guard nextInventory.append(item),
+                  nextContainers.takeStack(at: index, from: containerID) != nil else { return nil }
+            lootContainers = nextContainers
+            carriedInventory = nextInventory
+            persist()
+            return .item(item)
+        }
+    }
+
+    /// Returns one acquired stack to the end of an already active/resolved
+    /// container. The copy-then-commit sequence prevents either side changing
+    /// when an index or destination is invalid.
+    @discardableResult
+    func returnCarriedItem(at index: Int, to containerID: String) -> CarriedItemStack? {
+        guard let item = carriedInventory.stack(at: index) else { return nil }
+
+        var nextContainers = lootContainers
+        var nextInventory = carriedInventory
+        guard nextContainers.appendItem(item, to: containerID),
+              nextInventory.takeStack(at: index) == item else { return nil }
+        lootContainers = nextContainers
+        carriedInventory = nextInventory
+        persist()
+        return item
+    }
+
+    /// Takes all currency plus the first item stacks that fit, in source order.
+    /// Overflow item stacks stay in the source in order. The complete transaction
+    /// is persisted once, so repeat activation cannot double-credit its coins.
+    @discardableResult
+    func takeAllLoot(from containerID: String) -> LootTakeAllResult? {
+        var nextContainers = lootContainers
+        var nextInventory = carriedInventory
+        guard let result = nextContainers.takeAll(
+            from: containerID,
+            itemSlotCapacity: nextInventory.availableSlotCount
+        ), nextInventory.append(contentsOf: result.itemStacks) else { return nil }
+
+        guard result.didTransferAnything else { return result }
+        lootContainers = nextContainers
+        carriedInventory = nextInventory
+        walletPence += result.creditedPence
+        persist()
+        return result
     }
 
     private func persist() {
@@ -163,6 +246,7 @@ final class GameSession {
             inspectedHotspotIDs: inspectedHotspotIDs,
             walletPence: walletPence,
             lootContainers: lootContainers.resolved.mapValues { $0.map(Self.toPersisted) },
+            carriedItems: carriedInventory.stacks.map(Self.toPersisted),
             caseFlags: caseState.flags,
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,
@@ -183,6 +267,14 @@ final class GameSession {
         case .coins(let pence): return .coins(pence: pence)
         case .item(let id, let quantity): return .item(id: id, quantity: quantity)
         }
+    }
+
+    private static func toCarried(_ stack: PersistedCarriedItemStack) -> CarriedItemStack {
+        CarriedItemStack(id: stack.id, quantity: stack.quantity)
+    }
+
+    private static func toPersisted(_ stack: CarriedItemStack) -> PersistedCarriedItemStack {
+        PersistedCarriedItemStack(id: stack.id, quantity: stack.quantity)
     }
 
     private static func toQueued(_ fragment: PersistedJournalFragment) -> QueuedJournalFragment {

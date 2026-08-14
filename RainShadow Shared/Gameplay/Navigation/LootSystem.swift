@@ -42,7 +42,7 @@ struct CurrencyAmount: Hashable, Codable, Sendable {
 enum LootEntry: Hashable, Codable, Sendable {
     case coins(pence: Int)
     case randomCoins(table: RandomCoinTable)
-    /// Reserved for BG-style item stacks; surfaced when a real inventory model lands.
+    /// BG-style item stack; each resolved stack consumes one carried-inventory slot.
     case item(id: String, quantity: Int)
 }
 
@@ -89,6 +89,90 @@ enum ResolvedLootStack: Hashable, Codable, Sendable {
     var coinPence: Int? {
         if case .coins(let pence) = self { return pence }
         return nil
+    }
+}
+
+/// One acquired item stack carried in the case bag. Currency is deliberately
+/// absent: BG-style coin pickups credit the shared wallet instead of consuming
+/// an inventory slot.
+struct CarriedItemStack: Hashable, Codable, Sendable {
+    let id: String
+    let quantity: Int
+}
+
+/// Ordered, slot-limited acquired inventory. The UI also paints a fixed starter
+/// kit; `reservedSlotCount` lets that kit consume real slots without persisting
+/// duplicate copies of those static presentation entries into every save.
+struct CarriedInventoryState: Hashable, Sendable {
+    static let defaultTotalSlotCapacity = 16
+
+    let totalSlotCapacity: Int
+    let reservedSlotCount: Int
+    private(set) var stacks: [CarriedItemStack]
+
+    init(
+        stacks: [CarriedItemStack] = [],
+        reservedSlotCount: Int = 0,
+        totalSlotCapacity: Int = Self.defaultTotalSlotCapacity
+    ) {
+        let normalizedTotal = max(0, totalSlotCapacity)
+        self.totalSlotCapacity = normalizedTotal
+        self.reservedSlotCount = min(max(0, reservedSlotCount), normalizedTotal)
+        let acquiredCapacity = normalizedTotal - self.reservedSlotCount
+        self.stacks = Array(
+            stacks.lazy
+                .filter { $0.quantity > 0 }
+                .prefix(acquiredCapacity)
+        )
+    }
+
+    /// Slots available to acquired stacks after the static starter kit.
+    var itemSlotCapacity: Int { totalSlotCapacity - reservedSlotCount }
+    var occupiedSlotCount: Int { reservedSlotCount + stacks.count }
+    var availableSlotCount: Int { max(0, itemSlotCapacity - stacks.count) }
+    var isFull: Bool { availableSlotCount == 0 }
+
+    func stack(at index: Int) -> CarriedItemStack? {
+        guard stacks.indices.contains(index) else { return nil }
+        return stacks[index]
+    }
+
+    @discardableResult
+    mutating func append(_ stack: CarriedItemStack) -> Bool {
+        append(contentsOf: [stack])
+    }
+
+    /// All-or-nothing append used by a take-all transaction.
+    @discardableResult
+    mutating func append(contentsOf newStacks: [CarriedItemStack]) -> Bool {
+        guard newStacks.allSatisfy({ $0.quantity > 0 }),
+              newStacks.count <= availableSlotCount else { return false }
+        stacks.append(contentsOf: newStacks)
+        return true
+    }
+
+    @discardableResult
+    mutating func takeStack(at index: Int) -> CarriedItemStack? {
+        guard stacks.indices.contains(index) else { return nil }
+        return stacks.remove(at: index)
+    }
+}
+
+/// Result of clicking one source stack in the compact loot panel.
+enum LootStackTransferResult: Hashable, Sendable {
+    case coins(pence: Int)
+    case item(CarriedItemStack)
+    /// The selected source item remains untouched.
+    case inventoryFull
+}
+
+/// One atomic take-all transaction. `itemStacks` retains source order.
+struct LootTakeAllResult: Hashable, Sendable {
+    let creditedPence: Int
+    let itemStacks: [CarriedItemStack]
+
+    var didTransferAnything: Bool {
+        creditedPence > 0 || !itemStacks.isEmpty
     }
 }
 
@@ -157,5 +241,57 @@ struct LootContainerState: Hashable, Codable, Sendable {
         let taken = stacks.remove(at: index)
         resolved[containerID] = stacks
         return taken
+    }
+
+    /// BG-style bulk currency pickup retained for coin-only callers. Items remain
+    /// in their original relative order and a repeated call cannot pay twice.
+    @discardableResult
+    mutating func takeAllCoins(from containerID: String) -> Int {
+        takeAll(from: containerID, itemSlotCapacity: 0)?.creditedPence ?? 0
+    }
+
+    /// Removes every positive coin stack and the first item stacks that fit,
+    /// committing the rewritten container only after the complete result has
+    /// been derived. Overflow items retain their original relative order.
+    @discardableResult
+    mutating func takeAll(
+        from containerID: String,
+        itemSlotCapacity: Int
+    ) -> LootTakeAllResult? {
+        guard let stacks = resolved[containerID] else { return nil }
+
+        let capacity = max(0, itemSlotCapacity)
+        var creditedPence = 0
+        var takenItems: [CarriedItemStack] = []
+        var remaining: [ResolvedLootStack] = []
+        remaining.reserveCapacity(stacks.count)
+
+        for stack in stacks {
+            switch stack {
+            case .coins(let pence) where pence > 0:
+                creditedPence += pence
+            case .item(let id, let quantity)
+                where quantity > 0 && takenItems.count < capacity:
+                takenItems.append(CarriedItemStack(id: id, quantity: quantity))
+            default:
+                remaining.append(stack)
+            }
+        }
+
+        resolved[containerID] = remaining
+        return LootTakeAllResult(
+            creditedPence: creditedPence,
+            itemStacks: takenItems
+        )
+    }
+
+    /// Appends a returned carried stack to an already resolved/active source.
+    /// A missing container is never created implicitly.
+    @discardableResult
+    mutating func appendItem(_ item: CarriedItemStack, to containerID: String) -> Bool {
+        guard item.quantity > 0, var stacks = resolved[containerID] else { return false }
+        stacks.append(.item(id: item.id, quantity: item.quantity))
+        resolved[containerID] = stacks
+        return true
     }
 }

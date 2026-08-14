@@ -258,6 +258,462 @@ enum HUDChromeLayout {
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
+    // MARK: - Compact loot container panel
+
+    enum LootContainerPanel {
+        static let slotsPerPage = 6
+        static let sourceColumns = 3
+        static let sourceRows = 2
+        static let bagSlotsPerRow = 2
+        static let bagVisibleRowCount = 2
+        static let bagSlotsPerViewport = bagSlotsPerRow * bagVisibleRowCount
+        static let maxWidth: CGFloat = 900
+        static let aspectWidthOverHeight: CGFloat = 5
+        static let horizontalMargin: CGFloat = 12
+        static let bottomInset: CGFloat = 18
+        static let minimumHitExtent: CGFloat = 44
+        /// The painted plate spends its outer band on the metal frame, so every
+        /// child lays out inside the recessed well, never against the full plate.
+        /// Measured on `hud_loot_container_panel_v02` (1600×320): the well spans
+        /// x 42…1558 and y 31…285, and the bottom rail is the thicker of the two.
+        static let wellTopInsetFraction: CGFloat = 0.097
+        static let wellBottomInsetFraction: CGFloat = 0.106
+        static let wellSideInsetFraction: CGFloat = 0.026
+        /// Slot pitch on the classic strip measures 195px against its 419px well.
+        /// Measuring against the well rather than the plate is what makes the two
+        /// comparable — our frame is nearly twice as thick as the reference's, so
+        /// the same fraction of the *plate* would push the lower row into it.
+        static let slotToWellHeightFraction: CGFloat = 0.466
+        /// Take-all gem and page arrows measured off the classic container strip,
+        /// where both are sized against the transfer slot they sit beside rather
+        /// than against a fixed point extent: the gem reads a little over half a
+        /// slot across (114/196), the arrow button a little over four fifths
+        /// (161/196). Both bottom-align with the lower slot row.
+        static let takeAllArtToSlotFraction: CGFloat = 0.58
+        static let pageArrowToSlotFraction: CGFloat = 0.82
+
+        /// Five-zone hierarchy measured from the classic container strip and
+        /// translated into RainShadow's original 5:1 painted plate.
+        // Slightly rebalance the research ratios at compact rail-safe widths so
+        // the two real transfer grids and their controls retain 44pt hit areas.
+        static let sourceIdentityMaxXFraction: CGFloat = 0.140
+        static let sourceViewportMaxXFraction: CGFloat = 0.490
+        static let carryMaxXFraction: CGFloat = 0.615
+        static let bagViewportMaxXFraction: CGFloat = 0.880
+    }
+
+    /// Pure source-row viewport state shared by the SpriteKit panel and unit tests.
+    /// `pageIndex` is retained as the public spelling, but each step advances one
+    /// three-item row while the viewport continues to show two rows.
+    struct LootContainerPage: Equatable {
+        let pageIndex: Int
+        let pageCount: Int
+        let visibleRange: Range<Int>
+
+        var canGoPrevious: Bool { pageIndex > 0 }
+        var canGoNext: Bool { pageIndex + 1 < pageCount }
+    }
+
+    /// Two-column carried-bag viewport. Scrolling advances one row, so the
+    /// middle row remains visible while moving through a longer bag.
+    struct LootContainerBagViewport: Equatable {
+        let rowIndex: Int
+        let rowCount: Int
+        let visibleRange: Range<Int>
+
+        var canGoPrevious: Bool { rowIndex > 0 }
+        var canGoNext: Bool { rowIndex + LootContainerPanel.bagVisibleRowCount < rowCount }
+    }
+
+    /// Clamps a requested source row and returns its overlapping six-entry slice.
+    static func lootContainerPage(itemCount: Int, requestedPage: Int) -> LootContainerPage {
+        let count = max(0, itemCount)
+        let rowCount = max(1, (count + LootContainerPanel.sourceColumns - 1)
+            / LootContainerPanel.sourceColumns)
+        let lastPage = max(0, rowCount - LootContainerPanel.sourceRows)
+        let pageIndex = min(max(0, requestedPage), lastPage)
+        let lowerBound = min(count, pageIndex * LootContainerPanel.sourceColumns)
+        let upperBound = min(count, lowerBound + LootContainerPanel.slotsPerPage)
+        return LootContainerPage(
+            pageIndex: pageIndex,
+            pageCount: lastPage + 1,
+            visibleRange: lowerBound..<upperBound
+        )
+    }
+
+    static func lootContainerBagViewport(
+        itemCount: Int,
+        requestedRow: Int
+    ) -> LootContainerBagViewport {
+        let count = max(0, itemCount)
+        let rowCount = max(1, (count + LootContainerPanel.bagSlotsPerRow - 1)
+            / LootContainerPanel.bagSlotsPerRow)
+        let lastRow = max(0, rowCount - LootContainerPanel.bagVisibleRowCount)
+        let rowIndex = min(max(0, requestedRow), lastRow)
+        let lowerBound = min(count, rowIndex * LootContainerPanel.bagSlotsPerRow)
+        let upperBound = min(
+            count,
+            lowerBound + LootContainerPanel.bagSlotsPerViewport
+        )
+        return LootContainerBagViewport(
+            rowIndex: rowIndex,
+            rowCount: rowCount,
+            visibleRange: lowerBound..<upperBound
+        )
+    }
+
+    struct LootContainerPanelLayout: Equatable {
+        /// Full panel contract in viewport-centred HUD coordinates.
+        let panelRect: CGRect
+        let sourceIdentityRect: CGRect
+        let sourceViewportRect: CGRect
+        let carryRect: CGRect
+        let bagViewportRect: CGRect
+        let walletWellRect: CGRect
+        let sourcePropArtRect: CGRect
+        let takeAllHitRect: CGRect
+        let takeAllArtRect: CGRect
+        let sourcePreviousPageHitRect: CGRect
+        let sourcePreviousPageArtRect: CGRect
+        let sourceNextPageHitRect: CGRect
+        let sourceNextPageArtRect: CGRect
+        /// Six positions in row-major order: three columns by two rows.
+        let sourceSlotHitRects: [CGRect]
+        let sourceSlotArtRects: [CGRect]
+        let caseBagArtRect: CGRect
+        let carriedWeightRect: CGRect
+        let maximumWeightRect: CGRect
+        let bagPreviousRowHitRect: CGRect
+        let bagPreviousRowArtRect: CGRect
+        let bagNextRowHitRect: CGRect
+        let bagNextRowArtRect: CGRect
+        /// Four item-transfer preview positions, two columns by two rows.
+        let bagSlotHitRects: [CGRect]
+        let bagSlotArtRects: [CGRect]
+        let walletCoinArtRect: CGRect
+        let walletRect: CGRect
+        let walletValueRect: CGRect
+    }
+
+    /// Solves one transfer grid's slot extent together with the paging-arrow
+    /// column beside it. The arrow tracks the slot, so the row width is solved
+    /// against `columns + pageArrowToSlotFraction` slot units; when that lands
+    /// the arrow under the minimum touch extent the arrow is pinned to 44pt and
+    /// the slots are re-solved against the fixed column that leaves.
+    private static func lootTransferGrid(
+        zoneWidth: CGFloat,
+        zoneHeight: CGFloat,
+        columns: Int,
+        rows: Int,
+        gap: CGFloat,
+        maximumSlotExtent: CGFloat
+    ) -> (slotExtent: CGFloat, arrowExtent: CGFloat) {
+        // `zoneHeight` is already the recessed well, so the rows may fill it.
+        let heightLimit = (zoneHeight - gap) / CGFloat(rows)
+        // Two gaps of side margin plus one between every column and the arrows.
+        let gapTotal = gap * CGFloat(columns + 2)
+
+        func clamp(_ widthLimit: CGFloat) -> CGFloat {
+            max(
+                LootContainerPanel.minimumHitExtent,
+                min(maximumSlotExtent, heightLimit, widthLimit)
+            )
+        }
+
+        let proportionalUnits = CGFloat(columns) + LootContainerPanel.pageArrowToSlotFraction
+        let slotExtent = clamp(max(1, zoneWidth - gapTotal) / proportionalUnits)
+        let arrowExtent = slotExtent * LootContainerPanel.pageArrowToSlotFraction
+        guard arrowExtent < LootContainerPanel.minimumHitExtent else {
+            return (slotExtent, arrowExtent)
+        }
+        let fixedColumn = max(
+            1,
+            zoneWidth - LootContainerPanel.minimumHitExtent - gapTotal
+        ) / CGFloat(columns)
+        return (clamp(fixedColumn), LootContainerPanel.minimumHitExtent)
+    }
+
+    /// Grows `rect` to the minimum touch extent about its own centre, then slides
+    /// it back inside `bounds`. Clamping against `bounds ∪ rect` keeps the slide
+    /// no larger than the growth on that edge, so the result always still covers
+    /// `rect` — including when `rect` itself already pokes out of `bounds`.
+    private static func touchTarget(around rect: CGRect, clampedTo bounds: CGRect) -> CGRect {
+        let limit = bounds.union(rect)
+        let width = max(LootContainerPanel.minimumHitExtent, rect.width)
+        let height = max(LootContainerPanel.minimumHitExtent, rect.height)
+        let x = min(
+            max(rect.midX - width / 2, limit.minX),
+            max(limit.minX, limit.maxX - width)
+        )
+        let y = min(
+            max(rect.midY - height / 2, limit.minY),
+            max(limit.minY, limit.maxY - height)
+        )
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+
+    /// A 5:1 bottom strip centred in the playable region between the two HUD rails.
+    /// Runtime decoration and every hit target remain code-owned.
+    static func lootContainerPanelLayout(for visibleSize: CGSize) -> LootContainerPanelLayout {
+        let viewWidth = max(1, visibleSize.width)
+        let viewHeight = max(1, visibleSize.height)
+        let playMinX = -viewWidth / 2 + leftRailClearance(for: visibleSize)
+        let playMaxX = viewWidth / 2 - rightRailClearance(for: visibleSize)
+        let playWidth = max(1, playMaxX - playMinX)
+
+        let horizontalLimit = max(1, playWidth - LootContainerPanel.horizontalMargin * 2)
+        let verticalLimit = max(
+            1,
+            (viewHeight - LootContainerPanel.bottomInset * 2)
+                * LootContainerPanel.aspectWidthOverHeight
+        )
+        let panelWidth = min(LootContainerPanel.maxWidth, horizontalLimit, verticalLimit)
+        let panelHeight = panelWidth / LootContainerPanel.aspectWidthOverHeight
+        let panelCenterX = (playMinX + playMaxX) / 2
+        let panelRect = CGRect(
+            x: panelCenterX - panelWidth / 2,
+            y: -viewHeight / 2 + LootContainerPanel.bottomInset,
+            width: panelWidth,
+            height: panelHeight
+        )
+        // Every zone is a full-height slice of the recessed well, so nothing the
+        // panel draws sits inside this band, not against the plate's own edges.
+        let wellRect = CGRect(
+            x: panelRect.minX + panelRect.width * LootContainerPanel.wellSideInsetFraction,
+            y: panelRect.minY + panelRect.height * LootContainerPanel.wellBottomInsetFraction,
+            width: max(1, panelRect.width
+                * (1 - LootContainerPanel.wellSideInsetFraction * 2)),
+            height: max(1, panelRect.height * (1
+                - LootContainerPanel.wellTopInsetFraction
+                - LootContainerPanel.wellBottomInsetFraction))
+        )
+        // Zones stay full-height columns; only the drawn children are well-bound,
+        // so a viewport too short for two 44pt rows still reports honest zones.
+        let innerMinX = wellRect.minX
+        let innerMaxX = wellRect.maxX
+        func zone(from minFraction: CGFloat, to maxFraction: CGFloat) -> CGRect {
+            let minX = max(innerMinX, panelRect.minX + panelRect.width * minFraction)
+            let maxX = min(innerMaxX, panelRect.minX + panelRect.width * maxFraction)
+            return CGRect(
+                x: minX,
+                y: panelRect.minY,
+                width: max(0, maxX - minX),
+                height: panelRect.height
+            )
+        }
+        /// The part of a zone that lies inside the painted well.
+        func wellBand(of zone: CGRect) -> CGRect {
+            CGRect(x: zone.minX, y: wellRect.minY, width: zone.width, height: wellRect.height)
+        }
+        let sourceIdentityRect = zone(
+            from: LootContainerPanel.wellSideInsetFraction,
+            to: LootContainerPanel.sourceIdentityMaxXFraction
+        )
+        let sourceViewportRect = zone(
+            from: LootContainerPanel.sourceIdentityMaxXFraction,
+            to: LootContainerPanel.sourceViewportMaxXFraction
+        )
+        let carryRect = zone(
+            from: LootContainerPanel.sourceViewportMaxXFraction,
+            to: LootContainerPanel.carryMaxXFraction
+        )
+        let bagViewportRect = zone(
+            from: LootContainerPanel.carryMaxXFraction,
+            to: LootContainerPanel.bagViewportMaxXFraction
+        )
+        let walletWellRect = CGRect(
+            x: panelRect.minX + panelRect.width * LootContainerPanel.bagViewportMaxXFraction,
+            y: panelRect.minY,
+            width: innerMaxX
+                - (panelRect.minX + panelRect.width * LootContainerPanel.bagViewportMaxXFraction),
+            height: panelRect.height
+        )
+
+        // Breathing room for the labels and props *inside* the well — the frame
+        // allowance is already spent by the well band itself.
+        let verticalInset = min(6, max(2, panelHeight * 0.02))
+        let gap = min(7, max(3, panelHeight * 0.025))
+        let maximumSlotExtent = wellRect.height * LootContainerPanel.slotToWellHeightFraction
+
+        let (sourceSlotExtent, sourceArrowExtent) = lootTransferGrid(
+            zoneWidth: sourceViewportRect.width,
+            zoneHeight: wellRect.height,
+            columns: LootContainerPanel.sourceColumns,
+            rows: LootContainerPanel.sourceRows,
+            gap: gap,
+            maximumSlotExtent: maximumSlotExtent
+        )
+        let sourceGridWidth = sourceSlotExtent * CGFloat(LootContainerPanel.sourceColumns)
+            + gap * CGFloat(LootContainerPanel.sourceColumns - 1)
+        let sourceControlsWidth = sourceGridWidth + gap + sourceArrowExtent
+        let sourceMinX = sourceViewportRect.midX - sourceControlsWidth / 2
+        let sourceGridHeight = sourceSlotExtent * CGFloat(LootContainerPanel.sourceRows) + gap
+        let sourceMinY = wellRect.midY - sourceGridHeight / 2
+
+        // The gem is centred in the identity column and sits on the same
+        // baseline as the lower transfer row, exactly as on the classic strip.
+        let takeAllArtExtent = sourceSlotExtent * LootContainerPanel.takeAllArtToSlotFraction
+        let takeAllArtRect = CGRect(
+            x: sourceIdentityRect.midX - takeAllArtExtent / 2,
+            y: sourceMinY,
+            width: takeAllArtExtent,
+            height: takeAllArtExtent
+        )
+        let takeAllHitRect = touchTarget(
+            around: takeAllArtRect,
+            clampedTo: wellBand(of: sourceIdentityRect)
+        )
+        let sourcePropArtRect = CGRect(
+            x: sourceIdentityRect.minX + gap,
+            y: max(takeAllHitRect.maxY, takeAllArtRect.maxY),
+            width: max(1, sourceIdentityRect.width - gap * 2),
+            height: max(
+                1,
+                wellRect.maxY - verticalInset
+                    - max(takeAllHitRect.maxY, takeAllArtRect.maxY)
+            )
+        )
+
+        var sourceSlotHitRects: [CGRect] = []
+        for row in 0..<LootContainerPanel.sourceRows {
+            for column in 0..<LootContainerPanel.sourceColumns {
+                sourceSlotHitRects.append(CGRect(
+                    x: sourceMinX + CGFloat(column) * (sourceSlotExtent + gap),
+                    y: sourceMinY
+                        + CGFloat(LootContainerPanel.sourceRows - 1 - row)
+                            * (sourceSlotExtent + gap),
+                    width: sourceSlotExtent,
+                    height: sourceSlotExtent
+                ))
+            }
+        }
+        // Up hugs the top row, down hugs the bottom row; the painted button art
+        // fills its own hit target rather than floating inside a larger one.
+        let sourceArrowX = sourceMinX + sourceGridWidth + gap
+        let sourcePreviousPageArtRect = CGRect(
+            x: sourceArrowX,
+            y: sourceMinY + sourceGridHeight - sourceArrowExtent,
+            width: sourceArrowExtent,
+            height: sourceArrowExtent
+        )
+        let sourceNextPageArtRect = CGRect(
+            x: sourceArrowX,
+            y: sourceMinY,
+            width: sourceArrowExtent,
+            height: sourceArrowExtent
+        )
+        let sourcePreviousPageHitRect = sourcePreviousPageArtRect
+        let sourceNextPageHitRect = sourceNextPageArtRect
+
+        let weightHeight = min(24, max(18, panelHeight * 0.13))
+        let carriedWeightRect = CGRect(
+            x: carryRect.minX + gap,
+            y: wellRect.maxY - verticalInset - weightHeight,
+            width: max(1, carryRect.width - gap * 2),
+            height: weightHeight
+        )
+        let maximumWeightRect = CGRect(
+            x: carryRect.minX + gap,
+            y: wellRect.minY + verticalInset,
+            width: max(1, carryRect.width - gap * 2),
+            height: weightHeight
+        )
+        let caseBagArtRect = CGRect(
+            x: carryRect.minX + gap,
+            y: maximumWeightRect.maxY,
+            width: max(1, carryRect.width - gap * 2),
+            height: max(1, carriedWeightRect.minY - maximumWeightRect.maxY)
+        )
+
+        let (bagSlotExtent, bagArrowExtent) = lootTransferGrid(
+            zoneWidth: bagViewportRect.width,
+            zoneHeight: wellRect.height,
+            columns: LootContainerPanel.bagSlotsPerRow,
+            rows: LootContainerPanel.bagVisibleRowCount,
+            gap: gap,
+            maximumSlotExtent: maximumSlotExtent
+        )
+        let bagGridWidth = bagSlotExtent * CGFloat(LootContainerPanel.bagSlotsPerRow) + gap
+        let bagControlsWidth = bagGridWidth + gap + bagArrowExtent
+        let bagGridHeight = bagSlotExtent * CGFloat(LootContainerPanel.bagVisibleRowCount) + gap
+        let bagMinX = bagViewportRect.midX - bagControlsWidth / 2
+        let bagMinY = wellRect.midY - bagGridHeight / 2
+        var bagSlotArtRects: [CGRect] = []
+        for row in 0..<LootContainerPanel.bagVisibleRowCount {
+            for column in 0..<LootContainerPanel.bagSlotsPerRow {
+                bagSlotArtRects.append(CGRect(
+                    x: bagMinX + CGFloat(column) * (bagSlotExtent + gap),
+                    y: bagMinY
+                        + CGFloat(LootContainerPanel.bagVisibleRowCount - 1 - row)
+                            * (bagSlotExtent + gap),
+                    width: bagSlotExtent,
+                    height: bagSlotExtent
+                ))
+            }
+        }
+        let bagArrowX = bagMinX + bagGridWidth + gap
+        let bagPreviousRowArtRect = CGRect(
+            x: bagArrowX,
+            y: bagMinY + bagGridHeight - bagArrowExtent,
+            width: bagArrowExtent,
+            height: bagArrowExtent
+        )
+        let bagNextRowArtRect = CGRect(
+            x: bagArrowX,
+            y: bagMinY,
+            width: bagArrowExtent,
+            height: bagArrowExtent
+        )
+        let bagPreviousRowHitRect = bagPreviousRowArtRect
+        let bagNextRowHitRect = bagNextRowArtRect
+
+        let walletInset = max(3, min(7, panelWidth * 0.006))
+        let walletValueHeight = min(30, max(20, panelHeight * 0.18))
+        let walletValueRect = CGRect(
+            x: walletWellRect.minX + walletInset,
+            y: wellRect.minY + verticalInset,
+            width: max(1, walletWellRect.width - walletInset * 2),
+            height: walletValueHeight
+        )
+        let walletCoinArtRect = CGRect(
+            x: walletWellRect.minX + walletInset,
+            y: walletValueRect.maxY,
+            width: max(1, walletWellRect.width - walletInset * 2),
+            height: max(1, wellRect.maxY - verticalInset - walletValueRect.maxY)
+        )
+        let walletRect = wellBand(of: walletWellRect).insetBy(dx: walletInset, dy: verticalInset)
+
+        return LootContainerPanelLayout(
+            panelRect: panelRect,
+            sourceIdentityRect: sourceIdentityRect,
+            sourceViewportRect: sourceViewportRect,
+            carryRect: carryRect,
+            bagViewportRect: bagViewportRect,
+            walletWellRect: walletWellRect,
+            sourcePropArtRect: sourcePropArtRect,
+            takeAllHitRect: takeAllHitRect,
+            takeAllArtRect: takeAllArtRect,
+            sourcePreviousPageHitRect: sourcePreviousPageHitRect,
+            sourcePreviousPageArtRect: sourcePreviousPageArtRect,
+            sourceNextPageHitRect: sourceNextPageHitRect,
+            sourceNextPageArtRect: sourceNextPageArtRect,
+            sourceSlotHitRects: sourceSlotHitRects,
+            sourceSlotArtRects: sourceSlotHitRects,
+            caseBagArtRect: caseBagArtRect,
+            carriedWeightRect: carriedWeightRect,
+            maximumWeightRect: maximumWeightRect,
+            bagPreviousRowHitRect: bagPreviousRowHitRect,
+            bagPreviousRowArtRect: bagPreviousRowArtRect,
+            bagNextRowHitRect: bagNextRowHitRect,
+            bagNextRowArtRect: bagNextRowArtRect,
+            bagSlotHitRects: bagSlotArtRects,
+            bagSlotArtRects: bagSlotArtRects,
+            walletCoinArtRect: walletCoinArtRect,
+            walletRect: walletRect,
+            walletValueRect: walletValueRect
+        )
+    }
+
     // MARK: - Shared clearance (dialogue must clear these rails)
 
     /// Width reserved on the left for the action rail + breathing room.

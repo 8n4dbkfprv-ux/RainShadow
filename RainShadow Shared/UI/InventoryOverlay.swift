@@ -13,7 +13,11 @@ struct InventoryItem: Identifiable, Equatable {
         case personal = "PERSONAL EFFECT"
     }
 
+    /// Stable key for one painted/selectable occurrence. Starter keys equal their
+    /// authored IDs; acquired keys also include their carried-stack index.
     let id: String
+    /// Definition/catalog identity, intentionally independent of presentation.
+    let authoredID: String
     let name: String
     let category: Category
     let description: String
@@ -23,12 +27,146 @@ struct InventoryItem: Identifiable, Equatable {
     let quantity: Int
 }
 
+/// One presentation catalogue shared by the full inventory and compact loot panel.
+/// Unknown authored IDs still get an honest generic item silhouette instead of
+/// disappearing from either transfer surface.
+enum InventoryItemCatalog {
+    static let starterSlotCount = 6
+
+    static func starterItems(walletPence: Int) -> [InventoryItem] {
+        let cashNote = "Cash on hand: \(CurrencyAmount(pence: walletPence).formatted)"
+        return [
+            InventoryItem(
+                id: "service-revolver",
+                authoredID: "service-revolver",
+                name: "Service Revolver",
+                category: .weapon,
+                description: "A six-shot Webley with a tired action and a clean barrel.",
+                note: "Registered to Det. H. Voss · 5 rounds loaded",
+                symbolName: "scope",
+                artName: "inventory_item_service_revolver_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "case-notes",
+                authoredID: "case-notes",
+                name: "Case Notebook",
+                category: .evidence,
+                description: "Names, times, and three pages someone tried to tear out.",
+                note: "Active file: The Empty Coat",
+                symbolName: "book.closed.fill",
+                artName: "inventory_item_case_notebook_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "brass-key",
+                authoredID: "brass-key",
+                name: "Brass Key",
+                category: .evidence,
+                description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
+                note: "The Empty Coat · in Voss's care",
+                symbolName: "key.fill",
+                artName: "inventory_item_brass_key_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "flashlight",
+                authoredID: "flashlight",
+                name: "Pocket Torch",
+                category: .tool,
+                description: "Dented steel, unreliable switch, enough battery for one long night.",
+                note: "Condition: worn",
+                symbolName: "flashlight.on.fill",
+                artName: "inventory_item_flashlight_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "wallet",
+                authoredID: "wallet",
+                name: "Leather Wallet",
+                category: .personal,
+                description: "Licence, tram pass, and the kind of money that disappears quickly.",
+                note: cashNote,
+                symbolName: "creditcard.fill",
+                artName: "inventory_item_wallet_v01",
+                quantity: 1
+            ),
+            InventoryItem(
+                id: "cigarette-case",
+                authoredID: "cigarette-case",
+                name: "Cigarette Case",
+                category: .personal,
+                description: "Gunmetal silver. Initials scratched away with deliberate care.",
+                note: "4 cigarettes remaining",
+                symbolName: "cigarette.fill",
+                artName: "inventory_item_cigarette_case_v01",
+                quantity: 4
+            )
+        ]
+    }
+
+    /// Compatibility entry point for callers that do not own selectable slot
+    /// occurrences (for example, the compact loot panel).
+    static func acquiredItem(id: String, quantity: Int) -> InventoryItem {
+        acquiredItem(authoredID: id, quantity: quantity, presentationID: id)
+    }
+
+    static func acquiredItem(
+        authoredID: String,
+        quantity: Int,
+        presentationID: String
+    ) -> InventoryItem {
+        switch authoredID {
+        case "service-revolver":
+            return InventoryItem(
+                id: presentationID,
+                authoredID: authoredID,
+                name: "Service Revolver",
+                category: .weapon,
+                description: "A recovered service revolver carried in the case bag.",
+                note: "Carried item · not equipped",
+                symbolName: "scope",
+                artName: "inventory_item_service_revolver_v01",
+                quantity: max(1, quantity)
+            )
+        case "matchbook":
+            return InventoryItem(
+                id: presentationID,
+                authoredID: authoredID,
+                name: "Matchbook",
+                category: .evidence,
+                description: "A paper matchbook kept as part of the case record.",
+                note: "Recovered evidence",
+                symbolName: "flame.fill",
+                artName: "inventory_item_matchbook_v01",
+                quantity: max(1, quantity)
+            )
+        default:
+            let displayName = authoredID
+                .replacingOccurrences(of: "-", with: " ")
+                .replacingOccurrences(of: "_", with: " ")
+                .capitalized
+            return InventoryItem(
+                id: presentationID,
+                authoredID: authoredID,
+                name: displayName.isEmpty ? "Recovered Item" : displayName,
+                category: .evidence,
+                description: "An item recovered while working the case.",
+                note: "Recovered evidence",
+                symbolName: "shippingbox.fill",
+                artName: "inventory_slot_silhouette_item_v06",
+                quantity: max(1, quantity)
+            )
+        }
+    }
+}
+
 /// Modular V05 inventory: painted section plates + slot chrome; code places icons, live labels, and hit targets.
 /// Paperdoll equipped slots follow BG:EE Enhanced ui.menu geometry (V06 silhouettes; noir holster/revolver).
 @MainActor
 final class InventoryOverlay: SKNode {
     /// Layout contract for the 1960×1080 canvas — BG EE hierarchy with EE Enhanced equipped geometry.
-    /// Loadout rows share one left edge; bag + nearby share one lower band.
+    /// Loadout rows share one left edge; the case bag spans the full lower band.
     private enum Metrics {
         static let canvas = CGSize(width: 1_960, height: 1_080)
 
@@ -94,29 +232,16 @@ final class InventoryOverlay: SKNode {
         static let midPausedOrigin = CGPoint(x: -790, y: midStripY)
         static let midCoinsOrigin = CGPoint(x: 750, y: midStripY)
 
-        /// One lower band: satchel + bag grid + nearby.
+        /// Full-width lower band: satchel + one-row bag grid.
         static let lowerY: CGFloat = -365
-        static let bagSize = CGSize(width: 1_130, height: 190)
-        static let bagOrigin = CGPoint(x: contentLeft + bagSize.width / 2, y: lowerY)
-        static let bagColumns = 8
-        static let bagRows = 2
-        static let bagSlotCount = bagColumns * bagRows
+        static let bagSize = CGSize(width: 1_680, height: 190)
+        static let bagOrigin = CGPoint(x: 0, y: lowerY)
+        static let bagSlotCount = 16
         static let bagSlotSize: CGFloat = 70
-        static let bagSlotPitchX: CGFloat = 104
-        static let bagSlotPitchY: CGFloat = 75
-        static let bagFirstSlotX: CGFloat = -310
-        static let bagFirstRowY: CGFloat = 34
-        static let bagArtOffset = CGPoint(x: -505, y: 0)
-
-        static let nearbySize = CGSize(width: 525, height: 190)
-        static let nearbyOrigin = CGPoint(x: contentRight - nearbySize.width / 2, y: lowerY)
-        static let nearbySlotCount = 6
-        static let nearbySlotSize: CGFloat = 68
-        static let nearbySlotPitch: CGFloat = 76
-        static let nearbyFirstSlotX: CGFloat = -190
-        static let nearbySlotY: CGFloat = -26
-        static let nearbyArrowX: CGFloat = 236
-        static let nearbyHeaderY: CGFloat = 66
+        static let bagSlotPitch: CGFloat = 84
+        static let bagFirstSlotX: CGFloat = -560
+        static let bagSlotY: CGFloat = -20
+        static let bagArtOffset = CGPoint(x: -750, y: 0)
     }
 
     private enum Palette {
@@ -125,16 +250,14 @@ final class InventoryOverlay: SKNode {
         static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
     }
 
-    private var items: [InventoryItem] = InventoryOverlay.makeStarterItems(
+    private var items: [InventoryItem] = InventoryItemCatalog.starterItems(
         walletPence: CurrencyAmount.startingWalletPence
     )
 
     var onDismiss: (() -> Void)?
-    /// Called with the NEARBY slot index when the player takes a stack (BG: gold → wallet).
-    var onTakeNearby: ((Int) -> Void)?
 
-    private var slotFrames: [String: [SKNode]] = [:]
-    private var selectedItemID = "case-notes"
+    private var slotFramesByPresentationID: [String: [SKNode]] = [:]
+    private var selectedPresentationID = "case-notes"
     private let itemNameLabel = InventoryOverlay.label(size: 20, color: Palette.paper, weight: .demibold)
     private let itemCategoryLabel = InventoryOverlay.label(size: 13, color: Palette.amber, weight: .demibold)
     private let itemDescriptionLabel = InventoryOverlay.label(size: 15, color: Palette.paper, weight: .regular)
@@ -142,10 +265,11 @@ final class InventoryOverlay: SKNode {
     private let sheet = SKNode()
     private let content = SKNode()
     private let coinValueLabel = InventoryOverlay.label(size: 16, color: Palette.paper, weight: .demibold)
-    private let nearbyTitleLabel = InventoryOverlay.label(size: 12, color: Palette.paper, weight: .demibold)
-    private let nearbyCountLabel = InventoryOverlay.label(size: 12, color: Palette.quiet, weight: .demibold)
-    private let nearbySlotsRoot = SKNode()
-    private var nearbyStacks: [ResolvedLootStack] = []
+    private let bagSlotsRoot = SKNode()
+    private let bagCountLabel = InventoryOverlay.label(size: 14, color: Palette.quiet, weight: .demibold)
+    private let bagOccupiedLabel = InventoryOverlay.label(size: 12, color: Palette.amber, weight: .demibold)
+    private let bagCapacityLabel = InventoryOverlay.label(size: 11, color: Palette.quiet, weight: .demibold)
+    private var carriedItems: [CarriedItemStack] = []
     private var walletPence = CurrencyAmount.startingWalletPence
 
     override init() {
@@ -158,69 +282,16 @@ final class InventoryOverlay: SKNode {
     }
 
     private static func makeStarterItems(walletPence: Int) -> [InventoryItem] {
-        let cashNote = "Cash on hand: \(CurrencyAmount(pence: walletPence).formatted)"
-        return [
-            InventoryItem(
-                id: "service-revolver",
-                name: "Service Revolver",
-                category: .weapon,
-                description: "A six-shot Webley with a tired action and a clean barrel.",
-                note: "Registered to Det. H. Voss · 5 rounds loaded",
-                symbolName: "scope",
-                artName: "inventory_item_service_revolver_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "case-notes",
-                name: "Case Notebook",
-                category: .evidence,
-                description: "Names, times, and three pages someone tried to tear out.",
-                note: "Active file: The Empty Coat",
-                symbolName: "book.closed.fill",
-                artName: "inventory_item_case_notebook_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "brass-key",
-                name: "Brass Key",
-                category: .evidence,
-                description: "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
-                note: "The Empty Coat · in Voss's care",
-                symbolName: "key.fill",
-                artName: "inventory_item_brass_key_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "flashlight",
-                name: "Pocket Torch",
-                category: .tool,
-                description: "Dented steel, unreliable switch, enough battery for one long night.",
-                note: "Condition: worn",
-                symbolName: "flashlight.on.fill",
-                artName: "inventory_item_flashlight_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "wallet",
-                name: "Leather Wallet",
-                category: .personal,
-                description: "Licence, tram pass, and the kind of money that disappears quickly.",
-                note: cashNote,
-                symbolName: "creditcard.fill",
-                artName: "inventory_item_wallet_v01",
-                quantity: 1
-            ),
-            InventoryItem(
-                id: "cigarette-case",
-                name: "Cigarette Case",
-                category: .personal,
-                description: "Gunmetal silver. Initials scratched away with deliberate care.",
-                note: "4 cigarettes remaining",
-                symbolName: "cigarette.fill",
-                artName: "inventory_item_cigarette_case_v01",
-                quantity: 4
-            )
-        ]
+        InventoryItemCatalog.starterItems(walletPence: walletPence)
+    }
+
+    /// Persistence currently stores ordered stacks rather than per-stack UUIDs,
+    /// so the carried index is the occurrence identity for this presentation.
+    private static func acquiredPresentationID(
+        authoredID: String,
+        carriedIndex: Int
+    ) -> String {
+        "acquired.\(carriedIndex).\(authoredID)"
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -233,13 +304,8 @@ final class InventoryOverlay: SKNode {
         setScale(min(1, horizontalFit, verticalFit))
     }
 
-    func present(
-        walletPence: Int,
-        nearbyTitle: String = "NEARBY",
-        nearbyStacks: [ResolvedLootStack] = []
-    ) {
-        applyWallet(walletPence)
-        presentNearby(title: nearbyTitle, stacks: nearbyStacks)
+    func present(walletPence: Int, carriedItems: [CarriedItemStack]) {
+        applyInventory(walletPence: walletPence, carriedItems: carriedItems)
         removeAllActions()
         isHidden = false
         alpha = 0
@@ -253,31 +319,35 @@ final class InventoryOverlay: SKNode {
         run(.sequence([
             .fadeOut(withDuration: 0.14),
             .run { [weak self] in
-                self?.clearNearby()
                 self?.isHidden = true
             }
         ]))
     }
 
-    func presentNearby(title: String, stacks: [ResolvedLootStack]) {
-        nearbyTitleLabel.text = title.uppercased()
-        nearbyStacks = stacks
-        rebuildNearbySlots()
-    }
-
-    func clearNearby() {
-        nearbyStacks = []
-        nearbyTitleLabel.text = "NEARBY"
-        rebuildNearbySlots()
-    }
-
     func applyWallet(_ pence: Int) {
+        applyInventory(walletPence: pence, carriedItems: carriedItems)
+    }
+
+    func applyInventory(walletPence pence: Int, carriedItems: [CarriedItemStack]) {
         walletPence = max(0, pence)
         coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
-        items = Self.makeStarterItems(walletPence: walletPence)
-        if selectedItemID == "wallet" {
-            refreshSelection()
+        self.carriedItems = carriedItems
+        items = Self.makeStarterItems(walletPence: walletPence) + carriedItems.enumerated().map {
+            index, stack in
+            InventoryItemCatalog.acquiredItem(
+                authoredID: stack.id,
+                quantity: stack.quantity,
+                presentationID: Self.acquiredPresentationID(
+                    authoredID: stack.id,
+                    carriedIndex: index
+                )
+            )
         }
+        rebuildBagSlots()
+        if !items.contains(where: { $0.id == selectedPresentationID }) {
+            selectedPresentationID = items.first?.id ?? "case-notes"
+        }
+        refreshSelection()
     }
 
     @discardableResult
@@ -289,15 +359,8 @@ final class InventoryOverlay: SKNode {
             onDismiss?()
             return true
         }
-        if target.hasPrefix("inventory.nearby.slot.") {
-            let indexString = String(target.dropFirst("inventory.nearby.slot.".count))
-            if let index = Int(indexString), nearbyStacks.indices.contains(index) {
-                onTakeNearby?(index)
-            }
-            return true
-        }
         if target.hasPrefix("inventory.item.") {
-            selectedItemID = String(target.dropFirst("inventory.item.".count))
+            selectedPresentationID = String(target.dropFirst("inventory.item.".count))
             refreshSelection()
         }
         return true
@@ -305,9 +368,9 @@ final class InventoryOverlay: SKNode {
 
     func moveSelection(_ direction: Int) {
         guard !items.isEmpty else { return }
-        let current = items.firstIndex { $0.id == selectedItemID } ?? 0
+        let current = items.firstIndex { $0.id == selectedPresentationID } ?? 0
         let next = (current + direction + items.count) % items.count
-        selectedItemID = items[next].id
+        selectedPresentationID = items[next].id
         refreshSelection()
     }
 
@@ -315,7 +378,6 @@ final class InventoryOverlay: SKNode {
         guard let target = targetName(at: point) else { return false }
         return target == "inventory.close"
             || target.hasPrefix("inventory.item.")
-            || target.hasPrefix("inventory.nearby.slot.")
     }
 
     private func buildInterface() {
@@ -542,14 +604,19 @@ final class InventoryOverlay: SKNode {
         let bag = SKNode()
         bag.position = Metrics.bagOrigin
         bag.zPosition = 1
-        addChromeSprite(named: "inventory_section_bag_v05", size: Metrics.bagSize, z: -1, parent: bag)
-        addGridHeader(
-            "CASE BAG",
-            counter: "\(items.count) / \(Metrics.bagSlotCount)",
-            to: bag,
-            width: Metrics.bagSize.width - 20,
-            y: 83
-        )
+        addChromeSprite(named: "inventory_section_bag_v06", size: Metrics.bagSize, z: -1, parent: bag)
+        let bagTitle = Self.label(size: 14, color: Palette.paper, weight: .demibold)
+        bagTitle.text = "CASE BAG"
+        bagTitle.horizontalAlignmentMode = .left
+        bagTitle.verticalAlignmentMode = .center
+        bagTitle.position = CGPoint(x: -Metrics.bagSize.width / 2 + 22, y: 83)
+        bagTitle.zPosition = 3
+        bag.addChild(bagTitle)
+        bagCountLabel.horizontalAlignmentMode = .right
+        bagCountLabel.verticalAlignmentMode = .center
+        bagCountLabel.position = CGPoint(x: Metrics.bagSize.width / 2 - 44, y: 68)
+        bagCountLabel.zPosition = 3
+        bag.addChild(bagCountLabel)
 
         if let bagTexture = GameArt.texture(named: "inventory_case_bag_v05") {
             bagTexture.filteringMode = .linear
@@ -560,30 +627,46 @@ final class InventoryOverlay: SKNode {
         } else {
             assertionFailure("Missing inventory_case_bag_v05.png")
         }
-        let carriedWeight = Self.label(size: 12, color: Palette.amber, weight: .demibold)
-        carriedWeight.text = "14 lb"
-        carriedWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 55)
-        carriedWeight.zPosition = 2
-        bag.addChild(carriedWeight)
-        let maximumWeight = Self.label(size: 11, color: Palette.quiet, weight: .demibold)
-        maximumWeight.text = "70 lb MAX"
-        maximumWeight.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 60)
-        maximumWeight.zPosition = 2
-        bag.addChild(maximumWeight)
+        bagOccupiedLabel.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y + 55)
+        bagOccupiedLabel.zPosition = 2
+        bag.addChild(bagOccupiedLabel)
+        bagCapacityLabel.position = CGPoint(x: Metrics.bagArtOffset.x, y: Metrics.bagArtOffset.y - 60)
+        bagCapacityLabel.zPosition = 2
+        bag.addChild(bagCapacityLabel)
 
-        let bagItems: [InventoryItem?] = items.map(Optional.some)
-            + Array(repeating: nil, count: max(0, Metrics.bagSlotCount - items.count))
+        bagSlotsRoot.zPosition = 2
+        bag.addChild(bagSlotsRoot)
+        rebuildBagSlots()
+        content.addChild(bag)
+    }
+
+    private func rebuildBagSlots() {
+        bagSlotsRoot.removeAllChildren()
+        slotFramesByPresentationID = slotFramesByPresentationID.reduce(
+            into: [String: [SKNode]]()
+        ) { result, pair in
+            let attached = pair.value.filter { $0.parent != nil }
+            if !attached.isEmpty { result[pair.key] = attached }
+        }
+        let visibleItems = Array(items.prefix(Metrics.bagSlotCount))
+        bagCountLabel.text = "\(visibleItems.count) / \(Metrics.bagSlotCount)"
+        bagOccupiedLabel.text = "\(visibleItems.count) OCCUPIED"
+        bagCapacityLabel.text = "\(Metrics.bagSlotCount) SLOTS"
+
         for index in 0..<Metrics.bagSlotCount {
-            let column = index % Metrics.bagColumns
-            let row = index / Metrics.bagColumns
             let position = CGPoint(
-                x: Metrics.bagFirstSlotX + CGFloat(column) * Metrics.bagSlotPitchX,
-                y: Metrics.bagFirstRowY - CGFloat(row) * Metrics.bagSlotPitchY
+                x: Metrics.bagFirstSlotX + CGFloat(index) * Metrics.bagSlotPitch,
+                y: Metrics.bagSlotY
             )
-            if let item = bagItems[index] {
-                bag.addChild(itemSlot(item, size: Metrics.bagSlotSize, at: position, showQuantity: true))
+            if visibleItems.indices.contains(index) {
+                bagSlotsRoot.addChild(itemSlot(
+                    visibleItems[index],
+                    size: Metrics.bagSlotSize,
+                    at: position,
+                    showQuantity: true
+                ))
             } else {
-                bag.addChild(emptySlot(
+                bagSlotsRoot.addChild(emptySlot(
                     size: Metrics.bagSlotSize,
                     at: position,
                     silhouette: "inventory_slot_silhouette_bag_v06",
@@ -591,28 +674,6 @@ final class InventoryOverlay: SKNode {
                 ))
             }
         }
-        content.addChild(bag)
-
-        let ground = SKNode()
-        ground.name = "inventory.nearby"
-        ground.position = Metrics.nearbyOrigin
-        ground.zPosition = 1
-        addChromeSprite(named: "inventory_section_nearby_v05", size: Metrics.nearbySize, z: -1, parent: ground)
-        addNearbyHeader(to: ground)
-
-        ground.addChild(pageArrow(
-            direction: -1,
-            at: CGPoint(x: -Metrics.nearbyArrowX, y: Metrics.nearbyHeaderY)
-        ))
-        ground.addChild(pageArrow(
-            direction: 1,
-            at: CGPoint(x: Metrics.nearbyArrowX, y: Metrics.nearbyHeaderY)
-        ))
-
-        nearbySlotsRoot.zPosition = 2
-        ground.addChild(nearbySlotsRoot)
-        rebuildNearbySlots()
-        content.addChild(ground)
     }
 
     private func itemSlot(_ item: InventoryItem, size: CGFloat, at position: CGPoint, showQuantity: Bool) -> SKNode {
@@ -650,7 +711,7 @@ final class InventoryOverlay: SKNode {
             slot.addChild(selection)
         }
 
-        slotFrames[item.id, default: []].append(slot)
+        slotFramesByPresentationID[item.id, default: []].append(slot)
         return slot
     }
 
@@ -773,17 +834,6 @@ final class InventoryOverlay: SKNode {
         return root
     }
 
-    private func pageArrow(direction: Int, at position: CGPoint) -> SKNode {
-        let root = SKNode()
-        root.position = position
-        root.name = direction < 0 ? "inventory.nearby.prev" : "inventory.nearby.next"
-        root.zPosition = 2
-
-        let hit = SKSpriteNode(color: SKColor(white: 1, alpha: 0.001), size: CGSize(width: 36, height: 56))
-        root.addChild(hit)
-        return root
-    }
-
     private func addSlotSection(
         _ title: String,
         items: [InventoryItem?],
@@ -843,87 +893,6 @@ final class InventoryOverlay: SKNode {
         root.addChild(countLabel)
     }
 
-    private func addNearbyHeader(to root: SKNode) {
-        nearbyTitleLabel.text = "NEARBY"
-        nearbyTitleLabel.horizontalAlignmentMode = .left
-        nearbyTitleLabel.verticalAlignmentMode = .center
-        nearbyTitleLabel.position = CGPoint(x: -166, y: Metrics.nearbyHeaderY)
-        nearbyTitleLabel.zPosition = 3
-        root.addChild(nearbyTitleLabel)
-
-        let page = Self.label(size: 12, color: Palette.quiet, weight: .demibold)
-        page.text = "1 / 1"
-        page.verticalAlignmentMode = .center
-        page.position = CGPoint(x: 0, y: Metrics.nearbyHeaderY)
-        page.zPosition = 3
-        root.addChild(page)
-
-        nearbyCountLabel.text = "0 / \(Metrics.nearbySlotCount)"
-        nearbyCountLabel.horizontalAlignmentMode = .right
-        nearbyCountLabel.verticalAlignmentMode = .center
-        nearbyCountLabel.position = CGPoint(x: 166, y: Metrics.nearbyHeaderY)
-        nearbyCountLabel.zPosition = 3
-        root.addChild(nearbyCountLabel)
-    }
-
-    private func rebuildNearbySlots() {
-        nearbySlotsRoot.removeAllChildren()
-        let visible = Array(nearbyStacks.prefix(Metrics.nearbySlotCount))
-        nearbyCountLabel.text = "\(visible.count) / \(Metrics.nearbySlotCount)"
-
-        for index in 0..<Metrics.nearbySlotCount {
-            let position = CGPoint(
-                x: Metrics.nearbyFirstSlotX + CGFloat(index) * Metrics.nearbySlotPitch,
-                y: Metrics.nearbySlotY
-            )
-            if index < visible.count {
-                nearbySlotsRoot.addChild(nearbySlot(visible[index], index: index, at: position))
-            } else {
-                nearbySlotsRoot.addChild(emptySlot(
-                    size: Metrics.nearbySlotSize,
-                    at: position,
-                    silhouette: "inventory_slot_silhouette_bag_v06",
-                    silhouetteAlpha: 0.16
-                ))
-            }
-        }
-    }
-
-    private func nearbySlot(_ stack: ResolvedLootStack, index: Int, at position: CGPoint) -> SKNode {
-        let size = Metrics.nearbySlotSize
-        let slot = slotBase(size: CGSize(width: size, height: size))
-        slot.name = "inventory.nearby.slot.\(index)"
-        slot.position = position
-        slot.zPosition = 2
-
-        switch stack {
-        case .coins(let pence):
-            if let texture = GameArt.texture(named: "inventory_coin_stack_v05") {
-                texture.filteringMode = .linear
-                let icon = SKSpriteNode(texture: texture, size: CGSize(width: size * 0.78, height: size * 0.58))
-                icon.zPosition = 1
-                slot.addChild(icon)
-            }
-            let badge = Self.label(size: 11, color: Palette.paper, weight: .demibold)
-            badge.text = CurrencyAmount(pence: pence).formatted
-            badge.verticalAlignmentMode = .center
-            badge.horizontalAlignmentMode = .right
-            badge.position = CGPoint(x: size / 2 - 6, y: -size / 2 + 12)
-            badge.zPosition = 2
-            slot.addChild(badge)
-        case .item(_, let quantity):
-            // Item art wiring arrives with the real inventory model; show quantity only for now.
-            let badge = Self.label(size: 12, color: Palette.paper, weight: .demibold)
-            badge.text = quantity > 1 ? "\(quantity)" : ""
-            badge.verticalAlignmentMode = .center
-            badge.horizontalAlignmentMode = .right
-            badge.position = CGPoint(x: size / 2 - 8, y: -size / 2 + 12)
-            badge.zPosition = 2
-            slot.addChild(badge)
-        }
-        return slot
-    }
-
     @discardableResult
     private func addChromeSprite(
         named name: String,
@@ -950,14 +919,14 @@ final class InventoryOverlay: SKNode {
     }
 
     private func refreshSelection() {
-        guard let item = items.first(where: { $0.id == selectedItemID }) else { return }
+        guard let item = items.first(where: { $0.id == selectedPresentationID }) else { return }
         itemCategoryLabel.text = item.category.rawValue
         itemNameLabel.text = item.name
         itemDescriptionLabel.text = item.description
         itemNoteLabel.text = item.note
 
-        for (id, slots) in slotFrames {
-            let selected = id == selectedItemID
+        for (presentationID, slots) in slotFramesByPresentationID {
+            let selected = presentationID == selectedPresentationID
             for slot in slots {
                 if let frame = slot.childNode(withName: "inventory.selection-frame") {
                     frame.isHidden = !selected

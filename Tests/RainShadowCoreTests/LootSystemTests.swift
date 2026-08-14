@@ -81,6 +81,63 @@ struct LootSystemTests {
         #expect(state.takeStack(at: 9, from: "office.desk") == nil)
     }
 
+    @Test func takingSelectedCoinPreservesMixedLootOrder() {
+        var state = LootContainerState(resolved: [
+            "office.desk": [
+                .item(id: "brass-key", quantity: 1),
+                .coins(pence: 36),
+                .item(id: "matchbook", quantity: 2),
+                .coins(pence: 12)
+            ]
+        ])
+
+        #expect(state.takeStack(at: 1, from: "office.desk") == .coins(pence: 36))
+        #expect(state.contents(of: "office.desk") == [
+            .item(id: "brass-key", quantity: 1),
+            .item(id: "matchbook", quantity: 2),
+            .coins(pence: 12)
+        ])
+    }
+
+    @Test func invalidStackIndicesDoNotMutateResolvedLoot() {
+        let original = LootContainerState(resolved: [
+            "office.desk": [
+                .coins(pence: 36),
+                .item(id: "matchbook", quantity: 1)
+            ]
+        ])
+        var state = original
+
+        #expect(state.takeStack(at: -1, from: "office.desk") == nil)
+        #expect(state.takeStack(at: 2, from: "office.desk") == nil)
+        #expect(state.takeStack(at: 0, from: "missing.container") == nil)
+        #expect(state == original)
+    }
+
+    @Test func repeatedTakeCannotReturnOrCreditSameCoinTwice() {
+        var state = LootContainerState(resolved: [
+            "office.desk": [
+                .item(id: "brass-key", quantity: 1),
+                .item(id: "matchbook", quantity: 2),
+                .coins(pence: 36)
+            ]
+        ])
+        var creditedPence = 0
+
+        if case .coins(let pence) = state.takeStack(at: 2, from: "office.desk") {
+            creditedPence += pence
+        }
+        if case .coins(let pence) = state.takeStack(at: 2, from: "office.desk") {
+            creditedPence += pence
+        }
+
+        #expect(creditedPence == 36)
+        #expect(state.contents(of: "office.desk") == [
+            .item(id: "brass-key", quantity: 1),
+            .item(id: "matchbook", quantity: 2)
+        ])
+    }
+
     @Test func officeLootCatalogCoversDeskAndFiles() {
         let ids = Set(OfficeNavigationLayout.lootContainers.map(\.id))
         #expect(ids.contains("office.desk"))
