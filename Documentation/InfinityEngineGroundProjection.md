@@ -31,10 +31,17 @@ is already `0.75`.
 
 ## Nav diamond
 
-| Lock | Diamond | Half-steps | Notes |
+| Camera | Diamond | Half-steps | Notes |
 |---|---|---|---|
-| **Current (BG:EE)** | **128×96** | **64 / 48** | Spans exactly 8×8 SearchMap cells |
-| Retired (2:1 dimetric) | 128×64 | 64 / 32 | ~30° elevation; ground axes ~26.6° |
+| `BGEE` (target) | **128×96** | 64 / 48 | Spans exactly 8×8 SearchMap cells |
+| `LEGACY_V2` (active) | 128×64 | 64 / 32 | What the installed plates are drawn to |
+
+## Adoption status
+
+`ie_projection.ACTIVE` is `LEGACY_V2`. The painted plates are still legacy art —
+measured with `qa_plate_projection.py` they sit near 23° and do not agree with
+one another. The pipeline switches to `BGEE` in the same commit that lands
+on-lock masters; see `Documentation/BGEEProjectionMasterRegen.md`.
 
 Authored forward projection (y-up plate space):
 
@@ -55,5 +62,6 @@ and do not shear — only the ground footprint follows the ±0.75 axes.
 2. Floor diamonds and wall bases follow slopes **±0.75**.
 3. Ground markers, selection rings, and floor ripples use a **16:12** ellipse on a
    **128×96** canvas.
-4. Validate reachability with flood-fill of the runtime search map (`path`, never
+4. Grade every master with `qa_plate_projection.py` before installing it.
+5. Validate reachability with flood-fill of the runtime search map (`path`, never
    `route`). See `Documentation/PathfindingSystem.md`.

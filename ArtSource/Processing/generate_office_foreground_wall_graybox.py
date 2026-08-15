@@ -2,7 +2,7 @@
 
 Footprint matches OfficeNavigationLayout foreground obstacles. Visual height is
 kept short so the wall frames ~lower 20–25% of the play view, not half the plate.
-Uses the Baldur's Gate: EE ground slope from ie_projection.
+Wall shear follows `ie_projection.ACTIVE`.
 """
 
 from __future__ import annotations
@@ -52,20 +52,18 @@ def wall_run(
     wainscot: tuple[int, int, int],
     trim: tuple[int, int, int],
 ) -> None:
-    """Draw a BG:EE wall segment along a ground line in authored space."""
+    """Draw a wall segment along a ground line in authored space."""
     g0 = (x0, to_img_y(y0_auth))
     g1 = (x1, to_img_y(y1_auth))
-    shear = ie.ground_shear_for_height(height)
-    # Top edge parallel, shifted up on screen by `height` with ground-slope shear.
-    t0 = (g0[0] - shear, g0[1] - height)
-    t1 = (g1[0] - shear, g1[1] - height)
+    # Top edge parallel, shifted up on screen by `height` with the camera's shear.
+    t0 = (g0[0] - int(height * ie.FG_WALL_SKEW), g0[1] - height)
+    t1 = (g1[0] - int(height * ie.FG_WALL_SKEW), g1[1] - height)
     # Face
     draw.polygon([g0, g1, t1, t0], fill=plaster + (245,))
     # Wainscot band along lower third of face
     wain_h = int(height * 0.38)
-    w_shear = ie.ground_shear_for_height(wain_h)
-    w0 = (g0[0] - w_shear, g0[1] - wain_h)
-    w1 = (g1[0] - w_shear, g1[1] - wain_h)
+    w0 = (g0[0] - int(wain_h * ie.FG_WALL_SKEW), g0[1] - wain_h)
+    w1 = (g1[0] - int(wain_h * ie.FG_WALL_SKEW), g1[1] - wain_h)
     draw.polygon([g0, g1, w1, w0], fill=wainscot + (250,))
     # Trim line
     draw.line([w0, w1], fill=trim + (255,), width=4)

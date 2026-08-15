@@ -20,7 +20,7 @@ import shutil
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 import ie_projection as ie
 
@@ -29,7 +29,7 @@ ASSETS = Path.home() / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainSh
 GEN = ROOT / "ArtSource/Generated/UI/Common"
 RUNTIME = ROOT / "RainShadow Shared/Resources/Art/UI/Common"
 
-RING_SIZE = ie.RING_SIZE  # 128×96 — one BG:EE nav diamond
+RING_SIZE = ie.RING_SIZE  # one nav diamond under `ie_projection.ACTIVE`
 
 # Classic IE selection green + light gray/white NPC.
 PARTY_RGB = (32, 220, 48)
@@ -108,14 +108,54 @@ def write_png(im: Image.Image, name: str, *, runtime: bool = True) -> None:
         print(f"  wrote {gen_path.relative_to(ROOT)} (generated only)")
 
 
+def _legacy_ring(
+    rgb: tuple[int, int, int],
+    size: tuple[int, int],
+    *,
+    fill: float,
+) -> Image.Image:
+    """Hand-tuned ellipse for the legacy plates.
+
+    Its 0.92 vertical squeeze is an eyeball fit, not this camera's ground
+    circle. Retire it when `ie_projection.ACTIVE` becomes BGEE.
+    """
+    cw, ch = size
+    out = Image.new("RGBA", size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(out)
+
+    ew = max(8, int(round(cw * fill)))
+    eh = max(4, int(round(ch * fill * 0.92)))
+    left = (cw - ew) // 2
+    top = (ch - eh) // 2
+    box = (left, top, left + ew - 1, top + eh - 1)
+
+    for inset, alpha in ((0, 55), (1, 140), (2, 255)):
+        b = (box[0] + inset, box[1] + inset, box[2] - inset, box[3] - inset)
+        if b[2] - b[0] < 4 or b[3] - b[1] < 2:
+            break
+        draw.ellipse(b, outline=(*rgb, alpha), width=1)
+
+    rgba = np.array(out, dtype=np.float32)
+    yy, xx = np.mgrid[0:ch, 0:cw]
+    cx, cy = (cw - 1) / 2.0, (ch - 1) / 2.0
+    rx = max(1.0, (ew / 2.0) - 3.2)
+    ry = max(1.0, (eh / 2.0) - 3.2)
+    inside = ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2 <= 1.0
+    rgba[inside, 3] = 0
+    rgba[inside, :3] = 0
+    return Image.fromarray(rgba.astype(np.uint8), "RGBA")
+
+
 def synthesize_ring(
     rgb: tuple[int, int, int],
     size: tuple[int, int] = RING_SIZE,
     *,
     fill: float = 0.86,
 ) -> Image.Image:
-    """Thin 16:12 IE selection ellipse with soft outer falloff."""
-    return ie.synthesize_ground_ring(rgb, size, fill=fill)
+    """Underfoot selection ring for the active camera's ground plane."""
+    if ie.ACTIVE is ie.BGEE:
+        return ie.synthesize_ground_ring(rgb, size, fill=fill)
+    return _legacy_ring(rgb, size, fill=fill)
 
 
 def process_ring(name: str, master_name: str, rgb: tuple[int, int, int]) -> None:

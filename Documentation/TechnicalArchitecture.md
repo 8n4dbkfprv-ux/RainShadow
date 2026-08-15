@@ -102,9 +102,9 @@ Apple describes `SKCameraNode` as the node determining which portion of a scene 
 
 ### 4.3 Isometric projection
 
-Area art and the navigation diamond use the Baldur's Gate: EE orthographic
-ground projection (see `Documentation/InfinityEngineGroundProjection.md` and
-`ArtSource/Processing/ie_projection.py`):
+The target for area art and the navigation diamond is the Baldur's Gate: EE
+orthographic ground projection (see `Documentation/InfinityEngineGroundProjection.md`
+and `ArtSource/Processing/ie_projection.py`):
 
 ```text
 elevation          asin(0.75) ≈ 48.59°
@@ -125,11 +125,16 @@ screenY = originY + (gridX + gridY) * 48 + elevation
 Shared Python helpers live in `ie_projection` (`cell_to_authored` /
 `authored_to_cell`). Runtime scenes do not re-project per frame: the look is
 baked into the painted plates, and world units map 1:1 from plate pixels (×
-environment scale) under a uniform `SKCameraNode`. Art placement is validated
-against an exported alignment grid. The background remains a single painted
-composition, but every reachable point and depth anchor aligns to the same
-projection. Locomotion already uses `verticalProjectionScale = 0.75` and
-`SearchMap.defaultCellSize = (16, 12)`, which match this camera.
+environment scale) under a uniform `SKCameraNode`. Locomotion already uses
+`verticalProjectionScale = 0.75` and `SearchMap.defaultCellSize = (16, 12)`,
+which match this camera.
+
+**Adoption is staged.** The installed plates are still legacy art, so
+`ie_projection.ACTIVE` is `LEGACY_V2` (diamond 128×64) and the whole pipeline
+follows it. The projection is a property of the painted pixels: switching the
+grid ahead of the art moves the authored floor off the painting. `ACTIVE`
+becomes `BGEE` in the same commit that lands on-lock masters — see
+`Documentation/BGEEProjectionMasterRegen.md`.
 
 ## 5. Scene graph contract
 
@@ -627,7 +632,7 @@ Release defaults disable SpriteKit performance overlays and debug shapes.
 
 ### 19.1 Unit tests
 
-- `ie_projection` / layout-planner cell round-trip within tolerance (128×96 diamond, half-steps 64/48).
+- `ie_projection` / layout-planner cell round-trip within tolerance on the active diamond, and every module follows `ACTIVE` (`qa_ie_projection.py`).
 - depth keys order near objects in front of far objects and honor bias.
 - pathfinding routes around the desk, takes any-angle shortcuts when line of sight is clear, forbids corner cutting, respects actor footprint clearance through thin gaps, and rejects unreachable destinations while distinguishing them from “already there”.
 - actor occupancy blocks on unbumpable actors, offers a sidestep for idle bumpable ones, and backs off under repeated congestion.

@@ -1,9 +1,39 @@
 # Area master regeneration — BG:EE projection
 
-Pipeline math, docs, grayboxes, UI rings and `OfficeNavigationLayout.swift` speak
-the Baldur's Gate: EE camera (`ArtSource/Processing/ie_projection.py`). This page
-tracks the **painted masters**, which are the only place the projection is
-actually visible to a player.
+The projection lives in the painted pixels. Everything else — the nav diamond,
+the floor-plan basis, ground ellipses, graybox shears — only describes the art
+that is actually installed. So the adoption is **staged**: the pipeline knows
+both cameras and is currently drawn to the legacy one, and it switches when the
+art does.
+
+`ArtSource/Processing/ie_projection.py` defines `BGEE` (the target) and
+`LEGACY_V2` (what the shipped plates are), and selects one:
+
+```python
+ACTIVE: GroundProjection = LEGACY_V2   # flip to BGEE together with on-lock masters
+```
+
+Every pipeline module derives its geometry from `ACTIVE`, and
+`qa_ie_projection.py` fails if any of them drifts, or if `ACTIVE` is set to
+`BGEE` while `office_room_plan` is still fitted to the legacy plate.
+
+## Why it is staged rather than switched
+
+Switching the pipeline ahead of the art does not produce "BG:EE art" — it
+produces a floor plan that disagrees with the painting. Forcing the room-plan
+axes to ±0.75 against the installed plate stretches the authored floor diamond
+away from the painted floor:
+
+| Floor corner | Old (matches paint) | BG:EE slopes | Shift |
+|---|---|---|---|
+| rear | 1932, 752 | 1932, 752 | 0 px |
+| east | 2744, 1139 | 2744, 1362 | +223 px |
+| near tip | 2189, 1450 | 2189, 1778 | **+328 px** |
+
+Camera-near props would sit up to ~328 px below the painted floor on a 2304 px
+plate, while the planner still reports `ALL CHECKS PASS` because it is
+self-consistent — just consistent with a plate that does not exist. That is why
+the guard exists.
 
 ## Measuring instead of asserting
 
@@ -91,31 +121,52 @@ lands at **31.74°**, a 5.13° shear, with nothing reporting a problem.
 Verified byte-identical on the shipped 16:9 masters (inert), and it holds
 36.74° on a 3:2 master that previously sheared to 31.74°.
 
-## Remaining work (needs macOS or a human art pass)
+## The adoption, in order
 
 1. Produce office + district masters at full runtime resolution, on-lock, from
    `office_suite_plate_bgee_v05.md` and `city_perspective_lock_v03.md`.
    Gate each with `qa_plate_projection.py` before accepting.
 2. Re-fit `office_room_plan.py` (`REAR`, axis lengths, `WALL_FACE_H`, doorway)
-   against the new shell. Slopes must stay ±0.75.
-3. Rebuild suite plate, partition, lettered door, prop registrations.
-4. `office_layout_plan.py` must print `ALL CHECKS PASS: True`, then `--write`.
-5. Flood-fill the runtime SearchMap (`path`, never `route`).
-6. `process_city_districts_v02.py`, then `measure_city_door_apertures.py` and
+   against the new shell, and update `INSTALLED_AXIS_*` in `qa_ie_projection.py`.
+3. Flip `ie_projection.ACTIVE` to `BGEE`.
+4. Rebuild suite plate, partition, lettered door, prop registrations; regenerate
+   UI rings and markers (they become 128×96 with a true 16:12 ellipse).
+5. `office_layout_plan.py` must print `ALL CHECKS PASS: True`, then `--write`.
+6. Flood-fill the runtime SearchMap (`path`, never `route`).
+7. `process_city_districts_v02.py`, then `measure_city_door_apertures.py` and
    `qa_city_door_registration.py`; re-derive street-side portal approaches
    (~120–150 units out from `nearestWalkablePoint`, unrounded).
-7. Run `RainShadowCoreTests` on macOS outside the iCloud-synced tree.
-8. Characters: `ArtSource/Prompts/character_camera_lock_bgee_v01.md`, installed
+8. Run `RainShadowCoreTests` on macOS outside the iCloud-synced tree.
+9. Characters: `ArtSource/Prompts/character_camera_lock_bgee_v01.md`, installed
    only in the AGENTS.md order.
+
+Steps 1–3 belong in one commit. Splitting them is the split state described above.
 
 ## Already done in-repo
 
-- `ie_projection.py` shared constants + helpers; `qa_ie_projection.py`
+- `ie_projection.py` two-camera model with the `ACTIVE` selector
+- `qa_ie_projection.py` consistency guard (fails on a premature flip)
 - `qa_plate_projection.py` calibrated measurement gate
 - Docs / prompt locks (city V3, office suite V5, character lock)
-- Layout planner half-steps 64/48, diamond 128×96
-- Room-plan axis slopes ±0.75
-- Graybox / prop / UI ring generators on shared projection
-- Selection rings regenerated at 128×96 with a true 16:12 ellipse
-- `OfficeNavigationLayout.swift` re-emitted; planner `ALL CHECKS PASS: True`
+- Whole pipeline reading its geometry from one place
 - District slicer aspect fix
+- Graded candidate masters
+
+All pipeline edits are **inert**: regenerating every affected asset and the Swift
+layout reproduces main's own generator output byte for byte (46/46 assets and
+`OfficeNavigationLayout.swift` at matching SHA-256).
+
+## Two pre-existing staleness problems, left alone deliberately
+
+Found while proving inertness, both present on `main` and both outside the scope
+of a projection change:
+
+1. **`OfficeNavigationLayout.swift` is stale.** Running main's own
+   `office_layout_plan.py` rewrites it with a 727/784-line diff — the committed
+   file came from a room plan scaled ~1.221× (the 0.733 suite plate) while
+   `office_room_plan.py` now says 0.60. Regenerating it changes runtime
+   geometry, which needs the Swift suite to verify.
+2. **`generate_office_zone_props_v01.py` is destructive.** It overwrites
+   Image-Generator masters with procedural placeholders
+   (`office_case_board.png`: 101 KB → 2 KB). Do not run it unless you intend
+   that.

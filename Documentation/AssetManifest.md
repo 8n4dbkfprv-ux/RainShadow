@@ -24,6 +24,9 @@ The Image Generator produces source material. Every result still passes registra
 
 Canonical constants: `ArtSource/Processing/ie_projection.py` and
 `Documentation/InfinityEngineGroundProjection.md` (Baldur's Gate: EE / GemRB).
+**New masters are generated to this lock**; the plates currently installed
+predate it and are still legacy art (`ie_projection.ACTIVE = LEGACY_V2`).
+Grade every new master with `qa_plate_projection.py` before installing it.
 
 - Orthographic Infinity Engine ground projection (no vanishing point).
 - Visual plan rotation (azimuth): 45 degrees.
@@ -326,7 +329,7 @@ Small repeated frames should be generated as high-resolution source sheets with 
 Effect acceptance:
 
 - Rain angle matches across streak, splash, facade, and audio cues.
-- Floor ripples use the scene's 16:12 (BG:EE) ellipse, not circular top-down rings.
+- Floor ripples use the scene's ground ellipse (16:12 under BG:EE), not circular top-down rings.
 - Window effects never escape the glass mask.
 - Effects support runtime tint and alpha without colored edge pixels.
 - Loop seams are invisible at 0.25× and normal speed.
@@ -338,11 +341,11 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | Priority | ID(s) | Count | Pixels each | Description |
 |---|---|---:|---:|---|
 | P0 | `ui_cursor_move`, `ui_cursor_inspect`, `ui_cursor_blocked` | 3 | 64×64 | macOS pointer states with clear hot point. |
-| P0 | `ui_move_marker_00...07` | 8 | 128×96 | **Shipped.** Muted isometric teal ground marker converging loop on valid move orders (16:12 ellipse). |
-| P0 | `ui_move_marker_blocked_00...07`, `ui_move_marker_blocked` | 9 | 128×96 | **Shipped.** Red denied variant (animated + single-frame fallback). |
+| P0 | `ui_move_marker_00...07` | 8 | 128×64 | **Shipped.** Muted isometric teal ground marker converging loop on valid move orders. Becomes 128×96 with a 16:12 ellipse at BG:EE adoption. |
+| P0 | `ui_move_marker_blocked_00...07`, `ui_move_marker_blocked` | 9 | 128×64 | **Shipped.** Red denied variant (animated + single-frame fallback). |
 | P0 | `ui_waypoint_pip` | 1 | 64×32 | **Shipped.** Persistent teal pip at each BG:EE queued waypoint until reached. |
-| P0 | `ui_selection_ring_party` | 1 | 128×96 | **Shipped.** Green underfoot PC/party selection ring (always-on identity marker, 16:12 ellipse). |
-| P0 | `ui_selection_ring_npc` | 1 | 128×96 | **Shipped.** Light gray/white underfoot NPC selection ring (always-on identity marker, 16:12 ellipse). |
+| P0 | `ui_selection_ring_party` | 1 | 128×64 | **Shipped.** Green underfoot PC/party selection ring (always-on identity marker). Canvas follows `ie_projection.ACTIVE`. |
+| P0 | `ui_selection_ring_npc` | 1 | 128×64 | **Shipped.** Light gray/white underfoot NPC selection ring (always-on identity marker). |
 | P0 | `ui_hotspot_focus_halo` | 1 | 512×512 | Neutral hand-painted halo, tintable, used only in focus mode. |
 | P0 | `ui_observation_panel` | 1 | 768×256 | Nine-slice-compatible dark translucent caption backing. |
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |

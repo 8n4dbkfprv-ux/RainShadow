@@ -273,8 +273,9 @@ class BaseGameScene: SKScene {
         _ = syncSizeFromViewIfNeeded()
         guard size.height > 0, size.width > 0 else { return }
 
-        // Uniform orthographic play zoom only — fixed BG:EE ground projection
-        // (baked into area plates; see Documentation/InfinityEngineGroundProjection.md).
+        // Uniform orthographic play zoom only — the ground projection is baked
+        // into the area plates, never re-projected here. See
+        // Documentation/InfinityEngineGroundProjection.md.
         baseCameraScale = DefaultPlayZoom.cameraScale(
             visibleWorldHeight: referenceVisibleHeight,
             sceneHeight: size.height

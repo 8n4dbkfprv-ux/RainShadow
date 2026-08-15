@@ -330,7 +330,7 @@ The goal is equivalent visual density and staging, not literal duplication of an
 
 ### 5.2 Camera and composition
 
-- Fixed projection: Baldur's Gate: EE orthographic camera — elevation `asin(0.75)` ≈ 48.59°, azimuth 45°, ground axes at 36.87° (slopes ±0.75), height foreshortening ≈ 0.6614, nav diamond 128×96. See `Documentation/InfinityEngineGroundProjection.md`.
+- Fixed projection, targeting the Baldur's Gate: EE orthographic camera — elevation `asin(0.75)` ≈ 48.59°, azimuth 45°, ground axes at 36.87° (slopes ±0.75), height foreshortening ≈ 0.6614, nav diamond 128×96. Shipped plates are still legacy art; see `Documentation/InfinityEngineGroundProjection.md`.
 - No perspective camera rotation during play.
 - Cinematic movement is limited to slow SpriteKit camera pans, pushes, and restrained scale changes.
 - The office composition must read at full view and at the minimum supported iPhone view.

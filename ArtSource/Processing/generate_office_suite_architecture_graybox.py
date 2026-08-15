@@ -1,6 +1,6 @@
 """Paint partitioned-suite graybox architecture from shell materials.
 
-Clean BG:EE orthographic wall planes only (see ie_projection):
+Wall planes follow `ie_projection.ACTIVE`:
   - One continuous low cutaway foreground wall (left shell → partition → right shell)
   - One straight partition plane with constant thickness and a framed doorway
   - Frosted internal door leaf aligned to the same plane
@@ -35,7 +35,7 @@ PART_Y0, PART_Y1 = 650, 1_720
 DOOR_Y0, DOOR_Y1 = 1_100, 1_450
 
 # ~18% lower than the approved graybox face so the cutaway frames without dominating.
-# Face heights are screen-space (already foreshortened under the BG:EE camera).
+# Face heights are screen-space (already foreshortened).
 FG_FACE_H = 88
 PART_FACE_H = 260
 

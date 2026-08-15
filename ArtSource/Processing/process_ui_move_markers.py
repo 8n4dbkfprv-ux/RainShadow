@@ -9,7 +9,7 @@ Masters (green-key Image Generator outputs):
 Writes keyed masters + runtime frames into ArtSource/Generated/UI/Common and
 RainShadow Shared/Resources/Art/UI/Common.
 
-Canvas sizes match the BG:EE nav diamond (128×96) and half-diamond pip.
+Canvas sizes follow the `ie_projection.ACTIVE` nav diamond and half-diamond pip.
 """
 
 from __future__ import annotations
@@ -28,8 +28,8 @@ GEN = ROOT / "ArtSource/Generated/UI/Common"
 RUNTIME = ROOT / "RainShadow Shared/Resources/Art/UI/Common"
 
 FRAME_COUNT = 8
-MARKER_SIZE = ie.RING_SIZE  # 128×96
-PIP_SIZE = ie.PIP_SIZE  # 64×48
+MARKER_SIZE = ie.RING_SIZE
+PIP_SIZE = ie.PIP_SIZE
 
 
 def chroma_key(im: Image.Image, key=(0, 255, 0), tol=48.0, soft=16.0) -> Image.Image:

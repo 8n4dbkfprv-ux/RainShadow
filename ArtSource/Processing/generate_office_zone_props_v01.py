@@ -1,8 +1,8 @@
 """Generate missing 3-zone office props + lighting overlays as runtime PNGs.
 
 Produces late-1990s isometric CRPG-readable sprites (noir palette, soft baked
-shading) for props that have no Image-Generator masters yet. Box geometry uses
-the Baldur's Gate: EE ground foreshortening from ie_projection. Outputs land in
+shading) for props that have no Image-Generator masters yet. Box ground
+foreshortening follows `ie_projection.ACTIVE`. Outputs land in
 Resources/Art/Props/Office/ and also copy RGBA masters under ArtSource/Generated.
 """
 
@@ -53,10 +53,10 @@ def iso_box(
     h: int,
     color: tuple[int, int, int],
 ) -> None:
-    """BG:EE box: top + left + right faces. (cx, cy) = near ground center.
+    """Dimetric box: top + left + right faces. (cx, cy) = near ground center.
 
-    `h` is screen-space height (already foreshortened). Ground extents use
-    foreshortening 0.75 so a square footprint reads as a 16:12 rhombus.
+    `h` is screen-space height (already foreshortened); ground extents use the
+    active camera's depth fraction.
     """
     pts = ie.iso_box_points(cx, cy, w, d, h)
     draw.polygon([pts["fl"], pts["nl"], pts["gnl"], pts["gfl"]], fill=shade(color, 0.55))

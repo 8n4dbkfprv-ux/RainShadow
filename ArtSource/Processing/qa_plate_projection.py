@@ -32,12 +32,15 @@ import ie_projection as ie
 
 ROOT = Path(__file__).resolve().parents[2]
 
-TARGET_DEG = ie.GROUND_AXIS_DEG  # 36.8699
+# Always grade against the BG:EE target, never against `ie_projection.ACTIVE`.
+# This tool exists to decide whether a master is allowed to become the new art,
+# so it must not move when the active camera does.
+TARGET_DEG = ie.BGEE.ground_axis_deg  # 36.8699
 # Generated/painterly art will never be perfect. This band is wide enough to
-# accept honest painterly variance and narrow enough to reject the retired
-# 2:1 dimetric lock, whose axes sit at 26.57° — 10.3° away.
+# accept honest painterly variance and narrow enough to reject the legacy
+# camera, whose axes sit at 26.57° — 10.3° away.
 TOLERANCE_DEG = 4.0
-RETIRED_DIMETRIC_DEG = math.degrees(math.atan(0.5))  # 26.565
+LEGACY_DEG = ie.LEGACY_V2.ground_axis_deg  # 26.565
 
 # Orientation band treated as "ground axis". Excludes near-horizontal edges
 # (plate borders, letterboxing, scanlines) and near-vertical uprights, whose
@@ -216,8 +219,7 @@ def grade(path: Path) -> dict:
         "slope_neg": math.tan(math.radians(abs(peak_neg))),
         "vertical_share": stats["vertical_share"],
         "passes": worst <= TOLERANCE_DEG,
-        "reads_as_retired_dimetric": abs(mean_abs - RETIRED_DIMETRIC_DEG)
-        < abs(mean_abs - TARGET_DEG),
+        "reads_as_legacy": abs(mean_abs - LEGACY_DEG) < abs(mean_abs - TARGET_DEG),
         "centers": centers,
         "hist": hist,
     }
@@ -241,7 +243,7 @@ def overlay(result: dict, out_path: Path) -> None:
     d.text((18, 34), f"measured ground axes: {result['peak_pos']:+.2f}  {result['peak_neg']:+.2f}", fill=(170, 180, 200))
     d.text((18, 52), f"target (BG:EE): +{TARGET_DEG:.2f} / -{TARGET_DEG:.2f}   slopes +-0.75", fill=(170, 180, 200))
     d.text((18, 70), f"worst delta: {result['worst_delta']:.2f} deg   tolerance {TOLERANCE_DEG:.1f}", fill=(170, 180, 200))
-    d.text((18, 88), f"retired 2:1 dimetric would read {RETIRED_DIMETRIC_DEG:.2f}", fill=(140, 150, 170))
+    d.text((18, 88), f"legacy camera would read {LEGACY_DEG:.2f}", fill=(140, 150, 170))
     d.text((18, 112), verdict, fill=colour)
 
     # Draw the measured axes and the target axes from a common origin.
@@ -294,7 +296,7 @@ def main() -> int:
             failures += 1
             continue
         r = grade(path)
-        tag = "PASS" if r["passes"] else ("FAIL (reads 2:1 dimetric)" if r["reads_as_retired_dimetric"] else "FAIL")
+        tag = "PASS" if r["passes"] else ("FAIL (reads legacy)" if r["reads_as_legacy"] else "FAIL")
         if not r["passes"]:
             failures += 1
         print(

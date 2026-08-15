@@ -260,7 +260,7 @@ ACTOR_START_OFFSET_Y = -30.0
 # --------------------------------------------------------------- architecture
 
 
-# Keep the BG:EE grid locked to the floor plane as REAR moves.
+# Keep the nav diamond locked to the floor plane as REAR moves.
 # 597.1 is the pre-correction plaster/wainscot rail y-down (legacy reference).
 _LEGACY_RAIL_Y = 597.1
 PROJECTION_ORIGIN_Y = 310.0 - (rp.REAR[1] - _LEGACY_RAIL_Y)
@@ -270,7 +270,9 @@ def cell_point(c: int, r: int) -> tuple[float, float]:
     return ie.cell_to_authored(c, r, origin_y=PROJECTION_ORIGIN_Y)
 
 
-CELL_RECT = ie.CELL_RECT  # inset from the 128×96 diamond so corners pass
+# Diamond and insets follow `ie_projection.ACTIVE`, so they move with the
+# camera the painted plate was drawn to rather than drifting from it.
+CELL_RECT = ie.CELL_RECT  # inset from the diamond so corners pass
 
 # Partition solids use a tighter AABB than floor/boundary cells. The diamond
 # footprint hangs into the painted doorway as a magenta box even when the cell
@@ -348,9 +350,10 @@ FLOOR_B = (0.040, rp.B_ROOM - 0.050)
 
 # The runtime search map rasterises obstacles against *world* cells of 16x12
 # (`SearchMap.defaultCellSize`), which in authored units is this. The planner's
-# own navigation grid is the 128x96 BG:EE diamond (half-steps 64/48) — exactly
-# 8x8 search cells — so planner and runtime share a ratio. AABB insets that are
-# too loose can still seal floor that measured open here.
+# own navigation grid is the `ie_projection.ACTIVE` diamond — today 128x64,
+# which is 2.6x coarser across and 1.7x taller than a runtime cell, and that
+# mismatch is what let a boundary measure open here and come out sealed in the
+# game. Adopting BG:EE makes the diamond 128x96, exactly 8x8 search cells.
 RUNTIME_CELL = (16.0 / ENV, 12.0 / ENV)
 
 # Thickness of the sealing ring, in runtime cells. The office agent radius is 3
@@ -384,9 +387,9 @@ def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
     """A sealing ring of solids just outside the walkable floor.
 
     This used to stamp one 104x52 AABB per *iso* cell outside the floor. Those
-    boxes approximate a 128x96 diamond, so each overhangs its neighbours when the
-    inset is too loose;
-    and the union bit ~20x10 authored units into the floor on every edge. On the
+    boxes approximate the diamond, so each overhangs its neighbours when the
+    inset is too loose, and the union bit ~20x10 authored units into the floor
+    on every edge. On the
     planner's coarse grid that rounded away; on the runtime 16x12 grid it ate the
     room, leaving 174 of 4694 walkable cells reachable and sealing the waiting
     side off entirely.
@@ -469,7 +472,7 @@ DOOR_OBSTACLE = (
 
 
 class Grid:
-    """Mirror of the BG:EE dimetric projection for offline validation."""
+    """Mirror of NavigationGrid's projection for offline validation."""
 
     def __init__(self, obstacles, columns=31, rows=31, half_w=3.0 / ENV, half_h=0.0):
         self.columns, self.rows = columns, rows
@@ -767,7 +770,7 @@ def emit() -> str:
         add(f'        "{name}": {pt(rp.authored(a, b))},')
     add("    ]")
     add("")
-    # The BG:EE grid is registered to the same floor plane as the props.
+    # The nav diamond is registered to the same floor plane as the props.
     # Moving the rear floor seam down by 121 plate pixels moves authored y-up
     # coordinates down by the same amount; keep grid cells stable with it.
     add(

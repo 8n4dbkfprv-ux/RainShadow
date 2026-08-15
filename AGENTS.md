@@ -31,12 +31,34 @@ building or running the app. Read this before assuming a task can be verified he
 
 ## Projection lock (area art)
 
-Canonical Baldur's Gate: EE orthographic camera constants live in
-`ArtSource/Processing/ie_projection.py` (elevation asin(0.75), ground axes
-±0.75, diamond 128×96, 16:12 ground ellipse). See
-`Documentation/InfinityEngineGroundProjection.md`. After changing projection
-math, rebake and hash-diff generated outputs; intended-inert edits must come
-back identical.
+`ArtSource/Processing/ie_projection.py` defines two cameras and selects one:
+`BGEE` (the target — elevation asin(0.75), ground axes ±0.75, diamond 128×96,
+16:12 ground ellipse) and `LEGACY_V2` (what the installed plates are). See
+`Documentation/InfinityEngineGroundProjection.md`.
+
+### The projection lives in the pixels
+
+Do not switch the pipeline ahead of the art. Forcing the room-plan axes to
+±0.75 while the painted plate is still legacy stretches the authored floor
+diamond off the painting — the camera-near tip drops ~328 px on a 2304 px plate,
+so camera-near props land in the black void — and the planner still prints
+`ALL CHECKS PASS`, because it is self-consistent with a plate that does not
+exist. `qa_ie_projection.py` now fails on exactly that mistake. Flip
+`ACTIVE`, re-fit `office_room_plan`, and land the masters in one commit; the
+order is in `Documentation/BGEEProjectionMasterRegen.md`.
+
+After changing projection math, rebake and hash-diff generated outputs;
+intended-inert edits must come back identical.
+
+### Two generators do not reproduce their own committed output
+
+Verify inertness against *the generator's output on `main`*, not against the
+committed file, or you will attribute pre-existing staleness to your change.
+
+- `office_layout_plan.py` rewrites `OfficeNavigationLayout.swift` with a
+  727/784-line diff on `main` — the committed Swift predates the 0.60 suite plate.
+- `generate_office_zone_props_v01.py` overwrites Image-Generator masters with
+  procedural placeholders (`office_case_board.png`: 101 KB → 2 KB).
 
 ### Grade a plate, do not eyeball it
 
