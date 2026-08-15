@@ -117,8 +117,8 @@ class Prop:
 # Fixed suite features on the floor-plane axes (props sit on the boards).
 # Door b re-derived from the painted NE threshold on the shoe-fitted diamond
 # (was 0.75 on the oversized diamond; plate threshold is fixed).
-EXTERIOR_DOOR = (0.0, 0.863)  # painted NE doorway centre on the V5 floor diamond
-WINDOW_A = 0.799  # NW-wall window recess on the V5 plate
+EXTERIOR_DOOR = (0.0, 0.863)  # painted NE doorway centre on the V5/V7 floor diamond
+WINDOW_A = 0.799  # NW-wall window recess on the V5/V7 plate
 
 # Visual door registration measured directly from the shipping suite plate.
 #
@@ -126,7 +126,7 @@ WINDOW_A = 0.799  # NW-wall window recess on the V5 plate
 # different generated bake. Keep those values for collision/pathing, but never
 # use them to place the two live leaf sprites against `office_suite_plate.png`.
 # Positions below use plate image coordinates (y down).
-SHIPPING_EXTERIOR_OPENING_SIZE = (125.0, 290.0)
+SHIPPING_EXTERIOR_OPENING_SIZE = (125.0, 198.0)
 SHIPPING_EXTERIOR_THRESHOLD = (2822.0, 1055.0)
 # Low-b stile of the painted partition opening (office face).
 SHIPPING_INTERNAL_HINGE_X = 1955.0

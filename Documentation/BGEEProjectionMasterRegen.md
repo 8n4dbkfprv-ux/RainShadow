@@ -61,8 +61,8 @@ the BG:EE lock and the retired 2:1 dimetric camera, so the two cannot be confuse
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +33.06 / −34.63 | 3.81° **PASS** |
-| `office_shell_base` | +33.06 / −34.63 | 3.81° **PASS** (same V5 pixels) |
+| `office_suite_plate` | +32.98 / −34.73 | 3.89° **PASS** (V7 proportion lock) |
+| `office_shell_base` | +32.98 / −34.73 | 3.89° **PASS** (same V7 pixels) |
 | `city_sable_row_block` | +22.65 / −28.46 | 14.22° |
 | `city_wharf_ladder_block` | +32.70 / −19.26 | 17.61° |
 | `city_riverside_block` | +12.59 / −12.78 | 24.27° |

@@ -28,7 +28,7 @@ enum OfficeNavigationLayout {
         /// standing on the wall's own ground line.
         static let partitionPlateX0: CGFloat = 1527
         static let partitionPlateX1: CGFloat = 2568
-        static let partitionPlateFaceHeight: CGFloat = 328
+        static let partitionPlateFaceHeight: CGFloat = 271
         static let partitionPlateCapHeight: CGFloat = 6
 
         /// Ground line of the partition face at a shell-art x (y down).
@@ -37,19 +37,19 @@ enum OfficeNavigationLayout {
         }
 
         /// Clear exterior opening measured from the shipping suite plate.
-        static let entranceOpeningPlateSize = CGSize(width: 125.000, height: 290.0)
-        /// 290 plate px × environment = 114.55 world units against a 70.31-unit adult. Matches the ~1.16× real door-to-adult ratio.
-        static let entranceOpeningToDetectiveRatio: CGFloat = 1.629
-        static let entranceHandleHeightToDetective: CGFloat = 0.733
+        static let entranceOpeningPlateSize = CGSize(width: 125.000, height: 198.0)
+        /// 198 plate px × environment = 78.21 world units against a 70.31-unit adult. Matches the ~1.16× real door-to-adult ratio.
+        static let entranceOpeningToDetectiveRatio: CGFloat = 1.112
+        static let entranceHandleHeightToDetective: CGFloat = 0.501
 
         /// Exterior leaf/frame projected onto the sloped NE wall opening.
         /// Uniform height-fit (keeps sheared master aspect; no X-squash).
-        static let entranceLeafDisplayScale: CGFloat = 0.1795
+        static let entranceLeafDisplayScale: CGFloat = 0.1226
         static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale
         static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale
         static let entranceLeafAnchorY: CGFloat = 0.08903
         static let entranceLeafAnchor = CGPoint(x: 2_822.000, y: 1_249.000)
-        static let entranceFrameDisplayScale: CGFloat = 0.1793
+        static let entranceFrameDisplayScale: CGFloat = 0.1224
         static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale
         static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale
         static let entranceFrameAnchorX: CGFloat = 0.49155
@@ -93,7 +93,7 @@ enum OfficeNavigationLayout {
 
     /// One cell of the camera-near boundary, kept named for the layout tests.
     static let authoredForegroundWallObstacle = CGRect(x: 2502, y: 828, width: 104, height: 78)
-    static let authoredDoorObstacle = CGRect(x: 2716, y: 1147, width: 212, height: 203)
+    static let authoredDoorObstacle = CGRect(x: 2716, y: 1180, width: 212, height: 139)
 
     /// Room boundary: the rear and side walls plus the camera-near cutaway
     /// wall, one solid per navigation cell outside the painted floor.
@@ -982,8 +982,8 @@ enum OfficeNavigationLayout {
     ]
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
         CGPoint(x: 2_822, y: 1_249),
-        CGPoint(x: 2_780, y: 1_218),
-        CGPoint(x: 2_865, y: 1_279),
+        CGPoint(x: 2_780, y: 1_228),
+        CGPoint(x: 2_865, y: 1_270),
     ]
     static let authoredForegroundWallSamplePoints: [CGPoint] = [
         CGPoint(x: 2_554, y: 867),

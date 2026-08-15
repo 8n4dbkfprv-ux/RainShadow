@@ -1,0 +1,79 @@
+{
+  "plate_size": [
+    4096,
+    2304
+  ],
+  "source": "ArtSource/Generated/BGEEProjectionCandidates/office_suite_plate_bgee_v05_candidate.png",
+  "proportion_lock": {
+    "old_plaster_above": 166,
+    "target_plaster_above": 73,
+    "target_door_wall": 0.73
+  },
+  "source_size": [
+    1536,
+    1024
+  ],
+  "uniform_scale": 1.3499999999999999,
+  "height_fit": 2.25,
+  "suite_plate_scale": 0.6,
+  "paste_xywh": [
+    1011,
+    276,
+    2074,
+    1382
+  ],
+  "room_bbox_ydown": [
+    1047,
+    476,
+    3045,
+    1657
+  ],
+  "paintedRoomSourceRect_yup": {
+    "x": 1047,
+    "y": 646,
+    "width": 1999,
+    "height": 1182
+  },
+  "REAR": [
+    1934.3,
+    389.2
+  ],
+  "AXIS_NW": [
+    -863.2,
+    647.4
+  ],
+  "AXIS_NE": [
+    1028.8,
+    771.6
+  ],
+  "west": [
+    1071.1,
+    1036.6
+  ],
+  "east": [
+    2963.1,
+    1160.8
+  ],
+  "near": [
+    2099.9,
+    1808.2
+  ],
+  "WALL_FACE_H": 272.0,
+  "exterior_clear_h": 93.0,
+  "exterior_x0": 2216,
+  "exterior_x1": 2854,
+  "exterior_w": 638.0,
+  "exterior_lintel": 668.0,
+  "exterior_thresh": 761.0,
+  "door_column": {
+    "x": 2820,
+    "crown": 676,
+    "clear_opening": 199,
+    "plaster_above": 73,
+    "wall_face": 272,
+    "door_wall": 0.7316176470588235
+  },
+  "BODY_PLATE_H": 178.00632911392404,
+  "door_to_body": 1.117937777777778,
+  "note": "V5 place + plaster-band compress. Floor diamond unchanged. Copy WALL_FACE_H / BAKED_DOORWAY_H from door_column."
+}
