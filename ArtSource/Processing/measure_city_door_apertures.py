@@ -80,8 +80,8 @@ APERTURES: dict[str, tuple[int, int]] = {
     "city_door_records_annex": (232, 437),
     "city_door_records_wing": (72, 583),
     "city_door_records_colonnade": (125, 452),
-    "city_door_iron_stairs": (140, 558),
-    "city_door_river_watch": (268, 492),
+    "city_door_iron_stairs": (292, 362),
+    "city_door_river_watch": (325, 440),
 }
 
 

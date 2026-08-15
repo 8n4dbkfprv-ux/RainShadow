@@ -365,11 +365,11 @@ enum CityDistrictCatalog {
     // MARK: - Riverside (southwest)
 
     private static let riversideIronStairs = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_iron_stairs", groundPoint: CGPoint(x: 1200, y: 390),
+        textureName: "city_building_iron_stairs", groundPoint: CGPoint(x: 1184, y: 552),
         scale: CityDistrictLayout.BuildingDisplayScale.ironStairs, anchorY: 0.08, depthBias: 0
     )
     private static let riversideRiverWatch = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_river_watch", groundPoint: CGPoint(x: 600, y: 680),
+        textureName: "city_building_river_watch", groundPoint: CGPoint(x: 544, y: 648),
         scale: CityDistrictLayout.BuildingDisplayScale.riverWatch, anchorY: 0.14, depthBias: 0
     )
 
@@ -379,18 +379,18 @@ enum CityDistrictCatalog {
         arrivalHint: "RIVERSIDE  •  The old iron stairs drop to the coat stones.",
         groundTextureName: "city_riverside_ground_v02",
         mapTextureName: "map_city_riverside_v02",
-        actorStart: CGPoint(x: 1880, y: 700),
+        actorStart: CGPoint(x: 1568, y: 744),
         spawnByArrivalKey: [
-            "from.east": CGPoint(x: 1880, y: 700),
-            "from.north": CGPoint(x: 1024, y: 980),
+            "from.east": CGPoint(x: 1568, y: 744),
+            "from.north": CGPoint(x: 1504, y: 984),
             "from.south": CGPoint(x: 1024, y: 180),
-            "from.west": CGPoint(x: 160, y: 520)
+            "from.west": CGPoint(x: 1184, y: 792)
         ],
         visualSprites: [
             riversideIronStairs,
             riversideRiverWatch,
-            .init(textureName: "city_building_rail_lamp", groundPoint: CGPoint(x: 900, y: 490), scale: CityDistrictLayout.BuildingDisplayScale.railLamp, anchorY: 0.14, depthBias: 1),
-            .init(textureName: "city_building_abutment", groundPoint: CGPoint(x: 1550, y: 280), scale: CityDistrictLayout.BuildingDisplayScale.abutment, anchorY: 0.16, depthBias: 0),
+            .init(textureName: "city_building_rail_lamp", groundPoint: CGPoint(x: 1440, y: 648), scale: CityDistrictLayout.BuildingDisplayScale.railLamp, anchorY: 0.14, depthBias: 1),
+            .init(textureName: "city_building_abutment", groundPoint: CGPoint(x: 1632, y: 792), scale: CityDistrictLayout.BuildingDisplayScale.abutment, anchorY: 0.16, depthBias: 0),
             CityDistrictLayout.doorLeaf(
                 textureName: "city_door_iron_stairs",
                 on: riversideIronStairs,
@@ -401,9 +401,12 @@ enum CityDistrictCatalog {
                 on: riversideRiverWatch,
                 aperture: .buildingRiverWatch
             ),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 525, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
-            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1400, y: 450), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1)
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 480, y: 600), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1),
+            .init(textureName: "city_prop_lamp", groundPoint: CGPoint(x: 1568, y: 696), scale: CityDistrictLayout.PropDisplayScale.lampSpoke, anchorY: 0.12, depthBias: 1)
         ],
+        // Obstacle AABBs kept from the V2 layout so the 7,202-cell reachability
+        // baseline stays put. Sprite and spawn points were moved onto the V3
+        // pier's painted stone; flood-fill on macOS before tightening these.
         obstacles: [
             CGRect(x: 400, y: 500, width: 420, height: 420),
             CGRect(x: 900, y: 220, width: 620, height: 450),
@@ -415,14 +418,14 @@ enum CityDistrictCatalog {
                 id: "portal.ironStairs",
                 label: "STAIRS",
                 approachPoint: CGPoint(x: 1145, y: 200),
-                hitArea: CGRect(x: 1007, y: 311, width: 151, height: 220),
+                hitArea: CGRect(x: 1023, y: 200, width: 322, height: 220),
                 destination: .inspect,
                 requiresCityOpen: false,
                 lockedInspectLine: "Wet iron and staged stones. The coat is already in police custody."
             )
         ],
         pointsOfInterest: [
-            .init(label: "STAIRS", worldPoint: CGPoint(x: 1200, y: 390), colorRGBA: (0.32, 0.51, 0.66, 1))
+            .init(label: "STAIRS", worldPoint: CGPoint(x: 1184, y: 552), colorRGBA: (0.32, 0.51, 0.66, 1))
         ]
     )
 

@@ -93,7 +93,29 @@ the V5 / V3 prompt locks, best-of after retries:
 reference; three attempts each kept collapsing back toward the generator's
 ~26–30° "isometric" prior. They need a human art pass or a 3D re-render.
 
-## These candidates are NOT installable as-is
+## Riverside V3 — first installed try-out (2026-08-15)
+
+Riverside is the one district that can be tried without flipping
+`ie_projection.ACTIVE` or re-fitting the office. The V3 ground plate
+(`city_riverside_ground_v03.png`, 16:9 request / 3:2 generator output)
+grades **+36.28 / −37.66, worst 0.79°** after `fit_to_aspect` to 2048×1152.
+
+Installed by `ArtSource/Processing/install_riverside_bgee_v03.py` (do **not**
+run `process_city_districts_v02.main()` — that walks every district):
+
+- play underlay `city_riverside_ground_v02.png`
+- assembled block + HUD map from `compose_city_district_preview.py`
+- four landmarks + two door leaves, chroma-keyed to 512×640 / 256×384
+- `CityDistrictLayout.SourceDoorAperture.buildingIronStairs` /
+  `buildingRiverWatch` re-measured off the new canvases
+- sprite and spawn points moved onto painted stone; obstacle AABBs left
+  on the V2 layout so the 7,202-cell reachability baseline does not move
+
+`ACTIVE` stays `LEGACY_V2`. Office and the other five districts are unchanged.
+Flood-fill the new spawns on macOS (`path`, never `route`) before tightening
+obstacles to the V3 pier.
+
+## These remaining candidates are NOT installable as-is
 
 They are deliberately **not** wired into the runtime. Three hard blockers:
 
