@@ -73,27 +73,29 @@ struct CameraZoomTests {
         let body = OfficeInteriorScale.renderedStandingDetectiveBodyHeight
         let tightest = CameraZoom.visibleHeight(base: Self.base, step: 1)
         let widest = CameraZoom.visibleHeight(base: Self.base, step: 27)
-        // 25% is a 4x magnification: the adult fills over half the view height.
-        #expect(abs(body / tightest - 0.52) < 0.01)
-        // 155% lands near the ~9% density BG:EE's widescreen view shows, which
-        // `DefaultPlayZoom` documents and deliberately does not use as default.
-        #expect(abs(body / widest - 0.084) < 0.005)
+        // 25% is a 4x magnification: the adult fills over a third of the height.
+        #expect(abs(body / tightest - 0.36) < 0.01)
+        // 155% is a genuine wide shot, well past any Infinity Engine framing.
+        #expect(abs(body / widest - 0.058) < 0.005)
+        // The default sits at BG:EE density, so both ends are real headroom.
+        #expect(body / tightest > DefaultPlayZoom.targetBodyToVisibleHeight)
+        #expect(body / widest < DefaultPlayZoom.targetBodyToVisibleHeight)
     }
 
-    @Test func officeReachesTheEngineCapAtSixteenNine() {
-        // The V7 suite shortened the plaster band, which lifted the painted
-        // room's bottom and moved its centre from y 1220.14 to 1185.58 —
-        // 33 units nearer the plate centre (1152). That symmetry buys back the
-        // vertical headroom the V5 room lacked, so at 16:9 the office is no
-        // longer plate-bound at 140%: BG:EE's own 27-step cap binds first.
+    @Test func officeHasBarelyAnyHeadroomAtBGEEDensity() {
+        // At BG:EE density the default viewport is already 86% of the plate in
+        // both axes (coverage 1.165x), so the office can give back exactly one
+        // zoom step before the painting runs out. That is the cost of the wider
+        // default, and it is worth failing loudly on: if this drops to 16 the
+        // office cannot zoom out at all, and if it climbs the plate grew.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
             anchor: Self.officeAnchor,
             plate: Self.officePlate
         )
-        #expect(step == CameraZoom.engineStepRange.upperBound)
-        #expect(CameraZoom.percent(forStep: step) == 155)
+        #expect(step == 17)
+        #expect(step > CameraZoom.defaultStep)
         // Still genuinely covered — the fit limit is not being skipped.
         let height = CameraZoom.visibleHeight(base: Self.base, step: step)
         #expect(height * 16 / 9 <= Self.officePlate.width)
@@ -110,7 +112,7 @@ struct CameraZoomTests {
             anchor: Self.officeAnchor,
             plate: Self.officePlate
         )
-        #expect(step == 21)
+        #expect(step == 13)
         #expect(step < CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
@@ -119,15 +121,19 @@ struct CameraZoomTests {
         ))
     }
 
-    @Test func cityCeilingIsTheEngineCapNotThePlate() {
-        // The district plate could carry 213%; BG:EE's own 155% binds first.
+    @Test func cityCeilingIsThePlateNotTheEngineCap() {
+        // At the old BG1 default the district could reach the engine's own 155%
+        // cap. The wider BG:EE default spends that headroom, so the plate binds
+        // first — the district is 2048x1152 world units against a 1389x781
+        // viewport, which leaves 47% to give back.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
             anchor: Self.cityAnchor,
             plate: Self.cityPlate
         )
-        #expect(step == CameraZoom.engineStepRange.upperBound)
+        #expect(step == 25)
+        #expect(step < CameraZoom.engineStepRange.upperBound)
         let widest = CameraZoom.visibleHeight(base: Self.base, step: step)
         #expect(widest * 16 / 9 <= Self.cityPlate.width)
         #expect(widest <= Self.cityPlate.height)

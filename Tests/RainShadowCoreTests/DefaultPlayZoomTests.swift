@@ -3,12 +3,27 @@ import Testing
 @testable import RainShadowCore
 
 struct DefaultPlayZoomTests {
-    /// Original BG1 density: a ~50 px adult on a 512×384 playfield ≈ 13%.
-    @Test func bandMatchesOriginalBaldursGateDensity() {
-        #expect(DefaultPlayZoom.bodyToVisibleHeightBand == 0.115...0.145)
-        #expect(DefaultPlayZoom.targetBodyToVisibleHeight == 0.13)
+    /// BG:EE area-view density: a standing adult is ~9% of the visible height.
+    @Test func bandMatchesBGEEAreaDensity() {
+        #expect(DefaultPlayZoom.bodyToVisibleHeightBand == 0.080...0.100)
+        #expect(DefaultPlayZoom.targetBodyToVisibleHeight == 0.09)
         #expect(DefaultPlayZoom.bodyToVisibleHeightBand.contains(DefaultPlayZoom.targetBodyToVisibleHeight))
-        #expect(abs(50.0 / 384.0 - DefaultPlayZoom.targetBodyToVisibleHeight) < 0.01)
+    }
+
+    /// The BG1 figure is measurable — a ~50 px adult on a 512×384 playfield —
+    /// where BG:EE's 9% is a documented reading of a zoomable view. So assert
+    /// the thing that can be checked: BG1's density is still *reachable*, one
+    /// zoom step short of a third of the way down the band, which is what makes
+    /// this a change of default rather than of range.
+    @Test func originalBG1DensityRemainsReachableAsAZoomStep() {
+        let body = OfficeInteriorScale.renderedStandingDetectiveBodyHeight
+        let base = OfficeInteriorScale.cameraVisibleHeight
+        let bg1 = 50.0 / 384.0
+        let atStep10 = body / CameraZoom.visibleHeight(base: base, step: 10)
+        #expect(abs(atStep10 - bg1) < 0.005)
+        #expect(CameraZoom.engineStepRange.contains(10))
+        // And the default really is wider than BG1 was.
+        #expect(DefaultPlayZoom.targetBodyToVisibleHeight < bg1)
     }
 
     @Test func cityStandingBodyFallsInBGBand() {

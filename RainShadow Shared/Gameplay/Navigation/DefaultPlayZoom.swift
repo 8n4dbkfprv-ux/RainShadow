@@ -2,11 +2,19 @@ import CoreGraphics
 
 /// Default human-scale density for playable maps.
 ///
-/// Reference is the original Baldur's Gate (1998), not BG:EE. There the
-/// unobstructed playfield is 512×384 and a standing adult sprite is ~50 px, so
-/// the adult occupies ~13% of the visible height at the engine's native 1:1
-/// zoom. BG:EE's zoomable widescreen view shows far more world per adult (~9%),
-/// which is why the previous 9% target read as a camera pulled too far back.
+/// Reference is BG:EE's zoomable widescreen view, whose area framing shows
+/// roughly 9% of the visible height per standing adult.
+///
+/// This has been both ways. The original BG1 (1998) figure is ~13% — a 512×384
+/// unobstructed playfield with a ~50 px adult — and the project ran at 13% for
+/// a while, after a 9% pass was judged "a camera pulled too far back". In play
+/// that reading turned out to be confounded: the city fog only lit 45% of the
+/// screen width, so a wider camera made districts look emptier rather than
+/// larger. With the fog sized to the screen (`fogRevealRadius`), 9% is the
+/// framing that matches what BG:EE actually shows.
+///
+/// 13% is still reachable — it is zoom step 10 (70%) of `CameraZoom`'s 1…27 band —
+/// so this is a change of default, not of range.
 ///
 /// Small rooms may occupy less of the viewport than large maps; preserving the
 /// human scale is more important than enlarging a compact plate to fill every
@@ -18,10 +26,10 @@ import CoreGraphics
 enum DefaultPlayZoom {
     /// Standing adult body height ÷ default camera-visible world height
     /// (default area-view density).
-    static let bodyToVisibleHeightBand: ClosedRange<CGFloat> = 0.115...0.145
+    static let bodyToVisibleHeightBand: ClosedRange<CGFloat> = 0.080...0.100
 
-    /// Mid-band target (~13%) measured from original BG1 play density.
-    static let targetBodyToVisibleHeight: CGFloat = 0.13
+    /// Mid-band target (~9%), BG:EE area-view density.
+    static let targetBodyToVisibleHeight: CGFloat = 0.09
 
     /// World-unit height the camera should show so `standingBodyHeight` lands on
     /// `targetBodyToVisibleHeight`. Pass the **rendered** on-screen body height
