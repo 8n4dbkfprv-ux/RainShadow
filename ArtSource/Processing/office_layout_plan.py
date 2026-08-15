@@ -117,8 +117,8 @@ class Prop:
 # Fixed suite features on the floor-plane axes (props sit on the boards).
 # Door b re-derived from the painted NE threshold on the shoe-fitted diamond
 # (was 0.75 on the oversized diamond; plate threshold is fixed).
-EXTERIOR_DOOR = (0.0, 0.820)  # painted NE doorway centre on the floor diamond
-WINDOW_A = 0.30  # NW-wall window recess on the tight plate
+EXTERIOR_DOOR = (0.0, 0.863)  # painted NE doorway centre on the V5 floor diamond
+WINDOW_A = 0.799  # NW-wall window recess on the V5 plate
 
 # Visual door registration measured directly from the shipping suite plate.
 #
@@ -126,13 +126,12 @@ WINDOW_A = 0.30  # NW-wall window recess on the tight plate
 # different generated bake. Keep those values for collision/pathing, but never
 # use them to place the two live leaf sprites against `office_suite_plate.png`.
 # Positions below use plate image coordinates (y down).
-SHIPPING_EXTERIOR_OPENING_SIZE = (113.6, 206.0)
-SHIPPING_EXTERIOR_THRESHOLD = (2722.5, 1019.2)
-# Low-b stile of the painted frosted opening (office face).
-# Left jamb of the live clear aperture (office face ≈ b 0.752).
-SHIPPING_INTERNAL_HINGE_X = 2351.2
-SHIPPING_INTERNAL_HINGE_TOP_Y = 1069.2
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 1275.2
+SHIPPING_EXTERIOR_OPENING_SIZE = (125.0, 290.0)
+SHIPPING_EXTERIOR_THRESHOLD = (2822.0, 1055.0)
+# Low-b stile of the painted partition opening (office face).
+SHIPPING_INTERNAL_HINGE_X = 1955.0
+SHIPPING_INTERNAL_HINGE_TOP_Y = 666.0
+SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 956.0
 
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
@@ -165,13 +164,13 @@ PROPS: list[Prop] = [
     Prop("personalBottle", "office_hidden_bottle", 0.438, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
     Prop("personalGlass", "office_personal_glass", 0.420, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
     # ---- desk cluster: private office, on the floor boards
-    Prop("deskEnsemble", "office_desk_bare", 0.600, 0.380, 0.99, (1.7, 0.9)),
-    Prop("deskChair", "office_desk_chair", 0.675, 0.380, 0.64, (0.6, 0.6), obstacle=False),
+    Prop("deskEnsemble", "office_desk_bare", 0.620, 0.240, 0.99, (1.7, 0.9)),
+    Prop("deskChair", "office_desk_chair", 0.695, 0.240, 0.64, (0.6, 0.6), obstacle=False),
     # Keep the client pair one step back from the writing surface. a=0.475 is
     # the farthest visitor-side placement that also clears the partition face.
-    Prop("visitorArmchair", "office_visitor_armchair", 0.475, 0.310, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.475, 0.450, 0.76, (0.65, 0.65)),
-    Prop("wastebasket", "office_wastebasket", 0.670, 0.290, 0.32, (0.4, 0.4)),
+    Prop("visitorArmchair", "office_visitor_armchair", 0.500, 0.180, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.500, 0.280, 0.76, (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.690, 0.160, 0.32, (0.4, 0.4)),
     # ---- entrance / waiting: corridor from exterior door to partition
     Prop("coatRack", "office_coat_rack", 0.040, 0.880, 0.88, (0.6, 0.6)),
     Prop("umbrellaStand", "office_umbrella_stand", 0.070, 0.840, 0.28, (0.35, 0.35)),
@@ -197,7 +196,7 @@ def window_anchor_authored() -> tuple[float, float]:
     # the darker inner opening's centre left the lower-right sill exposed.
     # The rectification warp shifts the visual frame centre slightly upward, so
     # register four pixels lower than the geometric recess centre.
-    recess_center_plate = (1707.0, 578.6)
+    recess_center_plate = (1245.0, 664.0)
     return (recess_center_plate[0], rp.ART_H - recess_center_plate[1])
 
 
@@ -209,7 +208,7 @@ def camera_authored() -> tuple[float, float]:
 # Worn burgundy rug under the desk island — office side of the partition only.
 # Sized so opaque pixels stay at a > partition office face (no overlap into the
 # waiting bay / doorway). Shared with addWornRug / compose_office_redesign_preview.
-RUG = (0.660, 0.380)
+RUG = (0.660, 0.240)
 RUG_BODY = 2.2
 RUG_FACTOR = 0.62
 
@@ -240,9 +239,9 @@ FLOOR_DECALS = {
 }
 
 APPROACH = {
-    "office.window": (WINDOW_A, 0.120),
-    "office.desk": (0.540, 0.520),
-    "office.phone": (0.580, 0.520),
+    "office.window": (0.720, 0.200),
+    "office.desk": (0.520, 0.360),
+    "office.phone": (0.540, 0.360),
     "office.files": (0.755, 0.160),
     "office.door": (0.120, 0.540),  # waiting corridor; segment-clear from desk start
 }
@@ -1099,8 +1098,8 @@ CLIENT_DOORWAY_PLAN_PATH = [
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
-# Cross the live clear aperture mid (≈ 0.776). Exact polyline (no A*).
-CLIENT_INTERNAL_DOOR_B = 0.776
+# Cross the live clear aperture mid on the V5 partition. Exact polyline (no A*).
+CLIENT_INTERNAL_DOOR_B = 0.455
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
     (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
@@ -1115,7 +1114,7 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
 # coat does not clip the exterior wall, then drop to the live aperture mid.
 # CLIENT_WAITING_ROOM_PATH then hands off to CLIENT_INTERNAL_DOORWAY_PATH[0].
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.270, 0.790),  # aisle: clear of coat rack / exterior wall
+    (0.270, 0.520),  # aisle: clear of coat rack / exterior wall
     (0.270, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b while still in aisle
 ]
 CLIENT_WAITING_ROOM_PATH = [
@@ -1141,7 +1140,7 @@ SEATED_DESK_FRONT_APRON_BIAS = 15.0
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
     rp.authored(0.560, CLIENT_INTERNAL_DOOR_B),
-    rp.authored(0.545, 0.515),
+    rp.authored(0.520, 0.360),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1152,7 +1151,7 @@ CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
 SCALE_STANDS = [
     (0.080, EXTERIOR_DOOR[1]),  # directly beside the exterior doorway
-    (0.680, 0.380),  # behind the desk
+    (0.700, 0.240),  # behind the desk
     (0.400, (P.b_door0 + P.b_door1) * 0.5),  # in the internal doorway
     (0.170, 0.600),  # beside the waiting chair
 ]
@@ -1451,11 +1450,11 @@ def report() -> bool:
     office_direct_ok = (
         len(office_plans) == 3
         and all(a > P.a_line + P.thickness_a for a, _ in office_plans)
-        and max(a for a, _ in office_plans) <= 0.58
+        and max(a for a, _ in office_plans) <= 0.62
         # First office leg holds the aperture b (no diagonal across the jamb).
         and abs(office_plans[1][1] - door_exit_b) <= 0.001
         # The stop actually leaves the doorway and lands at the desk.
-        and office_plans[-1][1] < door_exit_b - 0.20
+        and office_plans[-1][1] < door_exit_b - 0.08
         and stop_gap <= 220
     )
     ok &= office_direct_ok

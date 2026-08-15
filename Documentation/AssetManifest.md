@@ -52,7 +52,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | Cramped V5 / BG:EE orthographic master | 4096×2304 @ env 0.395 | Empty architecture at `SUITE_PLATE_SCALE`; clear openings character-relative; see `office_suite_plate_bgee_v05.md`. |
+| Office suite plate | V5 BG:EE candidate, uniform 3:2 contain | 4096×2304 @ env 0.395 | `install_office_bgee_v05.py` at `SUITE_PLATE_SCALE=0.60`; clear opening 290 px (1.63× body). |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 56px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |

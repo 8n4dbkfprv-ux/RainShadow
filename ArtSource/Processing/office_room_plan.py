@@ -12,17 +12,12 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-These axes are a *measurement of the installed plate*, not a target. They were
-fitted from the shell's own wall silhouettes: `AXIS_NW` slope -0.561, `AXIS_NE`
-slope +0.475. Wall bands measured off the same fit.
-
-Do not substitute the Baldur's Gate: EE slopes (±0.75) here while the painted
-plate is still legacy art. The floor diamond would stretch away from the
-painting — the camera-near tip moves ~328 px down a 2304 px plate — and every
-prop authored in this basis would sit off the painted floor. The axes change
-when the plate changes, together, per
-`Documentation/BGEEProjectionMasterRegen.md` and
-`ArtSource/Prompts/office_suite_plate_bgee_v05.md`.
+These axes are a *measurement of the installed plate*, not a free parameter.
+The V5 suite (`install_office_bgee_v05.py`) is on the Baldur's Gate: EE lock,
+so the fitted slopes are exactly ±0.75. Axis lengths come from the painted
+wall shoes (NW = window wall, NE = exterior-door wall) intersected with the
+camera-near cutaway. The geometric near tip sits in the black below the
+clipped floor; walkable `FLOOR_*` stops on the paint.
 """
 
 from __future__ import annotations
@@ -55,38 +50,33 @@ BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 # not shrink with the plate.
 SUITE_PLATE_SCALE = 0.60
 
-# Painted clear doorway on the NE wall (tight plate), measured from floor contact
-# up to the lintel. Height-fit the leaf uniformly — non-uniform X stretch made
-# the door too wide and short.
-BAKED_DOORWAY_H = 170.0
-BAKED_DOORWAY_W = 112.0
+# Painted clear doorway on the NE wall (V5 plate), measured from floor contact
+# up to the lintel underside. Partition opening matches this height.
+BAKED_DOORWAY_H = 290.0
+BAKED_DOORWAY_W = 125.0
 DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
 DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
 OLD_WALL_FACE_H = 348.0
-# Measured tight-plate wall face: 188 px of plaster plus the 121 px dark
-# wainscot.  The prior 188 px value stopped at the plaster/wainscot rail, so
-# every floor placement inherited that rail as its "ground" and floated one
-# full wainscot height above the boards.
-PLASTER_H = 188.0
-WAINSCOT_H = 121.0
+# V5 wall face: plaster above the rail plus the dark wainscot down to the
+# boards. Measured on the window-wall crown vs the forced-0.75 shoe.
+PLASTER_H = 158.0
+WAINSCOT_H = 170.0
 WALL_FACE_H = PLASTER_H + WAINSCOT_H
 DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# FLOOR diamond for the cramped suite (not wall-top silhouette).
+# FLOOR diamond for the V5 suite (not wall-top silhouette).
 #
-# Fit against the shipped 0.60 suite plate (`office_suite_plate.png`):
-# - REAR / wall edges from painted wall-shoe samples (dark wainscot → boards)
-# - Axis lengths clipped so the unit square's near tip matches the painted
-#   floor cutaway (not the oversized silhouette hull in cramped_tight_metrics)
-#
-# History: treating the plaster/wainscot rail as ground floated every floor
-# placement by ~WAINSCOT_H. A later hand REAR at y=718 still sat ~34 px above
-# the shoes and overshot the camera-near floor into the void.
-REAR = (1932.1, 752.4)
-AXIS_NW = (-555.54, 311.86)  # rear floor -> west floor corner
-AXIS_NE = (812.23, 386.20)  # rear floor -> east floor corner
+# Fit against the installed 0.60 V5 plate (`install_office_bgee_v05.py`):
+# - NW shoe through the window-wall boards at (1120, 1000)
+# - NE shoe through the exterior-door threshold at (2822, 1055)
+# - Slopes forced to the BG:EE lock (±0.75); west/east from those lines
+#   intersected with the painted camera-near cutaway
+# - Geometric near tip sits in the black below the clipped floor
+REAR = (1934.3, 389.2)
+AXIS_NW = (-863.2, 647.4)  # rear floor -> west floor corner, slope -0.75
+AXIS_NE = (1028.8, 771.6)  # rear floor -> east floor corner, slope +0.75
 
 # Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
 # base through REAR at WALL_FACE_H.
@@ -194,14 +184,13 @@ class Partition:
     Both faces are painted so the waiting bay is clearly enclosed.
     """
 
-    # Waiting-room face on the shoe-fitted diamond (matches baked suite partition).
-    a_line: float = 0.39
-    # Live mid-entrance captures: 0.753/0.772 still read hinge-side of the void
-    # (aperture tip-ward of Lila + leaf); 0.780 reads tip-side. Mid ≈ 0.776.
-    b_door0: float = 0.752
-    b_door1: float = 0.800
+    # Waiting-room face on the V5 shoe-fitted diamond (painted partition).
+    a_line: float = 0.426
+    # Clear opening on the painted partition, both jambs at a = 0.426.
+    b_door0: float = 0.377
+    b_door1: float = 0.533
     # Short full-height return past the high-b jamb before the cutaway drop.
-    b_return1: float = 0.800 + 0.030
+    b_return1: float = 0.533 + 0.030
     # Freestanding interior mass (plan units along AXIS_NW).
     thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H

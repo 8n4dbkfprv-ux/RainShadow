@@ -57,12 +57,12 @@ the BG:EE lock and the retired 2:1 dimetric camera, so the two cannot be confuse
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Shipped plates today — all off the lock
+## Shipped plates — office on the lock, composed city blocks still off
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +23.20 / −23.46 | 13.67° |
-| `office_shell_base` | +22.80 / −24.35 | 14.07° |
+| `office_suite_plate` | +33.06 / −34.63 | 3.81° **PASS** |
+| `office_shell_base` | +33.06 / −34.63 | 3.81° **PASS** (same V5 pixels) |
 | `city_sable_row_block` | +22.65 / −28.46 | 14.22° |
 | `city_wharf_ladder_block` | +32.70 / −19.26 | 17.61° |
 | `city_riverside_block` | +12.59 / −12.78 | 24.27° |
@@ -70,9 +70,9 @@ the BG:EE lock and the retired 2:1 dimetric camera, so the two cannot be confuse
 | `city_lila_street_block` | +50.80 / −25.43 | 13.93° |
 | `city_civic_records_block` | +20.86 / −21.20 | 16.01° |
 
-**0/8 on the lock.** Note the city plates do not even agree with *each other*
-(riverside ±12.6 against harborpoint +43.0/−16.4), so the V2 "camera lock" was
-never actually enforced — it was prose in a prompt with nothing measuring it.
+Office **2/2 PASS**. The six `city_*_block` rows are *composed* scenes
+(ground + buildings) and still fail this table; grade the installed
+`city_*_ground_v02` plates instead (6/6 PASS, see City districts V3).
 
 ## Candidate masters
 
@@ -136,10 +136,32 @@ had V3 numbers). Obstacle AABBs stay on the V2 layout so the reachability
 baselines do not move; spawn and a few building points were nudged onto
 painted stone.
 
-The office is **not** installed. The best on-lock candidate remains
-`ArtSource/Generated/BGEEProjectionCandidates/office_suite_plate_bgee_v05_candidate.png`
-(3.76°). Swapping it still requires re-fitting `office_room_plan` and
-rewriting `OfficeNavigationLayout.swift` on macOS.
+## Office V5 — installed (2026-08-15)
+
+The on-lock candidate is now the runtime suite and shell:
+
+`install_office_bgee_v05.py` uniformly contains the 1536×1024 (3:2) master
+onto 4096×2304 at `SUITE_PLATE_SCALE=0.60` (no 16:9 centre-crop — that
+sheared off the wall crowns). Installed plate grades **+33.06 / −34.63,
+worst 3.81° PASS** after `qa_plate_projection` crops letterbox void.
+
+Room-plan fit (slopes exactly ±0.75):
+
+| | value |
+|---|---|
+| `REAR` | (1934.3, 389.2) |
+| `AXIS_NW` | (−863.2, 647.4) |
+| `AXIS_NE` | (1028.8, 771.6) |
+| partition | `a=0.426`, door `b=0.377–0.533` |
+| exterior door | `(0.0, 0.863)`, clear opening 125×290 (1.63× body) |
+| `paintedRoomSourceRect` | (1047, 646, 1999, 1379) y-up |
+
+`ie_projection.ACTIVE` is **BGEE**. `office_layout_plan.py` prints
+`ALL CHECKS PASS`; `OfficeNavigationLayout.swift` was re-emitted.
+UI rings/markers are 128×96 / 64×48. Flood-fill the runtime SearchMap
+on macOS (`path`, never `route`) before treating this as ship-final.
+
+Furniture prop *art* is still the legacy-camera set; only positions moved.
 
 ## These remaining candidates are NOT installable as-is
 

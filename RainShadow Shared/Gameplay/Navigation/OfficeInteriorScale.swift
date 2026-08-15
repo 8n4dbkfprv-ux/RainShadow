@@ -389,14 +389,12 @@ enum OfficeInteriorScale {
     }
 
     /// Opaque extent of the painted room inside the suite plate, measured from
-    /// `office_suite_plate.png` (art px x 1028…3064, y 414…1545 top-down; the
-    /// room covers under 10% of the 4096×2304 canvas — the rest is baked black).
+    /// `office_suite_plate.png` (art px x 1047…3045, y 279…1657 top-down; the
+    /// V5 room is letterboxed on the 4096×2304 canvas — the rest is baked black).
     ///
     /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
-    /// followed camera swing out over the empty margin. In world units the room
-    /// is ~804×447, i.e. **shorter than the play viewport**, so the clamp
-    /// centres it vertically and pans only across its width.
-    static let paintedRoomSourceRect = CGRect(x: 1_028, y: 759, width: 2_036, height: 1_131)
+    /// followed camera swing out over the empty margin.
+    static let paintedRoomSourceRect = CGRect(x: 1_047, y: 646, width: 1_999, height: 1_379)
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

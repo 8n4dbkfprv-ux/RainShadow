@@ -1,0 +1,74 @@
+{
+  "plate_size": [
+    4096,
+    2304
+  ],
+  "source": "ArtSource/Generated/BGEEProjectionCandidates/office_suite_plate_bgee_v05_candidate.png",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "uniform_scale": 1.3499999999999999,
+  "height_fit": 2.25,
+  "suite_plate_scale": 0.6,
+  "paste_xywh": [
+    1011,
+    276,
+    2074,
+    1382
+  ],
+  "room_bbox_ydown": [
+    1047,
+    279,
+    3045,
+    1657
+  ],
+  "paintedRoomSourceRect_yup": {
+    "x": 1047,
+    "y": 646,
+    "width": 1999,
+    "height": 1379
+  },
+  "REAR": [
+    2075.5,
+    359.0
+  ],
+  "AXIS_NW": [
+    -1024.49,
+    768.36
+  ],
+  "AXIS_NE": [
+    706.18,
+    529.64
+  ],
+  "west": [
+    1051.0,
+    1127.4
+  ],
+  "east": [
+    2781.7,
+    888.6
+  ],
+  "near": [
+    1757.2,
+    1657.0
+  ],
+  "WALL_FACE_H": 425.4,
+  "near_edge_left": [
+    0.75,
+    275.75
+  ],
+  "near_edge_right": [
+    -0.75,
+    3373.5
+  ],
+  "exterior_clear_h": 181.0,
+  "exterior_x0": 2784,
+  "exterior_x1": 2855,
+  "exterior_w": 71.0,
+  "exterior_lintel": 749.0,
+  "exterior_thresh": 937.0,
+  "BODY_PLATE_H": 178.00632911392404,
+  "door_to_body": 1.0168177777777778,
+  "note": "Uniform 3:2 contain + SUITE_PLATE_SCALE. Diamond slopes forced to BG:EE \u00b10.75; axis lengths clipped to the painted cutaway. Copy REAR/AXIS_*/WALL_FACE_H into office_room_plan.py and flip ie_projection.ACTIVE in the same change."
+}

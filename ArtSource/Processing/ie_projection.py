@@ -8,12 +8,8 @@ camera, which is what the runtime navigation layer already assumes
 0.75). Under it every ground line lands on a screen slope of +-0.75 (+-36.87
 degrees), a circle on the ground is a 16:12 ellipse, and uprights stay vertical.
 
-`LEGACY_V2` is what the *installed painted plates* were drawn to. It is the
-active camera because the projection lives in the pixels: adopting BG:EE in the
-pipeline while the shipped plates are still legacy art would place props on a
-floor diamond the painting does not have. Measured with
-`qa_plate_projection.py`, all eight shipped plates sit near 23 degrees and do
-not even agree with one another.
+`LEGACY_V2` is what the pre-adoption plates were drawn to. Act I city grounds
+and the V5 office suite are now on the BG:EE lock, so `ACTIVE` follows them.
 
 Adoption is therefore a single edit *paired with new art*:
 
@@ -101,7 +97,7 @@ BGEE = GroundProjection(
     box_depth_frac=0.375,
 )
 
-# What the shipped plates and the current pipeline are drawn to.
+# What the pre-adoption plates were drawn to. Kept so a revert is one flip.
 LEGACY_V2 = GroundProjection(
     name="legacy_v2",
     ground_foreshorten=0.5,
@@ -116,9 +112,9 @@ LEGACY_V2 = GroundProjection(
 )
 
 # ---------------------------------------------------------------------------
-# Flip this to BGEE together with on-lock masters. Not before.
+# Flip with the on-lock masters. City grounds + office V5 are installed.
 # ---------------------------------------------------------------------------
-ACTIVE: GroundProjection = LEGACY_V2
+ACTIVE: GroundProjection = BGEE
 
 # Active-camera aliases. Pipeline modules use these, so they follow ACTIVE.
 GROUND_FORESHORTEN = ACTIVE.ground_foreshorten
