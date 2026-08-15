@@ -46,7 +46,7 @@ def install_one(slug: str) -> bool:
     if not src.exists():
         raise SystemExit(f"missing {src}")
     master = Image.open(src)
-    plate = dens.composite(master, proc.PLATE_SIZE)
+    plate = dens.composite(master, proc.PLATE_SIZE, fine=slug not in dens.COARSE_DISTRICTS)
     delta = dens.assert_not_naked_upscale(master, plate)
     gen_dir = GEN / folder
     gen_dir.mkdir(parents=True, exist_ok=True)

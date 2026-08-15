@@ -7,9 +7,16 @@ The V3 1536×1024 grounds are on the BG:EE lock. The generator cannot emit
 (layout, kerbs, lighting, puddles) and paints a new high-frequency sett /
 flag layer at the V4 pixel scale:
 
-    granite sett     16 px along the ground axes  (0.15 m × 107 px/m)
-    pavement flag    56 px                         (0.52 m)
+    granite sett     10.75 -> 12.9 px on screen  (0.12 m × 107 px/m)
+    pavement flag    45    -> 54.0 px on screen  (0.50 m)
     joints           soft, worn — not engraved
+
+V4 laid a 0.18 m lattice on top of the master's own ~0.25 m stonework and the
+play-zoom A/B came out indistinguishable: the two modules are close enough that
+the coarse one still won, and the ground just got busier. The dominant lattice
+vector in the rendered frame did not move at all. So this pass suppresses the
+master's stone band inside the carriageway first, then lays a genuinely finer
+module in at full strength.
 
 Joints follow slopes ±0.75 so the overlay reinforces the camera lock instead
 of fighting it. Water and specular puddles from the master are left alone.
@@ -32,9 +39,25 @@ import ie_projection as ie
 import process_city_districts_v02 as proc
 
 SLOPE = ie.BGEE.ground_slope  # 0.75
-SETT_PX = 16.0
-FLAG_PX = 56.0
+# Cell sizes are in u/v units. One u/v unit is 1/|grad v| = 1.2 screen px, so a
+# 0.12 m sett (12.9 screen px at 107 px per ground metre) is 10.75 here.
+SETT_PX = 10.75
+FLAG_PX = 45.0
+# The original V4 module, kept for masters that cannot carry the finer one.
+SETT_PX_COARSE = 16.0
+FLAG_PX_COARSE = 56.0
 JOINT = 0.11  # fraction of a cell that is mortar
+
+# The V3 master's own paving, measured on the installed 4096 plate: a ~27 px
+# pitch, about 0.25 m. That is the module the eye actually locks onto, and no
+# amount of added detail displaces it while it is still there.
+MASTER_STONE_PX = 27.0
+# How much of that band to remove inside road/pavement. Below ~0.6 the coarse
+# stones still read through; above ~0.85 the carriageway goes flat.
+SUPPRESS = 0.72
+# Overlay strength. Raised from 0.42 because the new lattice now has to carry
+# the surface rather than decorate it.
+AMOUNT = 0.55
 
 
 def _blur(arr: np.ndarray, radius: float) -> np.ndarray:
@@ -74,6 +97,23 @@ def stone_detail(u: np.ndarray, v: np.ndarray, cell: float) -> np.ndarray:
     return face + lip - joint * 0.85
 
 
+def suppress_master_stone(
+    base: np.ndarray, road: np.ndarray, pavement: np.ndarray
+) -> np.ndarray:
+    """Remove the master's own paving band from the carriageway and pavement.
+
+    Luminance-space, so hue and the baked lighting survive. Real edges — kerb
+    lines, drain rims, tram rails — swing much harder than paving grain, so the
+    removal is scaled down where the local swing is large; without that the
+    kerbs go soft along with the stones.
+    """
+    lum = base.mean(2)
+    hf = lum - _blur(lum, MASTER_STONE_PX / 3.0)
+    keep_edges = np.clip(1.0 - np.abs(hf) / 26.0, 0.0, 1.0)
+    mask = np.clip(road + pavement, 0.0, 1.0) * SUPPRESS * keep_edges
+    return base - (hf * mask)[..., None]
+
+
 def segment(lum: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """water, pavement, carriageway masks in 0..1."""
     local = _blur(lum, 7.0)
@@ -104,19 +144,37 @@ def assert_not_naked_upscale(master: Image.Image, plate: Image.Image, floor: flo
     return delta
 
 
-def composite(master: Image.Image, size: tuple[int, int] = proc.PLATE_SIZE) -> Image.Image:
+# Districts whose master cannot carry the fine module. `civic_records` is the
+# shallowest ground we have — it has measured at the bottom of every pass since
+# the first audit — and suppressing its stone band to make room for a 0.12 m
+# lattice tips it from 3.92 deg to 4.04, outside the lock. It keeps the coarse
+# module until its master is regenerated; then delete this set.
+COARSE_DISTRICTS = frozenset({"civic_records"})
+
+
+def composite(
+    master: Image.Image,
+    size: tuple[int, int] = proc.PLATE_SIZE,
+    *,
+    fine: bool = True,
+) -> Image.Image:
     base_im = proc.fit_to_aspect(master.convert("RGB"), size)
     base = np.asarray(base_im, dtype=np.float32)
     h, w = base.shape[:2]
     lum = base.mean(2)
     water, pavement, road = segment(lum)
+    if fine:
+        # Segment on the untouched master (its water test needs the original
+        # grain), then clear the coarse stonework before laying the new module.
+        base = suppress_master_stone(base, road, pavement)
+    sett_px, flag_px = (SETT_PX, FLAG_PX) if fine else (SETT_PX_COARSE, FLAG_PX_COARSE)
     u, v = axis_uv(h, w)
-    sett = stone_detail(u, v, SETT_PX)
-    flag = stone_detail(u, v, FLAG_PX)
+    sett = stone_detail(u, v, sett_px)
+    flag = stone_detail(u, v, flag_px)
     detail = sett * road + flag * pavement
     # Leave puddles and open water on the master — they already grade.
     wet = np.clip((14.0 - lum) / 10.0, 0.0, 1.0) * (1.0 - water)
-    amount = (0.42 * (1.0 - 0.65 * wet))[..., None]
+    amount = ((AMOUNT if fine else 0.42) * (1.0 - 0.65 * wet))[..., None]
     out = base * (1.0 + detail[..., None] * amount)
     out = np.clip(out, 0, 255).astype(np.uint8)
     return Image.fromarray(out, "RGB")
