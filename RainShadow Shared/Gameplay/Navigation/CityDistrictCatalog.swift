@@ -157,7 +157,7 @@ enum CityDistrictCatalog {
     // MARK: - Sable Row (center / lower ward)
 
     private static let sableRowTenement = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_tenement", groundPoint: CGPoint(x: 240, y: 810),
+        textureName: "city_building_tenement", groundPoint: CGPoint(x: 232, y: 816),
         scale: CityDistrictLayout.BuildingDisplayScale.tenement, anchorY: 0.12, depthBias: 0
     )
     private static let sableRowStorefront = CityDistrictDefinition.VisualSprite(
@@ -169,11 +169,11 @@ enum CityDistrictCatalog {
         scale: CityDistrictLayout.BuildingDisplayScale.rowhouse, anchorY: 0.12, depthBias: 0
     )
     private static let sableRowShop = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_shop", groundPoint: CGPoint(x: 390, y: 410),
+        textureName: "city_building_shop", groundPoint: CGPoint(x: 392, y: 416),
         scale: CityDistrictLayout.BuildingDisplayScale.shop, anchorY: 0.14, depthBias: 0
     )
     private static let sableRowGatehouse = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_gatehouse", groundPoint: CGPoint(x: 840, y: 380),
+        textureName: "city_building_gatehouse", groundPoint: CGPoint(x: 824, y: 392),
         scale: CityDistrictLayout.BuildingDisplayScale.gatehouse, anchorY: 0.16, depthBias: 0
     )
     private static let sableRowVossStoop = CityDistrictDefinition.VisualSprite(
@@ -190,10 +190,10 @@ enum CityDistrictCatalog {
         actorStart: CGPoint(x: 1600, y: 90),
         spawnByArrivalKey: [
             "from.office": CGPoint(x: 1600, y: 90),
-            "from.north": CGPoint(x: 968, y: 1134),
+            "from.north": CGPoint(x: 1128, y: 1128),
             "from.south": CGPoint(x: 1024, y: 140),
-            "from.east": CGPoint(x: 1880, y: 585),
-            "from.west": CGPoint(x: 150, y: 545)
+            "from.east": CGPoint(x: 1880, y: 568),
+            "from.west": CGPoint(x: 120, y: 552)
         ],
         visualSprites: [
             // Buildings: empty doorway apertures; door-anchored openings clear Harlan Voss (~1.15× adult).
@@ -280,11 +280,11 @@ enum CityDistrictCatalog {
     // MARK: - Wharf Ladder (west)
 
     private static let wharfShippingOffice = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1100, y: 490),
+        textureName: "city_building_shipping_office", groundPoint: CGPoint(x: 1096, y: 496),
         scale: CityDistrictLayout.BuildingDisplayScale.shippingOffice, anchorY: 0.10, depthBias: 0
     )
     private static let wharfWarehouse = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_warehouse", groundPoint: CGPoint(x: 550, y: 740),
+        textureName: "city_building_warehouse", groundPoint: CGPoint(x: 560, y: 744),
         scale: CityDistrictLayout.BuildingDisplayScale.warehouse, anchorY: 0.10, depthBias: 0
     )
     private static let wharfBoarding = CityDistrictDefinition.VisualSprite(
@@ -302,12 +302,12 @@ enum CityDistrictCatalog {
         arrivalHint: "WHARF LADDER  •  Lillian's shipping office faces the wet pier.",
         groundTextureName: "city_wharf_ladder_ground_v02",
         mapTextureName: "map_city_wharf_ladder_v02",
-        actorStart: CGPoint(x: 1880, y: 420),
+        actorStart: CGPoint(x: 1912, y: 440),
         spawnByArrivalKey: [
-            "from.east": CGPoint(x: 1880, y: 420),
-            "from.south": CGPoint(x: 1024, y: 140),
+            "from.east": CGPoint(x: 1912, y: 440),
+            "from.south": CGPoint(x: 1016, y: 136),
             "from.north": CGPoint(x: 1024, y: 980),
-            "from.west": CGPoint(x: 140, y: 415)
+            "from.west": CGPoint(x: 136, y: 424)
         ],
         visualSprites: [
             wharfShippingOffice,
@@ -358,7 +358,7 @@ enum CityDistrictCatalog {
             )
         ],
         pointsOfInterest: [
-            .init(label: "SHIPPING", worldPoint: CGPoint(x: 1100, y: 490), colorRGBA: (0.72, 0.22, 0.18, 1))
+            .init(label: "SHIPPING", worldPoint: CGPoint(x: 1096, y: 496), colorRGBA: (0.72, 0.22, 0.18, 1))
         ]
     )
 
@@ -450,18 +450,18 @@ enum CityDistrictCatalog {
         arrivalHint: "HARBORPOINT PD  •  Soft files cool faster than the rain.",
         groundTextureName: "city_harborpoint_pd_ground_v02",
         mapTextureName: "map_city_harborpoint_pd_v02",
-        actorStart: CGPoint(x: 1015, y: 1060),
+        actorStart: CGPoint(x: 1016, y: 1080),
         spawnByArrivalKey: [
-            "from.north": CGPoint(x: 1015, y: 1060),
-            "from.west": CGPoint(x: 160, y: 420),
+            "from.north": CGPoint(x: 1016, y: 1080),
+            "from.west": CGPoint(x: 152, y: 424),
             "from.east": CGPoint(x: 1976, y: 414),
-            "from.south": CGPoint(x: 1024, y: 140)
+            "from.south": CGPoint(x: 1032, y: 136)
         ],
         visualSprites: [
             pdStation,
             pdAnnex,
             pdAlley,
-            .init(textureName: "city_building_pd_plaza_wall", groundPoint: CGPoint(x: 800, y: 350), scale: CityDistrictLayout.BuildingDisplayScale.pdPlazaWall, anchorY: 0.18, depthBias: 1),
+            .init(textureName: "city_building_pd_plaza_wall", groundPoint: CGPoint(x: 808, y: 352), scale: CityDistrictLayout.BuildingDisplayScale.pdPlazaWall, anchorY: 0.18, depthBias: 1),
             CityDistrictLayout.doorLeaf(
                 textureName: "city_door_pd_station",
                 on: pdStation,
@@ -488,7 +488,7 @@ enum CityDistrictCatalog {
             .init(
                 id: "portal.pdEntrance",
                 label: "STATION",
-                approachPoint: CGPoint(x: 1095, y: 340),
+                approachPoint: CGPoint(x: 1048, y: 328),
                 hitArea: CGRect(x: 1026, y: 537, width: 153, height: 220),
                 destination: .inspect,
                 requiresCityOpen: false,
@@ -525,12 +525,12 @@ enum CityDistrictCatalog {
         arrivalHint: "LILA'S STREET  •  Doorway posts remember the Gray Man.",
         groundTextureName: "city_lila_street_ground_v02",
         mapTextureName: "map_city_lila_street_v02",
-        actorStart: CGPoint(x: 160, y: 420),
+        actorStart: CGPoint(x: 184, y: 360),
         spawnByArrivalKey: [
-            "from.west": CGPoint(x: 160, y: 420),
-            "from.north": CGPoint(x: 1024, y: 980),
+            "from.west": CGPoint(x: 184, y: 360),
+            "from.north": CGPoint(x: 1064, y: 984),
             "from.south": CGPoint(x: 1024, y: 140),
-            "from.east": CGPoint(x: 1880, y: 420)
+            "from.east": CGPoint(x: 1864, y: 424)
         ],
         visualSprites: [
             lilaRooms,
