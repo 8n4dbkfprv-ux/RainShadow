@@ -190,9 +190,16 @@ enum CityDistrictCatalog {
         actorStart: CGPoint(x: 1600, y: 90),
         spawnByArrivalKey: [
             "from.office": CGPoint(x: 1600, y: 90),
-            "from.north": CGPoint(x: 1128, y: 1128),
+            // (1128, 1128) sat in the 32-unit sliver above the three north
+            // buildings — not standable for a 16-radius agent, so arriving from
+            // the north dropped Voss in a wall. The north edge is walled from
+            // x 20 to 1500; the only opening is the north-east corner, and this
+            // point is verified standable with an exact path both ways.
+            "from.north": CGPoint(x: 1700, y: 1100),
             "from.south": CGPoint(x: 1024, y: 140),
-            "from.east": CGPoint(x: 1880, y: 568),
+            // 568 was inside the east building; this is what the runtime's own
+            // `nearestWalkablePoint` returns for it, taken unrounded.
+            "from.east": CGPoint(x: 1880, y: 582),
             "from.west": CGPoint(x: 120, y: 552)
         ],
         visualSprites: [
