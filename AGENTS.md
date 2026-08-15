@@ -36,9 +36,28 @@ Canonical Baldur's Gate: EE orthographic camera constants live in
 ±0.75, diamond 128×96, 16:12 ground ellipse). See
 `Documentation/InfinityEngineGroundProjection.md`. After changing projection
 math, rebake and hash-diff generated outputs; intended-inert edits must come
-back identical. Painted masters still need Image Generator regen under the V5
-office / V3 city locks — checklist in
+back identical.
+
+### Grade a plate, do not eyeball it
+
+`qa_plate_projection.py` measures the ground axes actually baked into a plate,
+so "matches the camera" is a number. Every new or regenerated area master must
+pass it before install. All eight shipped plates currently fail (the city ones
+disagree with each other by up to 30°), because the V2 lock was prose in a
+prompt with nothing measuring it. Painted masters still need regen under the V5
+office / V3 city locks — status and blockers in
 `Documentation/BGEEProjectionMasterRegen.md`.
+
+Calibrate before trusting it: a plain 3×3 Sobel aliases on hard lines and read a
+true 36.87° grid as 45°. The shipped estimator uses a smoothed structure tensor
+and is accurate to 0.13° on a synthetic lattice.
+
+### Never resize a plate across aspect ratios
+
+Scaling x and y by different factors multiplies every ground slope by `sy/sx`.
+Taking a 3:2 master straight to 2048×1152 shears 36.87° to 31.74° and nothing
+reports an error. Use `process_city_districts_v02.fit_to_aspect`, which
+centre-crops to the target aspect first and then scales uniformly.
 
 ## Character sprite pipeline — traps that cost real time
 
