@@ -69,17 +69,24 @@ WALL_FACE_H = BAKED_DOORWAY_H + PLASTER_H
 DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# FLOOR diamond for the V5/V7 suite (not wall-top silhouette).
+# FLOOR diamond, fitted to the painted floor itself (V7 plate).
 #
-# Fit against the installed 0.60 V5 plate; V7 does not move the shoes:
-# - NW shoe through the window-wall boards at (1120, 1000)
-# - NE shoe through the exterior-door threshold at (2822, 1055)
-# - Slopes forced to the BG:EE lock (±0.75); west/east from those lines
-#   intersected with the painted camera-near cutaway
-# - Geometric near tip sits in the black below the clipped floor
-REAR = (1934.3, 389.2)
-AXIS_NW = (-863.2, 647.4)  # rear floor -> west floor corner, slope -0.75
-AXIS_NE = (1028.8, 771.6)  # rear floor -> east floor corner, slope +0.75
+# Earlier passes fitted this to wall shoes or to the camera-near silhouette and
+# came out skewed — the shipped REAR sat 123 px west of where the two axes
+# actually meet. This is a direct fit: classify pixels whose local structure
+# tensor runs on a ground axis, take the largest such component touching the
+# painting's bottom (that is the boards, and it follows them through the
+# partition doorway into the waiting bay), then take the bounding parallelogram
+# in the u = y - 0.75x / v = y + 0.75x basis. West and east land on the painted
+# floor's own corners and both slopes are exactly +-0.75 by construction.
+#
+# The near tip sits at y 1810 against a painting clipped at 1657, and the rear
+# tip above the wall crowns — both correct, and both what the module docstring
+# has always described: the geometric diamond extends past the paint, walkable
+# FLOOR_* stops on it.
+REAR = (2057.5, 394.1)
+AXIS_NW = (-931.33, 698.4975)  # rear floor -> west floor corner, slope -0.75
+AXIS_NE = (956.67, 717.5025)  # rear floor -> east floor corner, slope +0.75
 
 # Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
 # base through REAR at WALL_FACE_H.
@@ -188,12 +195,12 @@ class Partition:
     """
 
     # Waiting-room face on the V5 shoe-fitted diamond (painted partition).
-    a_line: float = 0.426
+    a_line: float = 0.457
     # Clear opening on the painted partition, both jambs at a = 0.426.
-    b_door0: float = 0.377
-    b_door1: float = 0.533
+    b_door0: float = 0.338
+    b_door1: float = 0.505
     # Short full-height return past the high-b jamb before the cutaway drop.
-    b_return1: float = 0.533 + 0.030
+    b_return1: float = 0.538 + 0.030
     # Freestanding interior mass (plan units along AXIS_NW).
     thickness_a: float = PARTITION_THICKNESS_PX / AXIS_NW_LEN
     face_h: float = WALL_FACE_H

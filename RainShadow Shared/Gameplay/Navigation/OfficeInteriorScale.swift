@@ -47,7 +47,7 @@ enum OfficeInteriorScale {
         /// egress stop north into the kneehole (actorStart is deskChair − 30
         /// authored units; 30 × environment ≈ 11.85). Nav-derived, so it does
         /// **not** follow the sprite size.
-        static let seatedYOffset: CGFloat = 11.85
+        static let seatedYOffset: CGFloat = 39.5
         /// Whole-body seat nudge (world space). Stay on the SW / camera-near
         /// kneehole side of the desk ground (desk.y − chair.y ≈ 12–16). Nudges
         /// past ~18 put feet on the visitor / far side of the writing surface.

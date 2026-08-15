@@ -45,7 +45,9 @@ M_PER_A = PX_PER_M / _REF_AXIS_NW_X
 M_PER_B = PX_PER_M / _REF_AXIS_NE_X
 
 # Wall stand-off for floor furniture that must read as flush.
-FLUSH = 0.048
+# The painted NW wall face sits just past the fitted floor's board
+# edge, so flush props take a small negative b.
+FLUSH = -0.016
 
 P = rp.PARTITION
 
@@ -117,8 +119,8 @@ class Prop:
 # Fixed suite features on the floor-plane axes (props sit on the boards).
 # Door b re-derived from the painted NE threshold on the shoe-fitted diamond
 # (was 0.75 on the oversized diamond; plate threshold is fixed).
-EXTERIOR_DOOR = (0.0, 0.863)  # painted NE doorway centre on the V5/V7 floor diamond
-WINDOW_A = 0.799  # NW-wall window recess on the V5/V7 plate
+EXTERIOR_DOOR = (0.063, 0.860)  # painted NE doorway centre on the V5/V7 floor diamond
+WINDOW_A = 0.803  # NW-wall window recess on the V5/V7 plate
 
 # Visual door registration measured directly from the shipping suite plate.
 #
@@ -137,48 +139,48 @@ SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 956.0
 # personal corner. Floor anchors only — never wall-top plane.
 PROPS: list[Prop] = [
     # ---- records cluster: flush to the NW wall (b ≈ FLUSH)
-    Prop("safe", "office_safe", 0.620, FLUSH, 0.34, (0.6, 0.6), note="records run, east end"),
-    Prop("filingCabinetB", "office_filing_cabinet", 0.690, FLUSH, 1.31, (0.5, 0.62)),
-    Prop("filingCabinet", "office_filing_cabinet_open", 0.755, FLUSH, 1.31, (0.5, 0.62), note="drawer half open"),
-    Prop("bookshelf", "office_bookshelf", 0.835, FLUSH, 1.67, (1.2, 0.35)),
-    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.690, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
-    Prop("archiveStackOnCabinet", "office_archive_stack", 0.755, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
-    Prop("archiveBoxA", "office_archive_box_a", 0.800, 0.100, 0.40, (0.5, 0.45), note="only floor stack"),
+    Prop("safe", "office_safe", 0.637, FLUSH, 0.34, (0.6, 0.6), note="records run, east end"),
+    Prop("filingCabinetB", "office_filing_cabinet", 0.702, FLUSH, 1.31, (0.5, 0.62)),
+    Prop("filingCabinet", "office_filing_cabinet_open", 0.762, FLUSH, 1.31, (0.5, 0.62), note="drawer half open"),
+    Prop("bookshelf", "office_bookshelf", 0.837, FLUSH, 1.67, (1.2, 0.35)),
+    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.702, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
+    Prop("archiveStackOnCabinet", "office_archive_stack", 0.762, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
+    Prop("archiveBoxA", "office_archive_box_a", 0.804, 0.040, 0.40, (0.5, 0.45), note="only floor stack"),
     # ---- radiator under the window
     Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
     # ---- personal corner: partition rear, private-office side
-    Prop("personalSideboard", "office_personal_sideboard", 0.430, FLUSH, 0.48, (1.2, 0.5)),
+    Prop("personalSideboard", "office_personal_sideboard", 0.461, FLUSH, 0.48, (1.2, 0.5)),
     # The generated washbasin is intentionally retired from the runtime set:
     # it made the room read as domestic rather than investigative.
     Prop(
         "personalWashbasin",
         "office_personal_washbasin",
-        0.485,
+        0.512,
         FLUSH,
         0.41,
         (0.7, 0.5),
         obstacle=False,
         note="retired domestic fixture; placement retained for source lineage",
     ),
-    Prop("personalFan", "office_personal_fan", 0.410, 0.080, 0.68, (0.5, 0.5)),
-    Prop("personalBottle", "office_hidden_bottle", 0.438, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
-    Prop("personalGlass", "office_personal_glass", 0.420, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
+    Prop("personalFan", "office_personal_fan", 0.443, 0.018, 0.68, (0.5, 0.5)),
+    Prop("personalBottle", "office_hidden_bottle", 0.469, FLUSH + 0.004, 0.22, obstacle=False, note="on sideboard"),
+    Prop("personalGlass", "office_personal_glass", 0.452, FLUSH + 0.004, 0.10, obstacle=False, note="on sideboard"),
     # ---- desk cluster: private office, on the floor boards
-    Prop("deskEnsemble", "office_desk_bare", 0.620, 0.240, 0.99, (1.7, 0.9)),
-    Prop("deskChair", "office_desk_chair", 0.695, 0.240, 0.64, (0.6, 0.6), obstacle=False),
+    Prop("deskEnsemble", "office_desk_bare", 0.637, 0.190, 0.99, (1.7, 0.9)),
+    Prop("deskChair", "office_desk_chair", 0.707, 0.190, 0.64, (0.6, 0.6), obstacle=False),
     # Keep the client pair one step back from the writing surface. a=0.475 is
     # the farthest visitor-side placement that also clears the partition face.
-    Prop("visitorArmchair", "office_visitor_armchair", 0.500, 0.180, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.500, 0.280, 0.76, (0.65, 0.65)),
-    Prop("wastebasket", "office_wastebasket", 0.690, 0.160, 0.32, (0.4, 0.4)),
+    Prop("visitorArmchair", "office_visitor_armchair", 0.526, 0.126, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.526, 0.233, 0.76, (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.702, 0.104, 0.32, (0.4, 0.4)),
     # ---- entrance / waiting: corridor from exterior door to partition
-    Prop("coatRack", "office_coat_rack", 0.040, 0.880, 0.88, (0.6, 0.6)),
-    Prop("umbrellaStand", "office_umbrella_stand", 0.070, 0.840, 0.28, (0.35, 0.35)),
-    Prop("waitingChairA", "office_waiting_chair_a", 0.170, 0.580, 0.60, (0.55, 0.55)),
-    Prop("waitingTable", "office_waiting_table", 0.170, 0.640, 0.36, (0.55, 0.55)),
-    Prop("waitingChairB", "office_waiting_chair_b", 0.170, 0.700, 0.58, (0.55, 0.55)),
-    Prop("newspaper", "office_newspaper", 0.164, 0.634, 0.10, obstacle=False, note="on table"),
-    Prop("waitingAshtray", "office_waiting_ashtray", 0.178, 0.648, 0.07, obstacle=False, note="on table"),
+    Prop("coatRack", "office_coat_rack", 0.100, 0.879, 0.88, (0.6, 0.6)),
+    Prop("umbrellaStand", "office_umbrella_stand", 0.128, 0.836, 0.28, (0.35, 0.35)),
+    Prop("waitingChairA", "office_waiting_chair_a", 0.220, 0.556, 0.60, (0.55, 0.55)),
+    Prop("waitingTable", "office_waiting_table", 0.220, 0.620, 0.36, (0.55, 0.55)),
+    Prop("waitingChairB", "office_waiting_chair_b", 0.220, 0.685, 0.58, (0.55, 0.55)),
+    Prop("newspaper", "office_newspaper", 0.215, 0.614, 0.10, obstacle=False, note="on table"),
+    Prop("waitingAshtray", "office_waiting_ashtray", 0.228, 0.629, 0.07, obstacle=False, note="on table"),
 ]
 
 PROP_BY_KEY = {p.key: p for p in PROPS}
@@ -202,13 +204,13 @@ def window_anchor_authored() -> tuple[float, float]:
 
 def camera_authored() -> tuple[float, float]:
     """Camera recentred on the packed desk / private-office mass."""
-    return rp.authored(0.52, 0.42)
+    return rp.authored(0.545, 0.384)
 
 
 # Worn burgundy rug under the desk island — office side of the partition only.
 # Sized so opaque pixels stay at a > partition office face (no overlap into the
 # waiting bay / doorway). Shared with addWornRug / compose_office_redesign_preview.
-RUG = (0.660, 0.240)
+RUG = (0.674, 0.190)
 RUG_BODY = 2.2
 RUG_FACTOR = 0.62
 
@@ -231,19 +233,22 @@ WALL_ART = {
 FLOOR_DECALS = {
     "windowSpill": rp.plan(WINDOW_A, 0.10),
     "blindStripes": rp.plan(WINDOW_A + 0.04, 0.16),
-    "hallwayLight": rp.plan(0.02, EXTERIOR_DOOR[1]),
-    "floorTrashA": rp.plan(0.64, 0.29),
-    "floorTrashB": rp.plan(0.79, 0.13),
-    "entranceRunner": rp.plan(0.075, 0.80),
+    "hallwayLight": rp.plan(0.081, EXTERIOR_DOOR[1]),
+    "floorTrashA": rp.plan(0.656, 0.244),
+    "floorTrashB": rp.plan(0.795, 0.072),
+    "entranceRunner": rp.plan(0.132, 0.793),
     "lampPool": None,  # follows the desk
 }
 
 APPROACH = {
-    "office.window": (0.720, 0.200),
-    "office.desk": (0.520, 0.360),
-    "office.phone": (0.540, 0.360),
-    "office.files": (0.755, 0.160),
-    "office.door": (0.120, 0.540),  # waiting corridor; segment-clear from desk start
+    "office.window": (0.730, 0.147),
+    "office.desk": (0.545, 0.319),
+    "office.phone": (0.563, 0.319),
+    # Nudged camera-near of the transformed 0.104: the records run's own
+    # footprint reaches b 0.12 after the re-fit, so the approach sat inside
+    # the cabinet. 0.145 is the first cell clear of it at this a.
+    "office.files": (0.762, 0.145),
+    "office.door": (0.174, 0.513),  # waiting corridor; segment-clear from desk start
 }
 
 # Chair-side seat egress: walkable stand/walk root just camera-near (south) of
@@ -253,7 +258,12 @@ APPROACH = {
 #
 # World seatedYOffset = -ACTOR_START_OFFSET_Y * ENV
 #   (−(−30) * 0.395 ≈ +11.85) so actorStart + seatedYOffset lands on the chair.
-ACTOR_START_OFFSET_Y = -30.0
+# -30 put the stand root inside the desk once the diamond was re-fitted: the
+# runtime SearchMap found no passable cell within the 16-unit agent radius, so
+# every route out of the office failed at the *start* rather than the
+# destination. -100 is the first offset that clears it with margin, and all five
+# hotspot approaches path exactly from there.
+ACTOR_START_OFFSET_Y = -100.0
 
 
 # --------------------------------------------------------------- architecture
@@ -1094,12 +1104,12 @@ def internal_leaf_scale() -> float:
 # through the painted opening, then hand off to routed interior anchors.
 CLIENT_DOORWAY_PLAN_PATH = [
     (-0.080, EXTERIOR_DOOR[1]),  # outside, centred on the painted threshold
-    (0.200, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
+    (0.248, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 
 # Cross the live clear aperture mid on the V5 partition. Exact polyline (no A*).
-CLIENT_INTERNAL_DOOR_B = 0.455
+CLIENT_INTERNAL_DOOR_B = 0.422
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
     (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
     (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
@@ -1114,7 +1124,7 @@ CLIENT_INTERNAL_DOORWAY_PATH = [
 # coat does not clip the exterior wall, then drop to the live aperture mid.
 # CLIENT_WAITING_ROOM_PATH then hands off to CLIENT_INTERNAL_DOORWAY_PATH[0].
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.270, 0.520),  # aisle: clear of coat rack / exterior wall
+    (0.313, 0.491),  # aisle: clear of coat rack / exterior wall
     (0.270, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b while still in aisle
 ]
 CLIENT_WAITING_ROOM_PATH = [
@@ -1139,8 +1149,8 @@ SEATED_DESK_FRONT_APRON_BIAS = 15.0
 # surface (drawn in front of it) and outside the armchair footprints.
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
-    rp.authored(0.560, CLIENT_INTERNAL_DOOR_B),
-    rp.authored(0.520, 0.360),
+    rp.authored(0.582, CLIENT_INTERNAL_DOOR_B),
+    rp.authored(0.545, 0.319),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1150,16 +1160,16 @@ CLIENT_INTERIOR_PATH = [
 CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
 SCALE_STANDS = [
-    (0.080, EXTERIOR_DOOR[1]),  # directly beside the exterior doorway
-    (0.700, 0.240),  # behind the desk
-    (0.400, (P.b_door0 + P.b_door1) * 0.5),  # in the internal doorway
-    (0.170, 0.600),  # beside the waiting chair
+    (0.137, EXTERIOR_DOOR[1]),  # directly beside the exterior doorway
+    (0.711, 0.190),  # behind the desk
+    (0.433, (P.b_door0 + P.b_door1) * 0.5),  # in the internal doorway
+    (0.220, 0.577),  # beside the waiting chair
 ]
 
 RECORDS_PATH = [
-    (0.660, 0.300),
-    (0.720, 0.200),
-    (0.755, 0.160),
+    (0.674, 0.255),
+    (0.730, 0.147),
+    (0.762, 0.104),
 ]
 
 HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String, hitArea: CGRect, observation: String)] = [
