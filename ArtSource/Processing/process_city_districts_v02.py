@@ -240,9 +240,41 @@ def slice_grid(sheet: Image.Image, cols: int, rows: int, inset: float = 0.03) ->
     return cells
 
 
+# A master whose aspect differs from the runtime plate cannot be resized
+# straight to it: scaling x and y by different factors multiplies every ground
+# slope by sy/sx, so an on-lock 0.75 master silently lands off the BG:EE lock.
+# A 3:2 master taken straight to 2048×1152 shears 36.87° down to 31.7°.
+# Centre-crop to the target aspect first, then scale uniformly.
+ASPECT_EPSILON = 0.002
+
+
+def fit_to_aspect(im: Image.Image, size: tuple[int, int]) -> Image.Image:
+    """Centre-crop to the target aspect, then scale uniformly.
+
+    For a master already at the target aspect this is a no-op crop followed by
+    the same resize the caller would have done, so output is unchanged.
+    """
+    tw, th = size
+    target = tw / th
+    source = im.width / im.height
+    if abs(source - target) > ASPECT_EPSILON:
+        if source > target:
+            cw, ch = int(round(im.height * target)), im.height
+        else:
+            cw, ch = im.width, int(round(im.width / target))
+        left, top = (im.width - cw) // 2, (im.height - ch) // 2
+        print(
+            f"  aspect {source:.4f} != {target:.4f}: centre-cropping to "
+            f"{cw}x{ch} before scaling (a direct resize would shear the "
+            f"ground axes by {source / target:.3f}x)"
+        )
+        im = im.crop((left, top, left + cw, top + ch))
+    return im.resize(size, Image.Resampling.LANCZOS)
+
+
 def resize_plate(src: Path, dst: Path, size: tuple[int, int]) -> None:
     im = Image.open(src).convert("RGB")
-    out = im.resize(size, Image.Resampling.LANCZOS)
+    out = fit_to_aspect(im, size)
     dst.parent.mkdir(parents=True, exist_ok=True)
     out.save(dst, "PNG", optimize=True)
     print(f"plate {dst.relative_to(ROOT)} {out.size}")
