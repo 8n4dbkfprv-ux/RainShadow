@@ -3,12 +3,16 @@
 
 Masters must be painted under `ArtSource/Prompts/city_perspective_lock_v03.md`
 (Baldur's Gate: EE orthographic camera). This script has no projection math —
-it only copies/resizes district block + ground plates to 2048×1152 and slices
+it only copies/resizes district block + ground plates to 4096×2304 and slices
 chroma (or corner-keyed) building/prop sheets into Props/CityDistrict/V2.
 
 After regenerating V3 masters: re-measure door apertures, re-derive street-side
 portal approaches, and flood-fill every spawn (see
 `Documentation/BGEEProjectionMasterRegen.md`).
+
+Do not run `main()` to refresh grounds. A 1536 V3 master resized to
+`PLATE_SIZE` is a naked upscale and would pass `qa_plate_density.py`
+dishonestly. Use `install_city_grounds_density_v04.py`.
 """
 
 from __future__ import annotations
@@ -26,7 +30,7 @@ RUNTIME_AREAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Areas" / "Ci
 RUNTIME_PROPS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "CityDistrict" / "V2"
 RUNTIME_MAP = ROOT / "RainShadow Shared" / "Resources" / "Art" / "UI" / "Map"
 
-PLATE_SIZE = (2048, 1152)
+PLATE_SIZE = (4096, 2304)
 MAP_SIZE = (1847, 1040)
 
 DISTRICTS = [
@@ -243,7 +247,7 @@ def slice_grid(sheet: Image.Image, cols: int, rows: int, inset: float = 0.03) ->
 # A master whose aspect differs from the runtime plate cannot be resized
 # straight to it: scaling x and y by different factors multiplies every ground
 # slope by sy/sx, so an on-lock 0.75 master silently lands off the BG:EE lock.
-# A 3:2 master taken straight to 2048×1152 shears 36.87° down to 31.7°.
+# A 3:2 master taken straight to 4096×2304 shears 36.87° down to 31.7°.
 # Centre-crop to the target aspect first, then scale uniformly.
 ASPECT_EPSILON = 0.002
 

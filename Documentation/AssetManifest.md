@@ -107,8 +107,8 @@ Because the leaf and its opening ship as two textures, a facade re-export moves 
 
 | Priority | Runtime ID pattern | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `city_<district>_block_v02` | 2048×1152 | Opaque | Area-map / layout reference plate per district |
-| P0 | `city_<district>_ground_v02` | 2048×1152 | Opaque | Play underlay (streets only); world scale 1× → 2048×1152 |
+| P0 | `city_<district>_block_v02` | 4096×2304 | Opaque | Area-map / layout reference plate per district (empty-ground start; world size still 2048×1152) |
+| P0 | `city_<district>_ground_v02` | 4096×2304 | Opaque | Play underlay (streets only); drawn at `worldArtSize` 2048×1152 = 2.00 art px/unit. V4 sett overlay, not a naked upscale. |
 | P0 | `map_city_<district>_v02` | 1847×1040 | Opaque | HUD area-map crop |
 | P0 | `map_world_harborpoint_v02` | 1536×1024 | Opaque | Legacy continuous-city parchment (superseded). |
 | P0 | `map_world_harborpoint_v03` | 1536×1024 | Opaque | Legacy dense city-plan plate with compass + cartouche (superseded by V4). |

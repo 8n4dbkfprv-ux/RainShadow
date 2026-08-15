@@ -89,3 +89,27 @@ Then this cannot be fixed by prompting, and the options are, best first:
    plausible detail rather than recovering real detail, and it will not move
    `qa_plate_density.py` honestly — the tool measures pixels, and pixels are
    what an upscale adds.
+
+## Installed (2026-08-15)
+
+The generator capped at 1536×1024, so this shipped as option 1 — not a new
+4096 master and not an upscale. `composite_city_ground_density_v04.py` keeps
+the V3 macro via `fit_to_aspect` and paints running-bond stonework on the
+BG:EE axes (sett 16 px, flag 56 px, soft joints). Water / specular puddles
+from the master are left alone. `PLATE_SIZE` is (4096, 2304).
+
+| District | Axes | Worst | vs naked Lanczos |
+|---|---|---|---|
+| riverside | +35.96 / −37.11 | 0.91° | overlay kept |
+| wharf_ladder | +35.08 / −36.21 | 1.79° | overlay kept |
+| lila_street | +39.08 / −37.20 | 2.21° | overlay kept |
+| sable_row | +39.19 / −36.83 | 2.32° | overlay kept |
+| harborpoint_pd | +34.07 / −33.73 | 3.14° | overlay kept |
+| civic_records | +32.98 / −32.95 | 3.92° | overlay kept |
+
+`qa_plate_density.py`: office 2/2 PASS, city 6/6 PASS at 2.00 px/unit.
+`qa_plate_projection.py`: 6/6 PASS. Civic is 0.08° inside the 4.0° band.
+
+Install: `python3 ArtSource/Processing/install_city_grounds_density_v04.py`
+The installer refuses a plate whose mean-abs RGB vs a naked Lanczos of the
+same master is under 1.0.

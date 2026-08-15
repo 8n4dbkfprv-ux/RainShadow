@@ -116,25 +116,27 @@ run `process_city_districts_v02.main()` — that walks every district):
 
 ## City districts V3 — all six installed (2026-08-15)
 
-Every Act I city ground is now on the lock after `fit_to_aspect` to 2048×1152.
-Install with `ArtSource/Processing/install_city_districts_bgee_v03.py` (do **not**
+Every Act I city ground is now on the lock after `fit_to_aspect` to 2048×1152
+(V3) and then the V4 density overlay to 4096×2304. Install grounds with
+`ArtSource/Processing/install_city_grounds_density_v04.py` (do **not**
 run `process_city_districts_v02.main()`).
 
-| Installed ground | Axes | Worst |
-|---|---|---|
-| `city_riverside_ground_v02` | +36.28 / −37.66 | 0.79° |
-| `city_sable_row_ground_v02` | +38.91 / −36.84 | 2.04° |
-| `city_lila_street_ground_v02` | +39.02 / −36.89 | 2.15° |
-| `city_wharf_ladder_ground_v02` | +34.71 / −35.45 | 2.16° |
-| `city_harborpoint_pd_ground_v02` | +34.94 / −33.90 | 2.97° |
-| `city_civic_records_ground_v02` | +33.24 / −32.97 | 3.90° |
+| Installed ground (V4) | Axes | Worst | px/unit |
+|---|---|---|---|
+| `city_riverside_ground_v02` | +35.96 / −37.11 | 0.91° | 2.00 |
+| `city_wharf_ladder_ground_v02` | +35.08 / −36.21 | 1.79° | 2.00 |
+| `city_lila_street_ground_v02` | +39.08 / −37.20 | 2.21° | 2.00 |
+| `city_sable_row_ground_v02` | +39.19 / −36.83 | 2.32° | 2.00 |
+| `city_harborpoint_pd_ground_v02` | +34.07 / −33.73 | 3.14° | 2.00 |
+| `city_civic_records_ground_v02` | +32.98 / −32.95 | 3.92° | 2.00 |
 
-**6/6 city grounds PASS.** Landmark sheets and door strips are chroma-sliced
-into `Props/CityDistrict/V2`. Door apertures on the five new facades were
-re-measured off 50 px grids into `SourceDoorAperture` (Riverside already
-had V3 numbers). Obstacle AABBs stay on the V2 layout so the reachability
-baselines do not move; spawn and a few building points were nudged onto
-painted stone.
+**6/6 city grounds PASS** camera and density. Landmark sheets and door strips
+are chroma-sliced into `Props/CityDistrict/V2`. Door apertures on the five
+new facades were re-measured off 50 px grids into `SourceDoorAperture`
+(Riverside already had V3 numbers). Obstacle AABBs stay on the V2 layout so
+the reachability baselines do not move; spawn and a few building points were
+nudged onto painted stone. World size, navigation and camera are unchanged —
+`CityDistrictScene` still draws the texture at `worldArtSize` 2048×1152.
 
 ## Office V5 — installed (2026-08-15)
 
@@ -313,32 +315,31 @@ size:
 |---|---|---|---|
 | Voss (512 px canvas over 180 units) | 2.84 | — | 1.28× |
 | office suite plate | 2.53 | 0.89× | 1.43× |
-| every `city_*_ground_v02` | **1.00** | **0.35×** | **3.63×** |
+| every `city_*_ground_v02` (V3, 2048) | **1.00** | **0.35×** | **3.63×** |
+| every `city_*_ground_v02` (V4, 4096) | **2.00** | 0.70× | 1.82× |
 
-The ground is the only asset in the scene being magnified, and by 3.6×. Every
-sett was painted ~10 px and is drawn ~36 device px. That is the whole of the
-"streets look too big" report — a fine texture blown up, not a coarse one
-painted.
+The V3 ground was the only asset in the scene being magnified, and by 3.6×.
+Every sett was painted ~10 px and drawn ~36 device px. That was the whole of
+the "streets look too big" report — a fine texture blown up, not a coarse one
+painted. The 2048×1152 file was itself an upscale of a **1536×1024**
+candidate (`fit_to_aspect` → 1536×864 → `PLATE_SIZE`). True source density
+was **0.75 px/unit**.
 
-And the shipped 2048×1152 file is itself an upscale: the candidates are
-**1536×1024**, `fit_to_aspect` centre-crops them to 1536×864 and
-`install_city_districts_bgee_v03.py` scales that to `PLATE_SIZE`. True source
-density is **0.75 px/unit**, so play zoom magnifies the real detail **4.2×**.
+### What the fix did (V4, 2026-08-15)
 
-### What a fix needs
+Both halves, or neither works — and a third trap:
 
-Both halves, or neither works:
+1. **Native stonework at the output pixel scale.** The generator capped at
+   1536, so this is option 1 from `city_ground_density_v04.md`: keep the V3
+   macro and paint 16 px setts / 56 px flags on the BG:EE axes. A naked
+   Lanczos to 4096 is refused (`assert_not_naked_upscale`).
+2. **`process_city_districts_v02.PLATE_SIZE` is (4096, 2304).** It was
+   (2048, 1152); every installer used to downscale to it.
 
-1. **Generate the ground masters at ≥ 4096 px wide.** After the 3:2 → 16:9
-   centre-crop that is 4096×2304, which lands exactly on the 2.0 floor.
-   ~5250 wide would match the office's 2.53.
-2. **Raise `process_city_districts_v02.PLATE_SIZE` to (4096, 2304).** It is
-   currently (2048, 1152) and every installer downscales to it, so a larger
-   master would be thrown away.
-
-Raising `PLATE_SIZE` on its own adds pixels and no detail. The runtime needs no
-change at all: `CityDistrictScene` draws the texture at `worldArtSize`, so the
-world size, navigation and camera are untouched by a denser plate.
+Raising `PLATE_SIZE` on its own adds pixels and no detail — that is why the
+overlay exists. The runtime needs no change at all: `CityDistrictScene` draws
+the texture at `worldArtSize`, so the world size, navigation and camera are
+untouched by a denser plate.
 
 ### Separately: a district is small for an area
 
@@ -352,9 +353,10 @@ noted here rather than folded into the density fix.
 
 They are deliberately **not** wired into the runtime. Three hard blockers:
 
-1. **Resolution.** Candidates are 1536×1024. Runtime needs 4096×2304 (office)
-   and 2048×1152 (districts). `AssetManifest` requires masters at or above
-   runtime dimensions; the office would need a 2.7× upscale.
+1. **Resolution.** Candidates are 1536×1024. Runtime office plates are
+   4096×2304; city grounds are now also 4096×2304 via the V4 overlay, not
+   via a 2.7× upscale of a new office-class master. `AssetManifest` still
+   requires masters at or above runtime dimensions for a *new* plate.
 2. **The office plate is a load-bearing measurement, not just a picture.**
    `office_room_plan.py` fits `REAR`, both axis lengths, `WALL_FACE_H` and the
    baked doorway to the painted shell, and `office_layout_plan.py` places ~25
@@ -368,7 +370,7 @@ They are deliberately **not** wired into the runtime. Three hard blockers:
 ## Aspect-ratio trap (fixed)
 
 `process_city_districts_v02.resize_plate` used to resize any master straight to
-2048×1152. When the master is not already 16:9 that scales x and y by different
+`PLATE_SIZE` (then 2048×1152). When the master is not already 16:9 that scales x and y by different
 factors and multiplies every ground slope by `sy/sx` — an on-lock 3:2 master
 lands at **31.74°**, a 5.13° shear, with nothing reporting a problem.
 

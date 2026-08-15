@@ -126,20 +126,25 @@ fixed at install because a plate is drawn to a fixed world size:
 |---|---|---|---|
 | Voss (512 px canvas over 180 units) | 2.84 | — | 1.28x |
 | office suite plate | 2.53 | 0.89x | 1.43x |
-| every `city_*_ground_v02` | **1.00** | **0.35x** | **3.63x** |
+| every `city_*_ground_v02` (V4) | **2.00** | 0.70x | 1.82x |
 
-The city grounds are the only thing in the scene being magnified, which is why
-buildings read fine and streets read as oversized stonework. The geometry is
-not at fault — the paving measures 0.12–0.19 m, real granite setts, and the
-streets 7–10 m.
+The V3 1536×1024 candidates were on the camera but too coarse: installers
+used to upscale them to `PLATE_SIZE` (2048×1152) = 1.00 px/unit, true source
+0.75, and play zoom magnified the real detail 4.2×. Streets read as oversized
+stonework while every sprite on them was native.
 
-It is worse than the table shows: the candidates are **1536×1024** and
-`install_city_districts_bgee_v03.py` upscales them to `PLATE_SIZE`
-(2048×1152), so the true source density is 0.75 px/unit. **Raising
-`PLATE_SIZE` alone adds pixels, not detail.** The fix is a bigger master
-*and* a bigger install target; the runtime needs no change, because
-`CityDistrictScene` draws the texture at `worldArtSize` regardless of its
-pixel size.
+`PLATE_SIZE` is now **(4096, 2304)**. Raising it alone would pass
+`qa_plate_density.py` by adding empty pixels — the tool counts width, not
+stonework. The generator caps at 1536, so V4 keeps the V3 macro (kerbs,
+lighting, puddles) and paints a 16 px sett / 56 px flag overlay on the BG:EE
+axes (`composite_city_ground_density_v04.py`, option 1 in
+`city_ground_density_v04.md`). Install with
+`install_city_grounds_density_v04.py`. The runtime needs no change:
+`CityDistrictScene` draws the texture at `worldArtSize`.
+
+A re-run of `install_city_districts_bgee_v03.py` or
+`install_riverside_bgee_v03.py` now routes grounds through that overlay.
+Do not `fit_to_aspect` a 1536 master straight to `PLATE_SIZE`.
 
 ### Never resize a plate across aspect ratios
 

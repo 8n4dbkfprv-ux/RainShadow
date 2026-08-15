@@ -4,6 +4,10 @@
 Does not run `process_city_districts_v02.main()` and does not touch the office
 or flip `ie_projection.ACTIVE`. Riverside was installed earlier by
 `install_riverside_bgee_v03.py` and is skipped unless --include-riverside.
+
+Grounds go through `composite_city_ground_density_v04` before landing at
+`PLATE_SIZE` (4096×2304). A naked `fit_to_aspect` of the 1536 V3 master
+would pass `qa_plate_density.py` by adding empty pixels.
 """
 
 from __future__ import annotations
@@ -16,6 +20,7 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import composite_city_ground_density_v04 as dens
 import process_city_districts_v02 as proc
 import qa_plate_projection as qa
 
@@ -219,11 +224,14 @@ def install_district(slug: str, spec: dict) -> bool:
     ground = src_dir / spec["ground"]
     if not ground.exists():
         raise SystemExit(f"missing {ground}")
-    shutil.copy2(ground, gen_dir / f"city_{slug}_ground_v02.png")
-    install_plate(ground, AREAS / f"city_{slug}_ground_v02.png", proc.PLATE_SIZE)
-    install_plate(ground, AREAS / f"city_{slug}_block_v02.png", proc.PLATE_SIZE)
+    master = Image.open(ground)
+    plate = dens.composite(master, proc.PLATE_SIZE)
+    dens.assert_not_naked_upscale(master, plate)
+    plate.save(AREAS / f"city_{slug}_ground_v02.png", "PNG", optimize=True)
+    plate.save(AREAS / f"city_{slug}_block_v02.png", "PNG", optimize=True)
+    plate.save(gen_dir / f"city_{slug}_ground_v02.png", "PNG", optimize=True)
+    plate.save(gen_dir / f"city_{slug}_block_v02.png", "PNG", optimize=True)
     install_plate(ground, MAPS / f"map_city_{slug}_v02.png", proc.MAP_SIZE)
-    shutil.copy2(AREAS / f"city_{slug}_block_v02.png", gen_dir / f"city_{slug}_block_v02.png")
 
     sheet_name, cols, rows, names = spec["buildings"]
     sheet_src = src_dir / sheet_name
