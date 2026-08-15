@@ -111,9 +111,35 @@ run `process_city_districts_v02.main()` — that walks every district):
 - sprite and spawn points moved onto painted stone; obstacle AABBs left
   on the V2 layout so the 7,202-cell reachability baseline does not move
 
-`ACTIVE` stays `LEGACY_V2`. Office and the other five districts are unchanged.
-Flood-fill the new spawns on macOS (`path`, never `route`) before tightening
-obstacles to the V3 pier.
+`ACTIVE` stays `LEGACY_V2`. Flood-fill the new spawns on macOS (`path`, never
+`route`) before tightening obstacles to the V3 pier.
+
+## City districts V3 — all six installed (2026-08-15)
+
+Every Act I city ground is now on the lock after `fit_to_aspect` to 2048×1152.
+Install with `ArtSource/Processing/install_city_districts_bgee_v03.py` (do **not**
+run `process_city_districts_v02.main()`).
+
+| Installed ground | Axes | Worst |
+|---|---|---|
+| `city_riverside_ground_v02` | +36.28 / −37.66 | 0.79° |
+| `city_sable_row_ground_v02` | +38.91 / −36.84 | 2.04° |
+| `city_lila_street_ground_v02` | +39.02 / −36.89 | 2.15° |
+| `city_wharf_ladder_ground_v02` | +34.71 / −35.45 | 2.16° |
+| `city_harborpoint_pd_ground_v02` | +34.94 / −33.90 | 2.97° |
+| `city_civic_records_ground_v02` | +33.24 / −32.97 | 3.90° |
+
+**6/6 city grounds PASS.** Landmark sheets and door strips are chroma-sliced
+into `Props/CityDistrict/V2`. Door apertures on the five new facades were
+re-measured off 50 px grids into `SourceDoorAperture` (Riverside already
+had V3 numbers). Obstacle AABBs stay on the V2 layout so the reachability
+baselines do not move; spawn and a few building points were nudged onto
+painted stone.
+
+The office is **not** installed. The best on-lock candidate remains
+`ArtSource/Generated/BGEEProjectionCandidates/office_suite_plate_bgee_v05_candidate.png`
+(3.76°). Swapping it still requires re-fitting `office_room_plan` and
+rewriting `OfficeNavigationLayout.swift` on macOS.
 
 ## These remaining candidates are NOT installable as-is
 
