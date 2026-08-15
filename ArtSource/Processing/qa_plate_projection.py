@@ -87,6 +87,26 @@ def _gradients(gray: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return gx, gy
 
 
+def _content_crop(im: Image.Image, fill_frac: float = 0.85) -> Image.Image:
+    """Crop letterboxed plates to the painted silhouette.
+
+    A cramped office on a 4096×2304 canvas is mostly black void. That
+    silhouette rim is a hard synthetic outline and pulls the histogram off
+    the floorboards. Full-bleed city grounds fill the frame, so this is a
+    no-op for them.
+    """
+    rgb = np.asarray(im.convert("RGB"), dtype=np.float32)
+    lum = rgb.mean(axis=2)
+    ys, xs = np.where(lum > 12)
+    if xs.size < 100:
+        return im
+    x0, x1 = int(xs.min()), int(xs.max()) + 1
+    y0, y1 = int(ys.min()), int(ys.max()) + 1
+    if (x1 - x0) * (y1 - y0) >= fill_frac * im.width * im.height:
+        return im
+    return im.crop((x0, y0, x1, y1))
+
+
 def orientation_histogram(
     path: Path,
     max_side: int = 1600,
@@ -103,6 +123,7 @@ def orientation_histogram(
     true orientation.
     """
     im = Image.open(path).convert("RGBA")
+    im = _content_crop(im)
     scale = min(1.0, max_side / max(im.size))
     if scale < 1.0:
         im = im.resize(

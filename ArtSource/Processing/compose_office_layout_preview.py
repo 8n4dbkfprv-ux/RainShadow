@@ -22,6 +22,9 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
+import office_layout_plan as ol
+import office_room_plan as rp
+
 ROOT = Path(__file__).resolve().parents[2]
 PROPS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 AREAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Areas" / "DetectiveOffice"
@@ -46,44 +49,25 @@ REL_WALL = REL_STANDARD * 0.72
 GROUND_ANCHOR = (0.5, 0.04)
 CENTER_ANCHOR = (0.5, 0.5)
 
-# ---------------------------------------------------------------------------
-# Mirror of OfficeNavigationLayout.AuthoredPlacement (SK y-up authored space).
-# ---------------------------------------------------------------------------
-# Mirror of OfficeNavigationLayout.AuthoredPlacement (graybox Pass A).
+# Planner-authored points (SK y-up). Wall art / decals stay on the plate plane.
 AUTHORED: dict[str, tuple[float, float]] = {
-    "radiator": (1_050, 1_640),
-    "doorLeaf": (3_114, 1_554),
-    "deskChair": (2_005, 1_205),
-    "filingCabinet": (1_620, 1_530),
-    "filingCabinetB": (1_780, 1_610),
-    "safe": (1_920, 1_680),
-    "archiveBoxA": (1_700, 1_490),
-    "archiveBoxOnCabinet": (1_700, 1_630),
-    "wastebasket": (1_900, 1_150),
-    "wornRug": (2_200, 1_280),
-    "floorTrashA": (1_940, 1_120),
-    "bookshelf": (1_380, 1_410),
-    "floorWear": (2_020, 1_240),
-    "windowSpill": (1_290, 1_580),
-    "blindStripes": (1_360, 1_520),
-    "hallwayLight": (3_080, 1_540),
-    "coatRack": (3_140, 1_500),
-    "umbrellaStand": (3_160, 1_460),
-    "visitorArmchair": (2_280, 1_360),
-    "visitorArmchairB": (2_440, 1_320),
-    "waitingChairA": (3_020, 1_450),
-    "waitingTable": (2_920, 1_430),
-    "newspaper": (2_920, 1_450),
-    "waitingAshtray": (2_940, 1_440),
-    "deskEnsemble": (2_020, 1_240),
-    "window": (1_220, 1_812),
-    "caseBoard": (1_680, 1_720),
-    "wallCityMap": (1_840, 1_740),
-    "wallPhotos": (1_760, 1_680),
-    "personalBottle": (1_360, 980),
+    p.key: p.authored for p in ol.PROPS
 }
+AUTHORED.update({
+    "wornRug": rp.authored(*ol.RUG),
+    "floorTrashA": (ol.FLOOR_DECALS["floorTrashA"][0], ART_H - ol.FLOOR_DECALS["floorTrashA"][1]),
+    "floorWear": rp.authored(0.62, 0.24),
+    "windowSpill": (ol.FLOOR_DECALS["windowSpill"][0], ART_H - ol.FLOOR_DECALS["windowSpill"][1]),
+    "blindStripes": (ol.FLOOR_DECALS["blindStripes"][0], ART_H - ol.FLOOR_DECALS["blindStripes"][1]),
+    "hallwayLight": (ol.FLOOR_DECALS["hallwayLight"][0], ART_H - ol.FLOOR_DECALS["hallwayLight"][1]),
+    "window": ol.window_anchor_authored(),
+    "doorLeaf": ol.exterior_door_threshold_authored(),
+    "caseBoard": (ol.WALL_ART["caseBoard"][0], ART_H - ol.WALL_ART["caseBoard"][1]),
+    "wallCityMap": (ol.WALL_ART["wallCityMap"][0], ART_H - ol.WALL_ART["wallCityMap"][1]),
+    "wallPhotos": (ol.WALL_ART["wallPhotos"][0], ART_H - ol.WALL_ART["wallPhotos"][1]),
+})
 WINDOW_ROTATION = -0.105  # SK radians
-LAMP_POOL = (2_020, 1_280)
+LAMP_POOL = AUTHORED["deskEnsemble"]
 
 # Desk item canvas centres on the 932x780 bare-desk plate (image y-down),
 # mirrored from DetectiveOfficeScene.addDeskItems.
@@ -156,7 +140,7 @@ def additive(canvas: Image.Image, im: Image.Image, authored_pt: tuple[float, flo
 
 def main() -> None:
     annotate = "--annotate" in sys.argv
-    canvas = Image.open(AREAS / "office_shell_base.png").convert("RGBA")
+    canvas = Image.open(AREAS / "office_suite_plate.png").convert("RGBA")
     if canvas.size != (ART_W, ART_H):
         canvas = canvas.resize((ART_W, ART_H), Image.Resampling.LANCZOS)
 

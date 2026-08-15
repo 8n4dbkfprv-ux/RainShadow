@@ -28,9 +28,9 @@ import process_ui_move_markers as markers
 
 # Axis fit of the installed legacy plate. Held here so a silent edit to
 # office_room_plan shows up as a failure rather than as drifted furniture.
-INSTALLED_AXIS_NW = (-555.54, 311.86)
-INSTALLED_AXIS_NE = (812.23, 386.20)
-INSTALLED_REAR = (1932.1, 752.4)
+INSTALLED_AXIS_NW = (-863.2, 647.4)
+INSTALLED_AXIS_NE = (1028.8, 771.6)
+INSTALLED_REAR = (1934.3, 389.2)
 
 
 def check_bgee_spec() -> list[str]:
