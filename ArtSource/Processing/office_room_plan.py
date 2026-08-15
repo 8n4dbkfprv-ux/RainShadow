@@ -12,14 +12,18 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-The two axis vectors were fitted from the shell's own wall silhouettes:
-`AXIS_NW` slope -0.419, `AXIS_NE` slope +0.463. Wall bands measured off the
-same fit: 227 px of plaster above the chair rail, 121 px of wainscot below it.
+Axis slopes are locked to the Baldur's Gate: EE orthographic camera
+(`ie_projection.GROUND_SLOPE` = ±0.75). Screen-x extents of the fitted floor
+diamond are preserved from the last shoe-fit; re-measure REAR and axis lengths
+against the V5 suite plate when that master lands
+(`ArtSource/Prompts/office_suite_plate_bgee_v05.md`).
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+import ie_projection as ie
 
 ART_W, ART_H = 4096, 2304
 
@@ -50,6 +54,10 @@ SUITE_PLATE_SCALE = 0.60
 # Painted clear doorway on the NE wall (tight plate), measured from floor contact
 # up to the lintel. Height-fit the leaf uniformly — non-uniform X stretch made
 # the door too wide and short.
+#
+# Screen-space doorway/wall heights below remain provisional until the V5 plate
+# is re-measured under height foreshortening ≈ 0.6614. Character body plate
+# height is unchanged until the character camera follow-up.
 BAKED_DOORWAY_H = 170.0
 BAKED_DOORWAY_W = 112.0
 DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
@@ -68,17 +76,15 @@ WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
 # FLOOR diamond for the cramped suite (not wall-top silhouette).
 #
-# Fit against the shipped 0.60 suite plate (`office_suite_plate.png`):
-# - REAR / wall edges from painted wall-shoe samples (dark wainscot → boards)
-# - Axis lengths clipped so the unit square's near tip matches the painted
-#   floor cutaway (not the oversized silhouette hull in cramped_tight_metrics)
-#
-# History: treating the plaster/wainscot rail as ground floated every floor
-# placement by ~WAINSCOT_H. A later hand REAR at y=718 still sat ~34 px above
-# the shoes and overshot the camera-near floor into the void.
+# REAR is the last shoe-fit against the shipped 0.60 suite plate. Axis screen-x
+# extents are preserved; slopes are forced to the BG:EE ±0.75 lock so every
+# downstream shear (doors, partition, graybox) shares one camera. Re-fit REAR
+# and lengths when the V5 orthographic plate lands.
 REAR = (1932.1, 752.4)
-AXIS_NW = (-555.54, 311.86)  # rear floor -> west floor corner
-AXIS_NE = (812.23, 386.20)  # rear floor -> east floor corner
+_AXIS_NW_DX = -555.54
+_AXIS_NE_DX = 812.23
+AXIS_NW = ie.axis_with_slope(_AXIS_NW_DX)  # rear floor -> west floor corner
+AXIS_NE = ie.axis_with_slope(_AXIS_NE_DX)  # rear floor -> east floor corner
 
 # Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
 # base through REAR at WALL_FACE_H.

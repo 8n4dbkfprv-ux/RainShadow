@@ -101,7 +101,9 @@ enum OfficeInteriorScale {
     /// V3 plate centre and scale-about focus.
     static let layoutFocus = CGPoint(x: 2_048, y: 1_152)
 
-    /// 16:9 V3 area plate derived from the 3840x2160 generated master.
+    /// 16:9 area plate. Keep in step with `office_room_plan.ART_W/H`. After the
+    /// BG:EE V5 suite plate lands, re-check if the taller ground diamond needs
+    /// a taller canvas; until then the authored plate stays 4096×2304.
     static let sourceArtOrigin = CGPoint.zero
     static let sourceArtSize = CGSize(width: 4_096, height: 2_304)
 

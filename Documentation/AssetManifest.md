@@ -22,10 +22,15 @@ The Image Generator produces source material. Every result still passes registra
 
 ### 2.2 Projection lock
 
-- 2:1 dimetric floor grid.
-- Visual plan rotation: 45 degrees.
-- Visual elevation: approximately 30 degrees.
-- Screen-space diamond: 128×64 pixels in baseline runtime art space.
+Canonical constants: `ArtSource/Processing/ie_projection.py` and
+`Documentation/InfinityEngineGroundProjection.md` (Baldur's Gate: EE / GemRB).
+
+- Orthographic Infinity Engine ground projection (no vanishing point).
+- Visual plan rotation (azimuth): 45 degrees.
+- Visual elevation: `asin(0.75)` ≈ 48.59 degrees.
+- Ground axes on screen: 36.87° from horizontal (slopes ±0.75); ground foreshortening 0.750; height foreshortening ≈ 0.6614.
+- Screen-space diamond: **128×96** pixels in baseline runtime art space (spans 8×8 SearchMap cells of 16×12).
+- A circle on the ground is a **16:12** ellipse.
 - Camera remains orthographic/fixed. Props must be generated against the office shell registration image.
 - Office environment art uses a desk-lamp key and cool window fill. Character sprites use one consistent neutral baked 3D rig; subtle runtime tint/light overlays and separate contact shadows integrate them with the room.
 
@@ -44,7 +49,7 @@ The Image Generator produces source material. Every result still passes registra
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | Cramped V5 / BG:EE mid-band master | 4096×2304 @ env 0.395 | Empty architecture at `SUITE_PLATE_SCALE=0.733`; clear openings 206 plate px (1.16× adult); room ≥2433×1370 viewport fill (`office_suite_plate_bgee_v05.md`). |
+| Office suite plate | Cramped V5 / BG:EE orthographic master | 4096×2304 @ env 0.395 | Empty architecture at `SUITE_PLATE_SCALE`; clear openings character-relative; see `office_suite_plate_bgee_v05.md`. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 56px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -91,7 +96,7 @@ Exterior base acceptance:
 
 ## 4b. Act I city districts (V2)
 
-Harborpoint outdoor travel art locked to the detective-office 2:1 dimetric camera (`ArtSource/Prompts/city_perspective_lock_v02.md`). Generator: built-in Image Generator only. Process: `ArtSource/Processing/process_city_districts_v02.py`.
+Harborpoint outdoor travel art locked to the detective-office Baldur's Gate: EE orthographic camera (`ArtSource/Prompts/city_perspective_lock_v03.md`). Generator: built-in Image Generator only. Process: `ArtSource/Processing/process_city_districts_v02.py`.
 
 Modular buildings follow the office separation rule for entrances: facades may paint jamb, threshold, stoop, and warm interior spill, but **must not bake opaque door leaves**. Closed leaves ship as separate `city_door_*` props (`ArtSource/Prompts/city_door_leaves_v01.md`). Area-map block plates may keep baked buildings for layout reference.
 
@@ -119,7 +124,7 @@ The word **empty** is strict. The shell may contain built architecture, fixed wa
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 4096×2304 | Opaque | Empty original V3 office architecture, high 2:1 dimetric floor and walls, small door/window openings, baked low cool ambient only. |
+| P0 | `office_shell_base` | 4096×2304 | Opaque | Empty office architecture under the BG:EE orthographic lock (elevation asin(0.75), ground axes ±0.75), small door/window openings, baked low cool ambient only. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
@@ -321,7 +326,7 @@ Small repeated frames should be generated as high-resolution source sheets with 
 Effect acceptance:
 
 - Rain angle matches across streak, splash, facade, and audio cues.
-- Floor ripples use the scene's 2:1 ellipse, not circular top-down rings.
+- Floor ripples use the scene's 16:12 (BG:EE) ellipse, not circular top-down rings.
 - Window effects never escape the glass mask.
 - Effects support runtime tint and alpha without colored edge pixels.
 - Loop seams are invisible at 0.25× and normal speed.
@@ -333,11 +338,11 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | Priority | ID(s) | Count | Pixels each | Description |
 |---|---|---:|---:|---|
 | P0 | `ui_cursor_move`, `ui_cursor_inspect`, `ui_cursor_blocked` | 3 | 64×64 | macOS pointer states with clear hot point. |
-| P0 | `ui_move_marker_00...07` | 8 | 128×64 | **Shipped.** Muted isometric teal ground marker converging loop on valid move orders. |
-| P0 | `ui_move_marker_blocked_00...07`, `ui_move_marker_blocked` | 9 | 128×64 | **Shipped.** Red denied variant (animated + single-frame fallback). |
+| P0 | `ui_move_marker_00...07` | 8 | 128×96 | **Shipped.** Muted isometric teal ground marker converging loop on valid move orders (16:12 ellipse). |
+| P0 | `ui_move_marker_blocked_00...07`, `ui_move_marker_blocked` | 9 | 128×96 | **Shipped.** Red denied variant (animated + single-frame fallback). |
 | P0 | `ui_waypoint_pip` | 1 | 64×32 | **Shipped.** Persistent teal pip at each BG:EE queued waypoint until reached. |
-| P0 | `ui_selection_ring_party` | 1 | 128×64 | **Shipped.** Green underfoot PC/party selection ring (always-on identity marker). |
-| P0 | `ui_selection_ring_npc` | 1 | 128×64 | **Shipped.** Light gray/white underfoot NPC selection ring (always-on identity marker). |
+| P0 | `ui_selection_ring_party` | 1 | 128×96 | **Shipped.** Green underfoot PC/party selection ring (always-on identity marker, 16:12 ellipse). |
+| P0 | `ui_selection_ring_npc` | 1 | 128×96 | **Shipped.** Light gray/white underfoot NPC selection ring (always-on identity marker, 16:12 ellipse). |
 | P0 | `ui_hotspot_focus_halo` | 1 | 512×512 | Neutral hand-painted halo, tintable, used only in focus mode. |
 | P0 | `ui_observation_panel` | 1 | 768×256 | Nine-slice-compatible dark translucent caption backing. |
 | P0 | `ui_skip_glyph` | 1 | 64×64 | Simple original skip glyph. |
@@ -450,7 +455,7 @@ Master-only QA overlays:
 
 | File | Pixels | Purpose |
 |---|---:|---|
-| `office_registration_grid.png` | 3072×2048 | 128×64 projection diamonds, origin, camera safe frames, scene axes. |
+| `office_registration_grid.png` | 3072×2048 | 128×96 BG:EE projection diamonds, origin, camera safe frames, scene axes. |
 | `office_flattened_reference.png` | 3072×2048 | Approved composite used to compare SpriteKit assembly. |
 | `office_depth_reference.png` | 3072×2048 | Color-coded depth anchors and intended occluder splits. |
 | `office_hotspot_reference.png` | 3072×2048 | Visible hotspot polygons and approach arrows. |
@@ -503,13 +508,13 @@ Never ask for a multi-figure sheet. Each of the four anchors and 148 masters req
 
 ### 12.1 Environment base prompt skeleton
 
-> Original film-noir detective game environment, fixed 2:1 dimetric isometric view, late-1990s pre-rendered CRPG visual language, richly painted realistic materials, dense lived-in detail grouped into readable shapes, strong baked chiaroscuro, muted blue-charcoal and tobacco-brown palette. [Scene-specific content.] Orthographic fixed camera, no perspective distortion, no characters, no falling rain, no interface, no text, no logos. Keep all interactive objects listed in the separation brief absent. Output as a clean registered area plate.
+> Original film-noir detective game environment, fixed Baldur's Gate: EE orthographic isometric view (elevation asin(0.75) ≈ 48.59°, azimuth 45°, ground axes 36.87° / slopes ±0.75, height foreshortening ≈ 0.661, verticals vertical), late-1990s pre-rendered CRPG visual language, richly painted realistic materials, dense lived-in detail grouped into readable shapes, strong baked chiaroscuro, muted blue-charcoal and tobacco-brown palette. [Scene-specific content.] Orthographic fixed camera, no perspective distortion, no characters, no falling rain, no interface, no text, no logos. Keep all interactive objects listed in the separation brief absent. Output as a clean registered area plate.
 
 For the shell prompt, append the full forbidden-object list from section 5.1.
 
 ### 12.2 Prop prompt skeleton
 
-> Create only [prop ID] as an original transparent-background isometric prop for the approved RainShadow office. Match the attached shell's exact 2:1 projection, pixel scale, warm desk-lamp key from [direction], cool rain-window fill, painterly pre-rendered CRPG texture, and material wear. Preserve the specified canvas and ground anchor. No room background, no extra objects, no text, no logo, no cropped silhouette, no halo.
+> Create only [prop ID] as an original transparent-background isometric prop for the approved RainShadow office. Match the attached shell's exact Baldur's Gate: EE orthographic projection (ground axes ±0.75, height foreshortening ≈ 0.661), pixel scale, warm desk-lamp key from [direction], cool rain-window fill, painterly pre-rendered CRPG texture, and material wear. Preserve the specified canvas and ground anchor. No room background, no extra objects, no text, no logo, no cropped silhouette, no halo.
 
 Use an edit/reference chain rather than regenerating the room.
 
@@ -521,7 +526,7 @@ The complete V20 prompt and reference-routing contract is `ArtSource/Prompts/cha
 
 ### 12.4 Effect prompt skeleton
 
-> Transparent grayscale sprite-effect source sheet for [effect], painterly and restrained, designed for tinting in SpriteKit, [frame count] equal cells, fixed pivot and scale, no background, no colored fringe, no text. Isometric floor effects use a 2:1 ellipse.
+> Transparent grayscale sprite-effect source sheet for [effect], painterly and restrained, designed for tinting in SpriteKit, [frame count] equal cells, fixed pivot and scale, no background, no colored fringe, no text. Isometric floor effects use a 16:12 ellipse.
 
 ## 13. Import and normalization checklist
 

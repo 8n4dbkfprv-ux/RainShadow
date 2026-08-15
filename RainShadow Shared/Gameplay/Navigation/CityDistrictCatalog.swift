@@ -1,6 +1,12 @@
 import CoreGraphics
 
 /// Act I Harborpoint travel districts on the Baldur's Gate–style 3×3 ward grid.
+///
+/// District plates must match the Baldur's Gate: EE orthographic camera lock
+/// (`ArtSource/Prompts/city_perspective_lock_v03.md`). After regenerating
+/// masters, re-derive door/portal approach points on the street side from
+/// `nearestWalkablePoint` (unrounded) and flood-fill every spawn — never validate
+/// with `route`.
 enum CityDistrictID: String, CaseIterable, Equatable {
     case sableRow
     case wharfLadder

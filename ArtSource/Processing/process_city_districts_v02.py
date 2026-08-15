@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Process Act I city V2 masters into runtime plates and modular props.
+"""Process Act I city masters into runtime plates and modular props.
 
-Copies/resizes district block + ground plates to 2048×1152 and slices
+Masters must be painted under `ArtSource/Prompts/city_perspective_lock_v03.md`
+(Baldur's Gate: EE orthographic camera). This script has no projection math —
+it only copies/resizes district block + ground plates to 2048×1152 and slices
 chroma (or corner-keyed) building/prop sheets into Props/CityDistrict/V2.
+
+After regenerating V3 masters: re-measure door apertures, re-derive street-side
+portal approaches, and flood-fill every spawn (see
+`Documentation/BGEEProjectionMasterRegen.md`).
 """
 
 from __future__ import annotations

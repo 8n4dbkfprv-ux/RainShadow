@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build painted underfoot selection rings (IE-style isometric ellipses).
+"""Build painted underfoot selection rings (IE-style 16:12 ellipses).
 
 Outputs:
   ui_selection_ring_party.png  — green PC/party ring
@@ -20,14 +20,16 @@ import shutil
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
+
+import ie_projection as ie
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = Path.home() / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainShadow/assets"
 GEN = ROOT / "ArtSource/Generated/UI/Common"
 RUNTIME = ROOT / "RainShadow Shared/Resources/Art/UI/Common"
 
-RING_SIZE = (128, 64)
+RING_SIZE = ie.RING_SIZE  # 128×96 — one BG:EE nav diamond
 
 # Classic IE selection green + light gray/white NPC.
 PARTY_RGB = (32, 220, 48)
@@ -112,39 +114,8 @@ def synthesize_ring(
     *,
     fill: float = 0.86,
 ) -> Image.Image:
-    """Thin isometric ellipse with soft outer falloff (IE selection circle)."""
-    cw, ch = size
-    out = Image.new("RGBA", size, (0, 0, 0, 0))
-    draw = ImageDraw.Draw(out)
-
-    ew = max(8, int(round(cw * fill)))
-    eh = max(4, int(round(ch * fill * 0.92)))
-    left = (cw - ew) // 2
-    top = (ch - eh) // 2
-    box = (left, top, left + ew - 1, top + eh - 1)
-
-    # Soft outer halo, then solid 1px core stroke.
-    for inset, alpha in ((0, 55), (1, 140), (2, 255)):
-        b = (
-            box[0] + inset,
-            box[1] + inset,
-            box[2] - inset,
-            box[3] - inset,
-        )
-        if b[2] - b[0] < 4 or b[3] - b[1] < 2:
-            break
-        draw.ellipse(b, outline=(*rgb, alpha), width=1)
-
-    # Keep only the rim: punch a clear interior so feet aren't veiled.
-    rgba = np.array(out, dtype=np.float32)
-    yy, xx = np.mgrid[0:ch, 0:cw]
-    cx, cy = (cw - 1) / 2.0, (ch - 1) / 2.0
-    rx = max(1.0, (ew / 2.0) - 3.2)
-    ry = max(1.0, (eh / 2.0) - 3.2)
-    inside = ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2 <= 1.0
-    rgba[inside, 3] = 0
-    rgba[inside, :3] = 0
-    return Image.fromarray(rgba.astype(np.uint8), "RGBA")
+    """Thin 16:12 IE selection ellipse with soft outer falloff."""
+    return ie.synthesize_ground_ring(rgb, size, fill=fill)
 
 
 def process_ring(name: str, master_name: str, rgb: tuple[int, int, int]) -> None:

@@ -29,6 +29,17 @@ building or running the app. Read this before assuming a task can be verified he
 - `numpy` is preinstalled globally; `Pillow` is installed into the user site by the
   update script. Most `ArtSource/Processing/*.py` scripts need both.
 
+## Projection lock (area art)
+
+Canonical Baldur's Gate: EE orthographic camera constants live in
+`ArtSource/Processing/ie_projection.py` (elevation asin(0.75), ground axes
+±0.75, diamond 128×96, 16:12 ground ellipse). See
+`Documentation/InfinityEngineGroundProjection.md`. After changing projection
+math, rebake and hash-diff generated outputs; intended-inert edits must come
+back identical. Painted masters still need Image Generator regen under the V5
+office / V3 city locks — checklist in
+`Documentation/BGEEProjectionMasterRegen.md`.
+
 ## Character sprite pipeline — traps that cost real time
 
 Read this before touching anything under `ArtSource/Processing/` that produces
@@ -149,16 +160,18 @@ reachability" in `Documentation/PathfindingSystem.md`.
 
 ### The layout planner validates a different grid than the game runs
 
-`office_layout_plan.py` checks its own **128×64 iso** grid. `SearchMap` rasterises
-what it emits onto **16×12 world** cells — 2.6× finer across, 1.7× taller.
-Geometry that rounds away in the planner is solid at runtime, and the planner
-printed `ALL CHECKS PASS` throughout the sealed-office bug.
+`office_layout_plan.py` checks its own **128×96** BG:EE iso grid (half-steps
+64/48). `SearchMap` rasterises
+what it emits onto **16×12 world** cells — the diamond now spans exactly 8×8
+search cells, so planner and runtime share a ratio. Geometry that rounds away
+in the planner can still be solid at runtime if AABB insets are wrong, and the
+planner historically printed `ALL CHECKS PASS` throughout the sealed-office bug.
 
 Two consequences, both fixed by testing a solid's **extent** rather than its centre:
 
-- Boundary solids were one 104×52 AABB per iso cell outside the floor. Those
-  approximate a 128×64 diamond, so each overhung its neighbours by 40×20 and the
-  union bit ~20×10 authored units into the floor on every edge.
+- Boundary solids were one inset AABB per iso cell outside the floor. Those
+  approximate a 128×96 diamond; overhung neighbours still bite authored units
+  into the floor if the inset is too loose.
 - The partition doorway was cleared by centre, so the two jamb AABBs still bit
   ~8 world units each into a 21-unit aperture.
 
