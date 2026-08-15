@@ -80,23 +80,30 @@ struct CameraZoomTests {
         #expect(abs(body / widest - 0.084) < 0.005)
     }
 
-    @Test func officeCeilingIsBoundVerticallyAtSixteenNine() {
-        // Painted room centre y 1220.14 vs plate centre 1152, so the headroom is
-        // asymmetric: 386.90 up against 523.18 down. 2 x 386.90 = 773.81 world
-        // units of viewport, which is 143.07% — floor to a 5-point step: 140%.
+    @Test func officeReachesTheEngineCapAtSixteenNine() {
+        // The V7 suite shortened the plaster band, which lifted the painted
+        // room's bottom and moved its centre from y 1220.14 to 1185.58 —
+        // 33 units nearer the plate centre (1152). That symmetry buys back the
+        // vertical headroom the V5 room lacked, so at 16:9 the office is no
+        // longer plate-bound at 140%: BG:EE's own 27-step cap binds first.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
             anchor: Self.officeAnchor,
             plate: Self.officePlate
         )
-        #expect(step == 24)
-        #expect(CameraZoom.percent(forStep: step) == 140)
+        #expect(step == CameraZoom.engineStepRange.upperBound)
+        #expect(CameraZoom.percent(forStep: step) == 155)
+        // Still genuinely covered — the fit limit is not being skipped.
+        let height = CameraZoom.visibleHeight(base: Self.base, step: step)
+        #expect(height * 16 / 9 <= Self.officePlate.width)
+        #expect(height <= Self.officePlate.height)
     }
 
     @Test func officeCeilingTightensOnAWiderWindow() {
         // At 21:9 the plate's 1617.92 width binds before its height does, so the
-        // ceiling has to be resolved against the live view, not baked.
+        // ceiling has to be resolved against the live view, not baked. This is
+        // the case that keeps the fit limit honest now that 16:9 clears it.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 21.0 / 9.0,
