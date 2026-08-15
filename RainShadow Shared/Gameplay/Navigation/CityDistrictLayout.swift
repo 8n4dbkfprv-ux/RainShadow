@@ -94,8 +94,8 @@ enum CityDistrictLayout {
         static let buildingRecordsAnnex     = Self(centreX: 232, thresholdY: 437, leafHeight:  90)
         static let buildingRecordsWing      = Self(centreX:  72, thresholdY: 583, leafHeight:  80)
         static let buildingRecordsColonnade = Self(centreX: 125, thresholdY: 452, leafHeight:  80)
-        static let buildingIronStairs       = Self(centreX: 140, thresholdY: 558, leafHeight:  80)
-        static let buildingRiverWatch       = Self(centreX: 268, thresholdY: 492, leafHeight:  75)
+        static let buildingIronStairs       = Self(centreX: 292, thresholdY: 362, leafHeight: 128)
+        static let buildingRiverWatch       = Self(centreX: 325, thresholdY: 440, leafHeight: 100)
     }
 
     /// Measured clear doorway opening heights (texture px). Anchors building display
@@ -162,7 +162,7 @@ enum CityDistrictLayout {
         static let ironStairs = doorAnchoredScale(doorLeaf: SourceDoorLeafHeight.buildingIronStairs)
         static let riverWatch = doorAnchoredScale(doorLeaf: SourceDoorLeafHeight.buildingRiverWatch)
         static let railLamp = facadeAnchoredScale(contentHeight: 472)
-        static let abutment = facadeAnchoredScale(contentHeight: 453)
+        static let abutment = facadeAnchoredScale(contentHeight: 470)
     }
 
     /// Separate outdoor door leaves — door-anchored to clear Voss at ~1.15× adult.

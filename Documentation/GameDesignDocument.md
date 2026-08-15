@@ -318,7 +318,7 @@ The finale must satisfy:
 The target is the production language associated with classic Infinity Engine games and their Enhanced Editions:
 
 - richly painted or pre-rendered static area art;
-- a fixed three-quarter isometric/dimetric projection;
+- a fixed three-quarter isometric projection (Baldur's Gate: EE orthographic camera);
 - crude hundreds-of-triangles 3D avatar meshes rendered offline into lightly pixelated 2D sprite frames with readable clothing/equipment masses and multi-orientation animation;
 - baked environmental lighting plus selective live overlays;
 - ground-contact shadows that keep sprites attached to the room;
@@ -330,7 +330,7 @@ The goal is equivalent visual density and staging, not literal duplication of an
 
 ### 5.2 Camera and composition
 
-- Fixed projection: 2:1 dimetric grid, approximately 45-degree plan rotation and 30-degree visual elevation.
+- Fixed projection, targeting the Baldur's Gate: EE orthographic camera — elevation `asin(0.75)` ≈ 48.59°, azimuth 45°, ground axes at 36.87° (slopes ±0.75), height foreshortening ≈ 0.6614, nav diamond 128×96. Shipped plates are still legacy art; see `Documentation/InfinityEngineGroundProjection.md`.
 - No perspective camera rotation during play.
 - Cinematic movement is limited to slow SpriteKit camera pans, pushes, and restrained scale changes.
 - The office composition must read at full view and at the minimum supported iPhone view.

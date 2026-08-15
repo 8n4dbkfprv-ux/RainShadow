@@ -1,7 +1,8 @@
 """Generate missing 3-zone office props + lighting overlays as runtime PNGs.
 
 Produces late-1990s isometric CRPG-readable sprites (noir palette, soft baked
-shading) for props that have no Image-Generator masters yet. Outputs land in
+shading) for props that have no Image-Generator masters yet. Box ground
+foreshortening follows `ie_projection.ACTIVE`. Outputs land in
 Resources/Art/Props/Office/ and also copy RGBA masters under ArtSource/Generated.
 """
 
@@ -12,6 +13,8 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
+
+import ie_projection as ie
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -50,21 +53,16 @@ def iso_box(
     h: int,
     color: tuple[int, int, int],
 ) -> None:
-    """Simple dimetric box: top + left + right faces. (cx, cy) = near ground center."""
-    hx, hy = w // 2, max(1, w // 4)
-    dx, dy = d // 2, max(1, d // 4)
-    nl = (cx - hx, cy - h)
-    nr = (cx + hx, cy - h)
-    fr = (cx + hx - dx, cy - h - dy)
-    fl = (cx - hx - dx, cy - h - dy)
-    gnl = (cx - hx, cy)
-    gnr = (cx + hx, cy)
-    gfr = (cx + hx - dx, cy - dy)
-    gfl = (cx - hx - dx, cy - dy)
-    draw.polygon([fl, nl, gnl, gfl], fill=shade(color, 0.55))
-    draw.polygon([nl, nr, gnr, gnl], fill=shade(color, 0.78))
-    draw.polygon([nr, fr, gfr, gnr], fill=shade(color, 0.65))
-    draw.polygon([fl, fr, nr, nl], fill=shade(color, 1.12))
+    """Dimetric box: top + left + right faces. (cx, cy) = near ground center.
+
+    `h` is screen-space height (already foreshortened); ground extents use the
+    active camera's depth fraction.
+    """
+    pts = ie.iso_box_points(cx, cy, w, d, h)
+    draw.polygon([pts["fl"], pts["nl"], pts["gnl"], pts["gfl"]], fill=shade(color, 0.55))
+    draw.polygon([pts["nl"], pts["nr"], pts["gnr"], pts["gnl"]], fill=shade(color, 0.78))
+    draw.polygon([pts["nr"], pts["fr"], pts["gfr"], pts["gnr"]], fill=shade(color, 0.65))
+    draw.polygon([pts["fl"], pts["fr"], pts["nr"], pts["nl"]], fill=shade(color, 1.12))
 
 
 def draw_typewriter() -> Image.Image:

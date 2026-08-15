@@ -12,9 +12,17 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-The two axis vectors were fitted from the shell's own wall silhouettes:
-`AXIS_NW` slope -0.419, `AXIS_NE` slope +0.463. Wall bands measured off the
-same fit: 227 px of plaster above the chair rail, 121 px of wainscot below it.
+These axes are a *measurement of the installed plate*, not a target. They were
+fitted from the shell's own wall silhouettes: `AXIS_NW` slope -0.561, `AXIS_NE`
+slope +0.475. Wall bands measured off the same fit.
+
+Do not substitute the Baldur's Gate: EE slopes (±0.75) here while the painted
+plate is still legacy art. The floor diamond would stretch away from the
+painting — the camera-near tip moves ~328 px down a 2304 px plate — and every
+prop authored in this basis would sit off the painted floor. The axes change
+when the plate changes, together, per
+`Documentation/BGEEProjectionMasterRegen.md` and
+`ArtSource/Prompts/office_suite_plate_bgee_v05.md`.
 """
 
 from __future__ import annotations

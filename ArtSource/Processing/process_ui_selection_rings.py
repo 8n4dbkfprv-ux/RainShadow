@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build painted underfoot selection rings (IE-style isometric ellipses).
+"""Build painted underfoot selection rings (IE-style 16:12 ellipses).
 
 Outputs:
   ui_selection_ring_party.png  — green PC/party ring
@@ -22,12 +22,14 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
+import ie_projection as ie
+
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = Path.home() / ".cursor/projects/Users-laurensvanoorschot-Desktop-RainShadow/assets"
 GEN = ROOT / "ArtSource/Generated/UI/Common"
 RUNTIME = ROOT / "RainShadow Shared/Resources/Art/UI/Common"
 
-RING_SIZE = (128, 64)
+RING_SIZE = ie.RING_SIZE  # one nav diamond under `ie_projection.ACTIVE`
 
 # Classic IE selection green + light gray/white NPC.
 PARTY_RGB = (32, 220, 48)
@@ -106,13 +108,17 @@ def write_png(im: Image.Image, name: str, *, runtime: bool = True) -> None:
         print(f"  wrote {gen_path.relative_to(ROOT)} (generated only)")
 
 
-def synthesize_ring(
+def _legacy_ring(
     rgb: tuple[int, int, int],
-    size: tuple[int, int] = RING_SIZE,
+    size: tuple[int, int],
     *,
-    fill: float = 0.86,
+    fill: float,
 ) -> Image.Image:
-    """Thin isometric ellipse with soft outer falloff (IE selection circle)."""
+    """Hand-tuned ellipse for the legacy plates.
+
+    Its 0.92 vertical squeeze is an eyeball fit, not this camera's ground
+    circle. Retire it when `ie_projection.ACTIVE` becomes BGEE.
+    """
     cw, ch = size
     out = Image.new("RGBA", size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(out)
@@ -123,19 +129,12 @@ def synthesize_ring(
     top = (ch - eh) // 2
     box = (left, top, left + ew - 1, top + eh - 1)
 
-    # Soft outer halo, then solid 1px core stroke.
     for inset, alpha in ((0, 55), (1, 140), (2, 255)):
-        b = (
-            box[0] + inset,
-            box[1] + inset,
-            box[2] - inset,
-            box[3] - inset,
-        )
+        b = (box[0] + inset, box[1] + inset, box[2] - inset, box[3] - inset)
         if b[2] - b[0] < 4 or b[3] - b[1] < 2:
             break
         draw.ellipse(b, outline=(*rgb, alpha), width=1)
 
-    # Keep only the rim: punch a clear interior so feet aren't veiled.
     rgba = np.array(out, dtype=np.float32)
     yy, xx = np.mgrid[0:ch, 0:cw]
     cx, cy = (cw - 1) / 2.0, (ch - 1) / 2.0
@@ -145,6 +144,18 @@ def synthesize_ring(
     rgba[inside, 3] = 0
     rgba[inside, :3] = 0
     return Image.fromarray(rgba.astype(np.uint8), "RGBA")
+
+
+def synthesize_ring(
+    rgb: tuple[int, int, int],
+    size: tuple[int, int] = RING_SIZE,
+    *,
+    fill: float = 0.86,
+) -> Image.Image:
+    """Underfoot selection ring for the active camera's ground plane."""
+    if ie.ACTIVE is ie.BGEE:
+        return ie.synthesize_ground_ring(rgb, size, fill=fill)
+    return _legacy_ring(rgb, size, fill=fill)
 
 
 def process_ring(name: str, master_name: str, rgb: tuple[int, int, int]) -> None:

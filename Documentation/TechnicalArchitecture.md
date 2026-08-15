@@ -83,7 +83,7 @@ Platform app target
 
 - One logical world unit equals one pixel in the baseline runtime export.
 - Exterior art space: 3072×1728 units.
-- Office area plate: 4096×2304 pixels, 2:1 dimetric, mapped at environment **0.395** independently from body-locked prop scales (prop relative scales cancel the environment factor).
+- Office area plate: 4096×2304 pixels, Baldur's Gate: EE orthographic projection (elevation asin(0.75), ground axes ±0.75), mapped at environment **0.395** independently from body-locked prop scales (prop relative scales cancel the environment factor).
 - Reference playable camera height: ≈540.9 units, so the **rendered** ≈70.3-unit standing adult occupies 13% of playable height, with an 11.5–14.5% acceptance band (logical 82-unit body remains for furniture multiples only). This is original-BG1 play density — a ~50px adult on a 512×384 view — and is pinned by `DefaultPlayZoomTests` and `OfficeInteriorScaleTests`. The plate is taller than the camera height, so both the office and the city districts pan rather than sit fixed; a thin black void past the plate edge matches Infinity Engine area framing.
 - Reference 16:9 viewport: approximately 961×540.9 world units at the play camera.
 
@@ -102,14 +102,39 @@ Apple describes `SKCameraNode` as the node determining which portion of a scene 
 
 ### 4.3 Isometric projection
 
-The navigation grid uses a 2:1 dimetric projection with a 128×64 pixel diamond:
+The target for area art and the navigation diamond is the Baldur's Gate: EE
+orthographic ground projection (see `Documentation/InfinityEngineGroundProjection.md`
+and `ArtSource/Processing/ie_projection.py`):
+
+```text
+elevation          asin(0.75) ≈ 48.59°
+azimuth            45°
+ground axes        36.87° from horizontal (slopes ±0.75)
+ground foreshorten 0.750
+height foreshorten ≈ 0.6614
+nav diamond        128×96  (exactly 8×8 SearchMap cells of 16×12)
+```
+
+Forward projection in authored plate space:
 
 ```swift
 screenX = originX + (gridX - gridY) * 64
-screenY = originY + (gridX + gridY) * 32 + elevation
+screenY = originY + (gridX + gridY) * 48 + elevation
 ```
 
-The inverse transform is centralized in `IsoProjection`; no scene or actor reimplements it. Art placement is validated against an exported alignment grid. The background remains a single painted composition, but every reachable point and depth anchor aligns to the same projection.
+Shared Python helpers live in `ie_projection` (`cell_to_authored` /
+`authored_to_cell`). Runtime scenes do not re-project per frame: the look is
+baked into the painted plates, and world units map 1:1 from plate pixels (×
+environment scale) under a uniform `SKCameraNode`. Locomotion already uses
+`verticalProjectionScale = 0.75` and `SearchMap.defaultCellSize = (16, 12)`,
+which match this camera.
+
+**Adoption is staged.** The installed plates are still legacy art, so
+`ie_projection.ACTIVE` is `LEGACY_V2` (diamond 128×64) and the whole pipeline
+follows it. The projection is a property of the painted pixels: switching the
+grid ahead of the art moves the authored floor off the painting. `ACTIVE`
+becomes `BGEE` in the same commit that lands on-lock masters — see
+`Documentation/BGEEProjectionMasterRegen.md`.
 
 ## 5. Scene graph contract
 
@@ -607,7 +632,7 @@ Release defaults disable SpriteKit performance overlays and debug shapes.
 
 ### 19.1 Unit tests
 
-- `IsoProjection` round-trip within tolerance.
+- `ie_projection` / layout-planner cell round-trip within tolerance on the active diamond, and every module follows `ACTIVE` (`qa_ie_projection.py`).
 - depth keys order near objects in front of far objects and honor bias.
 - pathfinding routes around the desk, takes any-angle shortcuts when line of sight is clear, forbids corner cutting, respects actor footprint clearance through thin gaps, and rejects unreachable destinations while distinguishing them from “already there”.
 - actor occupancy blocks on unbumpable actors, offers a sidestep for idle bumpable ones, and backs off under repeated congestion.

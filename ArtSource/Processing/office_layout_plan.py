@@ -26,6 +26,7 @@ import numpy as np
 from PIL import Image
 
 import office_room_plan as rp
+import ie_projection as ie
 
 ROOT = Path(__file__).resolve().parents[2]
 ART = ROOT / "RainShadow Shared/Resources/Art/Props/Office"
@@ -259,35 +260,33 @@ ACTOR_START_OFFSET_Y = -30.0
 # --------------------------------------------------------------- architecture
 
 
-# Keep the dimetric grid locked to the floor plane as REAR moves.
+# Keep the nav diamond locked to the floor plane as REAR moves.
 # 597.1 is the pre-correction plaster/wainscot rail y-down (legacy reference).
 _LEGACY_RAIL_Y = 597.1
 PROJECTION_ORIGIN_Y = 310.0 - (rp.REAR[1] - _LEGACY_RAIL_Y)
 
 
 def cell_point(c: int, r: int) -> tuple[float, float]:
-    return (2_048 + (c - r) * 64, PROJECTION_ORIGIN_Y + (c + r) * 32)
+    return ie.cell_to_authored(c, r, origin_y=PROJECTION_ORIGIN_Y)
 
 
-CELL_RECT = (104.0, 52.0)  # slightly inset from the 128x64 cell so corners pass
+# Diamond and insets follow `ie_projection.ACTIVE`, so they move with the
+# camera the painted plate was drawn to rather than drifting from it.
+CELL_RECT = ie.CELL_RECT  # inset from the diamond so corners pass
 
-# Partition solids use a tighter AABB than floor/boundary cells. The dimetric
-# 104×52 footprint hangs into the painted doorway as a magenta box even when
-# the cell centre is outside the aperture; 40×20 keeps the tip sealed without
-# that screen-space overhang into the green aperture.
-PARTITION_CELL_RECT = (40.0, 20.0)
+# Partition solids use a tighter AABB than floor/boundary cells. The diamond
+# footprint hangs into the painted doorway as a magenta box even when the cell
+# centre is outside the aperture; the partition inset keeps the tip sealed
+# without that screen-space overhang into the green aperture.
+PARTITION_CELL_RECT = ie.PARTITION_CELL_RECT
 
 
 def cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
-    return (x - CELL_RECT[0] / 2, y - CELL_RECT[1] / 2, *CELL_RECT)
+    return ie.cell_aabb(x, y)
 
 
 def partition_cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
-    return (
-        x - PARTITION_CELL_RECT[0] / 2,
-        y - PARTITION_CELL_RECT[1] / 2,
-        *PARTITION_CELL_RECT,
-    )
+    return ie.partition_cell_aabb(x, y)
 
 
 def _rect_clear_of_doorway(rect: tuple[float, float, float, float]) -> bool:
@@ -351,9 +350,10 @@ FLOOR_B = (0.040, rp.B_ROOM - 0.050)
 
 # The runtime search map rasterises obstacles against *world* cells of 16x12
 # (`SearchMap.defaultCellSize`), which in authored units is this. The planner's
-# own navigation grid is 128x64 iso diamonds — 2.6x coarser across and 1.7x
-# taller — and that mismatch is what let a boundary measure open here and come
-# out sealed in the game.
+# own navigation grid is the `ie_projection.ACTIVE` diamond — today 128x64,
+# which is 2.6x coarser across and 1.7x taller than a runtime cell, and that
+# mismatch is what let a boundary measure open here and come out sealed in the
+# game. Adopting BG:EE makes the diamond 128x96, exactly 8x8 search cells.
 RUNTIME_CELL = (16.0 / ENV, 12.0 / ENV)
 
 # Thickness of the sealing ring, in runtime cells. The office agent radius is 3
@@ -387,8 +387,9 @@ def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
     """A sealing ring of solids just outside the walkable floor.
 
     This used to stamp one 104x52 AABB per *iso* cell outside the floor. Those
-    boxes approximate a 128x64 diamond, so each overhangs its neighbours by 40x20
-    and the union bit ~20x10 authored units into the floor on every edge. On the
+    boxes approximate the diamond, so each overhangs its neighbours when the
+    inset is too loose, and the union bit ~20x10 authored units into the floor
+    on every edge. On the
     planner's coarse grid that rounded away; on the runtime 16x12 grid it ate the
     room, leaving 174 of 4694 walkable cells reachable and sealing the waiting
     side off entirely.
@@ -471,7 +472,7 @@ DOOR_OBSTACLE = (
 
 
 class Grid:
-    """Mirror of NavigationGrid's dimetric projection for offline validation."""
+    """Mirror of NavigationGrid's projection for offline validation."""
 
     def __init__(self, obstacles, columns=31, rows=31, half_w=3.0 / ENV, half_h=0.0):
         self.columns, self.rows = columns, rows
@@ -483,9 +484,7 @@ class Grid:
         }
 
     def cell(self, p):
-        px = (p[0] - 2_048) / 64.0
-        py = (p[1] - PROJECTION_ORIGIN_Y) / 32.0
-        return (round((px + py) / 2), round((py - px) / 2))
+        return ie.authored_to_cell(p[0], p[1], origin_y=PROJECTION_ORIGIN_Y)
 
     def inside(self, p):
         return any(x <= p[0] <= x + w and y <= p[1] <= y + h for x, y, w, h in self.obstacles)
@@ -771,14 +770,17 @@ def emit() -> str:
         add(f'        "{name}": {pt(rp.authored(a, b))},')
     add("    ]")
     add("")
-    # The dimetric grid is registered to the same floor plane as the props.
+    # The nav diamond is registered to the same floor plane as the props.
     # Moving the rear floor seam down by 121 plate pixels moves authored y-up
     # coordinates down by the same amount; keep grid cells stable with it.
     add(
         "    private static let authoredProjectionOrigin = "
         f"CGPoint(x: 2_048, y: {PROJECTION_ORIGIN_Y:_.0f})"
     )
-    add("    private static let authoredTileSize = CGSize(width: 128, height: 64)")
+    add(
+        "    private static let authoredTileSize = "
+        f"CGSize(width: {ie.DIAMOND_W}, height: {ie.DIAMOND_H})"
+    )
     add("")
     add("    static var actorStart: CGPoint { OfficeInteriorScale.mapPoint(authoredActorStart) }")
     add("")

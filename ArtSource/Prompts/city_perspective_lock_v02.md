@@ -1,5 +1,10 @@
 # City perspective lock V2
 
+> **Retired.** Superseded by [`city_perspective_lock_v03.md`](city_perspective_lock_v03.md)
+> (Baldur's Gate: EE orthographic projection — elevation asin(0.75), ground axes
+> ±0.75, diamond 128×96). Keep this file only as the historical V2 brief for
+> masters painted before the projection adoption.
+
 - Generated: 2026-07-31
 - Mode: built-in Image Generator only
 - Intent: Freeze the Act I city-district camera, materials, and human scale so every Harborpoint outdoor plate matches the shipped detective-office suite.
