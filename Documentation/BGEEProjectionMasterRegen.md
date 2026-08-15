@@ -10,7 +10,7 @@ art does.
 `LEGACY_V2` (what the shipped plates are), and selects one:
 
 ```python
-ACTIVE: GroundProjection = LEGACY_V2   # flip to BGEE together with on-lock masters
+ACTIVE: GroundProjection = BGEE   # flipped with the V5 office + V3 city masters
 ```
 
 Every pipeline module derives its geometry from `ACTIVE`, and
@@ -153,7 +153,7 @@ Room-plan fit (slopes exactly ±0.75):
 | `AXIS_NW` | (−863.2, 647.4) |
 | `AXIS_NE` | (1028.8, 771.6) |
 | partition | `a=0.426`, door `b=0.377–0.533` |
-| exterior door | `(0.0, 0.863)`, clear opening 125×290 (1.63× body) |
+| exterior door | `(0.0, 0.863)`, clear opening 125×290 (1.63× body) — **wrong, see V7** |
 | `paintedRoomSourceRect` | (1047, 646, 1999, 1379) y-up |
 
 `ie_projection.ACTIVE` is **BGEE**. `office_layout_plan.py` prints
@@ -162,6 +162,133 @@ UI rings/markers are 128×96 / 64×48. Flood-fill the runtime SearchMap
 on macOS (`path`, never `route`) before treating this as ship-final.
 
 Furniture prop *art* is still the legacy-camera set; only positions moved.
+
+## Office V7 — walls shortened, floor still un-fitted (2026-08-15)
+
+V5 was on the camera but the exterior door column was a warehouse.
+`install_office_bgee_v07.py` compresses only the plaster band above a fixed
+lintel plane, so the floorboards, wainscot and door are untouched and the floor
+diamond does not move:
+
+| at the door column | V5 | V7 |
+|---|---|---|
+| wall face | 369 px | **272 px** |
+| clear opening | 198 px | 199 px |
+| door / wall | 54% | **73%** |
+| plaster above the head | 171 px (a whole extra adult) | 73 px |
+| implied ceiling | ~3.78 m | **~2.8 m** |
+
+Installed plate grades **+33.02 / −34.79, worst 3.85° PASS**. `BAKED_DOORWAY_H`
+went 290 → 198 and the door now reads **1.118× the standing detective**, back
+inside `OfficeInteriorScale.Band.door` (1.10–1.30). Before that it was 1.629×,
+which is why Voss read as a child beside his own door.
+
+**The floor diamond is still not fitted to any plate.** `bgee_v07_metrics.json`
+says so directly — `"note": "Floor diamond unchanged"` — and echoes back the
+same `REAR` / `AXIS_*` that `office_room_plan.py` already held. Shortening the
+walls made that worse, not better: the painting now starts at y = 570, so the
+authored rear corner at y = 389 sits **above the artwork entirely**, and the
+near tip is still 151 px below its bottom edge. The Swift suite is at 131
+issues, essentially where it was before the wall fix — the two faults are
+independent.
+
+## The fit faults the installers left behind
+
+Each of these cost real time. All are code, not art.
+
+### The measurement is emitted and then not copied
+
+`install_office_bgee_v05.py` measured the plate correctly, wrote the result to
+`ArtSource/Generated/Office/bgee_v05_metrics.json`, and ended with a note:
+
+> Copy REAR/AXIS_*/WALL_FACE_H into office_room_plan.py
+
+Nobody did. The shipped diamond has never been the installer's measurement.
+V7 then re-emitted the *room plan's* values as if they were a fresh
+measurement, which makes the metrics file look like corroboration when it is
+an echo. **Diff the metrics against `office_room_plan.py` before believing
+either.**
+
+### `fit_diamond` has two bugs of its own
+
+Even copied, the V5 numbers would have been wrong:
+
+1. **It snaps the unit square to the clipped paint, not the room.** The master
+   is cropped at y = 1657, but the installer also measures the two camera-near
+   edges, and *those* meet at **(2065.2, 1824.6)** — the room's real near
+   corner. Solving to the crop makes the unit square describe a smaller room
+   than the one painted, so the painted exterior doorway lands at **b = 1.08**,
+   outside its own floor, along with the coat rack and umbrella stand. It also
+   contradicts `office_room_plan.py`'s own docstring, which says the geometric
+   near tip belongs in the black with walkable `FLOOR_*` stopping on the paint.
+2. **The rear guard clamps onto the wall crown.** `if rear_y < y0 + 40:
+   rear_y = y0 + 80` puts the "floor" rear corner 80 px below the top of the
+   *painting*, which is wall, not floor. That is why the shipped value is
+   389 while `floorDiamondTracksPaintedWallShoes` expects 740–800.
+
+Solving instead against the two near-edge lines through `REAR` puts every
+painted feature back inside the unit square and keeps both slopes exactly on
+the lock.
+
+### The door aperture is stored twice
+
+`office_layout_plan.py` keeps its own `SHIPPING_EXTERIOR_OPENING_SIZE`
+independently of `office_room_plan.BAKED_DOORWAY_*`. Fixing one leaves the
+other stale, and the *emitted* Swift follows the layout-plan copy.
+
+## Why the office keeps landing at 3.8°
+
+Both office masters came in at 3.81° and 3.85° — 96% of the 4.0° tolerance,
+twice. That is systematic, and the cause is visible in the inputs:
+
+| | generator input | result |
+|---|---|---|
+| City districts V3 | passing grounds **+ cobble lattice as camera lock** | 0.79° – 3.90°, five of six under 3° |
+| Office V5 / V7 | prose only, **plus the previous master as reference** | 3.81°, 3.85° |
+
+The districts were handed a *geometric* reference; the office was handed a
+paragraph. The Riverside log line names the trap outright: *"shipped V2 refs
+pull the generator back to ~26°"*. V7 is a compress-pass off the V5 master, so
+it inherited V5's slope by construction and never had a chance to correct.
+
+### 4.0° is too loose to gate on
+
+The tolerance was chosen to separate the lock from the retired 2:1 camera
+10.3° away, not to hold the lock. What it actually permits, over the room's
+~1900 px run:
+
+| off-lock | drift across the room | in adults |
+|---|---|---|
+| 4.00° | 197 px | **1.11 body heights** |
+| 3.85° (shipped) | 190 px | 1.07 |
+| 2.00° | 101 px | 0.57 |
+| **1.50°** | **76 px** | **0.43** |
+
+A ground line that should reach the far wall at one height arrives a whole
+adult away. And this cannot be absorbed in code: the runtime is hard-locked at
+0.75 by shipped GemRB-derived constants — `ActorLocomotionPacing.
+verticalProjectionScale`, the 16×12 search map, the 16:12 selection rings — so
+art below the lock makes actors drift off the painted floorboards as they walk.
+
+### The prompt still asks for the wrong door
+
+`office_suite_plate_bgee_v05.md` says *"doorway about two imagined adult
+heights"*. `Band.door` is 1.10–1.30, and a real 2.03 m door against a 1.75 m
+adult is 1.16×. Every master generated from that line comes back with oversized
+architecture, and the wall height follows the door.
+
+### Recommended order for the next office master
+
+1. Tighten `TOLERANCE_DEG` in `qa_plate_projection.py` from 4.0 to **1.5**, so
+   the gate decides rather than judgement.
+2. Feed a **geometric camera lock** — the office's equivalent of the cobble
+   lattice — not prose. `Documentation/InfinityEngineGroundProjection.png` is
+   the reference grid.
+3. **Do not pass V5 or V7 as source art.** That is what holds the slope shallow.
+4. Fix the doorway line to ~1.2 adult heights and the ceiling to ~1.8.
+5. Only then re-fit the floor diamond. Fitting a plan that forces ±0.75 onto
+   art drawn shallower is a compromise by construction, and it is why every fit
+   attempted so far has landed 100–150 px out somewhere.
 
 ## These remaining candidates are NOT installable as-is
 

@@ -64,7 +64,12 @@ committed file, or you will attribute pre-existing staleness to your change.
 
 `qa_plate_projection.py` measures the ground axes actually baked into a plate,
 so "matches the camera" is a number. Every new or regenerated area master must
-pass it before install. All eight shipped plates currently fail (the city ones
+pass it before install. Its 4.0° tolerance is **too loose to hold the lock** —
+it was sized to separate the lock from the retired 26.57° camera. At 4° off,
+a ground line drifts ~197 px across the office, a full adult's height, and the
+runtime cannot absorb it because `verticalProjectionScale`, the 16×12 search map
+and the 16:12 rings are all hard-locked at 0.75. Both office masters have landed
+at 3.8°. All eight shipped plates currently fail (the city ones
 disagree with each other by up to 30°), because the V2 lock was prose in a
 prompt with nothing measuring it. Painted masters still need regen under the V5
 office / V3 city locks — status and blockers in
@@ -73,6 +78,42 @@ office / V3 city locks — status and blockers in
 Calibrate before trusting it: a plain 3×3 Sobel aliases on hard lines and read a
 true 36.87° grid as 45°. The shipped estimator uses a smoothed structure tensor
 and is accurate to 0.13° on a synthetic lattice.
+
+### The installers emit a measurement that nobody copies
+
+`install_office_bgee_v05.py` measured the plate, wrote `REAR` / `AXIS_*` /
+`WALL_FACE_H` into `ArtSource/Generated/Office/bgee_v05_metrics.json`, and left
+a note saying to copy them into `office_room_plan.py`. That never happened, so
+the shipped floor diamond has never been fitted to the art. V7 then re-emitted
+the *room plan's* values as its own metrics, which makes the file read like
+corroboration when it is an echo. Diff the metrics against `office_room_plan.py`
+before trusting either — and note `fit_diamond` itself snaps the unit square to
+the **clipped** paint edge and clamps `REAR` onto the wall crown, so the numbers
+need re-deriving, not just copying. Details in
+`Documentation/BGEEProjectionMasterRegen.md`.
+
+The door aperture is also stored twice: `office_layout_plan.
+SHIPPING_EXTERIOR_OPENING_SIZE` is independent of
+`office_room_plan.BAKED_DOORWAY_*`, and the emitted Swift follows the
+layout-plan copy.
+
+### `--write` refuses silently if you redirect it
+
+`office_layout_plan.py --write` prints `refusing to write: navigation checks
+failed` and exits **0** when its checks fail. Pipe it to `/dev/null` and you
+will spend the next hour measuring a stale `OfficeNavigationLayout.swift` and
+attributing the result to whatever you just changed. Always read its tail, and
+confirm the Swift actually moved before testing.
+
+### The planner's validation grid is a 31×31 window, not the room
+
+`Grid.walkable` bounds-checks `0 <= c < columns`, and `cell_point` anchors the
+window so the painted room happens to sit in the `c >= 0, r >= 0` quadrant. Grow
+the floor diamond and the west/near corners go to `c = -1, r = -1`, where every
+cell reads unwalkable and the planner reports **0% open floor** — which looks
+exactly like sealed geometry and is not. Offsetting the index origin is safe:
+this grid is an offline mirror, and the emitted `authoredProjectionOrigin` /
+`authoredTileSize` are `private` and unreferenced in Swift.
 
 ### Never resize a plate across aspect ratios
 
