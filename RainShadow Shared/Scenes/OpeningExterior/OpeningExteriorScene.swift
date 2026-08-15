@@ -60,6 +60,10 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         syncHudToCamera()
     }
 
+    /// A cinematic drives its own camera — position from the cutscene rail,
+    /// scale from `cameraScale` cues. The player's zoom has no say here.
+    override var allowsPlayerZoom: Bool { false }
+
     /// The camera pans inside the painted plate rather than off its edges —
     /// `clampedCameraPosition` needs the plate, not the world.
     private var cinematicBounds: CGRect {

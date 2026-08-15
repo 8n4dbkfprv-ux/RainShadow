@@ -1008,12 +1008,16 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
     }
 
-    override func handleScrollInput(_ deltaY: CGFloat) {
+    override func handleScrollInput(_ deltaY: CGFloat) -> Bool {
         if journalIsPresented {
             journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
-        } else if dialogueIsActive {
-            _ = dialoguePresenter.scrollContent(by: -deltaY)
+            return true
         }
+        if dialogueIsActive {
+            _ = dialoguePresenter.scrollContent(by: -deltaY)
+            return true
+        }
+        return false
     }
 
     override func handleConfirmInput() {
@@ -1100,6 +1104,17 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         syncHudToCamera()
     }
 
+    /// The camera pans inside the *painted room*, not the plate: the plate rect
+    /// would let a followed camera swing out over the baked black margin. At play
+    /// density the room is smaller than the viewport in both axes, so the clamp
+    /// centres it and the office camera does not pan at all — zoom is the only
+    /// camera freedom this scene has.
+    override var cameraClampBounds: CGRect { OfficeInteriorScale.paintedRoomBounds }
+    /// The zoom-out ceiling measures against the plate instead, because that is
+    /// what the art actually covers. Using the room rect here would compute a
+    /// nonsense limit — it is smaller than the viewport to begin with.
+    override var cameraPlateBounds: CGRect { OfficeInteriorScale.worldBounds }
+
     /// Drives the office viewport — following Voss, or free-scrolling under the
     /// player — clamped to the painted plate. Suspended while a dialogue lift
     /// owns the camera so the per-frame update does not fight the `SKAction`.
@@ -1107,14 +1122,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // A running cutscene owns the viewport outright. This used to be a bare
         // `cameraFollowSuspended` Bool with no owner, so two overlapping camera
         // beats would race for it.
-        if let framing = cutsceneDirector.cameraOverride(in: OfficeInteriorScale.paintedRoomBounds) {
+        if let framing = cutsceneDirector.cameraOverride(in: cameraClampBounds) {
             gameCamera.position = framing
             return
         }
         guard !cameraRestoreInProgress else { return }
         updateCamera(
             following: detective.position,
-            in: OfficeInteriorScale.paintedRoomBounds,
+            in: cameraClampBounds,
             at: currentTime
         )
     }
@@ -1327,7 +1342,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             // snap the moment the follow resumed.
             let followPosition = clampedCameraPosition(
                 following: detective.position,
-                in: OfficeInteriorScale.paintedRoomBounds
+                in: cameraClampBounds
             )
             let cameraRestore = SKAction.move(to: followPosition, duration: 0.3)
             cameraRestore.timingMode = .easeInEaseOut

@@ -339,6 +339,21 @@ struct ActorLocomotionPacingTests {
         // Directional keys report whether an overlay consumed them; anything left
         // over scrolls the viewport rather than moving the actor.
         #expect(base.contains("func handleDirectionalInput(_ direction: CGVector) -> Bool"))
+
+        // BG:EE zoom. The wheel reports consumption the same way the direction
+        // keys do, so an open overlay keeps it and anything left over zooms.
+        #expect(base.contains("func handleScrollInput(_ deltaY: CGFloat) -> Bool"))
+        #expect(base.contains("func setZoomStep"))
+        #expect(base.contains("var zoomBounds"))
+        #expect(base.contains("func applyViewportScrollGesture"))
+        // GemRB `Zoom Lock`: the same event pans instead of zooming.
+        #expect(base.contains("zoomLockEnabled"))
+        // Trackpad pinch on macOS, two-finger pinch on iOS.
+        #expect(base.contains("override func magnify"))
+        #expect(base.contains("twoFingerSpread"))
+        // The live scale, not the 100% base, drives the clamp and the pan.
+        #expect(base.contains("let halfHeight = playVisibleHeight / 2"))
+        #expect(base.contains("viewDelta.dx * playCameraScale"))
     }
 
     @Test func clientDepartureAtlasCellsExistAndNECycleIsNotPingPongReversed() throws {

@@ -130,6 +130,7 @@ Three consequences worth stating plainly:
 | Bumpable idle actors: sidestep-and-return on contact | **Shipped** |
 | Replan budget — abandon the goal after N consecutive failed searches | **Shipped** (`recordCongestion` / `maxCongestionRetries` = 8, mirroring `Actor::NewPath`'s `MAX_PATH_TRIES`; reset on every new order as `WalkTo` resets `pathTries`) |
 | Free/scrollable viewport: follow ⇄ free, edge scroll, middle-drag (two-finger on iOS), held arrow/WASD scroll | **Shipped** (`BaseGameScene.CameraMode`) |
+| BG:EE zoom: 27 integer steps of 5 percentage points, default 100% (`20 + zoomLevel * 5`), wheel / `-` `=` / trackpad and touch pinch, `Zoom Lock` | **Shipped** (`CameraZoom`, `BaseGameScene.setZoomStep`). Zoom-out is capped at the smaller of BG:EE's 155% and what the plate can cover — 24 (140%) in the office at 16:9, 21 (125%) at 21:9, 27 in a district — rather than centring the map and showing void, which is what `MoveViewportTo` does |
 | Double-click recentres the viewport on the click (`MoveViewportTo(p, true)`) | **Shipped** |
 | Double-click a portrait to re-attach the viewport to the actor | **Shipped** |
 | Detective rises to meet the client instead of interviewing from his chair | **Shipped** (empty-route seat egress during her walk-in) |
@@ -365,6 +366,8 @@ Community IE pain is multi-agent pathing. RainShadow should be **better where ch
 18. **Footsteps are gated on clip length, floored by the stride.** Not on animation contact frames. See `FootstepCadence`.
 19. **Hover and the order decision read the same search-map sample.** If they diverge, the cursor starts lying about what a click will do.
 20. **The viewport is the player's.** Any manual scroll detaches the camera to `free` and it stays there until the player re-attaches (portrait double-click). Nothing may silently re-tether it to the actor — that is what made BG's double-click recentre meaningless here before.
+21. **Zoom never shows past the painted plate.** The engine centres the map and lets black show once the viewport outgrows it; `CameraZoom.fitStep` narrows the band instead. The ceiling is aspect-dependent and so is resolved against the live view in `layoutViewport`, never baked into a constant.
+22. **Zoom is not a scroll.** Changing the step leaves `CameraMode` alone — zooming while following keeps following. It is suppressed outright while a cutscene owns the camera, and authored `cameraScale` cues multiply `baseCameraScale` (the 100% scale), so a player's zoom can never shift authored framing.
 
 ---
 

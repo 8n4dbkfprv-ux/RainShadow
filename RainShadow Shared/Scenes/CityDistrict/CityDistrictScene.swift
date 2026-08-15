@@ -368,9 +368,10 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
-    override func handleScrollInput(_ deltaY: CGFloat) {
-        guard journalIsPresented else { return }
+    override func handleScrollInput(_ deltaY: CGFloat) -> Bool {
+        guard journalIsPresented else { return false }
         journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
+        return true
     }
 
     override func handleConfirmInput() {
@@ -881,12 +882,18 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
+    /// Unlike the office, a district plate is larger than the viewport in both
+    /// axes, so the camera really pans and the same rect serves as both the
+    /// position clamp and the zoom-out ceiling.
+    override var cameraClampBounds: CGRect { CityDistrictDefinition.worldBounds }
+    override var cameraPlateBounds: CGRect { CityDistrictDefinition.worldBounds }
+
     /// Drives the district viewport — following Voss, or free-scrolling under the
     /// player — clamped to the district plate.
     private func updateCameraPosition(at currentTime: TimeInterval = 0) {
         updateCamera(
             following: detective.position,
-            in: CGRect(origin: .zero, size: CityDistrictDefinition.worldArtSize),
+            in: cameraClampBounds,
             at: currentTime
         )
         syncHudToCamera()

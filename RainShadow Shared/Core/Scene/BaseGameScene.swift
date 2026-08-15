@@ -26,8 +26,23 @@ class BaseGameScene: SKScene {
 
     private var hasBuiltScene = false
     private var isPerformingLayout = false
+    /// Camera scale at 100% zoom. Kept as the *base* rather than the live scale
+    /// because `CutsceneDirector` multiplies authored framing against it, and an
+    /// authored push must not shift because the player happened to be zoomed in.
     private(set) var baseCameraScale: CGFloat = 1
+    #if os(macOS)
+    /// Trackpad pinch is a stream of fractions; the engine zoom is an integer
+    /// step. Accumulate until a notch is crossed rather than mapping continuously.
+    private var pendingMagnification: CGFloat = 0
+    private static let magnificationPerStep: CGFloat = 0.08
+    #endif
     #if os(iOS)
+    /// Distance between the two live touches, for pinch. Tracked beside the
+    /// centroid so one gesture can pan and zoom the way BG:EE's iPad build does.
+    private var twoFingerSpread: CGFloat?
+    private var pendingPinchTravel: CGFloat = 0
+    /// View points of spread per BG:EE zoom notch.
+    private static let pinchPointsPerStep: CGFloat = 26
     private var twoFingerGestureIsActive = false
     /// Wall-clock start of the active single-finger press (long-press → waypoint queue).
     private var touchDownTime: TimeInterval?
@@ -48,6 +63,9 @@ class BaseGameScene: SKScene {
     init(context: GameContext, artSize: CGSize) {
         self.context = context
         self.artSize = artSize
+        // GemRB keeps `zoomLevel` on `GameControl`, which outlives an area
+        // change, so the framing the player chose survives walking outside.
+        zoomStep = context.cameraZoomStep
         super.init(size: CGSize(width: 2_048, height: 1_152))
         scaleMode = .resizeFill
         backgroundColor = SKColor(red: 0.018, green: 0.022, blue: 0.03, alpha: 1)
@@ -103,7 +121,10 @@ class BaseGameScene: SKScene {
     func handlePointerUp(_ event: GamePointerEvent) {}
     func handlePointerCancelled(_ event: GamePointerEvent) {}
     func handlePointerMoved(_ event: GamePointerEvent) {}
-    func handleScrollInput(_ deltaY: CGFloat) {}
+    /// Wheel / trackpad scroll. Return `true` when an open overlay consumed it;
+    /// otherwise it falls through to zoom, exactly as `handleDirectionalInput`
+    /// falls through to viewport scrolling.
+    func handleScrollInput(_ deltaY: CGFloat) -> Bool { false }
     /// Arrow / WASD press. Return `true` when an open overlay consumed it;
     /// otherwise the key falls through to viewport scrolling. These keys never
     /// move the actor (GDD §8.3, movement roadmap frozen rule 1).
@@ -257,7 +278,18 @@ class BaseGameScene: SKScene {
             visibleWorldHeight: referenceVisibleHeight,
             sceneHeight: size.height
         )
-        gameCamera.setScale(baseCameraScale)
+        // The zoom-out ceiling is aspect-dependent, so it is resolved against the
+        // live view rather than baked into a constant: the office is bound
+        // vertically at 16:9 and horizontally at 21:9.
+        zoomBounds = resolvedZoomBounds()
+        zoomStep = CameraZoom.clamped(step: zoomStep, to: zoomBounds)
+        context.cameraZoomStep = zoomStep
+        gameCamera.setScale(playCameraScale)
+        // A resize can widen the viewport under a camera that was legal at the
+        // old size, and can tighten the ceiling out from under the current step.
+        // Settle here rather than leaving it to whichever scene happens to
+        // re-clamp in its own layout override — only the city did.
+        settleCameraAfterZoom()
 
         // Camera-child HUD: identity transform relative to the camera. Apple's
         // camera counter-transform keeps ±size/2 on the view edges at any zoom.
@@ -279,6 +311,98 @@ class BaseGameScene: SKScene {
     func syncHudToCamera() {
         hudRoot.position = .zero
         hudRoot.setScale(1)
+    }
+
+    // MARK: - Zoom
+
+    /// BG:EE zoom step (`GameControl::zoomLevel`). 16 is 100%, the BG1 density
+    /// every art scale contract is measured against.
+    private(set) var zoomStep: Int = CameraZoom.defaultStep
+    /// Steps the player may reach here — BG:EE's 1…27 narrowed by what the
+    /// painted plate can still cover. Recomputed on every layout pass.
+    private(set) var zoomBounds: ClosedRange<Int> = CameraZoom.engineStepRange
+
+    /// A cinematic scene drives the camera itself and takes no player zoom.
+    var allowsPlayerZoom: Bool { true }
+
+    /// Rect the scene clamps the camera inside — the same one it hands
+    /// `updateCamera`. Overridden per scene so the fit limit and the position
+    /// clamp cannot drift apart.
+    var cameraClampBounds: CGRect { .zero }
+    /// Painted extent the viewport must never zoom out past. For the office this
+    /// is the plate, not the room: `cameraClampBounds` is *smaller* than the
+    /// viewport there and says where the camera may go, not what the art covers.
+    var cameraPlateBounds: CGRect { .zero }
+
+    /// Camera-visible world height at the current step.
+    var playVisibleHeight: CGFloat {
+        CameraZoom.visibleHeight(base: referenceVisibleHeight, step: zoomStep)
+    }
+
+    /// Live uniform camera scale. Everything that used to read `baseCameraScale`
+    /// as "the current scale" reads this instead.
+    var playCameraScale: CGFloat {
+        guard size.height > 0 else { return baseCameraScale }
+        return playVisibleHeight / size.height
+    }
+
+    /// GemRB `Zoom Lock`: the wheel and pinch pan instead of zooming.
+    var zoomLockEnabled: Bool { context.preferences.zoomLockEnabled }
+
+    /// Lower step = less world shown = zoomed in, as in `GetScalePercent`.
+    func setZoomStep(_ step: Int) {
+        guard allowsPlayerZoom, !cutsceneDirector.ownsCamera else { return }
+        let clamped = CameraZoom.clamped(step: step, to: zoomBounds)
+        guard clamped != zoomStep else { return }
+        zoomStep = clamped
+        context.cameraZoomStep = zoomStep
+        gameCamera.setScale(playCameraScale)
+        settleCameraAfterZoom()
+    }
+
+    /// Re-clamp now rather than waiting for the next `updateCamera`.
+    ///
+    /// A zoom-out widens the viewport under a camera position that was legal at
+    /// the old scale, so the frame drawn between the zoom and the next update
+    /// can show past the plate edge — which is the one thing the fit ceiling
+    /// exists to prevent. Caught by a QA capture, where the update loop never
+    /// runs at all and the city sat 148 world units below its own plate.
+    private func settleCameraAfterZoom() {
+        let bounds = cameraClampBounds
+        guard !bounds.isEmpty else { return }
+        let settled = clampedCameraPosition(following: gameCamera.position, in: bounds)
+        gameCamera.position = settled
+        if cameraMode == .free { freeCameraTarget = settled }
+    }
+
+    func zoomIn() { setZoomStep(zoomStep - 1) }
+    func zoomOut() { setZoomStep(zoomStep + 1) }
+
+    /// Wheel or trackpad scroll no overlay claimed. BG:EE zooms here; under
+    /// `Zoom Lock` GemRB redirects the same event to `Scroll(...)` instead,
+    /// which is what a trackpad's two-finger scroll wants.
+    func applyViewportScrollGesture(dx: CGFloat, dy: CGFloat) {
+        guard allowsPlayerZoom, !cutsceneDirector.ownsCamera else { return }
+        if zoomLockEnabled {
+            panCamera(byViewDelta: CGVector(dx: dx, dy: dy))
+            return
+        }
+        guard dy != 0 else { return }
+        dy > 0 ? zoomIn() : zoomOut()
+    }
+
+    /// BG:EE's band, narrowed to what this scene's plate can cover. A scene with
+    /// no painted extent (the cinematic exterior) keeps the engine band.
+    private func resolvedZoomBounds() -> ClosedRange<Int> {
+        let plate = cameraPlateBounds
+        guard size.height > 0, !plate.isEmpty else { return CameraZoom.engineStepRange }
+        let ceiling = CameraZoom.fitStep(
+            base: referenceVisibleHeight,
+            viewportAspect: size.width / size.height,
+            anchor: CGPoint(x: cameraClampBounds.midX, y: cameraClampBounds.midY),
+            plate: plate
+        )
+        return CameraZoom.engineStepRange.lowerBound...max(CameraZoom.engineStepRange.lowerBound, ceiling)
     }
 
     // MARK: - Viewport
@@ -314,7 +438,7 @@ class BaseGameScene: SKScene {
     /// pixels per frame, which are bound to its fixed resolution and tick rate.
     /// A screen-relative rate covers the same proportion of the view per second
     /// on any window, which is the property those constants were really encoding.
-    var cameraScrollSpeed: CGFloat { referenceVisibleHeight }
+    var cameraScrollSpeed: CGFloat { playVisibleHeight }
 
     /// Distance from the view edge that starts an edge scroll (BG `EdgeScrollOffset`).
     static let edgeScrollInset: CGFloat = 16
@@ -353,8 +477,8 @@ class BaseGameScene: SKScene {
     func panCamera(byViewDelta viewDelta: CGVector) {
         guard viewDelta != .zero else { return }
         detachCamera()
-        freeCameraTarget.x += viewDelta.dx * baseCameraScale
-        freeCameraTarget.y += viewDelta.dy * baseCameraScale
+        freeCameraTarget.x += viewDelta.dx * playCameraScale
+        freeCameraTarget.y += viewDelta.dy * playCameraScale
     }
 
     /// Per-frame viewport update. Scenes call this instead of assigning
@@ -377,7 +501,11 @@ class BaseGameScene: SKScene {
                 freeCameraTarget.x += cameraScrollVector.dx * step
                 freeCameraTarget.y += cameraScrollVector.dy * step
             }
-            gameCamera.position = clampedCameraPosition(following: freeCameraTarget, in: bounds)
+            // Settle the target on the clamped result rather than letting it run
+            // on unbounded. A target parked far outside the plate while zoomed in
+            // would otherwise be stale the moment the player zoomed out.
+            freeCameraTarget = clampedCameraPosition(following: freeCameraTarget, in: bounds)
+            gameCamera.position = freeCameraTarget
         }
     }
 
@@ -409,8 +537,8 @@ class BaseGameScene: SKScene {
     /// `bounds` is a rect, not a size: the office plate is centred on its layout
     /// focus rather than anchored at the origin.
     func clampedCameraPosition(following target: CGPoint, in bounds: CGRect) -> CGPoint {
-        let halfWidth = size.width * baseCameraScale / 2
-        let halfHeight = referenceVisibleHeight / 2
+        let halfWidth = size.width * playCameraScale / 2
+        let halfHeight = playVisibleHeight / 2
         return CGPoint(
             x: Self.clampAxis(target.x, half: halfWidth, min: bounds.minX, max: bounds.maxX),
             y: Self.clampAxis(target.y, half: halfHeight, min: bounds.minY, max: bounds.maxY)
@@ -625,7 +753,9 @@ extension BaseGameScene {
                 touchDownTime = nil
                 touchDownLocation = nil
                 twoFingerAnchor = Self.touchCentroid(in: event, view: view)
+                twoFingerSpread = Self.touchSpread(in: event, view: view)
                 twoFingerPanDistance = 0
+                pendingPinchTravel = 0
                 if let touch = touches.first {
                     handlePointerCancelled(
                         GamePointerEvent(location: touch.location(in: self), kind: .touch)
@@ -655,6 +785,7 @@ extension BaseGameScene {
             twoFingerAnchor = centroid
             twoFingerPanDistance += hypot(delta.dx, delta.dy)
             panCamera(byViewDelta: delta)
+            applyPinch(in: event)
             return
         }
         guard let touch = touches.first else { return }
@@ -682,7 +813,9 @@ extension BaseGameScene {
                     handleClearTargetingInput()
                 }
                 twoFingerAnchor = nil
+                twoFingerSpread = nil
                 twoFingerPanDistance = 0
+                pendingPinchTravel = 0
             }
             return
         }
@@ -711,12 +844,46 @@ extension BaseGameScene {
             if !hasActiveTouches {
                 twoFingerGestureIsActive = false
                 twoFingerAnchor = nil
+                twoFingerSpread = nil
                 twoFingerPanDistance = 0
+                pendingPinchTravel = 0
             }
             return
         }
         guard let touch = touches.first else { return }
         handlePointerCancelled(GamePointerEvent(location: touch.location(in: self), kind: .touch))
+    }
+
+    /// Two-finger pinch — the touch equivalent of BG:EE's wheel zoom, riding the
+    /// same gesture that pans. Spread travel is folded into `twoFingerPanDistance`
+    /// so a pinch can never be mistaken for the two-finger *tap* that clears
+    /// targeting.
+    private func applyPinch(in event: UIEvent?) {
+        guard let spread = Self.touchSpread(in: event, view: view) else { return }
+        defer { twoFingerSpread = spread }
+        guard let previous = twoFingerSpread else { return }
+        let change = spread - previous
+        guard change != 0 else { return }
+        twoFingerPanDistance += abs(change)
+        guard allowsPlayerZoom, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
+        pendingPinchTravel += change
+        while pendingPinchTravel >= Self.pinchPointsPerStep {
+            pendingPinchTravel -= Self.pinchPointsPerStep
+            zoomIn()
+        }
+        while pendingPinchTravel <= -Self.pinchPointsPerStep {
+            pendingPinchTravel += Self.pinchPointsPerStep
+            zoomOut()
+        }
+    }
+
+    /// Distance between the two live touches in view points. Nil unless exactly
+    /// the pinch pair is down, so a third finger cannot jitter the zoom.
+    private static func touchSpread(in event: UIEvent?, view: SKView?) -> CGFloat? {
+        let live = event?.allTouches?.filter { $0.phase != .ended && $0.phase != .cancelled } ?? []
+        guard live.count == 2 else { return nil }
+        let points = live.map { $0.location(in: view) }
+        return hypot(points[0].x - points[1].x, points[0].y - points[1].y)
     }
 
     /// Mean position of the live touches in view points, which unlike scene
@@ -763,7 +930,25 @@ extension BaseGameScene {
 
     override func scrollWheel(with event: NSEvent) {
         let multiplier: CGFloat = event.hasPreciseScrollingDeltas ? 1 : 10
-        handleScrollInput(event.scrollingDeltaY * multiplier)
+        let deltaY = event.scrollingDeltaY * multiplier
+        // GemRB `OnMouseWheelScroll`: an open overlay owns the wheel; anything
+        // left over is zoom (or pan, under Zoom Lock).
+        if handleScrollInput(deltaY) { return }
+        applyViewportScrollGesture(dx: event.scrollingDeltaX * multiplier, dy: deltaY)
+    }
+
+    /// Trackpad pinch. Same destination as the wheel, different device.
+    override func magnify(with event: NSEvent) {
+        guard allowsPlayerZoom, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
+        pendingMagnification += event.magnification
+        while pendingMagnification >= Self.magnificationPerStep {
+            pendingMagnification -= Self.magnificationPerStep
+            zoomIn()
+        }
+        while pendingMagnification <= -Self.magnificationPerStep {
+            pendingMagnification += Self.magnificationPerStep
+            zoomOut()
+        }
     }
 
     /// Middle-button drag pans the viewport, as GemRB's `OnMouseDrag` does for
@@ -788,6 +973,9 @@ extension BaseGameScene {
             }
             if !event.isARepeat { heldScrollKeys.insert(event.keyCode) }
             applyKeyScrolling()
+        // BG:EE binds minus / equals to zoom out / in.
+        case 27: zoomOut()
+        case 24: zoomIn()
         case 34 where !event.isARepeat: handleInventoryInput() // I
         case 46 where !event.isARepeat: handleMapInput() // M
         case 38 where !event.isARepeat: handleJournalInput() // J

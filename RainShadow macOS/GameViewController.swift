@@ -76,6 +76,11 @@ class GameViewController: NSViewController {
     /// `RAINSHADOW_CAPTURE_SIZE=<width>x<height>` resizes the window in points
     /// before layout and capture (for example `1280x720`).
     ///
+    /// `RAINSHADOW_CAPTURE_ZOOM=<percent>` frames the capture at a BG:EE zoom
+    /// percent (25…155) instead of the default 100. Clamped to the scene's own
+    /// ceiling, so asking for 155 in the office reports back the 140 it allows —
+    /// which is how a capture proves the plate still covers the viewport.
+    ///
     /// `RAINSHADOW_PARTITION_MASK=0` loads the full-height partition (mask off).
     /// `RAINSHADOW_LEGACY_PARTITION=1` restores partition/foreground overlays with suite plate.
     /// `RAINSHADOW_FORCE_CLIENT_ENTRANCE=1` with `RAINSHADOW_SKIP_INTRO=1` starts
@@ -93,6 +98,12 @@ class GameViewController: NSViewController {
             // rendering or every cinematic reviews as frame zero.
             if let game = (self?.view as? SKView)?.scene as? BaseGameScene {
                 game.seekForCapture(elapsed: delay)
+                if let requested = environment["RAINSHADOW_CAPTURE_ZOOM"].flatMap(Double.init) {
+                    game.setZoomStep(CameraZoom.step(forPercent: CGFloat(requested)))
+                    let applied = CameraZoom.percent(forStep: game.zoomStep)
+                    let report = "capture: zoom \(applied)% (step \(game.zoomStep) of \(game.zoomBounds))\n"
+                    FileHandle.standardError.write(Data(report.utf8))
+                }
             }
             if let office = (self?.view as? SKView)?.scene as? DetectiveOfficeScene {
                 office.seekForcedClientEntranceForCapture()

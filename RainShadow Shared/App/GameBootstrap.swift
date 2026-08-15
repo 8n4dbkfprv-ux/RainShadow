@@ -635,17 +635,31 @@ final class GameSession {
 final class GameContext {
     let saveStore: SaveStore
     let session: GameSession
+    /// Display options. Separate from `saveStore` on purpose — see `GamePreferences`.
+    let preferences: GamePreferences
     lazy var router = SceneRouter(context: self)
+
+    /// Live BG:EE zoom step, shared by every scene the router builds.
+    ///
+    /// GemRB keeps `zoomLevel` on `GameControl`, which outlives an area change,
+    /// so walking from the office to Sable Row keeps the framing the player
+    /// chose. It is not written to the save, and a new game starts at 100%.
+    var cameraZoomStep = CameraZoom.defaultStep
 
     init() {
         let saveStore = SaveStore()
         self.saveStore = saveStore
         session = GameSession(saveStore: saveStore)
+        preferences = GamePreferences()
     }
 
-    init(saveStore: SaveStore) {
+    /// `preferences` defaults to `nil` rather than to `GamePreferences()`: a
+    /// default argument is evaluated in a nonisolated context, and the store is
+    /// `@MainActor` like `SaveStore`.
+    init(saveStore: SaveStore, preferences: GamePreferences? = nil) {
         self.saveStore = saveStore
         session = GameSession(saveStore: saveStore)
+        self.preferences = preferences ?? GamePreferences()
     }
 }
 
