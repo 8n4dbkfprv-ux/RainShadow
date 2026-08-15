@@ -115,6 +115,32 @@ exactly like sealed geometry and is not. Offsetting the index origin is safe:
 this grid is an offline mirror, and the emitted `authoredProjectionOrigin` /
 `authoredTileSize` are `private` and unreferenced in Swift.
 
+### A plate can be on the lock and still be too coarse
+
+`qa_plate_projection.py` only answers "is this on the camera?". It cannot see a
+plate painted at a lower resolution than the sprites standing on it.
+`qa_plate_density.py` measures the other axis — **art pixels per world unit**,
+fixed at install because a plate is drawn to a fixed world size:
+
+| | px/unit | vs the actor | magnified at play zoom |
+|---|---|---|---|
+| Voss (512 px canvas over 180 units) | 2.84 | — | 1.28x |
+| office suite plate | 2.53 | 0.89x | 1.43x |
+| every `city_*_ground_v02` | **1.00** | **0.35x** | **3.63x** |
+
+The city grounds are the only thing in the scene being magnified, which is why
+buildings read fine and streets read as oversized stonework. The geometry is
+not at fault — the paving measures 0.12–0.19 m, real granite setts, and the
+streets 7–10 m.
+
+It is worse than the table shows: the candidates are **1536×1024** and
+`install_city_districts_bgee_v03.py` upscales them to `PLATE_SIZE`
+(2048×1152), so the true source density is 0.75 px/unit. **Raising
+`PLATE_SIZE` alone adds pixels, not detail.** The fix is a bigger master
+*and* a bigger install target; the runtime needs no change, because
+`CityDistrictScene` draws the texture at `worldArtSize` regardless of its
+pixel size.
+
 ### Never resize a plate across aspect ratios
 
 Scaling x and y by different factors multiplies every ground slope by `sy/sx`.

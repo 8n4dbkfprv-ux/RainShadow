@@ -290,6 +290,64 @@ architecture, and the wall height follows the door.
    art drawn shallower is a compromise by construction, and it is why every fit
    attempted so far has landed 100–150 px out somewhere.
 
+## City grounds are on the lock but under-resolved (2026-08-15)
+
+All six city grounds pass the projection grade and still read wrong in play:
+the streets look like oversized stonework while the buildings look right.
+Measured, the geometry is not the problem —
+
+| | measured | expected |
+|---|---|---|
+| paving module | 0.12 – 0.19 m | granite sett 0.10 – 0.20 m ✓ |
+| street width | 7 – 10 m | terraced side street 9 m ✓ |
+| ground per screen | 15.8 × 11.9 m | BG1's own playfield: 11.9 × 11.9 m ✓ |
+
+The camera is right too: our screen shows the same ground *depth* as BG1, and
+is wider only because 16:9 is wider than 4:3.
+
+What is wrong is resolution. `qa_plate_density.py` measures art pixels per
+world unit, which is fixed at install because a plate is drawn to a fixed world
+size:
+
+| | px/unit | vs the actor | magnified at play zoom |
+|---|---|---|---|
+| Voss (512 px canvas over 180 units) | 2.84 | — | 1.28× |
+| office suite plate | 2.53 | 0.89× | 1.43× |
+| every `city_*_ground_v02` | **1.00** | **0.35×** | **3.63×** |
+
+The ground is the only asset in the scene being magnified, and by 3.6×. Every
+sett was painted ~10 px and is drawn ~36 device px. That is the whole of the
+"streets look too big" report — a fine texture blown up, not a coarse one
+painted.
+
+And the shipped 2048×1152 file is itself an upscale: the candidates are
+**1536×1024**, `fit_to_aspect` centre-crops them to 1536×864 and
+`install_city_districts_bgee_v03.py` scales that to `PLATE_SIZE`. True source
+density is **0.75 px/unit**, so play zoom magnifies the real detail **4.2×**.
+
+### What a fix needs
+
+Both halves, or neither works:
+
+1. **Generate the ground masters at ≥ 4096 px wide.** After the 3:2 → 16:9
+   centre-crop that is 4096×2304, which lands exactly on the 2.0 floor.
+   ~5250 wide would match the office's 2.53.
+2. **Raise `process_city_districts_v02.PLATE_SIZE` to (4096, 2304).** It is
+   currently (2048, 1152) and every installer downscales to it, so a larger
+   master would be thrown away.
+
+Raising `PLATE_SIZE` on its own adds pixels and no detail. The runtime needs no
+change at all: `CityDistrictScene` draws the texture at `worldArtSize`, so the
+world size, navigation and camera are untouched by a denser plate.
+
+### Separately: a district is small for an area
+
+A district covers **33.7 × 25.3 m** of ground (≈850 m²) — 2.13 screens across.
+Infinity Engine areas run roughly 32–100 adults wide; ours is 29. That is at or
+below the smallest BG area, which is why a "ward" reads as a single junction.
+Enlarging it is a world-size and navigation change, not an asset swap, so it is
+noted here rather than folded into the density fix.
+
 ## These remaining candidates are NOT installable as-is
 
 They are deliberately **not** wired into the runtime. Three hard blockers:
