@@ -7,7 +7,9 @@ four riverside landmarks + two door leaves.
 
 Masters live in `ArtSource/Generated/BGEEProjectionCandidates/Riverside/`.
 The pipeline camera (`ie_projection.ACTIVE`) stays on LEGACY_V2; only these
-pixels switch.
+pixels switch. The ground is composited through
+`composite_city_ground_density_v04` at `PLATE_SIZE` (4096×2304) — do not
+`fit_to_aspect` the 1536 V3 master straight to the plate.
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ from pathlib import Path
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import composite_city_ground_density_v04 as dens
 import process_city_districts_v02 as proc
 import qa_plate_projection as qa
 
@@ -73,14 +76,16 @@ def main() -> int:
 
     GEN.mkdir(parents=True, exist_ok=True)
     DOORS.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ground_src, GEN / "city_riverside_ground_v02.png")
-
-    install_plate(ground_src, AREAS / "city_riverside_ground_v02.png", proc.PLATE_SIZE)
+    master = Image.open(ground_src)
+    plate = dens.composite(master, proc.PLATE_SIZE)
+    dens.assert_not_naked_upscale(master, plate)
+    plate.save(GEN / "city_riverside_ground_v02.png", "PNG", optimize=True)
+    plate.save(AREAS / "city_riverside_ground_v02.png", "PNG", optimize=True)
     # Block / map start as the empty ground; compose_city_district_preview
     # overwrites them with the assembled district after sprites land.
-    install_plate(ground_src, AREAS / "city_riverside_block_v02.png", proc.PLATE_SIZE)
+    plate.save(AREAS / "city_riverside_block_v02.png", "PNG", optimize=True)
+    plate.save(GEN / "city_riverside_block_v02.png", "PNG", optimize=True)
     install_plate(ground_src, MAPS / "map_city_riverside_v02.png", proc.MAP_SIZE)
-    shutil.copy2(AREAS / "city_riverside_block_v02.png", GEN / "city_riverside_block_v02.png")
 
     for filename, runtime, target in BUILDINGS:
         src = SRC / filename
