@@ -21,9 +21,9 @@ enum OfficeInteriorScale {
         /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
         ///
         /// Anchored to the architecture rather than picked by eye. The shipping plate's
-        /// clear entrance opening is 206 plate px → 81.37 world units; a real interior
+        /// clear entrance opening is 198 plate px → 78.21 world units; a real interior
         /// door is ~1.16× an adult, so the visible body must land near 70 units. 180
-        /// yields 200/512 × 180 = 70.3125 and puts the opening at 1.157× the body.
+        /// yields 200/512 × 180 = 70.3125 and puts the opening at 1.11× the body.
         /// The prior 232 made the body 90.625 — taller than the door it walks through.
         ///
         /// Seated and standing share one size — DeskNE shared-scale atlases keep the
@@ -394,7 +394,7 @@ enum OfficeInteriorScale {
     ///
     /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
     /// followed camera swing out over the empty margin.
-    static let paintedRoomSourceRect = CGRect(x: 1_047, y: 646, width: 1_999, height: 1_379)
+    static let paintedRoomSourceRect = CGRect(x: 1_047, y: 646, width: 1_999, height: 1_182)
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

@@ -13,11 +13,12 @@ Basis (all values in shell plate pixels, y down):
     b = 0 on the north-west wall, grows toward the camera
 
 These axes are a *measurement of the installed plate*, not a free parameter.
-The V5 suite (`install_office_bgee_v05.py`) is on the Baldur's Gate: EE lock,
-so the fitted slopes are exactly ±0.75. Axis lengths come from the painted
-wall shoes (NW = window wall, NE = exterior-door wall) intersected with the
-camera-near cutaway. The geometric near tip sits in the black below the
-clipped floor; walkable `FLOOR_*` stops on the paint.
+The V7 suite (`install_office_bgee_v07.py`) keeps the V5 floor diamond on the
+Baldur's Gate: EE lock (slopes exactly ±0.75) and shortens only the plaster
+band so the exterior door column is a 1930s office, not a warehouse. Axis
+lengths come from the painted wall shoes (NW = window wall, NE = exterior-door
+wall) intersected with the camera-near cutaway. The geometric near tip sits
+in the black below the clipped floor; walkable `FLOOR_*` stops on the paint.
 """
 
 from __future__ import annotations
@@ -50,25 +51,27 @@ BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 # not shrink with the plate.
 SUITE_PLATE_SCALE = 0.60
 
-# Painted clear doorway on the NE wall (V5 plate), measured from floor contact
-# up to the lintel underside. Partition opening matches this height.
-BAKED_DOORWAY_H = 290.0
+# Painted clear doorway on the NE wall (V7 proportion lock), measured from
+# floor contact up to the lintel underside. This is the 198 px opening from
+# the door-column table, not the older 290 px recess-inclusive read.
+BAKED_DOORWAY_H = 198.0
 BAKED_DOORWAY_W = 125.0
 DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
 DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
-OLD_WALL_FACE_H = 348.0
-# V5 wall face: plaster above the rail plus the dark wainscot down to the
-# boards. Measured on the window-wall crown vs the forced-0.75 shoe.
-PLASTER_H = 158.0
+OLD_WALL_FACE_H = 369.0
+# V7 wall face at the exterior door column: clear opening + short plaster
+# band (198 + 73). Wainscot is a material band inside that face, not an
+# addend — it was unchanged by the crown drop.
+PLASTER_H = 73.0
 WAINSCOT_H = 170.0
-WALL_FACE_H = PLASTER_H + WAINSCOT_H
+WALL_FACE_H = BAKED_DOORWAY_H + PLASTER_H
 DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# FLOOR diamond for the V5 suite (not wall-top silhouette).
+# FLOOR diamond for the V5/V7 suite (not wall-top silhouette).
 #
-# Fit against the installed 0.60 V5 plate (`install_office_bgee_v05.py`):
+# Fit against the installed 0.60 V5 plate; V7 does not move the shoes:
 # - NW shoe through the window-wall boards at (1120, 1000)
 # - NE shoe through the exterior-door threshold at (2822, 1055)
 # - Slopes forced to the BG:EE lock (±0.75); west/east from those lines

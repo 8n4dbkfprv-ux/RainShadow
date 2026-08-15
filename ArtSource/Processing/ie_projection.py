@@ -112,7 +112,8 @@ LEGACY_V2 = GroundProjection(
 )
 
 # ---------------------------------------------------------------------------
-# Flip with the on-lock masters. City grounds + office V5 are installed.
+# Flip with the on-lock masters. City grounds + office V7 (V5 floor,
+# human-scale wall face) are installed.
 # ---------------------------------------------------------------------------
 ACTIVE: GroundProjection = BGEE
 
