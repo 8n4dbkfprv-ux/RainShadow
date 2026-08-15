@@ -109,11 +109,23 @@ struct CityDistrictDefinition {
         height: sourceArtSize.height * environmentScale
     )
     static let worldBounds = CGRect(origin: .zero, size: worldArtSize)
-    /// Local reveal, held at ~0.8 of the camera half-height so the fog edge stays
-    /// on screen. A flat 400 was tuned against the old ~1007-unit visible height;
-    /// at the BG1 density (~541) it sat outside the viewport entirely, so the fog
-    /// never read in play.
-    static var fogRevealRadius: CGFloat { cameraVisibleHeight * 0.4 }
+    /// Local reveal, sized so the whole screen is lit at the default zoom.
+    ///
+    /// This was 0.4 — deliberately inside the viewport, so the fog edge would be
+    /// visible. The cost was that only 45% of the screen width was ever lit, and
+    /// arriving in a district showed a keyhole of pavement with no building,
+    /// lamp or vehicle in frame. With nothing to give it scale the paving read as
+    /// oversized, which is what "the streets look too big" turned out to be —
+    /// not the module, which measures 0.12 m, nor the plate, which is on the
+    /// density floor.
+    ///
+    /// 1.05 puts the radius at 568 units against a 551.6-unit screen corner at
+    /// 100%, so the immediate surroundings are fully lit and the boundary only
+    /// appears once the player zooms out — which is how BG:EE reads: you see the
+    /// whole screen, and fog covers the parts of the area you have not walked.
+    /// Deliberately a fixed world radius rather than one tracking the zoomed
+    /// height, so zooming out cannot be used to see through the fog.
+    static var fogRevealRadius: CGFloat { cameraVisibleHeight * 1.05 }
     static let standingAdultBodyHeight = OfficeInteriorScale.standingAdultBodyHeight
 
     /// Camera density uses the rendered adult body so city framing matches office.
