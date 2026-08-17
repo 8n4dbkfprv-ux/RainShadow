@@ -193,21 +193,35 @@ struct ActorLocomotionPacingTests {
             ),
             encoding: .utf8
         )
+        // The waypoint queue moved out of both scenes into `MovementOrderQueue`,
+        // where it is unit-tested directly by `MovementOrderQueueTests` rather
+        // than asserted as source text. These greps stay because they pin the
+        // *engine* behaviours to a file — an accidental revert to `route`, or a
+        // lost replan budget, still fails here — but the queue's own suite is
+        // now the primary guard.
+        let movement = try String(
+            contentsOf: root.appendingPathComponent(
+                "RainShadow Shared/Gameplay/Navigation/MovementOrderQueue.swift"
+            ),
+            encoding: .utf8
+        )
+
         #expect(office.contains("detective.isDeskRegistered"))
         #expect(office.contains("emptyDeskChairWorldPosition"))
         #expect(office.contains("The world prop is the sole chair owner"))
-        #expect(office.contains("meaningfullyShorter"))
-        #expect(office.contains("isRouteBlocked"))
+        #expect(movement.contains("meaningfullyShorter"))
+        #expect(movement.contains("isBlocked"))
         #expect(!office.contains("deskChairProp"))
         #expect(!office.contains("shouldHideEmptyDeskChair"))
 
         // A refused order stays refused: floor clicks path honestly and never
         // fall back to `route`'s nearest-reachable snap.
-        #expect(office.contains("navigation.path(from:"))
+        #expect(movement.contains("navigation.path(from:"))
+        #expect(!movement.contains("navigation.route(from:"))
         #expect(!office.contains("navigation.route(from:"))
         // Plan around actors first, bump only when nothing clear exists, and probe
         // for the blocker ahead of the mover rather than around it.
-        #expect(office.contains("navigation.pathAvoidingActors"))
+        #expect(movement.contains("navigation.pathAvoidingActors"))
         #expect(office.contains("detectiveCollisionProbe"))
         #expect(office.contains("beginMovementBackoff"))
         // Conversations turn participants gradually, as `GSUtils` does — and Voss
@@ -224,8 +238,8 @@ struct ActorLocomotionPacingTests {
 
         // Replan budget: `Actor::NewPath` abandons past MAX_PATH_TRIES instead of
         // grinding a search forever, and a fresh order resets the count.
-        #expect(office.contains("recordCongestion"))
-        #expect(office.contains("clearCongestion"))
+        #expect(movement.contains("recordCongestion"))
+        #expect(movement.contains("clearCongestion"))
 
         // Arrow / WASD keys drive the viewport, never the actor.
         #expect(!office.contains("moveDetective(to: candidate)"))
@@ -260,13 +274,25 @@ struct ActorLocomotionPacingTests {
         #expect(!client.contains("body.xScale = -"))
     }
 
-    @Test func waypointQueueFollowsAddWayPoint() throws {
+    /// `Movable::AddWayPoint` semantics.
+    ///
+    /// This used to loop over both scene files asserting they implemented the
+    /// queue identically, because they each carried their own copy and "neither
+    /// may drift". There is one copy now, in `MovementOrderQueue`, so drift is
+    /// impossible by construction and the behaviours are asserted directly by
+    /// `MovementOrderQueueTests` — appending from the last goal, dropping an
+    /// empty leg, and wiping the queue on a plain order.
+    ///
+    /// What is left here is the part behaviour cannot see: that both scenes
+    /// still draw a reticle on *both* the replace and the append path, which is
+    /// `DrawTargetReticles` marking every queued waypoint and always the
+    /// destination.
+    @Test func bothScenesPipTheReplaceAndTheAppendPath() throws {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
 
-        // Both scenes implement the queue identically; neither may drift.
         for relativePath in [
             "RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift",
             "RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift"
@@ -275,30 +301,9 @@ struct ActorLocomotionPacingTests {
                 contentsOf: root.appendingPathComponent(relativePath),
                 encoding: .utf8
             )
-
-            // `Movable::AddWayPoint` paths from the last node of the existing
-            // path, not from the actor, so legs chain end-to-end.
-            #expect(scene.contains("guard let origin = queuedMovementGoals.last"))
-            #expect(scene.contains("navigation.path(from: origin, to: target)"))
-
-            // An empty leg is "already there", not a route. BG returns without
-            // appending; queueing it would leave a goal with no waypoints behind it.
-            #expect(scene.contains("guard !waypoints.isEmpty else { return }"))
-
-            // `DrawTargetReticles` marks every queued waypoint *and* always the
-            // destination — so both the replace and the append path pip.
             let pips = scene.components(separatedBy: "showWaypointPip(at: target)").count - 1
-            #expect(pips == 2)
-
-            // A plain click wipes the queue, as `actor->Stop()` clears the path.
-            #expect(scene.contains("queuedMovementGoals = [target]"))
+            #expect(pips == 2, "\(relativePath) pips \(pips) of the two order paths")
             #expect(scene.contains("clearWaypointPips()"))
-
-            // Appended legs are planned without actors blocking, unlike a fresh
-            // order: `AddWayPoint` calls bare `FindPath` where `WalkTo` passes
-            // PF_SIGHT | PF_ACTORS_ARE_BLOCKING. The asymmetry is deliberate —
-            // a blocker will have moved by the time a later leg is walked.
-            #expect(scene.contains("navigation.pathAvoidingActors"))
         }
     }
 

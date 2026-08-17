@@ -28,14 +28,12 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private var navigation: NavigationMap!
     private var hotspots: [OfficeHotspot] = []
     /// BG:EE Enhanced Path Search — last corrective repath wall-clock time.
-    private var lastCorrectiveRepathTime: TimeInterval = 0
     /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
-    private var queuedMovementGoals: [CGPoint] = []
+    private var movement: MovementOrderQueue!
     private let barks = MovementBarkPlayer()
     private var pendingBumpReturn: [String: CGPoint] = [:]
     private static let detectiveActorID = "detective.voss"
     private static let clientActorID = "client.lila"
-    private static let correctiveRepathInterval: TimeInterval = 0.75
     /// Within this much projected travel of the goal the mover abandons rather
     /// than shoving a blocker aside (`DoStep`'s `WithinPersonalRange` cut-off).
     private static let bumpAbandonDistance: CGFloat = 24
@@ -991,7 +989,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         } else if !dialogueIsActive {
             clearMovementFeedback()
             clearWaypointPips()
-            queuedMovementGoals.removeAll(keepingCapacity: true)
+            movement.finish()
             detective.cancelMovement()
         }
     }
@@ -1733,111 +1731,62 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         context.session.markOfficeHintSeen()
     }
 
+    // MARK: - Movement
+    //
+    // Policy lives in `MovementOrderQueue`; this is the SpriteKit half.
+
     private func moveDetective(
         to target: CGPoint,
         requiresExactDestination: Bool = false,
         queueWaypoint: Bool = false,
         completion: (() -> Void)? = nil
     ) {
-        // Exact approach / interact orders always replace the queue.
-        let shouldQueue = queueWaypoint && !requiresExactDestination && !queuedMovementGoals.isEmpty
-
-        if shouldQueue {
-            appendQueuedWaypoint(to: target)
-            return
-        }
-
-        // BG:EE: clicking the search cell you already occupy is not a move order.
-        // `Movable::WalkTo` clears the path and plays a head turn instead, so the
-        // actor pivots toward the click without taking a step.
-        if !requiresExactDestination,
-           navigation.searchMap.cell(for: detective.position)
-               == navigation.searchMap.cell(for: target) {
+        switch movement.order(
+            actorAt: detective.position,
+            to: target,
+            requiresExactDestination: requiresExactDestination,
+            queueWaypoint: queueWaypoint
+        ) {
+        case .turnInPlace:
             clearWaypointPips()
-            queuedMovementGoals.removeAll(keepingCapacity: true)
             detective.turnToFace(target)
-            return
-        }
 
-        // Honest failure, as the engine does it: an order onto impassable ground
-        // is refused outright (`lastCursor == IE_CURSOR_BLOCKED` → no action)
-        // rather than silently redirected to the nearest reachable tile.
-        //
-        // Two-tier search from `Movable::WalkTo`: plan around other actors first,
-        // and only fall back to a route that runs through them — which the mover
-        // will resolve by bumping — when no clear route exists.
-        guard let waypoints = navigation.pathAvoidingActors(from: detective.position, to: target)
-            ?? navigation.path(from: detective.position, to: target) else {
+        case .refused:
             showMovementFeedback(at: target, isValid: false)
             clearWaypointPips()
-            queuedMovementGoals.removeAll(keepingCapacity: true)
-            return
-        }
 
-        clearWaypointPips()
-        showMovementFeedback(at: target, isValid: true)
-        // BG:EE `Actor::CommandActor`: an accepted order gets a spoken
-        // acknowledgement, frequency-gated. A refused one does not — the barks
-        // above this guard would have made a blocked click sound like a success.
-        barks.play(.command, silenced: dialogueIsActive)
-        // BG draws a reticle at every queued waypoint *and* unconditionally at
-        // the destination — `DrawTargetReticles` ends with "always draw last
-        // step". Without this the primary goal only ever got the transient
-        // move marker, so once it faded there was nothing on the ground saying
-        // where the detective was ultimately headed.
-        showWaypointPip(at: target)
-        // A fresh order restarts the replan budget, as `Actor::WalkTo` resets
-        // `pathTries` before planning.
-        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
-        queuedMovementGoals = [target]
-        detective.walk(path: waypoints, completion: { [weak self] in
-            self?.finishQueuedMovement(completion: completion)
-        })
-    }
+        case .ignored:
+            break
 
-    /// BG:EE Shift+click / long-press — route from the last queued goal and append.
-    private func appendQueuedWaypoint(to target: CGPoint) {
-        guard let origin = queuedMovementGoals.last else {
-            moveDetective(to: target, queueWaypoint: false)
-            return
-        }
-        guard let waypoints = navigation.path(from: origin, to: target) else {
-            showMovementFeedback(at: target, isValid: false)
-            return
-        }
-        // `[]` is the three-valued search's "already there", not a route. BG's
-        // `AddWayPoint` returns without appending in exactly this case — "if the
-        // waypoint is too close to the current position, no path is generated" —
-        // and it has to be rejected explicitly here, or the queue gains a goal
-        // the route has no waypoints for and a pip nothing will consume.
-        //
-        // No blocked marker: the ground is walkable, the order is simply empty.
-        guard !waypoints.isEmpty else { return }
+        case .walk(let path):
+            clearWaypointPips()
+            showMovementFeedback(at: target, isValid: true)
+            // BG:EE `Actor::CommandActor`: an accepted order gets a spoken
+            // acknowledgement, frequency-gated. A refused one does not.
+            barks.play(.command, silenced: dialogueIsActive)
+            showWaypointPip(at: target)
+            detective.walk(path: path, completion: { [weak self] in
+                self?.finishQueuedMovement(completion: completion)
+            })
 
-        showMovementFeedback(at: target, isValid: true)
-        showWaypointPip(at: target)
-        queuedMovementGoals.append(target)
-        detective.walk(appending: waypoints, completion: { [weak self] in
-            self?.finishQueuedMovement()
-        })
+        case .append(let path):
+            showMovementFeedback(at: target, isValid: true)
+            showWaypointPip(at: target)
+            detective.walk(appending: path, completion: { [weak self] in
+                self?.finishQueuedMovement()
+            })
+        }
     }
 
     private func finishQueuedMovement(completion: (() -> Void)? = nil) {
         clearWaypointPips()
-        queuedMovementGoals.removeAll(keepingCapacity: true)
+        movement.finish()
         completion?()
     }
 
-    /// Drop goals the detective has already reached so corrective repath tracks the live leg
-    /// and queued pips disappear as each waypoint is visited.
     private func pruneCompletedQueuedGoals() {
-        let arrivalSlop: CGFloat = 18
-        // Keep the final goal until locomotion finishes (completion clears the queue).
-        while queuedMovementGoals.count > 1,
-              let goal = queuedMovementGoals.first,
-              hypot(detective.position.x - goal.x, detective.position.y - goal.y) <= arrivalSlop {
-            removeWaypointPip(nearest: goal)
-            queuedMovementGoals.removeFirst()
+        for reached in movement.pruneReachedGoals(actorAt: detective.position) {
+            removeWaypointPip(nearest: reached)
         }
     }
 
@@ -1858,98 +1807,23 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
     }
 
-    /// BG:EE Enhanced Path Search — periodically recompute the *current* leg so a
-    /// cleared bottleneck (door, bumped NPC) yields a shorter path. Later queued
-    /// goals stay intact and are re-appended after the repath. Skip adoption when
-    /// the new route is not meaningfully shorter and the live route is still clear,
-    /// so mid-walk kinks from near-identical replacements do not show.
     private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
-        guard let destination = queuedMovementGoals.first,
-              detective.movementDestination != nil,
-              currentTime - lastCorrectiveRepathTime >= Self.correctiveRepathInterval else {
-            return
+        switch movement.correctiveRepath(
+            actorAt: detective.position,
+            remainingRoute: detective.remainingRouteWaypoints,
+            isMoving: detective.movementDestination != nil,
+            at: currentTime
+        ) {
+        case .keepWalking:
+            break
+        case .abandon:
+            clearWaypointPips()
+            detective.cancelMovement()
+        case .walk(let path):
+            detective.walk(path: path, completion: { [weak self] in
+                self?.finishQueuedMovement()
+            })
         }
-        lastCorrectiveRepathTime = currentTime
-        guard let repath = navigation.repath(from: detective.position, to: destination),
-              !repath.isEmpty else {
-            // BG:EE `Actor::NewPath`: count consecutive failed replans toward the
-            // same goal and abandon past `MAX_PATH_TRIES`, rather than retrying
-            // forever against geometry that is not going to open. Without this an
-            // actor whose goal became unreachable mid-walk keeps grinding a search
-            // every 0.75 s for the rest of the scene.
-            if navigation.occupancy.recordCongestion(for: Self.detectiveActorID) {
-                navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
-                clearWaypointPips()
-                queuedMovementGoals.removeAll(keepingCapacity: true)
-                detective.cancelMovement()
-            }
-            return
-        }
-        navigation.occupancy.clearCongestion(for: Self.detectiveActorID)
-        let currentLeg = currentLegWaypoints(to: destination)
-        let remainingLength = Self.polylineLength(currentLeg, from: detective.position)
-        let newLength = Self.polylineLength(repath, from: detective.position)
-        let meaningfullyShorter = remainingLength > 0 && newLength < remainingLength * 0.9
-        let currentBlocked = isRouteBlocked(currentLeg)
-        guard meaningfullyShorter || currentBlocked else {
-            return
-        }
-        let remainingGoals = Array(queuedMovementGoals.dropFirst())
-        var combined = repath
-        var cursor = destination
-        for goal in remainingGoals {
-            if let leg = navigation.path(from: cursor, to: goal) {
-                combined.append(contentsOf: leg)
-                cursor = goal
-            }
-        }
-        detective.walk(path: combined, completion: { [weak self] in
-            self?.finishQueuedMovement()
-        })
-    }
-
-    /// Waypoints for the active queued goal only (excludes later Shift-click legs).
-    private func currentLegWaypoints(to destination: CGPoint) -> [CGPoint] {
-        let arrivalSlop: CGFloat = 18
-        var points: [CGPoint] = []
-        for point in detective.remainingRouteWaypoints {
-            points.append(point)
-            if hypot(point.x - destination.x, point.y - destination.y) <= arrivalSlop {
-                break
-            }
-        }
-        return points
-    }
-
-    private func isRouteBlocked(_ points: [CGPoint]) -> Bool {
-        var cursor = detective.position
-        for point in points {
-            if !navigation.searchMap.isWalkableLine(
-                from: cursor,
-                to: point,
-                radius: navigation.agentProfile.radius,
-                treatActorsAsBlocking: true
-            ) {
-                return true
-            }
-            cursor = point
-        }
-        return false
-    }
-
-    /// Route length in the projected metric the actor actually walks, so
-    /// "is the new route meaningfully shorter" compares travel time rather than
-    /// raw screen distance — a detour that trades vertical for horizontal travel
-    /// is genuinely faster even when the pixel length is the same.
-    private static func polylineLength(_ points: [CGPoint], from origin: CGPoint) -> CGFloat {
-        guard let first = points.first else { return 0 }
-        var length = ActorLocomotionPacing.projectedDistance(from: origin, to: first)
-        var previous = first
-        for point in points.dropFirst() {
-            length += ActorLocomotionPacing.projectedDistance(from: previous, to: point)
-            previous = point
-        }
-        return length
     }
 
     /// BG:EE actor bumping, `Movable::DoStep`.
@@ -1995,12 +1869,12 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
 
         // "Give up instead of bumping if you are close to the goal."
-        if queuedMovementGoals.count == 1,
-           let goal = queuedMovementGoals.first,
+        if movement.goals.count == 1,
+           let goal = movement.currentGoal,
            ActorLocomotionPacing.projectedDistance(from: detective.position, to: goal)
                <= Self.bumpAbandonDistance {
             clearWaypointPips()
-            queuedMovementGoals.removeAll(keepingCapacity: true)
+            movement.finish()
             detective.cancelMovement()
             return
         }
@@ -2157,6 +2031,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
     private func configureNavigation() {
         navigation = OfficeNavigationLayout.makeGrid()
+        movement = MovementOrderQueue(navigation: navigation, actorID: Self.detectiveActorID)
         navigation.registerActor(
             id: Self.detectiveActorID,
             kind: .player,
