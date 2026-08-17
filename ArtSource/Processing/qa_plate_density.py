@@ -51,7 +51,7 @@ PLATES: list[tuple[str, float, str]] = [
     ("Resources/Art/Areas/DetectiveOffice/office_suite_plate.png", 4096 * 0.395, "office"),
     ("Resources/Art/Areas/DetectiveOffice/office_shell_base.png", 4096 * 0.395, "office"),
 ] + [
-    (f"Resources/Art/Areas/CityDistrict/V2/city_{slug}_ground_v02.png", 2048.0, "city ground")
+    (f"Resources/Art/Areas/CityDistrict/V2/city_{slug}_ground_v02.png", 4096.0, "city ground")
     for slug in (
         "sable_row", "wharf_ladder", "riverside",
         "harborpoint_pd", "lila_street", "civic_records",

@@ -112,14 +112,26 @@ struct ActorFootprintTests {
                 "office reachability changed with entranceDoorBlocking: \(doorBlocking)"
             )
         }
+    }
 
+    /// Re-anchored when the districts moved onto the painted block lattice.
+    ///
+    /// The old baselines measured the `WardBlocks` 2x2 grid, which blocked four
+    /// axis-aligned rects that matched nothing on any plate. Four districts now
+    /// share a count because they share the lattice and differ only in what
+    /// stands on it; Riverside is lower because the river takes its bottom
+    /// strip, and Wharf Ladder is lower because the docks waterfront is a
+    /// full-width fade rather than a corner puddle. What this test is for
+    /// is unchanged: a move here that nobody intended means footprint or
+    /// clearance work has leaked into geometry.
+    @Test func cityFootprintDoesNotChangeStaticReachability() {
         let districtBaselines: [CityDistrictID: Int] = [
-            .sableRow: 5_039,
-            .wharfLadder: 5_485,
-            .riverside: 7_202,
-            .harborpointPD: 5_795,
-            .lilaStreet: 6_863,
-            .civicRecords: 6_067,
+            .sableRow: 21_296,
+            .wharfLadder: 18_629,
+            .riverside: 18_961,
+            .harborpointPD: 21_296,
+            .lilaStreet: 21_296,
+            .civicRecords: 21_296,
         ]
         for id in CityDistrictID.allCases {
             let district = CityDistrictCatalog.definition(for: id)

@@ -11,10 +11,11 @@ let package = Package(
         .target(
             name: "RainShadowCore",
             path: "RainShadow Shared/Gameplay/Navigation",
-            // Shipped dialogue packages (also under RainShadow Shared/Resources/Dialogue for the app).
+            // Shipped content packages (also under RainShadow Shared/Resources for the app).
             resources: [
                 .copy("../../Resources/Dialogue"),
-                .copy("../../Resources/Items")
+                .copy("../../Resources/Items"),
+                .copy("../../Resources/Areas")
             ]
         ),
         .target(

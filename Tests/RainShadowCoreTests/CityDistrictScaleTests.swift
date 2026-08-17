@@ -13,13 +13,14 @@ struct CityDistrictScaleTests {
     }
 
     @Test func multiStoryBuildingsAreClearlyTallerThanAdult() {
+        let terraceMultiple = CityDistrictLayout.TerraceSpec.worldHeight
+            / CityDistrictLayout.standingAdultBodyHeight
+        #expect(CityDistrictLayout.Band.multiStoryBuilding.contains(terraceMultiple))
+        // Infinity Engine city block: ~3 storeys + roof ≈ 6 standing adults.
+        #expect((5.0...7.0).contains(terraceMultiple), "Sable terrace \(terraceMultiple)× adult is not IE city scale")
+        #expect(terraceMultiple > 1.5)
+
         let samples: [(String, CGFloat)] = [
-            ("city_building_voss_stoop", CityDistrictLayout.SourceContentHeight.buildingVossStoop),
-            ("city_building_tenement", CityDistrictLayout.SourceContentHeight.buildingTenement),
-            ("city_building_storefront", CityDistrictLayout.SourceContentHeight.buildingStorefront),
-            ("city_building_rowhouse", CityDistrictLayout.SourceContentHeight.buildingRowhouse),
-            ("city_building_shop", CityDistrictLayout.SourceContentHeight.buildingShop),
-            ("city_building_gatehouse", CityDistrictLayout.SourceContentHeight.buildingGatehouse),
             ("city_building_shipping_office", CityDistrictLayout.SourceContentHeight.buildingShippingOffice),
             ("city_building_lila_rooms", CityDistrictLayout.SourceContentHeight.buildingLilaRooms),
             ("city_building_pd_station", CityDistrictLayout.SourceContentHeight.buildingPDStation),
@@ -39,19 +40,36 @@ struct CityDistrictScaleTests {
     }
 
     @Test func landmarkDoorsClearStandingVoss() {
-        let samples: [(String, CGFloat)] = [
-            ("city_building_voss_stoop", CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop),
-            ("city_building_tenement", CityDistrictLayout.SourceDoorLeafHeight.buildingTenement),
-            ("city_building_storefront", CityDistrictLayout.SourceDoorLeafHeight.buildingStorefront),
-            ("city_building_rowhouse", CityDistrictLayout.SourceDoorLeafHeight.buildingRowhouse),
-            ("city_building_shop", CityDistrictLayout.SourceDoorLeafHeight.buildingShop),
-            ("city_building_gatehouse", CityDistrictLayout.SourceDoorLeafHeight.buildingGatehouse),
+        let sableLeaves: [(String, CGFloat)] = [
+            ("city_door_voss_stoop", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard),
+            ("city_door_tenement", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard),
+            ("city_door_storefront", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard),
+            ("city_door_rowhouse", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard),
+            ("city_door_shop", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard),
+            ("city_door_gatehouse", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard)
+        ]
+        for (name, doorLeaf) in sableLeaves {
+            let multiple = CityDistrictLayout.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
+            #expect(multiple != nil, "Missing scale for door on \(name)")
+            if let multiple {
+                #expect(
+                    CityDistrictLayout.Band.doorLeaf.contains(multiple),
+                    "\(name) door body× \(multiple) outside readable door band (must clear Voss)"
+                )
+                #expect(
+                    multiple >= 1.0,
+                    "\(name) door \(multiple)× adult is shorter than standing Voss"
+                )
+            }
+        }
+
+        let cubeSamples: [(String, CGFloat)] = [
             ("city_building_shipping_office", CityDistrictLayout.SourceDoorLeafHeight.buildingShippingOffice),
             ("city_building_lila_rooms", CityDistrictLayout.SourceDoorLeafHeight.buildingLilaRooms),
             ("city_building_pd_station", CityDistrictLayout.SourceDoorLeafHeight.buildingPDStation),
             ("city_building_records_annex", CityDistrictLayout.SourceDoorLeafHeight.buildingRecordsAnnex)
         ]
-        for (name, doorLeaf) in samples {
+        for (name, doorLeaf) in cubeSamples {
             let multiple = CityDistrictLayout.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
             #expect(multiple != nil, "Missing scale for door on \(name)")
             if let multiple {
@@ -98,7 +116,7 @@ struct CityDistrictScaleTests {
     }
 
     @Test func carsAreNotScaledUpWithBuildingFacades() {
-        let carScales = CityDistrictLayout.visualSprites
+        let carScales = CityDistrictCatalog.wharfLadder.visualSprites
             .filter { $0.textureName.contains("car_") }
             .map(\.scale)
         #expect(!carScales.isEmpty)
@@ -114,28 +132,24 @@ struct CityDistrictScaleTests {
         )
         let bench = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.bench,
-            textureName: "city_prop_bench"
+            scale: CityDistrictLayout.PropDisplayScale.bench
         )
         let kiosk = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.kiosk,
             textureName: "city_prop_kiosk"
         )
-        #expect(lamp != nil && bench != nil && kiosk != nil)
+        #expect(lamp != nil && kiosk != nil)
         if let lamp {
             #expect(CityDistrictLayout.Band.streetLamp.contains(lamp))
         }
-        if let bench {
-            #expect(CityDistrictLayout.Band.bench.contains(bench))
-        }
+        #expect(CityDistrictLayout.Band.bench.contains(bench))
         if let kiosk {
             #expect(CityDistrictLayout.Band.kiosk.contains(kiosk))
         }
 
-        let building = CityDistrictLayout.bodyMultiple(
-            contentHeight: CityDistrictLayout.SourceContentHeight.buildingVossStoop,
-            textureName: "city_building_voss_stoop"
-        )!
-        if let lamp, let bench, let kiosk {
+        let building = CityDistrictLayout.TerraceSpec.worldHeight
+            / CityDistrictLayout.standingAdultBodyHeight
+        if let lamp, let kiosk {
             #expect(lamp < building)
             #expect(bench < building)
             #expect(kiosk < building)
@@ -143,7 +157,7 @@ struct CityDistrictScaleTests {
     }
 
     @Test func displayHeightIsContentTimesSpriteScale() {
-        let scale = CityDistrictLayout.representativeScale(forTextureName: "city_prop_car_black")!
+        let scale = CityDistrictLayout.anyDistrictScale(forTextureName: "city_prop_car_black")!
         let content = CityDistrictLayout.SourceContentHeight.carBlack
         let display = CityDistrictLayout.displayHeight(contentHeight: content, scale: scale)
         #expect(abs(display - content * scale) < 0.0001)
@@ -160,24 +174,26 @@ struct CityDistrictScaleTests {
             #expect(sprite.scale > 0)
             #expect(sprite.scale < 4, "Sprite \(sprite.textureName) scale \(sprite.scale) looks like unscaled full-res art")
         }
-        let carScales = CityDistrictLayout.visualSprites
+        let carScales = CityDistrictCatalog.wharfLadder.visualSprites
             .filter { $0.textureName.contains("car_") }
             .map(\.scale)
         #expect(!carScales.isEmpty)
         #expect(carScales.allSatisfy { $0 <= 0.75 })
-        let buildingScales = CityDistrictLayout.visualSprites
+        let facadeScales = CityDistrictCatalog.wharfLadder.visualSprites
             .filter { $0.textureName.hasPrefix("city_building_") }
             .map(\.scale)
-        let lampScales = CityDistrictLayout.visualSprites
+        let lampScales = CityDistrictCatalog.wharfLadder.visualSprites
             .filter { $0.textureName == "city_prop_lamp" }
             .map(\.scale)
-        #expect(buildingScales.min()! > lampScales.max()!)
+        #expect(!facadeScales.isEmpty)
+        #expect(!lampScales.isEmpty)
+        #expect(facadeScales.min()! > lampScales.max()!)
     }
 
     @Test func doorLeavesTallerThanCarRoofsOnSableRow() {
         let stoopDoor = CityDistrictLayout.doorBodyMultiple(
-            doorLeafHeight: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop,
-            textureName: "city_building_voss_stoop"
+            doorLeafHeight: CityDistrictLayout.SourceSeparateDoorLeafHeight.standard,
+            textureName: "city_door_voss_stoop"
         )!
         let car = CityDistrictLayout.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.carBlack,
@@ -211,8 +227,28 @@ struct CityDistrictScaleTests {
 
     @Test func allDistrictsUseDoorAnchoredBuildingScales() {
         for id in CityDistrictID.allCases {
-            let buildings = CityDistrictCatalog.definition(for: id).visualSprites
-                .filter { $0.textureName.hasPrefix("city_building_") }
+            let sprites = CityDistrictCatalog.definition(for: id).visualSprites
+            let lots = sprites.filter { $0.textureName.hasPrefix("city_sable_lot_") }
+            if !lots.isEmpty {
+                #expect(lots.count >= 12, "\(id) baked plate is missing lot crops")
+                continue
+            }
+            let terraces = sprites.filter { $0.textureName.hasPrefix("city_terrace_") }
+            if !terraces.isEmpty {
+                for sprite in terraces {
+                    guard let worldSize = sprite.worldSize else {
+                        Issue.record("\(sprite.textureName) in \(id) is missing worldSize")
+                        continue
+                    }
+                    let multiple = worldSize.height / CityDistrictLayout.standingAdultBodyHeight
+                    #expect(
+                        CityDistrictLayout.Band.multiStoryBuilding.contains(multiple),
+                        "\(sprite.textureName) in \(id) world height \(multiple)× adult"
+                    )
+                }
+                continue
+            }
+            let buildings = sprites.filter { $0.textureName.hasPrefix("city_building_") }
             #expect(!buildings.isEmpty, "District \(id) missing buildings")
             for sprite in buildings {
                 #expect(sprite.scale >= 0.5, "\(sprite.textureName) in \(id) scale too small (\(sprite.scale))")

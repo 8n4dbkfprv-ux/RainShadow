@@ -30,7 +30,7 @@ RUNTIME_AREAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Areas" / "Ci
 RUNTIME_PROPS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "CityDistrict" / "V2"
 RUNTIME_MAP = ROOT / "RainShadow Shared" / "Resources" / "Art" / "UI" / "Map"
 
-PLATE_SIZE = (4096, 2304)
+PLATE_SIZE = (8192, 4608)
 MAP_SIZE = (1847, 1040)
 
 DISTRICTS = [

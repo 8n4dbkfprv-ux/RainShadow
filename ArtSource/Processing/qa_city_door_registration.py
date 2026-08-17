@@ -25,7 +25,7 @@ AREAS = ROOT / "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2"
 NAV = ROOT / "RainShadow Shared/Gameplay/Navigation"
 OUT = ROOT / "ArtSource/Generated/CityDistrict/V2/DoorRegistrationQA"
 
-WORLD = (2048, 1152)
+WORLD = (4096, 2304)
 BUILDING_CANVAS = (512, 640)
 DOOR_CANVAS = (256, 384)
 DOOR_FOOT_INSET = 4
@@ -138,7 +138,15 @@ def parse_catalog() -> dict[str, dict]:
 
 
 def canvas_for(tex: str) -> tuple[int, int]:
-    return DOOR_CANVAS if tex.startswith("city_door_") else BUILDING_CANVAS
+    path = PROPS / f"{tex}.png"
+    if path.exists():
+        with Image.open(path) as im:
+            return im.size
+    if tex.startswith("city_door_"):
+        return DOOR_CANVAS
+    if tex.startswith("city_terrace_"):
+        return (2880, 760) if tex.endswith(("_sw", "_nw")) else (2800, 760)
+    return BUILDING_CANVAS
 
 
 def render(district: str, data: dict) -> Image.Image:

@@ -1,0 +1,237 @@
+{
+  "note": "Sable Row V02 painted Imagine masters (seed edit + density overlay).",
+  "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+  "padWorldWidth": 1168.0,
+  "pxPerUnit": 2.0,
+  "lotsWithoutMaster": [],
+  "masters": {
+    "edge_1_1": {
+      "file": "edge_1_1_master.png",
+      "sha256": "767e44cc823df127472e2972a3bf9ed80e03c6decded824f24d2fc9a9b6361fc",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine edit of geom seed + density amt\u00d71.35",
+      "cameraGrade": {
+        "peak_pos": 37.50008515082985,
+        "peak_neg": -31.303319373224397,
+        "worst_delta": 5.566578272619623
+      },
+      "detail": 1.3675113916397095,
+      "pxPerUnit": 2.0342465753424657
+    },
+    "southWest": {
+      "file": "southWest_master.png",
+      "sha256": "46a6c78221c95b74688d87bf4350886351076fa2ec59d181d2bac0316d66dd57",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + density amt\u00d71.50; satellite doors erased",
+      "cameraGrade": {
+        "peak_pos": 36.51294701890687,
+        "peak_neg": -36.23324367141427,
+        "worst_delta": 0.6366539744297484
+      },
+      "detail": 1.146341323852539,
+      "pxPerUnit": 2.017123287671233
+    },
+    "southEast": {
+      "file": "southEast_master.png",
+      "sha256": "273fc1e29316209557ee41131e3c3080e1d20f6e64d2887ad697923efdf16f49",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + density amt\u00d71.50",
+      "cameraGrade": {
+        "peak_pos": 38.93988033382676,
+        "peak_neg": -38.3380754679299,
+        "worst_delta": 2.069982687982737
+      },
+      "detail": 1.1862801313400269,
+      "pxPerUnit": 2.017123287671233
+    },
+    "harborWest": {
+      "file": "harborWest_master.png",
+      "sha256": "465bfd96ba2cef07764d51e274642148f6aafea4678aed4198e54ff5289c50e8",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + wall apertures amt\u00d71.35",
+      "cameraGrade": {
+        "peak_pos": 36.12021881836,
+        "peak_neg": -36.41168011243844,
+        "worst_delta": 0.7496788274840185
+      },
+      "detail": 1.163742184638977,
+      "pxPerUnit": 2.017123287671233
+    },
+    "harborVoss": {
+      "file": "harborVoss_master.png",
+      "sha256": "e974871504ae290670ba8da0fc898badae4cd3b4cee56ea74252473319a17cb2",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + wall apertures amt\u00d71.35",
+      "cameraGrade": {
+        "peak_pos": 37.510593606233925,
+        "peak_neg": -36.9334997602526,
+        "worst_delta": 0.6406959603899054
+      },
+      "detail": 1.1620943546295166,
+      "pxPerUnit": 2.017123287671233
+    },
+    "edge_3_-2": {
+      "file": "edge_3_-2_master.png",
+      "sha256": "b71eb87573bd49d7296a9041e86c27f554d3595298ac3a1b8b4e50c9a5c29518",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine edit of geom seed + density amt\u00d71.35",
+      "cameraGrade": {
+        "peak_pos": 39.497556645392834,
+        "peak_neg": -37.15409091786675,
+        "worst_delta": 2.6276589995488138
+      },
+      "detail": 1.3130793571472168,
+      "pxPerUnit": 2.0416666666666665
+    },
+    "edge_0_0": {
+      "file": "edge_0_0_master.png",
+      "sha256": "a8d51eb207c424e295e8b1b38b8aa7a4bed758867111f2e6bf2a783971e05e91",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + density amt\u00d72.00",
+      "cameraGrade": {
+        "peak_pos": 36.317147595825254,
+        "peak_neg": -44.696174964105516,
+        "worst_delta": 7.826277318261496
+      },
+      "detail": 2.0425336360931396,
+      "pxPerUnit": 2.0342465753424657
+    },
+    "upperWest": {
+      "file": "upperWest_master.png",
+      "sha256": "a585e4224e295b238a72918de28f20c1771ba129a00ec29a1c179db5488365ff",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + wall apertures amt\u00d71.80",
+      "cameraGrade": {
+        "peak_pos": 37.21770804255508,
+        "peak_neg": -36.218557683782834,
+        "worst_delta": 0.6513399620611864
+      },
+      "detail": 1.3447022438049316,
+      "pxPerUnit": 2.017123287671233
+    },
+    "upperEast": {
+      "file": "upperEast_master.png",
+      "sha256": "3800952cbd56943438ce7a73a54e9fe86b4b5995f1d31a18d8ee42e5ed3e321b",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine + wall apertures amt\u00d71.80",
+      "cameraGrade": {
+        "peak_pos": 38.345545697092156,
+        "peak_neg": -37.785810655574906,
+        "worst_delta": 1.475648051248136
+      },
+      "detail": 1.2453495264053345,
+      "pxPerUnit": 2.017123287671233
+    },
+    "skylineWest": {
+      "file": "skylineWest_master.png",
+      "sha256": "2a9aac400cb07726a86e543b4afcee08108b24a14c32ee243b60d91d70d0812a",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine edit of geom seed + density amt\u00d71.82",
+      "cameraGrade": {
+        "peak_pos": 35.272472450205655,
+        "peak_neg": -35.78930694859571,
+        "worst_delta": 1.5974251956383654
+      },
+      "detail": 1.5179656744003296,
+      "pxPerUnit": 2.017123287671233
+    },
+    "skylineEast": {
+      "file": "skylineEast_master.png",
+      "sha256": "bad4e7db4fc440af2bf1560ed512d7be383ea09b79b5d02bf4e3f866c7540c13",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine edit of geom seed + density amt\u00d71.82",
+      "cameraGrade": {
+        "peak_pos": 37.310505538858884,
+        "peak_neg": -36.76060671941548,
+        "worst_delta": 0.4406078930148638
+      },
+      "detail": 1.4941846132278442,
+      "pxPerUnit": 2.017123287671233
+    },
+    "edge_2_-3": {
+      "file": "edge_2_-3_master.png",
+      "sha256": "0677754221ae6f45db6c5c30c384524003145946f22e2769f46cf9b8eece126d",
+      "size": [
+        3200,
+        3200
+      ],
+      "sourceSession": "painted-v02-imagine",
+      "generated": "2026-08-16",
+      "promptLock": "ArtSource/Prompts/city_sable_row_area_v02.md",
+      "note": "painted Imagine edit of geom seed + density amt\u00d70.55",
+      "cameraGrade": {
+        "peak_pos": 10.75,
+        "peak_neg": -36.60383360920409,
+        "worst_delta": 26.11989764584402
+      },
+      "detail": 1.1964858770370483,
+      "pxPerUnit": 2.0416666666666665
+    }
+  }
+}

@@ -26,10 +26,14 @@ final class SceneRouter {
             return
         }
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "city" {
+            // RAINSHADOW_START_DISTRICT=wharf_ladder picks the ward; without it
+            // you land in Sable Row as before.
+            let slug = ProcessInfo.processInfo.environment["RAINSHADOW_START_DISTRICT"]
+            let district = CityDistrictID.allCases.first { $0.slug == slug } ?? .sableRow
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
-            context.session.markCityDistrictVisited(.sableRow)
-            present(.cityDistrict(.sableRow), transition: nil)
+            context.session.markCityDistrictVisited(district)
+            present(.cityDistrict(district), transition: nil)
             return
         }
         present(.openingExterior, transition: nil)

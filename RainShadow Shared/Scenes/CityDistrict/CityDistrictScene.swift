@@ -871,14 +871,63 @@ final class CityDistrictScene: BaseGameScene {
     private func addModularDistrictSprites() {
         for visual in district.visualSprites {
             guard let texture = GameArt.texture(named: visual.textureName) else { continue }
-            let sprite = SKSpriteNode(texture: texture)
+            texture.filteringMode = .linear
+            if let worldSize = visual.worldSize,
+               let sliceWidth = visual.depthSliceWidth,
+               let lotName = visual.depthSortLot,
+               let lot = CityDistrictLayout.IsoLot(rawValue: lotName),
+               sliceWidth > 0 {
+                addDepthSlicedSprite(visual, texture: texture, worldSize: worldSize, lot: lot, sliceWidth: sliceWidth)
+                continue
+            }
+            let sprite: SKSpriteNode
+            if let worldSize = visual.worldSize {
+                sprite = SKSpriteNode(texture: texture, size: worldSize)
+            } else {
+                sprite = SKSpriteNode(texture: texture)
+                sprite.setScale(visual.scale)
+            }
             sprite.name = "city.modular.\(visual.textureName)"
             sprite.anchorPoint = CGPoint(x: 0.5, y: visual.anchorY)
             sprite.position = visual.groundPoint
-            sprite.setScale(visual.scale)
-            sprite.texture?.filteringMode = .linear
             updateDepth(of: sprite, bias: visual.depthBias)
             depthWorldRoot.addChild(sprite)
+        }
+    }
+
+    /// Office-style vertical strips. Each strip keeps the painted foot but
+    /// depth-sorts as if it stood on the lot's street-facing kerb, so an actor
+    /// on Harbor Street draws in front of the near-side wall.
+    private func addDepthSlicedSprite(
+        _ visual: CityDistrictDefinition.VisualSprite,
+        texture: SKTexture,
+        worldSize: CGSize,
+        lot: CityDistrictLayout.IsoLot,
+        sliceWidth: CGFloat
+    ) {
+        let left = visual.groundPoint.x - worldSize.width / 2
+        var cursor = left
+        while cursor < left + worldSize.width - 0.5 {
+            let width = min(sliceWidth, left + worldSize.width - cursor)
+            let midX = cursor + width / 2
+            let crop = CGRect(
+                x: (cursor - left) / worldSize.width,
+                y: 0,
+                width: width / worldSize.width,
+                height: 1
+            )
+            let slice = SKSpriteNode(
+                texture: SKTexture(rect: crop, in: texture),
+                size: CGSize(width: width, height: worldSize.height)
+            )
+            slice.name = "city.modular.\(visual.textureName)"
+            slice.anchorPoint = CGPoint(x: 0.5, y: visual.anchorY)
+            slice.position = CGPoint(x: midX, y: visual.groundPoint.y)
+            slice.texture?.filteringMode = .linear
+            let northY = lot.northKerbY(atX: midX)
+            updateDepth(of: slice, bias: visual.depthBias - northY * 0.5)
+            depthWorldRoot.addChild(slice)
+            cursor += width
         }
     }
 

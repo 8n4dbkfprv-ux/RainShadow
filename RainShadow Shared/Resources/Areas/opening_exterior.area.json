@@ -1,0 +1,59 @@
+{
+  "area" : {
+    "actors" : [
+
+    ],
+    "agentProfile" : {
+      "halfHeight" : 0,
+      "halfWidth" : 0
+    },
+    "ambients" : [
+      {
+        "assetName" : "amb_rain_exterior",
+        "id" : "amb.rain",
+        "isLooping" : true,
+        "volume" : 0.52
+      }
+    ],
+    "containers" : [
+
+    ],
+    "displayName" : "HARBOR STREET — RAIN",
+    "doors" : [
+
+    ],
+    "entrances" : [
+      {
+        "name" : "default",
+        "point" : {
+          "x" : 1536,
+          "y" : 760
+        }
+      }
+    ],
+    "id" : "opening_exterior",
+    "kind" : "exterior",
+    "notes" : [
+
+    ],
+    "obstacles" : [
+
+    ],
+    "plateTextureName" : "ext_apartment_base",
+    "props" : [
+
+    ],
+    "regions" : [
+
+    ],
+    "worldOrigin" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "worldSize" : {
+      "h" : 1728,
+      "w" : 3072
+    }
+  },
+  "schemaVersion" : 1
+}

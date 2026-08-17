@@ -301,6 +301,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("plates", nargs="*", type=Path)
     ap.add_argument("--shipped", action="store_true", help="grade the shipped area plates")
+    ap.add_argument(
+        "--tolerance",
+        type=float,
+        default=None,
+        help="override the default 4.0° lock (city world-scale goal uses 1.5°; "
+        "do not change the shared default — office still sits near 3.85°)",
+    )
     ap.add_argument("--overlay-dir", type=Path, default=None)
     args = ap.parse_args()
 
@@ -308,7 +315,8 @@ def main() -> int:
     if not paths:
         ap.error("give plate paths or --shipped")
 
-    print(f"BG:EE target ground axes +-{TARGET_DEG:.2f} deg (slopes +-0.75), tolerance {TOLERANCE_DEG:.1f}")
+    tolerance = TOLERANCE_DEG if args.tolerance is None else args.tolerance
+    print(f"BG:EE target ground axes +-{TARGET_DEG:.2f} deg (slopes +-0.75), tolerance {tolerance:.1f}")
     print(f"{'plate':52s} {'+axis':>8s} {'-axis':>8s} {'worst':>7s} {'vert%':>6s}  verdict")
     failures = 0
     for path in paths:
@@ -317,6 +325,7 @@ def main() -> int:
             failures += 1
             continue
         r = grade(path)
+        r["passes"] = r["worst_delta"] <= tolerance
         tag = "PASS" if r["passes"] else ("FAIL (reads legacy)" if r["reads_as_legacy"] else "FAIL")
         if not r["passes"]:
             failures += 1

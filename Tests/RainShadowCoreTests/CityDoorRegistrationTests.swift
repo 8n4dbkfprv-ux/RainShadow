@@ -65,21 +65,13 @@ struct CityDoorRegistrationTests {
 
     static let leafTextures = CityDistrictLayout.aperturesByLeafTexture
 
-    /// The facade a leaf belongs to, found in the same district. Leaf names extend
-    /// their building's (`city_door_voss_stoop_garage` → `city_building_voss_stoop`),
-    /// so the longest matching building stem wins.
+    /// The facade a leaf belongs to, found in the same district. Terrace leaves
+    /// pair by `TerraceID`; cube leaves still use the `city_door_*` stem.
     static func building(
         for leaf: CityDistrictDefinition.VisualSprite,
         in district: CityDistrictDefinition
     ) -> CityDistrictDefinition.VisualSprite? {
-        let stem = leaf.textureName.replacingOccurrences(of: "city_door_", with: "")
-        return district.visualSprites
-            .filter { $0.textureName.hasPrefix("city_building_") }
-            .filter {
-                let base = $0.textureName.replacingOccurrences(of: "city_building_", with: "")
-                return stem == base || stem.hasPrefix(base + "_")
-            }
-            .max { $0.textureName.count < $1.textureName.count }
+        CityDistrictLayout.facade(forLeafTexture: leaf.textureName, in: district)
     }
 
     static func paintedRect(
@@ -118,13 +110,20 @@ struct CityDoorRegistrationTests {
             }
             #expect(measured.canvas == CityDistrictLayout.doorCanvas, "\(leaf.textureName) canvas")
             let footInset = measured.canvas.height - measured.y.upperBound
+            // Installer target is 4 px. Shipped leaves sit 4–8 px after the
+            // pad-free facade redo; pin the band so a re-export cannot drift
+            // the foot onto the canvas edge or halfway up the door.
             #expect(
-                abs(footInset - CityDistrictLayout.doorCanvasFootInset) <= 1,
-                "\(leaf.textureName) sits \(footInset) px above its canvas bottom, not \(CityDistrictLayout.doorCanvasFootInset)"
+                (4...8).contains(footInset),
+                "\(leaf.textureName) sits \(footInset) px above its canvas bottom"
             )
             guard let facade = Self.building(for: leaf, in: district),
-                  let facadeArt = Self.measure(facade.textureName) else { continue }
-            #expect(facadeArt.canvas == CityDistrictLayout.buildingCanvas, "\(facade.textureName) canvas")
+                  let facadeArt = Self.measure(facade.textureName),
+                  let aperture = Self.leafTextures[leaf.textureName] else { continue }
+            #expect(
+                facadeArt.canvas == aperture.canvas,
+                "\(facade.textureName) canvas \(facadeArt.canvas) != aperture canvas \(aperture.canvas)"
+            )
         }
     }
 
@@ -173,21 +172,117 @@ struct CityDoorRegistrationTests {
         }
     }
 
-    /// Apertures are read off the 512x640 facade canvas; a value outside it means a
+    /// Apertures are read off their facade canvas; a value outside it means a
     /// measurement was recorded against the wrong image.
     @Test func everyApertureLiesOnTheFacadeCanvas() {
-        let canvas = CityDistrictLayout.buildingCanvas
         for (name, aperture) in CityDistrictLayout.aperturesByLeafTexture {
-            #expect((0...canvas.width).contains(aperture.centreX), "\(name) centreX")
-            #expect((0...canvas.height).contains(aperture.thresholdY), "\(name) thresholdY")
+            #expect((0...aperture.canvas.width).contains(aperture.centreX), "\(name) centreX")
+            #expect((0...aperture.canvas.height).contains(aperture.thresholdY), "\(name) thresholdY")
             #expect(aperture.leafHeight > 0, "\(name) leafHeight")
         }
+    }
+
+    /// Two Harbor Street lots plus upper-row lots around the mid-ward crossing.
+    @Test func sableRowIsLaidOutAsACrossroadsWard() {
+        let district = CityDistrictCatalog.sableRow
+        let names = Set(district.visualSprites.map(\.textureName))
+        #expect(names.contains("city_sable_lot_skylineWest"))
+        #expect(names.contains("city_sable_lot_skylineEast"))
+        let plaza = CityDistrictLayout.StreetCrossing.midWard
+        #expect(district.pointsOfInterest.contains {
+            $0.label == "WARD PLAZA" && $0.worldPoint == plaza
+        })
+        #expect(
+            !district.obstacles.contains { $0.contains(plaza) },
+            "the plaza sits inside a lot"
+        )
+        #expect(district.spawnByArrivalKey["from.south"] != nil)
+        #expect(district.spawnByArrivalKey["from.north"] != nil)
+        let southSpawn = district.spawnByArrivalKey["from.south"]!
+        #expect(
+            southSpawn.y < CityDistrictLayout.IsoLot.harborVoss.nearTip.y,
+            "south spawn \(southSpawn) is not on Harbor Street"
+        )
+        let harborLots = CityDistrictLayout.IsoLot.allCases.filter { $0.streetRole == "harborStreet" }
+        #expect(harborLots.count == 2, "Harbor Street needs the west tenement and Voss's lot")
+        let nearLots = CityDistrictLayout.IsoLot.allCases.filter { $0.streetRole == "harborStreetNear" }
+        #expect(nearLots.count == 2, "Harbor Street needs the camera-near canyon wall")
+        #expect(names.contains("city_sable_lot_southWest"))
+        #expect(names.contains("city_sable_lot_southEast"))
+        #expect(district.groundTextureName == "city_sable_row_area_streets_v01")
+        let approach = district.portals.first { $0.id == "portal.office" }!.approachPoint
+        #expect(
+            !district.obstacles.contains { $0.contains(approach) },
+            "office approach sits inside a near-side lot"
+        )
+    }
+
+    /// Each occupied diamond has a baked lot crop whose foot sits on the lot,
+    /// not an axis-aligned south face. Furniture is paint on the streets plate.
+    @Test func sableHousesSitOnPaintedLots() {
+        let district = CityDistrictCatalog.sableRow
+        let heroLots: [(CityDistrictLayout.IsoLot, String)] = [
+            (.harborWest, "city_sable_lot_harborWest"),
+            (.harborVoss, "city_sable_lot_harborVoss"),
+            (.upperWest, "city_sable_lot_upperWest"),
+            (.upperEast, "city_sable_lot_upperEast")
+        ]
+        for (lot, name) in heroLots {
+            let sprite = district.visualSprites.first { $0.textureName == name }
+            #expect(sprite != nil, "missing \(name)")
+            guard let sprite else { continue }
+            #expect(
+                abs(sprite.groundPoint.x - lot.nearTip.x) <= 24
+                    && abs(sprite.groundPoint.y - lot.nearTip.y) <= 24,
+                "\(name) foot \(sprite.groundPoint) is not the lot near tip \(lot.nearTip)"
+            )
+            let streetPoint = CGPoint(x: lot.nearTip.x, y: lot.nearTip.y - 20)
+            #expect(
+                !district.obstacles.contains { $0.contains(streetPoint) },
+                "\(name) street point \(streetPoint) is inside an obstacle"
+            )
+        }
+
+        for lot in [CityDistrictLayout.IsoLot.southWest, .southEast] {
+            let name = "city_sable_lot_\(lot.rawValue)"
+            let sprite = district.visualSprites.first { $0.textureName == name }
+            #expect(sprite != nil, "missing \(name)")
+            guard let sprite else { continue }
+            #expect(sprite.depthSliceWidth == 64, "\(name) is not depth-sliced")
+            #expect(sprite.depthSortLot == lot.rawValue)
+        }
+
+        #expect(
+            abs(
+                CityDistrictLayout.IsoLot.southEast.northKerbY(atX: 3_360)
+                    - CityDistrictLayout.IsoLot.southEast.farTip.y
+            ) < 1
+        )
+        #expect(
+            CityDistrictLayout.IsoLot.southEast.northKerbY(atX: 3_360)
+                > CityDistrictLayout.TerraceSpec.vossStoopApproach.y
+        )
+        #expect(!district.visualSprites.contains { $0.textureName.hasPrefix("city_prop_") })
     }
 
     /// A portal has to be clickable where its door is painted. Sable Row's covered
     /// 28% of `city_door_voss_stoop`, and the uncovered part sat inside a blocking
     /// obstacle, so clicking the visible apartment door did nothing at all.
     @Test func everyPortalHitAreaCoversItsDoorLeaf() {
+        // Sable's office door is the one this contract exists for: the hit
+        // area must cover the Voss stoop leaf, not merely the nearest door.
+        let sable = CityDistrictCatalog.sableRow
+        if let office = sable.portals.first(where: { $0.id == "portal.office" }),
+           let leaf = sable.visualSprites.first(where: { $0.textureName == "city_door_voss_stoop" }),
+           let art = Self.measure(leaf.textureName) {
+            let rect = Self.paintedRect(of: leaf, measured: art)
+            let overlap = rect.intersection(office.hitArea)
+            let covered = (overlap.width * overlap.height) / (rect.width * rect.height)
+            #expect(covered >= 0.9, "portal.office covers \(Int(covered * 100))% of city_door_voss_stoop")
+        } else {
+            Issue.record("Sable Row is missing portal.office or city_door_voss_stoop")
+        }
+
         for id in CityDistrictID.allCases {
             let district = CityDistrictCatalog.definition(for: id)
             for portal in district.portals {

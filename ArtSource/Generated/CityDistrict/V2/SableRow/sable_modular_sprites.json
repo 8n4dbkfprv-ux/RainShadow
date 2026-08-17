@@ -1,0 +1,784 @@
+{
+  "worldSize": {
+    "h": 2304,
+    "w": 4096
+  },
+  "sprites": [
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 840,
+        "y": 606
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_sw",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 2520,
+        "y": 606
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_se",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 1680,
+        "y": 1236
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_nw",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 3360,
+        "y": 1236
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_ne",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 840,
+        "y": 1866
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_north_skyline",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 2520,
+        "y": 1866
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_north_skyline",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 0,
+        "y": -24
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_corner_shops",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 0,
+        "y": 1236
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_corner_shops",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 4200,
+        "y": 606
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_corner_shops",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 4200,
+        "y": 1866
+      },
+      "scale": 0.5,
+      "textureName": "city_district_sable_corner_shops",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 840,
+        "y": 1087.8
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_a",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 2520,
+        "y": 1087.8
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_b",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 1680,
+        "y": 468.6
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_b",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 3360,
+        "y": 468.6
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_a",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 1680,
+        "y": 1717.8
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_a",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "groundPoint": {
+        "x": 3360,
+        "y": 1717.8
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_far_b",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "depthSliceWidth": 64,
+      "depthSortLot": "southWest",
+      "groundPoint": {
+        "x": 1680,
+        "y": 0
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_south_w",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0,
+      "depthBias": 0,
+      "depthSliceWidth": 64,
+      "depthSortLot": "southEast",
+      "groundPoint": {
+        "x": 3360,
+        "y": 0
+      },
+      "scale": 0.5,
+      "textureName": "city_terrace_sable_south_e",
+      "worldSize": {
+        "h": 420,
+        "w": 1120
+      }
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 33,
+      "groundPoint": {
+        "x": 805.5,
+        "y": 670
+      },
+      "scale": 0.29,
+      "textureName": "city_door_tenement"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 27.5,
+      "groundPoint": {
+        "x": 1023.5,
+        "y": 659
+      },
+      "scale": 0.29,
+      "textureName": "city_door_shop"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 28.5,
+      "groundPoint": {
+        "x": 2360,
+        "y": 661
+      },
+      "scale": 0.29,
+      "textureName": "city_door_gatehouse"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 54,
+      "groundPoint": {
+        "x": 2713,
+        "y": 712
+      },
+      "scale": 0.29,
+      "textureName": "city_door_voss_stoop"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 41,
+      "groundPoint": {
+        "x": 2850,
+        "y": 686
+      },
+      "scale": 0.29,
+      "textureName": "city_door_voss_stoop_garage"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 53.75,
+      "groundPoint": {
+        "x": 1856.5,
+        "y": 1341.5
+      },
+      "scale": 0.29,
+      "textureName": "city_door_storefront"
+    },
+    {
+      "anchorY": 0.010416666666666666,
+      "depthBias": 24.5,
+      "groundPoint": {
+        "x": 3204.5,
+        "y": 1283
+      },
+      "scale": 0.29,
+      "textureName": "city_door_rowhouse"
+    },
+    {
+      "anchorY": 0.1,
+      "depthBias": 3,
+      "groundPoint": {
+        "x": 1680,
+        "y": 1044
+      },
+      "scale": 0.42,
+      "textureName": "city_prop_statue"
+    },
+    {
+      "anchorY": 0.15,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1624,
+        "y": 1002
+      },
+      "scale": 0.1534,
+      "textureName": "city_prop_bench"
+    },
+    {
+      "anchorY": 0.15,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1736,
+        "y": 1086
+      },
+      "scale": 0.1534,
+      "textureName": "city_prop_bench"
+    },
+    {
+      "anchorY": 0.15,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1624,
+        "y": 1086
+      },
+      "scale": 0.1534,
+      "textureName": "city_prop_bench"
+    },
+    {
+      "anchorY": 0.15,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1736,
+        "y": 1002
+      },
+      "scale": 0.1534,
+      "textureName": "city_prop_bench"
+    },
+    {
+      "anchorY": 0.2,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1568,
+        "y": 1128
+      },
+      "scale": 0.357,
+      "textureName": "city_prop_kiosk"
+    },
+    {
+      "anchorY": 0.24,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 960,
+        "y": 504
+      },
+      "scale": 0.36,
+      "textureName": "city_prop_crates_mail"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 904,
+        "y": 462
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 776,
+        "y": 366
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 904,
+        "y": 366
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 776,
+        "y": 462
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2584,
+        "y": 462
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2456,
+        "y": 366
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2584,
+        "y": 366
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2456,
+        "y": 462
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 1744,
+        "y": 1092
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 1616,
+        "y": 996
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 1744,
+        "y": 996
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 1616,
+        "y": 1092
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 3424,
+        "y": 1092
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 3296,
+        "y": 996
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 3424,
+        "y": 996
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 3296,
+        "y": 1092
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 904,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 776,
+        "y": 1626
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 904,
+        "y": 1626
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 776,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2584,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2456,
+        "y": 1626
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2584,
+        "y": 1626
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2456,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 840,
+        "y": 540
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2520,
+        "y": 540
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 984,
+        "y": 306
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2376,
+        "y": 522
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 904,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 776,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2584,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.12,
+      "depthBias": 1,
+      "groundPoint": {
+        "x": 2456,
+        "y": 1722
+      },
+      "scale": 0.4,
+      "textureName": "city_prop_lamp"
+    },
+    {
+      "anchorY": 0.18,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 680,
+        "y": 360
+      },
+      "scale": 0.242,
+      "textureName": "city_prop_car_black"
+    },
+    {
+      "anchorY": 0.18,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 1020,
+        "y": 390
+      },
+      "scale": 0.242,
+      "textureName": "city_prop_car_black"
+    },
+    {
+      "anchorY": 0.18,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 2280,
+        "y": 360
+      },
+      "scale": 0.242,
+      "textureName": "city_prop_car_olive"
+    },
+    {
+      "anchorY": 0.18,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 2648,
+        "y": 318
+      },
+      "scale": 0.242,
+      "textureName": "city_prop_car_maroon"
+    },
+    {
+      "anchorY": 0.18,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 3288,
+        "y": 1098
+      },
+      "scale": 0.242,
+      "textureName": "city_prop_car_maroon"
+    },
+    {
+      "anchorY": 0.22,
+      "depthBias": 2,
+      "groundPoint": {
+        "x": 2520,
+        "y": 414
+      },
+      "scale": 0.38,
+      "textureName": "city_prop_gate"
+    }
+  ]
+}

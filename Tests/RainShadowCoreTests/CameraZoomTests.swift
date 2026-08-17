@@ -121,19 +121,17 @@ struct CameraZoomTests {
         ))
     }
 
-    @Test func cityCeilingIsThePlateNotTheEngineCap() {
-        // At the old BG1 default the district could reach the engine's own 155%
-        // cap. The wider BG:EE default spends that headroom, so the plate binds
-        // first — the district is 2048x1152 world units against a 1389x781
-        // viewport, which leaves 47% to give back.
+    @Test func cityPlateIsLargeEnoughThatTheEngineCapBinds() {
+        // A 2048×1152 junction bound first (step 25). An IE-sized district is
+        // larger than the engine's 155% zoom-out, so the cap is GemRB's 27 and
+        // the viewport still sits inside the plate — the BG:EE outdoor rule.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
             anchor: Self.cityAnchor,
             plate: Self.cityPlate
         )
-        #expect(step == 25)
-        #expect(step < CameraZoom.engineStepRange.upperBound)
+        #expect(step == CameraZoom.engineStepRange.upperBound)
         let widest = CameraZoom.visibleHeight(base: Self.base, step: step)
         #expect(widest * 16 / 9 <= Self.cityPlate.width)
         #expect(widest <= Self.cityPlate.height)

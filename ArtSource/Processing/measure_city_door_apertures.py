@@ -25,13 +25,17 @@ ROOT = Path(__file__).resolve().parents[2]
 PROPS = ROOT / "RainShadow Shared/Resources/Art/Props/CityDistrict/V2"
 OUT = ROOT / "ArtSource/Generated/CityDistrict/V2/ApertureQA"
 
-CANVAS = (512, 640)
+CUBE_CANVAS = (512, 640)
 # Apertures live on the ground floor; crop away the roofs so the grid stays legible.
-CROP_TOP = 250
+CUBE_CROP_TOP = 250
 ZOOM = 2
 
 # building -> leaves it must register (order matters: primary leaf first)
 PAIRS: list[tuple[str, list[str]]] = [
+    ("city_terrace_sable_se", ["city_door_voss_stoop", "city_door_voss_stoop_garage", "city_door_gatehouse"]),
+    ("city_terrace_sable_sw", ["city_door_tenement", "city_door_shop"]),
+    ("city_terrace_sable_nw", ["city_door_storefront"]),
+    ("city_terrace_sable_ne", ["city_door_rowhouse"]),
     ("city_building_voss_stoop", ["city_door_voss_stoop", "city_door_voss_stoop_garage"]),
     ("city_building_tenement", ["city_door_tenement"]),
     ("city_building_storefront", ["city_door_storefront"]),
@@ -57,14 +61,16 @@ PAIRS: list[tuple[str, list[str]]] = [
 ]
 
 # Measured by eye off the grids this script emits: leaf -> (centreX, thresholdY).
+# Sable Row leaves sit on 2240×840 terrace canvases. Cube entries below remain
+# for the five districts that still use 512×640 facades.
 APERTURES: dict[str, tuple[int, int]] = {
-    "city_door_voss_stoop": (212, 480),
-    "city_door_voss_stoop_garage": (375, 520),
-    "city_door_tenement": (275, 482),
-    "city_door_storefront": (210, 508),
-    "city_door_rowhouse": (295, 535),
-    "city_door_shop": (280, 455),
-    "city_door_gatehouse": (265, 505),
+    "city_door_voss_stoop": (1506, 628),
+    "city_door_voss_stoop_garage": (1780, 680),
+    "city_door_tenement": (987, 692),
+    "city_door_storefront": (1540, 627),
+    "city_door_rowhouse": (967, 673),
+    "city_door_shop": (1523, 716),
+    "city_door_gatehouse": (800, 730),
     "city_door_shipping_office": (120, 450),
     "city_door_warehouse": (135, 535),
     "city_door_boarding": (197, 438),
@@ -104,23 +110,26 @@ def _lift_shadows(im: Image.Image, gamma: float = 0.42) -> Image.Image:
 
 def grid_sheet(building: str, leaves: list[str], measured: dict[str, tuple[int, int]]) -> Image.Image:
     im = Image.open(PROPS / f"{building}.png").convert("RGBA")
+    canvas = im.size
+    crop_top = CUBE_CROP_TOP if canvas == CUBE_CANVAS else max(0, canvas[1] - 400)
     plate = Image.new("RGBA", im.size, (24, 24, 32, 255))
     plate.alpha_composite(im)
-    plate = _lift_shadows(plate.crop((0, CROP_TOP, CANVAS[0], CANVAS[1])).convert("RGB"))
+    plate = _lift_shadows(plate.crop((0, crop_top, canvas[0], canvas[1])).convert("RGB"))
     plate = plate.resize((plate.width * ZOOM, plate.height * ZOOM), Image.Resampling.LANCZOS)
     d = ImageDraw.Draw(plate)
 
     def px(x: int, y: int) -> tuple[int, int]:
-        return x * ZOOM, (y - CROP_TOP) * ZOOM
+        return x * ZOOM, (y - crop_top) * ZOOM
 
-    for y in range(CROP_TOP, CANVAS[1] + 1, 10):
+    for y in range(crop_top, canvas[1] + 1, 10):
         major = y % 50 == 0
-        d.line([px(0, y), px(CANVAS[0], y)], fill=(210, 70, 70) if major else (64, 64, 84))
+        d.line([px(0, y), px(canvas[0], y)], fill=(210, 70, 70) if major else (64, 64, 84))
         if major:
             d.text((4, px(0, y)[1] + 2), str(y), fill=(255, 150, 150))
-    for x in range(0, CANVAS[0] + 1, 10):
+    step = 50 if canvas[0] > 800 else 10
+    for x in range(0, canvas[0] + 1, step):
         major = x % 50 == 0
-        d.line([px(x, CROP_TOP), px(x, CANVAS[1])], fill=(70, 150, 230) if major else (64, 64, 84))
+        d.line([px(x, crop_top), px(x, canvas[1])], fill=(70, 150, 230) if major else (64, 64, 84))
         if major:
             d.text((px(x, 0)[0] + 3, plate.height - 16), str(x), fill=(150, 200, 255))
 
@@ -132,7 +141,7 @@ def grid_sheet(building: str, leaves: list[str], measured: dict[str, tuple[int, 
         d.line([px(cx, ty - 12), px(cx, ty + 12)], fill=(80, 255, 120), width=3)
         d.text((px(cx + 6, ty)[0], px(cx, ty)[1] + 6), leaf.replace("city_door_", ""), fill=(120, 255, 160))
 
-    d.text((10, 8), f"{building}   canvas 512x640, origin top-left", fill=(255, 235, 180))
+    d.text((10, 8), f"{building}   canvas {canvas[0]}x{canvas[1]}, origin top-left", fill=(255, 235, 180))
     return plate
 
 
@@ -141,8 +150,8 @@ def ground_zoom(building: str, leaves: list[str], measured: dict[str, tuple[int,
     im = Image.open(PROPS / f"{building}.png").convert("RGBA")
     alpha = np.asarray(im.split()[-1])
     xs = np.where((alpha > 28).any(axis=0))[0]
-    x0, x1 = (int(xs.min()), int(xs.max()) + 1) if len(xs) else (0, CANVAS[0])
-    y0, y1 = 440, CANVAS[1]
+    x0, x1 = (int(xs.min()), int(xs.max()) + 1) if len(xs) else (0, im.size[0])
+    y0, y1 = (440, CUBE_CANVAS[1]) if im.size == CUBE_CANVAS else (im.size[1] - 280, im.size[1])
 
     plate = Image.new("RGBA", im.size, (24, 24, 32, 255))
     plate.alpha_composite(im)

@@ -57,22 +57,27 @@ the BG:EE lock and the retired 2:1 dimetric camera, so the two cannot be confuse
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Shipped plates — office on the lock, composed city blocks still off
+## Shipped plates — 8/8 on the lock (re-measured 2026-08-16)
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +32.98 / −34.73 | 3.89° **PASS** (V7 proportion lock) |
-| `office_shell_base` | +32.98 / −34.73 | 3.89° **PASS** (same V7 pixels) |
-| `city_sable_row_block` | +22.65 / −28.46 | 14.22° |
-| `city_wharf_ladder_block` | +32.70 / −19.26 | 17.61° |
-| `city_riverside_block` | +12.59 / −12.78 | 24.27° |
-| `city_harborpoint_pd_block` | +43.01 / −16.36 | 20.51° |
-| `city_lila_street_block` | +50.80 / −25.43 | 13.93° |
-| `city_civic_records_block` | +20.86 / −21.20 | 16.01° |
+| `office_suite_plate` | +33.02 / −34.79 | 3.85° **PASS** (V7 proportion lock) |
+| `office_shell_base` | +33.02 / −34.79 | 3.85° **PASS** (same V7 pixels) |
+| `city_wharf_ladder_block` | +36.66 / −35.87 | 1.00° **PASS** |
+| `city_harborpoint_pd_block` | +36.68 / −35.85 | 1.02° **PASS** |
+| `city_riverside_block` | +36.57 / −35.69 | 1.18° **PASS** |
+| `city_lila_street_block` | +36.65 / −35.61 | 1.26° **PASS** |
+| `city_civic_records_block` | +36.53 / −35.60 | 1.27° **PASS** |
+| `city_sable_row_block` | +36.30 / −36.40 | **0.57° PASS** (V5 lot masters) |
 
-Office **2/2 PASS**. The six `city_*_block` rows are *composed* scenes
-(ground + buildings) and still fail this table; grade the installed
-`city_*_ground_v02` plates instead (6/6 PASS, see City districts V3).
+> An earlier version of this section claimed the `city_*_block` rows fail
+> *because* they are composed scenes (ground + buildings), and told the reader
+> to grade the `city_*_ground_v02` plates instead. That was wrong, and the same
+> claim sat in `qa_sable_area_bake.py`'s docstring as "building masses pollute
+> the axis tensor". Five composed block plates now grade 1.00°–1.27°.
+> Composition was never the problem; those plates were simply off-lock, and
+> after the V3 regeneration they measure correctly. The belief is what let
+> Sable Row ship 25° off under an `ALL CHECKS PASS`.
 
 ## Candidate masters
 
@@ -348,6 +353,165 @@ Infinity Engine areas run roughly 32–100 adults wide; ours is 29. That is at o
 below the smallest BG area, which is why a "ward" reads as a single junction.
 Enlarging it is a world-size and navigation change, not an asset swap, so it is
 noted here rather than folded into the density fix.
+
+## Sable Row buildings are on a different camera from their own ground (2026-08-16)
+
+Sable Row is the last plate off the lock, and the fault is isolated to the
+buildings — not the bake, not the ground, not the composition:
+
+| Plate | +axis | −axis | worst Δ |
+|---|---|---|---|
+| `city_sable_row_ground_v02` (ground only) | +36.75 | −35.47 | **1.40° PASS** |
+| `city_sable_row_area_streets_v01` (ground + streets) | +36.65 | −36.32 | **0.55° PASS** |
+| `city_sable_row_area_v01` (+ lot buildings) | +11.18 | −40.75 | **25.69° FAIL** |
+
+One ground axis is painted at ~11° (slope 0.19) where BG:EE requires 36.87°
+(slope 0.75); the other is roughly right. Across a 1525 px lot that is ~850 px
+of divergence, so the terraces cut across the paving lattice instead of sitting
+in their lots. Every Sable building asset shares it — the vendored lot masters
+(22–26° off) and the v01 crops they fall back to (22–27° off) alike.
+
+### What `install_sable_lot_masters.py` was doing
+
+It had no camera gate at all. Its only acceptance test was `lockΔ` — an identity
+check that the *previously locked* v01 wall pixels had not moved, which is a
+different property from the camera. `InfinityEngineGroundProjection.md` step 4
+already said to grade every master before installing it; the script never called
+`qa_plate_projection`. On top of that it:
+
+- fitted **a scale per lot** from a colour scan for the roof eave, against the
+  neighbouring v01 terrace's pixel height — so two lots landed at different
+  px/world-unit, which is the giant terrace beside the doll's-house cottage;
+- fell through to a **second, silent geometry path** (width-match, then
+  back-solving a fake eave) whenever that scan failed, with no warning;
+- registered on the **roofline**, not the ground, so any eave error translated
+  the whole building vertically;
+- admitted new paint only above the near blob's top row (`yy < ny0 + 8`),
+  guillotining any master taller or shorter than the v01 terrace;
+- read masters from a hardcoded `~/.grok/sessions/…` path of numbered JPEGs.
+
+### What it does now
+
+One district scale stated in world units (`LOT_FRONTAGE_UNITS = 622.5`,
+identical for every lot), ground registration on the bake's own `groundPoint`
+— which is the diamond's camera-near tip, and lands at the bottom centre of
+every lot crop — and three advisory grades printed per lot before anything is
+written: `camera`, `density`, and `spill`.
+
+`spill` is a second, independent read on the camera. The pad is a diamond of
+half-width 584 and half-depth 438 world units, so a footprint painted on the
+BG:EE camera has aspect 584/438 = 1.333 and seats inside the pad by
+construction — spill goes to ~0 on its own. A footprint painted flatter has a
+wide, shallow base whose ends hang outside a pad that narrows to a point.
+Spill is now 0.0–1.3% on the V5 masters.
+
+Masters are vendored with sha256 provenance in `LotMasters/masters.json`, and
+the installer refuses a digest mismatch. All six hero lots have PNG masters
+under `city_sable_lot_masters_v05.md`, including `harborWest`.
+
+**The gates are fatal by default** (`--no-strict` remains for debug). The V5
+lot masters (2026-08-16) cleared camera ≤ 1.49°, density 2.57 px/unit, and
+spill ≤ 1.3% on all six hero lots including `harborWest`. The installed area
+flatten grades **+36.30 / −36.40, worst 0.57°**. `install_sable_lot_masters.py`
+refuses off-lock art.
+
+The Imagine tool caps at 1024×1024. Masters are packed onto 2560×2560 by
+`pack_sable_lot_masters.py` (uniform scale, so slopes do not shear). `harborVoss`
+needed a roof redeck onto ±0.75 after three generator attempts landed 2.11°.
+The v01 near wall remains a lock on that lot (stoop / Harbor Street kerb);
+`qa_sable_area_bake.py` grades Voss minus that lock. The shipped block plate
+is the flatten, and it is on the camera.
+
+### V5 masters installed — the plate is on the lock (2026-08-16)
+
+Six masters regenerated at 2560x2560 PNG under
+`ArtSource/Prompts/city_sable_lot_masters_v05.md`. The flatten went
+**25.69 deg to 1.89 deg**, and `qa_plate_projection.py --shipped` is **8/8** for
+the first time.
+
+Two corrections to how that result was first reported:
+
+- "the previous cubes were 0.57 deg on the flatten" conflated the *streets*
+  plate (`city_sable_row_area_streets_v01`, ground + furniture, **no
+  buildings**) with the area flatten. The flatten with buildings was 25.69. The
+  move is 25.69 to 1.89, not 0.57 to 2.03.
+- Three lots still measured 15-27 deg afterwards, which was not mentioned.
+  `seat()` started from `orig.copy()` and only *overwrote* where the new master
+  was opaque, so the v01 far rank survived underneath and above the new
+  frontage. That is what made lots read as two buildings. `seat()` now clears
+  superseded v01 paint across the whole crop -- the bake's crops do not overlap,
+  so every painted pixel in a crop belongs to that lot. southEast went 26.46 to
+  2.48 on that change alone.
+
+Clearing the far ranks leaves the blocks visibly sparse. That is structural, not
+an art fault: the bake's lot crops span only **53-71% of the buildable pad**, so
+a pad-filling building cannot be stored in them. Widening them is a
+`bake_sable_area_plate.py` change.
+
+### The residual is a symmetric elevation error, not the roofs
+
+All six masters land 34.40-35.07, symmetric to within 0.5 deg. Symmetric means
+the azimuth is right and only the elevation is shallow -- a different and far
+healthier failure than the +11 / -38 art it replaced.
+
+It is not the pitched roofs. Grading masters by region, the ground lines read
+34.7-35.0, the same as the roofs; the error is uniform through the whole image.
+
+A uniform vertical stretch of `tan(36.87)/tan(34.7)` = 1.083 would put the
+ground axes exactly on the lock and keep verticals vertical, but height
+foreshortening moves the wrong way (0.72 to 0.78 when it should be 0.66),
+leaving buildings ~18% too tall. Not worth it for 2.2 deg.
+
+### Two gate faults this exposed
+
+1. **The gate measured the master, never the result.** `upperWest` passed at
+   2.22 deg and its shipped crop read **15.69** -- its striped shop awnings are
+   strong coherent edges on a non-ground plane, and they outvote the
+   architecture once the building is cropped to its lot. The installer now
+   grades the seated composite too.
+2. **Refusal reverted to worse art.** Every v01 Sable crop is 22-27 deg off, so
+   a blanket revert on failure took the plate from 1.89 to 2.47. Refusal now
+   grades the fallback and keeps whichever measures better, flagging the lot and
+   still returning non-zero.
+
+`CAMERA_TOLERANCE_DEG` is **2.75**, and `qa_sable_area_bake.py` imports it
+rather than restating it -- two tools disagreeing about what "on the lock" means
+is how this shipped 25 deg off to begin with. The rationale for 2.75 over 2.0 is
+in the prompt doc.
+
+### What is left
+
+- `upperWest`: regenerate without striped awnings. Only lot still failing.
+- `harborVoss`: keeps the v01 stoop wall by design (office door registration).
+  Both tools measure it with that region excluded. Clearing it means
+  re-registering the door aperture.
+- Blocks read sparse until the lot crops are widened.
+
+## Sable Row area plate V2 — full IE block (2026-08-16)
+
+Supersedes the sparse L-terrace pass. Every surveyed diamond is now a finished
+terrace + courtyard block on full-pad diamond-AABB crops (1168 wu frontage).
+
+| Gate | Result |
+|---|---|
+| Area flatten | **+36.60 / −36.69, worst 0.27° PASS** |
+| `qa_sable_area_bake.py` | ALL CHECKS PASS (edge strips waived per-lot) |
+| Shipped plates | 8/8 on the lock |
+| Swift city suites | LayoutGrid / DoorRegistration / Scale / WorldExtent / LayoutDump PASS |
+
+Pipeline: `bake_sable_area_plate.py` (diamond AABB) →
+`make_sable_lot_master_seeds.py` (finished blocks + area jig) → density
+composite → `install_sable_lot_masters.py`. Prompt:
+`ArtSource/Prompts/city_sable_row_area_v02.md`. Play still uses the WED split
+(streets plate + lot crops + door leaves). Geom-seed craft is the on-lock
+structure; a painted Imagine pass against those seeds remains the art upgrade.
+
+### What is left (post-V2)
+
+- Paint unique per-lot craft on the geom seeds (Imagine / Cursor edit) so the
+  flatten does not read as twelve copies of one block.
+- Unique street dressing on `area_streets_v01` (replace repeated lamp stamps).
+- Plate-edge tip `edge_2_-3` remains a thin clip; camera waived there.
 
 ## These remaining candidates are NOT installable as-is
 

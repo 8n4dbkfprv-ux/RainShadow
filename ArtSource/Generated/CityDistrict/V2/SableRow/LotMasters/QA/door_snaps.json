@@ -1,0 +1,79 @@
+[
+  {
+    "leaf": "city_door_tenement",
+    "lot": "harborWest",
+    "canvasW": 2336,
+    "canvasH": 2526,
+    "centreX": 1099,
+    "thresholdY": 1998,
+    "leafHeight": 162,
+    "worldX": 805.5,
+    "worldY": 870.0
+  },
+  {
+    "leaf": "city_door_shop",
+    "lot": "harborWest",
+    "canvasW": 2336,
+    "canvasH": 2526,
+    "centreX": 1535,
+    "thresholdY": 1998,
+    "leafHeight": 162,
+    "worldX": 1023.5,
+    "worldY": 870.0
+  },
+  {
+    "leaf": "city_door_gatehouse",
+    "lot": "harborVoss",
+    "canvasW": 2336,
+    "canvasH": 2526,
+    "centreX": 848,
+    "thresholdY": 1992,
+    "leafHeight": 162,
+    "worldX": 2360.0,
+    "worldY": 873.0
+  },
+  {
+    "leaf": "city_door_voss_stoop",
+    "lot": "harborVoss",
+    "canvasW": 2336,
+    "canvasH": 2526,
+    "centreX": 1554,
+    "thresholdY": 1902,
+    "leafHeight": 162,
+    "worldX": 2713.0,
+    "worldY": 918.0
+  },
+  {
+    "leaf": "city_door_voss_stoop_garage",
+    "lot": "harborVoss",
+    "canvasW": 2336,
+    "canvasH": 2526,
+    "centreX": 1828,
+    "thresholdY": 1702,
+    "leafHeight": 162,
+    "worldX": 2850.0,
+    "worldY": 1018.0
+  },
+  {
+    "leaf": "city_door_storefront",
+    "lot": "upperWest",
+    "canvasW": 2336,
+    "canvasH": 2136,
+    "centreX": 1521,
+    "thresholdY": 1603,
+    "leafHeight": 162,
+    "worldX": 1856.5,
+    "worldY": 1502.5
+  },
+  {
+    "leaf": "city_door_rowhouse",
+    "lot": "upperEast",
+    "canvasW": 2336,
+    "canvasH": 2138,
+    "centreX": 857,
+    "thresholdY": 1133,
+    "leafHeight": 162,
+    "worldX": 3204.5,
+    "worldY": 1737.5
+  }
+]
