@@ -408,7 +408,12 @@ final class CityDistrictScene: BaseGameScene {
     override func update(_ currentTime: TimeInterval) {
         pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
         let worldIsPaused = pause.isPaused
-        detective.footstepSurface = .wetStone
+        // The ground says what it is. This was `.wetStone` unconditionally,
+        // which is right for a paved ward and wrong the moment an area mixes
+        // surfaces — a quay, a boardwalk, an interior reached without a load.
+        detective.footstepSurface = FootstepSurface(
+            navigation.searchMap.surface(at: detective.position) ?? .stone
+        )
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
             pruneCompletedQueuedGoals()

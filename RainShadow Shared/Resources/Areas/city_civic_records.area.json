@@ -19,6 +19,7 @@
     "containers" : [
 
     ],
+    "defaultTerrain" : "stone",
     "displayName" : "CIVIC RECORDS ANNEX",
     "doors" : [
 
@@ -2106,6 +2107,7 @@
         ]
       }
     ],
+    "searchMapName" : "city_civic_records.sr",
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

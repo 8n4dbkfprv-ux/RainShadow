@@ -19,6 +19,23 @@ final class NavigationMap {
     /// Legacy alias used by older tests that inspected `blocked.count`.
     var blockedCount: Int { impassableCellCount }
 
+    /// Adopt an already-built search map — the path a painted `SR` raster takes.
+    init(
+        searchMap: SearchMap,
+        agentProfile: NavigationAgentProfile = .point,
+        doorObstacles: [CGRect] = [],
+        entranceDoorBlocking: Bool = true,
+        maxNodes: Int = PathFinder.defaultMaxNodes
+    ) {
+        searchMap.stampDoors(blocking: entranceDoorBlocking)
+        self.searchMap = searchMap
+        self.agentProfile = agentProfile
+        self.doorObstacles = doorObstacles.map(\.standardized)
+        self.entranceDoorBlocking = entranceDoorBlocking
+        self.pathFinder = PathFinder(searchMap: searchMap, maxNodes: maxNodes)
+        self.occupancy = ActorOccupancy(searchMap: searchMap)
+    }
+
     init(
         worldBounds: CGRect,
         obstacles: [CGRect],
@@ -26,7 +43,8 @@ final class NavigationMap {
         doorObstacles: [CGRect] = [],
         entranceDoorBlocking: Bool = true,
         cellSize: CGSize = SearchMap.defaultCellSize,
-        maxNodes: Int = PathFinder.defaultMaxNodes
+        maxNodes: Int = PathFinder.defaultMaxNodes,
+        defaultTerrain: SearchMapTerrain = .stone
     ) {
         // Door leafs are stamped separately so they can toggle without rebuild.
         let doorRects = doorObstacles.map(\.standardized)
@@ -38,7 +56,8 @@ final class NavigationMap {
             worldBounds: worldBounds,
             obstacles: staticObstacles,
             cellSize: cellSize,
-            doorObstacles: doorObstacles
+            doorObstacles: doorObstacles,
+            defaultTerrain: defaultTerrain
         )
         map.stampDoors(blocking: entranceDoorBlocking)
 

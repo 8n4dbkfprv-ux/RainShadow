@@ -40,8 +40,11 @@ enum OfficeAreaAdapter {
             // baked black; clamping the camera to the plate would let it swing
             // out over that margin.
             cameraClampRect: AreaRect(OfficeInteriorScale.paintedRoomBounds),
-            searchMapName: nil,
+            searchMapName: "\(HarborpointAreas.office.rawValue).sr",
             obstacles: OfficeNavigationLayout.obstacles.map(AreaRect.init),
+            // Floorboards throughout, which is what makes the office sound
+            // different from the street without a per-scene constant saying so.
+            defaultTerrain: .wood,
             agentProfile: AreaAgentProfile(.officeDetective),
             entrances: entrances(),
             regions: hotspotRegions() + [streetDoorRegion()],

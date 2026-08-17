@@ -19,6 +19,7 @@
     "containers" : [
 
     ],
+    "defaultTerrain" : "stone",
     "displayName" : "SABLE ROW — LOWER WARD",
     "doors" : [
 
@@ -1531,6 +1532,7 @@
         }
       }
     ],
+    "searchMapName" : "city_sable_row.sr",
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

@@ -19,6 +19,7 @@
     "containers" : [
 
     ],
+    "defaultTerrain" : "stone",
     "displayName" : "RIVERSIDE — IRON STAIRS",
     "doors" : [
 
@@ -2112,6 +2113,7 @@
         ]
       }
     ],
+    "searchMapName" : "city_riverside.sr",
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

@@ -47,10 +47,12 @@ enum CityDistrictAreaAdapter {
             worldSize: AreaSize(CityDistrictDefinition.worldArtSize),
             plateTextureName: definition.groundTextureName,
             mapTextureName: definition.mapTextureName,
-            // Phase 3 replaces this with an indexed search-map bitmap. Until
-            // then the area rasterises the same AABBs `makeGrid()` does.
-            searchMapName: nil,
+            searchMapName: "\(areaID(for: district).rawValue).sr",
+            // Kept alongside the painted map: Theta* tests these at world
+            // resolution for line of sight, which is finer than the cell grid.
             obstacles: definition.obstacles.map(AreaRect.init),
+            // Harborpoint is paved kerb to kerb.
+            defaultTerrain: .stone,
             agentProfile: AreaAgentProfile(.detective),
             entrances: entrances(for: definition),
             regions: regions(for: definition),

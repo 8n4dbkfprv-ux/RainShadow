@@ -19,6 +19,7 @@
     "containers" : [
 
     ],
+    "defaultTerrain" : "stone",
     "displayName" : "LILA'S STREET",
     "doors" : [
 
@@ -2216,6 +2217,7 @@
         ]
       }
     ],
+    "searchMapName" : "city_lila_street.sr",
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

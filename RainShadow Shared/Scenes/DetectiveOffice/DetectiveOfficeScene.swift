@@ -1100,6 +1100,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // here because a cutscene keeps scripted actors walking.
         detective.isAudioSilenced = dialogueIsActive
         client.isAudioSilenced = dialogueIsActive
+        // Boards, read off the ground rather than left at the actor's default,
+        // so an area that mixes surfaces needs no scene change to sound right.
+        detective.footstepSurface = FootstepSurface(
+            navigation.searchMap.surface(at: detective.position) ?? .wood
+        )
+        client.footstepSurface = FootstepSurface(
+            navigation.searchMap.surface(at: client.position) ?? .wood
+        )
         detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         client.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {

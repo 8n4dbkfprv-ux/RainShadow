@@ -140,6 +140,20 @@ enum FootstepSurface: String, CaseIterable, Sendable {
         let index = (abs(variant) % Self.variantCount) + 1
         return String(format: "%@_%02d.m4a", resourcePrefix, index)
     }
+
+    /// What the search map's terrain sounds like, given what has been baked.
+    ///
+    /// Baldur's Gate resolves seven walk sounds from the terrain index; two are
+    /// recorded here, so wood is boards and every other audible surface is the
+    /// wet stone of a rained-on Harborpoint. Widening this is a matter of baking
+    /// more samples in `generate_movement_sfx_v01.py`, not of changing callers:
+    /// the ground already says which family it belongs to.
+    init(_ surface: SearchMapSurface) {
+        switch surface {
+        case .wood: self = .floorboard
+        case .silent, .stone, .sand, .grass, .water: self = .wetStone
+        }
+    }
 }
 
 /// Order acknowledgements and selection lines.

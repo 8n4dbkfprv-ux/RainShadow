@@ -44,6 +44,21 @@ final class SearchMap {
 
     private var cells: [UInt8]
 
+    /// Terrain written into open ground when the map is built from AABBs rather
+    /// than from a painted search map.
+    let defaultTerrain: SearchMapTerrain
+
+    /// Baldur's Gate terrain index per cell, parallel to `cells`.
+    ///
+    /// Kept beside the flag byte rather than packed into it: the flag bits are
+    /// read on every path expansion and every actor stamp, and widening that
+    /// byte would have meant touching each of those call sites to mask. The
+    /// `.passable` flag is *derived* from this array at rasterisation, so
+    /// `PathFinder`, `ActorOccupancy` and door stamping keep working unchanged
+    /// while the terrain answers the questions a single bit could not — sight,
+    /// flight, projectiles, and what the ground sounds like underfoot.
+    private var terrainIndices: [UInt8]
+
     /// Authored static obstacle AABBs used for line-of-sight segment tests at
     /// world resolution (Theta* shortcuts), independent of the coarse raster.
     private(set) var staticObstacles: [CGRect]
@@ -65,7 +80,8 @@ final class SearchMap {
         worldBounds: CGRect,
         obstacles: [CGRect],
         cellSize: CGSize = SearchMap.defaultCellSize,
-        doorObstacles: [CGRect] = []
+        doorObstacles: [CGRect] = [],
+        defaultTerrain: SearchMapTerrain = .stone
     ) {
         precondition(cellSize.width > 0 && cellSize.height > 0)
         let bounds = worldBounds.standardized
@@ -78,7 +94,66 @@ final class SearchMap {
         self.staticObstacles = obstacles.map(\.standardized)
         self.doorObstacles = doorObstacles.map(\.standardized)
         self.cells = Array(repeating: SearchMapFlags.passable.rawValue, count: columns * rows)
+        // An area built from AABBs has no painted terrain, so its open ground is
+        // stone: the districts are paved and the office plate is boards, and the
+        // office overrides this through `defaultTerrain`.
+        self.terrainIndices = Array(
+            repeating: defaultTerrain.rawValue,
+            count: columns * rows
+        )
+        self.defaultTerrain = defaultTerrain
         rasterizeStaticObstacles()
+        if !self.doorObstacles.isEmpty {
+            stampDoors(blocking: true)
+        }
+    }
+
+    /// Build from a painted search map: one terrain index per cell, row-major
+    /// from the world's minimum corner.
+    ///
+    /// This is the Infinity Engine's own arrangement — an area ships an `SR.BMP`
+    /// at one pixel per search cell — and it is the only way to describe ground
+    /// that axis-aligned rectangles cannot. Harborpoint's streets run on the
+    /// BG:EE ground axes, so a diagonal kerb is either eaten or over-claimed by
+    /// any AABB approximation of it; and a painted map can distinguish a wooden
+    /// floor from a wet cobble street, which a boolean cannot.
+    ///
+    /// `obstacles` and `doorObstacles` are still accepted and still honoured:
+    /// Theta* line-of-sight tests them at world resolution rather than at cell
+    /// resolution, and doors stamp in place. The painted map decides terrain;
+    /// the rectangles remain the fine-grained solids.
+    init(
+        worldBounds: CGRect,
+        terrainIndices: [UInt8],
+        columns: Int,
+        rows: Int,
+        cellSize: CGSize = SearchMap.defaultCellSize,
+        obstacles: [CGRect] = [],
+        doorObstacles: [CGRect] = []
+    ) {
+        precondition(cellSize.width > 0 && cellSize.height > 0)
+        precondition(columns > 0 && rows > 0)
+        precondition(
+            terrainIndices.count == columns * rows,
+            "search map is \(terrainIndices.count) cells for a \(columns)x\(rows) grid"
+        )
+        let bounds = worldBounds.standardized
+        precondition(!bounds.isNull && !bounds.isEmpty)
+        self.worldBounds = bounds
+        self.origin = bounds.origin
+        self.cellSize = cellSize
+        self.columns = columns
+        self.rows = rows
+        self.defaultTerrain = .stone
+        self.staticObstacles = obstacles.map(\.standardized)
+        self.doorObstacles = doorObstacles.map(\.standardized)
+        self.terrainIndices = terrainIndices
+        // `.passable` is derived, never authored: one source of truth for
+        // whether a cell is floor, so a painted map and the flag byte cannot
+        // disagree.
+        self.cells = terrainIndices.map { raw in
+            SearchMapTerrain.decode(raw).isWalkable ? SearchMapFlags.passable.rawValue : 0
+        }
         if !self.doorObstacles.isEmpty {
             stampDoors(blocking: true)
         }
@@ -121,6 +196,38 @@ final class SearchMap {
 
     func flags(at point: CGPoint) -> SearchMapFlags {
         flags(at: cell(for: point))
+    }
+
+    /// Terrain index at a cell. Out of bounds reads as solid, matching the
+    /// engine's treatment of the area boundary.
+    func terrain(at cell: SearchMapCell) -> SearchMapTerrain {
+        guard contains(cell) else { return .obstacle }
+        return SearchMapTerrain.decode(terrainIndices[index(of: cell)])
+    }
+
+    func terrain(at point: CGPoint) -> SearchMapTerrain {
+        terrain(at: cell(for: point))
+    }
+
+    /// What the ground sounds like here. `nil` where nothing walks.
+    func surface(at point: CGPoint) -> SearchMapSurface? {
+        let surface = terrain(at: point).surface
+        return surface == .silent ? nil : surface
+    }
+
+    /// Whether sight crosses the cell — the query fog of war wants, in place of
+    /// a radius around the player.
+    func isSeeThrough(at point: CGPoint) -> Bool {
+        terrain(at: point).isSeeThrough
+    }
+
+    /// Every terrain index present, for QA and tests.
+    var terrainHistogram: [SearchMapTerrain: Int] {
+        var histogram: [SearchMapTerrain: Int] = [:]
+        for raw in terrainIndices {
+            histogram[SearchMapTerrain.decode(raw), default: 0] += 1
+        }
+        return histogram
     }
 
     /// True when the cell's terrain allows walking (ignores actor stamps).
@@ -399,10 +506,13 @@ final class SearchMap {
             for row in 0..<rows {
                 let cell = SearchMapCell(column: column, row: row)
                 let point = center(of: cell)
+                let idx = index(of: cell)
                 if !contains(point) || staticObstacles.contains(where: { $0.contains(point) }) {
-                    cells[index(of: cell)] = 0
+                    cells[idx] = 0
+                    terrainIndices[idx] = SearchMapTerrain.obstacle.rawValue
                 } else {
-                    cells[index(of: cell)] = SearchMapFlags.passable.rawValue
+                    cells[idx] = SearchMapFlags.passable.rawValue
+                    terrainIndices[idx] = defaultTerrain.rawValue
                 }
             }
         }

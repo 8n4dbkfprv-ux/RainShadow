@@ -120,6 +120,7 @@
         }
       }
     ],
+    "defaultTerrain" : "wood",
     "displayName" : "THE OFFICE — HARBOR STREET",
     "doors" : [
       {
@@ -4876,6 +4877,7 @@
         }
       }
     ],
+    "searchMapName" : "office_suite.sr",
     "worldOrigin" : {
       "x" : 1239.04,
       "y" : 696.96

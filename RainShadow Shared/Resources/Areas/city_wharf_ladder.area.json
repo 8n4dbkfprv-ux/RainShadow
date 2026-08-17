@@ -19,6 +19,7 @@
     "containers" : [
 
     ],
+    "defaultTerrain" : "stone",
     "displayName" : "WHARF LADDER — SHIPPING",
     "doors" : [
 
@@ -2192,6 +2193,7 @@
         ]
       }
     ],
+    "searchMapName" : "city_wharf_ladder.sr",
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

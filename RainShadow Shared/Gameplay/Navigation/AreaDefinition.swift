@@ -490,6 +490,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// rasterised instead, so an area can adopt the bitmap independently.
     var searchMapName: String?
     var obstacles: [AreaRect]
+    /// Terrain written into open ground when no search map is painted. Decides
+    /// what the area sounds like underfoot: the districts are paved, the office
+    /// is boards.
+    var defaultTerrain: SearchMapTerrain
     var agentProfile: AreaAgentProfile
 
     // Sections
@@ -517,6 +521,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         cameraClampRect: AreaRect? = nil,
         searchMapName: String? = nil,
         obstacles: [AreaRect] = [],
+        defaultTerrain: SearchMapTerrain = .stone,
         agentProfile: AreaAgentProfile,
         entrances: [AreaEntrance] = [],
         regions: [AreaRegion] = [],
@@ -539,6 +544,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.cameraClampRect = cameraClampRect
         self.searchMapName = searchMapName
         self.obstacles = obstacles
+        self.defaultTerrain = defaultTerrain
         self.agentProfile = agentProfile
         self.entrances = entrances
         self.regions = regions
@@ -597,13 +603,57 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// Doors are handed over separately so `NavigationMap` can stamp and clear
     /// them in place rather than rebuilding, which is what lets a door open
     /// mid-walk without invalidating a route.
+    /// Door leaves, removed from the static set.
+    ///
+    /// A door's footprint is authored in `obstacles` as well, because it *is*
+    /// solid while shut — but it has to be stamped separately or opening it
+    /// would leave the static rasterisation still blocking the way. This is the
+    /// same filter `NavigationMap`'s own initialiser applies; the painted-map
+    /// path has to apply it too, or the office door opens onto a wall.
+    private var staticObstaclesExcludingDoors: [CGRect] {
+        let doorRects = doors.map(\.closedObstacle.cgRect.standardized)
+        return obstacles.map(\.cgRect.standardized).filter { candidate in
+            !doorRects.contains { door in
+                abs(door.minX - candidate.minX) < 0.001
+                    && abs(door.minY - candidate.minY) < 0.001
+                    && abs(door.width - candidate.width) < 0.001
+                    && abs(door.height - candidate.height) < 0.001
+            }
+        }
+    }
+
     func makeNavigationMap() -> NavigationMap {
-        NavigationMap(
+        if let searchMapName, let raster = try? AreaSearchMapLoader.load(named: searchMapName) {
+            return NavigationMap(
+                searchMap: SearchMap(
+                    worldBounds: worldBounds,
+                    terrainIndices: raster.terrainIndices,
+                    columns: raster.columns,
+                    rows: raster.rows,
+                    obstacles: staticObstaclesExcludingDoors,
+                    doorObstacles: doors.map(\.closedObstacle.cgRect)
+                ),
+                agentProfile: agentProfile.navigationProfile,
+                doorObstacles: doors.map(\.closedObstacle.cgRect),
+                entranceDoorBlocking: doors.contains { $0.startsClosed }
+            )
+        }
+        return NavigationMap(
             worldBounds: worldBounds,
             obstacles: obstacles.map(\.cgRect),
             agentProfile: agentProfile.navigationProfile,
             doorObstacles: doors.map(\.closedObstacle.cgRect),
-            entranceDoorBlocking: doors.contains { $0.startsClosed }
+            entranceDoorBlocking: doors.contains { $0.startsClosed },
+            defaultTerrain: defaultTerrain
+        )
+    }
+
+    /// Raster dimensions the area's search map must have, so a bake and the
+    /// runtime cannot disagree about the grid.
+    var searchMapGridSize: (columns: Int, rows: Int) {
+        (
+            columns: max(1, Int(ceil(worldSize.w / SearchMap.defaultCellSize.width))),
+            rows: max(1, Int(ceil(worldSize.h / SearchMap.defaultCellSize.height)))
         )
     }
 
@@ -612,7 +662,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, displayName, kind, arrivalHint, worldOrigin, worldSize
         case plateTextureName, mapTextureName, cameraClampRect
-        case searchMapName, obstacles, agentProfile
+        case searchMapName, obstacles, defaultTerrain, agentProfile
         case entrances, regions, props, actors, containers, doors, notes, ambients
         case script
     }
@@ -631,6 +681,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         cameraClampRect = try container.decodeIfPresent(AreaRect.self, forKey: .cameraClampRect)
         searchMapName = try container.decodeIfPresent(String.self, forKey: .searchMapName)
         obstacles = try container.decodeIfPresent([AreaRect].self, forKey: .obstacles) ?? []
+        defaultTerrain = try container.decodeIfPresent(
+            SearchMapTerrain.self,
+            forKey: .defaultTerrain
+        ) ?? .stone
         agentProfile = try container.decode(AreaAgentProfile.self, forKey: .agentProfile)
         entrances = try container.decodeIfPresent([AreaEntrance].self, forKey: .entrances) ?? []
         regions = try container.decodeIfPresent([AreaRegion].self, forKey: .regions) ?? []
