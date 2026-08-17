@@ -84,7 +84,21 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
-    init(context: GameContext) {
+    /// The office as an area record. Entrances are read from here; its
+    /// architecture, props and hotspots are still built in code until Phase 5.
+    private let area = HarborpointAreas.requireArea(HarborpointAreas.office)
+    private let entranceName: String?
+
+    /// Where the player stands on arrival. Walking in off Harbor Street lands on
+    /// the inside face of the street door rather than at the desk, which is what
+    /// naming an entrance buys: the office no longer has to guess where you came
+    /// from, and it no longer throws the answer away.
+    private var arrivalPoint: CGPoint {
+        area.spawnPoint(entrance: entranceName) ?? OfficeNavigationLayout.actorStart
+    }
+
+    init(context: GameContext, entrance: String? = nil) {
+        self.entranceName = entrance
         super.init(context: context, artSize: OfficeInteriorScale.sourceArtSize)
         // The office opens straight into the Empty Coat intro, so the panel owns input
         // from the first frame. Other scenes start in free play (the inherited default);
@@ -326,7 +340,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
         addDeskItems(at: deskPosition, scale: deskScale)
 
-        detective.position = OfficeNavigationLayout.actorStart
+        detective.position = arrivalPoint
         // Warm desk-lamp grade (actors default here; re-assert for scene clarity).
         detective.applySceneLighting(.officeInterior)
         updateDetectiveDepth()
@@ -758,7 +772,10 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
                     to: hotspot.approachPoint,
                     requiresExactDestination: true
                 ) { [weak self] in
-                    self?.context.router.showCityDistrict(.sableRow, arrivalKey: "from.office")
+                    self?.context.router.travel(
+                        to: HarborpointAreas.sableRow,
+                        entrance: "from.office"
+                    )
                 }
                 return
             }
@@ -2712,7 +2729,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         let fog = OfficeFogOfWarNode(
             size: OfficeInteriorScale.scaledArtSize,
             origin: OfficeInteriorScale.shellOrigin,
-            initialReveal: OfficeNavigationLayout.actorStart
+            initialReveal: arrivalPoint
         )
         // The opening conversation starts with Lila crossing from the door,
         // so her authored entrance is part of the initially explored office.

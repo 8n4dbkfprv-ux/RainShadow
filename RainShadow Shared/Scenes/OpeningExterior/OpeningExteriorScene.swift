@@ -100,13 +100,13 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
 
     func cutsceneSetFlag(_ flag: String) {
         guard flag == CutsceneCatalog.CutsceneFlags.openingSeen else { return }
-        // `showOffice()` marks this too; setting it here means a cutscene that is
+        // `travel(to:)` marks this too; setting it here means a cutscene that is
         // broken before the router runs still records that it was seen.
         context.session.markOpeningSeen()
     }
 
     func cutsceneDidComplete(id: String, reason: CutsceneCompletionReason) {
-        context.router.showOffice()
+        context.router.travel(to: HarborpointAreas.office)
     }
 
     private func buildFallbackExterior() {

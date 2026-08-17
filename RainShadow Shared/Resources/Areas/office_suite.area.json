@@ -145,8 +145,8 @@
       {
         "name" : "from.city",
         "point" : {
-          "x" : 1863.535,
-          "y" : 1163.06
+          "x" : 2367.04,
+          "y" : 1158.96
         }
       }
     ],
@@ -4852,7 +4852,6 @@
         "id" : "office.exit",
         "kind" : "travel",
         "label" : "Street door",
-        "lockedLine" : "The street stays closed until the case leaves the office.",
         "polygon" : [
           {
             "x" : 2311.465,
@@ -4871,7 +4870,6 @@
             "y" : 1217.965
           }
         ],
-        "requiresFlag" : "city.travel.open",
         "travel" : {
           "destination" : "city_sable_row",
           "entrance" : "from.office"

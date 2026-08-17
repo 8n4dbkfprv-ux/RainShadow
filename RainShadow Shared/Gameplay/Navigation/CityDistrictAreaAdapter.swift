@@ -23,6 +23,13 @@ enum CityDistrictAreaAdapter {
         AreaID("city_\(district.slug)")
     }
 
+    /// Reverse lookup, for routing an area back onto the scene that still needs
+    /// a `CityDistrictID`. Returns `nil` for the office and the exterior, which
+    /// are not districts.
+    static func district(for areaID: AreaID) -> CityDistrictID? {
+        CityDistrictID.allCases.first { self.areaID(for: $0) == areaID }
+    }
+
     /// Case flag standing in for `GameSession.isCityTravelOpen` until Phase 6
     /// moves session state into area variables.
     static let cityTravelOpenFlag = "city.travel.open"

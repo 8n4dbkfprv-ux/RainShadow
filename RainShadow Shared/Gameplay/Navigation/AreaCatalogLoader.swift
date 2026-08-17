@@ -345,4 +345,14 @@ enum HarborpointAreas {
     static func area(for id: AreaID) -> AreaDefinition? {
         catalog.area(for: id)
     }
+
+    /// Trapping lookup for the scene layer, which cannot draw an area it does
+    /// not have. A missing area is authoring, not a runtime condition — the
+    /// same stance `HarborpointItems.catalog` takes.
+    static func requireArea(_ id: AreaID) -> AreaDefinition {
+        guard let area = catalog.area(for: id) else {
+            preconditionFailure("No shipped area '\(id)'")
+        }
+        return area
+    }
 }

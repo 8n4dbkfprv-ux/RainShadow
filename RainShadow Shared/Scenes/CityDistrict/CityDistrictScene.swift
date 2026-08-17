@@ -14,7 +14,10 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private let district: CityDistrictDefinition
-    private let arrivalKey: String?
+    /// The district as an area record. Regions and entrances are read from here;
+    /// props, obstacles and art still come from `district` until Phase 5.
+    private let area: AreaDefinition
+    private let entranceName: String?
     private let detective = DetectiveActorNode()
     private let inventoryOverlay = InventoryOverlay()
     private let portraitBar = PortraitBarNode()
@@ -40,9 +43,10 @@ final class CityDistrictScene: BaseGameScene {
 
     override var referenceVisibleHeight: CGFloat { CityDistrictDefinition.cameraVisibleHeight }
 
-    init(context: GameContext, districtID: CityDistrictID = .sableRow, arrivalKey: String? = nil) {
+    init(context: GameContext, districtID: CityDistrictID = .sableRow, entrance: String? = nil) {
         self.district = CityDistrictCatalog.definition(for: districtID)
-        self.arrivalKey = arrivalKey
+        self.area = HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: districtID))
+        self.entranceName = entrance
         super.init(context: context, artSize: CityDistrictDefinition.worldArtSize)
     }
 
@@ -68,7 +72,7 @@ final class CityDistrictScene: BaseGameScene {
 
         navigation = district.makeGrid()
         edgeExits = makeEdgeExits()
-        detective.position = district.spawnPoint(arrivalKey: arrivalKey)
+        detective.position = area.spawnPoint(entrance: entranceName) ?? district.actorStart
         detective.beginOpenWorldStanding()
         // Neutral bake is office-bright; cool night grade seats him in wet cobbles.
         detective.applySceneLighting(.cityNight)
@@ -110,7 +114,7 @@ final class CityDistrictScene: BaseGameScene {
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        hint.text = district.arrivalHint
+        hint.text = area.arrivalHint ?? district.arrivalHint
         hint.fontSize = 17
         hint.fontColor = SKColor(white: 0.86, alpha: 0.90)
         hint.position = CGPoint(x: 0, y: 292)
@@ -199,8 +203,8 @@ final class CityDistrictScene: BaseGameScene {
             return
         }
 
-        if let portal = district.portals.first(where: { $0.hitArea.contains(event.location) }) {
-            handlePortal(portal)
+        if let region = area.region(at: event.location) {
+            handleRegion(region)
             return
         }
 
@@ -271,7 +275,9 @@ final class CityDistrictScene: BaseGameScene {
             NSCursor.pointingHand.set()
             return
         }
-        let isTravel = district.portals.contains(where: { $0.hitArea.contains(event.location) })
+        // Same region lookup the click uses, so the cursor cannot promise a way
+        // out that the click then declines to take.
+        let isTravel = area.region(at: event.location) != nil
             || edgeExits.contains(where: { $0.hitArea.contains(event.location) })
 
         // BG:EE edge scrolling (`GameControl::OnGlobalMouseMove`).
@@ -525,33 +531,66 @@ final class CityDistrictScene: BaseGameScene {
 
     private func travelViaWorldMap(to destinationID: CityDistrictID, arrivalKey: String) {
         setWorldMapPresented(false)
-        context.router.showCityDistrict(destinationID, arrivalKey: arrivalKey)
+        context.router.travel(
+            to: CityDistrictAreaAdapter.areaID(for: destinationID),
+            entrance: arrivalKey
+        )
     }
 
-    private func handlePortal(_ portal: CityDistrictDefinition.Portal) {
-        let cityOpen = context.session.isCityTravelOpen
-        if portal.requiresCityOpen && !cityOpen {
-            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
-                self?.showInspectLine(portal.lockedInspectLine)
+    /// Walk up to a region, then do what its kind says.
+    ///
+    /// The player is sent with `requiresExactDestination` because an approach
+    /// point is authored to be stood on: `AGENTS.md` records that every city
+    /// portal approach once sat on the door sprite, which is painted on the
+    /// facade and therefore inside the building's obstacle, so a snapped
+    /// arrival would have hidden five unreachable doors.
+    private func handleRegion(_ region: AreaRegion) {
+        let box = region.boundingBox
+        let target = region.approachPoint?.cgPoint
+            ?? CGPoint(x: box.midX, y: box.midY)
+
+        if let flag = region.requiresFlag, !isFlagSet(flag) {
+            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+                self?.showInspectLine(region.lockedLine ?? "")
             }
             return
         }
 
-        switch portal.destination {
-        case .inspect:
-            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
-                self?.context.session.markInspected(portal.id)
-                self?.showInspectLine(portal.lockedInspectLine)
+        switch region.kind {
+        case .info:
+            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+                self?.context.session.markInspected(region.id)
+                self?.showInspectLine(region.observation ?? region.lockedLine ?? "")
             }
-        case .office:
-            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
-                self?.context.router.showOffice(arrivalKey: "from.city")
+        case .trigger:
+            // Area scripts arrive in Phase 6; until then a trigger is inert.
+            break
+        case .travel:
+            guard let travel = region.travel else { return }
+            // District-to-district doors are retired; Harborpoint keeps its
+            // wards on the World Map, reached by walking to a street edge.
+            guard travel.destination != area.id,
+                  CityDistrictAreaAdapter.district(for: travel.destination) == nil
+            else {
+                moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+                    self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
+                }
+                return
             }
-        case .district:
-            // District-to-district portals are retired; travel is edge → World Map.
-            moveDetective(to: portal.approachPoint, requiresExactDestination: true) { [weak self] in
-                self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
+            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+                self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
             }
+        }
+    }
+
+    /// Bridge until Phase 6 gives areas a real variable namespace. Today the one
+    /// authored gate is the city-travel flag, which lives on `GameSession`.
+    private func isFlagSet(_ flag: String) -> Bool {
+        switch flag {
+        case CityDistrictAreaAdapter.cityTravelOpenFlag:
+            context.session.isCityTravelOpen
+        default:
+            context.session.caseState.flags.contains(flag)
         }
     }
 
