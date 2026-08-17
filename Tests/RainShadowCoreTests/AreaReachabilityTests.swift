@@ -111,23 +111,64 @@ struct AreaReachabilityTests {
 
     /// A sealed pocket passes the per-point checks above — every authored point
     /// can be mutually reachable inside a room the rest of the area cannot get
-    /// to. The floor size is the check that catches that.
-    @Test(arguments: navigableIDs)
-    func theFloorIsAnOpenAreaRatherThanASealedPocket(_ id: AreaID) throws {
-        let area = try AreaCatalogLoader.load(id)
+    /// to. This is the check that catches that.
+    ///
+    /// The denominator is **walkable** cells, not total cells. Dividing by the
+    /// whole frame was how this test first shipped, and it hid exactly the bug
+    /// it exists to find: the office reaches 901 of 7,023 walkable cells, which
+    /// is 12.8% of the floor but 11.6% of the frame, and so cleared a 10% bar
+    /// while the room was in pieces. `qa_area_searchmap.py` measures the same
+    /// ratio offline and reports the office as FRAGMENTED.
+    static func connectedFraction(of area: AreaDefinition) throws -> Double {
         let map = area.makeNavigationMap()
         let radius = area.agentProfile.navigationProfile.radius
         let start = try #require(area.spawnPoint(entrance: nil))
-        let flood = Self.reachableCells(map, from: start, radius: radius)
+        let reached = reachableCells(map, from: start, radius: radius).count
 
-        let totalCells = map.searchMap.columns * map.searchMap.rows
-        let reachableFraction = CGFloat(flood.count) / CGFloat(totalCells)
-        // The office sealed to 174 of 4,694 cells (3.7%) and Harborpoint PD to
-        // 1 of 5,795 (0.02%). A tenth of the frame is comfortably clear of both
-        // and well under the 30–45% open-floor band the districts measure.
+        // Counted at the agent's own radius, the same way the flood expands.
+        // Counting by the `.passable` flag alone (radius 0) instead makes the
+        // ratio meaningless: a 16-unit detective cannot enter the ring of cells
+        // hugging every obstacle, so reached would always trail walkable and
+        // every district would read as fragmented.
+        var walkable = 0
+        for row in 0..<map.searchMap.rows {
+            for column in 0..<map.searchMap.columns {
+                let cell = SearchMapCell(column: column, row: row)
+                if map.searchMap.isPassable(at: map.searchMap.center(of: cell), radius: radius) {
+                    walkable += 1
+                }
+            }
+        }
+        guard walkable > 0 else { return 0 }
+        return Double(reached) / Double(walkable)
+    }
+
+    /// Districts: the street is one connected ward.
+    @Test(arguments: navigableIDs.filter { $0 != HarborpointAreas.office })
+    func theFloorIsOneConnectedSpace(_ id: AreaID) throws {
+        let fraction = try Self.connectedFraction(of: AreaCatalogLoader.load(id))
         #expect(
-            reachableFraction > 0.10,
-            "\(id) floor is \(flood.count) of \(totalCells) cells (\(reachableFraction)) — sealed"
+            fraction > 0.90,
+            "\(id) floor is in pieces — the entrance reaches \(fraction) of the walkable cells"
+        )
+    }
+
+    /// The office is not, and that is a known defect rather than a surprise.
+    ///
+    /// Its obstacle set does not model the architecture: the room rasterises
+    /// 90.6% walkable, and the props and boundary segments then cut what is left
+    /// into pockets, so arriving at the desk reaches an eighth of the floor. The
+    /// same root cause is behind the twelve red office geometry tests and behind
+    /// a street entrance that read as standable on a wall crown. Pinned here so
+    /// fitting a real floor diamond in `office_room_plan.py` shows up as this
+    /// test failing rather than as a silent improvement.
+    @Test func theOfficeFloorIsKnownToBeFragmented() throws {
+        let fraction = try Self.connectedFraction(
+            of: AreaCatalogLoader.load(HarborpointAreas.office)
+        )
+        #expect(
+            fraction < 0.90,
+            "the office floor is now \(fraction) connected — if a floor diamond landed, move it onto theFloorIsOneConnectedSpace and delete this"
         )
     }
 
