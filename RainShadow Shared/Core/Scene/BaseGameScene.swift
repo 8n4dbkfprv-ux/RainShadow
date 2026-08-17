@@ -5,6 +5,18 @@ class BaseGameScene: SKScene {
     let context: GameContext
     let artSize: CGSize
 
+    /// The area this scene is currently running, once it has loaded one.
+    ///
+    /// Optional because the opening exterior is a cinematic backdrop with no
+    /// navigable floor — it authors an entrance so arrivals have somewhere to
+    /// land, but nothing walks there, so it never loads a runtime.
+    private(set) var areaRuntime: AreaRuntime?
+
+    /// Adopt an area. Called once from `buildScene`.
+    func loadArea(_ runtime: AreaRuntime) {
+        areaRuntime = runtime
+    }
+
     let backgroundRoot = SKNode()
     let floorEffectRoot = SKNode()
     let rearFixtureRoot = SKNode()

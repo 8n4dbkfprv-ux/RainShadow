@@ -14,9 +14,6 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private let district: CityDistrictDefinition
-    /// The district as an area record. Regions and entrances are read from here;
-    /// props, obstacles and art still come from `district` until Phase 5.
-    private let area: AreaDefinition
     private let entranceName: String?
     private let detective = DetectiveActorNode()
     private let inventoryOverlay = InventoryOverlay()
@@ -26,7 +23,6 @@ final class CityDistrictScene: BaseGameScene {
     private let worldMapOverlay = WorldMapOverlay()
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: CityFogOfWarNode?
-    private var navigation: NavigationMap!
     private var edgeExits: [EdgeExit] = []
     private var inventoryIsPresented = false
     private var mapIsPresented = false
@@ -34,8 +30,12 @@ final class CityDistrictScene: BaseGameScene {
     private var journalIsPresented = false
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
-    /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
-    private var movement: MovementOrderQueue!
+    /// The district as an area record plus its navigation and waypoint queue.
+    /// Props, obstacles and art still come from `district` until Phase 5.
+    private var runtime: AreaRuntime { areaRuntime! }
+    private var area: AreaDefinition { runtime.area }
+    private var navigation: NavigationMap { runtime.navigation }
+    private var movement: MovementOrderQueue { runtime.movement }
     private let barks = MovementBarkPlayer()
     private static let detectiveActorID = "detective.voss"
 
@@ -43,7 +43,6 @@ final class CityDistrictScene: BaseGameScene {
 
     init(context: GameContext, districtID: CityDistrictID = .sableRow, entrance: String? = nil) {
         self.district = CityDistrictCatalog.definition(for: districtID)
-        self.area = HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: districtID))
         self.entranceName = entrance
         super.init(context: context, artSize: CityDistrictDefinition.worldArtSize)
     }
@@ -68,8 +67,13 @@ final class CityDistrictScene: BaseGameScene {
         }
         addModularDistrictSprites()
 
-        navigation = district.makeGrid()
-        movement = MovementOrderQueue(navigation: navigation, actorID: Self.detectiveActorID)
+        loadArea(AreaRuntime(
+            area: HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: district.id)),
+            // The district's own grid, not `area.makeNavigationMap()`: the two
+            // are parity-tested equal, and switching is Phase 5's change to make.
+            navigation: district.makeGrid(),
+            playerActorID: Self.detectiveActorID
+        ))
         edgeExits = makeEdgeExits()
         detective.position = area.spawnPoint(entrance: entranceName) ?? district.actorStart
         detective.beginOpenWorldStanding()

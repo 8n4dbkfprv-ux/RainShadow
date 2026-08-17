@@ -25,11 +25,15 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private let worldMapOverlay = WorldMapOverlay()
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
-    private var navigation: NavigationMap!
+    /// The office as an area record plus its navigation and waypoint queue. Its
+    /// architecture, props and hotspots are still built in code until Phase 5.
+    private var runtime: AreaRuntime { areaRuntime! }
+    private var area: AreaDefinition { runtime.area }
+    private var navigation: NavigationMap { runtime.navigation }
+    private var movement: MovementOrderQueue { runtime.movement }
     private var hotspots: [OfficeHotspot] = []
     /// BG:EE Enhanced Path Search — last corrective repath wall-clock time.
     /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
-    private var movement: MovementOrderQueue!
     private let barks = MovementBarkPlayer()
     private var pendingBumpReturn: [String: CGPoint] = [:]
     private static let detectiveActorID = "detective.voss"
@@ -82,9 +86,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
     override var referenceVisibleHeight: CGFloat { OfficeInteriorScale.cameraVisibleHeight }
 
-    /// The office as an area record. Entrances are read from here; its
-    /// architecture, props and hotspots are still built in code until Phase 5.
-    private let area = HarborpointAreas.requireArea(HarborpointAreas.office)
     private let entranceName: String?
 
     /// Where the player stands on arrival. Walking in off Harbor Street lands on
@@ -2030,8 +2031,15 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func configureNavigation() {
-        navigation = OfficeNavigationLayout.makeGrid()
-        movement = MovementOrderQueue(navigation: navigation, actorID: Self.detectiveActorID)
+        loadArea(AreaRuntime(
+            area: HarborpointAreas.requireArea(HarborpointAreas.office),
+            // The office's own grid, which carries a 96,000-node path budget
+            // against the 32,000 default. That budget is scene configuration
+            // rather than part of the area record, so building from the record
+            // here would quietly cut it to a third.
+            navigation: OfficeNavigationLayout.makeGrid(),
+            playerActorID: Self.detectiveActorID
+        ))
         navigation.registerActor(
             id: Self.detectiveActorID,
             kind: .player,
