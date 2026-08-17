@@ -257,15 +257,15 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
 
     processing = manifest.get("processing", {})
     required_processing = {
-        "processor": "V14",
-        "native_body_rows": 56,
+        "processor": "V15",
+        "native_body_rows": crunch.ACTIVE.native_rows,
         "texture_body_height": 200,
         "canvas": [512, 512],
         "foot_row": 433,
         "corner_sentinel_alpha": 1,
-        "palette_colors": 64,
+        "palette_colors": crunch.ACTIVE.colors,
         "dither": False,
-        "hard_alpha": True,
+        "hard_alpha": crunch.ACTIVE.hard_alpha,
         "preserve_wardrobe": True,
         "seated_se_source_mirror_x": True,
     }
@@ -284,13 +284,13 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
         errors.append("V16 installer failed to arm RAINSHADOW_PRESERVE_WARDROBE=1")
     active = crunch.ACTIVE
     if not (
-        active.native_rows == 56
-        and active.colors == 64
+        active.native_rows == 200
+        and active.colors == 128
         and active.hard_alpha
         and active.ramp_palette
         and crunch.TEXTURE_BODY_HEIGHT == 200
     ):
-        errors.append("crunch.ACTIVE is not the approved V14 raster recipe")
+        errors.append("crunch.ACTIVE is not the approved V15 raster recipe")
 
     forbidden = set(processing.get("forbidden_legacy_locks", []))
     if not {"seated_authority_lock", "identity_wardrobe_lock", "relock_voss_identity_v12"} <= forbidden:
@@ -950,9 +950,13 @@ def foot_lead(image: Image.Image) -> str:
         return "R"
     if right_y < 0:
         return "L"
-    if left_y > right_y + 2:
+    # Deadband is one native pixel. Under the 56-row V14 raster one native
+    # pixel was 3.57 canvas px, so +2 counted any single-pixel lead; the V15
+    # raster resolves 1 canvas px per native px, and keeping +2 would read
+    # honestly-measured 2px leads as "even" and fail gaits that do exchange.
+    if left_y > right_y + 1:
         return "L"
-    if right_y > left_y + 2:
+    if right_y > left_y + 1:
         return "R"
     return "="
 
@@ -989,8 +993,11 @@ def _validate_raster_cell(path: Path, *, allow_empty: bool = False) -> tuple[lis
         return errors, None
     rgb = np.asarray(image)[..., :3][mask]
     colors = len(np.unique(rgb, axis=0))
-    if colors > 64:
-        errors.append(f"{path.name}: {colors} opaque colours, expected <=64 with no dithering")
+    if colors > crunch.ACTIVE.colors:
+        errors.append(
+            f"{path.name}: {colors} opaque colours, "
+            f"expected <={crunch.ACTIVE.colors} with no dithering"
+        )
     try:
         return errors, frame_metrics(image)
     except V16ValidationError as error:
@@ -1040,15 +1047,31 @@ def material_match_scores(image: Image.Image, wardrobe: dict[str, str]) -> dict[
     return scores
 
 
-def _rear_forbidden_fraction(image: Image.Image, target_hex: str) -> float:
+def _rear_forbidden_fraction(
+    image: Image.Image, target_hex: str, *, region: np.ndarray | None = None
+) -> float:
+    """Fraction of the visible body near a forbidden material's chroma+value.
+
+    ``region`` restricts *where* hits are counted (the denominator stays the
+    whole body). The tie needs this: it is near-neutral charcoal, and at the
+    V15 raster the rear cell honestly keeps ~3% of neutral-dark boot and hem
+    shadow pixels that sit inside the tie's value window — 305 of 335 hits
+    were in the bottom fifth of the body, zero in the strip a tie could
+    occupy. The V14 56-row raster only measured 0 because downsampling
+    blended those shadows into brown. A real front-tie painted onto the back
+    lands hundreds of pixels inside the scoped strip, so the gate still
+    catches the failure it was written for.
+    """
     pixels = np.asarray(image.convert("RGBA"))[..., :3].astype(np.float64)
-    sample = pixels[visible_mask(image)]
+    body = visible_mask(image)
+    counted = body if region is None else (body & region)
+    sample = pixels[counted]
     target = _parse_hex(target_hex)
     chroma = sample / np.maximum(sample.sum(axis=1, keepdims=True), 1.0)
     target_chroma = target / target.sum()
     close = np.linalg.norm(chroma - target_chroma, axis=1) < 0.035
     value_close = np.abs(np.log(np.maximum(sample.mean(axis=1), 1.0) / target.mean())) < 0.30
-    return float((close & value_close).mean())
+    return float((close & value_close).sum() / max(1, int(body.sum())))
 
 
 #: Clips whose frame-to-frame coherence is gated. The standing idle was absent
@@ -1063,7 +1086,7 @@ HEAD_JITTER_MAX = 6.0
 CENTROID_DRIFT_MAX = 2.0
 HEAD_SCALE_RATIO_MAX = 1.12
 TORSO_SCALE_RATIO_MAX = 1.18
-CLIP_PALETTE_COLORS = 64
+CLIP_PALETTE_COLORS = crunch.ACTIVE.colors
 
 MOTION_CLIPS = (
     ("walk", "VossWalk.atlas", "voss_walk", 8),
@@ -1410,8 +1433,11 @@ def validate_staging(stage_root: Path, manifest: dict[str, Any]) -> dict[str, An
             errors.append(f"front key has no material-specific {name} palette sample (score {score:.3f})")
     rear = _load_stage_cell(stage_root, "VossIdle.atlas", "voss_standing_idle_n_00.png")
     rear_forbidden = {
-        name: _rear_forbidden_fraction(rear, manifest["wardrobe"][name])
-        for name in ("shirt", "tie")
+        "shirt": _rear_forbidden_fraction(rear, manifest["wardrobe"]["shirt"]),
+        # Scoped to the strip a tie could occupy; see _rear_forbidden_fraction.
+        "tie": _rear_forbidden_fraction(
+            rear, manifest["wardrobe"]["tie"], region=_material_region(rear, "tie")
+        ),
     }
     wardrobe_report["rear_forbidden_fraction"] = {
         name: round(value, 6) for name, value in rear_forbidden.items()

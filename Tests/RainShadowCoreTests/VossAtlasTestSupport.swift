@@ -455,8 +455,12 @@ struct VossAtlasFrame {
         if leftFootY < 0 && rightFootY < 0 { return "?" }
         if leftFootY < 0 { return "R" }
         if rightFootY < 0 { return "L" }
-        if leftFootY > rightFootY + 2 { return "L" }
-        if rightFootY > leftFootY + 2 { return "R" }
+        // One-native-pixel deadband, mirroring install_voss_v16.foot_lead:
+        // the V15 raster resolves 1 canvas px per native px, so +2 would read
+        // honest 2px leads as "even" (V14's 56-row raster could only express
+        // leads in 3.57px steps, which is what the old +2 was sized against).
+        if leftFootY > rightFootY + 1 { return "L" }
+        if rightFootY > leftFootY + 1 { return "R" }
         return "="
     }
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""The V14 BGEE crunch: one parameterised raster post-process for every installer.
+"""The BGEE crunch: one parameterised raster post-process for every installer.
+`ACTIVE` selects the shipped recipe — V15 today (raster-density parity with the
+area plates, selected by `qa_pixelation_ab_v03.py`); V14 and V7 are kept so the
+old bakes stay reproducible.
 
 Before this module the crunch existed five times — `pixelize_figure` (V3),
 `pixelize_figure_v7`, `pixelize_shared` (desk NE, with its own fixed-scale
@@ -45,7 +48,7 @@ MIN_REGION_PX = 6
 
 @dataclass(frozen=True)
 class CrunchSpec:
-    """One crunch recipe. `V14` is what ships; `V7` reproduces the old bake."""
+    """One crunch recipe. `V15` is what ships; `V14`/`V7` reproduce old bakes."""
 
     native_rows: int
     colors: int
@@ -53,12 +56,44 @@ class CrunchSpec:
     ramp_palette: bool
     contrast: float
     ramp_steps: int = 12
+    #: Pre-crunch Gaussian radius. 3.4 was sized for the 56-row grid; a raster
+    #: that keeps 200 rows needs far less or it just blurs detail the plate has.
+    soften_radius: float = 3.4
+    #: Post-raster, pre-palette value expansion about `value_pivot`. RGB is
+    #: scaled proportionally to the luma gain, so chroma ratios — what every
+    #: wardrobe hue gate measures — are preserved exactly.
+    value_contrast: float = 1.0
+    #: None pivots each body on its own median luma, so a dark costume widens
+    #: about its own exposure instead of being crushed toward black. A fixed
+    #: pivot of 120 turned Lila's emerald dress (median luma ~40) into an
+    #: unreadable silhouette while leaving bright-shirted Voss looking right.
+    value_pivot: float | None = None
 
 
+#: V15 — BG:EE raster-density parity (see PaperdollBGEESpriteRedoPlanV15.md).
+#: The V14 56-row grid made sprite pixels ~3.2x coarser than the office plate
+#: (0.80 vs 2.53 art-px per world unit); a BG:EE sprite is never coarser than
+#: its background because both share one raster. Rasterising at the full 200
+#: texture rows lands the body at 2.84 px/wu ≈ plate density. Alpha stays
+#: 1-bit exactly like BAM v1 — on-screen edge softness comes from the runtime's
+#: linear filtering, the same way the EE engine smooths its zoom. The palette
+#: doubles to 128 because 64 entries band visibly once 200 rows of shading
+#: survive, and `value_contrast` recovers the value range the AI masters lack
+#: (BG paperdoll luma sd 45.7 vs ~31 shipped V14).
+V15 = CrunchSpec(
+    native_rows=200,
+    colors=128,
+    hard_alpha=True,
+    ramp_palette=True,
+    contrast=1.00,
+    ramp_steps=16,
+    soften_radius=1.2,
+    value_contrast=1.35,
+)
 V14 = CrunchSpec(native_rows=56, colors=64, hard_alpha=True, ramp_palette=True, contrast=1.00)
 V7 = CrunchSpec(native_rows=80, colors=64, hard_alpha=False, ramp_palette=False, contrast=0.68)
 
-ACTIVE = V14
+ACTIVE = V15
 
 
 @dataclass(frozen=True)
@@ -98,14 +133,20 @@ class ClipPalette:
 # ---------------------------------------------------------------------------
 
 
-def soften(figure: Image.Image, radius: float = 3.4, contrast: float | None = None) -> Image.Image:
+def soften(
+    figure: Image.Image, radius: float | None = None, contrast: float | None = None
+) -> Image.Image:
     """Drop micro-detail so the crunch matches seated/paperdoll craft density.
 
     The blur stays — AI-generated masters carry detail a 1998 mesh would not.
+    Its radius follows the spec: 3.4 suited the 56-row V14 grid, but a 200-row
+    raster resolves what the blur was hiding, so V15 drops to 1.2.
     The midtone pull does not: at V7's 0.68 our opaque luma std was 34.8 against
     45.7 on a real BG paperdoll asset, and washed-out value contrast is exactly
     what makes BG2-era avatars read as coloured blobs next to BG1's.
     """
+    if radius is None:
+        radius = ACTIVE.soften_radius
     if contrast is None:
         contrast = ACTIVE.contrast
     rgba = figure.convert("RGBA")
@@ -351,6 +392,56 @@ def harden_alpha(image: Image.Image, threshold: int = 128) -> Image.Image:
 # ---------------------------------------------------------------------------
 
 
+def _graded_body(body: np.ndarray, spec: CrunchSpec) -> np.ndarray:
+    """Expand the value range of (N,3) float body pixels about the spec pivot.
+
+    Each pixel's RGB is scaled by one luma gain, so brightness-normalised RGB —
+    what the Swift wardrobe gates and `material_hue_spread` measure — is
+    untouched. The target luma is clamped away from 0/255 so per-channel
+    clipping (which *would* shift a hue) stays rare.
+    """
+    if spec.value_contrast == 1.0:
+        return body
+    luma = body.mean(axis=1)
+    pivot = float(np.median(luma)) if spec.value_pivot is None else spec.value_pivot
+    # Highlights only. Symmetric expansion was tried twice and both directions
+    # of the shadow side failed correctness gates that value moves through:
+    # a fixed 120 pivot crushed Lila's dark emerald dress to silhouette, and a
+    # median pivot walked charcoal trouser shadows down into the tie's luma
+    # window on the rear key (the tie and trousers share near-neutral chroma;
+    # only value separates them). The flat top end is also where the AI
+    # masters actually lack range against a BG paperdoll, so this is the
+    # honest half of the curve.
+    expanded = np.minimum(pivot + (luma - pivot) * spec.value_contrast, 247.0)
+    target = np.where(luma > pivot, expanded, luma)
+    gain = target / np.maximum(luma, 1.0)
+    # Cap the gain so no channel can clip at 255. A clipped channel rotates
+    # the pixel's chroma — one clipped highlight entry (255,247,176) is what
+    # put 24 rear-coat pixels inside the forbidden shirt window on idle N 02.
+    # With the cap, post-grade chroma is mathematically identical to source.
+    gain = np.minimum(gain, 255.0 / np.maximum(body.max(axis=1), 1.0))
+    return np.clip(body * gain[:, None], 0.0, 255.0)
+
+
+def _grade_value_contrast(native: Image.Image, spec: CrunchSpec) -> Image.Image:
+    """Apply `_graded_body` to a native raster, before the palette is fitted.
+
+    This is the "grading before palette" the V14 plan recorded as the missing
+    piece: expanding contrast *after* the ramps are imposed either breaks the
+    64-entry contract or (inside `finalise`) shifts hues. Here the ramps are
+    fitted to the graded pixels, so the shipped palette carries the contrast.
+    """
+    if spec.value_contrast == 1.0:
+        return native
+    pixels = np.asarray(native).copy()
+    opaque = pixels[..., 3] > 0
+    if not opaque.any():
+        return native
+    body = pixels[opaque][:, :3].astype(np.float64)
+    pixels[opaque, :3] = np.rint(_graded_body(body, spec)).astype(np.uint8)
+    return Image.fromarray(pixels, "RGBA")
+
+
 def _quantise_medcut(native: Image.Image, colors: int) -> Image.Image:
     """V7 behaviour: one global ramp built from opaque figure pixels only."""
     alpha = native.getchannel("A")
@@ -466,6 +557,10 @@ def build_clip_palette(
         return None
 
     body = np.concatenate(pooled).astype(np.float64)
+    # Fit the ramps to *graded* pixels: the per-frame crunch grades before it
+    # snaps to these entries, and ramps fitted to ungraded values would pull
+    # the contrast right back out at the snap.
+    body = _graded_body(body, spec)
     if len(body) < 32:
         return None
     if len(body) > sample_cap:
@@ -723,6 +818,7 @@ def crunch(
 
     coverage = material_coverage(figure)
     native, labels = _native(figure, coverage, target_rows, spec, crop=crop_to_alpha)
+    native = _grade_value_contrast(native, spec)
 
     if spec.ramp_palette:
         native = _quantise_ramps(native, labels, spec, palette)

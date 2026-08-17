@@ -163,8 +163,10 @@ final class DetectiveActorNode: SKNode {
             return nil
         })
 
-        // V7 atlases carry a 200px nearest-upscaled copy of an 80px native raster.
-        // Nearest filtering resolves it back to the intended pixelated BGEE gameplay scale.
+        // V15 atlases carry a 200px body rasterised at plate density (2.84
+        // art-px/wu vs the office plate's 2.53), so sprite and floor share one
+        // raster like BG:EE. Linear filtering smooths the play-zoom
+        // magnification the same way the EE engine smooths its zoom.
         // Soft contact shadow is a separate sprite (not baked into walk/sit frames).
         contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
 
@@ -188,7 +190,7 @@ final class DetectiveActorNode: SKNode {
             )
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 40 / 256)
-        body.texture?.filteringMode = .nearest
+        body.texture?.filteringMode = .linear
 
         if let texture = seatedLowerTextures.first {
             lowerBody = SKSpriteNode(texture: texture, size: Self.frameDisplaySizeConstant)
@@ -196,7 +198,7 @@ final class DetectiveActorNode: SKNode {
             lowerBody = SKSpriteNode()
         }
         lowerBody.anchorPoint = body.anchorPoint
-        lowerBody.texture?.filteringMode = .nearest
+        lowerBody.texture?.filteringMode = .linear
         lowerBody.zPosition = Self.seatedLowerLocalZ
 
         if let texture = seatedArmTextures.first {
@@ -205,7 +207,7 @@ final class DetectiveActorNode: SKNode {
             foregroundArms = SKSpriteNode()
         }
         foregroundArms.anchorPoint = body.anchorPoint
-        foregroundArms.texture?.filteringMode = .nearest
+        foregroundArms.texture?.filteringMode = .linear
         // Hands sit above the desk-top occluder so they rest on the writing surface.
         foregroundArms.zPosition = Self.seatedArmsLocalZ
 
@@ -269,13 +271,13 @@ final class DetectiveActorNode: SKNode {
     /// Prefer this over `SKAction.animate` for sit/stand so trimmed vs full-canvas
     /// atlas cells cannot drift the node size mid-clip.
     private func animateFixedSize(on node: SKSpriteNode, textures: [SKTexture], timePerFrame: TimeInterval) -> SKAction {
-        textures.forEach { $0.filteringMode = .nearest }
+        textures.forEach { $0.filteringMode = .linear }
         let steps: [SKAction] = textures.map { texture in
             .sequence([
                 .run { [weak self, weak node] in
                     guard let self, let node else { return }
                     node.texture = texture
-                    node.texture?.filteringMode = .nearest
+                    node.texture?.filteringMode = .linear
                     self.assertFrameDisplaySizes()
                 },
                 .wait(forDuration: timePerFrame)
@@ -782,7 +784,7 @@ final class DetectiveActorNode: SKNode {
             return
         }
 
-        standUpTextures.forEach { $0.filteringMode = .nearest }
+        standUpTextures.forEach { $0.filteringMode = .linear }
         assertFrameDisplaySizes()
         let standUp = animateFixedSize(
             on: body,
@@ -829,7 +831,7 @@ final class DetectiveActorNode: SKNode {
             return
         }
 
-        sitDownTextures.forEach { $0.filteringMode = .nearest }
+        sitDownTextures.forEach { $0.filteringMode = .linear }
         let duration = ActorLocomotionPacing.standUpSecondsPerFrame * TimeInterval(sitDownTextures.count)
         assertFrameDisplaySizes()
         let sitDown = animateFixedSize(
@@ -934,13 +936,13 @@ final class DetectiveActorNode: SKNode {
             ?? standingIdleTextures[seatVisualDirection.facing]?.first
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
-        body.texture?.filteringMode = .nearest
+        body.texture?.filteringMode = .linear
         body.xScale = Self.spriteScale
         body.yScale = Self.spriteScale
         body.position = upperSeat
         // NE rear view bakes hands into the body cell.
         foregroundArms.texture = seatedArmTextures.first
-        foregroundArms.texture?.filteringMode = .nearest
+        foregroundArms.texture?.filteringMode = .linear
         foregroundArms.xScale = Self.spriteScale
         foregroundArms.yScale = Self.spriteScale
         foregroundArms.position = upperSeat
@@ -983,7 +985,7 @@ final class DetectiveActorNode: SKNode {
         if let frames = standingIdleTextures[facing], frames.count > 1 {
             // Authored 4-frame breath loop with a long neutral hold, replacing
             // the former single-frame position bob.
-            frames.forEach { $0.filteringMode = .nearest }
+            frames.forEach { $0.filteringMode = .linear }
             let indices = Self.breathCycleIndices(frameCount: frames.count)
             let breath = animateFixedSize(
                 on: body,
@@ -1015,7 +1017,7 @@ final class DetectiveActorNode: SKNode {
         applySpriteScale(mirrored: facing.isMirrored)
         body.zRotation = 0
         guard let textures = walkTextures[facing], !textures.isEmpty else { return }
-        textures.forEach { $0.filteringMode = .nearest }
+        textures.forEach { $0.filteringMode = .linear }
         walkFrameIndex %= textures.count
         body.texture = textures[walkFrameIndex]
         assertFrameDisplaySizes()
@@ -1039,7 +1041,7 @@ final class DetectiveActorNode: SKNode {
     private func applyStandingIdleTexture() {
         if let idleTexture = standingIdleTextures[facing]?.first {
             body.texture = idleTexture
-            body.texture?.filteringMode = .nearest
+            body.texture?.filteringMode = .linear
         }
         applySpriteScale(mirrored: facing.isMirrored)
         assertFrameDisplaySizes()

@@ -61,7 +61,7 @@
     "body_axis_bbox_tolerance": 8.0,
     "center_tolerance": 2,
     "centroid_drift_max": 2.0,
-    "clip_palette_colors_max": 64,
+    "clip_palette_colors_max": 128,
     "foot_row": 433,
     "head_jitter_max": 6.0,
     "head_pulse_ratio_max": 1.12,
@@ -69,7 +69,7 @@
     "idle_walk_head_shoulder_ratio_max": 0.06,
     "idle_centroid_drift_max": 2,
     "idle_neutral_iou_min": 0.86,
-    "palette_colors": 64,
+    "palette_colors": 128,
     "pure_rear_skin_fraction_max": 0.03,
     "rear_shirt_fraction_max": 0.001,
     "seated_height": [150, 160],
@@ -86,7 +86,10 @@
     "transition_rise": [38, 50]
   },
   "processing": {
-    "processor": "V14",
+    "processor": "V15",
+    "native_body_rows": 200,
+    "palette_colors": 128,
+    "hard_alpha": true,
     "runtime_registration_offsets": {},
     "seated_idle_scale_authority": "phase_00_opaque_height_minus_one"
   },

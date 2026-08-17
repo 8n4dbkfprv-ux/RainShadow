@@ -30,8 +30,12 @@ enum GameArt {
             ($0 as NSString).deletingPathExtension == name
         }) else { return nil }
 
+        // Character atlases are V15 plate-density rasters (2.84 art-px per
+        // world unit, ~parity with the area plates). Linear filtering smooths
+        // the magnified sprite exactly the way the BG:EE engine smooths its
+        // zoom; nearest would re-introduce blockiness the plates do not have.
         let texture = atlas.textureNamed(storedName)
-        texture.filteringMode = .nearest
+        texture.filteringMode = .linear
         return texture
     }
 

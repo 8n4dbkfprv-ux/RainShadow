@@ -48,7 +48,7 @@ class VossV21PipelineTests(unittest.TestCase):
         self.assertIn("true rear view", rear)
         self.assertNotIn("full face", rear)
 
-    def test_shared_palette_keeps_one_clip_inside_64_colours(self) -> None:
+    def test_shared_palette_keeps_one_clip_inside_the_palette_budget(self) -> None:
         keyed = [core.key_chroma(synthetic_master(shift_x=phase)) for phase in range(4)]
         levelled, _ = crunch.normalise_clip_exposure(keyed)
         palette = crunch.build_clip_palette(levelled)
@@ -61,7 +61,7 @@ class VossV21PipelineTests(unittest.TestCase):
             pixels = np.asarray(cell.convert("RGBA"))
             opaque = pixels[pixels[..., 3] >= 128][:, :3]
             colours.update(map(tuple, opaque))
-        self.assertLessEqual(len(colours), 64)
+        self.assertLessEqual(len(colours), crunch.ACTIVE.colors)
 
     def test_se_idle_is_exact_horizontal_mirror_of_sw(self) -> None:
         sw = core.process_figure(synthetic_master())

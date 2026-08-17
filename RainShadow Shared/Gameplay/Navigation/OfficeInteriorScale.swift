@@ -18,7 +18,7 @@ enum OfficeInteriorScale {
         /// Legacy logical actor scale retained for locomotion and furniture contracts.
         static let standingScale: CGFloat = 0.82
         static let seatedScale: CGFloat = 0.82
-        /// SpriteKit presentation: integer pixels so nearest-filtered frames do not shimmer.
+        /// SpriteKit presentation: integer pixels so scaled frames do not shimmer.
         ///
         /// Anchored to the architecture rather than picked by eye. The shipping plate's
         /// clear entrance opening is 198 plate px → 78.21 world units; a real interior

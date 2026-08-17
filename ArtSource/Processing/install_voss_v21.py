@@ -113,15 +113,15 @@ def _compat_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     compatible.setdefault("processing", {})
     compatible["processing"].update(
         {
-            "processor": "V14",
-            "native_body_rows": 56,
+            "processor": "V15",
+            "native_body_rows": core.crunch.ACTIVE.native_rows,
             "texture_body_height": 200,
             "canvas": [512, 512],
             "foot_row": 433,
             "corner_sentinel_alpha": 1,
-            "palette_colors": 64,
+            "palette_colors": core.crunch.ACTIVE.colors,
             "dither": False,
-            "hard_alpha": True,
+            "hard_alpha": core.crunch.ACTIVE.hard_alpha,
             "preserve_wardrobe": True,
             "seated_se_source_mirror_x": True,
             "forbidden_legacy_locks": [

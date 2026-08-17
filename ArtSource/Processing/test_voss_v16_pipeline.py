@@ -81,7 +81,7 @@ class VossV16PipelineTests(unittest.TestCase):
             [1, 1, 1, 1],
         )
         colors = np.unique(np.asarray(cell)[..., :3][v16.visible_mask(cell)], axis=0)
-        self.assertLessEqual(len(colors), 64)
+        self.assertLessEqual(len(colors), v16.crunch.ACTIVE.colors)
 
     def test_ne_compatibility_split_preserves_full_silhouette_union(self) -> None:
         cell = v16.process_figure(synthetic_master())

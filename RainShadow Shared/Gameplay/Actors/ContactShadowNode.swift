@@ -22,11 +22,13 @@ enum ContactShadowKind {
 
     /// On-screen ellipse before `standingScale` is applied. Tracks the sprite
     /// presentation so the blob stays under the feet at any body size.
+    /// Sized against the BG:EE reference blobs, which read wider and denser
+    /// than the previous timid ellipse.
     var displaySize: CGSize {
         let ratio = OfficeInteriorScale.ActorDisplay.visualBodyRatio
         switch self {
-        case .party: return CGSize(width: 54 * ratio, height: 20 * ratio)
-        case .npc: return CGSize(width: 44 * ratio, height: 15 * ratio)
+        case .party: return CGSize(width: 60 * ratio, height: 22 * ratio)
+        case .npc: return CGSize(width: 49 * ratio, height: 17 * ratio)
         }
     }
 
@@ -39,12 +41,13 @@ enum ContactShadowKind {
         }
     }
 
-    /// Node alpha at standing/walking rest. Texture already carries soft falloff;
-    /// this matches the prior shape-node visual weight (fill α 0.38 / 0.32).
+    /// Node alpha at standing/walking rest. Texture already carries soft falloff.
+    /// Raised toward the BG:EE weight — the engine's baked sprite shadows are
+    /// prominent blobs, and at 0.42 ours vanished on the dark office boards.
     var standingAlpha: CGFloat {
         switch self {
-        case .party: 0.42
-        case .npc: 0.36
+        case .party: 0.55
+        case .npc: 0.46
         }
     }
 }
@@ -124,10 +127,11 @@ enum ContactShadowFactory {
                 let castY = ny * 1.05 + 0.06
                 let r = (castX * castX + castY * castY).squareRoot()
                 var t = max(0, 1 - r)
-                // Smoothstep, then a slightly steeper outer roll-off so the
-                // edge dissolves into the floorboards instead of a hard rim.
+                // Smoothstep, then a gentler outer roll-off (1.25, was 1.45):
+                // the BG:EE blob keeps a wider soft skirt before it dissolves
+                // into the floorboards.
                 t = t * t * (3 - 2 * t)
-                t = pow(t, 1.45)
+                t = pow(t, 1.25)
                 let alpha = UInt8(min(255, Int((t * 255).rounded())))
                 let i = (y * width + x) * 4
                 // Premultiplied black: RGB = 0, A = falloff.

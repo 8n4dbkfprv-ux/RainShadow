@@ -34,12 +34,12 @@ from process_character_gait_v5 import remove_green_screen
 
 
 def soften_for_paperdoll_craft(
-    figure: Image.Image, radius: float = 3.4, contrast: float | None = None
+    figure: Image.Image, radius: float | None = None, contrast: float | None = None
 ) -> Image.Image:
     """Drop micro-detail so the crunch matches seated/paperdoll craft density.
 
-    The midtone pull is now the crunch spec's (`contrast`, 1.00 under V14) rather
-    than a hardcoded 0.68 — see `crunch.soften`, which this delegates to.
+    Radius and midtone pull both follow the active crunch spec — see
+    `crunch.soften`, which this delegates to.
     """
     return crunch_mod.soften(figure, radius=radius, contrast=contrast)
 

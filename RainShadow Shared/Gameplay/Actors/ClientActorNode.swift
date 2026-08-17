@@ -92,7 +92,7 @@ final class ClientActorNode: SKNode {
             )
         }
         body.anchorPoint = CGPoint(x: 0.5, y: 39 / 256)
-        body.texture?.filteringMode = .nearest
+        body.texture?.filteringMode = .linear
         // Same adult standing presentation as DetectiveActorNode (integer-pixel sprite scale).
         // Never negate xScale — handbag/light contract forbids whole-figure mirroring.
         body.xScale = OfficeInteriorScale.ActorDisplay.spriteScale
@@ -229,7 +229,7 @@ final class ClientActorNode: SKNode {
                 let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
                 if let frame = walkingFrames.first {
                     body.texture = frame
-                    body.texture?.filteringMode = .nearest
+                    body.texture?.filteringMode = .linear
                 }
                 return
             }
@@ -239,7 +239,7 @@ final class ClientActorNode: SKNode {
         position = prior
         if let idle = arrivalTextures.last {
             body.texture = idle
-            body.texture?.filteringMode = .nearest
+            body.texture?.filteringMode = .linear
         }
         startIdle()
     }
@@ -408,7 +408,7 @@ final class ClientActorNode: SKNode {
     private func startArrivalWalkCycle() {
         let walkingFrames = Array(arrivalTextures.prefix(ActorLocomotionPacing.walkFramesPerCycle))
         guard walkingFrames.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
-        walkingFrames.forEach { $0.filteringMode = .nearest }
+        walkingFrames.forEach { $0.filteringMode = .linear }
         body.removeAction(forKey: "clientWalkCycle")
         body.run(
             .repeatForever(.animate(
@@ -478,7 +478,7 @@ final class ClientActorNode: SKNode {
         case .entrance, .bumped:
             if let idle = arrivalTextures.last {
                 body.texture = idle
-                body.texture?.filteringMode = .nearest
+                body.texture?.filteringMode = .linear
             }
             startIdle()
         case .exit:
@@ -504,7 +504,7 @@ final class ClientActorNode: SKNode {
 
     private func startDepartureWalkCycle(_ textures: [SKTexture], crossfade: Bool) {
         guard textures.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
-        textures.forEach { $0.filteringMode = .nearest }
+        textures.forEach { $0.filteringMode = .linear }
 
         // Keep stride phase across the NW→NE door handoff so the turn does not
         // hard-restart mid-step (reads as haywire gait even with correct facing).
@@ -522,7 +522,7 @@ final class ClientActorNode: SKNode {
         if crossfade, let outgoing = body.texture {
             bodyHandoff.removeAllActions()
             bodyHandoff.texture = outgoing
-            bodyHandoff.texture?.filteringMode = .nearest
+            bodyHandoff.texture?.filteringMode = .linear
             bodyHandoff.xScale = abs(OfficeInteriorScale.ActorDisplay.spriteScale)
             bodyHandoff.yScale = OfficeInteriorScale.ActorDisplay.spriteScale
             bodyHandoff.position = body.position
@@ -541,7 +541,7 @@ final class ClientActorNode: SKNode {
 
         body.removeAction(forKey: "clientWalkCycle")
         body.texture = ordered[0]
-        body.texture?.filteringMode = .nearest
+        body.texture?.filteringMode = .linear
         body.xScale = abs(OfficeInteriorScale.ActorDisplay.spriteScale)
         body.run(
             .repeatForever(.animate(

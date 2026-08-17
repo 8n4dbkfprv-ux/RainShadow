@@ -15,10 +15,14 @@ struct ActorSceneLighting: Sendable {
     /// Selection-ring opacity so the underfoot ellipse does not neon against pavement.
     let selectionRingAlpha: CGFloat
 
-    /// Warm desk-lamp office — light grade so the neutral bake stays readable.
+    /// Dim desk-lamp office. The Infinity Engine tints sprites from the area
+    /// lightmap, so a character in a dark room is visibly pulled into it; at
+    /// the old 0.10 blend the neutral bake floated bright and warm over the
+    /// dark floorboards. Slightly warm but *darker* than the bake, so Voss
+    /// sits in the room's value range instead of on top of it.
     static let officeInterior = ActorSceneLighting(
-        bodyTint: SKColor(red: 1.0, green: 0.96, blue: 0.90, alpha: 1),
-        bodyBlend: 0.10,
+        bodyTint: SKColor(red: 0.78, green: 0.73, blue: 0.66, alpha: 1),
+        bodyBlend: 0.30,
         contactShadowAlphaScale: 1.0,
         selectionRingAlpha: 1.0
     )
