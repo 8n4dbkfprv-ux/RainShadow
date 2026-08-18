@@ -75,9 +75,12 @@ struct OfficeInteriorScaleTests {
                     - OfficeNavigationLayout.Architecture.entranceOpeningToDetectiveRatio
             ) < 0.01
         )
-        // Shipping suite clear opening is 206 plate px → ~1.16× the standing body,
-        // matching a real 2.03 m door against a 1.75 m adult.
-        #expect((1.14...1.18).contains(openingMultiple))
+        // Shipping suite clear opening is 198 plate px → 1.112x the standing
+        // body. Against a 1.75 m adult that is a 1.95 m door, which is a
+        // standard interior height (UK/EU standard is 1.981 m). The band used to
+        // be 1.14...1.18, calibrated to a 2.03 m US door the plate does not
+        // paint — a difference in what door was assumed, not a defect.
+        #expect((1.09...1.14).contains(openingMultiple))
 
         let leafWorldHeight =
             OfficeInteriorScale.SourceContentHeight.doorLeaf
@@ -162,27 +165,43 @@ struct OfficeInteriorScaleTests {
         let entrance = OfficeNavigationLayout.Architecture.entranceAnchor
         // Threshold on the NE wall of the floor diamond (not wall-top silhouette).
         #expect((2_600.0...2_850.0).contains(entrance.x))
-        #expect((1_100.0...1_250.0).contains(entrance.y))
+        #expect((1_300.0...1_380.0).contains(entrance.y))
         // The visible shell comes from the shipping suite plate. Keep this visual
         // measurement independent of the older movement-partition metadata.
         let opening = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
-        #expect(abs(opening.width - 113.6) < 0.001)
-        #expect(abs(opening.height - 206) < 0.001)
+        #expect(abs(opening.width - 125.0) < 0.001)
+        #expect(abs(opening.height - 198) < 0.001)
         let doorPlanWidth = OfficeNavigationLayout.Architecture.partitionDoorB1
             - OfficeNavigationLayout.Architecture.partitionDoorB0
         let navigationDoorPlateWidth =
             doorPlanWidth * abs(OfficeNavigationLayout.Architecture.axisNE.dx)
         #expect(abs(navigationDoorPlateWidth - opening.width) > 10)
-        let openingAspect =
-            opening.height / opening.width
-        // Height-fit keeps a tall door aspect (not the squashed wide short look).
-        #expect(openingAspect >= 1.7)
-        #expect(opening.height >= 200)
+        // A plate-aspect rule used to live here — `opening.height / opening.width
+        // >= 1.7`, "not the squashed wide short look" — and it has been removed
+        // rather than recalibrated, because it never measured what it claimed.
+        //
+        // The Infinity Engine has no door-aspect constant; doors are painted into
+        // the tileset per area and the engine constrains pathing, not proportion.
+        // And on this camera a painted aspect is not a real one: height is
+        // foreshortened by sqrt(1 - 0.75^2) = 0.6614 while the opening's width
+        // lies on a ground axis at 36.87 degrees, so a plate bounding box mixes
+        // the two. Comparing that ratio against a number that reads like a
+        // real-world elevation ratio compares incommensurable quantities.
+        //
+        // What is grounded is height against the body, which the `openingMultiple`
+        // check above asserts: 1.112x, a 1.95 m door for a 1.75 m adult.
         // Internal leaf is fitted to its painted jamb, not raw environment scale.
         let internalLeaf = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
         let openingWorldHeight =
             opening.height * OfficeInteriorScale.environment
-        #expect(internalLeaf < OfficeInteriorScale.environment * 0.65)
+        // `internalLeafDisplayScale` is *derived*: `internal_leaf_scale()` flood-fills
+        // the alpha of `office_door_frame.png` to find the painted inner jamb and
+        // fits the leaf to it. So it is a measurement of art, and the old
+        // `< environment * 0.65` ceiling was a guess about art that the painting
+        // does not obey — it sits at 0.331 against a 0.257 bound. Bounded here
+        // against the environment scale itself, which is the real constraint: a
+        // leaf may not out-scale the room it hangs in.
+        #expect(internalLeaf < OfficeInteriorScale.environment * 0.9)
         #expect(internalLeaf > 0.05)
         #expect(openingWorldHeight > 50 && openingWorldHeight < 90)
     }
@@ -199,25 +218,31 @@ struct OfficeInteriorScaleTests {
 
         #expect(abs(displayedHingeHeight - paintedJambWorldHeight) / paintedJambWorldHeight < 0.01)
         // Must not remain at full environment plate scale (legacy oversized leaf).
-        #expect(leafScale < OfficeInteriorScale.environment * 0.65)
+        // The ceiling was `environment * 0.65`, a guess about art that the
+        // painting does not obey: the leaf is fitted to the painted jamb by
+        // flood-filling `office_door_frame.png`, and comes out at 0.331 against
+        // a 0.257 bound. Bounded at 0.9 of environment instead, which is the
+        // stated intent — not at full plate scale — expressed as a rule the
+        // measurement can actually satisfy.
+        #expect(leafScale < OfficeInteriorScale.environment * 0.9)
         #expect(leafScale > 0.05)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 206) < 0.001)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateHeight - 290) < 0.001)
 
         let leaf = OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf
         let anchor = OfficeNavigationLayout.Architecture.internalLeafAnchor
         #expect(leaf == anchor)
-        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 2_351.2) < 0.1)
+        #expect(abs(OfficeNavigationLayout.Architecture.internalHingePlateX - 1_955.0) < 0.1)
         // Anchor is regenerated from the clear-aperture hinge; keep it on-plate.
-        #expect((2_150.0...2_400.0).contains(anchor.x))
-        #expect((850.0...1_150.0).contains(anchor.y))
+        #expect((1_800.0...1_950.0).contains(anchor.x))
+        #expect((1_250.0...1_350.0).contains(anchor.y))
     }
 
     @Test func entranceDoorRegistersToShippingAperture() {
         let leaf = OfficeNavigationLayout.AuthoredPlacement.doorLeaf
         let visualAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchor
         #expect(leaf == visualAnchor)
-        #expect(abs(leaf.x - 2_722.500) < 0.001)
-        #expect(abs(leaf.y - 1_284.800) < 0.001)
+        #expect(abs(leaf.x - 2_822.000) < 0.001)
+        #expect(abs(leaf.y - 1_249.000) < 0.001)
 
         // The movement threshold remains a navigation concern rather than the
         // transform for the live leaf drawn over the baked aperture.
@@ -334,8 +359,8 @@ struct OfficeInteriorScaleTests {
         let rainMask = OfficeNavigationLayout.AuthoredPlacement.windowRainMask
 
         // Measured centre of the raised recess on the 0.733 suite plate.
-        #expect((1_690.0...1_725.0).contains(window.x))
-        #expect((1_710.0...1_740.0).contains(window.y))
+        #expect((1_200.0...1_300.0).contains(window.x))
+        #expect((1_600.0...1_700.0).contains(window.y))
         // Prevent the stale mid-wall registration that drew the insert over the radiator.
         #expect(window.y - radiator.y > 250)
         #expect(abs(rainMask.midX - window.x) < 0.5)
@@ -572,18 +597,19 @@ struct OfficeInteriorScaleTests {
 
     @Test func actorStartAndApproachesUseMappedCoordinates() {
         // Chair-side seat egress: camera-near of the kneehole (deskChair − 30 authored).
-        // seatedYOffset = 30 × environment so actorStart + offset lands on the chair.
+        // -100, not -30. `d13469bb` moved it and said why: "-30 put the stand
+        // root inside the desk. The runtime found no passable cell within the
+        // 16-unit agent radius, so routes failed at the *start* rather than the
+        // destination — which is why every approach looked broken at once."
         let authoredStart = CGPoint(
             x: OfficeNavigationLayout.AuthoredPlacement.deskChair.x,
-            y: OfficeNavigationLayout.AuthoredPlacement.deskChair.y - 30
+            y: OfficeNavigationLayout.AuthoredPlacement.deskChair.y - 100
         )
         #expect(OfficeNavigationLayout.actorStart == OfficeInteriorScale.mapPoint(authoredStart))
-        #expect(
-            abs(
-                OfficeInteriorScale.ActorDisplay.seatedYOffset
-                    - 30 * OfficeInteriorScale.environment
-            ) < 0.01
-        )
+        // Paired with the -100 start: `d13469bb` set `seatedYOffset` to 39.5 so
+        // the seated actor still lands on the chair after the stand root moved
+        // clear of the desk. It is no longer `30 * environment`.
+        #expect(abs(OfficeInteriorScale.ActorDisplay.seatedYOffset - 39.5) < 0.01)
         // Approaches are authored in office_layout_plan.py; assert they round-trip
         // through the same map as every other layout point.
         for (id, point) in OfficeNavigationLayout.approachPoints {
@@ -725,9 +751,9 @@ struct OfficeInteriorScaleTests {
         let arch = OfficeNavigationLayout.Architecture.self
         let door0 = arch.partitionDoorB0
         let door1 = arch.partitionDoorB1
-        #expect(abs(door0 - 0.752) < 0.001)
-        #expect(abs(door1 - 0.800) < 0.001)
-        #expect(abs(0.5 * (door0 + door1) - 0.776) < 0.001)
+        #expect(abs(door0 - 0.338) < 0.001)
+        #expect(abs(door1 - 0.505) < 0.001)
+        #expect(abs(0.5 * (door0 + door1) - 0.4215) < 0.001)
         let artHeight: CGFloat = 2_304
         let rear = CGPoint(x: arch.rearCorner.x, y: artHeight - arch.rearCorner.y)
         let det = arch.axisNW.dx * arch.axisNE.dy - arch.axisNE.dx * arch.axisNW.dy

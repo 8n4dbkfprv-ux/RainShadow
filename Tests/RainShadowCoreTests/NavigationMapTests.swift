@@ -289,9 +289,25 @@ struct NavigationMapTests {
         let faceOriginX = arch.rearCorner.x + aFace * arch.axisNW.dx
         let stileB = (arch.internalHingePlateX - faceOriginX) / arch.axisNE.dx
 
-        #expect(abs(stileB - 0.752) < 0.01)
-        #expect(abs(arch.partitionDoorB0 - 0.752) < 0.001)
-        #expect(abs(arch.partitionDoorB1 - 0.800) < 0.001)
+        // The refit moved the partition doorway and widened it: b 0.338...0.505,
+        // an aperture of 0.167 against the 0.048 these used to assert. The
+        // planner's client crossing at b = 0.422 falls inside the new opening,
+        // so the geometry is self-consistent at the new coordinates.
+        // Compared against the doorway itself rather than a literal, because
+        // that is the invariant: `internalHingePlateX` is documented as "low-b
+        // stile of the painted partition opening", so the painted stile and the
+        // navigable aperture should begin at the same b.
+        //
+        // They currently do not — stileB 0.366 against partitionDoorB0 0.338, a
+        // gap of 27 plate px. `AGENTS.md` names this hazard exactly: the door
+        // aperture is stored twice, `office_layout_plan.SHIPPING_*` independent
+        // of `office_room_plan.BAKED_DOORWAY_*`, with the emitted Swift
+        // following the layout-plan copy. Left failing on purpose: it is a real
+        // disagreement between the painting and the navigation, and moving the
+        // literal to match would hide it.
+        #expect(abs(stileB - arch.partitionDoorB0) < 0.01)
+        #expect(abs(arch.partitionDoorB0 - 0.338) < 0.001)
+        #expect(abs(arch.partitionDoorB1 - 0.505) < 0.001)
 
         let map = OfficeNavigationLayout.makeGrid()
         for frameB: CGFloat in [0.760, 0.776, 0.790] {
