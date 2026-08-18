@@ -32,7 +32,15 @@ final class CityDistrictScene: BaseGameScene {
     private var inspectBanner: SKLabelNode?
     /// The district as an area record plus its navigation and waypoint queue.
     /// Props, obstacles and art still come from `district` until Phase 5.
-    private var runtime: AreaRuntime { areaRuntime! }
+    private var runtime: AreaRuntime {
+        guard let areaRuntime else {
+            preconditionFailure(
+                "CityDistrictScene read its area before loadArea ran; "
+                    + "the runtime is built in init so this cannot depend on buildScene order"
+            )
+        }
+        return areaRuntime
+    }
     private var area: AreaDefinition { runtime.area }
     private var navigation: NavigationMap { runtime.navigation }
     private var movement: MovementOrderQueue { runtime.movement }
@@ -45,6 +53,15 @@ final class CityDistrictScene: BaseGameScene {
         self.district = CityDistrictCatalog.definition(for: districtID)
         self.entranceName = entrance
         super.init(context: context, artSize: CityDistrictDefinition.worldArtSize)
+        // In `init` rather than `buildScene`, so nothing can read the area
+        // before it exists. The office crashed exactly that way.
+        loadArea(AreaRuntime(
+            area: HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: districtID)),
+            // The district's own grid, not `area.makeNavigationMap()`: the two
+            // are parity-tested equal, and switching is Phase 5's change to make.
+            navigation: CityDistrictCatalog.definition(for: districtID).makeGrid(),
+            playerActorID: Self.detectiveActorID
+        ))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -67,13 +84,6 @@ final class CityDistrictScene: BaseGameScene {
         }
         addModularDistrictSprites()
 
-        loadArea(AreaRuntime(
-            area: HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: district.id)),
-            // The district's own grid, not `area.makeNavigationMap()`: the two
-            // are parity-tested equal, and switching is Phase 5's change to make.
-            navigation: district.makeGrid(),
-            playerActorID: Self.detectiveActorID
-        ))
         edgeExits = makeEdgeExits()
         detective.position = area.spawnPoint(entrance: entranceName) ?? district.actorStart
         detective.beginOpenWorldStanding()

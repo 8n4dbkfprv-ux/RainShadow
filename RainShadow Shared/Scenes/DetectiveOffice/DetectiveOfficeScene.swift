@@ -27,7 +27,15 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private var fogOfWar: OfficeFogOfWarNode?
     /// The office as an area record plus its navigation and waypoint queue. Its
     /// architecture, props and hotspots are still built in code until Phase 5.
-    private var runtime: AreaRuntime { areaRuntime! }
+    private var runtime: AreaRuntime {
+        guard let areaRuntime else {
+            preconditionFailure(
+                "DetectiveOfficeScene read its area before loadArea ran; "
+                    + "the runtime is built in init so this cannot depend on buildScene order"
+            )
+        }
+        return areaRuntime
+    }
     private var area: AreaDefinition { runtime.area }
     private var navigation: NavigationMap { runtime.navigation }
     private var movement: MovementOrderQueue { runtime.movement }
@@ -99,6 +107,19 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     init(context: GameContext, entrance: String? = nil) {
         self.entranceName = entrance
         super.init(context: context, artSize: OfficeInteriorScale.sourceArtSize)
+        // Before `buildScene`, deliberately. The area answers where the player
+        // arrives, and `buildScene` positions the detective long before it
+        // reaches navigation setup — loading the area there instead crashed the
+        // office on every entry.
+        loadArea(AreaRuntime(
+            area: HarborpointAreas.requireArea(HarborpointAreas.office),
+            // The office's own grid, which carries a 96,000-node path budget
+            // against the 32,000 default. That budget is scene configuration
+            // rather than part of the area record, so building from the record
+            // here would quietly cut it to a third.
+            navigation: OfficeNavigationLayout.makeGrid(),
+            playerActorID: Self.detectiveActorID
+        ))
         // The office opens straight into the Empty Coat intro, so the panel owns input
         // from the first frame. Other scenes start in free play (the inherited default);
         // `applyCompletedOfficeCaseIntroFreeplayState` clears this on a replay visit.
@@ -2031,15 +2052,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func configureNavigation() {
-        loadArea(AreaRuntime(
-            area: HarborpointAreas.requireArea(HarborpointAreas.office),
-            // The office's own grid, which carries a 96,000-node path budget
-            // against the 32,000 default. That budget is scene configuration
-            // rather than part of the area record, so building from the record
-            // here would quietly cut it to a third.
-            navigation: OfficeNavigationLayout.makeGrid(),
-            playerActorID: Self.detectiveActorID
-        ))
         navigation.registerActor(
             id: Self.detectiveActorID,
             kind: .player,
