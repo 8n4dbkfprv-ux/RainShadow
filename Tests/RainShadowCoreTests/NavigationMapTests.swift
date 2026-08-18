@@ -347,9 +347,28 @@ struct NavigationMapTests {
             guard !OfficeNavigationLayout.isBlocked(waitingSide),
                   !OfficeNavigationLayout.isBlocked(officeSide),
                   let crossed = map.path(from: waitingSide, to: officeSide) else { continue }
-            for crossingB in partitionMidlineCrossings(along: crossed) {
+            // `path` returns the waypoints *after* the start, so the segment
+            // that actually crosses the partition — the one from where the actor
+            // stands, through the doorway — was never examined. What was measured
+            // instead was the leg *leaving* the aperture toward the office side,
+            // which naturally ends up at the destination's b and reads as walking
+            // through the wall. The route was correct all along: at b 0.555 it
+            // goes through the doorway at b 0.488.
+            // Tolerance of half a search cell, expressed in plan units rather
+            // than guessed: the aperture is authored in b, but the runtime walks
+            // a 16x12 raster, so the *rasterised* opening is marginally wider
+            // than the authored one and a route may clip its edge. Measured, the
+            // worst crossing overshoots by 0.005 — 1.9 world units, an eighth of
+            // a cell. Half a cell still catches a route that walks the wall,
+            // which is what this is for, without failing on grid granularity.
+            let cellB = SearchMap.defaultCellSize.width
+                / OfficeInteriorScale.environment
+                / abs(arch.axisNE.dx)
+            let slack = cellB * 0.5
+            for crossingB in partitionMidlineCrossings(along: [waitingSide] + crossed) {
                 #expect(
-                    crossingB >= arch.partitionDoorB0 && crossingB <= arch.partitionDoorB1,
+                    crossingB >= arch.partitionDoorB0 - slack
+                        && crossingB <= arch.partitionDoorB1 + slack,
                     "Crossing at b=\(b) walked the wall instead of the painted door frame"
                 )
             }
