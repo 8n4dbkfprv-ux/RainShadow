@@ -111,13 +111,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // arrives, and `buildScene` positions the detective long before it
         // reaches navigation setup — loading the area there instead crashed the
         // office on every entry.
+        // Navigation comes from the area record now, including its 96,000-node
+        // path budget, so the room is described in one place rather than half in
+        // data and half in scene setup.
         loadArea(AreaRuntime(
             area: HarborpointAreas.requireArea(HarborpointAreas.office),
-            // The office's own grid, which carries a 96,000-node path budget
-            // against the 32,000 default. That budget is scene configuration
-            // rather than part of the area record, so building from the record
-            // here would quietly cut it to a third.
-            navigation: OfficeNavigationLayout.makeGrid(),
             playerActorID: Self.detectiveActorID
         ))
         // The office opens straight into the Empty Coat intro, so the panel owns input

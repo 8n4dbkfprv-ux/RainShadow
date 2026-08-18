@@ -495,6 +495,14 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// is boards.
     var defaultTerrain: SearchMapTerrain
     var agentProfile: AreaAgentProfile
+    /// Node expansions a single path search may spend here.
+    ///
+    /// Area configuration, not engine configuration: the office runs 96,000
+    /// against the 32,000 default because it is a small room packed with ~750
+    /// obstacle rectangles, where a route threading furniture expands far more
+    /// nodes per unit travelled than an open street does. Omit to take the
+    /// engine default.
+    var pathSearchBudget: Int?
 
     // Sections
     var entrances: [AreaEntrance]
@@ -523,6 +531,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         obstacles: [AreaRect] = [],
         defaultTerrain: SearchMapTerrain = .stone,
         agentProfile: AreaAgentProfile,
+        pathSearchBudget: Int? = nil,
         entrances: [AreaEntrance] = [],
         regions: [AreaRegion] = [],
         props: [AreaProp] = [],
@@ -546,6 +555,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.obstacles = obstacles
         self.defaultTerrain = defaultTerrain
         self.agentProfile = agentProfile
+        self.pathSearchBudget = pathSearchBudget
         self.entrances = entrances
         self.regions = regions
         self.props = props
@@ -635,7 +645,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
                 ),
                 agentProfile: agentProfile.navigationProfile,
                 doorObstacles: doors.map(\.closedObstacle.cgRect),
-                entranceDoorBlocking: doors.contains { $0.startsClosed }
+                entranceDoorBlocking: doors.contains { $0.startsClosed },
+                maxNodes: pathSearchBudget ?? PathFinder.defaultMaxNodes
             )
         }
         return NavigationMap(
@@ -644,6 +655,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
             agentProfile: agentProfile.navigationProfile,
             doorObstacles: doors.map(\.closedObstacle.cgRect),
             entranceDoorBlocking: doors.contains { $0.startsClosed },
+            maxNodes: pathSearchBudget ?? PathFinder.defaultMaxNodes,
             defaultTerrain: defaultTerrain
         )
     }
@@ -662,7 +674,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, displayName, kind, arrivalHint, worldOrigin, worldSize
         case plateTextureName, mapTextureName, cameraClampRect
-        case searchMapName, obstacles, defaultTerrain, agentProfile
+        case searchMapName, obstacles, defaultTerrain, agentProfile, pathSearchBudget
         case entrances, regions, props, actors, containers, doors, notes, ambients
         case script
     }
@@ -686,6 +698,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
             forKey: .defaultTerrain
         ) ?? .stone
         agentProfile = try container.decode(AreaAgentProfile.self, forKey: .agentProfile)
+        pathSearchBudget = try container.decodeIfPresent(Int.self, forKey: .pathSearchBudget)
         entrances = try container.decodeIfPresent([AreaEntrance].self, forKey: .entrances) ?? []
         regions = try container.decodeIfPresent([AreaRegion].self, forKey: .regions) ?? []
         props = try container.decodeIfPresent([AreaProp].self, forKey: .props) ?? []

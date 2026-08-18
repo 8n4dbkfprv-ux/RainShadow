@@ -4700,6 +4700,7 @@
         "y" : 1184.785
       }
     ],
+    "pathSearchBudget" : 96000,
     "plateTextureName" : "office_suite_plate",
     "props" : [
 

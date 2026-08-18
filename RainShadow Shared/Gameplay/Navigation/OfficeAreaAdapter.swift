@@ -46,6 +46,11 @@ enum OfficeAreaAdapter {
             // different from the street without a per-scene constant saying so.
             defaultTerrain: .wood,
             agentProfile: AreaAgentProfile(.officeDetective),
+            // A small room packed with ~750 obstacle rectangles: threading
+            // furniture expands far more nodes per unit travelled than an open
+            // street does, so the office has always run a wider budget than the
+            // engine default. It was scene configuration; now it is the area's.
+            pathSearchBudget: OfficeNavigationLayout.pathSearchBudget,
             entrances: entrances(),
             regions: hotspotRegions() + [streetDoorRegion()],
             // Phase 5: lifted out of `DetectiveOfficeScene.buildScene()`.

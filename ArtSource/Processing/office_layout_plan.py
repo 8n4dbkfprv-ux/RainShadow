@@ -1303,6 +1303,14 @@ TAIL_SWIFT = '''
         CGRect(origin: OfficeInteriorScale.shellOrigin, size: OfficeInteriorScale.scaledArtSize)
     }
 
+    /// Node expansions one path search may spend in this room.
+    ///
+    /// Three times the engine default: a small interior packed with ~750
+    /// obstacle rectangles expands far more nodes per unit travelled than an
+    /// open street does. Named so the area record can carry it as data rather
+    /// than the scene carrying it as configuration.
+    static let pathSearchBudget = 96_000
+
     /// - Parameter entranceDoorBlocking: When false, exterior door cells are
     ///   clear (door has fallen / opening is open). Toggle later via
     ///   `NavigationMap.setEntranceDoorBlocking` without rebuilding.
@@ -1313,7 +1321,7 @@ TAIL_SWIFT = '''
             agentProfile: .officeDetective,
             doorObstacles: [doorObstacle],
             entranceDoorBlocking: entranceDoorBlocking,
-            maxNodes: 96_000
+            maxNodes: pathSearchBudget
         )
     }
 

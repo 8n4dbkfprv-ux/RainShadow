@@ -28,11 +28,12 @@ import Foundation
 /// duplication was the waypoint queue, and that already moved to
 /// `MovementOrderQueue` where it could be tested.
 ///
-/// The navigation map is injected rather than built from `area`, because the two
-/// are not yet interchangeable: the office runs a 96,000-node path budget
-/// against the 32,000 default, and that budget is scene configuration today
-/// rather than part of the area record. Moving it into the record is Phase 5's
-/// job, at which point this can build its own map.
+/// Both shipped scenes now build their navigation from the area record. The one
+/// thing that used to prevent that — the office's 96,000-node path budget, three
+/// times the engine default because a small room packed with ~750 obstacle
+/// rectangles expands far more nodes per unit travelled than an open street —
+/// is carried by the record as `pathSearchBudget`. The injecting initialiser
+/// stays for a scene that needs a map built some other way.
 @MainActor
 final class AreaRuntime {
     let area: AreaDefinition

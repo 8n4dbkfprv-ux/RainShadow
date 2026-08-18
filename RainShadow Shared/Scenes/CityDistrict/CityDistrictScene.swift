@@ -57,9 +57,6 @@ final class CityDistrictScene: BaseGameScene {
         // before it exists. The office crashed exactly that way.
         loadArea(AreaRuntime(
             area: HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: districtID)),
-            // The district's own grid, not `area.makeNavigationMap()`: the two
-            // are parity-tested equal, and switching is Phase 5's change to make.
-            navigation: CityDistrictCatalog.definition(for: districtID).makeGrid(),
             playerActorID: Self.detectiveActorID
         ))
     }

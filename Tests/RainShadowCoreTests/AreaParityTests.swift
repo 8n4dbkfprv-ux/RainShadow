@@ -178,6 +178,32 @@ struct AreaParityTests {
         #expect(door.startsClosed)
     }
 
+    /// The office's path budget is three times the engine default, and losing it
+    /// would not fail a test — it would just make long routes start failing in
+    /// the room with the most obstacles. Now that navigation is built from the
+    /// record rather than from `makeGrid()`, this is what keeps it.
+    @Test func theOfficeRecordCarriesItsPathBudget() throws {
+        let loaded = try Self.loadedArea(HarborpointAreas.office)
+        #expect(loaded.pathSearchBudget == OfficeNavigationLayout.pathSearchBudget)
+        #expect(
+            loaded.pathSearchBudget != PathFinder.defaultMaxNodes,
+            "the office budget collapsed to the engine default"
+        )
+        #expect(
+            loaded.makeNavigationMap().pathFinder.maxNodes
+                == OfficeNavigationLayout.pathSearchBudget,
+            "the record's budget did not reach the path finder"
+        )
+    }
+
+    /// Districts take the engine default, and must not silently acquire one.
+    @Test(arguments: CityDistrictID.allCases)
+    func aDistrictTakesTheEnginePathBudget(_ district: CityDistrictID) throws {
+        let loaded = try Self.loadedArea(CityDistrictAreaAdapter.areaID(for: district))
+        #expect(loaded.pathSearchBudget == nil)
+        #expect(loaded.makeNavigationMap().pathFinder.maxNodes == PathFinder.defaultMaxNodes)
+    }
+
     @Test func theOfficeSearchMapMatchesTheShippedGrid() throws {
         let fromLayout = OfficeNavigationLayout.makeGrid()
         let fromArea = try Self.loadedArea(HarborpointAreas.office).makeNavigationMap()
