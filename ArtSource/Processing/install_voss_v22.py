@@ -63,6 +63,7 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
     preserve = core.crunch.PRESERVE_WARDROBE
     environment = os.environ.get("RAINSHADOW_PRESERVE_WARDROBE")
     original_scale_errors = core._source_sequence_scale_errors
+    original_process_clip = core._process_clip
 
     def _v22_source_scale_errors(label, keyed, *, maximum_ratio=1.12):
         # Stand-up masters change pose (and therefore head/canvas ratio) by
@@ -73,6 +74,14 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
             maximum_ratio = max(maximum_ratio, 1.16)
         return original_scale_errors(label, keyed, maximum_ratio=maximum_ratio)
 
+    def _v22_process_clip(keyed, label, report):
+        frames = list(keyed)
+        if str(label).startswith("standing_idle:"):
+            from process_voss_character_strip_v22 import stabilize_idle_keyed
+
+            frames = stabilize_idle_keyed(frames)
+        return original_process_clip(frames, label, report)
+
     try:
         core.V16_ROOT = V22_ROOT
         core.RUNTIME_ATLASES = RUNTIME_ATLASES
@@ -80,6 +89,7 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
         core.crunch.WARDROBE = V22_WARDROBE
         core.crunch.PRESERVE_WARDROBE = True
         core._source_sequence_scale_errors = _v22_source_scale_errors
+        core._process_clip = _v22_process_clip
         os.environ["RAINSHADOW_PRESERVE_WARDROBE"] = "1"
         if manifest_path is not None:
             core.MANIFEST_PATH = Path(manifest_path)
@@ -90,6 +100,7 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
         core.crunch.WARDROBE = wardrobe
         core.crunch.PRESERVE_WARDROBE = preserve
         core._source_sequence_scale_errors = original_scale_errors
+        core._process_clip = original_process_clip
         if environment is None:
             os.environ.pop("RAINSHADOW_PRESERVE_WARDROBE", None)
         else:
@@ -197,7 +208,13 @@ def _restage_seats(stage_root: Path, manifest: dict[str, Any]) -> None:
 
         stand_sources = [sources[("stand_up", direction, phase)] for phase in range(12)]
         idle_sources = [sources[("seated_idle", direction, phase)] for phase in range(8)]
-        if direction == "se":
+        # V16 restages SE because those masters were authored lower-left.
+        # V22 SE chroma is already the runtime lower-right view; mirroring it
+        # again sits him facing the room instead of the desk. NE is the office
+        # authority, and V22's NE chain was authored as true-NE — opposite the
+        # V21 desk view — so the last stand-up cell cannot hand off to NW idle
+        # mirrored at runtime. Flip NE only.
+        if direction == "ne":
             stand_sources = [
                 source.transpose(PILImage.Transpose.FLIP_LEFT_RIGHT)
                 for source in stand_sources

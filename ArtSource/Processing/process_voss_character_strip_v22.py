@@ -15,6 +15,7 @@ from pathlib import Path
 import sys
 from typing import Sequence
 
+import numpy as np
 from PIL import Image
 
 os.environ["RAINSHADOW_PRESERVE_WARDROBE"] = "1"
@@ -49,6 +50,77 @@ def _raw_paths(group: str, direction: str, count: int) -> list[Path]:
     return paths
 
 
+def _body_luma(image: Image.Image) -> np.ndarray:
+    pixels = np.asarray(image.convert("RGBA"))
+    body = pixels[..., :3][pixels[..., 3] >= 16].astype(np.float64)
+    if len(body) == 0:
+        return np.zeros(0)
+    return 0.3 * body[:, 0] + 0.59 * body[:, 1] + 0.11 * body[:, 2]
+
+
+def _match_idle_value(
+    figure: Image.Image, target_mean: float, target_p90: float
+) -> Image.Image:
+    """Hold one idle phase to the clip's phase-00 exposure and highlight tail."""
+    pixels = np.asarray(figure.convert("RGBA")).astype(np.float64)
+    mask = pixels[..., 3] >= 16
+    if not mask.any():
+        return figure
+    rgb = pixels[..., :3]
+    luma = 0.3 * rgb[..., 0] + 0.59 * rgb[..., 1] + 0.11 * rgb[..., 2]
+    mean = float(luma[mask].mean())
+    rgb[mask] = np.clip(rgb[mask] * (target_mean / max(mean, 1e-6)), 0, 255)
+    luma = 0.3 * rgb[..., 0] + 0.59 * rgb[..., 1] + 0.11 * rgb[..., 2]
+    p90 = float(np.percentile(luma[mask], 90))
+    median = float(np.median(luma[mask]))
+    span = p90 - median
+    new_span = target_p90 - median
+    if span > 1.0 and new_span > 0 and abs(p90 - target_p90) > 1.0:
+        hot = mask & (luma > median)
+        rgb[hot] = np.clip(rgb[hot] * (new_span / span), 0, 255)
+    pixels[..., :3] = rgb
+    return Image.fromarray(np.clip(pixels, 0, 255).astype(np.uint8), "RGBA")
+
+
+def stabilize_idle_keyed(frames: Sequence[Image.Image]) -> list[Image.Image]:
+    """Lock idle phases to phase 00 scale, silhouette, and value so the loop cannot pop.
+
+    ImageGen idle breaths come back a few percent taller, skinnier, or hotter
+    than phase 00. V15 rasters at 200 native rows, so that source drift survives
+    into the texture as a size pop and a highlight flicker. Seat and walk clips
+    must keep their own proportions; this is idle-only.
+    """
+    if len(frames) < 2:
+        return list(frames)
+    authority = frames[0]
+    x0, y0, x1, y1 = core.visible_bbox(authority)
+    target_size = (x1 - x0 + 1, y1 - y0 + 1)
+    authority_figure = authority.crop((x0, y0, x1 + 1, y1 + 1))
+    luma = _body_luma(authority_figure)
+    target_mean = float(luma.mean()) if len(luma) else 1.0
+    target_p90 = float(np.percentile(luma, 90)) if len(luma) else target_mean
+    locked = [authority]
+    # Keep a readable breath (phase 02 is the apex) without letting ImageGen
+    # replace the silhouette or the lighting.
+    blends = {1: 0.34, 2: 0.42, 3: 0.34}
+    auth_px = np.asarray(authority_figure.convert("RGBA")).astype(np.float64)
+    for index, frame in enumerate(frames[1:], start=1):
+        left, top, right, bottom = core.visible_bbox(frame)
+        figure = frame.crop((left, top, right + 1, bottom + 1))
+        figure = crunch.raster.premultiplied_resize(figure, target_size)
+        other = np.asarray(figure.convert("RGBA")).astype(np.float64)
+        amount = blends.get(index, 0.34)
+        mixed = auth_px * (1.0 - amount) + other * amount
+        # Phase 00 owns the silhouette. Unioning alphas re-widened hair and coat
+        # hems — the pop this lock is meant to kill.
+        mixed[..., 3] = auth_px[..., 3]
+        mixed[auth_px[..., 3] < 16] = 0
+        figure = Image.fromarray(np.clip(mixed, 0, 255).astype(np.uint8), "RGBA")
+        figure = _match_idle_value(figure, target_mean, target_p90)
+        locked.append(figure)
+    return locked
+
+
 def process_clip(
     group: str,
     direction: str,
@@ -60,6 +132,8 @@ def process_clip(
 ) -> list[Path]:
     """Crunch one clip with a shared exposure and shared palette."""
     keyed = [core.key_chroma(core.load_source(path)) for path in sources]
+    if group == "standing_idle":
+        keyed = stabilize_idle_keyed(keyed)
     levelled, factors = crunch.normalise_clip_exposure(keyed)
     palette = crunch.build_clip_palette(levelled)
     dest_dir.mkdir(parents=True, exist_ok=True)
