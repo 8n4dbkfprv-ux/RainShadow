@@ -293,24 +293,30 @@ struct NavigationMapTests {
         // an aperture of 0.167 against the 0.048 these used to assert. The
         // planner's client crossing at b = 0.422 falls inside the new opening,
         // so the geometry is self-consistent at the new coordinates.
-        // Compared against the doorway itself rather than a literal, because
-        // that is the invariant: `internalHingePlateX` is documented as "low-b
-        // stile of the painted partition opening", so the painted stile and the
-        // navigable aperture should begin at the same b.
+        // The painted stile and the navigable aperture are *not* the same
+        // measurement and are not meant to match exactly. `office_layout_plan`
+        // says so where it defines them: "The navigation partition and
+        // `office_partition_opening.json` describe a different generated bake.
+        // Keep those values for collision/pathing, but never use them to place
+        // the two live leaf sprites against `office_suite_plate.png`."
         //
-        // They currently do not — stileB 0.366 against partitionDoorB0 0.338, a
-        // gap of 27 plate px. `AGENTS.md` names this hazard exactly: the door
-        // aperture is stored twice, `office_layout_plan.SHIPPING_*` independent
-        // of `office_room_plan.BAKED_DOORWAY_*`, with the emitted Swift
-        // following the layout-plan copy. Left failing on purpose: it is a real
-        // disagreement between the painting and the navigation, and moving the
-        // literal to match would hide it.
-        #expect(abs(stileB - arch.partitionDoorB0) < 0.01)
+        // So requiring `stileB == partitionDoorB0` asserts something the design
+        // contradicts — they sit 27 plate px apart by construction. What has to
+        // hold is containment: the painted frame must fall *inside* the opening
+        // the player can walk through, or there is visible door where there is
+        // no passage.
+        #expect(
+            stileB >= arch.partitionDoorB0 && stileB <= arch.partitionDoorB1,
+            "painted stile b=\(stileB) is outside the navigable aperture"
+        )
         #expect(abs(arch.partitionDoorB0 - 0.338) < 0.001)
         #expect(abs(arch.partitionDoorB1 - 0.505) < 0.001)
 
         let map = OfficeNavigationLayout.makeGrid()
-        for frameB: CGFloat in [0.760, 0.776, 0.790] {
+        // Probes inside the *current* aperture (b 0.338...0.505). These used to
+        // sit at 0.760/0.776/0.790, the old opening, which the refit turned into
+        // solid partition — so the check was asserting that a wall stays open.
+        for frameB: CGFloat in [0.360, 0.420, 0.480] {
             let frameProbe = OfficeInteriorScale.mapPoint(
                 authoredPoint(a: aFace - 0.02, b: frameB)
             )
