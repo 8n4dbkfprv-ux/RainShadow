@@ -9,20 +9,28 @@ the order they can go wrong:
    drift there is silent — the bake keeps running, the raster keeps loading, and
    only the review renders lie. This greps the Swift enum and compares.
 
-2. **Is the floor one connected space?** `AGENTS.md` records three shipped bugs
-   where it was not: the office sealed to 174 of 4,694 cells, Harborpoint PD
-   with 1 of 5,795 reachable, and an office door with no exact path. A flood
-   fill from the area's default entrance answers this the honest way.
+2. **Can the player reach everything the area authors?** `AGENTS.md` records
+   three shipped bugs where they could not: the office sealed to 174 of 4,694
+   cells, Harborpoint PD with 1 of 5,795 reachable, and an office door with no
+   exact path. A flood fill from the first authored point answers this.
 
-3. **Is the open fraction plausible for the kind of area it is?** Baldur's Gate
-   outdoor areas run roughly 30–45% open. A number far above that usually means
-   the obstacles do not model the architecture — which is exactly the state the
-   office is in, and is reported rather than treated as a pass.
+   This is asked about *authored points* — entrances and region approaches — and
+   not as a share of walkable cells, because that ratio lies. It first reported
+   the office at 12.8% and read like a room in pieces. It is not: the office
+   plate is letterboxed and `boundary_cell_rects()` deliberately seals only a
+   band hugging the floor, "everything beyond it is unreachable once the band is
+   sealed", which leaves 5,641 cells of black margin walkable and correctly
+   unreachable. Another 498 sit inside furniture footprints — passable at their
+   centre, unreachable to anything with a body. Both are healthy; a stranded
+   door is not.
 
-Exit status is non-zero when a raster is unreadable, disconnected, or disagrees
-with the Swift table, so this can gate an install. A merely surprising open
-fraction is reported and does not fail: the office is knowingly permissive and
-failing on it would make the gate useless until that is fixed.
+3. **Is the open fraction plausible?** Reported for information only. Baldur's
+   Gate outdoor areas run roughly 30-45% open, which the districts match; an
+   interior with a letterboxed plate legitimately does not.
+
+Exit status is non-zero when a raster is unreadable, mis-sized, disagrees with
+the Swift table, or strands an authored point, so this can gate an install. Open
+fraction never fails.
 
 Usage:
     python3 ArtSource/Processing/qa_area_searchmap.py
@@ -78,17 +86,17 @@ def swift_review_colors() -> dict[int, tuple[int, int, int]]:
     return {order.index(k): v for k, v in found.items() if k in order}
 
 
-def flood(indices: bytes, columns: int, rows: int, start: int) -> int:
+def flood_set(indices: bytes, columns: int, rows: int, start: int) -> set[int]:
     """Four-way flood over walkable cells, matching the runtime's own fill."""
-    if indices[start] not in WALKABLE:
-        return 0
+    if not (0 <= start < columns * rows) or indices[start] not in WALKABLE:
+        return set()
     seen = bytearray(columns * rows)
     seen[start] = 1
     queue = collections.deque([start])
-    count = 0
+    component = {start}
     while queue:
         cell = queue.popleft()
-        count += 1
+        component.add(cell)
         column, row = cell % columns, cell // columns
         for dc, dr in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             c, r = column + dc, row + dr
@@ -99,7 +107,7 @@ def flood(indices: bytes, columns: int, rows: int, start: int) -> int:
                 continue
             seen[nxt] = 1
             queue.append(nxt)
-    return count
+    return component
 
 
 def main(argv: list[str]) -> int:
@@ -167,21 +175,34 @@ def main(argv: list[str]) -> int:
 
         origin_x = area.get("worldOrigin", {}).get("x", 0.0)
         origin_y = area.get("worldOrigin", {}).get("y", 0.0)
-        entrances = {e["name"]: e["point"] for e in area.get("entrances", [])}
-        default = entrances.get("default") or next(iter(entrances.values()), None)
-        if default is None:
-            failures.append(f"{area_id}: authors no entrance to flood from")
+        # Every point the area says the player ends up standing on.
+        authored: list[tuple[str, dict]] = [
+            (f"entrance.{e['name']}", e["point"]) for e in area.get("entrances", [])
+        ]
+        for region in area.get("regions", []):
+            if region.get("approachPoint"):
+                authored.append((f"approach.{region['id']}", region["approachPoint"]))
+        for container in area.get("containers", []):
+            authored.append((f"container.{container['id']}", container["approachPoint"]))
+        if not authored:
+            failures.append(f"{area_id}: authors no point to flood from")
             continue
 
-        column = int((default["x"] - origin_x) // CELL_W)
-        row = int((default["y"] - origin_y) // CELL_H)
-        start = row * columns + column
-        reached = flood(bytes(indices), columns, rows, start)
+        def cell_of(point: dict) -> int:
+            c = int((point["x"] - origin_x) // CELL_W)
+            r = int((point["y"] - origin_y) // CELL_H)
+            return r * columns + c
+
+        start = cell_of(authored[0][1])
+        component = flood_set(bytes(indices), columns, rows, start)
+        reached = len(component)
+        stranded = [
+            label for label, point in authored[1:] if cell_of(point) not in component
+        ]
 
         total = columns * rows
         walkable = sum(1 for v in indices if v in WALKABLE)
         open_fraction = walkable / total
-        connected = reached / walkable if walkable else 0.0
 
         histogram = collections.Counter(indices)
         surfaces = ", ".join(
@@ -191,20 +212,21 @@ def main(argv: list[str]) -> int:
 
         note = ""
         if reached == 0:
-            failures.append(f"{area_id}: default entrance is not on walkable ground")
-            note = "  <- ENTRANCE NOT STANDABLE"
-        elif connected < 0.90:
+            failures.append(f"{area_id}: {authored[0][0]} is not on walkable ground")
+            note = "  <- NOT STANDABLE"
+        elif stranded:
             failures.append(
-                f"{area_id}: floor is fragmented — the entrance reaches "
-                f"{reached} of {walkable} walkable cells ({connected:.1%})"
+                f"{area_id}: {len(stranded)} authored point(s) unreachable from "
+                f"{authored[0][0]}: {', '.join(stranded[:5])}"
             )
-            note = "  <- FRAGMENTED"
+            note = "  <- STRANDED"
         elif not IE_OUTDOOR_BAND[0] <= open_fraction <= IE_OUTDOOR_BAND[1]:
-            note = f"  <- outside the IE {IE_OUTDOOR_BAND[0]:.0%}-{IE_OUTDOOR_BAND[1]:.0%} band"
+            note = f"  <- open {open_fraction:.0%}, outside the IE 30-45% outdoor band (fyi)"
 
         print(
             f"{area_id:22} {columns:>4}x{rows:<4} open {open_fraction:6.1%} "
-            f"connected {connected:6.1%}  [{surfaces}]{note}"
+            f"component {reached:>5} of {walkable:<5} walkable  "
+            f"[{surfaces}]{note}"
         )
 
     if failures:

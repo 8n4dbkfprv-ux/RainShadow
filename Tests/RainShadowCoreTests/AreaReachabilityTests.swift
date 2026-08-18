@@ -111,25 +111,61 @@ struct AreaReachabilityTests {
 
     /// A sealed pocket passes the per-point checks above — every authored point
     /// can be mutually reachable inside a room the rest of the area cannot get
-    /// to. This is the check that catches that.
+    /// to. This is the check that catches that, and it is deliberately expressed
+    /// over *authored* points rather than over raw cell counts.
     ///
-    /// The denominator is **walkable** cells, not total cells. Dividing by the
-    /// whole frame was how this test first shipped, and it hid exactly the bug
-    /// it exists to find: the office reaches 901 of 7,023 walkable cells, which
-    /// is 12.8% of the floor but 11.6% of the frame, and so cleared a 10% bar
-    /// while the room was in pieces. `qa_area_searchmap.py` measures the same
-    /// ratio offline and reports the office as FRAGMENTED.
-    static func connectedFraction(of area: AreaDefinition) throws -> Double {
+    /// Counting cells was tried first and reported the office at 12.8%, which
+    /// reads like a room in pieces. It is not. Two things inflate the
+    /// denominator, both by design:
+    ///
+    /// - The office plate is letterboxed, and `boundary_cell_rects()` seals only
+    ///   a band hugging the floor, on the stated grounds that "everything beyond
+    ///   it is unreachable once the band is sealed". That leaves **5,641** cells
+    ///   of black margin marked walkable and correctly unreachable.
+    /// - Inside the room, another **498** cells are passable at their centre but
+    ///   unreachable to an agent with a body: the interior of a desk footprint,
+    ///   the sliver behind a bookcase. Measured, they are scattered across the
+    ///   whole room rather than forming a pocket.
+    ///
+    /// Both are healthy. What is not healthy is an authored point the player is
+    /// meant to stand on that no other authored point can walk to — the shape of
+    /// all three bugs in `AGENTS.md`. So the invariant is that every authored
+    /// point lies in one connected component, which is a statement about the
+    /// content rather than about the rasteriser's spare pixels.
+    @Test(arguments: navigableIDs)
+    func everyAuthoredPointSharesOneConnectedComponent(_ id: AreaID) throws {
+        let area = try AreaCatalogLoader.load(id)
+        let map = area.makeNavigationMap()
+        let radius = area.agentProfile.navigationProfile.radius
+        let points = Self.authoredStandingPoints(area)
+        let anchor = try #require(points.first)
+        let flood = Self.reachableCells(map, from: anchor.point, radius: radius)
+
+        for (label, point) in points.dropFirst() {
+            #expect(
+                flood.contains(map.searchMap.cell(for: point)),
+                "\(id) \(label) is in a different component from \(anchor.label)"
+            )
+        }
+    }
+
+    /// The raw ratio *is* meaningful for a district: a fully painted 4096x2304
+    /// plate with no letterboxed margin, so there is no void to inflate the
+    /// denominator. Kept as a regression guard on the ward geometry, and
+    /// deliberately not applied to the office, where it measures the plate's
+    /// black borders rather than its floor.
+    @Test(arguments: navigableIDs.filter { $0 != HarborpointAreas.office })
+    func aDistrictStreetIsOneConnectedWard(_ id: AreaID) throws {
+        let area = try AreaCatalogLoader.load(id)
         let map = area.makeNavigationMap()
         let radius = area.agentProfile.navigationProfile.radius
         let start = try #require(area.spawnPoint(entrance: nil))
-        let reached = reachableCells(map, from: start, radius: radius).count
+        let reached = Self.reachableCells(map, from: start, radius: radius).count
 
-        // Counted at the agent's own radius, the same way the flood expands.
-        // Counting by the `.passable` flag alone (radius 0) instead makes the
-        // ratio meaningless: a 16-unit detective cannot enter the ring of cells
-        // hugging every obstacle, so reached would always trail walkable and
-        // every district would read as fragmented.
+        // Counted at the agent's own radius, the same way the flood expands: a
+        // detective with a body cannot enter the ring of cells hugging every
+        // obstacle, so counting by the `.passable` flag alone would make even a
+        // perfect ward read as fragmented.
         var walkable = 0
         for row in 0..<map.searchMap.rows {
             for column in 0..<map.searchMap.columns {
@@ -139,36 +175,10 @@ struct AreaReachabilityTests {
                 }
             }
         }
-        guard walkable > 0 else { return 0 }
-        return Double(reached) / Double(walkable)
-    }
-
-    /// Districts: the street is one connected ward.
-    @Test(arguments: navigableIDs.filter { $0 != HarborpointAreas.office })
-    func theFloorIsOneConnectedSpace(_ id: AreaID) throws {
-        let fraction = try Self.connectedFraction(of: AreaCatalogLoader.load(id))
+        let fraction = Double(reached) / Double(max(walkable, 1))
         #expect(
             fraction > 0.90,
-            "\(id) floor is in pieces — the entrance reaches \(fraction) of the walkable cells"
-        )
-    }
-
-    /// The office is not, and that is a known defect rather than a surprise.
-    ///
-    /// Its obstacle set does not model the architecture: the room rasterises
-    /// 90.6% walkable, and the props and boundary segments then cut what is left
-    /// into pockets, so arriving at the desk reaches an eighth of the floor. The
-    /// same root cause is behind the twelve red office geometry tests and behind
-    /// a street entrance that read as standable on a wall crown. Pinned here so
-    /// fitting a real floor diamond in `office_room_plan.py` shows up as this
-    /// test failing rather than as a silent improvement.
-    @Test func theOfficeFloorIsKnownToBeFragmented() throws {
-        let fraction = try Self.connectedFraction(
-            of: AreaCatalogLoader.load(HarborpointAreas.office)
-        )
-        #expect(
-            fraction < 0.90,
-            "the office floor is now \(fraction) connected — if a floor diamond landed, move it onto theFloorIsOneConnectedSpace and delete this"
+            "\(id) street is in pieces — the arrival reaches \(fraction) of the walkable cells"
         )
     }
 
