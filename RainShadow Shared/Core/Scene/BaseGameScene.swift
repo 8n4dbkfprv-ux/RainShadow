@@ -96,6 +96,7 @@ class BaseGameScene: SKScene {
             installLayerTree()
             buildScene()
             hasBuiltScene = true
+            dumpPlacedSpritesIfRequested()
         }
         layoutViewport()
         sceneDidBecomeReady()
@@ -116,6 +117,46 @@ class BaseGameScene: SKScene {
     }
 
     /// Last chance to unwind scene-owned state. Subclasses override.
+    /// `RAINSHADOW_DUMP_PROPS=1` prints every sprite the scene placed, with the
+    /// numbers the renderer actually used.
+    ///
+    /// Ground truth for the Infinity Engine WED split. Deciding which scenery
+    /// can be baked into the plate needs each object's real position, scale,
+    /// anchor and layer, and reading those out of `buildScene` means
+    /// re-implementing `OfficeInteriorScale` in a parser and hoping it agrees.
+    /// The scene graph already knows.
+    ///
+    /// Prints to stderr between markers so a capture script can lift it out
+    /// without the frame's base64 getting in the way.
+    func dumpPlacedSpritesIfRequested() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_DUMP_PROPS"] == "1" else { return }
+        let layers: [(String, SKNode)] = [
+            ("floorEffects", floorEffectRoot),
+            ("rearFixtures", rearFixtureRoot),
+            ("depthWorld", depthWorldRoot),
+            ("occlusion", occlusionRoot)
+        ]
+        FileHandle.standardError.write(Data("RAINSHADOW_PROPS_BEGIN\n".utf8))
+        for (layerName, root) in layers {
+            for node in root.children {
+                guard let sprite = node as? SKSpriteNode else { continue }
+                let size = sprite.size
+                let line = [
+                    layerName,
+                    sprite.name ?? "<unnamed>",
+                    "\(sprite.position.x)", "\(sprite.position.y)",
+                    "\(sprite.xScale)", "\(sprite.yScale)",
+                    "\(sprite.anchorPoint.x)", "\(sprite.anchorPoint.y)",
+                    "\(size.width)", "\(size.height)",
+                    "\(sprite.zPosition)",
+                    "\(sprite.children.count)"
+                ].joined(separator: "\t")
+                FileHandle.standardError.write(Data((line + "\n").utf8))
+            }
+        }
+        FileHandle.standardError.write(Data("RAINSHADOW_PROPS_END\n".utf8))
+    }
+
     func sceneWillExit() {}
 
     /// QA only. The review capture launch drives the update loop far slower than
