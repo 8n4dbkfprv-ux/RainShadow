@@ -47,6 +47,9 @@
     "regions" : [
 
     ],
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

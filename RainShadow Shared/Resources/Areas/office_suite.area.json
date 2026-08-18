@@ -4879,6 +4879,77 @@
       }
     ],
     "searchMapName" : "office_suite.sr",
+    "wallPolygons" : [
+      {
+        "coversActors" : true,
+        "id" : "wall.bookshelf",
+        "polygon" : [
+          {
+            "x" : 1713.83,
+            "y" : 1206.905
+          },
+          {
+            "x" : 1761.625,
+            "y" : 1206.905
+          },
+          {
+            "x" : 1761.625,
+            "y" : 1278.85
+          },
+          {
+            "x" : 1713.83,
+            "y" : 1278.85
+          }
+        ],
+        "shadesBothSides" : false
+      },
+      {
+        "coversActors" : true,
+        "id" : "wall.filingCabinet",
+        "polygon" : [
+          {
+            "x" : 1749.775,
+            "y" : 1233.765
+          },
+          {
+            "x" : 1780.98,
+            "y" : 1233.765
+          },
+          {
+            "x" : 1780.98,
+            "y" : 1293.4650000000001
+          },
+          {
+            "x" : 1749.775,
+            "y" : 1293.4650000000001
+          }
+        ],
+        "shadesBothSides" : false
+      },
+      {
+        "coversActors" : true,
+        "id" : "wall.safe",
+        "polygon" : [
+          {
+            "x" : 1794.41,
+            "y" : 1267.34
+          },
+          {
+            "x" : 1828.775,
+            "y" : 1267.34
+          },
+          {
+            "x" : 1828.775,
+            "y" : 1329.0149999999999
+          },
+          {
+            "x" : 1794.41,
+            "y" : 1329.0149999999999
+          }
+        ],
+        "shadesBothSides" : false
+      }
+    ],
     "worldOrigin" : {
       "x" : 1239.04,
       "y" : 696.96

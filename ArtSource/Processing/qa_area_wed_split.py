@@ -11,8 +11,14 @@ that shape — a streets plate plus one occlusion crop per occupied diamond, wha
 Baking a sprite into the plate is only safe when the player can never stand
 **behind** it. Depth sort puts a lower world-Y actor in front, so an actor at a
 higher world Y than a prop draws behind it — and a baked prop, being background,
-would then be drawn over by the actor that should be hidden by it. Anything the
-player can get behind has to stay a separate object, or become an occlusion crop.
+would then be drawn over by the actor that should be hidden by it.
+
+That used to mean such a sprite had to stay a separate depth-sorted object. It
+no longer does. Baldur's Gate does not sort scenery against creatures at all: a
+WED wall polygon flagged `Cover animations` marks the geometry, and a creature
+behind one is drawn *through* it rather than hidden by it. `AreaWallPolygon` and
+`ActorCover` are that mechanism, so the output below is not "bake vs keep" but
+**bake unconditionally, and author a cover outline for the second list**.
 
 The test is therefore: within the sprite's rendered x-span, is there any
 *reachable* floor further from the camera than its ground point?
@@ -135,16 +141,17 @@ def main(argv: list[str]) -> int:
             bake.append((layer, name, width))
 
     print(f"{area_id}: {len(reachable)} reachable floor cells\n")
-    print(f"BAKE INTO THE PLATE  {len(bake)}")
+    print(f"BAKE, NO COVER NEEDED  {len(bake)}")
     for layer, name, width in sorted(bake):
         print(f"  {name:34} [{layer}] width {width:6.1f}")
-    print(f"\nKEEP AS OCCLUDING OBJECTS  {len(keep)}")
+    print(f"\nBAKE, AND AUTHOR A COVER OUTLINE  {len(keep)}")
     for name, px, py, width in sorted(keep):
         print(f"  {name:34} ground({px:7.1f},{py:7.1f}) width {width:6.1f}")
 
+    total = len(bake) + len(keep)
     print(
-        f"\n{len(bake)} of {len(bake) + len(keep)} sprites can be painted into the plate; "
-        f"{len(keep)} need occlusion."
+        f"\nAll {total} sprites can be painted into the plate. "
+        f"{len(keep)} of them need a cover outline; {len(bake)} need nothing."
     )
     return 0
 

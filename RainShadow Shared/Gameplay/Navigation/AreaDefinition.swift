@@ -96,6 +96,50 @@ struct AreaSize: Hashable, Codable, Sendable {
     var cgSize: CGSize { CGSize(width: w, height: h) }
 }
 
+/// Outline maths shared by everything in an area that is a polygon.
+///
+/// Regions and wall polygons both are, and both are hit-tested constantly — a
+/// region on every click, a wall on every actor move — so they use one
+/// implementation rather than two that can drift.
+extension Array where Element == AreaPoint {
+    /// Axis-aligned bound, the cheap reject before the polygon test. BG stores
+    /// this alongside the vertex range for the same reason.
+    var outlineBoundingBox: CGRect {
+        guard let first = self.first else { return .null }
+        var minX = first.x, maxX = first.x
+        var minY = first.y, maxY = first.y
+        for vertex in dropFirst() {
+            minX = Swift.min(minX, vertex.x)
+            maxX = Swift.max(maxX, vertex.x)
+            minY = Swift.min(minY, vertex.y)
+            maxY = Swift.max(maxY, vertex.y)
+        }
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+
+    /// Even-odd crossing test. The `>` comparison on both endpoints makes each
+    /// edge half-open in y, so a horizontal ray through a shared vertex counts
+    /// one crossing rather than two — a point on the boundary between two
+    /// abutting outlines belongs to exactly one of them.
+    func outlineContains(_ point: CGPoint) -> Bool {
+        guard count >= 3, outlineBoundingBox.contains(point) else { return false }
+        var isInside = false
+        var j = count - 1
+        for i in indices {
+            let a = self[i]
+            let b = self[j]
+            if (a.y > point.y) != (b.y > point.y) {
+                let t = (point.y - a.y) / (b.y - a.y)
+                if point.x < a.x + t * (b.x - a.x) {
+                    isInside.toggle()
+                }
+            }
+            j = i
+        }
+        return isInside
+    }
+}
+
 // MARK: - Sections
 
 /// Infinity Engine area-type distinction. BG's `.ARE` header carries a bitfield
@@ -233,45 +277,69 @@ struct AreaRegion: Hashable, Codable, Sendable {
         )
     }
 
-    /// Axis-aligned bound, used as the cheap reject before the polygon test —
-    /// BG stores this alongside the vertex range for the same reason.
-    var boundingBox: CGRect {
-        guard let first = polygon.first else { return .null }
-        var minX = first.x, maxX = first.x
-        var minY = first.y, maxY = first.y
-        for vertex in polygon.dropFirst() {
-            minX = min(minX, vertex.x)
-            maxX = max(maxX, vertex.x)
-            minY = min(minY, vertex.y)
-            maxY = max(maxY, vertex.y)
-        }
-        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
-    }
+    var boundingBox: CGRect { polygon.outlineBoundingBox }
 
-    /// Even-odd crossing test. The `>` comparison on both endpoints makes each
-    /// edge half-open in y, so a horizontal ray through a shared vertex counts
-    /// one crossing rather than two — which is what a click test wants: a point
-    /// on the boundary between two abutting regions hits exactly one of them.
-    func contains(_ point: CGPoint) -> Bool {
-        guard polygon.count >= 3, boundingBox.contains(point) else { return false }
-        var isInside = false
-        var j = polygon.count - 1
-        for i in polygon.indices {
-            let a = polygon[i]
-            let b = polygon[j]
-            if (a.y > point.y) != (b.y > point.y) {
-                let t = (point.y - a.y) / (b.y - a.y)
-                if point.x < a.x + t * (b.x - a.x) {
-                    isInside.toggle()
-                }
-            }
-            j = i
-        }
-        return isInside
-    }
+    func contains(_ point: CGPoint) -> Bool { polygon.outlineContains(point) }
 }
 
-/// A placed background object. Carries the depth-slicing fields
+/// A wall polygon: geometry that covers actors, carrying no art of its own.
+///
+/// Baldur's Gate does not draw scenery over a creature. Static scenery is
+/// painted into the tileset, and the WED marks the parts of it that stand in
+/// front of the floor with wall polygons whose flags say `Shade wall` and
+/// `Cover animations`. When a creature walks behind one, the engine redraws the
+/// wall over it and stipples the creature through — the familiar translucent
+/// silhouette behind a building, rather than a sprite that vanishes.
+///
+/// That is why an `.ARE` has no props section: a desk is pixels in the tileset,
+/// a wall polygon over those pixels, a search-map footprint, and a container
+/// outline. Four records, no sprite. This is the third of them.
+struct AreaWallPolygon: Hashable, Codable, Sendable {
+    var id: String
+    var polygon: [AreaPoint]
+    /// WED flag bits 2–3. When set, an actor behind this outline is covered.
+    var coversActors: Bool
+    /// WED flag bit 0: shade animations from both sides of the wall.
+    var shadesBothSides: Bool
+
+    init(
+        id: String,
+        polygon: [AreaPoint],
+        coversActors: Bool = true,
+        shadesBothSides: Bool = false
+    ) {
+        self.id = id
+        self.polygon = polygon
+        self.coversActors = coversActors
+        self.shadesBothSides = shadesBothSides
+    }
+
+    init(
+        id: String,
+        rect: CGRect,
+        coversActors: Bool = true,
+        shadesBothSides: Bool = false
+    ) {
+        let r = rect.standardized
+        self.init(
+            id: id,
+            polygon: [
+                AreaPoint(x: r.minX, y: r.minY),
+                AreaPoint(x: r.maxX, y: r.minY),
+                AreaPoint(x: r.maxX, y: r.maxY),
+                AreaPoint(x: r.minX, y: r.maxY)
+            ],
+            coversActors: coversActors,
+            shadesBothSides: shadesBothSides
+        )
+    }
+
+    var boundingBox: CGRect { polygon.outlineBoundingBox }
+
+    func contains(_ point: CGPoint) -> Bool { polygon.outlineContains(point) }
+}
+
+/// A placed background object./// A placed background object. Carries the depth-slicing fields
 /// `CityDistrictScene.addDepthSlicedSprite` needs so a near-side facade can
 /// occlude the far street while the player walks in front of it — RainShadow's
 /// stand-in for the wall polygons a `.WED` would carry.
@@ -508,6 +576,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     var entrances: [AreaEntrance]
     var regions: [AreaRegion]
     var props: [AreaProp]
+    /// Scenery outlines that cover actors standing behind them.
+    var wallPolygons: [AreaWallPolygon]
     var actors: [AreaActor]
     var containers: [AreaContainer]
     var doors: [AreaDoor]
@@ -535,6 +605,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         entrances: [AreaEntrance] = [],
         regions: [AreaRegion] = [],
         props: [AreaProp] = [],
+        wallPolygons: [AreaWallPolygon] = [],
         actors: [AreaActor] = [],
         containers: [AreaContainer] = [],
         doors: [AreaDoor] = [],
@@ -559,6 +630,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.entrances = entrances
         self.regions = regions
         self.props = props
+        self.wallPolygons = wallPolygons
         self.actors = actors
         self.containers = containers
         self.doors = doors
@@ -594,6 +666,15 @@ struct AreaDefinition: Hashable, Codable, Sendable {
 
     func region(id: String) -> AreaRegion? {
         regions.first { $0.id == id }
+    }
+
+    /// Whether an actor standing here is behind scenery that should cover it.
+    ///
+    /// Asked of the actor's *ground point*, not its sprite bounds: a creature is
+    /// behind a wall when its feet are, which is the same anchor depth sorting
+    /// and the search map already use.
+    func isCovered(_ point: CGPoint) -> Bool {
+        wallPolygons.contains { $0.coversActors && $0.contains(point) }
     }
 
     var travelRegions: [AreaRegion] {
@@ -675,7 +756,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         case id, displayName, kind, arrivalHint, worldOrigin, worldSize
         case plateTextureName, mapTextureName, cameraClampRect
         case searchMapName, obstacles, defaultTerrain, agentProfile, pathSearchBudget
-        case entrances, regions, props, actors, containers, doors, notes, ambients
+        case entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
         case script
     }
 
@@ -702,6 +783,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         entrances = try container.decodeIfPresent([AreaEntrance].self, forKey: .entrances) ?? []
         regions = try container.decodeIfPresent([AreaRegion].self, forKey: .regions) ?? []
         props = try container.decodeIfPresent([AreaProp].self, forKey: .props) ?? []
+        wallPolygons = try container.decodeIfPresent(
+            [AreaWallPolygon].self,
+            forKey: .wallPolygons
+        ) ?? []
         actors = try container.decodeIfPresent([AreaActor].self, forKey: .actors) ?? []
         containers = try container.decodeIfPresent([AreaContainer].self, forKey: .containers) ?? []
         doors = try container.decodeIfPresent([AreaDoor].self, forKey: .doors) ?? []

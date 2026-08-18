@@ -2194,6 +2194,9 @@
       }
     ],
     "searchMapName" : "city_wharf_ladder.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

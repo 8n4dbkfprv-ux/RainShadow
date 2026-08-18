@@ -1183,6 +1183,16 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// Desk-top stays desk-native. Bare desk stays at -500.
     /// Standing: front apron rises for walk-past.
     private func updateDetectiveDepth() {
+        // Wall-polygon cover, applied after the normal sort so the lift is
+        // relative to wherever depth put the actor. Skipped while seated: the
+        // desk cluster has its own hand-tuned apron ordering, and lifting the
+        // body out of it would put Voss on top of his own desk.
+        let covered = !detective.isDeskRegistered
+            && (areaRuntime?.isCovered(detective.position) ?? false)
+        defer {
+            let lift = ActorCover.apply(to: detective, covered: covered)
+            if lift != 0 { detective.zPosition += lift }
+        }
         if detective.isDeskRegistered {
             // Pin the sort key to the desk ground anchor so local upper z and
             // apron bias form a stable order. The nav root sits on the chair-side

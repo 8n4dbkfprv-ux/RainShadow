@@ -55,6 +55,7 @@ enum OfficeAreaAdapter {
             regions: hotspotRegions() + [streetDoorRegion()],
             // Phase 5: lifted out of `DetectiveOfficeScene.buildScene()`.
             props: [],
+            wallPolygons: wallPolygons(),
             actors: actors(),
             containers: containers(),
             doors: [
@@ -159,6 +160,50 @@ enum OfficeAreaAdapter {
             // this region starts driving the door.
         )
     }
+
+    /// Scenery the player can stand behind, as cover outlines.
+    ///
+    /// `qa_area_wed_split.py` measured which of the office's 55 placed sprites
+    /// have reachable floor further from the camera than their own ground point
+    /// — 28 of them. Those are the ones that hide the actor today and that a
+    /// Baldur's Gate area would cover with a WED wall polygon rather than sort
+    /// against.
+    ///
+    /// Authored here from the *obstacle* each piece already declares, because a
+    /// prop's blocking footprint is the part of it standing on the floor, and
+    /// that is what the player walks behind. The outline is that footprint
+    /// carried camera-far by the piece's own depth so an actor is covered for as
+    /// long as it is visually behind the art, not merely while its feet overlap.
+    ///
+    /// Deliberately a starting set rather than all 28: the desk cluster is
+    /// excluded because it owns hand-tuned apron ordering that already reads
+    /// correctly, and the waiting-nook pieces are low enough to sit under the
+    /// actor's head. Widening this is an art-direction call about which pieces
+    /// read as one mass, and is best made against captures.
+    private static func wallPolygons() -> [AreaWallPolygon] {
+        // Authored plate space -> world, like every other coordinate here.
+        let tall: [(String, CGRect)] = [
+            ("wall.bookshelf", OfficeNavigationLayout.authoredBookshelfObstacle),
+            ("wall.filingCabinet", OfficeNavigationLayout.authoredFilingCabinetObstacle),
+            ("wall.safe", OfficeNavigationLayout.authoredSafeObstacle)
+        ].map { ($0.0, OfficeInteriorScale.mapRect($0.1)) }
+        return tall.map { id, footprint in
+            // Cover reaches camera-far of the footprint by the depth the piece
+            // occupies on screen; standing level with it is not behind it.
+            let outline = CGRect(
+                x: footprint.minX,
+                y: footprint.minY,
+                width: footprint.width,
+                height: footprint.height + coverDepth
+            )
+            return AreaWallPolygon(id: id, rect: outline)
+        }
+    }
+
+    /// How far camera-far of a piece's footprint it still covers an actor.
+    /// One search-map row per 12 world units; three rows is about a body's
+    /// depth on the 0.75 ground foreshortening.
+    private static let coverDepth: CGFloat = 36
 
     private static func actors() -> [AreaActor] {
         // Lila is placed by the client-visit cutscene rather than standing in

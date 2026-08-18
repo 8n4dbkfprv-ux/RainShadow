@@ -1533,6 +1533,9 @@
       }
     ],
     "searchMapName" : "city_sable_row.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

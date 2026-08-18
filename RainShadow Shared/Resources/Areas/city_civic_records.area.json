@@ -2108,6 +2108,9 @@
       }
     ],
     "searchMapName" : "city_civic_records.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

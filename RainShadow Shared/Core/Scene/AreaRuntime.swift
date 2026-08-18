@@ -74,4 +74,29 @@ final class AreaRuntime {
     func surface(at point: CGPoint) -> SearchMapSurface? {
         navigation.searchMap.surface(at: point)
     }
+
+    /// Whether an actor standing here is behind covering scenery.
+    func isCovered(_ point: CGPoint) -> Bool {
+        area.isCovered(point)
+    }
+
+    /// Union of every covering outline, in world space.
+    ///
+    /// One path rather than one per polygon: the overlay that redraws scenery
+    /// over actors is a single masked copy of the plate, so a room with a dozen
+    /// walls still costs one extra draw.
+    var coverPath: CGPath? {
+        let covering = area.wallPolygons.filter(\.coversActors)
+        guard !covering.isEmpty else { return nil }
+        let path = CGMutablePath()
+        for wall in covering {
+            guard let first = wall.polygon.first else { continue }
+            path.move(to: first.cgPoint)
+            for vertex in wall.polygon.dropFirst() {
+                path.addLine(to: vertex.cgPoint)
+            }
+            path.closeSubpath()
+        }
+        return path.isEmpty ? nil : path
+    }
 }

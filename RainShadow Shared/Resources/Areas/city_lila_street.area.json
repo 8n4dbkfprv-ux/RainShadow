@@ -2218,6 +2218,9 @@
       }
     ],
     "searchMapName" : "city_lila_street.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

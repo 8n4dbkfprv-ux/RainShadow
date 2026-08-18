@@ -2114,6 +2114,9 @@
       }
     ],
     "searchMapName" : "city_riverside.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0

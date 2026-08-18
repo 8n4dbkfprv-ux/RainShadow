@@ -2118,6 +2118,9 @@
       }
     ],
     "searchMapName" : "city_harborpoint_pd.sr",
+    "wallPolygons" : [
+
+    ],
     "worldOrigin" : {
       "x" : 0,
       "y" : 0
