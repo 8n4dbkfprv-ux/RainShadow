@@ -140,21 +140,67 @@ class BaseGameScene: SKScene {
         for (layerName, root) in layers {
             for node in root.children {
                 guard let sprite = node as? SKSpriteNode else { continue }
-                let size = sprite.size
-                let line = [
-                    layerName,
-                    sprite.name ?? "<unnamed>",
-                    "\(sprite.position.x)", "\(sprite.position.y)",
-                    "\(sprite.xScale)", "\(sprite.yScale)",
-                    "\(sprite.anchorPoint.x)", "\(sprite.anchorPoint.y)",
-                    "\(size.width)", "\(size.height)",
-                    "\(sprite.zPosition)",
-                    "\(sprite.children.count)"
-                ].joined(separator: "\t")
-                FileHandle.standardError.write(Data((line + "\n").utf8))
+                dumpSprite(sprite, layer: layerName, parent: nil)
             }
         }
         FileHandle.standardError.write(Data("RAINSHADOW_PROPS_END\n".utf8))
+    }
+
+    /// One sprite, plus any children, in world space.
+    ///
+    /// Children matter: desk items are positioned in the desk's own canvas, so
+    /// their `position` is meaningless without the parent's transform. Resolving
+    /// to scene coordinates here means the bake never has to know that.
+    ///
+    /// Blend mode and alpha matter more. The office's light spills and the
+    /// ceiling-fan shadow are not plain alpha composites, and baking them as if
+    /// they were would wash the room out — the kind of error that looks like a
+    /// lighting change rather than a bug.
+    private func dumpSprite(_ sprite: SKSpriteNode, layer: String, parent: String?) {
+        let worldPosition = sprite.parent.map { $0.convert(sprite.position, to: self) }
+            ?? sprite.position
+        let blend: String
+        switch sprite.blendMode {
+        case .alpha: blend = "alpha"
+        case .add: blend = "add"
+        case .subtract: blend = "subtract"
+        case .multiply: blend = "multiply"
+        case .multiplyX2: blend = "multiplyX2"
+        case .screen: blend = "screen"
+        case .replace: blend = "replace"
+        @unknown default: blend = "alpha"
+        }
+        let textureRect = sprite.texture.map { $0.textureRect() }
+            ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+        // The texture's own identity, not the node's name. They differ: the rug
+        // node is `office_worn_rug` but draws `office_worn_rug_burgundy`, and a
+        // bake that resolves art by node name silently composites the wrong
+        // picture. `SKTexture.description` carries the filename.
+        let textureName = sprite.texture.flatMap { GameArt.sourceName(of: $0) }
+            ?? sprite.name
+            ?? "<none>"
+        let line = [
+            layer,
+            sprite.name ?? "<unnamed>",
+            "\(worldPosition.x)", "\(worldPosition.y)",
+            "\(sprite.xScale)", "\(sprite.yScale)",
+            "\(sprite.anchorPoint.x)", "\(sprite.anchorPoint.y)",
+            "\(sprite.size.width)", "\(sprite.size.height)",
+            "\(sprite.zPosition)",
+            "\(sprite.alpha)",
+            blend,
+            "\(sprite.zRotation)",
+            "\(textureRect.origin.x)", "\(textureRect.origin.y)",
+            "\(textureRect.width)", "\(textureRect.height)",
+            "\(sprite.isHidden)",
+            parent ?? "-",
+            textureName
+        ].joined(separator: "\t")
+        FileHandle.standardError.write(Data((line + "\n").utf8))
+        for child in sprite.children {
+            guard let childSprite = child as? SKSpriteNode else { continue }
+            dumpSprite(childSprite, layer: layer, parent: sprite.name ?? "<unnamed>")
+        }
     }
 
     func sceneWillExit() {}

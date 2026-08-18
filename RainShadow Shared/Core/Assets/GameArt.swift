@@ -46,7 +46,37 @@ enum GameArt {
         guard let image = standaloneCGImage(named: name) else { return nil }
         let texture = SKTexture(cgImage: image)
         texture.filteringMode = .nearest
+        recordSourceNameIfDumping(texture, name: name)
         return texture
+    }
+
+    /// Which file a live texture came from.
+    ///
+    /// `SKTexture` built from a `CGImage` reports `<data>` and carries no
+    /// filename, and a node's name is not a reliable stand-in: the office rug
+    /// node is `office_worn_rug` but draws `office_worn_rug_burgundy`. A bake
+    /// that resolved art by node name composited the wrong picture and produced
+    /// a plate that looked almost right, which is the worst kind of wrong.
+    ///
+    /// Only populated under `RAINSHADOW_DUMP_PROPS`, so shipping play pays
+    /// nothing for it.
+    private static let dumpingTextureSources =
+        ProcessInfo.processInfo.environment["RAINSHADOW_DUMP_PROPS"] == "1"
+    private static let sourceNameLock = NSLock()
+    nonisolated(unsafe) private static var sourceNames: [ObjectIdentifier: String] = [:]
+
+    private static func recordSourceNameIfDumping(_ texture: SKTexture, name: String) {
+        guard dumpingTextureSources else { return }
+        sourceNameLock.lock()
+        defer { sourceNameLock.unlock() }
+        sourceNames[ObjectIdentifier(texture)] = name
+    }
+
+    static func sourceName(of texture: SKTexture) -> String? {
+        guard dumpingTextureSources else { return nil }
+        sourceNameLock.lock()
+        defer { sourceNameLock.unlock() }
+        return sourceNames[ObjectIdentifier(texture)]
     }
 
     static func standaloneCGImage(named name: String) -> CGImage? {
