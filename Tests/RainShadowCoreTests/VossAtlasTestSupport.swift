@@ -31,6 +31,9 @@ enum VossAtlasTestAssets {
     }
 
     static var v20ManifestURL: URL? {
+        let fixedV22 = repoRoot.appendingPathComponent(
+            "ArtSource/Generated/Characters/Detective/PreRendered3DV22/voss_v22_manifest.json"
+        )
         let fixedV21 = repoRoot.appendingPathComponent(
             "ArtSource/Generated/Characters/Detective/PreRendered3DV21/voss_v21_manifest.json"
         )
@@ -38,12 +41,15 @@ enum VossAtlasTestAssets {
             "ArtSource/Generated/Characters/Detective/PreRendered3DV20/voss_v20_manifest.json"
         )
         let candidates = [
+            atlasRoot.appendingPathComponent("voss_v22_manifest.json"),
+            atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v22_manifest.json"),
             atlasRoot.appendingPathComponent("voss_v21_manifest.json"),
             atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v21_manifest.json"),
             atlasRoot.appendingPathComponent("voss_v20_manifest.json"),
             atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v20_manifest.json"),
             atlasRoot.deletingLastPathComponent().deletingLastPathComponent()
                 .appendingPathComponent("voss_v20_manifest.json"),
+            fixedV22,
             fixedV21,
             fixedV20
         ]
@@ -116,7 +122,7 @@ struct VossV20ValidationThresholds {
         let data = try Data(contentsOf: manifestURL)
         guard let document = try JSONSerialization.jsonObject(with: data) as? [String: Any],
               let version = document["asset_version"] as? String,
-              version == "v20" || version == "v21" else {
+              version == "v20" || version == "v21" || version == "v22" else {
             throw VossAtlasTestError.invalidV20Manifest(manifestURL)
         }
 
