@@ -117,6 +117,81 @@ class BaseGameScene: SKScene {
     }
 
     /// Last chance to unwind scene-owned state. Subclasses override.
+    /// Build an area's scenery from its record.
+    ///
+    /// The counterpart to `RAINSHADOW_DUMP_PROPS`: the dump reads the scene
+    /// graph out, this puts it back. Every field it consumes is one the dump
+    /// proved is load-bearing — layer decides whether a prop sorts against
+    /// actors at all, blend and alpha carry the additive light casts, and a
+    /// prop's id is separate from its texture because a node's name is not its
+    /// art.
+    ///
+    /// Returns the sprites by id so a scene can keep references to the few it
+    /// still has to drive — a door that re-warps when it falls, an apron that
+    /// sorts against a seated actor every frame.
+    @discardableResult
+    func buildProps(from area: AreaDefinition) -> [String: SKSpriteNode] {
+        var placed: [String: SKSpriteNode] = [:]
+        for prop in area.props {
+            guard let sprite = makeProp(prop) else { continue }
+            placed[prop.id] = sprite
+        }
+        return placed
+    }
+
+    /// One prop. `nil` when its texture is missing, which is an asset error
+    /// rather than a runtime condition — the scene simply draws without it,
+    /// exactly as the imperative placement did.
+    func makeProp(_ prop: AreaProp) -> SKSpriteNode? {
+        guard let texture = GameArt.texture(named: prop.textureName) else { return nil }
+        texture.filteringMode = .linear
+
+        let sprite: SKSpriteNode
+        if let worldSize = prop.worldSize {
+            sprite = SKSpriteNode(texture: texture, size: worldSize.cgSize)
+        } else {
+            sprite = SKSpriteNode(texture: texture)
+            sprite.setScale(prop.scale)
+        }
+        // The node keeps its *id*, not its texture name: hover registration and
+        // hotspot lookups key on identity, and two of the office's props draw
+        // art with a different name.
+        sprite.name = prop.id
+        sprite.anchorPoint = CGPoint(x: prop.anchorX, y: prop.anchorY)
+        sprite.position = prop.groundPoint.cgPoint
+        sprite.alpha = prop.alpha
+        sprite.zRotation = prop.rotation
+        sprite.blendMode = blendMode(for: prop.blend)
+
+        switch prop.layer {
+        case .floorEffects:
+            sprite.zPosition = SceneLayer.floorEffects.rawValue + prop.depthBias
+            floorEffectRoot.addChild(sprite)
+        case .rearFixtures:
+            sprite.zPosition = SceneLayer.rearFixtures.rawValue + prop.depthBias
+            rearFixtureRoot.addChild(sprite)
+        case .occlusion:
+            sprite.zPosition = SceneLayer.occlusion.rawValue + prop.depthBias
+            occlusionRoot.addChild(sprite)
+        case .depthWorld:
+            // Sorted by ground point, so the bias is what remains after the
+            // part that follows from position — which is how it was recovered.
+            updateDepth(of: sprite, bias: prop.depthBias)
+            depthWorldRoot.addChild(sprite)
+        }
+        return sprite
+    }
+
+    private func blendMode(for blend: AreaPropBlend) -> SKBlendMode {
+        switch blend {
+        case .alpha: .alpha
+        case .add: .add
+        case .multiply: .multiply
+        case .screen: .screen
+        case .replace: .replace
+        }
+    }
+
     /// `RAINSHADOW_DUMP_PROPS=1` prints every sprite the scene placed, with the
     /// numbers the renderer actually used.
     ///
@@ -176,6 +251,15 @@ class BaseGameScene: SKScene {
         // node is `office_worn_rug` but draws `office_worn_rug_burgundy`, and a
         // bake that resolves art by node name silently composites the wrong
         // picture. `SKTexture.description` carries the filename.
+        // Filtering is not cosmetic at this magnification: `GameArt` hands back
+        // `.nearest` and most placement overrides it to `.linear`, so a
+        // data-driven rebuild that guessed would resharpen half the room.
+        let filtering: String
+        switch sprite.texture?.filteringMode {
+        case .some(.nearest): filtering = "nearest"
+        case .some(.linear): filtering = "linear"
+        default: filtering = "linear"
+        }
         let textureName = sprite.texture.flatMap { GameArt.sourceName(of: $0) }
             ?? sprite.name
             ?? "<none>"
@@ -194,7 +278,8 @@ class BaseGameScene: SKScene {
             "\(textureRect.width)", "\(textureRect.height)",
             "\(sprite.isHidden)",
             parent ?? "-",
-            textureName
+            textureName,
+            filtering
         ].joined(separator: "\t")
         FileHandle.standardError.write(Data((line + "\n").utf8))
         for child in sprite.children {

@@ -816,30 +816,33 @@ final class CityDistrictScene: BaseGameScene {
         weatherRoot.addChild(rain)
     }
 
+    /// Build the district's scenery from its area record.
+    ///
+    /// The plain props go through `BaseGameScene.makeProp`, which is the same
+    /// path the office's record will take. Depth-sliced facades stay here
+    /// because slicing needs `CityDistrictLayout.IsoLot` to find the lot's
+    /// street-facing kerb, which is city geometry rather than anything an area
+    /// record should know — Wharf Ladder has 92 props and none of them sliced;
+    /// Sable Row has two.
     private func addModularDistrictSprites() {
-        for visual in district.visualSprites {
-            guard let texture = GameArt.texture(named: visual.textureName) else { continue }
-            texture.filteringMode = .linear
-            if let worldSize = visual.worldSize,
-               let sliceWidth = visual.depthSliceWidth,
-               let lotName = visual.depthSortLot,
+        for prop in area.props {
+            if let worldSize = prop.worldSize,
+               let sliceWidth = prop.depthSliceWidth,
+               let lotName = prop.depthSortLot,
                let lot = CityDistrictLayout.IsoLot(rawValue: lotName),
-               sliceWidth > 0 {
-                addDepthSlicedSprite(visual, texture: texture, worldSize: worldSize, lot: lot, sliceWidth: sliceWidth)
+               sliceWidth > 0,
+               let texture = GameArt.texture(named: prop.textureName) {
+                texture.filteringMode = .linear
+                addDepthSlicedSprite(
+                    prop,
+                    texture: texture,
+                    worldSize: worldSize.cgSize,
+                    lot: lot,
+                    sliceWidth: sliceWidth
+                )
                 continue
             }
-            let sprite: SKSpriteNode
-            if let worldSize = visual.worldSize {
-                sprite = SKSpriteNode(texture: texture, size: worldSize)
-            } else {
-                sprite = SKSpriteNode(texture: texture)
-                sprite.setScale(visual.scale)
-            }
-            sprite.name = "city.modular.\(visual.textureName)"
-            sprite.anchorPoint = CGPoint(x: 0.5, y: visual.anchorY)
-            sprite.position = visual.groundPoint
-            updateDepth(of: sprite, bias: visual.depthBias)
-            depthWorldRoot.addChild(sprite)
+            makeProp(prop)
         }
     }
 
@@ -847,13 +850,13 @@ final class CityDistrictScene: BaseGameScene {
     /// depth-sorts as if it stood on the lot's street-facing kerb, so an actor
     /// on Harbor Street draws in front of the near-side wall.
     private func addDepthSlicedSprite(
-        _ visual: CityDistrictDefinition.VisualSprite,
+        _ visual: AreaProp,
         texture: SKTexture,
         worldSize: CGSize,
         lot: CityDistrictLayout.IsoLot,
         sliceWidth: CGFloat
     ) {
-        let left = visual.groundPoint.x - worldSize.width / 2
+        let left = visual.groundPoint.cgPoint.x - worldSize.width / 2
         var cursor = left
         while cursor < left + worldSize.width - 0.5 {
             let width = min(sliceWidth, left + worldSize.width - cursor)
@@ -870,7 +873,7 @@ final class CityDistrictScene: BaseGameScene {
             )
             slice.name = "city.modular.\(visual.textureName)"
             slice.anchorPoint = CGPoint(x: 0.5, y: visual.anchorY)
-            slice.position = CGPoint(x: midX, y: visual.groundPoint.y)
+            slice.position = CGPoint(x: midX, y: visual.groundPoint.cgPoint.y)
             slice.texture?.filteringMode = .linear
             let northY = lot.northKerbY(atX: midX)
             updateDepth(of: slice, bias: visual.depthBias - northY * 0.5)
