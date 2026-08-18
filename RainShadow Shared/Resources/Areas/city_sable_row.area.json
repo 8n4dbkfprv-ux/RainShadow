@@ -1256,12 +1256,18 @@
     "plateTextureName" : "city_sable_row_area_streets_v01",
     "props" : [
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 840,
           "y" : 606
         },
+        "id" : "city_sable_lot_harborWest",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_harborWest",
         "worldSize" : {
@@ -1270,12 +1276,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 2520,
           "y" : 606
         },
+        "id" : "city_sable_lot_harborVoss",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_harborVoss",
         "worldSize" : {
@@ -1284,12 +1296,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 1680,
           "y" : 1236
         },
+        "id" : "city_sable_lot_upperWest",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_upperWest",
         "worldSize" : {
@@ -1298,12 +1316,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 3360,
           "y" : 1235
         },
+        "id" : "city_sable_lot_upperEast",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_upperEast",
         "worldSize" : {
@@ -1312,7 +1336,10 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "depthSliceWidth" : 64,
         "depthSortLot" : "southWest",
@@ -1320,6 +1347,9 @@
           "x" : 1680,
           "y" : 0
         },
+        "id" : "city_sable_lot_southWest",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_southWest",
         "worldSize" : {
@@ -1328,7 +1358,10 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "depthSliceWidth" : 64,
         "depthSortLot" : "southEast",
@@ -1336,6 +1369,9 @@
           "x" : 3360,
           "y" : 0
         },
+        "id" : "city_sable_lot_southEast",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_southEast",
         "worldSize" : {
@@ -1344,12 +1380,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 840,
           "y" : 1866
         },
+        "id" : "city_sable_lot_skylineWest",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_skylineWest",
         "worldSize" : {
@@ -1358,12 +1400,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 2520,
           "y" : 1866
         },
+        "id" : "city_sable_lot_skylineEast",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_skylineEast",
         "worldSize" : {
@@ -1372,12 +1420,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 292,
           "y" : 0
         },
+        "id" : "city_sable_lot_edge_1_1",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_edge_1_1",
         "worldSize" : {
@@ -1386,12 +1440,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 292,
           "y" : 1236
         },
+        "id" : "city_sable_lot_edge_0_0",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_edge_0_0",
         "worldSize" : {
@@ -1400,12 +1460,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 3856,
           "y" : 606
         },
+        "id" : "city_sable_lot_edge_3_-2",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_edge_3_-2",
         "worldSize" : {
@@ -1414,12 +1480,18 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0,
+        "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
           "x" : 3856,
           "y" : 1866
         },
+        "id" : "city_sable_lot_edge_2_-3",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 1,
         "textureName" : "city_sable_lot_edge_2_-3",
         "worldSize" : {
@@ -1428,72 +1500,114 @@
         }
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 133,
         "groundPoint" : {
           "x" : 805.5,
           "y" : 870
         },
+        "id" : "city_door_tenement",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_tenement"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 133,
         "groundPoint" : {
           "x" : 1023.5,
           "y" : 870
         },
+        "id" : "city_door_shop",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_shop"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 134.5,
         "groundPoint" : {
           "x" : 2360,
           "y" : 873
         },
+        "id" : "city_door_gatehouse",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_gatehouse"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 134.5,
         "groundPoint" : {
           "x" : 2713,
           "y" : 873
         },
+        "id" : "city_door_voss_stoop",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_voss_stoop"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 134.5,
         "groundPoint" : {
           "x" : 2850,
           "y" : 873
         },
+        "id" : "city_door_voss_stoop_garage",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_voss_stoop_garage"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 134.25,
         "groundPoint" : {
           "x" : 1856.5,
           "y" : 1502.5
         },
+        "id" : "city_door_storefront",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_storefront"
       },
       {
+        "alpha" : 1,
+        "anchorX" : 0.5,
         "anchorY" : 0.010416666666666666,
+        "blend" : "alpha",
         "depthBias" : 142,
         "groundPoint" : {
           "x" : 3204.5,
           "y" : 1517
         },
+        "id" : "city_door_rowhouse",
+        "layer" : "depthWorld",
+        "rotation" : 0,
         "scale" : 0.29,
         "textureName" : "city_door_rowhouse"
       }

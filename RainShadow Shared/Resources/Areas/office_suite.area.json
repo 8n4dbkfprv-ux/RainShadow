@@ -4703,7 +4703,1106 @@
     "pathSearchBudget" : 96000,
     "plateTextureName" : "office_suite_plate",
     "props" : [
-
+      {
+        "alpha" : 0.55,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_floor_wear_decal",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_floor_wear_decal",
+        "worldSize" : {
+          "h" : 304.128,
+          "w" : 608.256
+        }
+      },
+      {
+        "alpha" : 0.32,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "add",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1794.015,
+          "y" : 1201.375
+        },
+        "id" : "office_light_window_spill",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_light_window_spill",
+        "worldSize" : {
+          "h" : 247.808,
+          "w" : 371.712
+        }
+      },
+      {
+        "alpha" : 0.68,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "add",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1801.915,
+          "y" : 1173.33
+        },
+        "id" : "office_light_blind_stripes",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_light_blind_stripes",
+        "worldSize" : {
+          "h" : 288.3584,
+          "w" : 432.5376
+        }
+      },
+      {
+        "alpha" : 0.28,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_shadow_ceiling_fan",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_shadow_ceiling_fan",
+        "worldSize" : {
+          "h" : 315.392,
+          "w" : 473.088
+        }
+      },
+      {
+        "alpha" : 0.42,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "add",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 2347.0149,
+          "y" : 1185.1801
+        },
+        "id" : "office_light_hallway",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_light_hallway",
+        "worldSize" : {
+          "h" : 95.744,
+          "w" : 143.616
+        }
+      },
+      {
+        "alpha" : 0.66,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "add",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_light_lamp_pool",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_light_lamp_pool",
+        "worldSize" : {
+          "h" : 214.016,
+          "w" : 321.024
+        }
+      },
+      {
+        "alpha" : 0.72,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 2302.7749,
+          "y" : 1190.3149
+        },
+        "id" : "office_entrance_runner",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_entrance_runner",
+        "worldSize" : {
+          "h" : 38.8608,
+          "w" : 77.7216
+        }
+      },
+      {
+        "alpha" : 0.55,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1765.575,
+          "y" : 1245.615
+        },
+        "id" : "office_cabinet_floor_shadow",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_cabinet_floor_shadow",
+        "worldSize" : {
+          "h" : 45.1584,
+          "w" : 60.2112
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1875.78,
+          "y" : 1211.645
+        },
+        "id" : "office_worn_rug",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_worn_rug_burgundy",
+        "worldSize" : {
+          "h" : 109.5292,
+          "w" : 198.5984
+        }
+      },
+      {
+        "alpha" : 0.55,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 9000,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_desk_floor_shadow",
+        "layer" : "floorEffects",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_floor_shadow",
+        "worldSize" : {
+          "h" : 70.656,
+          "w" : 141.312
+        }
+      },
+      {
+        "alpha" : 0.36,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "add",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1746.615,
+          "y" : 1273.66
+        },
+        "id" : "office_light_blind_stripes_wall",
+        "layer" : "rearFixtures",
+        "rotation" : -0.18,
+        "scale" : 1,
+        "textureName" : "office_light_blind_stripes",
+        "worldSize" : {
+          "h" : 162.2016,
+          "w" : 243.3024
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1730.8149,
+          "y" : 1344.76
+        },
+        "id" : "office_window",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_window",
+        "worldSize" : {
+          "h" : 69.44,
+          "w" : 41.65
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1648.26,
+          "y" : 1310
+        },
+        "id" : "office_wall_photos",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_wall_photos",
+        "worldSize" : {
+          "h" : 25.344,
+          "w" : 34.848
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1707.115,
+          "y" : 1400.0601
+        },
+        "id" : "office_case_board",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_case_board",
+        "worldSize" : {
+          "h" : 63.2016,
+          "w" : 72.2304
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1788.09,
+          "y" : 1441.14
+        },
+        "id" : "office_wall_city_map",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_wall_city_map",
+        "worldSize" : {
+          "h" : 41.8176,
+          "w" : 48.7872
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1854.45,
+          "y" : 1452.2
+        },
+        "id" : "office_framed_licence",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_framed_licence",
+        "worldSize" : {
+          "h" : 27.7992,
+          "w" : 24.7104
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 1748.1949,
+          "y" : 1236.135
+        },
+        "id" : "office_radiator",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_radiator",
+        "worldSize" : {
+          "h" : 37.44,
+          "w" : 33.488
+        }
+      },
+      {
+        "alpha" : 0,
+        "anchorX" : 0.5,
+        "anchorY" : 0.089,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 2353.73,
+          "y" : 1190.3149
+        },
+        "id" : "office_door_leaf_thickness",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_door_leaf_thickness",
+        "worldSize" : {
+          "h" : 95.015,
+          "w" : 35.6766
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.089,
+        "blend" : "alpha",
+        "depthBias" : 5000,
+        "groundPoint" : {
+          "x" : 2353.73,
+          "y" : 1190.3149
+        },
+        "id" : "office_door_leaf",
+        "layer" : "rearFixtures",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_door_leaf",
+        "worldSize" : {
+          "h" : 95.015,
+          "w" : 35.6766
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -80,
+        "groundPoint" : {
+          "x" : 1902.64,
+          "y" : 1201.375
+        },
+        "id" : "office_floor_trash_a",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_floor_trash_a",
+        "worldSize" : {
+          "h" : 16.5888,
+          "w" : 22.1184
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -55,
+        "groundPoint" : {
+          "x" : 1786.51,
+          "y" : 1211.645
+        },
+        "id" : "office_floor_trash_b",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_floor_trash_b",
+        "worldSize" : {
+          "h" : 18.8928,
+          "w" : 25.1904
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1981.9655,
+          "y" : 1210.1121
+        },
+        "id" : "office_internal_door_leaf",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_internal_door_leaf",
+        "worldSize" : {
+          "h" : 154.6237,
+          "w" : 58.6047
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1737.925,
+          "y" : 1225.075
+        },
+        "id" : "office_bookshelf",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_bookshelf",
+        "worldSize" : {
+          "h" : 103.9872,
+          "w" : 69.3248
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1765.575,
+          "y" : 1245.615
+        },
+        "id" : "office_filing_cabinet_open",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_filing_cabinet_open",
+        "worldSize" : {
+          "h" : 90.3168,
+          "w" : 60.2112
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 1787.3,
+          "y" : 1262.205
+        },
+        "id" : "office_filing_cabinet",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_filing_cabinet",
+        "worldSize" : {
+          "h" : 90.3168,
+          "w" : 60.2112
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1811.395,
+          "y" : 1279.98
+        },
+        "id" : "office_safe",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_safe",
+        "worldSize" : {
+          "h" : 33.6,
+          "w" : 30.72
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 39.9999,
+        "groundPoint" : {
+          "x" : 1787.3,
+          "y" : 1262.205
+        },
+        "id" : "office_archive_box_b",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_archive_box_b",
+        "worldSize" : {
+          "h" : 41.472,
+          "w" : 41.472
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 45,
+        "groundPoint" : {
+          "x" : 1765.575,
+          "y" : 1245.615
+        },
+        "id" : "office_archive_stack",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_archive_stack",
+        "worldSize" : {
+          "h" : 43.0464,
+          "w" : 43.0464
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0.0001,
+        "groundPoint" : {
+          "x" : 1771.105,
+          "y" : 1218.36
+        },
+        "id" : "office_archive_box_a",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_archive_box_a",
+        "worldSize" : {
+          "h" : 46.08,
+          "w" : 46.08
+        }
+      },
+      {
+        "alpha" : 0.78,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 2347.0149,
+          "y" : 1174.515
+        },
+        "id" : "office_coat_rack",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_coat_rack",
+        "worldSize" : {
+          "h" : 75.411,
+          "w" : 33.6042
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0.0001,
+        "groundPoint" : {
+          "x" : 2320.55,
+          "y" : 1179.255
+        },
+        "id" : "office_umbrella_stand",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_umbrella_stand",
+        "worldSize" : {
+          "h" : 26.4,
+          "w" : 19.2
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 2181.115,
+          "y" : 1232.975
+        },
+        "id" : "office_waiting_chair_a",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_waiting_chair_a",
+        "worldSize" : {
+          "h" : 49.952,
+          "w" : 39.248
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 2205.21,
+          "y" : 1214.8051
+        },
+        "id" : "office_waiting_table",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_waiting_table",
+        "worldSize" : {
+          "h" : 29.776,
+          "w" : 37.22
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 2229.7,
+          "y" : 1196.635
+        },
+        "id" : "office_waiting_chair_b",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_waiting_chair_b",
+        "worldSize" : {
+          "h" : 52.276,
+          "w" : 41.074
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -19.9999,
+        "groundPoint" : {
+          "x" : 2204.8149,
+          "y" : 1217.965
+        },
+        "id" : "office_newspaper",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_newspaper",
+        "worldSize" : {
+          "h" : 10,
+          "w" : 14
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -15,
+        "groundPoint" : {
+          "x" : 2205.605,
+          "y" : 1210.0649
+        },
+        "id" : "office_waiting_ashtray",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_waiting_ashtray",
+        "worldSize" : {
+          "h" : 8.5,
+          "w" : 11.5
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -10,
+        "groundPoint" : {
+          "x" : 1876.175,
+          "y" : 1328.5649
+        },
+        "id" : "office_personal_sideboard",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_personal_sideboard",
+        "worldSize" : {
+          "h" : 64.768,
+          "w" : 77.7216
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -20,
+        "groundPoint" : {
+          "x" : 1874.595,
+          "y" : 1325.405
+        },
+        "id" : "office_hidden_bottle",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_hidden_bottle",
+        "worldSize" : {
+          "h" : 17.9968,
+          "w" : 8.9984
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -25,
+        "groundPoint" : {
+          "x" : 1880.915,
+          "y" : 1330.145
+        },
+        "id" : "office_personal_glass",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_personal_glass",
+        "worldSize" : {
+          "h" : 12.8,
+          "w" : 9.6
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -5,
+        "groundPoint" : {
+          "x" : 1895.53,
+          "y" : 1324.22
+        },
+        "id" : "office_personal_fan",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_personal_fan",
+        "worldSize" : {
+          "h" : 62.1312,
+          "w" : 41.4208
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -39.9999,
+        "groundPoint" : {
+          "x" : 1863.535,
+          "y" : 1214.9738
+        },
+        "id" : "office_desk_chair",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_chair",
+        "worldSize" : {
+          "h" : 88.0896,
+          "w" : 58.7264
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -50,
+        "groundPoint" : {
+          "x" : 1905.8,
+          "y" : 1270.5
+        },
+        "id" : "office_visitor_armchair",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_visitor_armchair",
+        "worldSize" : {
+          "h" : 64.1536,
+          "w" : 64.1536
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -50,
+        "groundPoint" : {
+          "x" : 1946.485,
+          "y" : 1240.085
+        },
+        "id" : "office_visitor_armchair_2",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_visitor_armchair",
+        "worldSize" : {
+          "h" : 61.5875,
+          "w" : 61.5875
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : 0.0001,
+        "groundPoint" : {
+          "x" : 1832.725,
+          "y" : 1228.235
+        },
+        "id" : "office_wastebasket",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_wastebasket",
+        "worldSize" : {
+          "h" : 20.9152,
+          "w" : 20.9152
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -500,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_desk_bare",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_bare",
+        "worldSize" : {
+          "h" : 93.6,
+          "w" : 111.84
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1862.6899,
+          "y" : 1289.571
+        },
+        "id" : "office_desk_lamp",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_lamp",
+        "worldSize" : {
+          "h" : 31.44,
+          "w" : 26.04
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1874.09,
+          "y" : 1280.571
+        },
+        "id" : "office_desk_phone",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_phone",
+        "worldSize" : {
+          "h" : 18.48,
+          "w" : 25.2
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1890.29,
+          "y" : 1285.9709
+        },
+        "id" : "office_desk_typewriter",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_typewriter",
+        "worldSize" : {
+          "h" : 24,
+          "w" : 33.6
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1895.6899,
+          "y" : 1274.571
+        },
+        "id" : "office_desk_notebook",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_notebook",
+        "worldSize" : {
+          "h" : 14.4,
+          "w" : 19.2
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 1905.29,
+          "y" : 1279.371
+        },
+        "id" : "office_desk_papers",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_papers",
+        "worldSize" : {
+          "h" : 30.24,
+          "w" : 41.4
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : 0,
+        "groundPoint" : {
+          "x" : 1911.89,
+          "y" : 1272.771
+        },
+        "id" : "office_desk_ashtray",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_ashtray",
+        "worldSize" : {
+          "h" : 10.2,
+          "w" : 13.8
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.5,
+        "blend" : "alpha",
+        "depthBias" : -0.0001,
+        "groundPoint" : {
+          "x" : 1921.49,
+          "y" : 1282.371
+        },
+        "id" : "office_desk_files",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_files",
+        "worldSize" : {
+          "h" : 22.8,
+          "w" : 28.8
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -60,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_desk_actor_occluder",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_actor_occluder",
+        "worldSize" : {
+          "h" : 93.6,
+          "w" : 111.84
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -20,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_desk_front_occluder_v04",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_front_occluder_v04",
+        "worldSize" : {
+          "h" : 93.6,
+          "w" : 111.84
+        }
+      },
+      {
+        "alpha" : 1,
+        "anchorX" : 0.5,
+        "anchorY" : 0.04,
+        "blend" : "alpha",
+        "depthBias" : -40,
+        "groundPoint" : {
+          "x" : 1889.21,
+          "y" : 1221.915
+        },
+        "id" : "office_desk_top_occluder",
+        "layer" : "depthWorld",
+        "rotation" : 0,
+        "scale" : 1,
+        "textureName" : "office_desk_top_occluder",
+        "worldSize" : {
+          "h" : 93.6,
+          "w" : 111.84
+        }
+      }
     ],
     "regions" : [
       {

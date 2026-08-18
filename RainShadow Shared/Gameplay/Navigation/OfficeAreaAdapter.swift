@@ -53,8 +53,7 @@ enum OfficeAreaAdapter {
             pathSearchBudget: OfficeNavigationLayout.pathSearchBudget,
             entrances: entrances(),
             regions: hotspotRegions() + [streetDoorRegion()],
-            // Phase 5: lifted out of `DetectiveOfficeScene.buildScene()`.
-            props: [],
+            props: props(),
             wallPolygons: wallPolygons(),
             actors: actors(),
             containers: containers(),
@@ -82,6 +81,40 @@ enum OfficeAreaAdapter {
     }
 
     // MARK: - Sections
+
+    /// The office's scenery, read from what the renderer actually placed.
+    ///
+    /// `ArtSource/Generated/Office/office_props_v01.json` is written by
+    /// `office_props_from_dump.py` from a `RAINSHADOW_DUMP_PROPS` run. Reading
+    /// the scene graph rather than parsing `buildScene` is deliberate: placement
+    /// runs through `OfficeInteriorScale.mapPoint`, several prop-relative scale
+    /// tables and a dozen inline constructions, and re-deriving that in a parser
+    /// means re-implementing it and hoping the two agree.
+    ///
+    /// Loaded at export time only. `AreaExportTests` runs in the package, where
+    /// `ArtSource` is on disk; the app reads the resulting `.area.json`.
+    static func props() -> [AreaProp] {
+        guard let data = try? Data(contentsOf: propsSourceURL),
+              let document = try? JSONDecoder().decode(PropsDocument.self, from: data)
+        else {
+            // Not an error in the app — only the exporter needs this file.
+            return []
+        }
+        return document.props
+    }
+
+    private struct PropsDocument: Decodable {
+        let props: [AreaProp]
+    }
+
+    static var propsSourceURL: URL {
+        URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()   // Navigation
+            .deletingLastPathComponent()   // Gameplay
+            .deletingLastPathComponent()   // RainShadow Shared
+            .deletingLastPathComponent()   // repo root
+            .appendingPathComponent("ArtSource/Generated/Office/office_props_v01.json")
+    }
 
     private static func entrances() -> [AreaEntrance] {
         var entrances = [

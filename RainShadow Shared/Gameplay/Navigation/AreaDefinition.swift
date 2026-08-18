@@ -339,41 +339,116 @@ struct AreaWallPolygon: Hashable, Codable, Sendable {
     func contains(_ point: CGPoint) -> Bool { polygon.outlineContains(point) }
 }
 
-/// A placed background object./// A placed background object. Carries the depth-slicing fields
+/// Which layer of the scene graph a prop is drawn into.
+///
+/// Not cosmetic: `depthWorld` sorts against actors by ground point, while
+/// `rearFixtures` and `floorEffects` always draw beneath them. A wall picture
+/// moved into the depth layer would start occluding the player.
+enum AreaPropLayer: String, Codable, Sendable {
+    /// Beneath everything — floor decals, light pools, contact shadows.
+    case floorEffects
+    /// Behind actors always — wall fixtures, window, radiator.
+    case rearFixtures
+    /// Depth-sorted against actors by ground point.
+    case depthWorld
+    /// Authored foreground, over actors unconditionally.
+    case occlusion
+}
+
+/// How a prop composites. Five of the office's sprites are additive light casts;
+/// drawing them as plain alpha washes the room out, which reads as a lighting
+/// change rather than as a bug.
+enum AreaPropBlend: String, Codable, Sendable {
+    case alpha
+    case add
+    case multiply
+    case screen
+    case replace
+}
+
+/// A placed background object. Carries the depth-slicing fields
 /// `CityDistrictScene.addDepthSlicedSprite` needs so a near-side facade can
 /// occlude the far street while the player walks in front of it — RainShadow's
 /// stand-in for the wall polygons a `.WED` would carry.
 struct AreaProp: Hashable, Codable, Sendable {
+    /// Node identity, which is *not* always the texture. The office rug is
+    /// `office_worn_rug` and draws `office_worn_rug_burgundy`; hover
+    /// registration and hotspot links key on this, art resolution on
+    /// `textureName`. Conflating them composites the wrong picture.
+    var id: String
     var textureName: String
+    var layer: AreaPropLayer
     var groundPoint: AreaPoint
+    /// Uniform scale, for props drawn at their texture's natural size.
     var scale: CGFloat
+    var anchorX: CGFloat
     var anchorY: CGFloat
     var depthBias: CGFloat
     /// Draw at an explicit world size instead of `setScale`.
     var worldSize: AreaSize?
+    var alpha: CGFloat
+    var blend: AreaPropBlend
+    /// Radians, counter-clockwise about the anchor.
+    var rotation: CGFloat
     /// Vertical strip width, in world units, for depth-sliced facades.
     var depthSliceWidth: CGFloat?
     /// Lot whose north kerb is the sort key for those strips.
     var depthSortLot: String?
 
     init(
+        id: String? = nil,
         textureName: String,
+        layer: AreaPropLayer = .depthWorld,
         groundPoint: AreaPoint,
-        scale: CGFloat,
+        scale: CGFloat = 1,
+        anchorX: CGFloat = 0.5,
         anchorY: CGFloat,
-        depthBias: CGFloat,
+        depthBias: CGFloat = 0,
         worldSize: AreaSize? = nil,
+        alpha: CGFloat = 1,
+        blend: AreaPropBlend = .alpha,
+        rotation: CGFloat = 0,
         depthSliceWidth: CGFloat? = nil,
         depthSortLot: String? = nil
     ) {
+        self.id = id ?? textureName
         self.textureName = textureName
+        self.layer = layer
         self.groundPoint = groundPoint
         self.scale = scale
+        self.anchorX = anchorX
         self.anchorY = anchorY
         self.depthBias = depthBias
         self.worldSize = worldSize
+        self.alpha = alpha
+        self.blend = blend
+        self.rotation = rotation
         self.depthSliceWidth = depthSliceWidth
         self.depthSortLot = depthSortLot
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, textureName, layer, groundPoint, scale, anchorX, anchorY
+        case depthBias, worldSize, alpha, blend, rotation
+        case depthSliceWidth, depthSortLot
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        textureName = try c.decode(String.self, forKey: .textureName)
+        id = try c.decodeIfPresent(String.self, forKey: .id) ?? textureName
+        layer = try c.decodeIfPresent(AreaPropLayer.self, forKey: .layer) ?? .depthWorld
+        groundPoint = try c.decode(AreaPoint.self, forKey: .groundPoint)
+        scale = try c.decodeIfPresent(CGFloat.self, forKey: .scale) ?? 1
+        anchorX = try c.decodeIfPresent(CGFloat.self, forKey: .anchorX) ?? 0.5
+        anchorY = try c.decode(CGFloat.self, forKey: .anchorY)
+        depthBias = try c.decodeIfPresent(CGFloat.self, forKey: .depthBias) ?? 0
+        worldSize = try c.decodeIfPresent(AreaSize.self, forKey: .worldSize)
+        alpha = try c.decodeIfPresent(CGFloat.self, forKey: .alpha) ?? 1
+        blend = try c.decodeIfPresent(AreaPropBlend.self, forKey: .blend) ?? .alpha
+        rotation = try c.decodeIfPresent(CGFloat.self, forKey: .rotation) ?? 0
+        depthSliceWidth = try c.decodeIfPresent(CGFloat.self, forKey: .depthSliceWidth)
+        depthSortLot = try c.decodeIfPresent(String.self, forKey: .depthSortLot)
     }
 }
 
