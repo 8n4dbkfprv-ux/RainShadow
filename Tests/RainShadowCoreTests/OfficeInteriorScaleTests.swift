@@ -92,21 +92,47 @@ struct OfficeInteriorScaleTests {
         )
     }
 
-    /// Floor diamond must sit on painted wall shoes (not wall-top silhouette).
+    /// Floor diamond is fitted to the painted floor itself.
+    ///
+    /// This used to assert the opposite fit — a rear corner on the painted wall
+    /// shoes, below the plaster rail, with the near tip held inside the paint.
+    /// `d13469bb` replaced that deliberately: "Earlier passes fitted this to wall
+    /// shoes or to the camera-near silhouette and came out skewed — the shipped
+    /// REAR sat 123 px west of where the two axes actually meet", which is why
+    /// every hotspot approach resolved to a point the runtime could not stand on.
+    ///
+    /// The fit is now direct: classify pixels whose local structure tensor runs
+    /// on a ground axis, take the largest such component touching the painting's
+    /// bottom, and take the bounding parallelogram in the u = y − 0.75x /
+    /// v = y + 0.75x basis. So the contract to assert is the one that fit
+    /// guarantees — exact ±0.75 slopes by construction, and a geometric diamond
+    /// that deliberately extends past the paint, with walkable floor stopping on
+    /// it.
     /// rearCorner is authored y-up; plate y-down REAR.y = ART_H − rearCorner.y.
-    @Test func floorDiamondTracksPaintedWallShoesNotWallTopSilhouette() {
+    @Test func floorDiamondIsFittedToThePaintedFloor() {
         let arch = OfficeNavigationLayout.Architecture.self
         let artHeight: CGFloat = 2_304
         let rearYDown = artHeight - arch.rearCorner.y
-        // Shoe-fitted rear is below the plaster rail and tracks the 0.733 plate.
-        #expect(rearYDown > 740)
-        #expect(rearYDown < 800)
-        #expect((1_880.0...1_940.0).contains(arch.rearCorner.x))
-        // Axes are short enough that the near tip stays on the painted floor
-        // cutaway (not deep in the black void).
+
+        // Both ground axes on the BG:EE camera, exactly, by construction.
+        #expect(abs(arch.axisNW.dy / arch.axisNW.dx + 0.75) < 0.001)
+        #expect(abs(arch.axisNE.dy / arch.axisNE.dx - 0.75) < 0.001)
+
+        // `paintedRoomSourceRect` is authored y-up; these are plate y-down, so
+        // the edges swap. Mixing the two frames is the mistake this test's own
+        // header warns about, and it reads as a passing fit either way.
+        let paint = OfficeInteriorScale.paintedRoomSourceRect
+        let paintTopYDown = artHeight - paint.maxY
+        let paintBottomYDown = artHeight - paint.minY
+
+        // The rear tip sits above the wall crowns rather than on the shoes —
+        // the geometric diamond extends past the painting at both ends.
+        #expect(rearYDown < paintTopYDown, "rear tip dropped back onto the paint")
+
+        // And the near tip falls past the painting's clipped bottom edge.
         let nearYDown = rearYDown + arch.axisNW.dy + arch.axisNE.dy
-        #expect(nearYDown < 1_700)
-        #expect(nearYDown > 1_500)
+        #expect(nearYDown > paintBottomYDown, "near tip no longer clears the paint clip")
+        #expect(nearYDown < artHeight, "near tip fell off the plate")
         // Major freestanding props share that plane (authored y below wall-top band).
         let desk = OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
         let bookshelf = OfficeNavigationLayout.AuthoredPlacement.bookshelf
