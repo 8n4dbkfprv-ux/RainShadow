@@ -1,47 +1,56 @@
 import SpriteKit
 
-enum GameRoute {
+/// What kind of place an area is, from the router's point of view.
+///
+/// One decision, made once. Three scene classes still exist — the office carries
+/// cutscenes, an NPC and containers; a district carries edge exits and the world
+/// map; the exterior is a backdrop with no navigable floor — so something has to
+/// choose between them. Answering "which kind" separately in three places
+/// (can it be presented, how long is the fade, which class to build) is how
+/// those answers drift apart, so they all derive from this.
+///
+/// `GameRoute` used to be an enum with one case per location, which meant adding
+/// a place to the world meant editing the enum and every switch over it. A
+/// destination is an area id — that is what BG's travel regions and world-map
+/// links carry — and this is the lookup the engine does with it. When the
+/// office's props become data and the classes collapse into one `GameAreaScene`,
+/// this type is the only thing that has to go.
+@MainActor
+enum AreaSceneKind: Equatable {
     case openingExterior
-    case detectiveOffice
-    case cityDistrict(CityDistrictID)
+    case office
+    case district(CityDistrictID)
 
-    /// The area this route presents.
-    ///
-    /// Phase 5 collapses `GameRoute` into `case area(AreaID)` once one scene
-    /// class runs every area. Until then this pair of conversions is the bridge:
-    /// travel is expressed in areas and entrances, and the router translates.
-    var areaID: AreaID {
-        switch self {
-        case .openingExterior:
-            HarborpointAreas.openingExterior
-        case .detectiveOffice:
-            HarborpointAreas.office
-        case .cityDistrict(let districtID):
-            CityDistrictAreaAdapter.areaID(for: districtID)
-        }
-    }
-
-    init?(areaID: AreaID) {
-        switch areaID {
-        case HarborpointAreas.openingExterior:
+    init?(_ areaID: AreaID) {
+        if areaID == HarborpointAreas.openingExterior {
             self = .openingExterior
-        case HarborpointAreas.office:
-            self = .detectiveOffice
-        default:
-            guard let districtID = CityDistrictAreaAdapter.district(for: areaID) else {
-                return nil
-            }
-            self = .cityDistrict(districtID)
+        } else if areaID == HarborpointAreas.office {
+            self = .office
+        } else if let districtID = CityDistrictAreaAdapter.district(for: areaID) {
+            self = .district(districtID)
+        } else {
+            return nil
         }
     }
 
-    /// Crossfade length. The office arrival is the slower one because it lands
-    /// on a cinematic beat; street-to-street travel is brisk.
+    /// Crossfade length on arrival. The office is the slower one because it
+    /// lands on a cinematic beat; street-to-street travel is brisk.
     var transitionDuration: TimeInterval {
         switch self {
         case .openingExterior: 0
-        case .detectiveOffice: 1.15
-        case .cityDistrict: 0.75
+        case .office: 1.15
+        case .district: 0.75
+        }
+    }
+
+    func makeScene(context: GameContext, entrance: String?) -> BaseGameScene {
+        switch self {
+        case .openingExterior:
+            OpeningExteriorScene(context: context)
+        case .office:
+            DetectiveOfficeScene(context: context, entrance: entrance)
+        case .district(let districtID):
+            CityDistrictScene(context: context, districtID: districtID, entrance: entrance)
         }
     }
 }
@@ -66,7 +75,7 @@ final class SceneRouter {
         pendingEntrance = ProcessInfo.processInfo.environment["RAINSHADOW_START_ENTRANCE"]
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "office" {
             context.session.markOpeningSeen()
-            present(.detectiveOffice, transition: nil)
+            present(.office, transition: nil)
             return
         }
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "city" {
@@ -77,7 +86,7 @@ final class SceneRouter {
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
             context.session.markCityDistrictVisited(district)
-            present(.cityDistrict(district), transition: nil)
+            present(.district(district), transition: nil)
             return
         }
         present(.openingExterior, transition: nil)
@@ -100,29 +109,29 @@ final class SceneRouter {
     /// that is not in the catalog.
     func travel(to areaID: AreaID, entrance: String = AreaEntrance.defaultName) {
         guard !isTransitioning else { return }
-        guard let route = GameRoute(areaID: areaID) else {
-            assertionFailure("SceneRouter has no route for area '\(areaID)'")
+        guard let kind = AreaSceneKind(areaID) else {
+            assertionFailure("SceneRouter has no scene for area '\(areaID)'")
             return
         }
 
         isTransitioning = true
         pendingEntrance = entrance
 
-        switch route {
+        switch kind {
         case .openingExterior:
             break
-        case .detectiveOffice:
+        case .office:
             context.session.markOpeningSeen()
-        case .cityDistrict(let districtID):
+        case .district(let districtID):
             context.session.markCityTravelOpen()
             context.session.setCurrentCityDistrict(districtID)
         }
 
-        let duration = route.transitionDuration
+        let duration = kind.transitionDuration
         let transition = SKTransition.crossFade(withDuration: duration)
         transition.pausesOutgoingScene = false
         transition.pausesIncomingScene = false
-        present(route, transition: transition)
+        present(kind, transition: transition)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.05) { [weak self] in
             self?.isTransitioning = false
@@ -131,25 +140,12 @@ final class SceneRouter {
 
     // MARK: - Presentation
 
-    private func present(_ route: GameRoute, transition: SKTransition?) {
+    private func present(_ kind: AreaSceneKind, transition: SKTransition?) {
         guard let view else { return }
         let entrance = pendingEntrance
         pendingEntrance = nil
 
-        let scene: BaseGameScene
-        switch route {
-        case .openingExterior:
-            scene = OpeningExteriorScene(context: context)
-        case .detectiveOffice:
-            scene = DetectiveOfficeScene(context: context, entrance: entrance)
-        case .cityDistrict(let districtID):
-            scene = CityDistrictScene(
-                context: context,
-                districtID: districtID,
-                entrance: entrance
-            )
-        }
-
+        let scene = kind.makeScene(context: context, entrance: entrance)
         scene.scaleMode = .resizeFill
         if let transition, view.scene != nil {
             view.presentScene(scene, transition: transition)

@@ -101,6 +101,34 @@ struct AreaCatalogTests {
         }
     }
 
+    /// Every shipped area must be one the router can actually present.
+    ///
+    /// `AreaSceneKind` lives in the app target and cannot be reached from here,
+    /// but it decides what an area is by exactly this predicate: the exterior,
+    /// the office, or an id that resolves to a district. Adding an area file
+    /// without wiring a scene behind it would otherwise be a runtime
+    /// `assertionFailure` on the transition rather than a red suite.
+    @Test func everyShippedAreaResolvesToSomethingTheRouterCanBuild() {
+        for id in HarborpointAreas.shippedIDs {
+            let resolvable = id == HarborpointAreas.openingExterior
+                || id == HarborpointAreas.office
+                || CityDistrictAreaAdapter.district(for: id) != nil
+            #expect(resolvable, "'\(id)' ships but no scene kind claims it")
+        }
+    }
+
+    /// And the reverse: a district the catalog knows must have an area file, or
+    /// travelling to it would trap on a missing resource.
+    @Test func everyDistrictHasAShippedAreaFile() {
+        for district in CityDistrictID.allCases {
+            let id = CityDistrictAreaAdapter.areaID(for: district)
+            #expect(
+                HarborpointAreas.shippedIDs.contains(id),
+                "district '\(district.slug)' has no shipped area file"
+            )
+        }
+    }
+
     // MARK: - Schema
 
     @Test func rejectsANewerSchemaRatherThanGuessingAtIt() throws {
