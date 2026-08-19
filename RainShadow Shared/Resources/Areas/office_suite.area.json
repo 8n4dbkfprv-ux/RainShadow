@@ -9,10 +9,10 @@
     },
     "ambients" : [
       {
-        "assetName" : "amb_rain_exterior",
+        "assetName" : "amb_rain_window",
         "id" : "amb.rain",
         "isLooping" : true,
-        "volume" : 0.34
+        "volume" : 0.27
       }
     ],
     "cameraClampRect" : {

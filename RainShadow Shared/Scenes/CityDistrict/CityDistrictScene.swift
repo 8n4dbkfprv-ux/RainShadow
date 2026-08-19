@@ -66,7 +66,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func buildScene() {
-        addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_exterior.m4a", volume: 0.34))
+        buildAmbients(from: area)
 
         let groundName = district.groundTextureName
         if let texture = GameArt.texture(named: groundName)

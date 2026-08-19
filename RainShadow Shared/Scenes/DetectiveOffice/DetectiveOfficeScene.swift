@@ -129,7 +129,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     override func buildScene() {
-        addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_window.m4a", volume: 0.27))
+        buildAmbients(from: area)
 
         let standardPropScale = OfficeInteriorScale.standardPropDisplayScale
         let smallPropScale = OfficeInteriorScale.smallPropDisplayScale

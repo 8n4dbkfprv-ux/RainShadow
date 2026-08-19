@@ -117,6 +117,33 @@ class BaseGameScene: SKScene {
     }
 
     /// Last chance to unwind scene-owned state. Subclasses override.
+    /// Start the area's ambient beds.
+    ///
+    /// Baldur's Gate keeps ambients in the `.ARE` — a resref, a volume, a
+    /// position and radius for local ones, a schedule for the ones that only run
+    /// at night. Each RainShadow scene instead opened with one hardcoded
+    /// `RainAudio.loopingAmbience` call, which is why the office's rain lived in
+    /// `DetectiveOfficeScene` as a filename and a magic 0.27.
+    ///
+    /// Positional ambients are not honoured yet: nothing shipped authors a point
+    /// or radius, and `RainAudio.loopingAmbience` deliberately sets
+    /// `isPositional = false` because these are beds rather than sources. When an
+    /// area authors a located sound, that is the change to make.
+    func buildAmbients(from area: AreaDefinition) {
+        for ambient in area.ambients where ambient.isLooping {
+            // Records name the asset; the audio layer wants a filename.
+            let fileName = ambient.assetName.hasSuffix(".m4a")
+                ? ambient.assetName
+                : "\(ambient.assetName).m4a"
+            let node = RainAudio.loopingAmbience(
+                fileNamed: fileName,
+                volume: Float(ambient.volume)
+            )
+            node.name = ambient.id
+            addChild(node)
+        }
+    }
+
     /// Run one tick of the loaded area's script.
     ///
     /// Polled, because that is what a Baldur's Gate area script is: it asks

@@ -68,10 +68,16 @@ enum OfficeAreaAdapter {
             ],
             notes: [],
             ambients: [
+                // The office hears rain on *its window*, not the street bed the
+                // districts play. The record said `amb_rain_exterior` at 0.34
+                // because this adapter copied the city's ambient when the record
+                // was first written; the scene has always played
+                // `amb_rain_window` at 0.27, and wiring the record up without
+                // checking would have shipped that as an audio change.
                 AreaAmbient(
                     id: "amb.rain",
-                    assetName: "amb_rain_exterior",
-                    volume: 0.34,
+                    assetName: "amb_rain_window",
+                    volume: 0.27,
                     isLooping: true
                 )
             ],
