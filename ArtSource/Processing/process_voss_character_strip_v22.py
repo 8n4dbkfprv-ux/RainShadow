@@ -82,6 +82,131 @@ def _match_idle_value(
     return Image.fromarray(np.clip(pixels, 0, 255).astype(np.uint8), "RGBA")
 
 
+def match_cell_mean(cell: Image.Image, target_mean: float) -> Image.Image:
+    """Scale one registered cell's body to a target mean luma. Highlights follow."""
+    pixels = np.asarray(cell.convert("RGBA")).astype(np.float64)
+    mask = pixels[..., 3] >= 16
+    if mask.shape[0] == core.FRAME_SIZE and mask.shape[1] == core.FRAME_SIZE:
+        mask = mask.copy()
+        mask[0, 0] = False
+        mask[0, -1] = False
+        mask[-1, 0] = False
+        mask[-1, -1] = False
+    if not mask.any():
+        return cell
+    rgb = pixels[..., :3]
+    luma = 0.3 * rgb[..., 0] + 0.59 * rgb[..., 1] + 0.11 * rgb[..., 2]
+    mean = float(luma[mask].mean())
+    rgb[mask] = np.clip(rgb[mask] * (target_mean / max(mean, 1e-6)), 0, 255)
+    pixels[..., :3] = rgb
+    return Image.fromarray(np.clip(pixels, 0, 255).astype(np.uint8), "RGBA")
+
+
+def clip_cell_highlights(cell: Image.Image, target_p90: float) -> Image.Image:
+    """Pull a registered cell's highlight tail down to a target without lifting the floor."""
+    pixels = np.asarray(cell.convert("RGBA")).astype(np.float64)
+    mask = pixels[..., 3] >= 16
+    if mask.shape[0] == core.FRAME_SIZE and mask.shape[1] == core.FRAME_SIZE:
+        mask = mask.copy()
+        mask[0, 0] = False
+        mask[0, -1] = False
+        mask[-1, 0] = False
+        mask[-1, -1] = False
+    if not mask.any():
+        return cell
+    rgb = pixels[..., :3]
+    luma = 0.3 * rgb[..., 0] + 0.59 * rgb[..., 1] + 0.11 * rgb[..., 2]
+    p90 = float(np.percentile(luma[mask], 90))
+    if p90 <= target_p90 + 1.0:
+        return cell
+    hot = mask & (luma > np.median(luma[mask]))
+    rgb[hot] = np.clip(rgb[hot] * (target_p90 / max(p90, 1e-6)), 0, 255)
+    pixels[..., :3] = rgb
+    return Image.fromarray(np.clip(pixels, 0, 255).astype(np.uint8), "RGBA")
+
+
+def ensure_minimum_head_width(cell: Image.Image, minimum: int = 19) -> Image.Image:
+    """Widen a registered cell just enough for the seat head-width gate."""
+    metrics = core.frame_metrics(cell)
+    if metrics.head_width >= minimum:
+        return cell
+    x0, y0, x1, y1 = core.visible_bbox(cell)
+    figure = cell.crop((x0, y0, x1 + 1, y1 + 1))
+    new_width = max(
+        figure.size[0] + 1,
+        round(figure.size[0] * minimum / max(1, metrics.head_width)),
+    )
+    figure = figure.resize((new_width, figure.size[1]), Image.Resampling.NEAREST)
+    return core.register_crunched(figure, body_axis=False)
+
+
+def _temporal_smooth_standup(
+    figures: Sequence[Image.Image], amount: float = 0.30
+) -> list[Image.Image]:
+    """Mix mid-rise colour with neighbours without changing the silhouette."""
+
+    def resize_to(figure: Image.Image, size: tuple[int, int]) -> Image.Image:
+        if figure.size == size:
+            return figure
+        return crunch.raster.premultiplied_resize(figure, size)
+
+    smoothed = [figures[0]]
+    for index in range(1, len(figures) - 1):
+        current = figures[index]
+        previous = resize_to(figures[index - 1], current.size)
+        following = resize_to(figures[index + 1], current.size)
+        current_px = np.asarray(current.convert("RGBA")).astype(np.float64)
+        mixed = (
+            current_px * (1.0 - amount)
+            + np.asarray(previous.convert("RGBA")).astype(np.float64) * (0.5 * amount)
+            + np.asarray(following.convert("RGBA")).astype(np.float64) * (0.5 * amount)
+        )
+        mixed[..., 3] = current_px[..., 3]
+        mixed[current_px[..., 3] < 16] = 0
+        smoothed.append(Image.fromarray(np.clip(mixed, 0, 255).astype(np.uint8), "RGBA"))
+    smoothed.append(figures[-1])
+    return smoothed
+
+
+def stabilize_standup_figures(figures: Sequence[Image.Image]) -> list[Image.Image]:
+    """Hold a 12-frame stand-up to a linear width and value ramp between endpoints.
+
+    The restage already interpolates height so the rise is smooth. ImageGen
+    frames still arrive with unrelated aspect ratios and highlight tails, so
+    width and exposure pop even while the crown climbs one step per cell.
+    Neighbour colour mixing damps a one-frame lighting flash without morphing
+    the pose. Phase 00 and 11 keep their own size and value so the seated and
+    standing handoffs stay put; sit-down is the reverse of the result.
+    """
+    if len(figures) != 12:
+        raise ValueError(f"stand-up lock expects 12 cells, got {len(figures)}")
+    first, last = figures[0], figures[-1]
+    width_start, width_end = first.size[0], last.size[0]
+    luma_start = _body_luma(first)
+    luma_end = _body_luma(last)
+    mean_start = float(luma_start.mean()) if len(luma_start) else 1.0
+    mean_end = float(luma_end.mean()) if len(luma_end) else mean_start
+    p90_start = float(np.percentile(luma_start, 90)) if len(luma_start) else mean_start
+    p90_end = float(np.percentile(luma_end, 90)) if len(luma_end) else mean_end
+    locked: list[Image.Image] = []
+    for index, figure in enumerate(figures):
+        t = index / 11
+        target_width = max(1, round(width_start + t * (width_end - width_start)))
+        target_height = max(1, figure.size[1])
+        if figure.size != (target_width, target_height):
+            figure = crunch.raster.premultiplied_resize(figure, (target_width, target_height))
+        locked.append(figure)
+    locked = _temporal_smooth_standup(locked)
+    for index in range(1, 11):
+        t = index / 11
+        locked[index] = _match_idle_value(
+            locked[index],
+            mean_start + t * (mean_end - mean_start),
+            p90_start + t * (p90_end - p90_start),
+        )
+    return locked
+
+
 def stabilize_idle_keyed(frames: Sequence[Image.Image]) -> list[Image.Image]:
     """Lock idle phases to phase 00 scale, silhouette, and value so the loop cannot pop.
 

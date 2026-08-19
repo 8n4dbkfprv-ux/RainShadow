@@ -228,24 +228,64 @@ def _restage_seats(stage_root: Path, manifest: dict[str, Any]) -> None:
         reference_height = core.source_opaque_height(stand_sources[-1])
         target_seated = max(1, round(reference_height * 155 / 200))
         seated_height = target_seated
-        idle_cells = [
-            core.process_keyed_figure(
-                _scale_keyed(source, seated_height),
-                reference_height=reference_height,
-            )
-            for source in idle_sources
-        ]
+        import numpy as np
+        from process_voss_character_strip_v22 import (
+            _body_luma,
+            clip_cell_highlights,
+            ensure_minimum_head_width,
+            match_cell_mean,
+            stabilize_standup_figures,
+        )
+
         stand_heights = [
             round(seated_height + phase * (reference_height - seated_height) / 11)
             for phase in range(12)
         ]
-        stand_cells = [
-            core.process_keyed_figure(
-                _scale_keyed(source, stand_heights[phase]),
-                reference_height=reference_height,
-            )
+        idle_scaled = [_scale_keyed(source, seated_height) for source in idle_sources]
+        stand_scaled = [
+            _scale_keyed(source, stand_heights[phase])
             for phase, source in enumerate(stand_sources)
         ]
+        stand_locked = stabilize_standup_figures(stand_scaled)
+        # One palette for the seated clip and the rise so stand-up 00 does not
+        # flash against seated idle, and so highlight ramps cannot be refit
+        # per rise frame.
+        palette = core.crunch.build_clip_palette(idle_scaled + stand_locked)
+        idle_cells = [
+            core.process_keyed_figure(
+                source,
+                reference_height=reference_height,
+                palette=palette,
+            )
+            for source in idle_scaled
+        ]
+        stand_cells = [
+            core.process_keyed_figure(
+                source,
+                reference_height=reference_height,
+                palette=palette,
+            )
+            for source in stand_locked
+        ]
+        start_body = _body_luma(stand_cells[0])
+        end_body = _body_luma(stand_cells[-1])
+        start_luma = float(start_body.mean()) if len(start_body) else 1.0
+        end_luma = float(end_body.mean()) if len(end_body) else start_luma
+        start_p90 = float(np.percentile(start_body, 90)) if len(start_body) else start_luma
+        end_p90 = float(np.percentile(end_body, 90)) if len(end_body) else end_luma
+        # Mean lock plus highlight ceiling, then re-impose the shared palette.
+        for phase in range(1, 11):
+            t = phase / 11
+            graded = match_cell_mean(
+                clip_cell_highlights(
+                    stand_cells[phase],
+                    start_p90 + t * (end_p90 - start_p90),
+                ),
+                start_luma + t * (end_luma - start_luma),
+            )
+            stand_cells[phase] = core.stamp_sentinels(
+                ensure_minimum_head_width(core.crunch.finalise(graded, palette))
+            )
         sit_cells = list(reversed(stand_cells))
         for phase, cell in enumerate(idle_cells):
             core._save_atlas_cell(
