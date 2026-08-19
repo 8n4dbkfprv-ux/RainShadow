@@ -84,6 +84,28 @@ struct PersistedGroundItemStack: Codable, Equatable, Sendable {
 
 /// Persistence mirror of Core `QueuedJournalFragment` — same no-Core-dependency rule
 /// as `PersistedLootStack`. Kept structurally identical so the two-way map stays trivial.
+/// One area variable in the save file.
+///
+/// `RainShadowPersistence` is Foundation-only and deliberately knows nothing of
+/// `RainShadowCore`, so this mirrors `AreaVariableValue` rather than importing
+/// it — the same arrangement every other persisted type here uses. The tag is
+/// spelled out so a save stays readable, and an unknown one decodes as an
+/// integer zero rather than failing the whole load.
+struct PersistedAreaVariable: Codable, Equatable, Sendable {
+    /// `"integer"`, `"number"` or `"text"`.
+    var kind: String
+    var integer: Int?
+    var number: Double?
+    var text: String?
+
+    init(kind: String, integer: Int? = nil, number: Double? = nil, text: String? = nil) {
+        self.kind = kind
+        self.integer = integer
+        self.number = number
+        self.text = text
+    }
+}
+
 struct PersistedJournalFragment: Codable, Equatable, Sendable {
     var id: String
     /// e.g. `"chronology"` or `"lead"`.
@@ -138,6 +160,12 @@ struct SaveSnapshot: Codable, Equatable {
     /// Integer case counters (IE `Global` with a numeric value), including the
     /// reserved `talk.<ownerID>` conversation counts behind `NumTimesTalkedTo`.
     var caseCounters: [String: Int] = [:]
+    /// Area-scoped variables, flattened to `"<scope>/<name>"` keys.
+    ///
+    /// Baldur's Gate saves the modified `.ARE`, variables section included; this
+    /// is the equivalent. Defaulted so a save written before it existed loads
+    /// with an empty store rather than failing.
+    var areaVariables: [String: PersistedAreaVariable] = [:]
 
     init(
         schemaVersion: Int = SaveSnapshot.currentSchemaVersion,
@@ -155,7 +183,8 @@ struct SaveSnapshot: Codable, Equatable {
         caseKnowledgeIDs: Set<String> = [],
         caseEvidenceIDs: Set<String> = [],
         caseJournalFragments: [PersistedJournalFragment] = [],
-        caseCounters: [String: Int] = [:]
+        caseCounters: [String: Int] = [:],
+        areaVariables: [String: PersistedAreaVariable] = [:]
     ) {
         self.schemaVersion = schemaVersion
         self.hasSeenOpening = hasSeenOpening
@@ -173,6 +202,7 @@ struct SaveSnapshot: Codable, Equatable {
         self.caseEvidenceIDs = caseEvidenceIDs
         self.caseJournalFragments = caseJournalFragments
         self.caseCounters = caseCounters
+        self.areaVariables = areaVariables
     }
 
     init(from decoder: Decoder) throws {
@@ -210,6 +240,10 @@ struct SaveSnapshot: Codable, Equatable {
             [PersistedJournalFragment].self,
             forKey: .caseJournalFragments
         ) ?? []
+        areaVariables = try container.decodeIfPresent(
+            [String: PersistedAreaVariable].self,
+            forKey: .areaVariables
+        ) ?? [:]
         caseCounters = try container.decodeIfPresent([String: Int].self, forKey: .caseCounters) ?? [:]
     }
 }

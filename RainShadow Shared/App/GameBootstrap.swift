@@ -16,8 +16,28 @@ final class GameSession {
     private(set) var caseState: CaseState
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
+    /// Area-scoped variables, the way Baldur's Gate keeps them in the `.ARE`.
+    ///
+    /// A place for an area to remember something about itself that survives
+    /// leaving it. Fog stays out — that is the explored bitmask, its own `.ARE`
+    /// section — and so do ground piles, which are the item and container
+    /// sections. Both are already keyed by area; folding them in here would tidy
+    /// the namespace and coarsen the model.
+    private(set) var areaVariables: AreaVariables
+
+    /// Variable name for a district the player has physically entered.
+    /// The BG world map keeps the same fact as an area-entry flag.
+    static let visitedVariable = "VISITED"
+
     /// Districts Voss has physically entered (BG Classic world-map reveal seed).
-    private(set) var visitedCityDistricts: Set<CityDistrictID> = []
+    var visitedCityDistricts: Set<CityDistrictID> {
+        Set(CityDistrictID.allCases.filter {
+            areaVariables.isSet(
+                Self.visitedVariable,
+                in: CityDistrictAreaAdapter.areaID(for: $0)
+            )
+        })
+    }
     private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
     private(set) var currentHealth = 12
     let maximumHealth = 12
@@ -54,6 +74,11 @@ final class GameSession {
         hasSeenOfficeHint = snapshot.hasSeenOfficeHint
         hasCompletedOfficeCaseIntro = snapshot.hasCompletedOfficeCaseIntro
         inspectedHotspotIDs = snapshot.inspectedHotspotIDs
+        areaVariables = AreaVariables(
+            flattened: snapshot.areaVariables.reduce(into: [:]) { out, entry in
+                out[entry.key] = Self.toAreaVariable(entry.value)
+            }
+        )
         caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
         caseState.flags.formUnion(snapshot.caseFlags)
         caseState.knowledgeIDs.formUnion(snapshot.caseKnowledgeIDs)
@@ -143,11 +168,37 @@ final class GameSession {
 
     func setCurrentCityDistrict(_ id: CityDistrictID) {
         currentCityDistrict = id
-        visitedCityDistricts.insert(id)
+        markCityDistrictVisited(id)
     }
 
     func markCityDistrictVisited(_ id: CityDistrictID) {
-        visitedCityDistricts.insert(id)
+        // Persisted now, where it previously lived only for the run. BG keeps
+        // "already visited" in the world-map entry and writes it to the save, so
+        // a district you walked stays revealed across a relaunch.
+        guard !areaVariables.isSet(
+            Self.visitedVariable,
+            in: CityDistrictAreaAdapter.areaID(for: id)
+        ) else { return }
+        areaVariables.setFlag(true, Self.visitedVariable, in: CityDistrictAreaAdapter.areaID(for: id))
+        persist()
+    }
+
+    // MARK: - Area variables
+
+    func areaVariable(_ name: String, in area: AreaID) -> AreaVariableValue? {
+        areaVariables.value(name, in: area)
+    }
+
+    func setAreaVariable(_ value: AreaVariableValue?, _ name: String, in area: AreaID) {
+        areaVariables.set(value, name, in: area)
+        persist()
+    }
+
+    @discardableResult
+    func incrementAreaVariable(_ name: String, in area: AreaID, by delta: Int = 1) -> Int {
+        let next = areaVariables.increment(name, in: area, by: delta)
+        persist()
+        return next
     }
 
     func setCurrentHealth(_ health: Int) {
@@ -541,7 +592,10 @@ final class GameSession {
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,
             caseJournalFragments: caseState.queuedJournalFragments.map(Self.toPersisted),
-            caseCounters: caseState.counters
+            caseCounters: caseState.counters,
+            areaVariables: areaVariables.flattened.reduce(into: [:]) { out, entry in
+                out[entry.key] = Self.toPersisted(entry.value)
+            }
         ))
     }
 
@@ -628,6 +682,27 @@ final class GameSession {
 
     private static func toPersisted(_ fragment: QueuedJournalFragment) -> PersistedJournalFragment {
         PersistedJournalFragment(id: fragment.id, kind: fragment.kind.rawValue, text: fragment.text)
+    }
+
+    /// `RainShadowPersistence` is Foundation-only and knows nothing of the core
+    /// module, so the save's variable type is mirrored rather than shared —
+    /// the same arrangement as every other persisted value here.
+    private static func toPersisted(_ value: AreaVariableValue) -> PersistedAreaVariable {
+        switch value {
+        case .integer(let number): PersistedAreaVariable(kind: "integer", integer: number)
+        case .number(let number): PersistedAreaVariable(kind: "number", number: number)
+        case .text(let text): PersistedAreaVariable(kind: "text", text: text)
+        }
+    }
+
+    /// An unrecognised tag decodes as zero rather than failing the load: one
+    /// unknown variable must not cost the player their save.
+    private static func toAreaVariable(_ stored: PersistedAreaVariable) -> AreaVariableValue {
+        switch stored.kind {
+        case "number": .number(stored.number ?? 0)
+        case "text": .text(stored.text ?? "")
+        default: .integer(stored.integer ?? 0)
+        }
     }
 }
 
