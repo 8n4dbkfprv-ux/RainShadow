@@ -75,8 +75,7 @@ enum OfficeAreaAdapter {
                     isLooping: true
                 )
             ],
-            // Phase 6: `OfficeClientVisitSequencer` becomes this script.
-            script: nil
+            script: AreaScriptCatalog.officeSuite.id
         )
     }
 

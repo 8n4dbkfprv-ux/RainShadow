@@ -1108,6 +1108,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // player input is locked. `cutsceneChromeSuppressed` is true for the
         // whole authored visit, so it stands in for CutSceneMode here.
         let cutsceneActive = cutsceneChromeSuppressed
+        tickAreaScript()
         pause.setModal(
             dialogue: dialogueIsActive && !cutsceneActive,
             overlay: anyOverlayIsPresented

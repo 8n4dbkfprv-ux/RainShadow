@@ -194,6 +194,17 @@ final class GameSession {
         persist()
     }
 
+    /// Adopt the variables an area script wrote.
+    ///
+    /// Whole-store replacement rather than a diff: the runner already applied
+    /// the script's writes to a copy, and reconciling two stores field by field
+    /// would be a second implementation of the same rules.
+    func applyAreaScriptVariables(_ updated: AreaVariables) {
+        guard updated != areaVariables else { return }
+        areaVariables = updated
+        persist()
+    }
+
     @discardableResult
     func incrementAreaVariable(_ name: String, in area: AreaID, by delta: Int = 1) -> Int {
         let next = areaVariables.increment(name, in: area, by: delta)

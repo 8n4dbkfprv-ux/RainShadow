@@ -5977,6 +5977,7 @@
         }
       }
     ],
+    "script" : "office_suite",
     "searchMapName" : "office_suite.sr",
     "wallPolygons" : [
       {

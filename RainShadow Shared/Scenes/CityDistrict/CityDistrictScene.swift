@@ -416,6 +416,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        tickAreaScript()
         pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
         let worldIsPaused = pause.isPaused
         // The ground says what it is. This was `.wetStone` unconditionally,

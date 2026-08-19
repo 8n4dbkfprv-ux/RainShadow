@@ -117,6 +117,42 @@ class BaseGameScene: SKScene {
     }
 
     /// Last chance to unwind scene-owned state. Subclasses override.
+    /// Run one tick of the loaded area's script.
+    ///
+    /// Polled, because that is what a Baldur's Gate area script is: it asks
+    /// questions about world state every tick rather than being handed events.
+    /// The runner is pure and returns what should happen; applying it is here,
+    /// because the save and the case state live outside the package.
+    ///
+    /// Variables are written back through `GameSession`, which persists them, so
+    /// a one-shot block guarded on its own variable stays fired across a
+    /// relaunch — the idiom every larger script is built from.
+    func tickAreaScript() {
+        guard let runtime = areaRuntime, let script = runtime.script else { return }
+        let scriptContext = AreaScriptContext(
+            area: runtime.id,
+            variables: context.session.areaVariables,
+            dialogue: DialogueRuntimeContext(
+                caseState: context.session.caseState,
+                dialogueState: DialogueState(graphID: script.id)
+            )
+        )
+        let outcome = AreaScriptRunner.tick(script, in: scriptContext)
+        guard outcome.didFire else { return }
+        context.session.applyAreaScriptVariables(outcome.variables)
+        for action in outcome.actions {
+            switch action {
+            case .caseAction, .startCutscene:
+                // Nothing shipped authors these yet. Left unhandled rather than
+                // half-wired: a case action needs the dialogue runtime's own
+                // application path, and a cutscene needs a `CutsceneStage`.
+                break
+            case .setVariable, .incrementVariable, .setGlobal:
+                break  // already applied by the runner
+            }
+        }
+    }
+
     /// Build an area's scenery from its record.
     ///
     /// The counterpart to `RAINSHADOW_DUMP_PROPS`: the dump reads the scene

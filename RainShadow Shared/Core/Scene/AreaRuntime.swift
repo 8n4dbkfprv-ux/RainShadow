@@ -75,6 +75,9 @@ final class AreaRuntime {
         navigation.searchMap.surface(at: point)
     }
 
+    /// The area's script, if it names one.
+    var script: AreaScript? { AreaScriptCatalog.script(for: area) }
+
     /// Whether an actor standing here is behind covering scenery.
     func isCovered(_ point: CGPoint) -> Bool {
         area.isCovered(point)
