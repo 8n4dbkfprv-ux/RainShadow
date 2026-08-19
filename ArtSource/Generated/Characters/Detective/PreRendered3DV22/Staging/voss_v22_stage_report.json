@@ -1,6 +1,6 @@
 {
   "asset_version": "v16",
-  "built_at_utc": "2026-08-19T11:46:31.327798+00:00",
+  "built_at_utc": "2026-08-19T12:32:24.941071+00:00",
   "counts": {
     "compatibility_layers": 16,
     "primary_body_presentations": 176,
@@ -75,7 +75,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 103,
+      "clip_colours": 101,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -316,10 +316,10 @@
     "VossIdle.atlas/voss_standing_idle_se_01.png": "67ab5a4cd5897481c6763d2317bcd17a889bc04a5e0bb5f0562c8cfb790b23f2",
     "VossIdle.atlas/voss_standing_idle_se_02.png": "372d64955a8084e8443877d0708b935da0dc5cca2a4ff46c0b8ee3822abada69",
     "VossIdle.atlas/voss_standing_idle_se_03.png": "e8dfa02b7941e4e91a83593a26c9d262edda24e063ecb1c29aaa635c8876801a",
-    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "acaacc0771726fc717d7b09c165ccb7feec790081141bfaf65f996fd05f0e701",
-    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "13cb492e71210a2a6886673a16b898cdf514ca9eb792a19f95013acf02ce69bc",
-    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "aa80121c21d63826ef676f78a71297f5e793c429f856cfd8941cced98e8afbe3",
-    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "859ca9973a945feeeb83b76ca6b18fcfd8f55e0b7d4d46043e24ae376f947053",
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "298b9457a57868e03a8dd434e01e99f93cba987226468b95bd8f1f7b589e1002",
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "0797afcfdc78ab25781b0c6258b19231b5236cdf88ee5487e6fadb1a3c5a4e77",
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "4745a4dc200ec01064ff1b034197b0765126694c0e5d95a85f3efd6590bec2b2",
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "1a1ac78f23fa41b3ebb0d8912cd31d69dc179f08517f5d13f861c6789026005c",
     "VossIdle.atlas/voss_standing_idle_sw_00.png": "30418297f5fed731a57254f18c719cd4f26565b84fc882d2f69d1dec319a7751",
     "VossIdle.atlas/voss_standing_idle_sw_01.png": "cf4da18d5fc6b6ba95f0d499c57a066480017ff08ab7753415e75bbcd0db3bba",
     "VossIdle.atlas/voss_standing_idle_sw_02.png": "29dcd92e6e16907396b5a3c95bd4e975b2a2164dd8c8cf00cf3ba3f0ff6b36c6",
@@ -699,10 +699,6 @@
       ],
       [
         516,
-        1330
-      ],
-      [
-        516,
         1336
       ],
       [
@@ -740,6 +736,10 @@
       [
         523,
         1280
+      ],
+      [
+        525,
+        1307
       ],
       [
         525,
@@ -1140,7 +1140,7 @@
       "Frames/voss_idle_s_02_chroma_v22.png": "48d7d1f577c6cdde271fc2348ecd6ca3e3025dfc54e45b266c8a0413a0af830b",
       "Frames/voss_idle_s_03_chroma_v22.png": "0c7fb4571960876e01b4401992bb47cce309f470b038391f6727f4e81daedb8a",
       "Frames/voss_idle_ssw_00_chroma_v22.png": "cc489b2cfc27ef64a4bfe706bd354bf3b3c6e119204cece644ef8bb73bb6ae5f",
-      "Frames/voss_idle_ssw_01_chroma_v22.png": "f981ac860af3c0f9aa30edbe7411dfe4ccf6b6bdd01103ef484de94dfe50f73d",
+      "Frames/voss_idle_ssw_01_chroma_v22.png": "e9c1f849f7577e2e2259c9f36fea1a66841b4014f5ec3fe6a9ea7314b5e10f18",
       "Frames/voss_idle_ssw_02_chroma_v22.png": "729b96818fccbbb425cad74b248c7a5806d663e6c3991d8885c8f42b348e57e4",
       "Frames/voss_idle_ssw_03_chroma_v22.png": "e31b5e3dbb1de9b3366ba01980e19571f5e1f763b14bb6f1b942629755e99769",
       "Frames/voss_idle_sw_00_chroma_v22.png": "be3c2ea6345479acf37e0e269c16ea2af591c248fdcfccfe69ba93ada7d5f477",
@@ -1285,7 +1285,7 @@
       "trousers": 0.0599
     },
     "processed_hue_spread_s": 0.251,
-    "processed_hue_spread_ssw": 0.079,
+    "processed_hue_spread_ssw": 0.0845,
     "processed_hue_spread_sw": 0.085,
     "rear_forbidden_fraction": {
       "shirt": 0.0,
