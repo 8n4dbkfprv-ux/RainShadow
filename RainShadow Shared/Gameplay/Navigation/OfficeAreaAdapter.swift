@@ -7,12 +7,12 @@ import Foundation
 /// so the office becomes an area file without being retyped, and it goes away
 /// when `OfficeNavigationLayout` stops being a runtime type.
 ///
-/// Unlike the districts, the office is only *partly* expressible today. Its
-/// props are placed imperatively inside `DetectiveOfficeScene.buildScene()` —
-/// texture names are string literals at ~60 call sites, not a data structure —
-/// so `props` is exported empty and the scene keeps drawing them until Phase 5
-/// lifts them out. Everything the office *does* hold as data (bounds, entrance,
-/// obstacles, hotspots, containers, the entrance door) is exported in full.
+/// The whole room is expressible now. Its props used to be placed imperatively
+/// inside `DetectiveOfficeScene.buildScene()`, with texture names as string
+/// literals at some sixty call sites, and `props` was exported empty; they are
+/// read out of a runtime dump instead and the scene builds them from the record.
+/// Bounds, entrance, obstacles, hotspots, containers and the entrance door were
+/// always exported in full.
 ///
 /// All coordinates are exported in **world** space. `OfficeNavigationLayout`
 /// authors in plate-art space and converts through `OfficeInteriorScale.mapPoint`

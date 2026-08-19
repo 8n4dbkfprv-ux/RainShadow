@@ -379,17 +379,29 @@ struct AreaProp: Hashable, Codable, Sendable {
     var textureName: String
     var layer: AreaPropLayer
     var groundPoint: AreaPoint
-    /// Uniform scale, for props drawn at their texture's natural size.
-    var scale: CGFloat
+    /// Scale applied to the texture's natural size. Non-uniform because one
+    /// prop is: the office window is drawn 0.35 wide by 0.32 tall.
+    var scaleX: CGFloat
+    var scaleY: CGFloat
     var anchorX: CGFloat
     var anchorY: CGFloat
     var depthBias: CGFloat
-    /// Draw at an explicit world size instead of `setScale`.
+    /// Draw at an explicit world size instead of scaling the texture.
+    ///
+    /// The two are not interchangeable, and picking the wrong one is invisible
+    /// until something animates the prop. `SKSpriteNode.size` and `xScale`
+    /// *multiply*, so a sprite built at an absolute size has a scale of 1 — and
+    /// the office's entrance leaf is driven by `setScale` on every fall and
+    /// every restore, which would then render it at an eighth of itself. Prefer
+    /// scale; reach for a size only where the art's own pixel dimensions are
+    /// not the authoring unit, as in Sable Row's depth-sliced facades.
     var worldSize: AreaSize?
     var alpha: CGFloat
     var blend: AreaPropBlend
     /// Radians, counter-clockwise about the anchor.
     var rotation: CGFloat
+    /// Corner displacement applied at draw time, in unit texture space.
+    var warp: AreaPropWarp?
     /// Vertical strip width, in world units, for depth-sliced facades.
     var depthSliceWidth: CGFloat?
     /// Lot whose north kerb is the sort key for those strips.
@@ -401,6 +413,8 @@ struct AreaProp: Hashable, Codable, Sendable {
         layer: AreaPropLayer = .depthWorld,
         groundPoint: AreaPoint,
         scale: CGFloat = 1,
+        scaleX: CGFloat? = nil,
+        scaleY: CGFloat? = nil,
         anchorX: CGFloat = 0.5,
         anchorY: CGFloat,
         depthBias: CGFloat = 0,
@@ -408,6 +422,7 @@ struct AreaProp: Hashable, Codable, Sendable {
         alpha: CGFloat = 1,
         blend: AreaPropBlend = .alpha,
         rotation: CGFloat = 0,
+        warp: AreaPropWarp? = nil,
         depthSliceWidth: CGFloat? = nil,
         depthSortLot: String? = nil
     ) {
@@ -415,7 +430,8 @@ struct AreaProp: Hashable, Codable, Sendable {
         self.textureName = textureName
         self.layer = layer
         self.groundPoint = groundPoint
-        self.scale = scale
+        self.scaleX = scaleX ?? scale
+        self.scaleY = scaleY ?? scale
         self.anchorX = anchorX
         self.anchorY = anchorY
         self.depthBias = depthBias
@@ -423,13 +439,18 @@ struct AreaProp: Hashable, Codable, Sendable {
         self.alpha = alpha
         self.blend = blend
         self.rotation = rotation
+        self.warp = warp
         self.depthSliceWidth = depthSliceWidth
         self.depthSortLot = depthSortLot
     }
 
+    /// The uniform scale, when there is one. `nil` for a prop drawn stretched.
+    var scale: CGFloat? { scaleX == scaleY ? scaleX : nil }
+
     private enum CodingKeys: String, CodingKey {
-        case id, textureName, layer, groundPoint, scale, anchorX, anchorY
-        case depthBias, worldSize, alpha, blend, rotation
+        case id, textureName, layer, groundPoint, scale, scaleX, scaleY
+        case anchorX, anchorY
+        case depthBias, worldSize, alpha, blend, rotation, warp
         case depthSliceWidth, depthSortLot
     }
 
@@ -439,7 +460,12 @@ struct AreaProp: Hashable, Codable, Sendable {
         id = try c.decodeIfPresent(String.self, forKey: .id) ?? textureName
         layer = try c.decodeIfPresent(AreaPropLayer.self, forKey: .layer) ?? .depthWorld
         groundPoint = try c.decode(AreaPoint.self, forKey: .groundPoint)
-        scale = try c.decodeIfPresent(CGFloat.self, forKey: .scale) ?? 1
+        // `scale` is the shorthand both axes fall back to, so the overwhelming
+        // majority of props — every one drawn square — stay a single number in
+        // the file rather than the same number written twice.
+        let uniform = try c.decodeIfPresent(CGFloat.self, forKey: .scale) ?? 1
+        scaleX = try c.decodeIfPresent(CGFloat.self, forKey: .scaleX) ?? uniform
+        scaleY = try c.decodeIfPresent(CGFloat.self, forKey: .scaleY) ?? uniform
         anchorX = try c.decodeIfPresent(CGFloat.self, forKey: .anchorX) ?? 0.5
         anchorY = try c.decode(CGFloat.self, forKey: .anchorY)
         depthBias = try c.decodeIfPresent(CGFloat.self, forKey: .depthBias) ?? 0
@@ -447,8 +473,70 @@ struct AreaProp: Hashable, Codable, Sendable {
         alpha = try c.decodeIfPresent(CGFloat.self, forKey: .alpha) ?? 1
         blend = try c.decodeIfPresent(AreaPropBlend.self, forKey: .blend) ?? .alpha
         rotation = try c.decodeIfPresent(CGFloat.self, forKey: .rotation) ?? 0
+        warp = try c.decodeIfPresent(AreaPropWarp.self, forKey: .warp)
         depthSliceWidth = try c.decodeIfPresent(CGFloat.self, forKey: .depthSliceWidth)
         depthSortLot = try c.decodeIfPresent(String.self, forKey: .depthSortLot)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(id, forKey: .id)
+        try c.encode(textureName, forKey: .textureName)
+        try c.encode(layer, forKey: .layer)
+        try c.encode(groundPoint, forKey: .groundPoint)
+        if let scale {
+            try c.encode(scale, forKey: .scale)
+        } else {
+            try c.encode(scaleX, forKey: .scaleX)
+            try c.encode(scaleY, forKey: .scaleY)
+        }
+        try c.encode(anchorX, forKey: .anchorX)
+        try c.encode(anchorY, forKey: .anchorY)
+        try c.encode(depthBias, forKey: .depthBias)
+        try c.encodeIfPresent(worldSize, forKey: .worldSize)
+        try c.encode(alpha, forKey: .alpha)
+        try c.encode(blend, forKey: .blend)
+        try c.encode(rotation, forKey: .rotation)
+        try c.encodeIfPresent(warp, forKey: .warp)
+        try c.encodeIfPresent(depthSliceWidth, forKey: .depthSliceWidth)
+        try c.encodeIfPresent(depthSortLot, forKey: .depthSortLot)
+    }
+}
+
+/// A four-corner displacement applied to a prop as it is drawn, in unit texture
+/// space with the origin bottom-left.
+///
+/// Not an Infinity Engine concept, and deliberately so. BG paints its
+/// perspective into the tileset, so a window on a receding wall is simply drawn
+/// receding. RainShadow's props are separate sprites over a painted plate, which
+/// means a prop on a wall that leans has to be leaned to match — and rotating
+/// the whole node instead tips the jambs and makes the window look pasted on.
+///
+/// One prop in the shipped rooms uses this. It is a field rather than a special
+/// case in the office's code because a prop's geometry belongs in the prop's
+/// record, and because the next painted wall will want it too.
+struct AreaPropWarp: Hashable, Codable, Sendable {
+    var bottomLeft: AreaPoint
+    var bottomRight: AreaPoint
+    var topLeft: AreaPoint
+    var topRight: AreaPoint
+
+    init(
+        bottomLeft: AreaPoint,
+        bottomRight: AreaPoint,
+        topLeft: AreaPoint,
+        topRight: AreaPoint
+    ) {
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+        self.topLeft = topLeft
+        self.topRight = topRight
+    }
+
+    /// The corners in SpriteKit's own order for a 1×1 destination grid: bottom
+    /// row first, left to right.
+    var destinationCorners: [AreaPoint] {
+        [bottomLeft, bottomRight, topLeft, topRight]
     }
 }
 

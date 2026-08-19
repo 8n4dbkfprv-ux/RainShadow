@@ -72,15 +72,60 @@ struct AreaPropTests {
         }
     }
 
-    /// `SKSpriteNode.size` already includes the node's scale, so a prop's world
-    /// size is stored directly. Re-applying `scale` on top is the error that
-    /// made a bookshelf nine world units wide.
-    @Test func propsCarryTheirRenderedWorldSizeRatherThanAScaleFactor() throws {
+    /// The office authors a prop as a *scale* of its art, which is what its
+    /// placement code did — and the two are not interchangeable.
+    ///
+    /// `SKSpriteNode.size` and `xScale` multiply, so a sprite built at an
+    /// absolute size has a scale of 1. Anything that later animates its scale
+    /// then renders it at that scale outright instead of relative to how it was
+    /// placed, and the entrance leaf is driven by `setScale` on every fall and
+    /// every restore: rebuilt from a size, it stands back up at an eighth of
+    /// itself. Storing the rendered size is not a tidier way to say the same
+    /// thing, and the difference is invisible in a still frame.
+    @Test func officePropsCarryTheScaleTheyWereBuiltWithRatherThanASize() throws {
         for prop in try Self.officeProps() {
-            let size = try #require(prop.worldSize, "\(prop.id) has no world size")
-            #expect(size.w > 0 && size.h > 0, "\(prop.id) is degenerate")
-            #expect(prop.scale == 1, "\(prop.id) carries both a size and a scale")
+            #expect(prop.worldSize == nil, "\(prop.id) carries an absolute size")
+            #expect(prop.scaleX > 0 && prop.scaleY > 0, "\(prop.id) is degenerate")
         }
+    }
+
+    /// The window is the room's only stretched prop and its only warped one.
+    ///
+    /// Both facts are about the same thing: it sits on the NW wall plane, so it
+    /// is drawn narrower than it is tall and its rails have to rise with the
+    /// painted trim while the jambs stay upright. Rotating the node instead
+    /// leans the jambs and the window reads as pasted on.
+    @Test func onlyTheWindowIsStretchedAndWarped() throws {
+        let props = try Self.officeProps()
+        #expect(props.filter { $0.warp != nil }.map(\.id) == ["office_window"])
+        #expect(props.filter { $0.scale == nil }.map(\.id) == ["office_window"])
+
+        let window = try #require(props.first { $0.id == "office_window" })
+        let warp = try #require(window.warp)
+        #expect(warp.bottomLeft.x == 0 && warp.topLeft.x == 0, "left jamb is not vertical")
+        #expect(warp.bottomRight.x == 1 && warp.topRight.x == 1, "right jamb is not vertical")
+        #expect(warp.bottomRight.y > warp.bottomLeft.y, "sill does not rise")
+        #expect(warp.topRight.y > warp.topLeft.y, "head does not rise")
+    }
+
+    /// The desk chair is a world prop, standing where the empty seat is.
+    ///
+    /// Inherited from `ActorLocomotionPacingTests`, which asserted it as source
+    /// text while the chair was placed in code. It is load-bearing: Voss's
+    /// seated and transition atlases are chairless, so this prop is the only
+    /// chair in the room and has to be drawn in every actor state. A record that
+    /// dropped it would empty the desk the moment he stood up.
+    @Test func theDeskChairIsAWorldPropStandingWhereTheSeatIs() throws {
+        let props = try Self.officeProps()
+        let chair = try #require(props.first { $0.id == "office_desk_chair" })
+        #expect(chair.layer == .depthWorld, "the chair must sort against actors")
+
+        let seat = OfficeNavigationLayout.emptyDeskChairWorldPosition
+        #expect(
+            abs(chair.groundPoint.x - seat.x) < 0.01
+                && abs(chair.groundPoint.y - seat.y) < 0.01,
+            "chair at \(chair.groundPoint), seat at \(seat)"
+        )
     }
 
     /// Every prop must sit somewhere in the area it belongs to, or it is
@@ -100,7 +145,10 @@ struct AreaPropTests {
         let sableRow = try AreaCatalogLoader.load(HarborpointAreas.sableRow)
         #expect(!sableRow.props.isEmpty)
         #expect(
-            sableRow.props.contains { $0.worldSize == nil && $0.scale != 1 },
+            sableRow.props.contains { prop in
+                guard prop.worldSize == nil, let scale = prop.scale else { return false }
+                return scale != 1
+            },
             "no district prop uses the scale form any more"
         )
         #expect(sableRow.props.allSatisfy { $0.layer == .depthWorld })

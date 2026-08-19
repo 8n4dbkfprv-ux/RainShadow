@@ -826,7 +826,7 @@ final class CityDistrictScene: BaseGameScene {
     /// record should know — Wharf Ladder has 92 props and none of them sliced;
     /// Sable Row has two.
     private func addModularDistrictSprites() {
-        for prop in area.props {
+        for (order, prop) in area.props.enumerated() {
             if let worldSize = prop.worldSize,
                let sliceWidth = prop.depthSliceWidth,
                let lotName = prop.depthSortLot,
@@ -843,7 +843,7 @@ final class CityDistrictScene: BaseGameScene {
                 )
                 continue
             }
-            makeProp(prop)
+            makeProp(prop, order: order)
         }
     }
 

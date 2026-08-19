@@ -85,15 +85,27 @@ struct HotspotHoverHighlightTests {
 
     @Test func deskRegistersEveryDeskLayerButNoLooseDeskObjects() throws {
         let source = try officeSceneSource()
-        #expect(source.contains("registerHoverSprite(deskBare, for: \"office.desk\")"))
-        #expect(source.contains("registerHoverSprite(deskActorOccluder, for: \"office.desk\")"))
-        #expect(source.contains("registerHoverSprite(deskFrontOccluder, for: \"office.desk\")"))
-        #expect(source.contains("registerHoverSprite(deskTopOccluder, for: \"office.desk\")"))
-        #expect(source.contains("registerHoverSprite(window, for: \"office.window\")"))
-        #expect(source.contains("registerHoverSprite(officeDoor, for: \"office.door\")"))
+        // The office binds hover art from a table now rather than at each of the
+        // sixty placement sites it used to, so this reads the table. The
+        // invariant is unchanged and is the reason the table exists: the desk is
+        // four separate sprites and they have to light as one, or hovering it
+        // highlights the room in pieces.
+        for deskLayer in [
+            "office_desk_bare",
+            "office_desk_actor_occluder",
+            "office_desk_front_occluder_v04",
+            "office_desk_top_occluder"
+        ] {
+            #expect(
+                source.contains("(\"\(deskLayer)\", \"office.desk\")"),
+                "desk layer no longer hovers with the desk: \(deskLayer)"
+            )
+        }
+        #expect(source.contains("(\"office_window\", \"office.window\")"))
+        #expect(source.contains("(\"office_door_leaf\", \"office.door\")"))
 
         for line in source.components(separatedBy: .newlines)
-        where line.contains("registerHoverSprite") && line.contains("office.desk") {
+        where line.contains("\"office.desk\")") {
             for looseObject in ["chair", "papers", "files", "lamp", "phone", "mug", "ashtray"] {
                 #expect(!line.contains(looseObject), "Loose object joined desk hover: \(line)")
             }

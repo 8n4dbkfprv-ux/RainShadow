@@ -131,9 +131,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     override func buildScene() {
         buildAmbients(from: area)
 
-        let standardPropScale = OfficeInteriorScale.standardPropDisplayScale
-        let smallPropScale = OfficeInteriorScale.smallPropDisplayScale
-
         // Stage 1+: one pre-rendered suite plate replaces shell + partition overlays.
         // Keep the plate intact — do not punch door columns or strip baked artwork.
         let usingSuitePlate: Bool
@@ -158,11 +155,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             usingSuitePlate = false
         }
 
-        addOfficeAtmosphere()
-        addNoirStoryClutter()
-        addWindowHighlightProp()
-        addWindowRain()
-        addRecordsWallArt()
+        addShellVignette()
         // Partition strips / cutaway mask / foreground void are obsolete in
         // production when the suite plate is present. Opt back in only for
         // legacy A/B: RAINSHADOW_LEGACY_PARTITION=1
@@ -171,192 +164,19 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             addPartitionWall()
             addForegroundCutaway()
         }
-        addInternalOfficeDoor()
         addScaleReferenceStandsIfRequested()
         addArchitectureDebugOverlayIfRequested()
 
-        // Radiator is its own prop — never bind it to the office.window hover texture.
-        addRearFixture(
-            named: "office_radiator",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.radiator),
-            scale: OfficeInteriorScale.radiatorDisplayScale
-        )
-
-        // MARK: Records wall
-        addDepthProp(
-            named: "office_bookshelf",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.bookshelf),
-            scale: OfficeInteriorScale.bookshelfDisplayScale
-        )
-        addFloorContactShadow(
-            named: "office_cabinet_floor_shadow",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
-            scale: OfficeInteriorScale.filingCabinetDisplayScale
-        )
-        // Open-drawer cabinet is the interactive files hotspot; closed twin beside it.
-        addDepthProp(
-            named: "office_filing_cabinet_open",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinet),
-            scale: OfficeInteriorScale.filingCabinetDisplayScale
-        )
-        // Closed twin beside the open-drawer cabinet (distinct art, same scale).
-        addDepthProp(
-            named: "office_filing_cabinet",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.filingCabinetB),
-            scale: OfficeInteriorScale.filingCabinetDisplayScale
-        )
-        addDepthProp(
-            named: "office_safe",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.safe),
-            scale: smallPropScale
-        )
-        addDepthProp(
-            named: "office_archive_box_b",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxOnCabinet),
-            scale: smallPropScale * 0.9,
-            bias: 40
-        )
-        addDepthProp(
-            named: "office_archive_stack",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveStackOnCabinet),
-            scale: OfficeInteriorScale.archiveStackDisplayScale,
-            bias: 45
-        )
-        addDepthProp(
-            named: "office_archive_box_a",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.archiveBoxA),
-            scale: smallPropScale
-        )
-
-        // The suite plate owns the integrated jamb/reveal/threshold. The leaf
-        // and its dark edge remain independent so the fall can carry real depth.
-        officeDoorThickness = addRearFixture(
-            named: "office_door_leaf_thickness",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
-            scaleX: OfficeNavigationLayout.Architecture.entranceLeafDisplayScaleX,
-            scaleY: OfficeNavigationLayout.Architecture.entranceLeafDisplayScaleY,
-            anchorY: OfficeNavigationLayout.Architecture.entranceLeafAnchorY
-        )
-        officeDoorThickness?.alpha = 0
-        officeDoor = addRearFixture(
-            named: "office_door_leaf",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.doorLeaf),
-            scaleX: OfficeNavigationLayout.Architecture.entranceLeafDisplayScaleX,
-            scaleY: OfficeNavigationLayout.Architecture.entranceLeafDisplayScaleY,
-            anchorY: OfficeNavigationLayout.Architecture.entranceLeafAnchorY
-        )
-        if let officeDoor {
-            registerHoverSprite(officeDoor, for: "office.door")
-        }
-
-        // MARK: Entrance / waiting nook (rack + two chairs + table)
-        let coatRack = addDepthProp(
-            named: "office_coat_rack",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.coatRack),
-            scale: OfficeInteriorScale.coatRackDisplayScale
-        )
-        coatRack?.alpha = 0.78
-        addDepthProp(
-            named: "office_umbrella_stand",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.umbrellaStand),
-            scale: smallPropScale
-        )
-        addDepthProp(
-            named: "office_waiting_chair_a",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingChairA),
-            scale: OfficeInteriorScale.waitingChairDisplayScale
-        )
-        addDepthProp(
-            named: "office_waiting_table",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingTable),
-            scale: OfficeInteriorScale.waitingTableDisplayScale
-        )
-        addDepthProp(
-            named: "office_waiting_chair_b",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingChairB),
-            scale: OfficeInteriorScale.waitingChairBDisplayScale
-        )
-        addDepthProp(
-            named: "office_newspaper",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.newspaper),
-            scale: OfficeInteriorScale.pocketPropDisplayScale,
-            bias: -20
-        )
-        addDepthProp(
-            named: "office_waiting_ashtray",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.waitingAshtray),
-            scale: OfficeInteriorScale.pocketPropDisplayScale,
-            bias: -15
-        )
-
-        // MARK: Personal corner (west wall, own group near desk)
-        addDepthProp(
-            named: "office_personal_sideboard",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalSideboard),
-            scale: OfficeInteriorScale.standardPropDisplayScale * 0.92,
-            bias: -10
-        )
-        addDepthProp(
-            named: "office_hidden_bottle",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalBottle),
-            scale: OfficeInteriorScale.hiddenBottleDisplayScale,
-            bias: -20
-        )
-        addDepthProp(
-            named: "office_personal_glass",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalGlass),
-            scale: OfficeInteriorScale.pocketPropDisplayScale,
-            bias: -25
-        )
-        addDepthProp(
-            named: "office_personal_fan",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.personalFan),
-            scale: OfficeInteriorScale.standingFanDisplayScale,
-            bias: -5
-        )
-        // MARK: Desk cluster
-        // The world prop is the sole chair owner. Voss's seated and transition
-        // atlases are chairless, so this remains visible in every actor state.
-        addDepthProp(
-            named: "office_desk_chair",
-            at: OfficeNavigationLayout.emptyDeskChairWorldPosition,
-            scale: OfficeInteriorScale.seatingPropDisplayScale,
-            bias: -40
-        )
-        addWornRug()
-        addDepthProp(
-            named: "office_visitor_armchair",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchair),
-            scale: OfficeInteriorScale.visitorArmchairDisplayScale,
-            bias: OfficeNavigationLayout.DeskDepth.visitorChairBias
-        )
-        addDepthProp(
-            named: "office_visitor_armchair",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.visitorArmchairB),
-            scale: OfficeInteriorScale.visitorArmchairDisplayScale * 0.96,
-            bias: OfficeNavigationLayout.DeskDepth.visitorChairBias
-        )
-        addDepthProp(
-            named: "office_wastebasket",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wastebasket),
-            scale: OfficeInteriorScale.wastebasketDisplayScale
-        )
-        let deskPosition = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
-        let deskScale = OfficeInteriorScale.deskDisplayScale
-        addFloorContactShadow(
-            named: "office_desk_floor_shadow",
-            at: deskPosition,
-            scale: deskScale * 1.15
-        )
-        if let deskBare = addDepthProp(
-            named: "office_desk_bare",
-            at: deskPosition,
-            scale: deskScale,
-            bias: -500
-        ) {
-            registerHoverSprite(deskBare, for: "office.desk")
-        }
-        addDeskItems(at: deskPosition, scale: deskScale)
+        // Every piece of scenery in the room, in the order the record lists it.
+        //
+        // That order is not decoration: within a flat layer the props would
+        // otherwise share one zPosition, and `buildProps` separates them by
+        // their position in the record so that order is what actually gets
+        // drawn. The record was baked from the scene graph, so it is the order
+        // the sixty imperative calls produced.
+        let props = buildProps(from: area)
+        bindPlacedProps(props)
+        addWindowRain()
 
         detective.position = arrivalPoint
         // Warm desk-lamp grade (actors default here; re-assert for scene clarity).
@@ -374,38 +194,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         client.dialogueOwnerID = EmptyCoatCaseIntroduction.lilaOwnerID
         client.dialogueGraphID = EmptyCoatDialogueKeys.graphID
         depthWorldRoot.addChild(client)
-
-        // Occluder biases are refreshed each frame in `updateDetectiveDepth`
-        // (behind the rear-view seated body; above desk for standing walk-past).
-        deskActorOccluder = addDepthProp(
-            named: "office_desk_actor_occluder",
-            at: deskPosition,
-            scale: deskScale,
-            bias: -60
-        )
-        if let deskActorOccluder {
-            registerHoverSprite(deskActorOccluder, for: "office.desk")
-        }
-
-        deskFrontOccluder = addDepthProp(
-            named: "office_desk_front_occluder_v04",
-            at: deskPosition,
-            scale: deskScale,
-            bias: -20
-        )
-        if let deskFrontOccluder {
-            registerHoverSprite(deskFrontOccluder, for: "office.desk")
-        }
-
-        deskTopOccluder = addDepthProp(
-            named: "office_desk_top_occluder",
-            at: deskPosition,
-            scale: deskScale,
-            bias: OfficeNavigationLayout.DeskDepth.topOccluderBias
-        )
-        if let deskTopOccluder {
-            registerHoverSprite(deskTopOccluder, for: "office.desk")
-        }
 
         addFogOfWar()
 
@@ -2142,6 +1930,55 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
     }
 
+    /// Hook up the handful of placed props the scene still has to drive.
+    ///
+    /// Everything else is drawn and forgotten, which is the point of moving the
+    /// room into a record. What survives here needs a reference because it
+    /// *changes*: the entrance leaf falls and stands back up, the desk occluders
+    /// re-sort against Voss every frame, and the desk items lift above the
+    /// writing surface the moment he sits down.
+    private func bindPlacedProps(_ props: [String: SKSpriteNode]) {
+        officeDoor = props["office_door_leaf"]
+        officeDoorThickness = props["office_door_leaf_thickness"]
+        internalOfficeDoorLeaf = props["office_internal_door_leaf"]
+        deskActorOccluder = props["office_desk_actor_occluder"]
+        deskFrontOccluder = props["office_desk_front_occluder_v04"]
+        deskTopOccluder = props["office_desk_top_occluder"]
+        deskItemNodes = Self.deskItemPropIDs.compactMap { props[$0] }
+
+        for binding in Self.hoverBindings {
+            guard let sprite = props[binding.prop] else { continue }
+            registerHoverSprite(sprite, for: binding.hotspot)
+        }
+    }
+
+    /// Desk-native props that `updateDetectiveDepth` lifts above the writing
+    /// surface while Voss is seated, so his coat stays under the wood but the
+    /// lamp and papers do not.
+    private static let deskItemPropIDs = [
+        "office_desk_lamp",
+        "office_desk_phone",
+        "office_desk_typewriter",
+        "office_desk_notebook",
+        "office_desk_papers",
+        "office_desk_ashtray",
+        "office_desk_files"
+    ]
+
+    /// Props that swap to their `_hover` artwork when a hotspot is under the
+    /// cursor. Four sprites share `office.desk` and all of them have to light
+    /// together, or the desk highlights in pieces.
+    private static let hoverBindings: [(prop: String, hotspot: String)] = [
+        ("office_window", "office.window"),
+        ("office_door_leaf", "office.door"),
+        ("office_desk_bare", "office.desk"),
+        ("office_desk_phone", "office.phone"),
+        ("office_desk_files", "office.files"),
+        ("office_desk_actor_occluder", "office.desk"),
+        ("office_desk_front_occluder_v04", "office.desk"),
+        ("office_desk_top_occluder", "office.desk")
+    ]
+
     private func addWindowRain() {
         let crop = SKCropNode()
         let maskRect = OfficeInteriorScale.mapRect(OfficeNavigationLayout.AuthoredPlacement.windowRainMask)
@@ -2160,63 +1997,15 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         )
         rain.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowRainEmitter)
         crop.addChild(rain)
+        // Rain runs down the glass, so it has to draw over the window's own art.
+        // The old code got that by adding it straight after the window and
+        // relying on child order, which the view does not honour: it runs with
+        // `ignoresSiblingOrder = true`, so two nodes at one zPosition draw in
+        // whichever order batches best. Half an ordering step above the window
+        // says it in the only terms SpriteKit reads.
+        let window = rearFixtureRoot.children.first { $0.name == "office_window" }
+        crop.zPosition = (window?.zPosition ?? 0) + Self.propOrderStep * 0.5
         rearFixtureRoot.addChild(crop)
-    }
-
-    /// Window insert only — recess architecture is baked into the shell plate.
-    private func addWindowHighlightProp() {
-        guard let texture = GameArt.standaloneTexture(named: "office_window") else { return }
-        let window = SKSpriteNode(texture: texture)
-        window.name = "office_window"
-        window.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.window)
-        window.zRotation = OfficeNavigationLayout.AuthoredPlacement.windowRotation
-        window.xScale = OfficeInteriorScale.windowDisplayScale
-        window.yScale = OfficeInteriorScale.windowVerticalDisplayScale
-        window.warpGeometry = uprightWindowWarp
-        window.subdivisionLevels = 1
-        window.texture?.filteringMode = .linear
-        rearFixtureRoot.addChild(window)
-        registerHoverSprite(window, for: "office.window")
-    }
-
-    /// A compact investigative wall: case board is the hero, with supporting
-    /// map, surveillance photographs, and Voss's framed licence. The authored
-    /// anchors keep the complete group above the records furniture.
-    private func addRecordsWallArt() {
-        let wallScale = OfficeInteriorScale.standardPropDisplayScale * 0.9
-        let wallProps: [(name: String, position: CGPoint, scale: CGFloat)] = [
-            (
-                "office_wall_photos",
-                OfficeNavigationLayout.AuthoredPlacement.wallPhotos,
-                wallScale * 0.8
-            ),
-            (
-                "office_case_board",
-                OfficeNavigationLayout.AuthoredPlacement.caseBoard,
-                wallScale * 1.14
-            ),
-            (
-                "office_wall_city_map",
-                OfficeNavigationLayout.AuthoredPlacement.wallCityMap,
-                wallScale * 0.88
-            ),
-            (
-                "office_framed_licence",
-                OfficeNavigationLayout.AuthoredPlacement.framedLicence,
-                wallScale * 0.78
-            )
-        ]
-        for prop in wallProps {
-            let name = prop.name
-            guard let texture = GameArt.texture(named: name) else { continue }
-            let node = SKSpriteNode(texture: texture)
-            node.name = name
-            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            node.position = OfficeInteriorScale.mapPoint(prop.position)
-            node.setScale(prop.scale)
-            node.texture?.filteringMode = .linear
-            rearFixtureRoot.addChild(node)
-        }
     }
 
     /// Full-height authored partition plate, sliced for depth sort.
@@ -2456,185 +2245,26 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// texture remains at plate scale so the hinge jamb stays flush with the shell.
     private var internalOfficeDoorLeaf: SKSpriteNode?
 
-    private func addInternalOfficeDoor() {
-        guard let door = addDepthProp(
-            named: "office_internal_door_leaf",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.internalDoorLeaf),
-            scale: OfficeNavigationLayout.Architecture.internalLeafDisplayScale
-        ) else { return }
-        door.name = "office_internal_door_leaf"
-        internalOfficeDoorLeaf = door
-    }
-
-    /// Floor wear, warm lamp key, cool blind-striped window fill, hallway slit, vignette.
-    private func addOfficeAtmosphere() {
-        if let wear = GameArt.texture(named: "office_floor_wear_decal") {
-            let node = SKSpriteNode(texture: wear)
-            node.name = "office_floor_wear_decal"
-            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            node.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorWear)
-            node.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.35)
-            node.alpha = 0.55
-            node.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(node)
-        }
-
-        if let spillTex = GameArt.texture(named: "office_light_window_spill") {
-            let spill = SKSpriteNode(texture: spillTex)
-            spill.name = "office_light_window_spill"
-            spill.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spill.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowSpill)
-            spill.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.1)
-            spill.alpha = 0.32
-            spill.blendMode = .add
-            spill.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(spill)
-        }
-
-        if let stripesTex = GameArt.texture(named: "office_light_blind_stripes") {
-            let stripes = SKSpriteNode(texture: stripesTex)
-            stripes.name = "office_light_blind_stripes"
-            stripes.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            stripes.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.blindStripes)
-            // Rake cool bands from the window across the rug and desk cluster.
-            stripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.28)
-            stripes.alpha = 0.68
-            stripes.blendMode = .add
-            stripes.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(stripes)
-
-            // Soft wall-face stripes, dimmer than the floor cast.
-            let wallStripes = SKSpriteNode(texture: stripesTex)
-            wallStripes.name = "office_light_blind_stripes_wall"
-            wallStripes.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            wallStripes.position = OfficeInteriorScale.mapPoint(
-                CGPoint(x: OfficeNavigationLayout.AuthoredPlacement.window.x + 40,
-                        y: OfficeNavigationLayout.AuthoredPlacement.window.y - 180)
-            )
-            wallStripes.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.72)
-            wallStripes.alpha = 0.36
-            wallStripes.blendMode = .add
-            wallStripes.zRotation = -0.18
-            wallStripes.texture?.filteringMode = .linear
-            rearFixtureRoot.addChild(wallStripes)
-        }
-
-        if let fanTex = GameArt.texture(named: "office_shadow_ceiling_fan") {
-            let fan = SKSpriteNode(texture: fanTex)
-            fan.name = "office_shadow_ceiling_fan"
-            fan.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            fan.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.deskEnsemble)
-            fan.setScale(OfficeInteriorScale.floorDecalDisplayScale * 1.4)
-            fan.alpha = 0.28
-            fan.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(fan)
-            fan.run(.repeatForever(.rotate(byAngle: .pi * 2, duration: 12.0)))
-        }
-
-        if let hallwayTex = GameArt.texture(named: "office_light_hallway") {
-            let hallway = SKSpriteNode(texture: hallwayTex)
-            hallway.name = "office_light_hallway"
-            hallway.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            hallway.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.hallwayLight)
-            hallway.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.85)
-            hallway.alpha = 0.42
-            hallway.blendMode = .add
-            hallway.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(hallway)
-        }
-
-        if let poolTex = GameArt.texture(named: "office_light_lamp_pool") {
-            let pool = SKSpriteNode(texture: poolTex)
-            pool.name = "office_light_lamp_pool"
-            pool.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            pool.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.lampPool)
-            pool.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.95)
-            pool.alpha = 0.66
-            pool.blendMode = .add
-            pool.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(pool)
-        } else {
-            let pool = SKShapeNode(ellipseOf: CGSize(
-                width: 1_050 * OfficeInteriorScale.environment,
-                height: 570 * OfficeInteriorScale.environment
-            ))
-            pool.fillColor = SKColor(red: 0.72, green: 0.38, blue: 0.12, alpha: 0.08)
-            pool.strokeColor = .clear
-            pool.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.lampPool)
-            pool.blendMode = .add
-            floorEffectRoot.addChild(pool)
-        }
-
-        if let vignetteTex = GameArt.texture(named: "office_shadow_vignette") {
-            let vignette = SKSpriteNode(texture: vignetteTex, size: OfficeInteriorScale.scaledArtSize)
-            vignette.name = "office_shadow_vignette"
-            vignette.anchorPoint = .zero
-            vignette.position = OfficeInteriorScale.shellOrigin
-            vignette.alpha = 0.9
-            vignette.blendMode = .alpha
-            vignette.zPosition = 1
-            vignette.texture?.filteringMode = .linear
-            // Sit above the shell plate but under floor props / actors.
-            backgroundRoot.addChild(vignette)
-        }
-    }
-
-    /// Small, readable clues of a working detective's office: a damp runner at
-    /// the public entrance, discarded notes by the wastebasket, and a tied case
-    /// packet beside the records run. These stay non-blocking floor dressing.
-    private func addNoirStoryClutter() {
-        if let texture = GameArt.texture(named: "office_entrance_runner") {
-            let runner = SKSpriteNode(texture: texture)
-            runner.name = "office_entrance_runner"
-            runner.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            runner.position = OfficeInteriorScale.mapPoint(
-                OfficeNavigationLayout.AuthoredPlacement.entranceRunner
-            )
-            runner.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.46)
-            runner.alpha = 0.72
-            runner.texture?.filteringMode = .linear
-            floorEffectRoot.addChild(runner)
-        }
-
-        addDepthProp(
-            named: "office_floor_trash_a",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashA),
-            scale: OfficeInteriorScale.clutterDisplayScale * 0.72,
-            bias: -80
-        )
-        addDepthProp(
-            named: "office_floor_trash_b",
-            at: OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.floorTrashB),
-            scale: OfficeInteriorScale.clutterDisplayScale * 0.82,
-            bias: -55
-        )
-    }
-
-    private func addFloorContactShadow(named textureName: String, at position: CGPoint, scale: CGFloat) {
-        guard let texture = GameArt.texture(named: textureName) else { return }
-        let shadow = SKSpriteNode(texture: texture)
-        shadow.name = textureName
-        shadow.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        shadow.position = position
-        shadow.setScale(scale)
-        shadow.alpha = 0.55
-        shadow.texture?.filteringMode = .linear
-        floorEffectRoot.addChild(shadow)
-    }
-
-    /// One large burgundy rug anchoring the full desk + chair island.
-    private func addWornRug() {
-        guard let texture = GameArt.texture(named: "office_worn_rug_burgundy")
-            ?? GameArt.texture(named: "office_worn_rug") else { return }
-        let rug = SKSpriteNode(texture: texture)
-        rug.name = "office_worn_rug"
-        rug.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        rug.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.wornRug)
-        // Keep in step with office_layout_plan.RUG_FACTOR / redesign preview.
-        // 0.62 keeps the burgundy island west of the partition doorway.
-        rug.setScale(OfficeInteriorScale.floorDecalDisplayScale * 0.62)
-        rug.texture?.filteringMode = .linear
-        floorEffectRoot.addChild(rug)
+    /// The one thing over the plate that is not a prop.
+    ///
+    /// It is a full-plate darkening pass at the plate's own origin and size,
+    /// sitting above the background and below everything else — part of how the
+    /// room is lit rather than something standing in it. A `.WED` would carry
+    /// this as an overlay layer, not as a tiled object, and the same split is
+    /// why it stays here while the other fifty-five pieces moved into the
+    /// record.
+    private func addShellVignette() {
+        guard let vignetteTex = GameArt.texture(named: "office_shadow_vignette") else { return }
+        let vignette = SKSpriteNode(texture: vignetteTex, size: OfficeInteriorScale.scaledArtSize)
+        vignette.name = "office_shadow_vignette"
+        vignette.anchorPoint = .zero
+        vignette.position = OfficeInteriorScale.shellOrigin
+        vignette.alpha = 0.9
+        vignette.blendMode = .alpha
+        vignette.zPosition = 1
+        vignette.texture?.filteringMode = .linear
+        // Above the shell plate, under floor props and actors.
+        backgroundRoot.addChild(vignette)
     }
 
     private func addFogOfWar() {
@@ -2650,44 +2280,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
         weatherRoot.addChild(fog)
         fogOfWar = fog
-    }
-
-    @discardableResult
-    private func addRearFixture(
-        named textureName: String,
-        at position: CGPoint,
-        scale: CGFloat,
-        anchorX: CGFloat = 0.5,
-        anchorY: CGFloat = 0.04
-    ) -> SKSpriteNode? {
-        addRearFixture(
-            named: textureName,
-            at: position,
-            scaleX: scale,
-            scaleY: scale,
-            anchorX: anchorX,
-            anchorY: anchorY
-        )
-    }
-
-    private func addRearFixture(
-        named textureName: String,
-        at position: CGPoint,
-        scaleX: CGFloat,
-        scaleY: CGFloat,
-        anchorX: CGFloat = 0.5,
-        anchorY: CGFloat = 0.04
-    ) -> SKSpriteNode? {
-        guard let texture = GameArt.texture(named: textureName) else { return nil }
-        let fixture = SKSpriteNode(texture: texture)
-        fixture.name = textureName
-        fixture.anchorPoint = CGPoint(x: anchorX, y: anchorY)
-        fixture.position = position
-        fixture.xScale = scaleX
-        fixture.yScale = scaleY
-        fixture.texture?.filteringMode = .linear
-        rearFixtureRoot.addChild(fixture)
-        return fixture
     }
 
     private func doorWarp(_ destination: [SIMD2<Float>]) -> SKWarpGeometryGrid {
@@ -3083,66 +2675,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             .removeFromParent()
         ]))
         officeDoorFallShadow = nil
-    }
-
-    @discardableResult
-    private func addDepthProp(
-        named textureName: String,
-        at position: CGPoint,
-        scale: CGFloat = 1,
-        bias: CGFloat = 0
-    ) -> SKSpriteNode? {
-        guard let texture = GameArt.texture(named: textureName) else { return nil }
-        let prop = SKSpriteNode(texture: texture)
-        prop.name = textureName
-        prop.anchorPoint = CGPoint(x: 0.5, y: 0.04)
-        prop.position = position
-        prop.setScale(scale)
-        prop.texture?.filteringMode = .linear
-        updateDepth(of: prop, bias: bias)
-        depthWorldRoot.addChild(prop)
-        return prop
-    }
-
-    /// Desk items are independent sprites aligned to the 932x780 bare-desk canvas.
-    /// Only items with their own hotspot are highlight-registered; desk selection never
-    /// leaks into loose props. Native content sizes reproduce the tiny BG-era room scale.
-    private func addDeskItems(at deskPosition: CGPoint, scale: CGFloat) {
-        // Canvas centers for the NE-facing V4 top plane (visitor face toward door).
-        // Working detective layout: lamp and phone on Voss's writing side,
-        // typewriter as the central silhouette, then active papers, ashtray, and
-        // one case stack. Domestic odds and ends are deliberately omitted.
-        let itemCenters: [(name: String, center: CGPoint, hotspotID: String?)] = [
-            ("office_desk_lamp", CGPoint(x: 245, y: 185), nil),
-            ("office_desk_phone", CGPoint(x: 340, y: 260), "office.phone"),
-            ("office_desk_typewriter", CGPoint(x: 475, y: 215), nil),
-            ("office_desk_notebook", CGPoint(x: 520, y: 310), nil),
-            ("office_desk_papers", CGPoint(x: 600, y: 270), nil),
-            ("office_desk_ashtray", CGPoint(x: 655, y: 325), nil),
-            ("office_desk_files", CGPoint(x: 735, y: 245), "office.files")
-        ]
-        let deskCanvas = CGSize(width: 932, height: 780)
-        let deskAnchor = CGPoint(x: 0.5, y: 0.04)
-
-        for item in itemCenters {
-            guard let texture = GameArt.texture(named: item.name) else { continue }
-            let node = SKSpriteNode(texture: texture)
-            node.name = item.name
-            node.position = CGPoint(
-                x: deskPosition.x + (item.center.x - deskCanvas.width * deskAnchor.x) * scale,
-                y: deskPosition.y + (deskCanvas.height * (1 - deskAnchor.y) - item.center.y) * scale
-            )
-            node.setScale(scale)
-            node.texture?.filteringMode = .linear
-            // Desk-native depth while standing. While seated, `updateDetectiveDepth`
-            // lifts these above the writing-surface occluder (coat stays under wood).
-            updateDepth(of: node)
-            depthWorldRoot.addChild(node)
-            deskItemNodes.append(node)
-            if let hotspotID = item.hotspotID {
-                registerHoverSprite(node, for: hotspotID)
-            }
-        }
     }
 
     private func buildFallbackOffice() {

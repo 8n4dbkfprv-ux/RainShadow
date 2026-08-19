@@ -4716,12 +4716,8 @@
         "id" : "office_floor_wear_decal",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_floor_wear_decal",
-        "worldSize" : {
-          "h" : 304.128,
-          "w" : 608.256
-        }
+        "scale" : 0.297,
+        "textureName" : "office_floor_wear_decal"
       },
       {
         "alpha" : 0.32,
@@ -4736,12 +4732,8 @@
         "id" : "office_light_window_spill",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_light_window_spill",
-        "worldSize" : {
-          "h" : 247.808,
-          "w" : 371.712
-        }
+        "scale" : 0.242,
+        "textureName" : "office_light_window_spill"
       },
       {
         "alpha" : 0.68,
@@ -4756,12 +4748,8 @@
         "id" : "office_light_blind_stripes",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_light_blind_stripes",
-        "worldSize" : {
-          "h" : 288.3584,
-          "w" : 432.5376
-        }
+        "scale" : 0.2816,
+        "textureName" : "office_light_blind_stripes"
       },
       {
         "alpha" : 0.28,
@@ -4776,12 +4764,8 @@
         "id" : "office_shadow_ceiling_fan",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_shadow_ceiling_fan",
-        "worldSize" : {
-          "h" : 315.392,
-          "w" : 473.088
-        }
+        "scale" : 0.308,
+        "textureName" : "office_shadow_ceiling_fan"
       },
       {
         "alpha" : 0.42,
@@ -4796,12 +4780,8 @@
         "id" : "office_light_hallway",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_light_hallway",
-        "worldSize" : {
-          "h" : 95.744,
-          "w" : 143.616
-        }
+        "scale" : 0.187,
+        "textureName" : "office_light_hallway"
       },
       {
         "alpha" : 0.66,
@@ -4816,12 +4796,8 @@
         "id" : "office_light_lamp_pool",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_light_lamp_pool",
-        "worldSize" : {
-          "h" : 214.016,
-          "w" : 321.024
-        }
+        "scale" : 0.209,
+        "textureName" : "office_light_lamp_pool"
       },
       {
         "alpha" : 0.72,
@@ -4836,12 +4812,8 @@
         "id" : "office_entrance_runner",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_entrance_runner",
-        "worldSize" : {
-          "h" : 38.8608,
-          "w" : 77.7216
-        }
+        "scale" : 0.1012,
+        "textureName" : "office_entrance_runner"
       },
       {
         "alpha" : 0.55,
@@ -4856,12 +4828,8 @@
         "id" : "office_cabinet_floor_shadow",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_cabinet_floor_shadow",
-        "worldSize" : {
-          "h" : 45.1584,
-          "w" : 60.2112
-        }
+        "scale" : 0.1176,
+        "textureName" : "office_cabinet_floor_shadow"
       },
       {
         "alpha" : 1,
@@ -4876,12 +4844,8 @@
         "id" : "office_worn_rug",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_worn_rug_burgundy",
-        "worldSize" : {
-          "h" : 109.5292,
-          "w" : 198.5984
-        }
+        "scale" : 0.1364,
+        "textureName" : "office_worn_rug_burgundy"
       },
       {
         "alpha" : 0.55,
@@ -4896,12 +4860,8 @@
         "id" : "office_desk_floor_shadow",
         "layer" : "floorEffects",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_floor_shadow",
-        "worldSize" : {
-          "h" : 70.656,
-          "w" : 141.312
-        }
+        "scale" : 0.138,
+        "textureName" : "office_desk_floor_shadow"
       },
       {
         "alpha" : 0.36,
@@ -4916,12 +4876,8 @@
         "id" : "office_light_blind_stripes_wall",
         "layer" : "rearFixtures",
         "rotation" : -0.18,
-        "scale" : 1,
-        "textureName" : "office_light_blind_stripes",
-        "worldSize" : {
-          "h" : 162.2016,
-          "w" : 243.3024
-        }
+        "scale" : 0.1584,
+        "textureName" : "office_light_blind_stripes"
       },
       {
         "alpha" : 1,
@@ -4936,11 +4892,26 @@
         "id" : "office_window",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
+        "scaleX" : 0.35,
+        "scaleY" : 0.32,
         "textureName" : "office_window",
-        "worldSize" : {
-          "h" : 69.44,
-          "w" : 41.65
+        "warp" : {
+          "bottomLeft" : {
+            "x" : 0,
+            "y" : 0
+          },
+          "bottomRight" : {
+            "x" : 1,
+            "y" : 0.15
+          },
+          "topLeft" : {
+            "x" : 0,
+            "y" : 0.774
+          },
+          "topRight" : {
+            "x" : 1,
+            "y" : 1
+          }
         }
       },
       {
@@ -4956,12 +4927,8 @@
         "id" : "office_wall_photos",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_wall_photos",
-        "worldSize" : {
-          "h" : 25.344,
-          "w" : 34.848
-        }
+        "scale" : 0.1584,
+        "textureName" : "office_wall_photos"
       },
       {
         "alpha" : 1,
@@ -4976,12 +4943,8 @@
         "id" : "office_case_board",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_case_board",
-        "worldSize" : {
-          "h" : 63.2016,
-          "w" : 72.2304
-        }
+        "scale" : 0.22572,
+        "textureName" : "office_case_board"
       },
       {
         "alpha" : 1,
@@ -4996,12 +4959,8 @@
         "id" : "office_wall_city_map",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_wall_city_map",
-        "worldSize" : {
-          "h" : 41.8176,
-          "w" : 48.7872
-        }
+        "scale" : 0.17424,
+        "textureName" : "office_wall_city_map"
       },
       {
         "alpha" : 1,
@@ -5016,12 +4975,8 @@
         "id" : "office_framed_licence",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_framed_licence",
-        "worldSize" : {
-          "h" : 27.7992,
-          "w" : 24.7104
-        }
+        "scale" : 0.15444,
+        "textureName" : "office_framed_licence"
       },
       {
         "alpha" : 1,
@@ -5036,17 +4991,13 @@
         "id" : "office_radiator",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_radiator",
-        "worldSize" : {
-          "h" : 37.44,
-          "w" : 33.488
-        }
+        "scale" : 0.104,
+        "textureName" : "office_radiator"
       },
       {
         "alpha" : 0,
         "anchorX" : 0.5,
-        "anchorY" : 0.089,
+        "anchorY" : 0.08903,
         "blend" : "alpha",
         "depthBias" : 5000,
         "groundPoint" : {
@@ -5056,17 +5007,13 @@
         "id" : "office_door_leaf_thickness",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_door_leaf_thickness",
-        "worldSize" : {
-          "h" : 95.015,
-          "w" : 35.6766
-        }
+        "scale" : 0.1226,
+        "textureName" : "office_door_leaf_thickness"
       },
       {
         "alpha" : 1,
         "anchorX" : 0.5,
-        "anchorY" : 0.089,
+        "anchorY" : 0.08903,
         "blend" : "alpha",
         "depthBias" : 5000,
         "groundPoint" : {
@@ -5076,12 +5023,8 @@
         "id" : "office_door_leaf",
         "layer" : "rearFixtures",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_door_leaf",
-        "worldSize" : {
-          "h" : 95.015,
-          "w" : 35.6766
-        }
+        "scale" : 0.1226,
+        "textureName" : "office_door_leaf"
       },
       {
         "alpha" : 1,
@@ -5096,12 +5039,8 @@
         "id" : "office_floor_trash_a",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_floor_trash_a",
-        "worldSize" : {
-          "h" : 16.5888,
-          "w" : 22.1184
-        }
+        "scale" : 0.0864,
+        "textureName" : "office_floor_trash_a"
       },
       {
         "alpha" : 1,
@@ -5116,12 +5055,8 @@
         "id" : "office_floor_trash_b",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_floor_trash_b",
-        "worldSize" : {
-          "h" : 18.8928,
-          "w" : 25.1904
-        }
+        "scale" : 0.0984,
+        "textureName" : "office_floor_trash_b"
       },
       {
         "alpha" : 1,
@@ -5136,12 +5071,8 @@
         "id" : "office_internal_door_leaf",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_internal_door_leaf",
-        "worldSize" : {
-          "h" : 154.6237,
-          "w" : 58.6047
-        }
+        "scale" : 0.3311,
+        "textureName" : "office_internal_door_leaf"
       },
       {
         "alpha" : 1,
@@ -5156,12 +5087,8 @@
         "id" : "office_bookshelf",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_bookshelf",
-        "worldSize" : {
-          "h" : 103.9872,
-          "w" : 69.3248
-        }
+        "scale" : 0.1354,
+        "textureName" : "office_bookshelf"
       },
       {
         "alpha" : 1,
@@ -5176,12 +5103,8 @@
         "id" : "office_filing_cabinet_open",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_filing_cabinet_open",
-        "worldSize" : {
-          "h" : 90.3168,
-          "w" : 60.2112
-        }
+        "scale" : 0.1176,
+        "textureName" : "office_filing_cabinet_open"
       },
       {
         "alpha" : 1,
@@ -5196,12 +5119,8 @@
         "id" : "office_filing_cabinet",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_filing_cabinet",
-        "worldSize" : {
-          "h" : 90.3168,
-          "w" : 60.2112
-        }
+        "scale" : 0.1176,
+        "textureName" : "office_filing_cabinet"
       },
       {
         "alpha" : 1,
@@ -5216,12 +5135,8 @@
         "id" : "office_safe",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_safe",
-        "worldSize" : {
-          "h" : 33.6,
-          "w" : 30.72
-        }
+        "scale" : 0.12,
+        "textureName" : "office_safe"
       },
       {
         "alpha" : 1,
@@ -5236,12 +5151,8 @@
         "id" : "office_archive_box_b",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_archive_box_b",
-        "worldSize" : {
-          "h" : 41.472,
-          "w" : 41.472
-        }
+        "scale" : 0.108,
+        "textureName" : "office_archive_box_b"
       },
       {
         "alpha" : 1,
@@ -5256,12 +5167,8 @@
         "id" : "office_archive_stack",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_archive_stack",
-        "worldSize" : {
-          "h" : 43.0464,
-          "w" : 43.0464
-        }
+        "scale" : 0.1121,
+        "textureName" : "office_archive_stack"
       },
       {
         "alpha" : 1,
@@ -5276,12 +5183,8 @@
         "id" : "office_archive_box_a",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_archive_box_a",
-        "worldSize" : {
-          "h" : 46.08,
-          "w" : 46.08
-        }
+        "scale" : 0.12,
+        "textureName" : "office_archive_box_a"
       },
       {
         "alpha" : 0.78,
@@ -5296,12 +5199,8 @@
         "id" : "office_coat_rack",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_coat_rack",
-        "worldSize" : {
-          "h" : 75.411,
-          "w" : 33.6042
-        }
+        "scale" : 0.1323,
+        "textureName" : "office_coat_rack"
       },
       {
         "alpha" : 1,
@@ -5316,12 +5215,8 @@
         "id" : "office_umbrella_stand",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_umbrella_stand",
-        "worldSize" : {
-          "h" : 26.4,
-          "w" : 19.2
-        }
+        "scale" : 0.12,
+        "textureName" : "office_umbrella_stand"
       },
       {
         "alpha" : 1,
@@ -5336,12 +5231,8 @@
         "id" : "office_waiting_chair_a",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_waiting_chair_a",
-        "worldSize" : {
-          "h" : 49.952,
-          "w" : 39.248
-        }
+        "scale" : 0.1784,
+        "textureName" : "office_waiting_chair_a"
       },
       {
         "alpha" : 1,
@@ -5356,12 +5247,8 @@
         "id" : "office_waiting_table",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_waiting_table",
-        "worldSize" : {
-          "h" : 29.776,
-          "w" : 37.22
-        }
+        "scale" : 0.1861,
+        "textureName" : "office_waiting_table"
       },
       {
         "alpha" : 1,
@@ -5376,12 +5263,8 @@
         "id" : "office_waiting_chair_b",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_waiting_chair_b",
-        "worldSize" : {
-          "h" : 52.276,
-          "w" : 41.074
-        }
+        "scale" : 0.1867,
+        "textureName" : "office_waiting_chair_b"
       },
       {
         "alpha" : 1,
@@ -5396,12 +5279,8 @@
         "id" : "office_newspaper",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_newspaper",
-        "worldSize" : {
-          "h" : 10,
-          "w" : 14
-        }
+        "scale" : 0.1,
+        "textureName" : "office_newspaper"
       },
       {
         "alpha" : 1,
@@ -5416,12 +5295,8 @@
         "id" : "office_waiting_ashtray",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_waiting_ashtray",
-        "worldSize" : {
-          "h" : 8.5,
-          "w" : 11.5
-        }
+        "scale" : 0.1,
+        "textureName" : "office_waiting_ashtray"
       },
       {
         "alpha" : 1,
@@ -5436,12 +5311,8 @@
         "id" : "office_personal_sideboard",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_personal_sideboard",
-        "worldSize" : {
-          "h" : 64.768,
-          "w" : 77.7216
-        }
+        "scale" : 0.2024,
+        "textureName" : "office_personal_sideboard"
       },
       {
         "alpha" : 1,
@@ -5456,12 +5327,8 @@
         "id" : "office_hidden_bottle",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_hidden_bottle",
-        "worldSize" : {
-          "h" : 17.9968,
-          "w" : 8.9984
-        }
+        "scale" : 0.0703,
+        "textureName" : "office_hidden_bottle"
       },
       {
         "alpha" : 1,
@@ -5476,12 +5343,8 @@
         "id" : "office_personal_glass",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_personal_glass",
-        "worldSize" : {
-          "h" : 12.8,
-          "w" : 9.6
-        }
+        "scale" : 0.1,
+        "textureName" : "office_personal_glass"
       },
       {
         "alpha" : 1,
@@ -5496,12 +5359,8 @@
         "id" : "office_personal_fan",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_personal_fan",
-        "worldSize" : {
-          "h" : 62.1312,
-          "w" : 41.4208
-        }
+        "scale" : 0.1618,
+        "textureName" : "office_personal_fan"
       },
       {
         "alpha" : 1,
@@ -5516,12 +5375,8 @@
         "id" : "office_desk_chair",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_chair",
-        "worldSize" : {
-          "h" : 88.0896,
-          "w" : 58.7264
-        }
+        "scale" : 0.1147,
+        "textureName" : "office_desk_chair"
       },
       {
         "alpha" : 1,
@@ -5536,12 +5391,8 @@
         "id" : "office_visitor_armchair",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_visitor_armchair",
-        "worldSize" : {
-          "h" : 64.1536,
-          "w" : 64.1536
-        }
+        "scale" : 0.1253,
+        "textureName" : "office_visitor_armchair"
       },
       {
         "alpha" : 1,
@@ -5556,12 +5407,8 @@
         "id" : "office_visitor_armchair_2",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_visitor_armchair",
-        "worldSize" : {
-          "h" : 61.5875,
-          "w" : 61.5875
-        }
+        "scale" : 0.120288,
+        "textureName" : "office_visitor_armchair"
       },
       {
         "alpha" : 1,
@@ -5576,12 +5423,8 @@
         "id" : "office_wastebasket",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_wastebasket",
-        "worldSize" : {
-          "h" : 20.9152,
-          "w" : 20.9152
-        }
+        "scale" : 0.0817,
+        "textureName" : "office_wastebasket"
       },
       {
         "alpha" : 1,
@@ -5596,12 +5439,8 @@
         "id" : "office_desk_bare",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_bare",
-        "worldSize" : {
-          "h" : 93.6,
-          "w" : 111.84
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_bare"
       },
       {
         "alpha" : 1,
@@ -5616,12 +5455,8 @@
         "id" : "office_desk_lamp",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_lamp",
-        "worldSize" : {
-          "h" : 31.44,
-          "w" : 26.04
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_lamp"
       },
       {
         "alpha" : 1,
@@ -5636,12 +5471,8 @@
         "id" : "office_desk_phone",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_phone",
-        "worldSize" : {
-          "h" : 18.48,
-          "w" : 25.2
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_phone"
       },
       {
         "alpha" : 1,
@@ -5656,12 +5487,8 @@
         "id" : "office_desk_typewriter",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_typewriter",
-        "worldSize" : {
-          "h" : 24,
-          "w" : 33.6
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_typewriter"
       },
       {
         "alpha" : 1,
@@ -5676,12 +5503,8 @@
         "id" : "office_desk_notebook",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_notebook",
-        "worldSize" : {
-          "h" : 14.4,
-          "w" : 19.2
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_notebook"
       },
       {
         "alpha" : 1,
@@ -5696,12 +5519,8 @@
         "id" : "office_desk_papers",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_papers",
-        "worldSize" : {
-          "h" : 30.24,
-          "w" : 41.4
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_papers"
       },
       {
         "alpha" : 1,
@@ -5716,12 +5535,8 @@
         "id" : "office_desk_ashtray",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_ashtray",
-        "worldSize" : {
-          "h" : 10.2,
-          "w" : 13.8
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_ashtray"
       },
       {
         "alpha" : 1,
@@ -5736,12 +5551,8 @@
         "id" : "office_desk_files",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_files",
-        "worldSize" : {
-          "h" : 22.8,
-          "w" : 28.8
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_files"
       },
       {
         "alpha" : 1,
@@ -5756,12 +5567,8 @@
         "id" : "office_desk_actor_occluder",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_actor_occluder",
-        "worldSize" : {
-          "h" : 93.6,
-          "w" : 111.84
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_actor_occluder"
       },
       {
         "alpha" : 1,
@@ -5776,12 +5583,8 @@
         "id" : "office_desk_front_occluder_v04",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_front_occluder_v04",
-        "worldSize" : {
-          "h" : 93.6,
-          "w" : 111.84
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_front_occluder_v04"
       },
       {
         "alpha" : 1,
@@ -5796,12 +5599,8 @@
         "id" : "office_desk_top_occluder",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 1,
-        "textureName" : "office_desk_top_occluder",
-        "worldSize" : {
-          "h" : 93.6,
-          "w" : 111.84
-        }
+        "scale" : 0.12,
+        "textureName" : "office_desk_top_occluder"
       }
     ],
     "regions" : [

@@ -17,6 +17,7 @@ class BaseGameScene: SKScene {
         areaRuntime = runtime
     }
 
+    private var propTextureCache: [String: SKTexture] = [:]
     let backgroundRoot = SKNode()
     let floorEffectRoot = SKNode()
     let rearFixtureRoot = SKNode()
@@ -195,26 +196,35 @@ class BaseGameScene: SKScene {
     @discardableResult
     func buildProps(from area: AreaDefinition) -> [String: SKSpriteNode] {
         var placed: [String: SKSpriteNode] = [:]
-        for prop in area.props {
-            guard let sprite = makeProp(prop) else { continue }
+        for (order, prop) in area.props.enumerated() {
+            guard let sprite = makeProp(prop, order: order) else { continue }
             placed[prop.id] = sprite
         }
         return placed
     }
 
+    /// How far apart consecutive props in a layer sit in depth.
+    ///
+    /// Small enough that a whole area's props cannot climb out of their layer —
+    /// the layers are thousands apart and no area has thousands of props — and
+    /// large enough to survive `Float` rounding at those magnitudes.
+    static let propOrderStep: CGFloat = 0.001
+
     /// One prop. `nil` when its texture is missing, which is an asset error
     /// rather than a runtime condition — the scene simply draws without it,
     /// exactly as the imperative placement did.
-    func makeProp(_ prop: AreaProp) -> SKSpriteNode? {
-        guard let texture = GameArt.texture(named: prop.textureName) else { return nil }
-        texture.filteringMode = .linear
+    func makeProp(_ prop: AreaProp, order: Int = 0) -> SKSpriteNode? {
+        guard let texture = propTexture(named: prop.textureName) else { return nil }
 
         let sprite: SKSpriteNode
         if let worldSize = prop.worldSize {
             sprite = SKSpriteNode(texture: texture, size: worldSize.cgSize)
         } else {
+            // Scale, not size, so anything that later animates the prop's scale
+            // composes with what it was built at instead of multiplying by it.
             sprite = SKSpriteNode(texture: texture)
-            sprite.setScale(prop.scale)
+            sprite.xScale = prop.scaleX
+            sprite.yScale = prop.scaleY
         }
         // The node keeps its *id*, not its texture name: hover registration and
         // hotspot lookups key on identity, and two of the office's props draw
@@ -225,24 +235,79 @@ class BaseGameScene: SKScene {
         sprite.alpha = prop.alpha
         sprite.zRotation = prop.rotation
         sprite.blendMode = blendMode(for: prop.blend)
+        if let warp = prop.warp {
+            sprite.warpGeometry = warpGrid(warp)
+            // One subdivision, matching the placement this replaced: the corner
+            // displacement is linear across the quad, so denser tessellation
+            // costs vertices and changes nothing.
+            sprite.subdivisionLevels = 1
+        }
 
+        // Separating props by their position in the record is what makes that
+        // order the *drawn* order.
+        //
+        // Without it a flat layer is ten sprites all at one zPosition, and the
+        // view runs with `ignoresSiblingOrder = true` — under which SpriteKit
+        // draws equal-z siblings in whatever order batches best, not in child
+        // order. That is invisible for opaque scenery and not invisible for the
+        // office's five additive light casts: two builds whose scene graphs were
+        // provably identical rendered them a step or two apart per channel, and
+        // an order nobody states is an order that can change under you.
+        let ordering = CGFloat(order) * Self.propOrderStep
         switch prop.layer {
         case .floorEffects:
-            sprite.zPosition = SceneLayer.floorEffects.rawValue + prop.depthBias
+            sprite.zPosition = SceneLayer.floorEffects.rawValue + prop.depthBias + ordering
             floorEffectRoot.addChild(sprite)
         case .rearFixtures:
-            sprite.zPosition = SceneLayer.rearFixtures.rawValue + prop.depthBias
+            sprite.zPosition = SceneLayer.rearFixtures.rawValue + prop.depthBias + ordering
             rearFixtureRoot.addChild(sprite)
         case .occlusion:
-            sprite.zPosition = SceneLayer.occlusion.rawValue + prop.depthBias
+            sprite.zPosition = SceneLayer.occlusion.rawValue + prop.depthBias + ordering
             occlusionRoot.addChild(sprite)
         case .depthWorld:
             // Sorted by ground point, so the bias is what remains after the
             // part that follows from position — which is how it was recovered.
-            updateDepth(of: sprite, bias: prop.depthBias)
+            // The ordering step only ever breaks a tie between two props whose
+            // ground points agree exactly.
+            updateDepth(of: sprite, bias: prop.depthBias + ordering)
             depthWorldRoot.addChild(sprite)
         }
         return sprite
+    }
+
+    /// One texture per distinct piece of art, for the life of the scene.
+    ///
+    /// Two of the office's props draw the same file — the blind-stripe cast
+    /// appears once raking across the floor and again, dimmer and rotated, on
+    /// the wall — and the imperative placement they replaced loaded it once and
+    /// built both sprites from it.
+    private func propTexture(named name: String) -> SKTexture? {
+        if let cached = propTextureCache[name] { return cached }
+        guard let texture = GameArt.texture(named: name) else { return nil }
+        // Not cosmetic at this magnification. `GameArt` hands back `.nearest`
+        // and every one of the office's 55 placements overrode it to `.linear`;
+        // the dump confirmed all 55, so this is the measured default rather than
+        // a guess. A prop that wants crisp pixels needs a field of its own, not
+        // a silent exception here.
+        texture.filteringMode = .linear
+        propTextureCache[name] = texture
+        return texture
+    }
+
+    private func warpGrid(_ warp: AreaPropWarp) -> SKWarpGeometryGrid {
+        let source: [SIMD2<Float>] = [
+            SIMD2(0, 0), SIMD2(1, 0),
+            SIMD2(0, 1), SIMD2(1, 1)
+        ]
+        let destination = warp.destinationCorners.map {
+            SIMD2(Float($0.x), Float($0.y))
+        }
+        return SKWarpGeometryGrid(
+            columns: 1,
+            rows: 1,
+            sourcePositions: source,
+            destinationPositions: destination
+        )
     }
 
     private func blendMode(for blend: AreaPropBlend) -> SKBlendMode {
@@ -282,6 +347,36 @@ class BaseGameScene: SKScene {
             }
         }
         FileHandle.standardError.write(Data("RAINSHADOW_PROPS_END\n".utf8))
+        dumpWorldTree()
+    }
+
+    /// Every node under the scene, not just the placed sprites.
+    ///
+    /// The sprite dump answers "did the props change"; this answers "did
+    /// anything else". Both were needed to land the office's props as data: the
+    /// two scene graphs agreed sprite for sprite while the rendered frame still
+    /// differed, and nothing else could say where.
+    private func dumpWorldTree() {
+        FileHandle.standardError.write(Data("RAINSHADOW_TREE_BEGIN\n".utf8))
+        func walk(_ node: SKNode, path: String) {
+            let name = node.name ?? "<unnamed>"
+            let here = "\(path)/\(type(of: node))[\(name)]"
+            let size = (node as? SKSpriteNode).map { "\($0.size)" } ?? "-"
+            let line = [
+                here,
+                "pos=\(node.position)",
+                "z=\(node.zPosition)",
+                "alpha=\(node.alpha)",
+                "scale=\(node.xScale),\(node.yScale)",
+                "size=\(size)",
+                "hidden=\(node.isHidden)",
+                "children=\(node.children.count)"
+            ].joined(separator: "\t")
+            FileHandle.standardError.write(Data((line + "\n").utf8))
+            for child in node.children { walk(child, path: here) }
+        }
+        for child in children { walk(child, path: "") }
+        FileHandle.standardError.write(Data("RAINSHADOW_TREE_END\n".utf8))
     }
 
     /// One sprite, plus any children, in world space.
@@ -342,13 +437,37 @@ class BaseGameScene: SKScene {
             "\(sprite.isHidden)",
             parent ?? "-",
             textureName,
-            filtering
+            filtering,
+            warpDescription(of: sprite),
+            "color=\(sprite.color)",
+            "cbf=\(sprite.colorBlendFactor)",
+            "centerRect=\(sprite.centerRect)",
+            "mipmaps=\(sprite.texture?.usesMipmaps ?? false)",
+            "shader=\(sprite.shader == nil ? "-" : "yes")",
+            "subdiv=\(sprite.subdivisionLevels)",
+            "texSize=\(sprite.texture?.size() ?? .zero)"
         ].joined(separator: "\t")
         FileHandle.standardError.write(Data((line + "\n").utf8))
         for child in sprite.children {
             guard let childSprite = child as? SKSpriteNode else { continue }
             dumpSprite(childSprite, layer: layer, parent: sprite.name ?? "<unnamed>")
         }
+    }
+
+    /// A sprite's build-time warp, as the destination grid in unit space.
+    ///
+    /// The one property of a placed sprite the dump could not see. It is not
+    /// cosmetic: the office window is warped so its rails rise with the painted
+    /// wall trim while both jambs stay vertical, and rebuilding it flat leaves
+    /// the window sitting square on a wall that leans — which reads as the art
+    /// being wrong rather than the placement.
+    private func warpDescription(of sprite: SKSpriteNode) -> String {
+        guard let grid = sprite.warpGeometry as? SKWarpGeometryGrid else { return "-" }
+        let corners = (0..<grid.vertexCount).map { index -> String in
+            let point = grid.destPosition(at: index)
+            return "\(point.x),\(point.y)"
+        }
+        return "\(grid.numberOfColumns)x\(grid.numberOfRows):" + corners.joined(separator: ";")
     }
 
     func sceneWillExit() {}

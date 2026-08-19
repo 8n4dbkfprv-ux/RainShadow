@@ -207,8 +207,12 @@ struct ActorLocomotionPacingTests {
         )
 
         #expect(office.contains("detective.isDeskRegistered"))
-        #expect(office.contains("emptyDeskChairWorldPosition"))
-        #expect(office.contains("The world prop is the sole chair owner"))
+        // The desk chair moved out of the scene's code and into the office's
+        // record, so the assertion moved with it — see
+        // `AreaPropTests.theDeskChairIsAWorldPropStandingWhereTheSeatIs`. It is
+        // load-bearing rather than decoration: Voss's seated and transition
+        // atlases are chairless, so the world prop is the only chair there is
+        // and it has to be drawn in every actor state.
         #expect(movement.contains("meaningfullyShorter"))
         #expect(movement.contains("isBlocked"))
         #expect(!office.contains("deskChairProp"))
