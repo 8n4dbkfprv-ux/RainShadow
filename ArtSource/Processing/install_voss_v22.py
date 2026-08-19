@@ -80,7 +80,32 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
             from process_voss_character_strip_v22 import stabilize_idle_keyed
 
             frames = stabilize_idle_keyed(frames)
-        return original_process_clip(frames, label, report)
+        cells = original_process_clip(frames, label, report)
+        if str(label).startswith("standing_idle:") and len(cells) >= 2:
+            import numpy as np
+            from process_voss_character_strip_v22 import (
+                _body_luma,
+                clip_cell_highlights,
+                match_cell_mean,
+            )
+
+            luma = _body_luma(cells[0])
+            target_mean = float(luma.mean()) if len(luma) else 1.0
+            target_p90 = float(np.percentile(luma, 90)) if len(luma) else target_mean
+            graded = [cells[0]]
+            for cell in cells[1:]:
+                graded.append(
+                    match_cell_mean(
+                        clip_cell_highlights(cell, target_p90),
+                        target_mean,
+                    )
+                )
+            palette = core.crunch.build_clip_palette(graded)
+            return [
+                core.stamp_sentinels(core.crunch.finalise(cell, palette))
+                for cell in graded
+            ]
+        return cells
 
     try:
         core.V16_ROOT = V22_ROOT

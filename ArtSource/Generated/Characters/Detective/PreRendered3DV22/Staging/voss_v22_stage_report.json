@@ -1,6 +1,6 @@
 {
   "asset_version": "v16",
-  "built_at_utc": "2026-08-19T11:17:21.941095+00:00",
+  "built_at_utc": "2026-08-19T11:46:31.327798+00:00",
   "counts": {
     "compatibility_layers": 16,
     "primary_body_presentations": 176,
@@ -23,7 +23,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 112,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -36,7 +36,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 124,
+      "clip_colours": 108,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -49,7 +49,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 126,
+      "clip_colours": 110,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -62,7 +62,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 102,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -75,7 +75,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 126,
+      "clip_colours": 103,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -88,7 +88,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 121,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -101,7 +101,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 116,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -114,7 +114,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 105,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -127,7 +127,7 @@
         1.0
       ],
       "centroid_drift_px": 0.0,
-      "clip_colours": 128,
+      "clip_colours": 108,
       "head_jitter_px": 0.0,
       "head_scale_ratio": 1.0,
       "torso_scale_ratio": 1.0
@@ -296,46 +296,46 @@
     }
   },
   "output_hashes": {
-    "VossIdle.atlas/voss_standing_idle_n_00.png": "2bd81c1af9de0c16c54746ba70621941826f8ea5a07e0382002eec45dadd84d5",
-    "VossIdle.atlas/voss_standing_idle_n_01.png": "37e634e13ef426bf0ef52f517298d0710d77b178c07200d5efdcaf23521287fb",
-    "VossIdle.atlas/voss_standing_idle_n_02.png": "ebd9e66d5c1a37ee11342d7d1b8a1326cd5c59bdaf4df1252ba08b229fbf18d5",
-    "VossIdle.atlas/voss_standing_idle_n_03.png": "7e7186b1f54fd24678f90081419c301aee7827dd047795d84ee909a27fd07fb4",
-    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "acffd96e2f7a65613e0155db3a05592d1da40a194647d3241f5fb9bbcb091b71",
-    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "eb81bccaf85d338446776f880892b114f160aeef1e824ec3c7e881fa2e116df9",
-    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "f7bd631bba2908ee9082c8c8ad5e4690235bc2e5a60a388e1817a231e2bfbc91",
-    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "9c38dc08b0661d7abfb317b0a343a8fad445991602a86a34cf0c492ccd4a9da2",
-    "VossIdle.atlas/voss_standing_idle_nw_00.png": "13d33f33f3bbf072ca4054928a6ab32a8f6e1dad64dc3c82cb14813b8d2d0cdf",
-    "VossIdle.atlas/voss_standing_idle_nw_01.png": "b84f51156b1bffe99b6851ef0fe901b92a617b26464b88ed753168a0f5346c92",
-    "VossIdle.atlas/voss_standing_idle_nw_02.png": "9f2d4d46d22095d8535aaa41a06dedb607c286ac672215a534e3eb7039f14634",
-    "VossIdle.atlas/voss_standing_idle_nw_03.png": "3666208376eee312460622ca7ef2ce5fb1ee6b159253460c558a736c3b514972",
-    "VossIdle.atlas/voss_standing_idle_s_00.png": "761042de0418e33b8337da223290dd67eb179baf3673788dc1f4bb46dcd68842",
-    "VossIdle.atlas/voss_standing_idle_s_01.png": "59fd6f6f4273f3ce2a245490f91ba1a3fac4ee7a22f30efbff5f9fd4a9a8e21c",
-    "VossIdle.atlas/voss_standing_idle_s_02.png": "74424f851f7c9b1b5a11790cbc89ab5ca807c49df59300533aecc1b5b903257b",
-    "VossIdle.atlas/voss_standing_idle_s_03.png": "ab4998097903b3da33c94ec29850d9bffcedb84221b412822fef2fef8940982d",
-    "VossIdle.atlas/voss_standing_idle_se_00.png": "c7b892a00628c612e551cd8188e752e18960cfa61ef0a92b127391f173acda28",
-    "VossIdle.atlas/voss_standing_idle_se_01.png": "75f6a4b2442ab46f26f95c083a92bf66bd71b1f1e2d3f2e9f6f34adbdb49a4ff",
-    "VossIdle.atlas/voss_standing_idle_se_02.png": "cb46a0ebaa37b1ba8870a31c047b893b682c342102163e1c95e37272b2bb2628",
-    "VossIdle.atlas/voss_standing_idle_se_03.png": "b2bcc47764491a6be3bef0849be47bffbe5ea4a7136521800ddf243c217d3b34",
-    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "a248b864411b133ca6251878287d4bf60e287344e921a6cb08c3abbb60fe63c0",
-    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "01edafcf9e26888e5dd3a95c7d333cef564a43a9e8e4eb31ccd07eb125f799b4",
-    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "965f1512a167bc12b990dc2e1b9fda3f9eb4a3779bd6570b9bfd4641911e7800",
-    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "dd4a846aa29b96dbdd9e2acf4802ae797cd941384c1d6d721a67c6e6defc3c72",
-    "VossIdle.atlas/voss_standing_idle_sw_00.png": "09437fc4030d0c6dc338d459d57b0d14a534eaf561c5ec417134ee210ecbf79f",
-    "VossIdle.atlas/voss_standing_idle_sw_01.png": "d546f75f2814f3da7862b928386297d58f4092f906421647af0243087a58517e",
-    "VossIdle.atlas/voss_standing_idle_sw_02.png": "00c3ade710e3099f2a7cb65925548dd08782859c8da3fac5cf3b98ef9adadad9",
-    "VossIdle.atlas/voss_standing_idle_sw_03.png": "326c9a25649f605d70a476514a422141136762a026c99f8464e5ef20ff144485",
-    "VossIdle.atlas/voss_standing_idle_w_00.png": "56e29db6ca2f467bfe337af9cd777f504338e14269b38a1f8e202e5f01b3073a",
-    "VossIdle.atlas/voss_standing_idle_w_01.png": "b00a532242ca5cc10735a3daabad90c9a89d38fa6bbf1a141c5680908175d3b8",
-    "VossIdle.atlas/voss_standing_idle_w_02.png": "adb970260fee410dfd1612b1dc4b1663805dc95651acfd275a3a95e3138607c6",
-    "VossIdle.atlas/voss_standing_idle_w_03.png": "751b1fc566f4204b98332054892b60eab193807195565ad3fa8ff9f2ced24f4b",
-    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "447805e03749d8ea208f9bb3c98eaa9ebc5159ee82cf65bfb78a58a7b3b649b6",
-    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "44198d9069bc7b1de87fff917076e1b32dc33f3d9dfe9b9e67dfc30e656f780d",
-    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "68d58a125f3f941378ec66444b26b62698629a8248686f5d5ff00307d9f1b907",
-    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "7362d1c26d9736f9c97bfb7407d37668e2fb39fee696f080730dbeb1c6b19d30",
-    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "5777604bf0750a1b8d30a43e71829ed23cf66377e8c3bd22014cf5b5eaaa5a8a",
-    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "8ef85d4f9d347f64a0e2a7f7c867391b63fef7accab0ab5e1a626e4f46c05e97",
-    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "47cea7b342c3796fb81139581ae9cc6c30a536d48ba7c37fdd683c631694725b",
-    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "eaa0d815e3e4964d32c4d90c34489ad98b9d1598dc651f5869754aafadf09feb",
+    "VossIdle.atlas/voss_standing_idle_n_00.png": "d14b6b0036fa799eec5277592aadbfe5de7b44e262aeaa96d1d108c9a5ab67ad",
+    "VossIdle.atlas/voss_standing_idle_n_01.png": "6aeb88047ef03f2a7109ba4a375b54cc9c30b9bb3794a88e09bd09da11e2e030",
+    "VossIdle.atlas/voss_standing_idle_n_02.png": "5908270def959e245413797fd4a3ff0aa124f176014aaf76acd58a9992f8754a",
+    "VossIdle.atlas/voss_standing_idle_n_03.png": "b84e55b1585482529e1948a2cc3404625e1f09f44df8ded521b2a7a075dbb24f",
+    "VossIdle.atlas/voss_standing_idle_nnw_00.png": "ce4ff3f42d4c1a568061adbf1c50a1991d2be6dfe1cab3cbb1ce545d78096ae4",
+    "VossIdle.atlas/voss_standing_idle_nnw_01.png": "74fdbcfad6cc53f3d1cdd2dfe2efd07855e91ee4bb0ceb572448e5ad7694e3ba",
+    "VossIdle.atlas/voss_standing_idle_nnw_02.png": "6b99ea8ce9d818cd2a6825567fb7b4933c04ea6223472704cc7e838ed43372c2",
+    "VossIdle.atlas/voss_standing_idle_nnw_03.png": "c8d19ddff5145d7134bcf6de420ce3ef8970ccde17e3397488f6f1d16f48c300",
+    "VossIdle.atlas/voss_standing_idle_nw_00.png": "2bf3b89cf863bf632bbd86f22ab14c0c2ee7d85fbc6e960a548fe197520b4a87",
+    "VossIdle.atlas/voss_standing_idle_nw_01.png": "4f875d2200846dd250704b35e82243b5783b08e8c37b1fad4deb7dac40bbd1d7",
+    "VossIdle.atlas/voss_standing_idle_nw_02.png": "ea3594676715c96de02389e8fdbfbdd7223e711253f3493a2a3b38cd9f01e7a9",
+    "VossIdle.atlas/voss_standing_idle_nw_03.png": "a4cb2009100c7b638fa8b6f9e5f4d4051f38820ae074b89f8050e6c689ce7317",
+    "VossIdle.atlas/voss_standing_idle_s_00.png": "2d405c2ab47c1055c749661d94f74a5dafc5ba52dd4aa01073fba3ae81f5205d",
+    "VossIdle.atlas/voss_standing_idle_s_01.png": "ae17a29f44cdca1aa66d11ba45671f264b501ad1ba1145ac1f6e07357a684283",
+    "VossIdle.atlas/voss_standing_idle_s_02.png": "dd6a85086b329062947880a0672fdba9ea8bba79974d8e779c407ba86939f631",
+    "VossIdle.atlas/voss_standing_idle_s_03.png": "971ede571cd6143f127a02baf2420018d3ab06846af054db66413d76a9063345",
+    "VossIdle.atlas/voss_standing_idle_se_00.png": "7477928d797d6c402b1169d3ec6969c8d20a829e524265de3a3525d99ce886fb",
+    "VossIdle.atlas/voss_standing_idle_se_01.png": "67ab5a4cd5897481c6763d2317bcd17a889bc04a5e0bb5f0562c8cfb790b23f2",
+    "VossIdle.atlas/voss_standing_idle_se_02.png": "372d64955a8084e8443877d0708b935da0dc5cca2a4ff46c0b8ee3822abada69",
+    "VossIdle.atlas/voss_standing_idle_se_03.png": "e8dfa02b7941e4e91a83593a26c9d262edda24e063ecb1c29aaa635c8876801a",
+    "VossIdle.atlas/voss_standing_idle_ssw_00.png": "acaacc0771726fc717d7b09c165ccb7feec790081141bfaf65f996fd05f0e701",
+    "VossIdle.atlas/voss_standing_idle_ssw_01.png": "13cb492e71210a2a6886673a16b898cdf514ca9eb792a19f95013acf02ce69bc",
+    "VossIdle.atlas/voss_standing_idle_ssw_02.png": "aa80121c21d63826ef676f78a71297f5e793c429f856cfd8941cced98e8afbe3",
+    "VossIdle.atlas/voss_standing_idle_ssw_03.png": "859ca9973a945feeeb83b76ca6b18fcfd8f55e0b7d4d46043e24ae376f947053",
+    "VossIdle.atlas/voss_standing_idle_sw_00.png": "30418297f5fed731a57254f18c719cd4f26565b84fc882d2f69d1dec319a7751",
+    "VossIdle.atlas/voss_standing_idle_sw_01.png": "cf4da18d5fc6b6ba95f0d499c57a066480017ff08ab7753415e75bbcd0db3bba",
+    "VossIdle.atlas/voss_standing_idle_sw_02.png": "29dcd92e6e16907396b5a3c95bd4e975b2a2164dd8c8cf00cf3ba3f0ff6b36c6",
+    "VossIdle.atlas/voss_standing_idle_sw_03.png": "01466d0f7842739cda68976aafb7ede54b4e64ae7f5280a4f469cf6f93a8b576",
+    "VossIdle.atlas/voss_standing_idle_w_00.png": "1c7da396ed053d089790897b22aee473bb5232cd47723e29200a67065481aa30",
+    "VossIdle.atlas/voss_standing_idle_w_01.png": "2c4ae7e7f1c7ec28ddbb859a3fee1a1837afb1909ca7ad7d73ab5e4ca5b44b6d",
+    "VossIdle.atlas/voss_standing_idle_w_02.png": "0e4cc675850f89297faa00aa3f59a9ec741c5c97702bc6f47c34a9918c9a5852",
+    "VossIdle.atlas/voss_standing_idle_w_03.png": "f9a0400bfb3fbe40933dac1409f10bb8b61db79503b9e54316477986b7024c14",
+    "VossIdle.atlas/voss_standing_idle_wnw_00.png": "fdac2d6d795348aafa47e33c521dd5ea997c0bfb8b1df3b0e9015f8291f054a2",
+    "VossIdle.atlas/voss_standing_idle_wnw_01.png": "67b2a181c77f0c1a23897b9d1af9da279a49be177d91977e858ff932a08e3fd1",
+    "VossIdle.atlas/voss_standing_idle_wnw_02.png": "73cdddf6711782f6e1f1ba66a43c65b0c2e6861136e9c1969a914803e5277f51",
+    "VossIdle.atlas/voss_standing_idle_wnw_03.png": "f7e9d3abdfd47153dedee57f6bd3e1804bb5cbf5789d7a5c953f3071a34c1d47",
+    "VossIdle.atlas/voss_standing_idle_wsw_00.png": "ce40e280491301b0396edf52a8fb4898763da542020685bed1adbaa3790bab64",
+    "VossIdle.atlas/voss_standing_idle_wsw_01.png": "7bc2a4ec17872a16dd712411ff8e6e4dcc4046cd906f268aa1f4df646636539c",
+    "VossIdle.atlas/voss_standing_idle_wsw_02.png": "205a09df5a316859e411e48f81024a88fc2d46c6712b9beaeea99e054e4c93e9",
+    "VossIdle.atlas/voss_standing_idle_wsw_03.png": "25d77c0db45a3c1faa3c8a460353f3da97721328855ed976348f658c24623013",
     "VossSeatTransitions.atlas/voss_sit_down_ne_00.png": "f09f885101574ca0f17ce5287cca9b355bd4c9d0cc4f0d364adb6fe923243ae8",
     "VossSeatTransitions.atlas/voss_sit_down_ne_01.png": "f6ef6d7c5bb31699deb3c409698d6327127a4105bef2b533676082bb754c3a15",
     "VossSeatTransitions.atlas/voss_sit_down_ne_02.png": "9a51e51b8464f30928b5ddc3bc563374e753557e3938e0dbce8b0558f4d4fb22",
@@ -755,6 +755,10 @@
       ],
       [
         528,
+        1277
+      ],
+      [
+        528,
         1305
       ],
       [
@@ -771,7 +775,7 @@
       ],
       [
         530,
-        1274
+        1279
       ],
       [
         530,
@@ -1131,10 +1135,10 @@
       "Frames/voss_idle_nw_01_chroma_v22.png": "92a5351c11966ac376c08efed6d9f80c88c6087103c884d0eea82d7cd3e678ee",
       "Frames/voss_idle_nw_02_chroma_v22.png": "a6dc7ce1b69c154adee18eb5ab37b3a0862a1c779234a0d62c5a699a19d50931",
       "Frames/voss_idle_nw_03_chroma_v22.png": "1c62e6bb583de2599c219831028f7cc52db1156f0e273f21b165ab8f1626ba94",
-      "Frames/voss_idle_s_00_chroma_v22.png": "39f0610b4da45e7fffa2ad5b181a7441307cd0f8d99e4f303081211724b3e87c",
+      "Frames/voss_idle_s_00_chroma_v22.png": "f220b3eb8744eb6807fb3d5839eaa65d8de40d248a85409c023ce98cd46df3a2",
       "Frames/voss_idle_s_01_chroma_v22.png": "5729a255dcb3041bcfd084709a5597a3ada97ce13eb4293ca741e1a17be66b67",
       "Frames/voss_idle_s_02_chroma_v22.png": "48d7d1f577c6cdde271fc2348ecd6ca3e3025dfc54e45b266c8a0413a0af830b",
-      "Frames/voss_idle_s_03_chroma_v22.png": "1148301bc1245c4cb37e842e2044a67214ba5f64c6a0cea021567a99909f5922",
+      "Frames/voss_idle_s_03_chroma_v22.png": "0c7fb4571960876e01b4401992bb47cce309f470b038391f6727f4e81daedb8a",
       "Frames/voss_idle_ssw_00_chroma_v22.png": "cc489b2cfc27ef64a4bfe706bd354bf3b3c6e119204cece644ef8bb73bb6ae5f",
       "Frames/voss_idle_ssw_01_chroma_v22.png": "f981ac860af3c0f9aa30edbe7411dfe4ccf6b6bdd01103ef484de94dfe50f73d",
       "Frames/voss_idle_ssw_02_chroma_v22.png": "729b96818fccbbb425cad74b248c7a5806d663e6c3991d8885c8f42b348e57e4",
@@ -1154,7 +1158,7 @@
       "Frames/voss_idle_wsw_00_chroma_v22.png": "64b9165abd2b0b50637f2fe572eae1906f682f9143292f3b723d418870cc6e00",
       "Frames/voss_idle_wsw_01_chroma_v22.png": "25f1c1e113e7db7e73ad9f0f9e8cb3de8567a95e667654c0d5f936fb31a9ab42",
       "Frames/voss_idle_wsw_02_chroma_v22.png": "36ec544927d71b618df8dd4a960746c9818812d8916703c1a0832d659012a497",
-      "Frames/voss_idle_wsw_03_chroma_v22.png": "89ea72dc4b5b24e2fcb2af17f4d8e5957cd68fd9a603b5db9b495282df688481",
+      "Frames/voss_idle_wsw_03_chroma_v22.png": "b0e13d3151b97839c906e757fdb5bb60ed8415a1fb2d8aef53b193102c0f3cda",
       "Frames/voss_seated_idle_ne_00_chroma_v22.png": "4cebd41df2fef8225463336d31388bee4dbfa6adb7177088e6f2ec00d716c4c1",
       "Frames/voss_seated_idle_ne_01_chroma_v22.png": "8d770cb22a78c1e3631ff02c848b0e0424a8f77e658f7c509aeb8655ac341306",
       "Frames/voss_seated_idle_ne_02_chroma_v22.png": "dc059f8f131be31d443150b5d7367436d0772a53eb420a5a21fab49ed0a9cbf1",
@@ -1272,17 +1276,17 @@
   "status": "passed",
   "wardrobe": {
     "front_material_scores": {
-      "coat": 0.0302,
-      "hair": 0.0352,
-      "shirt": 0.0735,
-      "shoes": 0.0943,
-      "skin": 0.0217,
-      "tie": 0.1602,
-      "trousers": 0.0282
+      "coat": 0.0178,
+      "hair": 0.0553,
+      "shirt": 0.0631,
+      "shoes": 0.1465,
+      "skin": 0.0256,
+      "tie": 0.1297,
+      "trousers": 0.0599
     },
-    "processed_hue_spread_s": 0.0447,
-    "processed_hue_spread_ssw": 0.082,
-    "processed_hue_spread_sw": 0.0575,
+    "processed_hue_spread_s": 0.251,
+    "processed_hue_spread_ssw": 0.079,
+    "processed_hue_spread_sw": 0.085,
     "rear_forbidden_fraction": {
       "shirt": 0.0,
       "tie": 0.0
