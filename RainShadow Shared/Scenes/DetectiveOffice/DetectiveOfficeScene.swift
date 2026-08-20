@@ -9,9 +9,28 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private let detective = DetectiveActorNode()
     private let client = ClientActorNode()
     private var officeDoor: SKSpriteNode?
-    private var officeDoorThickness: SKSpriteNode?
-    private var officeDoorFallShadow: SKShapeNode?
-    private var officeDoorUsesFallenArtwork = false
+    private enum OfficeDoorVisualState {
+        case closed
+        case mid
+        case open
+
+        var textureName: String {
+            switch self {
+            case .closed: "office_door_leaf"
+            case .mid: "office_door_leaf_mid"
+            case .open: "office_door_leaf_open"
+            }
+        }
+
+        var hoverTextureName: String {
+            switch self {
+            case .closed: "office_door_leaf_hover"
+            case .mid: "office_door_leaf_mid"
+            case .open: "office_door_leaf_open_hover"
+            }
+        }
+    }
+    private var officeDoorVisualState: OfficeDoorVisualState = .closed
     private var deskActorOccluder: SKSpriteNode?
     private var deskFrontOccluder: SKSpriteNode?
     /// Writing-surface mask above seated torso (coat under wood).
@@ -156,12 +175,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
 
         addShellVignette()
-        // Partition strips / cutaway mask / foreground void are obsolete in
-        // production when the suite plate is present. Opt back in only for
-        // legacy A/B: RAINSHADOW_LEGACY_PARTITION=1
-        let legacyPartition = ProcessInfo.processInfo.environment["RAINSHADOW_LEGACY_PARTITION"] == "1"
-        if !usingSuitePlate || legacyPartition {
-            addPartitionWall()
+        // V08 is one open room. The retired debug partition must not be able to
+        // reintroduce a second doorway over the production plate.
+        if !usingSuitePlate {
             addForegroundCutaway()
         }
         addScaleReferenceStandsIfRequested()
@@ -1908,12 +1924,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         hoveredHotspotID = presentation.hotspotID
         for entries in hotspotHoverSprites.values {
             for entry in entries {
-                if officeDoorUsesFallenArtwork,
-                   let officeDoor,
-                   entry.sprite === officeDoor {
-                    continue
+                if let officeDoor, entry.sprite === officeDoor {
+                    entry.sprite.texture = doorTexture(for: officeDoorVisualState, hovered: false)
+                } else {
+                    entry.sprite.texture = entry.normalTexture
                 }
-                entry.sprite.texture = entry.normalTexture
             }
         }
         guard presentation.isVisible,
@@ -1921,12 +1936,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             return
         }
         for entry in hotspotHoverSprites[id] ?? [] {
-            if officeDoorUsesFallenArtwork,
-               let officeDoor,
-               entry.sprite === officeDoor {
-                continue
+            if let officeDoor, entry.sprite === officeDoor {
+                entry.sprite.texture = doorTexture(for: officeDoorVisualState, hovered: true)
+            } else {
+                entry.sprite.texture = entry.hoverTexture
             }
-            entry.sprite.texture = entry.hoverTexture
         }
     }
 
@@ -1934,13 +1948,11 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     ///
     /// Everything else is drawn and forgotten, which is the point of moving the
     /// room into a record. What survives here needs a reference because it
-    /// *changes*: the entrance leaf falls and stands back up, the desk occluders
+    /// *changes*: the entrance leaf swaps registered hinge states, the desk occluders
     /// re-sort against Voss every frame, and the desk items lift above the
     /// writing surface the moment he sits down.
     private func bindPlacedProps(_ props: [String: SKSpriteNode]) {
         officeDoor = props["office_door_leaf"]
-        officeDoorThickness = props["office_door_leaf_thickness"]
-        internalOfficeDoorLeaf = props["office_internal_door_leaf"]
         deskActorOccluder = props["office_desk_actor_occluder"]
         deskFrontOccluder = props["office_desk_front_occluder_v04"]
         deskTopOccluder = props["office_desk_top_occluder"]
@@ -1950,6 +1962,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             guard let sprite = props[binding.prop] else { continue }
             registerHoverSprite(sprite, for: binding.hotspot)
         }
+        applyDoorVisualState(.closed, entranceBlocking: true)
     }
 
     /// Desk-native props that `updateDetectiveDepth` lifts above the writing
@@ -2008,56 +2021,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         rearFixtureRoot.addChild(crop)
     }
 
-    /// Full-height authored partition plate, sliced for depth sort.
-    ///
-    /// Cutaway is a separate visibility mask applied offline into
-    /// `office_partition_wall_cutaway` (default). Set `RAINSHADOW_PARTITION_MASK=0`
-    /// to load the unmasked full-height plate for review.
-    private func addPartitionWall() {
-        let maskOff = ProcessInfo.processInfo.environment["RAINSHADOW_PARTITION_MASK"] == "0"
-        let textureName = maskOff ? "office_partition_wall" : "office_partition_wall_cutaway"
-        guard let texture = GameArt.texture(named: textureName)
-            ?? GameArt.texture(named: "office_partition_wall") else { return }
-        texture.filteringMode = .linear
-
-        let plate = OfficeInteriorScale.sourceArtSize
-        let geometry = OfficeNavigationLayout.Architecture.self
-        let sliceWidth: CGFloat = 64
-        var left = geometry.partitionPlateX0
-
-        while left < geometry.partitionPlateX1 {
-            let width = min(sliceWidth, geometry.partitionPlateX1 - left)
-            let base = geometry.partitionPlateBaseY(atPlateX: left + width / 2)
-            // The painted run climbs across each slice, so the window has to carry
-            // half that climb at both ends or the cap comes out stair-stepped.
-            let climb = geometry.partitionPlateBaseY(atPlateX: left + width)
-                - geometry.partitionPlateBaseY(atPlateX: left)
-            let headroom = climb / 2 + 6
-            let bottom = base + 24 + headroom
-            let top = base - geometry.partitionPlateFaceHeight
-                - geometry.partitionPlateCapHeight - headroom
-            let size = CGSize(width: width, height: bottom - top)
-            let crop = CGRect(
-                x: left / plate.width,
-                y: 1 - bottom / plate.height,
-                width: width / plate.width,
-                height: size.height / plate.height
-            )
-            let slice = SKSpriteNode(
-                texture: SKTexture(rect: crop, in: texture),
-                size: OfficeInteriorScale.mapSize(size)
-            )
-            slice.name = "office_partition_wall"
-            slice.anchorPoint = CGPoint(x: 0.5, y: 0)
-            slice.position = OfficeInteriorScale.mapPoint(
-                CGPoint(x: left + width / 2, y: plate.height - bottom)
-            )
-            updateDepth(of: slice)
-            depthWorldRoot.addChild(slice)
-            left += sliceWidth
-        }
-    }
-
     /// QA hook: mark every placed node's own position, so a capture shows whether
     /// the art sits on the point the layout authored for it.
     private func addNodePositionMarkersIfRequested() {
@@ -2079,8 +2042,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         }
     }
 
-    /// QA hook: park idle stand-ins behind the desk, in the internal doorway,
-    /// and beside the waiting chair for architecture visibility review.
+    /// QA hook: park idle stand-ins at the entrance, desk, and waiting group.
     private func addScaleReferenceStandsIfRequested() {
         guard ProcessInfo.processInfo.environment["RAINSHADOW_SCALE_RIG"] == "1",
               let texture = GameArt.texture(named: "voss_standing_idle_s_00") else { return }
@@ -2240,11 +2202,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         occlusionRoot.addChild(void)
     }
 
-    /// Plain frosted internal door, swung open into the private office. The
-    /// sprite carries its own hinge barrels and shaded return face; its sheared
-    /// texture remains at plate scale so the hinge jamb stays flush with the shell.
-    private var internalOfficeDoorLeaf: SKSpriteNode?
-
     /// The one thing over the plate that is not a prop.
     ///
     /// It is a full-plate darkening pass at the plate's own origin and size,
@@ -2282,6 +2239,70 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         fogOfWar = fog
     }
 
+    /// The BG:EE reference only exposes the entrance leaf edge-on against the
+    /// black cutaway. Every state shares one hinge registration and swaps a
+    /// purpose-painted silhouette; no front-elevation warp is used.
+    private func doorTexture(
+        for state: OfficeDoorVisualState,
+        hovered: Bool
+    ) -> SKTexture? {
+        let name = hovered ? state.hoverTextureName : state.textureName
+        let texture = GameArt.texture(named: name)
+        texture?.filteringMode = .linear
+        return texture
+    }
+
+    private func presentDoorVisualState(_ state: OfficeDoorVisualState) {
+        guard let officeDoor, let texture = doorTexture(for: state, hovered: false) else {
+            return
+        }
+        officeDoor.texture = texture
+        officeDoor.size = texture.size()
+        officeDoor.anchorPoint = OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
+        officeDoor.position = OfficeInteriorScale.mapPoint(
+            OfficeNavigationLayout.AuthoredPlacement.doorLeaf
+        )
+        officeDoor.setScale(OfficeNavigationLayout.Architecture.entranceLeafDisplayScale)
+        officeDoor.zRotation = 0
+        officeDoor.warpGeometry = nil
+        officeDoor.alpha = 1
+        officeDoor.move(toParent: depthWorldRoot)
+        updateDepth(of: officeDoor, bias: 24)
+        officeDoorVisualState = state
+    }
+
+    private func applyDoorVisualState(
+        _ state: OfficeDoorVisualState,
+        entranceBlocking: Bool
+    ) {
+        officeDoor?.removeAction(forKey: "officeDoorMotion")
+        presentDoorVisualState(state)
+        navigation.setEntranceDoorBlocking(entranceBlocking)
+    }
+
+    private func animateDoor(
+        to target: OfficeDoorVisualState,
+        entranceBlockingAtEnd: Bool
+    ) {
+        guard let officeDoor else { return }
+        officeDoor.removeAction(forKey: "officeDoorMotion")
+
+        // Opening clears the threshold immediately; closing stamps it only
+        // after the dark edge has tucked back into the cutaway.
+        if target == .open {
+            navigation.setEntranceDoorBlocking(false)
+        }
+        let motion = SKAction.sequence([
+            .run { [weak self] in self?.presentDoorVisualState(.mid) },
+            .wait(forDuration: 0.16),
+            .run { [weak self] in self?.presentDoorVisualState(target) },
+            .run { [weak self] in
+                self?.navigation.setEntranceDoorBlocking(entranceBlockingAtEnd)
+            }
+        ])
+        officeDoor.run(motion, withKey: "officeDoorMotion")
+    }
+
     private func doorWarp(_ destination: [SIMD2<Float>]) -> SKWarpGeometryGrid {
         let source: [SIMD2<Float>] = [
             SIMD2(0, 0), SIMD2(1, 0),
@@ -2305,6 +2326,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         ])
     }
 
+    #if LEGACY_FALLEN_OFFICE_DOOR
+    // Retained only as source provenance for pre-V08 captures. This branch is
+    // deliberately not compiled; V08 uses registered closed/mid/open images.
     private var uprightDoorWarp: SKWarpGeometryGrid {
         doorWarp([
             SIMD2(0, 0), SIMD2(1, 0),
@@ -2455,6 +2479,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// inspect the same resting geometry as the animation without depending on
     /// window-focus timing or SpriteKit action advancement.
     private func setDoorFallenForReview() {
+        applyDoorVisualState(.open, entranceBlocking: false)
+        return
+
         guard let officeDoor, let officeDoorThickness else { return }
 
         let fallenScale =
@@ -2496,6 +2523,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// tips the leaf into the floor plane; the dark extrusion and contact shadow
     /// keep it from reading as a flat card rotating in screen space.
     private func animateDoorFalling() {
+        animateDoor(to: .open, entranceBlockingAtEnd: false)
+        return
+
         guard let officeDoor, let officeDoorThickness else { return }
 
         officeDoor.removeAction(forKey: "officeDoorMotion")
@@ -2613,6 +2643,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// The door is restored only after Lila has finished her exit path and
     /// cleared the room, ready for the next visitor.
     private func animateDoorReturning() {
+        animateDoor(to: .closed, entranceBlockingAtEnd: true)
+        return
+
         guard let officeDoor, let officeDoorThickness else { return }
 
         officeDoor.removeAction(forKey: "officeDoorMotion")
@@ -2675,6 +2708,21 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             .removeFromParent()
         ]))
         officeDoorFallShadow = nil
+    }
+    #endif
+
+    /// Compatibility entry points used by the existing cutscene sequencer.
+    /// Their presentation is now a hinged edge-state swap, never a fallen leaf.
+    private func setDoorFallenForReview() {
+        applyDoorVisualState(.open, entranceBlocking: false)
+    }
+
+    private func animateDoorFalling() {
+        animateDoor(to: .open, entranceBlockingAtEnd: false)
+    }
+
+    private func animateDoorReturning() {
+        animateDoor(to: .closed, entranceBlockingAtEnd: true)
     }
 
     private func buildFallbackOffice() {

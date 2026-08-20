@@ -33,15 +33,16 @@ is already `0.75`.
 
 | Camera | Diamond | Half-steps | Notes |
 |---|---|---|---|
-| `BGEE` (target) | **128×96** | 64 / 48 | Spans exactly 8×8 SearchMap cells |
-| `LEGACY_V2` (active) | 128×64 | 64 / 32 | What the installed plates are drawn to |
+| `BGEE` (**active**) | **128×96** | 64 / 48 | Spans exactly 8×8 SearchMap cells |
+| `LEGACY_V2` (retired) | 128×64 | 64 / 32 | Kept only for source-art provenance |
 
 ## Adoption status
 
-`ie_projection.ACTIVE` is `LEGACY_V2`. The painted plates are still legacy art —
-measured with `qa_plate_projection.py` they sit near 23° and do not agree with
-one another. The pipeline switches to `BGEE` in the same commit that lands
-on-lock masters; see `Documentation/BGEEProjectionMasterRegen.md`.
+`ie_projection.ACTIVE` is `BGEE`. The V10 tavern-hall office plate measures
+**+36.73° / −36.62°**, a worst delta of **0.25°** from the 36.87° lock.
+Other shipped areas retain their own measured status in
+`Documentation/BGEEProjectionMasterRegen.md`; do not infer camera compliance
+from a prompt or planner report alone.
 
 Authored forward projection (y-up plate space):
 

@@ -47,7 +47,7 @@ enum OfficeInteriorScale {
         /// egress stop north into the kneehole (actorStart is deskChair − 30
         /// authored units; 30 × environment ≈ 11.85). Nav-derived, so it does
         /// **not** follow the sprite size.
-        static let seatedYOffset: CGFloat = 39.5
+        static let seatedYOffset: CGFloat = 47.4
         /// Whole-body seat nudge (world space). Stay on the SW / camera-near
         /// kneehole side of the desk ground (desk.y − chair.y ≈ 12–16). Nudges
         /// past ~18 put feet on the visitor / far side of the writing surface.
@@ -123,10 +123,10 @@ enum OfficeInteriorScale {
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
         static let deskChair: CGFloat = 429
-        /// Opaque centre-column run of the projected exterior leaf.
-        static let doorLeaf: CGFloat = 638
-        /// Opaque right-edge hinge run of the open internal leaf.
-        static let internalDoorLeafHinge: CGFloat = 346
+        /// Diagonal opaque length of the V08 edge-on open leaf.
+        static let doorLeaf: CGFloat = 508
+        /// Removed with the V08 open-plan partition.
+        static let internalDoorLeafHinge: CGFloat = 0
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
         static let radiator: CGFloat = 338
@@ -389,12 +389,13 @@ enum OfficeInteriorScale {
     }
 
     /// Opaque extent of the painted room inside the suite plate, measured from
-    /// `office_suite_plate.png` (art px x 1047…3045, y 476…1657 top-down; the
-    /// V7 room is letterboxed on the 4096×2304 canvas — the rest is baked black).
+    /// V10 `office_suite_plate.png` (art px x 1187…2949, y 179…1771 top-down;
+    /// the tavern hall is letterboxed on the 4096×2304 canvas and all pixels
+    /// outside its immutable architecture mask are baked black).
     ///
     /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
     /// followed camera swing out over the empty margin.
-    static let paintedRoomSourceRect = CGRect(x: 1_047, y: 646, width: 1_999, height: 1_182)
+    static let paintedRoomSourceRect = CGRect(x: 1_187, y: 533, width: 1_763, height: 1_593)
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

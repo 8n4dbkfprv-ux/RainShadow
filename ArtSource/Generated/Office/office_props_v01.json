@@ -7,8 +7,8 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_floor_wear_decal",
       "layer": "floorEffects",
@@ -23,8 +23,8 @@
       "blend": "add",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1794.015,
-        "y": 1201.375
+        "x": 2008.816,
+        "y": 1346.577
       },
       "id": "office_light_window_spill",
       "layer": "floorEffects",
@@ -39,8 +39,8 @@
       "blend": "add",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1801.915,
-        "y": 1173.33
+        "x": 2016.558,
+        "y": 1320.3885
       },
       "id": "office_light_blind_stripes",
       "layer": "floorEffects",
@@ -55,8 +55,8 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_shadow_ceiling_fan",
       "layer": "floorEffects",
@@ -71,8 +71,8 @@
       "blend": "add",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 2347.0149,
-        "y": 1185.1801
+        "x": 2348.753,
+        "y": 1112.0062
       },
       "id": "office_light_hallway",
       "layer": "floorEffects",
@@ -87,8 +87,8 @@
       "blend": "add",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_light_lamp_pool",
       "layer": "floorEffects",
@@ -103,8 +103,8 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 2302.7749,
-        "y": 1190.3149
+        "x": 2278.364,
+        "y": 1164.798
       },
       "id": "office_entrance_runner",
       "layer": "floorEffects",
@@ -119,8 +119,8 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1765.575,
-        "y": 1245.615
+        "x": 1933.608,
+        "y": 1352.028
       },
       "id": "office_cabinet_floor_shadow",
       "layer": "floorEffects",
@@ -135,13 +135,13 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1875.78,
-        "y": 1211.645
+        "x": 2034.886,
+        "y": 1179.2945
       },
       "id": "office_worn_rug",
       "layer": "floorEffects",
       "rotation": 0.0,
-      "scale": 0.1364,
+      "scale": 0.3,
       "textureName": "office_worn_rug_burgundy"
     },
     {
@@ -151,8 +151,8 @@
       "blend": "alpha",
       "depthBias": 9000.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_desk_floor_shadow",
       "layer": "floorEffects",
@@ -167,8 +167,8 @@
       "blend": "add",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1746.615,
-        "y": 1273.66
+        "x": 1973.266,
+        "y": 1485.8145
       },
       "id": "office_light_blind_stripes_wall",
       "layer": "rearFixtures",
@@ -183,8 +183,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1730.8149,
-        "y": 1344.76
+        "x": 1973.266,
+        "y": 1485.8145
       },
       "id": "office_window",
       "layer": "rearFixtures",
@@ -218,8 +218,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1648.26,
-        "y": 1310.0
+        "x": 1892.844,
+        "y": 1390.58
       },
       "id": "office_wall_photos",
       "layer": "rearFixtures",
@@ -234,8 +234,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1707.115,
-        "y": 1400.0601
+        "x": 1933.608,
+        "y": 1433.003
       },
       "id": "office_case_board",
       "layer": "rearFixtures",
@@ -250,8 +250,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1788.09,
-        "y": 1441.14
+        "x": 1960.784,
+        "y": 1447.46
       },
       "id": "office_wall_city_map",
       "layer": "rearFixtures",
@@ -266,8 +266,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1854.45,
-        "y": 1452.2
+        "x": 1987.96,
+        "y": 1455.992
       },
       "id": "office_framed_licence",
       "layer": "rearFixtures",
@@ -282,8 +282,8 @@
       "blend": "alpha",
       "depthBias": 5000.0,
       "groundPoint": {
-        "x": 1748.1949,
-        "y": 1236.135
+        "x": 1965.445,
+        "y": 1379.1053
       },
       "id": "office_radiator",
       "layer": "rearFixtures",
@@ -292,35 +292,19 @@
       "textureName": "office_radiator"
     },
     {
-      "alpha": 0.0,
-      "anchorX": 0.5,
-      "anchorY": 0.08903,
-      "blend": "alpha",
-      "depthBias": 5000.0,
-      "groundPoint": {
-        "x": 2353.73,
-        "y": 1190.3149
-      },
-      "id": "office_door_leaf_thickness",
-      "layer": "rearFixtures",
-      "rotation": 0.0,
-      "scale": 0.1226,
-      "textureName": "office_door_leaf_thickness"
-    },
-    {
       "alpha": 1.0,
-      "anchorX": 0.5,
-      "anchorY": 0.08903,
+      "anchorX": 0.953125,
+      "anchorY": 0.83125,
       "blend": "alpha",
-      "depthBias": 5000.0,
+      "depthBias": 24.0,
       "groundPoint": {
-        "x": 2353.73,
-        "y": 1190.3149
+        "x": 2349.6852,
+        "y": 1106.5671
       },
       "id": "office_door_leaf",
-      "layer": "rearFixtures",
+      "layer": "depthWorld",
       "rotation": 0.0,
-      "scale": 0.1226,
+      "scale": 0.175,
       "textureName": "office_door_leaf"
     },
     {
@@ -330,8 +314,8 @@
       "blend": "alpha",
       "depthBias": -80.0,
       "groundPoint": {
-        "x": 1902.64,
-        "y": 1201.375
+        "x": 1911.8988,
+        "y": 1197.1011
       },
       "id": "office_floor_trash_a",
       "layer": "depthWorld",
@@ -346,8 +330,8 @@
       "blend": "alpha",
       "depthBias": -55.0,
       "groundPoint": {
-        "x": 1786.51,
-        "y": 1211.645
+        "x": 1803.5345,
+        "y": 1207.5469
       },
       "id": "office_floor_trash_b",
       "layer": "depthWorld",
@@ -362,24 +346,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1981.9655,
-        "y": 1210.1121
-      },
-      "id": "office_internal_door_leaf",
-      "layer": "depthWorld",
-      "rotation": 0.0,
-      "scale": 0.3311,
-      "textureName": "office_internal_door_leaf"
-    },
-    {
-      "alpha": 1.0,
-      "anchorX": 0.5,
-      "anchorY": 0.04,
-      "blend": "alpha",
-      "depthBias": 0.0,
-      "groundPoint": {
-        "x": 1737.925,
-        "y": 1225.075
+        "x": 1896.241,
+        "y": 1324.0027
       },
       "id": "office_bookshelf",
       "layer": "depthWorld",
@@ -394,8 +362,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1765.575,
-        "y": 1245.615
+        "x": 1933.608,
+        "y": 1352.028
       },
       "id": "office_filing_cabinet_open",
       "layer": "depthWorld",
@@ -410,8 +378,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 1787.3,
-        "y": 1262.205
+        "x": 1960.784,
+        "y": 1372.41
       },
       "id": "office_filing_cabinet",
       "layer": "depthWorld",
@@ -426,8 +394,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1811.395,
-        "y": 1279.98
+        "x": 1987.96,
+        "y": 1392.792
       },
       "id": "office_safe",
       "layer": "depthWorld",
@@ -442,8 +410,8 @@
       "blend": "alpha",
       "depthBias": 39.9999,
       "groundPoint": {
-        "x": 1787.3,
-        "y": 1262.205
+        "x": 1960.784,
+        "y": 1372.41
       },
       "id": "office_archive_box_b",
       "layer": "depthWorld",
@@ -458,8 +426,8 @@
       "blend": "alpha",
       "depthBias": 45.0,
       "groundPoint": {
-        "x": 1765.575,
-        "y": 1245.615
+        "x": 1933.608,
+        "y": 1352.028
       },
       "id": "office_archive_stack",
       "layer": "depthWorld",
@@ -474,8 +442,8 @@
       "blend": "alpha",
       "depthBias": 0.0001,
       "groundPoint": {
-        "x": 1771.105,
-        "y": 1218.36
+        "x": 1931.396,
+        "y": 1149.867
       },
       "id": "office_archive_box_a",
       "layer": "depthWorld",
@@ -490,8 +458,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 2347.0149,
-        "y": 1174.515
+        "x": 2333.664,
+        "y": 1174.278
       },
       "id": "office_coat_rack",
       "layer": "depthWorld",
@@ -506,8 +474,8 @@
       "blend": "alpha",
       "depthBias": 0.0001,
       "groundPoint": {
-        "x": 2320.55,
-        "y": 1179.255
+        "x": 2309.253,
+        "y": 1177.2997
       },
       "id": "office_umbrella_stand",
       "layer": "depthWorld",
@@ -522,8 +490,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 2181.115,
-        "y": 1232.975
+        "x": 2242.498,
+        "y": 1201.8885
       },
       "id": "office_waiting_chair_a",
       "layer": "depthWorld",
@@ -538,8 +506,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 2205.21,
-        "y": 1214.8051
+        "x": 2246.527,
+        "y": 1183.5802
       },
       "id": "office_waiting_table",
       "layer": "depthWorld",
@@ -554,8 +522,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 2229.7,
-        "y": 1196.635
+        "x": 2250.556,
+        "y": 1165.272
       },
       "id": "office_waiting_chair_b",
       "layer": "depthWorld",
@@ -570,8 +538,8 @@
       "blend": "alpha",
       "depthBias": -19.9999,
       "groundPoint": {
-        "x": 2204.8149,
-        "y": 1217.965
+        "x": 2246.4954,
+        "y": 1184.6231
       },
       "id": "office_newspaper",
       "layer": "depthWorld",
@@ -586,8 +554,8 @@
       "blend": "alpha",
       "depthBias": -15.0,
       "groundPoint": {
-        "x": 2205.605,
-        "y": 1210.0649
+        "x": 2247.3328,
+        "y": 1179.9186
       },
       "id": "office_waiting_ashtray",
       "layer": "depthWorld",
@@ -602,8 +570,8 @@
       "blend": "alpha",
       "depthBias": -10.0,
       "groundPoint": {
-        "x": 1876.175,
-        "y": 1328.5649
+        "x": 2148.172,
+        "y": 1333.779
       },
       "id": "office_personal_sideboard",
       "layer": "depthWorld",
@@ -618,8 +586,8 @@
       "blend": "alpha",
       "depthBias": -20.0,
       "groundPoint": {
-        "x": 1874.595,
-        "y": 1325.405
+        "x": 2149.2701,
+        "y": 1331.9363
       },
       "id": "office_hidden_bottle",
       "layer": "depthWorld",
@@ -634,8 +602,8 @@
       "blend": "alpha",
       "depthBias": -25.0,
       "groundPoint": {
-        "x": 1880.915,
-        "y": 1330.145
+        "x": 2145.2964,
+        "y": 1336.9548
       },
       "id": "office_personal_glass",
       "layer": "depthWorld",
@@ -650,8 +618,8 @@
       "blend": "alpha",
       "depthBias": -5.0,
       "groundPoint": {
-        "x": 1895.53,
-        "y": 1324.22
+        "x": 2139.3635,
+        "y": 1337.8376
       },
       "id": "office_personal_fan",
       "layer": "depthWorld",
@@ -666,8 +634,8 @@
       "blend": "alpha",
       "depthBias": -39.9999,
       "groundPoint": {
-        "x": 1863.535,
-        "y": 1214.9738
+        "x": 2100.377,
+        "y": 1203.6966
       },
       "id": "office_desk_chair",
       "layer": "depthWorld",
@@ -682,8 +650,8 @@
       "blend": "alpha",
       "depthBias": -50.0,
       "groundPoint": {
-        "x": 1905.8,
-        "y": 1270.5
+        "x": 1954.701,
+        "y": 1183.3432
       },
       "id": "office_visitor_armchair",
       "layer": "depthWorld",
@@ -698,8 +666,8 @@
       "blend": "alpha",
       "depthBias": -50.0,
       "groundPoint": {
-        "x": 1946.485,
-        "y": 1240.085
+        "x": 1987.644,
+        "y": 1128.063
       },
       "id": "office_visitor_armchair_2",
       "layer": "depthWorld",
@@ -714,8 +682,8 @@
       "blend": "alpha",
       "depthBias": 0.0001,
       "groundPoint": {
-        "x": 1832.725,
-        "y": 1228.235
+        "x": 2070.436,
+        "y": 1147.497
       },
       "id": "office_wastebasket",
       "layer": "depthWorld",
@@ -730,8 +698,8 @@
       "blend": "alpha",
       "depthBias": -500.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_desk_bare",
       "layer": "depthWorld",
@@ -746,8 +714,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1862.6899,
-        "y": 1289.571
+        "x": 2021.7959,
+        "y": 1257.2205
       },
       "id": "office_desk_lamp",
       "layer": "depthWorld",
@@ -762,8 +730,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1874.09,
-        "y": 1280.571
+        "x": 2033.196,
+        "y": 1248.2205
       },
       "id": "office_desk_phone",
       "layer": "depthWorld",
@@ -778,8 +746,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1890.29,
-        "y": 1285.9709
+        "x": 2049.396,
+        "y": 1253.6204
       },
       "id": "office_desk_typewriter",
       "layer": "depthWorld",
@@ -794,8 +762,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1895.6899,
-        "y": 1274.571
+        "x": 2054.7959,
+        "y": 1242.2205
       },
       "id": "office_desk_notebook",
       "layer": "depthWorld",
@@ -810,8 +778,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 1905.29,
-        "y": 1279.371
+        "x": 2064.396,
+        "y": 1247.0205
       },
       "id": "office_desk_papers",
       "layer": "depthWorld",
@@ -826,8 +794,8 @@
       "blend": "alpha",
       "depthBias": 0.0,
       "groundPoint": {
-        "x": 1911.89,
-        "y": 1272.771
+        "x": 2070.996,
+        "y": 1240.4205
       },
       "id": "office_desk_ashtray",
       "layer": "depthWorld",
@@ -842,8 +810,8 @@
       "blend": "alpha",
       "depthBias": -0.0001,
       "groundPoint": {
-        "x": 1921.49,
-        "y": 1282.371
+        "x": 2080.596,
+        "y": 1250.0205
       },
       "id": "office_desk_files",
       "layer": "depthWorld",
@@ -858,8 +826,8 @@
       "blend": "alpha",
       "depthBias": -60.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_desk_actor_occluder",
       "layer": "depthWorld",
@@ -874,8 +842,8 @@
       "blend": "alpha",
       "depthBias": -20.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_desk_front_occluder_v04",
       "layer": "depthWorld",
@@ -890,8 +858,8 @@
       "blend": "alpha",
       "depthBias": -40.0,
       "groundPoint": {
-        "x": 1889.21,
-        "y": 1221.915
+        "x": 2048.316,
+        "y": 1189.5645
       },
       "id": "office_desk_top_occluder",
       "layer": "depthWorld",

@@ -80,8 +80,8 @@ enum CutsceneCatalog {
 
     // MARK: - Office: the client visit
 
-    /// Lila March arrives: the door gives out, she crosses the waiting room and
-    /// the partition, Voss gets to his feet.
+    /// Lila March arrives through the sole cutaway entrance, crosses the open
+    /// room, and Voss gets to his feet.
     ///
     /// Deferred out of `voss.monologue.4` by that node's `onLeaveCue`, and it
     /// resumes the graph on the far side. This is classic BG structure —
@@ -91,7 +91,7 @@ enum CutsceneCatalog {
     /// Reading the tracks: `.chrome` is the master block, the one BG would give
     /// `CutSceneId(Player1)`. It raises the bars, hands the walk to Lila with
     /// `ActionOverride` — blocking until she arrives — then turns Voss toward
-    /// her and gives the dialogue back. Meanwhile the door falls, Voss rises,
+    /// her and gives the dialogue back. Meanwhile the door opens, Voss rises,
     /// and the camera works ahead of her.
     static func clientEntrance(
         route: [CGPoint],
@@ -132,7 +132,7 @@ enum CutsceneCatalog {
                     // does. The shipped version held on the desk for the whole
                     // walk and then jerked to the dialogue framing once she had
                     // already arrived, which reads as a reaction rather than a shot.
-                    .moveViewPoint(OfficeCutsceneFraming.partitionAperture, .fast),
+                    .moveViewPoint(OfficeCutsceneFraming.entranceSightline, .fast),
                     .moveViewObject(.client, .veryFast),
                     .wait(.ticks(12)),
                     .moveViewPoint(OfficeCutsceneFraming.dialogueFraming, .standard)
@@ -174,9 +174,9 @@ enum CutsceneCatalog {
     /// Office marks. Derived from the authored layout rather than restated, so a
     /// change to the room's geometry moves the camera with it.
     enum OfficeCutsceneFraming {
-        /// The framed partition doorway — where she becomes visible from the desk.
-        static var partitionAperture: CGPoint {
-            OfficeNavigationLayout.clientInternalDoorwayPath.last
+        /// The open-room sightline just inside the sole cutaway entrance.
+        static var entranceSightline: CGPoint {
+            OfficeNavigationLayout.clientWaitingRoomPath.last
                 ?? OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition
         }
 

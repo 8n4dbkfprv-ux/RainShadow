@@ -1,0 +1,85 @@
+{
+  "version": "BGEETavernV10",
+  "canvas": [4096, 2304],
+  "projection": {
+    "camera": "BGEE",
+    "elevationDegrees": 48.59037789,
+    "groundAxisDegrees": [-36.86989765, 36.86989765],
+    "diamondPixels": [128, 96],
+    "searchCellPixels": [16, 12]
+  },
+  "room": {
+    "rear": [2048.0, 450.0],
+    "axisNW": [-860.0, 645.0],
+    "axisNE": [900.0, 675.0],
+    "wallFaceHeight": 271.0,
+    "wallThickness": 12.0,
+    "cutawayHeight": 24.0,
+    "controlPoints": {
+      "rearFloor": [2048.0, 450.0],
+      "westFloor": [1188.0, 1095.0],
+      "eastFloor": [2948.0, 1125.0],
+      "nearFloor": [2088.0, 1770.0],
+      "rearCrown": [2048.0, 179.0]
+    }
+  },
+  "pillars": [
+    {"id": "nw_rear", "plan": [0.30, 0.25], "half": [0.028, 0.028], "height": 300.0},
+    {"id": "nw_mid", "plan": [0.30, 0.50], "half": [0.028, 0.028], "height": 300.0},
+    {"id": "nw_near", "plan": [0.30, 0.75], "half": [0.028, 0.028], "height": 300.0},
+    {"id": "se_rear", "plan": [0.64, 0.25], "half": [0.028, 0.028], "height": 300.0},
+    {"id": "se_mid", "plan": [0.64, 0.50], "half": [0.028, 0.028], "height": 300.0},
+    {"id": "se_near", "plan": [0.64, 0.75], "half": [0.028, 0.028], "height": 300.0}
+  ],
+  "stairs": {
+    "id": "nw_wall_run",
+    "planBox": [0.58, 0.00, 0.98, 0.16],
+    "steps": 8,
+    "rise": 18.0
+  },
+  "door": {
+    "edge": "camera-near-right/b=1",
+    "centerPlan": [0.18, 1.0],
+    "openingPixels": [125.0, 198.0],
+    "thresholdEndpoints": [
+      [2843.194, 1203.605],
+      [2743.206, 1278.595]
+    ],
+    "liveCanvas": [512, 320],
+    "hingePixels": [488, 54],
+    "anchor": [0.953125, 0.83125]
+  },
+  "referenceLock": {
+    "wideRoom": {
+      "role": "footprint/proportions/density/context only",
+      "filename": "feldepost_ar3351_tavern.jpg",
+      "areaResref": "AR3351",
+      "sha256": "eb59e1784da824a5e0967fb8d2d85806eccc069555084e1f6144ff92ec3789bf",
+      "nativeDimensions": [1024, 624],
+      "crop": [176, 36, 680, 460],
+      "normalizedRoomControlPoints": {
+        "rear": [0.50, 0.06],
+        "west": [0.08, 0.42],
+        "east": [0.92, 0.46],
+        "near": [0.52, 0.93]
+      }
+    },
+    "doorCloseUp": {
+      "role": "sole door authority",
+      "filename": "door_closeup.png",
+      "sha256": "f2fd01cc7de7ca4987736b7f07af2996d252e9b72df569c20b313e3297ecca6a",
+      "nativeDimensions": [1024, 622],
+      "crop": [279, 167, 312, 279],
+      "normalizedHinge": [0.875, 0.08],
+      "normalizedFreeEnd": [0.1, 0.66125]
+    },
+    "contamination": [
+      "characters",
+      "green selection circles",
+      "UI",
+      "party portraits",
+      "dialogue text",
+      "screenshot crop boundaries"
+    ]
+  }
+}

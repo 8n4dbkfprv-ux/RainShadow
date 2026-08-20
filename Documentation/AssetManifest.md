@@ -24,8 +24,9 @@ The Image Generator produces source material. Every result still passes registra
 
 Canonical constants: `ArtSource/Processing/ie_projection.py` and
 `Documentation/InfinityEngineGroundProjection.md` (Baldur's Gate: EE / GemRB).
-**New masters are generated to this lock**; the plates currently installed
-predate it and are still legacy art (`ie_projection.ACTIVE = LEGACY_V2`).
+**New masters are generated to this lock** and `ie_projection.ACTIVE = BGEE`.
+The V10 tavern-hall office is measured from its installed pixels; older area status remains
+documented separately in `BGEEProjectionMasterRegen.md`.
 Grade every new master with `qa_plate_projection.py` before installing it.
 
 - Orthographic Infinity Engine ground projection (no vanishing point).
@@ -52,7 +53,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | V5 BG:EE candidate, uniform 3:2 contain | 4096×2304 @ env 0.395 | `install_office_bgee_v05.py` at `SUITE_PLATE_SCALE=0.60`; clear opening 290 px (1.63× body). |
+| Office suite plate | V10 tavern-hall material passes over deterministic geometry | 4096×2304 @ env 0.395 | `install_office_tavern_bgee_v10.py`; genuine 2.53 px/unit detail, measured +36.73°/−36.62°, one camera-near cutaway entrance. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 56px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -144,12 +145,15 @@ The word **empty** is strict. The shell may contain built architecture, fixed wa
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_door_frame` | 640×896 | Yes | Worn jamb, threshold, hinges, and rear trim aligned to shell opening. |
-| P0 | `office_door_leaf_closed` | 512×896 | Yes | Original battered wooden/frosted-glass office door, no readable business name or copyrighted lettering. |
-| P1 | `office_door_leaf_ajar` | 512×896 | Yes | Same door opened approximately 15 degrees for a future/attempt state; fixed hinge and light continuity. |
-| P0 | `office_door_foreground_jamb` | 256×896 | Yes | Near jamb cutout that occludes the actor during approach. |
+| P0 | `office_door_leaf` | 512×320 | Yes | Closed edge cap on the shared hinge canvas; opaque dark tobacco timber, no readable face, glass, lettering, knob, or freestanding frame. |
+| P0 | `office_door_leaf_mid` | 512×320 | Yes | Mid-swing edge silhouette on the same fixed hinge registration. |
+| P0 | `office_door_leaf_open` | 512×320 | Yes | Fully open, heavily foreshortened timber sliver projecting lower-left over the black cutaway, anchored to the supplied BG:EE crop's observable read. |
+| P0 | `office_door_leaf_hover` / `office_door_leaf_open_hover` | 512×320 | Yes | Non-destructive hover derivations of the approved closed/open bases. |
 
-The door leaf and frame must match projection, hinge position, texture, damage, and lighting exactly. Generate the ajar state by editing the approved closed state, not from a fresh prompt.
+All states share image hinge `(488, 54)` / SpriteKit anchor `(0.953125, 0.83125)`.
+The transition swaps registered edge-rendered states; it does not rotate a flat
+rectangular sprite. Retired frosted-lettered, thickness-warp, fallen, frame, and
+internal-door sources remain under `ArtSource` for provenance but are not runtime contracts.
 
 ### 5.4 Desk island and small desk objects
 
@@ -404,7 +408,7 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | P0 | `inventory_close_box_macos9_noir_v09` | 1 | 128×128 | Prior Inventory-specific close pass. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Prior shared overlay close control (fallback). |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
-| P0 | `map_detective_office_v03` | 1 | 1847×1040 | Layout-locked cramped-suite area map (shipping plate + modular props); code owns labels and position ring. |
+| P0 | `map_detective_office_v08` | 1 | 1847×1040 | Runtime alias for the V10 tavern-hall HUD map (`map_detective_office_v10`); code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 

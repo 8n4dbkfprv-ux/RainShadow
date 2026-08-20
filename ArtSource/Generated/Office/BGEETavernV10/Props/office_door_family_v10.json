@@ -1,0 +1,56 @@
+{
+  "canvas": [
+    512,
+    320
+  ],
+  "hingeImageXY": [
+    488,
+    54
+  ],
+  "anchorFromBottomLeft": [
+    0.953125,
+    0.83125
+  ],
+  "states": {
+    "closed": {
+      "source": "door_closed_edge_source_v10.png",
+      "file": "office_door_leaf_closed_v10.png",
+      "opaqueBounds": [
+        262,
+        36,
+        490,
+        242
+      ],
+      "opaquePixels": 7566,
+      "targetLength": 282,
+      "targetAngleDegrees": 36.86989765
+    },
+    "mid": {
+      "source": "door_mid_edge_source_v10.png",
+      "file": "office_door_leaf_mid_v10.png",
+      "opaqueBounds": [
+        198,
+        30,
+        490,
+        292
+      ],
+      "opaquePixels": 12201,
+      "targetLength": 360,
+      "targetAngleDegrees": 36.86989765
+    },
+    "open": {
+      "source": "door_open_edge_source_v10.png",
+      "file": "office_door_leaf_open_v10.png",
+      "opaqueBounds": [
+        134,
+        24,
+        492,
+        319
+      ],
+      "opaquePixels": 17379,
+      "targetLength": 442,
+      "targetAngleDegrees": 36.86989765
+    }
+  },
+  "sourcePolicy": "original ImageGen wall timber; close-up used for hinge/angle/thickness only"
+}

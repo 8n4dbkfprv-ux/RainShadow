@@ -15,8 +15,8 @@ Outputs:
 
 from __future__ import annotations
 
+import argparse
 import math
-import sys
 from pathlib import Path
 
 import numpy as np
@@ -61,7 +61,7 @@ AUTHORED.update({
     "blindStripes": (ol.FLOOR_DECALS["blindStripes"][0], ART_H - ol.FLOOR_DECALS["blindStripes"][1]),
     "hallwayLight": (ol.FLOOR_DECALS["hallwayLight"][0], ART_H - ol.FLOOR_DECALS["hallwayLight"][1]),
     "window": ol.window_anchor_authored(),
-    "doorLeaf": ol.exterior_door_threshold_authored(),
+    "doorLeaf": ol.exterior_leaf_anchor_authored(),
     "caseBoard": (ol.WALL_ART["caseBoard"][0], ART_H - ol.WALL_ART["caseBoard"][1]),
     "wallCityMap": (ol.WALL_ART["wallCityMap"][0], ART_H - ol.WALL_ART["wallCityMap"][1]),
     "wallPhotos": (ol.WALL_ART["wallPhotos"][0], ART_H - ol.WALL_ART["wallPhotos"][1]),
@@ -139,8 +139,22 @@ def additive(canvas: Image.Image, im: Image.Image, authored_pt: tuple[float, flo
 
 
 def main() -> None:
-    annotate = "--annotate" in sys.argv
-    canvas = Image.open(AREAS / "office_suite_plate.png").convert("RGBA")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--annotate", action="store_true")
+    parser.add_argument(
+        "--plate",
+        type=Path,
+        default=AREAS / "office_suite_plate.png",
+        help="non-destructive plate override for candidate review",
+    )
+    parser.add_argument(
+        "--out-prefix",
+        default="office_layout_preview",
+        help="output stem under ArtSource/Generated/Office",
+    )
+    args = parser.parse_args()
+    annotate = args.annotate
+    canvas = Image.open(args.plate).convert("RGBA")
     if canvas.size != (ART_W, ART_H):
         canvas = canvas.resize((ART_W, ART_H), Image.Resampling.LANCZOS)
 
@@ -155,12 +169,19 @@ def main() -> None:
     paste_anchored(canvas, cab_shadow, AUTHORED["filingCabinet"], CENTER_ANCHOR, alpha=0.55)
     desk_shadow = scaled(load("office_desk_floor_shadow"), REL_DESK * 1.15)
     paste_anchored(canvas, desk_shadow, AUTHORED["deskEnsemble"], CENTER_ANCHOR, alpha=0.55)
-    rug = scaled(load("office_worn_rug"), REL_FLOOR_DECAL * 1.35)
+    rug = scaled(load("office_worn_rug_burgundy"), 0.26 / ENVIRONMENT)
     paste_anchored(canvas, rug, AUTHORED["wornRug"], CENTER_ANCHOR)
 
     # --- rearFixtureRoot ---
     paste_anchored(canvas, scaled(load("office_radiator"), REL_STANDARD), AUTHORED["radiator"], GROUND_ANCHOR)
-    paste_anchored(canvas, scaled(load("office_door_leaf"), REL_STANDARD), AUTHORED["doorLeaf"], GROUND_ANCHOR)
+    # Show the reference-critical open state: a registered edge silhouette
+    # over black, never a conventional front-facing door rectangle.
+    paste_anchored(
+        canvas,
+        scaled(load("office_door_leaf_open"), 0.175 / ENVIRONMENT),
+        AUTHORED["doorLeaf"],
+        (0.953125, 0.83125),
+    )
     for name, key in [
         ("office_case_board", "caseBoard"),
         ("office_wall_city_map", "wallCityMap"),
@@ -229,10 +250,10 @@ def main() -> None:
             draw.text((x + 16, y - 26), key, fill=(255, 220, 90, 255))
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    full = OUT_DIR / "office_layout_preview.png"
+    full = OUT_DIR / f"{args.out_prefix}.png"
     canvas.save(full)
     half = canvas.resize((ART_W // 2, ART_H // 2), Image.Resampling.LANCZOS)
-    half.save(OUT_DIR / "office_layout_preview_half.png")
+    half.save(OUT_DIR / f"{args.out_prefix}_half.png")
     print(f"wrote {full}")
 
 

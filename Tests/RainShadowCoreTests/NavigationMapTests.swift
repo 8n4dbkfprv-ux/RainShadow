@@ -239,22 +239,13 @@ struct NavigationMapTests {
         #expect(path.last == CGPoint(x: 25, y: 5))
     }
 
-    @Test func officeClientArrivalCrossesPartitionApertureOnce() {
+    @Test func officeClientArrivalUsesClearOpenPlanFloor() {
         let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
         let path = OfficeNavigationLayout.clientArrivalRoute(in: map)
         #expect(path.count >= 2)
         #expect(path.dropFirst().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
 
-        let crossings = partitionMidlineCrossings(along: path)
-        #expect(crossings.count == 1, "Arrival must cross the partition exactly once")
-        if let crossingB = crossings.first {
-            let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
-            let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
-            #expect(
-                crossingB >= door0 && crossingB <= door1,
-                "Partition crossing b=\(crossingB) must lie inside the painted aperture"
-            )
-        }
+        #expect(OfficeNavigationLayout.authoredPartitionSegments.isEmpty)
 
         for index in 0..<(path.count - 1) {
             let a = path[index]
@@ -267,112 +258,27 @@ struct NavigationMapTests {
         }
     }
 
-    @Test func officeClientDepartureRetracesInteriorThenCrossesExteriorDoor() {
+    @Test func officeClientDepartureRetracesOpenPlanInteriorToExteriorDoor() {
         let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
         let path = OfficeNavigationLayout.clientDepartureRoute(in: map)
         #expect(path.count >= 2)
         #expect(path.dropLast().allSatisfy { !OfficeNavigationLayout.isBlocked($0) })
         guard path.count >= 2 else { return }
 
-        let crossings = partitionMidlineCrossings(along: path)
-        #expect(crossings.count == 1, "Departure must cross the partition exactly once")
-        if let crossingB = crossings.first {
-            let door0 = OfficeNavigationLayout.Architecture.partitionDoorB0
-            let door1 = OfficeNavigationLayout.Architecture.partitionDoorB1
-            #expect(crossingB >= door0 && crossingB <= door1)
-        }
+        #expect(OfficeNavigationLayout.authoredPartitionSegments.isEmpty)
+        #expect(path.last == OfficeNavigationLayout.clientDoorwayPath.first)
     }
 
-    @Test func partitionApertureClearsPaintedFrameNotAdjacentWall() {
+    @Test func openPlanRetiresPartitionGeometryAndKeepsDirectRoute() {
         let arch = OfficeNavigationLayout.Architecture.self
-        let aFace = arch.partitionLineA + arch.partitionThicknessA
-        let faceOriginX = arch.rearCorner.x + aFace * arch.axisNW.dx
-        let stileB = (arch.internalHingePlateX - faceOriginX) / arch.axisNE.dx
-
-        // The refit moved the partition doorway and widened it: b 0.338...0.505,
-        // an aperture of 0.167 against the 0.048 these used to assert. The
-        // planner's client crossing at b = 0.422 falls inside the new opening,
-        // so the geometry is self-consistent at the new coordinates.
-        // The painted stile and the navigable aperture are *not* the same
-        // measurement and are not meant to match exactly. `office_layout_plan`
-        // says so where it defines them: "The navigation partition and
-        // `office_partition_opening.json` describe a different generated bake.
-        // Keep those values for collision/pathing, but never use them to place
-        // the two live leaf sprites against `office_suite_plate.png`."
-        //
-        // So requiring `stileB == partitionDoorB0` asserts something the design
-        // contradicts — they sit 27 plate px apart by construction. What has to
-        // hold is containment: the painted frame must fall *inside* the opening
-        // the player can walk through, or there is visible door where there is
-        // no passage.
-        #expect(
-            stileB >= arch.partitionDoorB0 && stileB <= arch.partitionDoorB1,
-            "painted stile b=\(stileB) is outside the navigable aperture"
-        )
-        #expect(abs(arch.partitionDoorB0 - 0.338) < 0.001)
-        #expect(abs(arch.partitionDoorB1 - 0.505) < 0.001)
-
-        let map = OfficeNavigationLayout.makeGrid()
-        // Probes inside the *current* aperture (b 0.338...0.505). These used to
-        // sit at 0.760/0.776/0.790, the old opening, which the refit turned into
-        // solid partition — so the check was asserting that a wall stays open.
-        for frameB: CGFloat in [0.360, 0.420, 0.480] {
-            let frameProbe = OfficeInteriorScale.mapPoint(
-                authoredPoint(a: aFace - 0.02, b: frameB)
-            )
-            #expect(
-                !OfficeNavigationLayout.isBlocked(frameProbe),
-                "Frame cell at b=\(frameB) must stay open"
-            )
-        }
-        for glassB: CGFloat in [0.55, 0.62, 0.66, 0.686, 0.720, 0.850] {
-            let glassProbe = OfficeInteriorScale.mapPoint(
-                authoredPoint(a: aFace - 0.02, b: glassB)
-            )
-            #expect(
-                OfficeNavigationLayout.isBlocked(glassProbe),
-                "Glass at b=\(glassB) must stay blocked"
-            )
-        }
-
-        for step in 1...8 {
-            let b = arch.partitionDoorB1 + CGFloat(step) * 0.05
-            guard b < 0.95 else { break }
-            let waitingSide = OfficeInteriorScale.mapPoint(
-                authoredPoint(a: arch.partitionLineA - 0.09, b: b)
-            )
-            let officeSide = OfficeInteriorScale.mapPoint(
-                authoredPoint(a: aFace + 0.09, b: b)
-            )
-            guard !OfficeNavigationLayout.isBlocked(waitingSide),
-                  !OfficeNavigationLayout.isBlocked(officeSide),
-                  let crossed = map.path(from: waitingSide, to: officeSide) else { continue }
-            // `path` returns the waypoints *after* the start, so the segment
-            // that actually crosses the partition — the one from where the actor
-            // stands, through the doorway — was never examined. What was measured
-            // instead was the leg *leaving* the aperture toward the office side,
-            // which naturally ends up at the destination's b and reads as walking
-            // through the wall. The route was correct all along: at b 0.555 it
-            // goes through the doorway at b 0.488.
-            // Tolerance of half a search cell, expressed in plan units rather
-            // than guessed: the aperture is authored in b, but the runtime walks
-            // a 16x12 raster, so the *rasterised* opening is marginally wider
-            // than the authored one and a route may clip its edge. Measured, the
-            // worst crossing overshoots by 0.005 — 1.9 world units, an eighth of
-            // a cell. Half a cell still catches a route that walks the wall,
-            // which is what this is for, without failing on grid granularity.
-            let cellB = SearchMap.defaultCellSize.width
-                / OfficeInteriorScale.environment
-                / abs(arch.axisNE.dx)
-            let slack = cellB * 0.5
-            for crossingB in partitionMidlineCrossings(along: [waitingSide] + crossed) {
-                #expect(
-                    crossingB >= arch.partitionDoorB0 - slack
-                        && crossingB <= arch.partitionDoorB1 + slack,
-                    "Crossing at b=\(b) walked the wall instead of the painted door frame"
-                )
-            }
-        }
+        #expect(arch.partitionLineA == 0)
+        #expect(arch.partitionThicknessA == 0)
+        #expect(arch.partitionDoorB0 == 0 && arch.partitionDoorB1 == 0)
+        #expect(OfficeNavigationLayout.authoredPartitionSegments.isEmpty)
+        let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: false)
+        let start = OfficeNavigationLayout.clientDoorwayPath.last!
+        let end = OfficeNavigationLayout.clientOfficeArrivalPath.last!
+        #expect(map.path(from: start, to: end) != nil)
     }
 
     @Test func nearestWalkableSearchesPastLargeObstacles() {

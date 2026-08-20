@@ -24,8 +24,20 @@ in the black below the clipped floor; walkable `FLOOR_*` stops on the paint.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
+from pathlib import Path
 
-ART_W, ART_H = 4096, 2304
+_ROOT = Path(__file__).resolve().parents[2]
+_V10_GEOMETRY_PATH = (
+    _ROOT / "ArtSource/Generated/Office/BGEETavernV10/office_v10_geometry.json"
+)
+_V10_GEOMETRY = json.loads(_V10_GEOMETRY_PATH.read_text(encoding="utf-8"))
+_ROOM = _V10_GEOMETRY["room"]
+_DOOR = _V10_GEOMETRY["door"]
+_PILLARS = _V10_GEOMETRY["pillars"]
+_STAIRS = _V10_GEOMETRY["stairs"]
+
+ART_W, ART_H = _V10_GEOMETRY["canvas"]
 
 # The shipped Voss idle body is 200 opaque pixels on a 512px texture, displayed
 # on a 180-point SpriteKit node. Convert that exact visible silhouette back into
@@ -46,16 +58,14 @@ DETECTIVE_VISIBLE_WORLD_H = (
 )
 BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 
-# Cramped-tight suite places the IG architecture at 0.60 of full-bleed so
-# modular props (unchanged body scale) fill the floor. Actor body scale does
-# not shrink with the plate.
-SUITE_PLATE_SCALE = 0.60
+# V10 keeps the tavern hall diamond instead of shrinking the V08 open-plan
+# suite. Actor body scale does not shrink with the plate.
+SUITE_PLATE_SCALE = 0.70
 
 # Painted clear doorway on the NE wall (V7 proportion lock), measured from
 # floor contact up to the lintel underside. This is the 198 px opening from
 # the door-column table, not the older 290 px recess-inclusive read.
-BAKED_DOORWAY_H = 198.0
-BAKED_DOORWAY_W = 125.0
+BAKED_DOORWAY_W, BAKED_DOORWAY_H = _DOOR["openingPixels"]
 DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
 DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
@@ -84,9 +94,9 @@ WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 # tip above the wall crowns — both correct, and both what the module docstring
 # has always described: the geometric diamond extends past the paint, walkable
 # FLOOR_* stops on it.
-REAR = (2057.5, 394.1)
-AXIS_NW = (-931.33, 698.4975)  # rear floor -> west floor corner, slope -0.75
-AXIS_NE = (956.67, 717.5025)  # rear floor -> east floor corner, slope +0.75
+REAR = tuple(_ROOM["rear"])
+AXIS_NW = tuple(_ROOM["axisNW"])  # exact -0.75 BG:EE ground axis
+AXIS_NE = tuple(_ROOM["axisNE"])  # exact +0.75 BG:EE ground axis
 
 # Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
 # base through REAR at WALL_FACE_H.
@@ -169,7 +179,7 @@ AXIS_NE_LEN = (AXIS_NE[0] ** 2 + AXIS_NE[1] ** 2) ** 0.5
 # Master wall thickness in plate pixels — measured to match the shell's thin
 # top lip (the painted rear walls show almost no cap mass). Jambs, returns and
 # foreground kerbs that must match the shell derive from this.
-WALL_THICKNESS_PX = 12.0
+WALL_THICKNESS_PX = float(_ROOM["wallThickness"])
 
 # Interior partition mass — thicker than shell lips so the waiting-room wall
 # reads as a separate freestanding wall, not a flat continuation of the NE wall.

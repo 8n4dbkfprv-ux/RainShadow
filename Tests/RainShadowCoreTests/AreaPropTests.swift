@@ -17,12 +17,12 @@ struct AreaPropTests {
 
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 55, "the office describes \(props.count) props")
+        #expect(props.count == 53, "the office describes \(props.count) props")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
         #expect(byLayer[.depthWorld] == 36)
-        #expect(byLayer[.rearFixtures] == 9)
+        #expect(byLayer[.rearFixtures] == 7)
         #expect(byLayer[.floorEffects] == 10)
     }
 

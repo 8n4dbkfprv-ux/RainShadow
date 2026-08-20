@@ -48,27 +48,39 @@ python3 ArtSource/Processing/qa_plate_projection.py <plate.png> --overlay-dir /t
 ```
 
 Instrument calibration on synthetic grids of known angle: worst error **0.67°**
-over slopes 0.25–1.0, and **0.13°** on a full BG:EE lattice. Tolerance for
-painterly art is 4.0°, which is comfortably tighter than the 10.3° gap between
-the BG:EE lock and the retired 2:1 dimetric camera, so the two cannot be confused.
+over slopes 0.25–1.0, and **0.13°** on a full BG:EE lattice. New production
+masters use a **1.5°** tolerance; the older 4.0° migration tolerance was only
+wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 
 > A first attempt using a plain 3×3 Sobel was **wrong**: hard-rasterised lines
 > alias and snap orientations to 0/26.6/45°. It reported a true 36.87° grid as
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Shipped plates — 8/8 on the lock (re-measured 2026-08-16)
+## Shipped plates — 8/8 on the lock (office re-measured 2026-08-20)
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +33.02 / −34.79 | 3.85° **PASS** (V7 proportion lock) |
-| `office_shell_base` | +33.02 / −34.79 | 3.85° **PASS** (same V7 pixels) |
+| `office_suite_plate` | +36.73 / −36.62 | **0.25° PASS** (V10 tavern-hall lock) |
+| `office_shell_base` | +36.73 / −36.62 | **0.25° PASS** (same V10 pixels) |
 | `city_wharf_ladder_block` | +36.66 / −35.87 | 1.00° **PASS** |
 | `city_harborpoint_pd_block` | +36.68 / −35.85 | 1.02° **PASS** |
 | `city_riverside_block` | +36.57 / −35.69 | 1.18° **PASS** |
 | `city_lila_street_block` | +36.65 / −35.61 | 1.26° **PASS** |
 | `city_civic_records_block` | +36.53 / −35.60 | 1.27° **PASS** |
 | `city_sable_row_block` | +36.30 / −36.40 | **0.57° PASS** (V5 lot masters) |
+
+### Office V10 tavern-hall authority
+
+`generate_office_tavern_bgee_v10.py` constructs the 4096×2304 architecture
+against the exact BGEE basis and the Feldepost AR3351 floor diamond, then
+registers generated material passes without moving the floor geometry.
+`install_office_tavern_bgee_v10.py` performs every projection, density,
+state-registration, scale, and sole-entrance check before writing production
+assets. Pillars and the NW-wall stair run are baked architecture. The only
+entrance is on the camera-near/right cutaway; its open state is a dark edge-on
+timber sliver rather than a conventional readable door face. Runtime state
+textures share a fixed hinge and 512×320 canvas.
 
 > An earlier version of this section claimed the `city_*_block` rows fail
 > *because* they are composed scenes (ground + buildings), and told the reader

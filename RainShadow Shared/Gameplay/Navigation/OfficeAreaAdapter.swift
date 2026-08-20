@@ -128,32 +128,11 @@ enum OfficeAreaAdapter {
                 point: AreaPoint(OfficeNavigationLayout.actorStart)
             )
         ]
-        // Arriving from the street lands on the floor in front of the street
-        // door rather than at the desk.
-        //
-        // Both components are taken from shipped geometry rather than typed:
-        // the door's own centre line, at the floor depth the office already
-        // starts the player on. Deliberately *not*
-        // `approachPoints["office.door"]`, which sits at y 1257.9 — deeper into
-        // the scene than the door itself (y 1163.1–1218.0) and therefore behind
-        // the waiting-nook wall, where it renders the actor standing on the wall
-        // crown. `AGENTS.md` states the rule this follows: an approach belongs on
-        // the walkable side the door faces, camera-near, never at the door art.
-        //
-        // The search map cannot referee this. The office rasterises as walkable
-        // across essentially its whole painted rect (y 952–1414 at nearly every
-        // column), so it reports the wall-crown point as standable — which is the
-        // same permissiveness behind the office geometry suite that is currently
-        // red on `main`.
-        // Seeded on the door's own centre line and then snapped by
-        // `nearestWalkablePoint`, because the seed lands on the closed leaf's
-        // blocking edge and the leaf is stamped shut at load. `AGENTS.md`: take
-        // what `nearestWalkablePoint` gives you, and do not tidy the result.
-        let seed = CGPoint(
-            x: OfficeNavigationLayout.doorObstacle.midX,
-            y: OfficeNavigationLayout.actorStart.y
-        )
-        if let standable = OfficeNavigationLayout.makeGrid().nearestWalkablePoint(to: seed) {
+        // V08's sole entrance sits on the camera-near right cutaway. The
+        // authored interaction approach is already the exact, tested interior
+        // landing point, so city return and ordinary door interaction share one
+        // reachable threshold-side coordinate.
+        if let standable = OfficeNavigationLayout.approachPoints["office.door"] {
             entrances.append(
                 AreaEntrance(name: cityArrivalEntrance, point: AreaPoint(standable))
             )

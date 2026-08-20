@@ -99,8 +99,9 @@ struct ActorFootprintTests {
     @Test func actorFootprintDoesNotChangeStaticReachability() {
         // Static clearance is deliberately left on the tuned world-unit profile,
         // so these counts must be byte-identical to the pre-change baseline.
-        // Office measured at 373 of 7,752 cells; regressions here mean the
-        // footprint work leaked into geometry clearance.
+        // The V10 tavern-hall office measures 689 reachable cells; pillars and
+        // the stair solid take floor relative to the V08 open-plan 897, and
+        // door state must not fragment that interior.
         for doorBlocking in [true, false] {
             let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: doorBlocking)
             #expect(
@@ -108,7 +109,7 @@ struct ActorFootprintTests {
                     map,
                     from: OfficeNavigationLayout.actorStart,
                     radius: NavigationAgentProfile.officeDetective.radius
-                ) == 373,
+                ) == 689,
                 "office reachability changed with entranceDoorBlocking: \(doorBlocking)"
             )
         }

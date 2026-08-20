@@ -142,15 +142,15 @@ final class AreaMapOverlay: SKNode {
     }
 
     static let detectiveOffice = Configuration(
-        textureName: "map_detective_office_v03",
+        textureName: "map_detective_office_v08",
         locationName: "HARLAN VOSS'S OFFICE",
-        // Suite silhouette in authored y-up plate space (not raw PNG y-down).
-        // Plate content bbox y-down 403…1440 → y-up (2304-1440)…(2304-403).
+        // Open-plan silhouette in authored y-up plate space (not raw PNG y-down).
+        // Plate content bbox y-down 124…1808 → y-up (2304-1808)…(2304-124).
         worldBounds: OfficeInteriorScale.mapRect(
-            CGRect(x: 1_252, y: 864, width: 1_584, height: 1_037)
+            CGRect(x: 1_125, y: 496, width: 1_891, height: 1_684)
         ),
-        // Measured opaque content of map_detective_office_v03.png (SK UV).
-        mapContentUV: CGRect(x: 0.2171, y: 0.1712, width: 0.5652, height: 0.6557),
+        // Measured non-black content of map_detective_office_v08.png (SK UV).
+        mapContentUV: CGRect(x: 0.2620, y: 0.2144, width: 0.4748, height: 0.7317),
         pointsOfInterest: [
             PointOfInterest(
                 label: "WINDOW",

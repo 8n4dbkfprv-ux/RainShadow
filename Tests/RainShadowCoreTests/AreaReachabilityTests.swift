@@ -217,9 +217,9 @@ struct AreaReachabilityTests {
             fromCity.point != fallback.point,
             "the office street entrance is still the default start"
         )
-        // Derived from the door's own centre line at the office's floor depth,
-        // not from `approachPoints["office.door"]` — that point lies deeper into
-        // the scene than the door leaf and renders the actor on the wall crown.
+        // V08 uses the exact interior approach on the room side of the
+        // camera-near cutaway. In authored y-up space that is above the leaf
+        // stamp, not below it as the retired rear-wall door was.
         let door = OfficeNavigationLayout.doorObstacle
         let point = fromCity.point.cgPoint
         #expect(
@@ -227,8 +227,8 @@ struct AreaReachabilityTests {
             "the street entrance drifted off the door's centre line"
         )
         #expect(
-            point.y < door.maxY,
-            "the street entrance is behind the door leaf rather than in front of it"
+            point.y > door.maxY,
+            "the street entrance is not on the interior side of the cutaway leaf"
         )
         // Snapped off the closed leaf, so it must clear the leaf's footprint.
         #expect(!door.contains(point), "the street entrance is inside the closed door")

@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_family_v10.json": "8c59d9980c6a2b2e48ce21e26e91d762b6c84cedd5d06a49e0f40df58c732642",
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_leaf_closed_hover_v10.png": "0ff65342c7a8903993b1b01eb697901147b9b352abf282353391261c0df59141",
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_leaf_closed_v10.png": "93eb893edb637788cd60796d7caf2d3451a1b5b97b35c6f907b13be9ac6fc0e4",
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_leaf_mid_v10.png": "91315e88f8996bd3e6775fef2168f7f3f4ecc1d9f7da4cdf2017662970822c9c",
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_leaf_open_hover_v10.png": "d2ad1fde36646e1bc8891ef07a46a307f505522e9795747d12ce5be0496f519e",
+    "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_leaf_open_v10.png": "6f24f0c01308b522522b781fcb4d1f48bb25fbaedf32f9de144e8ef9e114d60d",
+    "ArtSource/Generated/Office/BGEETavernV10/office_tavern_architecture_mask_v10.png": "de84ffe8b0a6f7c851ed861278a0c4da74ac4107bf9f34b74c27ecc32e6f4a15",
+    "ArtSource/Generated/Office/BGEETavernV10/office_tavern_metrics_v10.json": "28318abe42a6f54c951f714137faffdeae2650a741f8cd8dbc542e0d6d0a30b5",
+    "ArtSource/Generated/Office/BGEETavernV10/office_tavern_plate_v10.png": "753a548390791b8d26c2a45a390097d132525e5bef9642dddc6b8e16665ad4dc",
+    "ArtSource/Generated/Office/BGEETavernV10/office_v10_geometry.json": "6eb6521bac232bc5a048ae60b0bc677a625bc502d58f94d9b182dcaf46c34ba3"
+  },
+  "installed": {
+    "doorTargets": [
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png"
+    ],
+    "plateTargets": [
+      "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png",
+      "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png",
+      "ArtSource/Generated/Office/office_suite_plate.png",
+      "ArtSource/Generated/Office/office_shell_base.png",
+      "ArtSource/Generated/Office/office_suite_plate_bgee_v10_installed.png"
+    ]
+  },
+  "openLeafBlackSilhouetteFraction": 0.7185986898319567,
+  "openLeafToAdultRatio": 1.154557435599791,
+  "plateDensityPixelsPerWorldUnit": 2.531645569620253
+}

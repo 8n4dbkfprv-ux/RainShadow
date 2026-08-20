@@ -155,7 +155,7 @@ struct CutsceneCatalogTests {
         let cutscene = CutsceneCatalog.clientEntrance(route: [.zero], resumeDialogueNodeID: nil)
         let camera = try! #require(cutscene.tracks.first { $0.subject == .camera })
         #expect(camera.cues.first == .moveViewPoint(
-            CutsceneCatalog.OfficeCutsceneFraming.partitionAperture, .fast
+            CutsceneCatalog.OfficeCutsceneFraming.entranceSightline, .fast
         ))
         #expect(camera.cues.last == .moveViewPoint(
             CutsceneCatalog.OfficeCutsceneFraming.dialogueFraming, .standard
