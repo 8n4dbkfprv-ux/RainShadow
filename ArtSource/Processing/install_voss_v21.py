@@ -113,7 +113,7 @@ def _compat_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     compatible.setdefault("processing", {})
     compatible["processing"].update(
         {
-            "processor": "V15",
+            "processor": core.crunch.ACTIVE_NAME,
             "native_body_rows": core.crunch.ACTIVE.native_rows,
             "texture_body_height": 200,
             "canvas": [512, 512],

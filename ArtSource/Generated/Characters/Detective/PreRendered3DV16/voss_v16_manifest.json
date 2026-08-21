@@ -53,13 +53,13 @@
     "runtime_pngs": 208
   },
   "processing": {
-    "processor": "V15",
-    "native_body_rows": 200,
+    "processor": "BGEE_V1",
+    "native_body_rows": 64,
     "texture_body_height": 200,
     "canvas": [512, 512],
     "foot_row": 433,
     "corner_sentinel_alpha": 1,
-    "palette_colors": 128,
+    "palette_colors": 64,
     "dither": false,
     "hard_alpha": true,
     "preserve_wardrobe": true,

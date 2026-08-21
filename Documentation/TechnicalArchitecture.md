@@ -88,8 +88,8 @@ Platform app target
   windows with fixed Venetian blinds and one cold fireplace/hearth. Window rain,
   cool/blind light, near-window hover and interaction, the door-state family,
   wall/cover polygons, and navigation remain separately registered.
-- Reference playable camera height: ≈540.9 units, so the **rendered** ≈70.3-unit standing adult occupies 13% of playable height, with an 11.5–14.5% acceptance band (logical 82-unit body remains for furniture multiples only). This is original-BG1 play density — a ~50px adult on a 512×384 view — and is pinned by `DefaultPlayZoomTests` and `OfficeInteriorScaleTests`. The plate is taller than the camera height, so both the office and the city districts pan rather than sit fixed; a thin black void past the plate edge matches Infinity Engine area framing.
-- Reference 16:9 viewport: approximately 961×540.9 world units at the play camera.
+- Reference playable camera height: ≈781.25 units, so the **rendered** ≈70.3-unit standing adult occupies 9% of playable height, with an 8–10% acceptance band (logical 82-unit body remains for legacy locomotion constants only). This is the BG:EE area-view default and is pinned by `DefaultPlayZoomTests` and `OfficeInteriorScaleTests`; zoom step 10 supplies the tighter ≈13% presentation. The plate is taller than the camera height, so both the office and the city districts pan rather than sit fixed; a thin black void past the plate edge matches Infinity Engine area framing.
+- Reference 16:9 viewport: approximately 1388.9×781.25 world units at the play camera.
 
 Critical actors, paths, hotspots, and captions must remain readable in the central 1481-unit width. Wide framing reveals intentional environmental overscan rather than stretching or inventing content.
 

@@ -56,7 +56,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
 | Office suite plate | V11 original 1950s material/fixture sources over deterministic registered geometry | 4096×2304 @ env 0.395 | `BGEE1950sV11`; 2.5316 px/unit, measured +36.73°/−36.70°. Two fixed steel/blind windows and one cold fireplace are baked; the door leaf is not. V10 remains rollback provenance. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
-| Actor frame | Generator master | 512×512 | Reduce to a 56px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
+| Actor frame | Generator master | 512×512 | Reduce to a 64px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with linear filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
 | UI | 2× listed runtime | Listed runtime | Original RainShadow design, high readability. |
 
@@ -260,7 +260,7 @@ Design continuity rules:
 
 All stored runtime frames are 512×512 transparent PNGs with alpha-1 corner sentinels and a doubled ground pivot equivalent to the established `(128, 40)` point-space contract. Standing cells are 198–202px tall; the chairless seated pose is 150–160px tall at the same endpoint-derived source scale. SpriteKit displays every posture in the fixed 180×180 node at scale 1, retaining the current anchor, offsets, and desk registration. The node is architecture-anchored: at 180 the rendered body is 70.3 world units, putting the painted entrance opening at ~1.16× the adult, the real door-to-adult ratio. Apparent seated height comes only from authored posture and desk occlusion.
 
-The **rendered** body targets 13% of playable height from shoe sole to crown—about 150 screen points in the reference view—with an acceptable 11.5–14.5% band. That is original Baldur's Gate playfield density (a ~50px adult on a 512×384 view), not BG:EE's wider zoomable framing. `DefaultPlayZoom` / office camera height must use `renderedStandingDetectiveBodyHeight` (≈70.3), not the legacy 82-unit logical height. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 56-pixel native body, harden its alpha to a 1-bit silhouette the way Infinity Engine BAMs stored one, limit it to a 64-color per-material ramp palette without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
+The **rendered** body targets 9% of playable height from shoe sole to crown—about 104 screen points in the 1152-point reference view—with an acceptable 8–10% band. This is the BG:EE area-view default; the tighter original-BG1-like presentation remains available at zoom step 10 (about 13%, 148 points). `DefaultPlayZoom` / office camera height must use `renderedStandingDetectiveBodyHeight` (≈70.3), not the legacy 82-unit logical height. Preserve broad baked 3D shading and low-detail geometry, then reduce each figure to a 64-pixel native body, harden its alpha to a 1-bit silhouette, limit it to a 64-color per-material ramp palette without dithering, enlarge it to the fixed 200-pixel texture body with nearest sampling, and keep the shared alpha pivot. The 64-row grid is calibrated against a representative BG humanoid BAM's measured 52–60-row crown-to-ground span and is the smallest nearby grid that preserves every authored Voss gait. This is controlled pre-rendered sprite texture, not hand-authored pixel art.
 
 Standing and walk clips store nine source orientations: `s, ssw, sw, wsw, w, wnw, nw, nnw, n`. SpriteKit mirrors them into `nne, ne, ene, e, ese, se, sse`, producing 16 displayed facing bins without additional texture frames.
 
@@ -276,7 +276,7 @@ V20 authors four identity anchors and all 148 gameplay masters with 152 separate
 
 Required primary body texture frames: **176**. Required displayed facing/frame combinations, including runtime mirroring: **256**. Legacy seated upper/lower and arms cells are excluded from this count and remain transparent or hidden compatibility layers.
 
-The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, eight rear three-quarter northeast departure phases, and eight rear three-quarter northwest departure phases (chair→door leg). Exit playback selects NE vs NW strips from path-segment facing without mirroring. All use the same 512×512, 200px-body, 2×-density contract and display at the detective's corrected 82-unit world height.
+The first client uses a deliberately smaller authored set: `LilaArrival.atlas` contains eight southwest entrance walk phases, one southwest standing idle, eight rear three-quarter northeast departure phases, and eight rear three-quarter northwest departure phases (chair→door leg). Exit playback selects NE vs NW strips from path-segment facing without mirroring. All use the same 512×512, 200px-body, 64-row craft contract and display at the detective's rendered ≈70.3-unit world height.
 
 Filename examples:
 
@@ -311,7 +311,7 @@ Additional character texture:
 
 - Ground pivot movement: ≤ 2 runtime pixels except when intentional movement is represented by root motion; root motion is removed from walk frames.
 - Standing head-height jitter: ≤ 2 runtime pixels.
-- Apparent actor height at reference office pose: target 13% of playable height using the rendered body, with an acceptable 11.5–14.5% band.
+- Apparent actor height at reference office pose: target 9% of playable height using the rendered body, with an acceptable 8–10% band.
 - Walk-cycle first/last continuity: no visible pop at 0.25× speed.
 - Walk-cycle phase integrity: eight unique phases, head pulse ≤1.12×, torso pulse ≤1.18×, both planted-foot leads, and no four-phase repeated lead.
 - Silhouette direction recognition: all 16 displayed facing bins sort into the correct quadrant and at least 12/16 are identified exactly without labels in internal review.

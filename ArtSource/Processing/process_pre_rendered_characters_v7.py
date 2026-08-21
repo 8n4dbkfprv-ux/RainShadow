@@ -4,9 +4,10 @@ regenerating any art.
 
 `pixelize_figure_v7` is now a thin wrapper over `crunch.crunch`. Six scripts
 import this name, so it stays; the parameters moved to `crunch.CrunchSpec` when
-V14 replaced V7's 80px/64-colour global median cut with a 56px 1-bit-alpha
-raster and per-material shade ramps. See `crunch.py` for the reasoning and
-`qa_pixelation_ab_v02.py` for the study that picked it.
+V14 first replaced V7's 80px/64-colour global median cut with a 56px 1-bit-alpha
+raster and per-material shade ramps. The active BGEE_V1 recipe now uses a
+measured 64px/64-colour BAM-like craft grid. See `crunch.py` for the reasoning
+and `qa_pixelation_ab_v03.py` for the play-scale comparison.
 
 Everything else reuses the V6 flow verbatim: the same chroma masters, slicing,
 mirroring, arm-layer derivation, and atlas names. Portraits and paperdoll keep
@@ -37,7 +38,7 @@ def pixelize_figure_v7(figure: Image.Image, crop_to_alpha: bool = True) -> Image
     """The crunch every installer monkey-patches onto `raster.pixelize_figure`.
 
     Kept under this name because six scripts import it; the implementation now
-    lives in `crunch.py` and follows whatever `crunch.ACTIVE` is (V14 today).
+    lives in `crunch.py` and follows whatever `crunch.ACTIVE` is (BGEE_V1 today).
     """
     return crunch_mod.crunch(figure, crop_to_alpha=crop_to_alpha)
 

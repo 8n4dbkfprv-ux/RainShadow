@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""A/B pixelation study V03: pick the V15 crunch at the *current* camera.
+"""A/B pixelation study V03 at the current BG:EE camera.
 
-V14 (56 rows / 1-bit / ramps) was selected by `qa_pixelation_ab_v02.py` at the
-13% camera of 2026-08-06. Two things changed since:
+The active candidate is measured against a representative BG humanoid BAM,
+not against the ground plate. Character pixels and ground-plane pixels encode
+different axes, so their px/world-unit numbers are not a valid density parity
+test. Decoding the 90 CHMB1G11 walk frames gives a 52–60 row crown-to-ground
+span (median 55) and 44–59 nontransparent palette indices per frame.
 
-- `DefaultPlayZoom.targetBodyToVisibleHeight` reverted to **0.09** (BG:EE area
-  density), so the study camera is stale again.
-- The user-visible defect this study answers: our sprite pixels are ~3.2x
-  coarser than the office plate (56 rows / 70.3 wu = 0.80 px/wu against the
-  plate's 2.53). A BG:EE sprite is *never* coarser than its background — both
-  share one raster, and the EE engine's zoom smooths them together.
-
-Candidates therefore climb the density axis toward plate parity (200 rows =
-2.84 px/wu) and add the V15 value-contrast stage. Play-scale tiles are
-composited twice: nearest (shipped runtime) and linear (the planned runtime
-filtering, which is what the EE engine does when zoomed).
+``BGEE_V1`` uses 64 native rows: the smallest nearby grid that retains Voss's
+planted-foot exchange in all nine authored directions. It keeps the existing
+200px registered body and lets the runtime's linear filter enlarge the craft
+at the 9% default camera. V14 and V15 remain here as historical controls.
 
 Nothing here writes to an atlas. It bakes candidates and stages two sheets.
 """
@@ -67,11 +63,12 @@ BODY_SCREEN_PX = TEXTURE_BODY_HEIGHT / FRAME_SIZE * SPRITE_SCREEN_PX          # 
 PLATE_ROOT = (2000, 1300)
 TILE_SCREEN = 260
 
-PLATE_PX_PER_WU = 1 / ENVIRONMENT  # 2.53
+BG_REFERENCE_MEDIAN_ROWS = 55
 
 
 VARIANTS = [
-    ("v14", "V14  56 rows  64c  (shipped)", crunch_mod.V14),
+    ("bgee_v1", "BGEE_V1  64 rows  64c  (active)", crunch_mod.BGEE_V1),
+    ("v14", "V14  56 rows  64c  (historical)", crunch_mod.V14),
     (
         "mid112",
         "112 rows  128c  c1.00",
@@ -98,7 +95,7 @@ VARIANTS = [
     ),
     (
         "v15_c135",
-        "V15  200 rows  128c  vc1.35",
+        "V15  200 rows  128c  vc1.35 (historical)",
         crunch_mod.CrunchSpec(
             native_rows=200, colors=128, hard_alpha=True, ramp_palette=True,
             contrast=1.00, ramp_steps=16, soften_radius=1.2, value_contrast=1.35,
@@ -207,15 +204,14 @@ def measure(frame: Image.Image, native_rows: int) -> dict[str, float]:
     ys, xs = np.nonzero(gated)
     opaque = pixels[alpha == 255][:, :3]
     luma = opaque.mean(axis=1) if len(opaque) else np.array([0.0])
-    sprite_px_per_wu = native_rows / BODY_WORLD
     return {
         "body_h": float(ys.max() - ys.min() + 1),
         "foot_y": float(ys.max()),
         "opaque_pct": 100.0 * (alpha == 255).sum() / max(1, visible.sum()),
         "colours": float(len(np.unique(opaque, axis=0))) if len(opaque) else 0.0,
         "luma_sd": float(luma.std()),
-        "px_per_wu": sprite_px_per_wu,
-        "vs_plate": sprite_px_per_wu / PLATE_PX_PER_WU,
+        "native_rows": float(native_rows),
+        "vs_bg_median": native_rows / BG_REFERENCE_MEDIAN_ROWS,
     }
 
 
@@ -224,7 +220,7 @@ def main() -> None:
     print(
         f"Play scale: body {BODY_SCREEN_PX:.1f}px of a {VIEWPORT_HEIGHT}px viewport "
         f"({100 * BODY_SCREEN_PX / VIEWPORT_HEIGHT:.1f}%), sprite node {SPRITE_SCREEN_PX}px, "
-        f"plate scaled {PLATE_TO_SCREEN:.4f}, plate {PLATE_PX_PER_WU:.2f} px/wu\n"
+        f"plate scaled {PLATE_TO_SCREEN:.4f}\n"
     )
 
     keyed = v16.key_chroma(Image.open(SUBJECT).convert("RGB"))
@@ -242,7 +238,7 @@ def main() -> None:
         labelled(office_tile(shipped, plate, Image.Resampling.BILINEAR), "SHIPPED linear")
     )
     zoom_tiles.append(labelled(zoom_tile(shipped), "SHIPPED  VossIdle sw_00 on disk"))
-    rows.append(("SHIPPED on disk", measure(shipped, crunch_mod.V14.native_rows)))
+    rows.append(("SHIPPED on disk", measure(shipped, crunch_mod.ACTIVE.native_rows)))
 
     for key, label, spec in VARIANTS:
         frame = bake(keyed, spec)
@@ -267,19 +263,21 @@ def main() -> None:
 
     header = (
         f"{'variant':<34} {'body':>5} {'foot':>5} {'opaque%':>8} {'cols':>5} "
-        f"{'luma sd':>8} {'px/wu':>6} {'vs plate':>9}"
+        f"{'luma sd':>8} {'rows':>5} {'vs BG55':>8}"
     )
     print(header)
     print("-" * len(header))
     for label, m in rows:
         print(
             f"{label:<34} {m['body_h']:>5.0f} {m['foot_y']:>5.0f} {m['opaque_pct']:>8.1f} "
-            f"{m['colours']:>5.0f} {m['luma_sd']:>8.1f} {m['px_per_wu']:>6.2f} {m['vs_plate']:>8.2f}x"
+            f"{m['colours']:>5.0f} {m['luma_sd']:>8.1f} {m['native_rows']:>5.0f} "
+            f"{m['vs_bg_median']:>7.2f}x"
         )
     print(
         "\nGates: body must be 198...202, foot row must be 433."
-        "\nReference: a real BG paperdoll asset measures 100% opaque, luma sd 45.7."
-        "\nBG:EE parity means vs-plate ~1.0x; V14 ships at 0.32x."
+        "\nReference: CHMB1G11 crown-to-ground 52...60 rows (median 55), "
+        "44...59 used palette indices/frame."
+        "\nThe 64-row active grid is 1.16x the reference median and preserves every gait."
     )
     print(f"\nWrote {OUTPUT.relative_to(ROOT)}: {len(VARIANTS)} variants + 2 sheets")
 

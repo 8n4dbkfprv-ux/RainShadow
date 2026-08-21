@@ -2,9 +2,9 @@ import CoreGraphics
 
 /// Player-controlled zoom band around the default play density.
 ///
-/// `DefaultPlayZoom` owns *where the camera sits by default* (original BG1, ~13%
-/// body-to-viewport). This owns the band the player may move through, and it is
-/// BG:EE's, taken from GemRB's `GameControl`:
+/// `DefaultPlayZoom` owns *where the camera sits by default* (BG:EE area view,
+/// ~9% body-to-viewport). This owns the band the player may move through, and
+/// it is BG:EE's, taken from GemRB's `GameControl`:
 ///
 /// ```
 /// unsigned int zoomLevel = 16;                    // 100%

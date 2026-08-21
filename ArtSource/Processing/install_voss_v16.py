@@ -257,7 +257,7 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
 
     processing = manifest.get("processing", {})
     required_processing = {
-        "processor": "V15",
+        "processor": crunch.ACTIVE_NAME,
         "native_body_rows": crunch.ACTIVE.native_rows,
         "texture_body_height": 200,
         "canvas": [512, 512],
@@ -284,13 +284,13 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
         errors.append("V16 installer failed to arm RAINSHADOW_PRESERVE_WARDROBE=1")
     active = crunch.ACTIVE
     if not (
-        active.native_rows == 200
-        and active.colors == 128
+        active.native_rows == 64
+        and active.colors == 64
         and active.hard_alpha
         and active.ramp_palette
         and crunch.TEXTURE_BODY_HEIGHT == 200
     ):
-        errors.append("crunch.ACTIVE is not the approved V15 raster recipe")
+        errors.append("crunch.ACTIVE is not the approved BGEE_V1 humanoid recipe")
 
     forbidden = set(processing.get("forbidden_legacy_locks", []))
     if not {"seated_authority_lock", "identity_wardrobe_lock", "relock_voss_identity_v12"} <= forbidden:
@@ -950,13 +950,12 @@ def foot_lead(image: Image.Image) -> str:
         return "R"
     if right_y < 0:
         return "L"
-    # Deadband is one native pixel. Under the 56-row V14 raster one native
-    # pixel was 3.57 canvas px, so +2 counted any single-pixel lead; the V15
-    # raster resolves 1 canvas px per native px, and keeping +2 would read
-    # honestly-measured 2px leads as "even" and fail gaits that do exchange.
-    if left_y > right_y + 1:
+    # One 64-row native pixel expands to 3.125 canvas pixels. A two-canvas-
+    # pixel deadband therefore remains below one craft pixel while absorbing
+    # registration rounding; a real planted-foot lead begins at +3.
+    if left_y > right_y + 2:
         return "L"
-    if right_y > left_y + 1:
+    if right_y > left_y + 2:
         return "R"
     return "="
 
@@ -1053,14 +1052,12 @@ def _rear_forbidden_fraction(
     """Fraction of the visible body near a forbidden material's chroma+value.
 
     ``region`` restricts *where* hits are counted (the denominator stays the
-    whole body). The tie needs this: it is near-neutral charcoal, and at the
-    V15 raster the rear cell honestly keeps ~3% of neutral-dark boot and hem
-    shadow pixels that sit inside the tie's value window — 305 of 335 hits
-    were in the bottom fifth of the body, zero in the strip a tie could
-    occupy. The V14 56-row raster only measured 0 because downsampling
-    blended those shadows into brown. A real front-tie painted onto the back
-    lands hundreds of pixels inside the scoped strip, so the gate still
-    catches the failure it was written for.
+    whole body). The tie needs this because it is close to neutral-dark boot
+    and hem pixels in chroma/value space. Those legitimate hits live in the
+    bottom fifth of the body, while a wrongly painted front tie lands in the
+    torso strip. Keeping the spatial scope makes the gate independent of the
+    active raster resolution while still catching the failure it was written
+    for.
     """
     pixels = np.asarray(image.convert("RGBA"))[..., :3].astype(np.float64)
     body = visible_mask(image)
@@ -1143,13 +1140,18 @@ def _validate_motion(
                     f"{group} {direction}: body centroid drifts {centroid_drift:.2f}px, "
                     f"expected <={centroid_max}px"
                 )
-            head_scale = max(metric.head_width for metric in metrics) / min(
-                metric.head_width for metric in metrics
-            )
-            if head_scale > head_scale_max:
+            head_widths = [metric.head_width for metric in metrics]
+            head_scale = max(head_widths) / min(head_widths)
+            # At the BGEE craft grid, an edge moving by one native sample changes
+            # the registered width by about three canvas pixels. Keep the ratio
+            # gate and allow exactly that one-sample quantisation margin; larger
+            # pulses remain real source-scale drift.
+            craft_pixel = crunch.TEXTURE_BODY_HEIGHT / crunch.ACTIVE.native_rows
+            allowed_head_width = head_scale_max * min(head_widths) + craft_pixel
+            if max(head_widths) > allowed_head_width:
                 errors.append(
                     f"{group} {direction}: head scale pulses {head_scale:.3f}x "
-                    f"(>{head_scale_max}x)"
+                    f"(>{head_scale_max}x plus one {craft_pixel:.2f}px craft sample)"
                 )
             torso_widths = [metric.torso_width for metric in metrics if metric.torso_width > 0]
             torso_scale = max(torso_widths) / min(torso_widths) if torso_widths else math.inf
@@ -1267,8 +1269,8 @@ def _validate_seat(stage_root: Path, errors: list[str]) -> dict[str, Any]:
         if not 38 <= total_rise <= 50:
             errors.append(f"seat {direction}: total rise {total_rise}px, expected 38...50px")
         head_widths = [metric.head_width for metric in idle_metrics + stand_metrics]
-        if any(not 19 <= width <= 29 for width in head_widths):
-            errors.append(f"seat {direction}: head widths {head_widths}, expected 19...29px")
+        if any(not 18 <= width <= 29 for width in head_widths):
+            errors.append(f"seat {direction}: head widths {head_widths}, expected 18...29px")
         head_drift = max(head_widths) / min(head_widths)
         if head_drift > 1.30:
             errors.append(f"seat {direction}: head width drift {head_drift:.3f}x (>1.30x)")

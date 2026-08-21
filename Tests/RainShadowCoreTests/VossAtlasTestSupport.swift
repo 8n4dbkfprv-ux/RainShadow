@@ -80,6 +80,10 @@ struct VossV20ValidationThresholds {
     var sentinelAlpha: UInt8 = 1
     var allowedAlphaValues: Set<UInt8> = [0, 1, 255]
     var maximumOpaqueColors = 64
+    /// Registered canvas pixels occupied by one pre-enlargement craft sample.
+    /// Ratio gates allow one such sample so 1-bit edge quantisation is not
+    /// mistaken for source-scale drift.
+    var craftPixelCanvas = 200.0 / 64.0
     var standingHeight = 198...202
     var seatedHeight = 150...160
     var centerTolerance = 2.0
@@ -145,6 +149,10 @@ struct VossV20ValidationThresholds {
         }
         thresholds.maximumOpaqueColors = integer(processing["palette_colors"])
             ?? thresholds.maximumOpaqueColors
+        if let nativeRows = number(processing["native_body_rows"]), nativeRows > 0 {
+            let textureRows = number(processing["texture_body_height"]) ?? 200
+            thresholds.craftPixelCanvas = textureRows / nativeRows
+        }
 
         if let height = integerRange(gates["standing_height"]), height.count == 2 {
             thresholds.standingHeight = height[0]...height[1]
@@ -461,12 +469,11 @@ struct VossAtlasFrame {
         if leftFootY < 0 && rightFootY < 0 { return "?" }
         if leftFootY < 0 { return "R" }
         if rightFootY < 0 { return "L" }
-        // One-native-pixel deadband, mirroring install_voss_v16.foot_lead:
-        // the V15 raster resolves 1 canvas px per native px, so +2 would read
-        // honest 2px leads as "even" (V14's 56-row raster could only express
-        // leads in 3.57px steps, which is what the old +2 was sized against).
-        if leftFootY > rightFootY + 1 { return "L" }
-        if rightFootY > leftFootY + 1 { return "R" }
+        // Mirroring install_voss_v16.foot_lead: one BGEE_V1 craft pixel expands
+        // to about 3.125 canvas pixels, so ±2 absorbs registration rounding but
+        // cannot hide a real one-native-pixel planted-foot lead.
+        if leftFootY > rightFootY + 2 { return "L" }
+        if rightFootY > leftFootY + 2 { return "R" }
         return "="
     }
 

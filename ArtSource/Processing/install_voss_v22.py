@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Validate, stage, and install the V22 Voss character-strip art.
 
-V22 reuses the V16/V14 raster engine (`install_voss_v16` + `crunch.py`).
+V22 reuses the V16 raster engine (`install_voss_v16` + `crunch.py`) with the
+active measured BGEE_V1 craft profile.
 Masters live under PreRendered3DV22/; this script is the only path that may
 replace runtime atlases. Wardrobe hue is preserved so the 3D-model lock
 (open brown coat, brown waistcoat, maroon tie) survives the raster.
@@ -162,7 +163,7 @@ def _compat_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     compatible.setdefault("processing", {})
     compatible["processing"].update(
         {
-            "processor": "V15",
+            "processor": core.crunch.ACTIVE_NAME,
             "native_body_rows": core.crunch.ACTIVE.native_rows,
             "texture_body_height": 200,
             "canvas": [512, 512],

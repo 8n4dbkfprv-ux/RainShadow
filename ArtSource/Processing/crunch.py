@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""The BGEE crunch: one parameterised raster post-process for every installer.
-`ACTIVE` selects the shipped recipe — V15 today (raster-density parity with the
-area plates, selected by `qa_pixelation_ab_v03.py`); V14 and V7 are kept so the
-old bakes stay reproducible.
+"""The BG:EE crunch: one parameterised raster post-process for every installer.
+`ACTIVE` selects the shipped recipe. ``BGEE_V1`` resolves a standing humanoid
+at 64 native rows before enlarging it back onto the unchanged 200px/512px
+runtime registration. GemRB's IE-format CHMB1 walk avatar measures 52–60
+crown-to-foot rows (median 55); 64 is the smallest nearby grid that preserves
+Voss's authored planted-foot exchange in all nine directions. The texture
+canvas and on-screen body size are deliberately independent from that craft
+raster. V15, V14 and V7 remain so older bakes stay reproducible.
 
 Before this module the crunch existed five times — `pixelize_figure` (V3),
 `pixelize_figure_v7`, `pixelize_shared` (desk NE, with its own fixed-scale
@@ -10,7 +14,7 @@ variant), and the A/B study's copy — monkey-patched onto
 `process_pre_rendered_characters_v3.pixelize_figure` by each installer in turn.
 Everything now routes through `crunch()`.
 
-What V14 changes against V7, and why (see Documentation/PaperdollBGEESpriteRedoPlanV14.md):
+The classic constraints retained by BGEE_V1 are:
 
 1. **1-bit silhouette.** Classic Infinity Engine BAM v1 stores no semi-transparent
    pixels; BG:EE added palette alpha only for UI and spell icons, not creature
@@ -20,13 +24,17 @@ What V14 changes against V7, and why (see Documentation/PaperdollBGEESpriteRedoP
    gradients, not one global median cut. A global cut allocates entries by pixel
    area, which is why V7 spent ~108 colours on Voss's coat and 19 on his head.
    Skin now gets a protected ramp regardless of how little area it covers.
-3. **56 native rows, not 80.** BG1 resolved a standing adult in ~50 rows at the
-   same ~13% screen fraction the camera now targets, so V7 was sampling ~1.6x
-   finer than the era it imitates.
+3. **64 native rows.** The measured CHMB1 walk body spans 52–60 rows from its
+   ground anchor to crown (median 55). The four-row guard above that measured
+   range preserves RainShadow's denser nine-direction gait; BG:EE zooms and
+   filters these pixels rather than turning the source into a 200-row raster.
+4. **64 visible colours per clip.** The same reference uses 44–59 nontransparent
+   palette indices per frame. Sixty-four material-ramp entries retain that
+   budget while leaving room for RainShadow's wardrobe separation.
 
-Selected as variant E of `qa_pixelation_ab_v02.py`, which composites candidates
-at the real 13% camera. The 200px texture body, FOOT_Y registration, 512 canvas
-and every runtime scale constant are unchanged.
+The 200px texture body, FOOT_Y registration, 512 canvas and every runtime scale
+constant are unchanged. They control registration and physical humanoid size;
+``native_rows`` controls only the pre-rendered pixel craft.
 """
 
 from __future__ import annotations
@@ -48,7 +56,7 @@ MIN_REGION_PX = 6
 
 @dataclass(frozen=True)
 class CrunchSpec:
-    """One crunch recipe. `V15` is what ships; `V14`/`V7` reproduce old bakes."""
+    """One crunch recipe; historical variants remain available for comparisons."""
 
     native_rows: int
     colors: int
@@ -70,16 +78,25 @@ class CrunchSpec:
     value_pivot: float | None = None
 
 
-#: V15 — BG:EE raster-density parity (see PaperdollBGEESpriteRedoPlanV15.md).
-#: The V14 56-row grid made sprite pixels ~3.2x coarser than the office plate
-#: (0.80 vs 2.53 art-px per world unit); a BG:EE sprite is never coarser than
-#: its background because both share one raster. Rasterising at the full 200
-#: texture rows lands the body at 2.84 px/wu ≈ plate density. Alpha stays
-#: 1-bit exactly like BAM v1 — on-screen edge softness comes from the runtime's
-#: linear filtering, the same way the EE engine smooths its zoom. The palette
-#: doubles to 128 because 64 entries band visibly once 200 rows of shading
-#: survive, and `value_contrast` recovers the value range the AI masters lack
-#: (BG paperdoll luma sd 45.7 vs ~31 shipped V14).
+#: BGEE_V1 — measured humanoid BAM craft with RainShadow registration unchanged.
+#: 64 rows is the smallest stable grid above the measured 52–60-row CHMB1
+#: range; 64 colours covers its 44–59 used indices per frame. A modest prefilter
+#: removes ImageGen microdetail,
+#: while the V15 highlight-only value expansion keeps the small sprite readable
+#: without rotating wardrobe chroma. Runtime `.linear` filtering supplies the
+#: same zoom softness as BG:EE.
+BGEE_V1 = CrunchSpec(
+    native_rows=64,
+    colors=64,
+    hard_alpha=True,
+    ramp_palette=True,
+    contrast=1.00,
+    ramp_steps=12,
+    soften_radius=1.8,
+    value_contrast=1.35,
+)
+
+#: V15 — retired full-density experiment retained for deterministic old bakes.
 V15 = CrunchSpec(
     native_rows=200,
     colors=128,
@@ -93,7 +110,8 @@ V15 = CrunchSpec(
 V14 = CrunchSpec(native_rows=56, colors=64, hard_alpha=True, ramp_palette=True, contrast=1.00)
 V7 = CrunchSpec(native_rows=80, colors=64, hard_alpha=False, ramp_palette=False, contrast=0.68)
 
-ACTIVE = V15
+ACTIVE_NAME = "BGEE_V1"
+ACTIVE = BGEE_V1
 
 
 @dataclass(frozen=True)
@@ -139,8 +157,8 @@ def soften(
     """Drop micro-detail so the crunch matches seated/paperdoll craft density.
 
     The blur stays — AI-generated masters carry detail a 1998 mesh would not.
-    Its radius follows the spec: 3.4 suited the 56-row V14 grid, but a 200-row
-    raster resolves what the blur was hiding, so V15 drops to 1.2.
+    Its radius follows the spec: BGEE_V1 uses 1.8 before the 64-row reduction;
+    V14 used 3.4 and V15's full 200-row raster used 1.2.
     The midtone pull does not: at V7's 0.68 our opaque luma std was 34.8 against
     45.7 on a real BG paperdoll asset, and washed-out value contrast is exactly
     what makes BG2-era avatars read as coloured blobs next to BG1's.

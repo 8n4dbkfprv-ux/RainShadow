@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Key, crunch, and compose Voss V22 model-locked SW proof cells.
 
-This script never writes runtime atlases. It runs the V16/V14 crunch
+This script never writes runtime atlases. It runs the V16/BGEE_V1 crunch
 (``install_voss_v16`` + ``crunch.py``) against masters under
 ``PreRendered3DV22/``. Wardrobe hue is preserved — the 3D model lock
 (open brown coat, brown waistcoat, maroon tie) must survive the raster.
@@ -211,8 +211,8 @@ def stabilize_idle_keyed(frames: Sequence[Image.Image]) -> list[Image.Image]:
     """Lock idle phases to phase 00 scale, silhouette, and value so the loop cannot pop.
 
     ImageGen idle breaths come back a few percent taller, skinnier, or hotter
-    than phase 00. V15 rasters at 200 native rows, so that source drift survives
-    into the texture as a size pop and a highlight flicker. Seat and walk clips
+    than phase 00. Stabilise that source drift before the BGEE_V1 reduction so
+    it cannot quantise into a size pop or highlight flicker. Seat and walk clips
     must keep their own proportions; this is idle-only.
     """
     if len(frames) < 2:

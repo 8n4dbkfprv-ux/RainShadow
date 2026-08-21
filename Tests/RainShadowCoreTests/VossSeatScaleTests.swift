@@ -121,11 +121,9 @@ struct VossSeatScaleTests {
         let contractMetrics = idleMetrics + standMetrics
         switch direction {
         case .northEast:
-            // Re-baselined for the V14 crunch. A 1-bit silhouette at 56 native
-            // rows puts the head about 6 native pixels across, so a single pixel
-            // of edge is ~17% of its width — the 80-row soft bake's 25...29 band
-            // is finer than the raster can now resolve. Matches the pipeline's
-            // own gate in process_voss_desk_ne_v12.py. Measured 21...26.
+            // A 1-bit silhouette at 64 native rows puts the head about six
+            // craft pixels across, so the registered 18...29 band is more
+            // meaningful than a sub-pixel ratio against another direction.
             for (index, metrics) in contractMetrics.enumerated() {
                 #expect(thresholds.seatedHeadWidth.contains(metrics.headWidth),
                         "NE cell \(index) head width \(metrics.headWidth), expected \(thresholds.seatedHeadWidth)")
@@ -133,8 +131,15 @@ struct VossSeatScaleTests {
         case .southEast:
             for (index, metrics) in contractMetrics.enumerated() {
                 let ratio = Double(metrics.headWidth) / Double(referenceMetrics.headWidth)
-                #expect((0.90...1.10).contains(ratio),
-                        "SE cell \(index) head width \(metrics.headWidth) vs standing reference \(referenceMetrics.headWidth)")
+                // Keep the 0.90...1.10 source-scale gate, with exactly one
+                // pre-enlargement craft sample of edge quantisation. At 64
+                // rows that sample occupies 3.125 registered canvas pixels.
+                let lower = 0.90 * Double(referenceMetrics.headWidth)
+                    - thresholds.craftPixelCanvas
+                let upper = 1.10 * Double(referenceMetrics.headWidth)
+                    + thresholds.craftPixelCanvas
+                #expect((lower...upper).contains(Double(metrics.headWidth)),
+                        "SE cell \(index) head width \(metrics.headWidth) vs standing reference \(referenceMetrics.headWidth), expected 0.90...1.10 plus one \(thresholds.craftPixelCanvas)px craft sample (ratio \(ratio))")
             }
         }
 
@@ -142,8 +147,8 @@ struct VossSeatScaleTests {
         if let narrowest = headWidths.min(), let widest = headWidths.max(), narrowest > 0 {
             let drift = Double(widest) / Double(narrowest)
             // 1.30 matches validate_shared_scale_chain in process_voss_desk_ne_v01.py.
-            // At 56 native rows one pixel of head is ~4% of the clip-wide ratio, so
-            // 1.12 cannot survive a 1-bit edge. NE measures 1.24, SE 1.05.
+            // At 64 native rows one head-edge sample is still about one sixth
+            // of the small head, so 1.12 cannot survive a 1-bit edge.
             #expect(drift <= thresholds.seatedHeadWidthDriftRatioMaximum,
                     "\(direction.label) clip-wide head drift \(drift), widths \(headWidths)")
         } else {

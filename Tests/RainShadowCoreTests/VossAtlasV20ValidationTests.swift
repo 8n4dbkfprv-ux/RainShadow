@@ -64,8 +64,9 @@ struct VossAtlasV20ValidationTests {
             if let minimum = headWidths.min(), let maximum = headWidths.max(), minimum > 0 {
                 let pulse = Double(maximum) / Double(minimum)
                 #expect(
-                    pulse <= thresholds.headPulseRatioMaximum,
-                    "idle \(direction) head scale pulses \(format(pulse))x, expected <=\(format(thresholds.headPulseRatioMaximum))x"
+                    Double(maximum) <= thresholds.headPulseRatioMaximum * Double(minimum)
+                        + thresholds.craftPixelCanvas,
+                    "idle \(direction) head scale pulses \(format(pulse))x, expected <=\(format(thresholds.headPulseRatioMaximum))x plus one \(format(thresholds.craftPixelCanvas))px craft sample"
                 )
             }
 
@@ -220,8 +221,9 @@ struct VossAtlasV20ValidationTests {
         if let minimum = headWidths.min(), let maximum = headWidths.max(), minimum > 0 {
             let pulse = Double(maximum) / Double(minimum)
             #expect(
-                pulse <= thresholds.walkHeadPulseRatioMaximum,
-                "walk \(direction) head scale pulses \(format(pulse))x, expected <=\(format(thresholds.walkHeadPulseRatioMaximum))x"
+                Double(maximum) <= thresholds.walkHeadPulseRatioMaximum * Double(minimum)
+                    + thresholds.craftPixelCanvas,
+                "walk \(direction) head scale pulses \(format(pulse))x, expected <=\(format(thresholds.walkHeadPulseRatioMaximum))x plus one \(format(thresholds.craftPixelCanvas))px craft sample"
             )
         } else {
             Issue.record("walk \(direction) contains no measurable head band")

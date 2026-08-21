@@ -67,7 +67,7 @@ class VossV16PipelineTests(unittest.TestCase):
         self.assertEqual(int(keyed[12, 15, 3]), 255)
         self.assertTupleEqual(tuple(int(value) for value in keyed[12, 15, :3]), (54, 70, 54))
 
-    def test_v14_process_registers_hard_alpha_200px_body(self) -> None:
+    def test_bgee_process_registers_hard_alpha_200px_body(self) -> None:
         cell = v16.process_figure(synthetic_master())
         self.assertEqual(cell.size, (512, 512))
         metrics = v16.frame_metrics(cell)

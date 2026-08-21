@@ -80,13 +80,13 @@ enum OfficeInteriorScale {
     static var standingAdultBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
 
     /// Shell / coordinate-map scale, loaded into the V11 geometry manifest as
-    /// the same 0.395 contract.  DefaultPlayZoom independently retains the 13%
+    /// the same 0.395 contract. DefaultPlayZoom independently retains the 9%
     /// actor-to-visible-height presentation; prop relative scales cancel this
     /// factor so furniture remains body-locked when architecture is redrawn.
     static let environment: CGFloat = 0.395
 
     /// On-screen body ÷ camera-visible height. Matches `DefaultPlayZoom` mid-band
-    /// (~13% from the original BG1 playfield); must use the rendered body.
+    /// (~9% in the BG:EE area view); must use the rendered body.
     static let playBodyToVisibleHeight: CGFloat = DefaultPlayZoom.targetBodyToVisibleHeight
 
     /// Presentation scale only; furniture/body proportions stay in world space.

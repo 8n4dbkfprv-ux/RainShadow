@@ -1,8 +1,11 @@
-# V15 crunch — BG:EE raster-density parity
+# V15 crunch — retired raster-density experiment
 
-**Status: shipped.** `crunch.ACTIVE = V15`; all 233 runtime cells rebaked
-2026-08-17 (Voss via `install_voss_v21.py`, Lila via `v11.process_lila()`
-with `RAINSHADOW_PRESERVE_WARDROBE=1`).
+**Status: superseded by `BGEE_V1` on 2026-08-21.** This document preserves the
+V15 experiment for provenance. Its plate-density premise compared character
+vertical pixels with ground-plane pixels, which are not the same axis and do
+not establish Infinity Engine sprite density. The active measured contract is
+documented in `BGEEHumanoidPipeline.md`; V15 remains reproducible but does not
+ship.
 
 ## Why V14 did not look like BG:EE
 
