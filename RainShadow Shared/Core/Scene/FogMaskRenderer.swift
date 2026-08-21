@@ -16,6 +16,12 @@ import SpriteKit
 ///
 /// A reveal may carry the cells sight actually reaches, in which case the pool
 /// is clipped to them and the fog stops at walls instead of at a radius.
+///
+/// The mask holds three levels, because the engine keeps two bitmaps and draws
+/// their combination: opaque where the area has never been seen, dimmed where it
+/// has been seen but is not in sight now, clear where it is. Painting them into
+/// one texture rather than stacking two sprites keeps the live pool able to cut
+/// clean through the remembered layer even where it has run ahead of it.
 struct FogMaskRenderer {
     /// How a lit pool is painted. The two shipped looks differ in mask
     /// resolution, ring spacing and how ragged the edge is; they are values, not
@@ -36,6 +42,19 @@ struct FogMaskRenderer {
         /// Mask resolution. The mask is stretched over the whole area, so this
         /// is a quality knob, not a coordinate system.
         var pixelSize: CGSize
+        /// How dark ground stays once the player has seen it and looked away.
+        ///
+        /// The Infinity Engine's `ExploredBitmap` is drawn as *partial* fog: you
+        /// keep the terrain and lose what is standing on it. 0 would make memory
+        /// indistinguishable from sight, 1 from never having been there.
+        var exploredDimming: CGFloat = 0.55
+        /// How far the player walks before another pool joins the remembered
+        /// layer. Memory is coarser than sight, and a district persists these to
+        /// the save, so this is also how much a walked district costs to store.
+        var memorySpacing: CGFloat
+        /// How far the player walks before the live pool is repainted. Under one
+        /// search cell, so the bright edge never visibly lags.
+        var sightStep: CGFloat = 12
         /// How far, in world units, to soften the sight boundary.
         ///
         /// Sight is answered per search cell, so an unsoftened boundary is a
@@ -52,7 +71,8 @@ struct FogMaskRenderer {
             segmentCount: 96,
             phaseStep: 0.83,
             edgeHarmonics: [(9, 7.5, 1.0), (21, 3.5, -0.7), (37, 1.8, 1.3)],
-            pixelSize: CGSize(width: 512, height: 256)
+            pixelSize: CGSize(width: 512, height: 256),
+            memorySpacing: 390 * 0.42
         )
 
         /// A ward at night: a wider, softer pool over four times the ground.
@@ -62,7 +82,10 @@ struct FogMaskRenderer {
             segmentCount: 72,
             phaseStep: 0.61,
             edgeHarmonics: [(7, 5.0, 1.0), (17, 2.3, -0.8)],
-            pixelSize: CGSize(width: 1_024, height: 512)
+            pixelSize: CGSize(width: 1_024, height: 512),
+            // Kept at 72 because a district writes these points to the save;
+            // changing it would change what an existing save means.
+            memorySpacing: 72
         )
     }
 
@@ -98,52 +121,95 @@ struct FogMaskRenderer {
         return Int(ceil(max(paintedWorldX / cell.width, paintedWorldY / cell.height)))
     }
 
-    func makeTexture(revealing reveals: [Reveal]) -> SKTexture? {
+    /// The remembered layer: opaque black, with everything ever seen lifted to
+    /// `exploredDimming`. Rebuilt only when memory grows, which is rare.
+    func makeExploredMask(remembering reveals: [Reveal]) -> CGImage? {
+        guard let context = makeContext() else { return nil }
+        context.setBlendMode(.copy)
+        context.setFillColor(CGColor(gray: 0, alpha: 1))
+        context.fill(CGRect(origin: .zero, size: style.pixelSize))
+
+        context.setBlendMode(.destinationOut)
+        for (index, reveal) in reveals.enumerated() {
+            erasePool(reveal, phase: CGFloat(index) * style.phaseStep, in: context)
+        }
+
+        // Painting the dimming *under* what is left raises every erased pixel
+        // from 0 to `exploredDimming` and leaves untouched black at 1, feather
+        // and all: `a' = a + d(1 - a)`. Erasing to `d` in the first place would
+        // not do this — the four rings overlap, so their erasures compound and
+        // the centre would land somewhere below the value asked for.
+        context.setBlendMode(.destinationOver)
+        context.setFillColor(CGColor(gray: 0, alpha: style.exploredDimming))
+        context.fill(CGRect(origin: .zero, size: style.pixelSize))
+
+        return context.makeImage()
+    }
+
+    /// The remembered layer with the live pool cut clear through it.
+    ///
+    /// `seeing` erases to full transparency regardless of what memory holds
+    /// underneath, so sight that has run ahead of the last remembered pool is
+    /// still lit rather than clipped to it.
+    func makeTexture(exploredMask: CGImage?, seeing visible: Reveal?) -> SKTexture? {
+        guard let context = makeContext() else { return nil }
+        context.setBlendMode(.copy)
+        if let exploredMask {
+            context.draw(exploredMask, in: CGRect(origin: .zero, size: style.pixelSize))
+        } else {
+            context.setFillColor(CGColor(gray: 0, alpha: 1))
+            context.fill(CGRect(origin: .zero, size: style.pixelSize))
+        }
+
+        var clipped = false
+        if let visible {
+            context.setBlendMode(.destinationOut)
+            erasePool(visible, phase: 0, in: context)
+            clipped = !visible.visibleRects.isEmpty
+        }
+
+        guard let image = context.makeImage() else { return nil }
+        let mask = SKTexture(cgImage: clipped ? softened(image) ?? image : image)
+        mask.filteringMode = .linear
+        return mask
+    }
+
+    private func makeContext() -> CGContext? {
         let pixelWidth = Int(style.pixelSize.width)
-        let pixelHeight = Int(style.pixelSize.height)
-        guard let context = CGContext(
+        return CGContext(
             data: nil,
             width: pixelWidth,
-            height: pixelHeight,
+            height: Int(style.pixelSize.height),
             bitsPerComponent: 8,
             bytesPerRow: pixelWidth * 4,
             space: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return nil }
+        )
+    }
 
-        context.setBlendMode(.copy)
-        context.setFillColor(CGColor(gray: 0, alpha: 1))
-        context.fill(CGRect(origin: .zero, size: style.pixelSize))
-        context.setBlendMode(.destinationOut)
-
-        for (index, reveal) in reveals.enumerated() {
-            let phase = CGFloat(index) * style.phaseStep
-            let center = CGPoint(
-                x: reveal.center.x * pixelsPerWorldX,
-                y: reveal.center.y * pixelsPerWorldY
-            )
-            let clipped = !reveal.visibleRects.isEmpty
-            if clipped {
-                context.saveGState()
-                context.clip(to: reveal.visibleRects.map(pixelRect))
-            }
-            for layer in style.featherLayers {
-                context.addPath(edgePath(
-                    center: center,
-                    radius: style.revealRadius * pixelsPerWorldX * layer.scale,
-                    phase: phase
-                ))
-                context.setFillColor(CGColor(gray: 1, alpha: layer.alpha))
-                context.fillPath()
-            }
-            if clipped { context.restoreGState() }
+    /// One pool, clipped to what sight reaches from it, erased at full strength.
+    /// The caller decides what the result means by choosing the blend it is
+    /// painted into.
+    private func erasePool(_ reveal: Reveal, phase: CGFloat, in context: CGContext) {
+        let center = CGPoint(
+            x: reveal.center.x * pixelsPerWorldX,
+            y: reveal.center.y * pixelsPerWorldY
+        )
+        let clipped = !reveal.visibleRects.isEmpty
+        if clipped {
+            context.saveGState()
+            context.clip(to: reveal.visibleRects.map(pixelRect))
         }
-
-        guard let image = context.makeImage() else { return nil }
-        let anyClipped = reveals.contains { !$0.visibleRects.isEmpty }
-        let mask = SKTexture(cgImage: anyClipped ? softened(image) ?? image : image)
-        mask.filteringMode = .linear
-        return mask
+        for layer in style.featherLayers {
+            context.addPath(edgePath(
+                center: center,
+                radius: style.revealRadius * pixelsPerWorldX * layer.scale,
+                phase: phase
+            ))
+            context.setFillColor(CGColor(gray: 1, alpha: layer.alpha))
+            context.fillPath()
+        }
+        if clipped { context.restoreGState() }
     }
 
     /// Shared because a `CIContext` is expensive to build and the fog rebuilds

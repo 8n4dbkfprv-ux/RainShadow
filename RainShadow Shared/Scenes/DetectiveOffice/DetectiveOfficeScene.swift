@@ -20,7 +20,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private var deskTopOccluder: SKSpriteNode?
     /// Loose desk props — lifted above the top occluder while seated.
     private var deskItemNodes: [SKSpriteNode] = []
-    private var fogOfWar: OfficeFogOfWarNode?
+    private var fogOfWar: FogOfWarNode?
     /// The office as an area record plus its navigation and waypoint queue.
     /// Plate, props, regions, door registration and travel all resolve from it.
     private var runtime: AreaRuntime {
@@ -914,7 +914,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         areaMapOverlay.updateCurrentPosition(detective.position)
         updateDetectiveDepth()
         updateDepth(of: client)
-        fogOfWar?.reveal(at: detective.position)
+        fogOfWar?.look(from: detective.position)
         updateCameraPosition(at: currentTime)
         // Follow dialogue camera lifts / restores every frame.
         syncHudToCamera()
@@ -2106,17 +2106,16 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func addFogOfWar() {
-        let fog = OfficeFogOfWarNode(
-            size: OfficeInteriorScale.scaledArtSize,
-            origin: OfficeInteriorScale.shellOrigin,
-            initialReveal: arrivalPoint,
-            searchMap: navigation.searchMap
+        let fog = FogOfWarNode(
+            worldOrigin: OfficeInteriorScale.shellOrigin,
+            worldSize: OfficeInteriorScale.scaledArtSize,
+            style: .office,
+            searchMap: navigation.searchMap,
+            // The opening conversation starts with Lila crossing from the door,
+            // so her authored entrance is already part of the remembered office.
+            remembering: [arrivalPoint] + OfficeNavigationLayout.clientArrivalPath,
+            standingAt: arrivalPoint
         )
-        // The opening conversation starts with Lila crossing from the door,
-        // so her authored entrance is part of the initially explored office.
-        for point in OfficeNavigationLayout.clientArrivalPath {
-            fog.reveal(at: point, forceTrailPoint: true)
-        }
         weatherRoot.addChild(fog)
         fogOfWar = fog
     }
@@ -2650,81 +2649,5 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         door.strokeColor = SKColor(white: 0.13, alpha: 1)
         door.lineWidth = 18 * OfficeInteriorScale.environment
         backgroundRoot.addChild(door)
-    }
-}
-
-/// Classic isometric fog-of-war: fully black unexplored space with a slightly
-/// irregular painted edge. Reveal samples persist as the detective moves, while
-/// the environment, props, actors, and HUD remain independent layers.
-@MainActor
-private final class OfficeFogOfWarNode: SKSpriteNode {
-    /// How many places Voss stood the room still remembers. The office forgets —
-    /// this is a pool of lamplight following him, not an explored map.
-    private static let pointCapacity = 8
-
-    private let renderer = FogMaskRenderer(
-        worldSize: OfficeInteriorScale.scaledArtSize,
-        style: .office
-    )
-    private let searchMap: SearchMap
-    private let worldOrigin: CGPoint
-    private var trail: [CGPoint] = []
-    private var currentReveal: CGPoint
-
-    init(size: CGSize, origin: CGPoint, initialReveal: CGPoint, searchMap: SearchMap) {
-        self.searchMap = searchMap
-        worldOrigin = origin
-        currentReveal = CGPoint(
-            x: initialReveal.x - origin.x,
-            y: initialReveal.y - origin.y
-        )
-        super.init(texture: nil, color: .black, size: size)
-        anchorPoint = .zero
-        position = origin
-        updateFogTexture()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("OfficeFogOfWarNode is created programmatically")
-    }
-
-    func reveal(at worldPoint: CGPoint, forceTrailPoint: Bool = false) {
-        let localPoint = CGPoint(
-            x: worldPoint.x - worldOrigin.x,
-            y: worldPoint.y - worldOrigin.y
-        )
-        let movement = hypot(localPoint.x - currentReveal.x, localPoint.y - currentReveal.y)
-        let shouldCommit = forceTrailPoint || movement >= FogMaskRenderer.Style.office.revealRadius * 0.42
-        guard forceTrailPoint || movement >= 12 else { return }
-
-        if trail.isEmpty || shouldCommit {
-            trail.append(localPoint)
-            if trail.count > Self.pointCapacity - 1 {
-                trail.removeFirst(trail.count - (Self.pointCapacity - 1))
-            }
-        }
-        currentReveal = localPoint
-        updateFogTexture()
-    }
-
-    private func updateFogTexture() {
-        let points = Array(trail.suffix(Self.pointCapacity - 1)) + [currentReveal]
-        guard let mask = renderer.makeTexture(revealing: points.map(makeReveal)) else { return }
-        texture = mask
-    }
-
-    /// One lamplight pool, cut back to what can be seen from where it stands.
-    private func makeReveal(at localPoint: CGPoint) -> FogMaskRenderer.Reveal {
-        let worldPoint = CGPoint(
-            x: localPoint.x + worldOrigin.x,
-            y: localPoint.y + worldOrigin.y
-        )
-        let cells = searchMap.visibleCells(from: worldPoint, radiusInCells: renderer.visibilityRadiusInCells)
-        return FogMaskRenderer.Reveal(
-            center: localPoint,
-            visibleRects: searchMap.mergedRects(of: cells).map {
-                $0.offsetBy(dx: -worldOrigin.x, dy: -worldOrigin.y)
-            }
-        )
     }
 }

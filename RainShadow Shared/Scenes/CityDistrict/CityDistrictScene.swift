@@ -15,7 +15,7 @@ final class CityDistrictScene: BaseGameScene {
 
     private let district: CityDistrictDefinition
     private let entranceName: String?
-    private var fogOfWar: CityFogOfWarNode?
+    private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
@@ -395,7 +395,7 @@ final class CityDistrictScene: BaseGameScene {
         areaMapOverlay.updateCurrentPosition(detective.position)
         areaMapOverlay.updateExploredPoints(context.session.cityFogRevealPoints(for: district.id))
         updateDepth(of: detective)
-        if fogOfWar?.reveal(at: detective.position) == true {
+        if fogOfWar?.look(from: detective.position) == true {
             context.session.recordCityFogReveal(district.id, point: detective.position)
         }
         updateCameraPosition(at: currentTime)
@@ -664,11 +664,14 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private func addFogOfWar() {
-        let fog = CityFogOfWarNode(
-            size: CityDistrictDefinition.worldArtSize,
-            revealedPoints: context.session.cityFogRevealPoints(for: district.id),
-            initialReveal: detective.position,
-            searchMap: navigation.searchMap
+        let fog = FogOfWarNode(
+            worldOrigin: .zero,
+            worldSize: CityDistrictDefinition.worldArtSize,
+            style: .cityDistrict,
+            searchMap: navigation.searchMap,
+            // A district's memory outlives the visit: these came off the save.
+            remembering: context.session.cityFogRevealPoints(for: district.id),
+            standingAt: detective.position
         )
         fog.zPosition = 10
         weatherRoot.addChild(fog)
@@ -794,66 +797,3 @@ final class CityDistrictScene: BaseGameScene {
     }
 }
 
-@MainActor
-private final class CityFogOfWarNode: SKSpriteNode {
-    /// How far the player walks before the district records another place it has
-    /// seen. A district remembers all of them and writes them to the save, which
-    /// is what an Infinity Engine area's explored bitmap is.
-    private static let revealSpacing: CGFloat = 72
-
-    private let renderer = FogMaskRenderer(
-        worldSize: CityDistrictDefinition.worldArtSize,
-        style: .cityDistrict
-    )
-    private let searchMap: SearchMap
-    private var revealedPoints: [CGPoint]
-    /// Sight from each recorded point, kept because a district accumulates
-    /// points for as long as the player explores it and only ever gains one at a
-    /// time. Recomputing all of them on every step would make walking cost more
-    /// the longer you had walked.
-    private var revealsByPoint: [FogMaskRenderer.Reveal] = []
-
-    init(size: CGSize, revealedPoints: [CGPoint], initialReveal: CGPoint, searchMap: SearchMap) {
-        self.searchMap = searchMap
-        self.revealedPoints = revealedPoints.isEmpty ? [initialReveal] : revealedPoints
-        if self.revealedPoints.last != initialReveal {
-            self.revealedPoints.append(initialReveal)
-        }
-        super.init(texture: nil, color: .black, size: size)
-        anchorPoint = .zero
-        revealsByPoint = self.revealedPoints.map(makeReveal)
-        updateFogTexture()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("CityFogOfWarNode is created programmatically")
-    }
-
-    @discardableResult
-    func reveal(at worldPoint: CGPoint) -> Bool {
-        guard let last = revealedPoints.last,
-              hypot(worldPoint.x - last.x, worldPoint.y - last.y) >= Self.revealSpacing else {
-            return false
-        }
-        revealedPoints.append(worldPoint)
-        revealsByPoint.append(makeReveal(at: worldPoint))
-        updateFogTexture()
-        return true
-    }
-
-    private func updateFogTexture() {
-        guard let mask = renderer.makeTexture(revealing: revealsByPoint) else { return }
-        texture = mask
-    }
-
-    /// One pool, cut back to what the street can actually see from there — so it
-    /// stops at the building on the corner instead of spilling through it.
-    private func makeReveal(at worldPoint: CGPoint) -> FogMaskRenderer.Reveal {
-        let cells = searchMap.visibleCells(from: worldPoint, radiusInCells: renderer.visibilityRadiusInCells)
-        // The district's world origin is zero, so world points are already local.
-        return FogMaskRenderer.Reveal(
-            center: worldPoint,
-            visibleRects: searchMap.mergedRects(of: cells)
-        )
-    }
-}
