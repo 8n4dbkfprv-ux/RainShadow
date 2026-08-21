@@ -6,7 +6,7 @@
 
 ## 1. Purpose
 
-This manifest is the source of truth for the first production assets generated with the built-in Image Generator and then normalized for SpriteKit. It prevents three common failures: baking stateful objects into the office background, changing projection or light direction between generations, and accepting animation frames that do not share a stable ground pivot. V11 deliberately bakes fixed window and cold-fireplace architecture while keeping interaction, effects, door states, wall geometry, and navigation independently registered.
+This manifest is the source of truth for the first production assets generated with the built-in Image Generator and then normalized for SpriteKit. It prevents three common failures: baking stateful objects into the office background, changing projection or light direction between generations, and accepting animation frames that do not share a stable ground pivot. V12 bakes the approved warm reference redraw while keeping interaction, effects, door states, wall geometry, and navigation independently registered.
 
 The Image Generator produces source material. Every result still passes registration, alpha cleanup, color, downsampling, filename, pivot, and in-engine scale QA before it becomes a runtime asset.
 
@@ -157,14 +157,14 @@ the V11 prop manifest or preload contract.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_door_leaf` | 512×320 | Yes | Closed edge cap on the shared hinge canvas; opaque dark tobacco timber, no readable face, glass, lettering, knob, or freestanding frame. |
-| P0 | `office_door_leaf_mid` | 512×320 | Yes | Mid-swing edge silhouette on the same fixed hinge registration. |
-| P0 | `office_door_leaf_open` | 512×320 | Yes | Fully open, heavily foreshortened timber sliver projecting lower-left over the black cutaway, anchored to the supplied BG:EE crop's observable read. |
+| P0 | `office_door_leaf` | 512×320 | Yes | Full edge cap uniformly extracted from the user-approved V12 room reference; one slim worn timber surface with its original bright end fitting and dark underside, no painted multi-board replacement or freestanding frame. |
+| P0 | `office_door_leaf_mid` | 512×320 | Yes | The same reference leaf compressed to the registered mid-state length on the fixed hinge. |
+| P0 | `office_door_leaf_open` | 512×320 | Yes | The same reference leaf compressed to the registered open-state length, still projecting lower-left over the black cutaway. |
 | P0 | closed/mid/open hover states | 512×320 | Yes | Colour-only hover derivations of each corresponding base; alpha and hinge registration are identical. |
 
-All V11 states share image hinge `(488, 18)` / SpriteKit anchor
+All V12 states share image hinge `(488, 18)` / SpriteKit anchor
 `(0.953125, 0.94375)`. Closed is the measured authority; mid/open retain the
-hinge, angle, material, and thickness while shortening to 81.5%/63.8%.
+hinge, angle, reference surface, end caps, and thickness while shortening to 81.5%/63.8%.
 The transition swaps registered edge-rendered states; it does not rotate a flat
 rectangular sprite. Retired frosted-lettered, thickness-warp, fallen, frame, and
 internal-door sources remain under `ArtSource` for provenance but are not runtime contracts.

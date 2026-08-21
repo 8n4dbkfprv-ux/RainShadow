@@ -1,0 +1,149 @@
+{
+  "version": "BGEEReferenceV12",
+  "canvas": [
+    512,
+    320
+  ],
+  "hingeImageXY": [
+    488,
+    18
+  ],
+  "anchorFromBottomLeft": [
+    0.953125,
+    0.94375
+  ],
+  "displayScale": 0.395,
+  "plateHinge": [
+    2741.247,
+    1594.612
+  ],
+  "closedPlateFreeEnd": [
+    2341.805,
+    1883.592
+  ],
+  "angleDegrees": 35.884205,
+  "maximumThickness": 68.055052,
+  "source": {
+    "file": "ArtSource/Reference/Office/V12/office_target_reference.png",
+    "sha256": "6fbb06a6bf54e821bcdf7ae5e86aecc998ed594b4869c79dbc78bb41d770bd19",
+    "bbox": [
+      918.0,
+      655.0,
+      1084.0,
+      780.0
+    ],
+    "hinge": [
+      1079.5,
+      661.8
+    ],
+    "freeEnd": [
+      922.2,
+      775.6
+    ],
+    "pixelPolicy": "uniformly transformed user-approved door pixels; nearby floor excluded"
+  },
+  "stateSemantics": "closed is the full reference sliver; mid/open compress it toward the fixed hinge",
+  "states": {
+    "closed": {
+      "file": "office_door_leaf_closed_v12.png",
+      "hoverFile": "office_door_leaf_closed_hover_v12.png",
+      "lengthRatio": 1.0,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          88.55799999999999,
+          306.98
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2341.805,
+          1883.592
+        ]
+      ],
+      "opaqueBounds": [
+        78,
+        2,
+        499,
+        318
+      ]
+    },
+    "mid": {
+      "file": "office_door_leaf_mid_v12.png",
+      "hoverFile": "office_door_leaf_mid_hover_v12.png",
+      "lengthRatio": 0.815,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          162.45477,
+          253.5187
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2415.7017699999997,
+          1830.1307000000002
+        ]
+      ],
+      "opaqueBounds": [
+        150,
+        0,
+        501,
+        268
+      ]
+    },
+    "open": {
+      "file": "office_door_leaf_open_v12.png",
+      "hoverFile": "office_door_leaf_open_hover_v12.png",
+      "lengthRatio": 0.638,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          233.156004,
+          202.36924000000002
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2486.403004,
+          1778.98124
+        ]
+      ],
+      "opaqueBounds": [
+        220,
+        0,
+        502,
+        220
+      ]
+    }
+  },
+  "outputHashes": {
+    "office_door_leaf_closed_v12.png": "d80f991901783a287d2d3c8ac90edd3390dda006fbc31fba0c42f75d399fda5f",
+    "office_door_leaf_closed_hover_v12.png": "1589cc46e4266d33fd933fd54067496450a12c75b82a7b9257706b64ae2e987b",
+    "office_door_leaf_mid_v12.png": "174d5f74f491b85b1d0fb9217060ed2f754011a80b0ba2afd08a3470497dc2b8",
+    "office_door_leaf_mid_hover_v12.png": "7749faa2569b8e1ade8e0ad37ffce0bf78d0838b95cb4ff116b72e37e04664d4",
+    "office_door_leaf_open_v12.png": "40063becf7863bfff932218d9ecb147b243b423c4c2f446b82edd336a76c0ce2",
+    "office_door_leaf_open_hover_v12.png": "f8fc6903b025d28eb239c73f8b003d9d2670bbcd650cf7b2e48e7f3bfb736d28"
+  }
+}

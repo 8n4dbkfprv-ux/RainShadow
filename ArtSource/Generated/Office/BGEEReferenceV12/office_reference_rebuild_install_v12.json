@@ -36,6 +36,41 @@
       "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png"
     },
     {
+      "sha256": "d80f991901783a287d2d3c8ac90edd3390dda006fbc31fba0c42f75d399fda5f",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_closed_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png"
+    },
+    {
+      "sha256": "1589cc46e4266d33fd933fd54067496450a12c75b82a7b9257706b64ae2e987b",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_closed_hover_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png"
+    },
+    {
+      "sha256": "174d5f74f491b85b1d0fb9217060ed2f754011a80b0ba2afd08a3470497dc2b8",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_mid_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png"
+    },
+    {
+      "sha256": "7749faa2569b8e1ade8e0ad37ffce0bf78d0838b95cb4ff116b72e37e04664d4",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_mid_hover_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid_hover.png"
+    },
+    {
+      "sha256": "40063becf7863bfff932218d9ecb147b243b423c4c2f446b82edd336a76c0ce2",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_open_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png"
+    },
+    {
+      "sha256": "f8fc6903b025d28eb239c73f8b003d9d2670bbcd650cf7b2e48e7f3bfb736d28",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_leaf_open_hover_v12.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png"
+    },
+    {
+      "sha256": "86b49b8b8703e3e263e83fbecb68e913aec1affeb4bc3541f3ba3d37edfc2f0f",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV12/Props/office_door_family_v12.json",
+      "target": "ArtSource/Generated/Office/office_door_family_v12.json"
+    },
+    {
       "sha256": "1776e9f7a240cddde650130a52ce00c41b929df6a86d9e4994d6e456d1c67b83",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_metrics_v12.json",
       "target": "ArtSource/Generated/Office/office_reference_rebuild_metrics_v12.json"
@@ -54,6 +89,13 @@
     "ArtSource/Generated/Office/office_suite_plate_bgee_v12_installed.png",
     "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png",
     "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid_hover.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png",
+    "ArtSource/Generated/Office/office_door_family_v12.json",
     "ArtSource/Generated/Office/office_reference_rebuild_metrics_v12.json",
     "RainShadow Shared/Resources/Art/UI/Map/map_detective_office_v08.png"
   ],

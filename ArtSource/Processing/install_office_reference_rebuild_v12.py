@@ -24,6 +24,8 @@ PLATE = STAGE / "office_reference_rebuild_plate_v12.png"
 GLASS = STAGE / "office_window_glass_mask_v12.png"
 HOVER = STAGE / "office_window_near_hover_overlay_v12.png"
 METRICS = STAGE / "office_reference_rebuild_metrics_v12.json"
+DOOR_PROPS = STAGE / "Props"
+DOOR_FAMILY = DOOR_PROPS / "office_door_family_v12.json"
 
 ALLOWLIST: tuple[tuple[Path, Path], ...] = (
     (PLATE, AREA_ART / "office_suite_plate.png"),
@@ -33,6 +35,13 @@ ALLOWLIST: tuple[tuple[Path, Path], ...] = (
     (PLATE, GENERATED_OFFICE / "office_suite_plate_bgee_v12_installed.png"),
     (GLASS, RUNTIME_PROPS / "office_window_glass_mask.png"),
     (HOVER, RUNTIME_PROPS / "office_window_hover_overlay.png"),
+    (DOOR_PROPS / "office_door_leaf_closed_v12.png", RUNTIME_PROPS / "office_door_leaf.png"),
+    (DOOR_PROPS / "office_door_leaf_closed_hover_v12.png", RUNTIME_PROPS / "office_door_leaf_hover.png"),
+    (DOOR_PROPS / "office_door_leaf_mid_v12.png", RUNTIME_PROPS / "office_door_leaf_mid.png"),
+    (DOOR_PROPS / "office_door_leaf_mid_hover_v12.png", RUNTIME_PROPS / "office_door_leaf_mid_hover.png"),
+    (DOOR_PROPS / "office_door_leaf_open_v12.png", RUNTIME_PROPS / "office_door_leaf_open.png"),
+    (DOOR_PROPS / "office_door_leaf_open_hover_v12.png", RUNTIME_PROPS / "office_door_leaf_open_hover.png"),
+    (DOOR_FAMILY, GENERATED_OFFICE / "office_door_family_v12.json"),
     (METRICS, GENERATED_OFFICE / "office_reference_rebuild_metrics_v12.json"),
     (MAP_SOURCE, MAP_RUNTIME),
 )

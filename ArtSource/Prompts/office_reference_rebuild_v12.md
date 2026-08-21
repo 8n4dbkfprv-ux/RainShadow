@@ -46,3 +46,36 @@ V11 floor and wall material sources without borrowing any old fixture or wall
 pixels. `qa_office_reference_rebuild_v12.py` gates pure-black exterior,
 deterministic reproduction, warm fire and spill, masks, interactive-window
 registration, and a tight 1.5-degree projection tolerance.
+
+## Door correction
+
+The first V12 install retained V11's procedurally painted door family. Its
+three broad longitudinal bands made the camera-near edge read as a detached
+beam rather than the slim leaf in the approved room image. The correction
+keeps the existing 512×320 canvas, hinge `(488, 18)`, SpriteKit anchor
+`(0.953125, 0.94375)`, state lengths, collision, and travel registration.
+`process_office_door_reference_v12.py` isolates the supplied image's measured
+door bbox, excludes the adjacent floor, and uniformly maps those approved
+pixels into the live registration. Mid/open states compress that same painted
+leaf toward the fixed hinge; hover states change colour only.
+
+The built-in Image Generator was used to resolve the intended surface read
+before the deterministic extraction was authored. Its production prompt was:
+
+> Use case: precise-object-edit
+>
+> Asset type: transparent raster master for an isometric SpriteKit game door
+>
+> Primary request: replace the broad three-plank beam treatment with the
+> reference-faithful edge-on door leaf: a slim, heavily foreshortened strip of
+> worn dark brown timber, subtle warm top edge, nearly black narrow underside,
+> low contrast and period-appropriate aged varnish.
+>
+> Composition/framing: preserve the exact diagonal axis, hinge at upper-right,
+> free end at lower-left, and long edge-on silhouette.
+>
+> Constraints: one door leaf only; no frame, wall, floor, lettering, readable
+> front face, text, or watermark.
+
+The generated study was not installed: direct extraction from the approved
+room reference is more faithful and is now the final runtime authority.

@@ -57,12 +57,12 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Runtime plates — 8/8 on the lock (office re-measured 2026-08-20)
+## Runtime plates — 8/8 on the lock (office re-measured 2026-08-21)
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +36.70 / −36.97 | **0.17° PASS** (installed V11 dimensional-relief plate) |
-| `office_shell_base` | +36.70 / −36.97 | **0.17° PASS** (same installed V11 pixels) |
+| `office_suite_plate` | +35.84 / −35.69 | **1.18° PASS** (installed V12 approved-reference redraw) |
+| `office_shell_base` | +35.84 / −35.69 | **1.18° PASS** (same installed V12 pixels) |
 | `city_wharf_ladder_block` | +36.66 / −35.87 | 1.00° **PASS** |
 | `city_harborpoint_pd_block` | +36.68 / −35.85 | 1.02° **PASS** |
 | `city_riverside_block` | +36.57 / −35.69 | 1.18° **PASS** |
@@ -70,7 +70,23 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 | `city_civic_records_block` | +36.53 / −35.60 | 1.27° **PASS** |
 | `city_sable_row_block` | +36.30 / −36.40 | **0.57° PASS** (V5 lot masters) |
 
-### Office V11 1950s authority — generated and gated
+### Office V12 approved-reference authority — generated and gated
+
+`BGEEReferenceV12` uniformly registers a fresh ImageGen redraw to the V11
+geometry rather than stretching axes independently. The plate, architecture
+mask, two window overlays, warm fireplace/spill, and 1.5° projection gate are
+reproduced deterministically by `generate_office_reference_rebuild_v12.py`.
+
+The door remains separate and interactive. The corrected V12 family is now
+uniformly extracted from the small camera-near door in the approved 1613×975
+reference, using the existing 512×320 canvas, image hinge `(488,18)`, anchor
+`(0.953125,0.94375)`, and state lengths. This replaces V11's broad procedural
+plank bands, which read as a detached beam. `qa_office_reference_rebuild_v12.py`
+checks the source identity, reference bbox, hinge, state endpoints/thickness,
+hover-alpha identity, and deterministic reproduction before the V12 installer
+copies any runtime door texture.
+
+### Office V11 1950s registration authority — retained provenance
 
 `BGEE1950sV11/office_v11_geometry.json` is the single registration manifest
 for the compact 1950s redraw. The supplied 1613×975 RGB image (SHA-256

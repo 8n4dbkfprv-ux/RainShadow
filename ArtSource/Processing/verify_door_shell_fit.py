@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Verify the V10 BGEE edge-on entrance family and cutaway silhouette.
+"""Verify the installed V12 reference-faithful entrance family.
 
-The retired QA tried to cover a freestanding frame with a tall rectangular
-leaf and also graded a decorative internal door. V10 intentionally has neither:
-the surviving entrance is a registered closed/mid/open edge silhouette whose
-open timber sliver must project lower-left over the pure-black cutaway.
+The surviving entrance is a registered closed/mid/open edge silhouette. V12
+keeps the V11 geometry and state semantics but replaces the procedural broad
+boards with pixels uniformly extracted from the approved room reference.
 """
 
 from __future__ import annotations
@@ -23,14 +22,13 @@ import office_room_plan as room
 ROOT = Path(__file__).resolve().parents[2]
 PROPS = ROOT / "RainShadow Shared/Resources/Art/Props/Office"
 AREA = ROOT / "RainShadow Shared/Resources/Art/Areas/DetectiveOffice"
-FAMILY = ROOT / "ArtSource/Generated/Office/BGEETavernV10/Props/office_door_family_v10.json"
+FAMILY = ROOT / "ArtSource/Generated/Office/office_door_family_v12.json"
 
 CANVAS = (512, 320)
-HINGE = np.array((488.0, 54.0))
-ANCHOR = (0.953125, 0.83125)
-DISPLAY_SCALE = 0.175
+HINGE = np.array((488.0, 18.0))
+ANCHOR = (0.953125, 0.94375)
+DISPLAY_SCALE = 0.395
 PLATE_PER_WORLD = 1.0 / room.ENVIRONMENT_SCALE
-ADULT_WORLD_H = 200.0 / 512.0 * 180.0
 
 
 def alpha_points(image: Image.Image) -> np.ndarray:
@@ -108,23 +106,32 @@ def main() -> int:
         checks.append((f"{state} hinge registration", hinge_distance <= 8.0, f"{hinge_distance:.2f}px"))
 
     checks.append((
-        "monotonic swing extents",
-        widths["closed"] < widths["mid"] < widths["open"],
-        f"{widths['closed']} < {widths['mid']} < {widths['open']}",
+        "monotonic reference-state extents",
+        widths["closed"] > widths["mid"] > widths["open"],
+        f"{widths['closed']} > {widths['mid']} > {widths['open']}",
     ))
-    elongation = pca_elongation(points["open"])
-    checks.append(("open state is an edge sliver", elongation >= 10.0, f"PCA elongation {elongation:.2f}x"))
+    elongation = pca_elongation(points["closed"])
+    checks.append(("closed state is an edge sliver", elongation >= 4.5, f"PCA elongation {elongation:.2f}x"))
 
-    open_far = points["open"][np.argmin(points["open"][:, 0])].astype(float)
+    closed_far = points["closed"][
+        np.argmax(np.linalg.norm(points["closed"] - HINGE, axis=1))
+    ].astype(float)
     checks.append((
-        "open state projects lower-left",
-        open_far[0] < HINGE[0] - 350 and open_far[1] > HINGE[1] + 150,
-        f"hinge={tuple(HINGE)} far={tuple(open_far)}",
+        "full reference state projects lower-left",
+        closed_far[0] < HINGE[0] - 390 and closed_far[1] > HINGE[1] + 280,
+        f"hinge={tuple(HINGE)} far={tuple(closed_far)}",
     ))
 
-    open_length = float(np.linalg.norm(points["open"] - HINGE, axis=1).max())
-    adult_multiple = open_length * DISPLAY_SCALE / ADULT_WORLD_H
-    checks.append(("door/adult physical scale", 1.10 <= adult_multiple <= 1.30, f"{adult_multiple:.3f}x"))
+    closed_length = float(np.linalg.norm(points["closed"] - HINGE, axis=1).max())
+    registered_endpoints = np.asarray(
+        manifest["states"]["closed"]["registeredImageAxisEndpoints"], dtype=float
+    )
+    registered_length = float(np.linalg.norm(registered_endpoints[1] - registered_endpoints[0]))
+    checks.append((
+        "reference axis length",
+        abs(closed_length - registered_length) <= 12.0,
+        f"visible={closed_length:.2f}px registered={registered_length:.2f}px",
+    ))
 
     plate = Image.open(AREA / "office_suite_plate.png").convert("RGB")
     black_fraction = black_under_open_fraction(plate, images["open"])

@@ -169,13 +169,14 @@ def main() -> None:
 
     # --- rearFixtureRoot ---
     paste_anchored(canvas, scaled(load("office_radiator"), REL_STANDARD), AUTHORED["radiator"], GROUND_ANCHOR)
-    # Show the reference-critical open state: a registered edge silhouette
-    # over black, never a conventional front-facing door rectangle.
+    # The room reference shows the full, closed edge silhouette. Using the
+    # shortened open state here made the review render look like a loose beam
+    # floating beyond the cutaway even though the runtime starts closed.
     paste_anchored(
         canvas,
-        scaled(load("office_door_leaf_open"), 0.175 / ENVIRONMENT),
+        scaled(load("office_door_leaf"), 0.395 / ENVIRONMENT),
         AUTHORED["doorLeaf"],
-        (0.953125, 0.83125),
+        (0.953125, 0.94375),
     )
     for name, key in [
         ("office_case_board", "caseBoard"),
