@@ -57,7 +57,7 @@
   },
   "gates": {
     "adjacent_crown_retreat_max": 4,
-    "anchor_width_height_ratio": [0.4, 0.43],
+    "anchor_width_height_ratio": [0.43, 0.46],
     "body_axis_bbox_tolerance": 8.0,
     "center_tolerance": 2,
     "centroid_drift_max": 2.0,
@@ -89,6 +89,8 @@
     "processor": "BGEE_V1",
     "native_body_rows": 64,
     "palette_colors": 64,
+    "torso_width_scale": 1.15,
+    "lower_width_scale": 1.0,
     "hard_alpha": true,
     "runtime_registration_offsets": {},
     "seated_idle_scale_authority": "phase_00_opaque_height_minus_one"

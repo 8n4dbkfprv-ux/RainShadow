@@ -76,6 +76,11 @@ class CrunchSpec:
     #: pivot of 120 turned Lila's emerald dress (median luma ~40) into an
     #: unreadable silhouette while leaving bright-shirted Voss looking right.
     value_pivot: float | None = None
+    #: Pre-raster geometry correction. The head stays at 1.0; shoulders and
+    #: torso ramp to `torso_width_scale`, while hips/legs use
+    #: `lower_width_scale`. Historical recipes leave both at 1.0.
+    torso_width_scale: float = 1.0
+    lower_width_scale: float = 1.0
 
 
 #: BGEE_V1 — measured humanoid BAM craft with RainShadow registration unchanged.
@@ -94,6 +99,8 @@ BGEE_V1 = CrunchSpec(
     ramp_steps=12,
     soften_radius=1.8,
     value_contrast=1.35,
+    torso_width_scale=1.15,
+    lower_width_scale=1.00,
 )
 
 #: V15 — retired full-density experiment retained for deterministic old bakes.
@@ -175,6 +182,97 @@ def soften(
         arr = mean + (arr - mean) * contrast
         rgb = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
     return Image.merge("RGBA", (*rgb.split(), rgba.split()[-1]))
+
+
+def widen_humanoid_geometry(
+    figure: Image.Image, spec: CrunchSpec | None = None
+) -> Image.Image:
+    """Widen native-craft body masses without changing head or height.
+
+    This is a row-wise, centre-anchored transform of the 64-row native craft,
+    not a stretch of the registered 512px runtime cell. The top 10% anatomy band
+    remains exactly 1.0x; shoulders ramp in below it, the coat/torso reaches the
+    active scale, and the stance keeps a smaller lower-body correction.
+    """
+    if spec is None:
+        spec = ACTIVE
+    torso = float(spec.torso_width_scale)
+    lower = float(spec.lower_width_scale)
+    if torso <= 1.0 and lower <= 1.0:
+        return figure
+
+    rgba = np.asarray(figure.convert("RGBA")).astype(np.float64)
+    mask = rgba[..., 3] >= 16
+    ys, xs = np.where(mask)
+    if not len(xs):
+        return figure
+
+    y0, y1 = int(ys.min()), int(ys.max())
+    body_height = max(1, y1 - y0 + 1)
+    source_height, source_width = mask.shape
+    maximum = max(1.0, torso, lower)
+    source_x = np.arange(source_width, dtype=np.float64)
+    alpha = rgba[..., 3] / 255.0
+    row_weight = alpha.sum(axis=1)
+    global_axis = float((alpha * source_x[None, :]).sum() / max(alpha.sum(), 1e-6))
+    row_axes = np.divide(
+        (alpha * source_x[None, :]).sum(axis=1),
+        row_weight,
+        out=np.full(source_height, global_axis, dtype=np.float64),
+        where=row_weight > 1e-6,
+    )
+    populated_axes = row_axes[row_weight > 1e-6]
+    left_padding = int(np.ceil(np.max(populated_axes) * (maximum - 1.0))) + 1
+    right_padding = int(
+        np.ceil(np.max(source_width - 1 - populated_axes) * (maximum - 1.0))
+    ) + 1
+    output_width = source_width + left_padding + right_padding
+    output_x = np.arange(output_width, dtype=np.float64)
+
+    premultiplied = rgba[..., :3] * alpha[..., None]
+    output_alpha = np.zeros((source_height, output_width), dtype=np.float64)
+    output_rgb = np.zeros((source_height, output_width, 3), dtype=np.float64)
+
+    for y in range(source_height):
+        t = min(1.0, max(0.0, (y - y0) / max(1, body_height - 1)))
+        if t <= 0.10:
+            scale = 1.0
+        elif t < 0.24:
+            scale = 1.0 + (torso - 1.0) * ((t - 0.10) / 0.14)
+        elif t <= 0.72:
+            scale = torso
+        elif t < 0.82:
+            scale = torso + (lower - torso) * ((t - 0.72) / 0.10)
+        else:
+            scale = lower
+
+        # Widen around each row's own alpha centroid. This preserves the global
+        # body axis and keeps unscaled head/foot rows on the exact same integer
+        # translation, even when an arm or coat tail makes the pose asymmetric.
+        row_axis = row_axes[y]
+        output_axis = row_axis + left_padding
+        sample_x = row_axis + (output_x - output_axis) / scale
+        output_alpha[y] = np.interp(sample_x, source_x, alpha[y], left=0.0, right=0.0)
+        for channel in range(3):
+            output_rgb[y, :, channel] = np.interp(
+                sample_x,
+                source_x,
+                premultiplied[y, :, channel],
+                left=0.0,
+                right=0.0,
+            )
+
+    visible = output_alpha > 1e-6
+    output_rgb[visible] /= output_alpha[visible, None]
+    output = np.zeros((source_height, output_width, 4), dtype=np.uint8)
+    output[..., :3] = np.clip(output_rgb, 0, 255).astype(np.uint8)
+    output[..., 3] = np.clip(output_alpha * 255.0, 0, 255).astype(np.uint8)
+    # This stage runs before atlas sentinels exist, so sub-threshold coverage is
+    # interpolation residue, not meaningful alpha that `harden_alpha` must keep.
+    output[output[..., 3] < 16] = 0
+    widened = Image.fromarray(output, "RGBA")
+    bbox = widened.getchannel("A").getbbox()
+    return widened.crop(bbox) if bbox is not None else figure
 
 
 # ---------------------------------------------------------------------------
@@ -840,6 +938,21 @@ def crunch(
 
     if spec.ramp_palette:
         native = _quantise_ramps(native, labels, spec, palette)
+    else:
+        native = _quantise_medcut(native, spec.colors)
+
+    # Correct body proportions on the native craft, before it becomes the
+    # registered texture. Doing this after the 64-row reduction keeps scale-1
+    # head and foot rows byte-stable; widening the master bbox first changes the
+    # sampling grid for every row and can manufacture a false planted-foot lead.
+    native = harden_alpha(widen_humanoid_geometry(native, spec))
+    # Bilinear row remapping creates intermediate RGB values even though the
+    # input already sits on the clip ramps. Re-impose those ramps here so
+    # `crunch()` itself keeps the 64-colour contract; installers still call
+    # `finalise()` after registration as their last defensive palette pass.
+    if spec.ramp_palette:
+        widened_labels = _labels_from_coverage(material_coverage(native))
+        native = _quantise_ramps(native, widened_labels, spec, palette)
     else:
         native = _quantise_medcut(native, spec.colors)
 

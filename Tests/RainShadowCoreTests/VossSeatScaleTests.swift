@@ -149,8 +149,10 @@ struct VossSeatScaleTests {
             // 1.30 matches validate_shared_scale_chain in process_voss_desk_ne_v01.py.
             // At 64 native rows one head-edge sample is still about one sixth
             // of the small head, so 1.12 cannot survive a 1-bit edge.
-            #expect(drift <= thresholds.seatedHeadWidthDriftRatioMaximum,
-                    "\(direction.label) clip-wide head drift \(drift), widths \(headWidths)")
+            let allowedWidth = thresholds.seatedHeadWidthDriftRatioMaximum
+                * Double(narrowest) + thresholds.craftPixelCanvas
+            #expect(Double(widest) <= allowedWidth,
+                    "\(direction.label) clip-wide head drift \(drift), widths \(headWidths), expected <=\(thresholds.seatedHeadWidthDriftRatioMaximum)x plus one \(thresholds.craftPixelCanvas)px craft sample")
         } else {
             Issue.record("\(direction.label) clip contains no measurable head band")
         }

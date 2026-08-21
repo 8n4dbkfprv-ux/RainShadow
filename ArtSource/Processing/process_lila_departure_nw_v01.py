@@ -14,6 +14,10 @@ from PIL import Image
 import process_pre_rendered_characters_v3 as raster
 import process_pre_rendered_characters_v7 as v7
 from process_character_gait_v5 import remove_green_screen
+from process_lila_departure_facing_fix_v01 import (
+    arrival_emerald_delta,
+    save_departure_frame,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -41,13 +45,11 @@ def process_departure() -> None:
         raise RuntimeError(f"Expected 8 departure figures, found {len(figures)}")
 
     raster.pixelize_figure = v7.pixelize_figure_v7
+    target_delta = arrival_emerald_delta()
     for index, figure in enumerate(figures):
         frame = raster.register(figure)
-        v7.save_frame_v7(
-            frame,
-            "LilaArrival.atlas",
-            f"lila_departure_nw_{index:02d}.png",
-            CLIENT,
+        save_departure_frame(
+            frame, f"lila_departure_nw_{index:02d}.png", target_delta
         )
     print("Wrote 8 V7 NW departure cells to Registered_v07/ and LilaArrival.atlas")
 

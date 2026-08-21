@@ -443,18 +443,25 @@ struct VossAtlasFrame {
 
     func footLead() throws -> Character {
         let body = try metrics()
-        var minX = width
-        var maxX = -1
+        let footBandStart = max(0, body.footY - max(8, Int((Double(body.height) * 0.12).rounded())))
+        // Mirror the installer's width-invariant centreline. Each occupied row
+        // contributes equally, so widening torso rows cannot move the divider
+        // and the changing gap between the feet cannot define it.
+        var rowCentreSum = 0.0
+        var occupiedRows = 0
         for y in 0..<height {
+            var xSum = 0
+            var count = 0
             for x in 0..<width where opaqueMask[y * width + x] {
-                minX = min(minX, x)
-                maxX = max(maxX, x)
+                xSum += x
+                count += 1
+            }
+            if count > 0 {
+                rowCentreSum += Double(xSum) / Double(count)
+                occupiedRows += 1
             }
         }
-        guard maxX >= minX else { return "?" }
-
-        let middle = (minX + maxX) / 2
-        let footBandStart = max(0, body.footY - max(8, Int((Double(body.height) * 0.12).rounded())))
+        let middle = Int(floor(rowCentreSum / Double(max(1, occupiedRows))))
         var leftFootY = -1
         var rightFootY = -1
         for y in footBandStart...body.footY {

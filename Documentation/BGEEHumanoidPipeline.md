@@ -23,6 +23,7 @@ a screenshot:
 | Walk frames measured | 90 |
 | Nontransparent bounding-box height, including shadow | 53–67px |
 | Crown to ground anchor | 52–60px; median 55px |
+| Non-shadow silhouette width / height | median 0.427 |
 | Nontransparent palette indices per frame | 44–59 |
 | Nontransparent palette indices across the clip | 76 |
 
@@ -56,6 +57,24 @@ registration.
 | Registered standing body | variable | unchanged 200px |
 | Runtime world height | game-specific | unchanged 70.3125 units |
 
+The earlier RainShadow figures had the correct height but read too slender next
+to the decoded reference. The active correction widens torso/coat rows by 15%
+on the 64-row native craft, ramps in below the head, and ramps back to 1.0x at
+the legs. It is not a stretch of the finished 512px atlas cell. Measured across
+the installed animations:
+
+| Runtime set | Before median width / height | Active median width / height |
+|---|---:|---:|
+| Voss standing idle | 0.352 | 0.383 |
+| Voss walk | 0.375 | 0.398 |
+| Lila arrival/departure | 0.345 | 0.360 |
+
+The decoded `CHMB1G11` median is 0.427, but that is one male outfit and facing
+mix rather than a universal humanoid width. The active figures now sit within
+ordinary outfit/pose variation while retaining their distinct builds. Voss's
+median head widths remain exactly 22px idle / 19px walk; every standing cell
+remains 200px high with its foot at row 433.
+
 64 rows is the smallest grid near the measured range that preserves Voss's
 left/right planted-foot exchange in every one of RainShadow's nine authored
 directions. A 56-row trial lost the WNW gait and repeated NNW foot leads. The
@@ -76,6 +95,8 @@ and its 100% default is declared in
 
 - `native_rows = 64`, `colors = 64`, hard alpha, per-material ramp palette.
 - `soften_radius = 1.8`, then highlight-side value contrast `1.35`.
+- `torso_width_scale = 1.15`, ramped below the unchanged head and back to
+  `lower_width_scale = 1.0` for the lower legs, feet, height, and ground contact.
 - 512×512 cells, 200px standing body, foot row 433, anchor, node size, actor
   scale, and world registration are unchanged.
 - SpriteKit uses linear filtering at play zoom; nearest sampling is used only

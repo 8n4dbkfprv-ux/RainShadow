@@ -60,6 +60,8 @@
     "foot_row": 433,
     "corner_sentinel_alpha": 1,
     "palette_colors": 64,
+    "torso_width_scale": 1.15,
+    "lower_width_scale": 1.0,
     "dither": false,
     "hard_alpha": true,
     "preserve_wardrobe": true,
@@ -81,7 +83,7 @@
     "hair": "#3A2D25"
   },
   "gates": {
-    "anchor_width_height_ratio": [0.40, 0.43],
+    "anchor_width_height_ratio": [0.43, 0.46],
     "source_front_hue_spread_min": 0.45,
     "processed_front_hue_spread_min": 0.18,
     "standing_height": [198, 202],

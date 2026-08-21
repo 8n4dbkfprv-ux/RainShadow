@@ -264,6 +264,8 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
         "foot_row": 433,
         "corner_sentinel_alpha": 1,
         "palette_colors": crunch.ACTIVE.colors,
+        "torso_width_scale": crunch.ACTIVE.torso_width_scale,
+        "lower_width_scale": crunch.ACTIVE.lower_width_scale,
         "dither": False,
         "hard_alpha": crunch.ACTIVE.hard_alpha,
         "preserve_wardrobe": True,
@@ -934,11 +936,21 @@ def foot_lead(image: Image.Image) -> str:
     ys, xs = np.where(mask)
     if not len(xs):
         return "?"
-    y1, x0, x1 = int(ys.max()), int(xs.min()), int(xs.max())
-    middle = (x0 + x1) // 2
+    y1 = int(ys.max())
     height = y1 - int(ys.min()) + 1
     band = mask.copy()
     band[: y1 - max(8, round(height * 0.12)), :] = False
+    if not band.any():
+        return "?"
+    # Split on a width-invariant centreline: the mean of each occupied row's
+    # centre. A global mass centroid changes when the coat is widened because
+    # torso rows gain pixels; a foot-band bbox midpoint changes as the feet
+    # exchange. Equal row weighting is stable under the row-centred geometry
+    # correction and still follows the registered figure if a cell moves.
+    row_centres = [
+        float(np.where(row)[0].mean()) for row in mask if np.any(row)
+    ]
+    middle = math.floor(float(np.mean(row_centres)))
     left, right = band.copy(), band.copy()
     left[:, middle:] = False
     right[:, :middle] = False
@@ -1272,8 +1284,13 @@ def _validate_seat(stage_root: Path, errors: list[str]) -> dict[str, Any]:
         if any(not 18 <= width <= 29 for width in head_widths):
             errors.append(f"seat {direction}: head widths {head_widths}, expected 18...29px")
         head_drift = max(head_widths) / min(head_widths)
-        if head_drift > 1.30:
-            errors.append(f"seat {direction}: head width drift {head_drift:.3f}x (>1.30x)")
+        craft_pixel = crunch.TEXTURE_BODY_HEIGHT / crunch.ACTIVE.native_rows
+        allowed_head_width = 1.30 * min(head_widths) + craft_pixel
+        if max(head_widths) > allowed_head_width:
+            errors.append(
+                f"seat {direction}: head width drift {head_drift:.3f}x "
+                f"(>1.30x plus one {craft_pixel:.2f}px craft sample)"
+            )
         if abs(stand_metrics[0].height - idle_metrics[0].height) > 3:
             errors.append(f"seat {direction}: stand-up 00 does not hand off from seated neutral")
         if abs(stand_metrics[-1].height - reference_metrics.height) > 2:

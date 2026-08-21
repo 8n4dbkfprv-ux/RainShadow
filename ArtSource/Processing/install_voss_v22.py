@@ -170,6 +170,8 @@ def _compat_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
             "foot_row": 433,
             "corner_sentinel_alpha": 1,
             "palette_colors": core.crunch.ACTIVE.colors,
+            "torso_width_scale": core.crunch.ACTIVE.torso_width_scale,
+            "lower_width_scale": core.crunch.ACTIVE.lower_width_scale,
             "dither": False,
             "hard_alpha": core.crunch.ACTIVE.hard_alpha,
             "preserve_wardrobe": True,

@@ -83,6 +83,23 @@ class VossV16PipelineTests(unittest.TestCase):
         colors = np.unique(np.asarray(cell)[..., :3][v16.visible_mask(cell)], axis=0)
         self.assertLessEqual(len(colors), v16.crunch.ACTIVE.colors)
 
+    def test_bgee_width_correction_widens_body_but_not_head_or_height(self) -> None:
+        keyed = v16.key_chroma(synthetic_master())
+        before_head, before_shoulders = v16.anatomy_bands(keyed)
+        before_height = v16.source_opaque_height(keyed)
+        widened = v16.crunch.widen_humanoid_geometry(keyed)
+        after_head, after_shoulders = v16.anatomy_bands(widened)
+        self.assertEqual(v16.source_opaque_height(widened), before_height)
+        self.assertLessEqual(abs(after_head - before_head), 2)
+        self.assertGreaterEqual(after_shoulders / before_shoulders, 1.08)
+        self.assertLessEqual(after_shoulders / before_shoulders, 1.18)
+
+        crunched = v16.crunch.crunch(v16.crunch.soften(keyed))
+        colors = np.unique(
+            np.asarray(crunched)[..., :3][v16.visible_mask(crunched)], axis=0
+        )
+        self.assertLessEqual(len(colors), v16.crunch.ACTIVE.colors)
+
     def test_ne_compatibility_split_preserves_full_silhouette_union(self) -> None:
         cell = v16.process_figure(synthetic_master())
         upper, lower = v16.split_upper_lower(cell)
