@@ -60,7 +60,24 @@ enum OfficeAreaAdapter {
             doors: [
                 AreaDoor(
                     id: "office.door",
-                    textureName: "office_door_leaf",
+                    visual: AreaDoorVisualRegistration(
+                        // The generator converts measured plate y-down into
+                        // authored y-up before publishing this anchor; mapPoint
+                        // then performs only the authored-to-world transform.
+                        position: AreaPoint(OfficeInteriorScale.mapPoint(
+                            OfficeNavigationLayout.Architecture.entranceLeafAnchor
+                        )),
+                        canvasAnchor: AreaPoint(
+                            OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
+                        ),
+                        scale: OfficeNavigationLayout.Architecture.entranceLeafDisplayScale,
+                        closedTextureName: "office_door_leaf",
+                        midTextureName: "office_door_leaf_mid",
+                        openTextureName: "office_door_leaf_open",
+                        closedHoverTextureName: "office_door_leaf_hover",
+                        midHoverTextureName: "office_door_leaf_mid_hover",
+                        openHoverTextureName: "office_door_leaf_open_hover"
+                    ),
                     closedObstacle: AreaRect(OfficeNavigationLayout.doorObstacle),
                     openObstacle: nil,
                     startsClosed: true
@@ -105,7 +122,12 @@ enum OfficeAreaAdapter {
             // Not an error in the app — only the exporter needs this file.
             return []
         }
-        return document.props
+        // Fixed window pixels are part of the V11 plate, while the entrance
+        // leaf is registered by `AreaDoor`. Neither may also appear as a free
+        // scenery prop or the two registered systems visibly double up.
+        return document.props.filter {
+            $0.id != "office_window" && $0.id != "office_door_leaf"
+        }
     }
 
     private struct PropsDocument: Decodable {
@@ -141,8 +163,11 @@ enum OfficeAreaAdapter {
     }
 
     private static func hotspotRegions() -> [AreaRegion] {
-        OfficeNavigationLayout.authoredHotspots.map { hotspot in
-            AreaRegion(
+        OfficeNavigationLayout.authoredHotspots.compactMap { hotspot in
+            // One registered record owns both the door's hover outline and its
+            // travel payload. The old `.info` twin is deliberately omitted.
+            guard hotspot.id != "office.door" else { return nil }
+            return AreaRegion(
                 id: hotspot.id,
                 kind: .info,
                 label: hotspot.name,
@@ -154,21 +179,26 @@ enum OfficeAreaAdapter {
         }
     }
 
-    /// The way back out to Sable Row. The office door is a hotspot today; as a
-    /// travel region it carries where it goes, which is what makes the exit
-    /// symmetric with the city portal that arrives here.
+    /// The way back out to Sable Row. This is also the door's one hover/click
+    /// outline: registered systems must not carry duplicate `office.door` and
+    /// `office.exit` records for one physical opening.
     private static func streetDoorRegion() -> AreaRegion {
-        AreaRegion(
-            id: "office.exit",
+        let authored = OfficeNavigationLayout.authoredHotspots.first {
+            $0.id == "office.door"
+        }
+        return AreaRegion(
+            id: "office.door",
             kind: .travel,
-            label: "Street door",
-            rect: OfficeNavigationLayout.doorObstacle,
+            label: authored?.name ?? "Office door",
+            rect: authored.map { OfficeInteriorScale.mapRect($0.hitArea) }
+                ?? OfficeNavigationLayout.doorObstacle,
             approachPoint: OfficeNavigationLayout.approachPoints["office.door"]
                 .map(AreaPoint.init),
             travel: AreaTravel(
                 destination: HarborpointAreas.sableRow,
                 entrance: "from.office"
-            )
+            ),
+            observation: authored?.observation
             // Deliberately ungated. The city's *edge* exits carry the
             // "street stays closed" gate, but the office door itself ships
             // unconditional — the intro cutscene opens city travel before the
@@ -204,7 +234,7 @@ enum OfficeAreaAdapter {
             ("wall.filingCabinet", OfficeNavigationLayout.authoredFilingCabinetObstacle),
             ("wall.safe", OfficeNavigationLayout.authoredSafeObstacle)
         ].map { ($0.0, OfficeInteriorScale.mapRect($0.1)) }
-        return tall.map { id, footprint in
+        let furniture = tall.map { id, footprint in
             // Cover reaches camera-far of the footprint by the depth the piece
             // occupies on screen; standing level with it is not behind it.
             let outline = CGRect(
@@ -215,6 +245,14 @@ enum OfficeAreaAdapter {
             )
             return AreaWallPolygon(id: id, rect: outline)
         }
+        // The hearth facade is baked into the plate, but its cover geometry is
+        // a separately registered WED-style record from the same V11 manifest.
+        return furniture + [
+            AreaWallPolygon(
+                id: "wall.fireplace",
+                polygon: OfficeNavigationLayout.fireplaceCoverPolygon.map(AreaPoint.init)
+            )
+        ]
     }
 
     /// How far camera-far of a piece's footprint it still covers an actor.

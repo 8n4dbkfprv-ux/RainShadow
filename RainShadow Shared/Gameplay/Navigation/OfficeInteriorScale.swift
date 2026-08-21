@@ -79,11 +79,10 @@ enum OfficeInteriorScale {
     /// Canonical standing adult used by office furniture body-multiples and city props.
     static var standingAdultBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
 
-    /// Shell / coordinate-map scale. Kept at the nav-authored 0.395 contract so
-    /// search-map topology stays stable. At play density the camera viewport
-    /// (≈961×541 world) matches the painted suite on the 0.733 plate
-    /// (≥2433×1370 plate px); clear openings stay 206 plate px (1.16× adult).
-    /// Prop relative scales cancel this factor so furniture stays body-locked.
+    /// Shell / coordinate-map scale, loaded into the V11 geometry manifest as
+    /// the same 0.395 contract.  DefaultPlayZoom independently retains the 13%
+    /// actor-to-visible-height presentation; prop relative scales cancel this
+    /// factor so furniture remains body-locked when architecture is redrawn.
     static let environment: CGFloat = 0.395
 
     /// On-screen body ÷ camera-visible height. Matches `DefaultPlayZoom` mid-band
@@ -102,8 +101,7 @@ enum OfficeInteriorScale {
     static let layoutFocus = CGPoint(x: 2_048, y: 1_152)
 
     /// 16:9 area plate. Keep in step with `office_room_plan.ART_W/H`. After the
-    /// BG:EE V5 suite plate lands, re-check if the taller ground diamond needs
-    /// a taller canvas; until then the authored plate stays 4096×2304.
+    /// The V11 registered plate and all full-plate masks stay 4096×2304.
     static let sourceArtOrigin = CGPoint.zero
     static let sourceArtSize = CGSize(width: 4_096, height: 2_304)
 
@@ -123,7 +121,7 @@ enum OfficeInteriorScale {
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
         static let deskChair: CGFloat = 429
-        /// Diagonal opaque length of the V08 edge-on open leaf.
+        /// Diagonal opaque length of the V11 reference-registered closed leaf.
         static let doorLeaf: CGFloat = 508
         /// Removed with the V08 open-plan partition.
         static let internalDoorLeafHinge: CGFloat = 0
@@ -142,7 +140,8 @@ enum OfficeInteriorScale {
         static let pencilTray: CGFloat = 70
         static let standingDetective = standingDetectiveSourceHeight
         static let seatedDetective = seatedDetectiveSourceHeight
-        /// V6 shell window glass opening (source pixels on office_shell_base).
+        /// Legacy single-pane measurement retained for furniture-scale reports;
+        /// V11's two casements are fixed plate pixels registered by polygons.
         static let windowGlassOpening: CGFloat = 136
     }
 
@@ -210,10 +209,10 @@ enum OfficeInteriorScale {
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 66...74
-        /// Exterior leaf fills the shipping plate's baked frame. A real interior
-        /// door is ~2.03 m against a 1.75 m adult (1.16×); the opening must clear
-        /// the character rather than sit under it.
-        static let door: ClosedRange<CGFloat> = 1.10...1.30
+        /// The V11 authority is the long, nearly edge-on diagonal sliver in the
+        /// concept, not its apparent vertical height. Preserve that registered
+        /// diagonal against actor scale instead of grading it as a front-on door.
+        static let door: ClosedRange<CGFloat> = 2.75...2.95
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48
@@ -235,10 +234,10 @@ enum OfficeInteriorScale {
         static let radiator: ClosedRange<CGFloat> = 0.40...0.62
         static let wastebasket: ClosedRange<CGFloat> = 0.22...0.36
         static let coatRack: ClosedRange<CGFloat> = 0.95...1.15
-        /// Single rain window glass opening (not multi-story glass).
-        /// Smaller than classic BG tavern glass: this office's short upper-wall band
-        /// cannot host a 0.75–1.25× adult window without dominating the west wall.
-        static let windowGlass: ClosedRange<CGFloat> = 0.55...0.90
+        /// One pane inside a baked steel casement (not the complete aperture).
+        /// The lower Venetian-blind panes are intentionally just over half an adult;
+        /// the complete aperture remains substantially taller.
+        static let windowGlass: ClosedRange<CGFloat> = 0.50...0.90
     }
 
     // MARK: - Mapping
@@ -389,13 +388,13 @@ enum OfficeInteriorScale {
     }
 
     /// Opaque extent of the painted room inside the suite plate, measured from
-    /// V10 `office_suite_plate.png` (art px x 1187…2949, y 179…1771 top-down;
-    /// the tavern hall is letterboxed on the 4096×2304 canvas and all pixels
+    /// V11 `office_1950s_plate_v11.png` (art px x 639…3354, y 104…2109 top-down;
+    /// the room is letterboxed on the 4096×2304 canvas and all pixels
     /// outside its immutable architecture mask are baked black).
     ///
     /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
     /// followed camera swing out over the empty margin.
-    static let paintedRoomSourceRect = CGRect(x: 1_187, y: 533, width: 1_763, height: 1_593)
+    static let paintedRoomSourceRect = CGRect(x: 639, y: 194, width: 2_716, height: 2_006)
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

@@ -149,11 +149,19 @@ struct AreaParityTests {
         )
     }
 
-    @Test func everyOfficeHotspotBecameAnInfoRegionWithItsApproach() throws {
+    @Test func everyOfficeHotspotBecameARegisteredRegionWithItsApproach() throws {
         let loaded = try Self.loadedArea(HarborpointAreas.office)
         for hotspot in OfficeNavigationLayout.authoredHotspots {
             let region = try #require(loaded.region(id: hotspot.id))
-            #expect(region.kind == .info)
+            if hotspot.id == "office.door" {
+                #expect(region.kind == .travel)
+                #expect(region.travel == AreaTravel(
+                    destination: HarborpointAreas.sableRow,
+                    entrance: "from.office"
+                ))
+            } else {
+                #expect(region.kind == .info)
+            }
             #expect(region.label == hotspot.name)
             #expect(region.observation == hotspot.observation)
             #expect(
@@ -165,6 +173,7 @@ struct AreaParityTests {
                 "hotspot '\(hotspot.id)' outline changed"
             )
         }
+        #expect(loaded.region(id: "office.exit") == nil)
     }
 
     @Test func theOfficeCarriesItsLootContainersAndItsDoor() throws {
@@ -176,6 +185,23 @@ struct AreaParityTests {
         let door = try #require(loaded.doors.first)
         #expect(door.closedObstacle.cgRect == OfficeNavigationLayout.doorObstacle.standardized)
         #expect(door.startsClosed)
+        #expect(door.textureName == nil, "registered door leaked back into the prop-era field")
+        let visual = try #require(door.visual)
+        #expect(
+            visual.position.cgPoint == OfficeInteriorScale.mapPoint(
+                OfficeNavigationLayout.Architecture.entranceLeafAnchor
+            )
+        )
+        #expect(
+            visual.canvasAnchor.cgPoint
+                == OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
+        )
+        #expect(
+            visual.scale == OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
+        )
+        #expect(visual.closedTextureName == "office_door_leaf")
+        #expect(visual.midTextureName == "office_door_leaf_mid")
+        #expect(visual.openTextureName == "office_door_leaf_open")
     }
 
     /// The office's path budget is three times the engine default, and losing it

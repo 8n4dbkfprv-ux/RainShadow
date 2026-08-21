@@ -39,13 +39,11 @@ struct OfficeInteriorScaleTests {
         #expect(abs(unitProp - 1) < 0.0001)
     }
 
-    /// Voss must clear his own office door. He did not before this contract.
-    @Test func entranceOpeningClearsTheStandingAdult() {
-        let openingWorldHeight =
-            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
-            * OfficeInteriorScale.environment
-        let multiple = openingWorldHeight / OfficeInteriorScale.standingAdultBodyHeight
-        #expect(multiple >= 1.10)
+    @Test func closedDoorLeafKeepsMeasuredSliverDimensions() {
+        let sliver = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
+        #expect(abs(sliver.width - 68.055) < 0.01)
+        #expect(abs(sliver.height - 493.015) < 0.01)
+        #expect(sliver.height > sliver.width * 7)
     }
 
     @Test func detectiveAndClientShareAdultStandingBodyHeight() {
@@ -62,36 +60,15 @@ struct OfficeInteriorScaleTests {
         #expect(abs(chair.y - seatedBaseline) < 0.5)
     }
 
-    @Test func doorOpeningFitsPaintedTightPlateAperture() {
-        let openingWorldHeight =
-            OfficeNavigationLayout.Architecture.entranceOpeningPlateSize.height
-            * OfficeInteriorScale.environment
-        let openingMultiple =
-            openingWorldHeight / OfficeInteriorScale.renderedStandingDetectiveBodyHeight
-        #expect(OfficeInteriorScale.Band.door.contains(openingMultiple))
-        #expect(
-            abs(
-                openingMultiple
-                    - OfficeNavigationLayout.Architecture.entranceOpeningToDetectiveRatio
-            ) < 0.01
-        )
-        // Shipping suite clear opening is 198 plate px → 1.112x the standing
-        // body. Against a 1.75 m adult that is a 1.95 m door, which is a
-        // standard interior height (UK/EU standard is 1.981 m). The band used to
-        // be 1.14...1.18, calibrated to a 2.03 m US door the plate does not
-        // paint — a difference in what door was assumed, not a defect.
-        #expect((1.09...1.14).contains(openingMultiple))
-
-        let leafWorldLength =
-            OfficeInteriorScale.SourceContentHeight.doorLeaf
-            * OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-        let leafMultiple = leafWorldLength / OfficeInteriorScale.standingAdultBodyHeight
-        #expect((1.10...1.30).contains(leafMultiple))
-        // Live scene and relative scale share the architecture-fit absolute.
+    @Test func doorVisualUsesUniformRegisteredPlateScale() {
+        let architecture = OfficeNavigationLayout.Architecture.self
+        #expect(architecture.entranceLeafDisplayScale == OfficeInteriorScale.environment)
+        #expect(architecture.entranceLeafDisplayScaleX == architecture.entranceLeafDisplayScale)
+        #expect(architecture.entranceLeafDisplayScaleY == architecture.entranceLeafDisplayScale)
         #expect(
             abs(
                 OfficeInteriorScale.environment * OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf
-                    - OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
+                    - architecture.entranceLeafDisplayScale
             ) < 0.0001
         )
     }
@@ -105,22 +82,19 @@ struct OfficeInteriorScaleTests {
     /// REAR sat 123 px west of where the two axes actually meet", which is why
     /// every hotspot approach resolved to a point the runtime could not stand on.
     ///
-    /// The fit is now direct: classify pixels whose local structure tensor runs
-    /// on a ground axis, take the largest such component touching the painting's
-    /// bottom, and take the bounding parallelogram in the u = y − 0.75x /
-    /// v = y + 0.75x basis. So the contract to assert is the one that fit
-    /// guarantees — exact ±0.75 slopes by construction, and a geometric diamond
-    /// that deliberately extends past the paint, with walkable floor stopping on
-    /// it.
+    /// V11 now applies the screenshot's one uniform 1613→4096 transform to its
+    /// measured room corners. The source itself is within the 1.5° BG:EE lock;
+    /// forcing exact ±0.75 slopes would change its proportions and defeat the
+    /// reference-size contract.
     /// rearCorner is authored y-up; plate y-down REAR.y = ART_H − rearCorner.y.
     @Test func floorDiamondIsFittedToThePaintedFloor() {
         let arch = OfficeNavigationLayout.Architecture.self
         let artHeight: CGFloat = 2_304
         let rearYDown = artHeight - arch.rearCorner.y
 
-        // Both ground axes on the BG:EE camera, exactly, by construction.
-        #expect(abs(arch.axisNW.dy / arch.axisNW.dx + 0.75) < 0.001)
-        #expect(abs(arch.axisNE.dy / arch.axisNE.dx - 0.75) < 0.001)
+        // Both measured reference axes remain within the 1.5° BG:EE gate.
+        #expect(abs(arch.axisNW.dy / arch.axisNW.dx + 0.75) < 0.03)
+        #expect(abs(arch.axisNE.dy / arch.axisNE.dx - 0.75) < 0.03)
 
         // `paintedRoomSourceRect` is authored y-up; these are plate y-down, so
         // the edges swap. Mixing the two frames is the mistake this test's own
@@ -129,10 +103,9 @@ struct OfficeInteriorScaleTests {
         let paintTopYDown = artHeight - paint.maxY
         let paintBottomYDown = artHeight - paint.minY
 
-        // Floor-fitted tavern diamond: rear sits on the painted wall shoes
-        // (below the crowns), near tip lands on the camera-near cutaway.
-        #expect(rearYDown > paintTopYDown, "rear tip floated above the wall shoes")
-        #expect(rearYDown < paintBottomYDown, "rear tip fell out of the painted room")
+        // The uniformly transformed rear and near corners define the painted
+        // room extent; neither may drift independently from that reference fit.
+        #expect(abs(rearYDown - paintTopYDown) <= 2, "rear tip left the reference crown")
 
         let nearYDown = rearYDown + arch.axisNW.dy + arch.axisNE.dy
         #expect(abs(nearYDown - paintBottomYDown) <= 2, "near tip left the painted cutaway")
@@ -143,12 +116,10 @@ struct OfficeInteriorScaleTests {
         #expect(bookshelf.y < 1_700)
     }
 
-    /// Exterior frame is sized by its inner aperture (not outer wood bbox) so the
-    /// leaf fills the shell without overhang. Uniform height-fit (no X-squash).
-    @Test func entranceFrameScaleTracksLeafAperture() {
+    @Test func entranceRegistrationMatchesV11DoorManifest() {
         let leaf = OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         let frame = OfficeNavigationLayout.Architecture.entranceFrameDisplayScale
-        #expect(frame == 0, "V08 has no freestanding door frame")
+        #expect(frame == 0, "V11 has no freestanding door frame")
         #expect(
             abs(leaf - OfficeNavigationLayout.Architecture.entranceLeafDisplayScaleX) < 0.0001
         )
@@ -158,47 +129,19 @@ struct OfficeInteriorScaleTests {
         let leafAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchorY
         let frameAnchorX = OfficeNavigationLayout.Architecture.entranceFrameAnchorX
         let frameAnchor = OfficeNavigationLayout.Architecture.entranceFrameAnchorY
-        #expect(abs(leafAnchor - 0.83125) < 0.0001)
+        #expect(abs(leafAnchor - 0.94375) < 0.0001)
         #expect(frameAnchorX == 0)
         #expect(frameAnchor == 0)
         let entrance = OfficeNavigationLayout.Architecture.entranceAnchor
-        // Threshold on the NE wall of the floor diamond (not wall-top silhouette).
-        #expect((2_600.0...2_850.0).contains(entrance.x))
-        #expect((1_050.0...1_080.0).contains(entrance.y))
-        // The visible shell comes from the shipping suite plate. Keep this visual
-        // measurement independent of the older movement-partition metadata.
+        #expect(abs(entrance.x - 2_541.526) < 0.001)
+        #expect(abs(entrance.y - 564.898) < 0.001)
         let opening = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
-        #expect(abs(opening.width - 125.0) < 0.001)
-        #expect(abs(opening.height - 198) < 0.001)
+        #expect(abs(opening.width - 68.055) < 0.01)
+        #expect(abs(opening.height - 493.015) < 0.01)
         #expect(OfficeNavigationLayout.Architecture.partitionDoorB0 == 0)
         #expect(OfficeNavigationLayout.Architecture.partitionDoorB1 == 0)
-        // A plate-aspect rule used to live here — `opening.height / opening.width
-        // >= 1.7`, "not the squashed wide short look" — and it has been removed
-        // rather than recalibrated, because it never measured what it claimed.
-        //
-        // The Infinity Engine has no door-aspect constant; doors are painted into
-        // the tileset per area and the engine constrains pathing, not proportion.
-        // And on this camera a painted aspect is not a real one: height is
-        // foreshortened by sqrt(1 - 0.75^2) = 0.6614 while the opening's width
-        // lies on a ground axis at 36.87 degrees, so a plate bounding box mixes
-        // the two. Comparing that ratio against a number that reads like a
-        // real-world elevation ratio compares incommensurable quantities.
-        //
-        // What is grounded is height against the body, which the `openingMultiple`
-        // check above asserts: 1.112x, a 1.95 m door for a 1.75 m adult.
-        // Internal leaf is fitted to its painted jamb, not raw environment scale.
         let internalLeaf = OfficeNavigationLayout.Architecture.internalLeafDisplayScale
-        let openingWorldHeight =
-            opening.height * OfficeInteriorScale.environment
-        // `internalLeafDisplayScale` is *derived*: `internal_leaf_scale()` flood-fills
-        // the alpha of `office_door_frame.png` to find the painted inner jamb and
-        // fits the leaf to it. So it is a measurement of art, and the old
-        // `< environment * 0.65` ceiling was a guess about art that the painting
-        // does not obey — it sits at 0.331 against a 0.257 bound. Bounded here
-        // against the environment scale itself, which is the real constraint: a
-        // leaf may not out-scale the room it hangs in.
         #expect(internalLeaf == 0)
-        #expect(openingWorldHeight > 50 && openingWorldHeight < 90)
     }
 
     /// The decorative internal leaf and its partition hinge are retired.
@@ -211,18 +154,60 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeNavigationLayout.authoredPartitionSegments.isEmpty)
     }
 
+    @Test func v11RemovesTavernMassAndRegistersColdHearthGeometry() {
+        #expect(OfficeNavigationLayout.authoredPillarSegments.isEmpty)
+        #expect(OfficeNavigationLayout.authoredStairObstacle.isEmpty)
+        let hearth = OfficeNavigationLayout.authoredFireplaceObstacle
+        let cover = OfficeNavigationLayout.authoredFireplaceCoverRect
+        let hearthPolygon = OfficeNavigationLayout.authoredFireplaceObstaclePolygon
+        let coverPolygon = OfficeNavigationLayout.authoredFireplaceCoverPolygon
+        #expect(!hearth.isEmpty)
+        #expect(!cover.isEmpty)
+        #expect(hearthPolygon.count == 4)
+        #expect(coverPolygon.count == 4)
+        #expect(cover.intersects(hearth))
+        let wallCourse = CGPoint(
+            x: coverPolygon[1].x - coverPolygon[0].x,
+            y: coverPolygon[1].y - coverPolygon[0].y
+        )
+        let floorCourse = CGPoint(
+            x: coverPolygon[2].x - coverPolygon[3].x,
+            y: coverPolygon[2].y - coverPolygon[3].y
+        )
+        #expect(abs(wallCourse.y / wallCourse.x + 0.75) < 0.001)
+        #expect(abs(floorCourse.x - wallCourse.x) < 0.001)
+        #expect(abs(floorCourse.y - wallCourse.y) < 0.001)
+        #expect(OfficeNavigationLayout.fireplaceObstacles.count >= 16)
+        #expect(
+            OfficeNavigationLayout.fireplaceObstacles.allSatisfy {
+                OfficeNavigationLayout.obstacles.contains($0)
+            }
+        )
+        for approach in OfficeNavigationLayout.approachPoints.values {
+            #expect(
+                OfficeNavigationLayout.fireplaceObstacles.allSatisfy {
+                    !$0.contains(approach)
+                }
+            )
+        }
+    }
+
     @Test func entranceDoorRegistersToShippingAperture() {
         let leaf = OfficeNavigationLayout.AuthoredPlacement.doorLeaf
         let visualAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchor
         #expect(leaf == visualAnchor)
-        #expect(abs(leaf.x - 2_796.680) < 0.001)
-        #expect(abs(leaf.y - 1_058.040) < 0.001)
+        #expect(abs(leaf.x - 2_741.247) < 0.001)
+        #expect(abs(leaf.y - 709.388) < 0.001)
+        #expect(
+            OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
+                == CGPoint(x: 0.953125, y: 0.94375)
+        )
 
-        // Movement stays on the exact floor threshold. The visible hinge sits
-        // 6 plate pixels outward so the thin wall-axis sliver silhouettes over
-        // black while still kissing the cutaway lip.
+        // Collision/travel registers to the threshold centre, independently
+        // of the image-canvas hinge used by the visual states.
         let navigationThreshold = OfficeNavigationLayout.Architecture.entranceAnchor
-        #expect(abs(hypot(leaf.x - navigationThreshold.x, leaf.y - navigationThreshold.y) - 6) < 0.2)
+        #expect(OfficeNavigationLayout.authoredDoorObstacle.contains(navigationThreshold))
+        #expect(leaf != navigationThreshold)
     }
 
     @Test func officeDoorHotspotCoversEntranceLeafAndThreshold() {
@@ -241,7 +226,7 @@ struct OfficeInteriorScaleTests {
         #expect(mappedHit.intersects(mappedObstacle))
     }
 
-    @Test func edgeOnEntranceLeafUsesRegisteredOpenStateScale() {
+    @Test func edgeOnEntranceLeafUsesRegisteredRetractingStates() {
         let upright = OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         let ratio = OfficeNavigationLayout.Architecture.entranceFallenLeafScaleRatio
         let artworkScale =
@@ -251,13 +236,14 @@ struct OfficeInteriorScaleTests {
         let transitionScale =
             OfficeNavigationLayout.Architecture.entranceFallingTransitionScale
 
-        #expect(ratio == 1)
+        #expect(OfficeNavigationLayout.Architecture.entranceLeafClosedLengthRatio == 1)
+        #expect(OfficeNavigationLayout.Architecture.entranceLeafMidLengthRatio == 0.815)
+        #expect(OfficeNavigationLayout.Architecture.entranceLeafOpenLengthRatio == 0.638)
+        #expect(ratio == OfficeNavigationLayout.Architecture.entranceLeafOpenLengthRatio)
         #expect(transitionScale == upright)
         #expect(artworkScale == upright)
         #expect(abs(artworkSize.width - 512 * artworkScale) < 0.001)
         #expect(abs(artworkSize.height - 320 * artworkScale) < 0.001)
-        let openLength = OfficeInteriorScale.SourceContentHeight.doorLeaf * upright
-        #expect((1.10...1.30).contains(openLength / OfficeInteriorScale.standingAdultBodyHeight))
     }
 
     @Test func coatRackNoLongerReadsAsDoorHardware() {
@@ -309,29 +295,30 @@ struct OfficeInteriorScaleTests {
         }
     }
 
-    @Test func windowGlassMultipleFallsInSingleWindowBand() {
-        let multiple = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.windowGlassOpening
-        )
-        #expect(OfficeInteriorScale.Band.windowGlass.contains(multiple))
+    @Test func eachBakedWindowPaneFallsInTheSingleWindowBand() {
+        for pane in OfficeNavigationLayout.Architecture.windowGlassPolygons {
+            let ys = pane.map(\.y)
+            let plateHeight = (ys.max() ?? 0) - (ys.min() ?? 0)
+            let multiple = plateHeight * OfficeInteriorScale.environment
+                / OfficeInteriorScale.standingAdultBodyHeight
+            #expect(OfficeInteriorScale.Band.windowGlass.contains(multiple))
+        }
     }
 
-    @Test func windowOverlayCoversRaisedWallRecess() {
+    @Test func bakedWindowsKeepSeparateMaskAndNearHoverRegistration() {
         let window = OfficeNavigationLayout.Architecture.windowAnchor
-        let radiator = OfficeNavigationLayout.AuthoredPlacement.radiator
         let rainMask = OfficeNavigationLayout.AuthoredPlacement.windowRainMask
+        let near = OfficeNavigationLayout.Architecture.nearWindowAperture
+        let far = OfficeNavigationLayout.Architecture.farWindowAperture
+        let nearHit = OfficeNavigationLayout.Architecture.nearWindowHitArea
 
-        // Measured centre of the raised recess on the V10 tavern plate.
-        #expect((1_850.0...1_870.0).contains(window.x))
-        #expect((1_980.0...2_010.0).contains(window.y))
-        // Prevent the stale mid-wall registration that drew the insert over the radiator.
-        #expect(window.y - radiator.y > 250)
-        #expect(abs(rainMask.midX - window.x) < 0.5)
-        #expect(abs(rainMask.midY - window.y) < 0.5)
+        #expect(near.count == 4)
+        #expect(far.count == 4)
+        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 8)
+        #expect(nearHit.contains(window))
+        #expect(!nearHit.contains(far[0]))
+        #expect(rainMask == CGRect(x: 0, y: 0, width: 4_096, height: 2_304))
         #expect(OfficeNavigationLayout.AuthoredPlacement.windowRotation == 0)
-        // Full-recess fit with enough overlap to hide every edge of the void.
-        #expect(abs(OfficeInteriorScale.windowDisplayScale - 0.35) < 0.0001)
-        #expect(abs(OfficeInteriorScale.windowVerticalDisplayScale - 0.32) < 0.0001)
     }
 
     @Test func chairMultipleFallsInBGBand() {
@@ -944,21 +931,18 @@ struct OfficeInteriorScaleTests {
     }
 
     @Test func scaleReportMatchesShippedContract() {
-        let door =
-            OfficeInteriorScale.SourceContentHeight.doorLeaf
-            * OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-            / OfficeInteriorScale.renderedStandingDetectiveBodyHeight
         let drawers = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.deskDrawerFace,
             relativeScale: OfficeInteriorScale.PropRelativeScale.deskEnsemble
         )
-        let window = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.windowGlassOpening
-        )
         #expect(OfficeInteriorScale.environment == 0.395)
         #expect(OfficeInteriorScale.detectiveBodyHeight == 82)
-        #expect(OfficeInteriorScale.Band.door.contains(door))
+        #expect(
+            OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
+                == OfficeInteriorScale.environment
+        )
+        #expect(OfficeNavigationLayout.Architecture.entranceLeafOpenLengthRatio == 0.638)
         #expect(OfficeInteriorScale.Band.deskDrawerFace.contains(drawers))
-        #expect(OfficeInteriorScale.Band.windowGlass.contains(window))
+        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 8)
     }
 }

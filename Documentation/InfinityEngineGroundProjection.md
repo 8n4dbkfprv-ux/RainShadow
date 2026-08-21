@@ -38,9 +38,11 @@ is already `0.75`.
 
 ## Adoption status
 
-`ie_projection.ACTIVE` is `BGEE`. The V10 tavern-hall office plate measures
-**+36.73° / −36.62°**, a worst delta of **0.25°** from the 36.87° lock.
-Other shipped areas retain their own measured status in
+`ie_projection.ACTIVE` is `BGEE`. The installed V11 1950s office plate measures
+**+36.70° / −36.97°**, a worst delta of **0.17°** from the 36.87° lock; its
+uniform reference transform and fixture registrations are frozen in
+`ArtSource/Prompts/office_1950s_bgee_v11.md`. V10 remains rollback provenance.
+Other areas retain their measured status in
 `Documentation/BGEEProjectionMasterRegen.md`; do not infer camera compliance
 from a prompt or planner report alone.
 

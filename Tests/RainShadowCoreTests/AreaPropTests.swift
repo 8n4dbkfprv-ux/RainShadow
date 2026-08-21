@@ -17,12 +17,12 @@ struct AreaPropTests {
 
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 53, "the office describes \(props.count) props")
+        #expect(props.count == 51, "the office describes \(props.count) retained props")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
-        #expect(byLayer[.depthWorld] == 36)
-        #expect(byLayer[.rearFixtures] == 7)
+        #expect(byLayer[.depthWorld] == 35)
+        #expect(byLayer[.rearFixtures] == 6)
         #expect(byLayer[.floorEffects] == 10)
     }
 
@@ -89,23 +89,14 @@ struct AreaPropTests {
         }
     }
 
-    /// The window is the room's only stretched prop and its only warped one.
-    ///
-    /// Both facts are about the same thing: it sits on the NW wall plane, so it
-    /// is drawn narrower than it is tall and its rails have to rise with the
-    /// painted trim while the jambs stay upright. Rotating the node instead
-    /// leans the jambs and the window reads as pasted on.
-    @Test func onlyTheWindowIsStretchedAndWarped() throws {
+    /// Fixed windows are V11 plate pixels and the door is an `AreaDoor` visual;
+    /// neither may survive as an independently transformed scenery prop.
+    @Test func bakedWindowsAndRegisteredDoorAreNotGeneralProps() throws {
         let props = try Self.officeProps()
-        #expect(props.filter { $0.warp != nil }.map(\.id) == ["office_window"])
-        #expect(props.filter { $0.scale == nil }.map(\.id) == ["office_window"])
-
-        let window = try #require(props.first { $0.id == "office_window" })
-        let warp = try #require(window.warp)
-        #expect(warp.bottomLeft.x == 0 && warp.topLeft.x == 0, "left jamb is not vertical")
-        #expect(warp.bottomRight.x == 1 && warp.topRight.x == 1, "right jamb is not vertical")
-        #expect(warp.bottomRight.y > warp.bottomLeft.y, "sill does not rise")
-        #expect(warp.topRight.y > warp.topLeft.y, "head does not rise")
+        #expect(!props.contains { $0.id == "office_window" })
+        #expect(!props.contains { $0.id == "office_door_leaf" })
+        #expect(props.allSatisfy { $0.warp == nil })
+        #expect(props.allSatisfy { $0.scale != nil })
     }
 
     /// The desk chair is a world prop, standing where the empty seat is.

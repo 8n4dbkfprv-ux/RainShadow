@@ -6,7 +6,7 @@
 
 ## 1. Purpose
 
-This manifest is the source of truth for the first production assets generated with the built-in Image Generator and then normalized for SpriteKit. It prevents three common failures: baking interactive objects into the office background, changing projection or light direction between generations, and accepting animation frames that do not share a stable ground pivot.
+This manifest is the source of truth for the first production assets generated with the built-in Image Generator and then normalized for SpriteKit. It prevents three common failures: baking stateful objects into the office background, changing projection or light direction between generations, and accepting animation frames that do not share a stable ground pivot. V11 deliberately bakes fixed window and cold-fireplace architecture while keeping interaction, effects, door states, wall geometry, and navigation independently registered.
 
 The Image Generator produces source material. Every result still passes registration, alpha cleanup, color, downsampling, filename, pivot, and in-engine scale QA before it becomes a runtime asset.
 
@@ -25,8 +25,9 @@ The Image Generator produces source material. Every result still passes registra
 Canonical constants: `ArtSource/Processing/ie_projection.py` and
 `Documentation/InfinityEngineGroundProjection.md` (Baldur's Gate: EE / GemRB).
 **New masters are generated to this lock** and `ie_projection.ACTIVE = BGEE`.
-The V10 tavern-hall office is measured from its installed pixels; older area status remains
-documented separately in `BGEEProjectionMasterRegen.md`.
+The V11 1950s office is generated from `office_v11_geometry.json` and currently
+grades +36.73°/−36.70° (0.17° worst delta). V10 remains rollback provenance;
+older area status is documented separately in `BGEEProjectionMasterRegen.md`.
 Grade every new master with `qa_plate_projection.py` before installing it.
 
 - Orthographic Infinity Engine ground projection (no vanishing point).
@@ -53,7 +54,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | V10 tavern-hall material passes over deterministic geometry | 4096×2304 @ env 0.395 | `install_office_tavern_bgee_v10.py`; genuine 2.53 px/unit detail, measured +36.73°/−36.62°, one camera-near cutaway entrance. |
+| Office suite plate | V11 original 1950s material/fixture sources over deterministic registered geometry | 4096×2304 @ env 0.395 | `BGEE1950sV11`; 2.5316 px/unit, measured +36.73°/−36.70°. Two fixed steel/blind windows and one cold fireplace are baked; the door leaf is not. V10 remains rollback provenance. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 56px native body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with nearest filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -122,24 +123,35 @@ Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apa
 
 ## 5. Office shell, props, and lighting
 
-### 5.1 Empty shell
+### 5.1 Architecture plate
 
-The word **empty** is strict. The shell may contain built architecture, fixed wall grime, baseboards, floorboards, cracks, and the unglazed openings. It may not contain desk, chair, loose papers, files, phone, mug, ashtray, lamp, cabinet, boxes, wastebasket, radiator, bottle, photo, rug, door leaf, window glass/frame, detective, rain streaks, or prop shadows.
+V11's shell is empty of movable and stateful content, not empty of fixed
+fixtures. It may contain built architecture, fixed wall grime, baseboards,
+floorboards, cracks, two dark-painted steel casement frames with fixed Venetian
+blinds/glass, and the cold fireplace/hearth. It may not contain desk, chair,
+loose papers, files, phone, mug, ashtray, lamp, cabinet, boxes, wastebasket,
+radiator, bottle, photo, rug, door leaf, detective, rain streaks, fire, embers,
+firebox emission, orange firelight, or movable-prop shadows.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 4096×2304 | Opaque | Empty office architecture under the BG:EE orthographic lock (elevation asin(0.75), ground axes ±0.75), small door/window openings, baked low cool ambient only. |
+| P0 | `office_shell_base` / `office_suite_plate` | 4096×2304 | Opaque | Same V11 architecture pixels under the BG:EE lock: compact floor/plaster shell, two baked steel/blind windows, and a baked cold fireplace. Pure black outside; no door pixels or fire-derived light. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
-### 5.2 Window assembly
+### 5.2 Baked-window registrations
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_window_exterior_view` | 1024×768 | No | Soft, dark exterior view from the office angle; no animated rain. |
-| P0 | `office_window_frame` | 1024×768 | Yes | Worn frame and dirty fixed glass edge, aligned to shell opening. |
-| P0 | `office_window_sill_occluder` | 1024×256 | Yes | Foreground sill/trim used to cover window effects or actor overlap if needed. |
-| P0 | `office_window_glass_mask` | 1024×768 | Grayscale | White only where animated rain may appear; hard black elsewhere; runtime crop mask. |
+| P0 | baked steel/blind windows | in plate | Opaque | Two fixed 1950s steel casements at manifest-locked apertures. The camera-nearer window owns `office.window`; the farther window is decorative. There is no visible `office_window` prop. |
+| P0 | `office_window_glass_mask` | 4096×2304 | Yes, registered | Full-plate alpha mask covering the glass panes of both baked windows and nothing else; clips live rain. |
+| P0 | `office_window_hover_overlay` | 4096×2304 | Yes, registered | Stable runtime alias for the V11 transparent full-plate hover-only overlay, covering the camera-nearer interactive aperture only. |
+
+Window geometry and fixed blinds are background pixels. Rain, cool window and
+blind lighting, hover colour, and the `office.window` information region remain
+separate registered systems. The legacy `office_window`, frame, exterior-view,
+blinds, and sill sprites remain only as rollback provenance and are not part of
+the V11 prop manifest or preload contract.
 
 ### 5.3 Door assembly
 
@@ -148,9 +160,11 @@ The word **empty** is strict. The shell may contain built architecture, fixed wa
 | P0 | `office_door_leaf` | 512×320 | Yes | Closed edge cap on the shared hinge canvas; opaque dark tobacco timber, no readable face, glass, lettering, knob, or freestanding frame. |
 | P0 | `office_door_leaf_mid` | 512×320 | Yes | Mid-swing edge silhouette on the same fixed hinge registration. |
 | P0 | `office_door_leaf_open` | 512×320 | Yes | Fully open, heavily foreshortened timber sliver projecting lower-left over the black cutaway, anchored to the supplied BG:EE crop's observable read. |
-| P0 | `office_door_leaf_hover` / `office_door_leaf_open_hover` | 512×320 | Yes | Non-destructive hover derivations of the approved closed/open bases. |
+| P0 | closed/mid/open hover states | 512×320 | Yes | Colour-only hover derivations of each corresponding base; alpha and hinge registration are identical. |
 
-All states share image hinge `(488, 54)` / SpriteKit anchor `(0.953125, 0.83125)`.
+All V11 states share image hinge `(488, 18)` / SpriteKit anchor
+`(0.953125, 0.94375)`. Closed is the measured authority; mid/open retain the
+hinge, angle, material, and thickness while shortening to 81.5%/63.8%.
 The transition swaps registered edge-rendered states; it does not rotate a flat
 rectangular sprite. Retired frosted-lettered, thickness-warp, fallen, frame, and
 internal-door sources remain under `ArtSource` for provenance but are not runtime contracts.
@@ -197,7 +211,7 @@ internal-door sources remain under `ArtSource` for provenance but are not runtim
 | P1 | `office_wall_city_map` | 280×240 | Yes | Framed wall city map (abstract streets). |
 | P1 | `office_framed_licence` | 160×180 | Yes | Framed private investigator licence; abstract seals/lines only. |
 | P1 | `office_wall_photos` | 220×160 | Yes | Cluster of pinned/framed wall photographs. |
-| P1 | `office_window_blinds` | 180×220 | Yes | Venetian blinds registered to the window insert. |
+| — | `office_window_blinds` | legacy | Yes | V10 rollback provenance only. V11's two fixed blind assemblies are baked into the plate. |
 | P0 | `office_radiator` | 640×384 | Yes | Chipped cast-iron radiator and short visible pipe. |
 | P1 | `office_hidden_bottle` | 128×256 | Yes | Partly empty unlabeled bottle, staged below/behind desk rather than glamorized. |
 | P1 | `office_framed_photo` | 256×256 | Yes | Small turned/obscured personal photo; faces need not be legible at play scale. |
@@ -217,7 +231,11 @@ internal-door sources remain under `ArtSource` for provenance but are not runtim
 | P1 | `office_shadow_ceiling_fan` | 1536×1024 | Yes | alpha | Soft ceiling-fan blade shadow; scene may rotate slowly. |
 | P0 | `office_shadow_vignette` | 3072×2048 | Yes | multiply/alpha | Registered edge shadow and value grouping; must not crush hotspot silhouettes. |
 
-The final room is composited from shell + registered overlays + independent props in SpriteKit. A flattened reference composite is exported for QA but is never shipped as the interactive office.
+The final room is composited from a V11 plate containing fixed architecture
+(including both windows and the cold fireplace), plus registered effects, door
+states, wall/cover polygons, interactions, navigation, and independent movable
+props in SpriteKit. Plate pixels do not own those records merely because their
+fixtures share a registration.
 
 ## 6. Detective character assets
 
@@ -408,7 +426,7 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | P0 | `inventory_close_box_macos9_noir_v09` | 1 | 128×128 | Prior Inventory-specific close pass. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Prior shared overlay close control (fallback). |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
-| P0 | `map_detective_office_v08` | 1 | 1847×1040 | Runtime alias for the V10 tavern-hall HUD map (`map_detective_office_v10`); code owns labels and position ring. |
+| P0 | `map_detective_office_v08` | 1 | 1847×1040 | Stable runtime alias regenerated from the V11 1950s plate (`map_detective_office_v11`); code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 
@@ -447,8 +465,8 @@ Audio is not generated by the Image Generator, but it is required for M01 and th
 | Priority | File | Purpose |
 |---|---|---|
 | P0 | `opening_exterior.scene.json` | Art-space bounds, camera rail, overlay placement, emitter regions, audio cues, transition match cue. |
-| P0 | `detective_office.scene.json` | Plate, prop instances, registered offsets, depth anchors/biases, hotspots, light overlays, rain mask placement. |
-| — | ~~`detective_office.nav.json`~~ | **Superseded.** Navigation geometry is authored in Swift (`OfficeNavigationLayout`): world bounds, static and door obstacle rects, actor start, chair approach, and hotspot approach anchors, consumed by the raster search map. See [Pathfinding and NPC Locomotion](PathfindingSystem.md). |
+| P0 | `office_suite.area.json` | Authoritative V11 plate ID, regions, travel, prop instances, registered door visual, obstacles, wall/cover polygons, actors, ambients, and camera bounds. Export parity is tested against `OfficeAreaAdapter`. |
+| — | ~~`detective_office.nav.json`~~ | **Superseded.** The V11 geometry manifest generates `OfficeNavigationLayout` and the exported area obstacles/walls from the same registered fixture geometry. Static and door stamps remain separate in the 16×12 runtime search map. See [Pathfinding and NPC Locomotion](PathfindingSystem.md). |
 | P0 | `detective.animations.json` | Frame order, durations, events, loop modes, and directions. |
 | P0 | `art_style_lock.json` | Projection, palette, light vector, actor scale, standard pivots, approved reference filenames. |
 | P0 | `Localizable.xcstrings` entries | M01 hotspot names, observations, hint, skip/accessibility copy. |
@@ -555,10 +573,10 @@ For every generated image:
 
 The first production generation batch is approved only when:
 
-- the empty shell contains no listed interactive object;
-- every major prop can be removed without leaving a painted duplicate or implausible baked shadow;
+- the architecture plate contains no movable prop, stateful door, flame, ember, fire emission, or firelight spill; its two fixed windows and cold fireplace match their manifest registrations;
+- every movable prop can be removed without leaving a painted duplicate or implausible baked shadow;
 - the flattened runtime assembly matches the approved reference within registration tolerance;
-- desk front, door jamb, window sill, and foreground wall correctly occlude the detective;
+- desk front, registered door/wall covers, baked window apertures, and fireplace cover correctly agree with actor occlusion;
 - all stored frames and displayed facing/frame combinations preserve identity, world scale, 2× pivot, projection, baked-light behavior, controlled native raster texture, and readable mirroring;
 - rain and window effects loop without seams or mask leakage;
 - the room reads coherently in both 2048×1152 (16:9) and 1536×1152 (4:3) rendered outputs at the shared 1,111-world-unit camera height;

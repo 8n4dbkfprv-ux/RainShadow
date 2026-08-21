@@ -8,19 +8,83 @@ import CoreGraphics
 enum OfficeNavigationLayout {
     enum Architecture {
         /// Shell-authoritative centre of the painted exterior threshold.
-        static let entranceAnchor = CGPoint(x: 2_793.200, y: 1_062.900)
-        /// Window insert centre on the painted left-wall recess.
-        static let windowAnchor = CGPoint(x: 1_858.800, y: 1_997.100)
-        /// Retired V07 partition compatibility values; V10 is one open room.
+        static let entranceAnchor = CGPoint(x: 2541.526, y: 564.8979999999999)
+        /// Centre of the camera-nearer baked steel casement.
+        static let windowAnchor = CGPoint(x: 916.712, y: 1207.866)
+        /// V11 baked aperture registrations (authored plate coordinates).
+        static let nearWindowAperture: [CGPoint] = [
+            CGPoint(x: 853.228, y: 1287.856),
+            CGPoint(x: 980.196, y: 1356.4189999999999),
+            CGPoint(x: 980.196, y: 1127.876),
+            CGPoint(x: 853.228, y: 1059.313),
+        ]
+        static let farWindowAperture: [CGPoint] = [
+            CGPoint(x: 1584.565, y: 1818.584),
+            CGPoint(x: 1698.837, y: 1876.989),
+            CGPoint(x: 1698.837, y: 1648.446),
+            CGPoint(x: 1584.565, y: 1574.8049999999998),
+        ]
+        static let nearWindowHitArea = CGRect(x: 853.228, y: 1059.313, width: 126.96800000000007, height: 297.10599999999977)
+        static let windowGlassPolygons: [[CGPoint]] = [
+            [
+                CGPoint(x: 1602.341, y: 1803.348),
+                CGPoint(x: 1637.892, y: 1821.123),
+                CGPoint(x: 1637.892, y: 1699.234),
+                CGPoint(x: 1602.341, y: 1676.379),
+            ],
+            [
+                CGPoint(x: 1645.51, y: 1826.202),
+                CGPoint(x: 1681.061, y: 1843.978),
+                CGPoint(x: 1681.061, y: 1722.088),
+                CGPoint(x: 1645.51, y: 1701.7730000000001),
+            ],
+            [
+                CGPoint(x: 1602.341, y: 1666.222),
+                CGPoint(x: 1637.892, y: 1686.537),
+                CGPoint(x: 1637.892, y: 1610.356),
+                CGPoint(x: 1602.341, y: 1590.0410000000002),
+            ],
+            [
+                CGPoint(x: 1645.51, y: 1691.616),
+                CGPoint(x: 1681.061, y: 1711.931),
+                CGPoint(x: 1681.061, y: 1633.21),
+                CGPoint(x: 1645.51, y: 1612.895),
+            ],
+            [
+                CGPoint(x: 871.003, y: 1275.159),
+                CGPoint(x: 909.094, y: 1295.4740000000002),
+                CGPoint(x: 909.094, y: 1173.585),
+                CGPoint(x: 871.003, y: 1153.27),
+            ],
+            [
+                CGPoint(x: 919.251, y: 1300.5529999999999),
+                CGPoint(x: 962.42, y: 1323.4070000000002),
+                CGPoint(x: 962.42, y: 1201.518),
+                CGPoint(x: 919.251, y: 1178.663),
+            ],
+            [
+                CGPoint(x: 871.003, y: 1143.112),
+                CGPoint(x: 909.094, y: 1163.427),
+                CGPoint(x: 909.094, y: 1092.325),
+                CGPoint(x: 871.003, y: 1072.01),
+            ],
+            [
+                CGPoint(x: 919.251, y: 1171.045),
+                CGPoint(x: 962.42, y: 1193.9),
+                CGPoint(x: 962.42, y: 1120.258),
+                CGPoint(x: 919.251, y: 1097.404),
+            ],
+        ]
+        /// Retired partition compatibility values; V11 is one open room.
         static let partitionLineA: CGFloat = 0
         static let partitionThicknessA: CGFloat = 0
         static let partitionDoorB0: CGFloat = 0
         static let partitionDoorB1: CGFloat = 0
         static let partitionReturnB1: CGFloat = 0
         static let wallThicknessPx: CGFloat = 12.0
-        static let axisNW = CGVector(dx: -860.0, dy: 645.0)
-        static let axisNE = CGVector(dx: 900.0, dy: 675.0)
-        static let rearCorner = CGPoint(x: 2048.0, y: 1854.0)
+        static let axisNW = CGVector(dx: -1429.7, dy: 1033.5)
+        static let axisNE = CGVector(dx: 1284.9, dy: 972.6)
+        static let rearCorner = CGPoint(x: 2069.6, y: 2199.5)
 
         /// Zeroed compatibility geometry for the removed partition.
         static let partitionPlateX0: CGFloat = 0
@@ -34,29 +98,33 @@ enum OfficeNavigationLayout {
             return 0
         }
 
-        /// Clear exterior opening measured from the shipping suite plate.
-        static let entranceOpeningPlateSize = CGSize(width: 125.000, height: 198.0)
-        /// 198 plate px × environment = 78.21 world units against a 70.31-unit adult. Matches the ~1.16× real door-to-adult ratio.
-        static let entranceOpeningToDetectiveRatio: CGFloat = 1.112
-        static let entranceHandleHeightToDetective: CGFloat = 0.501
+        /// Edge-on leaf thickness x hinge-to-free length from the V11 lock.
+        static let entranceOpeningPlateSize = CGSize(width: 68.055, height: 493.015)
+        /// Registered closed length 493.015 plate px; this is a foreshortened floor-edge leaf, not an upright opening height.
+        static let entranceOpeningToDetectiveRatio: CGFloat = 2.770
+        static let entranceHandleHeightToDetective: CGFloat = 1.246
 
-        /// Edge-on BG:EE leaf family, registered by its upper-right hinge.
-        static let entranceLeafDisplayScale: CGFloat = 0.175
+        /// Edge-on BG:EE leaf family, registered by its exact upper-right hinge.
+        static let entranceLeafDisplayScale: CGFloat = 0.395000
         static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale
         static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale
         static let entranceLeafAnchorX: CGFloat = 0.953125
-        static let entranceLeafAnchorY: CGFloat = 0.83125
+        static let entranceLeafAnchorY: CGFloat = 0.943750
         static let entranceLeafAnchorPoint = CGPoint(
             x: entranceLeafAnchorX, y: entranceLeafAnchorY
         )
-        static let entranceLeafAnchor = CGPoint(x: 2_796.680, y: 1_058.040)
+        static let entranceLeafAnchor = CGPoint(x: 2741.247, y: 709.3879999999999)
+        static let entranceLeafHitArea = CGRect(x: 2331.139, y: 409.2349999999999, width: 421.53600000000006, height: 317.42100000000005)
         static let entranceFrameDisplayScale: CGFloat = 0
         static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale
         static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale
         static let entranceFrameAnchorX: CGFloat = 0
         static let entranceFrameAnchorY: CGFloat = 0
-        /// Retired fall-state compatibility values.
-        static let entranceFallenLeafScaleRatio: CGFloat = 1
+        /// Registered retracting states retain the same fixed hinge.
+        static let entranceLeafClosedLengthRatio: CGFloat = 1.000
+        static let entranceLeafMidLengthRatio: CGFloat = 0.815
+        static let entranceLeafOpenLengthRatio: CGFloat = 0.638
+        static let entranceFallenLeafScaleRatio: CGFloat = 0.638
         static let entranceFallingTransitionScale: CGFloat = entranceLeafDisplayScale
         static let entranceFallenArtworkCanvasSize = CGSize(width: 512, height: 320)
         static let entranceFallenArtworkDisplayScale: CGFloat = entranceLeafDisplayScale
@@ -76,582 +144,804 @@ enum OfficeNavigationLayout {
     /// Walkable chair-side stand point (camera-near of the kneehole).
     /// Kept outside the desk obstacle so leave-seat never starts on the
     /// visitor/rear side of the writing surface.
-    private static let authoredActorStart = CGPoint(x: 2_180.600, y: 1_131.450)
+    private static let authoredActorStart = CGPoint(x: 2095.841686298822, y: 1128.7245133292001)
 
     // MARK: - Obstacles (authored AABBs around each floor footprint)
 
     /// One cell of the camera-near boundary, kept named for the layout tests.
-    static let authoredForegroundWallObstacle = CGRect(x: 2491, y: 863, width: 104, height: 78)
-    static let authoredDoorObstacle = CGRect(x: 2687, y: 994, width: 212, height: 139)
-    static let authoredStairObstacle = CGRect(x: 1274, y: 1165, width: 351, height: 264)
+    static let authoredForegroundWallObstacle = CGRect(x: 2633.4574581525108, y: 742.2777185368877, width: 104.0, height: 78.0)
+    static let authoredDoorObstacle = CGRect(x: 2262.6117402882473, y: 436.5847230082977, width: 457.4108497687107, height: 332.6343948485942)
+    static let authoredFireplaceObstacle = CGRect(x: 2176.8584679855926, y: 1086.0410744983487, width: 577.1460522495222, height: 432.8585189944688)
+    static let authoredFireplaceObstacleSegments: [CGRect] = [
+        CGRect(x: 2178.7822881597576, y: 1427.7744592989761, width: 20.200111828733498, height: 2.8857138479295372),
+        CGRect(x: 2202.830040336821, y: 1409.7386451661828, width: 20.200111828733043, height: 38.957136947049776),
+        CGRect(x: 2226.8777925138843, y: 1391.7028310333897, width: 20.200111828733498, height: 75.02856004616956),
+        CGRect(x: 2250.925544690948, y: 1373.6670169005963, width: 20.200111828733498, height: 111.0999831452898),
+        CGRect(x: 2274.9732968680114, y: 1355.631202767803, width: 20.200111828733498, height: 147.17140624441004),
+        CGRect(x: 2299.021049045075, y: 1337.5953886350096, width: 20.200111828733043, height: 164.21547444745488),
+        CGRect(x: 2323.068801222138, y: 1319.5595745022167, width: 20.200111828733498, height: 164.2154744474501),
+        CGRect(x: 2347.1165533992016, y: 1301.5237603694234, width: 20.200111828733498, height: 164.21547444744579),
+        CGRect(x: 2371.164305576265, y: 1283.48794623663, width: 20.200111828733043, height: 164.21547444744192),
+        CGRect(x: 2395.2120577533283, y: 1265.452132103837, width: 20.200111828733498, height: 164.21547444743737),
+        CGRect(x: 2419.259809930392, y: 1247.4163179710436, width: 20.200111828733498, height: 164.21547444743305),
+        CGRect(x: 2443.3075621074554, y: 1229.3805038382502, width: 20.200111828733498, height: 164.21547444742873),
+        CGRect(x: 2467.355314284519, y: 1211.3446897054569, width: 20.200111828733043, height: 164.21547444742487),
+        CGRect(x: 2491.403066461582, y: 1193.3088755726637, width: 20.200111828733498, height: 164.21547444742032),
+        CGRect(x: 2515.4508186386456, y: 1175.2730614398704, width: 20.200111828733498, height: 164.215474447416),
+        CGRect(x: 2539.498570815709, y: 1157.237247307077, width: 20.200111828733043, height: 164.21547444741213),
+        CGRect(x: 2563.5463229927723, y: 1139.2014331742841, width: 20.200111828733498, height: 164.21547444740736),
+        CGRect(x: 2587.594075169836, y: 1121.1656190414908, width: 20.200111828733498, height: 164.21547444740304),
+        CGRect(x: 2611.6418273468994, y: 1103.1298049086975, width: 20.200111828733498, height: 164.21547444739872),
+        CGRect(x: 2635.689579523963, y: 1102.138058978939, width: 20.200111828733043, height: 147.17140624436),
+        CGRect(x: 2659.737331701026, y: 1120.1736679452492, width: 20.200111828733498, height: 111.09998314525205),
+        CGRect(x: 2683.7850838780896, y: 1138.2092769115598, width: 20.200111828733498, height: 75.02856004614387),
+        CGRect(x: 2707.832836055153, y: 1156.2448858778696, width: 20.200111828733043, height: 38.95713694703659),
+        CGRect(x: 2731.8805882322163, y: 1174.28049484418, width: 20.200111828733498, height: 2.8857138479286277),
+    ]
+    static let authoredFireplaceCoverRect = CGRect(x: 2176.8584679855926, y: 1086.0410744983487, width: 577.1460522495222, height: 741.5604424486824)
+    static let authoredFireplaceObstaclePolygon: [CGPoint] = [
+        CGPoint(x: 2296.4361869933373, y: 1518.8995934928175),
+        CGPoint(x: 2754.004520235115, y: 1175.7233435614849),
+        CGPoint(x: 2634.4268012273697, y: 1086.0410744983487),
+        CGPoint(x: 2176.8584679855926, y: 1429.2173244295996),
+    ]
+    static let authoredFireplaceCoverPolygon: [CGPoint] = [
+        CGPoint(x: 2296.4361869933373, y: 1827.601516947031),
+        CGPoint(x: 2754.004520235115, y: 1484.4252670156982),
+        CGPoint(x: 2634.4268012273697, y: 1086.0410744983487),
+        CGPoint(x: 2176.8584679855926, y: 1429.2173244295996),
+    ]
+    /// Retired V10 stair compatibility alias; no stair pixels or collision remain.
+    static let authoredStairObstacle = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     static let authoredPillarSegments: [CGRect] = [
-        CGRect(x: 1980, y: 1465, width: 71, height: 53),
-        CGRect(x: 2205, y: 1296, width: 71, height: 53),
-        CGRect(x: 2430, y: 1128, width: 71, height: 53),
-        CGRect(x: 1687, y: 1246, width: 71, height: 53),
-        CGRect(x: 1912, y: 1077, width: 71, height: 53),
-        CGRect(x: 2137, y: 908, width: 71, height: 53),
     ]
 
     /// Room boundary: the rear and side walls plus the camera-near cutaway
     /// wall, one solid per navigation cell outside the painted floor.
     static let authoredBoundarySegments: [CGRect] = [
-        CGRect(x: 1100, y: 1095, width: 41, height: 30),
-        CGRect(x: 1100, y: 1125, width: 41, height: 30),
-        CGRect(x: 1100, y: 1156, width: 41, height: 30),
-        CGRect(x: 1100, y: 1186, width: 41, height: 30),
-        CGRect(x: 1100, y: 1217, width: 41, height: 30),
-        CGRect(x: 1100, y: 1247, width: 41, height: 30),
-        CGRect(x: 1100, y: 1277, width: 41, height: 30),
-        CGRect(x: 1141, y: 1065, width: 41, height: 30),
-        CGRect(x: 1141, y: 1095, width: 41, height: 30),
-        CGRect(x: 1141, y: 1125, width: 41, height: 30),
-        CGRect(x: 1141, y: 1156, width: 41, height: 30),
-        CGRect(x: 1141, y: 1186, width: 41, height: 30),
-        CGRect(x: 1141, y: 1217, width: 41, height: 30),
-        CGRect(x: 1141, y: 1247, width: 41, height: 30),
-        CGRect(x: 1141, y: 1277, width: 41, height: 30),
-        CGRect(x: 1141, y: 1308, width: 41, height: 30),
-        CGRect(x: 1181, y: 1034, width: 41, height: 30),
-        CGRect(x: 1181, y: 1065, width: 41, height: 30),
-        CGRect(x: 1181, y: 1095, width: 41, height: 30),
-        CGRect(x: 1181, y: 1125, width: 41, height: 30),
-        CGRect(x: 1181, y: 1156, width: 41, height: 30),
-        CGRect(x: 1181, y: 1186, width: 41, height: 30),
-        CGRect(x: 1181, y: 1217, width: 41, height: 30),
-        CGRect(x: 1181, y: 1247, width: 41, height: 30),
-        CGRect(x: 1181, y: 1277, width: 41, height: 30),
-        CGRect(x: 1181, y: 1308, width: 41, height: 30),
-        CGRect(x: 1181, y: 1338, width: 41, height: 30),
-        CGRect(x: 1222, y: 1004, width: 41, height: 30),
-        CGRect(x: 1222, y: 1034, width: 41, height: 30),
-        CGRect(x: 1222, y: 1065, width: 41, height: 30),
-        CGRect(x: 1222, y: 1095, width: 41, height: 30),
-        CGRect(x: 1222, y: 1125, width: 41, height: 30),
-        CGRect(x: 1222, y: 1156, width: 41, height: 30),
-        CGRect(x: 1222, y: 1217, width: 41, height: 30),
-        CGRect(x: 1222, y: 1247, width: 41, height: 30),
-        CGRect(x: 1222, y: 1277, width: 41, height: 30),
-        CGRect(x: 1222, y: 1308, width: 41, height: 30),
-        CGRect(x: 1222, y: 1338, width: 41, height: 30),
-        CGRect(x: 1222, y: 1368, width: 41, height: 30),
-        CGRect(x: 1262, y: 974, width: 41, height: 30),
-        CGRect(x: 1262, y: 1004, width: 41, height: 30),
-        CGRect(x: 1262, y: 1034, width: 41, height: 30),
-        CGRect(x: 1262, y: 1065, width: 41, height: 30),
-        CGRect(x: 1262, y: 1095, width: 41, height: 30),
-        CGRect(x: 1262, y: 1125, width: 41, height: 30),
-        CGRect(x: 1262, y: 1247, width: 41, height: 30),
-        CGRect(x: 1262, y: 1277, width: 41, height: 30),
-        CGRect(x: 1262, y: 1308, width: 41, height: 30),
-        CGRect(x: 1262, y: 1338, width: 41, height: 30),
-        CGRect(x: 1262, y: 1368, width: 41, height: 30),
-        CGRect(x: 1262, y: 1399, width: 41, height: 30),
-        CGRect(x: 1303, y: 943, width: 41, height: 30),
-        CGRect(x: 1303, y: 974, width: 41, height: 30),
-        CGRect(x: 1303, y: 1004, width: 41, height: 30),
-        CGRect(x: 1303, y: 1034, width: 41, height: 30),
-        CGRect(x: 1303, y: 1065, width: 41, height: 30),
-        CGRect(x: 1303, y: 1095, width: 41, height: 30),
-        CGRect(x: 1303, y: 1277, width: 41, height: 30),
-        CGRect(x: 1303, y: 1308, width: 41, height: 30),
-        CGRect(x: 1303, y: 1338, width: 41, height: 30),
-        CGRect(x: 1303, y: 1368, width: 41, height: 30),
-        CGRect(x: 1303, y: 1399, width: 41, height: 30),
-        CGRect(x: 1303, y: 1429, width: 41, height: 30),
-        CGRect(x: 1343, y: 913, width: 41, height: 30),
-        CGRect(x: 1343, y: 943, width: 41, height: 30),
-        CGRect(x: 1343, y: 974, width: 41, height: 30),
-        CGRect(x: 1343, y: 1004, width: 41, height: 30),
-        CGRect(x: 1343, y: 1034, width: 41, height: 30),
-        CGRect(x: 1343, y: 1065, width: 41, height: 30),
-        CGRect(x: 1343, y: 1308, width: 41, height: 30),
-        CGRect(x: 1343, y: 1338, width: 41, height: 30),
-        CGRect(x: 1343, y: 1368, width: 41, height: 30),
-        CGRect(x: 1343, y: 1399, width: 41, height: 30),
-        CGRect(x: 1343, y: 1429, width: 41, height: 30),
-        CGRect(x: 1343, y: 1460, width: 41, height: 30),
-        CGRect(x: 1384, y: 882, width: 41, height: 30),
-        CGRect(x: 1384, y: 913, width: 41, height: 30),
-        CGRect(x: 1384, y: 943, width: 41, height: 30),
-        CGRect(x: 1384, y: 974, width: 41, height: 30),
-        CGRect(x: 1384, y: 1004, width: 41, height: 30),
-        CGRect(x: 1384, y: 1034, width: 41, height: 30),
-        CGRect(x: 1384, y: 1338, width: 41, height: 30),
-        CGRect(x: 1384, y: 1368, width: 41, height: 30),
-        CGRect(x: 1384, y: 1399, width: 41, height: 30),
-        CGRect(x: 1384, y: 1429, width: 41, height: 30),
-        CGRect(x: 1384, y: 1460, width: 41, height: 30),
-        CGRect(x: 1384, y: 1490, width: 41, height: 30),
-        CGRect(x: 1424, y: 852, width: 41, height: 30),
-        CGRect(x: 1424, y: 882, width: 41, height: 30),
-        CGRect(x: 1424, y: 913, width: 41, height: 30),
-        CGRect(x: 1424, y: 943, width: 41, height: 30),
-        CGRect(x: 1424, y: 974, width: 41, height: 30),
-        CGRect(x: 1424, y: 1004, width: 41, height: 30),
-        CGRect(x: 1424, y: 1368, width: 41, height: 30),
-        CGRect(x: 1424, y: 1399, width: 41, height: 30),
-        CGRect(x: 1424, y: 1429, width: 41, height: 30),
-        CGRect(x: 1424, y: 1460, width: 41, height: 30),
-        CGRect(x: 1424, y: 1490, width: 41, height: 30),
-        CGRect(x: 1424, y: 1520, width: 41, height: 30),
-        CGRect(x: 1465, y: 822, width: 41, height: 30),
-        CGRect(x: 1465, y: 852, width: 41, height: 30),
-        CGRect(x: 1465, y: 882, width: 41, height: 30),
-        CGRect(x: 1465, y: 913, width: 41, height: 30),
-        CGRect(x: 1465, y: 943, width: 41, height: 30),
-        CGRect(x: 1465, y: 974, width: 41, height: 30),
-        CGRect(x: 1465, y: 1399, width: 41, height: 30),
-        CGRect(x: 1465, y: 1429, width: 41, height: 30),
-        CGRect(x: 1465, y: 1460, width: 41, height: 30),
-        CGRect(x: 1465, y: 1490, width: 41, height: 30),
-        CGRect(x: 1465, y: 1520, width: 41, height: 30),
-        CGRect(x: 1465, y: 1551, width: 41, height: 30),
-        CGRect(x: 1505, y: 791, width: 41, height: 30),
-        CGRect(x: 1505, y: 822, width: 41, height: 30),
-        CGRect(x: 1505, y: 852, width: 41, height: 30),
-        CGRect(x: 1505, y: 882, width: 41, height: 30),
-        CGRect(x: 1505, y: 913, width: 41, height: 30),
-        CGRect(x: 1505, y: 943, width: 41, height: 30),
-        CGRect(x: 1505, y: 1429, width: 41, height: 30),
-        CGRect(x: 1505, y: 1460, width: 41, height: 30),
-        CGRect(x: 1505, y: 1490, width: 41, height: 30),
-        CGRect(x: 1505, y: 1520, width: 41, height: 30),
-        CGRect(x: 1505, y: 1551, width: 41, height: 30),
-        CGRect(x: 1505, y: 1581, width: 41, height: 30),
-        CGRect(x: 1546, y: 761, width: 41, height: 30),
-        CGRect(x: 1546, y: 791, width: 41, height: 30),
-        CGRect(x: 1546, y: 822, width: 41, height: 30),
-        CGRect(x: 1546, y: 852, width: 41, height: 30),
-        CGRect(x: 1546, y: 882, width: 41, height: 30),
-        CGRect(x: 1546, y: 913, width: 41, height: 30),
-        CGRect(x: 1546, y: 1460, width: 41, height: 30),
-        CGRect(x: 1546, y: 1490, width: 41, height: 30),
-        CGRect(x: 1546, y: 1520, width: 41, height: 30),
-        CGRect(x: 1546, y: 1551, width: 41, height: 30),
-        CGRect(x: 1546, y: 1581, width: 41, height: 30),
-        CGRect(x: 1546, y: 1612, width: 41, height: 30),
-        CGRect(x: 1586, y: 731, width: 41, height: 30),
-        CGRect(x: 1586, y: 761, width: 41, height: 30),
-        CGRect(x: 1586, y: 791, width: 41, height: 30),
-        CGRect(x: 1586, y: 822, width: 41, height: 30),
-        CGRect(x: 1586, y: 852, width: 41, height: 30),
-        CGRect(x: 1586, y: 882, width: 41, height: 30),
-        CGRect(x: 1586, y: 1490, width: 41, height: 30),
-        CGRect(x: 1586, y: 1520, width: 41, height: 30),
-        CGRect(x: 1586, y: 1551, width: 41, height: 30),
-        CGRect(x: 1586, y: 1581, width: 41, height: 30),
-        CGRect(x: 1586, y: 1612, width: 41, height: 30),
-        CGRect(x: 1586, y: 1642, width: 41, height: 30),
-        CGRect(x: 1627, y: 700, width: 41, height: 30),
-        CGRect(x: 1627, y: 731, width: 41, height: 30),
-        CGRect(x: 1627, y: 761, width: 41, height: 30),
-        CGRect(x: 1627, y: 791, width: 41, height: 30),
-        CGRect(x: 1627, y: 822, width: 41, height: 30),
-        CGRect(x: 1627, y: 852, width: 41, height: 30),
-        CGRect(x: 1627, y: 1520, width: 41, height: 30),
-        CGRect(x: 1627, y: 1551, width: 41, height: 30),
-        CGRect(x: 1627, y: 1581, width: 41, height: 30),
-        CGRect(x: 1627, y: 1612, width: 41, height: 30),
-        CGRect(x: 1627, y: 1642, width: 41, height: 30),
-        CGRect(x: 1627, y: 1672, width: 41, height: 30),
-        CGRect(x: 1667, y: 670, width: 41, height: 30),
-        CGRect(x: 1667, y: 700, width: 41, height: 30),
-        CGRect(x: 1667, y: 731, width: 41, height: 30),
-        CGRect(x: 1667, y: 761, width: 41, height: 30),
-        CGRect(x: 1667, y: 791, width: 41, height: 30),
-        CGRect(x: 1667, y: 822, width: 41, height: 30),
-        CGRect(x: 1667, y: 1551, width: 41, height: 30),
-        CGRect(x: 1667, y: 1581, width: 41, height: 30),
-        CGRect(x: 1667, y: 1612, width: 41, height: 30),
-        CGRect(x: 1667, y: 1642, width: 41, height: 30),
-        CGRect(x: 1667, y: 1672, width: 41, height: 30),
-        CGRect(x: 1667, y: 1703, width: 41, height: 30),
-        CGRect(x: 1708, y: 639, width: 41, height: 30),
-        CGRect(x: 1708, y: 670, width: 41, height: 30),
-        CGRect(x: 1708, y: 700, width: 41, height: 30),
-        CGRect(x: 1708, y: 731, width: 41, height: 30),
-        CGRect(x: 1708, y: 761, width: 41, height: 30),
-        CGRect(x: 1708, y: 791, width: 41, height: 30),
-        CGRect(x: 1708, y: 1581, width: 41, height: 30),
-        CGRect(x: 1708, y: 1612, width: 41, height: 30),
-        CGRect(x: 1708, y: 1642, width: 41, height: 30),
-        CGRect(x: 1708, y: 1672, width: 41, height: 30),
-        CGRect(x: 1708, y: 1703, width: 41, height: 30),
-        CGRect(x: 1708, y: 1733, width: 41, height: 30),
-        CGRect(x: 1748, y: 609, width: 41, height: 30),
-        CGRect(x: 1748, y: 639, width: 41, height: 30),
-        CGRect(x: 1748, y: 670, width: 41, height: 30),
-        CGRect(x: 1748, y: 700, width: 41, height: 30),
-        CGRect(x: 1748, y: 731, width: 41, height: 30),
-        CGRect(x: 1748, y: 761, width: 41, height: 30),
-        CGRect(x: 1748, y: 1612, width: 41, height: 30),
-        CGRect(x: 1748, y: 1642, width: 41, height: 30),
-        CGRect(x: 1748, y: 1672, width: 41, height: 30),
-        CGRect(x: 1748, y: 1703, width: 41, height: 30),
-        CGRect(x: 1748, y: 1733, width: 41, height: 30),
-        CGRect(x: 1748, y: 1763, width: 41, height: 30),
-        CGRect(x: 1789, y: 579, width: 41, height: 30),
-        CGRect(x: 1789, y: 609, width: 41, height: 30),
-        CGRect(x: 1789, y: 639, width: 41, height: 30),
-        CGRect(x: 1789, y: 670, width: 41, height: 30),
-        CGRect(x: 1789, y: 700, width: 41, height: 30),
-        CGRect(x: 1789, y: 731, width: 41, height: 30),
-        CGRect(x: 1789, y: 1642, width: 41, height: 30),
-        CGRect(x: 1789, y: 1672, width: 41, height: 30),
-        CGRect(x: 1789, y: 1703, width: 41, height: 30),
-        CGRect(x: 1789, y: 1733, width: 41, height: 30),
-        CGRect(x: 1789, y: 1763, width: 41, height: 30),
-        CGRect(x: 1789, y: 1794, width: 41, height: 30),
-        CGRect(x: 1829, y: 548, width: 41, height: 30),
-        CGRect(x: 1829, y: 579, width: 41, height: 30),
-        CGRect(x: 1829, y: 609, width: 41, height: 30),
-        CGRect(x: 1829, y: 639, width: 41, height: 30),
-        CGRect(x: 1829, y: 670, width: 41, height: 30),
-        CGRect(x: 1829, y: 700, width: 41, height: 30),
-        CGRect(x: 1829, y: 1672, width: 41, height: 30),
-        CGRect(x: 1829, y: 1703, width: 41, height: 30),
-        CGRect(x: 1829, y: 1733, width: 41, height: 30),
-        CGRect(x: 1829, y: 1763, width: 41, height: 30),
-        CGRect(x: 1829, y: 1794, width: 41, height: 30),
-        CGRect(x: 1829, y: 1824, width: 41, height: 30),
-        CGRect(x: 1870, y: 518, width: 41, height: 30),
-        CGRect(x: 1870, y: 548, width: 41, height: 30),
-        CGRect(x: 1870, y: 579, width: 41, height: 30),
-        CGRect(x: 1870, y: 609, width: 41, height: 30),
-        CGRect(x: 1870, y: 639, width: 41, height: 30),
-        CGRect(x: 1870, y: 670, width: 41, height: 30),
-        CGRect(x: 1870, y: 1703, width: 41, height: 30),
-        CGRect(x: 1870, y: 1733, width: 41, height: 30),
-        CGRect(x: 1870, y: 1763, width: 41, height: 30),
-        CGRect(x: 1870, y: 1794, width: 41, height: 30),
-        CGRect(x: 1870, y: 1824, width: 41, height: 30),
-        CGRect(x: 1870, y: 1855, width: 41, height: 30),
-        CGRect(x: 1910, y: 487, width: 41, height: 30),
-        CGRect(x: 1910, y: 518, width: 41, height: 30),
-        CGRect(x: 1910, y: 548, width: 41, height: 30),
-        CGRect(x: 1910, y: 579, width: 41, height: 30),
-        CGRect(x: 1910, y: 609, width: 41, height: 30),
-        CGRect(x: 1910, y: 639, width: 41, height: 30),
-        CGRect(x: 1910, y: 1733, width: 41, height: 30),
-        CGRect(x: 1910, y: 1763, width: 41, height: 30),
-        CGRect(x: 1910, y: 1794, width: 41, height: 30),
-        CGRect(x: 1910, y: 1824, width: 41, height: 30),
-        CGRect(x: 1910, y: 1855, width: 41, height: 30),
-        CGRect(x: 1910, y: 1885, width: 41, height: 30),
-        CGRect(x: 1951, y: 487, width: 41, height: 30),
-        CGRect(x: 1951, y: 518, width: 41, height: 30),
-        CGRect(x: 1951, y: 548, width: 41, height: 30),
-        CGRect(x: 1951, y: 579, width: 41, height: 30),
-        CGRect(x: 1951, y: 609, width: 41, height: 30),
-        CGRect(x: 1951, y: 1763, width: 41, height: 30),
-        CGRect(x: 1951, y: 1794, width: 41, height: 30),
-        CGRect(x: 1951, y: 1824, width: 41, height: 30),
-        CGRect(x: 1951, y: 1855, width: 41, height: 30),
-        CGRect(x: 1951, y: 1885, width: 41, height: 30),
-        CGRect(x: 1991, y: 487, width: 41, height: 30),
-        CGRect(x: 1991, y: 518, width: 41, height: 30),
-        CGRect(x: 1991, y: 548, width: 41, height: 30),
-        CGRect(x: 1991, y: 579, width: 41, height: 30),
-        CGRect(x: 1991, y: 1794, width: 41, height: 30),
-        CGRect(x: 1991, y: 1824, width: 41, height: 30),
-        CGRect(x: 1991, y: 1855, width: 41, height: 30),
-        CGRect(x: 1991, y: 1885, width: 41, height: 30),
-        CGRect(x: 2032, y: 487, width: 41, height: 30),
-        CGRect(x: 2032, y: 518, width: 41, height: 30),
-        CGRect(x: 2032, y: 548, width: 41, height: 30),
-        CGRect(x: 2032, y: 1824, width: 41, height: 30),
-        CGRect(x: 2032, y: 1855, width: 41, height: 30),
-        CGRect(x: 2032, y: 1885, width: 41, height: 30),
-        CGRect(x: 2072, y: 487, width: 41, height: 30),
-        CGRect(x: 2072, y: 518, width: 41, height: 30),
-        CGRect(x: 2072, y: 548, width: 41, height: 30),
-        CGRect(x: 2072, y: 1794, width: 41, height: 30),
-        CGRect(x: 2072, y: 1824, width: 41, height: 30),
-        CGRect(x: 2072, y: 1855, width: 41, height: 30),
-        CGRect(x: 2072, y: 1885, width: 41, height: 30),
-        CGRect(x: 2113, y: 487, width: 41, height: 30),
-        CGRect(x: 2113, y: 518, width: 41, height: 30),
-        CGRect(x: 2113, y: 548, width: 41, height: 30),
-        CGRect(x: 2113, y: 579, width: 41, height: 30),
-        CGRect(x: 2113, y: 1763, width: 41, height: 30),
-        CGRect(x: 2113, y: 1794, width: 41, height: 30),
-        CGRect(x: 2113, y: 1824, width: 41, height: 30),
-        CGRect(x: 2113, y: 1855, width: 41, height: 30),
-        CGRect(x: 2113, y: 1885, width: 41, height: 30),
-        CGRect(x: 2153, y: 487, width: 41, height: 30),
-        CGRect(x: 2153, y: 518, width: 41, height: 30),
-        CGRect(x: 2153, y: 548, width: 41, height: 30),
-        CGRect(x: 2153, y: 579, width: 41, height: 30),
-        CGRect(x: 2153, y: 609, width: 41, height: 30),
-        CGRect(x: 2153, y: 1733, width: 41, height: 30),
-        CGRect(x: 2153, y: 1763, width: 41, height: 30),
-        CGRect(x: 2153, y: 1794, width: 41, height: 30),
-        CGRect(x: 2153, y: 1824, width: 41, height: 30),
-        CGRect(x: 2153, y: 1855, width: 41, height: 30),
-        CGRect(x: 2153, y: 1885, width: 41, height: 30),
-        CGRect(x: 2194, y: 487, width: 41, height: 30),
-        CGRect(x: 2194, y: 518, width: 41, height: 30),
-        CGRect(x: 2194, y: 548, width: 41, height: 30),
-        CGRect(x: 2194, y: 579, width: 41, height: 30),
-        CGRect(x: 2194, y: 609, width: 41, height: 30),
-        CGRect(x: 2194, y: 639, width: 41, height: 30),
-        CGRect(x: 2194, y: 1703, width: 41, height: 30),
-        CGRect(x: 2194, y: 1733, width: 41, height: 30),
-        CGRect(x: 2194, y: 1763, width: 41, height: 30),
-        CGRect(x: 2194, y: 1794, width: 41, height: 30),
-        CGRect(x: 2194, y: 1824, width: 41, height: 30),
-        CGRect(x: 2194, y: 1855, width: 41, height: 30),
-        CGRect(x: 2234, y: 518, width: 41, height: 30),
-        CGRect(x: 2234, y: 548, width: 41, height: 30),
-        CGRect(x: 2234, y: 579, width: 41, height: 30),
-        CGRect(x: 2234, y: 609, width: 41, height: 30),
-        CGRect(x: 2234, y: 639, width: 41, height: 30),
-        CGRect(x: 2234, y: 670, width: 41, height: 30),
-        CGRect(x: 2234, y: 1672, width: 41, height: 30),
-        CGRect(x: 2234, y: 1703, width: 41, height: 30),
-        CGRect(x: 2234, y: 1733, width: 41, height: 30),
-        CGRect(x: 2234, y: 1763, width: 41, height: 30),
-        CGRect(x: 2234, y: 1794, width: 41, height: 30),
-        CGRect(x: 2234, y: 1824, width: 41, height: 30),
-        CGRect(x: 2275, y: 548, width: 41, height: 30),
-        CGRect(x: 2275, y: 579, width: 41, height: 30),
-        CGRect(x: 2275, y: 609, width: 41, height: 30),
-        CGRect(x: 2275, y: 639, width: 41, height: 30),
-        CGRect(x: 2275, y: 670, width: 41, height: 30),
-        CGRect(x: 2275, y: 700, width: 41, height: 30),
-        CGRect(x: 2275, y: 1642, width: 41, height: 30),
-        CGRect(x: 2275, y: 1672, width: 41, height: 30),
-        CGRect(x: 2275, y: 1703, width: 41, height: 30),
-        CGRect(x: 2275, y: 1733, width: 41, height: 30),
-        CGRect(x: 2275, y: 1763, width: 41, height: 30),
-        CGRect(x: 2275, y: 1794, width: 41, height: 30),
-        CGRect(x: 2315, y: 579, width: 41, height: 30),
-        CGRect(x: 2315, y: 609, width: 41, height: 30),
-        CGRect(x: 2315, y: 639, width: 41, height: 30),
-        CGRect(x: 2315, y: 670, width: 41, height: 30),
-        CGRect(x: 2315, y: 700, width: 41, height: 30),
-        CGRect(x: 2315, y: 731, width: 41, height: 30),
-        CGRect(x: 2315, y: 1612, width: 41, height: 30),
-        CGRect(x: 2315, y: 1642, width: 41, height: 30),
-        CGRect(x: 2315, y: 1672, width: 41, height: 30),
-        CGRect(x: 2315, y: 1703, width: 41, height: 30),
-        CGRect(x: 2315, y: 1733, width: 41, height: 30),
-        CGRect(x: 2315, y: 1763, width: 41, height: 30),
-        CGRect(x: 2356, y: 609, width: 41, height: 30),
-        CGRect(x: 2356, y: 639, width: 41, height: 30),
-        CGRect(x: 2356, y: 670, width: 41, height: 30),
-        CGRect(x: 2356, y: 700, width: 41, height: 30),
-        CGRect(x: 2356, y: 731, width: 41, height: 30),
-        CGRect(x: 2356, y: 761, width: 41, height: 30),
-        CGRect(x: 2356, y: 1581, width: 41, height: 30),
-        CGRect(x: 2356, y: 1612, width: 41, height: 30),
-        CGRect(x: 2356, y: 1642, width: 41, height: 30),
-        CGRect(x: 2356, y: 1672, width: 41, height: 30),
-        CGRect(x: 2356, y: 1703, width: 41, height: 30),
-        CGRect(x: 2356, y: 1733, width: 41, height: 30),
-        CGRect(x: 2396, y: 639, width: 41, height: 30),
-        CGRect(x: 2396, y: 670, width: 41, height: 30),
-        CGRect(x: 2396, y: 700, width: 41, height: 30),
-        CGRect(x: 2396, y: 731, width: 41, height: 30),
-        CGRect(x: 2396, y: 761, width: 41, height: 30),
-        CGRect(x: 2396, y: 791, width: 41, height: 30),
-        CGRect(x: 2396, y: 1551, width: 41, height: 30),
-        CGRect(x: 2396, y: 1581, width: 41, height: 30),
-        CGRect(x: 2396, y: 1612, width: 41, height: 30),
-        CGRect(x: 2396, y: 1642, width: 41, height: 30),
-        CGRect(x: 2396, y: 1672, width: 41, height: 30),
-        CGRect(x: 2396, y: 1703, width: 41, height: 30),
-        CGRect(x: 2437, y: 670, width: 41, height: 30),
-        CGRect(x: 2437, y: 700, width: 41, height: 30),
-        CGRect(x: 2437, y: 731, width: 41, height: 30),
-        CGRect(x: 2437, y: 761, width: 41, height: 30),
-        CGRect(x: 2437, y: 791, width: 41, height: 30),
-        CGRect(x: 2437, y: 822, width: 41, height: 30),
-        CGRect(x: 2437, y: 1520, width: 41, height: 30),
-        CGRect(x: 2437, y: 1551, width: 41, height: 30),
-        CGRect(x: 2437, y: 1581, width: 41, height: 30),
-        CGRect(x: 2437, y: 1612, width: 41, height: 30),
-        CGRect(x: 2437, y: 1642, width: 41, height: 30),
-        CGRect(x: 2437, y: 1672, width: 41, height: 30),
-        CGRect(x: 2477, y: 700, width: 41, height: 30),
-        CGRect(x: 2477, y: 731, width: 41, height: 30),
-        CGRect(x: 2477, y: 761, width: 41, height: 30),
-        CGRect(x: 2477, y: 791, width: 41, height: 30),
-        CGRect(x: 2477, y: 822, width: 41, height: 30),
-        CGRect(x: 2477, y: 852, width: 41, height: 30),
-        CGRect(x: 2477, y: 1490, width: 41, height: 30),
-        CGRect(x: 2477, y: 1520, width: 41, height: 30),
-        CGRect(x: 2477, y: 1551, width: 41, height: 30),
-        CGRect(x: 2477, y: 1581, width: 41, height: 30),
-        CGRect(x: 2477, y: 1612, width: 41, height: 30),
-        CGRect(x: 2477, y: 1642, width: 41, height: 30),
-        CGRect(x: 2518, y: 731, width: 41, height: 30),
-        CGRect(x: 2518, y: 761, width: 41, height: 30),
-        CGRect(x: 2518, y: 791, width: 41, height: 30),
-        CGRect(x: 2518, y: 822, width: 41, height: 30),
-        CGRect(x: 2518, y: 852, width: 41, height: 30),
-        CGRect(x: 2518, y: 882, width: 41, height: 30),
-        CGRect(x: 2518, y: 1460, width: 41, height: 30),
-        CGRect(x: 2518, y: 1490, width: 41, height: 30),
-        CGRect(x: 2518, y: 1520, width: 41, height: 30),
-        CGRect(x: 2518, y: 1551, width: 41, height: 30),
-        CGRect(x: 2518, y: 1581, width: 41, height: 30),
-        CGRect(x: 2518, y: 1612, width: 41, height: 30),
-        CGRect(x: 2558, y: 761, width: 41, height: 30),
-        CGRect(x: 2558, y: 791, width: 41, height: 30),
-        CGRect(x: 2558, y: 822, width: 41, height: 30),
-        CGRect(x: 2558, y: 852, width: 41, height: 30),
-        CGRect(x: 2558, y: 882, width: 41, height: 30),
-        CGRect(x: 2558, y: 913, width: 41, height: 30),
-        CGRect(x: 2558, y: 1429, width: 41, height: 30),
-        CGRect(x: 2558, y: 1460, width: 41, height: 30),
-        CGRect(x: 2558, y: 1490, width: 41, height: 30),
-        CGRect(x: 2558, y: 1520, width: 41, height: 30),
-        CGRect(x: 2558, y: 1551, width: 41, height: 30),
-        CGRect(x: 2558, y: 1581, width: 41, height: 30),
-        CGRect(x: 2599, y: 791, width: 41, height: 30),
-        CGRect(x: 2599, y: 822, width: 41, height: 30),
-        CGRect(x: 2599, y: 852, width: 41, height: 30),
-        CGRect(x: 2599, y: 882, width: 41, height: 30),
-        CGRect(x: 2599, y: 913, width: 41, height: 30),
-        CGRect(x: 2599, y: 943, width: 41, height: 30),
-        CGRect(x: 2599, y: 1399, width: 41, height: 30),
-        CGRect(x: 2599, y: 1429, width: 41, height: 30),
-        CGRect(x: 2599, y: 1460, width: 41, height: 30),
-        CGRect(x: 2599, y: 1490, width: 41, height: 30),
-        CGRect(x: 2599, y: 1520, width: 41, height: 30),
-        CGRect(x: 2599, y: 1551, width: 41, height: 30),
-        CGRect(x: 2639, y: 822, width: 41, height: 30),
-        CGRect(x: 2639, y: 852, width: 41, height: 30),
-        CGRect(x: 2639, y: 882, width: 41, height: 30),
-        CGRect(x: 2639, y: 913, width: 41, height: 30),
-        CGRect(x: 2639, y: 943, width: 41, height: 30),
-        CGRect(x: 2639, y: 974, width: 41, height: 30),
-        CGRect(x: 2639, y: 1368, width: 41, height: 30),
-        CGRect(x: 2639, y: 1399, width: 41, height: 30),
-        CGRect(x: 2639, y: 1429, width: 41, height: 30),
-        CGRect(x: 2639, y: 1460, width: 41, height: 30),
-        CGRect(x: 2639, y: 1490, width: 41, height: 30),
-        CGRect(x: 2639, y: 1520, width: 41, height: 30),
-        CGRect(x: 2680, y: 852, width: 41, height: 30),
-        CGRect(x: 2680, y: 882, width: 41, height: 30),
-        CGRect(x: 2680, y: 913, width: 41, height: 30),
-        CGRect(x: 2680, y: 943, width: 41, height: 30),
-        CGRect(x: 2680, y: 974, width: 41, height: 30),
-        CGRect(x: 2680, y: 1004, width: 41, height: 30),
-        CGRect(x: 2680, y: 1338, width: 41, height: 30),
-        CGRect(x: 2680, y: 1368, width: 41, height: 30),
-        CGRect(x: 2680, y: 1399, width: 41, height: 30),
-        CGRect(x: 2680, y: 1429, width: 41, height: 30),
-        CGRect(x: 2680, y: 1460, width: 41, height: 30),
-        CGRect(x: 2680, y: 1490, width: 41, height: 30),
-        CGRect(x: 2720, y: 882, width: 41, height: 30),
-        CGRect(x: 2720, y: 913, width: 41, height: 30),
-        CGRect(x: 2720, y: 943, width: 41, height: 30),
-        CGRect(x: 2720, y: 974, width: 41, height: 30),
-        CGRect(x: 2720, y: 1004, width: 41, height: 30),
-        CGRect(x: 2720, y: 1034, width: 41, height: 30),
-        CGRect(x: 2720, y: 1308, width: 41, height: 30),
-        CGRect(x: 2720, y: 1338, width: 41, height: 30),
-        CGRect(x: 2720, y: 1368, width: 41, height: 30),
-        CGRect(x: 2720, y: 1399, width: 41, height: 30),
-        CGRect(x: 2720, y: 1429, width: 41, height: 30),
-        CGRect(x: 2720, y: 1460, width: 41, height: 30),
-        CGRect(x: 2761, y: 913, width: 41, height: 30),
-        CGRect(x: 2761, y: 943, width: 41, height: 30),
-        CGRect(x: 2761, y: 974, width: 41, height: 30),
-        CGRect(x: 2761, y: 1004, width: 41, height: 30),
-        CGRect(x: 2761, y: 1034, width: 41, height: 30),
-        CGRect(x: 2761, y: 1065, width: 41, height: 30),
-        CGRect(x: 2761, y: 1277, width: 41, height: 30),
-        CGRect(x: 2761, y: 1308, width: 41, height: 30),
-        CGRect(x: 2761, y: 1338, width: 41, height: 30),
-        CGRect(x: 2761, y: 1368, width: 41, height: 30),
-        CGRect(x: 2761, y: 1399, width: 41, height: 30),
-        CGRect(x: 2761, y: 1429, width: 41, height: 30),
-        CGRect(x: 2801, y: 943, width: 41, height: 30),
-        CGRect(x: 2801, y: 974, width: 41, height: 30),
-        CGRect(x: 2801, y: 1004, width: 41, height: 30),
-        CGRect(x: 2801, y: 1034, width: 41, height: 30),
-        CGRect(x: 2801, y: 1065, width: 41, height: 30),
-        CGRect(x: 2801, y: 1095, width: 41, height: 30),
-        CGRect(x: 2801, y: 1247, width: 41, height: 30),
-        CGRect(x: 2801, y: 1277, width: 41, height: 30),
-        CGRect(x: 2801, y: 1308, width: 41, height: 30),
-        CGRect(x: 2801, y: 1338, width: 41, height: 30),
-        CGRect(x: 2801, y: 1368, width: 41, height: 30),
-        CGRect(x: 2801, y: 1399, width: 41, height: 30),
-        CGRect(x: 2842, y: 974, width: 41, height: 30),
-        CGRect(x: 2842, y: 1004, width: 41, height: 30),
-        CGRect(x: 2842, y: 1034, width: 41, height: 30),
-        CGRect(x: 2842, y: 1065, width: 41, height: 30),
-        CGRect(x: 2842, y: 1095, width: 41, height: 30),
-        CGRect(x: 2842, y: 1125, width: 41, height: 30),
-        CGRect(x: 2842, y: 1217, width: 41, height: 30),
-        CGRect(x: 2842, y: 1247, width: 41, height: 30),
-        CGRect(x: 2842, y: 1277, width: 41, height: 30),
-        CGRect(x: 2842, y: 1308, width: 41, height: 30),
-        CGRect(x: 2842, y: 1338, width: 41, height: 30),
-        CGRect(x: 2842, y: 1368, width: 41, height: 30),
-        CGRect(x: 2882, y: 1004, width: 41, height: 30),
-        CGRect(x: 2882, y: 1034, width: 41, height: 30),
-        CGRect(x: 2882, y: 1065, width: 41, height: 30),
-        CGRect(x: 2882, y: 1095, width: 41, height: 30),
-        CGRect(x: 2882, y: 1125, width: 41, height: 30),
-        CGRect(x: 2882, y: 1156, width: 41, height: 30),
-        CGRect(x: 2882, y: 1186, width: 41, height: 30),
-        CGRect(x: 2882, y: 1217, width: 41, height: 30),
-        CGRect(x: 2882, y: 1247, width: 41, height: 30),
-        CGRect(x: 2882, y: 1277, width: 41, height: 30),
-        CGRect(x: 2882, y: 1308, width: 41, height: 30),
-        CGRect(x: 2882, y: 1338, width: 41, height: 30),
-        CGRect(x: 2923, y: 1034, width: 41, height: 30),
-        CGRect(x: 2923, y: 1065, width: 41, height: 30),
-        CGRect(x: 2923, y: 1095, width: 41, height: 30),
-        CGRect(x: 2923, y: 1125, width: 41, height: 30),
-        CGRect(x: 2923, y: 1156, width: 41, height: 30),
-        CGRect(x: 2923, y: 1186, width: 41, height: 30),
-        CGRect(x: 2923, y: 1217, width: 41, height: 30),
-        CGRect(x: 2923, y: 1247, width: 41, height: 30),
-        CGRect(x: 2923, y: 1277, width: 41, height: 30),
-        CGRect(x: 2923, y: 1308, width: 41, height: 30),
-        CGRect(x: 2963, y: 1065, width: 41, height: 30),
-        CGRect(x: 2963, y: 1095, width: 41, height: 30),
-        CGRect(x: 2963, y: 1125, width: 41, height: 30),
-        CGRect(x: 2963, y: 1156, width: 41, height: 30),
-        CGRect(x: 2963, y: 1186, width: 41, height: 30),
-        CGRect(x: 2963, y: 1217, width: 41, height: 30),
-        CGRect(x: 2963, y: 1247, width: 41, height: 30),
-        CGRect(x: 2963, y: 1277, width: 41, height: 30),
+        CGRect(x: 605.1645569620252, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 605.1645569620252, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 645.6708860759493, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 686.1772151898733, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 726.6835443037974, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 767.1898734177214, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 807.6962025316454, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 848.2025316455695, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 888.7088607594935, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 929.2151898734176, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 969.7215189873416, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1010.2278481012656, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1050.7341772151897, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1091.2405063291137, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1131.7468354430378, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1172.2531645569618, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1212.7594936708858, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1253.2658227848099, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 702.9435810307076, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1293.772151898734, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 672.5638341952646, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1334.2784810126582, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 642.1840873598215, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1374.7848101265822, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 611.8043405243784, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1415.2911392405063, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 581.4245936889354, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1455.7974683544303, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 551.0448468534923, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1496.3037974683543, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 520.6651000180493, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1536.8101265822784, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 490.2853531826063, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1577.3164556962024, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 459.90560634716326, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1617.8227848101264, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1658.3291139240505, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1698.8354430379745, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1739.3417721518986, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1779.8481012658226, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1820.3544303797466, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1860.8607594936707, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1901.3670886075947, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1941.8734177215188, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 1982.3797468354428, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 156.10813799273288, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2022.8860759493668, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 186.4878848281759, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2063.392405063291, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 216.86763166361894, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2103.898734177215, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 247.24737849906197, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2144.405063291139, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 277.6271253345051, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 429.5258595117202, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2184.911392405063, y: 2191.5511759674164, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 308.0068721699481, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 399.1461126762772, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2225.417721518987, y: 2161.171429131973, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 338.38661900539114, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 368.76636584083417, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2265.924050632911, y: 2130.7916822965303, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2306.430379746835, y: 2100.411935461087, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2346.936708860759, y: 2070.0321886256443, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2387.443037974683, y: 2039.652441790201, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2427.9493670886072, y: 2009.2726949547582, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2468.4556962025313, y: 1978.892948119315, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2508.9620253164553, y: 1948.513201283872, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2549.4683544303793, y: 1918.133454448429, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2589.9746835443034, y: 1887.7537076129859, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2630.4810126582274, y: 1857.3739607775428, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2670.9873417721515, y: 1826.9942139420998, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2711.4936708860755, y: 1796.6144671066568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2751.9999999999995, y: 1766.2347202712137, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 733.3233278661506, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2792.5063291139236, y: 1735.8549734357707, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 763.7030747015937, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2833.0126582278476, y: 1705.4752266003277, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 794.0828215370367, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2873.5189873417717, y: 1675.0954797648847, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2914.0253164556957, y: 1644.7157329294416, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 824.4625683724797, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2954.5316455696197, y: 1614.3359860939986, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 854.8423152079228, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 2995.037974683544, y: 1583.9562392585556, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 885.2220620433658, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3035.544303797468, y: 1553.5764924231125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 915.6018088788088, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3076.050632911392, y: 1523.1967455876695, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 945.9815557142518, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3116.556962025316, y: 1492.8169987522265, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 976.3613025496949, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3157.06329113924, y: 1462.4372519167835, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1006.7410493851379, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3197.569620253164, y: 1432.0575050813404, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1037.1207962205808, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3238.075949367088, y: 1401.6777582458974, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1067.5005430560238, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3278.5822784810125, y: 1371.2980114104544, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1097.8802898914669, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3319.0886075949365, y: 1340.918264575011, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1128.26003672691, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1158.639783562353, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1189.019530397796, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1219.399277233239, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1249.779024068682, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1280.158770904125, width: 40.506329113924046, height: 30.379746835443036),
+        CGRect(x: 3359.5949367088606, y: 1310.538517739568, width: 40.506329113924046, height: 30.379746835443036),
     ]
 
-    /// Retired V07 partition compatibility aliases; V10 is open-plan.
-    static let authoredPartitionWallNorthObstacle = CGRect(x: 0, y: 0, width: 0, height: 0)
-    static let authoredPartitionWallSouthObstacle = CGRect(x: 0, y: 0, width: 0, height: 0)
+    /// Retired partition compatibility aliases; V11 is open-plan.
+    static let authoredPartitionWallNorthObstacle = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+    static let authoredPartitionWallSouthObstacle = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     static let authoredPartitionSegments: [CGRect] = [
     ]
 
-    static let authoredSafeObstacle = CGRect(x: 1856, y: 1731, width: 81, height: 61)
-    static let authoredFilingCabinetBObstacle = CGRect(x: 1790, y: 1682, width: 74, height: 56)
-    static let authoredFilingCabinetObstacle = CGRect(x: 1721, y: 1631, width: 74, height: 56)
-    static let authoredBookshelfObstacle = CGRect(x: 1607, y: 1545, width: 114, height: 85)
-    static let authoredArchiveBoxAObstacle = CGRect(x: 1721, y: 1122, width: 65, height: 48)
-    static let authoredRadiatorObstacle = CGRect(x: 1794, y: 1693, width: 90, height: 67)
-    static let authoredPersonalSideboardObstacle = CGRect(x: 2240, y: 1566, width: 122, height: 92)
-    static let authoredPersonalFanObstacle = CGRect(x: 2246, y: 1597, width: 67, height: 51)
-    static let authoredDeskEnsembleObstacle = CGRect(x: 1957, y: 1178, width: 184, height: 138)
-    static let authoredVisitorArmchairObstacle = CGRect(x: 1768, y: 1199, width: 88, height: 66)
-    static let authoredVisitorArmchairBObstacle = CGRect(x: 1851, y: 1059, width: 88, height: 66)
-    static let authoredWastebasketObstacle = CGRect(x: 2078, y: 1120, width: 54, height: 40)
-    static let authoredCoatRackObstacle = CGRect(x: 2731, y: 1178, width: 81, height: 61)
-    static let authoredUmbrellaStandObstacle = CGRect(x: 2686, y: 1198, width: 47, height: 35)
-    static let authoredWaitingChairAObstacle = CGRect(x: 2503, y: 1251, width: 74, height: 56)
-    static let authoredWaitingTableObstacle = CGRect(x: 2514, y: 1204, width: 74, height: 56)
-    static let authoredWaitingChairBObstacle = CGRect(x: 2524, y: 1158, width: 74, height: 56)
+    static let authoredSafeObstacle = CGRect(x: 1541.41341380072, y: 1322.1429662349956, width: 123.27717735826137, height: 91.40656598010189)
+    static let authoredFilingCabinetBObstacle = CGRect(x: 1417.4173444570658, y: 1232.6952579442284, width: 113.92979961655597, height: 84.2679094060255)
+    static let authoredFilingCabinetObstacle = CGRect(x: 1295.8959061433648, y: 1144.8458345096342, width: 113.92979961655597, height: 84.26790940602567)
+    static let authoredBookshelfObstacle = CGRect(x: 1133.4280326112798, y: 1026.0610961193743, width: 167.22939045009963, height: 125.46808674451258)
+    static let authoredArchiveBoxAObstacle = CGRect(x: 1255.0598470833363, y: 944.1932342574901, width: 98.06480676327148, height: 72.79890036288748)
+    static let authoredRadiatorObstacle = CGRect(x: 1070.7782359236803, y: 992.5608406761172, width: 130.80317236595926, height: 98.37246937167612)
+    static let authoredPersonalSideboardObstacle = CGRect(x: 2635.0162974067794, y: 894.6423055245978, width: 181.22791355593904, height: 135.58780060610525)
+    static let authoredPersonalFanObstacle = CGRect(x: 2604.3178820317016, y: 987.8724181323868, width: 102.73098113188418, height: 76.17213831675171)
+    static let authoredDeskEnsembleObstacle = CGRect(x: 1741.3616929267469, y: 1141.342195956788, width: 274.6265459505975, height: 205.01346301512837)
+    static let authoredVisitorArmchairObstacle = CGRect(x: 1456.8327481911192, y: 1156.322704018476, width: 133.55027547144988, height: 99.02377981177698)
+    static let authoredVisitorArmchairBObstacle = CGRect(x: 1570.9392330020307, y: 953.5922886433987, width: 133.55027547144988, height: 99.02377981177698)
+    static let authoredWastebasketObstacle = CGRect(x: 1926.7143775410464, y: 1040.1317150390773, width: 82.1847849055078, height: 60.93771065340153)
+    static let authoredCoatRackObstacle = CGRect(x: 1826.2796754250228, y: 387.1985892976118, width: 123.27717735826154, height: 91.40656598010206)
+    static let authoredUmbrellaStandObstacle = CGRect(x: 1857.0284591456875, y: 476.4551390658885, width: 71.91168679231929, height: 53.32049682172612)
+    static let authoredWaitingChairAObstacle = CGRect(x: 1685.9104588275563, y: 628.0825588916888, width: 113.00407924507319, height: 83.7893521484268)
+    static let authoredWaitingTableObstacle = CGRect(x: 1706.5428208858327, y: 538.4174875959663, width: 113.00407924507302, height: 83.78935214842697)
+    static let authoredWaitingChairBObstacle = CGRect(x: 1727.1751829441093, y: 448.75241630024414, width: 113.00407924507319, height: 83.7893521484268)
 
     private static var authoredObstacles: [CGRect] {
-        [authoredDoorObstacle, authoredForegroundWallObstacle, authoredStairObstacle]
+        [authoredDoorObstacle, authoredForegroundWallObstacle]
+            + authoredFireplaceObstacleSegments
             + authoredBoundarySegments
             + authoredPartitionSegments
             + authoredPillarSegments
@@ -679,109 +969,135 @@ enum OfficeNavigationLayout {
     // MARK: - Sample points (interior to each obstacle)
 
     static let authoredSafeSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_896, y: 1_762),
-        CGPoint(x: 1_880, y: 1_753),
-        CGPoint(x: 1_912, y: 1_771),
+        CGPoint(x: 1603.0520024798507, y: 1367.8462492250464),
+        CGPoint(x: 1578.3965670081984, y: 1354.1352643280313),
+        CGPoint(x: 1627.707437951503, y: 1381.5572341220618),
     ]
     static let authoredFilingCabinetBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_827, y: 1_710),
-        CGPoint(x: 1_812, y: 1_702),
-        CGPoint(x: 1_842, y: 1_718),
+        CGPoint(x: 1474.3822442653438, y: 1274.829212647241),
+        CGPoint(x: 1451.5962843420327, y: 1262.1890262363372),
+        CGPoint(x: 1497.168204188655, y: 1287.469399058145),
     ]
     static let authoredFilingCabinetSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_758, y: 1_658),
-        CGPoint(x: 1_744, y: 1_650),
-        CGPoint(x: 1_773, y: 1_667),
+        CGPoint(x: 1352.8608059516428, y: 1186.9797892126471),
+        CGPoint(x: 1330.0748460283316, y: 1174.3396028017432),
+        CGPoint(x: 1375.6467658749539, y: 1199.6199756235508),
     ]
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_664, y: 1_587),
-        CGPoint(x: 1_641, y: 1_575),
-        CGPoint(x: 1_687, y: 1_600),
+        CGPoint(x: 1217.0427278363297, y: 1088.7951394916306),
+        CGPoint(x: 1183.5968497463098, y: 1069.9749264799536),
+        CGPoint(x: 1250.4886059263495, y: 1107.6153525033073),
     ]
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
-        CGPoint(x: 1_753, y: 1_147),
-        CGPoint(x: 1_740, y: 1_139),
-        CGPoint(x: 1_766, y: 1_154),
+        CGPoint(x: 1304.092250464972, y: 980.5926844389338),
+        CGPoint(x: 1284.4792891123177, y: 969.6728493845008),
+        CGPoint(x: 1323.7052118176264, y: 991.5125194933669),
     ]
     static let authoredRadiatorSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_839, y: 1_727),
-        CGPoint(x: 1_821, y: 1_717),
-        CGPoint(x: 1_857, y: 1_737),
+        CGPoint(x: 1136.17982210666, y: 1041.7470753619552),
+        CGPoint(x: 1110.0191876334682, y: 1026.9912049562038),
+        CGPoint(x: 1162.340456579852, y: 1056.5029457677067),
     ]
     static let authoredPersonalSideboardSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_302, y: 1_612),
-        CGPoint(x: 2_277, y: 1_598),
-        CGPoint(x: 2_326, y: 1_626),
+        CGPoint(x: 2725.630254184749, y: 962.4362058276504),
+        CGPoint(x: 2689.384671473561, y: 942.0980357367346),
+        CGPoint(x: 2761.8758368959366, y: 982.7743759185662),
     ]
     static let authoredPersonalFanSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_279, y: 1_622),
-        CGPoint(x: 2_266, y: 1_615),
-        CGPoint(x: 2_293, y: 1_630),
+        CGPoint(x: 2655.683372597644, y: 1025.9584872907626),
+        CGPoint(x: 2635.137176371267, y: 1014.5326665432499),
+        CGPoint(x: 2676.2295688240206, y: 1037.3843080382753),
     ]
     static let authoredDeskEnsembleSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_049, y: 1_247),
-        CGPoint(x: 2_012, y: 1_226),
-        CGPoint(x: 2_086, y: 1_268),
+        CGPoint(x: 1878.6749659020456, y: 1243.848927464352),
+        CGPoint(x: 1823.749656711926, y: 1213.0969080120828),
+        CGPoint(x: 1933.600275092165, y: 1274.6009469166213),
     ]
     static let authoredVisitorArmchairSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_812, y: 1_231),
-        CGPoint(x: 1_794, y: 1_222),
-        CGPoint(x: 1_829, y: 1_241),
+        CGPoint(x: 1523.6078859268441, y: 1205.8345939243645),
+        CGPoint(x: 1496.897830832554, y: 1190.981026952598),
+        CGPoint(x: 1550.3179410211342, y: 1220.6881608961312),
     ]
     static let authoredVisitorArmchairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1_895, y: 1_091),
-        CGPoint(x: 1_878, y: 1_082),
-        CGPoint(x: 1_913, y: 1_101),
+        CGPoint(x: 1637.7143707377556, y: 1003.1041785492871),
+        CGPoint(x: 1611.0043156434656, y: 988.2506115775207),
+        CGPoint(x: 1664.4244258320457, y: 1017.9577455210537),
     ]
     static let authoredWastebasketSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_105, y: 1_141),
-        CGPoint(x: 2_094, y: 1_135),
-        CGPoint(x: 2_116, y: 1_147),
+        CGPoint(x: 1967.8067699938003, y: 1070.6005703657781),
+        CGPoint(x: 1951.3698130126986, y: 1061.4599137677678),
+        CGPoint(x: 1984.2437269749018, y: 1079.7412269637882),
     ]
     static let authoredCoatRackSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_771, y: 1_208),
-        CGPoint(x: 2_755, y: 1_199),
-        CGPoint(x: 2_787, y: 1_217),
+        CGPoint(x: 1887.9182641041536, y: 432.90187228766285),
+        CGPoint(x: 1863.2628286325012, y: 419.19088739064756),
+        CGPoint(x: 1912.573699575806, y: 446.61285718467815),
     ]
     static let authoredUmbrellaStandSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_709, y: 1_216),
-        CGPoint(x: 2_700, y: 1_211),
-        CGPoint(x: 2_719, y: 1_221),
+        CGPoint(x: 1892.9843025418472, y: 503.11538747675155),
+        CGPoint(x: 1878.6019651833833, y: 495.1173129534926),
+        CGPoint(x: 1907.366639900311, y: 511.1134620000105),
     ]
     static let authoredWaitingChairASamplePoints: [CGPoint] = [
-        CGPoint(x: 2_540, y: 1_278),
-        CGPoint(x: 2_526, y: 1_270),
-        CGPoint(x: 2_555, y: 1_287),
+        CGPoint(x: 1742.412498450093, y: 669.9772349659022),
+        CGPoint(x: 1719.8116826010782, y: 657.4088321436382),
+        CGPoint(x: 1765.0133142991076, y: 682.5456377881662),
     ]
     static let authoredWaitingTableSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_551, y: 1_232),
-        CGPoint(x: 2_536, y: 1_224),
-        CGPoint(x: 2_565, y: 1_240),
+        CGPoint(x: 1763.0448605083693, y: 580.3121636701799),
+        CGPoint(x: 1740.4440446593546, y: 567.7437608479158),
+        CGPoint(x: 1785.6456763573838, y: 592.8805664924439),
     ]
     static let authoredWaitingChairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_561, y: 1_186),
-        CGPoint(x: 2_546, y: 1_177),
-        CGPoint(x: 2_576, y: 1_194),
+        CGPoint(x: 1783.677222566646, y: 490.64709237445754),
+        CGPoint(x: 1761.0764067176312, y: 478.0786895521935),
+        CGPoint(x: 1806.2780384156606, y: 503.2154951967216),
     ]
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_793, y: 1_063),
-        CGPoint(x: 2_751, y: 1_042),
-        CGPoint(x: 2_836, y: 1_084),
+        CGPoint(x: 2491.3171651726025, y: 602.9019204325948),
+        CGPoint(x: 2399.8349952188605, y: 553.0067612053057),
+        CGPoint(x: 2582.799335126345, y: 652.7970796598839),
     ]
     static let authoredForegroundWallSamplePoints: [CGPoint] = [
-        CGPoint(x: 2_543, y: 902),
-        CGPoint(x: 2_522, y: 891),
-        CGPoint(x: 2_564, y: 914),
+        CGPoint(x: 2685.4574581525108, y: 781.2777185368877),
+        CGPoint(x: 2664.6574581525106, y: 769.5777185368877),
+        CGPoint(x: 2706.257458152511, y: 792.9777185368878),
     ]
     static let authoredPartitionWallNorthSamplePoints: [CGPoint] = [
-        CGPoint(x: 0, y: 0),
-        CGPoint(x: 0, y: 0),
-        CGPoint(x: 0, y: 0),
+        CGPoint(x: 0.0, y: 0.0),
+        CGPoint(x: 0.0, y: 0.0),
+        CGPoint(x: 0.0, y: 0.0),
     ]
     static let authoredPartitionWallSouthSamplePoints: [CGPoint] = [
-        CGPoint(x: 0, y: 0),
-        CGPoint(x: 0, y: 0),
-        CGPoint(x: 0, y: 0),
+        CGPoint(x: 0.0, y: 0.0),
+        CGPoint(x: 0.0, y: 0.0),
+        CGPoint(x: 0.0, y: 0.0),
+    ]
+    static let authoredFireplaceSamplePoints: [CGPoint] = [
+        CGPoint(x: 2188.8823440741244, y: 1429.217316222941),
+        CGPoint(x: 2212.930096251188, y: 1429.2172136397076),
+        CGPoint(x: 2236.977848428251, y: 1429.2171110564746),
+        CGPoint(x: 2261.0256006053146, y: 1429.217008473241),
+        CGPoint(x: 2285.073352782378, y: 1429.216905890008),
+        CGPoint(x: 2309.1211049594413, y: 1419.7031258587372),
+        CGPoint(x: 2333.168857136505, y: 1401.6673117259418),
+        CGPoint(x: 2357.2166093135684, y: 1383.6314975931464),
+        CGPoint(x: 2381.264361490632, y: 1365.595683460351),
+        CGPoint(x: 2405.312113667695, y: 1347.5598693275556),
+        CGPoint(x: 2429.3598658447586, y: 1329.52405519476),
+        CGPoint(x: 2453.407618021822, y: 1311.4882410619646),
+        CGPoint(x: 2477.4553701988852, y: 1293.4524269291692),
+        CGPoint(x: 2501.503122375949, y: 1275.416612796374),
+        CGPoint(x: 2525.5508745530124, y: 1257.3807986635784),
+        CGPoint(x: 2549.598626730076, y: 1239.3449845307832),
+        CGPoint(x: 2573.646378907139, y: 1221.3091703979878),
+        CGPoint(x: 2597.6941310842026, y: 1203.2733562651924),
+        CGPoint(x: 2621.741883261266, y: 1185.2375421323968),
+        CGPoint(x: 2645.7896354383292, y: 1175.723762101119),
+        CGPoint(x: 2669.837387615393, y: 1175.7236595178751),
+        CGPoint(x: 2693.8851397924564, y: 1175.7235569346317),
+        CGPoint(x: 2717.93289196952, y: 1175.7234543513878),
+        CGPoint(x: 2741.980644146583, y: 1175.7233517681443),
     ]
 
     // MARK: - Placements
@@ -792,63 +1108,64 @@ enum OfficeNavigationLayout {
         static let window = Architecture.windowAnchor
         static let windowBlinds = window
         static let windowRotation: CGFloat = 0
-        static let windowRainMask = CGRect(x: 1_832.2, y: 1_949.5, width: 53.2, height: 95.2)
-        static let windowRainEmitter = CGPoint(x: 1_858.8, y: 2_047.5)
-    /// Recentred on the fitted tavern-hall diamond.
-        static let camera = CGPoint(x: 2_053, y: 1_244)
+        /// Full-plate registration for the mask whose alpha contains both baked glass apertures.
+        static let windowRainMask = CGRect(x: 0.0, y: 0.0, width: 4096.0, height: 2304.0)
+        static let windowRainEmitter = CGPoint(x: 916.712, y: 1279.866)
+        /// Recentred on the fitted compact V11 diamond.
+        static let camera = CGPoint(x: 1930.071766893986, y: 1204.945815251085)
 
-        static let safe = CGPoint(x: 1_896.000, y: 1_761.600)  // records run, east end
-        static let filingCabinetB = CGPoint(x: 1_827.200, y: 1_710.000)
-        static let filingCabinet = CGPoint(x: 1_758.400, y: 1_658.400)  // drawer half open
-        static let bookshelf = CGPoint(x: 1_663.800, y: 1_587.450)
-        static let archiveBoxOnCabinet = CGPoint(x: 1_827.200, y: 1_710.000)  // on cabinet B
-        static let archiveStackOnCabinet = CGPoint(x: 1_758.400, y: 1_658.400)  // on cabinet A
-        static let archiveBoxA = CGPoint(x: 1_752.800, y: 1_146.600)  // second-aisle stack
-        static let radiator = CGPoint(x: 1_839.000, y: 1_726.950)
-        static let personalSideboard = CGPoint(x: 2_301.600, y: 1_612.200)
-        static let personalWashbasin = CGPoint(x: 2_347.000, y: 1_565.250)  // retired domestic fixture; placement retained for source lineage
-        static let personalFan = CGPoint(x: 2_279.300, y: 1_622.475)
-        static let personalBottle = CGPoint(x: 2_304.380, y: 1_607.535)  // on sideboard
-        static let personalGlass = CGPoint(x: 2_294.320, y: 1_620.240)  // on sideboard
-        static let deskEnsemble = CGPoint(x: 2_048.800, y: 1_247.100)
-        static let deskChair = CGPoint(x: 2_180.600, y: 1_251.450)
-        static let visitorArmchair = CGPoint(x: 1_811.800, y: 1_231.350)
-        static let visitorArmchairB = CGPoint(x: 1_895.200, y: 1_091.400)
-        static let wastebasket = CGPoint(x: 2_104.800, y: 1_140.600)
-        static let coatRack = CGPoint(x: 2_771.200, y: 1_208.400)
-        static let umbrellaStand = CGPoint(x: 2_709.400, y: 1_216.050)
-        static let waitingChairA = CGPoint(x: 2_540.400, y: 1_278.300)
-        static let waitingTable = CGPoint(x: 2_550.600, y: 1_231.950)
-        static let waitingChairB = CGPoint(x: 2_560.800, y: 1_185.600)
-        static let newspaper = CGPoint(x: 2_550.520, y: 1_234.590)  // on table
-        static let waitingAshtray = CGPoint(x: 2_552.640, y: 1_222.680)  // on table
+        static let safe = CGPoint(x: 1603.052002479851, y: 1367.8462492250464)  // records run, far end
+        static let filingCabinetB = CGPoint(x: 1474.3822442653438, y: 1274.829212647241)
+        static let filingCabinet = CGPoint(x: 1352.8608059516428, y: 1186.9797892126473)  // drawer half open
+        static let bookshelf = CGPoint(x: 1217.0427278363297, y: 1088.7951394916306)
+        static let archiveBoxOnCabinet = CGPoint(x: 1474.3822442653438, y: 1274.829212647241)  // on cabinet B
+        static let archiveStackOnCabinet = CGPoint(x: 1352.8608059516428, y: 1186.9797892126473)  // on cabinet A
+        static let archiveBoxA = CGPoint(x: 1304.092250464972, y: 980.5926844389337)  // west-side stack
+        static let radiator = CGPoint(x: 1136.1798221066597, y: 1041.7470753619552)
+        static let personalSideboard = CGPoint(x: 2725.630254184749, y: 962.4362058276504)
+        static let personalWashbasin = CGPoint(x: 2801.278016119033, y: 884.0205331680099)  // retired domestic fixture; placement retained for source lineage
+        static let personalFan = CGPoint(x: 2655.683372597644, y: 1025.9584872907626)
+        static let personalBottle = CGPoint(x: 2729.1955263484188, y: 955.5062715437075)  // on sideboard
+        static let personalGlass = CGPoint(x: 2715.6403818970857, y: 974.2290291382517)  // on sideboard
+        static let deskEnsemble = CGPoint(x: 1878.6749659020456, y: 1243.848927464352)
+        static let deskChair = CGPoint(x: 2095.841686298822, y: 1248.7245133292001)
+        static let visitorArmchair = CGPoint(x: 1523.6078859268441, y: 1205.8345939243645)
+        static let visitorArmchairB = CGPoint(x: 1637.7143707377559, y: 1003.1041785492871)
+        static let wastebasket = CGPoint(x: 1967.8067699938003, y: 1070.6005703657781)
+        static let coatRack = CGPoint(x: 1887.9182641041536, y: 432.9018722876631)
+        static let umbrellaStand = CGPoint(x: 1892.9843025418472, y: 503.1153874767515)
+        static let waitingChairA = CGPoint(x: 1742.4124984500932, y: 669.9772349659022)
+        static let waitingTable = CGPoint(x: 1763.0448605083693, y: 580.3121636701799)
+        static let waitingChairB = CGPoint(x: 1783.677222566646, y: 490.64709237445777)
+        static let newspaper = CGPoint(x: 1763.3343484190946, y: 584.3243645381278)  // on table
+        static let waitingAshtray = CGPoint(x: 1764.7462368257904, y: 566.3304054556729)  // on table
 
-        static let wornRug = CGPoint(x: 2_058, y: 1_227)
+        static let wornRug = CGPoint(x: 1890.076726596404, y: 1214.0621450712956)
         static let floorWear = deskEnsemble
-        static let wallPhotos = CGPoint(x: 1_655, y: 1_756)
-        static let caseBoard = CGPoint(x: 1_758, y: 1_863)
-        static let wallCityMap = CGPoint(x: 1_827, y: 1_900)
-        static let framedLicence = CGPoint(x: 1_896, y: 1_922)
-        static let windowSpill = CGPoint(x: 1_949, y: 1_645)
-        static let blindStripes = CGPoint(x: 1_968, y: 1_578)
-        static let hallwayLight = CGPoint(x: 2_809, y: 1_051)
-        static let floorTrashA = CGPoint(x: 1_703, y: 1_266)
-        static let floorTrashB = CGPoint(x: 1_429, y: 1_293)
-        static let entranceRunner = CGPoint(x: 2_648, y: 1_234)
+        static let wallPhotos = CGPoint(x: 1803.2049597024175, y: 1630.5394172349659)
+        static let caseBoard = CGPoint(x: 1674.5352014879104, y: 1561.5223806571605)
+        static let wallCityMap = CGPoint(x: 1531.5688034717914, y: 1448.1701177929324)
+        static let framedLicence = CGPoint(x: 1374.3057656540607, y: 1310.4826286422815)
+        static let windowSpill = CGPoint(x: 976.8497390316443, y: 1162.3467232230835)
+        static let blindStripes = CGPoint(x: 1123.980699973988, y: 1135.6071819955573)
+        static let hallwayLight = CGPoint(x: 2514.445725618976, y: 585.3955199366246)
+        static let floorTrashA = CGPoint(x: 1345.7124860508368, y: 1181.8121760694357)
+        static let floorTrashB = CGPoint(x: 924.2282455052696, y: 1162.3352262864228)
+        static let entranceRunner = CGPoint(x: 2272.8807609568557, y: 768.2401473389805)
         static let lampPool = deskEnsemble
-        /// Leaf swung 90° into the private office, hinged on the up-run jamb.
+        /// Retired internal-door compatibility placement.
         static let internalDoorLeaf = Architecture.internalLeafAnchor
     }
 
     private static let authoredApproachPoints: [String: CGPoint] = [
-        "office.window": CGPoint(x: 1_985, y: 1_618),
-        "office.desk": CGPoint(x: 1_909, y: 1_210),
-        "office.phone": CGPoint(x: 1_909, y: 1_210),
-        "office.files": CGPoint(x: 1_903, y: 1_550),
-        "office.door": CGPoint(x: 2_613, y: 1_198),
+        "office.window": CGPoint(x: 1002.5481395276145, y: 1142.89516711645),
+        "office.desk": CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
+        "office.phone": CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
+        "office.files": CGPoint(x: 1455.6544079355237, y: 1109.1735647861128),
+        "office.door": CGPoint(x: 2202.210159592938, y: 821.7319266322229),
     ]
 
-    private static let authoredProjectionOrigin = CGPoint(x: 2_048, y: 457)
+    private static let authoredProjectionOrigin = CGPoint(x: 2_048, y: 803)
     private static let authoredTileSize = CGSize(width: 128, height: 96)
 
     static var actorStart: CGPoint { OfficeInteriorScale.mapPoint(authoredActorStart) }
@@ -871,28 +1188,28 @@ enum OfficeNavigationLayout {
     /// Exterior threshold crossing. This segment intentionally starts
     /// outside the floor and passes the open edge-on leaf at the cutaway.
     static let clientDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2_865, y: 1_009),
-        CGPoint(x: 2_613, y: 1_198),
+        CGPoint(x: 2594.110767156484, y: 525.0956960060603),
+        CGPoint(x: 2202.210159592938, y: 821.7319266322229),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Walkable open-plan anchors from the entrance toward the desk.
     static let clientWaitingRoomPath: [CGPoint] = [
-        CGPoint(x: 2_613, y: 1_198),
-        CGPoint(x: 2_610, y: 1_304),
-        CGPoint(x: 2_547, y: 1_351),
+        CGPoint(x: 2202.210159592938, y: 821.7319266322229),
+        CGPoint(x: 2131.53955822902, y: 875.2237059254653),
+        CGPoint(x: 2014.8612523248603, y: 971.5144451332922),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Compatibility-named open-floor circulation points; no partition remains.
     static let clientInternalDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2_547, y: 1_351),
-        CGPoint(x: 2_229, y: 1_112),
-        CGPoint(x: 2_100, y: 1_015),
+        CGPoint(x: 2014.8612523248603, y: 971.5144451332922),
+        CGPoint(x: 1811.2674519528828, y: 966.943583384997),
+        CGPoint(x: 1769.9138499690016, y: 1051.1363174209548),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Direct approach to the desk's camera-near visitor stop.
     static let clientOfficeArrivalPath: [CGPoint] = [
-        CGPoint(x: 2_100, y: 1_015),
-        CGPoint(x: 1_909, y: 1_210),
+        CGPoint(x: 1769.9138499690016, y: 1051.1363174209548),
+        CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let clientInteriorArrivalPath: [CGPoint] = [
@@ -931,9 +1248,9 @@ enum OfficeNavigationLayout {
     ].flatMap { $0 }
 
     static let recordsApproachPath: [CGPoint] = [
-        CGPoint(x: 2_005, y: 1_525),
-        CGPoint(x: 1_985, y: 1_618),
-        CGPoint(x: 1_903, y: 1_550),
+        CGPoint(x: 1448.6838437693737, y: 1294.2807687538748),
+        CGPoint(x: 1422.3506013639178, y: 1398.839231246125),
+        CGPoint(x: 1455.6544079355237, y: 1109.1735647861128),
     ].map(OfficeInteriorScale.mapPoint)
 
     static var obstacles: [CGRect] { authoredObstacles.map(OfficeInteriorScale.mapRect) }
@@ -956,6 +1273,17 @@ enum OfficeNavigationLayout {
     static var waitingTableObstacle: CGRect { OfficeInteriorScale.mapRect(authoredWaitingTableObstacle) }
     static var waitingChairBObstacle: CGRect { OfficeInteriorScale.mapRect(authoredWaitingChairBObstacle) }
     static var doorObstacle: CGRect { OfficeInteriorScale.mapRect(authoredDoorObstacle) }
+    static var fireplaceObstacle: CGRect { OfficeInteriorScale.mapRect(authoredFireplaceObstacle) }
+    static var fireplaceObstacles: [CGRect] {
+        authoredFireplaceObstacleSegments.map(OfficeInteriorScale.mapRect)
+    }
+    static var fireplaceCoverRect: CGRect { OfficeInteriorScale.mapRect(authoredFireplaceCoverRect) }
+    static var fireplaceObstaclePolygon: [CGPoint] {
+        authoredFireplaceObstaclePolygon.map(OfficeInteriorScale.mapPoint)
+    }
+    static var fireplaceCoverPolygon: [CGPoint] {
+        authoredFireplaceCoverPolygon.map(OfficeInteriorScale.mapPoint)
+    }
     static var foregroundWallObstacle: CGRect { OfficeInteriorScale.mapRect(authoredForegroundWallObstacle) }
     static var partitionWallNorthObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPartitionWallNorthObstacle) }
     static var partitionWallSouthObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPartitionWallSouthObstacle) }
@@ -981,6 +1309,9 @@ enum OfficeNavigationLayout {
     static var foregroundWallSamplePoints: [CGPoint] { authoredForegroundWallSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var partitionWallNorthSamplePoints: [CGPoint] { authoredPartitionWallNorthSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var partitionWallSouthSamplePoints: [CGPoint] { authoredPartitionWallSouthSamplePoints.map(OfficeInteriorScale.mapPoint) }
+    static var fireplaceSamplePoints: [CGPoint] {
+        authoredFireplaceSamplePoints.map(OfficeInteriorScale.mapPoint)
+    }
 
     static var majorPropSamplePoints: [CGPoint] {
         safeSamplePoints
@@ -1004,6 +1335,7 @@ enum OfficeNavigationLayout {
             + foregroundWallSamplePoints
             + partitionWallNorthSamplePoints
             + partitionWallSouthSamplePoints
+            + fireplaceSamplePoints
     }
 
     static var approachPoints: [String: CGPoint] {
@@ -1013,9 +1345,9 @@ enum OfficeNavigationLayout {
     /// Actual Voss stand-ins for architecture scale review: exterior entrance,
     /// desk, circulation midpoint, and waiting chair.
     static let authoredScaleReferenceStands: [CGPoint] = [
-        CGPoint(x: 2_613, y: 1_198),
-        CGPoint(x: 1_890, y: 1_250),
-        CGPoint(x: 2_648, y: 1_224),
+        CGPoint(x: 2202.210159592938, y: 821.7319266322229),
+        CGPoint(x: 1645.7641661500306, y: 1208.5771109733416),
+        CGPoint(x: 1930.9859392436451, y: 654.1823682579047),
     ]
 
     static var scaleReferenceStands: [CGPoint] {
@@ -1030,7 +1362,7 @@ enum OfficeNavigationLayout {
         (
             "office.window",
             "Rain-streaked window",
-            CGRect(x: 1_174, y: 1_758, width: 92, height: 160),
+            Architecture.nearWindowHitArea,
             "The rain had been working the glass harder than I had worked a case."
         ),
         (
@@ -1086,12 +1418,7 @@ enum OfficeNavigationLayout {
 
     /// Cutaway entrance and its edge-on timber silhouette.
     private static var doorHitArea: CGRect {
-        CGRect(
-            x: Architecture.entranceAnchor.x - 170,
-            y: Architecture.entranceAnchor.y - 145,
-            width: 340,
-            height: 290
-        )
+        Architecture.entranceLeafHitArea.insetBy(dx: -12, dy: -12)
     }
 
     private static var deskHitArea: CGRect {

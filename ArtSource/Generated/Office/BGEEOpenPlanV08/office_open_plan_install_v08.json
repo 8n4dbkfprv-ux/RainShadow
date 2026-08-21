@@ -1,0 +1,31 @@
+{
+  "inputs": {
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_family_v08.json": "a10ec2f4555e6cf340e5291fa589a8c840f5a5daa4d6fcbccae4c3b15bcc253f",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_leaf_closed_hover_v08.png": "c60d78bdbd59b590d5f011c710724cf1cd0b86b28442e9b9b7a55117e49bb108",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_leaf_closed_v08.png": "0fa09d7158c5261018dc202a251b435db735729925395bbf8279b944157c1195",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_leaf_mid_v08.png": "d8b1dd5caf9dbddbd3f1e5a3f1a911ba237ec1989776f5f6b9abb8b404b1c7f7",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_leaf_open_hover_v08.png": "637f9dc6d3e5b660e1cc1433ffa74f77803e80f7f52a3b1f306d0a2c8097d153",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/Props/office_door_leaf_open_v08.png": "f7a5d404e5ac6d07b6014ba12a6dd54260168a90a0dc562d347c7cb56f3a171e",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/office_open_plan_metrics_v08.json": "ea35248796342cdb50471a9fdbb971b38175e54acda0bd145450488e2a2ffba9",
+    "ArtSource/Generated/Office/BGEEOpenPlanV08/office_open_plan_plate_v08.png": "cd6a808f7a5c1e2b2fee416ddde7be44c6cb3e784839b150f69de758761223f3"
+  },
+  "installed": {
+    "doorTargets": [
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png",
+      "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png"
+    ],
+    "plateTargets": [
+      "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png",
+      "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png",
+      "ArtSource/Generated/Office/office_suite_plate.png",
+      "ArtSource/Generated/Office/office_shell_base.png",
+      "ArtSource/Generated/Office/office_suite_plate_bgee_v08_installed.png"
+    ]
+  },
+  "openLeafBlackSilhouetteFraction": 0.6837154614932393,
+  "openLeafToAdultRatio": 1.2641620149332125,
+  "plateDensityPixelsPerWorldUnit": 2.531645569620253
+}

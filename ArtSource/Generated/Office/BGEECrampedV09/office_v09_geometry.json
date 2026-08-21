@@ -1,0 +1,88 @@
+{
+  "version": "BGEECrampedV09",
+  "canvas": [4096, 2304],
+  "projection": {
+    "camera": "BGEE",
+    "elevationDegrees": 48.59037789,
+    "groundAxisDegrees": [-36.86989765, 36.86989765],
+    "diamondPixels": [128, 96],
+    "searchCellPixels": [16, 12]
+  },
+  "room": {
+    "rear": [2048.0, 500.0],
+    "axisNW": [-651.931, 488.94825],
+    "axisNE": [669.669, 502.25175],
+    "wallFaceHeight": 271.0,
+    "wallThickness": 12.0,
+    "cutawayHeight": 24.0,
+    "controlPoints": {
+      "rearFloor": [2048.0, 500.0],
+      "westFloor": [1396.069, 988.94825],
+      "eastFloor": [2717.669, 1002.25175],
+      "nearFloor": [2065.738, 1491.2],
+      "rearCrown": [2048.0, 229.0]
+    }
+  },
+  "door": {
+    "edge": "camera-near-right/b=1",
+    "centerPlan": [0.18, 1.0],
+    "openingPixels": [125.0, 198.0],
+    "thresholdEndpoints": [
+      [2649.32142, 1052.762435],
+      [2549.32142, 1127.762435]
+    ],
+    "liveCanvas": [512, 320],
+    "hingePixels": [488, 54],
+    "anchor": [0.953125, 0.83125]
+  },
+  "referenceLock": {
+    "wideRoom": {
+      "role": "footprint/proportions/density/context only",
+      "filename": "Screenshot 2026-08-20 at 3.27.22 PM.png",
+      "sha256": "b5611aa7c181d6b49c4c27296948e7f8c2c1af8a2f9315269dc685d4c21dab75",
+      "nativeDimensions": [4318, 2600],
+      "crop": [2940, 1360, 1120, 930],
+      "normalizedRoomControlPoints": {
+        "rear": [0.51, 0.08],
+        "west": [0.05, 0.45],
+        "east": [0.94, 0.47],
+        "near": [0.52, 0.94]
+      }
+    },
+    "doorCloseUp": {
+      "role": "sole door authority",
+      "filename": "Screenshot 2026-08-20 at 3.29.02 PM.png",
+      "sha256": "f09b2eb0878a6afec5598fba75c1eb18506c4ae7d0fb5badfffb190fc3656a16",
+      "nativeDimensions": [1836, 1116],
+      "crop": [500, 300, 560, 500],
+      "normalizedHinge": [0.875, 0.08],
+      "normalizedFreeEnd": [0.1, 0.66125],
+      "wideToCloseRegistration": {
+        "type": "uniform-similarity",
+        "scale": 4.816,
+        "rotationDegrees": 0.0,
+        "translation": [-13658.0, -6390.0]
+      }
+    },
+    "styleOnly": [
+      {
+        "filename": "Screenshot 2026-08-20 at 3.26.35 PM.png",
+        "sha256": "00e4485748b942adbf954365e800e58dc1e03efd02199fe654fd7b26559c9ce1",
+        "nativeDimensions": [3000, 1868]
+      },
+      {
+        "filename": "Screenshot 2026-08-20 at 11.57.57 AM.png",
+        "sha256": "d3c8c12d0215e63405732b842be62a914cd1f51282fe6ad59dab291576c81966",
+        "nativeDimensions": [3392, 1898]
+      }
+    ],
+    "contamination": [
+      "characters",
+      "green selection circles",
+      "UI",
+      "party portraits",
+      "dialogue text",
+      "screenshot crop boundaries"
+    ]
+  }
+}

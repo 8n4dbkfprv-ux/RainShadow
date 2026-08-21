@@ -1,0 +1,48 @@
+{
+  "version": "BGEECrampedV09",
+  "geometryManifest": "office_v09_geometry.json",
+  "canvas": [
+    4096,
+    2304
+  ],
+  "rear": [
+    2048.0,
+    500.0
+  ],
+  "axisNW": [
+    -651.931,
+    488.94825
+  ],
+  "axisNE": [
+    669.669,
+    502.25175
+  ],
+  "axisAnglesDegrees": [
+    -36.86989765,
+    36.86989765
+  ],
+  "wallFaceHeight": 271.0,
+  "door": {
+    "edge": "camera-near-right/b=1",
+    "centerA": 0.18,
+    "openingA": 0.15339046616896573,
+    "openingPixels": [
+      125.0,
+      198.0
+    ],
+    "threshold0": [
+      2650.3214199999998,
+      1052.762435
+    ],
+    "threshold1": [
+      2550.3214199999998,
+      1127.762435
+    ]
+  },
+  "architectureMask": "office_cramped_architecture_mask_v09.png",
+  "imageGenSources": [
+    "floor_material_source_v09.png",
+    "wall_material_source_v09.png"
+  ],
+  "sourcePolicy": "original materials only; no reference screenshot pixels"
+}

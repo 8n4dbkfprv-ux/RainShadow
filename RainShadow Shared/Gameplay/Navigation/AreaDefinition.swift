@@ -592,11 +592,55 @@ struct AreaContainer: Hashable, Codable, Sendable {
     }
 }
 
+/// Sprite registration for a door whose pixels are separate from its collision
+/// footprint. All state canvases share one normalized anchor, world position
+/// and scale, so changing state cannot move the hinge.
+///
+/// This is the same separation a WED door maintains between its visual tiles
+/// and the ARE door that owns interaction/navigation state. It is optional so
+/// older areas and doors whose visuals are baked into a facade keep decoding.
+struct AreaDoorVisualRegistration: Hashable, Codable, Sendable {
+    var position: AreaPoint
+    var canvasAnchor: AreaPoint
+    var scale: CGFloat
+    var closedTextureName: String
+    var midTextureName: String
+    var openTextureName: String
+    var closedHoverTextureName: String?
+    var midHoverTextureName: String?
+    var openHoverTextureName: String?
+
+    init(
+        position: AreaPoint,
+        canvasAnchor: AreaPoint,
+        scale: CGFloat,
+        closedTextureName: String,
+        midTextureName: String,
+        openTextureName: String,
+        closedHoverTextureName: String? = nil,
+        midHoverTextureName: String? = nil,
+        openHoverTextureName: String? = nil
+    ) {
+        self.position = position
+        self.canvasAnchor = canvasAnchor
+        self.scale = scale
+        self.closedTextureName = closedTextureName
+        self.midTextureName = midTextureName
+        self.openTextureName = openTextureName
+        self.closedHoverTextureName = closedHoverTextureName
+        self.midHoverTextureName = midHoverTextureName
+        self.openHoverTextureName = openHoverTextureName
+    }
+}
+
 /// A door leaf that stamps and clears in place. `NavigationMap` already
 /// supports this without rebuilding the search map; the area supplies the rects.
 struct AreaDoor: Hashable, Codable, Sendable {
     var id: String
+    /// Legacy single-texture hint. New registered doors use `visual`; retaining
+    /// this field keeps existing area files source- and decode-compatible.
     var textureName: String?
+    var visual: AreaDoorVisualRegistration?
     /// Blocking footprint while shut.
     var closedObstacle: AreaRect
     /// Blocking footprint while open; omit when an open door blocks nothing.
@@ -606,12 +650,14 @@ struct AreaDoor: Hashable, Codable, Sendable {
     init(
         id: String,
         textureName: String? = nil,
+        visual: AreaDoorVisualRegistration? = nil,
         closedObstacle: AreaRect,
         openObstacle: AreaRect? = nil,
         startsClosed: Bool = true
     ) {
         self.id = id
         self.textureName = textureName
+        self.visual = visual
         self.closedObstacle = closedObstacle
         self.openObstacle = openObstacle
         self.startsClosed = startsClosed

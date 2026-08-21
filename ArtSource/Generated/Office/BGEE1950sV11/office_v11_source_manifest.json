@@ -1,0 +1,176 @@
+{
+  "version": "BGEE1950sV11",
+  "sourcePolicy": "original generated material/fixture sources only; supplied room screenshot is measurement reference and contributes zero pixels",
+  "sources": {
+    "floor": {
+      "file": "floor_material_source_v11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "fe2bb2ac7d35d305ae7a58c1ea1ab504aa2ed6845e6d40d45a9ede6d8a502ef4"
+    },
+    "wall": {
+      "file": "wall_material_source_v11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "467307c46e14a7862e4169f8e59ce378e801a7329f3d1295e2e5c3ebc92388c6"
+    },
+    "window": {
+      "file": "steel_window_source_v11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "1af2c4b039341137f5dd2bd72ef558227d7e758995db56d68027d82c231dbdab"
+    },
+    "fireplace": {
+      "file": "cold_fireplace_source_v11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "8e8061591a101c623cc1acae605964d2194b5d89c1c5e32540191c7ace5dc9da"
+    },
+    "window_relief": {
+      "file": "steel_window_relief_source_v11.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "bb185b972925e93ea04fefee463ae5f4b211c50f47ff1c80205c11d5f62ecf7b"
+    },
+    "fireplace_relief": {
+      "file": "cold_fireplace_relief_source_v11.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "fab24ab1b465e3e64bfa1d21fefe7d6734e386b6e064a3a2441b69279ed829bb"
+    },
+    "window_reference_scale": {
+      "file": "steel_window_reference_scale_source_v11.png",
+      "size": [
+        1065,
+        1477
+      ],
+      "mode": "RGBA",
+      "sha256": "22b7fb1cc87f86eb5ead204c0464771a86e7042a8c04f9e21fccf2873521d030"
+    },
+    "fireplace_reference_scale": {
+      "file": "cold_fireplace_reference_scale_source_v11.png",
+      "size": [
+        1402,
+        1122
+      ],
+      "mode": "RGB",
+      "sha256": "7569716ea903f3d5f3a3af9424f074ae264612cbe5c2a937fab456c93177c4e5"
+    }
+  },
+  "normalizedFixtures": {
+    "window": {
+      "file": "steel_window_fixture_v11.png",
+      "size": [
+        775,
+        908
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        246,
+        174,
+        1021,
+        1082
+      ],
+      "foregroundCoverage": 0.9027980673582493,
+      "sha256": "5deb89d6911bf78e1954d3b9ead4ecb97130abdc9b0d7d32f85ec8ea86acc201"
+    },
+    "fireplace": {
+      "file": "cold_fireplace_fixture_v11.png",
+      "size": [
+        790,
+        706
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        235,
+        285,
+        1025,
+        991
+      ],
+      "foregroundCoverage": 0.8959084878258687,
+      "sha256": "b4c76775875e39bae3bc9adb9a234730c9086cd914ee1ca09278d7be44fcbcdf"
+    },
+    "window_relief": {
+      "file": "steel_window_relief_fixture_v11.png",
+      "size": [
+        531,
+        836
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        567,
+        27,
+        1098,
+        863
+      ],
+      "foregroundCoverage": 0.7360852053091126,
+      "sha256": "3184b93514e37ea29c28f8243fdddb02b477427eb588f085eae0b8d7412a5187"
+    },
+    "fireplace_relief": {
+      "file": "cold_fireplace_relief_fixture_v11.png",
+      "size": [
+        700,
+        856
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        474,
+        25,
+        1174,
+        881
+      ],
+      "foregroundCoverage": 0.6397947263017356,
+      "sha256": "33cfab38fafacbed3a4676a69fc70faa51b944c320df0b884bf71c991adaaaea"
+    },
+    "window_reference_scale": {
+      "file": "steel_window_reference_scale_fixture_v11.png",
+      "size": [
+        769,
+        1408
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        165,
+        26,
+        934,
+        1434
+      ],
+      "foregroundCoverage": 0.6760652485518382,
+      "sha256": "a0cf0bc46404de38da988fb5664b778d5f4bff3d29c6dd1c5ad2461117d9a1a8"
+    },
+    "fireplace_reference_scale": {
+      "file": "cold_fireplace_reference_scale_fixture_v11.png",
+      "size": [
+        989,
+        1046
+      ],
+      "mode": "RGBA",
+      "sourceCrop": [
+        196,
+        72,
+        1185,
+        1118
+      ],
+      "foregroundCoverage": 0.6951804457058234,
+      "sha256": "ab9ae668b8ec4a65f0de9f1dafcabbd144f83e7d495d92a9e8c8c70e3852482d"
+    }
+  }
+}

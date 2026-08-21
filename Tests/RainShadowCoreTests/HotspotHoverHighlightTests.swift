@@ -68,11 +68,12 @@ struct HotspotHoverHighlightTests {
         }
     }
 
-    @Test func officeSceneUsesOnlyPrebakedHoverTextureSwaps() throws {
+    @Test func officeSceneUsesOnlyPrebakedHoverArtwork() throws {
         let source = try officeSceneSource()
         #expect(source.contains("GameArt.standaloneTexture(named: \"\\(assetName)_hover\")"))
         #expect(source.contains("entry.sprite.texture = entry.hoverTexture"))
         #expect(source.contains("entry.sprite.texture = entry.normalTexture"))
+        #expect(source.contains("office_window_hover_overlay"))
 
         for forbidden in [
             "SKShader", ".shader =", "colorBlendFactor", "hoverEdgeTextureCache",
@@ -81,6 +82,17 @@ struct HotspotHoverHighlightTests {
         ] {
             #expect(!source.contains(forbidden), "Runtime hover rendering remains: \(forbidden)")
         }
+    }
+
+    @Test func officeSceneConsumesAreaPlateRegionsDoorAndTravel() throws {
+        let source = try officeSceneSource()
+        #expect(source.contains("GameArt.texture(named: area.plateTextureName)"))
+        #expect(source.contains("hotspots = area.regions.compactMap"))
+        #expect(source.contains("buildRegisteredDoorVisual()"))
+        #expect(source.contains("if let travel = hotspot.travel"))
+        #expect(source.contains("to: travel.destination"))
+        #expect(source.contains("entrance: travel.entrance"))
+        #expect(!source.contains("to: HarborpointAreas.sableRow"))
     }
 
     @Test func deskRegistersEveryDeskLayerButNoLooseDeskObjects() throws {
@@ -101,8 +113,10 @@ struct HotspotHoverHighlightTests {
                 "desk layer no longer hovers with the desk: \(deskLayer)"
             )
         }
-        #expect(source.contains("(\"office_window\", \"office.window\")"))
-        #expect(source.contains("(\"office_door_leaf\", \"office.door\")"))
+        #expect(!source.contains("(\"office_window\", \"office.window\")"))
+        #expect(!source.contains("(\"office_door_leaf\", \"office.door\")"))
+        #expect(source.contains("buildRegisteredDoorVisual()"))
+        #expect(source.contains("addBakedWindowHoverOverlay()"))
 
         for line in source.components(separatedBy: .newlines)
         where line.contains("\"office.desk\")") {
@@ -118,8 +132,7 @@ struct HotspotHoverHighlightTests {
             "RainShadow Shared/Resources/Art/Props/Office"
         )
         let names = [
-            "office_window", "office_door_leaf", "office_desk_bare",
-            "office_desk_actor_occluder", "office_desk_front_occluder_v04",
+            "office_desk_bare", "office_desk_actor_occluder", "office_desk_front_occluder_v04",
             "office_desk_top_occluder",
             "office_desk_phone", "office_desk_files"
         ]

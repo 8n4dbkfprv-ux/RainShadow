@@ -85,7 +85,13 @@ struct AreaExportTests {
         for area in Self.shippedAreas {
             let document = AreaDocument(area: area)
             let data = try encoder.encode(document)
-            try data.write(to: Self.outputURL(for: area.id))
+            let output = Self.outputURL(for: area.id)
+            // Full-suite tests run concurrently. Avoid replacing an already
+            // current area beneath AreaParityTests, and use an atomic rename
+            // when an authored change genuinely needs a new document.
+            if (try? Data(contentsOf: output)) != data {
+                try data.write(to: output, options: .atomic)
+            }
         }
 
         // Every id the shipped facade promises must now exist on disk, or the

@@ -1,0 +1,49 @@
+{
+  "canvas": [
+    512,
+    320
+  ],
+  "hingeImageXY": [
+    488,
+    54
+  ],
+  "anchorFromBottomLeft": [
+    0.953125,
+    0.83125
+  ],
+  "states": {
+    "closed": {
+      "source": "door_closed_edge_source_v08.png",
+      "file": "office_door_leaf_closed_v08.png",
+      "opaqueBounds": [
+        403,
+        35,
+        488,
+        106
+      ],
+      "opaquePixels": 3424
+    },
+    "mid": {
+      "source": "door_mid_edge_source_v08.png",
+      "file": "office_door_leaf_mid_v08.png",
+      "opaqueBounds": [
+        214,
+        32,
+        489,
+        194
+      ],
+      "opaquePixels": 12076
+    },
+    "open": {
+      "source": "door_open_edge_source_v08.png",
+      "file": "office_door_leaf_open_v08.png",
+      "opaqueBounds": [
+        49,
+        33,
+        490,
+        285
+      ],
+      "opaquePixels": 18935
+    }
+  }
+}

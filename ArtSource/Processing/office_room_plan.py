@@ -1,9 +1,8 @@
-"""Measured room plan for the detective-office shell.
+"""Registered room plan for the V11 1950s detective-office shell.
 
-Everything new that must sit inside the painted room (partition, cutaway wall,
-prop placement) is expressed in the shell's own floor-plan basis instead of
-screen-axis rectangles. That is the difference between architecture that reads
-as part of the plate and slabs that read as graybox.
+Everything registered against the painted room (cutaway boundary, fireplace,
+windows, door, and prop placement) is expressed in the shell's own floor-plan
+basis instead of screen-axis rectangles.
 
 Basis (all values in shell plate pixels, y down):
 
@@ -12,13 +11,10 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-These axes are a *measurement of the installed plate*, not a free parameter.
-The V7 suite (`install_office_bgee_v07.py`) keeps the V5 floor diamond on the
-Baldur's Gate: EE lock (slopes exactly ±0.75) and shortens only the plaster
-band so the exterior door column is a 1930s office, not a warehouse. Axis
-lengths come from the painted wall shoes (NW = window wall, NE = exterior-door
-wall) intersected with the camera-near cutaway. The geometric near tip sits
-in the black below the clipped floor; walkable `FLOOR_*` stops on the paint.
+These axes and all fixed-fixture registrations come from
+`BGEE1950sV11/office_v11_geometry.json`.  The manifest is shared by the plate,
+door, layout, search-map and area exporters; changing a fixture in only one
+system is therefore impossible without failing parity QA.
 """
 
 from __future__ import annotations
@@ -28,16 +24,18 @@ import json
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
-_V10_GEOMETRY_PATH = (
-    _ROOT / "ArtSource/Generated/Office/BGEETavernV10/office_v10_geometry.json"
+_V11_GEOMETRY_PATH = (
+    _ROOT / "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json"
 )
-_V10_GEOMETRY = json.loads(_V10_GEOMETRY_PATH.read_text(encoding="utf-8"))
-_ROOM = _V10_GEOMETRY["room"]
-_DOOR = _V10_GEOMETRY["door"]
-_PILLARS = _V10_GEOMETRY["pillars"]
-_STAIRS = _V10_GEOMETRY["stairs"]
+_V11_GEOMETRY = json.loads(_V11_GEOMETRY_PATH.read_text(encoding="utf-8"))
+_ROOM = _V11_GEOMETRY["room"]
+_DOOR = _V11_GEOMETRY["door"]
+_WINDOWS = _V11_GEOMETRY["windows"]
+_FIREPLACE = _V11_GEOMETRY["fireplace"]
+_PILLARS = _V11_GEOMETRY.get("pillars", [])
+_STAIRS = _V11_GEOMETRY.get("stairs")
 
-ART_W, ART_H = _V10_GEOMETRY["canvas"]
+ART_W, ART_H = _V11_GEOMETRY["canvas"]
 
 # The shipped Voss idle body is 200 opaque pixels on a 512px texture, displayed
 # on a 180-point SpriteKit node. Convert that exact visible silhouette back into
@@ -49,7 +47,7 @@ ART_W, ART_H = _V10_GEOMETRY["canvas"]
 # shipped plates were generated, which put the baked doorway at 0.74x the
 # rendered body — Voss did not fit through his own door. Regenerating the shell
 # from this plan will widen the aperture to match.
-ENVIRONMENT_SCALE = 0.395
+ENVIRONMENT_SCALE = float(_V11_GEOMETRY["environmentScale"])
 DETECTIVE_TEXTURE_CANVAS_H = 512.0
 DETECTIVE_TEXTURE_BODY_H = 200.0
 DETECTIVE_DISPLAY_FRAME_H = 180.0
@@ -58,28 +56,25 @@ DETECTIVE_VISIBLE_WORLD_H = (
 )
 BODY_PLATE_H = DETECTIVE_VISIBLE_WORLD_H / ENVIRONMENT_SCALE
 
-# V10 keeps the tavern hall diamond instead of shrinking the V08 open-plan
-# suite. Actor body scale does not shrink with the plate.
-SUITE_PLATE_SCALE = 0.70
+# V11 is authored directly at the registered 4096x2304 plate size.
+SUITE_PLATE_SCALE = 1.0
 
-# Painted clear doorway on the NE wall (V7 proportion lock), measured from
-# floor contact up to the lintel underside. This is the 198 px opening from
-# the door-column table, not the older 290 px recess-inclusive read.
-BAKED_DOORWAY_W, BAKED_DOORWAY_H = _DOOR["openingPixels"]
+# Compatibility aliases for callers that historically treated the exterior
+# leaf as an upright opening.  V11's registered visual is instead the exact
+# edge-on screenshot sliver: thickness and hinge-to-free-end length.
+BAKED_DOORWAY_W = float(_DOOR["targetThickness"])
+BAKED_DOORWAY_H = float(_DOOR["targetLength"])
 DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
 DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
-OLD_WALL_FACE_H = 369.0
-# V7 wall face at the exterior door column: clear opening + short plaster
-# band (198 + 73). Wainscot is a material band inside that face, not an
-# addend — it was unchanged by the crown drop.
-PLASTER_H = 73.0
-WAINSCOT_H = 170.0
-WALL_FACE_H = BAKED_DOORWAY_H + PLASTER_H
-DOOR_LINTEL_CLEARANCE_H = WALL_FACE_H - BAKED_DOORWAY_H
+OLD_WALL_FACE_H = 271.0
+WALL_FACE_H = float(_ROOM["wallFaceHeight"])
+PLASTER_H = WALL_FACE_H
+WAINSCOT_H = 0.0
+DOOR_LINTEL_CLEARANCE_H = 0.0
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# FLOOR diamond, fitted to the painted floor itself (V7 plate).
+# V11 floor diamond, shared verbatim with the deterministic plate generator.
 #
 # Earlier passes fitted this to wall shoes or to the camera-near silhouette and
 # came out skewed — the shipped REAR sat 123 px west of where the two axes
@@ -95,15 +90,17 @@ WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 # has always described: the geometric diamond extends past the paint, walkable
 # FLOOR_* stops on it.
 REAR = tuple(_ROOM["rear"])
+REAR_FLOOR = tuple(_ROOM["rearFloor"])
 AXIS_NW = tuple(_ROOM["axisNW"])  # exact -0.75 BG:EE ground axis
 AXIS_NE = tuple(_ROOM["axisNE"])  # exact +0.75 BG:EE ground axis
 
-# Wall-top silhouettes stay parallel to the floor axes; intercepts put the wall
-# base through REAR at WALL_FACE_H.
+# The reference cutaway walls taper from full height at the rear corner to zero
+# at the west/east cutaway ends.  Their crowns follow the outer floor axes;
+# their bases run from the separately measured rear-floor seam to each end.
 NW_TOP_SLOPE = AXIS_NW[1] / AXIS_NW[0]
 NE_TOP_SLOPE = AXIS_NE[1] / AXIS_NE[0]
-NW_TOP_INTERCEPT = REAR[1] - WALL_FACE_H - NW_TOP_SLOPE * REAR[0]
-NE_TOP_INTERCEPT = REAR[1] - WALL_FACE_H - NE_TOP_SLOPE * REAR[0]
+NW_TOP_INTERCEPT = REAR[1] - NW_TOP_SLOPE * REAR[0]
+NE_TOP_INTERCEPT = REAR[1] - NE_TOP_SLOPE * REAR[0]
 
 # Painted plate already is the room; floor diamond is the fitted unit square.
 A_NEAR = 1.00
@@ -111,10 +108,25 @@ B_NEAR = 1.00
 A_ROOM = 1.00
 B_ROOM = 1.00
 
-# Exterior doorway opening width along AXIS_NE.
-# Derived from Voss and the clear-opening aspect so shell, partition, leaves,
-# navigation and QA all share one character-relative source of truth.
-EXTERIOR_DOOR_OPENING_B = BAKED_DOORWAY_W / abs(AXIS_NE[0])
+# Registered V11 door measurements.  Target points use plate coordinates
+# (y-down); authored points below use the layout's y-up convention.
+DOOR_TARGET_HINGE = tuple(float(v) for v in _DOOR["targetHinge"])
+DOOR_TARGET_FREE_END = tuple(float(v) for v in _DOOR["targetFreeEnd"])
+DOOR_TARGET_BBOX = tuple(float(v) for v in _DOOR["targetBBox"])
+DOOR_TARGET_LENGTH = float(_DOOR["targetLength"])
+DOOR_TARGET_THICKNESS = float(_DOOR["targetThickness"])
+DOOR_TARGET_ANGLE_DEGREES = float(_DOOR["targetAngleDegrees"])
+DOOR_LIVE_CANVAS = tuple(int(v) for v in _DOOR["liveCanvas"])
+DOOR_HINGE_PIXELS = tuple(float(v) for v in _DOOR["hingePixels"])
+DOOR_ANCHOR = tuple(float(v) for v in _DOOR["anchor"])
+DOOR_STATE_LENGTH_RATIOS = {
+    key: float(value) for key, value in _DOOR["stateLengthRatios"].items()
+}
+
+# Door span along the camera-near b=1 edge.  The exact plan endpoints are
+# derived after `unplan` is declared; this compatibility value is initialised
+# here and replaced below.
+EXTERIOR_DOOR_OPENING_B = DOOR_TARGET_THICKNESS / abs(AXIS_NE[0])
 
 # Hardware placement relative to the painted doorway (not the full detective body,
 # which is taller than the tight-plate aperture).
@@ -133,7 +145,10 @@ def nw_wall_top(x: float) -> float:
 
 
 def nw_wall_base(x: float) -> float:
-    return nw_wall_top(x) + WALL_FACE_H
+    end_x = REAR[0] + AXIS_NW[0]
+    end_y = REAR[1] + AXIS_NW[1]
+    t = (x - REAR[0]) / AXIS_NW[0]
+    return REAR_FLOOR[1] + t * (end_y - REAR_FLOOR[1])
 
 
 def ne_wall_top(x: float) -> float:
@@ -141,7 +156,10 @@ def ne_wall_top(x: float) -> float:
 
 
 def ne_wall_base(x: float) -> float:
-    return ne_wall_top(x) + WALL_FACE_H
+    end_x = REAR[0] + AXIS_NE[0]
+    end_y = REAR[1] + AXIS_NE[1]
+    t = (x - REAR[0]) / AXIS_NE[0]
+    return REAR_FLOOR[1] + t * (end_y - REAR_FLOOR[1])
 
 
 def plan(a: float, b: float) -> tuple[float, float]:
@@ -169,6 +187,58 @@ def authored(a: float, b: float) -> tuple[float, float]:
 
 def authored_to_plan(x: float, y: float) -> tuple[float, float]:
     return unplan(x, ART_H - y)
+
+
+def plate_polygon_to_authored(
+    polygon: list[list[float]] | tuple[tuple[float, float], ...],
+) -> tuple[tuple[float, float], ...]:
+    """Convert a manifest y-down polygon to authored y-up coordinates."""
+    return tuple((float(x), ART_H - float(y)) for x, y in polygon)
+
+
+def polygon_bounds(
+    polygon: tuple[tuple[float, float], ...],
+) -> tuple[float, float, float, float]:
+    xs = [point[0] for point in polygon]
+    ys = [point[1] for point in polygon]
+    return min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
+
+
+WINDOWS_BY_ID = {window["id"]: window for window in _WINDOWS}
+NEAR_WINDOW = next(
+    window for window in _WINDOWS if "office.window" in window.get("role", "")
+)
+FAR_WINDOW = next(window for window in _WINDOWS if window is not NEAR_WINDOW)
+NEAR_WINDOW_APERTURE = plate_polygon_to_authored(
+    NEAR_WINDOW["targetAperturePolygon"]
+)
+FAR_WINDOW_APERTURE = plate_polygon_to_authored(
+    FAR_WINDOW["targetAperturePolygon"]
+)
+WINDOW_GLASS_POLYGONS = tuple(
+    plate_polygon_to_authored(polygon)
+    for window in _WINDOWS
+    for polygon in window["targetGlassPolygons"]
+)
+FIREPLACE_OBSTACLE_POLYGON = plate_polygon_to_authored(
+    _FIREPLACE["targetObstaclePolygon"]
+)
+FIREPLACE_COVER_POLYGON = plate_polygon_to_authored(
+    _FIREPLACE["targetCoverPolygon"]
+)
+
+DOOR_HINGE_AUTHORED = (DOOR_TARGET_HINGE[0], ART_H - DOOR_TARGET_HINGE[1])
+DOOR_FREE_END_AUTHORED = (
+    DOOR_TARGET_FREE_END[0],
+    ART_H - DOOR_TARGET_FREE_END[1],
+)
+DOOR_HINGE_PLAN = unplan(*DOOR_TARGET_HINGE)
+DOOR_FREE_END_PLAN = unplan(*DOOR_TARGET_FREE_END)
+DOOR_CENTER_PLAN = (
+    (DOOR_HINGE_PLAN[0] + DOOR_FREE_END_PLAN[0]) * 0.5,
+    (DOOR_HINGE_PLAN[1] + DOOR_FREE_END_PLAN[1]) * 0.5,
+)
+DOOR_SPAN_A = tuple(sorted((DOOR_HINGE_PLAN[0], DOOR_FREE_END_PLAN[0])))
 
 
 # Plan-space lengths of the two axes, used to express clearances in pixels.
@@ -204,7 +274,7 @@ class Partition:
     Both faces are painted so the waiting bay is clearly enclosed.
     """
 
-    # Waiting-room face on the V5 shoe-fitted diamond (painted partition).
+    # Retired waiting-room face compatibility value.
     a_line: float = 0.457
     # Clear opening on the painted partition, both jambs at a = 0.426.
     b_door0: float = 0.338

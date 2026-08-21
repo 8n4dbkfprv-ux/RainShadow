@@ -155,6 +155,7 @@ class GameViewController: NSViewController {
         "office_internal_door_leaf",
         "office_foreground_cutaway",
         "office_door_leaf",
+        "office.door.visual",
         "office_door_leaf_thickness",
         "office_door_fall_contact_shadow",
         "qa_scale_reference_stand"

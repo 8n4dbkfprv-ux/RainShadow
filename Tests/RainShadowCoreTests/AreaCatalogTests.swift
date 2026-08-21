@@ -176,6 +176,68 @@ struct AreaCatalogTests {
         #expect(area.spawnPoint(entrance: nil) == CGPoint(x: 5, y: 5))
     }
 
+    @Test func aLegacyDoorWithoutVisualRegistrationStillDecodes() throws {
+        let json = """
+        {
+          "schemaVersion": 1,
+          "area": {
+            "id": "probe",
+            "displayName": "Probe",
+            "kind": "interior",
+            "worldSize": { "w": 100, "h": 80 },
+            "plateTextureName": "probe_plate",
+            "agentProfile": { "halfWidth": 0, "halfHeight": 0 },
+            "entrances": [{ "name": "default", "point": { "x": 5, "y": 5 } }],
+            "doors": [{
+              "id": "probe.door",
+              "textureName": "legacy_leaf",
+              "closedObstacle": { "x": 10, "y": 10, "w": 4, "h": 8 },
+              "startsClosed": true
+            }]
+          }
+        }
+        """
+        let area = try AreaCatalogLoader.decodeArea(Data(json.utf8))
+        let door = try #require(area.doors.first)
+        #expect(door.textureName == "legacy_leaf")
+        #expect(door.visual == nil)
+    }
+
+    @Test func aRegisteredDoorVisualRoundTripsAllHingeStates() throws {
+        let visual = AreaDoorVisualRegistration(
+            position: AreaPoint(x: 73, y: 19),
+            canvasAnchor: AreaPoint(x: 0.953125, y: 0.94375),
+            scale: 0.395,
+            closedTextureName: "leaf_closed",
+            midTextureName: "leaf_mid",
+            openTextureName: "leaf_open",
+            closedHoverTextureName: "leaf_closed_hover",
+            midHoverTextureName: "leaf_mid_hover",
+            openHoverTextureName: "leaf_open_hover"
+        )
+        let area = AreaDefinition(
+            id: AreaID("probe"),
+            displayName: "Probe",
+            kind: .interior,
+            worldSize: AreaSize(w: 100, h: 80),
+            plateTextureName: "probe_plate",
+            agentProfile: AreaAgentProfile(.point),
+            entrances: [
+                AreaEntrance(name: "default", point: AreaPoint(x: 5, y: 5))
+            ],
+            doors: [
+                AreaDoor(
+                    id: "probe.door",
+                    visual: visual,
+                    closedObstacle: AreaRect(x: 10, y: 10, w: 4, h: 8)
+                )
+            ]
+        )
+        let encoded = try JSONEncoder().encode(AreaDocument(area: area))
+        let decoded = try AreaCatalogLoader.decodeArea(encoded)
+        #expect(decoded.doors.first?.visual == visual)
+    }
+
     @Test func anAreaWithNoEntranceIsRejected() throws {
         let area = AreaDefinition(
             id: AreaID("sealed"),

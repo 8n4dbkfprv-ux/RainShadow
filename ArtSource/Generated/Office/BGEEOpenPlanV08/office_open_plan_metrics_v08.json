@@ -1,0 +1,44 @@
+{
+  "canvas": [
+    4096,
+    2304
+  ],
+  "rear": [
+    2057.5,
+    394.1
+  ],
+  "axisNW": [
+    -931.33,
+    698.4975
+  ],
+  "axisNE": [
+    956.67,
+    717.5025
+  ],
+  "axisAnglesDegrees": [
+    -36.86989765,
+    36.86989765
+  ],
+  "wallFaceHeight": 271.0,
+  "door": {
+    "edge": "camera-near-right/b=1",
+    "centerA": 0.18,
+    "openingA": 0.10737332631827602,
+    "openingPixels": [
+      125.0,
+      198.0
+    ],
+    "threshold0": [
+      2896.5306,
+      1199.83205
+    ],
+    "threshold1": [
+      2796.5306,
+      1274.83205
+    ]
+  },
+  "imageGenSources": [
+    "floor_material_source_v08.png",
+    "wall_material_source_v08.png"
+  ]
+}

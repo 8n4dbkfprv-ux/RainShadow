@@ -84,6 +84,10 @@ Platform app target
 - One logical world unit equals one pixel in the baseline runtime export.
 - Exterior art space: 3072×1728 units.
 - Office area plate: 4096×2304 pixels, Baldur's Gate: EE orthographic projection (elevation asin(0.75), ground axes ±0.75), mapped at environment **0.395** independently from body-locked prop scales (prop relative scales cancel the environment factor).
+- V11 bakes only fixed office fixtures into those pixels: two steel casement
+  windows with fixed Venetian blinds and one cold fireplace/hearth. Window rain,
+  cool/blind light, near-window hover and interaction, the door-state family,
+  wall/cover polygons, and navigation remain separately registered.
 - Reference playable camera height: ≈540.9 units, so the **rendered** ≈70.3-unit standing adult occupies 13% of playable height, with an 11.5–14.5% acceptance band (logical 82-unit body remains for furniture multiples only). This is original-BG1 play density — a ~50px adult on a 512×384 view — and is pinned by `DefaultPlayZoomTests` and `OfficeInteriorScaleTests`. The plate is taller than the camera height, so both the office and the city districts pan rather than sit fixed; a thin black void past the plate edge matches Infinity Engine area framing.
 - Reference 16:9 viewport: approximately 961×540.9 world units at the play camera.
 
@@ -129,12 +133,11 @@ environment scale) under a uniform `SKCameraNode`. Locomotion already uses
 `verticalProjectionScale = 0.75` and `SearchMap.defaultCellSize = (16, 12)`,
 which match this camera.
 
-**Adoption is staged.** The installed plates are still legacy art, so
-`ie_projection.ACTIVE` is `LEGACY_V2` (diamond 128×64) and the whole pipeline
-follows it. The projection is a property of the painted pixels: switching the
-grid ahead of the art moves the authored floor off the painting. `ACTIVE`
-becomes `BGEE` in the same commit that lands on-lock masters — see
-`Documentation/BGEEProjectionMasterRegen.md`.
+`ie_projection.ACTIVE` is `BGEE`. The projection is a property of the painted
+pixels, so a plate, its geometry manifest, generated room plan, search map, and
+runtime registration must land together. V11's installed plate measures
++36.70°/−36.97°; the earlier staged-adoption history and rollback masters are
+recorded in `Documentation/BGEEProjectionMasterRegen.md`.
 
 ## 5. Scene graph contract
 
@@ -144,7 +147,7 @@ Every world scene uses the same named root layers:
 BaseGameScene
 ├── backgroundRoot       opaque area plate
 ├── floorEffectRoot      puddle ripples, floor decals, low mist
-├── rearFixtureRoot      fixed wall/window elements behind actors
+├── rearFixtureRoot      registered light/effect overlays behind actors
 ├── depthWorldRoot       actors and depth-sorted floor props
 ├── occlusionRoot        authored desk fronts, walls, beams, near props
 ├── weatherRoot          rain layers that cross world elements as authored
@@ -160,7 +163,7 @@ Recommended z bands:
 |---|---:|---|
 | Background | -10,000 | Area plate |
 | Floor effects | -9,000…-8,000 | Wet sheen, floor-only effects |
-| Rear fixtures | -5,000…-4,000 | Wall fixtures and rear window components |
+| Rear fixtures | -5,000…-4,000 | Registered wall light/effect overlays; V11 window frames/blinds are plate pixels |
 | Depth world | 1,000…3,500 | Actor and floor-prop roots |
 | Occlusion | 5,000…6,500 | Foreground cutouts intentionally over actors |
 | Weather/cinematic | 7,000…8,500 | Near rain, fade, letterbox |
@@ -264,8 +267,12 @@ The scene contains no actor navigation or investigation state. A skip still comp
 
 Systems:
 
-- `OfficeAssembler` builds the area plate, individual props, occluders, and hotspots from `office.scene.json`;
-- `InteriorRainSystem` clips streaks and droplet loops to the glass using `SKCropNode`;
+- `OfficeAreaAdapter`/`office_suite.area.json` provide the plate texture,
+  regions/travel, props, registered door visual, obstacles, walls, actors,
+  ambients, and camera bounds; the scene consumes that definition rather than
+  duplicating the door or window in hardcoded scene data;
+- `InteriorRainSystem` clips streaks and droplet loops to both baked windows
+  through a full-plate registered glass mask using `SKCropNode`;
 - `DepthSortSystem` maintains actor/prop ordering;
 - `NavigationSystem` finds authored-cell paths;
 - `ActorController` owns the detective state machine and movement;
@@ -289,7 +296,9 @@ Street splashes and puddle ripples are bounded to authored polygons, not emitted
 
 ### 9.2 Interior window rain
 
-- Glass mask clips all moving rain.
+- One full-plate glass mask clips all moving rain to both baked steel casements;
+  the camera-nearer window alone has an interactive region and transparent
+  hover overlay.
 - A low-frequency scrolling streak texture supplies continuous motion.
 - Random droplet trails and impact sprites break repetition.
 - Exterior flashes or traffic sweeps are optional low-alpha light overlays, not full-screen strobes.
@@ -354,7 +363,12 @@ Navigation follows Baldur's Gate: Enhanced Edition / Infinity Engine practice: a
 
 ### 11.1 Authored navigation data
 
-Navigation geometry is authored in Swift rather than a data file; no `office.nav.json` ships. `OfficeNavigationLayout`, `CityDistrictLayout`, and `CityDistrictCatalog` each declare:
+No separate `office.nav.json` ships. For V11,
+`office_v11_geometry.json` generates the office room/layout records and
+`office_suite.area.json` exports the plate, obstacles, walls, door, and regions;
+area-export parity tests prevent it drifting from `OfficeAreaAdapter` and
+`OfficeNavigationLayout`. City layouts remain authored by `CityDistrictLayout`
+and `CityDistrictCatalog`. The registered layouts declare:
 
 - world bounds for the walkable area;
 - static obstacle rects for walls, furniture, and fixtures, expressed with the floor-contact clearance already baked into the art;
@@ -363,6 +377,8 @@ Navigation geometry is authored in Swift rather than a data file; no `office.nav
 - the agent profile the scene's actors plan with.
 
 Each layout exposes `makeGrid()`, which returns a configured `NavigationMap`.
+The fireplace obstacle and cover polygon come from the same V11 fixture
+footprint, while the door's closed stamp remains independently toggleable.
 
 ### 11.2 Search map
 
@@ -525,20 +541,18 @@ Shipped conversation data follows **classic Baldur’s Gate / Infinity Engine DL
 
 Do not “simplify” PC acceptance or commitments into auto-Continue speaker states. See Dialogue System Roadmap frozen section and Empty Coat resource packages.
 
-### 14.2 Scene definition schema
+### 14.2 Area definition schema
 
-Each scene JSON includes:
+`office_suite.area.json` includes:
 
-- schema version and scene ID;
-- art-space size and camera poses;
-- required asset bundle IDs;
+- schema version and area ID;
+- art-space size, plate texture, camera clamp, and environment scale;
 - prop instances with texture, position, anchor, depth behavior, and state variants;
-- occluder instances;
-- hotspot definitions;
-- navigation file reference;
-- environmental effect regions;
-- audio zones and cinematic cues;
-- debug reference markers.
+- information/travel regions with exact approach points;
+- optional registered door visuals (position, anchor, scale, and
+  closed/mid/open/hover textures) beside independent door obstacles;
+- static obstacles and wall/cover polygons;
+- actors, ambients, containers, and ground piles.
 
 Unknown schema versions fail in debug with a precise message. Release builds show a recoverable error curtain rather than crashing into a black scene.
 

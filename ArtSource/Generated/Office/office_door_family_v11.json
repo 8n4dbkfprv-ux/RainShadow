@@ -1,0 +1,129 @@
+{
+  "version": "BGEE1950sV11",
+  "canvas": [
+    512,
+    320
+  ],
+  "hingeImageXY": [
+    488.0,
+    18.0
+  ],
+  "anchorFromBottomLeft": [
+    0.953125,
+    0.94375
+  ],
+  "displayScale": 0.395,
+  "plateHinge": [
+    2741.247,
+    1594.612
+  ],
+  "closedPlateFreeEnd": [
+    2341.805,
+    1883.592
+  ],
+  "angleDegrees": 35.88420560289989,
+  "maximumThickness": 68.055052,
+  "stateSemantics": "closed is full reference length; mid/open retract toward the fixed hinge",
+  "sourcePolicy": "original V11 timber materials with a registered dark silhouette; screenshot contributes measurements only",
+  "states": {
+    "closed": {
+      "file": "office_door_leaf_closed_v11.png",
+      "hoverFile": "office_door_leaf_closed_hover_v11.png",
+      "lengthRatio": 1.0,
+      "targetAxisLength": 493.0145553267165,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          88.55800289505316,
+          306.9800067747002
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2341.805,
+          1883.592
+        ]
+      ],
+      "opaqueBounds": [
+        77,
+        0,
+        499,
+        319
+      ],
+      "maximumThickness": 68.055052
+    },
+    "mid": {
+      "file": "office_door_leaf_mid_v11.png",
+      "hoverFile": "office_door_leaf_mid_hover_v11.png",
+      "lengthRatio": 0.815,
+      "targetAxisLength": 401.8068625912739,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          162.4547723594684,
+          253.51870552138064
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2415.7017699999997,
+          1830.1307000000002
+        ]
+      ],
+      "opaqueBounds": [
+        150,
+        0,
+        501,
+        275
+      ],
+      "maximumThickness": 68.055052
+    },
+    "open": {
+      "file": "office_door_leaf_open_v11.png",
+      "hoverFile": "office_door_leaf_open_hover_v11.png",
+      "lengthRatio": 0.638,
+      "targetAxisLength": 314.54328629844514,
+      "registeredImageAxisEndpoints": [
+        [
+          488.0,
+          18.0
+        ],
+        [
+          233.1560058470439,
+          202.36924432225874
+        ]
+      ],
+      "registeredPlateAxisEndpoints": [
+        [
+          2741.247,
+          1594.612
+        ],
+        [
+          2486.403004,
+          1778.98124
+        ]
+      ],
+      "opaqueBounds": [
+        219,
+        0,
+        502,
+        225
+      ],
+      "maximumThickness": 68.055052
+    }
+  }
+}

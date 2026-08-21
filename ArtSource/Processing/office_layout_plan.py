@@ -44,13 +44,12 @@ _REF_AXIS_NE_X = 1650.0
 M_PER_A = PX_PER_M / _REF_AXIS_NW_X
 M_PER_B = PX_PER_M / _REF_AXIS_NE_X
 
-# Wall stand-off for floor furniture that must read as flush.
-# The painted NW wall face sits just past the fitted floor's board
-# edge, so flush props take a small negative b.
-FLUSH = -0.016
-
-P = rp.PARTITION
-
+# Wall stand-off for floor furniture that must read as flush.  Front-elevation
+# prop art rises vertically from its ground anchor; anchoring on or behind the
+# wall seam makes tall records furniture project through the cutaway crown.
+# A 0.10 inward stand-off keeps the full silhouettes inside the V12 room while
+# still reading as a wall run at play scale.
+FLUSH = 0.260
 
 @dataclass
 class Prop:
@@ -116,67 +115,80 @@ class Prop:
 
 # --------------------------------------------------------------- the layout
 
-# Fixed open-plan features on the floor-plane axes (props sit on the boards).
-# The sole exterior entrance interrupts the camera-near right cutaway (b = 1),
-# matching the user's BG:EE reference rather than presenting a rear-wall door.
-EXTERIOR_DOOR = tuple(rp._DOOR["centerPlan"])
-WINDOW_A = 0.220  # NW-wall radiator bay, clear of the stair run
+# Fixed V12 features on the floor-plane axes.  The two windows and lit
+# fireplace are baked; only their registered masks/collision remain live.
+EXTERIOR_DOOR = rp.DOOR_CENTER_PLAN
 
-# Visual door registration measured directly from the shipping suite plate.
-#
-# The navigation partition and `office_partition_opening.json` describe a
-# different generated bake. Keep those values for collision/pathing, but never
-# use them to place the two live leaf sprites against `office_suite_plate.png`.
+
+def _polygon_centre(
+    polygon: tuple[tuple[float, float], ...],
+) -> tuple[float, float]:
+    return (
+        sum(point[0] for point in polygon) / len(polygon),
+        sum(point[1] for point in polygon) / len(polygon),
+    )
+
+
+_near_window_centre = _polygon_centre(rp.NEAR_WINDOW_APERTURE)
+WINDOW_A = rp.authored_to_plan(*_near_window_centre)[0]
+
+# Visual door registration comes directly from the shared V11 manifest.
+# Its edge-on leaf remains separate from the plate and threshold collision.
 # Positions below use plate image coordinates (y down).
-SHIPPING_EXTERIOR_OPENING_SIZE = (rp.BAKED_DOORWAY_W, rp.BAKED_DOORWAY_H)
+SHIPPING_EXTERIOR_OPENING_SIZE = (
+    rp.DOOR_TARGET_THICKNESS,
+    rp.DOOR_TARGET_LENGTH,
+)
 SHIPPING_EXTERIOR_THRESHOLD = rp.plan(*EXTERIOR_DOOR)
-# Low-b stile of the painted partition opening (office face).
-SHIPPING_INTERNAL_HINGE_X = 1955.0
-SHIPPING_INTERNAL_HINGE_TOP_Y = 666.0
-SHIPPING_INTERNAL_HINGE_BOTTOM_Y = 956.0
-
+_door_x0, _door_y0, _door_x1, _door_y1 = rp.DOOR_TARGET_BBOX
+DOOR_VISUAL_BOUNDS = (
+    _door_x0,
+    rp.ART_H - _door_y1,
+    _door_x1 - _door_x0,
+    _door_y1 - _door_y0,
+)
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
 PROPS: list[Prop] = [
-    # ---- records cluster: NW wall, east of the stair run
-    Prop("safe", "office_safe", 0.160, FLUSH, 0.34, (0.6, 0.6), note="records run, east end"),
-    Prop("filingCabinetB", "office_filing_cabinet", 0.240, FLUSH, 1.31, (0.5, 0.62)),
-    Prop("filingCabinet", "office_filing_cabinet_open", 0.320, FLUSH, 1.31, (0.5, 0.62), note="drawer half open"),
-    Prop("bookshelf", "office_bookshelf", 0.430, FLUSH, 1.67, (1.2, 0.35)),
-    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.240, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
-    Prop("archiveStackOnCabinet", "office_archive_stack", 0.320, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
-    Prop("archiveBoxA", "office_archive_box_a", 0.720, 0.360, 0.40, (0.5, 0.45), note="second-aisle stack"),
-    # ---- radiator on the remaining NW bay
+    # ---- records cluster: the uninterrupted NW-wall bay between the windows
+    Prop("safe", "office_safe", 0.560, FLUSH, 0.34, (0.6, 0.6), note="records run, far end"),
+    Prop("filingCabinetB", "office_filing_cabinet", 0.650, FLUSH, 1.14, (0.5, 0.62)),
+    Prop("filingCabinet", "office_filing_cabinet_open", 0.735, FLUSH, 1.14, (0.5, 0.62), note="drawer half open"),
+    Prop("bookshelf", "office_bookshelf", 0.830, FLUSH, 1.34, (1.2, 0.35)),
+    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.650, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
+    Prop("archiveStackOnCabinet", "office_archive_stack", 0.735, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
+    Prop("archiveBoxA", "office_archive_box_a", 0.850, 0.350, 0.40, (0.5, 0.45), note="west-side stack"),
+    # ---- radiator beneath the camera-nearer baked casement
     Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
-    # ---- personal corner: NE wall, between rear and first pillar row
-    Prop("personalSideboard", "office_personal_sideboard", 0.040, 0.320, 0.48, (1.2, 0.5)),
+    # ---- personal corner: fixture-free NE-wall bay camera-near of fireplace
+    Prop("personalSideboard", "office_personal_sideboard", 0.350, 0.900, 0.48, (1.2, 0.5)),
     Prop(
         "personalWashbasin",
         "office_personal_washbasin",
-        0.050,
-        0.380,
+        0.360,
+        0.970,
         0.41,
         (0.7, 0.5),
         obstacle=False,
         note="retired domestic fixture; placement retained for source lineage",
     ),
-    Prop("personalFan", "office_personal_fan", 0.045, 0.300, 0.68, (0.5, 0.5)),
-    Prop("personalBottle", "office_hidden_bottle", 0.042, 0.325, 0.22, obstacle=False, note="on sideboard"),
-    Prop("personalGlass", "office_personal_glass", 0.038, 0.310, 0.10, obstacle=False, note="on sideboard"),
-    # ---- desk cluster: central aisle between the two pillar rows
-    Prop("deskEnsemble", "office_desk_bare", 0.470, 0.450, 0.99, (1.7, 0.9)),
-    Prop("deskChair", "office_desk_chair", 0.390, 0.520, 0.64, (0.6, 0.6), obstacle=False),
-    Prop("visitorArmchair", "office_visitor_armchair", 0.620, 0.330, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.680, 0.480, 0.76, (0.65, 0.65)),
-    Prop("wastebasket", "office_wastebasket", 0.520, 0.560, 0.32, (0.4, 0.4)),
-    # ---- entrance / waiting: compact group beside the sole cutaway
-    Prop("coatRack", "office_coat_rack", 0.080, 0.880, 0.88, (0.6, 0.6)),
-    Prop("umbrellaStand", "office_umbrella_stand", 0.110, 0.840, 0.28, (0.35, 0.35)),
-    Prop("waitingChairA", "office_waiting_chair_a", 0.160, 0.700, 0.60, (0.55, 0.55)),
-    Prop("waitingTable", "office_waiting_table", 0.190, 0.740, 0.36, (0.55, 0.55)),
-    Prop("waitingChairB", "office_waiting_chair_b", 0.220, 0.780, 0.58, (0.55, 0.55)),
-    Prop("newspaper", "office_newspaper", 0.188, 0.738, 0.10, obstacle=False, note="on table"),
-    Prop("waitingAshtray", "office_waiting_ashtray", 0.196, 0.748, 0.07, obstacle=False, note="on table"),
+    Prop("personalFan", "office_personal_fan", 0.345, 0.840, 0.68, (0.5, 0.5)),
+    Prop("personalBottle", "office_hidden_bottle", 0.352, 0.905, 0.22, obstacle=False, note="on sideboard"),
+    Prop("personalGlass", "office_personal_glass", 0.348, 0.890, 0.10, obstacle=False, note="on sideboard"),
+    # ---- desk cluster: compact central island, clear of the lit hearth
+    Prop("deskEnsemble", "office_desk_bare", 0.520, 0.430, 0.99, (1.7, 0.9)),
+    Prop("deskChair", "office_desk_chair", 0.440, 0.510, 0.64, (0.6, 0.6), obstacle=False),
+    Prop("visitorArmchair", "office_visitor_armchair", 0.665, 0.315, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.720, 0.465, 0.76, (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.570, 0.555, 0.32, (0.4, 0.4)),
+    # ---- entrance / waiting: west of the exact b=1 door span
+    Prop("coatRack", "office_coat_rack", 0.900, 0.860, 0.88, (0.6, 0.6)),
+    Prop("umbrellaStand", "office_umbrella_stand", 0.865, 0.825, 0.28, (0.35, 0.35)),
+    Prop("waitingChairA", "office_waiting_chair_a", 0.840, 0.680, 0.60, (0.55, 0.55)),
+    Prop("waitingTable", "office_waiting_table", 0.875, 0.735, 0.36, (0.55, 0.55)),
+    Prop("waitingChairB", "office_waiting_chair_b", 0.910, 0.790, 0.58, (0.55, 0.55)),
+    Prop("newspaper", "office_newspaper", 0.873, 0.733, 0.10, obstacle=False, note="on table"),
+    Prop("waitingAshtray", "office_waiting_ashtray", 0.881, 0.743, 0.07, obstacle=False, note="on table"),
 ]
 
 PROP_BY_KEY = {p.key: p for p in PROPS}
@@ -188,19 +200,17 @@ def exterior_door_threshold_authored() -> tuple[float, float]:
 
 
 def window_anchor_authored() -> tuple[float, float]:
-    """Centre of the V10 window recess on the NW wall face (authored y-up)."""
-    x, floor_y = rp.plan(WINDOW_A, 0.0)
-    recess_center_plate = (x, floor_y - 285.0)
-    return (recess_center_plate[0], rp.ART_H - recess_center_plate[1])
+    """Exact centre of the camera-nearer baked aperture (authored y-up)."""
+    return _near_window_centre
 
 
 def camera_authored() -> tuple[float, float]:
-    """Camera recentred on the tavern-hall desk aisle and entrance circulation."""
-    return rp.authored(0.470, 0.455)
+    """Camera centred on the V11 desk island and retained 13% play scale."""
+    return rp.authored(0.520, 0.470)
 
 
 # Worn burgundy rug under the central desk island.
-RUG = (0.480, 0.470)
+RUG = (0.530, 0.450)
 RUG_BODY = 2.2
 RUG_FACTOR = 0.62
 
@@ -214,28 +224,30 @@ def _wall_art_plate(a: float, b: float, up: float) -> tuple[float, float]:
 
 
 WALL_ART = {
-    "wallPhotos": _wall_art_plate(0.44, FLUSH, 175.0),
-    "caseBoard": _wall_art_plate(0.32, FLUSH, 205.0),
-    "wallCityMap": _wall_art_plate(0.24, FLUSH, 190.0),
-    "framedLicence": _wall_art_plate(0.16, FLUSH, 160.0),
+    "wallPhotos": _wall_art_plate(0.42, FLUSH, 118.0),
+    "caseBoard": _wall_art_plate(0.51, FLUSH, 142.0),
+    "wallCityMap": _wall_art_plate(0.61, FLUSH, 132.0),
+    "framedLicence": _wall_art_plate(0.72, FLUSH, 108.0),
 }
 
 FLOOR_DECALS = {
-    "windowSpill": rp.plan(WINDOW_A, 0.10),
-    "blindStripes": rp.plan(WINDOW_A + 0.04, 0.16),
+    "windowSpill": rp.plan(WINDOW_A, 0.13),
+    "blindStripes": rp.plan(WINDOW_A - 0.04, 0.20),
     "hallwayLight": rp.plan(EXTERIOR_DOOR[0], 1.018),
-    "floorTrashA": rp.plan(0.656, 0.244),
-    "floorTrashB": rp.plan(0.795, 0.072),
-    "entranceRunner": rp.plan(0.132, 0.793),
+    "floorTrashA": rp.plan(0.740, 0.260),
+    "floorTrashB": rp.plan(0.900, 0.110),
+    "entranceRunner": rp.plan(EXTERIOR_DOOR[0], 0.830),
     "lampPool": None,  # follows the desk
 }
 
 APPROACH = {
-    "office.window": (0.220, 0.140),
-    "office.desk": (0.580, 0.400),
-    "office.phone": (0.580, 0.400),
-    "office.files": (0.320, 0.145),
-    "office.door": (0.180, 0.800),
+    "office.window": (WINDOW_A, 0.150),
+    "office.desk": (0.625, 0.390),
+    "office.phone": (0.625, 0.390),
+    # Camera-near of the open cabinet, with a full runtime-cell margin after
+    # the V12 records run moved inward from the wall crown.
+    "office.files": (0.735, 0.340),
+    "office.door": (EXTERIOR_DOOR[0], 0.775),
 }
 
 # Chair-side seat egress: walkable stand/walk root just camera-near (south) of
@@ -275,68 +287,31 @@ def cell_point(c: int, r: int) -> tuple[float, float]:
     return ie.cell_to_authored(c, r, origin_y=PROJECTION_ORIGIN_Y)
 
 
+# The V11 compact redraw reaches into negative offline-grid indices.  This is
+# only the planner mirror; runtime exports world coordinates/search-map pixels.
+# Keep an explicit offset window so the west/near corners are validated rather
+# than silently read as unwalkable at c/r < 0.
+GRID_C_MIN, GRID_C_MAX = -8, 31
+GRID_R_MIN, GRID_R_MAX = -8, 31
+
+
+def grid_cells():
+    for c in range(GRID_C_MIN, GRID_C_MAX + 1):
+        for r in range(GRID_R_MIN, GRID_R_MAX + 1):
+            yield c, r
+
+
 # Diamond and insets follow `ie_projection.ACTIVE`, so they move with the
 # camera the painted plate was drawn to rather than drifting from it.
 CELL_RECT = ie.CELL_RECT  # inset from the diamond so corners pass
-
-# Partition solids use a tighter AABB than floor/boundary cells. The diamond
-# footprint hangs into the painted doorway as a magenta box even when the cell
-# centre is outside the aperture; the partition inset keeps the tip sealed
-# without that screen-space overhang into the green aperture.
-PARTITION_CELL_RECT = ie.PARTITION_CELL_RECT
-
 
 def cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
     return ie.cell_aabb(x, y)
 
 
-def partition_cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
-    return ie.partition_cell_aabb(x, y)
-
-
-def _rect_clear_of_doorway(rect: tuple[float, float, float, float]) -> bool:
-    """True when no part of `rect` lies inside the painted doorway aperture."""
-    x, y, w, h = rect
-    bs = [
-        rp.authored_to_plan(px, py)[1]
-        for px, py in ((x, y), (x + w, y), (x, y + h), (x + w, y + h))
-    ]
-    return max(bs) < P.b_door0 or min(bs) > P.b_door1
-
-
 def partition_cell_rects() -> list[tuple[float, float, float, float]]:
-    """Compatibility hook for the retired suite partition; V10 has no solids."""
-    # V10 keeps the GDD's single open room.  Keep this compatibility
-    # function for older QA callers, but it intentionally emits no solids.
+    """Compatibility hook for the retired suite partition; V11 has no solids."""
     return []
-    rects = []
-    a_face = P.a_line + P.thickness_a
-    a_samples = (
-        P.a_line + 0.008,
-        P.a_line + P.thickness_a * 0.5,
-        a_face - 0.008,
-    )
-    latch_nudge_b = 0.012
-    # 0.015·|AXIS_NE| ≈ 12px; dense enough that 40×20 AABBs cover frost cells
-    # (the old 0.025 step left a walkable glass cell at b≈0.686).
-    b_step = 0.015
-    b = -0.03
-    while b <= rp.B_ROOM + 0.03:
-        bb = b + latch_nudge_b if b > P.b_door1 else b
-        for a in a_samples:
-            x, y = rp.authored(a, bb)
-            rect = partition_cell_rect(x, y)
-            # Reject by the solid's own extent, not its centre. A 40×20 AABB
-            # spans ~0.04 in plan-b, so centre-testing let the two jamb solids
-            # bite ~8 world units each into a 21-unit aperture. The remaining
-            # slot cleared the planner's coarse grid but sealed on the runtime
-            # 16×12 search map, cutting the waiting side — and the office door
-            # with it — off from the desk. This also retires the hand-picked
-            # `sealed_doorway_cell` patch that was papering over one such cell.
-            if _rect_clear_of_doorway(rect):
-                rects.append(rect)
-        b += b_step
-    return rects
 
 
 # Walkable floor, in plan units: wall stand-off at the rear and sides, and the
@@ -381,6 +356,31 @@ def _rect_clear_of_floor(rect: tuple[float, float, float, float]) -> bool:
     )
 
 
+def _rect_overlaps_exterior_threshold(
+    rect: tuple[float, float, float, float],
+) -> bool:
+    """Whether a boundary solid overlaps the registered V11 door aperture.
+
+    The closed leaf is a separate door stamp.  Static boundary cells must leave
+    its full hinge-to-free-end span open, otherwise clearing the door state would
+    still leave an invisible wall across travel.
+    """
+    x, y, w, h = rect
+    plans = [
+        rp.authored_to_plan(px, py)
+        for px, py in ((x, y), (x + w, y), (x, y + h), (x + w, y + h))
+    ]
+    a0, a1 = rp.DOOR_SPAN_A
+    a_margin = 0.018
+    b_margin = 0.075
+    return (
+        max(a for a, _ in plans) >= a0 - a_margin
+        and min(a for a, _ in plans) <= a1 + a_margin
+        and max(b for _, b in plans) >= 1.0 - b_margin
+        and min(b for _, b in plans) <= 1.0 + b_margin
+    )
+
+
 def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
     """A sealing ring of solids just outside the walkable floor.
 
@@ -393,7 +393,7 @@ def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
     side off entirely.
     """
     cw, ch = RUNTIME_CELL
-    points = [cell_point(c, r) for c in range(31) for r in range(31)]
+    points = [cell_point(c, r) for c, r in grid_cells()]
     pad = (BOUNDARY_RING_CELLS + 1)
     x0 = min(p[0] for p in points) - pad * cw
     x1 = max(p[0] for p in points) + pad * cw
@@ -423,7 +423,7 @@ def boundary_cell_rects() -> list[tuple[float, float, float, float]]:
         touches_floor = any(
             not clear.get((i + di, j + dj), True) for di in span for dj in span
         )
-        if touches_floor:
+        if touches_floor and not _rect_overlaps_exterior_threshold(rect_at(i, j)):
             rects.append(rect_at(i, j))
     return rects
 
@@ -435,37 +435,15 @@ def foreground_obstacle() -> tuple[float, float, float, float]:
 
 
 def partition_open_cells() -> list[tuple[int, int]]:
-    """Nav cells that belong to the painted doorway corridor.
-
-    Cell centres can sit slightly outside the exact door b-band while still
-    covering the aperture; pad so tip-seal BFS treats them as the only gap.
-    """
-    # There is no internal doorway in the open-plan room.
+    """Compatibility hook for the retired internal doorway."""
     return []
-    open_cells = []
-    a_mid = P.a_line + P.thickness_a / 2
-    for c in range(31):
-        for r in range(31):
-            x, y = cell_point(c, r)
-            a, b = rp.authored_to_plan(x, y)
-            if abs(a - a_mid) < 0.08 and (P.b_door0 - 0.025) <= b <= (P.b_door1 + 0.025):
-                open_cells.append((c, r))
-    return open_cells
 
 
 FOREGROUND_OBSTACLE = foreground_obstacle()
 
-# Exterior door leaf sits closed inside the suite's baked opening.
-# Obstacle tracks the painted clear opening (not the pre-cramped full-bleed door).
-_door = rp.authored(*EXTERIOR_DOOR)
-_door_hw = max(rp.BAKED_DOORWAY_W * 0.85, 40.0)
-_door_hh = max(rp.BAKED_DOORWAY_H * 0.35, 36.0)
-DOOR_OBSTACLE = (
-    _door[0] - _door_hw,
-    _door[1] - _door_hh,
-    _door_hw * 2.0,
-    _door_hh * 2.0,
-)
+# Closed door stamp: the full registered hinge-to-free span, with only a small
+# threshold-depth band.  Visual leaf thickness is not an aperture width.
+DOOR_THRESHOLD_DEPTH_B = 0.045
 
 
 def plan_box_obstacle(
@@ -481,16 +459,68 @@ def plan_box_obstacle(
     return (cx - w / 2, cy - h / 2, w, h)
 
 
-PILLAR_OBSTACLES = [
-    plan_box_obstacle(
-        p["plan"][0] - p["half"][0],
-        p["plan"][1] - p["half"][1],
-        p["plan"][0] + p["half"][0],
-        p["plan"][1] + p["half"][1],
-    )
-    for p in rp._PILLARS
-]
-STAIR_OBSTACLE = plan_box_obstacle(*rp._STAIRS["planBox"])
+DOOR_OBSTACLE = plan_box_obstacle(
+    rp.DOOR_SPAN_A[0],
+    1.0 - DOOR_THRESHOLD_DEPTH_B * 0.5,
+    rp.DOOR_SPAN_A[1],
+    1.0 + DOOR_THRESHOLD_DEPTH_B * 0.5,
+    inset=1.0,
+)
+
+FIREPLACE_OBSTACLE = rp.polygon_bounds(rp.FIREPLACE_OBSTACLE_POLYGON)
+FIREPLACE_COVER_RECT = rp.polygon_bounds(rp.FIREPLACE_COVER_POLYGON)
+
+
+def inscribed_vertical_rects(
+    polygon: tuple[tuple[float, float], ...], slices: int = 24
+) -> list[tuple[float, float, float, float]]:
+    """Approximate a convex floor polygon without blocking its AABB corners.
+
+    ARE obstacles are rectangles, while the V11 hearth is a BG:EE-aligned
+    parallelogram. Narrow rectangles are kept wholly inside that footprint;
+    the separately registered wall polygon remains the exact outline.
+    """
+    min_x, _, width, _ = rp.polygon_bounds(polygon)
+    step = width / slices
+
+    def interval(x: float) -> tuple[float, float]:
+        intersections: list[float] = []
+        for start, end in zip(polygon, (*polygon[1:], polygon[0])):
+            x0, y0 = start
+            x1, y1 = end
+            if abs(x1 - x0) < 1e-9:
+                if abs(x - x0) < 1e-9:
+                    intersections.extend((y0, y1))
+                continue
+            t = (x - x0) / (x1 - x0)
+            if -1e-9 <= t <= 1.0 + 1e-9:
+                intersections.append(y0 + t * (y1 - y0))
+        return min(intersections), max(intersections)
+
+    result: list[tuple[float, float, float, float]] = []
+    # Pull each strip slightly off its bin edges. This preserves useful
+    # collision at the pointed ends without ever extending outside the hearth.
+    edge_inset = step * 0.08
+    for index in range(slices):
+        x0 = min_x + index * step + edge_inset
+        x1 = min_x + (index + 1) * step - edge_inset
+        low0, high0 = interval(x0)
+        low1, high1 = interval(x1)
+        low = max(low0, low1)
+        high = min(high0, high1)
+        if high > low:
+            result.append((x0, low, x1 - x0, high - low))
+    return result
+
+
+FIREPLACE_OBSTACLE_RECTS = inscribed_vertical_rects(
+    rp.FIREPLACE_OBSTACLE_POLYGON
+)
+
+# V11 deliberately removes the tavern pillars and stair run.  Zero/empty
+# compatibility aliases keep older diagnostic callers source-compatible.
+PILLAR_OBSTACLES: list[tuple[float, float, float, float]] = []
+STAIR_OBSTACLE = (0.0, 0.0, 0.0, 0.0)
 
 
 # --------------------------------------------------------------- navigation
@@ -499,13 +529,12 @@ STAIR_OBSTACLE = plan_box_obstacle(*rp._STAIRS["planBox"])
 class Grid:
     """Mirror of NavigationGrid's projection for offline validation."""
 
-    def __init__(self, obstacles, columns=31, rows=31, half_w=3.0 / ENV, half_h=0.0):
-        self.columns, self.rows = columns, rows
+    def __init__(self, obstacles, half_w=3.0 / ENV, half_h=0.0):
         self.obstacles = [
             (x - half_w, y - half_h, w + 2 * half_w, h + 2 * half_h) for x, y, w, h in obstacles
         ]
         self.blocked = {
-            (c, r) for c in range(columns) for r in range(rows) if self.inside(cell_point(c, r))
+            (c, r) for c, r in grid_cells() if self.inside(cell_point(c, r))
         }
 
     def cell(self, p):
@@ -515,7 +544,11 @@ class Grid:
         return any(x <= p[0] <= x + w and y <= p[1] <= y + h for x, y, w, h in self.obstacles)
 
     def walkable(self, c, r):
-        return 0 <= c < self.columns and 0 <= r < self.rows and (c, r) not in self.blocked
+        return (
+            GRID_C_MIN <= c <= GRID_C_MAX
+            and GRID_R_MIN <= r <= GRID_R_MAX
+            and (c, r) not in self.blocked
+        )
 
     def reachable(self, start):
         if not self.walkable(*start):
@@ -537,8 +570,78 @@ class Grid:
         return seen
 
 
-def build_obstacles():
-    rects = [DOOR_OBSTACLE, STAIR_OBSTACLE, *boundary_cell_rects(), *PILLAR_OBSTACLES]
+class RuntimeRaster:
+    """16x12-world-cell mirror used for honest V11 preflight flood-fill."""
+
+    def __init__(self, obstacles: list[tuple[float, float, float, float]]):
+        self.cell_w, self.cell_h = RUNTIME_CELL
+        self.columns = int(math.ceil(rp.ART_W / self.cell_w))
+        self.rows = int(math.ceil(rp.ART_H / self.cell_h))
+        self.radius = 3.0 / ENV
+        self.obstacles = obstacles
+
+    def cell(self, point: tuple[float, float]) -> tuple[int, int]:
+        return (
+            int(math.floor(point[0] / self.cell_w)),
+            int(math.floor(point[1] / self.cell_h)),
+        )
+
+    def centre(self, cell: tuple[int, int]) -> tuple[float, float]:
+        return (
+            (cell[0] + 0.5) * self.cell_w,
+            (cell[1] + 0.5) * self.cell_h,
+        )
+
+    def contains(self, cell: tuple[int, int]) -> bool:
+        return 0 <= cell[0] < self.columns and 0 <= cell[1] < self.rows
+
+    def passable(self, point: tuple[float, float]) -> bool:
+        x, y = point
+        radius = self.radius
+        if not (
+            radius <= x <= rp.ART_W - radius
+            and radius <= y <= rp.ART_H - radius
+        ):
+            return False
+        for ox, oy, ow, oh in self.obstacles:
+            closest_x = min(max(x, ox), ox + ow)
+            closest_y = min(max(y, oy), oy + oh)
+            if (closest_x - x) ** 2 + (closest_y - y) ** 2 <= radius**2:
+                return False
+        return True
+
+    def cell_passable(self, cell: tuple[int, int]) -> bool:
+        return self.contains(cell) and self.passable(self.centre(cell))
+
+    def reachable(self, start: tuple[float, float]) -> set[tuple[int, int]]:
+        start_cell = self.cell(start)
+        if not self.passable(start) or not self.cell_passable(start_cell):
+            return set()
+        seen = {start_cell}
+        queue = deque([start_cell])
+        while queue:
+            column, row = queue.popleft()
+            for dc in (-1, 0, 1):
+                for dr in (-1, 0, 1):
+                    if dc == dr == 0:
+                        continue
+                    candidate = (column + dc, row + dr)
+                    if candidate in seen or not self.cell_passable(candidate):
+                        continue
+                    if dc and dr and not (
+                        self.cell_passable((column + dc, row))
+                        and self.cell_passable((column, row + dr))
+                    ):
+                        continue
+                    seen.add(candidate)
+                    queue.append(candidate)
+        return seen
+
+
+def build_obstacles(door_blocking: bool = True):
+    rects = [*FIREPLACE_OBSTACLE_RECTS, *boundary_cell_rects()]
+    if door_blocking:
+        rects.insert(0, DOOR_OBSTACLE)
     rects += [p.obstacle_rect for p in PROPS if p.obstacle]
     return rects
 
@@ -547,15 +650,24 @@ def build_obstacles():
 
 
 def pt(p) -> str:
-    return f"CGPoint(x: {p[0]:_.0f}, y: {p[1]:_.0f})".replace("_", "_")
+    return precise_pt(p)
+
+
+def swift_scalar(value: float) -> str:
+    """Shortest Swift literal that round-trips the authored Python float."""
+    number = float(value)
+    return "0.0" if number == 0.0 else repr(number)
 
 
 def precise_pt(p) -> str:
-    return f"CGPoint(x: {p[0]:_.3f}, y: {p[1]:_.3f})"
+    return f"CGPoint(x: {swift_scalar(p[0])}, y: {swift_scalar(p[1])})"
 
 
 def rect(r) -> str:
-    return f"CGRect(x: {r[0]:.0f}, y: {r[1]:.0f}, width: {r[2]:.0f}, height: {r[3]:.0f})"
+    return (
+        f"CGRect(x: {swift_scalar(r[0])}, y: {swift_scalar(r[1])}, "
+        f"width: {swift_scalar(r[2])}, height: {swift_scalar(r[3])})"
+    )
 
 
 def samples(r) -> list[tuple[float, float]]:
@@ -586,9 +698,26 @@ def emit() -> str:
     add("    enum Architecture {")
     add("        /// Shell-authoritative centre of the painted exterior threshold.")
     add(f"        static let entranceAnchor = {precise_pt(exterior_door_threshold_authored())}")
-    add("        /// Window insert centre on the painted left-wall recess.")
+    add("        /// Centre of the camera-nearer baked steel casement.")
     add(f"        static let windowAnchor = {precise_pt(window_anchor_authored())}")
-    add("        /// Retired V07 partition compatibility values; V10 is one open room.")
+    add("        /// V11 baked aperture registrations (authored plate coordinates).")
+    add("        static let nearWindowAperture: [CGPoint] = [")
+    for point in rp.NEAR_WINDOW_APERTURE:
+        add(f"            {precise_pt(point)},")
+    add("        ]")
+    add("        static let farWindowAperture: [CGPoint] = [")
+    for point in rp.FAR_WINDOW_APERTURE:
+        add(f"            {precise_pt(point)},")
+    add("        ]")
+    add(f"        static let nearWindowHitArea = {rect(rp.polygon_bounds(rp.NEAR_WINDOW_APERTURE))}")
+    add("        static let windowGlassPolygons: [[CGPoint]] = [")
+    for polygon in rp.WINDOW_GLASS_POLYGONS:
+        add("            [")
+        for point in polygon:
+            add(f"                {precise_pt(point)},")
+        add("            ],")
+    add("        ]")
+    add("        /// Retired partition compatibility values; V11 is one open room.")
     add("        static let partitionLineA: CGFloat = 0")
     add("        static let partitionThicknessA: CGFloat = 0")
     add("        static let partitionDoorB0: CGFloat = 0")
@@ -612,16 +741,15 @@ def emit() -> str:
     add("            return 0")
     add("        }")
     add("")
-    add("        /// Clear exterior opening measured from the shipping suite plate.")
+    add("        /// Edge-on leaf thickness x hinge-to-free length from the V11 lock.")
     add(
         f"        static let entranceOpeningPlateSize = "
         f"CGSize(width: {SHIPPING_EXTERIOR_OPENING_SIZE[0]:.3f}, "
-        f"height: {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.1f})"
+        f"height: {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.3f})"
     )
     add(
-        f"        /// {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.0f} plate px × environment = "
-        f"{SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV:.2f} world units against a "
-        f"{BODY * ENV:.2f}-unit adult. Matches the ~1.16× real door-to-adult ratio."
+        f"        /// Registered closed length {SHIPPING_EXTERIOR_OPENING_SIZE[1]:.3f} plate px; "
+        "this is a foreshortened floor-edge leaf, not an upright opening height."
     )
     add(
         f"        static let entranceOpeningToDetectiveRatio: CGFloat = "
@@ -632,25 +760,32 @@ def emit() -> str:
         f"{rp.DOOR_HANDLE_TO_DETECTIVE:.3f}"
     )
     add("")
-    add("        /// Edge-on BG:EE leaf family, registered by its upper-right hinge.")
-    add("        static let entranceLeafDisplayScale: CGFloat = 0.175")
+    add("        /// Edge-on BG:EE leaf family, registered by its exact upper-right hinge.")
+    add(f"        static let entranceLeafDisplayScale: CGFloat = {ENV:.6f}")
     add("        static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale")
     add("        static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale")
-    add("        static let entranceLeafAnchorX: CGFloat = 0.953125")
-    add("        static let entranceLeafAnchorY: CGFloat = 0.83125")
+    add(f"        static let entranceLeafAnchorX: CGFloat = {rp.DOOR_ANCHOR[0]:.6f}")
+    add(f"        static let entranceLeafAnchorY: CGFloat = {rp.DOOR_ANCHOR[1]:.6f}")
     add("        static let entranceLeafAnchorPoint = CGPoint(")
     add("            x: entranceLeafAnchorX, y: entranceLeafAnchorY")
     add("        )")
     add(f"        static let entranceLeafAnchor = {precise_pt(exterior_leaf_anchor_authored())}")
+    add(f"        static let entranceLeafHitArea = {rect(DOOR_VISUAL_BOUNDS)}")
     add("        static let entranceFrameDisplayScale: CGFloat = 0")
     add("        static let entranceFrameDisplayScaleX: CGFloat = entranceFrameDisplayScale")
     add("        static let entranceFrameDisplayScaleY: CGFloat = entranceFrameDisplayScale")
     add("        static let entranceFrameAnchorX: CGFloat = 0")
     add("        static let entranceFrameAnchorY: CGFloat = 0")
-    add("        /// Retired fall-state compatibility values.")
-    add("        static let entranceFallenLeafScaleRatio: CGFloat = 1")
+    add("        /// Registered retracting states retain the same fixed hinge.")
+    add(f"        static let entranceLeafClosedLengthRatio: CGFloat = {rp.DOOR_STATE_LENGTH_RATIOS['closed']:.3f}")
+    add(f"        static let entranceLeafMidLengthRatio: CGFloat = {rp.DOOR_STATE_LENGTH_RATIOS['mid']:.3f}")
+    add(f"        static let entranceLeafOpenLengthRatio: CGFloat = {rp.DOOR_STATE_LENGTH_RATIOS['open']:.3f}")
+    add(f"        static let entranceFallenLeafScaleRatio: CGFloat = {rp.DOOR_STATE_LENGTH_RATIOS['open']:.3f}")
     add("        static let entranceFallingTransitionScale: CGFloat = entranceLeafDisplayScale")
-    add("        static let entranceFallenArtworkCanvasSize = CGSize(width: 512, height: 320)")
+    add(
+        "        static let entranceFallenArtworkCanvasSize = CGSize("
+        f"width: {rp.DOOR_LIVE_CANVAS[0]}, height: {rp.DOOR_LIVE_CANVAS[1]})"
+    )
     add("        static let entranceFallenArtworkDisplayScale: CGFloat = entranceLeafDisplayScale")
     add("        static let entranceFallenArtworkDisplaySize = CGSize(")
     add("            width: entranceFallenArtworkCanvasSize.width")
@@ -678,6 +813,21 @@ def emit() -> str:
     add("    /// One cell of the camera-near boundary, kept named for the layout tests.")
     add(f"    static let authoredForegroundWallObstacle = {rect(FOREGROUND_OBSTACLE)}")
     add(f"    static let authoredDoorObstacle = {rect(DOOR_OBSTACLE)}")
+    add(f"    static let authoredFireplaceObstacle = {rect(FIREPLACE_OBSTACLE)}")
+    add("    static let authoredFireplaceObstacleSegments: [CGRect] = [")
+    for segment in FIREPLACE_OBSTACLE_RECTS:
+        add(f"        {rect(segment)},")
+    add("    ]")
+    add(f"    static let authoredFireplaceCoverRect = {rect(FIREPLACE_COVER_RECT)}")
+    add("    static let authoredFireplaceObstaclePolygon: [CGPoint] = [")
+    for point in rp.FIREPLACE_OBSTACLE_POLYGON:
+        add(f"        {precise_pt(point)},")
+    add("    ]")
+    add("    static let authoredFireplaceCoverPolygon: [CGPoint] = [")
+    for point in rp.FIREPLACE_COVER_POLYGON:
+        add(f"        {precise_pt(point)},")
+    add("    ]")
+    add("    /// Retired V10 stair compatibility alias; no stair pixels or collision remain.")
     add(f"    static let authoredStairObstacle = {rect(STAIR_OBSTACLE)}")
     add("    static let authoredPillarSegments: [CGRect] = [")
     for r in PILLAR_OBSTACLES:
@@ -693,7 +843,7 @@ def emit() -> str:
     add("    ]")
     add("")
     part = partition_cell_rects()
-    add("    /// Retired V07 partition compatibility aliases; V10 is open-plan.")
+    add("    /// Retired partition compatibility aliases; V11 is open-plan.")
     retired_partition = (0.0, 0.0, 0.0, 0.0)
     add(f"    static let authoredPartitionWallNorthObstacle = {rect(retired_partition)}")
     add(f"    static let authoredPartitionWallSouthObstacle = {rect(retired_partition)}")
@@ -706,7 +856,8 @@ def emit() -> str:
         add(f"    static let authored{key[0].upper()}{key[1:]}Obstacle = {rect(r)}")
     add("")
     add("    private static var authoredObstacles: [CGRect] {")
-    add("        [authoredDoorObstacle, authoredForegroundWallObstacle, authoredStairObstacle]")
+    add("        [authoredDoorObstacle, authoredForegroundWallObstacle]")
+    add("            + authoredFireplaceObstacleSegments")
     add("            + authoredBoundarySegments")
     add("            + authoredPartitionSegments")
     add("            + authoredPillarSegments")
@@ -730,6 +881,10 @@ def emit() -> str:
         for s in samples(r):
             add(f"        {pt(s)},")
         add("    ]")
+    add("    static let authoredFireplaceSamplePoints: [CGPoint] = [")
+    for x, y, width, height in FIREPLACE_OBSTACLE_RECTS:
+        add(f"        {precise_pt((x + width / 2, y + height / 2))},")
+    add("    ]")
     add("")
 
     # ---- placements
@@ -742,15 +897,13 @@ def emit() -> str:
     add("        static let windowBlinds = window")
     add("        static let windowRotation: CGFloat = 0")
     wx, wy = window_anchor_authored()
-    rain_w = 76.0 * rp.SUITE_PLATE_SCALE
-    rain_h = 136.0 * rp.SUITE_PLATE_SCALE
     add(
-        "        static let windowRainMask = CGRect("
-        f"x: {wx - rain_w * 0.5:_.1f}, y: {wy - rain_h * 0.5:_.1f}, "
-        f"width: {rain_w:_.1f}, height: {rain_h:_.1f})"
+        "        /// Full-plate registration for the mask whose alpha contains "
+        "both baked glass apertures."
     )
-    add(f"        static let windowRainEmitter = CGPoint(x: {wx:_.1f}, y: {wy + 72.0 * rp.SUITE_PLATE_SCALE:_.1f})")
-    add("    /// Recentred on the fitted tavern-hall diamond.")
+    add(f"        static let windowRainMask = {rect((0.0, 0.0, rp.ART_W, rp.ART_H))}")
+    add(f"        static let windowRainEmitter = {precise_pt((wx, wy + 72.0))}")
+    add("        /// Recentred on the fitted compact V11 diamond.")
     add(f"        static let camera = {pt(camera_authored())}")
     add("")
     for prop in PROPS:
@@ -768,7 +921,7 @@ def emit() -> str:
             continue
         add(f"        static let {key} = {pt((plate[0], rp.ART_H - plate[1]))}")
     add("        static let lampPool = deskEnsemble")
-    add("        /// Leaf swung 90° into the private office, hinged on the up-run jamb.")
+    add("        /// Retired internal-door compatibility placement.")
     add("        static let internalDoorLeaf = Architecture.internalLeafAnchor")
     add("    }")
     add("")
@@ -881,6 +1034,17 @@ def emit() -> str:
         upper = f"{key[0].upper()}{key[1:]}"
         add(f"    static var {key}Obstacle: CGRect {{ OfficeInteriorScale.mapRect(authored{upper}Obstacle) }}")
     add("    static var doorObstacle: CGRect { OfficeInteriorScale.mapRect(authoredDoorObstacle) }")
+    add("    static var fireplaceObstacle: CGRect { OfficeInteriorScale.mapRect(authoredFireplaceObstacle) }")
+    add("    static var fireplaceObstacles: [CGRect] {")
+    add("        authoredFireplaceObstacleSegments.map(OfficeInteriorScale.mapRect)")
+    add("    }")
+    add("    static var fireplaceCoverRect: CGRect { OfficeInteriorScale.mapRect(authoredFireplaceCoverRect) }")
+    add("    static var fireplaceObstaclePolygon: [CGPoint] {")
+    add("        authoredFireplaceObstaclePolygon.map(OfficeInteriorScale.mapPoint)")
+    add("    }")
+    add("    static var fireplaceCoverPolygon: [CGPoint] {")
+    add("        authoredFireplaceCoverPolygon.map(OfficeInteriorScale.mapPoint)")
+    add("    }")
     add("    static var foregroundWallObstacle: CGRect { OfficeInteriorScale.mapRect(authoredForegroundWallObstacle) }")
     add("    static var partitionWallNorthObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPartitionWallNorthObstacle) }")
     add("    static var partitionWallSouthObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPartitionWallSouthObstacle) }")
@@ -891,9 +1055,13 @@ def emit() -> str:
             f"    static var {key}SamplePoints: [CGPoint] "
             f"{{ authored{upper}SamplePoints.map(OfficeInteriorScale.mapPoint) }}"
         )
+    add("    static var fireplaceSamplePoints: [CGPoint] {")
+    add("        authoredFireplaceSamplePoints.map(OfficeInteriorScale.mapPoint)")
+    add("    }")
     add("")
     add("    static var majorPropSamplePoints: [CGPoint] {")
-    add("        " + "\n            + ".join([f"{key}SamplePoints" for key, _ in sample_sets]))
+    all_sample_names = [f"{key}SamplePoints" for key, _ in sample_sets] + ["fireplaceSamplePoints"]
+    add("        " + "\n            + ".join(all_sample_names))
     add("    }")
     add("")
     add("    static var approachPoints: [String: CGPoint] {")
@@ -921,225 +1089,10 @@ def emit() -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-DEPTH_PROP_ANCHOR_Y = 0.04  # matches `addDepthProp` in DetectiveOfficeScene
-
-
 def exterior_leaf_anchor_authored() -> tuple[float, float]:
-    """Visual hinge just outside the cutaway lip.
+    """Exact V11 image hinge, converted from y-down to authored y-up."""
+    return rp.DOOR_HINGE_AUTHORED
 
-    The edge-on BGEE reference reads against black rather than lying over the
-    floorboards. Offset the visual canvas 6 plate pixels along the cutaway's
-    outward normal while navigation remains registered to the threshold.
-    """
-    x, y_down = SHIPPING_EXTERIOR_THRESHOLD
-    # 6px is enough for the thin wall-axis sliver to read against black while
-    # still kissing the cutaway lip. 32px was sized for the retired chunky leaf
-    # and left a visible gap beside the floorboards.
-    outward = 6.0
-    return (x + outward * 0.58, rp.ART_H - (y_down + outward * 0.81))
-
-
-def internal_door_leaf_anchor() -> tuple[float, float]:
-    """Authored node anchor for the shipping plate's open internal leaf."""
-    with Image.open(ART / "office_internal_door_leaf.png") as im:
-        w, h = im.size
-        alpha = np.asarray(im.convert("RGBA"))[:, :, 3]
-
-    hinge_ys = np.where(alpha[:, w - 1] > 16)[0]
-    if len(hinge_ys):
-        content_h = float(hinge_ys.max() - hinge_ys.min() + 1)
-        hinge_bottom_row = float(hinge_ys.max() + 1)
-    else:
-        content_h = float(h)
-        hinge_bottom_row = float(h)
-
-    hinge_height = SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y
-    plate_scale = hinge_height / max(content_h, 1.0)
-    # `addDepthProp` keeps its shared (0.5, 0.04) anchor. Solve the node
-    # position so the texture's right-edge alpha run lands exactly on the
-    # measured hinge jamb.
-    anchor_x = SHIPPING_INTERNAL_HINGE_X - (0.5 * w) * plate_scale
-    anchor_y_down = SHIPPING_INTERNAL_HINGE_BOTTOM_Y + (
-        (1.0 - DEPTH_PROP_ANCHOR_Y) * h - hinge_bottom_row
-    ) * plate_scale
-    return (
-        anchor_x,
-        rp.ART_H - anchor_y_down,
-    )
-
-
-def _flood_frame_inner(alpha: np.ndarray, thr: int = 16) -> np.ndarray:
-    """Transparent frame aperture connected to the texture centre."""
-    h, w = alpha.shape
-    vis = np.zeros((h, w), dtype=bool)
-    cy, cx = h // 2, w // 2
-    q: deque[tuple[int, int]] = deque()
-    if alpha[cy, cx] < thr:
-        q.append((cy, cx))
-        vis[cy, cx] = True
-    else:
-        found = False
-        for radius in range(1, max(h, w) // 2):
-            for dy in range(-radius, radius + 1):
-                for dx in range(-radius, radius + 1):
-                    y, x = cy + dy, cx + dx
-                    if 0 <= y < h and 0 <= x < w and alpha[y, x] < thr:
-                        q.append((y, x))
-                        vis[y, x] = True
-                        found = True
-                        break
-                if found:
-                    break
-            if found:
-                break
-    while q:
-        y, x = q.popleft()
-        for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)):
-            ny, nx = y + dy, x + dx
-            if 0 <= ny < h and 0 <= nx < w and not vis[ny, nx] and alpha[ny, nx] < thr:
-                vis[ny, nx] = True
-                q.append((ny, nx))
-    return vis
-
-
-def _vertical_run(mask: np.ndarray, x: int) -> tuple[float, int, int]:
-    ys = np.where(mask[:, x])[0]
-    if len(ys) == 0:
-        return 0.0, 0, 0
-    return float(ys.max() - ys.min() + 1), int(ys.min()), int(ys.max())
-
-
-def exterior_leaf_scale() -> float:
-    """Uniform fit: live leaf centre run → shipping exterior opening.
-
-    Non-uniform X stretch made the door too wide and short; keep aspect of the
-    sheared master and centre it on the painted aperture.
-    """
-    alpha = np.asarray(Image.open(ART / "office_door_leaf.png").convert("RGBA"))[:, :, 3]
-    content_h, _, _ = _vertical_run(alpha > 16, alpha.shape[1] // 2)
-    return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / max(content_h, 1.0)
-
-
-def exterior_leaf_scale_x() -> float:
-    return exterior_leaf_scale()
-
-
-def exterior_leaf_scale_y() -> float:
-    return exterior_leaf_scale()
-
-
-def exterior_leaf_anchor_y() -> float:
-    """SpriteKit anchor that places the projected leaf's centre threshold at plan."""
-    alpha = np.asarray(Image.open(ART / "office_door_leaf.png").convert("RGBA"))[:, :, 3]
-    _, _, bottom = _vertical_run(alpha > 16, alpha.shape[1] // 2)
-    return 1.0 - (bottom + 1.0) / max(float(alpha.shape[0]), 1.0)
-
-
-def exterior_frame_scale() -> float:
-    """Uniform fit: legacy frame inner aperture → shipping clear opening."""
-    path = ART / "office_door_frame.png"
-    if not path.exists():
-        return exterior_leaf_scale()
-    alpha = np.asarray(Image.open(path).convert("RGBA"))[:, :, 3]
-    vis = _flood_frame_inner(alpha)
-    iys, ixs = np.where(vis)
-    if len(iys) == 0:
-        ys, _ = np.where(alpha > 16)
-        content_h = float(ys.max() - ys.min() + 1) if len(ys) else 1.0
-        return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / content_h
-    inner_cx = int(round((ixs.min() + ixs.max()) * 0.5))
-    inner_h, _, _ = _vertical_run(vis, inner_cx)
-    return SHIPPING_EXTERIOR_OPENING_SIZE[1] * ENV / max(inner_h, 1.0)
-
-
-def exterior_frame_scale_x() -> float:
-    return exterior_frame_scale()
-
-
-def exterior_frame_scale_y() -> float:
-    return exterior_frame_scale()
-
-
-def exterior_frame_anchor_x() -> float:
-    """Sprite anchor that centres the asymmetric frame's inner aperture."""
-    path = ART / "office_door_frame.png"
-    if not path.exists():
-        return 0.5
-    alpha = np.asarray(Image.open(path).convert("RGBA"))[:, :, 3]
-    inner = _flood_frame_inner(alpha)
-    _, ixs = np.where(inner)
-    if len(ixs) == 0:
-        return 0.5
-    # Convert pixel-centre bounds to the aperture's centre in texture-edge
-    # coordinates, which is the coordinate system used by SKSpriteNode anchors.
-    inner_center_x = (float(ixs.min()) + float(ixs.max()) + 1.0) * 0.5
-    return inner_center_x / max(float(alpha.shape[1]), 1.0)
-
-
-def exterior_frame_anchor_y() -> float:
-    """SpriteKit anchor that places the frame aperture threshold at plan."""
-    path = ART / "office_door_frame.png"
-    if not path.exists():
-        return exterior_leaf_anchor_y()
-    alpha = np.asarray(Image.open(path).convert("RGBA"))[:, :, 3]
-    inner = _flood_frame_inner(alpha)
-    iys, ixs = np.where(inner)
-    if len(iys) == 0:
-        return exterior_leaf_anchor_y()
-    inner_cx = int(round((ixs.min() + ixs.max()) * 0.5))
-    _, _, bottom = _vertical_run(inner, inner_cx)
-    return 1.0 - (bottom + 1.0) / max(float(alpha.shape[0]), 1.0)
-
-
-def internal_leaf_scale() -> float:
-    """Fit the open leaf's right-edge hinge run to the shipping jamb."""
-    alpha = np.asarray(Image.open(ART / "office_internal_door_leaf.png").convert("RGBA"))[:, :, 3]
-    hinge_x = alpha.shape[1] - 1
-    content_h, _, _ = _vertical_run(alpha > 16, hinge_x)
-    if content_h < 1.0:
-        ys = np.where(alpha > 16)[0]
-        content_h = float(ys.max() - ys.min() + 1) if len(ys) else 1.0
-    hinge_height = SHIPPING_INTERNAL_HINGE_BOTTOM_Y - SHIPPING_INTERNAL_HINGE_TOP_Y
-    return hinge_height * ENV / max(content_h, 1.0)
-
-
-# The exterior doorway segment cannot be sent through NavigationGrid: its first
-# point is deliberately outside the floor boundary and the static grid still
-# contains the closed door-leaf obstacle. Keep this short segment authored
-# through the painted opening, then hand off to routed interior anchors.
-CLIENT_DOORWAY_PLAN_PATH = [
-    (-0.080, EXTERIOR_DOOR[1]),  # outside, centred on the painted threshold
-    (0.248, EXTERIOR_DOOR[1]),  # inside and clear of the fallen leaf / umbrella stand
-]
-CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
-
-# Cross the live clear aperture mid on the V5 partition. Exact polyline (no A*).
-CLIENT_INTERNAL_DOOR_B = 0.422
-CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
-    (P.a_line - 0.070, CLIENT_INTERNAL_DOOR_B),
-    (P.a_line + P.thickness_a / 2, CLIENT_INTERNAL_DOOR_B),
-    (P.a_line + P.thickness_a + 0.060, CLIENT_INTERNAL_DOOR_B),
-]
-CLIENT_INTERNAL_DOORWAY_PATH = [
-    rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
-]
-
-# The actor body is wider than its navigation contact core. Keep the waiting
-# leg in the aisle between the chair backs and the partition (a ≈ 0.27) so the
-# coat does not clip the exterior wall, then drop to the live aperture mid.
-# CLIENT_WAITING_ROOM_PATH then hands off to CLIENT_INTERNAL_DOORWAY_PATH[0].
-CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.313, 0.491),  # aisle: clear of coat rack / exterior wall
-    (0.270, CLIENT_INTERNAL_DOOR_B),  # drop to aperture b while still in aisle
-]
-CLIENT_WAITING_ROOM_PATH = [
-    CLIENT_DOORWAY_PATH[-1],
-    *[
-        rp.authored(a, b)
-        for a, b in CLIENT_WAITING_CLEARANCE_PLAN_PATH
-    ],
-    CLIENT_INTERNAL_DOORWAY_PATH[0],
-]
 
 # Keep the desk's seated front-apron layer above Voss's lower body but below
 # Lila while she is on the camera-near side. The old +55 bias covered her head
@@ -1147,52 +1100,32 @@ CLIENT_WAITING_ROOM_PATH = [
 VISITOR_CHAIR_BIAS = -50.0
 SEATED_DESK_FRONT_APRON_BIAS = 15.0
 
-# Hold aperture b until clear of the partition so a diagonal cannot clip latch
-# frost, then close on the desk's camera-near corner. Stopping on the aperture
-# left the visitor talking from ~3.3m away, with the dialogue camera framing
-# the floor between her and Voss. The stop sits camera-near of the writing
-# surface (drawn in front of it) and outside the armchair footprints.
-CLIENT_OFFICE_ARRIVAL_PATH = [
-    CLIENT_INTERNAL_DOORWAY_PATH[-1],
-    rp.authored(0.582, CLIENT_INTERNAL_DOOR_B),
-    rp.authored(0.545, 0.319),
-]
-CLIENT_INTERIOR_PATH = [
-    *CLIENT_WAITING_ROOM_PATH,
-    *CLIENT_INTERNAL_DOORWAY_PATH[1:],
-    *CLIENT_OFFICE_ARRIVAL_PATH[1:],
-]
-CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
-
-# V10 tavern-hall traversal. Compatibility names remain because cutscene and
-# test callers already consume them, but no segment represents a partition
-# aperture: the route goes camera-near of the waiting cluster, down the pillar
-# aisle, then around the west of the waiting cluster and the desk to the
-# visitor stop. Departure reverse stays on the NE facing strip.
+# V11 open-room traversal. Compatibility names remain because cutscene callers
+# consume them, but the anchors form one honest threshold-to-desk path.
 CLIENT_DOORWAY_PLAN_PATH = [
     (EXTERIOR_DOOR[0], 1.080),
-    (EXTERIOR_DOOR[0], 0.800),
+    APPROACH["office.door"],
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (0.100, 0.720),
-    (0.100, 0.650),
+    (EXTERIOR_DOOR[0], 0.720),
+    (0.600, 0.625),
 ]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
     *[rp.authored(a, b) for a, b in CLIENT_WAITING_CLEARANCE_PLAN_PATH],
 ]
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
-    (0.100, 0.650),
-    (0.470, 0.650),
-    (0.620, 0.650),
+    (0.600, 0.625),
+    (0.675, 0.550),
+    (0.650, 0.490),
 ]
 CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
-    rp.authored(0.580, 0.400),
+    rp.authored(*APPROACH["office.desk"]),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1202,22 +1135,22 @@ CLIENT_INTERIOR_PATH = [
 CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
 SCALE_STANDS = [
-    (0.180, 0.800),  # directly inside the sole cutaway entrance
-    (0.560, 0.360),  # behind the central desk
-    (0.140, 0.800),  # beside the waiting group
+    APPROACH["office.door"],  # directly inside the sole cutaway entrance
+    (0.620, 0.360),  # behind the central desk
+    (0.780, 0.760),  # beside the waiting group
 ]
 
 RECORDS_PATH = [
-    (0.280, 0.220),
-    (0.220, 0.140),
-    (0.320, 0.145),
+    (0.650, 0.240),
+    (0.610, 0.175),
+    APPROACH["office.files"],
 ]
 
 HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String, hitArea: CGRect, observation: String)] = [
         (
             "office.window",
             "Rain-streaked window",
-            CGRect(x: 1_174, y: 1_758, width: 92, height: 160),
+            Architecture.nearWindowHitArea,
             "The rain had been working the glass harder than I had worked a case."
         ),
         (
@@ -1273,12 +1206,7 @@ HOTSPOTS_SWIFT = '''    static let authoredHotspots: [(id: String, name: String,
 
     /// Cutaway entrance and its edge-on timber silhouette.
     private static var doorHitArea: CGRect {
-        CGRect(
-            x: Architecture.entranceAnchor.x - 170,
-            y: Architecture.entranceAnchor.y - 145,
-            width: 340,
-            height: 290
-        )
+        Architecture.entranceLeafHitArea.insetBy(dx: -12, dy: -12)
     }
 
     private static var deskHitArea: CGRect {
@@ -1382,7 +1310,7 @@ TAIL_SWIFT = '''
 
 
 def report() -> bool:
-    """Validate the V10 tavern-hall layout before emitting Swift."""
+    """Validate V11 with honest flood-fill and exact authored destinations."""
     for prop in PROPS:
         prop.measure()
 
@@ -1393,7 +1321,7 @@ def report() -> bool:
     reach = grid.reachable(start_cell)
     ok = grid.walkable(*start_cell) and bool(reach)
 
-    print("=== V10 tavern-hall navigation ===")
+    print("=== V11 1950s-office navigation ===")
     print(f"  obstacles={len(obstacles)} partition solids={len(partition_cell_rects())}")
     print(f"  actorStart={start_cell} walkable={grid.walkable(*start_cell)} reachable={len(reach)}")
     for name, (a, b) in APPROACH.items():
@@ -1402,10 +1330,50 @@ def report() -> bool:
         ok &= good
         print(f"  {name:15s} plan=({a:.3f},{b:.3f}) cell={cell} reachable={good}")
 
+    # Mirror the runtime's 16x12-world search cells in both registered door
+    # states.  Destinations are checked at their exact authored point before
+    # flood membership; no nearest-cell fallback can turn a failure green.
+    runtime_start = actor_start_authored()
+    outside_door = CLIENT_DOORWAY_PATH[0]
+    for state, blocking in (("closed", True), ("open", False)):
+        runtime = RuntimeRaster(build_obstacles(door_blocking=blocking))
+        runtime_reach = runtime.reachable(runtime_start)
+        state_ok = bool(runtime_reach)
+        for name, plan_point in APPROACH.items():
+            destination = rp.authored(*plan_point)
+            exact = runtime.passable(destination)
+            reachable = runtime.cell(destination) in runtime_reach
+            state_ok &= exact and reachable
+        outside_exact = runtime.passable(outside_door)
+        outside_reachable = runtime.cell(outside_door) in runtime_reach
+        if blocking:
+            state_ok &= not outside_exact and not outside_reachable
+        else:
+            state_ok &= outside_exact and outside_reachable
+        ok &= state_ok
+        print(
+            f"  runtime {state:6s} flood={len(runtime_reach)} "
+            f"outsideExact={outside_exact} outsideReachable={outside_reachable} "
+            f"allApproachesExact={state_ok}"
+        )
+
+    fire_wall = rp._FIREPLACE["targetWallPolygon"]
+    top_dx = fire_wall[1][0] - fire_wall[0][0]
+    top_dy = fire_wall[1][1] - fire_wall[0][1]
+    bottom_dx = fire_wall[2][0] - fire_wall[3][0]
+    bottom_dy = fire_wall[2][1] - fire_wall[3][1]
+    fireplace_registered = (
+        abs(top_dy / top_dx - 0.75) < 0.001
+        and abs(bottom_dy / bottom_dx - 0.75) < 0.001
+        and abs(fire_wall[0][0] - fire_wall[3][0]) < 0.001
+        and abs(fire_wall[1][0] - fire_wall[2][0]) < 0.001
+    )
+    ok &= fireplace_registered
+    print(f"  fireplace affine NE-wall registration={fireplace_registered}")
+
     room_cells = [
         (c, r)
-        for c in range(31)
-        for r in range(31)
+        for c, r in grid_cells()
         if 0.0 <= rp.authored_to_plan(*cell_point(c, r))[0] <= rp.A_ROOM
         and 0.0 <= rp.authored_to_plan(*cell_point(c, r))[1] <= rp.B_ROOM
     ]
@@ -1414,11 +1382,10 @@ def report() -> bool:
     ok &= open_floor_ok
     print(f"  open floor={len(reach)}/{len(room_cells)} ({open_share:.0%}) valid={open_floor_ok}")
 
-    opening_a = rp.BAKED_DOORWAY_W / rp.AXIS_NW_LEN
+    opening_a0, opening_a1 = rp.DOOR_SPAN_A
     doorway_ok = (
         CLIENT_DOORWAY_PLAN_PATH[0][1] > 1.0 > CLIENT_DOORWAY_PLAN_PATH[-1][1]
-        and all(abs(a - EXTERIOR_DOOR[0]) <= opening_a / 2 + 0.001
-                for a, _ in CLIENT_DOORWAY_PLAN_PATH)
+        and all(opening_a0 <= a <= opening_a1 for a, _ in CLIENT_DOORWAY_PLAN_PATH)
     )
     ok &= doorway_ok
     print(f"  sole cutaway threshold crossing valid={doorway_ok}")
@@ -1456,191 +1423,15 @@ def report() -> bool:
         CLIENT_DOORWAY_PLAN_PATH[i + 1][1] < CLIENT_DOORWAY_PLAN_PATH[i][1]
         for i in range(len(CLIENT_DOORWAY_PLAN_PATH) - 1)
     )
-    route_reaches_desk = (
-        abs(rp.authored_to_plan(*CLIENT_PATH[-1])[0] - APPROACH["office.desk"][0]) < 0.01
-        and abs(rp.authored_to_plan(*CLIENT_PATH[-1])[1] - APPROACH["office.desk"][1]) < 0.01
+    route_reaches_desk = all(
+        abs(actual - expected) < 1e-9
+        for actual, expected in zip(
+            rp.authored_to_plan(*CLIENT_PATH[-1]),
+            APPROACH["office.desk"],
+        )
     )
     ok &= monotonic and route_reaches_desk and not partition_cell_rects()
     print(f"  direct route monotonic={monotonic} reachesDesk={route_reaches_desk}")
-    print(f"\n  ALL CHECKS PASS: {bool(ok)}")
-    return bool(ok)
-
-    for prop in PROPS:
-        prop.measure()
-
-    print(f"=== scale review (rendered height / character body, body = {BODY:.2f} plate px) ===")
-    for prop in sorted((p for p in PROPS if p.body), key=lambda p: -p.body):
-        w, h = prop.plate_size
-        print(
-            f"  {prop.key:22s} {prop.art:28s} body={prop.body:4.2f} "
-            f"plate={w:5.0f}x{h:5.0f} displayScale={prop.display_scale:.4f}"
-        )
-
-    obstacles = build_obstacles()
-    grid = Grid(obstacles)
-    start = rp.authored(*ACTOR_START_PLAN)
-    start_cell = grid.cell(start)
-    reach = grid.reachable(start_cell)
-
-    print("\n=== navigation ===")
-    print(f"  obstacles={len(obstacles)} partition solids={len(partition_cell_rects())}")
-    print(
-        f"  actorStart authored={start[0]:.0f},{start[1]:.0f} cell={start_cell} "
-        f"walkable={grid.walkable(*start_cell)} reachable={len(reach)} cells"
-    )
-    ok = grid.walkable(*start_cell)
-    for name, (a, b) in APPROACH.items():
-        cell = grid.cell(rp.authored(a, b))
-        good = cell in reach
-        ok &= good
-        print(f"  {name:15s} plan=({a:.3f},{b:.3f}) cell={cell} reachable={good}")
-
-    door_cells = partition_open_cells()
-    door_ok = [c in reach for c in door_cells]
-    print(f"  doorway cells={door_cells} reachable={door_ok}")
-    waiting = [c for c in reach if rp.authored_to_plan(*cell_point(*c))[0] < P.a_line]
-    print(f"  waiting-side cells reachable={len(waiting)}")
-
-    # Open-floor share: reachable cells against every cell inside the room's
-    # design boundary (walls, partition, furniture included). A cramped office
-    # should keep roughly 20-35% of the visible room as open walkable floor.
-    room_cells = [
-        (c, r)
-        for c in range(31)
-        for r in range(31)
-        if 0.0 <= rp.authored_to_plan(*cell_point(c, r))[0] <= rp.A_ROOM
-        and 0.0 <= rp.authored_to_plan(*cell_point(c, r))[1] <= rp.B_ROOM
-    ]
-    open_share = len(reach) / max(len(room_cells), 1)
-    print(f"  open floor: {len(reach)}/{len(room_cells)} room cells = {open_share:.0%}")
-    doorway_ok = (
-        CLIENT_DOORWAY_PLAN_PATH[0][0] < 0.0 < CLIENT_DOORWAY_PLAN_PATH[-1][0]
-        and all(EXTERIOR_DOOR[1] - rp.EXTERIOR_DOOR_OPENING_B / 2
-                <= b
-                <= EXTERIOR_DOOR[1] + rp.EXTERIOR_DOOR_OPENING_B / 2
-                for _, b in CLIENT_DOORWAY_PLAN_PATH)
-    )
-    ok &= doorway_ok
-    print(f"  client exterior doorway crossing valid={doorway_ok}")
-    for label, routed_path in (
-        ("waiting", CLIENT_WAITING_ROOM_PATH),
-        ("office", CLIENT_OFFICE_ARRIVAL_PATH),
-    ):
-        for point in routed_path:
-            cell = grid.cell(point)
-            good = cell in reach
-            ok &= good
-            print(f"  client {label:7s} authored=({point[0]:.0f},{point[1]:.0f}) "
-                  f"cell={cell} reachable={good}")
-    # Cell centres can be walkable while the anchor itself still sits inside a
-    # neighbouring solid; the runtime tests point-test the rects, so do the same.
-    inside = [
-        point
-        for point in CLIENT_PATH[1:]
-        if any(
-            x <= point[0] <= x + w and y <= point[1] <= y + h
-            for x, y, w, h in obstacles
-        )
-    ]
-    anchors_clear = not inside
-    ok &= anchors_clear
-    print(f"  client anchors clear of solid rects={anchors_clear} inside={len(inside)}")
-
-    internal_plans = [
-        rp.authored_to_plan(*point) for point in CLIENT_INTERNAL_DOORWAY_PATH
-    ]
-    internal_door_ok = (
-        internal_plans[0][0] < P.a_line
-        and P.a_line < internal_plans[1][0] < P.a_line + P.thickness_a
-        and internal_plans[2][0] > P.a_line + P.thickness_a
-        and all(P.b_door0 < b < P.b_door1 for _, b in internal_plans)
-    )
-    ok &= internal_door_ok
-    print(
-        "  client production internal doorway crossing "
-        f"valid={internal_door_ok} b={internal_plans[1][1]:.3f}"
-    )
-
-    # Lila's navigation root is narrower than her rendered coat and shoulders.
-    # Hold the aisle between chair backs and partition, then enter on aperture b.
-    waiting_clearance_ok = (
-        len(CLIENT_WAITING_CLEARANCE_PLAN_PATH) >= 2
-        and all(
-            0.260 <= a <= P.a_line - 0.110
-            for a, _ in CLIENT_WAITING_CLEARANCE_PLAN_PATH
-        )
-        and CLIENT_WAITING_CLEARANCE_PLAN_PATH[0][1] >= P.door_mid_b
-        and abs(CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] - CLIENT_INTERNAL_DOOR_B) < 0.001
-        and P.b_door0 <= CLIENT_WAITING_CLEARANCE_PLAN_PATH[-1][1] <= P.b_door1
-    )
-    ok &= waiting_clearance_ok
-    print(
-        "  client chair-side body clearance "
-        f"valid={waiting_clearance_ok}"
-    )
-
-    # Once through the painted partition door, the visitor clears the aperture
-    # on the door's own b and then walks on to the desk. A route that dives
-    # toward the camera-near floor is the old impossible wall/desk detour
-    # returning; a route that stops on the aperture is the visitor talking from
-    # across the room.
-    office_plans = [
-        rp.authored_to_plan(*point) for point in CLIENT_OFFICE_ARRIVAL_PATH
-    ]
-    door_exit_b = rp.authored_to_plan(*CLIENT_INTERNAL_DOORWAY_PATH[-1])[1]
-    desk_authored = PROP_BY_KEY["deskEnsemble"].authored
-    stop = CLIENT_OFFICE_ARRIVAL_PATH[-1]
-    stop_gap = (
-        (stop[0] - desk_authored[0]) ** 2 + (stop[1] - desk_authored[1]) ** 2
-    ) ** 0.5
-    office_direct_ok = (
-        len(office_plans) == 3
-        and all(a > P.a_line + P.thickness_a for a, _ in office_plans)
-        and max(a for a, _ in office_plans) <= 0.62
-        # First office leg holds the aperture b (no diagonal across the jamb).
-        and abs(office_plans[1][1] - door_exit_b) <= 0.001
-        # The stop actually leaves the doorway and lands at the desk.
-        and office_plans[-1][1] < door_exit_b - 0.08
-        and stop_gap <= 220
-    )
-    ok &= office_direct_ok
-    print(
-        "  client direct office approach "
-        f"valid={office_direct_ok} anchors={len(office_plans)} "
-        f"desk_gap={stop_gap:.0f}"
-    )
-
-    # Rooms must not connect around the partition tip — only through the door.
-    door_cells = set(partition_open_cells())
-    waiting_seed = grid.cell(CLIENT_WAITING_ROOM_PATH[1])
-    seen = {waiting_seed}
-    queue = deque([waiting_seed])
-    while queue:
-        c, r = queue.popleft()
-        for dc in (-1, 0, 1):
-            for dr in (-1, 0, 1):
-                if dc == dr == 0:
-                    continue
-                n = (c + dc, r + dr)
-                if n in seen or not grid.walkable(*n) or n in door_cells:
-                    continue
-                if dc and dr and not (
-                    grid.walkable(c + dc, r) and grid.walkable(c, r + dr)
-                ):
-                    continue
-                seen.add(n)
-                queue.append(n)
-    a_mid = P.a_line + P.thickness_a / 2
-    office_leaks = 0
-    for c, r in seen:
-        x, y = cell_point(c, r)
-        a, _ = rp.authored_to_plan(x, y)
-        if a > a_mid + 0.02:
-            office_leaks += 1
-    sealed_ok = office_leaks == 0
-    ok &= sealed_ok
-    print(f"  partition tip sealed (no office leak without door)={sealed_ok}")
-    ok &= any(door_ok) and len(waiting) > 15
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)
 

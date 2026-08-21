@@ -1,0 +1,272 @@
+{
+  "version": "BGEE1950sV11",
+  "geometryManifest": "office_v11_geometry.json",
+  "canvas": [
+    4096,
+    2304
+  ],
+  "environmentScale": 0.395,
+  "referenceTransform": {
+    "sourceDimensions": [
+      1613,
+      975
+    ],
+    "targetDimensions": [
+      4096,
+      2304
+    ],
+    "uniformScale": 2.5393676379417234,
+    "sourceCropTop": 33.84375,
+    "sourceCropBottom": 33.84375,
+    "formula": "targetX = sourceX * uniformScale; targetY = (sourceY - sourceCropTop) * uniformScale",
+    "anisotropicScalingAllowed": false
+  },
+  "room": {
+    "rear": [
+      2069.584624922504,
+      104.51084934903929
+    ],
+    "axisNW": [
+      -1429.66398016119,
+      1033.5226286422812
+    ],
+    "axisNE": [
+      1284.9200247985123,
+      972.5778053316799
+    ],
+    "rearFloor": [
+      2049.269683818971,
+      515.8884066955983
+    ],
+    "wallFaceHeight": 411.377557346559,
+    "wallProjection": "measured four-corner cutaway wall strips; crown and floor seam remain distinct at both outer ends",
+    "wallThickness": 12.0,
+    "cutawayHeight": 20.0,
+    "floorPolygon": [
+      [
+        2049.269683818971,
+        515.8884066955983
+      ],
+      [
+        878.6212027278362,
+        1257.3837569745815
+      ],
+      [
+        1924.8406695598262,
+        2110.6112833230004
+      ],
+      [
+        3197.0638561686296,
+        1196.4389336639802
+      ]
+    ],
+    "wallPolygons": {
+      "NW": [
+        [
+          2049.269683818971,
+          117.20768753874766
+        ],
+        [
+          639.9206447613143,
+          1138.0334779913205
+        ],
+        [
+          878.6212027278362,
+          1257.3837569745815
+        ],
+        [
+          2049.269683818971,
+          515.8884066955983
+        ]
+      ],
+      "NE": [
+        [
+          2049.269683818971,
+          117.20768753874766
+        ],
+        [
+          3354.5046497210164,
+          1077.0886546807192
+        ],
+        [
+          3197.0638561686296,
+          1196.4389336639802
+        ],
+        [
+          2049.269683818971,
+          515.8884066955983
+        ]
+      ]
+    },
+    "controlPoints": {
+      "rearFloor": [
+        2049.269683818971,
+        515.8884066955983
+      ],
+      "westFloor": [
+        639.9206447613143,
+        1138.0334779913205
+      ],
+      "eastFloor": [
+        3354.5046497210164,
+        1077.0886546807192
+      ],
+      "nearFloor": [
+        1924.8406695598262,
+        2110.6112833230004
+      ],
+      "rearCrown": [
+        2069.584624922504,
+        104.51084934903929
+      ]
+    }
+  },
+  "windows": [
+    {
+      "id": "far",
+      "role": "decorative",
+      "aperture": [
+        [
+          1584.565,
+          485.416
+        ],
+        [
+          1698.837,
+          427.011
+        ],
+        [
+          1698.837,
+          655.554
+        ],
+        [
+          1584.565,
+          729.195
+        ]
+      ],
+      "glassPolygonCount": 4
+    },
+    {
+      "id": "near",
+      "role": "interactive:office.window",
+      "aperture": [
+        [
+          853.228,
+          1016.144
+        ],
+        [
+          980.196,
+          947.581
+        ],
+        [
+          980.196,
+          1176.124
+        ],
+        [
+          853.228,
+          1244.687
+        ]
+      ],
+      "glassPolygonCount": 4
+    }
+  ],
+  "fireplace": {
+    "role": "cold baked architecture; no hotspot, flame, ember, glow, or sound",
+    "projectionPolicy": "dimensional relief source camera-locked by vertical shear to room.axisNE and uniform scale; jambs remain vertical; registered facade/hearth geometry remains authoritative for collision and cover",
+    "wallPlanRange": [
+      0.34,
+      0.6
+    ],
+    "facadeHeight": 308.70192345421344,
+    "sourceFixtureAspect": 0.7019230769230764,
+    "reliefSourceAspect": 0.9455066921606119,
+    "reliefTargetHeight": 650,
+    "wallPolygon": [
+      [
+        2296.4361869933373,
+        476.39848305296897
+      ],
+      [
+        2754.004520235115,
+        819.5747329843018
+      ],
+      [
+        2754.004520235115,
+        1128.2766564385151
+      ],
+      [
+        2296.4361869933373,
+        785.1004065071825
+      ]
+    ],
+    "floorFootprint": [
+      [
+        2296.4361869933373,
+        785.1004065071825
+      ],
+      [
+        2754.004520235115,
+        1128.2766564385151
+      ],
+      [
+        2634.4268012273697,
+        1217.9589255016513
+      ],
+      [
+        2176.8584679855926,
+        874.7826755704004
+      ]
+    ],
+    "obstaclePolygon": [
+      [
+        2296.4361869933373,
+        785.1004065071825
+      ],
+      [
+        2754.004520235115,
+        1128.2766564385151
+      ],
+      [
+        2634.4268012273697,
+        1217.9589255016513
+      ],
+      [
+        2176.8584679855926,
+        874.7826755704004
+      ]
+    ],
+    "coverPolygon": [
+      [
+        2296.4361869933373,
+        476.39848305296897
+      ],
+      [
+        2754.004520235115,
+        819.5747329843018
+      ],
+      [
+        2634.4268012273697,
+        1217.9589255016513
+      ],
+      [
+        2176.8584679855926,
+        874.7826755704004
+      ]
+    ]
+  },
+  "doorPixelsBakedIntoPlate": false,
+  "flameOrEmberPixelsAuthored": false,
+  "sourcePolicy": "original V11 sources only; reference screenshot contributes zero pixels",
+  "sourceHashes": {
+    "floor_material_source_v11.png": "fe2bb2ac7d35d305ae7a58c1ea1ab504aa2ed6845e6d40d45a9ede6d8a502ef4",
+    "wall_material_source_v11.png": "467307c46e14a7862e4169f8e59ce378e801a7329f3d1295e2e5c3ebc92388c6",
+    "steel_window_reference_scale_fixture_v11.png": "a0cf0bc46404de38da988fb5664b778d5f4bff3d29c6dd1c5ad2461117d9a1a8",
+    "cold_fireplace_reference_scale_fixture_v11.png": "ab9ae668b8ec4a65f0de9f1dafcabbd144f83e7d495d92a9e8c8c70e3852482d"
+  },
+  "outputHashes": {
+    "office_1950s_plate_v11.png": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+    "office_1950s_graybox_v11.png": "f092b31128f431b97d22c31545d16f4e200a3cfeb90c431960b1473dbc1a2e75",
+    "office_1950s_architecture_mask_v11.png": "0d3197703f38387aed619342ed5f89c2038eccf2c68f3a8d84bd7feee3d8bb46",
+    "office_window_glass_mask_v11.png": "533c39fa9617cd4482e10efcebd0c892d4beaf9fd343c5615b0ca8c3bde45b45",
+    "office_window_near_hover_overlay_v11.png": "6f4aefa4d02bea0ae9059ff7c5f14db7fed8342438de33bbdfa2127f3c0e0aa2"
+  }
+}

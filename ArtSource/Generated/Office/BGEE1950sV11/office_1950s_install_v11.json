@@ -1,0 +1,117 @@
+{
+  "allowlist": [
+    {
+      "sha256": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_plate_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
+    },
+    {
+      "sha256": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_plate_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png"
+    },
+    {
+      "sha256": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_plate_v11.png",
+      "target": "ArtSource/Generated/Office/office_suite_plate.png"
+    },
+    {
+      "sha256": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_plate_v11.png",
+      "target": "ArtSource/Generated/Office/office_shell_base.png"
+    },
+    {
+      "sha256": "36071ba534789342bd3b956b02758eb5fdfef18331e0136ce090294e610dc87c",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_plate_v11.png",
+      "target": "ArtSource/Generated/Office/office_suite_plate_bgee_v11_installed.png"
+    },
+    {
+      "sha256": "533c39fa9617cd4482e10efcebd0c892d4beaf9fd343c5615b0ca8c3bde45b45",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_window_glass_mask_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png"
+    },
+    {
+      "sha256": "6f4aefa4d02bea0ae9059ff7c5f14db7fed8342438de33bbdfa2127f3c0e0aa2",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_window_near_hover_overlay_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png"
+    },
+    {
+      "sha256": "2907a2910d39c32a16b97c2feb844d967fdbed8d77ecce3fa45e26212e140fa7",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_closed_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png"
+    },
+    {
+      "sha256": "5f7bea3a40e38358b5e148e37e0e98f0d118fbd9301424861a796f0540fa957a",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_closed_hover_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png"
+    },
+    {
+      "sha256": "6a1fa643dd3929c968fd3ce60f0750cd3a057595da2c3a3a280a7a1ae0dd2adc",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_mid_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png"
+    },
+    {
+      "sha256": "46a1b0eda06dcd8b3aba1d5143f77301c1fda9603cda6f7b12652a5d3d0dec00",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_mid_hover_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid_hover.png"
+    },
+    {
+      "sha256": "1d0e246fbf6dc3dd23ada98555be98c28c676550a8ffc161af2f8aff6f21769e",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_open_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png"
+    },
+    {
+      "sha256": "6a7ed984b0693dbc57b18947ec4a7dd33bb8b1ba65fa1d4673cab237396d9290",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_leaf_open_hover_v11.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png"
+    },
+    {
+      "sha256": "e75a6f21a2a00e210031283e34d1ae5199e645303f8c53e3aa6666caabc26e42",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json",
+      "target": "ArtSource/Generated/Office/office_v11_geometry.json"
+    },
+    {
+      "sha256": "34a73666e84807e6f5c12bc8a56f3313cc101d0cbc1da2a20cac79c7508c951f",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/office_1950s_metrics_v11.json",
+      "target": "ArtSource/Generated/Office/office_1950s_metrics_v11.json"
+    },
+    {
+      "sha256": "70daf52fa5866c675d707fdbc29feff203cb6acf1c5ae2a558e33babf44d45f0",
+      "source": "ArtSource/Generated/Office/BGEE1950sV11/Props/office_door_family_v11.json",
+      "target": "ArtSource/Generated/Office/office_door_family_v11.json"
+    },
+    {
+      "sha256": "715e23165a4dada0fc116224bf3c906d0fc49ef198f15645dbd38ae38712d42e",
+      "source": "ArtSource/Generated/UI/Map/map_detective_office_v11.png",
+      "target": "RainShadow Shared/Resources/Art/UI/Map/map_detective_office_v08.png"
+    }
+  ],
+  "installed": [
+    "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png",
+    "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png",
+    "ArtSource/Generated/Office/office_suite_plate.png",
+    "ArtSource/Generated/Office/office_shell_base.png",
+    "ArtSource/Generated/Office/office_suite_plate_bgee_v11_installed.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_hover.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_mid_hover.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_door_leaf_open_hover.png",
+    "ArtSource/Generated/Office/office_v11_geometry.json",
+    "ArtSource/Generated/Office/office_1950s_metrics_v11.json",
+    "ArtSource/Generated/Office/office_door_family_v11.json",
+    "RainShadow Shared/Resources/Art/UI/Map/map_detective_office_v08.png"
+  ],
+  "integration": {
+    "areaManifest": "RainShadow Shared/Resources/Areas/office_suite.area.json",
+    "propManifest": "ArtSource/Generated/Office/office_props_v01.json",
+    "separateWindowProps": 0,
+    "travelRegion": "office.door",
+    "windowRegion": "office.window"
+  },
+  "mode": "read-only preflight unless --install is supplied",
+  "version": "BGEE1950sV11"
+}

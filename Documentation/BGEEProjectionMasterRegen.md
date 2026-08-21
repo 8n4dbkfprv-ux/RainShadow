@@ -57,12 +57,12 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Shipped plates — 8/8 on the lock (office re-measured 2026-08-20)
+## Runtime plates — 8/8 on the lock (office re-measured 2026-08-20)
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +36.73 / −36.62 | **0.25° PASS** (V10 tavern-hall lock) |
-| `office_shell_base` | +36.73 / −36.62 | **0.25° PASS** (same V10 pixels) |
+| `office_suite_plate` | +36.70 / −36.97 | **0.17° PASS** (installed V11 dimensional-relief plate) |
+| `office_shell_base` | +36.70 / −36.97 | **0.17° PASS** (same installed V11 pixels) |
 | `city_wharf_ladder_block` | +36.66 / −35.87 | 1.00° **PASS** |
 | `city_harborpoint_pd_block` | +36.68 / −35.85 | 1.02° **PASS** |
 | `city_riverside_block` | +36.57 / −35.69 | 1.18° **PASS** |
@@ -70,7 +70,42 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 | `city_civic_records_block` | +36.53 / −35.60 | 1.27° **PASS** |
 | `city_sable_row_block` | +36.30 / −36.40 | **0.57° PASS** (V5 lot masters) |
 
-### Office V10 tavern-hall authority
+### Office V11 1950s authority — generated and gated
+
+`BGEE1950sV11/office_v11_geometry.json` is the single registration manifest
+for the compact 1950s redraw. The supplied 1613×975 RGB image (SHA-256
+`6fbb06a6bf54e821bcdf7ae5e86aecc998ed594b4869c79dbc78bb41d770bd19`)
+is used only for composition, style, and measurements. One uniform
+`4096/1613 = 2.5393676379417234` scale crops 33.84375 px of black margin at the
+top and bottom; X and Y are never stretched independently and zero supplied
+pixels enter an output. Full provenance is frozen in
+`ArtSource/Prompts/office_1950s_bgee_v11.md`.
+
+`generate_office_1950s_bgee_v11.py` deterministically projects six original
+ImageGen sources through that manifest. Its 4096×2304 RGB plate grades
+**+36.70°/−36.97°, 0.17° worst delta**, and measures **2.5316 px/world unit**.
+`qa_office_reference_lock_v11.py` reports `ALL_PASS=True`, including pure-black
+exterior, deterministic hash reproduction, two locked steel/blind apertures,
+both-window rain-mask coverage, near-window-only hover, cold-fireplace/no-hot-
+pixel checks, no baked door pixels, and all door endpoint/angle/thickness/hinge
+checks.
+
+The separation is deliberate:
+
+- background pixels bake the two fixed casement/blind assemblies and the cold
+  fireplace;
+- rain, cool/blind lighting, `office.window`, and near-only hover remain
+  registered overlays/regions;
+- the tiny door is a separately registered 512×320 state family sharing image
+  hinge `(488,18)` and SpriteKit anchor `(0.953125,0.94375)`;
+- fireplace collision/cover, wall polygons, door stamping, and the 16×12 search
+  map remain geometry records generated from the same manifest.
+
+The explicit 17-target V11 allowlist is installed. Runtime plate/mask hashes,
+area-export parity, registered resource membership, navigation, Swift tests,
+the macOS build, and shipping-scene captures are separate verified evidence.
+
+### Office V10 tavern-hall rollback provenance
 
 `generate_office_tavern_bgee_v10.py` constructs the 4096×2304 architecture
 against the exact BGEE basis and the Feldepost AR3351 floor diamond, then
@@ -81,6 +116,10 @@ assets. Pillars and the NW-wall stair run are baked architecture. The only
 entrance is on the camera-near/right cutaway; its open state is a dark edge-on
 timber sliver rather than a conventional readable door face. Runtime state
 textures share a fixed hinge and 512×320 canvas.
+
+V11 does not delete or rewrite these V10 sources/scripts. They remain the
+rollback chain and the measurement history for the superseded tavern-hall
+composition; V8/V9 staging is likewise outside the V11 installer allowlist.
 
 > An earlier version of this section claimed the `city_*_block` rows fail
 > *because* they are composed scenes (ground + buildings), and told the reader

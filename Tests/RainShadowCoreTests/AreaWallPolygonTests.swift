@@ -103,4 +103,19 @@ struct AreaWallPolygonTests {
         #expect(office.isCovered(behind), "an actor behind the bookshelf is not covered")
         #expect(!office.isCovered(inFront), "an actor in front of the bookshelf is covered")
     }
+
+    @Test func coldFireplaceCoverKeepsItsRegisteredWallProjection() throws {
+        let office = try AreaCatalogLoader.load(HarborpointAreas.office)
+        let fireplace = try #require(
+            office.wallPolygons.first { $0.id == "wall.fireplace" }
+        )
+        let expected = OfficeNavigationLayout.fireplaceCoverPolygon.map(AreaPoint.init)
+        #expect(fireplace.polygon == expected)
+        #expect(fireplace.polygon.count == 4)
+
+        // The affine NE-wall quadrilateral is not its bounding box: a corner of
+        // the box remains uncovered, preserving the isometric wall silhouette.
+        let box = fireplace.boundingBox
+        #expect(!fireplace.contains(CGPoint(x: box.minX + 1, y: box.minY + 1)))
+    }
 }

@@ -13,22 +13,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         case closed
         case mid
         case open
-
-        var textureName: String {
-            switch self {
-            case .closed: "office_door_leaf"
-            case .mid: "office_door_leaf_mid"
-            case .open: "office_door_leaf_open"
-            }
-        }
-
-        var hoverTextureName: String {
-            switch self {
-            case .closed: "office_door_leaf_hover"
-            case .mid: "office_door_leaf_mid"
-            case .open: "office_door_leaf_open_hover"
-            }
-        }
     }
     private var officeDoorVisualState: OfficeDoorVisualState = .closed
     private var deskActorOccluder: SKSpriteNode?
@@ -44,8 +28,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private let worldMapOverlay = WorldMapOverlay()
     private let journalOverlay = JournalOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
-    /// The office as an area record plus its navigation and waypoint queue. Its
-    /// architecture, props and hotspots are still built in code until Phase 5.
+    /// The office as an area record plus its navigation and waypoint queue.
+    /// Plate, props, regions, door registration and travel all resolve from it.
     private var runtime: AreaRuntime {
         guard let areaRuntime else {
             preconditionFailure(
@@ -77,6 +61,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         let sprite: SKSpriteNode
         let normalTexture: SKTexture
         let hoverTexture: SKTexture
+        let normalAlpha: CGFloat
+        let hoverAlpha: CGFloat
     }
 
     /// Office hover art is pre-baked; hovering only swaps complete PNG textures.
@@ -153,10 +139,10 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // Stage 1+: one pre-rendered suite plate replaces shell + partition overlays.
         // Keep the plate intact — do not punch door columns or strip baked artwork.
         let usingSuitePlate: Bool
-        if let texture = GameArt.texture(named: "office_suite_plate") {
+        if let texture = GameArt.texture(named: area.plateTextureName) {
             texture.filteringMode = .linear
             let background = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
-            background.name = "office_suite_plate"
+            background.name = area.plateTextureName
             background.anchorPoint = .zero
             background.position = OfficeInteriorScale.shellOrigin
             backgroundRoot.addChild(background)
@@ -192,6 +178,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // the sixty imperative calls produced.
         let props = buildProps(from: area)
         bindPlacedProps(props)
+        buildRegisteredDoorVisual()
+        addBakedWindowHoverOverlay()
         addWindowRain()
 
         detective.position = arrivalPoint
@@ -589,14 +577,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
         if let hotspot = hotspots.first(where: { $0.hitArea.contains(event.location) }) {
             // Interactions abandon any queued waypoints (BG:EE replace-on-interact).
-            if hotspot.id == "office.door" {
+            if let travel = hotspot.travel {
                 moveDetective(
                     to: hotspot.approachPoint,
                     requiresExactDestination: true
                 ) { [weak self] in
                     self?.context.router.travel(
-                        to: HarborpointAreas.sableRow,
-                        entrance: "from.office"
+                        to: travel.destination,
+                        entrance: travel.entrance
                     )
                 }
                 return
@@ -730,7 +718,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // decision, which is what keeps them from disagreeing. See `WorldCursor`.
         applyWorldCursor(WorldCursorState.resolve(
             isPassable: isFloorOrderable(event.location),
-            isTravel: hoveredHotspotID == "office.door",
+            isTravel: hoveredHotspotID.flatMap { id in
+                hotspots.first { $0.id == id }
+            }?.travel != nil,
             hasInteractable: hoveredHotspotID != nil,
             hasTalkableActor: talkableActor(at: event.location) != nil
         ))
@@ -1251,7 +1241,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             navigation.setEntranceDoorBlocking(false)
         } else {
             animateDoorReturning()
-            navigation.setEntranceDoorBlocking(true)
         }
     }
 
@@ -1874,13 +1863,18 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func configureHotspots() {
-        hotspots = OfficeNavigationLayout.authoredHotspots.map { item in
-            OfficeHotspot(
-                id: item.id,
-                name: item.name,
-                hitArea: OfficeInteriorScale.mapRect(item.hitArea),
-                approachPoint: OfficeNavigationLayout.approachPoints[item.id]!,
-                observation: item.observation
+        hotspots = area.regions.compactMap { region in
+            guard region.kind == .info || region.kind == .travel,
+                  let approachPoint = region.approachPoint else {
+                return nil
+            }
+            return OfficeHotspot(
+                id: region.id,
+                name: region.label ?? region.id,
+                hitArea: region.boundingBox,
+                approachPoint: approachPoint.cgPoint,
+                observation: region.observation ?? "",
+                travel: region.travel
             )
         }
     }
@@ -1897,7 +1891,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             HotspotHoverSprite(
                 sprite: sprite,
                 normalTexture: normalTexture,
-                hoverTexture: hoverTexture
+                hoverTexture: hoverTexture,
+                normalAlpha: sprite.alpha,
+                hoverAlpha: sprite.alpha
             )
         )
     }
@@ -1929,6 +1925,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
                 } else {
                     entry.sprite.texture = entry.normalTexture
                 }
+                entry.sprite.alpha = entry.normalAlpha
             }
         }
         guard presentation.isVisible,
@@ -1941,6 +1938,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             } else {
                 entry.sprite.texture = entry.hoverTexture
             }
+            entry.sprite.alpha = entry.hoverAlpha
         }
     }
 
@@ -1952,7 +1950,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// re-sort against Voss every frame, and the desk items lift above the
     /// writing surface the moment he sits down.
     private func bindPlacedProps(_ props: [String: SKSpriteNode]) {
-        officeDoor = props["office_door_leaf"]
         deskActorOccluder = props["office_desk_actor_occluder"]
         deskFrontOccluder = props["office_desk_front_occluder_v04"]
         deskTopOccluder = props["office_desk_top_occluder"]
@@ -1962,7 +1959,68 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             guard let sprite = props[binding.prop] else { continue }
             registerHoverSprite(sprite, for: binding.hotspot)
         }
-        applyDoorVisualState(.closed, entranceBlocking: true)
+    }
+
+    /// Build the entrance leaf from the door section, never from the general
+    /// prop list. Its pixels, hover state and collision remain independently
+    /// registered, but all three resolve through the same `office.door` id.
+    private func buildRegisteredDoorVisual() {
+        guard let door = area.doors.first(where: { $0.id == "office.door" }),
+              let registration = door.visual,
+              let normalTexture = GameArt.texture(named: registration.closedTextureName)
+        else { return }
+
+        normalTexture.filteringMode = .linear
+        let hoverTexture = registration.closedHoverTextureName
+            .flatMap(GameArt.texture(named:)) ?? normalTexture
+        hoverTexture.filteringMode = .linear
+
+        let sprite = SKSpriteNode(texture: normalTexture)
+        sprite.name = "office.door.visual"
+        sprite.anchorPoint = registration.canvasAnchor.cgPoint
+        sprite.position = registration.position.cgPoint
+        sprite.setScale(registration.scale)
+        depthWorldRoot.addChild(sprite)
+        updateDepth(of: sprite, bias: 24)
+        officeDoor = sprite
+        hotspotHoverSprites[door.id, default: []].append(
+            HotspotHoverSprite(
+                sprite: sprite,
+                normalTexture: normalTexture,
+                hoverTexture: hoverTexture,
+                normalAlpha: 1,
+                hoverAlpha: 1
+            )
+        )
+
+        let state: OfficeDoorVisualState = door.startsClosed ? .closed : .open
+        applyDoorVisualState(state, entranceBlocking: door.startsClosed)
+    }
+
+    /// The near window is baked into the opaque plate. Its highlight therefore
+    /// has no ordinary prop to texture-swap: V11 supplies one plate-registered
+    /// transparent overlay whose non-transparent pixels cover only that window.
+    private func addBakedWindowHoverOverlay() {
+        guard let texture = GameArt.texture(named: "office_window_hover_overlay") else {
+            return
+        }
+        texture.filteringMode = .linear
+        let sprite = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+        sprite.name = "office.window.hoverOverlay"
+        sprite.anchorPoint = .zero
+        sprite.position = OfficeInteriorScale.shellOrigin
+        sprite.alpha = 0
+        sprite.zPosition = SceneLayer.rearFixtures.rawValue + 5_000
+        rearFixtureRoot.addChild(sprite)
+        hotspotHoverSprites["office.window", default: []].append(
+            HotspotHoverSprite(
+                sprite: sprite,
+                normalTexture: texture,
+                hoverTexture: texture,
+                normalAlpha: 0,
+                hoverAlpha: 1
+            )
+        )
     }
 
     /// Desk-native props that `updateDetectiveDepth` lifts above the writing
@@ -1982,8 +2040,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// cursor. Four sprites share `office.desk` and all of them have to light
     /// together, or the desk highlights in pieces.
     private static let hoverBindings: [(prop: String, hotspot: String)] = [
-        ("office_window", "office.window"),
-        ("office_door_leaf", "office.door"),
         ("office_desk_bare", "office.desk"),
         ("office_desk_phone", "office.phone"),
         ("office_desk_files", "office.files"),
@@ -1994,21 +2050,54 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 
     private func addWindowRain() {
         let crop = SKCropNode()
-        let maskRect = OfficeInteriorScale.mapRect(OfficeNavigationLayout.AuthoredPlacement.windowRainMask)
-        let mask = SKShapeNode(rect: maskRect)
-        mask.fillColor = .white
-        mask.strokeColor = .clear
-        crop.maskNode = mask
+        let usesRegisteredMask: Bool
+        if let texture = GameArt.texture(named: "office_window_glass_mask"),
+           texture.size().width >= OfficeInteriorScale.sourceArtSize.width * 0.95,
+           texture.size().height >= OfficeInteriorScale.sourceArtSize.height * 0.95 {
+            texture.filteringMode = .linear
+            let mask = SKSpriteNode(texture: texture, size: OfficeInteriorScale.scaledArtSize)
+            mask.name = "office.window.glassMask"
+            mask.anchorPoint = .zero
+            mask.position = OfficeInteriorScale.shellOrigin
+            crop.maskNode = mask
+            usesRegisteredMask = true
+        } else {
+            // Rollback compatibility for pre-V11 plates, whose mask asset was a
+            // small window-local source rather than a full-plate registration.
+            let maskRect = OfficeInteriorScale.mapRect(
+                OfficeNavigationLayout.AuthoredPlacement.windowRainMask
+            )
+            let mask = SKShapeNode(rect: maskRect)
+            mask.fillColor = .white
+            mask.strokeColor = .clear
+            crop.maskNode = mask
+            usesRegisteredMask = false
+        }
 
         let rain = RainSystem.makeEmitter(
-            width: 850 * OfficeInteriorScale.environment,
-            height: 760 * OfficeInteriorScale.environment,
+            width: usesRegisteredMask
+                ? OfficeInteriorScale.scaledArtSize.width
+                : 850 * OfficeInteriorScale.environment,
+            height: usesRegisteredMask
+                ? OfficeInteriorScale.scaledArtSize.height
+                : 760 * OfficeInteriorScale.environment,
             birthRate: 150,
             speed: 520 * OfficeInteriorScale.environment,
             scale: 0.38 * OfficeInteriorScale.environment,
             alpha: 0.42
         )
-        rain.position = OfficeInteriorScale.mapPoint(OfficeNavigationLayout.AuthoredPlacement.windowRainEmitter)
+        if usesRegisteredMask {
+            rain.position = CGPoint(
+                x: OfficeInteriorScale.shellOrigin.x
+                    + OfficeInteriorScale.scaledArtSize.width / 2,
+                y: OfficeInteriorScale.shellOrigin.y
+                    + OfficeInteriorScale.scaledArtSize.height
+            )
+        } else {
+            rain.position = OfficeInteriorScale.mapPoint(
+                OfficeNavigationLayout.AuthoredPlacement.windowRainEmitter
+            )
+        }
         crop.addChild(rain)
         // Rain runs down the glass, so it has to draw over the window's own art.
         // The old code got that by adding it straight after the window and
@@ -2016,8 +2105,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // `ignoresSiblingOrder = true`, so two nodes at one zPosition draw in
         // whichever order batches best. Half an ordering step above the window
         // says it in the only terms SpriteKit reads.
-        let window = rearFixtureRoot.children.first { $0.name == "office_window" }
-        crop.zPosition = (window?.zPosition ?? 0) + Self.propOrderStep * 0.5
+        crop.name = "office.window.rain"
+        crop.zPosition = SceneLayer.rearFixtures.rawValue + 5_000 + Self.propOrderStep * 0.5
         rearFixtureRoot.addChild(crop)
     }
 
@@ -2246,27 +2335,46 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         for state: OfficeDoorVisualState,
         hovered: Bool
     ) -> SKTexture? {
-        let name = hovered ? state.hoverTextureName : state.textureName
-        let texture = GameArt.texture(named: name)
+        guard let registration = area.doors.first(where: { $0.id == "office.door" })?.visual
+        else { return nil }
+        let normalName: String
+        let hoverName: String?
+        switch state {
+        case .closed:
+            normalName = registration.closedTextureName
+            hoverName = registration.closedHoverTextureName
+        case .mid:
+            normalName = registration.midTextureName
+            hoverName = registration.midHoverTextureName
+        case .open:
+            normalName = registration.openTextureName
+            hoverName = registration.openHoverTextureName
+        }
+        let texture = hovered
+            ? hoverName.flatMap(GameArt.texture(named:))
+                ?? GameArt.texture(named: normalName)
+            : GameArt.texture(named: normalName)
         texture?.filteringMode = .linear
         return texture
     }
 
     private func presentDoorVisualState(_ state: OfficeDoorVisualState) {
-        guard let officeDoor, let texture = doorTexture(for: state, hovered: false) else {
+        guard let officeDoor,
+              let registration = area.doors.first(where: { $0.id == "office.door" })?.visual,
+              let texture = doorTexture(for: state, hovered: false) else {
             return
         }
         officeDoor.texture = texture
         officeDoor.size = texture.size()
-        officeDoor.anchorPoint = OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
-        officeDoor.position = OfficeInteriorScale.mapPoint(
-            OfficeNavigationLayout.AuthoredPlacement.doorLeaf
-        )
-        officeDoor.setScale(OfficeNavigationLayout.Architecture.entranceLeafDisplayScale)
+        if officeDoor.parent !== depthWorldRoot {
+            officeDoor.move(toParent: depthWorldRoot)
+        }
+        officeDoor.anchorPoint = registration.canvasAnchor.cgPoint
+        officeDoor.position = registration.position.cgPoint
+        officeDoor.setScale(registration.scale)
         officeDoor.zRotation = 0
         officeDoor.warpGeometry = nil
         officeDoor.alpha = 1
-        officeDoor.move(toParent: depthWorldRoot)
         updateDepth(of: officeDoor, bias: 24)
         officeDoorVisualState = state
     }
