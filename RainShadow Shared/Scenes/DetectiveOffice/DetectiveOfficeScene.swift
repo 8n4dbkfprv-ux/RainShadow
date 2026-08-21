@@ -2719,7 +2719,7 @@ private final class OfficeFogOfWarNode: SKSpriteNode {
             x: localPoint.x + worldOrigin.x,
             y: localPoint.y + worldOrigin.y
         )
-        let cells = searchMap.visibleCells(from: worldPoint, radius: renderer.visibilityRadius)
+        let cells = searchMap.visibleCells(from: worldPoint, radiusInCells: renderer.visibilityRadiusInCells)
         return FogMaskRenderer.Reveal(
             center: localPoint,
             visibleRects: searchMap.mergedRects(of: cells).map {

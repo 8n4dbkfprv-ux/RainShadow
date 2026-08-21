@@ -34,17 +34,30 @@ struct SearchMapVisibilityTests {
         map.center(of: SearchMapCell(column: column, row: row))
     }
 
-    @Test func anEmptyRoomIsVisibleToTheEdgeOfTheRadius() {
+    /// Range is counted in cells, so the lit region is a circle on the *cell
+    /// grid* — which, because the cells are 16×12 and 16:12 is this projection's
+    /// ground foreshortening, is a circle on the ground and a 16:12 ellipse on
+    /// screen. GemRB walks a midpoint circle over the same grid for the same
+    /// reason. Measuring the radius in world units instead would put a circle on
+    /// the screen and an ellipse on the ground: the pool would reach a third
+    /// further "into" the scene than across it.
+    @Test func rangeIsCountedInCellsSoTheLitGroundIsRound() {
         let map = map(columns: 21, rows: 21)
-        let visible = map.visibleCells(from: center(map, 10, 10), radius: 80)
+        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 5)
 
         #expect(visible.contains(SearchMapCell(column: 10, row: 10)))
-        // 80 units is five 16-wide columns and six 12-tall rows, so the lit
-        // region is a circle in world space rather than a square in cells.
+        // Equal reach in cells on both axes...
         #expect(visible.contains(SearchMapCell(column: 15, row: 10)))
         #expect(!visible.contains(SearchMapCell(column: 16, row: 10)))
-        #expect(visible.contains(SearchMapCell(column: 10, row: 16)))
-        #expect(!visible.contains(SearchMapCell(column: 10, row: 17)))
+        #expect(visible.contains(SearchMapCell(column: 10, row: 15)))
+        #expect(!visible.contains(SearchMapCell(column: 10, row: 16)))
+
+        // ...which is unequal reach in world units, by exactly the cell aspect.
+        let across = map.center(of: SearchMapCell(column: 15, row: 10)).x
+            - map.center(of: SearchMapCell(column: 10, row: 10)).x
+        let into = map.center(of: SearchMapCell(column: 10, row: 15)).y
+            - map.center(of: SearchMapCell(column: 10, row: 10)).y
+        #expect(across / into == map.cellSize.width / map.cellSize.height)
     }
 
     /// The distinction the whole feature rests on: index 0 casts a shadow,
@@ -62,23 +75,28 @@ struct SearchMapVisibilityTests {
         )
 
         let behind = SearchMapCell(column: 17, row: 10)
-        #expect(!wall.visibleCells(from: center(wall, 10, 10), radius: 200).contains(behind))
-        #expect(desk.visibleCells(from: center(desk, 10, 10), radius: 200).contains(behind))
+        #expect(!wall.visibleCells(from: center(wall, 10, 10), radiusInCells: 12).contains(behind))
+        #expect(desk.visibleCells(from: center(desk, 10, 10), radiusInCells: 12).contains(behind))
 
         // Neither is walkable, so nothing about pathing changed.
         #expect(!SearchMapTerrain.obstacle.isWalkable)
         #expect(!SearchMapTerrain.obstacleSeeThrough.isWalkable)
     }
 
-    /// A blocker is itself lit — you see the wall you cannot see past, which is
-    /// what draws the room's outline into the fog.
-    @Test func theBlockingCellIsItselfVisible() {
+    /// A blocker is itself lit, and nothing behind it is.
+    ///
+    /// This is `Pass = 2` in GemRB's `Map::ExploreMapChunk`: a ray that meets a
+    /// `NO_SEE` tile explores that tile, then breaks on the next one. It is what
+    /// draws a room's own walls into the fog instead of leaving the outline
+    /// dark, and it is the property most easily lost when swapping the traversal
+    /// out — so it is asserted rather than assumed.
+    @Test func theBlockingCellIsLitAndNothingBehindItIs() {
         let map = map(
             columns: 21,
             rows: 21,
             blockers: [(column: 13, row: 10, terrain: .wall)]
         )
-        let visible = map.visibleCells(from: center(map, 10, 10), radius: 200)
+        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 12)
 
         #expect(visible.contains(SearchMapCell(column: 13, row: 10)))
         #expect(!visible.contains(SearchMapCell(column: 14, row: 10)))
@@ -98,14 +116,14 @@ struct SearchMapVisibilityTests {
                 (column: 17, row: 8, terrain: .roof)
             ]
         )
-        let radius: CGFloat = 240
+        let radiusInCells = 15
         var asymmetric: [(SearchMapCell, SearchMapCell)] = []
         for row in stride(from: 4, to: 21, by: 3) {
             for column in stride(from: 4, to: 21, by: 3) {
                 let a = SearchMapCell(column: column, row: row)
                 for other in [SearchMapCell(column: 12, row: 8), SearchMapCell(column: 16, row: 16)] {
-                    let aSeesOther = map.visibleCells(from: map.center(of: a), radius: radius).contains(other)
-                    let otherSeesA = map.visibleCells(from: map.center(of: other), radius: radius).contains(a)
+                    let aSeesOther = map.visibleCells(from: map.center(of: a), radiusInCells: radiusInCells).contains(other)
+                    let otherSeesA = map.visibleCells(from: map.center(of: other), radiusInCells: radiusInCells).contains(a)
                     if aSeesOther != otherSeesA { asymmetric.append((a, other)) }
                 }
             }
@@ -117,7 +135,7 @@ struct SearchMapVisibilityTests {
     /// cell outside the map reads as solid.
     @Test func sightDoesNotLeaveTheMap() {
         let map = map(columns: 9, rows: 9)
-        let visible = map.visibleCells(from: center(map, 4, 4), radius: 4_000)
+        let visible = map.visibleCells(from: center(map, 4, 4), radiusInCells: 250)
 
         #expect(visible.count == map.cellCount)
         #expect(visible.allSatisfy { map.contains($0) })
@@ -163,10 +181,10 @@ struct SearchMapVisibilityTests {
         )
 
         let spawn = try #require(area.spawnPoint(entrance: AreaEntrance.defaultName))
-        let radius: CGFloat = 390
-        let seen = shipped.visibleCells(from: spawn, radius: radius).count
+        let radiusInCells = 33
+        let seen = shipped.visibleCells(from: spawn, radiusInCells: radiusInCells).count
         let seenIfFurnitureWereWalls = everythingOpaque
-            .visibleCells(from: spawn, radius: radius)
+            .visibleCells(from: spawn, radiusInCells: radiusInCells)
             .count
 
         #expect(seen > seenIfFurnitureWereWalls)
@@ -241,7 +259,7 @@ struct SearchMapVisibilityRunTests {
     @Test func mergedRectanglesCoverTheSameGroundAsTheCells() {
         let map = map(columns: 24, rows: 24)
         let cells = Set(
-            map.visibleCells(from: CGPoint(x: 100 + 190, y: 200 + 140), radius: 130)
+            map.visibleCells(from: CGPoint(x: 100 + 190, y: 200 + 140), radiusInCells: 8)
         )
         let rects = map.mergedRects(of: cells)
 

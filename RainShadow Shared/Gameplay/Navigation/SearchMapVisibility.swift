@@ -20,32 +20,30 @@ extension SearchMap {
     /// and recomputes all of them when the save is reloaded, so the difference
     /// is a visible hitch on entering an area rather than a micro-optimisation.
     ///
-    /// The grid's cells are 16×12, so `radius` is measured in world units
-    /// against the cell *centres* and the lit region comes out a true circle
-    /// rather than an ellipse stretched along the grid. Slopes stay in cell
-    /// space, which is exact: world space is a uniform scale of it per axis, and
-    /// a straight line in one is a straight line in the other.
+    /// Range is counted in **search cells, not world units**, which is how the
+    /// engine counts it and is the whole reason the cells are 16×12. GemRB walks
+    /// a midpoint circle over the cell grid (`Explore::Init`), and 16:12 is the
+    /// ground foreshortening this projection is locked to — so a circle on the
+    /// cell grid is a circle *on the ground*, drawn as a 16:12 ellipse. Counting
+    /// world units instead would draw a circle on the screen, which is a ground
+    /// ellipse stretched away from the viewer.
     ///
     /// Out of bounds counts as opaque, matching `terrain(at:)` and the engine's
     /// treatment of the area boundary — sight stops at the edge of the map
     /// rather than escaping through it.
-    func visibleCells(from point: CGPoint, radius: CGFloat) -> Set<SearchMapCell> {
+    func visibleCells(from point: CGPoint, radiusInCells: Int) -> Set<SearchMapCell> {
         let origin = cell(for: point)
-        guard contains(origin), radius > 0 else { return [] }
+        guard contains(origin), radiusInCells > 0 else { return [] }
 
         var visible: Set<SearchMapCell> = [origin]
-        // Rows are counted in cells, and the shorter axis decides how many can
-        // fit inside the radius. The circle test below culls the rest.
-        let rowLimit = Int(ceil(radius / min(cellSize.width, cellSize.height)))
         for octant in Self.visibilityOctants {
             castLight(
                 origin: origin,
-                radius: radius,
+                radiusInCells: radiusInCells,
                 distance: 1,
                 start: 1,
                 end: 0,
                 octant: octant,
-                rowLimit: rowLimit,
                 into: &visible
             )
         }
@@ -61,12 +59,11 @@ extension SearchMap {
 
     private func castLight(
         origin: SearchMapCell,
-        radius: CGFloat,
+        radiusInCells: Int,
         distance startDistance: Int,
         start: Double,
         end: Double,
         octant: (xx: Int, xy: Int, yx: Int, yy: Int),
-        rowLimit: Int,
         into visible: inout Set<SearchMapCell>
     ) {
         guard start >= end else { return }
@@ -75,7 +72,7 @@ extension SearchMap {
         var blocked = false
         var distance = startDistance
 
-        while distance <= rowLimit && !blocked {
+        while distance <= radiusInCells && !blocked {
             let deltaY = -distance
             var deltaX = -distance
             while deltaX <= 0 {
@@ -94,7 +91,7 @@ extension SearchMap {
                 )
                 let opaque = !contains(candidate) || !terrain(at: candidate).isSeeThrough
 
-                if contains(candidate), withinRadius(candidate, of: origin, radius: radius) {
+                if contains(candidate), withinRadius(candidate, of: origin, radiusInCells) {
                     visible.insert(candidate)
                 }
 
@@ -105,18 +102,17 @@ extension SearchMap {
                     }
                     blocked = false
                     start = nextStart
-                } else if opaque, distance < rowLimit {
+                } else if opaque, distance < radiusInCells {
                     // Everything behind this cell is in shadow: recurse into the
                     // wedge to its left, then resume scanning to its right.
                     blocked = true
                     castLight(
                         origin: origin,
-                        radius: radius,
+                        radiusInCells: radiusInCells,
                         distance: distance + 1,
                         start: start,
                         end: leftSlope,
                         octant: octant,
-                        rowLimit: rowLimit,
                         into: &visible
                     )
                     nextStart = rightSlope
@@ -126,20 +122,19 @@ extension SearchMap {
         }
     }
 
-    /// A true world-space circle, not a cell-count square: the cells are 16×12,
-    /// so counting rows would reach a third further vertically than horizontally.
+    /// A circle on the cell grid, which is a circle on the ground.
     ///
     /// Measured on the placed cell rather than on the octant's own `deltaX` /
-    /// `deltaY`, because four of the eight transforms swap the axes — and with
-    /// non-square cells a swapped delta is a different world distance.
+    /// `deltaY` so the four axis-swapping transforms cannot disagree with the
+    /// four that do not.
     private func withinRadius(
         _ cell: SearchMapCell,
         of origin: SearchMapCell,
-        radius: CGFloat
+        _ radiusInCells: Int
     ) -> Bool {
-        let worldX = CGFloat(cell.column - origin.column) * cellSize.width
-        let worldY = CGFloat(cell.row - origin.row) * cellSize.height
-        return worldX * worldX + worldY * worldY <= radius * radius
+        let columns = cell.column - origin.column
+        let rows = cell.row - origin.row
+        return columns * columns + rows * rows <= radiusInCells * radiusInCells
     }
 
     /// World rectangles covering `cells`, with each row's runs merged.

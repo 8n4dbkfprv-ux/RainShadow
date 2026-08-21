@@ -849,7 +849,7 @@ private final class CityFogOfWarNode: SKSpriteNode {
     /// One pool, cut back to what the street can actually see from there — so it
     /// stops at the building on the corner instead of spilling through it.
     private func makeReveal(at worldPoint: CGPoint) -> FogMaskRenderer.Reveal {
-        let cells = searchMap.visibleCells(from: worldPoint, radius: renderer.visibilityRadius)
+        let cells = searchMap.visibleCells(from: worldPoint, radiusInCells: renderer.visibilityRadiusInCells)
         // The district's world origin is zero, so world points are already local.
         return FogMaskRenderer.Reveal(
             center: worldPoint,

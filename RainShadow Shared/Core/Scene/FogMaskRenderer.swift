@@ -82,16 +82,20 @@ struct FogMaskRenderer {
     private var pixelsPerWorldX: CGFloat { style.pixelSize.width / worldSize.width }
     private var pixelsPerWorldY: CGFloat { style.pixelSize.height / worldSize.height }
 
-    /// World radius the painted pool can reach, outermost feather ring included.
+    /// How far sight is asked to carry, in search cells — the unit the engine
+    /// measures vision in, and the one `SearchMap.visibleCells` takes.
     ///
-    /// The pool is drawn as a circle in *mask* pixels, and the mask is not the
-    /// world's aspect, so on the stretched axis it reaches further in world
-    /// units than `revealRadius` says. Sight has to be computed out to here or
-    /// the clip would cut the pool short of where it would have been painted.
-    var visibilityRadius: CGFloat {
+    /// Enough to cover the painted pool on *both* axes. The pool is drawn as a
+    /// circle in mask pixels and the mask is not the world's aspect ratio, so on
+    /// the stretched axis it reaches further in world units than `revealRadius`
+    /// says; a cell radius short of that would clip the pool back to a circle
+    /// the artist did not paint.
+    var visibilityRadiusInCells: Int {
         let outermost = style.featherLayers.map(\.scale).max() ?? 1
-        let stretch = max(1, pixelsPerWorldX / pixelsPerWorldY)
-        return style.revealRadius * outermost * stretch
+        let paintedWorldX = style.revealRadius * outermost
+        let paintedWorldY = paintedWorldX * pixelsPerWorldX / pixelsPerWorldY
+        let cell = SearchMap.defaultCellSize
+        return Int(ceil(max(paintedWorldX / cell.width, paintedWorldY / cell.height)))
     }
 
     func makeTexture(revealing reveals: [Reveal]) -> SKTexture? {
