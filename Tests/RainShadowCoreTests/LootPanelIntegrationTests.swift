@@ -18,12 +18,22 @@ struct LootPanelIntegrationTests {
         #expect(!source.contains("presentLootInventoryIfNeeded"))
         #expect(!source.contains("onTakeNearby"))
 
-        let overlayState = try #require(source.range(of: "var anyOverlayIsPresented: Bool"))
-        let overlayStateEnd = try #require(
-            source.range(of: "override var isModalInputActive", range: overlayState.upperBound..<source.endIndex)
+        // The loot strip is non-modal: it is not one of the full-screen windows,
+        // so it appears neither in the overlay enum nor in the projection derived
+        // from it. Both scenes used to keep their own copy of that state; it now
+        // lives once on `BaseGameScene`.
+        let base = try read("RainShadow Shared/Core/Scene/BaseGameScene.swift")
+        let overlayEnum = try #require(base.range(of: "enum GameOverlay {"))
+        let overlayEnumEnd = try #require(
+            base.range(of: "\n    }\n", range: overlayEnum.upperBound..<base.endIndex)
         )
-        let overlayProjection = source[overlayState.lowerBound..<overlayStateEnd.lowerBound]
-        #expect(!overlayProjection.contains("lootContainerPanel"))
+        #expect(!base[overlayEnum.lowerBound..<overlayEnumEnd.upperBound].lowercased().contains("loot"))
+
+        let projection = try #require(base.range(of: "var anyOverlayIsPresented: Bool {"))
+        let projectionEnd = try #require(
+            base.range(of: "\n    }\n", range: projection.upperBound..<base.endIndex)
+        )
+        #expect(!base[projection.lowerBound..<projectionEnd.upperBound].contains("lootContainerPanel"))
     }
 
     @Test func inventoryHasOnePersistedSixteenSlotBagAndNoNearbyModel() throws {
@@ -86,12 +96,20 @@ struct LootPanelIntegrationTests {
     }
 
     @Test func officeAndCityPresentTheSamePersistedCarriedBag() throws {
+        let base = try read("RainShadow Shared/Core/Scene/BaseGameScene.swift")
         let office = try read("RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift")
         let city = try read("RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift")
-        #expect(office.contains("inventory: context.session.characterInventory"))
-        #expect(city.contains("inventory: context.session.characterInventory"))
-        // Both scenes push committed session state back into the window rather
-        // than letting it hold its own copy.
+
+        // One window, filled from committed session state, shared by every scene.
+        // The office and the city each kept a private copy of this refresh, which
+        // is how the city's came to be missing the encumbrance sync.
+        #expect(base.contains("func refreshInventoryOverlay()"))
+        #expect(base.contains("inventory: context.session.characterInventory"))
+        #expect(!office.contains("func refreshInventoryOverlay()"))
+        #expect(!city.contains("func refreshInventoryOverlay()"))
+
+        // Both still push committed state back after a bag mutation rather than
+        // letting the window hold its own copy.
         #expect(office.contains("refreshInventoryOverlay()"))
         #expect(city.contains("refreshInventoryOverlay()"))
     }

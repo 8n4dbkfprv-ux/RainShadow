@@ -560,9 +560,275 @@ class BaseGameScene: SKScene {
         let hudPoint = hudRoot.convert(sceneLocation, from: self)
         return dialoguePresenter.convert(hudPoint, from: hudRoot)
     }
-    func handleInventoryInput() {}
-    func handleMapInput() {}
-    func handleJournalInput() {}
+    // MARK: - Player actor and HUD overlays
+
+    /// The player. Both playable scenes declared this privately and identically,
+    /// and every window below reads it — the local map for its marker, the bag
+    /// for encumbrance — so it belongs to the scene base rather than to each
+    /// scene separately.
+    ///
+    /// Lazy because `DetectiveActorNode` loads its whole animation set in `init`
+    /// and the opening exterior is a cutscene with no player in it.
+    lazy var detective = DetectiveActorNode()
+    /// The player's navigation id, spelled once.
+    static let detectiveActorID = "detective.voss"
+
+    let portraitBar = PortraitBarNode()
+    let actionBar = ActionBarNode()
+    let inventoryOverlay = InventoryOverlay()
+    lazy var areaMapOverlay = AreaMapOverlay(configuration: areaMapConfiguration)
+    let worldMapOverlay = WorldMapOverlay()
+    let journalOverlay = JournalOverlay()
+
+    /// Plate, bounds and markers for the local map. A scene with its own plate
+    /// overrides this; the office's is the default because it was already
+    /// `AreaMapOverlay()`'s no-argument initialiser.
+    var areaMapConfiguration: AreaMapOverlay.Configuration { AreaMapOverlay.detectiveOffice }
+
+    /// The full-screen windows. BG:EE swaps the whole screen for one of these,
+    /// it never stacks them, so at most one is presented at a time.
+    enum GameOverlay {
+        case inventory
+        case areaMap
+        case worldMap
+        case journal
+    }
+
+    private(set) var inventoryIsPresented = false
+    private(set) var mapIsPresented = false
+    private(set) var worldMapIsPresented = false
+    private(set) var journalIsPresented = false
+
+    var anyOverlayIsPresented: Bool {
+        inventoryIsPresented || mapIsPresented || worldMapIsPresented || journalIsPresented
+    }
+
+    private func isPresented(_ overlay: GameOverlay) -> Bool {
+        switch overlay {
+        case .inventory: return inventoryIsPresented
+        case .areaMap: return mapIsPresented
+        case .worldMap: return worldMapIsPresented
+        case .journal: return journalIsPresented
+        }
+    }
+
+    private func setPresented(_ overlay: GameOverlay, _ presented: Bool) {
+        switch overlay {
+        case .inventory: inventoryIsPresented = presented
+        case .areaMap: mapIsPresented = presented
+        case .worldMap: worldMapIsPresented = presented
+        case .journal: journalIsPresented = presented
+        }
+    }
+
+    private func hideOverlay(_ overlay: GameOverlay) {
+        switch overlay {
+        case .inventory: inventoryOverlay.hideAnimated()
+        case .areaMap: areaMapOverlay.hideAnimated()
+        case .worldMap: worldMapOverlay.hideAnimated()
+        case .journal: journalOverlay.hideAnimated()
+        }
+    }
+
+    /// Dismiss the surfaces this window replaces. Runs before the flag flips, and
+    /// before the already-open refresh below, so re-opening the bag from a second
+    /// control still closes the loot strip.
+    func willPresentOverlay(_ overlay: GameOverlay) {}
+
+    /// Drop any hover art. A window covers the world, so whatever was lit under
+    /// the pointer must not still be lit behind it.
+    func clearHoverHighlight() {}
+
+    /// Re-derive everything downstream of which windows are open.
+    ///
+    /// Recomputed from live state rather than passed a boolean, because the old
+    /// per-overlay calls each passed only *their* flag — closing the inventory
+    /// over an open map unpaused the world.
+    func overlayPresentationDidChange() {
+        syncWorldNodePause()
+        updateGameplayChromeVisibility(animated: true)
+    }
+
+    /// The one shape every overlay transition has: dismiss what this window
+    /// replaces, bail when nothing changes, flip the flag, drop the hover
+    /// highlight, re-derive pause and chrome, then draw or hide the window.
+    ///
+    /// `refreshesWhenAlreadyPresented` covers opening a window that is already
+    /// open — the portrait bar and then the action bar both open the bag — where
+    /// the right answer is to redraw it from live session state rather than to
+    /// return having done nothing.
+    private func setOverlay(
+        _ overlay: GameOverlay,
+        presented: Bool,
+        refreshesWhenAlreadyPresented: Bool = false,
+        present: () -> Void
+    ) {
+        if presented {
+            willPresentOverlay(overlay)
+            if isPresented(overlay) {
+                if refreshesWhenAlreadyPresented { present() }
+                return
+            }
+        }
+        guard isPresented(overlay) != presented else { return }
+        setPresented(overlay, presented)
+        if presented { clearHoverHighlight() }
+        overlayPresentationDidChange()
+        if presented { present() } else { hideOverlay(overlay) }
+    }
+
+    func setInventoryPresented(_ presented: Bool) {
+        setOverlay(.inventory, presented: presented, refreshesWhenAlreadyPresented: true) {
+            inventoryOverlay.present(
+                walletPence: context.session.walletPence,
+                inventory: context.session.characterInventory,
+                catalog: context.session.itemCatalog,
+                currentHealth: context.session.currentHealth,
+                maximumHealth: context.session.maximumHealth
+            )
+        }
+    }
+
+    func setMapPresented(_ presented: Bool) {
+        setOverlay(.areaMap, presented: presented) {
+            areaMapOverlay.present(currentPosition: detective.position)
+        }
+    }
+
+    func setWorldMapPresented(
+        _ presented: Bool,
+        mode: WorldMapOverlay.Mode = .view,
+        exitEdge: CityMapEdge? = nil
+    ) {
+        setOverlay(.worldMap, presented: presented) {
+            worldMapOverlay.present(
+                mode: mode,
+                currentDistrict: worldMapCurrentDistrict,
+                visited: worldMapVisitedDistricts,
+                exitEdge: exitEdge
+            )
+        }
+    }
+
+    func setJournalPresented(_ presented: Bool) {
+        setOverlay(.journal, presented: presented) {
+            journalOverlay.present(input: context.session.journalProjectionInput)
+        }
+    }
+
+    /// Where the world map says you are. `SceneRouter` sets this as it presents a
+    /// district, so it agrees with the district a city scene was built for.
+    var worldMapCurrentDistrict: CityDistrictID { context.session.currentCityDistrict }
+
+    /// Which districts the world map draws. The current one is always among them:
+    /// the office can open the city map before the first street visit, and a map
+    /// with nothing on it is not a map.
+    var worldMapVisitedDistricts: Set<CityDistrictID> {
+        var visited = context.session.visitedCityDistricts
+        if visited.isEmpty { visited.insert(worldMapCurrentDistrict) }
+        return visited
+    }
+
+    /// Close the local map and open the world map — BG Classic's WORLD MAP control.
+    func presentWorldMapFromAreaMap() {
+        setMapPresented(false)
+        setWorldMapPresented(true)
+    }
+
+    /// I / M / J. A window only opens when nothing modal already owns the screen.
+    func handleInventoryInput() {
+        guard !dialogueIsActive, !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
+        setInventoryPresented(!inventoryIsPresented)
+    }
+
+    func handleMapInput() {
+        guard !dialogueIsActive, !inventoryIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
+        setMapPresented(!mapIsPresented)
+    }
+
+    func handleJournalInput() {
+        guard !dialogueIsActive, !inventoryIsPresented, !mapIsPresented, !worldMapIsPresented else { return }
+        setJournalPresented(!journalIsPresented)
+    }
+
+    /// Chrome the scene wants hidden for its own reason — a cutscene, say — on
+    /// top of the overlay rule in `updateGameplayChromeVisibility`.
+    var chromeIsSuppressedByScene: Bool { false }
+
+    /// Single source of truth for rail visibility (cutscene + full-screen overlays).
+    func updateGameplayChromeVisibility(animated: Bool) {
+        let shouldHide = chromeIsSuppressedByScene || anyOverlayIsPresented
+        let duration: TimeInterval = 0.2
+        for node in [portraitBar as SKNode, actionBar as SKNode] {
+            node.removeAction(forKey: "chromeVisibility")
+            if shouldHide {
+                // Hide immediately so cutscene mode is obvious even if a fade is mid-frame.
+                if !animated {
+                    node.alpha = 0
+                    node.isHidden = true
+                    continue
+                }
+                if node.isHidden, node.alpha <= 0.01 { continue }
+                node.isHidden = false
+                node.run(
+                    .sequence([
+                        .fadeOut(withDuration: duration),
+                        .run { node.alpha = 0; node.isHidden = true }
+                    ]),
+                    withKey: "chromeVisibility"
+                )
+            } else {
+                node.isHidden = false
+                if !animated {
+                    node.alpha = 1
+                    continue
+                }
+                if node.alpha >= 0.99 { continue }
+                node.run(.fadeIn(withDuration: duration), withKey: "chromeVisibility")
+            }
+        }
+    }
+
+    /// Freezes the world node trees for every freeze the player can see.
+    ///
+    /// Overlays already did this; a player pause has to as well, or the rain keeps
+    /// falling and a walk cycle keeps cycling in place while the world is
+    /// nominally stopped. The HUD stays up for a tactical pause — unlike an
+    /// overlay, the point of one is to keep issuing orders.
+    func syncWorldNodePause() {
+        let paused = anyOverlayIsPresented || pause.isPausedByPlayer
+        let pausedWorldRoots = [
+            backgroundRoot,
+            floorEffectRoot,
+            rearFixtureRoot,
+            depthWorldRoot,
+            occlusionRoot,
+            weatherRoot,
+            cinematicRoot
+        ]
+        pausedWorldRoots.forEach { $0.isPaused = paused }
+    }
+
+    /// Push current session state into the open inventory window. Every mutation
+    /// goes through `GameSession`, so the window never holds authoritative state —
+    /// it redraws from what was actually committed.
+    func refreshInventoryOverlay() {
+        inventoryOverlay.applyInventory(
+            walletPence: context.session.walletPence,
+            inventory: context.session.characterInventory,
+            catalog: context.session.itemCatalog,
+            currentHealth: context.session.currentHealth,
+            maximumHealth: context.session.maximumHealth
+        )
+        syncDetectiveEncumbrance()
+    }
+
+    /// What you carry decides how fast you walk, so a bag change is a movement
+    /// change.
+    func syncDetectiveEncumbrance() {
+        detective.movementProfile = context.session.detectiveMovementProfile
+    }
+
     /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
 
@@ -599,7 +865,7 @@ class BaseGameScene: SKScene {
     /// GDD §8.3) also uses Space for Continue / End Dialogue. Scenes report here
     /// so Space can mean pause in the world and confirm in a modal, without
     /// either meaning leaking into the other.
-    var isModalInputActive: Bool { false }
+    var isModalInputActive: Bool { dialogueIsActive || anyOverlayIsPresented }
 
     /// Space, or the clock in the corner. BG:EE's clock *is* the pause button.
     func handleTacticalPauseInput() {}

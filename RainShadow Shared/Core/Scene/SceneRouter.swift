@@ -85,7 +85,12 @@ final class SceneRouter {
             let district = CityDistrictID.allCases.first { $0.slug == slug } ?? .sableRow
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
-            context.session.markCityDistrictVisited(district)
+            // `setCurrentCityDistrict` rather than `markCityDistrictVisited`: it
+            // marks visited too, and it is what tells the world map and the fog
+            // store which ward you are actually standing in. Marking only visited
+            // left `currentCityDistrict` at its Sable Row default, so launching
+            // into another ward reported the wrong one.
+            context.session.setCurrentCityDistrict(district)
             present(.district(district), transition: nil)
             return
         }

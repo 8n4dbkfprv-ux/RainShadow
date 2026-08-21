@@ -6,7 +6,6 @@ import AppKit
 
 @MainActor
 final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
-    private let detective = DetectiveActorNode()
     private let client = ClientActorNode()
     private var officeDoor: SKSpriteNode?
     private enum OfficeDoorVisualState {
@@ -21,12 +20,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     private var deskTopOccluder: SKSpriteNode?
     /// Loose desk props — lifted above the top occluder while seated.
     private var deskItemNodes: [SKSpriteNode] = []
-    private let inventoryOverlay = InventoryOverlay()
-    private let portraitBar = PortraitBarNode()
-    private let actionBar = ActionBarNode()
-    private let areaMapOverlay = AreaMapOverlay()
-    private let worldMapOverlay = WorldMapOverlay()
-    private let journalOverlay = JournalOverlay()
     private var fogOfWar: OfficeFogOfWarNode?
     /// The office as an area record plus its navigation and waypoint queue.
     /// Plate, props, regions, door registration and travel all resolve from it.
@@ -47,7 +40,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// Ordered player goals (BG:EE waypoint queue). Index 0 is the current leg.
     private let barks = MovementBarkPlayer()
     private var pendingBumpReturn: [String: CGPoint] = [:]
-    private static let detectiveActorID = "detective.voss"
     private static let clientActorID = "client.lila"
     /// Within this much projected travel of the goal the mover abandons rather
     /// than shoving a blocker aside (`DoStep`'s `WithinPersonalRange` cut-off).
@@ -68,10 +60,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// Office hover art is pre-baked; hovering only swaps complete PNG textures.
     private var hotspotHoverSprites: [String: [HotspotHoverSprite]] = [:]
     private var hoveredHotspotID: String?
-    private var inventoryIsPresented = false
-    private var mapIsPresented = false
-    private var worldMapIsPresented = false
-    private var journalIsPresented = false
     private var caseIntroductionStarted = false
     /// Hotspot/container currently feeding the non-modal loot strip.
     private var activeLootContainerID: String?
@@ -742,28 +730,18 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
     #endif
 
-    override func handleInventoryInput() {
-        guard !dialogueIsActive, !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
-        setInventoryPresented(!inventoryIsPresented)
+    /// The bag, the loot strip and the quick-loot bar are mutually exclusive
+    /// surfaces over the same inventory, so opening a window closes the others.
+    override func willPresentOverlay(_ overlay: GameOverlay) {
+        dismissLootContainerPanel()
+        if overlay == .inventory { quickLootBar.dismiss() }
     }
 
-    override func handleMapInput() {
-        guard !dialogueIsActive, !inventoryIsPresented, !journalIsPresented, !worldMapIsPresented else { return }
-        setMapPresented(!mapIsPresented)
+    override func clearHoverHighlight() {
+        clearHotspotHoverHighlight()
     }
 
-    override func handleJournalInput() {
-        guard !dialogueIsActive, !inventoryIsPresented, !mapIsPresented, !worldMapIsPresented else { return }
-        setJournalPresented(!journalIsPresented)
-    }
-
-    var anyOverlayIsPresented: Bool {
-        mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
-    }
-
-    override var isModalInputActive: Bool {
-        dialogueIsActive || anyOverlayIsPresented
-    }
+    override var chromeIsSuppressedByScene: Bool { cutsceneChromeSuppressed }
 
     /// BG:EE tactical pause. Orders issued while frozen are accepted and walked
     /// on unpause, which is the point of it.
@@ -1292,41 +1270,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         updateGameplayChromeVisibility(animated: animated)
     }
 
-    /// Single source of truth for rail visibility (cutscene + full-screen overlays).
-    private func updateGameplayChromeVisibility(animated: Bool) {
-        let hiddenByOverlay = inventoryIsPresented || mapIsPresented || worldMapIsPresented || journalIsPresented
-        let shouldHide = cutsceneChromeSuppressed || hiddenByOverlay
-        let duration: TimeInterval = 0.2
-        for node in [portraitBar as SKNode, actionBar as SKNode] {
-            node.removeAction(forKey: "chromeVisibility")
-            if shouldHide {
-                // Hide immediately so cutscene mode is obvious even if a fade is mid-frame.
-                if !animated {
-                    node.alpha = 0
-                    node.isHidden = true
-                    continue
-                }
-                if node.isHidden, node.alpha <= 0.01 { continue }
-                node.isHidden = false
-                node.run(
-                    .sequence([
-                        .fadeOut(withDuration: duration),
-                        .run { node.alpha = 0; node.isHidden = true }
-                    ]),
-                    withKey: "chromeVisibility"
-                )
-            } else {
-                node.isHidden = false
-                if !animated {
-                    node.alpha = 1
-                    continue
-                }
-                if node.alpha >= 0.99 { continue }
-                node.run(.fadeIn(withDuration: duration), withKey: "chromeVisibility")
-            }
-        }
-    }
-
     /// A visible NPC bound to a dialogue graph under the click, if any.
     ///
     /// Lila is bound below, but in the shipped Act-I flow she is hidden the moment her
@@ -1475,24 +1418,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     /// factor (`Actor::CalculateSpeedFromRate`), so an overloaded detective is
     /// exactly half speed and an immobile one holds position. Called on every
     /// path that can change what Voss is carrying.
-
-    /// Push current session state into the open inventory window. Every mutation
-    /// goes through `GameSession`, so the window never holds authoritative state —
-    /// it redraws from what was actually committed.
-    private func refreshInventoryOverlay() {
-        inventoryOverlay.applyInventory(
-            walletPence: context.session.walletPence,
-            inventory: context.session.characterInventory,
-            catalog: context.session.itemCatalog,
-            currentHealth: context.session.currentHealth,
-            maximumHealth: context.session.maximumHealth
-        )
-        syncDetectiveEncumbrance()
-    }
-
-    private func syncDetectiveEncumbrance() {
-        detective.movementProfile = context.session.detectiveMovementProfile
-    }
 
     private func refreshActiveLootContainer(feedback: LootContainerPanelFeedback? = nil) {
         syncDetectiveEncumbrance()
@@ -1718,139 +1643,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             x: detective.position.x + heading.dx * reach,
             y: detective.position.y + heading.dy * reach
         )
-    }
-
-    private func setInventoryPresented(_ presented: Bool) {
-        if presented {
-            // The window, the container strip, and the quick-loot bar are mutually
-            // exclusive surfaces over the same bag.
-            dismissLootContainerPanel()
-            quickLootBar.dismiss()
-        }
-        if presented, inventoryIsPresented {
-            // Already open (e.g. portrait then action bar) — refresh wallet in place.
-            inventoryOverlay.present(
-                    walletPence: context.session.walletPence,
-                    inventory: context.session.characterInventory,
-                    catalog: context.session.itemCatalog,
-                    currentHealth: context.session.currentHealth,
-                    maximumHealth: context.session.maximumHealth
-                )
-            return
-        }
-        guard inventoryIsPresented != presented else { return }
-        inventoryIsPresented = presented
-        if presented {
-            clearHotspotHoverHighlight()
-        }
-
-        syncWorldNodePause()
-        updateGameplayChromeVisibility(animated: true)
-
-        if presented {
-            inventoryOverlay.present(
-                    walletPence: context.session.walletPence,
-                    inventory: context.session.characterInventory,
-                    catalog: context.session.itemCatalog,
-                    currentHealth: context.session.currentHealth,
-                    maximumHealth: context.session.maximumHealth
-                )
-        } else {
-            inventoryOverlay.hideAnimated()
-        }
-    }
-
-    private func setMapPresented(_ presented: Bool) {
-        if presented {
-            dismissLootContainerPanel()
-        }
-        guard mapIsPresented != presented else { return }
-        mapIsPresented = presented
-        if presented {
-            clearHotspotHoverHighlight()
-        }
-
-        syncWorldNodePause()
-        updateGameplayChromeVisibility(animated: true)
-
-        if presented {
-            areaMapOverlay.present(currentPosition: detective.position)
-        } else {
-            areaMapOverlay.hideAnimated()
-        }
-    }
-
-    private func presentWorldMapFromAreaMap() {
-        setMapPresented(false)
-        setWorldMapPresented(true)
-    }
-
-    private func setWorldMapPresented(_ presented: Bool) {
-        if presented {
-            dismissLootContainerPanel()
-        }
-        guard worldMapIsPresented != presented else { return }
-        worldMapIsPresented = presented
-        if presented {
-            clearHotspotHoverHighlight()
-        }
-
-        syncWorldNodePause()
-        updateGameplayChromeVisibility(animated: true)
-
-        if presented {
-            var visited = context.session.visitedCityDistricts
-            // Office can open the city map before the first street visit.
-            if visited.isEmpty {
-                visited.insert(context.session.currentCityDistrict)
-            }
-            worldMapOverlay.present(
-                mode: .view,
-                currentDistrict: context.session.currentCityDistrict,
-                visited: visited
-            )
-        } else {
-            worldMapOverlay.hideAnimated()
-        }
-    }
-
-    /// Freezes the world node trees for every freeze the player can see.
-    ///
-    /// Overlays already did this; a player pause has to as well, or the rain keeps
-    /// falling and a walk cycle keeps cycling in place while the world is
-    /// nominally stopped. Recomputed from live state rather than passed a boolean,
-    /// because the old per-overlay calls each passed only *their* flag — closing
-    /// the inventory over an open map unpaused the world.
-    private func syncWorldNodePause() {
-        let paused = anyOverlayIsPresented || pause.isPausedByPlayer
-        let pausedWorldRoots = [
-            backgroundRoot,
-            floorEffectRoot,
-            rearFixtureRoot,
-            depthWorldRoot,
-            occlusionRoot,
-            weatherRoot,
-            cinematicRoot
-        ]
-        pausedWorldRoots.forEach { $0.isPaused = paused }
-    }
-
-    private func setJournalPresented(_ presented: Bool) {
-        if presented {
-            dismissLootContainerPanel()
-        }
-        guard journalIsPresented != presented else { return }
-        journalIsPresented = presented
-        if presented { clearHotspotHoverHighlight() }
-
-        syncWorldNodePause()
-        updateGameplayChromeVisibility(animated: true)
-
-        if presented {
-            journalOverlay.present(input: context.session.journalProjectionInput)
-        } else {
-            journalOverlay.hideAnimated()
-        }
     }
 
     private func configureNavigation() {

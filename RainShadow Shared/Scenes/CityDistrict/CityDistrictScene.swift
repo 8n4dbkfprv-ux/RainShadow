@@ -15,19 +15,8 @@ final class CityDistrictScene: BaseGameScene {
 
     private let district: CityDistrictDefinition
     private let entranceName: String?
-    private let detective = DetectiveActorNode()
-    private let inventoryOverlay = InventoryOverlay()
-    private let portraitBar = PortraitBarNode()
-    private let actionBar = ActionBarNode()
-    private lazy var areaMapOverlay = AreaMapOverlay(configuration: makeMapConfiguration())
-    private let worldMapOverlay = WorldMapOverlay()
-    private let journalOverlay = JournalOverlay()
     private var fogOfWar: CityFogOfWarNode?
     private var edgeExits: [EdgeExit] = []
-    private var inventoryIsPresented = false
-    private var mapIsPresented = false
-    private var worldMapIsPresented = false
-    private var journalIsPresented = false
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
     /// The district as an area record plus its navigation and waypoint queue.
@@ -45,7 +34,6 @@ final class CityDistrictScene: BaseGameScene {
     private var navigation: NavigationMap { runtime.navigation }
     private var movement: MovementOrderQueue { runtime.movement }
     private let barks = MovementBarkPlayer()
-    private static let detectiveActorID = "detective.voss"
 
     override var referenceVisibleHeight: CGFloat { CityDistrictDefinition.cameraVisibleHeight }
 
@@ -103,24 +91,10 @@ final class CityDistrictScene: BaseGameScene {
     }
 
 
-    /// Push current session state into the open inventory window. Every mutation
-    /// goes through `GameSession`, so the window never holds authoritative state —
-    /// it redraws from what was actually committed.
-    private func refreshInventoryOverlay() {
-        inventoryOverlay.applyInventory(
-            walletPence: context.session.walletPence,
-            inventory: context.session.characterInventory,
-            catalog: context.session.itemCatalog,
-            currentHealth: context.session.currentHealth,
-            maximumHealth: context.session.maximumHealth
-        )
-        detective.movementProfile = context.session.detectiveMovementProfile
-    }
-
     override func sceneDidBecomeReady() {
-        // See DetectiveOfficeScene.syncDetectiveEncumbrance: a save loaded with a
-        // heavy bag must walk heavy from the first step, not from the first pickup.
-        detective.movementProfile = context.session.detectiveMovementProfile
+        // A save loaded with a heavy bag must walk heavy from the first step, not
+        // from the first pickup.
+        syncDetectiveEncumbrance()
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
@@ -313,31 +287,10 @@ final class CityDistrictScene: BaseGameScene {
     }
     #endif
 
-    override func handleInventoryInput() {
-        guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
-        setInventoryPresented(!inventoryIsPresented)
-    }
-
-    override func handleMapInput() {
-        guard !inventoryIsPresented, !journalIsPresented, !worldMapIsPresented else { return }
-        setMapPresented(!mapIsPresented)
-    }
-
-    override func handleJournalInput() {
-        guard !inventoryIsPresented, !mapIsPresented, !worldMapIsPresented else { return }
-        setJournalPresented(!journalIsPresented)
-    }
-
-    var anyOverlayIsPresented: Bool {
-        mapIsPresented || worldMapIsPresented || journalIsPresented || inventoryIsPresented
-    }
-
-    override var isModalInputActive: Bool { anyOverlayIsPresented }
-
     override func handleTacticalPauseInput() {
         pause.togglePlayerPause()
         actionBar.setClockPaused(pause.isPausedByPlayer)
-        refreshOverlayPauseState()
+        overlayPresentationDidChange()
         if !pause.isPaused {
             detective.resetLocomotionClock()
         }
@@ -540,11 +493,6 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
-    private func presentWorldMapFromAreaMap() {
-        setMapPresented(false)
-        setWorldMapPresented(true, mode: .view)
-    }
-
     private func travelViaWorldMap(to destinationID: CityDistrictID, arrivalKey: String) {
         setWorldMapPresented(false)
         context.router.travel(
@@ -715,80 +663,6 @@ final class CityDistrictScene: BaseGameScene {
         }
     }
 
-    private func setInventoryPresented(_ presented: Bool) {
-        guard inventoryIsPresented != presented else { return }
-        inventoryIsPresented = presented
-        refreshOverlayPauseState()
-        if presented {
-            inventoryOverlay.present(
-                walletPence: context.session.walletPence,
-                inventory: context.session.characterInventory,
-                catalog: context.session.itemCatalog,
-                currentHealth: context.session.currentHealth,
-                maximumHealth: context.session.maximumHealth
-            )
-        } else {
-            inventoryOverlay.hideAnimated()
-        }
-    }
-
-    private func setMapPresented(_ presented: Bool) {
-        guard mapIsPresented != presented else { return }
-        mapIsPresented = presented
-        refreshOverlayPauseState()
-        if presented {
-            areaMapOverlay.present(currentPosition: detective.position)
-        } else {
-            areaMapOverlay.hideAnimated()
-        }
-    }
-
-    private func setWorldMapPresented(
-        _ presented: Bool,
-        mode: WorldMapOverlay.Mode = .view,
-        exitEdge: CityMapEdge? = nil
-    ) {
-        guard worldMapIsPresented != presented else { return }
-        worldMapIsPresented = presented
-        refreshOverlayPauseState()
-        if presented {
-            worldMapOverlay.present(
-                mode: mode,
-                currentDistrict: district.id,
-                visited: context.session.visitedCityDistricts,
-                exitEdge: exitEdge
-            )
-        } else {
-            worldMapOverlay.hideAnimated()
-        }
-    }
-
-    private func refreshOverlayPauseState() {
-        let anyOverlay = anyOverlayIsPresented
-        // A player pause freezes the node trees too, otherwise the rain keeps
-        // falling in a stopped world. The HUD stays up for it — unlike an overlay,
-        // the point of a tactical pause is to keep issuing orders.
-        setWorldPaused(anyOverlay || pause.isPausedByPlayer)
-        portraitBar.isHidden = anyOverlay
-        actionBar.isHidden = anyOverlay
-    }
-
-    private func setJournalPresented(_ presented: Bool) {
-        guard journalIsPresented != presented else { return }
-        journalIsPresented = presented
-        refreshOverlayPauseState()
-        if presented {
-            journalOverlay.present(input: context.session.journalProjectionInput)
-        } else {
-            journalOverlay.hideAnimated()
-        }
-    }
-
-    private func setWorldPaused(_ paused: Bool) {
-        [backgroundRoot, floorEffectRoot, rearFixtureRoot, depthWorldRoot, occlusionRoot, weatherRoot, cinematicRoot]
-            .forEach { $0.isPaused = paused }
-    }
-
     private func addFogOfWar() {
         let fog = CityFogOfWarNode(
             size: CityDistrictDefinition.worldArtSize,
@@ -900,7 +774,7 @@ final class CityDistrictScene: BaseGameScene {
         syncHudToCamera()
     }
 
-    private func makeMapConfiguration() -> AreaMapOverlay.Configuration {
+    override var areaMapConfiguration: AreaMapOverlay.Configuration {
         let mapPoints = district.pointsOfInterest.map {
             let (r, g, b, a) = $0.colorRGBA
             return AreaMapOverlay.PointOfInterest(
