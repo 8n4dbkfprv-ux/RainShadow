@@ -395,6 +395,7 @@ final class CityDistrictScene: BaseGameScene {
         areaMapOverlay.updateCurrentPosition(detective.position)
         areaMapOverlay.updateExploredPoints(context.session.cityFogRevealPoints(for: district.id))
         updateDepth(of: detective)
+        updateFogGating(fogOfWar)
         if fogOfWar?.look(from: detective.position) == true {
             context.session.recordCityFogReveal(district.id, point: detective.position)
         }

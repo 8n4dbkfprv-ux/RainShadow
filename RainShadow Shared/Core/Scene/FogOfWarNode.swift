@@ -27,6 +27,12 @@ final class FogOfWarNode: SKSpriteNode {
     /// outlive the visit.
     private(set) var rememberedPoints: [CGPoint] = []
     private var rememberedReveals: [FogMaskRenderer.Reveal] = []
+    /// The two bitmaps themselves, kept because the mask is only half of what
+    /// they are for: the engine also skips drawing any creature outside
+    /// `VisibleBitmap`, so the same answer has to be available as a query and
+    /// not just as pixels.
+    private var exploredCells: Set<SearchMapCell> = []
+    private var visibleCells: Set<SearchMapCell> = []
     /// The remembered layer, repainted only when memory grows.
     private var exploredMask: CGImage?
     private var lastSightPoint: CGPoint?
@@ -65,11 +71,32 @@ final class FogOfWarNode: SKSpriteNode {
         } ?? true
         guard grew || moved else { return grew }
         lastSightPoint = worldPoint
+        let sight = sightFrom(worldPoint)
+        visibleCells = sight.cells
         texture = renderer.makeTexture(
             exploredMask: exploredMask,
-            seeing: makeReveal(at: worldPoint)
+            seeing: sight.reveal
         ) ?? texture
         return grew
+    }
+
+    /// Whether the area can see this point right now.
+    ///
+    /// What the engine gates creature drawing on: a remembered room shows its
+    /// furniture and not who is standing in it. Sight that has run ahead of the
+    /// last remembered pool counts — the mask lights it, so this must agree.
+    func isVisible(_ worldPoint: CGPoint) -> Bool {
+        visibleCells.contains(searchMap.cell(for: worldPoint))
+    }
+
+    /// Whether the area has ever seen this point.
+    ///
+    /// Follows the mask rather than every cell sight has ever touched, because a
+    /// query that disagreed with the picture would hide something the player can
+    /// plainly see, or show something under black.
+    func isExplored(_ worldPoint: CGPoint) -> Bool {
+        let cell = searchMap.cell(for: worldPoint)
+        return exploredCells.contains(cell) || visibleCells.contains(cell)
     }
 
     /// Add places to memory without the player having stood in them — an
@@ -77,8 +104,10 @@ final class FogOfWarNode: SKSpriteNode {
     func remember(_ worldPoints: [CGPoint]) {
         guard !worldPoints.isEmpty else { return }
         for point in worldPoints {
+            let sight = sightFrom(point)
             rememberedPoints.append(point)
-            rememberedReveals.append(makeReveal(at: point))
+            rememberedReveals.append(sight.reveal)
+            exploredCells.formUnion(sight.cells)
         }
         exploredMask = renderer.makeExploredMask(remembering: rememberedReveals)
     }
@@ -92,13 +121,16 @@ final class FogOfWarNode: SKSpriteNode {
         return true
     }
 
-    /// One pool, cut back to what sight reaches from where it stands.
-    private func makeReveal(at worldPoint: CGPoint) -> FogMaskRenderer.Reveal {
+    /// One pool, cut back to what sight reaches from where it stands — and the
+    /// cells it reached, which are the bitmap the queries above answer from.
+    private func sightFrom(
+        _ worldPoint: CGPoint
+    ) -> (reveal: FogMaskRenderer.Reveal, cells: Set<SearchMapCell>) {
         let cells = searchMap.visibleCells(
             from: worldPoint,
             radiusInCells: renderer.visibilityRadiusInCells
         )
-        return FogMaskRenderer.Reveal(
+        let reveal = FogMaskRenderer.Reveal(
             center: CGPoint(
                 x: worldPoint.x - worldOrigin.x,
                 y: worldPoint.y - worldOrigin.y
@@ -107,5 +139,6 @@ final class FogOfWarNode: SKSpriteNode {
                 $0.offsetBy(dx: -worldOrigin.x, dy: -worldOrigin.y)
             }
         )
+        return (reveal, cells)
     }
 }

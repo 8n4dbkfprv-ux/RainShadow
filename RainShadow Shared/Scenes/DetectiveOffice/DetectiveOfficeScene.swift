@@ -185,7 +185,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // hidden once her visit ends), but it is the binding a persistent NPC needs.
         client.dialogueOwnerID = EmptyCoatCaseIntroduction.lilaOwnerID
         client.dialogueGraphID = EmptyCoatDialogueKeys.graphID
-        depthWorldRoot.addChild(client)
+        // Behind a fog gate: the room keeps her when the player cannot see
+        // her, and only stops drawing her.
+        addFogGated(client, to: depthWorldRoot)
 
         addFogOfWar()
 
@@ -915,6 +917,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         updateDetectiveDepth()
         updateDepth(of: client)
         fogOfWar?.look(from: detective.position)
+        updateFogGating(fogOfWar)
         updateCameraPosition(at: currentTime)
         // Follow dialogue camera lifts / restores every frame.
         syncHudToCamera()

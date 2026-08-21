@@ -99,6 +99,42 @@ struct FogOfWarModelTests {
         #expect(city.contains("recordCityFogReveal"))
     }
 
+    /// The other half of what two bitmaps are for: the engine skips *drawing* a
+    /// creature outside `VisibleBitmap` and changes nothing else about it.
+    @Test func creaturesAreGatedOnSightRatherThanRemovedFromTheWorld() throws {
+        let base = try read("RainShadow Shared/Core/Scene/BaseGameScene.swift")
+        let node = try read(Self.node)
+
+        #expect(node.contains("func isVisible(_ worldPoint: CGPoint) -> Bool"))
+        #expect(node.contains("func isExplored(_ worldPoint: CGPoint) -> Bool"))
+        #expect(base.contains("func addFogGated(_ actor: SKNode, to parent: SKNode) -> SKNode"))
+        #expect(base.contains("func updateFogGating(_ fog: FogOfWarNode?)"))
+
+        // The gate is a parent, not a flag on the creature. Setting `isHidden`
+        // would fight `ClientActorNode`, which owns it, and would corrupt the
+        // three places the office reads it to mean "she is in the room".
+        let gate = try #require(base.range(of: "func updateFogGating"))
+        let end = try #require(base.range(of: "\n    }\n", range: gate.upperBound..<base.endIndex))
+        let body = base[gate.upperBound..<end.lowerBound]
+        #expect(body.contains("gate.isHidden"))
+        #expect(!body.contains("actor.isHidden"))
+    }
+
+    /// The office registers its NPC and gates nothing else — least of all the
+    /// player, who is what sight is measured from.
+    @Test func theOfficeGatesItsClientAndNotItsPlayer() throws {
+        let office = try read(Self.scenes[0])
+
+        #expect(office.contains("addFogGated(client, to: depthWorldRoot)"))
+        #expect(office.contains("updateFogGating(fogOfWar)"))
+        #expect(!office.contains("addFogGated(detective"))
+
+        // Fog must never be the thing that writes the creature's own flag.
+        for assignment in ["client.isHidden = !", "client.isHidden = fog", "client.isHidden = isVisible"] {
+            #expect(!office.contains(assignment))
+        }
+    }
+
     private func read(_ relativePath: String) throws -> String {
         try String(
             contentsOf: URL(fileURLWithPath: #filePath)

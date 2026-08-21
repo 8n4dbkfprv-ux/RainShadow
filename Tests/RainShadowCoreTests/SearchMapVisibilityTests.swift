@@ -210,6 +210,24 @@ struct SearchMapVisibilityTests {
         #expect(walkableCells(shipped) == walkableCells(everythingOpaque))
     }
 
+    /// Lila's authored walk-in stays inside Voss's line of sight the whole way.
+    ///
+    /// The office gates creature drawing on visibility, so this is what stops
+    /// the shipped intro playing to an empty room: if the search map, the fog
+    /// radius or her path moves such that any step of it falls out of sight, she
+    /// blinks out mid-entrance and the scripted beat plays with nobody in it.
+    @Test func theClientsAuthoredEntranceStaysInSightThroughout() throws {
+        let area = HarborpointAreas.requireArea(HarborpointAreas.office)
+        let map = area.makeNavigationMap().searchMap
+        // The cell radius `FogMaskRenderer.Style.office` resolves to.
+        let seen = map.visibleCells(from: OfficeNavigationLayout.actorStart, radiusInCells: 39)
+
+        let path = OfficeNavigationLayout.clientArrivalPath
+        #expect(!path.isEmpty)
+        let unseen = path.filter { !seen.contains(map.cell(for: $0)) }
+        #expect(unseen.isEmpty, "the client walks out of sight at \(unseen)")
+    }
+
 }
 
 /// Merging a visible cell set into clip rectangles.

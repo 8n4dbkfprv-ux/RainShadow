@@ -560,6 +560,56 @@ class BaseGameScene: SKScene {
         let hudPoint = hudRoot.convert(sceneLocation, from: self)
         return dialoguePresenter.convert(hudPoint, from: hudRoot)
     }
+    // MARK: - Creatures the fog may hide
+
+    /// Creatures registered with `addFogGated(_:to:)`, paired with the node that
+    /// hides them.
+    private var fogGatedActors: [(gate: SKNode, actor: SKNode)] = []
+
+    /// Add a creature the fog is allowed to stop drawing.
+    ///
+    /// The Infinity Engine skips *drawing* a creature outside `VisibleBitmap`
+    /// and changes nothing else about it — it still blocks, still runs its
+    /// script, still answers to dialogue. Two things follow, and both are why
+    /// this wraps the creature instead of setting `isHidden` on it:
+    ///
+    /// `ClientActorNode` owns `isHidden` for its own entrance and exit and
+    /// toggles it from inside its animation states, so a scene writing that flag
+    /// every frame would be fighting it. And the office reads `!client.isHidden`
+    /// in three places to mean "she is in the room" — for talking to her, for
+    /// her navigation footprint, and for shoving her aside — so folding fog into
+    /// that flag would make her stop blocking the doorway the moment the player
+    /// looked away.
+    ///
+    /// A parent node has neither problem. A hidden parent hides the subtree
+    /// whatever the child thinks, and an unhidden one leaves the child's own
+    /// state to decide. The gate carries no transform, so the creature's world
+    /// position and depth sort are exactly what they were.
+    @discardableResult
+    func addFogGated(_ actor: SKNode, to parent: SKNode) -> SKNode {
+        let gate = SKNode()
+        gate.name = "fog.gate"
+        gate.addChild(actor)
+        parent.addChild(gate)
+        fogGatedActors.append((gate, actor))
+        return gate
+    }
+
+    /// Stop drawing the creatures the area cannot currently see.
+    ///
+    /// The player is never gated: he is the thing sight is measured from, so he
+    /// is always inside it, and a fog that failed would take him off the screen
+    /// rather than showing an obvious error.
+    func updateFogGating(_ fog: FogOfWarNode?) {
+        guard let fog else {
+            fogGatedActors.forEach { $0.gate.isHidden = false }
+            return
+        }
+        for entry in fogGatedActors {
+            entry.gate.isHidden = !fog.isVisible(entry.actor.position)
+        }
+    }
+
     // MARK: - Player actor and HUD overlays
 
     /// The player. Both playable scenes declared this privately and identically,
