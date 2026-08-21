@@ -8,6 +8,94 @@ import Testing
 /// data, so the suite is what stops a bad area shipping.
 struct AreaCatalogTests {
 
+    // MARK: - Sight-permeable obstacles
+
+    /// The see-through list is a *subset* of the obstacle list, and nothing but
+    /// a subset. Authored separately from `obstacles` so the shipped rect arrays
+    /// stayed as they were, which means this assertion is the only thing keeping
+    /// the two in step: a furniture rect nudged in one and not the other would
+    /// silently go back to casting a shadow.
+    @Test func everySightPermeableObstacleIsAlsoAnObstacle() throws {
+        for id in HarborpointAreas.shippedIDs {
+            let area = try AreaCatalogLoader.load(id)
+            let obstacles = Set(area.obstacles)
+            for permeable in area.sightPermeableObstacles {
+                #expect(
+                    obstacles.contains(permeable),
+                    "'\(id)' marks \(permeable) see-through but does not list it as an obstacle"
+                )
+            }
+            #expect(
+                Set(area.sightPermeableObstacles).count == area.sightPermeableObstacles.count,
+                "'\(id)' lists a see-through obstacle twice"
+            )
+        }
+    }
+
+    /// A thing that hides a standing man hides what is behind it.
+    ///
+    /// `wallPolygons` is the office's authored list of furniture tall enough to
+    /// cover an actor walking behind it, which is the same question sight asks.
+    /// Named rather than derived from the polygons: the office's rectangles
+    /// overlap — the archive box is tucked half under the bookshelf — so any
+    /// geometric test either misses the real mistake or fails on a neighbour.
+    @Test func theFurnitureTallEnoughToHideAManIsNotSeenThrough() {
+        let permeable = Set(OfficeNavigationLayout.sightPermeableObstacles)
+
+        #expect(!permeable.contains(OfficeNavigationLayout.bookshelfObstacle))
+        #expect(!permeable.contains(OfficeNavigationLayout.filingCabinetObstacle))
+        #expect(!permeable.contains(OfficeNavigationLayout.safeObstacle))
+        #expect(OfficeNavigationLayout.fireplaceObstacles.allSatisfy { !permeable.contains($0) })
+    }
+
+    /// Every piece authored as actor cover still has something solid standing in
+    /// it. The general form of the test above: whatever is tall enough to hide
+    /// an actor must leave at least one opaque cell behind, or it would cover a
+    /// man while casting no shadow.
+    @Test func everyActorCoverStillHasSomethingOpaqueInIt() throws {
+        let area = try AreaCatalogLoader.load(HarborpointAreas.office)
+        let map = area.makeNavigationMap().searchMap
+
+        for cover in area.wallPolygons where cover.coversActors {
+            let box = cover.boundingBox
+            let opaque = cellCenters(of: box, in: map).contains {
+                !map.terrain(at: $0).isSeeThrough
+            }
+            #expect(opaque, "'\(cover.id)' covers actors but blocks no sight")
+        }
+    }
+
+    /// Marking furniture see-through must not open a hole anyone can walk
+    /// through: index 8 and index 0 are both outside `isWalkable`.
+    @Test func seeingOverFurnitureDoesNotMakeItWalkable() throws {
+        let area = try AreaCatalogLoader.load(HarborpointAreas.office)
+        let map = area.makeNavigationMap().searchMap
+
+        for permeable in area.sightPermeableObstacles {
+            for center in cellCenters(of: permeable.cgRect, in: map) {
+                #expect(
+                    !map.terrain(at: center).isWalkable,
+                    "\(permeable) left walkable floor at \(center)"
+                )
+            }
+        }
+    }
+
+    /// Cell centres the rasteriser would have tested against `rect` — the same
+    /// half-open containment `rasterizeStaticObstacles` uses.
+    private func cellCenters(of rect: CGRect, in map: SearchMap) -> [CGPoint] {
+        let first = map.cell(for: CGPoint(x: rect.minX, y: rect.minY))
+        let last = map.cell(for: CGPoint(x: rect.maxX, y: rect.maxY))
+        var centers: [CGPoint] = []
+        for row in first.row...max(first.row, last.row) {
+            for column in first.column...max(first.column, last.column) {
+                let center = map.center(of: SearchMapCell(column: column, row: row))
+                if rect.contains(center) { centers.append(center) }
+            }
+        }
+        return centers
+    }
+
     // MARK: - Shipped content
 
     @Test func everyShippedAreaLoadsFromItsResource() throws {

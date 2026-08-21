@@ -2628,6 +2628,9 @@
       }
     ],
     "searchMapName" : "city_harborpoint_pd.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

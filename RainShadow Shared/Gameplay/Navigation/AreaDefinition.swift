@@ -767,6 +767,20 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// rasterised instead, so an area can adopt the bitmap independently.
     var searchMapName: String?
     var obstacles: [AreaRect]
+    /// The subset of `obstacles` that stops feet but not sight.
+    ///
+    /// Baldur's Gate spends two of its sixteen terrain indices on this
+    /// distinction — 0 blocks movement and sight, 8 blocks movement only — so a
+    /// desk, a railing or a parapet occludes nothing while a wall does. Without
+    /// it, sight-based fog is unusable indoors: every chair in the office casts a
+    /// shadow to the far wall.
+    ///
+    /// Authored as a subset rather than as a terrain on each obstacle so the
+    /// existing rect arrays stay exactly as they are; `AreaCatalogTests` asserts
+    /// every entry here is also in `obstacles`, which is what keeps the two from
+    /// drifting apart. The bake reads this to choose the painted index, and the
+    /// AABB fallback reads it for the same reason.
+    var sightPermeableObstacles: [AreaRect]
     /// Terrain written into open ground when no search map is painted. Decides
     /// what the area sounds like underfoot: the districts are paved, the office
     /// is boards.
@@ -808,6 +822,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         cameraClampRect: AreaRect? = nil,
         searchMapName: String? = nil,
         obstacles: [AreaRect] = [],
+        sightPermeableObstacles: [AreaRect] = [],
         defaultTerrain: SearchMapTerrain = .stone,
         agentProfile: AreaAgentProfile,
         pathSearchBudget: Int? = nil,
@@ -833,6 +848,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.cameraClampRect = cameraClampRect
         self.searchMapName = searchMapName
         self.obstacles = obstacles
+        self.sightPermeableObstacles = sightPermeableObstacles
         self.defaultTerrain = defaultTerrain
         self.agentProfile = agentProfile
         self.pathSearchBudget = pathSearchBudget
@@ -964,7 +980,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, displayName, kind, arrivalHint, worldOrigin, worldSize
         case plateTextureName, mapTextureName, cameraClampRect
-        case searchMapName, obstacles, defaultTerrain, agentProfile, pathSearchBudget
+        case searchMapName, obstacles, sightPermeableObstacles, defaultTerrain
+        case agentProfile, pathSearchBudget
         case entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
         case script
     }
@@ -983,6 +1000,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         cameraClampRect = try container.decodeIfPresent(AreaRect.self, forKey: .cameraClampRect)
         searchMapName = try container.decodeIfPresent(String.self, forKey: .searchMapName)
         obstacles = try container.decodeIfPresent([AreaRect].self, forKey: .obstacles) ?? []
+        sightPermeableObstacles = try container.decodeIfPresent(
+            [AreaRect].self,
+            forKey: .sightPermeableObstacles
+        ) ?? []
         defaultTerrain = try container.decodeIfPresent(
             SearchMapTerrain.self,
             forKey: .defaultTerrain

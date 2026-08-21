@@ -2788,6 +2788,9 @@
       }
     ],
     "searchMapName" : "city_lila_street.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

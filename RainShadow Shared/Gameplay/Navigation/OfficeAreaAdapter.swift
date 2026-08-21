@@ -42,6 +42,10 @@ enum OfficeAreaAdapter {
             cameraClampRect: AreaRect(OfficeInteriorScale.paintedRoomBounds),
             searchMapName: "\(HarborpointAreas.office.rawValue).sr",
             obstacles: OfficeNavigationLayout.obstacles.map(AreaRect.init),
+            // The desk, the chairs and the wastebasket stop feet but not sight,
+            // so the bake paints them index 8 and fog sees over them.
+            sightPermeableObstacles: OfficeNavigationLayout.sightPermeableObstacles
+                .map(AreaRect.init),
             // Floorboards throughout, which is what makes the office sound
             // different from the street without a per-scene constant saying so.
             defaultTerrain: .wood,

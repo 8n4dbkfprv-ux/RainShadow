@@ -128,10 +128,27 @@ def bake(area: dict) -> tuple[Image.Image, Image.Image, dict]:
         if not any(rects_equal(o, d) for d in doors)
     ]
 
+    # Index 8 blocks movement and passes sight; index 0 blocks both. Every
+    # rectangle used to bake as 0, which was invisible while fog was a disc and
+    # wrong the moment fog started reading the search map: the office desk
+    # shadowed the far wall. Walkability is identical either way — both indices
+    # are outside `WALKABLE` — so this changes sight and nothing else.
+    permeable = area.get("sightPermeableObstacles", [])
+    solid_index = TERRAIN_INDEX["obstacle"]
+    permeable_index = TERRAIN_INDEX["obstacle-see-through"]
+
+    def obstacle_index(rect: dict) -> int:
+        return (
+            permeable_index
+            if any(rects_equal(rect, p) for p in permeable)
+            else solid_index
+        )
+
     # Bucket obstacles by cell column range so a 750-rect office does not cost
     # 750 tests per cell.
     buckets: dict[int, list[dict]] = {}
     for rect in obstacles:
+        rect = dict(rect, _index=obstacle_index(rect))
         first = max(0, int((rect["x"] - origin_x) // CELL_W))
         last = min(columns - 1, int((rect["x"] + rect["w"] - origin_x) // CELL_W))
         for column in range(first, last + 1):
@@ -155,15 +172,22 @@ def bake(area: dict) -> tuple[Image.Image, Image.Image, dict]:
         for column in range(columns):
             cx = origin_x + (column + 0.5) * CELL_W
             solid = outside_row or not (origin_x - eps <= cx <= max_x + eps)
+            # Outside the world reads as index 0, matching `!contains(point)`.
+            value = solid_index if solid else None
             if not solid:
                 for rect in buckets.get(column, ()):
                     if (
                         rect["x"] <= cx < rect["x"] + rect["w"]
                         and rect["y"] <= cy < rect["y"] + rect["h"]
                     ):
+                        # First rectangle wins, and a solid one is authored
+                        # before any permeable one, so a desk pushed against a
+                        # wall does not punch a window through it.
+                        value = rect["_index"]
                         solid = True
                         break
-            value = 0 if solid else default
+            if value is None:
+                value = default
             indices[row * columns + column] = value
             if solid:
                 blocked_cells += 1
@@ -185,6 +209,7 @@ def bake(area: dict) -> tuple[Image.Image, Image.Image, dict]:
         "rows": rows,
         "cells": total,
         "blocked": blocked_cells,
+        "sightPermeable": sum(1 for v in indices if v == permeable_index),
         "walkableFraction": (total - blocked_cells) / total,
     }
     return grey, review, stats

@@ -47,6 +47,9 @@
     "regions" : [
 
     ],
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

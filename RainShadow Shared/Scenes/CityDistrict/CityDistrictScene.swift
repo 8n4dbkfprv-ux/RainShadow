@@ -667,7 +667,8 @@ final class CityDistrictScene: BaseGameScene {
         let fog = CityFogOfWarNode(
             size: CityDistrictDefinition.worldArtSize,
             revealedPoints: context.session.cityFogRevealPoints(for: district.id),
-            initialReveal: detective.position
+            initialReveal: detective.position,
+            searchMap: navigation.searchMap
         )
         fog.zPosition = 10
         weatherRoot.addChild(fog)
@@ -795,19 +796,32 @@ final class CityDistrictScene: BaseGameScene {
 
 @MainActor
 private final class CityFogOfWarNode: SKSpriteNode {
-    private static let revealRadius = CityDistrictDefinition.fogRevealRadius
+    /// How far the player walks before the district records another place it has
+    /// seen. A district remembers all of them and writes them to the save, which
+    /// is what an Infinity Engine area's explored bitmap is.
     private static let revealSpacing: CGFloat = 72
-    private static let maskPixelSize = CGSize(width: 1_024, height: 512)
 
+    private let renderer = FogMaskRenderer(
+        worldSize: CityDistrictDefinition.worldArtSize,
+        style: .cityDistrict
+    )
+    private let searchMap: SearchMap
     private var revealedPoints: [CGPoint]
+    /// Sight from each recorded point, kept because a district accumulates
+    /// points for as long as the player explores it and only ever gains one at a
+    /// time. Recomputing all of them on every step would make walking cost more
+    /// the longer you had walked.
+    private var revealsByPoint: [FogMaskRenderer.Reveal] = []
 
-    init(size: CGSize, revealedPoints: [CGPoint], initialReveal: CGPoint) {
+    init(size: CGSize, revealedPoints: [CGPoint], initialReveal: CGPoint, searchMap: SearchMap) {
+        self.searchMap = searchMap
         self.revealedPoints = revealedPoints.isEmpty ? [initialReveal] : revealedPoints
         if self.revealedPoints.last != initialReveal {
             self.revealedPoints.append(initialReveal)
         }
         super.init(texture: nil, color: .black, size: size)
         anchorPoint = .zero
+        revealsByPoint = self.revealedPoints.map(makeReveal)
         updateFogTexture()
     }
 
@@ -822,64 +836,24 @@ private final class CityFogOfWarNode: SKSpriteNode {
             return false
         }
         revealedPoints.append(worldPoint)
+        revealsByPoint.append(makeReveal(at: worldPoint))
         updateFogTexture()
         return true
     }
 
     private func updateFogTexture() {
-        let pixelWidth = Int(Self.maskPixelSize.width)
-        let pixelHeight = Int(Self.maskPixelSize.height)
-        let bytesPerRow = pixelWidth * 4
-        guard let context = CGContext(
-            data: nil,
-            width: pixelWidth,
-            height: pixelHeight,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return }
-
-        context.setBlendMode(.copy)
-        context.setFillColor(CGColor(gray: 0, alpha: 1))
-        context.fill(CGRect(origin: .zero, size: Self.maskPixelSize))
-        context.setBlendMode(.destinationOut)
-
-        let pixelScale = Self.maskPixelSize.width / size.width
-        for (index, point) in revealedPoints.enumerated() {
-            let center = CGPoint(x: point.x * pixelScale, y: point.y * pixelScale)
-            let phase = CGFloat(index) * 0.61
-            for layer in [(1.10, 0.12), (1.055, 0.20), (1.015, 0.38), (0.965, 1.0)] {
-                context.addPath(Self.irregularRevealPath(
-                    center: center,
-                    radius: Self.revealRadius * pixelScale * layer.0,
-                    phase: phase
-                ))
-                context.setFillColor(CGColor(gray: 1, alpha: layer.1))
-                context.fillPath()
-            }
-        }
-
-        guard let image = context.makeImage() else { return }
-        let mask = SKTexture(cgImage: image)
-        mask.filteringMode = .linear
+        guard let mask = renderer.makeTexture(revealing: revealsByPoint) else { return }
         texture = mask
     }
 
-    private static func irregularRevealPath(center: CGPoint, radius: CGFloat, phase: CGFloat) -> CGPath {
-        let path = CGMutablePath()
-        let segments = 72
-        for segment in 0..<segments {
-            let angle = CGFloat(segment) / CGFloat(segments) * .pi * 2
-            let variation = sin(angle * 7 + phase) * 5
-                + sin(angle * 17 - phase * 0.8) * 2.3
-            let point = CGPoint(
-                x: center.x + cos(angle) * (radius + variation),
-                y: center.y + sin(angle) * (radius + variation)
-            )
-            segment == 0 ? path.move(to: point) : path.addLine(to: point)
-        }
-        path.closeSubpath()
-        return path
+    /// One pool, cut back to what the street can actually see from there — so it
+    /// stops at the building on the corner instead of spilling through it.
+    private func makeReveal(at worldPoint: CGPoint) -> FogMaskRenderer.Reveal {
+        let cells = searchMap.visibleCells(from: worldPoint, radius: renderer.visibilityRadius)
+        // The district's world origin is zero, so world points are already local.
+        return FogMaskRenderer.Reveal(
+            center: worldPoint,
+            visibleRects: searchMap.mergedRects(of: cells)
+        )
     }
 }

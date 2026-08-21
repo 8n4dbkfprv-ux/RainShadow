@@ -1647,6 +1647,9 @@
       }
     ],
     "searchMapName" : "city_sable_row.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

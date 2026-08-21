@@ -939,7 +939,43 @@ enum OfficeNavigationLayout {
     static let authoredWaitingTableObstacle = CGRect(x: 1706.5428208858327, y: 538.4174875959663, width: 113.00407924507302, height: 83.78935214842697)
     static let authoredWaitingChairBObstacle = CGRect(x: 1727.1751829441093, y: 448.75241630024414, width: 113.00407924507319, height: 83.7893521484268)
 
-    private static var authoredObstacles: [CGRect] {
+    /// Furniture low enough to see over.
+    ///
+    /// Baldur's Gate paints these as terrain index 8 — blocks movement, passes
+    /// sight — and reserves index 0 for the things that stop both. The office
+    /// has always rasterised every rectangle as index 0, which was invisible
+    /// while fog was a disc around the player and became wrong the moment fog
+    /// started asking the search map what it could see: a desk two paces away
+    /// shadowed the whole far wall.
+    ///
+    /// The four pieces tall enough to occlude — bookshelf, filing cabinet, safe
+    /// and fireplace — are exactly the four already authored as
+    /// `wallPolygons` because they hide an actor who walks behind them. A thing
+    /// that hides a standing man hides what is behind it; a wastebasket does
+    /// not. `AreaCatalogTests` holds those two lists against each other.
+    private static var authoredSightPermeableObstacles: [CGRect] {
+        [
+            authoredFilingCabinetBObstacle,
+            authoredArchiveBoxAObstacle,
+            authoredRadiatorObstacle,
+            authoredPersonalSideboardObstacle,
+            authoredPersonalFanObstacle,
+            authoredDeskEnsembleObstacle,
+            authoredVisitorArmchairObstacle,
+            authoredVisitorArmchairBObstacle,
+            authoredWastebasketObstacle,
+            authoredCoatRackObstacle,
+            authoredUmbrellaStandObstacle,
+            authoredWaitingChairAObstacle,
+            authoredWaitingTableObstacle,
+            authoredWaitingChairBObstacle,
+        ]
+    }
+
+    /// Architecture and the tall furniture: the room shell, its partitions and
+    /// pillars, the foreground wall, the fireplace masonry, and the three
+    /// cabinets a man can hide behind.
+    private static var authoredSightBlockingObstacles: [CGRect] {
         [authoredDoorObstacle, authoredForegroundWallObstacle]
             + authoredFireplaceObstacleSegments
             + authoredBoundarySegments
@@ -947,23 +983,18 @@ enum OfficeNavigationLayout {
             + authoredPillarSegments
             + [
                 authoredSafeObstacle,
-                authoredFilingCabinetBObstacle,
                 authoredFilingCabinetObstacle,
                 authoredBookshelfObstacle,
-                authoredArchiveBoxAObstacle,
-                authoredRadiatorObstacle,
-                authoredPersonalSideboardObstacle,
-                authoredPersonalFanObstacle,
-                authoredDeskEnsembleObstacle,
-                authoredVisitorArmchairObstacle,
-                authoredVisitorArmchairBObstacle,
-                authoredWastebasketObstacle,
-                authoredCoatRackObstacle,
-                authoredUmbrellaStandObstacle,
-                authoredWaitingChairAObstacle,
-                authoredWaitingTableObstacle,
-                authoredWaitingChairBObstacle,
             ]
+    }
+
+    private static var authoredObstacles: [CGRect] {
+        authoredSightBlockingObstacles + authoredSightPermeableObstacles
+    }
+
+    /// World-space subset of `obstacles` that stops feet but not sight.
+    static var sightPermeableObstacles: [CGRect] {
+        authoredSightPermeableObstacles.map(OfficeInteriorScale.mapRect)
     }
 
     // MARK: - Sample points (interior to each obstacle)

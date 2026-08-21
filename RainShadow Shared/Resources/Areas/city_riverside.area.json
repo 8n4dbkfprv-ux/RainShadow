@@ -2618,6 +2618,9 @@
       }
     ],
     "searchMapName" : "city_riverside.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

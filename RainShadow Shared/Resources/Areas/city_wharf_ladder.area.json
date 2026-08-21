@@ -2746,6 +2746,9 @@
       }
     ],
     "searchMapName" : "city_wharf_ladder.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

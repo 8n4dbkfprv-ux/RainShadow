@@ -2612,6 +2612,9 @@
       }
     ],
     "searchMapName" : "city_civic_records.sr",
+    "sightPermeableObstacles" : [
+
+    ],
     "wallPolygons" : [
 
     ],

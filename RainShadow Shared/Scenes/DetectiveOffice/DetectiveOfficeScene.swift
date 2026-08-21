@@ -2109,7 +2109,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         let fog = OfficeFogOfWarNode(
             size: OfficeInteriorScale.scaledArtSize,
             origin: OfficeInteriorScale.shellOrigin,
-            initialReveal: arrivalPoint
+            initialReveal: arrivalPoint,
+            searchMap: navigation.searchMap
         )
         // The opening conversation starts with Lila crossing from the door,
         // so her authored entrance is part of the initially explored office.
@@ -2657,14 +2658,22 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
 /// the environment, props, actors, and HUD remain independent layers.
 @MainActor
 private final class OfficeFogOfWarNode: SKSpriteNode {
+    /// How many places Voss stood the room still remembers. The office forgets —
+    /// this is a pool of lamplight following him, not an explored map.
     private static let pointCapacity = 8
-    private static let revealRadius: CGFloat = 390
-    private static let maskPixelSize = CGSize(width: 512, height: 256)
 
+    private let renderer = FogMaskRenderer(
+        worldSize: OfficeInteriorScale.scaledArtSize,
+        style: .office
+    )
+    private let searchMap: SearchMap
+    private let worldOrigin: CGPoint
     private var trail: [CGPoint] = []
     private var currentReveal: CGPoint
 
-    init(size: CGSize, origin: CGPoint, initialReveal: CGPoint) {
+    init(size: CGSize, origin: CGPoint, initialReveal: CGPoint, searchMap: SearchMap) {
+        self.searchMap = searchMap
+        worldOrigin = origin
         currentReveal = CGPoint(
             x: initialReveal.x - origin.x,
             y: initialReveal.y - origin.y
@@ -2680,9 +2689,12 @@ private final class OfficeFogOfWarNode: SKSpriteNode {
     }
 
     func reveal(at worldPoint: CGPoint, forceTrailPoint: Bool = false) {
-        let localPoint = CGPoint(x: worldPoint.x - position.x, y: worldPoint.y - position.y)
+        let localPoint = CGPoint(
+            x: worldPoint.x - worldOrigin.x,
+            y: worldPoint.y - worldOrigin.y
+        )
         let movement = hypot(localPoint.x - currentReveal.x, localPoint.y - currentReveal.y)
-        let shouldCommit = forceTrailPoint || movement >= Self.revealRadius * 0.42
+        let shouldCommit = forceTrailPoint || movement >= FogMaskRenderer.Style.office.revealRadius * 0.42
         guard forceTrailPoint || movement >= 12 else { return }
 
         if trail.isEmpty || shouldCommit {
@@ -2697,74 +2709,22 @@ private final class OfficeFogOfWarNode: SKSpriteNode {
 
     private func updateFogTexture() {
         let points = Array(trail.suffix(Self.pointCapacity - 1)) + [currentReveal]
-        let pixelWidth = Int(Self.maskPixelSize.width)
-        let pixelHeight = Int(Self.maskPixelSize.height)
-        let bytesPerRow = pixelWidth * 4
-        guard let context = CGContext(
-            data: nil,
-            width: pixelWidth,
-            height: pixelHeight,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return }
-
-        context.setBlendMode(.copy)
-        context.setFillColor(CGColor(gray: 0, alpha: 1))
-        context.fill(CGRect(origin: .zero, size: Self.maskPixelSize))
-        context.setBlendMode(.destinationOut)
-
-        let pixelScale = Self.maskPixelSize.width / size.width
-        for (index, point) in points.enumerated() {
-            let center = CGPoint(
-                x: point.x / size.width * Self.maskPixelSize.width,
-                y: point.y / size.height * Self.maskPixelSize.height
-            )
-            let phase = CGFloat(index) * 0.83
-            let featherLayers: [(scale: CGFloat, alpha: CGFloat)] = [
-                (1.045, 0.16),
-                (1.020, 0.24),
-                (0.995, 0.36),
-                (0.965, 1.00)
-            ]
-            for layer in featherLayers {
-                let path = Self.irregularRevealPath(
-                    center: center,
-                    radius: Self.revealRadius * pixelScale * layer.scale,
-                    phase: phase
-                )
-                context.addPath(path)
-                context.setFillColor(CGColor(gray: 1, alpha: layer.alpha))
-                context.fillPath()
-            }
-        }
-
-        guard let image = context.makeImage() else { return }
-        let fogTexture = SKTexture(cgImage: image)
-        fogTexture.filteringMode = .linear
-        texture = fogTexture
+        guard let mask = renderer.makeTexture(revealing: points.map(makeReveal)) else { return }
+        texture = mask
     }
 
-    private static func irregularRevealPath(center: CGPoint, radius: CGFloat, phase: CGFloat) -> CGPath {
-        let path = CGMutablePath()
-        let segmentCount = 96
-        for segment in 0..<segmentCount {
-            let angle = CGFloat(segment) / CGFloat(segmentCount) * .pi * 2
-            let paintedEdge = sin(angle * 9 + phase) * 7.5
-                + sin(angle * 21 - phase * 0.7) * 3.5
-                + sin(angle * 37 + phase * 1.3) * 1.8
-            let point = CGPoint(
-                x: center.x + cos(angle) * (radius + paintedEdge),
-                y: center.y + sin(angle) * (radius + paintedEdge)
-            )
-            if segment == 0 {
-                path.move(to: point)
-            } else {
-                path.addLine(to: point)
+    /// One lamplight pool, cut back to what can be seen from where it stands.
+    private func makeReveal(at localPoint: CGPoint) -> FogMaskRenderer.Reveal {
+        let worldPoint = CGPoint(
+            x: localPoint.x + worldOrigin.x,
+            y: localPoint.y + worldOrigin.y
+        )
+        let cells = searchMap.visibleCells(from: worldPoint, radius: renderer.visibilityRadius)
+        return FogMaskRenderer.Reveal(
+            center: localPoint,
+            visibleRects: searchMap.mergedRects(of: cells).map {
+                $0.offsetBy(dx: -worldOrigin.x, dy: -worldOrigin.y)
             }
-        }
-        path.closeSubpath()
-        return path
+        )
     }
 }
