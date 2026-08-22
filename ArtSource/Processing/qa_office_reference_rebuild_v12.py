@@ -66,6 +66,7 @@ def main() -> int:
         HOVER,
         METRICS,
         DOOR_FAMILY,
+        door_generator.NATIVE_MASTER,
     ]
     required.extend(
         STAGE / "Props" / f"office_door_leaf_{state}{suffix}_v12.png"
@@ -178,9 +179,11 @@ def main() -> int:
 
     door = geometry["door"]
     checks.append((
-        "door reference identity",
-        door_family["source"]["sha256"] == generator.sha256(generator.TARGET_REFERENCE)
-        and door_family["source"]["pixelPolicy"].startswith("uniformly transformed"),
+        "door source and visual-target identities",
+        door_family["source"]["sha256"] == door_generator.NATIVE_MASTER_SHA256
+        and sha256(door_generator.NATIVE_MASTER) == door_generator.NATIVE_MASTER_SHA256
+        and door_family["source"]["visualTargetSha256"] == generator.sha256(generator.TARGET_REFERENCE)
+        and door_family["source"]["pixelPolicy"].startswith("native-resolution"),
         door_family["source"]["sha256"][:12] + "…; " + door_family["source"]["pixelPolicy"],
     ))
     checks.append((
@@ -189,6 +192,12 @@ def main() -> int:
         and door_family["hingeImageXY"] == [488, 18]
         and door_family["anchorFromBottomLeft"] == [0.953125, 0.94375],
         f"{door_family['canvas']} hinge={door_family['hingeImageXY']} anchor={door_family['anchorFromBottomLeft']}",
+    ))
+    checks.append((
+        "door reduced reference scale",
+        abs(float(door_family["displayScale"]) - door_generator.DISPLAY_SCALE) < 1e-12
+        and float(door_family["displayScale"]) < float(door["displayScale"]),
+        f"{door_family['displayScale']} vs environment {door['displayScale']}",
     ))
     plate_hinge = np.asarray(door["targetHinge"], dtype=float)
     plate_free = np.asarray(door["targetFreeEnd"], dtype=float)
@@ -201,20 +210,6 @@ def main() -> int:
         abs(angle - float(door["targetAngleDegrees"])) <= 0.01
         and abs(closed_length - float(door["targetLength"])) <= 0.01,
         f"{angle:.3f}° length={closed_length:.3f}px",
-    ))
-    expected_bbox = np.asarray(
-        [
-            float(door["targetBBox"][0]) - plate_hinge[0] + 488.0,
-            float(door["targetBBox"][1]) - plate_hinge[1] + 18.0,
-            float(door["targetBBox"][2]) - plate_hinge[0] + 488.0,
-            float(door["targetBBox"][3]) - plate_hinge[1] + 18.0,
-        ]
-    )
-    closed_bbox = np.asarray(door_family["states"]["closed"]["opaqueBounds"], dtype=float)
-    checks.append((
-        "closed door matches reference bounds",
-        float(np.abs(closed_bbox - expected_bbox).max()) <= 2.0,
-        f"actual={closed_bbox.tolist()} reference={expected_bbox.round(2).tolist()}",
     ))
     for state in ("closed", "mid", "open"):
         state_record = door_family["states"][state]
@@ -231,7 +226,8 @@ def main() -> int:
             base.size == (512, 320)
             and np.linalg.norm(endpoints[0] - np.asarray([488.0, 18.0])) <= 0.001
             and abs(registered_length - target_length) <= 0.01
-            and 0.65 * float(door["targetThickness"]) <= thickness <= float(door["targetThickness"]) + 3.0,
+            and 28.0 <= thickness <= 40.0
+            and abs(thickness - float(state_record["actualTextureThickness"])) <= 0.01,
             f"length={registered_length:.2f}/{target_length:.2f}px thickness={thickness:.2f}px",
         ))
         checks.append((

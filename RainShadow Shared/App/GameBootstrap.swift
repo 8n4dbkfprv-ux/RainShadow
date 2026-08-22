@@ -38,7 +38,16 @@ final class GameSession {
             )
         })
     }
-    private var cityFogByDistrict: [CityDistrictID: [CGPoint]] = [:]
+    /// Every area's explored bitmask, keyed the way the engine keys it: by area.
+    ///
+    /// The Infinity Engine stores this in the `.ARE` and restores it when the
+    /// player returns, which is why a room you have walked is still drawn on your
+    /// way back in and only the people standing in it are hidden again. It used
+    /// to be a list of points Voss had stood in, keyed by *district* — so the
+    /// office, which is not a district, had nowhere to put anything and started
+    /// black on every single entry however many times he had crossed his own
+    /// floor. An interior is not a special case; it is an area.
+    private var fogByArea: [AreaID: FogBitmask] = [:]
     private(set) var currentHealth = 12
     let maximumHealth = 12
     /// Wallet balance in pence (£/s/d via `CurrencyAmount`).
@@ -79,6 +88,13 @@ final class GameSession {
                 out[entry.key] = Self.toAreaVariable(entry.value)
             }
         )
+        fogByArea = snapshot.exploredFog.reduce(into: [AreaID: FogBitmask]()) { out, entry in
+            out[AreaID(rawValue: entry.key)] = FogBitmask(
+                columns: entry.value.columns,
+                rows: entry.value.rows,
+                bytes: [UInt8](entry.value.bytes)
+            )
+        }
         caseState = CaseState(caseID: EmptyCoatJournalContent.caseID)
         caseState.flags.formUnion(snapshot.caseFlags)
         caseState.knowledgeIDs.formUnion(snapshot.caseKnowledgeIDs)
@@ -216,24 +232,20 @@ final class GameSession {
         currentHealth = min(max(0, health), maximumHealth)
     }
 
-    func cityFogRevealPoints(for district: CityDistrictID) -> [CGPoint] {
-        cityFogByDistrict[district] ?? []
+    /// What an area has ever shown the player, read back onto its current grid.
+    func exploredFogCells(for areaID: AreaID, on grid: FogGrid) -> Set<FogCell> {
+        fogByArea[areaID].map(grid.cells(from:)) ?? []
     }
 
-    /// Legacy accessor used by older call sites; maps to current district fog.
-    var cityFogRevealPoints: [CGPoint] {
-        cityFogRevealPoints(for: currentCityDistrict)
-    }
-
-    func recordCityFogReveal(_ district: CityDistrictID, point: CGPoint) {
-        var points = cityFogByDistrict[district] ?? []
-        guard points.last != point else { return }
-        points.append(point)
-        cityFogByDistrict[district] = points
-    }
-
-    func recordCityFogReveal(_ point: CGPoint) {
-        recordCityFogReveal(currentCityDistrict, point: point)
+    /// Fold what an area's fog now knows into what the game remembers.
+    /// Union only — an area never un-explores.
+    func recordExploredFog(_ areaID: AreaID, cells: Set<FogCell>, on grid: FogGrid) {
+        guard !cells.isEmpty else { return }
+        let known = fogByArea[areaID].map(grid.cells(from:)) ?? []
+        let grown = known.union(cells)
+        guard grown != known else { return }
+        fogByArea[areaID] = grid.bitmask(of: grown)
+        persist()
     }
 
     /// BG: resolve random treasure when the area is first entered, then lock.
@@ -606,6 +618,13 @@ final class GameSession {
             caseCounters: caseState.counters,
             areaVariables: areaVariables.flattened.reduce(into: [:]) { out, entry in
                 out[entry.key] = Self.toPersisted(entry.value)
+            },
+            exploredFog: fogByArea.reduce(into: [String: PersistedExploredFog]()) { out, entry in
+                out[entry.key.rawValue] = PersistedExploredFog(
+                    columns: entry.value.columns,
+                    rows: entry.value.rows,
+                    bytes: Data(entry.value.bytes)
+                )
             }
         ))
     }

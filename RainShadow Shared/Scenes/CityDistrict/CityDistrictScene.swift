@@ -80,7 +80,6 @@ final class CityDistrictScene: BaseGameScene {
             at: detective.position,
             radius: NavigationAgentProfile.detective.radius
         )
-        context.session.recordCityFogReveal(district.id, point: detective.position)
         updateDepth(of: detective)
         depthWorldRoot.addChild(detective)
 
@@ -393,11 +392,10 @@ final class CityDistrictScene: BaseGameScene {
             maximum: context.session.maximumHealth
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
-        areaMapOverlay.updateExploredPoints(context.session.cityFogRevealPoints(for: district.id))
         updateDepth(of: detective)
         updateFogGating(fogOfWar)
-        if fogOfWar?.look(from: detective.position) == true {
-            context.session.recordCityFogReveal(district.id, point: detective.position)
+        if let fog = fogOfWar, fog.look(from: detective.position) {
+            recordExploredFog(fog)
         }
         updateCameraPosition(at: currentTime)
     }
@@ -665,18 +663,29 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private func addFogOfWar() {
+        let grid = FogGrid(searchMap: navigation.searchMap)
         let fog = FogOfWarNode(
-            worldOrigin: .zero,
-            worldSize: CityDistrictDefinition.worldArtSize,
-            style: .cityDistrict,
             searchMap: navigation.searchMap,
-            // A district's memory outlives the visit: these came off the save.
-            remembering: context.session.cityFogRevealPoints(for: district.id),
+            visualRangeInCells: area.agentProfile.visualRangeInCells,
+            // What this area has shown the player before, whenever that was.
+            remembering: context.session.exploredFogCells(for: area.id, on: grid),
             standingAt: detective.position
         )
         fog.zPosition = 10
         weatherRoot.addChild(fog)
         fogOfWar = fog
+        recordExploredFog(fog)
+    }
+
+    /// Fold what the fog now knows into the game's memory of this area, and keep
+    /// the HUD map showing the same bitmap.
+    private func recordExploredFog(_ fog: FogOfWarNode) {
+        context.session.recordExploredFog(
+            area.id,
+            cells: fog.exploredCells,
+            on: fog.fogGrid
+        )
+        areaMapOverlay.updateExploredFog(fog.exploredMapTexture())
     }
 
     private func addCityRain() {
@@ -793,7 +802,7 @@ final class CityDistrictScene: BaseGameScene {
             locationName: district.locationName,
             worldBounds: CityDistrictDefinition.worldBounds,
             pointsOfInterest: mapPoints,
-            fogRevealRadius: CityDistrictDefinition.fogRevealRadius
+            showsExplorationFog: true
         )
     }
 }

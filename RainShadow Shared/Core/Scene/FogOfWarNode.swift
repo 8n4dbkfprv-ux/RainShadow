@@ -3,142 +3,147 @@ import SpriteKit
 
 /// An area's fog of war: what has been seen, and what is in sight now.
 ///
-/// The Infinity Engine keeps two bitmaps per area. `ExploredBitmap` is sticky
-/// and saved with the area — it never un-explores. `VisibleBitmap` is cleared
-/// and refilled from the party's line of sight, and gates whether creatures are
-/// drawn at all. Ground in the first but not the second draws as *partial* fog:
-/// you keep the terrain and lose whatever is standing on it.
+/// The Infinity Engine keeps two bitmaps per area. `ExploredBitmap` is sticky and
+/// saved with the area — it never un-explores. `VisibleBitmap` is cleared and
+/// refilled from the party's line of sight, and gates whether creatures are drawn
+/// at all. Ground in the first but not the second draws as *partial* fog: you
+/// keep the terrain and lose whatever is standing on it.
 ///
-/// This used to be two node classes with one mask each, and neither drew that
-/// middle state. The office faked memory with a rolling trail of the last eight
-/// places Voss stood — the room forgot ground he had already walked, which the
-/// engine never does — and a district lit everything it had ever seen as though
-/// the player were standing in all of it at once. Once memory is a real layer,
-/// the two policies collapse: both areas explore the same way, and the only
-/// thing that still differs is whether the caller writes the remembered points
-/// to the save. A district does; a room does not.
+/// Both are now literally bitmaps. They used to be lists of places the player had
+/// stood, re-shadowcast on load and repainted in full every time the list grew,
+/// which made a long walk cost more the longer you had walked and left no way to
+/// say "this ground was revealed" about anything other than standing on it.
+/// Opening a door is exactly that kind of reveal, and so is an authored one.
+///
+/// The two areas' fog no longer differs in any respect. The office and a district
+/// explore identically, draw identically, and part company only where they always
+/// should have: whether the caller writes the explored bitmap to the save.
 @MainActor
 final class FogOfWarNode: SKSpriteNode {
     private let renderer: FogMaskRenderer
     private let searchMap: SearchMap
-    private let worldOrigin: CGPoint
+    private let visualRangeInCells: Int
 
-    /// Places the area remembers being seen from. The caller owns whether these
-    /// outlive the visit.
-    private(set) var rememberedPoints: [CGPoint] = []
-    private var rememberedReveals: [FogMaskRenderer.Reveal] = []
-    /// The two bitmaps themselves, kept because the mask is only half of what
-    /// they are for: the engine also skips drawing any creature outside
-    /// `VisibleBitmap`, so the same answer has to be available as a query and
-    /// not just as pixels.
-    private var exploredCells: Set<SearchMapCell> = []
-    private var visibleCells: Set<SearchMapCell> = []
-    /// The remembered layer, repainted only when memory grows.
-    private var exploredMask: CGImage?
-    private var lastSightPoint: CGPoint?
+    /// The two bitmaps. Kept as sets rather than only as pixels because the mask
+    /// is half of what they are for: the engine also skips drawing any creature
+    /// outside `VisibleBitmap`, so the same answer has to be available as a query.
+    private(set) var exploredCells: Set<FogCell> = []
+    private var visibleCells: Set<FogCell> = []
+    /// Where sight was last answered from. The engine refills `VisibleBitmap`
+    /// every frame; recomputing once per search cell crossed is the same picture
+    /// for a fraction of the work, and is finer than any distance threshold —
+    /// the old one let the lit edge lag a step behind the player.
+    private var lastSightCell: SearchMapCell?
+
+    var fogGrid: FogGrid { renderer.grid }
 
     init(
-        worldOrigin: CGPoint,
-        worldSize: CGSize,
-        style: FogMaskRenderer.Style,
         searchMap: SearchMap,
-        remembering points: [CGPoint],
+        visualRangeInCells: Int,
+        remembering explored: Set<FogCell> = [],
         standingAt viewpoint: CGPoint
     ) {
-        renderer = FogMaskRenderer(worldSize: worldSize, style: style)
+        let grid = FogGrid(searchMap: searchMap)
+        renderer = FogMaskRenderer(grid: grid)
         self.searchMap = searchMap
-        self.worldOrigin = worldOrigin
-        super.init(texture: nil, color: .black, size: worldSize)
+        self.visualRangeInCells = visualRangeInCells
+        exploredCells = explored
+        super.init(texture: nil, color: .black, size: renderer.worldFrame.size)
         anchorPoint = .zero
-        position = worldOrigin
-        remember(points.isEmpty ? [viewpoint] : points)
-        look(from: viewpoint)
+        position = renderer.worldFrame.origin
+        refresh(from: viewpoint)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("FogOfWarNode is created programmatically")
     }
 
-    /// Look from here: repaint what is in sight, and commit it to memory once
-    /// the player has moved far enough to be worth remembering separately.
+    /// Look from here: refill sight, and fold it into memory.
     ///
     /// Returns whether memory grew, which is the caller's cue to persist.
     @discardableResult
     func look(from worldPoint: CGPoint) -> Bool {
-        let grew = commitToMemoryIfMoved(worldPoint)
-        let moved = lastSightPoint.map {
-            hypot(worldPoint.x - $0.x, worldPoint.y - $0.y) >= renderer.style.sightStep
-        } ?? true
-        guard grew || moved else { return grew }
-        lastSightPoint = worldPoint
-        let sight = sightFrom(worldPoint)
-        visibleCells = sight.cells
-        texture = renderer.makeTexture(
-            exploredMask: exploredMask,
-            seeing: sight.reveal
-        ) ?? texture
-        return grew
+        let cell = searchMap.cell(for: worldPoint)
+        guard cell != lastSightCell else { return false }
+        return refresh(from: worldPoint)
+    }
+
+    /// Recompute sight from here whatever the player has or has not done.
+    ///
+    /// A door swinging changes what can be seen without anyone moving, and so
+    /// does an authored reveal. Without this the fog would wait for the next step
+    /// before noticing, which is the one thing an opened door must not do.
+    @discardableResult
+    func invalidateSight(from worldPoint: CGPoint) -> Bool {
+        refresh(from: worldPoint)
     }
 
     /// Whether the area can see this point right now.
     ///
     /// What the engine gates creature drawing on: a remembered room shows its
-    /// furniture and not who is standing in it. Sight that has run ahead of the
-    /// last remembered pool counts — the mask lights it, so this must agree.
+    /// furniture and not who is standing in it.
     func isVisible(_ worldPoint: CGPoint) -> Bool {
-        visibleCells.contains(searchMap.cell(for: worldPoint))
+        visibleCells.contains(renderer.grid.cell(for: worldPoint))
     }
 
-    /// Whether the area has ever seen this point.
-    ///
-    /// Follows the mask rather than every cell sight has ever touched, because a
-    /// query that disagreed with the picture would hide something the player can
-    /// plainly see, or show something under black.
+    /// Whether the area has ever seen this point. Sight counts: the mask lights
+    /// it, so a query that said otherwise would hide something plainly on screen.
     func isExplored(_ worldPoint: CGPoint) -> Bool {
-        let cell = searchMap.cell(for: worldPoint)
+        let cell = renderer.grid.cell(for: worldPoint)
         return exploredCells.contains(cell) || visibleCells.contains(cell)
     }
 
-    /// Add places to memory without the player having stood in them — an
-    /// authored entrance path, or the points a save restored.
-    func remember(_ worldPoints: [CGPoint]) {
-        guard !worldPoints.isEmpty else { return }
-        for point in worldPoints {
-            let sight = sightFrom(point)
-            rememberedPoints.append(point)
-            rememberedReveals.append(sight.reveal)
-            exploredCells.formUnion(sight.cells)
-        }
-        exploredMask = renderer.makeExploredMask(remembering: rememberedReveals)
+    /// The explored bitmap on its own, for the HUD area map.
+    ///
+    /// BG's automap draws where the party has *been*, not where it is looking —
+    /// so this is the same bitmap at a different size, with the live layer left
+    /// out. One store, two pictures.
+    ///
+    /// Explored ground is handed over as the *clear* level rather than the
+    /// remembered one: the world view dims memory because you are standing in
+    /// the room and cannot see into it, and a map has no such excuse. On a map,
+    /// explored means drawn.
+    func exploredMapTexture() -> SKTexture? {
+        renderer.makeTexture(explored: [], visible: exploredCells)
     }
 
-    private func commitToMemoryIfMoved(_ worldPoint: CGPoint) -> Bool {
-        if let last = rememberedPoints.last {
-            let travelled = hypot(worldPoint.x - last.x, worldPoint.y - last.y)
-            guard travelled >= renderer.style.memorySpacing else { return false }
+    /// Reveal ground nobody has stood in — an authored entrance, a scripted
+    /// beat, the engine's own `ExploreArea`.
+    @discardableResult
+    func remember(seenFrom worldPoints: [CGPoint]) -> Bool {
+        guard !worldPoints.isEmpty else { return false }
+        let before = exploredCells.count
+        for point in worldPoints {
+            exploredCells.formUnion(sightCells(from: point))
         }
-        remember([worldPoint])
+        guard exploredCells.count != before else { return false }
+        redraw()
         return true
     }
 
-    /// One pool, cut back to what sight reaches from where it stands — and the
-    /// cells it reached, which are the bitmap the queries above answer from.
-    private func sightFrom(
-        _ worldPoint: CGPoint
-    ) -> (reveal: FogMaskRenderer.Reveal, cells: Set<SearchMapCell>) {
-        let cells = searchMap.visibleCells(
-            from: worldPoint,
-            radiusInCells: renderer.visibilityRadiusInCells
+    @discardableResult
+    private func refresh(from worldPoint: CGPoint) -> Bool {
+        lastSightCell = searchMap.cell(for: worldPoint)
+        visibleCells = sightCells(from: worldPoint)
+        let before = exploredCells.count
+        exploredCells.formUnion(visibleCells)
+        redraw()
+        return exploredCells.count != before
+    }
+
+    private func sightCells(from worldPoint: CGPoint) -> Set<FogCell> {
+        renderer.grid.cells(
+            for: searchMap.visibleCells(
+                from: worldPoint,
+                radiusInCells: visualRangeInCells
+            )
         )
-        let reveal = FogMaskRenderer.Reveal(
-            center: CGPoint(
-                x: worldPoint.x - worldOrigin.x,
-                y: worldPoint.y - worldOrigin.y
-            ),
-            visibleRects: searchMap.mergedRects(of: cells).map {
-                $0.offsetBy(dx: -worldOrigin.x, dy: -worldOrigin.y)
-            }
-        )
-        return (reveal, cells)
+    }
+
+    private func redraw() {
+        texture = renderer.makeTexture(
+            explored: exploredCells,
+            visible: visibleCells
+        ) ?? texture
     }
 }

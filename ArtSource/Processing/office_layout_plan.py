@@ -34,6 +34,10 @@ SWIFT = ROOT / "RainShadow Shared/Gameplay/Navigation/OfficeNavigationLayout.swi
 
 BODY = rp.BODY_PLATE_H
 ENV = rp.ENVIRONMENT_SCALE
+# The entrance edge is a separately rendered sprite, not part of the plate.
+# Its native V12 master is intentionally smaller than the 0.395 environment
+# scale so it matches the slim door sliver in the approved room reference.
+DOOR_DISPLAY_SCALE = 0.28
 
 # Metre -> plan units on each axis (~200 px of screen x per metre of floor).
 # Keep the conversion locked to the pre-cramped axis lengths so prop obstacle
@@ -761,7 +765,7 @@ def emit() -> str:
     )
     add("")
     add("        /// Edge-on BG:EE leaf family, registered by its exact upper-right hinge.")
-    add(f"        static let entranceLeafDisplayScale: CGFloat = {ENV:.6f}")
+    add(f"        static let entranceLeafDisplayScale: CGFloat = {DOOR_DISPLAY_SCALE:.6f}")
     add("        static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale")
     add("        static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale")
     add(f"        static let entranceLeafAnchorX: CGFloat = {rp.DOOR_ANCHOR[0]:.6f}")

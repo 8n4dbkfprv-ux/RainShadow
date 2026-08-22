@@ -119,6 +119,15 @@ struct PersistedJournalFragment: Codable, Equatable, Sendable {
     }
 }
 
+/// One area's explored bitmask, with the grid dimensions it was written at —
+/// a bitmask is meaningless without the width its rows were counted at.
+struct PersistedExploredFog: Codable, Equatable {
+    var columns: Int
+    var rows: Int
+    /// Encodes as base64 in the save file, the way `Data` always does.
+    var bytes: Data
+}
+
 struct SaveSnapshot: Codable, Equatable {
     /// Newest envelope this binary writes. `load()` accepts anything at or below it,
     /// so an additive field never has to bump — and a real bump never wipes a save.
@@ -166,6 +175,13 @@ struct SaveSnapshot: Codable, Equatable {
     /// is the equivalent. Defaulted so a save written before it existed loads
     /// with an empty store rather than failing.
     var areaVariables: [String: PersistedAreaVariable] = [:]
+    /// Each area's explored bitmask, keyed by area id.
+    ///
+    /// Baldur's Gate saves this in the area's own record — "an array of bits, one
+    /// bit for each 32x32 cell" — which is what lets a place you have walked stay
+    /// drawn when you come back to it. Defaulted, so a save written before it
+    /// existed loads with nothing explored rather than failing.
+    var exploredFog: [String: PersistedExploredFog] = [:]
 
     init(
         schemaVersion: Int = SaveSnapshot.currentSchemaVersion,
@@ -184,7 +200,8 @@ struct SaveSnapshot: Codable, Equatable {
         caseEvidenceIDs: Set<String> = [],
         caseJournalFragments: [PersistedJournalFragment] = [],
         caseCounters: [String: Int] = [:],
-        areaVariables: [String: PersistedAreaVariable] = [:]
+        areaVariables: [String: PersistedAreaVariable] = [:],
+        exploredFog: [String: PersistedExploredFog] = [:]
     ) {
         self.schemaVersion = schemaVersion
         self.hasSeenOpening = hasSeenOpening
@@ -203,6 +220,7 @@ struct SaveSnapshot: Codable, Equatable {
         self.caseJournalFragments = caseJournalFragments
         self.caseCounters = caseCounters
         self.areaVariables = areaVariables
+        self.exploredFog = exploredFog
     }
 
     init(from decoder: Decoder) throws {

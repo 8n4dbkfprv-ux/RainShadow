@@ -5,7 +5,8 @@
     ],
     "agentProfile" : {
       "halfHeight" : 4,
-      "halfWidth" : 16
+      "halfWidth" : 16,
+      "visualRangeInCells" : 14
     },
     "ambients" : [
       {

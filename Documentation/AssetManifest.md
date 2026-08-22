@@ -157,9 +157,9 @@ the V11 prop manifest or preload contract.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_door_leaf` | 512×320 | Yes | Full edge cap uniformly extracted from the user-approved V12 room reference; one slim worn timber surface with its original bright end fitting and dark underside, no painted multi-board replacement or freestanding frame. |
-| P0 | `office_door_leaf_mid` | 512×320 | Yes | The same reference leaf compressed to the registered mid-state length on the fixed hinge. |
-| P0 | `office_door_leaf_open` | 512×320 | Yes | The same reference leaf compressed to the registered open-state length, still projecting lower-left over the black cutaway. |
+| P0 | `office_door_leaf` | 512×320 | Yes | Native-detail V12 edge master fitted to the user-approved room sliver: one slim worn timber surface with metal end fittings and a dark underside. Displays at 0.28 while preserving the registered hinge and collision. |
+| P0 | `office_door_leaf_mid` | 512×320 | Yes | The same native-detail leaf compressed to the registered mid-state length on the fixed hinge. |
+| P0 | `office_door_leaf_open` | 512×320 | Yes | The same native-detail leaf compressed to the registered open-state length, still projecting lower-left over the black cutaway. |
 | P0 | closed/mid/open hover states | 512×320 | Yes | Colour-only hover derivations of each corresponding base; alpha and hinge registration are identical. |
 
 All V12 states share image hinge `(488, 18)` / SpriteKit anchor

@@ -330,7 +330,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             // Use GCD — SKAction waits do not fire when the capture launch has
             // no drawable / does not tick the scene.
             if ProcessInfo.processInfo.environment["RAINSHADOW_FORCE_CLIENT_ENTRANCE"] == "1" {
-                navigation.setEntranceDoorBlocking(false)
+                setEntranceDoorBlocking(false)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
                     self?.beginClientEntranceIfNeeded()
                 }
@@ -399,7 +399,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         cutsceneDirector.tearDown()
         client.isHidden = true
         client.alpha = 1
-        navigation.setEntranceDoorBlocking(false)
+        setEntranceDoorBlocking(false)
         // Post-visit free play keeps the leaf open for city exit (sequencer contract).
         setDoorFallenForReview()
         setCutsceneChromeSuppressed(false, animated: false)
@@ -916,7 +916,9 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         areaMapOverlay.updateCurrentPosition(detective.position)
         updateDetectiveDepth()
         updateDepth(of: client)
-        fogOfWar?.look(from: detective.position)
+        if let fog = fogOfWar, fog.look(from: detective.position) {
+            recordExploredFog(fog)
+        }
         updateFogGating(fogOfWar)
         updateCameraPosition(at: currentTime)
         // Follow dialogue camera lifts / restores every frame.
@@ -1219,7 +1221,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
                 // playing the fall out under a camera that has already arrived.
                 reason == .skipped ? setDoorFallenForReview() : animateDoorFalling()
             }
-            navigation.setEntranceDoorBlocking(false)
+            setEntranceDoorBlocking(false)
         } else {
             animateDoorReturning()
         }
@@ -2109,18 +2111,25 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     private func addFogOfWar() {
+        let grid = FogGrid(searchMap: navigation.searchMap)
         let fog = FogOfWarNode(
-            worldOrigin: OfficeInteriorScale.shellOrigin,
-            worldSize: OfficeInteriorScale.scaledArtSize,
-            style: .office,
             searchMap: navigation.searchMap,
-            // The opening conversation starts with Lila crossing from the door,
-            // so her authored entrance is already part of the remembered office.
-            remembering: [arrivalPoint] + OfficeNavigationLayout.clientArrivalPath,
+            visualRangeInCells: area.agentProfile.visualRangeInCells,
+            // The office is an area like any other: what Voss has already walked
+            // is still his the next time he comes through the door. It used to
+            // start black on every entry, which is the one thing the engine
+            // never does to a place you have been.
+            remembering: context.session.exploredFogCells(for: area.id, on: grid),
             standingAt: arrivalPoint
         )
+        // The opening conversation starts with Lila crossing from the door, so
+        // her authored entrance is already part of the remembered office. It is
+        // memory, not sight: the room shows the ground she walks in over, and
+        // still gates her on whether Voss can see her.
+        fog.remember(seenFrom: OfficeNavigationLayout.clientArrivalPath)
         weatherRoot.addChild(fog)
         fogOfWar = fog
+        recordExploredFog(fog)
     }
 
     /// The BG:EE reference only exposes the entrance leaf edge-on against the
@@ -2159,6 +2168,13 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
               let texture = doorTexture(for: state, hovered: false) else {
             return
         }
+        // `SKSpriteNode.size` is the displayed size, not an unscaled texture
+        // canvas. Assigning it while the node is already at 0.28 makes
+        // SpriteKit inflate the backing dimensions to preserve a 512-point
+        // footprint; setting 0.28 again then appears to do nothing. Normalize
+        // before every state swap so the registered scale is applied exactly
+        // once to the texture's 512x320 canvas.
+        officeDoor.setScale(1)
         officeDoor.texture = texture
         officeDoor.size = texture.size()
         if officeDoor.parent !== depthWorldRoot {
@@ -2174,13 +2190,40 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         officeDoorVisualState = state
     }
 
+    /// Fold what the fog now knows into the game's memory of this area.
+    private func recordExploredFog(_ fog: FogOfWarNode) {
+        context.session.recordExploredFog(
+            area.id,
+            cells: fog.exploredCells,
+            on: fog.fogGrid
+        )
+    }
+
+    /// Swing the door, and let the fog notice.
+    ///
+    /// A door is the one occluder that changes without anybody moving, and the
+    /// fog only refills sight when the player crosses a search cell — so opening
+    /// a door in front of a standing detective would otherwise reveal nothing
+    /// until his next step. The engine restamps a door's impeded cells as it
+    /// swings and recomputes from there; this is that, spelled once so no future
+    /// door call site can forget it.
+    private func setEntranceDoorBlocking(_ blocking: Bool) {
+        navigation.setEntranceDoorBlocking(blocking)
+        if let fog = fogOfWar, fog.invalidateSight(from: detective.position) {
+            // An opened door reveals ground nobody walked to. That is memory
+            // like any other and has to be kept, or it would go dark again on
+            // the next visit.
+            recordExploredFog(fog)
+        }
+    }
+
     private func applyDoorVisualState(
         _ state: OfficeDoorVisualState,
         entranceBlocking: Bool
     ) {
         officeDoor?.removeAction(forKey: "officeDoorMotion")
         presentDoorVisualState(state)
-        navigation.setEntranceDoorBlocking(entranceBlocking)
+        setEntranceDoorBlocking(entranceBlocking)
     }
 
     private func animateDoor(
@@ -2193,14 +2236,14 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         // Opening clears the threshold immediately; closing stamps it only
         // after the dark edge has tucked back into the cutaway.
         if target == .open {
-            navigation.setEntranceDoorBlocking(false)
+            setEntranceDoorBlocking(false)
         }
         let motion = SKAction.sequence([
             .run { [weak self] in self?.presentDoorVisualState(.mid) },
             .wait(forDuration: 0.16),
             .run { [weak self] in self?.presentDoorVisualState(target) },
             .run { [weak self] in
-                self?.navigation.setEntranceDoorBlocking(entranceBlockingAtEnd)
+                self?.setEntranceDoorBlocking(entranceBlockingAtEnd)
             }
         ])
         officeDoor.run(motion, withKey: "officeDoorMotion")
@@ -2419,7 +2462,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         officeDoorFallShadow = shadow
 
         // Upright leaf is gone — open the exterior threshold for pathfinding.
-        navigation.setEntranceDoorBlocking(false)
+        setEntranceDoorBlocking(false)
     }
 
     /// Lila's entrance knocks the already damaged leaf free. A projective warp
@@ -2496,7 +2539,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             )
             landedTransition?.removeFromParent()
             // Threshold is open once the upright leaf is gone.
-            self.navigation.setEntranceDoorBlocking(false)
+            self.setEntranceDoorBlocking(false)
         }
         let motion = SKAction.sequence([
             wait,
@@ -2585,7 +2628,7 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
                     officeDoor.move(toParent: self.rearFixtureRoot)
                     officeDoor.zPosition = 0
                     // Leaf is upright again — block the exterior threshold.
-                    self.navigation.setEntranceDoorBlocking(true)
+                    self.setEntranceDoorBlocking(true)
                 }
             ]),
             withKey: "officeDoorMotion"

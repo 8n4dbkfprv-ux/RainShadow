@@ -646,6 +646,14 @@ struct AreaDoor: Hashable, Codable, Sendable {
     /// Blocking footprint while open; omit when an open door blocks nothing.
     var openObstacle: AreaRect?
     var startsClosed: Bool
+    /// Whether the shut leaf stops sight as well as feet.
+    ///
+    /// The Infinity Engine spends door flag bit 9 on this — "Don't block line of
+    /// sight" — so a door blocks it unless the area says otherwise. Kept the same
+    /// way round as the engine's *behaviour* rather than its bit, so a door that
+    /// says nothing behaves like every door in Baldur's Gate. Set it false for a
+    /// grille, a beaded curtain, or a gate you are meant to see through.
+    var blocksSight: Bool
 
     init(
         id: String,
@@ -653,7 +661,8 @@ struct AreaDoor: Hashable, Codable, Sendable {
         visual: AreaDoorVisualRegistration? = nil,
         closedObstacle: AreaRect,
         openObstacle: AreaRect? = nil,
-        startsClosed: Bool = true
+        startsClosed: Bool = true,
+        blocksSight: Bool = true
     ) {
         self.id = id
         self.textureName = textureName
@@ -661,6 +670,26 @@ struct AreaDoor: Hashable, Codable, Sendable {
         self.closedObstacle = closedObstacle
         self.openObstacle = openObstacle
         self.startsClosed = startsClosed
+        self.blocksSight = blocksSight
+    }
+
+    /// Hand-written so `blocksSight` can be absent and mean the engine default.
+    /// Every door authored before the flag existed blocked movement and, from
+    /// this commit, blocks sight — which is what those doors were drawn as.
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        textureName = try c.decodeIfPresent(String.self, forKey: .textureName)
+        visual = try c.decodeIfPresent(AreaDoorVisualRegistration.self, forKey: .visual)
+        closedObstacle = try c.decode(AreaRect.self, forKey: .closedObstacle)
+        openObstacle = try c.decodeIfPresent(AreaRect.self, forKey: .openObstacle)
+        startsClosed = try c.decodeIfPresent(Bool.self, forKey: .startsClosed) ?? true
+        blocksSight = try c.decodeIfPresent(Bool.self, forKey: .blocksSight) ?? true
+    }
+
+    /// The leaf as the search map registers it, so the flag travels with the rect.
+    var searchMapObstacle: DoorObstacle {
+        DoorObstacle(rect: closedObstacle.cgRect, blocksSight: blocksSight)
     }
 }
 
@@ -712,13 +741,54 @@ struct AreaAgentProfile: Hashable, Codable, Sendable {
     var halfWidth: CGFloat
     var halfHeight: CGFloat
 
-    init(halfWidth: CGFloat, halfHeight: CGFloat) {
+    /// How far the party can see, **in search cells**.
+    ///
+    /// The Infinity Engine keeps this as creature stat #262: default 14, clamped
+    /// 0…15, and set to 2 by blindness. It lives here because the agent profile
+    /// is the nearest thing an area record has to a creature, and because the
+    /// alternative is what RainShadow did until now — deriving sight from the
+    /// size of the painted fog circle, so the art decided how far the detective
+    /// could see, and an aspect-ratio quirk in the mask pushed it to 39 cells,
+    /// nearly three times a creature's.
+    ///
+    /// Counted in cells rather than world units for the reason `visibleCells`
+    /// is: cells are 16×12, which is this projection's ground foreshortening, so
+    /// a radius in cells is a circle on the floor rather than on the screen.
+    var visualRangeInCells: Int
+
+    /// Stat #262's own bounds. A range of 0 is blind, not "unlimited".
+    static let visualRangeBounds = 0...15
+    /// What a creature sees when nothing says otherwise.
+    static let defaultVisualRangeInCells = 14
+
+    init(
+        halfWidth: CGFloat,
+        halfHeight: CGFloat,
+        visualRangeInCells: Int = AreaAgentProfile.defaultVisualRangeInCells
+    ) {
         self.halfWidth = halfWidth
         self.halfHeight = halfHeight
+        self.visualRangeInCells = Self.clampVisualRange(visualRangeInCells)
     }
 
     init(_ profile: NavigationAgentProfile) {
         self.init(halfWidth: profile.halfWidth, halfHeight: profile.halfHeight)
+    }
+
+    /// Hand-written so an area authored before sight was a stat decodes to the
+    /// engine default rather than to zero, which would be blind.
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        halfWidth = try c.decode(CGFloat.self, forKey: .halfWidth)
+        halfHeight = try c.decode(CGFloat.self, forKey: .halfHeight)
+        visualRangeInCells = Self.clampVisualRange(
+            try c.decodeIfPresent(Int.self, forKey: .visualRangeInCells)
+                ?? Self.defaultVisualRangeInCells
+        )
+    }
+
+    private static func clampVisualRange(_ range: Int) -> Int {
+        min(max(range, visualRangeBounds.lowerBound), visualRangeBounds.upperBound)
     }
 
     var navigationProfile: NavigationAgentProfile {
@@ -947,10 +1017,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
                     columns: raster.columns,
                     rows: raster.rows,
                     obstacles: staticObstaclesExcludingDoors,
-                    doorObstacles: doors.map(\.closedObstacle.cgRect)
+                    doorObstacles: doors.map(\.searchMapObstacle)
                 ),
                 agentProfile: agentProfile.navigationProfile,
-                doorObstacles: doors.map(\.closedObstacle.cgRect),
+                doorObstacles: doors.map(\.searchMapObstacle),
                 entranceDoorBlocking: doors.contains { $0.startsClosed },
                 maxNodes: pathSearchBudget ?? PathFinder.defaultMaxNodes
             )
@@ -959,7 +1029,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
             worldBounds: worldBounds,
             obstacles: obstacles.map(\.cgRect),
             agentProfile: agentProfile.navigationProfile,
-            doorObstacles: doors.map(\.closedObstacle.cgRect),
+            doorObstacles: doors.map(\.searchMapObstacle),
             entranceDoorBlocking: doors.contains { $0.startsClosed },
             maxNodes: pathSearchBudget ?? PathFinder.defaultMaxNodes,
             defaultTerrain: defaultTerrain

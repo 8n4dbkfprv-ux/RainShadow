@@ -19,6 +19,14 @@ struct SearchMapFlags: OptionSet, Hashable, Sendable {
     static let passable = SearchMapFlags(rawValue: 1 << 0)
     /// Closed / blocking door leaf stamped at runtime.
     static let doorImpassable = SearchMapFlags(rawValue: 1 << 1)
+    /// A closed door leaf that also stops sight.
+    ///
+    /// Separate from `doorImpassable` because the Infinity Engine keeps the two
+    /// separate: a door's impeded cells stop movement, and door flag bit 9
+    /// ("Don't block line of sight") decides independently whether sight passes.
+    /// A beaded curtain stops neither, a portcullis stops feet only, and the
+    /// default — what every RainShadow door is — stops both.
+    static let doorSightBlocking = SearchMapFlags(rawValue: 1 << 4)
     /// Player character occupancy stamp.
     static let playerActor = SearchMapFlags(rawValue: 1 << 2)
     /// NPC occupancy stamp.
@@ -27,6 +35,28 @@ struct SearchMapFlags: OptionSet, Hashable, Sendable {
     static let actor: SearchMapFlags = [.playerActor, .npcActor]
     /// Area terrain bits that survive actor/door restamps.
     static let areaMask: SearchMapFlags = [.passable]
+}
+
+/// A door leaf registered with the map, so it can be stamped and cleared in
+/// place without rebuilding the grid.
+///
+/// The Infinity Engine gives a door two separate cell blocks — impeded when open
+/// and impeded when closed — and a flag deciding whether it blocks line of sight.
+/// RainShadow's doors carry one rect and toggle it, which is the same mechanism
+/// with the open block empty; `blocksSight` is IE's flag bit 9 inverted, so the
+/// default matches the engine and an authored door has to opt *out*.
+struct DoorObstacle: Hashable, Sendable {
+    var rect: CGRect
+    var blocksSight: Bool
+
+    init(rect: CGRect, blocksSight: Bool = true) {
+        self.rect = rect
+        self.blocksSight = blocksSight
+    }
+
+    var standardized: DoorObstacle {
+        DoorObstacle(rect: rect.standardized, blocksSight: blocksSight)
+    }
 }
 
 /// BG:EE-style world-space search map: a byte-per-cell raster in screen/world
@@ -64,7 +94,7 @@ final class SearchMap {
     private(set) var staticObstacles: [CGRect]
 
     /// Door leaf AABBs that can be stamped/cleared without rebuilding the map.
-    private var doorObstacles: [CGRect] = []
+    private var doorObstacles: [DoorObstacle] = []
 
     var cellCount: Int { columns * rows }
 
@@ -80,7 +110,7 @@ final class SearchMap {
         worldBounds: CGRect,
         obstacles: [CGRect],
         cellSize: CGSize = SearchMap.defaultCellSize,
-        doorObstacles: [CGRect] = [],
+        doorObstacles: [DoorObstacle] = [],
         defaultTerrain: SearchMapTerrain = .stone
     ) {
         precondition(cellSize.width > 0 && cellSize.height > 0)
@@ -129,7 +159,7 @@ final class SearchMap {
         rows: Int,
         cellSize: CGSize = SearchMap.defaultCellSize,
         obstacles: [CGRect] = [],
-        doorObstacles: [CGRect] = []
+        doorObstacles: [DoorObstacle] = []
     ) {
         precondition(cellSize.width > 0 && cellSize.height > 0)
         precondition(columns > 0 && rows > 0)
@@ -216,9 +246,11 @@ final class SearchMap {
     }
 
     /// Whether sight crosses the cell — the query fog of war wants, in place of
-    /// a radius around the player.
+    /// a radius around the player. A closed sight-blocking door counts as solid
+    /// here for the same reason it does in `visibleCells`.
     func isSeeThrough(at point: CGPoint) -> Bool {
-        terrain(at: point).isSeeThrough
+        let cell = cell(for: point)
+        return terrain(at: cell).isSeeThrough && !doorBlocksSight(at: cell)
     }
 
     /// Every terrain index present, for QA and tests.
@@ -304,7 +336,7 @@ final class SearchMap {
     func discOverlapsObstacle(at point: CGPoint, radius: CGFloat) -> Bool {
         if radius <= 0 {
             return staticObstacles.contains(where: { $0.contains(point) })
-                || doorObstacles.contains(where: { $0.contains(point) })
+                || doorObstacles.contains(where: { $0.rect.contains(point) })
         }
         let probe = CGRect(
             x: point.x - radius,
@@ -312,7 +344,7 @@ final class SearchMap {
             width: radius * 2,
             height: radius * 2
         )
-        for obstacle in staticObstacles + doorObstacles {
+        for obstacle in staticObstacles + doorObstacles.map(\.rect) {
             if obstacle.intersects(probe) {
                 // Refine the axis-aligned probe with a true circle test against
                 // the obstacle's closest point so diagonal clearance stays fair.
@@ -403,7 +435,7 @@ final class SearchMap {
             return []
         }
         if doorObstacles.contains(where: {
-            segmentIntersectsInterior(from: start, to: end, of: $0)
+            segmentIntersectsInterior(from: start, to: end, of: $0.rect)
         }) {
             return []
         }
@@ -465,18 +497,30 @@ final class SearchMap {
 
     // MARK: - Stamping
 
-    /// Stamp or clear door-impassable cells for the registered door obstacles.
+    /// Stamp or clear door cells for the registered door obstacles.
+    ///
+    /// Sight is stamped with the leaf rather than baked into the painted terrain,
+    /// which is the whole point: a door baked as a solid would block sight while
+    /// standing open, and a door baked as floor would never block it at all.
     func stampDoors(blocking: Bool) {
-        for rect in doorObstacles {
-            stamp(rect: rect, flag: .doorImpassable, set: blocking)
+        for door in doorObstacles {
+            stamp(rect: door.rect, flag: .doorImpassable, set: blocking)
+            if door.blocksSight {
+                stamp(rect: door.rect, flag: .doorSightBlocking, set: blocking)
+            }
         }
     }
 
-    func setDoorObstacles(_ rects: [CGRect], blocking: Bool) {
+    func setDoorObstacles(_ doors: [DoorObstacle], blocking: Bool) {
         // Clear previous door stamps first.
         stampDoors(blocking: false)
-        doorObstacles = rects.map(\.standardized)
+        doorObstacles = doors.map(\.standardized)
         stampDoors(blocking: blocking)
+    }
+
+    /// Whether a closed door stops sight at this cell.
+    func doorBlocksSight(at cell: SearchMapCell) -> Bool {
+        flags(at: cell).contains(.doorSightBlocking)
     }
 
     func stampActor(

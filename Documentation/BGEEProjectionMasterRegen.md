@@ -77,14 +77,15 @@ geometry rather than stretching axes independently. The plate, architecture
 mask, two window overlays, warm fireplace/spill, and 1.5° projection gate are
 reproduced deterministically by `generate_office_reference_rebuild_v12.py`.
 
-The door remains separate and interactive. The corrected V12 family is now
-uniformly extracted from the small camera-near door in the approved 1613×975
-reference, using the existing 512×320 canvas, image hinge `(488,18)`, anchor
-`(0.953125,0.94375)`, and state lengths. This replaces V11's broad procedural
-plank bands, which read as a detached beam. `qa_office_reference_rebuild_v12.py`
-checks the source identity, reference bbox, hinge, state endpoints/thickness,
-hover-alpha identity, and deterministic reproduction before the V12 installer
-copies any runtime door texture.
+The door remains separate and interactive. The final V12 family uses a frozen
+1536×1024 native-detail transparent master fitted to the small camera-near door
+in the approved 1613×975 reference. It preserves the V11 512×320 canvas, image
+hinge `(488,18)`, anchor `(0.953125,0.94375)`, and state semantics, but displays
+at 0.28 with a 34.5 px texture thickness. This replaces the enlarged, pixelated
+reference crop without changing collision or travel geometry.
+`qa_office_reference_rebuild_v12.py` checks both source identities, hinge,
+state endpoints/thickness, hover-alpha identity, and deterministic reproduction
+before the V12 installer copies any runtime door texture.
 
 ### Office V11 1950s registration authority — retained provenance
 

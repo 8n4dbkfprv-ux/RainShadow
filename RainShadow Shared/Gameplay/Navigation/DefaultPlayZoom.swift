@@ -10,8 +10,13 @@ import CoreGraphics
 /// a while, after a 9% pass was judged "a camera pulled too far back". In play
 /// that reading turned out to be confounded: the city fog only lit 45% of the
 /// screen width, so a wider camera made districts look emptier rather than
-/// larger. With the fog sized to the screen (`fogRevealRadius`), 9% is the
-/// framing that matches what BG:EE actually shows.
+/// larger. Sizing the fog to the screen settled it, and 9% is the framing that
+/// matches what BG:EE actually shows.
+///
+/// Sight is a creature stat again (`AreaAgentProfile.visualRangeInCells`, the
+/// engine's 14 cells), so how much of the screen a district lights is authored
+/// per area rather than derived from the viewport. If a district reads as a
+/// keyhole of pavement again, that number is the one to raise — not this one.
 ///
 /// 13% is still reachable — it is zoom step 10 (70%) of `CameraZoom`'s 1…27 band —
 /// so this is a change of default, not of range.

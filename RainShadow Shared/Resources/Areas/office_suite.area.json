@@ -5,7 +5,8 @@
     ],
     "agentProfile" : {
       "halfHeight" : 0,
-      "halfWidth" : 3
+      "halfWidth" : 3,
+      "visualRangeInCells" : 14
     },
     "ambients" : [
       {
@@ -124,6 +125,7 @@
     "displayName" : "THE OFFICE — HARBOR STREET",
     "doors" : [
       {
+        "blocksSight" : true,
         "closedObstacle" : {
           "h" : 131.3905859651947,
           "w" : 180.67728565864073,
@@ -147,7 +149,7 @@
             "x" : 2321.8325649999997,
             "y" : 977.1682599999999
           },
-          "scale" : 0.395
+          "scale" : 0.28
         }
       }
     ],

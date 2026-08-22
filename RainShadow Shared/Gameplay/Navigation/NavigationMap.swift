@@ -10,7 +10,7 @@ final class NavigationMap {
     private(set) var pathFinder: PathFinder
 
     /// Door leaf rects registered for stamp/clear without rebuilding the map.
-    private let doorObstacles: [CGRect]
+    private let doorObstacles: [DoorObstacle]
     private(set) var entranceDoorBlocking: Bool
 
     /// Compatibility: impassable cell count for door open/closed assertions.
@@ -23,7 +23,7 @@ final class NavigationMap {
     init(
         searchMap: SearchMap,
         agentProfile: NavigationAgentProfile = .point,
-        doorObstacles: [CGRect] = [],
+        doorObstacles: [DoorObstacle] = [],
         entranceDoorBlocking: Bool = true,
         maxNodes: Int = PathFinder.defaultMaxNodes
     ) {
@@ -40,14 +40,14 @@ final class NavigationMap {
         worldBounds: CGRect,
         obstacles: [CGRect],
         agentProfile: NavigationAgentProfile = .point,
-        doorObstacles: [CGRect] = [],
+        doorObstacles: [DoorObstacle] = [],
         entranceDoorBlocking: Bool = true,
         cellSize: CGSize = SearchMap.defaultCellSize,
         maxNodes: Int = PathFinder.defaultMaxNodes,
         defaultTerrain: SearchMapTerrain = .stone
     ) {
         // Door leafs are stamped separately so they can toggle without rebuild.
-        let doorRects = doorObstacles.map(\.standardized)
+        let doorRects = doorObstacles.map(\.rect.standardized)
         let staticObstacles = obstacles.map(\.standardized).filter { candidate in
             !doorRects.contains(where: { rectsApproximatelyEqual($0, candidate) })
         }

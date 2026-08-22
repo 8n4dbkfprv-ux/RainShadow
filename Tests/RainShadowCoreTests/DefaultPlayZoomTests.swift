@@ -94,7 +94,8 @@ struct DefaultPlayZoomTests {
     }
 
     @Test func furnitureBodyMultiplesStillHoldWithSharedCameraDensity() {
-        // Camera framing must not require changing furniture vs body.
+        // Camera framing must not change furniture vs body. The separate V12
+        // door edge intentionally uses its own smaller reference-matched scale.
         let door = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.doorLeaf,
             relativeScale: OfficeInteriorScale.PropRelativeScale.entranceDoorLeaf

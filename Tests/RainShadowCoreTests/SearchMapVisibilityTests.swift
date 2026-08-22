@@ -177,7 +177,11 @@ struct SearchMapVisibilityTests {
                     : terrain.rawValue
             },
             columns: shipped.columns,
-            rows: shipped.rows
+            rows: shipped.rows,
+            // The door is registered in both maps or neither. It is not
+            // furniture and not a wall — it is a runtime stamp — and leaving it
+            // out of one side would measure the door instead of the furniture.
+            doorObstacles: area.doors.map(\.searchMapObstacle)
         )
 
         let spawn = try #require(area.spawnPoint(entrance: AreaEntrance.defaultName))
@@ -210,22 +214,104 @@ struct SearchMapVisibilityTests {
         #expect(walkableCells(shipped) == walkableCells(everythingOpaque))
     }
 
-    /// Lila's authored walk-in stays inside Voss's line of sight the whole way.
+    /// Lila's authored walk-in resolves out of the gloom once and stays resolved.
     ///
-    /// The office gates creature drawing on visibility, so this is what stops
-    /// the shipped intro playing to an empty room: if the search map, the fog
-    /// radius or her path moves such that any step of it falls out of sight, she
-    /// blinks out mid-entrance and the scripted beat plays with nobody in it.
-    @Test func theClientsAuthoredEntranceStaysInSightThroughout() throws {
+    /// The office gates creature drawing on visibility, so this is what stops the
+    /// shipped intro playing to an empty room. It used to assert her whole path
+    /// was visible from the desk, which only held because sight reached 39 cells
+    /// — nearly three times a creature's. At the engine's range she starts the
+    /// walk beyond it, which is correct: a woman in a doorway twenty cells off is
+    /// not visible, and her stepping into view *is* the beat.
+    ///
+    /// What must never happen is the second transition. Appearing and then
+    /// blinking back out is the failure this guards, and it is the property that
+    /// survives any retuning of the stat.
+    @Test func theClientsAuthoredEntranceResolvesOnceAndStaysVisible() throws {
         let area = HarborpointAreas.requireArea(HarborpointAreas.office)
-        let map = area.makeNavigationMap().searchMap
-        // The cell radius `FogMaskRenderer.Style.office` resolves to.
-        let seen = map.visibleCells(from: OfficeNavigationLayout.actorStart, radiusInCells: 39)
+        let navigation = area.makeNavigationMap()
+        // She walks in through the door, so the door is open — which is what the
+        // scene does before releasing her.
+        navigation.setEntranceDoorBlocking(false)
+        let map = navigation.searchMap
+        let seen = map.visibleCells(
+            from: OfficeNavigationLayout.actorStart,
+            radiusInCells: area.agentProfile.visualRangeInCells
+        )
 
         let path = OfficeNavigationLayout.clientArrivalPath
         #expect(!path.isEmpty)
-        let unseen = path.filter { !seen.contains(map.cell(for: $0)) }
-        #expect(unseen.isEmpty, "the client walks out of sight at \(unseen)")
+        let visibility = path.map { seen.contains(map.cell(for: $0)) }
+
+        let arrival = try #require(
+            visibility.firstIndex(of: true),
+            "the client is never visible anywhere on her authored entrance"
+        )
+        #expect(
+            visibility[arrival...].allSatisfy { $0 },
+            "the client blinks back out after arriving: \(visibility)"
+        )
+        // She must finish the walk in sight, or the scripted beat lands on an
+        // empty room however good the middle of it looked.
+        #expect(visibility.last == true)
+    }
+
+    /// The door is the one occluder the painted terrain cannot answer, so it gets
+    /// its own test: shut, it takes ground away from sight; open, it gives it
+    /// back; and a door authored not to block sight never takes anything.
+    @Test func aClosedDoorStopsSightAndOpeningItGivesTheGroundBack() throws {
+        let area = HarborpointAreas.requireArea(HarborpointAreas.office)
+        let navigation = area.makeNavigationMap()
+        let map = navigation.searchMap
+        let doorway = try #require(area.doors.first).closedObstacle.cgRect
+        let range = area.agentProfile.visualRangeInCells
+        // Three cells inside the room, facing the doorway. Voss's desk is
+        // nineteen cells off and cannot see the door at all at a creature's
+        // range, which is the point of the range and not a fault in the door.
+        let viewpoint = CGPoint(x: doorway.minX - 3 * map.cellSize.width, y: doorway.midY)
+        #expect(map.terrain(at: viewpoint).isWalkable)
+
+        navigation.setEntranceDoorBlocking(true)
+        let shut = map.visibleCells(from: viewpoint, radiusInCells: range)
+        navigation.setEntranceDoorBlocking(false)
+        let open = map.visibleCells(from: viewpoint, radiusInCells: range)
+
+        #expect(shut.isSubset(of: open), "opening the door hid ground it should reveal")
+        #expect(shut.count < open.count, "the shut door took no ground away from sight")
+        // What it gives back is the doorway and what lies beyond it, not cells
+        // scattered around the room.
+        let gained = open.subtracting(shut)
+        #expect(!gained.isEmpty)
+        #expect(
+            gained.allSatisfy { map.center(of: $0).x >= doorway.minX - map.cellSize.width },
+            "opening the door revealed ground on the wrong side of it"
+        )
+    }
+
+    /// A door that says it does not block sight never stamps the flag, which is
+    /// the engine's flag bit 9 and the reason a portcullis reads differently
+    /// from a slab of oak.
+    @Test func aDoorAuthoredNotToBlockSightNeverStopsIt() throws {
+        let bounds = CGRect(x: 0, y: 0, width: 320, height: 240)
+        let leaf = CGRect(x: 144, y: 0, width: 32, height: 240)
+        let viewpoint = CGPoint(x: 16, y: 120)
+
+        let opaque = SearchMap(
+            worldBounds: bounds,
+            obstacles: [],
+            doorObstacles: [DoorObstacle(rect: leaf)]
+        )
+        let grille = SearchMap(
+            worldBounds: bounds,
+            obstacles: [],
+            doorObstacles: [DoorObstacle(rect: leaf, blocksSight: false)]
+        )
+
+        let throughOpaque = opaque.visibleCells(from: viewpoint, radiusInCells: 15)
+        let throughGrille = grille.visibleCells(from: viewpoint, radiusInCells: 15)
+
+        #expect(throughOpaque.count < throughGrille.count)
+        // Both still stop feet: sight and movement are separate answers.
+        #expect(opaque.impassableCellCount == grille.impassableCellCount)
     }
 
 }

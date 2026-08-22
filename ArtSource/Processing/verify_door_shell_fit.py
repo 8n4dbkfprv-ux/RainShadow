@@ -2,8 +2,8 @@
 """Verify the installed V12 reference-faithful entrance family.
 
 The surviving entrance is a registered closed/mid/open edge silhouette. V12
-keeps the V11 geometry and state semantics but replaces the procedural broad
-boards with pixels uniformly extracted from the approved room reference.
+keeps the V11 geometry and state semantics but replaces the enlarged reference
+crop with a thin native-resolution transparent master.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ FAMILY = ROOT / "ArtSource/Generated/Office/office_door_family_v12.json"
 CANVAS = (512, 320)
 HINGE = np.array((488.0, 18.0))
 ANCHOR = (0.953125, 0.94375)
-DISPLAY_SCALE = 0.395
+DISPLAY_SCALE = 0.28
 PLATE_PER_WORLD = 1.0 / room.ENVIRONMENT_SCALE
 
 
@@ -87,6 +87,7 @@ def main() -> int:
     checks.append(("manifest canvas", tuple(manifest["canvas"]) == CANVAS, str(manifest["canvas"])))
     checks.append(("manifest hinge", np.allclose(manifest["hingeImageXY"], HINGE), str(manifest["hingeImageXY"])))
     checks.append(("manifest anchor", np.allclose(manifest["anchorFromBottomLeft"], ANCHOR), str(manifest["anchorFromBottomLeft"])))
+    checks.append(("manifest display scale", abs(float(manifest["displayScale"]) - DISPLAY_SCALE) < 1e-9, str(manifest["displayScale"])))
 
     images: dict[str, Image.Image] = {}
     widths: dict[str, int] = {}
@@ -111,7 +112,7 @@ def main() -> int:
         f"{widths['closed']} > {widths['mid']} > {widths['open']}",
     ))
     elongation = pca_elongation(points["closed"])
-    checks.append(("closed state is an edge sliver", elongation >= 4.5, f"PCA elongation {elongation:.2f}x"))
+    checks.append(("closed state is an edge sliver", elongation >= 9.0, f"PCA elongation {elongation:.2f}x"))
 
     closed_far = points["closed"][
         np.argmax(np.linalg.norm(points["closed"] - HINGE, axis=1))

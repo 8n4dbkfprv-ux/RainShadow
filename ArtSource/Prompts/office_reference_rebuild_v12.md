@@ -49,33 +49,43 @@ registration, and a tight 1.5-degree projection tolerance.
 
 ## Door correction
 
-The first V12 install retained V11's procedurally painted door family. Its
-three broad longitudinal bands made the camera-near edge read as a detached
-beam rather than the slim leaf in the approved room image. The correction
-keeps the existing 512×320 canvas, hinge `(488, 18)`, SpriteKit anchor
-`(0.953125, 0.94375)`, state lengths, collision, and travel registration.
-`process_office_door_reference_v12.py` isolates the supplied image's measured
-door bbox, excludes the adjacent floor, and uniformly maps those approved
-pixels into the live registration. Mid/open states compress that same painted
-leaf toward the fixed hinge; hover states change colour only.
+The first V12 correction enlarged a tiny crop from the 1613×975 room reference
+to a 512×320 live texture. In game it read as a large, blurry floorboard rather
+than the reference's small clean sliver. The final correction keeps the canvas,
+hinge `(488, 18)`, SpriteKit anchor `(0.953125, 0.94375)`, state semantics,
+collision, and travel registration, but uses a native 1536×1024 transparent
+master and a dedicated `0.28` display scale. The leaf's fitted texture thickness
+is about 34.5 px rather than the old 68 px corridor. Mid/open states compress
+that same detailed leaf toward the fixed hinge; hover states change colour only.
 
-The built-in Image Generator was used to resolve the intended surface read
-before the deterministic extraction was authored. Its production prompt was:
+The built-in Image Generator produced the installed native-detail source. Its
+final production prompt was:
 
 > Use case: precise-object-edit
 >
-> Asset type: transparent raster master for an isometric SpriteKit game door
+> Asset type: high-resolution transparent master for a tiny isometric SpriteKit door edge
 >
-> Primary request: replace the broad three-plank beam treatment with the
-> reference-faithful edge-on door leaf: a slim, heavily foreshortened strip of
-> worn dark brown timber, subtle warm top edge, nearly black narrow underside,
-> low contrast and period-appropriate aged varnish.
+> Input images: Image 1 is the authoritative visual target; inspect only the
+> small separate door sliver at the camera-near-right cutaway. Image 2 is the
+> in-game failure: much too large, thick, blurry, and pixelated. Image 3 is the
+> current sprite geometry reference, not the desired quality.
 >
-> Composition/framing: preserve the exact diagonal axis, hinge at upper-right,
-> free end at lower-left, and long edge-on silhouette.
+> Primary request: create a clean native-resolution replacement for that narrow
+> door sliver. It must be small, slim, and heavily foreshortened—not a floor
+> extension, beam, threshold, or broad plank.
 >
-> Constraints: one door leaf only; no frame, wall, floor, lettering, readable
-> front face, text, or watermark.
+> Composition: one diagonal leaf from lower-left to upper-right, hinge at
+> upper-right, free end at lower-left, about a 36-degree axis, extremely narrow
+> body, pale metal hinge/end fitting, capped free end, and transparent padding.
+>
+> Style and lighting: detailed hand-painted late-1990s isometric CRPG
+> pre-rendered sprite; crisp native detail; dim worn brown timber, a narrow warm
+> top edge, near-black underside, restrained contrast.
+>
+> Constraints: genuine transparency; exactly one door edge; no floorboards,
+> floor pixels, wall, frame, glow, cast shadow, broad face, multiple bands,
+> lettering, text, UI, or watermark; thin clean alpha.
 
-The generated study was not installed: direct extraction from the approved
-room reference is more faithful and is now the final runtime authority.
+The generated source is frozen as
+`BGEEReferenceV12/Props/office_door_native_source_v12.png`; the deterministic
+processor registers, thins, darkens, and derives all six runtime states.

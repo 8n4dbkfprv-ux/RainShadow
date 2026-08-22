@@ -60,9 +60,10 @@ struct OfficeInteriorScaleTests {
         #expect(abs(chair.y - seatedBaseline) < 0.5)
     }
 
-    @Test func doorVisualUsesUniformRegisteredPlateScale() {
+    @Test func doorVisualUsesUniformReferenceScale() {
         let architecture = OfficeNavigationLayout.Architecture.self
-        #expect(architecture.entranceLeafDisplayScale == OfficeInteriorScale.environment)
+        #expect(abs(architecture.entranceLeafDisplayScale - 0.28) < 0.0001)
+        #expect(architecture.entranceLeafDisplayScale < OfficeInteriorScale.environment)
         #expect(architecture.entranceLeafDisplayScaleX == architecture.entranceLeafDisplayScale)
         #expect(architecture.entranceLeafDisplayScaleY == architecture.entranceLeafDisplayScale)
         #expect(
@@ -938,8 +939,12 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeInteriorScale.environment == 0.395)
         #expect(OfficeInteriorScale.detectiveBodyHeight == 82)
         #expect(
+            abs(OfficeNavigationLayout.Architecture.entranceLeafDisplayScale - 0.28)
+                < 0.0001
+        )
+        #expect(
             OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-                == OfficeInteriorScale.environment
+                < OfficeInteriorScale.environment
         )
         #expect(OfficeNavigationLayout.Architecture.entranceLeafOpenLengthRatio == 0.638)
         #expect(OfficeInteriorScale.Band.deskDrawerFace.contains(drawers))

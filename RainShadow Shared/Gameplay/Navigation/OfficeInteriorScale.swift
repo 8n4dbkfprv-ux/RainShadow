@@ -198,8 +198,8 @@ enum OfficeInteriorScale {
         static let hiddenBottle: CGFloat = 0.0703 / environment
         /// Full-plate overlays sized against the shell art (no extra relative inflate).
         static let plateOverlay: CGFloat = 1.0 / environment
-        /// Exterior leaf fitted to the shell's baked doorway (~1.16× visible Voss).
-        /// The generated architecture scale is authoritative for this relative alias.
+        /// Exterior edge sprite fitted to the small sliver in the V12 reference.
+        /// This is independent of the larger baked doorway/collision aperture.
         static var entranceDoorLeaf: CGFloat {
             OfficeNavigationLayout.Architecture.entranceLeafDisplayScale / environment
         }
@@ -209,10 +209,10 @@ enum OfficeInteriorScale {
 
     enum Band {
         static let standingBody: ClosedRange<CGFloat> = 66...74
-        /// The V11 authority is the long, nearly edge-on diagonal sliver in the
-        /// concept, not its apparent vertical height. Preserve that registered
-        /// diagonal against actor scale instead of grading it as a front-on door.
-        static let door: ClosedRange<CGFloat> = 2.75...2.95
+        /// The V12 authority is the small, nearly edge-on diagonal sliver in the
+        /// concept, not the baked doorway height. Preserve its visual diagonal
+        /// against actor scale without inflating it to the environment scale.
+        static let door: ClosedRange<CGFloat> = 1.90...2.10
         static let deskWorkingSurface: ClosedRange<CGFloat> = 0.32...0.50
         /// Drawer pedestal face: roughly knee-to-hip furniture.
         static let deskDrawerFace: ClosedRange<CGFloat> = 0.30...0.48

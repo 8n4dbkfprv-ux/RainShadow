@@ -174,7 +174,7 @@ def main() -> None:
     # floating beyond the cutaway even though the runtime starts closed.
     paste_anchored(
         canvas,
-        scaled(load("office_door_leaf"), 0.395 / ENVIRONMENT),
+        scaled(load("office_door_leaf"), ol.DOOR_DISPLAY_SCALE / ENVIRONMENT),
         AUTHORED["doorLeaf"],
         (0.953125, 0.94375),
     )

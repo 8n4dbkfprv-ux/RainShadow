@@ -70,7 +70,10 @@ final class AreaMapOverlay: SKNode {
         /// World points map into this rect so black void margins do not skew markers.
         let mapContentUV: CGRect
         let pointsOfInterest: [PointOfInterest]
-        let fogRevealRadius: CGFloat?
+        /// Whether the map is fogged at all. What it shows is the area's own
+        /// explored bitmap, pushed in by the scene — the map does not compute
+        /// exploration, and used to, from a radius around the player.
+        let showsExplorationFog: Bool
 
         init(
             textureName: String,
@@ -78,14 +81,14 @@ final class AreaMapOverlay: SKNode {
             worldBounds: CGRect,
             mapContentUV: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1),
             pointsOfInterest: [PointOfInterest],
-            fogRevealRadius: CGFloat? = nil
+            showsExplorationFog: Bool = false
         ) {
             self.textureName = textureName
             self.locationName = locationName
             self.worldBounds = worldBounds
             self.mapContentUV = mapContentUV
             self.pointsOfInterest = pointsOfInterest
-            self.fogRevealRadius = fogRevealRadius
+            self.showsExplorationFog = showsExplorationFog
         }
     }
 
@@ -229,8 +232,10 @@ final class AreaMapOverlay: SKNode {
         positionMarker.position = mapPosition(forWorldPoint: worldPosition)
     }
 
-    func updateExploredPoints(_ worldPoints: [CGPoint]) {
-        explorationFog?.update(revealedPoints: worldPoints.map(mapPosition(forWorldPoint:)))
+    /// Show the area's explored bitmap. The same bitmap the world view draws,
+    /// at map size — which is what BG's automap is.
+    func updateExploredFog(_ texture: SKTexture?) {
+        explorationFog?.texture = texture
     }
 
     @discardableResult
@@ -457,9 +462,8 @@ final class AreaMapOverlay: SKNode {
         for point in configuration.pointsOfInterest {
             addPointOfInterest(point)
         }
-        if let worldRadius = configuration.fogRevealRadius {
-            let mapRadius = worldRadius / configuration.worldBounds.width * Metrics.mapSize.width
-            let fog = LocalMapFogNode(size: Metrics.mapSize, revealRadius: mapRadius)
+        if configuration.showsExplorationFog {
+            let fog = LocalMapFogNode(size: Metrics.mapSize, contentUV: configuration.mapContentUV)
             fog.zPosition = 10
             mapContent.addChild(fog)
             explorationFog = fog
@@ -625,88 +629,39 @@ final class AreaMapOverlay: SKNode {
     }
 }
 
-/// Compact counterpart to the world-space city fog. It keeps the generated
-/// local map honest: the current-position ring is visible, but streets remain
-/// black until Voss has physically explored them.
+/// The area map's fog: the same explored bitmap the world view draws, at map
+/// size.
+///
+/// It used to compute its own exploration — wobbled circles of a fixed radius
+/// around every point the player had stood in — which meant the map and the
+/// world could and did disagree about what had been seen. Now it displays what
+/// it is handed and decides nothing, which is the arrangement BG's automap has:
+/// one explored bitmask per area, drawn twice.
 @MainActor
 private final class LocalMapFogNode: SKSpriteNode {
-    private let maskPixelSize = CGSize(width: 512, height: 236)
-    private let revealRadius: CGFloat
-    private var displayedPoints: [CGPoint] = []
-
-    init(size: CGSize, revealRadius: CGFloat) {
-        self.revealRadius = revealRadius
-        super.init(texture: nil, color: .black, size: size)
+    init(size: CGSize, contentUV: CGRect) {
+        // Sized to the painted room inside the plate rather than the whole
+        // plate, so the bitmap lands on the ground it describes and not on the
+        // black margin baked around it.
+        super.init(
+            texture: nil,
+            color: .black,
+            size: CGSize(
+                width: size.width * contentUV.width,
+                height: size.height * contentUV.height
+            )
+        )
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        updateTexture()
+        position = CGPoint(
+            x: (contentUV.midX - 0.5) * size.width,
+            y: (contentUV.midY - 0.5) * size.height
+        )
+        // Unexplored streets stay black without going jet, which is the value
+        // the painted version used and the one the plate was drawn against.
+        alpha = 0.94
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("LocalMapFogNode is created programmatically")
-    }
-
-    func update(revealedPoints: [CGPoint]) {
-        guard revealedPoints != displayedPoints else { return }
-        displayedPoints = revealedPoints
-        updateTexture()
-    }
-
-    private func updateTexture() {
-        let pixelWidth = Int(maskPixelSize.width)
-        let pixelHeight = Int(maskPixelSize.height)
-        let bytesPerRow = pixelWidth * 4
-        guard let context = CGContext(
-            data: nil,
-            width: pixelWidth,
-            height: pixelHeight,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return }
-
-        context.setBlendMode(.copy)
-        context.setFillColor(CGColor(gray: 0, alpha: 0.94))
-        context.fill(CGRect(origin: .zero, size: maskPixelSize))
-        context.setBlendMode(.destinationOut)
-
-        let scale = maskPixelSize.width / size.width
-        for (index, point) in displayedPoints.enumerated() {
-            let center = CGPoint(
-                x: (point.x + size.width / 2) * scale,
-                y: (point.y + size.height / 2) * scale
-            )
-            let phase = CGFloat(index) * 0.61
-            for layer in [(1.08, 0.20), (1.02, 0.42), (0.96, 1.0)] {
-                context.addPath(Self.revealPath(
-                    center: center,
-                    radius: revealRadius * scale * layer.0,
-                    phase: phase
-                ))
-                context.setFillColor(CGColor(gray: 1, alpha: layer.1))
-                context.fillPath()
-            }
-        }
-
-        guard let image = context.makeImage() else { return }
-        let texture = SKTexture(cgImage: image)
-        texture.filteringMode = .linear
-        self.texture = texture
-    }
-
-    private static func revealPath(center: CGPoint, radius: CGFloat, phase: CGFloat) -> CGPath {
-        let path = CGMutablePath()
-        let segments = 48
-        for segment in 0..<segments {
-            let angle = CGFloat(segment) / CGFloat(segments) * .pi * 2
-            let wobble = sin(angle * 7 + phase) * 2.2 + sin(angle * 13 - phase) * 1.1
-            let point = CGPoint(
-                x: center.x + cos(angle) * (radius + wobble),
-                y: center.y + sin(angle) * (radius + wobble)
-            )
-            segment == 0 ? path.move(to: point) : path.addLine(to: point)
-        }
-        path.closeSubpath()
-        return path
     }
 }

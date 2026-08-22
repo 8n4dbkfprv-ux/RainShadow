@@ -13,11 +13,12 @@ import Foundation
 /// two scenes also duplicated fog, HUD building and container handling. Measured,
 /// they do not:
 ///
-/// - Fog differs in kind, not in detail. The city keeps a growing set of
-///   revealed points and persists it per district (`recordCityFogReveal`), which
-///   is BG's explored bitmask; the office keeps an eight-point trail around the
-///   actor, which is a moving light. Merging them would be a behaviour change
-///   dressed as a refactor.
+/// - Fog no longer differs at all, and could move here — but it is a node in
+///   the scene graph, not state. Both areas explore the same way, draw the same
+///   two bitmaps and take their sight range from the area record; the only
+///   difference left is that a district folds its explored cells back into the
+///   session (`recordCityFogExplored`) so they outlive the visit, and a room
+///   does not. That is one call in one scene, not a seam worth extracting.
 /// - The office has no `buildHud` at all — the city's 70 lines have no
 ///   counterpart to share with.
 /// - Containers and a stampable door exist only in the office; edge exits and a

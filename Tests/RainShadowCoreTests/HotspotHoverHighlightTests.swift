@@ -126,6 +126,18 @@ struct HotspotHoverHighlightTests {
         }
     }
 
+    @Test func registeredDoorNormalizesBeforeAssigningTextureSize() throws {
+        let source = try officeSceneSource()
+        #expect(source.contains(
+            """
+            officeDoor.setScale(1)
+                    officeDoor.texture = texture
+                    officeDoor.size = texture.size()
+            """
+        ))
+        #expect(source.contains("officeDoor.setScale(registration.scale)"))
+    }
+
     @Test func everyOfficeHoverPNGMatchesItsSourceAndContainsTheBakedEffect() throws {
         let root = repositoryRoot()
         let art = root.appendingPathComponent(

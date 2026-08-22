@@ -105,7 +105,8 @@ enum OfficeNavigationLayout {
         static let entranceHandleHeightToDetective: CGFloat = 1.246
 
         /// Edge-on BG:EE leaf family, registered by its exact upper-right hinge.
-        static let entranceLeafDisplayScale: CGFloat = 0.395000
+        /// V12 is smaller than the environment plate scale to match the reference sliver.
+        static let entranceLeafDisplayScale: CGFloat = 0.280000
         static let entranceLeafDisplayScaleX: CGFloat = entranceLeafDisplayScale
         static let entranceLeafDisplayScaleY: CGFloat = entranceLeafDisplayScale
         static let entranceLeafAnchorX: CGFloat = 0.953125
@@ -1535,7 +1536,7 @@ enum OfficeNavigationLayout {
             worldBounds: navigationWorldBounds,
             obstacles: obstacles,
             agentProfile: .officeDetective,
-            doorObstacles: [doorObstacle],
+            doorObstacles: [DoorObstacle(rect: doorObstacle)],
             entranceDoorBlocking: entranceDoorBlocking,
             maxNodes: pathSearchBudget
         )

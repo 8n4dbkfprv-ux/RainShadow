@@ -31,6 +31,12 @@ extension SearchMap {
     /// Out of bounds counts as opaque, matching `terrain(at:)` and the engine's
     /// treatment of the area boundary — sight stops at the edge of the map
     /// rather than escaping through it.
+    ///
+    /// A closed door is opaque too, which is the one occluder the painted terrain
+    /// cannot answer: a leaf baked solid would block sight while standing open,
+    /// and one baked as floor would never block it. The engine stamps a door's
+    /// impeded cells as it swings and lets flag bit 9 decide whether sight goes
+    /// with them, so `.doorSightBlocking` is read here beside the terrain.
     func visibleCells(from point: CGPoint, radiusInCells: Int) -> Set<SearchMapCell> {
         let origin = cell(for: point)
         guard contains(origin), radiusInCells > 0 else { return [] }
@@ -89,7 +95,9 @@ extension SearchMap {
                     column: origin.column + deltaX * octant.xx + deltaY * octant.xy,
                     row: origin.row + deltaX * octant.yx + deltaY * octant.yy
                 )
-                let opaque = !contains(candidate) || !terrain(at: candidate).isSeeThrough
+                let opaque = !contains(candidate)
+                    || !terrain(at: candidate).isSeeThrough
+                    || doorBlocksSight(at: candidate)
 
                 if contains(candidate), withinRadius(candidate, of: origin, radiusInCells) {
                     visible.insert(candidate)
