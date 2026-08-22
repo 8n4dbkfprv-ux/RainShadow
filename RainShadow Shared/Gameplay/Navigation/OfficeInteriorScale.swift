@@ -120,7 +120,8 @@ enum OfficeInteriorScale {
         static let deskAshtray: CGFloat = 73
         static let deskFiles: CGFloat = 178
         static let deskPapers: CGFloat = 240
-        static let deskChair: CGFloat = 429
+        /// Voss's broad leather desk chair (shared source with the client seats).
+        static let deskChair: CGFloat = 421
         /// Diagonal opaque length of the V11 reference-registered closed leaf.
         static let doorLeaf: CGFloat = 508
         /// Removed with the V08 open-plan partition.
@@ -170,9 +171,9 @@ enum OfficeInteriorScale {
         static let deskEnsemble: CGFloat = 0.12 / environment
         /// Archive stack on cabinet A — ~0.47× body.
         static let archiveStack: CGFloat = 0.1121 / environment
-        /// Empty desk chair, back ~1.2 m → 0.70× body; matches the seated-bake
-        /// seat height. Do not exceed ~0.13 absolute or it clips the pedestals.
-        static let deskChair: CGFloat = 0.1147 / environment
+        /// High-backed executive chair, deliberately broad enough to frame the
+        /// chairless seated atlas instead of disappearing behind Voss.
+        static let deskChair: CGFloat = 0.136951 / environment
         /// Client-side leather armchair ~1.3 m → 0.75× body.
         static let visitorArmchair: CGFloat = 0.1253 / environment
         /// Waiting-room set, kept internally consistent with chair B.
@@ -222,8 +223,9 @@ enum OfficeInteriorScale {
         static let deskAshtray: ClosedRange<CGFloat> = 0.08...0.18
         static let deskFiles: ClosedRange<CGFloat> = 0.20...0.40
         static let deskPapers: ClosedRange<CGFloat> = 0.25...0.50
-        /// Desk kneehole side chair (not a tall visitor armchair).
-        static let chair: ClosedRange<CGFloat> = 0.55...0.78
+        /// Voss's high-backed desk chair; its arms must remain visible around
+        /// the chairless seated sprite at normal play zoom.
+        static let chair: ClosedRange<CGFloat> = 0.68...0.86
         /// Client-side leather armchairs — taller seat back than the desk chair.
         static let visitorArmchair: ClosedRange<CGFloat> = 0.68...0.90
         /// Four-drawer filing cabinet, ~1.3 m of steel. Was folded in with the

@@ -154,45 +154,61 @@ DOOR_VISUAL_BOUNDS = (
 # Every prop belongs to one of four clusters: desk, records, entrance/waiting,
 # personal corner. Floor anchors only — never wall-top plane.
 PROPS: list[Prop] = [
-    # ---- records cluster: the uninterrupted NW-wall bay between the windows
-    Prop("safe", "office_safe", 0.560, FLUSH, 0.34, (0.6, 0.6), note="records run, far end"),
-    Prop("filingCabinetB", "office_filing_cabinet", 0.650, FLUSH, 1.14, (0.5, 0.62)),
-    Prop("filingCabinet", "office_filing_cabinet_open", 0.735, FLUSH, 1.14, (0.5, 0.62), note="drawer half open"),
-    Prop("bookshelf", "office_bookshelf", 0.830, FLUSH, 1.34, (1.2, 0.35)),
-    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.650, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
-    Prop("archiveStackOnCabinet", "office_archive_stack", 0.735, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
-    Prop("archiveBoxA", "office_archive_box_a", 0.850, 0.350, 0.40, (0.5, 0.45), note="west-side stack"),
+    # ---- records cluster: a compact evidence/library wall, ordered from the
+    # safe at the camera-far end to the full-height bookcase near the window.
+    # Keeping the silhouettes inside the floor diamond matters once these are
+    # plate pixels: a live sprite could overhang black and hide the mistake.
+    Prop("safe", "office_safe", 0.500, FLUSH, 0.34, (0.6, 0.6), note="records run, far end"),
+    Prop("filingCabinetB", "office_filing_cabinet", 0.600, FLUSH, 1.14, (0.5, 0.62)),
+    Prop("filingCabinet", "office_filing_cabinet_open", 0.690, FLUSH, 1.14, (0.5, 0.62), note="drawer half open"),
+    Prop("bookshelf", "office_bookshelf", 0.790, FLUSH, 1.34, (1.2, 0.35)),
+    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.600, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
+    Prop("archiveStackOnCabinet", "office_archive_stack", 0.690, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
+    Prop("archiveBoxA", "office_archive_box_a", 0.815, 0.335, 0.40, (0.5, 0.45), note="west-side stack"),
     # ---- radiator beneath the camera-nearer baked casement
     Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
-    # ---- personal corner: fixture-free NE-wall bay camera-near of fireplace
-    Prop("personalSideboard", "office_personal_sideboard", 0.350, 0.900, 0.48, (1.2, 0.5)),
+    # ---- personal corner: a small drinks/radio ledge on the NE wall, inside
+    # the room rather than hanging over the camera-near cutaway.
+    Prop("personalSideboard", "office_personal_sideboard", 0.220, 0.720, 0.48, (1.2, 0.5)),
     Prop(
         "personalWashbasin",
         "office_personal_washbasin",
-        0.360,
-        0.970,
+        0.215,
+        0.775,
         0.41,
         (0.7, 0.5),
         obstacle=False,
         note="retired domestic fixture; placement retained for source lineage",
     ),
-    Prop("personalFan", "office_personal_fan", 0.345, 0.840, 0.68, (0.5, 0.5)),
-    Prop("personalBottle", "office_hidden_bottle", 0.352, 0.905, 0.22, obstacle=False, note="on sideboard"),
-    Prop("personalGlass", "office_personal_glass", 0.348, 0.890, 0.10, obstacle=False, note="on sideboard"),
-    # ---- desk cluster: compact central island, clear of the lit hearth
-    Prop("deskEnsemble", "office_desk_bare", 0.520, 0.430, 0.99, (1.7, 0.9)),
-    Prop("deskChair", "office_desk_chair", 0.440, 0.510, 0.64, (0.6, 0.6), obstacle=False),
-    Prop("visitorArmchair", "office_visitor_armchair", 0.665, 0.315, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.720, 0.465, 0.76, (0.65, 0.65)),
-    Prop("wastebasket", "office_wastebasket", 0.570, 0.555, 0.32, (0.4, 0.4)),
-    # ---- entrance / waiting: west of the exact b=1 door span
-    Prop("coatRack", "office_coat_rack", 0.900, 0.860, 0.88, (0.6, 0.6)),
-    Prop("umbrellaStand", "office_umbrella_stand", 0.865, 0.825, 0.28, (0.35, 0.35)),
-    Prop("waitingChairA", "office_waiting_chair_a", 0.840, 0.680, 0.60, (0.55, 0.55)),
-    Prop("waitingTable", "office_waiting_table", 0.875, 0.735, 0.36, (0.55, 0.55)),
-    Prop("waitingChairB", "office_waiting_chair_b", 0.910, 0.790, 0.58, (0.55, 0.55)),
-    Prop("newspaper", "office_newspaper", 0.873, 0.733, 0.10, obstacle=False, note="on table"),
-    Prop("waitingAshtray", "office_waiting_ashtray", 0.881, 0.743, 0.07, obstacle=False, note="on table"),
+    Prop("personalFan", "office_personal_fan", 0.240, 0.680, 0.68, (0.5, 0.5)),
+    Prop("personalBottle", "office_hidden_bottle", 0.222, 0.725, 0.22, obstacle=False, note="on sideboard"),
+    Prop("personalGlass", "office_personal_glass", 0.218, 0.710, 0.10, obstacle=False, note="on sideboard"),
+    # ---- desk cluster: the command island, with both visitor chairs on the
+    # public/camera-near side and a clear line from the entrance to Voss.
+    Prop("deskEnsemble", "office_desk_bare", 0.490, 0.510, 0.99, (1.7, 0.9)),
+    # The chair and Voss's derived seated/standing anchors share this point.
+    # A high-backed leather chair is broad enough to remain readable around the
+    # chairless seated atlas; the old narrow timber chair vanished completely
+    # behind Voss even though its ground registration was correct.
+    Prop("deskChair", "office_visitor_armchair", 0.488, 0.507, 0.82, (0.7, 0.7), obstacle=False),
+    # Pull the two client seats decisively onto the visitor edge of the rug.
+    # This is a paired conversation group, rather than two chairs stranded in
+    # the open floor below the desk.
+    Prop("visitorArmchair", "office_visitor_armchair", 0.643, 0.536, 0.79, (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.590, 0.618, 0.76, (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.462, 0.615, 0.32, (0.4, 0.4)),
+    # ---- entrance / waiting: move the entire set off the rug and into one
+    # unmistakable nook along the entrance wall. The coat and umbrella stands
+    # terminate the group instead of floating behind it.
+    Prop("coatRack", "office_coat_rack", 0.280, 0.770, 0.88, (0.6, 0.6)),
+    Prop("umbrellaStand", "office_umbrella_stand", 0.310, 0.790, 0.28, (0.35, 0.35)),
+    # Rotate the two seats around their table inside Voss's initial fog reveal:
+    # timber chair camera-far, upholstered chair camera-near.
+    Prop("waitingChairA", "office_waiting_chair_a", 0.422, 0.750, 0.60, (0.55, 0.55)),
+    Prop("waitingTable", "office_waiting_table", 0.410, 0.814, 0.36, (0.55, 0.55)),
+    Prop("waitingChairB", "office_waiting_chair_b", 0.398, 0.879, 0.58, (0.55, 0.55)),
+    Prop("newspaper", "office_newspaper", 0.408, 0.812, 0.10, obstacle=False, note="on table"),
+    Prop("waitingAshtray", "office_waiting_ashtray", 0.414, 0.822, 0.07, obstacle=False, note="on table"),
 ]
 
 PROP_BY_KEY = {p.key: p for p in PROPS}
@@ -214,7 +230,7 @@ def camera_authored() -> tuple[float, float]:
 
 
 # Worn burgundy rug under the central desk island.
-RUG = (0.530, 0.450)
+RUG = (0.500, 0.525)
 RUG_BODY = 2.2
 RUG_FACTOR = 0.62
 
@@ -246,11 +262,11 @@ FLOOR_DECALS = {
 
 APPROACH = {
     "office.window": (WINDOW_A, 0.150),
-    "office.desk": (0.625, 0.390),
-    "office.phone": (0.625, 0.390),
+    "office.desk": (0.605, 0.455),
+    "office.phone": (0.605, 0.455),
     # Camera-near of the open cabinet, with a full runtime-cell margin after
     # the V12 records run moved inward from the wall crown.
-    "office.files": (0.735, 0.340),
+    "office.files": (0.690, 0.360),
     "office.door": (EXTERIOR_DOOR[0], 0.775),
 }
 
@@ -1199,16 +1215,22 @@ CLIENT_DOORWAY_PLAN_PATH = [
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
     (EXTERIOR_DOOR[0], 0.720),
-    (0.600, 0.625),
+    (0.565, 0.650),
 ]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
     *[rp.authored(a, b) for a, b in CLIENT_WAITING_CLEARANCE_PLAN_PATH],
 ]
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
-    (0.600, 0.625),
-    (0.675, 0.550),
-    (0.650, 0.490),
+    (0.565, 0.650),
+    # Skirt the camera-near side of the paired visitor chairs, then turn behind
+    # their left arm toward the desk approach. These are authored waypoints,
+    # not route() snaps: every segment is sampled against the shipped solids.
+    (0.602, 0.680),
+    (0.680, 0.680),
+    (0.720, 0.600),
+    (0.720, 0.530),
+    (0.690, 0.470),
 ]
 CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH

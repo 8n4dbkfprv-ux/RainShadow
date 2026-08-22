@@ -54,7 +54,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | V12 reference-faithful redraw over deterministic V11 registered geometry | 4096×2304 @ env 0.395 | `BGEEReferenceV12`; 2.5316 px/unit, measured +35.83°/−36.08°. Two fixed amber windows and one lit fireplace are baked; its 308.53px same-side jamb is locked to 1.733 rendered adults. The door leaf is not baked. V11 remains geometry/rollback provenance. |
+| Office suite plate | V12 reference-faithful redraw plus deterministic static-furniture composite | 4096×2304 @ env 0.395 | `BGEEReferenceV12` architecture is the immutable input to `bake_office_plate.py`; the installed plate adds 36 visible static props and measures +36.81°/−36.64°. The 12-piece seated desk cluster and the registered door leaf are not baked. V11 remains geometry/rollback provenance. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 64px native body, widen torso/coat rows by 15% while keeping the head unchanged and ramping back to 1.0x through the lower body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with linear filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |
@@ -135,7 +135,8 @@ firebox emission, orange firelight, or movable-prop shadows.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` / `office_suite_plate` | 4096×2304 | Opaque | Same V11 architecture pixels under the BG:EE lock: compact floor/plaster shell, two baked steel/blind windows, and a baked cold fireplace. Pure black outside; no door pixels or fire-derived light. |
+| P0 | `office_shell_base` | 4096×2304 | Opaque | V11 architecture pixels under the BG:EE lock: compact floor/plaster shell, two baked steel/blind windows, and a baked cold fireplace. Pure black outside; no furniture or door pixels. |
+| P0 | `office_suite_plate` | 4096×2304 | Opaque | Installed plate-first composite: the V12 architecture master plus 36 visible static scenery props. The desk interaction cluster and all entrance-leaf states remain registered overlays. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
@@ -147,9 +148,9 @@ firebox emission, orange firelight, or movable-prop shadows.
 | P0 | `office_window_glass_mask` | 4096×2304 | Yes, registered | Full-plate alpha mask covering the glass panes of both baked windows and nothing else; clips live rain. |
 | P0 | `office_window_hover_overlay` | 4096×2304 | Yes, registered | Stable runtime alias for the V11 transparent full-plate hover-only overlay, covering the camera-nearer interactive aperture only. |
 
-Window geometry and fixed blinds are background pixels. Rain, cool window and
-blind lighting, hover colour, and the `office.window` information region remain
-separate registered systems. The legacy `office_window`, frame, exterior-view,
+Window geometry and fixed blinds are background pixels. V12 retires the cool
+window/blind casts; rain, hover colour, and the `office.window` information
+region remain separate registered systems. The legacy `office_window`, frame, exterior-view,
 blinds, and sill sprites remain only as rollback provenance and are not part of
 the V11 prop manifest or preload contract.
 
@@ -168,6 +169,10 @@ hinge, angle, reference surface, end caps, and thickness while shortening to 81.
 The transition swaps registered edge-rendered states; it does not rotate a flat
 rectangular sprite. Retired frosted-lettered, thickness-warp, fallen, frame, and
 internal-door sources remain under `ArtSource` for provenance but are not runtime contracts.
+This is the Infinity Engine door split in RainShadow terms: the leaf is a
+localized alternate-tile overlay, the closed search-map rectangle independently
+blocks movement and sight, opening removes that rectangle and invalidates fog,
+and the travel/hover polygon remains one registered `office.door` record.
 
 ### 5.4 Desk island and small desk objects
 

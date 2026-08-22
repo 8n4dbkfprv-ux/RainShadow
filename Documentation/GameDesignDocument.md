@@ -639,7 +639,8 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 
 - Exterior establishing scene and rain.
 - Cinematic transition into the office.
-- Complete office visual composition with separate props.
+- Complete plate-first office composition: static furniture is painted into the
+  area master; the seated desk cluster and registered entrance-door states stay live.
 - Seated idle, stand-up, standing idle, and 16-facing legacy-style walk presentation.
 - Tap/click movement and five inspectable hotspots.
 - Correct isometric depth sorting and foreground occlusion.

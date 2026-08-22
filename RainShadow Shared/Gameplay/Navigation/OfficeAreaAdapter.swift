@@ -108,7 +108,7 @@ enum OfficeAreaAdapter {
 
     // MARK: - Sections
 
-    /// The office's scenery, read from what the renderer actually placed.
+    /// The office's live overlays, read from what the renderer actually placed.
     ///
     /// `ArtSource/Generated/Office/office_props_v01.json` is written by
     /// `office_props_from_dump.py` from a `RAINSHADOW_DUMP_PROPS` run. Reading
@@ -116,6 +116,13 @@ enum OfficeAreaAdapter {
     /// runs through `OfficeInteriorScale.mapPoint`, several prop-relative scale
     /// tables and a dozen inline constructions, and re-deriving that in a parser
     /// means re-implementing it and hoping the two agree.
+    ///
+    /// Static scenery is composited into `office_suite_plate` by
+    /// `bake_office_plate.py`, matching the Infinity Engine split: ordinary
+    /// furniture is area art while only pieces that must change or sort against
+    /// an actor survive as nodes. The desk cluster is that exception — its apron
+    /// and writing surface straddle a seated actor, its loose items lift above
+    /// him, and its three hotspots swap hover textures.
     ///
     /// Loaded at export time only. `AreaExportTests` runs in the package, where
     /// `ArtSource` is on disk; the app reads the resulting `.area.json`.
@@ -126,13 +133,26 @@ enum OfficeAreaAdapter {
             // Not an error in the app — only the exporter needs this file.
             return []
         }
-        // Fixed window pixels are part of the V11 plate, while the entrance
-        // leaf is registered by `AreaDoor`. Neither may also appear as a free
-        // scenery prop or the two registered systems visibly double up.
-        return document.props.filter {
-            $0.id != "office_window" && $0.id != "office_door_leaf"
-        }
+        return document.props.filter { livePropIDs.contains($0.id) }
     }
+
+    /// Must match `bake_office_plate.LIVE_PROP_IDS`. The generated bake
+    /// manifest records both sides of the split for review and tests assert the
+    /// shipped area contains this set exactly.
+    private static let livePropIDs: Set<String> = [
+        "office_desk_bare",
+        "office_desk_chair",
+        "office_desk_actor_occluder",
+        "office_desk_front_occluder_v04",
+        "office_desk_top_occluder",
+        "office_desk_lamp",
+        "office_desk_phone",
+        "office_desk_typewriter",
+        "office_desk_notebook",
+        "office_desk_papers",
+        "office_desk_ashtray",
+        "office_desk_files"
+    ]
 
     private struct PropsDocument: Decodable {
         let props: [AreaProp]

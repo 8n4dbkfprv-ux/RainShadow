@@ -3,32 +3,74 @@ import Foundation
 import Testing
 @testable import RainShadowCore
 
-/// The office's scenery as authored data.
+/// The office's plate/live split as authored data.
 ///
 /// `props` was empty from the day the record existed, because the office places
 /// its scenery imperatively — texture names as string literals at roughly sixty
-/// call sites. It is now described by `office_props_v01.json`, converted from
-/// what the renderer actually placed.
+/// call sites. `office_props_v01.json` remains the placement authority, but the
+/// shipped area retains only the desk cluster that must sort around a seated
+/// actor; the rest is now pixels in `office_suite_plate`.
 struct AreaPropTests {
 
     static func officeProps() throws -> [AreaProp] {
         try AreaCatalogLoader.load(HarborpointAreas.office).props
     }
 
+    private struct PropsDocument: Decodable { let props: [AreaProp] }
+
+    private struct BakeManifest: Decodable {
+        let bakedPropIDs: [String]
+        let livePropIDs: [String]
+        let retiredPropIDs: [String]
+        let registeredDoorID: String
+        let registeredDoorStates: [String]
+    }
+
+    static func officeSourceProps() throws -> [AreaProp] {
+        let data = try Data(contentsOf: OfficeAreaAdapter.propsSourceURL)
+        return try JSONDecoder().decode(PropsDocument.self, from: data).props
+    }
+
+    private static func bakeManifest() throws -> BakeManifest {
+        let url = OfficeAreaAdapter.propsSourceURL
+            .deletingLastPathComponent()
+            .appendingPathComponent("PlateBake/office_plate_bake_manifest_v02.json")
+        return try JSONDecoder().decode(BakeManifest.self, from: Data(contentsOf: url))
+    }
+
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 51, "the office describes \(props.count) retained props")
+        #expect(props.count == 12, "the office describes \(props.count) live overlays")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
-        #expect(byLayer[.depthWorld] == 35)
-        #expect(byLayer[.rearFixtures] == 6)
-        #expect(byLayer[.floorEffects] == 10)
+        #expect(byLayer == [.depthWorld: 12])
+        #expect(Set(props.map(\.id)) == [
+            "office_desk_bare",
+            "office_desk_chair",
+            "office_desk_actor_occluder",
+            "office_desk_front_occluder_v04",
+            "office_desk_top_occluder",
+            "office_desk_lamp",
+            "office_desk_phone",
+            "office_desk_typewriter",
+            "office_desk_notebook",
+            "office_desk_papers",
+            "office_desk_ashtray",
+            "office_desk_files"
+        ])
+
+        let split = try Self.bakeManifest()
+        #expect(Set(props.map(\.id)) == Set(split.livePropIDs))
+        #expect(split.bakedPropIDs.count == 36)
+        #expect(split.retiredPropIDs.count == 3)
+        #expect(split.registeredDoorID == "office.door")
+        #expect(split.registeredDoorStates == ["closed", "mid", "open"])
     }
 
     @Test func propIDsAreUnique() throws {
-        // Two visitor armchairs share a texture, so identity has to come from
-        // the id rather than the art.
+        // Identity remains the interaction key even when art names happen to
+        // match throughout today's live desk cluster.
         let ids = try Self.officeProps().map(\.id)
         #expect(Set(ids).count == ids.count, "a prop id is used twice")
     }
@@ -38,24 +80,26 @@ struct AreaPropTests {
     /// picture — and the result looks almost right, which is the worst kind of
     /// wrong.
     @Test func aPropsIdentityIsSeparateFromItsArt() throws {
-        let props = try Self.officeProps()
-        // The rug, the wall stripes, and the second visitor armchair — which
-        // shares a node name with the first and is numbered so the record can
-        // tell them apart.
+        let props = try Self.officeSourceProps()
+        // The rug, the wall stripes, the second visitor armchair, and Voss's
+        // stable desk-chair identity (which now uses broad leather chair art).
         let renamed = props.filter { $0.id != $0.textureName }
-        #expect(renamed.count == 3, "renamed set changed: \(renamed.map(\.id).sorted())")
+        #expect(renamed.count == 4, "renamed set changed: \(renamed.map(\.id).sorted())")
 
         let rug = try #require(props.first { $0.id == "office_worn_rug" })
         #expect(rug.textureName == "office_worn_rug_burgundy")
 
         let stripes = try #require(props.first { $0.id == "office_light_blind_stripes_wall" })
         #expect(stripes.textureName == "office_light_blind_stripes")
+
+        let vossChair = try #require(props.first { $0.id == "office_desk_chair" })
+        #expect(vossChair.textureName == "office_visitor_armchair")
     }
 
     /// Five of the office's sprites are additive light casts. Losing the blend
     /// mode washes the room out, which reads as an art change rather than a bug.
     @Test func theLightCastsKeepTheirAdditiveBlend() throws {
-        let props = try Self.officeProps()
+        let props = try Self.officeSourceProps()
         let additive = props.filter { $0.blend == .add }.map(\.id).sorted()
         #expect(
             additive == [
@@ -89,12 +133,17 @@ struct AreaPropTests {
         }
     }
 
-    /// Fixed windows are V11 plate pixels and the door is an `AreaDoor` visual;
-    /// neither may survive as an independently transformed scenery prop.
-    @Test func bakedWindowsAndRegisteredDoorAreNotGeneralProps() throws {
+    /// Static furniture and windows are plate pixels, while the door is an
+    /// `AreaDoor` visual. None may survive as a second runtime sprite.
+    @Test func bakedSceneryAndRegisteredDoorAreNotGeneralProps() throws {
         let props = try Self.officeProps()
-        #expect(!props.contains { $0.id == "office_window" })
-        #expect(!props.contains { $0.id == "office_door_leaf" })
+        for bakedID in [
+            "office_window", "office_door_leaf", "office_bookshelf",
+            "office_filing_cabinet", "office_safe", "office_coat_rack",
+            "office_waiting_chair_a", "office_waiting_chair_b", "office_worn_rug"
+        ] {
+            #expect(!props.contains { $0.id == bakedID }, "\(bakedID) would draw twice")
+        }
         #expect(props.allSatisfy { $0.warp == nil })
         #expect(props.allSatisfy { $0.scale != nil })
     }

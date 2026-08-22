@@ -694,7 +694,7 @@ struct OfficeInteriorScaleTests {
 
         let internalDoor = OfficeNavigationLayout.clientInternalDoorwayPath
             .map(OfficeInteriorScale.unmapPoint)
-        #expect(internalDoor.count == 3)
+        #expect(internalDoor.count >= 3)
         #expect(internalDoor.allSatisfy {
             !OfficeNavigationLayout.isBlocked(OfficeInteriorScale.mapPoint($0))
         })

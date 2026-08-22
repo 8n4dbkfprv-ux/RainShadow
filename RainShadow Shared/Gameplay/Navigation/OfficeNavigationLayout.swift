@@ -168,7 +168,7 @@ enum OfficeNavigationLayout {
     /// Walkable chair-side stand point (camera-near of the kneehole).
     /// Kept outside the desk obstacle so leave-seat never starts on the
     /// visitor/rear side of the writing surface.
-    private static let authoredActorStart = CGPoint(x: 2095.841686298822, y: 1128.7245133292001)
+    private static let authoredActorStart = CGPoint(x: 2023.3630551766892, y: 1082.033160570366)
 
     // MARK: - Obstacles (authored AABBs around each floor footprint)
 
@@ -943,23 +943,23 @@ enum OfficeNavigationLayout {
     static let authoredPartitionSegments: [CGRect] = [
     ]
 
-    static let authoredSafeObstacle = CGRect(x: 1541.41341380072, y: 1322.1429662349956, width: 123.27717735826137, height: 91.40656598010189)
-    static let authoredFilingCabinetBObstacle = CGRect(x: 1417.4173444570658, y: 1232.6952579442284, width: 113.92979961655597, height: 84.2679094060255)
-    static let authoredFilingCabinetObstacle = CGRect(x: 1295.8959061433648, y: 1144.8458345096342, width: 113.92979961655597, height: 84.26790940602567)
-    static let authoredBookshelfObstacle = CGRect(x: 1133.4280326112798, y: 1026.0610961193743, width: 167.22939045009963, height: 125.46808674451258)
-    static let authoredArchiveBoxAObstacle = CGRect(x: 1255.0598470833363, y: 944.1932342574901, width: 98.06480676327148, height: 72.79890036288748)
+    static let authoredSafeObstacle = CGRect(x: 1627.1932526103915, y: 1384.1543239535322, width: 123.27717735826154, height: 91.40656598010206)
+    static let authoredFilingCabinetBObstacle = CGRect(x: 1488.9005434651253, y: 1284.3713893763424, width: 113.92979961655597, height: 84.26790940602567)
+    static let authoredFilingCabinetObstacle = CGRect(x: 1360.2307852506183, y: 1191.354352798537, width: 113.92979961655597, height: 84.26790940602567)
+    static let authoredBookshelfObstacle = CGRect(x: 1190.6145918177274, y: 1067.4020012650653, width: 167.2293904500998, height: 125.46808674451258)
+    static let authoredArchiveBoxAObstacle = CGRect(x: 1285.8242860170003, y: 994.9551933399449, width: 98.06480676327132, height: 72.79890036288748)
     static let authoredRadiatorObstacle = CGRect(x: 1094.409663480904, y: 1009.6443060682844, width: 130.80317236595909, height: 98.37246937167612)
-    static let authoredPersonalSideboardObstacle = CGRect(x: 2635.0162974067794, y: 894.6423055245978, width: 181.22791355593904, height: 135.58780060610525)
-    static let authoredPersonalFanObstacle = CGRect(x: 2604.3178820317016, y: 987.8724181323868, width: 102.73098113188418, height: 76.17213831675171)
-    static let authoredDeskEnsembleObstacle = CGRect(x: 1741.3616929267469, y: 1141.342195956788, width: 274.6265459505975, height: 205.01346301512837)
-    static let authoredVisitorArmchairObstacle = CGRect(x: 1456.8327481911192, y: 1156.322704018476, width: 133.55027547144988, height: 99.02377981177698)
-    static let authoredVisitorArmchairBObstacle = CGRect(x: 1570.9392330020307, y: 953.5922886433987, width: 133.55027547144988, height: 99.02377981177698)
-    static let authoredWastebasketObstacle = CGRect(x: 1926.7143775410464, y: 1040.1317150390773, width: 82.1847849055078, height: 60.93771065340153)
-    static let authoredCoatRackObstacle = CGRect(x: 1826.2796754250228, y: 387.1985892976118, width: 123.27717735826154, height: 91.40656598010206)
-    static let authoredUmbrellaStandObstacle = CGRect(x: 1857.0284591456875, y: 476.4551390658885, width: 71.91168679231929, height: 53.32049682172612)
-    static let authoredWaitingChairAObstacle = CGRect(x: 1685.9104588275563, y: 628.0825588916888, width: 113.00407924507319, height: 83.7893521484268)
-    static let authoredWaitingTableObstacle = CGRect(x: 1706.5428208858327, y: 538.4174875959663, width: 113.00407924507302, height: 83.78935214842697)
-    static let authoredWaitingChairBObstacle = CGRect(x: 1727.1751829441093, y: 448.75241630024414, width: 113.00407924507319, height: 83.7893521484268)
+    static let authoredPersonalSideboardObstacle = CGRect(x: 2589.587010364002, y: 1204.0642522077967, width: 181.22791355593938, height: 135.5878006061051)
+    static let authoredPersonalFanObstacle = CGRect(x: 2548.845395980865, y: 1252.0047429928952, width: 102.7309811318845, height: 76.17213831675154)
+    static let authoredDeskEnsembleObstacle = CGRect(x: 1887.0452143154635, y: 1094.5416503895221, width: 274.6265459505975, height: 205.0134630151285)
+    static let authoredVisitorArmchairObstacle = CGRect(x: 1772.2526812351366, y: 964.1205068703049, width: 133.55027547144974, height: 99.02377981177715)
+    static let authoredVisitorArmchairBObstacle = CGRect(x: 1953.3883142171578, y: 939.145826151148, width: 133.55027547144988, height: 99.0237798117773)
+    static let authoredWastebasketObstacle = CGRect(x: 2158.2132888863653, y: 1093.3974906125432, width: 82.18478490550812, height: 60.93771065340137)
+    static let authoredCoatRackObstacle = CGRect(x: 2597.0285408930945, y: 1115.5146215356776, width: 123.27717735826154, height: 91.40656598010189)
+    static let authoredUmbrellaStandObstacle = CGRect(x: 2605.5197672672, y: 1084.1004211489633, width: 71.91168679231944, height: 53.32049682172628)
+    static let authoredWaitingChairAObstacle = CGRect(x: 2373.45440427083, y: 992.0145712909447, width: 113.00407924507286, height: 83.7893521484268)
+    static let authoredWaitingTableObstacle = CGRect(x: 2472.845253619869, y: 942.1718632934245, width: 113.00407924507286, height: 83.7893521484268)
+    static let authoredWaitingChairBObstacle = CGRect(x: 2573.5210229937065, y: 891.3565774905727, width: 113.00407924507286, height: 83.7893521484268)
 
     /// Furniture low enough to see over.
     ///
@@ -1022,29 +1022,29 @@ enum OfficeNavigationLayout {
     // MARK: - Sample points (interior to each obstacle)
 
     static let authoredSafeSamplePoints: [CGPoint] = [
-        CGPoint(x: 1603.0520024798507, y: 1367.8462492250464),
-        CGPoint(x: 1578.3965670081984, y: 1354.1352643280313),
-        CGPoint(x: 1627.707437951503, y: 1381.5572341220618),
+        CGPoint(x: 1688.8318412895223, y: 1429.8576069435833),
+        CGPoint(x: 1664.1764058178699, y: 1416.146622046568),
+        CGPoint(x: 1713.4872767611746, y: 1443.5685918405986),
     ]
     static let authoredFilingCabinetBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1474.3822442653438, y: 1274.829212647241),
-        CGPoint(x: 1451.5962843420327, y: 1262.1890262363372),
-        CGPoint(x: 1497.168204188655, y: 1287.469399058145),
+        CGPoint(x: 1545.8654432734033, y: 1326.5053440793554),
+        CGPoint(x: 1523.0794833500922, y: 1313.8651576684515),
+        CGPoint(x: 1568.6514031967145, y: 1339.145530490259),
     ]
     static let authoredFilingCabinetSamplePoints: [CGPoint] = [
-        CGPoint(x: 1352.8608059516428, y: 1186.9797892126471),
-        CGPoint(x: 1330.0748460283316, y: 1174.3396028017432),
-        CGPoint(x: 1375.6467658749539, y: 1199.6199756235508),
+        CGPoint(x: 1417.1956850588963, y: 1233.48830750155),
+        CGPoint(x: 1394.4097251355852, y: 1220.8481210906461),
+        CGPoint(x: 1439.9816449822074, y: 1246.1284939124537),
     ]
     static let authoredBookshelfSamplePoints: [CGPoint] = [
-        CGPoint(x: 1217.0427278363297, y: 1088.7951394916306),
-        CGPoint(x: 1183.5968497463098, y: 1069.9749264799536),
-        CGPoint(x: 1250.4886059263495, y: 1107.6153525033073),
+        CGPoint(x: 1274.2292870427773, y: 1130.1360446373217),
+        CGPoint(x: 1240.7834089527573, y: 1111.3158316256447),
+        CGPoint(x: 1307.6751651327972, y: 1148.9562576489984),
     ]
     static let authoredArchiveBoxASamplePoints: [CGPoint] = [
-        CGPoint(x: 1304.092250464972, y: 980.5926844389338),
-        CGPoint(x: 1284.4792891123177, y: 969.6728493845008),
-        CGPoint(x: 1323.7052118176264, y: 991.5125194933669),
+        CGPoint(x: 1334.856689398636, y: 1031.3546435213887),
+        CGPoint(x: 1315.2437280459817, y: 1020.4348084669555),
+        CGPoint(x: 1354.4696507512901, y: 1042.2744785758218),
     ]
     static let authoredRadiatorSamplePoints: [CGPoint] = [
         CGPoint(x: 1159.8112496638837, y: 1058.8305407541225),
@@ -1052,59 +1052,59 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1185.9718841370754, y: 1073.586411159874),
     ]
     static let authoredPersonalSideboardSamplePoints: [CGPoint] = [
-        CGPoint(x: 2725.630254184749, y: 962.4362058276504),
-        CGPoint(x: 2689.384671473561, y: 942.0980357367346),
-        CGPoint(x: 2761.8758368959366, y: 982.7743759185662),
+        CGPoint(x: 2680.2009671419714, y: 1271.8581525108493),
+        CGPoint(x: 2643.9553844307834, y: 1251.5199824199335),
+        CGPoint(x: 2716.4465498531595, y: 1292.1963226017651),
     ]
     static let authoredPersonalFanSamplePoints: [CGPoint] = [
-        CGPoint(x: 2655.683372597644, y: 1025.9584872907626),
-        CGPoint(x: 2635.137176371267, y: 1014.5326665432499),
-        CGPoint(x: 2676.2295688240206, y: 1037.3843080382753),
+        CGPoint(x: 2600.210886546807, y: 1290.090812151271),
+        CGPoint(x: 2579.66469032043, y: 1278.6649914037582),
+        CGPoint(x: 2620.757082773184, y: 1301.5166328987837),
     ]
     static let authoredDeskEnsembleSamplePoints: [CGPoint] = [
-        CGPoint(x: 1878.6749659020456, y: 1243.848927464352),
-        CGPoint(x: 1823.749656711926, y: 1213.0969080120828),
-        CGPoint(x: 1933.600275092165, y: 1274.6009469166213),
+        CGPoint(x: 2024.3584872907622, y: 1197.0483818970863),
+        CGPoint(x: 1969.4331781006426, y: 1166.296362444817),
+        CGPoint(x: 2079.283796480882, y: 1227.8004013493558),
     ]
     static let authoredVisitorArmchairSamplePoints: [CGPoint] = [
-        CGPoint(x: 1523.6078859268441, y: 1205.8345939243645),
-        CGPoint(x: 1496.897830832554, y: 1190.981026952598),
-        CGPoint(x: 1550.3179410211342, y: 1220.6881608961312),
+        CGPoint(x: 1839.0278189708615, y: 1013.6323967761934),
+        CGPoint(x: 1812.3177638765715, y: 998.7788298044269),
+        CGPoint(x: 1865.7378740651513, y: 1028.48596374796),
     ]
     static let authoredVisitorArmchairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1637.7143707377556, y: 1003.1041785492871),
-        CGPoint(x: 1611.0043156434656, y: 988.2506115775207),
-        CGPoint(x: 1664.4244258320457, y: 1017.9577455210537),
+        CGPoint(x: 2020.1634519528827, y: 988.6577160570366),
+        CGPoint(x: 1993.4533968585927, y: 973.80414908527),
+        CGPoint(x: 2046.8735070471728, y: 1003.5112830288032),
     ]
     static let authoredWastebasketSamplePoints: [CGPoint] = [
-        CGPoint(x: 1967.8067699938003, y: 1070.6005703657781),
-        CGPoint(x: 1951.3698130126986, y: 1061.4599137677678),
-        CGPoint(x: 1984.2437269749018, y: 1079.7412269637882),
+        CGPoint(x: 2199.3056813391195, y: 1123.8663459392437),
+        CGPoint(x: 2182.8687243580175, y: 1114.7256893412336),
+        CGPoint(x: 2215.742638320221, y: 1133.007002537254),
     ]
     static let authoredCoatRackSamplePoints: [CGPoint] = [
-        CGPoint(x: 1887.9182641041536, y: 432.90187228766285),
-        CGPoint(x: 1863.2628286325012, y: 419.19088739064756),
-        CGPoint(x: 1912.573699575806, y: 446.61285718467815),
+        CGPoint(x: 2658.6671295722253, y: 1161.2179045257285),
+        CGPoint(x: 2634.011694100573, y: 1147.5069196287134),
+        CGPoint(x: 2683.3225650438776, y: 1174.9288894227439),
     ]
     static let authoredUmbrellaStandSamplePoints: [CGPoint] = [
-        CGPoint(x: 1892.9843025418472, y: 503.11538747675155),
-        CGPoint(x: 1878.6019651833833, y: 495.1173129534926),
-        CGPoint(x: 1907.366639900311, y: 511.1134620000105),
+        CGPoint(x: 2641.47561066336, y: 1110.7606695598265),
+        CGPoint(x: 2627.0932733048962, y: 1102.7625950365675),
+        CGPoint(x: 2655.8579480218236, y: 1118.7587440830853),
     ]
     static let authoredWaitingChairASamplePoints: [CGPoint] = [
-        CGPoint(x: 1742.412498450093, y: 669.9772349659022),
-        CGPoint(x: 1719.8116826010782, y: 657.4088321436382),
-        CGPoint(x: 1765.0133142991076, y: 682.5456377881662),
+        CGPoint(x: 2429.956443893366, y: 1033.909247365158),
+        CGPoint(x: 2407.3556280443518, y: 1021.340844542894),
+        CGPoint(x: 2452.5572597423807, y: 1046.4776501874221),
     ]
     static let authoredWaitingTableSamplePoints: [CGPoint] = [
-        CGPoint(x: 1763.0448605083693, y: 580.3121636701799),
-        CGPoint(x: 1740.4440446593546, y: 567.7437608479158),
-        CGPoint(x: 1785.6456763573838, y: 592.8805664924439),
+        CGPoint(x: 2529.347293242405, y: 984.0665393676379),
+        CGPoint(x: 2506.7464773933907, y: 971.4981365453739),
+        CGPoint(x: 2551.9481090914196, y: 996.634942189902),
     ]
     static let authoredWaitingChairBSamplePoints: [CGPoint] = [
-        CGPoint(x: 1783.677222566646, y: 490.64709237445754),
-        CGPoint(x: 1761.0764067176312, y: 478.0786895521935),
-        CGPoint(x: 1806.2780384156606, y: 503.2154951967216),
+        CGPoint(x: 2630.023062616243, y: 933.2512535647861),
+        CGPoint(x: 2607.4222467672284, y: 920.6828507425221),
+        CGPoint(x: 2652.6238784652573, y: 945.8196563870501),
     ]
     static let authoredDoorLeafSamplePoints: [CGPoint] = [
         CGPoint(x: 2491.3171651726025, y: 602.9019204325948),
@@ -1165,33 +1165,33 @@ enum OfficeNavigationLayout {
         /// Recentred on the fitted compact V11 diamond.
         static let camera = CGPoint(x: 1930.071766893986, y: 1204.945815251085)
 
-        static let safe = CGPoint(x: 1603.052002479851, y: 1367.8462492250464)  // records run, far end
-        static let filingCabinetB = CGPoint(x: 1474.3822442653438, y: 1274.829212647241)
-        static let filingCabinet = CGPoint(x: 1352.8608059516428, y: 1186.9797892126473)  // drawer half open
-        static let bookshelf = CGPoint(x: 1217.0427278363297, y: 1088.7951394916306)
-        static let archiveBoxOnCabinet = CGPoint(x: 1474.3822442653438, y: 1274.829212647241)  // on cabinet B
-        static let archiveStackOnCabinet = CGPoint(x: 1352.8608059516428, y: 1186.9797892126473)  // on cabinet A
-        static let archiveBoxA = CGPoint(x: 1304.092250464972, y: 980.5926844389337)  // west-side stack
+        static let safe = CGPoint(x: 1688.8318412895223, y: 1429.8576069435833)  // records run, far end
+        static let filingCabinetB = CGPoint(x: 1545.8654432734033, y: 1326.5053440793552)
+        static let filingCabinet = CGPoint(x: 1417.1956850588963, y: 1233.48830750155)  // drawer half open
+        static let bookshelf = CGPoint(x: 1274.2292870427773, y: 1130.1360446373217)
+        static let archiveBoxOnCabinet = CGPoint(x: 1545.8654432734033, y: 1326.5053440793552)  // on cabinet B
+        static let archiveStackOnCabinet = CGPoint(x: 1417.1956850588963, y: 1233.48830750155)  // on cabinet A
+        static let archiveBoxA = CGPoint(x: 1334.8566893986363, y: 1031.3546435213889)  // west-side stack
         static let radiator = CGPoint(x: 1159.8112496638837, y: 1058.8305407541225)
-        static let personalSideboard = CGPoint(x: 2725.630254184749, y: 962.4362058276504)
-        static let personalWashbasin = CGPoint(x: 2801.278016119033, y: 884.0205331680099)  // retired domestic fixture; placement retained for source lineage
-        static let personalFan = CGPoint(x: 2655.683372597644, y: 1025.9584872907626)
-        static let personalBottle = CGPoint(x: 2729.1955263484188, y: 955.5062715437075)  // on sideboard
-        static let personalGlass = CGPoint(x: 2715.6403818970857, y: 974.2290291382517)  // on sideboard
-        static let deskEnsemble = CGPoint(x: 1878.6749659020456, y: 1243.848927464352)
-        static let deskChair = CGPoint(x: 2095.841686298822, y: 1248.7245133292001)
-        static let visitorArmchair = CGPoint(x: 1523.6078859268441, y: 1205.8345939243645)
-        static let visitorArmchairB = CGPoint(x: 1637.7143707377559, y: 1003.1041785492871)
-        static let wastebasket = CGPoint(x: 1967.8067699938003, y: 1070.6005703657781)
-        static let coatRack = CGPoint(x: 1887.9182641041536, y: 432.9018722876631)
-        static let umbrellaStand = CGPoint(x: 1892.9843025418472, y: 503.1153874767515)
-        static let waitingChairA = CGPoint(x: 1742.4124984500932, y: 669.9772349659022)
-        static let waitingTable = CGPoint(x: 1763.0448605083693, y: 580.3121636701799)
-        static let waitingChairB = CGPoint(x: 1783.677222566646, y: 490.64709237445777)
-        static let newspaper = CGPoint(x: 1763.3343484190946, y: 584.3243645381278)  // on table
-        static let waitingAshtray = CGPoint(x: 1764.7462368257904, y: 566.3304054556729)  // on table
+        static let personalSideboard = CGPoint(x: 2680.200967141971, y: 1271.8581525108493)
+        static let personalWashbasin = CGPoint(x: 2758.0198884066954, y: 1223.5339863608183)  // retired domestic fixture; placement retained for source lineage
+        static let personalFan = CGPoint(x: 2600.210886546807, y: 1290.090812151271)
+        static let personalBottle = CGPoint(x: 2683.766239305641, y: 1264.9282182269062)  // on sideboard
+        static let personalGlass = CGPoint(x: 2670.2110948543086, y: 1283.6509758214506)  // on sideboard
+        static let deskEnsemble = CGPoint(x: 2024.3584872907622, y: 1197.048381897086)
+        static let deskChair = CGPoint(x: 2023.3630551766892, y: 1202.033160570366)
+        static let visitorArmchair = CGPoint(x: 1839.0278189708615, y: 1013.6323967761934)
+        static let visitorArmchairB = CGPoint(x: 2020.1634519528827, y: 988.6577160570369)
+        static let wastebasket = CGPoint(x: 2199.3056813391195, y: 1123.8663459392437)
+        static let coatRack = CGPoint(x: 2658.6671295722253, y: 1161.2179045257285)
+        static let umbrellaStand = CGPoint(x: 2641.47561066336, y: 1110.7606695598263)
+        static let waitingChairA = CGPoint(x: 2429.956443893366, y: 1033.909247365158)
+        static let waitingTable = CGPoint(x: 2529.347293242405, y: 984.0665393676381)
+        static let waitingChairB = CGPoint(x: 2630.023062616243, y: 933.2512535647861)
+        static let newspaper = CGPoint(x: 2529.636781153131, y: 988.0787402355859)  // on table
+        static let waitingAshtray = CGPoint(x: 2533.9079975201485, y: 972.1518264104154)  // on table
 
-        static let wornRug = CGPoint(x: 1890.076726596404, y: 1214.0621450712956)
+        static let wornRug = CGPoint(x: 2029.335647861128, y: 1172.1244885306883)
         static let floorWear = deskEnsemble
         static let wallPhotos = CGPoint(x: 1803.2049597024175, y: 1630.5394172349659)
         static let caseBoard = CGPoint(x: 1674.5352014879104, y: 1561.5223806571605)
@@ -1210,9 +1210,9 @@ enum OfficeNavigationLayout {
 
     private static let authoredApproachPoints: [String: CGPoint] = [
         "office.window": CGPoint(x: 1026.1795670848385, y: 1159.978632508617),
-        "office.desk": CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
-        "office.phone": CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
-        "office.files": CGPoint(x: 1455.6544079355237, y: 1109.1735647861128),
+        "office.desk": CGPoint(x: 1789.2765282083074, y: 1131.6850588964662),
+        "office.phone": CGPoint(x: 1789.2765282083074, y: 1131.6850588964662),
+        "office.files": CGPoint(x: 1545.6876875387475, y: 1136.230526968382),
         "office.door": CGPoint(x: 2202.210159592938, y: 821.7319266322229),
     ]
 
@@ -1247,20 +1247,23 @@ enum OfficeNavigationLayout {
     static let clientWaitingRoomPath: [CGPoint] = [
         CGPoint(x: 2202.210159592938, y: 821.7319266322229),
         CGPoint(x: 2131.53955822902, y: 875.2237059254653),
-        CGPoint(x: 2014.8612523248603, y: 971.5144451332922),
+        CGPoint(x: 2097.022492250465, y: 983.37329200248),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Compatibility-named open-floor circulation points; no partition remains.
     static let clientInternalDoorwayPath: [CGPoint] = [
-        CGPoint(x: 2014.8612523248603, y: 971.5144451332922),
-        CGPoint(x: 1811.2674519528828, y: 966.943583384997),
-        CGPoint(x: 1769.9138499690016, y: 1051.1363174209548),
+        CGPoint(x: 2097.022492250465, y: 983.37329200248),
+        CGPoint(x: 2082.672525728456, y: 915.955620582765),
+        CGPoint(x: 1971.1587352758834, y: 835.3408555486672),
+        CGPoint(x: 1811.1785740855548, y: 871.8061748295104),
+        CGPoint(x: 1721.234172349659, y: 939.8866212027278),
+        CGPoint(x: 1687.0288902665839, y: 1029.2469683818972),
     ].map(OfficeInteriorScale.mapPoint)
 
     /// Direct approach to the desk's camera-near visitor stop.
     static let clientOfficeArrivalPath: [CGPoint] = [
-        CGPoint(x: 1769.9138499690016, y: 1051.1363174209548),
-        CGPoint(x: 1677.1634469931803, y: 1174.2321636701797),
+        CGPoint(x: 1687.0288902665839, y: 1029.2469683818972),
+        CGPoint(x: 1789.2765282083074, y: 1131.6850588964662),
     ].map(OfficeInteriorScale.mapPoint)
 
     static let clientInteriorArrivalPath: [CGPoint] = [
@@ -1301,7 +1304,7 @@ enum OfficeNavigationLayout {
     static let recordsApproachPath: [CGPoint] = [
         CGPoint(x: 1448.6838437693737, y: 1294.2807687538748),
         CGPoint(x: 1422.3506013639178, y: 1398.839231246125),
-        CGPoint(x: 1455.6544079355237, y: 1109.1735647861128),
+        CGPoint(x: 1545.6876875387475, y: 1136.230526968382),
     ].map(OfficeInteriorScale.mapPoint)
 
     static var obstacles: [CGRect] { authoredObstacles.map(OfficeInteriorScale.mapRect) }

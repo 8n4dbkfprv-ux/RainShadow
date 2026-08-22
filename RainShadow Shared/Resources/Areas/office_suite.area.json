@@ -25,14 +25,14 @@
     "containers" : [
       {
         "approachPoint" : {
-          "x" : 1901.519561562306,
-          "y" : 1160.781704649721
+          "x" : 1945.8042286422815,
+          "y" : 1143.975598264104
         },
         "hitArea" : {
-          "h" : 136.2803178909757,
+          "h" : 136.28031789097577,
           "w" : 179.57748565048604,
-          "x" : 1891.327868706065,
-          "y" : 1120.1401674029312
+          "x" : 1948.872859654608,
+          "y" : 1101.6539519038613
         },
         "id" : "office.desk",
         "label" : "Desk",
@@ -76,14 +76,14 @@
       },
       {
         "approachPoint" : {
-          "x" : 1814.023491134532,
-          "y" : 1135.0835580905145
+          "x" : 1849.5866365778052,
+          "y" : 1145.771058152511
         },
         "hitArea" : {
           "h" : 86.9,
           "w" : 118.5,
-          "x" : 1729.970018350899,
-          "y" : 1157.9170167389957
+          "x" : 1755.3822955982641,
+          "y" : 1176.2878814631122
         },
         "id" : "office.files",
         "label" : "Case files",
@@ -157,8 +157,8 @@
       {
         "name" : "default",
         "point" : {
-          "x" : 2066.897466088035,
-          "y" : 1142.806182765034
+          "x" : 2038.2684067947923,
+          "y" : 1124.3630984252945
         }
       },
       {
@@ -4604,34 +4604,34 @@
         "y" : 1214.6227145071293
       },
       {
-        "h" : 36.10559356214025,
-        "w" : 48.694485056513244,
-        "x" : 1847.8982984512845,
-        "y" : 1219.2064716628233
+        "h" : 36.105593562140314,
+        "w" : 48.69448505651331,
+        "x" : 1881.7813347811045,
+        "y" : 1243.7009579616451
       },
       {
         "h" : 33.28582421538014,
         "w" : 45.00227084853961,
-        "x" : 1750.918882926629,
-        "y" : 1149.1741046313055
+        "x" : 1776.3311601739942,
+        "y" : 1167.5449693554222
       },
       {
         "h" : 49.55989426408247,
-        "w" : 66.05560922778936,
-        "x" : 1686.7440728814554,
-        "y" : 1102.2541329671528
+        "w" : 66.05560922778942,
+        "x" : 1709.3327637680022,
+        "y" : 1118.5837904997009
       },
       {
-        "h" : 33.285824215380075,
+        "h" : 33.28582421538014,
         "w" : 45.00227084853961,
-        "x" : 1798.919851060541,
-        "y" : 1183.8746268879702
+        "x" : 1827.1557146687246,
+        "y" : 1204.2866988036553
       },
       {
         "h" : 28.755565643340557,
-        "w" : 38.735598671492234,
-        "x" : 1734.7886395979178,
-        "y" : 1069.9163275317085
+        "w" : 38.73559867149218,
+        "x" : 1746.9405929767152,
+        "y" : 1089.9673013692782
       },
       {
         "h" : 38.85712540181207,
@@ -4640,651 +4640,75 @@
         "y" : 1095.7695008969724
       },
       {
-        "h" : 53.55718123941158,
-        "w" : 71.58502585459593,
-        "x" : 2279.871437475678,
-        "y" : 1050.3437106822162
+        "h" : 53.55718123941152,
+        "w" : 71.58502585459605,
+        "x" : 2261.9268690937806,
+        "y" : 1172.5653796220797
       },
       {
-        "h" : 30.087994635116928,
-        "w" : 40.57873754709425,
-        "x" : 2267.7455634025223,
-        "y" : 1087.1696051622928
+        "h" : 30.08799463511686,
+        "w" : 40.578737547094384,
+        "x" : 2245.8339314124414,
+        "y" : 1191.5018734821936
       },
       {
-        "h" : 80.98031789097571,
+        "h" : 80.98031789097577,
         "w" : 108.47748565048603,
-        "x" : 1926.877868706065,
-        "y" : 1147.7901674029313
+        "x" : 1984.4228596546081,
+        "y" : 1129.3039519038612
       },
       {
-        "h" : 39.11439302565191,
+        "h" : 39.11439302565197,
+        "w" : 52.75235881122265,
+        "x" : 1939.0798090878789,
+        "y" : 1077.7876002137705
+      },
+      {
+        "h" : 39.114393025652035,
         "w" : 52.752358811222706,
-        "x" : 1814.4889355354921,
-        "y" : 1153.7074680872981
+        "x" : 2010.6283841157774,
+        "y" : 1067.9226013297034
       },
       {
-        "h" : 39.11439302565191,
-        "w" : 52.752358811222706,
-        "x" : 1859.560997035802,
-        "y" : 1073.6289540141424
+        "h" : 24.070395708093542,
+        "w" : 32.46299003767571,
+        "x" : 2091.534249110114,
+        "y" : 1128.8520087919546
       },
       {
-        "h" : 24.070395708093606,
-        "w" : 32.46299003767558,
-        "x" : 2000.0921791287133,
-        "y" : 1107.8120274404355
-      },
-      {
-        "h" : 36.105593562140314,
+        "h" : 36.10559356214025,
         "w" : 48.69448505651331,
-        "x" : 1960.420471792884,
-        "y" : 849.9034427725567
+        "x" : 2264.866273652772,
+        "y" : 1137.5882755065927
       },
       {
-        "h" : 21.061596244581818,
-        "w" : 28.40511628296612,
-        "x" : 1972.5662413625466,
-        "y" : 885.1597799310259
-      },
-      {
-        "h" : 33.096794098628585,
-        "w" : 44.63661130180391,
-        "x" : 1904.9746312368848,
-        "y" : 945.052610762217
-      },
-      {
-        "h" : 33.096794098628656,
-        "w" : 44.636611301803846,
-        "x" : 1913.124414249904,
-        "y" : 909.6349076004067
+        "h" : 21.06159624458188,
+        "w" : 28.40511628296618,
+        "x" : 2268.220308070544,
+        "y" : 1125.1796663538405
       },
       {
         "h" : 33.096794098628585,
-        "w" : 44.63661130180391,
-        "x" : 1921.2741972629233,
-        "y" : 874.2172044385964
+        "w" : 44.63661130180378,
+        "x" : 2176.554489686978,
+        "y" : 1088.805755659923
+      },
+      {
+        "h" : 33.096794098628585,
+        "w" : 44.63661130180378,
+        "x" : 2215.8138751798483,
+        "y" : 1069.1178860009027
+      },
+      {
+        "h" : 33.096794098628585,
+        "w" : 44.63661130180378,
+        "x" : 2255.580804082514,
+        "y" : 1049.0458481087762
       }
     ],
     "pathSearchBudget" : 96000,
     "plateTextureName" : "office_suite_plate",
     "props" : [
-      {
-        "alpha" : 0.55,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
-        },
-        "id" : "office_floor_wear_decal",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.297,
-        "textureName" : "office_floor_wear_decal"
-      },
-      {
-        "alpha" : 0,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "add",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1624.8956469174996,
-          "y" : 1156.086955673118
-        },
-        "id" : "office_light_window_spill",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.242,
-        "textureName" : "office_light_window_spill"
-      },
-      {
-        "alpha" : 0,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "add",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1683.0123764897253,
-          "y" : 1145.524836888245
-        },
-        "id" : "office_light_blind_stripes",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.2816,
-        "textureName" : "office_light_blind_stripes"
-      },
-      {
-        "alpha" : 0.28,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
-        },
-        "id" : "office_shadow_ceiling_fan",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.308,
-        "textureName" : "office_shadow_ceiling_fan"
-      },
-      {
-        "alpha" : 0.18,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "add",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 2232.246061619496,
-          "y" : 928.1912303749667
-        },
-        "id" : "office_light_hallway",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.187,
-        "textureName" : "office_light_hallway"
-      },
-      {
-        "alpha" : 0.66,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "add",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
-        },
-        "id" : "office_light_lamp_pool",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.209,
-        "textureName" : "office_light_lamp_pool"
-      },
-      {
-        "alpha" : 0.72,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 2136.827900577958,
-          "y" : 1000.4148581988973
-        },
-        "id" : "office_entrance_runner",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.1012,
-        "textureName" : "office_entrance_runner"
-      },
-      {
-        "alpha" : 0.55,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1773.4200183508988,
-          "y" : 1165.8170167389958
-        },
-        "id" : "office_cabinet_floor_shadow",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.1176,
-        "textureName" : "office_cabinet_floor_shadow"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1967.6866115313082,
-          "y" : 1178.010326348419
-        },
-        "id" : "office_worn_rug",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.3,
-        "textureName" : "office_worn_rug_burgundy"
-      },
-      {
-        "alpha" : 0.55,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 9000,
-        "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
-        },
-        "id" : "office_desk_floor_shadow",
-        "layer" : "floorEffects",
-        "rotation" : 0,
-        "scale" : 0.138,
-        "textureName" : "office_desk_floor_shadow"
-      },
-      {
-        "alpha" : 0,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "add",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1601.14124,
-          "y" : 1174.06707
-        },
-        "id" : "office_light_blind_stripes_wall",
-        "layer" : "rearFixtures",
-        "rotation" : -0.18,
-        "scale" : 0.1584,
-        "textureName" : "office_light_blind_stripes"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1951.3059590824548,
-          "y" : 1341.0230698078115
-        },
-        "id" : "office_wall_photos",
-        "layer" : "rearFixtures",
-        "rotation" : 0,
-        "scale" : 0.1584,
-        "textureName" : "office_wall_photos"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1900.4814045877247,
-          "y" : 1313.7613403595783
-        },
-        "id" : "office_case_board",
-        "layer" : "rearFixtures",
-        "rotation" : 0,
-        "scale" : 0.22572,
-        "textureName" : "office_case_board"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1844.0096773713576,
-          "y" : 1268.9871965282082
-        },
-        "id" : "office_wall_city_map",
-        "layer" : "rearFixtures",
-        "rotation" : 0,
-        "scale" : 0.17424,
-        "textureName" : "office_wall_city_map"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.5,
-        "blend" : "alpha",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1781.8907774333538,
-          "y" : 1214.6006383137012
-        },
-        "id" : "office_framed_licence",
-        "layer" : "rearFixtures",
-        "rotation" : 0,
-        "scale" : 0.15444,
-        "textureName" : "office_framed_licence"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 5000,
-        "groundPoint" : {
-          "x" : 1687.8310297321304,
-          "y" : 1108.4500947679724
-        },
-        "id" : "office_radiator",
-        "layer" : "rearFixtures",
-        "rotation" : 0,
-        "scale" : 0.104,
-        "textureName" : "office_radiator"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -80,
-        "groundPoint" : {
-          "x" : 1770.5964319900804,
-          "y" : 1163.7758095474271
-        },
-        "id" : "office_floor_trash_a",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.0864,
-        "textureName" : "office_floor_trash_a"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -55,
-        "groundPoint" : {
-          "x" : 1604.1101569745815,
-          "y" : 1156.082414383137
-        },
-        "id" : "office_floor_trash_b",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.0984,
-        "textureName" : "office_floor_trash_b"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0,
-        "groundPoint" : {
-          "x" : 1719.7718774953503,
-          "y" : 1127.0340800991942
-        },
-        "id" : "office_bookshelf",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1354,
-        "textureName" : "office_bookshelf"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0,
-        "groundPoint" : {
-          "x" : 1773.4200183508988,
-          "y" : 1165.8170167389958
-        },
-        "id" : "office_filing_cabinet_open",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1176,
-        "textureName" : "office_filing_cabinet_open"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -0.0001,
-        "groundPoint" : {
-          "x" : 1821.4209864848108,
-          "y" : 1200.5175389956603
-        },
-        "id" : "office_filing_cabinet",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1176,
-        "textureName" : "office_filing_cabinet"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0,
-        "groundPoint" : {
-          "x" : 1872.2455409795411,
-          "y" : 1237.2592684438932
-        },
-        "id" : "office_safe",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.12,
-        "textureName" : "office_safe"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 39.9999,
-        "groundPoint" : {
-          "x" : 1821.4209864848108,
-          "y" : 1200.5175389956603
-        },
-        "id" : "office_archive_box_b",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.108,
-        "textureName" : "office_archive_box_b"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 45,
-        "groundPoint" : {
-          "x" : 1773.4200183508988,
-          "y" : 1165.8170167389958
-        },
-        "id" : "office_archive_stack",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1121,
-        "textureName" : "office_archive_stack"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0.0001,
-        "groundPoint" : {
-          "x" : 1754.156438933664,
-          "y" : 1084.2941103533788
-        },
-        "id" : "office_archive_box_a",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.12,
-        "textureName" : "office_archive_box_a"
-      },
-      {
-        "alpha" : 0.78,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -0.0001,
-        "groundPoint" : {
-          "x" : 1984.7677143211406,
-          "y" : 867.9562395536269
-        },
-        "id" : "office_coat_rack",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1323,
-        "textureName" : "office_coat_rack"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0.0001,
-        "groundPoint" : {
-          "x" : 1986.7687995040296,
-          "y" : 895.6905780533168
-        },
-        "id" : "office_umbrella_stand",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.12,
-        "textureName" : "office_umbrella_stand"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -0.0001,
-        "groundPoint" : {
-          "x" : 1927.2929368877867,
-          "y" : 961.6010078115314
-        },
-        "id" : "office_waiting_chair_a",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1784,
-        "textureName" : "office_waiting_chair_a"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -0.0001,
-        "groundPoint" : {
-          "x" : 1935.442719900806,
-          "y" : 926.1833046497211
-        },
-        "id" : "office_waiting_table",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1861,
-        "textureName" : "office_waiting_table"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0,
-        "groundPoint" : {
-          "x" : 1943.5925029138252,
-          "y" : 890.7656014879108
-        },
-        "id" : "office_waiting_chair_b",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1867,
-        "textureName" : "office_waiting_chair_b"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -19.9999,
-        "groundPoint" : {
-          "x" : 1935.5570676255425,
-          "y" : 927.7681239925605
-        },
-        "id" : "office_newspaper",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1,
-        "textureName" : "office_newspaper"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -15,
-        "groundPoint" : {
-          "x" : 1936.1147635461873,
-          "y" : 920.6605101549908
-        },
-        "id" : "office_waiting_ashtray",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1,
-        "textureName" : "office_waiting_ashtray"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -10,
-        "groundPoint" : {
-          "x" : 2315.663950402976,
-          "y" : 1077.1223013019219
-        },
-        "id" : "office_personal_sideboard",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.2024,
-        "textureName" : "office_personal_sideboard"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -20,
-        "groundPoint" : {
-          "x" : 2317.072232907625,
-          "y" : 1074.3849772597644
-        },
-        "id" : "office_hidden_bottle",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.0703,
-        "textureName" : "office_hidden_bottle"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -25,
-        "groundPoint" : {
-          "x" : 2311.717950849349,
-          "y" : 1081.7804665096094
-        },
-        "id" : "office_personal_glass",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1,
-        "textureName" : "office_personal_glass"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -5,
-        "groundPoint" : {
-          "x" : 2288.0349321760696,
-          "y" : 1102.2136024798513
-        },
-        "id" : "office_personal_fan",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1618,
-        "textureName" : "office_personal_fan"
-      },
       {
         "alpha" : 1,
         "anchorX" : 0.5,
@@ -5292,62 +4716,14 @@
         "blend" : "alpha",
         "depthBias" : -39.9999,
         "groundPoint" : {
-          "x" : 2066.897466088035,
-          "y" : 1202.6199758684825
+          "x" : 2038.2684067947923,
+          "y" : 1184.176891528743
         },
         "id" : "office_desk_chair",
         "layer" : "depthWorld",
         "rotation" : 0,
-        "scale" : 0.1147,
-        "textureName" : "office_desk_chair"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -50,
-        "groundPoint" : {
-          "x" : 1840.8651149411035,
-          "y" : 1173.264664600124
-        },
-        "id" : "office_visitor_armchair",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.1253,
+        "scale" : 0.136951,
         "textureName" : "office_visitor_armchair"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : -50,
-        "groundPoint" : {
-          "x" : 1885.9371764414136,
-          "y" : 1093.1861505269685
-        },
-        "id" : "office_visitor_armchair_2",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.120288,
-        "textureName" : "office_visitor_armchair"
-      },
-      {
-        "alpha" : 1,
-        "anchorX" : 0.5,
-        "anchorY" : 0.04,
-        "blend" : "alpha",
-        "depthBias" : 0.0001,
-        "groundPoint" : {
-          "x" : 2016.3236741475512,
-          "y" : 1119.8472252944823
-        },
-        "id" : "office_wastebasket",
-        "layer" : "depthWorld",
-        "rotation" : 0,
-        "scale" : 0.0817,
-        "textureName" : "office_wastebasket"
       },
       {
         "alpha" : 1,
@@ -5356,8 +4732,8 @@
         "blend" : "alpha",
         "depthBias" : -500,
         "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
+          "x" : 2038.6616024798511,
+          "y" : 1169.794110849349
         },
         "id" : "office_desk_bare",
         "layer" : "depthWorld",
@@ -5372,8 +4748,8 @@
         "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
-          "x" : 1954.5965115313084,
-          "y" : 1255.936326348419
+          "x" : 2012.1415024798514,
+          "y" : 1237.450110849349
         },
         "id" : "office_desk_lamp",
         "layer" : "depthWorld",
@@ -5388,8 +4764,8 @@
         "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
-          "x" : 1965.9966115313082,
-          "y" : 1246.936326348419
+          "x" : 2023.5416024798512,
+          "y" : 1228.450110849349
         },
         "id" : "office_desk_phone",
         "layer" : "depthWorld",
@@ -5404,8 +4780,8 @@
         "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
-          "x" : 1982.1966115313085,
-          "y" : 1252.3362263484191
+          "x" : 2039.7416024798515,
+          "y" : 1233.850010849349
         },
         "id" : "office_desk_typewriter",
         "layer" : "depthWorld",
@@ -5420,8 +4796,8 @@
         "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
-          "x" : 1987.5965115313084,
-          "y" : 1240.936326348419
+          "x" : 2045.1415024798514,
+          "y" : 1222.450110849349
         },
         "id" : "office_desk_notebook",
         "layer" : "depthWorld",
@@ -5436,8 +4812,8 @@
         "blend" : "alpha",
         "depthBias" : -0.0001,
         "groundPoint" : {
-          "x" : 1997.1966115313085,
-          "y" : 1245.7363263484192
+          "x" : 2054.7416024798513,
+          "y" : 1227.250110849349
         },
         "id" : "office_desk_papers",
         "layer" : "depthWorld",
@@ -5452,8 +4828,8 @@
         "blend" : "alpha",
         "depthBias" : 0,
         "groundPoint" : {
-          "x" : 2003.7966115313084,
-          "y" : 1239.136326348419
+          "x" : 2061.3416024798516,
+          "y" : 1220.650110849349
         },
         "id" : "office_desk_ashtray",
         "layer" : "depthWorld",
@@ -5468,8 +4844,8 @@
         "blend" : "alpha",
         "depthBias" : -0.0001,
         "groundPoint" : {
-          "x" : 2013.3966115313083,
-          "y" : 1248.7363263484192
+          "x" : 2070.941602479851,
+          "y" : 1230.250110849349
         },
         "id" : "office_desk_files",
         "layer" : "depthWorld",
@@ -5484,8 +4860,8 @@
         "blend" : "alpha",
         "depthBias" : -60,
         "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
+          "x" : 2038.6616024798511,
+          "y" : 1169.794110849349
         },
         "id" : "office_desk_actor_occluder",
         "layer" : "depthWorld",
@@ -5500,8 +4876,8 @@
         "blend" : "alpha",
         "depthBias" : -20,
         "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
+          "x" : 2038.6616024798511,
+          "y" : 1169.794110849349
         },
         "id" : "office_desk_front_occluder_v04",
         "layer" : "depthWorld",
@@ -5516,8 +4892,8 @@
         "blend" : "alpha",
         "depthBias" : -40,
         "groundPoint" : {
-          "x" : 1981.116611531308,
-          "y" : 1188.280326348419
+          "x" : 2038.6616024798511,
+          "y" : 1169.794110849349
         },
         "id" : "office_desk_top_occluder",
         "layer" : "depthWorld",
@@ -5557,8 +4933,8 @@
       },
       {
         "approachPoint" : {
-          "x" : 1901.519561562306,
-          "y" : 1160.781704649721
+          "x" : 1945.8042286422815,
+          "y" : 1143.975598264104
         },
         "id" : "office.desk",
         "kind" : "info",
@@ -5566,27 +4942,27 @@
         "observation" : "Three old cases, two unpaid bills, one clean page.",
         "polygon" : [
           {
-            "x" : 1891.327868706065,
-            "y" : 1120.1401674029312
+            "x" : 1948.872859654608,
+            "y" : 1101.6539519038613
           },
           {
-            "x" : 2070.905354356551,
-            "y" : 1120.1401674029312
+            "x" : 2128.450345305094,
+            "y" : 1101.6539519038613
           },
           {
-            "x" : 2070.905354356551,
-            "y" : 1256.420485293907
+            "x" : 2128.450345305094,
+            "y" : 1237.934269794837
           },
           {
-            "x" : 1891.327868706065,
-            "y" : 1256.420485293907
+            "x" : 1948.872859654608,
+            "y" : 1237.934269794837
           }
         ]
       },
       {
         "approachPoint" : {
-          "x" : 1901.519561562306,
-          "y" : 1160.781704649721
+          "x" : 1945.8042286422815,
+          "y" : 1143.975598264104
         },
         "id" : "office.phone",
         "kind" : "info",
@@ -5594,27 +4970,27 @@
         "observation" : "Quiet. For once it had the decency to look guilty.",
         "polygon" : [
           {
-            "x" : 1965.3166115313081,
-            "y" : 1204.080326348419
+            "x" : 2022.8616024798512,
+            "y" : 1185.594110849349
           },
           {
-            "x" : 2044.3166115313081,
-            "y" : 1204.080326348419
+            "x" : 2101.861602479851,
+            "y" : 1185.594110849349
           },
           {
-            "x" : 2044.3166115313081,
-            "y" : 1263.330326348419
+            "x" : 2101.861602479851,
+            "y" : 1244.844110849349
           },
           {
-            "x" : 1965.3166115313081,
-            "y" : 1263.330326348419
+            "x" : 2022.8616024798512,
+            "y" : 1244.844110849349
           }
         ]
       },
       {
         "approachPoint" : {
-          "x" : 1814.023491134532,
-          "y" : 1135.0835580905145
+          "x" : 1849.5866365778052,
+          "y" : 1145.771058152511
         },
         "id" : "office.files",
         "kind" : "info",
@@ -5622,20 +4998,20 @@
         "observation" : "Closed, abandoned, and one I still lied about.",
         "polygon" : [
           {
-            "x" : 1729.970018350899,
-            "y" : 1157.9170167389957
+            "x" : 1755.3822955982641,
+            "y" : 1176.2878814631122
           },
           {
-            "x" : 1848.470018350899,
-            "y" : 1157.9170167389957
+            "x" : 1873.8822955982641,
+            "y" : 1176.2878814631122
           },
           {
-            "x" : 1848.470018350899,
-            "y" : 1244.8170167389958
+            "x" : 1873.8822955982641,
+            "y" : 1263.1878814631123
           },
           {
-            "x" : 1729.970018350899,
-            "y" : 1244.8170167389958
+            "x" : 1755.3822955982641,
+            "y" : 1263.1878814631123
           }
         ]
       },
@@ -5676,16 +5052,16 @@
     "searchMapName" : "office_suite.sr",
     "sightPermeableObstacles" : [
       {
-        "h" : 33.285824215380075,
+        "h" : 33.28582421538014,
         "w" : 45.00227084853961,
-        "x" : 1798.919851060541,
-        "y" : 1183.8746268879702
+        "x" : 1827.1557146687246,
+        "y" : 1204.2866988036553
       },
       {
         "h" : 28.755565643340557,
-        "w" : 38.735598671492234,
-        "x" : 1734.7886395979178,
-        "y" : 1069.9163275317085
+        "w" : 38.73559867149218,
+        "x" : 1746.9405929767152,
+        "y" : 1089.9673013692782
       },
       {
         "h" : 38.85712540181207,
@@ -5694,70 +5070,70 @@
         "y" : 1095.7695008969724
       },
       {
-        "h" : 53.55718123941158,
-        "w" : 71.58502585459593,
-        "x" : 2279.871437475678,
-        "y" : 1050.3437106822162
+        "h" : 53.55718123941152,
+        "w" : 71.58502585459605,
+        "x" : 2261.9268690937806,
+        "y" : 1172.5653796220797
       },
       {
-        "h" : 30.087994635116928,
-        "w" : 40.57873754709425,
-        "x" : 2267.7455634025223,
-        "y" : 1087.1696051622928
+        "h" : 30.08799463511686,
+        "w" : 40.578737547094384,
+        "x" : 2245.8339314124414,
+        "y" : 1191.5018734821936
       },
       {
-        "h" : 80.98031789097571,
+        "h" : 80.98031789097577,
         "w" : 108.47748565048603,
-        "x" : 1926.877868706065,
-        "y" : 1147.7901674029313
+        "x" : 1984.4228596546081,
+        "y" : 1129.3039519038612
       },
       {
-        "h" : 39.11439302565191,
+        "h" : 39.11439302565197,
+        "w" : 52.75235881122265,
+        "x" : 1939.0798090878789,
+        "y" : 1077.7876002137705
+      },
+      {
+        "h" : 39.114393025652035,
         "w" : 52.752358811222706,
-        "x" : 1814.4889355354921,
-        "y" : 1153.7074680872981
+        "x" : 2010.6283841157774,
+        "y" : 1067.9226013297034
       },
       {
-        "h" : 39.11439302565191,
-        "w" : 52.752358811222706,
-        "x" : 1859.560997035802,
-        "y" : 1073.6289540141424
+        "h" : 24.070395708093542,
+        "w" : 32.46299003767571,
+        "x" : 2091.534249110114,
+        "y" : 1128.8520087919546
       },
       {
-        "h" : 24.070395708093606,
-        "w" : 32.46299003767558,
-        "x" : 2000.0921791287133,
-        "y" : 1107.8120274404355
-      },
-      {
-        "h" : 36.105593562140314,
+        "h" : 36.10559356214025,
         "w" : 48.69448505651331,
-        "x" : 1960.420471792884,
-        "y" : 849.9034427725567
+        "x" : 2264.866273652772,
+        "y" : 1137.5882755065927
       },
       {
-        "h" : 21.061596244581818,
-        "w" : 28.40511628296612,
-        "x" : 1972.5662413625466,
-        "y" : 885.1597799310259
-      },
-      {
-        "h" : 33.096794098628585,
-        "w" : 44.63661130180391,
-        "x" : 1904.9746312368848,
-        "y" : 945.052610762217
-      },
-      {
-        "h" : 33.096794098628656,
-        "w" : 44.636611301803846,
-        "x" : 1913.124414249904,
-        "y" : 909.6349076004067
+        "h" : 21.06159624458188,
+        "w" : 28.40511628296618,
+        "x" : 2268.220308070544,
+        "y" : 1125.1796663538405
       },
       {
         "h" : 33.096794098628585,
-        "w" : 44.63661130180391,
-        "x" : 1921.2741972629233,
-        "y" : 874.2172044385964
+        "w" : 44.63661130180378,
+        "x" : 2176.554489686978,
+        "y" : 1088.805755659923
+      },
+      {
+        "h" : 33.096794098628585,
+        "w" : 44.63661130180378,
+        "x" : 2215.8138751798483,
+        "y" : 1069.1178860009027
+      },
+      {
+        "h" : 33.096794098628585,
+        "w" : 44.63661130180378,
+        "x" : 2255.580804082514,
+        "y" : 1049.0458481087762
       }
     ],
     "wallPolygons" : [
@@ -5766,20 +5142,20 @@
         "id" : "wall.bookshelf",
         "polygon" : [
           {
-            "x" : 1686.7440728814554,
-            "y" : 1102.2541329671528
+            "x" : 1709.3327637680022,
+            "y" : 1118.5837904997009
           },
           {
-            "x" : 1752.7996821092447,
-            "y" : 1102.2541329671528
+            "x" : 1775.3883729957915,
+            "y" : 1118.5837904997009
           },
           {
-            "x" : 1752.7996821092447,
-            "y" : 1187.8140272312353
+            "x" : 1775.3883729957915,
+            "y" : 1204.1436847637833
           },
           {
-            "x" : 1686.7440728814554,
-            "y" : 1187.8140272312353
+            "x" : 1709.3327637680022,
+            "y" : 1204.1436847637833
           }
         ],
         "shadesBothSides" : false
@@ -5789,20 +5165,20 @@
         "id" : "wall.filingCabinet",
         "polygon" : [
           {
-            "x" : 1750.918882926629,
-            "y" : 1149.1741046313055
+            "x" : 1776.3311601739942,
+            "y" : 1167.5449693554222
           },
           {
-            "x" : 1795.9211537751687,
-            "y" : 1149.1741046313055
+            "x" : 1821.333431022534,
+            "y" : 1167.5449693554222
           },
           {
-            "x" : 1795.9211537751687,
-            "y" : 1218.4599288466857
+            "x" : 1821.333431022534,
+            "y" : 1236.8307935708024
           },
           {
-            "x" : 1750.918882926629,
-            "y" : 1218.4599288466857
+            "x" : 1776.3311601739942,
+            "y" : 1236.8307935708024
           }
         ],
         "shadesBothSides" : false
@@ -5812,20 +5188,20 @@
         "id" : "wall.safe",
         "polygon" : [
           {
-            "x" : 1847.8982984512845,
-            "y" : 1219.2064716628233
+            "x" : 1881.7813347811045,
+            "y" : 1243.7009579616451
           },
           {
-            "x" : 1896.5927835077978,
-            "y" : 1219.2064716628233
+            "x" : 1930.4758198376178,
+            "y" : 1243.7009579616451
           },
           {
-            "x" : 1896.5927835077978,
-            "y" : 1291.3120652249636
+            "x" : 1930.4758198376178,
+            "y" : 1315.8065515237854
           },
           {
-            "x" : 1847.8982984512845,
-            "y" : 1291.3120652249636
+            "x" : 1881.7813347811045,
+            "y" : 1315.8065515237854
           }
         ],
         "shadesBothSides" : false
