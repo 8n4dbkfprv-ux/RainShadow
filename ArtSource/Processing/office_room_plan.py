@@ -1,4 +1,4 @@
-"""Registered room plan for the V11 1950s detective-office shell.
+"""Registered room plan for the V12 1950s detective-office shell.
 
 Everything registered against the painted room (cutaway boundary, fireplace,
 windows, door, and prop placement) is expressed in the shell's own floor-plan
@@ -11,10 +11,9 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-These axes and all fixed-fixture registrations come from
-`BGEE1950sV11/office_v11_geometry.json`.  The manifest is shared by the plate,
-door, layout, search-map and area exporters; changing a fixture in only one
-system is therefore impossible without failing parity QA.
+The V11 manifest remains the floor and exterior-door authority.  The V12
+reference-rebuild metrics replace the shortened walls, windows and compact
+fireplace so the layout, search map and interaction geometry follow the pixels.
 """
 
 from __future__ import annotations
@@ -28,10 +27,31 @@ _V11_GEOMETRY_PATH = (
     _ROOT / "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json"
 )
 _V11_GEOMETRY = json.loads(_V11_GEOMETRY_PATH.read_text(encoding="utf-8"))
+_V12_METRICS_PATH = (
+    _ROOT
+    / "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_metrics_v12.json"
+)
+_V12_METRICS = json.loads(_V12_METRICS_PATH.read_text(encoding="utf-8"))
 _ROOM = _V11_GEOMETRY["room"]
 _DOOR = _V11_GEOMETRY["door"]
-_WINDOWS = _V11_GEOMETRY["windows"]
-_FIREPLACE = _V11_GEOMETRY["fireplace"]
+_V12_WINDOWS_BY_ID = {window["id"]: window for window in _V12_METRICS["windows"]}
+_WINDOWS = []
+for _legacy_window in _V11_GEOMETRY["windows"]:
+    _registered_window = _V12_WINDOWS_BY_ID[_legacy_window["id"]]
+    _WINDOWS.append(
+        {
+            **_legacy_window,
+            "targetAperturePolygon": _registered_window["aperture"],
+            "targetGlassPolygons": _registered_window["glass"],
+        }
+    )
+_FIREPLACE = {
+    **_V11_GEOMETRY["fireplace"],
+    **_V12_METRICS["fireplace"]["collisionAndCoverAuthority"],
+    "facadeHeight": _V12_METRICS["fireplace"]["visualScaleLock"][
+        "plateFixtureHeightPixels"
+    ],
+}
 _PILLARS = _V11_GEOMETRY.get("pillars", [])
 _STAIRS = _V11_GEOMETRY.get("stairs")
 
@@ -68,7 +88,9 @@ DOOR_OPENING_ASPECT = BAKED_DOORWAY_H / BAKED_DOORWAY_W
 DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
 OLD_WALL_FACE_H = 271.0
-WALL_FACE_H = float(_ROOM["wallFaceHeight"])
+WALL_FACE_H = float(
+    _V12_METRICS["walls"]["visualScaleLock"]["plateRearHeightPixels"]
+)
 PLASTER_H = WALL_FACE_H
 WAINSCOT_H = 0.0
 DOOR_LINTEL_CLEARANCE_H = 0.0

@@ -302,7 +302,7 @@ struct OfficeInteriorScaleTests {
             let plateHeight = (ys.max() ?? 0) - (ys.min() ?? 0)
             let multiple = plateHeight * OfficeInteriorScale.environment
                 / OfficeInteriorScale.standingAdultBodyHeight
-            #expect(OfficeInteriorScale.Band.windowGlass.contains(multiple))
+            #expect(OfficeInteriorScale.Band.windowPane.contains(multiple))
         }
     }
 
@@ -315,7 +315,7 @@ struct OfficeInteriorScaleTests {
 
         #expect(near.count == 4)
         #expect(far.count == 4)
-        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 8)
+        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 12)
         #expect(nearHit.contains(window))
         #expect(!nearHit.contains(far[0]))
         #expect(rainMask == CGRect(x: 0, y: 0, width: 4_096, height: 2_304))
@@ -948,6 +948,6 @@ struct OfficeInteriorScaleTests {
         )
         #expect(OfficeNavigationLayout.Architecture.entranceLeafOpenLengthRatio == 0.638)
         #expect(OfficeInteriorScale.Band.deskDrawerFace.contains(drawers))
-        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 8)
+        #expect(OfficeNavigationLayout.Architecture.windowGlassPolygons.count == 12)
     }
 }

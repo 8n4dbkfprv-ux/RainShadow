@@ -480,7 +480,7 @@ def inscribed_vertical_rects(
 ) -> list[tuple[float, float, float, float]]:
     """Approximate a convex floor polygon without blocking its AABB corners.
 
-    ARE obstacles are rectangles, while the V11 hearth is a BG:EE-aligned
+    ARE obstacles are rectangles, while the V12 hearth is a BG:EE-aligned
     parallelogram. Narrow rectangles are kept wholly inside that footprint;
     the separately registered wall polygon remains the exact outline.
     """
@@ -517,8 +517,56 @@ def inscribed_vertical_rects(
     return result
 
 
-FIREPLACE_OBSTACLE_RECTS = inscribed_vertical_rects(
-    rp.FIREPLACE_OBSTACLE_POLYGON
+def runtime_cell_center_rects(
+    polygon: tuple[tuple[float, float], ...], half_extent: float = 0.5
+) -> list[tuple[float, float, float, float]]:
+    """Keep cells whose actual 16x12 runtime centres lie inside a thin solid.
+
+    The compact V12 hearth is an edge-on parallelogram narrower than one search
+    cell. Its exact inscribed strips remain useful for world-resolution line of
+    sight, but none necessarily contains a raster cell centre. Add a tiny AABB
+    around each centre that is genuinely inside the polygon. Requiring every
+    AABB corner to remain inside preserves the conservative obstacle contract.
+    """
+    min_x, min_y, width, height = rp.polygon_bounds(polygon)
+    cell_w, cell_h = RUNTIME_CELL
+
+    def inside(point: tuple[float, float]) -> bool:
+        signs: set[bool] = set()
+        for start, end in zip(polygon, (*polygon[1:], polygon[0])):
+            cross = ((end[0] - start[0]) * (point[1] - start[1])
+                     - (end[1] - start[1]) * (point[0] - start[0]))
+            if abs(cross) > 1e-9:
+                signs.add(cross > 0)
+        return len(signs) <= 1
+
+    first_column = max(0, int(math.floor(min_x / cell_w)))
+    last_column = int(math.ceil((min_x + width) / cell_w))
+    first_row = max(0, int(math.floor(min_y / cell_h)))
+    last_row = int(math.ceil((min_y + height) / cell_h))
+    result: list[tuple[float, float, float, float]] = []
+    for column in range(first_column, last_column + 1):
+        for row in range(first_row, last_row + 1):
+            center = ((column + 0.5) * cell_w, (row + 0.5) * cell_h)
+            corners = (
+                (center[0] - half_extent, center[1] - half_extent),
+                (center[0] + half_extent, center[1] - half_extent),
+                (center[0] + half_extent, center[1] + half_extent),
+                (center[0] - half_extent, center[1] + half_extent),
+            )
+            if all(inside(corner) for corner in corners):
+                result.append((
+                    center[0] - half_extent,
+                    center[1] - half_extent,
+                    half_extent * 2,
+                    half_extent * 2,
+                ))
+    return result
+
+
+FIREPLACE_OBSTACLE_RECTS = (
+    inscribed_vertical_rects(rp.FIREPLACE_OBSTACLE_POLYGON)
+    + runtime_cell_center_rects(rp.FIREPLACE_OBSTACLE_POLYGON)
 )
 
 # V11 deliberately removes the tavern pillars and stair run.  Zero/empty
@@ -704,7 +752,7 @@ def emit() -> str:
     add(f"        static let entranceAnchor = {precise_pt(exterior_door_threshold_authored())}")
     add("        /// Centre of the camera-nearer baked steel casement.")
     add(f"        static let windowAnchor = {precise_pt(window_anchor_authored())}")
-    add("        /// V11 baked aperture registrations (authored plate coordinates).")
+    add("        /// V12 compact-wall aperture registrations (authored plate coordinates).")
     add("        static let nearWindowAperture: [CGPoint] = [")
     for point in rp.NEAR_WINDOW_APERTURE:
         add(f"            {precise_pt(point)},")
@@ -859,7 +907,35 @@ def emit() -> str:
     for key, r in named:
         add(f"    static let authored{key[0].upper()}{key[1:]}Obstacle = {rect(r)}")
     add("")
-    add("    private static var authoredObstacles: [CGRect] {")
+    sight_blocking_prop_keys = {"safe", "filingCabinet", "bookshelf"}
+    sight_permeable_prop_keys = [
+        key for key, _ in named if key not in sight_blocking_prop_keys
+    ]
+    add("    /// Furniture low enough to see over.")
+    add("    ///")
+    add("    /// Baldur's Gate paints these as terrain index 8 — blocks movement, passes")
+    add("    /// sight — and reserves index 0 for the things that stop both. The office")
+    add("    /// has always rasterised every rectangle as index 0, which was invisible")
+    add("    /// while fog was a disc around the player and became wrong the moment fog")
+    add("    /// started asking the search map what it could see: a desk two paces away")
+    add("    /// shadowed the whole far wall.")
+    add("    ///")
+    add("    /// The four pieces tall enough to occlude — bookshelf, filing cabinet, safe")
+    add("    /// and fireplace — are exactly the four already authored as")
+    add("    /// `wallPolygons` because they hide an actor who walks behind them. A thing")
+    add("    /// that hides a standing man hides what is behind it; a wastebasket does")
+    add("    /// not. `AreaCatalogTests` holds those two lists against each other.")
+    add("    private static var authoredSightPermeableObstacles: [CGRect] {")
+    add("        [")
+    for key in sight_permeable_prop_keys:
+        add(f"            authored{key[0].upper()}{key[1:]}Obstacle,")
+    add("        ]")
+    add("    }")
+    add("")
+    add("    /// Architecture and the tall furniture: the room shell, its partitions and")
+    add("    /// pillars, the foreground wall, the fireplace masonry, and the three")
+    add("    /// cabinets a man can hide behind.")
+    add("    private static var authoredSightBlockingObstacles: [CGRect] {")
     add("        [authoredDoorObstacle, authoredForegroundWallObstacle]")
     add("            + authoredFireplaceObstacleSegments")
     add("            + authoredBoundarySegments")
@@ -867,8 +943,18 @@ def emit() -> str:
     add("            + authoredPillarSegments")
     add("            + [")
     for key, _ in named:
-        add(f"                authored{key[0].upper()}{key[1:]}Obstacle,")
+        if key in sight_blocking_prop_keys:
+            add(f"                authored{key[0].upper()}{key[1:]}Obstacle,")
     add("            ]")
+    add("    }")
+    add("")
+    add("    private static var authoredObstacles: [CGRect] {")
+    add("        authoredSightBlockingObstacles + authoredSightPermeableObstacles")
+    add("    }")
+    add("")
+    add("    /// World-space subset of `obstacles` that stops feet but not sight.")
+    add("    static var sightPermeableObstacles: [CGRect] {")
+    add("        authoredSightPermeableObstacles.map(OfficeInteriorScale.mapRect)")
     add("    }")
     add("")
 
@@ -1297,7 +1383,7 @@ TAIL_SWIFT = '''
             worldBounds: navigationWorldBounds,
             obstacles: obstacles,
             agentProfile: .officeDetective,
-            doorObstacles: [doorObstacle],
+            doorObstacles: [DoorObstacle(rect: doorObstacle)],
             entranceDoorBlocking: entranceDoorBlocking,
             maxNodes: pathSearchBudget
         )
@@ -1325,7 +1411,7 @@ def report() -> bool:
     reach = grid.reachable(start_cell)
     ok = grid.walkable(*start_cell) and bool(reach)
 
-    print("=== V11 1950s-office navigation ===")
+    print("=== V12 1950s-office navigation ===")
     print(f"  obstacles={len(obstacles)} partition solids={len(partition_cell_rects())}")
     print(f"  actorStart={start_cell} walkable={grid.walkable(*start_cell)} reachable={len(reach)}")
     for name, (a, b) in APPROACH.items():

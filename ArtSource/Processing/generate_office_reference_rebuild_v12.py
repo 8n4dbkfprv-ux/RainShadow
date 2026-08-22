@@ -42,23 +42,37 @@ FILENAMES = {
 # few antialiasing pixels inside the black cutaway edge on purpose: the target
 # polygons, not the redraw's almost-black fringe, own the final silhouette.
 SOURCE_PLANES = {
-    "NW": [[848.0, 56.0], [275.0, 470.0], [386.0, 512.0], [848.0, 231.0]],
-    "NE": [[848.0, 56.0], [1393.0, 447.0], [1357.0, 473.0], [848.0, 231.0]],
+    "NW": [[848.0, 111.0], [386.0, 457.5], [386.0, 512.0], [848.0, 231.0]],
+    "NE": [[848.0, 111.0], [1285.0, 438.75], [1357.0, 473.0], [848.0, 231.0]],
     "floor": [[848.0, 231.0], [386.0, 512.0], [795.0, 876.0], [1357.0, 473.0]],
 }
 
-# The redraw uses three narrow panes per window.  One inset quadrilateral per
-# aperture is the rain/glass authority; the frame and muntins remain opaque.
+# The redraw uses three columns by two rows per window.  Six inset pane
+# quadrilaterals are the rain/glass authority; the frame and muntins stay opaque.
 SOURCE_WINDOWS = [
     {
         "id": "far",
-        "aperture": [[652.0, 226.0], [702.0, 190.0], [702.0, 285.0], [652.0, 320.0]],
-        "glass": [[660.0, 234.0], [694.0, 209.0], [694.0, 278.0], [660.0, 303.0]],
+        "aperture": [[669.0, 268.0], [716.0, 234.0], [716.0, 272.0], [669.0, 308.0]],
+        "glass": [
+            [[676.0, 270.0], [686.0, 263.0], [686.0, 277.0], [676.0, 284.0]],
+            [[676.0, 287.0], [686.0, 280.0], [686.0, 291.0], [676.0, 298.0]],
+            [[689.0, 260.0], [699.0, 253.0], [699.0, 267.0], [689.0, 274.0]],
+            [[689.0, 277.0], [699.0, 270.0], [699.0, 281.0], [689.0, 288.0]],
+            [[702.0, 250.0], [712.0, 243.0], [712.0, 257.0], [702.0, 264.0]],
+            [[702.0, 267.0], [712.0, 260.0], [712.0, 271.0], [702.0, 278.0]],
+        ],
     },
     {
         "id": "near",
-        "aperture": [[360.0, 431.0], [408.0, 396.0], [408.0, 489.0], [360.0, 524.0]],
-        "glass": [[368.0, 439.0], [400.0, 416.0], [400.0, 481.0], [368.0, 505.0]],
+        "aperture": [[394.0, 450.0], [446.0, 415.0], [446.0, 465.0], [394.0, 498.0]],
+        "glass": [
+            [[401.0, 453.0], [411.0, 446.0], [411.0, 459.0], [401.0, 466.0]],
+            [[401.0, 470.0], [411.0, 463.0], [411.0, 476.0], [401.0, 483.0]],
+            [[415.0, 443.0], [425.0, 436.0], [425.0, 449.0], [415.0, 456.0]],
+            [[415.0, 460.0], [425.0, 453.0], [425.0, 466.0], [415.0, 473.0]],
+            [[429.0, 433.0], [439.0, 426.0], [439.0, 439.0], [429.0, 446.0]],
+            [[429.0, 450.0], [439.0, 443.0], [439.0, 456.0], [429.0, 463.0]],
+        ],
     },
 ]
 
@@ -70,17 +84,48 @@ UNIFORM_REGISTRATION = {
     "translate": [-18.977005846854127, 3.184540846076839],
 }
 
-# V12 fireplace correction, measured on the frozen 1672x941 source.  The
-# visible stone envelope is machine-remeasured by QA; the jamb height is the
-# floor-contact-to-mantel dimension that can be compared honestly with an
-# upright actor.  At the registered plate/environment scales it lands within
-# 0.2 px of the older V11 facade and at 1.73 standing-adult heights.
+# V12 architecture correction, measured on the frozen 1672x941 source. A
+# fireplace painted onto an isometric wall cannot be graded by its axis-aligned
+# box: that box includes the +0.75 descent across the mantel and encouraged the
+# previous replacement to be flattened into a shelf. Compare the longest local
+# upright stone span with the standing actor while separately locking the full
+# silhouette envelope, so both jambs, mantel and hearth must survive.
 FIREPLACE_VISUAL_SCALE_LOCK = {
-    "sourceEnvelope": [956, 235, 1117, 427],
-    "sourceJambHeightPixels": 128.0,
+    "sourceEnvelope": [983, 276, 1069, 401],
+    "sourceUprightHeightPixels": 85.0,
     "standingAdultWorldHeight": 70.3125,
-    "targetFireplaceToAdultRange": [1.65, 1.80],
+    "targetFireplaceToAdultRange": [1.05, 1.25],
 }
+WALL_VISUAL_SCALE_LOCK = {
+    "sourceRearHeightPixels": 120.0,
+    "standingAdultWorldHeight": 70.3125,
+    "targetWallToAdultRange": [1.50, 1.75],
+}
+
+# Small floor-space and occlusion envelopes for the corrected fireplace.  They
+# deliberately follow the compact source fixture instead of inheriting the V11
+# collision prism, which was almost six source adults wide.
+SOURCE_FIREPLACE_FLOOR_FOOTPRINT = [
+    [985.0, 357.0],
+    [1057.0, 391.0],
+    [1072.0, 402.0],
+    [1000.0, 368.0],
+]
+SOURCE_FIREPLACE_COVER = [
+    [976.0, 263.0],
+    [1060.0, 326.0],
+    [1075.0, 413.0],
+    [991.0, 350.0],
+]
+# A floor-only sample camera-near of the hearth.  Keep this separate from the
+# thin collision footprint: the latter contains masonry and cannot prove that
+# the authored firelight actually reaches the floor.
+SOURCE_HEARTH_SPILL_SAMPLE = [
+    [806.7, 396.6],
+    [1022.7, 498.6],
+    [1067.7, 531.6],
+    [851.7, 429.6],
+]
 
 
 def sha256(path: Path) -> str:
@@ -260,7 +305,10 @@ def _registered_windows(room: dict[str, object]) -> list[dict[str, object]]:
         {
             "id": window["id"],
             "aperture": [_map_wall_point(point, target_wall) for point in window["aperture"]],
-            "glass": [_map_wall_point(point, target_wall) for point in window["glass"]],
+            "glass": [
+                [_map_wall_point(point, target_wall) for point in polygon]
+                for polygon in window["glass"]
+            ],
         }
         for window in SOURCE_WINDOWS
     ]
@@ -272,7 +320,8 @@ def _glass_mask(
     alpha = Image.new("L", size, 0)
     draw = ImageDraw.Draw(alpha)
     for window in windows:
-        draw.polygon([tuple(point) for point in window["glass"]], fill=255)
+        for polygon in window["glass"]:
+            draw.polygon([tuple(point) for point in polygon], fill=255)
     alpha = alpha.filter(ImageFilter.GaussianBlur(0.65))
     rgba = Image.new("RGBA", size, (255, 255, 255, 0))
     rgba.putalpha(alpha)
@@ -415,11 +464,27 @@ def build_assets() -> dict[str, Image.Image | dict[str, object]]:
     plate = Image.fromarray(np.clip(detailed, 0, 255).astype(np.uint8), "RGB")
 
     windows = _registered_windows(room)
+    registered_planes = {
+        key: [_map_wall_point(point, []) for point in polygon]
+        for key, polygon in SOURCE_PLANES.items()
+    }
+    fireplace_floor = [
+        _map_wall_point(point, []) for point in SOURCE_FIREPLACE_FLOOR_FOOTPRINT
+    ]
+    fireplace_cover = [
+        _map_wall_point(point, []) for point in SOURCE_FIREPLACE_COVER
+    ]
+    hearth_spill_sample = [
+        _map_wall_point(point, []) for point in SOURCE_HEARTH_SPILL_SAMPLE
+    ]
     metrics = {
         "version": "BGEEReferenceV12",
         "canvas": list(size),
         "environmentScale": geometry["environmentScale"],
-        "geometryAuthority": str(V11_GEOMETRY.relative_to(ROOT)),
+        "geometryAuthority": (
+            f"{V11_GEOMETRY.relative_to(ROOT)} for floor/door; "
+            "V12 registered source for walls/windows/fireplace"
+        ),
         "source": {
             "file": SOURCE.name,
             "size": list(source_image.size),
@@ -433,38 +498,59 @@ def build_assets() -> dict[str, Image.Image | dict[str, object]]:
         },
         "registration": {
             "sourcePlanes": SOURCE_PLANES,
-            "targetPlanes": {
-                "NW": room["wallPolygons"]["NW"],
-                "NE": room["wallPolygons"]["NE"],
-                "floor": room["floorPolygon"],
-            },
+            "targetPlanes": registered_planes,
             "uniformScale": UNIFORM_REGISTRATION["scale"],
             "uniformTranslation": UNIFORM_REGISTRATION["translate"],
             "visualSilhouetteAuthority": "uniformly transformed V12 redraw",
-            "navigationGeometryAuthority": "V11; maximum fitted control-point delta is 59.73 pixels (23.59 world units)",
+            "navigationGeometryAuthority": "V11 floor/door; V12 walls/windows/fireplace; maximum floor control-point delta is 59.73 pixels (23.59 world units)",
             "anisotropicWholePlateResize": False,
         },
         "windows": windows,
+        "walls": {
+            "visualScaleLock": {
+                **WALL_VISUAL_SCALE_LOCK,
+                "plateRearHeightPixels": (
+                    WALL_VISUAL_SCALE_LOCK["sourceRearHeightPixels"] * scale
+                ),
+                "worldRearHeight": (
+                    WALL_VISUAL_SCALE_LOCK["sourceRearHeightPixels"]
+                    * scale
+                    * float(geometry["environmentScale"])
+                ),
+                "wallToAdultRatio": (
+                    WALL_VISUAL_SCALE_LOCK["sourceRearHeightPixels"]
+                    * scale
+                    * float(geometry["environmentScale"])
+                    / WALL_VISUAL_SCALE_LOCK["standingAdultWorldHeight"]
+                ),
+                "measurement": "rear wall-floor seam to rear crown on the complete painted face",
+            },
+        },
         "fireplace": {
             "state": "lit",
-            "collisionAndCoverAuthority": geometry["fireplace"],
+            "collisionAndCoverAuthority": {
+                "targetFloorFootprint": fireplace_floor,
+                "targetObstaclePolygon": fireplace_floor,
+                "targetCoverPolygon": fireplace_cover,
+                "targetHearthSpillSample": hearth_spill_sample,
+            },
             "visualScaleLock": {
                 **FIREPLACE_VISUAL_SCALE_LOCK,
-                "plateJambHeightPixels": (
-                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"] * scale
+                "plateFixtureHeightPixels": (
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceUprightHeightPixels"] * scale
                 ),
-                "worldJambHeight": (
-                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"]
+                "worldFixtureHeight": (
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceUprightHeightPixels"]
                     * scale
                     * float(geometry["environmentScale"])
                 ),
                 "fireplaceToAdultRatio": (
-                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"]
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceUprightHeightPixels"]
                     * scale
                     * float(geometry["environmentScale"])
                     / FIREPLACE_VISUAL_SCALE_LOCK["standingAdultWorldHeight"]
                 ),
-                "measurement": "same-side floor contact to mantel; axis-aligned whole-fixture bounds are not a humanoid-height measure",
+                "measurement": "maximum local upright span of the connected stone fixture; the full isometric envelope is locked separately",
             },
         },
         "densityRestoration": {

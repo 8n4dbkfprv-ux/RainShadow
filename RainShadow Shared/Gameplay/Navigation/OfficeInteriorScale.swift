@@ -234,10 +234,10 @@ enum OfficeInteriorScale {
         static let radiator: ClosedRange<CGFloat> = 0.40...0.62
         static let wastebasket: ClosedRange<CGFloat> = 0.22...0.36
         static let coatRack: ClosedRange<CGFloat> = 0.95...1.15
-        /// One pane inside a baked steel casement (not the complete aperture).
-        /// The lower Venetian-blind panes are intentionally just over half an adult;
-        /// the complete aperture remains substantially taller.
+        /// Complete painted steel-casement opening.
         static let windowGlass: ClosedRange<CGFloat> = 0.50...0.90
+        /// One of the six registered panes in a three-column by two-row window.
+        static let windowPane: ClosedRange<CGFloat> = 0.22...0.32
     }
 
     // MARK: - Mapping
