@@ -1,37 +1,37 @@
 {
   "allowlist": [
     {
-      "sha256": "a50e8ce555549c739deedf4e6435d9d9c9addfa3fa190d5c1deba0c9de409b81",
+      "sha256": "35a7dc03f7635338f09c74ac6b60b86f641902428915918c2713bc399828a41a",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
     },
     {
-      "sha256": "a50e8ce555549c739deedf4e6435d9d9c9addfa3fa190d5c1deba0c9de409b81",
+      "sha256": "35a7dc03f7635338f09c74ac6b60b86f641902428915918c2713bc399828a41a",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png"
     },
     {
-      "sha256": "a50e8ce555549c739deedf4e6435d9d9c9addfa3fa190d5c1deba0c9de409b81",
+      "sha256": "35a7dc03f7635338f09c74ac6b60b86f641902428915918c2713bc399828a41a",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_suite_plate.png"
     },
     {
-      "sha256": "a50e8ce555549c739deedf4e6435d9d9c9addfa3fa190d5c1deba0c9de409b81",
+      "sha256": "35a7dc03f7635338f09c74ac6b60b86f641902428915918c2713bc399828a41a",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_shell_base.png"
     },
     {
-      "sha256": "a50e8ce555549c739deedf4e6435d9d9c9addfa3fa190d5c1deba0c9de409b81",
+      "sha256": "35a7dc03f7635338f09c74ac6b60b86f641902428915918c2713bc399828a41a",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_suite_plate_bgee_v12_installed.png"
     },
     {
-      "sha256": "d2bf8dd875a84efc024883dc9ab04df12c6ad87f6ca5ce7d7700387ab546c721",
+      "sha256": "ddba05e805dafd3a17cb1ca22df9face3f230bd3f386e6d60b2fc1787d64b409",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_window_glass_mask_v12.png",
       "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png"
     },
     {
-      "sha256": "7d93f97f10f3dc9e91f437c7d49017aaf37c75079f5c6e9207567c3bdb0633bd",
+      "sha256": "c032bf512ed78f83c1259baeee24914fdec04ca1491f1c6c13bc22a9bb415ba3",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_window_near_hover_overlay_v12.png",
       "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png"
     },
@@ -71,12 +71,12 @@
       "target": "ArtSource/Generated/Office/office_door_family_v12.json"
     },
     {
-      "sha256": "865cb903d17c15637bd7af11924dc195e849e5afed0ef3009bab33cc931be1da",
+      "sha256": "a25826c4143f2c5cd94b62eb7c9b5ddf04f4b12c077cb99b93a77b6cb3a21a3c",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_metrics_v12.json",
       "target": "ArtSource/Generated/Office/office_reference_rebuild_metrics_v12.json"
     },
     {
-      "sha256": "d3f699bbf807dfd77b5c0b8eea015b169989b1a4c83be6169ff425c34b634a0e",
+      "sha256": "29fa4e760f3033d544bd1e4368602246d65e0617c996ce38a2a0bf0f7b7778c5",
       "source": "ArtSource/Generated/UI/Map/map_detective_office_v12.png",
       "target": "RainShadow Shared/Resources/Art/UI/Map/map_detective_office_v08.png"
     }

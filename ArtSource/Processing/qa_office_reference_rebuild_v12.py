@@ -145,7 +145,7 @@ def main() -> int:
     checks.append((
         "source identities",
         sha256(generator.TARGET_REFERENCE) == "6fbb06a6bf54e821bcdf7ae5e86aecc998ed594b4869c79dbc78bb41d770bd19"
-        and sha256(generator.SOURCE) == "01ac3454ffa815506e538bace1d43188f8f0c2029a75bdc43fd2027bbf285297",
+        and sha256(generator.SOURCE) == "dc987e3968afa4e0da3944e6f08db298aad964017fc35da0723775ef6c121eee",
         f"reference={sha256(generator.TARGET_REFERENCE)[:12]} redraw={sha256(generator.SOURCE)[:12]}",
     ))
     checks.append((
@@ -362,6 +362,28 @@ def main() -> int:
             and warm_fraction >= 0.80,
             f"panes={len(source_window['glass'])} luma={pane_luma:.3f}/{frame_luma:.3f} "
             f"saturation={pane_saturation:.3f} warm={warm_fraction:.3f}",
+        ))
+        crown_left, crown_right = generator.SOURCE_PLANES["NW"][1], generator.SOURCE_PLANES["NW"][0]
+        seam_left, seam_right = generator.SOURCE_PLANES["NW"][2], generator.SOURCE_PLANES["NW"][3]
+
+        def wall_y(left: list[float], right: list[float], x: float) -> float:
+            fraction = (x - left[0]) / (right[0] - left[0])
+            return left[1] + (right[1] - left[1]) * fraction
+
+        side_centre_deltas: list[float] = []
+        aperture = source_window["aperture"]
+        for side_x in sorted({point[0] for point in aperture}):
+            side_ys = [point[1] for point in aperture if point[0] == side_x]
+            aperture_centre = sum(side_ys) / len(side_ys)
+            face_centre = (
+                wall_y(crown_left, crown_right, side_x)
+                + wall_y(seam_left, seam_right, side_x)
+            ) * 0.5
+            side_centre_deltas.append(abs(aperture_centre - face_centre))
+        checks.append((
+            f"{source_window['id']} window wall-face centring",
+            max(side_centre_deltas) <= 2.5,
+            f"side centre deltas={','.join(f'{delta:.2f}px' for delta in side_centre_deltas)}",
         ))
 
     with tempfile.TemporaryDirectory(prefix="rainshadow-v12-door-reproduce-") as temp_name:

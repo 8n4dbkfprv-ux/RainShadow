@@ -109,7 +109,7 @@ struct ActorFootprintTests {
                     map,
                     from: OfficeNavigationLayout.actorStart,
                     radius: NavigationAgentProfile.officeDetective.radius
-                ) == 1_681,
+                ) == 1_682,
                 "office reachability changed with entranceDoorBlocking: \(doorBlocking)"
             )
         }
