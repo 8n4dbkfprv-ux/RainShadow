@@ -47,6 +47,43 @@ pixels. `qa_office_reference_rebuild_v12.py` gates pure-black exterior,
 deterministic reproduction, warm fire and spill, masks, interactive-window
 registration, and a tight 1.5-degree projection tolerance.
 
+## Fireplace humanoid-scale correction
+
+Runtime comparison against the supplied Baldur's Gate gameplay capture found
+that the V12 redraw's fireplace jamb was about 2.15–2.20 standing adults high,
+even though the V11 registered facade and the reference capture both land near
+1.7–1.8 adults. The humanoid was retained at its architecture-locked 70.3125
+world-unit body height; increasing it would make the 78.21-unit entrance
+opening shorter than the actor.
+
+The built-in Image Generator made a precise-object edit of the frozen V12
+source. The first pass reduced the fireplace height correctly but compressed
+its width too far. A second, targeted pass kept the corrected height and
+restored the wall-course width. The accepted source has a measured low-chroma
+stone envelope of 161×192 source pixels and 128-pixel same-side jambs. Under
+the unchanged 2.410423 uniform registration those jambs become 308.53 plate
+pixels, within 0.2 px of the 308.70-pixel registered facade; at environment
+scale 0.395 this is 1.733 standing-adult heights. The generated 1671-pixel-wide
+result received one pure-black exterior column of right padding to restore the
+required 1672×941 canvas without resizing any art.
+
+Accepted edit request, followed by one proportion-only correction:
+
+> Change only the fireplace: uniformly reduce the complete mantel, jambs,
+> firebox, fire, grate, hearth, and localized spill to 80%; keep its bottom on
+> the same wall/floor seam and target 128-pixel same-side jambs. Reconstruct
+> only the newly exposed plaster and boards; preserve the room, windows,
+> projection, canvas, and black exterior exactly.
+
+> Keep the corrected height unchanged and widen only the fireplace by about
+> 30%, yielding a final 155–160-pixel source width so the accepted result is
+> approximately 80% of the former fireplace in both dimensions.
+
+Frozen corrected source SHA-256:
+`22cc5cef3e311306c16352bed57a7ee27d0970631e09ccfc0803d98f70c64dd1`.
+`qa_office_reference_rebuild_v12.py` now remeasures the visible stone envelope
+and enforces the 1.65–1.80 adult-height band.
+
 ## Door correction
 
 The first V12 correction enlarged a tiny crop from the 1613×975 room reference

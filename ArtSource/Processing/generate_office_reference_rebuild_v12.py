@@ -70,6 +70,18 @@ UNIFORM_REGISTRATION = {
     "translate": [-18.977005846854127, 3.184540846076839],
 }
 
+# V12 fireplace correction, measured on the frozen 1672x941 source.  The
+# visible stone envelope is machine-remeasured by QA; the jamb height is the
+# floor-contact-to-mantel dimension that can be compared honestly with an
+# upright actor.  At the registered plate/environment scales it lands within
+# 0.2 px of the older V11 facade and at 1.73 standing-adult heights.
+FIREPLACE_VISUAL_SCALE_LOCK = {
+    "sourceEnvelope": [956, 235, 1117, 427],
+    "sourceJambHeightPixels": 128.0,
+    "standingAdultWorldHeight": 70.3125,
+    "targetFireplaceToAdultRange": [1.65, 1.80],
+}
+
 
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -436,6 +448,24 @@ def build_assets() -> dict[str, Image.Image | dict[str, object]]:
         "fireplace": {
             "state": "lit",
             "collisionAndCoverAuthority": geometry["fireplace"],
+            "visualScaleLock": {
+                **FIREPLACE_VISUAL_SCALE_LOCK,
+                "plateJambHeightPixels": (
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"] * scale
+                ),
+                "worldJambHeight": (
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"]
+                    * scale
+                    * float(geometry["environmentScale"])
+                ),
+                "fireplaceToAdultRatio": (
+                    FIREPLACE_VISUAL_SCALE_LOCK["sourceJambHeightPixels"]
+                    * scale
+                    * float(geometry["environmentScale"])
+                    / FIREPLACE_VISUAL_SCALE_LOCK["standingAdultWorldHeight"]
+                ),
+                "measurement": "same-side floor contact to mantel; axis-aligned whole-fixture bounds are not a humanoid-height measure",
+            },
         },
         "densityRestoration": {
             "floorDetailSource": FLOOR_DETAIL.name,

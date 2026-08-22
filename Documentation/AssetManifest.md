@@ -54,7 +54,7 @@ Grade every new master with `qa_plate_projection.py` before installing it.
 | Class | Master target | Runtime target | Notes |
 |---|---:|---:|---|
 | Exterior plate | 6144×3456 | 3072×1728 | Downsample with mild area resampling; preserve rain-free base. |
-| Office suite plate | V11 original 1950s material/fixture sources over deterministic registered geometry | 4096×2304 @ env 0.395 | `BGEE1950sV11`; 2.5316 px/unit, measured +36.73°/−36.70°. Two fixed steel/blind windows and one cold fireplace are baked; the door leaf is not. V10 remains rollback provenance. |
+| Office suite plate | V12 reference-faithful redraw over deterministic V11 registered geometry | 4096×2304 @ env 0.395 | `BGEEReferenceV12`; 2.5316 px/unit, measured +35.83°/−36.08°. Two fixed amber windows and one lit fireplace are baked; its 308.53px same-side jamb is locked to 1.733 rendered adults. The door leaf is not baked. V11 remains geometry/rollback provenance. |
 | Full-canvas overlays | 2× listed runtime | Listed runtime | Preserve exact pixel registration with base. |
 | Actor frame | Generator master | 512×512 | Reduce to a 64px native body, widen torso/coat rows by 15% while keeping the head unchanged and ramping back to 1.0x through the lower body, harden alpha to a 1-bit silhouette, limit to a 64-color per-material ramp palette without dithering, enlarge to the fixed 200px texture body with nearest sampling, and register at the doubled ground pivot. SpriteKit displays the frame at 180×180 points with linear filtering. |
 | Small effects | 2× listed runtime | Listed runtime | Generate as source sheets where practical, then slice. |

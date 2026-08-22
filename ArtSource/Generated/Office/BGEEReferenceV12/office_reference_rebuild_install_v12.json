@@ -1,27 +1,27 @@
 {
   "allowlist": [
     {
-      "sha256": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
+      "sha256": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
     },
     {
-      "sha256": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
+      "sha256": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png"
     },
     {
-      "sha256": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
+      "sha256": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_suite_plate.png"
     },
     {
-      "sha256": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
+      "sha256": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_shell_base.png"
     },
     {
-      "sha256": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
+      "sha256": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_plate_v12.png",
       "target": "ArtSource/Generated/Office/office_suite_plate_bgee_v12_installed.png"
     },
@@ -71,7 +71,7 @@
       "target": "ArtSource/Generated/Office/office_door_family_v12.json"
     },
     {
-      "sha256": "1776e9f7a240cddde650130a52ce00c41b929df6a86d9e4994d6e456d1c67b83",
+      "sha256": "6d2802772a6af0f661d7cd740733845369687c723dfcd2f14661cd03d2de11fd",
       "source": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_metrics_v12.json",
       "target": "ArtSource/Generated/Office/office_reference_rebuild_metrics_v12.json"
     },

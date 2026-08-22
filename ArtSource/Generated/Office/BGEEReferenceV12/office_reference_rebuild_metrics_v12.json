@@ -12,7 +12,7 @@
       1672,
       941
     ],
-    "sha256": "e66a579d3d0990ab10d2584045e7d5ed012c843aee7689b8fde8ea5d15085b75",
+    "sha256": "22cc5cef3e311306c16352bed57a7ee27d0970631e09ccfc0803d98f70c64dd1",
     "role": "ImageGen redraw; visual, material, lighting, and fixture authority"
   },
   "targetReference": {
@@ -363,6 +363,24 @@
           874.7826755704004
         ]
       ]
+    },
+    "visualScaleLock": {
+      "sourceEnvelope": [
+        956,
+        235,
+        1117,
+        427
+      ],
+      "sourceJambHeightPixels": 128.0,
+      "standingAdultWorldHeight": 70.3125,
+      "targetFireplaceToAdultRange": [
+        1.65,
+        1.8
+      ],
+      "plateJambHeightPixels": 308.53419810890904,
+      "worldJambHeight": 121.87100825301907,
+      "fireplaceToAdultRatio": 1.7332765618207158,
+      "measurement": "same-side floor contact to mantel; axis-aligned whole-fixture bounds are not a humanoid-height measure"
     }
   },
   "densityRestoration": {
@@ -376,8 +394,8 @@
   "doorPixelsBakedIntoPlate": false,
   "flameOrEmberPixelsAuthored": true,
   "outputHashes": {
-    "office_reference_rebuild_plate_v12.png": "d07f1ced262c330b3a16aa7dc4f95d23024e2455e49c308d4ec6bfb80b42f484",
-    "office_reference_rebuild_architecture_mask_v12.png": "4f321f3ed212520d405d8539c400da373dae4ff195d58ef94bc59587e2f988a7",
+    "office_reference_rebuild_plate_v12.png": "903f23477cd062bb981152d0fcfc84e48cd9942b45ee3a9827ffe860aa3f407b",
+    "office_reference_rebuild_architecture_mask_v12.png": "1ab264e0a170f37e33f1ec7d291c86076c002078ff68c7e9cd5b0084957f4217",
     "office_window_glass_mask_v12.png": "4c199454e4035dbe4c525637296c4a28353a704ab996192345bedc7a4a2ea91c",
     "office_window_near_hover_overlay_v12.png": "725f0062958bb84e7000069f58fdc07e93c3a8de1d3bcf5ca8bdf3086ab7f151"
   }

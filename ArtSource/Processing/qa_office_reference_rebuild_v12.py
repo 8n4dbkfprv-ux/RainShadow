@@ -53,6 +53,46 @@ def polygon_mask(size: tuple[int, int], polygon: list[list[float]]) -> np.ndarra
     return np.asarray(image, dtype=np.uint8) > 0
 
 
+def fireplace_source_envelope(path: Path) -> list[int]:
+    """Measure the connected low-chroma stone relief on the frozen source."""
+    rgb = np.asarray(Image.open(path).convert("RGB"), dtype=np.float32) / 255.0
+    maximum = rgb.max(axis=2)
+    minimum = rgb.min(axis=2)
+    saturation = (maximum - minimum) / np.maximum(maximum, 1e-6)
+    stone = (saturation < 0.48) & (maximum > 0.16) & (maximum < 0.70)
+    roi = np.zeros(stone.shape, dtype=bool)
+    roi[170:520, 850:1200] = stone[170:520, 850:1200]
+    components: list[tuple[int, list[int]]] = []
+    visited = np.zeros(roi.shape, dtype=bool)
+    for seed_y, seed_x in np.argwhere(roi):
+        if visited[seed_y, seed_x]:
+            continue
+        stack = [(int(seed_y), int(seed_x))]
+        visited[seed_y, seed_x] = True
+        count = 0
+        min_x = max_x = int(seed_x)
+        min_y = max_y = int(seed_y)
+        while stack:
+            y, x = stack.pop()
+            count += 1
+            min_x, max_x = min(min_x, x), max(max_x, x)
+            min_y, max_y = min(min_y, y), max(max_y, y)
+            for next_y, next_x in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
+                if (
+                    0 <= next_y < roi.shape[0]
+                    and 0 <= next_x < roi.shape[1]
+                    and roi[next_y, next_x]
+                    and not visited[next_y, next_x]
+                ):
+                    visited[next_y, next_x] = True
+                    stack.append((next_y, next_x))
+        if count > 100:
+            components.append((count, [min_x, min_y, max_x + 1, max_y + 1]))
+    if not components:
+        raise RuntimeError("fireplace stone envelope was not detected")
+    return max(components, key=lambda component: component[0])[1]
+
+
 def main() -> int:
     required = [
         generator.SOURCE,
@@ -94,7 +134,7 @@ def main() -> int:
     checks.append((
         "source identities",
         sha256(generator.TARGET_REFERENCE) == "6fbb06a6bf54e821bcdf7ae5e86aecc998ed594b4869c79dbc78bb41d770bd19"
-        and sha256(generator.SOURCE) == "e66a579d3d0990ab10d2584045e7d5ed012c843aee7689b8fde8ea5d15085b75",
+        and sha256(generator.SOURCE) == "22cc5cef3e311306c16352bed57a7ee27d0970631e09ccfc0803d98f70c64dd1",
         f"reference={sha256(generator.TARGET_REFERENCE)[:12]} redraw={sha256(generator.SOURCE)[:12]}",
     ))
     checks.append((
@@ -151,6 +191,28 @@ def main() -> int:
     ))
 
     fireplace = geometry["fireplace"]
+    visual_scale = metrics["fireplace"]["visualScaleLock"]
+    measured_envelope = fireplace_source_envelope(generator.SOURCE)
+    envelope_width = measured_envelope[2] - measured_envelope[0]
+    envelope_height = measured_envelope[3] - measured_envelope[1]
+    checks.append((
+        "fireplace visible envelope",
+        measured_envelope == visual_scale["sourceEnvelope"]
+        and 155 <= envelope_width <= 166
+        and 185 <= envelope_height <= 198,
+        f"source={measured_envelope} size={envelope_width}x{envelope_height}",
+    ))
+    registered_facade_height = float(fireplace["facadeHeight"])
+    plate_jamb_height = float(visual_scale["plateJambHeightPixels"])
+    adult_ratio = float(visual_scale["fireplaceToAdultRatio"])
+    ratio_range = visual_scale["targetFireplaceToAdultRange"]
+    checks.append((
+        "fireplace humanoid scale lock",
+        abs(plate_jamb_height - registered_facade_height) <= 1.0
+        and float(ratio_range[0]) <= adult_ratio <= float(ratio_range[1])
+        and abs(float(visual_scale["standingAdultWorldHeight"]) - 70.3125) <= 1e-9,
+        f"jamb={plate_jamb_height:.2f}/{registered_facade_height:.2f}px ratio={adult_ratio:.3f} adults",
+    ))
     fire_region = polygon_mask((4096, 2304), fireplace["targetCoverPolygon"])
     fire_pixels = plate[fire_region]
     hot = (
