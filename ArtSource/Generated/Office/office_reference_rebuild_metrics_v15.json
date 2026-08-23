@@ -1,0 +1,522 @@
+{
+  "version": "BGEEReferenceV15",
+  "canvas": [
+    4096,
+    2304
+  ],
+  "environmentScale": 0.395,
+  "geometryAuthority": "AR0809 outer silhouette and V15 ImageGen tapered-wall redraw",
+  "source": {
+    "file": "office_room_envelope_imagegen_raw_v15.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "sha256": "00f74d2417c3916d3dea9cced3883b3b928843e408d2898232da89e553d03b7e",
+    "role": "ImageGen visual, material, lighting, fixture and room-envelope authority"
+  },
+  "targetReference": {
+    "file": "/Users/laurensvanoorschot/RainShadow/ArtSource/Reference/Office/V15/AR0809_geometry_reference.png",
+    "sha256": "af9e2c2b1234da666a00921c8c09d928a958109b14e8ea4fdc5c996e22d2cba8",
+    "role": "user-supplied floor proportion and tapered wall-cutaway authority"
+  },
+  "registration": {
+    "sourcePlanes": {
+      "NW": [
+        [
+          893.0,
+          81.0
+        ],
+        [
+          222.0,
+          604.0
+        ],
+        [
+          222.0,
+          605.0
+        ],
+        [
+          893.0,
+          227.0
+        ]
+      ],
+      "NE": [
+        [
+          893.0,
+          81.0
+        ],
+        [
+          1312.0,
+          406.0
+        ],
+        [
+          1312.0,
+          411.0
+        ],
+        [
+          893.0,
+          227.0
+        ]
+      ],
+      "floor": [
+        [
+          893.0,
+          227.0
+        ],
+        [
+          222.0,
+          605.0
+        ],
+        [
+          745.0,
+          961.0
+        ],
+        [
+          1312.0,
+          411.0
+        ]
+      ]
+    },
+    "targetPlanes": {
+      "NW": [
+        [
+          2298.0,
+          252.0
+        ],
+        [
+          956.0,
+          1298.0
+        ],
+        [
+          956.0,
+          1300.0
+        ],
+        [
+          2298.0,
+          544.0
+        ]
+      ],
+      "NE": [
+        [
+          2298.0,
+          252.0
+        ],
+        [
+          3136.0,
+          902.0
+        ],
+        [
+          3136.0,
+          912.0
+        ],
+        [
+          2298.0,
+          544.0
+        ]
+      ],
+      "floor": [
+        [
+          2298.0,
+          544.0
+        ],
+        [
+          956.0,
+          1300.0
+        ],
+        [
+          2002.0,
+          2012.0
+        ],
+        [
+          3136.0,
+          912.0
+        ]
+      ]
+    },
+    "uniformScale": 2.0,
+    "uniformTranslation": [
+      512.0,
+      90.0
+    ],
+    "longShortGroundAxisRatio": 1.6829342460280963,
+    "wallRearHeightSourcePixels": 146.0,
+    "wallLeftTipHeightSourcePixels": 1.0,
+    "wallRightTipHeightSourcePixels": 5.0,
+    "visualSilhouetteAuthority": "V15 tapered ImageGen shell",
+    "navigationGeometryAuthority": "V15 targetPlanes",
+    "anisotropicWholePlateResize": false
+  },
+  "windows": [
+    {
+      "id": "far",
+      "aperture": [
+        [
+          1632.0,
+          726.0
+        ],
+        [
+          1708.0,
+          670.0
+        ],
+        [
+          1708.0,
+          790.0
+        ],
+        [
+          1632.0,
+          846.0
+        ]
+      ],
+      "glass": [
+        [
+          [
+            1638.0800000000002,
+            727.52
+          ],
+          [
+            1666.96,
+            706.2400000000001
+          ],
+          [
+            1666.96,
+            736.24
+          ],
+          [
+            1638.08,
+            757.52
+          ]
+        ],
+        [
+          [
+            1638.08,
+            764.72
+          ],
+          [
+            1666.96,
+            743.44
+          ],
+          [
+            1666.96,
+            774.6400000000001
+          ],
+          [
+            1638.0800000000002,
+            795.9200000000001
+          ]
+        ],
+        [
+          [
+            1638.08,
+            803.12
+          ],
+          [
+            1666.96,
+            781.84
+          ],
+          [
+            1666.96,
+            814.24
+          ],
+          [
+            1638.08,
+            835.5200000000001
+          ]
+        ],
+        [
+          [
+            1673.0399999999997,
+            701.76
+          ],
+          [
+            1701.92,
+            680.48
+          ],
+          [
+            1701.9199999999998,
+            710.48
+          ],
+          [
+            1673.04,
+            731.76
+          ]
+        ],
+        [
+          [
+            1673.04,
+            738.9599999999999
+          ],
+          [
+            1701.92,
+            717.68
+          ],
+          [
+            1701.9199999999998,
+            748.88
+          ],
+          [
+            1673.04,
+            770.16
+          ]
+        ],
+        [
+          [
+            1673.04,
+            777.36
+          ],
+          [
+            1701.9199999999998,
+            756.08
+          ],
+          [
+            1701.92,
+            788.48
+          ],
+          [
+            1673.04,
+            809.76
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "near",
+      "aperture": [
+        [
+          1408.0,
+          946.0
+        ],
+        [
+          1484.0,
+          890.0
+        ],
+        [
+          1484.0,
+          1010.0
+        ],
+        [
+          1408.0,
+          1066.0
+        ]
+      ],
+      "glass": [
+        [
+          [
+            1414.08,
+            947.5199999999999
+          ],
+          [
+            1442.96,
+            926.24
+          ],
+          [
+            1442.96,
+            956.24
+          ],
+          [
+            1414.08,
+            977.52
+          ]
+        ],
+        [
+          [
+            1414.08,
+            984.72
+          ],
+          [
+            1442.96,
+            963.4399999999999
+          ],
+          [
+            1442.96,
+            994.6400000000001
+          ],
+          [
+            1414.08,
+            1015.9200000000001
+          ]
+        ],
+        [
+          [
+            1414.08,
+            1023.12
+          ],
+          [
+            1442.96,
+            1001.84
+          ],
+          [
+            1442.96,
+            1034.24
+          ],
+          [
+            1414.08,
+            1055.52
+          ]
+        ],
+        [
+          [
+            1449.04,
+            921.76
+          ],
+          [
+            1477.92,
+            900.48
+          ],
+          [
+            1477.92,
+            930.48
+          ],
+          [
+            1449.04,
+            951.7599999999999
+          ]
+        ],
+        [
+          [
+            1449.04,
+            958.9599999999999
+          ],
+          [
+            1477.92,
+            937.6799999999998
+          ],
+          [
+            1477.92,
+            968.88
+          ],
+          [
+            1449.04,
+            990.1600000000001
+          ]
+        ],
+        [
+          [
+            1449.04,
+            997.3599999999999
+          ],
+          [
+            1477.92,
+            976.0799999999999
+          ],
+          [
+            1477.92,
+            1008.48
+          ],
+          [
+            1449.04,
+            1029.76
+          ]
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "visualScaleLock": {
+      "sourceRearHeightPixels": 146.0,
+      "plateRearHeightPixels": 292.0,
+      "standingAdultWorldHeight": 70.3125,
+      "worldRearHeight": 115.34,
+      "wallToAdultRatio": 1.6403911111111111
+    }
+  },
+  "fireplace": {
+    "state": "lit",
+    "collisionAndCoverAuthority": {
+      "targetFloorFootprint": [
+        [
+          2658.0,
+          814.0
+        ],
+        [
+          2938.0,
+          1024.0
+        ],
+        [
+          2874.0,
+          1072.0
+        ],
+        [
+          2594.0,
+          862.0
+        ]
+      ],
+      "targetObstaclePolygon": [
+        [
+          2658.0,
+          814.0
+        ],
+        [
+          2938.0,
+          1024.0
+        ],
+        [
+          2874.0,
+          1072.0
+        ],
+        [
+          2594.0,
+          862.0
+        ]
+      ],
+      "targetCoverPolygon": [
+        [
+          2652.0,
+          670.0
+        ],
+        [
+          2932.0,
+          880.0
+        ],
+        [
+          2932.0,
+          946.0
+        ],
+        [
+          2652.0,
+          736.0
+        ]
+      ],
+      "targetHearthSpillSample": [
+        [
+          2582.0,
+          820.0
+        ],
+        [
+          2972.0,
+          1010.0
+        ],
+        [
+          2882.0,
+          1090.0
+        ],
+        [
+          2492.0,
+          900.0
+        ]
+      ]
+    },
+    "visualScaleLock": {
+      "sourceUprightHeightPixels": 143.0,
+      "plateFixtureHeightPixels": 286.0,
+      "standingAdultWorldHeight": 70.3125,
+      "worldFixtureHeight": 112.97,
+      "fireplaceToAdultRatio": 1.6066844444444444
+    }
+  },
+  "imageGeneration": {
+    "tool": "built-in image_gen.imagegen",
+    "rawSource": "ArtSource/Generated/Office/BGEEReferenceV15/office_room_envelope_imagegen_raw_v15.png",
+    "rawSourceSha256": "00f74d2417c3916d3dea9cced3883b3b928843e408d2898232da89e553d03b7e",
+    "geometryReference": "/Users/laurensvanoorschot/RainShadow/ArtSource/Reference/Office/V15/AR0809_geometry_reference.png",
+    "geometryReferenceSha256": "af9e2c2b1234da666a00921c8c09d928a958109b14e8ea4fdc5c996e22d2cba8",
+    "role": "ImageGen supplies all visible art; deterministic processing applies only one uniform scale and translation"
+  },
+  "doorPixelsBakedIntoPlate": false,
+  "flameOrEmberPixelsAuthored": true,
+  "outputHashes": {
+    "office_reference_rebuild_plate_v15.png": "7ca8333fed5f564e6003a30fd5c0989614014af5bb1aa9ea512d28b0be88c772",
+    "office_reference_rebuild_architecture_mask_v15.png": "b1c388653e4bd7a06a6464ede46b1046dfc817b4afc567814074f2fb52239b21",
+    "office_window_glass_mask_v15.png": "ffafc06c76dfe410853532aff07f413389ec72482b37efe7f129c55bf0734f77",
+    "office_window_near_hover_overlay_v15.png": "843c9dc6644c4d4f903f5c85c02790917c83eefef831186b86393d2450fd9a39"
+  }
+}

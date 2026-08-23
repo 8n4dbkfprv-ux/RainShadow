@@ -110,10 +110,11 @@ def main() -> None:
         "wallPhotos": "office_wall_photos.png",
         "framedLicence": "office_framed_licence.png",
     }
-    for key, (px, py) in lp.WALL_ART.items():
+    for key, mount in lp.WALL_ART.items():
         art_name = wall_art_files.get(key)
         if art_name is None:
             continue
+        px, py = mount.plate
         im = load(art_name)
         bx0, by0, bx1, by1 = content_box(im)
         content = im.crop((bx0, by0, bx1, by1))

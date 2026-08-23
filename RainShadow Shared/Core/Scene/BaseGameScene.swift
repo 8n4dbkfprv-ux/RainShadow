@@ -600,14 +600,34 @@ class BaseGameScene: SKScene {
     /// The player is never gated: he is the thing sight is measured from, so he
     /// is always inside it, and a fog that failed would take him off the screen
     /// rather than showing an obvious error.
+    ///
+    /// BG:EE draws the creature and then the fog overlay, so a body on the
+    /// diamond edge is clipped by black rather than removed. Hide the gate only
+    /// when no part of the sprite AABB is in a visible cell. Targeting still
+    /// uses the foot point (`isVisible`).
     func updateFogGating(_ fog: FogOfWarNode?) {
         guard let fog else {
             fogGatedActors.forEach { $0.gate.isHidden = false }
             return
         }
         for entry in fogGatedActors {
-            entry.gate.isHidden = !fog.isVisible(entry.actor.position)
+            entry.gate.isHidden = !fog.intersectsVisible(worldFrame(of: entry.actor))
         }
+    }
+
+    /// Sprite AABB in scene space, which is the fog grid's world space while
+    /// world roots sit at the origin.
+    private func worldFrame(of node: SKNode) -> CGRect {
+        let local = node.calculateAccumulatedFrame()
+        guard let parent = node.parent, let scene = node.scene else { return local }
+        let origin = parent.convert(CGPoint(x: local.minX, y: local.minY), to: scene)
+        let opposite = parent.convert(CGPoint(x: local.maxX, y: local.maxY), to: scene)
+        return CGRect(
+            x: min(origin.x, opposite.x),
+            y: min(origin.y, opposite.y),
+            width: abs(opposite.x - origin.x),
+            height: abs(opposite.y - origin.y)
+        )
     }
 
     // MARK: - Player actor and HUD overlays

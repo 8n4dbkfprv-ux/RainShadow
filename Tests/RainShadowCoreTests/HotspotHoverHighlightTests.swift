@@ -145,8 +145,7 @@ struct HotspotHoverHighlightTests {
         )
         let names = [
             "office_desk_bare", "office_desk_actor_occluder", "office_desk_front_occluder_v04",
-            "office_desk_top_occluder",
-            "office_desk_phone", "office_desk_files"
+            "office_desk_top_occluder"
         ]
 
         for name in names {

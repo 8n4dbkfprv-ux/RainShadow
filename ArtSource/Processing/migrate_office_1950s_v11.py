@@ -135,16 +135,16 @@ def relocated_ground_points(props: list[dict]) -> dict[str, dict[str, float]]:
                 layout.window_anchor_authored()
             ),
             "office_wall_photos": map_point(
-                authored_from_plate(layout.WALL_ART["wallPhotos"])
+                authored_from_plate(layout.WALL_ART["wallPhotos"].plate)
             ),
             "office_case_board": map_point(
-                authored_from_plate(layout.WALL_ART["caseBoard"])
+                authored_from_plate(layout.WALL_ART["caseBoard"].plate)
             ),
             "office_wall_city_map": map_point(
-                authored_from_plate(layout.WALL_ART["wallCityMap"])
+                authored_from_plate(layout.WALL_ART["wallCityMap"].plate)
             ),
             "office_framed_licence": map_point(
-                authored_from_plate(layout.WALL_ART["framedLicence"])
+                authored_from_plate(layout.WALL_ART["framedLicence"].plate)
             ),
         }
     )

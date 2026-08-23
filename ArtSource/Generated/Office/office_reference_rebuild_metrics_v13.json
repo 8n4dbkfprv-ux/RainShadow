@@ -1,0 +1,626 @@
+{
+  "version": "BGEEReferenceV13",
+  "canvas": [
+    4096,
+    2304
+  ],
+  "environmentScale": 0.395,
+  "geometryAuthority": "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json for floor/door; V13 registered source for walls/windows/fireplace",
+  "source": {
+    "file": "office_reference_rebuild_source_v13.png",
+    "size": [
+      1672,
+      941
+    ],
+    "sha256": "4009281c85151087f20b4daddff15ec7084c7cbb7bb6c11af32136ea65e320bc",
+    "role": "V12 architecture plus localized ImageGen plaster repair and two localized ImageGen-painted period casements"
+  },
+  "targetReference": {
+    "file": "ArtSource/Reference/Office/V12/office_target_reference.png",
+    "sha256": "6fbb06a6bf54e821bcdf7ae5e86aecc998ed594b4869c79dbc78bb41d770bd19",
+    "role": "user-supplied visual target"
+  },
+  "registration": {
+    "sourcePlanes": {
+      "NW": [
+        [
+          848.0,
+          111.0
+        ],
+        [
+          386.0,
+          457.5
+        ],
+        [
+          386.0,
+          512.0
+        ],
+        [
+          848.0,
+          231.0
+        ]
+      ],
+      "NE": [
+        [
+          848.0,
+          111.0
+        ],
+        [
+          1285.0,
+          438.75
+        ],
+        [
+          1357.0,
+          473.0
+        ],
+        [
+          848.0,
+          231.0
+        ]
+      ],
+      "floor": [
+        [
+          848.0,
+          231.0
+        ],
+        [
+          386.0,
+          512.0
+        ],
+        [
+          795.0,
+          876.0
+        ],
+        [
+          1357.0,
+          473.0
+        ]
+      ]
+    },
+    "targetPlanes": {
+      "NW": [
+        [
+          2025.0620566246682,
+          270.7415407686464
+        ],
+        [
+          911.4464353253247,
+          1105.953256743154
+        ],
+        [
+          911.4464353253247,
+          1237.321333281713
+        ],
+        [
+          2025.0620566246682,
+          559.9923514957486
+        ]
+      ],
+      "NE": [
+        [
+          2025.0620566246682,
+          270.7415407686464
+        ],
+        [
+          3078.417092355866,
+          1060.7578175670442
+        ],
+        [
+          3251.967578792127,
+          1143.3148197954047
+        ],
+        [
+          2025.0620566246682,
+          559.9923514957486
+        ]
+      ],
+      "floor": [
+        [
+          2025.0620566246682,
+          559.9923514957486
+        ],
+        [
+          911.4464353253247,
+          1237.321333281713
+        ],
+        [
+          1897.309615220198,
+          2114.715459153923
+        ],
+        [
+          3251.967578792127,
+          1143.3148197954047
+        ]
+      ]
+    },
+    "uniformScale": 2.410423422725852,
+    "uniformTranslation": [
+      -18.977005846854127,
+      3.184540846076839
+    ],
+    "visualSilhouetteAuthority": "uniformly transformed V13 redraw",
+    "navigationGeometryAuthority": "V11 floor/door; V13 walls/windows/fireplace; maximum floor control-point delta is 59.73 pixels (23.59 world units)",
+    "anisotropicWholePlateResize": false
+  },
+  "windows": [
+    {
+      "id": "far",
+      "aperture": [
+        [
+          1632.1630387203545,
+          585.3017974343701
+        ],
+        [
+          1747.8633630111954,
+          498.5265542162394
+        ],
+        [
+          1747.8633630111954,
+          657.6145001161457
+        ],
+        [
+          1632.1630387203545,
+          744.3897433342763
+        ]
+      ],
+      "glass": [
+        [
+          [
+            1639.394308988532,
+            590.1226442798218
+          ],
+          [
+            1687.602777443049,
+            553.966292938934
+          ],
+          [
+            1687.602777443049,
+            592.5330677025477
+          ],
+          [
+            1639.394308988532,
+            628.6894190434355
+          ]
+        ],
+        [
+          [
+            1639.394308988532,
+            638.3311127343388
+          ],
+          [
+            1687.602777443049,
+            602.174761393451
+          ],
+          [
+            1687.602777443049,
+            640.7415361570647
+          ],
+          [
+            1639.394308988532,
+            676.8978874979524
+          ]
+        ],
+        [
+          [
+            1639.394308988532,
+            686.5395811888559
+          ],
+          [
+            1687.602777443049,
+            650.3832298479681
+          ],
+          [
+            1687.602777443049,
+            688.9500046115817
+          ],
+          [
+            1639.394308988532,
+            725.1063559524695
+          ]
+        ],
+        [
+          [
+            1697.2444711339524,
+            546.7350226707565
+          ],
+          [
+            1743.0425161657436,
+            512.9890947525945
+          ],
+          [
+            1743.0425161657436,
+            551.5558695162082
+          ],
+          [
+            1697.2444711339524,
+            585.3017974343701
+          ]
+        ],
+        [
+          [
+            1697.2444711339524,
+            594.9434911252735
+          ],
+          [
+            1743.0425161657436,
+            561.1975632071116
+          ],
+          [
+            1743.0425161657436,
+            599.7643379707251
+          ],
+          [
+            1697.2444711339524,
+            633.5102658888871
+          ]
+        ],
+        [
+          [
+            1697.2444711339524,
+            643.1519595797905
+          ],
+          [
+            1743.0425161657436,
+            609.4060316616286
+          ],
+          [
+            1743.0425161657436,
+            647.9728064252422
+          ],
+          [
+            1697.2444711339524,
+            681.7187343434042
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "near",
+      "aperture": [
+        [
+          1193.4659757842494,
+          914.3245946364489
+        ],
+        [
+          1309.1663000750902,
+          827.5493514183182
+        ],
+        [
+          1309.1663000750902,
+          986.6372973182245
+        ],
+        [
+          1193.4659757842494,
+          1073.412540536355
+        ]
+      ],
+      "glass": [
+        [
+          [
+            1200.6972460524269,
+            919.1454414819005
+          ],
+          [
+            1248.905714506944,
+            882.9890901410128
+          ],
+          [
+            1248.905714506944,
+            921.5558649046264
+          ],
+          [
+            1200.6972460524269,
+            957.7122162455142
+          ]
+        ],
+        [
+          [
+            1200.6972460524269,
+            967.3539099364176
+          ],
+          [
+            1248.905714506944,
+            931.1975585955298
+          ],
+          [
+            1248.905714506944,
+            969.7643333591435
+          ],
+          [
+            1200.6972460524269,
+            1005.9206847000312
+          ]
+        ],
+        [
+          [
+            1200.6972460524269,
+            1015.5623783909347
+          ],
+          [
+            1248.905714506944,
+            979.4060270500469
+          ],
+          [
+            1248.905714506944,
+            1017.9728018136605
+          ],
+          [
+            1200.6972460524269,
+            1054.1291531545482
+          ]
+        ],
+        [
+          [
+            1258.5474081978473,
+            875.7578198728353
+          ],
+          [
+            1304.3454532296385,
+            842.0118919546733
+          ],
+          [
+            1304.3454532296385,
+            880.578666718287
+          ],
+          [
+            1258.5474081978473,
+            914.3245946364489
+          ]
+        ],
+        [
+          [
+            1258.5474081978473,
+            923.9662883273522
+          ],
+          [
+            1304.3454532296385,
+            890.2203604091903
+          ],
+          [
+            1304.3454532296385,
+            928.7871351728039
+          ],
+          [
+            1258.5474081978473,
+            962.5330630909659
+          ]
+        ],
+        [
+          [
+            1258.5474081978473,
+            972.1747567818693
+          ],
+          [
+            1304.3454532296385,
+            938.4288288637074
+          ],
+          [
+            1304.3454532296385,
+            976.995603627321
+          ],
+          [
+            1258.5474081978473,
+            1010.741531545483
+          ]
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "visualScaleLock": {
+      "sourceRearHeightPixels": 120.0,
+      "standingAdultWorldHeight": 70.3125,
+      "targetWallToAdultRange": [
+        1.5,
+        1.75
+      ],
+      "plateRearHeightPixels": 289.25081072710225,
+      "worldRearHeight": 114.2540702372054,
+      "wallToAdultRatio": 1.6249467767069212,
+      "measurement": "rear wall-floor seam to rear crown on the complete painted face"
+    }
+  },
+  "fireplace": {
+    "state": "lit",
+    "collisionAndCoverAuthority": {
+      "targetFloorFootprint": [
+        [
+          2355.29006553811,
+          863.705702759206
+        ],
+        [
+          2528.840551974371,
+          945.660099131885
+        ],
+        [
+          2564.9969033152593,
+          972.1747567818693
+        ],
+        [
+          2391.4464168789973,
+          890.2203604091903
+        ]
+      ],
+      "targetObstaclePolygon": [
+        [
+          2355.29006553811,
+          863.705702759206
+        ],
+        [
+          2528.840551974371,
+          945.660099131885
+        ],
+        [
+          2564.9969033152593,
+          972.1747567818693
+        ],
+        [
+          2391.4464168789973,
+          890.2203604091903
+        ]
+      ],
+      "targetCoverPolygon": [
+        [
+          2333.5962547335776,
+          637.1259010229759
+        ],
+        [
+          2536.0718222425485,
+          788.9825766547045
+        ],
+        [
+          2572.2281735834367,
+          998.6894144318537
+        ],
+        [
+          2369.752606074465,
+          846.832738800125
+        ]
+      ],
+      "targetHearthSpillSample": [
+        [
+          1925.5115692660906,
+          959.1584702991497
+        ],
+        [
+          2446.1630285748743,
+          1205.0216594171866
+        ],
+        [
+          2554.632082597538,
+          1284.5656323671396
+        ],
+        [
+          2033.9806232887538,
+          1038.7024432491028
+        ]
+      ]
+    },
+    "visualScaleLock": {
+      "sourceEnvelope": [
+        983,
+        276,
+        1069,
+        401
+      ],
+      "sourceUprightHeightPixels": 85.0,
+      "standingAdultWorldHeight": 70.3125,
+      "targetFireplaceToAdultRange": [
+        1.05,
+        1.25
+      ],
+      "plateFixtureHeightPixels": 204.88599093169742,
+      "worldFixtureHeight": 80.92996641802048,
+      "fireplaceToAdultRatio": 1.151003966834069,
+      "measurement": "maximum local upright span of the connected stone fixture; the full isometric envelope is locked separately"
+    }
+  },
+  "densityRestoration": {
+    "floorDetailSource": "floor_material_source_v11.png",
+    "floorDetailSha256": "fe2bb2ac7d35d305ae7a58c1ea1ab504aa2ed6845e6d40d45a9ede6d8a502ef4",
+    "floorHighPassMix": 0.12,
+    "wallDetailSource": "wall_material_source_v11.png",
+    "wallDetailSha256": "467307c46e14a7862e4169f8e59ce378e801a7329f3d1295e2e5c3ebc92388c6",
+    "wallHighPassMix": 0.09
+  },
+  "doorPixelsBakedIntoPlate": false,
+  "flameOrEmberPixelsAuthored": true,
+  "windowPair": {
+    "interactiveWindow": "near",
+    "decorativeWindow": "far",
+    "sourceTranslations": {
+      "near": [
+        0.0,
+        0.0
+      ],
+      "far": [
+        182.0,
+        -136.5
+      ]
+    },
+    "wallAxisSlope": -0.75,
+    "usableWallSpanX": [
+      386.0,
+      848.0
+    ],
+    "framePolygons": {
+      "near": [
+        [
+          491.0,
+          382.0
+        ],
+        [
+          562.0,
+          329.0
+        ],
+        [
+          562.0,
+          415.0
+        ],
+        [
+          491.0,
+          465.0
+        ]
+      ],
+      "far": [
+        [
+          673.0,
+          245.5
+        ],
+        [
+          744.0,
+          192.5
+        ],
+        [
+          744.0,
+          278.5
+        ],
+        [
+          673.0,
+          328.5
+        ]
+      ]
+    },
+    "clearGapsAlongSourceX": [
+      105.0,
+      111.0,
+      104.0
+    ],
+    "placementRule": "even wall-axis bays with natural ImageGen frame variation",
+    "geometry": "two jointly painted six-pane period casements",
+    "nearHoverWindowIds": [
+      "near"
+    ],
+    "rainMaskWindowIds": [
+      "near",
+      "far"
+    ]
+  },
+  "wallRepair": {
+    "source": "ArtSource/Generated/Office/BGEEReferenceV13/office_windowless_wall_source_v13.png",
+    "sourceSha256": "3d5696c5aa2cff56b167534c25dbcb51d9612364b820a68455245cb65e523455",
+    "sourceSize": [
+      1671,
+      941
+    ],
+    "admission": "complete measured NW wall face plus former-sill floor envelopes",
+    "windowInsertClip": "measured NW wall face",
+    "exteriorPolicy": "pure black outside registered room polygons"
+  },
+  "sourceProvenance": {
+    "base": "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_source_v12.png",
+    "baseSha256": "dc987e3968afa4e0da3944e6f08db298aad964017fc35da0723775ef6c121eee",
+    "windowlessRepair": "ArtSource/Generated/Office/BGEEReferenceV13/office_windowless_wall_source_v13.png",
+    "windowlessRepairSha256": "3d5696c5aa2cff56b167534c25dbcb51d9612364b820a68455245cb65e523455",
+    "repairAdmission": "complete measured NW wall face; local former-sill floor envelopes",
+    "imagegenWindowEdit": "ArtSource/Generated/Office/BGEEReferenceV13/office_windows_imagegen_edit_v13.png",
+    "imagegenWindowEditSha256": "c343d00580dee060da2600854dbc184c0f840e0dae214facdeb9905e164f6ff9",
+    "imagegenAdmission": "two feathered, room-clipped window neighbourhoods only"
+  },
+  "outputHashes": {
+    "office_reference_rebuild_plate_v13.png": "47069fbd1ac959aaa8f0b47208b1e26b48054b9c253a00539f625694d3501313",
+    "office_reference_rebuild_architecture_mask_v13.png": "5965718c0b62f1607ac6d5ee46479234dc9c2289e6f0caf5e7f26bb3a7cfffa7",
+    "office_window_glass_mask_v13.png": "8eef8147bf420ec1521a30f774ba969ef40756580c607ac5cc2b30417ed82c95",
+    "office_window_near_hover_overlay_v13.png": "ae33893be59e1278d56707ef4c7b4a92508cf4bfeaf7b90a17e789183acd588e"
+  }
+}

@@ -4,21 +4,16 @@ import SpriteKit
 
 /// Turns an area's two fog bitmaps into the texture drawn over it.
 ///
-/// There is no painting here any more, and that is the point. This used to
-/// compose a hand-wobbled circle out of four feathered rings, clip it to the
-/// cells sight reached, erase it through a remembered layer with
-/// `destinationOut`, lift that layer back up with `destinationOver`, and run a
-/// Gaussian blur over the result to hide the staircase the clip left behind —
-/// two coordinate systems, two shapes, and a blur apologising for the seam
-/// between them. The Infinity Engine draws fog by reading its two bitmaps and
-/// filling cells, and once the bitmaps are real that is all there is to do: the
-/// texture *is* `FogGrid.mask`, one texel per level, and linear filtering turns
-/// the one-texel step at a cell boundary into the soft edge the engine gets from
-/// the edge and corner frames of its `fogowar` BAM.
+/// GemRB's `FogRenderer` fills unexplored and remembered runs with solid black
+/// and stamps `FOGOWAR.BAM` on the boundary. The texture here is that same
+/// compositor: `FogGrid.displayMask` is one 32×32 screen-pixel tile per fog
+/// cell, interiors flat at the three GemRB levels, edges from generated N/W
+/// stamps (and mirrors). Linear filtering is not the edge. Nearest sampling
+/// keeps the tile the engine drew.
 ///
-/// What remains is the pixel format. `FogGrid` answers in levels because levels
-/// are testable; a level is an alpha, and the fog is black, so every texel is
-/// `(0, 0, 0, level)` premultiplied.
+/// `FogGrid` answers in levels because levels are testable; a level is an
+/// alpha, and the fog is black, so every texel is `(0, 0, 0, level)`
+/// premultiplied.
 struct FogMaskRenderer {
     let grid: FogGrid
 
@@ -35,19 +30,16 @@ struct FogMaskRenderer {
     }
 
     func makeTexture(explored: Set<FogCell>, visible: Set<FogCell>) -> SKTexture? {
-        let levels = grid.mask(explored: explored, visible: visible)
+        let levels = grid.displayMask(explored: explored, visible: visible)
         guard let image = makeImage(levels: levels) else { return nil }
         let texture = SKTexture(cgImage: image)
-        // The whole edge treatment, in one line: a fog cell is four texels
-        // across and the boundary between two levels is a single texel step, so
-        // linear sampling spreads it over a quarter of a cell.
-        texture.filteringMode = .linear
+        texture.filteringMode = .nearest
         return texture
     }
 
     private func makeImage(levels: [UInt8]) -> CGImage? {
-        let width = grid.maskWidth
-        let height = grid.maskHeight
+        let width = grid.columns * FogGrid.cellPixelSize
+        let height = grid.rows * FogGrid.cellPixelSize
         guard width > 0, height > 0, levels.count == width * height else { return nil }
 
         var rgba = [UInt8](repeating: 0, count: levels.count * 4)
@@ -68,7 +60,7 @@ struct FogMaskRenderer {
             bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
             provider: provider,
             decode: nil,
-            shouldInterpolate: true,
+            shouldInterpolate: false,
             intent: .defaultIntent
         )
     }

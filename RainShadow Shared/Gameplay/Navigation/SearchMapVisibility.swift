@@ -145,6 +145,65 @@ extension SearchMap {
         return columns * columns + rows * rows <= radiusInCells * radiusInCells
     }
 
+    /// Every see-through floor cell in an enclosure that `seeds` already reached,
+    /// plus the opaque wall cells that bound it.
+    ///
+    /// Indoor BG:EE does not light a disc inside a room. Visual range is larger
+    /// than a BG inn, so walls clip sight into room polygons and a doorway is
+    /// the only bleed. RainShadow interiors are larger than stat #262, so a
+    /// radius-only fill still draws a spotlight. Flooding each enclosure the
+    /// cast touched — stopping at `!isSeeThrough` and closed sight-blocking
+    /// doors — is the indoor picture: one open room is a diamond, a closed
+    /// back room stays black.
+    ///
+    /// Furniture (`obstacleSeeThrough`) does not split a room. Out of bounds is
+    /// opaque, matching `visibleCells`. The blocking cell itself is included,
+    /// matching GemRB `Pass = 2`: a room's own walls light, nothing behind them.
+    func enclosedFloor(touching seeds: Set<SearchMapCell>) -> Set<SearchMapCell> {
+        guard !seeds.isEmpty else { return [] }
+
+        var result: Set<SearchMapCell> = []
+        var visited: Set<SearchMapCell> = []
+        var queue: [SearchMapCell] = []
+
+        func isRoomFloor(_ cell: SearchMapCell) -> Bool {
+            contains(cell) && terrain(at: cell).isSeeThrough && !doorBlocksSight(at: cell)
+        }
+
+        for seed in seeds {
+            if visited.contains(seed) { continue }
+            if !isRoomFloor(seed) {
+                // An opaque cell the cast already lit (the wall you are looking
+                // at) stays lit, but is not a door into the next enclosure.
+                visited.insert(seed)
+                result.insert(seed)
+                continue
+            }
+            visited.insert(seed)
+            queue.append(seed)
+            while let cell = queue.popLast() {
+                result.insert(cell)
+                let neighbours = [
+                    SearchMapCell(column: cell.column - 1, row: cell.row),
+                    SearchMapCell(column: cell.column + 1, row: cell.row),
+                    SearchMapCell(column: cell.column, row: cell.row - 1),
+                    SearchMapCell(column: cell.column, row: cell.row + 1)
+                ]
+                for neighbour in neighbours {
+                    if visited.contains(neighbour) { continue }
+                    if isRoomFloor(neighbour) {
+                        visited.insert(neighbour)
+                        queue.append(neighbour)
+                    } else if contains(neighbour) {
+                        visited.insert(neighbour)
+                        result.insert(neighbour)
+                    }
+                }
+            }
+        }
+        return result
+    }
+
     /// World rectangles covering `cells`, with each row's runs merged.
     ///
     /// A fog mask clips its lit pool to these, and a city district's pool spans

@@ -148,7 +148,6 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
             usingSuitePlate = false
         }
 
-        addShellVignette()
         // V08 is one open room. The retired debug partition must not be able to
         // reintroduce a second doorway over the production plate.
         if !usingSuitePlate {
@@ -1821,25 +1820,16 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
     }
 
     /// Desk-native props that `updateDetectiveDepth` lifts above the writing
-    /// surface while Voss is seated, so his coat stays under the wood but the
-    /// lamp and papers do not.
-    private static let deskItemPropIDs = [
-        "office_desk_lamp",
-        "office_desk_phone",
-        "office_desk_typewriter",
-        "office_desk_notebook",
-        "office_desk_papers",
-        "office_desk_ashtray",
-        "office_desk_files"
-    ]
+    /// surface while Voss is seated. Desktop clutter is no longer live — BG
+    /// would have painted it into the tileset with the desk, and baking it
+    /// under a live desk sprite hid it.
+    private static let deskItemPropIDs: [String] = []
 
     /// Props that swap to their `_hover` artwork when a hotspot is under the
-    /// cursor. Four sprites share `office.desk` and all of them have to light
+    /// cursor. Desk pieces share `office.desk` and all of them have to light
     /// together, or the desk highlights in pieces.
     private static let hoverBindings: [(prop: String, hotspot: String)] = [
         ("office_desk_bare", "office.desk"),
-        ("office_desk_phone", "office.phone"),
-        ("office_desk_files", "office.files"),
         ("office_desk_actor_occluder", "office.desk"),
         ("office_desk_front_occluder_v04", "office.desk"),
         ("office_desk_top_occluder", "office.desk")
@@ -2088,33 +2078,12 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         occlusionRoot.addChild(void)
     }
 
-    /// The one thing over the plate that is not a prop.
-    ///
-    /// It is a full-plate darkening pass at the plate's own origin and size,
-    /// sitting above the background and below everything else — part of how the
-    /// room is lit rather than something standing in it. A `.WED` would carry
-    /// this as an overlay layer, not as a tiled object, and the same split is
-    /// why it stays here while the other fifty-five pieces moved into the
-    /// record.
-    private func addShellVignette() {
-        guard let vignetteTex = GameArt.texture(named: "office_shadow_vignette") else { return }
-        let vignette = SKSpriteNode(texture: vignetteTex, size: OfficeInteriorScale.scaledArtSize)
-        vignette.name = "office_shadow_vignette"
-        vignette.anchorPoint = .zero
-        vignette.position = OfficeInteriorScale.shellOrigin
-        vignette.alpha = 0.9
-        vignette.blendMode = .alpha
-        vignette.zPosition = 1
-        vignette.texture?.filteringMode = .linear
-        // Above the shell plate, under floor props and actors.
-        backgroundRoot.addChild(vignette)
-    }
-
     private func addFogOfWar() {
         let grid = FogGrid(searchMap: navigation.searchMap)
         let fog = FogOfWarNode(
             searchMap: navigation.searchMap,
             visualRangeInCells: area.agentProfile.visualRangeInCells,
+            fillsEnclosedRooms: true,
             // The office is an area like any other: what Voss has already walked
             // is still his the next time he comes through the door. It used to
             // start black on every entry, which is the one thing the engine

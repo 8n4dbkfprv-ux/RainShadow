@@ -1,4 +1,4 @@
-"""Registered room plan for the V12 1950s detective-office shell.
+"""Registered room plan for the V17 AR0809-exact detective-office shell.
 
 Everything registered against the painted room (cutaway boundary, fireplace,
 windows, door, and prop placement) is expressed in the shell's own floor-plan
@@ -6,14 +6,14 @@ basis instead of screen-axis rectangles.
 
 Basis (all values in shell plate pixels, y down):
 
-    img = REAR + a * AXIS_NW + b * AXIS_NE
+    img = REAR + a * AXIS_NW + b * AXIS_NE + a * b * CROSS_TERM
 
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-The V11 manifest remains the floor and exterior-door authority.  The V12
-reference-rebuild metrics replace the shortened walls, windows and compact
-fireplace so the layout, search map and interaction geometry follow the pixels.
+The V17 ImageGen rebuild is the floor, wall, window and fireplace authority.
+The V11 manifest remains only the environment-scale and exterior-door-state
+art authority.
 """
 
 from __future__ import annotations
@@ -27,17 +27,18 @@ _V11_GEOMETRY_PATH = (
     _ROOT / "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json"
 )
 _V11_GEOMETRY = json.loads(_V11_GEOMETRY_PATH.read_text(encoding="utf-8"))
-_V12_METRICS_PATH = (
+_V17_METRICS_PATH = (
     _ROOT
-    / "ArtSource/Generated/Office/BGEEReferenceV12/office_reference_rebuild_metrics_v12.json"
+    / "ArtSource/Generated/Office/BGEEReferenceV17/office_reference_rebuild_metrics_v17.json"
 )
-_V12_METRICS = json.loads(_V12_METRICS_PATH.read_text(encoding="utf-8"))
+_V17_METRICS = json.loads(_V17_METRICS_PATH.read_text(encoding="utf-8"))
+_V17_TARGET_PLANES = _V17_METRICS["registration"]["targetPlanes"]
 _ROOM = _V11_GEOMETRY["room"]
 _DOOR = _V11_GEOMETRY["door"]
-_V12_WINDOWS_BY_ID = {window["id"]: window for window in _V12_METRICS["windows"]}
+_V17_WINDOWS_BY_ID = {window["id"]: window for window in _V17_METRICS["windows"]}
 _WINDOWS = []
 for _legacy_window in _V11_GEOMETRY["windows"]:
-    _registered_window = _V12_WINDOWS_BY_ID[_legacy_window["id"]]
+    _registered_window = _V17_WINDOWS_BY_ID[_legacy_window["id"]]
     _WINDOWS.append(
         {
             **_legacy_window,
@@ -47,8 +48,8 @@ for _legacy_window in _V11_GEOMETRY["windows"]:
     )
 _FIREPLACE = {
     **_V11_GEOMETRY["fireplace"],
-    **_V12_METRICS["fireplace"]["collisionAndCoverAuthority"],
-    "facadeHeight": _V12_METRICS["fireplace"]["visualScaleLock"][
+    **_V17_METRICS["fireplace"]["collisionAndCoverAuthority"],
+    "facadeHeight": _V17_METRICS["fireplace"]["visualScaleLock"][
         "plateFixtureHeightPixels"
     ],
 }
@@ -89,40 +90,46 @@ DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
 OLD_WALL_FACE_H = 271.0
 WALL_FACE_H = float(
-    _V12_METRICS["walls"]["visualScaleLock"]["plateRearHeightPixels"]
+    _V17_METRICS["walls"]["visualScaleLock"]["plateRearHeightPixels"]
 )
 PLASTER_H = WALL_FACE_H
 WAINSCOT_H = 0.0
 DOOR_LINTEL_CLEARANCE_H = 0.0
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# V11 floor diamond, shared verbatim with the deterministic plate generator.
-#
-# Earlier passes fitted this to wall shoes or to the camera-near silhouette and
-# came out skewed — the shipped REAR sat 123 px west of where the two axes
-# actually meet. This is a direct fit: classify pixels whose local structure
-# tensor runs on a ground axis, take the largest such component touching the
-# painting's bottom (that is the boards, and it follows them through the
-# partition doorway into the waiting bay), then take the bounding parallelogram
-# in the u = y - 0.75x / v = y + 0.75x basis. West and east land on the painted
-# floor's own corners and both slopes are exactly +-0.75 by construction.
-#
-# The near tip sits at y 1810 against a painting clipped at 1657, and the rear
-# tip above the wall crowns — both correct, and both what the module docstring
-# has always described: the geometric diamond extends past the paint, walkable
-# FLOOR_* stops on it.
-REAR = tuple(_ROOM["rear"])
-REAR_FLOOR = tuple(_ROOM["rearFloor"])
-AXIS_NW = tuple(_ROOM["axisNW"])  # exact -0.75 BG:EE ground axis
-AXIS_NE = tuple(_ROOM["axisNE"])  # exact +0.75 BG:EE ground axis
+# V17's painted floor is itself the navigation basis. AR0809 has a deliberate
+# four-corner taper, so use a bilinear quadrilateral rather than silently
+# replacing its camera-near corner with an affine one.
+_V17_PLANES = _V17_TARGET_PLANES
+_V17_FLOOR = tuple(
+    tuple(float(v) for v in point) for point in _V17_PLANES["floor"]
+)
+REAR = _V17_FLOOR[0]
+REAR_FLOOR = REAR
+AXIS_NW = (
+    _V17_FLOOR[1][0] - REAR[0],
+    _V17_FLOOR[1][1] - REAR[1],
+)
+AXIS_NE = (
+    _V17_FLOOR[3][0] - REAR[0],
+    _V17_FLOOR[3][1] - REAR[1],
+)
+NEAR = _V17_FLOOR[2]
+CROSS_TERM = (
+    NEAR[0] - _V17_FLOOR[1][0] - _V17_FLOOR[3][0] + REAR[0],
+    NEAR[1] - _V17_FLOOR[1][1] - _V17_FLOOR[3][1] + REAR[1],
+)
+_NW_WALL = tuple(tuple(float(v) for v in point) for point in _V17_PLANES["NW"])
+_NE_WALL = tuple(tuple(float(v) for v in point) for point in _V17_PLANES["NE"])
 
-# The reference cutaway walls taper from full height at the rear corner to zero
-# at the west/east cutaway ends.  Their crowns follow the outer floor axes;
-# their bases run from the separately measured rear-floor seam to each end.
-NW_TOP_SLOPE = AXIS_NW[1] / AXIS_NW[0]
-NE_TOP_SLOPE = AXIS_NE[1] / AXIS_NE[0]
-NW_TOP_INTERCEPT = REAR[1] - NW_TOP_SLOPE * REAR[0]
-NE_TOP_INTERCEPT = REAR[1] - NE_TOP_SLOPE * REAR[0]
+
+def _line_y(
+    x: float,
+    start: tuple[float, float],
+    end: tuple[float, float],
+) -> float:
+    t = (x - start[0]) / (end[0] - start[0])
+    return start[1] + t * (end[1] - start[1])
 
 # Painted plate already is the room; floor diamond is the fitted unit square.
 A_NEAR = 1.00
@@ -130,11 +137,49 @@ B_NEAR = 1.00
 A_ROOM = 1.00
 B_ROOM = 1.00
 
-# Registered V11 door measurements.  Target points use plate coordinates
-# (y-down); authored points below use the layout's y-up convention.
-DOOR_TARGET_HINGE = tuple(float(v) for v in _DOOR["targetHinge"])
-DOOR_TARGET_FREE_END = tuple(float(v) for v in _DOOR["targetFreeEnd"])
-DOOR_TARGET_BBOX = tuple(float(v) for v in _DOOR["targetBBox"])
+# Translate the retained V11 leaf onto V17's exact camera-near floor edge
+# without rotating or resampling the door-state art.
+_V11_DOOR_TARGET_HINGE = tuple(float(v) for v in _DOOR["targetHinge"])
+_V11_DOOR_TARGET_FREE_END = tuple(float(v) for v in _DOOR["targetFreeEnd"])
+_V17_NEAR_EDGE_START = tuple(float(v) for v in _V17_PLANES["floor"][2])
+_V17_NEAR_EDGE_END = tuple(float(v) for v in _V17_PLANES["floor"][3])
+
+
+def _v17_near_edge_y(x: float) -> float:
+    t = (x - _V17_NEAR_EDGE_START[0]) / (
+        _V17_NEAR_EDGE_END[0] - _V17_NEAR_EDGE_START[0]
+    )
+    return _V17_NEAR_EDGE_START[1] + t * (
+        _V17_NEAR_EDGE_END[1] - _V17_NEAR_EDGE_START[1]
+    )
+
+
+# Seat the V11 leaf just outside the painted/fog diamond, matching a BG:EE
+# near-edge door: a timber sliver in the black, hugging the cutaway. Uniform
+# Y translation cannot put both ends on the tapered near-east edge (leaf 36°,
+# cutaway 44°). 15 px left the free end on the boards; 115 px opened a gap
+# in the void. 50 px puts both ends past b=1 while the centroid stays ~60 px
+# camera-near of the edge.
+DOOR_V17_EDGE_RASTER_MARGIN_Y = 100.0
+DOOR_V17_EDGE_TRANSLATION_Y = sum(
+    _v17_near_edge_y(point[0]) - point[1]
+    for point in (_V11_DOOR_TARGET_HINGE, _V11_DOOR_TARGET_FREE_END)
+) / 2.0 + DOOR_V17_EDGE_RASTER_MARGIN_Y
+DOOR_TARGET_HINGE = (
+    _V11_DOOR_TARGET_HINGE[0],
+    _V11_DOOR_TARGET_HINGE[1] + DOOR_V17_EDGE_TRANSLATION_Y,
+)
+DOOR_TARGET_FREE_END = (
+    _V11_DOOR_TARGET_FREE_END[0],
+    _V11_DOOR_TARGET_FREE_END[1] + DOOR_V17_EDGE_TRANSLATION_Y,
+)
+_V11_DOOR_TARGET_BBOX = tuple(float(v) for v in _DOOR["targetBBox"])
+DOOR_TARGET_BBOX = (
+    _V11_DOOR_TARGET_BBOX[0],
+    _V11_DOOR_TARGET_BBOX[1] + DOOR_V17_EDGE_TRANSLATION_Y,
+    _V11_DOOR_TARGET_BBOX[2],
+    _V11_DOOR_TARGET_BBOX[3] + DOOR_V17_EDGE_TRANSLATION_Y,
+)
 DOOR_TARGET_LENGTH = float(_DOOR["targetLength"])
 DOOR_TARGET_THICKNESS = float(_DOOR["targetThickness"])
 DOOR_TARGET_ANGLE_DEGREES = float(_DOOR["targetAngleDegrees"])
@@ -163,42 +208,58 @@ DOOR_HINGE_KNUCKLE_W = BAKED_DOORWAY_W * 0.04
 
 
 def nw_wall_top(x: float) -> float:
-    return NW_TOP_SLOPE * x + NW_TOP_INTERCEPT
+    return _line_y(x, _NW_WALL[0], _NW_WALL[1])
 
 
 def nw_wall_base(x: float) -> float:
-    end_x = REAR[0] + AXIS_NW[0]
-    end_y = REAR[1] + AXIS_NW[1]
-    t = (x - REAR[0]) / AXIS_NW[0]
-    return REAR_FLOOR[1] + t * (end_y - REAR_FLOOR[1])
+    return _line_y(x, _NW_WALL[3], _NW_WALL[2])
 
 
 def ne_wall_top(x: float) -> float:
-    return NE_TOP_SLOPE * x + NE_TOP_INTERCEPT
+    return _line_y(x, _NE_WALL[0], _NE_WALL[1])
 
 
 def ne_wall_base(x: float) -> float:
-    end_x = REAR[0] + AXIS_NE[0]
-    end_y = REAR[1] + AXIS_NE[1]
-    t = (x - REAR[0]) / AXIS_NE[0]
-    return REAR_FLOOR[1] + t * (end_y - REAR_FLOOR[1])
+    return _line_y(x, _NE_WALL[3], _NE_WALL[2])
 
 
 def plan(a: float, b: float) -> tuple[float, float]:
     """Floor-plan coordinate -> plate pixel (y down)."""
     return (
-        REAR[0] + a * AXIS_NW[0] + b * AXIS_NE[0],
-        REAR[1] + a * AXIS_NW[1] + b * AXIS_NE[1],
+        REAR[0] + a * AXIS_NW[0] + b * AXIS_NE[0] + a * b * CROSS_TERM[0],
+        REAR[1] + a * AXIS_NW[1] + b * AXIS_NE[1] + a * b * CROSS_TERM[1],
     )
 
 
 def unplan(x: float, y: float) -> tuple[float, float]:
-    """Plate pixel -> floor-plan coordinate (inverse of `plan`)."""
+    """Plate pixel -> floor-plan coordinate (Newton inverse of `plan`)."""
     m00, m10 = AXIS_NW
     m01, m11 = AXIS_NE
     det = m00 * m11 - m01 * m10
     dx, dy = x - REAR[0], y - REAR[1]
-    return ((dx * m11 - m01 * dy) / det, (m00 * dy - dx * m10) / det)
+    a = (dx * m11 - m01 * dy) / det
+    b = (m00 * dy - dx * m10) / det
+    for _ in range(12):
+        px, py = plan(a, b)
+        error_x, error_y = px - x, py - y
+        if max(abs(error_x), abs(error_y)) <= 1e-8:
+            break
+        jac_a = (
+            AXIS_NW[0] + b * CROSS_TERM[0],
+            AXIS_NW[1] + b * CROSS_TERM[1],
+        )
+        jac_b = (
+            AXIS_NE[0] + a * CROSS_TERM[0],
+            AXIS_NE[1] + a * CROSS_TERM[1],
+        )
+        jac_det = jac_a[0] * jac_b[1] - jac_b[0] * jac_a[1]
+        if abs(jac_det) <= 1e-12:
+            raise RuntimeError("V17 floor quadrilateral has a singular inverse")
+        delta_a = (error_x * jac_b[1] - jac_b[0] * error_y) / jac_det
+        delta_b = (jac_a[0] * error_y - error_x * jac_a[1]) / jac_det
+        a -= delta_a
+        b -= delta_b
+    return a, b
 
 
 def authored(a: float, b: float) -> tuple[float, float]:

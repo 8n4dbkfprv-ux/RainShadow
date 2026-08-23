@@ -389,14 +389,19 @@ enum OfficeInteriorScale {
         CGRect(origin: shellOrigin, size: scaledArtSize)
     }
 
-    /// Opaque extent of the painted room inside the suite plate, measured from
-    /// V11 `office_1950s_plate_v11.png` (art px x 639…3354, y 104…2109 top-down;
-    /// the room is letterboxed on the 4096×2304 canvas and all pixels
-    /// outside its immutable architecture mask are baked black).
+    /// Exact V17 AR0809 floor envelope after uniform guide registration
+    /// (art px x 696.32…3399.68, y 225.28…1781.76 authored y-up). The room is
+    /// deliberately letterboxed with clear space above and below;
+    /// every pixel outside its immutable architecture mask is baked black.
     ///
     /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
     /// followed camera swing out over the empty margin.
-    static let paintedRoomSourceRect = CGRect(x: 639, y: 194, width: 2_716, height: 2_006)
+    static let paintedRoomSourceRect = CGRect(
+        x: 696.32,
+        y: 225.28,
+        width: 2_703.36,
+        height: 1_556.48
+    )
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

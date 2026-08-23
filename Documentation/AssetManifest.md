@@ -127,16 +127,17 @@ Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apa
 
 V11's shell is empty of movable and stateful content, not empty of fixed
 fixtures. It may contain built architecture, fixed wall grime, baseboards,
-floorboards, cracks, two dark-painted steel casement frames with fixed Venetian
-blinds/glass, and the cold fireplace/hearth. It may not contain desk, chair,
+floorboards, cracks, two dark-painted steel casement frames with fixed amber
+glass, and the V14 compact lit fireplace/hearth with its fixed floor glow. It
+may not contain desk, chair,
 loose papers, files, phone, mug, ashtray, lamp, cabinet, boxes, wastebasket,
-radiator, bottle, photo, rug, door leaf, detective, rain streaks, fire, embers,
-firebox emission, orange firelight, or movable-prop shadows.
+radiator, bottle, photo, rug, door leaf, detective, rain streaks, animated
+embers, stateful fire effects, or movable-prop shadows.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 4096×2304 | Opaque | V11 architecture pixels under the BG:EE lock: compact floor/plaster shell, two baked steel/blind windows, and a baked cold fireplace. Pure black outside; no furniture or door pixels. |
-| P0 | `office_suite_plate` | 4096×2304 | Opaque | Installed plate-first composite: the V12 architecture master plus 36 visible static scenery props. The desk interaction cluster and all entrance-leaf states remain registered overlays. |
+| P0 | `office_shell_base` | 4096×2304 | Opaque | Installed V17 exact-AR0809 ImageGen redraw: 1.711110:1 long-room envelope, 0.575758 floor depth/width, tapered point cutaways, two small high windows, three amber wall lights and a compact lit fireplace. Pure black outside; no furniture or door pixels. |
+| P0 | `office_suite_plate` | 4096×2304 | Opaque | Pixel-identical V17 empty plate. Five desk/seat elements and all entrance-leaf states remain registered live overlays. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
@@ -144,15 +145,15 @@ firebox emission, orange firelight, or movable-prop shadows.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | baked steel/blind windows | in plate | Opaque | Two fixed 1950s steel casements at manifest-locked apertures. The camera-nearer window owns `office.window`; the farther window is decorative. There is no visible `office_window` prop. |
+| P0 | baked six-pane windows | in plate | Opaque | Two small high windows painted by the V15 AR0809 ImageGen redraw and registered as separate six-pane apertures. The camera-nearer window owns `office.window`; the farther window is decorative. There is no visible `office_window` prop. |
 | P0 | `office_window_glass_mask` | 4096×2304 | Yes, registered | Full-plate alpha mask covering the glass panes of both baked windows and nothing else; clips live rain. |
-| P0 | `office_window_hover_overlay` | 4096×2304 | Yes, registered | Stable runtime alias for the V11 transparent full-plate hover-only overlay, covering the camera-nearer interactive aperture only. |
+| P0 | `office_window_hover_overlay` | 4096×2304 | Yes, registered | Stable runtime alias for the V14 transparent full-plate hover-only overlay, covering the camera-nearer interactive aperture only. |
 
-Window geometry and fixed blinds are background pixels. V12 retires the cool
+Window geometry is background pixels. V14 retains the retirement of the cool
 window/blind casts; rain, hover colour, and the `office.window` information
 region remain separate registered systems. The legacy `office_window`, frame, exterior-view,
 blinds, and sill sprites remain only as rollback provenance and are not part of
-the V11 prop manifest or preload contract.
+the V14 live-prop set or preload contract.
 
 ### 5.3 Door assembly
 
@@ -434,7 +435,7 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | P0 | `inventory_close_box_macos9_noir_v09` | 1 | 128×128 | Prior Inventory-specific close pass. |
 | P0 | `ui_close_box_noir_v03` | 1 | 128×128 | Prior shared overlay close control (fallback). |
 | P0 | `map_chrome_top_bar_v03` | 1 | 1920×96 | Area-map top bar plate (title / toggle / world-map wells); code draws labels. |
-| P0 | `map_detective_office_v08` | 1 | 1847×1040 | Stable runtime alias regenerated from the V11 1950s plate (`map_detective_office_v11`); code owns labels and position ring. |
+| P0 | `map_detective_office_v08` | 1 | 1847×1040 | Stable runtime alias regenerated from the furnished V14 plate (`map_detective_office_v14`); code owns labels and position ring. |
 
 Text is rendered by the game from localized strings; image generation must not produce interface copy.
 

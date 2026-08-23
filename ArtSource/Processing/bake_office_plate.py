@@ -16,11 +16,11 @@ never upscaled to reach `PLATE_SIZE`. So the sources are composited at native
 resolution instead.
 
 The checked-in prop manifest is the authority. It is itself recovered from a
-runtime dump and then moved by `migrate_office_reference_v12.py`, so the bake
+runtime dump and then moved by `migrate_office_layout_v17.py`, so the bake
 uses the same texture, scale, anchor, alpha, blend and ground point the runtime
 would have used:
 
-    python3 ArtSource/Processing/migrate_office_reference_v12.py
+    python3 ArtSource/Processing/migrate_office_layout_v17.py
     python3 ArtSource/Processing/bake_office_plate.py --install
 
 The props are denser than the plate (median 8.33 source pixels/world unit versus
@@ -32,12 +32,10 @@ the source density survived.
 
 WHAT WOULD NOT BE BAKED EVEN THEN
 ---------------------------------
-The desk cluster. `deskFrontOccluder.zPosition = detective.zPosition + bias` is
-recomputed every frame: the apron has to rise between the desk and a *seated*
-actor's torso, which is a relationship with a moving object and not a fact about
-the room. Baking it would weld the seated pose into the floor. The desk, its
-occluders, its chair and the items on it therefore stay sprites, and the room
-goes from 51 placed objects to a dozen.
+The desk and chair. `deskFrontOccluder.zPosition = detective.zPosition + bias`
+is recomputed every frame: the apron has to rise between the desk and a
+*seated* actor's torso. Baking the desk would weld the seated pose into the
+floor. Desktop clutter is omitted rather than baked under the live desk.
 
 That is the same distinction the engine draws. A BG desk is tileset pixels
 because nothing about it moves; anything that must sort against a creature per
@@ -64,8 +62,8 @@ BASE_PLATE = (
     / "ArtSource"
     / "Generated"
     / "Office"
-    / "BGEEReferenceV12"
-    / "office_reference_rebuild_plate_v12.png"
+    / "BGEEReferenceV17"
+    / "office_reference_rebuild_plate_v17.png"
 )
 PROPS = ROOT / "ArtSource" / "Generated" / "Office" / "office_props_v01.json"
 OUT_DIR = ROOT / "ArtSource" / "Generated" / "Office" / "PlateBake"
@@ -83,14 +81,19 @@ LAYER_Z = {
     "occlusion": 5_000.0,
 }
 
-# Sprites that are not scenery. See the module docstring: the desk apron sorts
-# against the seated actor every frame, so the whole cluster stays live.
+# The shipping plate is the empty V17 shell. Only the desk, chair and the
+# occluders that sort against seated Voss stay live; nothing else is composited.
 LIVE_PROP_IDS = {
     "office_desk_bare",
     "office_desk_chair",
     "office_desk_actor_occluder",
     "office_desk_front_occluder_v04",
     "office_desk_top_occluder",
+}
+
+# Retired: former scenery (no longer baked) and desktop clutter (would sit
+# under the live desk).
+SKIP_PROP_IDS = {
     "office_desk_lamp",
     "office_desk_phone",
     "office_desk_typewriter",
@@ -99,6 +102,7 @@ LIVE_PROP_IDS = {
     "office_desk_ashtray",
     "office_desk_files",
 }
+BAKE_SCENERY = False
 
 def find_texture(name: str) -> pathlib.Path | None:
     matches = list(ART.rglob(f"{name}.png"))
@@ -274,26 +278,36 @@ def main(argv: list[str]) -> int:
     px_per_unit = plate_w / WORLD_SIZE[0]
     base = np.asarray(plate, dtype=np.float32) / 255.0
 
-    baked = [s for s in visible if s["name"] not in LIVE_PROP_IDS]
     kept = [s for s in visible if s["name"] in LIVE_PROP_IDS]
-    baked.sort(key=lambda s: (LAYER_Z[s["layer"]] + s["z"]))
-
-    median, downscaled = density_report(baked, px_per_unit)
-    print(f"plate density      {px_per_unit:.2f} px/unit")
-    print(f"prop density       {median:.2f} px/unit (median)")
-    print(f"downscaled by bake {downscaled} of {len(baked)}")
-    print(f"static downsample  {median / px_per_unit:.1f}x (intentional plate-first tradeoff)")
-
-    for sprite in baked:
-        composite(base, sprite, px_per_unit, plate_h)
+    if BAKE_SCENERY:
+        baked = [
+            s for s in visible
+            if s["name"] not in LIVE_PROP_IDS and s["name"] not in SKIP_PROP_IDS
+        ]
+        baked.sort(key=lambda s: (LAYER_Z[s["layer"]] + s["z"]))
+        median, downscaled = density_report(baked, px_per_unit)
+        print(f"plate density      {px_per_unit:.2f} px/unit")
+        print(f"prop density       {median:.2f} px/unit (median)")
+        print(f"downscaled by bake {downscaled} of {len(baked)}")
+        print(f"static downsample  {median / px_per_unit:.1f}x (intentional plate-first tradeoff)")
+        for sprite in baked:
+            composite(base, sprite, px_per_unit, plate_h)
+    else:
+        baked = []
+        print(f"plate density      {px_per_unit:.2f} px/unit")
+        print("bake scenery      off (empty V17 shell)")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / "office_suite_plate_baked_v02.png"
+    out = OUT_DIR / "office_suite_plate_baked_v17.png"
     Image.fromarray((np.clip(base, 0, 1) * 255).round().astype(np.uint8)).save(out)
 
     split = {
-        "version": 2,
-        "construction": "Infinity-Engine-style static plate plus registered live overlays",
+        "version": 17,
+        "construction": (
+            "empty V17 shell plus live desk/chair"
+            if not BAKE_SCENERY
+            else "Infinity-Engine-style static plate plus registered live overlays"
+        ),
         "basePlate": str(BASE_PLATE.relative_to(ROOT)),
         "basePlateSHA256": sha256(BASE_PLATE),
         "bakedPlate": str(out.relative_to(ROOT)),
@@ -301,14 +315,16 @@ def main(argv: list[str]) -> int:
         "bakedPropIDs": sorted(sprite["name"] for sprite in baked),
         "livePropIDs": sorted(sprite["name"] for sprite in kept),
         "retiredPropIDs": sorted(
-            sprite["name"]
-            for sprite in sprites
-            if sprite["hidden"] and sprite["name"] not in LIVE_PROP_IDS
+            {
+                sprite["name"]
+                for sprite in sprites
+                if sprite["name"] not in LIVE_PROP_IDS
+            }
         ),
         "registeredDoorID": "office.door",
         "registeredDoorStates": ["closed", "mid", "open"],
     }
-    split_path = OUT_DIR / "office_plate_bake_manifest_v02.json"
+    split_path = OUT_DIR / "office_plate_bake_manifest_v17.json"
     split_path.write_text(json.dumps(split, indent=2, sort_keys=True) + "\n")
 
     if install:

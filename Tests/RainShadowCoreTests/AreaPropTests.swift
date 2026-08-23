@@ -34,36 +34,29 @@ struct AreaPropTests {
     private static func bakeManifest() throws -> BakeManifest {
         let url = OfficeAreaAdapter.propsSourceURL
             .deletingLastPathComponent()
-            .appendingPathComponent("PlateBake/office_plate_bake_manifest_v02.json")
+            .appendingPathComponent("PlateBake/office_plate_bake_manifest_v15.json")
         return try JSONDecoder().decode(BakeManifest.self, from: Data(contentsOf: url))
     }
 
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 12, "the office describes \(props.count) live overlays")
+        #expect(props.count == 5, "the office describes \(props.count) live overlays")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
-        #expect(byLayer == [.depthWorld: 12])
+        #expect(byLayer == [.depthWorld: 5])
         #expect(Set(props.map(\.id)) == [
             "office_desk_bare",
             "office_desk_chair",
             "office_desk_actor_occluder",
             "office_desk_front_occluder_v04",
-            "office_desk_top_occluder",
-            "office_desk_lamp",
-            "office_desk_phone",
-            "office_desk_typewriter",
-            "office_desk_notebook",
-            "office_desk_papers",
-            "office_desk_ashtray",
-            "office_desk_files"
+            "office_desk_top_occluder"
         ])
 
         let split = try Self.bakeManifest()
         #expect(Set(props.map(\.id)) == Set(split.livePropIDs))
-        #expect(split.bakedPropIDs.count == 36)
-        #expect(split.retiredPropIDs.count == 3)
+        #expect(split.bakedPropIDs.isEmpty)
+        #expect(split.retiredPropIDs.count == 46)
         #expect(split.registeredDoorID == "office.door")
         #expect(split.registeredDoorStates == ["closed", "mid", "open"])
     }

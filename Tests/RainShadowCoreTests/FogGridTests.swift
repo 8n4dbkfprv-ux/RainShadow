@@ -6,17 +6,16 @@ import Testing
 /// The fog grid is the Infinity Engine's explored bitmask, at the resolution the
 /// engine keeps it: coarser than the search map sight is answered on.
 struct FogGridTests {
-    /// A 102×76 search map — the office — folds to 51×38 fog cells of 32×24.
-    @Test func theGridIsTwoSearchCellsToOneFogCell() {
+    /// A 102×76 search map — the office — folds to 51×29 fog cells of 32×32.
+    /// Horizontal 16×2 = 32; vertical 12 does not divide 32, so the row count
+    /// is ceil(76×12 / 32), matching GemRB `FogPoint(SearchmapPoint)`.
+    @Test func theGridIsThirtyTwoPixelScreenCells() {
         let grid = FogGrid(origin: .zero, searchColumns: 102, searchRows: 76)
 
         #expect(grid.columns == 51)
-        #expect(grid.rows == 38)
-        #expect(grid.cellSize == CGSize(width: 32, height: 24))
-        // Square on the ground, which is what IE's square-on-screen cell was
-        // approximating over 16×12 search cells.
-        let searchCell = SearchMap.defaultCellSize
-        #expect(grid.cellSize.width * searchCell.height == grid.cellSize.height * searchCell.width)
+        #expect(grid.rows == 29)
+        #expect(grid.cellSize == CGSize(width: 32, height: 32))
+        #expect(FogGrid.cellPixelSize == 32)
     }
 
     /// An odd cell count rounds up. Rounding down would leave a strip of ground
@@ -25,17 +24,28 @@ struct FogGridTests {
         let grid = FogGrid(origin: .zero, searchColumns: 101, searchRows: 75)
 
         #expect(grid.columns == 51)
-        #expect(grid.rows == 38)
+        #expect(grid.rows == 29)
         #expect(grid.contains(grid.cell(for: SearchMapCell(column: 100, row: 74))))
     }
 
     @Test func searchCellsFoldIntoFogCellsWithoutGoingThroughWorldSpace() {
         let grid = FogGrid(origin: CGPoint(x: -320, y: 96), searchColumns: 20, searchRows: 20)
 
-        for (column, expected) in [(0, 0), (1, 0), (2, 1), (3, 1), (19, 9)] {
-            let cell = grid.cell(for: SearchMapCell(column: column, row: column))
-            #expect(cell == FogCell(column: expected, row: expected))
-        }
+        // 16 px search cells / 32 px fog: columns 0–1 → fog 0, 2–3 → fog 1.
+        #expect(grid.cell(for: SearchMapCell(column: 0, row: 0)) == FogCell(column: 0, row: 0))
+        #expect(grid.cell(for: SearchMapCell(column: 1, row: 0)) == FogCell(column: 0, row: 0))
+        #expect(grid.cell(for: SearchMapCell(column: 2, row: 0)) == FogCell(column: 1, row: 0))
+        // 12 px search rows / 32 px fog: rows 0–2 → fog 0, row 3 → fog 1.
+        #expect(grid.cell(for: SearchMapCell(column: 0, row: 2)) == FogCell(column: 0, row: 0))
+        #expect(grid.cell(for: SearchMapCell(column: 0, row: 3)) == FogCell(column: 0, row: 1))
+
+        // A 12 px search row starting at y=24 straddles fog rows 0 (0–31) and
+        // 1 (32–63). Drawing from the centre alone left the 32×32 wall holes.
+        let straddling = SearchMapCell(column: 0, row: 2)
+        #expect(grid.cellsOverlapping(straddling) == [
+            FogCell(column: 0, row: 0),
+            FogCell(column: 0, row: 1)
+        ])
 
         // And the two routes agree: folding a search cell must land where the
         // search cell's own centre lands.
@@ -54,8 +64,7 @@ struct FogGridTests {
     /// Three levels, and exactly GemRB's three values — 255 opaque, 128
     /// `HALFTRANS`, 0 clear.
     @Test func theMaskHoldsExactlyThreeLevels() {
-        var grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
-        grid.edgeTexelsPerCell = 1
+        let grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
 
         let mask = grid.mask(
             explored: [FogCell(column: 0, row: 0), FogCell(column: 1, row: 0)],
@@ -73,8 +82,7 @@ struct FogGridTests {
     /// Sight wins wherever the two bitmaps disagree, and neither is required to
     /// contain the other — sight that has run ahead of memory is still lit.
     @Test func sightCutsThroughMemoryRatherThanBeingBoundedByIt() {
-        var grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
-        grid.edgeTexelsPerCell = 1
+        let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
         let ahead = FogCell(column: 3, row: 3)
 
         let mask = grid.mask(explored: [], visible: [ahead])
@@ -85,8 +93,7 @@ struct FogGridTests {
     /// Row 0 of the buffer is the top of the image, because that is the row order
     /// `CGImage` reads. A flip here would put the fog upside down over the area.
     @Test func theMaskIsWrittenTopRowFirst() {
-        var grid = FogGrid(origin: .zero, searchColumns: 4, searchRows: 4)
-        grid.edgeTexelsPerCell = 1
+        let grid = FogGrid(origin: .zero, searchColumns: 4, searchRows: 4)
         let bottomLeft = FogCell(column: 0, row: 0)
 
         let mask = grid.mask(explored: [], visible: [bottomLeft])
@@ -94,28 +101,27 @@ struct FogGridTests {
         // Bottom-left in world space is the *last* row of the image buffer.
         #expect(mask[(grid.rows - 1) * grid.maskWidth] == FogGrid.visibleLevel)
         #expect(mask[0] == FogGrid.unexploredLevel)
+        #expect(grid.rows >= 1)
+        #expect(grid.columns >= 1)
     }
 
-    /// Cell interiors are flat; only the boundary steps. That step is what linear
-    /// filtering stretches into the quarter-cell ramp the fog edge reads as.
-    @Test func cellInteriorsAreFlatAtEveryEdgeResolution() {
-        for texels in [1, 2, 4, 8] {
-            var grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
-            grid.edgeTexelsPerCell = texels
-            let lit = FogCell(column: 1, row: 1)
+    /// Cell interiors are one byte. Edge stamps live on the display mask, not
+    /// on a 4-texel upsample that linear filtering used to smear.
+    @Test func cellInteriorsAreOneByteAndFlat() {
+        let grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
+        let lit = FogCell(column: 1, row: 1)
 
-            let mask = grid.mask(explored: [], visible: [lit])
+        let mask = grid.mask(explored: [], visible: [lit])
 
-            #expect(grid.maskWidth == 4 * texels)
-            #expect(mask.filter { $0 == FogGrid.visibleLevel }.count == texels * texels)
-        }
+        #expect(grid.maskWidth == grid.columns)
+        #expect(grid.maskHeight == grid.rows)
+        #expect(mask.filter { $0 == FogGrid.visibleLevel }.count == 1)
     }
 
     /// The office never un-explores, so the only operation memory needs is union
     /// — but the mask must not quietly re-blacken a cell that is in both sets.
     @Test func aRememberedCellNeverReturnsToOpaque() {
-        var grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
-        grid.edgeTexelsPerCell = 1
+        let grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
         let walked = FogCell(column: 2, row: 2)
 
         let lit = grid.mask(explored: [walked], visible: [walked])
@@ -159,8 +165,7 @@ struct FogGridTests {
     }
 
     private func maskIndex(_ grid: FogGrid, _ cell: FogCell) -> Int {
-        (grid.rows - 1 - cell.row) * grid.maskWidth * grid.edgeTexelsPerCell
-            + cell.column * grid.edgeTexelsPerCell
+        (grid.rows - 1 - cell.row) * grid.maskWidth + cell.column
     }
 }
 
@@ -171,7 +176,7 @@ struct FogBitmaskTests {
         let grid = FogGrid(origin: .zero, searchColumns: 102, searchRows: 76)
         let cells: Set<FogCell> = [
             FogCell(column: 0, row: 0),
-            FogCell(column: 50, row: 37),
+            FogCell(column: 50, row: 28),
             FogCell(column: 7, row: 11)
         ]
 
@@ -219,5 +224,48 @@ struct FogBitmaskTests {
         let grown = grid.bitmask(of: grid.cells(from: stored).union(second))
 
         #expect(grid.cells(from: grown) == first.union(second))
+    }
+}
+
+/// FOGOWAR-role stamps: interiors stay flat, the outer rim of a visible cell
+/// toward unexplored ground darkens, and linear filtering is not the edge.
+struct FogEdgeMaskTests {
+    @Test func aVisibleIslandKeepsAClearInteriorAndADarkRim() {
+        let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
+        let lit = FogCell(column: 2, row: 2)
+        let display = grid.displayMask(explored: [], visible: [lit])
+        let side = FogGrid.cellPixelSize
+        let width = grid.columns * side
+        let imageRow = (grid.rows - 1 - lit.row) * side
+        let x0 = lit.column * side
+
+        func sample(_ dx: Int, _ dy: Int) -> UInt8 {
+            display[(imageRow + dy) * width + x0 + dx]
+        }
+
+        #expect(sample(side / 2, side / 2) == FogGrid.visibleLevel)
+        #expect(sample(side / 2, 0) > FogGrid.rememberedLevel)
+        #expect(sample(0, side / 2) > FogGrid.rememberedLevel)
+        #expect(sample(side / 2, 1) >= sample(side / 2, 4))
+    }
+
+    @Test func rememberedGroundStaysHalfTransAndDoesNotReblacken() {
+        let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
+        let walked = FogCell(column: 2, row: 2)
+        let display = grid.displayMask(explored: [walked], visible: [])
+        let side = FogGrid.cellPixelSize
+        let width = grid.columns * side
+        let imageRow = (grid.rows - 1 - walked.row) * side
+        let x0 = walked.column * side
+        let interior = display[(imageRow + side / 2) * width + x0 + side / 2]
+
+        #expect(interior == FogGrid.rememberedLevel)
+    }
+
+    @Test func displayMaskIsThirtyTwoPixelsPerCell() {
+        let grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
+        let display = grid.displayMask(explored: [], visible: [])
+        #expect(display.count == grid.columns * FogGrid.cellPixelSize * grid.rows * FogGrid.cellPixelSize)
+        #expect(Set(display) == [FogGrid.unexploredLevel])
     }
 }

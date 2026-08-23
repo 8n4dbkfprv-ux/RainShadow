@@ -119,10 +119,9 @@ enum OfficeAreaAdapter {
     ///
     /// Static scenery is composited into `office_suite_plate` by
     /// `bake_office_plate.py`, matching the Infinity Engine split: ordinary
-    /// furniture is area art while only pieces that must change or sort against
-    /// an actor survive as nodes. The desk cluster is that exception — its apron
-    /// and writing surface straddle a seated actor, its loose items lift above
-    /// him, and its three hotspots swap hover textures.
+    /// furniture is tileset pixels while only pieces that must sort against an
+    /// actor survive as nodes. The desk, chair and occluders are that
+    /// exception — the apron straddles a seated actor.
     ///
     /// Loaded at export time only. `AreaExportTests` runs in the package, where
     /// `ArtSource` is on disk; the app reads the resulting `.area.json`.
@@ -144,14 +143,7 @@ enum OfficeAreaAdapter {
         "office_desk_chair",
         "office_desk_actor_occluder",
         "office_desk_front_occluder_v04",
-        "office_desk_top_occluder",
-        "office_desk_lamp",
-        "office_desk_phone",
-        "office_desk_typewriter",
-        "office_desk_notebook",
-        "office_desk_papers",
-        "office_desk_ashtray",
-        "office_desk_files"
+        "office_desk_top_occluder"
     ]
 
     private struct PropsDocument: Decodable {
@@ -252,26 +244,9 @@ enum OfficeAreaAdapter {
     /// actor's head. Widening this is an art-direction call about which pieces
     /// read as one mass, and is best made against captures.
     private static func wallPolygons() -> [AreaWallPolygon] {
-        // Authored plate space -> world, like every other coordinate here.
-        let tall: [(String, CGRect)] = [
-            ("wall.bookshelf", OfficeNavigationLayout.authoredBookshelfObstacle),
-            ("wall.filingCabinet", OfficeNavigationLayout.authoredFilingCabinetObstacle),
-            ("wall.safe", OfficeNavigationLayout.authoredSafeObstacle)
-        ].map { ($0.0, OfficeInteriorScale.mapRect($0.1)) }
-        let furniture = tall.map { id, footprint in
-            // Cover reaches camera-far of the footprint by the depth the piece
-            // occupies on screen; standing level with it is not behind it.
-            let outline = CGRect(
-                x: footprint.minX,
-                y: footprint.minY,
-                width: footprint.width,
-                height: footprint.height + coverDepth
-            )
-            return AreaWallPolygon(id: id, rect: outline)
-        }
-        // The hearth facade is baked into the plate, but its cover geometry is
-        // a separately registered WED-style record from the same V11 manifest.
-        return furniture + [
+        // Retired scenery no longer stands in the room, so it must not cover
+        // actors. The hearth facade is baked into the empty V15 shell.
+        [
             AreaWallPolygon(
                 id: "wall.fireplace",
                 polygon: OfficeNavigationLayout.fireplaceCoverPolygon.map(AreaPoint.init)

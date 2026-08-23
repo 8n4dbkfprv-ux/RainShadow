@@ -74,28 +74,21 @@ struct OfficeInteriorScaleTests {
         )
     }
 
-    /// Floor diamond is fitted to the painted floor itself.
+    /// Floor diamond is fitted to the painted AR0809 silhouette.
     ///
-    /// This used to assert the opposite fit — a rear corner on the painted wall
-    /// shoes, below the plaster rail, with the near tip held inside the paint.
-    /// `d13469bb` replaced that deliberately: "Earlier passes fitted this to wall
-    /// shoes or to the camera-near silhouette and came out skewed — the shipped
-    /// REAR sat 123 px west of where the two axes actually meet", which is why
-    /// every hotspot approach resolved to a point the runtime could not stand on.
-    ///
-    /// V11 now applies the screenshot's one uniform 1613→4096 transform to its
-    /// measured room corners. The source itself is within the 1.5° BG:EE lock;
-    /// forcing exact ±0.75 slopes would change its proportions and defeat the
-    /// reference-size contract.
+    /// V17 keeps the exact AR0809 guide cutaway as the navigation basis. That diamond is
+    /// a tapered point-cutaway, not a ±0.75 parallelogram — forcing the BG:EE
+    /// slopes sheared the floor off the paint and sealed the door. Floorboard
+    /// texture stays on the camera; the walkable outline follows the shell.
     /// rearCorner is authored y-up; plate y-down REAR.y = ART_H − rearCorner.y.
     @Test func floorDiamondIsFittedToThePaintedFloor() {
         let arch = OfficeNavigationLayout.Architecture.self
         let artHeight: CGFloat = 2_304
         let rearYDown = artHeight - arch.rearCorner.y
 
-        // Both measured reference axes remain within the 1.5° BG:EE gate.
-        #expect(abs(arch.axisNW.dy / arch.axisNW.dx + 0.75) < 0.03)
-        #expect(abs(arch.axisNE.dy / arch.axisNE.dx - 0.75) < 0.03)
+        // Exact AR0809 guide silhouette, not a ±0.75 parallelogram.
+        #expect(abs(arch.axisNW.dy / arch.axisNW.dx + 0.4360) < 0.005)
+        #expect(abs(arch.axisNE.dy / arch.axisNE.dx - 0.4948) < 0.005)
 
         // `paintedRoomSourceRect` is authored y-up; these are plate y-down, so
         // the edges swap. Mixing the two frames is the mistake this test's own
@@ -104,20 +97,16 @@ struct OfficeInteriorScaleTests {
         let paintTopYDown = artHeight - paint.maxY
         let paintBottomYDown = artHeight - paint.minY
 
-        // The uniformly transformed rear and near corners define the painted
-        // room extent; neither may drift independently from that reference fit.
         #expect(abs(rearYDown - paintTopYDown) <= 2, "rear tip left the reference crown")
-
-        let nearYDown = rearYDown + arch.axisNW.dy + arch.axisNE.dy
-        #expect(abs(nearYDown - paintBottomYDown) <= 2, "near tip left the painted cutaway")
-        #expect(nearYDown < artHeight, "near tip fell off the plate")
+        #expect(paintBottomYDown < artHeight, "near tip fell off the plate")
+        #expect(abs(paintBottomYDown - 2_078.72) <= 2, "near tip left the painted cutaway")
         let desk = OfficeNavigationLayout.AuthoredPlacement.deskEnsemble
         let bookshelf = OfficeNavigationLayout.AuthoredPlacement.bookshelf
         #expect(desk.y < 1_450)
         #expect(bookshelf.y < 1_700)
     }
 
-    @Test func entranceRegistrationMatchesV11DoorManifest() {
+    @Test func entranceRegistrationMatchesV17AR0809Fit() {
         let leaf = OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
         let frame = OfficeNavigationLayout.Architecture.entranceFrameDisplayScale
         #expect(frame == 0, "V11 has no freestanding door frame")
@@ -134,8 +123,10 @@ struct OfficeInteriorScaleTests {
         #expect(frameAnchorX == 0)
         #expect(frameAnchor == 0)
         let entrance = OfficeNavigationLayout.Architecture.entranceAnchor
-        #expect(abs(entrance.x - 2_541.526) < 0.001)
-        #expect(abs(entrance.y - 564.898) < 0.001)
+        #expect(abs(entrance.x - 2_488.20736) < 0.001)
+        // V17 keeps the V11 leaf pixels, scale, and hinge, then translates
+        // the complete assembly onto the AR0809 near-edge cutaway.
+        #expect(abs(entrance.y - 725.00736) < 0.001)
         let opening = OfficeNavigationLayout.Architecture.entranceOpeningPlateSize
         #expect(abs(opening.width - 68.055) < 0.01)
         #expect(abs(opening.height - 493.015) < 0.01)
@@ -175,7 +166,10 @@ struct OfficeInteriorScaleTests {
             x: coverPolygon[2].x - coverPolygon[3].x,
             y: coverPolygon[2].y - coverPolygon[3].y
         )
-        #expect(abs(wallCourse.y / wallCourse.x + 0.75) < 0.001)
+        let registeredWallSlope =
+            OfficeNavigationLayout.Architecture.axisNE.dy
+            / OfficeNavigationLayout.Architecture.axisNE.dx
+        #expect(abs(wallCourse.y / wallCourse.x + registeredWallSlope) < 0.001)
         #expect(abs(floorCourse.x - wallCourse.x) < 0.001)
         #expect(abs(floorCourse.y - wallCourse.y) < 0.001)
         #expect(OfficeNavigationLayout.fireplaceObstacles.count >= 16)
@@ -198,7 +192,7 @@ struct OfficeInteriorScaleTests {
         let visualAnchor = OfficeNavigationLayout.Architecture.entranceLeafAnchor
         #expect(leaf == visualAnchor)
         #expect(abs(leaf.x - 2_741.247) < 0.001)
-        #expect(abs(leaf.y - 709.388) < 0.001)
+        #expect(abs(leaf.y - 802.8614191616764) < 0.001)
         #expect(
             OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
                 == CGPoint(x: 0.953125, y: 0.94375)
@@ -810,21 +804,7 @@ struct OfficeInteriorScaleTests {
     @Test func majorPropSamplesAreBlocked() {
         let namedSamples: [(String, [CGPoint], CGRect)] = [
             ("desk", OfficeNavigationLayout.deskSamplePoints, OfficeNavigationLayout.deskObstacle),
-            ("visitor armchair", OfficeNavigationLayout.visitorArmchairSamplePoints, OfficeNavigationLayout.visitorArmchairObstacle),
-            ("visitor armchair B", OfficeNavigationLayout.visitorArmchairBSamplePoints, OfficeNavigationLayout.visitorArmchairBObstacle),
-            ("filing cabinet", OfficeNavigationLayout.filingCabinetSamplePoints, OfficeNavigationLayout.filingCabinetObstacle),
-            ("filing cabinet B", OfficeNavigationLayout.filingCabinetBSamplePoints, OfficeNavigationLayout.filingCabinetBObstacle),
-            ("safe", OfficeNavigationLayout.safeSamplePoints, OfficeNavigationLayout.safeObstacle),
-            ("archive box a", OfficeNavigationLayout.archiveBoxASamplePoints, OfficeNavigationLayout.archiveBoxAObstacle),
-            ("wastebasket", OfficeNavigationLayout.wastebasketSamplePoints, OfficeNavigationLayout.wastebasketObstacle),
-            ("radiator", OfficeNavigationLayout.radiatorSamplePoints, OfficeNavigationLayout.radiatorObstacle),
-            ("bookshelf", OfficeNavigationLayout.bookshelfSamplePoints, OfficeNavigationLayout.bookshelfObstacle),
-            ("coat rack", OfficeNavigationLayout.coatRackSamplePoints, OfficeNavigationLayout.coatRackObstacle),
-            ("umbrella stand", OfficeNavigationLayout.umbrellaStandSamplePoints, OfficeNavigationLayout.umbrellaStandObstacle),
-            ("waiting chair A", OfficeNavigationLayout.waitingChairASamplePoints, OfficeNavigationLayout.waitingChairAObstacle),
-            ("waiting chair B", OfficeNavigationLayout.waitingChairBSamplePoints, OfficeNavigationLayout.waitingChairBObstacle),
-            ("waiting table", OfficeNavigationLayout.waitingTableSamplePoints, OfficeNavigationLayout.waitingTableObstacle),
-            ("personal sideboard", OfficeNavigationLayout.personalSideboardSamplePoints, OfficeNavigationLayout.personalSideboardObstacle),
+            ("desk chair", OfficeNavigationLayout.deskChairSamplePoints, OfficeNavigationLayout.deskChairObstacle),
             ("foreground wall", OfficeNavigationLayout.foregroundWallSamplePoints, OfficeNavigationLayout.foregroundWallObstacle),
             ("door", OfficeNavigationLayout.doorLeafSamplePoints, OfficeNavigationLayout.doorObstacle)
         ]

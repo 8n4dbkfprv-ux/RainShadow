@@ -57,12 +57,12 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 > 45°. Always calibrate this tool against a synthetic grid before trusting a
 > verdict from it.
 
-## Runtime plates — 8/8 on the lock (office re-measured 2026-08-21)
+## Runtime plates — 6/8 on the BG:EE lock (office AR0809 override 2026-08-23)
 
 | Plate | Measured axes | Worst delta |
 |---|---|---|
-| `office_suite_plate` | +35.84 / −35.69 | **1.18° PASS** (installed V12 approved-reference redraw) |
-| `office_shell_base` | +35.84 / −35.69 | **1.18° PASS** (same installed V12 pixels) |
+| `office_suite_plate` | +31.71 / −42.27 | **5.40° AR0809 OVERRIDE** (installed empty V17 plate) |
+| `office_shell_base` | +31.71 / −42.27 | **5.40° AR0809 OVERRIDE** (installed V17 architecture) |
 | `city_wharf_ladder_block` | +36.66 / −35.87 | 1.00° **PASS** |
 | `city_harborpoint_pd_block` | +36.68 / −35.85 | 1.02° **PASS** |
 | `city_riverside_block` | +36.57 / −35.69 | 1.18° **PASS** |
@@ -70,12 +70,73 @@ wide enough to distinguish the lock from the retired 2:1 dimetric camera.
 | `city_civic_records_block` | +36.53 / −35.60 | 1.27° **PASS** |
 | `city_sable_row_block` | +36.30 / −36.40 | **0.57° PASS** (V5 lot masters) |
 
-### Office V12 approved-reference authority — generated and gated
+### Office V17 exact AR0809 room-envelope authority — generated, gated and installed
 
-`BGEEReferenceV12` uniformly registers a fresh ImageGen redraw to the V11
-geometry rather than stretching axes independently. The plate, architecture
-mask, two window overlays, warm fireplace/spill, and 1.5° projection gate are
-reproduced deterministically by `generate_office_reference_rebuild_v12.py`.
+`BGEEReferenceV17` corrects V15's measured depth mismatch. The V17 ImageGen
+source owns the brick, timber, lighting, windows and fireplace; deterministic
+plane registration owns geometry. The 1600×900 AR0809 guide is uniformly scaled
+by 2.56 onto the 4096×2304 runtime canvas. All five room control points have
+**0.0 px** error, floor depth/width is **0.575758**, and the long/short ratio is
+**1.711110**, exactly matching the guide. The current empty suite plate and
+shell base are pixel-identical; five desk/seat elements remain live.
+
+Exact AR0809 geometry conflicts with the separate BG:EE direction estimator:
+the plate measures **+31.71°/−42.27°** (5.40° from ±36.87°), while the
+reference measures +32.17°/−39.14°. A texture-only ImageGen correction pass
+could not change that estimator without moving the silhouette, so V17 gates the
+AR0809 directional-depth signature instead. `qa_office_reference_rebuild_v17.py`
+also gates source/reference identities, exact geometry, pure-black exterior and
+pixel-identical regeneration. `qa_office_layout_v17.py` gates prop containment,
+window clearance and support contacts; `office_layout_plan.py` gates exact paths
+in both door states. Prompt: `ArtSource/Prompts/office_reference_rebuild_v17.md`.
+
+### Office V15 AR0809-inspired authority — retained provenance
+
+`BGEEReferenceV15` replaces the V14 plaster box with a full Image Generator
+redraw of the AR0809 long-room silhouette: stone/brick masonry, wooden
+floorboards, two small high windows, a compact lit fireplace, and walls that
+taper to point cutaways at both side tips. ImageGen supplies every visible
+room pixel; deterministic processing applies only one uniform scale and
+translation. The floor long/short ratio is **1.683**, the registered plate
+grades **+39.17°/−37.56°** (worst delta **2.30°**), and exact paths pass in
+both door states.
+
+`generate_office_reference_rebuild_v15.py` reproduces the architecture plate,
+two window masks and metrics. `qa_office_reference_rebuild_v15.py` gates
+source identities, AR0809 proportion, tapered tips, uncropped framing,
+pure-black exterior, projection and deterministic reproduction.
+`qa_office_layout_v15.py` and `office_layout_plan.py` gate prop containment,
+support contact and exact navigation. The atomic V15 installer copies nine
+allowlisted runtime assets. Prompt and hashes:
+`ArtSource/Prompts/office_reference_rebuild_v15.md`.
+
+### Office V14 room-envelope authority — retained provenance
+
+`BGEEReferenceV14` replaces the V13 architecture with a full built-in Image
+Generator redraw based on the supplied Baldur's Gate room-shape reference.
+ImageGen supplies every visible room pixel; deterministic processing only
+plane-registers those pixels onto the shipping envelope. The floor is an exact
+closed parallelogram with slopes ±0.75 and a **1.649:1** long/short ratio, all
+wall uprights are **135 source pixels**, and the camera-near corner retains an
+explicit **11.1%** black margin so the room is not cropped.
+
+`generate_office_reference_rebuild_v14.py` reproduces the architecture plate,
+two six-pane masks and metrics. `qa_office_reference_rebuild_v14.py` gates
+source identities, exact closure, room aspect, constant wall height, uncropped
+framing, pure-black exterior, projection, fireplace/adult scale and
+deterministic reproduction. `qa_office_layout_v14.py` gates prop containment,
+window clearance, surface contact and desk/chair separation, while
+`office_layout_plan.py` validates exact closed/open-door runtime paths before
+emitting Swift. The atomic V14 installer copies nine allowlisted runtime assets.
+Prompt and hashes: `ArtSource/Prompts/office_reference_rebuild_v14.md`.
+
+### Office V13 approved-reference authority — retained provenance
+
+`BGEEReferenceV13` retains V12's uniformly registered redraw while rebuilding
+the NW wall and distributing two exact six-pane window copies into equal
+wall-axis bays. The architecture plate, masks, furnished bake and 1.5°
+projection gate are reproduced deterministically by
+`generate_office_reference_rebuild_v13.py` and `bake_office_plate.py`.
 
 The door remains separate and interactive. The final V12 family uses a frozen
 1536×1024 native-detail transparent master fitted to the small camera-near door
@@ -83,9 +144,10 @@ in the approved 1613×975 reference. It preserves the V11 512×320 canvas, image
 hinge `(488,18)`, anchor `(0.953125,0.94375)`, and state semantics, but displays
 at 0.28 with a 34.5 px texture thickness. This replaces the enlarged, pixelated
 reference crop without changing collision or travel geometry.
-`qa_office_reference_rebuild_v12.py` checks both source identities, hinge,
-state endpoints/thickness, hover-alpha identity, and deterministic reproduction
-before the V12 installer copies any runtime door texture.
+`qa_office_reference_rebuild_v13.py` checks source identities, equal window
+spacing, continuous plaster, masks, projection and deterministic reproduction;
+`qa_office_layout_v13.py` gates prop containment, aperture clearance, support
+contact and desk/chair separation before the V13 installer copies runtime art.
 
 ### Office V11 1950s registration authority — retained provenance
 

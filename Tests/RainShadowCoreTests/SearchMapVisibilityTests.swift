@@ -193,7 +193,10 @@ struct SearchMapVisibilityTests {
 
         #expect(seen > seenIfFurnitureWereWalls)
         #expect(
-            Double(seen) / Double(seenIfFurnitureWereWalls) > 1.5,
+            // The exact AR0809 envelope increases the wall-limited visible
+            // ground behind the same furniture. V17's locked baseline is
+            // 1651 / 1152 = 1.433; keep a small regression margin below it.
+            Double(seen) / Double(seenIfFurnitureWereWalls) > 1.4,
             "furniture shadows still dominate: \(seenIfFurnitureWereWalls) -> \(seen)"
         )
 
@@ -264,10 +267,12 @@ struct SearchMapVisibilityTests {
         let map = navigation.searchMap
         let doorway = try #require(area.doors.first).closedObstacle.cgRect
         let range = area.agentProfile.visualRangeInCells
-        // Three cells inside the room, facing the doorway. Voss's desk is
-        // nineteen cells off and cannot see the door at all at a creature's
-        // range, which is the point of the range and not a fault in the door.
-        let viewpoint = CGPoint(x: doorway.minX - 3 * map.cellSize.width, y: doorway.midY)
+        // Use the registered V13 interaction stand, which is the exact clear
+        // interior cell facing this oblique doorway. Subtracting three cells
+        // from the leaf's axis-aligned minX landed on the rebuilt wall/furniture
+        // band after the projection refit and was never a stable door-relative
+        // position.
+        let viewpoint = try #require(OfficeNavigationLayout.approachPoints["office.door"])
         #expect(map.terrain(at: viewpoint).isWalkable)
 
         navigation.setEntranceDoorBlocking(true)
@@ -312,6 +317,79 @@ struct SearchMapVisibilityTests {
         #expect(throughOpaque.count < throughGrille.count)
         // Both still stop feet: sight and movement are separate answers.
         #expect(opaque.impassableCellCount == grille.impassableCellCount)
+    }
+
+    /// Indoor fill: a room lights to its walls, a closed door keeps the next
+    /// enclosure black, furniture does not split the room.
+    @Test func enclosedFloorFillsTheRoomAndStopsAtWallsAndDoors() {
+        let wallColumn = 10
+        let map = map(
+            columns: 21,
+            rows: 15,
+            blockers: (0..<15).map { (column: wallColumn, row: $0, terrain: SearchMapTerrain.wall) }
+                + [(column: 4, row: 7, terrain: .obstacleSeeThrough)]
+        )
+        let west = SearchMapCell(column: 3, row: 7)
+        let east = SearchMapCell(column: 16, row: 7)
+        let filled = map.enclosedFloor(touching: [west])
+
+        #expect(filled.contains(west))
+        #expect(filled.contains(SearchMapCell(column: 4, row: 7)), "a desk must not split the room")
+        #expect(filled.contains(SearchMapCell(column: wallColumn, row: 7)), "the wall itself lights")
+        #expect(!filled.contains(east), "a wall must not leak into the next room")
+        #expect(filled.count > 20)
+    }
+
+    @Test func enclosedFloorFollowsLOSThroughAnOpenDoorway() {
+        var blockers = (0..<15).map { (column: 10, row: $0, terrain: SearchMapTerrain.wall) }
+        blockers.removeAll { $0.row == 7 }
+        let map = map(columns: 21, rows: 15, blockers: blockers)
+        let west = SearchMapCell(column: 3, row: 7)
+        let east = SearchMapCell(column: 16, row: 7)
+        let filled = map.enclosedFloor(touching: [west])
+
+        #expect(filled.contains(west))
+        #expect(filled.contains(east), "an opening must light the room beyond")
+    }
+
+    @Test func coveringAnEnclosedRoomLightsPaintedWallsWithoutTheNextRoom() {
+        let map = map(
+            columns: 21,
+            rows: 20,
+            blockers: (0..<20).flatMap { row in
+                (8...12).map { column in
+                    (column: column, row: row, terrain: SearchMapTerrain.wall)
+                }
+            }
+        )
+        let west = SearchMapCell(column: 3, row: 7)
+        let east = SearchMapCell(column: 16, row: 7)
+        let enclosed = map.enclosedFloor(touching: [west])
+        let grid = FogGrid(searchMap: map)
+        let fog = grid.cellsCoveringEnclosedRoom(enclosed, on: map)
+
+        let westFloor = grid.cellsOverlapping(west)
+        let eastFloor = grid.cellsOverlapping(east)
+        let deepWall = grid.cellsOverlapping(SearchMapCell(column: 11, row: 7))
+        #expect(westFloor.isSubset(of: fog))
+        #expect(eastFloor.isDisjoint(with: fog), "the next room's floor must stay black")
+        #expect(!deepWall.isDisjoint(with: fog), "painted wall thickness must not punch 32×32 holes")
+    }
+
+    @Test func enclosedFloorFromTheOfficeDeskCoversMoreThanVisualRange() throws {
+        let area = HarborpointAreas.requireArea(HarborpointAreas.office)
+        let navigation = area.makeNavigationMap()
+        navigation.setEntranceDoorBlocking(false)
+        let map = navigation.searchMap
+        let range = area.agentProfile.visualRangeInCells
+        let los = map.visibleCells(
+            from: OfficeNavigationLayout.actorStart,
+            radiusInCells: range
+        )
+        let room = map.enclosedFloor(touching: los)
+
+        #expect(room.isSuperset(of: los))
+        #expect(room.count > los.count, "the office must not remain a 14-cell spotlight")
     }
 
 }

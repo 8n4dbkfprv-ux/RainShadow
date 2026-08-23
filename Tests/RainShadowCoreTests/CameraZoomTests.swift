@@ -82,20 +82,18 @@ struct CameraZoomTests {
         #expect(body / widest < DefaultPlayZoom.targetBodyToVisibleHeight)
     }
 
-    @Test func officeHasBarelyAnyHeadroomAtBGEEDensity() {
-        // At BG:EE density the default viewport is already 86% of the plate in
-        // both axes (coverage 1.165x), so the office can give back exactly one
-        // zoom step before the painting runs out. That is the cost of the wider
-        // default. V11's uniformly cropped compact room retains two steps; it
-        // is worth failing loudly if the registered painted bounds drift.
+    @Test func exactAR0809OfficeFitsAtTheDefaultBGEEDensity() {
+        // V17 widens the painted floor to AR0809's exact envelope. At 16:9 the
+        // camera fit now binds at the default BG:EE step: there is no spare
+        // zoom-out step, but the complete painted floor still covers the view.
         let step = CameraZoom.fitStep(
             base: Self.base,
             viewportAspect: 16.0 / 9.0,
             anchor: Self.officeAnchor,
             plate: Self.officePlate
         )
-        #expect(step == 18)
-        #expect(step > CameraZoom.defaultStep)
+        #expect(step == 16)
+        #expect(step == CameraZoom.defaultStep)
         // Still genuinely covered — the fit limit is not being skipped.
         let height = CameraZoom.visibleHeight(base: Self.base, step: step)
         #expect(height * 16 / 9 <= Self.officePlate.width)

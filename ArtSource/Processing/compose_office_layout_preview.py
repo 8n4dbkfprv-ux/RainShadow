@@ -16,6 +16,7 @@ Outputs:
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 import numpy as np
@@ -28,21 +29,36 @@ ROOT = Path(__file__).resolve().parents[2]
 PROPS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Props" / "Office"
 AREAS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "Areas" / "DetectiveOffice"
 OUT_DIR = ROOT / "ArtSource" / "Generated" / "Office"
+PROP_MANIFEST = (
+    ROOT
+    / "ArtSource"
+    / "Generated"
+    / "Office"
+    / "BGEEReferenceV14"
+    / "office_props_source_v14.json"
+)
 
 ART_W, ART_H = 4096, 2304
 ENVIRONMENT = 0.395
 
+_MANIFEST_PROPS = {
+    prop["id"]: prop for prop in json.loads(PROP_MANIFEST.read_text())["props"]
+}
+
+
+def relative_scale(prop_id: str) -> float:
+    """Authored-space multiplier from the exact AreaProp shipping scale."""
+    prop = _MANIFEST_PROPS[prop_id]
+    return float(prop.get("scale", prop.get("scaleX", 1.0))) / ENVIRONMENT
+
+
 # PropRelativeScale (authored-space sprite multiplier = displayScale / environment).
-REL_STANDARD = 0.22 / ENVIRONMENT
-REL_DESK = 0.12 / ENVIRONMENT
-REL_SEATING = 0.17 / ENVIRONMENT
-REL_DESK_CHAIR = 0.135 / ENVIRONMENT
+REL_DESK = relative_scale("office_desk_bare")
+REL_DESK_CHAIR = relative_scale("office_desk_chair")
 # Matches OfficeInteriorScale.ActorDisplay.seatedDeskNudge (world units).
 SEATED_DESK_NUDGE = (0.0, 16.0)
-REL_FLOOR_DECAL = 0.22 / ENVIRONMENT
-REL_SMALL = 0.12 / ENVIRONMENT
-REL_POCKET = 0.10 / ENVIRONMENT
-REL_WALL = REL_STANDARD * 0.72
+REL_SMALL = relative_scale("office_safe")
+REL_POCKET = relative_scale("office_newspaper")
 
 GROUND_ANCHOR = (0.5, 0.04)
 CENTER_ANCHOR = (0.5, 0.5)
@@ -60,27 +76,23 @@ AUTHORED.update({
     "hallwayLight": (ol.FLOOR_DECALS["hallwayLight"][0], ART_H - ol.FLOOR_DECALS["hallwayLight"][1]),
     "window": ol.window_anchor_authored(),
     "doorLeaf": ol.exterior_leaf_anchor_authored(),
-    "caseBoard": (ol.WALL_ART["caseBoard"][0], ART_H - ol.WALL_ART["caseBoard"][1]),
-    "wallCityMap": (ol.WALL_ART["wallCityMap"][0], ART_H - ol.WALL_ART["wallCityMap"][1]),
-    "wallPhotos": (ol.WALL_ART["wallPhotos"][0], ART_H - ol.WALL_ART["wallPhotos"][1]),
+    "caseBoard": (
+        ol.WALL_ART["caseBoard"].plate[0],
+        ART_H - ol.WALL_ART["caseBoard"].plate[1],
+    ),
+    "wallCityMap": (
+        ol.WALL_ART["wallCityMap"].plate[0],
+        ART_H - ol.WALL_ART["wallCityMap"].plate[1],
+    ),
+    "wallPhotos": (
+        ol.WALL_ART["wallPhotos"].plate[0],
+        ART_H - ol.WALL_ART["wallPhotos"].plate[1],
+    ),
 })
 LAMP_POOL = AUTHORED["deskEnsemble"]
 
-# Desk item canvas centres on the 932x780 bare-desk plate (image y-down),
-# mirrored from DetectiveOfficeScene.addDeskItems.
-DESK_CANVAS = (932, 780)
-DESK_ITEMS: list[tuple[str, tuple[float, float]]] = [
-    ("office_desk_lamp", (280, 190)),
-    ("office_desk_typewriter", (360, 230)),
-    ("office_desk_phone", (430, 255)),
-    ("office_desk_notebook", (500, 300)),
-    ("office_desk_papers", (540, 250)),
-    ("office_pencil_tray", (580, 310)),
-    ("office_desk_mug", (480, 330)),
-    ("office_desk_ashtray", (600, 325)),
-    ("office_desk_files", (680, 265)),
-    ("office_framed_photo", (720, 195)),
-]
+# Desktop clutter is neither live nor baked (it would sit under the live desk
+# sprite). The shipping preview only overlays the desk, chair, and door.
 
 
 def to_img(pt: tuple[float, float]) -> tuple[float, float]:
@@ -155,88 +167,30 @@ def main() -> None:
     if canvas.size != (ART_W, ART_H):
         canvas = canvas.resize((ART_W, ART_H), Image.Resampling.LANCZOS)
 
-    # --- floorEffectRoot (painted in add order; all center-anchored) ---
-    wear = scaled(load("office_floor_wear_decal"), REL_FLOOR_DECAL * 1.35)
-    paste_anchored(canvas, wear, AUTHORED["floorWear"], CENTER_ANCHOR, alpha=0.55)
-    additive(canvas, scaled(load("office_light_hallway"), REL_FLOOR_DECAL * 0.85), AUTHORED["hallwayLight"], 0.18)
-    additive(canvas, scaled(load("office_light_lamp_pool"), REL_FLOOR_DECAL * 0.95), LAMP_POOL, 0.58)
-    cab_shadow = scaled(load("office_cabinet_floor_shadow"), REL_STANDARD)
-    paste_anchored(canvas, cab_shadow, AUTHORED["filingCabinet"], CENTER_ANCHOR, alpha=0.55)
-    desk_shadow = scaled(load("office_desk_floor_shadow"), REL_DESK * 1.15)
-    paste_anchored(canvas, desk_shadow, AUTHORED["deskEnsemble"], CENTER_ANCHOR, alpha=0.55)
-    rug = scaled(load("office_worn_rug_burgundy"), 0.26 / ENVIRONMENT)
-    paste_anchored(canvas, rug, AUTHORED["wornRug"], CENTER_ANCHOR)
-
-    # --- rearFixtureRoot ---
-    paste_anchored(canvas, scaled(load("office_radiator"), REL_STANDARD), AUTHORED["radiator"], GROUND_ANCHOR)
-    # The room reference shows the full, closed edge silhouette. Using the
-    # shortened open state here made the review render look like a loose beam
-    # floating beyond the cutaway even though the runtime starts closed.
+    # Shipping plate already has static scenery. Overlay only the live
+    # Infinity-Engine split: registered door states, the desk that sorts
+    # against a seated actor, and the chair that remains when he stands.
     paste_anchored(
         canvas,
         scaled(load("office_door_leaf"), ol.DOOR_DISPLAY_SCALE / ENVIRONMENT),
         AUTHORED["doorLeaf"],
         (0.953125, 0.94375),
     )
-    for name, key in [
-        ("office_case_board", "caseBoard"),
-        ("office_wall_city_map", "wallCityMap"),
-        ("office_wall_photos", "wallPhotos"),
-    ]:
-        paste_anchored(canvas, scaled(load(name), REL_WALL), AUTHORED[key], CENTER_ANCHOR)
-    # Both windows, their amber glass, and the fireplace light are baked into
-    # the V12 plate.  Re-adding the retired V7 window/blinds here used to make
-    # the offline review disagree with the shipping scene.
-
-    # --- depthWorldRoot: z = 1000 + (artHeight - worldY) * 0.5 + bias ---
-    def world_y(authored_y: float) -> float:
-        return 1_152 + (authored_y - 1_152) * ENVIRONMENT
-
-    depth_props: list[tuple[float, str, tuple[float, float], float, tuple[float, float]]] = [
-        # (bias, texture, authored point, relative scale, anchor)
-        (0, "office_bookshelf", AUTHORED["bookshelf"], REL_STANDARD, GROUND_ANCHOR),
-        (0, "office_filing_cabinet", AUTHORED["filingCabinet"], REL_STANDARD, GROUND_ANCHOR),
-        (0, "office_filing_cabinet", AUTHORED["filingCabinetB"], REL_STANDARD * 0.96, GROUND_ANCHOR),
-        (0, "office_safe", AUTHORED["safe"], REL_SMALL, GROUND_ANCHOR),
-        (0, "office_archive_box_a", AUTHORED["archiveBoxA"], REL_SMALL, GROUND_ANCHOR),
-        (40, "office_archive_box_b", AUTHORED["archiveBoxOnCabinet"], REL_SMALL * 0.9, GROUND_ANCHOR),
-        (0, "office_coat_rack", AUTHORED["coatRack"], REL_STANDARD, GROUND_ANCHOR),
-        (0, "office_umbrella_stand", AUTHORED["umbrellaStand"], REL_SMALL, GROUND_ANCHOR),
-        (0, "office_visitor_armchair", AUTHORED["visitorArmchair"], REL_SEATING, GROUND_ANCHOR),
-        (0, "office_visitor_armchair", AUTHORED["visitorArmchairB"], REL_SEATING * 0.96, GROUND_ANCHOR),
-        (0, "office_waiting_chair_a", AUTHORED["waitingChairA"], REL_SEATING * 0.88, GROUND_ANCHOR),
-        (0, "office_waiting_table", AUTHORED["waitingTable"], REL_SMALL, GROUND_ANCHOR),
-        (0, "office_waiting_chair_b", AUTHORED["waitingChairB"], REL_SEATING * 0.92, GROUND_ANCHOR),
-        (-20, "office_newspaper", AUTHORED["newspaper"], REL_POCKET, GROUND_ANCHOR),
-        (-15, "office_waiting_ashtray", AUTHORED["waitingAshtray"], REL_POCKET, GROUND_ANCHOR),
-        (-10, "office_personal_sideboard", AUTHORED["personalSideboard"], 0.2024 / ENVIRONMENT, GROUND_ANCHOR),
-        (-5, "office_personal_fan", AUTHORED["personalFan"], 0.1618 / ENVIRONMENT, GROUND_ANCHOR),
-        (-25, "office_personal_glass", AUTHORED["personalGlass"], 0.10 / ENVIRONMENT, GROUND_ANCHOR),
-        # Empty chair uses baseline + seated desk nudge (world), same as runtime.
-        (-40, "office_desk_chair", (
+    paste_anchored(
+        canvas,
+        scaled(load("office_visitor_armchair"), REL_DESK_CHAIR),
+        (
             AUTHORED["deskChair"][0] + SEATED_DESK_NUDGE[0] / ENVIRONMENT,
             AUTHORED["deskChair"][1] + SEATED_DESK_NUDGE[1] / ENVIRONMENT,
-        ), REL_DESK_CHAIR, GROUND_ANCHOR),
-        (0, "office_wastebasket", AUTHORED["wastebasket"], REL_SMALL, GROUND_ANCHOR),
-        (-40, "office_floor_trash_a", AUTHORED["floorTrashA"], REL_SMALL, GROUND_ANCHOR),
-        (-500, "office_desk_bare", AUTHORED["deskEnsemble"], REL_DESK, GROUND_ANCHOR),
-        (-20, "office_hidden_bottle", AUTHORED["personalBottle"], 0.0703 / ENVIRONMENT, GROUND_ANCHOR),
-    ]
-
-    # Desk items ride the bare-desk canvas (default center anchor, desk scale).
-    desk = AUTHORED["deskEnsemble"]
-    for name, (cx, cy) in DESK_ITEMS:
-        ax = desk[0] + (cx - DESK_CANVAS[0] * GROUND_ANCHOR[0]) * REL_DESK
-        ay = desk[1] + (DESK_CANVAS[1] * (1 - GROUND_ANCHOR[1]) - cy) * REL_DESK
-        depth_props.append((0, name, (ax, ay), REL_DESK, CENTER_ANCHOR))
-
-    def z_of(entry) -> float:
-        bias, _, pt, _, _ = entry
-        return 1_000 + (ART_H - world_y(pt[1])) * 0.5 + bias
-
-    for entry in sorted(depth_props, key=z_of):
-        bias, name, pt, rel, anchor = entry
-        paste_anchored(canvas, scaled(load(name), rel), pt, anchor)
+        ),
+        GROUND_ANCHOR,
+    )
+    paste_anchored(
+        canvas,
+        scaled(load("office_desk_bare"), REL_DESK),
+        AUTHORED["deskEnsemble"],
+        GROUND_ANCHOR,
+    )
 
     if annotate:
         draw = ImageDraw.Draw(canvas)

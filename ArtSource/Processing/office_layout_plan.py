@@ -20,6 +20,7 @@ import math
 import sys
 from collections import deque
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 
 import numpy as np
@@ -39,21 +40,57 @@ ENV = rp.ENVIRONMENT_SCALE
 # scale so it matches the slim door sliver in the approved room reference.
 DOOR_DISPLAY_SCALE = 0.28
 
-# Metre -> plan units on each axis (~200 px of screen x per metre of floor).
-# Keep the conversion locked to the pre-cramped axis lengths so prop obstacle
-# footprints stay character-relative when the fitted room diamond changes size.
+# Metre -> plan units on each exact V14 floor axis (~200 plate px per metre).
+# The painted floor and navigation basis are now the same parallelogram.
 PX_PER_M = 200.0
-_REF_AXIS_NW_X = 2206.0
-_REF_AXIS_NE_X = 1650.0
+_REF_AXIS_NW_X = abs(rp.AXIS_NW[0])
+_REF_AXIS_NE_X = abs(rp.AXIS_NE[0])
 M_PER_A = PX_PER_M / _REF_AXIS_NW_X
 M_PER_B = PX_PER_M / _REF_AXIS_NE_X
 
-# Wall stand-off for floor furniture that must read as flush.  Front-elevation
-# prop art rises vertically from its ground anchor; anchoring on or behind the
-# wall seam makes tall records furniture project through the cutaway crown.
-# A 0.10 inward stand-off keeps the full silhouettes inside the V12 room while
-# still reading as a wall run at play scale.
-FLUSH = 0.260
+
+class PlacementKind(str, Enum):
+    FLOOR = "floor"
+    WALL = "wall"
+    SURFACE = "surface"
+
+
+class Wall(str, Enum):
+    NORTH_WEST = "northWest"
+    NORTH_EAST = "northEast"
+
+
+# One painted-source pixel of tolerance keeps antialiasing on the room side of
+# the wall seam.  The actual stand-off comes from half the prop depth.
+WALL_SEAM_CLEARANCE = 1.0 / min(_REF_AXIS_NW_X, _REF_AXIS_NE_X)
+
+
+def wall_floor_point(wall: Wall, along: float) -> tuple[float, float]:
+    """Plan coordinate on the painted wall/floor seam.
+
+    V14's room basis begins exactly at the painted rear floor seam. Resolve the
+    registered constant-height wall base, then offset into the floor.
+    """
+    if wall is Wall.NORTH_WEST:
+        x, _ = rp.plan(along, 0.0)
+        return rp.unplan(x, rp.nw_wall_base(x))
+    x, _ = rp.plan(0.0, along)
+    return rp.unplan(x, rp.ne_wall_base(x))
+
+
+def wall_along_at_x(wall: Wall, plate_x: float) -> float:
+    """Wall-axis parameter whose painted contact has the requested plate x."""
+    if wall is Wall.NORTH_WEST:
+        return (plate_x - rp.REAR[0]) / rp.AXIS_NW[0]
+    return (plate_x - rp.REAR[0]) / rp.AXIS_NE[0]
+
+
+def wall_flush(wall: Wall, along: float, depth_m: float) -> tuple[float, float]:
+    """Floor anchor whose rear footprint edge contacts the painted wall."""
+    a, b = wall_floor_point(wall, along)
+    if wall is Wall.NORTH_WEST:
+        return (a, b + depth_m * M_PER_B * 0.5 + WALL_SEAM_CLEARANCE)
+    return (a + depth_m * M_PER_A * 0.5 + WALL_SEAM_CLEARANCE, b)
 
 @dataclass
 class Prop:
@@ -62,8 +99,14 @@ class Prop:
     a: float
     b: float
     body: float | None = None  # rendered height as a multiple of the character
-    size_m: tuple[float, float] = (0.6, 0.6)  # (width along wall, depth)
+    # Explicit extents along the room-plan axes (a, b), never screen width/depth.
+    plan_extents_m: tuple[float, float] = (0.6, 0.6)
     obstacle: bool = True
+    placement: PlacementKind = PlacementKind.FLOOR
+    wall: Wall | None = None
+    support: str | None = None
+    # Authored y-up offset from the parent's floor anchor to its usable surface.
+    support_offset: tuple[float, float] = (0.0, 0.0)
     note: str = ""
     _content: tuple[float, float] = field(default=(0.0, 0.0), init=False)
 
@@ -95,13 +138,19 @@ class Prop:
 
     @property
     def authored(self) -> tuple[float, float]:
+        if self.placement is PlacementKind.SURFACE:
+            if self.support is None:
+                raise ValueError(f"{self.key}: surface placement needs a support")
+            parent = PROP_BY_KEY[self.support]
+            px, py = parent.authored
+            return (px + self.support_offset[0], py + self.support_offset[1])
         return rp.authored(self.a, self.b)
 
     @property
     def obstacle_rect(self) -> tuple[float, float, float, float]:
         """Authored AABB around the prop's floor footprint."""
-        da = self.size_m[1] * M_PER_A * 0.5
-        db = self.size_m[0] * M_PER_B * 0.5
+        da = self.plan_extents_m[0] * M_PER_A * 0.5
+        db = self.plan_extents_m[1] * M_PER_B * 0.5
         corners = [
             rp.authored(self.a + sa * da, self.b + sb * db)
             for sa in (-1, 1)
@@ -119,9 +168,11 @@ class Prop:
 
 # --------------------------------------------------------------- the layout
 
-# Fixed V12 features on the floor-plane axes.  The two windows and lit
+# Fixed V14 features on the floor-plane axes.  The two windows and lit
 # fireplace are baked; only their registered masks/collision remain live.
-EXTERIOR_DOOR = rp.DOOR_CENTER_PLAN
+# Navigation threshold on the walkable side of the cutaway. Independent of
+# the leaf's void-side visual snap (DOOR_HINGE_AUTHORED).
+EXTERIOR_DOOR = (0.533, 1.00)
 
 
 def _polygon_centre(
@@ -151,64 +202,87 @@ DOOR_VISUAL_BOUNDS = (
     _door_x1 - _door_x0,
     _door_y1 - _door_y0,
 )
-# Every prop belongs to one of four clusters: desk, records, entrance/waiting,
-# personal corner. Floor anchors only — never wall-top plane.
+# Every prop belongs to one coherent cluster. Wall contacts are computed from
+# the explicit normal-axis extent; surface objects inherit a named support.
 PROPS: list[Prop] = [
-    # ---- records cluster: a compact evidence/library wall, ordered from the
-    # safe at the camera-far end to the full-height bookcase near the window.
-    # Keeping the silhouettes inside the floor diamond matters once these are
-    # plate pixels: a live sprite could overhang black and hide the mistake.
-    Prop("safe", "office_safe", 0.500, FLUSH, 0.34, (0.6, 0.6), note="records run, far end"),
-    Prop("filingCabinetB", "office_filing_cabinet", 0.600, FLUSH, 1.14, (0.5, 0.62)),
-    Prop("filingCabinet", "office_filing_cabinet_open", 0.690, FLUSH, 1.14, (0.5, 0.62), note="drawer half open"),
-    Prop("bookshelf", "office_bookshelf", 0.790, FLUSH, 1.34, (1.2, 0.35)),
-    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.600, FLUSH, 0.36, obstacle=False, note="on cabinet B"),
-    Prop("archiveStackOnCabinet", "office_archive_stack", 0.690, FLUSH, 0.44, obstacle=False, note="on cabinet A"),
-    Prop("archiveBoxA", "office_archive_box_a", 0.815, 0.335, 0.40, (0.5, 0.45), note="west-side stack"),
-    # ---- radiator beneath the camera-nearer baked casement
-    Prop("radiator", "office_radiator", WINDOW_A, FLUSH - 0.006, 0.82, (1.0, 0.2)),
-    # ---- personal corner: a small drinks/radio ledge on the NE wall, inside
-    # the room rather than hanging over the camera-near cutaway.
-    Prop("personalSideboard", "office_personal_sideboard", 0.220, 0.720, 0.48, (1.2, 0.5)),
-    Prop(
-        "personalWashbasin",
-        "office_personal_washbasin",
-        0.215,
-        0.775,
-        0.41,
-        (0.7, 0.5),
-        obstacle=False,
-        note="retired domestic fixture; placement retained for source lineage",
-    ),
-    Prop("personalFan", "office_personal_fan", 0.240, 0.680, 0.68, (0.5, 0.5)),
-    Prop("personalBottle", "office_hidden_bottle", 0.222, 0.725, 0.22, obstacle=False, note="on sideboard"),
-    Prop("personalGlass", "office_personal_glass", 0.218, 0.710, 0.10, obstacle=False, note="on sideboard"),
-    # ---- desk cluster: the command island, with both visitor chairs on the
-    # public/camera-near side and a clear line from the entrance to Voss.
-    Prop("deskEnsemble", "office_desk_bare", 0.490, 0.510, 0.99, (1.7, 0.9)),
-    # The chair and Voss's derived seated/standing anchors share this point.
-    # A high-backed leather chair is broad enough to remain readable around the
-    # chairless seated atlas; the old narrow timber chair vanished completely
-    # behind Voss even though its ground registration was correct.
-    Prop("deskChair", "office_visitor_armchair", 0.488, 0.507, 0.82, (0.7, 0.7), obstacle=False),
-    # Pull the two client seats decisively onto the visitor edge of the rug.
-    # This is a paired conversation group, rather than two chairs stranded in
-    # the open floor below the desk.
-    Prop("visitorArmchair", "office_visitor_armchair", 0.643, 0.536, 0.79, (0.65, 0.65)),
-    Prop("visitorArmchairB", "office_visitor_armchair", 0.590, 0.618, 0.76, (0.65, 0.65)),
-    Prop("wastebasket", "office_wastebasket", 0.462, 0.615, 0.32, (0.4, 0.4)),
-    # ---- entrance / waiting: move the entire set off the rug and into one
-    # unmistakable nook along the entrance wall. The coat and umbrella stands
-    # terminate the group instead of floating behind it.
-    Prop("coatRack", "office_coat_rack", 0.280, 0.770, 0.88, (0.6, 0.6)),
-    Prop("umbrellaStand", "office_umbrella_stand", 0.310, 0.790, 0.28, (0.35, 0.35)),
-    # Rotate the two seats around their table inside Voss's initial fog reveal:
-    # timber chair camera-far, upholstered chair camera-near.
-    Prop("waitingChairA", "office_waiting_chair_a", 0.422, 0.750, 0.60, (0.55, 0.55)),
-    Prop("waitingTable", "office_waiting_table", 0.410, 0.814, 0.36, (0.55, 0.55)),
-    Prop("waitingChairB", "office_waiting_chair_b", 0.398, 0.879, 0.58, (0.55, 0.55)),
-    Prop("newspaper", "office_newspaper", 0.408, 0.812, 0.10, obstacle=False, note="on table"),
-    Prop("waitingAshtray", "office_waiting_ashtray", 0.414, 0.822, 0.07, obstacle=False, note="on table"),
+    # ---- records: packed into the tall rear bays. AR0809 tapers the wall
+    # faces to points, and the two windows occupy a≈0.30–0.75 of the NW wall.
+    Prop("safe", "office_safe",
+         *wall_flush(Wall.NORTH_WEST, 0.070, 0.60), 0.34,
+         (0.60, 0.60), wall=Wall.NORTH_WEST, note="records run, far end"),
+    Prop("filingCabinetB", "office_filing_cabinet",
+         *wall_flush(Wall.NORTH_EAST, 0.155, 0.62), 1.14,
+         (0.62, 0.50), wall=Wall.NORTH_EAST,
+         note="NE rear bay, clear of fireplace"),
+    Prop("filingCabinet", "office_filing_cabinet_open",
+         *wall_flush(Wall.NORTH_EAST, 0.255, 0.50), 1.14,
+         (0.50, 0.62), wall=Wall.NORTH_EAST,
+         note="drawer half open; NE rear bay"),
+    Prop("bookshelf", "office_bookshelf",
+         *wall_flush(Wall.NORTH_WEST, 0.185, 0.35), 1.34,
+         (1.00, 0.35), wall=Wall.NORTH_WEST),
+    Prop("archiveBoxOnCabinet", "office_archive_box_b", 0.245, 0.0, 0.36,
+         obstacle=False, placement=PlacementKind.SURFACE, support="filingCabinetB",
+         support_offset=(-10.0, 157.0), note="opaque base registered to cabinet top"),
+    Prop("archiveStackOnCabinet", "office_archive_stack", 0.335, 0.0, 0.44,
+         obstacle=False, placement=PlacementKind.SURFACE, support="filingCabinet",
+         support_offset=(12.0, 155.0), note="opaque base registered to cabinet top"),
+    Prop("archiveBoxA", "office_archive_box_a", 0.820, 0.250, 0.40,
+         (0.50, 0.45), note="records overflow stack"),
+    # ---- radiator: wall-flush immediately west of the interactive window,
+    # whose low sill leaves no credible vertical clearance directly beneath it.
+    Prop("radiator", "office_radiator",
+         *wall_flush(Wall.NORTH_EAST, 0.080, 0.20), 0.82,
+         (0.20, 1.00), wall=Wall.NORTH_EAST,
+         note="rear of the fireplace wall, clear of its hearth"),
+    # ---- personal corner: furniture against the NE wall, away from the door.
+    Prop("personalSideboard", "office_personal_sideboard",
+         *wall_flush(Wall.NORTH_EAST, 0.550, 0.50),
+         0.625, (0.50, 1.00),
+         wall=Wall.NORTH_EAST),
+    Prop("personalWashbasin", "office_personal_washbasin",
+         *wall_flush(Wall.NORTH_EAST, 0.920, 0.50), 0.41, (0.50, 0.70),
+         obstacle=False, wall=Wall.NORTH_EAST,
+         note="retired domestic fixture; placement retained for source lineage"),
+    Prop("personalFan", "office_personal_fan",
+         *wall_flush(Wall.NORTH_EAST, 0.330, 0.50),
+         0.68, (0.50, 0.50),
+         wall=Wall.NORTH_EAST,
+         note="just rear of the fireplace cover"),
+    Prop("personalBottle", "office_hidden_bottle", 0.0, 0.0, 0.22,
+         obstacle=False, placement=PlacementKind.SURFACE, support="personalSideboard",
+         support_offset=(-16.0, 110.0), note="opaque base registered to sideboard top"),
+    Prop("personalGlass", "office_personal_glass", 0.0, 0.0, 0.10,
+         obstacle=False, placement=PlacementKind.SURFACE, support="personalSideboard",
+         support_offset=(12.0, 107.0), note="opaque base registered to sideboard top"),
+    # ---- separated desk station. Chair is camera-near of the desk (higher b);
+    # visitor chairs sit on the rear/far side so they do not share the egress aisle.
+    Prop("deskEnsemble", "office_desk_bare", 0.480, 0.380, 0.99, (1.70, 0.90)),
+    # Camera-near of the desk, same `a` as the kneehole, so the rear-facing
+    # chair sits at the writing-side rather than out in the room.
+    Prop("deskChair", "office_visitor_armchair", 0.450, 0.700, 0.82,
+         (0.50, 0.50), obstacle=True, note="Voss seat at camera-near kneehole"),
+    Prop("visitorArmchair", "office_visitor_armchair", 0.260, 0.220, 0.79,
+         (0.65, 0.65)),
+    Prop("visitorArmchairB", "office_visitor_armchair", 0.680, 0.200, 0.76,
+         (0.65, 0.65)),
+    Prop("wastebasket", "office_wastebasket", 0.730, 0.420, 0.32, (0.40, 0.40)),
+    # ---- waiting nook beside the entrance, clear of its exact path.
+    Prop("coatRack", "office_coat_rack", 0.900, 0.620, 0.88, (0.60, 0.60)),
+    Prop("umbrellaStand", "office_umbrella_stand", 0.940, 0.720, 0.28,
+         (0.35, 0.35)),
+    Prop("waitingChairA", "office_waiting_chair_a", 0.700, 0.860, 0.60,
+         (0.55, 0.55)),
+    Prop("waitingTable", "office_waiting_table", 0.820, 0.860, 0.40,
+         (0.55, 0.55)),
+    Prop("waitingChairB", "office_waiting_chair_b", 0.940, 0.860, 0.58,
+         (0.55, 0.55)),
+    Prop("newspaper", "office_newspaper", 0.0, 0.0, 0.10,
+         obstacle=False, placement=PlacementKind.SURFACE, support="waitingTable",
+         support_offset=(-10.0, 70.0), note="opaque base registered to waiting-table top"),
+    Prop("waitingAshtray", "office_waiting_ashtray", 0.0, 0.0, 0.07,
+         obstacle=False, placement=PlacementKind.SURFACE, support="waitingTable",
+         support_offset=(12.0, 70.0), note="opaque base registered to waiting-table top"),
 ]
 
 PROP_BY_KEY = {p.key: p for p in PROPS}
@@ -225,7 +299,7 @@ def window_anchor_authored() -> tuple[float, float]:
 
 
 def camera_authored() -> tuple[float, float]:
-    """Camera centred on the V11 desk island and retained 13% play scale."""
+    """Camera centred on the V14 desk island and retained 13% play scale."""
     return rp.authored(0.520, 0.470)
 
 
@@ -234,20 +308,38 @@ RUG = (0.500, 0.525)
 RUG_BODY = 2.2
 RUG_FACTOR = 0.62
 
-# Wall art hangs on the north-west wall face directly above the records run —
-# board, map and photo cluster packed together, deliberately uneven; authored in
-# plate pixels (y down) because it sits on the wall plane, not the floor.
-def _wall_art_plate(a: float, b: float, up: float) -> tuple[float, float]:
-    """NW-wall decoration anchor: floor plan point raised `up` plate pixels."""
-    x, y = rp.plan(a, b)
-    return (x, y - up)
+@dataclass(frozen=True)
+class WallMount:
+    wall: Wall
+    a: float
+    b: float
+    height: float
+
+    @property
+    def plate(self) -> tuple[float, float]:
+        if self.wall is Wall.NORTH_WEST:
+            x, _ = rp.plan(self.a, 0.0)
+            return (x, rp.nw_wall_base(x) - self.height)
+        x, _ = rp.plan(0.0, self.b)
+        return (x, rp.ne_wall_base(x) - self.height)
 
 
-WALL_ART = {
-    "wallPhotos": _wall_art_plate(0.42, FLUSH, 118.0),
-    "caseBoard": _wall_art_plate(0.51, FLUSH, 142.0),
-    "wallCityMap": _wall_art_plate(0.61, FLUSH, 132.0),
-    "framedLicence": _wall_art_plate(0.72, FLUSH, 108.0),
+# Mounted fixtures use the measured V15 wall face. AR0809 tapers that face to
+# a point at the west tip, so every mount stays in the tall rear bay (a<0.28)
+# and above the low records units, never in a window aperture.
+WALL_ART: dict[str, WallMount] = {
+    "wallPhotos": WallMount(
+        Wall.NORTH_WEST, 0.085, 0.0, 150.0
+    ),
+    "framedLicence": WallMount(
+        Wall.NORTH_WEST, 0.175, 0.0, 155.0
+    ),
+    "caseBoard": WallMount(
+        Wall.NORTH_WEST, 0.230, 0.0, 118.0
+    ),
+    "wallCityMap": WallMount(
+        Wall.NORTH_EAST, 0.105, 0.0, 74.0
+    ),
 }
 
 FLOOR_DECALS = {
@@ -261,27 +353,22 @@ FLOOR_DECALS = {
 }
 
 APPROACH = {
-    "office.window": (WINDOW_A, 0.150),
-    "office.desk": (0.605, 0.455),
-    "office.phone": (0.605, 0.455),
-    # Camera-near of the open cabinet, with a full runtime-cell margin after
-    # the V12 records run moved inward from the wall crown.
-    "office.files": (0.690, 0.360),
-    "office.door": (EXTERIOR_DOOR[0], 0.775),
+    "office.window": (0.600, 0.260),
+    # The exact centre of the adjacent runtime cell stays clear of the desk
+    # footprint after the V15 floor-basis refit; the former b=.455 point was
+    # geometrically clear but rounded into the isolated cell under its apron.
+    "office.desk": (0.320, 0.320),
+    "office.phone": (0.320, 0.320),
+    "office.files": (0.160, 0.220),
+    # Exact planner/runtime cell immediately inside the V15-refitted threshold.
+    # It remains reachable with the leaf closed while the outside doorway cell
+    # stays sealed until the door state opens.
+    "office.door": (EXTERIOR_DOOR[0], 0.700),
 }
 
-# Chair-side seat egress: walkable stand/walk root just camera-near (south) of
-# the desk kneehole. Seat-egress settles the body offset from the chair into
-# this root without sliding through the desktop (the old +208 put the root on
-# the visitor/rear side of the desk).
-#
-# World seatedYOffset = -ACTOR_START_OFFSET_Y * ENV
-#   (−(−30) * 0.395 ≈ +11.85) so actorStart + seatedYOffset lands on the chair.
-# -30 put the stand root inside the desk once the diamond was re-fitted: the
-# runtime SearchMap found no passable cell within the 16-unit agent radius, so
-# every route out of the office failed at the *start* rather than the
-# destination. -100 is the first offset that clears it with margin, and all five
-# hotspot approaches path exactly from there.
+# Chair-side egress is part of the V15 seat assembly. The runtime's 47.4-world
+# seated offset equals 120 authored units, so animation settles exactly from
+# this walkable root back onto the chair.
 ACTOR_START_OFFSET_Y = -120.0  # retained for source compatibility
 
 
@@ -324,6 +411,7 @@ def grid_cells():
 # Diamond and insets follow `ie_projection.ACTIVE`, so they move with the
 # camera the painted plate was drawn to rather than drifting from it.
 CELL_RECT = ie.CELL_RECT  # inset from the diamond so corners pass
+PARTITION_CELL_RECT = ie.PARTITION_CELL_RECT  # retired partition QA compatibility
 
 def cell_rect(x: float, y: float) -> tuple[float, float, float, float]:
     return ie.cell_aabb(x, y)
@@ -392,7 +480,7 @@ def _rect_overlaps_exterior_threshold(
     ]
     a0, a1 = rp.DOOR_SPAN_A
     a_margin = 0.018
-    b_margin = 0.075
+    b_margin = 0.105
     return (
         max(a for a, _ in plans) >= a0 - a_margin
         and min(a for a, _ in plans) <= a1 + a_margin
@@ -461,9 +549,13 @@ def partition_open_cells() -> list[tuple[int, int]]:
 
 FOREGROUND_OBSTACLE = foreground_obstacle()
 
-# Closed door stamp: the full registered hinge-to-free span, with only a small
-# threshold-depth band.  Visual leaf thickness is not an aperture width.
-DOOR_THRESHOLD_DEPTH_B = 0.045
+# Closed door stamp: a narrow AABB around the threshold centre. The full
+# hinge-to-free span is diagonal, so its AABB would cut the interior in half.
+# This box still contains the navigation threshold and the authored exterior
+# waypoint without claiming the camera-near floor.
+DOOR_THRESHOLD_HALF_A = 0.050
+DOOR_THRESHOLD_B0 = 0.980
+DOOR_THRESHOLD_B1 = 1.100
 
 
 def plan_box_obstacle(
@@ -480,10 +572,10 @@ def plan_box_obstacle(
 
 
 DOOR_OBSTACLE = plan_box_obstacle(
-    rp.DOOR_SPAN_A[0],
-    1.0 - DOOR_THRESHOLD_DEPTH_B * 0.5,
-    rp.DOOR_SPAN_A[1],
-    1.0 + DOOR_THRESHOLD_DEPTH_B * 0.5,
+    EXTERIOR_DOOR[0] - DOOR_THRESHOLD_HALF_A,
+    DOOR_THRESHOLD_B0,
+    EXTERIOR_DOOR[0] + DOOR_THRESHOLD_HALF_A,
+    DOOR_THRESHOLD_B1,
     inset=1.0,
 )
 
@@ -496,7 +588,7 @@ def inscribed_vertical_rects(
 ) -> list[tuple[float, float, float, float]]:
     """Approximate a convex floor polygon without blocking its AABB corners.
 
-    ARE obstacles are rectangles, while the V12 hearth is a BG:EE-aligned
+    ARE obstacles are rectangles, while the V14 hearth is a BG:EE-aligned
     parallelogram. Narrow rectangles are kept wholly inside that footprint;
     the separately registered wall polygon remains the exact outline.
     """
@@ -538,7 +630,7 @@ def runtime_cell_center_rects(
 ) -> list[tuple[float, float, float, float]]:
     """Keep cells whose actual 16x12 runtime centres lie inside a thin solid.
 
-    The compact V12 hearth is an edge-on parallelogram narrower than one search
+    The compact V14 hearth is an edge-on parallelogram narrower than one search
     cell. Its exact inscribed strips remain useful for world-resolution line of
     sight, but none necessarily contains a raster cell centre. Add a tiny AABB
     around each centre that is genuinely inside the polygon. Requiring every
@@ -706,11 +798,20 @@ class RuntimeRaster:
         return seen
 
 
+# Floor collision for the live desk and chair only. Retired scenery must not
+# leave invisible walls on the empty shell.
+LIVE_OBSTACLE_KEYS = {"deskEnsemble", "deskChair"}
+
+
 def build_obstacles(door_blocking: bool = True):
     rects = [*FIREPLACE_OBSTACLE_RECTS, *boundary_cell_rects()]
     if door_blocking:
         rects.insert(0, DOOR_OBSTACLE)
-    rects += [p.obstacle_rect for p in PROPS if p.obstacle]
+    rects += [
+        p.obstacle_rect
+        for p in PROPS
+        if p.obstacle and p.key in LIVE_OBSTACLE_KEYS
+    ]
     return rects
 
 
@@ -768,7 +869,7 @@ def emit() -> str:
     add(f"        static let entranceAnchor = {precise_pt(exterior_door_threshold_authored())}")
     add("        /// Centre of the camera-nearer baked steel casement.")
     add(f"        static let windowAnchor = {precise_pt(window_anchor_authored())}")
-    add("        /// V12 compact-wall aperture registrations (authored plate coordinates).")
+    add("        /// V14 compact-wall aperture registrations (authored plate coordinates).")
     add("        static let nearWindowAperture: [CGPoint] = [")
     for point in rp.NEAR_WINDOW_APERTURE:
         add(f"            {precise_pt(point)},")
@@ -875,7 +976,8 @@ def emit() -> str:
     add("")
 
     # ---- obstacles
-    named = [(p.key, p.obstacle_rect) for p in PROPS if p.obstacle]
+    named_all = [(p.key, p.obstacle_rect) for p in PROPS if p.obstacle]
+    named = [(key, rect) for key, rect in named_all if key in LIVE_OBSTACLE_KEYS]
     add("    // MARK: - Obstacles (authored AABBs around each floor footprint)")
     add("")
     add("    /// One cell of the camera-near boundary, kept named for the layout tests.")
@@ -920,7 +1022,7 @@ def emit() -> str:
         add(f"        {rect(r)},")
     add("    ]")
     add("")
-    for key, r in named:
+    for key, r in named_all:
         add(f"    static let authored{key[0].upper()}{key[1:]}Obstacle = {rect(r)}")
     add("")
     sight_blocking_prop_keys = {"safe", "filingCabinet", "bookshelf"}
@@ -977,7 +1079,7 @@ def emit() -> str:
     # ---- sample points
     add("    // MARK: - Sample points (interior to each obstacle)")
     add("")
-    sample_sets = [(key, r) for key, r in named]
+    sample_sets = [(key, r) for key, r in named_all]
     sample_sets.append(("doorLeaf", DOOR_OBSTACLE))
     sample_sets.append(("foregroundWall", FOREGROUND_OBSTACLE))
     sample_sets.append(("partitionWallNorth", retired_partition))
@@ -1009,7 +1111,7 @@ def emit() -> str:
     )
     add(f"        static let windowRainMask = {rect((0.0, 0.0, rp.ART_W, rp.ART_H))}")
     add(f"        static let windowRainEmitter = {precise_pt((wx, wy + 72.0))}")
-    add("        /// Recentred on the fitted compact V11 diamond.")
+    add("        /// Recentred on the fitted V14 room envelope.")
     add(f"        static let camera = {pt(camera_authored())}")
     add("")
     for prop in PROPS:
@@ -1020,7 +1122,8 @@ def emit() -> str:
     add("")
     add(f"        static let wornRug = {pt(rp.authored(*RUG))}")
     add("        static let floorWear = deskEnsemble")
-    for key, plate in WALL_ART.items():
+    for key, mount in WALL_ART.items():
+        plate = mount.plate
         add(f"        static let {key} = {pt((plate[0], rp.ART_H - plate[1]))}")
     for key, plate in FLOOR_DECALS.items():
         if plate is None:
@@ -1136,7 +1239,7 @@ def emit() -> str:
     # ---- mapped accessors
     add("    static var obstacles: [CGRect] { authoredObstacles.map(OfficeInteriorScale.mapRect) }")
     add("")
-    for key, _ in named:
+    for key, _ in named_all:
         upper = f"{key[0].upper()}{key[1:]}"
         add(f"    static var {key}Obstacle: CGRect {{ OfficeInteriorScale.mapRect(authored{upper}Obstacle) }}")
     add("    static var doorObstacle: CGRect { OfficeInteriorScale.mapRect(authoredDoorObstacle) }")
@@ -1166,7 +1269,10 @@ def emit() -> str:
     add("    }")
     add("")
     add("    static var majorPropSamplePoints: [CGPoint] {")
-    all_sample_names = [f"{key}SamplePoints" for key, _ in sample_sets] + ["fireplaceSamplePoints"]
+    all_sample_names = [
+        f"{key}SamplePoints"
+        for key, _ in named
+    ] + ["doorLeafSamplePoints", "foregroundWallSamplePoints", "fireplaceSamplePoints"]
     add("        " + "\n            + ".join(all_sample_names))
     add("    }")
     add("")
@@ -1209,35 +1315,35 @@ SEATED_DESK_FRONT_APRON_BIAS = 15.0
 # V11 open-room traversal. Compatibility names remain because cutscene callers
 # consume them, but the anchors form one honest threshold-to-desk path.
 CLIENT_DOORWAY_PLAN_PATH = [
-    (EXTERIOR_DOOR[0], 1.080),
+    (APPROACH["office.door"][0], 1.080),
     APPROACH["office.door"],
 ]
 CLIENT_DOORWAY_PATH = [rp.authored(a, b) for a, b in CLIENT_DOORWAY_PLAN_PATH]
 CLIENT_WAITING_CLEARANCE_PLAN_PATH = [
-    (EXTERIOR_DOOR[0], 0.720),
-    (0.565, 0.650),
+    (0.505, 0.661),
+    (0.458, 0.597),
 ]
 CLIENT_WAITING_ROOM_PATH = [
     CLIENT_DOORWAY_PATH[-1],
     *[rp.authored(a, b) for a, b in CLIENT_WAITING_CLEARANCE_PLAN_PATH],
 ]
 CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
-    (0.565, 0.650),
-    # Skirt the camera-near side of the paired visitor chairs, then turn behind
-    # their left arm toward the desk approach. These are authored waypoints,
-    # not route() snaps: every segment is sampled against the shipped solids.
-    (0.602, 0.680),
-    (0.680, 0.680),
-    (0.720, 0.600),
-    (0.720, 0.530),
-    (0.690, 0.470),
+    (0.458, 0.597),
+    (0.398, 0.513),
+    (0.337, 0.425),
 ]
 CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
+# V17's exact AR0809 floor puts the former desk-side stop behind the desk from
+# Voss's chair-side sight line. Stop on the last continuously visible clear
+# anchor instead; otherwise Lila appears, walks one more leg, and vanishes when
+# the dialogue beat starts. This small final step remains in the visible search
+# cell while bringing her inside the desk-interaction distance.
+CLIENT_DIALOGUE_STOP_PLAN = (0.332, 0.400)
 CLIENT_OFFICE_ARRIVAL_PATH = [
     CLIENT_INTERNAL_DOORWAY_PATH[-1],
-    rp.authored(*APPROACH["office.desk"]),
+    rp.authored(*CLIENT_DIALOGUE_STOP_PLAN),
 ]
 CLIENT_INTERIOR_PATH = [
     *CLIENT_WAITING_ROOM_PATH,
@@ -1248,7 +1354,7 @@ CLIENT_PATH = [*CLIENT_DOORWAY_PATH[:-1], *CLIENT_INTERIOR_PATH]
 
 SCALE_STANDS = [
     APPROACH["office.door"],  # directly inside the sole cutaway entrance
-    (0.620, 0.360),  # behind the central desk
+    (0.680, 0.200),  # behind the central desk
     (0.780, 0.760),  # beside the waiting group
 ]
 
@@ -1422,18 +1528,55 @@ TAIL_SWIFT = '''
 
 
 def report() -> bool:
-    """Validate V11 with honest flood-fill and exact authored destinations."""
+    """Validate V17 with honest flood-fill and exact authored destinations."""
     for prop in PROPS:
         prop.measure()
+
+    placement_ok = True
+    for prop in PROPS:
+        if prop.wall is Wall.NORTH_WEST:
+            normal = prop.plan_extents_m[1] * M_PER_B * 0.5 + WALL_SEAM_CLEARANCE
+            contact = rp.plan(prop.a, prop.b - normal)
+            placement_ok &= abs(contact[1] - rp.nw_wall_base(contact[0])) < 1e-6
+        elif prop.wall is Wall.NORTH_EAST:
+            normal = prop.plan_extents_m[0] * M_PER_A * 0.5 + WALL_SEAM_CLEARANCE
+            contact = rp.plan(prop.a - normal, prop.b)
+            placement_ok &= abs(contact[1] - rp.ne_wall_base(contact[0])) < 1e-6
+        if prop.placement is PlacementKind.SURFACE:
+            parent = PROP_BY_KEY[prop.support or ""]
+            parent_w, parent_h = parent.plate_size
+            child_w, _ = prop.plate_size
+            within = abs(prop.support_offset[0]) + child_w * 0.5 <= parent_w * 0.5
+            contact = parent_h * 0.72 <= prop.support_offset[1] <= parent_h * 1.02
+            placement_ok &= within and contact
+
+    desk_rect = PROP_BY_KEY["deskEnsemble"].obstacle_rect
+    chair_rect = PROP_BY_KEY["deskChair"].obstacle_rect
+    dx, dy, dw, dh = desk_rect
+    cx, cy, cw, ch = chair_rect
+    chair_clears_apron = not (
+        dx < cx + cw and cx < dx + dw and dy < cy + ch and cy < dy + dh
+    )
+    seat_x, seat_y = PROP_BY_KEY["deskChair"].authored
+    egress_x, egress_y = actor_start_authored()
+    seat_registered = (
+        abs(seat_x - egress_x) < 1e-9
+        and abs(seat_y - (egress_y - ACTOR_START_OFFSET_Y)) < 1e-9
+    )
+    placement_ok &= chair_clears_apron and seat_registered
+    print(
+        f"  placement relationships={placement_ok} "
+        f"chairClearsDesk={chair_clears_apron} seatRegistered={seat_registered}"
+    )
 
     obstacles = build_obstacles()
     grid = Grid(obstacles)
     start = rp.authored(*ACTOR_START_PLAN)
     start_cell = grid.cell(start)
     reach = grid.reachable(start_cell)
-    ok = grid.walkable(*start_cell) and bool(reach)
+    ok = placement_ok and grid.walkable(*start_cell) and bool(reach)
 
-    print("=== V12 1950s-office navigation ===")
+    print("=== V17 AR0809-exact office navigation ===")
     print(f"  obstacles={len(obstacles)} partition solids={len(partition_cell_rects())}")
     print(f"  actorStart={start_cell} walkable={grid.walkable(*start_cell)} reachable={len(reach)}")
     for name, (a, b) in APPROACH.items():
@@ -1474,14 +1617,18 @@ def report() -> bool:
     top_dy = fire_wall[1][1] - fire_wall[0][1]
     bottom_dx = fire_wall[2][0] - fire_wall[3][0]
     bottom_dy = fire_wall[2][1] - fire_wall[3][1]
+    ne_wall_slope = rp.AXIS_NE[1] / rp.AXIS_NE[0]
     fireplace_registered = (
-        abs(top_dy / top_dx - 0.75) < 0.001
-        and abs(bottom_dy / bottom_dx - 0.75) < 0.001
+        abs(top_dy / top_dx - ne_wall_slope) < 0.001
+        and abs(bottom_dy / bottom_dx - ne_wall_slope) < 0.001
         and abs(fire_wall[0][0] - fire_wall[3][0]) < 0.001
         and abs(fire_wall[1][0] - fire_wall[2][0]) < 0.001
     )
     ok &= fireplace_registered
-    print(f"  fireplace affine NE-wall registration={fireplace_registered}")
+    print(
+        f"  fireplace AR0809 NE-wall registration={fireplace_registered} "
+        f"slope={top_dy / top_dx:.4f}/{ne_wall_slope:.4f}"
+    )
 
     room_cells = [
         (c, r)
@@ -1489,10 +1636,14 @@ def report() -> bool:
         if 0.0 <= rp.authored_to_plan(*cell_point(c, r))[0] <= rp.A_ROOM
         and 0.0 <= rp.authored_to_plan(*cell_point(c, r))[1] <= rp.B_ROOM
     ]
-    open_share = len(reach) / max(len(room_cells), 1)
+    reachable_room = set(room_cells) & reach
+    open_share = len(reachable_room) / max(len(room_cells), 1)
     open_floor_ok = open_share >= 0.20
     ok &= open_floor_ok
-    print(f"  open floor={len(reach)}/{len(room_cells)} ({open_share:.0%}) valid={open_floor_ok}")
+    print(
+        f"  open floor={len(reachable_room)}/{len(room_cells)} "
+        f"({open_share:.0%}) valid={open_floor_ok}"
+    )
 
     opening_a0, opening_a1 = rp.DOOR_SPAN_A
     doorway_ok = (
@@ -1535,15 +1686,18 @@ def report() -> bool:
         CLIENT_DOORWAY_PLAN_PATH[i + 1][1] < CLIENT_DOORWAY_PLAN_PATH[i][1]
         for i in range(len(CLIENT_DOORWAY_PLAN_PATH) - 1)
     )
-    route_reaches_desk = all(
+    route_reaches_client_stop = all(
         abs(actual - expected) < 1e-9
         for actual, expected in zip(
             rp.authored_to_plan(*CLIENT_PATH[-1]),
-            APPROACH["office.desk"],
+            CLIENT_DIALOGUE_STOP_PLAN,
         )
     )
-    ok &= monotonic and route_reaches_desk and not partition_cell_rects()
-    print(f"  direct route monotonic={monotonic} reachesDesk={route_reaches_desk}")
+    ok &= monotonic and route_reaches_client_stop and not partition_cell_rects()
+    print(
+        f"  direct route monotonic={monotonic} "
+        f"reachesVisibleClientStop={route_reaches_client_stop}"
+    )
     print(f"\n  ALL CHECKS PASS: {bool(ok)}")
     return bool(ok)
 

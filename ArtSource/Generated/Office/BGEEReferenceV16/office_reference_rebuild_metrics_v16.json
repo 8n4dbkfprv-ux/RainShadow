@@ -1,0 +1,35 @@
+{
+  "canvas": [
+    4096,
+    2304
+  ],
+  "environmentScale": 0.395,
+  "geometryAuthority": "V16 compact BG-scale envelope; not installed over V15",
+  "installedOverV15": false,
+  "registration": {
+    "anisotropicWholePlateResize": false,
+    "fitsVisualRange": true,
+    "sightDiameterWorld": 448.0,
+    "sourceFloorAABB": [
+      484,
+      310,
+      1058,
+      787
+    ],
+    "uniformScale": 1.5196772833502354,
+    "uniformTranslation": [
+      512.0,
+      90.0
+    ],
+    "worldAabbDiagonal": 448.0
+  },
+  "source": {
+    "file": "office_room_envelope_imagegen_raw_v16.png",
+    "sha256": "64d81b6615e7ebaf9aafb1fdf7f01f621cf079b552b8a8eb5ef4000a52213f11",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "version": "BGEEReferenceV16"
+}

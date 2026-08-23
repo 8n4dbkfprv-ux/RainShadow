@@ -15,14 +15,18 @@ import SpriteKit
 /// say "this ground was revealed" about anything other than standing on it.
 /// Opening a door is exactly that kind of reveal, and so is an authored one.
 ///
-/// The two areas' fog no longer differs in any respect. The office and a district
-/// explore identically, draw identically, and part company only where they always
-/// should have: whether the caller writes the explored bitmap to the save.
+/// The two areas share one drawer and one pair of bitmaps. They part company
+/// on indoor fill: an office floods each enclosure LOS reached so a room lights
+/// as a diamond; a district keeps range-limited sight, which is outdoor BG.
 @MainActor
 final class FogOfWarNode: SKSpriteNode {
     private let renderer: FogMaskRenderer
     private let searchMap: SearchMap
     private let visualRangeInCells: Int
+    /// Indoor areas flood each enclosure LOS reached so a room lights as a
+    /// diamond instead of a disc. City districts leave this off: outdoor BG
+    /// *does* show a range-limited, wall-clipped pool.
+    private let fillsEnclosedRooms: Bool
 
     /// The two bitmaps. Kept as sets rather than only as pixels because the mask
     /// is half of what they are for: the engine also skips drawing any creature
@@ -40,6 +44,7 @@ final class FogOfWarNode: SKSpriteNode {
     init(
         searchMap: SearchMap,
         visualRangeInCells: Int,
+        fillsEnclosedRooms: Bool = false,
         remembering explored: Set<FogCell> = [],
         standingAt viewpoint: CGPoint
     ) {
@@ -47,6 +52,7 @@ final class FogOfWarNode: SKSpriteNode {
         renderer = FogMaskRenderer(grid: grid)
         self.searchMap = searchMap
         self.visualRangeInCells = visualRangeInCells
+        self.fillsEnclosedRooms = fillsEnclosedRooms
         exploredCells = explored
         super.init(texture: nil, color: .black, size: renderer.worldFrame.size)
         anchorPoint = .zero
@@ -80,10 +86,35 @@ final class FogOfWarNode: SKSpriteNode {
 
     /// Whether the area can see this point right now.
     ///
-    /// What the engine gates creature drawing on: a remembered room shows its
-    /// furniture and not who is standing in it.
+    /// Targeting and the cursor use the foot point. Creature *drawing* uses
+    /// `intersectsVisible`, so a sprite on the fog edge is clipped by the
+    /// overlay instead of popped off as a whole.
     func isVisible(_ worldPoint: CGPoint) -> Bool {
         visibleCells.contains(renderer.grid.cell(for: worldPoint))
+    }
+
+    /// Whether any fog cell overlapping `worldRect` is currently in sight.
+    ///
+    /// BG:EE draws the creature and then the fog on top, so a body that
+    /// straddles the diamond stays in the graph and is cut by black. Hide the
+    /// node only when no part of it is in a visible cell.
+    func intersectsVisible(_ worldRect: CGRect) -> Bool {
+        guard !worldRect.isNull, !worldRect.isEmpty else { return false }
+        let grid = renderer.grid
+        let minCell = grid.cell(for: CGPoint(x: worldRect.minX, y: worldRect.minY))
+        let maxCell = grid.cell(for: CGPoint(x: worldRect.maxX, y: worldRect.maxY))
+        let minColumn = min(minCell.column, maxCell.column)
+        let maxColumn = max(minCell.column, maxCell.column)
+        let minRow = min(minCell.row, maxCell.row)
+        let maxRow = max(minCell.row, maxCell.row)
+        for column in minColumn...maxColumn {
+            for row in minRow...maxRow {
+                if visibleCells.contains(FogCell(column: column, row: row)) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     /// Whether the area has ever seen this point. Sight counts: the mask lights
@@ -132,12 +163,15 @@ final class FogOfWarNode: SKSpriteNode {
     }
 
     private func sightCells(from worldPoint: CGPoint) -> Set<FogCell> {
-        renderer.grid.cells(
-            for: searchMap.visibleCells(
-                from: worldPoint,
-                radiusInCells: visualRangeInCells
-            )
+        var search = searchMap.visibleCells(
+            from: worldPoint,
+            radiusInCells: visualRangeInCells
         )
+        if fillsEnclosedRooms {
+            let enclosed = searchMap.enclosedFloor(touching: search)
+            return renderer.grid.cellsCoveringEnclosedRoom(enclosed, on: searchMap)
+        }
+        return renderer.grid.cells(for: search)
     }
 
     private func redraw() {

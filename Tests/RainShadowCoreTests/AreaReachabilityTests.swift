@@ -217,14 +217,16 @@ struct AreaReachabilityTests {
             fromCity.point != fallback.point,
             "the office street entrance is still the default start"
         )
-        // V08 uses the exact interior approach on the room side of the
-        // camera-near cutaway. In authored y-up space that is above the leaf
-        // stamp, not below it as the retired rear-wall door was.
+        // City return and door interaction share the interior approach on the
+        // room side of the camera-near cutaway. A screen-axis "centre line"
+        // check does not survive a BG:EE-aligned parallelogram: the threshold
+        // AABB's midX is not the approach's x when both sit on the same plan
+        // `a` at different `b`.
         let door = OfficeNavigationLayout.doorObstacle
         let point = fromCity.point.cgPoint
         #expect(
-            abs(point.x - door.midX) < door.width,
-            "the street entrance drifted off the door's centre line"
+            point == OfficeNavigationLayout.approachPoints["office.door"],
+            "the street entrance is not the registered door approach"
         )
         #expect(
             point.y > door.maxY,

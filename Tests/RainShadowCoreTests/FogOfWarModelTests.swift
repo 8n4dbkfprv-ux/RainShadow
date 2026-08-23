@@ -22,31 +22,34 @@ struct FogOfWarModelTests {
         "RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift"
     ]
 
-    /// The texture is the bitmap. Nothing paints a pool, feathers a ring, or
-    /// blurs a clip boundary any more — those were three mechanisms apologising
-    /// for each other, and the engine has one.
+    /// The texture is the FOGOWAR compositor: cell interiors plus neighbour-bit
+    /// edge stamps. Nothing paints a pool, feathers a ring, or blurs a clip.
     @Test func theMaskIsRasterisedFromCellsRatherThanPainted() throws {
         let source = try read(Self.renderer)
 
         #expect(source.contains("func makeTexture(explored: Set<FogCell>, visible: Set<FogCell>)"))
-        #expect(source.contains("grid.mask(explored: explored, visible: visible)"))
+        #expect(source.contains("grid.displayMask(explored: explored, visible: visible)"))
         for painted in [
             "featherLayers", "edgeHarmonics", "revealRadius", "segmentCount",
             "erasePool", "edgePath", "applyingGaussianBlur", "CIContext",
-            // Named as calls, not as words: the doc comment above them explains
-            // what this replaced and is allowed to say so.
             "setBlendMode(.destinationOut)", "setBlendMode(.destinationOver)"
         ] {
             #expect(!source.contains(painted), "\(painted) is painting the fog again")
         }
     }
 
-    /// The soft edge comes from sampling a one-texel step, not from a blur pass.
-    @Test func theEdgeIsFilteringRatherThanABlur() throws {
+    /// The edge is FOGOWAR-role stamps at 32 px/cell, sampled nearest. Linear
+    /// filtering was the blob that made indoor fog a spotlight.
+    @Test func theEdgeIsAutotiledRatherThanAFilterRamp() throws {
         let source = try read(Self.renderer)
+        let grid = try read("RainShadow Shared/Gameplay/Navigation/FogGrid.swift")
+        let edges = try read("RainShadow Shared/Gameplay/Navigation/FogEdgeMask.swift")
 
-        #expect(source.contains("filteringMode = .linear"))
+        #expect(source.contains("filteringMode = .nearest"))
         #expect(source.contains("premultipliedLast"))
+        #expect(grid.contains("cellPixelSize = 32"))
+        #expect(edges.contains("static let falloff"))
+        #expect(!source.contains("filteringMode = .linear"))
     }
 
     /// An area never un-explores. Memory only ever unions.
@@ -116,12 +119,27 @@ struct FogOfWarModelTests {
         #expect(base.contains("func addFogGated(_ actor: SKNode, to parent: SKNode) -> SKNode"))
         #expect(base.contains("func updateFogGating(_ fog: FogOfWarNode?)"))
 
-        // The gate is a parent, not a flag on the creature.
+        // The gate is a parent, not a flag on the creature. Drawing uses the
+        // sprite AABB so a body on the fog edge is clipped by the overlay.
         let gate = try #require(base.range(of: "func updateFogGating"))
         let end = try #require(base.range(of: "\n    }\n", range: gate.upperBound..<base.endIndex))
         let body = base[gate.upperBound..<end.lowerBound]
         #expect(body.contains("gate.isHidden"))
+        #expect(body.contains("intersectsVisible"))
         #expect(!body.contains("actor.isHidden"))
+        #expect(node.contains("func intersectsVisible(_ worldRect: CGRect)"))
+    }
+
+    @Test func theOfficeFloodsRoomsAndTheCityDoesNot() throws {
+        let office = try read(Self.scenes[0])
+        let city = try read(Self.scenes[1])
+        let node = try read(Self.node)
+
+        #expect(node.contains("fillsEnclosedRooms"))
+        #expect(office.contains("fillsEnclosedRooms: true"))
+        #expect(!city.contains("fillsEnclosedRooms: true"))
+        #expect(!office.contains("addShellVignette"))
+        #expect(!office.contains("office_shadow_vignette"))
     }
 
     /// The office registers its NPC and gates nothing else — least of all the

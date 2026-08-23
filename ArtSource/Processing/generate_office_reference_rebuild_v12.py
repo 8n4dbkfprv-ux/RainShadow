@@ -37,6 +37,7 @@ FILENAMES = {
     "nearHover": "office_window_near_hover_overlay_v12.png",
     "metrics": "office_reference_rebuild_metrics_v12.json",
 }
+EXPECTED_SOURCE_SIZE = (1672, 941)
 
 # Pixel registrations measured on the frozen 1672x941 redraw.  Points are a
 # few antialiasing pixels inside the black cutaway edge on purpose: the target
@@ -408,7 +409,7 @@ def build_assets() -> dict[str, Image.Image | dict[str, object]]:
     if size != (4096, 2304):
         raise RuntimeError(f"unexpected registered canvas: {size}")
     source_image = Image.open(SOURCE).convert("RGB")
-    if source_image.size != (1672, 941):
+    if source_image.size != EXPECTED_SOURCE_SIZE:
         raise RuntimeError(f"unexpected V12 redraw size: {source_image.size}")
     scale = float(UNIFORM_REGISTRATION["scale"])
     tx, ty = (float(value) for value in UNIFORM_REGISTRATION["translate"])

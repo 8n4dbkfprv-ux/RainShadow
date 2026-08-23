@@ -91,17 +91,10 @@ struct AreaWallPolygonTests {
         }
     }
 
-    /// The point of the whole mechanism: standing behind the bookshelf is
-    /// covered, standing in front of it is not.
-    @Test func standingBehindTheBookshelfIsCoveredAndInFrontIsNot() throws {
+    /// Retired scenery must not ghost actors on the empty shell.
+    @Test func onlyTheFireplaceStillCoversActors() throws {
         let office = try AreaCatalogLoader.load(HarborpointAreas.office)
-        let bookshelf = try #require(office.wallPolygons.first { $0.id == "wall.bookshelf" })
-        let box = bookshelf.boundingBox
-
-        let behind = CGPoint(x: box.midX, y: box.maxY - 4)
-        let inFront = CGPoint(x: box.midX, y: box.minY - 40)
-        #expect(office.isCovered(behind), "an actor behind the bookshelf is not covered")
-        #expect(!office.isCovered(inFront), "an actor in front of the bookshelf is covered")
+        #expect(office.wallPolygons.map(\.id) == ["wall.fireplace"])
     }
 
     @Test func coldFireplaceCoverKeepsItsRegisteredWallProjection() throws {
