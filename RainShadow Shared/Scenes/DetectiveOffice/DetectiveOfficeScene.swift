@@ -1819,11 +1819,17 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         )
     }
 
-    /// Desk-native props that `updateDetectiveDepth` lifts above the writing
-    /// surface while Voss is seated. Desktop clutter is no longer live — BG
-    /// would have painted it into the tileset with the desk, and baking it
-    /// under a live desk sprite hid it.
-    private static let deskItemPropIDs: [String] = []
+    /// Desk-native props that `updateDetectiveDepth` keeps above the live
+    /// writing surface. They cannot be baked into the plate beneath that desk.
+    private static let deskItemPropIDs: [String] = [
+        "office_desk_lamp",
+        "office_desk_phone",
+        "office_desk_typewriter",
+        "office_desk_notebook",
+        "office_desk_papers",
+        "office_desk_ashtray",
+        "office_desk_files"
+    ]
 
     /// Props that swap to their `_hover` artwork when a hotspot is under the
     /// cursor. Desk pieces share `office.desk` and all of them have to light

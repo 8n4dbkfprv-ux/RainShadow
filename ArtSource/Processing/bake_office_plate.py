@@ -3,10 +3,10 @@
 
 The Infinity Engine paints static scenery into the tileset and keeps only wall
 polygons, animations, door tile-cells and interactive outlines separate. Sable
-Row already works that way. The office used to place 51 props at
-runtime. This bakes the ones that are genuinely scenery into
-`office_suite_plate`, so the room becomes a painting with outlines over it
-rather than a pile of depth-sorted sprites.
+Row already works that way. The office used to place 51 props at runtime. This
+bakes the curated V03 noir scenery into `office_suite_plate`, so the room
+becomes a painting with outlines over it rather than a pile of depth-sorted
+sprites.
 
 The composite happens here rather than by rendering the scene offscreen because
 of density. The plate is 4096x2304 over 1617.92 world units — 2.53 px per unit,
@@ -30,12 +30,14 @@ cost of downsampling static furniture to the area master's pixel density. The
 script reports that cost and records the split instead of silently pretending
 the source density survived.
 
-WHAT WOULD NOT BE BAKED EVEN THEN
----------------------------------
-The desk and chair. `deskFrontOccluder.zPosition = detective.zPosition + bias`
+WHAT IS NOT BAKED
+-----------------
+The desk cluster and its chairs. `deskFrontOccluder.zPosition = detective.zPosition + bias`
 is recomputed every frame: the apron has to rise between the desk and a
 *seated* actor's torso. Baking the desk would weld the seated pose into the
-floor. Desktop clutter is omitted rather than baked under the live desk.
+floor. The lamp, telephone, typewriter and paper props also remain live so the
+scene can keep them above the live writing surface. The two visitor chairs stay
+live because actors can pass both in front of and behind them.
 
 That is the same distinction the engine draws. A BG desk is tileset pixels
 because nothing about it moves; anything that must sort against a creature per
@@ -82,19 +84,14 @@ LAYER_Z = {
 }
 
 # The shipping plate is the V19 shell with the two period radiators and the
-# edge-on entrance door painted into the architecture. Only the desk, chair and the
-# occluders that sort against seated Voss stay live; nothing else is composited.
+# edge-on entrance door painted into the architecture. V03's restrained noir
+# set keeps only furniture that must sort against actors as live SpriteKit
+# nodes. Everything in BAKED_PROP_IDS below becomes area pixels.
 LIVE_PROP_IDS = {
     "office_desk_bare",
     "office_desk_chair",
-    "office_desk_actor_occluder",
-    "office_desk_front_occluder_v04",
-    "office_desk_top_occluder",
-}
-
-# Retired: former scenery (no longer baked) and desktop clutter (would sit
-# under the live desk).
-SKIP_PROP_IDS = {
+    "office_visitor_armchair",
+    "office_visitor_armchair_2",
     "office_desk_lamp",
     "office_desk_phone",
     "office_desk_typewriter",
@@ -102,8 +99,55 @@ SKIP_PROP_IDS = {
     "office_desk_papers",
     "office_desk_ashtray",
     "office_desk_files",
+    "office_desk_actor_occluder",
+    "office_desk_front_occluder_v04",
+    "office_desk_top_occluder",
 }
-BAKE_SCENERY = False
+
+# Approved V03 production set: useful work surfaces and evidence, one compact
+# records run, and a few lived-in accents. The former waiting-room suite,
+# domestic sideboard, safe, second cabinet and ceiling-fan shadow are omitted to
+# preserve the concept's negative space.
+BAKED_PROP_IDS = {
+    "office_floor_wear_decal",
+    "office_light_window_spill",
+    "office_light_blind_stripes",
+    "office_light_blind_stripes_wall",
+    "office_light_lamp_pool",
+    "office_worn_rug",
+    "office_desk_floor_shadow",
+    "office_cabinet_floor_shadow",
+    "office_case_board",
+    "office_wall_city_map",
+    "office_framed_licence",
+    "office_floor_trash_a",
+    "office_bookshelf",
+    "office_filing_cabinet",
+    "office_archive_box_b",
+    "office_archive_box_a",
+    "office_coat_rack",
+    "office_umbrella_stand",
+    "office_wastebasket",
+}
+BAKE_SCENERY = True
+
+# The recovered runtime dump predates the AR0809 scale pass and would make the
+# rug 1,106 px wide on this plate. The approved/reference-calibrated layout uses
+# `0.22 * RUG_FACTOR / ENVIRONMENT`, which is 0.345316 plate pixels per source
+# pixel: 503 px wide. Express that as a plate-space override so it remains exact
+# even if WORLD_SIZE changes.
+PLATE_SCALE_OVERRIDES = {
+    "office_worn_rug": 0.22 * 0.62 / 0.395,
+}
+
+# V17 deliberately retired these casts for the empty-shell rebuild. V03 brings
+# them back at restrained opacity: enough cool window structure to read as noir
+# without bleaching the warm practical lighting already painted into the room.
+ALPHA_OVERRIDES = {
+    "office_light_window_spill": 0.20,
+    "office_light_blind_stripes": 0.15,
+    "office_light_blind_stripes_wall": 0.10,
+}
 
 def find_texture(name: str) -> pathlib.Path | None:
     matches = list(ART.rglob(f"{name}.png"))
@@ -265,11 +309,47 @@ def sha256(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def apply_noir_grade(
+    pixels: np.ndarray,
+    room_mask: np.ndarray,
+    *,
+    focal_point: tuple[float, float],
+) -> None:
+    """Apply V03's cool, low-key perimeter without changing the shell geometry."""
+    height, width = pixels.shape[:2]
+    yy, xx = np.mgrid[0:height, 0:width]
+    focal_x, focal_y = focal_point
+    distance = ((xx - focal_x) / (width * 0.47)) ** 2
+    distance += ((yy - focal_y) / (height * 0.56)) ** 2
+    vignette = 0.70 + 0.30 * np.exp(-1.55 * distance)
+
+    luminance = (
+        pixels[..., 0:1] * 0.2126
+        + pixels[..., 1:2] * 0.7152
+        + pixels[..., 2:3] * 0.0722
+    )
+    desaturated = luminance + (pixels - luminance) * 0.78
+    graded = np.power(np.clip(desaturated, 0.0, 1.0), 1.06)
+    graded *= vignette[..., None] * 0.82
+
+    # Slightly cool the shadows while preserving the amber practical lamps.
+    shadow = np.clip((0.34 - luminance) / 0.34, 0.0, 1.0)
+    graded[..., 0:1] *= 1.0 - shadow * 0.045
+    graded[..., 2:3] *= 1.0 + shadow * 0.075
+    pixels[room_mask] = np.clip(graded[room_mask], 0.0, 1.0)
+    pixels[~room_mask] = 0.0
+
+
 def main(argv: list[str]) -> int:
     install = "--install" in argv
+    preview_live = "--preview-live" in argv
     positional = [arg for arg in argv[1:] if not arg.startswith("--")]
     source = pathlib.Path(positional[0]) if positional else PROPS
     sprites = parse_manifest(source) if source.suffix == ".json" else parse(source)
+    for sprite in sprites:
+        if sprite["name"] in ALPHA_OVERRIDES:
+            sprite["alpha"] = ALPHA_OVERRIDES[sprite["name"]]
+            sprite["hidden"] = False
     visible = [sprite for sprite in sprites if not sprite["hidden"]]
 
     # Never read the installed result: doing so would bake every static prop
@@ -278,13 +358,23 @@ def main(argv: list[str]) -> int:
     plate_w, plate_h = plate.size
     px_per_unit = plate_w / WORLD_SIZE[0]
     base = np.asarray(plate, dtype=np.float32) / 255.0
+    room_mask = np.max(base, axis=2) > 0.0
+
+    for sprite in visible:
+        plate_scale = PLATE_SCALE_OVERRIDES.get(sprite["name"])
+        if plate_scale is None:
+            continue
+        texture = find_texture(sprite["texture"])
+        if texture is None:
+            raise SystemExit(f"no texture {sprite['texture']} for node {sprite['name']}")
+        with Image.open(texture) as art:
+            natural_w, natural_h = art.size
+        sprite["w"] = natural_w * plate_scale / px_per_unit
+        sprite["h"] = natural_h * plate_scale / px_per_unit
 
     kept = [s for s in visible if s["name"] in LIVE_PROP_IDS]
     if BAKE_SCENERY:
-        baked = [
-            s for s in visible
-            if s["name"] not in LIVE_PROP_IDS and s["name"] not in SKIP_PROP_IDS
-        ]
+        baked = [s for s in visible if s["name"] in BAKED_PROP_IDS]
         baked.sort(key=lambda s: (LAYER_Z[s["layer"]] + s["z"]))
         median, downscaled = density_report(baked, px_per_unit)
         print(f"plate density      {px_per_unit:.2f} px/unit")
@@ -293,6 +383,9 @@ def main(argv: list[str]) -> int:
         print(f"static downsample  {median / px_per_unit:.1f}x (intentional plate-first tradeoff)")
         for sprite in baked:
             composite(base, sprite, px_per_unit, plate_h)
+        desk_x = (2015.7322035200002 - WORLD_ORIGIN[0]) * px_per_unit
+        desk_y = plate_h - (1162.476032 - WORLD_ORIGIN[1]) * px_per_unit
+        apply_noir_grade(base, room_mask, focal_point=(desk_x, desk_y))
     else:
         baked = []
         print(f"plate density      {px_per_unit:.2f} px/unit")
@@ -302,12 +395,23 @@ def main(argv: list[str]) -> int:
     out = OUT_DIR / "office_suite_plate_baked_v19.png"
     Image.fromarray((np.clip(base, 0, 1) * 255).round().astype(np.uint8)).save(out)
 
+    preview = None
+    if preview_live:
+        preview_base = base.copy()
+        preview_sprites = sorted(kept, key=lambda s: (LAYER_Z[s["layer"]] + s["z"]))
+        for sprite in preview_sprites:
+            composite(preview_base, sprite, px_per_unit, plate_h)
+        preview = OUT_DIR / "office_suite_runtime_preview_v19.png"
+        Image.fromarray(
+            (np.clip(preview_base, 0, 1) * 255).round().astype(np.uint8)
+        ).save(preview)
+
     split = {
         "version": 19,
         "construction": (
             "V19 baked-radiator-and-door shell plus live desk/chair"
             if not BAKE_SCENERY
-            else "Infinity-Engine-style static plate plus registered live overlays"
+            else "approved V03 sparse noir plate plus registered live overlays"
         ),
         "basePlate": str(BASE_PLATE.relative_to(ROOT)),
         "basePlateSHA256": sha256(BASE_PLATE),
@@ -320,6 +424,7 @@ def main(argv: list[str]) -> int:
                 sprite["name"]
                 for sprite in sprites
                 if sprite["name"] not in LIVE_PROP_IDS
+                and sprite["name"] not in BAKED_PROP_IDS
             }
         ),
         "logicalDoorID": "office.door",
@@ -336,6 +441,8 @@ def main(argv: list[str]) -> int:
     print(f"kept live  {len(kept)}: {', '.join(sorted(s['name'] for s in kept))}")
     print(f"wrote      {out.relative_to(ROOT)}")
     print(f"wrote      {split_path.relative_to(ROOT)}")
+    if preview is not None:
+        print(f"preview    {preview.relative_to(ROOT)}")
     if install:
         print(f"installed  {PLATE.relative_to(ROOT)}")
     return 0

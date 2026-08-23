@@ -18,10 +18,19 @@ SOURCE = (
 PROP_MANIFEST = ROOT / "ArtSource/Generated/Office/office_props_v01.json"
 AREA_RECORD = ROOT / "RainShadow Shared/Resources/Areas/office_suite.area.json"
 
-# Only the desk assembly remains live in the current empty-plate construction.
+# Only depth-sensitive desk-group overlays remain live in the sparse noir plate.
 LIVE_PROP_IDS = {
     "office_desk_bare",
     "office_desk_chair",
+    "office_visitor_armchair",
+    "office_visitor_armchair_2",
+    "office_desk_lamp",
+    "office_desk_phone",
+    "office_desk_typewriter",
+    "office_desk_notebook",
+    "office_desk_papers",
+    "office_desk_ashtray",
+    "office_desk_files",
     "office_desk_actor_occluder",
     "office_desk_front_occluder_v04",
     "office_desk_top_occluder",

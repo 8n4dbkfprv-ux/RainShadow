@@ -1,7 +1,7 @@
 {
   "allowlist": [
     {
-      "sha256": "2dfd31e2f32e42afe1ef02d3cf2a107c0fe1dd6d648e288a352501358547dae1",
+      "sha256": "4c2a9461e7b554cc3a94f1794bc35707e5a9a8a13b2599aaa3ff6218fe309e80",
       "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v19.png",
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
     },
@@ -11,7 +11,7 @@
       "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png"
     },
     {
-      "sha256": "2dfd31e2f32e42afe1ef02d3cf2a107c0fe1dd6d648e288a352501358547dae1",
+      "sha256": "4c2a9461e7b554cc3a94f1794bc35707e5a9a8a13b2599aaa3ff6218fe309e80",
       "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v19.png",
       "target": "ArtSource/Generated/Office/office_suite_plate.png"
     },
@@ -21,7 +21,7 @@
       "target": "ArtSource/Generated/Office/office_shell_base.png"
     },
     {
-      "sha256": "2dfd31e2f32e42afe1ef02d3cf2a107c0fe1dd6d648e288a352501358547dae1",
+      "sha256": "4c2a9461e7b554cc3a94f1794bc35707e5a9a8a13b2599aaa3ff6218fe309e80",
       "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v19.png",
       "target": "ArtSource/Generated/Office/office_suite_plate_bgee_v19_installed.png"
     },

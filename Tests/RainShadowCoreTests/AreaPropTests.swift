@@ -40,14 +40,23 @@ struct AreaPropTests {
 
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 5, "the office describes \(props.count) live overlays")
+        #expect(props.count == 14, "the office describes \(props.count) live overlays")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
-        #expect(byLayer == [.depthWorld: 5])
+        #expect(byLayer == [.depthWorld: 14])
         #expect(Set(props.map(\.id)) == [
             "office_desk_bare",
             "office_desk_chair",
+            "office_visitor_armchair",
+            "office_visitor_armchair_2",
+            "office_desk_lamp",
+            "office_desk_phone",
+            "office_desk_typewriter",
+            "office_desk_notebook",
+            "office_desk_papers",
+            "office_desk_ashtray",
+            "office_desk_files",
             "office_desk_actor_occluder",
             "office_desk_front_occluder_v04",
             "office_desk_top_occluder"
@@ -55,9 +64,32 @@ struct AreaPropTests {
 
         let split = try Self.bakeManifest()
         #expect(Set(props.map(\.id)) == Set(split.livePropIDs))
-        #expect(split.bakedPropIDs.isEmpty)
+        #expect(Set(split.bakedPropIDs) == [
+            "office_floor_wear_decal",
+            "office_light_window_spill",
+            "office_light_blind_stripes",
+            "office_light_blind_stripes_wall",
+            "office_light_lamp_pool",
+            "office_worn_rug",
+            "office_desk_floor_shadow",
+            "office_cabinet_floor_shadow",
+            "office_case_board",
+            "office_wall_city_map",
+            "office_framed_licence",
+            "office_floor_trash_a",
+            "office_bookshelf",
+            "office_filing_cabinet",
+            "office_archive_box_b",
+            "office_archive_box_a",
+            "office_coat_rack",
+            "office_umbrella_stand",
+            "office_wastebasket"
+        ])
         let sourceIDs = Set(try Self.officeSourceProps().map(\.id))
-        #expect(Set(split.retiredPropIDs) == sourceIDs.subtracting(split.livePropIDs))
+        #expect(
+            Set(split.retiredPropIDs)
+                == sourceIDs.subtracting(split.livePropIDs).subtracting(split.bakedPropIDs)
+        )
         #expect(split.logicalDoorID == "office.door")
         #expect(split.doorVisual == "baked into plate")
     }
