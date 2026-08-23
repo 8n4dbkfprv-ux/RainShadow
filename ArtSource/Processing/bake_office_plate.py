@@ -62,8 +62,8 @@ BASE_PLATE = (
     / "ArtSource"
     / "Generated"
     / "Office"
-    / "BGEEReferenceV18"
-    / "office_reference_rebuild_plate_v18.png"
+    / "BGEEReferenceV19"
+    / "office_reference_rebuild_plate_v19.png"
 )
 PROPS = ROOT / "ArtSource" / "Generated" / "Office" / "office_props_v01.json"
 OUT_DIR = ROOT / "ArtSource" / "Generated" / "Office" / "PlateBake"
@@ -81,8 +81,8 @@ LAYER_Z = {
     "occlusion": 5_000.0,
 }
 
-# The shipping plate is the V18 shell with two period radiators painted into
-# the architecture. Only the desk, chair and the
+# The shipping plate is the V19 shell with the two period radiators and the
+# edge-on entrance door painted into the architecture. Only the desk, chair and the
 # occluders that sort against seated Voss stay live; nothing else is composited.
 LIVE_PROP_IDS = {
     "office_desk_bare",
@@ -296,16 +296,16 @@ def main(argv: list[str]) -> int:
     else:
         baked = []
         print(f"plate density      {px_per_unit:.2f} px/unit")
-        print("bake scenery      off (V18 shell already owns the radiators)")
+        print("bake scenery      off (V19 shell already owns radiators and door)")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / "office_suite_plate_baked_v18.png"
+    out = OUT_DIR / "office_suite_plate_baked_v19.png"
     Image.fromarray((np.clip(base, 0, 1) * 255).round().astype(np.uint8)).save(out)
 
     split = {
-        "version": 18,
+        "version": 19,
         "construction": (
-            "V18 baked-radiator shell plus live desk/chair"
+            "V19 baked-radiator-and-door shell plus live desk/chair"
             if not BAKE_SCENERY
             else "Infinity-Engine-style static plate plus registered live overlays"
         ),
@@ -322,10 +322,10 @@ def main(argv: list[str]) -> int:
                 if sprite["name"] not in LIVE_PROP_IDS
             }
         ),
-        "registeredDoorID": "office.door",
-        "registeredDoorStates": ["closed", "mid", "open"],
+        "logicalDoorID": "office.door",
+        "doorVisual": "baked into plate",
     }
-    split_path = OUT_DIR / "office_plate_bake_manifest_v18.json"
+    split_path = OUT_DIR / "office_plate_bake_manifest_v19.json"
     split_path.write_text(json.dumps(split, indent=2, sort_keys=True) + "\n")
 
     if install:

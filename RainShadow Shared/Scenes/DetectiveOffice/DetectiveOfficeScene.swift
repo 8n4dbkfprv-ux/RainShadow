@@ -2199,7 +2199,13 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         to target: OfficeDoorVisualState,
         entranceBlockingAtEnd: Bool
     ) {
-        guard let officeDoor else { return }
+        guard let officeDoor else {
+            // A baked door has no sprite to animate, but its logical ARE-style
+            // collision still opens and closes for travel and fog-of-war.
+            setEntranceDoorBlocking(entranceBlockingAtEnd)
+            officeDoorVisualState = target
+            return
+        }
         officeDoor.removeAction(forKey: "officeDoorMotion")
 
         // Opening clears the threshold immediately; closing stamps it only

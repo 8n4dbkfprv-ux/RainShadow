@@ -64,24 +64,9 @@ enum OfficeAreaAdapter {
             doors: [
                 AreaDoor(
                     id: "office.door",
-                    visual: AreaDoorVisualRegistration(
-                        // The generator converts measured plate y-down into
-                        // authored y-up before publishing this anchor; mapPoint
-                        // then performs only the authored-to-world transform.
-                        position: AreaPoint(OfficeInteriorScale.mapPoint(
-                            OfficeNavigationLayout.Architecture.entranceLeafAnchor
-                        )),
-                        canvasAnchor: AreaPoint(
-                            OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
-                        ),
-                        scale: OfficeNavigationLayout.Architecture.entranceLeafDisplayScale,
-                        closedTextureName: "office_door_leaf",
-                        midTextureName: "office_door_leaf_mid",
-                        openTextureName: "office_door_leaf_open",
-                        closedHoverTextureName: "office_door_leaf_hover",
-                        midHoverTextureName: "office_door_leaf_mid_hover",
-                        openHoverTextureName: "office_door_leaf_open_hover"
-                    ),
+                    // V19 paints the closed leaf directly into the area plate.
+                    // This record owns only interaction, collision and sight.
+                    visual: nil,
                     closedObstacle: AreaRect(OfficeNavigationLayout.doorObstacle),
                     openObstacle: nil,
                     startsClosed: true

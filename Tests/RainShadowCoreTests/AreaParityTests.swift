@@ -185,23 +185,8 @@ struct AreaParityTests {
         let door = try #require(loaded.doors.first)
         #expect(door.closedObstacle.cgRect == OfficeNavigationLayout.doorObstacle.standardized)
         #expect(door.startsClosed)
-        #expect(door.textureName == nil, "registered door leaked back into the prop-era field")
-        let visual = try #require(door.visual)
-        #expect(
-            visual.position.cgPoint == OfficeInteriorScale.mapPoint(
-                OfficeNavigationLayout.Architecture.entranceLeafAnchor
-            )
-        )
-        #expect(
-            visual.canvasAnchor.cgPoint
-                == OfficeNavigationLayout.Architecture.entranceLeafAnchorPoint
-        )
-        #expect(
-            visual.scale == OfficeNavigationLayout.Architecture.entranceLeafDisplayScale
-        )
-        #expect(visual.closedTextureName == "office_door_leaf")
-        #expect(visual.midTextureName == "office_door_leaf_mid")
-        #expect(visual.openTextureName == "office_door_leaf_open")
+        #expect(door.textureName == nil)
+        #expect(door.visual == nil, "the V19 baked door leaked back into a live texture")
     }
 
     /// The office's path budget is three times the engine default, and losing it

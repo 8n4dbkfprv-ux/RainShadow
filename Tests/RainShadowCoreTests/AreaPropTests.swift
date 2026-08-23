@@ -22,8 +22,8 @@ struct AreaPropTests {
         let bakedPropIDs: [String]
         let livePropIDs: [String]
         let retiredPropIDs: [String]
-        let registeredDoorID: String
-        let registeredDoorStates: [String]
+        let logicalDoorID: String
+        let doorVisual: String
     }
 
     static func officeSourceProps() throws -> [AreaProp] {
@@ -34,7 +34,7 @@ struct AreaPropTests {
     private static func bakeManifest() throws -> BakeManifest {
         let url = OfficeAreaAdapter.propsSourceURL
             .deletingLastPathComponent()
-            .appendingPathComponent("PlateBake/office_plate_bake_manifest_v15.json")
+            .appendingPathComponent("PlateBake/office_plate_bake_manifest_v19.json")
         return try JSONDecoder().decode(BakeManifest.self, from: Data(contentsOf: url))
     }
 
@@ -56,9 +56,10 @@ struct AreaPropTests {
         let split = try Self.bakeManifest()
         #expect(Set(props.map(\.id)) == Set(split.livePropIDs))
         #expect(split.bakedPropIDs.isEmpty)
-        #expect(split.retiredPropIDs.count == 46)
-        #expect(split.registeredDoorID == "office.door")
-        #expect(split.registeredDoorStates == ["closed", "mid", "open"])
+        let sourceIDs = Set(try Self.officeSourceProps().map(\.id))
+        #expect(Set(split.retiredPropIDs) == sourceIDs.subtracting(split.livePropIDs))
+        #expect(split.logicalDoorID == "office.door")
+        #expect(split.doorVisual == "baked into plate")
     }
 
     @Test func propIDsAreUnique() throws {

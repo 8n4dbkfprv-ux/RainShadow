@@ -1,4 +1,4 @@
-"""Registered room plan for the V18 AR0809-exact detective-office shell.
+"""Registered room plan for the V19 AR0809-exact detective-office shell.
 
 Everything registered against the painted room (cutaway boundary, windows,
 door, and prop placement) is expressed in the shell's own floor-plan
@@ -11,7 +11,7 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-The V18 ImageGen edit is the floor, wall, window and baked-radiator authority.
+The V19 ImageGen edit is the floor, wall, window, radiator and baked-door authority.
 The V11 manifest remains only the environment-scale and exterior-door-state
 art authority.
 """
@@ -29,7 +29,7 @@ _V11_GEOMETRY_PATH = (
 _V11_GEOMETRY = json.loads(_V11_GEOMETRY_PATH.read_text(encoding="utf-8"))
 _V18_METRICS_PATH = (
     _ROOT
-    / "ArtSource/Generated/Office/BGEEReferenceV18/office_reference_rebuild_metrics_v18.json"
+    / "ArtSource/Generated/Office/BGEEReferenceV19/office_reference_rebuild_metrics_v19.json"
 )
 _V18_METRICS = json.loads(_V18_METRICS_PATH.read_text(encoding="utf-8"))
 _V18_TARGET_PLANES = _V18_METRICS["registration"]["targetPlanes"]

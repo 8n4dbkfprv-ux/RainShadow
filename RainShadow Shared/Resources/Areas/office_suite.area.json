@@ -133,24 +133,7 @@
           "y" : 936.0011072
         },
         "id" : "office.door",
-        "startsClosed" : true,
-        "visual" : {
-          "canvasAnchor" : {
-            "x" : 0.953125,
-            "y" : 0.94375
-          },
-          "closedHoverTextureName" : "office_door_leaf_hover",
-          "closedTextureName" : "office_door_leaf",
-          "midHoverTextureName" : "office_door_leaf_mid_hover",
-          "midTextureName" : "office_door_leaf_mid",
-          "openHoverTextureName" : "office_door_leaf_open_hover",
-          "openTextureName" : "office_door_leaf_open",
-          "position" : {
-            "x" : 2321.8325649999997,
-            "y" : 1014.0902605688622
-          },
-          "scale" : 0.28
-        }
+        "startsClosed" : true
       }
     ],
     "entrances" : [
