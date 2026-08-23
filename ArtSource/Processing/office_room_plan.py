@@ -1,7 +1,7 @@
-"""Registered room plan for the V17 AR0809-exact detective-office shell.
+"""Registered room plan for the V18 AR0809-exact detective-office shell.
 
-Everything registered against the painted room (cutaway boundary, fireplace,
-windows, door, and prop placement) is expressed in the shell's own floor-plan
+Everything registered against the painted room (cutaway boundary, windows,
+door, and prop placement) is expressed in the shell's own floor-plan
 basis instead of screen-axis rectangles.
 
 Basis (all values in shell plate pixels, y down):
@@ -11,7 +11,7 @@ Basis (all values in shell plate pixels, y down):
     a = 0 on the north-east wall, grows toward the west corner
     b = 0 on the north-west wall, grows toward the camera
 
-The V17 ImageGen rebuild is the floor, wall, window and fireplace authority.
+The V18 ImageGen edit is the floor, wall, window and baked-radiator authority.
 The V11 manifest remains only the environment-scale and exterior-door-state
 art authority.
 """
@@ -27,18 +27,18 @@ _V11_GEOMETRY_PATH = (
     _ROOT / "ArtSource/Generated/Office/BGEE1950sV11/office_v11_geometry.json"
 )
 _V11_GEOMETRY = json.loads(_V11_GEOMETRY_PATH.read_text(encoding="utf-8"))
-_V17_METRICS_PATH = (
+_V18_METRICS_PATH = (
     _ROOT
-    / "ArtSource/Generated/Office/BGEEReferenceV17/office_reference_rebuild_metrics_v17.json"
+    / "ArtSource/Generated/Office/BGEEReferenceV18/office_reference_rebuild_metrics_v18.json"
 )
-_V17_METRICS = json.loads(_V17_METRICS_PATH.read_text(encoding="utf-8"))
-_V17_TARGET_PLANES = _V17_METRICS["registration"]["targetPlanes"]
+_V18_METRICS = json.loads(_V18_METRICS_PATH.read_text(encoding="utf-8"))
+_V18_TARGET_PLANES = _V18_METRICS["registration"]["targetPlanes"]
 _ROOM = _V11_GEOMETRY["room"]
 _DOOR = _V11_GEOMETRY["door"]
-_V17_WINDOWS_BY_ID = {window["id"]: window for window in _V17_METRICS["windows"]}
+_V18_WINDOWS_BY_ID = {window["id"]: window for window in _V18_METRICS["windows"]}
 _WINDOWS = []
 for _legacy_window in _V11_GEOMETRY["windows"]:
-    _registered_window = _V17_WINDOWS_BY_ID[_legacy_window["id"]]
+    _registered_window = _V18_WINDOWS_BY_ID[_legacy_window["id"]]
     _WINDOWS.append(
         {
             **_legacy_window,
@@ -46,13 +46,10 @@ for _legacy_window in _V11_GEOMETRY["windows"]:
             "targetGlassPolygons": _registered_window["glass"],
         }
     )
-_FIREPLACE = {
-    **_V11_GEOMETRY["fireplace"],
-    **_V17_METRICS["fireplace"]["collisionAndCoverAuthority"],
-    "facadeHeight": _V17_METRICS["fireplace"]["visualScaleLock"][
-        "plateFixtureHeightPixels"
-    ],
-}
+# V18 repairs the former hearth to ordinary wall and floor pixels. Compatibility
+# keys stay present for older diagnostics, but there is no fixture, obstacle or
+# actor-cover geometry left to emit.
+_FIREPLACE = _V18_METRICS["fireplace"]["collisionAndCoverAuthority"]
 _PILLARS = _V11_GEOMETRY.get("pillars", [])
 _STAIRS = _V11_GEOMETRY.get("stairs")
 
@@ -90,37 +87,37 @@ DOOR_OPENING_TO_DETECTIVE = BAKED_DOORWAY_H / BODY_PLATE_H
 
 OLD_WALL_FACE_H = 271.0
 WALL_FACE_H = float(
-    _V17_METRICS["walls"]["visualScaleLock"]["plateRearHeightPixels"]
+    _V18_METRICS["walls"]["visualScaleLock"]["plateRearHeightPixels"]
 )
 PLASTER_H = WALL_FACE_H
 WAINSCOT_H = 0.0
 DOOR_LINTEL_CLEARANCE_H = 0.0
 WALL_RAISE_FROM_V06 = WALL_FACE_H - OLD_WALL_FACE_H
 
-# V17's painted floor is itself the navigation basis. AR0809 has a deliberate
+# V18 retains V17's painted floor as the navigation basis. AR0809 has a deliberate
 # four-corner taper, so use a bilinear quadrilateral rather than silently
 # replacing its camera-near corner with an affine one.
-_V17_PLANES = _V17_TARGET_PLANES
-_V17_FLOOR = tuple(
-    tuple(float(v) for v in point) for point in _V17_PLANES["floor"]
+_V18_PLANES = _V18_TARGET_PLANES
+_V18_FLOOR = tuple(
+    tuple(float(v) for v in point) for point in _V18_PLANES["floor"]
 )
-REAR = _V17_FLOOR[0]
+REAR = _V18_FLOOR[0]
 REAR_FLOOR = REAR
 AXIS_NW = (
-    _V17_FLOOR[1][0] - REAR[0],
-    _V17_FLOOR[1][1] - REAR[1],
+    _V18_FLOOR[1][0] - REAR[0],
+    _V18_FLOOR[1][1] - REAR[1],
 )
 AXIS_NE = (
-    _V17_FLOOR[3][0] - REAR[0],
-    _V17_FLOOR[3][1] - REAR[1],
+    _V18_FLOOR[3][0] - REAR[0],
+    _V18_FLOOR[3][1] - REAR[1],
 )
-NEAR = _V17_FLOOR[2]
+NEAR = _V18_FLOOR[2]
 CROSS_TERM = (
-    NEAR[0] - _V17_FLOOR[1][0] - _V17_FLOOR[3][0] + REAR[0],
-    NEAR[1] - _V17_FLOOR[1][1] - _V17_FLOOR[3][1] + REAR[1],
+    NEAR[0] - _V18_FLOOR[1][0] - _V18_FLOOR[3][0] + REAR[0],
+    NEAR[1] - _V18_FLOOR[1][1] - _V18_FLOOR[3][1] + REAR[1],
 )
-_NW_WALL = tuple(tuple(float(v) for v in point) for point in _V17_PLANES["NW"])
-_NE_WALL = tuple(tuple(float(v) for v in point) for point in _V17_PLANES["NE"])
+_NW_WALL = tuple(tuple(float(v) for v in point) for point in _V18_PLANES["NW"])
+_NE_WALL = tuple(tuple(float(v) for v in point) for point in _V18_PLANES["NE"])
 
 
 def _line_y(
@@ -141,8 +138,8 @@ B_ROOM = 1.00
 # without rotating or resampling the door-state art.
 _V11_DOOR_TARGET_HINGE = tuple(float(v) for v in _DOOR["targetHinge"])
 _V11_DOOR_TARGET_FREE_END = tuple(float(v) for v in _DOOR["targetFreeEnd"])
-_V17_NEAR_EDGE_START = tuple(float(v) for v in _V17_PLANES["floor"][2])
-_V17_NEAR_EDGE_END = tuple(float(v) for v in _V17_PLANES["floor"][3])
+_V17_NEAR_EDGE_START = tuple(float(v) for v in _V18_PLANES["floor"][2])
+_V17_NEAR_EDGE_END = tuple(float(v) for v in _V18_PLANES["floor"][3])
 
 
 def _v17_near_edge_y(x: float) -> float:
@@ -254,7 +251,7 @@ def unplan(x: float, y: float) -> tuple[float, float]:
         )
         jac_det = jac_a[0] * jac_b[1] - jac_b[0] * jac_a[1]
         if abs(jac_det) <= 1e-12:
-            raise RuntimeError("V17 floor quadrilateral has a singular inverse")
+            raise RuntimeError("V18 floor quadrilateral has a singular inverse")
         delta_a = (error_x * jac_b[1] - jac_b[0] * error_y) / jac_det
         delta_b = (jac_a[0] * error_y - error_x * jac_a[1]) / jac_det
         a -= delta_a

@@ -125,19 +125,19 @@ Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apa
 
 ### 5.1 Architecture plate
 
-V11's shell is empty of movable and stateful content, not empty of fixed
+V18's shell is empty of movable and stateful content, not empty of fixed
 fixtures. It may contain built architecture, fixed wall grime, baseboards,
 floorboards, cracks, two dark-painted steel casement frames with fixed amber
-glass, and the V14 compact lit fireplace/hearth with its fixed floor glow. It
+glass, and two 1950s cast-iron radiators painted into the window wall. It
 may not contain desk, chair,
 loose papers, files, phone, mug, ashtray, lamp, cabinet, boxes, wastebasket,
-radiator, bottle, photo, rug, door leaf, detective, rain streaks, animated
+bottle, photo, rug, door leaf, detective, rain streaks, fireplace, flame,
 embers, stateful fire effects, or movable-prop shadows.
 
 | Priority | Runtime ID | Pixels | Alpha | Description |
 |---|---|---:|---|---|
-| P0 | `office_shell_base` | 4096×2304 | Opaque | Installed V17 exact-AR0809 ImageGen redraw: 1.711110:1 long-room envelope, 0.575758 floor depth/width, tapered point cutaways, two small high windows, three amber wall lights and a compact lit fireplace. Pure black outside; no furniture or door pixels. |
-| P0 | `office_suite_plate` | 4096×2304 | Opaque | Pixel-identical V17 empty plate. Five desk/seat elements and all entrance-leaf states remain registered live overlays. |
+| P0 | `office_shell_base` | 4096×2304 | Opaque | Installed V18 exact-AR0809 ImageGen edit: V17's locked 1.711110:1 envelope and 0.575758 floor depth/width, two small high windows, three amber wall lights, repaired former hearth wall/floor, and two baked 1950s cast-iron radiators. Pure black outside; no furniture, fireplace or door pixels. |
+| P0 | `office_suite_plate` | 4096×2304 | Opaque | Pixel-identical V18 architecture plate. Five desk/seat elements and all entrance-leaf states remain registered live overlays. |
 | P0 | `office_floor_wear_decal` | 2048×1024 | Yes | Registered localized scuffs, damp footprints, stains, and repaired floor areas; no object silhouettes. |
 | P0 | `office_foreground_wall_occluder` | 1024×1536 | Yes | Near wall/doorway cutout that can pass over the detective; shares shell registration. |
 
@@ -218,7 +218,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P1 | `office_framed_licence` | 160×180 | Yes | Framed private investigator licence; abstract seals/lines only. |
 | P1 | `office_wall_photos` | 220×160 | Yes | Cluster of pinned/framed wall photographs. |
 | — | `office_window_blinds` | legacy | Yes | V10 rollback provenance only. V11's two fixed blind assemblies are baked into the plate. |
-| P0 | `office_radiator` | 640×384 | Yes | Chipped cast-iron radiator and short visible pipe. |
+| — | `office_radiator` | legacy | Yes | Retired source texture; V18 paints both 1950s radiators directly into the architecture plate and emits no radiator area prop. |
 | P1 | `office_hidden_bottle` | 128×256 | Yes | Partly empty unlabeled bottle, staged below/behind desk rather than glamorized. |
 | P1 | `office_framed_photo` | 256×256 | Yes | Small turned/obscured personal photo; faces need not be legible at play scale. |
 | P1 | `office_worn_rug` | 1024×768 | Yes | Thin worn rug/floor decal under the desk island, no contact shadow, low contrast. |
@@ -582,10 +582,10 @@ For every generated image:
 
 The first production generation batch is approved only when:
 
-- the architecture plate contains no movable prop, stateful door, flame, ember, fire emission, or firelight spill; its two fixed windows and cold fireplace match their manifest registrations;
+- the architecture plate contains no movable prop, stateful door, flame, ember, fire emission, or firelight spill; its two fixed windows and two baked radiators match their manifest registrations;
 - every movable prop can be removed without leaving a painted duplicate or implausible baked shadow;
 - the flattened runtime assembly matches the approved reference within registration tolerance;
-- desk front, registered door/wall covers, baked window apertures, and fireplace cover correctly agree with actor occlusion;
+- desk front, registered door, baked window apertures, and empty office wall-cover list correctly agree with actor occlusion;
 - all stored frames and displayed facing/frame combinations preserve identity, world scale, 2× pivot, projection, baked-light behavior, controlled native raster texture, and readable mirroring;
 - rain and window effects loop without seams or mask leakage;
 - the room reads coherently in both 2048×1152 (16:9) and 1536×1152 (4:3) rendered outputs at the shared 1,111-world-unit camera height;

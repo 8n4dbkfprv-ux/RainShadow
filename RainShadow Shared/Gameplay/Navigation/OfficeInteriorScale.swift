@@ -128,7 +128,6 @@ enum OfficeInteriorScale {
         static let internalDoorLeafHinge: CGFloat = 0
         static let filingCabinet: CGFloat = 538
         static let visitorArmchair: CGFloat = 421
-        static let radiator: CGFloat = 338
         static let coatRack: CGFloat = 558
         static let archiveBox: CGFloat = 297
         static let wastebasket: CGFloat = 241
@@ -164,8 +163,6 @@ enum OfficeInteriorScale {
         /// Four-drawer filing cabinet ~1.32 m → 0.90× body. Split off `standard`,
         /// which was rendering it at 1.68× / 2.3 m.
         static let filingCabinet: CGFloat = 0.1176 / environment
-        /// Cast-iron radiator ~0.7 m → 0.50× body (was 1.06× / 1.4 m on `standard`).
-        static let radiator: CGFloat = 0.1040 / environment
         /// Desk ensemble left at 0.12: with the corrected body the working surface
         /// lands at 0.425× ≈ 0.74 m, which is already a correct desk height.
         static let deskEnsemble: CGFloat = 0.12 / environment
@@ -233,7 +230,6 @@ enum OfficeInteriorScale {
         static let cabinet: ClosedRange<CGFloat> = 0.80...1.05
         /// Tall bookcase — the only office prop that legitimately overtops an adult.
         static let bookcase: ClosedRange<CGFloat> = 1.15...1.45
-        static let radiator: ClosedRange<CGFloat> = 0.40...0.62
         static let wastebasket: ClosedRange<CGFloat> = 0.22...0.36
         static let coatRack: ClosedRange<CGFloat> = 0.95...1.15
         /// Complete painted steel-casement opening.
@@ -302,10 +298,6 @@ enum OfficeInteriorScale {
     /// Filing cabinets and their floor shadow (previously on `standard`).
     static var filingCabinetDisplayScale: CGFloat {
         environment * PropRelativeScale.filingCabinet
-    }
-
-    static var radiatorDisplayScale: CGFloat {
-        environment * PropRelativeScale.radiator
     }
 
     static var wastebasketDisplayScale: CGFloat {

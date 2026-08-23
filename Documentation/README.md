@@ -31,11 +31,11 @@ This package defines the creative and technical baseline for RainShadow's first 
 - Runtime presentation is two-dimensional SpriteKit. There is no SceneKit, 3D runtime, Unity, or custom Metal renderer.
 - The visual target is a late-1990s/early-2000s pre-rendered isometric CRPG production language: painterly area plates, crude era-authentic textured 3D meshes rendered into lightly pixelated 2D frames, fixed projection, baked chiaroscuro, authored foreground occlusion, and restrained live effects.
 - Exterior is a short non-interactive establishing scene. The office becomes playable after the cinematic transition.
-- The V11 office plate bakes only fixed architecture: floor/plaster, two 1950s
-  steel casement windows with fixed Venetian blinds, and a cold fireplace with
-  no flame, ember, glow, sound, or hotspot. Movable props remain independent.
+- The V18 office plate bakes only fixed architecture: floor/brick, two 1950s
+  steel casement windows, and two period cast-iron radiators on the window wall.
+  The former fireplace, hearth, glow, collision and cover are removed. Movable props remain independent.
   Window rain, cool/blind lighting, near-window hover and `office.window`, the
-  registered door-state family, wall/cover polygons, and 16×12 navigation stay
+  registered door-state family and 16×12 navigation stay
   separate but share one geometry registration. V10 is retained as rollback
   provenance.
 - `office_suite.area.json` is the office runtime authority for the plate,

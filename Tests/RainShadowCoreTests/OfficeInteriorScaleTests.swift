@@ -146,45 +146,18 @@ struct OfficeInteriorScaleTests {
         #expect(OfficeNavigationLayout.authoredPartitionSegments.isEmpty)
     }
 
-    @Test func v11RemovesTavernMassAndRegistersColdHearthGeometry() {
+    @Test func v18RemovesTavernMassAndRetiresHearthGeometry() {
         #expect(OfficeNavigationLayout.authoredPillarSegments.isEmpty)
         #expect(OfficeNavigationLayout.authoredStairObstacle.isEmpty)
         let hearth = OfficeNavigationLayout.authoredFireplaceObstacle
         let cover = OfficeNavigationLayout.authoredFireplaceCoverRect
         let hearthPolygon = OfficeNavigationLayout.authoredFireplaceObstaclePolygon
         let coverPolygon = OfficeNavigationLayout.authoredFireplaceCoverPolygon
-        #expect(!hearth.isEmpty)
-        #expect(!cover.isEmpty)
-        #expect(hearthPolygon.count == 4)
-        #expect(coverPolygon.count == 4)
-        #expect(cover.intersects(hearth))
-        let wallCourse = CGPoint(
-            x: coverPolygon[1].x - coverPolygon[0].x,
-            y: coverPolygon[1].y - coverPolygon[0].y
-        )
-        let floorCourse = CGPoint(
-            x: coverPolygon[2].x - coverPolygon[3].x,
-            y: coverPolygon[2].y - coverPolygon[3].y
-        )
-        let registeredWallSlope =
-            OfficeNavigationLayout.Architecture.axisNE.dy
-            / OfficeNavigationLayout.Architecture.axisNE.dx
-        #expect(abs(wallCourse.y / wallCourse.x + registeredWallSlope) < 0.001)
-        #expect(abs(floorCourse.x - wallCourse.x) < 0.001)
-        #expect(abs(floorCourse.y - wallCourse.y) < 0.001)
-        #expect(OfficeNavigationLayout.fireplaceObstacles.count >= 16)
-        #expect(
-            OfficeNavigationLayout.fireplaceObstacles.allSatisfy {
-                OfficeNavigationLayout.obstacles.contains($0)
-            }
-        )
-        for approach in OfficeNavigationLayout.approachPoints.values {
-            #expect(
-                OfficeNavigationLayout.fireplaceObstacles.allSatisfy {
-                    !$0.contains(approach)
-                }
-            )
-        }
+        #expect(hearth.isEmpty)
+        #expect(cover.isEmpty)
+        #expect(hearthPolygon.isEmpty)
+        #expect(coverPolygon.isEmpty)
+        #expect(OfficeNavigationLayout.fireplaceObstacles.isEmpty)
     }
 
     @Test func entranceDoorRegistersToShippingAperture() {
@@ -340,12 +313,7 @@ struct OfficeInteriorScaleTests {
         #expect(bookshelf > multiple)
     }
 
-    @Test func radiatorAndWastebasketAreKneeHeightNotFurniture() {
-        let radiator = OfficeInteriorScale.bodyMultiple(
-            contentHeight: OfficeInteriorScale.SourceContentHeight.radiator,
-            relativeScale: OfficeInteriorScale.PropRelativeScale.radiator
-        )
-        #expect(OfficeInteriorScale.Band.radiator.contains(radiator))
+    @Test func wastebasketIsKneeHeightNotFurniture() {
         let wastebasket = OfficeInteriorScale.bodyMultiple(
             contentHeight: OfficeInteriorScale.SourceContentHeight.wastebasket,
             relativeScale: OfficeInteriorScale.PropRelativeScale.wastebasket

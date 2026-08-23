@@ -45,7 +45,7 @@ struct AreaCatalogTests {
         #expect(!permeable.contains(OfficeNavigationLayout.bookshelfObstacle))
         #expect(!permeable.contains(OfficeNavigationLayout.filingCabinetObstacle))
         #expect(!permeable.contains(OfficeNavigationLayout.safeObstacle))
-        #expect(OfficeNavigationLayout.fireplaceObstacles.allSatisfy { !permeable.contains($0) })
+        #expect(OfficeNavigationLayout.fireplaceObstacles.isEmpty)
     }
 
     /// Every piece authored as actor cover still has something solid standing in

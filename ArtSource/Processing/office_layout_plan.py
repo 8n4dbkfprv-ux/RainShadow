@@ -169,7 +169,7 @@ class Prop:
 # --------------------------------------------------------------- the layout
 
 # Fixed V14 features on the floor-plane axes.  The two windows and lit
-# fireplace are baked; only their registered masks/collision remain live.
+# windows and radiators are baked; only registered window masks remain live.
 # Navigation threshold on the walkable side of the cutaway. Independent of
 # the leaf's void-side visual snap (DOOR_HINGE_AUTHORED).
 EXTERIOR_DOOR = (0.533, 1.00)
@@ -213,7 +213,7 @@ PROPS: list[Prop] = [
     Prop("filingCabinetB", "office_filing_cabinet",
          *wall_flush(Wall.NORTH_EAST, 0.155, 0.62), 1.14,
          (0.62, 0.50), wall=Wall.NORTH_EAST,
-         note="NE rear bay, clear of fireplace"),
+         note="NE rear bay"),
     Prop("filingCabinet", "office_filing_cabinet_open",
          *wall_flush(Wall.NORTH_EAST, 0.255, 0.50), 1.14,
          (0.50, 0.62), wall=Wall.NORTH_EAST,
@@ -229,12 +229,8 @@ PROPS: list[Prop] = [
          support_offset=(12.0, 155.0), note="opaque base registered to cabinet top"),
     Prop("archiveBoxA", "office_archive_box_a", 0.820, 0.250, 0.40,
          (0.50, 0.45), note="records overflow stack"),
-    # ---- radiator: wall-flush immediately west of the interactive window,
-    # whose low sill leaves no credible vertical clearance directly beneath it.
-    Prop("radiator", "office_radiator",
-         *wall_flush(Wall.NORTH_EAST, 0.080, 0.20), 0.82,
-         (0.20, 1.00), wall=Wall.NORTH_EAST,
-         note="rear of the fireplace wall, clear of its hearth"),
+    # V18's two period radiators are architecture pixels on the NW wall. They
+    # intentionally have no prop, texture registration or separate obstacle.
     # ---- personal corner: furniture against the NE wall, away from the door.
     Prop("personalSideboard", "office_personal_sideboard",
          *wall_flush(Wall.NORTH_EAST, 0.550, 0.50),
@@ -248,7 +244,7 @@ PROPS: list[Prop] = [
          *wall_flush(Wall.NORTH_EAST, 0.330, 0.50),
          0.68, (0.50, 0.50),
          wall=Wall.NORTH_EAST,
-         note="just rear of the fireplace cover"),
+         note="NE wall personal corner"),
     Prop("personalBottle", "office_hidden_bottle", 0.0, 0.0, 0.22,
          obstacle=False, placement=PlacementKind.SURFACE, support="personalSideboard",
          support_offset=(-16.0, 110.0), note="opaque base registered to sideboard top"),
@@ -579,8 +575,8 @@ DOOR_OBSTACLE = plan_box_obstacle(
     inset=1.0,
 )
 
-FIREPLACE_OBSTACLE = rp.polygon_bounds(rp.FIREPLACE_OBSTACLE_POLYGON)
-FIREPLACE_COVER_RECT = rp.polygon_bounds(rp.FIREPLACE_COVER_POLYGON)
+FIREPLACE_OBSTACLE = (0.0, 0.0, 0.0, 0.0)
+FIREPLACE_COVER_RECT = (0.0, 0.0, 0.0, 0.0)
 
 
 def inscribed_vertical_rects(
@@ -672,10 +668,7 @@ def runtime_cell_center_rects(
     return result
 
 
-FIREPLACE_OBSTACLE_RECTS = (
-    inscribed_vertical_rects(rp.FIREPLACE_OBSTACLE_POLYGON)
-    + runtime_cell_center_rects(rp.FIREPLACE_OBSTACLE_POLYGON)
-)
+FIREPLACE_OBSTACLE_RECTS: list[tuple[float, float, float, float]] = []
 
 # V11 deliberately removes the tavern pillars and stair run.  Zero/empty
 # compatibility aliases keep older diagnostic callers source-compatible.
@@ -1038,11 +1031,8 @@ def emit() -> str:
     add("    /// started asking the search map what it could see: a desk two paces away")
     add("    /// shadowed the whole far wall.")
     add("    ///")
-    add("    /// The four pieces tall enough to occlude — bookshelf, filing cabinet, safe")
-    add("    /// and fireplace — are exactly the four already authored as")
-    add("    /// `wallPolygons` because they hide an actor who walks behind them. A thing")
-    add("    /// that hides a standing man hides what is behind it; a wastebasket does")
-    add("    /// not. `AreaCatalogTests` holds those two lists against each other.")
+    add("    /// V18 keeps only the live desk and chair footprints here. Both are low")
+    add("    /// enough to block feet while allowing sight to pass over them.")
     add("    private static var authoredSightPermeableObstacles: [CGRect] {")
     add("        [")
     for key in sight_permeable_prop_keys:
@@ -1050,9 +1040,8 @@ def emit() -> str:
     add("        ]")
     add("    }")
     add("")
-    add("    /// Architecture and the tall furniture: the room shell, its partitions and")
-    add("    /// pillars, the foreground wall, the fireplace masonry, and the three")
-    add("    /// cabinets a man can hide behind.")
+    add("    /// Sight-blocking architecture: the room shell, foreground boundary and")
+    add("    /// registered entrance threshold. V18 authors no furniture cover polygons.")
     add("    private static var authoredSightBlockingObstacles: [CGRect] {")
     add("        [authoredDoorObstacle, authoredForegroundWallObstacle]")
     add("            + authoredFireplaceObstacleSegments")
@@ -1335,7 +1324,7 @@ CLIENT_INTERNAL_DOORWAY_PLAN_PATH = [
 CLIENT_INTERNAL_DOORWAY_PATH = [
     rp.authored(a, b) for a, b in CLIENT_INTERNAL_DOORWAY_PLAN_PATH
 ]
-# V17's exact AR0809 floor puts the former desk-side stop behind the desk from
+# V18's exact AR0809 floor puts the former desk-side stop behind the desk from
 # Voss's chair-side sight line. Stop on the last continuously visible clear
 # anchor instead; otherwise Lila appears, walks one more leg, and vanishes when
 # the dialogue beat starts. This small final step remains in the visible search
@@ -1528,7 +1517,7 @@ TAIL_SWIFT = '''
 
 
 def report() -> bool:
-    """Validate V17 with honest flood-fill and exact authored destinations."""
+    """Validate V18 with honest flood-fill and exact authored destinations."""
     for prop in PROPS:
         prop.measure()
 
@@ -1576,7 +1565,7 @@ def report() -> bool:
     reach = grid.reachable(start_cell)
     ok = placement_ok and grid.walkable(*start_cell) and bool(reach)
 
-    print("=== V17 AR0809-exact office navigation ===")
+    print("=== V18 AR0809-exact office navigation ===")
     print(f"  obstacles={len(obstacles)} partition solids={len(partition_cell_rects())}")
     print(f"  actorStart={start_cell} walkable={grid.walkable(*start_cell)} reachable={len(reach)}")
     for name, (a, b) in APPROACH.items():
@@ -1612,23 +1601,13 @@ def report() -> bool:
             f"allApproachesExact={state_ok}"
         )
 
-    fire_wall = rp._FIREPLACE["targetWallPolygon"]
-    top_dx = fire_wall[1][0] - fire_wall[0][0]
-    top_dy = fire_wall[1][1] - fire_wall[0][1]
-    bottom_dx = fire_wall[2][0] - fire_wall[3][0]
-    bottom_dy = fire_wall[2][1] - fire_wall[3][1]
-    ne_wall_slope = rp.AXIS_NE[1] / rp.AXIS_NE[0]
-    fireplace_registered = (
-        abs(top_dy / top_dx - ne_wall_slope) < 0.001
-        and abs(bottom_dy / bottom_dx - ne_wall_slope) < 0.001
-        and abs(fire_wall[0][0] - fire_wall[3][0]) < 0.001
-        and abs(fire_wall[1][0] - fire_wall[2][0]) < 0.001
+    fireplace_retired = (
+        not rp.FIREPLACE_OBSTACLE_POLYGON
+        and not rp.FIREPLACE_COVER_POLYGON
+        and not FIREPLACE_OBSTACLE_RECTS
     )
-    ok &= fireplace_registered
-    print(
-        f"  fireplace AR0809 NE-wall registration={fireplace_registered} "
-        f"slope={top_dy / top_dx:.4f}/{ne_wall_slope:.4f}"
-    )
+    ok &= fireplace_retired
+    print(f"  fireplace collision and cover retired={fireplace_retired}")
 
     room_cells = [
         (c, r)

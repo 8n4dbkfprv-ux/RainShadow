@@ -175,82 +175,13 @@ enum OfficeNavigationLayout {
     /// One cell of the camera-near boundary, kept named for the layout tests.
     static let authoredForegroundWallObstacle = CGRect(x: 2558.3910400000004, y: 787.4319999999998, width: 104.0, height: 78.0)
     static let authoredDoorObstacle = CGRect(x: 2382.9538816000004, y: 605.1673599999998, width: 289.5867903999997, height: 187.1232)
-    static let authoredFireplaceObstacle = CGRect(x: 2555.6613230256735, y: 1236.9171883549225, width: 398.74956945668555, height: 239.8131370881788)
+    static let authoredFireplaceObstacle = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     static let authoredFireplaceObstacleSegments: [CGRect] = [
-        CGRect(x: 2556.990488257196, y: 1370.440827315599, width: 13.956234930983555, height: 1.8308224405168403),
-        CGRect(x: 2573.6050536512244, y: 1362.5406282865324, width: 13.95623493098401, height: 24.71610294697507),
-        CGRect(x: 2590.2196190452532, y: 1354.6404292574657, width: 13.956234930983555, height: 47.60138345343398),
-        CGRect(x: 2606.8341844392817, y: 1346.7402302283992, width: 13.956234930983555, height: 70.48666395989198),
-        CGRect(x: 2623.44874983331, y: 1338.8400311993328, width: 13.956234930983555, height: 93.37194446635021),
-        CGRect(x: 2640.0633152273385, y: 1330.9398321702663, width: 13.95623493098401, height: 116.25722497280844),
-        CGRect(x: 2656.6778806213674, y: 1323.0396331411996, width: 13.956234930983555, height: 139.14250547926713),
-        CGRect(x: 2673.292446015396, y: 1315.1394341121331, width: 13.956234930983555, height: 154.67831023463714),
-        CGRect(x: 2689.9070114094243, y: 1307.2392350830664, width: 13.95623493098401, height: 154.6252918828652),
-        CGRect(x: 2706.521576803453, y: 1299.3390360539997, width: 13.956234930983555, height: 154.57227353109351),
-        CGRect(x: 2723.1361421974816, y: 1291.4388370249333, width: 13.956234930983555, height: 154.51925517932136),
-        CGRect(x: 2739.75070759151, y: 1283.5386379958668, width: 13.95623493098401, height: 154.4662368275492),
-        CGRect(x: 2756.365272985539, y: 1275.6384389668, width: 13.956234930983555, height: 154.41321847577728),
-        CGRect(x: 2772.9798383795674, y: 1267.7382399377336, width: 13.956234930983555, height: 154.36020012400536),
-        CGRect(x: 2789.594403773596, y: 1259.8380409086672, width: 13.956234930983555, height: 154.30718177223343),
-        CGRect(x: 2806.208969167624, y: 1251.9378418796005, width: 13.95623493098401, height: 154.25416342046128),
-        CGRect(x: 2822.823534561653, y: 1244.0376428505338, width: 13.956234930983555, height: 154.20114506868958),
-        CGRect(x: 2839.4380999556815, y: 1250.9618797881903, width: 13.956234930983555, height: 139.3236907501946),
-        CGRect(x: 2856.05266534971, y: 1265.9237431228446, width: 13.95623493098401, height: 116.4086100347015),
-        CGRect(x: 2872.667230743739, y: 1280.8856064574984, width: 13.956234930983555, height: 93.4935293192093),
-        CGRect(x: 2889.2817961377673, y: 1295.8474697921522, width: 13.956234930983555, height: 70.57844860371688),
-        CGRect(x: 2905.8963615317957, y: 1310.809333126806, width: 13.956234930983555, height: 47.663367888224684),
-        CGRect(x: 2922.510926925824, y: 1325.77119646146, width: 13.95623493098401, height: 24.748287172732034),
-        CGRect(x: 2939.125492319853, y: 1340.7330597961138, width: 13.956234930983555, height: 1.833206457239612),
-        CGRect(x: 2571.651898734177, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2612.158227848101, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2612.158227848101, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2612.158227848101, y: 1412.1582278481012, width: 1.0, height: 1.0),
-        CGRect(x: 2652.664556962025, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2652.664556962025, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2652.664556962025, y: 1412.1582278481012, width: 1.0, height: 1.0),
-        CGRect(x: 2652.664556962025, y: 1442.5379746835442, width: 1.0, height: 1.0),
-        CGRect(x: 2693.170886075949, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2693.170886075949, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2693.170886075949, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2693.170886075949, y: 1412.1582278481012, width: 1.0, height: 1.0),
-        CGRect(x: 2693.170886075949, y: 1442.5379746835442, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1290.639240506329, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1412.1582278481012, width: 1.0, height: 1.0),
-        CGRect(x: 2733.677215189873, y: 1442.5379746835442, width: 1.0, height: 1.0),
-        CGRect(x: 2774.183544303797, y: 1290.639240506329, width: 1.0, height: 1.0),
-        CGRect(x: 2774.183544303797, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2774.183544303797, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2774.183544303797, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2774.183544303797, y: 1412.1582278481012, width: 1.0, height: 1.0),
-        CGRect(x: 2814.689873417721, y: 1260.259493670886, width: 1.0, height: 1.0),
-        CGRect(x: 2814.689873417721, y: 1290.639240506329, width: 1.0, height: 1.0),
-        CGRect(x: 2814.689873417721, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2814.689873417721, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2814.689873417721, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2855.196202531645, y: 1260.259493670886, width: 1.0, height: 1.0),
-        CGRect(x: 2855.196202531645, y: 1290.639240506329, width: 1.0, height: 1.0),
-        CGRect(x: 2855.196202531645, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2855.196202531645, y: 1351.3987341772151, width: 1.0, height: 1.0),
-        CGRect(x: 2855.196202531645, y: 1381.7784810126582, width: 1.0, height: 1.0),
-        CGRect(x: 2895.7025316455693, y: 1290.639240506329, width: 1.0, height: 1.0),
-        CGRect(x: 2895.7025316455693, y: 1321.0189873417721, width: 1.0, height: 1.0),
-        CGRect(x: 2895.7025316455693, y: 1351.3987341772151, width: 1.0, height: 1.0),
     ]
-    static let authoredFireplaceCoverRect = CGRect(x: 2734.6212262156446, y: 1325.6030390704334, width: 234.84887949260064, height: 386.74584941152966)
+    static let authoredFireplaceCoverRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     static let authoredFireplaceObstaclePolygon: [CGPoint] = [
-        CGPoint(x: 2672.8080432563775, y: 1476.7303254431013),
-        CGPoint(x: 2954.410892482359, y: 1341.9300088628863),
-        CGPoint(x: 2837.798253099411, y: 1236.9171883549225),
-        CGPoint(x: 2555.6613230256735, y: 1371.0728432379244),
     ]
     static let authoredFireplaceCoverPolygon: [CGPoint] = [
-        CGPoint(x: 2734.6212262156446, y: 1712.348888481963),
-        CGPoint(x: 2969.4701057082452, y: 1596.116424897205),
-        CGPoint(x: 2969.4701057082452, y: 1325.6030390704334),
-        CGPoint(x: 2734.6212262156446, y: 1441.8355026551915),
     ]
     /// Retired V10 stair compatibility alias; no stair pixels or collision remain.
     static let authoredStairObstacle = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
@@ -2338,7 +2269,6 @@ enum OfficeNavigationLayout {
     static let authoredFilingCabinetObstacle = CGRect(x: 2535.0444040143693, y: 1592.7810830383298, width: 161.19869018554687, height: 79.85728258405408)
     static let authoredBookshelfObstacle = CGRect(x: 2037.2173072544642, y: 1577.145084905134, width: 194.46573549107148, height: 91.73929268973211)
     static let authoredArchiveBoxAObstacle = CGRect(x: 1185.2136214285715, y: 937.4441767857144, width: 137.24635714285736, height: 84.10044642857142)
-    static let authoredRadiatorObstacle = CGRect(x: 2387.1409320382254, y: 1690.6269029802597, width: 172.80525020926345, height: 84.82835475376666)
     static let authoredPersonalSideboardObstacle = CGRect(x: 2797.826715576172, y: 1430.6725180053713, width: 215.8094081333706, height: 111.419004167829)
     static let authoredPersonalFanObstacle = CGRect(x: 2617.4542854666574, y: 1559.4364967258998, width: 143.88113263811354, height: 72.14253779820042)
     static let authoredDeskEnsembleObstacle = CGRect(x: 1779.0622331428574, y: 1074.3144571428572, width: 374.49428571428564, height: 208.41428571428574)
@@ -2361,11 +2291,8 @@ enum OfficeNavigationLayout {
     /// started asking the search map what it could see: a desk two paces away
     /// shadowed the whole far wall.
     ///
-    /// The four pieces tall enough to occlude — bookshelf, filing cabinet, safe
-    /// and fireplace — are exactly the four already authored as
-    /// `wallPolygons` because they hide an actor who walks behind them. A thing
-    /// that hides a standing man hides what is behind it; a wastebasket does
-    /// not. `AreaCatalogTests` holds those two lists against each other.
+    /// V18 keeps only the live desk and chair footprints here. Both are low
+    /// enough to block feet while allowing sight to pass over them.
     private static var authoredSightPermeableObstacles: [CGRect] {
         [
             authoredDeskEnsembleObstacle,
@@ -2373,9 +2300,8 @@ enum OfficeNavigationLayout {
         ]
     }
 
-    /// Architecture and the tall furniture: the room shell, its partitions and
-    /// pillars, the foreground wall, the fireplace masonry, and the three
-    /// cabinets a man can hide behind.
+    /// Sight-blocking architecture: the room shell, foreground boundary and
+    /// registered entrance threshold. V18 authors no furniture cover polygons.
     private static var authoredSightBlockingObstacles: [CGRect] {
         [authoredDoorObstacle, authoredForegroundWallObstacle]
             + authoredFireplaceObstacleSegments
@@ -2421,11 +2347,6 @@ enum OfficeNavigationLayout {
         CGPoint(x: 1253.8368000000003, y: 979.4944),
         CGPoint(x: 1226.3875285714287, y: 966.8793330357144),
         CGPoint(x: 1281.2860714285716, y: 992.1094669642858),
-    ]
-    static let authoredRadiatorSamplePoints: [CGPoint] = [
-        CGPoint(x: 2473.543557142857, y: 1733.041080357143),
-        CGPoint(x: 2438.9825071010046, y: 1720.3168271440782),
-        CGPoint(x: 2508.10460718471, y: 1745.765333570208),
     ]
     static let authoredPersonalSideboardSamplePoints: [CGPoint] = [
         CGPoint(x: 2905.731419642857, y: 1486.3820200892858),
@@ -2508,67 +2429,6 @@ enum OfficeNavigationLayout {
         CGPoint(x: 0.0, y: 0.0),
     ]
     static let authoredFireplaceSamplePoints: [CGPoint] = [
-        CGPoint(x: 2563.9686057226877, y: 1371.3562385358575),
-        CGPoint(x: 2580.5831711167166, y: 1374.89867976002),
-        CGPoint(x: 2597.197736510745, y: 1378.4411209841828),
-        CGPoint(x: 2613.8123019047734, y: 1381.9835622083451),
-        CGPoint(x: 2630.426867298802, y: 1385.5260034325079),
-        CGPoint(x: 2647.0414326928303, y: 1389.0684446566706),
-        CGPoint(x: 2663.655998086859, y: 1392.6108858808332),
-        CGPoint(x: 2680.2705634808876, y: 1392.4785892294517),
-        CGPoint(x: 2696.8851288749165, y: 1384.551881024499),
-        CGPoint(x: 2713.499694268945, y: 1376.6251728195466),
-        CGPoint(x: 2730.1142596629734, y: 1368.6984646145938),
-        CGPoint(x: 2746.728825057002, y: 1360.7717564096415),
-        CGPoint(x: 2763.3433904510307, y: 1352.8450482046887),
-        CGPoint(x: 2779.957955845059, y: 1344.9183399997364),
-        CGPoint(x: 2796.5725212390876, y: 1336.9916317947839),
-        CGPoint(x: 2813.1870866331165, y: 1329.064923589831),
-        CGPoint(x: 2829.801652027145, y: 1321.1382153848785),
-        CGPoint(x: 2846.4162174211733, y: 1320.6237251632876),
-        CGPoint(x: 2863.0307828152017, y: 1324.1280481401955),
-        CGPoint(x: 2879.6453482092306, y: 1327.632371117103),
-        CGPoint(x: 2896.259913603259, y: 1331.1366940940106),
-        CGPoint(x: 2912.8744789972875, y: 1334.6410170709182),
-        CGPoint(x: 2929.4890443913164, y: 1338.145340047826),
-        CGPoint(x: 2946.103609785345, y: 1341.6496630247336),
-        CGPoint(x: 2572.151898734177, y: 1382.2784810126582),
-        CGPoint(x: 2612.658227848101, y: 1351.8987341772151),
-        CGPoint(x: 2612.658227848101, y: 1382.2784810126582),
-        CGPoint(x: 2612.658227848101, y: 1412.6582278481012),
-        CGPoint(x: 2653.164556962025, y: 1351.8987341772151),
-        CGPoint(x: 2653.164556962025, y: 1382.2784810126582),
-        CGPoint(x: 2653.164556962025, y: 1412.6582278481012),
-        CGPoint(x: 2653.164556962025, y: 1443.0379746835442),
-        CGPoint(x: 2693.670886075949, y: 1321.5189873417721),
-        CGPoint(x: 2693.670886075949, y: 1351.8987341772151),
-        CGPoint(x: 2693.670886075949, y: 1382.2784810126582),
-        CGPoint(x: 2693.670886075949, y: 1412.6582278481012),
-        CGPoint(x: 2693.670886075949, y: 1443.0379746835442),
-        CGPoint(x: 2734.177215189873, y: 1291.139240506329),
-        CGPoint(x: 2734.177215189873, y: 1321.5189873417721),
-        CGPoint(x: 2734.177215189873, y: 1351.8987341772151),
-        CGPoint(x: 2734.177215189873, y: 1382.2784810126582),
-        CGPoint(x: 2734.177215189873, y: 1412.6582278481012),
-        CGPoint(x: 2734.177215189873, y: 1443.0379746835442),
-        CGPoint(x: 2774.683544303797, y: 1291.139240506329),
-        CGPoint(x: 2774.683544303797, y: 1321.5189873417721),
-        CGPoint(x: 2774.683544303797, y: 1351.8987341772151),
-        CGPoint(x: 2774.683544303797, y: 1382.2784810126582),
-        CGPoint(x: 2774.683544303797, y: 1412.6582278481012),
-        CGPoint(x: 2815.189873417721, y: 1260.759493670886),
-        CGPoint(x: 2815.189873417721, y: 1291.139240506329),
-        CGPoint(x: 2815.189873417721, y: 1321.5189873417721),
-        CGPoint(x: 2815.189873417721, y: 1351.8987341772151),
-        CGPoint(x: 2815.189873417721, y: 1382.2784810126582),
-        CGPoint(x: 2855.696202531645, y: 1260.759493670886),
-        CGPoint(x: 2855.696202531645, y: 1291.139240506329),
-        CGPoint(x: 2855.696202531645, y: 1321.5189873417721),
-        CGPoint(x: 2855.696202531645, y: 1351.8987341772151),
-        CGPoint(x: 2855.696202531645, y: 1382.2784810126582),
-        CGPoint(x: 2896.2025316455693, y: 1291.139240506329),
-        CGPoint(x: 2896.2025316455693, y: 1321.5189873417721),
-        CGPoint(x: 2896.2025316455693, y: 1351.8987341772151),
     ]
 
     // MARK: - Placements
@@ -2586,16 +2446,15 @@ enum OfficeNavigationLayout {
         static let camera = CGPoint(x: 1986.605056, y: 1084.9024)
 
         static let safe = CGPoint(x: 2357.262079166667, y: 1697.682134375)  // records run, far end
-        static let filingCabinetB = CGPoint(x: 2505.3200169642855, y: 1676.7342109375)  // NE rear bay, clear of fireplace
+        static let filingCabinetB = CGPoint(x: 2505.3200169642855, y: 1676.7342109375)  // NE rear bay
         static let filingCabinet = CGPoint(x: 2615.643749107143, y: 1632.709724330357)  // drawer half open; NE rear bay
         static let bookshelf = CGPoint(x: 2134.450175, y: 1623.01473125)
         static let archiveBoxOnCabinet = CGPoint(x: 2495.3200169642855, y: 1833.7342109375)  // opaque base registered to cabinet top
         static let archiveStackOnCabinet = CGPoint(x: 2627.643749107143, y: 1787.709724330357)  // opaque base registered to cabinet top
         static let archiveBoxA = CGPoint(x: 1253.8368000000003, y: 979.4944)  // records overflow stack
-        static let radiator = CGPoint(x: 2473.543557142857, y: 1733.041080357143)  // rear of the fireplace wall, clear of its hearth
         static let personalSideboard = CGPoint(x: 2905.731419642857, y: 1486.3820200892858)
         static let personalWashbasin = CGPoint(x: 3269.570192857143, y: 1302.8523571428573)  // retired domestic fixture; placement retained for source lineage
-        static let personalFan = CGPoint(x: 2689.3948517857143, y: 1595.507765625)  // just rear of the fireplace cover
+        static let personalFan = CGPoint(x: 2689.3948517857143, y: 1595.507765625)  // NE wall personal corner
         static let personalBottle = CGPoint(x: 2889.731419642857, y: 1596.3820200892858)  // opaque base registered to sideboard top
         static let personalGlass = CGPoint(x: 2917.731419642857, y: 1593.3820200892858)  // opaque base registered to sideboard top
         static let deskEnsemble = CGPoint(x: 1966.3093760000004, y: 1178.5215999999998)
@@ -2731,7 +2590,6 @@ enum OfficeNavigationLayout {
     static var filingCabinetObstacle: CGRect { OfficeInteriorScale.mapRect(authoredFilingCabinetObstacle) }
     static var bookshelfObstacle: CGRect { OfficeInteriorScale.mapRect(authoredBookshelfObstacle) }
     static var archiveBoxAObstacle: CGRect { OfficeInteriorScale.mapRect(authoredArchiveBoxAObstacle) }
-    static var radiatorObstacle: CGRect { OfficeInteriorScale.mapRect(authoredRadiatorObstacle) }
     static var personalSideboardObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPersonalSideboardObstacle) }
     static var personalFanObstacle: CGRect { OfficeInteriorScale.mapRect(authoredPersonalFanObstacle) }
     static var deskEnsembleObstacle: CGRect { OfficeInteriorScale.mapRect(authoredDeskEnsembleObstacle) }
@@ -2765,7 +2623,6 @@ enum OfficeNavigationLayout {
     static var filingCabinetSamplePoints: [CGPoint] { authoredFilingCabinetSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var bookshelfSamplePoints: [CGPoint] { authoredBookshelfSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var archiveBoxASamplePoints: [CGPoint] { authoredArchiveBoxASamplePoints.map(OfficeInteriorScale.mapPoint) }
-    static var radiatorSamplePoints: [CGPoint] { authoredRadiatorSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var personalSideboardSamplePoints: [CGPoint] { authoredPersonalSideboardSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var personalFanSamplePoints: [CGPoint] { authoredPersonalFanSamplePoints.map(OfficeInteriorScale.mapPoint) }
     static var deskEnsembleSamplePoints: [CGPoint] { authoredDeskEnsembleSamplePoints.map(OfficeInteriorScale.mapPoint) }

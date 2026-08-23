@@ -62,8 +62,8 @@ BASE_PLATE = (
     / "ArtSource"
     / "Generated"
     / "Office"
-    / "BGEEReferenceV17"
-    / "office_reference_rebuild_plate_v17.png"
+    / "BGEEReferenceV18"
+    / "office_reference_rebuild_plate_v18.png"
 )
 PROPS = ROOT / "ArtSource" / "Generated" / "Office" / "office_props_v01.json"
 OUT_DIR = ROOT / "ArtSource" / "Generated" / "Office" / "PlateBake"
@@ -81,7 +81,8 @@ LAYER_Z = {
     "occlusion": 5_000.0,
 }
 
-# The shipping plate is the empty V17 shell. Only the desk, chair and the
+# The shipping plate is the V18 shell with two period radiators painted into
+# the architecture. Only the desk, chair and the
 # occluders that sort against seated Voss stay live; nothing else is composited.
 LIVE_PROP_IDS = {
     "office_desk_bare",
@@ -295,16 +296,16 @@ def main(argv: list[str]) -> int:
     else:
         baked = []
         print(f"plate density      {px_per_unit:.2f} px/unit")
-        print("bake scenery      off (empty V17 shell)")
+        print("bake scenery      off (V18 shell already owns the radiators)")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / "office_suite_plate_baked_v17.png"
+    out = OUT_DIR / "office_suite_plate_baked_v18.png"
     Image.fromarray((np.clip(base, 0, 1) * 255).round().astype(np.uint8)).save(out)
 
     split = {
-        "version": 17,
+        "version": 18,
         "construction": (
-            "empty V17 shell plus live desk/chair"
+            "V18 baked-radiator shell plus live desk/chair"
             if not BAKE_SCENERY
             else "Infinity-Engine-style static plate plus registered live overlays"
         ),
@@ -324,7 +325,7 @@ def main(argv: list[str]) -> int:
         "registeredDoorID": "office.door",
         "registeredDoorStates": ["closed", "mid", "open"],
     }
-    split_path = OUT_DIR / "office_plate_bake_manifest_v17.json"
+    split_path = OUT_DIR / "office_plate_bake_manifest_v18.json"
     split_path.write_text(json.dumps(split, indent=2, sort_keys=True) + "\n")
 
     if install:

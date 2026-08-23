@@ -244,14 +244,10 @@ enum OfficeAreaAdapter {
     /// actor's head. Widening this is an art-direction call about which pieces
     /// read as one mass, and is best made against captures.
     private static func wallPolygons() -> [AreaWallPolygon] {
-        // Retired scenery no longer stands in the room, so it must not cover
-        // actors. The hearth facade is baked into the empty V15 shell.
-        [
-            AreaWallPolygon(
-                id: "wall.fireplace",
-                polygon: OfficeNavigationLayout.fireplaceCoverPolygon.map(AreaPoint.init)
-            )
-        ]
+        // The V18 radiator edit repairs the old hearth to ordinary wall/floor
+        // pixels. The baked radiators sit within the shell boundary and need no
+        // actor cover of their own.
+        []
     }
 
     /// How far camera-far of a piece's footprint it still covers an actor.

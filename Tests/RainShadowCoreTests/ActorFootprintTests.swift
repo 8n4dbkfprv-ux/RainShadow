@@ -99,11 +99,12 @@ struct ActorFootprintTests {
     @Test func actorFootprintDoesNotChangeStaticReachability() {
         // Static clearance is deliberately left on the tuned world-unit profile,
         // so these counts must be byte-identical to the pre-change baseline.
-        // V17's exact AR0809 silhouette measures 6,754 radius-reachable cells from
-        // the chair-side stand. A closed-door AABB that cuts the diagonal near
+        // V18's exact AR0809 silhouette measures 6,797 radius-reachable cells from
+        // the chair-side stand after retiring the fireplace/hearth footprint. A
+        // closed-door AABB that cuts the diagonal near
         // edge used to collapse the room to ~682 cells. The threshold stamp is
         // now narrow enough that door state does not change this count.
-        let expected = [true: 6_754, false: 6_754]
+        let expected = [true: 6_797, false: 6_797]
         for doorBlocking in [true, false] {
             let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: doorBlocking)
             #expect(

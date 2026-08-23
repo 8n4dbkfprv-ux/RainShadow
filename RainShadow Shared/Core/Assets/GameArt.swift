@@ -366,7 +366,6 @@ enum GameArt {
             "city_kiosk",
             "city_crates_mail",
             "city_gate",
-            "office_radiator",
             "office_door_leaf",
             "office_door_leaf_hover",
             "office_door_leaf_mid",

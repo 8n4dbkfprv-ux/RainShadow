@@ -70,45 +70,10 @@ struct AreaWallPolygonTests {
 
     // MARK: - The office
 
-    /// Cover reaches *camera-far* of a piece's footprint. Standing level with a
-    /// bookshelf is beside it, not behind it, and covering there would ghost the
-    /// actor while they are plainly in front of the art.
-    @Test func officeCoverSitsBehindEachPieceRatherThanOnIt() throws {
+    /// V18 repairs the fireplace to wall/floor pixels and paints the radiators
+    /// inside the shell boundary, so neither fixture may ghost an actor.
+    @Test func bakedRadiatorOfficeNeedsNoActorCover() throws {
         let office = try AreaCatalogLoader.load(HarborpointAreas.office)
-        #expect(!office.wallPolygons.isEmpty, "the office authors no cover")
-
-        for wall in office.wallPolygons {
-            let footprintName = wall.id.replacingOccurrences(of: "wall.", with: "")
-            let box = wall.boundingBox
-            // Every authored cover is taller in depth than the obstacle it came
-            // from, which is what carrying it camera-far means.
-            #expect(box.height > 0, "\(footprintName) cover has no depth")
-            #expect(box.width > 0, "\(footprintName) cover has no width")
-            #expect(
-                office.worldBounds.intersects(box),
-                "\(footprintName) cover lies outside the area"
-            )
-        }
-    }
-
-    /// Retired scenery must not ghost actors on the empty shell.
-    @Test func onlyTheFireplaceStillCoversActors() throws {
-        let office = try AreaCatalogLoader.load(HarborpointAreas.office)
-        #expect(office.wallPolygons.map(\.id) == ["wall.fireplace"])
-    }
-
-    @Test func coldFireplaceCoverKeepsItsRegisteredWallProjection() throws {
-        let office = try AreaCatalogLoader.load(HarborpointAreas.office)
-        let fireplace = try #require(
-            office.wallPolygons.first { $0.id == "wall.fireplace" }
-        )
-        let expected = OfficeNavigationLayout.fireplaceCoverPolygon.map(AreaPoint.init)
-        #expect(fireplace.polygon == expected)
-        #expect(fireplace.polygon.count == 4)
-
-        // The affine NE-wall quadrilateral is not its bounding box: a corner of
-        // the box remains uncovered, preserving the isometric wall silhouette.
-        let box = fireplace.boundingBox
-        #expect(!fireplace.contains(CGPoint(x: box.minX + 1, y: box.minY + 1)))
+        #expect(office.wallPolygons.isEmpty)
     }
 }

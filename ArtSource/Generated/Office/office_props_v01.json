@@ -1,6 +1,6 @@
 {
   "authoringSource": "ArtSource/Generated/Office/BGEEReferenceV14/office_props_source_v14.json",
-  "authoringVersion": "V17",
+  "authoringVersion": "V18",
   "props": [
     {
       "alpha": 0.55,
@@ -241,22 +241,6 @@
       "rotation": 0.0,
       "scale": 0.15444,
       "textureName": "office_framed_licence"
-    },
-    {
-      "alpha": 1.0,
-      "anchorX": 0.5,
-      "anchorY": 0.04,
-      "blend": "alpha",
-      "depthBias": 5000.0,
-      "groundPoint": {
-        "x": 2216.0897050714284,
-        "y": 1381.5112267410716
-      },
-      "id": "office_radiator",
-      "layer": "rearFixtures",
-      "rotation": 0.0,
-      "scale": 0.104,
-      "textureName": "office_radiator"
     },
     {
       "alpha": 1.0,

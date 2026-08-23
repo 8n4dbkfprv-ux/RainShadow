@@ -1,0 +1,56 @@
+{
+  "allowlist": [
+    {
+      "sha256": "161087480ec3d49289224f6b88ec36b5dbafcbf15765cca928161008fbb82f78",
+      "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v18.png",
+      "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png"
+    },
+    {
+      "sha256": "161087480ec3d49289224f6b88ec36b5dbafcbf15765cca928161008fbb82f78",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV18/office_reference_rebuild_plate_v18.png",
+      "target": "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png"
+    },
+    {
+      "sha256": "161087480ec3d49289224f6b88ec36b5dbafcbf15765cca928161008fbb82f78",
+      "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v18.png",
+      "target": "ArtSource/Generated/Office/office_suite_plate.png"
+    },
+    {
+      "sha256": "161087480ec3d49289224f6b88ec36b5dbafcbf15765cca928161008fbb82f78",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV18/office_reference_rebuild_plate_v18.png",
+      "target": "ArtSource/Generated/Office/office_shell_base.png"
+    },
+    {
+      "sha256": "161087480ec3d49289224f6b88ec36b5dbafcbf15765cca928161008fbb82f78",
+      "source": "ArtSource/Generated/Office/PlateBake/office_suite_plate_baked_v18.png",
+      "target": "ArtSource/Generated/Office/office_suite_plate_bgee_v18_installed.png"
+    },
+    {
+      "sha256": "d93b863aeaf2994c938bd58c37407e0c6ca6b5eb14f0e2d5f9ca1c20745a5788",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV18/office_window_glass_mask_v18.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png"
+    },
+    {
+      "sha256": "a2fac44ac93f25f65af5aad3097814653740023c5c000996e684f416fb44a818",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV18/office_window_near_hover_overlay_v18.png",
+      "target": "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png"
+    },
+    {
+      "sha256": "90fa9d343a350f48d18b68feb39bfc10412948985a7c8beeedabe638143c289c",
+      "source": "ArtSource/Generated/Office/BGEEReferenceV18/office_reference_rebuild_metrics_v18.json",
+      "target": "ArtSource/Generated/Office/office_reference_rebuild_metrics_v18.json"
+    }
+  ],
+  "installed": [
+    "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_suite_plate.png",
+    "RainShadow Shared/Resources/Art/Areas/DetectiveOffice/office_shell_base.png",
+    "ArtSource/Generated/Office/office_suite_plate.png",
+    "ArtSource/Generated/Office/office_shell_base.png",
+    "ArtSource/Generated/Office/office_suite_plate_bgee_v18_installed.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_window_glass_mask.png",
+    "RainShadow Shared/Resources/Art/Props/Office/office_window_hover_overlay.png",
+    "ArtSource/Generated/Office/office_reference_rebuild_metrics_v18.json"
+  ],
+  "mode": "read-only preflight unless --install is supplied",
+  "version": "BGEEReferenceV18"
+}
