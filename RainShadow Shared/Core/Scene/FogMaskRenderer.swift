@@ -6,11 +6,11 @@ import SpriteKit
 /// Turns an area's two fog bitmaps into the texture drawn over it.
 ///
 /// GemRB's `FogRenderer` fills unexplored and remembered runs with solid black
-/// and stamps `FOGOWAR.BAM` on the boundary. The texture here is that same
-/// compositor: `FogGrid.displayMask` is `texturePixelsPerCell` screen texels
-/// per fog cell, interiors flat at the three GemRB levels, edges from generated
-/// N/W stamps (and mirrors). Linear filtering is not the edge. Nearest sampling
-/// keeps the tile the engine drew, stretched over `worldFrame`.
+/// and shades `FOGOWAR` on the boundary. The texture here is that compositor:
+/// `FogGrid.displayMask` is `texturePixelsPerCell` screen texels per fog cell,
+/// interiors flat at the three GemRB levels, edges from BG:EE corner fans.
+/// Linear filtering is not the edge. Nearest sampling keeps the tile the
+/// engine drew, stretched over `worldFrame`.
 ///
 /// `FogGrid` answers in levels because levels are testable; a level is an
 /// alpha, and the fog is black, so every texel is `(0, 0, 0, level)`

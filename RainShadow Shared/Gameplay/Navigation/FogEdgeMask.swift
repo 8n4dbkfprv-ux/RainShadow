@@ -1,27 +1,19 @@
 import Foundation
 
-/// FOGOWAR-role edge stamps for a fog overlay.
+/// BG:EE corner-smoothed fog overlay.
 ///
-/// GemRB's `FogRenderer` fills unexplored / remembered runs with solid black,
-/// then blits `FOGOWAR.BAM` frames (N, W, NW, and mirrors) on the boundary of
-/// a visible or explored cell. RainShadow cannot ship that BAM. These tiles
-/// play the same neighbour-bit role: a short falloff on the outer side of a
-/// fog cell, dithered so the edge is a scallop rather than a Gaussian ramp.
+/// The original engine's `BltFogOWar3d` / `GetSubTileCode` builds a 4-bit corner
+/// code per 32-px tile from this cell and its east / south / south-east
+/// neighbours, then Gouraud-shades a triangle fan: covered corners at the
+/// pass's alpha (255 unexplored, 128 shroud), uncovered at 0. The centre vertex
+/// is covered when three corners are and clear when only one is. Two, four, or
+/// zero covered corners fill the quad from the corners alone.
 ///
-/// Interiors stay flat. Linear filtering is not part of this compositor.
+/// Exploration and visibility are separate passes, composited with `max` so
+/// unexplored black wins over shroud. Linear filtering is not the edge;
+/// interiors stay flat at the three GemRB levels.
 enum FogEdgeMask {
     static let cellSize = FogGrid.texturePixelsPerCell
-    /// Authored falloff at GemRB's 32 px/cell. Scaled with the uploaded cell.
-    static let referenceFalloff = 6
-    /// Pixels of falloff on the fogged side of an edge. BG:EE indoor clips in a
-    /// few pixels; a quarter-cell linear ramp was eight-plus and read as a blob.
-    static var falloff: Int {
-        max(
-            1,
-            (referenceFalloff * FogGrid.texturePixelsPerCell + FogGrid.cellPixelSize / 2)
-                / FogGrid.cellPixelSize
-        )
-    }
 
     /// Expand a one-byte-per-cell state buffer to the overlay texel grid, top row first.
     static func composite(cellLevels: [UInt8], columns: Int, rows: Int) -> [UInt8] {
@@ -33,7 +25,7 @@ enum FogEdgeMask {
             return [UInt8](repeating: FogGrid.unexploredLevel, count: max(0, count))
         }
 
-        var buffer = [UInt8](repeating: FogGrid.unexploredLevel, count: count)
+        var buffer = [UInt8](repeating: 0, count: count)
 
         func imageRow(of worldRow: Int) -> Int { rows - 1 - worldRow }
 
@@ -44,131 +36,132 @@ enum FogEdgeMask {
             return cellLevels[imageRow(of: row) * columns + column]
         }
 
-        func fill(column: Int, row: Int, value: UInt8) {
-            let x0 = column * side
-            let y0 = imageRow(of: row) * side
-            for y in y0..<(y0 + side) {
-                let start = y * width + x0
-                for index in start..<(start + side) {
-                    buffer[index] = value
-                }
+        rasterPass(
+            into: &buffer,
+            width: width,
+            columns: columns,
+            rows: rows,
+            peak: FogGrid.rememberedLevel,
+            covered: { column, row in
+                level(column: column, row: row) != FogGrid.visibleLevel
             }
-        }
-
-        for row in 0..<rows {
-            for column in 0..<columns {
-                fill(column: column, row: row, value: level(column: column, row: row))
+        )
+        rasterPass(
+            into: &buffer,
+            width: width,
+            columns: columns,
+            rows: rows,
+            peak: FogGrid.unexploredLevel,
+            covered: { column, row in
+                level(column: column, row: row) == FogGrid.unexploredLevel
             }
-        }
-
-        for row in 0..<rows {
-            for column in 0..<columns {
-                let here = level(column: column, row: row)
-                if here == FogGrid.visibleLevel {
-                    blitEdges(
-                        into: &buffer,
-                        width: width,
-                        column: column,
-                        row: row,
-                        rows: rows,
-                        peak: FogGrid.rememberedLevel,
-                        north: level(column: column, row: row + 1) != FogGrid.visibleLevel,
-                        south: level(column: column, row: row - 1) != FogGrid.visibleLevel,
-                        west: level(column: column - 1, row: row) != FogGrid.visibleLevel,
-                        east: level(column: column + 1, row: row) != FogGrid.visibleLevel
-                    )
-                }
-                if here != FogGrid.unexploredLevel {
-                    blitEdges(
-                        into: &buffer,
-                        width: width,
-                        column: column,
-                        row: row,
-                        rows: rows,
-                        peak: FogGrid.unexploredLevel,
-                        north: level(column: column, row: row + 1) == FogGrid.unexploredLevel,
-                        south: level(column: column, row: row - 1) == FogGrid.unexploredLevel,
-                        west: level(column: column - 1, row: row) == FogGrid.unexploredLevel,
-                        east: level(column: column + 1, row: row) == FogGrid.unexploredLevel
-                    )
-                }
-            }
-        }
+        )
         return buffer
     }
 
-    private static func blitEdges(
+    private static func rasterPass(
         into buffer: inout [UInt8],
         width: Int,
-        column: Int,
-        row: Int,
+        columns: Int,
         rows: Int,
         peak: UInt8,
-        north: Bool,
-        south: Bool,
-        west: Bool,
-        east: Bool
+        covered: (Int, Int) -> Bool
     ) {
         let side = cellSize
-        let x0 = column * side
-        let y0 = (rows - 1 - row) * side
-        if north { blitNorth(into: &buffer, width: width, x0: x0, y0: y0, peak: peak, flipY: false) }
-        if south { blitNorth(into: &buffer, width: width, x0: x0, y0: y0, peak: peak, flipY: true) }
-        if west { blitWest(into: &buffer, width: width, x0: x0, y0: y0, peak: peak, flipX: false) }
-        if east { blitWest(into: &buffer, width: width, x0: x0, y0: y0, peak: peak, flipX: true) }
-    }
+        let peakValue = Double(peak)
+        for row in 0..<rows {
+            let y0 = (rows - 1 - row) * side
+            for column in 0..<columns {
+                // Engine y-down: TL = this tile, TR = east, BL = south, BR = SE.
+                // World +row is north, image +y is down, so image-south is world south.
+                let nw = covered(column, row)
+                let ne = covered(column + 1, row)
+                let sw = covered(column, row - 1)
+                let se = covered(column + 1, row - 1)
+                let corners = [nw, ne, sw, se]
+                let count = corners.filter { $0 }.count
+                let nwV = nw ? peakValue : 0
+                let neV = ne ? peakValue : 0
+                let swV = sw ? peakValue : 0
+                let seV = se ? peakValue : 0
+                let useFan = count == 1 || count == 3
+                let centerV = count == 3 ? peakValue : 0.0
 
-    /// N-edge tile: fog along the top of the cell (`y0` is the image top).
-    private static func blitNorth(
-        into buffer: inout [UInt8],
-        width: Int,
-        x0: Int,
-        y0: Int,
-        peak: UInt8,
-        flipY: Bool
-    ) {
-        let side = cellSize
-        for y in 0..<side {
-            let srcY = flipY ? (side - 1 - y) : y
-            let fy = falloff - srcY
-            guard fy > 0 else { continue }
-            let base = (Int(peak) * fy + falloff / 2) / falloff
-            let destY = y0 + y
-            for x in 0..<side {
-                let dither = ((x ^ srcY) & 1) == 0 ? 0 : -10
-                let alpha = UInt8(clamping: base + dither)
-                let index = destY * width + x0 + x
-                if alpha > buffer[index] {
-                    buffer[index] = alpha
+                let x0 = column * side
+                for dy in 0..<side {
+                    for dx in 0..<side {
+                        let u = (Double(dx) + 0.5) / Double(side)
+                        let v = (Double(dy) + 0.5) / Double(side)
+                        let sample: Double
+                        if useFan {
+                            sample = fanSample(
+                                u: u,
+                                v: v,
+                                nw: nwV,
+                                ne: neV,
+                                sw: swV,
+                                se: seV,
+                                center: centerV
+                            )
+                        } else {
+                            sample = (1 - u) * (1 - v) * nwV
+                                + u * (1 - v) * neV
+                                + (1 - u) * v * swV
+                                + u * v * seV
+                        }
+                        let alpha = UInt8(clamping: Int(sample.rounded()))
+                        let index = (y0 + dy) * width + x0 + dx
+                        if alpha > buffer[index] {
+                            buffer[index] = alpha
+                        }
+                    }
                 }
             }
         }
     }
 
-    /// W-edge tile: fog along the left of the cell.
-    private static func blitWest(
-        into buffer: inout [UInt8],
-        width: Int,
-        x0: Int,
-        y0: Int,
-        peak: UInt8,
-        flipX: Bool
-    ) {
-        let side = cellSize
-        for x in 0..<side {
-            let srcX = flipX ? (side - 1 - x) : x
-            let fx = falloff - srcX
-            guard fx > 0 else { continue }
-            let base = (Int(peak) * fx + falloff / 2) / falloff
-            let destX = x0 + x
-            for y in 0..<side {
-                let dither = ((srcX ^ y) & 1) == 0 ? 0 : -10
-                let alpha = UInt8(clamping: base + dither)
-                let index = (y0 + y) * width + destX
-                if alpha > buffer[index] {
-                    buffer[index] = alpha
-                }
+    /// Triangle fan from the cell centre to the four corners (`BltFogOWar3d`).
+    private static func fanSample(
+        u: Double,
+        v: Double,
+        nw: Double,
+        ne: Double,
+        sw: Double,
+        se: Double,
+        center: Double
+    ) -> Double {
+        let du = abs(u - 0.5)
+        let dv = abs(v - 0.5)
+        if dv >= du {
+            if v <= 0.5 {
+                return barycentric(u: u, v: v, ax: 0.5, ay: 0.5, av: center, bx: 0, by: 0, bv: nw, cx: 1, cy: 0, cv: ne)
             }
+            return barycentric(u: u, v: v, ax: 0.5, ay: 0.5, av: center, bx: 0, by: 1, bv: sw, cx: 1, cy: 1, cv: se)
         }
+        if u <= 0.5 {
+            return barycentric(u: u, v: v, ax: 0.5, ay: 0.5, av: center, bx: 0, by: 0, bv: nw, cx: 0, cy: 1, cv: sw)
+        }
+        return barycentric(u: u, v: v, ax: 0.5, ay: 0.5, av: center, bx: 1, by: 0, bv: ne, cx: 1, cy: 1, cv: se)
+    }
+
+    private static func barycentric(
+        u: Double,
+        v: Double,
+        ax: Double,
+        ay: Double,
+        av: Double,
+        bx: Double,
+        by: Double,
+        bv: Double,
+        cx: Double,
+        cy: Double,
+        cv: Double
+    ) -> Double {
+        let denom = (by - cy) * (ax - cx) + (cx - bx) * (ay - cy)
+        guard denom != 0 else { return av }
+        let wA = ((by - cy) * (u - cx) + (cx - bx) * (v - cy)) / denom
+        let wB = ((cy - ay) * (u - cx) + (ax - cx) * (v - cy)) / denom
+        let wC = 1 - wA - wB
+        return wA * av + wB * bv + wC * cv
     }
 }

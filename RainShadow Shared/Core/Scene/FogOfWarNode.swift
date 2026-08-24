@@ -10,10 +10,10 @@ import SpriteKit
 /// keep the terrain and lose whatever is standing on it.
 ///
 /// Both are now literally bitmaps. They used to be lists of places the player had
-/// stood, re-shadowcast on load and repainted in full every time the list grew,
-/// which made a long walk cost more the longer you had walked and left no way to
-/// say "this ground was revealed" about anything other than standing on it.
-/// Opening a door is exactly that kind of reveal, and so is an authored one.
+/// stood, re-cast on load and repainted in full every time the list grew, which
+/// made a long walk cost more the longer you had walked and left no way to say
+/// "this ground was revealed" about anything other than standing on it. Opening
+/// a door is exactly that kind of reveal, and so is an authored one.
 ///
 /// The two areas share one drawer and one pair of bitmaps. They part company
 /// on indoor fill: an office floods each enclosure LOS reached so a room lights
@@ -143,6 +143,19 @@ final class FogOfWarNode: SKSpriteNode {
         renderer.makeTexture(explored: [], visible: exploredCells)
     }
 
+    @discardableResult
+    private func refresh(from worldPoint: CGPoint) -> Bool {
+        lastSightCell = searchMap.cell(for: worldPoint)
+        let sight = sightFrom(worldPoint)
+        visibleCells = sight.visible
+        let before = exploredCells.count
+        exploredCells.formUnion(sight.visible)
+        exploredCells.formUnion(sight.exploredOnly)
+        sightGeneration += 1
+        redraw()
+        return exploredCells.count != before
+    }
+
     /// Reveal ground nobody has stood in — an authored entrance, a scripted
     /// beat, the engine's own `ExploreArea`.
     @discardableResult
@@ -150,34 +163,32 @@ final class FogOfWarNode: SKSpriteNode {
         guard !worldPoints.isEmpty else { return false }
         let before = exploredCells.count
         for point in worldPoints {
-            exploredCells.formUnion(sightCells(from: point))
+            let sight = sightFrom(point)
+            exploredCells.formUnion(sight.visible)
+            exploredCells.formUnion(sight.exploredOnly)
         }
         guard exploredCells.count != before else { return false }
         redraw()
         return true
     }
 
-    @discardableResult
-    private func refresh(from worldPoint: CGPoint) -> Bool {
-        lastSightCell = searchMap.cell(for: worldPoint)
-        visibleCells = sightCells(from: worldPoint)
-        let before = exploredCells.count
-        exploredCells.formUnion(visibleCells)
-        sightGeneration += 1
-        redraw()
-        return exploredCells.count != before
-    }
-
-    private func sightCells(from worldPoint: CGPoint) -> Set<FogCell> {
-        var search = searchMap.visibleCells(
+    private func sightFrom(_ worldPoint: CGPoint) -> (visible: Set<FogCell>, exploredOnly: Set<FogCell>) {
+        let radius = SearchMapExplore.searchRadius(visualRangeInFogTiles: visualRangeInCells)
+        let chunk = searchMap.exploreMapChunk(
             from: worldPoint,
-            radiusInCells: visualRangeInCells
+            radiusInCells: radius
         )
         if fillsEnclosedRooms {
-            let enclosed = searchMap.enclosedFloor(touching: search)
-            return renderer.grid.cellsCoveringEnclosedRoom(enclosed, on: searchMap)
+            let enclosed = searchMap.enclosedFloor(touching: chunk.visible)
+            return (
+                visible: renderer.grid.cellsCoveringEnclosedRoom(enclosed, on: searchMap),
+                exploredOnly: renderer.grid.cells(for: chunk.exploredOnly)
+            )
         }
-        return renderer.grid.cells(for: search)
+        return (
+            visible: renderer.grid.cells(for: chunk.visible),
+            exploredOnly: renderer.grid.cells(for: chunk.exploredOnly)
+        )
     }
 
     private func redraw() {

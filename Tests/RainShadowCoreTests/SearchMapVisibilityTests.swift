@@ -34,25 +34,20 @@ struct SearchMapVisibilityTests {
         map.center(of: SearchMapCell(column: column, row: row))
     }
 
-    /// Range is counted in cells, so the lit region is a circle on the *cell
-    /// grid* — which, because the cells are 16×12 and 16:12 is this projection's
-    /// ground foreshortening, is a circle on the ground and a 16:12 ellipse on
-    /// screen. GemRB walks a midpoint circle over the same grid for the same
-    /// reason. Measuring the radius in world units instead would put a circle on
-    /// the screen and an ellipse on the ground: the pool would reach a third
-    /// further "into" the scene than across it.
+    /// Range is counted in search cells. GemRB walks a prefix of a midpoint
+    /// circle precomputed at `MaxVisibility` 30, so a radius of 6 reaches 5
+    /// cells from the origin (the last offset is `i = range - 1`). Cells are
+    /// 16×12, so equal cell reach is a circle on the ground.
     @Test func rangeIsCountedInCellsSoTheLitGroundIsRound() {
         let map = map(columns: 21, rows: 21)
-        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 5)
+        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 6)
 
         #expect(visible.contains(SearchMapCell(column: 10, row: 10)))
-        // Equal reach in cells on both axes...
         #expect(visible.contains(SearchMapCell(column: 15, row: 10)))
         #expect(!visible.contains(SearchMapCell(column: 16, row: 10)))
         #expect(visible.contains(SearchMapCell(column: 10, row: 15)))
         #expect(!visible.contains(SearchMapCell(column: 10, row: 16)))
 
-        // ...which is unequal reach in world units, by exactly the cell aspect.
         let across = map.center(of: SearchMapCell(column: 15, row: 10)).x
             - map.center(of: SearchMapCell(column: 10, row: 10)).x
         let into = map.center(of: SearchMapCell(column: 10, row: 15)).y
@@ -83,18 +78,15 @@ struct SearchMapVisibilityTests {
         #expect(!SearchMapTerrain.obstacleSeeThrough.isWalkable)
     }
 
-    /// A blocker is itself lit, and nothing behind it is.
+    /// A `NO_SEE` blocker is itself lit, and nothing behind it is.
     ///
     /// This is `Pass = 2` in GemRB's `Map::ExploreMapChunk`: a ray that meets a
-    /// `NO_SEE` tile explores that tile, then breaks on the next one. It is what
-    /// draws a room's own walls into the fog instead of leaving the outline
-    /// dark, and it is the property most easily lost when swapping the traversal
-    /// out — so it is asserted rather than assumed.
+    /// `NO_SEE` tile explores that tile, then breaks on the next blocked step.
     @Test func theBlockingCellIsLitAndNothingBehindItIs() {
         let map = map(
             columns: 21,
             rows: 21,
-            blockers: [(column: 13, row: 10, terrain: .wall)]
+            blockers: [(column: 13, row: 10, terrain: .obstacle)]
         )
         let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 12)
 
@@ -102,33 +94,54 @@ struct SearchMapVisibilityTests {
         #expect(!visible.contains(SearchMapCell(column: 14, row: 10)))
     }
 
-    /// Sight is mutual. Asymmetric fields of view produce the artifact where a
-    /// corner reveals itself from one side and not the other.
-    @Test func sightIsSymmetricBetweenAnyTwoCells() {
+    /// Index 10 is sidewall: the run stays visible, then the first cell after
+    /// it starts the `Pass = 2` stop.
+    @Test func aSidewallRunIsVisibleThenBlocksOnLeaving() {
         let map = map(
-            columns: 25,
-            rows: 25,
+            columns: 21,
+            rows: 21,
             blockers: [
-                (column: 12, row: 12, terrain: .obstacle),
-                (column: 12, row: 13, terrain: .obstacle),
-                (column: 13, row: 12, terrain: .obstacle),
-                (column: 8, row: 17, terrain: .wall),
-                (column: 17, row: 8, terrain: .roof)
+                (column: 12, row: 10, terrain: .wall),
+                (column: 13, row: 10, terrain: .wall)
             ]
         )
-        let radiusInCells = 15
-        var asymmetric: [(SearchMapCell, SearchMapCell)] = []
-        for row in stride(from: 4, to: 21, by: 3) {
-            for column in stride(from: 4, to: 21, by: 3) {
-                let a = SearchMapCell(column: column, row: row)
-                for other in [SearchMapCell(column: 12, row: 8), SearchMapCell(column: 16, row: 16)] {
-                    let aSeesOther = map.visibleCells(from: map.center(of: a), radiusInCells: radiusInCells).contains(other)
-                    let otherSeesA = map.visibleCells(from: map.center(of: other), radiusInCells: radiusInCells).contains(a)
-                    if aSeesOther != otherSeesA { asymmetric.append((a, other)) }
-                }
-            }
-        }
-        #expect(asymmetric.isEmpty, "asymmetric pairs: \(asymmetric)")
+        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 12)
+
+        #expect(visible.contains(SearchMapCell(column: 12, row: 10)))
+        #expect(visible.contains(SearchMapCell(column: 13, row: 10)))
+        #expect(visible.contains(SearchMapCell(column: 14, row: 10)))
+        #expect(!visible.contains(SearchMapCell(column: 15, row: 10)))
+    }
+
+    /// A roof does not stop sight.
+    @Test func aRoofDoesNotBlockSight() {
+        let map = map(
+            columns: 21,
+            rows: 21,
+            blockers: [(column: 13, row: 10, terrain: .roof)]
+        )
+        let visible = map.visibleCells(from: center(map, 10, 10), radiusInCells: 12)
+        #expect(visible.contains(SearchMapCell(column: 17, row: 10)))
+    }
+
+    /// Outdoors outside a city, a closed door shrouds ground beyond instead of
+    /// leaving it unexplored.
+    @Test func anOutdoorDoorShroudsBeyondWithoutLightingIt() {
+        let bounds = CGRect(x: 0, y: 0, width: 320, height: 240)
+        let leaf = CGRect(x: 144, y: 0, width: 32, height: 240)
+        let viewpoint = CGPoint(x: 16, y: 120)
+        let map = SearchMap(
+            worldBounds: bounds,
+            obstacles: [],
+            doorObstacles: [DoorObstacle(rect: leaf)]
+        )
+        let city = map.exploreMapChunk(from: viewpoint, radiusInCells: 15, outdoorDoorShroud: false)
+        let wilds = map.exploreMapChunk(from: viewpoint, radiusInCells: 15, outdoorDoorShroud: true)
+
+        #expect(city.exploredOnly.isEmpty)
+        #expect(!wilds.exploredOnly.isEmpty)
+        #expect(wilds.exploredOnly.isDisjoint(with: wilds.visible))
+        #expect(wilds.visible.union(wilds.exploredOnly).count >= city.visible.count)
     }
 
     /// Sight stops at the boundary rather than escaping through it, because a
@@ -238,7 +251,9 @@ struct SearchMapVisibilityTests {
         let map = navigation.searchMap
         let seen = map.visibleCells(
             from: OfficeNavigationLayout.actorStart,
-            radiusInCells: area.agentProfile.visualRangeInCells
+            radiusInCells: SearchMapExplore.searchRadius(
+                visualRangeInFogTiles: area.agentProfile.visualRangeInCells
+            )
         )
 
         let path = OfficeNavigationLayout.clientArrivalPath
@@ -266,7 +281,9 @@ struct SearchMapVisibilityTests {
         let navigation = area.makeNavigationMap()
         let map = navigation.searchMap
         let doorway = try #require(area.doors.first).closedObstacle.cgRect
-        let range = area.agentProfile.visualRangeInCells
+        let range = SearchMapExplore.searchRadius(
+            visualRangeInFogTiles: area.agentProfile.visualRangeInCells
+        )
         // Use the registered V13 interaction stand, which is the exact clear
         // interior cell facing this oblique doorway. Subtracting three cells
         // from the leaf's axis-aligned minX landed on the rebuilt wall/furniture
@@ -381,7 +398,9 @@ struct SearchMapVisibilityTests {
         let navigation = area.makeNavigationMap()
         navigation.setEntranceDoorBlocking(false)
         let map = navigation.searchMap
-        let range = area.agentProfile.visualRangeInCells
+        let range = SearchMapExplore.searchRadius(
+            visualRangeInFogTiles: area.agentProfile.visualRangeInCells
+        )
         let los = map.visibleCells(
             from: OfficeNavigationLayout.actorStart,
             radiusInCells: range

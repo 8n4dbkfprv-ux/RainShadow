@@ -13,10 +13,11 @@ import CoreGraphics
 /// larger. Sizing the fog to the screen settled it, and 9% is the framing that
 /// matches what BG:EE actually shows.
 ///
-/// Sight is a creature stat again (`AreaAgentProfile.visualRangeInCells`, the
-/// engine's 14 cells), so how much of the screen a district lights is authored
-/// per area rather than derived from the viewport. If a district reads as a
-/// keyhole of pavement again, that number is the one to raise — not this one.
+/// Sight is creature stat #262 again (`AreaAgentProfile.visualRangeInCells`,
+/// 14 fog tiles = 448 area px, walked as 30 search cells). How much of the
+/// screen a district lights is authored per area rather than derived from the
+/// viewport. If a district reads as a keyhole of pavement again, that number
+/// is the one to raise — not this one.
 ///
 /// 13% is still reachable — it is zoom step 10 (70%) of `CameraZoom`'s 1…27 band —
 /// so this is a change of default, not of range.

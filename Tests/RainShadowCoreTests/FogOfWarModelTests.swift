@@ -22,8 +22,8 @@ struct FogOfWarModelTests {
         "RainShadow Shared/Scenes/CityDistrict/CityDistrictScene.swift"
     ]
 
-    /// The texture is the FOGOWAR compositor: cell interiors plus neighbour-bit
-    /// edge stamps. Nothing paints a pool, feathers a ring, or blurs a clip.
+    /// The texture is the FOGOWAR compositor: cell interiors plus BG:EE corner
+    /// fans. Nothing paints a pool, feathers a ring, or blurs a clip.
     @Test func theMaskIsRasterisedFromCellsRatherThanPainted() throws {
         let source = try read(Self.renderer)
 
@@ -38,8 +38,8 @@ struct FogOfWarModelTests {
         }
     }
 
-    /// The edge is FOGOWAR-role stamps at 32 px/cell, sampled nearest. Linear
-    /// filtering was the blob that made indoor fog a spotlight.
+    /// The edge is BG:EE per-corner Gouraud at 32 px/cell, sampled nearest.
+    /// Linear filtering was the blob that made indoor fog a spotlight.
     @Test func theEdgeIsAutotiledRatherThanAFilterRamp() throws {
         let source = try read(Self.renderer)
         let grid = try read("RainShadow Shared/Gameplay/Navigation/FogGrid.swift")
@@ -48,9 +48,11 @@ struct FogOfWarModelTests {
         #expect(source.contains("filteringMode = .nearest"))
         #expect(source.contains("premultipliedLast"))
         #expect(grid.contains("cellPixelSize = 32"))
-        #expect(grid.contains("texturePixelsPerCell = 4"))
-        #expect(edges.contains("static let referenceFalloff"))
+        #expect(grid.contains("texturePixelsPerCell = 8"))
+        #expect(edges.contains("BltFogOWar3d"))
+        #expect(edges.contains("func fanSample"))
         #expect(!source.contains("filteringMode = .linear"))
+        #expect(!edges.contains("static let referenceFalloff"))
     }
 
     /// An area never un-explores. Memory only ever unions.
@@ -77,6 +79,7 @@ struct FogOfWarModelTests {
     @Test func sightRangeComesFromTheAreaRecord() throws {
         let node = try read(Self.node)
         #expect(node.contains("visualRangeInCells"))
+        #expect(node.contains("SearchMapExplore.searchRadius"))
         #expect(!node.contains("visibilityRadiusInCells"))
 
         for path in Self.scenes {
@@ -87,6 +90,7 @@ struct FogOfWarModelTests {
         // And the record's own default is the engine's stat #262.
         #expect(AreaAgentProfile.defaultVisualRangeInCells == 14)
         #expect(AreaAgentProfile.visualRangeBounds == 0...15)
+        #expect(SearchMapExplore.searchRadius(visualRangeInFogTiles: AreaAgentProfile.defaultVisualRangeInCells) == 30)
         #expect(AreaAgentProfile(halfWidth: 1, halfHeight: 1, visualRangeInCells: 99)
             .visualRangeInCells == 15)
     }

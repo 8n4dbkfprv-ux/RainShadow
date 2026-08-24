@@ -227,10 +227,32 @@ struct FogBitmaskTests {
     }
 }
 
-/// FOGOWAR-role stamps: interiors stay flat, the outer rim of a visible cell
-/// toward unexplored ground darkens, and linear filtering is not the edge.
+/// BG:EE corner fans: interiors stay flat, one/three-corner cells interpolate
+/// through the centre, and linear filtering is not the edge.
 struct FogEdgeMaskTests {
-    @Test func aVisibleIslandKeepsAClearInteriorAndADarkRim() {
+    @Test func aVisibleBlockKeepsAClearInterior() {
+        let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
+        let lit: Set<FogCell> = [
+            FogCell(column: 2, row: 2), FogCell(column: 3, row: 2),
+            FogCell(column: 2, row: 3), FogCell(column: 3, row: 3)
+        ]
+        let display = grid.displayMask(explored: [], visible: lit)
+        let side = FogGrid.texturePixelsPerCell
+        let width = grid.columns * side
+        let cell = FogCell(column: 2, row: 3)
+        let imageRow = (grid.rows - 1 - cell.row) * side
+        let x0 = cell.column * side
+
+        func sample(_ dx: Int, _ dy: Int) -> UInt8 {
+            display[(imageRow + dy) * width + x0 + dx]
+        }
+
+        #expect(sample(side / 2, side / 2) == FogGrid.visibleLevel)
+        #expect(sample(side / 2, 0) == FogGrid.visibleLevel)
+        #expect(sample(0, side / 2) == FogGrid.visibleLevel)
+    }
+
+    @Test func anIsolatedVisibleCellFadesTowardUnexploredSouthEast() {
         let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
         let lit = FogCell(column: 2, row: 2)
         let display = grid.displayMask(explored: [], visible: [lit])
@@ -243,20 +265,23 @@ struct FogEdgeMaskTests {
             display[(imageRow + dy) * width + x0 + dx]
         }
 
-        #expect(sample(side / 2, side / 2) == FogGrid.visibleLevel)
-        #expect(sample(side / 2, 0) > FogGrid.rememberedLevel)
-        #expect(sample(0, side / 2) > FogGrid.rememberedLevel)
-        #expect(sample(side / 2, 0) >= sample(side / 2, side / 2))
+        #expect(sample(0, 0) < sample(side - 1, side - 1))
+        #expect(sample(0, 0) < FogGrid.unexploredLevel)
+        #expect(sample(side - 1, side - 1) > FogGrid.rememberedLevel)
     }
 
     @Test func rememberedGroundStaysHalfTransAndDoesNotReblacken() {
         let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
-        let walked = FogCell(column: 2, row: 2)
-        let display = grid.displayMask(explored: [walked], visible: [])
+        let walked: Set<FogCell> = [
+            FogCell(column: 2, row: 2), FogCell(column: 3, row: 2),
+            FogCell(column: 2, row: 3), FogCell(column: 3, row: 3)
+        ]
+        let display = grid.displayMask(explored: walked, visible: [])
         let side = FogGrid.texturePixelsPerCell
         let width = grid.columns * side
-        let imageRow = (grid.rows - 1 - walked.row) * side
-        let x0 = walked.column * side
+        let cell = FogCell(column: 2, row: 3)
+        let imageRow = (grid.rows - 1 - cell.row) * side
+        let x0 = cell.column * side
         let interior = display[(imageRow + side / 2) * width + x0 + side / 2]
 
         #expect(interior == FogGrid.rememberedLevel)

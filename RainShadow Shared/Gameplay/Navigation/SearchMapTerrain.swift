@@ -62,13 +62,18 @@ enum SearchMapTerrain: UInt8, CaseIterable, Sendable {
         }
     }
 
-    /// Whether line of sight crosses the cell. This is what fog of war should
-    /// use: BG reveals what you can see, not a disc around you.
+    /// Whether line of sight *enters* the cell. GemRB's `AREImporter` table
+    /// marks only index 0 as `NO_SEE`. Index 10 is `SIDEWALL` — the cell itself
+    /// is visible, then the ray blocks on leaving the run — and index 13 (roof)
+    /// does not block sight. `isSightSidewall` is the other half of that table.
     var isSeeThrough: Bool {
-        switch self {
-        case .obstacle, .wall, .roof: false
-        default: true
-        }
+        self != .obstacle
+    }
+
+    /// Search-map index 10. A ray that is already on sidewall stays visible;
+    /// the first non-sidewall cell after the run starts the `Pass = 2` stop.
+    var isSightSidewall: Bool {
+        self == .wall
     }
 
     /// Whether a flying creature can cross.

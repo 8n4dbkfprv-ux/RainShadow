@@ -24,10 +24,10 @@ struct SearchMapTerrainTests {
         (7, true, true, true, true, "WAL_03"),       // stone
         (8, false, true, true, true, nil),           // obstacle, see-through
         (9, true, true, true, true, "WAL_02"),       // wood creaking
-        (10, false, false, false, false, nil),       // wall
+        (10, false, true, false, false, nil),       // wall / sidewall
         (11, true, true, true, true, "WAL_01"),      // water
         (12, false, true, true, true, nil),          // water, impassable
-        (13, false, false, false, false, nil),       // roof
+        (13, false, true, false, false, nil),        // roof (sight passes)
         (14, false, true, true, true, nil),          // worldmap exit
         (15, true, true, true, true, "WAL_04")       // grass
     ]
@@ -50,10 +50,13 @@ struct SearchMapTerrainTests {
     @Test func blockingMovementIsNotTheSameAsBlockingSight() {
         #expect(!SearchMapTerrain.obstacleSeeThrough.isWalkable)
         #expect(SearchMapTerrain.obstacleSeeThrough.isSeeThrough)
-        #expect(!SearchMapTerrain.waterImpassable.isWalkable)
+        #expect(SearchMapTerrain.waterImpassable.isWalkable == false)
         #expect(SearchMapTerrain.waterImpassable.allowsProjectiles)
-        #expect(!SearchMapTerrain.wall.isSeeThrough)
-        #expect(!SearchMapTerrain.roof.isSeeThrough)
+        #expect(SearchMapTerrain.wall.isSightSidewall)
+        #expect(SearchMapTerrain.wall.isSeeThrough)
+        #expect(SearchMapTerrain.roof.isSeeThrough)
+        #expect(!SearchMapTerrain.obstacle.isSeeThrough)
+        #expect(!SearchMapTerrain.roof.isSightSidewall)
     }
 
     @Test func anUnknownByteReadsAsSolidRatherThanAsFloor() {

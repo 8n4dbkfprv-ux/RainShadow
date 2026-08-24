@@ -21,21 +21,20 @@ struct FogCell: Hashable, Sendable {
 /// cells. Mapping a search cell uses its centre, so a 16×12 cell belongs to
 /// exactly one 32×32 fog cell even though 12 does not divide 32.
 ///
-/// The state mask is one byte per fog cell. Cell interiors are flat at the three
-/// GemRB levels. Softening is not a linear filter on that buffer — `FogEdgeMask`
-/// stamps the FOGOWAR-role edge tiles at `texturePixelsPerCell`, which is the
-/// only edge treatment in the system. The overlay sprite is then stretched to
-/// `worldSize` with nearest sampling, so a walk does not upload a full-plate
-/// RGBA texture on every search-cell step.
+    /// The state mask is one byte per fog cell. Cell interiors are flat at the three
+    /// GemRB levels. Softening is `FogEdgeMask`: BG:EE Gouraud fans per 32-px cell
+    /// from the four corners (`BltFogOWar3d`). The overlay sprite is then stretched
+    /// to `worldSize` with nearest sampling, so a walk does not upload a full-plate
+    /// RGBA texture on every search-cell step.
 struct FogGrid: Hashable, Sendable {
     /// GemRB `FogRenderer::CELL_SIZE`. Square on the screen, and the world size
     /// of one fog cell. Not the uploaded texel size — see `texturePixelsPerCell`.
     static let cellPixelSize = 32
 
     /// Texels per fog cell in the overlay texture. 32 matched GemRB's compositor
-    /// 1:1 and rebuilt ~9M texels per step on a 4096×2304 plate. Four texels
-    /// keep the 6 px/32 falloff as a one-texel rim after scaling.
-    static let texturePixelsPerCell = 4
+    /// 1:1 and rebuilt ~9M texels per step on a 4096×2304 plate. Eight texels
+    /// give the BG:EE corner fan a two-texel ramp after nearest scaling.
+    static let texturePixelsPerCell = 8
 
     // MARK: Mask levels
     //
@@ -195,7 +194,9 @@ struct FogGrid: Hashable, Sendable {
             for row in minRow...maxRow {
                 let searchCell = SearchMapCell(column: column, row: row)
                 if enclosed.contains(searchCell) { continue }
-                if searchMap.terrain(at: searchCell).isSeeThrough,
+                let terrain = searchMap.terrain(at: searchCell)
+                if terrain.isSeeThrough,
+                   !terrain.isSightSidewall,
                    !searchMap.doorBlocksSight(at: searchCell) {
                     return true
                 }
@@ -251,7 +252,7 @@ struct FogGrid: Hashable, Sendable {
         return buffer
     }
 
-    /// The overlay actually drawn: cell interiors plus FOGOWAR-role edge stamps.
+    /// The overlay actually drawn: cell interiors plus BG:EE corner fans.
     func displayMask(explored: Set<FogCell>, visible: Set<FogCell>) -> [UInt8] {
         FogEdgeMask.composite(
             cellLevels: mask(explored: explored, visible: visible),
