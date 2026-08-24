@@ -230,14 +230,20 @@ enum CityBlockGrid {
         }
     }
 
-    /// The twelve blocks the survey found on a 4096×2304 plate, in the survey's
-    /// own order (bottom row first, left to right).
+    /// The twelve blocks the survey found on a 4096×2304 plate, plus the three
+    /// camera-far lots that land on the 4096×3072 IE-proportion ward (i+j = −2).
+    /// Order: bottom row first, left to right, then the extra far row.
     static let all: [Block] = [
         Block(i: 1, j: 1), Block(i: 2, j: 0), Block(i: 3, j: -1),
         Block(i: 1, j: 0), Block(i: 2, j: -1), Block(i: 3, j: -2),
         Block(i: 0, j: 0), Block(i: 1, j: -1), Block(i: 2, j: -2),
-        Block(i: 0, j: -1), Block(i: 1, j: -2), Block(i: 2, j: -3)
+        Block(i: 0, j: -1), Block(i: 1, j: -2), Block(i: 2, j: -3),
+        Block(i: -1, j: -1), Block(i: 0, j: -2), Block(i: 1, j: -3)
     ]
+
+    /// The twelve blocks the original survey found on a 4096×2304 plate.
+    /// Kit art (lot crops, warehouse cubes) is registered to these only.
+    static let surveyed: [Block] = Array(all.prefix(12))
 
     static func block(i: Int, j: Int) -> Block { Block(i: i, j: j) }
 
@@ -251,13 +257,14 @@ enum CityBlockGrid {
         blockContaining(point) == nil
     }
 
-    /// Road intersections — the six painted crossings inside the plate. Lamps
-    /// sit on these, and the one open crossing a district is allowed becomes
-    /// its plaza.
+    /// Road intersections inside the plate. Lamps sit on these, and the one
+    /// open crossing a district is allowed becomes its plaza. The last pair
+    /// is the extra depth of the 4096×3072 ward.
     static let crossings: [CGPoint] = [
         CGPoint(x: 840, y: 414), CGPoint(x: 2_520, y: 414),
         CGPoint(x: 1_680, y: 1_044), CGPoint(x: 3_360, y: 1_044),
-        CGPoint(x: 840, y: 1_674), CGPoint(x: 2_520, y: 1_674)
+        CGPoint(x: 840, y: 1_674), CGPoint(x: 2_520, y: 1_674),
+        CGPoint(x: 1_680, y: 2_304), CGPoint(x: 3_360, y: 2_304)
     ]
 
     /// Which plate edge a travel spawn arrives from.

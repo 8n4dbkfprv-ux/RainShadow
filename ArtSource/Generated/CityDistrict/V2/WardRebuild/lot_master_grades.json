@@ -1,0 +1,578 @@
+[
+  {
+    "file": "sable_row_lot_1_1.png",
+    "program": "pawn",
+    "peak_pos": 36.731806886499655,
+    "peak_neg": -36.66950986721253,
+    "worst_delta": 0.20038777863148738,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_2_0.png",
+    "program": "tenement",
+    "peak_pos": 36.679072122625016,
+    "peak_neg": -36.700313962384016,
+    "worst_delta": 0.19082552321900437,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_3_-1.png",
+    "program": "garage",
+    "peak_pos": 36.71500674583968,
+    "peak_neg": -36.6914489172985,
+    "worst_delta": 0.17844872854551852,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_1_0.png",
+    "program": "pawn",
+    "peak_pos": 36.690299154187876,
+    "peak_neg": -36.730267885041634,
+    "worst_delta": 0.17959849165614372,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_2_-1.png",
+    "program": "diner",
+    "peak_pos": 36.73672606031746,
+    "peak_neg": -36.72796448945902,
+    "worst_delta": 0.1419331563850008,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_3_-2.png",
+    "program": "laundry",
+    "peak_pos": 36.7166803214259,
+    "peak_neg": -36.71147020234534,
+    "worst_delta": 0.158427443498681,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_0_0.png",
+    "program": "boarding",
+    "peak_pos": 36.718440478357635,
+    "peak_neg": -36.691635419482864,
+    "worst_delta": 0.17826222636115574,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_1_-1.png",
+    "program": "grocer",
+    "peak_pos": 36.74007871170458,
+    "peak_neg": -36.69834380297834,
+    "worst_delta": 0.1715538428656771,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_2_-2.png",
+    "program": "grocer",
+    "peak_pos": 36.74113570198695,
+    "peak_neg": -36.707243071228376,
+    "worst_delta": 0.1626545746156438,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_0_-1.png",
+    "program": "laundry",
+    "peak_pos": 36.713282451383805,
+    "peak_neg": -36.67228943574483,
+    "worst_delta": 0.19760821009919027,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_1_-2.png",
+    "program": "news",
+    "peak_pos": 36.741634403486415,
+    "peak_neg": -36.67128092392972,
+    "worst_delta": 0.19861672191429847,
+    "passes": true
+  },
+  {
+    "file": "sable_row_lot_2_-3.png",
+    "program": "diner",
+    "peak_pos": 36.76907247103129,
+    "peak_neg": -36.706908421278385,
+    "worst_delta": 0.16298922456563503,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_1_1.png",
+    "program": "union",
+    "peak_pos": 36.71326629379618,
+    "peak_neg": -36.71061443691606,
+    "worst_delta": 0.15928320892795966,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_2_0.png",
+    "program": "warehouse",
+    "peak_pos": 36.72592177436817,
+    "peak_neg": -36.673617379093024,
+    "worst_delta": 0.1962802667509962,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_3_-1.png",
+    "program": "diner",
+    "peak_pos": 36.70458482611021,
+    "peak_neg": -36.73731711607348,
+    "worst_delta": 0.1653128197338134,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_1_0.png",
+    "program": "garage",
+    "peak_pos": 36.717419867602544,
+    "peak_neg": -36.70154401902176,
+    "worst_delta": 0.16835362682225963,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_2_-1.png",
+    "program": "pawn",
+    "peak_pos": 36.73653338171509,
+    "peak_neg": -36.68769000060848,
+    "worst_delta": 0.18220764523554323,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_3_-2.png",
+    "program": "union",
+    "peak_pos": 36.706421283333476,
+    "peak_neg": -36.69851616580246,
+    "worst_delta": 0.1713814800415605,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_0_0.png",
+    "program": "diner",
+    "peak_pos": 36.70623974264838,
+    "peak_neg": -36.7326032962569,
+    "worst_delta": 0.16365790319564155,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_1_-1.png",
+    "program": "precinct",
+    "peak_pos": 36.72598858602246,
+    "peak_neg": -36.70787334581549,
+    "worst_delta": 0.16202430002852708,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_2_-2.png",
+    "program": "records",
+    "peak_pos": 36.742919039965024,
+    "peak_neg": -36.71658925668617,
+    "worst_delta": 0.15330838915784994,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_0_-1.png",
+    "program": "union",
+    "peak_pos": 36.71596156224899,
+    "peak_neg": -36.69988588009424,
+    "worst_delta": 0.17001176574977706,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_1_-2.png",
+    "program": "tenement",
+    "peak_pos": 36.712909759058356,
+    "peak_neg": -36.677919020299825,
+    "worst_delta": 0.19197862554419487,
+    "passes": true
+  },
+  {
+    "file": "wharf_ladder_lot_2_-3.png",
+    "program": "warehouse",
+    "peak_pos": 36.71547750302045,
+    "peak_neg": -36.68236016568076,
+    "worst_delta": 0.18753748016325744,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_1_1.png",
+    "program": "union",
+    "peak_pos": 36.71619999580899,
+    "peak_neg": -36.67559954735962,
+    "worst_delta": 0.19429809848440271,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_2_0.png",
+    "program": "tenement",
+    "peak_pos": 36.69717695633728,
+    "peak_neg": -36.68500569337924,
+    "worst_delta": 0.18489195246478118,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_3_-1.png",
+    "program": "warehouse",
+    "peak_pos": 36.74315744435483,
+    "peak_neg": -36.69383405275963,
+    "worst_delta": 0.17606359308439323,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_1_0.png",
+    "program": "warehouse",
+    "peak_pos": 36.742655532762825,
+    "peak_neg": -36.66854095230829,
+    "worst_delta": 0.20135669353572894,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_2_-1.png",
+    "program": "laundry",
+    "peak_pos": 36.69796326442145,
+    "peak_neg": -36.68829744097545,
+    "worst_delta": 0.1816002048685732,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_3_-2.png",
+    "program": "news",
+    "peak_pos": 36.71105483240096,
+    "peak_neg": -36.67980101627981,
+    "worst_delta": 0.19009662956420925,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_0_0.png",
+    "program": "warehouse",
+    "peak_pos": 36.732952044522264,
+    "peak_neg": -36.67418209470656,
+    "worst_delta": 0.19571555113746086,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_1_-1.png",
+    "program": "grocer",
+    "peak_pos": 36.7269057383153,
+    "peak_neg": -36.719059545781406,
+    "worst_delta": 0.15083810006261444,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_2_-2.png",
+    "program": "boarding",
+    "peak_pos": 36.70384503850746,
+    "peak_neg": -36.68419026740386,
+    "worst_delta": 0.1857073784401635,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_0_-1.png",
+    "program": "news",
+    "peak_pos": 36.7046398348028,
+    "peak_neg": -36.68821325691746,
+    "worst_delta": 0.1816843889265627,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_1_-2.png",
+    "program": "diner",
+    "peak_pos": 36.71329828168132,
+    "peak_neg": -36.7237137213227,
+    "worst_delta": 0.1565993641627017,
+    "passes": true
+  },
+  {
+    "file": "riverside_lot_2_-3.png",
+    "program": "precinct",
+    "peak_pos": 36.69373773266369,
+    "peak_neg": -36.713490958461,
+    "worst_delta": 0.17615991318032798,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_1_1.png",
+    "program": "news",
+    "peak_pos": 36.703489606007004,
+    "peak_neg": -36.71496730190077,
+    "worst_delta": 0.16640803983701602,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_2_0.png",
+    "program": "records",
+    "peak_pos": 36.73336769500328,
+    "peak_neg": -36.70550873361709,
+    "worst_delta": 0.16438891222693286,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_3_-1.png",
+    "program": "precinct",
+    "peak_pos": 36.667583933018996,
+    "peak_neg": -36.736925670171246,
+    "worst_delta": 0.20231371282502408,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_1_0.png",
+    "program": "precinct",
+    "peak_pos": 36.76261917240501,
+    "peak_neg": -36.705904240658086,
+    "worst_delta": 0.1639934051859342,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_2_-1.png",
+    "program": "union",
+    "peak_pos": 36.723227829417155,
+    "peak_neg": -36.7132177712511,
+    "worst_delta": 0.15667987459291766,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_3_-2.png",
+    "program": "tenement",
+    "peak_pos": 36.73591696092758,
+    "peak_neg": -36.71351079429584,
+    "worst_delta": 0.15638685154817722,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_0_0.png",
+    "program": "precinct",
+    "peak_pos": 36.725629782907845,
+    "peak_neg": -36.70003967702459,
+    "worst_delta": 0.1698579688194286,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_1_-1.png",
+    "program": "records",
+    "peak_pos": 36.700150991443905,
+    "peak_neg": -36.71380719326849,
+    "worst_delta": 0.1697466544001145,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_2_-2.png",
+    "program": "garage",
+    "peak_pos": 36.72510040117898,
+    "peak_neg": -36.70900424547482,
+    "worst_delta": 0.16089340036919708,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_0_-1.png",
+    "program": "tenement",
+    "peak_pos": 36.73574927187732,
+    "peak_neg": -36.667991365103134,
+    "worst_delta": 0.2019062807408858,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_1_-2.png",
+    "program": "warehouse",
+    "peak_pos": 36.715096592002574,
+    "peak_neg": -36.68173900167315,
+    "worst_delta": 0.18815864417086914,
+    "passes": true
+  },
+  {
+    "file": "harborpoint_pd_lot_2_-3.png",
+    "program": "grocer",
+    "peak_pos": 36.7540262150964,
+    "peak_neg": -36.71623117778309,
+    "worst_delta": 0.15366646806093343,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_1_1.png",
+    "program": "tenement",
+    "peak_pos": 36.754820620191225,
+    "peak_neg": -36.71249215177477,
+    "worst_delta": 0.15740549406925197,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_2_0.png",
+    "program": "warehouse",
+    "peak_pos": 36.721410519684845,
+    "peak_neg": -36.70002598932494,
+    "worst_delta": 0.16987165651907787,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_3_-1.png",
+    "program": "grocer",
+    "peak_pos": 36.74254257664811,
+    "peak_neg": -36.7167247278096,
+    "worst_delta": 0.15317291803442146,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_1_0.png",
+    "program": "boarding",
+    "peak_pos": 36.73566928800832,
+    "peak_neg": -36.688100180571176,
+    "worst_delta": 0.1817974652728438,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_2_-1.png",
+    "program": "grocer",
+    "peak_pos": 36.72188337910867,
+    "peak_neg": -36.71771653785837,
+    "worst_delta": 0.15218110798564766,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_3_-2.png",
+    "program": "diner",
+    "peak_pos": 36.71560829700144,
+    "peak_neg": -36.73576489688933,
+    "worst_delta": 0.15428934884258183,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_0_0.png",
+    "program": "grocer",
+    "peak_pos": 36.72313632204066,
+    "peak_neg": -36.702367082923,
+    "worst_delta": 0.16753056292102286,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_1_-1.png",
+    "program": "boarding",
+    "peak_pos": 36.71492029233725,
+    "peak_neg": -36.70091857337261,
+    "worst_delta": 0.16897907247140864,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_2_-2.png",
+    "program": "pawn",
+    "peak_pos": 36.75916379426988,
+    "peak_neg": -36.68892181815856,
+    "worst_delta": 0.18097582768545806,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_0_-1.png",
+    "program": "diner",
+    "peak_pos": 36.71495350770112,
+    "peak_neg": -36.73533157782854,
+    "worst_delta": 0.15494413814290198,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_1_-2.png",
+    "program": "precinct",
+    "peak_pos": 36.69199828342379,
+    "peak_neg": -36.72054902953844,
+    "worst_delta": 0.1778993624202272,
+    "passes": true
+  },
+  {
+    "file": "lila_street_lot_2_-3.png",
+    "program": "records",
+    "peak_pos": 36.73449039229582,
+    "peak_neg": -36.70078070231661,
+    "worst_delta": 0.16911694352741335,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_1_1.png",
+    "program": "diner",
+    "peak_pos": 36.725465122936946,
+    "peak_neg": -36.75384792780132,
+    "worst_delta": 0.1444325229070742,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_2_0.png",
+    "program": "precinct",
+    "peak_pos": 36.72661040323259,
+    "peak_neg": -36.71048048848999,
+    "worst_delta": 0.15941715735402795,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_3_-1.png",
+    "program": "records",
+    "peak_pos": 36.65655341704055,
+    "peak_neg": -36.726296706567304,
+    "worst_delta": 0.21334422880347148,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_1_0.png",
+    "program": "records",
+    "peak_pos": 36.73336264552573,
+    "peak_neg": -36.70050174760193,
+    "worst_delta": 0.16939589824208667,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_2_-1.png",
+    "program": "tenement",
+    "peak_pos": 36.70923127764145,
+    "peak_neg": -36.73165114148835,
+    "worst_delta": 0.16066636820256974,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_3_-2.png",
+    "program": "warehouse",
+    "peak_pos": 36.75165636186581,
+    "peak_neg": -36.66327800005379,
+    "worst_delta": 0.2066196457902265,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_0_0.png",
+    "program": "records",
+    "peak_pos": 36.709265179309924,
+    "peak_neg": -36.71372296596877,
+    "worst_delta": 0.16063246653409635,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_1_-1.png",
+    "program": "garage",
+    "peak_pos": 36.67618668557271,
+    "peak_neg": -36.74674401507065,
+    "worst_delta": 0.19371096027131074,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_2_-2.png",
+    "program": "laundry",
+    "peak_pos": 36.71601469301743,
+    "peak_neg": -36.67214074111077,
+    "worst_delta": 0.19775690473324659,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_0_-1.png",
+    "program": "warehouse",
+    "peak_pos": 36.63194244750103,
+    "peak_neg": -36.70077438976954,
+    "worst_delta": 0.23795519834298773,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_1_-2.png",
+    "program": "grocer",
+    "peak_pos": 36.74229545127098,
+    "peak_neg": -36.6839535434362,
+    "worst_delta": 0.18594410240781656,
+    "passes": true
+  },
+  {
+    "file": "civic_records_lot_2_-3.png",
+    "program": "boarding",
+    "peak_pos": 36.824126051729216,
+    "peak_neg": -36.68046678769076,
+    "worst_delta": 0.18943085815325844,
+    "passes": true
+  }
+]

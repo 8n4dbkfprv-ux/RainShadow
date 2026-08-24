@@ -46,7 +46,7 @@ struct CityDistrictLayoutGridTests {
         let survey = try Self.loadSurvey()
         // 1680 plate px at the shipped 2.00 px/unit is an 840-unit period.
         #expect(survey.periodPx / 2 == CityBlockGrid.period)
-        #expect(survey.lots.count == CityBlockGrid.all.count)
+        #expect(survey.lots.count <= CityBlockGrid.all.count)
 
         for lot in survey.lots {
             let block = CityBlockGrid.block(i: lot.i, j: lot.j)
@@ -150,7 +150,7 @@ struct CityDistrictLayoutGridTests {
             let district = CityDistrictCatalog.definition(for: id)
             let placed = Self.facades(district)
             #expect(placed.count >= 12, "\(id) has only \(placed.count) facades")
-            for block in CityBlockGrid.all {
+            for block in CityBlockGrid.surveyed {
                 let onBlock = placed.filter {
                     Self.lotBlock(for: $0) == block
                         || Self.blockMetric($0.groundPoint, block) <= Self.frontageTolerance
@@ -228,7 +228,7 @@ struct CityDistrictLayoutGridTests {
             "city_district_sable_north_skyline",
             "city_district_sable_corner_shops"
         ]
-        for block in CityBlockGrid.all where block.isOnPlate {
+        for block in CityBlockGrid.surveyed where block.isOnPlate {
             // A punched lot crop is the whole diamond, including the street wall.
             // Edge crops sit on their opaque bbox, not the surveyed near tip.
             if facades.contains(where: { Self.lotBlock(for: $0) == block }) {
@@ -374,7 +374,7 @@ struct CityDistrictLayoutGridTests {
     @Test func everyWharfBlockHasACameraNearStreetWall() {
         let district = CityDistrictCatalog.wharfLadder
         let facades = Self.facades(district)
-        for block in CityBlockGrid.all where block.isOnPlate {
+        for block in CityBlockGrid.surveyed where block.isOnPlate {
             let nearEdgeCount = facades.filter { sprite in
                 guard Self.blockMetric(sprite.groundPoint, block) <= Self.frontageTolerance else {
                     return false

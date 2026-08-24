@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "sable_row",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 37.05031160642269,
+      "peak_neg": -36.902802929623405,
+      "worst_delta": 0.18041396057866876,
+      "passes": true
+    },
+    "sha256": "feebe75aa5f3dede73f4b4bc8f1ff930dbca4b1518e9dd3dd9c50fd6479f73a3"
+  },
+  {
+    "slug": "wharf_ladder",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 37.626712222452184,
+      "peak_neg": -36.73126171875822,
+      "worst_delta": 0.7568145766081642,
+      "passes": true
+    },
+    "sha256": "e9340eeaafc2a49b05c425842e8f712472e40f6a0079bdc07434a4084d61d810"
+  },
+  {
+    "slug": "riverside",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 37.76595355738144,
+      "peak_neg": -36.34033219836801,
+      "worst_delta": 0.8960559115374167,
+      "passes": true
+    },
+    "sha256": "3c04d56686c0ea276bae89205cf9869fb4539c85e8e5939bf78e04e1b2b1326f"
+  },
+  {
+    "slug": "harborpoint_pd",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 36.786421945723795,
+      "peak_neg": -36.72346855395676,
+      "worst_delta": 0.1464290918872635,
+      "passes": true
+    },
+    "sha256": "bda5e1e9c8ed85901590fa290be3dffaefc0923ea708ef32b1d31961cf83a935"
+  },
+  {
+    "slug": "lila_street",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 36.6919260417024,
+      "peak_neg": -36.78739760614618,
+      "worst_delta": 0.17797160414161795,
+      "passes": true
+    },
+    "sha256": "98aec666c06080148a07fb43dc006ab216a5c9ad0650e77973ee49031f689627"
+  },
+  {
+    "slug": "civic_records",
+    "world": [
+      4096.0,
+      3072.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "pxPerUnit": 2.0,
+    "projection": {
+      "peak_pos": 36.77068337268879,
+      "peak_neg": -36.7242379306648,
+      "worst_delta": 0.14565971517922094,
+      "passes": true
+    },
+    "sha256": "157a8f66da346542c4495b3030645c5c5e8379871903fa453821ba13f8e6da61"
+  }
+]

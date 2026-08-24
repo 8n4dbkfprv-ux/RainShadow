@@ -132,9 +132,10 @@ struct CityDistrictDefinition {
     let pointsOfInterest: [PointOfInterest]
 
     /// Authored play space in world units. 4096 / standingAdultBodyHeight ≈ 58.3
-    /// adults across — a typical Infinity Engine outdoor ARE (32–100). Grown by
-    /// adding street, not by shrinking the adult or changing play zoom.
-    static let sourceArtSize = CGSize(width: 4_096, height: 2_304)
+    /// adults across — a typical Infinity Engine outdoor ARE (32–100). Height
+    /// is the BG city 4:3 (80×60-tile) proportion: 4096×3072, grown by adding
+    /// street depth, not by shrinking the adult or changing play zoom.
+    static let sourceArtSize = CGSize(width: 4_096, height: 3_072)
     static let environmentScale: CGFloat = 1
     static let worldArtSize = CGSize(
         width: sourceArtSize.width * environmentScale,

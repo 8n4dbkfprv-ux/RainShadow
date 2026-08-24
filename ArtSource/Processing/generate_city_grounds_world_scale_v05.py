@@ -34,13 +34,13 @@ MAPS = ROOT / "RainShadow Shared" / "Resources" / "Art" / "UI" / "Map"
 # Authored play space. 4096/70.3125 ≈ 58.3 adults — mid IE outdoor band.
 # Both axes are exact SearchMap multiples (16×12).
 WORLD_W = 4096.0
-WORLD_H = 2304.0
+WORLD_H = 3072.0
 # 2.00 art px / world unit: the density floor, and the largest 16:9 plate
 # that stays inside a common 8192 GPU texture. Actor reference is 2.84;
 # a 2.84 plate at this world size would be 11636 px and would not load on
 # A11–A13 devices. Stonework is painted here, not upscaled.
 PLATE_W = 8192
-PLATE_H = 4608
+PLATE_H = 6144
 PX_PER_UNIT = PLATE_W / WORLD_W
 
 SLOPE = ie.BGEE.ground_slope  # 0.75

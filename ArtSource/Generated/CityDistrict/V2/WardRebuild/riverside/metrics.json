@@ -1,0 +1,19 @@
+{
+  "slug": "riverside",
+  "world": [
+    4096.0,
+    3072.0
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "pxPerUnit": 2.0,
+  "projection": {
+    "peak_pos": 37.76595355738144,
+    "peak_neg": -36.34033219836801,
+    "worst_delta": 0.8960559115374167,
+    "passes": true
+  },
+  "sha256": "3c04d56686c0ea276bae89205cf9869fb4539c85e8e5939bf78e04e1b2b1326f"
+}

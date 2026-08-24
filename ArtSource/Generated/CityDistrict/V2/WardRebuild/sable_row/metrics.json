@@ -1,0 +1,19 @@
+{
+  "slug": "sable_row",
+  "world": [
+    4096.0,
+    3072.0
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "pxPerUnit": 2.0,
+  "projection": {
+    "peak_pos": 37.05031160642269,
+    "peak_neg": -36.902802929623405,
+    "worst_delta": 0.18041396057866876,
+    "passes": true
+  },
+  "sha256": "feebe75aa5f3dede73f4b4bc8f1ff930dbca4b1518e9dd3dd9c50fd6479f73a3"
+}

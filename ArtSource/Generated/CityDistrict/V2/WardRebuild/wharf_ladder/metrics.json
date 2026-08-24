@@ -1,0 +1,19 @@
+{
+  "slug": "wharf_ladder",
+  "world": [
+    4096.0,
+    3072.0
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "pxPerUnit": 2.0,
+  "projection": {
+    "peak_pos": 37.626712222452184,
+    "peak_neg": -36.73126171875822,
+    "worst_delta": 0.7568145766081642,
+    "passes": true
+  },
+  "sha256": "e9340eeaafc2a49b05c425842e8f712472e40f6a0079bdc07434a4084d61d810"
+}

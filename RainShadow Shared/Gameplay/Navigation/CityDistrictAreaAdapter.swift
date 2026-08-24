@@ -57,24 +57,53 @@ enum CityDistrictAreaAdapter {
             entrances: entrances(for: definition),
             regions: regions(for: definition),
             props: definition.visualSprites.map(prop),
+            wallPolygons: AreaCoverAuthoring.districtWallPolygons(),
             // Districts place no NPCs yet, and the player arrives at an
             // entrance rather than being an area actor — BG models the party
             // the same way.
             actors: [],
             containers: [],
-            // City door leaves are painted on the facade and gated by a portal
-            // region; none of them stamps the search map today, so there is no
-            // door section to carry over.
-            doors: [],
+            doors: doors(for: definition),
             notes: definition.pointsOfInterest.map(note),
             ambients: [
                 AreaAmbient(
                     id: "amb.rain",
                     assetName: "amb_rain_exterior",
                     volume: 0.34,
-                    isLooping: true
+                    isLooping: true,
+                    isGlobal: true,
+                    schedule: .night
+                ),
+                AreaAmbient(
+                    id: "amb.street",
+                    assetName: "amb_rain_exterior",
+                    sounds: ["amb_rain_exterior"],
+                    selection: .random,
+                    point: AreaPoint(definition.actorStart),
+                    radius: 640,
+                    volume: 0.12,
+                    isLooping: false,
+                    interval: 9,
+                    intervalDeviation: 4,
+                    isGlobal: false,
+                    schedule: .night
+                ),
+                AreaAmbient(
+                    id: "amb.foghorn",
+                    assetName: "amb_rain_exterior",
+                    sounds: ["amb_rain_exterior"],
+                    selection: .random,
+                    point: AreaPoint(x: 840, y: 414),
+                    radius: 1_200,
+                    volume: 0.08,
+                    isLooping: false,
+                    interval: 28,
+                    intervalDeviation: 10,
+                    isGlobal: false,
+                    schedule: .night
                 )
             ],
+            animations: animations(for: district, definition: definition),
             script: nil
         )
     }
@@ -163,5 +192,106 @@ enum CityDistrictAreaAdapter {
             point: AreaPoint(poi.worldPoint),
             colorRGBA: [poi.colorRGBA.0, poi.colorRGBA.1, poi.colorRGBA.2, poi.colorRGBA.3]
         )
+    }
+
+    /// City portals become ARE doors. The leaf is already a prop on the facade,
+    /// so `visual` stays nil until open/closed art exists; the same texture name
+    /// is recorded so a later art pass can fill both states without a schema bump.
+    private static func doors(for definition: CityDistrictDefinition) -> [AreaDoor] {
+        definition.portals.map { portal in
+            let leaf = definition.visualSprites.first { sprite in
+                sprite.textureName.hasPrefix("city_door") && portal.hitArea.contains(sprite.groundPoint)
+            }
+            return AreaDoor(
+                id: portal.id,
+                textureName: leaf?.textureName,
+                closedObstacle: closedDoorRect(
+                    portal: portal,
+                    definition: definition,
+                    leafPoint: leaf?.groundPoint
+                ),
+                startsClosed: true,
+                blocksSight: true,
+                openSound: "sfx_door_open",
+                closeSound: "sfx_door_close",
+                approachPoints: OfficeAreaAdapter.approachPair(from: portal.approachPoint)
+            )
+        }
+    }
+
+    /// Stamp inside the painted mass, never on the street. A 16×12 cell at the
+    /// leaf foot would bite the pavement the approach sits on.
+    private static func closedDoorRect(
+        portal: CityDistrictDefinition.Portal,
+        definition: CityDistrictDefinition,
+        leafPoint: CGPoint?
+    ) -> AreaRect {
+        let hit = portal.hitArea
+        var candidates: [CGPoint] = [
+            CGPoint(x: hit.midX, y: hit.maxY - 6),
+            CGPoint(x: hit.midX, y: hit.midY),
+            CGPoint(x: hit.midX, y: hit.maxY)
+        ]
+        if let leafPoint {
+            candidates.append(CGPoint(x: leafPoint.x, y: leafPoint.y + 18))
+        }
+        let origin = candidates.first { point in
+            definition.obstacles.contains { $0.contains(point) }
+        } ?? CGPoint(x: hit.midX, y: hit.maxY)
+        return AreaRect(x: origin.x - 8, y: origin.y - 6, w: 16, h: 12)
+    }
+
+    private static func animations(
+        for district: CityDistrictID,
+        definition: CityDistrictDefinition
+    ) -> [AreaAnimation] {
+        var animations: [AreaAnimation] = []
+        if let lamp = definition.visualSprites.first(where: { $0.textureName.contains("lamp") }) {
+            animations.append(
+                AreaAnimation(
+                    id: "neon.lamp",
+                    point: AreaPoint(lamp.groundPoint),
+                    textureName: "city_neon_flicker",
+                    frameCount: 1,
+                    alpha: 0.45,
+                    isSelfIlluminated: true,
+                    schedule: .night,
+                    blend: .add,
+                    scale: 1
+                )
+            )
+        }
+        if district == .riverside {
+            animations.append(
+                AreaAnimation(
+                    id: "water.shimmer",
+                    point: AreaPoint(x: 2_048, y: 280),
+                    textureName: "city_water_shimmer",
+                    frameCount: 1,
+                    alpha: 0.22,
+                    isSelfIlluminated: true,
+                    wallHides: false,
+                    schedule: .night,
+                    blend: .add,
+                    scale: 1
+                )
+            )
+        }
+        if district == .wharfLadder {
+            animations.append(
+                AreaAnimation(
+                    id: "steam.vent",
+                    point: AreaPoint(definition.actorStart),
+                    textureName: "city_steam_vent",
+                    frameCount: 1,
+                    alpha: 0.2,
+                    wallHides: true,
+                    schedule: .night,
+                    blend: .alpha,
+                    scale: 1
+                )
+            )
+        }
+        return animations
     }
 }

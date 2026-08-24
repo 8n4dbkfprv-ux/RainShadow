@@ -3,50 +3,40 @@ import SpriteKit
 import AppKit
 #endif
 
-/// Playable Act I outdoor district. Loads a `CityDistrictDefinition` with modular
-/// V2 art, fog-of-war, building portals, and BG Classic edge exits → World Map.
+/// Playable Act I outdoor district. Plate, props, doors, cover and ambients
+/// come from the area bundle; the world map still needs a district id for the
+/// edge-exit graph.
 @MainActor
-final class CityDistrictScene: BaseGameScene {
+final class CityDistrictScene: GameAreaScene {
     private struct EdgeExit {
         let edge: CityMapEdge
         let hitArea: CGRect
         let approachPoint: CGPoint
     }
 
-    private let district: CityDistrictDefinition
-    private let entranceName: String?
+    private let districtID: CityDistrictID
     private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
     private var inspectBanner: SKLabelNode?
-    /// The district as an area record plus its navigation and waypoint queue.
-    /// Props, obstacles and art still come from `district` until Phase 5.
-    private var runtime: AreaRuntime {
+    private var movement: MovementOrderQueue {
         guard let areaRuntime else {
-            preconditionFailure(
-                "CityDistrictScene read its area before loadArea ran; "
-                    + "the runtime is built in init so this cannot depend on buildScene order"
-            )
+            preconditionFailure("CityDistrictScene read movement before loadArea ran")
         }
-        return areaRuntime
+        return areaRuntime.movement
     }
-    private var area: AreaDefinition { runtime.area }
-    private var navigation: NavigationMap { runtime.navigation }
-    private var movement: MovementOrderQueue { runtime.movement }
     private let barks = MovementBarkPlayer()
 
     override var referenceVisibleHeight: CGFloat { CityDistrictDefinition.cameraVisibleHeight }
 
     init(context: GameContext, districtID: CityDistrictID = .sableRow, entrance: String? = nil) {
-        self.district = CityDistrictCatalog.definition(for: districtID)
-        self.entranceName = entrance
-        super.init(context: context, artSize: CityDistrictDefinition.worldArtSize)
-        // In `init` rather than `buildScene`, so nothing can read the area
-        // before it exists. The office crashed exactly that way.
-        loadArea(AreaRuntime(
-            area: HarborpointAreas.requireArea(CityDistrictAreaAdapter.areaID(for: districtID)),
-            playerActorID: Self.detectiveActorID
-        ))
+        self.districtID = districtID
+        super.init(
+            context: context,
+            areaID: CityDistrictAreaAdapter.areaID(for: districtID),
+            entrance: entrance,
+            artSize: CityDistrictDefinition.worldArtSize
+        )
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -54,23 +44,11 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func buildScene() {
-        buildAmbients(from: area)
-
-        let groundName = district.groundTextureName
-        if let texture = GameArt.texture(named: groundName)
-            ?? GameArt.texture(named: "city_district_ground_v02") {
-            texture.filteringMode = .linear
-            let background = SKSpriteNode(texture: texture, size: CityDistrictDefinition.worldArtSize)
-            background.anchorPoint = .zero
-            background.position = .zero
-            backgroundRoot.addChild(background)
-        } else {
-            assertionFailure("Missing city ground texture \(groundName)")
-        }
+        buildAreaBundle()
         addModularDistrictSprites()
 
         edgeExits = makeEdgeExits()
-        detective.position = area.spawnPoint(entrance: entranceName) ?? district.actorStart
+        detective.position = area.spawnPoint(entrance: areaEntranceName) ?? .zero
         detective.beginOpenWorldStanding()
         // Neutral bake is office-bright; cool night grade seats him in wet cobbles.
         detective.applySceneLighting(.cityNight)
@@ -97,7 +75,7 @@ final class CityDistrictScene: BaseGameScene {
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        hint.text = area.arrivalHint ?? district.arrivalHint
+        hint.text = area.arrivalHint
         hint.fontSize = 17
         hint.fontColor = SKColor(white: 0.86, alpha: 0.90)
         hint.position = CGPoint(x: 0, y: 292)
@@ -368,7 +346,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        tickAreaScript()
+        tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
         pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
         let worldIsPaused = pause.isPaused
         // The ground says what it is. This was `.wetStone` unconditionally,
@@ -393,6 +371,7 @@ final class CityDistrictScene: BaseGameScene {
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
         updateDepth(of: detective)
+        applyActorCover(to: detective, at: detective.position)
         updateFogGating(fogOfWar)
         if let fog = fogOfWar, fog.look(from: detective.position) {
             recordExploredFog(fog)
@@ -472,7 +451,7 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     private func makeEdgeExits() -> [EdgeExit] {
-        CityWorldMap.travelableExitEdges(from: district.id).map { edge in
+        CityWorldMap.travelableExitEdges(from: districtID).map { edge in
             EdgeExit(
                 edge: edge,
                 hitArea: CityWorldMap.exitHitArea(for: edge),
@@ -509,7 +488,11 @@ final class CityDistrictScene: BaseGameScene {
     /// arrival would have hidden five unreachable doors.
     private func handleRegion(_ region: AreaRegion) {
         let box = region.boundingBox
-        let target = region.approachPoint?.cgPoint
+        let target = door(matching: region.id)?.walkTarget(
+            from: detective.position,
+            fallback: region.approachPoint?.cgPoint
+                ?? CGPoint(x: box.midX, y: box.midY)
+        ) ?? region.approachPoint?.cgPoint
             ?? CGPoint(x: box.midX, y: box.midY)
 
         if let flag = region.requiresFlag, !isFlagSet(flag) {
@@ -526,7 +509,6 @@ final class CityDistrictScene: BaseGameScene {
                 self?.showInspectLine(region.observation ?? region.lockedLine ?? "")
             }
         case .trigger:
-            // Area scripts arrive in Phase 6; until then a trigger is inert.
             break
         case .travel:
             guard let travel = region.travel else { return }
@@ -537,6 +519,20 @@ final class CityDistrictScene: BaseGameScene {
             else {
                 moveDetective(to: target, requiresExactDestination: true) { [weak self] in
                     self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
+                }
+                return
+            }
+            if let door = door(matching: region.id) {
+                let used = useDoor(door, from: detective.position, fallback: target)
+                if let locked = used.lockedLine {
+                    moveDetective(to: used.walkTo, requiresExactDestination: true) { [weak self] in
+                        self?.showInspectLine(locked)
+                    }
+                    return
+                }
+                moveDetective(to: used.walkTo, requiresExactDestination: true) { [weak self] in
+                    self?.openDoor(door)
+                    self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
                 }
                 return
             }
@@ -553,7 +549,8 @@ final class CityDistrictScene: BaseGameScene {
         case CityDistrictAreaAdapter.cityTravelOpenFlag:
             context.session.isCityTravelOpen
         default:
-            context.session.caseState.flags.contains(flag)
+            context.session.areaVariables.isSet(flag, in: area.id)
+                || context.session.caseState.flags.contains(flag)
         }
     }
 
@@ -774,8 +771,8 @@ final class CityDistrictScene: BaseGameScene {
     /// Unlike the office, a district plate is larger than the viewport in both
     /// axes, so the camera really pans and the same rect serves as both the
     /// position clamp and the zoom-out ceiling.
-    override var cameraClampBounds: CGRect { CityDistrictDefinition.worldBounds }
-    override var cameraPlateBounds: CGRect { CityDistrictDefinition.worldBounds }
+    override var cameraClampBounds: CGRect { area.cameraClampBounds }
+    override var cameraPlateBounds: CGRect { area.worldBounds }
 
     /// Drives the district viewport — following Voss, or free-scrolling under the
     /// player — clamped to the district plate.
@@ -789,18 +786,23 @@ final class CityDistrictScene: BaseGameScene {
     }
 
     override var areaMapConfiguration: AreaMapOverlay.Configuration {
-        let mapPoints = district.pointsOfInterest.map {
-            let (r, g, b, a) = $0.colorRGBA
+        let mapPoints = area.notes.map { note -> AreaMapOverlay.PointOfInterest in
+            let rgba = note.colorRGBA
             return AreaMapOverlay.PointOfInterest(
-                label: $0.label,
-                worldPoint: $0.worldPoint,
-                color: SKColor(red: r, green: g, blue: b, alpha: a)
+                label: note.label,
+                worldPoint: note.point.cgPoint,
+                color: SKColor(
+                    red: rgba.count > 0 ? rgba[0] : 1,
+                    green: rgba.count > 1 ? rgba[1] : 1,
+                    blue: rgba.count > 2 ? rgba[2] : 1,
+                    alpha: rgba.count > 3 ? rgba[3] : 1
+                )
             )
         }
         return AreaMapOverlay.Configuration(
-            textureName: district.mapTextureName,
-            locationName: district.locationName,
-            worldBounds: CityDistrictDefinition.worldBounds,
+            textureName: area.mapTextureName ?? "",
+            locationName: area.displayName,
+            worldBounds: area.worldBounds,
             pointsOfInterest: mapPoints,
             showsExplorationFog: true
         )

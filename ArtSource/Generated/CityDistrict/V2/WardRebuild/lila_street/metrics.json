@@ -1,0 +1,19 @@
+{
+  "slug": "lila_street",
+  "world": [
+    4096.0,
+    3072.0
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "pxPerUnit": 2.0,
+  "projection": {
+    "peak_pos": 36.6919260417024,
+    "peak_neg": -36.78739760614618,
+    "worst_delta": 0.17797160414161795,
+    "passes": true
+  },
+  "sha256": "98aec666c06080148a07fb43dc006ab216a5c9ad0650e77973ee49031f689627"
+}
