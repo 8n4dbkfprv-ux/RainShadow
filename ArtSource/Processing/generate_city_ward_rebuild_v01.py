@@ -213,12 +213,21 @@ def paint_ground(spec: dict) -> np.ndarray:
     sett = stone_detail(u, v, 9.6)
     flag = stone_detail(u, v, 40.0)
     detail = sett * (1.0 - pave * 0.6) + flag * pave
-    out = mix * (1.0 + detail[..., None] * 0.38) * (1.0 - 0.16 * lip[..., None])
+    # Night key. The painted lot masters are dark rain-slick paintings; an
+    # unlit daylight-grey street next to them reads as a different game.
+    # Darken the base first, then modulate with the sett/kerb detail at a
+    # higher amplitude: the structure tensor weights edges by gradient
+    # magnitude squared, and a uniformly darkened street loses its on-lock
+    # vote to the lots' residual tilt (Harborpoint failed 2.22° that way).
+    out = mix * np.array((0.42, 0.44, 0.50), dtype=np.float32) + np.array(
+        (6.0, 7.0, 11.0), dtype=np.float32
+    )
+    out = out * (1.0 + detail[..., None] * 0.62) * (1.0 - 0.22 * lip[..., None])
     lamp = np.array((210, 150, 70) if spec["neon"] else (186, 154, 88), dtype=np.float32)
     for lx, ly in CROSSINGS:
         r2 = (wx - lx) ** 2 + ((wy - ly) / SLOPE) ** 2
         glow = np.exp(-r2 / (140.0 ** 2))
-        out = out + lamp * (0.16 * glow[..., None])
+        out = out + lamp * (0.26 * glow[..., None])
     return np.clip(out, 0, 255)
 
 
@@ -229,6 +238,12 @@ def _family_affine(family_down: float, family_up: float) -> np.ndarray:
     onto (1, 0.75) and (1, −0.75) with a common scale, so painted verticals
     stay vertical. A uniform Y-stretch cannot do that — it is what left the
     generator's ~26° prior 6–10° off lock.
+
+    NOTE: `_warp_linear` applies this matrix in *pixel* coordinates (y down),
+    so `family_down` is the pixel-space downhill slope — i.e. the family the
+    grader reports as `peak_neg` (y-up convention). Symmetric families hide a
+    wrong pairing because the shear term cancels; asymmetric ones shear the
+    wrong way and scramble the whole frame.
     """
     source = np.array([[1.0, 1.0], [family_down, -family_up]], dtype=np.float64)
     target = np.array([[1.0, 1.0], [SLOPE, -SLOPE]], dtype=np.float64)
@@ -274,29 +289,117 @@ def _grade_image(image: Image.Image) -> dict:
 def _warp_from_grade(image: Image.Image, grade: dict) -> Image.Image:
     pos = math.tan(math.radians(abs(grade["peak_pos"])))
     neg = math.tan(math.radians(abs(grade["peak_neg"])))
-    return _warp_linear(image, _family_affine(max(pos, 1e-4), max(neg, 1e-4)))
+    # peak_neg (y-up) is the downhill family in pixel space — see _family_affine.
+    return _warp_linear(image, _family_affine(max(neg, 1e-4), max(pos, 1e-4)))
 
 
-def affine_correct(image: Image.Image) -> Image.Image:
-    """Vertical-preserving family warp; keep the candidate closest to ±0.75.
+def _seated_preview(image: Image.Image, spec: dict) -> Image.Image:
+    """The master as it will actually land on the plate.
+
+    Feathered seating fades out the camera-near ground — which is the
+    jig-derived, most on-lock part of every master. Grading the full square
+    therefore overstates how on-lock the seated content is; Harborpoint
+    passed every per-lot gate and still flattened to Δ2.2°. Composite the
+    seat alpha over a flat street tone (no gradients of its own) so the
+    grade measures only the pixels that survive seating.
+    """
+    arr = np.asarray(image.convert("RGB"), dtype=np.float32)
+    h, w = arr.shape[:2]
+    alpha = _seat_alpha(w, h)[..., None]
+    base = np.array(spec["road"], dtype=np.float32) * 0.45 + 8.0
+    comp = arr * alpha + base * (1.0 - alpha)
+    return Image.fromarray(np.clip(comp, 0, 255).astype(np.uint8))
+
+
+def affine_correct(image: Image.Image, spec: dict) -> Image.Image:
+    """Iterative vertical-preserving family warp, scored on the seated preview.
 
     The generator's ~26° prior often pollutes the histogram with roofs and
-    water. Trying full-frame and ground-band families, then refusing a warp
-    that made the plate worse, is what actually seats lots.
+    water. Each round warps from the seated-preview, full-frame, or
+    ground-band families and keeps whichever candidate lands the seated
+    content closest to ±0.75; a warp that makes it worse is refused.
     """
     rgb = image.convert("RGB")
-    full = _grade_image(rgb)
-    w, h = rgb.size
-    band = rgb.crop((0, int(h * 0.45), w, h))
-    ground = _grade_image(band)
-    candidates = [rgb]
-    if full["worst_delta"] > 0.25:
-        candidates.append(_warp_from_grade(rgb, full))
-    if ground["worst_delta"] > 0.25:
-        candidates.append(_warp_from_grade(rgb, ground))
-    ranked = [(_grade_image(c)["worst_delta"], i, c) for i, c in enumerate(candidates)]
-    ranked.sort()
-    return ranked[0][2]
+
+    def seated_delta(img: Image.Image) -> float:
+        return _grade_image(_seated_preview(img, spec))["worst_delta"]
+
+    best, best_delta = rgb, seated_delta(rgb)
+    current = rgb
+    for _ in range(4):
+        if best_delta <= 0.35:
+            break
+        w, h = current.size
+        grades = [
+            _grade_image(_seated_preview(current, spec)),
+            _grade_image(current),
+            _grade_image(current.crop((0, int(h * 0.45), w, h))),
+        ]
+        candidates = [_warp_from_grade(current, g) for g in grades if g["worst_delta"] > 0.2]
+        if not candidates:
+            break
+        scored = sorted((seated_delta(c), k, c) for k, c in enumerate(candidates))
+        delta, _, cand = scored[0]
+        if delta >= best_delta - 0.03:
+            break
+        best, best_delta, current = cand, delta, cand
+    return best
+
+
+_ANCHOR_STATS: tuple[np.ndarray, np.ndarray] | None = None
+
+
+def _anchor_stats() -> tuple[np.ndarray, np.ndarray] | None:
+    """Per-channel mean/std of one anchor lot; every master is graded to it.
+
+    Each Image Generator take ships its own exposure and palette, so twelve
+    of them on one plate read as twelve different games. Tie them all to the
+    Sable Row diner (the hero lot the rest of the ward was art-directed from).
+    """
+    global _ANCHOR_STATS
+    if _ANCHOR_STATS is None:
+        anchor = MASTERS / "sable_row_lot_2_-1.png"
+        if not anchor.exists():
+            return None
+        arr = np.asarray(Image.open(anchor).convert("RGB"), dtype=np.float32).reshape(-1, 3)
+        _ANCHOR_STATS = (arr.mean(axis=0), arr.std(axis=0))
+    return _ANCHOR_STATS
+
+
+def harmonize(image: Image.Image, strength: float = 0.65) -> Image.Image:
+    stats = _anchor_stats()
+    if stats is None:
+        return image.convert("RGB")
+    target_mean, target_std = stats
+    arr = np.asarray(image.convert("RGB"), dtype=np.float32)
+    flat = arr.reshape(-1, 3)
+    mean, std = flat.mean(axis=0), flat.std(axis=0)
+    graded = (arr - mean) / np.maximum(std, 1e-3) * target_std + target_mean
+    out = arr * (1.0 - strength) + graded * strength
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
+
+
+def _seat_alpha(nw: int, nh: int) -> np.ndarray:
+    """Alpha that melts a seated lot into the shared street.
+
+    The master paints its own pavement on the camera-near half of its
+    diamond. Seating that opaquely puts a second, differently-lit pavement
+    next to the plate's street — the visible-seam bug. Keep the building
+    (everything above the diamond centre line) opaque and fade the near
+    ground out toward the tip, plus edge feathers so the square never
+    prints a hard border.
+    """
+    yy, xx = np.mgrid[0:nh, 0:nw].astype(np.float32)
+    y_up = (nh - 1) - yy
+    # Relative to the seat box so the profile is identical at native master
+    # size (grading previews) and at seated plate size.
+    hh = nh * (HALF_H * PX) / (HALF_H * PX * 2 + STOREY_PX * 0.7)
+    t = np.clip(y_up / max(hh, 1.0), 0.0, 1.0)
+    alpha = np.where(y_up >= hh, 1.0, t * t * (3.0 - 2.0 * t))
+    fx = np.clip(np.minimum(xx, (nw - 1) - xx) / (0.10 * nw), 0.0, 1.0)
+    ft = np.clip(yy / (0.06 * nh), 0.0, 1.0)
+    fb = np.clip(y_up / (0.05 * nh), 0.0, 1.0)
+    return np.clip(alpha * fx * ft * fb, 0.0, 1.0)
 
 
 def seat_master(plate: Image.Image, master: Image.Image, i: int, j: int) -> None:
@@ -309,10 +412,51 @@ def seat_master(plate: Image.Image, master: Image.Image, i: int, j: int) -> None
     nw = max(1, int(round(src.width * scale)))
     nh = max(1, int(round(src.height * scale)))
     seated = src.resize((nw, nh), Image.Resampling.LANCZOS)
+    rgba = np.asarray(seated, dtype=np.float32)
+    rgba[..., 3] = rgba[..., 3] * _seat_alpha(nw, nh)
+    seated = Image.fromarray(np.clip(rgba, 0, 255).astype(np.uint8))
     plate.alpha_composite(seated, (box[0] + (box[2] - box[0] - nw) // 2, box[3] - nh))
 
 
-def draw_blocks(plate: Image.Image, mask: Image.Image, spec: dict) -> None:
+def draw_kerbs(plate: Image.Image) -> None:
+    """Wet stone kerb ring on every block diamond, at exactly ±0.75.
+
+    Visually it separates each lot's pavement from the street and hides the
+    feathered seam. Structurally it restores the long on-lock edges the
+    plate lost when painted lots stopped receiving graybox volumes — without
+    them Harborpoint's stacked per-lot residuals dragged the negative family
+    to −34.7° (Δ2.2°, FAIL).
+    """
+    d = ImageDraw.Draw(plate, "RGBA")
+
+    def to_px(x: float, y: float) -> tuple[float, float]:
+        return x * PX, (WORLD_H - y) * PX
+
+    for i, j in BLOCKS:
+        cx, cy = block_centre(i, j)
+        for inset, colour, width in (
+            (10.0, (13, 13, 16, 235), 7),
+            (16.0, (92, 95, 105, 150), 3),
+        ):
+            hw = HALF_W - inset
+            hh = hw * SLOPE
+            # Near edges only: the far half of the diamond is occluded by
+            # the building, and a line there would cut across the facade.
+            ring = [
+                to_px(cx - hw, cy),
+                to_px(cx, cy - hh),
+                to_px(cx + hw, cy),
+            ]
+            d.line(ring, fill=colour, width=width, joint="curve")
+
+
+def draw_blocks(
+    plate: Image.Image,
+    mask: Image.Image,
+    spec: dict,
+    painted: set[tuple[int, int]] | None = None,
+) -> None:
+    painted = painted or set()
     d = ImageDraw.Draw(plate, "RGBA")
     m = ImageDraw.Draw(mask, "L")
     h = STOREY_PX * 0.72
@@ -323,33 +467,44 @@ def draw_blocks(plate: Image.Image, mask: Image.Image, spec: dict) -> None:
     def lift(pt: tuple[float, float], height: float) -> tuple[float, float]:
         return pt[0], pt[1] - height
 
+    def night(colour: tuple[int, int, int]) -> tuple[int, int, int]:
+        # Desaturate and crush the graybox volumes so unsurveyed background
+        # blocks sit in the painted lots' night key instead of reading as
+        # bright daylight brick at the plate edges.
+        lum = 0.30 * colour[0] + 0.55 * colour[1] + 0.15 * colour[2]
+        return tuple(int(0.45 * (0.55 * c + 0.45 * lum)) + 8 for c in colour)
+
     for idx, (i, j) in enumerate(BLOCKS):
         cx, cy = block_centre(i, j)
         near = to_px(cx, cy - HALF_H * 0.55)
         right = to_px(cx + HALF_W * 0.55, cy)
         far = to_px(cx, cy + HALF_H * 0.55)
         left = to_px(cx - HALF_W * 0.55, cy)
-        d.polygon([near, left, lift(left, h), lift(near, h)], fill=(*spec["brick"], 255))
-        d.polygon([near, right, lift(right, h), lift(near, h)], fill=(*spec["brick_r"], 255))
-        d.polygon([lift(near, h), lift(right, h), lift(far, h), lift(left, h)], fill=(*spec["roof"], 255))
-        glow = (210, 150, 70, 180) if spec["neon"] and idx % 3 == 0 else (40, 48, 58, 220)
-        for t in (0.22, 0.45, 0.68):
-            a = (near[0] + (left[0] - near[0]) * t, near[1] + (left[1] - near[1]) * t)
-            p0 = lift(a, h * 0.25)
-            p1 = lift((a[0] + 10, a[1] - 8), h * 0.55)
+        if (i, j) not in painted:
+            d.polygon([near, left, lift(left, h), lift(near, h)], fill=(*night(spec["brick"]), 255))
+            d.polygon([near, right, lift(right, h), lift(near, h)], fill=(*night(spec["brick_r"]), 255))
             d.polygon(
-                [(p0[0], p0[1]), (p1[0], p0[1]), (p1[0], p1[1]), (p0[0], p1[1])],
-                fill=glow,
+                [lift(near, h), lift(right, h), lift(far, h), lift(left, h)],
+                fill=(*night(spec["roof"]), 255),
             )
-        d.polygon(
-            [
-                (near[0] - 10, near[1] + 4),
-                (near[0] + 10, near[1] + 4),
-                lift((near[0] + 10, near[1] + 4), h * 0.28),
-                lift((near[0] - 10, near[1] + 4), h * 0.28),
-            ],
-            fill=(12, 10, 10, 255),
-        )
+            glow = (210, 150, 70, 180) if spec["neon"] and idx % 3 == 0 else (30, 36, 46, 220)
+            for t in (0.22, 0.45, 0.68):
+                a = (near[0] + (left[0] - near[0]) * t, near[1] + (left[1] - near[1]) * t)
+                p0 = lift(a, h * 0.25)
+                p1 = lift((a[0] + 10, a[1] - 8), h * 0.55)
+                d.polygon(
+                    [(p0[0], p0[1]), (p1[0], p0[1]), (p1[0], p1[1]), (p0[0], p1[1])],
+                    fill=glow,
+                )
+            d.polygon(
+                [
+                    (near[0] - 10, near[1] + 4),
+                    (near[0] + 10, near[1] + 4),
+                    lift((near[0] + 10, near[1] + 4), h * 0.28),
+                    lift((near[0] - 10, near[1] + 4), h * 0.28),
+                ],
+                fill=(12, 10, 10, 255),
+            )
         m.polygon([near, right, far, left, lift(left, h), lift(far, h), lift(right, h), lift(near, h)], fill=220)
         m.polygon([near, right, far, left], fill=180)
 
@@ -470,6 +625,21 @@ def patch_area_json(area_id: str) -> None:
     path.write_text(json.dumps(document, indent=2, sort_keys=True) + "\n")
 
 
+def install_copy(src: Path, dst: Path) -> None:
+    """Copy that never writes through a hard link.
+
+    Some installed plates were hard-linked across paths (block == ground on
+    disk). `shutil.copy2` truncates and writes the shared inode, so copying
+    block then streets left every linked path holding the streets-only
+    content — buildings silently erased from the block plate. Unlink first
+    so each destination gets its own inode.
+    """
+    dst = Path(dst)
+    if dst.exists() or dst.is_symlink():
+        dst.unlink()
+    shutil.copy2(src, dst)
+
+
 def build_district(slug: str, install: bool) -> dict:
     spec = DISTRICTS[slug]
     dest = STAGE / slug
@@ -477,23 +647,31 @@ def build_district(slug: str, install: bool) -> dict:
     ground = paint_ground(spec)
     plate = Image.fromarray(ground.astype(np.uint8)).convert("RGBA")
     mask = Image.new("L", (PLATE_W, PLATE_H), 0)
-    draw_blocks(plate, mask, spec)
 
+    # Grade first: a block only skips its graybox volume if a master will
+    # actually seat there. With feathered seating the graybox would otherwise
+    # ghost through the lot's faded near ground as a phantom wall.
+    seated_lots: list[tuple[int, int, Image.Image]] = []
     for master_path in sorted(MASTERS.glob(f"{slug}_lot_*.png")):
         parts = master_path.stem.split("_")
         try:
             i, j = int(parts[-2]), int(parts[-1])
         except (ValueError, IndexError):
             continue
-        corrected = affine_correct(Image.open(master_path).convert("RGB"))
+        corrected = affine_correct(Image.open(master_path).convert("RGB"), spec)
         tmp = dest / f"_grade_{i}_{j}.png"
-        corrected.save(tmp)
+        _seated_preview(corrected, spec).save(tmp)
         grade = qa.grade(tmp)
         if grade["worst_delta"] > CITY_TOLERANCE:
             print(f"  skip {master_path.name}: {grade['worst_delta']:.2f}° off lock")
             continue
-        seat_master(plate, corrected.convert("RGBA"), i, j)
+        seated_lots.append((i, j, harmonize(corrected)))
         print(f"  seated {master_path.name}  Δ{grade['worst_delta']:.2f}°")
+
+    draw_blocks(plate, mask, spec, painted={(i, j) for i, j, _ in seated_lots})
+    for i, j, lot in seated_lots:
+        seat_master(plate, lot, i, j)
+    draw_kerbs(plate)
 
     rgb = plate.convert("RGB")
     wx, wy = world_grids(PLATE_H, PLATE_W)
@@ -537,12 +715,12 @@ def build_district(slug: str, install: bool) -> dict:
     if install:
         ART.mkdir(parents=True, exist_ok=True)
         MAPS.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(flatten_path, ART / spec["block"])
-        shutil.copy2(streets_path, ART / spec["streets"])
-        shutil.copy2(streets_path, ART / spec["ground"])
-        shutil.copy2(dest / spec["map"], MAPS / spec["map"])
+        install_copy(flatten_path, ART / spec["block"])
+        install_copy(streets_path, ART / spec["streets"])
+        install_copy(streets_path, ART / spec["ground"])
+        install_copy(dest / spec["map"], MAPS / spec["map"])
         for suffix in (".sr.png", ".lm.png", ".ht.png"):
-            shutil.copy2(dest / f"{spec['area']}{suffix}", AREAS / f"{spec['area']}{suffix}")
+            install_copy(dest / f"{spec['area']}{suffix}", AREAS / f"{spec['area']}{suffix}")
         print(f"  installed {slug} (area JSON is exported from Swift)")
     return metrics
 

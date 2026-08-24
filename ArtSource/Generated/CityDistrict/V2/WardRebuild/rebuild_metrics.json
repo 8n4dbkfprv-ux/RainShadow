@@ -11,12 +11,12 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 37.05031160642269,
-      "peak_neg": -36.902802929623405,
-      "worst_delta": 0.18041396057866876,
+      "peak_pos": 36.72346255410375,
+      "peak_neg": -36.52980611718515,
+      "worst_delta": 0.34009152865886705,
       "passes": true
     },
-    "sha256": "feebe75aa5f3dede73f4b4bc8f1ff930dbca4b1518e9dd3dd9c50fd6479f73a3"
+    "sha256": "4dce9b44b84b20cca56e991a54305e187ff3df1b406e1a1dcc90cec3d07f5b9f"
   },
   {
     "slug": "wharf_ladder",
@@ -30,12 +30,12 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 37.626712222452184,
-      "peak_neg": -36.73126171875822,
-      "worst_delta": 0.7568145766081642,
+      "peak_pos": 36.54205106215745,
+      "peak_neg": -36.438793212289326,
+      "worst_delta": 0.43110443355469386,
       "passes": true
     },
-    "sha256": "e9340eeaafc2a49b05c425842e8f712472e40f6a0079bdc07434a4084d61d810"
+    "sha256": "a263d435492bc4761e9abd7cef62ccea13bf5ec291cb82cdd851062609728e9f"
   },
   {
     "slug": "riverside",
@@ -49,12 +49,12 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 37.76595355738144,
-      "peak_neg": -36.34033219836801,
-      "worst_delta": 0.8960559115374167,
+      "peak_pos": 36.52516320402828,
+      "peak_neg": -36.218872408544264,
+      "worst_delta": 0.6510252372997556,
       "passes": true
     },
-    "sha256": "3c04d56686c0ea276bae89205cf9869fb4539c85e8e5939bf78e04e1b2b1326f"
+    "sha256": "a49b3d6d47f56fdb5b52904ed91b17214b3ca2b76468d3b52801fda787e8b704"
   },
   {
     "slug": "harborpoint_pd",
@@ -68,12 +68,12 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 36.786421945723795,
-      "peak_neg": -36.72346855395676,
-      "worst_delta": 0.1464290918872635,
+      "peak_pos": 36.476709676726855,
+      "peak_neg": -35.394962351132875,
+      "worst_delta": 1.4749352947111447,
       "passes": true
     },
-    "sha256": "bda5e1e9c8ed85901590fa290be3dffaefc0923ea708ef32b1d31961cf83a935"
+    "sha256": "65f61362e38b7fb393e3a8663b4b609a28ca508230605d2602891783ea5b55ad"
   },
   {
     "slug": "lila_street",
@@ -87,12 +87,12 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 36.6919260417024,
-      "peak_neg": -36.78739760614618,
-      "worst_delta": 0.17797160414161795,
+      "peak_pos": 36.56041408841068,
+      "peak_neg": -36.906223729865744,
+      "worst_delta": 0.3094835574333388,
       "passes": true
     },
-    "sha256": "98aec666c06080148a07fb43dc006ab216a5c9ad0650e77973ee49031f689627"
+    "sha256": "03e7a31e6661b6fad18f2e5a90755bffd6360eb075fb88de8f24e48cc782e4f2"
   },
   {
     "slug": "civic_records",
@@ -106,11 +106,11 @@
     ],
     "pxPerUnit": 2.0,
     "projection": {
-      "peak_pos": 36.77068337268879,
-      "peak_neg": -36.7242379306648,
-      "worst_delta": 0.14565971517922094,
+      "peak_pos": 36.399655221010384,
+      "peak_neg": -36.52339758881608,
+      "worst_delta": 0.47024242483363565,
       "passes": true
     },
-    "sha256": "157a8f66da346542c4495b3030645c5c5e8379871903fa453821ba13f8e6da61"
+    "sha256": "3541a4acd43ef84429cba58a57a7bcec4a304bc232f3997992bcf12022a5fb83"
   }
 ]

@@ -69,11 +69,11 @@ it was sized to separate the lock from the retired 26.57° camera. At 4° off,
 a ground line drifts ~197 px across the office, a full adult's height, and the
 runtime cannot absorb it because `verticalProjectionScale`, the 16×12 search map
 and the 16:12 rings are all hard-locked at 0.75. Both office masters have landed
-at 3.8°. All eight shipped plates currently fail (the city ones
-disagree with each other by up to 30°), because the V2 lock was prose in a
-prompt with nothing measuring it. Painted masters still need regen under the V5
-office / V3 city locks — status and blockers in
-`Documentation/BGEEProjectionMasterRegen.md`.
+at 3.8°. All eight shipped plates currently pass `qa_plate_projection.py --shipped`
+at ≤1.5° (city ward rebuild V1, worst 1.47° Harborpoint PD). All 72 surveyed
+city lots are unique Image Generator paintings gated on their *seated*
+content, harmonized to one anchor exposure and feather-seated into a shared
+night-key street — status in `Documentation/BGEEProjectionMasterRegen.md`.
 
 Calibrate before trusting it: a plain 3×3 Sobel aliases on hard lines and read a
 true 36.87° grid as 45°. The shipped estimator uses a smoothed structure tensor
@@ -152,6 +152,36 @@ Scaling x and y by different factors multiplies every ground slope by `sy/sx`.
 Taking a 3:2 master straight to 2048×1152 shears 36.87° to 31.74° and nothing
 reports an error. Use `process_city_districts_v02.fit_to_aspect`, which
 centre-crops to the target aspect first and then scales uniformly.
+
+### The family warp is applied in pixel coordinates — pair the families right
+
+`generate_city_ward_rebuild_v01._warp_linear` applies the affine in *pixel*
+space (y down), while the grader reports peaks y-up. `peak_neg` is therefore
+the pixel-space *downhill* family. The wrong pairing is invisible on symmetric
+families (the shear term cancels — every office master), but on asymmetric
+takes it shears the wrong way: a +51.6°/−31.7° lot "corrected" to +14.2/−12.9
+and looked like the generator could never hold the lock. With the pairing
+fixed, the same takes land at ≤0.2°. Regression: the synthetic-lattice test in
+this file's history — a +50/−30 lattice must come back at ±36.87.
+
+### Grade what seating keeps, not the square the generator returned
+
+Feathered seating (`_seat_alpha`) fades out each lot master's camera-near
+ground — which is the jig-derived, most on-lock content in the frame. Gating
+the full square let twelve individually-passing lots stack their building
+residuals into a plate-level Δ2.2° FAIL (Harborpoint). Gate `_seated_preview`
+(master × seat alpha over a flat street tone) instead; that is what actually
+lands on the plate.
+
+### `shutil.copy2` writes through hard links on install
+
+Several installed plates were hard-linked across paths (`*_block_v02.png` ==
+`*_ground_v02.png` == old `ArtSource/Generated/.../V2` outputs, one inode).
+`copy2` truncates and rewrites the shared inode, so installing block then
+streets left *both* names holding the streets-only plate — buildings silently
+erased, and the QA failure pointed at the generator, not the copy. Use
+`install_copy` (unlink first); check `ls -la` link counts before trusting an
+installed binary.
 
 ## Character sprite pipeline — traps that cost real time
 

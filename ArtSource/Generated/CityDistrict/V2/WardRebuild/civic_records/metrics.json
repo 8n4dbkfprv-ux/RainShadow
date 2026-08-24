@@ -10,10 +10,10 @@
   ],
   "pxPerUnit": 2.0,
   "projection": {
-    "peak_pos": 36.77068337268879,
-    "peak_neg": -36.7242379306648,
-    "worst_delta": 0.14565971517922094,
+    "peak_pos": 36.399655221010384,
+    "peak_neg": -36.52339758881608,
+    "worst_delta": 0.47024242483363565,
     "passes": true
   },
-  "sha256": "157a8f66da346542c4495b3030645c5c5e8379871903fa453821ba13f8e6da61"
+  "sha256": "3541a4acd43ef84429cba58a57a7bcec4a304bc232f3997992bcf12022a5fb83"
 }
