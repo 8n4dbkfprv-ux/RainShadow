@@ -221,9 +221,17 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
     except (KeyError, TypeError, ValueError) as error:
         errors.append(f"manifest generated patterns cannot be expanded: {error}")
         specs = []
-    if len(specs) != 148 or len({spec.filename for spec in specs}) != 148:
+    master_count = (
+        len(WESTERN_DIRECTIONS) * 4
+        + len(WESTERN_DIRECTIONS) * 8
+        + len(SEAT_DIRECTIONS) * 8
+        + len(SEAT_DIRECTIONS) * 12
+    )
+    sit_down_count = len(SEAT_DIRECTIONS) * 12
+    primary_count = master_count + 4 + sit_down_count
+    if len(specs) != master_count or len({spec.filename for spec in specs}) != master_count:
         errors.append(
-            f"manifest must expand to 148 unique ImageGen body masters, got {len(specs)}"
+            f"manifest must expand to {master_count} unique ImageGen body masters, got {len(specs)}"
         )
 
     inventory_path = V16_ROOT / "frame_inventory_v16.json"
@@ -234,7 +242,7 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
                 Path(call["selected_master"]).name for call in inventory["generated_calls"]
             }
             manifest_names = {spec.filename for spec in specs}
-            if inventory_names != manifest_names or len(inventory["generated_calls"]) != 148:
+            if inventory_names != manifest_names or len(inventory["generated_calls"]) != master_count:
                 errors.append(
                     "voss_v16_manifest.json production names drift from frame_inventory_v16.json"
                 )
@@ -243,17 +251,29 @@ def validate_manifest_contract(manifest: dict[str, Any]) -> None:
 
     runtime = expected_runtime_names()
     runtime_counts = {name: len(names) for name, names in runtime.items()}
+    runtime_total = sum(runtime_counts.values())
+    expected_runtime_total = (
+        len(WESTERN_DIRECTIONS) * 4
+        + 4
+        + len(WESTERN_DIRECTIONS) * 8
+        + len(SEAT_DIRECTIONS) * 8
+        + 16
+        + len(SEAT_DIRECTIONS) * 8
+        + sit_down_count * 2
+    )
     if runtime_counts != manifest.get("runtime"):
         errors.append(f"runtime counts must be {runtime_counts}, got {manifest.get('runtime')}")
-    if sum(runtime_counts.values()) != 208:
-        errors.append("internal V16 runtime name expansion is not 208 files")
+    if runtime_total != expected_runtime_total:
+        errors.append(f"internal runtime name expansion is not {expected_runtime_total} files")
     counts = manifest.get("counts", {})
     if counts != {
-        "imagegen_body_masters": 148,
-        "primary_body_presentations": 176,
-        "runtime_pngs": 208,
+        "imagegen_body_masters": master_count,
+        "primary_body_presentations": primary_count,
+        "runtime_pngs": runtime_total,
     }:
-        errors.append("manifest count contract must be 148 generated / 176 primary / 208 runtime")
+        errors.append(
+            f"manifest count contract must be {master_count} generated / {primary_count} primary / {runtime_total} runtime"
+        )
 
     processing = manifest.get("processing", {})
     required_processing = {
@@ -1238,7 +1258,11 @@ def _validate_motion(
 
 def _validate_seat(stage_root: Path, errors: list[str]) -> dict[str, Any]:
     report: dict[str, Any] = {}
-    standing_reference_name = {"ne": "voss_standing_idle_nw_00.png", "se": "voss_standing_idle_se_00.png"}
+    standing_reference_name = {
+        "ne": "voss_standing_idle_nw_00.png",
+        "se": "voss_standing_idle_se_00.png",
+        "n": "voss_standing_idle_n_00.png",
+    }
     for direction in SEAT_DIRECTIONS:
         idle = [
             _load_stage_cell(stage_root, "VossSeatedIdle.atlas", f"voss_seated_idle_{direction}_{i:02d}.png")

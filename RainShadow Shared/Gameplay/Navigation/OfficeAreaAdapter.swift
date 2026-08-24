@@ -102,12 +102,10 @@ enum OfficeAreaAdapter {
     /// tables and a dozen inline constructions, and re-deriving that in a parser
     /// means re-implementing it and hoping the two agree.
     ///
-    /// Static scenery is composited into `office_suite_plate` by
-    /// `bake_office_plate.py`, matching the Infinity Engine split: ordinary
-    /// furniture is tileset pixels while only pieces that must sort against an
-    /// actor survive as nodes. The desk cluster is that exception — its apron
-    /// straddles a seated actor, its desktop props sit above the writing surface,
-    /// and actors can walk both in front of and behind the visitor chairs.
+    /// V03 is a complete Infinity Engine-style plate: its desk, all three
+    /// chairs, fixtures and lighting are already area pixels. The historical
+    /// prop manifest is retained for migration provenance, but no legacy sprite
+    /// may be emitted over the selected painting.
     ///
     /// Loaded at export time only. `AreaExportTests` runs in the package, where
     /// `ArtSource` is on disk; the app reads the resulting `.area.json`.
@@ -124,22 +122,7 @@ enum OfficeAreaAdapter {
     /// Must match `bake_office_plate.LIVE_PROP_IDS`. The generated bake
     /// manifest records both sides of the split for review and tests assert the
     /// shipped area contains this set exactly.
-    private static let livePropIDs: Set<String> = [
-        "office_desk_bare",
-        "office_desk_chair",
-        "office_visitor_armchair",
-        "office_visitor_armchair_2",
-        "office_desk_lamp",
-        "office_desk_phone",
-        "office_desk_typewriter",
-        "office_desk_notebook",
-        "office_desk_papers",
-        "office_desk_ashtray",
-        "office_desk_files",
-        "office_desk_actor_occluder",
-        "office_desk_front_occluder_v04",
-        "office_desk_top_occluder"
-    ]
+    private static let livePropIDs: Set<String> = []
 
     private struct PropsDocument: Decodable {
         let props: [AreaProp]

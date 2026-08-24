@@ -234,7 +234,7 @@ struct FogEdgeMaskTests {
         let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
         let lit = FogCell(column: 2, row: 2)
         let display = grid.displayMask(explored: [], visible: [lit])
-        let side = FogGrid.cellPixelSize
+        let side = FogGrid.texturePixelsPerCell
         let width = grid.columns * side
         let imageRow = (grid.rows - 1 - lit.row) * side
         let x0 = lit.column * side
@@ -246,14 +246,14 @@ struct FogEdgeMaskTests {
         #expect(sample(side / 2, side / 2) == FogGrid.visibleLevel)
         #expect(sample(side / 2, 0) > FogGrid.rememberedLevel)
         #expect(sample(0, side / 2) > FogGrid.rememberedLevel)
-        #expect(sample(side / 2, 1) >= sample(side / 2, 4))
+        #expect(sample(side / 2, 0) >= sample(side / 2, side / 2))
     }
 
     @Test func rememberedGroundStaysHalfTransAndDoesNotReblacken() {
         let grid = FogGrid(origin: .zero, searchColumns: 16, searchRows: 16)
         let walked = FogCell(column: 2, row: 2)
         let display = grid.displayMask(explored: [walked], visible: [])
-        let side = FogGrid.cellPixelSize
+        let side = FogGrid.texturePixelsPerCell
         let width = grid.columns * side
         let imageRow = (grid.rows - 1 - walked.row) * side
         let x0 = walked.column * side
@@ -262,10 +262,10 @@ struct FogEdgeMaskTests {
         #expect(interior == FogGrid.rememberedLevel)
     }
 
-    @Test func displayMaskIsThirtyTwoPixelsPerCell() {
+    @Test func displayMaskIsTexturePixelsPerCell() {
         let grid = FogGrid(origin: .zero, searchColumns: 8, searchRows: 8)
         let display = grid.displayMask(explored: [], visible: [])
-        #expect(display.count == grid.columns * FogGrid.cellPixelSize * grid.rows * FogGrid.cellPixelSize)
+        #expect(display.count == grid.columns * FogGrid.texturePixelsPerCell * grid.rows * FogGrid.texturePixelsPerCell)
         #expect(Set(display) == [FogGrid.unexploredLevel])
     }
 }

@@ -6,16 +6,24 @@ import Foundation
 /// then blits `FOGOWAR.BAM` frames (N, W, NW, and mirrors) on the boundary of
 /// a visible or explored cell. RainShadow cannot ship that BAM. These tiles
 /// play the same neighbour-bit role: a short falloff on the outer side of a
-/// 32×32 cell, dithered so the edge is a scallop rather than a Gaussian ramp.
+/// fog cell, dithered so the edge is a scallop rather than a Gaussian ramp.
 ///
 /// Interiors stay flat. Linear filtering is not part of this compositor.
 enum FogEdgeMask {
-    static let cellSize = FogGrid.cellPixelSize
+    static let cellSize = FogGrid.texturePixelsPerCell
+    /// Authored falloff at GemRB's 32 px/cell. Scaled with the uploaded cell.
+    static let referenceFalloff = 6
     /// Pixels of falloff on the fogged side of an edge. BG:EE indoor clips in a
     /// few pixels; a quarter-cell linear ramp was eight-plus and read as a blob.
-    static let falloff = 6
+    static var falloff: Int {
+        max(
+            1,
+            (referenceFalloff * FogGrid.texturePixelsPerCell + FogGrid.cellPixelSize / 2)
+                / FogGrid.cellPixelSize
+        )
+    }
 
-    /// Expand a one-byte-per-cell state buffer to 32 px/cell, top row first.
+    /// Expand a one-byte-per-cell state buffer to the overlay texel grid, top row first.
     static func composite(cellLevels: [UInt8], columns: Int, rows: Int) -> [UInt8] {
         let side = cellSize
         let width = columns * side

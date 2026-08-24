@@ -46,6 +46,7 @@ struct VossSeatScaleTests {
         let thresholds = try VossV20ValidationThresholds.load()
         try validateSeatChain(.northEast, thresholds: thresholds)
         try validateSeatChain(.southEast, thresholds: thresholds)
+        try validateSeatChain(.north, thresholds: thresholds)
     }
 
     private func validateSeatChain(
@@ -120,13 +121,13 @@ struct VossSeatScaleTests {
 
         let contractMetrics = idleMetrics + standMetrics
         switch direction {
-        case .northEast:
+        case .northEast, .north:
             // A 1-bit silhouette at 64 native rows puts the head about six
             // craft pixels across, so the registered 18...29 band is more
             // meaningful than a sub-pixel ratio against another direction.
             for (index, metrics) in contractMetrics.enumerated() {
                 #expect(thresholds.seatedHeadWidth.contains(metrics.headWidth),
-                        "NE cell \(index) head width \(metrics.headWidth), expected \(thresholds.seatedHeadWidth)")
+                        "\(direction.label) cell \(index) head width \(metrics.headWidth), expected \(thresholds.seatedHeadWidth)")
             }
         case .southEast:
             for (index, metrics) in contractMetrics.enumerated() {
@@ -210,11 +211,13 @@ struct VossSeatScaleTests {
 private enum SeatVisualDirection {
     case northEast
     case southEast
+    case north
 
     var assetSuffix: String {
         switch self {
         case .northEast: "ne"
         case .southEast: "se"
+        case .north: "n"
         }
     }
 
@@ -222,6 +225,7 @@ private enum SeatVisualDirection {
         switch self {
         case .northEast: "nw"
         case .southEast: "se"
+        case .north: "n"
         }
     }
 

@@ -5,11 +5,8 @@ import Testing
 
 /// The office's plate/live split as authored data.
 ///
-/// `props` was empty from the day the record existed, because the office places
-/// its scenery imperatively — texture names as string literals at roughly sixty
-/// call sites. `office_props_v01.json` remains the placement authority, but the
-/// shipped area retains only the desk cluster that must sort around a seated
-/// actor; the rest is now pixels in `office_suite_plate`.
+/// `office_props_v01.json` remains migration history, but the approved V03
+/// concept embeds the complete room in `office_suite_plate`.
 struct AreaPropTests {
 
     static func officeProps() throws -> [AreaProp] {
@@ -40,51 +37,15 @@ struct AreaPropTests {
 
     @Test func theOfficeDescribesItsScenery() throws {
         let props = try Self.officeProps()
-        #expect(props.count == 14, "the office describes \(props.count) live overlays")
+        #expect(props.isEmpty, "V03 already embeds every visible office prop")
 
         var byLayer: [AreaPropLayer: Int] = [:]
         for prop in props { byLayer[prop.layer, default: 0] += 1 }
-        #expect(byLayer == [.depthWorld: 14])
-        #expect(Set(props.map(\.id)) == [
-            "office_desk_bare",
-            "office_desk_chair",
-            "office_visitor_armchair",
-            "office_visitor_armchair_2",
-            "office_desk_lamp",
-            "office_desk_phone",
-            "office_desk_typewriter",
-            "office_desk_notebook",
-            "office_desk_papers",
-            "office_desk_ashtray",
-            "office_desk_files",
-            "office_desk_actor_occluder",
-            "office_desk_front_occluder_v04",
-            "office_desk_top_occluder"
-        ])
+        #expect(byLayer.isEmpty)
 
         let split = try Self.bakeManifest()
         #expect(Set(props.map(\.id)) == Set(split.livePropIDs))
-        #expect(Set(split.bakedPropIDs) == [
-            "office_floor_wear_decal",
-            "office_light_window_spill",
-            "office_light_blind_stripes",
-            "office_light_blind_stripes_wall",
-            "office_light_lamp_pool",
-            "office_worn_rug",
-            "office_desk_floor_shadow",
-            "office_cabinet_floor_shadow",
-            "office_case_board",
-            "office_wall_city_map",
-            "office_framed_licence",
-            "office_floor_trash_a",
-            "office_bookshelf",
-            "office_filing_cabinet",
-            "office_archive_box_b",
-            "office_archive_box_a",
-            "office_coat_rack",
-            "office_umbrella_stand",
-            "office_wastebasket"
-        ])
+        #expect(split.bakedPropIDs.isEmpty)
         let sourceIDs = Set(try Self.officeSourceProps().map(\.id))
         #expect(
             Set(split.retiredPropIDs)
@@ -95,8 +56,7 @@ struct AreaPropTests {
     }
 
     @Test func propIDsAreUnique() throws {
-        // Identity remains the interaction key even when art names happen to
-        // match throughout today's live desk cluster.
+        // Identity remains the interaction key if an overlay is added later.
         let ids = try Self.officeProps().map(\.id)
         #expect(Set(ids).count == ids.count, "a prop id is used twice")
     }
@@ -174,24 +134,11 @@ struct AreaPropTests {
         #expect(props.allSatisfy { $0.scale != nil })
     }
 
-    /// The desk chair is a world prop, standing where the empty seat is.
-    ///
-    /// Inherited from `ActorLocomotionPacingTests`, which asserted it as source
-    /// text while the chair was placed in code. It is load-bearing: Voss's
-    /// seated and transition atlases are chairless, so this prop is the only
-    /// chair in the room and has to be drawn in every actor state. A record that
-    /// dropped it would empty the desk the moment he stood up.
-    @Test func theDeskChairIsAWorldPropStandingWhereTheSeatIs() throws {
+    /// V03's chair is embedded in the approved plate; a legacy chair node would
+    /// draw a second seat over it.
+    @Test func theDeskChairIsOwnedByThePlate() throws {
         let props = try Self.officeProps()
-        let chair = try #require(props.first { $0.id == "office_desk_chair" })
-        #expect(chair.layer == .depthWorld, "the chair must sort against actors")
-
-        let seat = OfficeNavigationLayout.emptyDeskChairWorldPosition
-        #expect(
-            abs(chair.groundPoint.x - seat.x) < 0.01
-                && abs(chair.groundPoint.y - seat.y) < 0.01,
-            "chair at \(chair.groundPoint), seat at \(seat)"
-        )
+        #expect(!props.contains { $0.id == "office_desk_chair" })
     }
 
     /// Every prop must sit somewhere in the area it belongs to, or it is

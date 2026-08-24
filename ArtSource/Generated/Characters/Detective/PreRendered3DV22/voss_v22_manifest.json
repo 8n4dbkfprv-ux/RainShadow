@@ -17,17 +17,17 @@
     "voss_anchor_dimetric_sw_chroma_v20.png"
   ],
   "counts": {
-    "authored_gameplay_masters": 148,
+    "authored_gameplay_masters": 168,
     "identity_anchors": 4,
     "mutable_runtime_payloads": 6,
-    "primary_body_presentations": 176,
-    "runtime_pngs": 208
+    "primary_body_presentations": 208,
+    "runtime_pngs": 248
   },
   "derived": {
-    "sit_down_exact_reverse_of_stand_up": 24,
+    "sit_down_exact_reverse_of_stand_up": 36,
     "standing_idle_se_exact_mirror_of_sw": 4,
     "seated_ne_upper_lower_compatibility": 16,
-    "transparent_seated_arms": 16
+    "transparent_seated_arms": 24
   },
   "generated": {
     "standing_idle": {
@@ -43,14 +43,14 @@
       "phases": 8
     },
     "seated_idle": {
-      "count": 16,
-      "directions": ["ne", "se"],
+      "count": 24,
+      "directions": ["ne", "se", "n"],
       "pattern": "voss_seated_idle_{direction}_{phase:02d}_chroma_v22.png",
       "phases": 8
     },
     "stand_up": {
-      "count": 24,
-      "directions": ["ne", "se"],
+      "count": 36,
+      "directions": ["ne", "se", "n"],
       "pattern": "voss_stand_up_{direction}_{phase:02d}_chroma_v22.png",
       "phases": 12
     }

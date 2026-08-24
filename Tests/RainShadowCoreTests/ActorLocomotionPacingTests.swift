@@ -166,9 +166,11 @@ struct ActorLocomotionPacingTests {
         #expect(detective.contains("func turnToFace"))
         #expect(detective.contains("stepped(toward:"))
         #expect(detective.contains("func beginMovementBackoff"))
-        // Seat clips are selected as one complete NE-or-SE set. Sit-down is the
-        // exact reverse, and the endpoint goes through the facing-aware idle path.
+        // Seat clips are selected as one complete directional set. Sit-down is
+        // the exact reverse, and the endpoint goes through the facing-aware idle
+        // path without mirroring the approved NE desk master.
         #expect(detective.contains("enum SeatVisualDirection"))
+        #expect(detective.contains("case .northEast: .northWest"))
         #expect(detective.contains("completeSeatTextureSequence"))
         #expect(detective.contains("let seatAnimations = Self.loadSeatAnimationTextures()"))
         #expect(detective.contains("self.facing = self.seatVisualDirection.facing"))

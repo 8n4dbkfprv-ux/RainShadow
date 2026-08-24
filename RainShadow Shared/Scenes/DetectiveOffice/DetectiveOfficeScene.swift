@@ -166,8 +166,8 @@ final class DetectiveOfficeScene: BaseGameScene, CutsceneStage {
         let props = buildProps(from: area)
         bindPlacedProps(props)
         buildRegisteredDoorVisual()
-        addBakedWindowHoverOverlay()
-        addWindowRain()
+        // V03 owns its complete window treatment. The retired V19 full-plate
+        // hover and rain masks target different apertures.
 
         detective.position = arrivalPoint
         // Warm desk-lamp grade (actors default here; re-assert for scene clarity).

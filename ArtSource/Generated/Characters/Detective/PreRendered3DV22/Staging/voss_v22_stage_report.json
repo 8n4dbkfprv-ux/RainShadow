@@ -1,13 +1,13 @@
 {
   "asset_version": "v16",
-  "built_at_utc": "2026-08-21T14:55:43.242218+00:00",
+  "built_at_utc": "2026-08-24T12:20:55.048751+00:00",
   "counts": {
     "compatibility_layers": 16,
     "primary_body_presentations": 176,
-    "runtime_pngs": 208,
+    "runtime_pngs": 248,
     "transparent_seated_arms": 16
   },
-  "manifest_sha256": "edc4e2b2b5d937c6c0c81894f05a228874579771ef69f60432f81e1816cf24e7",
+  "manifest_sha256": "6edf430d529514eb5ea8b01ac48a60055cfd02385de777e952064f10157e3b3f",
   "manual_review_required": [
     "At least 12 of 16 unlabeled displayed facings are recognizable.",
     "SW walk has stable planted feet and a clean 0.25x first/last loop.",
@@ -336,18 +336,30 @@
     "VossIdle.atlas/voss_standing_idle_wsw_01.png": "01aff9158b0628a7a53b028752a9f46b82469642ed2b2fba646613cf32a971e0",
     "VossIdle.atlas/voss_standing_idle_wsw_02.png": "dc05c9c5a6e3f20d019c247f6017ce9bc471f6f6e0d404524f232d1b77d1a286",
     "VossIdle.atlas/voss_standing_idle_wsw_03.png": "09e68a0036d9eca2f4f6b002ba7f271086b7088eea9b732d44c00c77f7edb181",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_00.png": "f3fd3c0f1a53391870099913a2c2807a4d7c38c7b73592d6ad9311656f0f0ae2",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_01.png": "0d9fa14eef720e7d33c2b8ac29e6d7d78fdbc31002fdf2132167de6a3113225c",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_02.png": "1438b82f416325b5dc3d8346dab9cce26a86613d0df0ae9ad2d5d11eed7f126c",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_03.png": "4857a0cff2a586fa363868677e3e8dedfb41f1498d82256130bba5162cfdaddc",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_04.png": "495cbd42b5a5cda179095a37df79a527401de4102c8b84af65df7df4e1c45e3f",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_05.png": "985018f5dccc0121474f16d691b30d1ae1ab89e6753dc603a1166d3df32e0158",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_06.png": "87bd42394aa4380f39ee0580295540ba14f715705ad17ddda693db2c09073613",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_07.png": "5a27569bffaf5bc54185abb6c73a42608dba9daaac42955d546eb007dd69b89b",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_08.png": "4777c0570cbcd43ee8ac629fc35704c6c921cdf0f38eeb02127bffd7ea29f86e",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_09.png": "0b719e0382df3d5ea961cc7df2044fc2fb211671a1fef073852968413559f471",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_10.png": "f24bfc38cbda694bc6fee6ee31d196c226e77db27c1af1bf05b0e413b9b9f37d",
-    "VossSeatTransitions.atlas/voss_sit_down_ne_11.png": "258c475983281dc7f30f290d6056f3893d61f9a0449f300c042573d0676996e2",
+    "VossSeatTransitions.atlas/voss_sit_down_n_00.png": "86107b6174a6aa71be4d15bdb34b264865c6a7206834f26501660d657a8527f3",
+    "VossSeatTransitions.atlas/voss_sit_down_n_01.png": "9fe24f01ee7303496fa0eb304eadbedbe2120de51c28d99788a1834a06e5080a",
+    "VossSeatTransitions.atlas/voss_sit_down_n_02.png": "dfa7cd3a1fcfad3c929d3aee41462cd6031f865263b13d0c2de52d26bf756d36",
+    "VossSeatTransitions.atlas/voss_sit_down_n_03.png": "4162125d08e3f9637d478314d85343fa700c5e544598f4e331f238179a0a2ea1",
+    "VossSeatTransitions.atlas/voss_sit_down_n_04.png": "3a9aea039e7dd95a7d058c2bb92f5f06151b8b2d219e1d55250ad3506f724fd5",
+    "VossSeatTransitions.atlas/voss_sit_down_n_05.png": "3127e4caf96adb670d4b09afdf3d0f560ffd03f4a7bbd3a57d5ef027fb54de58",
+    "VossSeatTransitions.atlas/voss_sit_down_n_06.png": "2cc911bdf0809d0a12a3c18979b07b70e5b5c3260fbebe0c018848671fb76bc3",
+    "VossSeatTransitions.atlas/voss_sit_down_n_07.png": "e651d5a0b41d5efffeb45a5e56433c9edb2535384f8468b62e8596f75626e189",
+    "VossSeatTransitions.atlas/voss_sit_down_n_08.png": "bd57c5774d7ab363df3812fb31477ffa0d099235ce011cc7699e244f58a186e6",
+    "VossSeatTransitions.atlas/voss_sit_down_n_09.png": "3147c70825a2fd0f3faacd44b489d59e97460e47f3c5043d2b3d4e3f867d54f5",
+    "VossSeatTransitions.atlas/voss_sit_down_n_10.png": "32f638c965829fac1987e0156f89955b7ca814a5c81d18a2b63153184452e245",
+    "VossSeatTransitions.atlas/voss_sit_down_n_11.png": "4fe0773b1e328946977413da6e0ce8bd34e0f042c1bbe401e4ec3d6ec65d39ee",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_00.png": "a825fcd16b958b6ba3f17e1033438654dbf141165dd44a5f93ab9c219ced7309",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_01.png": "d69fc29af2492c395a85efdb3da37abe963898211dde829589400406b5c4fe8a",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_02.png": "edfe7269658662cfb2765a95872ec90d10e0ee2a410040d9b3485f9a425a496d",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_03.png": "c57bc95d17493f64f8623d28a4a363e06c0eb1338994ccce6f444cb3f3ceaa05",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_04.png": "8e78d109da7222ec198f624a626436d606cb408d2c1fca7264f31a57d3c828d0",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_05.png": "bc623b3cffee85a2cc5bfcd1cf1074cfd238432cc72b4ce475fb77ef79852734",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_06.png": "e98c86be6e29e2125e0008b37dffffe840d12cb7708c73a1901a4a88a7a3710e",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_07.png": "f87810ad1fd60b2b13881a1491287d509e35dfb704ed377b3d8101431072dd96",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_08.png": "913c9158faf7ad59b85a41f4aa2b9010d4fdeed2e6842e253815b6940cdbddce",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_09.png": "623fba3f129942eded3c7f6dc120c7aaac17f539e9b29f69288d72facf70e489",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_10.png": "f1a8c2267b0885f9554efe5f3381a363469222781b16791d3d47909435469e36",
+    "VossSeatTransitions.atlas/voss_sit_down_ne_11.png": "3523bbbb3950f8cef2561bdd743a8c8a6f361db5454bf3006710051270a461e9",
     "VossSeatTransitions.atlas/voss_sit_down_se_00.png": "10f5c77010dd2f561ebc700c27abd63de8b0b8943e3a4de220bcf1c406c24fc5",
     "VossSeatTransitions.atlas/voss_sit_down_se_01.png": "b7efd430e73cd464d7a25df5e8e2490b463f0a08ad60ed2e5ddf61a411643826",
     "VossSeatTransitions.atlas/voss_sit_down_se_02.png": "fb433aab223135f224dc5a4ec5e58333efd6a52cb5a4de24e441b329a568407d",
@@ -360,18 +372,30 @@
     "VossSeatTransitions.atlas/voss_sit_down_se_09.png": "fb2990ec45bcd0ab75af298e41d8d2f13783f7b641106c554b82c1744ab7fae4",
     "VossSeatTransitions.atlas/voss_sit_down_se_10.png": "3d45c909bef51d2f00076e5d8d7c1ee0679ede57f3af882066f2be2d19f7be0f",
     "VossSeatTransitions.atlas/voss_sit_down_se_11.png": "660716abc6613170d417d5a08159bc338857c9cf3ea7857034af7a265520d3c5",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_00.png": "258c475983281dc7f30f290d6056f3893d61f9a0449f300c042573d0676996e2",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_01.png": "f24bfc38cbda694bc6fee6ee31d196c226e77db27c1af1bf05b0e413b9b9f37d",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_02.png": "0b719e0382df3d5ea961cc7df2044fc2fb211671a1fef073852968413559f471",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_03.png": "4777c0570cbcd43ee8ac629fc35704c6c921cdf0f38eeb02127bffd7ea29f86e",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_04.png": "5a27569bffaf5bc54185abb6c73a42608dba9daaac42955d546eb007dd69b89b",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_05.png": "87bd42394aa4380f39ee0580295540ba14f715705ad17ddda693db2c09073613",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_06.png": "985018f5dccc0121474f16d691b30d1ae1ab89e6753dc603a1166d3df32e0158",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_07.png": "495cbd42b5a5cda179095a37df79a527401de4102c8b84af65df7df4e1c45e3f",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_08.png": "4857a0cff2a586fa363868677e3e8dedfb41f1498d82256130bba5162cfdaddc",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_09.png": "1438b82f416325b5dc3d8346dab9cce26a86613d0df0ae9ad2d5d11eed7f126c",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_10.png": "0d9fa14eef720e7d33c2b8ac29e6d7d78fdbc31002fdf2132167de6a3113225c",
-    "VossSeatTransitions.atlas/voss_stand_up_ne_11.png": "f3fd3c0f1a53391870099913a2c2807a4d7c38c7b73592d6ad9311656f0f0ae2",
+    "VossSeatTransitions.atlas/voss_stand_up_n_00.png": "4fe0773b1e328946977413da6e0ce8bd34e0f042c1bbe401e4ec3d6ec65d39ee",
+    "VossSeatTransitions.atlas/voss_stand_up_n_01.png": "32f638c965829fac1987e0156f89955b7ca814a5c81d18a2b63153184452e245",
+    "VossSeatTransitions.atlas/voss_stand_up_n_02.png": "3147c70825a2fd0f3faacd44b489d59e97460e47f3c5043d2b3d4e3f867d54f5",
+    "VossSeatTransitions.atlas/voss_stand_up_n_03.png": "bd57c5774d7ab363df3812fb31477ffa0d099235ce011cc7699e244f58a186e6",
+    "VossSeatTransitions.atlas/voss_stand_up_n_04.png": "e651d5a0b41d5efffeb45a5e56433c9edb2535384f8468b62e8596f75626e189",
+    "VossSeatTransitions.atlas/voss_stand_up_n_05.png": "2cc911bdf0809d0a12a3c18979b07b70e5b5c3260fbebe0c018848671fb76bc3",
+    "VossSeatTransitions.atlas/voss_stand_up_n_06.png": "3127e4caf96adb670d4b09afdf3d0f560ffd03f4a7bbd3a57d5ef027fb54de58",
+    "VossSeatTransitions.atlas/voss_stand_up_n_07.png": "3a9aea039e7dd95a7d058c2bb92f5f06151b8b2d219e1d55250ad3506f724fd5",
+    "VossSeatTransitions.atlas/voss_stand_up_n_08.png": "4162125d08e3f9637d478314d85343fa700c5e544598f4e331f238179a0a2ea1",
+    "VossSeatTransitions.atlas/voss_stand_up_n_09.png": "dfa7cd3a1fcfad3c929d3aee41462cd6031f865263b13d0c2de52d26bf756d36",
+    "VossSeatTransitions.atlas/voss_stand_up_n_10.png": "9fe24f01ee7303496fa0eb304eadbedbe2120de51c28d99788a1834a06e5080a",
+    "VossSeatTransitions.atlas/voss_stand_up_n_11.png": "86107b6174a6aa71be4d15bdb34b264865c6a7206834f26501660d657a8527f3",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_00.png": "3523bbbb3950f8cef2561bdd743a8c8a6f361db5454bf3006710051270a461e9",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_01.png": "f1a8c2267b0885f9554efe5f3381a363469222781b16791d3d47909435469e36",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_02.png": "623fba3f129942eded3c7f6dc120c7aaac17f539e9b29f69288d72facf70e489",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_03.png": "913c9158faf7ad59b85a41f4aa2b9010d4fdeed2e6842e253815b6940cdbddce",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_04.png": "f87810ad1fd60b2b13881a1491287d509e35dfb704ed377b3d8101431072dd96",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_05.png": "e98c86be6e29e2125e0008b37dffffe840d12cb7708c73a1901a4a88a7a3710e",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_06.png": "bc623b3cffee85a2cc5bfcd1cf1074cfd238432cc72b4ce475fb77ef79852734",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_07.png": "8e78d109da7222ec198f624a626436d606cb408d2c1fca7264f31a57d3c828d0",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_08.png": "c57bc95d17493f64f8623d28a4a363e06c0eb1338994ccce6f444cb3f3ceaa05",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_09.png": "edfe7269658662cfb2765a95872ec90d10e0ee2a410040d9b3485f9a425a496d",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_10.png": "d69fc29af2492c395a85efdb3da37abe963898211dde829589400406b5c4fe8a",
+    "VossSeatTransitions.atlas/voss_stand_up_ne_11.png": "a825fcd16b958b6ba3f17e1033438654dbf141165dd44a5f93ab9c219ced7309",
     "VossSeatTransitions.atlas/voss_stand_up_se_00.png": "660716abc6613170d417d5a08159bc338857c9cf3ea7857034af7a265520d3c5",
     "VossSeatTransitions.atlas/voss_stand_up_se_01.png": "3d45c909bef51d2f00076e5d8d7c1ee0679ede57f3af882066f2be2d19f7be0f",
     "VossSeatTransitions.atlas/voss_stand_up_se_02.png": "fb2990ec45bcd0ab75af298e41d8d2f13783f7b641106c554b82c1744ab7fae4",
@@ -384,6 +408,14 @@
     "VossSeatTransitions.atlas/voss_stand_up_se_09.png": "fb433aab223135f224dc5a4ec5e58333efd6a52cb5a4de24e441b329a568407d",
     "VossSeatTransitions.atlas/voss_stand_up_se_10.png": "b7efd430e73cd464d7a25df5e8e2490b463f0a08ad60ed2e5ddf61a411643826",
     "VossSeatTransitions.atlas/voss_stand_up_se_11.png": "10f5c77010dd2f561ebc700c27abd63de8b0b8943e3a4de220bcf1c406c24fc5",
+    "VossSeatedArms.atlas/voss_seated_arms_n_00.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_01.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_02.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_03.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_04.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_05.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_06.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
+    "VossSeatedArms.atlas/voss_seated_arms_n_07.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
     "VossSeatedArms.atlas/voss_seated_arms_ne_00.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
     "VossSeatedArms.atlas/voss_seated_arms_ne_01.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
     "VossSeatedArms.atlas/voss_seated_arms_ne_02.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
@@ -400,14 +432,22 @@
     "VossSeatedArms.atlas/voss_seated_arms_se_05.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
     "VossSeatedArms.atlas/voss_seated_arms_se_06.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
     "VossSeatedArms.atlas/voss_seated_arms_se_07.png": "774c37526796c04882f21140ed56802b2a733ef550bf89018f1c4c1ea96fd21b",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_00.png": "258c475983281dc7f30f290d6056f3893d61f9a0449f300c042573d0676996e2",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_01.png": "e7aece25584d1f17fd597094e1c6e7554ed5ed3a8bcbbd7342615dc515ad20c4",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_02.png": "dad09a35ae1b26d7267961fd3ad4edcbe5ca9fa8a0ae1efd95adba643648a320",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_03.png": "953e2a0ad61880b73699f0ae79e7be057b7096f8dd664d9abfbb3cf418bc8fd1",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_04.png": "a94c53ea23392a67fbd209e6078c863d8fc67ddf754cf0fa6de17b80f0d3b9c3",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_05.png": "87f6265c9b00fa7c0d37da9ea0d328f6b1207a0764cad4cf425468a3825c1d54",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_06.png": "90087910219bad6253ae7479a0fe4899862bc00658c558a2bbdfbbb24941cfdd",
-    "VossSeatedIdle.atlas/voss_seated_idle_ne_07.png": "d359a5f773d7b3b3b2fe6657da432e5a8b9af306e4ce1b7cc461bf4d264c4998",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_00.png": "4fe0773b1e328946977413da6e0ce8bd34e0f042c1bbe401e4ec3d6ec65d39ee",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_01.png": "3efba7b175878e51b73b0acfdd15f2a587a79dc161072dbc89e09081d9f09725",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_02.png": "31480716c05f86ce8ec04f85fc739a744d39ef59de7b5d5a79c88577829e600f",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_03.png": "c4fde4f4f2f28f4d2839aedb138578624d41a2cf88fdc34822676b285e57f719",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_04.png": "3b0fb3a422b20f786fb0ae0e3d642321fc2cb01200aa7a1f93e15efc390bb1a6",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_05.png": "e2dba96510e61af70022091c35521b9ae2adbc0f92ee64e42170f09f5ce0f9e3",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_06.png": "c6628ccdd46827d0bfb639015210d353d0cc788783663703308d443159a47bf9",
+    "VossSeatedIdle.atlas/voss_seated_idle_n_07.png": "eaae23f9773289f15c58777c6a5c8cb4c31558b1473cca47d22d6720f8e05b10",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_00.png": "3523bbbb3950f8cef2561bdd743a8c8a6f361db5454bf3006710051270a461e9",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_01.png": "ab6c244dab3cf9ce8eeda0a2960cc2a5dba26bd2b2f1c865c140431c9fc0cdd5",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_02.png": "ffb65b1a6893040f7b82eb0c49c6aa367a09f5b9ebb6faa72f9b025a18748281",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_03.png": "9dc1076249118bd05494715455def40eb189851565d95cf6189aa8d70f3148c6",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_04.png": "afc42444a09c36f0ec559763ac19628e961386678fea0726a59ef3cdfe32d1fa",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_05.png": "6a3fbeae483649adaffb516c1978c3cafeb222ffcd31c00cb1586f82828c08fb",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_06.png": "a4ccfd71a16ee3da3089127d1d0b175ae09aed606d9cc0c52925113165374eab",
+    "VossSeatedIdle.atlas/voss_seated_idle_ne_07.png": "f00b546ad547e9009323b16a90b878a8f486f6abffb9499dc27aeded06803977",
     "VossSeatedIdle.atlas/voss_seated_idle_se_00.png": "660716abc6613170d417d5a08159bc338857c9cf3ea7857034af7a265520d3c5",
     "VossSeatedIdle.atlas/voss_seated_idle_se_01.png": "31cc7e9fafba3e9acdf0b7977c7f0b7e31a59c36a7088ea1d7db8d0f48952bad",
     "VossSeatedIdle.atlas/voss_seated_idle_se_02.png": "a6b2f8409d3bb6b0155df2ff3eb62ebdd6180fb5f4a074d1c24f54f5ef8471f0",
@@ -416,22 +456,22 @@
     "VossSeatedIdle.atlas/voss_seated_idle_se_05.png": "44b1d5165350cb75906c195b9dbb4cf3170e49246422c09a0b435a44f56e55ff",
     "VossSeatedIdle.atlas/voss_seated_idle_se_06.png": "f9b3d97a8972800a4bbfa1c38555b54faf528b063951c5c9787963455edb41cb",
     "VossSeatedIdle.atlas/voss_seated_idle_se_07.png": "8baac2cde4912c417a3a15216078283d5003a03b17ecd8cfecabd83601a50a5f",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_00.png": "441829feef4b8747bbb9b3bfbd07f43c86b5afc3850d26460642552d1ec1dc89",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_01.png": "8b5a8818a72a16c4225450e78cef50e63bf73ed7cc57bfb9a0bf4d784668934a",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_02.png": "028581e241783acf4954bb6d715646d726932ef996fe5b2b7e157817369a2d7b",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_03.png": "114ab65dc5a1b39644576eac4817f51efe2a7a76551d9d0dbb5b1eae820ccfdf",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_04.png": "16fc5dc3e9d302dd03da550d11b4c96a8fefb452d83a41cecf108d0c18430815",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_05.png": "49427f481d0cb5421b446374057d1a4bd9ae9d77ea7fde79dbaf5f06b62688e8",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_06.png": "0853ff995e9a75ce2100bff2bd9144dd4e6518d989ff9d52bad2e99524c3d63f",
-    "VossSeatedIdle.atlas/voss_seated_lower_ne_07.png": "0cc60de66b16a84fd43334cd51717761252fa4c4cf99591a4369bde8ad149764",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_00.png": "8c419c975ac8ec0455a07b001827e3ed7d4014696aa9daf633a44f6a22124acd",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_01.png": "fdc7764c268ea68a091c1e293ed49a2fafa09a54805c4e02001d3f49e11b3504",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_02.png": "ed5501362a6b60ddf61554f085012a485c8e9f71534ca71976a80cf1ad221653",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_03.png": "9f2b7982dc9977ba4479db619010c9cc0f96fcedf7c968df404406249cb2fbba",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_04.png": "77afcf1248fdae80a8c9cbb63e2132b4aca0cdc66214334bdc061ceb1d0dd657",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_05.png": "9ae88aad4af1945d69ab148632d889879850f7a9a7300a7ff42f1e45268d2ea0",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_06.png": "c01a63d1cfae251f55cd46c79c372f6695e029bf6c3b775625e7868c702cb0f8",
-    "VossSeatedIdle.atlas/voss_seated_upper_ne_07.png": "11ed94a5c13dc08dafce872d79b09f34218788d7e5237b3812670b143be8cec3",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_00.png": "66bf778c263cfa8de08dc625cf30becc0d86da995be063a429712ed9b7268be2",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_01.png": "06aa6ec9290145be7575077e20bae6bdf0e984f45f9810b693428a932d3495e1",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_02.png": "1edbe97f523f71d3184225568457cfdbf8ad8bf80673606c74c9957cb84bc01a",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_03.png": "0571d65c254fbfa35ea393c818cc196883c0a2cc4b69edd7557c1bcd49f70210",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_04.png": "f20565687932d0a4ec823025ab8629489e3e5a3ed0b3f00512276d67335336a1",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_05.png": "de93dbc0ddad961bdf0d7163347daeece88ed45f7032a4ae9326bbaed1cdba27",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_06.png": "243c8f38f87b8e92d4a40a447cab4a80c9f8e7e1e9e2b537ab2b8a83bedabff8",
+    "VossSeatedIdle.atlas/voss_seated_lower_ne_07.png": "9795bb7237f47ed6d184e1a67f3b98ecc09b2dc112af67329276079c3024e311",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_00.png": "f97759aa1809156b757a3b3b38eba82418145cf0cfec8cadfc793be1e0c83331",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_01.png": "4178a720b9081a5b3f7ecdca7bbf33cb527ef904dcd1c32e50146bafcf510dab",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_02.png": "3b5cc3de8644d0abf2afbc4967605d801ae4619ba6bc04154ae5aacf1087d91a",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_03.png": "443d04cf74c28380defd56dbb759f44dd3cf2dd28aa905f8447834b62e3d13f8",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_04.png": "b9f1eec48a85864a049e32351db7b7317742d84b7ad9e740cbb3513e608d7a6d",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_05.png": "b20a22f5be5745ea7596c6f28faf033865e71ae7dc3024fb6e97fbff73d60784",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_06.png": "4b37f3d44d4d2d452640f321de4cf0a0e78f092e841f5501cde0eb4e84b031fb",
+    "VossSeatedIdle.atlas/voss_seated_upper_ne_07.png": "bae3cfb764a0c0816f173479bc428c29993173aea64e1ab3815cacab36680fb2",
     "VossWalk.atlas/voss_walk_n_00.png": "016577c388d449d626de78a0a7e43742873171400c17f46fbdf5ce90949b751b",
     "VossWalk.atlas/voss_walk_n_01.png": "48a62803baa7fbef5d3dd44a0f8a8d240791083a643b8f3172985a1bead209ca",
     "VossWalk.atlas/voss_walk_n_02.png": "ddeef239257c3edf3b5982677c8090314517fac357b9c5ed7013dff2afe5eecb",
@@ -506,6 +546,35 @@
     "VossWalk.atlas/voss_walk_wsw_07.png": "d2cb98304d54979aecc5e954900c82c5d8f0570222748aae17fb9efcc58154ae"
   },
   "seat": {
+    "n": {
+      "head_width_drift_ratio": 1.0,
+      "head_widths": [
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "idle_centroid_drift_px": 0.319,
+      "maximum_adjacent_crown_retreat_px": -3,
+      "minimum_neutral_iou": 0.9918,
+      "total_rise_px": 44
+    },
     "ne": {
       "head_width_drift_ratio": 1.1579,
       "head_widths": [
@@ -530,9 +599,9 @@
         22,
         22
       ],
-      "idle_centroid_drift_px": 0.658,
+      "idle_centroid_drift_px": 0.675,
       "maximum_adjacent_crown_retreat_px": -3,
-      "minimum_neutral_iou": 0.9235,
+      "minimum_neutral_iou": 0.9138,
       "total_rise_px": 44
     },
     "se": {
@@ -579,7 +648,7 @@
   },
   "source": {
     "anchors_validated": 4,
-    "masters_validated": 148,
+    "masters_validated": 168,
     "source_canvases": [
       [
         512,
@@ -930,6 +999,10 @@
         1409
       ],
       [
+        583,
+        1448
+      ],
+      [
         587,
         1439
       ],
@@ -970,12 +1043,28 @@
         1446
       ],
       [
+        603,
+        1456
+      ],
+      [
+        605,
+        1342
+      ],
+      [
         605,
         1462
       ],
       [
+        608,
+        1296
+      ],
+      [
         609,
         1320
+      ],
+      [
+        609,
+        1450
       ],
       [
         611,
@@ -996,6 +1085,10 @@
       [
         636,
         1243
+      ],
+      [
+        637,
+        1384
       ],
       [
         651,
@@ -1046,6 +1139,10 @@
         1130
       ],
       [
+        673,
+        1374
+      ],
+      [
         675,
         1158
       ],
@@ -1060,6 +1157,10 @@
       [
         680,
         1148
+      ],
+      [
+        682,
+        1318
       ],
       [
         683,
@@ -1080,6 +1181,30 @@
       [
         687,
         1152
+      ],
+      [
+        689,
+        1320
+      ],
+      [
+        689,
+        1321
+      ],
+      [
+        690,
+        1320
+      ],
+      [
+        690,
+        1321
+      ],
+      [
+        690,
+        1386
+      ],
+      [
+        692,
+        1359
       ],
       [
         693,
@@ -1159,6 +1284,14 @@
       "Frames/voss_idle_wsw_01_chroma_v22.png": "25f1c1e113e7db7e73ad9f0f9e8cb3de8567a95e667654c0d5f936fb31a9ab42",
       "Frames/voss_idle_wsw_02_chroma_v22.png": "36ec544927d71b618df8dd4a960746c9818812d8916703c1a0832d659012a497",
       "Frames/voss_idle_wsw_03_chroma_v22.png": "b0e13d3151b97839c906e757fdb5bb60ed8415a1fb2d8aef53b193102c0f3cda",
+      "Frames/voss_seated_idle_n_00_chroma_v22.png": "0dc05b00bebfef310170d656b6e664d51294f3cd7d1d10ab56bdd2876fbef73a",
+      "Frames/voss_seated_idle_n_01_chroma_v22.png": "c13ed94556a33c650203b86a4b33de436c7cede46f10f619f48981739bdd757b",
+      "Frames/voss_seated_idle_n_02_chroma_v22.png": "8ef90c9f9ee4907fa47b024d212fd15a6b09b2e8fb7ca309b7d29cd9cb1be794",
+      "Frames/voss_seated_idle_n_03_chroma_v22.png": "ecd753193af11600afa6711a8078dda080744e953be073cb8039ace22e241cf8",
+      "Frames/voss_seated_idle_n_04_chroma_v22.png": "ac62283d6e98b6f4194ff1bcd86937151ab2a9036ee0cb3e18b3d713a86f4487",
+      "Frames/voss_seated_idle_n_05_chroma_v22.png": "cee2338ec27b64fa1f1adc9618afd0685eef388926a3096a4e4c4e6d8fa6741c",
+      "Frames/voss_seated_idle_n_06_chroma_v22.png": "da85fcdfa0eabca185e6773d1653f0900a72d97533562a1c34bad005c5f9bd70",
+      "Frames/voss_seated_idle_n_07_chroma_v22.png": "82d620772236a95aec8a1b03d97ca17cc602203c8481a859cc242f1a05fab88f",
       "Frames/voss_seated_idle_ne_00_chroma_v22.png": "4cebd41df2fef8225463336d31388bee4dbfa6adb7177088e6f2ec00d716c4c1",
       "Frames/voss_seated_idle_ne_01_chroma_v22.png": "8d770cb22a78c1e3631ff02c848b0e0424a8f77e658f7c509aeb8655ac341306",
       "Frames/voss_seated_idle_ne_02_chroma_v22.png": "dc059f8f131be31d443150b5d7367436d0772a53eb420a5a21fab49ed0a9cbf1",
@@ -1175,6 +1308,18 @@
       "Frames/voss_seated_idle_se_05_chroma_v22.png": "bcdd7e7140a291a6b2ca5e47e2fe4a484536c340442a3741d40424eb1f853325",
       "Frames/voss_seated_idle_se_06_chroma_v22.png": "a7bf95d0f6a38bfaa87b6493e4f61a73d220b052213dbbbc03f4ec1ee1882c68",
       "Frames/voss_seated_idle_se_07_chroma_v22.png": "970db037f41af49ba970fc1cdcdf8dfbed78b4a70ff107a6116295d25ab87ffe",
+      "Frames/voss_stand_up_n_00_chroma_v22.png": "0dc05b00bebfef310170d656b6e664d51294f3cd7d1d10ab56bdd2876fbef73a",
+      "Frames/voss_stand_up_n_01_chroma_v22.png": "8d044b7c8b800dd23439d93ee24d60930220eee5b7e965df92b8c370caf19f4b",
+      "Frames/voss_stand_up_n_02_chroma_v22.png": "e3775b60da9c13ca6b494f14724bfe119875bb19abf82378df4bbffb04779444",
+      "Frames/voss_stand_up_n_03_chroma_v22.png": "bd8428b8f0d351762a25297dd225878e0350d1b2442b3a3b97a21b9805a2491a",
+      "Frames/voss_stand_up_n_04_chroma_v22.png": "aa55704c43838a75b600b577be406c9d16055168cad5eea458f1bd78d37e7c23",
+      "Frames/voss_stand_up_n_05_chroma_v22.png": "1a5a916a7f91650476b8d86ff36bf4a0c0e8c16565d1c62ed2ac211c1b2fa4e8",
+      "Frames/voss_stand_up_n_06_chroma_v22.png": "97d6d3d0f56b68392131ee6188af82bb8b9b013f240fcc1132ab83ff2d6aaf58",
+      "Frames/voss_stand_up_n_07_chroma_v22.png": "cfaf7eae3497d6a7ae43138b67bf8fdfddb9e1118b2c746d9f45bb55ab3991d9",
+      "Frames/voss_stand_up_n_08_chroma_v22.png": "49645196cada360bc26a7e5511e11d4a6f91773822af3a7432be35de8fcf2218",
+      "Frames/voss_stand_up_n_09_chroma_v22.png": "1fd53e33b13ac36f2dd180b335ddcaa991c11ce3544847933042cb42ee37aa39",
+      "Frames/voss_stand_up_n_10_chroma_v22.png": "c2a0b957974ae19516e2cddab205716c5cedb20f63318de67e8111f585918635",
+      "Frames/voss_stand_up_n_11_chroma_v22.png": "1204b2edeea2d37625227570ae7482490584fe3913bdaf0d6bc9920af4641d5b",
       "Frames/voss_stand_up_ne_00_chroma_v22.png": "4cebd41df2fef8225463336d31388bee4dbfa6adb7177088e6f2ec00d716c4c1",
       "Frames/voss_stand_up_ne_01_chroma_v22.png": "4397923468fbf9dc0786c9731132f833da7f5a189d60f975eb76ccfec904e633",
       "Frames/voss_stand_up_ne_02_chroma_v22.png": "6bbd1482386900407671c30fa781578659234d3570fd3187ddd73abd568658cf",

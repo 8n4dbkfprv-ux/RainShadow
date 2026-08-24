@@ -13,11 +13,17 @@ final class DetectiveActorNode: SKNode {
     private enum SeatVisualDirection: String, CaseIterable {
         case northEast = "ne"
         case southEast = "se"
+        case north = "n"
 
         var facing: ActorFacing {
             switch self {
-            case .northEast: .northEast
+            // The approved NE desk masters use the stored NW-handed rear view.
+            // Keep that handedness for the standing-idle handoff; selecting
+            // ActorFacing.northEast would mirror the NW standing cell and make
+            // Voss snap to the opposite diagonal after rising.
+            case .northEast: .northWest
             case .southEast: .southEast
+            case .north: .north
             }
         }
     }
@@ -130,8 +136,8 @@ final class DetectiveActorNode: SKNode {
             return nil
         })
         // The desk's primary view is NE. If that authored set is incomplete,
-        // choose the complete SE set as one atomic fallback; never mix directions
-        // between cells or between the seated and transition clips.
+        // choose the next complete set as one atomic fallback; never mix
+        // directions between cells or between the seated and transition clips.
         let seatAnimations = Self.loadSeatAnimationTextures()
         seatVisualDirection = seatAnimations.direction
         seatedIdleTextures = seatAnimations.seatedIdle
@@ -157,6 +163,7 @@ final class DetectiveActorNode: SKNode {
                     GameArt.texture(named: String(format: "voss_walk_%@_%02d", sourceName, $0))
                 }
                 if textures.count == ActorLocomotionPacing.walkFramesPerCycle {
+                    textures.forEach { $0.filteringMode = .linear }
                     return (facing, textures)
                 }
             }
@@ -1017,7 +1024,6 @@ final class DetectiveActorNode: SKNode {
         applySpriteScale(mirrored: facing.isMirrored)
         body.zRotation = 0
         guard let textures = walkTextures[facing], !textures.isEmpty else { return }
-        textures.forEach { $0.filteringMode = .linear }
         walkFrameIndex %= textures.count
         body.texture = textures[walkFrameIndex]
         assertFrameDisplaySizes()

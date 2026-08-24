@@ -34,7 +34,7 @@ crunch.PRESERVE_WARDROBE = True
 V22_ROOT = ROOT / "ArtSource/Generated/Characters/Detective/PreRendered3DV22"
 GREEN = (0, 255, 0, 255)
 WESTERN_DIRECTIONS = core.WESTERN_DIRECTIONS
-SEAT_DIRECTIONS = core.SEAT_DIRECTIONS
+SEAT_DIRECTIONS = ("ne", "se", "n")
 v21.V21_ROOT = V22_ROOT
 v21.PROVENANCE_PATH = V22_ROOT / "imagegen_provenance_v22.json"
 
@@ -513,7 +513,7 @@ def proof_seat_facing(direction: str) -> int:
 
 
 def proof_seat() -> int:
-    """Process SE and NE chairless seat chains; sit-down is reverse of stand-up."""
+    """Process SE, NE, and N chairless seat chains; sit-down is reverse of stand-up."""
     for direction in SEAT_DIRECTIONS:
         print(f"=== seat {direction} ===")
         proof_seat_facing(direction)
@@ -573,8 +573,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     sub.add_parser(
         "proof-seat",
-        help="chroma + crunch SE/NE seated idle and stand-up; derive sit-down as reverse",
+        help="chroma + crunch SE/NE/N seated idle and stand-up; derive sit-down as reverse",
     )
+    seat_facing_p = sub.add_parser(
+        "proof-seat-facing",
+        help="chroma + crunch one chairless seat facing; derive sit-down as reverse",
+    )
+    seat_facing_p.add_argument("direction", choices=SEAT_DIRECTIONS)
 
     chroma_p = sub.add_parser("write-chroma", help="place one figure on #00ff00")
     chroma_p.add_argument("--src", required=True, type=Path)
@@ -612,6 +617,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return proof_available()
     if args.command == "proof-seat":
         return proof_seat()
+    if args.command == "proof-seat-facing":
+        return proof_seat_facing(args.direction)
     if args.command == "write-chroma":
         v21.write_chroma(args.src, args.dest)
         print(args.dest)

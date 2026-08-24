@@ -1,47 +1,14 @@
 #!/usr/bin/env python3
-"""Composite the office's static scenery sprites into its area plate.
+"""Install the approved V03 noir concept as the office area plate.
 
-The Infinity Engine paints static scenery into the tileset and keeps only wall
-polygons, animations, door tile-cells and interactive outlines separate. Sable
-Row already works that way. The office used to place 51 props at runtime. This
-bakes the curated V03 noir scenery into `office_suite_plate`, so the room
-becomes a painting with outlines over it rather than a pile of depth-sorted
-sprites.
+V03 is already a complete Infinity Engine-style painting: architecture, desk,
+three chairs, rug, fixtures, evidence and lighting are embedded in one
+4096x2304 image. Reconstructing it from the retired V19 shell and prop sprites
+produces the old office with similar dressing, not the selected concept.
 
-The composite happens here rather than by rendering the scene offscreen because
-of density. The plate is 4096x2304 over 1617.92 world units — 2.53 px per unit,
-which `qa_plate_density.py` gates. An `SKView` render tops out at the view's
-backing scale, about 2 px/unit, and `AGENTS.md` is explicit that a plate is
-never upscaled to reach `PLATE_SIZE`. So the sources are composited at native
-resolution instead.
-
-The checked-in prop manifest is the authority. It is itself recovered from a
-runtime dump and then moved by `migrate_office_layout_v17.py`, so the bake
-uses the same texture, scale, anchor, alpha, blend and ground point the runtime
-would have used:
-
-    python3 ArtSource/Processing/migrate_office_layout_v17.py
-    python3 ArtSource/Processing/bake_office_plate.py --install
-
-The props are denser than the plate (median 8.33 source pixels/world unit versus
-2.53 plate pixels/world unit), so this is an intentional art-direction tradeoff:
-the room gains the coherent, plate-first Infinity Engine construction at the
-cost of downsampling static furniture to the area master's pixel density. The
-script reports that cost and records the split instead of silently pretending
-the source density survived.
-
-WHAT IS NOT BAKED
------------------
-The desk cluster and its chairs. `deskFrontOccluder.zPosition = detective.zPosition + bias`
-is recomputed every frame: the apron has to rise between the desk and a
-*seated* actor's torso. Baking the desk would weld the seated pose into the
-floor. The lamp, telephone, typewriter and paper props also remain live so the
-scene can keep them above the live writing surface. The two visitor chairs stay
-live because actors can pass both in front of and behind them.
-
-That is the same distinction the engine draws. A BG desk is tileset pixels
-because nothing about it moves; anything that must sort against a creature per
-frame is not scenery.
+The legacy compositor remains below for source-history inspection, but both
+live and baked prop sets are deliberately empty. The installed plate is therefore
+pixel-identical to `NoirConceptV03/office_shell_noir_atmosphere_v03.png`.
 """
 
 from __future__ import annotations
@@ -64,8 +31,8 @@ BASE_PLATE = (
     / "ArtSource"
     / "Generated"
     / "Office"
-    / "BGEEReferenceV19"
-    / "office_reference_rebuild_plate_v19.png"
+    / "NoirConceptV03"
+    / "office_shell_noir_atmosphere_v03.png"
 )
 PROPS = ROOT / "ArtSource" / "Generated" / "Office" / "office_props_v01.json"
 OUT_DIR = ROOT / "ArtSource" / "Generated" / "Office" / "PlateBake"
@@ -83,53 +50,12 @@ LAYER_Z = {
     "occlusion": 5_000.0,
 }
 
-# The shipping plate is the V19 shell with the two period radiators and the
-# edge-on entrance door painted into the architecture. V03's restrained noir
-# set keeps only furniture that must sort against actors as live SpriteKit
-# nodes. Everything in BAKED_PROP_IDS below becomes area pixels.
-LIVE_PROP_IDS = {
-    "office_desk_bare",
-    "office_desk_chair",
-    "office_visitor_armchair",
-    "office_visitor_armchair_2",
-    "office_desk_lamp",
-    "office_desk_phone",
-    "office_desk_typewriter",
-    "office_desk_notebook",
-    "office_desk_papers",
-    "office_desk_ashtray",
-    "office_desk_files",
-    "office_desk_actor_occluder",
-    "office_desk_front_occluder_v04",
-    "office_desk_top_occluder",
-}
+# V03 owns every visible prop. Any legacy node would duplicate its furniture.
+LIVE_PROP_IDS: set[str] = set()
 
-# Approved V03 production set: useful work surfaces and evidence, one compact
-# records run, and a few lived-in accents. The former waiting-room suite,
-# domestic sideboard, safe, second cabinet and ceiling-fan shadow are omitted to
-# preserve the concept's negative space.
-BAKED_PROP_IDS = {
-    "office_floor_wear_decal",
-    "office_light_window_spill",
-    "office_light_blind_stripes",
-    "office_light_blind_stripes_wall",
-    "office_light_lamp_pool",
-    "office_worn_rug",
-    "office_desk_floor_shadow",
-    "office_cabinet_floor_shadow",
-    "office_case_board",
-    "office_wall_city_map",
-    "office_framed_licence",
-    "office_floor_trash_a",
-    "office_bookshelf",
-    "office_filing_cabinet",
-    "office_archive_box_b",
-    "office_archive_box_a",
-    "office_coat_rack",
-    "office_umbrella_stand",
-    "office_wastebasket",
-}
-BAKE_SCENERY = True
+# The selected plate is already composited; nothing is added during install.
+BAKED_PROP_IDS: set[str] = set()
+BAKE_SCENERY = False
 
 # The recovered runtime dump predates the AR0809 scale pass and would make the
 # rug 1,106 px wide on this plate. The approved/reference-calibrated layout uses
@@ -389,7 +315,7 @@ def main(argv: list[str]) -> int:
     else:
         baked = []
         print(f"plate density      {px_per_unit:.2f} px/unit")
-        print("bake scenery      off (V19 shell already owns radiators and door)")
+        print("bake scenery      off (approved V03 plate is already complete)")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUT_DIR / "office_suite_plate_baked_v19.png"
@@ -409,7 +335,7 @@ def main(argv: list[str]) -> int:
     split = {
         "version": 19,
         "construction": (
-            "V19 baked-radiator-and-door shell plus live desk/chair"
+            "approved V03 noir concept; all scenery embedded in the plate"
             if not BAKE_SCENERY
             else "approved V03 sparse noir plate plus registered live overlays"
         ),

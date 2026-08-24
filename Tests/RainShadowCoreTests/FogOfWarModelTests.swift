@@ -48,7 +48,8 @@ struct FogOfWarModelTests {
         #expect(source.contains("filteringMode = .nearest"))
         #expect(source.contains("premultipliedLast"))
         #expect(grid.contains("cellPixelSize = 32"))
-        #expect(edges.contains("static let falloff"))
+        #expect(grid.contains("texturePixelsPerCell = 4"))
+        #expect(edges.contains("static let referenceFalloff"))
         #expect(!source.contains("filteringMode = .linear"))
     }
 
@@ -188,6 +189,8 @@ struct FogOfWarModelTests {
         #expect(session.contains("private var fogByArea: [AreaID: FogBitmask]"))
         #expect(session.contains("func exploredFogCells(for areaID: AreaID, on grid: FogGrid)"))
         #expect(session.contains("func recordExploredFog(_ areaID: AreaID, cells: Set<FogCell>, on grid: FogGrid)"))
+        #expect(session.contains("func flushPendingFogPersist()"))
+        #expect(session.contains("scheduleFogPersist"))
         // Keyed by area, so an interior is not a special case.
         #expect(!session.contains("cityFogByDistrict"))
         #expect(!session.contains("[CityDistrictID: Set<FogCell>]"))

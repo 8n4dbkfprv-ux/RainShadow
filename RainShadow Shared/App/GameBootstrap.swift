@@ -48,6 +48,9 @@ final class GameSession {
     /// black on every single entry however many times he had crossed his own
     /// floor. An interior is not a special case; it is an area.
     private var fogByArea: [AreaID: FogBitmask] = [:]
+    /// Walked fog unions immediately; the save file is written after a short
+    /// pause so crossing cells does not rewrite the snapshot ten times a second.
+    private var fogPersistTask: Task<Void, Never>?
     private(set) var currentHealth = 12
     let maximumHealth = 12
     /// Wallet balance in pence (£/s/d via `CurrencyAmount`).
@@ -245,7 +248,22 @@ final class GameSession {
         let grown = known.union(cells)
         guard grown != known else { return }
         fogByArea[areaID] = grid.bitmask(of: grown)
+        scheduleFogPersist()
+    }
+
+    /// Flush a pending fog save (area exit, process teardown).
+    func flushPendingFogPersist() {
+        guard fogPersistTask != nil else { return }
         persist()
+    }
+
+    private func scheduleFogPersist() {
+        fogPersistTask?.cancel()
+        fogPersistTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 750_000_000)
+            guard !Task.isCancelled else { return }
+            persist()
+        }
     }
 
     /// BG: resolve random treasure when the area is first entered, then lock.
@@ -596,6 +614,8 @@ final class GameSession {
     }
 
     private func persist() {
+        fogPersistTask?.cancel()
+        fogPersistTask = nil
         saveStore.save(SaveSnapshot(
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,

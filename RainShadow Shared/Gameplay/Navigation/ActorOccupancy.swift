@@ -80,7 +80,7 @@ final class ActorOccupancy {
 
     func updatePosition(id: String, to point: CGPoint, isMoving: Bool? = nil) {
         guard var actor = actors[id] else { return }
-        clearStamp(actor)
+        let previous = actor
         actor.position = point
         if let isMoving {
             actor.isMoving = isMoving
@@ -88,6 +88,17 @@ final class ActorOccupancy {
             actor.isBumpable = !isMoving
         }
         actors[id] = actor
+
+        let cellUnchanged: Bool
+        if let searchMap {
+            cellUnchanged = searchMap.cell(for: previous.position) == searchMap.cell(for: point)
+        } else {
+            cellUnchanged = previous.position == point
+        }
+        if cellUnchanged && previous.isMoving == actor.isMoving {
+            return
+        }
+        clearStamp(previous)
         stamp(actor)
     }
 

@@ -18,23 +18,8 @@ SOURCE = (
 PROP_MANIFEST = ROOT / "ArtSource/Generated/Office/office_props_v01.json"
 AREA_RECORD = ROOT / "RainShadow Shared/Resources/Areas/office_suite.area.json"
 
-# Only depth-sensitive desk-group overlays remain live in the sparse noir plate.
-LIVE_PROP_IDS = {
-    "office_desk_bare",
-    "office_desk_chair",
-    "office_visitor_armchair",
-    "office_visitor_armchair_2",
-    "office_desk_lamp",
-    "office_desk_phone",
-    "office_desk_typewriter",
-    "office_desk_notebook",
-    "office_desk_papers",
-    "office_desk_ashtray",
-    "office_desk_files",
-    "office_desk_actor_occluder",
-    "office_desk_front_occluder_v04",
-    "office_desk_top_occluder",
-}
+# V03 embeds the complete room, so no legacy prop survives as a runtime node.
+LIVE_PROP_IDS: set[str] = set()
 
 
 def _atomic_json_write(path: Path, document: dict) -> None:
@@ -44,6 +29,14 @@ def _atomic_json_write(path: Path, document: dict) -> None:
 
 
 def main() -> None:
+    if not LIVE_PROP_IDS:
+        area_record = json.loads(AREA_RECORD.read_text(encoding="utf-8"))
+        area_record["area"]["props"] = []
+        _atomic_json_write(AREA_RECORD, area_record)
+        print(f"preserved {PROP_MANIFEST.relative_to(ROOT)} as migration history")
+        print(f"wrote {AREA_RECORD.relative_to(ROOT)} (0 live props)")
+        return
+
     clean = json.loads(SOURCE.read_text(encoding="utf-8"))
     migrated = migration.migrate(clean["props"])
 

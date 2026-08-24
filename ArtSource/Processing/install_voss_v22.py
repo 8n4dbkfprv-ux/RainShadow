@@ -47,7 +47,7 @@ V22_WARDROBE = {
 }
 
 WESTERN_DIRECTIONS = core.WESTERN_DIRECTIONS
-SEAT_DIRECTIONS = core.SEAT_DIRECTIONS
+SEAT_DIRECTIONS = ("ne", "se", "n")
 RUNTIME_ATLAS_ORDER = core.RUNTIME_ATLAS_ORDER
 V22ValidationError = core.V16ValidationError
 
@@ -108,10 +108,12 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
             ]
         return cells
 
+    original_seat_directions = core.SEAT_DIRECTIONS
     try:
         core.V16_ROOT = V22_ROOT
         core.RUNTIME_ATLASES = RUNTIME_ATLASES
         core.BACKUP_ROOT = BACKUP_ROOT
+        core.SEAT_DIRECTIONS = SEAT_DIRECTIONS
         core.crunch.WARDROBE = V22_WARDROBE
         core.crunch.PRESERVE_WARDROBE = True
         core._source_sequence_scale_errors = _v22_source_scale_errors
@@ -123,6 +125,7 @@ def _v22_core_context(manifest_path: Path | None = None) -> Iterator[None]:
     finally:
         for name, value in attributes.items():
             setattr(core, name, value)
+        core.SEAT_DIRECTIONS = original_seat_directions
         core.crunch.WARDROBE = wardrobe
         core.crunch.PRESERVE_WARDROBE = preserve
         core._source_sequence_scale_errors = original_scale_errors
@@ -156,9 +159,9 @@ def _compat_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     compatible["runtime"] = {
         "VossIdle.atlas": 40,
         "VossWalk.atlas": 72,
-        "VossSeatedIdle.atlas": 32,
-        "VossSeatedArms.atlas": 16,
-        "VossSeatTransitions.atlas": 48,
+        "VossSeatedIdle.atlas": 40,
+        "VossSeatedArms.atlas": 24,
+        "VossSeatTransitions.atlas": 72,
     }
     compatible.setdefault("processing", {})
     compatible["processing"].update(
@@ -232,25 +235,12 @@ def _restage_seats(stage_root: Path, manifest: dict[str, Any]) -> None:
     sources, _ = core._load_keyed_body_sources(compatible)
     empty = core._empty_runtime_cell()
     for direction in SEAT_DIRECTIONS:
-        from PIL import Image as PILImage
-
         stand_sources = [sources[("stand_up", direction, phase)] for phase in range(12)]
         idle_sources = [sources[("seated_idle", direction, phase)] for phase in range(8)]
-        # V16 restages SE because those masters were authored lower-left.
-        # V22 SE chroma is already the runtime lower-right view; mirroring it
-        # again sits him facing the room instead of the desk. NE is the office
-        # authority, and V22's NE chain was authored as true-NE — opposite the
-        # V21 desk view — so the last stand-up cell cannot hand off to NW idle
-        # mirrored at runtime. Flip NE only.
-        if direction == "ne":
-            stand_sources = [
-                source.transpose(PILImage.Transpose.FLIP_LEFT_RIGHT)
-                for source in stand_sources
-            ]
-            idle_sources = [
-                source.transpose(PILImage.Transpose.FLIP_LEFT_RIGHT)
-                for source in idle_sources
-            ]
+        # V22 seat masters are already authored in their final runtime
+        # orientations. In particular, the approved NE chain faces into the
+        # office desk; mirroring it here turns Voss away from the writing
+        # surface. Preserve every seat master's handedness through staging.
         stand_sources = [core.normalise_source_resolution(source) for source in stand_sources]
         idle_sources = [core.normalise_source_resolution(source) for source in idle_sources]
         reference_height = core.source_opaque_height(stand_sources[-1])
@@ -280,10 +270,12 @@ def _restage_seats(stage_root: Path, manifest: dict[str, Any]) -> None:
         # per rise frame.
         palette = core.crunch.build_clip_palette(idle_scaled + stand_locked)
         idle_cells = [
-            core.process_keyed_figure(
-                source,
-                reference_height=reference_height,
-                palette=palette,
+            ensure_minimum_head_width(
+                core.process_keyed_figure(
+                    source,
+                    reference_height=reference_height,
+                    palette=palette,
+                )
             )
             for source in idle_scaled
         ]

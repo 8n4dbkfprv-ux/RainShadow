@@ -470,7 +470,10 @@ class BaseGameScene: SKScene {
         return "\(grid.numberOfColumns)x\(grid.numberOfRows):" + corners.joined(separator: ";")
     }
 
-    func sceneWillExit() {}
+    /// Last chance to unwind scene-owned state. Subclasses override.
+    func sceneWillExit() {
+        context.session.flushPendingFogPersist()
+    }
 
     /// QA only. The review capture launch drives the update loop far slower than
     /// wall-clock, so a cutscene is only a few ticks in when the capture fires and
@@ -565,6 +568,7 @@ class BaseGameScene: SKScene {
     /// Creatures registered with `addFogGated(_:to:)`, paired with the node that
     /// hides them.
     private var fogGatedActors: [(gate: SKNode, actor: SKNode)] = []
+    private var fogGateCache: [ObjectIdentifier: (generation: Int, position: CGPoint)] = [:]
 
     /// Add a creature the fog is allowed to stop drawing.
     ///
@@ -608,10 +612,20 @@ class BaseGameScene: SKScene {
     func updateFogGating(_ fog: FogOfWarNode?) {
         guard let fog else {
             fogGatedActors.forEach { $0.gate.isHidden = false }
+            fogGateCache.removeAll()
             return
         }
+        let generation = fog.sightGeneration
         for entry in fogGatedActors {
+            let id = ObjectIdentifier(entry.actor)
+            let position = entry.actor.position
+            if let cached = fogGateCache[id],
+               cached.generation == generation,
+               cached.position == position {
+                continue
+            }
             entry.gate.isHidden = !fog.intersectsVisible(worldFrame(of: entry.actor))
+            fogGateCache[id] = (generation, position)
         }
     }
 

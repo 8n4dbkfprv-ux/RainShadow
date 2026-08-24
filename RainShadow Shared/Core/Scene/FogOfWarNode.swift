@@ -38,6 +38,11 @@ final class FogOfWarNode: SKSpriteNode {
     /// for a fraction of the work, and is finer than any distance threshold —
     /// the old one let the lit edge lag a step behind the player.
     private var lastSightCell: SearchMapCell?
+    /// Last cell-level mask uploaded. Walking that does not change three-state
+    /// occupancy skips the CGImage / SKTexture rebuild.
+    private var lastCellMask: [UInt8] = []
+    /// Bumps whenever sight is recomputed, even if the uploaded mask is identical.
+    private(set) var sightGeneration: Int = 0
 
     var fogGrid: FogGrid { renderer.grid }
 
@@ -158,6 +163,7 @@ final class FogOfWarNode: SKSpriteNode {
         visibleCells = sightCells(from: worldPoint)
         let before = exploredCells.count
         exploredCells.formUnion(visibleCells)
+        sightGeneration += 1
         redraw()
         return exploredCells.count != before
     }
@@ -175,9 +181,14 @@ final class FogOfWarNode: SKSpriteNode {
     }
 
     private func redraw() {
-        texture = renderer.makeTexture(
-            explored: exploredCells,
-            visible: visibleCells
-        ) ?? texture
+        let cellMask = renderer.grid.mask(explored: exploredCells, visible: visibleCells)
+        guard cellMask != lastCellMask else { return }
+        lastCellMask = cellMask
+        let display = FogEdgeMask.composite(
+            cellLevels: cellMask,
+            columns: renderer.grid.columns,
+            rows: renderer.grid.rows
+        )
+        texture = renderer.makeTexture(displayLevels: display) ?? texture
     }
 }

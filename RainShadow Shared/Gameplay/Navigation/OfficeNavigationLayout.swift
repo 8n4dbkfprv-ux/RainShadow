@@ -168,7 +168,9 @@ enum OfficeNavigationLayout {
     /// Walkable chair-side stand point (camera-near of the kneehole).
     /// Kept outside the desk obstacle so leave-seat never starts on the
     /// visitor/rear side of the writing surface.
-    private static let authoredActorStart = CGPoint(x: 2333.8496, y: 882.9439999999997)
+    // V03 lower-right desk chair. The navigation root remains 120 authored
+    // pixels camera-near of the seated visual baseline (`seatedYOffset`).
+    private static let authoredActorStart = CGPoint(x: 2178, y: 800)
 
     // MARK: - Obstacles (authored AABBs around each floor footprint)
 
@@ -2458,7 +2460,7 @@ enum OfficeNavigationLayout {
         static let personalBottle = CGPoint(x: 2889.731419642857, y: 1596.3820200892858)  // opaque base registered to sideboard top
         static let personalGlass = CGPoint(x: 2917.731419642857, y: 1593.3820200892858)  // opaque base registered to sideboard top
         static let deskEnsemble = CGPoint(x: 1966.3093760000004, y: 1178.5215999999998)
-        static let deskChair = CGPoint(x: 2333.8496, y: 1002.9439999999997)  // Voss seat at camera-near kneehole
+        static let deskChair = CGPoint(x: 2178, y: 920)  // V03 lower-right chair
         static let visitorArmchair = CGPoint(x: 2186.2113280000003, y: 1461.4272)
         static let visitorArmchairB = CGPoint(x: 1444.8230400000002, y: 1130.9056)
         static let wastebasket = CGPoint(x: 1576.8227840000004, y: 931.8016)

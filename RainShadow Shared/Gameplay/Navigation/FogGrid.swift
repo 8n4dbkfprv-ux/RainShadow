@@ -23,11 +23,19 @@ struct FogCell: Hashable, Sendable {
 ///
 /// The state mask is one byte per fog cell. Cell interiors are flat at the three
 /// GemRB levels. Softening is not a linear filter on that buffer — `FogEdgeMask`
-/// stamps the FOGOWAR-role edge tiles at 32 px/cell, which is the only edge
-/// treatment in the system.
+/// stamps the FOGOWAR-role edge tiles at `texturePixelsPerCell`, which is the
+/// only edge treatment in the system. The overlay sprite is then stretched to
+/// `worldSize` with nearest sampling, so a walk does not upload a full-plate
+/// RGBA texture on every search-cell step.
 struct FogGrid: Hashable, Sendable {
-    /// GemRB `FogRenderer::CELL_SIZE`. Square on the screen.
+    /// GemRB `FogRenderer::CELL_SIZE`. Square on the screen, and the world size
+    /// of one fog cell. Not the uploaded texel size — see `texturePixelsPerCell`.
     static let cellPixelSize = 32
+
+    /// Texels per fog cell in the overlay texture. 32 matched GemRB's compositor
+    /// 1:1 and rebuilt ~9M texels per step on a 4096×2304 plate. Four texels
+    /// keep the 6 px/32 falloff as a one-texel rim after scaling.
+    static let texturePixelsPerCell = 4
 
     // MARK: Mask levels
     //
@@ -220,7 +228,7 @@ struct FogGrid: Hashable, Sendable {
 
     // MARK: - The mask
 
-    /// One byte per fog cell. `FogEdgeMask` expands this to 32 px/cell.
+    /// One byte per fog cell. `FogEdgeMask` expands this to `texturePixelsPerCell`.
     var maskWidth: Int { columns }
     var maskHeight: Int { rows }
 

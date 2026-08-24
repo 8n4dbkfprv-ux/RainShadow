@@ -134,6 +134,34 @@ struct VossWardrobeColorTests {
         )
     }
 
+    @Test func northSeatCellsExcludeFrontGarmentsAndFaces() throws {
+        let thresholds = try VossV20ValidationThresholds.load()
+        let sequences = [
+            ("seated idle", "VossSeatedIdle.atlas", "voss_seated_idle", 8),
+            ("stand-up", "VossSeatTransitions.atlas", "voss_stand_up", 12)
+        ]
+        for (animation, atlas, stem, count) in sequences {
+            for phase in 0..<count {
+                let name = String(format: "%@_%@_%02d.png", stem, "n", phase)
+                let label = "processed \(animation) N \(String(format: "%02d", phase))"
+                let sample = try load(
+                    atlases.appendingPathComponent(atlas).appendingPathComponent(name),
+                    label: label
+                )
+                let shirtFraction = sample.strictFractionNear(material: .shirt)
+                #expect(
+                    shirtFraction <= thresholds.rearShirtFractionMaximum,
+                    "\(label) has \(format(shirtFraction)) front-only shirt pixels; expected <= \(format(thresholds.rearShirtFractionMaximum))"
+                )
+                let skinFraction = sample.strictFractionNear(material: .skin)
+                #expect(
+                    skinFraction <= thresholds.rearNorthSkinFractionMaximum,
+                    "\(label) has \(format(skinFraction)) face/skin pixels; expected <= \(format(thresholds.rearNorthSkinFractionMaximum))"
+                )
+            }
+        }
+    }
+
     private func load(_ url: URL, label: String) throws -> VossWardrobeSample {
         guard FileManager.default.fileExists(atPath: url.path) else {
             Issue.record("Missing \(label): \(url.path)")
