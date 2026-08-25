@@ -1,0 +1,31 @@
+{
+  "slug": "harborpoint_pd",
+  "door": "portal.pdEntrance",
+  "world": [
+    2870.4000000000005,
+    906.92
+  ],
+  "thresholdPx": [
+    5740.800000000001,
+    4330.16
+  ],
+  "crop": [
+    5509,
+    3824,
+    5973,
+    4408
+  ],
+  "localThreshold": [
+    231.8000000000011,
+    506.15999999999985
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 2.3324444444444445,
+  "sourceHeightPx": 328.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/harborpoint_pd/portal_pdEntrance/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/harborpoint_pd/portal_pdEntrance/jig.png"
+}

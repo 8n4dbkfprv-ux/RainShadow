@@ -1,0 +1,29 @@
+{
+  "slug": "riverside",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 2,
+  "sourceProjection": {
+    "peak_pos": 36.936209871687915,
+    "peak_neg": -36.875049279763196,
+    "worst_delta": 0.06631222584389462
+  },
+  "finalProjection": {
+    "peak_pos": 36.60429431361242,
+    "peak_neg": -36.56919389621416,
+    "worst_delta": 0.3007037496298608,
+    "passes": true
+  },
+  "sha256": "b08e616b2a0885c293aca9f8587b966b29eac81f92ca2dc85d374b45cfe7cc9f"
+}

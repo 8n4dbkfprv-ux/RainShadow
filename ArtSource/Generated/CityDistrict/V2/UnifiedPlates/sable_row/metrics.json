@@ -1,0 +1,29 @@
+{
+  "slug": "sable_row",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 1,
+  "sourceProjection": {
+    "peak_pos": 37.0524301410049,
+    "peak_neg": -37.00174504099569,
+    "worst_delta": 0.18253249516087777
+  },
+  "finalProjection": {
+    "peak_pos": 36.77578506808078,
+    "peak_neg": -36.38948628531228,
+    "worst_delta": 0.4804113605317397,
+    "passes": true
+  },
+  "sha256": "23f1fcae4bf3850fcd33d9cc3b0fb8b90cd1195e28528a4ed346d3d55996e740"
+}

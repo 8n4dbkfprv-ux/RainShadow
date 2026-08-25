@@ -1,0 +1,157 @@
+[
+  {
+    "slug": "sable_row",
+    "door": "portal.office",
+    "world": [
+      2540.0,
+      774.5
+    ],
+    "thresholdPx": [
+      5080.0,
+      4595.0
+    ],
+    "crop": [
+      4848,
+      4089,
+      5312,
+      4672
+    ],
+    "localThreshold": [
+      232.0,
+      506.0
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "adultPx": 140.625,
+    "sourceMultiple": 0.028444444444444446,
+    "sourceHeightPx": 4.0,
+    "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/sable_row/portal_office/source.png",
+    "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/sable_row/portal_office/jig.png"
+  },
+  {
+    "slug": "wharf_ladder",
+    "door": "portal.shippingOffice",
+    "world": [
+      2523.24,
+      851.6
+    ],
+    "thresholdPx": [
+      5046.48,
+      4440.8
+    ],
+    "crop": [
+      4814,
+      3935,
+      5279,
+      4518
+    ],
+    "localThreshold": [
+      232.47999999999956,
+      505.8000000000002
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "adultPx": 140.625,
+    "sourceMultiple": 1.528888888888889,
+    "sourceHeightPx": 215.0,
+    "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/wharf_ladder/portal_shippingOffice/source.png",
+    "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/wharf_ladder/portal_shippingOffice/jig.png"
+  },
+  {
+    "slug": "riverside",
+    "door": "portal.ironStairs",
+    "world": [
+      2898.84,
+      423.084
+    ],
+    "thresholdPx": [
+      5797.68,
+      5297.832
+    ],
+    "crop": [
+      5566,
+      4792,
+      6030,
+      5375
+    ],
+    "localThreshold": [
+      231.6800000000003,
+      505.83200000000033
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "adultPx": 140.625,
+    "sourceMultiple": 1.5573333333333332,
+    "sourceHeightPx": 219.0,
+    "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/riverside/portal_ironStairs/source.png",
+    "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/riverside/portal_ironStairs/jig.png"
+  },
+  {
+    "slug": "harborpoint_pd",
+    "door": "portal.pdEntrance",
+    "world": [
+      2870.4000000000005,
+      906.92
+    ],
+    "thresholdPx": [
+      5740.800000000001,
+      4330.16
+    ],
+    "crop": [
+      5509,
+      3824,
+      5973,
+      4408
+    ],
+    "localThreshold": [
+      231.8000000000011,
+      506.15999999999985
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "adultPx": 140.625,
+    "sourceMultiple": 2.3324444444444445,
+    "sourceHeightPx": 328.0,
+    "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/harborpoint_pd/portal_pdEntrance/source.png",
+    "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/harborpoint_pd/portal_pdEntrance/jig.png"
+  },
+  {
+    "slug": "lila_street",
+    "door": "portal.lilaRooms",
+    "world": [
+      2748.92,
+      852.02
+    ],
+    "thresholdPx": [
+      5497.84,
+      4439.96
+    ],
+    "crop": [
+      5266,
+      3934,
+      5730,
+      4517
+    ],
+    "localThreshold": [
+      231.84000000000015,
+      505.96000000000004
+    ],
+    "plate": [
+      8192,
+      6144
+    ],
+    "adultPx": 140.625,
+    "sourceMultiple": 2.552888888888889,
+    "sourceHeightPx": 359.0,
+    "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/lila_street/portal_lilaRooms/source.png",
+    "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/lila_street/portal_lilaRooms/jig.png"
+  }
+]

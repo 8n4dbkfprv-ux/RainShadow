@@ -1,0 +1,29 @@
+{
+  "slug": "harborpoint_pd",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 2,
+  "sourceProjection": {
+    "peak_pos": 36.743529160771416,
+    "peak_neg": -36.94184849389796,
+    "worst_delta": 0.12636848507260368
+  },
+  "finalProjection": {
+    "peak_pos": 36.74475714342176,
+    "peak_neg": -36.37403114926783,
+    "worst_delta": 0.4958664965761912,
+    "passes": true
+  },
+  "sha256": "4d223be136934418b87b771d97991466a26f16b83e7b4493610df2d1c00e5548"
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "sable_row",
+  "door": "portal.office",
+  "world": [
+    2540.0,
+    774.5
+  ],
+  "thresholdPx": [
+    5080.0,
+    4595.0
+  ],
+  "crop": [
+    4848,
+    4089,
+    5312,
+    4672
+  ],
+  "localThreshold": [
+    232.0,
+    506.0
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 0.028444444444444446,
+  "sourceHeightPx": 4.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/sable_row/portal_office/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/sable_row/portal_office/jig.png"
+}

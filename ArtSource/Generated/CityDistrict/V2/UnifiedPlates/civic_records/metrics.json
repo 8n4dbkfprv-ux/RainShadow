@@ -1,0 +1,29 @@
+{
+  "slug": "civic_records",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 2,
+  "sourceProjection": {
+    "peak_pos": 36.92878369963251,
+    "peak_neg": -36.93277632416762,
+    "worst_delta": 0.0628786783235995
+  },
+  "finalProjection": {
+    "peak_pos": 37.122436881842425,
+    "peak_neg": -37.20298512248878,
+    "worst_delta": 0.33308747664476357,
+    "passes": true
+  },
+  "sha256": "1825d57d2b6c6f094c922f5d971a6fd7c4f588628c222e75da50140fb9ceac43"
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "civic_records",
+  "door": "portal.recordsEntrance",
+  "world": [
+    2823.6800000000003,
+    895.56
+  ],
+  "thresholdPx": [
+    5647.360000000001,
+    4352.88
+  ],
+  "crop": [
+    5415,
+    3847,
+    5879,
+    4430
+  ],
+  "localThreshold": [
+    232.36000000000058,
+    505.8800000000001
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 3.441777777777778,
+  "sourceHeightPx": 484.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/civic_records/portal_recordsEntrance/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/civic_records/portal_recordsEntrance/jig.png"
+}

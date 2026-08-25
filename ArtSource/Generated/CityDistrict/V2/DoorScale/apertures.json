@@ -1,0 +1,147 @@
+{
+  "adultWU": 70.3125,
+  "world": [
+    4096.0,
+    3072.0
+  ],
+  "pxPerUnit": 2.0,
+  "targetMultiple": 1.15,
+  "band": [
+    1.05,
+    1.35
+  ],
+  "doors": [
+    {
+      "area": "city_sable_row",
+      "id": "portal.office",
+      "heightPx": 207.0,
+      "heightWU": 103.4,
+      "multiple": 1.47,
+      "passes": false,
+      "thresholdPx": [
+        5080.0,
+        4595.0
+      ],
+      "lintelPx": [
+        5080.0,
+        4388.0
+      ],
+      "paintedAperture": {
+        "x": 2532.0,
+        "y": 774.5,
+        "w": 16,
+        "h": 103.4
+      }
+    },
+    {
+      "area": "city_wharf_ladder",
+      "id": "portal.shippingOffice",
+      "heightPx": 162.0,
+      "heightWU": 80.9,
+      "multiple": 1.15,
+      "passes": true,
+      "thresholdPx": [
+        5046.0,
+        4441.0
+      ],
+      "lintelPx": [
+        5046.0,
+        4279.0
+      ],
+      "paintedAperture": {
+        "x": 2515.0,
+        "y": 851.5,
+        "w": 16,
+        "h": 80.9
+      }
+    },
+    {
+      "area": "city_riverside",
+      "id": "portal.ironStairs",
+      "heightPx": 163.0,
+      "heightWU": 81.6,
+      "multiple": 1.16,
+      "passes": true,
+      "thresholdPx": [
+        5798.0,
+        5298.0
+      ],
+      "lintelPx": [
+        5798.0,
+        5135.0
+      ],
+      "paintedAperture": {
+        "x": 2891.0,
+        "y": 423.0,
+        "w": 16,
+        "h": 81.6
+      }
+    },
+    {
+      "area": "city_harborpoint_pd",
+      "id": "portal.pdEntrance",
+      "heightPx": 256.0,
+      "heightWU": 128.0,
+      "multiple": 1.82,
+      "passes": false,
+      "thresholdPx": [
+        5741.0,
+        4330.0
+      ],
+      "lintelPx": [
+        5741.0,
+        4074.0
+      ],
+      "paintedAperture": {
+        "x": 2862.5,
+        "y": 907.0,
+        "w": 16,
+        "h": 128.0
+      }
+    },
+    {
+      "area": "city_lila_street",
+      "id": "portal.lilaRooms",
+      "heightPx": 189.0,
+      "heightWU": 94.2,
+      "multiple": 1.34,
+      "passes": true,
+      "thresholdPx": [
+        5498.0,
+        4440.0
+      ],
+      "lintelPx": [
+        5498.0,
+        4251.0
+      ],
+      "paintedAperture": {
+        "x": 2741.0,
+        "y": 852.0,
+        "w": 16,
+        "h": 94.2
+      }
+    },
+    {
+      "area": "city_civic_records",
+      "id": "portal.recordsEntrance",
+      "heightPx": 162.0,
+      "heightWU": 80.9,
+      "multiple": 1.15,
+      "passes": true,
+      "thresholdPx": [
+        5647.0,
+        4353.0
+      ],
+      "lintelPx": [
+        5647.0,
+        4191.0
+      ],
+      "paintedAperture": {
+        "x": 2815.5,
+        "y": 895.5,
+        "w": 16,
+        "h": 80.9
+      }
+    }
+  ]
+}

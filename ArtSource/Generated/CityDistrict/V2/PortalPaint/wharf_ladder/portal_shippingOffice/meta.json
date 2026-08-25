@@ -1,0 +1,31 @@
+{
+  "slug": "wharf_ladder",
+  "door": "portal.shippingOffice",
+  "world": [
+    2523.24,
+    851.6
+  ],
+  "thresholdPx": [
+    5046.48,
+    4440.8
+  ],
+  "crop": [
+    4814,
+    3935,
+    5279,
+    4518
+  ],
+  "localThreshold": [
+    232.47999999999956,
+    505.8000000000002
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 1.528888888888889,
+  "sourceHeightPx": 215.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/wharf_ladder/portal_shippingOffice/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/wharf_ladder/portal_shippingOffice/jig.png"
+}

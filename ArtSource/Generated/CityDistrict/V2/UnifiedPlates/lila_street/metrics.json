@@ -1,0 +1,29 @@
+{
+  "slug": "lila_street",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 2,
+  "sourceProjection": {
+    "peak_pos": 36.74814127378702,
+    "peak_neg": -36.83716857904628,
+    "worst_delta": 0.12175637205699985
+  },
+  "finalProjection": {
+    "peak_pos": 37.09697487966706,
+    "peak_neg": -37.13715793681776,
+    "worst_delta": 0.2672602909737378,
+    "passes": true
+  },
+  "sha256": "5762c3de630fcef96d3225b415c377bd70a80ea2958849c5694797ad4b9da3d8"
+}

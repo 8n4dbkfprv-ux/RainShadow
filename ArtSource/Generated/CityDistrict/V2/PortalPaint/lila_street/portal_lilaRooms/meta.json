@@ -1,0 +1,31 @@
+{
+  "slug": "lila_street",
+  "door": "portal.lilaRooms",
+  "world": [
+    2748.92,
+    852.02
+  ],
+  "thresholdPx": [
+    5497.84,
+    4439.96
+  ],
+  "crop": [
+    5266,
+    3934,
+    5730,
+    4517
+  ],
+  "localThreshold": [
+    231.84000000000015,
+    505.96000000000004
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 2.552888888888889,
+  "sourceHeightPx": 359.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/lila_street/portal_lilaRooms/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/lila_street/portal_lilaRooms/jig.png"
+}

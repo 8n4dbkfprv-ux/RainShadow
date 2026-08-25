@@ -1,0 +1,31 @@
+{
+  "slug": "riverside",
+  "door": "portal.ironStairs",
+  "world": [
+    2898.84,
+    423.084
+  ],
+  "thresholdPx": [
+    5797.68,
+    5297.832
+  ],
+  "crop": [
+    5566,
+    4792,
+    6030,
+    5375
+  ],
+  "localThreshold": [
+    231.6800000000003,
+    505.83200000000033
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "adultPx": 140.625,
+  "sourceMultiple": 1.5573333333333332,
+  "sourceHeightPx": 219.0,
+  "source": "ArtSource/Generated/CityDistrict/V2/PortalPaint/riverside/portal_ironStairs/source.png",
+  "jig": "ArtSource/Generated/CityDistrict/V2/PortalPaint/riverside/portal_ironStairs/jig.png"
+}

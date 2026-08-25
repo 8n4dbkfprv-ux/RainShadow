@@ -1,0 +1,29 @@
+{
+  "slug": "wharf_ladder",
+  "architecture": "monolithic-pre-rendered-area",
+  "world": [
+    4096,
+    3072
+  ],
+  "plate": [
+    8192,
+    6144
+  ],
+  "nativeMaster": [
+    1365,
+    1024
+  ],
+  "wholePlateCorrectionIterations": 1,
+  "sourceProjection": {
+    "peak_pos": 37.04590248606339,
+    "peak_neg": -36.98886855801908,
+    "worst_delta": 0.17600484021937035
+  },
+  "finalProjection": {
+    "peak_pos": 37.15716752571433,
+    "peak_neg": -37.70775631103924,
+    "worst_delta": 0.8378586651952205,
+    "passes": true
+  },
+  "sha256": "dbccfe6b750dfd2150427c252fcfd030e40312044aa543493dac198418ccfee7"
+}
