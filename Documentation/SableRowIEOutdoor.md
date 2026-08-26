@@ -21,6 +21,16 @@ later pass.
 python3 ArtSource/Processing/bake_sable_row_ie_outdoor_v01.py
 ```
 
+### Portal.office stamp
+
+The f266886b human-scale portal take was unseated: the IG crop was ~80×
+sharper than the soft plate neighbourhood and read as a lit rectangle on
+Voss's stoop. Restore + rebake:
+
+```bash
+python3 ArtSource/Processing/unseat_sable_row_portal_office_v01.py
+```
+
 ## Xcode
 
 1. Open `RainShadow.xcodeproj` on macOS.
