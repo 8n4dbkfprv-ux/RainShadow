@@ -149,11 +149,17 @@ def main() -> None:
     print("compositing night placeholder…")
     night = composite_night()
     night_path = BAKE / f"{NIGHT_NAME}.png"
-    night.save(night_path, optimize=True)
+    def save_plate(im: Image.Image, path: Path) -> None:
+        # Outdoor plates are fully opaque; RGB saves ~10% and stays under
+        # GitHub's soft 50 MB limit more often than RGBA.
+        rgb = im.convert("RGB")
+        rgb.save(path, format="PNG", optimize=True, compress_level=9)
+
+    save_plate(night, night_path)
     print("grading day plate…")
     day = grade_day(night)
     day_path = BAKE / f"{DAY_NAME}.png"
-    day.save(day_path, optimize=True)
+    save_plate(day, day_path)
 
     install_copy(day_path, ART / f"{DAY_NAME}.png")
     install_copy(night_path, ART / f"{NIGHT_NAME}.png")
