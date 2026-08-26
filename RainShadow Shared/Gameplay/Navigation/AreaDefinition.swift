@@ -654,6 +654,13 @@ struct AreaDoor: Hashable, Codable, Sendable {
     /// says nothing behaves like every door in Baldur's Gate. Set it false for a
     /// grille, a beaded curtain, or a gate you are meant to see through.
     var blocksSight: Bool
+    /// Open / close oneshots. Optional so an office door that animates its own
+    /// fall is not forced to name a resource the cutscene already plays.
+    var openSound: String?
+    var closeSound: String?
+    /// IE door approach vertices: usually the standable threshold and a short
+    /// step back. Click travel picks the nearest.
+    var approachPoints: [AreaPoint]
 
     init(
         id: String,
@@ -662,7 +669,10 @@ struct AreaDoor: Hashable, Codable, Sendable {
         closedObstacle: AreaRect,
         openObstacle: AreaRect? = nil,
         startsClosed: Bool = true,
-        blocksSight: Bool = true
+        blocksSight: Bool = true,
+        openSound: String? = nil,
+        closeSound: String? = nil,
+        approachPoints: [AreaPoint] = []
     ) {
         self.id = id
         self.textureName = textureName
@@ -671,6 +681,9 @@ struct AreaDoor: Hashable, Codable, Sendable {
         self.openObstacle = openObstacle
         self.startsClosed = startsClosed
         self.blocksSight = blocksSight
+        self.openSound = openSound
+        self.closeSound = closeSound
+        self.approachPoints = approachPoints
     }
 
     /// Hand-written so `blocksSight` can be absent and mean the engine default.
@@ -685,11 +698,26 @@ struct AreaDoor: Hashable, Codable, Sendable {
         openObstacle = try c.decodeIfPresent(AreaRect.self, forKey: .openObstacle)
         startsClosed = try c.decodeIfPresent(Bool.self, forKey: .startsClosed) ?? true
         blocksSight = try c.decodeIfPresent(Bool.self, forKey: .blocksSight) ?? true
+        openSound = try c.decodeIfPresent(String.self, forKey: .openSound)
+        closeSound = try c.decodeIfPresent(String.self, forKey: .closeSound)
+        approachPoints = try c.decodeIfPresent([AreaPoint].self, forKey: .approachPoints) ?? []
     }
 
     /// The leaf as the search map registers it, so the flag travels with the rect.
     var searchMapObstacle: DoorObstacle {
         DoorObstacle(rect: closedObstacle.cgRect, blocksSight: blocksSight)
+    }
+
+    /// Nearest authored approach, or `fallback` when the door carries none.
+    func walkTarget(from point: CGPoint, fallback: CGPoint?) -> CGPoint {
+        guard let first = approachPoints.first else {
+            return fallback ?? closedObstacle.cgRect.origin
+        }
+        return approachPoints
+            .map(\.cgPoint)
+            .min { a, b in
+                hypot(a.x - point.x, a.y - point.y) < hypot(b.x - point.x, b.y - point.y)
+            } ?? first.cgPoint
     }
 }
 
@@ -707,30 +735,133 @@ struct AreaNote: Hashable, Codable, Sendable {
     }
 }
 
+/// BG hour-bit schedule. Stored as the raw ARE dword so authored JSON round-
+/// trips exactly; named presets are the few RainShadow currently needs.
+struct AreaSchedule: Hashable, Codable, Sendable, RawRepresentable {
+    var rawValue: UInt32
+
+    init(rawValue: UInt32) {
+        self.rawValue = rawValue
+    }
+
+    /// Every hour — beds that never leave.
+    static let always = AreaSchedule(rawValue: 0x00FF_FFFF)
+    /// Night-leaning mask already written into the district records
+    /// (`0xF0003F`). Daylight streets keep these quiet until Extended Night.
+    static let night = AreaSchedule(rawValue: 0x00F0_003F)
+}
+
+/// How a non-looping ambient picks its next clip.
+enum AreaAmbientSelection: String, Hashable, Codable, Sendable {
+    case sequential
+    case random
+}
+
 /// A placed sound. A `point`-less ambient is the area-wide bed BG calls a
 /// global ambient; one with a point and radius is local.
 struct AreaAmbient: Hashable, Codable, Sendable {
     var id: String
     var assetName: String
+    /// Alternate clips for intermittent ambients. Empty means `assetName` alone.
+    var sounds: [String]
+    var selection: AreaAmbientSelection
     var point: AreaPoint?
     var radius: CGFloat?
     var volume: CGFloat
     var isLooping: Bool
+    var interval: CGFloat?
+    var intervalDeviation: CGFloat?
+    /// Global bed vs located source. Defaults to "no point ⇒ global".
+    var isGlobal: Bool
+    var schedule: AreaSchedule
 
     init(
         id: String,
         assetName: String,
+        sounds: [String] = [],
+        selection: AreaAmbientSelection = .sequential,
         point: AreaPoint? = nil,
         radius: CGFloat? = nil,
         volume: CGFloat = 1,
-        isLooping: Bool = true
+        isLooping: Bool = true,
+        interval: CGFloat? = nil,
+        intervalDeviation: CGFloat? = nil,
+        isGlobal: Bool? = nil,
+        schedule: AreaSchedule = .always
     ) {
         self.id = id
         self.assetName = assetName
+        self.sounds = sounds
+        self.selection = selection
         self.point = point
         self.radius = radius
         self.volume = volume
         self.isLooping = isLooping
+        self.interval = interval
+        self.intervalDeviation = intervalDeviation
+        self.isGlobal = isGlobal ?? (point == nil)
+        self.schedule = schedule
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        assetName = try c.decode(String.self, forKey: .assetName)
+        sounds = try c.decodeIfPresent([String].self, forKey: .sounds) ?? []
+        selection = try c.decodeIfPresent(AreaAmbientSelection.self, forKey: .selection) ?? .sequential
+        point = try c.decodeIfPresent(AreaPoint.self, forKey: .point)
+        radius = try c.decodeIfPresent(CGFloat.self, forKey: .radius)
+        volume = try c.decodeIfPresent(CGFloat.self, forKey: .volume) ?? 1
+        isLooping = try c.decodeIfPresent(Bool.self, forKey: .isLooping) ?? true
+        interval = try c.decodeIfPresent(CGFloat.self, forKey: .interval)
+        intervalDeviation = try c.decodeIfPresent(CGFloat.self, forKey: .intervalDeviation)
+        let decodedGlobal = try c.decodeIfPresent(Bool.self, forKey: .isGlobal)
+        isGlobal = decodedGlobal ?? (point == nil)
+        schedule = try c.decodeIfPresent(AreaSchedule.self, forKey: .schedule) ?? .always
+    }
+}
+
+/// A looping or intermittent animation stamp — BG's area animations section.
+///
+/// RainShadow currently only needs the fields the city adapter authors (a
+/// night lamp flicker, a quay shimmer). Frame strips beyond a single texture
+/// stay future work.
+struct AreaAnimation: Hashable, Codable, Sendable {
+    var id: String
+    var point: AreaPoint
+    var textureName: String
+    var frameCount: Int
+    var alpha: CGFloat
+    var isSelfIlluminated: Bool
+    /// When true, a covering wall polygon hides the animation the way WED bit
+    /// "wall hides anim" does.
+    var wallHides: Bool
+    var schedule: AreaSchedule
+    var blend: AreaPropBlend
+    var scale: CGFloat
+
+    init(
+        id: String,
+        point: AreaPoint,
+        textureName: String,
+        frameCount: Int = 1,
+        alpha: CGFloat = 1,
+        isSelfIlluminated: Bool = false,
+        wallHides: Bool = false,
+        schedule: AreaSchedule = .always,
+        blend: AreaPropBlend = .alpha,
+        scale: CGFloat = 1
+    ) {
+        self.id = id
+        self.point = point
+        self.textureName = textureName
+        self.frameCount = frameCount
+        self.alpha = alpha
+        self.isSelfIlluminated = isSelfIlluminated
+        self.wallHides = wallHides
+        self.schedule = schedule
+        self.blend = blend
+        self.scale = scale
     }
 }
 
@@ -823,7 +954,12 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     var worldOrigin: AreaPoint
     var worldSize: AreaSize
     /// The opaque pre-rendered background — the project's "area plate".
+    /// For exteriors this is the **day** plate; night uses `nightPlateTextureName`.
     var plateTextureName: String
+    /// Infinity Engine Extended Night plate. When set, the scene can swap the
+    /// background at dusk instead of multiplying the day plate blue. Omit for
+    /// interiors and for exteriors that have not authored a night painting yet.
+    var nightPlateTextureName: String?
     /// Crop shown in the HUD area map.
     var mapTextureName: String?
     /// Camera clamp, when it is tighter than the plate. The office plate is
@@ -876,6 +1012,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     var doors: [AreaDoor]
     var notes: [AreaNote]
     var ambients: [AreaAmbient]
+    var animations: [AreaAnimation]
 
     /// Area-script identifier, run once per logic tick while the area is loaded.
     var script: String?
@@ -888,6 +1025,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         worldOrigin: AreaPoint = AreaPoint(x: 0, y: 0),
         worldSize: AreaSize,
         plateTextureName: String,
+        nightPlateTextureName: String? = nil,
         mapTextureName: String? = nil,
         cameraClampRect: AreaRect? = nil,
         searchMapName: String? = nil,
@@ -905,6 +1043,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         doors: [AreaDoor] = [],
         notes: [AreaNote] = [],
         ambients: [AreaAmbient] = [],
+        animations: [AreaAnimation] = [],
         script: String? = nil
     ) {
         self.id = id
@@ -914,6 +1053,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.worldOrigin = worldOrigin
         self.worldSize = worldSize
         self.plateTextureName = plateTextureName
+        self.nightPlateTextureName = nightPlateTextureName
         self.mapTextureName = mapTextureName
         self.cameraClampRect = cameraClampRect
         self.searchMapName = searchMapName
@@ -931,6 +1071,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.doors = doors
         self.notes = notes
         self.ambients = ambients
+        self.animations = animations
         self.script = script
     }
 
@@ -1049,11 +1190,11 @@ struct AreaDefinition: Hashable, Codable, Sendable {
 
     private enum CodingKeys: String, CodingKey {
         case id, displayName, kind, arrivalHint, worldOrigin, worldSize
-        case plateTextureName, mapTextureName, cameraClampRect
+        case plateTextureName, nightPlateTextureName, mapTextureName, cameraClampRect
         case searchMapName, obstacles, sightPermeableObstacles, defaultTerrain
         case agentProfile, pathSearchBudget
         case entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
-        case script
+        case animations, script
     }
 
     init(from decoder: Decoder) throws {
@@ -1066,6 +1207,10 @@ struct AreaDefinition: Hashable, Codable, Sendable {
             ?? AreaPoint(x: 0, y: 0)
         worldSize = try container.decode(AreaSize.self, forKey: .worldSize)
         plateTextureName = try container.decode(String.self, forKey: .plateTextureName)
+        nightPlateTextureName = try container.decodeIfPresent(
+            String.self,
+            forKey: .nightPlateTextureName
+        )
         mapTextureName = try container.decodeIfPresent(String.self, forKey: .mapTextureName)
         cameraClampRect = try container.decodeIfPresent(AreaRect.self, forKey: .cameraClampRect)
         searchMapName = try container.decodeIfPresent(String.self, forKey: .searchMapName)
@@ -1092,6 +1237,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         doors = try container.decodeIfPresent([AreaDoor].self, forKey: .doors) ?? []
         notes = try container.decodeIfPresent([AreaNote].self, forKey: .notes) ?? []
         ambients = try container.decodeIfPresent([AreaAmbient].self, forKey: .ambients) ?? []
+        animations = try container.decodeIfPresent([AreaAnimation].self, forKey: .animations) ?? []
         script = try container.decodeIfPresent(String.self, forKey: .script)
     }
 }

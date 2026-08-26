@@ -454,34 +454,14 @@ struct NavigationMapTests {
     }
 
     @Test func cityUsesIndependentBuildingAndStreetSprites() {
-        let sprites = CityDistrictLayout.visualSprites
-        let textureNames = sprites.map(\.textureName)
+        // Sable Row is the IE outdoor pilot: one day plate, no modular stamps.
+        #expect(CityDistrictCatalog.sableRow.visualSprites.isEmpty)
+        #expect(CityDistrictCatalog.sableRow.groundTextureName == "city_sable_row_day_v01")
 
-        #expect(sprites.count >= 15)
-        #expect(textureNames.contains("city_sable_lot_harborWest"))
-        #expect(textureNames.contains("city_sable_lot_harborVoss"))
-        #expect(textureNames.contains("city_sable_lot_upperWest"))
-        #expect(textureNames.contains("city_sable_lot_upperEast"))
-        #expect(textureNames.contains("city_sable_lot_southWest"))
-        #expect(textureNames.contains("city_sable_lot_southEast"))
-        #expect(textureNames.contains("city_door_voss_stoop"))
-        #expect(textureNames.contains("city_door_tenement"))
-        #expect(textureNames.contains("city_door_storefront"))
-        #expect(!textureNames.contains(where: { $0.hasPrefix("city_prop_") }))
-        // Edge blocks are half off-plate by construction — the lattice's
-        // outermost centres sit on the plate boundary — so their frontage is
-        // anchored outside the bounds and only its inner half is visible. That
-        // is how the plate edge gets buildings instead of bare ground. One
-        // block half-diagonal is the most any of it can reach.
-        let overhang = CityDistrictLayout.worldBounds.insetBy(
-            dx: -CityBlockGrid.halfWidth, dy: -CityBlockGrid.halfHeight
-        )
-        #expect(sprites.allSatisfy { overhang.contains($0.groundPoint) })
-
-        // Leaves are derived from their facade's aperture, not authored beside it,
-        // so every door carries the shared threshold anchor rather than a per-sprite
-        // guess. Registration itself is covered by CityDoorRegistrationTests.
-        let leaves = sprites.filter { $0.textureName.hasPrefix("city_door_") }
+        // Other Act I wards still place modular facades + door leaves.
+        let wharf = CityDistrictCatalog.wharfLadder.visualSprites
+        #expect(wharf.contains { $0.textureName.hasPrefix("city_building_") })
+        let leaves = wharf.filter { $0.textureName.hasPrefix("city_door_") }
         #expect(!leaves.isEmpty)
         #expect(leaves.allSatisfy { $0.anchorY == CityDistrictLayout.doorLeafAnchorY })
         for leaf in leaves {

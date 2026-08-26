@@ -25,6 +25,16 @@ enum OfficeAreaAdapter {
     /// name the city's portal region travels to.
     static let cityArrivalEntrance = CityDistrictAreaAdapter.officeArrivalEntrance
 
+    /// IE door approach pair: the standable threshold and a short step back
+    /// along −Y (camera-near). City portals already author the standable point;
+    /// the second vertex matches the shipped Sable Row door record.
+    static func approachPair(from point: CGPoint, step: CGFloat = 36) -> [AreaPoint] {
+        [
+            AreaPoint(point),
+            AreaPoint(x: point.x, y: point.y - step)
+        ]
+    }
+
     static func area() -> AreaDefinition {
         let bounds = OfficeNavigationLayout.navigationWorldBounds
         return AreaDefinition(

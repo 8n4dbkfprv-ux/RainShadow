@@ -50,8 +50,8 @@ final class CityDistrictScene: GameAreaScene {
         edgeExits = makeEdgeExits()
         detective.position = area.spawnPoint(entrance: areaEntranceName) ?? .zero
         detective.beginOpenWorldStanding()
-        // Neutral bake is office-bright; cool night grade seats him in wet cobbles.
-        detective.applySceneLighting(.cityNight)
+        // Daylight is the default outdoor look; rain is an overlay, not a grade.
+        detective.applySceneLighting(.cityDay)
         navigation.registerActor(
             id: Self.detectiveActorID,
             kind: .player,
@@ -664,6 +664,8 @@ final class CityDistrictScene: GameAreaScene {
         let fog = FogOfWarNode(
             searchMap: navigation.searchMap,
             visualRangeInCells: area.agentProfile.visualRangeInCells,
+            // Outdoor IE: closed street doors are fog-only shrouds, not room floods.
+            outdoorDoorShroud: outdoorDoorShroud,
             // What this area has shown the player before, whenever that was.
             remembering: context.session.exploredFogCells(for: area.id, on: grid),
             standingAt: detective.position
@@ -685,14 +687,23 @@ final class CityDistrictScene: GameAreaScene {
         areaMapOverlay.updateExploredFog(fog.exploredMapTexture())
     }
 
+    override func doorVisibilityDidChange() {
+        guard let fog = fogOfWar else { return }
+        if fog.invalidateSight(from: detective.position) {
+            recordExploredFog(fog)
+        }
+    }
+
     private func addCityRain() {
+        // Rain is weather, not the street's identity. Keep a light overlay so
+        // the day plate still reads as a 1950s American street in daylight.
         let rain = RainSystem.makeEmitter(
             width: CityDistrictDefinition.worldArtSize.width + 280,
             height: CityDistrictDefinition.worldArtSize.height + 380,
-            birthRate: 500,
-            speed: 950,
-            scale: 0.58,
-            alpha: 0.28
+            birthRate: 180,
+            speed: 900,
+            scale: 0.50,
+            alpha: 0.14
         )
         rain.position = CGPoint(
             x: CityDistrictDefinition.worldArtSize.width / 2,

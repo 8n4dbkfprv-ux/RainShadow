@@ -1,0 +1,13 @@
+{
+  "day": "city_sable_row_day_v01",
+  "nightPlaceholder": "city_sable_row_night_placeholder_v01",
+  "plateSize": [
+    8192,
+    6144
+  ],
+  "worldSize": [
+    4096.0,
+    3072.0
+  ],
+  "note": "Full night painting deferred; runtime swaps via nightPlateTextureName."
+}

@@ -107,6 +107,15 @@ final class NavigationMap {
         occupancy.restampAll()
     }
 
+    /// Stamp only the doors that are currently shut. Opening one outdoor leaf
+    /// clears its cells without rebuilding the search map, which is the IE
+    /// door split RainShadow copies.
+    func setActiveDoorObstacles(_ doors: [DoorObstacle]) {
+        entranceDoorBlocking = !doors.isEmpty
+        searchMap.setDoorObstacles(doors, blocking: !doors.isEmpty)
+        occupancy.restampAll()
+    }
+
     // MARK: - Routing
 
     func nearestWalkablePoint(to point: CGPoint) -> CGPoint? {

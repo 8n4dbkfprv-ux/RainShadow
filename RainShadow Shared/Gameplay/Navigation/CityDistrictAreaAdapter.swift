@@ -46,6 +46,9 @@ enum CityDistrictAreaAdapter {
             arrivalHint: definition.arrivalHint,
             worldSize: AreaSize(CityDistrictDefinition.worldArtSize),
             plateTextureName: definition.groundTextureName,
+            nightPlateTextureName: definition.id == .sableRow
+                ? "city_sable_row_night_placeholder_v01"
+                : nil,
             mapTextureName: definition.mapTextureName,
             searchMapName: "\(areaID(for: district).rawValue).sr",
             // Kept alongside the painted map: Theta* tests these at world
@@ -103,7 +106,8 @@ enum CityDistrictAreaAdapter {
                     schedule: .night
                 )
             ],
-            animations: animations(for: district, definition: definition),
+            // Animations stay deferred until night art is authored per ward.
+            animations: [],
             script: nil
         )
     }

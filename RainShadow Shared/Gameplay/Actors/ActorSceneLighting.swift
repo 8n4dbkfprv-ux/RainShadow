@@ -35,6 +35,15 @@ struct ActorSceneLighting: Sendable {
         selectionRingAlpha: 0.72
     )
 
+    /// Daylight exterior — warm American-street pull. Default for outdoor wards;
+    /// rain stays a weather overlay rather than a grade.
+    static let cityDay = ActorSceneLighting(
+        bodyTint: SKColor(red: 0.92, green: 0.88, blue: 0.78, alpha: 1),
+        bodyBlend: 0.22,
+        contactShadowAlphaScale: 0.95,
+        selectionRingAlpha: 0.88
+    )
+
     /// Untinted presentation (debug / identity checks).
     static let neutral = ActorSceneLighting(
         bodyTint: .white,

@@ -201,17 +201,8 @@ struct CityDistrictLayoutGridTests {
 
     /// Every Sable facade with an authored world size is an IE 6-adult city block.
     @Test func everySableFacadeIsInfinityEngineCityHeight() {
-        let adult = CityDistrictLayout.standingAdultBodyHeight
-        for sprite in Self.facades(CityDistrictCatalog.sableRow) {
-            // Lot crops stack a near terrace and a far rank; height is not one block.
-            if sprite.textureName.hasPrefix("city_sable_lot_") { continue }
-            guard let height = sprite.worldSize?.height else { continue }
-            let multiple = height / adult
-            #expect(
-                (5.0...7.0).contains(multiple),
-                "\(sprite.textureName) is \(multiple)× adult, not IE city scale"
-            )
-        }
+        // Facades are painted into the day plate; no modular height to measure.
+        #expect(CityDistrictCatalog.sableRow.visualSprites.isEmpty)
     }
 
     /// A Baldur's Gate block has a camera-near street wall. A terrace, south
@@ -219,48 +210,12 @@ struct CityDistrictLayoutGridTests {
     /// the near edges must carry at least two facades. One cube on the far
     /// half is a shed on a lot, which is what Sable used to look like.
     @Test func everySableBlockHasACameraNearStreetWall() {
-        let district = CityDistrictCatalog.sableRow
-        let facades = Self.facades(district)
-        let nearTipMass: Set<String> = [
-            "city_terrace_sable_sw", "city_terrace_sable_se",
-            "city_terrace_sable_nw", "city_terrace_sable_ne",
-            "city_terrace_sable_south_w", "city_terrace_sable_south_e",
-            "city_district_sable_north_skyline",
-            "city_district_sable_corner_shops"
-        ]
+        // Architecture is painted into the day plate; cover diamonds still mark
+        // each lattice block so walk-behind survives without modular facades.
+        let walls = AreaCoverAuthoring.districtWallPolygons()
+        #expect(walls.count == CityBlockGrid.all.count)
         for block in CityBlockGrid.surveyed where block.isOnPlate {
-            // A punched lot crop is the whole diamond, including the street wall.
-            // Edge crops sit on their opaque bbox, not the surveyed near tip.
-            if facades.contains(where: { Self.lotBlock(for: $0) == block }) {
-                continue
-            }
-            let nearTipCovered = facades.contains { sprite in
-                let isMass = nearTipMass.contains(sprite.textureName)
-                    || sprite.textureName.hasPrefix("city_sable_lot_")
-                guard isMass else { return false }
-                let dx = sprite.groundPoint.x - block.nearTip.x
-                let dy = sprite.groundPoint.y - block.nearTip.y
-                // South lots clamp the painted foot from y = −24 to 0.
-                return abs(dx) <= 16 && abs(dy) <= 32
-            }
-            let nearEdgeCount = facades.filter { sprite in
-                guard Self.blockMetric(sprite.groundPoint, block) <= Self.frontageTolerance else {
-                    return false
-                }
-                let dNear = hypot(
-                    sprite.groundPoint.x - block.nearTip.x,
-                    sprite.groundPoint.y - block.nearTip.y
-                )
-                let dFar = hypot(
-                    sprite.groundPoint.x - block.farTip.x,
-                    sprite.groundPoint.y - block.farTip.y
-                )
-                return dNear <= dFar
-            }.count
-            #expect(
-                nearTipCovered || nearEdgeCount >= 2,
-                "Sable block (\(block.i),\(block.j)) has no camera-near street wall"
-            )
+            #expect(walls.contains { $0.id == "block.\(block.i).\(block.j)" })
         }
     }
 
@@ -306,67 +261,27 @@ struct CityDistrictLayoutGridTests {
         }
     }
 
-    /// Catalog lot crops must stay seated on the bake's opaque-bbox feet.
-    /// A tidy-number rewrite here is how three city spawns used to fail.
+    /// IE outdoor Sable ships one day plate; lot crops remain bake provenance only.
     @Test func sableCatalogLotsMatchTheAreaBake() throws {
-        struct BakePoint: Decodable { let x: CGFloat; let y: CGFloat }
-        struct BakeSize: Decodable { let w: CGFloat; let h: CGFloat }
-        struct BakeLot: Decodable {
-            let textureName: String
-            let groundPoint: BakePoint
-            let worldSize: BakeSize
-            let depthSliceWidth: CGFloat?
-            let depthSortLot: String?
-        }
-        struct Bake: Decodable {
-            let streetsTexture: String
-            let lots: [BakeLot]
-            let counts: Counts
-            struct Counts: Decodable {
-                let furniture: Int
-                let architecture: Int
-            }
-        }
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-        let bake = try JSONDecoder().decode(
-            Bake.self,
-            from: Data(contentsOf: root.appendingPathComponent(
-                "ArtSource/Generated/CityDistrict/V2/SableRow/sable_area_bake.json"
-            ))
+        #expect(CityDistrictCatalog.sableRow.groundTextureName == "city_sable_row_day_v01")
+        #expect(CityDistrictCatalog.sableRow.visualSprites.isEmpty)
+        let day = root.appendingPathComponent(
+            "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01.png"
         )
-        #expect(bake.streetsTexture == CityDistrictCatalog.sableRow.groundTextureName)
-        #expect(bake.lots.count == 12)
-        #expect(bake.counts.furniture == 45)
-        #expect(bake.counts.architecture == 18)
-
-        let placed = Dictionary(
-            uniqueKeysWithValues: CityDistrictCatalog.sableRow.visualSprites
-                .filter { $0.textureName.hasPrefix("city_sable_lot_") }
-                .map { ($0.textureName, $0) }
+        let night = root.appendingPathComponent(
+            "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01.png"
         )
-        #expect(placed.count == bake.lots.count)
-        for lot in bake.lots {
-            let sprite = placed[lot.textureName]
-            #expect(sprite != nil, "catalog is missing \(lot.textureName)")
-            guard let sprite else { continue }
-            #expect(sprite.groundPoint.x == lot.groundPoint.x, "\(lot.textureName) foot x")
-            #expect(sprite.groundPoint.y == lot.groundPoint.y, "\(lot.textureName) foot y")
-            #expect(sprite.worldSize?.width == lot.worldSize.w, "\(lot.textureName) width")
-            #expect(sprite.worldSize?.height == lot.worldSize.h, "\(lot.textureName) height")
-            #expect(sprite.depthSliceWidth == lot.depthSliceWidth, "\(lot.textureName) slice")
-            #expect(sprite.depthSortLot == lot.depthSortLot, "\(lot.textureName) sort lot")
-            let art = root.appendingPathComponent(
-                "RainShadow Shared/Resources/Art/Props/CityDistrict/V2/\(lot.textureName).png"
-            )
-            #expect(FileManager.default.fileExists(atPath: art.path), "missing \(lot.textureName).png")
-        }
-        let streets = root.appendingPathComponent(
-            "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2/city_sable_row_area_streets_v01.png"
-        )
-        #expect(FileManager.default.fileExists(atPath: streets.path))
+        #expect(FileManager.default.fileExists(atPath: day.path))
+        #expect(FileManager.default.fileExists(atPath: night.path))
+        let area = try AreaCatalogLoader.load(HarborpointAreas.sableRow)
+        #expect(area.plateTextureName == "city_sable_row_day_v01")
+        #expect(area.nightPlateTextureName == "city_sable_row_night_placeholder_v01")
+        #expect(area.props.isEmpty)
+        #expect(area.doors.contains { $0.id == "portal.office" })
     }
 
     /// Same street-wall rule as Sable, counted in warehouse / shed / boarding

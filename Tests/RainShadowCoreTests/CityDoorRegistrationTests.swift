@@ -96,8 +96,17 @@ struct CityDoorRegistrationTests {
 
     @Test func everyShippedLeafIsPlacedAndEveryPlacedLeafIsShipped() {
         let placed = Set(Self.allLeaves.map { $0.2.textureName })
-        #expect(placed == Set(Self.leafTextures.keys), "Leaf registry and catalog disagree")
-        #expect(placed.count == 24)
+        // Sable Row paints closed doors into the day plate (IE outdoor). Those
+        // leaf textures remain measured for approach derivation but are not
+        // stamped as overlays.
+        let sablePlateBaked: Set<String> = [
+            "city_door_tenement", "city_door_shop", "city_door_gatehouse",
+            "city_door_voss_stoop", "city_door_voss_stoop_garage",
+            "city_door_storefront", "city_door_rowhouse"
+        ]
+        #expect(placed.isDisjoint(with: sablePlateBaked))
+        #expect(placed.union(sablePlateBaked) == Set(Self.leafTextures.keys))
+        #expect(placed.count == 17)
     }
 
     /// The derivation rests on the canvases `process_city_districts_v02.py` fits to,
@@ -182,12 +191,10 @@ struct CityDoorRegistrationTests {
         }
     }
 
-    /// Two Harbor Street lots plus upper-row lots around the mid-ward crossing.
+    /// Sable Row is the IE outdoor pilot: one day plate, doors in the painting.
     @Test func sableRowIsLaidOutAsACrossroadsWard() {
         let district = CityDistrictCatalog.sableRow
-        let names = Set(district.visualSprites.map(\.textureName))
-        #expect(names.contains("city_sable_lot_skylineWest"))
-        #expect(names.contains("city_sable_lot_skylineEast"))
+        #expect(district.visualSprites.isEmpty, "Sable must not stamp modular lots/doors")
         let plaza = CityDistrictLayout.StreetCrossing.midWard
         #expect(district.pointsOfInterest.contains {
             $0.label == "WARD PLAZA" && $0.worldPoint == plaza
@@ -207,9 +214,7 @@ struct CityDoorRegistrationTests {
         #expect(harborLots.count == 2, "Harbor Street needs the west tenement and Voss's lot")
         let nearLots = CityDistrictLayout.IsoLot.allCases.filter { $0.streetRole == "harborStreetNear" }
         #expect(nearLots.count == 2, "Harbor Street needs the camera-near canyon wall")
-        #expect(names.contains("city_sable_lot_southWest"))
-        #expect(names.contains("city_sable_lot_southEast"))
-        #expect(district.groundTextureName == "city_sable_row_area_streets_v01")
+        #expect(district.groundTextureName == "city_sable_row_day_v01")
         let approach = district.portals.first { $0.id == "portal.office" }!.approachPoint
         #expect(
             !district.obstacles.contains { $0.contains(approach) },
@@ -217,41 +222,11 @@ struct CityDoorRegistrationTests {
         )
     }
 
-    /// Each occupied diamond has a baked lot crop whose foot sits on the lot,
-    /// not an axis-aligned south face. Furniture is paint on the streets plate.
+    /// Architecture sits in the day plate; the catalog no longer places lot crops.
     @Test func sableHousesSitOnPaintedLots() {
         let district = CityDistrictCatalog.sableRow
-        let heroLots: [(CityDistrictLayout.IsoLot, String)] = [
-            (.harborWest, "city_sable_lot_harborWest"),
-            (.harborVoss, "city_sable_lot_harborVoss"),
-            (.upperWest, "city_sable_lot_upperWest"),
-            (.upperEast, "city_sable_lot_upperEast")
-        ]
-        for (lot, name) in heroLots {
-            let sprite = district.visualSprites.first { $0.textureName == name }
-            #expect(sprite != nil, "missing \(name)")
-            guard let sprite else { continue }
-            #expect(
-                abs(sprite.groundPoint.x - lot.nearTip.x) <= 24
-                    && abs(sprite.groundPoint.y - lot.nearTip.y) <= 24,
-                "\(name) foot \(sprite.groundPoint) is not the lot near tip \(lot.nearTip)"
-            )
-            let streetPoint = CGPoint(x: lot.nearTip.x, y: lot.nearTip.y - 20)
-            #expect(
-                !district.obstacles.contains { $0.contains(streetPoint) },
-                "\(name) street point \(streetPoint) is inside an obstacle"
-            )
-        }
-
-        for lot in [CityDistrictLayout.IsoLot.southWest, .southEast] {
-            let name = "city_sable_lot_\(lot.rawValue)"
-            let sprite = district.visualSprites.first { $0.textureName == name }
-            #expect(sprite != nil, "missing \(name)")
-            guard let sprite else { continue }
-            #expect(sprite.depthSliceWidth == 64, "\(name) is not depth-sliced")
-            #expect(sprite.depthSortLot == lot.rawValue)
-        }
-
+        #expect(district.visualSprites.isEmpty)
+        #expect(district.portals.contains { $0.id == "portal.office" })
         #expect(
             abs(
                 CityDistrictLayout.IsoLot.southEast.northKerbY(atX: 3_360)
@@ -262,28 +237,16 @@ struct CityDoorRegistrationTests {
             CityDistrictLayout.IsoLot.southEast.northKerbY(atX: 3_360)
                 > CityDistrictLayout.TerraceSpec.vossStoopApproach.y
         )
-        #expect(!district.visualSprites.contains { $0.textureName.hasPrefix("city_prop_") })
     }
 
-    /// A portal has to be clickable where its door is painted. Sable Row's covered
-    /// 28% of `city_door_voss_stoop`, and the uncovered part sat inside a blocking
-    /// obstacle, so clicking the visible apartment door did nothing at all.
+    /// Portal hit areas must cover overlay door leaves on wards that still use
+    /// them. Sable paints closed doors into the plate instead.
     @Test func everyPortalHitAreaCoversItsDoorLeaf() {
-        // Sable's office door is the one this contract exists for: the hit
-        // area must cover the Voss stoop leaf, not merely the nearest door.
         let sable = CityDistrictCatalog.sableRow
-        if let office = sable.portals.first(where: { $0.id == "portal.office" }),
-           let leaf = sable.visualSprites.first(where: { $0.textureName == "city_door_voss_stoop" }),
-           let art = Self.measure(leaf.textureName) {
-            let rect = Self.paintedRect(of: leaf, measured: art)
-            let overlap = rect.intersection(office.hitArea)
-            let covered = (overlap.width * overlap.height) / (rect.width * rect.height)
-            #expect(covered >= 0.9, "portal.office covers \(Int(covered * 100))% of city_door_voss_stoop")
-        } else {
-            Issue.record("Sable Row is missing portal.office or city_door_voss_stoop")
-        }
+        #expect(sable.portals.contains { $0.id == "portal.office" })
+        #expect(!sable.visualSprites.contains { $0.textureName.hasPrefix("city_door_") })
 
-        for id in CityDistrictID.allCases {
+        for id in CityDistrictID.allCases where id != .sableRow {
             let district = CityDistrictCatalog.definition(for: id)
             for portal in district.portals {
                 let covered = district.visualSprites

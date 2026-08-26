@@ -346,7 +346,9 @@ enum CityDistrictCatalog {
         id: .sableRow,
         locationName: "SABLE ROW — LOWER WARD",
         arrivalHint: "SABLE ROW  •  Harbor Street below, Ward Plaza up the cross. Voss's stoop is on the southeast lot.",
-        groundTextureName: "city_sable_row_area_streets_v01",
+        // IE outdoor: one day plate. Closed doors and roofs are painted in;
+        // Extended Night swaps `nightPlateTextureName` on the area record.
+        groundTextureName: "city_sable_row_day_v01",
         mapTextureName: "map_city_sable_row_v02",
         actorStart: sableOfficeApproach,
         spawnByArrivalKey: [
@@ -356,40 +358,9 @@ enum CityDistrictCatalog {
             "from.east": CityBlockGrid.arrivalPoint(from: .east),
             "from.west": CityBlockGrid.arrivalPoint(from: .west)
         ],
-        visualSprites: sableAreaLots + [
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_tenement",
-                on: sableLotSprite("city_sable_lot_harborWest"),
-                aperture: .lotSableTenement
-            ),
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_shop",
-                on: sableLotSprite("city_sable_lot_harborWest"),
-                aperture: .lotSableShop
-            ),
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_gatehouse",
-                on: sableLotSprite("city_sable_lot_harborVoss"),
-                aperture: .lotSableGatehouse
-            ),
-            sableVossDoor,
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_voss_stoop_garage",
-                on: sableLotSprite("city_sable_lot_harborVoss"),
-                aperture: .lotSableVossGarage,
-                scale: CityDistrictLayout.DoorDisplayScale.wide
-            ),
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_storefront",
-                on: sableLotSprite("city_sable_lot_upperWest"),
-                aperture: .lotSableStorefront
-            ),
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_rowhouse",
-                on: sableLotSprite("city_sable_lot_upperEast"),
-                aperture: .lotSableRowhouse
-            )
-        ],
+        // No modular lots or door-leaf overlays — the district painting carries
+        // architecture. Wall polygons on the area record own walk-behind.
+        visualSprites: [],
         obstacles: wardObstacles,
         portals: [
             .init(

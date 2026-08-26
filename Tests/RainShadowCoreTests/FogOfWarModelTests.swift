@@ -139,10 +139,17 @@ struct FogOfWarModelTests {
         let office = try read(Self.scenes[0])
         let city = try read(Self.scenes[1])
         let node = try read(Self.node)
+        let gameArea = try read("RainShadow Shared/Core/Scene/GameAreaScene.swift")
 
         #expect(node.contains("fillsEnclosedRooms"))
+        #expect(node.contains("outdoorDoorShroud"))
         #expect(office.contains("fillsEnclosedRooms: true"))
         #expect(!city.contains("fillsEnclosedRooms: true"))
+        #expect(city.contains("outdoorDoorShroud: outdoorDoorShroud"))
+        #expect(city.contains("cityDay"))
+        #expect(gameArea.contains("class GameAreaScene"))
+        #expect(gameArea.contains("setExtendedNight"))
+        #expect(gameArea.contains("toggleDoorOutlineHighlight"))
         #expect(!office.contains("addShellVignette"))
         #expect(!office.contains("office_shadow_vignette"))
     }

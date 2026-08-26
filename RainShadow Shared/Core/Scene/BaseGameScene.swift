@@ -915,6 +915,8 @@ class BaseGameScene: SKScene {
 
     /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
+    /// Tab — IE door / travel region outline highlight. Districts override.
+    func handleHighlightInput() {}
 
     #if os(macOS)
     /// Applies a resolved world cursor.
@@ -1710,6 +1712,7 @@ extension BaseGameScene {
                 }
             }
         case 53 where !event.isARepeat: handleCancelInput() // escape
+        case 48 where !event.isARepeat: handleHighlightInput() // Tab — IE door/hotspot outlines
         default:
             // BG:EE: 1–9 select dialogue reply options (not Space/Return).
             if !event.isARepeat,

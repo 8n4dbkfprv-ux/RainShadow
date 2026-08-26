@@ -228,6 +228,10 @@ struct CityDistrictScaleTests {
     @Test func allDistrictsUseDoorAnchoredBuildingScales() {
         for id in CityDistrictID.allCases {
             let sprites = CityDistrictCatalog.definition(for: id).visualSprites
+            if id == .sableRow {
+                #expect(sprites.isEmpty, "Sable Row paints architecture into the day plate")
+                continue
+            }
             let lots = sprites.filter { $0.textureName.hasPrefix("city_sable_lot_") }
             if !lots.isEmpty {
                 #expect(lots.count >= 12, "\(id) baked plate is missing lot crops")

@@ -27,6 +27,9 @@ final class FogOfWarNode: SKSpriteNode {
     /// diamond instead of a disc. City districts leave this off: outdoor BG
     /// *does* show a range-limited, wall-clipped pool.
     private let fillsEnclosedRooms: Bool
+    /// Outdoor closed doors shroud ground beyond (`exploredOnly`) instead of
+    /// painting interior FoW through a parlour. Interiors leave this off.
+    private let outdoorDoorShroud: Bool
 
     /// The two bitmaps. Kept as sets rather than only as pixels because the mask
     /// is half of what they are for: the engine also skips drawing any creature
@@ -50,6 +53,7 @@ final class FogOfWarNode: SKSpriteNode {
         searchMap: SearchMap,
         visualRangeInCells: Int,
         fillsEnclosedRooms: Bool = false,
+        outdoorDoorShroud: Bool = false,
         remembering explored: Set<FogCell> = [],
         standingAt viewpoint: CGPoint
     ) {
@@ -58,6 +62,7 @@ final class FogOfWarNode: SKSpriteNode {
         self.searchMap = searchMap
         self.visualRangeInCells = visualRangeInCells
         self.fillsEnclosedRooms = fillsEnclosedRooms
+        self.outdoorDoorShroud = outdoorDoorShroud
         exploredCells = explored
         super.init(texture: nil, color: .black, size: renderer.worldFrame.size)
         anchorPoint = .zero
@@ -176,7 +181,8 @@ final class FogOfWarNode: SKSpriteNode {
         let radius = SearchMapExplore.searchRadius(visualRangeInFogTiles: visualRangeInCells)
         let chunk = searchMap.exploreMapChunk(
             from: worldPoint,
-            radiusInCells: radius
+            radiusInCells: radius,
+            outdoorDoorShroud: outdoorDoorShroud
         )
         if fillsEnclosedRooms {
             let enclosed = searchMap.enclosedFloor(touching: chunk.visible)
