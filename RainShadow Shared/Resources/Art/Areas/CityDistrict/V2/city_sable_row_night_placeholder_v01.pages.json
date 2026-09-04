@@ -1,0 +1,369 @@
+{
+  "version": 1,
+  "plateTextureName": "city_sable_row_night_placeholder_v01",
+  "worldSize": {
+    "w": 5120,
+    "h": 3840
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_sable_row_day_v01_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "8df576cdd412732312dd1aa589b699b86348cf10b3ef5d3ea144cbac41cce44d"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_sable_row_day_v01_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "477798f02e01e4d52882df0f963a6fc131aee0ddbec99e3ab12c6e71b2999cca"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_sable_row_day_v01_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "0f45053990484814927ea690fa9105a16a21ff1ebdb552543dfba11f1dddf9a8"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_sable_row_day_v01_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6b041953c4214b2e3feeb3bc8feb00759257ab7a2a64b3a247b0f1569d2c26a0"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_sable_row_day_v01_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e7fcbd63f7efc53cec0c279c6f7bc8b09eac5334193a1575714843f481856193"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_sable_row_day_v01_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b7a772464b205d0fe9c5808f61b22c9513a218e2ea56aa59a8052fe0de5656a6"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_sable_row_day_v01_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "1af693d18286d9709e7219900513829db08cdd6e303a7e8a0b017459868a0904"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_sable_row_day_v01_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6eef2b4c82cffeaf854b738d1b82dbdec19a06287cb33e0525a02057cd6821cd"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_sable_row_day_v01_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "fff2bc02c9a78a0f5a7378ef299b1c2d794555b611f70c4d15c1b870fb4eb6ad"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_sable_row_day_v01_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "2a294758abe4407203f7ffae6293da5b5a7bc73eb0cfb92dbd3fbd9184792ba6"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_sable_row_day_v01_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4cc5ec7cd160c485206dd783f9e3f968324448c28f5474dd544c836ec5daa6e9"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_sable_row_day_v01_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f5111cb4f603ce9e8f22966c97a32f75325124141f2eb3661511901e6c0400ae"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_sable_row_day_v01_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "d020a118b17744130cfe9c8b705c77e70294e510646a780591c7c63319ca2923"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_sable_row_day_v01_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "83f267e9a6523b13d4f5cdc7e81aeb5bb05f70d70e599ae9290b2d083a4ac198"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_sable_row_day_v01_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "962a9a38e5d82d1d8a85ae3ccb2898b9b9ef590d1febde1df1522be34714f8a6"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_sable_row_day_v01_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6249ba50df3afce309f5589e72e5621362887843d73088ea25b9350994269fb0"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_sable_row_day_v01_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "2dbd18eb54a86a5de5bf1f757182418d7ea02acaef0cf5038f3898127fd349cb"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_sable_row_day_v01_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "266bb1e5312c4c66d8e90a3c8df64f8711cdc0adc6b2cd5a01d51d5580b07055"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_sable_row_day_v01_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "96a62f4b1458c20d189635990d35d6de1277a8bad31b5c101b7ecfc30ac4686a"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_sable_row_day_v01_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "429fa1446a1c1ee8f9399fe60b46139c2529459b515c2c72d7c98081ef1a2891"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_sable_row_day_v01_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "78a81d125a406c93a1d989d82ae063ae9b67ca325a326938237dbab329b6a45e"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_sable_row_day_v01_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "0a7bb9ec3452bf25b441720b3e9f19963f3e06226750f02e4726b3140cefaf49"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_sable_row_day_v01_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "019bc3076f2d7461a41f39f1547a3be965d94f6c8c4be1a9b6bca5fc3ee2612b"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_sable_row_day_v01_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "a257a57724d001a7455909714233985059541b82ce4cf6d033907e34c0cc0fe8"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_sable_row_day_v01_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ac1b00cabf683760083c1ca286e69174f65d9c00de6de7651d92ccdefb35fd02"
+    }
+  ],
+  "artMetrics": {
+    "authoring": "alias-of-native-detail-day-painting",
+    "sharedPagesWith": "city_sable_row_day_v01",
+    "runtimePagesAreCropsOnly": true
+  }
+}

@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "plateTextureName": "city_wharf_ladder_block_v02",
+  "worldSize": {
+    "w": 5120.0,
+    "h": 3840.0
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_wharf_ladder_block_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "65eb0342548c120304eb27e864d2e8bb2694a3963ed636f4f1f73d65f21b02cb"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_wharf_ladder_block_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b6b8eee65b05c05c1afa183f668f12f529a4598b2e1a9de73d3b78554f84c55d"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_wharf_ladder_block_v02_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "fb7c12e272d9ddb175c33bf3c1c5c7586009fb6105bb99aebdce68a07f493c9c"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_wharf_ladder_block_v02_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9d71ab7e0707b1466023cd24c95e3a3d298b1005e01fe81201f39dcb5867d0ce"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_wharf_ladder_block_v02_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "c86567133d6466f841b18d67c94a4f0eebf2b4f4bc8038f147fa96e34cdf5dfa"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_wharf_ladder_block_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b8b2192697c4aea610ec30c4b1a113aabd2737595835c33ad11b30748644025e"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_wharf_ladder_block_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "99c870f77513cd8b75d2365b12f2f0c75415ebbe1d0c3e423352df928675ed2e"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_wharf_ladder_block_v02_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "25e1cc29516e95a9853ea18740da3404da3b846c54e7b25b89478ec1e280317b"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_wharf_ladder_block_v02_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "64bfbcbec3a7c070f81b27625023061b988d76f1dc3878719e6e16b6080ed03f"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_wharf_ladder_block_v02_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ca8037b25782efccf45d8fa16447992ff24b3eb57ab873ecebb59553b1c1ab3c"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_wharf_ladder_block_v02_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ddfa503cdd7a48950a7f73307fb623f33359aeaca96e2abd12834068fcc9607d"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_wharf_ladder_block_v02_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "c8a633bf0481a17d4490704e69bf92648e0713e338cdaf4245eb8db9311ea6be"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_wharf_ladder_block_v02_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4cee939ace5c1c335a5061f3785f70312a6c61288bbf46584161cd55a40d81b4"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_wharf_ladder_block_v02_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "47662b86c04d4ccb5e8b643897a48f4546ac0541509bb28f293fe99c25cf2e33"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_wharf_ladder_block_v02_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "93e5424e7339b830caeec7b39d3842d215fbe39d75e4b52c2883030ad0b3ef8e"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_wharf_ladder_block_v02_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f5e91ca4b6fb9ec7eb7b6ea867c2770b85e98bd3987a8b98da109abc9ad26c24"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_wharf_ladder_block_v02_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "8d28e151d243957319f7f0151f89ff9b2a163fa88173dc8cea8e04960a9ea036"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_wharf_ladder_block_v02_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "05d6551ec4f510b4d4735a764856f920d91f5564cc999da4c342d698c4941841"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_wharf_ladder_block_v02_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "fb8106846927209db24b0bc41898b3b53eb3784e02200bc156ac1e01b075c447"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_wharf_ladder_block_v02_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f76bb9b12d49c84ed7014ffbbcd4c30ec90b50078cd0ea1574938f029c853204"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_wharf_ladder_block_v02_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f8882363507788091718ace45347c042eb7867db19d625a0a17761e02e5ff776"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_wharf_ladder_block_v02_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6a14abb10f0bdbf17beb2e418a54c66cbfcdd8abd5893502dd2680be47e36056"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_wharf_ladder_block_v02_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3999b7c16a5e50b5f5fb706afba64668435bb56ffeee5e604c44ad325382bd26"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_wharf_ladder_block_v02_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "2ddfede9821702bb5c830d2800b2c551629307b4e13db711d03d78ffa226db1a"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_wharf_ladder_block_v02_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9ab11b128e7576bc4002bb8f75e4c29543fdf355bcbbb2942cc5376d0a2978b2"
+    }
+  ],
+  "artMetrics": {
+    "registeredCore": [
+      4096.0,
+      3072.0
+    ],
+    "registeredCoreSource": "72 reviewed foreground-matted unique lot paintings",
+    "literalWEDTiles": [
+      80,
+      60
+    ],
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 1.4140625,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    },
+    "outerGroundDetailBlend": {
+      "c04_r00": 0.24,
+      "c04_r01": 0.24,
+      "c04_r02": 0.24,
+      "c04_r03": 0.24,
+      "c00_r04": 0.24,
+      "c01_r04": 0.24,
+      "c02_r04": 0.24,
+      "c03_r04": 0.24,
+      "c04_r04": 0.24
+    },
+    "projectionFailures": []
+  }
+}

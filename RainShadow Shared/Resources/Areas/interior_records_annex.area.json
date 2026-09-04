@@ -1,0 +1,144 @@
+{
+  "area" : {
+    "actors" : [
+
+    ],
+    "agentProfile" : {
+      "halfHeight" : 4,
+      "halfWidth" : 16,
+      "visualRangeInCells" : 14
+    },
+    "ambients" : [
+      {
+        "assetName" : "amb_rain_exterior",
+        "id" : "amb.rain.outside",
+        "isLooping" : true,
+        "point" : {
+          "x" : 1410,
+          "y" : 230
+        },
+        "radius" : 620,
+        "schedule" : 15728703,
+        "volume" : 0.12
+      }
+    ],
+    "areaType" : [
+
+    ],
+    "arrivalHint" : "The rain dims behind the frosted street door.",
+    "containers" : [
+
+    ],
+    "defaultTerrain" : "stone",
+    "displayName" : "CIVIC RECORDS ANNEX",
+    "doors" : [
+      {
+        "approachPoints" : [
+          {
+            "x" : 1410,
+            "y" : 300
+          },
+          {
+            "x" : 1410,
+            "y" : 264
+          }
+        ],
+        "blocksSight" : true,
+        "closeSound" : "sfx_door_close",
+        "closedObstacle" : {
+          "h" : 12,
+          "w" : 16,
+          "x" : 1395,
+          "y" : 205
+        },
+        "id" : "portal.return",
+        "openSound" : "sfx_door_open",
+        "startsClosed" : true
+      }
+    ],
+    "entrances" : [
+      {
+        "name" : "default",
+        "point" : {
+          "x" : 1390,
+          "y" : 335
+        }
+      },
+      {
+        "name" : "from.street",
+        "point" : {
+          "x" : 1390,
+          "y" : 335
+        }
+      }
+    ],
+    "id" : "interior_records_annex",
+    "kind" : "interior",
+    "lightMapName" : "city_building_interior_v01.lm",
+    "mapTextureName" : "map_city_building_interior_v01",
+    "notes" : [
+
+    ],
+    "obstacles" : [
+      {
+        "h" : 150,
+        "w" : 500,
+        "x" : 930,
+        "y" : 720
+      }
+    ],
+    "plateTextureName" : "city_building_interior_v01",
+    "props" : [
+
+    ],
+    "regions" : [
+      {
+        "approachPoint" : {
+          "x" : 1410,
+          "y" : 300
+        },
+        "id" : "portal.return",
+        "kind" : "travel",
+        "label" : "STREET",
+        "polygon" : [
+          {
+            "x" : 1315,
+            "y" : 180
+          },
+          {
+            "x" : 1505,
+            "y" : 180
+          },
+          {
+            "x" : 1505,
+            "y" : 330
+          },
+          {
+            "x" : 1315,
+            "y" : 330
+          }
+        ],
+        "travel" : {
+          "destination" : "city_civic_records",
+          "entrance" : "from.portal.recordsEntrance"
+        }
+      }
+    ],
+    "searchMapName" : "city_building_interior_v01.sr",
+    "sightPermeableObstacles" : [
+
+    ],
+    "wallPolygons" : [
+
+    ],
+    "worldOrigin" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "worldSize" : {
+      "h" : 1152,
+      "w" : 2048
+    }
+  },
+  "schemaVersion" : 1
+}

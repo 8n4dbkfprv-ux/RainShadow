@@ -1,0 +1,2306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C0DE1EA00000000000000011 /* Lila in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000001 /* Lila */; };
+		C0DE1EA00000000000000012 /* Voss in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000002 /* Voss */; };
+		C0DE1EA00000000000000021 /* Lila in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000001 /* Lila */; };
+		C0DE1EA00000000000000022 /* Voss in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000002 /* Voss */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C0DE1EA00000000000000001 /* Lila */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lila; path = "RainShadow Shared/Resources/Art/IE/Avatars/Lila"; sourceTree = SOURCE_ROOT; };
+		C0DE1EA00000000000000002 /* Voss */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Voss; path = "RainShadow Shared/Resources/Art/IE/Avatars/Voss"; sourceTree = SOURCE_ROOT; };
+		DAAF9D22300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAAF9D33300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAAF9D43300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DAAF9D58300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow iOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/GameBootstrap.swift,
+				Assets.xcassets,
+				Core/Assets/GameArt.swift,
+				Core/Diagnostics/AreaLoadTrace.swift,
+				Core/Input/GamePointerEvent.swift,
+				Core/Persistence/GamePreferences.swift,
+				Core/Persistence/SaveStore.swift,
+				Core/Scene/ActorCover.swift,
+				Core/Scene/AreaPlatePager.swift,
+				Core/Scene/AreaRuntime.swift,
+				Core/Scene/BaseGameScene.swift,
+				Core/Scene/CutsceneChromeNodes.swift,
+				Core/Scene/CutsceneDirector.swift,
+				Core/Scene/FogMaskRenderer.swift,
+				Core/Scene/FogOfWarNode.swift,
+				Core/Scene/GameAreaScene.swift,
+				Core/Scene/HighlightOutlineLayer.swift,
+				Core/Scene/IEBlitShader.swift,
+				Core/Scene/IENativeCompositor.swift,
+				Core/Scene/IENativeWorldQA.swift,
+				Core/Scene/IENativeWorldRenderer.swift,
+				Core/Scene/SceneLayer.swift,
+				Core/Scene/SceneRouter.swift,
+				Core/Scene/WallStencilTexture.swift,
+				Gameplay/Actors/ActorSceneLighting.swift,
+				Gameplay/Actors/ClientActorNode.swift,
+				Gameplay/Actors/ContactShadowNode.swift,
+				Gameplay/Actors/CutsceneActorAdapters.swift,
+				Gameplay/Actors/DetectiveActorNode.swift,
+				Gameplay/Actors/GroundCircleNode.swift,
+				Gameplay/Actors/IEAvatarNode.swift,
+				Gameplay/Audio/GameSFX.swift,
+				Gameplay/Audio/RainAudio.swift,
+				Gameplay/Interaction/OfficeHotspot.swift,
+				Gameplay/Navigation/ActorLocomotion.swift,
+				Gameplay/Navigation/ActorLocomotionPacing.swift,
+				Gameplay/Navigation/ActorOccupancy.swift,
+				Gameplay/Navigation/AreaAmbientPlayback.swift,
+				Gameplay/Navigation/AreaCatalogLoader.swift,
+				Gameplay/Navigation/AreaCoverAuthoring.swift,
+				Gameplay/Navigation/AreaDefinition.swift,
+				Gameplay/Navigation/AreaLightMap.swift,
+				Gameplay/Navigation/AreaPlatePageManifest.swift,
+				Gameplay/Navigation/AreaScript.swift,
+				Gameplay/Navigation/AreaScriptCatalog.swift,
+				Gameplay/Navigation/AreaSearchMapLoader.swift,
+				Gameplay/Navigation/AreaTriggerTracker.swift,
+				Gameplay/Navigation/AreaVariables.swift,
+				Gameplay/Navigation/AreaViewport.swift,
+				Gameplay/Navigation/AreaWallStencil.swift,
+				Gameplay/Navigation/BreakableCutsceneGate.swift,
+				Gameplay/Navigation/CameraZoom.swift,
+				Gameplay/Navigation/CaseDialogueModels.swift,
+				Gameplay/Navigation/CharacterInventory.swift,
+				Gameplay/Navigation/CityBlockGrid.swift,
+				Gameplay/Navigation/CityDistrictAreaAdapter.swift,
+				Gameplay/Navigation/CityDistrictCatalog.swift,
+				Gameplay/Navigation/CityDistrictLayout.swift,
+				Gameplay/Navigation/CityHighlightOutlinePolygons.swift,
+				Gameplay/Navigation/CityHighlightOutlines.swift,
+				Gameplay/Navigation/CityStreetPlan.swift,
+				Gameplay/Navigation/CityWorldMap.swift,
+				Gameplay/Navigation/Cutscene.swift,
+				Gameplay/Navigation/CutsceneCatalog.swift,
+				Gameplay/Navigation/CutsceneRunner.swift,
+				Gameplay/Navigation/DefaultPlayZoom.swift,
+				Gameplay/Navigation/DialogueApproach.swift,
+				Gameplay/Navigation/DialogueDeferralState.swift,
+				Gameplay/Navigation/DialogueGraphCatalog.swift,
+				Gameplay/Navigation/DialogueGraphLoader.swift,
+				Gameplay/Navigation/DialoguePanelLayout.swift,
+				Gameplay/Navigation/DialogueScrollbarGeometry.swift,
+				Gameplay/Navigation/DialogueSession.swift,
+				Gameplay/Navigation/DialogueStateModels.swift,
+				Gameplay/Navigation/DialogueStringTable.swift,
+				Gameplay/Navigation/DialogueTextMetrics.swift,
+				Gameplay/Navigation/DialogueTranscript.swift,
+				Gameplay/Navigation/DialogueVoiceResref.swift,
+				Gameplay/Navigation/DrawQueue.swift,
+				Gameplay/Navigation/EmptyCoatCaseIntroduction.swift,
+				Gameplay/Navigation/EmptyCoatJournalContent.swift,
+				Gameplay/Navigation/EncumbranceRules.swift,
+				Gameplay/Navigation/EquipmentSlot.swift,
+				Gameplay/Navigation/FogEdgeMask.swift,
+				Gameplay/Navigation/FogGrid.swift,
+				Gameplay/Navigation/GameClock.swift,
+				Gameplay/Navigation/Geometry.swift,
+				Gameplay/Navigation/GroundCircle.swift,
+				Gameplay/Navigation/GroundPileState.swift,
+				Gameplay/Navigation/HighlightableObject.swift,
+				Gameplay/Navigation/HighlightGeometry.swift,
+				Gameplay/Navigation/HighlightResolver.swift,
+				Gameplay/Navigation/HUDChromeLayout.swift,
+				Gameplay/Navigation/IEBlit.swift,
+				Gameplay/Navigation/IEColorCycle.swift,
+				Gameplay/Navigation/IEGradientTables.swift,
+				Gameplay/Navigation/IEIndexedSprite.swift,
+				Gameplay/Navigation/IENativeViewport.swift,
+				Gameplay/Navigation/IEPalette.swift,
+				Gameplay/Navigation/IEPaperdollColours.swift,
+				Gameplay/Navigation/IEResample.swift,
+				Gameplay/Navigation/IESoftwareBlit.swift,
+				Gameplay/Navigation/InventoryItemPresentation.swift,
+				Gameplay/Navigation/InventoryScreenLayout.swift,
+				Gameplay/Navigation/ItemCatalogLoader.swift,
+				Gameplay/Navigation/ItemDefinition.swift,
+				Gameplay/Navigation/LogicTickClock.swift,
+				Gameplay/Navigation/LootSystem.swift,
+				Gameplay/Navigation/Movable.swift,
+				Gameplay/Navigation/MovementAudioTiming.swift,
+				Gameplay/Navigation/MovementOrderQueue.swift,
+				Gameplay/Navigation/MovementProfile.swift,
+				Gameplay/Navigation/NavigationMap.swift,
+				Gameplay/Navigation/OfficeAreaAdapter.swift,
+				Gameplay/Navigation/OfficeCaseFileMonologue.swift,
+				Gameplay/Navigation/OfficeClientVisitSequencer.swift,
+				Gameplay/Navigation/OfficeHighlightOutlinePolygons.swift,
+				Gameplay/Navigation/OfficeHighlightOutlines.swift,
+				Gameplay/Navigation/OfficeHotspotDialogue.swift,
+				Gameplay/Navigation/OfficeInteriorScale.swift,
+				Gameplay/Navigation/OfficeNavigationLayout.swift,
+				Gameplay/Navigation/Orientation.swift,
+				Gameplay/Navigation/Path.swift,
+				Gameplay/Navigation/PathFinder.swift,
+				Gameplay/Navigation/PLTSprite.swift,
+				Gameplay/Navigation/SearchMap.swift,
+				Gameplay/Navigation/SearchMapTerrain.swift,
+				Gameplay/Navigation/SearchMapVisibility.swift,
+				Gameplay/Navigation/WorldCursor.swift,
+				Gameplay/Navigation/WorldPauseController.swift,
+				Gameplay/Weather/RainSystem.swift,
+				Resources/Areas/city_building_interior_v01.lm.png,
+				Resources/Areas/city_building_interior_v01.sr.png,
+				Resources/Areas/city_civic_records.area.json,
+				Resources/Areas/city_civic_records.lm.png,
+				Resources/Areas/city_civic_records.sr.png,
+				Resources/Areas/city_harborpoint_pd.area.json,
+				Resources/Areas/city_harborpoint_pd.lm.png,
+				Resources/Areas/city_harborpoint_pd.sr.png,
+				Resources/Areas/city_lila_street.area.json,
+				Resources/Areas/city_lila_street.lm.png,
+				Resources/Areas/city_lila_street.sr.png,
+				Resources/Areas/city_riverside.area.json,
+				Resources/Areas/city_riverside.lm.png,
+				Resources/Areas/city_riverside.sr.png,
+				Resources/Areas/city_sable_row.area.json,
+				Resources/Areas/city_sable_row.lm.png,
+				Resources/Areas/city_sable_row.sr.png,
+				Resources/Areas/city_wharf_ladder.area.json,
+				Resources/Areas/city_wharf_ladder.lm.png,
+				Resources/Areas/city_wharf_ladder.sr.png,
+				Resources/Areas/interior_iron_stairs.area.json,
+				Resources/Areas/interior_lila_rooms.area.json,
+				Resources/Areas/interior_police_station.area.json,
+				Resources/Areas/interior_records_annex.area.json,
+				Resources/Areas/interior_shipping_office.area.json,
+				Resources/Areas/office_suite.area.json,
+				Resources/Areas/office_suite.ht.png,
+				Resources/Areas/office_suite.lm.png,
+				Resources/Areas/office_suite.sr.png,
+				Resources/Areas/opening_exterior.area.json,
+				Resources/Art/Areas/CityDistrict/city_district_block_v01.png,
+				Resources/Art/Areas/CityDistrict/city_district_block_v02.png,
+				Resources/Art/Areas/CityDistrict/city_district_ground_v01.png,
+				Resources/Art/Areas/CityDistrict/city_district_ground_v02.png,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02.pages.json,
+				Resources/Art/Areas/DetectiveOffice/city_building_interior_v01.png,
+				Resources/Art/Areas/DetectiveOffice/office_shadow_vignette.png,
+				Resources/Art/Areas/DetectiveOffice/office_shell_base.png,
+				Resources/Art/Areas/DetectiveOffice/office_suite_plate.png,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02.pages.json,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base.png,
+				Resources/Art/Atlases/LilaArrival.atlas,
+				Resources/Art/Atlases/VossIdle.atlas,
+				Resources/Art/Atlases/VossSeatedArms.atlas,
+				Resources/Art/Atlases/VossSeatedIdle.atlas,
+				Resources/Art/Atlases/VossSeatTransitions.atlas,
+				Resources/Art/Atlases/VossWalk.atlas,
+				Resources/Art/IE/pal16.bin,
+				Resources/Art/IE/pal256.bin,
+				Resources/Art/Props/CityDistrict/city_bench.png,
+				Resources/Art/Props/CityDistrict/city_building_central.png,
+				Resources/Art/Props/CityDistrict/city_building_mid.png,
+				Resources/Art/Props/CityDistrict/city_building_ne.png,
+				Resources/Art/Props/CityDistrict/city_building_nw.png,
+				Resources/Art/Props/CityDistrict/city_building_se.png,
+				Resources/Art/Props/CityDistrict/city_building_sw.png,
+				Resources/Art/Props/CityDistrict/city_car_black.png,
+				Resources/Art/Props/CityDistrict/city_car_maroon.png,
+				Resources/Art/Props/CityDistrict/city_car_olive.png,
+				Resources/Art/Props/CityDistrict/city_crates_mail.png,
+				Resources/Art/Props/CityDistrict/city_gate.png,
+				Resources/Art/Props/CityDistrict/city_kiosk.png,
+				Resources/Art/Props/CityDistrict/city_lamp.png,
+				Resources/Art/Props/CityDistrict/city_statue.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_abutment.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_boarding.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_dock_shed.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_gatehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_iron_stairs.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_alcove.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_neighbor.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_opposite.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_rooms.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_alley.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_plaza_wall.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_station.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_rail_lamp.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_colonnade.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_plaza.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_wing.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_river_watch.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_row_corner.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_rowhouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_shipping_office.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_shop.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_storefront.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_tenement.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_voss_stoop.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_warehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_corner_shops.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_north_skyline.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_south_row.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_boarding.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_dock_shed.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_gatehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_iron_stairs.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_alcove.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_neighbor.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_opposite.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_rooms_b.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_rooms.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_alley.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_station.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_colonnade.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_wing.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_river_watch.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_rowhouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_shipping_office.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_shop.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_storefront.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_tenement.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_voss_stoop_garage.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_voss_stoop.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_warehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_bench.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_black.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_maroon.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_olive.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_crates_mail.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_gate.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_kiosk.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_lamp.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_statue.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_0_0.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_1_1.png,
+				"Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_2_-3.png",
+				"Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_3_-2.png",
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_harborVoss.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_harborWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_skylineEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_skylineWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_southEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_southWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_upperEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_upperWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_far_a.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_far_b.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_ne.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_nw.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_se.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_south_e.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_south_w.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_sw.png,
+				Resources/Art/Props/Office/office_archive_box_a.png,
+				Resources/Art/Props/Office/office_archive_box_b.png,
+				Resources/Art/Props/Office/office_archive_stack.png,
+				Resources/Art/Props/Office/office_bookshelf.png,
+				Resources/Art/Props/Office/office_cabinet_floor_shadow.png,
+				Resources/Art/Props/Office/office_case_board.png,
+				Resources/Art/Props/Office/office_coat_rack.png,
+				Resources/Art/Props/Office/office_desk_actor_occluder_hover.png,
+				Resources/Art/Props/Office/office_desk_actor_occluder.png,
+				Resources/Art/Props/Office/office_desk_ashtray.png,
+				Resources/Art/Props/Office/office_desk_bare_hover.png,
+				Resources/Art/Props/Office/office_desk_bare.png,
+				Resources/Art/Props/Office/office_desk_chair.png,
+				Resources/Art/Props/Office/office_desk_ensemble.png,
+				Resources/Art/Props/Office/office_desk_files_hover.png,
+				Resources/Art/Props/Office/office_desk_files.png,
+				Resources/Art/Props/Office/office_desk_floor_shadow.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v02.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v03_hover.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v03.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v04_hover.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v04.png,
+				Resources/Art/Props/Office/office_desk_front_occluder.png,
+				Resources/Art/Props/Office/office_desk_lamp.png,
+				Resources/Art/Props/Office/office_desk_mug.png,
+				Resources/Art/Props/Office/office_desk_notebook.png,
+				Resources/Art/Props/Office/office_desk_papers.png,
+				Resources/Art/Props/Office/office_desk_phone_hover.png,
+				Resources/Art/Props/Office/office_desk_phone.png,
+				Resources/Art/Props/Office/office_desk_top_occluder_hover.png,
+				Resources/Art/Props/Office/office_desk_top_occluder.png,
+				Resources/Art/Props/Office/office_desk_typewriter.png,
+				Resources/Art/Props/Office/office_door_foreground_jamb.png,
+				Resources/Art/Props/Office/office_door_frame.png,
+				Resources/Art/Props/Office/office_door_leaf_closed.png,
+				Resources/Art/Props/Office/office_door_leaf_fallen.png,
+				Resources/Art/Props/Office/office_door_leaf_thickness.png,
+				Resources/Art/Props/Office/office_entrance_runner.png,
+				Resources/Art/Props/Office/office_filing_cabinet_open.png,
+				Resources/Art/Props/Office/office_filing_cabinet.png,
+				Resources/Art/Props/Office/office_floor_trash_a.png,
+				Resources/Art/Props/Office/office_floor_trash_b.png,
+				Resources/Art/Props/Office/office_floor_trash_c.png,
+				Resources/Art/Props/Office/office_floor_wear_decal.png,
+				Resources/Art/Props/Office/office_foreground_cutaway.png,
+				Resources/Art/Props/Office/office_framed_licence.png,
+				Resources/Art/Props/Office/office_framed_photo.png,
+				Resources/Art/Props/Office/office_hidden_bottle.png,
+				Resources/Art/Props/Office/office_internal_door_leaf.png,
+				Resources/Art/Props/Office/office_light_blind_stripes.png,
+				Resources/Art/Props/Office/office_light_hallway.png,
+				Resources/Art/Props/Office/office_light_lamp_pool.png,
+				Resources/Art/Props/Office/office_light_window_spill.png,
+				Resources/Art/Props/Office/office_newspaper.png,
+				Resources/Art/Props/Office/office_partition_cutaway_mask.png,
+				Resources/Art/Props/Office/office_partition_wall_cutaway.png,
+				Resources/Art/Props/Office/office_partition_wall.png,
+				Resources/Art/Props/Office/office_pencil_tray.png,
+				Resources/Art/Props/Office/office_personal_fan.png,
+				Resources/Art/Props/Office/office_personal_glass.png,
+				Resources/Art/Props/Office/office_personal_sideboard.png,
+				Resources/Art/Props/Office/office_personal_washbasin.png,
+				Resources/Art/Props/Office/office_radiator.png,
+				Resources/Art/Props/Office/office_safe.png,
+				Resources/Art/Props/Office/office_shadow_ceiling_fan.png,
+				Resources/Art/Props/Office/office_umbrella_stand.png,
+				Resources/Art/Props/Office/office_visitor_armchair.png,
+				Resources/Art/Props/Office/office_waiting_ashtray.png,
+				Resources/Art/Props/Office/office_waiting_chair_a.png,
+				Resources/Art/Props/Office/office_waiting_chair_b.png,
+				Resources/Art/Props/Office/office_waiting_table.png,
+				Resources/Art/Props/Office/office_wall_city_map.png,
+				Resources/Art/Props/Office/office_wall_photos.png,
+				Resources/Art/Props/Office/office_wastebasket.png,
+				Resources/Art/Props/Office/office_window_blinds.png,
+				Resources/Art/Props/Office/office_window_exterior_view.png,
+				Resources/Art/Props/Office/office_window_frame.png,
+				Resources/Art/Props/Office/office_window_glass_mask.png,
+				Resources/Art/Props/Office/office_window_hover_overlay.png,
+				Resources/Art/Props/Office/office_window_hover.png,
+				Resources/Art/Props/Office/office_window_sill_occluder.png,
+				Resources/Art/Props/Office/office_window.png,
+				Resources/Art/Props/Office/office_worn_rug_burgundy.png,
+				Resources/Art/Props/Office/office_worn_rug.png,
+				Resources/Art/UI/Common/det_contact_shadow_soft.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v09.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v10.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v11.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v12.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v13.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v14.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v15.png,
+				Resources/Art/UI/Common/ui_close_box_macos9_noir_v04.png,
+				Resources/Art/UI/Common/ui_close_box_macos9_v01.png,
+				Resources/Art/UI/Common/ui_close_box_noir_v02.png,
+				Resources/Art/UI/Common/ui_close_box_noir_v03.png,
+				Resources/Art/UI/Common/ui_move_marker_00.png,
+				Resources/Art/UI/Common/ui_move_marker_01.png,
+				Resources/Art/UI/Common/ui_move_marker_02.png,
+				Resources/Art/UI/Common/ui_move_marker_03.png,
+				Resources/Art/UI/Common/ui_move_marker_04.png,
+				Resources/Art/UI/Common/ui_move_marker_05.png,
+				Resources/Art/UI/Common/ui_move_marker_06.png,
+				Resources/Art/UI/Common/ui_move_marker_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_00.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_01.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_02.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_03.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_04.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_05.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_06.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked.png,
+				Resources/Art/UI/Common/ui_waypoint_pip.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_hover.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_pressed.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v08.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v09.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v10.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v11.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_harlan_voss_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_lila_march_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_lila_march_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_area_solid_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_area_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_box_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_pressed_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v08.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v09.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_pressed_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v06.png,
+				Resources/Art/UI/HUD/hud_action_character_v02.png,
+				Resources/Art/UI/HUD/hud_action_character_v03.png,
+				Resources/Art/UI/HUD/hud_action_clock_v02.png,
+				Resources/Art/UI/HUD/hud_action_clock_v03.png,
+				Resources/Art/UI/HUD/hud_action_contacts_v02.png,
+				Resources/Art/UI/HUD/hud_action_contacts_v03.png,
+				Resources/Art/UI/HUD/hud_action_help_v02.png,
+				Resources/Art/UI/HUD/hud_action_help_v03.png,
+				Resources/Art/UI/HUD/hud_action_hide_ui_v02.png,
+				Resources/Art/UI/HUD/hud_action_hide_ui_v03.png,
+				Resources/Art/UI/HUD/hud_action_inventory_v02.png,
+				Resources/Art/UI/HUD/hud_action_inventory_v03.png,
+				Resources/Art/UI/HUD/hud_action_journal_v02.png,
+				Resources/Art/UI/HUD/hud_action_journal_v03.png,
+				Resources/Art/UI/HUD/hud_action_leads_v02.png,
+				Resources/Art/UI/HUD/hud_action_leads_v03.png,
+				Resources/Art/UI/HUD/hud_action_map_v02.png,
+				Resources/Art/UI/HUD/hud_action_map_v03.png,
+				Resources/Art/UI/HUD/hud_action_menu_v02.png,
+				Resources/Art/UI/HUD/hud_action_menu_v03.png,
+				Resources/Art/UI/HUD/hud_action_rest_v02.png,
+				Resources/Art/UI/HUD/hud_action_rest_v03.png,
+				Resources/Art/UI/HUD/hud_action_settings_v02.png,
+				Resources/Art/UI/HUD/hud_action_settings_v03.png,
+				Resources/Art/UI/HUD/hud_left_rail_plate_v02.png,
+				Resources/Art/UI/HUD/hud_left_rail_plate_v03.png,
+				Resources/Art/UI/HUD/hud_loot_container_panel_v02.png,
+				Resources/Art/UI/HUD/hud_loot_take_all_v03.png,
+				Resources/Art/UI/HUD/hud_party_lantern_v02.png,
+				Resources/Art/UI/HUD/hud_party_lantern_v03.png,
+				Resources/Art/UI/HUD/hud_party_search_v02.png,
+				Resources/Art/UI/HUD/hud_party_search_v03.png,
+				Resources/Art/UI/HUD/hud_party_select_v02.png,
+				Resources/Art/UI/HUD/hud_party_select_v03.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v01.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v02.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v03.png,
+				Resources/Art/UI/HUD/hud_right_rail_plate_v02.png,
+				Resources/Art/UI/HUD/hud_right_rail_plate_v03.png,
+				Resources/Art/UI/Inventory/inventory_case_bag_v05.png,
+				Resources/Art/UI/Inventory/inventory_coin_stack_v05.png,
+				Resources/Art/UI/Inventory/inventory_item_brass_key_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_matchbook_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_service_revolver_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_wallet_v01.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v06.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v07.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v08.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v09.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v10.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v11.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v12.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v13.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v14.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v15.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v16.png,
+				Resources/Art/UI/Inventory/inventory_page_arrow_next_v05.png,
+				Resources/Art/UI/Inventory/inventory_page_arrow_prev_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_bag_v06.png,
+				Resources/Art/UI/Inventory/inventory_section_loadout_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_mid_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_paperdoll_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_stats_v05.png,
+				Resources/Art/UI/Inventory/inventory_selection_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_bag_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_bag_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_belt_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_charm_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_cloak_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_coat_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_coat_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_feet_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_feet_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hands_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hands_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hat_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hat_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_holster_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_item_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_item_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_ring_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_ring_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_weapon_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_weapon_v06.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_damage_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_defence_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_resolve_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v01.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v02.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v03.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02_hover.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02_pressed.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02.png,
+				Resources/Art/UI/Journal/journal_row_marker_v02.png,
+				Resources/Art/UI/Journal/journal_row_marker_v03.png,
+				Resources/Art/UI/Map/map_chrome_top_bar_v03.png,
+				Resources/Art/UI/Map/map_city_building_interior_v01.png,
+				Resources/Art/UI/Map/map_city_civic_records_v02.png,
+				Resources/Art/UI/Map/map_city_harborpoint_pd_v02.png,
+				Resources/Art/UI/Map/map_city_lila_street_v02.png,
+				Resources/Art/UI/Map/map_city_riverside_v02.png,
+				Resources/Art/UI/Map/map_city_sable_row_v02.png,
+				Resources/Art/UI/Map/map_city_wharf_ladder_v02.png,
+				Resources/Art/UI/Map/map_detective_office_v03.png,
+				Resources/Art/UI/Map/map_district_icon_civic_records_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_civic_records_v01.png,
+				Resources/Art/UI/Map/map_district_icon_harborpoint_pd_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_harborpoint_pd_v01.png,
+				Resources/Art/UI/Map/map_district_icon_lila_street_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_lila_street_v01.png,
+				Resources/Art/UI/Map/map_district_icon_riverside_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_riverside_v01.png,
+				Resources/Art/UI/Map/map_district_icon_sable_row_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_sable_row_v01.png,
+				Resources/Art/UI/Map/map_district_icon_wharf_ladder_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_wharf_ladder_v01.png,
+				Resources/Art/UI/Map/map_icon_noir_v03_hover.png,
+				Resources/Art/UI/Map/map_icon_noir_v03_pressed.png,
+				Resources/Art/UI/Map/map_icon_noir_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v02.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v04.png,
+				Resources/Audio/Ambience/amb_rain_exterior.m4a,
+				Resources/Audio/Ambience/amb_rain_window.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_01.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_02.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_03.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_04.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_01.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_02.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_03.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_04.m4a,
+				Resources/Audio/SFX/vo_voss_command_01.m4a,
+				Resources/Audio/SFX/vo_voss_command_02.m4a,
+				Resources/Audio/SFX/vo_voss_command_03.m4a,
+				Resources/Audio/SFX/vo_voss_command_04.m4a,
+				Resources/Audio/SFX/vo_voss_selection_01.m4a,
+				Resources/Audio/SFX/vo_voss_selection_02.m4a,
+				Resources/Audio/SFX/vo_voss_selection_03.m4a,
+				Resources/Audio/SFX/vo_voss_selection_rare_01.m4a,
+				Resources/Audio/Voice/vo_lila_entrance_case.m4a,
+				Resources/Audio/Voice/vo_lila_entrance.m4a,
+				Resources/Audio/Voice/vo_lila_key_reveal_b.m4a,
+				Resources/Audio/Voice/vo_lila_key_reveal.m4a,
+				Resources/Audio/Voice/vo_lila_plea_b.m4a,
+				Resources/Audio/Voice/vo_lila_plea.m4a,
+				Resources/Audio/Voice/vo_lila_police_story_b.m4a,
+				Resources/Audio/Voice/vo_lila_police_story.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical3.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good3.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral3.m4a,
+				Resources/Audio/Voice/vo_lila_triad_key.m4a,
+				Resources/Audio/Voice/vo_lila_triad_police.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_1.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_2.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_3.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_4.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_5.m4a,
+				"Resources/Dialogue/empty-coat.desk-monologue.dialogue.json",
+				"Resources/Dialogue/empty-coat.intro.dialogue.json",
+				"Resources/Dialogue/office.hotspot-inspect.dialogue-catalog.json",
+				Resources/Dialogue/strings.en.json,
+				Resources/Items/harborpoint.items.json,
+				Scenes/CityDistrict/CityDistrictScene.swift,
+				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
+				Scenes/OpeningExterior/OpeningExteriorScene.swift,
+				UI/ActionBarNode.swift,
+				UI/AreaMapOverlay.swift,
+				UI/DialoguePresenter.swift,
+				UI/DialogueScrollbarNode.swift,
+				UI/InventoryOverlay.swift,
+				UI/JournalOverlay.swift,
+				UI/LootContainerPanelNode.swift,
+				UI/PortraitBarNode.swift,
+				UI/QuickLootBarNode.swift,
+				UI/UIPaintedChrome.swift,
+				UI/UITheme.swift,
+				UI/WorldMapOverlay.swift,
+			);
+			target = DAAF9D21300A69350071746D /* RainShadow iOS */;
+		};
+		DAAF9D5C300A69350071746D /* Exceptions for "RainShadow iOS" folder in "RainShadow iOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DAAF9D21300A69350071746D /* RainShadow iOS */;
+		};
+		DAAF9D5D300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow tvOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Actions.sks,
+				Assets.xcassets,
+				GameScene.sks,
+				GameScene.swift,
+			);
+			target = DAAF9D32300A69350071746D /* RainShadow tvOS */;
+		};
+		DAAF9D61300A69350071746D /* Exceptions for "RainShadow tvOS" folder in "RainShadow tvOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DAAF9D32300A69350071746D /* RainShadow tvOS */;
+		};
+		DAAF9D62300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow macOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/GameBootstrap.swift,
+				Assets.xcassets,
+				Core/Assets/GameArt.swift,
+				Core/Diagnostics/AreaLoadTrace.swift,
+				Core/Input/GamePointerEvent.swift,
+				Core/Persistence/GamePreferences.swift,
+				Core/Persistence/SaveStore.swift,
+				Core/Scene/ActorCover.swift,
+				Core/Scene/AreaPlatePager.swift,
+				Core/Scene/AreaRuntime.swift,
+				Core/Scene/BaseGameScene.swift,
+				Core/Scene/CutsceneChromeNodes.swift,
+				Core/Scene/CutsceneDirector.swift,
+				Core/Scene/FogMaskRenderer.swift,
+				Core/Scene/FogOfWarNode.swift,
+				Core/Scene/GameAreaScene.swift,
+				Core/Scene/HighlightOutlineLayer.swift,
+				Core/Scene/IEBlitShader.swift,
+				Core/Scene/IENativeCompositor.swift,
+				Core/Scene/IENativeWorldQA.swift,
+				Core/Scene/IENativeWorldRenderer.swift,
+				Core/Scene/SceneLayer.swift,
+				Core/Scene/SceneRouter.swift,
+				Core/Scene/WallStencilTexture.swift,
+				Gameplay/Actors/ActorSceneLighting.swift,
+				Gameplay/Actors/ClientActorNode.swift,
+				Gameplay/Actors/ContactShadowNode.swift,
+				Gameplay/Actors/CutsceneActorAdapters.swift,
+				Gameplay/Actors/DetectiveActorNode.swift,
+				Gameplay/Actors/GroundCircleNode.swift,
+				Gameplay/Actors/IEAvatarNode.swift,
+				Gameplay/Audio/GameSFX.swift,
+				Gameplay/Audio/RainAudio.swift,
+				Gameplay/Interaction/OfficeHotspot.swift,
+				Gameplay/Navigation/ActorLocomotion.swift,
+				Gameplay/Navigation/ActorLocomotionPacing.swift,
+				Gameplay/Navigation/ActorOccupancy.swift,
+				Gameplay/Navigation/AreaAmbientPlayback.swift,
+				Gameplay/Navigation/AreaCatalogLoader.swift,
+				Gameplay/Navigation/AreaCoverAuthoring.swift,
+				Gameplay/Navigation/AreaDefinition.swift,
+				Gameplay/Navigation/AreaLightMap.swift,
+				Gameplay/Navigation/AreaPlatePageManifest.swift,
+				Gameplay/Navigation/AreaScript.swift,
+				Gameplay/Navigation/AreaScriptCatalog.swift,
+				Gameplay/Navigation/AreaSearchMapLoader.swift,
+				Gameplay/Navigation/AreaTriggerTracker.swift,
+				Gameplay/Navigation/AreaVariables.swift,
+				Gameplay/Navigation/AreaViewport.swift,
+				Gameplay/Navigation/AreaWallStencil.swift,
+				Gameplay/Navigation/BreakableCutsceneGate.swift,
+				Gameplay/Navigation/CameraZoom.swift,
+				Gameplay/Navigation/CaseDialogueModels.swift,
+				Gameplay/Navigation/CharacterInventory.swift,
+				Gameplay/Navigation/CityBlockGrid.swift,
+				Gameplay/Navigation/CityDistrictAreaAdapter.swift,
+				Gameplay/Navigation/CityDistrictCatalog.swift,
+				Gameplay/Navigation/CityDistrictLayout.swift,
+				Gameplay/Navigation/CityHighlightOutlinePolygons.swift,
+				Gameplay/Navigation/CityHighlightOutlines.swift,
+				Gameplay/Navigation/CityStreetPlan.swift,
+				Gameplay/Navigation/CityWorldMap.swift,
+				Gameplay/Navigation/Cutscene.swift,
+				Gameplay/Navigation/CutsceneCatalog.swift,
+				Gameplay/Navigation/CutsceneRunner.swift,
+				Gameplay/Navigation/DefaultPlayZoom.swift,
+				Gameplay/Navigation/DialogueApproach.swift,
+				Gameplay/Navigation/DialogueDeferralState.swift,
+				Gameplay/Navigation/DialogueGraphCatalog.swift,
+				Gameplay/Navigation/DialogueGraphLoader.swift,
+				Gameplay/Navigation/DialoguePanelLayout.swift,
+				Gameplay/Navigation/DialogueScrollbarGeometry.swift,
+				Gameplay/Navigation/DialogueSession.swift,
+				Gameplay/Navigation/DialogueStateModels.swift,
+				Gameplay/Navigation/DialogueStringTable.swift,
+				Gameplay/Navigation/DialogueTextMetrics.swift,
+				Gameplay/Navigation/DialogueTranscript.swift,
+				Gameplay/Navigation/DialogueVoiceResref.swift,
+				Gameplay/Navigation/DrawQueue.swift,
+				Gameplay/Navigation/EmptyCoatCaseIntroduction.swift,
+				Gameplay/Navigation/EmptyCoatJournalContent.swift,
+				Gameplay/Navigation/EncumbranceRules.swift,
+				Gameplay/Navigation/EquipmentSlot.swift,
+				Gameplay/Navigation/FogEdgeMask.swift,
+				Gameplay/Navigation/FogGrid.swift,
+				Gameplay/Navigation/GameClock.swift,
+				Gameplay/Navigation/Geometry.swift,
+				Gameplay/Navigation/GroundCircle.swift,
+				Gameplay/Navigation/GroundPileState.swift,
+				Gameplay/Navigation/HighlightableObject.swift,
+				Gameplay/Navigation/HighlightGeometry.swift,
+				Gameplay/Navigation/HighlightResolver.swift,
+				Gameplay/Navigation/HUDChromeLayout.swift,
+				Gameplay/Navigation/IEBlit.swift,
+				Gameplay/Navigation/IEColorCycle.swift,
+				Gameplay/Navigation/IEGradientTables.swift,
+				Gameplay/Navigation/IEIndexedSprite.swift,
+				Gameplay/Navigation/IENativeViewport.swift,
+				Gameplay/Navigation/IEPalette.swift,
+				Gameplay/Navigation/IEPaperdollColours.swift,
+				Gameplay/Navigation/IEResample.swift,
+				Gameplay/Navigation/IESoftwareBlit.swift,
+				Gameplay/Navigation/InventoryItemPresentation.swift,
+				Gameplay/Navigation/InventoryScreenLayout.swift,
+				Gameplay/Navigation/ItemCatalogLoader.swift,
+				Gameplay/Navigation/ItemDefinition.swift,
+				Gameplay/Navigation/LogicTickClock.swift,
+				Gameplay/Navigation/LootSystem.swift,
+				Gameplay/Navigation/Movable.swift,
+				Gameplay/Navigation/MovementAudioTiming.swift,
+				Gameplay/Navigation/MovementOrderQueue.swift,
+				Gameplay/Navigation/MovementProfile.swift,
+				Gameplay/Navigation/NavigationMap.swift,
+				Gameplay/Navigation/OfficeAreaAdapter.swift,
+				Gameplay/Navigation/OfficeCaseFileMonologue.swift,
+				Gameplay/Navigation/OfficeClientVisitSequencer.swift,
+				Gameplay/Navigation/OfficeHighlightOutlinePolygons.swift,
+				Gameplay/Navigation/OfficeHighlightOutlines.swift,
+				Gameplay/Navigation/OfficeHotspotDialogue.swift,
+				Gameplay/Navigation/OfficeInteriorScale.swift,
+				Gameplay/Navigation/OfficeNavigationLayout.swift,
+				Gameplay/Navigation/Orientation.swift,
+				Gameplay/Navigation/Path.swift,
+				Gameplay/Navigation/PathFinder.swift,
+				Gameplay/Navigation/PLTSprite.swift,
+				Gameplay/Navigation/SearchMap.swift,
+				Gameplay/Navigation/SearchMapTerrain.swift,
+				Gameplay/Navigation/SearchMapVisibility.swift,
+				Gameplay/Navigation/WorldCursor.swift,
+				Gameplay/Navigation/WorldPauseController.swift,
+				Gameplay/Weather/RainSystem.swift,
+				Resources/Areas/city_building_interior_v01.lm.png,
+				Resources/Areas/city_building_interior_v01.sr.png,
+				Resources/Areas/city_civic_records.area.json,
+				Resources/Areas/city_civic_records.lm.png,
+				Resources/Areas/city_civic_records.sr.png,
+				Resources/Areas/city_harborpoint_pd.area.json,
+				Resources/Areas/city_harborpoint_pd.lm.png,
+				Resources/Areas/city_harborpoint_pd.sr.png,
+				Resources/Areas/city_lila_street.area.json,
+				Resources/Areas/city_lila_street.lm.png,
+				Resources/Areas/city_lila_street.sr.png,
+				Resources/Areas/city_riverside.area.json,
+				Resources/Areas/city_riverside.lm.png,
+				Resources/Areas/city_riverside.sr.png,
+				Resources/Areas/city_sable_row.area.json,
+				Resources/Areas/city_sable_row.lm.png,
+				Resources/Areas/city_sable_row.sr.png,
+				Resources/Areas/city_wharf_ladder.area.json,
+				Resources/Areas/city_wharf_ladder.lm.png,
+				Resources/Areas/city_wharf_ladder.sr.png,
+				Resources/Areas/interior_iron_stairs.area.json,
+				Resources/Areas/interior_lila_rooms.area.json,
+				Resources/Areas/interior_police_station.area.json,
+				Resources/Areas/interior_records_annex.area.json,
+				Resources/Areas/interior_shipping_office.area.json,
+				Resources/Areas/office_suite.area.json,
+				Resources/Areas/office_suite.ht.png,
+				Resources/Areas/office_suite.lm.png,
+				Resources/Areas/office_suite.sr.png,
+				Resources/Areas/opening_exterior.area.json,
+				Resources/Art/Areas/CityDistrict/city_district_block_v01.png,
+				Resources/Art/Areas/CityDistrict/city_district_block_v02.png,
+				Resources/Art/Areas/CityDistrict/city_district_ground_v01.png,
+				Resources/Art/Areas/CityDistrict/city_district_ground_v02.png,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_civic_records_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_harborpoint_pd_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_lila_street_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_riverside_block_v02.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01.pages.json,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c00_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c01_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c02_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c03_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r00.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r01.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r02.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r03.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02_page_c04_r04.jpg,
+				Resources/Art/Areas/CityDistrict/V2/city_wharf_ladder_block_v02.pages.json,
+				Resources/Art/Areas/DetectiveOffice/city_building_interior_v01.png,
+				Resources/Art/Areas/DetectiveOffice/office_shadow_vignette.png,
+				Resources/Art/Areas/DetectiveOffice/office_shell_base.png,
+				Resources/Art/Areas/DetectiveOffice/office_suite_plate.png,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c00_r00.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c00_r01.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c01_r00.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02_page_c01_r01.jpg,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base_hd_v02.pages.json,
+				Resources/Art/Areas/OpeningExterior/ext_apartment_base.png,
+				Resources/Art/Atlases/LilaArrival.atlas,
+				Resources/Art/Atlases/VossIdle.atlas,
+				Resources/Art/Atlases/VossSeatedArms.atlas,
+				Resources/Art/Atlases/VossSeatedIdle.atlas,
+				Resources/Art/Atlases/VossSeatTransitions.atlas,
+				Resources/Art/Atlases/VossWalk.atlas,
+				Resources/Art/IE/pal16.bin,
+				Resources/Art/IE/pal256.bin,
+				Resources/Art/Props/CityDistrict/city_bench.png,
+				Resources/Art/Props/CityDistrict/city_building_central.png,
+				Resources/Art/Props/CityDistrict/city_building_mid.png,
+				Resources/Art/Props/CityDistrict/city_building_ne.png,
+				Resources/Art/Props/CityDistrict/city_building_nw.png,
+				Resources/Art/Props/CityDistrict/city_building_se.png,
+				Resources/Art/Props/CityDistrict/city_building_sw.png,
+				Resources/Art/Props/CityDistrict/city_car_black.png,
+				Resources/Art/Props/CityDistrict/city_car_maroon.png,
+				Resources/Art/Props/CityDistrict/city_car_olive.png,
+				Resources/Art/Props/CityDistrict/city_crates_mail.png,
+				Resources/Art/Props/CityDistrict/city_gate.png,
+				Resources/Art/Props/CityDistrict/city_kiosk.png,
+				Resources/Art/Props/CityDistrict/city_lamp.png,
+				Resources/Art/Props/CityDistrict/city_statue.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_abutment.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_boarding.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_dock_shed.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_gatehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_iron_stairs.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_alcove.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_neighbor.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_opposite.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_lila_rooms.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_alley.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_plaza_wall.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_pd_station.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_rail_lamp.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_colonnade.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_plaza.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_records_wing.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_river_watch.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_row_corner.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_rowhouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_shipping_office.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_shop.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_storefront.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_tenement.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_voss_stoop.png,
+				Resources/Art/Props/CityDistrict/V2/city_building_warehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_corner_shops.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_north_skyline.png,
+				Resources/Art/Props/CityDistrict/V2/city_district_sable_south_row.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_boarding.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_dock_shed.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_gatehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_iron_stairs.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_alcove.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_neighbor.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_opposite.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_rooms_b.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_lila_rooms.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_alley.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_pd_station.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_annex.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_colonnade.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_records_wing.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_river_watch.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_rowhouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_shipping_office.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_shop.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_storefront.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_tenement.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_voss_stoop_garage.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_voss_stoop.png,
+				Resources/Art/Props/CityDistrict/V2/city_door_warehouse.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_bench.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_black.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_maroon.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_car_olive.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_crates_mail.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_gate.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_kiosk.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_lamp.png,
+				Resources/Art/Props/CityDistrict/V2/city_prop_statue.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_0_0.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_1_1.png,
+				"Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_2_-3.png",
+				"Resources/Art/Props/CityDistrict/V2/city_sable_lot_edge_3_-2.png",
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_harborVoss.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_harborWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_skylineEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_skylineWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_southEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_southWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_upperEast.png,
+				Resources/Art/Props/CityDistrict/V2/city_sable_lot_upperWest.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_far_a.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_far_b.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_ne.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_nw.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_se.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_south_e.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_south_w.png,
+				Resources/Art/Props/CityDistrict/V2/city_terrace_sable_sw.png,
+				Resources/Art/Props/Office/office_archive_box_a.png,
+				Resources/Art/Props/Office/office_archive_box_b.png,
+				Resources/Art/Props/Office/office_archive_stack.png,
+				Resources/Art/Props/Office/office_bookshelf.png,
+				Resources/Art/Props/Office/office_cabinet_floor_shadow.png,
+				Resources/Art/Props/Office/office_case_board.png,
+				Resources/Art/Props/Office/office_coat_rack.png,
+				Resources/Art/Props/Office/office_desk_actor_occluder_hover.png,
+				Resources/Art/Props/Office/office_desk_actor_occluder.png,
+				Resources/Art/Props/Office/office_desk_ashtray.png,
+				Resources/Art/Props/Office/office_desk_bare_hover.png,
+				Resources/Art/Props/Office/office_desk_bare.png,
+				Resources/Art/Props/Office/office_desk_chair.png,
+				Resources/Art/Props/Office/office_desk_ensemble.png,
+				Resources/Art/Props/Office/office_desk_files_hover.png,
+				Resources/Art/Props/Office/office_desk_files.png,
+				Resources/Art/Props/Office/office_desk_floor_shadow.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v02.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v03_hover.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v03.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v04_hover.png,
+				Resources/Art/Props/Office/office_desk_front_occluder_v04.png,
+				Resources/Art/Props/Office/office_desk_front_occluder.png,
+				Resources/Art/Props/Office/office_desk_lamp.png,
+				Resources/Art/Props/Office/office_desk_mug.png,
+				Resources/Art/Props/Office/office_desk_notebook.png,
+				Resources/Art/Props/Office/office_desk_papers.png,
+				Resources/Art/Props/Office/office_desk_phone_hover.png,
+				Resources/Art/Props/Office/office_desk_phone.png,
+				Resources/Art/Props/Office/office_desk_top_occluder_hover.png,
+				Resources/Art/Props/Office/office_desk_top_occluder.png,
+				Resources/Art/Props/Office/office_desk_typewriter.png,
+				Resources/Art/Props/Office/office_door_foreground_jamb.png,
+				Resources/Art/Props/Office/office_door_frame.png,
+				Resources/Art/Props/Office/office_door_leaf_closed.png,
+				Resources/Art/Props/Office/office_door_leaf_fallen.png,
+				Resources/Art/Props/Office/office_door_leaf_thickness.png,
+				Resources/Art/Props/Office/office_entrance_runner.png,
+				Resources/Art/Props/Office/office_filing_cabinet_open.png,
+				Resources/Art/Props/Office/office_filing_cabinet.png,
+				Resources/Art/Props/Office/office_floor_trash_a.png,
+				Resources/Art/Props/Office/office_floor_trash_b.png,
+				Resources/Art/Props/Office/office_floor_trash_c.png,
+				Resources/Art/Props/Office/office_floor_wear_decal.png,
+				Resources/Art/Props/Office/office_foreground_cutaway.png,
+				Resources/Art/Props/Office/office_framed_licence.png,
+				Resources/Art/Props/Office/office_framed_photo.png,
+				Resources/Art/Props/Office/office_hidden_bottle.png,
+				Resources/Art/Props/Office/office_internal_door_leaf.png,
+				Resources/Art/Props/Office/office_light_blind_stripes.png,
+				Resources/Art/Props/Office/office_light_hallway.png,
+				Resources/Art/Props/Office/office_light_lamp_pool.png,
+				Resources/Art/Props/Office/office_light_window_spill.png,
+				Resources/Art/Props/Office/office_newspaper.png,
+				Resources/Art/Props/Office/office_partition_cutaway_mask.png,
+				Resources/Art/Props/Office/office_partition_wall_cutaway.png,
+				Resources/Art/Props/Office/office_partition_wall.png,
+				Resources/Art/Props/Office/office_pencil_tray.png,
+				Resources/Art/Props/Office/office_personal_fan.png,
+				Resources/Art/Props/Office/office_personal_glass.png,
+				Resources/Art/Props/Office/office_personal_sideboard.png,
+				Resources/Art/Props/Office/office_personal_washbasin.png,
+				Resources/Art/Props/Office/office_radiator.png,
+				Resources/Art/Props/Office/office_safe.png,
+				Resources/Art/Props/Office/office_shadow_ceiling_fan.png,
+				Resources/Art/Props/Office/office_umbrella_stand.png,
+				Resources/Art/Props/Office/office_visitor_armchair.png,
+				Resources/Art/Props/Office/office_waiting_ashtray.png,
+				Resources/Art/Props/Office/office_waiting_chair_a.png,
+				Resources/Art/Props/Office/office_waiting_chair_b.png,
+				Resources/Art/Props/Office/office_waiting_table.png,
+				Resources/Art/Props/Office/office_wall_city_map.png,
+				Resources/Art/Props/Office/office_wall_photos.png,
+				Resources/Art/Props/Office/office_wastebasket.png,
+				Resources/Art/Props/Office/office_window_blinds.png,
+				Resources/Art/Props/Office/office_window_exterior_view.png,
+				Resources/Art/Props/Office/office_window_frame.png,
+				Resources/Art/Props/Office/office_window_glass_mask.png,
+				Resources/Art/Props/Office/office_window_hover_overlay.png,
+				Resources/Art/Props/Office/office_window_hover.png,
+				Resources/Art/Props/Office/office_window_sill_occluder.png,
+				Resources/Art/Props/Office/office_window.png,
+				Resources/Art/Props/Office/office_worn_rug_burgundy.png,
+				Resources/Art/Props/Office/office_worn_rug.png,
+				Resources/Art/UI/Common/det_contact_shadow_soft.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v09.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v10.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v11.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v12.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v13.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v14.png,
+				Resources/Art/UI/Common/inventory_close_box_macos9_noir_v15.png,
+				Resources/Art/UI/Common/ui_close_box_macos9_noir_v04.png,
+				Resources/Art/UI/Common/ui_close_box_macos9_v01.png,
+				Resources/Art/UI/Common/ui_close_box_noir_v02.png,
+				Resources/Art/UI/Common/ui_close_box_noir_v03.png,
+				Resources/Art/UI/Common/ui_move_marker_00.png,
+				Resources/Art/UI/Common/ui_move_marker_01.png,
+				Resources/Art/UI/Common/ui_move_marker_02.png,
+				Resources/Art/UI/Common/ui_move_marker_03.png,
+				Resources/Art/UI/Common/ui_move_marker_04.png,
+				Resources/Art/UI/Common/ui_move_marker_05.png,
+				Resources/Art/UI/Common/ui_move_marker_06.png,
+				Resources/Art/UI/Common/ui_move_marker_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_00.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_01.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_02.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_03.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_04.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_05.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_06.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
+				Resources/Art/UI/Common/ui_move_marker_blocked.png,
+				Resources/Art/UI/Common/ui_waypoint_pip.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_hover.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_pressed.png,
+				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v08.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v09.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v10.png,
+				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v11.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_harlan_voss_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_lila_march_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_portrait_lila_march_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_area_solid_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_area_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_box_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_pressed_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_down_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v08.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_grip_v09.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_thumb_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_track_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_pressed_v06.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v01.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v02.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v03.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v04.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v05.png,
+				Resources/Art/UI/Dialogue/dialogue_scroll_up_v06.png,
+				Resources/Art/UI/HUD/hud_action_character_v02.png,
+				Resources/Art/UI/HUD/hud_action_character_v03.png,
+				Resources/Art/UI/HUD/hud_action_clock_v02.png,
+				Resources/Art/UI/HUD/hud_action_clock_v03.png,
+				Resources/Art/UI/HUD/hud_action_contacts_v02.png,
+				Resources/Art/UI/HUD/hud_action_contacts_v03.png,
+				Resources/Art/UI/HUD/hud_action_help_v02.png,
+				Resources/Art/UI/HUD/hud_action_help_v03.png,
+				Resources/Art/UI/HUD/hud_action_hide_ui_v02.png,
+				Resources/Art/UI/HUD/hud_action_hide_ui_v03.png,
+				Resources/Art/UI/HUD/hud_action_inventory_v02.png,
+				Resources/Art/UI/HUD/hud_action_inventory_v03.png,
+				Resources/Art/UI/HUD/hud_action_journal_v02.png,
+				Resources/Art/UI/HUD/hud_action_journal_v03.png,
+				Resources/Art/UI/HUD/hud_action_leads_v02.png,
+				Resources/Art/UI/HUD/hud_action_leads_v03.png,
+				Resources/Art/UI/HUD/hud_action_map_v02.png,
+				Resources/Art/UI/HUD/hud_action_map_v03.png,
+				Resources/Art/UI/HUD/hud_action_menu_v02.png,
+				Resources/Art/UI/HUD/hud_action_menu_v03.png,
+				Resources/Art/UI/HUD/hud_action_rest_v02.png,
+				Resources/Art/UI/HUD/hud_action_rest_v03.png,
+				Resources/Art/UI/HUD/hud_action_settings_v02.png,
+				Resources/Art/UI/HUD/hud_action_settings_v03.png,
+				Resources/Art/UI/HUD/hud_left_rail_plate_v02.png,
+				Resources/Art/UI/HUD/hud_left_rail_plate_v03.png,
+				Resources/Art/UI/HUD/hud_loot_container_panel_v02.png,
+				Resources/Art/UI/HUD/hud_loot_take_all_v03.png,
+				Resources/Art/UI/HUD/hud_party_lantern_v02.png,
+				Resources/Art/UI/HUD/hud_party_lantern_v03.png,
+				Resources/Art/UI/HUD/hud_party_search_v02.png,
+				Resources/Art/UI/HUD/hud_party_search_v03.png,
+				Resources/Art/UI/HUD/hud_party_select_v02.png,
+				Resources/Art/UI/HUD/hud_party_select_v03.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v01.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v02.png,
+				Resources/Art/UI/HUD/hud_portrait_frame_v03.png,
+				Resources/Art/UI/HUD/hud_right_rail_plate_v02.png,
+				Resources/Art/UI/HUD/hud_right_rail_plate_v03.png,
+				Resources/Art/UI/Inventory/inventory_case_bag_v05.png,
+				Resources/Art/UI/Inventory/inventory_coin_stack_v05.png,
+				Resources/Art/UI/Inventory/inventory_item_brass_key_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_matchbook_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_service_revolver_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_wallet_v01.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v06.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v07.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v08.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v09.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v10.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v11.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v12.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v13.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v14.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v15.png,
+				Resources/Art/UI/Inventory/inventory_outer_frame_v16.png,
+				Resources/Art/UI/Inventory/inventory_page_arrow_next_v05.png,
+				Resources/Art/UI/Inventory/inventory_page_arrow_prev_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_bag_v06.png,
+				Resources/Art/UI/Inventory/inventory_section_loadout_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_mid_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_paperdoll_v05.png,
+				Resources/Art/UI/Inventory/inventory_section_stats_v05.png,
+				Resources/Art/UI/Inventory/inventory_selection_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_frame_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_bag_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_bag_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_belt_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_charm_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_cloak_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_coat_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_coat_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_feet_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_feet_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hands_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hands_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hat_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_hat_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_holster_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_item_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_item_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_ring_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_ring_v06.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_weapon_v05.png,
+				Resources/Art/UI/Inventory/inventory_slot_silhouette_weapon_v06.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_damage_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_defence_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_resolve_v05.png,
+				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v01.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v02.png,
+				Resources/Art/UI/Journal/journal_casebook_plate_v03.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02_hover.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02_pressed.png,
+				Resources/Art/UI/Journal/journal_icon_noir_v02.png,
+				Resources/Art/UI/Journal/journal_row_marker_v02.png,
+				Resources/Art/UI/Journal/journal_row_marker_v03.png,
+				Resources/Art/UI/Map/map_chrome_top_bar_v03.png,
+				Resources/Art/UI/Map/map_city_building_interior_v01.png,
+				Resources/Art/UI/Map/map_city_civic_records_v02.png,
+				Resources/Art/UI/Map/map_city_harborpoint_pd_v02.png,
+				Resources/Art/UI/Map/map_city_lila_street_v02.png,
+				Resources/Art/UI/Map/map_city_riverside_v02.png,
+				Resources/Art/UI/Map/map_city_sable_row_v02.png,
+				Resources/Art/UI/Map/map_city_wharf_ladder_v02.png,
+				Resources/Art/UI/Map/map_detective_office_v03.png,
+				Resources/Art/UI/Map/map_district_icon_civic_records_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_civic_records_v01.png,
+				Resources/Art/UI/Map/map_district_icon_harborpoint_pd_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_harborpoint_pd_v01.png,
+				Resources/Art/UI/Map/map_district_icon_lila_street_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_lila_street_v01.png,
+				Resources/Art/UI/Map/map_district_icon_riverside_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_riverside_v01.png,
+				Resources/Art/UI/Map/map_district_icon_sable_row_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_sable_row_v01.png,
+				Resources/Art/UI/Map/map_district_icon_wharf_ladder_v01_hover.png,
+				Resources/Art/UI/Map/map_district_icon_wharf_ladder_v01.png,
+				Resources/Art/UI/Map/map_icon_noir_v03_hover.png,
+				Resources/Art/UI/Map/map_icon_noir_v03_pressed.png,
+				Resources/Art/UI/Map/map_icon_noir_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v02.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v03.png,
+				Resources/Art/UI/Map/map_world_harborpoint_v04.png,
+				Resources/Audio/Ambience/amb_rain_exterior.m4a,
+				Resources/Audio/Ambience/amb_rain_window.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_01.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_02.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_03.m4a,
+				Resources/Audio/SFX/sfx_footstep_floorboard_04.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_01.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_02.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_03.m4a,
+				Resources/Audio/SFX/sfx_footstep_wet_stone_04.m4a,
+				Resources/Audio/SFX/vo_voss_command_01.m4a,
+				Resources/Audio/SFX/vo_voss_command_02.m4a,
+				Resources/Audio/SFX/vo_voss_command_03.m4a,
+				Resources/Audio/SFX/vo_voss_command_04.m4a,
+				Resources/Audio/SFX/vo_voss_selection_01.m4a,
+				Resources/Audio/SFX/vo_voss_selection_02.m4a,
+				Resources/Audio/SFX/vo_voss_selection_03.m4a,
+				Resources/Audio/SFX/vo_voss_selection_rare_01.m4a,
+				Resources/Audio/Voice/vo_lila_entrance_case.m4a,
+				Resources/Audio/Voice/vo_lila_entrance.m4a,
+				Resources/Audio/Voice/vo_lila_key_reveal_b.m4a,
+				Resources/Audio/Voice/vo_lila_key_reveal.m4a,
+				Resources/Audio/Voice/vo_lila_plea_b.m4a,
+				Resources/Audio/Voice/vo_lila_plea.m4a,
+				Resources/Audio/Voice/vo_lila_police_story_b.m4a,
+				Resources/Audio/Voice/vo_lila_police_story.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_cynical3.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_good3.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral1_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral1.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral2_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral2.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral3_b.m4a,
+				Resources/Audio/Voice/vo_lila_reply_neutral3.m4a,
+				Resources/Audio/Voice/vo_lila_triad_key.m4a,
+				Resources/Audio/Voice/vo_lila_triad_police.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_1.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_2.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_3.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_4.m4a,
+				Resources/Audio/Voice/vo_voss_monologue_5.m4a,
+				"Resources/Dialogue/empty-coat.desk-monologue.dialogue.json",
+				"Resources/Dialogue/empty-coat.intro.dialogue.json",
+				"Resources/Dialogue/office.hotspot-inspect.dialogue-catalog.json",
+				Resources/Dialogue/strings.en.json,
+				Resources/Items/harborpoint.items.json,
+				Scenes/CityDistrict/CityDistrictScene.swift,
+				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
+				Scenes/OpeningExterior/OpeningExteriorScene.swift,
+				UI/ActionBarNode.swift,
+				UI/AreaMapOverlay.swift,
+				UI/DialoguePresenter.swift,
+				UI/DialogueScrollbarNode.swift,
+				UI/InventoryOverlay.swift,
+				UI/JournalOverlay.swift,
+				UI/LootContainerPanelNode.swift,
+				UI/PortraitBarNode.swift,
+				UI/QuickLootBarNode.swift,
+				UI/UIPaintedChrome.swift,
+				UI/UITheme.swift,
+				UI/WorldMapOverlay.swift,
+			);
+			target = DAAF9D42300A69350071746D /* RainShadow macOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DAAF9D19300A69330071746D /* RainShadow Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DAAF9D58300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow iOS" target */,
+				DAAF9D5D300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow tvOS" target */,
+				DAAF9D62300A69350071746D /* Exceptions for "RainShadow Shared" folder in "RainShadow macOS" target */,
+			);
+			path = "RainShadow Shared";
+			sourceTree = "<group>";
+		};
+		DAAF9D24300A69350071746D /* RainShadow iOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DAAF9D5C300A69350071746D /* Exceptions for "RainShadow iOS" folder in "RainShadow iOS" target */,
+			);
+			path = "RainShadow iOS";
+			sourceTree = "<group>";
+		};
+		DAAF9D34300A69350071746D /* RainShadow tvOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DAAF9D61300A69350071746D /* Exceptions for "RainShadow tvOS" folder in "RainShadow tvOS" target */,
+			);
+			path = "RainShadow tvOS";
+			sourceTree = "<group>";
+		};
+		DAAF9D44300A69350071746D /* RainShadow macOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "RainShadow macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAAF9D1F300A69350071746D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		DAAF9D30300A69350071746D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		DAAF9D40300A69350071746D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C0DE1EA00000000000000003 /* Indexed Avatar Bundles */ = {
+			isa = PBXGroup;
+			children = (
+				C0DE1EA00000000000000001 /* Lila */,
+				C0DE1EA00000000000000002 /* Voss */,
+			);
+			name = "Indexed Avatar Bundles";
+			sourceTree = "<group>";
+		};
+		DAAF9D14300A69330071746D = {
+			isa = PBXGroup;
+			children = (
+				C0DE1EA00000000000000003 /* Indexed Avatar Bundles */,
+				DAAF9D19300A69330071746D /* RainShadow Shared */,
+				DAAF9D24300A69350071746D /* RainShadow iOS */,
+				DAAF9D34300A69350071746D /* RainShadow tvOS */,
+				DAAF9D44300A69350071746D /* RainShadow macOS */,
+				DAAF9D23300A69350071746D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAAF9D23300A69350071746D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAAF9D22300A69350071746D /* RainShadow.app */,
+				DAAF9D33300A69350071746D /* RainShadow.app */,
+				DAAF9D43300A69350071746D /* RainShadow.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAAF9D21300A69350071746D /* RainShadow iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAAF9D59300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow iOS" */;
+			buildPhases = (
+				DAAF9D1E300A69350071746D /* Sources */,
+				DAAF9D1F300A69350071746D /* Frameworks */,
+				DAAF9D20300A69350071746D /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				DAAF9D24300A69350071746D /* RainShadow iOS */,
+			);
+			name = "RainShadow iOS";
+			productName = "RainShadow iOS";
+			productReference = DAAF9D22300A69350071746D /* RainShadow.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAAF9D32300A69350071746D /* RainShadow tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAAF9D5E300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow tvOS" */;
+			buildPhases = (
+				DAAF9D2F300A69350071746D /* Sources */,
+				DAAF9D30300A69350071746D /* Frameworks */,
+				DAAF9D31300A69350071746D /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				DAAF9D34300A69350071746D /* RainShadow tvOS */,
+			);
+			name = "RainShadow tvOS";
+			productName = "RainShadow tvOS";
+			productReference = DAAF9D33300A69350071746D /* RainShadow.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAAF9D42300A69350071746D /* RainShadow macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAAF9D63300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow macOS" */;
+			buildPhases = (
+				DAAF9D3F300A69350071746D /* Sources */,
+				DAAF9D40300A69350071746D /* Frameworks */,
+				DAAF9D41300A69350071746D /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				DAAF9D44300A69350071746D /* RainShadow macOS */,
+			);
+			name = "RainShadow macOS";
+			productName = "RainShadow macOS";
+			productReference = DAAF9D43300A69350071746D /* RainShadow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAAF9D15300A69330071746D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					DAAF9D21300A69350071746D = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					DAAF9D32300A69350071746D = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					DAAF9D42300A69350071746D = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = DAAF9D18300A69330071746D /* Build configuration list for PBXProject "RainShadow" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAAF9D14300A69330071746D;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DAAF9D23300A69350071746D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAAF9D21300A69350071746D /* RainShadow iOS */,
+				DAAF9D32300A69350071746D /* RainShadow tvOS */,
+				DAAF9D42300A69350071746D /* RainShadow macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAAF9D20300A69350071746D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C0DE1EA00000000000000011 /* Lila in Resources */,
+				C0DE1EA00000000000000012 /* Voss in Resources */,
+			);
+		};
+		DAAF9D31300A69350071746D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		DAAF9D41300A69350071746D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C0DE1EA00000000000000021 /* Lila in Resources */,
+				C0DE1EA00000000000000022 /* Voss in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAAF9D1E300A69350071746D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		DAAF9D2F300A69350071746D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		DAAF9D3F300A69350071746D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DAAF9D5A300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow iOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "RainShadow iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laurensvanoorschot.rainshadow;
+				PRODUCT_NAME = RainShadow;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAAF9D5B300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow iOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "RainShadow iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laurensvanoorschot.rainshadow;
+				PRODUCT_NAME = RainShadow;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAAF9D5F300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow tvOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "RainShadow tvOS/Info.plist";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Laurens-van-Oorschot.RainShadow";
+				PRODUCT_NAME = RainShadow;
+				SDKROOT = appletvos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		DAAF9D60300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow tvOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "RainShadow tvOS/Info.plist";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Laurens-van-Oorschot.RainShadow";
+				PRODUCT_NAME = RainShadow;
+				SDKROOT = appletvos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAAF9D64300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow macOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laurensvanoorschot.rainshadow.macos;
+				PRODUCT_NAME = RainShadow;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DAAF9D65300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow macOS" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laurensvanoorschot.rainshadow.macos;
+				PRODUCT_NAME = RainShadow;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DAAF9D66300A69350071746D /* Debug configuration for PBXProject "RainShadow" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAAF9D67300A69350071746D /* Release configuration for PBXProject "RainShadow" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = T2NFCUAHTJ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAAF9D18300A69330071746D /* Build configuration list for PBXProject "RainShadow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAAF9D66300A69350071746D /* Debug configuration for PBXProject "RainShadow" */,
+				DAAF9D67300A69350071746D /* Release configuration for PBXProject "RainShadow" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DAAF9D59300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAAF9D5A300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow iOS" */,
+				DAAF9D5B300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow iOS" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DAAF9D5E300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAAF9D5F300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow tvOS" */,
+				DAAF9D60300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow tvOS" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DAAF9D63300A69350071746D /* Build configuration list for PBXNativeTarget "RainShadow macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAAF9D64300A69350071746D /* Debug configuration for PBXNativeTarget "RainShadow macOS" */,
+				DAAF9D65300A69350071746D /* Release configuration for PBXNativeTarget "RainShadow macOS" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAAF9D15300A69330071746D /* Project object */;
+	validationLevel = 1;
+}

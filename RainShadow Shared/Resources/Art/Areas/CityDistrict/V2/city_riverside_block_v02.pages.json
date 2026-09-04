@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "plateTextureName": "city_riverside_block_v02",
+  "worldSize": {
+    "w": 5120.0,
+    "h": 3840.0
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_riverside_block_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "0e22cfcd528d3e1fd6709c20260d004f1fdd454243990ac1bdab4c2b30584cb5"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_riverside_block_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "cc98bd3799b37d148a091be4b9cc20afcc8d06aeea6ecedc91ec00d92cb3183f"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_riverside_block_v02_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "167ac6ee973ce136e7a89079d4bd080ccc063413fa2a6199845b8f0f9a343803"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_riverside_block_v02_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ba9a4914bec058e5822c77718dac26546255495fa05520f44484faf36b9dbc4c"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_riverside_block_v02_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ab34cbf85740c2dd8eed5f53646bb4717fd99d99f878cad704ca883aad8108f9"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_riverside_block_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3937daaa964167b1753dc96075f7d0d372dbf33d3b95c2a01892578bcb49ee28"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_riverside_block_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "fd0b4ca1aa60dbfe113bc896044c4921ca6f781027470add5fa6325221426958"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_riverside_block_v02_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b6f5e61c92de3feabc68ea0dd5b7963794dbd384883cbcffa4127e07acbe890b"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_riverside_block_v02_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9874566ed428db3a85c4103fa353ba2c46baec58b2f4a4870967f1055c8e81aa"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_riverside_block_v02_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "7847f37dcb5fa2493ca36d5f8a0ac1f64c49873bcd442a117118705f06a9e3ff"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_riverside_block_v02_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "798b28655663e4bc26a6593252e62dac2346540c1634e2360768acfea0a45da3"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_riverside_block_v02_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "920ba6181d5cb97ee3b6078539c94fedaa54f330501a3ca1c63ff0b54bee377a"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_riverside_block_v02_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "5a29fbb7c80310e7b0025c1138c2d78b41aedeb8a1264054e7f4dac213d74cfb"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_riverside_block_v02_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e17b3a9a6c9eb84fb245f852c0cfb6f2393f5786bb8e689b334b17693568aa66"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_riverside_block_v02_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6d979b2c59c60ae1d1df4edda75ae611bd89fa4a511adf004b13e8440a0173fa"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_riverside_block_v02_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "cf112b7c996a4d44f010606ceb55a66a99f88ab362147828bafc8018f1235a8e"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_riverside_block_v02_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "c9519ff8d26bb21d3fdf72b85d36c853069c19a85cd98500ea87ad2c850ab962"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_riverside_block_v02_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "a25963bce1ac5e68c2e939a4f869b5babe71b339f08dc83fd494ca098222855e"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_riverside_block_v02_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "983b2c0af3b2c9bf90cf0c53577a0352e307df4944c56ebbc616bc4e3874c2b2"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_riverside_block_v02_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "a798463b2eb7eedd4f519a6fde6c4f13c1d597b52a51668d8f9b014e4f4e34c3"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_riverside_block_v02_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9d204b8e6122c262d480cbf770670e6a41da573282113c32b2d2b2d3675ba489"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_riverside_block_v02_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "98aa95974fc5746dfe38f6c33adcb62f14cb20619e200b447bd43f6f2ce78b5f"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_riverside_block_v02_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "729dfe40862e3708f488610c46bbe438a94265f9162b43adec3b587049051f83"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_riverside_block_v02_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "643484ee985c16683ae6e3883f259c10bc6958be499a859d26be65ba0ef1a9b3"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_riverside_block_v02_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3ac3c15ec7f2dca4c8dc6d02c5194763cab86f643baabc3e4796f39c266c3a35"
+    }
+  ],
+  "artMetrics": {
+    "registeredCore": [
+      4096.0,
+      3072.0
+    ],
+    "registeredCoreSource": "72 reviewed foreground-matted unique lot paintings",
+    "literalWEDTiles": [
+      80,
+      60
+    ],
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 1.4140625,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    },
+    "outerGroundDetailBlend": {
+      "c04_r00": 0.24,
+      "c04_r01": 0.24,
+      "c04_r02": 0.24,
+      "c04_r03": 0.24,
+      "c00_r04": 0.24,
+      "c01_r04": 0.24,
+      "c02_r04": 0.24,
+      "c03_r04": 0.0,
+      "c04_r04": 0.06
+    },
+    "projectionFailures": []
+  }
+}

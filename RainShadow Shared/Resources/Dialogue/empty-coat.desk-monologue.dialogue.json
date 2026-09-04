@@ -1,0 +1,31 @@
+{
+  "id": "case.empty-coat.desk-monologue",
+  "nodes": [
+    {
+      "id": "voss.desk.casefile.1",
+      "isInteriorMonologue": true,
+      "nextNodeID": "voss.desk.casefile.2",
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.empty-coat.desk-monologue.node.voss.desk.casefile.1.text"
+    },
+    {
+      "id": "voss.desk.casefile.2",
+      "isInteriorMonologue": true,
+      "nextNodeID": "voss.desk.casefile.end",
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.empty-coat.desk-monologue.node.voss.desk.casefile.2.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "voss.desk.casefile.end",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.empty-coat.desk-monologue.node.voss.desk.casefile.end.text"
+    }
+  ],
+  "schemaVersion": 1,
+  "startNodeID": "voss.desk.casefile.1"
+}

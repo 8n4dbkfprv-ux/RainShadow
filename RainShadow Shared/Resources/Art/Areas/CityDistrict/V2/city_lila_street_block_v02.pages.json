@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "plateTextureName": "city_lila_street_block_v02",
+  "worldSize": {
+    "w": 5120.0,
+    "h": 3840.0
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_lila_street_block_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "36f0375ad59834da629f5572cfa993c704fcf786a2a0e689f54457edded44db4"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_lila_street_block_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "a023072632a5e23d83a80207188c0eaeb83fd42726997e3bb76fced1d2ffb31b"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_lila_street_block_v02_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "8a6f1e7e25a9fe887fb3800b6bed8bc364d77c1e42edefb575baf5df86fa8fda"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_lila_street_block_v02_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "fe20d6c6ee0d7f9c6bb2abb4c130145b5facbce63da2943caa1deabcf2062161"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_lila_street_block_v02_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "44027fad9c7f516de1933464d55dc235451a1fd3f6698028c315f2438231001b"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_lila_street_block_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "638065df3bac596de0396ce9ad57c40b2f82c5ebe2a0cb00c0355d7cae834a2f"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_lila_street_block_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3427eb8609d483c20d41ab8658c62686185e9eacd0a247516324766b7b3f7d6f"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_lila_street_block_v02_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "11b5ebde777cbe3bafb70639dfdd7beed1bbbaa755cd9279e35523395a81b02b"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_lila_street_block_v02_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "52fc396db208335b0b6b22a4a9f93cbfa285aac4f07fb7bbfe7b116cedb59fdf"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_lila_street_block_v02_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b296f7ab223bae3c4c0572100d9bd3148b63ef4b473bf5638d387edce750c0f4"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_lila_street_block_v02_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "d40a0df62075f8d48d06b0f95f4ac738a205e186c17c889ab296cd3b5fe20454"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_lila_street_block_v02_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "d48f39da1b5a0266e106bd85a4c679c4922707342b502ddbd24ed46ab2b1b175"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_lila_street_block_v02_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6d4b4c556c4ebe1bba33457b6a936b357a9d8a88e0139b7a3ee19542b1766b3e"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_lila_street_block_v02_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "bdf4b5964c391ec6db728d30f53360de2b6837ea55db828b45d8c3f6e6a9cf47"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_lila_street_block_v02_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "60e58006df2a49b0eb71f41808f30e2fc66b2f2b5dcac06fa79c24d5fc6f410c"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_lila_street_block_v02_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6864facd5bbb26688ffc9a77e3b00bf5c41aa2f9faae9e5d91bb03c9aac191a7"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_lila_street_block_v02_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4f75de3c16e1899fee61e8f829f64f20ac17c9cb5ebd08ef8fa9ec1f902bec64"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_lila_street_block_v02_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "cb72ca2015db82c8f4e91c1bcf687088b5adc7b8f0ec8cb51e1cfd8d472b54f9"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_lila_street_block_v02_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "1d1c5604ce7f30777c593a1a1862b207d8c0c327cf4ffd17a41e3fda54265803"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_lila_street_block_v02_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9f99bdedf8b6f5849895338315da7dd0058791f7de1339f46a162255c94398ef"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_lila_street_block_v02_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "376ebd8b7836279168221c8e46057e45e2719ab55c7db6fa2741936c9f9a41c8"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_lila_street_block_v02_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3e1086c22304eae83dceb9d157098070074a1057303dcb34afcfe26d6c2864fa"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_lila_street_block_v02_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "58ebbff5968f74b492e15b9f0c066879778d537ea5ac6abcff55fdbc488a9eab"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_lila_street_block_v02_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e816d8b5fe316624085b2dd28cd9ac31aede001acf592a5e667c2f865876453c"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_lila_street_block_v02_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "100624ecdb25c9483dea645f399c02f0cf865acdc814cb745b39a6f4949d464a"
+    }
+  ],
+  "artMetrics": {
+    "registeredCore": [
+      4096.0,
+      3072.0
+    ],
+    "registeredCoreSource": "72 reviewed foreground-matted unique lot paintings",
+    "literalWEDTiles": [
+      80,
+      60
+    ],
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 1.4140625,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    },
+    "outerGroundDetailBlend": {
+      "c04_r00": 0.24,
+      "c04_r01": 0.24,
+      "c04_r02": 0.24,
+      "c04_r03": 0.06,
+      "c00_r04": 0.24,
+      "c01_r04": 0.24,
+      "c02_r04": 0.24,
+      "c03_r04": 0.24,
+      "c04_r04": 0.24
+    },
+    "projectionFailures": []
+  }
+}

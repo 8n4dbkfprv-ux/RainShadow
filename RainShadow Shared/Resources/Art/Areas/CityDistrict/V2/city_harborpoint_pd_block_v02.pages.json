@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "plateTextureName": "city_harborpoint_pd_block_v02",
+  "worldSize": {
+    "w": 5120.0,
+    "h": 3840.0
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_harborpoint_pd_block_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ad88b41413f1e8f37706949f079e221c5cf50f81400fb453bbfae6309473e174"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_harborpoint_pd_block_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "dd551ed466feb6ddd2966f5ffc0035349fbca00a41478dfb9a341de3d1fc8400"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_harborpoint_pd_block_v02_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6d377fff20c14379d237eab34622f2246a576e2338354a01a46fb968e19da672"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_harborpoint_pd_block_v02_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "be9d5ac425d0920a5ac18c9a6c787bd70d41f3809c14d0ea6f885fc5917b2253"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_harborpoint_pd_block_v02_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6d5a9bfcb286d8bd4a088faebd917fa0fdbf05e4400c0498a6c9d618204c654f"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_harborpoint_pd_block_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "c1a5a74080f05d387bd4e5205c96d48913aa671b3c49a7a66c7eb7a29f131132"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_harborpoint_pd_block_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "90186daf47983a562a4203c1af63a6e834356c5cdd0163f3783c91c6f152cbbe"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_harborpoint_pd_block_v02_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "86be32ff362a55e5b39698c1f1554d91fb0f13d0eac98f8f64fa7d77215a0607"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_harborpoint_pd_block_v02_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f01896f2474af34315851b3699240540121622a60931db4400d296b0644a4aaa"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_harborpoint_pd_block_v02_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "81b38043e669b1e6dc8639cdee819d3927973701f6f6567c4bf1535a32825cb6"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_harborpoint_pd_block_v02_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "7ef82f9bc5a14032e6580424a75ef89164faeae668be9aa18c802a7823deb44c"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_harborpoint_pd_block_v02_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ac4a8238548361568208896b3416f8fde02375d3a1964a872a6f1190317e99d7"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_harborpoint_pd_block_v02_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e72c204819254cfc77c2f4c5009141a9177086757c63246361002001faeb0856"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_harborpoint_pd_block_v02_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e932209361f97ff337b3c999d06a1219202bc21a26be1afc1d5f49417942cc24"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_harborpoint_pd_block_v02_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4d43ec19d4b05f9ae7d3870cc0d457dcd0752eb66efb2cf6059f670da44a345f"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_harborpoint_pd_block_v02_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "5f8bdd022f3d155974b02ccdaf13592f90232070d78cd1dd342d6ed9ac6f09d5"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_harborpoint_pd_block_v02_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "0026d6c17c01f239bc1ab6a89511be6b67a1ab5fba84c4f2fea259a6e265592b"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_harborpoint_pd_block_v02_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "dda82207e8dd428e162e32d3ccfb64e535b3f5eba089a9acb8909c2add5d5eb4"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_harborpoint_pd_block_v02_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "5346cb559df460b47a5ebe9c7c32a3924666a104f54a97c1392c86b6ef29edda"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_harborpoint_pd_block_v02_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "59d1e514372eacb11b943479318b561519a6444e5dedc81c6fcd670edeccbace"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_harborpoint_pd_block_v02_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "bb4642312a1b75b2a140394e6d661baa15426aba79ac680b07d3e3fef3343f8b"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_harborpoint_pd_block_v02_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9c75d229a747f8c246540cada2541954031f4712dc20bb9a651c481c5ffd9a96"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_harborpoint_pd_block_v02_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e4c002cf0c423679234813edf21440becb8f6a42862d572cf20137ffbd47fcfe"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_harborpoint_pd_block_v02_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4bb518b1400739e6234fbeae5bce65d5ef4db5b47f43051c2ff59fcff447692e"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_harborpoint_pd_block_v02_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4d1d5de1f51badebfbb7ad13e2537051411fbd74da6813a642541daf0d1f2ee8"
+    }
+  ],
+  "artMetrics": {
+    "registeredCore": [
+      4096.0,
+      3072.0
+    ],
+    "registeredCoreSource": "72 reviewed foreground-matted unique lot paintings",
+    "literalWEDTiles": [
+      80,
+      60
+    ],
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 1.4140625,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    },
+    "outerGroundDetailBlend": {
+      "c04_r00": 0.24,
+      "c04_r01": 0.24,
+      "c04_r02": 0.24,
+      "c04_r03": 0.24,
+      "c00_r04": 0.24,
+      "c01_r04": 0.24,
+      "c02_r04": 0.24,
+      "c03_r04": 0.24,
+      "c04_r04": 0.24
+    },
+    "projectionFailures": []
+  }
+}

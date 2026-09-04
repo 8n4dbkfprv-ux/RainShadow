@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "plateTextureName": "ext_apartment_base_hd_v02",
+  "worldSize": {
+    "w": 3072,
+    "h": 1728
+  },
+  "pageWorldSize": {
+    "w": 1536.0,
+    "h": 864.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "ext_apartment_base_hd_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1536.0,
+        "h": 864.0
+      },
+      "pixelWidth": 3072,
+      "pixelHeight": 1728,
+      "sha256": "be693ec02896d6e1cda349e9832b0048a2e7d67baf004871655b9b67719e8ce6"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "ext_apartment_base_hd_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1536.0,
+        "y": 0.0,
+        "w": 1536.0,
+        "h": 864.0
+      },
+      "pixelWidth": 3072,
+      "pixelHeight": 1728,
+      "sha256": "dfa848e087506a558513fbe51398a1544b4199d3012e1c517846f9eeed9ef5a1"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "ext_apartment_base_hd_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 864.0,
+        "w": 1536.0,
+        "h": 864.0
+      },
+      "pixelWidth": 3072,
+      "pixelHeight": 1728,
+      "sha256": "eed31a31b327377173aaa8a8af44835db0273cb8028786c281b9f9bf00c63a98"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "ext_apartment_base_hd_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1536.0,
+        "y": 864.0,
+        "w": 1536.0,
+        "h": 864.0
+      },
+      "pixelWidth": 3072,
+      "pixelHeight": 1728,
+      "sha256": "82be1cf8dbd343d8f359aa2cf2c5aa55d5c6376d8a04f46bcfa8392467b0f741"
+    }
+  ],
+  "artMetrics": {
+    "authoring": "one-continuous-painting-from-overlapping-native-detail-edits",
+    "master": "ArtSource/Generated/Exterior/NativeDetailV02/masters/ext_apartment_base_hd_v02.png",
+    "masterSha256": "d0a17dee8e5067cd0f6662859817c0f01e6cdc6670a951d652fd4efe912f537d",
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 2.0,
+    "nativeDetail": {
+      "provenance": "ArtSource/Generated/Exterior/NativeDetailV02/masters/ext_apartment_base_hd_v02.native-detail.json"
+    },
+    "runtimePagesAreCropsOnly": true,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    }
+  }
+}

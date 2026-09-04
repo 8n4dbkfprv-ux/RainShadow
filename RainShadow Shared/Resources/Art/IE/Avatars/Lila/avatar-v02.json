@@ -1,0 +1,600 @@
+{
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "d2d2f78ca4ca040753998a2e41d42f5a7b60de6f15b418cd51c186a5df8cccb3",
+  "byte_order": "little",
+  "character": "lila",
+  "colors": [
+    22,
+    5,
+    253,
+    233,
+    193,
+    219,
+    234
+  ],
+  "compatibility_display_size": [
+    180.0,
+    180.0
+  ],
+  "display_units_per_source_pixel": [
+    0.3515625,
+    0.3515625
+  ],
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_00.png",
+      "offset": 16,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "0abb61d2256cd2a6ad11b2819808e93558177f37263ca8d727bbcb3c5357681a",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_01.png",
+      "offset": 1360,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "9c002a783efd1ba491a8ece1c93cd765b9da4b583079b5d3878cce090f96ec6c",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_02.png",
+      "offset": 2704,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "d7433b502325a621e29f426b8ee9d99f12e4af9622cf58b1b2f9949d3aa10804",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_03.png",
+      "offset": 4048,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "a4b5f4befc480df8c9943583f36e1ab66c634e6b837631ab2e37ceecd407c342",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_arrival_sw_04.png",
+      "offset": 5392,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "fbf1c74249fc855d9196c6304750b50d823662d19793eed5816870cc0d40cec3",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_05.png",
+      "offset": 6864,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "ac128498d77bf5b4be7ca921bad760c986b65bb83391e47447e5486a2a1248b7",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_arrival_sw_06.png",
+      "offset": 8208,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "ab3f1c419d628ad5d602a350746c986b5795dd307f05d52873fe5b69352e61ba",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_07.png",
+      "offset": 9680,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "fea6f867144341e90a76db1e7c52eeb67607b86f117703fe3c486cec0d2c1e55",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1344,
+      "name": "lila_arrival_sw_08.png",
+      "offset": 11024,
+      "pivot_from_crop_bottom_left_px": [
+        33.0,
+        0.0
+      ],
+      "sha256": "c7aac8d24e67cf37917ce11e21b446b1866e667900ec967f8ffe84619372bd4a",
+      "texture_px": [
+        66,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        223,
+        234
+      ],
+      "width": 21
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1728,
+      "name": "lila_departure_ne_00.png",
+      "offset": 12368,
+      "pivot_from_crop_bottom_left_px": [
+        42.0,
+        0.0
+      ],
+      "sha256": "31184c9440a44f18704f8f9734bd4d2ac79094003889f87040189a702208292b",
+      "texture_px": [
+        84,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        214,
+        234
+      ],
+      "width": 27
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1600,
+      "name": "lila_departure_ne_01.png",
+      "offset": 14096,
+      "pivot_from_crop_bottom_left_px": [
+        39.0,
+        0.0
+      ],
+      "sha256": "bea21615abbac60416b529fd74e1c99488a984477d341aab96bf42e245eb41b1",
+      "texture_px": [
+        78,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        217,
+        234
+      ],
+      "width": 25
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1600,
+      "name": "lila_departure_ne_02.png",
+      "offset": 15696,
+      "pivot_from_crop_bottom_left_px": [
+        39.0,
+        0.0
+      ],
+      "sha256": "725a01ed7d3470f420fef74482da1e4e6ac17d3331224457cc1717a733157a8d",
+      "texture_px": [
+        78,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        217,
+        234
+      ],
+      "width": 25
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_ne_03.png",
+      "offset": 17296,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "fda7016a21c0ec5e076995590e8432868c123606962a795360e50fc5eae1dcf5",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_departure_ne_04.png",
+      "offset": 18832,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "feb42db1e4de7f3a49c1218903e8355e69f39945f3e6603286bef65d1203ce26",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1600,
+      "name": "lila_departure_ne_05.png",
+      "offset": 20304,
+      "pivot_from_crop_bottom_left_px": [
+        39.0,
+        0.0
+      ],
+      "sha256": "0478937c2d2f643665431b91485d18895a0903d81e7337c6cd4a178c4912afc9",
+      "texture_px": [
+        78,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        217,
+        234
+      ],
+      "width": 25
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_departure_ne_06.png",
+      "offset": 21904,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "cb77bcc461d6167d2d252cc129d58eca5b8c7c2ac2b53b568b87efe300b4402e",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_ne_07.png",
+      "offset": 23376,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "5145a1cf79bc970bac4c166bc0ebec860194849dd3335059f0310d8c3b0eeb42",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1664,
+      "name": "lila_departure_nw_00.png",
+      "offset": 24912,
+      "pivot_from_crop_bottom_left_px": [
+        41.0,
+        0.0
+      ],
+      "sha256": "882d12880613639c6270bb16bc8906dcf2c22ed7bf867abd09f54f6079f9ee7e",
+      "texture_px": [
+        81,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        215,
+        234
+      ],
+      "width": 26
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_nw_01.png",
+      "offset": 26576,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "fc51f8fb4235126f77711db78e2902b191ea9a1154f0bb1240e7dbd7d4b86b0a",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_nw_02.png",
+      "offset": 28112,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "d6326ea05776f55d6d74a3c6c49bc6c066612d912d69b79cf8f6cb75b3e68f10",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_nw_03.png",
+      "offset": 29648,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "59ecb04c027c615045a9c5dae7a2c0a96b88daa98f1e4129d14808d5de11996c",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_departure_nw_04.png",
+      "offset": 31184,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "210f09f313a96bc2e6524eaa31e51420097f19e05a18e050fbf48d0aadacf090",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_nw_05.png",
+      "offset": 32656,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "0598d5f39936cf01b0671ecf6d0b9fa2e395e5be2c657574a4e9617d0736fb20",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1472,
+      "name": "lila_departure_nw_06.png",
+      "offset": 34192,
+      "pivot_from_crop_bottom_left_px": [
+        36.0,
+        0.0
+      ],
+      "sha256": "1dd51bb38c62208eb5a2e3522cee9d75fb4d7421413bd0c32d599bb8f8bfa7c5",
+      "texture_px": [
+        72,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        220,
+        234
+      ],
+      "width": 23
+    },
+    {
+      "atlas": "LilaArrival.atlas",
+      "empty": false,
+      "height": 64,
+      "length": 1536,
+      "name": "lila_departure_nw_07.png",
+      "offset": 35664,
+      "pivot_from_crop_bottom_left_px": [
+        38.0,
+        0.0
+      ],
+      "sha256": "70ce55f09478fbe2b1162c5d651631acc43185fab9d83a7154d08fbc41705696",
+      "texture_px": [
+        75,
+        200
+      ],
+      "trim_origin_top_left_px": [
+        218,
+        234
+      ],
+      "width": 24
+    }
+  ],
+  "palette": {
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "shadow_index": 1,
+    "transparent_index": 0
+  },
+  "schema": "rainshadow.ie-indexed-avatar",
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "source_canvas_px": [
+    512,
+    512
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    256.0,
+    78.0
+  ],
+  "storage": "top-down-row-major-u8",
+  "texture_filter": "linear",
+  "texture_scale": 3.125,
+  "version": 2
+}

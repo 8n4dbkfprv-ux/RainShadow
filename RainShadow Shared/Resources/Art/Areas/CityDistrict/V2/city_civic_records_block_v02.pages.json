@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "plateTextureName": "city_civic_records_block_v02",
+  "worldSize": {
+    "w": 5120.0,
+    "h": 3840.0
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 768.0
+  },
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "city_civic_records_block_v02_page_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "b233fd1353b5c5b6e583929526e0e216cb5ccd9f76cf9e1a9d959e540e5f9fb0"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "city_civic_records_block_v02_page_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "0a3dd8c2e40d70c09e59727adecfb06bf84e40b5eaf38b4d0fbe284406493699"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "city_civic_records_block_v02_page_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "97554cc86bd4238a8a6f134df001156e1fbef4afe0f0975a96ed70560248b4a7"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "city_civic_records_block_v02_page_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "ae7747ac8f85de22c4def12b6dd8aa2d11d50b22166737d083e8681e144a0251"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "city_civic_records_block_v02_page_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "d35fc7ae52fe0f337723705e18ea2fc83bc90eda3bf95d721e0dff0581dc71d5"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "city_civic_records_block_v02_page_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "9c5242327212dd57a980fe9103485c95ce52d6b62275e0657cd4b108410379ad"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "city_civic_records_block_v02_page_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3066f108e91a7c0f5c45b40a9e9a8ec27ac61287586188fe8909e713155a2564"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "city_civic_records_block_v02_page_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "456a21b39cd78a77a854a4dd485dc0c0f84a27eaf2ecb518cf65cad15c26fcbb"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "city_civic_records_block_v02_page_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "47489171f26bcc11efa6ebe16d2c73f82457bd1003d5b88d967fd2d7deb1b3d6"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "city_civic_records_block_v02_page_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "7e6de9bb33c256293124235a002163778139a1587d385452b447de67f1a5316b"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "city_civic_records_block_v02_page_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "29044b434af4140331344278f31b538a58f1db1e7be25972fd82d1926a439de7"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "city_civic_records_block_v02_page_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6be52ddb164365858308df49433ab614aa86af5b71d78ea89db5853301a68a21"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "city_civic_records_block_v02_page_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6a59b32f6d60236421206841cfd92eb992f31fc5ee86f22a94986112fcf5f78f"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "city_civic_records_block_v02_page_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6f4db16916723f6e1f3427fbc19554a0cb55b9d970859054fcda9249fae12460"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "city_civic_records_block_v02_page_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1536.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "f7ac32e6f14d2926590fa1505cdf537d084f28332967e4041e4c64a3e080c3c3"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "city_civic_records_block_v02_page_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "22b44889e20e5df56b5965f389fb5225bee2ec2c1d85de98f0f2a0e83e03fffd"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "city_civic_records_block_v02_page_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "77c1c8eb68ddcf10fd0dac4e3b048dc854de429f06486546b7134bd82e9b08db"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "city_civic_records_block_v02_page_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e89882fd43c7fc786d39d4a2a5b9454a3b5e0d3a0ee8043355487555ed6c3536"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "city_civic_records_block_v02_page_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "aa4bcf1d8a4775516c9fe213068c66ddf44daccdc73d438e2eb28124c7779cf4"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "city_civic_records_block_v02_page_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2304.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "a7660b4ca3eb7a45b3b15be31bb716e3703e40515cb808ebb15f39c7a33ddb36"
+    },
+    {
+      "id": "c00_r04",
+      "textureName": "city_civic_records_block_v02_page_c00_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "1c1a62a8fd90e8cf72ce17cb37af3e715db44f8cac6e28b7763fddb35ea42433"
+    },
+    {
+      "id": "c01_r04",
+      "textureName": "city_civic_records_block_v02_page_c01_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "bd0792aa29da50c0a1339810b16f5224a419a4f145902bf1b19615c2b3e889df"
+    },
+    {
+      "id": "c02_r04",
+      "textureName": "city_civic_records_block_v02_page_c02_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "c8493a35ac0cc24428e5ec3e25bc5e5f18539585faaf652418c28bd7b053cb59"
+    },
+    {
+      "id": "c03_r04",
+      "textureName": "city_civic_records_block_v02_page_c03_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "5a474b2229f8a224e81426491bfa47eeabbed1c3332a5c516a1ca1d767154154"
+    },
+    {
+      "id": "c04_r04",
+      "textureName": "city_civic_records_block_v02_page_c04_r04",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 3072.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "06145e4b0c11214c95d7c2dc1da4676718a7dbd5bc7f08bd0a75182ed307ff1e"
+    }
+  ],
+  "artMetrics": {
+    "registeredCore": [
+      4096.0,
+      3072.0
+    ],
+    "registeredCoreSource": "72 reviewed foreground-matted unique lot paintings",
+    "literalWEDTiles": [
+      80,
+      60
+    ],
+    "pixelsPerWorldUnit": 2.0,
+    "minimumTrueSourcePixelsPerWorldUnit": 1.4140625,
+    "runtimeEncoding": {
+      "extension": "jpg",
+      "jpegQuality": 95,
+      "chromaSubsampling": "4:4:4"
+    },
+    "outerGroundDetailBlend": {
+      "c04_r00": 0.24,
+      "c04_r01": 0.24,
+      "c04_r02": 0.24,
+      "c04_r03": 0.24,
+      "c00_r04": 0.24,
+      "c01_r04": 0.24,
+      "c02_r04": 0.24,
+      "c03_r04": 0.24,
+      "c04_r04": 0.24
+    },
+    "projectionFailures": []
+  }
+}
