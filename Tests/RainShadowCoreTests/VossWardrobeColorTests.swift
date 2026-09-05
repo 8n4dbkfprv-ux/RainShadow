@@ -44,7 +44,9 @@ struct VossWardrobeColorTests {
         #expect(voss.frames.count == 248)
         #expect(voss.frames.count(where: \.isEmpty) == 24)
         let expected: [UInt32]
-        if ["replacement_v13", "replacement_v14"].contains(VossAtlasTestAssets.assetAuthority) {
+        if VossAtlasTestAssets.assetAuthority == "meshy_sep05_v03" {
+            expected = [23, 5, 138, 161, 138, 5, 22]
+        } else if ["replacement_v13", "replacement_v14"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [138, 107, 144, 159, 138, 100, 22]
         } else if VossAtlasTestAssets.usesProjectionRegistration {
             expected = [138, 248, 144, 159, 138, 100, 22]

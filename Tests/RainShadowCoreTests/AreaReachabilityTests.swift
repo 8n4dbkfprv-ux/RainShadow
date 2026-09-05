@@ -16,10 +16,10 @@ import Testing
 /// - Harborpoint PD spawning the detective inside an 820×680 station, 1 of 5,795
 ///   cells reachable, on a district reachable from the world map.
 ///
-/// All three hid behind `NavigationMap.route`, which flood-fills to the nearest
-/// *reachable* cell and paths there — so it succeeds from inside a sealed pocket
-/// and reports nothing wrong. These tests use `path`, which returns an honest
-/// `nil`, plus a flood-fill of the runtime search map.
+/// All three hid behind the old `NavigationMap.route`, which flood-filled to the
+/// nearest *reachable* cell and reported success from inside a sealed pocket.
+/// These tests use an exact flood of the runtime search map; focused suites use
+/// `reachesExactly` for individual authored approaches.
 struct AreaReachabilityTests {
 
     /// Areas with a navigable floor. `opening_exterior` is a cinematic backdrop
@@ -99,13 +99,10 @@ struct AreaReachabilityTests {
                 flood.contains(map.searchMap.cell(for: point)),
                 "\(id) \(label) \(point) is not on the flood from the default arrival"
             )
-            // `path`, not `route`: an approach point is issued with
-            // `requiresExactDestination`, so a snapped arrival is a refusal at
-            // runtime, not a near miss.
-            #expect(
-                map.path(from: start, to: point) != nil,
-                "\(id) \(label) \(point) has no exact path from the default arrival"
-            )
+            // Do not file a second full path search here. The flood above is the
+            // exact connectivity proof, while per-portal path searches live in
+            // the focused city/office suites. Running every district search in
+            // parallel can hit the engine's wall-clock guard under test load.
         }
     }
 

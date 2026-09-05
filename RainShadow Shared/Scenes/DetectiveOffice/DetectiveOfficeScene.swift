@@ -557,14 +557,17 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                 if let door {
                     let used = useDoor(door, from: from, fallback: fallback)
                     if let locked = used.lockedLine {
-                        moveDetective(to: used.walkTo, requiresExactDestination: true) { [weak self] in
+                        moveDetective(
+                            to: used.walkTo,
+                            minDistance: MovementOrderQueue.defaultInteractionDistance
+                        ) { [weak self] in
                             self?.presentLockedDoorLine(locked)
                         }
                         return
                     }
                     moveDetective(
                         to: used.walkTo,
-                        requiresExactDestination: true
+                        minDistance: MovementOrderQueue.defaultInteractionDistance
                     ) { [weak self] in
                         self?.openDoor(door)
                         self?.context.router.travel(
@@ -576,7 +579,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                 }
                 moveDetective(
                     to: hotspot.approachPoint,
-                    requiresExactDestination: true
+                    minDistance: MovementOrderQueue.defaultInteractionDistance
                 ) { [weak self] in
                     self?.context.router.travel(
                         to: travel.destination,
@@ -587,7 +590,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             }
             moveDetective(
                 to: hotspot.approachPoint,
-                requiresExactDestination: true
+                minDistance: MovementOrderQueue.defaultInteractionDistance
             ) { [weak self] in
                 guard let self else { return }
                 self.context.session.markInspected(hotspot.id)
@@ -1314,7 +1317,10 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             in: navigation
         ) else { return }
 
-        moveDetective(to: approach, requiresExactDestination: true) { [weak self] in
+        moveDetective(
+            to: approach,
+            minDistance: MovementOrderQueue.defaultInteractionDistance
+        ) { [weak self] in
             guard let self else { return }
             self.detective.turnToFace(actor.position)
             guard let graph = try? DialogueGraphLoader.loadCached(id: graphID) else { return }
@@ -1526,14 +1532,14 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     private func moveDetective(
         to target: CGPoint,
-        requiresExactDestination: Bool = false,
+        minDistance: CGFloat = 0,
         queueWaypoint: Bool = false,
         completion: (() -> Void)? = nil
     ) {
         let outcome = detective.issueOrder(
             via: movement,
             to: target,
-            requiresExactDestination: requiresExactDestination,
+            minDistance: minDistance,
             queueWaypoint: queueWaypoint,
             completion: { [weak self] in
                 self?.finishQueuedMovement(completion: completion)
@@ -1544,6 +1550,11 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         case .turnInPlace:
             clearWaypointPips()
             detective.turnToFace(target)
+
+        case .alreadyInRange:
+            clearWaypointPips()
+            detective.turnToFace(target)
+            completion?()
 
         case .refused:
             showMovementFeedback(at: target, isValid: false)

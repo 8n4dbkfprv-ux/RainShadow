@@ -442,9 +442,9 @@ struct OfficeInteriorScaleTests {
         }
     }
 
-    /// Scene interactions use `requiresExactDestination: true`. A snapped route
-    /// cancels the office-door → city transition, so every approach must remain
-    /// exact with the door leaf both upright and fallen.
+    /// Runtime interactions accept `MinDistance`, but every approach remains an
+    /// honestly connected authoring point with the door leaf upright and fallen.
+    /// Otherwise proximity could hide a point placed across a wall.
     @Test func everyOfficeHotspotApproachIsExactWithDoorBlockingOnAndOff() {
         for blocking in [true, false] {
             let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: blocking)

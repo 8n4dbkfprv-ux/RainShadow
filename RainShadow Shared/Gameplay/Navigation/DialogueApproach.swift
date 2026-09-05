@@ -9,11 +9,12 @@ import Foundation
 /// out of the scene so it can be tested against the same navigation fixtures the
 /// pathfinder uses.
 ///
-/// The solver deliberately demands an *exact* arrival. `FindPath` relocates a blocked
-/// goal on its own (`AdjustPositionDirected`), so a non-empty path only means the actor
-/// got somewhere near what was asked for — which is right for "walk over there" and
-/// wrong here: it would happily park the detective across a wall from the person he is
-/// supposedly talking to. `reachesExactly` is the stricter question.
+/// The solver deliberately demands an *exactly reachable authored standoff*.
+/// `FindPath` relocates a blocked goal on its own (`AdjustPositionDirected`), so a
+/// non-empty path only means the actor got somewhere near what was asked for. Runtime
+/// movement may stop within its operating distance of the chosen standoff, but the
+/// standoff itself cannot be allowed to snap across a wall. `reachesExactly` is the
+/// stricter authoring question.
 enum DialogueApproach {
     /// Default standoff in world units — close enough to read a face, far enough that the
     /// two sprites do not overlap at this camera scale.

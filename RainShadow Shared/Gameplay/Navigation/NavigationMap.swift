@@ -192,9 +192,9 @@ final class NavigationMap {
     /// `FindPath` moves a blocked goal itself (`AdjustPositionDirected`), so a
     /// non-empty path no longer means "the requested point is reachable" — it
     /// means *something near it* is. Approaches issued with
-    /// `requiresExactDestination`, and every reachability assertion, need the
-    /// stricter question, and this is it: the search must land in the cell that
-    /// was asked for.
+    /// Authoring and reachability assertions need the stricter question even
+    /// though runtime interactions use `MinDistance`: the search must land in
+    /// the cell that was asked for, so proximity cannot hide sealed geometry.
     ///
     /// This is the same trap `route` used to set — it flood-filled to the
     /// nearest reachable cell and so succeeded from inside a sealed pocket,

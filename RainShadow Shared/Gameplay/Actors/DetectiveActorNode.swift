@@ -547,7 +547,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     func issueOrder(
         via queue: MovementOrderQueue,
         to target: CGPoint,
-        requiresExactDestination: Bool = false,
+        minDistance: CGFloat = 0,
         queueWaypoint: Bool = false,
         completion: (() -> Void)? = nil
     ) -> MovementOrderQueue.Outcome {
@@ -555,7 +555,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         let outcome = queue.order(
             &movable,
             to: target,
-            requiresExactDestination: requiresExactDestination,
+            minDistance: minDistance,
             queueWaypoint: queueWaypoint,
             ticks: currentTick
         )
@@ -571,6 +571,10 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         case .append:
             if let completion { movementCompletion = completion }
             if state == .walking { setWalkFacing(movable.orientation) }
+        case .alreadyInRange:
+            // The scene owns the immediate completion so it can clear pips and
+            // turn toward the target before using the object or changing area.
+            cancelMovement()
         case .turnInPlace, .refused, .ignored:
             break
         }
@@ -751,8 +755,12 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             advanceWalkFrame()
             playFootstepIfDue()
         }
-        if outcome.arrived || outcome.abandoned {
+        if outcome.arrived {
             finishWalking()
+        } else if outcome.abandoned {
+            // Reaching neither the target nor its MinDistance must not use the
+            // object or transition the scene merely because locomotion stopped.
+            finishWalking(completing: false)
         }
     }
 
@@ -970,7 +978,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
     }
 
-    private func finishWalking() {
+    private func finishWalking(completing: Bool = true) {
         movable.stop()
         bumpRequest = nil
         stopWalkAnimation()
@@ -981,7 +989,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         startStandingIdle()
         let completion = movementCompletion
         movementCompletion = nil
-        completion?()
+        if completing { completion?() }
     }
 
     private func ensureStanding(completion: @escaping () -> Void) {

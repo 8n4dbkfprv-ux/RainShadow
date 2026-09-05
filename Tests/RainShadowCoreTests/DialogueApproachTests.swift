@@ -28,7 +28,7 @@ struct DialogueApproachTests {
 
         #expect(approach != actor)
         #expect(hypot(approach.x - actor.x, approach.y - actor.y) > 1)
-        #expect(map.path(from: walker, to: approach) != nil)
+        #expect(map.reachesExactly(from: walker, to: approach))
     }
 
     /// Candidates are ordered so the straight-line approach is tried first — the

@@ -147,7 +147,7 @@ The only navigation type scenes and layout helpers should use.
 | `pathAvoidingActors(from:to:identity:)` | `Movable::WalkTo`'s flags: other actors are hard blockers. |
 | `findPath(from:to:minDistance:flags:identity:)` | The general entry point, for callers that need `minDistance` or `PF_BACKAWAY`. |
 | `isOrderableFloor(_:)` | Whether a click here is worth issuing at all (`IE_CURSOR_BLOCKED`). Terrain only — ground with a body on it stays orderable. |
-| `reachesExactly(from:to:)` | Whether a destination is reachable **as asked**, rather than relocated near it. The instrument for approaches and for every reachability assertion. |
+| `reachesExactly(from:to:)` | Whether a destination is reachable **as asked**, rather than relocated near it. An authoring/QA instrument; runtime interactions use `minDistance`. |
 | `route(from:to:)` | Exact route plus where it actually landed, for scripted approaches that need to know a goal moved. No longer flood-fills. |
 | `waypoints(visiting:)` | Expands sparse authored anchors into one `Path` by searching between consecutive anchors. **This is how scripted NPC beats are authored.** |
 | `repath(from:to:)` | Corrective repath from a live position to an existing goal. |
@@ -168,6 +168,22 @@ convenience the engine does not offer, and it made blocked geometry unreadable.
 `route` no longer differs from `path` in what it will accept — only in what it
 reports. Its v1.0 bounded fallback, a 4-connected flood fill over every reachable
 cell run synchronously on the main thread, is gone.
+
+**Interactions use range, not coordinate equality.** `MovementOrderQueue.order`
+accepts `minDistance`; a proximity order may name occupied or blocked geometry,
+completes immediately when already in range, and otherwise passes that distance
+to `Movable::WalkTo`. Current authored approaches use two search-cell diagonals
+(40 world units), matching GemRB's `MAX_OPERATING_DISTANCE`. They replace rather
+than append to a waypoint route. An abandoned walk never runs its interaction
+completion.
+
+The upstream comparison at GemRB `1c45c185` is direct: `GameScript.cpp` defines
+`MAX_OPERATING_DISTANCE = 40`; `GSUtils::MoveNearerTo` passes `distance` to
+`actor->WalkTo`; `BeginDialog`, container use and door actions compare against
+that operating range before performing the interaction. `GameControl::OnMouseUp`
+separately returns on `IE_CURSOR_BLOCKED`, which is why ordinary floor clicks
+still go through `isOrderableFloor` while object interactions may target blocked
+or occupied geometry.
 
 ### Dynamic doors
 
@@ -258,7 +274,7 @@ The client NPC (Lila) has been migrated off authored polylines and `SKAction.mov
 2. **`Movable` owns advancement.** One `doStep(walkScale:time:)` per 15 Hz tick, driven from the scene's `update`. This is what makes retarget, cancel, arrival, and bumping deterministic and testable. Pace reaches it as `walkScale`, never as a scalar speed — a scalar cannot express a `NormalizeDeltas` step, which is rounded up per axis.
 3. **Every floor-occupying actor registers with occupancy** on becoming visible and unregisters on being hidden or removed. An unregistered NPC is invisible to pathfinding and will be walked through.
 4. **Idle NPCs are bumpable; moving NPCs are not.** Do not hard-block the player with a stationary NPC. If a beat genuinely requires an immovable body, model it as a static obstacle, not as an unbumpable actor.
-5. **A non-empty path does not mean the destination was reached.** `FindPath` relocates a blocked goal, so anything that cares — an approach, a reachability assertion — must use `reachesExactly`.
+5. **A non-empty path does not mean the destination was reached.** Runtime interactions therefore use `minDistance`; authoring checks use `reachesExactly` so range cannot conceal disconnected geometry.
 6. **Facing while walking comes from the path node**, which `FindPath` computed with `GetOrient` and `DoStep` assigns outright. Never re-derive it from velocity: that is what the retired look-ahead vector and hysteresis band did, and the engine has neither. Standing actors turn one bin per tick via `GetNextFace`. Nine source orientations plus seven mirrored, per Technical Architecture §10.4; never mirror the whole figure where a sprite contract forbids it (Lila's handbag/light contract).
 7. **Single-agent correctness is not negotiable.** Multi-actor work must not regress detective-only office navigation tests.
 
@@ -300,7 +316,7 @@ Five suites carry the stack, and they are layered on purpose:
 | `NavigationMapTests` | The search: any-angle shortcutting, corner-cut rejection, thin-obstacle rejection under a real footprint, boundary-as-solid, goal relocation vs. honest failure, `minDistance`, actor hard-blocking, `BumpAway`/`BumpBack`, `Backoff`'s randomised wait, in-place door stamping, and the office/city reachability suites |
 | `ActorLocomotionTests` | `DoStep` and the orders that feed it, plus `core/Orientation.h`'s arithmetic |
 | `ActorLocomotionPacingTests` | The engine constants, `NormalizeDeltas` axis by axis, and the scene wiring it greps for as source text |
-| `MovementOrderQueueTests` | Click policy: refusal, head turn, append, replan, abandon |
+| `MovementOrderQueueTests` | Click/action policy: blocked-floor refusal, proximity range, head turn, append, replan, abandon |
 | `MovementIntegrationTests` | The whole loop on shipped geometry — order in, `DoStep` per tick, arrival out |
 
 Three properties of the old `RouteFollowerTests` are **invalid by construction**
@@ -329,10 +345,10 @@ map with `reachableCellCenters(from:)`.
 
 `officeFloorIsOneConnectedRoomAtRuntimeResolution` and
 `everyCityDistrictSpawnAndApproachIsStandable` (both in `NavigationMapTests`) are
-the shape to copy for any new area. Assert connected cell count *and*
-`reachesExactly` for every authored approach — scenes issue approaches with
-`requiresExactDestination`, so an approach that is merely *near* reachable is a
-broken interaction.
+the shape to copy for any new area. Assert connected cell count and
+`reachesExactly` for every authored approach. Scenes complete the interaction
+within `minDistance`, but the approach itself must remain honestly connected so
+that range cannot hide broken authoring.
 
 Note that destinations are cell-resolved: `FindPath` terminates on the search
 node inside the goal cell, which carries the caller's sub-cell offset. Assert the
@@ -394,9 +410,9 @@ reached. Two guards carry the weight that `path(...) != nil` used to:
   *click* layer, which is where the engine refuses it
   (`GameControl::OnMouseUp` returns early on `IE_CURSOR_BLOCKED`). Ground with a
   body standing on it is still orderable — that is something to bump.
-- `NavigationMap.reachesExactly` is the reachability instrument. Approaches
-  issued with `requiresExactDestination`, `DialogueApproach`, and every area
-  reachability assertion use it. See [Measuring reachability](#measuring-reachability).
+- `NavigationMap.reachesExactly` is the authoring reachability instrument.
+  `DialogueApproach` and area geometry assertions use it; runtime interactions
+  use `minDistance`. See [Measuring reachability](#measuring-reachability).
 
 **Destinations are cell-resolved.** `FindPath` terminates on the search node
 inside the goal cell (`nmptDest = nmptCurrent`), and that node carries the

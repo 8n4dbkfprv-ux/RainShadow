@@ -414,7 +414,7 @@ SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets includ
 
 1. **`DialogueTranscript`** — pure, session-owned, ring-capped at 60, reset per conversation, never persisted. Records each node **and the reply the player committed to**, which BG:EE shows and RainShadow made invisible. `Entry.Kind` (`speech` / `monologue` / `playerReply` / `title`) drives typography, replacing the `node.speaker == "Case opened"` string compare.
 2. **Presenter stack** — prior lines render above the live one in the same scroll region at ~55% alpha; body height is the stack sum; new lines scroll to the bottom. `applyBodyScrollOffset` gains the upper clamp it never had.
-3. **`DialogueApproach`** — pure approach solver requiring a real `map.path`, never `route` (which snaps and would park the detective across a wall from the person he is talking to).
+3. **`DialogueApproach`** — pure approach solver requiring `reachesExactly`, never a merely present path (which may relocate and park the detective across a wall from the person he is talking to).
 4. **`BaseGameScene` owns the panel** and the single `presentDialogue(_:ownerID:onComplete:)` door, so any scene can converse.
 
 ### Known limits

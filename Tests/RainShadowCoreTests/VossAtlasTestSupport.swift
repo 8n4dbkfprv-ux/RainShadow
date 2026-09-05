@@ -49,7 +49,7 @@ enum VossAtlasTestAssets {
     }
 
     static var usesProjectionRegistration: Bool {
-        ["replacement_v12", "replacement_v13", "replacement_v14"].contains(assetAuthority)
+        ["replacement_v12", "replacement_v13", "replacement_v14", "meshy_sep05_v03"].contains(assetAuthority)
     }
 
     static var v20ManifestURL: URL? {
@@ -70,7 +70,7 @@ enum VossAtlasTestAssets {
             atlasRoot.appendingPathComponent("voss_replacement_v12_manifest.json"),
             repoRoot.appendingPathComponent("ArtSource/Generated/Characters/Detective/ImportedVossReplacementRuntimeV12/voss_replacement_v12_manifest.json")
         ] : []
-        let candidates = replacementCandidates + [
+        let candidates = [atlasRoot.appendingPathComponent("meshy_sep05_v03_manifest.json")] + replacementCandidates + [
             atlasRoot.appendingPathComponent("voss_v22_manifest.json"),
             atlasRoot.deletingLastPathComponent().appendingPathComponent("voss_v22_manifest.json"),
             atlasRoot.appendingPathComponent("voss_v21_manifest.json"),
@@ -159,7 +159,7 @@ struct VossV20ValidationThresholds {
         let data = try Data(contentsOf: manifestURL)
         guard let document = try JSONSerialization.jsonObject(with: data) as? [String: Any],
               let version = document["asset_version"] as? String,
-              ["v20", "v21", "v22", "replacement_v12", "replacement_v13", "replacement_v14"].contains(version) else {
+              ["v20", "v21", "v22", "replacement_v12", "replacement_v13", "replacement_v14", "meshy_sep05_v03"].contains(version) else {
             throw VossAtlasTestError.invalidV20Manifest(manifestURL)
         }
 

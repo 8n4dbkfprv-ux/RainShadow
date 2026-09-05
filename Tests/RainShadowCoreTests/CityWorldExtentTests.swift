@@ -147,10 +147,9 @@ struct CityWorldExtentTests {
                     flood.contains(map.searchMap.cell(for: point)),
                     "\(id) \(name) \(point) is not on the outdoor flood from actorStart"
                 )
-                #expect(
-                    map.path(from: start, to: point) != nil,
-                    "\(id) \(name) \(point) has no exact path from actorStart"
-                )
+                // The flood is the exact connectivity proof. Portal-specific
+                // path searches below exercise the runtime search without filing
+                // a redundant district-crossing search for every arrival point.
             }
         }
     }

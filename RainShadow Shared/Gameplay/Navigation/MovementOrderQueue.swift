@@ -34,6 +34,8 @@ final class MovementOrderQueue {
         case refused
         /// Inside the occupied cell: pivot toward the point, take no step.
         case turnInPlace
+        /// A proximity order whose target is already within its accepted range.
+        case alreadyInRange
         /// A fresh order. Replaces any walk in progress.
         case walk
         /// Appended behind the existing route.
@@ -56,6 +58,14 @@ final class MovementOrderQueue {
     /// BG:EE replans a walking actor on a timer rather than every frame.
     static let correctiveRepathInterval: TimeInterval = 0.75
 
+    /// GemRB's `MAX_OPERATING_DISTANCE`: two 16x12 search-cell diagonals.
+    /// Doors, containers, dialogue and triggers all use this range rather than
+    /// requiring the actor to occupy an exact coordinate.
+    static let defaultInteractionDistance = 2 * hypot(
+        SearchMap.defaultCellSize.width,
+        SearchMap.defaultCellSize.height
+    )
+
     private let navigation: NavigationMap
     private let actorID: String
     private var lastRepathTime: TimeInterval = 0
@@ -73,13 +83,27 @@ final class MovementOrderQueue {
     func order(
         _ movable: inout Movable,
         to target: CGPoint,
-        requiresExactDestination: Bool = false,
+        minDistance: CGFloat = 0,
         queueWaypoint: Bool = false,
         ticks: Int
     ) -> Outcome {
-        guard navigation.isOrderableFloor(target) else {
+        precondition(minDistance >= 0)
+        // A floor click must name floor. An interaction order may name occupied
+        // or blocked geometry and asks `FindPath` to stop within `MinDistance`,
+        // which is how GemRB actions approach actors, doors and objects.
+        let targetCanBeOrdered = minDistance > 0
+            ? navigation.searchMap.contains(target)
+            : navigation.isOrderableFloor(target)
+        guard targetCanBeOrdered else {
             movable.stop()
             return .refused
+        }
+
+        if minDistance > 0,
+           hypot(target.x - movable.position.x, target.y - movable.position.y) <= minDistance {
+            movable.stop()
+            movable.resetPathTries()
+            return .alreadyInRange
         }
 
         let searchMap = navigation.searchMap
@@ -88,14 +112,16 @@ final class MovementOrderQueue {
             return .turnInPlace
         }
 
-        let shouldQueue = queueWaypoint && !requiresExactDestination && movable.hasPath
+        // GemRB's `AddWayPoint` is a floor-movement command. Proximity actions
+        // replace the active route instead of joining its waypoint chain.
+        let shouldQueue = queueWaypoint && minDistance == 0 && movable.hasPath
         if shouldQueue {
             let before = movable.remainingPoints.count
             movable.addWayPoint(target, ticks: ticks)
             return movable.remainingPoints.count > before ? .append : .ignored
         }
 
-        movable.walkTo(target, ticks: ticks)
+        movable.walkTo(target, minDistance: minDistance, ticks: ticks)
         switch movable.movementState {
         case .moving:
             return .walk

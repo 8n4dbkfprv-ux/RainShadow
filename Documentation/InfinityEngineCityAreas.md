@@ -65,7 +65,7 @@ Reference implementation: GemRB `Door.cpp`:
 | ARE door | `AreaDoor`: closed obstacle, sight flag, sounds and two exact approach points |
 | ARE travel region | `AreaRegion(kind: .travel)` with `AreaTravel(destination:entrance:)` |
 | Named destination entrance | `AreaEntrance`; exterior return points preserve the unrounded street approach |
-| Door use | `CityDistrictScene` walks with `requiresExactDestination`, opens the registered door, then calls the router with the named entrance |
+| Door use | `CityDistrictScene` approaches within `MinDistance`, opens the registered door, then calls the router with the named entrance |
 
 The Sable V6 payload is restored by
 `ArtSource/Processing/superresolve_city_ie_monolith_v06.py`, cropped and

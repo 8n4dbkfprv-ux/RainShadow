@@ -45,7 +45,7 @@ struct MovementIntegrationTests {
             let outcome = queue.order(
                 &walker,
                 to: approach,
-                requiresExactDestination: true,
+                minDistance: MovementOrderQueue.defaultInteractionDistance,
                 ticks: 1
             )
             #expect(outcome == .walk, "\(hotspotID) order was \(outcome)")
@@ -54,8 +54,9 @@ struct MovementIntegrationTests {
             #expect(walk.arrived, "\(hotspotID) never arrived")
             #expect(!walk.positions.isEmpty)
             #expect(
-                map.searchMap.cell(for: walker.position) == map.searchMap.cell(for: approach),
-                "\(hotspotID) stopped in the wrong cell"
+                hypot(walker.position.x - approach.x, walker.position.y - approach.y)
+                    <= MovementOrderQueue.defaultInteractionDistance,
+                "\(hotspotID) stopped outside interaction range"
             )
             for step in walk.positions {
                 #expect(

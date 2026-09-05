@@ -112,7 +112,7 @@ that is engine-faithful and costs nothing. Failing that, port the scheduler.
 
 ---
 
-## 4. An occupied destination now relocates, and scenes ask for exactness
+## 4. Resolved: interactions use `MinDistance`
 
 **What is true.** `GetBlockedInRadiusTile` clears `PASSABLE` wherever an actor is
 stamped, so `FindPath` moves a destination somebody is standing on rather than
@@ -125,17 +125,14 @@ did so predicted this exact consequence.
 short, 17–21 world units off. That is inside arm's reach.
 `ActorFootprintTests.occupiedOfficeStillReachesEveryApproach` pins "on or beside".
 
-**Why it may still be wrong for us.** RainShadow scenes issue interactions with
-`requiresExactDestination` and refuse a snapped substitute — a concept the engine
-does not have, because BG uses `MinDistance` (weapon and dialogue range) instead
-and never needs to land on a specific point. `DialogueApproach` degrades
-gracefully because it picks from a ring of candidates, but a future interaction
-authored against a single exact point will not.
-
-**What a decision looks like.** Either move interactions onto `minDistance` the
-way the engine does, or reinstate the `ACTOR` tolerance as a stated, tested
-deviation rather than an accident. **Watch for it in play before deciding** — it
-may simply never be noticeable.
+**Decision — 4 September 2026.** RainShadow interactions now use `minDistance`,
+matching the engine's weapon/dialogue/action range model. The authored approach
+is still held exact by QA so proximity cannot conceal a point placed across a
+wall, but runtime completion accepts two search-cell diagonals (40 world units),
+GemRB's `MAX_OPERATING_DISTANCE` at the pinned upstream revision.
+An interaction already in range completes without walking; an abandoned walk
+does not run its completion. Plain floor clicks still refuse blocked terrain at
+the cursor layer.
 
 ---
 

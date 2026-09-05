@@ -499,7 +499,10 @@ final class CityDistrictScene: GameAreaScene {
             return
         }
         // BG Classic: reaching a map edge opens the World Map for travel.
-        moveDetective(to: exit.approachPoint, requiresExactDestination: false) { [weak self] in
+        moveDetective(
+            to: exit.approachPoint,
+            minDistance: MovementOrderQueue.defaultInteractionDistance
+        ) { [weak self] in
             self?.setWorldMapPresented(true, mode: .travel, exitEdge: exit.edge)
         }
     }
@@ -514,11 +517,10 @@ final class CityDistrictScene: GameAreaScene {
 
     /// Walk up to a region, then do what its kind says.
     ///
-    /// The player is sent with `requiresExactDestination` because an approach
-    /// point is authored to be stood on: `AGENTS.md` records that every city
-    /// portal approach once sat on the door sprite, which is painted on the
-    /// facade and therefore inside the building's obstacle, so a snapped
-    /// arrival would have hidden five unreachable doors.
+    /// Interaction movement uses GemRB's `MinDistance` contract: get within its
+    /// 40-unit operating distance of the authored approach, then use the region.
+    /// The reachability suites still require every approach itself to be connected;
+    /// proximity must not hide a point authored inside a facade or sealed pocket.
     private func handleRegion(_ region: AreaRegion) {
         let box = region.boundingBox
         let target = door(matching: region.id)?.walkTarget(
@@ -529,7 +531,10 @@ final class CityDistrictScene: GameAreaScene {
             ?? CGPoint(x: box.midX, y: box.midY)
 
         if let flag = region.requiresFlag, !isFlagSet(flag) {
-            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+            moveDetective(
+                to: target,
+                minDistance: MovementOrderQueue.defaultInteractionDistance
+            ) { [weak self] in
                 self?.showInspectLine(region.lockedLine ?? "")
             }
             return
@@ -537,7 +542,10 @@ final class CityDistrictScene: GameAreaScene {
 
         switch region.kind {
         case .info:
-            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+            moveDetective(
+                to: target,
+                minDistance: MovementOrderQueue.defaultInteractionDistance
+            ) { [weak self] in
                 self?.context.session.markInspected(region.id)
                 self?.showInspectLine(region.observation ?? region.lockedLine ?? "")
             }
@@ -551,7 +559,10 @@ final class CityDistrictScene: GameAreaScene {
             // to the district whose exact entrance name it carries.
             if districtID != nil,
                CityDistrictAreaAdapter.district(for: travel.destination) != nil {
-                moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+                moveDetective(
+                    to: target,
+                    minDistance: MovementOrderQueue.defaultInteractionDistance
+                ) { [weak self] in
                     self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
                 }
                 return
@@ -560,18 +571,27 @@ final class CityDistrictScene: GameAreaScene {
             if let door = door(matching: region.id) {
                 let used = useDoor(door, from: detective.position, fallback: target)
                 if let locked = used.lockedLine {
-                    moveDetective(to: used.walkTo, requiresExactDestination: true) { [weak self] in
+                    moveDetective(
+                        to: used.walkTo,
+                        minDistance: MovementOrderQueue.defaultInteractionDistance
+                    ) { [weak self] in
                         self?.showInspectLine(locked)
                     }
                     return
                 }
-                moveDetective(to: used.walkTo, requiresExactDestination: true) { [weak self] in
+                moveDetective(
+                    to: used.walkTo,
+                    minDistance: MovementOrderQueue.defaultInteractionDistance
+                ) { [weak self] in
                     self?.openDoor(door)
                     self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
                 }
                 return
             }
-            moveDetective(to: target, requiresExactDestination: true) { [weak self] in
+            moveDetective(
+                to: target,
+                minDistance: MovementOrderQueue.defaultInteractionDistance
+            ) { [weak self] in
                 self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
             }
         }
@@ -618,14 +638,14 @@ final class CityDistrictScene: GameAreaScene {
 
     private func moveDetective(
         to target: CGPoint,
-        requiresExactDestination: Bool = false,
+        minDistance: CGFloat = 0,
         queueWaypoint: Bool = false,
         completion: (() -> Void)? = nil
     ) {
         let outcome = detective.issueOrder(
             via: movement,
             to: target,
-            requiresExactDestination: requiresExactDestination,
+            minDistance: minDistance,
             queueWaypoint: queueWaypoint,
             completion: { [weak self] in
                 self?.finishQueuedMovement(completion: completion)
@@ -636,6 +656,11 @@ final class CityDistrictScene: GameAreaScene {
         case .turnInPlace:
             clearWaypointPips()
             detective.turnToFace(target)
+
+        case .alreadyInRange:
+            clearWaypointPips()
+            detective.turnToFace(target)
+            completion?()
 
         case .refused:
             showMovementFeedback(at: target, isValid: false)

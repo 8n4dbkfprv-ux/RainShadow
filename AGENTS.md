@@ -490,6 +490,64 @@ authoring work. Do not compensate by scaling this actor or changing navigation.
 a *script*; `ArtSource/Blender/voss_v23.blend` is its output, not the source.
 Edit the script. `Documentation/VossV23BlenderRigProduction.md` is the record.
 
+
+#### Blender MCP workflow — inspect, change, verify visually
+
+When working with Blender from Codex, use the configured **Blender MCP server**
+against the currently running Blender instance. Prefer MCP operations over
+creating and launching one-off standalone Blender Python scripts.
+
+Before changing anything:
+
+1. inspect the current scene and identify the relevant objects, meshes, armature,
+   materials and actions;
+2. capture a viewport image of the current state;
+3. confirm that the intended target is not the head, body proportions, rig or
+   another protected component unless the task explicitly requires changing it.
+
+For interactive Blender work, prefer dedicated MCP operations for:
+
+- scene and object inspection;
+- selection and transforms;
+- mesh/geometry inspection and bounded edits;
+- material and texture inspection/changes;
+- armature/action inspection;
+- viewport capture and rendering;
+- saving/exporting.
+
+Use Blender-side arbitrary Python execution only when the MCP server has no
+dedicated operation for the requested change. Do not create a standalone `.py`
+file merely to perform an operation that the live MCP connection can do
+directly. When Python is necessary, prefer direct Blender data access
+(`bpy.data`, mesh data, BMesh, object properties) over context-sensitive
+`bpy.ops` where practical; operators depend on selection, active object, mode
+and editor context and are therefore easier to make brittle.
+
+For visual modelling work, make small, reviewable changes:
+
+1. capture the current viewport;
+2. make one bounded change;
+3. capture the viewport again;
+4. visually compare the result with the previous state and the references;
+5. continue only when the change is correct.
+
+Do not make a long sequence of geometry, proportion, material or rig changes
+without intermediate visual checks. Before destructive geometry or rig edits,
+save an incremental `.blend` copy.
+
+**V23 source-of-truth rule still wins:** MCP is an interaction and validation
+layer, not a replacement for the scripted authority above. If an accepted V23
+change must survive regeneration, encode the final change in
+`ArtSource/Blender/build_voss_v23.py`, regenerate `voss_v23.blend`, and verify
+that the regenerated result matches the accepted live Blender result. Do not
+leave a permanent V23 fix only in the generated `.blend` file.
+
+For diagnosis before simplifying or rebuilding character clothing, first report
+vertex/edge/face/triangle counts per relevant mesh and capture front, side and
+perspective views. Modify only the named clothing component unless the task
+explicitly expands scope. Preserve the head, body proportions, UVs, rig and
+other meshes unless the requested task requires changing them.
+
 Two traps in it cost real time, and both are the same shape — a measurement
 reading the wrong plane:
 
@@ -685,19 +743,21 @@ Read this before touching `ArtSource/Processing/office_layout_plan.py`,
 `CityDistrictCatalog.swift`, or anything that authors a nav point. Every item
 below is a bug that actually shipped, and each one shipped with a green suite.
 
-### `route` hides broken geometry — never test reachability with it
+### `route` used to hide broken geometry — test reachability explicitly
 
-`NavigationMap.route` flood-fills to the nearest *reachable* cell and paths there.
-It therefore succeeds from inside a sealed pocket, or from inside a building, and
-reports nothing wrong. Three bugs lived behind it:
+The old `NavigationMap.route` flood-filled to the nearest *reachable* cell and
+pathed there. It therefore succeeded from inside a sealed pocket, or from inside
+a building, and reported nothing wrong. Three bugs lived behind it:
 
 - the office floor sealed to **174 of 4,694** walkable cells,
 - the office door with **no exact path**, so the exit to the city was unclickable,
 - Harborpoint PD spawning the detective **inside an 820×680 station**, 1 of 5,795
   cells reachable, on a district reachable from the world map.
 
-Use `path` (honest `nil`) and flood-fill the runtime search map. See "Measuring
-reachability" in `Documentation/PathfindingSystem.md`.
+Use `reachesExactly` and flood-fill the runtime search map. A non-empty `path`
+is not proof: GemRB relocates a blocked destination before searching, so that
+test can pass after landing nearby. See "Measuring reachability" in
+`Documentation/PathfindingSystem.md`.
 
 ### The layout planner validates a different grid than the game runs
 
@@ -737,5 +797,6 @@ The sprite is painted on the facade, so its position is inside the building's
 obstacle, and every approach was unreachable. Approaches belong on the walkable
 side the door faces — camera-near, ~120–150 units out in the shipped districts.
 
-Interactions are issued with `requiresExactDestination`, so scenes refuse a snapped
-approach. "Route-reachable" is not good enough for an approach point.
+Runtime interactions use GemRB's 40-unit `MinDistance`, but authored approaches
+still have to pass `reachesExactly`. Interaction range must not hide a snapped
+approach placed across a wall or inside a sealed pocket.

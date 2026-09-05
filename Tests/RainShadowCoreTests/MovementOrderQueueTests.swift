@@ -40,6 +40,10 @@ struct MovementOrderQueueTests {
 
     // MARK: - Orders
 
+    @Test func interactionDistanceMatchesGemRBOperatingRange() {
+        #expect(MovementOrderQueue.defaultInteractionDistance == 40)
+    }
+
     @Test func anOrderAcrossOpenFloorWalks() {
         let map = Self.room()
         let queue = Self.queue(map)
@@ -141,9 +145,9 @@ struct MovementOrderQueueTests {
         #expect(walker.isMoving)
     }
 
-    /// Queueing is a convenience on top of a plain order; an exact order never
-    /// queues, because an interaction replaces whatever was in flight.
-    @Test func anExactOrderNeverQueues() {
+    /// Queueing is a convenience on top of a plain floor order; a proximity
+    /// action never queues, because an interaction replaces whatever was in flight.
+    @Test func aProximityOrderNeverQueues() {
         let map = Self.room()
         let queue = Self.queue(map)
         var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
@@ -153,13 +157,64 @@ struct MovementOrderQueueTests {
             queue.order(
                 &walker,
                 to: CGPoint(x: 60, y: 200),
-                requiresExactDestination: true,
+                minDistance: MovementOrderQueue.defaultInteractionDistance,
                 queueWaypoint: true,
                 ticks: 4
             ) == .walk
         )
         #expect(walker.destination == CGPoint(x: 60, y: 200))
         #expect(walker.pendingWaypoints.isEmpty)
+    }
+
+    @Test func aProximityOrderAlreadyInRangeDoesNotWalk() {
+        let map = Self.room()
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+
+        #expect(
+            queue.order(
+                &walker,
+                to: CGPoint(x: 55, y: 20),
+                minDistance: MovementOrderQueue.defaultInteractionDistance,
+                ticks: 1
+            ) == .alreadyInRange
+        )
+        #expect(!walker.isMoving)
+    }
+
+    /// An interaction may name the actor, door or object itself. Unlike a floor
+    /// click, that target need not be passable; `MinDistance` stops on its near side.
+    @Test func aProximityOrderMayApproachBlockedGeometry() {
+        let map = Self.room(wall: true)
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 40))
+        let target = CGPoint(x: 160, y: 40)
+
+        #expect(
+            queue.order(
+                &walker,
+                to: target,
+                minDistance: 24,
+                ticks: 1
+            ) == .walk
+        )
+        #expect(!map.isOrderableFloor(target))
+        #expect(walker.isMoving)
+        #expect(walker.destination == target)
+
+        var arrived = false
+        for tick in 2..<4_096 {
+            let step = walker.doStep(
+                walkScale: MovableTestSupport.humanoidWalkScale,
+                time: tick
+            )
+            if step.arrived {
+                arrived = true
+                break
+            }
+        }
+        #expect(arrived)
+        #expect(hypot(walker.position.x - target.x, walker.position.y - target.y) <= 24)
     }
 
     /// `if (!path) { WalkTo(Des); return; }` — an append with nothing to append

@@ -225,11 +225,11 @@ struct NavigationMapTests {
             // while still failing loudly on a re-seal (the regression was 174).
             #expect(visited.count > 300)
 
-            // Exactly reachable, not merely snap-reachable: scenes issue interact
-            // approaches with `requiresExactDestination` and refuse a snapped one.
+            // Exactly reachable as an authoring invariant: interaction range must
+            // not hide an approach placed across a wall or in a sealed pocket.
             for (id, approach) in OfficeNavigationLayout.approachPoints {
                 #expect(
-                    map.path(from: OfficeNavigationLayout.actorStart, to: approach) != nil,
+                    map.reachesExactly(from: OfficeNavigationLayout.actorStart, to: approach),
                     "\(id) has no exact path with entranceDoorBlocking: \(doorBlocking)"
                 )
             }
@@ -403,11 +403,11 @@ struct NavigationMapTests {
                     "\(id) spawn \(key) \(spawn) is not standable"
                 )
             }
-            // Portal approaches are issued with `requiresExactDestination`, so a
-            // snapped route is refused — they must path exactly.
+            // Portal approaches remain exact as an authoring invariant even
+            // though the runtime action completes within `MinDistance`.
             for portal in district.portals {
                 #expect(
-                    map.path(from: district.actorStart, to: portal.approachPoint) != nil,
+                    map.reachesExactly(from: district.actorStart, to: portal.approachPoint),
                     "\(id) portal \(portal.id) approach \(portal.approachPoint) has no exact path"
                 )
             }
