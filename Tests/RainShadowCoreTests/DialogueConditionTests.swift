@@ -201,7 +201,7 @@ struct DialogueConditionTests {
         #expect(visible.contains { $0.destinationID == "lila.reply.press.gated" })
 
         let entrance = try #require(byID["lila.entrance.case"])
-        let cynical = try #require(entrance.choices.first { $0.tone == .cynicalSarcasm })
+        let cynical = try #require(entrance.choices.first { $0.tone == .sharp })
         #expect(
             cynical.onSelect == [
                 .setConversationFlag(EmptyCoatDialogueKeys.pressedHardOnStory)

@@ -46,7 +46,7 @@ struct DialogueGraphLoaderTests {
                 )
             )
         )
-        #expect(press.tone == .cynicalSarcasm)
+        #expect(press.tone == .sharp)
 
         let leaveNode = try #require(graph.node(id: "npc.press"))
         #expect(leaveNode.onLeaveCue == "office.clientEntrance")

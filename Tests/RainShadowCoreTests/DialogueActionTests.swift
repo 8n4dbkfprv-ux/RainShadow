@@ -95,7 +95,7 @@ struct DialogueActionTests {
         let byID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
         guard
             let entrance = byID["lila.entrance.case"],
-            let cynical = entrance.choices.first(where: { $0.tone == .cynicalSarcasm }),
+            let cynical = entrance.choices.first(where: { $0.tone == .sharp }),
             let keyTriad = byID["lila.triad.key"]
         else {
             Issue.record("Missing Empty Coat nodes for action test")

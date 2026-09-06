@@ -498,7 +498,7 @@ Future authors and tools must preserve this convention when adding graphs. Rever
 
 #### Intentions
 
-Dialogue choices are tagged by intention rather than morality. The tags are **writer method** — they are not painted on the reply row. Tone (`goodHeroic` / `neutralPragmatic` / `cynicalSarcasm`) is already metadata-only; intention matches that contract.
+Dialogue choices are tagged by intention rather than morality. The tags are **writer method** — they are not painted on the reply row. Tone (`warm` / `dry` / `sharp`) is the temperament of the line, metadata-only — not a Good/Neutral/Cynical meter. Intention is the system.
 
 - **Open** — invite detail, acknowledge, or wait.
 - **Press** — challenge, corner, or expose a contradiction.

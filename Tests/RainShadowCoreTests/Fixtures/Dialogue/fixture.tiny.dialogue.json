@@ -12,12 +12,12 @@
         {
           "text": "Tell me more.",
           "destinationID": "npc.more",
-          "tone": "neutralPragmatic"
+          "tone": "dry"
         },
         {
           "text": "I already have the receipt.",
           "destinationID": "npc.press",
-          "tone": "cynicalSarcasm",
+          "tone": "sharp",
           "gateDisclosure": "Press",
           "conditions": [
             {

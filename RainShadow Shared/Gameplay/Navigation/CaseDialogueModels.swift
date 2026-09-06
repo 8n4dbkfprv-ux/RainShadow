@@ -1,20 +1,21 @@
 import Foundation
 
-/// Authoring tone triad for major response beats.
+/// Authoring temperament triad for major response beats.
 /// Not shown in UI — players read the line; tone is for writers, branching, and tests.
+/// Intention is the system. These names are the feel of the line, not a morality meter.
 ///
-/// JSON uses case names (`goodHeroic`, …). Display labels stay on `displayLabel`.
+/// JSON uses case names (`warm`, `dry`, `sharp`). Display labels stay on `displayLabel`.
 enum DialogueTone: String, Equatable, CaseIterable, Codable, Sendable {
-    case goodHeroic
-    case neutralPragmatic
-    case cynicalSarcasm
+    case warm
+    case dry
+    case sharp
 
     /// Writer-facing label (not player UI).
     var displayLabel: String {
         switch self {
-        case .goodHeroic: "Good/Heroic"
-        case .neutralPragmatic: "Neutral/Pragmatic"
-        case .cynicalSarcasm: "Cynical/Sarcasm"
+        case .warm: "Warm"
+        case .dry: "Dry"
+        case .sharp: "Sharp"
         }
     }
 }
@@ -501,7 +502,7 @@ struct CaseDialogueChoice: Equatable, Codable, Sendable {
     /// this one. Choices only — a DLG transition is the only thing that can jump files,
     /// and `nextNodeID` deliberately stays in-graph for the same reason.
     let destinationGraphID: String?
-    /// When set, this is one leg of a Good / Neutral / Cynical triad beat (metadata only).
+    /// When set, this is one leg of a Warm / Dry / Sharp triad beat (metadata only).
     let tone: DialogueTone?
     /// Writer approach tag (GDD §7.5). Not shown in the row — same contract as `tone`.
     let intention: DialogueIntention?

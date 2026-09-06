@@ -126,15 +126,18 @@ struct EmptyCoatCaseIntroductionTests {
                 guard let tone = choice.tone else { return nil }
                 return (tone, choice)
             })
-            #expect(byTone[.goodHeroic] != nil)
-            #expect(byTone[.neutralPragmatic] != nil)
-            #expect(byTone[.cynicalSarcasm] != nil)
-            // Tone is author metadata only — no on-screen Good/Neutral/Cynical labels.
+            #expect(byTone[.warm] != nil)
+            #expect(byTone[.dry] != nil)
+            #expect(byTone[.sharp] != nil)
+            // Tone is author metadata only — no on-screen Warm/Dry/Sharp labels.
             for choice in node.choices {
                 let lower = choice.text.lowercased()
                 #expect(!lower.hasPrefix("good:"))
                 #expect(!lower.hasPrefix("neutral:"))
                 #expect(!lower.hasPrefix("cynical:"))
+                #expect(!lower.hasPrefix("warm:"))
+                #expect(!lower.hasPrefix("dry:"))
+                #expect(!lower.hasPrefix("sharp:"))
                 #expect(!choice.text.hasPrefix("Good/Heroic"))
                 #expect(!choice.text.hasPrefix("Neutral/Pragmatic"))
                 #expect(!choice.text.hasPrefix("Cynical/Sarcasm"))
@@ -183,6 +186,9 @@ struct EmptyCoatCaseIntroductionTests {
         let pd = nodes.first { $0.id == "lila.police.story" }?.text ?? ""
         #expect(pd.contains("filed it soft"))
         #expect(pd.contains("probable drowning"))
+        #expect(!pd.contains("closes a door without slamming"))
+        let pdB = nodes.first { $0.id == "lila.police.story.b" }?.text ?? ""
+        #expect(!pdB.contains("developed teeth"))
 
         let keyReveal = nodes.first { $0.id == "lila.key.reveal" }?.text ?? ""
         #expect(keyReveal.contains("Lillian still sews her own hems."))
@@ -202,6 +208,27 @@ struct EmptyCoatCaseIntroductionTests {
 
         let leaveChoices = nodes.flatMap(\.choices).filter { $0.intention == .leave }
         #expect(leaveChoices.isEmpty, "Leave is unused on Empty Coat; do not fill the taxonomy")
+
+        let keyChoices = nodes.first { $0.id == "lila.triad.key" }?.choices ?? []
+        for choice in keyChoices {
+            #expect(!choice.text.lowercased().hasPrefix("leave the key"))
+        }
+
+        let policeObserve = nodes.first { $0.id == "lila.triad.police" }?.choices
+            .first { $0.intention == .observe }?.text.lowercased() ?? ""
+        #expect(policeObserve.contains("tidy") || policeObserve.contains("hear"))
+        #expect(!policeObserve.contains("river stones"))
+
+        let policeFeign = nodes.first { $0.id == "lila.triad.police" }?.choices
+            .first { $0.intention == .feign }?.text.lowercased() ?? ""
+        #expect(policeFeign.contains("believe") || policeFeign.contains("sergeant"))
+        #expect(!policeFeign.contains("bill"))
+
+        let authoredTones = Set(nodes.flatMap(\.choices).compactMap(\.tone))
+        #expect(authoredTones.isSubset(of: Set(DialogueTone.allCases)))
+        #expect(authoredTones.contains(.warm))
+        #expect(authoredTones.contains(.dry))
+        #expect(authoredTones.contains(.sharp))
     }
 
     @Test func graphIntegrityEveryChoiceReachesCaseOpened() {

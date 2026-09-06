@@ -55,13 +55,13 @@
           "destinationID": "lila.reply.good1",
           "intention": "open",
           "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.0.text",
-          "tone": "goodHeroic"
+          "tone": "warm"
         },
         {
           "destinationID": "lila.reply.neutral1",
           "intention": "open",
           "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.1.text",
-          "tone": "neutralPragmatic"
+          "tone": "dry"
         },
         {
           "destinationID": "lila.reply.cynical1",
@@ -73,7 +73,7 @@
             }
           ],
           "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.2.text",
-          "tone": "cynicalSarcasm"
+          "tone": "sharp"
         }
       ],
       "id": "lila.entrance.case",
@@ -143,19 +143,19 @@
           "destinationID": "lila.reply.good2",
           "intention": "press",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.police.choice.0.text",
-          "tone": "goodHeroic"
+          "tone": "warm"
         },
         {
           "destinationID": "lila.reply.neutral2",
           "intention": "observe",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.police.choice.1.text",
-          "tone": "neutralPragmatic"
+          "tone": "dry"
         },
         {
           "destinationID": "lila.reply.cynical2",
           "intention": "feign",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.police.choice.2.text",
-          "tone": "cynicalSarcasm"
+          "tone": "sharp"
         }
       ],
       "id": "lila.triad.police",
@@ -225,19 +225,19 @@
           "destinationID": "lila.reply.good3",
           "intention": "trade",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.key.choice.0.text",
-          "tone": "goodHeroic"
+          "tone": "warm"
         },
         {
           "destinationID": "lila.reply.neutral3",
           "intention": "open",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.key.choice.1.text",
-          "tone": "neutralPragmatic"
+          "tone": "dry"
         },
         {
           "destinationID": "lila.reply.cynical3",
           "intention": "feign",
           "textKey": "dlg.empty-coat.intro.node.lila.triad.key.choice.2.text",
-          "tone": "cynicalSarcasm"
+          "tone": "sharp"
         },
         {
           "conditions": [

@@ -34,7 +34,7 @@ struct DialogueSessionTests {
         _ = session.jump(to: "lila.entrance.case")
         #expect(session.visibleChoices.count == 3)
 
-        let cynicalIndex = session.visibleChoices.firstIndex { $0.tone == .cynicalSarcasm }
+        let cynicalIndex = session.visibleChoices.firstIndex { $0.tone == .sharp }
         #expect(cynicalIndex != nil)
         guard let cynicalIndex else { return }
 
