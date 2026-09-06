@@ -61,7 +61,7 @@ public enum EmptyCoatJournalContent {
 
     /// Office hotspots that can yield field notes (GDD §9.5 / §4.3.2 journal contract).
     public static let fieldNoteHotspotIDs: [(id: String, title: String, observation: String)] = [
-        ("office.window", "Rain on the Window", "The rain had been working the glass harder than I had worked a case."),
+        ("office.window", "Rain on the Window", "The rain had been at the glass longer than I had."),
         ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. This case gets the clean page."),
         ("office.phone", "Silent Telephone", "Quiet. For once it had the decency to look guilty."),
         ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")

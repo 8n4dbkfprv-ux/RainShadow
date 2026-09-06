@@ -3926,7 +3926,7 @@
         "id" : "office.window",
         "kind" : "info",
         "label" : "Rain-streaked window",
-        "observation" : "The rain had been working the glass harder than I had worked a case.",
+        "observation" : "The rain had been at the glass longer than I had.",
         "polygon" : [
           {
             "x" : 1727.9310539435724,

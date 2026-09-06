@@ -161,7 +161,7 @@ struct EmptyCoatCaseIntroductionTests {
         )
         #expect(
             inspect.graph(forHotspotID: "office.window").nodes.contains {
-                $0.text == "The rain had been working the glass harder than I had worked a case."
+                $0.text == "The rain had been at the glass longer than I had."
             }
         )
         #expect(
@@ -229,6 +229,14 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(authoredTones.contains(.warm))
         #expect(authoredTones.contains(.dry))
         #expect(authoredTones.contains(.sharp))
+
+        let good2b = nodes.first { $0.id == "lila.reply.good2.b" }?.text ?? ""
+        #expect(good2b == "The pockets were turned.")
+
+        let pressGated = nodes.first { $0.id == "lila.reply.press.gated" }?.text ?? ""
+        #expect(pressGated.contains("manifests"))
+        #expect(!pressGated.lowercased().contains("sisters"))
+        #expect(nodes.first { $0.id == "lila.reply.press.gated" }?.voiceAssetName == nil)
     }
 
     @Test func graphIntegrityEveryChoiceReachesCaseOpened() {

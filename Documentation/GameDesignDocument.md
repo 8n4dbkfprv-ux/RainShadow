@@ -507,7 +507,7 @@ Dialogue choices are tagged by intention rather than morality. The tags are **wr
 - **Observe** — say little and watch the reaction.
 - **Leave** — end or defer without a false choice.
 
-Do not invent a Leave option to fill the taxonomy. Empty Coat’s only extra gate is Press.
+Do not invent a Leave option to fill the taxonomy. Empty Coat ships with **no** `intention: leave`: M01 must seed the case through Lila’s handoff, so a refuse-the-job Leave would skip the intro, and a Leave that still retains her is a false choice. Keep `leave` for later conversations that can actually end or defer. Empty Coat’s only extra gate is Press.
 
 Choice availability can depend on evidence, knowledge, traits, prior tone, time pressure, and the speaker's current threshold. The UI may disclose the main reason for a special option, such as `[Evidence: Tram Receipt]`, without revealing the outcome. Do **not** prefix replies with `[Open]`, `[Press]`, or the other intention names.
 
@@ -598,7 +598,7 @@ The room should feel used and cramped but compositionally controlled. Every majo
 
 | ID | Display name | First observation | State effect |
 |---|---|---|---|
-| `office.window` | Rain-streaked window | “The rain had been working the glass harder than I had worked a case.” | Sets `noticedWeather`; demonstrates environmental hotspot. |
+| `office.window` | Rain-streaked window | “The rain had been at the glass longer than I had.” | Sets `noticedWeather`; demonstrates environmental hotspot. |
 | `office.desk` | Desk | “Three old cases, two unpaid bills, one clean page.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. |
 | `office.phone` | Telephone | “Quiet. For once it had the decency to look guilty.” | Sets `checkedPhone`; reserves later incoming-call state. |
 | `office.files` | Case files | “Closed, abandoned, and one I still lied about.” | Adds `oldCaseReference`; seeds later narrative. |

@@ -1221,7 +1221,7 @@ enum OfficeNavigationLayout {
             "office.window",
             "Rain-streaked window",
             Architecture.nearWindowHitArea,
-            "The rain had been working the glass harder than I had worked a case."
+            "The rain had been at the glass longer than I had."
         ),
         (
             "office.desk",
