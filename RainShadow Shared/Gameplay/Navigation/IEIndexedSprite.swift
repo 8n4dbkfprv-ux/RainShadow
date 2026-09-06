@@ -399,7 +399,9 @@ struct IEIndexedSprite: Sendable {
         self.textureFilter = textureFilter
         registeredPixelsPerNativePixel = manifest.textureScale
         self.frames = frames
-        palette = IEPaperdollColours.setup(colors: colors, tables: tables)
+        var authoredPalette = IEPaperdollColours.setup(colors: colors, tables: tables)
+        authoredPalette.translucentShadowColor(manifest.shadow.embedded)
+        palette = authoredPalette
         self.frameIndex = frameIndex
         self.tables = tables
     }
@@ -507,9 +509,10 @@ struct IEIndexedSprite: Sendable {
             alternateColors.count == IEMaterialSlot.allCases.count,
             "an indexed avatar needs seven gradient indices"
         )
-        let resolvedPalette = alternateColors == colors
+        var resolvedPalette = alternateColors == colors
             ? palette
             : IEPaperdollColours.setup(colors: alternateColors, tables: tables)
+        resolvedPalette.translucentShadowColor(hasEmbeddedShadow)
         // Always the native index plane. See `texturePixelSize(for:)`.
         return Self.resolve(indices: frame.indices, palette: resolvedPalette)
     }

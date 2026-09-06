@@ -44,7 +44,7 @@ struct VossWardrobeColorTests {
         #expect(voss.frames.count == 248)
         #expect(voss.frames.count(where: \.isEmpty) == 24)
         let expected: [UInt32]
-        if VossAtlasTestAssets.assetAuthority == "meshy_sep05_v03" {
+        if ["meshy_sep05_v03", "meshy_sep06_v04"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [23, 5, 138, 161, 138, 5, 22]
         } else if ["replacement_v13", "replacement_v14"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [138, 107, 144, 159, 138, 100, 22]
@@ -55,10 +55,12 @@ struct VossWardrobeColorTests {
         }
         #expect(voss.colors == expected)
         #expect(voss.sourceCanvasSize == .init(width: 512, height: 512))
-        #expect(voss.compatibilityDisplaySize == .init(x: 180, y: 180))
+        let embeddedCandidate = VossAtlasTestAssets.assetAuthority == "meshy_sep06_v04"
+        let displaySize = embeddedCandidate ? 163.125 : 180.0
+        #expect(voss.compatibilityDisplaySize == .init(x: displaySize, y: displaySize))
         #expect(voss.textureFilter == .linear)
-        #expect(voss.hasEmbeddedShadow == false)
-        #expect(voss.shadowOwner == "external ContactShadowNode")
+        #expect(voss.hasEmbeddedShadow == embeddedCandidate)
+        #expect(voss.shadowOwner == (embeddedCandidate ? "embedded palette index 1" : "external ContactShadowNode"))
         try expectExactAtlasInventory(for: voss)
     }
 
@@ -77,7 +79,7 @@ struct VossWardrobeColorTests {
         try expectExactAtlasInventory(for: lila)
     }
 
-    @Test func materialPlanesUseOnlyAuthoredBodySlotsAndNoEmbeddedShadow() throws {
+    @Test func materialPlanesUseAuthoredSlotsAndDeclaredShadowOwnership() throws {
         let voss = try loadSprite("Voss")
         let lila = try loadSprite("Lila")
 
@@ -246,7 +248,8 @@ struct VossWardrobeColorTests {
             }
         }
         #expect(invalid.isEmpty, "\(sprite.character) has invalid body indices \(invalid.sorted())")
-        #expect(shadowPixels == 0, "ContactShadowNode owns \(sprite.character)'s shadow")
+        #expect((shadowPixels > 0) == sprite.hasEmbeddedShadow,
+                "\(sprite.character)'s index-1 pixels must match declared shadow ownership")
         return usedSlots
     }
 

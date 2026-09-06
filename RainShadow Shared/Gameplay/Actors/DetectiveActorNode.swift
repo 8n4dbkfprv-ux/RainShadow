@@ -207,6 +207,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         // magnification the same way the EE engine smooths its zoom.
         // Soft contact shadow is a separate sprite (not baked into walk/sit frames).
         contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
+        // Embedded index-1 cast shadows own their opacity through IEIndexedSprite.
+        // Hide the fallback independently of seat actions that animate its alpha.
+        contactShadow.isHidden = indexedLibrary?.sprite.hasEmbeddedShadow == true
 
         let initialSeated = seatedIdleFrames.first
             ?? seatedUpperFrames.first
