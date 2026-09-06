@@ -27,7 +27,7 @@ enum EmptyCoatCaseIntroduction {
     /// resumes on the next monologue page after the walk.
     static let clientEntranceCueNodeID = "voss.monologue.4"
 
-    /// Shipped Grok Voice openers (Voss monologue is Rex; Lila graph uses per-node `voiceAssetName`).
+    /// Shipped Grok Voice openers (Voss monologue is Sal; Lila graph is Ara).
     static let monologueOpenerVoiceAsset = "vo_voss_monologue_1.m4a"
     static let lilaEntranceVoiceAsset = "vo_lila_entrance.m4a"
 

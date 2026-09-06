@@ -1,6 +1,6 @@
 # Dialogue system roadmap
 
-- Status: Phase 0–9 complete (state → journal → multi-graph → external resources → intention tags UI → conditions/counters/entry scan → transcript + talk-to-actor → EXTERN + catalog integrity → typed journal kinds)
+- Status: Phase 0–9 complete (state → journal → multi-graph → external resources → intention tags as author method → conditions/counters/entry scan → transcript + talk-to-actor → EXTERN + catalog integrity → typed journal kinds)
 - Version: 0.9
 - Date: 10 August 2026
 - Related: GDD §7.5 (Dialogue), Technical Architecture §14.1 (core model types), M01 deferred dialogue scope
@@ -33,7 +33,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | Presentation leave/show cues | **Shipped (P4.5)** — `onLeaveCue` / `onShowCue`; office entrance uses `OfficeDialogueCues.clientEntrance` |
 | Hotspot inspect graphs | **Shipped (P4.5)** — `office.hotspot-inspect.dialogue-catalog.json` via `OfficeHotspotDialogue` |
 | String table (IE strref analogue) | **Shipped (P4.5)** — `strings.en.json` + `DialogueStringTable`; graphs use `textKey` / `speakerKey` |
-| Intention tags (GDD §7.5) | **Shipped (P5)** — `DialogueIntention` on choices; `[Open]` / `[Press]` / … in choice rows |
+| Intention tags (GDD §7.5) | **Shipped (P5)** — `DialogueIntention` on choices as author method; not painted on reply rows |
 | Composite conditions (`not` / `any` / `all`) | **Shipped (P6)** — IE `!` and `OR(n)` |
 | Integer counters + comparisons | **Shipped (P6)** — IE `Global` / `GlobalGT` / `IncrementGlobal` |
 | Talk counters + first-true entry scan | **Shipped (P6)** — `entryWhen` + `entryNodeIDs`, IE `FindFirstState` / `NumTimesTalkedTo` |
@@ -360,22 +360,20 @@ SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets includ
 
 | Item | Approach | Status |
 |---|---|---|
-| **Intention tags** (Open / Press / Feign / Trade / Observe / Leave) | `DialogueIntention` on choices; player-facing `[Open]` / `[Press]` / … prefixes via `labeledBodyText` | **Shipped** |
+| **Intention tags** (Open / Press / Feign / Trade / Observe / Leave) | `DialogueIntention` on choices as author method; not painted on the row (same contract as `DialogueTone`) | **Shipped** |
 | **Tone** | Writer/test metadata only (`DialogueTone`) — not shown in UI | Shipped (metadata) |
-| **UI** | Intention prefixes + Phase 1 gate disclosure (`[Evidence: …]`); matching intention/gate labels dedupe | **Shipped** |
+| **UI** | Phase 1 gate disclosure (`[Evidence: …]`) only; leftover `gateDisclosure: "Press"` is stripped | **Shipped** |
 | **VO** | `voiceAssetName` on show via `onNodeShown` | **Shipped** for Empty Coat monologue + Lila graph (Press node may stay silent) |
 | **Docs / architecture** | Align Technical Architecture with session-backed presenter + external resources | **Shipped** |
 
 ### Ship (intentions)
 
-- `DialogueIntention` enum (`open` / `press` / `feign` / `trade` / `observe` / `leave`) with GDD display labels
+- `DialogueIntention` enum (`open` / `press` / `feign` / `trade` / `observe` / `leave`) with writer-facing display labels
 - Optional `intention` on runtime + authored choices; JSON field `intention`
-- Row text: intention first, then gate disclosure (`[Press]  [Evidence: Tram Receipt]  …`); drop gate when it equals the intention label
-- Empty Coat: all player choices tagged (triads + acceptance); Press option uses `intention: press`
+- Row text: evidence/knowledge disclosure only (`[Evidence: Tram Receipt]  …`); intention names are never painted
+- Empty Coat: all player choices tagged (triads + acceptance); Press option uses `intention: press` and is the only extra gate; Leave is unused
 
 **Status: met** (`DialogueIntention`, Empty Coat tags, `DialogueIntentionTests`, disclosure tests extended).
-
----
 
 ---
 
@@ -488,7 +486,7 @@ CaseState / flags
   external JSON + string table  ─►  data/runtime split (P4.5)
        │
        ▼
-  intention tags on choices  ───►  [Open] / [Press] / … row UI (P5)
+  intention tags on choices  ───►  author method, not row UI (P5)
 ```
 
 ## What not to build yet
@@ -531,7 +529,7 @@ RainShadow has no party. Companions are deferred to Movement Roadmap Phase 4 (fo
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatJournalContent.swift` | Static + hotspot journal projection |
 | `Tests/RainShadowCoreTests/DialogueGraphLoaderTests.swift` | Loader, schema, catalog, shipped package load |
 | `Tests/RainShadowCoreTests/DialogueStringTableTests.swift` | String table + key resolution contracts |
-| `Tests/RainShadowCoreTests/DialogueIntentionTests.swift` | GDD intention taxonomy + Empty Coat tags + row prefixes |
+| `Tests/RainShadowCoreTests/DialogueIntentionTests.swift` | GDD intention taxonomy + Empty Coat tags; prefixes are evidence-only |
 | `Tests/RainShadowCoreTests/OfficeHotspotDialogueTests.swift` | Inspect catalog coverage vs layout observations |
 | `Tests/RainShadowCoreTests/EmptyCoatCaseIntroductionTests.swift` | Graph integrity, BG PC-speech, entrance cue contracts |
 | `Tests/RainShadowCoreTests/ShippedDialogueCatalogTests.swift` | **Every shipped resource** through the loader and catalog report |
@@ -563,7 +561,7 @@ Remaining deliberate divergences: no script-string DSL, no interrupt/immediate-a
 
 ## Open questions (do not block shipped phases)
 
-1. Are GDD §7.5 intention tags meant to approximate IE trigger/action scripting, or a deliberately different player-facing taxonomy? Current answer: **taxonomy + gates**, not script language.
+1. Are GDD §7.5 intention tags meant to approximate IE trigger/action scripting, or a deliberately different player-facing taxonomy? Current answer: **writer method + gates**, not script language and not painted on replies. Baldur’s Gate replies are numbered prose.
 2. Should journal updates apply mid-conversation or only on END DIALOGUE? Prefer silent mid-conversation accumulate; batch if UX requires. **Current:** accumulate on choice select via `queueJournal`.
 3. Will later cases reuse the same presenter for non-intro graphs? **Yes** — Phase 4 + 4.5 assume `present(graph:)`.
 4. Is mid-conversation save required? Default **no** — only flags and “intro completed” unless product expands `SaveSnapshot`.

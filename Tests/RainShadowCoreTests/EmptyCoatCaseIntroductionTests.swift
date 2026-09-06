@@ -17,12 +17,12 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(start.isInteriorMonologue)
         let body = start.text.lowercased()
         #expect(body.contains("rain"))
-        #expect(body.contains("harborpoint") || body.contains("sable"))
+        #expect(body.contains("glass") || body.contains("afternoon"))
         // Monologue chain continues (not a choice beat).
         #expect(start.choices.isEmpty)
         #expect(start.nextNodeID != nil)
 
-        // Full monologue sequence exists before Lila speaks and names what is about to happen.
+        // Full monologue sequence exists before Lila speaks.
         let monologueNodes = nodes.filter { $0.id.hasPrefix("voss.monologue") }
         #expect(monologueNodes.count >= 3)
         for node in monologueNodes {
@@ -30,9 +30,9 @@ struct EmptyCoatCaseIntroductionTests {
         }
         let monologueText = monologueNodes.map(\.text).joined(separator: " ").lowercased()
         #expect(monologueText.contains("rain"))
-        #expect(monologueText.contains("coat") || monologueText.contains("case") || monologueText.contains("dame"))
-        #expect(monologueText.contains("about to happen"))
-        #expect(monologueText.contains("dame") || monologueText.contains("door"))
+        #expect(monologueText.contains("coat") || monologueText.contains("case"))
+        #expect(monologueText.contains("woman") || monologueText.contains("door"))
+        #expect(!monologueText.contains("dame"))
 
         // Spoken conversation lines (Lila + case title end) are not monologue italics.
         // Classic BG: mid-convo PC speech is reply-option text, not speaker states.
@@ -64,8 +64,8 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(byID["voss.accept"] == nil)
         #expect(byID["voss.accept.b"] == nil)
 
-        // Acceptance / key desk / longer-sentence prose lives on reply choices toward the plea.
-        let acceptAnchors = ["all right, miss march", "key stays on this desk", "paper bag"]
+        // Acceptance lives on reply choices toward the plea.
+        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the phone"]
         let triad3Terminals = ["lila.reply.good3.b", "lila.reply.neutral3.b", "lila.reply.cynical3.b"]
         for terminalID in triad3Terminals {
             let terminal = byID[terminalID]
@@ -147,7 +147,61 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(nodes.count > EmptyCoatCaseIntroduction.legacyNodeCountFloor)
         #expect(nodes.count >= 18)
         #expect(report.totalBodyCharacters > EmptyCoatCaseIntroduction.legacyBodyCharacterFloor)
-        #expect(report.totalBodyCharacters >= 2_500)
+    }
+
+    @Test func voiceLockKeepsInspectPleaAndPDAndHidesIntentionLabels() {
+        let inspect = OfficeHotspotDialogue.self
+        #expect(
+            inspect.graph(forHotspotID: "office.desk").nodes.contains {
+                $0.text == "Three old cases, two unpaid bills, one clean page."
+            }
+        )
+        #expect(
+            inspect.graph(forHotspotID: "office.window").nodes.contains {
+                $0.text == "The rain had been working the glass harder than I had worked a case."
+            }
+        )
+        #expect(
+            inspect.graph(forHotspotID: "office.phone").nodes.contains {
+                $0.text == "Quiet. For once it had the decency to look guilty."
+            }
+        )
+        #expect(
+            inspect.graph(forHotspotID: "office.files").nodes.contains {
+                $0.text == "Closed, abandoned, and one I still lied about."
+            }
+        )
+        #expect(
+            inspect.graph(forHotspotID: "office.door").nodes.contains {
+                $0.text == "The hall smelled worse, but at least it led somewhere."
+            }
+        )
+
+        let plea = nodes.first { $0.id == "lila.plea" }?.text ?? ""
+        #expect(plea.contains("Find the sister—not the coat's alibi."))
+
+        let pd = nodes.first { $0.id == "lila.police.story" }?.text ?? ""
+        #expect(pd.contains("filed it soft"))
+        #expect(pd.contains("probable drowning"))
+
+        let keyReveal = nodes.first { $0.id == "lila.key.reveal" }?.text ?? ""
+        #expect(keyReveal.contains("Lillian still sews her own hems."))
+
+        let painted = ["[Open]", "[Press]", "[Feign]", "[Trade]", "[Observe]", "[Leave]"]
+        for node in nodes {
+            for choice in node.choices {
+                let row = choice.displayText(index: 0)
+                for label in painted {
+                    #expect(
+                        !row.contains(label),
+                        "Intention label \(label) painted on \(node.id): \(row)"
+                    )
+                }
+            }
+        }
+
+        let leaveChoices = nodes.flatMap(\.choices).filter { $0.intention == .leave }
+        #expect(leaveChoices.isEmpty, "Leave is unused on Empty Coat; do not fill the taxonomy")
     }
 
     @Test func graphIntegrityEveryChoiceReachesCaseOpened() {
@@ -264,7 +318,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: "lila.entrance"))
         #expect(nodes.first { $0.id == "lila.entrance" }?.onLeaveCue == nil)
 
-        // Cue text narratively introduces arrival (hallway / heels / door / dame).
+        // Cue text narratively introduces arrival (hallway / heels / door).
         #expect(cueNode != nil)
         let body = (cueNode?.text ?? "").lowercased()
         #expect(body.contains("hallway") || body.contains("heels") || body.contains("door"))

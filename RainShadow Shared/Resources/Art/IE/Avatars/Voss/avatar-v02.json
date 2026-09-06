@@ -3,7 +3,7 @@
   "version": 2,
   "character": "voss",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "68c8e79363ac2d496ae891bbb403f3c1571284e9921ef41902d5b62cdf61b2e0",
+  "blob_sha256": "8cba75c01e82a91079d508a275368e97d86b703adf126c97d3238dc58bc37f19",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -131,7 +131,7 @@
         57.0,
         1.0
       ],
-      "sha256": "49cb0d484a374f616d519811f6c226791bbcf6892c8cb6c72eb1ec46220dd3ef",
+      "sha256": "10fcb694271e81d1b413c81c2f8d727b2b67e709f0caaaf379601a3453a63746",
       "empty": false
     },
     {
@@ -263,7 +263,7 @@
         45.0,
         1.0
       ],
-      "sha256": "8a492fd6c57b70ed7e9c0319c9ef4f1cab0b2d2d721452b6500f15711ae91d7a",
+      "sha256": "bd2deb86f5ff7367f828713cfc63f1e3139e68c79e0a24ddff7a3597ec4a8bd3",
       "empty": false
     },
     {
@@ -483,7 +483,7 @@
         71.0,
         1.0
       ],
-      "sha256": "31be5b5b77668f0f0b787a2a6f8e2d889e75b42d1aa999f57246f81e110203bd",
+      "sha256": "a2b0380a134f90ebb7e47f5e87000db62f373cd9f9370892fd1d3184308cbfa6",
       "empty": false
     },
     {
@@ -659,7 +659,7 @@
         50.0,
         1.0
       ],
-      "sha256": "bd942a3e48548659d2990821f63bfe49361e2f52ab45190ea52f62b833105cc3",
+      "sha256": "066b7c1f6aa386151dfb0c029e06f1a64402aa701e7b74ad4793c83818efb900",
       "empty": false
     },
     {
@@ -960,203 +960,203 @@
       "offset": 77504,
       "length": 2146,
       "trim_origin_top_left_px": [
-        201,
+        198,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        55.0,
+        58.0,
         -2.0
       ],
-      "sha256": "2adb8a3a0d171da4824a2ead214a189acbfa45e87244c5852adb1a7198211f63",
+      "sha256": "9d902f8b7173d549e327916a3579b1348819c0bb133e86d5e868047c242324f4",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_02.png",
-      "width": 36,
+      "width": 41,
       "height": 58,
       "texture_px": [
-        124,
+        141,
         200
       ],
       "offset": 79650,
-      "length": 2088,
+      "length": 2378,
       "trim_origin_top_left_px": [
-        202,
+        195,
         228
       ],
       "pivot_from_crop_bottom_left_px": [
-        54.0,
+        61.0,
         -4.0
       ],
-      "sha256": "1f0471bf2c32954f4d5e0401fc7a4498571ba8acebe8af421a122b8752c4d771",
+      "sha256": "f16b3b964133d86475783e224b68e8ef54311e9700f5e100657e9a2d3f6cd12d",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_03.png",
-      "width": 36,
+      "width": 43,
       "height": 56,
       "texture_px": [
-        124,
+        148,
         193
       ],
-      "offset": 81738,
-      "length": 2016,
+      "offset": 82028,
+      "length": 2408,
       "trim_origin_top_left_px": [
-        203,
+        192,
         228
       ],
       "pivot_from_crop_bottom_left_px": [
-        53.0,
+        64.0,
         -11.0
       ],
-      "sha256": "6ec7ba441b7883caa4f105d326e0a5dc191015d38cf03cad53dc1df7586942e6",
+      "sha256": "3590206f2bfce5517abb4880a4e54cb59e9fab064dce8aee7b0c70b1a8fadd04",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_04.png",
-      "width": 34,
+      "width": 44,
       "height": 53,
       "texture_px": [
-        117,
+        152,
         183
       ],
-      "offset": 83754,
-      "length": 1802,
+      "offset": 84436,
+      "length": 2332,
       "trim_origin_top_left_px": [
-        204,
+        190,
         229
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        66.0,
         -20.0
       ],
-      "sha256": "6340a152b5ec201fa15ea8375e7a6e8f1a98dfdee4c959d727124591f544f8d1",
+      "sha256": "c6eb347513a10ef58ebd87ae9dff9f2a10f09005d58748a785f4d09c81c110c4",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_05.png",
-      "width": 34,
+      "width": 45,
       "height": 51,
       "texture_px": [
-        117,
+        155,
         176
       ],
-      "offset": 85556,
-      "length": 1734,
+      "offset": 86768,
+      "length": 2295,
       "trim_origin_top_left_px": [
-        206,
+        188,
         232
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        68.0,
         -24.0
       ],
-      "sha256": "49106fa84a7581e88d9cdaef503c11790301235e56b832fe4ad0c19f6a5562b6",
+      "sha256": "acaf5c8b16a3398f51b3c2c66ae85674787845ed2937a4cd331a616640f983af",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_06.png",
-      "width": 34,
+      "width": 45,
       "height": 51,
       "texture_px": [
-        117,
+        155,
         176
       ],
-      "offset": 87290,
-      "length": 1734,
+      "offset": 89063,
+      "length": 2295,
       "trim_origin_top_left_px": [
-        207,
+        190,
         238
       ],
       "pivot_from_crop_bottom_left_px": [
-        49.0,
+        66.0,
         -18.0
       ],
-      "sha256": "76b706075558645e2e24104682d43ed2c60a6785a8b5ca56afe58bf4717ec063",
+      "sha256": "322c318f0b8e9219bb5503d2606038b6306edcce1ec80a2d1c7cb619a28318ee",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_07.png",
-      "width": 33,
+      "width": 43,
       "height": 49,
       "texture_px": [
-        114,
+        148,
         169
       ],
-      "offset": 89024,
-      "length": 1617,
+      "offset": 91358,
+      "length": 2107,
       "trim_origin_top_left_px": [
-        208,
+        194,
         244
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        62.0,
         -19.0
       ],
-      "sha256": "85cea604fb44f868fb284feabd8bcdc5fda0f1eac3699a4b0910a94763b572aa",
+      "sha256": "193224f36cb2c649518f1bc4515bcf21fe125f5925276b2d76407c99065f6051",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_08.png",
-      "width": 32,
+      "width": 38,
       "height": 46,
       "texture_px": [
-        110,
+        131,
         159
       ],
-      "offset": 90641,
-      "length": 1472,
+      "offset": 93465,
+      "length": 1748,
       "trim_origin_top_left_px": [
-        208,
+        199,
         252
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        57.0,
         -21.0
       ],
-      "sha256": "76e058b0ca79062ff7048908b0af5d97a1ed64f91203d983c8aff63ff48b6158",
+      "sha256": "45f54350bc4e9a3829af18f944c5ea09d7bfd599289af698682be8f7c4776091",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_09.png",
-      "width": 32,
-      "height": 45,
+      "width": 35,
+      "height": 44,
       "texture_px": [
-        110,
-        155
+        121,
+        152
       ],
-      "offset": 92113,
-      "length": 1440,
+      "offset": 95213,
+      "length": 1540,
       "trim_origin_top_left_px": [
-        209,
+        205,
         259
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
-        -18.0
+        51.0,
+        -21.0
       ],
-      "sha256": "73aceeb79460ed93e553c396478f7b434b327cbf0e2b4fca0158035a35312ca3",
+      "sha256": "90650e0c88bccad1dd6215236c3cf0eecd5036d242a97e7cd02d9f95c2d5b910",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_n_10.png",
-      "width": 32,
+      "width": 33,
       "height": 43,
       "texture_px": [
-        110,
+        114,
         148
       ],
-      "offset": 93553,
-      "length": 1376,
+      "offset": 96753,
+      "length": 1419,
       "trim_origin_top_left_px": [
         209,
         265
@@ -1165,7 +1165,7 @@
         47.0,
         -19.0
       ],
-      "sha256": "861c6c32efcc69a11a17a5a7543bcffc358125643ffc9daaf7b72879f4c9157e",
+      "sha256": "aba69229a06081443610b6c68b852760ebf982a7114b704e96d60ea09be499aa",
       "empty": false
     },
     {
@@ -1177,7 +1177,7 @@
         110,
         145
       ],
-      "offset": 94929,
+      "offset": 98172,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -1187,7 +1187,7 @@
         47.0,
         -18.0
       ],
-      "sha256": "a6aff421681a08064bc415b42c67f6451fdd95d04dd1daaae63af246b82d361e",
+      "sha256": "feb62575eb9e147d867c1212cae52394f6b94f86b6c7f0c4f9bb2a69de5214f7",
       "empty": false
     },
     {
@@ -1199,7 +1199,7 @@
         110,
         200
       ],
-      "offset": 96273,
+      "offset": 99516,
       "length": 1856,
       "trim_origin_top_left_px": [
         211,
@@ -1221,17 +1221,17 @@
         107,
         200
       ],
-      "offset": 98129,
+      "offset": 101372,
       "length": 1798,
       "trim_origin_top_left_px": [
-        207,
+        208,
         231
       ],
       "pivot_from_crop_bottom_left_px": [
-        49.0,
+        48.0,
         -1.0
       ],
-      "sha256": "e220e536edae310eb64debbf91a861f9fe400659e3c4ee1dfb3a87ec5bd21e34",
+      "sha256": "a7ae9711d6d46e9c8f88eddd4113c79d5e75f6f7dcca1319dda3d33adae83e50",
       "empty": false
     },
     {
@@ -1243,61 +1243,61 @@
         107,
         197
       ],
-      "offset": 99927,
+      "offset": 103170,
       "length": 1767,
       "trim_origin_top_left_px": [
-        206,
+        203,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        53.0,
         -5.0
       ],
-      "sha256": "4eeb9b3204e8ec3d4c07ad624c6ec55c121b565152b256feeab6314cbdc48266",
+      "sha256": "7f0940ffb08da243bfb43cb59ca4efdb2c810a941fb5ae4bb22137f1b1ffd538",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_03.png",
-      "width": 32,
+      "width": 33,
       "height": 56,
       "texture_px": [
-        110,
+        114,
         193
       ],
-      "offset": 101694,
-      "length": 1792,
+      "offset": 104937,
+      "length": 1848,
       "trim_origin_top_left_px": [
-        204,
+        198,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        58.0,
         -9.0
       ],
-      "sha256": "70cddce6059b02bf1caf87c094ce27d1a75888935080dba57d5c5fd02d8a644f",
+      "sha256": "3f8319bbe1bdd3ef8b59f75a000f85da8691d1159bde44f45a624b31970aefd9",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_04.png",
-      "width": 34,
+      "width": 35,
       "height": 55,
       "texture_px": [
-        117,
+        121,
         190
       ],
-      "offset": 103486,
-      "length": 1870,
+      "offset": 106785,
+      "length": 1925,
       "trim_origin_top_left_px": [
-        197,
+        192,
         231
       ],
       "pivot_from_crop_bottom_left_px": [
-        59.0,
+        64.0,
         -11.0
       ],
-      "sha256": "13df4abe492dc559c0f32f6bea0c834d513a9f316f0362c828f89537ac2898ce",
+      "sha256": "e8f66028dd0561cb261813ff3f3698ee3d133af534655b5ea84b1fe81dc696ff",
       "empty": false
     },
     {
@@ -1309,17 +1309,17 @@
         124,
         179
       ],
-      "offset": 105356,
+      "offset": 108710,
       "length": 1872,
       "trim_origin_top_left_px": [
-        190,
+        188,
         235
       ],
       "pivot_from_crop_bottom_left_px": [
-        66.0,
+        68.0,
         -18.0
       ],
-      "sha256": "93111953397ba903b7e26d1a7e4a7684218b235d55e3e44277469c2d72f5a99b",
+      "sha256": "c1ddbf492e500204e01dde0a4508f10d18dbc4b645ecd1fd24edeb98833268ee",
       "empty": false
     },
     {
@@ -1331,7 +1331,7 @@
         128,
         172
       ],
-      "offset": 107228,
+      "offset": 110582,
       "length": 1850,
       "trim_origin_top_left_px": [
         184,
@@ -1341,73 +1341,73 @@
         72.0,
         -21.0
       ],
-      "sha256": "58d227b0635f5ddde7ecf471e1fa0097e55242007d81d1983469114d7a24c2e4",
+      "sha256": "7d55d3664ec4d2466045e0edd87d1aafdc271a0c2f94af457a8940fd9b589418",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_07.png",
-      "width": 38,
+      "width": 37,
       "height": 48,
       "texture_px": [
-        131,
+        128,
         166
       ],
-      "offset": 109078,
-      "length": 1824,
+      "offset": 112432,
+      "length": 1776,
       "trim_origin_top_left_px": [
-        179,
+        181,
         245
       ],
       "pivot_from_crop_bottom_left_px": [
-        77.0,
+        75.0,
         -21.0
       ],
-      "sha256": "b4cfbc98bba55fe2c0d1e12e1eb3a01ee61b1bce11cf6da9a28edb79feef97e6",
+      "sha256": "45db27252548048b480ad33aa4231228c8f51e4757a504e8a72ea9077daeb1fe",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_08.png",
       "width": 39,
-      "height": 46,
+      "height": 47,
       "texture_px": [
         134,
-        159
+        162
       ],
-      "offset": 110902,
-      "length": 1794,
+      "offset": 114208,
+      "length": 1833,
       "trim_origin_top_left_px": [
-        176,
+        177,
         252
       ],
       "pivot_from_crop_bottom_left_px": [
-        80.0,
-        -21.0
+        79.0,
+        -18.0
       ],
-      "sha256": "03963664ca42aa84723444bf4d3fabda891f07db04e06bb29bfadb9f79586c1a",
+      "sha256": "c69f5c4f487a3e98c967f890f72501460c8a93e5c342e4bae2e50a98c2f474f8",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_09.png",
-      "width": 40,
+      "width": 39,
       "height": 45,
       "texture_px": [
-        138,
+        134,
         155
       ],
-      "offset": 112696,
-      "length": 1800,
+      "offset": 116041,
+      "length": 1755,
       "trim_origin_top_left_px": [
-        174,
+        175,
         258
       ],
       "pivot_from_crop_bottom_left_px": [
-        82.0,
+        81.0,
         -19.0
       ],
-      "sha256": "e5348a991dc79aca3dbbf9eca3ab2f16313ce1d53b01190a348c42c9f027fdf7",
+      "sha256": "14a9a0ffbd29361bbf59e7dd06c3729a44c9679c26124c4a43083ab96f959e9f",
       "empty": false
     },
     {
@@ -1419,39 +1419,39 @@
         138,
         152
       ],
-      "offset": 114496,
+      "offset": 117796,
       "length": 1760,
       "trim_origin_top_left_px": [
-        173,
-        259
+        174,
+        264
       ],
       "pivot_from_crop_bottom_left_px": [
-        83.0,
-        -21.0
+        82.0,
+        -16.0
       ],
-      "sha256": "b49a049f5aa9c461564d9b4ec8ee05c9928e9ba3ad819838f7b1a33339432d39",
+      "sha256": "f54a78a28274991460a54258a59d27c0c34c4c07199c5391cbce004198b359a9",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_ne_11.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 116256,
-      "length": 1800,
+      "offset": 119556,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "539b57df3ce579206a9f6ca102fa4c10d08fc389421bdf0e93ebb5668d75967b",
+      "sha256": "761ef0ba3a320a05a177e7805e467286df95fa3e1128b239c3b57ce2c1ad4bba",
       "empty": false
     },
     {
@@ -1463,7 +1463,7 @@
         117,
         200
       ],
-      "offset": 118056,
+      "offset": 121276,
       "length": 1972,
       "trim_origin_top_left_px": [
         187,
@@ -1479,23 +1479,23 @@
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_01.png",
-      "width": 34,
+      "width": 32,
       "height": 58,
       "texture_px": [
-        117,
+        110,
         200
       ],
-      "offset": 120028,
-      "length": 1972,
+      "offset": 123248,
+      "length": 1856,
       "trim_origin_top_left_px": [
-        192,
+        196,
         234
       ],
       "pivot_from_crop_bottom_left_px": [
-        64.0,
+        60.0,
         2.0
       ],
-      "sha256": "d8989d9be6fce25d6648ab85ece3a1c14e9fc7c0b1c42db29718a3b39ab44025",
+      "sha256": "04812a77c6de9e9195bfbebfb6ae09cd03a6be508dd51d1c5b3cd1104956aecf",
       "empty": false
     },
     {
@@ -1507,171 +1507,171 @@
         117,
         200
       ],
-      "offset": 122000,
+      "offset": 125104,
       "length": 1972,
       "trim_origin_top_left_px": [
-        193,
+        196,
         236
       ],
       "pivot_from_crop_bottom_left_px": [
-        63.0,
+        60.0,
         4.0
       ],
-      "sha256": "b665a800b9c9fed2266b99a144d5277288854404d3302c897f00dbebec035629",
+      "sha256": "b3fa3458f9953048f1301188932b02e458e679b50209787bd6346589e69b1aa6",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_03.png",
-      "width": 34,
+      "width": 35,
       "height": 59,
       "texture_px": [
-        117,
+        121,
         203
       ],
-      "offset": 123972,
-      "length": 2006,
+      "offset": 127076,
+      "length": 2065,
       "trim_origin_top_left_px": [
-        195,
+        197,
         237
       ],
       "pivot_from_crop_bottom_left_px": [
-        61.0,
+        59.0,
         8.0
       ],
-      "sha256": "ef90d7b85aa4e035413626894feaca20bc9480b0b61f6806a985b5960b40544c",
+      "sha256": "2563709370355a3282b9ffc42cc30c5ca0230845ac6163155b8eecc0b8bf3706",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_04.png",
-      "width": 35,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        121,
+        128,
         207
       ],
-      "offset": 125978,
-      "length": 2100,
+      "offset": 129141,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        197,
+        198,
         239
       ],
       "pivot_from_crop_bottom_left_px": [
-        59.0,
+        58.0,
         14.0
       ],
-      "sha256": "2a3543977d47b00b3487a87f0ceca701e60770081b9827dba27966b67b4d7fc9",
+      "sha256": "586cf76858c68db6f1366506d163c301309d374af2429940f83fb60a0c0d5cae",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_05.png",
-      "width": 36,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        124,
+        128,
         207
       ],
-      "offset": 128078,
-      "length": 2160,
+      "offset": 131361,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        198,
+        199,
         242
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        57.0,
         17.0
       ],
-      "sha256": "4f6241d7e9991109091bc05f7e53b4e897d8beaaa3aada1d15f1041e0a356fe7",
+      "sha256": "f0f48011306fbde81486f14c36d5f030bf04e8659f7bfa1f4fb964d81904088b",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_06.png",
-      "width": 37,
+      "width": 38,
       "height": 61,
       "texture_px": [
-        128,
+        131,
         210
       ],
-      "offset": 130238,
-      "length": 2257,
+      "offset": 133581,
+      "length": 2318,
       "trim_origin_top_left_px": [
-        199,
+        201,
         245
       ],
       "pivot_from_crop_bottom_left_px": [
-        57.0,
+        55.0,
         23.0
       ],
-      "sha256": "007c8fed171008412d1612a13c1b23b76ca7ec50990708ff7de4d88f3707af1d",
+      "sha256": "ea2dc712d2e50ec91bf8dcee7ac02477bc282f7da319b28b4c839f84c8427759",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_sit_down_se_07.png",
+      "width": 38,
+      "height": 61,
+      "texture_px": [
+        131,
+        210
+      ],
+      "offset": 135899,
+      "length": 2318,
+      "trim_origin_top_left_px": [
+        201,
+        249
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55.0,
+        27.0
+      ],
+      "sha256": "2615ce63a4039310f59c7d3e877474521ecdcc9fb3fbec6fac447a093e0e85b7",
+      "empty": false
+    },
+    {
+      "atlas": "VossSeatTransitions.atlas",
+      "name": "voss_sit_down_se_08.png",
       "width": 39,
       "height": 61,
       "texture_px": [
         134,
         210
       ],
-      "offset": 132495,
+      "offset": 138217,
       "length": 2379,
       "trim_origin_top_left_px": [
-        200,
-        249
+        201,
+        252
       ],
       "pivot_from_crop_bottom_left_px": [
-        56.0,
-        27.0
+        55.0,
+        30.0
       ],
-      "sha256": "1fd4af5904174a267e2b864c0d4c974e834c97687bbfd646bc9d7639accfa08a",
+      "sha256": "b508e4cd1ed4ca356c60b63d96e2209ffcfd11506a35ea32c0d731468db74d54",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
-      "name": "voss_sit_down_se_08.png",
+      "name": "voss_sit_down_se_09.png",
       "width": 40,
       "height": 61,
       "texture_px": [
         138,
         210
       ],
-      "offset": 134874,
+      "offset": 140596,
       "length": 2440,
       "trim_origin_top_left_px": [
-        200,
-        252
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        56.0,
-        30.0
-      ],
-      "sha256": "4af45bc29919da09de616591d3f9450fea49a03f9ce865c0816bffd0ecde46e6",
-      "empty": false
-    },
-    {
-      "atlas": "VossSeatTransitions.atlas",
-      "name": "voss_sit_down_se_09.png",
-      "width": 41,
-      "height": 61,
-      "texture_px": [
-        141,
-        210
-      ],
-      "offset": 137314,
-      "length": 2501,
-      "trim_origin_top_left_px": [
-        199,
+        201,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        57.0,
+        55.0,
         33.0
       ],
-      "sha256": "578b7eaeae9833199d340a6ea090d3fa49ad56c183fed564f171b64634e5a00c",
+      "sha256": "f790ebe5c383fcf64c1f5c0743571a4fce31bd2c80ba2e6bc992ac46c0e8d675",
       "empty": false
     },
     {
@@ -1683,17 +1683,17 @@
         141,
         210
       ],
-      "offset": 139815,
+      "offset": 143036,
       "length": 2501,
       "trim_origin_top_left_px": [
-        199,
+        201,
         256
       ],
       "pivot_from_crop_bottom_left_px": [
-        57.0,
+        55.0,
         34.0
       ],
-      "sha256": "79842cbb6f5555f5bfa1b941dbfe3b6ba6316c6306ac00f20d2bf44c9a1b0d70",
+      "sha256": "11ea4f3e80a4ce0e01eba06361829f4cc0f75621167d6ba4b42fd0692a327acd",
       "empty": false
     },
     {
@@ -1705,17 +1705,17 @@
         141,
         210
       ],
-      "offset": 142316,
+      "offset": 145537,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "3053e73ddb9d42ebdab53dd9cf9e0d638c4e76f886f079ee1bc6d2c03779e1cc",
+      "sha256": "6a37396151ac6a706a5c122c95be9a3525e283c0bd458647d7704d6a09dd52e0",
       "empty": false
     },
     {
@@ -1727,7 +1727,7 @@
         110,
         145
       ],
-      "offset": 144817,
+      "offset": 148038,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -1737,20 +1737,20 @@
         47.0,
         -18.0
       ],
-      "sha256": "a6aff421681a08064bc415b42c67f6451fdd95d04dd1daaae63af246b82d361e",
+      "sha256": "feb62575eb9e147d867c1212cae52394f6b94f86b6c7f0c4f9bb2a69de5214f7",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_01.png",
-      "width": 32,
+      "width": 33,
       "height": 43,
       "texture_px": [
-        110,
+        114,
         148
       ],
-      "offset": 146161,
-      "length": 1376,
+      "offset": 149382,
+      "length": 1419,
       "trim_origin_top_left_px": [
         209,
         265
@@ -1759,183 +1759,183 @@
         47.0,
         -19.0
       ],
-      "sha256": "861c6c32efcc69a11a17a5a7543bcffc358125643ffc9daaf7b72879f4c9157e",
+      "sha256": "aba69229a06081443610b6c68b852760ebf982a7114b704e96d60ea09be499aa",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_02.png",
-      "width": 32,
-      "height": 45,
+      "width": 35,
+      "height": 44,
       "texture_px": [
-        110,
-        155
+        121,
+        152
       ],
-      "offset": 147537,
-      "length": 1440,
+      "offset": 150801,
+      "length": 1540,
       "trim_origin_top_left_px": [
-        209,
+        205,
         259
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
-        -18.0
+        51.0,
+        -21.0
       ],
-      "sha256": "73aceeb79460ed93e553c396478f7b434b327cbf0e2b4fca0158035a35312ca3",
+      "sha256": "90650e0c88bccad1dd6215236c3cf0eecd5036d242a97e7cd02d9f95c2d5b910",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_03.png",
-      "width": 32,
+      "width": 38,
       "height": 46,
       "texture_px": [
-        110,
+        131,
         159
       ],
-      "offset": 148977,
-      "length": 1472,
+      "offset": 152341,
+      "length": 1748,
       "trim_origin_top_left_px": [
-        208,
+        199,
         252
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        57.0,
         -21.0
       ],
-      "sha256": "76e058b0ca79062ff7048908b0af5d97a1ed64f91203d983c8aff63ff48b6158",
+      "sha256": "45f54350bc4e9a3829af18f944c5ea09d7bfd599289af698682be8f7c4776091",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_04.png",
-      "width": 33,
+      "width": 43,
       "height": 49,
       "texture_px": [
-        114,
+        148,
         169
       ],
-      "offset": 150449,
-      "length": 1617,
+      "offset": 154089,
+      "length": 2107,
       "trim_origin_top_left_px": [
-        208,
+        194,
         244
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        62.0,
         -19.0
       ],
-      "sha256": "85cea604fb44f868fb284feabd8bcdc5fda0f1eac3699a4b0910a94763b572aa",
+      "sha256": "193224f36cb2c649518f1bc4515bcf21fe125f5925276b2d76407c99065f6051",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_05.png",
-      "width": 34,
+      "width": 45,
       "height": 51,
       "texture_px": [
-        117,
+        155,
         176
       ],
-      "offset": 152066,
-      "length": 1734,
+      "offset": 156196,
+      "length": 2295,
       "trim_origin_top_left_px": [
-        207,
+        190,
         238
       ],
       "pivot_from_crop_bottom_left_px": [
-        49.0,
+        66.0,
         -18.0
       ],
-      "sha256": "76b706075558645e2e24104682d43ed2c60a6785a8b5ca56afe58bf4717ec063",
+      "sha256": "322c318f0b8e9219bb5503d2606038b6306edcce1ec80a2d1c7cb619a28318ee",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_06.png",
-      "width": 34,
+      "width": 45,
       "height": 51,
       "texture_px": [
-        117,
+        155,
         176
       ],
-      "offset": 153800,
-      "length": 1734,
+      "offset": 158491,
+      "length": 2295,
       "trim_origin_top_left_px": [
-        206,
+        188,
         232
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        68.0,
         -24.0
       ],
-      "sha256": "49106fa84a7581e88d9cdaef503c11790301235e56b832fe4ad0c19f6a5562b6",
+      "sha256": "acaf5c8b16a3398f51b3c2c66ae85674787845ed2937a4cd331a616640f983af",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_07.png",
-      "width": 34,
+      "width": 44,
       "height": 53,
       "texture_px": [
-        117,
+        152,
         183
       ],
-      "offset": 155534,
-      "length": 1802,
+      "offset": 160786,
+      "length": 2332,
       "trim_origin_top_left_px": [
-        204,
+        190,
         229
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        66.0,
         -20.0
       ],
-      "sha256": "6340a152b5ec201fa15ea8375e7a6e8f1a98dfdee4c959d727124591f544f8d1",
+      "sha256": "c6eb347513a10ef58ebd87ae9dff9f2a10f09005d58748a785f4d09c81c110c4",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_08.png",
-      "width": 36,
+      "width": 43,
       "height": 56,
       "texture_px": [
-        124,
+        148,
         193
       ],
-      "offset": 157336,
-      "length": 2016,
+      "offset": 163118,
+      "length": 2408,
       "trim_origin_top_left_px": [
-        203,
+        192,
         228
       ],
       "pivot_from_crop_bottom_left_px": [
-        53.0,
+        64.0,
         -11.0
       ],
-      "sha256": "6ec7ba441b7883caa4f105d326e0a5dc191015d38cf03cad53dc1df7586942e6",
+      "sha256": "3590206f2bfce5517abb4880a4e54cb59e9fab064dce8aee7b0c70b1a8fadd04",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_n_09.png",
-      "width": 36,
+      "width": 41,
       "height": 58,
       "texture_px": [
-        124,
+        141,
         200
       ],
-      "offset": 159352,
-      "length": 2088,
+      "offset": 165526,
+      "length": 2378,
       "trim_origin_top_left_px": [
-        202,
+        195,
         228
       ],
       "pivot_from_crop_bottom_left_px": [
-        54.0,
+        61.0,
         -4.0
       ],
-      "sha256": "1f0471bf2c32954f4d5e0401fc7a4498571ba8acebe8af421a122b8752c4d771",
+      "sha256": "f16b3b964133d86475783e224b68e8ef54311e9700f5e100657e9a2d3f6cd12d",
       "empty": false
     },
     {
@@ -1947,17 +1947,17 @@
         128,
         200
       ],
-      "offset": 161440,
+      "offset": 167904,
       "length": 2146,
       "trim_origin_top_left_px": [
-        201,
+        198,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        55.0,
+        58.0,
         -2.0
       ],
-      "sha256": "2adb8a3a0d171da4824a2ead214a189acbfa45e87244c5852adb1a7198211f63",
+      "sha256": "9d902f8b7173d549e327916a3579b1348819c0bb133e86d5e868047c242324f4",
       "empty": false
     },
     {
@@ -1969,7 +1969,7 @@
         128,
         200
       ],
-      "offset": 163586,
+      "offset": 170050,
       "length": 2146,
       "trim_origin_top_left_px": [
         201,
@@ -1986,22 +1986,22 @@
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_00.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 165732,
-      "length": 1800,
+      "offset": 172196,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "539b57df3ce579206a9f6ca102fa4c10d08fc389421bdf0e93ebb5668d75967b",
+      "sha256": "761ef0ba3a320a05a177e7805e467286df95fa3e1128b239c3b57ce2c1ad4bba",
       "empty": false
     },
     {
@@ -2013,83 +2013,83 @@
         138,
         152
       ],
-      "offset": 167532,
+      "offset": 173916,
       "length": 1760,
       "trim_origin_top_left_px": [
-        173,
-        259
+        174,
+        264
       ],
       "pivot_from_crop_bottom_left_px": [
-        83.0,
-        -21.0
+        82.0,
+        -16.0
       ],
-      "sha256": "b49a049f5aa9c461564d9b4ec8ee05c9928e9ba3ad819838f7b1a33339432d39",
+      "sha256": "f54a78a28274991460a54258a59d27c0c34c4c07199c5391cbce004198b359a9",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_02.png",
-      "width": 40,
+      "width": 39,
       "height": 45,
       "texture_px": [
-        138,
+        134,
         155
       ],
-      "offset": 169292,
-      "length": 1800,
+      "offset": 175676,
+      "length": 1755,
       "trim_origin_top_left_px": [
-        174,
+        175,
         258
       ],
       "pivot_from_crop_bottom_left_px": [
-        82.0,
+        81.0,
         -19.0
       ],
-      "sha256": "e5348a991dc79aca3dbbf9eca3ab2f16313ce1d53b01190a348c42c9f027fdf7",
+      "sha256": "14a9a0ffbd29361bbf59e7dd06c3729a44c9679c26124c4a43083ab96f959e9f",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_03.png",
       "width": 39,
-      "height": 46,
+      "height": 47,
       "texture_px": [
         134,
-        159
+        162
       ],
-      "offset": 171092,
-      "length": 1794,
+      "offset": 177431,
+      "length": 1833,
       "trim_origin_top_left_px": [
-        176,
+        177,
         252
       ],
       "pivot_from_crop_bottom_left_px": [
-        80.0,
-        -21.0
+        79.0,
+        -18.0
       ],
-      "sha256": "03963664ca42aa84723444bf4d3fabda891f07db04e06bb29bfadb9f79586c1a",
+      "sha256": "c69f5c4f487a3e98c967f890f72501460c8a93e5c342e4bae2e50a98c2f474f8",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_04.png",
-      "width": 38,
+      "width": 37,
       "height": 48,
       "texture_px": [
-        131,
+        128,
         166
       ],
-      "offset": 172886,
-      "length": 1824,
+      "offset": 179264,
+      "length": 1776,
       "trim_origin_top_left_px": [
-        179,
+        181,
         245
       ],
       "pivot_from_crop_bottom_left_px": [
-        77.0,
+        75.0,
         -21.0
       ],
-      "sha256": "b4cfbc98bba55fe2c0d1e12e1eb3a01ee61b1bce11cf6da9a28edb79feef97e6",
+      "sha256": "45db27252548048b480ad33aa4231228c8f51e4757a504e8a72ea9077daeb1fe",
       "empty": false
     },
     {
@@ -2101,7 +2101,7 @@
         128,
         172
       ],
-      "offset": 174710,
+      "offset": 181040,
       "length": 1850,
       "trim_origin_top_left_px": [
         184,
@@ -2111,7 +2111,7 @@
         72.0,
         -21.0
       ],
-      "sha256": "58d227b0635f5ddde7ecf471e1fa0097e55242007d81d1983469114d7a24c2e4",
+      "sha256": "7d55d3664ec4d2466045e0edd87d1aafdc271a0c2f94af457a8940fd9b589418",
       "empty": false
     },
     {
@@ -2123,61 +2123,61 @@
         124,
         179
       ],
-      "offset": 176560,
+      "offset": 182890,
       "length": 1872,
       "trim_origin_top_left_px": [
-        190,
+        188,
         235
       ],
       "pivot_from_crop_bottom_left_px": [
-        66.0,
+        68.0,
         -18.0
       ],
-      "sha256": "93111953397ba903b7e26d1a7e4a7684218b235d55e3e44277469c2d72f5a99b",
+      "sha256": "c1ddbf492e500204e01dde0a4508f10d18dbc4b645ecd1fd24edeb98833268ee",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_07.png",
-      "width": 34,
+      "width": 35,
       "height": 55,
       "texture_px": [
-        117,
+        121,
         190
       ],
-      "offset": 178432,
-      "length": 1870,
+      "offset": 184762,
+      "length": 1925,
       "trim_origin_top_left_px": [
-        197,
+        192,
         231
       ],
       "pivot_from_crop_bottom_left_px": [
-        59.0,
+        64.0,
         -11.0
       ],
-      "sha256": "13df4abe492dc559c0f32f6bea0c834d513a9f316f0362c828f89537ac2898ce",
+      "sha256": "e8f66028dd0561cb261813ff3f3698ee3d133af534655b5ea84b1fe81dc696ff",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_ne_08.png",
-      "width": 32,
+      "width": 33,
       "height": 56,
       "texture_px": [
-        110,
+        114,
         193
       ],
-      "offset": 180302,
-      "length": 1792,
+      "offset": 186687,
+      "length": 1848,
       "trim_origin_top_left_px": [
-        204,
+        198,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        58.0,
         -9.0
       ],
-      "sha256": "70cddce6059b02bf1caf87c094ce27d1a75888935080dba57d5c5fd02d8a644f",
+      "sha256": "3f8319bbe1bdd3ef8b59f75a000f85da8691d1159bde44f45a624b31970aefd9",
       "empty": false
     },
     {
@@ -2189,17 +2189,17 @@
         107,
         197
       ],
-      "offset": 182094,
+      "offset": 188535,
       "length": 1767,
       "trim_origin_top_left_px": [
-        206,
+        203,
         230
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        53.0,
         -5.0
       ],
-      "sha256": "4eeb9b3204e8ec3d4c07ad624c6ec55c121b565152b256feeab6314cbdc48266",
+      "sha256": "7f0940ffb08da243bfb43cb59ca4efdb2c810a941fb5ae4bb22137f1b1ffd538",
       "empty": false
     },
     {
@@ -2211,17 +2211,17 @@
         107,
         200
       ],
-      "offset": 183861,
+      "offset": 190302,
       "length": 1798,
       "trim_origin_top_left_px": [
-        207,
+        208,
         231
       ],
       "pivot_from_crop_bottom_left_px": [
-        49.0,
+        48.0,
         -1.0
       ],
-      "sha256": "e220e536edae310eb64debbf91a861f9fe400659e3c4ee1dfb3a87ec5bd21e34",
+      "sha256": "a7ae9711d6d46e9c8f88eddd4113c79d5e75f6f7dcca1319dda3d33adae83e50",
       "empty": false
     },
     {
@@ -2233,7 +2233,7 @@
         110,
         200
       ],
-      "offset": 185659,
+      "offset": 192100,
       "length": 1856,
       "trim_origin_top_left_px": [
         211,
@@ -2255,17 +2255,17 @@
         141,
         210
       ],
-      "offset": 187515,
+      "offset": 193956,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "3053e73ddb9d42ebdab53dd9cf9e0d638c4e76f886f079ee1bc6d2c03779e1cc",
+      "sha256": "6a37396151ac6a706a5c122c95be9a3525e283c0bd458647d7704d6a09dd52e0",
       "empty": false
     },
     {
@@ -2277,171 +2277,171 @@
         141,
         210
       ],
-      "offset": 190016,
+      "offset": 196457,
       "length": 2501,
       "trim_origin_top_left_px": [
-        199,
+        201,
         256
       ],
       "pivot_from_crop_bottom_left_px": [
-        57.0,
+        55.0,
         34.0
       ],
-      "sha256": "79842cbb6f5555f5bfa1b941dbfe3b6ba6316c6306ac00f20d2bf44c9a1b0d70",
+      "sha256": "11ea4f3e80a4ce0e01eba06361829f4cc0f75621167d6ba4b42fd0692a327acd",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_02.png",
-      "width": 41,
-      "height": 61,
-      "texture_px": [
-        141,
-        210
-      ],
-      "offset": 192517,
-      "length": 2501,
-      "trim_origin_top_left_px": [
-        199,
-        255
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        57.0,
-        33.0
-      ],
-      "sha256": "578b7eaeae9833199d340a6ea090d3fa49ad56c183fed564f171b64634e5a00c",
-      "empty": false
-    },
-    {
-      "atlas": "VossSeatTransitions.atlas",
-      "name": "voss_stand_up_se_03.png",
       "width": 40,
       "height": 61,
       "texture_px": [
         138,
         210
       ],
-      "offset": 195018,
+      "offset": 198958,
       "length": 2440,
       "trim_origin_top_left_px": [
-        200,
-        252
+        201,
+        255
       ],
       "pivot_from_crop_bottom_left_px": [
-        56.0,
-        30.0
+        55.0,
+        33.0
       ],
-      "sha256": "4af45bc29919da09de616591d3f9450fea49a03f9ce865c0816bffd0ecde46e6",
+      "sha256": "f790ebe5c383fcf64c1f5c0743571a4fce31bd2c80ba2e6bc992ac46c0e8d675",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
-      "name": "voss_stand_up_se_04.png",
+      "name": "voss_stand_up_se_03.png",
       "width": 39,
       "height": 61,
       "texture_px": [
         134,
         210
       ],
-      "offset": 197458,
+      "offset": 201398,
       "length": 2379,
       "trim_origin_top_left_px": [
-        200,
+        201,
+        252
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55.0,
+        30.0
+      ],
+      "sha256": "b508e4cd1ed4ca356c60b63d96e2209ffcfd11506a35ea32c0d731468db74d54",
+      "empty": false
+    },
+    {
+      "atlas": "VossSeatTransitions.atlas",
+      "name": "voss_stand_up_se_04.png",
+      "width": 38,
+      "height": 61,
+      "texture_px": [
+        131,
+        210
+      ],
+      "offset": 203777,
+      "length": 2318,
+      "trim_origin_top_left_px": [
+        201,
         249
       ],
       "pivot_from_crop_bottom_left_px": [
-        56.0,
+        55.0,
         27.0
       ],
-      "sha256": "1fd4af5904174a267e2b864c0d4c974e834c97687bbfd646bc9d7639accfa08a",
+      "sha256": "2615ce63a4039310f59c7d3e877474521ecdcc9fb3fbec6fac447a093e0e85b7",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_05.png",
-      "width": 37,
+      "width": 38,
       "height": 61,
       "texture_px": [
-        128,
+        131,
         210
       ],
-      "offset": 199837,
-      "length": 2257,
+      "offset": 206095,
+      "length": 2318,
       "trim_origin_top_left_px": [
-        199,
+        201,
         245
       ],
       "pivot_from_crop_bottom_left_px": [
-        57.0,
+        55.0,
         23.0
       ],
-      "sha256": "007c8fed171008412d1612a13c1b23b76ca7ec50990708ff7de4d88f3707af1d",
+      "sha256": "ea2dc712d2e50ec91bf8dcee7ac02477bc282f7da319b28b4c839f84c8427759",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_06.png",
-      "width": 36,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        124,
+        128,
         207
       ],
-      "offset": 202094,
-      "length": 2160,
+      "offset": 208413,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        198,
+        199,
         242
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        57.0,
         17.0
       ],
-      "sha256": "4f6241d7e9991109091bc05f7e53b4e897d8beaaa3aada1d15f1041e0a356fe7",
+      "sha256": "f0f48011306fbde81486f14c36d5f030bf04e8659f7bfa1f4fb964d81904088b",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_07.png",
-      "width": 35,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        121,
+        128,
         207
       ],
-      "offset": 204254,
-      "length": 2100,
+      "offset": 210633,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        197,
+        198,
         239
       ],
       "pivot_from_crop_bottom_left_px": [
-        59.0,
+        58.0,
         14.0
       ],
-      "sha256": "2a3543977d47b00b3487a87f0ceca701e60770081b9827dba27966b67b4d7fc9",
+      "sha256": "586cf76858c68db6f1366506d163c301309d374af2429940f83fb60a0c0d5cae",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_08.png",
-      "width": 34,
+      "width": 35,
       "height": 59,
       "texture_px": [
-        117,
+        121,
         203
       ],
-      "offset": 206354,
-      "length": 2006,
+      "offset": 212853,
+      "length": 2065,
       "trim_origin_top_left_px": [
-        195,
+        197,
         237
       ],
       "pivot_from_crop_bottom_left_px": [
-        61.0,
+        59.0,
         8.0
       ],
-      "sha256": "ef90d7b85aa4e035413626894feaca20bc9480b0b61f6806a985b5960b40544c",
+      "sha256": "2563709370355a3282b9ffc42cc30c5ca0230845ac6163155b8eecc0b8bf3706",
       "empty": false
     },
     {
@@ -2453,39 +2453,39 @@
         117,
         200
       ],
-      "offset": 208360,
+      "offset": 214918,
       "length": 1972,
       "trim_origin_top_left_px": [
-        193,
+        196,
         236
       ],
       "pivot_from_crop_bottom_left_px": [
-        63.0,
+        60.0,
         4.0
       ],
-      "sha256": "b665a800b9c9fed2266b99a144d5277288854404d3302c897f00dbebec035629",
+      "sha256": "b3fa3458f9953048f1301188932b02e458e679b50209787bd6346589e69b1aa6",
       "empty": false
     },
     {
       "atlas": "VossSeatTransitions.atlas",
       "name": "voss_stand_up_se_10.png",
-      "width": 34,
+      "width": 32,
       "height": 58,
       "texture_px": [
-        117,
+        110,
         200
       ],
-      "offset": 210332,
-      "length": 1972,
+      "offset": 216890,
+      "length": 1856,
       "trim_origin_top_left_px": [
-        192,
+        196,
         234
       ],
       "pivot_from_crop_bottom_left_px": [
-        64.0,
+        60.0,
         2.0
       ],
-      "sha256": "d8989d9be6fce25d6648ab85ece3a1c14e9fc7c0b1c42db29718a3b39ab44025",
+      "sha256": "04812a77c6de9e9195bfbebfb6ae09cd03a6be508dd51d1c5b3cd1104956aecf",
       "empty": false
     },
     {
@@ -2497,7 +2497,7 @@
         117,
         200
       ],
-      "offset": 212304,
+      "offset": 218746,
       "length": 1972,
       "trim_origin_top_left_px": [
         187,
@@ -2519,7 +2519,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2541,7 +2541,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2563,7 +2563,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2585,7 +2585,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2607,7 +2607,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2629,7 +2629,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2651,7 +2651,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2673,7 +2673,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2695,7 +2695,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2717,7 +2717,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2739,7 +2739,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2761,7 +2761,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2783,7 +2783,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2805,7 +2805,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2827,7 +2827,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2849,7 +2849,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2871,7 +2871,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2893,7 +2893,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2915,7 +2915,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2937,7 +2937,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2959,7 +2959,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -2981,7 +2981,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -3003,7 +3003,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -3025,7 +3025,7 @@
         0,
         0
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -3047,7 +3047,7 @@
         110,
         145
       ],
-      "offset": 214276,
+      "offset": 220718,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3057,7 +3057,7 @@
         47.0,
         -18.0
       ],
-      "sha256": "a6aff421681a08064bc415b42c67f6451fdd95d04dd1daaae63af246b82d361e",
+      "sha256": "feb62575eb9e147d867c1212cae52394f6b94f86b6c7f0c4f9bb2a69de5214f7",
       "empty": false
     },
     {
@@ -3069,7 +3069,7 @@
         110,
         145
       ],
-      "offset": 215620,
+      "offset": 222062,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3079,7 +3079,7 @@
         47.0,
         -17.0
       ],
-      "sha256": "2d0fd7139e3baa130e2dfd524c8031972f2ca5547b3f9df3575a46ebe3c45889",
+      "sha256": "56db24b9b62677c7cbe204b1faa69af4f60bca26ced460ce9c698b6e650f1766",
       "empty": false
     },
     {
@@ -3091,7 +3091,7 @@
         110,
         145
       ],
-      "offset": 216964,
+      "offset": 223406,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3101,7 +3101,7 @@
         47.0,
         -17.0
       ],
-      "sha256": "04829887c862249cd2c8dca99a97556871a01e5f57b873c69e004b3ac28c59a8",
+      "sha256": "9eefb531ec0e3455d137f7e9a0c8a1696ab807f39ff707f123f809c9eede5e73",
       "empty": false
     },
     {
@@ -3113,7 +3113,7 @@
         110,
         145
       ],
-      "offset": 218308,
+      "offset": 224750,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3123,7 +3123,7 @@
         47.0,
         -17.0
       ],
-      "sha256": "2d0fd7139e3baa130e2dfd524c8031972f2ca5547b3f9df3575a46ebe3c45889",
+      "sha256": "56db24b9b62677c7cbe204b1faa69af4f60bca26ced460ce9c698b6e650f1766",
       "empty": false
     },
     {
@@ -3135,7 +3135,7 @@
         110,
         145
       ],
-      "offset": 219652,
+      "offset": 226094,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3145,7 +3145,7 @@
         47.0,
         -18.0
       ],
-      "sha256": "a6aff421681a08064bc415b42c67f6451fdd95d04dd1daaae63af246b82d361e",
+      "sha256": "feb62575eb9e147d867c1212cae52394f6b94f86b6c7f0c4f9bb2a69de5214f7",
       "empty": false
     },
     {
@@ -3157,7 +3157,7 @@
         110,
         145
       ],
-      "offset": 220996,
+      "offset": 227438,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3167,7 +3167,7 @@
         47.0,
         -18.0
       ],
-      "sha256": "b0c8a19d51dc1f05940ba21596578a2a91a87350cd71b166162a6a48c88d2b4b",
+      "sha256": "e93178e462a73be1165aac2fbe33ece760f8d585fb55ca90547b6e5fa64a181f",
       "empty": false
     },
     {
@@ -3179,7 +3179,7 @@
         110,
         145
       ],
-      "offset": 222340,
+      "offset": 228782,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3189,7 +3189,7 @@
         47.0,
         -18.0
       ],
-      "sha256": "c462074bfb9049654c8f82826d6ae4f90f2926a50a2d1d12b68095c5a9817778",
+      "sha256": "2b8bea89a903be56477046983944b6387f76bd472728a093a6edf303ddbc0847",
       "empty": false
     },
     {
@@ -3201,7 +3201,7 @@
         110,
         145
       ],
-      "offset": 223684,
+      "offset": 230126,
       "length": 1344,
       "trim_origin_top_left_px": [
         209,
@@ -3211,183 +3211,183 @@
         47.0,
         -18.0
       ],
-      "sha256": "b0c8a19d51dc1f05940ba21596578a2a91a87350cd71b166162a6a48c88d2b4b",
+      "sha256": "e93178e462a73be1165aac2fbe33ece760f8d585fb55ca90547b6e5fa64a181f",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_00.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 225028,
-      "length": 1800,
+      "offset": 231470,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "539b57df3ce579206a9f6ca102fa4c10d08fc389421bdf0e93ebb5668d75967b",
+      "sha256": "761ef0ba3a320a05a177e7805e467286df95fa3e1128b239c3b57ce2c1ad4bba",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_01.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 226828,
-      "length": 1800,
+      "offset": 233190,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "30c0fe9559a0a7322dbe2b32560ebdbed068169b00b5755122570b0288261121",
+      "sha256": "0a456020d5e17bf91d3ac958ba8fb9cf01b9f68a3e35e970454cf6b8b630131a",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_02.png",
-      "width": 41,
-      "height": 46,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        159
+        138,
+        148
       ],
-      "offset": 228628,
-      "length": 1886,
+      "offset": 234910,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -15.0
+        83.0,
+        -17.0
       ],
-      "sha256": "8f1a46a038f3fdcc25e24a61160683147fd04f9c3fcdf0bea3f5af04dce39f77",
+      "sha256": "d78f195ead9bd243b87772db86ba966ee8efea35ef76f6df9db8032cd4a7ba9e",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_03.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 230514,
-      "length": 1800,
+      "offset": 236630,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "30c0fe9559a0a7322dbe2b32560ebdbed068169b00b5755122570b0288261121",
+      "sha256": "0a456020d5e17bf91d3ac958ba8fb9cf01b9f68a3e35e970454cf6b8b630131a",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_04.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 232314,
-      "length": 1800,
+      "offset": 238350,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "539b57df3ce579206a9f6ca102fa4c10d08fc389421bdf0e93ebb5668d75967b",
+      "sha256": "761ef0ba3a320a05a177e7805e467286df95fa3e1128b239c3b57ce2c1ad4bba",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_05.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 234114,
-      "length": 1845,
+      "offset": 240070,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "0ec05217608cf561958ea17812c1bcffc348717f576d25b1f43af8732532d312",
+      "sha256": "888c359af029d599ba6663ef0eb68b21665351a2c5aec820f204c8ac7aee8799",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_06.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 235959,
-      "length": 1845,
+      "offset": 241790,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "0de5457c378e021e61d0986e14562461f58403cb128a842e50274467413a1c34",
+      "sha256": "5e243a66720bdbdbe5f7c96481c9eecb257ee0ff745958045213b6444ccfb4ab",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_idle_ne_07.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 237804,
-      "length": 1845,
+      "offset": 243510,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "0ec05217608cf561958ea17812c1bcffc348717f576d25b1f43af8732532d312",
+      "sha256": "888c359af029d599ba6663ef0eb68b21665351a2c5aec820f204c8ac7aee8799",
       "empty": false
     },
     {
@@ -3399,17 +3399,17 @@
         141,
         210
       ],
-      "offset": 239649,
+      "offset": 245230,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "3053e73ddb9d42ebdab53dd9cf9e0d638c4e76f886f079ee1bc6d2c03779e1cc",
+      "sha256": "6a37396151ac6a706a5c122c95be9a3525e283c0bd458647d7704d6a09dd52e0",
       "empty": false
     },
     {
@@ -3421,17 +3421,17 @@
         141,
         210
       ],
-      "offset": 242150,
+      "offset": 247731,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "23f9903e72d15411e4eea74ec19aeaab303fce6b153a767d6e6c485ca816b964",
+      "sha256": "abccd40ac1b10f914fc7e49af1909349a63d6d8bd70ed8fb55d303e4685a3f2b",
       "empty": false
     },
     {
@@ -3443,17 +3443,17 @@
         141,
         210
       ],
-      "offset": 244651,
+      "offset": 250232,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "9214d49641cadc30c2fa7dafcf7fdcfb71df44456fbf3950ba12036d431b85ad",
+      "sha256": "a540f8dcdcb48d14fdb079f9da7577ee1e87bf1fab739e292d860899055db0c8",
       "empty": false
     },
     {
@@ -3465,17 +3465,17 @@
         141,
         210
       ],
-      "offset": 247152,
+      "offset": 252733,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "23f9903e72d15411e4eea74ec19aeaab303fce6b153a767d6e6c485ca816b964",
+      "sha256": "abccd40ac1b10f914fc7e49af1909349a63d6d8bd70ed8fb55d303e4685a3f2b",
       "empty": false
     },
     {
@@ -3487,17 +3487,17 @@
         141,
         210
       ],
-      "offset": 249653,
+      "offset": 255234,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         255
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         33.0
       ],
-      "sha256": "3053e73ddb9d42ebdab53dd9cf9e0d638c4e76f886f079ee1bc6d2c03779e1cc",
+      "sha256": "6a37396151ac6a706a5c122c95be9a3525e283c0bd458647d7704d6a09dd52e0",
       "empty": false
     },
     {
@@ -3509,17 +3509,17 @@
         141,
         210
       ],
-      "offset": 252154,
+      "offset": 257735,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         256
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         34.0
       ],
-      "sha256": "628a73f784fdfb00da04e8426154d407887bc59f99200c97fd9503c58a7b9dbf",
+      "sha256": "0ef969d548332c4927e10d223584adad88fb93a93336afc4b4c61d9899b23f9f",
       "empty": false
     },
     {
@@ -3531,17 +3531,17 @@
         141,
         210
       ],
-      "offset": 254655,
+      "offset": 260236,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        201,
         256
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        55.0,
         34.0
       ],
-      "sha256": "d724d1feb158c8610245a6d514fcf3c28ed4b062de76a7ef58d4ad4fe446e7d4",
+      "sha256": "1f5c99c4550491fc28d8aabdbc396b9f088ce4caa36716d65d6432003777f997",
       "empty": false
     },
     {
@@ -3553,734 +3553,514 @@
         141,
         210
       ],
-      "offset": 257156,
+      "offset": 262737,
       "length": 2501,
       "trim_origin_top_left_px": [
-        198,
+        200,
         256
       ],
       "pivot_from_crop_bottom_left_px": [
-        58.0,
+        56.0,
         34.0
       ],
-      "sha256": "628a73f784fdfb00da04e8426154d407887bc59f99200c97fd9503c58a7b9dbf",
+      "sha256": "0ef969d548332c4927e10d223584adad88fb93a93336afc4b4c61d9899b23f9f",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_00.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 259657,
-      "length": 1800,
+      "offset": 265238,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "6b6612fa8d97a21cacf9f02589adeb9c1b6dc148f2ef54d4458d0b0cf5e72404",
+      "sha256": "5045f7c3290d64a425a17c7f2078749910295d2211fe04db15819e6b512e28d7",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_01.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 261457,
-      "length": 1800,
+      "offset": 266958,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "f508cc6ab30aa97d99d879e2926bd0b174e5b3956ebdd09c198e9260d1a9d243",
+      "sha256": "4cf8609c547103a378bfc2e54b28d4aa493be073cc75ec6335eca3b8a2156e2d",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_02.png",
-      "width": 41,
-      "height": 46,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        159
+        138,
+        148
       ],
-      "offset": 263257,
-      "length": 1886,
+      "offset": 268678,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -15.0
+        83.0,
+        -17.0
       ],
-      "sha256": "b3674bbfdc3611a514e8f3c39d53866d3bd5e84db71b09df06e774e56aa2e977",
+      "sha256": "e08667cacf9420e00262e4fc9c83bcb84eee370a20a2a7e4abf4855d3c209c98",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_03.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 265143,
-      "length": 1800,
+      "offset": 270398,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "f508cc6ab30aa97d99d879e2926bd0b174e5b3956ebdd09c198e9260d1a9d243",
+      "sha256": "4cf8609c547103a378bfc2e54b28d4aa493be073cc75ec6335eca3b8a2156e2d",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_04.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 266943,
-      "length": 1800,
+      "offset": 272118,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "6b6612fa8d97a21cacf9f02589adeb9c1b6dc148f2ef54d4458d0b0cf5e72404",
+      "sha256": "5045f7c3290d64a425a17c7f2078749910295d2211fe04db15819e6b512e28d7",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_05.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 268743,
-      "length": 1845,
+      "offset": 273838,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "4db67d546b808a19ed25e357c8a165f4454f047f27a1bcfecf587796d776d035",
+      "sha256": "ee791402a255ef052221761cb28cd7af4a299619a941e7e90d8fab9432429f3a",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_06.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 270588,
-      "length": 1845,
+      "offset": 275558,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "b277eb8dfda65c4bd3e418c7e072b37237f42249d8bce8e325519311a70e4db9",
+      "sha256": "79868927a18648f3e8b93b7f0f11b3c332d5cefbe6a6ec6999031b1335c6440a",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_lower_ne_07.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 272433,
-      "length": 1845,
+      "offset": 277278,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "4db67d546b808a19ed25e357c8a165f4454f047f27a1bcfecf587796d776d035",
+      "sha256": "ee791402a255ef052221761cb28cd7af4a299619a941e7e90d8fab9432429f3a",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_00.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 274278,
-      "length": 1800,
+      "offset": 278998,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "a2d58733795d034526f78e4f94501aebf15795085b204a4f99f2996f3ce4f406",
+      "sha256": "636641027d98bbd0440206792a95db3fe834e3c5e7a22b80246cba603f071283",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_01.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 276078,
-      "length": 1800,
+      "offset": 280718,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "aa9582cb1b51849ac514ba0159b81e3c8955b5624c1c7e3b1e3999bb828bcf8d",
+      "sha256": "2a4bcff83fc394c327ff8eb3f72ac3e300f62602fa3612bc8b3a48e9a60ae6d6",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_02.png",
-      "width": 41,
-      "height": 46,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        159
+        138,
+        148
       ],
-      "offset": 277878,
-      "length": 1886,
+      "offset": 282438,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -15.0
+        83.0,
+        -17.0
       ],
-      "sha256": "3adbf9e8b6ebf75d9824404d1723ae04ad0acd13cdb986f606e5e6bb87bcec50",
+      "sha256": "af580f380f98e5ce4e611e20eb86e154278b9a967fb9f173103f87564e33f5c4",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_03.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 279764,
-      "length": 1800,
+      "offset": 284158,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        267
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -17.0
       ],
-      "sha256": "aa9582cb1b51849ac514ba0159b81e3c8955b5624c1c7e3b1e3999bb828bcf8d",
+      "sha256": "2a4bcff83fc394c327ff8eb3f72ac3e300f62602fa3612bc8b3a48e9a60ae6d6",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_04.png",
       "width": 40,
-      "height": 45,
+      "height": 43,
       "texture_px": [
         138,
-        155
+        148
       ],
-      "offset": 281564,
-      "length": 1800,
+      "offset": 285878,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        258
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -19.0
+        83.0,
+        -18.0
       ],
-      "sha256": "a2d58733795d034526f78e4f94501aebf15795085b204a4f99f2996f3ce4f406",
+      "sha256": "636641027d98bbd0440206792a95db3fe834e3c5e7a22b80246cba603f071283",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_05.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 283364,
-      "length": 1845,
+      "offset": 287598,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "a4b71c3dc3a7495a4cbc514fd4b7bec5669b40c8a09f1b03ce38d32b7c4bfca3",
+      "sha256": "7bacd4b7d7e6d60067143bc86e802f2d37adf6418466ddde0a9b361108a528b4",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_06.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 285209,
-      "length": 1845,
+      "offset": 289318,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "ca37a095ea880a6829d5170f9bf643e7ddc925185b02a74ea25446a082ed079a",
+      "sha256": "fa13299d7d9967a0024845794c29251cc9679437b6d524898910704d07b0eae7",
       "empty": false
     },
     {
       "atlas": "VossSeatedIdle.atlas",
       "name": "voss_seated_upper_ne_07.png",
-      "width": 41,
-      "height": 45,
+      "width": 40,
+      "height": 43,
       "texture_px": [
-        141,
-        155
+        138,
+        148
       ],
-      "offset": 287054,
-      "length": 1845,
+      "offset": 291038,
+      "length": 1720,
       "trim_origin_top_left_px": [
-        172,
-        260
+        173,
+        266
       ],
       "pivot_from_crop_bottom_left_px": [
-        84.0,
-        -17.0
+        83.0,
+        -18.0
       ],
-      "sha256": "a4b71c3dc3a7495a4cbc514fd4b7bec5669b40c8a09f1b03ce38d32b7c4bfca3",
+      "sha256": "7bacd4b7d7e6d60067143bc86e802f2d37adf6418466ddde0a9b361108a528b4",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_n_00.png",
-      "width": 32,
+      "width": 40,
       "height": 59,
       "texture_px": [
-        110,
+        138,
         203
       ],
-      "offset": 288899,
-      "length": 1888,
+      "offset": 292758,
+      "length": 2360,
       "trim_origin_top_left_px": [
-        209,
+        196,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
+        60.0,
         4.0
       ],
-      "sha256": "173b9c0aa22135c3aacd7f1ec43a293c009cd58db589fdcc3106e9f563e8e9ad",
+      "sha256": "856c44539959f0fbd7e973d657dd180ce3d4db6e239cde0913d21a07ebedf72d",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_n_01.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 290787,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        208,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        48.0,
-        4.0
-      ],
-      "sha256": "0769ac8698489e5a8398a93d777304b510b061e15eb9b2e37b57c760259be0e6",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_02.png",
-      "width": 34,
-      "height": 58,
-      "texture_px": [
-        117,
-        200
-      ],
-      "offset": 292734,
-      "length": 1972,
-      "trim_origin_top_left_px": [
-        206,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        50.0,
-        1.0
-      ],
-      "sha256": "abe8f1b03d4da6e01e8a8e692cc8f659efde61a6d8c05b8b6b785b66dcaf8ae6",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_03.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 294706,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "ade713c17abcd9f039d95ded0911bab0c0010f409e40a87bd6309d0e9ad6b7ad",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_04.png",
-      "width": 31,
-      "height": 59,
-      "texture_px": [
-        107,
-        203
-      ],
-      "offset": 296594,
-      "length": 1829,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "e5e120b438802918a5d089b9d59786058e8e097335b8b6db1334260af0134a25",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_05.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 298423,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "251de0e92a286b31956c2138dc2936a7c26ded025bd5b8f7f60683d6b96a3d49",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_06.png",
-      "width": 34,
-      "height": 58,
-      "texture_px": [
-        117,
-        200
-      ],
-      "offset": 300311,
-      "length": 1972,
-      "trim_origin_top_left_px": [
-        206,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        50.0,
-        1.0
-      ],
-      "sha256": "8016f3705b53da1dc97db07628e69b703450e5e16c3e0e3b29794c1dc4627e28",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_n_07.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 302283,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        208,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        48.0,
-        4.0
-      ],
-      "sha256": "81d94badeb694993a433339b80bcc3edc55a75473015179dfadf209ed5ecbc87",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_00.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 304230,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        203,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        53.0,
-        4.0
-      ],
-      "sha256": "990b800789da5423324a6dd8433916acaaad261f080a801b193744fea6c98a30",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_01.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 306177,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        204,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        52.0,
-        4.0
-      ],
-      "sha256": "4901f113758e00a2c7cd4767e894ccb86ab66a710a3d18f3f236efc1862b28a9",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_02.png",
-      "width": 33,
-      "height": 58,
-      "texture_px": [
-        114,
-        200
-      ],
-      "offset": 308124,
-      "length": 1914,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        1.0
-      ],
-      "sha256": "f08c80a0d23538e13b67b32f01a26eb3a011da2b31ad16b8397321e36025e5a1",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_03.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 310038,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        211,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        45.0,
-        4.0
-      ],
-      "sha256": "f65cdb24b03c3022c7587241f611625c095e45206451e974cd576ba7418937eb",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_04.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 311926,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "9d9b4f69c05fe3397c810ad2d04d81e202471acdef058b6b3e71d22119f5a11a",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_05.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 313814,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "f0e4fa1b980488a3508410fced314da5aceda9ebe9aa1ab2e591eac57d97492e",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_06.png",
-      "width": 33,
-      "height": 58,
-      "texture_px": [
-        114,
-        200
-      ],
-      "offset": 315702,
-      "length": 1914,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        1.0
-      ],
-      "sha256": "bc1e99a1633c025cfe39ce8f12d3194e9a9e24a99e3e0f9ea92dbd99be1abd72",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nnw_07.png",
-      "width": 32,
-      "height": 59,
-      "texture_px": [
-        110,
-        203
-      ],
-      "offset": 317616,
-      "length": 1888,
-      "trim_origin_top_left_px": [
-        206,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        50.0,
-        4.0
-      ],
-      "sha256": "b53663d261b9f1df71ac6e94f7f08d3a0d22682f886ff07ccbf8750b2d0e12d1",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_00.png",
       "width": 41,
       "height": 59,
       "texture_px": [
         141,
         203
       ],
-      "offset": 319504,
+      "offset": 295118,
       "length": 2419,
+      "trim_origin_top_left_px": [
+        194,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        62.0,
+        4.0
+      ],
+      "sha256": "e12084305e978681013149893ee6315cbbd646182d745760ac7b5ba05c0b3c0d",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_n_02.png",
+      "width": 43,
+      "height": 58,
+      "texture_px": [
+        148,
+        200
+      ],
+      "offset": 297537,
+      "length": 2494,
+      "trim_origin_top_left_px": [
+        190,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        66.0,
+        1.0
+      ],
+      "sha256": "39d5a737675a72e4bf11c8fc84f2ad2f7944f20b9182007c2fc21bd60a740ec1",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_n_03.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        138,
+        203
+      ],
+      "offset": 300031,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        4.0
+      ],
+      "sha256": "e922858565abb06bdb4d4828a381c059dcf5ab76f7004058e103f1f977ca0770",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_n_04.png",
+      "width": 39,
+      "height": 59,
+      "texture_px": [
+        134,
+        203
+      ],
+      "offset": 302391,
+      "length": 2301,
+      "trim_origin_top_left_px": [
+        197,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        59.0,
+        4.0
+      ],
+      "sha256": "f58b26fc9ce2704c35c2f1e56c0115f8e7add61f5c103469825c88c606207af4",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_n_05.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        138,
+        203
+      ],
+      "offset": 304692,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        4.0
+      ],
+      "sha256": "d8b78bfd787aba09a4c2eb3c44b72a4875aaa3e422d4dc529cc2b28807e8aa0d",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_n_06.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        152,
+        203
+      ],
+      "offset": 307052,
+      "length": 2596,
       "trim_origin_top_left_px": [
         189,
         233
@@ -4289,152 +4069,64 @@
         67.0,
         4.0
       ],
-      "sha256": "107a5e17193ef79ca5db7c2b1e510426951de1badd30dc6557691af33c5ca6e6",
+      "sha256": "6765ad00dabadab60574a43000aa7b98f0a72b03b404d94fcadd0e94189f0c05",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_01.png",
-      "width": 39,
-      "height": 58,
+      "name": "voss_walk_n_07.png",
+      "width": 41,
+      "height": 59,
       "texture_px": [
-        134,
-        200
+        141,
+        203
       ],
-      "offset": 321923,
-      "length": 2262,
+      "offset": 309648,
+      "length": 2419,
       "trim_origin_top_left_px": [
         194,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         62.0,
-        1.0
-      ],
-      "sha256": "77fb1d1a5e42ad78df8786dd96bef700be678e4e616d5942978d335cf88b2074",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_02.png",
-      "width": 31,
-      "height": 58,
-      "texture_px": [
-        107,
-        200
-      ],
-      "offset": 324185,
-      "length": 1798,
-      "trim_origin_top_left_px": [
-        213,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        43.0,
-        1.0
-      ],
-      "sha256": "399673fe63c56b2aa58e695f52981f85b74e16dbdf35e66df59d23bea898670d",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_03.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 325983,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
         4.0
       ],
-      "sha256": "0d1f433b11d55327c4aef1e9f4bfe3b0b93984d05fc79e9eb1ff38287910b0ad",
+      "sha256": "49d0e1edff034f553d42ea4df4639ad26c37c3e3b6c21b64ac920a9cc63f597b",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_04.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 327930,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        208,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        48.0,
-        4.0
-      ],
-      "sha256": "8bfc7ab0352eda30be4ecd5ff922f684b8393ef41176c7cb3dc9fc26dea4ee0a",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_05.png",
-      "width": 33,
-      "height": 59,
-      "texture_px": [
-        114,
-        203
-      ],
-      "offset": 329877,
-      "length": 1947,
-      "trim_origin_top_left_px": [
-        209,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        47.0,
-        4.0
-      ],
-      "sha256": "03c9453e79ac50e6c79d7920c8aae70bd10faf06f56fdbde3615393a5a2d8c77",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_06.png",
-      "width": 32,
-      "height": 58,
-      "texture_px": [
-        110,
-        200
-      ],
-      "offset": 331824,
-      "length": 1856,
-      "trim_origin_top_left_px": [
-        211,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        45.0,
-        1.0
-      ],
-      "sha256": "e37b50da465ea957677cae346fcf2c5d8210a4440c8be997e0f89b37d04670e5",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_nw_07.png",
+      "name": "voss_walk_nnw_00.png",
       "width": 37,
       "height": 59,
       "texture_px": [
         128,
         203
       ],
-      "offset": 333680,
+      "offset": 312067,
       "length": 2183,
+      "trim_origin_top_left_px": [
+        201,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55.0,
+        4.0
+      ],
+      "sha256": "4462da2069a2fd61501d717ad1138ec823bfd7e68c94670304415d8018592dd0",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_01.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        131,
+        203
+      ],
+      "offset": 314250,
+      "length": 2242,
       "trim_origin_top_left_px": [
         199,
         233
@@ -4443,284 +4135,592 @@
         57.0,
         4.0
       ],
-      "sha256": "91961d2de6572ad064ed7abc8e02f871e589117e6c8e604e2d29a26fe0ba6cda",
+      "sha256": "02ff531c9a2d6ed0feacda9bbabe90f0f43c22afb2bb5ce6e4d7d17ceac9e22e",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_02.png",
+      "width": 40,
+      "height": 58,
+      "texture_px": [
+        138,
+        200
+      ],
+      "offset": 316492,
+      "length": 2320,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        1.0
+      ],
+      "sha256": "d2c02ea1d567e3df614c2f6dc3ec382cdf132afcd69070949c5b8f9b3a593de8",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_03.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        138,
+        203
+      ],
+      "offset": 318812,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        4.0
+      ],
+      "sha256": "ceacd0714a72854efd8ac883d80647f6e9074419d95e6c4c9e2b19495dbe1da3",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_04.png",
+      "width": 41,
+      "height": 59,
+      "texture_px": [
+        141,
+        203
+      ],
+      "offset": 321172,
+      "length": 2419,
+      "trim_origin_top_left_px": [
+        194,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        62.0,
+        4.0
+      ],
+      "sha256": "70ca707c27ee033f635faa7030c6eb7e6cbce6550ee2fc79f97f4d894b4ffd1f",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_05.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        138,
+        203
+      ],
+      "offset": 323591,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        4.0
+      ],
+      "sha256": "7418ea8b70643f69db1f06a026213ec8b7efc2c0e8f1bc6c08247a1780d0e182",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_06.png",
+      "width": 42,
+      "height": 60,
+      "texture_px": [
+        145,
+        207
+      ],
+      "offset": 325951,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        192,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        64.0,
+        8.0
+      ],
+      "sha256": "719ed1b6d2fd87d2f68d7cf8191c17d650aba752f5e67202a31c4f6cf4081743",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nnw_07.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        131,
+        203
+      ],
+      "offset": 328471,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        199,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57.0,
+        4.0
+      ],
+      "sha256": "6e47f183d3c80dc1ab3f80afcabe7fe55aa1b32217428f665f14cccbb763f868",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_00.png",
+      "width": 41,
+      "height": 61,
+      "texture_px": [
+        141,
+        210
+      ],
+      "offset": 330713,
+      "length": 2501,
+      "trim_origin_top_left_px": [
+        189,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        67.0,
+        11.0
+      ],
+      "sha256": "fcb3b3b1fd1fcdc919c46d673d2ce702d932e8321e746c072e76af802a631774",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_01.png",
+      "width": 41,
+      "height": 61,
+      "texture_px": [
+        141,
+        210
+      ],
+      "offset": 333214,
+      "length": 2501,
+      "trim_origin_top_left_px": [
+        194,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        62.0,
+        11.0
+      ],
+      "sha256": "bdf4560b5b36372542643a9d0c95c3a017c6d82537215572d5d25a229393a042",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_02.png",
+      "width": 34,
+      "height": 58,
+      "texture_px": [
+        117,
+        200
+      ],
+      "offset": 335715,
+      "length": 1972,
+      "trim_origin_top_left_px": [
+        206,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50.0,
+        1.0
+      ],
+      "sha256": "871bbe777ee2b7104ce5eeeb017d4bff46d94b1344aa99086e25db8ca3b4a915",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_03.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        128,
+        203
+      ],
+      "offset": 337687,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        201,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55.0,
+        4.0
+      ],
+      "sha256": "5eeb9fe4d84ad3a44f91bb8b45e8413582d1368539b8e43caffe9c7b5033dcca",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_04.png",
+      "width": 39,
+      "height": 59,
+      "texture_px": [
+        134,
+        203
+      ],
+      "offset": 339870,
+      "length": 2301,
+      "trim_origin_top_left_px": [
+        197,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        59.0,
+        4.0
+      ],
+      "sha256": "e67217fe982808cd40e895b0253e30ad5109b66b7dead0a882e9e628fe1bbfc2",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_05.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        128,
+        203
+      ],
+      "offset": 342171,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        201,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55.0,
+        4.0
+      ],
+      "sha256": "a711dc31237b66250e2de7d766202831078aa832867f632dcd19a8acfbf42138",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_06.png",
+      "width": 38,
+      "height": 60,
+      "texture_px": [
+        131,
+        207
+      ],
+      "offset": 344354,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        199,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57.0,
+        8.0
+      ],
+      "sha256": "5e9b94e78c34cc53302955f1c0de7cd48f039391777d04a873439f26d34bc4c8",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_nw_07.png",
+      "width": 39,
+      "height": 62,
+      "texture_px": [
+        134,
+        214
+      ],
+      "offset": 346634,
+      "length": 2418,
+      "trim_origin_top_left_px": [
+        197,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        59.0,
+        15.0
+      ],
+      "sha256": "a68079d2cd58fb800e457e74c77163c796cb4d38235fdc56113d12dd0c2ee2fa",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_00.png",
-      "width": 31,
+      "width": 37,
       "height": 61,
       "texture_px": [
-        107,
+        128,
         210
       ],
-      "offset": 335863,
-      "length": 1891,
+      "offset": 349052,
+      "length": 2257,
       "trim_origin_top_left_px": [
-        211,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        45.0,
+        57.0,
         11.0
       ],
-      "sha256": "ad388deef789cf42a8ffa9032858fc57365f25858ccbd29d0bd90a18a3f20c9d",
+      "sha256": "967e9085b21daa06655e215418c91ba7707321e22f8afe4f5ce024d460d4fa8a",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_01.png",
-      "width": 31,
+      "width": 38,
       "height": 60,
       "texture_px": [
-        107,
+        131,
         207
       ],
-      "offset": 337754,
-      "length": 1860,
+      "offset": 351309,
+      "length": 2280,
       "trim_origin_top_left_px": [
-        211,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        45.0,
+        57.0,
         8.0
       ],
-      "sha256": "499eacec8cf276f700e13ed50abe15c9d4d7197a0408041236eb12fa355c4f3f",
+      "sha256": "c579e424b195c2e8379277d98c10aa3a9c0e260169b34b670b30be31afcbe1da",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_02.png",
-      "width": 34,
-      "height": 58,
+      "width": 43,
+      "height": 59,
       "texture_px": [
-        117,
-        200
+        148,
+        203
       ],
-      "offset": 339614,
-      "length": 1972,
+      "offset": 353589,
+      "length": 2537,
       "trim_origin_top_left_px": [
-        208,
+        190,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
-        1.0
+        66.0,
+        4.0
       ],
-      "sha256": "d9b728b4188947a5c9bd538f80ded5aceec4eb97e3f168bcb36cb17aa5c391ad",
+      "sha256": "8aba7997c3d2a427ae27689e7cd33bc4c3f5bb965f38767121932321f09961b9",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_03.png",
-      "width": 31,
+      "width": 38,
       "height": 60,
       "texture_px": [
-        107,
+        131,
         207
       ],
-      "offset": 341586,
-      "length": 1860,
+      "offset": 356126,
+      "length": 2280,
       "trim_origin_top_left_px": [
-        211,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        45.0,
+        57.0,
         8.0
       ],
-      "sha256": "1e061b2943e60d28dcfa7c9a92e05f0ac71b9db7cf5838ef254f205f33938ec3",
+      "sha256": "551dfba3b1736be36a69fc8fd661399d663a8a71a59ec961ea46990767ec15a4",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_04.png",
-      "width": 30,
+      "width": 37,
       "height": 61,
       "texture_px": [
-        103,
+        128,
         210
       ],
-      "offset": 343446,
-      "length": 1830,
+      "offset": 358406,
+      "length": 2257,
       "trim_origin_top_left_px": [
-        213,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        43.0,
+        57.0,
         11.0
       ],
-      "sha256": "6b58e3b1bb008376330bbb9e3b5e432e8394829636129c6a29e801b753d2a153",
+      "sha256": "7162d531721f52c62a74fcfab332a78e9902c840912ce4d81f202a5f5c64b288",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_05.png",
-      "width": 31,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        107,
+        128,
         207
       ],
-      "offset": 345276,
-      "length": 1860,
+      "offset": 360663,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        209,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
+        57.0,
         8.0
       ],
-      "sha256": "822c11d5577fb84d6dbe43ae507a2ef36d5e73dfa91cb1cfbc8906a712558bed",
+      "sha256": "15d17896e95f4fa015b6a870db379bbe79af82a3d872504cbdc082f8e92d93b7",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_06.png",
-      "width": 34,
+      "width": 42,
       "height": 58,
       "texture_px": [
-        117,
+        145,
         200
       ],
-      "offset": 347136,
-      "length": 1972,
+      "offset": 362883,
+      "length": 2436,
       "trim_origin_top_left_px": [
-        208,
+        192,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        64.0,
         1.0
       ],
-      "sha256": "b9341ffa28e7683bc0770f7ae138aa3895898a1898903f3d438d6eb1fbdc08eb",
+      "sha256": "ae465ccf193eab55039e628e4ad28d2944e0f2661088b7456abf3043119f1401",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_s_07.png",
-      "width": 32,
+      "width": 39,
       "height": 60,
       "texture_px": [
-        110,
+        134,
         207
       ],
-      "offset": 349108,
-      "length": 1920,
+      "offset": 365319,
+      "length": 2340,
       "trim_origin_top_left_px": [
-        209,
+        197,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
+        59.0,
         8.0
       ],
-      "sha256": "039215c7be1bc682e8b3037ba780c3f0b81e93cce5d380532fef017a35ab436f",
+      "sha256": "cdb170790b783104f9fa263bb0ac709d497b26823555bd69e90630666e20d638",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_00.png",
-      "width": 34,
+      "width": 39,
       "height": 61,
       "texture_px": [
-        117,
+        134,
         210
       ],
-      "offset": 351028,
-      "length": 2074,
+      "offset": 367659,
+      "length": 2379,
       "trim_origin_top_left_px": [
-        206,
+        196,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        60.0,
         11.0
       ],
-      "sha256": "6237c413f284f78cb4168ba38f1b98ad1b4e5da7af091e4a46f7018031c82472",
+      "sha256": "d7010deae4f8078d90aae2047bdf07dfcd11dee9a570cb1f288623ab6ce7766d",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_01.png",
-      "width": 34,
+      "width": 38,
       "height": 60,
       "texture_px": [
-        117,
+        131,
         207
       ],
-      "offset": 353102,
-      "length": 2040,
+      "offset": 370038,
+      "length": 2280,
       "trim_origin_top_left_px": [
-        206,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        57.0,
         8.0
       ],
-      "sha256": "d8a1c6a26088c77dfac0e3fb0f4cecc11d9547025fb589a2b5e796e7344dbb04",
+      "sha256": "56d0aadf82e961d9a1842594ff4910b0b7b2f48ee5d2e9048f99570b9fb161e9",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_02.png",
-      "width": 36,
+      "width": 40,
       "height": 58,
       "texture_px": [
-        124,
+        138,
         200
       ],
-      "offset": 355142,
-      "length": 2088,
+      "offset": 372318,
+      "length": 2320,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        1.0
+      ],
+      "sha256": "bda2a4a2f296e19ead33b2df248daf7281cf51a01053d18e6449f7832cad8a53",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_ssw_03.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        121,
+        207
+      ],
+      "offset": 374638,
+      "length": 2100,
       "trim_origin_top_left_px": [
         204,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         52.0,
-        1.0
-      ],
-      "sha256": "2bbfbcd59b4a8fbcd558166c9ade7174366d0da861bcb07999009e31c733ab1f",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_ssw_03.png",
-      "width": 33,
-      "height": 60,
-      "texture_px": [
-        114,
-        207
-      ],
-      "offset": 357230,
-      "length": 1980,
-      "trim_origin_top_left_px": [
-        206,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        50.0,
         8.0
       ],
-      "sha256": "3083871fcc27b5a214e2d234eacd7a649db2d59e860aac9d6cc7273c9627bac0",
+      "sha256": "ee3e463a050eac10065bd44a9ac2fab60fe286f3930a69932efafdd098881475",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_04.png",
-      "width": 34,
+      "width": 35,
       "height": 61,
       "texture_px": [
-        117,
+        121,
         210
       ],
-      "offset": 359210,
-      "length": 2074,
+      "offset": 376738,
+      "length": 2135,
       "trim_origin_top_left_px": [
         203,
         233
@@ -4729,95 +4729,95 @@
         53.0,
         11.0
       ],
-      "sha256": "e0b9f930853cb94b7dcff26176bac2b09ea30111e167c243b029e0f5bcdd67fc",
+      "sha256": "e8379437d236a629e0d6a87de2612ea3677b6aa05e4d7ec27c61aa75640e5162",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_05.png",
-      "width": 34,
+      "width": 36,
       "height": 61,
       "texture_px": [
-        117,
+        124,
         210
       ],
-      "offset": 361284,
-      "length": 2074,
+      "offset": 378873,
+      "length": 2196,
       "trim_origin_top_left_px": [
-        204,
+        203,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        53.0,
         11.0
       ],
-      "sha256": "adf5ac6df9b233007ce7ec75358b1dfa32161dc309399aff7fcdeab00b56bd0a",
+      "sha256": "a4485e3bd1182a6d019e3098f290f022b85c429ce9f3d2e566a52d9eb55593ea",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_06.png",
-      "width": 36,
-      "height": 58,
+      "width": 41,
+      "height": 61,
       "texture_px": [
-        124,
-        200
+        141,
+        210
       ],
-      "offset": 363358,
-      "length": 2088,
+      "offset": 381069,
+      "length": 2501,
       "trim_origin_top_left_px": [
-        204,
+        194,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
-        1.0
+        62.0,
+        11.0
       ],
-      "sha256": "5937a02783c905b0ec7431222dc1b85761b5f9dc1a14e0762ea734523b4f4c22",
+      "sha256": "49ac499dfe5eab727ec592bdcbd83c58bfbfde2d5c1a2df7aad0ff1b854182f2",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_ssw_07.png",
-      "width": 34,
+      "width": 39,
       "height": 60,
       "texture_px": [
-        117,
+        134,
         207
       ],
-      "offset": 365446,
-      "length": 2040,
+      "offset": 383570,
+      "length": 2340,
       "trim_origin_top_left_px": [
-        206,
+        197,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        59.0,
         8.0
       ],
-      "sha256": "9518f9722d93839bdd74522fe66d95462aef743fa49eb83d04a93d703e0da6ca",
+      "sha256": "ac0a8a21408ff398b8d50d2bb172d80c2cc4a86f99c15459b7d4888fdf75e078",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_sw_00.png",
-      "width": 36,
+      "width": 37,
       "height": 61,
       "texture_px": [
-        124,
+        128,
         210
       ],
-      "offset": 367486,
-      "length": 2196,
+      "offset": 385910,
+      "length": 2257,
       "trim_origin_top_left_px": [
-        204,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        52.0,
+        57.0,
         11.0
       ],
-      "sha256": "2cf8be83677b1a2059133a5738563ebb37417b9981f3a009588b18766edad304",
+      "sha256": "1e774a0c9f1ac9d0794f882042acbac93660ddad4e49baffbd60047da219fb29",
       "empty": false
     },
     {
@@ -4829,61 +4829,61 @@
         121,
         207
       ],
-      "offset": 369682,
+      "offset": 388167,
       "length": 2100,
       "trim_origin_top_left_px": [
-        206,
+        204,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        52.0,
         8.0
       ],
-      "sha256": "3e5920205d78c39ab99e57c14d55791ae4bd2b2106dc07dca337cf0616d6345e",
+      "sha256": "7c3c06b76faa7b8c055decdb30293142c1f68ee77822f04a23eb127160b762a1",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_sw_02.png",
-      "width": 34,
+      "width": 35,
       "height": 58,
       "texture_px": [
-        117,
+        121,
         200
       ],
-      "offset": 371782,
-      "length": 1972,
+      "offset": 390267,
+      "length": 2030,
       "trim_origin_top_left_px": [
-        208,
+        204,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        48.0,
+        52.0,
         1.0
       ],
-      "sha256": "ad52674a37a105a10522ce9c82f4121a051f4e618106f24576e070118019bc7c",
+      "sha256": "f427d8220bfdfcec71bea16c87b482006db8c3327bbaac94a991cf7829722bab",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_sw_03.png",
-      "width": 39,
+      "width": 38,
       "height": 60,
       "texture_px": [
-        134,
+        131,
         207
       ],
-      "offset": 373754,
-      "length": 2340,
+      "offset": 392297,
+      "length": 2280,
       "trim_origin_top_left_px": [
-        194,
+        196,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        62.0,
+        60.0,
         8.0
       ],
-      "sha256": "266790a8e22d4b7aa2aa175c891e5cdc5a1d43143540f38aac1a339ee169717f",
+      "sha256": "0204c52dd6d3214cde78ffb1706ae37f877ecb9131a56967b9039b141481abca",
       "empty": false
     },
     {
@@ -4895,7 +4895,7 @@
         145,
         207
       ],
-      "offset": 376094,
+      "offset": 394577,
       "length": 2520,
       "trim_origin_top_left_px": [
         189,
@@ -4905,7 +4905,7 @@
         67.0,
         8.0
       ],
-      "sha256": "92df04118f86734b9680b2e7bdeb8a272453595d8190de8169c8d9c646e2518a",
+      "sha256": "09d2723e186a25e40f89584003b5d310451a242868efc1accded13016a46532b",
       "empty": false
     },
     {
@@ -4917,7 +4917,7 @@
         138,
         207
       ],
-      "offset": 378614,
+      "offset": 397097,
       "length": 2400,
       "trim_origin_top_left_px": [
         192,
@@ -4927,51 +4927,51 @@
         64.0,
         8.0
       ],
-      "sha256": "79bc1b6537242dda17939a9221cd9f3defc1170b03a568e132ccfc58f00a5018",
+      "sha256": "c599a7dc412eacee3d17b05f36193f639d8ab6fede875b9db85b6eab4497f7eb",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_sw_06.png",
       "width": 34,
-      "height": 58,
+      "height": 61,
       "texture_px": [
         117,
-        200
+        210
       ],
-      "offset": 381014,
-      "length": 1972,
+      "offset": 399497,
+      "length": 2074,
       "trim_origin_top_left_px": [
         208,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         48.0,
-        1.0
+        11.0
       ],
-      "sha256": "5a08c7e083eb0d9bd0e9ed114ca2daf94ec93e52918bf89af8de6086a10e4b62",
+      "sha256": "441ba36e720fa745fb9f82cfb950688efc30953f95bc4caf5d3a90ff8e5e2087",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_sw_07.png",
-      "width": 35,
+      "width": 36,
       "height": 60,
       "texture_px": [
-        121,
+        124,
         207
       ],
-      "offset": 382986,
-      "length": 2100,
+      "offset": 401571,
+      "length": 2160,
       "trim_origin_top_left_px": [
-        206,
+        203,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        50.0,
+        53.0,
         8.0
       ],
-      "sha256": "215cd3c4448475342a545d9f881fbd42c3e850609e65f18e0af693eeb7b23144",
+      "sha256": "c1568d9796f5a5b10463670e5d130de665541f6c606bfc9e9c4a47be4fe6970b",
       "empty": false
     },
     {
@@ -4983,7 +4983,7 @@
         148,
         214
       ],
-      "offset": 385086,
+      "offset": 403731,
       "length": 2666,
       "trim_origin_top_left_px": [
         182,
@@ -4993,7 +4993,7 @@
         74.0,
         15.0
       ],
-      "sha256": "58838151a76c1963ea61ca03722e3926fe29d8459ceaae7aafb197272fdd9b5e",
+      "sha256": "6ffdb1ef8e856baf46df26fed01cf41f0040679671ba77fc137a0005688cc1d5",
       "empty": false
     },
     {
@@ -5005,7 +5005,7 @@
         128,
         210
       ],
-      "offset": 387752,
+      "offset": 406397,
       "length": 2257,
       "trim_origin_top_left_px": [
         196,
@@ -5015,29 +5015,29 @@
         60.0,
         11.0
       ],
-      "sha256": "632343de0f65982eda2729fa77728f92d85bd4fb2b504b59ed8285ecef2d42dc",
+      "sha256": "e33af0802fcd615bc151be05aabc13b5e4d61535513cd6597f2269040f0cddf2",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_w_02.png",
-      "width": 24,
+      "width": 26,
       "height": 58,
       "texture_px": [
-        83,
+        90,
         200
       ],
-      "offset": 390009,
-      "length": 1392,
+      "offset": 408654,
+      "length": 1508,
       "trim_origin_top_left_px": [
-        223,
+        222,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        33.0,
+        34.0,
         1.0
       ],
-      "sha256": "9f3ed3da47fc154544604509a8bd64db3d0e4cae200e8e145004a797eb3a39e3",
+      "sha256": "881e55eb67b8e86f67f4b77193a95186c1bbdc4675162d5ed30baa96c64b54a6",
       "empty": false
     },
     {
@@ -5049,17 +5049,17 @@
         117,
         203
       ],
-      "offset": 391401,
+      "offset": 410162,
       "length": 2006,
       "trim_origin_top_left_px": [
-        197,
+        199,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        59.0,
+        57.0,
         4.0
       ],
-      "sha256": "3e4a646b48ef22e328b3bd3416fb5bba9545dbdd7d12426a8e1178229e88740c",
+      "sha256": "a30233971dfbbd264d0abd25b8f32da5eafed75f22ffeacd1f1c9ba8cc24d2de",
       "empty": false
     },
     {
@@ -5071,7 +5071,7 @@
         148,
         200
       ],
-      "offset": 393407,
+      "offset": 412168,
       "length": 2494,
       "trim_origin_top_left_px": [
         182,
@@ -5081,20 +5081,20 @@
         74.0,
         1.0
       ],
-      "sha256": "46d72a86e2c1d756a00fc43adeb27536c22225cbed9c35949b77da18c3374c2a",
+      "sha256": "b39473cb1ff94b0fb2254213f21d0a09cb3000cc77ac33f0c6f26357646fdfbe",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_w_05.png",
-      "width": 36,
+      "width": 37,
       "height": 58,
       "texture_px": [
-        124,
+        128,
         200
       ],
-      "offset": 395901,
-      "length": 2088,
+      "offset": 414662,
+      "length": 2146,
       "trim_origin_top_left_px": [
         194,
         233
@@ -5103,108 +5103,108 @@
         62.0,
         1.0
       ],
-      "sha256": "1e54a81514a4e10d9902dbdaf137a8c3ad8d6cea95c39e540ef5a94773538d06",
+      "sha256": "b501ce72770dbeaf923c9dad2a563b64e58a7aaa274c71ad83384c59342d46ea",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_w_06.png",
-      "width": 24,
-      "height": 58,
+      "width": 28,
+      "height": 60,
       "texture_px": [
-        83,
-        200
+        97,
+        207
       ],
-      "offset": 397989,
-      "length": 1392,
+      "offset": 416808,
+      "length": 1680,
       "trim_origin_top_left_px": [
-        223,
+        220,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        33.0,
-        1.0
+        36.0,
+        8.0
       ],
-      "sha256": "01ef18e12cdaeae06477df7c12eea281659c6a933405d79e034e956b765a335e",
+      "sha256": "4ba80aa5e6d87b305e96ec6ae8fae7f9ba044e1a3e4901537a4b72dc58bf5408",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_w_07.png",
-      "width": 34,
+      "width": 33,
       "height": 60,
       "texture_px": [
-        117,
+        114,
         207
       ],
-      "offset": 399381,
-      "length": 2040,
+      "offset": 418488,
+      "length": 1980,
       "trim_origin_top_left_px": [
-        201,
+        203,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        55.0,
+        53.0,
         8.0
       ],
-      "sha256": "d9d390ced5f4503a4b4017df594c361f3437cf2f3ab0ea61889aef32663ff041",
+      "sha256": "aaa57266b51dc7f11dded63411cfd36ef89af1f475277c29cdd50e93a18e0a65",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wnw_00.png",
       "width": 47,
-      "height": 63,
+      "height": 66,
       "texture_px": [
         162,
-        217
+        228
       ],
-      "offset": 401421,
-      "length": 2961,
+      "offset": 420468,
+      "length": 3102,
       "trim_origin_top_left_px": [
         175,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         81.0,
-        18.0
+        29.0
       ],
-      "sha256": "0cb8449695aca413873a00156f2745b1e605be669f9612ff6fa8b84b53cfc1d8",
+      "sha256": "c7fb4674489002bb5786e7fe5675e701237ff56ef102f6657cd7f4c4d76f8744",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wnw_01.png",
       "width": 42,
-      "height": 63,
+      "height": 66,
       "texture_px": [
         145,
-        217
+        228
       ],
-      "offset": 404382,
-      "length": 2646,
+      "offset": 423570,
+      "length": 2772,
       "trim_origin_top_left_px": [
         187,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         69.0,
-        18.0
+        29.0
       ],
-      "sha256": "69ee2da4e2651198249577bb3315d01f8e125614a1bdc669b210e8748b308c88",
+      "sha256": "3c2315ab6e44babc48818258e636bc379b835ef6a79a6d62f9f6300de7b1b865",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wnw_02.png",
-      "width": 27,
+      "width": 26,
       "height": 58,
       "texture_px": [
-        93,
+        90,
         200
       ],
-      "offset": 407028,
-      "length": 1566,
+      "offset": 426342,
+      "length": 1508,
       "trim_origin_top_left_px": [
         220,
         233
@@ -5213,161 +5213,161 @@
         36.0,
         1.0
       ],
-      "sha256": "1a8d6898862a3911cf88d536cdcc9d48aac7ddcb6b40b58eff7ede3254d22e78",
+      "sha256": "2745bffb5a5ed907bdc5cd649983fb92fd4d83ad47315e1ca27740de93873161",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wnw_03.png",
-      "width": 31,
+      "width": 35,
       "height": 59,
       "texture_px": [
-        107,
+        121,
         203
       ],
-      "offset": 408594,
-      "length": 1829,
+      "offset": 427850,
+      "length": 2065,
       "trim_origin_top_left_px": [
-        211,
+        204,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        45.0,
+        52.0,
         4.0
       ],
-      "sha256": "a7bf209c46bc0c05e34c06b83d30590de0a5d4488ddcdcf1448abe9b1ee9a203",
+      "sha256": "b5cefdbfb0e53f991f9ee94d335282d252b99d8b9e9cd88ecf1a1fce6c8d0b76",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wnw_04.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        141,
+        200
+      ],
+      "offset": 429915,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        194,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        62.0,
+        1.0
+      ],
+      "sha256": "987564058cc97bbb231a4b52a5914d3c00a8caeeef850e849b6c3859c335bc53",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_wnw_05.png",
       "width": 37,
       "height": 58,
       "texture_px": [
         128,
         200
       ],
-      "offset": 410423,
+      "offset": 432293,
       "length": 2146,
-      "trim_origin_top_left_px": [
-        197,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        59.0,
-        1.0
-      ],
-      "sha256": "f034e4ebc30568528b554c31ff4a648186e5a06fa8ff583b39cbad2ba1e6770e",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_wnw_05.png",
-      "width": 33,
-      "height": 58,
-      "texture_px": [
-        114,
-        200
-      ],
-      "offset": 412569,
-      "length": 1914,
-      "trim_origin_top_left_px": [
-        208,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        48.0,
-        1.0
-      ],
-      "sha256": "1b1030d45949dfb3f7404c808acefc9f1687a53e4b554698737312c612fa6e57",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_wnw_06.png",
-      "width": 28,
-      "height": 58,
-      "texture_px": [
-        97,
-        200
-      ],
-      "offset": 414483,
-      "length": 1624,
-      "trim_origin_top_left_px": [
-        218,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        38.0,
-        1.0
-      ],
-      "sha256": "5b730f3b05d6a58dc7cf9b60ab89c39d3158d4e03be0be68fc082e1c0e07a167",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_wnw_07.png",
-      "width": 38,
-      "height": 62,
-      "texture_px": [
-        131,
-        214
-      ],
-      "offset": 416107,
-      "length": 2356,
-      "trim_origin_top_left_px": [
-        196,
-        233
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        60.0,
-        15.0
-      ],
-      "sha256": "cb5804a16658e8492acdc60c1ce89aafa85f23f932e2c489b33022932efee8cc",
-      "empty": false
-    },
-    {
-      "atlas": "VossWalk.atlas",
-      "name": "voss_walk_wsw_00.png",
-      "width": 38,
-      "height": 61,
-      "texture_px": [
-        131,
-        210
-      ],
-      "offset": 418463,
-      "length": 2318,
       "trim_origin_top_left_px": [
         201,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         55.0,
+        1.0
+      ],
+      "sha256": "fe29a79e4f071752cc738716176566d423ce083e11ed48ef45446d8475c167dc",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_wnw_06.png",
+      "width": 34,
+      "height": 61,
+      "texture_px": [
+        117,
+        210
+      ],
+      "offset": 434439,
+      "length": 2074,
+      "trim_origin_top_left_px": [
+        206,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50.0,
         11.0
       ],
-      "sha256": "f851c115e4789d27e5b0262ddd543cf2ad33a30825c65895d64b2bfb12284320",
+      "sha256": "a4194fe9f849262603ca05c5f59ad523a04f923dbe6c9a32589898e679b39a88",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_wnw_07.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        128,
+        221
+      ],
+      "offset": 436513,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        22.0
+      ],
+      "sha256": "55717c77982314a73c19011fc5c914326cb0532099efca026b99cef57f9fcb69",
+      "empty": false
+    },
+    {
+      "atlas": "VossWalk.atlas",
+      "name": "voss_walk_wsw_00.png",
+      "width": 40,
+      "height": 61,
+      "texture_px": [
+        138,
+        210
+      ],
+      "offset": 438881,
+      "length": 2440,
+      "trim_origin_top_left_px": [
+        196,
+        233
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        60.0,
+        11.0
+      ],
+      "sha256": "9df31cabef31db51df0eaf599d26ac5d1158cf9436bd93a5e57515a7635e1d71",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wsw_01.png",
-      "width": 33,
+      "width": 35,
       "height": 60,
       "texture_px": [
-        114,
+        121,
         207
       ],
-      "offset": 420781,
-      "length": 1980,
+      "offset": 441321,
+      "length": 2100,
       "trim_origin_top_left_px": [
-        209,
+        204,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
+        52.0,
         8.0
       ],
-      "sha256": "5ea4f18ce5c8e9639ac9a6a2509a618515d0b4c43292a68fe71d5c0084f32836",
+      "sha256": "7eb5e3ef35d956e9c0a36a200e67294c8b6f6f903ac18074309fe813e3fb3223",
       "empty": false
     },
     {
@@ -5379,17 +5379,17 @@
         103,
         200
       ],
-      "offset": 422761,
+      "offset": 443421,
       "length": 1740,
       "trim_origin_top_left_px": [
-        215,
+        213,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        41.0,
+        43.0,
         1.0
       ],
-      "sha256": "430f58f5feb4d1d7108099330a26f062029d3fc54fdc04066599d701f531d446",
+      "sha256": "cb9b67cf45274d71285502f7b24a43d2fb8ca79954aaf0aeac0da381eaa53954",
       "empty": false
     },
     {
@@ -5401,7 +5401,7 @@
         128,
         200
       ],
-      "offset": 424501,
+      "offset": 445161,
       "length": 2146,
       "trim_origin_top_left_px": [
         196,
@@ -5411,29 +5411,29 @@
         60.0,
         1.0
       ],
-      "sha256": "990ad8c384f1c059e08b69fad56c936a5754e0d67852f2a6d842050c5ac4f251",
+      "sha256": "7222fb9089481a645f5b4f9326d2397bffb2d272dfe407484e692eb22bd0dc1e",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wsw_04.png",
-      "width": 46,
-      "height": 58,
+      "width": 47,
+      "height": 60,
       "texture_px": [
-        159,
-        200
+        162,
+        207
       ],
-      "offset": 426647,
-      "length": 2668,
+      "offset": 447307,
+      "length": 2820,
       "trim_origin_top_left_px": [
         177,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
         79.0,
-        1.0
+        8.0
       ],
-      "sha256": "702041331d1d86ce2b62a5cb08567743c4cc87c162b01f690aff07fcbac77643",
+      "sha256": "c10672cce07f2dfcd07dde8a78777acceec3dc6e21c55f140d7b4f3a0a2e5135",
       "empty": false
     },
     {
@@ -5445,7 +5445,7 @@
         138,
         200
       ],
-      "offset": 429315,
+      "offset": 450127,
       "length": 2320,
       "trim_origin_top_left_px": [
         190,
@@ -5455,29 +5455,29 @@
         66.0,
         1.0
       ],
-      "sha256": "93afb6cabf9390729adc9a450e401cf922b9dd0ec4f78ea59e90cc42805f89d0",
+      "sha256": "0720bbfd625f0de89787da74b81d86f472ca88cf65eefa630f1c80235a0925b4",
       "empty": false
     },
     {
       "atlas": "VossWalk.atlas",
       "name": "voss_walk_wsw_06.png",
-      "width": 29,
-      "height": 58,
+      "width": 27,
+      "height": 61,
       "texture_px": [
-        100,
-        200
+        93,
+        210
       ],
-      "offset": 431635,
-      "length": 1682,
+      "offset": 452447,
+      "length": 1647,
       "trim_origin_top_left_px": [
-        215,
+        218,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        41.0,
-        1.0
+        38.0,
+        11.0
       ],
-      "sha256": "1055cee92a875ecd8dc0807646a09ba403a1e4ebe75bc83343359a511c5a4732",
+      "sha256": "5aa6d8adea6a2e8c66f051e0e29fa70e9fe516372dc92d11b7840c0cb0990615",
       "empty": false
     },
     {
@@ -5489,20 +5489,20 @@
         114,
         207
       ],
-      "offset": 433317,
+      "offset": 454094,
       "length": 1980,
       "trim_origin_top_left_px": [
-        209,
+        208,
         233
       ],
       "pivot_from_crop_bottom_left_px": [
-        47.0,
+        48.0,
         8.0
       ],
-      "sha256": "d7148a6f0e01efc09a456c8ce570bba2a91953bf01f09575e309b7a6cd5d10be",
+      "sha256": "9ceeec4ad665c44c0711c35b97a6368a59121e9009341749799cad37bc4cbe14",
       "empty": false
     }
   ],
-  "asset_authority": "meshy_sep06_v04",
+  "asset_authority": "meshy_sep06_pose_v05",
   "compatibility_filter": "nearest"
 }

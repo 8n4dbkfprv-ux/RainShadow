@@ -26,19 +26,20 @@ struct DialogueIntentionTests {
         }
     }
 
-    @Test func emptyCoatPressChoiceShowsIntentionPrefix() {
+    @Test func emptyCoatPressChoiceDoesNotPaintIntentionPrefix() {
         let key = EmptyCoatCaseIntroduction.graph.node(id: "lila.triad.key")
         let press = key?.choices.first { $0.intention == .press }
         #expect(press != nil)
-        #expect(press?.labeledBodyText.hasPrefix("[Press]") == true)
-        // Gate disclosure "Press" dedupes with intention.
-        #expect(press?.rowPrefixLabels == ["Press"])
+        #expect(press?.intention == .press)
+        #expect(press?.labeledBodyText.hasPrefix("[Press]") == false)
+        #expect(press?.rowPrefixLabels.contains("Press") != true)
     }
 
-    @Test func emptyCoatOpenChoiceShowsOpenPrefix() {
+    @Test func emptyCoatOpenChoiceDoesNotPaintOpenPrefix() {
         let entrance = EmptyCoatCaseIntroduction.graph.node(id: "lila.entrance.case")
         let open = entrance?.choices.first { $0.intention == .open }
-        #expect(open?.labeledBodyText.hasPrefix("[Open]") == true)
+        #expect(open?.intention == .open)
+        #expect(open?.labeledBodyText.hasPrefix("[Open]") == false)
     }
 
     @Test func intentionDecodesFromAuthoredJSON() throws {
@@ -63,7 +64,7 @@ struct DialogueIntentionTests {
         """
         let graph = try DialogueGraphLoader.decode(Data(json.utf8), stringTable: .empty)
         #expect(graph.node(id: "n")?.choices.map(\.intention) == [.open, .leave])
-        #expect(graph.node(id: "n")?.choices[0].labeledBodyText == "[Open]  Go on.")
-        #expect(graph.node(id: "n")?.choices[1].labeledBodyText == "[Leave]  Leave.")
+        #expect(graph.node(id: "n")?.choices[0].labeledBodyText == "Go on.")
+        #expect(graph.node(id: "n")?.choices[1].labeledBodyText == "Leave.")
     }
 }

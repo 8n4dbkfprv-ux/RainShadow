@@ -40,7 +40,7 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func realMultilineLilaChoicesPackWithoutOverlap() {
-        // Same strings as the shipped Empty Coat triad (choice page).
+        // Layout-stress triad (long wrapped replies). Not shipped copy.
         let choiceTexts = [
             "Come in out of the wet. Tell me everything you know, and I'll treat it like it matters—because it does.",
             "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
@@ -174,7 +174,7 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func typicalDesktopFitsThreeMultilineChoicesWithoutScrolling() {
-        // Empty Coat triad — the longest shipped three-choice page.
+        // Layout-stress triad (long wrapped replies). Not shipped copy.
         let choiceTexts = [
             "Come in out of the wet. Tell me everything you know, and I'll treat it like it matters—because it does.",
             "Sit down. Start with Tuesday night: last place, last call, last person who saw her breathing.",
@@ -473,7 +473,7 @@ struct DialoguePanelLayoutTests {
     }
 
     @Test func triadOpeningChoiceFitsInsideContentViewport() {
-        // Representative long triad choice from the shipped Empty Coat intro.
+        // Representative shipped triad choice (layout width, not copy lock).
         let choice = EmptyCoatCaseIntroduction.nodes
             .first { !$0.choices.isEmpty }?
             .choices.first?.text

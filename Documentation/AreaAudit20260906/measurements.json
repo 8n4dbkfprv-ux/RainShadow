@@ -1,0 +1,66 @@
+{
+  "date": "2026-09-06",
+  "files": {
+    "RainShadow Shared/Resources/Areas/city_sable_row.area.json": "3f5d4b4b9f63d35307bf9b9acfb8502fa73d5625f60519809249df5dd49ac137",
+    "RainShadow Shared/Resources/Areas/city_sable_row.sr.png": "7a705e72c46d14db4705dac40bcee2ebe9d930348c78d2958dc62b735d63be24",
+    "RainShadow Shared/Resources/Areas/city_sable_row.ht.png": "a212c84f728c940a2aec7259fa0d621f75b7c586ca71144211a37919bdd60ad4",
+    "RainShadow Shared/Resources/Areas/city_sable_row.lm.png": "0e917e3406fedda2ef25990615c68312cb105fc53ca29635c5fa1396a6e27921",
+    "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2/city_sable_row_day_v01.pages.json": "d94e6618757ba89871a52ac51ef9308f8b9b4a935ba1c1a14c01e93447ae79fe",
+    "RainShadow Shared/Resources/Art/Areas/CityDistrict/V2/city_sable_row_night_placeholder_v01.pages.json": "491e68eef6b0fc66cb46ec4f94f646ab46e307834edec2b467b6421011b8d738"
+  },
+  "pageHashesVerified": 25,
+  "rawBlockedCells": 54354,
+  "staticBlockedCells": 54547,
+  "totalCells": 102400,
+  "projectionOfRuntimePagesAtOnePixelPerWorldUnit": {
+    "positive": 35.99047259061556,
+    "negative": -35.40834677721523,
+    "worstDeviation": 1.461550868628791
+  },
+  "duplicateSamplePercent": 0.0,
+  "duplicateSampleCount": 48,
+  "latticeScore": 0.2238466949432481,
+  "latticeComponents": 39,
+  "witnesses": [
+    {
+      "number": 1,
+      "world": {
+        "x": 1340,
+        "y": 2080
+      },
+      "terrain": 0
+    },
+    {
+      "number": 2,
+      "world": {
+        "x": 1380,
+        "y": 1980
+      },
+      "terrain": 0
+    },
+    {
+      "number": 3,
+      "world": {
+        "x": 1450,
+        "y": 1930
+      },
+      "terrain": 0
+    },
+    {
+      "number": 4,
+      "world": {
+        "x": 1480,
+        "y": 2290
+      },
+      "terrain": 13
+    },
+    {
+      "number": 5,
+      "world": {
+        "x": 1680,
+        "y": 1820
+      },
+      "terrain": 0
+    }
+  ]
+}

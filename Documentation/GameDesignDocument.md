@@ -101,7 +101,7 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
-- **Voice sample (design target):** “The rain had opinions about my rent. The dame in the doorway had better ones about my time.”
+- **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
 - **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
@@ -114,6 +114,11 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 - **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
 - **Deeper tension:** She knows more than the first conversation admits—about Lillian’s work near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
 - **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
+- **Voice sample (design target):** “Lillian still sews her own hems. She would not leave a coat that cost her a week.”
+- **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing — a fee, a lock, a sister’s bad habit — that no poster would print. If a line could go on the poster, it isn’t Lila yet.
+- **Competence that is not charm:** She sews; she can read a shipping roster.
+- **Loyalty that can hurt Voss:** She will protect Lillian’s dock work before she protects his case.
+- **Bad at his game, once:** A pause, a too-fast money answer, or a fee she names awkwardly. When she lies, the lie is small and checkable — so the dock truth is never “the dame was the twist.”
 - **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
 
 #### Supporting cast (named only as needed by the outline)
@@ -268,8 +273,8 @@ Use these as **load-bearing beats**, not window dressing:
 
 #### 4.3.4 Wit and voice
 
-- Internal narration: short, concrete, occasionally funny because it is accurate.
-- Dialogue intentions (Open / Press / Feign / Trade / Observe / Leave) carry **tone**, not morality meters.
+- Internal narration: short, concrete, occasionally funny because it is accurate. The house voice is the §9.5 inspect captions: one image, no lecture. If an intro page is longer and prettier than those five captions, it has already failed.
+- Dialogue intentions (Open / Press / Feign / Trade / Observe / Leave) are **author method**, not player-facing labels and not a second morality meter. The player reads the line. Baldur’s Gate replies are numbered prose.
 - Lila and Voss can out-dry each other; supporting cast get one sharp line rather than constant quips.
 - Avoid genre parody, cartoon hardboiled, and monologues that explain the theme.
 
@@ -493,7 +498,7 @@ Future authors and tools must preserve this convention when adding graphs. Rever
 
 #### Intentions
 
-Dialogue choices are tagged by intention rather than morality:
+Dialogue choices are tagged by intention rather than morality. The tags are **writer method** — they are not painted on the reply row. Tone (`goodHeroic` / `neutralPragmatic` / `cynicalSarcasm`) is already metadata-only; intention matches that contract.
 
 - **Open** — invite detail, acknowledge, or wait.
 - **Press** — challenge, corner, or expose a contradiction.
@@ -502,7 +507,9 @@ Dialogue choices are tagged by intention rather than morality:
 - **Observe** — say little and watch the reaction.
 - **Leave** — end or defer without a false choice.
 
-Choice availability can depend on evidence, knowledge, traits, prior tone, time pressure, and the speaker's current threshold. The UI should disclose the main reason for a special option, such as `[Evidence: Tram Receipt]`, without revealing the outcome.
+Do not invent a Leave option to fill the taxonomy. Empty Coat’s only extra gate is Press.
+
+Choice availability can depend on evidence, knowledge, traits, prior tone, time pressure, and the speaker's current threshold. The UI may disclose the main reason for a special option, such as `[Evidence: Tram Receipt]`, without revealing the outcome. Do **not** prefix replies with `[Open]`, `[Press]`, or the other intention names.
 
 ### 7.6 Pressure, condition, and failure-forward play
 
@@ -581,7 +588,7 @@ The room should feel used and cramped but compositionally controlled. Every majo
 2. The lamp pool reveals seated Harlan Voss at his desk.
 3. He completes one authored seated-idle beat: breath, small shoulder shift, brief glance toward the rain.
 4. **Lila March** enters from the office door and crosses to the visitor side of the desk.
-5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat** (see §4.3.2).
+5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat** (see §4.3.2). Pages must not out-pretty the five inspect captions in §9.5.
 6. Lila leaves the key, turns away from the desk, and walks back through the office door using a dedicated rear northeast cycle.
 7. Input becomes active; a minimal unobtrusive hint appears only on first run.
 8. The player can inspect the window, lamp/desk, phone, case files, and door.
@@ -597,7 +604,7 @@ The room should feel used and cramped but compositionally controlled. Every majo
 | `office.files` | Case files | “Closed, abandoned, and one I still lied about.” | Adds `oldCaseReference`; seeds later narrative. |
 | `office.door` | Office door | “The hall smelled worse, but at least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
 
-Copy is provisional and should be revised with the narrative voice pass.
+These five captions are the **locked house voice**. Do not rewrite them to match a longer intro; rewrite the intro down to them.
 
 ## 10. Audio direction
 

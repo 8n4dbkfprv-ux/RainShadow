@@ -19,8 +19,9 @@ enum DialogueTone: String, Equatable, CaseIterable, Codable, Sendable {
     }
 }
 
-/// Player-facing dialogue approach tags (GDD §7.5). Shown as `[Open]`-style prefixes.
+/// Writer-facing dialogue approach tags (GDD §7.5). Author method, not player UI.
 /// Complements writer-only `DialogueTone`; does not encode morality meters.
+/// Baldur’s Gate replies are numbered prose — do not paint these on the row.
 enum DialogueIntention: String, Equatable, CaseIterable, Codable, Sendable {
     case open
     case press
@@ -29,7 +30,7 @@ enum DialogueIntention: String, Equatable, CaseIterable, Codable, Sendable {
     case observe
     case leave
 
-    /// Bracket label in the choice row (GDD §7.5 taxonomy).
+    /// Writer-facing label (not player UI).
     var displayLabel: String {
         switch self {
         case .open: "Open"
@@ -502,13 +503,13 @@ struct CaseDialogueChoice: Equatable, Codable, Sendable {
     let destinationGraphID: String?
     /// When set, this is one leg of a Good / Neutral / Cynical triad beat (metadata only).
     let tone: DialogueTone?
-    /// Player-facing approach tag (GDD §7.5). Shown as `[Open]` / `[Press]` / … in the row.
+    /// Writer approach tag (GDD §7.5). Not shown in the row — same contract as `tone`.
     let intention: DialogueIntention?
     /// All conditions must pass (AND) for the choice to appear. Empty = always available.
     let conditions: [DialogueCondition]
-    /// Optional player-facing gate reason override (e.g. `"Press"`). Else first
-    /// non-nil `conditions.disclosureLabel`. Prefer `intention` for approach tags;
-    /// keep this for evidence/knowledge disclosure overrides.
+    /// Optional player-facing gate reason override (e.g. `"Evidence: Tram Receipt"`).
+    /// Else first non-nil `conditions.disclosureLabel`. Intention names are method
+    /// tags and must not be used here as a second morality label.
     let gateDisclosure: String?
     /// Side effects applied on select, before advancing (roadmap Phase 2 runtime order).
     let onSelect: [DialogueAction]
@@ -578,35 +579,27 @@ struct CaseDialogueChoice: Equatable, Codable, Sendable {
     }
 
     /// Bracketed gate reason for the choice row, if any (evidence/knowledge/override).
-    /// Does not include intention tags — see `resolvedIntentionLabel`.
+    /// Intention names are author method and never count as a player-facing gate.
     var resolvedGateDisclosure: String? {
         if let gateDisclosure, !gateDisclosure.isEmpty {
-            return gateDisclosure
+            return Self.playerFacingGateLabel(gateDisclosure)
         }
         return conditions.lazy.compactMap(\.disclosureLabel).first
     }
 
-    /// Player-facing intention bracket label, if authored.
+    /// Writer-facing intention label, if authored. Not a row prefix.
     var resolvedIntentionLabel: String? {
         intention?.displayLabel
     }
 
-    /// Ordered bracket prefixes for the row: intention first, then gate disclosure.
-    /// Drops a gate label that exactly matches the intention label (e.g. legacy `gateDisclosure: "Press"`).
+    /// Ordered bracket prefixes for the row: evidence/knowledge disclosure only.
     var rowPrefixLabels: [String] {
-        var labels: [String] = []
-        if let intentionLabel = resolvedIntentionLabel {
-            labels.append(intentionLabel)
-        }
-        if let gate = resolvedGateDisclosure, !gate.isEmpty {
-            if gate != resolvedIntentionLabel {
-                labels.append(gate)
-            }
-        }
-        return labels
+        guard let gate = resolvedGateDisclosure, !gate.isEmpty else { return [] }
+        return [gate]
     }
 
-    /// Choice body for the row with GDD-style `[Open]` / `[Evidence: …]` prefixes.
+    /// Choice body for the row with evidence/knowledge prefixes when a special
+    /// option needs a reason. Intention tags are not painted (GDD §7.5).
     /// Callers that number rows themselves (e.g. `DialogueTextMetrics.choiceRowHeight`) use this.
     var labeledBodyText: String {
         let prefixes = rowPrefixLabels
@@ -615,6 +608,16 @@ struct CaseDialogueChoice: Equatable, Codable, Sendable {
         }
         let bracketed = prefixes.map { "[\($0)]" }.joined(separator: "  ")
         return "\(bracketed)  \(text)"
+    }
+
+    /// `Open` / `Press` / … are method tags. A leftover `gateDisclosure: "Press"`
+    /// must not reappear as a player-facing bracket.
+    private static func playerFacingGateLabel(_ raw: String) -> String? {
+        let intentionNames = Set(DialogueIntention.allCases.map(\.displayLabel))
+        if intentionNames.contains(raw) {
+            return nil
+        }
+        return raw
     }
 
     /// Fully numbered row text shown in the dialogue panel.

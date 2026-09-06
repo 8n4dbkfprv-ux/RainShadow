@@ -885,7 +885,7 @@ final class DialoguePresenter: SKNode {
         var measuredHeights: [CGFloat] = []
         var labels: [SKLabelNode] = []
         for (index, choice) in choices.enumerated() {
-            // Body may include GDD gate disclosure; metrics helper adds the "n:  " prefix.
+            // Body may include evidence/knowledge disclosure; intention tags are not painted.
             let body = choice.labeledBodyText
             let numbered = choice.displayText(index: index)
             let rowH = DialogueTextMetrics.choiceRowHeight(

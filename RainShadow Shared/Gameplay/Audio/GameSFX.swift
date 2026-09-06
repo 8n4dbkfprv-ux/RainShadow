@@ -165,7 +165,7 @@ enum FootstepSurface: String, CaseIterable, Sendable {
 /// BG plays these through `Actor::CommandActor` and `Actor::PlaySelectionSound`,
 /// gated by the frequency slider. `BarkGate` holds the ladder and the one
 /// adaptation a single-detective game needs; this owns the clips and the rolls.
-/// Clips are Grok Voice Rex barks baked by `generate_voss_barks_rex.py`.
+/// Clips are Grok Voice Sal barks baked by `generate_voss_barks_rex.py`.
 @MainActor
 final class MovementBarkPlayer {
     enum Kind {

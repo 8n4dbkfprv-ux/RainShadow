@@ -143,8 +143,8 @@ public enum EmptyCoatJournalContent {
             status: "Open / Priority",
             summary: "Lillian March vanished Tuesday night. Her coat came back from the river. She did not.",
             body: [
-                "Harborpoint PD called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila March called it a prop. Someone wanted the search to end at the waterline.",
-                "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key is on this desk until it opens something that can answer back."
+                "Harborpoint PD called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
+                "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key stays on the blotter."
             ],
             leads: leads,
             isNew: false
@@ -162,7 +162,7 @@ public enum EmptyCoatJournalContent {
                 status: "Voss's office",
                 summary: fragment.text,
                 body: [
-                    "The key stays on this desk. Harborpoint can keep its paper-bag endings; this case gets a longer sentence."
+                    "I'll take the key. I'll take the case. The key stays on the blotter."
                 ],
                 leads: ["First objective: identify the lock."],
                 isNew: true
@@ -175,7 +175,7 @@ public enum EmptyCoatJournalContent {
                 status: "Interview · Lila March",
                 summary: fragment.text,
                 body: [
-                    "Soft answers crack under pressure. The police finished too early; the coat was too empty; someone wanted the search to end at the waterline."
+                    "Lillian was reading manifests. Lila does not have the names for a courtroom."
                 ],
                 leads: ["Follow the manifests Lila still will not name in open court."],
                 isNew: true
@@ -342,7 +342,7 @@ public enum EmptyCoatJournalContent {
             status: "Voss's office",
             summary: "Harlan Voss accepts the March disappearance and takes possession of the brass key.",
             body: [
-                "Working title: The Empty Coat. Harborpoint likes endings that fit in a paper bag. This one will not."
+                "Working title: The Empty Coat. The key stays on the blotter."
             ],
             leads: ["First objective: identify the lock."],
             isNew: true

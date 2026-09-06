@@ -247,7 +247,6 @@
             }
           ],
           "destinationID": "lila.reply.press.gated",
-          "gateDisclosure": "Press",
           "intention": "press",
           "onSelect": [
             {

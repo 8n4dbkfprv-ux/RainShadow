@@ -89,9 +89,9 @@ struct DialogueConditionTests {
             conditions: [.hasFlag("x")],
             gateDisclosure: "Press"
         )
-        #expect(overridden.resolvedGateDisclosure == "Press")
-        #expect(overridden.displayText(index: 2) == "3:  [Press]  Push her")
-        #expect(overridden.labeledBodyText == "[Press]  Push her")
+        #expect(overridden.resolvedGateDisclosure == nil)
+        #expect(overridden.displayText(index: 2) == "3:  Push her")
+        #expect(overridden.labeledBodyText == "Push her")
 
         let auto = CaseDialogueChoice(
             text: "Show it",
@@ -100,14 +100,14 @@ struct DialogueConditionTests {
         )
         #expect(auto.displayText(index: 0) == "1:  [Evidence: Tram Receipt]  Show it")
 
-        // Phase 5: intention tag is player-facing; dedupes matching gateDisclosure.
+        // Intention is author method, not a row prefix. Evidence still discloses.
         let withIntention = CaseDialogueChoice(
             text: "Come in out of the wet.",
             destinationID: "n8",
             intention: .open
         )
-        #expect(withIntention.labeledBodyText == "[Open]  Come in out of the wet.")
-        #expect(withIntention.displayText(index: 0) == "1:  [Open]  Come in out of the wet.")
+        #expect(withIntention.labeledBodyText == "Come in out of the wet.")
+        #expect(withIntention.displayText(index: 0) == "1:  Come in out of the wet.")
 
         let pressWithIntention = CaseDialogueChoice(
             text: "What are you not saying?",
@@ -116,8 +116,8 @@ struct DialogueConditionTests {
             conditions: [.hasFlag("x")],
             gateDisclosure: "Press"
         )
-        #expect(pressWithIntention.rowPrefixLabels == ["Press"])
-        #expect(pressWithIntention.labeledBodyText == "[Press]  What are you not saying?")
+        #expect(pressWithIntention.rowPrefixLabels == [])
+        #expect(pressWithIntention.labeledBodyText == "What are you not saying?")
 
         let intentionPlusEvidence = CaseDialogueChoice(
             text: "Show the receipt.",
@@ -125,10 +125,10 @@ struct DialogueConditionTests {
             intention: .press,
             conditions: [.hasEvidence("ev.tram-receipt")]
         )
-        #expect(intentionPlusEvidence.rowPrefixLabels == ["Press", "Evidence: Tram Receipt"])
+        #expect(intentionPlusEvidence.rowPrefixLabels == ["Evidence: Tram Receipt"])
         #expect(
             intentionPlusEvidence.labeledBodyText
-                == "[Press]  [Evidence: Tram Receipt]  Show the receipt."
+                == "[Evidence: Tram Receipt]  Show the receipt."
         )
     }
 
@@ -186,7 +186,8 @@ struct DialogueConditionTests {
         let keyTriad = try #require(byID["lila.triad.key"])
         let press = try #require(keyTriad.choices.first { $0.destinationID == "lila.reply.press.gated" })
         #expect(press.conditions == [.hasFlag(EmptyCoatDialogueKeys.pressedHardOnStory)])
-        #expect(press.resolvedGateDisclosure == "Press")
+        #expect(press.intention == .press)
+        #expect(press.resolvedGateDisclosure == nil)
 
         var context = DialogueRuntimeContext(
             caseState: CaseState(caseID: EmptyCoatJournalContent.caseID),

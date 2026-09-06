@@ -4,7 +4,7 @@ import Testing
 
 struct MeshyV04SpriteTests {
     @Test func approvedCandidatePreservesNativePixelsAndTranslucentShadows() throws {
-        let url = VossAtlasTestAssets.repoRoot.appendingPathComponent("ArtSource/Generated/Characters/Detective/MeshySep06V04/Staging/IEAvatar/Voss/avatar-v02.json")
+        let url = VossAtlasTestAssets.indexedManifestURL()
         let sprite = try IEIndexedSprite(contentsOf: url, tables: IEGradientTables.load())
         #expect(sprite.frames.count == 248)
         #expect(sprite.hasEmbeddedShadow)
@@ -30,5 +30,25 @@ struct MeshyV04SpriteTests {
             }
         }
         #expect(shadows > 0)
+    }
+    @Test func transitionEndpointsAndReverseFramesAreExact() throws {
+        let sprite = try VossAtlasTestAssets.indexedSprite()
+        func same(_ atlasA: String, _ nameA: String, _ atlasB: String, _ nameB: String) throws {
+            let a = try #require(sprite.frame(atlas: atlasA, name: nameA))
+            let b = try #require(sprite.frame(atlas: atlasB, name: nameB))
+            #expect(a.indices == b.indices)
+            #expect(a.nativeSize == b.nativeSize)
+            #expect(a.trimOriginTopLeft == b.trimOriginTopLeft)
+        }
+        for (direction, standing) in [("ne", "nw"), ("se", "se"), ("n", "n")] {
+            try same("VossSeatTransitions.atlas", "voss_stand_up_\(direction)_00.png",
+                     "VossSeatedIdle.atlas", "voss_seated_idle_\(direction)_00.png")
+            try same("VossSeatTransitions.atlas", "voss_stand_up_\(direction)_11.png",
+                     "VossIdle.atlas", "voss_standing_idle_\(standing)_00.png")
+            for frame in 0..<12 {
+                try same("VossSeatTransitions.atlas", String(format: "voss_stand_up_%@_%02d.png", direction, frame),
+                         "VossSeatTransitions.atlas", String(format: "voss_sit_down_%@_%02d.png", direction, 11-frame))
+            }
+        }
     }
 }

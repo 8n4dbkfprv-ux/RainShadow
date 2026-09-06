@@ -156,7 +156,7 @@ Three consequences worth stating plainly:
 | Per-creature movement rate (`IE_MOVEMENTRATE` / `moverate.2da`) | **Shipped** (`MovementProfile.moveScale`, humanoid 9, engine band 5–10). Both actors ship at 9, pinned to the previous `walkSpeed` so the change is provably inert |
 | Encumbrance / Haste-style speed modifiers | **Shipped as inert data** (`MovementProfile.Encumbrance`, `hastened()`); nothing constructs anything but `.unencumbered` until inventory weight exists |
 | Footsteps on BG's clip-length gate, terrain-set per scene, silent while paused / in dialogue | **Shipped** (`FootstepCadence`, `GameSFX`, `FootstepSurface`) |
-| Order-acknowledgement and selection barks on BG's frequency ladder | **Shipped** (`BarkGate`, `MovementBarkPlayer`); only *accepted* orders acknowledge. Clips are Grok Voice Rex noir tropes from `generate_voss_barks_rex.py`, not macOS `say` |
+| Order-acknowledgement and selection barks on BG's frequency ladder | **Shipped** (`BarkGate`, `MovementBarkPlayer`); only *accepted* orders acknowledge. Clips are Grok Voice Sal noir tropes from `generate_voss_barks_rex.py`, not macOS `say` |
 | Idle head-turn on BG's 16-tick / 1-in-25 schedule (a glance ≈ every 27 s) | **Shipped** (`IdleBehaviourClock`) |
 | Hover cursor read straight off the search map, with a travel state and BG's grey modifier | **Shipped** (`WorldCursor`); replaced two disagreeing per-scene `NSCursor` ladders |
 | Greyscale on pause (`Greyscale On Pause = 1`) | **Not shipped** — the world roots are separate scene children, so an `SKEffectNode` wrap would rasterise the whole ≈2400×1400 unit plate (~13M px at 2× backing). The cheap path is a screen-sized snapshot taken at pause time and re-taken if the camera scrolls |

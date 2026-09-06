@@ -44,7 +44,7 @@ struct VossWardrobeColorTests {
         #expect(voss.frames.count == 248)
         #expect(voss.frames.count(where: \.isEmpty) == 24)
         let expected: [UInt32]
-        if ["meshy_sep05_v03", "meshy_sep06_v04"].contains(VossAtlasTestAssets.assetAuthority) {
+        if ["meshy_sep05_v03", "meshy_sep06_v04", "meshy_sep06_pose_v05"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [23, 5, 138, 161, 138, 5, 22]
         } else if ["replacement_v13", "replacement_v14"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [138, 107, 144, 159, 138, 100, 22]
@@ -55,7 +55,7 @@ struct VossWardrobeColorTests {
         }
         #expect(voss.colors == expected)
         #expect(voss.sourceCanvasSize == .init(width: 512, height: 512))
-        let embeddedCandidate = VossAtlasTestAssets.assetAuthority == "meshy_sep06_v04"
+        let embeddedCandidate = ["meshy_sep06_v04", "meshy_sep06_pose_v05"].contains(VossAtlasTestAssets.assetAuthority)
         let displaySize = embeddedCandidate ? 163.125 : 180.0
         #expect(voss.compatibilityDisplaySize == .init(x: displaySize, y: displaySize))
         #expect(voss.textureFilter == .linear)
@@ -183,7 +183,7 @@ struct VossWardrobeColorTests {
 
         for id in rear + northSeat {
             let frame = try #require(sprite.frame(atlas: id.atlas, name: id.name))
-            let body = frame.indices.filter { $0 != UInt8(IEPalette.colorKeyIndex) }
+            let body = frame.indices.filter { materialSlot(for: $0) != nil }
             let slots = Set(body.compactMap(materialSlot(for:)))
 
             // MINOR is Voss's shirt and MAJOR is his tie. A direct absence is

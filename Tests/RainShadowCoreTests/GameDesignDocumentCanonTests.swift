@@ -31,6 +31,9 @@ struct GameDesignDocumentCanonTests {
         #expect(text.contains("Lila March — the dame / first client"))
         #expect(text.contains("Canon leads: **Harlan Voss**"))
         #expect(text.contains("**Lila March**"))
+        #expect(text.contains("The woman in the doorway had better ones about my time."))
+        #expect(text.contains("Lillian still sews her own hems. She would not leave a coat that cost her a week."))
+        #expect(!text.contains("The dame in the doorway had better ones about my time."))
 
         // Retired working names appear only as explicit superseded notes.
         #expect(text.contains("Superseded working name:** Elias Vale"))
