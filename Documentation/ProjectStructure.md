@@ -146,7 +146,7 @@ RainShadow/
 │   │   └── Recovery/
 │   │       └── RecoveryScene.swift
 │   ├── UI/
-│   │   ├── ObservationPresenter.swift
+│   │   ├── DialoguePresenter.swift
 │   │   ├── WorldTargetLabel.swift
 │   │   ├── FirstRunHintNode.swift
 │   │   ├── FocusRevealController.swift
@@ -176,8 +176,7 @@ RainShadow/
 │       ├── Dialogue/            # Versioned conversation packages (shipped)
 │       │   ├── strings.en.json
 │       │   ├── empty-coat.intro.dialogue.json
-│       │   ├── empty-coat.desk-monologue.dialogue.json
-│       │   └── office.hotspot-inspect.dialogue-catalog.json
+│       │   └── empty-coat.desk-monologue.dialogue.json
 │       ├── Data/
 │       │   ├── Scenes/
 │       │   │   ├── opening_exterior.scene.json
@@ -286,7 +285,7 @@ Add weather, audio, persistence, and polish only after the first two slices are 
 - `GameSession.swift`
 - `SaveStore.swift`
 - `SettingsStore.swift`
-- `ObservationPresenter.swift`
+- `BaseGameScene.presentDisplayString` (InfoPoint `DisplayString`)
 - `FocusRevealController.swift`
 - `AssetPreviewScene.swift`
 

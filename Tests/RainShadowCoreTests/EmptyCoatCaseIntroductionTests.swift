@@ -153,31 +153,26 @@ struct EmptyCoatCaseIntroductionTests {
     }
 
     @Test func voiceLockKeepsInspectPleaAndPDAndHidesIntentionLabels() {
-        let inspect = OfficeHotspotDialogue.self
+        let inspect = OfficeHotspotInspect.self
         #expect(
-            inspect.graph(forHotspotID: "office.desk").nodes.contains {
-                $0.text == "Three old cases, two unpaid bills, one clean page."
-            }
+            inspect.text(forHotspotID: "office.desk", alreadyInspected: false)
+                == "Three old cases, two unpaid bills, one clean page."
         )
         #expect(
-            inspect.graph(forHotspotID: "office.window").nodes.contains {
-                $0.text == "The rain had been at the glass longer than I had."
-            }
+            inspect.text(forHotspotID: "office.window", alreadyInspected: false)
+                == "The rain had been at the glass longer than I had."
         )
         #expect(
-            inspect.graph(forHotspotID: "office.phone").nodes.contains {
-                $0.text == "Quiet. For once it had the decency to look guilty."
-            }
+            inspect.text(forHotspotID: "office.phone", alreadyInspected: false)
+                == "Quiet. For once it had the decency to look guilty."
         )
         #expect(
-            inspect.graph(forHotspotID: "office.files").nodes.contains {
-                $0.text == "Closed, abandoned, and one I still lied about."
-            }
+            inspect.text(forHotspotID: "office.files", alreadyInspected: false)
+                == "Closed, abandoned, and one I still lied about."
         )
         #expect(
-            inspect.graph(forHotspotID: "office.door").nodes.contains {
-                $0.text == "The hall smelled worse, but at least it led somewhere."
-            }
+            inspect.text(forHotspotID: "office.door", alreadyInspected: false)
+                == "The hall smelled worse, but at least it led somewhere."
         )
 
         let plea = nodes.first { $0.id == "lila.plea" }?.text ?? ""

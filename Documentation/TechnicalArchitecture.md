@@ -279,7 +279,7 @@ Systems:
 - `NavigationSystem` finds authored-cell paths;
 - `ActorController` owns the detective state machine and movement;
 - `InteractionSystem` resolves pointer target, approach, facing, and inspect action;
-- `ObservationPresenter` shows short captions and accessibility announcements;
+- `BaseGameScene.presentDisplayString` shows InfoPoint examine text (GemRB `DisplayString`) as world-space overhead copy;
 - `OfficeStateController` applies object state changes such as phone checked or door attempted.
 
 ## 9. Rain and environmental effects
@@ -466,7 +466,7 @@ InputRouter
           -> ActorController.approach(target)
               -> on arrival: HotspotActionExecutor.perform(command)
                   -> GameSession mutation
-                  -> ObservationPresenter
+                  -> presentDisplayString
                   -> AudioDirector
 ```
 
@@ -521,7 +521,7 @@ All are `Codable`, versioned, and independent of SpriteKit.
 | **View** | `DialoguePresenter` — panel, choices, Continue/End; hooks `onNodeShown`, `shouldDeferAdvance` |
 | **Scene** | Maps presentation cues (`onLeaveCue` → cinematics), plays resolved `voiceAssetName` on show, presents graphs by facade |
 
-Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotDialogue`) load cached graphs; they do not embed prose constructors.
+Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`) load cached graphs; they do not embed prose constructors. Office inspect is `OfficeHotspotInspect` + `presentDisplayString`, not a graph.
 
 #### Dialogue resource schema (v1)
 
@@ -543,7 +543,7 @@ Facades (`EmptyCoatCaseIntroduction`, `OfficeCaseFileMonologue`, `OfficeHotspotD
 
 **String table** (`strings.en.json`): `schemaVersion`, `locale`, `strings` map (key → prose). IE TLK analogue without binary formats.
 
-Unknown schema versions fail at load. Missing required string keys fail at resolve. Missing hotspot inspect graphs fail-fast in debug via facade `preconditionFailure`.
+Unknown schema versions fail at load. Missing required string keys fail at resolve. Missing hotspot inspect strings fail-fast in debug via `OfficeHotspotInspect` `preconditionFailure`.
 
 #### Dialogue graph authoring (classic BG roles)
 

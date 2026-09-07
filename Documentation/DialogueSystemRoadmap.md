@@ -31,7 +31,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 | Multi-graph session + presenter | **Shipped (P4)** — `DialogueGraph` / `DialogueSession`; desk monologue second graph |
 | Versioned JSON graph loader | **Shipped (P4.5)** — `DialogueGraphLoader` + `AuthoredDialogueDocument` |
 | Presentation leave/show cues | **Shipped (P4.5)** — `onLeaveCue` / `onShowCue`; office entrance uses `OfficeDialogueCues.clientEntrance` |
-| Hotspot inspect graphs | **Shipped (P4.5)** — `office.hotspot-inspect.dialogue-catalog.json` via `OfficeHotspotDialogue` |
+| Hotspot inspect | **Shipped** — InfoPoint `DisplayString` via `OfficeHotspotInspect` + `presentDisplayString`; inspect DLG catalog retired |
 | String table (IE strref analogue) | **Shipped (P4.5)** — `strings.en.json` + `DialogueStringTable`; graphs use `textKey` / `speakerKey` |
 | Intention tags (GDD §7.5) | **Shipped (P5)** — `DialogueIntention` on choices as author method; not painted on reply rows |
 | Composite conditions (`not` / `any` / `all`) | **Shipped (P6)** — IE `!` and `OR(n)` |
@@ -46,7 +46,7 @@ This document does **not** propose importing full IE/WeiDU script languages. Sta
 
 Empty Coat remains the compact M01 case opener. Broader evidence-gated branching beyond the Press path is deferred after M01 (see Milestone 01 plan §7 and Documentation README).
 
-**Scale reality check:** the engine is considerably further along than the content — 7 shipped graphs, ~44 nodes, 14 player choices. Phases 6–8 were built with proving content where content existed (the office window's second look) and left dormant where it did not (Lila is hidden once her visit ends, so talk-to-actor has nobody to talk to yet).
+**Scale reality check:** the engine is considerably further along than the content — 2 shipped conversation graphs (Empty Coat + desk monologue), plus InfoPoint inspect strings. Phases 6–8 were built with proving content where content existed (the office window's second look, now an inspect-count branch rather than `NumTimesTalkedTo`) and left dormant where it did not (Lila is hidden once her visit ends, so talk-to-actor has nobody to talk to yet).
 
 ## Frozen: classic Baldur’s Gate PC speech (do not regress)
 
@@ -288,7 +288,7 @@ Keep scene-level `onNodeShown` for **presentation** (voice-over). Game-state eff
 - A second stub graph (re-talk, hotspot monologue, etc.) runs through the same presenter
 - Save may restore mid-conversation via `DialogueState` only if product needs it; otherwise persist “intro completed” only
 
-**Status: met** (`DialogueGraph` + `DialogueSession`; presenter `present(graph:)`; Empty Coat `.graph`; `OfficeCaseFileMonologue` on desk after client retained; pure tests in `DialogueSessionTests`).
+**Status: met** (`DialogueGraph` + `DialogueSession`; presenter `present(graph:)`; Empty Coat `.graph`; `OfficeCaseFileMonologue` remains a shipped second graph for the walker. Play presentation: desk inspect is InfoPoint `DisplayString` (key line after retain); “file the night” is `DisplayStringHead` on Voss after Lila’s exit. Pure tests in `DialogueSessionTests`).
 
 ---
 
@@ -313,9 +313,7 @@ Keep scene-level `onNodeShown` for **presentation** (voice-over). Game-state eff
    - `DetectiveOfficeScene` maps `from.onLeaveCue == OfficeDialogueCues.clientEntrance` (not node-id helpers)
 
 4. **Hotspot inspect packages**
-   - Catalog: `office.hotspot-inspect.dialogue-catalog.json`
-   - Facade: `OfficeHotspotDialogue.graph(forHotspotID:)` — fail-fast if missing
-   - Scene inspect path presents graphs; no ad-hoc `CaseDialogueNode` constructors
+   - Originally a one-node DLG catalog (`office.hotspot-inspect.dialogue-catalog.json` via `OfficeHotspotDialogue`). Retired: office inspect is GemRB `DisplayString` on an InfoPoint, not a conversation. Prose stays in `strings.en.json`; `OfficeHotspotInspect` resolves it. The window's second look is an inspect-count branch, not `NumTimesTalkedTo`.
 
 5. **String table (IE strref analogue)**
    - `strings.en.json` + `DialogueStringTable`
@@ -329,7 +327,6 @@ RainShadow Shared/Resources/Dialogue/
   strings.en.json
   empty-coat.intro.dialogue.json
   empty-coat.desk-monologue.dialogue.json
-  office.hotspot-inspect.dialogue-catalog.json
 ```
 
 SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets include the same files in Shared membership.
@@ -338,7 +335,7 @@ SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets includ
 
 | Item | Convention |
 |---|---|
-| Graph id | e.g. `case.empty-coat.intro`, `inspect.office.desk` |
+| Graph id | e.g. `case.empty-coat.intro` |
 | Resource base name | `defaultResourceName(for:)` → `empty-coat.intro.dialogue` (+ `.json`) |
 | String keys | `dlg.speaker.*`, `dlg.<graphShort>.node.<id>.text`, `dlg.journal.<fragmentID>` |
 | Leave cinematic | `onLeaveCue` string id; scene registers handlers |
@@ -352,7 +349,7 @@ SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets includ
 - String table resolves for shipped packages; pure tests cover loader, catalog, and key resolution
 - Existing integrity / BG PC-speech / journal projection tests remain green
 
-**Status: met** (`DialogueGraphLoader`, `DialogueStringTable`, facades, office cue wiring, hotspot catalog; tests in `DialogueGraphLoaderTests`, `DialogueStringTableTests`, `OfficeHotspotDialogueTests`, Empty Coat suite).
+**Status: met** (`DialogueGraphLoader`, `DialogueStringTable`, facades, office cue wiring; inspect strings in `OfficeHotspotInspect`; tests in `DialogueGraphLoaderTests`, `DialogueStringTableTests`, `OfficeHotspotInspectTests`, Empty Coat suite).
 
 ---
 
@@ -397,10 +394,10 @@ SPM `RainShadowCore` copies this folder for pure tests; Xcode app targets includ
 
 ### Exit criteria
 
-- A second look at the office window opens on a different node (shipped content, not a fixture)
+- A second look at the office window shows a different InfoString (inspect count, not a DLG node)
 - Every shipped gate id is one some action — or a named scene write — can produce
 
-**Status: met** (`DialogueConditionCompositionTests`, `DialogueCounterTests`, `DialogueEntryScanTests`, `OfficeHotspotDialogueTests.lookingAtTheWindowTwiceOpensADifferentNode`).
+**Status: met** (`DialogueConditionCompositionTests`, `DialogueCounterTests`, `DialogueEntryScanTests`, `OfficeHotspotInspectTests.aSecondLookAtTheWindowIsTheAuthoredAgainLine`).
 
 ---
 
@@ -522,7 +519,7 @@ RainShadow has no party. Companions are deferred to Movement Roadmap Phase 4 (fo
 | `RainShadow Shared/Gameplay/Navigation/DialogueStateModels.swift` | P0 state spine: `WorldFlag`, `CaseState`, `DialogueState`, `DialogueRuntimeContext` |
 | `RainShadow Shared/Gameplay/Navigation/EmptyCoatCaseIntroduction.swift` | Facade: IDs + load Empty Coat intro graph |
 | `RainShadow Shared/Gameplay/Navigation/OfficeCaseFileMonologue.swift` | Facade: desk monologue graph |
-| `RainShadow Shared/Gameplay/Navigation/OfficeHotspotDialogue.swift` | Facade: inspect catalog by hotspot id |
+| `RainShadow Shared/Gameplay/Navigation/OfficeHotspotInspect.swift` | Facade: InfoPoint inspect strings by hotspot id |
 | `RainShadow Shared/Resources/Dialogue/` | Shipped graphs, catalog, `strings.en.json` |
 | `RainShadow Shared/UI/DialoguePresenter.swift` | Presentation view over session; `onNodeShown` / `shouldDeferAdvance` |
 | `RainShadow Shared/Scenes/DetectiveOffice/DetectiveOfficeScene.swift` | Cue map (`onLeaveCue` → entrance), VO, present graphs |
@@ -530,7 +527,7 @@ RainShadow has no party. Companions are deferred to Movement Roadmap Phase 4 (fo
 | `Tests/RainShadowCoreTests/DialogueGraphLoaderTests.swift` | Loader, schema, catalog, shipped package load |
 | `Tests/RainShadowCoreTests/DialogueStringTableTests.swift` | String table + key resolution contracts |
 | `Tests/RainShadowCoreTests/DialogueIntentionTests.swift` | GDD intention taxonomy + Empty Coat tags; prefixes are evidence-only |
-| `Tests/RainShadowCoreTests/OfficeHotspotDialogueTests.swift` | Inspect catalog coverage vs layout observations |
+| `Tests/RainShadowCoreTests/OfficeHotspotInspectTests.swift` | Inspect strings vs layout observations; DisplayString scene wiring |
 | `Tests/RainShadowCoreTests/EmptyCoatCaseIntroductionTests.swift` | Graph integrity, BG PC-speech, entrance cue contracts |
 | `Tests/RainShadowCoreTests/ShippedDialogueCatalogTests.swift` | **Every shipped resource** through the loader and catalog report |
 | `Tests/RainShadowCoreTests/DialogueEntryScanTests.swift` | `FindFirstState` analogue, talk counters, entry authoring guards |

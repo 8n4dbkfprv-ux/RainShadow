@@ -47,8 +47,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     /// Tracks a pointer sequence that began inside the loot strip, including its
     /// painted gaps, so a cancelled control press never leaks through to the world.
     private var lootContainerPanelOwnsPointerPress = false
-    /// Phase 4: second graph — desk monologue after Empty Coat is open (once).
-    private var deskCaseFileMonologuePlayed = false
     private var clientEntranceStarted = false
     /// Wall-clock origin of the forced/authored entrance (QA seek + pacing).
     private var clientEntranceStartedAt: TimeInterval?
@@ -561,7 +559,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                             to: used.walkTo,
                             minDistance: MovementOrderQueue.defaultInteractionDistance
                         ) { [weak self] in
-                            self?.presentLockedDoorLine(locked)
+                            self?.presentDisplayString(locked, over: hotspot.hitArea)
                         }
                         return
                     }
@@ -593,7 +591,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                 minDistance: MovementOrderQueue.defaultInteractionDistance
             ) { [weak self] in
                 guard let self else { return }
-                self.context.session.markInspected(hotspot.id)
                 self.presentInspection(hotspot)
             }
             return
@@ -1331,50 +1328,22 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         }
     }
 
-    private func presentLockedDoorLine(_ text: String) {
-        guard !text.isEmpty else { return }
-        let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        label.text = text
-        label.fontSize = 16
-        label.fontColor = SKColor(white: 0.88, alpha: 0.94)
-        label.position = CGPoint(x: 0, y: -300)
-        label.zPosition = 50
-        hudRoot.addChild(label)
-        label.run(.sequence([
-            .wait(forDuration: 3.2),
-            .fadeOut(withDuration: 0.4),
-            .removeFromParent()
-        ]))
-    }
-
     private func presentInspection(_ hotspot: OfficeHotspot) {
         dismissLootContainerPanel()
         clearHoverHighlight()
-        dialogueIsActive = true
 
-        // Shared multi-graph presenter: desk monologue after the case is retained.
-        if hotspot.id == "office.desk",
-           !deskCaseFileMonologuePlayed,
-           context.session.caseState.hasFlag(EmptyCoatDialogueKeys.clientRetained)
-        {
-            deskCaseFileMonologuePlayed = true
-            presentDialogue(OfficeCaseFileMonologue.graph) { [weak self] in
-                guard let self else { return }
-                self.dialogueIsActive = false
-                self.presentLootContainerPanelIfNeeded(for: hotspot)
-            }
-            return
-        }
-
-        // PR4: inspect prose is an authored one-node graph, not an ad-hoc constructor.
-        // The hotspot is its own conversation owner, so a second look can open on a
-        // different node (IE `NumTimesTalkedTo` applied to observation).
-        let graph = OfficeHotspotDialogue.graph(forHotspotID: hotspot.id)
-        presentDialogue(graph, ownerID: hotspot.id) { [weak self] in
-            guard let self else { return }
-            self.dialogueIsActive = false
-            self.presentLootContainerPanelIfNeeded(for: hotspot)
-        }
+        // InfoPoint Information text. Resolve the second look from inspect
+        // membership *before* marking this click, then DisplayString — no panel,
+        // no pause, no NumTimesTalkedTo. Object clicks never open DialoguePresenter.
+        let alreadyInspected = context.session.inspectedHotspotIDs.contains(hotspot.id)
+        let text = OfficeHotspotInspect.text(
+            forHotspotID: hotspot.id,
+            alreadyInspected: alreadyInspected,
+            caseState: context.session.caseState
+        )
+        context.session.markInspected(hotspot.id)
+        presentDisplayString(text, over: hotspot.hitArea)
+        presentLootContainerPanelIfNeeded(for: hotspot)
     }
 
     /// After observation text, show every remaining stack in source order. Coins

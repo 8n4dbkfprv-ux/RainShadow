@@ -5,6 +5,9 @@ import Foundation
 /// Prose lives in `Resources/Dialogue/empty-coat.desk-monologue.dialogue.json`.
 /// Proves the shared presenter/session can run a graph other than Empty Coat intro.
 /// Classic BG monologue exception: Continue-only Voss interior pages.
+/// Not presented as a conversation. Desk inspect uses InfoPoint `DisplayString`
+/// (the key line is the retained second look). The "file the night" beat is
+/// `DisplayStringHead` on Voss at the end of Lila's exit. Page 3 is journal/Lila.
 enum OfficeCaseFileMonologue {
     static let graphID = "case.empty-coat.desk-monologue"
     static let startNodeID = "voss.desk.casefile.1"

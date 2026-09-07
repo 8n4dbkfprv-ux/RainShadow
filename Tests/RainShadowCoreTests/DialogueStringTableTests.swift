@@ -89,13 +89,10 @@ struct DialogueStringTableTests {
         }
     }
 
-    @Test func hotspotCatalogResolvesSpeakersAndObservations() throws {
-        let byID = try OfficeHotspotDialogue.allGraphs()
+    @Test func hotspotInspectKeysMatchLayoutObservations() throws {
         for item in OfficeNavigationLayout.authoredHotspots {
-            let graph = try #require(byID[OfficeHotspotDialogue.graphID(forHotspotID: item.id)])
-            let node = try #require(graph.node(id: graph.startNodeID))
-            #expect(node.speaker == item.name)
-            #expect(node.text == item.observation)
+            let key = OfficeHotspotInspect.firstLookTextKey(forHotspotID: item.id)
+            #expect(try DialogueStringTable.shipped.string(for: key) == item.observation)
         }
     }
 

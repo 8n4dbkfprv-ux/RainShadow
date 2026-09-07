@@ -211,6 +211,14 @@ struct CutsceneCatalogTests {
             return false
         })
         #expect(join < modeOff, "Player control must not return while she is still walking")
+        let thought = try! #require(chrome.cues.firstIndex {
+            if case .actionOverride(.detective, .displayStringHead(let key, _)) = $0 {
+                return key == CutsceneCatalog.StringKey.fileTheNight
+            }
+            return false
+        })
+        #expect(join < thought, "The PC thought waits until she has left")
+        #expect(thought < modeOff, "The thought finishes before control returns")
 
         // The guard flag is set before the walk, not after: quitting during her
         // departure must not replay the whole intro on the next load.

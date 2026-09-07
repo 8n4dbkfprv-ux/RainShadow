@@ -21,7 +21,7 @@ final class CityDistrictScene: GameAreaScene {
     private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
-    private var inspectBanner: SKLabelNode?
+    private var overlayStatusLine: SKLabelNode?
     private var movement: MovementOrderQueue {
         guard let areaRuntime else {
             preconditionFailure("CityDistrictScene read movement before loadArea ran")
@@ -473,7 +473,7 @@ final class CityDistrictScene: GameAreaScene {
             self?.travelViaWorldMap(to: destinationID, arrivalKey: arrivalKey)
         }
         worldMapOverlay.onStatusLine = { [weak self] line in
-            self?.showInspectLine(line)
+            self?.showOverlayStatusLine(line)
         }
         hudRoot.addChild(worldMapOverlay)
 
@@ -495,7 +495,10 @@ final class CityDistrictScene: GameAreaScene {
 
     private func handleEdgeExit(_ exit: EdgeExit) {
         guard context.session.isCityTravelOpen else {
-            showInspectLine("The street stays closed until the case leaves the office.")
+            presentDisplayString(
+                "The street stays closed until the case leaves the office.",
+                over: exit.hitArea
+            )
             return
         }
         // BG Classic: reaching a map edge opens the World Map for travel.
@@ -535,7 +538,7 @@ final class CityDistrictScene: GameAreaScene {
                 to: target,
                 minDistance: MovementOrderQueue.defaultInteractionDistance
             ) { [weak self] in
-                self?.showInspectLine(region.lockedLine ?? "")
+                self?.presentDisplayString(region.lockedLine ?? "", over: box)
             }
             return
         }
@@ -547,7 +550,10 @@ final class CityDistrictScene: GameAreaScene {
                 minDistance: MovementOrderQueue.defaultInteractionDistance
             ) { [weak self] in
                 self?.context.session.markInspected(region.id)
-                self?.showInspectLine(region.observation ?? region.lockedLine ?? "")
+                self?.presentDisplayString(
+                    region.observation ?? region.lockedLine ?? "",
+                    over: box
+                )
             }
         case .trigger:
             break
@@ -563,7 +569,10 @@ final class CityDistrictScene: GameAreaScene {
                     to: target,
                     minDistance: MovementOrderQueue.defaultInteractionDistance
                 ) { [weak self] in
-                    self?.showInspectLine("Walk the street edge. Harborpoint keeps its wards on the World Map.")
+                    self?.presentDisplayString(
+                        "Walk the street edge. Harborpoint keeps its wards on the World Map.",
+                        over: box
+                    )
                 }
                 return
             }
@@ -575,7 +584,7 @@ final class CityDistrictScene: GameAreaScene {
                         to: used.walkTo,
                         minDistance: MovementOrderQueue.defaultInteractionDistance
                     ) { [weak self] in
-                        self?.showInspectLine(locked)
+                        self?.presentDisplayString(locked, over: box)
                     }
                     return
                 }
@@ -609,9 +618,11 @@ final class CityDistrictScene: GameAreaScene {
         }
     }
 
-    private func showInspectLine(_ text: String) {
+    /// World-map overlay refusals sit on the HUD so they stay readable over the
+    /// map. Region inspect uses `presentDisplayString` in world space instead.
+    private func showOverlayStatusLine(_ text: String) {
         guard !text.isEmpty else { return }
-        inspectBanner?.removeFromParent()
+        overlayStatusLine?.removeFromParent()
         let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
         label.text = text
         label.fontSize = 16
@@ -621,8 +632,9 @@ final class CityDistrictScene: GameAreaScene {
         label.preferredMaxLayoutWidth = 920
         label.numberOfLines = 3
         label.verticalAlignmentMode = .center
+        label.zPosition = 120
         hudRoot.addChild(label)
-        inspectBanner = label
+        overlayStatusLine = label
         label.run(.sequence([
             .fadeIn(withDuration: 0.2),
             .wait(forDuration: 3.6),

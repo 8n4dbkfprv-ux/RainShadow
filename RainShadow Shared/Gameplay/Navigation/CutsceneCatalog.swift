@@ -145,7 +145,9 @@ enum CutsceneCatalog {
     ///
     /// The shipped order restored the camera to Voss the moment the exit began,
     /// so she walked out off-screen. BG lets an actor leave frame — the room
-    /// being empty afterwards is the point of the shot.
+    /// being empty afterwards is the point of the shot. After the bars drop,
+    /// Voss files the night as `DisplayStringHead` — a scripted PC thought,
+    /// not a scenery DLG.
     static func clientExit(route: [CGPoint]) -> Cutscene {
         Cutscene(
             id: ID.clientExit,
@@ -159,6 +161,7 @@ enum CutsceneCatalog {
                     .letterbox(true),
                     .actionOverride(.client, .followPath(route, .leaving)),
                     .letterbox(false),
+                    .actionOverride(.detective, fileTheNightHeadText),
                     // EndCutSceneMode: free-play rails and player control return.
                     .setCutsceneMode(false)
                 ]),
@@ -191,5 +194,20 @@ enum CutsceneCatalog {
     enum CutsceneFlags {
         static let openingSeen = "cutscene.opening.seen"
         static let officeCaseIntroCompleted = "cutscene.office.caseIntro.completed"
+    }
+
+    /// String-table keys a cutscene resolves through `DisplayStringHead`.
+    enum StringKey {
+        /// PC thought after Lila leaves. Former desk-monologue page 2.
+        static let fileTheNight = "dlg.empty-coat.desk-monologue.node.voss.desk.casefile.2.text"
+    }
+
+    /// One overhead line over Voss, timed like InfoPoint `DisplayString`.
+    static var fileTheNightHeadText: CutsceneCue {
+        let text = DialogueStringTable.shipped.stringIfPresent(for: StringKey.fileTheNight) ?? ""
+        return .displayStringHead(
+            stringKey: StringKey.fileTheNight,
+            .seconds(DisplayStringDuration.seconds(for: text))
+        )
     }
 }

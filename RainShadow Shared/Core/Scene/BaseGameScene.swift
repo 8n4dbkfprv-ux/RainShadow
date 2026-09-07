@@ -575,6 +575,9 @@ class BaseGameScene: SKScene {
     var dialogueIsActive = false {
         didSet { refreshObjectHighlights() }
     }
+    /// Live InfoPoint `DisplayString`. One at a time; a later click replaces it.
+    /// Not `DisplayStringHead` — that parents `OverheadTextNode` to an actor.
+    private var displayStringNode: OverheadTextNode?
 
     /// Plays authored cutscenes. Every scene has one for the same reason every
     /// scene has the dialogue panel: the office used to be the only place in the
@@ -624,6 +627,35 @@ class BaseGameScene: SKScene {
     func dialoguePanelPoint(for sceneLocation: CGPoint) -> CGPoint {
         let hudPoint = hudRoot.convert(sceneLocation, from: self)
         return dialoguePresenter.convert(hudPoint, from: hudRoot)
+    }
+
+    /// GemRB `DisplayString` — overhead examine text at a world point.
+    ///
+    /// InfoPoint Information text, locked-door lines, and city inspect copy.
+    /// Does not pause the world and does not open `DialoguePresenter`. Parent is
+    /// `depthWorldRoot` so the floater stays on the region when the camera pans,
+    /// unlike the retired HUD banner at `y = -300`.
+    func presentDisplayString(_ text: String, at worldPoint: CGPoint) {
+        guard !text.isEmpty else { return }
+        displayStringNode?.removeFromParent()
+        let node = OverheadTextNode(
+            text: text,
+            name: "displayString",
+            maxLayoutWidth: 420,
+            numberOfLines: 3
+        )
+        node.position = CGPoint(
+            x: worldPoint.x,
+            y: worldPoint.y + OverheadTextNode.heightAboveActor
+        )
+        node.zPosition = SceneLayer.occlusion.rawValue
+        depthWorldRoot.addChild(node)
+        displayStringNode = node
+        node.play(for: DisplayStringDuration.seconds(for: text))
+    }
+
+    func presentDisplayString(_ text: String, over rect: CGRect) {
+        presentDisplayString(text, at: CGPoint(x: rect.midX, y: rect.midY))
     }
     // MARK: - Creatures the fog may hide
 

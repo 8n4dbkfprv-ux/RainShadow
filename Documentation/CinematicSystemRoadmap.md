@@ -226,6 +226,7 @@ Whether those remain active targets vs outdated design is not formally deprecate
 | Camera speed | `scroll.ids` rates | `ScrollSpeed`, `.veryFast` = walk speed | Closed |
 | Camera + fade in script | `MoveView*` + `FadeTo*` | `.moveViewPoint` / `.moveViewObject` / `.fadeToColor` | Closed |
 | Overhead text | `DisplayStringHead` | `.displayStringHead` | Closed |
+| InfoPoint examine | `DisplayString` | `presentDisplayString` (non-Head, world-space) | Closed |
 | Breakable skip + safe end | `SetCutSceneBreakable` + `CutSceneBroken` | All three, one terminal path by construction | Closed |
 | Subtitle toggle (movies) | Options language setting | N/A until FMV ships | Defer |
 | Movies catalog UI | `movidesc` + Movies GUI | None | Defer until animatics exist |

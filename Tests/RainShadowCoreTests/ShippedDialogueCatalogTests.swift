@@ -11,18 +11,17 @@ import Testing
 /// every string match in this suite put together.
 struct ShippedDialogueCatalogTests {
     /// Everything the game can present today.
-    private func shippedCatalog() throws -> DialogueGraphCatalog {
-        var graphs = [
+    private func shippedCatalog() -> DialogueGraphCatalog {
+        let graphs = [
             EmptyCoatCaseIntroduction.graph,
             OfficeCaseFileMonologue.graph
         ]
-        graphs.append(contentsOf: try OfficeHotspotDialogue.allGraphs().values)
         return DialogueGraphCatalog(graphs: graphs)
     }
 
     @Test func everyShippedGraphLoadsAndPassesAuthoringValidation() throws {
-        let catalog = try shippedCatalog()
-        #expect(catalog.graphIDs.count == 7)
+        let catalog = shippedCatalog()
+        #expect(catalog.graphIDs.count == 2)
 
         for graph in catalog.graphs {
             try graph.validateAuthoring()
@@ -30,7 +29,7 @@ struct ShippedDialogueCatalogTests {
     }
 
     @Test func theShippedCatalogIsSound() throws {
-        let report = CaseDialogueGraph.report(catalog: try shippedCatalog())
+        let report = CaseDialogueGraph.report(catalog: shippedCatalog())
 
         #expect(report.unsoundGraphIDs.isEmpty, "structurally unsound: \(report.unsoundGraphIDs)")
         #expect(
@@ -51,29 +50,24 @@ struct ShippedDialogueCatalogTests {
     /// No shipped graph has a duplicated node id — the case that used to *trap* rather
     /// than report.
     @Test func noShippedGraphDuplicatesANodeID() throws {
-        for graph in try shippedCatalog().graphs {
+        for graph in shippedCatalog().graphs {
             #expect(graph.duplicateNodeIDs.isEmpty, "\(graph.id) duplicates \(graph.duplicateNodeIDs)")
         }
     }
 
     /// Every gate reads an id something can produce. Talk counters are written by the
-    /// scene when a conversation ends rather than by an action, so they are named here
-    /// explicitly instead of being waved through.
+    /// scene when a conversation ends rather than by an action, so they would be named
+    /// here if a shipped conversation still gated on one.
     @Test func everyGateInShippedContentIsSatisfiable() throws {
-        let sceneWrittenIDs: Set<String> = [
-            CaseState.talkCounterID("office.window")
-        ]
-
-        for graph in try shippedCatalog().graphs {
-            let unmet = Set(graph.integrityReport().externallySuppliedConditionIDs)
-                .subtracting(sceneWrittenIDs)
+        for graph in shippedCatalog().graphs {
+            let unmet = graph.integrityReport().externallySuppliedConditionIDs
             #expect(unmet.isEmpty, "\(graph.id) gates on ids nothing sets: \(unmet.sorted())")
         }
     }
 
     /// Composite conditions exist for authors, but nothing shipped needs deep nesting yet.
     @Test func shippedConditionsStayWellInsideTheAuthoringDepthLimit() throws {
-        for graph in try shippedCatalog().graphs {
+        for graph in shippedCatalog().graphs {
             let depth = graph.integrityReport().maximumConditionDepth
             #expect(depth <= DialogueCondition.maximumNestingDepth, "\(graph.id) nests \(depth) deep")
         }
@@ -82,7 +76,7 @@ struct ShippedDialogueCatalogTests {
     /// Prose lives in the string table, not in the graph files. A node whose text still
     /// looks like a key means a missing entry resolved to its own id.
     @Test func everyShippedNodeResolvedRealProse() throws {
-        for graph in try shippedCatalog().graphs {
+        for graph in shippedCatalog().graphs {
             for node in graph.nodes {
                 #expect(!node.text.isEmpty, "\(graph.id):\(node.id) has no text")
                 #expect(!node.text.hasPrefix("dlg."), "\(graph.id):\(node.id) text is an unresolved key")
@@ -96,7 +90,7 @@ struct ShippedDialogueCatalogTests {
     /// intro: mid-conversation PC lines are reply options, never Continue-only speaker
     /// pages. Interior monologue is the documented exception (GDD §7.5).
     @Test func noShippedGraphDeliversMidConversationPCSpeechAsAContinuePage() throws {
-        for graph in try shippedCatalog().graphs {
+        for graph in shippedCatalog().graphs {
             for node in graph.nodes
             where node.speaker == EmptyCoatCaseIntroduction.vossSpeaker
                 && !node.isInteriorMonologue

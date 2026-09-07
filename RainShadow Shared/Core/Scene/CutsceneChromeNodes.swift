@@ -136,29 +136,33 @@ final class CutsceneFadeNode: SKSpriteNode {
     }
 }
 
-/// `DisplayStringHead(O:Object, I:StrRef)` — a line floating over an actor.
+/// Shared floater for GemRB `DisplayString` / `DisplayStringHead`.
 ///
-/// BG's way of saying something without opening a conversation: no panel, no
-/// portrait, no pause, and the world keeps moving underneath it. Worth having
-/// precisely because the alternative — a one-line dialogue node — stops
-/// everything for a sentence that did not need it.
+/// Head-text parents this node to an actor. InfoPoint examine text parents it
+/// to the world at the region. Same plate, same fade; the call site is what
+/// distinguishes the two engine actions.
 @MainActor
 final class OverheadTextNode: SKNode {
     /// Roughly a head above a standing adult at the shipped body height.
+    /// InfoPoint examine reuses it as "above the thing."
     static let heightAboveActor: CGFloat = 96
-    private static let fadeDuration: TimeInterval = 0.28
 
-    init(text: String) {
+    init(
+        text: String,
+        name: String = "cutscene.overheadText",
+        maxLayoutWidth: CGFloat = 340,
+        numberOfLines: Int = 2
+    ) {
         super.init()
-        name = "cutscene.overheadText"
+        self.name = name
         let label = SKLabelNode(fontNamed: "AvenirNextCondensed-DemiBold")
         label.text = text
         label.fontSize = 19
         label.fontColor = SKColor(white: 0.93, alpha: 1)
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .center
-        label.preferredMaxLayoutWidth = 340
-        label.numberOfLines = 2
+        label.preferredMaxLayoutWidth = maxLayoutWidth
+        label.numberOfLines = numberOfLines
         label.zPosition = 1
 
         // A soft plate behind the line: rain and a painted floor are a poor
@@ -186,11 +190,12 @@ final class OverheadTextNode: SKNode {
 
     /// Fades in, holds for the authored beat, fades out, and removes itself.
     func play(for seconds: TimeInterval) {
-        let hold = max(0, seconds - Self.fadeDuration * 2)
+        let fade = DisplayStringDuration.fadeDuration
+        let hold = max(0, seconds - fade * 2)
         run(.sequence([
-            .fadeIn(withDuration: Self.fadeDuration),
+            .fadeIn(withDuration: fade),
             .wait(forDuration: hold),
-            .fadeOut(withDuration: Self.fadeDuration),
+            .fadeOut(withDuration: fade),
             .removeFromParent()
         ]))
     }

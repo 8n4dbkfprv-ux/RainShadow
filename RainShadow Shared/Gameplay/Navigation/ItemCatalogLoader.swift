@@ -228,7 +228,7 @@ enum ItemCatalogLoader {
 // MARK: - Shipped content facade
 
 /// Thin facade over the shipped Harborpoint catalog, matching the shape of
-/// `OfficeHotspotDialogue` — content packages get a named accessor so call sites
+/// `OfficeHotspotInspect` — content packages get a named accessor so call sites
 /// never spell a resource name.
 enum HarborpointItems {
     /// The shipped catalog. Missing or malformed content is a build-time authoring
