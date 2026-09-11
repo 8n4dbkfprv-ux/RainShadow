@@ -32,10 +32,11 @@ class GameAreaScene: BaseGameScene {
         context: GameContext,
         areaID: AreaID,
         entrance: String? = nil,
-        artSize: CGSize? = nil
+        artSize: CGSize? = nil,
+        authoredArea: AreaDefinition? = nil
     ) {
         let definition = AreaLoadTrace.measure("area.requireArea", areaID.rawValue) {
-            HarborpointAreas.requireArea(areaID)
+            authoredArea ?? HarborpointAreas.requireArea(areaID)
         }
         self.area = definition
         self.areaEntranceName = entrance
@@ -87,6 +88,9 @@ class GameAreaScene: BaseGameScene {
         guard usesExtendedNight != enabled else { return true }
         usesExtendedNight = enabled
         buildAreaPlate()
+        for door in area.doors where door.backgroundTiles != nil {
+            presentDoorVisual(door, open: areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
+        }
         return true
     }
 
@@ -134,10 +138,9 @@ class GameAreaScene: BaseGameScene {
     func loadLightingChannels() {
         lightMap = AreaLightMapLoader.loadIfPresent(named: area.resolvedLightMapName)
         heightMap = AreaHeightMap.loadIfPresent(named: area.resolvedHeightMapName)
-        // `Map::DrawStencil`'s buffer, baked once because RainShadow's covering
-        // outlines are authored world geometry that never moves — see the
-        // deviation recorded on `AreaWallStencil`.
-        wallStencil = WallStencilTexture.make(from: area.makeWallStencil())
+        // Bake Map::DrawStencil's active wall set. Authored background doors
+        // select a different set and invalidate this buffer when toggled.
+        wallStencil = WallStencilTexture.make(from: areaRuntime?.makeWallStencil() ?? area.makeWallStencil())
         // QA hook: draw the baked mask over the area so its placement can be
         // checked against the painted scenery. The stencil is the one part of
         // the render port with no in-app failure signal — a mask offset or
@@ -369,8 +372,11 @@ class GameAreaScene: BaseGameScene {
     }
 
     func openDoor(_ door: AreaDoor) {
-        navigation.setDoor(door.id, open: true)
+        areaRuntime?.setDoor(door.id, open: true)
         presentDoorVisual(door, open: true)
+        if door.backgroundTiles != nil {
+            wallStencil = WallStencilTexture.make(from: areaRuntime?.makeWallStencil() ?? area.makeWallStencil())
+        }
         doorVisibilityDidChange()
         if let sound = door.openSound {
             GameSFX.play(sound, on: .world)
@@ -379,8 +385,11 @@ class GameAreaScene: BaseGameScene {
 
     func closeDoor(_ door: AreaDoor) {
         guard !door.cannotClose else { return }
-        navigation.setDoor(door.id, open: false)
+        areaRuntime?.setDoor(door.id, open: false)
         presentDoorVisual(door, open: false)
+        if door.backgroundTiles != nil {
+            wallStencil = WallStencilTexture.make(from: areaRuntime?.makeWallStencil() ?? area.makeWallStencil())
+        }
         doorVisibilityDidChange()
         if let sound = door.closeSound {
             GameSFX.play(sound, on: .world)
@@ -408,6 +417,18 @@ class GameAreaScene: BaseGameScene {
     /// the open secondary tiles while the door is open.
     func buildAreaDoorVisuals() {
         for door in area.doors {
+            if let tiles = door.backgroundTiles {
+                let sprite = SKSpriteNode()
+                sprite.name = "\(door.id).backgroundTiles"
+                sprite.anchorPoint = .zero
+                sprite.position = tiles.worldRect.cgRect.origin
+                sprite.size = tiles.worldRect.cgRect.size
+                sprite.zPosition = 1
+                backgroundRoot.addChild(sprite)
+                doorVisualNodes[door.id] = sprite
+                presentDoorVisual(door, open: areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
+                continue
+            }
             guard let registration = door.visual else { continue }
             let initialName = registration.closedIsBakedIntoPlate
                 ? registration.openTextureName
@@ -439,6 +460,14 @@ class GameAreaScene: BaseGameScene {
 
     private func presentDoorVisual(_ door: AreaDoor, open: Bool) {
         setHighlightOpenState(id: door.id, isOpen: open)
+        if let tiles = door.backgroundTiles, let sprite = doorVisualNodes[door.id] {
+            let name = usesExtendedNight ? (tiles.nightOpenTextureName ?? tiles.openTextureName) : tiles.openTextureName
+            sprite.texture = GameArt.texture(named: name)
+            sprite.texture?.filteringMode = .linear
+            sprite.size = tiles.worldRect.cgRect.size
+            sprite.isHidden = !open
+            return
+        }
         guard let registration = door.visual,
               let sprite = doorVisualNodes[door.id]
         else { return }

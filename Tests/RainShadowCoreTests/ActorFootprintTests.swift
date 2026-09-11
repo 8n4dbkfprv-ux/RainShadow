@@ -125,7 +125,9 @@ struct ActorFootprintTests {
     /// centres it covers. Opening the leaf still adds exactly the threshold
     /// cells the closed AABB sealed, which is the IE contract this really pins.
     @Test func officeReachabilityIsWhatTheRasterSays() {
-        let expected = [true: 1_000, false: 1_020]
+        // The measured floor between the window-wall radiators adds 52 cells;
+        // opening the unchanged door still adds exactly 20 threshold cells.
+        let expected = [true: 1_052, false: 1_072]
         for doorBlocking in [true, false] {
             let map = OfficeNavigationLayout.makeGrid(entranceDoorBlocking: doorBlocking)
             #expect(

@@ -162,10 +162,9 @@ enum FootstepSurface: String, CaseIterable, Sendable {
 
 /// Order acknowledgements and selection lines.
 ///
-/// BG plays these through `Actor::CommandActor` and `Actor::PlaySelectionSound`,
-/// gated by the frequency slider. `BarkGate` holds the ladder and the one
-/// adaptation a single-detective game needs; this owns the clips and the rolls.
-/// Clips are Grok Voice Sal barks baked by `generate_voss_barks_rex.py`.
+/// BG plays these through `Actor::CommandActor` and `Actor::PlaySelectionSound`.
+/// The two gates are those functions' frequency switches, BG only. Clips are
+/// Grok Voice Sal barks baked by `generate_voss_barks_rex.py`.
 @MainActor
 final class MovementBarkPlayer {
     enum Kind {
@@ -175,7 +174,10 @@ final class MovementBarkPlayer {
         var commonResources: [String] {
             switch self {
             case .command:
-                (1...4).map { String(format: "vo_voss_command_%02d.m4a", $0) }
+                // BG2 spends rare-select slots as extra command lines
+                // (`COMMAND_COUNT`); they sit in this pool, not on a 5% branch.
+                (1...16).map { String(format: "vo_voss_command_%02d.m4a", $0) }
+                    + (1...2).map { String(format: "vo_voss_command_rare_%02d.m4a", $0) }
             case .selection:
                 (1...3).map { String(format: "vo_voss_selection_%02d.m4a", $0) }
             }
@@ -183,44 +185,44 @@ final class MovementBarkPlayer {
 
         var rareResources: [String] {
             switch self {
-            // BG:EE spends BG1's rare-select slots on extra command lines, so only
-            // selection carries a rare variant here.
             case .command: []
             case .selection: ["vo_voss_selection_rare_01.m4a"]
             }
         }
     }
 
-    private var commandGate: BarkGate
-    private var selectionGate: BarkGate
+    private var commandGate: CommandSoundGate
+    private var selectionGate: SelectionSoundGate
 
-    /// Defaults follow `Baldur.lua` where they can: commands at BG's shipped
-    /// level, selections one step down from BG's because a lone actor is selected
-    /// far more often than a party member is.
+    /// `Baldur.lua`: `Command Sounds Frequency = 2`, `Selection Sounds Frequency
+    /// = 3`. Selection 3 is promoted to always outside PST.
     init(
-        commandFrequency: BarkFrequency = .half,
-        selectionFrequency: BarkFrequency = .half
+        commandFrequency: BarkFrequency = .oncePerSelection,
+        selectionFrequency: BarkFrequency = .always
     ) {
-        commandGate = BarkGate(frequency: commandFrequency)
-        selectionGate = BarkGate(frequency: selectionFrequency)
+        commandGate = CommandSoundGate(frequency: commandFrequency)
+        selectionGate = SelectionSoundGate(frequency: selectionFrequency)
     }
 
-    /// Call when the actor is (re)acquired — portrait click, dialogue ending. This
-    /// is the adaptation `BarkGate` documents: with one always-selected detective,
-    /// "selection" has to mean something the player actually does.
+    /// Area entry: arm `playedCommandSound` so the first accepted order can
+    /// acknowledge, the way a fresh select does. Does not play a selection line.
     func noteActorSelected() {
         commandGate.noteSelected()
-        selectionGate.noteSelected()
     }
 
     func play(_ kind: Kind, silenced: Bool = false) {
         guard !silenced else { return }
-        let roll = Int.random(in: 1...100)
-        let rareRoll = Int.random(in: 1...100)
-        let outcome: BarkGate.Outcome
+        let outcome: BarkOutcome
         switch kind {
-        case .command: outcome = commandGate.resolve(roll: roll, rareRoll: rareRoll)
-        case .selection: outcome = selectionGate.resolve(roll: roll, rareRoll: rareRoll)
+        case .command:
+            outcome = commandGate.resolve()
+        case .selection:
+            // `PlaySelectionSound` clears this before the frequency switch.
+            commandGate.noteSelected()
+            outcome = selectionGate.resolve(
+                roll: Int.random(in: 1...100),
+                rareRoll: Int.random(in: 1...100)
+            )
         }
 
         let pool: [String]
@@ -232,7 +234,10 @@ final class MovementBarkPlayer {
         case .common:
             pool = kind.commonResources
         }
-        guard let resource = pool.randomElement() else { return }
+        guard let resource = BarkPick.next(
+            in: pool,
+            roll: Int.random(in: 0 ..< Int.max)
+        ) else { return }
         GameSFX.play(resource, on: .voice)
     }
 }

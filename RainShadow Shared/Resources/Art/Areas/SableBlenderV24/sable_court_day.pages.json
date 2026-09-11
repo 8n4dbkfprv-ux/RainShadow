@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "plateTextureName": "sable_court_day",
+  "worldSize": {
+    "w": 4288,
+    "h": 3200
+  },
+  "pageWorldSize": {
+    "w": 933.4421768707483,
+    "h": 933.5612535612535
+  },
+  "sourceSHA256": "c9f4abe705735406b0f6970745bd367fe052bc3448cf6b54095b4bc8e89db3e8",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "sable_court_day_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "5082c8cd51f5fcfecc6d134045680f8bd959205de93f60ee81208bb6657cf39f"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "sable_court_day_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "e6e7252c64105fc05866fb0d90ac8407f0d6268f011de1c40f525617b12c5f17"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "sable_court_day_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "2384022c0dfa98532d0e30ed134dd152c1c011aaf2e125718895e0315c930da3"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "sable_court_day_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "114dca01fec12e591de6f7361b28bed4b8db65e1c62fb581822c2f0db8c27128"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "sable_court_day_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 2266.4387464387464,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "e765c151dcdad9388b2796180979cccc387d8b809d12a41aa92f53f74577f254"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "sable_court_day_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "1cfde8ed286f595a05dc678ca8532ecd31661c25dbdd7fc42bdf5d0378f65728"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "sable_court_day_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "9693b6ddd9eed073921b51f439f2a920215f8b266bdd03ad3d25ed441fb83b4d"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "sable_court_day_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "e8ea578891f54e4bcbeb7f284e4eccccdb394e5d8dd3993b163571d96d63a08d"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "sable_court_day_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "74db7a42aeec0099c46c21e42a3b29030f48589650c477ecdb6ad76f6c49fe87"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "sable_court_day_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 1332.8774928774928,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "dda26d69981fdc1dad8fd7e9a61efc5363b67db3be07d831a2975bdef8d1e9f3"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "sable_court_day_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "be1920d1a40638b8bc7df5259bbb8172dc233a9c4f7b55d107f4064eaa0af125"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "sable_court_day_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "62d8aafd7db39a7815cc4fe4cc2cf3ba4b208f320cffc73e56e43f2c6d3d5403"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "sable_court_day_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "f513002fbe12a50ec9c2292f8fa1d2b3d3a584c9f246a67a54718c1f5dbf2b95"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "sable_court_day_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "8b4fac6b37ee3ab23474d77cef6b225007db4fd00b28bbeeb1835223a3c9b5be"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "sable_court_day_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 399.3162393162393,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "dfda39efe57cfe75b876dfe86535adf2aab845e8ef9bcadc66b8c08b7e7a4ca1"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "sable_court_day_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "d6e803057625c073de7082c46a9fc42e5b0a14077bb55af9421782019039b577"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "sable_court_day_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "379d9582c4c35fa622acd9812f0af270debb0feff928ce4ea9e367cbbe226d21"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "sable_court_day_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "aca476982fd51b588fa82ac3123a3d03c4d174057c08c1ef84a596a297a03893"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "sable_court_day_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "d6dd2cfb06c3956fffd991820c3dca842beb9f554943eb055d94f55545e7c9f5"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "sable_court_day_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 0.0,
+        "w": 554.2312925170069,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 876,
+      "sha256": "c1f455c096f57953de8214314a1ca6d1b062344fbebcad8cbef6b5808a19532a"
+    }
+  ]
+}

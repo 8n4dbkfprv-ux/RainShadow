@@ -61,80 +61,116 @@ struct FootstepCadence: Equatable, Sendable {
 
 /// How often a character acknowledges an order or a selection out loud.
 ///
-/// BG exposes this as a slider and reads it as a ladder in `Actor::CommandActor`
-/// and `Actor::PlaySelectionSound`. `Baldur.lua` ships
-/// `Command Sounds Frequency = 2` and `Selection Sounds Frequency = 3`.
+/// Raw values are `Baldur.lua`'s `Command Sounds Frequency` /
+/// `Selection Sounds Frequency`. GemRB reads them in `Actor::CommandActor` and
+/// `Actor::PlaySelectionSound`. PST adds one (`pstflags`); we are BG, so the
+/// integers below are used as written. Lua 3 and 4 collapse to always on BG —
+/// the 50%/80% rolls are `if (pstflags && …)` and do not run.
 enum BarkFrequency: Int, CaseIterable, Sendable {
     case never = 1
-    /// One bark per selection, then silence until reselected.
+    /// Command: one bark after selection (`playedCommandSound`). Selection: 20%.
     case oncePerSelection = 2
-    case half = 3
-    case mostly = 4
+    /// Command 3+ and selection after `frequency > 2` is promoted to 5.
     case always = 5
-
-    /// Chance in 100, for the levels that roll. BG's own numbers: level 3 is
-    /// `RAND(1,100) > 50` and level 4 is `> 80`.
-    var chanceInHundred: Int {
-        switch self {
-        case .never: 0
-        case .oncePerSelection: 100
-        case .half: 50
-        case .mostly: 80
-        case .always: 100
-        }
-    }
 }
 
-/// Decides whether a bark sounds, given BG's ladder.
+enum BarkOutcome: Equatable, Sendable {
+    case silent
+    case common
+    case rare
+}
+
+/// `Actor::CommandActor`'s frequency switch, BG only.
 ///
-/// One adaptation, and it is deliberate. BG's level 2 means "once per selection",
-/// which works for a six-portrait party where selection changes constantly. With
-/// a single detective who is always selected, a literal port barks once per
-/// session. So "selection" here means re-acquiring the actor — clicking his
-/// portrait, or dialogue ending — and the shipped default is `.half` rather than
-/// BG's `.oncePerSelection`, which is the level that reads right for one body.
+///     switch (CFGCache.commandSndFreq + pstflags) {
+///       case 1: return;
+///       case 2:
+///         if (playedCommandSound) return;
+///         playedCommandSound = true;
+///         // fallthrough
+///       case 3:
+///         if (pstflags && RAND(1, 100) > 50) return;
+///         break;
+///       case 4:
+///         if (pstflags && RAND(1, 100) > 80) return;
+///         break;
+///       default:;
+///     }
 ///
-/// BG also collapses its own selection ladder: `PlaySelectionSound` promotes any
-/// level above 2 straight to `always` outside PST, so the slider really only
-/// distinguishes off, once, and every time. The ladder is kept intact here
-/// because the intermediate levels are what make one actor bearable.
-struct BarkGate: Equatable, Sendable {
+/// No rare-command roll. BG2 spends rare-select slots as extra command lines
+/// (`COMMAND_COUNT`), then `VerbalConstant` picks uniformly among them.
+struct CommandSoundGate: Equatable, Sendable {
     var frequency: BarkFrequency
-    /// BG drops a "rare select" line ~5% of the time (`RARE_SELECT_CHANCE`).
-    var rareChanceInHundred: Int
-    private var playedSinceSelection = false
+    private var playedCommandSound = false
 
-    init(frequency: BarkFrequency = .half, rareChanceInHundred: Int = 5) {
+    init(frequency: BarkFrequency = .oncePerSelection) {
         self.frequency = frequency
-        self.rareChanceInHundred = rareChanceInHundred
     }
 
-    /// The actor was (re)selected: `oncePerSelection` is armed again.
+    /// `PlaySelectionSound` starts with `playedCommandSound = false`.
     mutating func noteSelected() {
-        playedSinceSelection = false
+        playedCommandSound = false
     }
 
-    enum Outcome: Equatable, Sendable {
-        case silent
-        case common
-        case rare
-    }
-
-    /// `roll` and `rareRoll` are 1...100, injected so the ladder is testable
-    /// rather than merely exercised.
-    mutating func resolve(roll: Int, rareRoll: Int) -> Outcome {
+    mutating func resolve() -> BarkOutcome {
         switch frequency {
         case .never:
             return .silent
         case .oncePerSelection:
-            if playedSinceSelection { return .silent }
-            playedSinceSelection = true
-        case .half, .mostly:
-            if roll > frequency.chanceInHundred { return .silent }
+            if playedCommandSound { return .silent }
+            playedCommandSound = true
+            return .common
+        case .always:
+            return .common
+        }
+    }
+}
+
+/// `Actor::PlaySelectionSound`'s frequency switch, BG only.
+///
+///     unsigned int frequency = CFGCache.selectionSndFreq + pstflags;
+///     if (force || (!pstflags && frequency > 2)) frequency = 5;
+///     switch (frequency) {
+///       case 1: return;
+///       case 2: if (RAND(1, 100) > 20) return; break;
+///       case 3: if (RAND(1, 100) > 50) return; break; // pst-only
+///       case 4: if (RAND(1, 100) > 80) return; break; // pst-only
+///       default:;
+///     }
+///     if (InParty && RAND(1, 100) <= rareSelectChance)
+///
+/// `rareSelectChance` is `RARE_SELECT_CHANCE` in `miscrule.2da` (5).
+struct SelectionSoundGate: Equatable, Sendable {
+    var frequency: BarkFrequency
+    var rareChanceInHundred: Int
+
+    init(frequency: BarkFrequency = .always, rareChanceInHundred: Int = 5) {
+        self.frequency = frequency
+        self.rareChanceInHundred = rareChanceInHundred
+    }
+
+    /// `roll` and `rareRoll` are 1...100, injected so the ladder is testable.
+    func resolve(roll: Int, rareRoll: Int) -> BarkOutcome {
+        switch frequency {
+        case .never:
+            return .silent
+        case .oncePerSelection:
+            if roll > 20 { return .silent }
         case .always:
             break
         }
         return rareRoll <= rareChanceInHundred ? .rare : .common
+    }
+}
+
+/// `GetVerbalConstant(start, count)`: `RAND(0, count - 1)` among existing slots.
+enum BarkPick {
+    static func next(in pool: [String], roll: Int) -> String? {
+        guard !pool.isEmpty else { return nil }
+        let count = pool.count
+        let remainder = roll.quotientAndRemainder(dividingBy: count).remainder
+        let index = remainder >= 0 ? remainder : remainder + count
+        return pool[index]
     }
 }
 

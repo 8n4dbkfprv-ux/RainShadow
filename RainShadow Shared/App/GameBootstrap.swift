@@ -774,7 +774,13 @@ final class GameContext {
     var cameraZoomStep = CameraZoom.defaultStep
 
     init() {
+        #if DEBUG
+        let saveStore = SaveStore(key:
+            ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender"
+            ? "RainShadow.Save.SableBlenderV24" : "RainShadow.Save.v1")
+        #else
         let saveStore = SaveStore()
+        #endif
         self.saveStore = saveStore
         session = GameSession(saveStore: saveStore)
         preferences = GamePreferences()

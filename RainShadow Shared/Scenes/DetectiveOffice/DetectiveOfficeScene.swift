@@ -74,12 +74,13 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         area.spawnPoint(entrance: areaEntranceName) ?? OfficeNavigationLayout.actorStart
     }
 
-    init(context: GameContext, entrance: String? = nil) {
+    init(context: GameContext, entrance: String? = nil, authoredArea: AreaDefinition? = nil) {
         super.init(
             context: context,
             areaID: HarborpointAreas.office,
             entrance: entrance,
-            artSize: OfficeInteriorScale.sourceArtSize
+            artSize: OfficeInteriorScale.sourceArtSize,
+            authoredArea: authoredArea
         )
         // The office opens straight into the Empty Coat intro, so the panel owns input
         // from the first frame. Other scenes start in free play (the inherited default);
@@ -142,6 +143,15 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         // hover and rain masks target different apertures.
 
         detective.position = arrivalPoint
+        if usingSuitePlate {
+            let deskGroundPoint = area.spawnPoint(entrance: nil) ?? OfficeNavigationLayout.actorStart
+            detective.registerSeat(bodyOffset: OfficeInteriorScale.PaintedDeskSeat.bodyOffset(from: deskGroundPoint))
+        }
+        if areaEntranceName == OfficeAreaAdapter.cityArrivalEntrance {
+            // The opening starts seated; entering from the street starts on
+            // foot. Keep the registered arrival point and standing body pivot.
+            detective.beginOpenWorldStanding()
+        }
         // Warm desk-lamp grade (actors default here; re-assert for scene clarity).
         detective.applySceneLighting(.officeInterior)
         detective.attachNavigation(navigation, id: Self.detectiveActorID)
@@ -280,6 +290,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func sceneDidBecomeReady() {
+        barks.noteActorSelected()
         syncDetectiveEncumbrance()
         // QA hook: hold the tactical pause from launch so the capture harness can
         // frame the paused presentation (clock state, desaturation) without a
@@ -506,6 +517,9 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             if event.isDoubleClick {
                 followCamera()
             } else {
+                // `Actor::PlaySelectionSound`: a GUI select. Portrait click is
+                // the one-actor stand-in; inventory still opens.
+                barks.play(.selection, silenced: dialogueIsActive)
                 setInventoryPresented(true)
             }
             return

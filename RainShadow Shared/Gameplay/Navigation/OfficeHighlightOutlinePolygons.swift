@@ -8,7 +8,7 @@ import CoreGraphics
 extension OfficeHighlightOutlines {
     static let refinedPolygons: [String: [CGPoint]] = [
         "office.window": [CGPoint(x: 1733.5800, y: 1245.2200), CGPoint(x: 1763.2050, y: 1258.6500), CGPoint(x: 1765.5750, y: 1208.8800), CGPoint(x: 1735.5550, y: 1195.4500)],
-        "office.desk": [CGPoint(x: 2017.9800, y: 1111.3150), CGPoint(x: 2069.7250, y: 1145.2850), CGPoint(x: 2107.6450, y: 1126.7200), CGPoint(x: 2108.8300, y: 1102.2300), CGPoint(x: 2051.9500, y: 1078.9250), CGPoint(x: 2017.9800, y: 1091.9600)],
+        "office.desk": [CGPoint(x: 2012.4500, y: 1109.7350), CGPoint(x: 2081.9700, y: 1154.3700), CGPoint(x: 2114.7550, y: 1133.0400), CGPoint(x: 2113.1750, y: 1129.4850), CGPoint(x: 2112.7800, y: 1099.0700), CGPoint(x: 2108.0400, y: 1095.9100), CGPoint(x: 2108.0400, y: 1108.1550), CGPoint(x: 2089.0800, y: 1096.3050), CGPoint(x: 2089.0800, y: 1086.8250), CGPoint(x: 2073.6750, y: 1099.4650), CGPoint(x: 2071.3050, y: 1096.3050), CGPoint(x: 2071.3050, y: 1074.5800), CGPoint(x: 2043.2600, y: 1059.9650), CGPoint(x: 2018.7700, y: 1075.3700), CGPoint(x: 2017.1900, y: 1104.6000)],
         "office.phone": [CGPoint(x: 2083.5500, y: 1129.8800), CGPoint(x: 2093.4250, y: 1136.5950), CGPoint(x: 2106.4600, y: 1129.8800), CGPoint(x: 2096.5850, y: 1123.1650)],
         "office.files": [CGPoint(x: 2166.5000, y: 1471.9500), CGPoint(x: 2187.0400, y: 1484.9850), CGPoint(x: 2203.6300, y: 1468.3950), CGPoint(x: 2203.6300, y: 1404.0100), CGPoint(x: 2182.6950, y: 1390.9750), CGPoint(x: 2166.5000, y: 1407.9600)],
         "office.door": [CGPoint(x: 2152.2800, y: 941.8600), CGPoint(x: 2246.6850, y: 1002.6900), CGPoint(x: 2250.6350, y: 994.0000), CGPoint(x: 2156.2300, y: 933.1700)],

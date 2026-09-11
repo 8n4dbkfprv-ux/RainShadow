@@ -21,6 +21,19 @@ final class CityDistrictScene: GameAreaScene {
     private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
+    #if DEBUG && os(macOS)
+    private var playtestNight = false
+
+    override func keyDown(with event: NSEvent) {
+        if area.id == AreaID("sable_court"), event.keyCode == 45, !event.isARepeat {
+            playtestNight.toggle()
+            setExtendedNight(playtestNight)
+            detective.applySceneLighting(playtestNight ? .cityNight : .cityDay)
+            return
+        }
+        super.keyDown(with: event)
+    }
+    #endif
     private var overlayStatusLine: SKLabelNode?
     private var movement: MovementOrderQueue {
         guard let areaRuntime else {
@@ -56,6 +69,16 @@ final class CityDistrictScene: GameAreaScene {
         fatalError("CityDistrictScene is created programmatically")
     }
 
+    #if DEBUG
+    /// The Blender district has its own terrain and cover; old ward portals
+    /// and scenery coordinates cannot be reused against this painting.
+    init(context: GameContext, playtestArea: AreaDefinition, entrance: String? = nil) {
+        self.districtID = nil
+        super.init(context: context, areaID: playtestArea.id,
+                   entrance: entrance, authoredArea: playtestArea)
+    }
+    #endif
+
     override func buildScene() {
         buildAreaBundle()
         buildAreaDoorVisuals()
@@ -64,6 +87,8 @@ final class CityDistrictScene: GameAreaScene {
         edgeExits = makeEdgeExits()
         if let districtID {
             installHighlightables(CityHighlightOutlines.objects(for: districtID))
+        } else {
+            installHighlightables(CityHighlightOutlines.objects(in: area))
         }
         detective.position = area.spawnPoint(entrance: areaEntranceName) ?? .zero
         detective.beginOpenWorldStanding()
@@ -90,6 +115,7 @@ final class CityDistrictScene: GameAreaScene {
 
 
     override func sceneDidBecomeReady() {
+        barks.noteActorSelected()
         // A save loaded with a heavy bag must walk heavy from the first step, not
         // from the first pickup.
         syncDetectiveEncumbrance()
@@ -112,6 +138,7 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
+        removeAction(forKey: "touchEntranceHighlight")
         guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
         actionBar.beginPress(at: actionBar.convert(hudPoint, from: hudRoot))
@@ -128,6 +155,7 @@ final class CityDistrictScene: GameAreaScene {
     override func handlePointerCancelled(_ event: GamePointerEvent) {
         actionBar.cancelPress()
         portraitBar.cancelUtilityPress()
+        clearHoverHighlight()
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
@@ -158,6 +186,9 @@ final class CityDistrictScene: GameAreaScene {
             if event.isDoubleClick {
                 followCamera()
             } else {
+                // `Actor::PlaySelectionSound`: a GUI select. Portrait click is
+                // the one-actor stand-in; inventory still opens.
+                barks.play(.selection, silenced: dialogueIsActive)
                 setInventoryPresented(true)
             }
             return
@@ -185,11 +216,36 @@ final class CityDistrictScene: GameAreaScene {
             return
         }
 
-        guard CityDistrictDefinition.worldBounds.contains(event.location) else {
+        guard area.worldBounds.contains(event.location) else {
             return
         }
 
+        // Like Door::HitTest, the active leaf takes priority over a travel
+        // region underneath it. An open leaf closes; the opening enters.
+        if let leaf = backgroundDoor(at: event.location),
+           areaRuntime?.openDoorIDs.contains(leaf.id) == true {
+            setHighlightHoverPoint(event.location)
+            moveDetective(to: leaf.walkTarget(from: detective.position, fallback: detective.position),
+                          minDistance: MovementOrderQueue.defaultInteractionDistance) { [weak self] in
+                self?.closeDoor(leaf)
+            }
+            if event.kind == .touch {
+                run(.sequence([.wait(forDuration: 0.65), .run { [weak self] in self?.clearHoverHighlight() }]),
+                    withKey: "touchEntranceHighlight")
+            }
+            return
+        }
         if let region = area.region(at: event.location) {
+            if let door = door(matching: region.id), door.backgroundTiles != nil,
+               areaRuntime?.openDoorIDs.contains(door.id) != true,
+               backgroundDoor(at: event.location) == nil { return }
+            if event.kind == .touch {
+                setHighlightHoverPoint(event.location)
+                run(.sequence([
+                    .wait(forDuration: 0.65),
+                    .run { [weak self] in self?.clearHoverHighlight() }
+                ]), withKey: "touchEntranceHighlight")
+            }
             handleRegion(region)
             return
         }
@@ -270,8 +326,14 @@ final class CityDistrictScene: GameAreaScene {
         // Same region lookup the click uses, so the cursor cannot promise a way
         // out that the click then declines to take.
         setHighlightHoverPoint(event.location)
-        let isTravel = hoveredHighlightID != nil
-            || edgeExits.contains(where: { $0.hitArea.contains(event.location) })
+        let region = area.region(at: event.location)
+        let leaf = backgroundDoor(at: event.location)
+        let closedEntrance = region.flatMap { door(matching: $0.id) }.map {
+            $0.backgroundTiles != nil && !(areaRuntime?.openDoorIDs.contains($0.id) ?? !$0.startsClosed)
+        } ?? false
+        let isTravel = leaf == nil && !closedEntrance && (hoveredHighlightID != nil
+            || region?.kind == .travel
+            || edgeExits.contains(where: { $0.hitArea.contains(event.location) }))
 
         // BG:EE edge scrolling (`GameControl::OnGlobalMouseMove`).
         setCameraScroll(edgeScrollVector(forHudPoint: hudPoint))
@@ -280,7 +342,8 @@ final class CityDistrictScene: GameAreaScene {
         // portal now reads as a way out rather than as scenery. See `WorldCursor`.
         applyWorldCursor(WorldCursorState.resolve(
             isPassable: isFloorOrderable(event.location),
-            isTravel: isTravel
+            isTravel: isTravel,
+            hasInteractable: leaf != nil || region?.kind == .info
         ))
         #endif
     }
@@ -524,6 +587,15 @@ final class CityDistrictScene: GameAreaScene {
     /// 40-unit operating distance of the authored approach, then use the region.
     /// The reachability suites still require every approach itself to be connected;
     /// proximity must not hide a point authored inside a facade or sealed pocket.
+    /// GemRB Door::HitTest uses the same state polygon as the hover outline.
+    private func backgroundDoor(at point: CGPoint) -> AreaDoor? {
+        area.doors.first { door in
+            guard door.backgroundTiles != nil else { return false }
+            let open = areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed
+            return HighlightGeometry.contains(point, polygon: (open ? door.openOutline : door.closedOutline).map(\.cgPoint))
+        }
+    }
+
     private func handleRegion(_ region: AreaRegion) {
         let box = region.boundingBox
         let target = door(matching: region.id)?.walkTarget(
@@ -578,6 +650,10 @@ final class CityDistrictScene: GameAreaScene {
             }
             guard travel.destination != area.id else { return }
             if let door = door(matching: region.id) {
+                // A closed background door consumes this click by opening.
+                // Entering its travel region requires a subsequent order.
+                let openingOnly = door.entryPoint != nil
+                    && !(areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
                 let used = useDoor(door, from: detective.position, fallback: target)
                 if let locked = used.lockedLine {
                     moveDetective(
@@ -592,8 +668,27 @@ final class CityDistrictScene: GameAreaScene {
                     to: used.walkTo,
                     minDistance: MovementOrderQueue.defaultInteractionDistance
                 ) { [weak self] in
-                    self?.openDoor(door)
-                    self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                    guard let self else { return }
+                    if openingOnly {
+                        self.openDoor(door)
+                        return
+                    }
+                    if door.entryPoint == nil { self.openDoor(door) }
+                    if let entry = door.entryPoint {
+                        if self.navigation.searchMap.cell(for: self.detective.position)
+                            == self.navigation.searchMap.cell(for: entry.cgPoint) {
+                            self.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                            return
+                        }
+                        // Opening the WED tiles and crossing the ARE travel
+                        // threshold are separate actions. A replacement order
+                        // or Stop cancels this walk's completion as usual.
+                        self.moveDetective(to: entry.cgPoint, minDistance: 0) { [weak self] in
+                            self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                        }
+                    } else {
+                        self.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                    }
                 }
                 return
             }

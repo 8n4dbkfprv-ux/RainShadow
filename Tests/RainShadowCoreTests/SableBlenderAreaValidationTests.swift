@@ -29,9 +29,37 @@ struct SableBlenderAreaValidationTests {
         #expect(raster.rows == area.searchMapGridSize.rows)
         let search = SearchMap(worldBounds: area.worldBounds,
                                terrainIndices: raster.terrainIndices,
-                               columns: raster.columns, rows: raster.rows)
-        let map = NavigationMap(searchMap: search, agentProfile: area.agentProfile.navigationProfile)
+                               columns: raster.columns, rows: raster.rows,
+                               doorObstacles: area.doors.map(\.searchMapObstacle))
+        let map = NavigationMap(searchMap: search, agentProfile: area.agentProfile.navigationProfile,
+                                doorObstacles: area.doors.map(\.searchMapObstacle))
         return (area, map, try JSONDecoder().decode(Points.self, from: data("validation_points.json")))
+    }
+
+    @Test func doorOpensBeforeTheThresholdCanBeCrossed() throws {
+        let (area, map, _) = try fixture()
+        guard let door = area.doors.first, let entry = door.entryPoint else { return }
+        let approach = try #require(door.approachPoints.first).cgPoint
+        #expect(!map.reachesExactly(from: approach, to: entry.cgPoint))
+        map.setDoor(door.id, open: true)
+        #expect(map.reachesExactly(from: approach, to: entry.cgPoint))
+        var walker = Movable(map: map, identity: "door.validation", position: approach,
+                             circleSize: map.circleSize, blocksSearchMap: false)
+        walker.walkTo(entry.cgPoint, ticks: 1)
+        var steps = 0
+        for tick in 2..<1000 {
+            let result = walker.doStep(walkScale: MovableTestSupport.humanoidWalkScale, time: tick)
+            if result.moved { steps += 1 }
+            if !walker.isMoving || result.arrived || result.abandoned || result.backedOff { break }
+        }
+        #expect(steps > 1)
+        #expect(map.searchMap.cell(for: walker.position) == map.searchMap.cell(for: entry.cgPoint))
+        map.setDoor(door.id, open: false)
+        let closedAgain = !map.reachesExactly(from: approach, to: entry.cgPoint)
+        #expect(closedAgain)
+        let passed = steps > 1 && map.searchMap.cell(for: walker.position) == map.searchMap.cell(for: entry.cgPoint) && closedAgain
+        try JSONSerialization.data(withJSONObject: ["passed": passed, "walkingSteps": steps], options: [.prettyPrinted])
+            .write(to: directory.appendingPathComponent("door_report.json"))
     }
 
     @Test func everyApproachIsExactlyReachableAndWalkedByTheRuntime() throws {
@@ -42,9 +70,11 @@ struct SableBlenderAreaValidationTests {
         }
         var pairs = 0
         for (a, start) in points.anchors.sorted(by: { $0.key < $1.key }) {
-            #expect(map.isOrderableFloor(start.cgPoint), "blocked anchor: \(a)")
+            let orderable = map.isOrderableFloor(start.cgPoint)
+            #expect(orderable, "blocked anchor: \(a)")
             for (b, target) in points.anchors where a != b {
-                #expect(map.reachesExactly(from: start.cgPoint, to: target.cgPoint), "\(a) → \(b) did not reach the requested cell")
+                let reached = map.reachesExactly(from: start.cgPoint, to: target.cgPoint)
+                #expect(reached, "\(a) → \(b) did not reach the requested cell")
                 pairs += 1
             }
         }
@@ -52,9 +82,15 @@ struct SableBlenderAreaValidationTests {
             let p = try #require(points.witnesses[name]).cgPoint
             #expect(!map.isOrderableFloor(p), "\(name) must be solid")
         }
-        let itinerary = ["street_start", "voss_approach", "intersection", "gate_outside",
+        var itinerary = ["street_start", "voss_approach", "intersection", "gate_outside",
                          "gate_inside", "courtyard", "bench_approach", "rear_court",
                          "gate_outside", "workshop_approach", "diner_approach", "east_street", "west_street"]
+        if points.anchors["north_street"] != nil {
+            itinerary += ["garden_approach", "north_street", "lodging_approach", "union_approach",
+                          "grocer_approach", "warehouse_approach", "annex_approach", "east_crossroad",
+                          "marine_approach", "radio_approach", "mercer_approach", "pharmacy_approach",
+                          "street_start"]
+        }
         var traces: [[String: Any]] = []
         for (a, b) in zip(itinerary, itinerary.dropFirst()) {
             let start = try #require(points.anchors[a]).cgPoint
@@ -112,6 +148,35 @@ struct SableBlenderAreaValidationTests {
             .write(to: directory.appendingPathComponent("stencil_report.json"))
     }
 
+    @Test func theApartmentDoorIsVisibleFromItsApproachAndThePavementStaysReachable() throws {
+        let (area, map, points) = try fixture()
+        guard area.worldSize.w == 4288 else { return } // Expanded V24 fixture.
+        let approach = try #require(points.anchors["voss_approach"]).cgPoint
+        let grid = FogGrid(searchMap: map.searchMap)
+        // Measured V22 door face: upper glazing at (-14, -1.18, 2.25 m).
+        // This is a painted point above the ground, not a destination to walk to.
+        let glazing = CGPoint(x: 519, y: 1899)
+        for viewpoint in [CGPoint(x: 431, y: 1750), approach] {
+            let sight = map.searchMap.exploreMapChunk(
+                from: viewpoint,
+                radiusInCells: SearchMapExplore.searchRadius(visualRangeInFogTiles: 14))
+            let visible = grid.cells(for: sight.visible)
+            let doorIsVisible = visible.contains(grid.cell(for: glazing))
+            #expect(doorIsVisible, "The real door glass was swallowed by fog")
+            let distantStreet = visible.contains(grid.cell(for: CGPoint(x: 4000, y: 3000)))
+            #expect(!distantStreet, "Fixing the doorway must not reveal the district")
+        }
+        let region = try #require(area.region(at: glazing))
+        #expect(region.id == "sable.apartment.entrance")
+        #expect(region.kind == .travel)
+        #expect(region.approachPoint?.cgPoint == approach)
+        let street = try #require(points.anchors["street_start"]).cgPoint
+        let backToDoor = map.reachesExactly(from: street, to: approach)
+        #expect(backToDoor)
+        let throughFacade = map.isOrderableFloor(glazing)
+        #expect(!throughFacade, "Revealing the facade must not make it walkable")
+    }
+
     @Test func heightAndScaleUseTheRuntimeConventions() throws {
         let (area, _, points) = try fixture()
         let height = try AreaSearchMapLoader.decode(data("sable_court.ht.png"))
@@ -122,7 +187,8 @@ struct SableBlenderAreaValidationTests {
                                              cellSize: SearchMap.defaultCellSize)
             #expect(abs(offset) <= 6)
         }
-        let projectedAdult: CGFloat = 69.847866
+        let report = try #require(try JSONSerialization.jsonObject(with: data("export_report.json")) as? [String: Any])
+        let projectedAdult = CGFloat(try #require(report["adult1_8mWorldHeight"] as? Double))
         #expect(abs(projectedAdult / OfficeInteriorScale.renderedStandingDetectiveBodyHeight - 1) < 0.01)
     }
 

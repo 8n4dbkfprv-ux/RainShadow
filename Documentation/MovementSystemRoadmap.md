@@ -65,7 +65,7 @@ reimplementation of the engine BG:EE runs on. Read the code, not forum lore:
 | Script / idle stride | **16 ticks**, staggered per actor | `Scriptable::ProcessActions` (`Ticks % 16 != globalID % 16`) |
 | Idle head-turn odds | **1 in 25** per script pass (≈ every 27 s) | `Actor::IdleActions` (`RAND(0, 24)`) |
 | Footstep gate | previous **clip length**, not a contact frame | `Actor::PlayWalkSound` (`nextWalkSound = now + length`) |
-| Bark ladder | 1 never / 2 once per selection / 3 50% / 4 80% / 5 always, + ~5% rare | `Actor::CommandActor`, `Actor::PlaySelectionSound` |
+| Bark ladder | Command: 1 never / 2 once per selection / 3+ always. Selection: 1 never / 2 20% / 3+ always (promoted to 5), then 5% rare. PST's 50%/80% rolls do not run | `Actor::CommandActor`, `Actor::PlaySelectionSound` |
 | Cursor | read straight off the search map, then object/actor overrides, `IE_CURSOR_GRAY` for "not now" | `Map::GetCursor`, `GameControl::UpdateCursor` |
 
 Shipped BG:EE option defaults, read from a live `Baldur.lua`: `Footsteps = 1`,
@@ -156,7 +156,7 @@ Three consequences worth stating plainly:
 | Per-creature movement rate (`IE_MOVEMENTRATE` / `moverate.2da`) | **Shipped** (`MovementProfile.moveScale`, humanoid 9, engine band 5–10). Both actors ship at 9, pinned to the previous `walkSpeed` so the change is provably inert |
 | Encumbrance / Haste-style speed modifiers | **Shipped as inert data** (`MovementProfile.Encumbrance`, `hastened()`); nothing constructs anything but `.unencumbered` until inventory weight exists |
 | Footsteps on BG's clip-length gate, terrain-set per scene, silent while paused / in dialogue | **Shipped** (`FootstepCadence`, `GameSFX`, `FootstepSurface`) |
-| Order-acknowledgement and selection barks on BG's frequency ladder | **Shipped** (`BarkGate`, `MovementBarkPlayer`); only *accepted* orders acknowledge. Clips are Grok Voice Sal noir tropes from `generate_voss_barks_rex.py`, not macOS `say` |
+| Order-acknowledgement and selection barks on BG's frequency ladder | **Shipped** (`CommandSoundGate`, `SelectionSoundGate`, `MovementBarkPlayer`). Command default is Baldur.lua 2 (once per selection); selection is lua 3 promoted to always, 5% rare. Portrait click is the one-actor `PlaySelectionSound`; area entry re-arms command. Only *accepted* orders acknowledge. Clips are Grok Voice Sal from `generate_voss_barks_rex.py` |
 | Idle head-turn on BG's 16-tick / 1-in-25 schedule (a glance ≈ every 27 s) | **Shipped** (`IdleBehaviourClock`) |
 | Hover cursor read straight off the search map, with a travel state and BG's grey modifier | **Shipped** (`WorldCursor`); replaced two disagreeing per-scene `NSCursor` ladders |
 | Greyscale on pause (`Greyscale On Pause = 1`) | **Not shipped** — the world roots are separate scene children, so an `SKEffectNode` wrap would rasterise the whole ≈2400×1400 unit plate (~13M px at 2× backing). The cheap path is a screen-sized snapshot taken at pause time and re-taken if the camera scrolls |
@@ -384,7 +384,7 @@ Deliberate, and each one is the direction that fails safe:
 | | Engine | Here | Why |
 |---|---|---|---|
 | Footstep cadence | clip length alone | clip length, floored by the stride | BG's walk sounds were authored long enough to pace themselves; ours are not guaranteed to be, and a tight 0.1s sample fires six times a second. The gate is only sampled on logic ticks, and the stride is exactly four of them — so the shipped clips are 0.26s, under the stride, or footsteps drift 25% slow |
-| Bark frequency | `Command Sounds Frequency = 2` (once per selection) | `.half`, and "selection" means re-acquiring the actor | Level 2 works for a six-portrait party where selection changes constantly. With one always-selected detective a literal port barks once per session |
+| Bark selection event | Portrait click in a six-person party | Portrait click (still opens inventory) plus area entry re-arming command | There is one detective, always selected. `PlaySelectionSound` has to mean a player action; portrait click is that action. Area entry arms the first walk acknowledgement so command frequency 2 is not silent until the first inventory open |
 | Idle head-turn | dedicated `IE_ANI_HEAD_TURN` stance | one bin out, hold, one bin back, using the gradual standing turn | No authored head-turn frames exist. The borrowed motion reads as looking around rather than as a new heading |
 | Travel cursor | painted directional arrow | `NSCursor.dragLink` | The system set has no travel arrow. A painted cursor is art, not code |
 

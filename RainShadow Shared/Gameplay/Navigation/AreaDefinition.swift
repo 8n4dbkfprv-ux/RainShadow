@@ -1077,12 +1077,25 @@ struct AreaDoorVisualRegistration: Hashable, Codable, Sendable {
 
 /// A door leaf that stamps and clears in place. `NavigationMap` already
 /// supports this without rebuilding the search map; the area supplies the rects.
+/// Secondary background tiles and state-specific WED cover for a baked door.
+/// The rectangle preserves the source painting's registration on both axes.
+struct AreaDoorBackgroundTiles: Hashable, Codable, Sendable {
+    var worldRect: AreaRect
+    var openTextureName: String
+    var nightOpenTextureName: String?
+    var closedWalls: [AreaWallPolygon]
+    var openWalls: [AreaWallPolygon]
+}
+
 struct AreaDoor: Hashable, Codable, Sendable {
     var id: String
     /// Legacy single-texture hint. New registered doors use `visual`; retaining
     /// this field keeps existing area files source- and decode-compatible.
     var textureName: String?
     var visual: AreaDoorVisualRegistration?
+    var backgroundTiles: AreaDoorBackgroundTiles?
+    /// Travel fires after walking through the opened leaf to this ground point.
+    var entryPoint: AreaPoint?
     /// Blocking footprint while shut.
     var closedObstacle: AreaRect
     /// Blocking footprint while open; omit when an open door blocks nothing.
@@ -1124,6 +1137,8 @@ struct AreaDoor: Hashable, Codable, Sendable {
         id: String,
         textureName: String? = nil,
         visual: AreaDoorVisualRegistration? = nil,
+        backgroundTiles: AreaDoorBackgroundTiles? = nil,
+        entryPoint: AreaPoint? = nil,
         closedObstacle: AreaRect,
         openObstacle: AreaRect? = nil,
         startsClosed: Bool = true,
@@ -1147,6 +1162,8 @@ struct AreaDoor: Hashable, Codable, Sendable {
         self.id = id
         self.textureName = textureName
         self.visual = visual
+        self.backgroundTiles = backgroundTiles
+        self.entryPoint = entryPoint
         self.closedObstacle = closedObstacle
         self.openObstacle = openObstacle
         self.startsClosed = startsClosed
@@ -1169,7 +1186,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, textureName, visual, closedObstacle, openObstacle
+        case id, textureName, visual, backgroundTiles, entryPoint, closedObstacle, openObstacle
         case startsClosed, blocksSight, isLocked, cannotClose, isSecret, isFound
         case keyItem, lockedLine, openSound, closeSound, approachPoints
         case closedOutline, openOutline, closedImpededCells, openImpededCells
@@ -1184,6 +1201,8 @@ struct AreaDoor: Hashable, Codable, Sendable {
         id = try c.decode(String.self, forKey: .id)
         textureName = try c.decodeIfPresent(String.self, forKey: .textureName)
         visual = try c.decodeIfPresent(AreaDoorVisualRegistration.self, forKey: .visual)
+        backgroundTiles = try c.decodeIfPresent(AreaDoorBackgroundTiles.self, forKey: .backgroundTiles)
+        entryPoint = try c.decodeIfPresent(AreaPoint.self, forKey: .entryPoint)
         closedObstacle = try c.decode(AreaRect.self, forKey: .closedObstacle)
         openObstacle = try c.decodeIfPresent(AreaRect.self, forKey: .openObstacle)
         startsClosed = try c.decodeIfPresent(Bool.self, forKey: .startsClosed) ?? true
@@ -1214,6 +1233,8 @@ struct AreaDoor: Hashable, Codable, Sendable {
         try c.encode(id, forKey: .id)
         try c.encodeIfPresent(textureName, forKey: .textureName)
         try c.encodeIfPresent(visual, forKey: .visual)
+        try c.encodeIfPresent(backgroundTiles, forKey: .backgroundTiles)
+        try c.encodeIfPresent(entryPoint, forKey: .entryPoint)
         try c.encode(closedObstacle, forKey: .closedObstacle)
         try c.encodeIfPresent(openObstacle, forKey: .openObstacle)
         try c.encode(startsClosed, forKey: .startsClosed)

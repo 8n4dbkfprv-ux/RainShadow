@@ -22,6 +22,15 @@ class GameViewController: NSViewController {
         view.window?.makeFirstResponder(view)
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
+        #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_DOOR_TRAVEL"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await SableDoorTravelQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
+        #endif
         scheduleReviewCaptureIfRequested()
     }
 

@@ -39,12 +39,16 @@ import Foundation
 final class AreaRuntime {
     let area: AreaDefinition
     let navigation: NavigationMap
+    private(set) var openDoorIDs: Set<String>
+    private(set) var currentWallPolygons: [AreaWallPolygon] = []
     let movement: MovementOrderQueue
 
     init(area: AreaDefinition, navigation: NavigationMap, playerActorID: String) {
+        self.openDoorIDs = Set(area.doors.filter { !$0.startsClosed }.map(\.id))
         self.area = area
         self.navigation = navigation
         self.movement = MovementOrderQueue(navigation: navigation, actorID: playerActorID)
+        refreshDoorWalls()
     }
 
     /// Build the navigation map from the area itself. Used by areas whose
@@ -55,6 +59,27 @@ final class AreaRuntime {
             navigation: area.makeNavigationMap(),
             playerActorID: playerActorID
         )
+    }
+
+    /// GemRB DoorTrigger::SetState selects open/closed walls, then invalidates
+    /// the stencil. Navigation retains its existing door-cell implementation.
+    func setDoor(_ id: String, open: Bool) {
+        navigation.setDoor(id, open: open)
+        if open { openDoorIDs.insert(id) } else { openDoorIDs.remove(id) }
+        refreshDoorWalls()
+    }
+
+    private func refreshDoorWalls() {
+        currentWallPolygons = area.wallPolygons + area.doors.flatMap { door in
+            guard let tiles = door.backgroundTiles else { return [AreaWallPolygon]() }
+            return openDoorIDs.contains(door.id) ? tiles.openWalls : tiles.closedWalls
+        }
+    }
+
+    func makeWallStencil() -> AreaWallStencil.Mask {
+        var current = area
+        current.wallPolygons = currentWallPolygons
+        return current.makeWallStencil()
     }
 
     // MARK: - Area queries
@@ -81,7 +106,7 @@ final class AreaRuntime {
 
     /// Whether an actor standing here is behind covering scenery.
     func isCovered(_ point: CGPoint) -> Bool {
-        area.isCovered(point)
+        currentWallPolygons.contains { $0.coversActor(at: point, height: OfficeInteriorScale.renderedStandingDetectiveBodyHeight) }
     }
 
     /// Union of every covering outline, in world space.
@@ -90,7 +115,7 @@ final class AreaRuntime {
     /// over actors is a single masked copy of the plate, so a room with a dozen
     /// walls still costs one extra draw.
     var coverPath: CGPath? {
-        let covering = area.wallPolygons.filter(\.coversActors)
+        let covering = currentWallPolygons.filter(\.coversActors)
         guard !covering.isEmpty else { return nil }
         let path = CGMutablePath()
         for wall in covering {
@@ -105,6 +130,6 @@ final class AreaRuntime {
     }
 
     func hidesWallLockedAnimation(at point: CGPoint) -> Bool {
-        area.hidesWallLockedAnimation(at: point)
+        isCovered(point)
     }
 }

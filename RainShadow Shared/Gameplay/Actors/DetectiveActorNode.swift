@@ -54,7 +54,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private var footLight: AreaLightSample?
     /// Sprite-only elevation from a height map. Feet and search cell stay put.
     var visualHeightOffset: CGFloat = 0 {
-        didSet { applyVisualHeightOffset() }
+        didSet { applyVisualHeightOffset(delta: visualHeightOffset - oldValue) }
     }
     private let standingIdleFrames: [ActorFacing: [IEAvatarVisualFrame]]
     private let seatVisualDirection: SeatVisualDirection
@@ -294,9 +294,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
     /// Where the body sits when Voss is standing on his own ground point.
     ///
-    /// `applySeatedPose` is the only thing that displaces it, and the seat
-    /// offset is `seatedDeskNudge` **plus** `seatedYOffset` — horizontal as
-    /// well as vertical. Every restore below used to assign `.y` alone, so once
+    /// Seated placement comes from the room's furniture registration, with
+    /// legacy layouts using `seatedDeskNudge` plus `seatedYOffset`.
+    /// Every restore below used to assign `.y` alone, so once
     /// an egress did not run to completion the `-20` nudge stayed on `.x` for
     /// the rest of the session: Voss drawn twenty units to the left of the
     /// point he actually occupied, `isDeskRegistered` stuck true because it
@@ -309,10 +309,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         CGPoint(x: 0, y: visualHeightOffset)
     }
 
-    private func applyVisualHeightOffset() {
-        body.position.y = visualHeightOffset
-        lowerBody.position.y = visualHeightOffset
-        foregroundArms.position.y = visualHeightOffset
+    private func applyVisualHeightOffset(delta: CGFloat) {
+        // Area lighting refreshes terrain height every tick, including while
+        // seated. Preserve furniture/transition offsets instead of resetting
+        // the body to the walk root every time a flat floor reports zero.
+        body.position.y += delta
+        lowerBody.position.y += delta
+        foregroundArms.position.y += delta
     }
 
     /// Point every layer at the area's baked wall stencil, or clear it.
@@ -578,7 +581,14 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             // The scene owns the immediate completion so it can clear pips and
             // turn toward the target before using the object or changing area.
             cancelMovement()
-        case .turnInPlace, .refused, .ignored:
+        case .turnInPlace, .refused:
+            // These outcomes have discarded the route. Retire its SpriteKit
+            // completion too, or the next idle tick can still enter the old
+            // doorway. GemRB Actor::CommandActor starts with
+            // `ClearActions(); // stop what you were doing`; a discarded walk
+            // must not retain its former UseExit action in this bridge.
+            cancelMovement()
+        case .ignored:
             break
         }
         return outcome
@@ -1084,13 +1094,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             frames: sitDownFrames,
             timePerFrame: ActorLocomotionPacing.standUpSecondsPerFrame
         )
-        let nudge = OfficeInteriorScale.ActorDisplay.seatedDeskNudge
-        let reach = OfficeInteriorScale.ActorDisplay.seatedUpperDeskReach
-        let seat = CGPoint(
-            x: nudge.x,
-            y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y
-        )
-        let upperSeat = CGPoint(x: seat.x + reach.x, y: seat.y + reach.y)
+        let upperSeat = seatBodyOffset
         let settle = SKAction.move(to: upperSeat, duration: duration)
         settle.timingMode = .linear
         body.xScale = Self.spriteScale
@@ -1102,6 +1106,26 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     #if DEBUG
     /// Deterministic art review only. The normal animation/update path is untouched.
     func seekPoseForCapture(_ request: String) {
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_VOSS_CHAIR"] == "1" {
+            let root = position
+            let expected = seatBodyOffset
+            FileHandle.standardError.write(Data("Voss chair QA state=\(state) body=\(body.position) expected=\(expected) height=\(visualHeightOffset) registered=\(String(describing: registeredSeatOffset))\n".utf8))
+            precondition(state == .seatedIdle && registeredSeatOffset != nil)
+            precondition(hypot(body.position.x - expected.x, body.position.y - expected.y) < 0.01,
+                         "The scene update displaced the registered seated body")
+            let height = visualHeightOffset
+            for _ in 0..<120 { visualHeightOffset = height }
+            // SpriteKit stores node positions at float precision.
+            precondition(hypot(body.position.x - expected.x, body.position.y - expected.y) < 0.001,
+                         "Repeated floor samples reset the chair offset")
+            visualHeightOffset = height + 3
+            precondition(abs(body.position.y - expected.y - 3) < 0.01,
+                         "Terrain lift must add to furniture registration")
+            visualHeightOffset = height
+            precondition(hypot(body.position.x - expected.x, body.position.y - expected.y) < 0.01)
+            precondition(position == root, "Furniture registration moved navigation")
+            FileHandle.standardError.write(Data("Voss chair QA passed: stable registration, additive terrain lift, unchanged navigation root\n".utf8))
+        }
         let parts = request.split(separator: ":")
         guard parts.count == 2, let phase = Int(parts[1]) else { return }
         let frames: [IEAvatarVisualFrame]
@@ -1185,14 +1209,26 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         lowerBody.zPosition = Self.seatedLowerLocalZ
     }
 
-    private func applySeatedPose(animated: Bool) {
+    /// The owning room can register the pose to its painted furniture.
+    /// Legacy separate-prop layouts retain their existing default offset.
+    private var registeredSeatOffset: CGPoint?
+
+    func registerSeat(bodyOffset: CGPoint) {
+        registeredSeatOffset = bodyOffset
+        if state == .seatedIdle { applySeatedPose(animated: false) }
+    }
+
+    private var seatBodyOffset: CGPoint {
         let nudge = OfficeInteriorScale.ActorDisplay.seatedDeskNudge
         let reach = OfficeInteriorScale.ActorDisplay.seatedUpperDeskReach
-        let seat = CGPoint(
-            x: nudge.x,
-            y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y
+        return registeredSeatOffset ?? CGPoint(
+            x: nudge.x + reach.x,
+            y: OfficeInteriorScale.ActorDisplay.seatedYOffset + nudge.y + reach.y
         )
-        let upperSeat = CGPoint(x: seat.x + reach.x, y: seat.y + reach.y)
+    }
+
+    private func applySeatedPose(animated: Bool) {
+        let upperSeat = seatBodyOffset
         // The full seated cell owns Voss only; the separate world prop owns the
         // chair throughout idle, transitions, egress, and walking. The legacy
         // split upper/lower fallback remains hidden at the desk.
@@ -1220,8 +1256,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         contactShadow.xScale = scale * 1.06
         contactShadow.yScale = scale
         contactShadow.position = CGPoint(
-            x: seat.x + contactShadowKind.footPosition.x,
-            y: seat.y + contactShadowKind.footPosition.y
+            x: upperSeat.x + contactShadowKind.footPosition.x,
+            y: upperSeat.y + contactShadowKind.footPosition.y
         )
         // The seated baseline is visually registered behind the desk. A ground
         // contact shadow at that offset projects onto the desktop, so keep it

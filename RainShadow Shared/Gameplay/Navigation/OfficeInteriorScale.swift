@@ -62,6 +62,24 @@ enum OfficeInteriorScale {
         static let seatedUpperDeskReach = CGPoint.zero
     }
 
+    /// Registration of the imported V07 pose to the painted office seat.
+    /// Furniture registration never moves the walkable actor root.
+    enum PaintedDeskSeat {
+        /// Centre of the cushion in the 4096×2304 plate, y-up.
+        static let cushionSourcePoint = CGPoint(x: 2144, y: 2304 - 1312)
+        /// Projected thigh-root midpoint in seated NE frame 0, relative to
+        /// the bundled pivot, in display units. The bundle owns sprite scale.
+        static let poseContactOffset = CGPoint(x: -0.771, y: 23.659)
+
+        static func bodyOffset(from groundPoint: CGPoint) -> CGPoint {
+            let cushion = OfficeInteriorScale.mapPoint(cushionSourcePoint)
+            return CGPoint(
+                x: cushion.x - groundPoint.x - poseContactOffset.x,
+                y: cushion.y - groundPoint.y - poseContactOffset.y
+            )
+        }
+    }
+
     /// Legacy logical body (82 units). Retained only as the locomotion/authoring
     /// unit some tuned constants were expressed in. It carries **no scale
     /// authority** — sizing anything against it while the sprite renders at a

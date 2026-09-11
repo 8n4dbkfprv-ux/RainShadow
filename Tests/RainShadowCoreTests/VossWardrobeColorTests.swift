@@ -44,7 +44,9 @@ struct VossWardrobeColorTests {
         #expect(voss.frames.count == 248)
         #expect(voss.frames.count(where: \.isEmpty) == 24)
         let expected: [UInt32]
-        if ["meshy_sep05_v03", "meshy_sep06_v04", "meshy_sep06_pose_v05"].contains(VossAtlasTestAssets.assetAuthority) {
+        if VossAtlasTestAssets.assetAuthority == "meshy_sep10_v07" {
+            expected = [159, 222, 29, 157, 159, 159, 159]
+        } else if ["meshy_sep05_v03", "meshy_sep06_v04", "meshy_sep06_pose_v05"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [23, 5, 138, 161, 138, 5, 22]
         } else if ["replacement_v13", "replacement_v14"].contains(VossAtlasTestAssets.assetAuthority) {
             expected = [138, 107, 144, 159, 138, 100, 22]
@@ -55,7 +57,7 @@ struct VossWardrobeColorTests {
         }
         #expect(voss.colors == expected)
         #expect(voss.sourceCanvasSize == .init(width: 512, height: 512))
-        let embeddedCandidate = ["meshy_sep06_v04", "meshy_sep06_pose_v05"].contains(VossAtlasTestAssets.assetAuthority)
+        let embeddedCandidate = ["meshy_sep06_v04", "meshy_sep06_pose_v05", "meshy_sep10_v07"].contains(VossAtlasTestAssets.assetAuthority)
         let displaySize = embeddedCandidate ? 163.125 : 180.0
         #expect(voss.compatibilityDisplaySize == .init(x: displaySize, y: displaySize))
         #expect(voss.textureFilter == .linear)
@@ -135,7 +137,8 @@ struct VossWardrobeColorTests {
         // Voss is resolved directly at native resolution, so material ownership
         // remains categorical until SpriteKit performs the final linear sample.
         let tables = try IEGradientTables.load()
-        let alternatePalette = IEPaperdollColours.setup(colors: alternateColors, tables: tables)
+        var alternatePalette = IEPaperdollColours.setup(colors: alternateColors, tables: tables)
+        alternatePalette.translucentShadowColor(sprite.hasEmbeddedShadow)
         let baseline = sprite.resolvedColors(for: frame)
 
         var changedArmorPixels = 0
@@ -181,6 +184,23 @@ struct VossWardrobeColorTests {
         #expect(rear.count == 36)
         #expect(northSeat.count == 32)
 
+        // V07's concept and source mesh include cream cuffs and a nape collar.
+        // Their allowed locations are projected independently from mesh regions;
+        // they are not inferred from the shirt indices under test.
+        struct Region: Decodable {
+            let width: Int
+            let height: Int
+            let allowed_shirt_offsets: [Int]
+        }
+        struct Anatomy: Decodable { let frames: [String: Region] }
+        let anatomy: Anatomy?
+        if VossAtlasTestAssets.assetAuthority == "meshy_sep10_v07" {
+            let url = VossAtlasTestAssets.indexedManifestURL().deletingLastPathComponent()
+                .appendingPathComponent("anatomy-v07.json")
+            anatomy = try JSONDecoder().decode(Anatomy.self, from: Data(contentsOf: url))
+            #expect(anatomy?.frames.count == 68)
+        } else { anatomy = nil }
+
         for id in rear + northSeat {
             let frame = try #require(sprite.frame(atlas: id.atlas, name: id.name))
             let body = frame.indices.filter { materialSlot(for: $0) != nil }
@@ -189,7 +209,17 @@ struct VossWardrobeColorTests {
             // MINOR is Voss's shirt and MAJOR is his tie. A direct absence is
             // stronger than the retired nearest-RGB fraction and cannot be
             // fooled by changing the character palette.
-            #expect(!slots.contains(.minor), "\(id.atlas)/\(id.name) contains shirt indices")
+            if let anatomy {
+                let region = try #require(anatomy.frames["\(id.atlas)/\(id.name)"])
+                #expect(region.width == frame.nativeSize.width)
+                #expect(region.height == frame.nativeSize.height)
+                let allowed = Set(region.allowed_shirt_offsets)
+                for (offset, index) in frame.indices.enumerated() where materialSlot(for: index) == .minor {
+                    #expect(allowed.contains(offset), "\(id.name) has shirt outside its cuff/collar geometry")
+                }
+            } else {
+                #expect(!slots.contains(.minor), "\(id.atlas)/\(id.name) contains shirt indices")
+            }
             #expect(!slots.contains(.major), "\(id.atlas)/\(id.name) contains tie indices")
 
             // Rear hands can remain visible; a front face cannot. This is the

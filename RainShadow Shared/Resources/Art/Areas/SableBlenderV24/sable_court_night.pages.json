@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "plateTextureName": "sable_court_night",
+  "worldSize": {
+    "w": 4288,
+    "h": 3200
+  },
+  "pageWorldSize": {
+    "w": 933.4421768707483,
+    "h": 933.5612535612535
+  },
+  "sourceSHA256": "00e34b672c0c28898c4ce1dffe06f4e9803c2da9b298f29430820cdca32b2bbe",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "sable_court_night_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "c86e856351c19fae24f92cc3879bbfe0e9f22e3274049fa0f962d8ecfcfdb8f3"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "sable_court_night_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "a8fde01d526229741848b09c5799e57c4fc6685a796e998a3a74f2902869a923"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "sable_court_night_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "92516d655a02790649eeafb61cc4f989ca0bc7f59ac4b7291829f6cc1d7f4cba"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "sable_court_night_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 2266.4387464387464,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "1649b6b80a8dd8267d6d4790d9871f69213797a45fec92b8228d864e1083d215"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "sable_court_night_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 2266.4387464387464,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "e05aaff1fc3f00c5a5ec6477655ad44acf443b1beeb2d61d72b444ce982fd1fb"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "sable_court_night_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "1ef8fcd6bd09213b282cc71b9d31d43b3a95633daf5fec23997be5019c198812"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "sable_court_night_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "fccb264a0c03cd45b21eb0b798afee0e3a0135a69f7377c6f13b268947b6c2f0"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "sable_court_night_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "f692c4a4869680c38e1318332e4181625474a9a5a3e46545b0de1d49e23e8af8"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "sable_court_night_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 1332.8774928774928,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "d3870549c95802bb894b252225e02655f62d08a3d0b08796d0b42e101c53aa98"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "sable_court_night_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 1332.8774928774928,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "636366ee6fe53f3b245693e3ec99795e95e89d7e16139358c49f8c2ae0e7a7ed"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "sable_court_night_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "c4cadd81008e4ab237a7735bf98efa3ccdecea26b86d410ca76dd31255c2f90b"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "sable_court_night_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "1f07d3fd25ac66ac482e35f899c225df04f8bb0dd68c5f53fd092919cb774482"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "sable_court_night_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "ee8d7c270b88aaae52daf5e1c0936641b41fb5649690781ae7f5a7df57ac2695"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "sable_court_night_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 399.3162393162393,
+        "w": 933.4421768707483,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "7bd8d32d7f60ea1a2f63093a3fd036bfdef6be543f8f2774ef99bb5ff4a1f4f7"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "sable_court_night_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 399.3162393162393,
+        "w": 554.2312925170069,
+        "h": 933.5612535612535
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 2048,
+      "sha256": "1e96d97adaa49869d0f8807fe84ea7b0744b6475685bca8edc8811e8b6a42227"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "sable_court_night_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "68695744325a415bc7f66a27d0d37f2b4f82f0011b8637bba2b263c3fb95a695"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "sable_court_night_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 933.4421768707483,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "1885be7d76f4aecb689562df75136aafbbb1cc79d30fe85a385012fd0e1efcf4"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "sable_court_night_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1866.8843537414966,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "47d1a4676c99d2e671c7069341368989f5e7ffd383ec24b8c434fa267cc12a32"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "sable_court_night_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2800.326530612245,
+        "y": 0.0,
+        "w": 933.4421768707483,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 876,
+      "sha256": "da3405a3cfca30377d40405045f799a19deda582862d9c75cf93635ee929ec8e"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "sable_court_night_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3733.7687074829932,
+        "y": 0.0,
+        "w": 554.2312925170069,
+        "h": 399.3162393162393
+      },
+      "pixelWidth": 1216,
+      "pixelHeight": 876,
+      "sha256": "ac43c300222f4a21bb80ff1759b5811e5f67744c087d85555e9210e4de05e73d"
+    }
+  ]
+}

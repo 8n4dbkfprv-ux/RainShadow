@@ -101,46 +101,74 @@ struct MovementAudioTimingTests {
 
     // MARK: - Barks
 
-    @Test func neverIsSilentAtEveryRoll() {
-        var gate = BarkGate(frequency: .never)
-        for roll in [1, 50, 100] {
-            #expect(gate.resolve(roll: roll, rareRoll: 100) == .silent)
+    @Test func commandNeverIsSilent() {
+        var gate = CommandSoundGate(frequency: .never)
+        #expect(gate.resolve() == .silent)
+        #expect(gate.resolve() == .silent)
+    }
+
+    @Test func commandOncePerSelectionBarksOnceThenRearmsOnReselect() {
+        // `Actor::CommandActor` case 2: `playedCommandSound` gates until
+        // `PlaySelectionSound` clears it.
+        var gate = CommandSoundGate(frequency: .oncePerSelection)
+        #expect(gate.resolve() == .common)
+        #expect(gate.resolve() == .silent)
+        #expect(gate.resolve() == .silent)
+        gate.noteSelected()
+        #expect(gate.resolve() == .common)
+    }
+
+    @Test func commandAlwaysIsAlways() {
+        // BG command 3+ has no roll; the 50%/80% cases are `if (pstflags && …)`.
+        var gate = CommandSoundGate(frequency: .always)
+        #expect(gate.resolve() == .common)
+        #expect(gate.resolve() == .common)
+    }
+
+    @Test func commandHasNoRareOutcome() {
+        var gate = CommandSoundGate(frequency: .always)
+        #expect(gate.resolve() != .rare)
+        var once = CommandSoundGate(frequency: .oncePerSelection)
+        #expect(once.resolve() != .rare)
+    }
+
+    @Test func selectionNeverIsSilentAtEveryRoll() {
+        let gate = SelectionSoundGate(frequency: .never, rareChanceInHundred: 100)
+        for roll in [1, 20, 21, 100] {
+            #expect(gate.resolve(roll: roll, rareRoll: 1) == .silent)
         }
     }
 
-    @Test func oncePerSelectionBarksOnceThenRearmsOnReselect() {
-        var gate = BarkGate(frequency: .oncePerSelection)
-        #expect(gate.resolve(roll: 100, rareRoll: 100) == .common)
-        #expect(gate.resolve(roll: 1, rareRoll: 100) == .silent)
-        #expect(gate.resolve(roll: 1, rareRoll: 100) == .silent)
-        gate.noteSelected()
-        #expect(gate.resolve(roll: 100, rareRoll: 100) == .common)
-    }
-
-    @Test func rollingLevelsUseTheEnginesOwnThresholds() {
-        // BG: level 3 drops the bark when RAND(1,100) > 50, level 4 when > 80.
-        var half = BarkGate(frequency: .half)
-        #expect(half.resolve(roll: 50, rareRoll: 100) == .common)
-        #expect(half.resolve(roll: 51, rareRoll: 100) == .silent)
-
-        var mostly = BarkGate(frequency: .mostly)
-        #expect(mostly.resolve(roll: 80, rareRoll: 100) == .common)
-        #expect(mostly.resolve(roll: 81, rareRoll: 100) == .silent)
-
-        var always = BarkGate(frequency: .always)
-        #expect(always.resolve(roll: 100, rareRoll: 100) == .common)
-    }
-
-    @Test func rareLineReplacesTheCommonOneAtFivePercent() {
-        var gate = BarkGate(frequency: .always, rareChanceInHundred: 5)
+    @Test func selectionSeldomIsTwentyPercent() {
+        // `PlaySelectionSound` case 2: `if (RAND(1, 100) > 20) return;`
+        let gate = SelectionSoundGate(frequency: .oncePerSelection, rareChanceInHundred: 5)
+        #expect(gate.resolve(roll: 20, rareRoll: 100) == .common)
+        #expect(gate.resolve(roll: 21, rareRoll: 100) == .silent)
         #expect(gate.resolve(roll: 1, rareRoll: 5) == .rare)
-        #expect(gate.resolve(roll: 1, rareRoll: 6) == .common)
+        #expect(gate.resolve(roll: 21, rareRoll: 1) == .silent)
     }
 
-    @Test func aSilentLadderNeverReachesTheRareRoll() {
-        // A rare line must not sneak past a frequency that said no.
-        var gate = BarkGate(frequency: .never, rareChanceInHundred: 100)
+    @Test func selectionAlwaysPlaysAndRaresAtFivePercent() {
+        // BG promotes selection frequency > 2 to 5. `RARE_SELECT_CHANCE` is 5.
+        let gate = SelectionSoundGate(frequency: .always, rareChanceInHundred: 5)
+        #expect(gate.resolve(roll: 100, rareRoll: 5) == .rare)
+        #expect(gate.resolve(roll: 100, rareRoll: 6) == .common)
+        #expect(gate.resolve(roll: 1, rareRoll: 100) == .common)
+    }
+
+    @Test func aSilentSelectionLadderNeverReachesTheRareRoll() {
+        let gate = SelectionSoundGate(frequency: .never, rareChanceInHundred: 100)
         #expect(gate.resolve(roll: 1, rareRoll: 1) == .silent)
+    }
+
+    @Test func verbalConstantPicksUniformlyAmongSlots() {
+        let pool = ["a", "b", "c"]
+        #expect(BarkPick.next(in: pool, roll: 0) == "a")
+        #expect(BarkPick.next(in: pool, roll: 1) == "b")
+        #expect(BarkPick.next(in: pool, roll: 2) == "c")
+        #expect(BarkPick.next(in: pool, roll: 3) == "a")
+        #expect(BarkPick.next(in: ["only"], roll: 7) == "only")
+        #expect(BarkPick.next(in: [], roll: 0) == nil)
     }
 
     // MARK: - Idle behaviour

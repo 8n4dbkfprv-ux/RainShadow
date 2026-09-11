@@ -13,8 +13,17 @@ enum AreaSceneKind: Equatable {
     case office
     case district(CityDistrictID)
     case cityInterior(CityInteriorID)
+    #if DEBUG
+    case sableBlender
+    #endif
 
     init?(_ areaID: AreaID) {
+        #if DEBUG
+        if areaID == SableBlenderPlaytest.exteriorID {
+            self = .sableBlender
+            return
+        }
+        #endif
         if areaID == HarborpointAreas.openingExterior {
             self = .openingExterior
         } else if areaID == HarborpointAreas.office {
@@ -35,6 +44,9 @@ enum AreaSceneKind: Equatable {
         case .openingExterior: 0
         case .office: 1.15
         case .district, .cityInterior: 0.75
+        #if DEBUG
+        case .sableBlender: 0.75
+        #endif
         }
     }
 
@@ -43,13 +55,38 @@ enum AreaSceneKind: Equatable {
         case .openingExterior:
             OpeningExteriorScene(context: context)
         case .office:
-            DetectiveOfficeScene(context: context, entrance: entrance)
+            DetectiveOfficeScene(context: context, entrance: entrance,
+                                 authoredArea: context.router.isSableBlenderPlaytest
+                                    ? SableBlenderPlaytest.office(from: HarborpointAreas.requireArea(HarborpointAreas.office))
+                                    : nil)
         case .district(let districtID):
             CityDistrictScene(context: context, districtID: districtID, entrance: entrance)
         case .cityInterior(let interiorID):
             CityDistrictScene(context: context, interiorID: interiorID, entrance: entrance)
+        #if DEBUG
+        case .sableBlender:
+            makeSableBlenderScene(context: context, entrance: entrance)
+        #endif
         }
     }
+
+    #if DEBUG
+    private func makeSableBlenderScene(context: GameContext, entrance: String?) -> BaseGameScene {
+        do {
+            var area = try AreaCatalogLoader.load(SableBlenderPlaytest.exteriorID)
+            if entrance == SableBlenderPlaytest.returnEntrance {
+                // Returning through this doorway leaves its exterior tiles open.
+                for index in area.doors.indices where area.doors[index].id == SableBlenderPlaytest.apartmentRegionID {
+                    area.doors[index].startsClosed = false
+                }
+            }
+            try AreaCatalogLoader.validateArea(area)
+            return CityDistrictScene(context: context, playtestArea: area, entrance: entrance)
+        } catch {
+            preconditionFailure("Sable Row playtest bundle failed to load: \(error)")
+        }
+    }
+    #endif
 }
 
 @MainActor
@@ -57,6 +94,7 @@ final class SceneRouter {
     unowned let context: GameContext
     private weak var view: SKView?
     private(set) var isTransitioning = false
+    private(set) var isSableBlenderPlaytest = false
     /// Entrance name the next scene should spawn at. Consumed by `present`.
     private var pendingEntrance: String?
 
@@ -70,6 +108,17 @@ final class SceneRouter {
         // RAINSHADOW_START_ENTRANCE=from.city lands at the street door instead of
         // the default start, so an entrance can be reviewed in the real app.
         pendingEntrance = ProcessInfo.processInfo.environment["RAINSHADOW_START_ENTRANCE"]
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender" {
+            isSableBlenderPlaytest = true
+            // This launch has its own save. A doorway test should enter free
+            // play rather than restart the opening/client cinematic.
+            context.session.markOpeningSeen()
+            context.session.markOfficeCaseIntroCompleted()
+            present(.sableBlender, transition: nil)
+            return
+        }
+        #endif
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "office" {
             context.session.markOpeningSeen()
             present(.office, transition: nil)
@@ -129,6 +178,10 @@ final class SceneRouter {
             context.session.setCurrentCityDistrict(districtID)
         case .cityInterior:
             break
+        #if DEBUG
+        case .sableBlender:
+            break
+        #endif
         }
 
         let duration = kind.transitionDuration
