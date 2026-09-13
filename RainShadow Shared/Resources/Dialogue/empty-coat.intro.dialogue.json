@@ -37,30 +37,56 @@
     {
       "id": "voss.monologue.5",
       "isInteriorMonologue": true,
-      "nextNodeID": "lila.entrance",
+      "nextNodeID": "voss.monologue.6",
       "portraitName": "dialogue_portrait_harlan_voss_v01",
       "speakerKey": "dlg.speaker.harlan_voss",
       "textKey": "dlg.empty-coat.intro.node.voss.monologue.5.text"
     },
     {
+      "id": "voss.monologue.6",
+      "isInteriorMonologue": true,
+      "nextNodeID": "lila.entrance",
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.empty-coat.intro.node.voss.monologue.6.text"
+    },
+    {
       "id": "lila.entrance",
-      "nextNodeID": "lila.entrance.case",
+      "nextNodeID": "lila.entrance.b",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.entrance.text"
     },
     {
+      "id": "lila.entrance.b",
+      "nextNodeID": "lila.entrance.case",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.entrance.b.text"
+    },
+    {
+      "id": "lila.entrance.case",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.text",
+      "nextNodeID": "lila.entrance.case.b"
+    },
+    {
+      "id": "lila.entrance.case.b",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.b.text",
       "choices": [
         {
           "destinationID": "lila.reply.good1",
           "intention": "open",
-          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.0.text",
+          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.b.choice.0.text",
           "tone": "warm"
         },
         {
           "destinationID": "lila.reply.neutral1",
           "intention": "open",
-          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.1.text",
+          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.b.choice.1.text",
           "tone": "dry"
         },
         {
@@ -72,14 +98,10 @@
               "type": "setConversationFlag"
             }
           ],
-          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.choice.2.text",
+          "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.b.choice.2.text",
           "tone": "sharp"
         }
-      ],
-      "id": "lila.entrance.case",
-      "portraitName": "dialogue_portrait_lila_march_v02",
-      "speakerKey": "dlg.speaker.lila_march",
-      "textKey": "dlg.empty-coat.intro.node.lila.entrance.case.text"
+      ]
     },
     {
       "id": "lila.reply.good1",
@@ -90,10 +112,24 @@
     },
     {
       "id": "lila.reply.good1.b",
-      "nextNodeID": "lila.police.story",
+      "nextNodeID": "lila.reply.good1.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.good1.b.text"
+    },
+    {
+      "id": "lila.reply.good1.c",
+      "nextNodeID": "lila.reply.good1.d",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.good1.c.text"
+    },
+    {
+      "id": "lila.reply.good1.d",
+      "nextNodeID": "lila.police.story",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.good1.d.text"
     },
     {
       "id": "lila.reply.neutral1",
@@ -104,10 +140,17 @@
     },
     {
       "id": "lila.reply.neutral1.b",
-      "nextNodeID": "lila.police.story",
+      "nextNodeID": "lila.reply.neutral1.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral1.b.text"
+    },
+    {
+      "id": "lila.reply.neutral1.c",
+      "nextNodeID": "lila.police.story",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral1.c.text"
     },
     {
       "id": "lila.reply.cynical1",
@@ -118,10 +161,17 @@
     },
     {
       "id": "lila.reply.cynical1.b",
-      "nextNodeID": "lila.police.story",
+      "nextNodeID": "lila.reply.cynical1.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical1.b.text"
+    },
+    {
+      "id": "lila.reply.cynical1.c",
+      "nextNodeID": "lila.police.story",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical1.c.text"
     },
     {
       "id": "lila.police.story",
@@ -132,10 +182,24 @@
     },
     {
       "id": "lila.police.story.b",
-      "nextNodeID": "lila.triad.police",
+      "nextNodeID": "lila.police.story.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.police.story.b.text"
+    },
+    {
+      "id": "lila.police.story.c",
+      "nextNodeID": "lila.police.story.d",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.police.story.c.text"
+    },
+    {
+      "id": "lila.police.story.d",
+      "nextNodeID": "lila.triad.police",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.police.story.d.text"
     },
     {
       "choices": [
@@ -172,10 +236,17 @@
     },
     {
       "id": "lila.reply.good2.b",
-      "nextNodeID": "lila.key.reveal",
+      "nextNodeID": "lila.reply.good2.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.good2.b.text"
+    },
+    {
+      "id": "lila.reply.good2.c",
+      "nextNodeID": "lila.key.reveal",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.good2.c.text"
     },
     {
       "id": "lila.reply.neutral2",
@@ -186,10 +257,24 @@
     },
     {
       "id": "lila.reply.neutral2.b",
-      "nextNodeID": "lila.key.reveal",
+      "nextNodeID": "lila.reply.neutral2.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral2.b.text"
+    },
+    {
+      "id": "lila.reply.neutral2.c",
+      "nextNodeID": "lila.reply.neutral2.d",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral2.c.text"
+    },
+    {
+      "id": "lila.reply.neutral2.d",
+      "nextNodeID": "lila.key.reveal",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral2.d.text"
     },
     {
       "id": "lila.reply.cynical2",
@@ -200,10 +285,17 @@
     },
     {
       "id": "lila.reply.cynical2.b",
-      "nextNodeID": "lila.key.reveal",
+      "nextNodeID": "lila.reply.cynical2.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical2.b.text"
+    },
+    {
+      "id": "lila.reply.cynical2.c",
+      "nextNodeID": "lila.key.reveal",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical2.c.text"
     },
     {
       "id": "lila.key.reveal",
@@ -214,10 +306,24 @@
     },
     {
       "id": "lila.key.reveal.b",
-      "nextNodeID": "lila.triad.key",
+      "nextNodeID": "lila.key.reveal.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.key.reveal.b.text"
+    },
+    {
+      "id": "lila.key.reveal.c",
+      "nextNodeID": "lila.key.reveal.d",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.key.reveal.c.text"
+    },
+    {
+      "id": "lila.key.reveal.d",
+      "nextNodeID": "lila.triad.key",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.key.reveal.d.text"
     },
     {
       "choices": [
@@ -265,6 +371,24 @@
       "textKey": "dlg.empty-coat.intro.node.lila.triad.key.text"
     },
     {
+      "id": "lila.reply.press.gated",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.text",
+      "nextNodeID": "lila.reply.press.gated.b"
+    },
+    {
+      "id": "lila.reply.press.gated.b",
+      "nextNodeID": "lila.reply.press.gated.c",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.b.text"
+    },
+    {
+      "id": "lila.reply.press.gated.c",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.c.text",
       "choices": [
         {
           "destinationID": "lila.plea",
@@ -281,13 +405,9 @@
               "type": "queueJournal"
             }
           ],
-          "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.choice.0.text"
+          "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.c.choice.0.text"
         }
-      ],
-      "id": "lila.reply.press.gated",
-      "portraitName": "dialogue_portrait_lila_march_v02",
-      "speakerKey": "dlg.speaker.lila_march",
-      "textKey": "dlg.empty-coat.intro.node.lila.reply.press.gated.text"
+      ]
     },
     {
       "id": "lila.reply.good3",
@@ -297,6 +417,17 @@
       "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.text"
     },
     {
+      "id": "lila.reply.good3.b",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.b.text",
+      "nextNodeID": "lila.reply.good3.c"
+    },
+    {
+      "id": "lila.reply.good3.c",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.c.text",
       "choices": [
         {
           "destinationID": "lila.plea",
@@ -313,13 +444,9 @@
               "type": "queueJournal"
             }
           ],
-          "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.b.choice.0.text"
+          "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.c.choice.0.text"
         }
-      ],
-      "id": "lila.reply.good3.b",
-      "portraitName": "dialogue_portrait_lila_march_v02",
-      "speakerKey": "dlg.speaker.lila_march",
-      "textKey": "dlg.empty-coat.intro.node.lila.reply.good3.b.text"
+      ]
     },
     {
       "id": "lila.reply.neutral3",
@@ -329,6 +456,17 @@
       "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.text"
     },
     {
+      "id": "lila.reply.neutral3.b",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.b.text",
+      "nextNodeID": "lila.reply.neutral3.c"
+    },
+    {
+      "id": "lila.reply.neutral3.c",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.c.text",
       "choices": [
         {
           "destinationID": "lila.plea",
@@ -345,13 +483,9 @@
               "type": "queueJournal"
             }
           ],
-          "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.b.choice.0.text"
+          "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.c.choice.0.text"
         }
-      ],
-      "id": "lila.reply.neutral3.b",
-      "portraitName": "dialogue_portrait_lila_march_v02",
-      "speakerKey": "dlg.speaker.lila_march",
-      "textKey": "dlg.empty-coat.intro.node.lila.reply.neutral3.b.text"
+      ]
     },
     {
       "id": "lila.reply.cynical3",
@@ -361,6 +495,17 @@
       "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.text"
     },
     {
+      "id": "lila.reply.cynical3.b",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.b.text",
+      "nextNodeID": "lila.reply.cynical3.c"
+    },
+    {
+      "id": "lila.reply.cynical3.c",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.c.text",
       "choices": [
         {
           "destinationID": "lila.plea",
@@ -377,13 +522,9 @@
               "type": "queueJournal"
             }
           ],
-          "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.b.choice.0.text"
+          "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.c.choice.0.text"
         }
-      ],
-      "id": "lila.reply.cynical3.b",
-      "portraitName": "dialogue_portrait_lila_march_v02",
-      "speakerKey": "dlg.speaker.lila_march",
-      "textKey": "dlg.empty-coat.intro.node.lila.reply.cynical3.b.text"
+      ]
     },
     {
       "id": "lila.plea",
@@ -394,10 +535,17 @@
     },
     {
       "id": "lila.plea.b",
-      "nextNodeID": "case.opened",
+      "nextNodeID": "lila.plea.c",
       "portraitName": "dialogue_portrait_lila_march_v02",
       "speakerKey": "dlg.speaker.lila_march",
       "textKey": "dlg.empty-coat.intro.node.lila.plea.b.text"
+    },
+    {
+      "id": "lila.plea.c",
+      "nextNodeID": "case.opened",
+      "portraitName": "dialogue_portrait_lila_march_v02",
+      "speakerKey": "dlg.speaker.lila_march",
+      "textKey": "dlg.empty-coat.intro.node.lila.plea.c.text"
     },
     {
       "endsDialogue": true,
