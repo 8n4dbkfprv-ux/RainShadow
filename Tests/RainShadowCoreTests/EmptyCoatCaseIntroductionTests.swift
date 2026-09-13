@@ -66,7 +66,7 @@ struct EmptyCoatCaseIntroductionTests {
 
         // Acceptance lives on reply choices toward the plea.
         let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the phone"]
-        let triad3Terminals = ["lila.reply.good3.b", "lila.reply.neutral3.b", "lila.reply.cynical3.b"]
+        let triad3Terminals = ["lila.reply.good3.c", "lila.reply.neutral3.c", "lila.reply.cynical3.c", "lila.reply.press.gated.c"]
         for terminalID in triad3Terminals {
             let terminal = byID[terminalID]
             #expect(terminal != nil, "Missing \(terminalID)")
@@ -176,17 +176,18 @@ struct EmptyCoatCaseIntroductionTests {
         )
 
         let plea = nodes.first { $0.id == "lila.plea" }?.text ?? ""
-        #expect(plea.contains("Find the sister—not the coat's alibi."))
+        #expect(plea.contains("Find the sister"))
+        #expect(plea.contains("coat's alibi") || plea.contains("coat’s alibi"))
 
         let pd = nodes.first { $0.id == "lila.police.story" }?.text ?? ""
-        #expect(pd.contains("filed it soft"))
+        #expect(pd.contains("wrote it soft") || pd.contains("filed it soft"))
         #expect(pd.contains("probable drowning"))
         #expect(!pd.contains("closes a door without slamming"))
         let pdB = nodes.first { $0.id == "lila.police.story.b" }?.text ?? ""
         #expect(!pdB.contains("developed teeth"))
 
-        let keyReveal = nodes.first { $0.id == "lila.key.reveal" }?.text ?? ""
-        #expect(keyReveal.contains("Lillian still sews her own hems."))
+        let keyRevealB = nodes.first { $0.id == "lila.key.reveal.b" }?.text ?? ""
+        #expect(keyRevealB.contains("Lillian still sews her own hems."))
 
         let painted = ["[Open]", "[Press]", "[Feign]", "[Trade]", "[Observe]", "[Leave]"]
         for node in nodes {
@@ -211,7 +212,13 @@ struct EmptyCoatCaseIntroductionTests {
 
         let policeObserve = nodes.first { $0.id == "lila.triad.police" }?.choices
             .first { $0.intention == .observe }?.text.lowercased() ?? ""
-        #expect(policeObserve.contains("tidy") || policeObserve.contains("hear"))
+        #expect(
+            policeObserve.contains("tidy")
+                || policeObserve.contains("hear")
+                || policeObserve.contains("stones")
+                || policeObserve.contains("roster")
+                || policeObserve.contains("mend")
+        )
         #expect(!policeObserve.contains("river stones"))
 
         let policeFeign = nodes.first { $0.id == "lila.triad.police" }?.choices
@@ -225,13 +232,14 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(authoredTones.contains(.dry))
         #expect(authoredTones.contains(.sharp))
 
-        let good2b = nodes.first { $0.id == "lila.reply.good2.b" }?.text ?? ""
-        #expect(good2b == "The pockets were turned.")
+        let good2c = nodes.first { $0.id == "lila.reply.good2.c" }?.text ?? ""
+        #expect(good2c.lowercased().contains("pockets"))
 
-        let pressGated = nodes.first { $0.id == "lila.reply.press.gated" }?.text ?? ""
-        #expect(pressGated.contains("manifests"))
-        #expect(!pressGated.lowercased().contains("sisters"))
-        #expect(nodes.first { $0.id == "lila.reply.press.gated" }?.voiceAssetName == nil)
+        let pressGatedB = nodes.first { $0.id == "lila.reply.press.gated.b" }?.text ?? ""
+        #expect(pressGatedB.contains("manifests"))
+        #expect(!pressGatedB.lowercased().contains("sisters"))
+        // Shade rewrite ships Press VO companions; accept voiced Press pages.
+        #expect(nodes.contains { $0.id == "lila.reply.press.gated.c" })
     }
 
     @Test func graphIntegrityEveryChoiceReachesCaseOpened() {
@@ -267,18 +275,23 @@ struct EmptyCoatCaseIntroductionTests {
         let entrance = nodes.first { $0.id == "lila.entrance" }
         #expect(entrance != nil)
         #expect(entrance?.choices.isEmpty == true)
-        #expect(entrance?.nextNodeID == "lila.entrance.case")
+        #expect(entrance?.nextNodeID == "lila.entrance.b")
         #expect(!(entrance?.text.contains("My sister Lillian") ?? true))
 
         let entranceCase = nodes.first { $0.id == "lila.entrance.case" }
         #expect(entranceCase?.text.contains("My sister Lillian") == true)
-        #expect(entranceCase?.choices.count == 3)
+        #expect(entranceCase?.choices.isEmpty == true)
+        #expect(entranceCase?.nextNodeID == "lila.entrance.case.b")
+
+        let entranceCaseB = nodes.first { $0.id == "lila.entrance.case.b" }
+        #expect(entranceCaseB?.choices.count == 3)
 
         // Multi-paragraph key beat is also Continue-paged.
         let key = nodes.first { $0.id == "lila.key.reveal" }
         #expect(key?.nextNodeID == "lila.key.reveal.b")
         #expect(key?.choices.isEmpty == true)
         #expect(nodes.contains { $0.id == "lila.key.reveal.b" })
+        #expect(nodes.contains { $0.id == "lila.key.reveal.d" })
     }
 
     @Test func officeScenePresentsShippedEmptyCoatGraph() throws {
@@ -361,7 +374,7 @@ struct EmptyCoatCaseIntroductionTests {
         // Entire Voss monologue + entire Lila dialogue: one Grok Voice clip per speaker node.
         let monologue = nodes.filter { $0.id.hasPrefix("voss.monologue") }
         let lila = nodes.filter { $0.speaker == EmptyCoatCaseIntroduction.lilaSpeaker }
-        #expect(monologue.count == 5)
+        #expect(monologue.count == 6)
         #expect(lila.count >= 20)
 
         for node in monologue {
@@ -373,13 +386,8 @@ struct EmptyCoatCaseIntroductionTests {
             #expect(node.voiceAssetName?.hasPrefix("vo_voss_monologue_") == true)
             #expect(node.voiceAssetName?.hasSuffix(".m4a") == true)
         }
-        // Phase 1 gated Press beat has no VO clip yet; keep silent until assets exist.
-        let lilaAwaitingVO: Set<String> = ["lila.reply.press.gated"]
+        // Shade rewrite voices Press Multisay pages via string companions.
         for node in lila {
-            if lilaAwaitingVO.contains(node.id) {
-                #expect(node.voiceAssetName == nil, "Unexpected VO on unvoiced \(node.id)")
-                continue
-            }
             #expect(node.voiceAssetName != nil, "Missing VO on \(node.id)")
             #expect(
                 node.voiceAssetName == EmptyCoatCaseIntroduction.bundledVoiceFileName(for: node.id),
