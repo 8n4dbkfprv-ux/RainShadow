@@ -361,13 +361,15 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(!EmptyCoatCaseIntroduction.shouldStartClientEntrance(whenLeaving: "lila.entrance"))
         #expect(nodes.first { $0.id == "lila.entrance" }?.onLeaveCue == nil)
 
-        // Cue text narratively introduces arrival (hallway / heels / door).
+        // Shade rewrite: leave-cue stays on monologue.4; hallway/heels prose moved to .5
+        // (played after the entrance cinematic). Cue page keeps the Pell Street wound.
         #expect(cueNode != nil)
-        let body = (cueNode?.text ?? "").lowercased()
-        #expect(body.contains("hallway") || body.contains("heels") || body.contains("door"))
-        // After cinematic, monologue continues (next page), then Lila speaks.
+        let cueBody = (cueNode?.text ?? "").lowercased()
+        #expect(cueBody.contains("pell") || cueBody.contains("missing persons") || cueBody.contains("kitchen"))
         #expect(cueNode?.nextNodeID == "voss.monologue.5")
-        #expect(nodes.contains { $0.id == "voss.monologue.5" })
+        let afterCue = nodes.first { $0.id == "voss.monologue.5" }?.text.lowercased() ?? ""
+        #expect(afterCue.contains("hallway") || afterCue.contains("heels") || afterCue.contains("door"))
+        #expect(nodes.contains { $0.id == "voss.monologue.6" })
     }
 
     @Test func monologueAndLilaNodesShipGrokVoiceAssets() {
