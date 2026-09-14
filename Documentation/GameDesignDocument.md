@@ -99,10 +99,11 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (c
 - **Role:** Private detective; the player’s body, voice, and moral weather.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
-- **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
+- **Core wound (locked):** **Pell Street.** Voss closed a missing-person / intimidation chain that was correct on paper and wrong in human terms: he handed Harborpoint PD a clean file; two streets over, someone he had cleared was still afraid of a man he had not bothered to frighten enough. The boarder (or kitchen that paid for his certainty) is not a talkative companion beat and is not named in player-facing M01 beyond the monologue’s kitchen image. Harborpoint still files him as useful and disposable. He treats “probable,” “closed,” and soft institutional endings as personal weather.
+- **Author note (wound spend):** The M01 monologue is the only trauma spend in the opening. Pell Street may surface later in Strain / inspect beats, but never as a second tutorial quest. Act I pressure beat IDs for later graphs (not authored here): `pressure.voss.certainty-1` (tidy drowning offer); `pressure.voss.certainty-2` (witness begs a name off the page). Full pack: [LeadsDepthLockedAuthorNotes.md](LeadsDepthLockedAuthorNotes.md).
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
 - **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
-- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
+- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss). Do not revive this name in new copy.
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
 
@@ -119,7 +120,17 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 - **Competence that is not charm:** She sews; she can read a shipping roster.
 - **Loyalty that can hurt Voss:** She will protect Lillian’s dock work before she protects his case.
 - **Bad at his game, once:** A pause, a too-fast money answer, or a fee she names awkwardly. When she lies, the lie is small and checkable — so the dock truth is never “the dame was the twist.”
-- **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
+- **Depth rules (locked):**
+  - **Public ask:** Find **Lillian March** — not a coat alibi and not a tidy drowning.
+  - **Competence:** Sewing (hems, glove restitch); shipping roster literacy (clock three minutes fast, manifests).
+  - **Ordinary ugly M01 detail:** Left glove restitched with the wrong black thread on the tram.
+  - **Checkable small pressure:** Press may prove she protects someone at the docks — unnamed on M01.
+  - **Loyalty order:** Lillian’s dock work / living names outrank Voss’s case convenience.
+  - **Relationship:** Professional first; romance / trust are **player-shaped**.
+  - **Voice:** Dame cadence; controlled full sentences; does not borrow Voss narrator metaphors.
+  - **Press / journal (M01):** Open / warm → timeline + payment; Observe → glove tell; Feign → tone only; pressed-hard opens gated Press; gated Press admits manifests + an unnamed dock person at risk. Must **not** name the protectee, Lillian’s fate, who emptied the coat, or the Blue Room on M01.
+  - Full pack: [LeadsDepthLockedAuthorNotes.md](LeadsDepthLockedAuthorNotes.md).
+- **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March). Do not revive this name in new copy.
 
 #### Supporting cast (named only as needed by the outline)
 
@@ -204,6 +215,8 @@ Aligned to the shipped Empty Coat intro graph:
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Not yet proven badge vs private muscle; knows Lila came to Voss |
 | *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
+
+**Author note (M01 Press / protectee):** M01 Press may confirm that a protectee exists **only**. It must not name the protectee, Lillian’s fate, who emptied the coat, or the Blue Room on M01. Depth rules: §4.2 Lila; full pack: [LeadsDepthLockedAuthorNotes.md](LeadsDepthLockedAuthorNotes.md).
 
 ##### Evidence
 
@@ -700,8 +713,8 @@ The art gate is qualitative but strict: at final display scale, the office must 
 
 ## 15. Open design decisions after M01
 
-- Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
-- Full biography for **Lila March** beyond the dame/client outline (romance branch density; Lillian’s employment is locked as Wharf Ladder shipping office in §4.3.2).
+- Full biography and casting notes for **Harlan Voss** beyond the **locked Pell Street core wound** and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction). Core wound softness is closed.
+- Full biography for **Lila March** beyond the dame/client outline and **locked depth rules** in §4.2: **romance branch density** remains open; **protectee identity** remains open (M01 Press may confirm existence only — §4.3.2). Lillian’s employment is locked as Wharf Ladder shipping office in §4.3.2.
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Degree of camera control in later, larger areas.
@@ -709,6 +722,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - First combat set-piece location and temporary-ally roster for Act II.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Voss **Pell Street** core wound + Act I pressure beat IDs; Lila **depth rules (locked)** + M01 Press/journal gates; corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract. Canon place name: **Harborpoint** only. Retired names Elias Vale / Vivian Hart stay footnotes — do not revive.
 
 None of the remaining open decisions blocks the opening-sequence architecture.
