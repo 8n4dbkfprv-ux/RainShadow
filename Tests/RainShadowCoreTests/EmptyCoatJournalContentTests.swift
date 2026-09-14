@@ -181,6 +181,43 @@ struct EmptyCoatJournalContentTests {
             )
         ).first { $0.id == "active" }?.entries.first { $0.id == EmptyCoatJournalContent.caseID }
         #expect(pressed?.leads.contains(where: { $0.localizedCaseInsensitiveContains("manifest") }) == true)
+        #expect(
+            pressed?.leads.contains(
+                "Follow the manifests—and the dock-local someone Lila will not name while they can still walk."
+            ) == true
+        )
+    }
+
+    @Test func pressedHardAndLilaKeepProtecteeUnnamedOnM01() {
+        let pressed = EmptyCoatJournalContent.chronologySections(
+            input: JournalProjectionInput(
+                queuedJournalFragments: [
+                    QueuedJournalFragment(
+                        id: EmptyCoatDialogueKeys.pressedHardJournalID,
+                        kind: .chronology,
+                        text: "Pushed Lila past the soft drowning. Manifests—and someone at the docks who gets hurt if she talks like a newspaper."
+                    )
+                ]
+            )
+        ).flatMap(\.entries).first { $0.id == "log.pressed-hard" }
+        #expect(pressed != nil)
+        let pressedBlob = ((pressed?.body ?? []) + (pressed?.leads ?? [])).joined(separator: " ")
+        #expect(pressedBlob.contains("Protectee exists. Unnamed."))
+        #expect(pressedBlob.localizedCaseInsensitiveContains("manifest"))
+        #expect(!pressedBlob.localizedCaseInsensitiveContains("blue room"))
+        #expect(!pressedBlob.contains("Vale"))
+        #expect(!pressedBlob.contains("Hart"))
+
+        let lila = EmptyCoatJournalContent.caseSections(inspectedHotspotIDs: [])
+            .first { $0.id == "people" }?
+            .entries.first { $0.id == "person.lila" }
+        let lilaBlob = ((lila?.body ?? []) + (lila?.leads ?? [])).joined(separator: " ")
+        #expect(lilaBlob.contains("must not name them on M01"))
+        #expect(lilaBlob.contains("Keep her address off the police paperwork."))
+        #expect(lilaBlob.contains("Competence tells: sewing, shipping-office literacy."))
+        #expect(!lilaBlob.localizedCaseInsensitiveContains("blue room"))
+        #expect(!lilaBlob.contains("Vale"))
+        #expect(!lilaBlob.contains("Hart"))
     }
 
     @Test func dialogueThenOfficeSearchKeepsOfficeLogLast() {
