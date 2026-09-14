@@ -9,6 +9,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 ## Documents
 
 1. [Game Design Document](GameDesignDocument.md) — game vision, design pillars, core loops, investigation and RPG systems, tone, controls, and the opening-sequence brief.
+1a. [Locked author notes — Voss & Lila depth](LeadsDepthLockedAuthorNotes.md) — Pell Street wound lock, Lila depth/Press rules, gated M01 topics; GDD §4.2 / §4.3.2 paste pack (design only).
 2. [Technical Architecture](TechnicalArchitecture.md) — SpriteKit runtime design, scene lifecycle, depth sorting, input, navigation, data, performance, testing, and the first two scenes.
 3. [Initial Asset Manifest](AssetManifest.md) — exact first-pass image, animation, effect, data-mask, audio, naming, sizing, and generation requirements.
 4. [Infinity Engine Ground Projection](InfinityEngineGroundProjection.md) — Baldur's Gate: EE orthographic camera lock for area art (elevation asin(0.75), 16:12 ground ellipse, 128×96 diamond).
