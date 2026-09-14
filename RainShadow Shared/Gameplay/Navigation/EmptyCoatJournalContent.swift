@@ -62,7 +62,7 @@ public enum EmptyCoatJournalContent {
     /// Office hotspots that can yield field notes (GDD §9.5 / §4.3.2 journal contract).
     public static let fieldNoteHotspotIDs: [(id: String, title: String, observation: String)] = [
         ("office.window", "Rain on the Window", "The rain had been at the glass longer than I had."),
-        ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. This case gets the clean page."),
+        ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. Pell Street taught me what a clean page can cost. This case gets it anyway."),
         ("office.phone", "Silent Telephone", "Quiet. For once it had the decency to look guilty."),
         ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")
     ]
@@ -134,7 +134,7 @@ public enum EmptyCoatJournalContent {
             }
         }
         if input.queuedJournalFragments.contains(where: { $0.id == EmptyCoatDialogueKeys.pressedHardJournalID }) {
-            leads.append("Press the shipping manifests Lila would not name cleanly in court.")
+            leads.append("Follow the manifests—and the dock-local someone Lila will not name while they can still walk.")
         }
         return CaseJournalEntry(
             id: caseID,
@@ -175,9 +175,10 @@ public enum EmptyCoatJournalContent {
                 status: "Interview · Lila March",
                 summary: fragment.text,
                 body: [
-                    "Lillian was reading manifests. Lila does not have the names for a courtroom."
+                    "Lillian was reading manifests. Lila will not spend names clean enough for a courtroom.",
+                    "Someone at the docks gets hurt if she talks like a newspaper. Protectee exists. Unnamed."
                 ],
-                leads: ["Follow the manifests Lila still will not name in open court."],
+                leads: ["Follow the manifests—and the dock-local someone Lila will not name while they can still walk."],
                 isNew: true
             )
         default:
@@ -202,9 +203,13 @@ public enum EmptyCoatJournalContent {
             status: "Interviewed",
             summary: "Lillian's sister—and the only person still insisting this is not a drowning.",
             body: [
-                "Arrived after midnight, frightened but precise. She recovered the key from the lining before the coat fully left her hands. She believes she is being watched, and she is right."
+                "Arrived after midnight, frightened but precise. She recovered the key from the lining before the coat fully left her hands. She believes she is being watched, and she is right.",
+                "Competence tells: sewing, shipping-office literacy. Loyalty order: Lillian's dock work before my convenience. She withholds cleanly."
             ],
-            leads: ["Keep her address off the police paperwork."],
+            leads: [
+                "Keep her address off the police paperwork.",
+                "Evidence Press may prove a dock protectee exists—must not name them on M01."
+            ],
             isNew: false
         ),
         CaseJournalEntry(
@@ -256,7 +261,7 @@ public enum EmptyCoatJournalContent {
             status: "Not examined",
             summary: "Left on the river stones below the old iron stairs as a conclusion someone expected the police to accept.",
             body: [
-                "Pockets turned like a stage direction. Lila found the key before the garment fully entered the official bag. Placement and missing body point to staging—not a tidy accident."
+                "Pockets turned like a stage direction. Lila found the key before the garment fully entered the official bag. Placement and missing body point to staging—not a tidy accident. Soft closings are how Harborpoint sleeps; Pell Street taught me not to."
             ],
             leads: [
                 "Inspect the riverside recovery site.",
