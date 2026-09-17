@@ -14,7 +14,7 @@ struct DialogueTranscriptTests {
             nodes: [
                 CaseDialogueNode(
                     id: "a",
-                    speaker: "Lila March",
+                    speaker: "Lira March",
                     text: "You're Voss.",
                     choices: [
                         CaseDialogueChoice(text: "That's the name on the door.", destinationID: "b")
@@ -22,7 +22,7 @@ struct DialogueTranscriptTests {
                 ),
                 CaseDialogueNode(
                     id: "b",
-                    speaker: "Lila March",
+                    speaker: "Lira March",
                     text: "Then you'll do.",
                     endsDialogue: true
                 )
@@ -32,7 +32,7 @@ struct DialogueTranscriptTests {
 
     @Test func nodesAndRepliesAccumulateInOrder() {
         var session = DialogueSession(graph: graph())
-        session.playerSpeaker = "Harlan Voss"
+        session.playerSpeaker = "Cassian Voss"
         session.noteCurrentNodeShown()
         _ = session.selectChoice(at: 0)
         session.noteCurrentNodeShown()
@@ -49,13 +49,13 @@ struct DialogueTranscriptTests {
     /// the NPC whose node it hung from.
     @Test func repliesAreAttributedToThePlayerCharacter() {
         var session = DialogueSession(graph: graph())
-        session.playerSpeaker = "Harlan Voss"
+        session.playerSpeaker = "Cassian Voss"
         session.noteCurrentNodeShown()
         _ = session.selectChoice(at: 0)
 
         let reply = session.transcript.entries.last
         #expect(reply?.kind == .playerReply)
-        #expect(reply?.speaker == "Harlan Voss")
+        #expect(reply?.speaker == "Cassian Voss")
     }
 
     /// The presenter re-shows the same node on every layout rebuild and on resume from a
@@ -84,7 +84,7 @@ struct DialogueTranscriptTests {
     @Test func interiorMonologueIsClassifiedForItalics() {
         let node = CaseDialogueNode(
             id: "m",
-            speaker: "Harlan Voss",
+            speaker: "Cassian Voss",
             text: "The rain had opinions.",
             isInteriorMonologue: true
         )

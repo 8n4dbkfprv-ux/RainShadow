@@ -157,7 +157,7 @@ struct DialogueConditionTests {
     @Test func softStuckWhenOnlyGatedChoicesAndNoContinue() {
         let node = CaseDialogueNode(
             id: "dead",
-            speaker: "Lila March",
+            speaker: "Lira March",
             text: "…",
             choices: [
                 CaseDialogueChoice(
@@ -172,7 +172,7 @@ struct DialogueConditionTests {
 
         let withContinue = CaseDialogueNode(
             id: "ok",
-            speaker: "Lila March",
+            speaker: "Lira March",
             text: "…",
             choices: node.choices,
             nextNodeID: "next"

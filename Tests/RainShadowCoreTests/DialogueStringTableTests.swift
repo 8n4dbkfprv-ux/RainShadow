@@ -7,8 +7,8 @@ struct DialogueStringTableTests {
         let table = try DialogueStringTable.load()
         #expect(table.locale == "en")
         #expect(table.count >= 60)
-        #expect(try table.string(for: "dlg.speaker.harlan_voss") == "Harlan Voss")
-        #expect(try table.string(for: "dlg.speaker.lila_march") == "Lila March")
+        #expect(try table.string(for: "dlg.speaker.harlan_voss") == "Cassian Voss")
+        #expect(try table.string(for: "dlg.speaker.lila_march") == "Lira March")
     }
 
     @Test func missingKeyThrows() {
@@ -26,7 +26,7 @@ struct DialogueStringTableTests {
 
     @Test func resolveAuthoredNodeWithKeys() throws {
         let table = DialogueStringTable(strings: [
-            "s.voss": "Harlan Voss",
+            "s.voss": "Cassian Voss",
             "n.body": "Rain on the glass.",
             "c.reply": "Tell me more."
         ])
@@ -51,7 +51,7 @@ struct DialogueStringTableTests {
             ]
         )
         let graph = try table.resolve(authored)
-        #expect(graph.node(id: "n1")?.speaker == "Harlan Voss")
+        #expect(graph.node(id: "n1")?.speaker == "Cassian Voss")
         #expect(graph.node(id: "n1")?.text == "Rain on the glass.")
         #expect(graph.node(id: "n1")?.choices.first?.text == "Tell me more.")
     }
@@ -63,7 +63,7 @@ struct DialogueStringTableTests {
         )
         #expect(graph == EmptyCoatCaseIntroduction.graph)
         let start = try #require(graph.node(id: EmptyCoatCaseIntroduction.startNodeID))
-        #expect(start.speaker == "Harlan Voss")
+        #expect(start.speaker == "Cassian Voss")
         #expect(start.text.lowercased().contains("rain"))
         #expect(start.isInteriorMonologue)
 

@@ -160,7 +160,7 @@ struct DialogueSession: Equatable, Sendable {
     private(set) var transcript = DialogueTranscript()
     /// Speaker attributed to the player's own replies in the transcript. IE transition
     /// text is the PC talking, so it must not be filed under the NPC's name.
-    var playerSpeaker: String = "Harlan Voss"
+    var playerSpeaker: String = "Cassian Voss"
     /// Speaker string that reads as a card rather than a line (e.g. "Case opened").
     var titleSpeaker: String?
     /// Graphs a cross-graph choice may jump to (IE EXTERN). The walker never loads

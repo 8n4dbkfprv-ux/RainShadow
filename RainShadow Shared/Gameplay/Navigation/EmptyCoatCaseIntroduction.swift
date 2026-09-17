@@ -1,13 +1,13 @@
 import Foundation
 
-/// Shipped **Empty Coat** office case-intro graph: Voss noir monologue → Lila March triad dialogue.
+/// Shipped **Empty Coat** office case-intro graph: Voss noir monologue → Lira March triad dialogue.
 ///
 /// Prose, topology, VO names, conditions, and actions live in the versioned resource
 /// `Resources/Dialogue/empty-coat.intro.dialogue.json`. This type is the stable facade
 /// (IDs, speaker constants, entrance helpers) and loads that package into a `DialogueGraph`.
 ///
 /// Portrait asset filenames keep retired working-name IDs until a later art migration.
-/// On-screen speaker strings are GDD canon: Harlan Voss / Lila March.
+/// On-screen speaker display strings: Cassian Voss / Lira March (code IDs remain harlan_voss / lila_march).
 ///
 /// **Classic Baldur’s Gate / Infinity Engine roles (frozen — GDD §7.5):**
 /// - NPC speech = node body; multi-page NPC beats may use `nextNodeID` / Continue.
@@ -36,8 +36,8 @@ enum EmptyCoatCaseIntroduction {
     /// Baseline body-character total of the short pre-rewrite graph (~450). New prose must clear this.
     static let legacyBodyCharacterFloor = 450
 
-    static let vossSpeaker = "Harlan Voss"
-    static let lilaSpeaker = "Lila March"
+    static let vossSpeaker = "Cassian Voss"
+    static let lilaSpeaker = "Lira March"
 
     /// Conversation owner for talk counting (IE `NumTimesTalkedTo`). Distinct from the
     /// display name so a localized speaker string can never move the counter.
