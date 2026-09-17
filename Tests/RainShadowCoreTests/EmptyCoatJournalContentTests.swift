@@ -21,7 +21,7 @@ struct EmptyCoatJournalContentTests {
     }
 
     @Test func letterheadAndCaseIdentity() {
-        #expect(EmptyCoatJournalContent.agencyLetterhead.contains("H. VOSS"))
+        #expect(EmptyCoatJournalContent.agencyLetterhead.contains("C. VOSS"))
         #expect(!EmptyCoatJournalContent.agencyLetterhead.contains("VALE"))
         #expect(EmptyCoatJournalContent.caseTitle == "The Empty Coat")
         #expect(EmptyCoatJournalContent.caseID == "case.empty-coat")
@@ -37,10 +37,10 @@ struct EmptyCoatJournalContentTests {
         #expect(active?.title == "The Empty Coat")
         let blob = allCaseText
         #expect(blob.contains("Lillian March"))
-        #expect(blob.contains("Lila March"))
+        #expect(blob.contains("Lira March"))
         #expect(blob.contains("brass key") || blob.contains("Brass key") || blob.contains("Brass Key"))
-        #expect(blob.contains("gray overcoat") || blob.contains("Gray Man"))
-        #expect(blob.contains("Wharf Ladder") || blob.contains("shipping"))
+        #expect(blob.contains("gray mantle") || blob.contains("Gray Mantle"))
+        #expect(blob.contains("Coilwharf") || blob.contains("shipping"))
         #expect(blob.contains("river") || blob.contains("Riverside"))
         #expect(!blob.contains("Lillian Hart"))
         #expect(!blob.contains("E. VALE"))
@@ -76,7 +76,7 @@ struct EmptyCoatJournalContentTests {
         #expect(followed < opened)
 
         let openEntry = chronology.first { $0.id == "log.case-open" }
-        #expect(openEntry?.summary.contains("Harlan Voss") == true)
+        #expect(openEntry?.summary.contains("Cassian Voss") == true)
         #expect(openEntry?.body.joined().contains("Empty Coat") == true)
     }
 
@@ -110,7 +110,7 @@ struct EmptyCoatJournalContentTests {
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
                         kind: .chronology,
-                        text: "Retained by Lila March. The Empty Coat is open."
+                        text: "Retained by Lira March. The Empty Coat is open."
                     )
                 ]
             )
@@ -127,12 +127,12 @@ struct EmptyCoatJournalContentTests {
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.pressedHardJournalID,
                         kind: .chronology,
-                        text: "Pushed Lila on what the police finished too early."
+                        text: "Pushed Lira on what the Watch finished too early. Manifests."
                     ),
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,
                         kind: .chronology,
-                        text: "Retained by Lila March. The Empty Coat is open."
+                        text: "Retained by Lira March. The Empty Coat is open."
                     )
                 ]
             )

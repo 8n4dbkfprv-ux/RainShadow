@@ -13,7 +13,7 @@ struct EmptyCoatCaseIntroductionTests {
         guard let start else { return }
 
         #expect(start.speaker == EmptyCoatCaseIntroduction.vossSpeaker)
-        #expect(start.speaker == "Harlan Voss")
+        #expect(start.speaker == "Cassian Voss")
         #expect(start.isInteriorMonologue)
         let body = start.text.lowercased()
         #expect(body.contains("rain"))
@@ -49,7 +49,7 @@ struct EmptyCoatCaseIntroductionTests {
     @Test func midConversationPCLinesAreReplyOptionsNotContinueStates() {
         let byID = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
 
-        // No non-monologue Harlan Voss nodes that only Continue (empty choices + nextNodeID).
+        // No non-monologue Cassian Voss nodes that only Continue (empty choices + nextNodeID).
         let midConvoPCContinuePages = nodes.filter { node in
             node.speaker == EmptyCoatCaseIntroduction.vossSpeaker
                 && !node.isInteriorMonologue
@@ -65,7 +65,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(byID["voss.accept.b"] == nil)
 
         // Acceptance lives on reply choices toward the plea.
-        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the phone"]
+        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the desk bell"]
         let triad3Terminals = ["lila.reply.good3.c", "lila.reply.neutral3.c", "lila.reply.cynical3.c", "lila.reply.press.gated.c"]
         for terminalID in triad3Terminals {
             let terminal = byID[terminalID]
@@ -107,8 +107,8 @@ struct EmptyCoatCaseIntroductionTests {
 
     @Test func usesCanonSpeakerNamesNotActiveRetiredLeads() {
         let speakers = Set(nodes.map(\.speaker))
-        #expect(speakers.contains("Harlan Voss"))
-        #expect(speakers.contains("Lila March"))
+        #expect(speakers.contains("Cassian Voss"))
+        #expect(speakers.contains("Lira March"))
         #expect(speakers.contains("Case opened"))
         #expect(!speakers.contains("Vivian Hart"))
         #expect(!speakers.contains("Elias Vale"))
