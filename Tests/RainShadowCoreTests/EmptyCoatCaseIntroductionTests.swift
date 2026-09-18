@@ -65,7 +65,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(byID["voss.accept.b"] == nil)
 
         // Acceptance lives on reply choices toward the plea.
-        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the desk bell"]
+        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait on the stair"]
         let triad3Terminals = ["lila.reply.good3.c", "lila.reply.neutral3.c", "lila.reply.cynical3.c", "lila.reply.press.gated.c"]
         for terminalID in triad3Terminals {
             let terminal = byID[terminalID]
@@ -164,7 +164,7 @@ struct EmptyCoatCaseIntroductionTests {
         )
         #expect(
             inspect.text(forHotspotID: "office.phone", alreadyInspected: false)
-                == "Quiet. For once it had the decency to look guilty."
+                == "The desk bell sits quiet. For once it has the decency to look guilty."
         )
         #expect(
             inspect.text(forHotspotID: "office.files", alreadyInspected: false)

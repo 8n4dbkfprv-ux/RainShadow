@@ -55,7 +55,7 @@ public struct CaseJournalSection: Equatable, Sendable {
 public enum EmptyCoatJournalContent {
     public static let caseID = "case.empty-coat"
     public static let caseTitle = "The Empty Coat"
-    public static let agencyLetterhead = "C. VOSS  •  PRIVATE INVESTIGATIONS"
+    public static let agencyLetterhead = "C. VOSS  •  PRIVATE INQUIRIES"
     public static let pageMark = "FILE 01  /  THE EMPTY COAT"
     public static let defaultSelectedEntryID = caseID
 
@@ -63,7 +63,7 @@ public enum EmptyCoatJournalContent {
     public static let fieldNoteHotspotIDs: [(id: String, title: String, observation: String)] = [
         ("office.window", "Rain on the Window", "The rain had been at the glass longer than I had."),
         ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. This case gets the clean page."),
-        ("office.phone", "Silent Telephone", "Quiet. For once it had the decency to look guilty."),
+        ("office.phone", "Silent Desk Bell", "The desk bell sits quiet. For once it has the decency to look guilty."),
         ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")
     ]
 
@@ -214,7 +214,7 @@ public enum EmptyCoatJournalContent {
             status: "Whereabouts unknown",
             summary: "Worked late on shipping manifests near Coilwharf. Last reliably seen Tuesday evening. Hated the river.",
             body: [
-                "Left the office about nine with talk of one more errand uptown—no cab from the desk bell. By midnight her coat was on the stones below the old iron stairs, empty and arranged. No witness has placed her near the water of her own free will."
+                "Left the office about nine with talk of one more errand uptown—no runner from the desk, and she hired no cart. By midnight her coat was on the stones below the old iron stairs, empty and arranged. No witness has placed her near the water of her own free will."
             ],
             leads: ["Build a last-known-movements timeline from the shipping office outward."],
             isNew: true
@@ -226,7 +226,7 @@ public enum EmptyCoatJournalContent {
             status: "Unidentified",
             summary: "Gray mantle, black gloves. Watches Lira from across the street.",
             body: [
-                "He turns away when she looks directly at him. Harbor tram noise, doorway posts—professional habits. He wants to know where she takes the key. Not yet proven badge or private muscle."
+                "He turns away when she looks directly at him. Harbor tram noise, doorway posts—professional habits. He wants to know where she takes the key. Not yet proven Watch seal or private muscle."
             ],
             leads: ["Check the street outside Lira's rooms when the city opens."],
             isNew: true
@@ -272,7 +272,7 @@ public enum EmptyCoatJournalContent {
             return CaseJournalEntry(
                 id: "note.\(hotspotID)",
                 title: title,
-                eyebrow: "Field note · detective's office",
+                eyebrow: "Field note · inquirer's office",
                 status: "Recorded",
                 summary: observation,
                 body: [
@@ -294,7 +294,7 @@ public enum EmptyCoatJournalContent {
             status: "Coilwharf",
             summary: "Lillian March leaves the shipping office near Coilwharf after late ledger work.",
             body: [
-                "Told a clerk she had one more errand uptown. No cab from the desk bell. That is the last clean mark on the page."
+                "Told a clerk she had one more errand uptown. No runner from the desk, and she hired no cart. That is the last clean mark on the page."
             ],
             leads: ["Gap opens between nine and the river."],
             isNew: false
