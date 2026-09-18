@@ -127,7 +127,7 @@ struct EmptyCoatJournalContentTests {
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.pressedHardJournalID,
                         kind: .chronology,
-                        text: "Pushed Lila on what the police finished too early."
+                        text: "Pushed Lila on what the watch finished too early. Manifests."
                     ),
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,

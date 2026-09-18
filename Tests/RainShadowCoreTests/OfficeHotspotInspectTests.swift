@@ -77,7 +77,7 @@ struct OfficeHotspotInspectTests {
             caseState: retained
         )
         #expect(first == "Three old cases, two unpaid bills, one clean page.")
-        #expect(again == "The key sits on the blotter. Brass, small teeth, no hotel tag. Machine oil and river.")
+        #expect(again == "The key sits on the blotter. Brass. Small teeth. No inn tag. Machine oil, river water, and a quiet that isn't empty.")
     }
 
     @Test func aSecondLookAtTheDeskBeforeRetainKeepsTheFirstLook() {
