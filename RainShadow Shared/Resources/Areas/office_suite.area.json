@@ -8163,8 +8163,8 @@
         },
         "id" : "office.phone",
         "kind" : "info",
-        "label" : "Telephone",
-        "observation" : "Quiet. For once it had the decency to look guilty.",
+        "label" : "Desk bell",
+        "observation" : "The desk bell sits quiet. For once it has the decency to look guilty.",
         "polygon" : [
           {
             "x" : 2005.9118004833651,

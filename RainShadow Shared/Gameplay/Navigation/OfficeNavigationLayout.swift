@@ -1929,9 +1929,9 @@ enum OfficeNavigationLayout {
         ),
         (
             "office.phone",
-            "Telephone",
+            "Desk bell",
             phoneHitArea,
-            "Quiet. For once it had the decency to look guilty."
+            "The desk bell sits quiet. For once it has the decency to look guilty."
         ),
         (
             "office.files",
