@@ -144,7 +144,7 @@
           "y" : 1357.1241209305954
         },
         "id" : "office.files",
-        "label" : "Case files",
+        "label" : "Case papers",
         "loot" : {
           "entries" : [
             {
@@ -8108,7 +8108,7 @@
         "id" : "office.window",
         "kind" : "info",
         "label" : "Rain-streaked window",
-        "observation" : "The rain had been at the glass longer than I had.",
+        "observation" : "The rain had been working the glass longer than I had. The sill-ward didn't care either way.",
         "polygon" : [
           {
             "x" : 1727.9310539435724,
@@ -8136,7 +8136,7 @@
         "id" : "office.desk",
         "kind" : "info",
         "label" : "Desk",
-        "observation" : "Three old cases, two unpaid bills, one clean page.",
+        "observation" : "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.",
         "polygon" : [
           {
             "x" : 1912.2178004833652,
@@ -8163,8 +8163,8 @@
         },
         "id" : "office.phone",
         "kind" : "info",
-        "label" : "Telephone",
-        "observation" : "Quiet. For once it had the decency to look guilty.",
+        "label" : "Raven perch",
+        "observation" : "Empty iron perch. Droppings on the blotter edge. For once the bird had the decency to stay gone — and look guilty doing it.",
         "polygon" : [
           {
             "x" : 2005.9118004833651,
@@ -8191,8 +8191,8 @@
         },
         "id" : "office.files",
         "kind" : "info",
-        "label" : "Case files",
-        "observation" : "Closed, abandoned, and one I still lied about.",
+        "label" : "Case papers",
+        "observation" : "Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.",
         "polygon" : [
           {
             "x" : 2251.267601571462,
@@ -8220,7 +8220,7 @@
         "id" : "office.door",
         "kind" : "travel",
         "label" : "Office door",
-        "observation" : "The hall smelled worse, but at least it led somewhere.",
+        "observation" : "The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.",
         "polygon" : [
           {
             "x" : 2140.745613641608,

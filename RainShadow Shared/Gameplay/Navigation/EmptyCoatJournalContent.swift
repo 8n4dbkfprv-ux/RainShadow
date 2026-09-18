@@ -61,10 +61,10 @@ public enum EmptyCoatJournalContent {
 
     /// Office hotspots that can yield field notes (GDD §9.5 / §4.3.2 journal contract).
     public static let fieldNoteHotspotIDs: [(id: String, title: String, observation: String)] = [
-        ("office.window", "Rain on the Window", "The rain had been at the glass longer than I had."),
-        ("office.desk", "A Clean Page", "Three old cases, two unpaid bills, one clean page. This case gets the clean page."),
-        ("office.phone", "Silent Telephone", "Quiet. For once it had the decency to look guilty."),
-        ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")
+        ("office.window", "Rain on the Window", "The rain had been working the glass longer than I had. The sill-ward didn't care either way."),
+        ("office.desk", "A Clean Page", "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet. This case gets the clean page."),
+        ("office.phone", "Empty Perch", "Empty iron perch. Droppings on the blotter edge. For once the bird had the decency to stay gone — and look guilty doing it."),
+        ("office.files", "Case Papers", "Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.")
     ]
 
     public static func caseSections(inspectedHotspotIDs: Set<String>) -> [CaseJournalSection] {
@@ -118,7 +118,7 @@ public enum EmptyCoatJournalContent {
         return [CaseJournalSection(id: "log", title: "CASE LOG · CHAPTER ONE", entries: entries)]
     }
 
-    // MARK: - Case files
+    // MARK: - Case papers
 
     private static func activeCase(for input: JournalProjectionInput) -> CaseJournalEntry {
         var leads = [

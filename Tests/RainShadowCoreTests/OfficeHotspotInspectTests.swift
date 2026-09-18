@@ -37,8 +37,8 @@ struct OfficeHotspotInspectTests {
             forHotspotID: "office.window",
             alreadyInspected: true
         )
-        #expect(first == "The rain had been at the glass longer than I had.")
-        #expect(again == "Same rain, same glass. Now I had a client.")
+        #expect(first == "The rain had been working the glass longer than I had. The sill-ward didn't care either way.")
+        #expect(again == "Same rain, same glass. Now I had a client — and a key that hummed when the weather turned.")
         #expect(again != first)
         #expect(
             try DialogueStringTable.shipped.string(
@@ -76,7 +76,7 @@ struct OfficeHotspotInspectTests {
             alreadyInspected: true,
             caseState: retained
         )
-        #expect(first == "Three old cases, two unpaid bills, one clean page.")
+        #expect(first == "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.")
         #expect(again == "The key sits on the blotter. Brass. Small teeth. No inn tag. Machine oil, river water, and a quiet that isn't empty.")
     }
 
@@ -103,7 +103,7 @@ struct OfficeHotspotInspectTests {
             forHotspotID: "office.window",
             alreadyInspected: true
         )
-        #expect(again == "Same rain, same glass. Now I had a client.")
+        #expect(again == "Same rain, same glass. Now I had a client — and a key that hummed when the weather turned.")
         #expect(state.timesTalkedTo("office.window") == 0)
         #expect(state.counters[CaseState.talkCounterID("office.window")] == nil)
     }
