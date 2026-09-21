@@ -1931,7 +1931,7 @@ enum OfficeNavigationLayout {
             "office.phone",
             "Raven perch",
             phoneHitArea,
-            "Empty iron perch. Droppings on the blotter edge. For once the bird had the decency to stay gone — and look guilty doing it."
+            "Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it."
         ),
         (
             "office.files",

@@ -164,7 +164,7 @@ struct EmptyCoatCaseIntroductionTests {
         )
         #expect(
             inspect.text(forHotspotID: "office.phone", alreadyInspected: false)
-                == "Empty iron perch. Droppings on the blotter edge. For once the bird had the decency to stay gone — and look guilty doing it."
+                == "Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it."
         )
         #expect(
             inspect.text(forHotspotID: "office.files", alreadyInspected: false)
