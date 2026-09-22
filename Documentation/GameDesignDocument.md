@@ -349,7 +349,7 @@ Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on ma
 
 Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull.
 
-####### Scene card — Wharf Ladder shipping office *(design runway; not M01)*
+**Scene card — Wharf Ladder shipping office** *(design runway; not M01)*
 
 **Case:** The Empty Coat · Beat 3 (Act I runway beyond M01 office slice)  
 **Location:** Shipping office near the river mouth; ledgers, seals, a clock that runs three minutes fast when the night crew wants an alibi the wards will swear to.  
