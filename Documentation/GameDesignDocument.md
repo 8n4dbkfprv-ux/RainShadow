@@ -302,15 +302,77 @@ Voss engineers (or is forced into) a gathering of the remaining principals. In a
 
 This section is the **authoritative case structure** for Act I and the M01 case journal. Runtime journal copy (`EmptyCoatJournalContent`) must stay consistent with it. Dialogue may paraphrase; it must not invent facts the dossier has not established for that beat.
 
+**Terminology lock:** the follower wears a **gray greatcoat**. Lillian’s garment and the case title stay **coat** / **THE EMPTY COAT**.
+
+##### Logline
+
+In rain-strangled Harborpoint, hired finder Harlan Voss takes a sister’s coin after the Watch called a humming key and an empty coat an ending—and discovers the missing ledger-keeper was reading seals someone needed unread.
+
+##### Theme
+
+Comfortable lies vs unfinished books. Coats are alibis. Sisters refuse them. Voss has been both men.
+
+##### Dramatic question (Act I)
+
+Can Voss find Lillian—or the truth that isn’t a drowning—before the gray greatcoat finishes the ritual the key was meant for?
+
+##### Scope gate (M01 vs Act I runway)
+
+| Beats | Scope | Status |
+|---|---|---|
+| **1–2** Cold open + first office loop | **Shipped M01** | Office only: intro, retain, key, inspect, journal surface |
+| **3–7** Wharf Ladder → Act I break | **Act I runway beyond M01** | Design roadmap; do not silently inflate M01 scope |
+
 ##### Seed (campaign spine)
 
 1. **Lila March**’s sister **Lillian March** is missing.
 2. A coat is recovered by the river—**empty** in a way that feels arranged, not merely abandoned.
-3. A concealed **brass key** is sewn into the lining (not left where a hurried search would “find” it).
+3. A concealed **brass key** is sewn into the lining (not left where a hurried search would “find” it); it hummed once.
 4. Someone with institutional reach wanted the coat found without a body, or the body gone without the coat.
 5. Voss’s office becomes the first board where facts, testimony, and distrust share a desk lamp.
 
 M01 ships the arrival, the key handoff, office freeroam, and the **case journal surface**. Later milestones open the river, docks, and civic records that turn the seed into a full investigation.
+
+##### Act I structure
+
+###### 1. Cold open — Office in the rain *(shipped M01)*
+
+Voss alone. Wound hints (tide chart / sister). Threshold pause. Lila enters. Branching retain. Key on desk leather. Case opened: **THE EMPTY COAT**.
+
+**Emotional payload:** Recognition, not romance. He sees his old mistake walking in with good coin.
+
+###### 2. First loop — Office as tool *(shipped M01)*
+
+Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on manifests. Player learns the room is a character: raven perch, case papers, sill-ward, unpaid notices.
+
+###### 3. Lead one — Wharf Ladder shipping office *(Act I beyond M01)*
+
+Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull.
+
+###### 4. Lead two — River stones / iron stairs *(Act I beyond M01)*
+
+Where the coat was found, arranged. River watch repeats the tide speech. Soft file smells of political pressure, not incompetence alone.
+
+###### 5. Pressure — The gray greatcoat *(Act I beyond M01)*
+
+Not a jump scare: professional habits. Streetlamps dim. He wants the key, not Lila’s life—yet. Choice: protect Lila’s threshold / bait with a false key rumor / ask the sergeant who still answers ravens (costs a favor).
+
+###### 6. Mid-Act turn — The page they almost burned *(Act I beyond M01)*
+
+Lila admits the fight: Lillian wanted to burn a manifest line; Lila wanted a copy. Partial line surfaces (trust gate). Names point toward Dock Authority “lost” crates and a Civic Spine reading-rights signature.
+
+###### 7. Act I break *(Act I beyond M01)*
+
+Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Watch will not help without a sacrifice. The greatcoat stops pretending to only watch.
+
+##### Character arcs (Act I only)
+
+| Character | Starts | Ends Act I |
+|---|---|---|
+| **Voss** | Avoiding missing-person rhymes | Committed to a case he can’t file soft |
+| **Lila** | Buying help with thirty and fury | Partner in risk; still not a prize |
+| **Lillian** | Absence / coat | Presence through handwriting, seals, unfinished book |
+| **Gray greatcoat** | Follower | Active claimant on the key |
 
 ##### Case header
 
@@ -343,7 +405,7 @@ Aligned to the shipped Empty Coat intro graph:
 |---|---|---|---|---|
 | `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
 | `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
-| `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Not yet proven badge vs private muscle; knows Lila came to Voss |
+| `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
 | *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
 
@@ -358,17 +420,17 @@ Aligned to the shipped Empty Coat intro graph:
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)
 
-**M01 (office only)**
+**M01 (office only — beats 1–2)**
 - Keep the key safe; case file open in the journal.
 - Record office field notes via hotspot inspections.
 - Journal leads (destinations still locked): identify the lock; build Lillian’s timeline from two nights past; find or name the Gray Man; re-check the river stones when the city opens.
 
-**Act I beyond M01 (design roadmap; non-spoiler)**
-- River recovery site + constable log.
-- Wharf Ladder shipping office / manifests Lillian was reading.
-- Gray Man identification or pressure.
-- Civic records / dual ledgers if she was reading the wrong books.
-- Lila’s partial truths due when the player presses with evidence.
+**Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
+- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights).
+- River recovery site + constable / river-watch soft file.
+- Gray greatcoat pressure (threshold / bait / sergeant favor).
+- Mid-act trust gate: the page they almost burned; partial manifest line.
+- Civic Spine / Dock Authority “lost” crates signatures.
 - Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
 
 ##### Chronology (case log · approximate Voss notation)
@@ -381,16 +443,28 @@ Prefer **narrative order** (coat → key → follower → office). Times are det
 | Two nights past · night | Gap: “errand uptown” / unknown | folded into movements |
 | Two nights past · ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
 | After recovery | Lila finds brass key in lining | `log.key` |
-| Same night | Lila followed by the Gray Man | `log.followed` |
+| Same night | Lila followed by the Gray Man (gray greatcoat) | `log.followed` |
 | Two nights past · ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
 | After retain | Office field notes (if hotspots inspected) | `log.office` |
 
 ##### Open mysteries (writer hooks; not journal spoilers)
 
+Kept open on purpose through Act I:
+
+- What the humming key opens (seal-locker / ward-safe uptown—shape earned at Act I break).
+- Who benefited if Lillian stopped reading manifests.
 - Who emptied the coat, and why leave the key?
-- What lock answers the brass key?
-- Is Lillian alive, dead, or “worse” (held / erased from ledgers)?
+- Is Lillian alive, dead, or “worse” (held / erased from ledgers / made to look drowned for handwriting)?
 - Which institutional layer benefits from a tidy drowning?
+- Whether the docker’s old case and this one share a ledger hand (**hint only**—no dump in M01 or early Act I).
+
+##### Tone locks (Act I)
+
+Fantasy is bureaucratic damp. No chosen-one prophecy. Combat rare and authored if it appears. Deductions the player owns.
+
+##### What M01 must teach
+
+Observe → pressure dialogue → journal commitment → leave the office with a live case and a live wound.
 
 ##### Journal UX contract
 
