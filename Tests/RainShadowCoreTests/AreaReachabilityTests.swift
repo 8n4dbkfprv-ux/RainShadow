@@ -13,7 +13,7 @@ import Testing
 ///
 /// - the office floor sealed to 174 of 4,694 walkable cells,
 /// - the office door with no exact path, so the exit to the city was unclickable,
-/// - Harborpoint PD spawning the detective inside an 820×680 station, 1 of 5,795
+/// - Harborpoint Watch spawning the detective inside an 820×680 station, 1 of 5,795
 ///   cells reachable, on a district reachable from the world map.
 ///
 /// All three hid behind the old `NavigationMap.route`, which flood-filled to the

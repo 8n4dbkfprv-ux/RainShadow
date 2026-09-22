@@ -3,18 +3,18 @@
 - Status: pre-production baseline
 - Version: 0.3
 - Milestone covered: M01 — The Office in the Rain
-- Canon leads: **Harlan Voss** (player detective), **Lila March** (first client / the dame)
+- Canon leads: **Harlan Voss** (player hired finder), **Lila March** (first client / the dame)
 - Case dossier: **The Empty Coat** (§4.3.2) — Act I structure + M01 journal surface
 
 ## 1. High-level vision
 
 RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence—and, when the city refuses to talk, rare **Baldur’s Gate–style real-time-with-pause combat** that is authored, high-stakes, and never a loot grind.
 
-The player inhabits **Harlan Voss**, a weary private detective in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
+The player inhabits **Harlan Voss**, a weary hired finder in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
 ### Elevator pitch
 
-In rain-strangled Harborpoint, private detective Harlan Voss studies scenes, questions people, connects imperfect evidence, survives the rare fight he cannot talk past, and makes deductions that change both the case and the man he becomes—until a Poirot-like summation forces every lie into the open.
+In rain-strangled Harborpoint, hired finder Harlan Voss studies scenes, questions people, connects imperfect evidence, survives the rare fight he cannot talk past, and makes deductions that change both the case and the man he becomes—until a Poirot-like summation forces every lie into the open.
 
 ### Player promise
 
@@ -61,20 +61,20 @@ This section is the **narrative canon** for Harborpoint, the two established lea
 
 ### 4.1 World — Harborpoint under the rain
 
-**Harborpoint** is an original mid-century-inspired port city with no exact historical date. Architecture, clothing, vehicles, paper records, wired telephones, and radio place it in an analogue world; selective anachronism keeps the fiction from becoming a history simulation. The player never gets a tourist map of the whole metropolis—only rain-cut fragments that feel continuous beyond the frame: pipes knock in walls, trains pass unseen, signs hum, neighbors argue through plaster.
+**Harborpoint** is an original **fantasy-noir** port city: hardboiled attitude with light fantasy texture, not high fantasy speech and not a mid-century Earth lock. Rain, coin, ledgers, charcoal coats, and wet wool sit beside **wards**, hush-charms, sill-wards, and message **ravens** as ordinary city infrastructure—the same way a desk lamp is ordinary. There are no wired telephones or broadcast-radio civilisation locks in Empty Coat canon; when someone needs word across town, a bird or a runner does the work. The player never gets a tourist map of the whole metropolis—only rain-cut fragments that feel continuous beyond the frame: pipes knock in walls, carts rattle unseen, signs hum, neighbours argue through plaster.
 
-**Rain** is atmosphere and theme at once. It obscures footprints, reflects neon into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes private lives visible through lit windows. Every district smells slightly different when wet: coal and brine on the docks, printer’s ink and cigarette ash downtown, wet wool and cooking oil in the tenements.
+**Rain** is atmosphere and theme at once. It obscures footprints, reflects lamp-glow into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes private lives visible through lit windows. Every district smells slightly different when wet: coal and brine on the docks, printer’s ink and tobacco ash downtown, wet wool and cooking oil in the tenements.
 
 #### Power structure (corruption is structural)
 
-Corruption in RainShadow is not a mood filter or a single crooked cop. It is **how Harborpoint keeps running**:
+Corruption in RainShadow is not a mood filter or a single crooked watchman. It is **how Harborpoint keeps running**:
 
 | Layer | What it pretends to be | What it actually is |
 |---|---|---|
 | **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that go missing on purpose |
-| **Harborpoint PD** | Law and investigation | Political pressure, selective blindness, and a few honest officers trapped inside a machine that punishes curiosity |
+| **Harborpoint Watch** | Law and investigation (watch house, night books, sergeants, river watch) | Political pressure, selective blindness, and a few honest officers trapped inside a machine that punishes curiosity |
 | **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, and silence bought with overtime and threats |
-| **Press & radio** | Public truth | Ownership strings; editors who know which names never print; one or two reporters who still dig |
+| **Press & broadsheets** | Public truth | Ownership strings; editors who know which names never print; one or two diggers who still risk ink |
 | **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
 | **Street networks** | Crime as chaos | Predictable tribute systems that feed upward into “respectable” ledgers |
 
@@ -84,19 +84,19 @@ The player feels this structure through locked doors, altered reports, witnesses
 
 - **Sable Row** — mixed tenements and small shops; Voss’s office building sits in this rain-dark block. First city expansion uses its modular streets.
 - **The Docks / Wharf Ladder** — cargo, warehouses, boarding houses, and the river mouth where empty coats wash up.
-- **Civic Spine** — courthouse, central station house, records annex; marble that still looks clean in the rain.
-- **Printers’ Quarter** — newspapers, radio offices, cheap cafés that never close; gossip as a second economy.
+- **Civic Spine** — magistrate’s hall, central watch house, records annex; marble that still looks clean in the rain.
+- **Printers’ Quarter** — broadsheets, ink shops, cheap cafés that never close; gossip as a second economy.
 - **Ashfield Yards** — industry, company housing, blacked-out windows; the city’s muscle and its smog.
 
 Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, newspapers that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
 
 ### 4.2 Characters — the two established leads
 
-RainShadow’s first cast is deliberately small and sharp. Supporting players (cops, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
+RainShadow’s first cast is deliberately small and sharp. Supporting players (watchmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
 
 #### Harlan Voss — player protagonist
 
-- **Role:** Private detective; the player’s body, voice, and moral weather.
+- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. May be formerly of the Watch; the public machine no longer claims him. The player’s body, voice, and moral weather.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
 - **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
@@ -123,7 +123,7 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 
 #### Supporting cast (named only as needed by the outline)
 
-Do not expand into full sheets here. Story beats may introduce: a tired sergeant who still returns Voss’s calls; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
+Do not expand into full sheets here. Story beats may introduce: a tired Watch sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
 
 ### 4.3 Story outline
 
@@ -148,7 +148,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 Lila arrives. Voss takes the case. The office, the key, and the river coat establish method: observe, inspect, interview, commit. Early noir beats land hard—the dame, the rain, the first polite door that will not open. The player learns that Harborpoint’s smallest mysteries already have municipal fingerprints.
 
 **Act II — Follow the key**  
-The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both police blotters and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
+The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both Watch night books and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
 
 **Act III — The city answers back**  
 Commitments on the deduction board close routes. Lila’s partial truths come due. A faction above the docks tries to buy Voss off, bury him in paperwork, or remove him. Allies may join for a fight or a testimony. Corruption is no longer ambient; it has a face, a budget, and a preferred ending in which nobody important is embarrassed.
@@ -187,20 +187,20 @@ M01 ships the arrival, the key handoff, office freeroam, and the **case journal 
 
 Aligned to the shipped Empty Coat intro graph:
 
-1. Lillian vanished Tuesday night after work at a shipping office near **Wharf Ladder** (ledgers, manifests).
-2. Last known: left work about nine; told a clerk she had one more errand uptown; no cab called from the desk phone.
-3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body.
-4. Harborpoint PD soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried.
-5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands.
-6. Since the key: a **Gray Man** (gray overcoat, black gloves) follows Lila; professional habits (streetcar noise, doorway posts); he turns away when met with a direct look.
-7. Voss accepts the case; the key stays in his care.
+1. Lillian vanished **two nights past** after work at a shipping office near **Wharf Ladder** (ledgers, manifests, seals that bite if you read them wrong).
+2. Last known: left work about nine; told a clerk she had one more errand uptown; no hired coach chalked on the desk slate.
+3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
+4. **Harborpoint Watch** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
+5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands; faint lamp oil and river water on the metal.
+6. Since the key: a **Gray Man** (gray overcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
+7. Voss accepts the case; the key stays in his care on the desk leather.
 
 ##### People
 
 | ID | Name | Role | Status at M01 | Notes |
 |---|---|---|---|---|
 | `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
-| `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen Tuesday evening |
+| `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Not yet proven badge vs private muscle; knows Lila came to Voss |
 | *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
@@ -209,9 +209,9 @@ Aligned to the shipped Empty Coat intro graph:
 
 | ID | Item | Custody | Reliability | M01 journal? | Leads |
 |---|---|---|---|---|---|
-| `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint machine oil and river fog |
-| `evidence.coat` | Riverside coat | Police / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
-| `evidence.pd-file` | Soft missing-person file | Harborpoint PD | Compromised / incomplete | No (later) | Ally sergeant; dual ledgers |
+| `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
+| `evidence.coat` | Riverside coat | Watch / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
+| `evidence.pd-file` | Soft missing-person file | Harborpoint Watch | Compromised / incomplete | No (later) | Ally sergeant; dual ledgers |
 | `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)
@@ -219,7 +219,7 @@ Aligned to the shipped Empty Coat intro graph:
 **M01 (office only)**
 - Keep the key safe; case file open in the journal.
 - Record office field notes via hotspot inspections.
-- Journal leads (destinations still locked): identify the lock; build Lillian’s Tuesday timeline; find or name the Gray Man; re-check the river stones when the city opens.
+- Journal leads (destinations still locked): identify the lock; build Lillian’s timeline from two nights past; find or name the Gray Man; re-check the river stones when the city opens.
 
 **Act I beyond M01 (design roadmap; non-spoiler)**
 - River recovery site + constable log.
@@ -231,17 +231,17 @@ Aligned to the shipped Empty Coat intro graph:
 
 ##### Chronology (case log · approximate Voss notation)
 
-Prefer **narrative order** (coat → key → follower → office). Times are detective notation, not a forensic clock.
+Prefer **narrative order** (coat → key → follower → office). Times are detective notation, not a forensic clock. Empty Coat does not use Earth weekday names in player-facing copy—“two nights past” is the lock.
 
 | Approx. time | Event | Journal entry ID |
 |---|---|---|
-| Tue ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
-| Tue night | Gap: “errand uptown” / unknown | folded into movements |
-| Tue ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
+| Two nights past · ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
+| Two nights past · night | Gap: “errand uptown” / unknown | folded into movements |
+| Two nights past · ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
 | After recovery | Lila finds brass key in lining | `log.key` |
 | Same night | Lila followed by the Gray Man | `log.followed` |
-| Tue ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
-| Wed ~12:10 AM | Office field notes (if hotspots inspected) | `log.office` |
+| Two nights past · ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
+| After retain | Office field notes (if hotspots inspected) | `log.office` |
 
 ##### Open mysteries (writer hooks; not journal spoilers)
 
@@ -304,7 +304,7 @@ The finale must satisfy:
 2. **Chain of deduction** — Voss recounts evidence the player could have found, marks which claims were lies, and shows how the empty coat, the key, and the sister’s fate interlock.
 3. **Fair play** — no essential killer identity that depended on unobtainable content; optional details may deepen but not sole-source the truth.
 4. **Human cost** — the reveal wounds someone Voss or Lila might have preferred to spare.
-5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, PD, docks), not a binary credits slide alone.
+5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, Watch, docks), not a binary credits slide alone.
 
 ### 4.4 Tonal rules
 
@@ -565,7 +565,7 @@ Target duration: 10–14 seconds, skippable after the first second.
 |---|---|---|---|
 | 0.0–2.0 s | Black lifts into wet street and the lower face of a rundown apartment building. Rain cuts across frame. | Heavy rain, distant traffic, drain gurgle. | Establish weather and scale. |
 | 2.0–6.0 s | Slow upward/diagonal camera push. Puddles catch a failing sign. A fire escape divides the facade. | One passing car; low musical tone enters. | Build spatial rhythm and noir silhouette. |
-| 6.0–9.0 s | A few windows glow; most are dark. The office window is a small dirty amber rectangle. | Rain remains dominant; faint radiator/room tone begins under it. | Identify destination by contrast. |
+| 6.0–9.0 s | A few windows glow; most are dark. The office window is a small dirty amber rectangle. | Rain remains dominant; faint hearth/room tone begins under it. | Identify destination by contrast. |
 | 9.0–12.0 s | Camera eases toward the office window. Exterior foreground darkens. | Exterior rain filters; interior window patter and lamp hum become clearer. | Motivate the transition. |
 | 12.0–14.0 s | Warm window shape fills enough of frame to match the office window or lamp pool. Crossfade through shadow. | Seamless ambience crossfade. | Move inside without a hard loading beat. |
 
@@ -575,8 +575,8 @@ No title card should obscure the best establishing composition. If a title is us
 
 The office is a single isometric room with enough floor for a short path loop. Required story zones:
 
-- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, black phone, typewriter, notebook, mug, ashtray, case folders, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
-- **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and radiator below; cool blind-striped spill on the floor.
+- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, **raven perch**, typewriter, notebook, mug, ashtray, case papers/folios, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
+- **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and **hearth** heat on the window wall; cool blind-striped spill on the floor.
 - **Zone 3 — Entrance and waiting**: door with coat stand and umbrella stand beside it; two mismatched waiting chairs and a small table (newspaper + ashtray) against the right wall; narrow worn runner from the entrance toward the desk; doorway kept clear of boxes.
 - **Negative space**: a navigable floor wedge in the lower foreground; warm amber lamp key against cold window light and a narrow warm hallway slit through the open door.
 
@@ -591,20 +591,20 @@ The room should feel used and cramped but compositionally controlled. Every majo
 5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat** (see §4.3.2). Pages must not out-pretty the five inspect captions in §9.5.
 6. Lila leaves the key, turns away from the desk, and walks back through the office door using a dedicated rear northeast cycle.
 7. Input becomes active; a minimal unobtrusive hint appears only on first run.
-8. The player can inspect the window, lamp/desk, phone, case files, and door.
+8. The player can inspect the window, lamp/desk, raven perch, case papers, and door.
 9. Selecting a floor destination or the door makes Voss stand, transition to standing idle, and walk.
 
 ### 9.5 M01 hotspot set
 
 | ID | Display name | First observation | State effect |
 |---|---|---|---|
-| `office.window` | Rain-streaked window | “The rain had been at the glass longer than I had.” | Sets `noticedWeather`; demonstrates environmental hotspot. |
-| `office.desk` | Desk | “Three old cases, two unpaid bills, one clean page.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. |
-| `office.phone` | Telephone | “Quiet. For once it had the decency to look guilty.” | Sets `checkedPhone`; reserves later incoming-call state. |
-| `office.files` | Case files | “Closed, abandoned, and one I still lied about.” | Adds `oldCaseReference`; seeds later narrative. |
-| `office.door` | Office door | “The hall smelled worse, but at least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
+| `office.window` | Rain-streaked window | “The rain had been working the glass longer than I had. The sill-ward didn't care either way.” | Sets `noticedWeather`; demonstrates environmental hotspot. Second look (after retain): client + humming key. |
+| `office.desk` | Desk | “Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. After retain, second look shows the key on the desk leather. |
+| `office.phone` | Raven perch | “Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it.” | Sets `checkedPhone` (legacy flag id); reserves later raven-message state. Hotspot id stays `office.phone`. |
+| `office.files` | Case papers | “Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.” | Adds `oldCaseReference`; seeds later narrative. |
+| `office.door` | Office door | “The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
 
-These five captions are the **locked house voice**. Do not rewrite them to match a longer intro; rewrite the intro down to them.
+These five captions are the **locked house voice** and must match `strings.en.json` / `OfficeHotspotInspect`. Do not drift them in docs without updating the string table.
 
 ## 10. Audio direction
 
@@ -612,7 +612,7 @@ These five captions are the **locked house voice**. Do not rewrite them to match
 
 - Rain is layered, spatial, and continuous across the scene transition.
 - Music supports dread and exhaustion without filling every second.
-- Interior sound is intimate: window patter, radiator ticks, lamp hum, chair creak, cloth movement, distant plumbing.
+- Interior sound is intimate: window patter, hearth ticks, lamp hum, chair creak, cloth movement, distant plumbing.
 - Repetition must be difficult to detect; loops use long beds plus randomized one-shots.
 - Dialogue remains intelligible on phone speakers and supports subtitles.
 
@@ -621,9 +621,9 @@ These five captions are the **locked house voice**. Do not rewrite them to match
 - Exterior heavy-rain stereo bed.
 - Exterior detail emitters: gutter, puddle impacts, distant traffic, sign/electrical buzz.
 - Interior rain-on-glass bed.
-- Interior room tone and radiator/pipe one-shots.
+- Interior room tone and hearth/pipe one-shots.
 - Voss foley: chair, cloth, shoes, breath.
-- Door, paper, phone, mug, and lamp interaction one-shots.
+- Door, paper, raven-perch, mug, and lamp interaction one-shots.
 - One sparse music cue with a clean loop or tail for skipping.
 
 The exterior-to-interior transition crossfades beds while preserving a shared rain transient so the cut feels spatial, not like an audio restart.

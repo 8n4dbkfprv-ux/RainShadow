@@ -807,7 +807,7 @@ enum CityDistrictCatalog {
         ]
     )
 
-    // MARK: - Harborpoint PD (south)
+    // MARK: - Harborpoint Watch (south)
 
     /// Precinct. The station is the landmark and it is *walled*: `pd_plaza_wall`
     /// closes the low frontage of its block, and the station stands back behind

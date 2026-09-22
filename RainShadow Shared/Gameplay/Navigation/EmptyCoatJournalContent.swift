@@ -143,7 +143,7 @@ public enum EmptyCoatJournalContent {
             status: "Open / Priority",
             summary: "Lillian March vanished two nights past. Her coat came back from the river. She did not.",
             body: [
-                "Harborpoint PD called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
+                "Harborpoint Watch called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
                 "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key stays on the desk leather."
             ],
             leads: leads,

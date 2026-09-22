@@ -13,7 +13,7 @@ M01 delivers a polished opening slice on iOS/iPadOS and macOS:
 3. transition smoothly toward the lit office window and into the office;
 4. reveal the detective seated behind his desk as a crude era-authentic 3D game mesh pre-rendered into small 2D frames;
 5. allow the detective to stand, idle, and walk with 16-facing presentation;
-6. allow the player to inspect the window, desk, telephone, case files, and door;
+6. allow the player to inspect the window, desk, raven perch, case papers, and door;
 7. preserve correct depth and occlusion around the desk, chair, cabinet, door jamb, window sill, and foreground wall;
 8. maintain the agreed composition, performance, audio, and accessibility baseline on both platforms.
 
@@ -270,7 +270,7 @@ Exit gate: all variants arrive in byte-for-byte equivalent gameplay state aside 
 #### Step 27: Generate the empty shell and registered P0 assemblies
 
 - Generate shell first and lock the registration grid.
-- Generate desk, chair, door, window, cabinet, radiator, and their shadows/occluders using the approved shell as reference.
+- Generate desk, chair, door, window, cabinet, hearth fixtures, and their shadows/occluders using the approved shell as reference.
 - Reject any shell with baked interactive objects.
 - Export the flattened QA reference.
 
@@ -332,7 +332,7 @@ Exit gate: relaunch does not repeat one-time hint state or restore the actor ins
 #### Step 34: Audio and foley pass
 
 - Replace temporary loops/one-shots with approved M01 audio.
-- Mix exterior/interior buses, footsteps, chair, cloth, door, paper, and phone.
+- Mix exterior/interior buses, footsteps, chair, cloth, door, paper, and raven perch.
 - Test speakers/headphones and app interruption.
 
 Exit gate: ambience repeats are not obvious and observation text remains readable/audible in the mix context.
