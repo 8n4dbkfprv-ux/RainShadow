@@ -784,7 +784,7 @@ The art gate is qualitative but strict: at final display scale, the office must 
 ## 15. Open design decisions after M01
 
 - Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
-- Full biography for **Lila March** beyond the dame/client outline (romance branch density; Lillian’s employment is locked as Wharf Ladder shipping office in §4.3.2).
+- Romance-branch density and Act II+ casting notes for **Lila March** beyond the full §4.2 canon sheet (Lillian’s employment remains Wharf Ladder shipping office per §4.3.2).
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Degree of camera control in later, larger areas.
@@ -792,6 +792,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - First combat set-piece location and temporary-ally roster for Act II.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Lila March character bible (§4.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
 
 None of the remaining open decisions blocks the opening-sequence architecture.
