@@ -61,45 +61,82 @@ This section is the **narrative canon** for Harborpoint, the two established lea
 
 ### 4.1 World — Harborpoint under the rain
 
-**Harborpoint** is an original **fantasy-noir** port city: hardboiled attitude with light fantasy texture, not high fantasy speech and not a mid-century Earth lock. Rain, coin, ledgers, charcoal coats, and wet wool sit beside **wards**, hush-charms, sill-wards, and message **ravens** as ordinary city infrastructure—the same way a desk lamp is ordinary. There are no wired telephones or broadcast-radio civilisation locks in Empty Coat canon; when someone needs word across town, a bird or a runner does the work. The player never gets a tourist map of the whole metropolis—only rain-cut fragments that feel continuous beyond the frame: pipes knock in walls, carts rattle unseen, signs hum, neighbours argue through plaster.
+#### The city in one breath
 
-**Rain** is atmosphere and theme at once. It obscures footprints, reflects lamp-glow into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes private lives visible through lit windows. Every district smells slightly different when wet: coal and brine on the docks, printer’s ink and tobacco ash downtown, wet wool and cooking oil in the tenements.
+**Harborpoint** is a rain-locked **fantasy-noir** port that runs on ledgers, silence, and small magics nobody bothers to call magic. Hardboiled attitude; light fantasy texture—not high fantasy speech and not a mid-century Earth lock. Coin moves. Ravens move. Bodies move when someone higher needs a problem to look like weather. Rain, charcoal coats, and wet wool sit beside **wards**, hush-charms, sill-wards, and message birds as ordinary city infrastructure—the same way a desk lamp is ordinary. There are no wired telephones or broadcast-radio civilisation locks in Empty Coat canon; when someone needs word across town, a bird or a runner does the work. The player never sees the whole map—only wet fragments that imply more city beyond the frame: pipes knock in walls, carts rattle unseen, signs hum, neighbours argue through plaster.
+
+#### How fantasy works here
+
+- **Wards / hush-charms / sill-wards** — household and office utilities. Cheap ones fail in rain. Expensive ones lie on purpose. An apartment’s hush-ward that “hadn’t tripped” is evidence, not flavour text.
+- **Ravens** — message birds with iron perches and droppings on desk leather. A live bird is a line open; a dead raven is a broken line and a threat. Voss’s office inspects an empty perch, not a telephone.
+- **Seals that bite** — dock and shipping magic: manifests that hurt if read wrong; **reading-rights** the Watch can smile about and withhold.
+- **Thresholds** — boarding-house locks that “hold” are partly carpenter, partly charm. A pause outside a door—like someone testing a threshold—is not only manners.
+
+Magic is never a sparkly skill tree in M01. It is damp, bureaucratic, and for sale.
+
+#### The rain
+
+Theme and mechanic at once. It obscures footprints, reflects lamp-glow into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes lit windows into accusations. Every district smells slightly different when wet: brine and coal on the docks; printer’s ink and tobacco in Printers’ Quarter; cooking oil and wet wool in the tenements.
 
 #### Power structure (corruption is structural)
 
-Corruption in RainShadow is not a mood filter or a single crooked watchman. It is **how Harborpoint keeps running**:
+Corruption is the **operating system**, not a villain’s hobby. Not a mood filter or a single crooked watchman—**how Harborpoint keeps running**:
 
 | Layer | What it pretends to be | What it actually is |
 |---|---|---|
-| **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that go missing on purpose |
-| **Harborpoint Watch** | Law and investigation (watch house, night books, sergeants, river watch) | Political pressure, selective blindness, and a few honest officers trapped inside a machine that punishes curiosity |
-| **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, and silence bought with overtime and threats |
+| **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that vanish on purpose |
+| **Harborpoint Watch** | Law and investigation (watch house, night books, sergeants, river watch) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
+| **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, overtime as hush money |
 | **Press & broadsheets** | Public truth | Ownership strings; editors who know which names never print; one or two diggers who still risk ink |
 | **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
 | **Street networks** | Crime as chaos | Predictable tribute systems that feed upward into “respectable” ledgers |
 
-The player feels this structure through locked doors, altered reports, witnesses who suddenly change their minds, and evidence that is **true but incomplete** because someone above the case needed it that way. Not every authority figure is rotten, and not every victim is pure—but **institutions default to self-preservation**. Voss survives by reading which layer he has just kicked.
+The player feels this through locked doors, altered reports, witnesses who suddenly change their minds, and evidence that is **true but incomplete** because someone above the case needed it that way. Not every authority figure is rotten, and not every victim is pure—but **institutions default to self-preservation**. Voss survives by reading which layer he has just kicked.
 
 #### Districts (playable texture, not open-world tourism)
 
-- **Sable Row** — mixed tenements and small shops; Voss’s office building sits in this rain-dark block. First city expansion uses its modular streets.
-- **The Docks / Wharf Ladder** — cargo, warehouses, boarding houses, and the river mouth where empty coats wash up.
-- **Civic Spine** — magistrate’s hall, central watch house, records annex; marble that still looks clean in the rain.
-- **Printers’ Quarter** — broadsheets, ink shops, cheap cafés that never close; gossip as a second economy.
-- **Ashfield Yards** — industry, company housing, blacked-out windows; the city’s muscle and its smog.
+- **Sable Row** — Voss’s block. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
+- **Wharf Ladder / the Docks** — cargo, boarding houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
+- **Civic Spine** — magistrate’s hall, central watch house, records annex. Marble that stays clean in the rain on purpose.
+- **Printers’ Quarter** — broadsheets, ink shops, cafés that never close. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
+- **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later wound-seeds live here (not M01 dumps).
 
-Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, newspapers that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
+Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, broadsheets that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
 
+#### Institutions Voss actually touches
+
+- **River watch** — drownings, recovered coats, tide speeches offered with coffee and a soft file.
+- **Night books** — who was where when the clock lied; duty rosters that read cleaner than the street.
+- **Reading-rights** — files the Watch smiles about and does not share; manifests Lillian should not have finished reading.
+- **One sergeant** who still answers ravens — useful, compromised, not a mentor arc in Act I.
+
+#### Everyday economy
+
+Good coin vs dock-ledger chalk. Thirty now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Watch badge—sits in the gap between Watch indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
+
+#### Tone rules for world writing
+
+Specific over mythic. Name a bakery doorway before you name a god. Let fantasy show in failed wards, humming keys, and seals that bite. Never explain the cosmology in M01—only how it inconveniences a finder and a sister. Fantasy-noir voice: hardboiled attitude + light fantasy texture; not purple high fantasy and not Earth-analogue phone/radio lock.
+
+#### Seeds (later cases — not M01 dumps)
+
+Mark clearly as **later**. Do not surface in M01 journal or Empty Coat intro as earned facts:
+
+- A broadsheet that printed Voss’s old docker case wrong and will not retract.
+- Dock Authority “lost” crates that share seal-marks with Lillian’s last night.
+- Ashfield company housing where the docker’s sister still keeps an empty chair.
+- A municipal ward-license racket that sells “thresholds that hold” to boarding houses that don’t.
 ### 4.2 Characters — the two established leads
 
 RainShadow’s first cast is deliberately small and sharp. Supporting players (watchmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
 
 #### Harlan Voss — player protagonist
 
-- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. May be formerly of the Watch; the public machine no longer claims him. The player’s body, voice, and moral weather.
+- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. Formerly of the **river watch** (or adjacent Watch work); the public machine no longer claims him. The player’s body, voice, and moral weather.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
 - **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
-- **Core wound (working):** A prior missing-person he closed “correctly” on paper—trusted a tide chart more than a sister—and wrong in human terms. Harborpoint still files him as useful and disposable. Empty Coat intro monos 3–5 and the desk casefile sting hint this without naming the dead or a Watch-exit speech.
+- **Core wound (working):** A prior missing-person—**docker**, unnamed in M01—he closed “correctly” on paper: trusted a tide chart more than a sister, called a coat an ending. Wrong in human terms. Harborpoint still files him as useful and disposable. Empty Coat intro monos 3–5 and the desk casefile sting hint this without a Watch-exit speech or naming the dead.
+- **Office:** Sable Row. Hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
 - **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
 - **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
 - **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
@@ -109,18 +146,18 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 #### Lila March — the dame / first client
 
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
+- **Orbit:** **Printers’ Quarter**—ink-shop books, boarding house, friends with real locks and thresholds that hold. Pays in good coin, not dock-ledger chalk (thirty now; rest when Lillian is found).
 - **Age / look:** Early-twenties adult woman with a chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald 1940s day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
 - **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
-- **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
-- **Deeper tension:** She knows more than the first conversation admits—about Lillian’s work near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
+- **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found—not the coat’s alibi.
+- **Deeper tension:** She knows more than the first conversation admits—about Lillian’s manifests near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Under pressure she holds names not clean enough for a magistrate’s hall; she has a sister and a key. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
 - **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
 - **Voice sample (design target):** “Lillian still sews her own hems. She would not leave a coat that cost her a week.”
 - **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing — a fee, a lock, a sister’s bad habit — that no poster would print. If a line could go on the poster, it isn’t Lila yet.
-- **Competence that is not charm:** She sews; she can read a shipping roster.
+- **Competence that is not charm:** She sews; she can read a shipping roster; she found the key the Watch never felt for.
 - **Loyalty that can hurt Voss:** She will protect Lillian’s dock work before she protects his case.
 - **Bad at his game, once:** A pause, a too-fast money answer, or a fee she names awkwardly. When she lies, the lie is small and checkable — so the dock truth is never “the dame was the twist.”
 - **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
-
 #### Supporting cast (named only as needed by the outline)
 
 Do not expand into full sheets here. Story beats may introduce: a tired Watch sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
