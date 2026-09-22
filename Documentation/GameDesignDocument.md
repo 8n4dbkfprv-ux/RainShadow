@@ -132,16 +132,75 @@ RainShadow’s first cast is deliberately small and sharp. Supporting players (w
 
 #### Harlan Voss — player protagonist
 
-- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. Formerly of the **river watch** (or adjacent Watch work); the public machine no longer claims him. The player’s body, voice, and moral weather.
+Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphrase; it must not invent facts this sheet has not established for that beat. Wound-hint monos and desk stings in `strings.en.json` are the locked M01 voice for the core wound.
+
+##### Who he is now
+
+- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. The player’s body, voice, and moral weather. Clients find him when the watch house has already filed something soft and called it finished.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
-- **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
-- **Core wound (working):** A prior missing-person—**docker**, unnamed in M01—he closed “correctly” on paper: trusted a tide chart more than a sister, called a coat an ending. Wrong in human terms. Harborpoint still files him as useful and disposable. Empty Coat intro monos 3–5 and the desk casefile sting hint this without a Watch-exit speech or naming the dead.
-- **Office:** Sable Row. Hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
-- **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
-- **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
-- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
+- **Station:** The Watch still knows his name; they do not miss him. Office on **Sable Row**—hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
+
+##### How he works
+
+He reads rooms before people. He lets silence do half the interrogation. He takes cases he half-believes are already dead, because rent does not care about his standards. He writes clean notes and keeps dirty doubts. He will lie to a sergeant if the truth would bury a living person under a tidy coat. Will fight when cornered, but treats violence as a confession that talk failed.
+
+##### The Watch years (backstory spine)
+
+River watch for six years, then night books at the Wharf Ladder annex. Good at drownings that were not drownings. The break: a missing **docker** he “closed” on a coat and a tide chart. Paper said suicide. A sister said otherwise. He chose the paper. She was right. He left before the Watch could make him choose paper again. That case is the wound Empty Coat rhymes with—Lila walks in wearing the shape of his old mistake.
+
+##### Core wound
+
+He closed a case correctly on the ledger and wrong in the world. Someone paid for his certainty. He will not say the docker’s name in M01, but the unpaid notices on his desk are not only about money—they are about work he will not touch because it smells like that file.
+
+Shipped wound hints (do not drift these quotes without updating the string table):
+
+- Mono 3: “Same as yesterday — and the night I trusted a tide chart more than a sister.”
+- Mono 4: “…Like someone who had already been told the river was answer enough.”
+- Mono 5: “I already hated how familiar that shape felt.”
+- Desk 2: “I have closed a case on less — and been wrong in a way ink doesn't show.”
+- Desk end: “I am done calling coats an ending.”
+
+##### How he sounds
+
+Short sentences. Weather and objects before feelings. Dry enough to pass for cruel until you notice he is measuring cost, not scoring points. Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence. Fantasy sits in the seams (wards, ravens, coin that never warms) without turning him into a mage or a prophet. He notices magic the way he notices damp: as evidence.
+
+- **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
+- **Shipped mono 1 texture:** “Rain had been working the glass since afternoon. The ward on the sill hadn't bothered to argue.”
+
+##### Temperament levers (for dialogue)
+
+| Tone | How he plays it |
+|---|---|
+| **Warm** | Protects the client first; softens facts without falsifying them |
+| **Dry** | Inventory and timeline; trusts ledgers more than tears |
+| **Sharp** | Tests the story for exits; assumes everyone is selling something, including him |
+
+##### Relationships
+
+- **Harborpoint Watch:** Useful contacts, no loyalty. One tired sergeant still answers his ravens. Most of the house treats him as a man who quit when it got hard.
+- **Lila March:** Not romance in M01—**recognition**. She is the sister who did not accept the coat. That frightens him more than the gray overcoat does. Attraction, trust, or rupture remain **player-shaped** beyond M01.
+- **The city:** He loves Harborpoint the way you love a building that is trying to kill you slowly: you know every stair that creaks.
+
+##### What he wants (stacked)
+
+1. Coin enough to keep the sill-ward fed and the notices quiet.
+2. A case he can finish without filing a comfortable lie.
+3. *(Buried)* Proof he is not still the man who chose the ledger over the sister.
+
+##### What he must not become
+
+Omniscient. Soft-boiled. A chosen one. A Watch reform arc in Act I. He is good; he is not clean.
+
+##### Seeds for later (not M01 dumps)
+
+- The docker’s sister still lives in Ashfield Yards.
+- His old river-watch logbook is missing three nights.
+- The sergeant who answers ravens wants a favor that will cost a name.
+- Something in his office hush-ward was set by a person who is not him.
+
+- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
 
 #### Lila March — the dame / first client
 
@@ -783,7 +842,7 @@ The art gate is qualitative but strict: at final display scale, the office must 
 
 ## 15. Open design decisions after M01
 
-- Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
+- Ethnicity detail, pre-Harborpoint childhood, and VO casting notes for **Harlan Voss** beyond the full §4.2 canon sheet.
 - Romance-branch density and Act II+ casting notes for **Lila March** beyond the full §4.2 canon sheet (Lillian’s employment remains Wharf Ladder shipping office per §4.3.2).
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
@@ -792,6 +851,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - First combat set-piece location and temporary-ally roster for Act II.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Lila March character bible (§4.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Harlan Voss and Lila March character bibles (§4.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
 
 None of the remaining open decisions blocks the opening-sequence architecture.
