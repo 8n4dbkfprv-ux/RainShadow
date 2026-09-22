@@ -124,7 +124,7 @@ public enum EmptyCoatJournalContent {
         var leads = [
             "Identify what the brass key opens.",
             "Trace Lillian from two nights past: Wharf Ladder shipping office to the river stones.",
-            "Find or name the man in the gray overcoat."
+            "Find or name the man in the gray greatcoat."
         ]
         if input.caseFlags.contains(EmptyCoatDialogueKeys.clientRetained)
             || input.queuedJournalFragments.contains(where: { $0.id == EmptyCoatDialogueKeys.clientRetainedJournalID })
@@ -144,7 +144,7 @@ public enum EmptyCoatJournalContent {
             summary: "Lillian March vanished two nights past. Her coat came back from the river. She did not.",
             body: [
                 "Harborpoint Watch called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
-                "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray overcoat and black gloves has been following her. The key stays on the desk leather."
+                "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray greatcoat and black gloves has been following her. The key stays on the desk leather."
             ],
             leads: leads,
             isNew: false
@@ -224,7 +224,7 @@ public enum EmptyCoatJournalContent {
             title: "The Gray Man",
             eyebrow: "Unknown suspect",
             status: "Unidentified",
-            summary: "Gray overcoat, black gloves. Watches Lila from across the street.",
+            summary: "Gray greatcoat, black gloves. Watches Lila from across the street.",
             body: [
                 "He turns away when she looks directly at him. Cart noise, doorway posts—professional habits. He wants to know where she takes the key. Not yet proven badge or private muscle."
             ],
@@ -328,7 +328,7 @@ public enum EmptyCoatJournalContent {
             title: "Lila followed",
             eyebrow: "Two nights past",
             status: "Lower city",
-            summary: "A man in a gray overcoat and black gloves follows Lila after she recovers the key.",
+            summary: "A man in a gray greatcoat and black gloves follows Lila after she recovers the key.",
             body: [
                 "No conversation. Professional habits. He wants the key's destination, not a social call."
             ],

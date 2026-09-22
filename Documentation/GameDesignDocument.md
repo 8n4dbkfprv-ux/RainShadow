@@ -180,7 +180,7 @@ Short sentences. Weather and objects before feelings. Dry enough to pass for cru
 ##### Relationships
 
 - **Harborpoint Watch:** Useful contacts, no loyalty. One tired sergeant still answers his ravens. Most of the house treats him as a man who quit when it got hard.
-- **Lila March:** Not romance in M01—**recognition**. She is the sister who did not accept the coat. That frightens him more than the gray overcoat does. Attraction, trust, or rupture remain **player-shaped** beyond M01.
+- **Lila March:** Not romance in M01—**recognition**. She is the sister who did not accept the coat. That frightens him more than the gray greatcoat does. Attraction, trust, or rupture remain **player-shaped** beyond M01.
 - **The city:** He loves Harborpoint the way you love a building that is trying to kill you slowly: you know every stair that creaks.
 
 ##### What he wants (stacked)
@@ -219,7 +219,7 @@ Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphras
 
 ##### What she knows (and what she holds back)
 
-She knows the coat was **arranged**. She knows the key **hummed**. She knows Lillian was reading manifests that made someone nervous. In M01 she admits the manifests only under **pressure**—not coy for sport, but because names without proof get people followed, and she is already being followed. The **gray overcoat** is not a rumor invented for leverage: she has timed him (eleven to one, bakery doorway). She is exhausted and still precise.
+She knows the coat was **arranged**. She knows the key **hummed**. She knows Lillian was reading manifests that made someone nervous. In M01 she admits the manifests only under **pressure**—not coy for sport, but because names without proof get people followed, and she is already being followed. The **gray greatcoat** is not a rumor invented for leverage: she has timed him (eleven to one, bakery doorway). She is exhausted and still precise.
 
 ##### How she sounds
 
@@ -243,7 +243,7 @@ Thirty now is not a flourish. It is most of what she can liquidate without selli
 ##### What she wants (stacked)
 
 1. Lillian alive—or a truth that is not a coat.
-2. The gray overcoat off her stairs.
+2. The gray greatcoat off her stairs.
 3. *(Buried)* Not to become the sister who accepted the ledger’s answer, the way someone once did to another family.
 
 ##### What she must not become
@@ -256,7 +256,7 @@ Professional first. Attraction, trust, or rupture are **player-shaped**, not a m
 
 ##### Seeds for later (not M01 dumps)
 
-- The ink-shop owner saw the gray overcoat two days before Lila did.
+- The ink-shop owner saw the gray greatcoat two days before Lila did.
 - Lila has a partial copy of one manifest line she will not show until she trusts Voss not to sell it.
 - She and Lillian fought the night before the vanishing—about whether to burn a page.
 - Printers’ Quarter friend with “real locks” owes her a favor she hates using.
@@ -334,7 +334,7 @@ Aligned to the shipped Empty Coat intro graph:
 3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
 4. **Harborpoint Watch** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
 5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands; faint lamp oil and river water on the metal.
-6. Since the key: a **Gray Man** (gray overcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
+6. Since the key: a **Gray Man** (gray greatcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
 7. Voss accepts the case; the key stays in his care on the desk leather.
 
 ##### People

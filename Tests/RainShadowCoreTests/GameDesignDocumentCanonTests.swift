@@ -76,7 +76,7 @@ struct GameDesignDocumentCanonTests {
         #expect(text.contains("case.empty-coat") || text.contains("`case.empty-coat`"))
         #expect(text.contains("Wharf Ladder"))
         #expect(text.contains("brass key") || text.contains("Brass key") || text.contains("**brass key**"))
-        #expect(text.contains("Gray Man") || text.contains("gray overcoat"))
+        #expect(text.contains("Gray Man") || text.contains("gray greatcoat"))
         #expect(text.contains("H. VOSS") || text.contains("PRIVATE INVESTIGATIONS"))
         #expect(text.contains("Journal UX contract") || text.contains("journal UX contract")
             || text.contains("##### Journal UX contract"))

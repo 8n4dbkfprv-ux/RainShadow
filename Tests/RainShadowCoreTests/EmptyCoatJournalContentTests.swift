@@ -39,7 +39,7 @@ struct EmptyCoatJournalContentTests {
         #expect(blob.contains("Lillian March"))
         #expect(blob.contains("Lila March"))
         #expect(blob.contains("brass key") || blob.contains("Brass key") || blob.contains("Brass Key"))
-        #expect(blob.contains("gray overcoat") || blob.contains("Gray Man"))
+        #expect(blob.contains("gray greatcoat") || blob.contains("Gray Man"))
         #expect(blob.contains("Wharf Ladder") || blob.contains("shipping"))
         #expect(blob.contains("river") || blob.contains("Riverside"))
         #expect(!blob.contains("Lillian Hart"))
