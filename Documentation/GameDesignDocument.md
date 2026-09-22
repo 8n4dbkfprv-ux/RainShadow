@@ -145,19 +145,65 @@ Seated idle for M01 communicates fatigue without inertia: breathing, a small shi
 
 #### Lila March — the dame / first client
 
+Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphrase; it must not invent facts this sheet has not established for that beat.
+
+##### Who she is
+
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
-- **Orbit:** **Printers’ Quarter**—ink-shop books, boarding house, friends with real locks and thresholds that hold. Pays in good coin, not dock-ledger chalk (thirty now; rest when Lillian is found).
-- **Age / look:** Early-twenties adult woman with a chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald 1940s day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
-- **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
-- **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found—not the coat’s alibi.
-- **Deeper tension:** She knows more than the first conversation admits—about Lillian’s manifests near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Under pressure she holds names not clean enough for a magistrate’s hall; she has a sister and a key. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
-- **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
+- **Age / look:** Mid-to-late twenties. Chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
+- **Station:** Not Watch, not Dock Authority, not money. Boarding house near **Printers’ Quarter**. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Watch offered coffee and tides—and she has run out of polite rooms.
+- **Orbit:** Friends with real locks and thresholds that hold; gossip as second currency; ink-shop books as honest work that also teaches her how manifests hide.
+
+##### Bond with Lillian
+
+**Lillian March** is older by three years—the steady one. Ledgers, manifests, seals at Wharf Ladder. Lila is the one who argues. They share a mother who left early and a habit of sewing their own hems because coin spent on a tailor is coin that should have been food. Lila does not romanticize Lillian. She is furious at her for being the kind of person who would chase an unfinished book into danger—and terrified that fury is the last true thing she still has.
+
+##### What she knows (and what she holds back)
+
+She knows the coat was **arranged**. She knows the key **hummed**. She knows Lillian was reading manifests that made someone nervous. In M01 she admits the manifests only under **pressure**—not coy for sport, but because names without proof get people followed, and she is already being followed. The **gray overcoat** is not a rumor invented for leverage: she has timed him (eleven to one, bakery doorway). She is exhausted and still precise.
+
+##### How she sounds
+
+Complete sentences when she is selling the case. Shorter when she is cornered. She matches Voss’s dry register without mimicking him—she is not performing noir; she is trying not to shake. Fantasy texture enters as **fact** (hush-ward, reading-rights, seals that bite), never as wonder. She does not find magic interesting. She finds it inconvenient and real.
+
 - **Voice sample (design target):** “Lillian still sews her own hems. She would not leave a coat that cost her a week.”
-- **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing — a fee, a lock, a sister’s bad habit — that no poster would print. If a line could go on the poster, it isn’t Lila yet.
-- **Competence that is not charm:** She sews; she can read a shipping roster; she found the key the Watch never felt for.
-- **Loyalty that can hurt Voss:** She will protect Lillian’s dock work before she protects his case.
-- **Bad at his game, once:** A pause, a too-fast money answer, or a fee she names awkwardly. When she lies, the lie is small and checkable — so the dock truth is never “the dame was the twist.”
+- **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing—a fee, a lock, a sister’s bad habit—that no poster would print. If a line could go on the poster, it isn’t Lila yet.
+
+##### Money
+
+Thirty now is not a flourish. It is most of what she can liquidate without selling the boarding-house bond. Good coin, not dock-ledger chalk. “The rest when you find her” is faith and threat in one line—if Voss takes the coin and files soft, she will not go quietly to another office.
+
+##### Temperament against Voss’s levers
+
+| His tone | How she answers |
+|---|---|
+| **Warm** | Softens; pays faster; offers the follower clean |
+| **Dry** | Becomes a clerk of her own grief—times, places, the coat in the paper bag |
+| **Sharp** | Goes cold and useful; the gated manifests line is her refusing to be handled |
+
+##### What she wants (stacked)
+
+1. Lillian alive—or a truth that is not a coat.
+2. The gray overcoat off her stairs.
+3. *(Buried)* Not to become the sister who accepted the ledger’s answer, the way someone once did to another family.
+
+##### What she must not become
+
+The dame as prize. A quest-giver with no interior. A liar for twist’s sake. If she withholds, it costs her—**fear, not cleverness**. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
+
+##### Relationship to Voss
+
+Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon. Competence that is not charm: she sews; she can read a shipping roster; she found the key the Watch never felt for. Loyalty that can hurt him: she will protect Lillian’s dock work before she protects his case. Bad at his game, once: a pause, a too-fast money answer, or a fee she names awkwardly—when she lies, the lie is small and checkable, so the dock truth is never “the dame was the twist.”
+
+##### Seeds for later (not M01 dumps)
+
+- The ink-shop owner saw the gray overcoat two days before Lila did.
+- Lila has a partial copy of one manifest line she will not show until she trusts Voss not to sell it.
+- She and Lillian fought the night before the vanishing—about whether to burn a page.
+- Printers’ Quarter friend with “real locks” owes her a favor she hates using.
+
 - **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
+
 #### Supporting cast (named only as needed by the outline)
 
 Do not expand into full sheets here. Story beats may introduce: a tired Watch sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
