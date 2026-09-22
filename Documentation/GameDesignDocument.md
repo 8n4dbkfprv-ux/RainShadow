@@ -112,7 +112,7 @@ Immersion comes from **authored density**: specific smells, recurring NPCs who r
 
 #### Everyday economy
 
-Good coin vs dock-ledger chalk. Thirty now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Watch badge—sits in the gap between Watch indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
+Good coin vs dock-ledger chalk. Two hundred now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Watch badge—sits in the gap between Watch indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
 
 #### Tone rules for world writing
 
@@ -230,7 +230,7 @@ Complete sentences when she is selling the case. Shorter when she is cornered. S
 
 ##### Money
 
-Thirty now is not a flourish. It is most of what she can liquidate without selling the boarding-house bond. Good coin, not dock-ledger chalk. “The rest when you find her” is faith and threat in one line—if Voss takes the coin and files soft, she will not go quietly to another office.
+Two hundred now is not a flourish. It is most of what she can liquidate without selling the boarding-house bond. Good coin, not dock-ledger chalk. “The rest when you find her” is faith and threat in one line—if Voss takes the coin and files soft, she will not go quietly to another office.
 
 ##### Temperament against Voss’s levers
 
@@ -357,7 +357,7 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 **Purpose:** Give the player Lillian as a worker, not only a missing sister. Plant seal-magic and scrubbed reading-rights. Introduce a human obstacle who sells silence by the hour.
 
-**Entry:** Voss arrives with Lila’s thirty still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays at Printers’ Quarter—player choice from prior beat.
+**Entry:** Voss arrives with Lila’s two hundred still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays at Printers’ Quarter—player choice from prior beat.
 
 **Cast on stage:**
 
@@ -417,7 +417,7 @@ Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-saf
 | Character | Starts | Ends Act I |
 |---|---|---|
 | **Voss** | Avoiding missing-person rhymes | Committed to a case he can’t file soft |
-| **Lila** | Buying help with thirty and fury | Partner in risk; still not a prize |
+| **Lila** | Buying help with two hundred and fury | Partner in risk; still not a prize |
 | **Lillian** | Absence / coat | Presence through handwriting, seals, unfinished book |
 | **Gray greatcoat** | Follower | Active claimant on the key |
 
