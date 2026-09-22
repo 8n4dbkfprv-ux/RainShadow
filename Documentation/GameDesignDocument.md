@@ -349,6 +349,53 @@ Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on ma
 
 Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull.
 
+####### Scene card — Wharf Ladder shipping office *(design runway; not M01)*
+
+**Case:** The Empty Coat · Beat 3 (Act I runway beyond M01 office slice)  
+**Location:** Shipping office near the river mouth; ledgers, seals, a clock that runs three minutes fast when the night crew wants an alibi the wards will swear to.  
+**Scope:** Design only. Does not inflate M01 implementation. Follower = **gray greatcoat**. Case garment / title = **coat** / **THE EMPTY COAT**.
+
+**Purpose:** Give the player Lillian as a worker, not only a missing sister. Plant seal-magic and scrubbed reading-rights. Introduce a human obstacle who sells silence by the hour.
+
+**Entry:** Voss arrives with Lila’s thirty still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays at Printers’ Quarter—player choice from prior beat.
+
+**Cast on stage:**
+
+| Role | Who | Notes |
+|---|---|---|
+| PC | Harlan Voss | Dry first; Watch past helps or hurts depending on tone |
+| Obstacle | Dock clerk (working name: Merrick) | Sells silence; knows Lillian’s last night; afraid of seals |
+| Absent pressure | Gray greatcoat | Seen across the quay once—does not enter yet |
+| Optional | Night watch runner | Mentions soft file / tide speech if Voss flashes old river-watch habits |
+
+**Objectives:**
+
+1. Confirm last sighting: left at nine, “one more errand uptown,” no hired coach on the desk slate.
+2. Find seal-mark scrap or bitten-glove smear on her desk-leather edge.
+3. Learn reading-rights on her last manifest pull were scrubbed after she vanished.
+4. Exit with a lead toward Civic Spine records or Dock Authority lost-crate numbers.
+
+**Obstacles:** Clerk won’t talk without coin, a favor, or a threat that costs Voss something (Warm / Dry / Sharp gates). Seals that bite: inspecting the wrong folio without reading-rights = pain / alarm / clerk panic. Night clock lies; timeline must be reconstructed, not trusted.
+
+**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.greatcoat.quay`.
+
+**Dialogue spine (not full script):**
+
+- Clerk: “She never missed the morning ferry. That night she did everything twice — checked the seal, checked it again.”
+- Voss (dry): “Show me the second check.”
+- Clerk (if pressed): “Someone from Civic came for the reading-rights after. Polite. The folios still hurt if you touch the wrong line.”
+- If sharp: clerk names a crate mark then clamms; greatcoat across the quay shifts.
+
+**Failure / soft fail:** Leave with only the ferry/nine facts (already known) and a frightened clerk. No seal scrap—Act I still playable via river stones, but Civic Spine lead is weaker.
+
+**Success:** Seal scrap + scrubbed rights + uptown errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
+
+**Tone locks:** No combat required. Magic = bitten seals and scrubbed rights, not fireballs. Greatcoat is silhouette, not boss fight. Voss does not confess the docker wound here.
+
+**Art / audio notes:** Oil lamps, wet wool, brass seal-presses, raven cage in the corner (empty). Clock tick slightly off. Distant ferry horn. Rain on tin roof harder than on Sable Row glass.
+
+**Exit:** To river stones / iron stairs (Beat 4) or straight to pressure if the player saw the greatcoat on the quay.
+
 ###### 4. Lead two — River stones / iron stairs *(Act I beyond M01)*
 
 Where the coat was found, arranged. River watch repeats the tide speech. Soft file smells of political pressure, not incompetence alone.
