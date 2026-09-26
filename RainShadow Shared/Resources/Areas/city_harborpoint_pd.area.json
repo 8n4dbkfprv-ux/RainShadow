@@ -57,12 +57,12 @@
       "city",
       "outdoor"
     ],
-    "arrivalHint" : "HARBORPOINT PD  •  Soft files cool faster than the rain.",
+    "arrivalHint" : "HARBORPOINT WATCH  •  Soft files cool faster than the rain.",
     "containers" : [
 
     ],
     "defaultTerrain" : "stone",
-    "displayName" : "HARBORPOINT PD",
+    "displayName" : "HARBORPOINT WATCH",
     "doors" : [
       {
         "approachPoints" : [
@@ -165,7 +165,7 @@
           0.26,
           1
         ],
-        "label" : "STATION",
+        "label" : "WATCH HOUSE",
         "point" : {
           "x" : 2862.5,
           "y" : 907
@@ -7554,7 +7554,7 @@
         },
         "id" : "portal.pdEntrance",
         "kind" : "travel",
-        "label" : "STATION",
+        "label" : "WATCH HOUSE",
         "lockedLine" : "The desk sergeant keeps soft conclusions behind glass. Exterior only for now.",
         "polygon" : [
           {

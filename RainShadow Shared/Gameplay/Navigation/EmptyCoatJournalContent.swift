@@ -204,7 +204,7 @@ public enum EmptyCoatJournalContent {
             body: [
                 "Arrived after midnight, frightened but precise. She recovered the key from the lining before the coat fully left her hands. She believes she is being watched, and she is right."
             ],
-            leads: ["Keep her address off the police paperwork."],
+            leads: ["Keep her address out of the Watch's night books."],
             isNew: false
         ),
         CaseJournalEntry(
@@ -252,9 +252,9 @@ public enum EmptyCoatJournalContent {
         CaseJournalEntry(
             id: "evidence.coat",
             title: "Riverside Coat",
-            eyebrow: "Physical evidence · police custody",
+            eyebrow: "Physical evidence · Watch custody",
             status: "Not examined",
-            summary: "Left on the river stones below the old iron stairs as a conclusion someone expected the police to accept.",
+            summary: "Left on the river stones below the old iron stairs as a conclusion someone expected the Watch to accept.",
             body: [
                 "Pockets turned like a stage direction. Lila found the key before the garment fully entered the official bag. Placement and missing body point to staging—not a tidy accident."
             ],
@@ -308,7 +308,7 @@ public enum EmptyCoatJournalContent {
             body: [
                 "The search begins and ends at the same convenient conclusion: probable drowning, case cooling."
             ],
-            leads: ["The coat enters police custody."],
+            leads: ["The coat enters Watch custody."],
             isNew: false
         ),
         CaseJournalEntry(

@@ -95,6 +95,6 @@ The complete Swift suite passes with 368 tests in 31 suites using
 `/tmp/RainShadowSwiftPM-V17`. Both canonical Xcode schemes currently stop on
 unrelated pre-existing missing map-icon inputs under `Art/UI/Map`; the iOS build
 reports `map_district_icon_civic_records_v01.png`, while macOS also reports the
-Harborpoint PD and Lila Street icons. V17 resources compile through SwiftPM and
+Harborpoint Watch and Lila Street icons. V17 resources compile through SwiftPM and
 their installed hashes match staging 210/210. Manual in-game review still covers
 all facings, office seating/egress, city scale, inventory, HUD and dialogue.
