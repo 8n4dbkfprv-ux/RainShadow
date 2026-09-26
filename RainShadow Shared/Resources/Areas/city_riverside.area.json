@@ -7561,7 +7561,7 @@
         "id" : "portal.ironStairs",
         "kind" : "travel",
         "label" : "STAIRS",
-        "lockedLine" : "Wet iron and staged stones. The coat is already in police custody.",
+        "lockedLine" : "Wet iron and staged stones. The coat is already in Lantern custody.",
         "polygon" : [
           {
             "x" : 2861.75,

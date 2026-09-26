@@ -751,7 +751,7 @@ a building, and reported nothing wrong. Three bugs lived behind it:
 
 - the office floor sealed to **174 of 4,694** walkable cells,
 - the office door with **no exact path**, so the exit to the city was unclickable,
-- Harborpoint PD spawning the detective **inside an 820×680 station**, 1 of 5,795
+- Lamp Ward spawning the detective **inside an 820×680 station**, 1 of 5,795
   cells reachable, on a district reachable from the world map.
 
 Use `reachesExactly` and flood-fill the runtime search map. A non-empty `path`

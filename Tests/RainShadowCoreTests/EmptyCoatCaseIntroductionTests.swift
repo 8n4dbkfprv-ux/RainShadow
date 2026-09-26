@@ -65,7 +65,7 @@ struct EmptyCoatCaseIntroductionTests {
         #expect(byID["voss.accept.b"] == nil)
 
         // Acceptance lives on reply choices toward the plea.
-        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait by the phone"]
+        let acceptAnchors = ["i'll take the key", "i'll take the case", "don't wait on a raven"]
         let triad3Terminals = ["lila.reply.good3.b", "lila.reply.neutral3.b", "lila.reply.cynical3.b"]
         for terminalID in triad3Terminals {
             let terminal = byID[terminalID]
@@ -156,27 +156,27 @@ struct EmptyCoatCaseIntroductionTests {
         let inspect = OfficeHotspotInspect.self
         #expect(
             inspect.text(forHotspotID: "office.desk", alreadyInspected: false)
-                == "Three old cases, two unpaid bills, one clean page."
+                == "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet."
         )
         #expect(
             inspect.text(forHotspotID: "office.window", alreadyInspected: false)
-                == "The rain had been at the glass longer than I had."
+                == "The rain had been working the glass longer than I had. The sill-ward didn't care either way."
         )
         #expect(
             inspect.text(forHotspotID: "office.phone", alreadyInspected: false)
-                == "Quiet. For once it had the decency to look guilty."
+                == "Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it."
         )
         #expect(
             inspect.text(forHotspotID: "office.files", alreadyInspected: false)
-                == "Closed, abandoned, and one I still lied about."
+                == "Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut."
         )
         #expect(
             inspect.text(forHotspotID: "office.door", alreadyInspected: false)
-                == "The hall smelled worse, but at least it led somewhere."
+                == "The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere."
         )
 
         let plea = nodes.first { $0.id == "lila.plea" }?.text ?? ""
-        #expect(plea.contains("Find the sister—not the coat's alibi."))
+        #expect(plea.contains("Find the sister — not the coat's alibi."))
 
         let pd = nodes.first { $0.id == "lila.police.story" }?.text ?? ""
         #expect(pd.contains("filed it soft"))
