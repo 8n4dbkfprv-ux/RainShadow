@@ -43,7 +43,7 @@ enum CityWorldMapCell: Equatable, Hashable {
             case .sableRow: return "SABLE ROW"
             case .wharfLadder: return "WHARF LADDER"
             case .riverside: return "RIVERSIDE"
-            case .harborpointPD: return "HARBORPOINT WATCH"
+            case .harborpointPD: return "LAMP WARD"
             case .lilaStreet: return "LILA'S STREET"
             case .civicRecords: return "CIVIC RECORDS"
             }

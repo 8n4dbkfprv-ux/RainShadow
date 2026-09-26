@@ -69,7 +69,7 @@ This section is the **narrative canon** for Harborpoint, the two established lea
 
 - **Wards / hush-charms / sill-wards** — household and office utilities. Cheap ones fail in rain. Expensive ones lie on purpose. An apartment’s hush-ward that “hadn’t tripped” is evidence, not flavour text.
 - **Ravens** — message birds with iron perches and droppings on desk leather. A live bird is a line open; a dead raven is a broken line and a threat. Voss’s office inspects an empty perch, not a telephone.
-- **Seals that bite** — dock and shipping magic: manifests that hurt if read wrong; **reading-rights** the Watch can smile about and withhold.
+- **Seals that bite** — dock and shipping magic: manifests that hurt if read wrong; **reading-rights** the Lanterns can smile about and withhold.
 - **Thresholds** — boarding-house locks that “hold” are partly carpenter, partly charm. A pause outside a door—like someone testing a threshold—is not only manners.
 
 Magic is never a sparkly skill tree in M01. It is damp, bureaucratic, and for sale.
@@ -80,12 +80,12 @@ Theme and mechanic at once. It obscures footprints, reflects lamp-glow into pudd
 
 #### Power structure (corruption is structural)
 
-Corruption is the **operating system**, not a villain’s hobby. Not a mood filter or a single crooked watchman—**how Harborpoint keeps running**:
+Corruption is the **operating system**, not a villain’s hobby. Not a mood filter or a single crooked lanternman—**how Harborpoint keeps running**:
 
 | Layer | What it pretends to be | What it actually is |
 |---|---|---|
 | **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that vanish on purpose |
-| **Harborpoint Watch** | Law and investigation (watch house, night books, sergeants, river watch) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
+| **The Lantern Company of Harborpoint** (the Lanterns; street slang “lamps”) | Law and investigation (the Lamphouse, night books, lamp-sergeants, lanternmen, river lanterns) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
 | **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, overtime as hush money |
 | **Press & broadsheets** | Public truth | Ownership strings; editors who know which names never print; one or two diggers who still risk ink |
 | **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
@@ -97,7 +97,7 @@ The player feels this through locked doors, altered reports, witnesses who sudde
 
 - **Sable Row** — Voss’s block. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
 - **Wharf Ladder / the Docks** — cargo, boarding houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
-- **Civic Spine** — magistrate’s hall, central watch house, records annex. Marble that stays clean in the rain on purpose.
+- **Civic Spine** — magistrate’s hall, the Lamphouse, records annex. Marble that stays clean in the rain on purpose.
 - **Printers’ Quarter** — broadsheets, ink shops, cafés that never close. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
 - **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later wound-seeds live here (not M01 dumps).
 
@@ -105,14 +105,14 @@ Immersion comes from **authored density**: specific smells, recurring NPCs who r
 
 #### Institutions Voss actually touches
 
-- **River watch** — drownings, recovered coats, tide speeches offered with coffee and a soft file.
+- **River lanterns** — drownings, recovered coats, tide speeches offered with coffee and a soft file.
 - **Night books** — who was where when the clock lied; duty rosters that read cleaner than the street.
-- **Reading-rights** — files the Watch smiles about and does not share; manifests Lillian should not have finished reading.
-- **One sergeant** who still answers ravens — useful, compromised, not a mentor arc in Act I.
+- **Reading-rights** — files the Lanterns smile about and do not share; manifests Lillian should not have finished reading.
+- **One lamp-sergeant** who still answers ravens — useful, compromised, not a mentor arc in Act I.
 
 #### Everyday economy
 
-Good coin vs dock-ledger chalk. Two hundred now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Watch badge—sits in the gap between Watch indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
+Good coin vs dock-ledger chalk. Two hundred now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Lantern badge—sits in the gap between Lantern indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
 
 #### Tone rules for world writing
 
@@ -128,7 +128,7 @@ Mark clearly as **later**. Do not surface in M01 journal or Empty Coat intro as 
 - A municipal ward-license racket that sells “thresholds that hold” to boarding houses that don’t.
 ### 4.2 Characters — the two established leads
 
-RainShadow’s first cast is deliberately small and sharp. Supporting players (watchmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
+RainShadow’s first cast is deliberately small and sharp. Supporting players (lanternmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
 
 #### Harlan Voss — player protagonist
 
@@ -136,19 +136,19 @@ Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphras
 
 ##### Who he is now
 
-- **Role:** Independent **hired finder**—charter and coin, not a Watch badge. The player’s body, voice, and moral weather. Clients find him when the watch house has already filed something soft and called it finished.
+- **Role:** Independent **hired finder**—charter and coin, not a Lantern badge. The player’s body, voice, and moral weather. Clients find him when the Lamphouse has already filed something soft and called it finished.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
-- **Station:** The Watch still knows his name; they do not miss him. Office on **Sable Row**—hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
+- **Station:** The Lanterns still know his name; they do not miss him. Office on **Sable Row**—hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
 
 ##### How he works
 
-He reads rooms before people. He lets silence do half the interrogation. He takes cases he half-believes are already dead, because rent does not care about his standards. He writes clean notes and keeps dirty doubts. He will lie to a sergeant if the truth would bury a living person under a tidy coat. Will fight when cornered, but treats violence as a confession that talk failed.
+He reads rooms before people. He lets silence do half the interrogation. He takes cases he half-believes are already dead, because rent does not care about his standards. He writes clean notes and keeps dirty doubts. He will lie to a lamp-sergeant if the truth would bury a living person under a tidy coat. Will fight when cornered, but treats violence as a confession that talk failed.
 
-##### The Watch years (backstory spine)
+##### The Lantern years (backstory spine)
 
-River watch for six years, then night books at the Wharf Ladder annex. Good at drownings that were not drownings. The break: a missing **docker** he “closed” on a coat and a tide chart. Paper said suicide. A sister said otherwise. He chose the paper. She was right. He left before the Watch could make him choose paper again. That case is the wound Empty Coat rhymes with—Lila walks in wearing the shape of his old mistake.
+River lanterns for six years, then night books at the Wharf Ladder annex. Good at drownings that were not drownings. The break: a missing **docker** he “closed” on a coat and a tide chart. Paper said suicide. A sister said otherwise. He chose the paper. She was right. He left before the Lanterns could make him choose paper again. That case is the wound Empty Coat rhymes with—Lila walks in wearing the shape of his old mistake.
 
 ##### Core wound
 
@@ -179,7 +179,7 @@ Short sentences. Weather and objects before feelings. Dry enough to pass for cru
 
 ##### Relationships
 
-- **Harborpoint Watch:** Useful contacts, no loyalty. One tired sergeant still answers his ravens. Most of the house treats him as a man who quit when it got hard.
+- **The Lanterns:** Useful contacts, no loyalty. One tired lamp-sergeant still answers his ravens. Most of the Lamphouse treats him as a man who quit when it got hard.
 - **Lila March:** Not romance in M01—**recognition**. She is the sister who did not accept the coat. That frightens him more than the gray greatcoat does. Attraction, trust, or rupture remain **player-shaped** beyond M01.
 - **The city:** He loves Harborpoint the way you love a building that is trying to kill you slowly: you know every stair that creaks.
 
@@ -191,13 +191,13 @@ Short sentences. Weather and objects before feelings. Dry enough to pass for cru
 
 ##### What he must not become
 
-Omniscient. Soft-boiled. A chosen one. A Watch reform arc in Act I. He is good; he is not clean.
+Omniscient. Soft-boiled. A chosen one. A Lantern reform arc in Act I. He is good; he is not clean.
 
 ##### Seeds for later (not M01 dumps)
 
 - The docker’s sister still lives in Ashfield Yards.
-- His old river-watch logbook is missing three nights.
-- The sergeant who answers ravens wants a favor that will cost a name.
+- His old river-lantern logbook is missing three nights.
+- The lamp-sergeant who answers ravens wants a favor that will cost a name.
 - Something in his office hush-ward was set by a person who is not him.
 
 - **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
@@ -210,7 +210,7 @@ Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphras
 
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
 - **Age / look:** Mid-to-late twenties. Chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
-- **Station:** Not Watch, not Dock Authority, not money. Boarding house near **Printers’ Quarter**. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Watch offered coffee and tides—and she has run out of polite rooms.
+- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house near **Printers’ Quarter**. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered coffee and tides—and she has run out of polite rooms.
 - **Orbit:** Friends with real locks and thresholds that hold; gossip as second currency; ink-shop books as honest work that also teaches her how manifests hide.
 
 ##### Bond with Lillian
@@ -252,7 +252,7 @@ The dame as prize. A quest-giver with no interior. A liar for twist’s sake. If
 
 ##### Relationship to Voss
 
-Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon. Competence that is not charm: she sews; she can read a shipping roster; she found the key the Watch never felt for. Loyalty that can hurt him: she will protect Lillian’s dock work before she protects his case. Bad at his game, once: a pause, a too-fast money answer, or a fee she names awkwardly—when she lies, the lie is small and checkable, so the dock truth is never “the dame was the twist.”
+Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon. Competence that is not charm: she sews; she can read a shipping roster; she found the key the Lanterns never felt for. Loyalty that can hurt him: she will protect Lillian’s dock work before she protects his case. Bad at his game, once: a pause, a too-fast money answer, or a fee she names awkwardly—when she lies, the lie is small and checkable, so the dock truth is never “the dame was the twist.”
 
 ##### Seeds for later (not M01 dumps)
 
@@ -265,7 +265,7 @@ Professional first. Attraction, trust, or rupture are **player-shaped**, not a m
 
 #### Supporting cast (named only as needed by the outline)
 
-Do not expand into full sheets here. Story beats may introduce: a tired Watch sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
+Do not expand into full sheets here. Story beats may introduce: a tired lamp-sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
 
 ### 4.3 Story outline
 
@@ -278,7 +278,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 | Commitment | How the story delivers it |
 |---|---|
 | **Wit** | Voss’s internal captions and dialogue stay dry, specific, and human. Lila matches him beat for beat. Humor comes from weary precision and character, never spoof-noir or constant purple prose. |
-| **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest watchman in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
+| **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest lanternman in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
 | **Corruption** | Each act peels a higher institutional layer. Evidence is altered by people with badges, letterheads, and good manners—not only by street thugs. |
 | **Combat (BG-like)** | When investigation turns kinetic, encounters use **real-time-with-pause**, tactical positioning, and small allied or temporary party composition in the Infinity Engine spirit—**authored set pieces**, not random trash fights or loot-grind loops. See §4.3.5. |
 | **Immersion** | Continuous rain beds, reactive districts, NPCs who remember, case journal that feels like Voss’s mind on paper, and environmental storytelling before exposition. |
@@ -290,7 +290,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 Lila arrives. Voss takes the case. The office, the key, and the river coat establish method: observe, inspect, interview, commit. Early noir beats land hard—the dame, the rain, the first polite door that will not open. The player learns that Harborpoint’s smallest mysteries already have municipal fingerprints.
 
 **Act II — Follow the key**  
-The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both Watch night books and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
+The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both Lantern night books and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
 
 **Act III — The city answers back**  
 Commitments on the deduction board close routes. Lila’s partial truths come due. A faction above the docks tries to buy Voss off, bury him in paperwork, or remove him. Allies may join for a fight or a testimony. Corruption is no longer ambient; it has a face, a budget, and a preferred ending in which nobody important is embarrassed.
@@ -306,7 +306,7 @@ This section is the **authoritative case structure** for Act I and the M01 case 
 
 ##### Logline
 
-In rain-strangled Harborpoint, hired finder Harlan Voss takes a sister’s coin after the Watch called a humming key and an empty coat an ending—and discovers the missing ledger-keeper was reading seals someone needed unread.
+In rain-strangled Harborpoint, hired finder Harlan Voss takes a sister’s coin after the Lanterns called a humming key and an empty coat an ending—and discovers the missing ledger-keeper was reading seals someone needed unread.
 
 ##### Theme
 
@@ -363,10 +363,10 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 | Role | Who | Notes |
 |---|---|---|
-| PC | Harlan Voss | Dry first; Watch past helps or hurts depending on tone |
+| PC | Harlan Voss | Dry first; Lantern past helps or hurts depending on tone |
 | Obstacle | Dock clerk (working name: Merrick) | Sells silence; knows Lillian’s last night; afraid of seals |
 | Absent pressure | Gray greatcoat | Seen across the quay once—does not enter yet |
-| Optional | Night watch runner | Mentions soft file / tide speech if Voss flashes old river-watch habits |
+| Optional | Lamphouse night runner | Mentions soft file / tide speech if Voss flashes old river-lantern habits |
 
 **Objectives:**
 
@@ -398,11 +398,11 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 ###### 4. Lead two — River stones / iron stairs *(Act I beyond M01)*
 
-Where the coat was found, arranged. River watch repeats the tide speech. Soft file smells of political pressure, not incompetence alone.
+Where the coat was found, arranged. The river lanterns repeat the tide speech. Soft file smells of political pressure, not incompetence alone.
 
 ###### 5. Pressure — The gray greatcoat *(Act I beyond M01)*
 
-Not a jump scare: professional habits. Streetlamps dim. He wants the key, not Lila’s life—yet. Choice: protect Lila’s threshold / bait with a false key rumor / ask the sergeant who still answers ravens (costs a favor).
+Not a jump scare: professional habits. Streetlamps dim. He wants the key, not Lila’s life—yet. Choice: protect Lila’s threshold / bait with a false key rumor / ask the lamp-sergeant who still answers ravens (costs a favor).
 
 ###### 6. Mid-Act turn — The page they almost burned *(Act I beyond M01)*
 
@@ -410,7 +410,7 @@ Lila admits the fight: Lillian wanted to burn a manifest line; Lila wanted a cop
 
 ###### 7. Act I break *(Act I beyond M01)*
 
-Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Watch will not help without a sacrifice. The greatcoat stops pretending to only watch.
+Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Lanterns will not help without a sacrifice. The greatcoat stops pretending to only watch.
 
 ##### Character arcs (Act I only)
 
@@ -440,8 +440,8 @@ Aligned to the shipped Empty Coat intro graph:
 
 1. Lillian vanished **two nights past** after work at a shipping office near **Wharf Ladder** (ledgers, manifests, seals that bite if you read them wrong).
 2. Last known: left work about nine; told a clerk she had one more errand uptown; no hired coach chalked on the desk slate.
-3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
-4. **Harborpoint Watch** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
+3. By midnight, the river lanterns found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
+4. **The Lanterns** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
 5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands; faint lamp oil and river water on the metal.
 6. Since the key: a **Gray Man** (gray greatcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
 7. Voss accepts the case; the key stays in his care on the desk leather.
@@ -453,7 +453,7 @@ Aligned to the shipped Empty Coat intro graph:
 | `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
 | `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
-| *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
+| *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
 
 ##### Evidence
@@ -461,8 +461,8 @@ Aligned to the shipped Empty Coat intro graph:
 | ID | Item | Custody | Reliability | M01 journal? | Leads |
 |---|---|---|---|---|---|
 | `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
-| `evidence.coat` | Riverside coat | Watch / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
-| `evidence.pd-file` | Soft missing-person file | Harborpoint Watch | Compromised / incomplete | No (later) | Ally sergeant; dual ledgers |
+| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
+| `evidence.pd-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
 | `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)
@@ -474,8 +474,8 @@ Aligned to the shipped Empty Coat intro graph:
 
 **Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
 - Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights).
-- River recovery site + constable / river-watch soft file.
-- Gray greatcoat pressure (threshold / bait / sergeant favor).
+- River recovery site + constable / river-lantern soft file.
+- Gray greatcoat pressure (threshold / bait / lamp-sergeant favor).
 - Mid-act trust gate: the page they almost burned; partial manifest line.
 - Civic Spine / Dock Authority “lost” crates signatures.
 - Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
@@ -567,7 +567,7 @@ The finale must satisfy:
 2. **Chain of deduction** — Voss recounts evidence the player could have found, marks which claims were lies, and shows how the empty coat, the key, and the sister’s fate interlock.
 3. **Fair play** — no essential killer identity that depended on unobtainable content; optional details may deepen but not sole-source the truth.
 4. **Human cost** — the reveal wounds someone Voss or Lila might have preferred to spare.
-5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, Watch, docks), not a binary credits slide alone.
+5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, Lanterns, docks), not a binary credits slide alone.
 
 ### 4.4 Tonal rules
 

@@ -57,12 +57,12 @@
       "city",
       "outdoor"
     ],
-    "arrivalHint" : "HARBORPOINT WATCH  •  Soft files cool faster than the rain.",
+    "arrivalHint" : "LAMP WARD  •  Soft files cool faster than the rain.",
     "containers" : [
 
     ],
     "defaultTerrain" : "stone",
-    "displayName" : "HARBORPOINT WATCH",
+    "displayName" : "LAMP WARD",
     "doors" : [
       {
         "approachPoints" : [
@@ -165,7 +165,7 @@
           0.26,
           1
         ],
-        "label" : "WATCH HOUSE",
+        "label" : "LAMPHOUSE",
         "point" : {
           "x" : 2862.5,
           "y" : 907
@@ -7554,8 +7554,8 @@
         },
         "id" : "portal.pdEntrance",
         "kind" : "travel",
-        "label" : "WATCH HOUSE",
-        "lockedLine" : "The desk sergeant keeps soft conclusions behind glass. Exterior only for now.",
+        "label" : "LAMPHOUSE",
+        "lockedLine" : "The lamp-sergeant on the desk keeps soft conclusions behind glass. Exterior only for now.",
         "polygon" : [
           {
             "x" : 2833.25,

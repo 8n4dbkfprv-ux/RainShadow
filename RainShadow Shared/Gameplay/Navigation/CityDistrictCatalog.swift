@@ -41,7 +41,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .sableRow: return "Ward"
         case .wharfLadder: return "Docks"
         case .riverside: return "Riverfront"
-        case .harborpointPD: return "Watch Ward"
+        case .harborpointPD: return "Lamp Ward"
         case .lilaStreet: return "Street"
         case .civicRecords: return "Archives"
         }
@@ -93,7 +93,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "WHARF SHIPPING OFFICE"
         case .ironStairs: "RIVERSIDE ROOMS"
-        case .policeStation: "HARBORPOINT WATCH HOUSE"
+        case .policeStation: "HARBORPOINT LAMPHOUSE"
         case .lilaRooms: "LILA STREET ROOMS"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
@@ -795,7 +795,7 @@ enum CityDistrictCatalog {
                 ),
                 destination: .interior(.ironStairs),
                 requiresCityOpen: false,
-                lockedInspectLine: "Wet iron and staged stones. The coat is already in Watch custody."
+                lockedInspectLine: "Wet iron and staged stones. The coat is already in Lantern custody."
             )
         ],
         pointsOfInterest: [
@@ -807,13 +807,13 @@ enum CityDistrictCatalog {
         ]
     )
 
-    // MARK: - Harborpoint Watch (south)
+    // MARK: - Lamp Ward (south)
 
-    /// Watch ward. The watch house is the landmark and it is *walled*: `pd_plaza_wall`
-    /// closes the low frontage of its block, and the watch house stands back behind
+    /// Lamp Ward. The Lamphouse is the landmark and it is *walled*: `pd_plaza_wall`
+    /// closes the low frontage of its block, and the Lamphouse stands back behind
     /// a forecourt with the squad cars ranked in the carriageway outside. A
     /// wall is one of the three cues Baldur's Gate allows a landmark, and it is
-    /// the one a watch house should get.
+    /// the one a lamphouse should get.
     private static let pdBlock = CityBlockGrid.block(i: 2, j: -1)
 
     private static let pdStation = CityDistrictDefinition.VisualSprite(
@@ -874,8 +874,8 @@ enum CityDistrictCatalog {
 
     static let harborpointPD = CityDistrictDefinition(
         id: .harborpointPD,
-        locationName: "HARBORPOINT WATCH",
-        arrivalHint: "HARBORPOINT WATCH  •  Soft files cool faster than the rain.",
+        locationName: "LAMP WARD",
+        arrivalHint: "LAMP WARD  •  Soft files cool faster than the rain.",
         groundTextureName: "city_harborpoint_pd_block_v02",
         mapTextureName: "map_city_harborpoint_pd_v02",
         actorStart: CityStreetPlan.arrivalPoint(from: .north),
@@ -911,7 +911,7 @@ enum CityDistrictCatalog {
         portals: [
             .init(
                 id: "portal.pdEntrance",
-                label: "WATCH HOUSE",
+                label: "LAMPHOUSE",
                 approachPoint: CityDistrictLayout.portalApproach(
                     fromThreshold: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
                     clearOf: wardObstacles
@@ -921,12 +921,12 @@ enum CityDistrictCatalog {
                 ),
                 destination: .interior(.policeStation),
                 requiresCityOpen: false,
-                lockedInspectLine: "The desk sergeant keeps soft conclusions behind glass. Exterior only for now."
+                lockedInspectLine: "The lamp-sergeant on the desk keeps soft conclusions behind glass. Exterior only for now."
             )
         ],
         pointsOfInterest: [
             .init(
-                label: "WATCH HOUSE",
+                label: "LAMPHOUSE",
                 worldPoint: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
                 colorRGBA: (0.79, 0.55, 0.26, 1)
             )

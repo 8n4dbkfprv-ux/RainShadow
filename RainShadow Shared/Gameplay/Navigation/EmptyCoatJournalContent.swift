@@ -143,7 +143,7 @@ public enum EmptyCoatJournalContent {
             status: "Open / Priority",
             summary: "Lillian March vanished two nights past. Her coat came back from the river. She did not.",
             body: [
-                "Harborpoint Watch called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
+                "The Lanterns called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
                 "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray greatcoat and black gloves has been following her. The key stays on the desk leather."
             ],
             leads: leads,
@@ -204,7 +204,7 @@ public enum EmptyCoatJournalContent {
             body: [
                 "Arrived after midnight, frightened but precise. She recovered the key from the lining before the coat fully left her hands. She believes she is being watched, and she is right."
             ],
-            leads: ["Keep her address out of the Watch's night books."],
+            leads: ["Keep her address out of the Lanterns' night books."],
             isNew: false
         ),
         CaseJournalEntry(
@@ -241,7 +241,7 @@ public enum EmptyCoatJournalContent {
             status: "In possession",
             summary: "Sewn into Lillian's coat lining—old teeth, no inn tag, no landlord number. Still faintly lamp oil and river fog.",
             body: [
-                "The hiding place was deliberate. Not a pocket find a night watchman could lose twice. No maker's mark, room number, or address. It stays on this desk until the lock talks."
+                "The hiding place was deliberate. Not a pocket find a night lanternman could lose twice. No maker's mark, room number, or address. It stays on this desk until the lock talks."
             ],
             leads: [
                 "Compare against Lillian's known addresses and work locks.",
@@ -252,9 +252,9 @@ public enum EmptyCoatJournalContent {
         CaseJournalEntry(
             id: "evidence.coat",
             title: "Riverside Coat",
-            eyebrow: "Physical evidence · Watch custody",
+            eyebrow: "Physical evidence · Lantern custody",
             status: "Not examined",
-            summary: "Left on the river stones below the old iron stairs as a conclusion someone expected the Watch to accept.",
+            summary: "Left on the river stones below the old iron stairs as a conclusion someone expected the Lanterns to accept.",
             body: [
                 "Pockets turned like a stage direction. Lila found the key before the garment fully entered the official bag. Placement and missing body point to staging—not a tidy accident."
             ],
@@ -304,11 +304,11 @@ public enum EmptyCoatJournalContent {
             title: "Coat recovered",
             eyebrow: "Two nights past · ~midnight",
             status: "Riverside",
-            summary: "River watch finds Lillian's coat on the stones below the old iron stairs. No body.",
+            summary: "River lanterns find Lillian's coat on the stones below the old iron stairs. No body.",
             body: [
                 "The search begins and ends at the same convenient conclusion: probable drowning, case cooling."
             ],
-            leads: ["The coat enters Watch custody."],
+            leads: ["The coat enters Lantern custody."],
             isNew: false
         ),
         CaseJournalEntry(
