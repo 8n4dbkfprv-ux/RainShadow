@@ -16,13 +16,13 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.coordinate(for: .lilaStreet) == .init(col: 2, row: 1))
         #expect(CityWorldMap.coordinate(for: .civicRecords) == .init(col: 1, row: 2))
         #expect(CityWorldMap.coordinate(for: .riverside) == .init(col: 0, row: 0))
-        #expect(CityWorldMap.coordinate(for: .harborpointPD) == .init(col: 1, row: 0))
+        #expect(CityWorldMap.coordinate(for: .lampWard) == .init(col: 1, row: 0))
     }
 
     @Test func districtWorldMapMarkersHaveNormalAndHoverNames() {
         for district in CityDistrictID.allCases {
-            #expect(district.worldMapIconTextureName == "map_district_icon_\(district.slug)_v01")
-            #expect(district.worldMapIconHoverTextureName == "map_district_icon_\(district.slug)_v01_hover")
+            #expect(district.worldMapIconTextureName == "map_district_icon_\(district.artSlug)_v01")
+            #expect(district.worldMapIconHoverTextureName == "map_district_icon_\(district.artSlug)_v01_hover")
         }
     }
 
@@ -30,15 +30,15 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.neighbor(of: .sableRow, toward: .west)?.districtID == .wharfLadder)
         #expect(CityWorldMap.neighbor(of: .sableRow, toward: .east)?.districtID == .lilaStreet)
         #expect(CityWorldMap.neighbor(of: .sableRow, toward: .north)?.districtID == .civicRecords)
-        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .south)?.districtID == .harborpointPD)
+        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .south)?.districtID == .lampWard)
         #expect(CityWorldMap.neighbor(of: .wharfLadder, toward: .south)?.districtID == .riverside)
-        #expect(CityWorldMap.neighbor(of: .riverside, toward: .east)?.districtID == .harborpointPD)
+        #expect(CityWorldMap.neighbor(of: .riverside, toward: .east)?.districtID == .lampWard)
     }
 
     @Test func lockedWardsOccupyCornerCells() {
         #expect(CityWorldMap.neighbor(of: .civicRecords, toward: .west)?.isLocked == true)
         #expect(CityWorldMap.neighbor(of: .civicRecords, toward: .east)?.isLocked == true)
-        #expect(CityWorldMap.neighbor(of: .harborpointPD, toward: .east)?.isLocked == true)
+        #expect(CityWorldMap.neighbor(of: .lampWard, toward: .east)?.isLocked == true)
         #expect(CityWorldMap.neighbor(of: .lilaStreet, toward: .south)?.isLocked == true)
     }
 
@@ -48,7 +48,7 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.isTravelable(.wharfLadder, visited: visited))
         #expect(CityWorldMap.isTravelable(.lilaStreet, visited: visited))
         #expect(CityWorldMap.isTravelable(.civicRecords, visited: visited))
-        #expect(CityWorldMap.isTravelable(.harborpointPD, visited: visited))
+        #expect(CityWorldMap.isTravelable(.lampWard, visited: visited))
         // Diagonal-only neighbor is not revealed from the hub alone.
         #expect(!CityWorldMap.isTravelable(.riverside, visited: visited))
 
@@ -73,7 +73,7 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.arrivalEdge(leavingVia: .west) == .east)
         #expect(CityWorldMap.arrivalKey(leavingVia: .north) == "from.south")
         #expect(CityWorldMap.arrivalEdge(from: .sableRow, to: .wharfLadder) == .east)
-        #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .harborpointPD) == "from.north")
+        #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .lampWard) == "from.north")
         #expect(CityWorldMap.arrivalKey(from: .wharfLadder, to: .riverside) == "from.north")
     }
 

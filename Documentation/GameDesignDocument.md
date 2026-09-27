@@ -461,8 +461,8 @@ Aligned to the shipped Empty Coat intro graph:
 | ID | Item | Custody | Reliability | M01 journal? | Leads |
 |---|---|---|---|---|---|
 | `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
-| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
-| `evidence.pd-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
+| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable's property log at the Lamphouse |
+| `evidence.lamphouse-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
 | `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)

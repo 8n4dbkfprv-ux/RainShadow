@@ -37,15 +37,23 @@ struct AreaIESchemaTests {
             #expect(area.variables.isEmpty, "'\(id)' unexpectedly authored variables")
             #expect(area.songs.isEmpty, "'\(id)' unexpectedly authored songs")
             let isSharedInterior = CityInteriorAreaAdapter.interior(for: id) != nil
+            // Sidecar maps follow the area id, except Lamp Ward, whose baked
+            // maps kept their pre-rename `city_harborpoint_pd` stem and are
+            // therefore named explicitly.
+            let sidecarStem = CityDistrictAreaAdapter.district(for: id)
+                .map(CityDistrictAreaAdapter.sidecarStem(for:)) ?? id.rawValue
+            let namesSidecars = sidecarStem != id.rawValue
             #expect(
-                area.lightMapName == (isSharedInterior ? "city_building_interior_v01.lm" : nil)
+                area.lightMapName == (isSharedInterior
+                    ? "city_building_interior_v01.lm"
+                    : namesSidecars ? "\(sidecarStem).lm" : nil)
             )
-            #expect(area.heightMapName == nil)
+            #expect(area.heightMapName == (namesSidecars ? "\(sidecarStem).ht" : nil))
             #expect(
                 area.resolvedLightMapName
-                    == (isSharedInterior ? "city_building_interior_v01.lm" : "\(id.rawValue).lm")
+                    == (isSharedInterior ? "city_building_interior_v01.lm" : "\(sidecarStem).lm")
             )
-            #expect(area.resolvedHeightMapName == "\(id.rawValue).ht")
+            #expect(area.resolvedHeightMapName == "\(sidecarStem).ht")
             for region in area.regions {
                 #expect(region.isDetectable)
                 #expect(!region.isDeactivated)

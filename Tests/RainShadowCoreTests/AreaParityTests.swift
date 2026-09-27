@@ -124,7 +124,7 @@ struct AreaParityTests {
         _ district: CityDistrictID
     ) throws {
         let area = try Self.loadedArea(CityDistrictAreaAdapter.areaID(for: district))
-        #expect(area.searchMapName == "city_\(district.slug).sr")
+        #expect(area.searchMapName == "\(CityDistrictAreaAdapter.sidecarStem(for: district)).sr")
         let runtime = area.makeNavigationMap().searchMap
         let expected = area.searchMapGridSize
         #expect(runtime.columns == expected.columns)

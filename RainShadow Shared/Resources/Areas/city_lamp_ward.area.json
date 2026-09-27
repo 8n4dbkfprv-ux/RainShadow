@@ -83,7 +83,7 @@
           "x" : 2854.5,
           "y" : 941.25
         },
-        "id" : "portal.pdEntrance",
+        "id" : "portal.lamphouseEntrance",
         "openSound" : "sfx_door_open",
         "paintedAperture" : {
           "h" : 80.5,
@@ -147,15 +147,17 @@
         }
       },
       {
-        "name" : "from.portal.pdEntrance",
+        "name" : "from.portal.lamphouseEntrance",
         "point" : {
           "x" : 2862.5,
           "y" : 767
         }
       }
     ],
-    "id" : "city_harborpoint_pd",
+    "heightMapName" : "city_harborpoint_pd.ht",
+    "id" : "city_lamp_ward",
     "kind" : "exterior",
+    "lightMapName" : "city_harborpoint_pd.lm",
     "mapTextureName" : "map_city_harborpoint_pd_v02",
     "notes" : [
       {
@@ -7552,7 +7554,7 @@
           "x" : 2862.5,
           "y" : 767
         },
-        "id" : "portal.pdEntrance",
+        "id" : "portal.lamphouseEntrance",
         "kind" : "travel",
         "label" : "LAMPHOUSE",
         "lockedLine" : "The lamp-sergeant on the desk keeps soft conclusions behind glass. Exterior only for now.",
@@ -7575,7 +7577,7 @@
           }
         ],
         "travel" : {
-          "destination" : "interior_police_station",
+          "destination" : "interior_lamphouse",
           "entrance" : "from.street"
         }
       }

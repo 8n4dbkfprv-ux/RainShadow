@@ -68,7 +68,7 @@ enum CityDistrictAreaAdapter {
             plateTextureName: definition.groundTextureName,
             nightPlateTextureName: nightPlateTextureName(for: district),
             mapTextureName: definition.mapTextureName,
-            searchMapName: "\(areaID(for: district).rawValue).sr",
+            searchMapName: "\(sidecarStem(for: district)).sr",
             // Kept alongside the painted map: Theta* tests these at world
             // resolution for line of sight, which is finer than the cell grid.
             obstacles: definition.obstacles.map(AreaRect.init),
@@ -129,8 +129,24 @@ enum CityDistrictAreaAdapter {
             ],
             // Animations stay deferred until night art is authored per ward.
             animations: [],
+            lightMapName: sidecarOverride(for: district, suffix: "lm"),
+            heightMapName: sidecarOverride(for: district, suffix: "ht"),
             script: nil
         )
+    }
+
+    /// Resource stem of a district's `.sr` / `.lm` / `.ht` sidecar maps. These
+    /// follow the area id, except where the id was renamed after the maps were
+    /// baked (Lamp Ward still ships `city_harborpoint_pd.*`).
+    static func sidecarStem(for district: CityDistrictID) -> String {
+        "city_\(district.artSlug)"
+    }
+
+    /// Explicit light/height map name only when the sidecar stem differs from
+    /// the area id; otherwise `nil`, so the `<id>.lm` / `<id>.ht` default holds.
+    private static func sidecarOverride(for district: CityDistrictID, suffix: String) -> String? {
+        let stem = sidecarStem(for: district)
+        return stem == areaID(for: district).rawValue ? nil : "\(stem).\(suffix)"
     }
 
     static var allDistrictAreas: [AreaDefinition] {
@@ -408,7 +424,7 @@ enum CityDoorPaintedAperture {
             openTexture: "city_door_iron_stairs_open",
             canvasSize: CGSize(width: 256, height: 384)
         ),
-        "portal.pdEntrance": Record(
+        "portal.lamphouseEntrance": Record(
             height: 80.5,
             rect: AreaRect(x: 2_843.25, y: 907, w: 38.5, h: 80.5),
             closedTexture: "city_door_pd_station",

@@ -11,7 +11,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
     case sableRow
     case wharfLadder
     case riverside
-    case harborpointPD
+    case lampWard
     case lilaStreet
     case civicRecords
 
@@ -20,15 +20,26 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .sableRow: return "sable_row"
         case .wharfLadder: return "wharf_ladder"
         case .riverside: return "riverside"
-        case .harborpointPD: return "harborpoint_pd"
+        case .lampWard: return "lamp_ward"
         case .lilaStreet: return "lila_street"
         case .civicRecords: return "civic_records"
         }
     }
 
+    /// Stem used by this district's painted and baked resources: the world-map
+    /// icon and the `city_<stem>.sr` / `.lm` / `.ht` sidecar maps. Lamp Ward was
+    /// renamed from Harborpoint PD after its art shipped, so its art keeps the
+    /// old `harborpoint_pd` names; every other district uses its slug.
+    var artSlug: String {
+        switch self {
+        case .lampWard: return "harborpoint_pd"
+        default: return slug
+        }
+    }
+
     /// BG-style regional world-map destination icon texture.
     var worldMapIconTextureName: String {
-        "map_district_icon_\(slug)_v01"
+        "map_district_icon_\(artSlug)_v01"
     }
 
     var worldMapIconHoverTextureName: String {
@@ -41,7 +52,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .sableRow: return "Ward"
         case .wharfLadder: return "Docks"
         case .riverside: return "Riverfront"
-        case .harborpointPD: return "Lamp Ward"
+        case .lampWard: return "Lamp Ward"
         case .lilaStreet: return "Street"
         case .civicRecords: return "Archives"
         }
@@ -63,7 +74,7 @@ enum CityTravelDestination: Equatable {
 enum CityInteriorID: String, CaseIterable, Equatable {
     case shippingOffice = "shipping_office"
     case ironStairs = "iron_stairs"
-    case policeStation = "police_station"
+    case lamphouse = "lamphouse"
     case lilaRooms = "lila_rooms"
     case recordsAnnex = "records_annex"
 
@@ -73,7 +84,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: .wharfLadder
         case .ironStairs: .riverside
-        case .policeStation: .harborpointPD
+        case .lamphouse: .lampWard
         case .lilaRooms: .lilaStreet
         case .recordsAnnex: .civicRecords
         }
@@ -83,7 +94,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "portal.shippingOffice"
         case .ironStairs: "portal.ironStairs"
-        case .policeStation: "portal.pdEntrance"
+        case .lamphouse: "portal.lamphouseEntrance"
         case .lilaRooms: "portal.lilaRooms"
         case .recordsAnnex: "portal.recordsEntrance"
         }
@@ -93,7 +104,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "WHARF SHIPPING OFFICE"
         case .ironStairs: "RIVERSIDE ROOMS"
-        case .policeStation: "HARBORPOINT LAMPHOUSE"
+        case .lamphouse: "HARBORPOINT LAMPHOUSE"
         case .lilaRooms: "LILA STREET ROOMS"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
@@ -238,7 +249,7 @@ enum CityDistrictCatalog {
         case .sableRow: return sableRow
         case .wharfLadder: return wharfLadder
         case .riverside: return riverside
-        case .harborpointPD: return harborpointPD
+        case .lampWard: return lampWard
         case .lilaStreet: return lilaStreet
         case .civicRecords: return civicRecords
         }
@@ -262,7 +273,7 @@ enum CityDistrictCatalog {
     private static func paintedPortalObstacles(office: CGRect) -> [CGRect] {
         [office] + [
             "portal.shippingOffice", "portal.ironStairs",
-            "portal.pdEntrance", "portal.lilaRooms", "portal.recordsEntrance"
+            "portal.lamphouseEntrance", "portal.lilaRooms", "portal.recordsEntrance"
         ].compactMap { CityDoorPaintedAperture.rect(for: $0)?.cgRect }
     }
 
@@ -814,11 +825,11 @@ enum CityDistrictCatalog {
     /// a forecourt with the squad cars ranked in the carriageway outside. A
     /// wall is one of the three cues Baldur's Gate allows a landmark, and it is
     /// the one a lamphouse should get.
-    private static let pdBlock = CityBlockGrid.block(i: 2, j: -1)
+    private static let lampWardBlock = CityBlockGrid.block(i: 2, j: -1)
 
     private static let pdStation = CityDistrictDefinition.VisualSprite(
         textureName: "city_building_pd_station",
-        groundPoint: pdBlock.point(on: .nearRight, at: 0.60),
+        groundPoint: lampWardBlock.point(on: .nearRight, at: 0.60),
         scale: CityDistrictLayout.BuildingDisplayScale.pdStation, anchorY: 0.10, depthBias: 0
     )
     private static let pdAnnex = CityDistrictDefinition.VisualSprite(
@@ -837,7 +848,7 @@ enum CityDistrictCatalog {
         aperture: .buildingPDStation
     )
 
-    private static let pdFrontage: [CityDistrictDefinition.VisualSprite] = {
+    private static let lampWardFrontage: [CityDistrictDefinition.VisualSprite] = {
         return districtRow(1, 1, .nearRight, [.tenement(at: 0.46), .pdAlley(at: 0.88)])
             + districtRow(2, 0, .nearLeft, [.storefront(at: 0.34), .tenement(at: 0.76)])
             + districtRow(2, 0, .nearRight, [.pdAlley(at: 0.30), .rowhouse(at: 0.64), .storefront(at: 0.94)])
@@ -872,8 +883,8 @@ enum CityDistrictCatalog {
             + districtRow(2, -2, .farLeft, [.storefront(at: 0.50)])
     }()
 
-    static let harborpointPD = CityDistrictDefinition(
-        id: .harborpointPD,
+    static let lampWard = CityDistrictDefinition(
+        id: .lampWard,
         locationName: "LAMP WARD",
         arrivalHint: "LAMP WARD  •  Soft files cool faster than the rain.",
         groundTextureName: "city_harborpoint_pd_block_v02",
@@ -885,7 +896,7 @@ enum CityDistrictCatalog {
             "from.east": CityStreetPlan.arrivalPoint(from: .east),
             "from.south": CityStreetPlan.arrivalPoint(from: .south)
         ],
-        visualSprites: pdFrontage + [
+        visualSprites: lampWardFrontage + [
             pdStation,
             pdAnnex,
             pdAlley,
@@ -910,16 +921,16 @@ enum CityDistrictCatalog {
         obstacles: wardObstacles,
         portals: [
             .init(
-                id: "portal.pdEntrance",
+                id: "portal.lamphouseEntrance",
                 label: "LAMPHOUSE",
                 approachPoint: CityDistrictLayout.portalApproach(
-                    fromThreshold: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
+                    fromThreshold: CityDoorPaintedAperture.threshold(for: "portal.lamphouseEntrance")!,
                     clearOf: wardObstacles
                 ),
                 hitArea: CityDistrictLayout.portalHitArea(
-                    paintedAperture: CityDoorPaintedAperture.rect(for: "portal.pdEntrance")!.cgRect
+                    paintedAperture: CityDoorPaintedAperture.rect(for: "portal.lamphouseEntrance")!.cgRect
                 ),
-                destination: .interior(.policeStation),
+                destination: .interior(.lamphouse),
                 requiresCityOpen: false,
                 lockedInspectLine: "The lamp-sergeant on the desk keeps soft conclusions behind glass. Exterior only for now."
             )
@@ -927,7 +938,7 @@ enum CityDistrictCatalog {
         pointsOfInterest: [
             .init(
                 label: "LAMPHOUSE",
-                worldPoint: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
+                worldPoint: CityDoorPaintedAperture.threshold(for: "portal.lamphouseEntrance")!,
                 colorRGBA: (0.79, 0.55, 0.26, 1)
             )
         ]

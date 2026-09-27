@@ -123,7 +123,7 @@ Because the leaf and its opening ship as two textures, a facade re-export moves 
 | P1 | `city_<district>_block_v02` | 8192×6144 | Opaque | Superseded monolithic runtime path; retained as the lossless lower-left 4×4-page source and manifest-missing fallback. |
 | P0 | `city_building_interior_v01` | 4096×2304 | Opaque | Shared neutral 1950s lobby plate for five distinct landmark ARE records. Each record retains its own exterior destination and named return entrance. |
 
-Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apartment return), `wharf_ladder` (west), `riverside` (southwest), `harborpoint_pd` (south), `lila_street` (east), `civic_records` (north). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals).
+Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apartment return), `wharf_ladder` (west), `riverside` (southwest), `lamp_ward` (south; its art and sidecar maps keep the `harborpoint_pd` stem), `lila_street` (east), `civic_records` (north). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals).
 
 ## 5. Office shell, props, and lighting
 

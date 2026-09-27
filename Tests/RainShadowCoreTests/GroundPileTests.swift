@@ -29,7 +29,7 @@ struct GroundPileTests {
 
         #expect(piles.stacks(in: "office").count == 1)
         #expect(piles.stacks(in: "sableRow").count == 1)
-        #expect(piles.stacks(in: "harborpoint-pd").isEmpty)
+        #expect(piles.stacks(in: "lamp-ward").isEmpty)
     }
 
     @Test func takingRemovesExactlyTheStackThatWasClicked() {

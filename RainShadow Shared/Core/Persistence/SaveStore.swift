@@ -128,6 +128,57 @@ struct PersistedExploredFog: Codable, Equatable {
     var bytes: Data
 }
 
+/// Area ids renamed after saves were written, old → new.
+///
+/// Applied where area-keyed state is decoded, so a save from before the rename
+/// keeps its dropped items and area variables (Lamp Ward's visited flag among
+/// them). Portal ids, district and interior raw values are never persisted, so
+/// only area ids need mapping.
+enum LegacySaveIDs {
+    /// Harborpoint PD became Lamp Ward; its station became the Lamphouse.
+    static let areaIDs: [String: String] = [
+        "city_harborpoint_pd": "city_lamp_ward",
+        "interior_police_station": "interior_lamphouse"
+    ]
+
+    static func areaID(_ id: String) -> String {
+        areaIDs[id] ?? id
+    }
+
+    /// Re-keys a dictionary keyed by area id. A value already stored under the
+    /// new id wins over one carried forward from the old id.
+    static func rekeyedByArea<Value>(_ values: [String: Value]) -> [String: Value] {
+        var rekeyed: [String: Value] = [:]
+        for (key, value) in values where areaIDs[key] == nil {
+            rekeyed[key] = value
+        }
+        for (key, value) in values {
+            guard let renamed = areaIDs[key], rekeyed[renamed] == nil else { continue }
+            rekeyed[renamed] = value
+        }
+        return rekeyed
+    }
+
+    /// Re-keys flattened `"<area id>/<name>"` area-variable keys, splitting on the
+    /// first slash exactly as `AreaVariables(flattened:)` does.
+    static func rekeyedAreaVariables<Value>(_ values: [String: Value]) -> [String: Value] {
+        var rekeyed: [String: Value] = [:]
+        var carried: [(key: String, value: Value)] = []
+        for (key, value) in values {
+            guard let slash = key.firstIndex(of: "/"),
+                  let renamed = areaIDs[String(key[..<slash])] else {
+                rekeyed[key] = value
+                continue
+            }
+            carried.append((key: renamed + String(key[slash...]), value: value))
+        }
+        for entry in carried where rekeyed[entry.key] == nil {
+            rekeyed[entry.key] = entry.value
+        }
+        return rekeyed
+    }
+}
+
 struct SaveSnapshot: Codable, Equatable {
     /// Newest envelope this binary writes. `load()` accepts anything at or below it,
     /// so an additive field never has to bump — and a real bump never wipes a save.
@@ -245,10 +296,10 @@ struct SaveSnapshot: Codable, Equatable {
             [String: PersistedCarriedItemStack].self,
             forKey: .equippedItems
         ) ?? [:]
-        groundPiles = try container.decodeIfPresent(
+        groundPiles = LegacySaveIDs.rekeyedByArea(try container.decodeIfPresent(
             [String: [PersistedGroundItemStack]].self,
             forKey: .groundPiles
-        ) ?? [:]
+        ) ?? [:])
         hasSeededStarterKit =
             try container.decodeIfPresent(Bool.self, forKey: .hasSeededStarterKit) ?? false
         caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
@@ -258,10 +309,10 @@ struct SaveSnapshot: Codable, Equatable {
             [PersistedJournalFragment].self,
             forKey: .caseJournalFragments
         ) ?? []
-        areaVariables = try container.decodeIfPresent(
+        areaVariables = LegacySaveIDs.rekeyedAreaVariables(try container.decodeIfPresent(
             [String: PersistedAreaVariable].self,
             forKey: .areaVariables
-        ) ?? [:]
+        ) ?? [:])
         caseCounters = try container.decodeIfPresent([String: Int].self, forKey: .caseCounters) ?? [:]
     }
 }

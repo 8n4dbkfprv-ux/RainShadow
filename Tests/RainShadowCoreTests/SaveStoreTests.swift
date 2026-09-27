@@ -117,6 +117,43 @@ struct SaveStoreTests {
 
         #expect(store.load() == SaveSnapshot())
     }
+
+    /// Harborpoint PD was renamed Lamp Ward (and its station the Lamphouse)
+    /// after saves existed. Area-keyed state written under the old ids must
+    /// load under the new ones, and a value already under a new id wins.
+    @Test func legacyAreaIDsLoadUnderTheirRenamedIDs() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let store = SaveStore(defaults: defaults, key: "save")
+        let flag = PersistedAreaVariable(kind: "integer", integer: 1)
+        let pile = PersistedGroundItemStack(
+            id: "matchbook", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
+        )
+        store.save(SaveSnapshot(
+            groundPiles: ["city_harborpoint_pd": [pile], "office_suite": []],
+            areaVariables: [
+                "city_harborpoint_pd/visited": flag,
+                "interior_police_station/door.seen": flag,
+                "city_sable_row/visited": flag
+            ]
+        ))
+
+        let loaded = store.load()
+        #expect(loaded.groundPiles["city_lamp_ward"] == [pile])
+        #expect(loaded.groundPiles["city_harborpoint_pd"] == nil)
+        #expect(loaded.groundPiles["office_suite"] == [])
+        #expect(loaded.areaVariables["city_lamp_ward/visited"] == flag)
+        #expect(loaded.areaVariables["interior_lamphouse/door.seen"] == flag)
+        #expect(loaded.areaVariables["city_sable_row/visited"] == flag)
+        #expect(loaded.areaVariables["city_harborpoint_pd/visited"] == nil)
+
+        let newer = PersistedAreaVariable(kind: "integer", integer: 2)
+        #expect(LegacySaveIDs.rekeyedAreaVariables([
+            "city_harborpoint_pd/visited": flag,
+            "city_lamp_ward/visited": newer
+        ]) == ["city_lamp_ward/visited": newer])
+    }
 }
 
 extension SaveStoreTests {

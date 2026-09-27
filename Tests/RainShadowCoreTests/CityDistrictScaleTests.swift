@@ -232,7 +232,7 @@ struct CityDistrictScaleTests {
         #expect(ids.contains(.sableRow))
         #expect(ids.contains(.wharfLadder))
         #expect(ids.contains(.riverside))
-        #expect(ids.contains(.harborpointPD))
+        #expect(ids.contains(.lampWard))
         #expect(ids.contains(.lilaStreet))
         #expect(ids.contains(.civicRecords))
         #expect(CityDistrictCatalog.sableRow.portals.contains(where: {

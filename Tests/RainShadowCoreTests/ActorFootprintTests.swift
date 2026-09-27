@@ -152,7 +152,7 @@ struct ActorFootprintTests {
             .sableRow: 53_855,
             .wharfLadder: 51_472,
             .riverside: 51_490,
-            .harborpointPD: 53_857,
+            .lampWard: 53_857,
             .lilaStreet: 53_849,
             .civicRecords: 53_857,
         ]
