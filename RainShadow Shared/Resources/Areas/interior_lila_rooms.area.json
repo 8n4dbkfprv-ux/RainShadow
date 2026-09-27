@@ -30,7 +30,7 @@
 
     ],
     "defaultTerrain" : "stone",
-    "displayName" : "LILA STREET ROOMS",
+    "displayName" : "LILA'S ROOMS",
     "doors" : [
       {
         "approachPoints" : [
@@ -119,7 +119,7 @@
           }
         ],
         "travel" : {
-          "destination" : "city_lila_street",
+          "destination" : "city_market_cross",
           "entrance" : "from.portal.lilaRooms"
         }
       }

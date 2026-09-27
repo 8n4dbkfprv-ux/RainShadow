@@ -95,11 +95,14 @@ The player feels this through locked doors, altered reports, witnesses who sudde
 
 #### Districts (playable texture, not open-world tourism)
 
-- **Sable Row** — Voss’s block. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
+- **Market Cross** — the heart of Harborpoint and its largest district: the old market square where the harbour road, the civic spine and the dock lanes cross. Stalls under oilcloth, a dry fountain nobody fixes, a posting pillar thick with notices, carters and hawkers who see everything and sell some of it. Lila’s rooms sit on a narrow side street off the square, where it runs into the Printers’ Quarter. Every road in the lower city passes through here, so the Gray Man and his hired men do too. *(Working name; easy to change.)*
+- **Sable Row** — Voss’s block, east of Market Cross. Harbor Street (the office’s street) runs through it. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
 - **Wharf Ladder / the Docks** — cargo, boarding houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
 - **Civic Spine** — magistrate’s hall, the Lamphouse, records annex. Marble that stays clean in the rain on purpose.
-- **Printers’ Quarter** — broadsheets, ink shops, cafés that never close. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
+- **Printers’ Quarter** — broadsheets, ink shops, cafés that never close, on the Market Cross fringe. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
 - **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later wound-seeds live here (not M01 dumps).
+
+**Market Cross footprint (map target).** Market Cross is meant to cover twice the ground of Sable Row, the district the office is in. In the build today every district, Market Cross included, is one 5120×3840 world-unit plate (19,660,800 sq units; 80×60 tiles of 64, 320×320 search/light/height cells). The twice-size target is 39,321,600 sq units, e.g. 10240×3840. On the 3×3 world map Market Cross now takes the centre cell, Sable Row sits east of it, and its stamp is drawn at √2 scale (twice the area). The walkable plate stays at the shared size until wider art ships: a doubled plate and page set, 640×320 `.sr`/`.lm`/`.ht` rasters, an extended street plan and obstacle set, and per-district world size in code (see `AssetManifest.md`).
 
 Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, broadsheets that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
 
@@ -210,7 +213,7 @@ Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphras
 
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
 - **Age / look:** Mid-to-late twenties. Chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
-- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house near **Printers’ Quarter**. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered coffee and tides—and she has run out of polite rooms.
+- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house on a side street off **Market Cross**, at the Printers’ Quarter edge. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered coffee and tides—and she has run out of polite rooms.
 - **Orbit:** Friends with real locks and thresholds that hold; gossip as second currency; ink-shop books as honest work that also teaches her how manifests hide.
 
 ##### Bond with Lillian

@@ -339,7 +339,7 @@ enum HarborpointAreas {
     static let wharfLadder = AreaID("city_wharf_ladder")
     static let riverside = AreaID("city_riverside")
     static let lampWard = AreaID("city_lamp_ward")
-    static let lilaStreet = AreaID("city_lila_street")
+    static let marketCross = AreaID("city_market_cross")
     static let civicRecords = AreaID("city_civic_records")
     static let shippingOfficeInterior = CityInteriorID.shippingOffice.areaID
     static let ironStairsInterior = CityInteriorID.ironStairs.areaID
@@ -355,7 +355,7 @@ enum HarborpointAreas {
         wharfLadder,
         riverside,
         lampWard,
-        lilaStreet,
+        marketCross,
         civicRecords,
         shippingOfficeInterior,
         ironStairsInterior,

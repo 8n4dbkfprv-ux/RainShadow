@@ -134,6 +134,7 @@ struct SaveStoreTests {
             groundPiles: ["city_harborpoint_pd": [pile], "office_suite": []],
             areaVariables: [
                 "city_harborpoint_pd/visited": flag,
+                "city_lila_street/VISITED": flag,
                 "interior_police_station/door.seen": flag,
                 "city_sable_row/visited": flag
             ]
@@ -147,6 +148,8 @@ struct SaveStoreTests {
         #expect(loaded.areaVariables["interior_lamphouse/door.seen"] == flag)
         #expect(loaded.areaVariables["city_sable_row/visited"] == flag)
         #expect(loaded.areaVariables["city_harborpoint_pd/visited"] == nil)
+        #expect(loaded.areaVariables["city_market_cross/VISITED"] == flag)
+        #expect(loaded.areaVariables["city_lila_street/VISITED"] == nil)
 
         let newer = PersistedAreaVariable(kind: "integer", integer: 2)
         #expect(LegacySaveIDs.rekeyedAreaVariables([

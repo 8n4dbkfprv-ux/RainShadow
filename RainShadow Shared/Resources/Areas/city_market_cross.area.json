@@ -57,12 +57,12 @@
       "city",
       "outdoor"
     ],
-    "arrivalHint" : "LILA'S STREET  •  Doorway posts remember the Gray Man.",
+    "arrivalHint" : "MARKET CROSS  •  Lila's rooms are off the square. Doorway posts remember the Gray Man.",
     "containers" : [
 
     ],
     "defaultTerrain" : "stone",
-    "displayName" : "LILA'S STREET",
+    "displayName" : "MARKET CROSS",
     "doors" : [
       {
         "approachPoints" : [
@@ -154,8 +154,10 @@
         }
       }
     ],
-    "id" : "city_lila_street",
+    "heightMapName" : "city_lila_street.ht",
+    "id" : "city_market_cross",
     "kind" : "exterior",
+    "lightMapName" : "city_lila_street.lm",
     "mapTextureName" : "map_city_lila_street_v02",
     "notes" : [
       {

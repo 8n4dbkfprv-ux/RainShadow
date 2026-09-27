@@ -228,7 +228,7 @@ public enum EmptyCoatJournalContent {
             body: [
                 "He turns away when she looks directly at him. Cart noise, doorway posts—professional habits. He wants to know where she takes the key. Not yet proven badge or private muscle."
             ],
-            leads: ["Check the street outside Lila's rooms when the city opens."],
+            leads: ["Check the street outside Lila's rooms, off Market Cross, when the city opens."],
             isNew: true
         )
     ]

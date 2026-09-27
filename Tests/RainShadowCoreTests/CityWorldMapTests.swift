@@ -11,12 +11,21 @@ struct CityWorldMapTests {
     }
 
     @Test func districtCoordinatesMatchAuthoredLayout() {
-        #expect(CityWorldMap.coordinate(for: .sableRow) == .init(col: 1, row: 1))
+        // Market Cross is the central district; Voss's Sable Row sits east of it.
+        #expect(CityWorldMap.coordinate(for: .marketCross) == .init(col: 1, row: 1))
         #expect(CityWorldMap.coordinate(for: .wharfLadder) == .init(col: 0, row: 1))
-        #expect(CityWorldMap.coordinate(for: .lilaStreet) == .init(col: 2, row: 1))
+        #expect(CityWorldMap.coordinate(for: .sableRow) == .init(col: 2, row: 1))
         #expect(CityWorldMap.coordinate(for: .civicRecords) == .init(col: 1, row: 2))
         #expect(CityWorldMap.coordinate(for: .riverside) == .init(col: 0, row: 0))
         #expect(CityWorldMap.coordinate(for: .lampWard) == .init(col: 1, row: 0))
+    }
+
+    @Test func centralDistrictStampCoversTwiceTheOfficeWard() {
+        let centre = CityDistrictID.marketCross.worldMapFootprintScale
+        let office = CityDistrictID.sableRow.worldMapFootprintScale
+        #expect(abs(centre * centre - 2 * office * office) < 0.0001)
+        #expect(CityDistrictID.marketCross.artSlug == "lila_street")
+        #expect(CityDistrictAreaAdapter.sidecarStem(for: .marketCross) == "city_lila_street")
     }
 
     @Test func districtWorldMapMarkersHaveNormalAndHoverNames() {
@@ -27,10 +36,11 @@ struct CityWorldMapTests {
     }
 
     @Test func orthogonalNeighborsMatchBGCityAdjacency() {
-        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .west)?.districtID == .wharfLadder)
-        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .east)?.districtID == .lilaStreet)
-        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .north)?.districtID == .civicRecords)
-        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .south)?.districtID == .lampWard)
+        #expect(CityWorldMap.neighbor(of: .marketCross, toward: .west)?.districtID == .wharfLadder)
+        #expect(CityWorldMap.neighbor(of: .marketCross, toward: .east)?.districtID == .sableRow)
+        #expect(CityWorldMap.neighbor(of: .marketCross, toward: .north)?.districtID == .civicRecords)
+        #expect(CityWorldMap.neighbor(of: .marketCross, toward: .south)?.districtID == .lampWard)
+        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .west)?.districtID == .marketCross)
         #expect(CityWorldMap.neighbor(of: .wharfLadder, toward: .south)?.districtID == .riverside)
         #expect(CityWorldMap.neighbor(of: .riverside, toward: .east)?.districtID == .lampWard)
     }
@@ -39,20 +49,27 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.neighbor(of: .civicRecords, toward: .west)?.isLocked == true)
         #expect(CityWorldMap.neighbor(of: .civicRecords, toward: .east)?.isLocked == true)
         #expect(CityWorldMap.neighbor(of: .lampWard, toward: .east)?.isLocked == true)
-        #expect(CityWorldMap.neighbor(of: .lilaStreet, toward: .south)?.isLocked == true)
+        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .south)?.isLocked == true)
+        #expect(CityWorldMap.neighbor(of: .sableRow, toward: .north)?.isLocked == true)
     }
 
     @Test func revealRuleMatchesBGVisitedOrAdjacent() {
-        let visited: Set<CityDistrictID> = [.sableRow]
-        #expect(CityWorldMap.isTravelable(.sableRow, visited: visited))
+        // From the office ward only the central district is open.
+        let fromOffice: Set<CityDistrictID> = [.sableRow]
+        #expect(CityWorldMap.isTravelable(.sableRow, visited: fromOffice))
+        #expect(CityWorldMap.isTravelable(.marketCross, visited: fromOffice))
+        #expect(!CityWorldMap.isTravelable(.wharfLadder, visited: fromOffice))
+        #expect(!CityWorldMap.isTravelable(.civicRecords, visited: fromOffice))
+        #expect(!CityWorldMap.isTravelable(.lampWard, visited: fromOffice))
+
+        let visited: Set<CityDistrictID> = [.sableRow, .marketCross]
         #expect(CityWorldMap.isTravelable(.wharfLadder, visited: visited))
-        #expect(CityWorldMap.isTravelable(.lilaStreet, visited: visited))
         #expect(CityWorldMap.isTravelable(.civicRecords, visited: visited))
         #expect(CityWorldMap.isTravelable(.lampWard, visited: visited))
         // Diagonal-only neighbor is not revealed from the hub alone.
         #expect(!CityWorldMap.isTravelable(.riverside, visited: visited))
 
-        let afterWharf: Set<CityDistrictID> = [.sableRow, .wharfLadder]
+        let afterWharf: Set<CityDistrictID> = [.sableRow, .marketCross, .wharfLadder]
         #expect(CityWorldMap.isTravelable(.riverside, visited: afterWharf))
     }
 
@@ -66,14 +83,16 @@ struct CityWorldMapTests {
         }
         #expect(CityWorldMap.travelableDistricts(visited: allVisited) == allVisited)
         #expect(CityWorldMap.isLockedWardRevealed("unmapped_nw", visited: [.civicRecords]))
-        #expect(!CityWorldMap.isLockedWardRevealed("unmapped_se", visited: [.sableRow]))
+        #expect(CityWorldMap.isLockedWardRevealed("unmapped_se", visited: [.sableRow]))
+        #expect(!CityWorldMap.isLockedWardRevealed("unmapped_se", visited: [.marketCross]))
     }
 
     @Test func arrivalEdgeIsOppositeOfExit() {
         #expect(CityWorldMap.arrivalEdge(leavingVia: .west) == .east)
         #expect(CityWorldMap.arrivalKey(leavingVia: .north) == "from.south")
-        #expect(CityWorldMap.arrivalEdge(from: .sableRow, to: .wharfLadder) == .east)
-        #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .lampWard) == "from.north")
+        #expect(CityWorldMap.arrivalEdge(from: .marketCross, to: .wharfLadder) == .east)
+        #expect(CityWorldMap.arrivalKey(from: .marketCross, to: .lampWard) == "from.north")
+        #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .marketCross) == "from.east")
         #expect(CityWorldMap.arrivalKey(from: .wharfLadder, to: .riverside) == "from.north")
     }
 
@@ -110,14 +129,14 @@ struct CityWorldMapTests {
     }
 
     @Test func travelableExitEdgesExcludeLockedBorders() {
-        let sableEdges = Set(CityWorldMap.travelableExitEdges(from: .sableRow))
-        #expect(sableEdges == Set(CityMapEdge.allCases))
+        let centreEdges = Set(CityWorldMap.travelableExitEdges(from: .marketCross))
+        #expect(centreEdges == Set(CityMapEdge.allCases))
 
         let civicEdges = Set(CityWorldMap.travelableExitEdges(from: .civicRecords))
         #expect(civicEdges == [.south])
 
-        let lilaEdges = Set(CityWorldMap.travelableExitEdges(from: .lilaStreet))
-        #expect(lilaEdges == [.west])
+        let sableEdges = Set(CityWorldMap.travelableExitEdges(from: .sableRow))
+        #expect(sableEdges == [.west])
     }
 
     @Test func edgeExitHitAreasSitInsideWorldBounds() {

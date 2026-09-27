@@ -136,9 +136,11 @@ struct PersistedExploredFog: Codable, Equatable {
 /// only area ids need mapping.
 enum LegacySaveIDs {
     /// Harborpoint PD became Lamp Ward; its station became the Lamphouse.
+    /// Lila's Street grew into Market Cross, the central district.
     static let areaIDs: [String: String] = [
         "city_harborpoint_pd": "city_lamp_ward",
-        "interior_police_station": "interior_lamphouse"
+        "interior_police_station": "interior_lamphouse",
+        "city_lila_street": "city_market_cross"
     ]
 
     static func areaID(_ id: String) -> String {

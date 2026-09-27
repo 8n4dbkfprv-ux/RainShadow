@@ -277,10 +277,14 @@ final class WorldMapOverlay: SKNode {
                 }
                 root.zPosition = 8
 
+                let footprint = cell.districtID?.worldMapFootprintScale ?? 1
+                // Labels drop by the extra half-height so a larger stamp never
+                // sits on its own name plate.
+                let labelDrop = 74 * (footprint - 1)
                 if case .district(let id) = cell {
                     let icon = SKSpriteNode(
                         texture: GameArt.texture(named: id.worldMapIconTextureName),
-                        size: CGSize(width: 148, height: 148)
+                        size: CGSize(width: 148 * footprint, height: 148 * footprint)
                     )
                     icon.name = "worldmap.cell.icon"
                     icon.position = CGPoint(x: 0, y: 25)
@@ -291,7 +295,7 @@ final class WorldMapOverlay: SKNode {
                     label.name = "worldmap.cell.label"
                     label.text = cell.shortLabel
                     label.verticalAlignmentMode = .center
-                    label.position = CGPoint(x: 0, y: -57)
+                    label.position = CGPoint(x: 0, y: -57 - labelDrop)
                     label.zPosition = 2
                     root.addChild(label)
 
@@ -299,14 +303,14 @@ final class WorldMapOverlay: SKNode {
                     type.name = "worldmap.cell.type"
                     type.text = id.worldMapShortType.uppercased()
                     type.verticalAlignmentMode = .center
-                    type.position = CGPoint(x: 0, y: -77)
+                    type.position = CGPoint(x: 0, y: -77 - labelDrop)
                     type.zPosition = 2
                     root.addChild(type)
                 }
 
                 // The reference uses compact location-sized targets, not visible
                 // rectangular ward cells.
-                let hit = SKShapeNode(rectOf: CGSize(width: 196, height: 206))
+                let hit = SKShapeNode(rectOf: CGSize(width: 196 * footprint, height: 206 * footprint))
                 hit.name = "worldmap.hit.\(key)"
                 hit.fillColor = SKColor(white: 1, alpha: 0.001)
                 hit.strokeColor = .clear

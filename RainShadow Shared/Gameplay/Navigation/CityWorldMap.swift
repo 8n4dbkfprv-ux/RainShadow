@@ -44,7 +44,7 @@ enum CityWorldMapCell: Equatable, Hashable {
             case .wharfLadder: return "WHARF LADDER"
             case .riverside: return "RIVERSIDE"
             case .lampWard: return "LAMP WARD"
-            case .lilaStreet: return "LILA'S STREET"
+            case .marketCross: return "MARKET CROSS"
             case .civicRecords: return "CIVIC RECORDS"
             }
         case .lockedWard:
@@ -95,7 +95,7 @@ enum CityWorldMap {
         // row 2 (north)
         [lockedNorthwest, .district(.civicRecords), lockedNortheast],
         // row 1 (middle)
-        [.district(.wharfLadder), .district(.sableRow), .district(.lilaStreet)],
+        [.district(.wharfLadder), .district(.marketCross), .district(.sableRow)],
         // row 0 (south) — listed north-to-south for painting
         [.district(.riverside), .district(.lampWard), lockedSoutheast]
     ]
@@ -103,8 +103,8 @@ enum CityWorldMap {
     private static let districtCoordinates: [CityDistrictID: GridPoint] = [
         .civicRecords: GridPoint(col: 1, row: 2),
         .wharfLadder: GridPoint(col: 0, row: 1),
-        .sableRow: GridPoint(col: 1, row: 1),
-        .lilaStreet: GridPoint(col: 2, row: 1),
+        .marketCross: GridPoint(col: 1, row: 1),
+        .sableRow: GridPoint(col: 2, row: 1),
         .riverside: GridPoint(col: 0, row: 0),
         .lampWard: GridPoint(col: 1, row: 0)
     ]

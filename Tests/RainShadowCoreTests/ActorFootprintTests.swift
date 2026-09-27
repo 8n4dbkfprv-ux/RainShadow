@@ -153,7 +153,7 @@ struct ActorFootprintTests {
             .wharfLadder: 51_472,
             .riverside: 51_490,
             .lampWard: 53_857,
-            .lilaStreet: 53_849,
+            .marketCross: 53_849,
             .civicRecords: 53_857,
         ]
         for id in CityDistrictID.allCases {

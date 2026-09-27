@@ -432,7 +432,7 @@ enum CityDistrictLayout {
         }
 
         // One entry per shipped `city_door_*` leaf. Buildings carrying two leaves
-        // (the Voss stoop and its bay, the Lila Street paired entry) get one each.
+        // (the Voss stoop and its bay, the Market Cross paired entry at Lila's rooms) get one each.
         // Cube openings stay on 512×640 for the five districts that still use cubes.
         static let buildingVossStoop        = Self(centreX: 200, thresholdY: 488, leafHeight:  92)
         static let buildingVossStoopGarage  = Self(centreX: 365, thresholdY: 545, leafHeight:  75)

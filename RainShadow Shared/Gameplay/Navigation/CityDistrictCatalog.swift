@@ -12,7 +12,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
     case wharfLadder
     case riverside
     case lampWard
-    case lilaStreet
+    case marketCross
     case civicRecords
 
     var slug: String {
@@ -21,18 +21,21 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .wharfLadder: return "wharf_ladder"
         case .riverside: return "riverside"
         case .lampWard: return "lamp_ward"
-        case .lilaStreet: return "lila_street"
+        case .marketCross: return "market_cross"
         case .civicRecords: return "civic_records"
         }
     }
 
     /// Stem used by this district's painted and baked resources: the world-map
     /// icon and the `city_<stem>.sr` / `.lm` / `.ht` sidecar maps. Lamp Ward was
-    /// renamed from Harborpoint PD after its art shipped, so its art keeps the
-    /// old `harborpoint_pd` names; every other district uses its slug.
+    /// renamed from Harborpoint PD, and Market Cross (the central district) was
+    /// widened from Lila's Street, after their art shipped, so their art keeps
+    /// the old `harborpoint_pd` / `lila_street` names; every other district uses
+    /// its slug.
     var artSlug: String {
         switch self {
         case .lampWard: return "harborpoint_pd"
+        case .marketCross: return "lila_street"
         default: return slug
         }
     }
@@ -46,6 +49,18 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         "\(worldMapIconTextureName)_hover"
     }
 
+    /// Relative size of this district's world-map stamp. Market Cross is the
+    /// city's centre and is meant to cover twice the ground of a ward such as
+    /// Sable Row, so its stamp covers twice the area (√2 on each side). The
+    /// walkable plate itself is still the shared `worldArtSize` until wider art
+    /// ships (see the GDD's Market Cross note).
+    var worldMapFootprintScale: CGFloat {
+        switch self {
+        case .marketCross: return 2.0.squareRoot()
+        default: return 1
+        }
+    }
+
     /// Second line under the world-map icon label stack.
     var worldMapShortType: String {
         switch self {
@@ -53,7 +68,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .wharfLadder: return "Docks"
         case .riverside: return "Riverfront"
         case .lampWard: return "Lamp Ward"
-        case .lilaStreet: return "Street"
+        case .marketCross: return "City Centre"
         case .civicRecords: return "Archives"
         }
     }
@@ -85,7 +100,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         case .shippingOffice: .wharfLadder
         case .ironStairs: .riverside
         case .lamphouse: .lampWard
-        case .lilaRooms: .lilaStreet
+        case .lilaRooms: .marketCross
         case .recordsAnnex: .civicRecords
         }
     }
@@ -105,7 +120,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         case .shippingOffice: "WHARF SHIPPING OFFICE"
         case .ironStairs: "RIVERSIDE ROOMS"
         case .lamphouse: "HARBORPOINT LAMPHOUSE"
-        case .lilaRooms: "LILA STREET ROOMS"
+        case .lilaRooms: "LILA'S ROOMS"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
     }
@@ -250,7 +265,7 @@ enum CityDistrictCatalog {
         case .wharfLadder: return wharfLadder
         case .riverside: return riverside
         case .lampWard: return lampWard
-        case .lilaStreet: return lilaStreet
+        case .marketCross: return marketCross
         case .civicRecords: return civicRecords
         }
     }
@@ -944,7 +959,7 @@ enum CityDistrictCatalog {
         ]
     )
 
-    // MARK: - Lila Street (east)
+    // MARK: - Market Cross (centre; Lila's rooms are on its side street)
 
     /// The densest ward: three modules to an edge and no gap anywhere, so the
     /// streets read as canyons. Lila's rooms are deliberately *not* marked out
@@ -1011,10 +1026,10 @@ enum CityDistrictCatalog {
             + districtRow(2, -2, .farLeft, [.tenement(at: 0.50)])
     }()
 
-    static let lilaStreet = CityDistrictDefinition(
-        id: .lilaStreet,
-        locationName: "LILA'S STREET",
-        arrivalHint: "LILA'S STREET  •  Doorway posts remember the Gray Man.",
+    static let marketCross = CityDistrictDefinition(
+        id: .marketCross,
+        locationName: "MARKET CROSS",
+        arrivalHint: "MARKET CROSS  •  Lila's rooms are off the square. Doorway posts remember the Gray Man.",
         groundTextureName: "city_lila_street_block_v02",
         mapTextureName: "map_city_lila_street_v02",
         actorStart: CityStreetPlan.arrivalPoint(from: .west),
