@@ -45,24 +45,24 @@
       "note": "Condition: worn"
     },
     {
-      "id": "wallet",
-      "identifiedName": "Leather Wallet",
+      "id": "coin-purse",
+      "identifiedName": "Coin Purse",
       "category": "PERSONAL EFFECT",
       "weightOunces": 4,
       "valuePence": 24,
       "iconArtName": "inventory_item_wallet_v01",
-      "identifiedDescription": "Licence, ferry pass, and the kind of money that disappears quickly.",
-      "note": "Cash rides in the purse, not the pocket"
+      "identifiedDescription": "Worn leather gone soft at the seams. A few silver, a ferry token, and his finder's writ folded small—the kind of money that disappears quickly.",
+      "note": "Coin is counted on the purse line, not in the bag"
     },
     {
-      "id": "cigarette-case",
-      "identifiedName": "Cigarette Case",
+      "id": "tobacco-tin",
+      "identifiedName": "Tobacco Tin",
       "category": "PERSONAL EFFECT",
       "weightOunces": 5,
       "valuePence": 60,
       "maxStack": 20,
       "iconArtName": "inventory_item_cigarette_case_v01",
-      "identifiedDescription": "Tarnished silver. Initials scratched away with deliberate care.",
+      "identifiedDescription": "A tarnished tin of hand-rolled smokes, a twist of papers and a flint-and-steel wedged in the lid. Initials scratched away with deliberate care.",
       "note": "Steadies the hands, ruins the lungs"
     },
     {

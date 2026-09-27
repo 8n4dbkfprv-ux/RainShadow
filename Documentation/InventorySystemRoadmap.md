@@ -124,7 +124,7 @@ The catalog this replaced had a `default:` branch that turned any unrecognised i
 - `DetectiveActorNode.movementProfile` recomputed on every inventory change.
 
 ### Exit criteria
-- A save written before equipment existed still loads, keeps its wallet, and seeds the starter kit once.
+- A save written before equipment existed still loads, keeps its purse, and seeds the starter kit once.
 - An unknown slot key is dropped on load rather than failing it.
 
 **Status: met** (`InventoryPersistenceTests`).
@@ -180,7 +180,7 @@ Removal is by identity, not index: the bar sorts by distance, so an index would 
 **Goal:** something to actually put in the ten paperdoll slots.
 
 ### Ship (sketch only)
-- An Image Generator batch for `inventory_item_*` apparel: trench coat, fedora, gloves, shoes, belt, cloak, ring, charm.
+- An Image Generator batch for `inventory_item_*` apparel: oilskin greatcoat, wide-brimmed hat, gloves, shoes, belt, cloak, ring, charm.
 - Authored `ItemDefinition`s with `defenceBonus` and weight.
 - Authored `.item(...)` loot entries, so containers yield something other than coins.
 

@@ -21,12 +21,12 @@ struct CharacterInventoryTests {
                 identifiedDescription: "d", flags: [.twoHanded]
             ),
             ItemDefinition(
-                id: "trench-coat", identifiedName: "Trench Coat", category: .outerwear,
+                id: "oilskin-greatcoat", identifiedName: "Oilskin Greatcoat", category: .outerwear,
                 weightOunces: 64, iconArtName: "x",
                 identifiedDescription: "d", defenceBonus: 2
             ),
             ItemDefinition(
-                id: "fedora", identifiedName: "Fedora", category: .headwear,
+                id: "wide-brimmed-hat", identifiedName: "Wide-Brimmed Hat", category: .headwear,
                 weightOunces: 8, iconArtName: "x",
                 identifiedDescription: "d", defenceBonus: 1
             ),
@@ -73,14 +73,14 @@ struct CharacterInventoryTests {
 
     @Test func categoryDecidesTheSlot() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("trench-coat"), in: .coat, catalog: Self.catalog)
-        #expect(inv.item(in: .coat)?.id == "trench-coat")
+        try inv.equip(Self.stack("oilskin-greatcoat"), in: .coat, catalog: Self.catalog)
+        #expect(inv.item(in: .coat)?.id == "oilskin-greatcoat")
 
         #expect(throws: InventoryRefusal.wrongSlot(
-            itemID: "trench-coat", category: .outerwear, slot: .fedora
+            itemID: "oilskin-greatcoat", category: .outerwear, slot: .fedora
         )) {
             var other = Self.inventory()
-            try other.equip(Self.stack("trench-coat"), in: .fedora, catalog: Self.catalog)
+            try other.equip(Self.stack("oilskin-greatcoat"), in: .fedora, catalog: Self.catalog)
         }
     }
 
@@ -164,29 +164,29 @@ struct CharacterInventoryTests {
     // MARK: - Equipping across the bag boundary
 
     @Test func equippingFromTheBagFreesItsSlot() throws {
-        var inv = Self.inventory(bag: [Self.stack("trench-coat")])
+        var inv = Self.inventory(bag: [Self.stack("oilskin-greatcoat")])
         #expect(inv.backpack.stacks.count == 1)
 
         try inv.equipFromBackpack(
             at: 0, to: .coat, catalog: Self.catalog, limits: Self.limits
         )
         #expect(inv.backpack.stacks.isEmpty)
-        #expect(inv.item(in: .coat)?.id == "trench-coat")
+        #expect(inv.item(in: .coat)?.id == "oilskin-greatcoat")
     }
 
     @Test func equippingOverAWornItemReturnsItToTheBag() throws {
-        var inv = Self.inventory(bag: [Self.stack("fedora")])
-        try inv.equip(Self.stack("fedora"), in: .fedora, catalog: Self.catalog)
+        var inv = Self.inventory(bag: [Self.stack("wide-brimmed-hat")])
+        try inv.equip(Self.stack("wide-brimmed-hat"), in: .fedora, catalog: Self.catalog)
 
         try inv.equipFromBackpack(
             at: 0, to: .fedora, catalog: Self.catalog, limits: Self.limits
         )
-        #expect(inv.item(in: .fedora)?.id == "fedora")
+        #expect(inv.item(in: .fedora)?.id == "wide-brimmed-hat")
         #expect(inv.backpack.stacks.count == 1, "the displaced hat should land in the bag")
     }
 
     @Test func aRefusedEquipLeavesBothSidesUntouched() throws {
-        var inv = Self.inventory(bag: [Self.stack("trench-coat")])
+        var inv = Self.inventory(bag: [Self.stack("oilskin-greatcoat")])
         let before = inv
 
         #expect(throws: (any Error).self) {
@@ -200,7 +200,7 @@ struct CharacterInventoryTests {
     @Test func unequippingIntoAFullBagIsRefusedRatherThanDroppingTheItem() throws {
         let filler = (0..<16).map { CarriedItemStack(id: "lead-brick", quantity: 1, charges: $0) }
         var inv = CharacterInventory(backpack: CarriedInventoryState(stacks: filler))
-        try inv.equip(Self.stack("trench-coat"), in: .coat, catalog: Self.catalog)
+        try inv.equip(Self.stack("oilskin-greatcoat"), in: .coat, catalog: Self.catalog)
         let before = inv
 
         #expect(throws: InventoryRefusal.bagFull) {
@@ -262,11 +262,11 @@ struct CharacterInventoryTests {
 
     @Test func reorderingTheBagMovesOneStack() {
         var bag = CarriedInventoryState(stacks: [
-            Self.stack("shortsword"), Self.stack("trench-coat"), Self.stack("fedora")
+            Self.stack("shortsword"), Self.stack("oilskin-greatcoat"), Self.stack("wide-brimmed-hat")
         ])
         let moved = bag.move(from: 0, to: 2)
         #expect(moved)
-        #expect(bag.stacks.map(\.id) == ["trench-coat", "fedora", "shortsword"])
+        #expect(bag.stacks.map(\.id) == ["oilskin-greatcoat", "wide-brimmed-hat", "shortsword"])
     }
 
     @Test func reorderingRefusesTheNoOpAndTheMissingIndex() {
@@ -420,7 +420,7 @@ struct CharacterInventoryTests {
 
     @Test func weightCountsWhatIsWornAndWhatIsCarried() throws {
         var inv = Self.inventory(bag: [Self.stack("bolts", 10)])
-        try inv.equip(Self.stack("trench-coat"), in: .coat, catalog: Self.catalog)
+        try inv.equip(Self.stack("oilskin-greatcoat"), in: .coat, catalog: Self.catalog)
         // 64 oz coat + 10 × 1 oz bolts.
         #expect(inv.carriedWeightOunces(catalog: Self.catalog) == 74)
     }
@@ -478,11 +478,11 @@ struct CharacterInventoryTests {
     // MARK: - Derived statistics
 
     @Test func defenceCountsWornGearOnly() throws {
-        var inv = Self.inventory(bag: [Self.stack("fedora")])
+        var inv = Self.inventory(bag: [Self.stack("wide-brimmed-hat")])
         #expect(inv.defenceBonus(catalog: Self.catalog) == 0, "a hat in the bag protects nobody")
 
-        try inv.equip(Self.stack("trench-coat"), in: .coat, catalog: Self.catalog)
-        try inv.equip(Self.stack("fedora"), in: .fedora, catalog: Self.catalog)
+        try inv.equip(Self.stack("oilskin-greatcoat"), in: .coat, catalog: Self.catalog)
+        try inv.equip(Self.stack("wide-brimmed-hat"), in: .fedora, catalog: Self.catalog)
         #expect(inv.defenceBonus(catalog: Self.catalog) == 3)
     }
 

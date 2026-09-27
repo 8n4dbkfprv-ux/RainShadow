@@ -461,7 +461,7 @@ final class InventoryOverlay: SKNode {
         content.addChild(divider)
 
         let profession = Self.label(size: 18, color: Palette.paper, weight: .demibold)
-        profession.text = "PRIVATE INVESTIGATOR"
+        profession.text = "HIRED FINDER"
         profession.horizontalAlignmentMode = .left
         profession.position = CGPoint(x: band.x + 18, y: band.y)
         profession.zPosition = 20

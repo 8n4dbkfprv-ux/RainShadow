@@ -229,7 +229,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P1 | `office_entrance_runner` | 768×384 | Yes | Narrow worn runner from door toward desk; non-blocking floor decal. |
 | P1 | `office_case_board` | 320×280 | Yes | Cork case board with pinned notes and string; no legible text. |
 | P1 | `office_wall_city_map` | 280×240 | Yes | Framed wall city map (abstract streets). |
-| P1 | `office_framed_licence` | 160×180 | Yes | Framed private investigator licence; abstract seals/lines only. |
+| P1 | `office_framed_licence` | 160×180 | Yes | Framed finder's writ (Voss's charter to work as a hired finder); abstract seals/lines only. File name kept from the earlier licence brief. |
 | P1 | `office_wall_photos` | 220×160 | Yes | Cluster of pinned/framed wall photographs. |
 | — | `office_window_blinds` | legacy | Yes | V10 rollback provenance only. V11's two fixed blind assemblies are baked into the plate. |
 | — | `office_radiator` | legacy | Yes | Retired source texture; V18 paints both 1950s radiators directly into the architecture plate and emits no radiator area prop. |
@@ -432,7 +432,7 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | P0 | `inventory_stat_badge_*_v05` | 4 | 256×256 | Badge frames with open centers: defence / vitality / resolve / damage. |
 | P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | **Active.** Painted horizontal page chevrons, now in service on the quick-loot strip — the manual page surface they were retained for. The vertical container and carried-item row controls still reuse the dialogue scroll arrows. |
 | P0 | `hud_loot_container_panel_v02` (reused) | — | 1600×320 | **Active, reused.** The quick-loot strip borrows the container panel's backing until a dedicated 10:1 plate is generated. Code owns every slot, chevron, and hit target; the plate contributes nothing but the field. A bespoke `hud_quick_loot_bar_v01` is an outstanding batch. |
-| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted case notebook, brass key, matchbook, wallet, and cigarette-case icons, plus the starter weapon and light. **Art follow-up:** `inventory_item_service_revolver_v01` and `inventory_item_flashlight_v01` still show a revolver and an electric torch; they now back the **Lantern Service Shortsword** and the **Dark Lantern** (shuttered oil lantern) and need repainting under the same file names. |
+| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted case notebook, brass key and matchbook icons, plus the starter weapon, light, purse and tobacco tin. **Art follow-up (repaint under the same file names):** `inventory_item_service_revolver_v01` and `inventory_item_flashlight_v01` still show a revolver and an electric torch; they now back the **Lantern Service Shortsword** and the **Dark Lantern** (shuttered oil lantern). `inventory_item_wallet_v01` shows a billfold wallet and now backs the **Coin Purse** (drawstring leather purse). `inventory_item_cigarette_case_v01` shows a cigarette case and now backs the **Tobacco Tin** (tarnished tin of hand-rolled smokes). |
 | P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
 | P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |
 | P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Stable ID for the smooth RGBA V20 paperdoll derived from the approved front anchor; staged replacement is soft-matted/despilled and never V14-crunched. |

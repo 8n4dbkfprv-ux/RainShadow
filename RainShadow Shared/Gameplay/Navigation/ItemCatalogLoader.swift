@@ -252,7 +252,7 @@ enum HarborpointItems {
         "case-notes",
         "brass-key",
         "dark-lantern",
-        "wallet",
-        "cigarette-case"
+        "coin-purse",
+        "tobacco-tin"
     ]
 }

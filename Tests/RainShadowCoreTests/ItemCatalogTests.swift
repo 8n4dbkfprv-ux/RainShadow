@@ -16,6 +16,16 @@ struct ItemCatalogTests {
         // Renamed starter items: the old ids must not linger in the catalog.
         #expect(catalog.definition(for: "service-revolver") == nil)
         #expect(catalog.definition(for: "flashlight") == nil)
+        #expect(catalog.definition(for: "wallet") == nil)
+        #expect(catalog.definition(for: "cigarette-case") == nil)
+        let purse = try catalog.require("coin-purse")
+        #expect(purse.identifiedName == "Coin Purse")
+        #expect(purse.identifiedDescription.contains("finder's writ"))
+        #expect(purse.iconArtName == "inventory_item_wallet_v01")
+        let tin = try catalog.require("tobacco-tin")
+        #expect(tin.identifiedName == "Tobacco Tin")
+        #expect(tin.identifiedDescription.contains("hand-rolled"))
+        #expect(tin.iconArtName == "inventory_item_cigarette_case_v01")
         #expect(HarborpointItems.starterItemIDs.contains("lantern-shortsword"))
         #expect(HarborpointItems.starterItemIDs.contains("dark-lantern"))
     }

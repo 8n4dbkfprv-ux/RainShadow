@@ -3,7 +3,7 @@ import SpriteKit
 @MainActor
 final class GameSession {
     /// The painted 16-slot case bag already contains these fixed starter items:
-    /// shortsword, notebook, brass key, dark lantern, wallet, and cigarette case.
+    /// shortsword, notebook, brass key, dark lantern, coin purse, and tobacco tin.
     static let starterInventorySlotCount = 6
 
     private let saveStore: SaveStore

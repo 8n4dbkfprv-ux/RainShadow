@@ -272,7 +272,7 @@ public enum EmptyCoatJournalContent {
             return CaseJournalEntry(
                 id: "note.\(hotspotID)",
                 title: title,
-                eyebrow: "Field note · detective's office",
+                eyebrow: "Field note · finder's office",
                 status: "Recorded",
                 summary: observation,
                 body: [
