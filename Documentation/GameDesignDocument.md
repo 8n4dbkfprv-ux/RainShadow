@@ -461,7 +461,7 @@ Aligned to the shipped Empty Coat intro graph:
 | ID | Item | Custody | Reliability | M01 journal? | Leads |
 |---|---|---|---|---|---|
 | `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
-| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable's property log at the Lamphouse |
+| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; Lamphouse property log |
 | `evidence.lamphouse-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
 | `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
@@ -474,7 +474,7 @@ Aligned to the shipped Empty Coat intro graph:
 
 **Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
 - Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights).
-- River recovery site + constable / river-lantern soft file.
+- River recovery site + lanternman / river-lantern soft file.
 - Gray greatcoat pressure (threshold / bait / lamp-sergeant favor).
 - Mid-act trust gate: the page they almost burned; partial manifest line.
 - Civic Spine / Dock Authority “lost” crates signatures.

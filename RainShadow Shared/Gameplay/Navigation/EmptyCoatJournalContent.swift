@@ -260,7 +260,7 @@ public enum EmptyCoatJournalContent {
             ],
             leads: [
                 "Inspect the riverside recovery site.",
-                "Request the constable's property log at the Lamphouse."
+                "Request the Lamphouse property log."
             ],
             isNew: false
         )
