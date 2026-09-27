@@ -200,7 +200,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P0 | `office_chair_floor_shadow` | 512×256 | Yes | Chair-only floor/contact shadow. |
 | P0 | `office_desk_lamp` | 217×262 | Yes | Worn metal lamp with warm lit shade; 250px content height before the shared 0.12 desk display scale. |
 | P0 | `office_desk_phone` | 210×154 | Yes | Period wired desk telephone and readable coiled cord; 142px content height. |
-| P1 | `office_desk_typewriter` | 280×200 | Yes | Black 1940s office typewriter with paper; desk-scale clutter, no legible text. |
+| P1 | `office_desk_typewriter` | 280×200 | Yes | Writing set: goose quill in a pewter inkpot, blotter and an open ledger; desk-scale clutter, no legible text. **Art follow-up:** the shipped image still shows a black 1940s typewriter; repaint as the quill/inkpot/ledger set under the same file name (and prop id). |
 | P1 | `office_desk_notebook` | 160×120 | Yes | Closed case notebook on the writing surface. |
 | P0 | `office_desk_mug` | 104×135 | Yes | Chipped ceramic mug and dark coffee, no logo or text; 123px content height. |
 | P0 | `office_desk_ashtray` | 115×85 | Yes | Battered metal ashtray with old stubs and ash; 73px content height. |
@@ -237,7 +237,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P1 | `office_framed_photo` | 256×256 | Yes | Small turned/obscured personal photo; faces need not be legible at play scale. |
 | P1 | `office_worn_rug` | 1024×768 | Yes | Thin worn rug/floor decal under the desk island, no contact shadow, low contrast. |
 | P1 | `office_floor_trash_a` | 256×192 | Yes | Crumpled page/envelope cluster. |
-| P1 | `office_floor_trash_b` | 256×192 | Yes | Matchbook/string/paper cluster with no brands. |
+| P1 | `office_floor_trash_b` | 256×192 | Yes | Matchbook/string/paper cluster with no brands. **Optional art follow-up:** swap the matchbook for a spent tallow stub or tavern token to match the de-modernised office. |
 | P1 | `office_floor_trash_c` | 256×192 | Yes | Small alternate cluster for composition balance. |
 
 ### 5.6 Lighting and grade overlays

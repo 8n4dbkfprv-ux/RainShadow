@@ -93,7 +93,7 @@
           "y" : 1096.830153637476
         },
         "id" : "office.desk",
-        "label" : "Desk",
+        "label" : "Writing desk",
         "loot" : {
           "entries" : [
             {
@@ -8135,8 +8135,8 @@
         },
         "id" : "office.desk",
         "kind" : "info",
-        "label" : "Desk",
-        "observation" : "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.",
+        "label" : "Writing desk",
+        "observation" : "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet.",
         "polygon" : [
           {
             "x" : 1912.2178004833652,

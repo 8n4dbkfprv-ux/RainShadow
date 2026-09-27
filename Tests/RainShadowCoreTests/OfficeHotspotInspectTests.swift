@@ -76,7 +76,7 @@ struct OfficeHotspotInspectTests {
             alreadyInspected: true,
             caseState: retained
         )
-        #expect(first == "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.")
+        #expect(first == "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet.")
         #expect(again == "The key sits on the desk leather. Brass. Small teeth. No inn tag. Lamp oil, river water, and a quiet that isn't empty.")
     }
 

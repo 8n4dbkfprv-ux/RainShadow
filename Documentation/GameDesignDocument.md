@@ -912,7 +912,7 @@ No title card should obscure the best establishing composition. If a title is us
 
 The office is a single isometric room with enough floor for a short path loop. Required story zones:
 
-- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, **raven perch**, typewriter, notebook, mug, ashtray, case papers/folios, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
+- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, **raven perch**, writing set (quill, inkpot and ledger), notebook, mug, ashtray, case papers/folios, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
 - **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and **hearth** heat on the window wall; cool blind-striped spill on the floor.
 - **Zone 3 — Entrance and waiting**: door with coat stand and umbrella stand beside it; two mismatched waiting chairs and a small table (newspaper + ashtray) against the right wall; narrow worn runner from the entrance toward the desk; doorway kept clear of boxes.
 - **Negative space**: a navigable floor wedge in the lower foreground; warm amber lamp key against cold window light and a narrow warm hallway slit through the open door.
@@ -936,7 +936,7 @@ The room should feel used and cramped but compositionally controlled. Every majo
 | ID | Display name | First observation | State effect |
 |---|---|---|---|
 | `office.window` | Rain-streaked window | “The rain had been working the glass longer than I had. The sill-ward didn't care either way.” | Sets `noticedWeather`; demonstrates environmental hotspot. Second look (after retain): client + humming key. |
-| `office.desk` | Desk | “Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. After retain, second look shows the key on the desk leather. |
+| `office.desk` | Writing desk | “Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. After retain, second look shows the key on the desk leather. |
 | `office.phone` | Raven perch | “Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it.” | Sets `checkedPhone` (legacy flag id); reserves later raven-message state. Hotspot id stays `office.phone`. |
 | `office.files` | Case papers | “Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.” | Adds `oldCaseReference`; seeds later narrative. |
 | `office.door` | Office door | “The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |

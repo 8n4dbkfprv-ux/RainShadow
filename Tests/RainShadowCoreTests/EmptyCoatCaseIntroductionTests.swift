@@ -156,7 +156,7 @@ struct EmptyCoatCaseIntroductionTests {
         let inspect = OfficeHotspotInspect.self
         #expect(
             inspect.text(forHotspotID: "office.desk", alreadyInspected: false)
-                == "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet."
+                == "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet."
         )
         #expect(
             inspect.text(forHotspotID: "office.window", alreadyInspected: false)

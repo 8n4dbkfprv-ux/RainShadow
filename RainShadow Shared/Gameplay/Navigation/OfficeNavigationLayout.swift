@@ -1923,9 +1923,9 @@ enum OfficeNavigationLayout {
         ),
         (
             "office.desk",
-            "Desk",
+            "Writing desk",
             deskHitArea,
-            "Three cold cases, two debts the ledger still remembers, one page that hasn't learned a name yet."
+            "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet."
         ),
         (
             "office.phone",
