@@ -1,144 +1,2214 @@
 {
-  "area" : {
-    "actors" : [
-
-    ],
-    "agentProfile" : {
-      "halfHeight" : 4,
-      "halfWidth" : 16,
-      "visualRangeInCells" : 14
+  "schemaVersion": 1,
+  "area": {
+    "id": "interior_iron_stairs",
+    "displayName": "RIVERSIDE ROOMS",
+    "kind": "interior",
+    "areaType": [],
+    "worldOrigin": {
+      "x": 0,
+      "y": 0
     },
-    "ambients" : [
+    "worldSize": {
+      "w": 874.036,
+      "h": 655.527
+    },
+    "plateTextureName": "riverside_rooms_v08",
+    "mapTextureName": "riverside_rooms_v08_map",
+    "searchMapName": "interior_iron_stairs.sr",
+    "heightMapName": "interior_iron_stairs.ht",
+    "lightMapName": "riverside_rooms_v08_neutral.lm",
+    "obstacles": [],
+    "wallPolygons": [
       {
-        "assetName" : "amb_rain_exterior",
-        "id" : "amb.rain.outside",
-        "isLooping" : true,
-        "point" : {
-          "x" : 1410,
-          "y" : 230
-        },
-        "radius" : 620,
-        "schedule" : 15728703,
-        "volume" : 0.12
-      }
-    ],
-    "areaType" : [
-
-    ],
-    "arrivalHint" : "The rain dims behind the frosted street door.",
-    "containers" : [
-
-    ],
-    "defaultTerrain" : "stone",
-    "displayName" : "RIVERSIDE ROOMS",
-    "doors" : [
-      {
-        "approachPoints" : [
+        "id": "office.cover.0",
+        "polygon": [
           {
-            "x" : 1410,
-            "y" : 300
+            "x": 350.1598,
+            "y": 173.3571
           },
           {
-            "x" : 1410,
-            "y" : 264
+            "x": 343.896,
+            "y": 168.895
+          },
+          {
+            "x": 338.4673,
+            "y": 172.7307
+          },
+          {
+            "x": 338.4673,
+            "y": 184.2946
+          },
+          {
+            "x": 344.3135,
+            "y": 188.6793
+          },
+          {
+            "x": 345.1487,
+            "y": 188.6793
+          },
+          {
+            "x": 350.1598,
+            "y": 184.9209
           }
         ],
-        "blocksSight" : true,
-        "closeSound" : "sfx_door_close",
-        "closedObstacle" : {
-          "h" : 12,
-          "w" : 16,
-          "x" : 1395,
-          "y" : 205
-        },
-        "id" : "portal.return",
-        "openSound" : "sfx_door_open",
-        "startsClosed" : true
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.1",
+        "polygon": [
+          {
+            "x": 283.3451,
+            "y": 223.4682
+          },
+          {
+            "x": 277.0812,
+            "y": 219.0061
+          },
+          {
+            "x": 271.6525,
+            "y": 222.8418
+          },
+          {
+            "x": 271.6525,
+            "y": 234.4056
+          },
+          {
+            "x": 277.4988,
+            "y": 238.7903
+          },
+          {
+            "x": 278.334,
+            "y": 238.7903
+          },
+          {
+            "x": 283.3451,
+            "y": 235.032
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.2",
+        "polygon": [
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          },
+          {
+            "x": 369.937,
+            "y": 312.0676
+          },
+          {
+            "x": 369.937,
+            "y": 315.4771
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.3",
+        "polygon": [
+          {
+            "x": 362.3818,
+            "y": 326.0023
+          },
+          {
+            "x": 362.0612,
+            "y": 321.384
+          },
+          {
+            "x": 362.0612,
+            "y": 325.7618
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.4",
+        "polygon": [
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          },
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 392.6991,
+            "y": 348.7402
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.5",
+        "polygon": [
+          {
+            "x": 398.6423,
+            "y": 353.1976
+          },
+          {
+            "x": 390.4575,
+            "y": 350.4213
+          },
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.6",
+        "polygon": [
+          {
+            "x": 369.6196,
+            "y": 348.4804
+          },
+          {
+            "x": 369.6196,
+            "y": 346.0698
+          },
+          {
+            "x": 368.3251,
+            "y": 345.0989
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.7",
+        "polygon": [
+          {
+            "x": 360.1403,
+            "y": 327.6834
+          },
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 362.3818,
+            "y": 326.0023
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.8",
+        "polygon": [
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 360.1403,
+            "y": 327.6834
+          },
+          {
+            "x": 360.1403,
+            "y": 347.0711
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.9",
+        "polygon": [
+          {
+            "x": 312.5348,
+            "y": 363.3876
+          },
+          {
+            "x": 320.7196,
+            "y": 363.3876
+          },
+          {
+            "x": 317.1283,
+            "y": 360.6941
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.10",
+        "polygon": [
+          {
+            "x": 317.1283,
+            "y": 360.6941
+          },
+          {
+            "x": 316.1261,
+            "y": 360.6941
+          },
+          {
+            "x": 312.5348,
+            "y": 363.3876
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.11",
+        "polygon": [
+          {
+            "x": 284.3891,
+            "y": 364.7656
+          },
+          {
+            "x": 292.5739,
+            "y": 364.7656
+          },
+          {
+            "x": 288.4815,
+            "y": 361.9792
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.12",
+        "polygon": [
+          {
+            "x": 292.5739,
+            "y": 364.7656
+          },
+          {
+            "x": 284.3891,
+            "y": 364.7656
+          },
+          {
+            "x": 284.389,
+            "y": 372.6864
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.13",
+        "polygon": [
+          {
+            "x": 278.5428,
+            "y": 371.4951
+          },
+          {
+            "x": 280.2131,
+            "y": 371.4951
+          },
+          {
+            "x": 279.3779,
+            "y": 371.3402
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.14",
+        "polygon": [
+          {
+            "x": 280.2131,
+            "y": 371.4951
+          },
+          {
+            "x": 278.5428,
+            "y": 371.4951
+          },
+          {
+            "x": 275.763,
+            "y": 373.58
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.15",
+        "polygon": [
+          {
+            "x": 275.763,
+            "y": 373.58
+          },
+          {
+            "x": 274.7009,
+            "y": 372.7834
+          },
+          {
+            "x": 273.6987,
+            "y": 372.7834
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.16",
+        "polygon": [
+          {
+            "x": 275.763,
+            "y": 373.58
+          },
+          {
+            "x": 270.1074,
+            "y": 375.4769
+          },
+          {
+            "x": 270.1074,
+            "y": 377.8216
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.17",
+        "polygon": [
+          {
+            "x": 270.1074,
+            "y": 377.8216
+          },
+          {
+            "x": 261.4215,
+            "y": 384.336
+          },
+          {
+            "x": 261.4215,
+            "y": 388.7138
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.18",
+        "polygon": [
+          {
+            "x": 328.2362,
+            "y": 437.5721
+          },
+          {
+            "x": 326.5659,
+            "y": 437.5721
+          },
+          {
+            "x": 327.4011,
+            "y": 437.727
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.19",
+        "polygon": [
+          {
+            "x": 326.5659,
+            "y": 437.5721
+          },
+          {
+            "x": 328.2362,
+            "y": 437.5721
+          },
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.20",
+        "polygon": [
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          },
+          {
+            "x": 346.4015,
+            "y": 428.1502
+          },
+          {
+            "x": 348.0719,
+            "y": 428.1502
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.21",
+        "polygon": [
+          {
+            "x": 400.8556,
+            "y": 371.9074
+          },
+          {
+            "x": 409.0404,
+            "y": 382.4238
+          },
+          {
+            "x": 409.0404,
+            "y": 378.046
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.22",
+        "polygon": [
+          {
+            "x": 400.8556,
+            "y": 371.9074
+          },
+          {
+            "x": 400.8555,
+            "y": 369.4967
+          },
+          {
+            "x": 398.6423,
+            "y": 367.8368
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.23",
+        "polygon": [
+          {
+            "x": 424.7001,
+            "y": 371.4881
+          },
+          {
+            "x": 423.0297,
+            "y": 371.4881
+          },
+          {
+            "x": 423.8649,
+            "y": 371.643
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.24",
+        "polygon": [
+          {
+            "x": 433.1104,
+            "y": 348.9889
+          },
+          {
+            "x": 424.7001,
+            "y": 371.4881
+          },
+          {
+            "x": 440.9862,
+            "y": 359.2735
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.25",
+        "polygon": [
+          {
+            "x": 440.9862,
+            "y": 359.2735
+          },
+          {
+            "x": 440.9862,
+            "y": 354.8958
+          },
+          {
+            "x": 433.1104,
+            "y": 348.9889
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.26",
+        "polygon": [
+          {
+            "x": 424.9256,
+            "y": 332.8386
+          },
+          {
+            "x": 433.1104,
+            "y": 332.8386
+          },
+          {
+            "x": 429.018,
+            "y": 330.0522
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.27",
+        "polygon": [
+          {
+            "x": 433.1104,
+            "y": 332.8386
+          },
+          {
+            "x": 424.9256,
+            "y": 332.8386
+          },
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.28",
+        "polygon": [
+          {
+            "x": 383.5839,
+            "y": 301.8324
+          },
+          {
+            "x": 391.7687,
+            "y": 301.8324
+          },
+          {
+            "x": 388.1774,
+            "y": 299.1389
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.29",
+        "polygon": [
+          {
+            "x": 388.1774,
+            "y": 299.1389
+          },
+          {
+            "x": 387.1752,
+            "y": 299.1389
+          },
+          {
+            "x": 383.5839,
+            "y": 301.8324
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.30",
+        "polygon": [
+          {
+            "x": 378.3473,
+            "y": 309.1694
+          },
+          {
+            "x": 380.0177,
+            "y": 309.1694
+          },
+          {
+            "x": 379.1825,
+            "y": 309.0146
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.31",
+        "polygon": [
+          {
+            "x": 380.0177,
+            "y": 309.1694
+          },
+          {
+            "x": 378.3473,
+            "y": 309.1694
+          },
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.32",
+        "polygon": [
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          },
+          {
+            "x": 374.5305,
+            "y": 309.3741
+          },
+          {
+            "x": 373.5283,
+            "y": 309.3741
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.33",
+        "polygon": [
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 362.0612,
+            "y": 321.384
+          },
+          {
+            "x": 362.3818,
+            "y": 326.0023
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.34",
+        "polygon": [
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 360.1403,
+            "y": 347.0711
+          },
+          {
+            "x": 368.3251,
+            "y": 345.0989
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.35",
+        "polygon": [
+          {
+            "x": 320.7196,
+            "y": 363.3876
+          },
+          {
+            "x": 312.5348,
+            "y": 363.3876
+          },
+          {
+            "x": 320.7196,
+            "y": 376.6366
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.36",
+        "polygon": [
+          {
+            "x": 292.5739,
+            "y": 364.7656
+          },
+          {
+            "x": 284.389,
+            "y": 372.6864
+          },
+          {
+            "x": 292.5739,
+            "y": 380.7657
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.37",
+        "polygon": [
+          {
+            "x": 280.2131,
+            "y": 371.4951
+          },
+          {
+            "x": 275.763,
+            "y": 373.58
+          },
+          {
+            "x": 283.0324,
+            "y": 373.6096
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.38",
+        "polygon": [
+          {
+            "x": 270.1074,
+            "y": 375.4769
+          },
+          {
+            "x": 275.763,
+            "y": 373.58
+          },
+          {
+            "x": 273.6987,
+            "y": 372.7834
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.39",
+        "polygon": [
+          {
+            "x": 303.894,
+            "y": 389.2558
+          },
+          {
+            "x": 261.4215,
+            "y": 388.7138
+          },
+          {
+            "x": 326.5659,
+            "y": 437.5721
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.40",
+        "polygon": [
+          {
+            "x": 400.8556,
+            "y": 371.9074
+          },
+          {
+            "x": 348.0719,
+            "y": 428.1502
+          },
+          {
+            "x": 409.0404,
+            "y": 382.4238
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.41",
+        "polygon": [
+          {
+            "x": 424.7001,
+            "y": 371.4881
+          },
+          {
+            "x": 433.1104,
+            "y": 348.9889
+          },
+          {
+            "x": 423.0297,
+            "y": 371.4881
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.42",
+        "polygon": [
+          {
+            "x": 433.1104,
+            "y": 332.8386
+          },
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          },
+          {
+            "x": 433.1104,
+            "y": 348.9889
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.43",
+        "polygon": [
+          {
+            "x": 383.5839,
+            "y": 309.8489
+          },
+          {
+            "x": 391.7687,
+            "y": 301.8324
+          },
+          {
+            "x": 383.5839,
+            "y": 301.8324
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.44",
+        "polygon": [
+          {
+            "x": 380.0177,
+            "y": 309.1694
+          },
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          },
+          {
+            "x": 382.1689,
+            "y": 310.7828
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.45",
+        "polygon": [
+          {
+            "x": 369.937,
+            "y": 312.0676
+          },
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          },
+          {
+            "x": 373.5283,
+            "y": 309.3741
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.46",
+        "polygon": [
+          {
+            "x": 362.0612,
+            "y": 321.384
+          },
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          },
+          {
+            "x": 369.937,
+            "y": 315.4771
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.47",
+        "polygon": [
+          {
+            "x": 369.6196,
+            "y": 348.4804
+          },
+          {
+            "x": 368.3251,
+            "y": 345.0989
+          },
+          {
+            "x": 360.1403,
+            "y": 347.0711
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.48",
+        "polygon": [
+          {
+            "x": 320.7196,
+            "y": 376.6366
+          },
+          {
+            "x": 312.5348,
+            "y": 363.3876
+          },
+          {
+            "x": 312.5348,
+            "y": 382.7752
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.49",
+        "polygon": [
+          {
+            "x": 292.5739,
+            "y": 380.7657
+          },
+          {
+            "x": 284.389,
+            "y": 372.6864
+          },
+          {
+            "x": 283.0324,
+            "y": 373.6096
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.50",
+        "polygon": [
+          {
+            "x": 283.0324,
+            "y": 373.6096
+          },
+          {
+            "x": 275.763,
+            "y": 373.58
+          },
+          {
+            "x": 270.1074,
+            "y": 377.8216
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.51",
+        "polygon": [
+          {
+            "x": 303.894,
+            "y": 389.2558
+          },
+          {
+            "x": 326.5659,
+            "y": 437.5721
+          },
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.52",
+        "polygon": [
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 348.0719,
+            "y": 428.1502
+          },
+          {
+            "x": 400.8556,
+            "y": 371.9074
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.53",
+        "polygon": [
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          },
+          {
+            "x": 423.0297,
+            "y": 371.4881
+          },
+          {
+            "x": 433.1104,
+            "y": 348.9889
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.54",
+        "polygon": [
+          {
+            "x": 391.7687,
+            "y": 301.8324
+          },
+          {
+            "x": 383.5839,
+            "y": 309.8489
+          },
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.55",
+        "polygon": [
+          {
+            "x": 382.1689,
+            "y": 310.7828
+          },
+          {
+            "x": 376.3024,
+            "y": 310.7031
+          },
+          {
+            "x": 369.937,
+            "y": 315.4771
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.56",
+        "polygon": [
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 369.6196,
+            "y": 348.4804
+          },
+          {
+            "x": 360.1403,
+            "y": 347.0711
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.57",
+        "polygon": [
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          },
+          {
+            "x": 320.7196,
+            "y": 376.6366
+          },
+          {
+            "x": 312.5348,
+            "y": 382.7752
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.58",
+        "polygon": [
+          {
+            "x": 270.1074,
+            "y": 377.8216
+          },
+          {
+            "x": 292.5739,
+            "y": 380.7657
+          },
+          {
+            "x": 283.0324,
+            "y": 373.6096
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.59",
+        "polygon": [
+          {
+            "x": 261.4215,
+            "y": 388.7138
+          },
+          {
+            "x": 292.5739,
+            "y": 380.7657
+          },
+          {
+            "x": 270.1074,
+            "y": 377.8216
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.60",
+        "polygon": [
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 400.8556,
+            "y": 371.9074
+          },
+          {
+            "x": 398.6423,
+            "y": 367.8368
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.61",
+        "polygon": [
+          {
+            "x": 423.0297,
+            "y": 371.4881
+          },
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          },
+          {
+            "x": 398.6423,
+            "y": 353.1976
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.62",
+        "polygon": [
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          },
+          {
+            "x": 383.5839,
+            "y": 309.8489
+          },
+          {
+            "x": 382.1689,
+            "y": 310.7828
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.63",
+        "polygon": [
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          },
+          {
+            "x": 369.937,
+            "y": 315.4771
+          },
+          {
+            "x": 368.3251,
+            "y": 330.4597
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.64",
+        "polygon": [
+          {
+            "x": 320.7196,
+            "y": 376.6366
+          },
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 360.1403,
+            "y": 347.0711
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.65",
+        "polygon": [
+          {
+            "x": 261.4215,
+            "y": 388.7138
+          },
+          {
+            "x": 303.894,
+            "y": 389.2558
+          },
+          {
+            "x": 292.5739,
+            "y": 380.7657
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.66",
+        "polygon": [
+          {
+            "x": 392.6991,
+            "y": 348.7402
+          },
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          },
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.67",
+        "polygon": [
+          {
+            "x": 369.937,
+            "y": 315.4771
+          },
+          {
+            "x": 391.7687,
+            "y": 317.9827
+          },
+          {
+            "x": 382.1689,
+            "y": 310.7828
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.68",
+        "polygon": [
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          },
+          {
+            "x": 312.5348,
+            "y": 382.7752
+          },
+          {
+            "x": 303.894,
+            "y": 389.2558
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.69",
+        "polygon": [
+          {
+            "x": 348.0719,
+            "y": 428.1502
+          },
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.70",
+        "polygon": [
+          {
+            "x": 424.7633,
+            "y": 342.7286
+          },
+          {
+            "x": 392.6991,
+            "y": 348.7402
+          },
+          {
+            "x": 398.6423,
+            "y": 353.1976
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.71",
+        "polygon": [
+          {
+            "x": 320.7196,
+            "y": 376.6366
+          },
+          {
+            "x": 343.6001,
+            "y": 426.0492
+          },
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.72",
+        "polygon": [
+          {
+            "x": 390.4575,
+            "y": 350.4213
+          },
+          {
+            "x": 398.6423,
+            "y": 353.1976
+          },
+          {
+            "x": 392.6991,
+            "y": 348.7402
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.73",
+        "polygon": [
+          {
+            "x": 398.6423,
+            "y": 353.1976
+          },
+          {
+            "x": 390.4575,
+            "y": 364.1088
+          },
+          {
+            "x": 398.6423,
+            "y": 367.8368
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.74",
+        "polygon": [
+          {
+            "x": 144.9132,
+            "y": 322.1631
+          },
+          {
+            "x": 143.6604,
+            "y": 322.1631
+          },
+          {
+            "x": 135.7262,
+            "y": 328.1138
+          },
+          {
+            "x": 135.7262,
+            "y": 441.1619
+          },
+          {
+            "x": 389.2047,
+            "y": 631.2708
+          },
+          {
+            "x": 390.4575,
+            "y": 631.2708
+          },
+          {
+            "x": 392.1278,
+            "y": 630.018
+          },
+          {
+            "x": 396.9302,
+            "y": 633.6198
+          },
+          {
+            "x": 397.5566,
+            "y": 633.7359
+          },
+          {
+            "x": 398.1829,
+            "y": 633.6198
+          },
+          {
+            "x": 741.4438,
+            "y": 376.1741
+          },
+          {
+            "x": 741.4438,
+            "y": 263.126
+          },
+          {
+            "x": 733.5096,
+            "y": 257.1753
+          },
+          {
+            "x": 732.2568,
+            "y": 257.1753
+          },
+          {
+            "x": 727.0122,
+            "y": 261.1087
+          },
+          {
+            "x": 722.6522,
+            "y": 257.8387
+          },
+          {
+            "x": 722.2323,
+            "y": 258.1536
+          },
+          {
+            "x": 721.6082,
+            "y": 257.6856
+          },
+          {
+            "x": 716.1795,
+            "y": 261.7571
+          },
+          {
+            "x": 716.1795,
+            "y": 262.6932
+          },
+          {
+            "x": 697.8031,
+            "y": 276.4755
+          },
+          {
+            "x": 691.7504,
+            "y": 271.9359
+          },
+          {
+            "x": 686.7393,
+            "y": 275.6942
+          },
+          {
+            "x": 686.7393,
+            "y": 282.6612
+          },
+          {
+            "x": 648.7895,
+            "y": 311.1235
+          },
+          {
+            "x": 644.1448,
+            "y": 307.64
+          },
+          {
+            "x": 639.1337,
+            "y": 311.3984
+          },
+          {
+            "x": 639.1337,
+            "y": 319.5415
+          },
+          {
+            "x": 636.837,
+            "y": 321.264
+          },
+          {
+            "x": 636.837,
+            "y": 322.2001
+          },
+          {
+            "x": 592.5722,
+            "y": 355.3987
+          },
+          {
+            "x": 592.5722,
+            "y": 351.09
+          },
+          {
+            "x": 599.0866,
+            "y": 346.2042
+          },
+          {
+            "x": 599.0866,
+            "y": 343.0602
+          },
+          {
+            "x": 553.068,
+            "y": 308.5462
+          },
+          {
+            "x": 551.0635,
+            "y": 308.5462
+          },
+          {
+            "x": 457.0217,
+            "y": 379.0775
+          },
+          {
+            "x": 457.0217,
+            "y": 382.2215
+          },
+          {
+            "x": 480.3234,
+            "y": 399.6978
+          },
+          {
+            "x": 480.3234,
+            "y": 408.2287
+          },
+          {
+            "x": 480.89,
+            "y": 408.6537
+          },
+          {
+            "x": 480.3234,
+            "y": 409.0786
+          },
+          {
+            "x": 480.3234,
+            "y": 419.3614
+          },
+          {
+            "x": 480.89,
+            "y": 419.7864
+          },
+          {
+            "x": 480.3234,
+            "y": 420.2113
+          },
+          {
+            "x": 480.3234,
+            "y": 430.4941
+          },
+          {
+            "x": 482.1432,
+            "y": 431.859
+          },
+          {
+            "x": 481.4926,
+            "y": 432.3469
+          },
+          {
+            "x": 481.4926,
+            "y": 433.1101
+          },
+          {
+            "x": 472.4309,
+            "y": 439.9064
+          },
+          {
+            "x": 472.5999,
+            "y": 444.4418
+          },
+          {
+            "x": 469.8,
+            "y": 446.5417
+          },
+          {
+            "x": 469.8,
+            "y": 447.4778
+          },
+          {
+            "x": 466.0394,
+            "y": 450.2983
+          },
+          {
+            "x": 459.9866,
+            "y": 445.7587
+          },
+          {
+            "x": 454.9755,
+            "y": 449.517
+          },
+          {
+            "x": 454.9755,
+            "y": 456.484
+          },
+          {
+            "x": 417.0258,
+            "y": 484.9463
+          },
+          {
+            "x": 412.3811,
+            "y": 481.4628
+          },
+          {
+            "x": 407.37,
+            "y": 485.2212
+          },
+          {
+            "x": 407.37,
+            "y": 494.3003
+          },
+          {
+            "x": 396.5103,
+            "y": 502.4451
+          },
+          {
+            "x": 395.8862,
+            "y": 501.9771
+          },
+          {
+            "x": 395.2598,
+            "y": 502.4469
+          },
+          {
+            "x": 394.6334,
+            "y": 501.9771
+          },
+          {
+            "x": 394.0093,
+            "y": 502.4451
+          },
+          {
+            "x": 329.0714,
+            "y": 453.7417
+          },
+          {
+            "x": 329.0714,
+            "y": 452.8056
+          },
+          {
+            "x": 323.6427,
+            "y": 448.734
+          },
+          {
+            "x": 323.0186,
+            "y": 449.2021
+          },
+          {
+            "x": 245.553,
+            "y": 391.1028
+          },
+          {
+            "x": 245.553,
+            "y": 390.1667
+          },
+          {
+            "x": 240.1243,
+            "y": 386.0952
+          },
+          {
+            "x": 239.5002,
+            "y": 386.5633
+          },
+          {
+            "x": 157.8586,
+            "y": 325.332
+          },
+          {
+            "x": 157.8586,
+            "y": 324.3959
+          },
+          {
+            "x": 152.4299,
+            "y": 320.3244
+          },
+          {
+            "x": 151.8058,
+            "y": 320.7924
+          },
+          {
+            "x": 151.3859,
+            "y": 320.4775
+          },
+          {
+            "x": 147.0258,
+            "y": 323.7476
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.75",
+        "polygon": [
+          {
+            "x": 506.9407,
+            "y": 133.2336
+          },
+          {
+            "x": 505.9385,
+            "y": 133.2336
+          },
+          {
+            "x": 502.3472,
+            "y": 135.9271
+          },
+          {
+            "x": 502.3472,
+            "y": 144.4301
+          },
+          {
+            "x": 453.4054,
+            "y": 181.1365
+          },
+          {
+            "x": 453.4054,
+            "y": 178.7721
+          },
+          {
+            "x": 449.8141,
+            "y": 176.0786
+          },
+          {
+            "x": 448.8119,
+            "y": 176.0786
+          },
+          {
+            "x": 445.2206,
+            "y": 178.7721
+          },
+          {
+            "x": 445.2206,
+            "y": 187.2751
+          },
+          {
+            "x": 441.7462,
+            "y": 189.8809
+          },
+          {
+            "x": 441.7462,
+            "y": 195.2231
+          },
+          {
+            "x": 437.4366,
+            "y": 198.4553
+          },
+          {
+            "x": 437.4366,
+            "y": 202.833
+          },
+          {
+            "x": 457.4811,
+            "y": 217.8663
+          },
+          {
+            "x": 459.1514,
+            "y": 217.8663
+          },
+          {
+            "x": 475.6429,
+            "y": 205.4977
+          },
+          {
+            "x": 480.9915,
+            "y": 204.761
+          },
+          {
+            "x": 483.4971,
+            "y": 202.0089
+          },
+          {
+            "x": 488.5082,
+            "y": 199.3976
+          },
+          {
+            "x": 491.0137,
+            "y": 196.5027
+          },
+          {
+            "x": 496.0248,
+            "y": 193.8609
+          },
+          {
+            "x": 501.0359,
+            "y": 188.9805
+          },
+          {
+            "x": 503.5415,
+            "y": 188.1177
+          },
+          {
+            "x": 508.5526,
+            "y": 183.2166
+          },
+          {
+            "x": 511.0582,
+            "y": 182.2028
+          },
+          {
+            "x": 513.5637,
+            "y": 180.549
+          },
+          {
+            "x": 516.0693,
+            "y": 177.6587
+          },
+          {
+            "x": 512.0688,
+            "y": 178.1783
+          },
+          {
+            "x": 532.6477,
+            "y": 162.7442
+          },
+          {
+            "x": 532.6477,
+            "y": 158.3664
+          },
+          {
+            "x": 528.3381,
+            "y": 155.1342
+          },
+          {
+            "x": 528.3381,
+            "y": 152.7235
+          },
+          {
+            "x": 524.8638,
+            "y": 150.1932
+          },
+          {
+            "x": 524.8638,
+            "y": 146.6759
+          },
+          {
+            "x": 520.7714,
+            "y": 143.8896
+          },
+          {
+            "x": 516.8697,
+            "y": 146.5329
+          },
+          {
+            "x": 513.5721,
+            "y": 144.0597
+          },
+          {
+            "x": 513.5721,
+            "y": 141.649
+          },
+          {
+            "x": 510.532,
+            "y": 139.3689
+          },
+          {
+            "x": 510.532,
+            "y": 135.9271
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
+      },
+      {
+        "id": "office.cover.76",
+        "polygon": [
+          {
+            "x": 544.2568,
+            "y": 224.5772
+          },
+          {
+            "x": 544.2567,
+            "y": 227.1876
+          },
+          {
+            "x": 544.6326,
+            "y": 227.4695
+          },
+          {
+            "x": 544.6326,
+            "y": 274.6855
+          },
+          {
+            "x": 544.2568,
+            "y": 274.9674
+          },
+          {
+            "x": 544.2567,
+            "y": 277.5779
+          },
+          {
+            "x": 546.5117,
+            "y": 279.2691
+          },
+          {
+            "x": 547.5975,
+            "y": 279.2227
+          },
+          {
+            "x": 547.5975,
+            "y": 280.4766
+          },
+          {
+            "x": 542.5864,
+            "y": 284.2349
+          },
+          {
+            "x": 542.5864,
+            "y": 287.8624
+          },
+          {
+            "x": 581.5895,
+            "y": 317.1147
+          },
+          {
+            "x": 583.0928,
+            "y": 317.1147
+          },
+          {
+            "x": 646.3163,
+            "y": 269.6971
+          },
+          {
+            "x": 646.3163,
+            "y": 266.0696
+          },
+          {
+            "x": 641.3052,
+            "y": 262.3113
+          },
+          {
+            "x": 641.3052,
+            "y": 206.6177
+          },
+          {
+            "x": 606.8956,
+            "y": 180.8105
+          },
+          {
+            "x": 605.3923,
+            "y": 180.8105
+          },
+          {
+            "x": 601.6876,
+            "y": 183.589
+          },
+          {
+            "x": 600.6317,
+            "y": 182.7971
+          },
+          {
+            "x": 599.9636,
+            "y": 182.7971
+          },
+          {
+            "x": 573.4882,
+            "y": 202.6536
+          },
+          {
+            "x": 573.4882,
+            "y": 204.7385
+          },
+          {
+            "x": 572.4561,
+            "y": 205.5126
+          },
+          {
+            "x": 571.4003,
+            "y": 204.7207
+          },
+          {
+            "x": 570.7321,
+            "y": 204.7207
+          }
+        ],
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true
       }
     ],
-    "entrances" : [
+    "defaultTerrain": "wood",
+    "agentProfile": {
+      "halfWidth": 16,
+      "halfHeight": 4,
+      "visualRangeInCells": 14
+    },
+    "props": [],
+    "actors": [],
+    "notes": [],
+    "animations": [],
+    "regions": [
       {
-        "name" : "default",
-        "point" : {
-          "x" : 1390,
-          "y" : 335
+        "id": "portal.return",
+        "kind": "travel",
+        "label": "Return to Riverside",
+        "cursor": "travel",
+        "polygon": [
+          {
+            "x": 275.4108,
+            "y": 217.1269
+          },
+          {
+            "x": 336.3793,
+            "y": 171.4005
+          },
+          {
+            "x": 345.5663,
+            "y": 178.2908
+          },
+          {
+            "x": 284.5978,
+            "y": 224.0172
+          }
+        ],
+        "approachPoint": {
+          "x": 344,
+          "y": 222
+        },
+        "travel": {
+          "destination": "city_riverside",
+          "entrance": "from.portal.ironStairs"
+        }
+      }
+    ],
+    "entrances": [
+      {
+        "name": "default",
+        "point": {
+          "x": 344,
+          "y": 222
         }
       },
       {
-        "name" : "from.street",
-        "point" : {
-          "x" : 1390,
-          "y" : 335
+        "name": "from.street",
+        "point": {
+          "x": 344,
+          "y": 222
         }
       }
     ],
-    "id" : "interior_iron_stairs",
-    "kind" : "interior",
-    "lightMapName" : "city_building_interior_v01.lm",
-    "mapTextureName" : "map_city_building_interior_v01",
-    "notes" : [
-
-    ],
-    "obstacles" : [
-      {
-        "h" : 150,
-        "w" : 500,
-        "x" : 930,
-        "y" : 720
-      }
-    ],
-    "plateTextureName" : "city_building_interior_v01",
-    "props" : [
-
-    ],
-    "regions" : [
-      {
-        "approachPoint" : {
-          "x" : 1410,
-          "y" : 300
-        },
-        "id" : "portal.return",
-        "kind" : "travel",
-        "label" : "STREET",
-        "polygon" : [
-          {
-            "x" : 1315,
-            "y" : 180
-          },
-          {
-            "x" : 1505,
-            "y" : 180
-          },
-          {
-            "x" : 1505,
-            "y" : 330
-          },
-          {
-            "x" : 1315,
-            "y" : 330
-          }
-        ],
-        "travel" : {
-          "destination" : "city_riverside",
-          "entrance" : "from.portal.ironStairs"
-        }
-      }
-    ],
-    "searchMapName" : "city_building_interior_v01.sr",
-    "sightPermeableObstacles" : [
-
-    ],
-    "wallPolygons" : [
-
-    ],
-    "worldOrigin" : {
-      "x" : 0,
-      "y" : 0
-    },
-    "worldSize" : {
-      "h" : 1152,
-      "w" : 2048
-    }
-  },
-  "schemaVersion" : 1
+    "arrivalHint": "The quay lies outside the narrow timber threshold."
+  }
 }

@@ -1,0 +1,1093 @@
+{
+  "schema": "rainshadow.sprite-animation",
+  "version": 1,
+  "frames": [
+    {
+      "id": "f000",
+      "texture": "voss_office_v10_bed_candle_000.png",
+      "sha256": "a80bd6e51ef86b54b29fc2f754de5ed9331fcb508bcca93241bab56fd539ef5d",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f001",
+      "texture": "voss_office_v10_bed_candle_001.png",
+      "sha256": "99668ac0bdcf4af068f95ac3f99789e47d397c3df5baabfc15ec8c6d19ecb457",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f002",
+      "texture": "voss_office_v10_bed_candle_002.png",
+      "sha256": "cc3550eefba6831aef059ed4797d55b1280a9813234944b5286175eaf98ef8c6",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f003",
+      "texture": "voss_office_v10_bed_candle_003.png",
+      "sha256": "34134104ca81ec80fadbe516b2c0ea9868f7106bca99d9ebb43a6850ce856649",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f004",
+      "texture": "voss_office_v10_bed_candle_004.png",
+      "sha256": "3609ae7120641dda0e8174df8d0a75db72e477dd9c02807ddf24a970358f4cd1",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f005",
+      "texture": "voss_office_v10_bed_candle_005.png",
+      "sha256": "c299e90fc11d9fe5400ca6465c2fdd3b185b5c55fda5442fe69692749072ab1c",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f006",
+      "texture": "voss_office_v10_bed_candle_006.png",
+      "sha256": "06dbcb3045ae960df3dc1447fa683db7ca7863cc6c81354bd5ad288ab564e0b1",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f007",
+      "texture": "voss_office_v10_bed_candle_007.png",
+      "sha256": "7b8cc41beacc8dc3ab49008b84992adb32fcdabdd3757a78d337eb2c9b63378c",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f008",
+      "texture": "voss_office_v10_bed_candle_008.png",
+      "sha256": "d87d649e3e8ad18e9bb13f7fd143f408e44e5667fe18269e50c2a76b95e86f88",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f009",
+      "texture": "voss_office_v10_bed_candle_009.png",
+      "sha256": "49f205f7dbf01001639f51bf0e2d18e9352d333cca993ebcb21997b7fa384ec1",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f010",
+      "texture": "voss_office_v10_bed_candle_010.png",
+      "sha256": "14d77f16a209c29719aafead57a68e25fb036ba002f4a636b9982a778b4dfeb2",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f011",
+      "texture": "voss_office_v10_bed_candle_011.png",
+      "sha256": "9fc062720c750b968a9655562436ea1dfe0d0a68c75bc64b1cb90ccdaf411893",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f012",
+      "texture": "voss_office_v10_bed_candle_012.png",
+      "sha256": "7a2fbbba46b96d261f1a0d7a4b3229932ebf6535baf9dbad6f1f6de6b095a986",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f013",
+      "texture": "voss_office_v10_bed_candle_013.png",
+      "sha256": "145f691a89a94ea8fb4a69f0a9afa9b934b9c408edec2f4b328a691e5af57a29",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f014",
+      "texture": "voss_office_v10_bed_candle_014.png",
+      "sha256": "020364b3d813fc57b5772ddd2961a236f2ce6dc9a09107297cf73260f46eb137",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f015",
+      "texture": "voss_office_v10_bed_candle_015.png",
+      "sha256": "2bd7bb5f35194545249bf1891d530b192641a182f7256f62e9e5d084735272df",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f016",
+      "texture": "voss_office_v10_bed_candle_016.png",
+      "sha256": "c7754f124dab767e646248de07b155efb5f601550b35fa1478244d269d337d09",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f017",
+      "texture": "voss_office_v10_bed_candle_017.png",
+      "sha256": "aba0efeddb883cca328f188ba2950b6567ac2e89ef84b3866442bc6e0704f9a5",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f018",
+      "texture": "voss_office_v10_bed_candle_018.png",
+      "sha256": "63cd685119f9d9fd057bb2a5ee17ac108a40fb9518fe3f85df395ca98b24f8bc",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f019",
+      "texture": "voss_office_v10_bed_candle_019.png",
+      "sha256": "2e0434e486f3d7e49f76d94513a347b4b82cba947f221f009dad05299707bc21",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f020",
+      "texture": "voss_office_v10_bed_candle_020.png",
+      "sha256": "29c4ab903988c45847b6ff656bbb35310f0c0326105186e6ba838e36ae2421ef",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f021",
+      "texture": "voss_office_v10_bed_candle_021.png",
+      "sha256": "487ee28534239b6e87a8c0e9626cd970ddd3494e809da20bdf43e0fbd776bc5c",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f022",
+      "texture": "voss_office_v10_bed_candle_022.png",
+      "sha256": "a6529f9c8cac5baa7d39fd111366bad863c52628ebff905932d6d082672dc316",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f023",
+      "texture": "voss_office_v10_bed_candle_023.png",
+      "sha256": "55bf7b0e32920ce1eff180bde1a295689be4e3551881572b677300d1bffabcfd",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f024",
+      "texture": "voss_office_v10_bed_candle_024.png",
+      "sha256": "30862df3bd81740ed47985c04f339b87859e695e29bd40a148176b3b0804b0a0",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f025",
+      "texture": "voss_office_v10_bed_candle_025.png",
+      "sha256": "4fe6bf5a46073e5badb0d556a7e6be1a617cbf0c6e5a8791a034bc4477c31624",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f026",
+      "texture": "voss_office_v10_bed_candle_026.png",
+      "sha256": "e2230705536158eab0af0bbbc841c4df6883aae0312f460a00c9ce12cd1e0765",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f027",
+      "texture": "voss_office_v10_bed_candle_027.png",
+      "sha256": "378ae105068cc72ee086b0b1bd345fc1141efc8feef994d4281c1b7de6330c8d",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f028",
+      "texture": "voss_office_v10_bed_candle_028.png",
+      "sha256": "9a118ade777530f4587696e6fa5164a29ff9bf95a72385b1e8c7eba6468f2ad9",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f029",
+      "texture": "voss_office_v10_bed_candle_029.png",
+      "sha256": "39b368354eedc6ab6aea88fdc2287630b5b0330af8c7f931605dea4b50c92cc2",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f030",
+      "texture": "voss_office_v10_bed_candle_030.png",
+      "sha256": "6baf85201e08d1dd4558ee2c682d5f3abb1c15678ddc526d4199e148f3abb36a",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f031",
+      "texture": "voss_office_v10_bed_candle_031.png",
+      "sha256": "5f3cf0eba2d3e09af5155fe2bfa7b38e5d87d0d85a5acd457205393a7cd99c5d",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f032",
+      "texture": "voss_office_v10_bed_candle_032.png",
+      "sha256": "a16ad53c6b927769b665f0c69b3705c79d2bd59a2774d9c64807d7253b0347fc",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f033",
+      "texture": "voss_office_v10_bed_candle_033.png",
+      "sha256": "4f8e5fe8bf15ee028c23310870d6b5e895f190f147ad831fb7d0646c0bb3584a",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f034",
+      "texture": "voss_office_v10_bed_candle_034.png",
+      "sha256": "7f037f636c507ce60d308031fe3ce9e43195c9c5a75d0ed328c19ff80f045498",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f035",
+      "texture": "voss_office_v10_bed_candle_035.png",
+      "sha256": "33381145ce8f5cf369041f5e779460344d9ba78e2f27f13d8560fe5a7c455ec0",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f036",
+      "texture": "voss_office_v10_bed_candle_036.png",
+      "sha256": "415fff02a7954e29ecc6538d97d07051392d371c715e530ebffb7c18ae6a1bc5",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f037",
+      "texture": "voss_office_v10_bed_candle_037.png",
+      "sha256": "2eab6b550504898d79ea2710e135d1d481e975e24f87b42dc48083a801a68363",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f038",
+      "texture": "voss_office_v10_bed_candle_038.png",
+      "sha256": "bd769a462cd9c78e01d8166da14ab252a35fd86e809229cea72005834004ae5b",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f039",
+      "texture": "voss_office_v10_bed_candle_039.png",
+      "sha256": "e6119e4aebf916b731ecac8f3020e57f714b7094b986d84d92c0510f775131c4",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f040",
+      "texture": "voss_office_v10_bed_candle_040.png",
+      "sha256": "c22d772331e9f6546ac8d058cd5b96690b7b5e41e728f2b4ebf34046ee8cd3ef",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f041",
+      "texture": "voss_office_v10_bed_candle_041.png",
+      "sha256": "c58d8832ca1f478efb9ebab364ed53c0985d931960c6093138acddb6a5d95d45",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f042",
+      "texture": "voss_office_v10_bed_candle_042.png",
+      "sha256": "4522219a46b8e2380069e029b8a07a384e995c4f25ecd484af7a31b11fcaa932",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f043",
+      "texture": "voss_office_v10_bed_candle_043.png",
+      "sha256": "1b807b5cababe782716151853e6b66d7c17cb694d15c77384df3f5fb8db5a255",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f044",
+      "texture": "voss_office_v10_bed_candle_044.png",
+      "sha256": "e3e0fe1e2509f6b35ceb88a92e2501d02089535cb075a978d77eada3bc9eeca8",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f045",
+      "texture": "voss_office_v10_bed_candle_045.png",
+      "sha256": "002aff4311f4c8ee5bad0cc38b47c90aa63f5650fec1a0dae02270cec3801698",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f046",
+      "texture": "voss_office_v10_bed_candle_046.png",
+      "sha256": "fffc9832a58feaf175197d2848a460f898bf8ac271dbfd51a72251af3b272324",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f047",
+      "texture": "voss_office_v10_bed_candle_047.png",
+      "sha256": "de8bcbd038cc07e87933352a3e377b65961c5b3c9d15392873164c521ecbecbd",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f048",
+      "texture": "voss_office_v10_bed_candle_048.png",
+      "sha256": "f959e52556b46732aacab87140c05050ff9d2ae48139fea3ff8e54cb2991c395",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f049",
+      "texture": "voss_office_v10_bed_candle_049.png",
+      "sha256": "03357744a673771e3c6cc12afbb72b8b513a2ae9f23c87e03a7ed9f6a51eec61",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f050",
+      "texture": "voss_office_v10_bed_candle_050.png",
+      "sha256": "9449acc8242e1b26c8ab5371a05c1a72fc74cef3f0695fb29dfca01a842243f3",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f051",
+      "texture": "voss_office_v10_bed_candle_051.png",
+      "sha256": "78275f699e53d50097939fe3603a0d8aeaca96a436696636ac12b28d5c5f8f8d",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f052",
+      "texture": "voss_office_v10_bed_candle_052.png",
+      "sha256": "e78041d06aad66220628612c31f41bc0b052c027b0d399a02a535ec75e65703a",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f053",
+      "texture": "voss_office_v10_bed_candle_053.png",
+      "sha256": "c0f7f3f606d1bf56fe44c0286eccba15c3a84dd3e8ccb8d49a744a70c41e26a1",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f054",
+      "texture": "voss_office_v10_bed_candle_054.png",
+      "sha256": "f0e32aec4623cc389732927394594325d79d6a9366e6ceecee395ae4f847156e",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f055",
+      "texture": "voss_office_v10_bed_candle_055.png",
+      "sha256": "7d77c87c71dbe1cd41ef85ee58519aa791fb204a660ecc66fd137a36a7647712",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f056",
+      "texture": "voss_office_v10_bed_candle_056.png",
+      "sha256": "47a8011637db512006a581e517fa479bad9a97bc566cd3465ba2e3e983bbd530",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f057",
+      "texture": "voss_office_v10_bed_candle_057.png",
+      "sha256": "4d527291f9f0b677aec9f5df8ad9380e38464507a19cff6c26cf5e7bd43db916",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f058",
+      "texture": "voss_office_v10_bed_candle_058.png",
+      "sha256": "f465cc5110fd88d2da49ea78941016e4b095c08eaf9aee3a6890567f83c21fb3",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f059",
+      "texture": "voss_office_v10_bed_candle_059.png",
+      "sha256": "828d64e419806ff1c4e6bebd10ce5c1583faea9b593f5d955cb2b36b8fc52fcc",
+      "pixelSize": {
+        "w": 42,
+        "h": 46
+      },
+      "worldSize": {
+        "w": 8.629292949524782,
+        "h": 9.451130373289047
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "sequences": [
+    {
+      "id": "ambient",
+      "frames": [
+        "f000",
+        "f001",
+        "f002",
+        "f003",
+        "f004",
+        "f005",
+        "f006",
+        "f007",
+        "f008",
+        "f009",
+        "f010",
+        "f011",
+        "f012",
+        "f013",
+        "f014",
+        "f015",
+        "f016",
+        "f017",
+        "f018",
+        "f019",
+        "f020",
+        "f021",
+        "f022",
+        "f023",
+        "f024",
+        "f025",
+        "f026",
+        "f027",
+        "f028",
+        "f029",
+        "f030",
+        "f031",
+        "f032",
+        "f033",
+        "f034",
+        "f035",
+        "f036",
+        "f037",
+        "f038",
+        "f039",
+        "f040",
+        "f041",
+        "f042",
+        "f043",
+        "f044",
+        "f045",
+        "f046",
+        "f047",
+        "f048",
+        "f049",
+        "f050",
+        "f051",
+        "f052",
+        "f053",
+        "f054",
+        "f055",
+        "f056",
+        "f057",
+        "f058",
+        "f059"
+      ]
+    }
+  ]
+}

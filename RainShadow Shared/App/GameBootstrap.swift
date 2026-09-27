@@ -776,7 +776,17 @@ final class GameContext {
     init() {
         #if DEBUG
         let saveStore = SaveStore(key:
-            ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender"
+            ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] != nil
+            ? "RainShadow.QA.OfficeRestore.Bootstrap"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_QA_CITY_RESTORE"] != nil
+            ? "RainShadow.QA.CityRestore.Bootstrap"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_QA_LAMP_WARD"] != nil
+            ? "RainShadow.QA.LampWard.Bootstrap"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_CITY_PLAYTEST"] == "1"
+            ? "RainShadow.Save.RestoredCity"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_LAMP_WARD_PLAYTEST"] == "1"
+            ? "RainShadow.Save.LampWardV12"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender"
             ? "RainShadow.Save.SableBlenderV24" : "RainShadow.Save.v1")
         #else
         let saveStore = SaveStore()

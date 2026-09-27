@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "plateTextureName": "riverside_rooms_v08",
+  "worldSize": {
+    "w": 874.036,
+    "h": 655.527
+  },
+  "pageWorldSize": {
+    "w": 582.6906666666666,
+    "h": 582.6906666666666
+  },
+  "sourceSHA256": "8d65928a4c62b5d6a5890fe74da814a74fb88237b53f11383dd1c2af36976c6e",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "riverside_rooms_v08_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 72.83633333333333,
+        "w": 582.6906666666666,
+        "h": 582.6906666666666
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "2297980da2421d3d241a42bf65a5a916a676fe0c3c331144bab6b703cbf305f5"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "riverside_rooms_v08_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 582.6906666666666,
+        "y": 72.83633333333333,
+        "w": 291.3453333333333,
+        "h": 582.6906666666666
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 2048,
+      "sha256": "b39566af2596cce5f2069a9ad31501bf932516c23b6601e5273bd78937d8828d"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "riverside_rooms_v08_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 582.6906666666666,
+        "h": 72.83633333333333
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 256,
+      "sha256": "02a06f28744efd25af0499b7371f3b88a928f4bcbcbf6609095a20382b0d7bd9"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "riverside_rooms_v08_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 582.6906666666666,
+        "y": 0.0,
+        "w": 291.3453333333333,
+        "h": 72.83633333333333
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 256,
+      "sha256": "5f1f1a2693af764bb6064f9165224ffb60ac49c71e172a5546f0feee1427572a"
+    }
+  ]
+}

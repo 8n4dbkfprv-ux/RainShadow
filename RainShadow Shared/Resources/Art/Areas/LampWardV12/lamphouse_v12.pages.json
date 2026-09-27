@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "plateTextureName": "lamphouse_v12",
+  "worldSize": {
+    "w": 1664,
+    "h": 1248
+  },
+  "pageWorldSize": {
+    "w": 832.0,
+    "h": 832.0
+  },
+  "sourceSHA256": "59d677700a017f5f6c0480b5ef1590c3286796223e1de5b388722a671beb08d6",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "lamphouse_v12_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 416.0,
+        "w": 832.0,
+        "h": 832.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "0e099bc8a9538628aab151a284822aa08057e0e507e95e45d8139c9148d207b1"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "lamphouse_v12_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 832.0,
+        "y": 416.0,
+        "w": 832.0,
+        "h": 832.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "550c4134270f81ca10f7fb9f998c387b4f27bf91b1f0612cc4bec72c2ee7c1bf"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "lamphouse_v12_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 832.0,
+        "h": 416.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1024,
+      "sha256": "a131a5e07093f578b97baf12005665d039ad127df8fd72d35a88deedc67bff37"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "lamphouse_v12_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 832.0,
+        "y": 0.0,
+        "w": 832.0,
+        "h": 416.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1024,
+      "sha256": "76ecafbf0d451f944fbc6ccde3fa98774f8c70c21a5660555fbc55285f78e907"
+    }
+  ]
+}

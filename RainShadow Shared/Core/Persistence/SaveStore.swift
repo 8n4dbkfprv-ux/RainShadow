@@ -133,6 +133,8 @@ struct SaveSnapshot: Codable, Equatable {
     /// so an additive field never has to bump — and a real bump never wipes a save.
     static let currentSchemaVersion = 1
 
+    var cityLayoutRevision = 1
+    var officeLayoutRevision = 1
     var schemaVersion = SaveSnapshot.currentSchemaVersion
     var hasSeenOpening = false
     var hasSeenOfficeHint = false
@@ -225,6 +227,9 @@ struct SaveSnapshot: Codable, Equatable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        cityLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .cityLayoutRevision) ?? 0
+        officeLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .officeLayoutRevision) ?? 0
+        exploredFog = try container.decodeIfPresent([String: PersistedExploredFog].self, forKey: .exploredFog) ?? [:]
         schemaVersion = try container.decodeIfPresent(Int.self, forKey: .schemaVersion)
             ?? SaveSnapshot.currentSchemaVersion
         hasSeenOpening = try container.decodeIfPresent(Bool.self, forKey: .hasSeenOpening) ?? false
@@ -303,12 +308,57 @@ final class SaveStore {
     /// drop and then write back.
     func load() -> SaveSnapshot {
         guard let data = defaults.data(forKey: key),
-              let snapshot = try? decoder.decode(SaveSnapshot.self, from: data),
+              var snapshot = try? decoder.decode(SaveSnapshot.self, from: data),
               snapshot.schemaVersion <= SaveSnapshot.currentSchemaVersion else {
             return SaveSnapshot()
         }
+        if snapshot.cityLayoutRevision < 1 {
+            // Keep the original envelope before moving spatial state onto the
+            // reviewed layouts. Story, inventory and journal fields stay intact.
+            let backupKey = key + ".BeforeCityLayoutV1"
+            if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
+            for (area, arrival) in Self.rebuiltAreaArrivals {
+                snapshot.exploredFog.removeValue(forKey: area)
+                if let piles = snapshot.groundPiles[area] {
+                    snapshot.groundPiles[area] = piles.map { old in
+                        var item = old
+                        item.x = arrival.x; item.y = arrival.y
+                        return item
+                    }
+                }
+            }
+            snapshot.cityLayoutRevision = 1
+            save(snapshot)
+        }
+        if snapshot.officeLayoutRevision < 1 {
+            let backupKey = key + ".BeforeOfficeLayoutV19"
+            if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
+            snapshot.exploredFog.removeValue(forKey: "office_suite")
+            if let piles = snapshot.groundPiles["office_suite"] {
+                snapshot.groundPiles["office_suite"] = piles.map { old in
+                    var item = old
+                    item.x = Self.restoredOfficeArrival.x; item.y = Self.restoredOfficeArrival.y
+                    return item
+                }
+            }
+            snapshot.officeLayoutRevision = 1
+            save(snapshot)
+        }
         return snapshot
     }
+
+    // OfficeRestoreTests checks this against the V19 ARE default entrance.
+    static let restoredOfficeArrival = (x: 2163.2192390326964, y: 1377.3108219558917)
+
+    // Foundation-only mirror of the five restored ARE default entrances.
+    // RebuiltCityAreaTests checks these against the actual navigation rasters.
+    static let rebuiltAreaArrivals: [String: (x: Double, y: Double)] = [
+        "city_sable_row": (1578, 1815),
+        "city_wharf_ladder": (1933.6086, 1896.6323),
+        "city_riverside": (1592, 1902),
+        "interior_shipping_office": (384.2851, 255.2533),
+        "interior_iron_stairs": (344, 222)
+    ]
 
     func save(_ snapshot: SaveSnapshot) {
         guard let data = try? encoder.encode(snapshot) else { return }

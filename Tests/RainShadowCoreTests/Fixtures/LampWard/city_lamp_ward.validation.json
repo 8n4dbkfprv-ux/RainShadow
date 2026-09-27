@@ -1,0 +1,58 @@
+{
+  "anchors": {
+    "portal.lamphouseEntrance": {
+      "x": 2065,
+      "y": 1616
+    },
+    "Lamphouse forecourt approach": {
+      "x": 1754,
+      "y": 1383
+    },
+    "from.north": {
+      "x": 3055,
+      "y": 2170
+    },
+    "from.south": {
+      "x": 1292,
+      "y": 596
+    },
+    "from.west": {
+      "x": 663,
+      "y": 2075
+    },
+    "from.east": {
+      "x": 2804,
+      "y": 470
+    }
+  },
+  "witnesses": {
+    "civic_hall": {
+      "x": 2384,
+      "y": 1855
+    },
+    "lodging": {
+      "x": 915,
+      "y": 1760
+    },
+    "forecourt": {
+      "x": 1880,
+      "y": 1477
+    }
+  },
+  "corrections": {},
+  "adultWorldHeight": 70.6761,
+  "pixelsPerWorldUnit": 2.25,
+  "coverPolygons": 2736,
+  "nonphysicalExclusions": [
+    "LW_V02 Plane tree leaf canopies",
+    "LW_V02 Untrimmed yard grass",
+    "LW_V02 Secondary leaf spray",
+    "LW_V02 Secondary leaf spray.001"
+  ],
+  "terrainCounts": {
+    "0": 1020,
+    "7": 44067,
+    "8": 2910,
+    "10": 17539
+  }
+}

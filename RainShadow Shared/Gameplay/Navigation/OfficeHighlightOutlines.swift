@@ -11,13 +11,15 @@ enum OfficeHighlightOutlines {
             let polygon = refinedPolygons[hotspot.id] ?? HighlightGeometry.quad(from: worldRect)
             let kind: HighlightableKind
             if hotspot.id == "office.door" {
-                kind = .door
+                kind = .travel
             } else if containerIDs.contains(hotspot.id) {
                 kind = .container
             } else {
                 kind = .infoPoint
             }
             return HighlightableObject(id: hotspot.id, kind: kind, polygon: polygon)
+        }.sorted {
+            $0.boundingBox.width * $0.boundingBox.height < $1.boundingBox.width * $1.boundingBox.height
         }
     }
 }

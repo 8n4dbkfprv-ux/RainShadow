@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "plateTextureName": "sable_noir_day",
+  "worldSize": {
+    "w": 4800,
+    "h": 3600
+  },
+  "pageWorldSize": {
+    "w": 960.0,
+    "h": 960.0
+  },
+  "sourceSHA256": "551434901d3d2e0928b489fbee585e858327405fd38f660e6018c21c512fd649",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "sable_noir_day_c00_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "d0255396d072ad4c68fe5947a65d5e26844205dc225e61345a3f046353f52447"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "sable_noir_day_c01_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "58889b29a4ede349da72efa04e2b8df19f2daf57e26d12c2d247f33c53a7a342"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "sable_noir_day_c02_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "740f41604cdcc5399ba94c36d45a82f65d33c79d1eb49bc1c8e93e145765671a"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "sable_noir_day_c03_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "bd145d19ada0c862a71eb11cd37933d718603927ce140685d0c12fbef185d7c4"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "sable_noir_day_c04_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "a09d4ec4688c94ca8576d45b060c3db86db92b069989e4bd8cb7f524b1306a40"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "sable_noir_day_c00_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "b71b75cab34d72fffd884030d084e8fa88c8d9ceae65f11f52cfe05b3cd8eb71"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "sable_noir_day_c01_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "cc7b8d892dc63ddf274671881860cba45d921fc06cc3129c2c7d41d1c19d1198"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "sable_noir_day_c02_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "80e7cc624c89f78c3e5b44ea6d2372d9e138bb2b6fec13f74f37bfa08e7665c4"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "sable_noir_day_c03_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "36ebb1f7ff6e1c92d2a004b5a2046c255b3d7cf4b142b92560bad42aab46d11f"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "sable_noir_day_c04_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "677471271f8f9b52e150ea3e625134326da62d0605cc39a080b7975b090637e6"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "sable_noir_day_c00_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "9286fc52227836ae42548aca1ad3f39b192c813eda185155e0e2f71c0630d148"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "sable_noir_day_c01_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "2e0787a8b8dedc291ae66d8fcb61e51013042db19bf5f68da3f0dd8de774cfd1"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "sable_noir_day_c02_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "2a170d81a808c360968e8596fe747390683fc99d593b8318200ae0875a787d27"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "sable_noir_day_c03_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "4a147a7b92229a2dc3e329ff0f3325c41c70e81d695bb37a6802f12e4ea378f2"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "sable_noir_day_c04_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "95e5d3b39d22a1b6e74c9641b959588670e4c0ab937f5e10f60e72aaaefb77a5"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "sable_noir_day_c00_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "948ff97bfbc239d8bdcd737712773852c4bd0327ea07f445fa20df3647644613"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "sable_noir_day_c01_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "ae04c04ba83e1aa814d3775fc8b9f91cbb371f83935f066d934431701407aeb0"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "sable_noir_day_c02_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "de45607919a2ce6caf29e09fae0c2ce479600345e081dcb531bf944ac811a931"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "sable_noir_day_c03_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "5684ea130bdfcd935d2df0736173a76883534f415a3c6707125ccd0c00aff69e"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "sable_noir_day_c04_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "8105811629d731cdab44e0d937cccb166e85b54b54237b14de8c9848670b2bb9"
+    }
+  ],
+  "nativeDetailVersion": 30
+}

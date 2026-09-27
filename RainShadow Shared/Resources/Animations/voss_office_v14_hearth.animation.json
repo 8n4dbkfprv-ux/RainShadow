@@ -1,0 +1,1093 @@
+{
+  "schema": "rainshadow.sprite-animation",
+  "version": 1,
+  "frames": [
+    {
+      "id": "f000",
+      "texture": "voss_office_v10_hearth_000.png",
+      "sha256": "cb9fb65fc60ae1d1a524c6322febce7c2a9a0283a3765f4885ae04aa33390470",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f001",
+      "texture": "voss_office_v10_hearth_001.png",
+      "sha256": "075716c618412764bc6f807cf9c85ccfa59edf855cd9ef9acfd16369e4df2e10",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f002",
+      "texture": "voss_office_v10_hearth_002.png",
+      "sha256": "770f7c134f617ff5bbbf37deddebbccc60554ec897d764c130d84c58c3604b1f",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f003",
+      "texture": "voss_office_v10_hearth_003.png",
+      "sha256": "f04b2f091c18132dd30b4bd9313f839369c6572626988ae3cc4950408a3bfaae",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f004",
+      "texture": "voss_office_v10_hearth_004.png",
+      "sha256": "3c787b9cd76b99f684d63891564698088bdf7c555ffa88b9d1ddc62b02c0af4c",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f005",
+      "texture": "voss_office_v10_hearth_005.png",
+      "sha256": "a413611caaea0e6ee091852fb1df12201e6e5aa7b7c91d4d0e7c596b9e2dad82",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f006",
+      "texture": "voss_office_v10_hearth_006.png",
+      "sha256": "621e00e7301d548f2c48085ae7350b40d030e8531ef568d046eacee35c528485",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f007",
+      "texture": "voss_office_v10_hearth_007.png",
+      "sha256": "d01e1d73c95b16be8e9cfbf99775fedd336727550938cc4aee039099cf06c552",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f008",
+      "texture": "voss_office_v10_hearth_008.png",
+      "sha256": "2d4d5ed968d05d929a558323df258642dd8f5fb03dfbb9ea907d969846550e3c",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f009",
+      "texture": "voss_office_v10_hearth_009.png",
+      "sha256": "bfe56b7e28d2e90bd70e68cfa87a861f2e98f03a3925664d5531bdcbe78e5c28",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f010",
+      "texture": "voss_office_v10_hearth_010.png",
+      "sha256": "ee4ce60bd7d8570b6f62817eeddf3aab86558c588e4dbe0720ff390afe96ae05",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f011",
+      "texture": "voss_office_v10_hearth_011.png",
+      "sha256": "195325afa5ee6d3b5e567f23b81c325cdfdce957cbe4566b6cedc66a42a1977b",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f012",
+      "texture": "voss_office_v10_hearth_012.png",
+      "sha256": "d0d414656e3e28d61707c9fb6c7708089ab8897b8f525b940e6f1b919c166aec",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f013",
+      "texture": "voss_office_v10_hearth_013.png",
+      "sha256": "4c2daf491faaa9f71a1f0a7e34342454db1acd02bbecb02ed184e86b34865ef7",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f014",
+      "texture": "voss_office_v10_hearth_014.png",
+      "sha256": "2f8624d70a37b57c863909129cf89ce684feaa05488bec6a92ad94e876fc5d0c",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f015",
+      "texture": "voss_office_v10_hearth_015.png",
+      "sha256": "1b3d4c00bd659b806c8f2ca09826d93e9986990367a95a095bd1af5114f981be",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f016",
+      "texture": "voss_office_v10_hearth_016.png",
+      "sha256": "7b4ab82c4b6187fa23be624772d0aa35dc7444bc3207fffc18cb6ac71fef8ccc",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f017",
+      "texture": "voss_office_v10_hearth_017.png",
+      "sha256": "c1e2b6df80989ba90d2b8573bde3eb539606ef802430a249dbab3cae88d20662",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f018",
+      "texture": "voss_office_v10_hearth_018.png",
+      "sha256": "9b4f4e2cef4a3c7b9197c21c2cc3a6c8adcdc7af119d86518c2c3242e31d1f13",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f019",
+      "texture": "voss_office_v10_hearth_019.png",
+      "sha256": "d28ecd535ddc27b039a387208f0508aa166ba34b3b7edd25aa90d875aa6044c7",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f020",
+      "texture": "voss_office_v10_hearth_020.png",
+      "sha256": "edceb493dac233eb90d0b3473926c3715b0cdd241baef59aa165ce530791a5e5",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f021",
+      "texture": "voss_office_v10_hearth_021.png",
+      "sha256": "abb68d4efd84075837ba2d00a9581a8c3bd762f3f06e2aaa4e7f2208df3f55d0",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f022",
+      "texture": "voss_office_v10_hearth_022.png",
+      "sha256": "5bef347e2ff261719be9fe44567144f6097200d640842e558e70baac17929873",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f023",
+      "texture": "voss_office_v10_hearth_023.png",
+      "sha256": "11a4bb5b1c417eb6ea4a54db5481f819401a46247c9c17c3c6caedc31b1554f2",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f024",
+      "texture": "voss_office_v10_hearth_024.png",
+      "sha256": "c9cd30dea94c44500629fc015da37f73bd27d88ba9b577116ddd69ffddaa0ca7",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f025",
+      "texture": "voss_office_v10_hearth_025.png",
+      "sha256": "dbaa60361ab3230593686dce68f47a55ad47ef456d5200e5ff09dd56bcc31c3b",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f026",
+      "texture": "voss_office_v10_hearth_026.png",
+      "sha256": "e85eacfb1d9e747fddb30cc1d4539bd72799341f28e1279a8c1d663e7fccf27d",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f027",
+      "texture": "voss_office_v10_hearth_027.png",
+      "sha256": "a1018c7d4e0cc0eca6be1aa518311ec0be1d7c73a71854381c4d83e38f59f136",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f028",
+      "texture": "voss_office_v10_hearth_028.png",
+      "sha256": "d5832e7622654ef97271fffb4b12914158f3d5d0fd636ee71168ccd5072d5462",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f029",
+      "texture": "voss_office_v10_hearth_029.png",
+      "sha256": "20bdcfce84d9d24709f2751c3d439e743d8af6344b5a7023f4b94c04822619d7",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f030",
+      "texture": "voss_office_v10_hearth_030.png",
+      "sha256": "88c7aad2bd2b4ae06c0975b32c4be5ed3b931a68df3835a2dde7fdf58b2b1ad6",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f031",
+      "texture": "voss_office_v10_hearth_031.png",
+      "sha256": "25b02e6a225f354c83490a12f951bd66dd79d712962b4962c5288e36246fb987",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f032",
+      "texture": "voss_office_v10_hearth_032.png",
+      "sha256": "528af85288e62c30a9106a88f72b609c4e0931e2720078caec959728d3358121",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f033",
+      "texture": "voss_office_v10_hearth_033.png",
+      "sha256": "8087d2067ef406f0d72d741c506122fe1a6b1275a8a82186f2f161a62522eb7e",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f034",
+      "texture": "voss_office_v10_hearth_034.png",
+      "sha256": "bab252801f744dda5a99a337a0d8e18cce37fbbd8e97cfe51be9fcdf559642ff",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f035",
+      "texture": "voss_office_v10_hearth_035.png",
+      "sha256": "0e2b95b2b1a135e9b7a4b97de433c1f74773b8c4b7eeadba8708cbb0d82ad745",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f036",
+      "texture": "voss_office_v10_hearth_036.png",
+      "sha256": "6eef0d33edc881c5287edbdf3ec23a76643bd271236d10c6537ae99dc46a8e80",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f037",
+      "texture": "voss_office_v10_hearth_037.png",
+      "sha256": "2c5d4a15e44a6a25f6257c4f4ca63521d94cb61639cc954c9cf34da236258fa6",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f038",
+      "texture": "voss_office_v10_hearth_038.png",
+      "sha256": "7a156bdbbc8a8c026d5ffbdb6f57e954090117fa273dced703633df87f72f838",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f039",
+      "texture": "voss_office_v10_hearth_039.png",
+      "sha256": "a09dbd58f40bdd4cfd2e7d0da6b5187174a2412f01204846e0b2415a90dbd168",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f040",
+      "texture": "voss_office_v10_hearth_040.png",
+      "sha256": "02e9b541a189af3359074d98f41e1d7759810612c593041a01f214e1c1f42b13",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f041",
+      "texture": "voss_office_v10_hearth_041.png",
+      "sha256": "90b63c5b79cb4da54032db2eb51a0cd9833bfedf033cbeaf08b72df4569c4547",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f042",
+      "texture": "voss_office_v10_hearth_042.png",
+      "sha256": "c5f6ecf9eea380b4e8181db39674f02ca23791fb6d379e6b05803880e2633af1",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f043",
+      "texture": "voss_office_v10_hearth_043.png",
+      "sha256": "6a8c600925b6b53a9b11a120c34e4666706d7422fa4d7be02f574da0e2411587",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f044",
+      "texture": "voss_office_v10_hearth_044.png",
+      "sha256": "3f7b911aa4e00dfed68ff3755a6ab66e84d1ac508fb6d6dbc42ecab879388bea",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f045",
+      "texture": "voss_office_v10_hearth_045.png",
+      "sha256": "302cf26aa7f3a066d64d91bbb2533d225d5db1ef20c4a5140677e942f2e07bd5",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f046",
+      "texture": "voss_office_v10_hearth_046.png",
+      "sha256": "f48739667703fefe764e448a68c06cc922d0f5e851bce7086bb727db525fda17",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f047",
+      "texture": "voss_office_v10_hearth_047.png",
+      "sha256": "e9d27e8f6fec1d213205d8a3c2954b0a6139e62f4f7c9fd2f69d964b4b177578",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f048",
+      "texture": "voss_office_v10_hearth_048.png",
+      "sha256": "46da12be4dcb982f50901960b5b91e976a274c198a0c2cc48066d641b971f7a3",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f049",
+      "texture": "voss_office_v10_hearth_049.png",
+      "sha256": "a9c2ac2c6c78d33748d36edd9ba9773099fb24fff6ce373383fcba4cf69de665",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f050",
+      "texture": "voss_office_v10_hearth_050.png",
+      "sha256": "c7d51525e96d00fa618564961a52d8366d94067256e8fe0f4a5192bb9f346557",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f051",
+      "texture": "voss_office_v10_hearth_051.png",
+      "sha256": "598ebd251b156206f9437574c0e68efb557a5a7401e1b11ab8a0faa9595edd3c",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f052",
+      "texture": "voss_office_v10_hearth_052.png",
+      "sha256": "695da5d6f5c9a0e2fa4bf9dc792b84da89fa3b7b58e596bbf155d293b3757e49",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f053",
+      "texture": "voss_office_v10_hearth_053.png",
+      "sha256": "d6bc9e6ed57f246d07c493ec241f61c9b8e23536a87dcb934f8b5c79b223a690",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f054",
+      "texture": "voss_office_v10_hearth_054.png",
+      "sha256": "6a9f44590049f708024501574dd2339f7bcd001b3ba11ba421433cbe6c1ac773",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f055",
+      "texture": "voss_office_v10_hearth_055.png",
+      "sha256": "dc60093b92831b05e235e5751e135f371f66ad517e0c176a6d3ef26801f6faf0",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f056",
+      "texture": "voss_office_v10_hearth_056.png",
+      "sha256": "22d3a93c603e47ce3e1b7c65a3e08d874882e0ee977400f0fe36eb7dd9816cb9",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f057",
+      "texture": "voss_office_v10_hearth_057.png",
+      "sha256": "01b88a82c937053c07b8662773b9c2ca11ec5a81b37272b84d28df1e77be6b1e",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f058",
+      "texture": "voss_office_v10_hearth_058.png",
+      "sha256": "ab7c0b50e388fb97308b3860f1dd307cecb6c4dde29531e8117dcf16fbdd7e07",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f059",
+      "texture": "voss_office_v10_hearth_059.png",
+      "sha256": "34814010461d2048df67ea27aca897ee60ea5f1bbee84d78a0697e44f41198ac",
+      "pixelSize": {
+        "w": 325,
+        "h": 251
+      },
+      "worldSize": {
+        "w": 66.77429068084652,
+        "h": 51.570298341207625
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "sequences": [
+    {
+      "id": "ambient",
+      "frames": [
+        "f000",
+        "f001",
+        "f002",
+        "f003",
+        "f004",
+        "f005",
+        "f006",
+        "f007",
+        "f008",
+        "f009",
+        "f010",
+        "f011",
+        "f012",
+        "f013",
+        "f014",
+        "f015",
+        "f016",
+        "f017",
+        "f018",
+        "f019",
+        "f020",
+        "f021",
+        "f022",
+        "f023",
+        "f024",
+        "f025",
+        "f026",
+        "f027",
+        "f028",
+        "f029",
+        "f030",
+        "f031",
+        "f032",
+        "f033",
+        "f034",
+        "f035",
+        "f036",
+        "f037",
+        "f038",
+        "f039",
+        "f040",
+        "f041",
+        "f042",
+        "f043",
+        "f044",
+        "f045",
+        "f046",
+        "f047",
+        "f048",
+        "f049",
+        "f050",
+        "f051",
+        "f052",
+        "f053",
+        "f054",
+        "f055",
+        "f056",
+        "f057",
+        "f058",
+        "f059"
+      ]
+    }
+  ]
+}

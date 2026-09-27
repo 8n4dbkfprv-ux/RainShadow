@@ -32,18 +32,20 @@ enum CityDistrictAreaAdapter {
     /// The authored night painting, where a ward has one. Extended Night is an
     /// area-type bit in the ARE, so this and `areaType(for:)` must agree.
     static func nightPlateTextureName(for district: CityDistrictID) -> String? {
-        district == .sableRow ? "city_sable_row_night_placeholder_v01" : nil
+        district == .harborpointPD ? "lamp_ward_v12_night"
+            : district == .sableRow ? "city_sable_row_night_placeholder_v01" : nil
     }
 
     static func areaID(for district: CityDistrictID) -> AreaID {
-        AreaID("city_\(district.slug)")
+        district == .harborpointPD ? LampWardAreas.exteriorID : AreaID("city_\(district.slug)")
     }
 
     /// Reverse lookup, for routing an area back onto the scene that still needs
     /// a `CityDistrictID`. Returns `nil` for the office and the exterior, which
     /// are not districts.
     static func district(for areaID: AreaID) -> CityDistrictID? {
-        CityDistrictID.allCases.first { self.areaID(for: $0) == areaID }
+        if areaID == AreaID("city_harborpoint_pd") { return .harborpointPD }
+        return CityDistrictID.allCases.first { self.areaID(for: $0) == areaID }
     }
 
     /// Case flag standing in for `GameSession.isCityTravelOpen` until Phase 6
@@ -54,6 +56,8 @@ enum CityDistrictAreaAdapter {
     static let officeArrivalEntrance = "from.city"
 
     static func area(for district: CityDistrictID) -> AreaDefinition {
+        if district == .harborpointPD { return LampWardAreas.exterior }
+        if RebuiltCityAreas.districts.contains(district) { return RebuiltCityAreas.area(areaID(for: district)) }
         let definition = CityDistrictCatalog.definition(for: district)
         return AreaDefinition(
             id: areaID(for: district),
@@ -435,7 +439,8 @@ enum CityDoorPaintedAperture {
     ]
 
     static func height(for portalID: String) -> CGFloat? {
-        records[portalID]?.height
+        if portalID == "portal.lamphouseEntrance" { return LampWardAreas.entranceLeafHeight }
+        return records[portalID]?.height
     }
 
     static func rect(for portalID: String) -> AreaRect? {
@@ -481,11 +486,14 @@ enum CityInteriorAreaAdapter {
     static let closedDoor = AreaRect(x: 1_395, y: 205, w: 16, h: 12)
 
     static func interior(for areaID: AreaID) -> CityInteriorID? {
-        CityInteriorID.allCases.first { $0.areaID == areaID }
+        if areaID == AreaID("interior_police_station") { return .policeStation }
+        return CityInteriorID.allCases.first { $0.areaID == areaID }
     }
 
     static func area(for id: CityInteriorID) -> AreaDefinition {
-        AreaDefinition(
+        if id == .policeStation { return LampWardAreas.interior }
+        if RebuiltCityAreas.interiors.contains(id) { return RebuiltCityAreas.area(id.areaID) }
+        return AreaDefinition(
             id: id.areaID,
             displayName: id.displayName,
             kind: .interior,

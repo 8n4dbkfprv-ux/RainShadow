@@ -1,5 +1,16 @@
 # AGENTS
 
+## Current restored city runtime — September 27
+
+Sable Row V30, Wharf Ladder V19/V20 and Riverside V13 are now the canonical
+world-map areas via `RebuiltCityAreas.swift`. Preserve the separate current
+Lamp Ward/Lamphouse integration and Voss replacement V14. Restore area art with
+`restore_completed_city_areas.py`; do not restore historical Swift source
+backups over the current actor, office or routing. The Rooms return approach
+is corrected to `(344,222)` for clearance on the unchanged raster.
+See `Documentation/RestoredCityAreasSep27.md` for package authority, save
+migration, current launchers and validation.
+
 ## Cursor Cloud specific instructions
 
 RainShadow is an Apple-only Swift/SpriteKit game (iOS/iPadOS + macOS). The cloud

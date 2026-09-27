@@ -54,31 +54,32 @@ struct CityWorldExtentTests {
 
     @Test func citySearchMapUsesGemRBCellSize() {
         for id in CityDistrictID.allCases {
-            let map = CityDistrictCatalog.definition(for: id).makeGrid()
+            let area = CityDistrictAreaAdapter.area(for: id)
+            let map = area.makeNavigationMap()
             #expect(map.searchMap.cellSize == SearchMap.defaultCellSize)
-            #expect(map.searchMap.columns == Int(CityDistrictDefinition.worldArtSize.width / 16))
-            #expect(map.searchMap.rows == Int(CityDistrictDefinition.worldArtSize.height / 12))
+            #expect(map.searchMap.columns == Int(area.worldSize.w / 16))
+            #expect(map.searchMap.rows == Int(area.worldSize.h / 12))
         }
     }
 
     @Test func objectScaleBandsStayHuman() {
-        let door = CityDistrictLayout.doorBodyMultiple(
+        let door = LegacyCityScaleFixtures.doorBodyMultiple(
             doorLeafHeight: CityDistrictLayout.SourceSeparateDoorLeafHeight.standard,
             textureName: "city_door_voss_stoop"
         )
-        let car = CityDistrictLayout.bodyMultiple(
+        let car = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.carBlack,
             textureName: "city_prop_car_black"
         )
-        let lamp = CityDistrictLayout.bodyMultiple(
+        let lamp = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.lamp,
             textureName: "city_prop_lamp"
         )
-        let bench = CityDistrictLayout.bodyMultiple(
+        let bench = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.bench,
             scale: CityDistrictLayout.PropDisplayScale.bench
         )
-        let kiosk = CityDistrictLayout.bodyMultiple(
+        let kiosk = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.kiosk,
             textureName: "city_prop_kiosk"
         )
@@ -96,7 +97,14 @@ struct CityWorldExtentTests {
         let adult = CityDistrictLayout.standingAdultBodyHeight
         for id in CityDistrictID.allCases {
             let area = CityDistrictAreaAdapter.area(for: id)
-            #expect(!area.doors.isEmpty, "\(id) has no ARE doors")
+            if id == .sableRow {
+                #expect(area.region(id: "noir.voss.entrance")?.travel?.destination == HarborpointAreas.office)
+            } else if id == .harborpointPD {
+                // The Blender facade is a baked travel doorway, with no animated leaf.
+                #expect(area.region(id: "portal.lamphouseEntrance")?.travel?.destination == LampWardAreas.interiorID)
+            } else {
+                #expect(!area.doors.isEmpty, "\(id) has no ARE doors")
+            }
             for door in area.doors {
                 let height = try #require(
                     door.paintedApertureHeight,

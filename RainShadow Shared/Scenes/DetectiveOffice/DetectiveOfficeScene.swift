@@ -14,6 +14,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         case open
     }
     private var officeDoorVisualState: OfficeDoorVisualState = .closed
+    private var registeredDeskCover: SKSpriteNode?
     private var deskActorOccluder: SKSpriteNode?
     private var deskFrontOccluder: SKSpriteNode?
     /// Writing-surface mask above seated torso (coat under wood).
@@ -560,7 +561,8 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             return
         }
 
-        if let hotspot = hotspots.first(where: { $0.hitArea.contains(event.location) }) {
+        setHighlightHoverPoint(event.location)
+        if let id = hoveredHighlightID, let hotspot = hotspots.first(where: { $0.id == id }) {
             // Interactions abandon any queued waypoints (BG:EE replace-on-interact).
             if let travel = hotspot.travel {
                 let door = self.door(matching: hotspot.id)
@@ -992,6 +994,8 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         let covered = !detective.isDeskRegistered
             && (areaRuntime?.isCovered(detective.position) ?? false)
         defer {
+            registeredDeskCover?.isHidden = !detective.isDeskRegistered
+            registeredDeskCover?.zPosition = detective.zPosition + 91
             if covered { detective.zPosition += ActorCover.depthLift }
             detective.applyWallStencil(covered ? wallStencil : nil, in: self)
         }
@@ -1358,6 +1362,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         context.session.markInspected(hotspot.id)
         presentDisplayString(text, over: hotspot.hitArea)
         presentLootContainerPanelIfNeeded(for: hotspot)
+        if hotspot.id == "living.wardrobe" { setInventoryPresented(true) }
     }
 
     /// After observation text, show every remaining stack in source order. Coins
@@ -1471,10 +1476,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     private func lootSourceArtName(for containerID: String) -> String {
-        switch containerID {
-        case "office.files": return "office_filing_cabinet_open"
-        default: return "office_desk_bare"
-        }
+        "office_v14_loot_" + containerID.replacingOccurrences(of: ".", with: "_")
     }
 
     /// Hides only presentation state. Container contents remain authoritative in
@@ -1684,6 +1686,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     /// re-sort against Voss every frame, and the desk items lift above the
     /// writing surface the moment he sits down.
     private func bindPlacedProps(_ props: [String: SKSpriteNode]) {
+        registeredDeskCover = props["office_v15_desk_cover"]
         deskActorOccluder = props["office_desk_actor_occluder"]
         deskFrontOccluder = props["office_desk_front_occluder_v04"]
         deskTopOccluder = props["office_desk_top_occluder"]

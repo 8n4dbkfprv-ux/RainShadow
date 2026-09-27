@@ -1,0 +1,1093 @@
+{
+  "schema": "rainshadow.sprite-animation",
+  "version": 1,
+  "frames": [
+    {
+      "id": "f000",
+      "texture": "voss_office_v10_desk_lamp_000.png",
+      "sha256": "2ab8cf787f6a82e55610ea3655fcc738b677e76fddaeb3117995545c06a89318",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f001",
+      "texture": "voss_office_v10_desk_lamp_001.png",
+      "sha256": "7cad531855da349be14ca641e4af482a82f92d70c4b6ed680049e47763a1413c",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f002",
+      "texture": "voss_office_v10_desk_lamp_002.png",
+      "sha256": "497aa01823a46aef850b557254ad211120b125b298c167b2ce2db19ed0676dfa",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f003",
+      "texture": "voss_office_v10_desk_lamp_003.png",
+      "sha256": "fba87a6001d378e7694a04f482dec423384046181695c6006234945e7128ff50",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f004",
+      "texture": "voss_office_v10_desk_lamp_004.png",
+      "sha256": "dc43d85a3b01e2d38182fc24ab3b5c9bc908087126f473b6a90082a3f9b7a3f7",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f005",
+      "texture": "voss_office_v10_desk_lamp_005.png",
+      "sha256": "2a7eeff265c53714c80029052e9ce5cdeaceeab36cdc39cc24e8cf54428ba3d9",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f006",
+      "texture": "voss_office_v10_desk_lamp_006.png",
+      "sha256": "7912d628ae825a7b21ddb9933df894b34d718615919f6ce3f739300a6e69d9b0",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f007",
+      "texture": "voss_office_v10_desk_lamp_007.png",
+      "sha256": "103c75500f470eecbe5a90e2a7b4bc459360c383ca74faec108228effa5dfc77",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f008",
+      "texture": "voss_office_v10_desk_lamp_008.png",
+      "sha256": "5cbafc8f366c07de53d5ab169bfc6585015bb32d62aad2ca19dd9f28064e3e24",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f009",
+      "texture": "voss_office_v10_desk_lamp_009.png",
+      "sha256": "48d4ab0986357a2170750c21b4ebdd24b7efd5d3cc2bd80e6a5f8da7b6b21987",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f010",
+      "texture": "voss_office_v10_desk_lamp_010.png",
+      "sha256": "7ba36d98ae1054d94ecadb2261c969a5343736bb8d54a56b3b3644338a085071",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f011",
+      "texture": "voss_office_v10_desk_lamp_011.png",
+      "sha256": "e7e958c64a9a18605756abd652e71ecc28265f21d882aad388bc5f2649388222",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f012",
+      "texture": "voss_office_v10_desk_lamp_012.png",
+      "sha256": "838d2062c4e6fc71502ae479b12cb7a7268b04c89e30dea3aceb74d94d7b1a47",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f013",
+      "texture": "voss_office_v10_desk_lamp_013.png",
+      "sha256": "e9ed31eb0e0fa160d0f1cf705e715882fe305df92ab21cb0ecf695dfbbb26a61",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f014",
+      "texture": "voss_office_v10_desk_lamp_014.png",
+      "sha256": "b80dd582b44c825c240ae4920c20a59474bd1556b582f3d579d3edaccd3b28f0",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f015",
+      "texture": "voss_office_v10_desk_lamp_015.png",
+      "sha256": "5261d241504ccdd1f5de9d26ca966ff4c881b705fe358bcf70eec71a168e782f",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f016",
+      "texture": "voss_office_v10_desk_lamp_016.png",
+      "sha256": "ee8aa42198215d3abd354653052e70fd78b23bc44767faad711db75c948fffc8",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f017",
+      "texture": "voss_office_v10_desk_lamp_017.png",
+      "sha256": "19be3dc45924365d6a103082ff2e20e5fd757ab530a5027be32a2c03ad6a5a5b",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f018",
+      "texture": "voss_office_v10_desk_lamp_018.png",
+      "sha256": "5d1cf08d23d1b8cebbc240b17bd651a421df8051d26d50142b0a3307388773f3",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f019",
+      "texture": "voss_office_v10_desk_lamp_019.png",
+      "sha256": "6efe6abebb7dc993db13a730f294bfcb90c4791c5884a4f8e30d70ab0824adff",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f020",
+      "texture": "voss_office_v10_desk_lamp_020.png",
+      "sha256": "4db962275630de72f7620936119788e00f39977d70386d3c6396cc7b068dca10",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f021",
+      "texture": "voss_office_v10_desk_lamp_021.png",
+      "sha256": "96a9ad6adc08d60a65221f21163db2d6abb9e810dbdebad711d823f6e41839bb",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f022",
+      "texture": "voss_office_v10_desk_lamp_022.png",
+      "sha256": "2fc2dae23bd50bb8e101409297cf808bdf61eafbede667a36e97d809f6ee7878",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f023",
+      "texture": "voss_office_v10_desk_lamp_023.png",
+      "sha256": "dd77dfb47a7b89e1c1b85c8e59e9375aaaffc8c850af10c2045250cd178fd5d0",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f024",
+      "texture": "voss_office_v10_desk_lamp_024.png",
+      "sha256": "aedd131aa69a86a196f249bae25d5772246618705d2d30f9444b64491fdb425b",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f025",
+      "texture": "voss_office_v10_desk_lamp_025.png",
+      "sha256": "bffc0c2bcef23c5fd19b7d540a49c061b7355e1a1416fd7f72e2dfeacba54124",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f026",
+      "texture": "voss_office_v10_desk_lamp_026.png",
+      "sha256": "03463e92d5f67ed4f709fdcd27a4227582b79ce22b35b68c06ff23eb9f16dd9e",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f027",
+      "texture": "voss_office_v10_desk_lamp_027.png",
+      "sha256": "dabcf6ff58405c1922bae7393b3613df5c8087036431586751a25f22358ac8d8",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f028",
+      "texture": "voss_office_v10_desk_lamp_028.png",
+      "sha256": "79b8dee638ef6fc1d80f9abb7e899b683fab38ebef0cfa73cd76233a11fd302f",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f029",
+      "texture": "voss_office_v10_desk_lamp_029.png",
+      "sha256": "26f97a64e17e5f8b779804811732f1bd72c5a38013d5127b392039b92c3eac9b",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f030",
+      "texture": "voss_office_v10_desk_lamp_030.png",
+      "sha256": "ee9c660f425099cf28a0281dc8682dd971367004179e3cda14496992e59de1d2",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f031",
+      "texture": "voss_office_v10_desk_lamp_031.png",
+      "sha256": "88a90ed1223405c8aa63d316c5a0bb6722d6cb053a197aad008abc9eea9765ad",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f032",
+      "texture": "voss_office_v10_desk_lamp_032.png",
+      "sha256": "d87aa3796a17ae99f94a18be538feeb21194eb3e1f5d460b77e3d9014200b5cb",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f033",
+      "texture": "voss_office_v10_desk_lamp_033.png",
+      "sha256": "299153a010e67cfb426a67849737e87fe8d6c3cbdd88ecdd95192bb4e8652722",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f034",
+      "texture": "voss_office_v10_desk_lamp_034.png",
+      "sha256": "6af810faf382f6b8eaf681b2acdeaeadfc06151552086f691b100949c635dd13",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f035",
+      "texture": "voss_office_v10_desk_lamp_035.png",
+      "sha256": "bf280689dd2cd45d58ff3f6d1dbc3ded0d53f9b5a716fee5c2c2e41ae4013617",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f036",
+      "texture": "voss_office_v10_desk_lamp_036.png",
+      "sha256": "fd2c7572226f13d923444cae75bbd28471a32e54de5c0be7086884c46ac33d3f",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f037",
+      "texture": "voss_office_v10_desk_lamp_037.png",
+      "sha256": "dd4bdfccce09056e148f7949a27017c3d7f1fc87eeb65c7573850f8fdd5d547b",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f038",
+      "texture": "voss_office_v10_desk_lamp_038.png",
+      "sha256": "8580d60d189d6b52d3545fb2d8ade6f96c8eecb4ee1b4898bed607c6cf9a0d9e",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f039",
+      "texture": "voss_office_v10_desk_lamp_039.png",
+      "sha256": "2e640ea00250c2525ed2f0d697fcfbae9389db35f0361f1b650dda9f9eb2c41b",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f040",
+      "texture": "voss_office_v10_desk_lamp_040.png",
+      "sha256": "98471f47033fdaa9a7083e60808ead3bc2ae260dfd985a8b1d6929dd733c5dae",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f041",
+      "texture": "voss_office_v10_desk_lamp_041.png",
+      "sha256": "dd52ee8766820136c2b0ee43e4ba2d9e97e803a09ad510bee7e979de25c8a0df",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f042",
+      "texture": "voss_office_v10_desk_lamp_042.png",
+      "sha256": "628e8652b900183a3621195a20558d864b10d07529042bc69fb7d847af0fa427",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f043",
+      "texture": "voss_office_v10_desk_lamp_043.png",
+      "sha256": "21c008736ff7668e5931859ce28a2ecddec4d9518bfdec5e97b329d5d146dd32",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f044",
+      "texture": "voss_office_v10_desk_lamp_044.png",
+      "sha256": "01e5f4be2151c91ab2928ef91fbfe39eadfc3713e550cd7cf6cef8ca3c671422",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f045",
+      "texture": "voss_office_v10_desk_lamp_045.png",
+      "sha256": "21bb7c70e7626dadee1417863a6cdc4e2ff70f82460ecc8d458f9fa0c06c72aa",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f046",
+      "texture": "voss_office_v10_desk_lamp_046.png",
+      "sha256": "f42f24272c4e4d0b1c6ac4ee2571d251675d1fdba067a5494c7d82ead4baab2a",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f047",
+      "texture": "voss_office_v10_desk_lamp_047.png",
+      "sha256": "67c8529dc5bb392e7de063f261301cd1aa367997ed2c7a07b64dfeb6d5ffedb2",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f048",
+      "texture": "voss_office_v10_desk_lamp_048.png",
+      "sha256": "efe2c4ff3c9f0cfb3ec93a6e55cca635260af8ed85a095c42fb9dcf3b77bea15",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f049",
+      "texture": "voss_office_v10_desk_lamp_049.png",
+      "sha256": "41b6937ad76916b6967bea62c9ffd9aa484826d43b3487770259fca27d6d64c4",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f050",
+      "texture": "voss_office_v10_desk_lamp_050.png",
+      "sha256": "402527f0e18cb7d1f1b3a2141d674aa4d1d309e6195cc1b1e8a532451a9bbc98",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f051",
+      "texture": "voss_office_v10_desk_lamp_051.png",
+      "sha256": "68514f16dca78d15a27253ebfaed420ae63cf172abbbffa572b8e1e250aa9bd4",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f052",
+      "texture": "voss_office_v10_desk_lamp_052.png",
+      "sha256": "a35719f00639b83b64b86e97565feb2b05117f99ade27b8c68d0e23bac394f5c",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f053",
+      "texture": "voss_office_v10_desk_lamp_053.png",
+      "sha256": "4015153a9a79acda5e0a70a7cee363d6932e7b1822667416f60a9e173cb1ec55",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f054",
+      "texture": "voss_office_v10_desk_lamp_054.png",
+      "sha256": "16a6cd65ef8aa9d7e5c20cc3ccae28e9337f8bfef95f0700a21cd5ec58092507",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f055",
+      "texture": "voss_office_v10_desk_lamp_055.png",
+      "sha256": "828b696ceaff66cb366663b1bc3b7eeb42e3ef099f4ebfa7a7a4264268df9b76",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f056",
+      "texture": "voss_office_v10_desk_lamp_056.png",
+      "sha256": "16e2e790edacad7e6935c21e7ff5308207ef9fc52e9f5a471163f8c497ec5b9e",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f057",
+      "texture": "voss_office_v10_desk_lamp_057.png",
+      "sha256": "439822d6ff445292c2e94a0a35431e054eff102afa01e2e9a8baf6d553fa4397",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f058",
+      "texture": "voss_office_v10_desk_lamp_058.png",
+      "sha256": "fb5e5e33008afc052efe777c4932330d4548cd4a391b9b3f64e0fbf923cbc2aa",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f059",
+      "texture": "voss_office_v10_desk_lamp_059.png",
+      "sha256": "df6dce221d72d77fa04e0fc380dabadb9c9940dad38a43aeb583199b4a845cf7",
+      "pixelSize": {
+        "w": 44,
+        "h": 51
+      },
+      "worldSize": {
+        "w": 9.040211661406914,
+        "h": 10.478427152994378
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "sequences": [
+    {
+      "id": "ambient",
+      "frames": [
+        "f000",
+        "f001",
+        "f002",
+        "f003",
+        "f004",
+        "f005",
+        "f006",
+        "f007",
+        "f008",
+        "f009",
+        "f010",
+        "f011",
+        "f012",
+        "f013",
+        "f014",
+        "f015",
+        "f016",
+        "f017",
+        "f018",
+        "f019",
+        "f020",
+        "f021",
+        "f022",
+        "f023",
+        "f024",
+        "f025",
+        "f026",
+        "f027",
+        "f028",
+        "f029",
+        "f030",
+        "f031",
+        "f032",
+        "f033",
+        "f034",
+        "f035",
+        "f036",
+        "f037",
+        "f038",
+        "f039",
+        "f040",
+        "f041",
+        "f042",
+        "f043",
+        "f044",
+        "f045",
+        "f046",
+        "f047",
+        "f048",
+        "f049",
+        "f050",
+        "f051",
+        "f052",
+        "f053",
+        "f054",
+        "f055",
+        "f056",
+        "f057",
+        "f058",
+        "f059"
+      ]
+    }
+  ]
+}

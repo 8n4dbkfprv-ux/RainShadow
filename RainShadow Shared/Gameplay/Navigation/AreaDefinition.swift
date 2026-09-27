@@ -358,6 +358,8 @@ struct AreaAnimation: Hashable, Codable, Sendable {
     var point: AreaPoint
     var textureName: String
     var atlasName: String?
+    var resourceName: String? = nil
+    var sequenceName: String? = nil
     var frameCount: Int
     var frameRate: CGFloat
     /// 0...1. `1` always loops; `0` plays once.
@@ -416,6 +418,8 @@ struct AreaAnimation: Hashable, Codable, Sendable {
         point = try c.decode(AreaPoint.self, forKey: .point)
         textureName = try c.decode(String.self, forKey: .textureName)
         atlasName = try c.decodeIfPresent(String.self, forKey: .atlasName)
+        resourceName = try c.decodeIfPresent(String.self, forKey: .resourceName)
+        sequenceName = try c.decodeIfPresent(String.self, forKey: .sequenceName)
         frameCount = try c.decodeIfPresent(Int.self, forKey: .frameCount) ?? 1
         frameRate = try c.decodeIfPresent(CGFloat.self, forKey: .frameRate) ?? 8
         loopChance = try c.decodeIfPresent(CGFloat.self, forKey: .loopChance) ?? 1
@@ -1560,6 +1564,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// Night light map resource stem (`<id>.lm` when omitted). The file is
     /// optional until Phase 4 bakes one.
     var lightMapName: String?
+    var nightLightMapName: String? = nil
     /// Height map resource stem (`<id>.ht` when omitted). Optional; opt-in per
     /// area, same as the engine's HT.BMP.
     var heightMapName: String?
@@ -1762,7 +1767,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         case searchMapName, obstacles, sightPermeableObstacles, defaultTerrain
         case agentProfile
         case entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
-        case animations, variables, songs, lightMapName, heightMapName
+        case animations, variables, songs, lightMapName, nightLightMapName, heightMapName
         case script
     }
 
@@ -1815,6 +1820,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         ) ?? [:]
         songs = try container.decodeIfPresent(AreaSongs.self, forKey: .songs) ?? AreaSongs()
         lightMapName = try container.decodeIfPresent(String.self, forKey: .lightMapName)
+        nightLightMapName = try container.decodeIfPresent(String.self, forKey: .nightLightMapName)
         heightMapName = try container.decodeIfPresent(String.self, forKey: .heightMapName)
         script = try container.decodeIfPresent(String.self, forKey: .script)
     }
@@ -1850,6 +1856,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         if !variables.isEmpty { try container.encode(variables, forKey: .variables) }
         if !songs.isEmpty { try container.encode(songs, forKey: .songs) }
         try container.encodeIfPresent(lightMapName, forKey: .lightMapName)
+        try container.encodeIfPresent(nightLightMapName, forKey: .nightLightMapName)
         try container.encodeIfPresent(heightMapName, forKey: .heightMapName)
         try container.encodeIfPresent(script, forKey: .script)
     }

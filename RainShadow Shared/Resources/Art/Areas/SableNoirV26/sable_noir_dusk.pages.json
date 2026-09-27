@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "plateTextureName": "sable_noir_dusk",
+  "worldSize": {
+    "w": 4800,
+    "h": 3600
+  },
+  "pageWorldSize": {
+    "w": 960.0,
+    "h": 960.0
+  },
+  "sourceSHA256": "9bff196ad0613fe22b39b4d527189dda49e9b9ba1e79afb75f21b6dbc93bdc17",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "sable_noir_dusk_c00_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "7ec9d023c63957aaff8854be804138748358f9046d63428abba11415da124c7e"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "sable_noir_dusk_c01_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "82c4eef0a1d64af3bd9172cba386003b70f216df845c112a6dbcc9fb7cd36e1c"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "sable_noir_dusk_c02_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "9739b220da6afc0d898a37f13e597734da4492959cfdf8d078e98010c5418065"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "sable_noir_dusk_c03_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "de5285fd19a4b7e9f60d4e9c4a78e64e97343d7847ddbd1932c45e279ce7e162"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "sable_noir_dusk_c04_r00",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 2640.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "8e6ee263bcc0d0916cf2f048569f3d46dc893670a7a2d7daef3888b313a67a27"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "sable_noir_dusk_c00_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "e71e8d0c68db11d338ce0857edcdd5e717df1d1bd1a26f5bd9efade045127832"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "sable_noir_dusk_c01_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "ecb7ac3b4495625cfbde1cce63f7e6b69cba04e15f026f4e0cc0e4dcee6732f3"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "sable_noir_dusk_c02_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "c26379eb9bde6d97aa1ffb9269015e3bf3daf4cc2fbc9800bbb8fa6a202ec2a5"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "sable_noir_dusk_c03_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "174e2904a6ae679ccd03f1d4f4078bfc25a8e7568220ba1f598c177eceef977c"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "sable_noir_dusk_c04_r01",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 1680.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "af7e570c1cc3a47dc0d11902c58fdcd76375a4b09dbcd71e1b5fa02b225b23fd"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "sable_noir_dusk_c00_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "90724573f14f325df38659badc4704905577940439d340ea21e4a3c8ff1f0e19"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "sable_noir_dusk_c01_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "b1abfe5de9ed18ee9e567a0fb29021a153dff57b84a142b123519b58e8138a74"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "sable_noir_dusk_c02_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "4c5edb7f31c9389000c462c26a4aecf64aa147d002f391b3833236946bf5b2d8"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "sable_noir_dusk_c03_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "ada953c26d9de73d49a71bc521f5605fd86f9345087f9e25246d135dc37b8ca2"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "sable_noir_dusk_c04_r02",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 720.0,
+        "w": 960.0,
+        "h": 960.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 872,
+      "sha256": "a8fe52b782634c3f430614a6d42c1fc128fe0334eaa4487fe29cccd71ab2a9b6"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "sable_noir_dusk_c00_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "a043ad4f92af01cd9a964ec7b19f7168867a43e727d3e7a17341def32b574a6d"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "sable_noir_dusk_c01_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 960.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "c186d83b6b0d90d28c34c345f126b384bec01464cc7fbdb1000bde072ffc7458"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "sable_noir_dusk_c02_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 1920.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "494c804b9cfd2d5570c5c1ea3e90f68864d78aee002146e3d7a07f70d0cb7679"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "sable_noir_dusk_c03_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 2880.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "0c49a16d0957f967db5386c089deb062566243603c9266c145974ecd5db0be1a"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "sable_noir_dusk_c04_r03",
+      "fileExtension": "png",
+      "worldRect": {
+        "x": 3840.0,
+        "y": 0.0,
+        "w": 960.0,
+        "h": 720.0
+      },
+      "pixelWidth": 872,
+      "pixelHeight": 654,
+      "sha256": "37fc11be1ee9a0b6b7ede344557969c54efe9565f0779d203911c41a05aa9dbf"
+    }
+  ],
+  "nativeDetailVersion": 30
+}

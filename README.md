@@ -14,6 +14,8 @@ RainShadow is a shared Swift/SpriteKit noir detective RPG prototype for iOS/iPad
 
 Minimum targets are iOS/iPadOS 18.0 and macOS 15.0. The legacy tvOS template target is outside this milestone.
 
+Lamp Ward and the Lamphouse are connected to normal city travel. For direct macOS access, open [Play Lamp Ward.command](Play%20Lamp%20Ward.command); it starts at the Lamphouse forecourt with a separate save. Click the doorway to enter and the narrow interior entrance strip to leave. See [the integration record](Documentation/LampWardRuntimeIntegrationV12.md) for asset sources and verification.
+
 ## Verification
 
 ```sh
@@ -25,3 +27,5 @@ swift test --scratch-path /tmp/RainShadowSwiftPM
 Use a `/tmp` scratch path for SwiftPM on file-provider-managed Desktop folders; this avoids Finder metadata interfering with ad-hoc signing of the test bundle.
 
 Design, architecture, asset, and milestone documents are indexed in `Documentation/README.md`. Generated-source lineage is recorded in `ArtSource/Prompts/GenerationLog.md`.
+
+The restored Sable Row V30, Wharf Ladder V20, and Riverside V13 now replace their old world-map areas, with their linked interiors and the current Lamp Ward retained. `Play Sable Row.command` launches the connected city with a separate playtest save. See [restoration and validation](Documentation/RestoredCityAreasSep27.md).

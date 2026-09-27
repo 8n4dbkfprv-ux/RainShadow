@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "plateTextureName": "riverside_v08_dusk",
+  "worldSize": {
+    "w": 5120,
+    "h": 3840
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 1024.0
+  },
+  "sourceSHA256": "88b73318bae50d17f02a3b82d60d17211ab1aed289285a6ef8164ffa1f1f8eb8",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "riverside_v08_dusk_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "84bcff17ecd8b515a7768c9a6d5150fc589677736337d684dca2db821b242a39"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "riverside_v08_dusk_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "ea59e15cd7c22d816c3050f742533d925dc3841bbc16caa1ca907dd866a95154"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "riverside_v08_dusk_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "d3a823fca9624af03dffd1306946b46943198fb58a528c04ba4d2ff3a8f5b169"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "riverside_v08_dusk_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "c67a5fad93905360e2973bd2f8df0f51d1c115d35c09711b06da504e3c7dab0f"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "riverside_v08_dusk_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "aa6b676fa16d46e270e844313330d4c49a59e08e585abb7847a441b369b14f44"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "riverside_v08_dusk_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "d01a431b32222a0e56fe33a927188c0f99b66e3ba000972ec7c2095bebe49f13"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "riverside_v08_dusk_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "069ea5c7cdc1b6d7669631b168b0ac7b17e106a190de1c4ec30748b9542b3448"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "riverside_v08_dusk_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "454c5e739e4219882ee9ca226ed1b9810fbc5cea9cdd33ad065141c8b7110ea7"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "riverside_v08_dusk_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "0f3c60c143edc337ae9955c915675294dd89a88357b8ace55c4a5f96c65dd671"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "riverside_v08_dusk_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "cd04e13fd4caa05ff332954dde0eeaf9900c87d8344500d6734eeadf94e76a39"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "riverside_v08_dusk_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "83e0b642eba8a42789aa158a5f155dd7ed3713e70c28605dde1ce9309f0a0238"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "riverside_v08_dusk_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "653cade10dc9fe805199bf4d1e2f97ab5762a6cb384f34b23fba6e58e241e2aa"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "riverside_v08_dusk_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "1060c291339653b95c9d903fc49d34f0a2b716337c51d8ec45abfe67739e2d5e"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "riverside_v08_dusk_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "cd77fb55f1b8810e615fbbe7976ace007c86af8681b7a57641361e82820d4b7b"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "riverside_v08_dusk_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "61a9b3cfed6622d4c1348ebd98d0997bfb7285a8ecc19f54f1471cc49aa22c81"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "riverside_v08_dusk_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "3cde9bb54fa6ebe8ef4e86547827b8d9af53a60c8a590d86f00c457024f65136"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "riverside_v08_dusk_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6e3a8b0c9cb2d0536109b358ac5c930a38c1175719be18a859dbcd579b83fff2"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "riverside_v08_dusk_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "4e38502ca3409653b3544f458e45474a6a85c6a72a1b68a2926436d370a3b501"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "riverside_v08_dusk_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "dc209237dcc1ff2c0d385a66d36a754e9b478cfcf0c1da8079dcf9f843ce9f6b"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "riverside_v08_dusk_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "e72940a17b392bdcd8e61a98273e865188da597642cb8f96cd8230ae3ac93917"
+    }
+  ]
+}

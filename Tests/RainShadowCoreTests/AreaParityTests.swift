@@ -81,7 +81,9 @@ struct AreaParityTests {
                 "portal '\(portal.id)' approach moved"
             )
             #expect(
-                region.polygon == Self.outline(of: portal.hitArea),
+                (district == .harborpointPD || RebuiltCityAreas.districts.contains(district))
+                    ? region.boundingBox == portal.hitArea
+                    : region.polygon == Self.outline(of: portal.hitArea),
                 "portal '\(portal.id)' outline changed"
             )
         }
@@ -124,7 +126,7 @@ struct AreaParityTests {
         _ district: CityDistrictID
     ) throws {
         let area = try Self.loadedArea(CityDistrictAreaAdapter.areaID(for: district))
-        #expect(area.searchMapName == "city_\(district.slug).sr")
+        #expect(area.searchMapName == "\(area.id.rawValue).sr")
         let runtime = area.makeNavigationMap().searchMap
         let expected = area.searchMapGridSize
         #expect(runtime.columns == expected.columns)
@@ -174,7 +176,7 @@ struct AreaParityTests {
                 "hotspot '\(hotspot.id)' approach moved"
             )
             #expect(
-                region.polygon == Self.outline(of: OfficeInteriorScale.mapRect(hotspot.hitArea)),
+                region.polygon.map(\.cgPoint) == OfficeHighlightOutlines.refinedPolygons[hotspot.id],
                 "hotspot '\(hotspot.id)' outline changed"
             )
         }
@@ -187,11 +189,12 @@ struct AreaParityTests {
             let carried = loaded.containers.first { $0.id == container.id }
             #expect(carried?.loot == container, "office lost container '\(container.id)'")
         }
-        let door = try #require(loaded.doors.first)
-        #expect(door.closedObstacle.cgRect == OfficeNavigationLayout.doorObstacle.standardized)
-        #expect(door.startsClosed)
-        #expect(door.textureName == nil)
-        #expect(door.visual == nil, "the V19 baked door leaked back into a live texture")
+        // V19 follows AR0809: the cutaway strip is a travel region, not a leaf.
+        #expect(loaded.doors.isEmpty)
+        let exit = try #require(loaded.region(id: "office.door"))
+        #expect(exit.kind == .travel)
+        #expect(exit.travel?.destination == HarborpointAreas.sableRow)
+
     }
 
     /// The office used to carry a path budget three times the engine default,

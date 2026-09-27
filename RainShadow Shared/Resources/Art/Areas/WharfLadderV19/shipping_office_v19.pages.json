@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "plateTextureName": "shipping_office_v19",
+  "worldSize": {
+    "w": 979.9759418883623,
+    "h": 734.9819564162717
+  },
+  "pageWorldSize": {
+    "w": 653.3172945922415,
+    "h": 653.3172945922415
+  },
+  "sourceSHA256": "53b3398f2f8e33b91824a891090c2e27cb2e1b6fba18a2969fb630f24f62e571",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "shipping_office_v19_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 81.66466182403019,
+        "w": 653.3172945922415,
+        "h": 653.3172945922415
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "33975f685bfac40ac73881ec27a90486d1617e2870c069e7dfcf0755ac702c2c"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "shipping_office_v19_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 653.3172945922415,
+        "y": 81.66466182403019,
+        "w": 326.65864729612076,
+        "h": 653.3172945922415
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 2048,
+      "sha256": "f8136e6e8eaac825a1b46052564302c5c1d54608126b282a8edafbc849e2193e"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "shipping_office_v19_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 653.3172945922415,
+        "h": 81.66466182403019
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 256,
+      "sha256": "03ca08f291f9161cf9a2d640055c149de47cbaab3534181ac596584adad4e477"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "shipping_office_v19_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 653.3172945922415,
+        "y": 0.0,
+        "w": 326.65864729612076,
+        "h": 81.66466182403019
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 256,
+      "sha256": "5f1f1a2693af764bb6064f9165224ffb60ac49c71e172a5546f0feee1427572a"
+    }
+  ]
+}

@@ -128,9 +128,14 @@ final class SceneRouter {
             // RAINSHADOW_START_DISTRICT=wharf_ladder picks the ward; without it
             // you land in Sable Row as before.
             let slug = ProcessInfo.processInfo.environment["RAINSHADOW_START_DISTRICT"]
-            let district = CityDistrictID.allCases.first { $0.slug == slug } ?? .sableRow
+            let district = CityDistrictID.allCases.first { $0.slug == slug || ($0 == .harborpointPD && slug == "lamp_ward") } ?? .sableRow
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
+            #if DEBUG
+            if ProcessInfo.processInfo.environment["RAINSHADOW_CITY_PLAYTEST"] == "1" {
+                context.session.markOfficeCaseIntroCompleted()
+            }
+            #endif
             // `setCurrentCityDistrict` rather than `markCityDistrictVisited`: it
             // marks visited too, and it is what tells the world map and the fog
             // store which ward you are actually standing in. Marking only visited

@@ -23,11 +23,10 @@ struct CityDistrictScaleTests {
         let samples: [(String, CGFloat)] = [
             ("city_building_shipping_office", CityDistrictLayout.SourceContentHeight.buildingShippingOffice),
             ("city_building_lila_rooms", CityDistrictLayout.SourceContentHeight.buildingLilaRooms),
-            ("city_building_pd_station", CityDistrictLayout.SourceContentHeight.buildingPDStation),
             ("city_building_records_annex", CityDistrictLayout.SourceContentHeight.buildingRecordsAnnex)
         ]
         for (name, height) in samples {
-            let multiple = CityDistrictLayout.bodyMultiple(contentHeight: height, textureName: name)
+            let multiple = LegacyCityScaleFixtures.bodyMultiple(contentHeight: height, textureName: name)
             #expect(multiple != nil, "Missing sprite scale for \(name)")
             if let multiple {
                 #expect(
@@ -44,7 +43,7 @@ struct CityDistrictScaleTests {
             ("city_door_voss_stoop", CityDistrictLayout.SourceSeparateDoorLeafHeight.standard)
         ]
         for (name, doorLeaf) in sableLeaves {
-            let multiple = CityDistrictLayout.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
+            let multiple = LegacyCityScaleFixtures.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
             #expect(multiple != nil, "Missing scale for door on \(name)")
             if let multiple {
                 #expect(
@@ -61,11 +60,10 @@ struct CityDistrictScaleTests {
         let cubeSamples: [(String, CGFloat)] = [
             ("city_building_shipping_office", CityDistrictLayout.SourceDoorLeafHeight.buildingShippingOffice),
             ("city_building_lila_rooms", CityDistrictLayout.SourceDoorLeafHeight.buildingLilaRooms),
-            ("city_building_pd_station", CityDistrictLayout.SourceDoorLeafHeight.buildingPDStation),
             ("city_building_records_annex", CityDistrictLayout.SourceDoorLeafHeight.buildingRecordsAnnex)
         ]
         for (name, doorLeaf) in cubeSamples {
-            let multiple = CityDistrictLayout.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
+            let multiple = LegacyCityScaleFixtures.doorBodyMultiple(doorLeafHeight: doorLeaf, textureName: name)
             #expect(multiple != nil, "Missing scale for door on \(name)")
             if let multiple {
                 #expect(
@@ -84,7 +82,7 @@ struct CityDistrictScaleTests {
         let scale = CityDistrictLayout.doorAnchoredScale(
             doorLeaf: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop
         )
-        let multiple = CityDistrictLayout.bodyMultiple(
+        let multiple = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceDoorLeafHeight.buildingVossStoop,
             scale: scale
         )
@@ -99,7 +97,7 @@ struct CityDistrictScaleTests {
             ("city_prop_car_maroon", CityDistrictLayout.SourceContentHeight.carMaroon)
         ]
         for (name, height) in samples {
-            let multiple = CityDistrictLayout.bodyMultiple(contentHeight: height, textureName: name)
+            let multiple = LegacyCityScaleFixtures.bodyMultiple(contentHeight: height, textureName: name)
             #expect(multiple != nil, "Missing sprite scale for \(name)")
             if let multiple {
                 #expect(
@@ -121,15 +119,15 @@ struct CityDistrictScaleTests {
     }
 
     @Test func streetFurnitureStaysHumanScaleBelowBuildings() {
-        let lamp = CityDistrictLayout.bodyMultiple(
+        let lamp = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.lamp,
             textureName: "city_prop_lamp"
         )
-        let bench = CityDistrictLayout.bodyMultiple(
+        let bench = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.bench,
             scale: CityDistrictLayout.PropDisplayScale.bench
         )
-        let kiosk = CityDistrictLayout.bodyMultiple(
+        let kiosk = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.kiosk,
             textureName: "city_prop_kiosk"
         )
@@ -152,13 +150,13 @@ struct CityDistrictScaleTests {
     }
 
     @Test func displayHeightIsContentTimesSpriteScale() {
-        let scale = CityDistrictLayout.anyDistrictScale(forTextureName: "city_prop_car_black")!
+        let scale = LegacyCityScaleFixtures.anyDistrictScale(forTextureName: "city_prop_car_black")!
         let content = CityDistrictLayout.SourceContentHeight.carBlack
         let display = CityDistrictLayout.displayHeight(contentHeight: content, scale: scale)
         #expect(abs(display - content * scale) < 0.0001)
         #expect(
             abs(
-                CityDistrictLayout.bodyMultiple(contentHeight: content, scale: scale)
+                LegacyCityScaleFixtures.bodyMultiple(contentHeight: content, scale: scale)
                     - display / CityDistrictLayout.standingAdultBodyHeight
             ) < 0.0001
         )
@@ -186,11 +184,11 @@ struct CityDistrictScaleTests {
     }
 
     @Test func doorLeavesTallerThanCarRoofsOnSableRow() {
-        let stoopDoor = CityDistrictLayout.doorBodyMultiple(
+        let stoopDoor = LegacyCityScaleFixtures.doorBodyMultiple(
             doorLeafHeight: CityDistrictLayout.SourceSeparateDoorLeafHeight.standard,
             textureName: "city_door_voss_stoop"
         )!
-        let car = CityDistrictLayout.bodyMultiple(
+        let car = LegacyCityScaleFixtures.bodyMultiple(
             contentHeight: CityDistrictLayout.SourceContentHeight.carBlack,
             textureName: "city_prop_car_black"
         )!
@@ -214,7 +212,7 @@ struct CityDistrictScaleTests {
     @Test func everyDistrictPortalHasAnInBandPaintedAperture() {
         for id in CityDistrictID.allCases {
             for portal in CityDistrictCatalog.definition(for: id).portals {
-                guard let height = CityDoorPaintedAperture.height(for: portal.id) else {
+                guard let height = RebuiltDoorMeasurement.height(district: id, portalID: portal.id) else {
                     Issue.record("\(id) portal \(portal.id) has no painted aperture record")
                     continue
                 }
@@ -245,17 +243,20 @@ struct CityDistrictScaleTests {
         for id in CityDistrictID.allCases {
             let definition = CityDistrictCatalog.definition(for: id)
             let sprites = definition.visualSprites
-            if id == .sableRow {
-                #expect(sprites.isEmpty, "Sable Row paints architecture into the day plate")
-                // A ward that draws no architecture sprites has no Swift-visible
-                // scale left to assert, so the plate itself is graded only by
-                // `qa_area_door_scale.py` / `qa_plate_projection.py`. Hold the
-                // rest of the contract here: an IE outdoor ward still owes a
-                // measured door leaf, or nothing anchors its approach point.
-                #expect(
-                    !definition.measuredDoorLeaves.isEmpty,
-                    "Sable Row must keep a measured door leaf even though it draws none"
-                )
+            if id == .harborpointPD {
+                #expect(sprites.isEmpty)
+                #expect(CityDistrictLayout.Band.doorLeaf.contains(LampWardAreas.entranceLeafHeight / CityDistrictLayout.standingAdultBodyHeight))
+                continue
+            }
+            if RebuiltCityAreas.districts.contains(id) {
+                #expect(sprites.isEmpty, "Restored architecture is baked into the plate")
+                for portal in definition.portals {
+                    let height = RebuiltDoorMeasurement.height(district: id, portalID: portal.id)
+                    #expect(height != nil)
+                    if let height {
+                        #expect(CityDistrictLayout.Band.doorLeaf.contains(height / CityDistrictLayout.standingAdultBodyHeight))
+                    }
+                }
                 continue
             }
             let lots = sprites.filter { $0.textureName.hasPrefix("city_sable_lot_") }

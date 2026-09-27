@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "plateTextureName": "wharf_v19_dusk",
+  "worldSize": {
+    "w": 5120,
+    "h": 3840
+  },
+  "pageWorldSize": {
+    "w": 1024.0,
+    "h": 1024.0
+  },
+  "sourceSHA256": "9edeebca79e7aa2f2ae2b1c9b26156b6e1025628af50d374314e7a9d570d77c6",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "wharf_v19_dusk_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "58e380b83b7f9892bdf081942412b054265eec8232db8adb67a8146219de55e2"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "wharf_v19_dusk_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "76534b8efb2febf7313497bcfcdd81fcc3b19a962e4632fcb1d9353d7ad40046"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "wharf_v19_dusk_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "a56acc1c5ad8ebaeada6d41dc5207c7752c28d5050a3d0b93c00cc5f910b577b"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "wharf_v19_dusk_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "66f7208f513a4d5364f757265e524b709bb064d3651291310611c34bbdb42356"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "wharf_v19_dusk_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 2816.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "6475878b557268dea09f8d8e7c91eeddb4f497df8302178561552c35bb2554bf"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "wharf_v19_dusk_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "5a028582bbfe596c54aa294ec29cf7a135f76190e50180a2394b30c0ab946e49"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "wharf_v19_dusk_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "d669b200ef5f509a080aeac445d799279b660e42333601942787a0a4b46a4f04"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "wharf_v19_dusk_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "9e28db20d04a376397c4bfc34272fb58c48c7944dca35067db0046a815545160"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "wharf_v19_dusk_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "576787e88b088f7bc5ed04329c8f6750dcb565d5156e1a5ec0c8d550b509cec3"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "wharf_v19_dusk_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 1792.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "a3bd2ca5b2897be513951febc00ea594073e7969ca132398ba2079309051beb2"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "wharf_v19_dusk_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "6c432c41ec7c89d2facbd447ff764d3ff51d6d9198f916bced174b6939035ed2"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "wharf_v19_dusk_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "07c51f0baf0e743838889993f6f7dd09f2116045e748a2a64e0881d456c21486"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "wharf_v19_dusk_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "ac52d1aca3fbe467903218b5cd321a8733603b34b5de63e223d12d053c7e0fca"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "wharf_v19_dusk_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "77491f180d6a7d3524ef0f0dad18453b33e1c0c69d0066d8a66463df8bce75b4"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "wharf_v19_dusk_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 768.0,
+        "w": 1024.0,
+        "h": 1024.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "ce476c65f3c30ad904756ed34e3d93c8863008eddc84292d70bade9cb75978f3"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "wharf_v19_dusk_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "008a9600603a2b5581533ff29695971ff9d477e04abe18dd5b4c0eb8e60161c8"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "wharf_v19_dusk_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1024.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "6bc9e94759db8aa8f811707409e8780e9485102ed9df0db0564d5bb38a111ded"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "wharf_v19_dusk_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2048.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "1a39fa39c8a5b9fd8cf83142b5d3ba7e28cdd5e2e89a5801c36ef26ebb2e44c8"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "wharf_v19_dusk_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3072.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "390f089bc045e8c2a605316fe88a94a38fb3c676228eea5f0e167017cd965413"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "wharf_v19_dusk_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 4096.0,
+        "y": 0.0,
+        "w": 1024.0,
+        "h": 768.0
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "sha256": "1457ef8bfddd8f5481394cdf4ded5c85580c8ca20a76ae6c91a51a3617b85f81"
+    }
+  ]
+}

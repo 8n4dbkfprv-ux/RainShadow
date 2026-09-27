@@ -41,7 +41,7 @@ enum CityDistrictID: String, CaseIterable, Equatable {
         case .sableRow: return "Ward"
         case .wharfLadder: return "Docks"
         case .riverside: return "Riverfront"
-        case .harborpointPD: return "Precinct"
+        case .harborpointPD: return "Ward"
         case .lilaStreet: return "Street"
         case .civicRecords: return "Archives"
         }
@@ -57,7 +57,7 @@ enum CityTravelDestination: Equatable {
 }
 
 /// Small enterable landmark interiors. Each record has its own return travel
-/// region, but they share one neutral 1950s lobby plate. This is the Infinity
+/// region; the Lamphouse uses its authored Blender interior. This is the Infinity
 /// Engine split: the door/region owns *where* it goes; the background is only
 /// the pre-rendered picture drawn after arrival.
 enum CityInteriorID: String, CaseIterable, Equatable {
@@ -67,7 +67,9 @@ enum CityInteriorID: String, CaseIterable, Equatable {
     case lilaRooms = "lila_rooms"
     case recordsAnnex = "records_annex"
 
-    var areaID: AreaID { AreaID("interior_\(rawValue)") }
+    var areaID: AreaID {
+        self == .policeStation ? LampWardAreas.interiorID : AreaID("interior_\(rawValue)")
+    }
 
     var exteriorDistrict: CityDistrictID {
         switch self {
@@ -83,7 +85,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "portal.shippingOffice"
         case .ironStairs: "portal.ironStairs"
-        case .policeStation: "portal.pdEntrance"
+        case .policeStation: "portal.lamphouseEntrance"
         case .lilaRooms: "portal.lilaRooms"
         case .recordsAnnex: "portal.recordsEntrance"
         }
@@ -93,7 +95,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "WHARF SHIPPING OFFICE"
         case .ironStairs: "RIVERSIDE ROOMS"
-        case .policeStation: "HARBORPOINT POLICE STATION"
+        case .policeStation: "THE LAMPHOUSE"
         case .lilaRooms: "LILA STREET ROOMS"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
@@ -213,7 +215,9 @@ struct CityDistrictDefinition {
     }
 
     func makeGrid() -> NavigationMap {
-        NavigationMap(
+        if id == .harborpointPD { return LampWardAreas.exterior.makeNavigationMap() }
+        if RebuiltCityAreas.districts.contains(id) { return RebuiltCityAreas.area(CityDistrictAreaAdapter.areaID(for: id)).makeNavigationMap() }
+        return NavigationMap(
             worldBounds: Self.worldBounds,
             obstacles: obstacles,
             agentProfile: .detective,
@@ -235,10 +239,10 @@ struct CityDistrictDefinition {
 enum CityDistrictCatalog {
     static func definition(for id: CityDistrictID) -> CityDistrictDefinition {
         switch id {
-        case .sableRow: return sableRow
-        case .wharfLadder: return wharfLadder
-        case .riverside: return riverside
-        case .harborpointPD: return harborpointPD
+        case .sableRow: return RebuiltCityAreas.definition(.sableRow)
+        case .wharfLadder: return RebuiltCityAreas.definition(.wharfLadder)
+        case .riverside: return RebuiltCityAreas.definition(.riverside)
+        case .harborpointPD: return LampWardAreas.districtDefinition
         case .lilaStreet: return lilaStreet
         case .civicRecords: return civicRecords
         }
@@ -807,131 +811,11 @@ enum CityDistrictCatalog {
         ]
     )
 
-    // MARK: - Harborpoint PD (south)
+    // MARK: - Lamp Ward (south)
 
-    /// Precinct. The station is the landmark and it is *walled*: `pd_plaza_wall`
-    /// closes the low frontage of its block, and the station stands back behind
-    /// a forecourt with the squad cars ranked in the carriageway outside. A
-    /// wall is one of the three cues Baldur's Gate allows a landmark, and it is
-    /// the one a police station should get.
-    private static let pdBlock = CityBlockGrid.block(i: 2, j: -1)
-
-    private static let pdStation = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_pd_station",
-        groundPoint: pdBlock.point(on: .nearRight, at: 0.60),
-        scale: CityDistrictLayout.BuildingDisplayScale.pdStation, anchorY: 0.10, depthBias: 0
-    )
-    private static let pdAnnex = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_pd_annex",
-        groundPoint: CityBlockGrid.block(i: 2, j: -2).point(on: .nearLeft, at: 0.46, outset: CityBlockGrid.pavementBand),
-        scale: CityDistrictLayout.BuildingDisplayScale.pdAnnex, anchorY: 0.12, depthBias: 0
-    )
-    private static let pdAlley = CityDistrictDefinition.VisualSprite(
-        textureName: "city_building_pd_alley",
-        groundPoint: CityBlockGrid.block(i: 1, j: 0).point(on: .nearLeft, at: 0.52, outset: CityBlockGrid.pavementBand),
-        scale: CityDistrictLayout.BuildingDisplayScale.pdAlley, anchorY: 0.14, depthBias: 0
-    )
-    private static let pdStationDoor = CityDistrictLayout.doorLeaf(
-        textureName: "city_door_pd_station",
-        on: pdStation,
-        aperture: .buildingPDStation
-    )
-
-    private static let pdFrontage: [CityDistrictDefinition.VisualSprite] = {
-        return districtRow(1, 1, .nearRight, [.tenement(at: 0.46), .pdAlley(at: 0.88)])
-            + districtRow(2, 0, .nearLeft, [.storefront(at: 0.34), .tenement(at: 0.76)])
-            + districtRow(2, 0, .nearRight, [.pdAlley(at: 0.30), .rowhouse(at: 0.64), .storefront(at: 0.94)])
-            + districtRow(3, -1, .nearLeft, [.tenement(at: 0.34), .rowCorner(at: 0.74)])
-            + districtRow(3, -1, .nearRight, [.rowhouse(at: 0.42), .pdAlley(at: 0.84)])
-            + districtRow(1, 0, .nearLeft, [.rowhouse(at: 0.30), .storefront(at: 0.76)])
-            + districtRow(1, 0, .nearRight, [.tenement(at: 0.26), .pdAnnex(at: 0.92)])
-            + districtRow(2, -1, .nearLeft, [.pdAnnex(at: 0.30), .tenement(at: 0.70), .rowhouse(at: 0.96)])
-            // The wall, low on the station's own frontage — the forecourt is
-            // the gap between it and the station set back at t = 0.60.
-            + districtRow(2, -1, .nearRight, [.pdPlazaWall(at: 0.18)])
-            + districtRow(3, -2, .nearLeft, [.storefront(at: 0.38), .tenement(at: 0.78)])
-            + districtRow(0, 0, .nearRight, [.rowhouse(at: 0.50), .tenement(at: 0.90)])
-            + districtRow(1, -1, .nearLeft, [.tenement(at: 0.32), .pdAlley(at: 0.72)])
-            + districtRow(1, -1, .nearRight, [.storefront(at: 0.28), .rowCorner(at: 0.62), .rowhouse(at: 0.94)])
-            + districtRow(2, -2, .nearLeft, [.rowhouse(at: 0.80)])
-            + districtRow(2, -2, .nearRight, [.tenement(at: 0.44), .storefront(at: 0.88)])
-            + districtRow(0, -1, .nearRight, [.storefront(at: 0.52), .rowhouse(at: 0.92)])
-            + districtRow(1, -2, .nearLeft, [.tenement(at: 0.40), .storefront(at: 0.80)])
-            + districtRow(1, -2, .nearRight, [.rowhouse(at: 0.46), .tenement(at: 0.88)])
-            + districtRow(2, -3, .nearLeft, [.storefront(at: 0.44), .rowhouse(at: 0.84)])
-            + districtRow(1, 1, .farRight, [.rowhouse(at: 0.55)])
-            + districtRow(2, 0, .farLeft, [.tenement(at: 0.45)])
-            + districtRow(2, 0, .farRight, [.storefront(at: 0.55)])
-            + districtRow(3, -1, .farLeft, [.rowhouse(at: 0.50)])
-            + districtRow(1, 0, .farLeft, [.storefront(at: 0.48)])
-            + districtRow(1, 0, .farRight, [.tenement(at: 0.58)])
-            + districtRow(2, -1, .farLeft, [.rowhouse(at: 0.44)])
-            + districtRow(2, -1, .farRight, [.storefront(at: 0.60)])
-            + districtRow(1, -1, .farLeft, [.tenement(at: 0.46)])
-            + districtRow(1, -1, .farRight, [.rowhouse(at: 0.58)])
-            + districtRow(2, -2, .farLeft, [.storefront(at: 0.50)])
-    }()
-
-    static let harborpointPD = CityDistrictDefinition(
-        id: .harborpointPD,
-        locationName: "HARBORPOINT PD",
-        arrivalHint: "HARBORPOINT PD  •  Soft files cool faster than the rain.",
-        groundTextureName: "city_harborpoint_pd_block_v02",
-        mapTextureName: "map_city_harborpoint_pd_v02",
-        actorStart: CityStreetPlan.arrivalPoint(from: .north),
-        spawnByArrivalKey: [
-            "from.north": CityStreetPlan.arrivalPoint(from: .north),
-            "from.west": CityStreetPlan.arrivalPoint(from: .west),
-            "from.east": CityStreetPlan.arrivalPoint(from: .east),
-            "from.south": CityStreetPlan.arrivalPoint(from: .south)
-        ],
-        visualSprites: pdFrontage + [
-            pdStation,
-            pdAnnex,
-            pdAlley,
-            pdStationDoor,
-            CityDistrictLayout.doorLeaf(textureName: "city_door_pd_annex", on: pdAnnex, aperture: .buildingPDAnnex),
-            CityDistrictLayout.doorLeaf(
-                textureName: "city_door_pd_alley",
-                on: pdAlley,
-                aperture: .buildingPDAlley,
-                scale: CityDistrictLayout.DoorDisplayScale.wide
-            )
-        ]
-        + spokeCrossingLamps()
-        + [
-            // Squad cars ranked along the kerb outside the station wall.
-            kerbProp("city_prop_car_black", at: planCrossing(CityDistrictLayout.StreetCrossing.midWard), slope: 0.75, distance: 170, scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18),
-            kerbProp("city_prop_car_black", at: planCrossing(CityDistrictLayout.StreetCrossing.midWard), slope: 0.75, distance: 320, scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18),
-            kerbProp("city_prop_car_olive", at: planCrossing(CityDistrictLayout.StreetCrossing.midEast), slope: -0.75, distance: -180, scale: CityDistrictLayout.PropDisplayScale.carSpoke, anchorY: 0.18),
-            kerbProp("city_prop_crates_mail", at: planCrossing(CityDistrictLayout.StreetCrossing.harborVoss), slope: 0.75, distance: 160, scale: CityDistrictLayout.PropDisplayScale.cratesSpoke, anchorY: 0.24),
-            kerbProp("city_prop_bench", at: planCrossing(CityDistrictLayout.StreetCrossing.upperWest), slope: -0.75, distance: -150, scale: CityDistrictLayout.PropDisplayScale.benchSpoke, anchorY: 0.15)
-        ],
-        obstacles: wardObstacles,
-        portals: [
-            .init(
-                id: "portal.pdEntrance",
-                label: "STATION",
-                approachPoint: CityDistrictLayout.portalApproach(
-                    fromThreshold: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
-                    clearOf: wardObstacles
-                ),
-                hitArea: CityDistrictLayout.portalHitArea(
-                    paintedAperture: CityDoorPaintedAperture.rect(for: "portal.pdEntrance")!.cgRect
-                ),
-                destination: .interior(.policeStation),
-                requiresCityOpen: false,
-                lockedInspectLine: "The desk sergeant keeps soft conclusions behind glass. Exterior only for now."
-            )
-        ],
-        pointsOfInterest: [
-            .init(
-                label: "STATION",
-                worldPoint: CityDoorPaintedAperture.threshold(for: "portal.pdEntrance")!,
-                colorRGBA: (0.79, 0.55, 0.26, 1)
-            )
-        ]
-    )
+    /// Preserve the legacy symbol for callers and saved district identity.
+    /// The evaluated Blender export owns the replacement district.
+    static var harborpointPD: CityDistrictDefinition { LampWardAreas.districtDefinition }
 
     // MARK: - Lila Street (east)
 

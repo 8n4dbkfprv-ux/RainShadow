@@ -1,0 +1,69 @@
+{
+  "anchors": {
+    "from.street": {
+      "x": 399,
+      "y": 492
+    },
+    "portal.return": {
+      "x": 366,
+      "y": 467
+    },
+    "property_log": {
+      "x": 513,
+      "y": 524
+    },
+    "lamp_sergeant": {
+      "x": 723,
+      "y": 584
+    },
+    "night_books": {
+      "x": 782,
+      "y": 811
+    },
+    "property_store": {
+      "x": 983,
+      "y": 344
+    },
+    "cell_1_approach": {
+      "x": 1006,
+      "y": 660
+    },
+    "cell_2_approach": {
+      "x": 1111,
+      "y": 581
+    },
+    "cell_3_approach": {
+      "x": 1217,
+      "y": 502
+    }
+  },
+  "witnesses": {
+    "counter": {
+      "x": 559,
+      "y": 581
+    },
+    "cell1": {
+      "x": 1101,
+      "y": 697
+    },
+    "cell2": {
+      "x": 1189,
+      "y": 631
+    },
+    "cell3": {
+      "x": 1298,
+      "y": 549
+    }
+  },
+  "corrections": {},
+  "adultWorldHeight": 70.75492200000011,
+  "pixelsPerWorldUnit": 2.4615384615384617,
+  "coverPolygons": 1971,
+  "nonphysicalExclusions": [],
+  "terrainCounts": {
+    "0": 7847,
+    "7": 1619,
+    "8": 1098,
+    "10": 252
+  }
+}

@@ -65,9 +65,9 @@ enum OfficeInteriorScale {
     /// Registration of the imported V07 pose to the painted office seat.
     /// Furniture registration never moves the walkable actor root.
     enum PaintedDeskSeat {
-        /// Centre of the cushion in the 4096×2304 plate, y-up.
-        static let cushionSourcePoint = CGPoint(x: 2144, y: 2304 - 1312)
-        /// Projected thigh-root midpoint in seated NE frame 0, relative to
+        /// Centre of the cushion in the approved 5120×3840 Blender plate, y-up.
+        static let cushionSourcePoint = CGPoint(x: 2478.0649749755858, y: 2466.0268352508547)
+        /// Projected thigh-root contact, relative to
         /// the bundled pivot, in display units. The bundle owns sprite scale.
         static let poseContactOffset = CGPoint(x: -0.771, y: 23.659)
 
@@ -101,10 +101,8 @@ enum OfficeInteriorScale {
     /// Canonical standing adult used by office furniture body-multiples and city props.
     static var standingAdultBodyHeight: CGFloat { renderedStandingDetectiveBodyHeight }
 
-    /// Shell / coordinate-map scale, loaded into the V11 geometry manifest as
-    /// the same 0.395 contract. Prop relative scales cancel this factor so
-    /// furniture remains body-locked when architecture is redrawn.
-    static let environment: CGFloat = 0.395
+    /// Registered Blender plate scale. Paired with office_suite.area.json.
+    static let environment: CGFloat = 0.20545935594106624
 
     /// The 100% play-camera scale in world units per logical view point.
     /// This preserves every actor/door/furniture world proportion while making
@@ -127,10 +125,9 @@ enum OfficeInteriorScale {
     /// V3 plate centre and scale-about focus.
     static let layoutFocus = CGPoint(x: 2_048, y: 1_152)
 
-    /// 16:9 area plate. Keep in step with `office_room_plan.ART_W/H`. After the
-    /// The V11 registered plate and all full-plate masks stay 4096×2304.
+    /// Approved V19 4:3 Blender plate, including its baked black margin.
     static let sourceArtOrigin = CGPoint.zero
-    static let sourceArtSize = CGSize(width: 4_096, height: 2_304)
+    static let sourceArtSize = CGSize(width: 5_120, height: 3_840)
 
     // MARK: - Measured source content heights (opaque bbox of runtime PNGs)
     // Kept here so tests and scene code share one source of truth.
@@ -410,20 +407,8 @@ enum OfficeInteriorScale {
         CGRect(origin: shellOrigin, size: scaledArtSize)
     }
 
-    /// V20 painted-floor envelope after the BG:EE affine re-registration
-    /// (warped floor quad bbox: art px x 547.42…3515.11, y-down 480…2150, so
-    /// y 154…1824 authored y-up). The room is deliberately letterboxed with
-    /// clear space above and below; every pixel outside the warped
-    /// architecture is black.
-    ///
-    /// Camera clamping uses this, not `worldBounds`: the plate rect would let a
-    /// followed camera swing out over the empty margin.
-    static let paintedRoomSourceRect = CGRect(
-        x: 547.4235011873478,
-        y: 154.0,
-        width: 2_967.685657036651,
-        height: 1_670.0
-    )
+    /// Registered Blender floor envelope; the camera clamps to the room.
+    static let paintedRoomSourceRect = CGRect(x: 799.349694824219, y: 438.37260360717806, width: 3527.017007446289, height: 2645.263652801513)
 
     static var paintedRoomBounds: CGRect { mapRect(paintedRoomSourceRect) }
 }

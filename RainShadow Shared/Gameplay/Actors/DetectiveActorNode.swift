@@ -11,6 +11,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private enum SeatVisualDirection: String, CaseIterable {
+        case southWest = "sw"
         case northEast = "ne"
         case southEast = "se"
         case north = "n"
@@ -21,6 +22,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             // Keep that handedness for the standing-idle handoff; selecting
             // ActorFacing.northEast would mirror the NW standing cell and make
             // Voss snap to the opposite diagonal after rising.
+            case .southWest: .southWest
             case .northEast: .northWest
             case .southEast: .southEast
             case .north: .north
@@ -158,34 +160,34 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             }
             return nil
         })
-        // The desk's primary view is NE. If that authored set is incomplete,
+        // The revised desk faces SW. If that authored set is incomplete,
         // choose the next complete set as one atomic fallback; never mix
         // directions between cells or between the seated and transition clips.
         let seatAnimations = Self.loadSeatAnimationFrames(library: indexedLibrary)
         seatVisualDirection = seatAnimations.direction
         seatedIdleFrames = seatAnimations.seatedIdle
         standUpFrames = seatAnimations.standUp
-        seatedUpperFrames = Self.completeSeatFrameSequence(
+        seatedUpperFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
             library: indexedLibrary,
             atlas: "VossSeatedIdle.atlas",
             prefix: "voss_seated_upper",
             direction: seatAnimations.direction,
             frameCount: 8
-        ) ?? []
-        seatedLowerFrames = Self.completeSeatFrameSequence(
+        ) ?? []) : []
+        seatedLowerFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
             library: indexedLibrary,
             atlas: "VossSeatedIdle.atlas",
             prefix: "voss_seated_lower",
             direction: seatAnimations.direction,
             frameCount: 8
-        ) ?? []
-        seatedArmFrames = Self.completeSeatFrameSequence(
+        ) ?? []) : []
+        seatedArmFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
             library: indexedLibrary,
             atlas: "VossSeatedArms.atlas",
             prefix: "voss_seated_arms",
             direction: seatAnimations.direction,
             frameCount: 8
-        ) ?? []
+        ) ?? []) : []
         walkFrames = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [IEAvatarVisualFrame])? in
             for sourceName in facing.textureSourceCandidates {
                 if let frames = Self.completeFrameSequence(
@@ -403,7 +405,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             library: library,
             atlas: atlas,
             prefix: prefix,
-            direction: direction.rawValue,
+            direction: direction == .southWest ? "se" : direction.rawValue,
             frameCount: frameCount
         )
     }
@@ -411,7 +413,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private static func loadSeatAnimationFrames(
         library: IEAvatarFrameLibrary?
     ) -> SeatAnimationFrames {
-        // Case order intentionally makes the office's NE desk view primary.
+        // The revised office faces SW. Its complete SE chain is reflected as a
+        // unit, including the rise endpoint; no sprite pixels or scale change.
         for direction in SeatVisualDirection.allCases {
             guard let seatedIdle = completeSeatFrameSequence(
                 library: library,
@@ -1097,7 +1100,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         let upperSeat = seatBodyOffset
         let settle = SKAction.move(to: upperSeat, duration: duration)
         settle.timingMode = .linear
-        body.xScale = Self.spriteScale
+        body.xScale = seatVisualDirection == .southWest ? -Self.spriteScale : Self.spriteScale
         body.yScale = Self.spriteScale
         contactShadow.run(.fadeOut(withDuration: duration * 0.5))
         body.run(.sequence([.group([sitDown, settle]), finishSitting]), withKey: "standTransition")
@@ -1239,7 +1242,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
-        body.xScale = Self.spriteScale
+        body.xScale = seatVisualDirection == .southWest ? -Self.spriteScale : Self.spriteScale
         body.yScale = Self.spriteScale
         body.position = upperSeat
         // NE rear view bakes hands into the body cell.

@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "plateTextureName": "lamp_ward_v12_day",
+  "worldSize": {
+    "w": 4096,
+    "h": 3072
+  },
+  "pageWorldSize": {
+    "w": 910.2222222222222,
+    "h": 910.2222222222222
+  },
+  "sourceSHA256": "c5300d945ff82722ea571fe551fdf6e8ee08c290e7d1b268de6804ec8c64fbca",
+  "pages": [
+    {
+      "id": "c00_r00",
+      "textureName": "lamp_ward_v12_day_c00_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 2161.777777777778,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "29a309927abf12d2c3803bb157a5096b029aa7fb538ecfeeb67f768b182d6f56"
+    },
+    {
+      "id": "c01_r00",
+      "textureName": "lamp_ward_v12_day_c01_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 910.2222222222222,
+        "y": 2161.777777777778,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "913b0983abbae0ffa7fdbb70552f76e0ac193ec119661ed8b61cd487264dfc03"
+    },
+    {
+      "id": "c02_r00",
+      "textureName": "lamp_ward_v12_day_c02_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1820.4444444444443,
+        "y": 2161.777777777778,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "88b9f1f446faca7a42537bcf222ad6ce712d6dc67543236566aea9b6cd66ff51"
+    },
+    {
+      "id": "c03_r00",
+      "textureName": "lamp_ward_v12_day_c03_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2730.6666666666665,
+        "y": 2161.777777777778,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "af00d2550db4858d09f0838e66f5334d4ec3b46c29a7ea1373d957febdf3df52"
+    },
+    {
+      "id": "c04_r00",
+      "textureName": "lamp_ward_v12_day_c04_r00",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3640.8888888888887,
+        "y": 2161.777777777778,
+        "w": 455.1111111111111,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 2048,
+      "sha256": "61f2c4e2fe050900843184051b1f017539de3a97b4ed4199eb73dd5e22ece6bb"
+    },
+    {
+      "id": "c00_r01",
+      "textureName": "lamp_ward_v12_day_c00_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 1251.5555555555554,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "254f92adac5581c06102067dcd7cff43ccf9c3a7645963ab5c299020dbde85d0"
+    },
+    {
+      "id": "c01_r01",
+      "textureName": "lamp_ward_v12_day_c01_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 910.2222222222222,
+        "y": 1251.5555555555554,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "13699f8929dc0b9e8e1f65364bb87b3461be183c2d70967e9d766fc8c73fd7df"
+    },
+    {
+      "id": "c02_r01",
+      "textureName": "lamp_ward_v12_day_c02_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1820.4444444444443,
+        "y": 1251.5555555555554,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "7f49306b397aaa805c3d0cc1cf2489c872fcb899479634d2eb58db1e80bc5b58"
+    },
+    {
+      "id": "c03_r01",
+      "textureName": "lamp_ward_v12_day_c03_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2730.6666666666665,
+        "y": 1251.5555555555554,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "d64a87cb0d790595ef2c3472097a6d3ce1dc8248ee0a47d462bec2775c52a2c2"
+    },
+    {
+      "id": "c04_r01",
+      "textureName": "lamp_ward_v12_day_c04_r01",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3640.8888888888887,
+        "y": 1251.5555555555554,
+        "w": 455.1111111111111,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 2048,
+      "sha256": "9f392290d38aa5d71e04586663242df9dabf14d817ea45dd57cc88129491970e"
+    },
+    {
+      "id": "c00_r02",
+      "textureName": "lamp_ward_v12_day_c00_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 341.3333333333333,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "8c78ec0944d9c12b918fe7e5931832daaeb36dd3c31bcc7e90c5aa905d03f684"
+    },
+    {
+      "id": "c01_r02",
+      "textureName": "lamp_ward_v12_day_c01_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 910.2222222222222,
+        "y": 341.3333333333333,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "8522aa823eaabfdd97b1a19f0b192a05243d0f0bb51043f1409b11c9d1900f66"
+    },
+    {
+      "id": "c02_r02",
+      "textureName": "lamp_ward_v12_day_c02_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1820.4444444444443,
+        "y": 341.3333333333333,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "5d68b6c1c7f86b449f042a75689d2e0b49a1f7a41c12c6e71cebbe6bcee5b69c"
+    },
+    {
+      "id": "c03_r02",
+      "textureName": "lamp_ward_v12_day_c03_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2730.6666666666665,
+        "y": 341.3333333333333,
+        "w": 910.2222222222222,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 2048,
+      "sha256": "4e2613577c2389067a8537d8358dc63c419801afb158c0088f36ca1537d46390"
+    },
+    {
+      "id": "c04_r02",
+      "textureName": "lamp_ward_v12_day_c04_r02",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3640.8888888888887,
+        "y": 341.3333333333333,
+        "w": 455.1111111111111,
+        "h": 910.2222222222222
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 2048,
+      "sha256": "2c513fcc3b02bdd7eb69a2e63123711802f0fae5cf3837bb1f5723beea0c85c1"
+    },
+    {
+      "id": "c00_r03",
+      "textureName": "lamp_ward_v12_day_c00_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "w": 910.2222222222222,
+        "h": 341.3333333333333
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 768,
+      "sha256": "96007eff7dbc857057292390b43dd8a462de7b2c51d4643e69fff6ca46dca94b"
+    },
+    {
+      "id": "c01_r03",
+      "textureName": "lamp_ward_v12_day_c01_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 910.2222222222222,
+        "y": 0.0,
+        "w": 910.2222222222222,
+        "h": 341.3333333333333
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 768,
+      "sha256": "94bcf4f406719a0489ff1ee7b62bcf921629d0185dea83587c2d50326d27008f"
+    },
+    {
+      "id": "c02_r03",
+      "textureName": "lamp_ward_v12_day_c02_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 1820.4444444444443,
+        "y": 0.0,
+        "w": 910.2222222222222,
+        "h": 341.3333333333333
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 768,
+      "sha256": "bf1f19c046f796d87d9cceec7bb430fbf66370f4f9d03a619add95169cdec27e"
+    },
+    {
+      "id": "c03_r03",
+      "textureName": "lamp_ward_v12_day_c03_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 2730.6666666666665,
+        "y": 0.0,
+        "w": 910.2222222222222,
+        "h": 341.3333333333333
+      },
+      "pixelWidth": 2048,
+      "pixelHeight": 768,
+      "sha256": "2fbb922dd04ce0c8066c7227747985a5c069249d225fb85af15aeec41ac1d122"
+    },
+    {
+      "id": "c04_r03",
+      "textureName": "lamp_ward_v12_day_c04_r03",
+      "fileExtension": "jpg",
+      "worldRect": {
+        "x": 3640.8888888888887,
+        "y": 0.0,
+        "w": 455.1111111111111,
+        "h": 341.3333333333333
+      },
+      "pixelWidth": 1024,
+      "pixelHeight": 768,
+      "sha256": "370431984f6fca7ba320a474c99ee5d24c5f0b86ae36ec8c6bcabeca2cf9f597"
+    }
+  ]
+}

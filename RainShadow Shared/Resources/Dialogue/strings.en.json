@@ -88,12 +88,12 @@
     "dlg.empty-coat.intro.node.voss.monologue.5.text": "A woman out of the rain. A coat with no body in it.\n\nThe door opened.",
     "dlg.empty-coat.intro.node.voss.monologue.5.voice": "vo_voss_monologue_5",
     "dlg.inspect.office.desk.node.inspection.office.desk.again.text": "The key sits on the blotter. Brass, small teeth, no hotel tag. Machine oil and river.",
-    "dlg.inspect.office.desk.node.inspection.office.desk.text": "Three old cases, two unpaid bills, one clean page.",
+    "dlg.inspect.office.desk.node.inspection.office.desk.text": "Three old cases, two unpaid debts, one clean page.",
     "dlg.inspect.office.door.node.inspection.office.door.text": "The hall smelled worse, but at least it led somewhere.",
     "dlg.inspect.office.files.node.inspection.office.files.text": "Closed, abandoned, and one I still lied about.",
     "dlg.inspect.office.phone.node.inspection.office.phone.text": "Quiet. For once it had the decency to look guilty.",
     "dlg.inspect.office.window.node.inspection.office.window.again.text": "Same rain, same glass. Now I had a client.",
-    "dlg.inspect.office.window.node.inspection.office.window.text": "The rain had been at the glass longer than I had.",
+    "dlg.inspect.office.window.node.inspection.office.window.text": "Rain on the glass. A tired sill-ward kept the worst of it outside.",
     "dlg.journal.chrono.client-retained": "Retained by Lila March. The Empty Coat is open.",
     "dlg.journal.chrono.pressed-hard": "Pushed Lila on what the police finished too early. Manifests.",
     "dlg.speaker.case_opened": "Case opened",
@@ -103,6 +103,15 @@
     "dlg.speaker.hotspot.files": "Case files",
     "dlg.speaker.hotspot.phone": "Telephone",
     "dlg.speaker.hotspot.window": "Rain-streaked window",
-    "dlg.speaker.lila_march": "Lila March"
+    "dlg.speaker.lila_march": "Lila March",
+    "dlg.inspect.office.perch.node.inspection.office.perch.text": "An empty perch. No bird, no word, and no excuse to stop waiting.",
+    "dlg.inspect.office.chest.node.inspection.office.chest.text": "Ward plans, old soundings, and streets that changed their names before their habits.",
+    "dlg.inspect.office.lockbox.node.inspection.office.lockbox.text": "A small lock for the things I could not afford to mislay.",
+    "dlg.inspect.office.crates.node.inspection.office.crates.text": "The cases nobody paid to have put in order.",
+    "dlg.inspect.living.footlocker.node.inspection.living.footlocker.text": "Spare linen, old leather, and enough room for a better life.",
+    "dlg.inspect.living.wardrobe.node.inspection.living.wardrobe.text": "A coat for the rain. The rain never asked whether it was clean.",
+    "dlg.inspect.living.bed.node.inspection.living.bed.text": "Sleep was available. Peace charged extra.",
+    "dlg.inspect.living.washstand.node.inspection.living.washstand.text": "Cold water and a towel worn thin enough to tell the truth.",
+    "dlg.inspect.office.hearth.node.inspection.office.hearth.text": "The coals kept their own counsel."
   }
 }

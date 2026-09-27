@@ -67,6 +67,13 @@ public enum EmptyCoatJournalContent {
         ("office.files", "The Closed Files", "Closed, abandoned, and one I still lied about.")
     ]
 
+    /// Authored observations from the restored Riverside ARE. Visiting the site
+    /// does not award the coat: it remains in police custody.
+    public static let riversideFieldNotes: [(id: String, title: String, observation: String)] = [
+        ("riverside.iron-stairs", "The Iron Stairs", "The iron stairs lead down from the quay to the river stones. This is the route to the reported recovery site."),
+        ("riverside.coat-stones", "The Recovery Site", "The stones below the old iron stairs. Lillian's coat has already been taken into police custody; examining the site is not examining the garment.")
+    ]
+
     public static func caseSections(inspectedHotspotIDs: Set<String>) -> [CaseJournalSection] {
         caseSections(input: JournalProjectionInput(inspectedHotspotIDs: inspectedHotspotIDs))
     }
@@ -97,8 +104,9 @@ public enum EmptyCoatJournalContent {
                 entries.append(entry)
             }
         }
-        if !input.inspectedHotspotIDs.isEmpty {
-            let count = input.inspectedHotspotIDs.count
+        let officeObservations = input.inspectedHotspotIDs.filter { $0.hasPrefix("office.") }
+        if !officeObservations.isEmpty {
+            let count = officeObservations.count
             let plural = count == 1 ? "" : "s"
             entries.append(
                 CaseJournalEntry(
@@ -267,12 +275,12 @@ public enum EmptyCoatJournalContent {
     ]
 
     private static func fieldNotes(inspectedHotspotIDs: Set<String>) -> [CaseJournalEntry] {
-        fieldNoteHotspotIDs.compactMap { hotspotID, title, observation in
+        (fieldNoteHotspotIDs + riversideFieldNotes).compactMap { hotspotID, title, observation in
             guard inspectedHotspotIDs.contains(hotspotID) else { return nil }
             return CaseJournalEntry(
                 id: "note.\(hotspotID)",
                 title: title,
-                eyebrow: "Field note · detective's office",
+                eyebrow: hotspotID.hasPrefix("riverside.") ? "Field note · Riverside" : "Field note · detective's office",
                 status: "Recorded",
                 summary: observation,
                 body: [

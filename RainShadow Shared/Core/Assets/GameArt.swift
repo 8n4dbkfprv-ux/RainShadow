@@ -154,6 +154,7 @@ enum GameArt {
         named name: String,
         preferredExtension: String? = nil
     ) -> CGImage? {
+        guard !name.isEmpty else { return nil }
         var extensions = [preferredExtension, "png", "jpg", "jpeg"].compactMap { $0 }
         var seen = Set<String>()
         extensions = extensions.filter { seen.insert($0.lowercased()).inserted }

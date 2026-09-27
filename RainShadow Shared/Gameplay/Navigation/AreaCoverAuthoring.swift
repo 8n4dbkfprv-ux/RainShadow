@@ -19,25 +19,7 @@ enum AreaCoverAuthoring {
     /// Tall office furniture that hides a standing adult. The desk cluster is
     /// excluded: it owns hand-tuned apron ordering, and lifting the seated body
     /// out of it would put Voss on top of his own desk.
-    static func officeWallPolygons() -> [AreaWallPolygon] {
-        [
-            furnitureCover(
-                id: "office.bookshelf",
-                authored: OfficeNavigationLayout.authoredBookshelfObstacle,
-                height: OfficeInteriorScale.standingAdultBodyHeight * 1.3
-            ),
-            furnitureCover(
-                id: "office.filingCabinet",
-                authored: OfficeNavigationLayout.authoredFilingCabinetObstacle,
-                height: OfficeInteriorScale.standingAdultBodyHeight
-            ),
-            furnitureCover(
-                id: "office.filingCabinetB",
-                authored: OfficeNavigationLayout.authoredFilingCabinetBObstacle,
-                height: OfficeInteriorScale.standingAdultBodyHeight
-            )
-        ]
-    }
+    static func officeWallPolygons() -> [AreaWallPolygon] { OfficeAreaAdapter.area().wallPolygons }
 
     /// One parallelogram per painted building mass.
     static func districtWallPolygons() -> [AreaWallPolygon] {

@@ -149,10 +149,10 @@ struct ActorFootprintTests {
         // aperture keep-out to its painted door; the measured raster gains
         // four reachable cells.
         let districtBaselines: [CityDistrictID: Int] = [
-            .sableRow: 53_855,
-            .wharfLadder: 51_472,
-            .riverside: 51_490,
-            .harborpointPD: 53_857,
+            .sableRow: 48_828, // Restored V30: measured on its unchanged raster.
+            .wharfLadder: 47_777, // V19 geometry + V20 materials.
+            .riverside: 49_674, // V13 restored native package.
+            .harborpointPD: 39_725, // V12 Blender ward: measured 4096×3072 search map.
             .lilaStreet: 53_849,
             .civicRecords: 53_857,
         ]

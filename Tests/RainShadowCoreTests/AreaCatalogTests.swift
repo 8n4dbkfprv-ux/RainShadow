@@ -53,7 +53,11 @@ struct AreaCatalogTests {
     /// mass is painted into the plate and the outline extends onto floor, so
     /// the search map will not show an opaque cell there.
     @Test func everyActorCoverStillHasSomethingOpaqueInIt() throws {
-        for id in CityDistrictID.allCases {
+        // Lamp Ward exports projected visible faces (including thin bars and
+        // foliage above open floor), not the legacy ground-mass diamonds.
+        // LampWardIntegrationTests and RebuiltCityAreaTests check the exported
+        // geometry and stencil separately from the ground collision raster.
+        for id in CityDistrictID.allCases where id != .harborpointPD && !RebuiltCityAreas.districts.contains(id) {
             let area = try AreaCatalogLoader.load(CityDistrictAreaAdapter.areaID(for: id))
             let map = area.makeNavigationMap().searchMap
             for cover in area.wallPolygons where cover.coversActors {

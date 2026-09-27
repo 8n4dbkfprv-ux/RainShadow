@@ -1,0 +1,301 @@
+{
+  "schema": "rainshadow.sprite-animation",
+  "version": 1,
+  "frames": [
+    {
+      "id": "f1",
+      "texture": "sable_noir_well_water_day_v27_001.png",
+      "sha256": "a2da0b417544f25af3f4ab72ed86965976266fff86ab8243e61f650707f38313",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f4",
+      "texture": "sable_noir_well_water_day_v27_004.png",
+      "sha256": "cd7ad76488247c61103277e169ec5aec8e42d3acf539c1a4f4d2dc3ecda530e7",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f7",
+      "texture": "sable_noir_well_water_day_v27_007.png",
+      "sha256": "25c742e6d5d91dc24c6e046467a22e29410c6782ac75ade298aaa055a7e0bc8e",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f10",
+      "texture": "sable_noir_well_water_day_v27_010.png",
+      "sha256": "927dce1fbeb56e405582efb25ad2380e3f9907a02bdcabacca68d2f011f0b079",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f13",
+      "texture": "sable_noir_well_water_day_v27_013.png",
+      "sha256": "459f8ef2d72c67ab69e908961a008bb6f0f184f44465c044fc0c3d643bb18a4e",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f16",
+      "texture": "sable_noir_well_water_day_v27_016.png",
+      "sha256": "dfc863703d6e251328fa16ca69daffea425e0d74e887fbd88342a9961d548a43",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f19",
+      "texture": "sable_noir_well_water_day_v27_019.png",
+      "sha256": "4afbf94ec27af7d9b6544237ec994f1078e025dea8caa6c09db6e2ab1ec3a6ad",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f22",
+      "texture": "sable_noir_well_water_day_v27_022.png",
+      "sha256": "a5a37000c66c97e22a0dae06041c2c2cf0b28d4db17ef9416c6e5ae120cb566c",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f25",
+      "texture": "sable_noir_well_water_day_v27_025.png",
+      "sha256": "fb65c16cc855b3014c38f2c7a699ed3fca496a5723169ef6a3a7c75b2033d84f",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f28",
+      "texture": "sable_noir_well_water_day_v27_028.png",
+      "sha256": "743350a82c3a528c46f249af149c15a26277a478a77d7a5401d91c19e47e302c",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f31",
+      "texture": "sable_noir_well_water_day_v27_031.png",
+      "sha256": "dc1cb26a60b525ad53de6d643b8777cabb659286892ee4b0847c777f5d215704",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f34",
+      "texture": "sable_noir_well_water_day_v27_034.png",
+      "sha256": "89d936b18ab7a5d853b539044bb8dbb64d96fcad5abcc36f980b5f95604fc205",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f37",
+      "texture": "sable_noir_well_water_day_v27_037.png",
+      "sha256": "d9a56a73a95c7f2dad75bd689a3ce192aeab692cc746d42410be5e5b22248f43",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f40",
+      "texture": "sable_noir_well_water_day_v27_040.png",
+      "sha256": "db5acbb457e58877122d94310a11a5c6da292f0103916dc990364e0f51870870",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f43",
+      "texture": "sable_noir_well_water_day_v27_043.png",
+      "sha256": "12a83387662142bcaedc47b5c08dacaf6763c11f103423c3dc6845f2d1ac9481",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "f46",
+      "texture": "sable_noir_well_water_day_v27_046.png",
+      "sha256": "022580a296090dbf8158616ca8ef9b2a612130d861a18467ac14940fc8a42fe7",
+      "pixelSize": {
+        "w": 150,
+        "h": 123
+      },
+      "worldSize": {
+        "w": 165.1376146788991,
+        "h": 135.41284403669727
+      },
+      "pivot": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "sequences": [
+    {
+      "id": "idle",
+      "frames": [
+        "f1",
+        "f4",
+        "f7",
+        "f10",
+        "f13",
+        "f16",
+        "f19",
+        "f22",
+        "f25",
+        "f28",
+        "f31",
+        "f34",
+        "f37",
+        "f40",
+        "f43",
+        "f46"
+      ]
+    }
+  ]
+}

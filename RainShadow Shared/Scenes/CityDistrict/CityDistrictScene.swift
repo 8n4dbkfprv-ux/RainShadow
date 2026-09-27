@@ -25,7 +25,7 @@ final class CityDistrictScene: GameAreaScene {
     private var playtestNight = false
 
     override func keyDown(with event: NSEvent) {
-        if area.id == AreaID("sable_court"), event.keyCode == 45, !event.isARepeat {
+        if area.nightPlateTextureName != nil, event.keyCode == 45, !event.isARepeat {
             playtestNight.toggle()
             setExtendedNight(playtestNight)
             detective.applySceneLighting(playtestNight ? .cityNight : .cityDay)
@@ -50,8 +50,7 @@ final class CityDistrictScene: GameAreaScene {
         super.init(
             context: context,
             areaID: CityDistrictAreaAdapter.areaID(for: districtID),
-            entrance: entrance,
-            artSize: CityDistrictDefinition.worldArtSize
+            entrance: entrance
         )
     }
 
@@ -60,8 +59,7 @@ final class CityDistrictScene: GameAreaScene {
         super.init(
             context: context,
             areaID: interiorID.areaID,
-            entrance: entrance,
-            artSize: CityInteriorAreaAdapter.worldSize
+            entrance: entrance
         )
     }
 
@@ -85,7 +83,7 @@ final class CityDistrictScene: GameAreaScene {
         addModularDistrictSprites()
 
         edgeExits = makeEdgeExits()
-        if let districtID {
+        if let districtID, districtID != .harborpointPD, !RebuiltCityAreas.districts.contains(districtID) {
             installHighlightables(CityHighlightOutlines.objects(for: districtID))
         } else {
             installHighlightables(CityHighlightOutlines.objects(in: area))
@@ -550,8 +548,16 @@ final class CityDistrictScene: GameAreaScene {
         return CityWorldMap.travelableExitEdges(from: districtID).map { edge in
             EdgeExit(
                 edge: edge,
-                hitArea: CityWorldMap.exitHitArea(for: edge),
-                approachPoint: CityWorldMap.exitApproachPoint(for: edge)
+                hitArea: districtID == .harborpointPD
+                    ? LampWardAreas.exitHitArea(for: edge)
+                    : RebuiltCityAreas.districts.contains(districtID)
+                        ? RebuiltCityAreas.exitHitArea(districtID, edge)
+                        : CityWorldMap.exitHitArea(for: edge, worldBounds: area.worldBounds),
+                approachPoint: districtID == .harborpointPD
+                    ? LampWardAreas.exitApproach(for: edge)
+                    : RebuiltCityAreas.districts.contains(districtID)
+                        ? RebuiltCityAreas.exitApproach(districtID, edge)
+                        : CityWorldMap.exitApproachPoint(for: edge, worldBounds: area.worldBounds)
             )
         }
     }
@@ -872,16 +878,16 @@ final class CityDistrictScene: GameAreaScene {
         // Rain is weather, not the street's identity. Keep a light overlay so
         // the day plate still reads as a 1950s American street in daylight.
         let rain = RainSystem.makeEmitter(
-            width: CityDistrictDefinition.worldArtSize.width + 280,
-            height: CityDistrictDefinition.worldArtSize.height + 380,
+            width: area.worldSize.w + 280,
+            height: area.worldSize.h + 380,
             birthRate: 180,
             speed: 900,
             scale: 0.50,
             alpha: 0.14
         )
         rain.position = CGPoint(
-            x: CityDistrictDefinition.worldArtSize.width / 2,
-            y: CityDistrictDefinition.worldArtSize.height + 160
+            x: area.worldSize.w / 2,
+            y: area.worldSize.h + 160
         )
         rain.zPosition = 1
         weatherRoot.addChild(rain)

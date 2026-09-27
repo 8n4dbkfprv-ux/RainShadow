@@ -23,6 +23,27 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await OfficeRestoreQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_CITY_RESTORE"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await RebuiltCityTravelQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_LAMP_WARD"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await LampWardTravelQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_DOOR_TRAVEL"] {
             Task { @MainActor in
                 guard let skView = self.view as? SKView else { return }

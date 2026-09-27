@@ -338,7 +338,7 @@ enum HarborpointAreas {
     static let sableRow = AreaID("city_sable_row")
     static let wharfLadder = AreaID("city_wharf_ladder")
     static let riverside = AreaID("city_riverside")
-    static let harborpointPD = AreaID("city_harborpoint_pd")
+    static let harborpointPD = LampWardAreas.exteriorID
     static let lilaStreet = AreaID("city_lila_street")
     static let civicRecords = AreaID("city_civic_records")
     static let shippingOfficeInterior = CityInteriorID.shippingOffice.areaID

@@ -87,6 +87,7 @@ class GameAreaScene: BaseGameScene {
         else { return false }
         guard usesExtendedNight != enabled else { return true }
         usesExtendedNight = enabled
+        lightMap = AreaLightMapLoader.loadIfPresent(named: enabled ? (area.nightLightMapName ?? area.resolvedLightMapName) : area.resolvedLightMapName)
         buildAreaPlate()
         for door in area.doors where door.backgroundTiles != nil {
             presentDoorVisual(door, open: areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
@@ -178,13 +179,49 @@ class GameAreaScene: BaseGameScene {
         }
     }
 
+    private struct FrameAnimation: Decodable {
+        struct Frame: Decodable {
+            let id: String
+            let texture: String
+            let worldSize: AreaSize
+        }
+        struct Sequence: Decodable {
+            let id: String
+            let frames: [String]
+        }
+        let frames: [Frame]
+        let sequences: [Sequence]
+    }
+
     func buildAreaAnimations() {
         let clock = context.session.clock
         for animation in area.animations {
             guard clock.isActive(animation.schedule) else { continue }
-            guard let texture = GameArt.texture(named: animation.textureName) else { continue }
-            texture.filteringMode = .linear
-            let sprite = SKSpriteNode(texture: texture)
+            let sprite: SKSpriteNode
+            if let resource = animation.resourceName {
+                guard let url = Bundle.main.url(forResource: resource + ".animation", withExtension: "json"),
+                      let data = try? Data(contentsOf: url),
+                      let manifest = try? JSONDecoder().decode(FrameAnimation.self, from: data),
+                      let sequence = manifest.sequences.first(where: { $0.id == animation.sequenceName }),
+                      let first = manifest.frames.first(where: { $0.id == sequence.frames.first }) else {
+                    assertionFailure("Missing area animation: \(resource)"); continue
+                }
+                let frames = Dictionary(uniqueKeysWithValues: manifest.frames.map { ($0.id, $0) })
+                let textures = sequence.frames.compactMap { id -> SKTexture? in
+                    guard let frame = frames[id] else { return nil }
+                    return GameArt.texture(named: (frame.texture as NSString).deletingPathExtension)
+                }
+                guard textures.count == sequence.frames.count, !textures.isEmpty else {
+                    assertionFailure("Incomplete area animation: \(resource)"); continue
+                }
+                sprite = SKSpriteNode(texture: textures[0], size: CGSize(width: first.worldSize.w, height: first.worldSize.h))
+                let action = SKAction.animate(with: textures, timePerFrame: 1 / Double(animation.frameRate), resize: false, restore: false)
+                sprite.run(animation.loopChance == 0 ? action : .repeatForever(action), withKey: "area.frames")
+            } else {
+                guard let texture = GameArt.texture(named: animation.textureName) else { continue }
+                texture.filteringMode = .linear
+                sprite = SKSpriteNode(texture: texture)
+            }
             sprite.name = animation.id
             sprite.position = animation.point.cgPoint
             sprite.anchorPoint = CGPoint(x: animation.anchorX, y: animation.anchorY)
