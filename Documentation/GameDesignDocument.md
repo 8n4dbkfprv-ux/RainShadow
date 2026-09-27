@@ -350,7 +350,7 @@ Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on ma
 
 ###### 3. Lead one — Wharf Ladder shipping office *(Act I beyond M01)*
 
-Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull.
+Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull. **First fight of the case (avoidable):** Merrick sold his silence twice, and the Gray Man’s hired men come to collect the folio Voss is reading. Encounter **E1** below.
 
 **Scene card — Wharf Ladder shipping office** *(design runway; not M01)*
 
@@ -358,9 +358,9 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 **Location:** Shipping office near the river mouth; ledgers, seals, a clock that runs three minutes fast when the night crew wants an alibi the wards will swear to.  
 **Scope:** Design only. Does not inflate M01 implementation. Follower = **gray greatcoat**. Case garment / title = **coat** / **THE EMPTY COAT**.
 
-**Purpose:** Give the player Lillian as a worker, not only a missing sister. Plant seal-magic and scrubbed reading-rights. Introduce a human obstacle who sells silence by the hour.
+**Purpose:** Give the player Lillian as a worker, not only a missing sister. Plant seal-magic and scrubbed reading-rights. Introduce a human obstacle who sells silence by the hour. Introduce the Gray Man’s **hired muscle**, so the threat has hands before it has a face.
 
-**Entry:** Voss arrives with Lila’s two hundred still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays at Printers’ Quarter—player choice from prior beat.
+**Entry:** Voss arrives with Lila’s two hundred still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays in her rooms off Market Cross—player choice from prior beat.
 
 **Cast on stage:**
 
@@ -369,6 +369,7 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 | PC | Harlan Voss | Dry first; Lantern past helps or hurts depending on tone |
 | Obstacle | Dock clerk (working name: Merrick) | Sells silence; knows Lillian’s last night; afraid of seals |
 | Absent pressure | Gray greatcoat | Seen across the quay once—does not enter yet |
+| Threat | Hired muscle (working names: **Ketch**, a big cargo-hook man; **Bram**, young, a knife he holds wrong) | Paid by the job in dock-ledger chalk to fetch Lillian’s last folio and frighten Merrick. They are not told why |
 | Optional | Lamphouse night runner | Mentions soft file / tide speech if Voss flashes old river-lantern habits |
 
 **Objectives:**
@@ -380,20 +381,31 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 **Obstacles:** Clerk won’t talk without coin, a favor, or a threat that costs Voss something (Warm / Dry / Sharp gates). Seals that bite: inspecting the wrong folio without reading-rights = pain / alarm / clerk panic. Night clock lies; timeline must be reconstructed, not trusted.
 
-**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.greatcoat.quay`.
+**The fight (E1 — back room, avoidable):** Merrick already took the Gray Man’s coin to ring the tin bell over the back door if anyone came asking about Lillian’s folios. What happens depends on how Voss handled him:
+
+- **Warm / paid more than the Gray Man did:** Merrick whispers “they come at the bell” and lets Voss out the back with the scrap. No fight. Voss can hide in the seal-room and **overhear** Ketch and Bram being told to “burn the March folio, the gray gent pays at the Tallow Stair.” Best lead, no blood.
+- **Dry:** Merrick stalls. Ketch and Bram walk in while Voss is still at Lillian’s desk. One line to talk them off (“The Lanterns know I’m here”; works only if Voss really told someone) or the fight starts.
+- **Sharp / threatened:** Merrick panics and rings the bell. The fight starts with Voss cornered in the seal-room.
+
+The room is the weapon: shelves of seals that bite (shove a man into them and he is stunned and burned), one oil lamp to kick over (dark, fire risk to the evidence), a narrow back door that makes it one-at-a-time. Ketch hits hard and slow; Bram breaks and runs if Ketch goes down.
+
+**What the fight reveals:** Knock Bram down and he drops a chalk pay tally with a crate mark on it: the first physical link between the Gray Man’s money and Dock Authority “lost” crates. **What it costs:** the noise brings Dock Authority night-men; by morning the Lanterns have Voss’s name for brawling at Wharf Ladder (**Lantern attention +1**). Merrick will not speak to Voss again. Any wound carries into Beat 4. **If Voss loses:** he wakes on the quay boards, bruised and short the seal scrap (taken or burned). The Civic Spine lead survives only through the overheard line or the river stones.
+
+**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.greatcoat.quay`; `knowledge.muscle.tallowStair` (overheard) or `evidence.payTally.crateMark` (fight won); `combat.e1.outcome` (avoided / won / lost).
 
 **Dialogue spine (not full script):**
 
 - Clerk: “She never missed the morning ferry. That night she did everything twice — checked the seal, checked it again.”
 - Voss (dry): “Show me the second check.”
 - Clerk (if pressed): “Someone from Civic came for the reading-rights after. Polite. The folios still hurt if you touch the wrong line.”
-- If sharp: clerk names a crate mark then clamms; greatcoat across the quay shifts.
+- If sharp: clerk names a crate mark then clams up; greatcoat across the quay shifts. Merrick’s hand goes to the bell cord.
+- Ketch (walking in): “Evening. We’re here for paper, not for you. Step off the desk.”
 
 **Failure / soft fail:** Leave with only the ferry/nine facts (already known) and a frightened clerk. No seal scrap—Act I still playable via river stones, but Civic Spine lead is weaker.
 
 **Success:** Seal scrap + scrubbed rights + uptown errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
 
-**Tone locks:** No combat required. Magic = bitten seals and scrubbed rights, not fireballs. Greatcoat is silhouette, not boss fight. Voss does not confess the docker wound here.
+**Tone locks:** Combat is possible but never required: a careful player leaves without throwing a punch. The fight is short, ugly and in one room. Magic = bitten seals and scrubbed rights, not fireballs. Greatcoat is silhouette, not boss fight—he watches from the quay and never enters. Voss does not confess the docker wound here.
 
 **Art / audio notes:** Oil lamps, wet wool, brass seal-presses, raven cage in the corner (empty). Clock tick slightly off. Distant ferry horn. Rain on tin roof harder than on Sable Row glass.
 
@@ -403,17 +415,42 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 Where the coat was found, arranged. The river lanterns repeat the tide speech. Soft file smells of political pressure, not incompetence alone.
 
+**The danger here is the Lanterns, not a brawl.** Raising a hand to a lanternman is the worst move in Act I: it turns Voss into the easiest answer the Lamphouse has (arrest; case taken; soft fail back to the office with the property log closed). The scene teaches restraint.
+
+**Encounter E2 — the iron stairs (conditional, avoidable):** If E1 was loud, *or* Voss told the river lanterns he would come back after dark, Ketch waits on the old iron stairs at night: slick steps, one lamp, the river underneath. Only the lanterns knew when Voss would come, so the ambush itself proves someone at the river post talks to the Gray Man.
+
+- **Talk:** Ketch is paid to frighten, not to kill. Voss can Trade: hand him a false place where the key is kept. He takes it and leaves, and the lie becomes the bait option in Beat 5.
+- **Avoid:** come by day with a lanternman on the stones, or spot Ketch from the top of the stairs (Observe) and walk away.
+- **Fight:** the stairs are a choke point. Rain makes footing a gamble for both men, and the fall into the river is real for either. Win and Ketch’s cargo hook carries a Dock Authority tally brand: the muscle is dock labour. **Cost:** lanterns arrive at the noise; “private finder brawling at a recovery site” goes in the night book (**Lantern attention +1**). At attention 2 the Lamphouse refuses the property log unless Voss spends the lamp-sergeant favour. A man in the river is a body the Lanterns will hang on Voss.
+
 ###### 5. Pressure — The gray greatcoat *(Act I beyond M01)*
 
 Not a jump scare: professional habits. Streetlamps dim. He wants the key, not Lila’s life—yet. Choice: protect Lila’s threshold / bait with a false key rumor / ask the lamp-sergeant who still answers ravens (costs a favor).
+
+This is where the Gray Man stops paying people to watch and pays them to take. He sends Ketch, Bram (if they are still on his books) and one new hire to Lila’s rooms off Market Cross, the night after Voss’s first visit to the river. He stays in the square himself; the lamps around him dim. Each choice leads to a different fight or none:
+
+- **Protect the threshold (E3a — the stair siege):** the Act I set piece. Lila’s ward holds only while the door stays shut from inside, so the fight happens on the narrow stair and landing. Lila is a temporary ally, not a fighter: she can bar the second door, throw the lamp, or wake the house. **Reveals:** a downed hireling can be questioned: “the gray gent pays in Civic scrip.” **Costs:** injury; the rooms are known and wrecked, so Lila has to move (Voss’s office or a Printers’ Quarter friend), and the neighbours saw a finder bleeding on the stair (**Lantern attention +1**).
+- **Bait with a false key rumour (E3b — Voss picks the ground):** needs the lie planted in E2 or a word dropped with Merrick. The hirelings go to an empty seal-locker at the edge of Market Cross. Voss can simply watch: no fight, but he sees the Gray Man’s face by lamplight for the first time (`sighting.greatcoat.face`). Or he springs it with the advantage (dark, first blow, one exit).
+- **Call in the lamp-sergeant (no fight):** lanternmen walk Lila’s street all night and nobody comes. **Costs:** the only favour Voss has, and the Lamphouse now knows there is a key. In Beat 6 a lanternman asks, politely, to add it to the property log.
+- **Mercy pays later:** if Bram was spared or paid in E1/E3, he can be turned here. He warns Lila and walks off the job, and becomes a witness for the summation.
 
 ###### 6. Mid-Act turn — The page they almost burned *(Act I beyond M01)*
 
 Lila admits the fight: Lillian wanted to burn a manifest line; Lila wanted a copy. Partial line surfaces (trust gate). Names point toward Dock Authority “lost” crates and a Civic Spine reading-rights signature.
 
+The copy is hidden in the ink-and-paper shop where Lila keeps books. The Gray Man learns it exists (from the lanternman’s visit if Voss used the favour, from a questioned hireling if one got away, or from Merrick) and sends a man to burn the shop.
+
+**Encounter E4 — the ink shop fire (avoidable):** Voss and Lila arrive to smoke and one hireling holding the door while another pours lamp oil. The choice is the cost: fight through to the strongbox and save the page (the fire takes its edge, so the partial line stays partial), or pull the shopkeeper out of the back room and lose the page to the fire (he becomes a witness; the line has to be rebuilt from Lillian’s seal-mark and memory). **Avoid:** if Bram was turned in Beat 5, he warns Lila in time. They take the page out the back before the oil arrives, and it survives whole. **Talk:** the arsonist is a hired hand who didn’t sign up to burn a man alive. A Sharp line naming the shopkeeper still inside can send him running. Fire brings the whole street and a lanternman (**Lantern attention +1** unless Voss is gone before the bell).
+
 ###### 7. Act I break *(Act I beyond M01)*
 
 Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Lanterns will not help without a sacrifice. The greatcoat stops pretending to only watch.
+
+**Encounter E5 — the uptown seal-locker (the Gray Man himself):** the key opens the locker and the Gray Man is already there, with whatever muscle is left. He is better at this than Voss: trained, patient, and his charm dims every lamp in the room. This is an **escape** fight, not a duel. Voss wins by leaving with what is inside (a bundle in Lillian’s handwriting), not by putting the Gray Man down.
+
+- **Talk first:** naming the Civic Spine signature from Beat 6 makes him hesitate: Voss knows too much to be quietly erased, and a dead finder is a louder story than a drowned clerk. That buys one exchange. Use it to bargain (give up the locker, keep the pages) or to get to the door.
+- **Bluff:** if the false-key rumour was planted, Voss can offer a second, fake locker. He half-believes it.
+- **Fight:** outcomes are graded. Escape with the bundle but wounded (default: Voss ends Act I carrying an injury into Act II); escape with a torn half; or lose the bundle and keep only what he read in the dark. **Reveals** in every outcome: a Civic Spine seal-pass on the Gray Man’s coat when the lamps come back up. He is institutional reach, not a hired thug. **Costs:** Lanterns arrive after, and Voss’s Lantern attention decides whether they take his statement or take him.
 
 ##### Character arcs (Act I only)
 
@@ -422,7 +459,8 @@ Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-saf
 | **Voss** | Avoiding missing-person rhymes | Committed to a case he can’t file soft |
 | **Lila** | Buying help with two hundred and fury | Partner in risk; still not a prize |
 | **Lillian** | Absence / coat | Presence through handwriting, seals, unfinished book |
-| **Gray greatcoat** | Follower | Active claimant on the key |
+| **Gray greatcoat** | Follower | Active claimant on the key; meets Voss face to face at the seal-locker (E5) |
+| **Ketch / Bram (hired muscle)** | Hands paid by the job | Ketch: recurring threat until beaten or bought off. Bram: turnable witness if Voss shows mercy |
 
 ##### Case header
 
@@ -458,6 +496,7 @@ Aligned to the shipped Empty Coat intro graph:
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
 | *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
+| *(Act I later)* | Ketch and Bram | The Gray Man’s hired muscle | Not met in M01 | Dock labour paid in chalk; recurring threat from Beat 3; Bram can be turned |
 
 ##### Evidence
 
@@ -476,10 +515,11 @@ Aligned to the shipped Empty Coat intro graph:
 - Journal leads (destinations still locked): identify the lock; build Lillian’s timeline from two nights past; find or name the Gray Man; re-check the river stones when the city opens.
 
 **Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
-- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights).
-- River recovery site + lanternman / river-lantern soft file.
-- Gray greatcoat pressure (threshold / bait / lamp-sergeant favor).
-- Mid-act trust gate: the page they almost burned; partial manifest line.
+- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights); get out before the hired men arrive, or deal with them.
+- River recovery site + lanternman / river-lantern soft file; find out who at the river post talks to the Gray Man.
+- Gray greatcoat pressure (threshold / bait / lamp-sergeant favor); keep Lila and the key out of his hands.
+- Mid-act trust gate: the page they almost burned; partial manifest line; save the copy (or the man) from the ink-shop fire.
+- Act I break: open the seal-locker uptown and get out with what Lillian left in it.
 - Civic Spine / Dock Authority “lost” crates signatures.
 - Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
 
@@ -510,7 +550,7 @@ Kept open on purpose through Act I:
 
 ##### Tone locks (Act I)
 
-Fantasy is bureaucratic damp. No chosen-one prophecy. Combat rare and authored if it appears. Deductions the player owns.
+Fantasy is bureaucratic damp. No chosen-one prophecy. Combat rare, brutal and authored: at most five encounters across Act I, each one caused by something Voss found or said, each avoidable or survivable by talk, and each leaving a mark (a wound, a lost lead, a name in the night book). Voss is a finder, not a hero. Deductions the player owns.
 
 ##### What M01 must teach
 
@@ -552,7 +592,38 @@ Combat is a **designed system**, not the primary loop:
 - **Frequency:** Rare. Authored. High-stakes. No random street trash packs, no level-scaled loot treadmill, no grinding for XP (see §12).
 - **Triggers:** Ambush after a dangerous deduction, failed escape from a corrupt raid, defending a witness, or forcing entry when all civil routes are sealed.
 - **Expression:** Strain, injury, and reputation matter more than gear score. Winning a fight can still lose a witness or expose Voss to the wrong newspaper.
-- **Tone:** Ugly, brief when possible, and narratively accountable. A gunshot should change the next conversation.
+- **Tone:** Ugly, brief when possible, and narratively accountable. A drawn blade should change the next conversation.
+
+##### Act I encounter plan — “The Empty Coat”
+
+**Status: design target.** The codebase has **no combat system yet**. What exists is groundwork only: `GameSession.currentHealth` / `maximumHealth` (12/12, never changed during play), the portrait-bar health readout, inventory stat badges (defence, vitality, resolve, damage), equipment slots with a weapon slot and two-hand rule, and `ItemDefinition.damageBand` on the starter weapon. There are no enemies, attacks, damage resolution, AI, hostility, combat mode or injury handling. Combat-time movement is deferred (`MovementSystemRoadmap.md`, Phase 6). The encounters below are authored story content waiting for that system; until it exists, each fight can resolve as a dialogue/cut-scene outcome using the same flags.
+
+**Principles.** Every fight comes from the plot: someone wants the key, the folio or the page, and has paid someone to take it. The Gray Man hires hands (Ketch, Bram, one extra) and only fights himself at the Act I break. Talking, paying, hiding or leaving can avoid every fight except the E5 confrontation, and even E5 can be shortened by talk. Knockout is the default; killing is possible and always costs (a body the Lanterns will hang on Voss, a witness gone). No random encounters, no loot from enemies beyond story evidence, no XP.
+
+| # | Beat / place | Who attacks, and why | Triggers | Avoid / non-lethal route | Reveals if fought | Costs / consequences |
+|---|---|---|---|---|---|---|
+| E1 | 3 · Wharf Ladder shipping office, back room | Ketch + Bram, sent to burn Lillian’s last folio and frighten Merrick | Merrick rings the bell (Sharp) or Voss lingers (Dry) | Pay/Warm Merrick and leave by the back; hide and overhear; bluff “the Lanterns know I’m here” | Chalk pay tally with a crate mark | Lantern attention +1; Merrick closed for good; lose = seal scrap lost, wake on the quay |
+| E2 | 4 · Old iron stairs, night | Ketch, to warn Voss off the recovery site | E1 was loud, or Voss told the river lanterns he’d return after dark | Come by day; spot him and walk away; Trade a false key location (plants E3b bait) | Dock Authority tally brand on his hook; proof the river post leaks | Lantern attention +1; at 2 the property log is refused without the lamp-sergeant favour; a drowning = arrest risk |
+| E3a | 5 · Lila’s stair off Market Cross | Ketch, Bram, one new hire, to take the key or Lila | Player chooses to protect the threshold | Choose bait or the lamp-sergeant instead; turn Bram if spared earlier | Questioned hireling: “paid in Civic scrip” | Injury; Lila must move; Lantern attention +1 |
+| E3b | 5 · Empty seal-locker at the Market Cross edge | Same hirelings, chasing the false rumour | Bait planted in E2 or via Merrick | Watch only (see the Gray Man’s face) | Same as E3a, fought on Voss’s terms | Lower risk; the Gray Man learns Voss lies well |
+| E4 | 6 · Ink-and-paper shop fire | Arsonist + door man, to burn the copied page | The Gray Man learns the copy exists | Turned Bram warns Lila; Sharp line sends the arsonist running | — (choice is page vs shopkeeper) | Page partial or lost; shopkeeper saved = new witness; Lantern attention +1 unless gone before the bell |
+| E5 | 7 · Uptown seal-locker | The Gray Man himself + remaining muscle, to take what the key opens | Opening the locker | Name the Civic signature to buy a bargain; false-locker bluff | Civic Spine seal-pass on the Gray Man | Escape wounded (default), with half, or empty-handed; Lantern attention decides statement vs arrest |
+
+**Consequence tracks the fights feed.** *Injury*: a carried wound (bruised ribs = slower, cut hand = seal-reading and lock work harder, head knock = Observe checks harder) that heals only with time or a paid physician, and time lets the Gray Man move. *Lantern attention*: public violence raises it; at 1 a lanternman asks questions, at 2 the Lamphouse closes doors (property log, night books), at 3 Voss is picked up and the case is taken off him (soft fail to a costly recovery). *Lost leads*: losing or winning loudly can close a witness (Merrick, the river post) or burn evidence (seal scrap, the page). *Mercy*: sparing or paying Bram opens the E4 warning and a summation witness.
+
+##### What the combat system would need (not yet built)
+
+- A combat mode that enters and leaves cleanly from exploration: real-time with pause, auto-pause on sighting/injury, and the existing pause affordances.
+- Hostility and allegiance on actors (neutral → hostile on trigger), plus temporary allies (Lila) with limited orders.
+- Enemy actors with simple authored AI: advance, flank a choke point, break and flee under morale loss, surrender.
+- Attack resolution using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed/improvised attack path (shove into seals, kick the lamp).
+- Damage that drives `GameSession.currentHealth` and the portrait bar, with **knockout vs lethal** intent and downed-not-dead as the default for Voss (defeat = story outcome, not game over).
+- Persistent injuries as case state, healed by time or a physician.
+- Environmental interactions: lamps that can be broken or dimmed (the Gray Man's charm), biting seal shelves, slick stairs, doors that can be barred.
+- Dialogue hooks both ways: dialogue actions that start, avoid or end a fight, and combat outcomes written back as case flags (`combat.e1.outcome`, `lantern.attention`, wounds) that dialogue conditions and the journal can read.
+- Save/restore of combat-relevant state (flags, wounds, attention), and an autosave before each authored encounter.
+- Combat-time movement from `MovementSystemRoadmap.md` Phase 6 (formation-free single hero plus ally, choke-point pathing).
+- Art/audio: combat animations for Voss (strike, shove, hit, downed), hired-muscle sprites, the Gray Man sprite, impact and lamp-dim audio.
 
 #### 4.3.6 Immersion checklist
 
@@ -927,7 +998,7 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 - Branching dialogue UI and relationship thresholds.
 - Trait advancement and strain consequences.
 - Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over.
-- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only.
+- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only; Act I encounters E1–E5 and the system requirements are listed there (no combat code exists yet).
 - Full **Poirot-style summation** scene framework for the campaign finale (§4.3.7).
 
 ### Explicitly out of scope for the game vision
