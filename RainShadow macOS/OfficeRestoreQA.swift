@@ -70,7 +70,7 @@ import SpriteKit
             try check(room.areaEntranceName == OfficeAreaAdapter.cityArrivalEntrance, "City return uses the revised entrance")
             try check(GameArt.texture(named: "") == nil, "Empty texture names cannot resolve unrelated bundled art")
             let flame = try { () throws -> SKSpriteNode in
-                guard let sprite = room.childNode(withName: "//office.hearth") as? SKSpriteNode else { throw Failure(message: "Hearth sprite missing") }
+                guard let sprite = room.depthWorldRoot.childNode(withName: "office.hearth") as? SKSpriteNode else { throw Failure(message: "Hearth sprite missing") }
                 return sprite
             }()
             let firstFlame = flame.texture

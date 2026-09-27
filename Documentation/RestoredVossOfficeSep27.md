@@ -45,3 +45,8 @@ Row → office, strip exit, animated hearth, and rising from the desk to the exi
 The targeted Swift tests check area reachability, actual movement, area parity,
 approved art hash, animation resources and old-save migration. The projection
 gate measures +36.54°/−36.32° (worst deviation 0.55°).
+
+Final result: 45 focused Swift tests pass; macOS and iOS Simulator builds pass.
+`VerifiedQA/report.json` passes all 10 native-app checks. The reflected rise
+endpoint equals the installed SW idle pixel-for-pixel; its seated endpoint equals
+the seated idle. All nine indexed character/palette resource files are unchanged.
