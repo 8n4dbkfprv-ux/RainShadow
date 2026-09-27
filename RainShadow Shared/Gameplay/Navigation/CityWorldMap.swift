@@ -115,6 +115,34 @@ enum CityWorldMap {
         "unmapped_se": GridPoint(col: 2, row: 0)
     ]
 
+    /// A direct road between two districts that are not grid neighbours.
+    ///
+    /// Market Cross is the hub: every other ward is reached through it or its
+    /// grid neighbours. The one exception is the quay road, which runs along
+    /// the waterfront from Sable Row (Voss's ward, the office on Harbor Street)
+    /// to Wharf Ladder without crossing the square.
+    struct Road: Equatable {
+        let from: CityDistrictID
+        let to: CityDistrictID
+        /// Edge of `to` the traveller arrives on.
+        let arrivalAtTo: CityMapEdge
+        /// Edge of `from` the traveller arrives on when coming back.
+        let arrivalAtFrom: CityMapEdge
+    }
+
+    static let roads: [Road] = [
+        Road(from: .sableRow, to: .wharfLadder, arrivalAtTo: .east, arrivalAtFrom: .west)
+    ]
+
+    /// Districts joined to `district` by a road rather than a shared grid edge.
+    static func roadNeighbors(of district: CityDistrictID) -> [CityDistrictID] {
+        roads.compactMap { road in
+            if road.from == district { return road.to }
+            if road.to == district { return road.from }
+            return nil
+        }
+    }
+
     static func coordinate(for district: CityDistrictID) -> GridPoint {
         districtCoordinates[district]!
     }
@@ -147,12 +175,14 @@ enum CityWorldMap {
         }
     }
 
-    /// BG Classic reveal: travelable if visited, or orthogonally adjacent to a visited district.
+    /// BG Classic reveal: travelable if visited, or orthogonally adjacent (or
+    /// joined by a road) to a visited district.
     static func isTravelable(
         _ district: CityDistrictID,
         visited: Set<CityDistrictID>
     ) -> Bool {
         if visited.contains(district) { return true }
+        if roadNeighbors(of: district).contains(where: visited.contains) { return true }
         let point = coordinate(for: district)
         for edge in CityMapEdge.allCases {
             let adjacent = point.neighbor(toward: edge)
@@ -209,6 +239,10 @@ enum CityWorldMap {
             if originPoint.neighbor(toward: edge) == destinationPoint {
                 return edge.opposite
             }
+        }
+        for road in roads {
+            if road.from == origin, road.to == destination { return road.arrivalAtTo }
+            if road.to == origin, road.from == destination { return road.arrivalAtFrom }
         }
         return nil
     }

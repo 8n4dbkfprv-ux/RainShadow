@@ -54,11 +54,12 @@ struct CityWorldMapTests {
     }
 
     @Test func revealRuleMatchesBGVisitedOrAdjacent() {
-        // From the office ward only the central district is open.
+        // From the office ward: the central district, plus Wharf Ladder by the quay road.
         let fromOffice: Set<CityDistrictID> = [.sableRow]
         #expect(CityWorldMap.isTravelable(.sableRow, visited: fromOffice))
         #expect(CityWorldMap.isTravelable(.marketCross, visited: fromOffice))
-        #expect(!CityWorldMap.isTravelable(.wharfLadder, visited: fromOffice))
+        #expect(CityWorldMap.isTravelable(.wharfLadder, visited: fromOffice))
+        #expect(!CityWorldMap.isTravelable(.riverside, visited: fromOffice))
         #expect(!CityWorldMap.isTravelable(.civicRecords, visited: fromOffice))
         #expect(!CityWorldMap.isTravelable(.lampWard, visited: fromOffice))
 
@@ -93,6 +94,31 @@ struct CityWorldMapTests {
         #expect(CityWorldMap.arrivalEdge(from: .marketCross, to: .wharfLadder) == .east)
         #expect(CityWorldMap.arrivalKey(from: .marketCross, to: .lampWard) == "from.north")
         #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .marketCross) == "from.east")
+    }
+
+    @Test func sableRowReachesMarketCrossAndWharfLadderOnly() {
+        let reachable = Set(CityDistrictID.allCases.filter {
+            $0 != .sableRow && CityWorldMap.arrivalKey(from: .sableRow, to: $0) != nil
+        })
+        #expect(reachable == [.marketCross, .wharfLadder])
+        #expect(CityWorldMap.arrivalKey(from: .sableRow, to: .wharfLadder) == "from.east")
+        #expect(CityWorldMap.arrivalKey(from: .wharfLadder, to: .sableRow) == "from.west")
+        #expect(CityWorldMap.roadNeighbors(of: .sableRow) == [.wharfLadder])
+        // Everything else still goes through the hub.
+        for district in [CityDistrictID.civicRecords, .lampWard, .riverside] {
+            #expect(CityWorldMap.arrivalKey(from: .sableRow, to: district) == nil)
+        }
+        #expect(CityWorldMap.arrivalKey(from: .marketCross, to: .civicRecords) != nil)
+        #expect(CityWorldMap.arrivalKey(from: .marketCross, to: .lampWard) != nil)
+    }
+
+    @Test func everyRoadArrivalHasCatalogSpawn() {
+        for road in CityWorldMap.roads {
+            let there = CityDistrictCatalog.definition(for: road.to)
+            let back = CityDistrictCatalog.definition(for: road.from)
+            #expect(there.spawnByArrivalKey[road.arrivalAtTo.arrivalKey] != nil)
+            #expect(back.spawnByArrivalKey[road.arrivalAtFrom.arrivalKey] != nil)
+        }
         #expect(CityWorldMap.arrivalKey(from: .wharfLadder, to: .riverside) == "from.north")
     }
 
