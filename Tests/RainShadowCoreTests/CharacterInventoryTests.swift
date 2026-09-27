@@ -46,8 +46,8 @@ struct CharacterInventoryTests {
                 identifiedDescription: "d"
             ),
             ItemDefinition(
-                id: "matchbook", identifiedName: "Matchbook",
-                unidentifiedName: "Paper Matchbook", category: .evidence,
+                id: "blue-room-token", identifiedName: "Blue Room Token",
+                unidentifiedName: "Stamped Brass Token", category: .evidence,
                 weightOunces: 1, maxStack: 10, loreToIdentify: 4, iconArtName: "x",
                 identifiedDescription: "known", unidentifiedDescription: "unknown"
             ),
@@ -322,8 +322,8 @@ struct CharacterInventoryTests {
     }
 
     @Test func identifiedAndUnidentifiedStacksDoNotMerge() {
-        let known = CarriedItemStack(id: "matchbook", quantity: 2, isIdentified: true)
-        let unknown = CarriedItemStack(id: "matchbook", quantity: 2, isIdentified: false)
+        let known = CarriedItemStack(id: "blue-room-token", quantity: 2, isIdentified: true)
+        let unknown = CarriedItemStack(id: "blue-room-token", quantity: 2, isIdentified: false)
         #expect(!known.canMerge(with: unknown))
 
         var bag = CarriedInventoryState(stacks: [known])
@@ -389,7 +389,7 @@ struct CharacterInventoryTests {
 
     @Test func loreIdentifiesWhatItCovers() throws {
         var inv = Self.inventory(bag: [
-            CarriedItemStack(id: "matchbook", quantity: 1, isIdentified: false)
+            CarriedItemStack(id: "blue-room-token", quantity: 1, isIdentified: false)
         ])
         // Below the threshold nothing happens.
         let tooLittleLore = try inv.identifyBackpackStack(at: 0, lore: 3, catalog: Self.catalog)
@@ -407,8 +407,8 @@ struct CharacterInventoryTests {
 
     @Test func theSweepIdentifiesEveryStackLoreCovers() {
         var inv = Self.inventory(bag: [
-            CarriedItemStack(id: "matchbook", quantity: 1, isIdentified: false),
-            CarriedItemStack(id: "matchbook", quantity: 2, isIdentified: false),
+            CarriedItemStack(id: "blue-room-token", quantity: 1, isIdentified: false),
+            CarriedItemStack(id: "blue-room-token", quantity: 2, isIdentified: false),
             CarriedItemStack(id: "shortsword", quantity: 1, isIdentified: true)
         ])
         let identified = inv.identifyEverythingKnown(lore: 4, catalog: Self.catalog)

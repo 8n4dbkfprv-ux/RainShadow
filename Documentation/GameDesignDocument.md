@@ -473,7 +473,7 @@ Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-saf
 | Status at M01 end | Open / Priority |
 | Apparent question | Where is Lillian March, and why was her coat left as a finished story? |
 | Working thesis (player-facing, uncertain) | Someone with institutional reach staged a drowning conclusion; the key is the thread they failed to cut. |
-| Journal letterhead | **H. VOSS · PRIVATE INVESTIGATIONS** |
+| Journal letterhead | **H. VOSS · FINDER OF THE LOST** |
 
 ##### Known facts at case open (M01 intro must establish)
 
@@ -505,7 +505,7 @@ Aligned to the shipped Empty Coat intro graph:
 | `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
 | `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; Lamphouse property log |
 | `evidence.lamphouse-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
-| `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
+| `evidence.blue-room` | Blue Room token: a stamped brass tavern token (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)
 
@@ -521,7 +521,7 @@ Aligned to the shipped Empty Coat intro graph:
 - Mid-act trust gate: the page they almost burned; partial manifest line; save the copy (or the man) from the ink-shop fire.
 - Act I break: open the seal-locker uptown and get out with what Lillian left in it.
 - Civic Spine / Dock Authority “lost” crates signatures.
-- Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
+- Optional later seed: Blue Room on Wardour Street (brass house token or testimony)—only after earned.
 
 ##### Chronology (case log · approximate Voss notation)
 

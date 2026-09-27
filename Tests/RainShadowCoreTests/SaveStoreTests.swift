@@ -128,7 +128,7 @@ struct SaveStoreTests {
         let store = SaveStore(defaults: defaults, key: "save")
         let flag = PersistedAreaVariable(kind: "integer", integer: 1)
         let pile = PersistedGroundItemStack(
-            id: "matchbook", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
+            id: "blue-room-token", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
         )
         store.save(SaveSnapshot(
             groundPiles: ["city_harborpoint_pd": [pile], "office_suite": []],
@@ -169,7 +169,7 @@ struct SaveStoreTests {
         }
         """
         let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
-        #expect(restored.carriedItems.map(\.id) == ["dark-lantern", "matchbook", "coin-purse", "tobacco-tin"])
+        #expect(restored.carriedItems.map(\.id) == ["dark-lantern", "blue-room-token", "coin-purse", "tobacco-tin"])
         #expect(restored.equippedItems["weapon1"]?.id == "lantern-shortsword")
         #expect(restored.groundPiles["office_suite"]?.first?.id == "dark-lantern")
         #expect(restored.lootContainers["office.desk"] == [.item(id: "lantern-shortsword", quantity: 1)])

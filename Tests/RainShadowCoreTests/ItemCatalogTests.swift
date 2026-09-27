@@ -12,12 +12,16 @@ struct ItemCatalogTests {
         for id in HarborpointItems.starterItemIDs {
             #expect(catalog.definition(for: id) != nil, "starter item '\(id)' is not authored")
         }
-        #expect(catalog.definition(for: "matchbook") != nil)
+        #expect(catalog.definition(for: "blue-room-token") != nil)
         // Renamed starter items: the old ids must not linger in the catalog.
         #expect(catalog.definition(for: "service-revolver") == nil)
         #expect(catalog.definition(for: "flashlight") == nil)
         #expect(catalog.definition(for: "wallet") == nil)
         #expect(catalog.definition(for: "cigarette-case") == nil)
+        #expect(catalog.definition(for: "matchbook") == nil)
+        let token = try catalog.require("blue-room-token")
+        #expect(token.unidentifiedName == "Stamped Brass Token")
+        #expect(token.iconArtName == "inventory_item_matchbook_v01")
         let purse = try catalog.require("coin-purse")
         #expect(purse.identifiedName == "Coin Purse")
         #expect(purse.identifiedDescription.contains("finder's writ"))
@@ -120,14 +124,14 @@ struct ItemCatalogTests {
     // MARK: - Identification
 
     @Test func unidentifiedItemsShowTheirUnknownFace() throws {
-        let matchbook = try ItemCatalogLoader.load().require("matchbook")
-        #expect(matchbook.loreToIdentify == 4)
-        #expect(!matchbook.isSelfEvident)
-        #expect(matchbook.displayName(identified: false) == "Paper Matchbook")
-        #expect(matchbook.displayName(identified: true) == "Matchbook")
+        let token = try ItemCatalogLoader.load().require("blue-room-token")
+        #expect(token.loreToIdentify == 4)
+        #expect(!token.isSelfEvident)
+        #expect(token.displayName(identified: false) == "Stamped Brass Token")
+        #expect(token.displayName(identified: true) == "Blue Room Token")
         #expect(
-            matchbook.displayDescription(identified: false)
-                != matchbook.displayDescription(identified: true)
+            token.displayDescription(identified: false)
+                != token.displayDescription(identified: true)
         )
     }
 
@@ -235,7 +239,7 @@ struct ItemCatalogTests {
     }
 
     @Test func definitionsSurviveAJSONRoundTrip() throws {
-        let original = try ItemCatalogLoader.load().require("matchbook")
+        let original = try ItemCatalogLoader.load().require("blue-room-token")
         let data = try JSONEncoder().encode(original)
         #expect(try JSONDecoder().decode(ItemDefinition.self, from: data) == original)
     }

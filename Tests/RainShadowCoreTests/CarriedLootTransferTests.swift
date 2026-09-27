@@ -51,7 +51,7 @@ struct CarriedLootTransferTests {
             "office.desk": [
                 .item(id: "letter", quantity: 1),
                 .coins(pence: 12),
-                .item(id: "matches", quantity: 3),
+                .item(id: "tinder", quantity: 3),
                 .coins(pence: 24),
                 .item(id: "photograph", quantity: 1)
             ]
@@ -63,7 +63,7 @@ struct CarriedLootTransferTests {
         #expect(result.creditedPence == 36)
         #expect(result.itemStacks == [
             CarriedItemStack(id: "letter", quantity: 1),
-            CarriedItemStack(id: "matches", quantity: 3)
+            CarriedItemStack(id: "tinder", quantity: 3)
         ])
         #expect(containers.contents(of: "office.desk") == [
             .item(id: "photograph", quantity: 1)
@@ -111,7 +111,7 @@ struct CarriedLootTransferTests {
         var inventory = CarriedInventoryState(
             stacks: [
                 CarriedItemStack(id: "letter", quantity: 1),
-                CarriedItemStack(id: "matches", quantity: 3)
+                CarriedItemStack(id: "tinder", quantity: 3)
             ],
             reservedSlotCount: 6
         )
@@ -124,7 +124,7 @@ struct CarriedLootTransferTests {
         #expect(returned == CarriedItemStack(id: "letter", quantity: 1))
         let appended = containers.appendItem(returned, to: "office.desk")
         #expect(appended)
-        #expect(inventory.stacks == [CarriedItemStack(id: "matches", quantity: 3)])
+        #expect(inventory.stacks == [CarriedItemStack(id: "tinder", quantity: 3)])
         #expect(containers.contents(of: "office.desk") == [
             .coins(pence: 12),
             .item(id: "letter", quantity: 1)
@@ -142,7 +142,7 @@ struct CarriedLootPersistenceTests {
         let expected = SaveSnapshot(
             carriedItems: [
                 PersistedCarriedItemStack(id: "letter", quantity: 1),
-                PersistedCarriedItemStack(id: "matches", quantity: 3)
+                PersistedCarriedItemStack(id: "tinder", quantity: 3)
             ]
         )
 

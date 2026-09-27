@@ -4,7 +4,7 @@ import Foundation
 /// header's flags dword (`itm_v1.htm` offset 0x0018) and into the per-stack flags
 /// on the creature's item entry (`cre_v1.htm` offset 0x0010); RainShadow splits
 /// them the same way — these are the definition-level bits, while
-/// `CarriedItemStack.isIdentified` is per-stack because two matchbooks can differ.
+/// `CarriedItemStack.isIdentified` is per-stack because two tavern tokens can differ.
 ///
 /// Authored in JSON as a string array (`"flags": ["cursed", "undroppable"]`)
 /// rather than a bitmask, because a save file nobody can read by eye is how

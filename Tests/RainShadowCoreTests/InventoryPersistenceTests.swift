@@ -10,7 +10,7 @@ struct InventoryPersistenceTests {
 
     @Test func equippedItemsAndTheStarterSeedRoundTrip() throws {
         let snapshot = SaveSnapshot(
-            carriedItems: [PersistedCarriedItemStack(id: "matchbook", quantity: 3)],
+            carriedItems: [PersistedCarriedItemStack(id: "blue-room-token", quantity: 3)],
             equippedItems: [
                 "coat": PersistedCarriedItemStack(id: "oilskin-greatcoat", quantity: 1),
                 "weapon1": PersistedCarriedItemStack(id: "lantern-shortsword", quantity: 1)
@@ -33,7 +33,7 @@ struct InventoryPersistenceTests {
         {
           "schemaVersion": 1,
           "walletPence": 1728,
-          "carriedItems": [{"id": "matchbook", "quantity": 2}]
+          "carriedItems": [{"id": "blue-room-token", "quantity": 2}]
         }
         """
         let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
@@ -51,7 +51,7 @@ struct InventoryPersistenceTests {
 
     @Test func identificationAndChargesSurviveTheMirror() throws {
         let stack = PersistedCarriedItemStack(
-            id: "matchbook", quantity: 4, isIdentified: false, charges: 2
+            id: "blue-room-token", quantity: 4, isIdentified: false, charges: 2
         )
         let data = try JSONEncoder().encode(stack)
         let restored = try JSONDecoder().decode(PersistedCarriedItemStack.self, from: data)

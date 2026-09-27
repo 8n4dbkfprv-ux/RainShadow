@@ -55,7 +55,7 @@ public struct CaseJournalSection: Equatable, Sendable {
 public enum EmptyCoatJournalContent {
     public static let caseID = "case.empty-coat"
     public static let caseTitle = "The Empty Coat"
-    public static let agencyLetterhead = "H. VOSS  •  PRIVATE INVESTIGATIONS"
+    public static let agencyLetterhead = "H. VOSS  •  FINDER OF THE LOST"
     public static let pageMark = "FILE 01  /  THE EMPTY COAT"
     public static let defaultSelectedEntryID = caseID
 

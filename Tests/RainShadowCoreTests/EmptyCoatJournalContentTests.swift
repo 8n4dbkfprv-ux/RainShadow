@@ -22,6 +22,8 @@ struct EmptyCoatJournalContentTests {
 
     @Test func letterheadAndCaseIdentity() {
         #expect(EmptyCoatJournalContent.agencyLetterhead.contains("H. VOSS"))
+        #expect(EmptyCoatJournalContent.agencyLetterhead.contains("FINDER OF THE LOST"))
+        #expect(!EmptyCoatJournalContent.agencyLetterhead.contains("INVESTIGATIONS"))
         #expect(!EmptyCoatJournalContent.agencyLetterhead.contains("VALE"))
         #expect(EmptyCoatJournalContent.caseTitle == "The Empty Coat")
         #expect(EmptyCoatJournalContent.caseID == "case.empty-coat")

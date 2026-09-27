@@ -46,7 +46,7 @@ final class ActionBarNode: SKNode {
 
         var stubMessage: String {
             switch self {
-            case .menu: return "Agency menu — not yet"
+            case .menu: return "Office menu — not yet"
             case .leads: return "Leads board — not yet"
             case .contacts: return "Contacts — not yet"
             case .settings: return "Settings — not yet"

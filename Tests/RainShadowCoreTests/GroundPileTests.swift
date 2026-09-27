@@ -14,17 +14,17 @@ struct GroundPileTests {
 
     @Test func aDroppedStackStaysWhereItFell() {
         var piles = GroundPileState()
-        piles.drop(Self.stack("matchbook"), in: "office", at: CGPoint(x: 40, y: -12))
+        piles.drop(Self.stack("blue-room-token"), in: "office", at: CGPoint(x: 40, y: -12))
 
         let pile = piles.stacks(in: "office")
         #expect(pile.count == 1)
         #expect(pile[0].position == CGPoint(x: 40, y: -12))
-        #expect(pile[0].stack.id == "matchbook")
+        #expect(pile[0].stack.id == "blue-room-token")
     }
 
     @Test func pilesAreKeptPerArea() {
         var piles = GroundPileState()
-        piles.drop(Self.stack("matchbook"), in: "office", at: .zero)
+        piles.drop(Self.stack("blue-room-token"), in: "office", at: .zero)
         piles.drop(Self.stack("brass-key"), in: "sableRow", at: .zero)
 
         #expect(piles.stacks(in: "office").count == 1)
@@ -36,7 +36,7 @@ struct GroundPileTests {
         // Removal is by identity, not index: the quick-loot bar sorts by distance,
         // so an index would take whatever happened to be nearest instead.
         var piles = GroundPileState()
-        piles.drop(Self.stack("matchbook"), in: "office", at: CGPoint(x: 100, y: 0))
+        piles.drop(Self.stack("blue-room-token"), in: "office", at: CGPoint(x: 100, y: 0))
         piles.drop(Self.stack("brass-key"), in: "office", at: CGPoint(x: 10, y: 0))
 
         let nearest = piles.stacks(in: "office", near: .zero, radius: 500).first
@@ -45,12 +45,12 @@ struct GroundPileTests {
 
         let taken = piles.take(target, from: "office")
         #expect(taken?.id == "brass-key")
-        #expect(piles.stacks(in: "office").map(\.stack.id) == ["matchbook"])
+        #expect(piles.stacks(in: "office").map(\.stack.id) == ["blue-room-token"])
     }
 
     @Test func takingSomethingAlreadyGoneChangesNothing() {
         var piles = GroundPileState()
-        piles.drop(Self.stack("matchbook"), in: "office", at: .zero)
+        piles.drop(Self.stack("blue-room-token"), in: "office", at: .zero)
         let entry = piles.stacks(in: "office")[0]
 
         #expect(piles.take(entry, from: "office") != nil)
@@ -60,7 +60,7 @@ struct GroundPileTests {
 
     @Test func anEmptyStackIsNeverDropped() {
         var piles = GroundPileState()
-        piles.drop(CarriedItemStack(id: "matchbook", quantity: 0), in: "office", at: .zero)
+        piles.drop(CarriedItemStack(id: "blue-room-token", quantity: 0), in: "office", at: .zero)
         #expect(piles.isEmpty)
     }
 
@@ -184,7 +184,7 @@ struct GroundPileTests {
             groundPiles: [
                 "office": [
                     PersistedGroundItemStack(
-                        id: "matchbook", quantity: 2, isIdentified: false, x: 12.5, y: -3.25
+                        id: "blue-room-token", quantity: 2, isIdentified: false, x: 12.5, y: -3.25
                     )
                 ]
             ]
@@ -194,7 +194,7 @@ struct GroundPileTests {
 
         let pile = try #require(restored.groundPiles["office"])
         #expect(pile.count == 1)
-        #expect(pile[0].id == "matchbook")
+        #expect(pile[0].id == "blue-room-token")
         #expect(pile[0].quantity == 2)
         #expect(!pile[0].isIdentified)
         #expect(pile[0].x == 12.5)

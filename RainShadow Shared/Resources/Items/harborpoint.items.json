@@ -66,17 +66,17 @@
       "note": "Steadies the hands, ruins the lungs"
     },
     {
-      "id": "matchbook",
-      "identifiedName": "Matchbook",
-      "unidentifiedName": "Paper Matchbook",
+      "id": "blue-room-token",
+      "identifiedName": "Blue Room Token",
+      "unidentifiedName": "Stamped Brass Token",
       "category": "EVIDENCE",
       "weightOunces": 1,
       "valuePence": 1,
       "maxStack": 10,
       "loreToIdentify": 4,
       "iconArtName": "inventory_item_matchbook_v01",
-      "identifiedDescription": "A paper matchbook kept as part of the case record. The flap carries a printed address, worn but legible.",
-      "unidentifiedDescription": "A paper matchbook, damp at one corner. Something is printed inside the flap, too faded to read at a glance.",
+      "identifiedDescription": "A stamped brass house token, the kind a tavern hands over for a drink or the door. Kept as part of the case record. The reverse carries the house's mark and its street, worn but legible.",
+      "unidentifiedDescription": "A brass tavern token, river-dull and greasy at the rim. Something is stamped on the reverse, too worn to read at a glance.",
       "note": "Recovered evidence"
     }
   ]

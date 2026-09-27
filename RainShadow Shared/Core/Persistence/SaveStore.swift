@@ -149,12 +149,13 @@ enum LegacySaveIDs {
 
     /// Item ids renamed after saves were written, old → new: the modern starter
     /// kit became the Lantern shortsword, the dark lantern, the coin purse and
-    /// the tobacco tin.
+    /// the tobacco tin; the Blue Room matchbook became a brass tavern token.
     static let itemIDs: [String: String] = [
         "service-revolver": "lantern-shortsword",
         "flashlight": "dark-lantern",
         "wallet": "coin-purse",
-        "cigarette-case": "tobacco-tin"
+        "cigarette-case": "tobacco-tin",
+        "matchbook": "blue-room-token"
     ]
 
     static func itemID(_ id: String) -> String {
