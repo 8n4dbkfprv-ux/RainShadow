@@ -85,7 +85,7 @@ Corruption is the **operating system**, not a villain’s hobby. Not a mood filt
 | Layer | What it pretends to be | What it actually is |
 |---|---|---|
 | **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that vanish on purpose |
-| **The Lantern Company of Harborpoint** (the Lanterns; street slang “lamps”) | Law and investigation (the Lamphouse, night books, lamp-sergeants, lanternmen, river lanterns) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
+| **The Lantern Guard of Harborpoint** (the Lanterns; street slang “lamps”) | Law and investigation (the Lamphouse, night books, lamp-sergeants, lanternmen, river lanterns) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
 | **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, overtime as hush money |
 | **Press & broadsheets** | Public truth | Ownership strings; editors who know which names never print; one or two diggers who still risk ink |
 | **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
@@ -282,7 +282,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 | **Corruption** | Each act peels a higher institutional layer. Evidence is altered by people with badges, letterheads, and good manners—not only by street thugs. |
 | **Combat (BG-like)** | When investigation turns kinetic, encounters use **real-time-with-pause**, tactical positioning, and small allied or temporary party composition in the Infinity Engine spirit—**authored set pieces**, not random trash fights or loot-grind loops. See §4.3.5. |
 | **Immersion** | Continuous rain beds, reactive districts, NPCs who remember, case journal that feels like Voss’s mind on paper, and environmental storytelling before exposition. |
-| **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, station house, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
+| **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, Lamphouse, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
 
 #### 4.3.1 Act structure (campaign spine)
 
