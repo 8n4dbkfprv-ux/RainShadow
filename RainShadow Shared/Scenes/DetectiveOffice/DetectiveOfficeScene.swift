@@ -352,12 +352,12 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                let desk = hotspots.first(where: { $0.id == "office.desk" }) {
                 presentLootContainerPanelIfNeeded(for: desk)
             } else if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_INVENTORY"] == "1" {
-                // QA hook: ready the revolver first, so a capture can show the
+                // QA hook: ready the shortsword first, so a capture can show the
                 // equipped state without a click. Uses the same session API the
                 // window calls, so the proof is of the shipping path.
                 if ProcessInfo.processInfo.environment["RAINSHADOW_CAPTURE_EQUIPPED"] == "1",
                    let index = context.session.carriedInventory.stacks
-                       .firstIndex(where: { $0.id == "service-revolver" }) {
+                       .firstIndex(where: { $0.id == "lantern-shortsword" }) {
                     context.session.equipCarriedItem(at: index, to: .weapon1)
                 }
                 setInventoryPresented(true)

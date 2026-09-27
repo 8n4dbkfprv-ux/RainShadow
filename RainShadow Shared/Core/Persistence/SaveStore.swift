@@ -31,7 +31,7 @@ struct PersistedCarriedItemStack: Codable, Equatable, Sendable {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         self.init(
-            id: try c.decode(String.self, forKey: .id),
+            id: LegacySaveIDs.itemID(try c.decode(String.self, forKey: .id)),
             quantity: try c.decode(Int.self, forKey: .quantity),
             isIdentified: try c.decodeIfPresent(Bool.self, forKey: .isIdentified) ?? true,
             charges: try c.decodeIfPresent(Int.self, forKey: .charges)
@@ -72,7 +72,7 @@ struct PersistedGroundItemStack: Codable, Equatable, Sendable {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         self.init(
-            id: try c.decode(String.self, forKey: .id),
+            id: LegacySaveIDs.itemID(try c.decode(String.self, forKey: .id)),
             quantity: try c.decode(Int.self, forKey: .quantity),
             isIdentified: try c.decodeIfPresent(Bool.self, forKey: .isIdentified) ?? true,
             charges: try c.decodeIfPresent(Int.self, forKey: .charges),
@@ -128,12 +128,12 @@ struct PersistedExploredFog: Codable, Equatable {
     var bytes: Data
 }
 
-/// Area ids renamed after saves were written, old → new.
+/// Area and item ids renamed after saves were written, old → new.
 ///
 /// Applied where area-keyed state is decoded, so a save from before the rename
 /// keeps its dropped items and area variables (Lamp Ward's visited flag among
 /// them). Portal ids, district and interior raw values are never persisted, so
-/// only area ids need mapping.
+/// only area ids and renamed item ids need mapping.
 enum LegacySaveIDs {
     /// Harborpoint PD became Lamp Ward; its station became the Lamphouse.
     /// Lila's Street grew into Market Cross, the central district.
@@ -145,6 +145,27 @@ enum LegacySaveIDs {
 
     static func areaID(_ id: String) -> String {
         areaIDs[id] ?? id
+    }
+
+    /// Item ids renamed after saves were written, old → new: the modern starter
+    /// kit became the Lantern shortsword and the dark lantern.
+    static let itemIDs: [String: String] = [
+        "service-revolver": "lantern-shortsword",
+        "flashlight": "dark-lantern"
+    ]
+
+    static func itemID(_ id: String) -> String {
+        itemIDs[id] ?? id
+    }
+
+    /// Loot container stacks carry item ids too.
+    static func renamedLoot(_ stacks: [PersistedLootStack]) -> [PersistedLootStack] {
+        stacks.map { stack in
+            if case .item(let id, let quantity) = stack {
+                return .item(id: itemID(id), quantity: quantity)
+            }
+            return stack
+        }
     }
 
     /// Re-keys a dictionary keyed by area id. A value already stored under the
@@ -286,10 +307,10 @@ struct SaveSnapshot: Codable, Equatable {
             try container.decodeIfPresent(Bool.self, forKey: .hasCompletedOfficeCaseIntro) ?? false
         inspectedHotspotIDs = try container.decodeIfPresent(Set<String>.self, forKey: .inspectedHotspotIDs) ?? []
         walletPence = try container.decodeIfPresent(Int.self, forKey: .walletPence) ?? 1_728
-        lootContainers = try container.decodeIfPresent(
+        lootContainers = (try container.decodeIfPresent(
             [String: [PersistedLootStack]].self,
             forKey: .lootContainers
-        ) ?? [:]
+        ) ?? [:]).mapValues(LegacySaveIDs.renamedLoot)
         carriedItems = try container.decodeIfPresent(
             [PersistedCarriedItemStack].self,
             forKey: .carriedItems

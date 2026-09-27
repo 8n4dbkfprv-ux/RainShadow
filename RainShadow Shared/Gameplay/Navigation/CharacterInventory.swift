@@ -348,7 +348,7 @@ struct CharacterInventory: Equatable, Sendable {
         return total
     }
 
-    /// Defence from worn gear only. A revolver in the bag protects nobody.
+    /// Defence from worn gear only. A sword in the bag protects nobody.
     func defenceBonus(catalog: ItemCatalog) -> Int {
         equipped.reduce(into: 0) { total, entry in
             guard entry.key.isWorn,

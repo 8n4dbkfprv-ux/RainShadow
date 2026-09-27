@@ -13,18 +13,28 @@ struct ItemCatalogTests {
             #expect(catalog.definition(for: id) != nil, "starter item '\(id)' is not authored")
         }
         #expect(catalog.definition(for: "matchbook") != nil)
+        // Renamed starter items: the old ids must not linger in the catalog.
+        #expect(catalog.definition(for: "service-revolver") == nil)
+        #expect(catalog.definition(for: "flashlight") == nil)
+        #expect(HarborpointItems.starterItemIDs.contains("lantern-shortsword"))
+        #expect(HarborpointItems.starterItemIDs.contains("dark-lantern"))
     }
 
     @Test func shippedCatalogPreservesAuthoredPresentation() throws {
-        let revolver = try ItemCatalogLoader.load().require("service-revolver")
-        #expect(revolver.identifiedName == "Service Revolver")
-        #expect(revolver.category == .weapon)
-        #expect(revolver.iconArtName == "inventory_item_service_revolver_v01")
-        #expect(revolver.note == "Registered to Det. H. Voss · 5 rounds loaded")
-        #expect(
-            revolver.identifiedDescription
-                == "A six-shot Webley with a tired action and a clean barrel."
-        )
+        let sword = try ItemCatalogLoader.load().require("lantern-shortsword")
+        #expect(sword.identifiedName == "Lantern Service Shortsword")
+        #expect(sword.category == .weapon)
+        // The icon keeps its shipped file name until the sword art is painted.
+        #expect(sword.iconArtName == "inventory_item_service_revolver_v01")
+        #expect(sword.note == "Lantern Guard issue · never handed back")
+        #expect(sword.identifiedDescription.hasPrefix("The blade Voss kept from his Lantern years."))
+        #expect(!sword.flags.contains(.twoHanded))
+        #expect(sword.damageLow == 2 && sword.damageHigh == 7)
+
+        let lantern = try ItemCatalogLoader.load().require("dark-lantern")
+        #expect(lantern.identifiedName == "Dark Lantern")
+        #expect(lantern.iconArtName == "inventory_item_flashlight_v01")
+        #expect(lantern.identifiedDescription.contains("shutter"))
     }
 
     @Test func caseCriticalItemsAreFlagged() throws {
@@ -51,12 +61,12 @@ struct ItemCatalogTests {
         let catalog = try ItemCatalogLoader.load()
 
         // A weapon reaches the four ready slots and the off-hand, as in BG.
-        let revolver = try catalog.require("service-revolver")
-        #expect(Set(revolver.equippableSlots) == Set(EquipmentSlot.weaponSlots + [.holster]))
+        let sword = try catalog.require("lantern-shortsword")
+        #expect(Set(sword.equippableSlots) == Set(EquipmentSlot.weaponSlots + [.holster]))
 
         // Field tools and personal effects are quick-slot items.
-        let torch = try catalog.require("flashlight")
-        #expect(Set(torch.equippableSlots) == Set(EquipmentSlot.quickItemSlots))
+        let lantern = try catalog.require("dark-lantern")
+        #expect(Set(lantern.equippableSlots) == Set(EquipmentSlot.quickItemSlots))
 
         // Evidence is carried, never worn or readied.
         let key = try catalog.require("brass-key")
@@ -112,12 +122,12 @@ struct ItemCatalogTests {
     }
 
     @Test func selfEvidentItemsReadTheSameEitherWay() throws {
-        let torch = try ItemCatalogLoader.load().require("flashlight")
-        #expect(torch.isSelfEvident)
-        #expect(torch.displayName(identified: false) == torch.displayName(identified: true))
+        let lantern = try ItemCatalogLoader.load().require("dark-lantern")
+        #expect(lantern.isSelfEvident)
+        #expect(lantern.displayName(identified: false) == lantern.displayName(identified: true))
         #expect(
-            torch.displayDescription(identified: false)
-                == torch.displayDescription(identified: true)
+            lantern.displayDescription(identified: false)
+                == lantern.displayDescription(identified: true)
         )
     }
 
@@ -189,20 +199,20 @@ struct ItemCatalogTests {
             id: "ok",
             items: [
                 ItemDefinition(
-                    id: "cartridges",
-                    identifiedName: "Webley Cartridges",
+                    id: "bolts",
+                    identifiedName: "Crossbow Bolts",
                     category: .ammunition,
                     weightOunces: 1,
                     maxStack: 40,
                     iconArtName: "x",
-                    identifiedDescription: ".455 service load."
+                    identifiedDescription: "Short iron-tipped quarrels."
                 )
             ]
         )
         let catalog = try ItemCatalogLoader.validate(document)
-        let cartridges = try catalog.require("cartridges")
-        #expect(cartridges.stacks)
-        #expect(Set(cartridges.equippableSlots) == Set(EquipmentSlot.quiverSlots))
+        let bolts = try catalog.require("bolts")
+        #expect(bolts.stacks)
+        #expect(Set(bolts.equippableSlots) == Set(EquipmentSlot.quiverSlots))
     }
 
     // MARK: - Round trip

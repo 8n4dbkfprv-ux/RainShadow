@@ -45,20 +45,20 @@ struct InventoryOverlayIdentityTests {
     }
 
     @Test func equippedAndCarriedCopiesOfOneItemDoNotShareAKey() {
-        // The same revolver worn and carried must be separately selectable, or
+        // The same shortsword worn and carried must be separately selectable, or
         // clicking one would highlight both.
         let carried = InventoryItemPresentation.presentationID(
-            authoredID: "service-revolver", slotIndex: 0
+            authoredID: "lantern-shortsword", slotIndex: 0
         )
         let worn = InventoryItemPresentation.presentationID(
-            authoredID: "service-revolver", slot: .weapon1
+            authoredID: "lantern-shortsword", slot: .weapon1
         )
         #expect(carried != worn)
     }
 
     @Test func everyEquipmentSlotProducesADistinctKey() {
         let keys = EquipmentSlot.allCases.map {
-            InventoryItemPresentation.presentationID(authoredID: "service-revolver", slot: $0)
+            InventoryItemPresentation.presentationID(authoredID: "lantern-shortsword", slot: $0)
         }
         #expect(Set(keys).count == keys.count)
     }
@@ -80,16 +80,16 @@ struct InventoryOverlayIdentityTests {
         }
     }
 
-    @Test func aCarriedRevolverKeepsItsAuthoredPresentation() throws {
-        let stack = CarriedItemStack(id: "service-revolver", quantity: 1)
+    @Test func aCarriedShortswordKeepsItsAuthoredPresentation() throws {
+        let stack = CarriedItemStack(id: "lantern-shortsword", quantity: 1)
         let item = try #require(
             InventoryItemPresentation.item(
                 for: stack,
                 catalog: Self.catalog,
-                presentationID: "carried.0.service-revolver"
+                presentationID: "carried.0.lantern-shortsword"
             )
         )
-        #expect(item.name == "Service Revolver")
+        #expect(item.name == "Lantern Service Shortsword")
         #expect(item.category == .weapon)
         #expect(item.categoryDisplayName == "SERVICE WEAPON")
         #expect(item.artName == "inventory_item_service_revolver_v01")

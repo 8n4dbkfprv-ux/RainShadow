@@ -11,12 +11,12 @@ struct CharacterInventoryTests {
     private static let catalog: ItemCatalog = {
         let items: [ItemDefinition] = [
             ItemDefinition(
-                id: "revolver", identifiedName: "Revolver", category: .weapon,
+                id: "shortsword", identifiedName: "Shortsword", category: .weapon,
                 weightOunces: 38, iconArtName: "x",
                 identifiedDescription: "d", damageLow: 2, damageHigh: 7
             ),
             ItemDefinition(
-                id: "shotgun", identifiedName: "Shotgun", category: .weapon,
+                id: "greatsword", identifiedName: "Greatsword", category: .weapon,
                 weightOunces: 112, iconArtName: "x",
                 identifiedDescription: "d", flags: [.twoHanded]
             ),
@@ -41,7 +41,7 @@ struct CharacterInventoryTests {
                 identifiedDescription: "d", flags: [.undroppable]
             ),
             ItemDefinition(
-                id: "cartridges", identifiedName: "Cartridges", category: .ammunition,
+                id: "bolts", identifiedName: "Crossbow Bolts", category: .ammunition,
                 weightOunces: 1, maxStack: 40, iconArtName: "x",
                 identifiedDescription: "d"
             ),
@@ -86,9 +86,9 @@ struct CharacterInventoryTests {
 
     @Test func ammunitionGoesOnlyInTheQuivers() {
         var inv = Self.inventory()
-        #expect(inv.canEquip(Self.stack("cartridges", 20), in: .quiver1, catalog: Self.catalog))
-        #expect(!inv.canEquip(Self.stack("cartridges", 20), in: .quickItem1, catalog: Self.catalog))
-        #expect(!inv.canEquip(Self.stack("cartridges", 20), in: .coat, catalog: Self.catalog))
+        #expect(inv.canEquip(Self.stack("bolts", 20), in: .quiver1, catalog: Self.catalog))
+        #expect(!inv.canEquip(Self.stack("bolts", 20), in: .quickItem1, catalog: Self.catalog))
+        #expect(!inv.canEquip(Self.stack("bolts", 20), in: .coat, catalog: Self.catalog))
     }
 
     @Test func evidenceIsCarriedNeverWorn() {
@@ -105,34 +105,34 @@ struct CharacterInventoryTests {
 
     @Test func twoHandedWeaponBlocksTheOffHand() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("shotgun"), in: .weapon1, catalog: Self.catalog)
+        try inv.equip(Self.stack("greatsword"), in: .weapon1, catalog: Self.catalog)
         #expect(inv.twoHandedWeaponSlot(catalog: Self.catalog) == .weapon1)
 
         #expect(throws: InventoryRefusal.offHandBlockedByTwoHandedWeapon(blockedBy: .weapon1)) {
             var copy = inv
-            try copy.equip(Self.stack("revolver"), in: .holster, catalog: Self.catalog)
+            try copy.equip(Self.stack("shortsword"), in: .holster, catalog: Self.catalog)
         }
     }
 
     @Test func anOccupiedOffHandRefusesATwoHander() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("revolver"), in: .holster, catalog: Self.catalog)
+        try inv.equip(Self.stack("shortsword"), in: .holster, catalog: Self.catalog)
 
         #expect(throws: InventoryRefusal.twoHandedBlockedByOffHand(occupied: .holster)) {
             var copy = inv
-            try copy.equip(Self.stack("shotgun"), in: .weapon1, catalog: Self.catalog)
+            try copy.equip(Self.stack("greatsword"), in: .weapon1, catalog: Self.catalog)
         }
         // A one-handed weapon in the same slot is fine.
-        try inv.equip(Self.stack("revolver"), in: .weapon1, catalog: Self.catalog)
-        #expect(inv.item(in: .weapon1)?.id == "revolver")
+        try inv.equip(Self.stack("shortsword"), in: .weapon1, catalog: Self.catalog)
+        #expect(inv.item(in: .weapon1)?.id == "shortsword")
     }
 
     @Test func theBlockHoldsFromAnyReadySlotNotJustTheFirst() throws {
         // BG:EE blocks the off-hand for a two-hander anywhere in the quick-weapon
         // bar, readied or not.
         var inv = Self.inventory()
-        try inv.equip(Self.stack("shotgun"), in: .weapon3, catalog: Self.catalog)
-        #expect(!inv.canEquip(Self.stack("revolver"), in: .holster, catalog: Self.catalog))
+        try inv.equip(Self.stack("greatsword"), in: .weapon3, catalog: Self.catalog)
+        #expect(!inv.canEquip(Self.stack("shortsword"), in: .holster, catalog: Self.catalog))
     }
 
     // MARK: - Cursed
@@ -214,20 +214,20 @@ struct CharacterInventoryTests {
 
     @Test func aReadiedWeaponCanChangeSlots() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("revolver"), in: .weapon1, catalog: Self.catalog)
+        try inv.equip(Self.stack("shortsword"), in: .weapon1, catalog: Self.catalog)
         try inv.moveEquipped(from: .weapon1, to: .weapon3, catalog: Self.catalog)
         #expect(inv.item(in: .weapon1) == nil)
-        #expect(inv.item(in: .weapon3)?.id == "revolver")
+        #expect(inv.item(in: .weapon3)?.id == "shortsword")
     }
 
     @Test func movingOntoAnOccupiedSlotSwapsBothWays() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("revolver"), in: .weapon1, catalog: Self.catalog)
-        try inv.equip(Self.stack("shotgun"), in: .weapon2, catalog: Self.catalog)
+        try inv.equip(Self.stack("shortsword"), in: .weapon1, catalog: Self.catalog)
+        try inv.equip(Self.stack("greatsword"), in: .weapon2, catalog: Self.catalog)
 
         try inv.moveEquipped(from: .weapon1, to: .weapon2, catalog: Self.catalog)
-        #expect(inv.item(in: .weapon2)?.id == "revolver")
-        #expect(inv.item(in: .weapon1)?.id == "shotgun")
+        #expect(inv.item(in: .weapon2)?.id == "shortsword")
+        #expect(inv.item(in: .weapon1)?.id == "greatsword")
     }
 
     @Test func aTwoHanderCanMoveWithinItsOwnBank() throws {
@@ -235,14 +235,14 @@ struct CharacterInventoryTests {
         // the source is empty, or a two-hander would refuse to move because of
         // itself.
         var inv = Self.inventory()
-        try inv.equip(Self.stack("shotgun"), in: .weapon1, catalog: Self.catalog)
+        try inv.equip(Self.stack("greatsword"), in: .weapon1, catalog: Self.catalog)
         try inv.moveEquipped(from: .weapon1, to: .weapon2, catalog: Self.catalog)
-        #expect(inv.item(in: .weapon2)?.id == "shotgun")
+        #expect(inv.item(in: .weapon2)?.id == "greatsword")
     }
 
     @Test func aMoveToTheWrongKindOfSlotIsRefused() throws {
         var inv = Self.inventory()
-        try inv.equip(Self.stack("revolver"), in: .weapon1, catalog: Self.catalog)
+        try inv.equip(Self.stack("shortsword"), in: .weapon1, catalog: Self.catalog)
         let before = inv
         #expect(throws: (any Error).self) {
             try inv.moveEquipped(from: .weapon1, to: .fedora, catalog: Self.catalog)
@@ -262,15 +262,15 @@ struct CharacterInventoryTests {
 
     @Test func reorderingTheBagMovesOneStack() {
         var bag = CarriedInventoryState(stacks: [
-            Self.stack("revolver"), Self.stack("trench-coat"), Self.stack("fedora")
+            Self.stack("shortsword"), Self.stack("trench-coat"), Self.stack("fedora")
         ])
         let moved = bag.move(from: 0, to: 2)
         #expect(moved)
-        #expect(bag.stacks.map(\.id) == ["trench-coat", "fedora", "revolver"])
+        #expect(bag.stacks.map(\.id) == ["trench-coat", "fedora", "shortsword"])
     }
 
     @Test func reorderingRefusesTheNoOpAndTheMissingIndex() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("revolver")])
+        var bag = CarriedInventoryState(stacks: [Self.stack("shortsword")])
         let sameSlot = bag.move(from: 0, to: 0)
         let missing = bag.move(from: 4, to: 0)
         #expect(!sameSlot)
@@ -289,25 +289,25 @@ struct CharacterInventoryTests {
     }
 
     @Test func ordinaryItemsLeaveTheBagFreely() throws {
-        var inv = Self.inventory(bag: [Self.stack("revolver")])
+        var inv = Self.inventory(bag: [Self.stack("shortsword")])
         let taken = try inv.removeFromBackpack(at: 0, catalog: Self.catalog)
-        #expect(taken.id == "revolver")
+        #expect(taken.id == "shortsword")
         #expect(inv.backpack.stacks.isEmpty)
     }
 
     // MARK: - Stacking
 
     @Test func matchingStacksTopUpBeforeTakingAFreshSlot() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("cartridges", 30)])
-        let merged = bag.append(Self.stack("cartridges", 5), limits: Self.limits)
+        var bag = CarriedInventoryState(stacks: [Self.stack("bolts", 30)])
+        let merged = bag.append(Self.stack("bolts", 5), limits: Self.limits)
         #expect(merged)
         #expect(bag.stacks.count == 1)
         #expect(bag.stacks[0].quantity == 35)
     }
 
     @Test func stacksSpillIntoANewSlotAtTheCeiling() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("cartridges", 30)])
-        let spilled = bag.append(Self.stack("cartridges", 20), limits: Self.limits)
+        var bag = CarriedInventoryState(stacks: [Self.stack("bolts", 30)])
+        let spilled = bag.append(Self.stack("bolts", 20), limits: Self.limits)
         #expect(spilled)
         #expect(bag.stacks.count == 2)
         #expect(bag.stacks[0].quantity == 40, "the first stack fills to its ceiling")
@@ -315,8 +315,8 @@ struct CharacterInventoryTests {
     }
 
     @Test func nonStackingIsTheDefaultSoOldCallersDoNotSilentlyMerge() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("cartridges", 30)])
-        let appended = bag.append(Self.stack("cartridges", 5))
+        var bag = CarriedInventoryState(stacks: [Self.stack("bolts", 30)])
+        let appended = bag.append(Self.stack("bolts", 5))
         #expect(appended)
         #expect(bag.stacks.count == 2, "without limits nothing merges")
     }
@@ -333,19 +333,19 @@ struct CharacterInventoryTests {
     }
 
     @Test func chargedItemsNeverMerge() {
-        let a = CarriedItemStack(id: "cartridges", quantity: 1, charges: 3)
-        let b = CarriedItemStack(id: "cartridges", quantity: 1, charges: 5)
+        let a = CarriedItemStack(id: "bolts", quantity: 1, charges: 3)
+        let b = CarriedItemStack(id: "bolts", quantity: 1, charges: 5)
         #expect(!a.canMerge(with: b))
     }
 
     @Test func aBatchThatCannotFitLeavesTheBagExactlyAsItWas() {
-        let filler = (0..<15).map { CarriedItemStack(id: "revolver", quantity: 1, charges: $0) }
+        let filler = (0..<15).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
         var bag = CarriedInventoryState(stacks: filler)
         let before = bag
         // Two unmergeable stacks into one free slot: all-or-nothing must refuse.
         let batch = [
-            CarriedItemStack(id: "revolver", quantity: 1, charges: 90),
-            CarriedItemStack(id: "revolver", quantity: 1, charges: 91)
+            CarriedItemStack(id: "shortsword", quantity: 1, charges: 90),
+            CarriedItemStack(id: "shortsword", quantity: 1, charges: 91)
         ]
         let accepted = bag.append(contentsOf: batch, limits: Self.limits)
         #expect(!accepted)
@@ -355,7 +355,7 @@ struct CharacterInventoryTests {
     // MARK: - Splitting
 
     @Test func splittingDividesOneStackIntoTwoAdjacentSlots() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("cartridges", 30)])
+        var bag = CarriedInventoryState(stacks: [Self.stack("bolts", 30)])
         let didSplit = bag.split(at: 0, count: 12)
         #expect(didSplit)
         #expect(bag.stacks.count == 2)
@@ -364,7 +364,7 @@ struct CharacterInventoryTests {
     }
 
     @Test func splittingRefusesTheDegenerateCases() {
-        var bag = CarriedInventoryState(stacks: [Self.stack("cartridges", 30)])
+        var bag = CarriedInventoryState(stacks: [Self.stack("bolts", 30)])
         let zero = bag.split(at: 0, count: 0)
         let whole = bag.split(at: 0, count: 30)
         let overflow = bag.split(at: 0, count: 31)
@@ -377,8 +377,8 @@ struct CharacterInventoryTests {
     }
 
     @Test func splittingNeedsAFreeSlot() {
-        var stacks = [Self.stack("cartridges", 30)]
-        stacks += (0..<15).map { CarriedItemStack(id: "revolver", quantity: 1, charges: $0) }
+        var stacks = [Self.stack("bolts", 30)]
+        stacks += (0..<15).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
         var bag = CarriedInventoryState(stacks: stacks)
         #expect(bag.availableSlotCount == 0)
         let didSplit = bag.split(at: 0, count: 10)
@@ -409,7 +409,7 @@ struct CharacterInventoryTests {
         var inv = Self.inventory(bag: [
             CarriedItemStack(id: "matchbook", quantity: 1, isIdentified: false),
             CarriedItemStack(id: "matchbook", quantity: 2, isIdentified: false),
-            CarriedItemStack(id: "revolver", quantity: 1, isIdentified: true)
+            CarriedItemStack(id: "shortsword", quantity: 1, isIdentified: true)
         ])
         let identified = inv.identifyEverythingKnown(lore: 4, catalog: Self.catalog)
         #expect(identified == 2)
@@ -419,9 +419,9 @@ struct CharacterInventoryTests {
     // MARK: - Weight and encumbrance
 
     @Test func weightCountsWhatIsWornAndWhatIsCarried() throws {
-        var inv = Self.inventory(bag: [Self.stack("cartridges", 10)])
+        var inv = Self.inventory(bag: [Self.stack("bolts", 10)])
         try inv.equip(Self.stack("trench-coat"), in: .coat, catalog: Self.catalog)
-        // 64 oz coat + 10 × 1 oz cartridges.
+        // 64 oz coat + 10 × 1 oz bolts.
         #expect(inv.carriedWeightOunces(catalog: Self.catalog) == 74)
     }
 
@@ -490,8 +490,8 @@ struct CharacterInventoryTests {
         var inv = Self.inventory()
         #expect(inv.readiedWeapon(catalog: Self.catalog) == nil)
 
-        try inv.equip(Self.stack("revolver"), in: .weapon2, catalog: Self.catalog)
-        #expect(inv.readiedWeapon(catalog: Self.catalog)?.id == "revolver")
+        try inv.equip(Self.stack("shortsword"), in: .weapon2, catalog: Self.catalog)
+        #expect(inv.readiedWeapon(catalog: Self.catalog)?.id == "shortsword")
         #expect(inv.readiedWeapon(catalog: Self.catalog)?.damageBand == "2–7")
     }
 }

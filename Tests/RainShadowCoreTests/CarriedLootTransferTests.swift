@@ -24,25 +24,25 @@ struct CarriedLootTransferTests {
         #expect(inventory == fullInventory)
     }
 
-    @Test func firearmStackUsesOneOrdinarySlotAndCanReturnToTheSource() throws {
-        let firearm = CarriedItemStack(id: "service-revolver", quantity: 1)
+    @Test func sidearmStackUsesOneOrdinarySlotAndCanReturnToTheSource() throws {
+        let sidearm = CarriedItemStack(id: "lantern-shortsword", quantity: 1)
         var inventory = CarriedInventoryState(reservedSlotCount: 6)
         var containers = LootContainerState(resolved: ["office.desk": []])
         let availableBeforePickup = inventory.availableSlotCount
 
-        let appendedToInventory = inventory.append(firearm)
+        let appendedToInventory = inventory.append(sidearm)
         #expect(appendedToInventory)
         #expect(inventory.availableSlotCount == availableBeforePickup - 1)
         #expect(inventory.occupiedSlotCount == 7)
 
         let maybeReturned = inventory.takeStack(at: 0)
         let returned = try #require(maybeReturned)
-        #expect(returned == firearm)
+        #expect(returned == sidearm)
         let appendedToSource = containers.appendItem(returned, to: "office.desk")
         #expect(appendedToSource)
         #expect(inventory.stacks.isEmpty)
         #expect(containers.contents(of: "office.desk") == [
-            .item(id: "service-revolver", quantity: 1)
+            .item(id: "lantern-shortsword", quantity: 1)
         ])
     }
 
@@ -152,17 +152,17 @@ struct CarriedLootPersistenceTests {
         #expect(store.load().carriedItems.count == 2)
     }
 
-    @Test func firearmStackPersistsThroughTheGenericCarriedItemMirror() throws {
-        let suiteName = "RainShadowTests.CarriedFirearm.\(UUID().uuidString)"
+    @Test func sidearmStackPersistsThroughTheGenericCarriedItemMirror() throws {
+        let suiteName = "RainShadowTests.CarriedSidearm.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
         let store = SaveStore(defaults: defaults, key: "save")
-        let firearm = PersistedCarriedItemStack(id: "service-revolver", quantity: 1)
-        let snapshot = SaveSnapshot(carriedItems: [firearm])
+        let sidearm = PersistedCarriedItemStack(id: "lantern-shortsword", quantity: 1)
+        let snapshot = SaveSnapshot(carriedItems: [sidearm])
 
         store.save(snapshot)
 
-        #expect(store.load().carriedItems == [firearm])
+        #expect(store.load().carriedItems == [sidearm])
     }
 
     @Test func legacySaveWithoutCarriedItemsDefaultsToEmpty() throws {

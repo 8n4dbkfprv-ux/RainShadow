@@ -69,7 +69,7 @@ struct ItemFlags: OptionSet, Codable, Sendable, Hashable {
 /// has one character and no spell system, so those would be empty fields
 /// pretending to be a design.
 struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
-    /// Stable authored id, lowercase kebab-case (`service-revolver`).
+    /// Stable authored id, lowercase kebab-case (`lantern-shortsword`).
     let id: String
     /// Shown once the item is identified.
     let identifiedName: String

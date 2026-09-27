@@ -13,7 +13,7 @@ struct InventoryPersistenceTests {
             carriedItems: [PersistedCarriedItemStack(id: "matchbook", quantity: 3)],
             equippedItems: [
                 "coat": PersistedCarriedItemStack(id: "trench-coat", quantity: 1),
-                "weapon1": PersistedCarriedItemStack(id: "service-revolver", quantity: 1)
+                "weapon1": PersistedCarriedItemStack(id: "lantern-shortsword", quantity: 1)
             ],
             hasSeededStarterKit: true
         )

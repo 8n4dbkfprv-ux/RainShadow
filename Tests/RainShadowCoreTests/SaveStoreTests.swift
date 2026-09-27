@@ -157,6 +157,23 @@ struct SaveStoreTests {
             "city_lamp_ward/visited": newer
         ]) == ["city_lamp_ward/visited": newer])
     }
+
+    @Test func legacyItemIDsLoadAsTheShortswordAndDarkLantern() throws {
+        let legacy = """
+        {
+          "schemaVersion": 1,
+          "carriedItems": [{"id": "flashlight", "quantity": 1}, {"id": "matchbook", "quantity": 2}],
+          "equippedItems": {"weapon1": {"id": "service-revolver", "quantity": 1}},
+          "groundPiles": {"office_suite": [{"id": "flashlight", "quantity": 1, "x": 4, "y": 2}]},
+          "lootContainers": {"office.desk": [{"item": {"id": "service-revolver", "quantity": 1}}]}
+        }
+        """
+        let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
+        #expect(restored.carriedItems.map(\.id) == ["dark-lantern", "matchbook"])
+        #expect(restored.equippedItems["weapon1"]?.id == "lantern-shortsword")
+        #expect(restored.groundPiles["office_suite"]?.first?.id == "dark-lantern")
+        #expect(restored.lootContainers["office.desk"] == [.item(id: "lantern-shortsword", quantity: 1)])
+    }
 }
 
 extension SaveStoreTests {
