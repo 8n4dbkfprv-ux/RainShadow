@@ -69,14 +69,14 @@ struct LootSystemTests {
             "office.desk": [
                 .coins(pence: 36),
                 .coins(pence: 12),
-                .item(id: "matchbook", quantity: 1)
+                .item(id: "blue-room-token", quantity: 1)
             ]
         ])
         let taken = state.takeStack(at: 1, from: "office.desk")
         #expect(taken == .coins(pence: 12))
         #expect(state.contents(of: "office.desk") == [
             .coins(pence: 36),
-            .item(id: "matchbook", quantity: 1)
+            .item(id: "blue-room-token", quantity: 1)
         ])
         #expect(state.takeStack(at: 9, from: "office.desk") == nil)
     }
@@ -86,7 +86,7 @@ struct LootSystemTests {
             "office.desk": [
                 .item(id: "brass-key", quantity: 1),
                 .coins(pence: 36),
-                .item(id: "matchbook", quantity: 2),
+                .item(id: "blue-room-token", quantity: 2),
                 .coins(pence: 12)
             ]
         ])
@@ -94,7 +94,7 @@ struct LootSystemTests {
         #expect(state.takeStack(at: 1, from: "office.desk") == .coins(pence: 36))
         #expect(state.contents(of: "office.desk") == [
             .item(id: "brass-key", quantity: 1),
-            .item(id: "matchbook", quantity: 2),
+            .item(id: "blue-room-token", quantity: 2),
             .coins(pence: 12)
         ])
     }
@@ -103,7 +103,7 @@ struct LootSystemTests {
         let original = LootContainerState(resolved: [
             "office.desk": [
                 .coins(pence: 36),
-                .item(id: "matchbook", quantity: 1)
+                .item(id: "blue-room-token", quantity: 1)
             ]
         ])
         var state = original
@@ -118,7 +118,7 @@ struct LootSystemTests {
         var state = LootContainerState(resolved: [
             "office.desk": [
                 .item(id: "brass-key", quantity: 1),
-                .item(id: "matchbook", quantity: 2),
+                .item(id: "blue-room-token", quantity: 2),
                 .coins(pence: 36)
             ]
         ])
@@ -134,7 +134,7 @@ struct LootSystemTests {
         #expect(creditedPence == 36)
         #expect(state.contents(of: "office.desk") == [
             .item(id: "brass-key", quantity: 1),
-            .item(id: "matchbook", quantity: 2)
+            .item(id: "blue-room-token", quantity: 2)
         ])
     }
 

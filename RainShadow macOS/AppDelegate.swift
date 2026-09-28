@@ -80,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.messageText = "Start a new game?"
         alert.informativeText = """
             This permanently discards your current progress — the case intro, \
-            everything you have inspected, your journal, and your wallet. \
+            everything you have inspected, your journal, and your purse. \
             There is only one save, and this cannot be undone.
             """
         alert.addButton(withTitle: "Cancel")

@@ -3,18 +3,18 @@
 - Status: pre-production baseline
 - Version: 0.3
 - Milestone covered: M01 — The Office in the Rain
-- Canon leads: **Harlan Voss** (player detective), **Lila March** (first client / the dame)
+- Canon leads: **Harlan Voss** (player hired finder), **Lila March** (first client / the dame)
 - Case dossier: **The Empty Coat** (§4.3.2) — Act I structure + M01 journal surface
 
 ## 1. High-level vision
 
 RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence—and, when the city refuses to talk, rare **Baldur’s Gate–style real-time-with-pause combat** that is authored, high-stakes, and never a loot grind.
 
-The player inhabits **Harlan Voss**, a weary private detective in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
+The player inhabits **Harlan Voss**, a weary hired finder in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
 ### Elevator pitch
 
-In rain-strangled Harborpoint, private detective Harlan Voss studies scenes, questions people, connects imperfect evidence, survives the rare fight he cannot talk past, and makes deductions that change both the case and the man he becomes—until a Poirot-like summation forces every lie into the open.
+In rain-strangled Harborpoint, hired finder Harlan Voss studies scenes, questions people, connects imperfect evidence, survives the rare fight he cannot talk past, and makes deductions that change both the case and the man he becomes—until a Poirot-like summation forces every lie into the open.
 
 ### Player promise
 
@@ -61,69 +61,214 @@ This section is the **narrative canon** for Harborpoint, the two established lea
 
 ### 4.1 World — Harborpoint under the rain
 
-**Harborpoint** is an original mid-century-inspired port city with no exact historical date. Architecture, clothing, vehicles, paper records, wired telephones, and radio place it in an analogue world; selective anachronism keeps the fiction from becoming a history simulation. The player never gets a tourist map of the whole metropolis—only rain-cut fragments that feel continuous beyond the frame: pipes knock in walls, trains pass unseen, signs hum, neighbors argue through plaster.
+#### The city in one breath
 
-**Rain** is atmosphere and theme at once. It obscures footprints, reflects neon into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes private lives visible through lit windows. Every district smells slightly different when wet: coal and brine on the docks, printer’s ink and cigarette ash downtown, wet wool and cooking oil in the tenements.
+**Harborpoint** is a rain-locked **fantasy-noir** port that runs on ledgers, silence, and small magics nobody bothers to call magic. Hardboiled attitude; light fantasy texture—not high fantasy speech and not a mid-century Earth lock. Coin moves. Ravens move. Bodies move when someone higher needs a problem to look like weather. Rain, charcoal coats, and wet wool sit beside **wards**, hush-charms, sill-wards, and message birds as ordinary city infrastructure—the same way a desk lamp is ordinary. There are no wired telephones or broadcast-radio civilisation locks in Empty Coat canon; when someone needs word across town, a bird or a runner does the work. The player never sees the whole map—only wet fragments that imply more city beyond the frame: pipes knock in walls, carts rattle unseen, signs hum, neighbours argue through plaster.
+
+#### How fantasy works here
+
+- **Wards / hush-charms / sill-wards** — household and office utilities. Cheap ones fail in rain. Expensive ones lie on purpose. An apartment’s hush-ward that “hadn’t tripped” is evidence, not flavour text.
+- **Ravens** — message birds with iron perches and droppings on desk leather. A live bird is a line open; a dead raven is a broken line and a threat. Voss’s office inspects an empty perch, not a telephone.
+- **Seals that bite** — dock and shipping magic: manifests that hurt if read wrong; **reading-rights** the Lanterns can smile about and withhold.
+- **Thresholds** — boarding-house locks that “hold” are partly carpenter, partly charm. A pause outside a door—like someone testing a threshold—is not only manners.
+
+Magic is never a sparkly skill tree in M01. It is damp, bureaucratic, and for sale.
+
+#### The rain
+
+Theme and mechanic at once. It obscures footprints, reflects lamp-glow into puddles, rinses blood off stone too slowly, erodes cheap paint, and makes lit windows into accusations. Every district smells slightly different when wet: brine and coal on the docks; printer’s ink and tobacco in Printers’ Quarter; cooking oil and wet wool in the tenements.
 
 #### Power structure (corruption is structural)
 
-Corruption in RainShadow is not a mood filter or a single crooked cop. It is **how Harborpoint keeps running**:
+Corruption is the **operating system**, not a villain’s hobby. Not a mood filter or a single crooked lanternman—**how Harborpoint keeps running**:
 
 | Layer | What it pretends to be | What it actually is |
 |---|---|---|
-| **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that go missing on purpose |
-| **Harborpoint PD** | Law and investigation | Political pressure, selective blindness, and a few honest officers trapped inside a machine that punishes curiosity |
-| **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, and silence bought with overtime and threats |
-| **Press & radio** | Public truth | Ownership strings; editors who know which names never print; one or two reporters who still dig |
+| **Municipal hall** | Civic order, permits, “progress” | Kickbacks on contracts; zoning that relocates poverty instead of solving it; records that vanish on purpose |
+| **The Lantern Guard of Harborpoint** (the Lanterns; street slang “lamps”) | Law and investigation (the Lamphouse, night books, lamp-sergeants, lanternmen, river lanterns) | Political pressure, selective blindness, soft files; a few honest officers trapped inside a machine that punishes curiosity |
+| **Dock Authority & unions** | Labor and trade | Smuggling corridors, “lost” cargo, overtime as hush money |
+| **Press & broadsheets** | Public truth | Ownership strings; editors who know which names never print; one or two diggers who still risk ink |
 | **Old money & new industry** | Philanthropy, jobs | Private armies in better coats; charity balls that launder reputation; factories that own whole blocks of votes |
 | **Street networks** | Crime as chaos | Predictable tribute systems that feed upward into “respectable” ledgers |
 
-The player feels this structure through locked doors, altered reports, witnesses who suddenly change their minds, and evidence that is **true but incomplete** because someone above the case needed it that way. Not every authority figure is rotten, and not every victim is pure—but **institutions default to self-preservation**. Voss survives by reading which layer he has just kicked.
+The player feels this through locked doors, altered reports, witnesses who suddenly change their minds, and evidence that is **true but incomplete** because someone above the case needed it that way. Not every authority figure is rotten, and not every victim is pure—but **institutions default to self-preservation**. Voss survives by reading which layer he has just kicked.
 
 #### Districts (playable texture, not open-world tourism)
 
-- **Sable Row** — mixed tenements and small shops; Voss’s office building sits in this rain-dark block. First city expansion uses its modular streets.
-- **The Docks / Wharf Ladder** — cargo, warehouses, boarding houses, and the river mouth where empty coats wash up.
-- **Civic Spine** — courthouse, central station house, records annex; marble that still looks clean in the rain.
-- **Printers’ Quarter** — newspapers, radio offices, cheap cafés that never close; gossip as a second economy.
-- **Ashfield Yards** — industry, company housing, blacked-out windows; the city’s muscle and its smog.
+- **Market Cross** — the heart of Harborpoint and its largest district: the old market square where the harbour road, the civic spine and the dock lanes cross. Stalls under oilcloth, a dry fountain nobody fixes, a posting pillar thick with notices, carters and hawkers who see everything and sell some of it. Lila’s rooms sit on a narrow side street off the square, where it runs into the Printers’ Quarter. Every road in the lower city passes through here, so the Gray Man and his hired men do too. *(Working name; easy to change.)*
+- **Sable Row** — Voss’s block, east of Market Cross. Harbor Street (the office’s street) runs through it, and the quay road runs west from it along the waterfront to Wharf Ladder. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
+- **Wharf Ladder / the Docks** — cargo, boarding houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
+- **Civic Spine** — magistrate’s hall, the Lamphouse, records annex. Marble that stays clean in the rain on purpose.
+- **Printers’ Quarter** — broadsheets, ink shops, cafés that never close, on the Market Cross fringe. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
+- **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later wound-seeds live here (not M01 dumps).
 
-Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, newspapers that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
+**Market Cross footprint (map target).** Market Cross is meant to cover twice the ground of Sable Row, the district the office is in. In the build today every district, Market Cross included, is one 5120×3840 world-unit plate (19,660,800 sq units; 80×60 tiles of 64, 320×320 search/light/height cells). The twice-size target is 39,321,600 sq units, e.g. 10240×3840. On the 3×3 world map Market Cross now takes the centre cell, Sable Row sits east of it, and its stamp is drawn at √2 scale (twice the area). **Travel:** Market Cross is the hub. From Sable Row the player can travel to Market Cross or, by the quay road, straight to Wharf Ladder; Civic Records, Lamp Ward and Riverside are reached through Market Cross (Riverside also borders Wharf Ladder and Lamp Ward on the grid). Travel is always to a neighbouring ward or along a road; `CityWorldMap.roads` holds the one non-grid link. The walkable plate stays at the shared size until wider art ships: a doubled plate and page set, 640×320 `.sr`/`.lm`/`.ht` rasters, an extended street plan and obstacle set, and per-district world size in code (see `AssetManifest.md`).
 
+Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, broadsheets that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
+
+#### Institutions Voss actually touches
+
+- **River lanterns** — drownings, recovered coats, tide speeches offered with coffee and a soft file.
+- **Night books** — who was where when the clock lied; duty rosters that read cleaner than the street.
+- **Reading-rights** — files the Lanterns smile about and do not share; manifests Lillian should not have finished reading.
+- **One lamp-sergeant** who still answers ravens — useful, compromised, not a mentor arc in Act I.
+
+#### Everyday economy
+
+Good coin vs dock-ledger chalk. Two hundred now is real weight (Lila’s retainer). Unpaid notices are civic and personal. Charter work—hired finder, not Lantern badge—sits in the gap between Lantern indifference and private revenge. Rent listens; whatever listens for rent in Voss’s building is not purely figurative.
+
+#### Tone rules for world writing
+
+Specific over mythic. Name a bakery doorway before you name a god. Let fantasy show in failed wards, humming keys, and seals that bite. Never explain the cosmology in M01—only how it inconveniences a finder and a sister. Fantasy-noir voice: hardboiled attitude + light fantasy texture; not purple high fantasy and not Earth-analogue phone/radio lock.
+
+#### Seeds (later cases — not M01 dumps)
+
+Mark clearly as **later**. Do not surface in M01 journal or Empty Coat intro as earned facts:
+
+- A broadsheet that printed Voss’s old docker case wrong and will not retract.
+- Dock Authority “lost” crates that share seal-marks with Lillian’s last night.
+- Ashfield company housing where the docker’s sister still keeps an empty chair.
+- A municipal ward-license racket that sells “thresholds that hold” to boarding houses that don’t.
 ### 4.2 Characters — the two established leads
 
-RainShadow’s first cast is deliberately small and sharp. Supporting players (cops, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
+RainShadow’s first cast is deliberately small and sharp. Supporting players (lanternmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
 
 #### Harlan Voss — player protagonist
 
-- **Role:** Private detective; the player’s body, voice, and moral weather.
+Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphrase; it must not invent facts this sheet has not established for that beat. Wound-hint monos and desk stings in `strings.en.json` are the locked M01 voice for the core wound.
+
+##### Who he is now
+
+- **Role:** Independent **hired finder**—charter and coin, not a Lantern badge. The player’s body, voice, and moral weather. Clients find him when the Lamphouse has already filed something soft and called it finished.
 - **Age / look:** Male, early thirties. Stern angular face with tired pale blue-gray eyes, swept-back auburn-brown hair and pronounced long auburn sideburns; bare-headed. Dark chocolate-brown double-breasted belted mid-calf trench coat with lapels, epaulettes, cuff straps, rear storm flap and vent; cream open-collar shirt, loose black tie, charcoal cuffed trousers and brown lace-up shoes. Economical movements, guarded posture, capable hands.
-- **Temperament:** Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence.
-- **Core wound (working):** A prior case he closed “correctly” on paper and wrong in human terms—someone paid for his certainty. Harborpoint still files him as useful and disposable.
-- **Method:** Reads rooms before people. Prefers questions that make liars do the work. Will fight when cornered, but treats violence as a confession that talk failed.
-- **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
-- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
+- **Station:** The Lanterns still know his name; they do not miss him. Office on **Sable Row**—hearth ticks, unpaid notices, empty raven perch, case papers he still lies about. Rent—and whatever listens for rent in the building—keeps him seated.
 
 Seated idle for M01 communicates fatigue without inertia: breathing, a small shift, rubbing a thumb along a mug, checking the rain, suppressing a cough.
 
+##### How he works
+
+He reads rooms before people. He lets silence do half the interrogation. He takes cases he half-believes are already dead, because rent does not care about his standards. He writes clean notes and keeps dirty doubts. He will lie to a lamp-sergeant if the truth would bury a living person under a tidy coat. Will fight when cornered, but treats violence as a confession that talk failed.
+
+##### The Lantern years (backstory spine)
+
+River lanterns for six years, then night books at the Wharf Ladder annex. Good at drownings that were not drownings. The break: a missing **docker** he “closed” on a coat and a tide chart. Paper said suicide. A sister said otherwise. He chose the paper. She was right. He left before the Lanterns could make him choose paper again. That case is the wound Empty Coat rhymes with—Lila walks in wearing the shape of his old mistake.
+
+##### Core wound
+
+He closed a case correctly on the ledger and wrong in the world. Someone paid for his certainty. He will not say the docker’s name in M01, but the unpaid notices on his desk are not only about money—they are about work he will not touch because it smells like that file.
+
+Shipped wound hints (do not drift these quotes without updating the string table):
+
+- Mono 3: “Same as yesterday — and the night I trusted a tide chart more than a sister.”
+- Mono 4: “…Like someone who had already been told the river was answer enough.”
+- Mono 5: “I already hated how familiar that shape felt.”
+- Desk 2: “I have closed a case on less — and been wrong in a way ink doesn't show.”
+- Desk end: “I am done calling coats an ending.”
+
+##### How he sounds
+
+Short sentences. Weather and objects before feelings. Dry enough to pass for cruel until you notice he is measuring cost, not scoring points. Dry wit sharpened by fatigue. Observant before he is brave. Occasionally compassionate, never omniscient. He can be harsh; the game never confuses cruelty with competence. Fantasy sits in the seams (wards, ravens, coin that never warms) without turning him into a mage or a prophet. He notices magic the way he notices damp: as evidence.
+
+- **Voice sample (design target):** “The rain had opinions about my rent. The woman in the doorway had better ones about my time.”
+- **Shipped mono 1 texture:** “Rain had been working the glass since afternoon. The ward on the sill hadn't bothered to argue.”
+
+##### Temperament levers (for dialogue)
+
+| Tone | How he plays it |
+|---|---|
+| **Warm** | Protects the client first; softens facts without falsifying them |
+| **Dry** | Inventory and timeline; trusts ledgers more than tears |
+| **Sharp** | Tests the story for exits; assumes everyone is selling something, including him |
+
+##### Relationships
+
+- **The Lanterns:** Useful contacts, no loyalty. One tired lamp-sergeant still answers his ravens. Most of the Lamphouse treats him as a man who quit when it got hard.
+- **Lila March:** Not romance in M01—**recognition**. She is the sister who did not accept the coat. That frightens him more than the gray greatcoat does. Attraction, trust, or rupture remain **player-shaped** beyond M01.
+- **The city:** He loves Harborpoint the way you love a building that is trying to kill you slowly: you know every stair that creaks.
+
+##### What he wants (stacked)
+
+1. Coin enough to keep the sill-ward fed and the notices quiet.
+2. A case he can finish without filing a comfortable lie.
+3. *(Buried)* Proof he is not still the man who chose the ledger over the sister.
+
+##### What he must not become
+
+Omniscient. Soft-boiled. A chosen one. A Lantern reform arc in Act I. He is good; he is not clean.
+
+##### Seeds for later (not M01 dumps)
+
+- The docker’s sister still lives in Ashfield Yards.
+- His old river-lantern logbook is missing three nights.
+- The lamp-sergeant who answers ravens wants a favor that will cost a name.
+- Something in his office hush-ward was set by a person who is not him.
+
+- **Superseded working name:** Elias Vale (retired; the V6 redesign renamed all art, portraits, and code identifiers to Voss).
+
 #### Lila March — the dame / first client
 
+Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphrase; it must not invent facts this sheet has not established for that beat.
+
+##### Who she is
+
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
-- **Age / look:** Early-twenties adult woman with a chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald 1940s day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
-- **Temperament:** Witty under pressure, precise with what she withholds, capable of genuine fear and calculated charm in the same breath. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
-- **Apparent need:** Her sister **Lillian March** is missing. A coat was found by the river. Inside a lining, a concealed brass key. She wants the sister found and will pay what she can (which may not be money alone).
-- **Deeper tension:** She knows more than the first conversation admits—about Lillian’s work near Wharf Ladder, about men who “help” at the docks, about why the coat was empty. Her secrets protect someone; the story’s job is to make the player discover **whom**, and at what cost.
-- **Relationship to Voss:** Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon.
+- **Age / look:** Mid-to-late twenties. Chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
+- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house on a side street off **Market Cross**, at the Printers’ Quarter edge. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered coffee and tides—and she has run out of polite rooms.
+- **Orbit:** Friends with real locks and thresholds that hold; gossip as second currency; ink-shop books as honest work that also teaches her how manifests hide.
+
+##### Bond with Lillian
+
+**Lillian March** is older by three years—the steady one. Ledgers, manifests, seals at Wharf Ladder. Lila is the one who argues. They share a mother who left early and a habit of sewing their own hems because coin spent on a tailor is coin that should have been food. Lila does not romanticize Lillian. She is furious at her for being the kind of person who would chase an unfinished book into danger—and terrified that fury is the last true thing she still has.
+
+##### What she knows (and what she holds back)
+
+She knows the coat was **arranged**. She knows the key **hummed**. She knows Lillian was reading manifests that made someone nervous. In M01 she admits the manifests only under **pressure**—not coy for sport, but because names without proof get people followed, and she is already being followed. The **gray greatcoat** is not a rumor invented for leverage: she has timed him (eleven to one, bakery doorway). She is exhausted and still precise.
+
+##### How she sounds
+
+Complete sentences when she is selling the case. Shorter when she is cornered. She matches Voss’s dry register without mimicking him—she is not performing noir; she is trying not to shake. Fantasy texture enters as **fact** (hush-ward, reading-rights, seals that bite), never as wonder. She does not find magic interesting. She finds it inconvenient and real.
+
 - **Voice sample (design target):** “Lillian still sews her own hems. She would not leave a coat that cost her a week.”
-- **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing — a fee, a lock, a sister’s bad habit — that no poster would print. If a line could go on the poster, it isn’t Lila yet.
-- **Competence that is not charm:** She sews; she can read a shipping roster.
-- **Loyalty that can hurt Voss:** She will protect Lillian’s dock work before she protects his case.
-- **Bad at his game, once:** A pause, a too-fast money answer, or a fee she names awkwardly. When she lies, the lie is small and checkable — so the dock truth is never “the dame was the twist.”
+- **How she talks:** More precise than emotional. Answers the question you didn’t ask. Charm is control. She also says one ordinary, slightly ugly thing—a fee, a lock, a sister’s bad habit—that no poster would print. If a line could go on the poster, it isn’t Lila yet.
+
+##### Money
+
+Two hundred now is not a flourish. It is most of what she can liquidate without selling the boarding-house bond. Good coin, not dock-ledger chalk. “The rest when you find her” is faith and threat in one line—if Voss takes the coin and files soft, she will not go quietly to another office.
+
+##### Temperament against Voss’s levers
+
+| His tone | How she answers |
+|---|---|
+| **Warm** | Softens; pays faster; offers the follower clean |
+| **Dry** | Becomes a clerk of her own grief—times, places, the coat in the paper bag |
+| **Sharp** | Goes cold and useful; the gated manifests line is her refusing to be handled |
+
+##### What she wants (stacked)
+
+1. Lillian alive—or a truth that is not a coat.
+2. The gray greatcoat off her stairs.
+3. *(Buried)* Not to become the sister who accepted the ledger’s answer, the way someone once did to another family.
+
+##### What she must not become
+
+The dame as prize. A quest-giver with no interior. A liar for twist’s sake. If she withholds, it costs her—**fear, not cleverness**. She is not a trophy or a pure victim, and not automatically a traitor—**the player must earn which**.
+
+##### Relationship to Voss
+
+Professional first. Attraction, trust, or rupture are **player-shaped**, not a mandatory romance track. Wit is their shared language; silence is their shared weapon. Competence that is not charm: she sews; she can read a shipping roster; she found the key the Lanterns never felt for. Loyalty that can hurt him: she will protect Lillian’s dock work before she protects his case. Bad at his game, once: a pause, a too-fast money answer, or a fee she names awkwardly—when she lies, the lie is small and checkable, so the dock truth is never “the dame was the twist.”
+
+##### Seeds for later (not M01 dumps)
+
+- The ink-shop owner saw the gray greatcoat two days before Lila did.
+- Lila has a partial copy of one manifest line she will not show until she trusts Voss not to sell it.
+- She and Lillian fought the night before the vanishing—about whether to burn a page.
+- Printers’ Quarter friend with “real locks” owes her a favor she hates using.
+
 - **Superseded working name:** Vivian Hart (retired; the V6 redesign renamed the arrival/departure atlas, dialogue portrait, and narrative copy to March).
 
 #### Supporting cast (named only as needed by the outline)
 
-Do not expand into full sheets here. Story beats may introduce: a tired sergeant who still returns Voss’s calls; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
+Do not expand into full sheets here. Story beats may introduce: a tired lamp-sergeant who still answers Voss’s ravens; a dock clerk who sells silence by the hour; a society fixer who never gets rain on their shoes; the missing sister as presence-through-absence until the endgame allows her truth—alive, dead, or worse—to land.
 
 ### 4.3 Story outline
 
@@ -136,11 +281,11 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 | Commitment | How the story delivers it |
 |---|---|
 | **Wit** | Voss’s internal captions and dialogue stay dry, specific, and human. Lila matches him beat for beat. Humor comes from weary precision and character, never spoof-noir or constant purple prose. |
-| **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest cop in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
+| **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest lanternman in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
 | **Corruption** | Each act peels a higher institutional layer. Evidence is altered by people with badges, letterheads, and good manners—not only by street thugs. |
 | **Combat (BG-like)** | When investigation turns kinetic, encounters use **real-time-with-pause**, tactical positioning, and small allied or temporary party composition in the Infinity Engine spirit—**authored set pieces**, not random trash fights or loot-grind loops. See §4.3.5. |
 | **Immersion** | Continuous rain beds, reactive districts, NPCs who remember, case journal that feels like Voss’s mind on paper, and environmental storytelling before exposition. |
-| **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, station house, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
+| **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, Lamphouse, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
 
 #### 4.3.1 Act structure (campaign spine)
 
@@ -148,7 +293,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 Lila arrives. Voss takes the case. The office, the key, and the river coat establish method: observe, inspect, interview, commit. Early noir beats land hard—the dame, the rain, the first polite door that will not open. The player learns that Harborpoint’s smallest mysteries already have municipal fingerprints.
 
 **Act II — Follow the key**  
-The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both police blotters and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
+The brass key opens more than a locker: a chain of storage slips, union marks, and names that appear in both Lantern night books and charity donor lists. Witnesses contradict each other on purpose. Voss’s strain rises. Optional and required combat set pieces appear when a warehouse watch, a night alley, or a “quiet chat” turns into an ambush—still sparse, always motivated.
 
 **Act III — The city answers back**  
 Commitments on the deduction board close routes. Lila’s partial truths come due. A faction above the docks tries to buy Voss off, bury him in paperwork, or remove him. Allies may join for a fight or a testimony. Corruption is no longer ambient; it has a face, a budget, and a preferred ending in which nobody important is embarrassed.
@@ -160,15 +305,162 @@ Voss engineers (or is forced into) a gathering of the remaining principals. In a
 
 This section is the **authoritative case structure** for Act I and the M01 case journal. Runtime journal copy (`EmptyCoatJournalContent`) must stay consistent with it. Dialogue may paraphrase; it must not invent facts the dossier has not established for that beat.
 
+**Terminology lock:** the follower wears a **gray greatcoat**. Lillian’s garment and the case title stay **coat** / **THE EMPTY COAT**.
+
+##### Logline
+
+In rain-strangled Harborpoint, hired finder Harlan Voss takes a sister’s coin after the Lanterns called a humming key and an empty coat an ending—and discovers the missing ledger-keeper was reading seals someone needed unread.
+
+##### Theme
+
+Comfortable lies vs unfinished books. Coats are alibis. Sisters refuse them. Voss has been both men.
+
+##### Dramatic question (Act I)
+
+Can Voss find Lillian—or the truth that isn’t a drowning—before the gray greatcoat finishes the ritual the key was meant for?
+
+##### Scope gate (M01 vs Act I runway)
+
+| Beats | Scope | Status |
+|---|---|---|
+| **1–2** Cold open + first office loop | **Shipped M01** | Office only: intro, retain, key, inspect, journal surface |
+| **3–7** Wharf Ladder → Act I break | **Act I runway beyond M01** | Design roadmap; do not silently inflate M01 scope |
+
 ##### Seed (campaign spine)
 
 1. **Lila March**’s sister **Lillian March** is missing.
 2. A coat is recovered by the river—**empty** in a way that feels arranged, not merely abandoned.
-3. A concealed **brass key** is sewn into the lining (not left where a hurried search would “find” it).
+3. A concealed **brass key** is sewn into the lining (not left where a hurried search would “find” it); it hummed once.
 4. Someone with institutional reach wanted the coat found without a body, or the body gone without the coat.
 5. Voss’s office becomes the first board where facts, testimony, and distrust share a desk lamp.
 
 M01 ships the arrival, the key handoff, office freeroam, and the **case journal surface**. Later milestones open the river, docks, and civic records that turn the seed into a full investigation.
+
+##### Act I structure
+
+###### 1. Cold open — Office in the rain *(shipped M01)*
+
+Voss alone. Wound hints (tide chart / sister). Threshold pause. Lila enters. Branching retain. Key on desk leather. Case opened: **THE EMPTY COAT**.
+
+**Emotional payload:** Recognition, not romance. He sees his old mistake walking in with good coin.
+
+###### 2. First loop — Office as tool *(shipped M01)*
+
+Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on manifests. Player learns the room is a character: raven perch, case papers, sill-ward, unpaid notices.
+
+###### 3. Lead one — Wharf Ladder shipping office *(Act I beyond M01)*
+
+Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull. **First fight of the case (avoidable):** Merrick sold his silence twice, and the Gray Man’s hired men come to collect the folio Voss is reading. Encounter **E1** below.
+
+**Scene card — Wharf Ladder shipping office** *(design runway; not M01)*
+
+**Case:** The Empty Coat · Beat 3 (Act I runway beyond M01 office slice)  
+**Location:** Shipping office near the river mouth; ledgers, seals, a clock that runs three minutes fast when the night crew wants an alibi the wards will swear to.  
+**Scope:** Design only. Does not inflate M01 implementation. Follower = **gray greatcoat**. Case garment / title = **coat** / **THE EMPTY COAT**.
+
+**Purpose:** Give the player Lillian as a worker, not only a missing sister. Plant seal-magic and scrubbed reading-rights. Introduce a human obstacle who sells silence by the hour. Introduce the Gray Man’s **hired muscle**, so the threat has hands before it has a face.
+
+**Entry:** Voss arrives with Lila’s two hundred still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays in her rooms off Market Cross—player choice from prior beat.
+
+**Cast on stage:**
+
+| Role | Who | Notes |
+|---|---|---|
+| PC | Harlan Voss | Dry first; Lantern past helps or hurts depending on tone |
+| Obstacle | Dock clerk (working name: Merrick) | Sells silence; knows Lillian’s last night; afraid of seals |
+| Absent pressure | Gray greatcoat | Seen across the quay once—does not enter yet |
+| Threat | Hired muscle (working names: **Ketch**, a big cargo-hook man; **Bram**, young, a knife he holds wrong) | Paid by the job in dock-ledger chalk to fetch Lillian’s last folio and frighten Merrick. They are not told why |
+| Optional | Lamphouse night runner | Mentions soft file / tide speech if Voss flashes old river-lantern habits |
+
+**Objectives:**
+
+1. Confirm last sighting: left at nine, “one more errand uptown,” no hired coach on the desk slate.
+2. Find seal-mark scrap or bitten-glove smear on her desk-leather edge.
+3. Learn reading-rights on her last manifest pull were scrubbed after she vanished.
+4. Exit with a lead toward Civic Spine records or Dock Authority lost-crate numbers.
+
+**Obstacles:** Clerk won’t talk without coin, a favor, or a threat that costs Voss something (Warm / Dry / Sharp gates). Seals that bite: inspecting the wrong folio without reading-rights = pain / alarm / clerk panic. Night clock lies; timeline must be reconstructed, not trusted.
+
+**The fight (E1 — back room, avoidable):** Merrick already took the Gray Man’s coin to ring the tin bell over the back door if anyone came asking about Lillian’s folios. What happens depends on how Voss handled him:
+
+- **Warm / paid more than the Gray Man did:** Merrick whispers “they come at the bell” and lets Voss out the back with the scrap. No fight. Voss can hide in the seal-room and **overhear** Ketch and Bram being told to “burn the March folio, the gray gent pays at the Tallow Stair.” Best lead, no blood.
+- **Dry:** Merrick stalls. Ketch and Bram walk in while Voss is still at Lillian’s desk. One line to talk them off (“The Lanterns know I’m here”; works only if Voss really told someone) or the fight starts.
+- **Sharp / threatened:** Merrick panics and rings the bell. The fight starts with Voss cornered in the seal-room.
+
+The room is the weapon: shelves of seals that bite (shove a man into them and he is stunned and burned), one oil lamp to kick over (dark, fire risk to the evidence), a narrow back door that makes it one-at-a-time. Ketch hits hard and slow; Bram breaks and runs if Ketch goes down.
+
+**What the fight reveals:** Knock Bram down and he drops a chalk pay tally with a crate mark on it: the first physical link between the Gray Man’s money and Dock Authority “lost” crates. **What it costs:** the noise brings Dock Authority night-men; by morning the Lanterns have Voss’s name for brawling at Wharf Ladder (**Lantern attention +1**). Merrick will not speak to Voss again. Any wound carries into Beat 4. **If Voss loses:** he wakes on the quay boards, bruised and short the seal scrap (taken or burned). The Civic Spine lead survives only through the overheard line or the river stones.
+
+**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.greatcoat.quay`; `knowledge.muscle.tallowStair` (overheard) or `evidence.payTally.crateMark` (fight won); `combat.e1.outcome` (avoided / won / lost).
+
+**Dialogue spine (not full script):**
+
+- Clerk: “She never missed the morning ferry. That night she did everything twice — checked the seal, checked it again.”
+- Voss (dry): “Show me the second check.”
+- Clerk (if pressed): “Someone from Civic came for the reading-rights after. Polite. The folios still hurt if you touch the wrong line.”
+- If sharp: clerk names a crate mark then clams up; greatcoat across the quay shifts. Merrick’s hand goes to the bell cord.
+- Ketch (walking in): “Evening. We’re here for paper, not for you. Step off the desk.”
+
+**Failure / soft fail:** Leave with only the ferry/nine facts (already known) and a frightened clerk. No seal scrap—Act I still playable via river stones, but Civic Spine lead is weaker.
+
+**Success:** Seal scrap + scrubbed rights + uptown errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
+
+**Tone locks:** Combat is possible but never required: a careful player leaves without throwing a punch. The fight is short, ugly and in one room. Magic = bitten seals and scrubbed rights, not fireballs. Greatcoat is silhouette, not boss fight—he watches from the quay and never enters. Voss does not confess the docker wound here.
+
+**Art / audio notes:** Oil lamps, wet wool, brass seal-presses, raven cage in the corner (empty). Clock tick slightly off. Distant ferry horn. Rain on tin roof harder than on Sable Row glass.
+
+**Exit:** To river stones / iron stairs (Beat 4) or straight to pressure if the player saw the greatcoat on the quay.
+
+###### 4. Lead two — River stones / iron stairs *(Act I beyond M01)*
+
+Where the coat was found, arranged. The river lanterns repeat the tide speech. Soft file smells of political pressure, not incompetence alone.
+
+**The danger here is the Lanterns, not a brawl.** Raising a hand to a lanternman is the worst move in Act I: it turns Voss into the easiest answer the Lamphouse has (arrest; case taken; soft fail back to the office with the property log closed). The scene teaches restraint.
+
+**Encounter E2 — the iron stairs (conditional, avoidable):** If E1 was loud, *or* Voss told the river lanterns he would come back after dark, Ketch waits on the old iron stairs at night: slick steps, one lamp, the river underneath. Only the lanterns knew when Voss would come, so the ambush itself proves someone at the river post talks to the Gray Man.
+
+- **Talk:** Ketch is paid to frighten, not to kill. Voss can Trade: hand him a false place where the key is kept. He takes it and leaves, and the lie becomes the bait option in Beat 5.
+- **Avoid:** come by day with a lanternman on the stones, or spot Ketch from the top of the stairs (Observe) and walk away.
+- **Fight:** the stairs are a choke point. Rain makes footing a gamble for both men, and the fall into the river is real for either. Win and Ketch’s cargo hook carries a Dock Authority tally brand: the muscle is dock labour. **Cost:** lanterns arrive at the noise; “private finder brawling at a recovery site” goes in the night book (**Lantern attention +1**). At attention 2 the Lamphouse refuses the property log unless Voss spends the lamp-sergeant favour. A man in the river is a body the Lanterns will hang on Voss.
+
+###### 5. Pressure — The gray greatcoat *(Act I beyond M01)*
+
+Not a jump scare: professional habits. Streetlamps dim. He wants the key, not Lila’s life—yet. Choice: protect Lila’s threshold / bait with a false key rumor / ask the lamp-sergeant who still answers ravens (costs a favor).
+
+This is where the Gray Man stops paying people to watch and pays them to take. He sends Ketch, Bram (if they are still on his books) and one new hire to Lila’s rooms off Market Cross, the night after Voss’s first visit to the river. He stays in the square himself; the lamps around him dim. Each choice leads to a different fight or none:
+
+- **Protect the threshold (E3a — the stair siege):** the Act I set piece. Lila’s ward holds only while the door stays shut from inside, so the fight happens on the narrow stair and landing. Lila is a temporary ally, not a fighter: she can bar the second door, throw the lamp, or wake the house. **Reveals:** a downed hireling can be questioned: “the gray gent pays in Civic scrip.” **Costs:** injury; the rooms are known and wrecked, so Lila has to move (Voss’s office or a Printers’ Quarter friend), and the neighbours saw a finder bleeding on the stair (**Lantern attention +1**).
+- **Bait with a false key rumour (E3b — Voss picks the ground):** needs the lie planted in E2 or a word dropped with Merrick. The hirelings go to an empty seal-locker at the edge of Market Cross. Voss can simply watch: no fight, but he sees the Gray Man’s face by lamplight for the first time (`sighting.greatcoat.face`). Or he springs it with the advantage (dark, first blow, one exit).
+- **Call in the lamp-sergeant (no fight):** lanternmen walk Lila’s street all night and nobody comes. **Costs:** the only favour Voss has, and the Lamphouse now knows there is a key. In Beat 6 a lanternman asks, politely, to add it to the property log.
+- **Mercy pays later:** if Bram was spared or paid in E1/E3, he can be turned here. He warns Lila and walks off the job, and becomes a witness for the summation.
+
+###### 6. Mid-Act turn — The page they almost burned *(Act I beyond M01)*
+
+Lila admits the fight: Lillian wanted to burn a manifest line; Lila wanted a copy. Partial line surfaces (trust gate). Names point toward Dock Authority “lost” crates and a Civic Spine reading-rights signature.
+
+The copy is hidden in the ink-and-paper shop where Lila keeps books. The Gray Man learns it exists (from the lanternman’s visit if Voss used the favour, from a questioned hireling if one got away, or from Merrick) and sends a man to burn the shop.
+
+**Encounter E4 — the ink shop fire (avoidable):** Voss and Lila arrive to smoke and one hireling holding the door while another pours lamp oil. The choice is the cost: fight through to the strongbox and save the page (the fire takes its edge, so the partial line stays partial), or pull the shopkeeper out of the back room and lose the page to the fire (he becomes a witness; the line has to be rebuilt from Lillian’s seal-mark and memory). **Avoid:** if Bram was turned in Beat 5, he warns Lila in time. They take the page out the back before the oil arrives, and it survives whole. **Talk:** the arsonist is a hired hand who didn’t sign up to burn a man alive. A Sharp line naming the shopkeeper still inside can send him running. Fire brings the whole street and a lanternman (**Lantern attention +1** unless Voss is gone before the bell).
+
+###### 7. Act I break *(Act I beyond M01)*
+
+Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Lanterns will not help without a sacrifice. The greatcoat stops pretending to only watch.
+
+**Encounter E5 — the uptown seal-locker (the Gray Man himself):** the key opens the locker and the Gray Man is already there, with whatever muscle is left. He is better at this than Voss: trained, patient, and his charm dims every lamp in the room. This is an **escape** fight, not a duel. Voss wins by leaving with what is inside (a bundle in Lillian’s handwriting), not by putting the Gray Man down.
+
+- **Talk first:** naming the Civic Spine signature from Beat 6 makes him hesitate: Voss knows too much to be quietly erased, and a dead finder is a louder story than a drowned clerk. That buys one exchange. Use it to bargain (give up the locker, keep the pages) or to get to the door.
+- **Bluff:** if the false-key rumour was planted, Voss can offer a second, fake locker. He half-believes it.
+- **Fight:** outcomes are graded. Escape with the bundle but wounded (default: Voss ends Act I carrying an injury into Act II); escape with a torn half; or lose the bundle and keep only what he read in the dark. **Reveals** in every outcome: a Civic Spine seal-pass on the Gray Man’s coat when the lamps come back up. He is institutional reach, not a hired thug. **Costs:** Lanterns arrive after, and Voss’s Lantern attention decides whether they take his statement or take him.
+
+##### Character arcs (Act I only)
+
+| Character | Starts | Ends Act I |
+|---|---|---|
+| **Voss** | Avoiding missing-person rhymes | Committed to a case he can’t file soft |
+| **Lila** | Buying help with two hundred and fury | Partner in risk; still not a prize |
+| **Lillian** | Absence / coat | Presence through handwriting, seals, unfinished book |
+| **Gray greatcoat** | Follower | Active claimant on the key; meets Voss face to face at the seal-locker (E5) |
+| **Ketch / Bram (hired muscle)** | Hands paid by the job | Ketch: recurring threat until beaten or bought off. Bram: turnable witness if Voss shows mercy |
 
 ##### Case header
 
@@ -181,74 +473,88 @@ M01 ships the arrival, the key handoff, office freeroam, and the **case journal 
 | Status at M01 end | Open / Priority |
 | Apparent question | Where is Lillian March, and why was her coat left as a finished story? |
 | Working thesis (player-facing, uncertain) | Someone with institutional reach staged a drowning conclusion; the key is the thread they failed to cut. |
-| Journal letterhead | **H. VOSS · PRIVATE INVESTIGATIONS** |
+| Journal letterhead | **H. VOSS · FINDER OF THE LOST** |
 
 ##### Known facts at case open (M01 intro must establish)
 
 Aligned to the shipped Empty Coat intro graph:
 
-1. Lillian vanished Tuesday night after work at a shipping office near **Wharf Ladder** (ledgers, manifests).
-2. Last known: left work about nine; told a clerk she had one more errand uptown; no cab called from the desk phone.
-3. By midnight, river watch found her coat on the stones below the old iron stairs—empty, arranged; no body.
-4. Harborpoint PD soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried.
-5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands.
-6. Since the key: a **Gray Man** (gray overcoat, black gloves) follows Lila; professional habits (streetcar noise, doorway posts); he turns away when met with a direct look.
-7. Voss accepts the case; the key stays in his care.
+1. Lillian vanished **two nights past** after work at a shipping office near **Wharf Ladder** (ledgers, manifests, seals that bite if you read them wrong).
+2. Last known: left work about nine; told a clerk she had one more errand uptown; no hired coach chalked on the desk slate.
+3. By midnight, the river lanterns found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
+4. **The Lanterns** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
+5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands; faint lamp oil and river water on the metal.
+6. Since the key: a **Gray Man** (gray greatcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
+7. Voss accepts the case; the key stays in his care on the desk leather.
 
 ##### People
 
 | ID | Name | Role | Status at M01 | Notes |
 |---|---|---|---|---|
 | `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
-| `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen Tuesday evening |
-| `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Not yet proven badge vs private muscle; knows Lila came to Voss |
-| *(Act I later)* | Night sergeant / river watch | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
+| `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
+| `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
+| *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
+| *(Act I later)* | Ketch and Bram | The Gray Man’s hired muscle | Not met in M01 | Dock labour paid in chalk; recurring threat from Beat 3; Bram can be turned |
 
 ##### Evidence
 
 | ID | Item | Custody | Reliability | M01 journal? | Leads |
 |---|---|---|---|---|---|
-| `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint machine oil and river fog |
-| `evidence.coat` | Riverside coat | Police / described by Lila | Uncertain / possibly staged | Yes | Recovery site; constable property log |
-| `evidence.pd-file` | Soft missing-person file | Harborpoint PD | Compromised / incomplete | No (later) | Ally sergeant; dual ledgers |
-| `evidence.blue-room` | Blue Room matchbook (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
+| `evidence.key` | Brass key from coat lining | Voss | Credible physical | Yes | What lock? Faint lamp oil and river fog |
+| `evidence.coat` | Riverside coat | Lanterns / described by Lila | Uncertain / possibly staged | Yes | Recovery site; Lamphouse property log |
+| `evidence.lamphouse-file` | Soft missing-person file | The Lanterns | Compromised / incomplete | No (later) | Ally lamp-sergeant; dual ledgers |
+| `evidence.blue-room` | Blue Room token: a stamped brass tavern token (Wardour Street) | Unearned in M01 | — | **No** | Act I seed only—do not show in M01 journal until the player earns it |
 
 ##### Objectives / leads (organized doubt, not quest checkboxes)
 
-**M01 (office only)**
+**M01 (office only — beats 1–2)**
 - Keep the key safe; case file open in the journal.
 - Record office field notes via hotspot inspections.
-- Journal leads (destinations still locked): identify the lock; build Lillian’s Tuesday timeline; find or name the Gray Man; re-check the river stones when the city opens.
+- Journal leads (destinations still locked): identify the lock; build Lillian’s timeline from two nights past; find or name the Gray Man; re-check the river stones when the city opens.
 
-**Act I beyond M01 (design roadmap; non-spoiler)**
-- River recovery site + constable log.
-- Wharf Ladder shipping office / manifests Lillian was reading.
-- Gray Man identification or pressure.
-- Civic records / dual ledgers if she was reading the wrong books.
-- Lila’s partial truths due when the player presses with evidence.
-- Optional later seed: Blue Room on Wardour Street (matchbook or testimony)—only after earned.
+**Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
+- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights); get out before the hired men arrive, or deal with them.
+- River recovery site + lanternman / river-lantern soft file; find out who at the river post talks to the Gray Man.
+- Gray greatcoat pressure (threshold / bait / lamp-sergeant favor); keep Lila and the key out of his hands.
+- Mid-act trust gate: the page they almost burned; partial manifest line; save the copy (or the man) from the ink-shop fire.
+- Act I break: open the seal-locker uptown and get out with what Lillian left in it.
+- Civic Spine / Dock Authority “lost” crates signatures.
+- Optional later seed: Blue Room on Wardour Street (brass house token or testimony)—only after earned.
 
 ##### Chronology (case log · approximate Voss notation)
 
-Prefer **narrative order** (coat → key → follower → office). Times are detective notation, not a forensic clock.
+Prefer **narrative order** (coat → key → follower → office). Times are detective notation, not a forensic clock. Empty Coat does not use Earth weekday names in player-facing copy—“two nights past” is the lock.
 
 | Approx. time | Event | Journal entry ID |
 |---|---|---|
-| Tue ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
-| Tue night | Gap: “errand uptown” / unknown | folded into movements |
-| Tue ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
+| Two nights past · ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
+| Two nights past · night | Gap: “errand uptown” / unknown | folded into movements |
+| Two nights past · ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
 | After recovery | Lila finds brass key in lining | `log.key` |
-| Same night | Lila followed by the Gray Man | `log.followed` |
-| Tue ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
-| Wed ~12:10 AM | Office field notes (if hotspots inspected) | `log.office` |
+| Same night | Lila followed by the Gray Man (gray greatcoat) | `log.followed` |
+| Two nights past · ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
+| After retain | Office field notes (if hotspots inspected) | `log.office` |
 
 ##### Open mysteries (writer hooks; not journal spoilers)
 
+Kept open on purpose through Act I:
+
+- What the humming key opens (seal-locker / ward-safe uptown—shape earned at Act I break).
+- Who benefited if Lillian stopped reading manifests.
 - Who emptied the coat, and why leave the key?
-- What lock answers the brass key?
-- Is Lillian alive, dead, or “worse” (held / erased from ledgers)?
+- Is Lillian alive, dead, or “worse” (held / erased from ledgers / made to look drowned for handwriting)?
 - Which institutional layer benefits from a tidy drowning?
+- Whether the docker’s old case and this one share a ledger hand (**hint only**—no dump in M01 or early Act I).
+
+##### Tone locks (Act I)
+
+Fantasy is bureaucratic damp. No chosen-one prophecy. Combat rare, brutal and authored: at most five encounters across Act I, each one caused by something Voss found or said, each avoidable or survivable by talk, and each leaving a mark (a wound, a lost lead, a name in the night book). Voss is a finder, not a hero. Deductions the player owns.
+
+##### What M01 must teach
+
+Observe → pressure dialogue → journal commitment → leave the office with a live case and a live wound.
 
 ##### Journal UX contract
 
@@ -286,7 +592,38 @@ Combat is a **designed system**, not the primary loop:
 - **Frequency:** Rare. Authored. High-stakes. No random street trash packs, no level-scaled loot treadmill, no grinding for XP (see §12).
 - **Triggers:** Ambush after a dangerous deduction, failed escape from a corrupt raid, defending a witness, or forcing entry when all civil routes are sealed.
 - **Expression:** Strain, injury, and reputation matter more than gear score. Winning a fight can still lose a witness or expose Voss to the wrong newspaper.
-- **Tone:** Ugly, brief when possible, and narratively accountable. A gunshot should change the next conversation.
+- **Tone:** Ugly, brief when possible, and narratively accountable. A drawn blade should change the next conversation.
+
+##### Act I encounter plan — “The Empty Coat”
+
+**Status: design target.** The codebase has **no combat system yet**. What exists is groundwork only: `GameSession.currentHealth` / `maximumHealth` (12/12, never changed during play), the portrait-bar health readout, inventory stat badges (defence, vitality, resolve, damage), equipment slots with a weapon slot and two-hand rule, and `ItemDefinition.damageBand` on the starter weapon (the one-handed Lantern Service Shortsword, 2–7). There are no enemies, attacks, damage resolution, AI, hostility, combat mode or injury handling. Combat-time movement is deferred (`MovementSystemRoadmap.md`, Phase 6). The encounters below are authored story content waiting for that system; until it exists, each fight can resolve as a dialogue/cut-scene outcome using the same flags.
+
+**Principles.** Every fight comes from the plot: someone wants the key, the folio or the page, and has paid someone to take it. The Gray Man hires hands (Ketch, Bram, one extra) and only fights himself at the Act I break. Talking, paying, hiding or leaving can avoid every fight except the E5 confrontation, and even E5 can be shortened by talk. Knockout is the default; killing is possible and always costs (a body the Lanterns will hang on Voss, a witness gone). No random encounters, no loot from enemies beyond story evidence, no XP.
+
+| # | Beat / place | Who attacks, and why | Triggers | Avoid / non-lethal route | Reveals if fought | Costs / consequences |
+|---|---|---|---|---|---|---|
+| E1 | 3 · Wharf Ladder shipping office, back room | Ketch + Bram, sent to burn Lillian’s last folio and frighten Merrick | Merrick rings the bell (Sharp) or Voss lingers (Dry) | Pay/Warm Merrick and leave by the back; hide and overhear; bluff “the Lanterns know I’m here” | Chalk pay tally with a crate mark | Lantern attention +1; Merrick closed for good; lose = seal scrap lost, wake on the quay |
+| E2 | 4 · Old iron stairs, night | Ketch, to warn Voss off the recovery site | E1 was loud, or Voss told the river lanterns he’d return after dark | Come by day; spot him and walk away; Trade a false key location (plants E3b bait) | Dock Authority tally brand on his hook; proof the river post leaks | Lantern attention +1; at 2 the property log is refused without the lamp-sergeant favour; a drowning = arrest risk |
+| E3a | 5 · Lila’s stair off Market Cross | Ketch, Bram, one new hire, to take the key or Lila | Player chooses to protect the threshold | Choose bait or the lamp-sergeant instead; turn Bram if spared earlier | Questioned hireling: “paid in Civic scrip” | Injury; Lila must move; Lantern attention +1 |
+| E3b | 5 · Empty seal-locker at the Market Cross edge | Same hirelings, chasing the false rumour | Bait planted in E2 or via Merrick | Watch only (see the Gray Man’s face) | Same as E3a, fought on Voss’s terms | Lower risk; the Gray Man learns Voss lies well |
+| E4 | 6 · Ink-and-paper shop fire | Arsonist + door man, to burn the copied page | The Gray Man learns the copy exists | Turned Bram warns Lila; Sharp line sends the arsonist running | — (choice is page vs shopkeeper) | Page partial or lost; shopkeeper saved = new witness; Lantern attention +1 unless gone before the bell |
+| E5 | 7 · Uptown seal-locker | The Gray Man himself + remaining muscle, to take what the key opens | Opening the locker | Name the Civic signature to buy a bargain; false-locker bluff | Civic Spine seal-pass on the Gray Man | Escape wounded (default), with half, or empty-handed; Lantern attention decides statement vs arrest |
+
+**Consequence tracks the fights feed.** *Injury*: a carried wound (bruised ribs = slower, cut hand = seal-reading and lock work harder, head knock = Observe checks harder) that heals only with time or a paid physician, and time lets the Gray Man move. *Lantern attention*: public violence raises it; at 1 a lanternman asks questions, at 2 the Lamphouse closes doors (property log, night books), at 3 Voss is picked up and the case is taken off him (soft fail to a costly recovery). *Lost leads*: losing or winning loudly can close a witness (Merrick, the river post) or burn evidence (seal scrap, the page). *Mercy*: sparing or paying Bram opens the E4 warning and a summation witness.
+
+##### What the combat system would need (not yet built)
+
+- A combat mode that enters and leaves cleanly from exploration: real-time with pause, auto-pause on sighting/injury, and the existing pause affordances.
+- Hostility and allegiance on actors (neutral → hostile on trigger), plus temporary allies (Lila) with limited orders.
+- Enemy actors with simple authored AI: advance, flank a choke point, break and flee under morale loss, surrender.
+- Attack resolution using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed/improvised attack path (shove into seals, kick the lamp).
+- Damage that drives `GameSession.currentHealth` and the portrait bar, with **knockout vs lethal** intent and downed-not-dead as the default for Voss (defeat = story outcome, not game over).
+- Persistent injuries as case state, healed by time or a physician.
+- Environmental interactions: lamps that can be broken or dimmed (the Gray Man's charm), biting seal shelves, slick stairs, doors that can be barred.
+- Dialogue hooks both ways: dialogue actions that start, avoid or end a fight, and combat outcomes written back as case flags (`combat.e1.outcome`, `lantern.attention`, wounds) that dialogue conditions and the journal can read.
+- Save/restore of combat-relevant state (flags, wounds, attention), and an autosave before each authored encounter.
+- Combat-time movement from `MovementSystemRoadmap.md` Phase 6 (formation-free single hero plus ally, choke-point pathing).
+- Art/audio: combat animations for Voss (strike, shove, hit, downed), hired-muscle sprites, the Gray Man sprite, impact and lamp-dim audio.
 
 #### 4.3.6 Immersion checklist
 
@@ -304,7 +641,7 @@ The finale must satisfy:
 2. **Chain of deduction** — Voss recounts evidence the player could have found, marks which claims were lies, and shows how the empty coat, the key, and the sister’s fate interlock.
 3. **Fair play** — no essential killer identity that depended on unobtainable content; optional details may deepen but not sole-source the truth.
 4. **Human cost** — the reveal wounds someone Voss or Lila might have preferred to spare.
-5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, PD, docks), not a binary credits slide alone.
+5. **Final commitment** — the player chooses the legal, moral, or pragmatic aftermath; Harborpoint reacts in epilogue texture (press, Lanterns, docks), not a binary credits slide alone.
 
 ### 4.4 Tonal rules
 
@@ -378,7 +715,7 @@ The in-world detective and clients use the same historical production principle 
 - Shading uses broad baked diffuse planes, low-resolution texture maps, restrained ambient occlusion, and limited muted color ramps. Generator masters are rasterised through `BGEE_V1`: a 64-row craft body with 1-bit alpha hardened at 50%, per-material 64-entry ramps without dithering, highlight-side value expansion, and a 1.15x torso/coat width correction that leaves the head unchanged and ramps back to 1.0x through the lower body without changing height or pivot. The 64-row choice is calibrated against a representative BG humanoid BAM's measured 52–60-row crown-to-ground span and is the smallest nearby grid that preserves every authored Voss gait. The indexed plane is resolved at native size and enlarged directly into the unchanged registered body by SpriteKit's linear sampler, matching BG:EE's non-nearest creature mode without a Super-xBR prefilter. See `BGEEHumanoidPipeline.md`; V14/V15 remain historical comparisons. Avoid hand-placed pixels, coarse decorative pixel clusters, painterly brushwork, and modern pore/strand-level detail.
 - Clothing colors form large, legible zones. The coat silhouette matters more than buttons or seams.
 - Locomotion resolves to 16 facing bins. Nine source orientations—S, SSW, SW, WSW, W, WNW, NW, NNW, N—supply the remaining seven eastern orientations by horizontal mirroring, echoing the legacy BG2/BG:EE convention.
-- The detective design is kept near-bilateral at sprite scale so mirroring does not expose a swapped holster, lapel badge, or other continuity-breaking prop.
+- The detective design is kept near-bilateral at sprite scale so mirroring does not expose a swapped scabbard, lapel badge, or other continuity-breaking prop.
 - Sprite lighting is a consistent neutral baked rig suited to subtle tint adjustment, not a new scene-specific relight for every frame. The office integrates him with a lamp overlay and contact shadow.
 - A shared ground pivot sits under the midpoint between the feet. A separate soft contact-shadow sprite is not baked into each animation frame.
 - Do not bake a heavy black outline. Edge separation comes from value and material contrast; an optional outline/ring is reserved for accessibility and debug display.
@@ -565,7 +902,7 @@ Target duration: 10–14 seconds, skippable after the first second.
 |---|---|---|---|
 | 0.0–2.0 s | Black lifts into wet street and the lower face of a rundown apartment building. Rain cuts across frame. | Heavy rain, distant traffic, drain gurgle. | Establish weather and scale. |
 | 2.0–6.0 s | Slow upward/diagonal camera push. Puddles catch a failing sign. A fire escape divides the facade. | One passing car; low musical tone enters. | Build spatial rhythm and noir silhouette. |
-| 6.0–9.0 s | A few windows glow; most are dark. The office window is a small dirty amber rectangle. | Rain remains dominant; faint radiator/room tone begins under it. | Identify destination by contrast. |
+| 6.0–9.0 s | A few windows glow; most are dark. The office window is a small dirty amber rectangle. | Rain remains dominant; faint hearth/room tone begins under it. | Identify destination by contrast. |
 | 9.0–12.0 s | Camera eases toward the office window. Exterior foreground darkens. | Exterior rain filters; interior window patter and lamp hum become clearer. | Motivate the transition. |
 | 12.0–14.0 s | Warm window shape fills enough of frame to match the office window or lamp pool. Crossfade through shadow. | Seamless ambience crossfade. | Move inside without a hard loading beat. |
 
@@ -575,8 +912,8 @@ No title card should obscure the best establishing composition. If a title is us
 
 The office is a single isometric room with enough floor for a short path loop. Required story zones:
 
-- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, black phone, typewriter, notebook, mug, ashtray, case folders, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
-- **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and radiator below; cool blind-striped spill on the floor.
+- **Zone 1 — Detective work area**: NE-facing desk island with Voss’s chair, two client chairs, anchoring rug, wastebasket, lamp, **raven perch**, writing set (quill, inkpot and ledger), notebook, mug, ashtray, case papers/folios, and unpaid notices. Keep at least one tile of movement clearance around the cluster.
+- **Zone 2 — Archive and case wall**: bookcase, filing cabinet, and small safe as one west-wall storage run; consolidated archive boxes; cork case board, city map, framed licence, and pinned photographs on the plaster behind the desk; rain window with Venetian blinds and **hearth** heat on the window wall; cool blind-striped spill on the floor.
 - **Zone 3 — Entrance and waiting**: door with coat stand and umbrella stand beside it; two mismatched waiting chairs and a small table (newspaper + ashtray) against the right wall; narrow worn runner from the entrance toward the desk; doorway kept clear of boxes.
 - **Negative space**: a navigable floor wedge in the lower foreground; warm amber lamp key against cold window light and a narrow warm hallway slit through the open door.
 
@@ -591,20 +928,20 @@ The room should feel used and cramped but compositionally controlled. Every majo
 5. A short player-advanced exchange establishes her missing sister, a coat found by the river, a concealed brass key, and the first case: **The Empty Coat** (see §4.3.2). Pages must not out-pretty the five inspect captions in §9.5.
 6. Lila leaves the key, turns away from the desk, and walks back through the office door using a dedicated rear northeast cycle.
 7. Input becomes active; a minimal unobtrusive hint appears only on first run.
-8. The player can inspect the window, lamp/desk, phone, case files, and door.
+8. The player can inspect the window, lamp/desk, raven perch, case papers, and door.
 9. Selecting a floor destination or the door makes Voss stand, transition to standing idle, and walk.
 
 ### 9.5 M01 hotspot set
 
 | ID | Display name | First observation | State effect |
 |---|---|---|---|
-| `office.window` | Rain-streaked window | “The rain had been at the glass longer than I had.” | Sets `noticedWeather`; demonstrates environmental hotspot. |
-| `office.desk` | Desk | “Three old cases, two unpaid bills, one clean page.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. |
-| `office.phone` | Telephone | “Quiet. For once it had the decency to look guilty.” | Sets `checkedPhone`; reserves later incoming-call state. |
-| `office.files` | Case files | “Closed, abandoned, and one I still lied about.” | Adds `oldCaseReference`; seeds later narrative. |
-| `office.door` | Office door | “The hall smelled worse, but at least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
+| `office.window` | Rain-streaked window | “The rain had been working the glass longer than I had. The sill-ward didn't care either way.” | Sets `noticedWeather`; demonstrates environmental hotspot. Second look (after retain): client + humming key. |
+| `office.desk` | Writing desk | “Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet.” | Adds `officeUnpaidBills` knowledge; establishes inspect staging. After retain, second look shows the key on the desk leather. |
+| `office.phone` | Raven perch | “Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it.” | Sets `checkedPhone` (legacy flag id); reserves later raven-message state. Hotspot id stays `office.phone`. |
+| `office.files` | Case papers | “Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.” | Adds `oldCaseReference`; seeds later narrative. |
+| `office.door` | Office door | “The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.” | Makes Voss approach; door stays locked to M02 with an authored response. |
 
-These five captions are the **locked house voice**. Do not rewrite them to match a longer intro; rewrite the intro down to them.
+These five captions are the **locked house voice** and must match `strings.en.json` / `OfficeHotspotInspect`. Do not drift them in docs without updating the string table.
 
 ## 10. Audio direction
 
@@ -612,7 +949,7 @@ These five captions are the **locked house voice**. Do not rewrite them to match
 
 - Rain is layered, spatial, and continuous across the scene transition.
 - Music supports dread and exhaustion without filling every second.
-- Interior sound is intimate: window patter, radiator ticks, lamp hum, chair creak, cloth movement, distant plumbing.
+- Interior sound is intimate: window patter, hearth ticks, lamp hum, chair creak, cloth movement, distant plumbing.
 - Repetition must be difficult to detect; loops use long beds plus randomized one-shots.
 - Dialogue remains intelligible on phone speakers and supports subtitles.
 
@@ -621,9 +958,9 @@ These five captions are the **locked house voice**. Do not rewrite them to match
 - Exterior heavy-rain stereo bed.
 - Exterior detail emitters: gutter, puddle impacts, distant traffic, sign/electrical buzz.
 - Interior rain-on-glass bed.
-- Interior room tone and radiator/pipe one-shots.
+- Interior room tone and hearth/pipe one-shots.
 - Voss foley: chair, cloth, shoes, breath.
-- Door, paper, phone, mug, and lamp interaction one-shots.
+- Door, paper, raven-perch, mug, and lamp interaction one-shots.
 - One sparse music cue with a clean loop or tail for skipping.
 
 The exterior-to-interior transition crossfades beds while preserving a shared rain transient so the cut feels spatial, not like an audio restart.
@@ -631,7 +968,7 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 ## 11. UI direction
 
 - Infinity Engine layout hierarchy is intentional: vertical left action rail, right party/portrait rail, bottom dialogue plaque, paperdoll inventory, and ledger journal.
-- Deliberately opening a searchable container uses a compact, non-modal BG2-style transfer panel. The left 3×2 grid is the persisted source; the centre identifies Voss's case bag and capacity; the right 2×2 viewport is his real carried inventory; and the far edge is the party purse. Coins bypass the bag into the purse. Ordinary items—including firearms—move bidirectionally between source and bag when capacity permits, and Take All transfers everything that can fit while leaving the remainder persisted. A recovered firearm is carried, never auto-equipped, though it can now be readied by hand from the inventory window. Closing or issuing another world command never discards contents. Quick Loot is shipped: the right-rail Search control opens a non-modal strip listing every stack lying within reach of Voss, ten to a row with page chevrons past that, and one click lifts a stack straight into the case bag. Items dropped from the inventory window land at his feet and persist there per area. Ammo and condition still wait for the weapon model.
+- Deliberately opening a searchable container uses a compact, non-modal BG2-style transfer panel. The left 3×2 grid is the persisted source; the centre identifies Voss's case bag and capacity; the right 2×2 viewport is his real carried inventory; and the far edge is the party purse. Coins bypass the bag into the purse. Ordinary items—including weapons—move bidirectionally between source and bag when capacity permits, and Take All transfers everything that can fit while leaving the remainder persisted. A recovered weapon is carried, never auto-equipped, though it can now be readied by hand from the inventory window. Closing or issuing another world command never discards contents. Quick Loot is shipped: the right-rail Search control opens a non-modal strip listing every stack lying within reach of Voss, ten to a row with page chevrons past that, and one click lifts a stack straight into the case bag. Items dropped from the inventory window land at his feet and persist there per area. Ammo and condition still wait for the weapon model.
 - Frames and the broader icon system remain original RainShadow film-noir craft (rain-slicked gunmetal, smoked leather, oxblood accents, Art Deco filigree). The opened-container Take All control deliberately reconstructs the red diamond in the user's BG2/BGII:EE screenshot with newly generated pixels; no shipped BAM or surrounding BG frame is extracted. The matching installed BG:EE `WORLD_CONTAINER` definition separately identifies that control as `ROUNDBUT` and its action as Take All. V03 chrome ships heavier BG-like bevel weight under that material lock.
 - All visible chrome is painted Image Generator PNG art; code owns layout, hit-testing, live text, and ephemeral hover/selection tints only—no SF Symbols or decorative procedural chrome.
 - Use charcoal, oxidized brass, dirty paper, and restrained burgundy accents for text and tints; the saturated red Take All diamond is the deliberate contextual-control exception.
@@ -661,7 +998,7 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 - Branching dialogue UI and relationship thresholds.
 - Trait advancement and strain consequences.
 - Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over.
-- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only.
+- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, high-stakes set pieces only; Act I encounters E1–E5 and the system requirements are listed there (no combat code exists yet).
 - Full **Poirot-style summation** scene framework for the campaign finale (§4.3.7).
 
 ### Explicitly out of scope for the game vision
@@ -700,8 +1037,8 @@ The art gate is qualitative but strict: at final display scale, the office must 
 
 ## 15. Open design decisions after M01
 
-- Full biography and casting notes for **Harlan Voss** beyond the core wound and visual lock in §4.2 (ethnicity detail, pre-Harborpoint history, VO direction).
-- Full biography for **Lila March** beyond the dame/client outline (romance branch density; Lillian’s employment is locked as Wharf Ladder shipping office in §4.3.2).
+- Ethnicity detail, pre-Harborpoint childhood, and VO casting notes for **Harlan Voss** beyond the full §4.2 canon sheet.
+- Romance-branch density and Act II+ casting notes for **Lila March** beyond the full §4.2 canon sheet (Lillian’s employment remains Wharf Ladder shipping office per §4.3.2).
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Degree of camera control in later, larger areas.
@@ -709,6 +1046,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - First combat set-piece location and temporary-ally roster for Act II.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Harlan Voss and Lila March character bibles (§4.2); corruption as structural world force; RTWP authored combat intent; Poirot-like finale contract.
 
 None of the remaining open decisions blocks the opening-sequence architecture.

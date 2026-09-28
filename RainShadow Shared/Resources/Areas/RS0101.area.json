@@ -158,7 +158,7 @@
           "y" : 1355.997815595838
         },
         "id" : "office.files",
-        "label" : "Case archive",
+        "label" : "Case papers",
         "loot" : {
           "entries" : [
             {
@@ -22971,7 +22971,7 @@
         "id" : "office.desk",
         "kind" : "info",
         "label" : "Writing desk",
-        "observation" : "Three old cases, two unpaid debts, one clean page.",
+        "observation" : "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet.",
         "polygon" : [
           {
             "x" : 2152.0207023494277,
@@ -23031,7 +23031,7 @@
         "id" : "office.perch",
         "kind" : "info",
         "label" : "Empty raven perch",
-        "observation" : "An empty perch. No bird, no word, and no excuse to stop waiting.",
+        "observation" : "Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it.",
         "polygon" : [
           {
             "x" : 1997.2554390984074,
@@ -23066,8 +23066,8 @@
         },
         "id" : "office.files",
         "kind" : "info",
-        "label" : "Case archive",
-        "observation" : "Closed, abandoned, and one I still lied about.",
+        "label" : "Case papers",
+        "observation" : "Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut.",
         "polygon" : [
           {
             "x" : 2327.019398316744,
@@ -23551,7 +23551,7 @@
         "id" : "office.window",
         "kind" : "info",
         "label" : "Rain-streaked window",
-        "observation" : "Rain on the glass. A tired sill-ward kept the worst of it outside.",
+        "observation" : "The rain had been working the glass longer than I had. The sill-ward didn't care either way.",
         "polygon" : [
           {
             "x" : 1828.7429178045043,
@@ -23592,7 +23592,7 @@
         "id" : "office.door",
         "kind" : "travel",
         "label" : "Exit to Sable Row",
-        "observation" : "The hall smelled worse, but at least it led somewhere.",
+        "observation" : "The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.",
         "polygon" : [
           {
             "x" : 2414.3228589126247,

@@ -335,7 +335,7 @@ v1.0. `FindPath` relocates a goal it cannot reach, so a route existing says only
 that *somewhere near* was reached — it succeeds from inside a sealed pocket, or
 inside a building, and reports nothing wrong. Three shipped bugs hid behind the
 v1.0 version of this trap: the office floor sealed to 174 of 4,694 cells, the
-office door unreachable, and Harborpoint PD spawning the detective inside an
+office door unreachable, and Lamp Ward spawning the detective inside an
 820×680 station with 1 of 5,795 cells reachable. Every test covering those areas
 passed the whole time.
 

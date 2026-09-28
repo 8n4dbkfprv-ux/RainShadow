@@ -149,7 +149,7 @@
       },
       {
         "id": "office.files",
-        "label": "Case archive",
+        "label": "Case papers",
         "hitArea": {
           "x": 2233.843379753568,
           "y": 1355.997815595838,
@@ -23006,7 +23006,7 @@
           "x": 2019.2192390326964,
           "y": 1317.3108219558917
         },
-        "observation": "Three old cases, two unpaid debts, one clean page."
+        "observation": "Three cold cases, two debts the ledger still remembers, and a clean page under the quill that hasn't learned a name yet."
       },
       {
         "id": "office.perch",
@@ -23042,12 +23042,12 @@
           "x": 2003.2192390326964,
           "y": 1389.3108219558917
         },
-        "observation": "An empty perch. No bird, no word, and no excuse to stop waiting."
+        "observation": "Empty iron perch. Droppings on the desk-leather edge. For once the bird had the decency to stay gone — and look guilty doing it."
       },
       {
         "id": "office.files",
         "kind": "info",
-        "label": "Case archive",
+        "label": "Case papers",
         "polygon": [
           {
             "x": 2327.019398316744,
@@ -23098,7 +23098,7 @@
           "x": 2243.2192390326964,
           "y": 1365.3108219558917
         },
-        "observation": "Closed, abandoned, and one I still lied about."
+        "observation": "Sealed. Abandoned. And one folio I still lied about — to the client, and to whatever keeps the cabinet shut."
       },
       {
         "id": "office.chest",
@@ -23566,7 +23566,7 @@
           "x": 1939.2192390326964,
           "y": 1377.3108219558917
         },
-        "observation": "Rain on the glass. A tired sill-ward kept the worst of it outside."
+        "observation": "The rain had been working the glass longer than I had. The sill-ward didn't care either way."
       },
       {
         "id": "office.door",
@@ -23595,7 +23595,7 @@
           "x": 2435.2192390326964,
           "y": 1197.3108219558917
         },
-        "observation": "The hall smelled worse, but at least it led somewhere.",
+        "observation": "The hall smelled worse — damp wool, old wards, someone else's business. At least it led somewhere.",
         "travel": {
           "destination": "RS0100",
           "entrance": "from.office"

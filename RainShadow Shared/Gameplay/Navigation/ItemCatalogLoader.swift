@@ -248,11 +248,11 @@ enum HarborpointItems {
 
     /// The six items the case bag starts with, in painted order.
     static let starterItemIDs = [
-        "service-revolver",
+        "lantern-shortsword",
         "case-notes",
         "brass-key",
-        "flashlight",
-        "wallet",
-        "cigarette-case"
+        "dark-lantern",
+        "coin-purse",
+        "tobacco-tin"
     ]
 }

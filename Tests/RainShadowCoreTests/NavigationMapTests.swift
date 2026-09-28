@@ -382,7 +382,7 @@ struct NavigationMapTests {
     /// Every authored point a city district can put the detective on, or send him
     /// to, must be somewhere he can actually stand.
     ///
-    /// Harborpoint PD shipped with `actorStart`, its `from.north` arrival spawn,
+    /// Lamp Ward shipped with `actorStart`, its `from.north` arrival spawn,
     /// and the STATION portal approach all *inside* the 820x680 station building —
     /// arriving there left him in a wall with 1 of 5,795 cells reachable. Nothing
     /// caught it because the district tests only checked landmarks via `route`,

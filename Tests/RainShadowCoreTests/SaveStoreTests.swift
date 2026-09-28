@@ -117,6 +117,66 @@ struct SaveStoreTests {
 
         #expect(store.load() == SaveSnapshot())
     }
+
+    /// Harborpoint PD was renamed Lamp Ward (and its station the Lamphouse)
+    /// after saves existed. Load folds those names onto the restored area
+    /// codes, and a value already under a new id wins.
+    @Test func legacyAreaIDsLoadUnderTheirRenamedIDs() throws {
+        let suiteName = "RainShadowTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let store = SaveStore(defaults: defaults, key: "save")
+        let flag = PersistedAreaVariable(kind: "integer", integer: 1)
+        let pile = PersistedGroundItemStack(
+            id: "blue-room-token", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
+        )
+        store.save(SaveSnapshot(
+            groundPiles: ["city_harborpoint_pd": [pile], "office_suite": []],
+            areaVariables: [
+                "city_harborpoint_pd/visited": flag,
+                "city_lila_street/VISITED": flag,
+                "interior_police_station/door.seen": flag,
+                "city_sable_row/visited": flag
+            ]
+        ))
+
+        let loaded = store.load()
+        #expect(loaded.groundPiles["RS0400"] == [pile])
+        #expect(loaded.groundPiles["city_harborpoint_pd"] == nil)
+        #expect(loaded.groundPiles["city_lamp_ward"] == nil)
+        #expect(loaded.groundPiles["office_suite"] == nil)
+        #expect(loaded.groundPiles["RS0101"] == [])
+        #expect(loaded.areaVariables["RS0400/visited"] == flag)
+        #expect(loaded.areaVariables["RS0401/door.seen"] == flag)
+        #expect(loaded.areaVariables["RS0100/visited"] == flag)
+        #expect(loaded.areaVariables["RS0500/VISITED"] == flag)
+        #expect(loaded.areaVariables["city_harborpoint_pd/visited"] == nil)
+        #expect(loaded.areaVariables["city_lila_street/VISITED"] == nil)
+        #expect(loaded.areaVariables["interior_police_station/door.seen"] == nil)
+
+        let newer = PersistedAreaVariable(kind: "integer", integer: 2)
+        #expect(LegacySaveIDs.rekeyedAreaVariables([
+            "city_harborpoint_pd/visited": flag,
+            "city_lamp_ward/visited": newer
+        ]) == ["city_lamp_ward/visited": newer])
+    }
+
+    @Test func legacyItemIDsLoadUnderTheirPeriodNames() throws {
+        let legacy = """
+        {
+          "schemaVersion": 1,
+          "carriedItems": [{"id": "flashlight", "quantity": 1}, {"id": "matchbook", "quantity": 2}, {"id": "wallet", "quantity": 1}, {"id": "cigarette-case", "quantity": 3}],
+          "equippedItems": {"weapon1": {"id": "service-revolver", "quantity": 1}},
+          "groundPiles": {"office_suite": [{"id": "flashlight", "quantity": 1, "x": 4, "y": 2}]},
+          "lootContainers": {"office.desk": [{"item": {"id": "service-revolver", "quantity": 1}}]}
+        }
+        """
+        let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
+        #expect(restored.carriedItems.map(\.id) == ["dark-lantern", "blue-room-token", "coin-purse", "tobacco-tin"])
+        #expect(restored.equippedItems["weapon1"]?.id == "lantern-shortsword")
+        #expect(restored.groundPiles["office_suite"]?.first?.id == "dark-lantern")
+        #expect(restored.lootContainers["office.desk"] == [.item(id: "lantern-shortsword", quantity: 1)])
+    }
 }
 
 extension SaveStoreTests {

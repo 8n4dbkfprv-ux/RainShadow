@@ -22,6 +22,8 @@ struct EmptyCoatJournalContentTests {
 
     @Test func letterheadAndCaseIdentity() {
         #expect(EmptyCoatJournalContent.agencyLetterhead.contains("H. VOSS"))
+        #expect(EmptyCoatJournalContent.agencyLetterhead.contains("FINDER OF THE LOST"))
+        #expect(!EmptyCoatJournalContent.agencyLetterhead.contains("INVESTIGATIONS"))
         #expect(!EmptyCoatJournalContent.agencyLetterhead.contains("VALE"))
         #expect(EmptyCoatJournalContent.caseTitle == "The Empty Coat")
         #expect(EmptyCoatJournalContent.caseID == "case.empty-coat")
@@ -39,7 +41,7 @@ struct EmptyCoatJournalContentTests {
         #expect(blob.contains("Lillian March"))
         #expect(blob.contains("Lila March"))
         #expect(blob.contains("brass key") || blob.contains("Brass key") || blob.contains("Brass Key"))
-        #expect(blob.contains("gray overcoat") || blob.contains("Gray Man"))
+        #expect(blob.contains("gray greatcoat") || blob.contains("Gray Man"))
         #expect(blob.contains("Wharf Ladder") || blob.contains("shipping"))
         #expect(blob.contains("river") || blob.contains("Riverside"))
         #expect(!blob.contains("Lillian Hart"))
@@ -127,7 +129,7 @@ struct EmptyCoatJournalContentTests {
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.pressedHardJournalID,
                         kind: .chronology,
-                        text: "Pushed Lila on what the police finished too early."
+                        text: "Pushed Lila on what the lamps finished too early. Manifests."
                     ),
                     QueuedJournalFragment(
                         id: EmptyCoatDialogueKeys.clientRetainedJournalID,

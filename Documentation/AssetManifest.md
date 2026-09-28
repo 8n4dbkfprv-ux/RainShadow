@@ -123,7 +123,9 @@ Because the leaf and its opening ship as two textures, a facade re-export moves 
 | P1 | `city_<district>_block_v02` | 8192×6144 | Opaque | Superseded monolithic runtime path; retained as the lossless lower-left 4×4-page source and manifest-missing fallback. |
 | P0 | `city_building_interior_v01` | 4096×2304 | Opaque | Shared neutral 1950s lobby plate for five distinct landmark ARE records. Each record retains its own exterior destination and named return entrance. |
 
-Districts on the Baldur's Gate–style 3×3 grid: `sable_row` (center + Voss apartment return), `wharf_ladder` (west), `riverside` (southwest), `harborpoint_pd` (south), `lila_street` (east), `civic_records` (north). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals).
+Districts on the Baldur's Gate–style 3×3 grid: `market_cross` (centre; the city's central district, grown from Lila's Street, so its art and sidecar maps keep the `lila_street` stem), `sable_row` (east; Voss's office ward + apartment return), `wharf_ladder` (west), `riverside` (southwest), `lamp_ward` (south; its art and sidecar maps keep the `harborpoint_pd` stem), `civic_records` (north).
+
+**Art still needed for Market Cross.** Market Cross is meant to cover twice the ground of Sable Row. Today every district shares one 5120×3840 world plate (19,660,800 sq units; 80×60 tiles of 64), so Market Cross still reuses the Lila's Street plate at that size. The world-map stamp is drawn at √2 scale as a stand-in. Doubling it for real needs: a 10240×3840 (or 5120×7680) district plate as two 5×5 page sets, `city_market_cross_block_v0x` in the BG:EE camera lock; new 640×320 (or 320×640) `.sr` / `.lm` / `.ht` rasters; street-plan and obstacle extension; a market-square set piece with Lila's side street off it; a new `map_city_market_cross` area-map plate and district icon; and per-district `worldArtSize` plumbing in code (see GDD §4.1). Three corner wards stay locked/unnamed until later acts. Blue Room / Wardour excluded until earned. Travel is edge-of-map → World Map (not hub-and-spoke portals): a ward can travel to its grid neighbours, plus the quay road that links Sable Row directly to Wharf Ladder. From Sable Row that means Market Cross or Wharf Ladder; every other ward is reached onward from there, with Market Cross as the hub.
 
 ## 5. Office shell, props, and lighting
 
@@ -198,7 +200,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P0 | `office_chair_floor_shadow` | 512×256 | Yes | Chair-only floor/contact shadow. |
 | P0 | `office_desk_lamp` | 217×262 | Yes | Worn metal lamp with warm lit shade; 250px content height before the shared 0.12 desk display scale. |
 | P0 | `office_desk_phone` | 210×154 | Yes | Period wired desk telephone and readable coiled cord; 142px content height. |
-| P1 | `office_desk_typewriter` | 280×200 | Yes | Black 1940s office typewriter with paper; desk-scale clutter, no legible text. |
+| P1 | `office_desk_typewriter` | 280×200 | Yes | Writing set: goose quill in a pewter inkpot, blotter and an open ledger; desk-scale clutter, no legible text. **Art follow-up:** the shipped image still shows a black 1940s typewriter; repaint as the quill/inkpot/ledger set under the same file name (and prop id). |
 | P1 | `office_desk_notebook` | 160×120 | Yes | Closed case notebook on the writing surface. |
 | P0 | `office_desk_mug` | 104×135 | Yes | Chipped ceramic mug and dark coffee, no logo or text; 123px content height. |
 | P0 | `office_desk_ashtray` | 115×85 | Yes | Battered metal ashtray with old stubs and ash; 73px content height. |
@@ -227,7 +229,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P1 | `office_entrance_runner` | 768×384 | Yes | Narrow worn runner from door toward desk; non-blocking floor decal. |
 | P1 | `office_case_board` | 320×280 | Yes | Cork case board with pinned notes and string; no legible text. |
 | P1 | `office_wall_city_map` | 280×240 | Yes | Framed wall city map (abstract streets). |
-| P1 | `office_framed_licence` | 160×180 | Yes | Framed private investigator licence; abstract seals/lines only. |
+| P1 | `office_framed_licence` | 160×180 | Yes | Framed finder's writ (Voss's charter to work as a hired finder); abstract seals/lines only. File name kept from the earlier licence brief. |
 | P1 | `office_wall_photos` | 220×160 | Yes | Cluster of pinned/framed wall photographs. |
 | — | `office_window_blinds` | legacy | Yes | V10 rollback provenance only. V11's two fixed blind assemblies are baked into the plate. |
 | — | `office_radiator` | legacy | Yes | Retired source texture; V18 paints both 1950s radiators directly into the architecture plate and emits no radiator area prop. |
@@ -235,7 +237,7 @@ and the travel/hover polygon remains one registered `office.door` record.
 | P1 | `office_framed_photo` | 256×256 | Yes | Small turned/obscured personal photo; faces need not be legible at play scale. |
 | P1 | `office_worn_rug` | 1024×768 | Yes | Thin worn rug/floor decal under the desk island, no contact shadow, low contrast. |
 | P1 | `office_floor_trash_a` | 256×192 | Yes | Crumpled page/envelope cluster. |
-| P1 | `office_floor_trash_b` | 256×192 | Yes | Matchbook/string/paper cluster with no brands. |
+| P1 | `office_floor_trash_b` | 256×192 | Yes | Matchbook/string/paper cluster with no brands. **Optional art follow-up:** swap the matchbook for a spent tallow stub or tavern token to match the de-modernised office. |
 | P1 | `office_floor_trash_c` | 256×192 | Yes | Small alternate cluster for composition balance. |
 
 ### 5.6 Lighting and grade overlays
@@ -426,11 +428,11 @@ UI is RainShadow art following Infinity Engine **layout hierarchy** with film-no
 | P0 | `inventory_slot_frame_v05` | 1 | 256×256 | Reusable recessed squircle slot frame scaled to code-defined bounds. |
 | P0 | `inventory_selection_frame_v05` | 1 | 256×256 | Painted selection highlight rim (replaces coded SKShapeNode rings). |
 | P0 | `inventory_slot_silhouette_*_v05` | 8 | 256×256 | Prior empty-slot silhouettes (hat, coat, hands, feet, ring, weapon, item, bag). |
-| P0 | `inventory_slot_silhouette_*_v06` | 12 | 256×256 | **Active.** BG:EE Enhanced empty-slot roles in noir line art: hat, coat, hands, charm, cloak, belt, feet, ring, holster, weapon (revolver), item, bag. |
+| P0 | `inventory_slot_silhouette_*_v06` | 12 | 256×256 | **Active.** BG:EE Enhanced empty-slot roles in noir line art: hat, coat, hands, charm, cloak, belt, feet, ring, off-hand (file stem `holster`), weapon (the painted silhouette is still a revolver; **art follow-up:** repaint as a sword under the same file name), item, bag. |
 | P0 | `inventory_stat_badge_*_v05` | 4 | 256×256 | Badge frames with open centers: defence / vitality / resolve / damage. |
 | P0 | `inventory_page_arrow_{prev,next}_v05` | 2 | 128×128 | **Active.** Painted horizontal page chevrons, now in service on the quick-loot strip — the manual page surface they were retained for. The vertical container and carried-item row controls still reuse the dialogue scroll arrows. |
 | P0 | `hud_loot_container_panel_v02` (reused) | — | 1600×320 | **Active, reused.** The quick-loot strip borrows the container panel's backing until a dedicated 10:1 plate is generated. Code owns every slot, chevron, and hit target; the plate contributes nothing but the field. A bespoke `hud_quick_loot_bar_v01` is an outstanding batch. |
-| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted service revolver, case notebook, brass key, matchbook, flashlight, wallet, and cigarette-case icons. |
+| P0 | `inventory_item_*_v01` | 7 | 512×512 | Original hand-painted case notebook and brass key icons, plus the starter weapon, light, purse, tobacco tin and Blue Room token. **Art follow-up (repaint under the same file names):** `inventory_item_service_revolver_v01` and `inventory_item_flashlight_v01` still show a revolver and an electric torch; they now back the **Lantern Service Shortsword** and the **Dark Lantern** (shuttered oil lantern). `inventory_item_wallet_v01` shows a billfold wallet and now backs the **Coin Purse** (drawstring leather purse). `inventory_item_cigarette_case_v01` shows a cigarette case and now backs the **Tobacco Tin** (tarnished tin of hand-rolled smokes). `inventory_item_matchbook_v01` shows a paper matchbook and now backs the **Blue Room Token** (stamped brass tavern token). |
 | P0 | `inventory_coin_stack_v05` | 1 | 512×512 | Cool gunmetal coin stack/scatter. |
 | P0 | `inventory_case_bag_v05` | 1 | 512×512 | Investigator satchel prop. |
 | P0 | `voss_paperdoll_front_rgba_v01` | 1 | 1024×1536 | Stable ID for the smooth RGBA V20 paperdoll derived from the approved front anchor; staged replacement is soft-matted/despilled and never V14-crunched. |

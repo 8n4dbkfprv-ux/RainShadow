@@ -3,14 +3,14 @@
   "id": "harborpoint.items",
   "items": [
     {
-      "id": "service-revolver",
-      "identifiedName": "Service Revolver",
+      "id": "lantern-shortsword",
+      "identifiedName": "Lantern Service Shortsword",
       "category": "SERVICE WEAPON",
       "weightOunces": 38,
       "valuePence": 1440,
       "iconArtName": "inventory_item_service_revolver_v01",
-      "identifiedDescription": "A six-shot Webley with a tired action and a clean barrel.",
-      "note": "Registered to Det. H. Voss · 5 rounds loaded",
+      "identifiedDescription": "The blade Voss kept from his Lantern years. Plain steel, one hand, a lamp-brass guard gone dull and an edge he still keeps honest.",
+      "note": "Lantern Guard issue · never handed back",
       "damageLow": 2,
       "damageHigh": 7
     },
@@ -30,53 +30,53 @@
       "category": "EVIDENCE",
       "weightOunces": 2,
       "iconArtName": "inventory_item_brass_key_v01",
-      "identifiedDescription": "Sewn into Lillian's coat lining—old teeth, no hotel tag. Faint machine oil and river fog.",
+      "identifiedDescription": "Sewn into Lillian's coat lining—old teeth, no inn tag. Faint lamp oil and river fog.",
       "note": "The Empty Coat · in Voss's care",
       "flags": ["questCritical"]
     },
     {
-      "id": "flashlight",
-      "identifiedName": "Pocket Torch",
+      "id": "dark-lantern",
+      "identifiedName": "Dark Lantern",
       "category": "FIELD TOOL",
       "weightOunces": 16,
       "valuePence": 120,
       "iconArtName": "inventory_item_flashlight_v01",
-      "identifiedDescription": "Dented steel, unreliable switch, enough battery for one long night.",
+      "identifiedDescription": "Dented tin with a sliding shutter that hides the flame until he wants it seen. The slide sticks; the oil lasts one long night.",
       "note": "Condition: worn"
     },
     {
-      "id": "wallet",
-      "identifiedName": "Leather Wallet",
+      "id": "coin-purse",
+      "identifiedName": "Coin Purse",
       "category": "PERSONAL EFFECT",
       "weightOunces": 4,
       "valuePence": 24,
       "iconArtName": "inventory_item_wallet_v01",
-      "identifiedDescription": "Licence, tram pass, and the kind of money that disappears quickly.",
-      "note": "Cash rides in the purse, not the pocket"
+      "identifiedDescription": "Worn leather gone soft at the seams. A few silver, a ferry token, and his finder's writ folded small—the kind of money that disappears quickly.",
+      "note": "Coin is counted on the purse line, not in the bag"
     },
     {
-      "id": "cigarette-case",
-      "identifiedName": "Cigarette Case",
+      "id": "tobacco-tin",
+      "identifiedName": "Tobacco Tin",
       "category": "PERSONAL EFFECT",
       "weightOunces": 5,
       "valuePence": 60,
       "maxStack": 20,
       "iconArtName": "inventory_item_cigarette_case_v01",
-      "identifiedDescription": "Gunmetal silver. Initials scratched away with deliberate care.",
+      "identifiedDescription": "A tarnished tin of hand-rolled smokes, a twist of papers and a flint-and-steel wedged in the lid. Initials scratched away with deliberate care.",
       "note": "Steadies the hands, ruins the lungs"
     },
     {
-      "id": "matchbook",
-      "identifiedName": "Matchbook",
-      "unidentifiedName": "Paper Matchbook",
+      "id": "blue-room-token",
+      "identifiedName": "Blue Room Token",
+      "unidentifiedName": "Stamped Brass Token",
       "category": "EVIDENCE",
       "weightOunces": 1,
       "valuePence": 1,
       "maxStack": 10,
       "loreToIdentify": 4,
       "iconArtName": "inventory_item_matchbook_v01",
-      "identifiedDescription": "A paper matchbook kept as part of the case record. The flap carries a printed address, worn but legible.",
-      "unidentifiedDescription": "A paper matchbook, damp at one corner. Something is printed inside the flap, too faded to read at a glance.",
+      "identifiedDescription": "A stamped brass house token, the kind a tavern hands over for a drink or the door. Kept as part of the case record. The reverse carries the house's mark and its street, worn but legible.",
+      "unidentifiedDescription": "A brass tavern token, river-dull and greasy at the rim. Something is stamped on the reverse, too worn to read at a glance.",
       "note": "Recovered evidence"
     }
   ]

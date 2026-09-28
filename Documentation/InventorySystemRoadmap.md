@@ -47,7 +47,7 @@ Every claim below comes from a primary source — the IESDP file-format specific
 | Persistence | **Shipped** — `equippedItems`, `groundPiles`, `hasSeededStarterKit`, all additive at `schemaVersion` 1 |
 | Window geometry | **Shipped as pure data** — `InventoryScreenLayout`, unit-tested including a no-overlap invariant |
 | Apparel content | **Not shipped** — the rules are tested against a fixture wardrobe; no coat/hat/ring item *art* exists, so nothing can currently be worn |
-| Ammunition content | **Not shipped** — quiver slots accept `.ammunition`; no cartridges are authored |
+| Ammunition content | **Not shipped** — quiver slots accept `.ammunition`; no bolts or other ammunition are authored |
 | Authored item loot | **Not shipped** — every shipped `LootContainerDefinition` is still coins-only |
 | Shops, containers-in-containers, party transfer | **Not shipped** — out of scope above |
 | Quick-loot plate art | **Reused, not authored** — the bar borrows `hud_loot_container_panel_v02`; a dedicated plate is an outstanding Image Generator batch |
@@ -59,7 +59,7 @@ Every claim below comes from a primary source — the IESDP file-format specific
 1. **Inventory is not a reward loop.** No shops, no drop tables, no level-scaled loot. GDD §12 lists loot grinding as explicitly out of scope, and every addition here has to survive that sentence.
 2. **A refused move is refused.** Nothing silently relocates an item to somewhere it *would* fit. `InventoryRefusal` says why, and both sides stay untouched — the same rule the navigation layer holds for unreachable ground.
 3. **Coins never occupy a bag slot.** They credit the purse, as in BG.
-4. **A recovered firearm is carried, never auto-equipped.** GDD §11.
+4. **A recovered weapon is carried, never auto-equipped.** GDD §11.
 5. **The warning band carries no penalty.** BG's yellow weight readout is a warning and nothing else; modelling it as a fourth encumbrance state would invent a penalty the engine does not have.
 6. **Encumbrance bands are 100% and 110%**, from the shipped *Adventurer's Guide* p. 43 — not the 120% that circulates on wikis.
 7. **Worn gear never stacks.** Rejected at catalog load, not at runtime.
@@ -124,7 +124,7 @@ The catalog this replaced had a `default:` branch that turned any unrecognised i
 - `DetectiveActorNode.movementProfile` recomputed on every inventory change.
 
 ### Exit criteria
-- A save written before equipment existed still loads, keeps its wallet, and seeds the starter kit once.
+- A save written before equipment existed still loads, keeps its purse, and seeds the starter kit once.
 - An unknown slot key is dropped on load rather than failing it.
 
 **Status: met** (`InventoryPersistenceTests`).
@@ -180,7 +180,7 @@ Removal is by identity, not index: the bar sorts by distance, so an index would 
 **Goal:** something to actually put in the ten paperdoll slots.
 
 ### Ship (sketch only)
-- An Image Generator batch for `inventory_item_*` apparel: trench coat, fedora, gloves, shoes, belt, cloak, ring, charm.
+- An Image Generator batch for `inventory_item_*` apparel: oilskin greatcoat, wide-brimmed hat, gloves, shoes, belt, cloak, ring, charm.
 - Authored `ItemDefinition`s with `defenceBonus` and weight.
 - Authored `.item(...)` loot entries, so containers yield something other than coins.
 

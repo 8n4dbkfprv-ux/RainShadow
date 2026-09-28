@@ -10,10 +10,10 @@ struct InventoryPersistenceTests {
 
     @Test func equippedItemsAndTheStarterSeedRoundTrip() throws {
         let snapshot = SaveSnapshot(
-            carriedItems: [PersistedCarriedItemStack(id: "matchbook", quantity: 3)],
+            carriedItems: [PersistedCarriedItemStack(id: "blue-room-token", quantity: 3)],
             equippedItems: [
-                "coat": PersistedCarriedItemStack(id: "trench-coat", quantity: 1),
-                "weapon1": PersistedCarriedItemStack(id: "service-revolver", quantity: 1)
+                "coat": PersistedCarriedItemStack(id: "oilskin-greatcoat", quantity: 1),
+                "weapon1": PersistedCarriedItemStack(id: "lantern-shortsword", quantity: 1)
             ],
             hasSeededStarterKit: true
         )
@@ -21,7 +21,7 @@ struct InventoryPersistenceTests {
         let restored = try JSONDecoder().decode(SaveSnapshot.self, from: data)
 
         #expect(restored == snapshot)
-        #expect(restored.equippedItems["coat"]?.id == "trench-coat")
+        #expect(restored.equippedItems["coat"]?.id == "oilskin-greatcoat")
         #expect(restored.hasSeededStarterKit)
     }
 
@@ -33,7 +33,7 @@ struct InventoryPersistenceTests {
         {
           "schemaVersion": 1,
           "walletPence": 1728,
-          "carriedItems": [{"id": "matchbook", "quantity": 2}]
+          "carriedItems": [{"id": "blue-room-token", "quantity": 2}]
         }
         """
         let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
@@ -51,7 +51,7 @@ struct InventoryPersistenceTests {
 
     @Test func identificationAndChargesSurviveTheMirror() throws {
         let stack = PersistedCarriedItemStack(
-            id: "matchbook", quantity: 4, isIdentified: false, charges: 2
+            id: "blue-room-token", quantity: 4, isIdentified: false, charges: 2
         )
         let data = try JSONEncoder().encode(stack)
         let restored = try JSONDecoder().decode(PersistedCarriedItemStack.self, from: data)
@@ -76,13 +76,13 @@ struct InventoryPersistenceTests {
         let store = SaveStore(defaults: defaults)
         store.save(SaveSnapshot(
             carriedItems: [PersistedCarriedItemStack(id: "brass-key", quantity: 1)],
-            equippedItems: ["fedora": PersistedCarriedItemStack(id: "fedora", quantity: 1)],
+            equippedItems: ["fedora": PersistedCarriedItemStack(id: "wide-brimmed-hat", quantity: 1)],
             hasSeededStarterKit: true
         ))
 
         // A fresh store over the same defaults is what a relaunch looks like.
         let reloaded = SaveStore(defaults: defaults).load()
-        #expect(reloaded.equippedItems["fedora"]?.id == "fedora")
+        #expect(reloaded.equippedItems["fedora"]?.id == "wide-brimmed-hat")
         #expect(reloaded.carriedItems.first?.id == "brass-key")
         #expect(reloaded.hasSeededStarterKit)
     }

@@ -98,7 +98,7 @@ enum ResolvedLootStack: Hashable, Codable, Sendable {
 struct CarriedItemStack: Hashable, Codable, Sendable {
     let id: String
     let quantity: Int
-    /// Per-stack, not per-definition. Two matchbooks lifted off two different
+    /// Per-stack, not per-definition. Two tokens lifted off two different
     /// tables can differ in what Voss has worked out about them, which is why
     /// the engine stores this bit on the creature's item entry
     /// (`cre_v1.htm` offset 0x0010) and not in the shared `ITM` header.
