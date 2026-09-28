@@ -108,7 +108,7 @@ Immersion comes from **authored density**: specific smells, recurring NPCs who r
 
 #### Institutions Voss actually touches
 
-- **River lanterns** — drownings, recovered coats, tide speeches offered with coffee and a soft file.
+- **River lanterns** — drownings, recovered coats, tide speeches offered with tea and a soft file.
 - **Night books** — who was where when the clock lied; duty rosters that read cleaner than the street.
 - **Reading-rights** — files the Lanterns smile about and do not share; manifests Lillian should not have finished reading.
 - **One lamp-sergeant** who still answers ravens — useful, compromised, not a mentor arc in Act I.
@@ -213,7 +213,7 @@ Full canon sheet. Fantasy-noir; specific over mythic. M01 dialogue may paraphras
 
 - **Role:** Client who forces the first case into Voss’s office; romantic-noir **dame** archetype played straight and human, not as a costume.
 - **Age / look:** Mid-to-late twenties. Chic chin-grazing textured blunt bob (soft side part, airy lived-in finish) and a fitted deep-emerald day dress—nipped waist, modest scoop neckline, knee-length soft flare, dark pumps, compact handbag. Figure-flattering period daywear without crossing under-15 suitability. Composed enough that the cracks show only if Voss presses.
-- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house on a side street off **Market Cross**, at the Printers’ Quarter edge. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered coffee and tides—and she has run out of polite rooms.
+- **Station:** Not Lanterns, not Dock Authority, not money. Boarding house on a side street off **Market Cross**, at the Printers’ Quarter edge. By day she keeps books for a small **ink-and-paper shop**; she reads other people’s ledgers when she has to. She hired Voss because the Lanterns offered tea and tides—and she has run out of polite rooms.
 - **Orbit:** Friends with real locks and thresholds that hold; gossip as second currency; ink-shop books as honest work that also teaches her how manifests hide.
 
 ##### Bond with Lillian
@@ -494,7 +494,7 @@ Aligned to the shipped Empty Coat intro graph:
 | `person.lila` | Lila March | Client | Interviewed | Precise under pressure; withholds deeper dock/sister secrets until pressed with evidence |
 | `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
-| *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: coffee, tides, politeness with teeth |
+| *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: tea, tides, politeness with teeth |
 | *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
 | *(Act I later)* | Ketch and Bram | The Gray Man’s hired muscle | Not met in M01 | Dock labour paid in chalk; recurring threat from Beat 3; Bram can be turned |
 
