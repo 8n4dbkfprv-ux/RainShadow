@@ -68,10 +68,10 @@ public enum EmptyCoatJournalContent {
     ]
 
     /// Authored observations from the restored Riverside ARE. Visiting the site
-    /// does not award the coat: it remains in police custody.
+    /// does not award the coat: it remains in Lantern custody.
     public static let riversideFieldNotes: [(id: String, title: String, observation: String)] = [
         ("riverside.iron-stairs", "The Iron Stairs", "The iron stairs lead down from the quay to the river stones. This is the route to the reported recovery site."),
-        ("riverside.coat-stones", "The Recovery Site", "The stones below the old iron stairs. Lillian's coat has already been taken into police custody; examining the site is not examining the garment.")
+        ("riverside.coat-stones", "The Recovery Site", "The stones below the old iron stairs. Lillian's coat is already in Lantern custody; examining the site is not examining the garment.")
     ]
 
     public static func caseSections(inspectedHotspotIDs: Set<String>) -> [CaseJournalSection] {
@@ -112,7 +112,7 @@ public enum EmptyCoatJournalContent {
                 CaseJournalEntry(
                     id: "log.office",
                     title: "Office searched",
-                    eyebrow: "Wednesday · 12:10 AM",
+                    eyebrow: "After midnight",
                     status: "Voss's office",
                     summary: "Voss checks the office and records \(count) field observation\(plural).",
                     body: [
@@ -142,16 +142,16 @@ public enum EmptyCoatJournalContent {
             }
         }
         if input.queuedJournalFragments.contains(where: { $0.id == EmptyCoatDialogueKeys.pressedHardJournalID }) {
-            leads.append("Press the shipping manifests Lila would not name cleanly in court.")
+            leads.append("Press the shipping manifests Lila would not name cleanly before a magistrate.")
         }
         return CaseJournalEntry(
             id: caseID,
             title: caseTitle,
-            eyebrow: "Active case · opened two nights past, 11:40 PM",
-            status: "Open / Priority",
+            eyebrow: "Active case · opened two nights past, near midnight",
+            status: "Open",
             summary: "Lillian March vanished two nights past. Her coat came back from the river. She did not.",
             body: [
-                "The Lanterns called the coat an answer—missing adult, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
+                "The Lanterns called the coat an answer—a woman gone, probable drowning, case cooling before the ink dried. Lila found the key they did not feel for.",
                 "A brass key was sewn into the coat lining. Since Lila recovered it, a man in a gray greatcoat and black gloves has been following her. The key stays on the desk leather."
             ],
             leads: leads,
@@ -166,7 +166,7 @@ public enum EmptyCoatJournalContent {
             return CaseJournalEntry(
                 id: "log.client-retained",
                 title: "Client retained",
-                eyebrow: "Two nights past · 11:40 PM",
+                eyebrow: "Two nights past · near midnight",
                 status: "Voss's office",
                 summary: fragment.text,
                 body: [
@@ -185,7 +185,7 @@ public enum EmptyCoatJournalContent {
                 body: [
                     "Lillian was reading manifests. Lila does not have the names for a magistrate's hall."
                 ],
-                leads: ["Follow the manifests Lila still will not name in open court."],
+                leads: ["Follow the manifests Lila still will not name in a magistrate's hall."],
                 isNew: true
             )
         default:
@@ -206,7 +206,7 @@ public enum EmptyCoatJournalContent {
         CaseJournalEntry(
             id: "person.lila",
             title: "Lila March",
-            eyebrow: "Person of interest · client",
+            eyebrow: "Client",
             status: "Interviewed",
             summary: "Lillian's sister—and the only person still insisting this is not a drowning.",
             body: [
@@ -222,9 +222,9 @@ public enum EmptyCoatJournalContent {
             status: "Whereabouts unknown",
             summary: "Worked late on shipping manifests near Wharf Ladder. Last reliably seen two nights past. Hated the river.",
             body: [
-                "Left the office about nine with talk of one more errand uptown—no hired coach chalked on the desk slate. By midnight her coat was on the stones below the old iron stairs, empty and arranged. No witness has placed her near the water of her own free will."
+                "Left the office about nine with talk of one more errand in the upper city—no hired coach chalked on the desk slate. By midnight her coat was on the stones below the old iron stairs, empty and arranged. No witness has placed her near the water of her own free will."
             ],
-            leads: ["Build a last-known-movements timeline from the shipping office outward."],
+            leads: ["Trace her last path from the shipping office outward."],
             isNew: true
         ),
         CaseJournalEntry(
@@ -298,11 +298,11 @@ public enum EmptyCoatJournalContent {
         CaseJournalEntry(
             id: "log.leave-work",
             title: "Lillian leaves work",
-            eyebrow: "Two nights past · ~9:00 PM",
+            eyebrow: "Two nights past · about nine",
             status: "Wharf Ladder",
             summary: "Lillian March leaves the shipping office near Wharf Ladder after late ledger work.",
             body: [
-                "Told a clerk she had one more errand uptown. No hired coach chalked on the desk slate. That is the last clean mark on the page."
+                "Told a clerk she had one more errand in the upper city. No hired coach chalked on the desk slate. That is the last clean mark on the page."
             ],
             leads: ["Gap opens between nine and the river."],
             isNew: false
@@ -346,7 +346,7 @@ public enum EmptyCoatJournalContent {
         CaseJournalEntry(
             id: "log.case-open",
             title: "Case opened",
-            eyebrow: "Two nights past · 11:40 PM",
+            eyebrow: "Two nights past · near midnight",
             status: "Voss's office",
             summary: "Harlan Voss accepts the March disappearance and takes possession of the brass key.",
             body: [

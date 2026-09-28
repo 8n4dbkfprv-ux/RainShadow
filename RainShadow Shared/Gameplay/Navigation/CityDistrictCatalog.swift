@@ -685,7 +685,7 @@ enum CityDistrictCatalog {
                 hitArea: CityDistrictLayout.portalHitArea(paintedAperture: wharfPaintedAperture),
                 destination: .interior(.shippingOffice),
                 requiresCityOpen: false,
-                lockedInspectLine: "Lillian's shipping office. Ledgers and a late errand uptown — exterior only for now."
+                lockedInspectLine: "Lillian's shipping office. Ledgers and a late errand in the upper city — exterior only for now."
             )
         ],
         pointsOfInterest: [
@@ -799,7 +799,7 @@ enum CityDistrictCatalog {
                 ),
                 destination: .interior(.ironStairs),
                 requiresCityOpen: false,
-                lockedInspectLine: "Wet iron and staged stones. The coat is already in police custody."
+                lockedInspectLine: "Wet iron and staged stones. The coat is already in Lantern custody."
             )
         ],
         pointsOfInterest: [

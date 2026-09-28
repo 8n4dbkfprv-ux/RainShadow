@@ -67,7 +67,7 @@ This section is the **narrative canon** for Harborpoint, the two established lea
 
 #### How fantasy works here
 
-- **Wards / hush-charms / sill-wards** — household and office utilities. Cheap ones fail in rain. Expensive ones lie on purpose. An apartment’s hush-ward that “hadn’t tripped” is evidence, not flavour text.
+- **Wards / hush-charms / sill-wards** — household and office utilities. Cheap ones fail in rain. Expensive ones lie on purpose. The hush-ward on her rooms that “hadn’t tripped” is evidence, not flavour text.
 - **Ravens** — message birds with iron perches and droppings on desk leather. A live bird is a line open; a dead raven is a broken line and a threat. Voss’s office inspects an empty perch, not a telephone.
 - **Seals that bite** — dock and shipping magic: manifests that hurt if read wrong; **reading-rights** the Lanterns can smile about and withhold.
 - **Thresholds** — boarding-house locks that “hold” are partly carpenter, partly charm. A pause outside a door—like someone testing a threshold—is not only manners.
@@ -97,9 +97,9 @@ The player feels this through locked doors, altered reports, witnesses who sudde
 
 - **Market Cross** — the heart of Harborpoint and its largest district: the old market square where the harbour road, the civic spine and the dock lanes cross. Stalls under oilcloth, a dry fountain nobody fixes, a posting pillar thick with notices, carters and hawkers who see everything and sell some of it. Lila’s rooms sit on a narrow side street off the square, where it runs into the Printers’ Quarter. Every road in the lower city passes through here, so the Gray Man and his hired men do too. *(Working name; easy to change.)*
 - **Sable Row** — Voss’s block, east of Market Cross. Harbor Street (the office’s street) runs through it, and the quay road runs west from it along the waterfront to Wharf Ladder. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
-- **Wharf Ladder / the Docks** — cargo, boarding houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
+- **Wharf Ladder / the Docks** — cargo, lodging-houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
 - **Civic Spine** — magistrate’s hall, the Lamphouse, records annex. Marble that stays clean in the rain on purpose.
-- **Printers’ Quarter** — broadsheets, ink shops, cafés that never close, on the Market Cross fringe. Lila’s orbit (boarding house, friends with real locks). Gossip as second currency.
+- **Printers’ Quarter** — broadsheets, ink shops, and houses that keep a lamp on, on the Market Cross fringe. Lila’s orbit (a room in a lodging-house, friends with real locks). Gossip as second currency.
 - **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later wound-seeds live here (not M01 dumps).
 
 **Market Cross footprint (map target).** Market Cross is meant to cover twice the ground of Sable Row, the district the office is in. In the build today every district, Market Cross included, is one 5120×3840 world-unit plate (19,660,800 sq units; 80×60 tiles of 64, 320×320 search/light/height cells). The twice-size target is 39,321,600 sq units, e.g. 10240×3840. On the 3×3 world map Market Cross now takes the centre cell, Sable Row sits east of it, and its stamp is drawn at √2 scale (twice the area). **Travel:** Market Cross is the hub. From Sable Row the player can travel to Market Cross or, by the quay road, straight to Wharf Ladder; Civic Records, Lamp Ward and Riverside are reached through Market Cross (Riverside also borders Wharf Ladder and Lamp Ward on the grid). Travel is always to a neighbouring ward or along a road; `CityWorldMap.roads` holds the one non-grid link. The walkable plate stays at the shared size until wider art ships: a doubled plate and page set, 640×320 `.sr`/`.lm`/`.ht` rasters, an extended street plan and obstacle set, and per-district world size in code (see `AssetManifest.md`).
@@ -128,7 +128,7 @@ Mark clearly as **later**. Do not surface in M01 journal or Empty Coat intro as 
 - A broadsheet that printed Voss’s old docker case wrong and will not retract.
 - Dock Authority “lost” crates that share seal-marks with Lillian’s last night.
 - Ashfield company housing where the docker’s sister still keeps an empty chair.
-- A municipal ward-license racket that sells “thresholds that hold” to boarding houses that don’t.
+- A municipal ward-license racket that sells “thresholds that hold” to lodging-houses that don’t.
 ### 4.2 Characters — the two established leads
 
 RainShadow’s first cast is deliberately small and sharp. Supporting players (lanternmen, dockers, reporters, siblings, fixers) appear as needed; only two identities are locked as **series leads** for the outline.
@@ -240,7 +240,7 @@ Two hundred now is not a flourish. It is most of what she can liquidate without 
 | His tone | How she answers |
 |---|---|
 | **Warm** | Softens; pays faster; offers the follower clean |
-| **Dry** | Becomes a clerk of her own grief—times, places, the coat in the paper bag |
+| **Dry** | Becomes a clerk of her own grief—times, places, the coat in its paper wrap |
 | **Sharp** | Goes cold and useful; the gated manifests line is her refusing to be handled |
 
 ##### What she wants (stacked)
@@ -350,7 +350,7 @@ Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on ma
 
 ###### 3. Lead one — Wharf Ladder shipping office *(Act I beyond M01)*
 
-Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand uptown”; someone scrubbed reading-rights on her last manifest pull. **First fight of the case (avoidable):** Merrick sold his silence twice, and the Gray Man’s hired men come to collect the folio Voss is reading. Encounter **E1** below.
+Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand in the upper city”; someone scrubbed reading-rights on her last manifest pull. **First fight of the case (avoidable):** Merrick sold his silence twice, and the Gray Man’s hired men come to collect the folio Voss is reading. Encounter **E1** below.
 
 **Scene card — Wharf Ladder shipping office** *(design runway; not M01)*
 
@@ -374,7 +374,7 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 **Objectives:**
 
-1. Confirm last sighting: left at nine, “one more errand uptown,” no hired coach on the desk slate.
+1. Confirm last sighting: left at nine, “one more errand in the upper city,” no hired coach on the desk slate.
 2. Find seal-mark scrap or bitten-glove smear on her desk-leather edge.
 3. Learn reading-rights on her last manifest pull were scrubbed after she vanished.
 4. Exit with a lead toward Civic Spine records or Dock Authority lost-crate numbers.
@@ -403,7 +403,7 @@ The room is the weapon: shelves of seals that bite (shove a man into them and he
 
 **Failure / soft fail:** Leave with only the ferry/nine facts (already known) and a frightened clerk. No seal scrap—Act I still playable via river stones, but Civic Spine lead is weaker.
 
-**Success:** Seal scrap + scrubbed rights + uptown errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
+**Success:** Seal scrap + scrubbed rights + upper-city errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
 
 **Tone locks:** Combat is possible but never required: a careful player leaves without throwing a punch. The fight is short, ugly and in one room. Magic = bitten seals and scrubbed rights, not fireballs. Greatcoat is silhouette, not boss fight—he watches from the quay and never enters. Voss does not confess the docker wound here.
 
@@ -444,9 +444,9 @@ The copy is hidden in the ink-and-paper shop where Lila keeps books. The Gray Ma
 
 ###### 7. Act I break *(Act I beyond M01)*
 
-Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe uptown). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Lanterns will not help without a sacrifice. The greatcoat stops pretending to only watch.
+Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-safe in the upper city). Lillian is likely alive *or* made to look drowned for a reason that still needs her handwriting. The Lanterns will not help without a sacrifice. The greatcoat stops pretending to only watch.
 
-**Encounter E5 — the uptown seal-locker (the Gray Man himself):** the key opens the locker and the Gray Man is already there, with whatever muscle is left. He is better at this than Voss: trained, patient, and his charm dims every lamp in the room. This is an **escape** fight, not a duel. Voss wins by leaving with what is inside (a bundle in Lillian’s handwriting), not by putting the Gray Man down.
+**Encounter E5 — the upper-city seal-locker (the Gray Man himself):** the key opens the locker and the Gray Man is already there, with whatever muscle is left. He is better at this than Voss: trained, patient, and his charm dims every lamp in the room. This is an **escape** fight, not a duel. Voss wins by leaving with what is inside (a bundle in Lillian’s handwriting), not by putting the Gray Man down.
 
 - **Talk first:** naming the Civic Spine signature from Beat 6 makes him hesitate: Voss knows too much to be quietly erased, and a dead finder is a louder story than a drowned clerk. That buys one exchange. Use it to bargain (give up the locker, keep the pages) or to get to the door.
 - **Bluff:** if the false-key rumour was planted, Voss can offer a second, fake locker. He half-believes it.
@@ -480,11 +480,11 @@ Voss holds the key’s true shape (not inn, not desk—a seal-locker or ward-saf
 Aligned to the shipped Empty Coat intro graph:
 
 1. Lillian vanished **two nights past** after work at a shipping office near **Wharf Ladder** (ledgers, manifests, seals that bite if you read them wrong).
-2. Last known: left work about nine; told a clerk she had one more errand uptown; no hired coach chalked on the desk slate.
+2. Last known: left work about nine; told a clerk she had one more errand in the upper city; no hired coach chalked on the desk slate.
 3. By midnight, the river lanterns found her coat on the stones below the old iron stairs—empty, arranged; no body. Like an offering someone wanted found.
-4. **The Lanterns** soft-file: missing adult, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
+4. **The Lanterns** soft-file: a woman gone, no struggle, coat recovered, probable drowning; case cooling before the ink dried. Polite; no reading-rights on the file.
 5. Coat pockets turned as if to show nothing left to steal; **brass key sewn into the lining**—recovered by Lila before the garment fully left her hands; faint lamp oil and river water on the metal.
-6. Since the key: a **Gray Man** (gray greatcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; streetlamps dim a fraction when he stands under them.
+6. Since the key: a **Gray Man** (gray greatcoat, black gloves) follows Lila; professional habits (cart noise, doorway posts); he turns away when met with a direct look; street-lanterns dim a fraction when he stands under them.
 7. Voss accepts the case; the key stays in his care on the desk leather.
 
 ##### People
@@ -495,7 +495,7 @@ Aligned to the shipped Empty Coat intro graph:
 | `person.lillian` | Lillian March | Missing person | Whereabouts unknown | Shipping-office ledgers; hated the river; hated unfinished books; last seen two nights past |
 | `person.gray-man` | The Gray Man | Unknown watcher | Unidentified | Gray greatcoat, black gloves; not yet proven badge vs private muscle; knows Lila came to Voss |
 | *(Act I later)* | Night lamp-sergeant / river lanterns | Institutional | Not interviewed in M01 | Soft close: tea, tides, politeness with teeth |
-| *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand uptown” |
+| *(Act I later)* | Shipping-office clerk | Witness | Not interviewed in M01 | Last conversation with Lillian; “errand in the upper city” |
 | *(Act I later)* | Ketch and Bram | The Gray Man’s hired muscle | Not met in M01 | Dock labour paid in chalk; recurring threat from Beat 3; Bram can be turned |
 
 ##### Evidence
@@ -519,7 +519,7 @@ Aligned to the shipped Empty Coat intro graph:
 - River recovery site + lanternman / river-lantern soft file; find out who at the river post talks to the Gray Man.
 - Gray greatcoat pressure (threshold / bait / lamp-sergeant favor); keep Lila and the key out of his hands.
 - Mid-act trust gate: the page they almost burned; partial manifest line; save the copy (or the man) from the ink-shop fire.
-- Act I break: open the seal-locker uptown and get out with what Lillian left in it.
+- Act I break: open the seal-locker in the upper city and get out with what Lillian left in it.
 - Civic Spine / Dock Authority “lost” crates signatures.
 - Optional later seed: Blue Room on Wardour Street (brass house token or testimony)—only after earned.
 
@@ -530,18 +530,18 @@ Prefer **narrative order** (coat → key → follower → office). Times are det
 | Approx. time | Event | Journal entry ID |
 |---|---|---|
 | Two nights past · ~9:00 PM | Lillian leaves Wharf Ladder shipping office | `log.leave-work` |
-| Two nights past · night | Gap: “errand uptown” / unknown | folded into movements |
+| Two nights past · night | Gap: “errand in the upper city” / unknown | folded into movements |
 | Two nights past · ~midnight | Coat recovered riverside (old iron stairs) | `log.coat` |
 | After recovery | Lila finds brass key in lining | `log.key` |
 | Same night | Lila followed by the Gray Man (gray greatcoat) | `log.followed` |
-| Two nights past · ~11:40 PM | Case opened at Voss’s office | `log.case-open` |
+| Two nights past · near midnight | Case opened at Voss’s office | `log.case-open` |
 | After retain | Office field notes (if hotspots inspected) | `log.office` |
 
 ##### Open mysteries (writer hooks; not journal spoilers)
 
 Kept open on purpose through Act I:
 
-- What the humming key opens (seal-locker / ward-safe uptown—shape earned at Act I break).
+- What the humming key opens (seal-locker / ward-safe in the upper city—shape earned at Act I break).
 - Who benefited if Lillian stopped reading manifests.
 - Who emptied the coat, and why leave the key?
 - Is Lillian alive, dead, or “worse” (held / erased from ledgers / made to look drowned for handwriting)?
@@ -571,7 +571,7 @@ Use these as **load-bearing beats**, not window dressing:
 - The client who hires honesty and practices omission.
 - The coat / photograph / key as a mute witness.
 - Rain that erases tracks and forces people indoors where they can be overheard.
-- A bar or café where everyone lies better after the second drink.
+- A tavern where everyone lies better after the second cup.
 - The “routine inquiry” that is actually a warning.
 - Files that exist twice—once for the public, once for the drawer that does not open.
 - A romantic possibility that investigation may destroy.
