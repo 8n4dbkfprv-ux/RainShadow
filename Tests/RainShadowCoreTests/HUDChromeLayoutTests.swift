@@ -43,9 +43,17 @@ struct HUDChromeLayoutTests {
     @Test func leftRailIconsSitInsideNonOverlappingWells() {
         let measuredCenters = HUDChromeLayout.LeftRail.wellCenterFractionsFromTop
         #expect(measuredCenters.count == HUDChromeLayout.LeftRail.wellCount)
-        // Measured art is not equal-spaced; bottom wells sit lower than (i+0.5)/N.
+        // The clock remains low while the upper and utility groups use equal pitch.
         #expect(measuredCenters[11] > 0.92)
         #expect(measuredCenters[0] < 0.09)
+        for index in 1...7 {
+            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.070) < 0.0001)
+        }
+        #expect(abs(measuredCenters[8] - measuredCenters[7] - 0.140) < 0.0001)
+        for index in 9...10 {
+            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.070) < 0.0001)
+        }
+
 
         for size in representativeSizes {
             let layout = HUDChromeLayout.leftRailLayout(for: size)

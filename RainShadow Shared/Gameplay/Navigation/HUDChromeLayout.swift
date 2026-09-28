@@ -11,17 +11,16 @@ enum HUDChromeLayout {
         /// Width / height of the painted plate — uniform scale must preserve this.
         static let artAspectWidthOverHeight: CGFloat = 256.0 / 2_048.0
         static let wellCount = 12
-        /// Well centers as fractions from the **top** of the cropped plate.
-        /// Measured from horizontal metal dividers on `hud_left_rail_plate_v03`
-        /// (equal spacing drifts ~2% low by the bottom well).
+        /// Reference sidebar grouping: eight evenly spaced upper controls, a
+        /// two-pitch group break, three utility controls, then the clock.
         static let wellCenterFractionsFromTop: [CGFloat] = [
-            0.0770, 0.1614, 0.2409, 0.3186, 0.3961, 0.4738,
-            0.5513, 0.6286, 0.7043, 0.7815, 0.8600, 0.9375
+            0.068, 0.138, 0.208, 0.278, 0.348, 0.418,
+            0.488, 0.558, 0.698, 0.768, 0.838, 0.930
         ]
         /// Dark icon recess width relative to plate width (measured ~0.54 on art).
         static let wellWidthFractionOfPlate: CGFloat = 0.54
-        /// Well height relative to plate height (measured slot ~0.078; square via min with width).
-        static let wellHeightFractionOfPlate: CGFloat = 0.072
+        /// Slot height leaves equal clear gaps within each reference group.
+        static let wellHeightFractionOfPlate: CGFloat = 0.058
         /// Icons fill the well without overflowing the painted rim.
         static let iconFillOfWell: CGFloat = 0.90
         /// Vertical inset so top/bottom metal caps clear the view edge.

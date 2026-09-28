@@ -20,18 +20,18 @@ final class ActionBarNode: SKNode {
 
         var artName: String {
             switch self {
-            case .menu: return "hud_action_menu_fantasy_v01"
-            case .map: return "hud_action_map_fantasy_v01"
-            case .journal: return "hud_action_journal_fantasy_v01"
-            case .inventory: return "hud_action_inventory_fantasy_v01"
-            case .character: return "hud_action_character_fantasy_v01"
-            case .leads: return "hud_action_leads_fantasy_v01"
-            case .contacts: return "hud_action_contacts_fantasy_v01"
-            case .settings: return "hud_action_settings_fantasy_v01"
-            case .rest: return "hud_action_rest_fantasy_v01"
-            case .help: return "hud_action_help_fantasy_v01"
-            case .hideUI: return "hud_action_hide_ui_fantasy_v01"
-            case .clock: return "hud_action_clock_fantasy_v01"
+            case .menu: return "hud_action_menu_fantasy_v02"
+            case .map: return "hud_action_map_fantasy_v02"
+            case .journal: return "hud_action_journal_fantasy_v02"
+            case .inventory: return "hud_action_inventory_fantasy_v02"
+            case .character: return "hud_action_character_fantasy_v02"
+            case .leads: return "hud_action_leads_fantasy_v02"
+            case .contacts: return "hud_action_contacts_fantasy_v02"
+            case .settings: return "hud_action_settings_fantasy_v02"
+            case .rest: return "hud_action_rest_fantasy_v02"
+            case .help: return "hud_action_help_fantasy_v02"
+            case .hideUI: return "hud_action_hide_ui_fantasy_v02"
+            case .clock: return "hud_action_clock_fantasy_v02"
             }
         }
 

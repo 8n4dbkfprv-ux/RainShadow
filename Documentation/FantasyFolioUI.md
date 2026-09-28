@@ -121,3 +121,22 @@ are preloaded and included in iOS/macOS. The macOS build passes; live pointer
 hover/down paths were captured and visually reviewed using
 `RAINSHADOW_CAPTURE_OVERLAY=dialogue` and
 `RAINSHADOW_CAPTURE_DIALOGUE_BUTTON=hover|pressed`.
+
+## Sidebar V02 — Baldur’s Gate reference silhouettes
+
+Twelve new Image Generator icons follow the user's September 28 sidebar
+reference while retaining bronze/ivory materials: dragon head, compass N,
+quill/inkwell, backpack/sword, profile bust, open book, scroll, cogwheel,
+book/arrow, question mark, closed eyelid, and sun/moon clock. Runtime action
+bindings are unchanged. The parchment rail and generated slot frame remain.
+
+`HUDChromeLayout.LeftRail` now uses equal 0.070-height center spacing in the
+upper eight and lower three controls, a 0.140 group break, and a separate bottom
+clock. Slots share one size. The existing layout regression checks equal group
+spacing and non-overlap across representative viewports.
+
+Masters, prompts and hashes: `ArtSource/Generated/UI/FantasySidebarV02/`.
+Installer: `ArtSource/Processing/install_fantasy_sidebar_v02.py`.
+Runtime: `RainShadow Shared/Resources/Art/UI/HUD/hud_action_*_fantasy_v02.png`.
+All twelve are 256×256 RGBA, preloaded and included in both app targets.
+macOS Debug build and all 18 HUD layout tests pass. Live 1440×900 capture reviewed.
