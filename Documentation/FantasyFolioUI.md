@@ -90,3 +90,34 @@ included in both app targets and preloaded by `GameArt`.
 
 Sidebar button wells reuse `inventory_slot_frame_fantasy_v01`, with the new
 icons inset to 82% of their former extent to keep the painted rims clear.
+
+## Generated dialogue frame and Mac OS 9 button
+
+The built-in Image Generator created `dialogue_frame_fantasy_v01.png` and
+`dialogue_button_fantasy_v01.png`, using the accepted parchment card as a material
+reference. They live in `RainShadow Shared/Resources/Art/UI/Dialogue/` and are
+included in both app targets. The frame is a complete paper backing, nine-sliced
+behind the cropped dialogue text and portrait. The portrait bezel reuses the
+generated inventory slot. Continue and End Dialogue use a compact rounded
+rectangle with the raised double bevel of a Mac OS 9 push button, dark ink,
+and parchment/bronze materials. Hover and press use dedicated Image Generator variants of the idle master,
+with a brighter raised bevel and a darker recessed face respectively.
+
+Masters and full prompts are in `ArtSource/Generated/UI/FantasyDialogueV01/`.
+Reinstall with `python3 ArtSource/Processing/install_fantasy_dialogue_v01.py`;
+this trims transparent padding and uniformly downsamples without repainting.
+The command layout uses the installed button's 512×123 aspect ratio and fits it
+uniformly inside its hit target. The frame layering regression now checks that
+text and portraits sit above the opaque paper instead of below an aperture overlay.
+
+Validation: macOS Debug build succeeds; 50 dialogue layout/scrollbar tests pass.
+The already documented `dialogueCameraFramingKeepsMoreOfBothCharactersThanLegacyDrop`
+failure was excluded. The 1440×900 live dialogue capture was visually reviewed.
+
+The hover/pressed masters share the idle crop `[40, 110, 2131, 613]` and all
+three installed button textures are 512×123 RGBA. The installer records
+`fixed_crop` for interaction states to preserve registration. Both new variants
+are preloaded and included in iOS/macOS. The macOS build passes; live pointer
+hover/down paths were captured and visually reviewed using
+`RAINSHADOW_CAPTURE_OVERLAY=dialogue` and
+`RAINSHADOW_CAPTURE_DIALOGUE_BUTTON=hover|pressed`.

@@ -552,9 +552,9 @@ struct DialoguePanelLayoutTests {
         #expect(!source.contains("panelRect.maxX - 176"), "Old fixed scrollbar inset must be gone")
     }
 
-    @Test func presenterKeepsPortraitUnderFrameAndScrollbarAbove() throws {
-        // Portrait sits under the frame so the painted gold window rim frames the photo.
-        // Scrollbar stays above the rails; body text stays under the frame.
+    @Test func presenterKeepsContentAboveParchmentAndScrollbarAbove() throws {
+        // Generated frame is an opaque paper backing. Portrait and cropped text
+        // must remain above it, with scrollbars above the content.
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -581,8 +581,8 @@ struct DialoguePanelLayoutTests {
         let bodyScrollbarZ = try #require(zPosition(for: "bodyScrollbar.zPosition"))
         let choicesScrollbarZ = try #require(zPosition(for: "choicesScrollbar.zPosition"))
 
-        #expect(frameZ > contentZ, "Frame must cover overflowing body text")
-        #expect(portraitZ < frameZ, "Portrait must sit under the painted gold window rim")
+        #expect(frameZ < contentZ, "Opaque parchment must stay behind cropped body text")
+        #expect(portraitZ > frameZ, "Portrait must remain visible above the parchment")
         #expect(bodyScrollbarZ > frameZ, "Body scrollbar must not sit under the right frame rail")
         #expect(choicesScrollbarZ > frameZ, "Choice scrollbar must not sit under the right frame rail")
     }

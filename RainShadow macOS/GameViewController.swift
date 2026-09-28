@@ -157,6 +157,9 @@ class GameViewController: NSViewController {
                     game.dialoguePresenter.present(graph: OfficeCaseFileMonologue.graph)
                     game.dialoguePresenter.removeAllActions()
                     game.dialoguePresenter.alpha = 1
+                    if let state = environment["RAINSHADOW_CAPTURE_DIALOGUE_BUTTON"] {
+                        game.dialoguePresenter.captureCommandState(state)
+                    }
                 case "journal":
                     game.setJournalPresented(true)
                     game.journalOverlay.removeAllActions()

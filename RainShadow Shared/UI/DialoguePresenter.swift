@@ -43,6 +43,7 @@ final class DialoguePresenter: SKNode {
     private let panelRoot = SKNode()
     private let contentWell = SKShapeNode()
     private let frameOverlay = SKSpriteNode()
+    private let portraitFrame = SKSpriteNode()
     private let bodyScrollbar = DialogueScrollbarNode()
     private let choicesScrollbar = DialogueScrollbarNode()
     private let portraitBacking = SKShapeNode()
@@ -199,10 +200,12 @@ final class DialoguePresenter: SKNode {
 
         let portraitRect = geometry.portraitRect
         let photoRect = DialoguePanelLayout.portraitPhotoRect(in: geometry.panelRect)
-        // Backing + photo both fill the measured portrait hole; frame metal draws the rim on top.
+        // Keep the established square portrait geometry with a separate generated bronze bezel.
         portraitBacking.path = roundedRect(portraitRect, radius: 0)
         portrait.position = CGPoint(x: photoRect.midX, y: photoRect.midY)
         portrait.size = CGSize(width: photoRect.width, height: photoRect.height)
+        portraitFrame.position = portrait.position
+        portraitFrame.size = CGSize(width: photoRect.width + 16, height: photoRect.height + 16)
 
         // Speaker + body share one text-column left edge (no stair-step indent).
         // Top inset clears the painted metal rim so the name never overlaps the frame.
@@ -633,6 +636,7 @@ final class DialoguePresenter: SKNode {
         // Content well sits under text; painted frame rails draw over its edges.
         contentWell.fillColor = .white
         contentWell.fillTexture = UIPaintedChrome.parchmentSurface()
+        contentWell.isHidden = true // Generated frame now includes the full parchment surface.
         contentWell.strokeColor = .clear
         contentWell.zPosition = 0
         contentWell.name = "dialogue.content-well"
@@ -658,13 +662,15 @@ final class DialoguePresenter: SKNode {
         }
         panelRoot.addChild(choicesScrollbar)
 
-        // Portrait sits under the frame so the painted gold window rim frames the photo
-        // (frame must keep a transparent portrait hole — see process_ui_chrome_v03).
+        // Portrait and its generated slot bezel sit above the parchment backing.
         portraitBacking.fillColor = SKColor(white: 0.012, alpha: 1)
         portraitBacking.strokeColor = .clear
         portraitBacking.lineWidth = 0
         portraitBacking.zPosition = 2
         panelRoot.addChild(portraitBacking)
+        portraitFrame.texture = UIPaintedChrome.texture(named: "inventory_slot_frame_fantasy_v01")
+        portraitFrame.zPosition = 2
+        panelRoot.addChild(portraitFrame)
         portrait.zPosition = 3
         panelRoot.addChild(portrait)
 
@@ -677,9 +683,7 @@ final class DialoguePresenter: SKNode {
 
         contentMask.fillColor = .white
         contentMask.strokeColor = .clear
-        // Body text sits under the painted frame so transparent wells reveal it
-        // while metal rails still clip any overflow. (Wells must stay transparent —
-        // see process_ui_chrome_v03 dialogue pass.)
+        // The crop mask contains body text above the opaque parchment backing.
         contentCrop.maskNode = contentMask
         contentCrop.zPosition = 1
         panelRoot.addChild(contentCrop)
@@ -700,28 +704,16 @@ final class DialoguePresenter: SKNode {
         choicesRoot.name = "dialogue.choices-band"
         choicesCrop.addChild(choicesRoot)
 
-        if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07")
-            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v06")
-            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v05") {
+        if let texture = UIPaintedChrome.texture(named: "dialogue_button_fantasy_v01") {
             commandIdleTexture = texture
-            commandHoverTexture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07_hover")
-            commandPressedTexture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v07_pressed")
+            commandHoverTexture = UIPaintedChrome.texture(named: "dialogue_button_fantasy_v01_hover")
+            commandPressedTexture = UIPaintedChrome.texture(named: "dialogue_button_fantasy_v01_pressed")
             commandPlate.texture = texture
             commandPlate.centerRect = DialoguePanelLayout.commandFrameCenterRect
             commandPlate.color = .white
             commandPlate.colorBlendFactor = 0
             commandPlate.alpha = 1
             usesWideCommandPlate = true
-        } else if let texture = UIPaintedChrome.texture(named: "dialogue_command_button_plate_v04")
-            ?? UIPaintedChrome.texture(named: "dialogue_command_button_plate_v03") {
-            commandIdleTexture = texture
-            commandHoverTexture = nil
-            commandPressedTexture = nil
-            commandPlate.texture = texture
-            commandPlate.centerRect = CGRect(x: 0.12, y: 0.28, width: 0.76, height: 0.44)
-            commandPlate.color = .white
-            commandPlate.colorBlendFactor = 0
-            commandPlate.alpha = 1
         }
         commandPlate.zPosition = 51
         addChild(commandPlate)
@@ -742,31 +734,20 @@ final class DialoguePresenter: SKNode {
 
     private func assertionFailureIfMissingFrame() {
         if !usesGeneratedFrame {
-            assertionFailure("Missing dialogue_outer_frame_overlay_v11.png")
+            assertionFailure("Missing dialogue_frame_fantasy_v01.png")
         }
     }
 
     @discardableResult
     private func addGeneratedFrameOverlay() -> Bool {
-        // v11 = v10 plaque with a thinner portrait bezel (same square aperture / metal style).
-        let texture = UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v11")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v10")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v08")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v09")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v07")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v06")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v05")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v04")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v03")
-            ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
-        guard let texture else { return false }
+        guard let texture = UIPaintedChrome.texture(named: "dialogue_frame_fantasy_v01") else { return false }
         frameOverlay.texture = texture
-        frameOverlay.color = UITheme.Color.paperShadow
-        frameOverlay.colorBlendFactor = 0.24
-        frameOverlay.name = "dialogue.outer-frame-overlay"
-        // Large top-left fixed corner keeps the painted portrait window from stretching.
-        frameOverlay.centerRect = DialoguePanelLayout.frameNineSliceCenterRect
-        frameOverlay.zPosition = 10
+        frameOverlay.color = .white
+        frameOverlay.colorBlendFactor = 0
+        frameOverlay.name = "dialogue.parchment-frame"
+        // The generated panel includes paper; content and portrait render above it.
+        frameOverlay.centerRect = CGRect(x: 0.05, y: 0.15, width: 0.90, height: 0.70)
+        frameOverlay.zPosition = 0
         panelRoot.addChild(frameOverlay)
         return true
     }
@@ -1316,6 +1297,15 @@ final class DialoguePresenter: SKNode {
         updateCommandPlateAppearance()
     }
 
+    #if DEBUG
+    /// Exercise real pointer transitions in deterministic artwork captures.
+    func captureCommandState(_ state: String) {
+        let center = CGPoint(x: commandHitRect.midX, y: commandHitRect.midY)
+        if state == "hover" { _ = updatePointer(at: center) }
+        if state == "pressed" { _ = handlePointerDown(at: center) }
+    }
+    #endif
+
     private func updateCommandPlateAppearance() {
         let isPressed = commandIsPressed && commandPressIsInside
         let isHot = commandIsHovered || isPressed
@@ -1329,8 +1319,8 @@ final class DialoguePresenter: SKNode {
             commandPlate.colorBlendFactor = 0
         } else if let idle = commandIdleTexture {
             commandPlate.texture = idle
-            commandPlate.color = .white
-            commandPlate.colorBlendFactor = 0
+            commandPlate.color = isPressed ? UITheme.Color.paperShadow : UITheme.Color.brass
+            commandPlate.colorBlendFactor = isPressed ? 0.28 : (isHot ? 0.12 : 0)
         } else if isPressed {
             commandPlate.color = UITheme.Tint.pressedColor
             commandPlate.colorBlendFactor = UITheme.Tint.pressedBlend
@@ -1378,11 +1368,11 @@ final class DialoguePresenter: SKNode {
     private func updateCommandLabelAppearance() {
         guard !commandLabelText.isEmpty else { return }
         let isHot = commandIsHovered || (commandIsPressed && commandPressIsInside)
-        let foreground = isHot ? Palette.responseHot : UITheme.Color.commandLabel
+        let foreground = isHot ? Palette.responseHot : UITheme.Color.ink
         commandLabel.attributedText = commandAttributedText(commandLabelText, color: foreground)
         commandLabelShadow.attributedText = commandAttributedText(
             commandLabelText,
-            color: SKColor(white: 0, alpha: 0.82)
+            color: SKColor(white: 1, alpha: 0.35)
         )
     }
 

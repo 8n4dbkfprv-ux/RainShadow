@@ -133,9 +133,9 @@ struct DialoguePanelLayout: Equatable {
 
     /// Continue / End control size and placement under the dialogue panel.
     static let commandHeight: CGFloat = 48
-    /// Reference-shaped command artwork (`dialogue_command_button_plate_v07` 1024×116).
-    static let commandArtPixelSize = CGSize(width: 1_024, height: 116)
-    static let commandArtAspectWidthOverHeight: CGFloat = 1_024.0 / 116.0
+    /// Generated Mac OS 9–shaped parchment button (512×123).
+    static let commandArtPixelSize = CGSize(width: 512, height: 123)
+    static let commandArtAspectWidthOverHeight: CGFloat = 512.0 / 123.0
     /// The authored bar already has the correct low-wide silhouette; scale it as one piece.
     static let commandFrameCenterRect = CGRect(x: 0, y: 0, width: 1, height: 1)
     static let commandGapBelowPanel: CGFloat = 10
@@ -808,7 +808,7 @@ struct DialoguePanelLayout: Equatable {
         visibleHeight: CGFloat,
         panelWidth: CGFloat
     ) -> CGRect {
-        let width = min(420, panelWidth * 0.38)
+        let width = min(commandHeight * commandArtAspectWidthOverHeight, panelWidth * 0.38)
         let centerY = commandCenterY(
             panelRect: panelRect,
             panelRootOffsetY: panelRootOffsetY,
@@ -822,11 +822,10 @@ struct DialoguePanelLayout: Equatable {
         )
     }
 
-    /// Fits the very shallow command artwork inside its accessible hit target without
-    /// stretching the reference-like silhouette.
+    /// Fits the generated button uniformly inside its accessible hit target.
     static func commandPlateSize(in hitRect: CGRect) -> CGSize {
         let height = min(hitRect.height, hitRect.width / commandArtAspectWidthOverHeight)
-        return CGSize(width: hitRect.width, height: max(1, height))
+        return CGSize(width: max(1, height) * commandArtAspectWidthOverHeight, height: max(1, height))
     }
 
     /// Scrollbar chrome pieces laid out inside `scrollbarRect` (local space of the bar node).
