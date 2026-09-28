@@ -1,7 +1,7 @@
 /// Content links for the isolated Blender playtest. The story catalog keeps its
 /// original office-to-ward link; only this copy returns to the new street plan.
 enum SableBlenderPlaytest {
-    static let exteriorID = AreaID("sable_court")
+    static let exteriorID = AreaID("RS9900")
     static let apartmentRegionID = "sable.apartment.entrance"
     static let returnEntrance = "apartment_approach"
 

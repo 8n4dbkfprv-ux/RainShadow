@@ -78,6 +78,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private static let compatibilityAnchor = CGPoint(x: 0.5, y: 40 / 256)
     private static let spriteScale = OfficeInteriorScale.ActorDisplay.spriteScale
     private var facing: ActorFacing = .northEast
+    var currentFacing: ActorFacing { facing }
     /// The engine's `NewOrientation`: a facing the actor is rotating toward one
     /// bin per tick while standing. Nil once the turn completes.
     /// This actor's BG:EE `move_scale` and any rate modifiers. Ships at
@@ -144,85 +145,39 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     override init() {
         let __traceStart = AreaLoadTrace.isEchoing ? CFAbsoluteTimeGetCurrent() : 0
         defer { AreaLoadTrace.note("init.DetectiveActorNode", milliseconds: (CFAbsoluteTimeGetCurrent() - __traceStart) * 1_000) }
-        let indexedLibrary = try? IEAvatarFrameLibrary.shared(character: "Voss")
+        let indexedLibrary: IEAvatarFrameLibrary
+        do {
+            indexedLibrary = try IEAvatarFrameLibrary.shared(character: VossAnimationSet.character)
+            try VossAnimationSet.validate(indexedLibrary.sprite)
+        } catch {
+            fatalError("Current Voss character could not load: \(error)")
+        }
         avatarLibrary = indexedLibrary
-        standingIdleFrames = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [IEAvatarVisualFrame])? in
-            for sourceName in facing.textureSourceCandidates {
-                if let frames = Self.completeFrameSequence(
-                    library: indexedLibrary,
-                    atlas: "VossIdle.atlas",
-                    prefix: "voss_standing_idle",
-                    direction: sourceName,
-                    frameCount: 4
-                ) {
-                    return (facing, frames)
-                }
-            }
-            return nil
+        standingIdleFrames = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.map { facing in
+            (facing, Self.currentFrames(library: indexedLibrary, clip: "idle",
+                direction: VossAnimationSet.direction(facing), count: VossAnimationSet.idleFrames))
         })
-        // The revised desk faces SW. If that authored set is incomplete,
-        // choose the next complete set as one atomic fallback; never mix
-        // directions between cells or between the seated and transition clips.
-        let seatAnimations = Self.loadSeatAnimationFrames(library: indexedLibrary)
-        seatVisualDirection = seatAnimations.direction
-        seatedIdleFrames = seatAnimations.seatedIdle
-        standUpFrames = seatAnimations.standUp
-        seatedUpperFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
-            library: indexedLibrary,
-            atlas: "VossSeatedIdle.atlas",
-            prefix: "voss_seated_upper",
-            direction: seatAnimations.direction,
-            frameCount: 8
-        ) ?? []) : []
-        seatedLowerFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
-            library: indexedLibrary,
-            atlas: "VossSeatedIdle.atlas",
-            prefix: "voss_seated_lower",
-            direction: seatAnimations.direction,
-            frameCount: 8
-        ) ?? []) : []
-        seatedArmFrames = seatAnimations.seatedIdle.isEmpty ? (Self.completeSeatFrameSequence(
-            library: indexedLibrary,
-            atlas: "VossSeatedArms.atlas",
-            prefix: "voss_seated_arms",
-            direction: seatAnimations.direction,
-            frameCount: 8
-        ) ?? []) : []
-        walkFrames = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.compactMap { facing -> (ActorFacing, [IEAvatarVisualFrame])? in
-            for sourceName in facing.textureSourceCandidates {
-                if let frames = Self.completeFrameSequence(
-                    library: indexedLibrary,
-                    atlas: "VossWalk.atlas",
-                    prefix: "voss_walk",
-                    direction: sourceName,
-                    frameCount: ActorLocomotionPacing.walkFramesPerCycle
-                ) {
-                    return (facing, frames)
-                }
-            }
-            return nil
+        seatVisualDirection = .southWest
+        seatedIdleFrames = Self.currentFrames(library: indexedLibrary, clip: "seated_idle",
+            direction: "sw", count: VossAnimationSet.idleFrames)
+        standUpFrames = Self.currentFrames(library: indexedLibrary, clip: "stand_up",
+            direction: "sw", count: VossAnimationSet.transitionFrames)
+        seatedUpperFrames = []
+        seatedLowerFrames = []
+        seatedArmFrames = []
+        walkFrames = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.map { facing in
+            (facing, Self.currentFrames(library: indexedLibrary, clip: "walk",
+                direction: VossAnimationSet.direction(facing), count: VossAnimationSet.walkFrames))
         })
 
-        // V15 atlases carry a 200px body rasterised at plate density (2.84
-        // art-px/wu vs the office plate's 2.53), so sprite and floor share one
-        // raster like BG:EE. Linear filtering smooths the play-zoom
-        // magnification the same way the EE engine smooths its zoom.
-        // Soft contact shadow is a separate sprite (not baked into walk/sit frames).
+        // Native CHMF pixels, registered pivots and embedded shadows come from
+        // the same bundle for every pose and area.
         contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
         // Embedded index-1 cast shadows own their opacity through IEIndexedSprite.
         // Hide the fallback independently of seat actions that animate its alpha.
-        contactShadow.isHidden = indexedLibrary?.sprite.hasEmbeddedShadow == true
+        contactShadow.isHidden = indexedLibrary.sprite.hasEmbeddedShadow
 
-        let initialSeated = seatedIdleFrames.first
-            ?? seatedUpperFrames.first
-            ?? standingIdleFrames[seatAnimations.direction.facing]?.first
-        body = IEAvatarNode(frame: initialSeated)
-        if initialSeated == nil {
-            let ratio = OfficeInteriorScale.ActorDisplay.visualBodyRatio
-            body.color = SKColor(red: 0.12, green: 0.1, blue: 0.1, alpha: 1)
-            body.size = CGSize(width: 76 * ratio, height: 142 * ratio)
-            body.anchorPoint = Self.compatibilityAnchor
-        }
+        body = IEAvatarNode(frame: seatedIdleFrames[0])
 
         lowerBody = IEAvatarNode(frame: seatedLowerFrames.first)
         lowerBody.zPosition = Self.seatedLowerLocalZ
@@ -376,66 +331,16 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         return .sequence(steps)
     }
 
-    private static func completeFrameSequence(
-        library: IEAvatarFrameLibrary?,
-        atlas: String,
-        prefix: String,
-        direction: String,
-        frameCount: Int
-    ) -> [IEAvatarVisualFrame]? {
-        let stems = (0..<frameCount).map {
-            String(format: "%@_%@_%02d", prefix, direction, $0)
+    private static func currentFrames(
+        library: IEAvatarFrameLibrary, clip: String, direction: String, count: Int
+    ) -> [IEAvatarVisualFrame] {
+        (0..<count).map { phase in
+            let name = String(format: "%@_%@_%02d.png", clip, direction, phase)
+            guard let frame = library.frame(atlas: VossAnimationSet.atlas, name: name) else {
+                fatalError("Current Voss frame could not render: \(name)")
+            }
+            return frame
         }
-        return IEAvatarFrames.sequence(
-            library: library,
-            atlas: atlas,
-            stems: stems,
-            compatibilityAnchor: compatibilityAnchor
-        )
-    }
-
-    private static func completeSeatFrameSequence(
-        library: IEAvatarFrameLibrary?,
-        atlas: String,
-        prefix: String,
-        direction: SeatVisualDirection,
-        frameCount: Int
-    ) -> [IEAvatarVisualFrame]? {
-        completeFrameSequence(
-            library: library,
-            atlas: atlas,
-            prefix: prefix,
-            direction: direction == .southWest ? "se" : direction.rawValue,
-            frameCount: frameCount
-        )
-    }
-
-    private static func loadSeatAnimationFrames(
-        library: IEAvatarFrameLibrary?
-    ) -> SeatAnimationFrames {
-        // The revised office faces SW. Its complete SE chain is reflected as a
-        // unit, including the rise endpoint; no sprite pixels or scale change.
-        for direction in SeatVisualDirection.allCases {
-            guard let seatedIdle = completeSeatFrameSequence(
-                library: library,
-                atlas: "VossSeatedIdle.atlas",
-                prefix: "voss_seated_idle",
-                direction: direction,
-                frameCount: 8
-            ), let standUp = completeSeatFrameSequence(
-                library: library,
-                atlas: "VossSeatTransitions.atlas",
-                prefix: "voss_stand_up",
-                direction: direction,
-                frameCount: 12
-            ) else { continue }
-            return SeatAnimationFrames(
-                direction: direction,
-                seatedIdle: seatedIdle,
-                standUp: standUp
-            )
-        }
-        return SeatAnimationFrames(direction: .northEast, seatedIdle: [], standUp: [])
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -878,6 +783,20 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         pendingFacing = target == facing ? nil : target
     }
 
+    /// Map::MoveToNewArea passes the named entrance's facing to LeaveArea.
+    func setEntranceFacing(_ orientation: ActorFacing) {
+        movable.setOrientation(orientation, slow: false)
+        facing = orientation
+        pendingFacing = nil
+        if state == .standingIdle { startStandingIdle() }
+    }
+
+    func relocateForDoor(to point: CGPoint) {
+        position = point
+        syncMovablePosition()
+        movable.impedeBumping()
+    }
+
     /// BG-style Stop/right-click behavior. A cancelled approach never invokes
     /// its interaction or scene-transition completion.
     func cancelMovement() {
@@ -1100,7 +1019,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         let upperSeat = seatBodyOffset
         let settle = SKAction.move(to: upperSeat, duration: duration)
         settle.timingMode = .linear
-        body.xScale = seatVisualDirection == .southWest ? -Self.spriteScale : Self.spriteScale
+        body.xScale = Self.spriteScale
         body.yScale = Self.spriteScale
         contactShadow.run(.fadeOut(withDuration: duration * 0.5))
         body.run(.sequence([.group([sitDown, settle]), finishSitting]), withKey: "standTransition")
@@ -1242,7 +1161,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
-        body.xScale = seatVisualDirection == .southWest ? -Self.spriteScale : Self.spriteScale
+        body.xScale = Self.spriteScale
         body.yScale = Self.spriteScale
         body.position = upperSeat
         // NE rear view bakes hands into the body cell.
@@ -1268,41 +1187,19 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         contactShadow.alpha = 0
     }
 
-    /// Ping-pong breath indices for an authored strip (e.g. 8 frames -> 0...7...1).
-    private static func breathCycleIndices(frameCount: Int) -> [Int] {
-        guard frameCount > 1 else { return Array(0..<max(1, frameCount)) }
-        return Array(0..<frameCount) + Array((1..<(frameCount - 1)).reversed())
-    }
-
     private func startSeatedIdle() {
-        guard seatedIdleFrames.count > 1 else { return }
-        let indices = Self.breathCycleIndices(frameCount: seatedIdleFrames.count)
-        let breathCycle = indices.map { seatedIdleFrames[$0] }
-        let animate = animateFrames(on: body, frames: breathCycle, timePerFrame: 0.21)
+        let animate = animateFrames(on: body, frames: seatedIdleFrames,
+                                    timePerFrame: VossAnimationSet.idleSecondsPerFrame)
         body.run(.repeatForever(animate), withKey: "seatedIdle")
     }
 
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
         applyStandingIdleTexture()
-        if let frames = standingIdleFrames[facing], frames.count > 1 {
-            // Authored 4-frame breath loop with a long neutral hold, replacing
-            // the former single-frame position bob.
-            let indices = Self.breathCycleIndices(frameCount: frames.count)
-            let breath = animateFrames(
-                on: body,
-                frames: indices.map { frames[$0] },
-                timePerFrame: 0.42
-            )
-            let hold = SKAction.wait(forDuration: 0.9)
-            body.run(.repeatForever(.sequence([breath, hold])), withKey: "standingIdle")
-        } else {
-            let settle = SKAction.sequence([
-                .moveBy(x: 0, y: 1, duration: 0.7),
-                .moveBy(x: 0, y: -1, duration: 0.75)
-            ])
-            body.run(.repeatForever(settle), withKey: "standingIdle")
-        }
+        guard let frames = standingIdleFrames[facing] else { return }
+        let animate = animateFrames(on: body, frames: frames,
+                                    timePerFrame: VossAnimationSet.idleSecondsPerFrame)
+        body.run(.repeatForever(animate), withKey: "standingIdle")
     }
 
     /// Walking facing, which snaps — `DoStep` assigns the path node's
@@ -1315,7 +1212,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func applyWalkTexture() {
-        applySpriteScale(mirrored: facing.isMirrored)
+        applySpriteScale()
         body.zRotation = 0
         guard let frames = walkFrames[facing], !frames.isEmpty else { return }
         walkFrameIndex %= frames.count
@@ -1341,7 +1238,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         if let idleFrame = standingIdleFrames[facing]?.first {
             body.apply(idleFrame)
         }
-        applySpriteScale(mirrored: facing.isMirrored)
+        applySpriteScale()
     }
 }
 

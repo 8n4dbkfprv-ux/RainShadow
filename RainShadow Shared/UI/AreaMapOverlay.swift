@@ -31,20 +31,35 @@ final class ClassicMacCloseButtonNode: SKNode {
         hitArea.strokeColor = .clear
         addChild(hitArea)
 
-        let texture = GameArt.texture(named: artworkName)
-            ?? (artworkName == "ui_close_box_macos9_noir_v04"
-                ? GameArt.texture(named: "ui_close_box_noir_v03")
-                    ?? GameArt.texture(named: "ui_close_box_noir_v02")
-                : nil)
-        if let texture {
-            texture.filteringMode = .linear
-            let artwork = SKSpriteNode(texture: texture, size: artworkSize)
-            artwork.zPosition = 1
-            addChild(artwork)
-            return
+        // Mac OS 9's empty square close box, rendered as an inset brass fitting.
+        // The hit target remains independent of the visible square.
+        _ = artworkName
+        let extent = max(20, min(44, artworkSize.width))
+        let outer = SKShapeNode(rectOf: CGSize(width: extent, height: extent))
+        outer.fillColor = UITheme.Color.paperShadow
+        outer.strokeColor = UITheme.Color.ink
+        outer.lineWidth = 1.5
+        outer.zPosition = 1
+        addChild(outer)
+        let h = extent / 2 - 2
+        for (points, color) in [
+            ([CGPoint(x: -h, y: -h), CGPoint(x: -h, y: h), CGPoint(x: h, y: h)], UITheme.Color.paper),
+            ([CGPoint(x: h, y: h), CGPoint(x: h, y: -h), CGPoint(x: -h, y: -h)], UITheme.Color.engraved)
+        ] {
+            let path = CGMutablePath()
+            path.addLines(between: points)
+            let bevel = SKShapeNode(path: path)
+            bevel.strokeColor = color
+            bevel.lineWidth = 2
+            bevel.zPosition = 2
+            addChild(bevel)
         }
-
-        assertionFailure("Missing \(artworkName).png")
+        let inset = SKShapeNode(rectOf: CGSize(width: extent - 10, height: extent - 10))
+        inset.fillColor = UITheme.Color.paper
+        inset.strokeColor = UITheme.Color.engraved
+        inset.lineWidth = 1
+        inset.zPosition = 3
+        addChild(inset)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -102,13 +117,13 @@ final class AreaMapOverlay: SKNode {
     }
 
     private enum Palette {
-        static let ink = SKColor(red: 0.016, green: 0.019, blue: 0.024, alpha: 0.97)
-        static let panel = SKColor(red: 0.030, green: 0.034, blue: 0.039, alpha: 0.96)
-        static let raised = SKColor(red: 0.064, green: 0.069, blue: 0.075, alpha: 0.98)
-        static let steel = SKColor(red: 0.46, green: 0.49, blue: 0.50, alpha: 0.62)
-        static let paper = SKColor(red: 0.82, green: 0.80, blue: 0.72, alpha: 1)
-        static let quiet = SKColor(red: 0.53, green: 0.55, blue: 0.55, alpha: 1)
-        static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
+        static let ink = UITheme.Color.paperShadow
+        static let panel = UITheme.Color.paper
+        static let raised = UITheme.Color.paperShadow
+        static let steel = UITheme.Color.engraved
+        static let paper = UITheme.Color.ink
+        static let quiet = UITheme.Color.inkMuted
+        static let amber = UITheme.Color.wax
         static let oxblood = SKColor(red: 0.50, green: 0.13, blue: 0.12, alpha: 1)
         static let rain = SKColor(red: 0.32, green: 0.51, blue: 0.66, alpha: 1)
         static let party = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
@@ -278,11 +293,12 @@ final class AreaMapOverlay: SKNode {
         backing.zPosition = -11
         sheet.addChild(backing)
 
-        if let texture = GameArt.texture(named: "inventory_outer_frame_v06")
-            ?? GameArt.texture(named: "inventory_outer_frame_v05") {
+        if let texture = UIPaintedChrome.assetTexture(named: "inventory_outer_frame_v06")
+            ?? UIPaintedChrome.assetTexture(named: "inventory_outer_frame_v05") {
             texture.filteringMode = .linear
             let frame = SKSpriteNode(texture: texture, size: Metrics.canvas)
             frame.name = "map.outer-frame"
+            UIPaintedChrome.configure(frame, for: "inventory_outer_frame_v06")
             frame.zPosition = -10
             sheet.addChild(frame)
         }
@@ -306,7 +322,7 @@ final class AreaMapOverlay: SKNode {
             rectOf: CGSize(width: stripWidth, height: stripHeight),
             cornerRadius: 0
         )
-        panel.fillColor = SKColor(white: 0.015, alpha: 0.94)
+        panel.fillColor = UITheme.Color.paper
         panel.strokeColor = SKColor(red: 0.70, green: 0.72, blue: 0.73, alpha: 0.82)
         panel.lineWidth = 1.5
         panel.name = "map.top-bar"
@@ -360,7 +376,7 @@ final class AreaMapOverlay: SKNode {
         let buttonX = stripWidth / 2 - 22 - buttonSize.width / 2
         let worldPlate = SKShapeNode(rectOf: buttonSize, cornerRadius: 1)
         worldPlate.name = "map.world"
-        worldPlate.fillColor = SKColor(red: 0.09, green: 0.095, blue: 0.10, alpha: 0.98)
+        worldPlate.fillColor = UITheme.Color.paper
         worldPlate.strokeColor = SKColor(red: 0.62, green: 0.64, blue: 0.65, alpha: 0.92)
         worldPlate.lineWidth = 1.25
         worldPlate.position = CGPoint(x: buttonX, y: stripY)
@@ -514,7 +530,7 @@ final class AreaMapOverlay: SKNode {
         root.addChild(diamond)
 
         let plate = SKShapeNode(rectOf: CGSize(width: 70, height: 21), cornerRadius: 2)
-        plate.fillColor = SKColor(white: 0.005, alpha: 0.76)
+        plate.fillColor = UITheme.Color.paper
         plate.strokeColor = pointOfInterest.color.withAlphaComponent(0.58)
         plate.lineWidth = 1
         plate.position = CGPoint(x: 0, y: -20)
@@ -538,7 +554,7 @@ final class AreaMapOverlay: SKNode {
             rectOf: CGSize(width: bandWidth, height: bandHeight),
             cornerRadius: 0
         )
-        band.fillColor = SKColor(white: 0.012, alpha: 0.88)
+        band.fillColor = UITheme.Color.paper
         band.strokeColor = SKColor(red: 0.55, green: 0.57, blue: 0.58, alpha: 0.55)
         band.lineWidth = 1
         band.position = CGPoint(x: 0, y: bandY)

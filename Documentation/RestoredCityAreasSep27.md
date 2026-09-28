@@ -2,8 +2,8 @@
 
 The standard world map now loads the reviewed native packages for Sable Row
 (V30), Wharf Ladder (V19 geometry + V20 materials), and Riverside (V13). The
-existing Lamp Ward/Lamphouse V12 integration is retained. Voss remains on the
-current replacement V14 runtime; his office and actor assets were not replaced.
+existing Lamp Ward/Lamphouse V12 integration is retained. The Voss character has since been corrected to the September 22/23 VossCHMF
+runtime; see [current character authority](VossCurrentRuntime.md).
 
 | World-map destination | Runtime area | Connected interior |
 |---|---|---|

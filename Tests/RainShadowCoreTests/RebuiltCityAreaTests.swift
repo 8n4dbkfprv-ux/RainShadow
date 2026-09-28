@@ -95,6 +95,8 @@ struct RebuiltCityAreaTests {
         original.exploredFog.removeValue(forKey: "city_riverside")
         original.groundPiles["city_riverside"]![0].x = 1592
         original.groundPiles["city_riverside"]![0].y = 1902
+        original.groundPiles = Dictionary(uniqueKeysWithValues: original.groundPiles.map { (AreaResourceID.canonical($0.key), $0.value) })
+        original.exploredFog = Dictionary(uniqueKeysWithValues: original.exploredFog.map { (AreaResourceID.canonical($0.key), $0.value) })
         #expect(migrated == original)
         #expect(store.load() == migrated)
         #expect(defaults.data(forKey: "save.BeforeCityLayoutV1") == legacy)

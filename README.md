@@ -16,6 +16,8 @@ Minimum targets are iOS/iPadOS 18.0 and macOS 15.0. The legacy tvOS template tar
 
 Lamp Ward and the Lamphouse are connected to normal city travel. For direct macOS access, open [Play Lamp Ward.command](Play%20Lamp%20Ward.command); it starts at the Lamphouse forecourt with a separate save. Click the doorway to enter and the narrow interior entrance strip to leave. See [the integration record](Documentation/LampWardRuntimeIntegrationV12.md) for asset sources and verification.
 
+Voss uses the current Baldur’s Gate reference character in every area, including his explicit southwest seated poses. See [the character authority and regression checks](Documentation/VossCurrentRuntime.md).
+
 ## Verification
 
 ```sh
@@ -28,4 +30,4 @@ Use a `/tmp` scratch path for SwiftPM on file-provider-managed Desktop folders; 
 
 Design, architecture, asset, and milestone documents are indexed in `Documentation/README.md`. Generated-source lineage is recorded in `ArtSource/Prompts/GenerationLog.md`.
 
-The restored Sable Row V30, Wharf Ladder V20, and Riverside V13 now replace their old world-map areas, with their linked interiors and the current Lamp Ward retained. `Play Sable Row.command` launches the connected city with a separate playtest save. See [restoration and validation](Documentation/RestoredCityAreasSep27.md).
+The restored Sable Row V30, Wharf Ladder V20, and Riverside V13 now replace their old world-map areas, with their linked interiors and the current Lamp Ward retained. `Play Sable Row.command` launches the connected city with a separate playtest save. See [restoration and validation](Documentation/RestoredCityAreasSep27.md). Area identities now use permanent short codes such as `RS0100` (Sable Row) and `RS0101` (office); [the code table](Documentation/AreaShortCodes.md) documents aliases and automatic save migration.

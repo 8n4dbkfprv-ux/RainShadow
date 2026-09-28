@@ -16,11 +16,11 @@ enum InventoryScreenLayout {
 
     static let canvas = CGSize(width: 1_960, height: 1_080)
 
-    static let titleY: CGFloat = 520
+    static let titleY: CGFloat = 478
     static let identityBand = CGPoint(x: 0, y: 390)
-    /// Matched by hand to the close box baked into `inventory_outer_frame_v16.png`.
-    static let closeButton = CGPoint(x: -957, y: 520)
-    static let closeArtworkSize = CGSize(width: 20, height: 20)
+    /// Inset from the folio rule, aligned with the title.
+    static let closeButton = CGPoint(x: -915, y: 478)
+    static let closeArtworkSize = CGSize(width: 34, height: 34)
 
     /// One shared content rectangle inside the outer frame's inner rails. The
     /// remaining 280pt of canvas width is painted rail.
@@ -30,10 +30,15 @@ enum InventoryScreenLayout {
     static let sectionGap: CGFloat = 25
 
     static let primaryY: CGFloat = 90
+    /// Three equal folio cards share the content width and two gutters.
+    static let primaryPanelSize = CGSize(
+        width: (contentWidth - 2 * sectionGap) / 3,
+        height: 520
+    )
 
     // MARK: - Loadout column (left)
 
-    static let loadoutSize = CGSize(width: 460, height: 520)
+    static let loadoutSize = primaryPanelSize
     static let loadoutOrigin = CGPoint(
         x: contentLeft + loadoutSize.width / 2,
         y: primaryY
@@ -52,7 +57,7 @@ enum InventoryScreenLayout {
             switch self {
             case .readyWeapons: "READY WEAPONS"
             case .quickItems: "QUICK ITEMS"
-            case .coatPockets: "COAT POCKETS"
+            case .coatPockets: "AMMUNITION"
             }
         }
 
@@ -83,8 +88,9 @@ enum InventoryScreenLayout {
 
         var emptySilhouetteArtName: String {
             switch self {
-            case .readyWeapons: "inventory_slot_silhouette_weapon_v06"
-            case .quickItems, .coatPockets: "inventory_slot_silhouette_item_v06"
+            case .readyWeapons: "inventory_slot_silhouette_weapon_fantasy_v01"
+            case .quickItems: "inventory_slot_silhouette_item_fantasy_v01"
+            case .coatPockets: "inventory_slot_silhouette_ammunition_fantasy_v01"
             }
         }
     }
@@ -99,7 +105,7 @@ enum InventoryScreenLayout {
 
     // MARK: - Paperdoll column (centre)
 
-    static let paperdollSize = CGSize(width: 520, height: 520)
+    static let paperdollSize = primaryPanelSize
     static let paperdollOrigin = CGPoint(
         x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
         y: primaryY
@@ -144,31 +150,32 @@ enum InventoryScreenLayout {
     /// The painted empty-slot silhouette for a slot.
     static func emptySilhouetteArtName(for slot: EquipmentSlot) -> String {
         switch slot {
-        case .coat: "inventory_slot_silhouette_coat_v06"
-        case .gloves: "inventory_slot_silhouette_hands_v06"
-        case .fedora: "inventory_slot_silhouette_hat_v06"
-        case .charm: "inventory_slot_silhouette_charm_v06"
-        case .holster: "inventory_slot_silhouette_holster_v06"
-        case .ringLeft, .ringRight: "inventory_slot_silhouette_ring_v06"
-        case .cloak: "inventory_slot_silhouette_cloak_v06"
-        case .shoes: "inventory_slot_silhouette_feet_v06"
-        case .belt: "inventory_slot_silhouette_belt_v06"
+        case .coat: "inventory_slot_silhouette_armor_fantasy_v01"
+        case .gloves: "inventory_slot_silhouette_hands_fantasy_v01"
+        case .fedora: "inventory_slot_silhouette_helmet_fantasy_v01"
+        case .charm: "inventory_slot_silhouette_charm_fantasy_v01"
+        case .holster: "inventory_slot_silhouette_shield_fantasy_v01"
+        case .ringLeft, .ringRight: "inventory_slot_silhouette_ring_fantasy_v01"
+        case .cloak: "inventory_slot_silhouette_cloak_fantasy_v01"
+        case .shoes: "inventory_slot_silhouette_feet_fantasy_v01"
+        case .belt: "inventory_slot_silhouette_belt_fantasy_v01"
         case .weapon1, .weapon2, .weapon3, .weapon4:
-            "inventory_slot_silhouette_weapon_v06"
-        case .quiver1, .quiver2, .quiver3,
-             .quickItem1, .quickItem2, .quickItem3:
-            "inventory_slot_silhouette_item_v06"
+            "inventory_slot_silhouette_weapon_fantasy_v01"
+        case .quiver1, .quiver2, .quiver3:
+            "inventory_slot_silhouette_ammunition_fantasy_v01"
+        case .quickItem1, .quickItem2, .quickItem3:
+            "inventory_slot_silhouette_item_fantasy_v01"
         }
     }
 
     // MARK: - Stats column (right)
 
-    static let statsSize = CGSize(width: 650, height: 560)
+    static let statsSize = primaryPanelSize
     static let statsOrigin = CGPoint(x: contentRight - statsSize.width / 2, y: primaryY)
     static let statRowPitch: CGFloat = 116
-    static let statRowTopY: CGFloat = 195
+    static let statRowTopY: CGFloat = 180
     static let statBadgeSize: CGFloat = 84
-    static let statTextWidth: CGFloat = 490
+    static let statTextWidth: CGFloat = statsSize.width - 160
     static var statBadgeX: CGFloat { -statsSize.width / 2 + 62 }
 
     static func statRowY(index: Int) -> CGFloat {

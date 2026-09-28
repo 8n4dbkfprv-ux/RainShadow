@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "sable_court",
+    "id": "RS9900",
     "displayName": "SABLE ROW \u2014 BLENDER PLAYTEST",
     "kind": "exterior",
     "areaType": [
@@ -477044,7 +477044,7 @@
           "y": 1794
         },
         "travel": {
-          "destination": "office_suite",
+          "destination": "RS0101",
           "entrance": "from.city"
         }
       }

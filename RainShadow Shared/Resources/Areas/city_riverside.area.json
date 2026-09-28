@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "city_riverside",
+    "id": "RS0300",
     "displayName": "RIVERSIDE \u2014 IRON STAIRS",
     "kind": "exterior",
     "areaType": [
@@ -44021,7 +44021,7 @@
           "y": 1806
         },
         "travel": {
-          "destination": "interior_iron_stairs",
+          "destination": "RS0301",
           "entrance": "from.street"
         }
       },

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "interior_lamphouse",
+    "id": "RS0401",
     "displayName": "THE LAMPHOUSE",
     "kind": "interior",
     "areaType": [],
@@ -71,7 +71,7 @@
           "y": 467
         },
         "travel": {
-          "destination": "city_lamp_ward",
+          "destination": "RS0400",
           "entrance": "from.portal.lamphouseEntrance"
         }
       }

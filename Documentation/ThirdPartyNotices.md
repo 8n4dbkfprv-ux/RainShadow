@@ -32,6 +32,7 @@ Under `RainShadow Shared/Gameplay/Navigation/`:
 | `MovementOrderQueue.swift` | `gemrb/core/Scriptable/Actor.cpp` (`NewPath`), `gemrb/core/GUI/GameControl.cpp` |
 | `CameraZoom.swift` | `gemrb/core/GUI/GameControl.cpp` (`zoomLevel`, `GetScalePercent`, `SetScalePercent`, `OnMouseWheelScroll`), `gemrb/core/Region.cpp` (`Region::Scale`, `Region::Unscale`) |
 | `AreaViewport.swift` | `gemrb/core/GUI/GameControl.cpp` (`MoveViewportTo`'s clamp block, `MoveViewportUnlockedTo`) |
+| `AreaLifecycle.swift`, `AreaRuntime`, `GameAreaScene` area-state/timing integration | `core/Scriptable/Door.cpp` (`BlockedOpen`, `SetDoorOpen`), `core/Map.cpp` (`JumpActors`, `MoveToNewArea`, `UpdateScripts`), `core/GlobalTimer.cpp` (`Update`, `Freeze`), `core/Scriptable/Scriptable.cpp` (`TickScripting`), `plugins/AREImporter/AREImporter.cpp` (`PutDoors`, `PutRegions`); adapted to RainShadow's serialized area records and single controlled actor |
 | `HighlightResolver.swift`, `HighlightableObject.swift` | `gemrb/core/GUI/GameControl.cpp` (`OutlineDoors`, `OutlineContainers`, `OutlineInfoPoints`), `gemrb/core/Map.cpp` (`DrawHighlightables`) |
 | `GroundCircle.swift` | `gemrb/core/Scriptable/Selectable.cpp`, `gemrb/core/Scriptable/Selectable.h`, `gemrb/core/Scriptable/Actor.cpp` (`SetCircleSize`, `ShouldDrawCircle`), `gemrb/includes/ie_stats.h`, `gemrb/includes/RGBAColor.h` |
 | `IEColorCycle.swift` | `gemrb/core/GUI/GUIAnimation.cpp`, `gemrb/core/GUI/GUIAnimation.h` (`ColorCycle`, `GlobalColorCycle`) |

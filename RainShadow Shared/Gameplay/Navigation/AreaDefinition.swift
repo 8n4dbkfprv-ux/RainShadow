@@ -1,10 +1,13 @@
 import CoreGraphics
 import Foundation
+#if SWIFT_PACKAGE
+import RainShadowPersistence
+#endif
 
 // MARK: - Identity
 
-/// Stable resref-like identifier for one area, matching its `.area.json`
-/// basename. Baldur's Gate keys every cross-area reference — travel regions,
+/// Stable short resref for one area, bound to a descriptive resource basename.
+/// Baldur's Gate keys every cross-area reference — travel regions,
 /// world-map entries, saved variables — on the area's eight-character resref
 /// rather than on a position in a list, so a renumbered catalog cannot silently
 /// repoint a door. `AreaID` is that resref: authored once, never derived.
@@ -12,19 +15,20 @@ struct AreaID: Hashable, Sendable, RawRepresentable, CustomStringConvertible {
     let rawValue: String
 
     init(rawValue: String) {
-        self.rawValue = rawValue
+        self.rawValue = AreaResourceID.canonical(rawValue)
     }
 
     init(_ rawValue: String) {
-        self.rawValue = rawValue
+        self.rawValue = AreaResourceID.canonical(rawValue)
     }
 
     var description: String { rawValue }
+    var resourceName: String { AreaResourceID.resourceName(rawValue) }
 }
 
 extension AreaID: Codable {
     init(from decoder: Decoder) throws {
-        rawValue = try decoder.singleValueContainer().decode(String.self)
+        self.init(try decoder.singleValueContainer().decode(String.self))
     }
 
     func encode(to encoder: Encoder) throws {
@@ -228,6 +232,14 @@ struct AreaEntrance: Hashable, Codable, Sendable {
     var point: AreaPoint
     /// Facing in degrees, measured like `ActorLocomotion`'s facing bins.
     var facing: CGFloat?
+
+    /// Authoring stores world-space degrees (0=east, 90=north); runtime uses
+    /// GemRB's sixteen orientation bins. Keep position and facing on one entry.
+    var orientation: ActorFacing? {
+        guard let facing, facing.isFinite else { return nil }
+        let radians = facing.truncatingRemainder(dividingBy: 360) * .pi / 180
+        return ActorFacing.orient(dx: cos(radians), dy: sin(radians))
+    }
 
     /// The entrance used when a transition names none.
     static let defaultName = "default"
@@ -1115,6 +1127,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
     var blocksSight: Bool
     var isLocked: Bool
     var cannotClose: Bool
+    var isSliding: Bool
     var isSecret: Bool
     /// Secret door that has already been found. Unused in M01; the flag exists
     /// so a later area can author one without a schema bump.
@@ -1149,6 +1162,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
         blocksSight: Bool = true,
         isLocked: Bool = false,
         cannotClose: Bool = false,
+        isSliding: Bool = false,
         isSecret: Bool = false,
         isFound: Bool = false,
         keyItem: String? = nil,
@@ -1174,6 +1188,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
         self.blocksSight = blocksSight
         self.isLocked = isLocked
         self.cannotClose = cannotClose
+        self.isSliding = isSliding
         self.isSecret = isSecret
         self.isFound = isFound
         self.keyItem = keyItem
@@ -1191,7 +1206,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
 
     private enum CodingKeys: String, CodingKey {
         case id, textureName, visual, backgroundTiles, entryPoint, closedObstacle, openObstacle
-        case startsClosed, blocksSight, isLocked, cannotClose, isSecret, isFound
+        case startsClosed, blocksSight, isLocked, cannotClose, isSliding, isSecret, isFound
         case keyItem, lockedLine, openSound, closeSound, approachPoints
         case closedOutline, openOutline, closedImpededCells, openImpededCells
         case paintedApertureHeight, paintedAperture
@@ -1213,6 +1228,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
         blocksSight = try c.decodeIfPresent(Bool.self, forKey: .blocksSight) ?? true
         isLocked = try c.decodeIfPresent(Bool.self, forKey: .isLocked) ?? false
         cannotClose = try c.decodeIfPresent(Bool.self, forKey: .cannotClose) ?? false
+        isSliding = try c.decodeIfPresent(Bool.self, forKey: .isSliding) ?? false
         isSecret = try c.decodeIfPresent(Bool.self, forKey: .isSecret) ?? false
         isFound = try c.decodeIfPresent(Bool.self, forKey: .isFound) ?? false
         keyItem = try c.decodeIfPresent(String.self, forKey: .keyItem)
@@ -1245,6 +1261,7 @@ struct AreaDoor: Hashable, Codable, Sendable {
         try c.encode(blocksSight, forKey: .blocksSight)
         if isLocked { try c.encode(isLocked, forKey: .isLocked) }
         if cannotClose { try c.encode(cannotClose, forKey: .cannotClose) }
+        if isSliding { try c.encode(isSliding, forKey: .isSliding) }
         if isSecret { try c.encode(isSecret, forKey: .isSecret) }
         if isFound { try c.encode(isFound, forKey: .isFound) }
         try c.encodeIfPresent(keyItem, forKey: .keyItem)
@@ -1658,9 +1675,11 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// then to the first authored one. Never silently returns the origin: an
     /// area with no entrances is rejected at load.
     func spawnPoint(entrance name: String?) -> CGPoint? {
-        (entrance(named: name)
-            ?? entrance(named: AreaEntrance.defaultName)
-            ?? entrances.first)?.point.cgPoint
+        resolvedEntrance(named: name)?.point.cgPoint
+    }
+
+    func resolvedEntrance(named name: String?) -> AreaEntrance? {
+        entrance(named: name) ?? entrance(named: AreaEntrance.defaultName) ?? entrances.first
     }
 
     func region(id: String) -> AreaRegion? {
@@ -1694,7 +1713,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     /// layered over a large one wins.
     func region(at point: CGPoint, of kind: AreaRegionKind? = nil) -> AreaRegion? {
         regions.last { region in
-            (kind == nil || region.kind == kind) && region.contains(point)
+            !region.isDeactivated && (kind == nil || region.kind == kind) && region.contains(point)
         }
     }
 
@@ -1863,9 +1882,9 @@ struct AreaDefinition: Hashable, Codable, Sendable {
 
     /// Resource stem the night light map is loaded from. Authored name wins;
     /// otherwise `<id>.lm`, the IE `LM.BMP` analogue.
-    var resolvedLightMapName: String { lightMapName ?? "\(id.rawValue).lm" }
+    var resolvedLightMapName: String { lightMapName ?? "\(id.resourceName).lm" }
 
     /// Resource stem the height map is loaded from. Authored name wins;
     /// otherwise `<id>.ht`.
-    var resolvedHeightMapName: String { heightMapName ?? "\(id.rawValue).ht" }
+    var resolvedHeightMapName: String { heightMapName ?? "\(id.resourceName).ht" }
 }

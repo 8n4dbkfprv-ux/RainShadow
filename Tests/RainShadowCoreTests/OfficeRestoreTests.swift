@@ -56,7 +56,7 @@ struct OfficeRestoreTests {
         let restored = store.load()
         #expect(restored.hasCompletedOfficeCaseIntro && restored.walletPence == 999)
         #expect(restored.officeLayoutRevision == 1)
-        let item = try #require(restored.groundPiles["office_suite"]?.first)
+        let item = try #require(restored.groundPiles["RS0101"]?.first)
         let area = try AreaCatalogLoader.load(HarborpointAreas.office)
         #expect(CGPoint(x: item.x, y: item.y) == area.spawnPoint(entrance: nil))
         #expect(defaults.data(forKey: "save.BeforeOfficeLayoutV19") != nil)

@@ -154,7 +154,7 @@
         }
       }
     ],
-    "id" : "city_harborpoint_pd",
+    "id" : "RS0700",
     "kind" : "exterior",
     "mapTextureName" : "map_city_harborpoint_pd_v02",
     "notes" : [
@@ -7575,7 +7575,7 @@
           }
         ],
         "travel" : {
-          "destination" : "interior_police_station",
+          "destination" : "RS0701",
           "entrance" : "from.street"
         }
       }

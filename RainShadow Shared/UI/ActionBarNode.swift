@@ -1,7 +1,7 @@
 import SpriteKit
 
-/// Camera-fixed left action rail: Infinity Engine density with RainShadow noir painted chrome.
-/// Plate is aspect-locked to `hud_left_rail_plate_v03` (never non-uniformly stretched).
+/// Camera-fixed left action rail: Infinity Engine density with generated fantasy folio artwork.
+/// Generated border caps are preserved by nine-slicing within the existing rail geometry.
 @MainActor
 final class ActionBarNode: SKNode {
     enum Button: Int, CaseIterable {
@@ -20,18 +20,18 @@ final class ActionBarNode: SKNode {
 
         var artName: String {
             switch self {
-            case .menu: return "hud_action_menu_v03"
-            case .map: return "hud_action_map_v03"
-            case .journal: return "hud_action_journal_v03"
-            case .inventory: return "hud_action_inventory_v03"
-            case .character: return "hud_action_character_v03"
-            case .leads: return "hud_action_leads_v03"
-            case .contacts: return "hud_action_contacts_v03"
-            case .settings: return "hud_action_settings_v03"
-            case .rest: return "hud_action_rest_v03"
-            case .help: return "hud_action_help_v03"
-            case .hideUI: return "hud_action_hide_ui_v03"
-            case .clock: return "hud_action_clock_v03"
+            case .menu: return "hud_action_menu_fantasy_v01"
+            case .map: return "hud_action_map_fantasy_v01"
+            case .journal: return "hud_action_journal_fantasy_v01"
+            case .inventory: return "hud_action_inventory_fantasy_v01"
+            case .character: return "hud_action_character_fantasy_v01"
+            case .leads: return "hud_action_leads_fantasy_v01"
+            case .contacts: return "hud_action_contacts_fantasy_v01"
+            case .settings: return "hud_action_settings_fantasy_v01"
+            case .rest: return "hud_action_rest_fantasy_v01"
+            case .help: return "hud_action_help_fantasy_v01"
+            case .hideUI: return "hud_action_hide_ui_fantasy_v01"
+            case .clock: return "hud_action_clock_fantasy_v01"
             }
         }
 
@@ -62,6 +62,7 @@ final class ActionBarNode: SKNode {
     private let railPlate = SKSpriteNode()
     private var buttonRoots: [Button: SKNode] = [:]
     private var buttonArt: [Button: SKSpriteNode] = [:]
+    private var buttonSlots: [Button: SKSpriteNode] = [:]
     private var highlightedButton: Button?
     private var pressedButton: Button?
     private var pressIsInside = false
@@ -99,8 +100,9 @@ final class ActionBarNode: SKNode {
             let iconRect = geometry.iconRects[index]
             root.position = CGPoint(x: iconRect.midX, y: iconRect.midY)
             if let art = buttonArt[button] {
-                art.size = CGSize(width: iconRect.width, height: iconRect.height)
+                art.size = CGSize(width: iconRect.width * 0.82, height: iconRect.height * 0.82)
             }
+            buttonSlots[button]?.size = geometry.wellRects[index].size
         }
         stubCaption.position = CGPoint(x: geometry.plateSize.width / 2 + 14, y: 0)
     }
@@ -204,10 +206,9 @@ final class ActionBarNode: SKNode {
 
     private func buildRail() {
         zPosition = 18
-        if let full = UIPaintedChrome.texture(named: "hud_left_rail_plate_v03") {
-            let cropped = SKTexture(rect: HUDChromeLayout.LeftRail.plateContentRect, in: full)
-            cropped.filteringMode = .linear
-            railPlate.texture = cropped
+        if let full = UIPaintedChrome.texture(named: "hud_left_rail_fantasy_v01") {
+            railPlate.texture = full
+            railPlate.centerRect = CGRect(x: 0.2, y: 0.06, width: 0.6, height: 0.88)
             railPlate.size = CGSize(width: 80, height: 640)
             railPlate.zPosition = -7
             addChild(railPlate)
@@ -220,6 +221,13 @@ final class ActionBarNode: SKNode {
             root.name = "hud.action.\(button)"
             addChild(root)
             buttonRoots[button] = root
+
+            if let slot = UIPaintedChrome.sprite(named: "inventory_slot_frame_fantasy_v01",
+                                                 size: CGSize(width: 46, height: 46)) {
+                slot.zPosition = 0
+                root.addChild(slot)
+                buttonSlots[button] = slot
+            }
 
             if let texture = UIPaintedChrome.texture(named: button.artName) {
                 let art = SKSpriteNode(texture: texture, size: CGSize(width: 40, height: 40))

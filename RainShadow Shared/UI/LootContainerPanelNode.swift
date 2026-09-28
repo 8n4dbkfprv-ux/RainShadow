@@ -438,7 +438,7 @@ final class LootContainerPanelNode: SKNode {
     }
 
     private func makeSlots(count: Int, prefix: String) -> [SlotNodes] {
-        let frameTexture = UIPaintedChrome.texture(named: "inventory_slot_frame_v05")
+        let frameTexture = UIPaintedChrome.texture(named: "inventory_slot_frame_fantasy_v01")
         frameTexture?.filteringMode = .linear
         return (0..<count).map { index in
             let root = SKNode()
@@ -526,7 +526,7 @@ final class LootContainerPanelNode: SKNode {
                 slot.amount.text = CurrencyAmount(pence: pence).formatted
             case .item(let id, let quantity):
                 let artName = catalog.definition(for: id)?.iconArtName
-                    ?? "inventory_slot_silhouette_item_v06"
+                    ?? "inventory_slot_silhouette_item_fantasy_v01"
                 set(slot: slot, artName: artName)
                 slot.amount.text = quantity > 1 ? "×\(quantity)" : nil
             }

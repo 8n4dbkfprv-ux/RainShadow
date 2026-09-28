@@ -53,6 +53,37 @@ import SpriteKit
                 CGPoint(x: points.map(\.x).reduce(0, +) / Double(points.count),
                         y: points.map(\.y).reduce(0, +) / Double(points.count))
             }
+            // Exercise scene-only lifecycle wiring which SwiftPM cannot import.
+            var probeArea = RebuiltCityAreas.area(AreaID("city_wharf_ladder"))
+            probeArea.id = AreaID("qa.area.lifecycle")
+            probeArea.script = AreaScriptCatalog.officeSuite.id
+            probeArea.entrances[0].facing = 180
+            let probe = CityDistrictScene(context: context, playtestArea: probeArea, entrance: probeArea.entrances[0].name)
+            probe.detective.beginOpenWorldStanding()
+            probe.applyEntranceFacing()
+            try check(probe.detective.currentFacing == .west, "named entrance facing reaches the live actor")
+            probe.pause.togglePlayerPause()
+            probe.tickAreaSystems(listenerAt: .zero, currentTime: 0)
+            probe.tickAreaSystems(listenerAt: .zero, currentTime: 10)
+            try check(!context.session.areaVariables.isSet("SEEN", in: probeArea.id), "area script stays frozen during player pause")
+            probe.pause.togglePlayerPause()
+            probe.tickAreaSystems(listenerAt: .zero, currentTime: 10.066)
+            try check(context.session.areaVariables.isSet("SEEN", in: probeArea.id), "area script runs on first resumed logic tick")
+            context.session.setAreaVariable(nil, "SEEN", in: probeArea.id)
+            probe.tickAreaSystems(listenerAt: .zero, currentTime: 10.067)
+            try check(!context.session.areaVariables.isSet("SEEN", in: probeArea.id), "render frames do not directly poll area scripts")
+            probeArea.script = nil
+            probeArea.regions = [.init(id: "once", kind: .trigger,
+                polygon: [.init(x: 0, y: 0), .init(x: 16, y: 0), .init(x: 16, y: 12), .init(x: 0, y: 12)])]
+            let triggerVisit = CityDistrictScene(context: context, playtestArea: probeArea)
+            triggerVisit.tickProximityTriggers(at: CGPoint(x: 8, y: 6))
+            try check(context.session.objectState(in: probeArea).spentTriggers.contains("once"), "trigger consumption reaches session state")
+            context.session.setAreaVariable(.integer(0), "TRG_once", in: probeArea.id)
+            let reloadContext = GameContext(saveStore: store)
+            let triggerReturn = CityDistrictScene(context: reloadContext, playtestArea: probeArea)
+            triggerReturn.tickProximityTriggers(at: CGPoint(x: 8, y: 6))
+            try check(!reloadContext.session.areaVariables.isSet("TRG_once", in: probeArea.id), "spent trigger remains consumed after save reload")
+
             for district in [CityDistrictID.sableRow, .wharfLadder, .riverside] {
                 let id = CityDistrictAreaAdapter.areaID(for: district)
                 let definition = RebuiltCityAreas.area(id)
@@ -97,6 +128,19 @@ import SpriteKit
                 click(room, center(exit.polygon), touch: true)
                 try await waitUntil({ (view.scene as? GameAreaScene)?.area.id == id && !context.router.isTransitioning })
                 try check(true, "\(district.slug): interior return connects to restored street")
+                if let door = definition.doors.first {
+                    let returned = view.scene as! GameAreaScene
+                    try check(returned.areaRuntime?.openDoorIDs.contains(door.id) == true, "\(district.slug): open door survives area return")
+                    try check(GameSession(saveStore: store).objectState(in: definition).isOpen(door), "\(district.slug): open door survives save reload")
+                    let expectedWalls = definition.wallPolygons + definition.doors.flatMap { d in
+                        d.backgroundTiles.map { $0.openWalls } ?? []
+                    }
+                    try check(returned.areaRuntime?.currentWallPolygons == expectedWalls, "\(district.slug): restored open door selects matching cover walls")
+                    returned.closeDoor(door)
+                    try check(returned.areaRuntime?.openDoorIDs.contains(door.id) == false, "\(district.slug): unoccupied door closes after return")
+                    try check(!GameSession(saveStore: store).objectState(in: definition).isOpen(door), "\(district.slug): closed door survives save reload")
+                    returned.openDoor(door)
+                }
                 let edge = CityWorldMap.travelableExitEdges(from: district).first!
                 let north = try await arrive(id, edge.arrivalKey) as! CityDistrictScene
                 click(north, RebuiltCityAreas.exitApproach(district, edge))

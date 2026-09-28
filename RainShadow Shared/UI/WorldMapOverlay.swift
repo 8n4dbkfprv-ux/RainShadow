@@ -19,13 +19,13 @@ final class WorldMapOverlay: SKNode {
     }
 
     private enum Palette {
-        static let ink = SKColor(red: 0.016, green: 0.019, blue: 0.024, alpha: 0.97)
-        static let panel = SKColor(red: 0.030, green: 0.034, blue: 0.039, alpha: 0.96)
-        static let raised = SKColor(red: 0.064, green: 0.069, blue: 0.075, alpha: 0.98)
-        static let steel = SKColor(red: 0.46, green: 0.49, blue: 0.50, alpha: 0.62)
-        static let paper = SKColor(red: 0.86, green: 0.78, blue: 0.58, alpha: 1)
-        static let quiet = SKColor(red: 0.53, green: 0.55, blue: 0.55, alpha: 1)
-        static let amber = SKColor(red: 0.79, green: 0.55, blue: 0.26, alpha: 1)
+        static let ink = UITheme.Color.paperShadow
+        static let panel = UITheme.Color.paper
+        static let raised = UITheme.Color.paperShadow
+        static let steel = UITheme.Color.engraved
+        static let paper = UITheme.Color.ink
+        static let quiet = UITheme.Color.inkMuted
+        static let amber = UITheme.Color.wax
         static let oxblood = SKColor(red: 0.50, green: 0.13, blue: 0.12, alpha: 1)
         static let travel = SKColor(red: 0.32, green: 0.58, blue: 0.38, alpha: 1)
         static let party = SKColor(red: 0.62, green: 0.16, blue: 0.14, alpha: 1)
@@ -160,11 +160,12 @@ final class WorldMapOverlay: SKNode {
         backing.zPosition = -11
         sheet.addChild(backing)
 
-        if let texture = GameArt.texture(named: "inventory_outer_frame_v06")
-            ?? GameArt.texture(named: "inventory_outer_frame_v05") {
+        if let texture = UIPaintedChrome.assetTexture(named: "inventory_outer_frame_v06")
+            ?? UIPaintedChrome.assetTexture(named: "inventory_outer_frame_v05") {
             texture.filteringMode = .linear
             let frame = SKSpriteNode(texture: texture, size: Metrics.canvas)
             frame.name = "worldmap.outer-frame"
+            UIPaintedChrome.configure(frame, for: "inventory_outer_frame_v06")
             frame.zPosition = -10
             sheet.addChild(frame)
         }
@@ -186,7 +187,7 @@ final class WorldMapOverlay: SKNode {
             rectOf: CGSize(width: stripWidth, height: stripHeight),
             cornerRadius: 0
         )
-        panel.fillColor = SKColor(white: 0.015, alpha: 0.94)
+        panel.fillColor = UITheme.Color.paper
         panel.strokeColor = SKColor(red: 0.70, green: 0.72, blue: 0.73, alpha: 0.82)
         panel.lineWidth = 1.5
         panel.position = CGPoint(x: 0, y: stripY)
@@ -346,7 +347,7 @@ final class WorldMapOverlay: SKNode {
             rectOf: CGSize(width: bandWidth, height: bandHeight),
             cornerRadius: 0
         )
-        band.fillColor = SKColor(white: 0.012, alpha: 0.88)
+        band.fillColor = UITheme.Color.paper
         band.strokeColor = SKColor(red: 0.55, green: 0.57, blue: 0.58, alpha: 0.55)
         band.lineWidth = 1
         band.position = CGPoint(x: 0, y: bandY)

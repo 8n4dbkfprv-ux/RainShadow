@@ -147,6 +147,32 @@ class GameViewController: NSViewController {
                 office.seekVossPoseForCapture()
                 #endif
             }
+            #if DEBUG
+            // Capture the shipping overlays using the same presentation entry points
+            // as keyboard input. The capture may run without an animation tick.
+            if let game = (self?.view as? SKView)?.scene as? BaseGameScene,
+               let overlay = environment["RAINSHADOW_CAPTURE_OVERLAY"] {
+                switch overlay {
+                case "dialogue":
+                    game.dialoguePresenter.present(graph: OfficeCaseFileMonologue.graph)
+                    game.dialoguePresenter.removeAllActions()
+                    game.dialoguePresenter.alpha = 1
+                case "journal":
+                    game.setJournalPresented(true)
+                    game.journalOverlay.removeAllActions()
+                    game.journalOverlay.alpha = 1
+                case "map":
+                    game.setMapPresented(true)
+                    game.areaMapOverlay.removeAllActions()
+                    game.areaMapOverlay.alpha = 1
+                case "worldmap":
+                    game.setWorldMapPresented(true)
+                    game.worldMapOverlay.removeAllActions()
+                    game.worldMapOverlay.alpha = 1
+                default: break
+                }
+            }
+            #endif
             if environment["RAINSHADOW_CAPTURE_DUMP"] != nil {
                 self?.dumpSceneGraph()
             }

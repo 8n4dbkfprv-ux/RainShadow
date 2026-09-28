@@ -717,6 +717,13 @@ struct Movable {
 
     // MARK: - Bumping
 
+    /// GemRB Movable.h::ImpedeBumping, called by Map::JumpActors after a door
+    /// displacement: `oldPos = Pos; bumped = false;`. Do not BumpBack into it.
+    mutating func impedeBumping() {
+        oldPos = position
+        bumped = false
+    }
+
     /// `Movable::BumpAway` — step off the spot so a mover can get past.
     mutating func bumpAway() {
         guard let map else { return }

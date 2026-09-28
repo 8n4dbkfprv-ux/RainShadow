@@ -263,7 +263,7 @@ enum AreaCatalogLoader {
     }
 
     static func resourceData(areaID id: AreaID, bundle: Bundle?) throws -> Data {
-        let name = id.rawValue + resourceSuffix
+        let name = id.resourceName + resourceSuffix
         let searchBundles: [Bundle] = {
             if let bundle { return [bundle] }
             #if SWIFT_PACKAGE
@@ -290,7 +290,7 @@ enum AreaCatalogLoader {
     /// `RainShadow Shared/Resources/Areas/<id>.area.json` relative to this source file.
     static func developmentResourceURL(areaID id: AreaID) -> URL? {
         let url = developmentAreasDirectory
-            .appendingPathComponent("\(id.rawValue)\(resourceSuffix).json", isDirectory: false)
+            .appendingPathComponent("\(id.resourceName)\(resourceSuffix).json", isDirectory: false)
         return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
 
@@ -333,14 +333,14 @@ enum AreaCatalogLoader {
 /// to ship should be a loud missing-resource error rather than an area that
 /// quietly is not in the world.
 enum HarborpointAreas {
-    static let office = AreaID("office_suite")
-    static let openingExterior = AreaID("opening_exterior")
-    static let sableRow = AreaID("city_sable_row")
-    static let wharfLadder = AreaID("city_wharf_ladder")
-    static let riverside = AreaID("city_riverside")
+    static let office = AreaID("RS0101")
+    static let openingExterior = AreaID("RS0000")
+    static let sableRow = AreaID("RS0100")
+    static let wharfLadder = AreaID("RS0200")
+    static let riverside = AreaID("RS0300")
     static let harborpointPD = LampWardAreas.exteriorID
-    static let lilaStreet = AreaID("city_lila_street")
-    static let civicRecords = AreaID("city_civic_records")
+    static let lilaStreet = AreaID("RS0500")
+    static let civicRecords = AreaID("RS0600")
     static let shippingOfficeInterior = CityInteriorID.shippingOffice.areaID
     static let ironStairsInterior = CityInteriorID.ironStairs.areaID
     static let policeStationInterior = CityInteriorID.policeStation.areaID

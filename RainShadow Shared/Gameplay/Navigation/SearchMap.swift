@@ -801,6 +801,17 @@ final class SearchMap {
         }
     }
 
+    /// ARE impeded cells, with the same raster fallback used to stamp legacy
+    /// rectangular leaves. Door occupancy must query this list, not geometry.
+    func impededCells(for door: DoorObstacle, open: Bool) -> [SearchMapCell] {
+        let authored = open ? door.openCells : door.closedCells
+        if !authored.isEmpty { return authored.filter { contains($0) } }
+        guard let rect = open ? door.openRect : door.closedRect else { return [] }
+        var result: [SearchMapCell] = []
+        forEachCell(overlapping: rect) { result.append($0) }
+        return result
+    }
+
     private func stampDoor(_ door: DoorObstacle) {
         let cells = door.isOpen ? door.openCells : door.closedCells
         let blockSight = !door.isOpen && door.blocksSight

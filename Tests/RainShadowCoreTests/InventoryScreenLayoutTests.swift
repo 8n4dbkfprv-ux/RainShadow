@@ -81,7 +81,7 @@ struct InventoryScreenLayoutTests {
         for slot in EquipmentSlot.allCases {
             let art = InventoryScreenLayout.emptySilhouetteArtName(for: slot)
             #expect(art.hasPrefix("inventory_slot_silhouette_"))
-            #expect(art.hasSuffix("_v06"))
+            #expect(art.hasSuffix("_fantasy_v01"))
         }
     }
 

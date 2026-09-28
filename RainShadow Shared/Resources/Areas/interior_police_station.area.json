@@ -72,7 +72,7 @@
         }
       }
     ],
-    "id" : "interior_police_station",
+    "id" : "RS0701",
     "kind" : "interior",
     "lightMapName" : "city_building_interior_v01.lm",
     "mapTextureName" : "map_city_building_interior_v01",
@@ -119,7 +119,7 @@
           }
         ],
         "travel" : {
-          "destination" : "city_harborpoint_pd",
+          "destination" : "RS0700",
           "entrance" : "from.portal.pdEntrance"
         }
       }

@@ -1,6 +1,6 @@
 import SpriteKit
 
-/// The full-screen inventory window: a noir Mac OS 9 sheet over a darkened world.
+/// The full-screen inventory window: a parchment folio over a darkened world.
 ///
 /// Interaction is the Infinity Engine's, not the web's. A click lifts an item onto
 /// the cursor; a second click puts it down. There is no drag — BG never had one,
@@ -45,9 +45,9 @@ final class InventoryOverlay: SKNode {
     // MARK: - Palette
 
     private enum Palette {
-        static let paper = SKColor(red: 0.88, green: 0.86, blue: 0.81, alpha: 1)
-        static let quiet = SKColor(red: 0.62, green: 0.60, blue: 0.57, alpha: 1)
-        static let amber = SKColor(red: 0.78, green: 0.62, blue: 0.32, alpha: 1)
+        static let paper = UITheme.Color.ink
+        static let quiet = UITheme.Color.inkMuted
+        static let amber = UITheme.Color.wax
         static let oxblood = SKColor(red: 0.62, green: 0.20, blue: 0.19, alpha: 1)
         /// The blue wash BG puts over an unidentified icon.
         static let unidentified = SKColor(red: 0.36, green: 0.52, blue: 0.78, alpha: 1)
@@ -540,18 +540,21 @@ final class InventoryOverlay: SKNode {
             parent: root
         )
 
-        if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_front_rgba_v01") {
+        if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_chmf") {
             detectiveTexture.filteringMode = .nearest
+            let canvas = detectiveTexture.size()
+            let slot = InventoryScreenLayout.paperdollBodySize
+            let scale = min(slot.width / canvas.width, slot.height / canvas.height)
             let paperdoll = SKSpriteNode(
                 texture: detectiveTexture,
-                size: InventoryScreenLayout.paperdollBodySize
+                size: CGSize(width: canvas.width * scale, height: canvas.height * scale)
             )
             paperdoll.name = "inventory.paperdoll"
             paperdoll.position = InventoryScreenLayout.chamberOffset
             paperdoll.zPosition = 0
             root.addChild(paperdoll)
         } else {
-            assertionFailure("Missing voss_paperdoll_front_rgba_v01.png")
+            assertionFailure("Missing voss_paperdoll_chmf.png")
         }
 
         paperdollSlotsRoot.zPosition = 2
@@ -702,7 +705,7 @@ final class InventoryOverlay: SKNode {
         bagTitle.text = "CASE BAG"
         bagTitle.horizontalAlignmentMode = .left
         bagTitle.verticalAlignmentMode = .center
-        bagTitle.position = CGPoint(x: -InventoryScreenLayout.bagSize.width / 2 + 22, y: 83)
+        bagTitle.position = CGPoint(x: -InventoryScreenLayout.bagSize.width / 2 + 242, y: 68)
         bagTitle.zPosition = 3
         bag.addChild(bagTitle)
 
@@ -748,7 +751,7 @@ final class InventoryOverlay: SKNode {
             } else {
                 node = emptySlot(
                     size: CGSize(width: size, height: size),
-                    silhouette: "inventory_slot_silhouette_bag_v06",
+                    silhouette: "inventory_slot_silhouette_bag_fantasy_v01",
                     silhouetteAlpha: 0.16
                 )
             }
@@ -818,7 +821,7 @@ final class InventoryOverlay: SKNode {
             root.addChild(emptySlot(
                 size: size,
                 silhouette: InventoryScreenLayout.emptySilhouetteArtName(for: slot),
-                silhouetteAlpha: 0.78
+                silhouetteAlpha: 0.34
             ))
         }
 
@@ -863,7 +866,7 @@ final class InventoryOverlay: SKNode {
         }
 
         if item.quantity > 1 {
-            let count = Self.label(size: 12, color: Palette.paper, weight: .demibold)
+            let count = Self.label(size: 12, color: UITheme.Color.paper, weight: .demibold)
             count.text = "\(item.quantity)"
             count.verticalAlignmentMode = .center
             count.horizontalAlignmentMode = .right
@@ -911,14 +914,14 @@ final class InventoryOverlay: SKNode {
         hit.zPosition = -2
         root.addChild(hit)
 
-        if let texture = GameArt.texture(named: "inventory_slot_frame_v05") {
+        if let texture = GameArt.texture(named: "inventory_slot_frame_fantasy_v01") {
             texture.filteringMode = .linear
             let art = SKSpriteNode(texture: texture, size: size)
             art.name = "inventory.slot-art"
             art.zPosition = -1
             root.addChild(art)
         } else {
-            assertionFailure("Missing inventory_slot_frame_v05.png")
+            assertionFailure("Missing inventory_slot_frame_fantasy_v01.png")
         }
         return root
     }
@@ -1091,12 +1094,13 @@ final class InventoryOverlay: SKNode {
         z: CGFloat,
         parent: SKNode
     ) -> Bool {
-        guard let texture = GameArt.texture(named: name) else {
+        guard let texture = UIPaintedChrome.assetTexture(named: name) else {
             assertionFailure("Missing \(name).png")
             return false
         }
         texture.filteringMode = .linear
         let sprite = SKSpriteNode(texture: texture, size: size)
+        UIPaintedChrome.configure(sprite, for: name)
         sprite.name = "inventory.chrome.\(name)"
         sprite.position = position
         sprite.zPosition = z
@@ -1114,9 +1118,9 @@ final class InventoryOverlay: SKNode {
         let fontName: String
         switch weight {
         case .regular:
-            fontName = "AvenirNext-Regular"
+            fontName = UITheme.Font.overlayBody
         case .demibold:
-            fontName = "AvenirNextCondensed-DemiBold"
+            fontName = UITheme.Font.overlayBodyBold
         case .display:
             fontName = "Copperplate-Bold"
         }

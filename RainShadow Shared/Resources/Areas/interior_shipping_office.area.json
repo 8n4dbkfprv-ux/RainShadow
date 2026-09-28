@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "interior_shipping_office",
+    "id": "RS0201",
     "displayName": "LILLIAN\u2019S SHIPPING OFFICE",
     "kind": "interior",
     "areaType": [],
@@ -10876,7 +10876,7 @@
           "y": 242.0404
         },
         "travel": {
-          "destination": "city_wharf_ladder",
+          "destination": "RS0200",
           "entrance": "from.portal.shippingOffice"
         }
       }

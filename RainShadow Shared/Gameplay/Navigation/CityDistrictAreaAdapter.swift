@@ -72,7 +72,7 @@ enum CityDistrictAreaAdapter {
             plateTextureName: definition.groundTextureName,
             nightPlateTextureName: nightPlateTextureName(for: district),
             mapTextureName: definition.mapTextureName,
-            searchMapName: "\(areaID(for: district).rawValue).sr",
+            searchMapName: "\(areaID(for: district).resourceName).sr",
             // Kept alongside the painted map: Theta* tests these at world
             // resolution for line of sight, which is finer than the cell grid.
             obstacles: definition.obstacles.map(AreaRect.init),

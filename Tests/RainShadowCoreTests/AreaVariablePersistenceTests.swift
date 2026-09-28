@@ -113,7 +113,7 @@ struct AreaVariablePersistenceTests {
     @Test func aDistrictVisitIsStoredUnderItsOwnAreaScope() {
         var vars = AreaVariables()
         vars.setFlag(true, "VISITED", in: CityDistrictAreaAdapter.areaID(for: .wharfLadder))
-        #expect(vars.flattened["city_wharf_ladder/VISITED"] == .integer(1))
+        #expect(vars.flattened["RS0200/VISITED"] == .integer(1))
         #expect(!vars.isSet("VISITED", in: CityDistrictAreaAdapter.areaID(for: .riverside)))
     }
 }

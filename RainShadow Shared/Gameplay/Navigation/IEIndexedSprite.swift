@@ -144,6 +144,7 @@ struct IEIndexedSprite: Sendable {
     let shadowOwner: String
     let fallback: String
     let textureFilter: TextureFilter
+    let paletteLayout: IECharacterPaletteLayout
     /// The bundle's shared registration scale, not a per-frame size ratio.
     /// Retained for explicit native-grid adapters; shipping geometry is unchanged.
     let registeredPixelsPerNativePixel: Double
@@ -219,6 +220,10 @@ struct IEIndexedSprite: Sendable {
             return UInt32(value)
         }
         try Self.validatePaletteMetadata(manifest.palette)
+        guard let paletteLayout = IECharacterPaletteLayout(rawValue:
+            manifest.palette.layout ?? IECharacterPaletteLayout.gemrbAliases.rawValue) else {
+            throw IEIndexedSpriteError.malformedManifest(reason: "unsupported character palette layout")
+        }
         guard !manifest.shadow.owner.isEmpty else {
             throw IEIndexedSpriteError.malformedManifest(reason: "shadow owner is empty")
         }
@@ -350,7 +355,7 @@ struct IEIndexedSprite: Sendable {
                 )
             }
             for index in payload {
-                guard index <= 1 || (0x04..<0x58).contains(index) else {
+                guard paletteLayout.allows(index) else {
                     throw IEIndexedSpriteError.invalidPaletteIndex(
                         atlas: id.atlas,
                         name: id.name,
@@ -397,9 +402,10 @@ struct IEIndexedSprite: Sendable {
         shadowOwner = manifest.shadow.owner
         fallback = manifest.fallback
         self.textureFilter = textureFilter
+        self.paletteLayout = paletteLayout
         registeredPixelsPerNativePixel = manifest.textureScale
         self.frames = frames
-        var authoredPalette = IEPaperdollColours.setup(colors: colors, tables: tables)
+        var authoredPalette = paletteLayout.palette(colors: colors, tables: tables)
         authoredPalette.translucentShadowColor(manifest.shadow.embedded)
         palette = authoredPalette
         self.frameIndex = frameIndex
@@ -511,7 +517,7 @@ struct IEIndexedSprite: Sendable {
         )
         var resolvedPalette = alternateColors == colors
             ? palette
-            : IEPaperdollColours.setup(colors: alternateColors, tables: tables)
+            : paletteLayout.palette(colors: alternateColors, tables: tables)
         resolvedPalette.translucentShadowColor(hasEmbeddedShadow)
         // Always the native index plane. See `texturePixelSize(for:)`.
         return Self.resolve(indices: frame.indices, palette: resolvedPalette)
@@ -638,6 +644,7 @@ struct IEIndexedSprite: Sendable {
 
     private struct Manifest: Decodable {
         struct Palette: Decodable {
+            let layout: String?
             let transparentIndex: Int
             let shadowIndex: Int
             let bodyIndexBase: Int
@@ -645,6 +652,7 @@ struct IEIndexedSprite: Sendable {
             let shadesPerSlot: Int
 
             enum CodingKeys: String, CodingKey {
+                case layout
                 case transparentIndex = "transparent_index"
                 case shadowIndex = "shadow_index"
                 case bodyIndexBase = "body_index_base"

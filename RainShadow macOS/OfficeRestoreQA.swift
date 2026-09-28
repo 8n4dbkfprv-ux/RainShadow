@@ -18,6 +18,17 @@ import SpriteKit
             }
         }
         func capture(_ scene: BaseGameScene, _ name: String) throws {
+            func actor(in node: SKNode) -> DetectiveActorNode? {
+                if let actor = node as? DetectiveActorNode { return actor }
+                return node.children.lazy.compactMap { actor(in: $0) }.first
+            }
+            guard let voss = actor(in: scene.depthWorldRoot),
+                  let body = voss.children.compactMap({ $0 as? IEAvatarNode }).first(where: { !$0.isHidden }) else {
+                throw Failure(message: "Current Voss body missing in \(name)")
+            }
+            try check(body.currentFrame?.id?.atlas == VossAnimationSet.atlas,
+                      "\(name) displays the current CHMF character")
+            try check(body.xScale > 0, "\(name) uses authored facing without a second mirror")
             for _ in 0..<3 { scene.didFinishUpdate() }
             guard let r = scene.nativeWorldRenderer, let p = r.lastPixels, let v = r.lastViewport,
                   let im = IENativeWorldRenderer.image(p, width: v.width, height: v.height),
@@ -35,6 +46,9 @@ import SpriteKit
         }
         do {
             try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
+            try check(Bundle.main.url(forResource: "avatar-v02", withExtension: "json", subdirectory: VossAnimationSet.character) != nil,
+                      "Current Voss is packaged in the application")
+            try VossAnimationSet.validate(IEIndexedSprite.load(character: VossAnimationSet.character, bundle: .main))
             let store = SaveStore(key: "RainShadow.QA.OfficeRestore.\(UUID().uuidString)")
             defer { store.reset(); SaveStore(key: "RainShadow.QA.OfficeRestore.Bootstrap").reset() }
             let context = GameContext(saveStore: store)
@@ -54,10 +68,12 @@ import SpriteKit
             context.router.travel(to: HarborpointAreas.sableRow, entrance: "from.office")
             try await waitUntil { (view.scene as? GameAreaScene)?.area.id == HarborpointAreas.sableRow && !context.router.isTransitioning }
             let street = view.scene as! CityDistrictScene
+            try capture(street, "street_current_character")
             street.setWorldMapPresented(true)
             street.worldMapOverlay.onTravel?(.harborpointPD, "from.north")
             try await waitUntil { (view.scene as? GameAreaScene)?.area.id == LampWardAreas.exteriorID && !context.router.isTransitioning }
             let lamp = view.scene as! CityDistrictScene
+            try capture(lamp, "lamp_current_character")
             lamp.setWorldMapPresented(true)
             lamp.worldMapOverlay.onTravel?(.sableRow, "from.office")
             try await waitUntil { (view.scene as? GameAreaScene)?.area.id == HarborpointAreas.sableRow && !context.router.isTransitioning }

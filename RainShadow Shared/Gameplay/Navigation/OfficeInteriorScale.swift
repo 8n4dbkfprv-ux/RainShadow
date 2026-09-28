@@ -62,14 +62,14 @@ enum OfficeInteriorScale {
         static let seatedUpperDeskReach = CGPoint.zero
     }
 
-    /// Registration of the imported V07 pose to the painted office seat.
+    /// Registration of the explicit CHMF SW pose to the painted office seat.
     /// Furniture registration never moves the walkable actor root.
     enum PaintedDeskSeat {
         /// Centre of the cushion in the approved 5120×3840 Blender plate, y-up.
         static let cushionSourcePoint = CGPoint(x: 2478.0649749755858, y: 2466.0268352508547)
         /// Projected thigh-root contact, relative to
         /// the bundled pivot, in display units. The bundle owns sprite scale.
-        static let poseContactOffset = CGPoint(x: -0.771, y: 23.659)
+        static let poseContactOffset = CGPoint(x: 9.8876953125, y: 20.8740234375)
 
         static func bodyOffset(from groundPoint: CGPoint) -> CGPoint {
             let cushion = OfficeInteriorScale.mapPoint(cushionSourcePoint)

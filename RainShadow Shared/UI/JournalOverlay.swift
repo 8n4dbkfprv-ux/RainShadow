@@ -24,16 +24,16 @@ final class JournalOverlay: SKNode {
     }
 
     private enum Palette {
-        static let paper = SKColor(red: 0.78, green: 0.78, blue: 0.76, alpha: 1)
-        static let paperMuted = SKColor(red: 0.55, green: 0.55, blue: 0.54, alpha: 1)
-        static let ink = SKColor(red: 0.08, green: 0.08, blue: 0.09, alpha: 1)
-        static let inkMuted = SKColor(red: 0.22, green: 0.22, blue: 0.24, alpha: 0.82)
-        static let charcoal = SKColor(red: 0.035, green: 0.038, blue: 0.040, alpha: 0.94)
-        static let raised = SKColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 0.96)
-        static let selected = SKColor(red: 0.22, green: 0.085, blue: 0.08, alpha: 0.92)
-        static let brass = SKColor(red: 0.72, green: 0.72, blue: 0.70, alpha: 1)
-        static let redPencil = SKColor(red: 0.46, green: 0.12, blue: 0.105, alpha: 0.88)
-        static let steel = SKColor(red: 0.43, green: 0.45, blue: 0.46, alpha: 0.62)
+        static let paper = UITheme.Color.ink
+        static let paperMuted = UITheme.Color.inkMuted
+        static let ink = UITheme.Color.ink
+        static let inkMuted = UITheme.Color.inkMuted
+        static let charcoal = UITheme.Color.paper
+        static let raised = UITheme.Color.paperShadow
+        static let selected = UITheme.Color.wax
+        static let brass = UITheme.Color.engraved
+        static let redPencil = UITheme.Color.wax
+        static let steel = UITheme.Color.engraved
     }
 
     var onDismiss: (() -> Void)?
@@ -174,17 +174,18 @@ final class JournalOverlay: SKNode {
         shadow.zPosition = -12
         sheet.addChild(shadow)
 
-        if let texture = GameArt.texture(named: "journal_casebook_plate_v03")
-            ?? GameArt.texture(named: "journal_casebook_plate_v02") {
+        if let texture = UIPaintedChrome.assetTexture(named: "journal_casebook_plate_v03")
+            ?? UIPaintedChrome.assetTexture(named: "journal_casebook_plate_v02") {
             texture.filteringMode = .linear
             let plate = SKSpriteNode(texture: texture, size: Metrics.canvas)
+            UIPaintedChrome.configure(plate, for: "journal_casebook_plate_v03")
             plate.zPosition = -10
             sheet.addChild(plate)
         } else {
             assertionFailure("Missing journal_casebook_plate_v03.png")
         }
 
-        let title = Self.label(text: "CASE JOURNAL", size: 37, color: Palette.paper, font: "AvenirNextCondensed-DemiBold")
+        let title = Self.label(text: "CASE JOURNAL", size: 37, color: Palette.paper, font: UITheme.Font.overlayTitle)
         title.position = CGPoint(x: 0, y: 463)
         sheet.addChild(title)
 
@@ -192,7 +193,7 @@ final class JournalOverlay: SKNode {
             text: EmptyCoatJournalContent.agencyLetterhead,
             size: 12,
             color: Palette.paperMuted,
-            font: "AvenirNext-DemiBold"
+            font: UITheme.Font.overlayBodyBold
         )
         subtitle.position = CGPoint(x: 0, y: 431)
         sheet.addChild(subtitle)
@@ -212,7 +213,7 @@ final class JournalOverlay: SKNode {
         sheet.addChild(indexRoot)
         sheet.addChild(detailRoot)
 
-        let controlHint = Self.label(text: "J  CLOSE    •    ↑↓  SELECT    •    ←→  CHANGE VIEW", size: 13, color: Palette.paperMuted, font: "AvenirNext-DemiBold")
+        let controlHint = Self.label(text: "J  CLOSE    •    ↑↓  SELECT    •    ←→  CHANGE VIEW", size: 13, color: Palette.paperMuted, font: UITheme.Font.overlayBodyBold)
         controlHint.position = CGPoint(x: 0, y: -479)
         sheet.addChild(controlHint)
         addChild(sheet)
@@ -230,7 +231,7 @@ final class JournalOverlay: SKNode {
             )
             tab.name = tabMode == .cases ? "journal.tab.cases" : "journal.tab.chronology"
             tab.position = CGPoint(x: x, y: 362)
-            let label = Self.label(text: tabMode.rawValue, size: 16, color: selected ? Palette.paper : Palette.paperMuted, font: "AvenirNext-DemiBold")
+            let label = Self.label(text: tabMode.rawValue, size: 16, color: selected ? UITheme.Color.paper : Palette.paperMuted, font: UITheme.Font.overlayBodyBold)
             label.verticalAlignmentMode = .center
             label.position.y = 1
             tab.addChild(label)
@@ -251,17 +252,17 @@ final class JournalOverlay: SKNode {
             )
             header.name = "journal.section.\(section.id)"
             header.position = CGPoint(x: 0, y: y)
-            let chevron = Self.label(text: expanded ? "▾" : "▸", size: 18, color: Palette.brass, font: "AvenirNext-DemiBold")
+            let chevron = Self.label(text: expanded ? "▾" : "▸", size: 18, color: Palette.brass, font: UITheme.Font.overlayBodyBold)
             chevron.horizontalAlignmentMode = .left
             chevron.verticalAlignmentMode = .center
             chevron.position = CGPoint(x: -238, y: 1)
             header.addChild(chevron)
-            let headerLabel = Self.label(text: section.title, size: 15, color: Palette.paper, font: "AvenirNext-DemiBold")
+            let headerLabel = Self.label(text: section.title, size: 15, color: Palette.paper, font: UITheme.Font.overlayBodyBold)
             headerLabel.horizontalAlignmentMode = .left
             headerLabel.verticalAlignmentMode = .center
             headerLabel.position = CGPoint(x: -208, y: 1)
             header.addChild(headerLabel)
-            let count = Self.label(text: String(format: "%02d", section.entries.count), size: 13, color: Palette.paperMuted, font: "AvenirNext-DemiBold")
+            let count = Self.label(text: String(format: "%02d", section.entries.count), size: 13, color: Palette.paperMuted, font: UITheme.Font.overlayBodyBold)
             count.horizontalAlignmentMode = .right
             count.verticalAlignmentMode = .center
             count.position = CGPoint(x: 235, y: 1)
@@ -286,7 +287,7 @@ final class JournalOverlay: SKNode {
                     marker.alpha = selected ? 1 : 0.7
                     row.addChild(marker)
                 }
-                let rowLabel = Self.label(text: entry.title, size: 16, color: selected ? Palette.paper : Palette.paperMuted, font: "AvenirNext-Medium")
+                let rowLabel = Self.label(text: entry.title, size: 16, color: selected ? UITheme.Color.paper : Palette.paperMuted, font: UITheme.Font.overlayBody)
                 rowLabel.horizontalAlignmentMode = .left
                 rowLabel.verticalAlignmentMode = .center
                 rowLabel.position = CGPoint(x: -203, y: 1)
@@ -310,17 +311,17 @@ final class JournalOverlay: SKNode {
         detailRoot.removeAllChildren()
         guard let entry = entry(withID: selectedEntryID) ?? visibleEntries().first else { return }
 
-        let pin = Self.label(text: entry.eyebrow.uppercased(), size: 14, color: Palette.redPencil, font: "AvenirNext-DemiBold")
+        let pin = Self.label(text: entry.eyebrow.uppercased(), size: 14, color: Palette.redPencil, font: UITheme.Font.overlayBodyBold)
         pin.horizontalAlignmentMode = .left
         pin.position = CGPoint(x: Metrics.rightLeftX, y: 351)
         detailRoot.addChild(pin)
 
-        let status = Self.label(text: entry.status.uppercased(), size: 13, color: Palette.inkMuted, font: "AvenirNext-DemiBold")
+        let status = Self.label(text: entry.status.uppercased(), size: 13, color: Palette.inkMuted, font: UITheme.Font.overlayBodyBold)
         status.horizontalAlignmentMode = .right
         status.position = CGPoint(x: Metrics.rightLeftX + Metrics.rightWidth, y: 351)
         detailRoot.addChild(status)
 
-        let title = Self.label(text: entry.title.uppercased(), size: 34, color: Palette.ink, font: "AvenirNextCondensed-DemiBold")
+        let title = Self.label(text: entry.title.uppercased(), size: 34, color: Palette.ink, font: UITheme.Font.overlayTitle)
         title.horizontalAlignmentMode = .left
         title.position = CGPoint(x: Metrics.rightLeftX, y: 302)
         detailRoot.addChild(title)
@@ -332,25 +333,25 @@ final class JournalOverlay: SKNode {
         detailRoot.addChild(rule)
 
         var y: CGFloat = 238
-        y = addWrapped(entry.summary, atY: y, size: 20, color: Palette.ink, font: "AvenirNext-DemiBold", maxCharacters: 81, lineHeight: 27)
+        y = addWrapped(entry.summary, atY: y, size: 20, color: Palette.ink, font: UITheme.Font.overlayBodyBold, maxCharacters: 81, lineHeight: 27)
         y -= 21
         for paragraph in entry.body {
-            y = addWrapped(paragraph, atY: y, size: 18, color: Palette.inkMuted, font: "AvenirNext-Medium", maxCharacters: 88, lineHeight: 26)
+            y = addWrapped(paragraph, atY: y, size: 18, color: Palette.inkMuted, font: UITheme.Font.overlayBody, maxCharacters: 88, lineHeight: 26)
             y -= 16
         }
 
         if !entry.leads.isEmpty, y > -265 {
-            let leadsTitle = Self.label(text: mode == .chronology ? "CONSEQUENCE" : "LEADS / NEXT STEPS", size: 13, color: Palette.redPencil, font: "AvenirNext-DemiBold")
+            let leadsTitle = Self.label(text: mode == .chronology ? "CONSEQUENCE" : "LEADS / NEXT STEPS", size: 13, color: Palette.redPencil, font: UITheme.Font.overlayBodyBold)
             leadsTitle.horizontalAlignmentMode = .left
             leadsTitle.position = CGPoint(x: Metrics.rightLeftX, y: y)
             detailRoot.addChild(leadsTitle)
             y -= 35
             for lead in entry.leads.prefix(4) {
-                let bullet = Self.label(text: "◆", size: 9, color: Palette.redPencil, font: "AvenirNext-DemiBold")
+                let bullet = Self.label(text: "◆", size: 9, color: Palette.redPencil, font: UITheme.Font.overlayBodyBold)
                 bullet.horizontalAlignmentMode = .left
                 bullet.position = CGPoint(x: Metrics.rightLeftX + 2, y: y + 3)
                 detailRoot.addChild(bullet)
-                y = addWrapped(lead, atY: y, x: Metrics.rightLeftX + 25, size: 17, color: Palette.inkMuted, font: "AvenirNext-Medium", maxCharacters: 82, lineHeight: 24)
+                y = addWrapped(lead, atY: y, x: Metrics.rightLeftX + 25, size: 17, color: Palette.inkMuted, font: UITheme.Font.overlayBody, maxCharacters: 82, lineHeight: 24)
                 y -= 8
             }
         }
@@ -359,7 +360,7 @@ final class JournalOverlay: SKNode {
             text: EmptyCoatJournalContent.pageMark,
             size: 12,
             color: Palette.inkMuted.withAlphaComponent(0.68),
-            font: "AvenirNext-DemiBold"
+            font: UITheme.Font.overlayBodyBold
         )
         pageMark.position = CGPoint(x: Metrics.rightLeftX + Metrics.rightWidth / 2, y: -372)
         detailRoot.addChild(pageMark)

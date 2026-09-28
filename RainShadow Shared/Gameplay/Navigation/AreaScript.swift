@@ -164,14 +164,15 @@ enum AreaScriptRunner {
         return Outcome(blockID: block.id, actions: block.actions, variables: variables)
     }
 
-    /// Run a named block regardless of the first-satisfied rule, which is how a
-    /// proximity trigger fires its script hook.
+    /// A proximity event selects its authored hook, but the block's conditions
+    /// still apply, as they do when an IE region script receives Entered.
     static func runBlock(
         _ id: String,
         of script: AreaScript,
         in context: AreaScriptContext
     ) -> Outcome {
-        guard let block = script.blocks.first(where: { $0.id == id }) else {
+        guard let block = script.blocks.first(where: { $0.id == id }),
+              block.condition.isSatisfied(by: context) else {
             return Outcome(blockID: nil, actions: [], variables: context.variables)
         }
         var variables = context.variables

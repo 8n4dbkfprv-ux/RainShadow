@@ -23,12 +23,10 @@ aliases for existing diagnostic callers but reads live routes and hotspots from
 the authored record. Engine navigation, projection and viewport algorithms are
 unchanged.
 
-The currently installed Voss bundle actually declares `meshy_sep10_v07` in this
-checkout. It was preserved byte-for-byte, rather than replacing it with the old
-CHMF bundle used in the September 22 preview. The revised chair faces SW; the
-complete existing SE seat/rise chain is reflected together for that view, with
-SW standing handoff. Scale, character art and indexed resources are unchanged.
-The approved registered desk cutout covers the seated lower body.
+The September 27 restoration preserved the then-selected `meshy_sep10_v07`
+character and reflected its SE chair chain. This is superseded by the September
+28 character correction: the game now uses the reviewed VossCHMF family with
+explicit SW chair cells. See [current character authority](VossCurrentRuntime.md).
 
 Existing saves get a one-time office layout migration: story, inventory, money
 and loot remain; obsolete office exploration is cleared and dropped items move

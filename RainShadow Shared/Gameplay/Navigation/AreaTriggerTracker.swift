@@ -11,10 +11,16 @@ struct AreaTriggerTracker: Equatable, Sendable {
     private(set) var insideIDs: Set<String> = []
     private(set) var spentIDs: Set<String> = []
 
-    mutating func evaluate(regions: [AreaRegion], at point: CGPoint) -> [AreaRegion] {
+    init(spentIDs: Set<String> = []) {
+        self.spentIDs = spentIDs
+    }
+
+    mutating func evaluate(regions: [AreaRegion], at point: CGPoint, isPartyMember: Bool = true, permits: (AreaRegion) -> Bool = { _ in true }) -> [AreaRegion] {
         let candidates = regions.filter { region in
             region.kind == .trigger
                 && !region.isDeactivated
+                && (!region.partyOnly || isPartyMember)
+                && permits(region)
                 && region.contains(point)
         }
         let now = Set(candidates.map(\.id))
@@ -22,7 +28,7 @@ struct AreaTriggerTracker: Equatable, Sendable {
         for region in candidates where !insideIDs.contains(region.id) {
             if !region.resets && spentIDs.contains(region.id) { continue }
             fired.append(region)
-            spentIDs.insert(region.id)
+            if !region.resets { spentIDs.insert(region.id) }
         }
         insideIDs = now
         return fired

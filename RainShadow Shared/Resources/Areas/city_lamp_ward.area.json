@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "city_lamp_ward",
+    "id": "RS0400",
     "displayName": "LAMP WARD",
     "kind": "exterior",
     "areaType": [
@@ -126,7 +126,7 @@
           "y": 1616
         },
         "travel": {
-          "destination": "interior_lamphouse",
+          "destination": "RS0401",
           "entrance": "from.street"
         }
       }

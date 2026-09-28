@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "city_wharf_ladder",
+    "id": "RS0200",
     "displayName": "WHARF LADDER",
     "kind": "exterior",
     "areaType": [
@@ -57820,7 +57820,7 @@
           "y": 1946.7437
         },
         "travel": {
-          "destination": "interior_shipping_office",
+          "destination": "RS0201",
           "entrance": "from.street"
         }
       }

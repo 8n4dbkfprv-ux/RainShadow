@@ -83,7 +83,7 @@ struct AreaVariablesTests {
         var vars = AreaVariables()
         vars.setInteger(1, "quest/step", in: HarborpointAreas.office)
         let flat = vars.flattened
-        #expect(flat["office_suite/quest/step"] == .integer(1))
+        #expect(flat["RS0101/quest/step"] == .integer(1))
         let restored = AreaVariables(flattened: flat)
         #expect(restored.integer("quest/step", in: HarborpointAreas.office) == 1)
     }

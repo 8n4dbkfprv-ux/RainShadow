@@ -9,6 +9,8 @@ class GameAreaScene: BaseGameScene {
     let area: AreaDefinition
     let areaEntranceName: String?
     private var triggerTracker = AreaTriggerTracker()
+    private var areaLogicClock = AreaLogicClock()
+    private var areaTickPending = false
     private var lightMap: AreaLightMap?
     private var heightMap: AreaSearchMapLoader.Raster?
     private var ambientNodes: [String: SKAudioNode] = [:]
@@ -45,7 +47,9 @@ class GameAreaScene: BaseGameScene {
             artSize: artSize ?? CGSize(width: definition.worldSize.w, height: definition.worldSize.h)
         )
         AreaLoadTrace.measure("area.runtime", definition.id.rawValue) {
-            loadArea(AreaRuntime(area: definition, playerActorID: Self.detectiveActorID))
+            let state = context.session.objectState(in: definition)
+            loadArea(AreaRuntime(area: definition, playerActorID: Self.detectiveActorID, objectState: state))
+            triggerTracker = AreaTriggerTracker(spentIDs: state.spentTriggers)
         }
     }
 
@@ -240,12 +244,25 @@ class GameAreaScene: BaseGameScene {
     /// Per-frame IE area services: script, triggers, ambients, light, height, cover.
     func tickAreaSystems(listenerAt point: CGPoint, currentTime: TimeInterval) {
         updateAreaPlatePaging()
-        tickAreaScript(inside: triggerTracker.insideIDs)
-        tickProximityTriggers(at: point)
+        // GlobalTimer::Freeze never executes area scripts. Keep lighting and
+        // paging alive while the simulation is frozen.
+        areaTickPending = areaLogicClock.advance(at: currentTime, paused: pause.isPaused || context.router.isTransitioning)
+        if areaTickPending && areaLogicClock.pollsScript {
+            tickAreaScript(inside: triggerTracker.insideIDs)
+        }
         tickAmbients(listenerAt: point, currentTime: currentTime)
         tickAreaAnimations()
         applyFootLighting(to: detective, at: point)
         applyHeightOffset(to: detective, at: point)
+    }
+
+    /// Map::UpdateScripts checks regions after stepping actors, and checks the
+    /// freeze flag again because a script/action can have opened a modal.
+    func finishAreaTick(at point: CGPoint) {
+        guard areaTickPending else { return }
+        areaTickPending = false
+        guard !pause.isPaused, !context.router.isTransitioning else { return }
+        tickProximityTriggers(at: point)
     }
 
     func tickAreaScript(inside: Set<String>) {
@@ -263,7 +280,11 @@ class GameAreaScene: BaseGameScene {
     }
 
     func tickProximityTriggers(at point: CGPoint) {
-        let fired = triggerTracker.evaluate(regions: area.regions, at: point)
+        let fired = triggerTracker.evaluate(regions: area.regions, at: point) { region in
+            guard let flag = region.requiresFlag else { return true }
+            return context.session.caseState.flags.contains(flag)
+                || context.session.areaVariables.isSet(flag, in: area.id)
+        }
         guard !fired.isEmpty, let runtime = areaRuntime else { return }
         var variables = context.session.areaVariables
         for region in fired {
@@ -283,6 +304,8 @@ class GameAreaScene: BaseGameScene {
                 variables = outcome.variables
             }
         }
+        runtime.recordSpentTriggers(triggerTracker.spentIDs)
+        context.session.recordObjectState(runtime.objectState, in: runtime.id)
         context.session.applyAreaScriptVariables(variables)
     }
 
@@ -400,7 +423,7 @@ class GameAreaScene: BaseGameScene {
         from point: CGPoint,
         fallback: CGPoint
     ) -> (walkTo: CGPoint, lockedLine: String?) {
-        if !door.canOpen(holdingKey: { id in
+        if !(areaRuntime?.objectState ?? AreaObjectState()).canOpen(door, holdingKey: { id in
             context.session.characterInventory.quantity(of: id) > 0
         }) {
             return (door.walkTarget(from: point, fallback: fallback), door.lockedLine ?? "Locked.")
@@ -409,7 +432,7 @@ class GameAreaScene: BaseGameScene {
     }
 
     func openDoor(_ door: AreaDoor) {
-        areaRuntime?.setDoor(door.id, open: true)
+        guard changeDoorState(door, open: true) else { return }
         presentDoorVisual(door, open: true)
         if door.backgroundTiles != nil {
             wallStencil = WallStencilTexture.make(from: areaRuntime?.makeWallStencil() ?? area.makeWallStencil())
@@ -422,7 +445,7 @@ class GameAreaScene: BaseGameScene {
 
     func closeDoor(_ door: AreaDoor) {
         guard !door.cannotClose else { return }
-        areaRuntime?.setDoor(door.id, open: false)
+        guard changeDoorState(door, open: false) else { return }
         presentDoorVisual(door, open: false)
         if door.backgroundTiles != nil {
             wallStencil = WallStencilTexture.make(from: areaRuntime?.makeWallStencil() ?? area.makeWallStencil())
@@ -430,6 +453,26 @@ class GameAreaScene: BaseGameScene {
         doorVisibilityDidChange()
         if let sound = door.closeSound {
             GameSFX.play(sound, on: .world)
+        }
+    }
+
+    private func changeDoorState(_ door: AreaDoor, open: Bool) -> Bool {
+        guard let runtime = areaRuntime else { return false }
+        let change = runtime.setDoor(door.id, open: open)
+        guard change.accepted else { return false }
+        for (id, point) in change.relocatedActors { relocateAreaActor(id, to: point) }
+        context.session.recordObjectState(runtime.objectState, in: area.id)
+        return true
+    }
+
+    /// Map::JumpActors hands the new ground point back to each live node.
+    func relocateAreaActor(_ id: String, to point: CGPoint) {
+        if id == Self.detectiveActorID { detective.relocateForDoor(to: point) }
+    }
+
+    func applyEntranceFacing() {
+        if let orientation = area.resolvedEntrance(named: areaEntranceName)?.orientation {
+            detective.setEntranceFacing(orientation)
         }
     }
 
@@ -479,7 +522,7 @@ class GameAreaScene: BaseGameScene {
             sprite.setScale(registration.scale)
             if registration.closedIsBakedIntoPlate {
                 // Primary tiles are in the plate; hide secondary until open.
-                sprite.isHidden = door.startsClosed
+                sprite.isHidden = !(areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
             }
             depthWorldRoot.addChild(sprite)
             updateDepth(of: sprite, bias: 24)
@@ -489,7 +532,7 @@ class GameAreaScene: BaseGameScene {
             // outline. Ours is a live sprite, so lift this door's outline over
             // its own leaf or the wash draws behind the art it traces.
             highlightOutlineLayer.setDrawOrder(id: door.id, zPosition: sprite.zPosition + 1)
-            if !door.startsClosed {
+            if areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed {
                 presentDoorVisual(door, open: true)
             }
         }

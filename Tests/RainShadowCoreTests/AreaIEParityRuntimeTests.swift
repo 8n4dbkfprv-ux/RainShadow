@@ -168,34 +168,33 @@ struct AreaDoorContractTests {
         #expect(found.canOpen(holdingKey: { _ in true }))
     }
 
-    @Test func theOfficeDoorAuthorsAnApproachPairAndSounds() throws {
+    @Test func currentOfficeAndSableHaveStaticTravelWithoutInventedDoors() throws {
         let office = OfficeAreaAdapter.area()
-        let door = try #require(office.doors.first { $0.id == "office.door" })
-        #expect(door.blocksSight)
-        #expect(door.approachPoints.count == 2)
-        #expect(door.openSound == "sfx_door_open")
-        #expect(door.closeSound == "sfx_door_close")
-        let first = try #require(door.approachPoints.first)
-        #expect(door.nearestApproach(to: first.cgPoint) == first)
+        let sable = CityDistrictAreaAdapter.area(for: .sableRow)
+        #expect(office.doors.isEmpty)
+        #expect(sable.doors.isEmpty)
+        let outbound = try #require(office.travelRegions.first { $0.travel?.destination == sable.id })
+        let inbound = try #require(sable.travelRegions.first { $0.travel?.destination == office.id })
+        #expect(sable.entrance(named: outbound.travel?.entrance) != nil)
+        #expect(office.entrance(named: inbound.travel?.entrance) != nil)
     }
 
-    @Test func everyCityPortalIsAlsoADoor() throws {
-        for id in CityDistrictID.allCases {
+    @Test func restoredStatefulDoorsHaveBothSpatialStatesAndAReachableApproach() throws {
+        for id in [CityDistrictID.wharfLadder, .riverside] {
             let area = CityDistrictAreaAdapter.area(for: id)
-            let definition = CityDistrictCatalog.definition(for: id)
-            #expect(area.doors.count == definition.portals.count, "'\(id.slug)' door count drifted")
-            for portal in definition.portals {
-                let door = try #require(area.doors.first { $0.id == portal.id })
-                #expect(door.blocksSight)
-                #expect(door.approachPoints.count == 2)
-                #expect(door.startsClosed)
-                let closed = door.closedObstacle.cgRect
-                let centre = CGPoint(x: closed.midX, y: closed.midY)
-                #expect(
-                    definition.obstacles.contains { $0.contains(centre) },
-                    "'\(id.slug)' '\(portal.id)' closed leaf sits on the street"
-                )
-            }
+            #expect(area.doors.count == 1)
+            let door = try #require(area.doors.first)
+            #expect(door.backgroundTiles != nil)
+            #expect(!door.closedOutline.isEmpty)
+            #expect(!door.openOutline.isEmpty)
+            #expect(door.startsClosed)
+            #expect(door.blocksSight)
+            let region = try #require(area.region(id: door.id))
+            let approach = try #require(region.approachPoint)
+            #expect(door.nearestApproach(to: approach.cgPoint) != nil)
+            let map = area.makeNavigationMap()
+            let start = try #require(area.spawnPoint(entrance: nil))
+            #expect(map.reachesExactly(from: start, to: approach.cgPoint))
         }
     }
 
@@ -206,14 +205,15 @@ struct AreaDoorContractTests {
         for id in CityInteriorID.allCases {
             let exterior = CityDistrictAreaAdapter.area(for: id.exteriorDistrict)
             let region = try #require(exterior.region(id: id.exteriorPortalID))
-            let door = try #require(exterior.doors.first { $0.id == region.id })
             let travel = try #require(region.travel)
 
             #expect(travel.destination == id.areaID)
             #expect(travel.entrance == CityInteriorAreaAdapter.streetEntrance)
-            #expect(door.approachPoints.count == 2)
             let regionApproach = try #require(region.approachPoint)
-            #expect(door.nearestApproach(to: regionApproach.cgPoint) != nil)
+            if let door = exterior.doors.first(where: { $0.id == region.id }) {
+                #expect(door.nearestApproach(to: regionApproach.cgPoint) != nil)
+            }
+            #expect(exterior.entrance(named: id.exteriorEntranceName) != nil)
 
             let interior = CityInteriorAreaAdapter.area(for: id)
             let returnRegion = try #require(interior.region(id: "portal.return"))
@@ -221,7 +221,7 @@ struct AreaDoorContractTests {
             #expect(returnTravel.destination == exterior.id)
             #expect(returnTravel.entrance == id.exteriorEntranceName)
             #expect(exterior.entrance(named: id.exteriorEntranceName) != nil)
-            #expect(interior.doors.contains { $0.id == returnRegion.id })
+            #expect(returnRegion.approachPoint != nil)
         }
     }
 }

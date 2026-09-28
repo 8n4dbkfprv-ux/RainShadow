@@ -3,7 +3,6 @@ import SpriteKit
 @MainActor
 final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
     private var cinematicStarted = false
-    private var platePager: AreaPlatePager?
 
     init(context: GameContext) {
         super.init(context: context, artSize: CGSize(width: 3_072, height: 1_728))
@@ -16,19 +15,17 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
     override func buildScene() {
         addChild(RainAudio.loopingAmbience(fileNamed: "amb_rain_exterior.m4a", volume: 0.52))
 
-        // The native-density repaint covers the same 3072×1728 world as the
-        // original plate. Paging changes residency only: the camera rail and
-        // its scale cues continue to address exactly the same painted points.
-        if let pager = AreaPlatePager(
-            plateTextureName: "ext_apartment_base_hd_v02",
-            expectedWorldSize: artSize
-        ) {
-            platePager = pager
-            backgroundRoot.addChild(pager)
-        } else if let texture = GameArt.texture(named: "ext_apartment_base") {
+        // Current Sable Row cinematic painting. Keep its native aspect ratio;
+        // the tiny overscan absorbs source rounding without stretching the art.
+        if let texture = GameArt.texture(named: "ext_sable_row_noir_intro_v01") {
             texture.filteringMode = .linear
-            let background = SKSpriteNode(texture: texture, size: artSize)
-            background.anchorPoint = .zero
+            let sourceSize = texture.size()
+            let scale = max(artSize.width / sourceSize.width, artSize.height / sourceSize.height)
+            let background = SKSpriteNode(texture: texture, size: CGSize(
+                width: sourceSize.width * scale,
+                height: sourceSize.height * scale
+            ))
+            background.position = CGPoint(x: artSize.width / 2, y: artSize.height / 2)
             backgroundRoot.addChild(background)
         } else {
             buildFallbackExterior()
@@ -66,7 +63,6 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         if let position = cutsceneDirector.cameraOverride(in: cinematicBounds) {
             gameCamera.position = position
         }
-        updatePlatePages()
         // Opening pans/zooms the camera; keep title HUD locked to the view.
         syncHudToCamera()
     }
@@ -86,17 +82,6 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         cinematicStarted = true
         gameCamera.position = CutsceneCatalog.OpeningExteriorFraming.streetLevel
         cutsceneDirector.play(CutsceneCatalog.openingExterior, on: self)
-        // Populate the opening view before its first rendered frame. Later
-        // updates use the live cutscene scale, including the final window push.
-        updatePlatePages()
-    }
-
-    private func updatePlatePages() {
-        platePager?.update(
-            cameraPosition: gameCamera.position,
-            viewportSize: size,
-            cameraScale: gameCamera.xScale
-        )
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {

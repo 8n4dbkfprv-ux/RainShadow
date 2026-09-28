@@ -90,6 +90,7 @@ final class CityDistrictScene: GameAreaScene {
         }
         detective.position = area.spawnPoint(entrance: areaEntranceName) ?? .zero
         detective.beginOpenWorldStanding()
+        applyEntranceFacing()
         // Daylight is the default outdoor look; rain is an overlay, not a grade.
         detective.applySceneLighting(.cityDay)
         navigation.registerActor(
@@ -438,8 +439,8 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
         pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
+        tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
         let worldIsPaused = pause.isPaused
         // The ground says what it is. This was `.wetStone` unconditionally,
         // which is right for a paved ward and wrong the moment an area mixes
@@ -457,6 +458,7 @@ final class CityDistrictScene: GameAreaScene {
             )
             performCorrectiveRepathIfNeeded(at: currentTime)
         }
+        finishAreaTick(at: detective.position)
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -603,6 +605,9 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     private func handleRegion(_ region: AreaRegion) {
+        // InfoPoint::CheckTravel rejects deactivated regions even if a caller
+        // already has a reference (hiding its outline is not deactivation).
+        guard !region.isDeactivated else { return }
         let box = region.boundingBox
         let target = door(matching: region.id)?.walkTarget(
             from: detective.position,

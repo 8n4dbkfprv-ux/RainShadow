@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "interior_iron_stairs",
+    "id": "RS0301",
     "displayName": "RIVERSIDE ROOMS",
     "kind": "interior",
     "areaType": [],
@@ -2188,7 +2188,7 @@
           "y": 222
         },
         "travel": {
-          "destination": "city_riverside",
+          "destination": "RS0300",
           "entrance": "from.portal.ironStairs"
         }
       }

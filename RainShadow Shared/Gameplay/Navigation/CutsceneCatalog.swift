@@ -67,8 +67,8 @@ enum CutsceneCatalog {
         static let streetLevel = CGPoint(x: 1_536, y: 760)
         /// The building, framed whole.
         static let buildingWide = CGPoint(x: 1_580, y: 900)
-        /// The one lit window on the third floor: Voss, still at his desk.
-        static let officeWindow = CGPoint(x: 1_650, y: 1_000)
+        /// Warm bay window above the entrance, measured on the Sable Row intro painting.
+        static let officeWindow = CGPoint(x: 1_544, y: 804)
 
         /// Multiples of the scene's resolved base zoom, not absolute scales —
         /// `BaseGameScene.layoutViewport()` recomputes `baseCameraScale` on every

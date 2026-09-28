@@ -231,6 +231,12 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         syncMovablePosition()
     }
 
+    func relocateForDoor(to point: CGPoint) {
+        position = point
+        syncMovablePosition()
+        movable.impedeBumping()
+    }
+
     /// `Movable::BumpAway` — step off the spot so a mover can get past, and
     /// remember where to come back to. `DoStep` walks it back on its own once
     /// the spot frees up.

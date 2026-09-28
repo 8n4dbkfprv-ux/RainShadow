@@ -1,10 +1,19 @@
 # AGENTS
 
+## Current character runtime — September 28
+
+Voss now uses **VossCHMF**, the September 22 reference family plus the September
+23 explicit SW chair poses (1,556 frames). `VossAnimationSet` is the runtime
+authority. Preserve its named bundle and `IECharacterPaletteLayout` support.
+The V14 character instructions below are historical and superseded. Never
+rewire the actor to `Voss` or its compatibility atlases during an area restore.
+See `Documentation/VossCurrentRuntime.md` for the exact payload and regression checks.
+
 ## Current restored city runtime — September 27
 
 Sable Row V30, Wharf Ladder V19/V20 and Riverside V13 are now the canonical
 world-map areas via `RebuiltCityAreas.swift`. Preserve the separate current
-Lamp Ward/Lamphouse integration and Voss replacement V14. Restore area art with
+Lamp Ward/Lamphouse integration and current VossCHMF character. Restore area art with
 `restore_completed_city_areas.py`; do not restore historical Swift source
 backups over the current actor, office or routing. The Rooms return approach
 is corrected to `(344,222)` for clearance on the unchanged raster.

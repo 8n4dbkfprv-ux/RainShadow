@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "area": {
-    "id": "city_sable_row",
+    "id": "RS0100",
     "displayName": "SABLE ROW",
     "kind": "exterior",
     "areaType": [
@@ -840357,7 +840357,7 @@
           "y": 1912
         },
         "travel": {
-          "destination": "office_suite",
+          "destination": "RS0101",
           "entrance": "from.city"
         }
       },

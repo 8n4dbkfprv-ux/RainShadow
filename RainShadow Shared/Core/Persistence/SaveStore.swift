@@ -1,5 +1,32 @@
 import Foundation
 
+/// Permanent area resrefs. Never recycle a code or derive it from catalog order.
+/// Resource basenames remain descriptive; old saves and authoring tools may use them.
+public enum AreaResourceID {
+    public static let codes: [String: String] = [
+        "opening_exterior": "RS0000",
+        "city_sable_row": "RS0100", "office_suite": "RS0101",
+        "city_wharf_ladder": "RS0200", "interior_shipping_office": "RS0201",
+        "city_riverside": "RS0300", "interior_iron_stairs": "RS0301",
+        "city_lamp_ward": "RS0400", "interior_lamphouse": "RS0401",
+        "city_lila_street": "RS0500", "interior_lila_rooms": "RS0501",
+        "city_civic_records": "RS0600", "interior_records_annex": "RS0601",
+        "city_harborpoint_pd": "RS0700", "interior_police_station": "RS0701",
+        "sable_court": "RS9900", "sable_noir": "RS9901"
+    ]
+
+    public static func canonical(_ name: String) -> String {
+        if let code = codes[name.lowercased()] { return code }
+        let upper = name.uppercased()
+        return codes.values.contains(upper) ? upper : name
+    }
+
+    public static func resourceName(_ name: String) -> String {
+        let code = canonical(name)
+        return codes.first { $0.value == code }?.key ?? name
+    }
+}
+
 /// Persistence mirror of Core `ResolvedLootStack` — Persistence has no Core dependency.
 enum PersistedLootStack: Codable, Equatable, Sendable {
     case coins(pence: Int)
@@ -177,6 +204,11 @@ struct SaveSnapshot: Codable, Equatable {
     /// is the equivalent. Defaulted so a save written before it existed loads
     /// with an empty store rather than failing.
     var areaVariables: [String: PersistedAreaVariable] = [:]
+    /// Modified ARE object flags, keyed by area then object. Additive defaults
+    /// preserve old saves and let unvisited objects use authored start states.
+    var areaDoorOpen: [String: [String: Bool]] = [:]
+    var areaUnlockedDoors: [String: Set<String>] = [:]
+    var areaSpentTriggers: [String: Set<String>] = [:]
     /// Each area's explored bitmask, keyed by area id.
     ///
     /// Baldur's Gate saves this in the area's own record — "an array of bits, one
@@ -203,7 +235,10 @@ struct SaveSnapshot: Codable, Equatable {
         caseJournalFragments: [PersistedJournalFragment] = [],
         caseCounters: [String: Int] = [:],
         areaVariables: [String: PersistedAreaVariable] = [:],
-        exploredFog: [String: PersistedExploredFog] = [:]
+        exploredFog: [String: PersistedExploredFog] = [:],
+        areaDoorOpen: [String: [String: Bool]] = [:],
+        areaUnlockedDoors: [String: Set<String>] = [:],
+        areaSpentTriggers: [String: Set<String>] = [:]
     ) {
         self.schemaVersion = schemaVersion
         self.hasSeenOpening = hasSeenOpening
@@ -223,6 +258,9 @@ struct SaveSnapshot: Codable, Equatable {
         self.caseCounters = caseCounters
         self.areaVariables = areaVariables
         self.exploredFog = exploredFog
+        self.areaDoorOpen = areaDoorOpen
+        self.areaUnlockedDoors = areaUnlockedDoors
+        self.areaSpentTriggers = areaSpentTriggers
     }
 
     init(from decoder: Decoder) throws {
@@ -268,6 +306,9 @@ struct SaveSnapshot: Codable, Equatable {
             forKey: .areaVariables
         ) ?? [:]
         caseCounters = try container.decodeIfPresent([String: Int].self, forKey: .caseCounters) ?? [:]
+        areaDoorOpen = try container.decodeIfPresent([String: [String: Bool]].self, forKey: .areaDoorOpen) ?? [:]
+        areaUnlockedDoors = try container.decodeIfPresent([String: Set<String>].self, forKey: .areaUnlockedDoors) ?? [:]
+        areaSpentTriggers = try container.decodeIfPresent([String: Set<String>].self, forKey: .areaSpentTriggers) ?? [:]
     }
 }
 
@@ -317,13 +358,15 @@ final class SaveStore {
             // reviewed layouts. Story, inventory and journal fields stay intact.
             let backupKey = key + ".BeforeCityLayoutV1"
             if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
-            for (area, arrival) in Self.rebuiltAreaArrivals {
-                snapshot.exploredFog.removeValue(forKey: area)
-                if let piles = snapshot.groundPiles[area] {
-                    snapshot.groundPiles[area] = piles.map { old in
-                        var item = old
-                        item.x = arrival.x; item.y = arrival.y
-                        return item
+            for (legacyArea, arrival) in Self.rebuiltAreaArrivals {
+                for area in [legacyArea, AreaResourceID.canonical(legacyArea)] {
+                    snapshot.exploredFog.removeValue(forKey: area)
+                    if let piles = snapshot.groundPiles[area] {
+                        snapshot.groundPiles[area] = piles.map { old in
+                            var item = old
+                            item.x = arrival.x; item.y = arrival.y
+                            return item
+                        }
                     }
                 }
             }
@@ -333,18 +376,26 @@ final class SaveStore {
         if snapshot.officeLayoutRevision < 1 {
             let backupKey = key + ".BeforeOfficeLayoutV19"
             if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
-            snapshot.exploredFog.removeValue(forKey: "office_suite")
-            if let piles = snapshot.groundPiles["office_suite"] {
-                snapshot.groundPiles["office_suite"] = piles.map { old in
-                    var item = old
-                    item.x = Self.restoredOfficeArrival.x; item.y = Self.restoredOfficeArrival.y
-                    return item
+            for area in ["office_suite", AreaResourceID.canonical("office_suite")] {
+                snapshot.exploredFog.removeValue(forKey: area)
+                if let piles = snapshot.groundPiles[area] {
+                    snapshot.groundPiles[area] = piles.map { old in
+                        var item = old
+                        item.x = Self.restoredOfficeArrival.x; item.y = Self.restoredOfficeArrival.y
+                        return item
+                    }
                 }
             }
             snapshot.officeLayoutRevision = 1
             save(snapshot)
         }
-        return snapshot
+        let normalized = snapshot.withCanonicalAreaIDs()
+        if normalized != snapshot {
+            let backupKey = key + ".BeforeAreaCodesV1"
+            if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
+            save(normalized)
+        }
+        return normalized
     }
 
     // OfficeRestoreTests checks this against the V19 ARE default entrance.
@@ -374,5 +425,40 @@ final class SaveStore {
     /// today's idea of "empty".
     func reset() {
         defaults.removeObject(forKey: key)
+    }
+}
+
+private extension SaveSnapshot {
+    func withCanonicalAreaIDs() -> SaveSnapshot {
+        // Aliases first, canonical keys last: canonical values win conflicts.
+        func migrate<T>(_ source: [String: T], key: (String) -> String = AreaResourceID.canonical,
+                        merge: (T, T) -> T) -> [String: T] {
+            var result: [String: T] = [:]
+            let ordered = source.keys.sorted {
+                let a = key($0) == $0, b = key($1) == $1
+                return a == b ? $0 < $1 : !a
+            }
+            for old in ordered {
+                let new = key(old), value = source[old]!
+                result[new] = result[new].map { merge($0, value) } ?? value
+            }
+            return result
+        }
+        var result = self
+        result.groundPiles = migrate(groundPiles, merge: +)
+        result.areaDoorOpen = migrate(areaDoorOpen) { $0.merging($1) { _, canonical in canonical } }
+        result.areaUnlockedDoors = migrate(areaUnlockedDoors) { $0.union($1) }
+        result.areaSpentTriggers = migrate(areaSpentTriggers) { $0.union($1) }
+        result.areaVariables = migrate(areaVariables, key: { key in
+            guard let slash = key.firstIndex(of: "/") else { return key }
+            return AreaResourceID.canonical(String(key[..<slash])) + key[slash...]
+        }) { _, canonical in canonical }
+        result.exploredFog = migrate(exploredFog) { old, canonical in
+            guard old.columns == canonical.columns, old.rows == canonical.rows,
+                  old.bytes.count == canonical.bytes.count else { return canonical }
+            return PersistedExploredFog(columns: canonical.columns, rows: canonical.rows,
+                                        bytes: Data(zip(old.bytes, canonical.bytes).map { $0 | $1 }))
+        }
+        return result
     }
 }

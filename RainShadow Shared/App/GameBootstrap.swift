@@ -24,6 +24,7 @@ final class GameSession {
     /// sections. Both are already keyed by area; folding them in here would tidy
     /// the namespace and coarsen the model.
     private(set) var areaVariables: AreaVariables
+    private var areaObjects: [AreaID: AreaObjectState] = [:]
     /// Night-pinned IE hour clock. Does not persist: every load sits at 22:00.
     private(set) var clock = GameClock.pinnedNight
 
@@ -93,6 +94,14 @@ final class GameSession {
                 out[entry.key] = Self.toAreaVariable(entry.value)
             }
         )
+        let objectAreas = Set(snapshot.areaDoorOpen.keys)
+            .union(snapshot.areaUnlockedDoors.keys).union(snapshot.areaSpentTriggers.keys)
+        areaObjects = Dictionary(uniqueKeysWithValues: objectAreas.map { id in
+            (AreaID(id), AreaObjectState(
+                doorOpen: snapshot.areaDoorOpen[id] ?? [:],
+                unlockedDoors: snapshot.areaUnlockedDoors[id] ?? [],
+                spentTriggers: snapshot.areaSpentTriggers[id] ?? []))
+        })
         fogByArea = snapshot.exploredFog.reduce(into: [AreaID: FogBitmask]()) { out, entry in
             out[AreaID(rawValue: entry.key)] = FogBitmask(
                 columns: entry.value.columns,
@@ -201,6 +210,23 @@ final class GameSession {
             in: CityDistrictAreaAdapter.areaID(for: id)
         ) else { return }
         areaVariables.setFlag(true, Self.visitedVariable, in: CityDistrictAreaAdapter.areaID(for: id))
+        persist()
+    }
+
+    func objectState(in area: AreaDefinition) -> AreaObjectState {
+        var state = areaObjects[area.id] ?? AreaObjectState()
+        // Older builds wrote TRG_ flags but never rehydrated their one-shot state.
+        for region in area.regions where !region.resets {
+            if areaVariables.isSet("TRG_\(region.id)", in: area.id) {
+                state.spentTriggers.insert(region.id)
+            }
+        }
+        return state
+    }
+
+    func recordObjectState(_ state: AreaObjectState, in area: AreaID) {
+        guard areaObjects[area] != state else { return }
+        areaObjects[area] = state
         persist()
     }
 
@@ -647,7 +673,10 @@ final class GameSession {
                     rows: entry.value.rows,
                     bytes: Data(entry.value.bytes)
                 )
-            }
+            },
+            areaDoorOpen: Dictionary(uniqueKeysWithValues: areaObjects.map { ($0.key.rawValue, $0.value.doorOpen) }),
+            areaUnlockedDoors: Dictionary(uniqueKeysWithValues: areaObjects.map { ($0.key.rawValue, $0.value.unlockedDoors) }),
+            areaSpentTriggers: Dictionary(uniqueKeysWithValues: areaObjects.map { ($0.key.rawValue, $0.value.spentTriggers) })
         ))
     }
 

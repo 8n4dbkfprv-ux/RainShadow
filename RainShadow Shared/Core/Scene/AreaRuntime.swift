@@ -4,37 +4,8 @@ import Foundation
 /// One loaded area, and the state that belongs to it rather than to the scene
 /// drawing it — GemRB's `Map` in the shape RainShadow currently needs it.
 ///
-/// Today that is the area record, the navigation map built for it, and the
-/// player's waypoint queue. Every scene needs exactly those three and they are
-/// always constructed together; keeping them as three separate stored
-/// properties in each scene is how they drifted apart in the first place.
-///
-/// **What is deliberately *not* here.** The plan for this extraction assumed the
-/// two scenes also duplicated fog, HUD building and container handling. Measured,
-/// they do not:
-///
-/// - Fog no longer differs at all, and could move here — but it is a node in
-///   the scene graph, not state. Both areas explore the same way, draw the same
-///   two bitmaps and take their sight range from the area record; the only
-///   difference left is that a district folds its explored cells back into the
-///   session (`recordCityFogExplored`) so they outlive the visit, and a room
-///   does not. That is one call in one scene, not a seam worth extracting.
-/// - The office has no `buildHud` at all — the city's 70 lines have no
-///   counterpart to share with.
-/// - Containers and a stampable door exist only in the office; edge exits and a
-///   world map only in the city.
-///
-/// The one genuinely identical remnant is `isFloorOrderable`, at six lines,
-/// which is not worth a seam. So this stays small on purpose: the real
-/// duplication was the waypoint queue, and that already moved to
-/// `MovementOrderQueue` where it could be tested.
-///
-/// Both shipped scenes now build their navigation from the area record. The one
-/// thing that used to prevent that — the office's 96,000-node path budget, three
-/// times the engine default because a small room packed with ~750 obstacle
-/// rectangles expands far more nodes per unit travelled than an open street —
-/// is carried by the record as `pathSearchBudget`. The injecting initialiser
-/// stays for a scene that needs a map built some other way.
+/// Authored records remain immutable; current door flags and spent proximity
+/// events belong to this visit and are copied to the session's saved ARE state.
 @MainActor
 final class AreaRuntime {
     let area: AreaDefinition
@@ -42,9 +13,14 @@ final class AreaRuntime {
     private(set) var openDoorIDs: Set<String>
     private(set) var currentWallPolygons: [AreaWallPolygon] = []
     let movement: MovementOrderQueue
+    private(set) var objectState: AreaObjectState
 
-    init(area: AreaDefinition, navigation: NavigationMap, playerActorID: String) {
-        self.openDoorIDs = Set(area.doors.filter { !$0.startsClosed }.map(\.id))
+    init(area: AreaDefinition, navigation: NavigationMap, playerActorID: String, objectState: AreaObjectState = .init()) {
+        self.objectState = objectState
+        self.openDoorIDs = Set(area.doors.filter { objectState.isOpen($0) }.map(\.id))
+        for door in area.doors {
+            if let open = objectState.doorOpen[door.id] { navigation.setDoor(door.id, open: open) }
+        }
         self.area = area
         self.navigation = navigation
         self.movement = MovementOrderQueue(navigation: navigation, actorID: playerActorID)
@@ -53,20 +29,30 @@ final class AreaRuntime {
 
     /// Build the navigation map from the area itself. Used by areas whose
     /// geometry is fully expressed in the record.
-    convenience init(area: AreaDefinition, playerActorID: String) {
+    convenience init(area: AreaDefinition, playerActorID: String, objectState: AreaObjectState = .init()) {
         self.init(
             area: area,
             navigation: area.makeNavigationMap(),
-            playerActorID: playerActorID
+            playerActorID: playerActorID,
+            objectState: objectState
         )
     }
 
     /// GemRB DoorTrigger::SetState selects open/closed walls, then invalidates
     /// the stencil. Navigation retains its existing door-cell implementation.
-    func setDoor(_ id: String, open: Bool) {
-        navigation.setDoor(id, open: open)
+    @discardableResult
+    func setDoor(_ id: String, open: Bool) -> AreaDoorChange {
+        guard let door = area.doors.first(where: { $0.id == id }) else { return .init(accepted: false) }
+        let change = navigation.changeDoor(door, open: open)
+        guard change.accepted else { return change }
+        objectState.setDoor(door, open: open)
         if open { openDoorIDs.insert(id) } else { openDoorIDs.remove(id) }
         refreshDoorWalls()
+        return change
+    }
+
+    func recordSpentTriggers(_ ids: Set<String>) {
+        objectState.spentTriggers = ids
     }
 
     private func refreshDoorWalls() {

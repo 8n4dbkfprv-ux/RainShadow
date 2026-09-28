@@ -232,7 +232,7 @@ final class QuickLootBarNode: SKNode {
     // MARK: - Building
 
     private func build() {
-        if let texture = GameArt.texture(named: "hud_loot_container_panel_v02") {
+        if let texture = UIPaintedChrome.assetTexture(named: "hud_loot_container_panel_v02") {
             texture.filteringMode = .linear
             plate.texture = texture
         } else {
@@ -279,7 +279,7 @@ final class QuickLootBarNode: SKNode {
         root.addChild(hit)
 
         let frame = SKSpriteNode()
-        if let texture = GameArt.texture(named: "inventory_slot_frame_v05") {
+        if let texture = GameArt.texture(named: "inventory_slot_frame_fantasy_v01") {
             texture.filteringMode = .linear
             frame.texture = texture
         }

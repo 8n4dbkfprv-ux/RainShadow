@@ -152,6 +152,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             // The opening starts seated; entering from the street starts on
             // foot. Keep the registered arrival point and standing body pivot.
             detective.beginOpenWorldStanding()
+            applyEntranceFacing()
         }
         // Warm desk-lamp grade (actors default here; re-assert for scene clarity).
         detective.applySceneLighting(.officeInterior)
@@ -892,6 +893,11 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         actionBar.layout(for: hudViewportSize)
     }
 
+    override func relocateAreaActor(_ id: String, to point: CGPoint) {
+        if id == Self.clientActorID { client.relocateForDoor(to: point) }
+        else { super.relocateAreaActor(id, to: point) }
+    }
+
     override func update(_ currentTime: TimeInterval) {
         cutsceneDirector.update(currentTime)
         // BG:EE semantics: dialogue pauses the world, but CutSceneMode does not —
@@ -899,12 +905,12 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         // player input is locked. `cutsceneChromeSuppressed` is true for the
         // whole authored visit, so it stands in for CutSceneMode here.
         let cutsceneActive = cutsceneChromeSuppressed
-        tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
-        applyFootLighting(to: client, at: client.position)
         pause.setModal(
             dialogue: dialogueIsActive && !cutsceneActive,
             overlay: anyOverlayIsPresented
         )
+        tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
+        applyFootLighting(to: client, at: client.position)
         let worldIsPaused = pause.isPaused
         // BG silences footsteps while dialogue holds the world (`Actor::Update`
         // checks DF_IN_DIALOG before it ever reaches PlayWalkSound), which matters
@@ -927,6 +933,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             processBumpRequests()
             syncWaypointPips()
         }
+        finishAreaTick(at: detective.position)
         portraitBar.setHealth(
             current: context.session.currentHealth,
             maximum: context.session.maximumHealth
@@ -1663,7 +1670,8 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     private func configureHotspots() {
         hotspots = area.regions.compactMap { region in
-            guard region.kind == .info || region.kind == .travel,
+            guard !region.isDeactivated,
+                  region.kind == .info || region.kind == .travel,
                   let approachPoint = region.approachPoint else {
                 return nil
             }

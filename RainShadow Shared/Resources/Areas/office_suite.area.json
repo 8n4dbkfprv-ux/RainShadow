@@ -285,7 +285,7 @@
         }
       }
     ],
-    "id": "office_suite",
+    "id": "RS0101",
     "kind": "interior",
     "notes": [],
     "obstacles": [
@@ -23597,7 +23597,7 @@
         },
         "observation": "The hall smelled worse, but at least it led somewhere.",
         "travel": {
-          "destination": "city_sable_row",
+          "destination": "RS0100",
           "entrance": "from.office"
         }
       }

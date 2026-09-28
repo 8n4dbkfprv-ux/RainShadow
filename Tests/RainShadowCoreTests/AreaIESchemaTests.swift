@@ -43,9 +43,9 @@ struct AreaIESchemaTests {
             #expect(area.heightMapName == nil)
             #expect(
                 area.resolvedLightMapName
-                    == (isSharedInterior ? "city_building_interior_v01.lm" : "\(id.rawValue).lm")
+                    == (isSharedInterior ? "city_building_interior_v01.lm" : "\(id.resourceName).lm")
             )
-            #expect(area.resolvedHeightMapName == "\(id.rawValue).ht")
+            #expect(area.resolvedHeightMapName == "\(id.resourceName).ht")
             for region in area.regions {
                 #expect(region.isDetectable)
                 #expect(!region.isDeactivated)

@@ -10,16 +10,16 @@ final class DialoguePresenter: SKNode {
     private enum Palette {
         static let veil = SKColor.clear
         static let shadow = SKColor(white: 0, alpha: 0.78)
-        /// Opaque black plate under the frame content hole only (text/portrait readability).
-        static let contentWell = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        static let parchment = UITheme.Color.parchment
-        static let response = UITheme.Color.oxblood
-        static let responseHot = UITheme.Color.oxbloodHot
-        /// Lila March — amber nameplate (noir, not fantasy magenta).
-        static let lila = UITheme.Color.brass
-        /// Harlan Voss — brass/amber nameplate.
-        static let voss = UITheme.Color.brass
-        static let caseTitle = UITheme.Color.brass
+        /// Warm paper beneath the text; portrait and chrome retain their own wells.
+        static let contentWell = UITheme.Color.paper
+        static let parchment = UITheme.Color.ink
+        static let response = UITheme.Color.wax
+        static let responseHot = UITheme.Color.ink
+        /// Speaker names use the folio’s burgundy ink.
+        static let lila = UITheme.Color.wax
+        /// Harlan Voss shares the same readable name treatment.
+        static let voss = UITheme.Color.wax
+        static let caseTitle = UITheme.Color.wax
     }
 
     private struct ChoiceRow {
@@ -631,7 +631,8 @@ final class DialoguePresenter: SKNode {
         addChild(panelRoot)
 
         // Content well sits under text; painted frame rails draw over its edges.
-        contentWell.fillColor = Palette.contentWell
+        contentWell.fillColor = .white
+        contentWell.fillTexture = UIPaintedChrome.parchmentSurface()
         contentWell.strokeColor = .clear
         contentWell.zPosition = 0
         contentWell.name = "dialogue.content-well"
@@ -760,6 +761,8 @@ final class DialoguePresenter: SKNode {
             ?? UIPaintedChrome.texture(named: "dialogue_outer_frame_overlay_v02")
         guard let texture else { return false }
         frameOverlay.texture = texture
+        frameOverlay.color = UITheme.Color.paperShadow
+        frameOverlay.colorBlendFactor = 0.24
         frameOverlay.name = "dialogue.outer-frame-overlay"
         // Large top-left fixed corner keeps the painted portrait window from stretching.
         frameOverlay.centerRect = DialoguePanelLayout.frameNineSliceCenterRect
@@ -1301,7 +1304,7 @@ final class DialoguePresenter: SKNode {
             let isHot = index == focusedChoiceIndex || index == hoveredChoiceIndex
             row.label.fontColor = isHot ? Palette.responseHot : Palette.response
             row.background.fillColor = isHot
-                ? SKColor(red: 0.22, green: 0.10, blue: 0.055, alpha: 0.52)
+                ? SKColor(red: 0.50, green: 0.30, blue: 0.12, alpha: 0.15)
                 : .clear
             row.background.strokeColor = isHot
                 ? SKColor(red: 0.53, green: 0.34, blue: 0.16, alpha: 0.62)

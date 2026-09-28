@@ -4,8 +4,8 @@ import CoreGraphics
 /// Keep the old enum raw values for save compatibility; public area IDs and
 /// presentation use the fantasy setting's names.
 enum LampWardAreas {
-    static let exteriorID = AreaID("city_lamp_ward")
-    static let interiorID = AreaID("interior_lamphouse")
+    static let exteriorID = AreaID("RS0400")
+    static let interiorID = AreaID("RS0401")
     // Visible leaf below the transom: model z .530–2.725, camera 39.2645 WU/m.
     static let entranceLeafHeight: CGFloat = (2.725 - 0.530) * 39.2645
 

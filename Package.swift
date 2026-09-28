@@ -10,6 +10,7 @@ let package = Package(
     targets: [
         .target(
             name: "RainShadowCore",
+            dependencies: ["RainShadowPersistence"],
             path: "RainShadow Shared/Gameplay/Navigation",
             // Shipped content packages (also under RainShadow Shared/Resources for the app).
             resources: [
