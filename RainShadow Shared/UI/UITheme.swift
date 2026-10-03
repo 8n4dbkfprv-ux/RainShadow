@@ -2,19 +2,17 @@ import SpriteKit
 
 /// Parchment, sepia ink, oxblood and antique brass shared by the fantasy UI.
 enum UITheme {
-    /// Bookish serif typography complements the parchment without sacrificing legibility.
     enum Font {
-        static let dialogueBody = "Baskerville"
-        static let dialogueBodyItalic = "Baskerville-Italic"
-        static let dialogueBodyBold = "Baskerville-SemiBold"
-        static let dialogueName = "Baskerville-SemiBold"
-        static let dialogueCommand = "Baskerville-SemiBold"
-        static let hudVital = "Baskerville-SemiBold"
-        static let overlayTitle = "Baskerville-SemiBold"
-        static let overlayBody = "Baskerville"
-        static let overlayBodyBold = "Baskerville-SemiBold"
-        static let overlayCondensed = "Baskerville-SemiBold"
-        static let typewriter = "Baskerville-SemiBold"
+        static let dialogueBody = "Palatino-Roman"
+        static let dialogueBodyBold = "Palatino-Bold"
+        static let dialogueName = "Palatino-Bold"
+        static let dialogueCommand = "Palatino-Bold"
+        static let hudVital = "Palatino-Bold"
+        static let overlayTitle = "Copperplate"
+        static let overlayBody = "Palatino-Roman"
+        static let overlayBodyBold = "Palatino-Bold"
+        static let overlayCondensed = "Palatino-Bold"
+        static let typewriter = "CourierNewPS-BoldMT"
     }
 
     enum Color {

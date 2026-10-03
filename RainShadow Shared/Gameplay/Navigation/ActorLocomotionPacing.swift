@@ -135,13 +135,12 @@ enum ActorLocomotionPacing {
 
     // MARK: - Animation
 
-    /// Legacy/Lila gait inventory. Current VossCHMF has ten walking frames;
-    /// its authority is VossAnimationSet, not this legacy art constant.
+    /// V6 BGEE-density gait: 8 authored frames per cycle for every walking actor.
     static let walkFramesPerCycle = 8
 
-    /// Nominal 15 fps authoring/reference duration. Runtime playback uses
-    /// IEActorAnimation's separate integer-millisecond clock, matching GemRB;
-    /// it is not driven by the number of successful movement steps.
+    /// One authored frame per logic tick, as in the engine: creature animations
+    /// advance a frame each time `DoStep` emits a displacement, which is why a
+    /// BG walk cycle cannot drift against the distance travelled.
     static let walkCycleSecondsPerFrame: TimeInterval = LogicTickClock.tickDuration
 
     /// Inclusive acceptance band for walk-cycle frame duration.

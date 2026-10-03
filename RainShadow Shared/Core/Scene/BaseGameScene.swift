@@ -55,8 +55,9 @@ class BaseGameScene: SKScene {
 
     private var hasBuiltScene = false
     private var isPerformingLayout = false
-    /// Camera scale at 100% zoom. Cinematics retain the resolved player scale;
-    /// scripted viewport movement does not alter zoom.
+    /// Camera scale at 100% zoom. Kept as the *base* rather than the live scale
+    /// because `CutsceneDirector` multiplies authored framing against it, and an
+    /// authored push must not shift because the player happened to be zoomed in.
     private(set) var baseCameraScale: CGFloat = 1
     #if os(macOS)
     /// Trackpad pinch is a stream of fractions; the engine zoom is an integer
@@ -952,7 +953,6 @@ class BaseGameScene: SKScene {
         present: () -> Void
     ) {
         if presented {
-            guard !cutsceneDirector.isCutsceneMode else { return }
             willPresentOverlay(overlay)
             if isPresented(overlay) {
                 if refreshesWhenAlreadyPresented { present() }
@@ -1026,20 +1026,6 @@ class BaseGameScene: SKScene {
     }
 
     /// I / M / J. A window only opens when nothing modal already owns the screen.
-    /// Interface::SetCutSceneMode closes the top GUI window; GameControl also
-    /// drops the scroll vector. Leave dialogue graph ownership to its presenter.
-    func prepareCutsceneInput() {
-        setInventoryPresented(false)
-        setMapPresented(false)
-        setWorldMapPresented(false)
-        setJournalPresented(false)
-        setCameraScroll(.zero)
-        clearHoverHighlight()
-        #if os(macOS)
-        heldScrollKeys.removeAll()
-        #endif
-    }
-
     func handleInventoryInput() {
         guard !dialogueIsActive, !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
         setInventoryPresented(!inventoryIsPresented)
@@ -1192,10 +1178,9 @@ class BaseGameScene: SKScene {
     /// change.
     func syncDetectiveEncumbrance() {
         detective.movementProfile = context.session.detectiveMovementProfile
-        detective.applyEquipment(context.session.characterInventory, catalog: context.session.itemCatalog)
     }
 
-    /// Escape resets targeting or dismisses the active overlay; it does not stop movement.
+    /// BG:EE Stop. Escape only — right-click no longer cancels movement.
     func handleCancelInput() {}
 
     #if os(macOS)
@@ -1297,6 +1282,7 @@ class BaseGameScene: SKScene {
         // `baseCameraScale` was just re-applied above, which used to silently
         // undo a cutscene push the moment the window was resized. Re-assert it.
         cutsceneDirector.layoutChrome()
+        cutsceneDirector.applyCameraScale()
     }
 
     /// No-op kept for call sites that previously re-anchored a world-space HUD.
@@ -1343,7 +1329,7 @@ class BaseGameScene: SKScene {
 
     /// Lower step = less world shown = zoomed in, as in `GetScalePercent`.
     func setZoomStep(_ step: Int) {
-        guard allowsPlayerZoom, !cutsceneDirector.isCutsceneMode, !cutsceneDirector.ownsCamera else { return }
+        guard allowsPlayerZoom, !cutsceneDirector.ownsCamera else { return }
         let clamped = CameraZoom.clamped(step: step, to: CameraZoom.engineStepRange)
         guard clamped != zoomStep else { return }
         zoomStep = clamped
@@ -1377,7 +1363,7 @@ class BaseGameScene: SKScene {
     /// `Zoom Lock` GemRB redirects the same event to `Scroll(...)` instead,
     /// which is what a trackpad's two-finger scroll wants.
     func applyViewportScrollGesture(dx: CGFloat, dy: CGFloat) {
-        guard allowsPlayerZoom, !cutsceneDirector.isCutsceneMode, !cutsceneDirector.ownsCamera else { return }
+        guard allowsPlayerZoom, !cutsceneDirector.ownsCamera else { return }
         if zoomLockEnabled {
             panCamera(byViewDelta: CGVector(dx: dx, dy: dy))
             return
@@ -1450,7 +1436,6 @@ class BaseGameScene: SKScene {
 
     /// Scroll direction from edge hover or held keys; `.zero` stops the scroll.
     func setCameraScroll(_ vector: CGVector) {
-        guard vector == .zero || !cutsceneDirector.isCutsceneMode else { return }
         guard vector != cameraScrollVector else { return }
         if vector != .zero { detachCamera() }
         cameraScrollVector = vector
@@ -1460,7 +1445,6 @@ class BaseGameScene: SKScene {
     /// *with* the mouse (`Scroll(me.Delta())`) rather than dragging the world
     /// under it, so the sign is not inverted here.
     func panCamera(byViewDelta viewDelta: CGVector) {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         guard viewDelta != .zero else { return }
         detachCamera()
         freeCameraTarget.x += viewDelta.dx * playCameraScale
@@ -1652,7 +1636,7 @@ class BaseGameScene: SKScene {
         ]))
     }
 
-    /// Removes the transient move-order marker without changing the active route.
+    /// Removes any live move-order marker (e.g. when Escape / right-click cancels a walk).
     func clearMovementFeedback() {
         floorEffectRoot.childNode(withName: Self.movementFeedbackNodeName)?.removeFromParent()
     }
@@ -1738,8 +1722,11 @@ class BaseGameScene: SKScene {
         // Screen-locked HUD as camera child (identity scale). This is the SpriteKit
         // contract for fixed chrome; world-space scaling previously allowed a stale
         // init size to map the left rail past the visible left edge.
-        // The engine fade is screen-space and follows the camera. Cutscene mode
-        // hides hudRoot; no letterbox or separate cinematic scale is applied.
+        // Cutscene chrome is screen-space — letterbox bars and a fade overlay
+        // must not drift when the camera pans — so `cinematicRoot` hangs off the
+        // camera exactly as the HUD does, one layer beneath it. It was installed
+        // in world space and used by nothing, which is why the office letterbox
+        // had to be parented to `hudRoot` instead.
         cinematicRoot.zPosition = SceneLayer.cinematic.rawValue
         cinematicRoot.position = .zero
         cinematicRoot.setScale(1)
@@ -1886,7 +1873,7 @@ extension BaseGameScene {
         let change = spread - previous
         guard change != 0 else { return }
         twoFingerPanDistance += abs(change)
-        guard allowsPlayerZoom, !cutsceneDirector.isCutsceneMode, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
+        guard allowsPlayerZoom, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
         pendingPinchTravel += change
         while pendingPinchTravel >= Self.pinchPointsPerStep {
             pendingPinchTravel -= Self.pinchPointsPerStep
@@ -1960,7 +1947,7 @@ extension BaseGameScene {
 
     /// Trackpad pinch. Same destination as the wheel, different device.
     override func magnify(with event: NSEvent) {
-        guard allowsPlayerZoom, !cutsceneDirector.isCutsceneMode, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
+        guard allowsPlayerZoom, !zoomLockEnabled, !cutsceneDirector.ownsCamera else { return }
         pendingMagnification += event.magnification
         while pendingMagnification >= Self.magnificationPerStep {
             pendingMagnification -= Self.magnificationPerStep
@@ -2006,13 +1993,6 @@ extension BaseGameScene {
     }
 
     override func keyDown(with event: NSEvent) {
-        // GameControl::SetCutSceneMode sets IgnoreEvents. Only break inputs pass.
-        if cutsceneDirector.isCutsceneMode {
-            if !event.isARepeat && event.keyCode == 53 {
-                cutsceneDirector.trySkip()
-            }
-            return
-        }
         switch event.keyCode {
         // Arrows / WASD scroll the viewport, never the actor. GDD §8.3 and frozen
         // rule 1 both say point-and-click owns movement and these keys are camera
@@ -2096,7 +2076,7 @@ extension BaseGameScene {
 
     /// BG:EE right-click clears the targeting mode and resets the action bar —
     /// it does **not** stop movement (`GameControl::OnMouseUp`, `GEM_MB_MENU`).
-    /// Escape also resets targeting without stopping movement.
+    /// Escape remains the only Stop.
     override func rightMouseDown(with event: NSEvent) {
         if handleSecondaryPointer(at: event.location(in: self)) { return }
         handleClearTargetingInput()

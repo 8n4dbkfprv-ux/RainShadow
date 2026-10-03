@@ -62,6 +62,7 @@ final class LootContainerPanelNode: SKNode {
     private let bagNextRoot = SKNode()
     private let bagNextHit = LootContainerPanelNode.transparentHitNode()
     private let bagNextArt = SKSpriteNode()
+    private let caseBagArt = SKSpriteNode()
     private let occupiedLabel = SKLabelNode(fontNamed: UITheme.Font.overlayCondensed)
     private let capacityLabel = SKLabelNode(fontNamed: UITheme.Font.overlayCondensed)
     private let walletCoinArt = SKSpriteNode()
@@ -248,6 +249,7 @@ final class LootContainerPanelNode: SKNode {
             hitRects: currentLayout.bagSlotHitRects,
             artRects: currentLayout.bagSlotArtRects
         )
+        layoutAspectFit(caseBagArt, in: currentLayout.caseBagArtRect)
         layoutAspectFit(walletCoinArt, in: currentLayout.walletCoinArtRect)
         layout(occupiedLabel, in: currentLayout.carriedWeightRect, fontSize: 13)
         layout(capacityLabel, in: currentLayout.maximumWeightRect, fontSize: 11)
@@ -399,10 +401,11 @@ final class LootContainerPanelNode: SKNode {
         sourceNextArt.texture = UIPaintedChrome.texture(named: "dialogue_scroll_down_v06")
         bagPreviousArt.texture = UIPaintedChrome.texture(named: "dialogue_scroll_up_v06")
         bagNextArt.texture = UIPaintedChrome.texture(named: "dialogue_scroll_down_v06")
+        caseBagArt.texture = UIPaintedChrome.texture(named: "inventory_case_bag_v05")
         walletCoinArt.texture = UIPaintedChrome.texture(named: "inventory_coin_stack_v05")
         for art in [
             takeAllArt, sourcePreviousArt, sourceNextArt,
-            bagPreviousArt, bagNextArt, walletCoinArt
+            bagPreviousArt, bagNextArt, caseBagArt, walletCoinArt
         ] {
             art.texture?.filteringMode = .linear
             art.zPosition = 1
@@ -413,6 +416,7 @@ final class LootContainerPanelNode: SKNode {
         install(root: sourceNextRoot, hit: sourceNextHit, art: sourceNextArt, name: "source-down")
         install(root: bagPreviousRoot, hit: bagPreviousHit, art: bagPreviousArt, name: "bag-up")
         install(root: bagNextRoot, hit: bagNextHit, art: bagNextArt, name: "bag-down")
+        addChild(caseBagArt)
         addChild(walletCoinArt)
     }
 
@@ -572,6 +576,7 @@ final class LootContainerPanelNode: SKNode {
         feedbackRoot.isHidden = false
         feedbackRoot.alpha = 0
         feedbackRoot.setScale(0.94)
+        caseBagArt.alpha = 0.28
         feedbackRoot.run(
             .sequence([
                 .group([.fadeIn(withDuration: 0.08), .scale(to: 1.05, duration: 0.10)]),
@@ -581,6 +586,7 @@ final class LootContainerPanelNode: SKNode {
                 .run { [weak self] in
                     self?.feedbackRoot.isHidden = true
                     self?.feedbackRoot.alpha = 1
+                    self?.caseBagArt.alpha = 1
                 }
             ]),
             withKey: "loot.panel.feedback"
@@ -615,6 +621,7 @@ final class LootContainerPanelNode: SKNode {
         feedbackRoot.isHidden = true
         feedbackRoot.alpha = 1
         feedbackRoot.setScale(1)
+        caseBagArt.alpha = 1
     }
 
     private func normalizeInteractionState() {
@@ -680,7 +687,7 @@ final class LootContainerPanelNode: SKNode {
         art.colorBlendFactor = isPressed
             ? UITheme.Tint.pressedBlend
             : (isHovered ? UITheme.Tint.hoverBlend : 0)
-        art.alpha = 1
+        if art !== caseBagArt { art.alpha = 1 }
     }
 
     private func layoutSourceProp() {

@@ -128,7 +128,7 @@ struct SaveStoreTests {
         let store = SaveStore(defaults: defaults, key: "save")
         let flag = PersistedAreaVariable(kind: "integer", integer: 1)
         let pile = PersistedGroundItemStack(
-            id: "test-token", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
+            id: "blue-room-token", quantity: 1, isIdentified: true, charges: nil, x: 4, y: 2
         )
         store.save(SaveSnapshot(
             groundPiles: ["city_harborpoint_pd": [pile], "office_suite": []],
@@ -161,7 +161,7 @@ struct SaveStoreTests {
         ]) == ["city_lamp_ward/visited": newer])
     }
 
-    @Test func legacyItemsAreRenamedOrRetired() throws {
+    @Test func legacyItemIDsLoadUnderTheirPeriodNames() throws {
         let legacy = """
         {
           "schemaVersion": 1,
@@ -172,9 +172,9 @@ struct SaveStoreTests {
         }
         """
         let restored = try JSONDecoder().decode(SaveSnapshot.self, from: Data(legacy.utf8))
-        #expect(restored.carriedItems.isEmpty)
+        #expect(restored.carriedItems.map(\.id) == ["dark-lantern", "blue-room-token", "coin-purse", "tobacco-tin"])
         #expect(restored.equippedItems["weapon1"]?.id == "lantern-shortsword")
-        #expect(restored.groundPiles["office_suite"] == [])
+        #expect(restored.groundPiles["office_suite"]?.first?.id == "dark-lantern")
         #expect(restored.lootContainers["office.desk"] == [.item(id: "lantern-shortsword", quantity: 1)])
     }
 }
@@ -245,39 +245,5 @@ extension SaveStoreTests {
         #expect(!store.load().hasCompletedOfficeCaseIntro)
 
         defaults.removePersistentDomain(forName: suite)
-    }
-}
-
-extension SaveStoreTests {
-    @Test func previousLoadoutIsRemovedFromEverySavedLocation() throws {
-        let retired = ["dark-lantern", "coin-purse", "tobacco-tin", "flashlight", "wallet", "cigarette-case",
-                       "case-notes", "brass-key", "blue-room-token", "matchbook"]
-        let sword = PersistedCarriedItemStack(id: "lantern-shortsword", quantity: 1)
-        let unknown = PersistedCarriedItemStack(id: "future-item", quantity: 2)
-        var snapshot = SaveSnapshot()
-        snapshot.walletPence = 317
-        snapshot.caseEvidenceIDs = ["empty-coat.brass-key"]
-        snapshot.hasSeededStarterKit = true
-        snapshot.hasCompletedOfficeCaseIntro = true
-        snapshot.carriedItems = retired.map { .init(id: $0, quantity: 1) } + [sword, unknown]
-        snapshot.equippedItems = Dictionary(uniqueKeysWithValues: retired.enumerated().map {
-            ("retired-slot-\($0.offset)", PersistedCarriedItemStack(id: $0.element, quantity: 1))
-        })
-        snapshot.equippedItems["weapon1"] = .init(id: "lantern-shortsword", quantity: 1)
-        snapshot.groundPiles["office_suite"] = (retired + ["lantern-shortsword"]).map {
-            .init(id: $0, quantity: 1, x: 4, y: 2)
-        }
-        snapshot.lootContainers["office.desk"] = retired.map { .item(id: $0, quantity: 1) }
-            + [.coins(pence: 23), .item(id: "lantern-shortsword", quantity: 1)]
-        let restored = try JSONDecoder().decode(SaveSnapshot.self, from: JSONEncoder().encode(snapshot))
-        #expect(restored.carriedItems == [sword, unknown])
-        #expect(restored.equippedItems == ["weapon1": .init(id: "lantern-shortsword", quantity: 1)])
-        #expect(restored.groundPiles["office_suite"] == [.init(id: "lantern-shortsword", quantity: 1, x: 4, y: 2)])
-        #expect(restored.lootContainers["office.desk"] == [.coins(pence: 23), .item(id: "lantern-shortsword", quantity: 1)])
-        #expect(restored.walletPence == 317)
-        #expect(restored.caseEvidenceIDs == ["empty-coat.brass-key"])
-        #expect(restored.hasSeededStarterKit && restored.hasCompletedOfficeCaseIntro)
-        #expect(restored.schemaVersion == 1)
-        #expect(try JSONDecoder().decode(SaveSnapshot.self, from: JSONEncoder().encode(restored)) == restored)
     }
 }

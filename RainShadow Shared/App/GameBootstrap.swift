@@ -2,8 +2,9 @@ import SpriteKit
 
 @MainActor
 final class GameSession {
-    /// Current authored starter stacks in the 16-slot case bag.
-    static var starterInventorySlotCount: Int { HarborpointItems.starterItemIDs.count }
+    /// The painted 16-slot case bag already contains these fixed starter items:
+    /// shortsword, notebook, brass key, dark lantern, coin purse, and tobacco tin.
+    static let starterInventorySlotCount = 6
 
     private let saveStore: SaveStore
     private(set) var hasSeenOpening: Bool
@@ -67,7 +68,6 @@ final class GameSession {
     private(set) var characterInventory: CharacterInventory
     /// Whether the painted starter kit has been promoted into real stacks.
     private(set) var hasSeededStarterKit: Bool
-    private(set) var hasReceivedArmorKit: Bool
 
     /// The case bag. Kept as a passthrough so every existing reader — the loot
     /// panel, both scenes, the inventory window — keeps working unchanged.
@@ -129,27 +129,11 @@ final class GameSession {
         hasSeededStarterKit = snapshot.hasSeededStarterKit
         if !hasSeededStarterKit {
             // One-time promotion. Older saves recorded acquired stacks only and
-            // represented the starter kit as reserved capacity; current equipment
-            // goes in front of whatever was already carried.
+            // represented the starter kit as reserved capacity, so the six painted
+            // items go in front of whatever was already carried.
             stacks = Self.starterStacks(catalog: catalog) + stacks
             hasSeededStarterKit = true
         }
-        let containerItemIDs = snapshot.lootContainers.values.flatMap { $0 }.compactMap { stack -> String? in
-            if case .item(let id, _) = stack { return id }
-            return nil
-        }
-        let existingIDs = Set(stacks.map(\.id)
-            + snapshot.equippedItems.values.map(\.id)
-            + snapshot.groundPiles.values.flatMap { $0 }.map(\.id)
-            + containerItemIDs)
-        stacks += HarborpointItems.armorKitGrant(
-            hasReceived: snapshot.hasReceivedArmorKit, existingIDs: existingIDs,
-            availableSlots: CarriedInventoryState.defaultTotalSlotCapacity - stacks.count
-        ).map { CarriedItemStack(id: $0, quantity: 1) }
-        // A full bag defers the remaining grant instead of truncating it and
-        // permanently marking unseen equipment as received.
-        hasReceivedArmorKit = snapshot.hasReceivedArmorKit || existingIDs.union(stacks.map(\.id))
-            .isSuperset(of: HarborpointItems.armorKitItemIDs)
         var inventory = CharacterInventory(
             backpack: CarriedInventoryState(stacks: stacks)
         )
@@ -675,7 +659,6 @@ final class GameSession {
             },
             groundPiles: groundPiles.pilesByArea.mapValues { $0.map(Self.toPersisted) },
             hasSeededStarterKit: hasSeededStarterKit,
-            hasReceivedArmorKit: hasReceivedArmorKit,
             caseFlags: caseState.flags,
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,
@@ -822,9 +805,7 @@ final class GameContext {
     init() {
         #if DEBUG
         let saveStore = SaveStore(key:
-            ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] != nil
-            ? "RainShadow.QA.Weapon.Bootstrap"
-            : ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] != nil
+            ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] != nil
             ? "RainShadow.QA.OfficeRestore.Bootstrap"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_CITY_RESTORE"] != nil
             ? "RainShadow.QA.CityRestore.Bootstrap"

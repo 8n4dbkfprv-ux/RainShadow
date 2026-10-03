@@ -1,7 +1,7 @@
 import SpriteKit
 
 /// Camera-fixed left action rail: Infinity Engine density with generated fantasy folio artwork.
-/// Thin generated rims are nine-sliced; icon silhouettes can overlap their edges.
+/// Generated border caps are preserved by nine-slicing within the existing rail geometry.
 @MainActor
 final class ActionBarNode: SKNode {
     enum Button: Int, CaseIterable {
@@ -32,16 +32,6 @@ final class ActionBarNode: SKNode {
             case .help: return "hud_action_help_fantasy_v02"
             case .hideUI: return "hud_action_hide_ui_fantasy_v02"
             case .clock: return "hud_action_clock_fantasy_v02"
-            }
-        }
-
-        /// Compensate for transparent icon padding, retaining each square source aspect.
-        var artworkScale: CGFloat {
-            switch self {
-            case .map, .rest: return 1.30
-            case .menu, .inventory, .hideUI: return 1.22
-            case .clock: return 1.40
-            default: return 1.16
             }
         }
 
@@ -110,7 +100,7 @@ final class ActionBarNode: SKNode {
             let iconRect = geometry.iconRects[index]
             root.position = CGPoint(x: iconRect.midX, y: iconRect.midY)
             if let art = buttonArt[button] {
-                art.size = CGSize(width: iconRect.width * button.artworkScale, height: iconRect.height * button.artworkScale)
+                art.size = CGSize(width: iconRect.width * 0.82, height: iconRect.height * 0.82)
             }
             buttonSlots[button]?.size = geometry.wellRects[index].size
         }
@@ -122,12 +112,12 @@ final class ActionBarNode: SKNode {
         for (index, button) in Button.allCases.enumerated() {
             guard let root = buttonRoots[button], currentLayout.iconRects.indices.contains(index) else { continue }
             let local = root.convert(point, from: self)
-            let slot = currentLayout.wellRects[index]
+            let icon = currentLayout.iconRects[index]
             let hit = CGRect(
-                x: -slot.width / 2 - pad,
-                y: -slot.height / 2 - pad,
-                width: slot.width + pad * 2,
-                height: slot.height + pad * 2
+                x: -icon.width / 2 - pad,
+                y: -icon.height / 2 - pad,
+                width: icon.width + pad * 2,
+                height: icon.height + pad * 2
             )
             if hit.contains(local) { return button }
         }
@@ -216,11 +206,9 @@ final class ActionBarNode: SKNode {
 
     private func buildRail() {
         zPosition = 18
-        if let full = UIPaintedChrome.texture(named: "hud_left_rail_fantasy_v02") {
-            // The generated rail is open at both ends.
-            // Its vertical bronze edges continue to the viewport boundaries.
-            railPlate.texture = SKTexture(rect: HUDChromeLayout.LeftRail.plateContentRect, in: full)
-            railPlate.centerRect = CGRect(x: 0.2, y: 0, width: 0.6, height: 1)
+        if let full = UIPaintedChrome.texture(named: "hud_left_rail_fantasy_v01") {
+            railPlate.texture = full
+            railPlate.centerRect = CGRect(x: 0.2, y: 0.06, width: 0.6, height: 0.88)
             railPlate.size = CGSize(width: 80, height: 640)
             railPlate.zPosition = -7
             addChild(railPlate)
@@ -234,11 +222,8 @@ final class ActionBarNode: SKNode {
             addChild(root)
             buttonRoots[button] = root
 
-            if let slot = UIPaintedChrome.sprite(named: button == .clock ? "hud_clock_housing_fantasy_v01" : "hud_action_slot_fantasy_v02",
-                                                 size: CGSize(width: 74, height: 50)) {
-                slot.centerRect = button == .clock
-                    ? CGRect(x: 0.25, y: 0.30, width: 0.50, height: 0.40)
-                    : CGRect(x: 0.08, y: 0.20, width: 0.84, height: 0.60)
+            if let slot = UIPaintedChrome.sprite(named: "inventory_slot_frame_fantasy_v01",
+                                                 size: CGSize(width: 46, height: 46)) {
                 slot.zPosition = 0
                 root.addChild(slot)
                 buttonSlots[button] = slot

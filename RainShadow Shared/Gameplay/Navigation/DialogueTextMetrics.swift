@@ -38,7 +38,7 @@ enum DialogueTextMetrics {
     static func choiceRowHeight(
         choiceText: String,
         index: Int,
-        fontName: String = "Baskerville",
+        fontName: String = "Palatino-Roman",
         fontSize: CGFloat,
         maxWidth: CGFloat,
         minimumRowHeight: CGFloat,

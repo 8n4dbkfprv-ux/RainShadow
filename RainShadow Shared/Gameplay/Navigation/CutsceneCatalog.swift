@@ -9,6 +9,9 @@ import Foundation
 /// and completion callbacks inside a three-thousand-line scene is the shape of
 /// the thing itself.
 ///
+/// The house style from `CinematicSystemRoadmap` §5.4 still holds — slow pans,
+/// pushes, restrained scale, nothing flashy. BG's camera has exactly two verbs
+/// and that restraint is most of why its cutscenes age well.
 enum CutsceneCatalog {
 
     /// Stable cutscene ids. Named separately so a scene can recognise a
@@ -23,27 +26,36 @@ enum CutsceneCatalog {
 
     /// The establishing shot: rain, a building, one warm window.
     ///
-    /// Fixed-scale engine viewport pans, integer waits and black fades.
+    /// Previously a single 11.5 s ease that the scene then waited 12.0 s to end,
+    /// so the last half-second was a dead camera. Re-cut as BG beats — a slow
+    /// pan onto the building, a held breath, then a push onto the window — which
+    /// is the same total length with a shape to it.
     static var openingExterior: Cutscene {
         Cutscene(
             id: ID.openingExterior,
+            graceSeconds: BreakableCutsceneGate.defaultGraceSeconds,
             tracks: [
-                CutsceneTrack(.world, [
-                    .setCutsceneMode(true), .setCutsceneBreakable(true),
-                    .fadeFromColor(.black, .ticks(23)),
-                    .wait(.seconds(1)),
-                    .moveViewPointUntilDone(OpeningExteriorFraming.buildingWide, .standard),
-                    .wait(.seconds(4)),
-                    .moveViewPointUntilDone(OpeningExteriorFraming.officeWindow, .standard),
-                    .fadeToColor(.black, .ticks(11)),
-                    .setFlag(CutsceneFlags.openingSeen), .setCutsceneMode(false)
-                ])
-            ],
-            skipTracks: [
-                CutsceneTrack(.world, [
+                CutsceneTrack(.chrome, [
                     .setCutsceneMode(true),
-                    .fadeToColor(.black, .ticks(1)),
-                    .setFlag(CutsceneFlags.openingSeen), .setCutsceneMode(false)
+                    .fadeFromColor(.black, .seconds(1.5)),
+                    .wait(.seconds(9.4)),
+                    // The warm bloom through the window is the cut into the office.
+                    .fadeToColor(.warmWindowBloom, .seconds(0.72)),
+                    .setFlag(CutsceneFlags.openingSeen)
+                ]),
+                CutsceneTrack(.camera, [
+                    .wait(.seconds(1.0)),
+                    .moveViewPoint(OpeningExteriorFraming.buildingWide, .slow),
+                    // SmallWait(15): a held breath before the push. BG punctuates
+                    // with stillness far more than it does with movement.
+                    .wait(.ticks(15)),
+                    .moveViewPoint(OpeningExteriorFraming.officeWindow, .standard)
+                ]),
+                CutsceneTrack(.cameraZoom, [
+                    .cameraScale(OpeningExteriorFraming.openingScale, .instant),
+                    .wait(.seconds(1.0)),
+                    .cameraScale(OpeningExteriorFraming.approachScale, .seconds(9.0)),
+                    .cameraScale(OpeningExteriorFraming.arrivalScale, .seconds(0.8))
                 ])
             ]
         )
@@ -58,75 +70,105 @@ enum CutsceneCatalog {
         /// Warm bay window above the entrance, measured on the Sable Row intro painting.
         static let officeWindow = CGPoint(x: 1_544, y: 804)
 
+        /// Multiples of the scene's resolved base zoom, not absolute scales —
+        /// `BaseGameScene.layoutViewport()` recomputes `baseCameraScale` on every
+        /// resize, so anything absolute is stomped the first time the window moves.
+        static let openingScale: CGFloat = 1.08
+        static let approachScale: CGFloat = 0.82
+        static let arrivalScale: CGFloat = 0.68
     }
 
     // MARK: - Office: the client visit
 
-    /// Lila owns the entrance script. Her MoveToPoint blocks her subsequent
-    /// camera/dialogue actions while Voss's overridden animation runs in parallel.
-    static func clientEntrance(route: [CGPoint], resumeDialogueNodeID: String?) -> Cutscene {
-        let arrival: [CutsceneCue] = route.first.map { [.jumpToPoint($0)] } ?? []
-        let movement: [CutsceneCue] = route.last.map { [.moveToPoint($0)] } ?? []
-        let recovery: [CutsceneCue] = route.last.map { [.actionOverride(.client, .jumpToPoint($0))] } ?? []
-        return Cutscene(
+    /// Lila March arrives through the sole cutaway entrance, crosses the open
+    /// room, and Voss gets to his feet.
+    ///
+    /// Deferred out of `voss.monologue.4` by that node's `onLeaveCue`, and it
+    /// resumes the graph on the far side. This is classic BG structure —
+    /// dialogue, cutscene, dialogue — and the roadmap calls it out as already
+    /// aligned by design (§4).
+    ///
+    /// Reading the tracks: `.chrome` is the master block, the one BG would give
+    /// `CutSceneId(Player1)`. It raises the bars, hands the walk to Lila with
+    /// `ActionOverride` — blocking until she arrives — then turns Voss toward
+    /// her and gives the dialogue back. Meanwhile the door opens, Voss rises,
+    /// and the camera works ahead of her.
+    static func clientEntrance(
+        route: [CGPoint],
+        resumeDialogueNodeID: String?
+    ) -> Cutscene {
+        Cutscene(
             id: ID.clientEntrance,
+            graceSeconds: BreakableCutsceneGate.defaultGraceSeconds,
             tracks: [
-                CutsceneTrack(.actor(.client), [
-                    .setCutsceneMode(true), .setCutsceneBreakable(true), .suppressDialogue,
-                    .setDoor(.officeEntrance, open: true)
-                ] + arrival + [
-                    .hideCreature(false),
-                    .moveViewPoint(OfficeCutsceneFraming.entranceSightline, .fast),
-                    .actionOverride(.detective, .wait(.ticks(8))),
-                    .actionOverride(.detective, .playSequence(.getUp)),
-                    .actionOverride(.detective, .waitAnimation(.getUp)),
-                    .actionOverride(.detective, .faceObject(.client))
-                ] + movement + [
-                    .faceObject(.detective),
+                CutsceneTrack(.chrome, [
+                    .setCutsceneMode(true),
+                    .suppressDialogue,
+                    .letterbox(true),
+                    .actionOverride(.client, .followPath(route, .entering)),
+                    // BG:EE turns conversation participants toward each other
+                    // slowly when a dialogue opens (`GSUtils.cpp` calls
+                    // `SetOrientation(…, slow: true)` for talker and talkee).
+                    // He stood during her walk-in, so this is a visible pivot
+                    // rather than a pop.
                     .actionOverride(.detective, .faceObject(.client)),
-                    .wait(.ticks(12)),
-                    .moveViewPointUntilDone(OfficeCutsceneFraming.dialogueFraming, .standard),
-                    .setCutsceneMode(false), .resumeDialogue(nodeID: resumeDialogueNodeID)
-                ])
-            ],
-            skipTracks: [
+                    .letterbox(false),
+                    .resumeDialogue(nodeID: resumeDialogueNodeID)
+                ]),
+                CutsceneTrack(.world, [
+                    // BG:EE order: a door clears its search-map cells before the
+                    // creature paths through it.
+                    .setDoor(.officeEntrance, open: true)
+                ]),
                 CutsceneTrack(.actor(.detective), [
-                    .setCutsceneMode(true), .setDoor(.officeEntrance, open: true)
-                ] + recovery + [
-                    .actionOverride(.client, .hideCreature(false)),
-                    .actionOverride(.client, .faceObject(.detective)),
-                    .playSequence(.getUp), .waitAnimation(.getUp),
-                    .wait(.ticks(1)), .faceObject(.client),
-                    .moveViewPoint(OfficeCutsceneFraming.dialogueFraming, .instant),
-                    .setCutsceneMode(false), .resumeDialogue(nodeID: resumeDialogueNodeID)
+                    // Long enough that he reacts to the door rather than
+                    // anticipating it. He rises where he sits — the empty route
+                    // is the seat-egress path, not a walk.
+                    .wait(.ticks(8)),
+                    .standUp
+                ]),
+                CutsceneTrack(.camera, [
+                    // Anticipation: the camera reaches the aperture before she
+                    // does. The shipped version held on the desk for the whole
+                    // walk and then jerked to the dialogue framing once she had
+                    // already arrived, which reads as a reaction rather than a shot.
+                    .moveViewPoint(OfficeCutsceneFraming.entranceSightline, .fast),
+                    .moveViewObject(.client, .veryFast),
+                    .wait(.ticks(12)),
+                    .moveViewPoint(OfficeCutsceneFraming.dialogueFraming, .standard)
                 ])
             ]
         )
     }
 
-    /// The departing actor owns the script; disappearance and the explicit
-    /// reading beat cannot run until MoveToPoint has released its action.
+    /// Lila leaves. The camera stays with her until she is out, then lets go.
+    ///
+    /// The shipped order restored the camera to Voss the moment the exit began,
+    /// so she walked out off-screen. BG lets an actor leave frame — the room
+    /// being empty afterwards is the point of the shot. After the bars drop,
+    /// Voss files the night as `DisplayStringHead` — a scripted PC thought,
+    /// not a scenery DLG.
     static func clientExit(route: [CGPoint]) -> Cutscene {
-        let endpoint = route.last ?? OfficeCutsceneFraming.entranceSightline
-        return Cutscene(
+        Cutscene(
             id: ID.clientExit,
+            graceSeconds: BreakableCutsceneGate.defaultGraceSeconds,
             tracks: [
-                CutsceneTrack(.actor(.client), [
-                    .setCutsceneMode(true), .setCutsceneBreakable(true),
+                CutsceneTrack(.chrome, [
+                    // SetGlobal first, not last: the visit counts as played the
+                    // moment she starts leaving. Quitting during the departure
+                    // walk must not replay the whole intro on the next load.
                     .setFlag(CutsceneFlags.officeCaseIntroCompleted),
-                    .moveViewPoint(endpoint, .veryFast), .moveToPoint(endpoint),
-                    .hideCreature(true),
+                    .letterbox(true),
+                    .actionOverride(.client, .followPath(route, .leaving)),
+                    .letterbox(false),
                     .actionOverride(.detective, fileTheNightHeadText),
-                    .wait(fileTheNightBeat),
-                    .moveViewObject(.detective, .instant), .releaseCamera,
+                    // EndCutSceneMode: free-play rails and player control return.
                     .setCutsceneMode(false)
-                ])
-            ],
-            skipTracks: [
-                CutsceneTrack(.actor(.client), [
-                    .jumpToPoint(endpoint), .hideCreature(true),
-                    .moveViewObject(.detective, .instant), .releaseCamera,
-                    .setFlag(CutsceneFlags.officeCaseIntroCompleted), .setCutsceneMode(false)
+                ]),
+                CutsceneTrack(.camera, [
+                    .moveViewObject(.client, .veryFast),
+                    .wait(.ticks(10)),
+                    .releaseCamera
                 ])
             ]
         )
@@ -160,12 +202,12 @@ enum CutsceneCatalog {
         static let fileTheNight = "dlg.empty-coat.desk-monologue.node.voss.desk.casefile.2.text"
     }
 
-    static var fileTheNightBeat: CutsceneBeat {
-        let text = DialogueStringTable.shipped.stringIfPresent(for: StringKey.fileTheNight) ?? ""
-        return .ticks(Int(ceil(DisplayStringDuration.seconds(for: text) * LogicTickClock.ticksPerSecond)))
-    }
-
+    /// One overhead line over Voss, timed like InfoPoint `DisplayString`.
     static var fileTheNightHeadText: CutsceneCue {
-        .displayStringHead(stringKey: StringKey.fileTheNight, fileTheNightBeat)
+        let text = DialogueStringTable.shipped.stringIfPresent(for: StringKey.fileTheNight) ?? ""
+        return .displayStringHead(
+            stringKey: StringKey.fileTheNight,
+            .seconds(DisplayStringDuration.seconds(for: text))
+        )
     }
 }

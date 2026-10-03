@@ -395,7 +395,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         lootContainerPanelOwnsPointerPress = false
         let lootPoint = lootContainerPanel.convert(event.location, from: self)
         if lootContainerPanel.containsPanel(at: lootPoint) {
@@ -425,7 +424,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         if lootContainerPanelOwnsPointerPress {
             let lootPoint = lootContainerPanel.convert(event.location, from: self)
             lootContainerPanel.updatePress(at: lootPoint)
@@ -457,7 +455,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
-        if cutsceneDirector.isCutsceneMode { return }
         let lootPoint = lootContainerPanel.convert(event.location, from: self)
         if lootContainerPanelOwnsPointerPress {
             lootContainerPanel.endPress(at: lootPoint)
@@ -481,6 +478,10 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             dismissLootContainerPanel()
         }
 
+        // BG:EE SetCutSceneBreakable: tap skips entrance/exit after grace.
+        if trySkipActiveClientCutscene() {
+            return
+        }
         if dialogueIsActive {
             let dialoguePoint = dialoguePanelPoint(for: event.location)
             if !dialoguePresenter.handlePointerUp(at: dialoguePoint) {
@@ -622,7 +623,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleDirectionalInput(_ direction: CGVector) -> Bool {
-        if cutsceneDirector.isCutsceneMode { return true }
         if dialogueIsActive {
             let selectionDirection = direction.dx < 0 || direction.dy > 0 ? -1 : 1
             if !dialoguePresenter.moveSelection(selectionDirection) {
@@ -646,7 +646,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
         // Stop any running edge scroll up front; it is re-armed at the bottom only
@@ -768,7 +767,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     /// BG:EE tactical pause. Orders issued while frozen are accepted and walked
     /// on unpause, which is the point of it.
     override func handleTacticalPauseInput() {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         pause.togglePlayerPause()
         applyPlayerPauseFeedback()
     }
@@ -786,7 +784,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     override func handleCancelInput() {
         // Escape is *the* cutscene skip in BG:EE — a breakable walk owns it before
-        // any overlay or the targeting reset below.
+        // any overlay or the movement cancel below.
         if trySkipActiveClientCutscene() {
             return
         }
@@ -803,16 +801,17 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             setInventoryPresented(false)
         } else if !dialogueIsActive {
             clearMovementFeedback()
+            clearWaypointPips()
+            detective.cancelMovement()
         }
     }
 
     /// BG:EE right-click / two-finger tap. The engine drops the targeting mode
     /// and resets the action bar here; it never stops the walk. Overlays are our
     /// nearest equivalent of that targeting state, so they close — but an active
-    /// path keeps running. Escape also clears targeting without cancelling the route.
+    /// path keeps running. Stopping is Escape's job (`handleCancelInput`).
 
     override func handleSecondaryPointer(at point: CGPoint) -> Bool {
-        if cutsceneDirector.isCutsceneMode { return true }
         guard inventoryIsPresented else { return false }
         return inventoryOverlay.handleSecondaryPointer(
             at: inventoryOverlay.convert(hudRoot.convert(point, from: self), from: hudRoot)
@@ -820,7 +819,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleClearTargetingInput() {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         if dismissLootContainerPanel() {
             return
         }
@@ -838,7 +836,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleScrollInput(_ deltaY: CGFloat) -> Bool {
-        if cutsceneDirector.isCutsceneMode { return true }
         if journalIsPresented {
             journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
             return true
@@ -851,7 +848,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleConfirmInput() {
-        if cutsceneDirector.isCutsceneMode { return }
         if journalIsPresented {
             setJournalPresented(false)
             return
@@ -864,6 +860,10 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             setMapPresented(false)
             return
         }
+        // Confirm / Escape-style confirm also skips breakable walks (match exterior).
+        if trySkipActiveClientCutscene() {
+            return
+        }
         if dialogueIsActive {
             // Space/Return: Continue/End only — never auto-pick a PC reply (BG:EE).
             dialoguePresenter.activateCommandControl()
@@ -874,7 +874,6 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleDialogueChoiceDigit(_ digit: Int) {
-        guard !cutsceneDirector.isCutsceneMode else { return }
         guard dialogueIsActive else { return }
         // Digit 1 → first visible reply (BG:EE number keys).
         dialoguePresenter.selectChoice(at: digit - 1)
@@ -901,8 +900,10 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     override func update(_ currentTime: TimeInterval) {
         cutsceneDirector.update(currentTime)
-        // Cutscene mode locks input without pausing locomotion. After the
-        // entrance ends that mode, dialogue once again pauses the world.
+        // BG:EE semantics: dialogue pauses the world, but CutSceneMode does not —
+        // scripted actors (Lila's entrance/exit walks) keep moving while only
+        // player input is locked. `cutsceneChromeSuppressed` is true for the
+        // whole authored visit, so it stands in for CutSceneMode here.
         let cutsceneActive = cutsceneChromeSuppressed
         pause.setModal(
             dialogue: dialogueIsActive && !cutsceneActive,
@@ -910,7 +911,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         )
         tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
         applyFootLighting(to: client, at: client.position)
-        let worldIsPaused = pause.isPaused || cutsceneDirector.freezesWorld
+        let worldIsPaused = pause.isPaused
         // BG silences footsteps while dialogue holds the world (`Actor::Update`
         // checks DF_IN_DIALOG before it ever reaches PlayWalkSound), which matters
         // here because a cutscene keeps scripted actors walking.
@@ -924,12 +925,11 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         client.footstepSurface = FootstepSurface(
             navigation.searchMap.surface(at: client.position) ?? .wood
         )
-        detective.updateLocomotion(
-            at: currentTime, worldIsPaused: worldIsPaused, movementOrders: movement
-        )
+        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         client.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
         if !worldIsPaused {
             updateActorOccupancy()
+            performCorrectiveRepathIfNeeded(at: currentTime)
             processBumpRequests()
             syncWaypointPips()
         }
@@ -1209,14 +1209,23 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         }
     }
 
-    private func applyClientVisitAction(
-        _ action: OfficeClientVisitSequencer.Action, reason: CutsceneCompletionReason = .natural
-    ) {
+    private func applyClientVisitAction(_ action: OfficeClientVisitSequencer.Action) {
         switch action {
         case .restoreCamera:
-            gameCamera.removeAction(forKey: "dialogueCameraLift")
-            gameCamera.position = clampedCameraPosition(following: detective.position, in: cameraClampBounds)
-            cameraRestoreInProgress = false
+            // Ease back to wherever the follow camera would now be sitting, then
+            // hand control back to it — returning to the authored framing would
+            // snap the moment the follow resumed.
+            let followPosition = clampedCameraPosition(
+                following: detective.position,
+                in: cameraClampBounds
+            )
+            let cameraRestore = SKAction.move(to: followPosition, duration: 0.3)
+            cameraRestore.timingMode = .easeInEaseOut
+            cameraRestoreInProgress = true
+            gameCamera.run(
+                .sequence([cameraRestore, .run { [weak self] in self?.cameraRestoreInProgress = false }]),
+                withKey: "dialogueCameraLift"
+            )
         case .beginClientExit:
             cutsceneDirector.play(
                 CutsceneCatalog.clientExit(
@@ -1226,11 +1235,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
             )
         case .returnDoor:
             // After Lila has finished the departure path and faded out.
-            if reason == .skipped {
-                cutsceneSetDoor(.officeEntrance, open: false, reason: reason)
-            } else {
-                animateDoorReturning()
-            }
+            animateDoorReturning()
         case .unlockPlayerControl:
             dialogueIsActive = false
             showOfficeHintIfNeeded()
@@ -1274,7 +1279,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     /// `StartCutSceneMode` / `EndCutSceneMode`.
     func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) {
-        setCutsceneChromeSuppressed(active, animated: false)
+        setCutsceneChromeSuppressed(active, animated: reason == .natural)
     }
 
     func cutsceneSuppressDialogue() {
@@ -1299,7 +1304,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
         updateDepth(of: client)
         guard id == CutsceneCatalog.ID.clientExit else { return }
         for next in OfficeClientVisitSequencer.actions(for: .clientExitCompleted) {
-            applyClientVisitAction(next, reason: reason)
+            applyClientVisitAction(next)
         }
     }
 
@@ -1496,7 +1501,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
     private func showOfficeHintIfNeeded() {
         guard !context.session.hasSeenOfficeHint else { return }
-        let hint = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
+        let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
         hint.text = "Tap or click the floor to stand and move. Select an object to inspect it."
         hint.fontSize = 18
         hint.fontColor = SKColor(white: 0.82, alpha: 0.85)
@@ -1535,17 +1540,13 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
 
         switch outcome {
         case .turnInPlace:
-            // WalkTo requests HEAD_TURN, not a change of body orientation.
-            // VossCHMF has no head-turn clip; retain its standing-idle fallback.
             clearWaypointPips()
+            detective.turnToFace(target)
 
         case .alreadyInRange:
             clearWaypointPips()
             detective.turnToFace(target)
             completion?()
-
-        case .blocked:
-            showMovementFeedback(at: target, isValid: false)
 
         case .refused:
             showMovementFeedback(at: target, isValid: false)
@@ -1590,10 +1591,7 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     /// function of the live path — there is nothing to prune and nothing that
     /// can drift out of step with the route.
     private func syncWaypointPips() {
-        guard let destination = detective.movementDestination else {
-            clearWaypointPips()
-            return
-        }
+        guard let destination = detective.movementDestination else { return }
         refreshWaypointPips(destination: destination)
     }
 
@@ -1614,6 +1612,25 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     private func finishQueuedMovement(completion: (() -> Void)? = nil) {
         clearWaypointPips()
         completion?()
+    }
+
+    private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
+        detective.syncMovablePosition()
+        switch movement.correctiveRepath(
+            &detective.movable,
+            at: currentTime,
+            ticks: detective.currentTick
+        ) {
+        case .keepWalking:
+            break
+        case .abandon:
+            clearWaypointPips()
+            detective.cancelMovement()
+        case .replanned:
+            if let destination = detective.movementDestination {
+                refreshWaypointPips(destination: destination)
+            }
+        }
     }
 
     /// BG:EE actor bumping, `Movable::DoStep`.

@@ -1,273 +1,445 @@
 import CoreGraphics
+import Foundation
 import Testing
 @testable import RainShadowCore
 
-/// Expectations are taken from the pinned upstream functions quoted in
-/// Documentation/CinematicParityAuditOct02.md, including non-blocking actions.
+/// The cue runner is the first cutscene machinery in the project that can be
+/// tested without a render loop. Everything these cases pin used to be reachable
+/// only by grepping `DetectiveOfficeScene.swift` as text.
 struct CutsceneRunnerTests {
-    @Test func waitsUseFifteenHz() {
-        #expect(CutsceneBeat.seconds(1).ticks == 15)
-        #expect(CutsceneBeat.ticks(15).seconds == 1)
+
+    private let doorway = CGPoint(x: 100, y: 100)
+    private let framing = CGPoint(x: 400, y: 220)
+
+    // MARK: - Beats
+
+    /// `SmallWait(n)` is n AI updates and BG's AI updates run at 15 Hz — the same
+    /// clock `LogicTickClock` already implements for locomotion.
+    @Test func smallWaitAndWaitShareTheEngineTick() {
+        #expect(CutsceneBeat.ticks(15).ticks == 15)
+        #expect(CutsceneBeat.seconds(1.0).ticks == 15)
+        #expect(CutsceneBeat.seconds(2.0).ticks == 30)
+        #expect(CutsceneBeat.ticks(15).seconds == 1.0)
+        #expect(LogicTickClock.ticksPerSecond == 15)
+    }
+
+    /// A beat authored shorter than one tick must still cost a tick. Rounding it
+    /// to zero would silently delete an authored pause.
+    @Test func subTickBeatsRoundUpRatherThanVanishing() {
+        #expect(CutsceneBeat.seconds(0.01).ticks == 1)
         #expect(CutsceneBeat.seconds(0).ticks == 0)
+        #expect(CutsceneBeat.ticks(-3).ticks == 0)
     }
 
-    @Test func duplicateSubjectsAppendInScriptOrder() {
+    /// IESDP records VERY_FAST as "equivalent to normal walking speed".
+    @Test func veryFastScrollMatchesTheWalkRate() {
+        #expect(ScrollSpeed.veryFast.pointsPerSecond == ActorLocomotionPacing.walkSpeed)
+        #expect(ScrollSpeed.instant.pointsPerSecond == nil)
+
+        let ordered: [ScrollSpeed] = [.slow, .standard, .fast, .veryFast]
+        let rates = ordered.compactMap(\.pointsPerSecond)
+        #expect(rates.count == 4)
+        #expect(rates == rates.sorted(), "scroll.ids is ordered slowest to fastest")
+    }
+
+    @Test func scrollDurationIsDistanceOverRate() {
+        let speed = ScrollSpeed.veryFast
+        let rate = try! #require(speed.pointsPerSecond)
+        let beat = speed.beat(forDistance: rate * 2)
+        #expect(abs(beat.seconds - 2.0) < LogicTickClock.tickDuration)
+        #expect(ScrollSpeed.instant.beat(forDistance: 500) == .instant)
+    }
+
+    // MARK: - Track semantics
+
+    /// The BG rule this whole system exists for: separate `CutSceneId` blocks
+    /// play at the same time. Before the runner there was no way to say
+    /// "he stands up while she walks in" except overlapping callbacks.
+    @Test func tracksWithDifferentSubjectsStartTogether() {
         var runner = CutsceneRunner()
-        let start = runner.begin(Cutscene(id: "repeat", tracks: [
-            CutsceneTrack(.world, [.wait(.ticks(2)), .setFlag("first")]),
-            CutsceneTrack(.world, [.setFlag("second")])
-        ]), at: 0)
-        #expect(start.commands == [CutsceneCommand(.world, .wait(.ticks(2)))])
-        #expect(runner.advance(ticks: 2).commands == [
-            CutsceneCommand(.world, .setFlag("first")), CutsceneCommand(.world, .setFlag("second"))
-        ])
+        let step = runner.begin(
+            Cutscene(id: "parallel", tracks: [
+                CutsceneTrack(.actor(.client), [.followPath([doorway, framing], .entering)]),
+                CutsceneTrack(.actor(.detective), [.standUp]),
+                CutsceneTrack(.chrome, [.letterbox(true), .wait(.seconds(4))])
+            ]),
+            at: 0
+        )
+
+        #expect(step.commands.contains(CutsceneCommand(.actor(.client), .followPath([doorway, framing], .entering))))
+        #expect(step.commands.contains(CutsceneCommand(.actor(.detective), .standUp)))
+        #expect(step.commands.contains(CutsceneCommand(.chrome, .letterbox(true))))
+        #expect(step.completion == nil)
+    }
+
+    /// Cues inside one track block each other, exactly as actions do inside one
+    /// `CutSceneId` block.
+    @Test func cuesWithinATrackAreSequential() {
+        var runner = CutsceneRunner()
+        let step = runner.begin(
+            Cutscene(id: "sequential", tracks: [
+                CutsceneTrack(.camera, [
+                    .wait(.seconds(1)),
+                    .moveViewPoint(framing, .standard)
+                ])
+            ]),
+            at: 0
+        )
+        #expect(step.commands == [CutsceneCommand(.camera, .wait(.seconds(1)))])
+
+        #expect(runner.advance(ticks: 14).commands.isEmpty, "One tick short of the beat")
+        let due = runner.advance(ticks: 1)
+        #expect(due.commands == [CutsceneCommand(.camera, .moveViewPoint(framing, .standard))])
+    }
+
+    /// A run of zero-duration cues lands in one step rather than one per tick.
+    @Test func instantCuesCollapseIntoASingleStep() {
+        var runner = CutsceneRunner()
+        let step = runner.begin(
+            Cutscene(id: "instant", tracks: [
+                CutsceneTrack(.world, [
+                    .setDoor(.officeEntrance, open: true),
+                    .setFlag("office.introPlayed")
+                ])
+            ]),
+            at: 0
+        )
+        #expect(step.commands.count == 2)
+        #expect(step.completion == .natural, "Nothing left to wait for")
+    }
+
+    /// `MoveToPoint` blocks until arrival; so does ours.
+    @Test func openEndedCuesHoldTheirTrackUntilReported() {
+        var runner = CutsceneRunner()
+        _ = runner.begin(
+            Cutscene(id: "walk", tracks: [
+                CutsceneTrack(.actor(.client), [.followPath([doorway, framing], .entering), .face(.south)])
+            ]),
+            at: 0
+        )
+        #expect(runner.advance(ticks: 600).commands.isEmpty, "Time alone cannot end a walk")
+
+        let arrived = runner.noteCompleted(.actor(.client))
+        #expect(arrived.commands == [CutsceneCommand(.actor(.client), .face(.south))])
+        #expect(arrived.completion == .natural)
+    }
+
+    /// A camera scroll is open-ended for the same reason: its duration is
+    /// distance over rate, and only the director knows the distance.
+    @Test func cameraScrollBlocksUnlessInstant() {
+        #expect(CutsceneCue.moveViewPoint(.zero, .slow).isOpenEnded)
+        #expect(!CutsceneCue.moveViewPoint(.zero, .instant).isOpenEnded)
+        #expect(CutsceneCue.moveViewObject(.client, .veryFast).isOpenEnded)
+    }
+
+    /// The cutscene ends when the *last* track does, not the first.
+    @Test func completionWaitsForEveryTrack() {
+        var runner = CutsceneRunner()
+        _ = runner.begin(
+            Cutscene(id: "ragged", tracks: [
+                CutsceneTrack(.chrome, [.wait(.ticks(2))]),
+                CutsceneTrack(.actor(.client), [.followPath([doorway], .entering)])
+            ]),
+            at: 0
+        )
+        #expect(runner.advance(ticks: 2).completion == nil, "Client track still walking")
+        #expect(runner.noteCompleted(.actor(.client)).completion == .natural)
         #expect(!runner.isPlaying)
     }
 
-    @Test func aSubjectDrainsItsImmediateActionsBeforeTheNextSubject() {
+    // MARK: - Skip
+
+    @Test func graceWindowGovernsSkip() {
         var runner = CutsceneRunner()
-        let step = runner.begin(Cutscene(id: "order", tracks: [
-            CutsceneTrack(.world, [.setFlag("first"), .setFlag("second")]),
-            CutsceneTrack(.actor(.detective), [.setFlag("third")])
-        ]), at: 0)
-        #expect(step.commands.map(\.cue) == [.setFlag("first"), .setFlag("second"), .setFlag("third")])
+        _ = runner.begin(
+            Cutscene(id: "graced", graceSeconds: 1.0, tracks: [
+                CutsceneTrack(.chrome, [.wait(.seconds(10))])
+            ]),
+            at: 10
+        )
+        #expect(!runner.canSkip(at: 10.5))
+        #expect(runner.canSkip(at: 11.0))
     }
 
-    @Test func bulkAdvancePreservesEveryIntermediateDeadline() {
-        let scene = Cutscene(id: "waits", tracks: [
-            CutsceneTrack(.world, [.wait(.ticks(2)), .setFlag("a"), .wait(.ticks(3)), .setFlag("b")])
-        ])
-        var bulk = CutsceneRunner(), singles = CutsceneRunner()
-        _ = bulk.begin(scene, at: 0)
-        _ = singles.begin(scene, at: 0)
-        let result = bulk.advance(ticks: 5)
-        var commands: [CutsceneCommand] = []
-        for _ in 0..<5 { commands += singles.advance(ticks: 1).commands }
-        #expect(result.commands == commands)
-        #expect(result.completion == .natural)
-        #expect(bulk == singles)
-    }
-
-    @Test func walkBlocksOnlyItsActor() {
+    /// `SetCutSceneBreakable(0)`: breakability is a per-sequence content flag.
+    @Test func nonBreakableCutsceneRefusesSkipButStillCompletes() {
         var runner = CutsceneRunner()
-        let start = runner.begin(Cutscene(id: "walk", tracks: [
-            CutsceneTrack(.actor(.client), [.moveToPoint(CGPoint(x: 100, y: 20)), .setFlag("arrived")]),
-            CutsceneTrack(.world, [.setFlag("parallel")])
-        ]), at: 0)
-        #expect(start.commands.contains(CutsceneCommand(.world, .setFlag("parallel"))))
-        #expect(runner.advance(ticks: 100).commands.isEmpty)
-        let end = runner.noteCompleted(.actor(.client))
-        #expect(end.commands == [CutsceneCommand(.actor(.client), .setFlag("arrived"))])
-        #expect(end.completion == .natural)
-        #expect(runner.noteCompleted(.actor(.client)).isEmpty)
-    }
-
-    @Test func ordinaryCameraMovesAndHeadTextDoNotBlock() {
-        let cues: [CutsceneCue] = [
-            .moveViewPoint(CGPoint(x: 100, y: 200), .slow),
-            .moveViewObject(.client, .fast),
-            .displayStringHead(stringKey: "line", .seconds(8)), .setFlag("immediate")
-        ]
-        var runner = CutsceneRunner()
-        let step = runner.begin(Cutscene(id: "instant", tracks: [CutsceneTrack(.world, cues)]), at: 0)
-        #expect(step.commands.map(\.cue) == cues)
-        #expect(step.completion == .natural)
-    }
-
-    @Test func untilDoneCameraActionIsDistinct() {
-        var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "scroll", tracks: [CutsceneTrack(.world, [
-            .moveViewPointUntilDone(CGPoint(x: 100, y: 200), .slow), .setFlag("landed")
-        ])]), at: 0)
-        #expect(runner.advance(ticks: 500).commands.isEmpty)
-        #expect(runner.noteCompleted(.world).completion == .natural)
-    }
-
-    @Test func faceHoldsForOneUpdate() {
-        var runner = CutsceneRunner()
-        let step = runner.begin(Cutscene(id: "face", tracks: [CutsceneTrack(.actor(.detective), [
-            .face(.south), .faceObject(.client), .setFlag("done")
-        ])]), at: 0)
-        #expect(step.commands.map(\.cue) == [.face(.south)])
-        #expect(runner.advance(ticks: 1).commands.map(\.cue) == [.faceObject(.client)])
+        _ = runner.begin(
+            Cutscene(id: "locked", isBreakable: false, tracks: [
+                CutsceneTrack(.chrome, [.wait(.ticks(1))])
+            ]),
+            at: 0
+        )
+        #expect(!runner.canSkip(at: 1_000))
+        #expect(runner.skip(at: 1_000).isEmpty)
         #expect(runner.advance(ticks: 1).completion == .natural)
     }
 
-    @Test func overrideReleasesIssuerAndSerializesTargetWork() {
+    /// Skip re-applies the in-flight cue too. A half-walked path still owes its
+    /// endpoint, or the actor is left standing in the doorway.
+    @Test func skipTerminatesTheInFlightCueAsWellAsTheQueue() {
         var runner = CutsceneRunner()
-        let start = runner.begin(Cutscene(id: "override", tracks: [CutsceneTrack(.world, [
-            .actionOverride(.client, .wait(.ticks(2))),
-            .actionOverride(.client, .setFlag("target")), .setFlag("issuer")
-        ])]), at: 0)
-        #expect(start.commands.contains(CutsceneCommand(.world, .setFlag("issuer"))))
-        #expect(!start.commands.contains(CutsceneCommand(.actor(.client), .setFlag("target"))))
-        #expect(runner.advance(ticks: 1).commands.isEmpty)
-        #expect(runner.advance(ticks: 1).commands.contains(CutsceneCommand(.actor(.client), .setFlag("target"))))
-        #expect(!runner.isPlaying)
+        _ = runner.begin(
+            Cutscene(id: "broken", graceSeconds: 0, tracks: [
+                CutsceneTrack(.actor(.client), [
+                    .followPath([doorway, framing], .entering),
+                    .face(.south)
+                ])
+            ]),
+            at: 0
+        )
+        let step = runner.skip(at: 1)
+        #expect(step.commands == [
+            CutsceneCommand(.actor(.client), .jumpToPoint(framing, .entering)),
+            CutsceneCommand(.actor(.client), .face(.south))
+        ])
+        #expect(step.completion == .skipped)
+        #expect(runner.wasBroken, "CutSceneBroken()")
     }
 
-    @Test func overrideClearsOrdinaryTargetActionsAndKeepsOtherOverrides() {
+    /// The reason travels with the step, so nothing has to latch it on the scene
+    /// and read it back out — the seam the roadmap records at §6.
+    @Test func completionReasonArrivesWithTheStep() {
+        var natural = CutsceneRunner()
+        _ = natural.begin(Cutscene(id: "a", tracks: [CutsceneTrack(.chrome, [.wait(.ticks(1))])]), at: 0)
+        #expect(natural.advance(ticks: 1).completion == .natural)
+        #expect(!natural.wasBroken)
+
+        var broken = CutsceneRunner()
+        _ = broken.begin(
+            Cutscene(id: "b", graceSeconds: 0, tracks: [CutsceneTrack(.chrome, [.wait(.seconds(30))])]),
+            at: 0
+        )
+        #expect(broken.skip(at: 1).completion == .skipped)
+        #expect(broken.wasBroken)
+    }
+
+    @Test func completionFiresExactlyOnce() {
         var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "clear", tracks: [
-            CutsceneTrack(.actor(.client), [.moveToPoint(.zero), .setFlag("discard")]),
+        _ = runner.begin(
+            Cutscene(id: "single", graceSeconds: 0, tracks: [
+                CutsceneTrack(.chrome, [.wait(.ticks(1))])
+            ]),
+            at: 0
+        )
+        #expect(runner.advance(ticks: 1).completion == .natural)
+        #expect(runner.advance(ticks: 1).isEmpty)
+        #expect(runner.skip(at: 5).isEmpty, "A finished cutscene cannot be broken")
+    }
+
+    // MARK: - Terminal forms
+
+    @Test func terminalFormsCollapseDurationWithoutChangingEffect() {
+        #expect(CutsceneCue.wait(.seconds(9)).terminal == .wait(.instant))
+        #expect(CutsceneCue.moveViewPoint(framing, .slow).terminal == .moveViewPoint(framing, .instant))
+        #expect(CutsceneCue.moveViewObject(.client, .fast).terminal == .moveViewObject(.client, .instant))
+        #expect(CutsceneCue.fadeToColor(.black, .seconds(2)).terminal == .fadeToColor(.black, .instant))
+        #expect(CutsceneCue.cameraScale(0.8, .seconds(3)).terminal == .cameraScale(0.8, .instant))
+        #expect(CutsceneCue.moveToPoint(framing).terminal == .jumpToPoint(framing, .plain))
+        // The endpoint alone is not the end state — an arrival ends visible,
+        // a departure ends hidden past the door.
+        #expect(CutsceneCue.followPath([doorway, framing], .entering).terminal
+            == .jumpToPoint(framing, .entering))
+        #expect(CutsceneCue.followPath([doorway, framing], .leaving).terminal
+            == .jumpToPoint(framing, .leaving))
+
+        // State-bearing cues are their own terminal form — a skip must still open
+        // the door, set the flag, and resume the graph.
+        #expect(CutsceneCue.setDoor(.officeEntrance, open: true).terminal
+            == .setDoor(.officeEntrance, open: true))
+        #expect(CutsceneCue.setFlag("f").terminal == .setFlag("f"))
+        #expect(CutsceneCue.resumeDialogue(nodeID: "n").terminal == .resumeDialogue(nodeID: "n"))
+        #expect(CutsceneCue.letterbox(false).terminal == .letterbox(false))
+        #expect(CutsceneCue.setCutsceneMode(false).terminal == .setCutsceneMode(false))
+    }
+
+    /// A line nobody had time to read should be dropped, not flashed for a frame.
+    @Test func overheadTextIsDroppedByASkip() {
+        #expect(CutsceneCue.displayStringHead(stringKey: "k", .seconds(2)).terminal == .wait(.instant))
+    }
+
+    // MARK: - The invariant
+
+    /// The frozen rule from `CinematicSystemRoadmap` §9: skip and natural
+    /// completion apply the same terminal state.
+    ///
+    /// Asserted here by construction rather than by inspection — for every tick
+    /// at which the cutscene could be broken, the union of what was already
+    /// played and what the skip emits must carry the same state-bearing cues as
+    /// playing it out. That covers cues authored *after* this test was written,
+    /// which is the failure mode the shipped hand-written skip path cannot rule out.
+    @Test(arguments: 0..<40)
+    func skipAtAnyTickReachesTheSameTerminalStateAsPlayingOut(breakTick: Int) {
+        let cutscene = Self.representativeCutscene
+
+        var played = CutsceneRunner()
+        var naturalCommands = played.begin(cutscene, at: 0).commands
+        for _ in 0..<120 {
+            naturalCommands += played.advance(ticks: 1).commands
+            for subject in cutscene.tracks.map(\.subject) {
+                naturalCommands += played.noteCompleted(subject).commands
+            }
+            if !played.isPlaying { break }
+        }
+        #expect(!played.isPlaying, "Reference run must finish")
+
+        var interrupted = CutsceneRunner()
+        var brokenCommands = interrupted.begin(cutscene, at: 0).commands
+        for _ in 0..<breakTick where interrupted.isPlaying {
+            brokenCommands += interrupted.advance(ticks: 1).commands
+        }
+        brokenCommands += interrupted.skip(at: 1_000).commands
+
+        #expect(
+            Self.terminalState(of: brokenCommands) == Self.terminalState(of: naturalCommands),
+            "Breaking at tick \(breakTick) diverged from natural completion"
+        )
+    }
+
+    /// Every state-bearing cue in a run, reduced to its final value per subject.
+    /// Presentation-only cues (waits, scroll rates, overhead text) are excluded —
+    /// those are the *only* things a skip is allowed to differ on.
+    private static func terminalState(of commands: [CutsceneCommand]) -> [String: String] {
+        var state: [String: String] = [:]
+        for command in commands {
+            // An override is credited to the actor it retargets, not the track
+            // that issued it — that is the whole point of the cue.
+            var subject = command.subject
+            var cue = command.cue
+            while case .actionOverride(let actor, let inner) = cue {
+                subject = .actor(actor)
+                cue = inner
+            }
+            switch cue {
+            case .setDoor(let door, let open):
+                state["door.\(door.rawValue)"] = "\(open)"
+            case .setFlag(let flag):
+                state["flag.\(flag)"] = "set"
+            case .resumeDialogue(let node):
+                state["dialogue.resume"] = node ?? "nil"
+            case .suppressDialogue:
+                state["dialogue.resume"] = "suppressed"
+            case .letterbox(let visible):
+                state["chrome.letterbox"] = "\(visible)"
+            case .setCutsceneMode(let active):
+                state["chrome.mode"] = "\(active)"
+            case .moveViewPoint(let point, _):
+                state["camera"] = "\(point)"
+            case .moveViewObject(let actor, _):
+                state["camera"] = "follow.\(actor.rawValue)"
+            case .releaseCamera:
+                state["camera"] = "released"
+            case .cameraScale(let scale, _):
+                state["camera.scale"] = "\(scale)"
+            case .fadeToColor(let color, _):
+                state["chrome.fade"] = "to.\(color)"
+            case .fadeFromColor(let color, _):
+                state["chrome.fade"] = "from.\(color)"
+            case .jumpToPoint(let point, _), .moveToPoint(let point):
+                state["actor.\(subject).position"] = "\(point)"
+            case .followPath(let path, _):
+                state["actor.\(subject).position"] = "\(path.last ?? .zero)"
+            case .face(let facing):
+                state["actor.\(subject).facing"] = "\(facing.rawValue)"
+            case .faceObject(let target):
+                state["actor.\(subject).facing"] = "toward.\(target.rawValue)"
+            case .standUp:
+                state["actor.\(subject).posture"] = "standing"
+            case .wait, .displayStringHead, .playVoiceOver:
+                continue
+            case .actionOverride:
+                preconditionFailure("Unwrapped above")
+            }
+        }
+        return state
+    }
+
+    /// Exercises every execution class at once: parallel tracks, blocking
+    /// locomotion, timed chrome, a camera scroll, and trailing state changes.
+    private static let representativeCutscene = Cutscene(
+        id: "test.representative",
+        graceSeconds: 0,
+        tracks: [
             CutsceneTrack(.world, [
-                .wait(.ticks(1)), .actionOverride(.client, .wait(.ticks(3))),
-                .actionOverride(.client, .setFlag("keep"))
+                .setDoor(.officeEntrance, open: true),
+                .setFlag("office.clientArrived")
+            ]),
+            CutsceneTrack(.camera, [
+                .moveViewPoint(CGPoint(x: 100, y: 100), .fast),
+                .moveViewObject(.client, .veryFast),
+                .moveViewPoint(CGPoint(x: 400, y: 220), .standard)
+            ]),
+            CutsceneTrack(.actor(.detective), [
+                .wait(.ticks(8)),
+                .standUp
+            ]),
+            CutsceneTrack(.cameraZoom, [
+                .cameraScale(0.9, .seconds(1))
+            ]),
+            // The master block, BG-shaped: chrome, a blocking join on someone
+            // else's walk, then the beats that may only happen after it.
+            CutsceneTrack(.chrome, [
+                .setCutsceneMode(true),
+                .letterbox(true),
+                .suppressDialogue,
+                .actionOverride(.client, .followPath([CGPoint(x: 0, y: 0), CGPoint(x: 380, y: 210)], .entering)),
+                .actionOverride(.detective, .faceObject(.client)),
+                .letterbox(false),
+                .resumeDialogue(nodeID: "voss.monologue.5")
             ])
-        ]), at: 0)
-        let override = runner.advance(ticks: 1)
-        #expect(override.commands.contains(CutsceneCommand(.actor(.client), .clearActions)))
-        #expect(runner.noteCompleted(.actor(.client)).isEmpty)
-        let end = runner.advance(ticks: 3)
-        #expect(end.commands == [CutsceneCommand(.actor(.client), .setFlag("keep"))])
-        #expect(end.completion == .natural)
-    }
-
-    @Test func nestedOverridesResolveThroughTargetQueues() {
-        var runner = CutsceneRunner()
-        let step = runner.begin(Cutscene(id: "nested", tracks: [CutsceneTrack(.world, [
-            .actionOverride(.client, .actionOverride(.detective, .setFlag("nested")))
-        ])]), at: 0)
-        #expect(step.commands.contains(CutsceneCommand(.actor(.detective), .setFlag("nested"))))
-        #expect(step.completion == .natural)
-    }
-
-    @Test func animationWaitReleasesOnStanceCompletionOrEngineRoundLimit() {
-        let scene = Cutscene(id: "animation", tracks: [CutsceneTrack(.actor(.detective), [
-            .playSequence(.getUp), .waitAnimation(.getUp), .setFlag("done")
-        ])])
-        var runner = CutsceneRunner()
-        let start = runner.begin(scene, at: 0)
-        #expect(start.commands.map(\.cue) == [.playSequence(.getUp), .waitAnimation(.getUp)])
-        #expect(runner.advance(ticks: 90).completion == nil)
-        #expect(runner.advance(ticks: 1).completion == .natural)
-        _ = runner.begin(scene, at: 0)
-        #expect(runner.noteAnimationCompleted(.actor(.detective), sequence: .getUp).completion == .natural)
-        #expect(runner.noteAnimationCompleted(.actor(.detective), sequence: .getUp).isEmpty)
-    }
-
-    @Test func fadeSuspendsAllScriptQueuesAndTheirWaitClocks() {
-        var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "fade", tracks: [
-            CutsceneTrack(.world, [.wait(.ticks(3)), .setFlag("world")]),
-            CutsceneTrack(.actor(.detective), [.fadeToColor(.black, .ticks(2)), .setFlag("faded")])
-        ]), at: 0)
-        #expect(runner.isFading)
-        #expect(runner.advance(ticks: 1).commands.isEmpty)
-        let faded = runner.advance(ticks: 1)
-        #expect(!runner.isFading)
-        #expect(faded.commands == [CutsceneCommand(.actor(.detective), .setFlag("faded"))])
-        #expect(runner.advance(ticks: 1).commands.isEmpty)
-        #expect(runner.advance(ticks: 1).commands == [CutsceneCommand(.world, .setFlag("world"))])
-    }
-
-    @Test func runtimeBreakabilityTogglesWithoutGraceAndSkipDoesNotReplayActions() {
-        var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "skip", tracks: [CutsceneTrack(.world, [
-            .wait(.ticks(1)), .setCutsceneBreakable(true),
-            .wait(.ticks(1)), .setCutsceneBreakable(false),
-            .wait(.ticks(1)), .setFlag("must-not-replay")
-        ])]), at: 10)
-        #expect(runner.skip(at: 10).isEmpty)
-        _ = runner.advance(ticks: 1)
-        #expect(runner.canSkip(at: 10))
-        let broken = runner.skip(at: 10)
-        #expect(broken.completion == .skipped)
-        #expect(broken.commands == [CutsceneCommand(.world, .setCutsceneMode(false))])
-        #expect(runner.wasBroken && runner.skip(at: 10).isEmpty)
-        #expect(runner.advance(ticks: 99).isEmpty)
-
-        _ = runner.begin(Cutscene(id: "toggle", tracks: [CutsceneTrack(.world, [
-            .setCutsceneBreakable(true), .wait(.ticks(1)),
-            .setCutsceneBreakable(false), .wait(.ticks(2))
-        ])]), at: 0)
-        _ = runner.advance(ticks: 1)
-        #expect(!runner.canSkip(at: 100))
-    }
-
-    @Test func recoveryRunsItsActualWaitsAndActionsInsteadOfTerminalForms() {
-        var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "recovery", isBreakable: true, tracks: [
-            CutsceneTrack(.actor(.client), [.moveToPoint(CGPoint(x: 5, y: 9)), .setFlag("discard")])
-        ], skipTracks: [CutsceneTrack(.world, [.wait(.ticks(3)), .setFlag("recover")])]), at: 0)
-        let broken = runner.skip(at: 0)
-        #expect(broken.completion == nil)
-        #expect(broken.commands.contains(CutsceneCommand(.actor(.client), .clearActions)))
-        #expect(!broken.commands.contains { if case .jumpToPoint = $0.cue { return true }; return false })
-        #expect(runner.advance(ticks: 2).isEmpty)
-        let recovered = runner.advance(ticks: 1)
-        #expect(recovered.commands == [CutsceneCommand(.world, .setFlag("recover"))])
-        #expect(recovered.completion == .skipped)
-    }
-
+        ]
+    )
 }
 
-struct CutsceneViewportTests {
-    @Test func scrollIdsAreTwiceTheirValuePerTick() {
-        #expect(ScrollSpeed.allCases.map(\.pointsPerTick) == [0, 2, 4, 6, 8])
-        #expect(ScrollSpeed.veryFast.pointsPerSecond == 120)
-    }
+/// `ActionOverride` — BG's join. Separate blocks give concurrency; the override
+/// is how one block waits on another actor's work before continuing.
+struct CutsceneActionOverrideTests {
 
-    @Test func scrollMovesInsteadOfJumpingAndUsesProjectedDistance() {
-        var rail = CutsceneViewport(position: .zero)
-        rail.move(to: CGPoint(x: 0, y: 40), speed: .standard)
-        #expect(rail.position == .zero)
-        rail.advance()
-        #expect(rail.position == CGPoint(x: 0, y: 4))
-        rail.advance(ticks: 9)
-        #expect(rail.position == CGPoint(x: 0, y: 40))
-        #expect(!rail.isMoving)
-    }
-
-    @Test func diagonalScrollUsesIntegerEngineStep() {
-        var rail = CutsceneViewport(position: .zero)
-        rail.move(to: CGPoint(x: 30, y: 40), speed: .veryFast)
-        rail.advance()
-        #expect(rail.position == CGPoint(x: 4, y: 6)) // int(0.16 * (30,40))
-    }
-
-    @Test func instantAndBoundaryStopsNeedNoTimer() {
-        var rail = CutsceneViewport(position: .zero)
-        rail.move(to: CGPoint(x: 100, y: 50), speed: .instant)
-        #expect(!rail.isMoving)
-        #expect(rail.position == CGPoint(x: 100, y: 50))
-        rail.move(to: CGPoint(x: 500, y: 50), speed: .slow)
-        rail.advance()
-        rail.reconcile(clamped: CGPoint(x: 100, y: 50), previous: CGPoint(x: 100, y: 50))
-        #expect(!rail.isMoving)
-    }
-}
-
-struct CutsceneFadeTimerTests {
-    @Test func zeroReusesDefaultOrLastDurationAndAlphaTruncates() {
-        var timer = CutsceneFadeTimer()
-        timer.fadeTo(ticks: 0)
-        timer.advance()
-        #expect(timer.alpha == 12 && timer.isFading)
-        for _ in 1..<20 { timer.advance() }
-        #expect(timer.alpha == 255 && !timer.isFading)
-        timer.fadeFrom(ticks: 3)
-        timer.advance()
-        #expect(timer.alpha == 170)
-        timer.advance()
-        #expect(timer.alpha == 85)
-        timer.advance()
-        #expect(timer.alpha == 0 && !timer.isFading)
-        timer.fadeTo(ticks: 0)
-        timer.advance()
-        #expect(timer.alpha == 85 && timer.lastDuration == 3)
-    }
-
-    @Test func blackResetsAfter150PostFadeUpdatesWithoutBlockingScripts() {
+    @Test func overrideBlocksTheIssuingTrackUntilTheActorFinishes() {
         var runner = CutsceneRunner()
-        _ = runner.begin(Cutscene(id: "black", tracks: [CutsceneTrack(.world, [
-            .fadeToColor(.black, .ticks(2))
-        ])]), at: 0)
-        #expect(runner.advance(ticks: 2).completion == .natural)
-        #expect(runner.fade.alpha == 255 && !runner.isFading)
-        _ = runner.advance(ticks: 149)
-        #expect(runner.fade.alpha == 255)
-        _ = runner.advance(ticks: 1)
-        #expect(runner.fade.alpha == 0)
+        let walk = [CGPoint(x: 0, y: 0), CGPoint(x: 200, y: 0)]
+        let step = runner.begin(
+            Cutscene(id: "join", tracks: [
+                CutsceneTrack(.chrome, [
+                    .letterbox(true),
+                    .actionOverride(.client, .followPath(walk, .entering)),
+                    .letterbox(false)
+                ])
+            ]),
+            at: 0
+        )
+        #expect(step.commands == [
+            CutsceneCommand(.chrome, .letterbox(true)),
+            CutsceneCommand(.chrome, .actionOverride(.client, .followPath(walk, .entering)))
+        ])
+        #expect(runner.advance(ticks: 500).commands.isEmpty, "Still waiting on her walk")
+
+        // Completion is reported against the *issuing* track, not the overridden
+        // actor — the override is that track's action, run elsewhere.
+        let done = runner.noteCompleted(.chrome)
+        #expect(done.commands == [CutsceneCommand(.chrome, .letterbox(false))])
+        #expect(done.completion == .natural)
+    }
+
+    @Test func overrideOfATimedCueBlocksForThatCuesDuration() {
+        var runner = CutsceneRunner()
+        _ = runner.begin(
+            Cutscene(id: "timed-join", tracks: [
+                CutsceneTrack(.chrome, [
+                    .actionOverride(.detective, .displayStringHead(stringKey: "k", .seconds(2))),
+                    .letterbox(false)
+                ])
+            ]),
+            at: 0
+        )
+        #expect(runner.advance(ticks: 29).commands.isEmpty)
+        #expect(runner.advance(ticks: 1).commands == [CutsceneCommand(.chrome, .letterbox(false))])
+    }
+
+    @Test func overrideTerminalUnwrapsToTheInnerTerminal() {
+        let cue = CutsceneCue.actionOverride(.client, .followPath([.zero, CGPoint(x: 9, y: 9)], .entering))
+        #expect(cue.terminal == .actionOverride(.client, .jumpToPoint(CGPoint(x: 9, y: 9), .entering)))
+        #expect(cue.isOpenEnded)
+        #expect(!CutsceneCue.actionOverride(.client, .face(.south)).isOpenEnded)
     }
 }

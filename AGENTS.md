@@ -1,54 +1,13 @@
 # AGENTS
 
-## Current Lila runtime — October 2 Desert Sentinel
+## Current character runtime — September 28
 
-Lila now uses **LilaSentinel**, the remeshed and fully hand-rigged Meshy Desert
-Sentinel character, with sixteen authored directions, ten walk phases and the
-local CHFB1G12 reference's exact 56-frame idle schedule (1,056 runtime frames).
-`LilaAnimationSet` is the runtime authority. The packed Blender source is
-`ArtSource/Blender/LilaDesertSentinelOct02/Lila_Production.blend` and the packager
-is `ArtSource/Processing/package_lila_sentinel_oct02.py`. See
-`Documentation/LilaSentinelOct02.md` for repair, masks, registration and checks.
-Historical 25-cell Lila instructions below describe retained test fixtures;
-do not rewire the client to them when restoring unrelated assets.
-
-## Current character runtime — October 1 V8 walking grip
-
-Voss uses **VossCHMF**, the September 30 Rustic Warrior model with the October 1
-little-finger weight repair, six-triangle surface UV correction, V8 walking
-carrying-hand pose and corrected
-ear-hair masks, CHMB1G12-timed idle and complete walk/chair animations (1,556
-frames). This replaces the September 22/23 reference artwork while retaining
-`VossAnimationSet` as runtime authority. Preserve its named bundle and
-`IECharacterPaletteLayout` support.
+Voss now uses **VossCHMF**, the September 22 reference family plus the September
+23 explicit SW chair poses (1,556 frames). `VossAnimationSet` is the runtime
+authority. Preserve its named bundle and `IECharacterPaletteLayout` support.
 The V14 character instructions below are historical and superseded. Never
 rewire the actor to `Voss` or its compatibility atlases during an area restore.
 See `Documentation/VossCurrentRuntime.md` for the exact payload and regression checks.
-September 30 cleanup removed retired model/checkpoint packages and old character
-rollback bundles. The current self-contained source is
-`ArtSource/Blender/SwordMaterialsV8Oct01/AnimationProduction/Voss_Rustic_Animations.blend`.
-Matching paperdoll/equipment sources and the exact UV patch are in
-`VossSurfaceRepairOct01`; see `Documentation/VossSurfaceRepairOct01.md`.
-The earlier 635-vertex hand-weight repair remains included.
-The later October 1 armor appearance follows the user's selected ICHAN08
-concept, including the enhanced back reference, upper-mail coverage and layered
-hip guards/skirt with V5's longer thigh coverage and V6's deeper shoulder caps,
-bordered side panels and larger fittings, plus V7 generated steel/leather textures
-and tuned metallic roughness. Its source and packager are
-`SplintMailMaterialsV7Oct01` and `package_splint_mail_materials_v7_oct01.py`; see
-`Documentation/SplintMailConceptOct01.md`.
-Preserve this newer armor bundle when restoring the body; older equipment
-installers predate it.
-V8 preserves the user’s exact sword-to-hand alignment in paperdoll and all actions,
-adds generated sword textures, and corrects walking via fingers/carrying arm.
-Body and armor walk frames are synchronized; idle/chair body frames remain unchanged.
-Current equipment sources are `SwordMaterialsV8Oct01/Voss_Sword_*.blend`.
-Use `package_sword_walk_body_v8.py` to stage the body and
-`package_sword_materials_v8_oct01.py` for the current coordinated install.
-See `Documentation/SwordMaterialsV8Oct01.md`. Preserve
-its recorded sampling boxes, render inputs and current runtime bundle, plus the
-September 30 shade calibration and reference source. Compact legacy
-sprite test fixtures and mixed office-authoring files remain deliberately.
 
 ## Current restored city runtime — September 27
 

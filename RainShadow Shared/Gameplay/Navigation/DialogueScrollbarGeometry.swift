@@ -3,10 +3,10 @@ import CoreGraphics
 /// Pure thumb/track math for the dialogue scrollbar. `DialogueScrollbarNode` uses these
 /// formulas so tests exercise the same path as the running UI.
 ///
-/// Geometry uses classic Mac OS 9 shapes: square arrow boxes and a proportional
-/// beveled thumb, with a square minimum for a usable pointer target.
+/// Geometry follows Apple System 7 scroll bars: square arrow boxes, dithered gray area,
+/// and a **fixed square** scroll box (the proportional indicator is a Mac OS 8/9 addition).
 enum DialogueScrollbarGeometry {
-    /// Classic scroll thumbs fill the channel edge to edge.
+    /// System 7 scroll boxes fill the channel edge to edge.
     static let thumbWidthInset: CGFloat = 0
     /// Minimum content overflow (pts) before the bar is considered scrollable.
     static let scrollableEpsilon: CGFloat = 0.5
@@ -28,7 +28,7 @@ enum DialogueScrollbarGeometry {
 
     /// Arrow buttons and track inside `bounds` (the bar node's local space).
     ///
-    /// Classic scroll bars share borders: the buttons sit flush against the ends of
+    /// System 7 scroll bars share borders: the buttons sit flush against the ends of
     /// the track with no gap, so the whole control reads as one assembled widget.
     static func chromeLayout(bounds: CGRect) -> ChromeLayout {
         let buttonExtent = min(bounds.width, maximumButtonExtent)
@@ -81,16 +81,16 @@ enum DialogueScrollbarGeometry {
             return ThumbLayout(isScrollable: false, thumbVisible: false, thumbRect: .zero)
         }
 
-        let width = max(1, trackRect.width - 2 * thumbWidthInset)
-        let minimumHeight = min(width, trackRect.height)
-        let height = min(trackRect.height, max(minimumHeight, trackRect.height * viewport / content))
-        let travel = max(0, trackRect.height - height)
+        // System 7 scroll boxes are a fixed square the size of the arrow boxes; the
+        // proportional indicator is a Mac OS 8/9 addition.
+        let side = min(trackRect.width, trackRect.height)
+        let travel = max(0, trackRect.height - side)
         let fraction = maxOffset > 0 ? min(1, max(0, scrollOffset / maxOffset)) : 0
         let rect = CGRect(
-            x: trackRect.midX - width / 2,
-            y: trackRect.maxY - height - travel * fraction,
-            width: width,
-            height: height
+            x: trackRect.midX - side / 2,
+            y: trackRect.maxY - side - travel * fraction,
+            width: side,
+            height: side
         )
         return ThumbLayout(isScrollable: true, thumbVisible: true, thumbRect: rect)
     }

@@ -51,7 +51,7 @@ dates from it.
 | Other actors | Not modelled | Stamped into the map as PC/NPC bits; bumpable actors are traversable (`ActorOccupancy`) |
 | Blocked-by-actor recovery | None | **Bump**: the blocker relocates itself and comes back; movers back off on an unbumpable one |
 | Door open/close | Rebuild the whole navigation grid | **Stamp/clear door cells in place** (`setEntranceDoorBlocking`) |
-| Mid-walk correction | None | **Corrective repath** for nearby actors or expired collision backoff (`Map::UpdateScripts` → `Actor::NewPath`) |
+| Mid-walk correction | None | Periodic **corrective repath** while a route is active (`Actor::NewPath`) |
 | Client NPC movement | Authored polyline + `SKAction.move` sequence | Pathfinder route + `Movable` |
 
 ## Reference model
@@ -193,30 +193,23 @@ Any future dynamic geometry — a shifted screen, a raised grate, a collapsed sh
 
 ### Corrective repathing
 
-`MovementOrderQueue.prepareStep` follows the player branch of GemRB
-`Map::UpdateScripts`, once per 15 Hz movement tick. A nearby actor triggers
-`Actor::NewPath`; collision backoff decrements first and triggers a replan on
-expiry, without taking a walking step on that same tick. Empty floor does not
-trigger a replan. Proximity uses `PersonalDistance` and the animation circle
-size, independently of search-map clearance.
+`MovementOrderQueue.correctiveRepath` is `Actor::NewPath` on BG:EE's "Enhanced
+Path Search" cadence: every `correctiveRepathInterval` (0.75 s) while an actor is
+walking, it re-issues `WalkTo` toward `Destination` with
+`FindPathRequestType.walkToFromNewPath`. A bottleneck that clears mid-walk — a
+door that fell, an NPC that bumped aside — immediately yields the shorter path.
+Past `MAX_PATH_TRIES` failed searches it drops the route rather than grinding.
 
-`correctiveRepath` re-issues `WalkTo` toward `Destination` with
-`FindPathRequestType.walkToFromNewPath`. Past the existing `MAX_PATH_TRIES`
-budget it drops the route. The last-cell arrival guard remains.
-
-**Rebuilding to `Destination` destroys intermediate waypoints.** That is the
-engine's `NewPath` behavior, but it must only happen under its collision
-triggers. The former unconditional 0.75-second timer was not in the pinned
-upstream and destroyed valid waypoint chains on empty floor. See
-[September 29 corrections](MovementControlsSep29.md) for source comparisons.
+**Rebuilding to `Destination` destroys intermediate waypoints.** v1.0 re-appended
+later goals and called the engine's behaviour a bug; this ports the engine's.
 
 ## Scene integration contract
 
 `DetectiveOfficeScene` and `CityDistrictScene` run the same per-frame order from `update(_:)`, and any new scene with walking actors must too:
 
-1. **Advance locomotion.** `updateLocomotion` on each actor node; the detective also receives `movementOrders`. This drains wall-clock delta into whole 15 Hz logic ticks (`LogicTickClock`) and calls `Movable.doStep` once per tick. Creature frames advance separately at draw time through `IEActorAnimation`, including while root motion is waiting. A standing actor spends its ticks rotating one facing bin toward `pendingFacing` instead.
+1. **Advance locomotion.** `updateLocomotion(at:worldIsPaused:)` on each actor node. This drains wall-clock delta into whole 15 Hz logic ticks (`LogicTickClock`) and calls `Movable.doStep` once per tick, advancing one authored walk frame with it. A standing actor spends its ticks rotating one facing bin toward `pendingFacing` instead.
 2. **Push occupancy.** Feed every visible actor's live position and `isMoving` to `NavigationMap.updateActor`. Unregister actors that are hidden.
-3. **Corrective repath runs inside the detective's logic tick**, through `prepareStep` before `DoStep`; do not add a scene-level timer.
+3. **Corrective repath.** `MovementOrderQueue.correctiveRepath` on the actor's `Movable`.
 4. **Relay bump requests.** `DoStep` decides; the scene only delivers. `Movable` has no handle on its neighbours, so `actorInTheWay->BumpAway()` arrives as an actor id in `StepOutcome.bumpedActorID` for the scene to pass on, and an idle bumped actor needs `advanceBumpRecovery()` pumped.
 5. **Sync reticles.** Pips are a pure function of the live path, so there is nothing to prune.
 
@@ -239,7 +232,7 @@ it honest, are gone.
 - **An append with nothing to append to is a plain move.** `if (!path) { WalkTo(Des); return; }`.
 - **An empty leg is not a waypoint.** "If the waypoint is too close to the current position, no path is generated" — the existing path keeps walking rather than being stranded.
 - **Appended legs ignore actors.** `AddWayPoint` files a bare search where `WalkTo` passes `PF_SIGHT | PF_ACTORS_ARE_BLOCKING`. The asymmetry is deliberate: whoever is in the way now will have moved before a later leg is walked.
-- **An accepted plain click wipes the queue before searching**, as `actor->Stop()` clears the whole path. A blocked cursor leaves the previous order and its completion intact. Shift-click is dispatched before the same-cell test, so it can append a return leg to the actor's current cell.
+- **A plain click wipes the queue**, as `actor->Stop()` clears the whole path.
 - **Every goal is marked on the ground, including the last.** `DrawTargetReticles` draws a reticle per waypoint node and then unconditionally at `Destination` ("always draw last step").
 - **A stale failure verdict is discarded first.** A waypoint is a new order, not the retry of a failed one, so `pathSearchFailed` is cleared rather than consumed — otherwise `WalkTo` would answer it and file nothing.
 
@@ -282,7 +275,7 @@ The client NPC (Lila) has been migrated off authored polylines and `SKAction.mov
 3. **Every floor-occupying actor registers with occupancy** on becoming visible and unregisters on being hidden or removed. An unregistered NPC is invisible to pathfinding and will be walked through.
 4. **Idle NPCs are bumpable; moving NPCs are not.** Do not hard-block the player with a stationary NPC. If a beat genuinely requires an immovable body, model it as a static obstacle, not as an unbumpable actor.
 5. **A non-empty path does not mean the destination was reached.** Runtime interactions therefore use `minDistance`; authoring checks use `reachesExactly` so range cannot conceal disconnected geometry.
-6. **Facing while walking comes from the path node**, which `FindPath` computed with `GetOrient` and `DoStep` assigns outright. Never re-derive it from velocity: that is what the retired look-ahead vector and hysteresis band did, and the engine has neither. Standing actors turn one bin per tick via `GetNextFace`. Current VossCHMF supplies all 16 directions, with eastern mirroring already baked in; never mirror the whole figure where a sprite contract forbids it (Lila's handbag/light contract).
+6. **Facing while walking comes from the path node**, which `FindPath` computed with `GetOrient` and `DoStep` assigns outright. Never re-derive it from velocity: that is what the retired look-ahead vector and hysteresis band did, and the engine has neither. Standing actors turn one bin per tick via `GetNextFace`. Nine source orientations plus seven mirrored, per Technical Architecture §10.4; never mirror the whole figure where a sprite contract forbids it (Lila's handbag/light contract).
 7. **Single-agent correctness is not negotiable.** Multi-actor work must not regress detective-only office navigation tests.
 
 ### Adding a walking NPC

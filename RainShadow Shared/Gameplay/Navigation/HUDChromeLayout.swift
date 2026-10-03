@@ -3,35 +3,39 @@ import CoreGraphics
 /// Pure, SpriteKit-free geometry for Infinity Engine–style HUD rails.
 /// Layout is driven by painted art aspect ratios so chrome is never non-uniformly stretched.
 enum HUDChromeLayout {
-    // MARK: - Left action rail (generated parchment, reference proportions)
+    // MARK: - Left action rail (`hud_left_rail_plate_v03` 256×2048)
 
     enum LeftRail {
-        /// Sidebar band measured from the supplied Baldur’s Gate screenshot.
-        /// Generated parchment is nine-sliced into this reference footprint.
-        static let artPixelSize = CGSize(width: 264, height: 2_550)
-        static let artAspectWidthOverHeight: CGFloat = 264.0 / 2_550.0
+        /// Painted plate pixel size (runtime PNG).
+        static let artPixelSize = CGSize(width: 256, height: 2_048)
+        /// Width / height of the painted plate — uniform scale must preserve this.
+        static let artAspectWidthOverHeight: CGFloat = 256.0 / 2_048.0
         static let wellCount = 12
         /// Reference sidebar grouping: eight evenly spaced upper controls, a
         /// two-pitch group break, three utility controls, then the clock.
         static let wellCenterFractionsFromTop: [CGFloat] = [
-            0.055, 0.127, 0.199, 0.271, 0.343, 0.415,
-            0.487, 0.559, 0.700, 0.772, 0.844, 0.938
+            0.068, 0.138, 0.208, 0.278, 0.348, 0.418,
+            0.488, 0.558, 0.698, 0.768, 0.838, 0.930
         ]
-        /// Reference slot width leaves roughly 11.5% of the rail on each side.
-        static let wellWidthFractionOfPlate: CGFloat = 0.77
+        /// Dark icon recess width relative to plate width (measured ~0.54 on art).
+        static let wellWidthFractionOfPlate: CGFloat = 0.54
         /// Slot height leaves equal clear gaps within each reference group.
-        static let wellHeightFractionOfPlate: CGFloat = 0.054
+        static let wellHeightFractionOfPlate: CGFloat = 0.058
         /// Icons fill the well without overflowing the painted rim.
         static let iconFillOfWell: CGFloat = 0.90
-        /// The reference rail meets the viewport edges; its artwork retains its full bounds.
-        static let edgePad: CGFloat = 0
-        /// No floating gutter between the viewport and the sidebar.
-        static let leftInset: CGFloat = 0
+        /// Vertical inset so top/bottom metal caps clear the view edge.
+        static let edgePad: CGFloat = 10
+        /// Horizontal inset so the painted left rim is not clipped by the SKView edge.
+        /// Must stay ≥ 8; flush-left placement loses the outer metal bevel.
+        static let leftInset: CGFloat = 16
+        /// Soft min/max so icons stay usable on short viewports without a huge bar on 4K.
+        static let minPlateWidth: CGFloat = 64
+        static let maxPlateWidth: CGFloat = 120
         /// Hit target is slightly larger than the icon for fat-finger / mouse ease.
         static let hitPadding: CGFloat = 6
 
-        /// The generated open-ended rail needs no cap crop.
-        /// SpriteKit texture coordinates use a bottom-left origin.
+        /// Full texture bounds (SpriteKit bottom-left origin). The painted top and
+        /// bottom ornaments reach the source edges, so even a 1% crop clips them.
         static let plateContentRect = CGRect(x: 0, y: 0, width: 1, height: 1)
     }
 
@@ -68,10 +72,24 @@ enum HUDChromeLayout {
     static func leftRailLayout(for visibleSize: CGSize) -> LeftRailLayout {
         let maxH = max(1, visibleSize.height - LeftRail.edgePad * 2)
         // Prefer filling height (IE spine density); width follows art aspect.
-        let plateH = maxH
-        let plateW = plateH * LeftRail.artAspectWidthOverHeight
+        var plateH = maxH
+        var plateW = plateH * LeftRail.artAspectWidthOverHeight
 
-        // Anchor the full-height plate against the left viewport edge.
+        if plateW > LeftRail.maxPlateWidth {
+            plateW = LeftRail.maxPlateWidth
+            plateH = plateW / LeftRail.artAspectWidthOverHeight
+        }
+        if plateW < LeftRail.minPlateWidth {
+            plateW = LeftRail.minPlateWidth
+            plateH = plateW / LeftRail.artAspectWidthOverHeight
+            if plateH > maxH {
+                plateH = maxH
+                plateW = plateH * LeftRail.artAspectWidthOverHeight
+            }
+        }
+
+        // Center the plate vertically (when shorter than the window after max-width clamp).
+        // Inset from the left so the full painted metal rim stays inside the view.
         let plateCenter = CGPoint(
             x: -visibleSize.width / 2 + LeftRail.leftInset + plateW / 2,
             y: 0
@@ -79,7 +97,7 @@ enum HUDChromeLayout {
 
         let wellW = plateW * LeftRail.wellWidthFractionOfPlate
         let wellH = plateH * LeftRail.wellHeightFractionOfPlate
-        // Reference slots are wide rectangles; artwork remains square and undistorted.
+        // Square wells sized to the painted circular recesses (not oversize).
         let wellSide = min(wellW, wellH)
         let iconSide = wellSide * LeftRail.iconFillOfWell
         let centers = LeftRail.wellCenterFractionsFromTop
@@ -95,19 +113,14 @@ enum HUDChromeLayout {
             }
             // Plate-local: top of plate is +plateH/2.
             let y = plateH / 2 - frac * plateH
-            // Keep the taller clock housing clear of both painted sidebar edges.
-            let isClock = index == LeftRail.wellCount - 1
-            let width = isClock ? plateW * 0.80 : wellW
-            let height = isClock ? plateH * 0.070 : wellH
-            let centerX: CGFloat = 0
             let well = CGRect(
-                x: centerX - width / 2,
-                y: y - height / 2,
-                width: width,
-                height: height
+                x: -wellSide / 2,
+                y: y - wellSide / 2,
+                width: wellSide,
+                height: wellSide
             )
             let icon = CGRect(
-                x: centerX - iconSide / 2,
+                x: -iconSide / 2,
                 y: y - iconSide / 2,
                 width: iconSide,
                 height: iconSide
@@ -140,7 +153,7 @@ enum HUDChromeLayout {
         static let portraitTopFraction: CGFloat = 0.060
         static let portraitHeightFraction: CGFloat = 0.396
         static let portraitLeftFraction: CGFloat = 0.100
-        static let portraitWidthFraction: CGFloat = 0.777
+        static let portraitWidthFraction: CGFloat = 0.797
         /// Keep square photo clear of the metal rim (fraction of the short window side).
         static let portraitInnerInsetFraction: CGFloat = 0.08
         /// Absolute floor on the inner inset (points).

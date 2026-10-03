@@ -363,7 +363,7 @@ final class WorldMapOverlay: SKNode {
         currentDot.zPosition = 31
         sheet.addChild(currentDot)
 
-        let current = Self.label(size: 12, color: Palette.quiet, font: UITheme.Font.overlayBodyBold)
+        let current = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
         current.text = "CURRENT WARD"
         current.horizontalAlignmentMode = .left
         current.verticalAlignmentMode = .center
@@ -379,7 +379,7 @@ final class WorldMapOverlay: SKNode {
         travelBox.zPosition = 31
         sheet.addChild(travelBox)
 
-        let travel = Self.label(size: 12, color: Palette.quiet, font: UITheme.Font.overlayBodyBold)
+        let travel = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
         travel.text = "TRAVELABLE"
         travel.horizontalAlignmentMode = .left
         travel.verticalAlignmentMode = .center
@@ -395,7 +395,7 @@ final class WorldMapOverlay: SKNode {
         fogBox.zPosition = 31
         sheet.addChild(fogBox)
 
-        let unknown = Self.label(size: 12, color: Palette.quiet, font: UITheme.Font.overlayBodyBold)
+        let unknown = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
         unknown.text = "UNMAPPED"
         unknown.horizontalAlignmentMode = .left
         unknown.verticalAlignmentMode = .center

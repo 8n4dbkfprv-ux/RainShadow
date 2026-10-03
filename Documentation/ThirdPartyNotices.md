@@ -29,8 +29,7 @@ Under `RainShadow Shared/Gameplay/Navigation/`:
 | `SearchMapTerrain.swift` | `gemrb/core/TileProps.h`, `gemrb/plugins/AREImporter` terrain table |
 | `SearchMapVisibility.swift` | `gemrb/core/Map.cpp` (`Explore`) |
 | `ActorOccupancy.swift` | `gemrb/core/PathFinder.cpp` (`BlockSearchMapFor`, `ClearSearchMapFor`), `gemrb/core/Scriptable/Selectable.cpp` |
-| `IEActorAnimation.swift` | `gemrb/core/Animation.cpp` (`NextFrame`, looping game-animation timing), `gemrb/core/CharAnimations.cpp` (`GetAnimation`, stance/orientation cache); actor adapters use `Actor::AdvanceAnimations` and idle art for missing stances |
-| `MovementOrderQueue.swift` | `gemrb/core/Scriptable/Actor.cpp` (`NewPath`), `gemrb/core/GUI/GameControl.cpp` (`OnMouseUp`, `CommandSelectedMovement`), `gemrb/core/Map.cpp` (`UpdateScripts`, `GetActorInRadius`, player branch) |
+| `MovementOrderQueue.swift` | `gemrb/core/Scriptable/Actor.cpp` (`NewPath`), `gemrb/core/GUI/GameControl.cpp` |
 | `CameraZoom.swift` | `gemrb/core/GUI/GameControl.cpp` (`zoomLevel`, `GetScalePercent`, `SetScalePercent`, `OnMouseWheelScroll`), `gemrb/core/Region.cpp` (`Region::Scale`, `Region::Unscale`) |
 | `AreaViewport.swift` | `gemrb/core/GUI/GameControl.cpp` (`MoveViewportTo`'s clamp block, `MoveViewportUnlockedTo`) |
 | `AreaLifecycle.swift`, `AreaRuntime`, `GameAreaScene` area-state/timing integration | `core/Scriptable/Door.cpp` (`BlockedOpen`, `SetDoorOpen`), `core/Map.cpp` (`JumpActors`, `MoveToNewArea`, `UpdateScripts`), `core/GlobalTimer.cpp` (`Update`, `Freeze`), `core/Scriptable/Scriptable.cpp` (`TickScripting`), `plugins/AREImporter/AREImporter.cpp` (`PutDoors`, `PutRegions`); adapted to RainShadow's serialized area records and single controlled actor |
@@ -71,23 +70,6 @@ world-row upload flip. Run it after changing either fog transcription:
 ```sh
 swift ArtSource/Processing/qa_fog_geometry_shader.swift
 ```
-
-### Files derived from GemRB — cinematic action subset
-
-The October 2 comparison uses the same pinned revision above. See
-[Cinematic parity audit](CinematicParityAuditOct02.md) for quoted upstream
-comparisons, including the removal of the former presentation extensions.
-
-| RainShadow | GemRB |
-|---|---|
-| `Gameplay/Navigation/Cutscene.swift`, `CutsceneRunner.swift` | `GameScript/GameScript.cpp` (`EvaluateAllBlocks`, `ExecuteAction`, `HandleActionOverride`), `Scriptable/Scriptable.cpp` (`ProcessActions`, `ClearActions`), `GameScript/Actions.cpp` (waits, facing, camera actions), `GlobalTimer.cpp` (fade counters, duration reuse, script freeze and reset), `unhardcoded/bg2/gametime.2da` (fade defaults), `GameScript/GSUtils.cpp` (`PlaySequenceCore`) |
-| `Gameplay/Navigation/CutsceneViewport.swift` | `GlobalTimer.cpp` (`SetMoveViewPort`, `DoStep`) |
-| `Core/Scene/CutsceneDirector.swift`, `Gameplay/Actors/CutsceneActorAdapters.swift`, input gates in `BaseGameScene` / `DetectiveOfficeScene` | Adapters for the preceding action semantics and `GUI/GameControl.cpp::SetCutSceneMode` |
-
-Paths are under `RainShadow Shared/`. Catalog choreography and the authored skip
-failsafes are local content. EE breakability is documented by IESDP rather than
-implemented by this GemRB revision. Existing GPL-2.0-or-later provenance and the
-recorded distribution question apply to these additional derived functions too.
 
 ### Files derived from GemRB — character colour model
 

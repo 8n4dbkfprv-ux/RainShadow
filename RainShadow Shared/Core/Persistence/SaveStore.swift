@@ -189,19 +189,10 @@ enum LegacySaveIDs {
         itemIDs[id] ?? id
     }
 
-    /// Removed props from the former loadout; Voss now carries only his sword.
-    /// Match explicit IDs so future authored items are not discarded. Case
-    /// progress lives separately in the evidence, knowledge and journal fields.
-    static func isRetiredItem(_ id: String) -> Bool {
-        ["dark-lantern", "coin-purse", "tobacco-tin",
-         "case-notes", "brass-key", "blue-room-token"].contains(itemID(id))
-    }
-
     /// Loot container stacks carry item ids too.
     static func renamedLoot(_ stacks: [PersistedLootStack]) -> [PersistedLootStack] {
-        stacks.compactMap { stack in
+        stacks.map { stack in
             if case .item(let id, let quantity) = stack {
-                guard !isRetiredItem(id) else { return nil }
                 return .item(id: itemID(id), quantity: quantity)
             }
             return stack
@@ -273,8 +264,6 @@ struct SaveSnapshot: Codable, Equatable {
     /// slot count into real stacks. One-way: it is set the first time a save is
     /// loaded by a binary that knows how to seed them.
     var hasSeededStarterKit = false
-    /// One-time helmet and splint-mail grant for saves predating their addition.
-    var hasReceivedArmorKit = false
     /// Case flags earned in dialogue (e.g. client retained) — survives area change / relaunch.
     var caseFlags: Set<String> = []
     /// Knowledge ids granted in dialogue. The Infinity Engine persists every GLOBAL in
@@ -318,7 +307,6 @@ struct SaveSnapshot: Codable, Equatable {
         equippedItems: [String: PersistedCarriedItemStack] = [:],
         groundPiles: [String: [PersistedGroundItemStack]] = [:],
         hasSeededStarterKit: Bool = false,
-        hasReceivedArmorKit: Bool = false,
         caseFlags: Set<String> = [],
         caseKnowledgeIDs: Set<String> = [],
         caseEvidenceIDs: Set<String> = [],
@@ -341,7 +329,6 @@ struct SaveSnapshot: Codable, Equatable {
         self.equippedItems = equippedItems
         self.groundPiles = groundPiles
         self.hasSeededStarterKit = hasSeededStarterKit
-        self.hasReceivedArmorKit = hasReceivedArmorKit
         self.caseFlags = caseFlags
         self.caseKnowledgeIDs = caseKnowledgeIDs
         self.caseEvidenceIDs = caseEvidenceIDs
@@ -371,21 +358,20 @@ struct SaveSnapshot: Codable, Equatable {
             [String: [PersistedLootStack]].self,
             forKey: .lootContainers
         ) ?? [:]).mapValues(LegacySaveIDs.renamedLoot)
-        carriedItems = (try container.decodeIfPresent(
+        carriedItems = try container.decodeIfPresent(
             [PersistedCarriedItemStack].self,
             forKey: .carriedItems
-        ) ?? []).filter { !LegacySaveIDs.isRetiredItem($0.id) }
-        equippedItems = (try container.decodeIfPresent(
+        ) ?? []
+        equippedItems = try container.decodeIfPresent(
             [String: PersistedCarriedItemStack].self,
             forKey: .equippedItems
-        ) ?? [:]).filter { !LegacySaveIDs.isRetiredItem($0.value.id) }
+        ) ?? [:]
         groundPiles = LegacySaveIDs.rekeyedByArea(try container.decodeIfPresent(
             [String: [PersistedGroundItemStack]].self,
             forKey: .groundPiles
-        ) ?? [:]).mapValues { $0.filter { !LegacySaveIDs.isRetiredItem($0.id) } }
+        ) ?? [:])
         hasSeededStarterKit =
             try container.decodeIfPresent(Bool.self, forKey: .hasSeededStarterKit) ?? false
-        hasReceivedArmorKit = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedArmorKit) ?? false
         caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
         caseKnowledgeIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseKnowledgeIDs) ?? []
         caseEvidenceIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseEvidenceIDs) ?? []

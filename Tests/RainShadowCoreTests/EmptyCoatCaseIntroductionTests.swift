@@ -526,7 +526,7 @@ struct EmptyCoatCaseIntroductionTests {
             route: OfficeNavigationLayout.clientArrivalPath,
             resumeDialogueNodeID: resumeNode
         )
-        let resume = CutsceneCue.resumeDialogue(nodeID: resumeNode)
+        let resume = CutsceneCommand(.chrome, .resumeDialogue(nodeID: resumeNode))
 
         var natural = CutsceneRunner()
         var played = natural.begin(cutscene, at: 0).commands
@@ -536,17 +536,13 @@ struct EmptyCoatCaseIntroductionTests {
                 played += natural.noteCompleted(subject).commands
             }
         }
-        #expect(played.map(\.cue).contains(resume))
+        #expect(played.contains(resume))
 
         var broken = CutsceneRunner()
         var interrupted = broken.begin(cutscene, at: 0).commands
         interrupted += broken.advance(ticks: 30).commands
         interrupted += broken.skip(at: 100).commands
-        for _ in 0..<100 where broken.isPlaying {
-            interrupted += broken.advance(ticks: 1).commands
-            interrupted += broken.noteAnimationCompleted(.actor(.detective), sequence: .getUp).commands
-        }
-        #expect(interrupted.map(\.cue).contains(resume))
+        #expect(interrupted.contains(resume))
         #expect(broken.wasBroken)
     }
 

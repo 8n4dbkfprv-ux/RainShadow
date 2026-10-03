@@ -70,10 +70,6 @@ final class InventoryOverlay: SKNode {
     private let sheet = SKNode()
     private let content = SKNode()
     private let paperdollSlotsRoot = SKNode()
-    private let paperdollWeapon = SKSpriteNode()
-    private let paperdollArmor: [VossArmorAppearance: SKSpriteNode] = [
-        .ironHelmet: SKSpriteNode(), .splintMail: SKSpriteNode()
-    ]
     private let loadoutSlotsRoot = SKNode()
     private let bagSlotsRoot = SKNode()
     private let heldItemRoot = SKNode()
@@ -98,10 +94,10 @@ final class InventoryOverlay: SKNode {
 
         var badgeArt: String {
             switch self {
-            case .defence: "inventory_stat_badge_defence_fantasy_v01"
-            case .vitality: "inventory_stat_badge_vitality_fantasy_v01"
-            case .resolve: "inventory_stat_badge_resolve_fantasy_v01"
-            case .damage: "inventory_stat_badge_damage_fantasy_v01"
+            case .defence: "inventory_stat_badge_defence_v05"
+            case .vitality: "inventory_stat_badge_vitality_v05"
+            case .resolve: "inventory_stat_badge_resolve_v05"
+            case .damage: "inventory_stat_badge_damage_v05"
             }
         }
 
@@ -188,7 +184,7 @@ final class InventoryOverlay: SKNode {
            !carriedItems.contains(where: { $0.id == selected }) {
             selectedPresentationID = nil
         }
-        coinValueLabel.text = CurrencyAmount(pence: self.walletPence).formatted.replacingOccurrences(of: "£", with: "")
+        coinValueLabel.text = CurrencyAmount(pence: self.walletPence).formatted
         rebuildBagSlots()
         rebuildEquippedSlots()
         refreshCounters()
@@ -545,8 +541,7 @@ final class InventoryOverlay: SKNode {
         )
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_chmf") {
-            // Dedicated high-resolution inventory portrait, fitted below without distortion.
-            detectiveTexture.filteringMode = .linear
+            detectiveTexture.filteringMode = .nearest
             let canvas = detectiveTexture.size()
             let slot = InventoryScreenLayout.paperdollBodySize
             let scale = min(slot.width / canvas.width, slot.height / canvas.height)
@@ -558,23 +553,6 @@ final class InventoryOverlay: SKNode {
             paperdoll.position = InventoryScreenLayout.chamberOffset
             paperdoll.zPosition = 0
             root.addChild(paperdoll)
-            // Full 768x1088 weapon render registered to the original body's
-            // (136,69)-(589,1036) crop. Never fit the weapon's own bounds.
-            paperdollWeapon.size = CGSize(width: paperdoll.size.width * 768 / 453,
-                                         height: paperdoll.size.height * 1088 / 967)
-            paperdollWeapon.anchorPoint = CGPoint(x: 362.5 / 768, y: 535.5 / 1088)
-            paperdollWeapon.position = paperdoll.position
-            paperdollWeapon.name = "inventory.paperdoll.weapon"
-            paperdollWeapon.zPosition = 0.1
-            root.addChild(paperdollWeapon)
-            for (appearance, layer) in paperdollArmor {
-                layer.size = paperdollWeapon.size
-                layer.anchorPoint = paperdollWeapon.anchorPoint
-                layer.position = paperdoll.position
-                layer.name = "inventory.paperdoll." + appearance.rawValue
-                layer.zPosition = appearance == .ironHelmet ? 0.3 : 0.2
-                root.addChild(layer)
-            }
         } else {
             assertionFailure("Missing voss_paperdoll_chmf.png")
         }
@@ -666,7 +644,7 @@ final class InventoryOverlay: SKNode {
         )
 
         let paused = Self.label(size: 16, color: Palette.quiet, weight: .demibold)
-        paused.text = "Paused"
+        paused.text = "CASEWORK PAUSED"
         paused.horizontalAlignmentMode = .left
         paused.verticalAlignmentMode = .center
         paused.position = InventoryScreenLayout.midPausedOrigin
@@ -723,17 +701,35 @@ final class InventoryOverlay: SKNode {
             parent: bag
         )
 
+        let bagTitle = Self.label(size: 14, color: Palette.paper, weight: .demibold)
+        bagTitle.text = "CASE BAG"
+        bagTitle.horizontalAlignmentMode = .left
+        bagTitle.verticalAlignmentMode = .center
+        bagTitle.position = CGPoint(x: -InventoryScreenLayout.bagSize.width / 2 + 242, y: 68)
+        bagTitle.zPosition = 3
+        bag.addChild(bagTitle)
+
         bagCountLabel.horizontalAlignmentMode = .right
         bagCountLabel.verticalAlignmentMode = .center
-        bagCountLabel.position = CGPoint(x: InventoryScreenLayout.bagSize.width / 2 - 44, y: 86)
+        bagCountLabel.position = CGPoint(x: InventoryScreenLayout.bagSize.width / 2 - 44, y: 68)
         bagCountLabel.zPosition = 3
         bag.addChild(bagCountLabel)
 
+        if let bagTexture = GameArt.texture(named: "inventory_case_bag_v05") {
+            bagTexture.filteringMode = .linear
+            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 92, height: 92))
+            bagArt.position = InventoryScreenLayout.bagArtOffset
+            bagArt.zPosition = 1
+            bag.addChild(bagArt)
+        } else {
+            assertionFailure("Missing inventory_case_bag_v05.png")
+        }
+
         let bagArtOffset = InventoryScreenLayout.bagArtOffset
-        bagOccupiedLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y + 15)
+        bagOccupiedLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y + 55)
         bagOccupiedLabel.zPosition = 2
         bag.addChild(bagOccupiedLabel)
-        bagCapacityLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y - 15)
+        bagCapacityLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y - 60)
         bagCapacityLabel.zPosition = 2
         bag.addChild(bagCapacityLabel)
 
@@ -775,15 +771,6 @@ final class InventoryOverlay: SKNode {
     }
 
     private func rebuildEquippedSlots() {
-        let appearance = VossWeaponAppearance.equipped(in: inventory, catalog: catalog)
-        paperdollWeapon.texture = appearance.flatMap { GameArt.texture(named: $0.paperdollArt) }
-        paperdollWeapon.texture?.filteringMode = .linear
-        paperdollWeapon.isHidden = appearance == nil
-        for (armor, layer) in paperdollArmor {
-            layer.texture = armor.isEquipped(in: inventory) ? GameArt.texture(named: armor.paperdollArt) : nil
-            layer.texture?.filteringMode = .linear
-            layer.isHidden = layer.texture == nil
-        }
         paperdollSlotsRoot.removeAllChildren()
         loadoutSlotsRoot.removeAllChildren()
 
@@ -944,16 +931,16 @@ final class InventoryOverlay: SKNode {
         root.position = position
         root.zPosition = 2
 
-        if let texture = GameArt.texture(named: "inventory_coin_stack_gold_fantasy_v01") {
+        if let texture = GameArt.texture(named: "inventory_coin_stack_v05") {
             texture.filteringMode = .linear
             let coins = SKSpriteNode(texture: texture, size: CGSize(width: 88, height: 64))
             coins.position = CGPoint(x: -55, y: 4)
             root.addChild(coins)
         } else {
-            assertionFailure("Missing inventory_coin_stack_gold_fantasy_v01.png")
+            assertionFailure("Missing inventory_coin_stack_v05.png")
         }
 
-        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted.replacingOccurrences(of: "£", with: "")
+        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
         coinValueLabel.verticalAlignmentMode = .center
         coinValueLabel.horizontalAlignmentMode = .left
         coinValueLabel.position = CGPoint(x: 8, y: 0)
@@ -1135,7 +1122,7 @@ final class InventoryOverlay: SKNode {
         case .demibold:
             fontName = UITheme.Font.overlayBodyBold
         case .display:
-            fontName = UITheme.Font.overlayTitle
+            fontName = "Copperplate-Bold"
         }
         let label = SKLabelNode(fontNamed: fontName)
         label.fontSize = size

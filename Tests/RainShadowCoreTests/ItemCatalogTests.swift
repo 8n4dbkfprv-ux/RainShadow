@@ -22,21 +22,33 @@ struct ItemCatalogTests {
         let token = try catalog.require("blue-room-token")
         #expect(token.unidentifiedName == "Stamped Brass Token")
         #expect(token.iconArtName == "inventory_item_matchbook_v01")
-        #expect(HarborpointItems.starterItemIDs == ["lantern-shortsword", "iron-helmet", "splint-mail"])
-        for id in ["dark-lantern", "coin-purse", "tobacco-tin"] {
-            #expect(catalog.definition(for: id) == nil)
-        }
+        let purse = try catalog.require("coin-purse")
+        #expect(purse.identifiedName == "Coin Purse")
+        #expect(purse.identifiedDescription.contains("finder's writ"))
+        #expect(purse.iconArtName == "inventory_item_wallet_v01")
+        let tin = try catalog.require("tobacco-tin")
+        #expect(tin.identifiedName == "Tobacco Tin")
+        #expect(tin.identifiedDescription.contains("hand-rolled"))
+        #expect(tin.iconArtName == "inventory_item_cigarette_case_v01")
+        #expect(HarborpointItems.starterItemIDs.contains("lantern-shortsword"))
+        #expect(HarborpointItems.starterItemIDs.contains("dark-lantern"))
     }
 
     @Test func shippedCatalogPreservesAuthoredPresentation() throws {
         let sword = try ItemCatalogLoader.load().require("lantern-shortsword")
         #expect(sword.identifiedName == "Lantern Service Shortsword")
         #expect(sword.category == .weapon)
-        #expect(sword.iconArtName == "inventory_item_lantern_shortsword_v01")
+        // The icon keeps its shipped file name until the sword art is painted.
+        #expect(sword.iconArtName == "inventory_item_service_revolver_v01")
         #expect(sword.note == "Lantern Guard issue · never handed back")
         #expect(sword.identifiedDescription.hasPrefix("The blade Voss kept from his Lantern years."))
         #expect(!sword.flags.contains(.twoHanded))
         #expect(sword.damageLow == 2 && sword.damageHigh == 7)
+
+        let lantern = try ItemCatalogLoader.load().require("dark-lantern")
+        #expect(lantern.identifiedName == "Dark Lantern")
+        #expect(lantern.iconArtName == "inventory_item_flashlight_v01")
+        #expect(lantern.identifiedDescription.contains("shutter"))
     }
 
     @Test func caseCriticalItemsAreFlagged() throws {
@@ -67,8 +79,7 @@ struct ItemCatalogTests {
         #expect(Set(sword.equippableSlots) == Set(EquipmentSlot.weaponSlots + [.holster]))
 
         // Field tools and personal effects are quick-slot items.
-        let lantern = ItemDefinition(id: "test-lantern", identifiedName: "Lantern",
-            category: .tool, weightOunces: 16, iconArtName: "test", identifiedDescription: "A field tool.")
+        let lantern = try catalog.require("dark-lantern")
         #expect(Set(lantern.equippableSlots) == Set(EquipmentSlot.quickItemSlots))
 
         // Evidence is carried, never worn or readied.
@@ -112,30 +123,6 @@ struct ItemCatalogTests {
 
     // MARK: - Identification
 
-    @Test func attackTypeDefaultsForLegacyCatalogsAndRoundTrips() throws {
-        let legacy = Data(#"{"id":"sword","identifiedName":"Sword","category":"SERVICE WEAPON","iconArtName":"x","identifiedDescription":"d"}"#.utf8)
-        let sword = try JSONDecoder().decode(ItemDefinition.self, from: legacy)
-        #expect(sword.weaponAttackType == .melee)
-        #expect(sword.equippableSlots.contains(.holster))
-
-        let ranged = Data(#"{"id":"sling","identifiedName":"Sling","category":"SERVICE WEAPON","weaponAttackType":"ranged","iconArtName":"x","identifiedDescription":"d"}"#.utf8)
-        let sling = try JSONDecoder().decode(ItemDefinition.self, from: ranged)
-        #expect(sling.weaponAttackType == .ranged)
-        #expect(sling.equippableSlots == EquipmentSlot.weaponSlots)
-        let restored = try JSONDecoder().decode(ItemDefinition.self, from: JSONEncoder().encode(sling))
-        #expect(restored == sling)
-    }
-
-    @Test func offHandEligibilityUsesHandednessAndAttackType() {
-        let greatsword = ItemDefinition(id: "greatsword", identifiedName: "Greatsword",
-            category: .weapon, weightOunces: 112, iconArtName: "x",
-            identifiedDescription: "d", flags: [.twoHanded])
-        #expect(greatsword.equippableSlots == EquipmentSlot.weaponSlots)
-        let shield = ItemDefinition(id: "shield", identifiedName: "Shield",
-            category: .shield, weightOunces: 64, iconArtName: "x", identifiedDescription: "d")
-        #expect(shield.equippableSlots == [.holster])
-    }
-
     @Test func unidentifiedItemsShowTheirUnknownFace() throws {
         let token = try ItemCatalogLoader.load().require("blue-room-token")
         #expect(token.loreToIdentify == 4)
@@ -149,7 +136,7 @@ struct ItemCatalogTests {
     }
 
     @Test func selfEvidentItemsReadTheSameEitherWay() throws {
-        let lantern = try ItemCatalogLoader.load().require("brass-key")
+        let lantern = try ItemCatalogLoader.load().require("dark-lantern")
         #expect(lantern.isSelfEvident)
         #expect(lantern.displayName(identified: false) == lantern.displayName(identified: true))
         #expect(

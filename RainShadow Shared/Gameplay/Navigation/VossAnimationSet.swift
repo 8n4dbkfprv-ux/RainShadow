@@ -1,7 +1,7 @@
 import Foundation
 
 /// Current character identity, independent of historical atlases and master selectors.
-/// September 30 Rustic Warrior rig, CHMB1G12-timed idle and explicit SW chair.
+/// The reviewed September 22 family includes September 23's explicit SW chair.
 enum VossAnimationSet {
     static let character = "VossCHMF"
     static let atlas = "VossCHMF.atlas"

@@ -18,7 +18,7 @@ Every claim below comes from a primary source — the IESDP file-format specific
 |---|---|---|
 | Slot table | 40 slots per creature: 0–8 worn, 9–12 weapons, 13–16 quivers, 17 cloak, 18–20 quick items, 21–36 backpack, 37–39 derived (`cre_v1.htm`) | `EquipmentSlot`: the 23 with a painted home, each carrying its engine index in `bgSlotIndex` |
 | Item definition | `ITM` header: paired unidentified/identified name and description, category, weight, price, stack amount, lore-to-identify, inventory + ground icon (`itm_v1.htm`) | `ItemDefinition`, authored as JSON, same fields plus `defenceBonus` / damage band |
-| Where an item may go | Category decides the slot; the shield / off-hand also accepts one-handed melee weapons | `EquipmentSlot.accepts(ItemDefinition)` checks category, attack type and handedness |
+| Where an item may go | Item category decides the slot (`itm_v1.htm` 0x001c) | `EquipmentSlot.acceptedCategories`; one category, one home |
 | Per-stack state | Identified / Unstealable / Stolen / Undroppable bits on the creature's item entry (`cre_v1.htm` 0x0010) | `CarriedItemStack.isIdentified` + `charges`; definition-level bits in `ItemFlags` |
 | Interaction | Click lifts onto the cursor, click puts down. No drag. | `InventoryOverlay` held-item cursor |
 | Identification | Auto against Lore on pickup, or right-click on demand; unidentified icons carry a blue watermark | `identifyEverythingKnown` on entry, right-click on demand, blue wash over the icon |
@@ -26,7 +26,7 @@ Every claim below comes from a primary source — the IESDP file-format specific
 | Encumbrance | Over the allowance, "movement speed is halved"; more than 10% over "prevents them from moving altogether" (*Adventurer's Guide* p. 43) | `EncumbranceRules.band` → `MovementProfile.Encumbrance` |
 | Warning band | The yellow weight readout is "meant strictly as a warning, nothing else" | `EncumbranceReadout.isWarning` — amber text, no mechanical effect |
 | Stacking | Ammunition and quick-slot consumables stack; worn gear never does | `ItemStackLimits`, rejected at catalog load by `stackableWornItem` |
-| Two-handed | Classic BG II / pre-2.0 EE blocks the off-hand with a two-hander in any ready slot; EE 2.x permits storage but disables use with an incompatible active weapon | Retains the classic exclusion: `offHandBlockedByTwoHandedWeapon`, from any ready slot |
+| Two-handed | A two-handed weapon suppresses the off-hand | `offHandBlockedByTwoHandedWeapon`, from any ready slot |
 | Ground | Dropped items lie where they fell and persist | `GroundPileState`, keyed by area |
 | Quick loot | Nearby ground items in a strip; scroll buttons appear past ten | `QuickLootBarNode` + `QuickLootPage` |
 
@@ -38,7 +38,7 @@ Every claim below comes from a primary source — the IESDP file-format specific
 |---|---|
 | Item definitions as data | **Shipped** — `ItemDefinition` + `harborpoint.items.json`, loaded by `ItemCatalogLoader` |
 | Equipment slots | **Shipped** — `EquipmentSlot`, all 23, live in the window |
-| Equip rules | **Shipped** — category gating, one-handed melee / shield off-hand eligibility, two-handed exclusion, cursed refusal |
+| Equip rules | **Shipped** — category gating, two-handed exclusion, cursed refusal |
 | Case bag | **Shipped** — 16 slots, merging, splitting, reordering |
 | Weight + encumbrance | **Shipped** — `EncumbranceRules` drives `DetectiveActorNode.movementProfile` |
 | Identification | **Shipped** — Lore sweep on pickup, right-click on demand, blue wash |
@@ -53,35 +53,6 @@ Every claim below comes from a primary source — the IESDP file-format specific
 | Quick-loot plate art | **Reused, not authored** — the bar borrows `hud_loot_container_panel_v02`; a dedicated plate is an outstanding Image Generator batch |
 
 **Scale reality check.** The engine is well ahead of the content: seven authored items, one of them mysterious, and no wearable gear at all. The next real work is an art batch, not code.
-
-### October 2 off-hand eligibility
-
-The painted weapon-and-shield slot keeps its persisted `holster` key. It accepts
-`SHIELD` items and `SERVICE WEAPON` items with `weaponAttackType: "melee"` and no
-`twoHanded` flag. This includes one-handed swords, daggers, axes, clubs, maces,
-flails and war hammers; there is no small-weapon-only restriction. Ranged weapons
-must author `weaponAttackType: "ranged"`, including one-handed slings and throwing
-weapons. Alternate melee/ranged attack modes are not modelled yet. Omitted attack
-type defaults to melee for existing catalogs. The Lantern Shortsword now authors
-it explicitly. Shields cannot enter the four main-hand weapon slots.
-
-Eligibility is shared by advertised slots, hover highlighting and actual equips;
-bag transfers and equipment swaps reject illegal placements without moving either
-item. The existing cursed-item and classic two-handed exclusion rules remain.
-No save schema change is needed. No new shield item, dual-wield combat, proficiency
-rules or off-hand sprite/paperdoll layer is supplied by this inventory change.
-
-Primary reference: Beamdog's [2.0–2.3 release notes](https://files.beamdog.com/files/BG-2.0-2.3-ReleaseNotes.pdf),
-“Quick Weapons and Off-Hand Items”, describe the off-hand as accepting a shield or
-a one-handed melee weapon. The official [2.0 announcement](https://forums.beamdog.com/discussion/49693/v2-0-update-release-notes-attached)
-records the later change allowing items to remain slotted alongside ranged and
-two-handed weapons. RainShadow retains its earlier equip-time exclusion rather
-than claiming to implement that later active-weapon suppression system.
-
-Regression coverage: `CharacterInventoryTests`, `ItemCatalogTests` and
-`InventoryPersistenceTests` cover legal shields/dual swords, ranged/two-handed
-rejection through all move paths, atomic failed swaps, defence changes, catalog
-defaults/round trips and the saved off-hand key.
 
 ## Frozen rules (do not regress)
 

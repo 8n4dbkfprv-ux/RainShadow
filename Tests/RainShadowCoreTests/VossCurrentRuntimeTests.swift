@@ -20,7 +20,7 @@ struct VossCurrentRuntimeTests {
         let directory = IEGradientTables.developmentDirectory.appendingPathComponent("Avatars/VossCHMF")
         let bytes = try Data(contentsOf: directory.appendingPathComponent("avatar-v02.indices"))
         #expect(SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
-                == "619d4042120a1b1215e9033504729c920ec8d44b6fd5deeb0cc68cc9e7b8577f")
+                == "e1b1e7c70453e619b8a5a9ffdbaaec0d70077d5aa83857ecb024f93cc19b36ab")
         #expect(sprite.sourceCanvasSize == .init(width: 128, height: 128))
         #expect(sprite.compatibilityDisplaySize == .init(x: 140.625, y: 140.625))
         #expect(sprite.hasEmbeddedShadow)
@@ -37,11 +37,10 @@ struct VossCurrentRuntimeTests {
         let sprite = try IEIndexedSprite.load(character: VossAnimationSet.character)
         var hash = SHA256()
         for frame in sprite.frames { hash.update(data: Data(sprite.rgba(for: frame))) }
-        // October 1 V8 walking grip repair, independently resolved from the reviewed
-        // planes and pal16.bin using
+        // Independently resolved from the reviewed planes and pal16.bin using
         // the source pair ordering, integer sample columns and channel means.
         #expect(hash.finalize().map { String(format: "%02x", $0) }.joined()
-                == "4efcbb05fc655da60eb69808595f39235daf4124357db030151b6ad5918050d6")
+                == "3bb2f60a7afc7524ec49f2b5cb12c8693d88012079b8056d1af93ab830c7da95")
     }
 
     @Test func oldDetectiveCannotSatisfyTheCurrentCharacterContract() throws {

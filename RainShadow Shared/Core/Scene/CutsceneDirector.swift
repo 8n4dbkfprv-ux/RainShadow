@@ -43,19 +43,17 @@ extension CutsceneStage {
 @MainActor
 protocol CutsceneActorDriving: AnyObject {
     var cutsceneWorldPosition: CGPoint { get }
-    var cutsceneNavigationID: String { get }
-    /// Drives the engine navigation path returned for MoveToPoint.
-    func cutsceneFollow(path: [CGPoint], completion: @escaping () -> Void)
+    /// `MoveToPoint` / authored polyline. Blocks until arrival. `style` carries
+    /// the threshold presentation so a skip can land on the same end state.
+    func cutsceneFollow(path: [CGPoint], style: CutsceneWalkStyle, completion: @escaping () -> Void)
     /// `JumpToPoint` — teleport, and land in the pose the walk would have left.
-    func cutsceneJump(to point: CGPoint)
+    func cutsceneJump(to point: CGPoint, style: CutsceneWalkStyle)
     /// `Face(dir)`.
     func cutsceneFace(_ facing: ActorFacing)
-    /// `FaceObject` — immediate scripted orientation (dialogue turning is separate).
+    /// `FaceObject` — the slow BG pivot toward a world point.
     func cutsceneFace(toward point: CGPoint)
-    /// HideCreature changes the avatar visibility immediately.
-    func cutsceneSetHidden(_ hidden: Bool)
-    func cutsceneClearActions()
-    func cutscenePlaySequence(_ sequence: CutsceneSequence, completion: @escaping () -> Void)
+    /// Rise from a seat. Blocks until the stand-up strip finishes.
+    func cutsceneStandUp(completion: @escaping () -> Void)
 }
 
 /// Plays a `Cutscene` against a SpriteKit scene.
@@ -74,37 +72,45 @@ final class CutsceneDirector {
     private var clock = LogicTickClock()
     private var lastUpdateTime: TimeInterval?
     private(set) var activeCutsceneID: String?
-    /// Recovery commands retain their authored timing and their completion reason.
+    /// Latched for the terminal apply so chrome can cut rather than ease.
     private var completionReason: CutsceneCompletionReason = .natural
 
     // Camera rail.
     private(set) var ownsCamera = false
-    private var viewport: CutsceneViewport?
-    private var scrollReporters: Set<CutsceneSubject> = []
-    private var generation = 0
-    private var sequences: [CutsceneSubject: CutsceneSequence] = [:]
-    private var sequenceIDs: [CutsceneSubject: Int] = [:]
-    private var actorCommandIDs: [CutsceneSubject: Int] = [:]
-    private var pendingSteps: [(Int, CutsceneStep)] = []
-    private var applying = false
-    // Black fade overlay, driven by the engine timer in CutsceneRunner.
+    private var cameraTarget: CGPoint?
+    private var cameraFollowActor: CutsceneActorID?
+    private var cameraSpeed: ScrollSpeed = .instant
+    /// Multiple of the scene's resolved base zoom. Absolute scales do not survive
+    /// `layoutViewport()`, which re-applies `baseCameraScale` on every resize.
+    private(set) var cameraScaleMultiplier: CGFloat = 1
+    private var cameraScaleFrom: CGFloat = 1
+    private var cameraScaleTo: CGFloat = 1
+    private var cameraScaleElapsed: TimeInterval = 0
+    private var cameraScaleDuration: TimeInterval = 0
+
+    // Fade rail. Interpolated here rather than by an `SKAction` so chrome runs on
+    // the cutscene's clock, not a second one.
+    private var fadeColor: CutsceneColor = .black
+    private var fadeFrom: CGFloat = 0
+    private var fadeTo: CGFloat = 0
+    private var fadeElapsed: TimeInterval = 0
+    private var fadeDuration: TimeInterval = 0
+
+    // Chrome, all parented to `cinematicRoot`.
+    private lazy var letterbox = CutsceneLetterboxNode()
     private lazy var fadeOverlay = CutsceneFadeNode()
-    private var overheadTexts: [CutsceneSubject: OverheadTextNode] = [:]
+    private var overheadText: OverheadTextNode?
 
     init(scene: BaseGameScene) {
         self.scene = scene
     }
 
     var isPlaying: Bool { runner.isPlaying }
-    private(set) var isCutsceneMode = false
-    var freezesWorld: Bool { runner.isFading }
 
     // MARK: - Lifecycle
 
     func play(_ cutscene: Cutscene, on stage: CutsceneStage) {
-        tearDown()
         self.stage = stage
-        scene.setCameraScroll(.zero)
         activeCutsceneID = cutscene.id
         completionReason = .natural
         clock.reset()
@@ -117,33 +123,28 @@ final class CutsceneDirector {
     /// caller knows not to also close an overlay or cancel a move order.
     @discardableResult
     func trySkip() -> Bool {
-        guard isCutsceneMode else { return false }
-        // Cutscene mode owns this event during an unbreakable beat.
-        guard runner.canSkip(at: ProcessInfo.processInfo.systemUptime) else { return true }
-        generation += 1
-        scrollReporters = []
-        viewport = CutsceneViewport(position: scene.gameCamera.position)
+        guard runner.canSkip(at: ProcessInfo.processInfo.systemUptime) else { return false }
         completionReason = .skipped
-        overheadTexts.values.forEach { $0.removeFromParent() }
-        overheadTexts = [:]
         apply(runner.skip(at: ProcessInfo.processInfo.systemUptime))
         return true
     }
 
     /// Drives the timeline. Called from the scene's `update(_:)`.
     func update(_ currentTime: TimeInterval) {
-        // Global viewport and fade timers continue after action queues empty.
+        // The frame delta is computed before the playing guard on purpose. A
+        // camera push can outlive the cutscene that started it — the opening's
+        // final scale lands after the last chrome beat — and a clock that only
+        // ticked while the runner was playing would hand that tail a stale
+        // `lastUpdateTime` and run it at the clamp every frame.
         let delta = lastUpdateTime.map {
             min(max(0, currentTime - $0), ActorLocomotionPacing.maximumFrameDelta)
         } ?? 0
         lastUpdateTime = currentTime
+        advanceRails(delta)
+        guard runner.isPlaying else { return }
         let ticks = clock.drain(deltaTime: delta)
-        for _ in 0..<ticks {
-            advanceViewport()
-            apply(runner.advance(ticks: 1))
-            renderFade()
-            if viewport?.isMoving == false { finishScroll() }
-        }
+        guard ticks > 0 else { return }
+        apply(runner.advance(ticks: ticks))
     }
 
     /// QA only: advances the timeline to `elapsed` seconds for a review capture.
@@ -161,10 +162,12 @@ final class CutsceneDirector {
         let target = max(0, Int(elapsed * LogicTickClock.ticksPerSecond))
         let remaining = max(0, target - runner.elapsedTicks)
         for _ in 0..<remaining where runner.isPlaying {
-            advanceViewport()
             apply(runner.advance(ticks: 1))
-            renderFade()
-            if viewport?.isMoving == false { finishScroll() }
+            advanceRails(LogicTickClock.tickDuration)
+            // A camera scroll is retired by an `SKAction` timer, which will not
+            // run here — resolve it in place. The viewport lands where the cue
+            // pointed, which for a still frame is the whole of what it meant.
+            apply(runner.noteCompleted(.camera))
         }
         // Actor cues are deliberately left in flight: the office harness seeks
         // Lila along her polyline by the same wall clock, and completing her walk
@@ -175,23 +178,14 @@ final class CutsceneDirector {
     /// router change mid-cutscene leaves an armed gate, hidden rails, and a
     /// camera nobody owns.
     func tearDown() {
-        if isCutsceneMode { stage?.cutsceneSetMode(false, reason: .skipped) }
-        isCutsceneMode = false
-        scene.hudRoot.isHidden = false
-        if runner.isPlaying {
-            for actor in CutsceneActorID.allCases { stage?.cutsceneActor(actor)?.cutsceneClearActions() }
-        }
-        generation += 1
-        actorCommandIDs = [:]
-        sequences = [:]
-        sequenceIDs = [:]
-        pendingSteps = []
         runner.reset()
         activeCutsceneID = nil
         releaseCamera()
+        letterbox.setVisible(false, animated: false)
+        fadeDuration = 0
         fadeOverlay.clear()
-        overheadTexts.values.forEach { $0.removeFromParent() }
-        overheadTexts = [:]
+        overheadText?.removeFromParent()
+        overheadText = nil
     }
 
     // MARK: - Camera
@@ -202,38 +196,87 @@ final class CutsceneDirector {
     /// race if two cues overlapped.
     func cameraOverride(in bounds: CGRect) -> CGPoint? {
         guard ownsCamera else { return nil }
-        return viewport.map { scene.clampedCameraPosition(following: $0.position, in: bounds) }
+        let target: CGPoint?
+        if let actor = cameraFollowActor {
+            target = stage?.cutsceneActor(actor)?.cutsceneWorldPosition
+        } else {
+            target = cameraTarget
+        }
+        return target.map { scene.clampedCameraPosition(following: $0, in: bounds) }
     }
 
-    private func renderFade() {
-        fadeOverlay.show(.black, alpha: CGFloat(runner.fade.alpha) / 255)
+    /// Applied after `layoutViewport()` has reset the base scale, so a cutscene
+    /// push survives a window resize.
+    func applyCameraScale() {
+        guard ownsCamera, cameraScaleMultiplier != 1 else { return }
+        scene.gameCamera.setScale(scene.baseCameraScale * cameraScaleMultiplier)
+    }
+
+    /// Advances every continuously-interpolated rail by one frame's worth of time.
+    private func advanceRails(_ delta: TimeInterval) {
+        if ownsCamera, cameraScaleDuration > 0 {
+            cameraScaleElapsed += delta
+            let progress = min(1, cameraScaleElapsed / cameraScaleDuration)
+            cameraScaleMultiplier = cameraScaleFrom
+                + (cameraScaleTo - cameraScaleFrom) * Self.smoothstep(progress)
+            applyCameraScale()
+            if progress >= 1 { cameraScaleDuration = 0 }
+        }
+        if fadeDuration > 0 {
+            fadeElapsed += delta
+            let progress = min(1, fadeElapsed / fadeDuration)
+            fadeOverlay.show(fadeColor, alpha: fadeFrom + (fadeTo - fadeFrom) * progress)
+            if progress >= 1 {
+                fadeDuration = 0
+                if fadeTo <= 0 { fadeOverlay.clear() }
+            }
+        }
+    }
+
+    private static func smoothstep(_ t: CGFloat) -> CGFloat { t * t * (3 - 2 * t) }
+
+    private func startFade(to target: CGFloat, color: CutsceneColor, seconds: TimeInterval) {
+        fadeColor = color
+        fadeFrom = fadeOverlay.alpha
+        fadeTo = target
+        fadeElapsed = 0
+        fadeDuration = max(0, seconds)
+        guard fadeDuration <= 0 else {
+            fadeOverlay.show(color, alpha: fadeFrom)
+            return
+        }
+        target > 0 ? fadeOverlay.show(color, alpha: target) : fadeOverlay.clear()
     }
 
     private func releaseCamera() {
         ownsCamera = false
-        viewport = nil
-        scrollReporters = []
+        cameraTarget = nil
+        cameraFollowActor = nil
+        cameraScaleDuration = 0
+        cameraScaleMultiplier = 1
+        scene.gameCamera.setScale(scene.baseCameraScale)
     }
 
     // MARK: - Dispatch
 
     private func apply(_ step: CutsceneStep) {
-        pendingSteps.append((generation, step))
-        guard !applying else { return }
-        applying = true
-        defer { applying = false }
-        while !pendingSteps.isEmpty {
-            let (issuedGeneration, next) = pendingSteps.removeFirst()
-            guard issuedGeneration == generation else { continue }
-            for command in next.commands {
-                guard issuedGeneration == generation else { break }
-                perform(command.subject, command.cue, reportingTo: command.subject)
-            }
-            guard issuedGeneration == generation, let reason = next.completion else { continue }
-            let id = activeCutsceneID ?? ""
-            activeCutsceneID = nil
-            stage?.cutsceneDidComplete(id: id, reason: reason)
+        for command in step.commands {
+            perform(command.subject, command.cue)
         }
+        guard let reason = step.completion else { return }
+        let id = activeCutsceneID ?? ""
+        activeCutsceneID = nil
+        stage?.cutsceneDidComplete(id: id, reason: reason)
+    }
+
+    private func perform(_ subject: CutsceneSubject, _ cue: CutsceneCue) {
+        // `ActionOverride` retargets the cue and reports back on the *issuing*
+        // track — that is what makes it a join rather than a fork.
+        if case .actionOverride(let actor, let inner) = cue {
+            perform(.actor(actor), inner, reportingTo: subject)
+            return
+        }
+        perform(subject, cue, reportingTo: subject)
     }
 
     private func perform(
@@ -247,30 +290,49 @@ final class CutsceneDirector {
             break
 
         case .moveViewPoint(let point, let speed):
-            moveViewport(to: point, speed: speed, reporter: nil)
-
-        case .moveViewPointUntilDone(let point, let speed):
-            moveViewport(to: point, speed: speed, reporter: speed == .instant ? nil : reporter)
+            ownsCamera = true
+            cameraFollowActor = nil
+            cameraTarget = point
+            scheduleScrollCompletion(to: point, speed: speed, reporter: reporter)
 
         case .moveViewObject(let actor, let speed):
-            // A snapshot, not a tracking camera (Actions.cpp passes scr->Pos once).
-            if let point = stage?.cutsceneActor(actor)?.cutsceneWorldPosition {
-                moveViewport(to: point, speed: speed, reporter: nil)
-            }
+            ownsCamera = true
+            cameraFollowActor = actor
+            cameraTarget = nil
+            let destination = stage?.cutsceneActor(actor)?.cutsceneWorldPosition
+            scheduleScrollCompletion(to: destination, speed: speed, reporter: reporter)
 
         case .releaseCamera:
             releaseCamera()
 
-        case .fadeToColor, .fadeFromColor:
-            renderFade()
+        case .cameraScale(let scale, let beat):
+            ownsCamera = true
+            cameraScaleFrom = cameraScaleMultiplier
+            cameraScaleTo = scale
+            cameraScaleElapsed = 0
+            cameraScaleDuration = reason.chromeDuration(beat.seconds)
+            if cameraScaleDuration <= 0 {
+                cameraScaleMultiplier = scale
+                applyCameraScale()
+            }
 
-        case .setCutsceneBreakable:
-            break // The runner owns the gate.
+        case .fadeToColor(let color, let beat):
+            startFade(
+                to: CutsceneFadeNode.fullAlpha(for: color),
+                color: color,
+                seconds: reason.chromeDuration(beat.seconds)
+            )
+
+        case .fadeFromColor(let color, let beat):
+            // A fade *from* a colour starts opaque, so seed it before easing out —
+            // otherwise the first frame shows the scene the fade exists to hide.
+            fadeOverlay.show(color, alpha: CutsceneFadeNode.fullAlpha(for: color))
+            startFade(to: 0, color: color, seconds: reason.chromeDuration(beat.seconds))
+
+        case .letterbox(let visible):
+            letterbox.setVisible(visible, animated: reason == .natural)
 
         case .setCutsceneMode(let active):
-            isCutsceneMode = active
-            scene.hudRoot.isHidden = active
-            if active { scene.prepareCutsceneInput() }
             stage?.cutsceneSetMode(active, reason: reason)
 
         case .suppressDialogue:
@@ -280,23 +342,17 @@ final class CutsceneDirector {
             stage?.cutsceneResumeDialogue(nodeID: nodeID)
 
         case .moveToPoint(let point):
-            drive(subject, reporter: reporter) { [self] actor, done in
-                guard let area = scene as? GameAreaScene else { done(); return }
-                let path = area.navigation.pathAvoidingActors(
-                    from: actor.cutsceneWorldPosition, to: point,
-                    identity: actor.cutsceneNavigationID
-                )
-                actor.cutsceneFollow(
-                    path: [actor.cutsceneWorldPosition] + path.nodes.map(\.point),
-                    completion: done
-                )
+            drive(subject, reporter: reporter) { actor, done in
+                actor.cutsceneFollow(path: [point], style: .plain, completion: done)
             }
 
-        case .jumpToPoint(let point):
-            actorNode(subject)?.cutsceneJump(to: point)
+        case .followPath(let path, let style):
+            drive(subject, reporter: reporter) { actor, done in
+                actor.cutsceneFollow(path: path, style: style, completion: done)
+            }
 
-        case .hideCreature(let hidden):
-            actorNode(subject)?.cutsceneSetHidden(hidden)
+        case .jumpToPoint(let point, let style):
+            actorNode(subject)?.cutsceneJump(to: point, style: style)
 
         case .face(let facing):
             actorNode(subject)?.cutsceneFace(facing)
@@ -305,22 +361,9 @@ final class CutsceneDirector {
             guard let point = stage?.cutsceneActor(target)?.cutsceneWorldPosition else { break }
             actorNode(subject)?.cutsceneFace(toward: point)
 
-        case .playSequence(let sequence):
-            guard let actor = actorNode(subject) else { break }
-            sequences[subject] = sequence
-            sequenceIDs[subject, default: 0] += 1
-            let sequenceID = sequenceIDs[subject]
-            let issuedGeneration = generation
-            actor.cutscenePlaySequence(sequence) { [weak self] in
-                guard let self, self.generation == issuedGeneration,
-                      self.sequenceIDs[subject] == sequenceID else { return }
-                self.sequences[subject] = nil
-                self.apply(self.runner.noteAnimationCompleted(subject, sequence: sequence))
-            }
-
-        case .waitAnimation(let sequence):
-            if sequences[subject] != sequence {
-                apply(runner.noteAnimationCompleted(subject, sequence: sequence))
+        case .standUp:
+            drive(subject, reporter: reporter) { actor, done in
+                actor.cutsceneStandUp(completion: done)
             }
 
         case .displayStringHead(let key, let beat):
@@ -335,41 +378,33 @@ final class CutsceneDirector {
         case .setFlag(let flag):
             stage?.cutsceneSetFlag(flag)
 
-        case .clearActions:
-            actorCommandIDs[subject, default: 0] += 1
-            sequences[subject] = nil
-            sequenceIDs[subject, default: 0] += 1
-            actorNode(subject)?.cutsceneClearActions()
-
         case .actionOverride:
-            assertionFailure("Queue operations are resolved by CutsceneRunner")
+            assertionFailure("Unwrapped in perform(_:_:)")
         }
     }
 
-    private func moveViewport(to point: CGPoint, speed: ScrollSpeed, reporter: CutsceneSubject?) {
-        ownsCamera = true
-        if viewport == nil { viewport = CutsceneViewport(position: scene.gameCamera.position) }
-        viewport?.move(to: point, speed: speed)
-        if let reporter { scrollReporters.insert(reporter) }
-        if speed == .instant {
-            scene.gameCamera.position = scene.clampedCameraPosition(following: point, in: scene.cameraClampBounds)
+    /// A camera scroll blocks its track until it arrives, so the duration has to
+    /// be resolved here — it is distance over rate, and only the director knows
+    /// where the camera is standing when the cue starts.
+    private func scheduleScrollCompletion(
+        to destination: CGPoint?,
+        speed: ScrollSpeed,
+        reporter: CutsceneSubject
+    ) {
+        guard speed != .instant else { return }
+        let from = scene.gameCamera.position
+        let distance = destination.map {
+            hypot($0.x - from.x, ($0.y - from.y) / ActorLocomotionPacing.verticalProjectionScale)
+        } ?? 0
+        let seconds = completionReason.chromeDuration(speed.beat(forDistance: distance).seconds)
+        guard seconds > 0 else {
+            report(reporter)
+            return
         }
-        if viewport?.isMoving == false { finishScroll() }
-    }
-
-    private func advanceViewport() {
-        guard var rail = viewport else { return }
-        let previous = rail.position
-        rail.advance()
-        let clamped = scene.clampedCameraPosition(following: rail.position, in: scene.cameraClampBounds)
-        rail.reconcile(clamped: clamped, previous: previous)
-        viewport = rail
-    }
-
-    private func finishScroll() {
-        let reporters = scrollReporters
-        scrollReporters = []
-        for reporter in reporters { report(reporter) }
+        scene.run(
+            .sequence([.wait(forDuration: seconds), .run { [weak self] in self?.report(reporter) }]),
+            withKey: "cutscene.scroll.\(reporter)"
+        )
     }
 
     private func drive(
@@ -381,14 +416,7 @@ final class CutsceneDirector {
             report(reporter)
             return
         }
-        actorCommandIDs[subject, default: 0] += 1
-        let commandID = actorCommandIDs[subject]
-        let issuedGeneration = generation
-        body(actor) { [weak self] in
-            guard let self, self.generation == issuedGeneration,
-                  self.actorCommandIDs[subject] == commandID else { return }
-            self.report(reporter)
-        }
+        body(actor) { [weak self] in self?.report(reporter) }
     }
 
     private func actorNode(_ subject: CutsceneSubject) -> CutsceneActorDriving? {
@@ -404,25 +432,28 @@ final class CutsceneDirector {
     // MARK: - Chrome
 
     private func installChromeIfNeeded() {
+        if letterbox.parent == nil { scene.cinematicRoot.addChild(letterbox) }
         if fadeOverlay.parent == nil { scene.cinematicRoot.addChild(fadeOverlay) }
         layoutChrome()
     }
 
-    /// Called from the scene's layout pass — the overlay is sized to the
+    /// Called from the scene's layout pass — bars and overlay are sized to the
     /// viewport, not the plate.
     func layoutChrome() {
+        letterbox.layout(viewport: scene.size)
         fadeOverlay.layout(viewport: scene.size)
     }
 
     private func showOverheadText(forKey key: String, on subject: CutsceneSubject, seconds: TimeInterval) {
-        guard let text = stage?.cutsceneText(forKey: key),
+        guard completionReason == .natural,
+              let text = stage?.cutsceneText(forKey: key),
               let actor = actorNode(subject) as? SKNode else { return }
-        overheadTexts[subject]?.removeFromParent()
+        overheadText?.removeFromParent()
         let node = OverheadTextNode(text: text)
         node.position = CGPoint(x: 0, y: OverheadTextNode.heightAboveActor)
         node.zPosition = SceneLayer.occlusion.rawValue
         actor.addChild(node)
-        overheadTexts[subject] = node
+        overheadText = node
         node.play(for: seconds)
     }
 }

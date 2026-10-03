@@ -45,13 +45,6 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     var groundCircleState = GroundCircleState(enmity: .pc, isPC: true, isSelected: true)
     /// Standing, transition, and full chairless seated body.
     private let body: IEAvatarNode
-    private let weapon = IEAvatarNode(frame: nil)
-    private var weaponAppearance: VossWeaponAppearance?
-    private var weaponLibrary: IEAvatarFrameLibrary?
-    private let armorNodes: [VossArmorAppearance: IEAvatarNode] = [
-        .ironHelmet: IEAvatarNode(frame: nil), .splintMail: IEAvatarNode(frame: nil)
-    ]
-    private var armorLibraries: [VossArmorAppearance: IEAvatarFrameLibrary] = [:]
     /// Legacy split seated fallback; hidden when the full seated cell is available.
     private let lowerBody: IEAvatarNode
     private let foregroundArms: IEAvatarNode
@@ -79,6 +72,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private static let seatedUpperLocalZ: CGFloat = 90
     private static let seatedLowerLocalZ: CGFloat = 0
     private static let seatedArmsLocalZ: CGFloat = 110
+    /// Look ahead along the live route so 16-bin facing leads corners (~0.24 body).
+    private static let facingLookAheadDistance: CGFloat = 24
     /// Full-canvas atlas fallback pivot; indexed frames carry their cropped pivot.
     private static let compatibilityAnchor = CGPoint(x: 0.5, y: 40 / 256)
     private static let spriteScale = OfficeInteriorScale.ActorDisplay.spriteScale
@@ -98,10 +93,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     var isAudioSilenced = false
     private var footsteps = FootstepCadence()
     private var footstepVariant = 0
+    private var idleClock = IdleBehaviourClock(phase: 3)
     private var pendingFacing: ActorFacing?
-    private(set) var state: State = .seatedIdle {
-        didSet { refreshEquipmentFrames() }
-    }
+    private(set) var state: State = .seatedIdle
     private var pendingWalk: (path: Path, completion: (() -> Void)?)?
     private var needsSeatEgress = true
     /// The engine's `Movable`: path, orientation, bump and backoff state.
@@ -115,7 +109,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// step per tick value and `WalkTo` rate-limits against it, so both need a
     /// counter that only ever increases.
     private(set) var currentTick = 0
-    private var animationPlayback = IEActorAnimationPlayback()
+    private var walkFrameIndex = 0
 
     /// True while the body is still registered to the chair (idle or sitting down).
     /// Used by the office scene to cancel the elevated nav-root in Y-depth sorting.
@@ -198,16 +192,6 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         addChild(groundCircle)
         addChild(lowerBody)
         addChild(body)
-        // The rendered overlay already masks the fingers and torso. Parenting
-        // to the body shares its foot registration, elevation and seat egress.
-        weapon.name = "detective.equippedWeapon"
-        weapon.zPosition = 0.01
-        body.addChild(weapon)
-        for (appearance, node) in armorNodes {
-            node.name = "detective.equipped." + appearance.rawValue
-            node.zPosition = appearance == .ironHelmet ? 0.03 : 0.02
-            body.addChild(node)
-        }
         addChild(foregroundArms)
         applySeatedPose(animated: false)
         applySceneLighting(.officeInterior)
@@ -220,63 +204,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
 
-    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms, weapon] + Array(armorNodes.values) }
-
-    func applyEquipment(_ inventory: CharacterInventory, catalog: ItemCatalog) {
-        for appearance in VossArmorAppearance.allCases {
-            if appearance.isEquipped(in: inventory) {
-                if armorLibraries[appearance] == nil {
-                    do {
-                        let library = try IEAvatarFrameLibrary.shared(character: appearance.character)
-                        try appearance.validate(library.sprite)
-                        armorLibraries[appearance] = library
-                    } catch {
-                        fatalError("Equipped Voss armor could not load: \(error)")
-                    }
-                }
-            } else {
-                armorLibraries[appearance] = nil
-            }
-        }
-        let appearance = VossWeaponAppearance.equipped(in: inventory, catalog: catalog)
-        if appearance != weaponAppearance {
-            weaponAppearance = appearance
-            weaponLibrary = nil
-            if let appearance {
-                do {
-                    let library = try IEAvatarFrameLibrary.shared(character: appearance.character)
-                    try appearance.validate(library.sprite)
-                    weaponLibrary = library
-                } catch {
-                    fatalError("Equipped Voss weapon could not load: \(error)")
-                }
-            }
-        }
-        refreshEquipmentFrames()
-        applyBodyTint()
-    }
-
-    private func refreshEquipmentFrames() {
-        for (appearance, node) in armorNodes {
-            if (state == .standingIdle || state == .walking),
-               let library = armorLibraries[appearance], let id = body.currentFrame?.id,
-               let name = appearance.frameName(matching: id),
-               let frame = library.frame(atlas: appearance.atlas, name: name) {
-                node.apply(frame)
-            } else {
-                node.clear()
-            }
-        }
-        guard state == .standingIdle || state == .walking,
-              let appearance = weaponAppearance, let library = weaponLibrary,
-              let bodyID = body.currentFrame?.id,
-              let name = appearance.frameName(matching: bodyID),
-              let frame = library.frame(atlas: appearance.atlas, name: name) else {
-            weapon.clear()
-            return
-        }
-        weapon.apply(frame)
-    }
+    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms] }
 
     /// `Map::DrawMap`'s per-actor tint, transliterated:
     ///
@@ -568,7 +496,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             // `ClearActions(); // stop what you were doing`; a discarded walk
             // must not retain its former UseExit action in this bridge.
             cancelMovement()
-        case .blocked, .ignored:
+        case .ignored:
             break
         }
         return outcome
@@ -589,6 +517,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             body.zPosition = 0
             hideLowerBody()
         }
+        setWalkFacing(movable.currentNodeOrientation ?? facing)
         if isCompletingSeatEgress, let first = movable.remainingPoints.first {
             needsSeatEgress = false
             let ticks = movable.ticksToReach(first, walkScale: movementProfile.walkScale ?? 0)
@@ -643,8 +572,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// intentionally refreshes the timestamp but spends no movement delta, so
     /// opening a modal cannot cause a resume jump.
     ///
-    /// Root motion and turning spend logic ticks. Creature frames use the
-    /// separate draw-time clock in `updateMovementAnimation`, as in GemRB.
+    /// Everything happens per tick rather than per rendered frame, mirroring
+    /// `Movable::DoStep`: one displacement and one animation frame per tick,
+    /// which is why the gait cannot drift against distance travelled.
     /// Drops the partial tick when the world resumes.
     ///
     /// `LogicTickClock` keeps a sub-tick remainder on purpose so a 60 Hz render
@@ -655,15 +585,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         lastLocomotionUpdateTime = nil
     }
 
-    func updateLocomotion(
-        at currentTime: TimeInterval,
-        worldIsPaused: Bool,
-        movementOrders: MovementOrderQueue
-    ) {
-        defer {
-            lastLocomotionUpdateTime = currentTime
-            updateMovementAnimation(at: currentTime, paused: worldIsPaused)
-        }
+    func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
+        defer { lastLocomotionUpdateTime = currentTime }
         guard !worldIsPaused, let previousTime = lastLocomotionUpdateTime else { return }
 
         let deltaTime = min(
@@ -697,12 +620,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
                     finishWalking()
                     return
                 }
-                advanceWalkTick(movementOrders: movementOrders)
+                advanceWalkTick()
                 // Arrival can fire a completion that starts a scene transition;
                 // stop spending ticks the moment we are no longer walking.
                 if state != .walking { return }
             case .standingIdle:
                 advanceIdleTurnTick()
+                advanceIdleBehaviourTick()
             case .seatedIdle, .standingUp, .sittingDown:
                 return
             }
@@ -731,21 +655,11 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// which is why there is no look-ahead vector and no hysteresis here any
     /// more. The node stores its own orientation, so a walker cannot flicker
     /// across a sector boundary.
-    private func advanceWalkTick(movementOrders: MovementOrderQueue) {
+    private func advanceWalkTick() {
         syncMovablePosition()
-        switch movementOrders.prepareStep(
-            &movable,
-            ticks: currentTick,
-            walkScale: movementProfile.walkScale ?? 0,
-            animationCircleSize: groundCircleState.circleSize
-        ) {
-        case .wait:
+        if movable.isBackingOff {
+            movable.decreaseBackoff()
             return
-        case .abandon:
-            finishWalking(completing: false)
-            return
-        case .advance:
-            break
         }
 
         let outcome = movable.doStep(
@@ -759,6 +673,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
         if outcome.moved {
             setWalkFacing(movable.orientation)
+            advanceWalkFrame()
             playFootstepIfDue()
         }
         if outcome.arrived {
@@ -795,9 +710,44 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         footsteps.noteStepStarted(at: now, clipDuration: clip)
     }
 
+    /// BG:EE `Actor::IdleActions`: on its own 16-tick script pass, a standing
+    /// creature has one chance in 25 of glancing around. See `IdleBehaviourClock`.
+    private func advanceIdleBehaviourTick() {
+        guard idleClock.advanceTickRunsScript() else { return }
+        // Don't interrupt a turn the player just asked for.
+        guard pendingFacing == nil else { return }
+        guard IdleBehaviourClock.rollWantsHeadTurn(
+            Int.random(in: 0..<IdleBehaviourClock.headTurnOdds)
+        ) else { return }
+        playIdleHeadTurn()
+    }
+
+    /// A glance: step one bin off the current facing and back.
+    ///
+    /// BG has a dedicated `IE_ANI_HEAD_TURN` stance for this. We have no authored
+    /// head-turn frames, so the nearest honest thing is the gradual turn already
+    /// used for standing re-facing — one 22.5° bin out and back, at the engine's
+    /// own one-bin-per-tick rate. It reads as looking around rather than as a
+    /// new heading, which is the point.
+    private func playIdleHeadTurn() {
+        let away = Bool.random()
+            ? facing.stepped(toward: ActorFacing(rawValue: (facing.rawValue + 4) % 16) ?? facing)
+            : facing.stepped(toward: ActorFacing(rawValue: (facing.rawValue + 12) % 16) ?? facing)
+        guard away != facing else { return }
+        let home = facing
+        pendingFacing = away
+        run(.sequence([
+            .wait(forDuration: 0.9),
+            .run { [weak self] in
+                guard let self, self.state == .standingIdle else { return }
+                self.pendingFacing = home
+            }
+        ]), withKey: "idleHeadTurn")
+    }
+
     /// One 22.5° bin per tick toward `pendingFacing`, the engine's gradual turn
-    /// for standing creatures. The selected idle direction retains its own
-    /// cached frame/timer, as CharAnimations does.
+    /// for standing creatures. The breath loop is suspended for the duration so
+    /// it does not fight the per-bin texture swap, then restarted on arrival.
     private func advanceIdleTurnTick() {
         guard let pending = pendingFacing else { return }
         guard facing != pending else {
@@ -821,8 +771,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
     /// Requests the engine's "slow" orientation change toward a world point —
     /// `Movable::SetOrientation(..., slow: true)`, which BG uses when a
-    /// conversation starts. Same-cell floor clicks request HEAD_TURN instead,
-    /// for which this bundle currently uses its idle fallback.
+    /// conversation starts and when you click the tile you already occupy.
     /// Ignored unless standing: a walking creature takes its facing from the path.
     func turnToFace(_ point: CGPoint) {
         guard state == .standingIdle else { return }
@@ -919,7 +868,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         guard movable.isMoving else {
             if isCompletingSeatEgress {
                 // Remain cancellable until the visual root has actually reached
-                // the ground point. Explicit cancellation must be able to suppress an
+                // the ground point. Stop/right-click must be able to suppress an
                 // interaction completion even when no route distance remains.
                 needsSeatEgress = false
                 state = .walking
@@ -947,6 +896,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
 
         if let first = movable.remainingPoints.first {
+            setWalkFacing(movable.currentNodeOrientation ?? facing)
             if isCompletingSeatEgress {
                 needsSeatEgress = false
                 // How long the first leg takes at this actor's rate, in whole
@@ -1246,23 +1196,10 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
         applyStandingIdleTexture()
-    }
-
-    /// Actor::AdvanceAnimations runs independently of movement. READY (backoff
-    /// or zero movement rate) uses the authored idle as an explicit fallback;
-    /// there is no dedicated ready/head-turn clip in VossCHMF.
-    private func updateMovementAnimation(at time: TimeInterval, paused: Bool) {
-        guard state == .standingIdle || state == .walking else { return }
-        let walking = state == .walking && movable.isInMovingStance
-        let clip = walking ? "walk" : (movable.stance == .ready ? "ready" : "idle")
-        let frames = walking ? walkFrames[facing] : standingIdleFrames[facing]
-        guard let frames, !frames.isEmpty else { return }
-        let index = animationPlayback.frame(
-            for: "\(clip).\(facing.rawValue)", count: frames.count, at: time, paused: paused
-        )
-        body.apply(frames[index])
-        refreshEquipmentFrames()
-        applySpriteScale()
+        guard let frames = standingIdleFrames[facing] else { return }
+        let animate = animateFrames(on: body, frames: frames,
+                                    timePerFrame: VossAnimationSet.idleSecondsPerFrame)
+        body.run(.repeatForever(animate), withKey: "standingIdle")
     }
 
     /// Walking facing, which snaps — `DoStep` assigns the path node's
@@ -1271,6 +1208,24 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private func setWalkFacing(_ orientation: ActorFacing) {
         facing = orientation
         pendingFacing = nil
+        applyWalkTexture()
+    }
+
+    private func applyWalkTexture() {
+        applySpriteScale()
+        body.zRotation = 0
+        guard let frames = walkFrames[facing], !frames.isEmpty else { return }
+        walkFrameIndex %= frames.count
+        body.apply(frames[walkFrameIndex])
+    }
+
+    /// Exactly one authored frame per logic tick, as the engine advances a
+    /// creature animation inside `DoStep`. There is deliberately no accumulator:
+    /// sharing the movement tick is what keeps the cycle locked to travel.
+    private func advanceWalkFrame() {
+        guard let frames = walkFrames[facing], !frames.isEmpty else { return }
+        walkFrameIndex = (walkFrameIndex + 1) % frames.count
+        applyWalkTexture()
     }
 
     private func stopWalkAnimation() {
@@ -1280,10 +1235,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func applyStandingIdleTexture() {
-        if let frames = standingIdleFrames[facing], !frames.isEmpty {
-            let index = animationPlayback.currentFrame(for: "idle.\(facing.rawValue)") % frames.count
-            body.apply(frames[index])
-            refreshEquipmentFrames()
+        if let idleFrame = standingIdleFrames[facing]?.first {
+            body.apply(idleFrame)
         }
         applySpriteScale()
     }

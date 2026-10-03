@@ -152,12 +152,13 @@ struct ActorLocomotionPacingTests {
         #expect(!detective.contains("lookAheadVector"))
         #expect(detective.contains("var isDeskRegistered"))
 
-        // Root motion uses the logic tick; Animation::NextFrame uses its own
-        // draw-time clock. Backoff/immobility must not hold a walking pose.
+        // Movement and the walk cycle both run on the engine's fixed logic tick.
+        // The per-frame accumulator is gone precisely so they cannot drift apart:
+        // one tick is one step and one authored frame.
         #expect(detective.contains("LogicTickClock"))
         #expect(detective.contains("tickClock.drain"))
         #expect(detective.contains("LogicTickClock.tickDuration"))
-        #expect(detective.contains("IEActorAnimationPlayback"))
+        #expect(detective.contains("func advanceWalkFrame"))
         #expect(!detective.contains("walkFrameAccumulator"))
         #expect(!detective.contains("advanceWalkAnimation"))
 
@@ -165,16 +166,15 @@ struct ActorLocomotionPacingTests {
         // and the backoff wait when a blocker cannot be bumped.
         #expect(detective.contains("pendingFacing"))
         #expect(detective.contains("func turnToFace"))
-        #expect(detective.contains("movable.advanceTurn"))
+        #expect(detective.contains("stepped(toward:"))
         #expect(detective.contains("func beginMovementBackoff"))
         // Seat clips are selected as one complete directional set. Sit-down is
         // the exact reverse, and the endpoint goes through the facing-aware idle
         // path without mirroring the approved NE desk master.
         #expect(detective.contains("enum SeatVisualDirection"))
         #expect(detective.contains("case .northEast: .northWest"))
-        // Current named-bundle inventory and exact chair endpoints are checked
-        // by VossCurrentRuntimeTests, not the retired seat-atlas loader.
-        #expect(detective.contains("VossAnimationSet.validate(indexedLibrary.sprite)"))
+        #expect(detective.contains("completeSeatFrameSequence"))
+        #expect(detective.contains("let seatAnimations = Self.loadSeatAnimationFrames(library: indexedLibrary)"))
         #expect(detective.contains("self.facing = self.seatVisualDirection.facing"))
         #expect(detective.contains("self.applyStandingIdleTexture()"))
         #expect(detective.contains("let sitDownFrames = Array(standUpFrames.reversed())"))
@@ -280,14 +280,18 @@ struct ActorLocomotionPacingTests {
         #expect(client.contains("movementProfile.walkScale"))
         #expect(!client.contains("movementProfile.walkSpeed"))
         #expect(!client.contains("ActorLocomotionPacing.walkSpeed"))
-        #expect(client.contains("IEActorAnimationPlayback"))
-        #expect(client.contains("LilaAnimationSet.walkFrames"))
-        #expect(client.contains("directionalWalkFrames"))
-        #expect(client.contains("LilaAnimationSet.direction(facing)"))
-        #expect(client.contains("walking ? movable.orientation : .southWest"))
-        #expect(!client.contains("stripHandoffDuration"))
-        #expect(!client.contains("bodyHandoff"))
-        #expect(!client.contains("lookAheadVector"))
+        #expect(client.contains("ActorLocomotionPacing.walkCycleSecondsPerFrame"))
+        #expect(client.contains("prefix: \"lila_departure_ne\""))
+        #expect(client.contains("prefix: \"lila_departure_nw\""))
+        #expect(client.contains("ClientDepartureFacing.bin"))
+        #expect(client.contains("startDepartureWalkCycle"))
+        // Door handoff: heading-matched strips with a short crossfade (no moonwalk hold).
+        #expect(client.contains("stripHandoffDuration"))
+        #expect(client.contains("bodyHandoff"))
+        #expect(client.contains("crossfade:"))
+        // Phase-continuous strip swap at the internal door (no mid-stride restart).
+        #expect(client.contains("texturesStartingAtPhase"))
+        #expect(client.contains("departureWalkPhaseOrigin"))
         #expect(!client.contains("easternHandoffMaxAngle"))
         #expect(!client.contains("currentDepartureWalkFrame"))
         #expect(!client.contains("distance / 82"))
