@@ -1,25 +1,35 @@
 # RainShadow · Act I Beat 3 · Wharf Ladder shipping office: dialogue script (approved 3 Oct 2026)
 
-Graph `case.wharf-ladder` → `wharf-ladder.dialogue.json` (51 nodes) + `wharf-ladder.strings.en.json` (116 keys).
-Revision 3: Writing Bot's humour pass (strings v2, all 10 lines kept, including "Polite. Wiped their feet, even.") plus Laurens's decisions on open questions 1 to 3. The v1 originals are in `wharf-ladder.strings.en.v1.json` and `wharf-ladder-script.v1.md`.
+Graph `case.wharf-ladder` → `wharf-ladder.dialogue.json` (52 nodes) + `wharf-ladder.strings.en.json` (119 keys).
+Revision 3: Writing Bot's humour pass (strings v2, all 10 lines kept, including "Polite. Wiped their feet, even.") plus Laurens's decisions on every open question (D1 to D10). The v1 originals are in `wharf-ladder.strings.en.v1.json` and `wharf-ladder-script.v1.md`.
 Sources: GDD §4.3.2 Act I beat 3 scene card, §4.2, §4.3.5, §7.5, side cases 03/04 (§4.3.8); design pack combat-02 and sidequest-04.
 
-**Status in the repo (3 Oct 2026, branch `grokbot/wharf-ladder-dialogue`):** the graph ships as `RainShadow Shared/Resources/Dialogue/wharf-ladder.dialogue.json`, and its 116 keys are merged into `strings.en.json`. It is **not registered** yet: there's no Swift facade, it isn't in `ShippedDialogueCatalogTests.shippedCatalog()`, it isn't in the Xcode target's resource list, and nothing presents it. The code follow-ups are listed under "Engine and format gaps" below. This script was generated from the JSON by the design-pack tool `render_script.py`, so the two can't drift apart. The `wharf-ladder.strings.en*.json` file names below refer to the design pack; in the repo, those keys now live in `strings.en.json`.
+**Status in the repo (PR #32, branch `grokbot/wharf-ladder-dialogue`):** the graph ships as `RainShadow Shared/Resources/Dialogue/wharf-ladder.dialogue.json`, and its 119 keys are merged into `strings.en.json`. It is **not registered** yet: there's no Swift facade, it isn't in `ShippedDialogueCatalogTests.shippedCatalog()`, it isn't in the Xcode target's resource list, and nothing presents it. The code follow-ups are listed under "Engine and format gaps" below. This script is generated from the JSON by the design-pack tool `render_script.py`, so the two can't drift apart. The `wharf-ladder.strings.en*.json` file names refer to the design pack; in the repo, those keys live in `strings.en.json`.
 
 **How to read this.** `VOSS (thinking)` = interior monologue page. Lines in *italics* after a number are Voss's reply choices (per §7.5, Voss speaks only through choices). `[tone/intention]` is metadata, never shown to the player. "only if" = the choice is hidden unless the condition holds. "set (this talk only)" = conversation flag, cleared when the talk ends; plain "set" = case flag that persists. **HAND-OFF** flags are where dialogue stops and the E1 fight (or story auto-resolve) takes over.
 
 ## Decided by Laurens (3 Oct 2026)
 
+D1 to D3 are Laurens's answers. D4 to D10 are the proposed picks, which Laurens accepted.
+
 - **D1. Coin: 50 silver.** Paying Merrick on the Warm path costs 50 silver of Lila's two hundred. Voss names the sum ("Fifty silver buys talk."), and a new thinking page, `voss.paid`, gives the dry aside ("A quarter of Lila's two hundred, spent on one clerk's memory..."). Authored dialogue has no money action, so the choice sets the case flag `wharf-ladder.case.merrick-paid50`. **Code still has to deduct the 50 silver, once, when it sees that flag.** It's a case flag, not a conversation flag, so it's still there after the talk ends. The conversation flag `wharf-ladder.dialogue.merrick-paid` still drives the Warm branch.
 - **D2. The A1 clock-room fight happens before this conversation.** The graph assumes A1 is done. `voss.arrival.b` opens with "The clock room was behind me now..." and a clerk "white as a fresh manifest". A new Merrick node, `merrick.shaken` ("You came out of the clock room. On your feet..."), comes before the greeting, which now starts "Right. Well. We're shut." Nothing suggests a paid Merrick walks Voss past the clock room. **External, scene-side gate:** open this conversation only after `combat.a1.clockroom.done` is set. The graph itself doesn't read that flag; see the format gaps below.
 - **D3. The Dry bluff works only if Voss told the night runner.** "The Watch knows I'm here" now depends on `wharf-ladder.case.watch-told` alone. The side-case-03 route and the `sidecase.03.ravens-restored` gate are gone. Without the runner, Ketch calls the bluff and the fight starts.
 
+- **D4. Side case 04 flag name:** `sidecase.04.merrick-won-back` is the canonical id.
+- **D5. The Dry favour binds Voss.** The Dry price now also sets the case flag `wharf-ladder.case.clock-promise`, which lasts after the talk. If Voss later exposes the clock in side case 04, he breaks that promise, and Merrick calls it that. **Follow-up for side case 04:** read `wharf-ladder.case.clock-promise` and give Merrick a broken-promise line when Voss exposes the clock.
+- **D6. Ketch and Bram's orders stay vague:** "the gray gent" and "you heard the man". No change.
+- **D7. The tally drops only if Bram is knocked down.** This is a resolver rule: the E1 resolver grants `evidence.payTally.crateMark` only when Bram goes down. The dialogue's tally payoff (`aftermath.won` → `aftermath.tally`) is already gated on that evidence. A won fight without it goes straight to `aftermath.cost`.
+- **D8. A lost fight costs the seal scrap.** On `combat.e1.outcome.lost`, the resolver strips `evidence.sealMark.scrap`. Authored dialogue can't revoke evidence; the `aftermath.lost` text already says "Whatever I'd taken off her desk had been taken back, or burned."
+- **D9. Lila outside.** If the earlier office beat had Lila wait outside, an optional reply on the arrival page, "Leave Lila the dry side of the doorway.", leads to a short thinking page, `voss.lila` ("...a threshold she trusted than a clerk she didn't. Fair. I hadn't met him yet."). **No office flag exists for this yet** (the shipped intro sets only `empty-coat.case.client-retained`), so it's gated on the clearly named external flag `lila.waitsOutside.wharfLadder`, which the office beat still has to set. Otherwise her only mention is "Lila's two hundred". "Go in." is always offered.
+- **D10. The Civic visitor:** no more than "Polite. Wiped their feet, even." No change.
+
 ## Judgement calls (please check)
 
-1. **Approach = price.** Warm = coin (outbids the gray gent). Dry = a favour (Voss keeps the night-clock racket to himself). Sharp = a threat (Dock Authority). The Sharp threat costs Voss the witness, which is the GDD's "threat that costs Voss": Merrick rings the bell.
+1. **Approach = price.** Warm = coin (outbids the gray gent). Dry = a favour (Voss keeps the night-clock racket to himself, and that promise binds him, D5). Sharp = a threat (Dock Authority). The Sharp threat costs Voss the witness, which is the GDD's "threat that costs Voss": Merrick rings the bell.
 2. **Making the Dry bluff true (now decided, see D3).** Voss can ask the Watch-house night runner to tell the night sergeant he's here. That's the only way the Dry bluff works.
 3. **The bluff looks the same either way.** The true and false versions use identical text. The player can't tell from the menu whether it's a real threat or a bluff (it's tagged `press` vs `feign`).
-4. **The crate mark is cut off mid-word** ("chalked with the—") so I don't invent the mark. The real mark is only revealed by Bram's tally after a won fight.
+4. **The crate mark is cut off mid-word** ("chalked with the—") so I don't invent the mark. The real mark is only revealed by Bram's tally, after a won fight in which Bram is knocked down (D7).
 5. **Ketch gives the order, Bram asks the dumb question.** In the overheard line, Ketch is relaying orders he was given, and nobody else enters. The GDD's Ketch and Bram replace the pack's three hands plus a foreman.
 6. **"Silver an hour", not "dollar".** This is the pack line re-coined.
 7. **Overhearing is opt-in on the Warm path.** "Then I was never here" leaves straight away, with the scrap if Voss took it and without the Tallow Stair. "Ring it, I'll be behind the wax" gets the overheard line and `knowledge.muscle.tallowStair`. Both mark E1 as avoided.
@@ -30,29 +40,34 @@ Sources: GDD §4.3.2 Act I beat 3 scene card, §4.2, §4.3.5, §7.5, side cases 
 12. **Fight hand-off is by flags, not a cue.** The two hand-off nodes end the conversation after setting `combat.e1.trigger.desk` or `.sealroom`. The scene or resolver reads those flags, runs E1 (or auto-resolves it), writes `combat.e1.outcome.won`/`.lost`, then reopens the graph. The aftermath entry nodes pick it up from there.
 13. **`combat.e1.outcome` is split into three flags** (`.avoided`, `.won`, `.lost`), because authored conditions only test flags, not string values.
 14. **The night clock.** Merrick says it "runs three minutes fast when the night crew wants an alibi, and nobody asks me which nights". Nothing says it was fast on Tuesday (side case 04 keeps that open). Voss's journal note is careful: "So nine is a rumour". It grants `knowledge.nightClock.fast` and the side-case-04 hook lead.
-15. **Canon.** "The Watch" throughout. Money is silver, and the Warm price is 50 of the 200 (D1). Gray overcoat. Retainer 200 ("Lila's two hundred"). Tuesday. "This week", rather than counting nights. Voss mentions river-watch slips to the runner, but never Pell Street. Lila isn't present.
+15. **Canon.** "The Watch" throughout. Money is silver, and the Warm price is 50 of the 200 (D1). Gray overcoat. Retainer 200 ("Lila's two hundred"). Tuesday. "This week", rather than counting nights. Voss mentions river-watch slips to the runner, but never Pell Street. Lila stays outside the office, at most (D9).
 16. **Placeholder portraits and no VO.** The portraits are placeholders (`dialogue_portrait_merrick_v01`, `_ketch_`, `_bram_`, `_night_runner_`), and there are no voice keys.
 
-## Open questions for Laurens
+## Open questions (all decided)
 
 1. ~~**Coin.**~~ **Decided (D1):** 50 silver.
 2. ~~**The A1 clock-room fight.**~~ **Decided (D2):** A1 comes before this conversation. The scene gates entry on `combat.a1.clockroom.done`.
 3. ~~**Bluff routes.**~~ **Decided (D3):** only the night runner counts. Side case 03 is not a route.
-4. **Side-case 04 flag name.** What's the real id for side case 04 (Merrick won back)? I used `sidecase.04.merrick-won-back`. (Side case 03 is no longer referenced.)
-5. **The Dry favour.** Does Voss keeping quiet about the clock bind him later, for example in side case 04 where he exposes the clock?
-6. **Ketch and Bram's orders.** Who gives Ketch and Bram their orders? I kept it as "the gray gent" and "you heard the man".
-7. **The tally.** Should the auto-resolve "won" always grant the tally, or only if Bram is knocked down?
-8. **Losing the fight.** Voss should lose the seal scrap ("short the seal scrap"), but authored dialogue can't remove evidence. Should the resolver strip `evidence.sealMark.scrap`?
-9. **Lila outside.** Should Lila be waiting outside, or referred to at all? She's only mentioned as "Lila's two hundred".
-10. **The Civic visitor.** Should the Sharp path's "Who from Civic?" get a real answer? Right now Merrick says "Civic. Polite. Then nobody. Then everybody," and nothing more.
+4. ~~**Side-case 04 flag name.**~~ **Decided (D4):** `sidecase.04.merrick-won-back`.
+5. ~~**The Dry favour.**~~ **Decided (D5):** it binds Voss; flag `wharf-ladder.case.clock-promise`.
+6. ~~**Ketch and Bram's orders.**~~ **Decided (D6):** they stay vague.
+7. ~~**The tally.**~~ **Decided (D7):** it drops only if Bram is knocked down (resolver rule).
+8. ~~**Losing the fight.**~~ **Decided (D8):** the resolver strips `evidence.sealMark.scrap`.
+9. ~~**Lila outside.**~~ **Decided (D9):** an optional arrival line, gated on `lila.waitsOutside.wharfLadder`.
+10. ~~**The Civic visitor.**~~ **Decided (D10):** "Polite. Wiped their feet, even." and nothing more.
+
+No open questions remain.
 
 ## Engine and format gaps (things the current format can't express)
 
 - **Watch attention.** There's no authored counter action (`addToCounter`), so dialogue can't raise Watch attention. Only the resolver or scene can.
-- **Removing evidence.** There's no authored way to revoke evidence, which a lost fight needs.
-- **External gate ids.** `ShippedDialogueCatalogTests.everyGateInShippedContentIsSatisfiable` would fail on five ids that are written outside this graph: `combat.e1.outcome.won`, `combat.e1.outcome.lost`, `evidence.payTally.crateMark`, `watch.attention`, and `sidecase.04.merrick-won-back`. Each needs a writer, or an allow-list in that test.
+- **Removing evidence.** There's no authored way to revoke evidence. On a lost fight, the resolver strips `evidence.sealMark.scrap` (D8).
+- **Resolver tally rule.** The E1 resolver grants `evidence.payTally.crateMark` only if Bram is knocked down (D7).
+- **Side case 04 promise.** Side case 04 reads `wharf-ladder.case.clock-promise`; if Voss exposes the clock, Merrick calls it a broken promise (D5).
+- **Lila-outside flag.** The earlier office beat must set `lila.waitsOutside.wharfLadder` when Lila chooses to wait outside (D9).
+- **External gate ids.** `ShippedDialogueCatalogTests.everyGateInShippedContentIsSatisfiable` would fail on six ids that are written outside this graph: `combat.e1.outcome.won`, `combat.e1.outcome.lost`, `evidence.payTally.crateMark`, `watch.attention`, `sidecase.04.merrick-won-back` and `lila.waitsOutside.wharfLadder`. Each needs a writer, or an allow-list in that test.
 - **Fight hand-off.** There's no scene handler that turns `combat.e1.trigger.*` into a fight or auto-resolve. `onShowCue` would assert in the office scene, so I didn't use any cues.
-- **Shipping it.** Shipping needs a Swift facade, registration in the shipped catalog, and the catalog count in the test raised from 2. The strings need merging into `strings.en.json`.
+- **Shipping it.** Shipping needs a Swift facade, registration in the shipped catalog, and the catalog count in the test raised from 2. The strings are already merged into `strings.en.json` (PR #32).
 - **Money.** There's no authored money action. The Warm price is the flag `wharf-ladder.case.merrick-paid50`, and code has to deduct 50 silver from the retainer exactly once (D1).
 - **A1 gate.** `combat.a1.clockroom.done` is written by the A1 fight. The office scene checks it before opening this graph (D2). I kept it out of `entryWhen` because the start node can't be conditional, and an in-graph "not yet" node would be dead content.
 - **Portraits.** Merrick, Ketch, Bram and the runner have no portrait art; the game shows an empty dark frame.
@@ -63,6 +78,11 @@ _The scene opens this conversation only once the external flag combat.a1.clockro
 
 **`voss.arrival`** · VOSS (thinking)
 > Wharf Ladder after dark. The rain worked the tin roof harder than it ever bothered to on Sable Row. Lila's two hundred sat warm in my coat. Nothing else in it was. The key still hummed somewhere in my memory.
+- 1. *"Go in."* `[open]` → `voss.arrival.b`
+- 2. *"Leave Lila the dry side of the doorway."* `[observe]` · only if Lila is waiting outside [external: set by the earlier office beat] → `voss.lila`
+
+**`voss.lila`** · VOSS (thinking)
+> Lila stayed outside, under a lintel with an old ward-mark that still held. She said she'd rather wait on a threshold she trusted than a clerk she didn't. Fair. I hadn't met him yet.
 - (Continue) → `voss.arrival.b`
 
 **`voss.arrival.b`** · VOSS (thinking)
@@ -110,7 +130,7 @@ _The approach chosen here decides the E1 branch in scene 6._
 - 1. *"Fifty silver buys talk. More than whoever's paying you to be quiet."* `[warm/trade]` → `voss.paid`
     - set (this talk only) Voss paid Merrick (Warm); set PAID 50 SILVER (code must deduct 50 from Lila's 200, once)
 - 2. *"No coin. A favour. Your clock stays your business. Nobody hears about it from me."* `[dry/trade]` → `merrick.favour`
-    - set (this talk only) Voss offered the clock favour (Dry)
+    - set (this talk only) Voss offered the clock favour (Dry); set Voss promised Merrick silence about the clock (side case 04 reads this)
 - 3. *"Here's my price. Talk, or Dock Authority hears you sell their silence twice."* `[sharp/press]` → `merrick.threat`
     - set (this talk only) Voss threatened Merrick (Sharp)
 

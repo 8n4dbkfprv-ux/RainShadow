@@ -8,12 +8,37 @@
   "id": "case.wharf-ladder",
   "nodes": [
     {
+      "choices": [
+        {
+          "destinationID": "voss.arrival.b",
+          "intention": "open",
+          "textKey": "dlg.wharf-ladder.node.voss.arrival.choice.0.text"
+        },
+        {
+          "conditions": [
+            {
+              "id": "lila.waitsOutside.wharfLadder",
+              "type": "hasFlag"
+            }
+          ],
+          "destinationID": "voss.lila",
+          "intention": "observe",
+          "textKey": "dlg.wharf-ladder.node.voss.arrival.choice.1.text"
+        }
+      ],
       "id": "voss.arrival",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.node.voss.arrival.text"
+    },
+    {
+      "id": "voss.lila",
       "isInteriorMonologue": true,
       "nextNodeID": "voss.arrival.b",
       "portraitName": "dialogue_portrait_harlan_voss_v01",
       "speakerKey": "dlg.speaker.harlan_voss",
-      "textKey": "dlg.wharf-ladder.node.voss.arrival.text"
+      "textKey": "dlg.wharf-ladder.node.voss.lila.text"
     },
     {
       "id": "voss.arrival.b",
@@ -147,6 +172,10 @@
             {
               "id": "wharf-ladder.dialogue.merrick-favour",
               "type": "setConversationFlag"
+            },
+            {
+              "id": "wharf-ladder.case.clock-promise",
+              "type": "setCaseFlag"
             }
           ],
           "textKey": "dlg.wharf-ladder.node.merrick.price.choice.1.text",
