@@ -1,0 +1,127 @@
+{
+  "entryNodeIDs": [
+    "gate.merrick"
+  ],
+  "id": "case.wharf-ladder.gate",
+  "nodes": [
+    {
+      "id": "gate.bark",
+      "nextNodeID": "gate.bark.b",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.bark.text"
+    },
+    {
+      "choices": [
+        {
+          "destinationID": "gate.warm",
+          "intention": "open",
+          "onSelect": [
+            {
+              "id": "combat.a1.gate.trigger",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.gate.node.gate.bark.b.choice.0.text",
+          "tone": "warm"
+        },
+        {
+          "destinationID": "gate.dry",
+          "intention": "observe",
+          "onSelect": [
+            {
+              "id": "combat.a1.gate.trigger",
+              "type": "setCaseFlag"
+            },
+            {
+              "id": "combat.a1.gate.opening.rattled",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.gate.node.gate.bark.b.choice.1.text",
+          "tone": "dry"
+        },
+        {
+          "destinationID": "gate.sharp",
+          "intention": "press",
+          "onSelect": [
+            {
+              "id": "combat.a1.gate.trigger",
+              "type": "setCaseFlag"
+            },
+            {
+              "id": "combat.a1.gate.opening.firstBlow",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.gate.node.gate.bark.b.choice.2.text",
+          "tone": "sharp"
+        }
+      ],
+      "id": "gate.bark.b",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man_second",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.bark.b.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "gate.warm",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.warm.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "gate.dry",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man_second",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.dry.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "gate.sharp",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.sharp.text"
+    },
+    {
+      "choices": [
+        {
+          "destinationID": "gate.merrick.b",
+          "intention": "open",
+          "onSelect": [
+            {
+              "id": "combat.a1.gate.walkedPast",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.gate.node.gate.merrick.choice.0.text",
+          "tone": "warm"
+        }
+      ],
+      "entryWhen": [
+        {
+          "id": "wharf-ladder.case.visited",
+          "type": "hasFlag"
+        },
+        {
+          "id": "wharf-ladder.case.merrick-paid50",
+          "type": "hasFlag"
+        }
+      ],
+      "id": "gate.merrick",
+      "portraitName": "dialogue_portrait_merrick_v01",
+      "speakerKey": "dlg.speaker.merrick",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.merrick.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "gate.merrick.b",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.tally_man",
+      "textKey": "dlg.wharf-ladder.gate.node.gate.merrick.b.text"
+    }
+  ],
+  "schemaVersion": 1,
+  "startNodeID": "gate.bark"
+}

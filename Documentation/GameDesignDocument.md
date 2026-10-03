@@ -355,7 +355,7 @@ Inspect hotspots. Desk monologue. Journal: retained; optional pressed-hard on ma
 
 ###### 3. Lead one — Wharf Ladder shipping office *(Act I beyond M01)*
 
-Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand in the upper city”; someone scrubbed reading-rights on her last manifest pull. **The night lane, then the back room.** Three tally groups keep the fast clock and the lost-crate lane (floor **A1** in §4.3.5). The clock-room group is the core and will fight the first night. Behind them, Merrick sold his silence twice, and the Gray Man’s hired men come for the folio Voss is reading. That second fight is **E1**, and it can be left unfought.
+Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour. Evidence: seal-mark scrap; “one more errand in the upper city”; someone scrubbed reading-rights on her last manifest pull. **The night floor, then the back room.** Three chalk-crew groups keep the fast clock (floor **A1** in §4.3.5), met in order: the night gate, the lost-crate lane, then the clock room, which is the core. On the first visit all three fight. Only then does Voss reach Merrick, who sold his silence twice. After Merrick, the Gray Man’s hired men come for the folio Voss is reading. That fight is **E1**, and it can be left unfought.
 
 **Scene card — Wharf Ladder shipping office** *(design runway; not M01)*
 
@@ -367,6 +367,8 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 
 **Entry:** Voss arrives with Lila’s two hundred still warm and the key’s hum in memory. Optional: Lila waits outside (threshold that holds) or stays in her rooms off Market Cross—player choice from prior beat.
 
+**Order (first visit):** the night gate (A1, two tally-men) → the lost-crate lane (A1, two crate hands) → the clock room (A1 core: the man paid to keep the clock three minutes fast, and two hands) → Merrick → the back room (E1, Ketch and Bram). On the first visit the gate, the lane and the clock room always fight. Each opens with a short exchange—a bark and one reply that colours the fight—so no fight starts out of nowhere. The quiet routes (paid Merrick past the gate, tide-gap timing through the lane, the interval for the clock room) apply only on return visits. The Merrick conversation opens only after the clock room (`combat.a1.clockroom.done`).
+
 **Cast on stage:**
 
 | Role | Who | Notes |
@@ -376,6 +378,7 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 | Absent pressure | The Gray Man (gray overcoat) | Seen across the quay once—does not enter yet, does not speak |
 | Threat | Hired muscle (working names: **Ketch**, a big cargo-hook man; **Bram**, young, a knife he holds wrong) | Paid by the job in dock-ledger chalk to fetch Lillian’s last folio and frighten Merrick. They are not told why |
 | Optional | Watch-house night runner | Mentions soft file / tide speech if Voss flashes old river-watch habits |
+| Floor (A1) | Chalk crews: two tally-men on the gate, two crate hands on the lane, the clock-keeper (working name: **Hobb**) and two hands in the clock room | Dock Authority labour paid in dock-ledger chalk, not the Watch. Hobb is more afraid of whoever pays for the minutes than of Voss. Knockout by default |
 
 **Objectives:**
 
@@ -389,14 +392,14 @@ Lillian’s desk, night clock that runs fast, clerk who sold silence by the hour
 **The fight (E1 — back room, avoidable):** Merrick already took the Gray Man’s coin to ring the tin bell over the back door if anyone came asking about Lillian’s folios. What happens depends on how Voss handled him:
 
 - **Warm / paid more than the Gray Man did:** Merrick whispers “they come at the bell” and lets Voss out the back with the scrap. No fight. Voss can hide in the seal-room and **overhear** Ketch and Bram being told to “burn the March folio, the gray gent pays at the Tallow Stair.” Best lead, no blood.
-- **Dry:** Merrick stalls. Ketch and Bram walk in while Voss is still at Lillian’s desk. One line to talk them off (“The Watch knows I’m here”; works only if Voss really told someone—side case 03 can make it true) or the fight starts.
+- **Dry:** Merrick stalls. Ketch and Bram walk in while Voss is still at Lillian’s desk. One line to talk them off (“The Watch knows I’m here”; works only if Voss told the Watch-house night runner to tell the night sergeant he is here) or the fight starts.
 - **Sharp / threatened:** Merrick panics and rings the bell. The fight starts with Voss cornered in the seal-room.
 
 The room is the weapon: shelves of seals that bite (shove a man into them and he is stunned and burned), one oil lamp to kick over (dark, fire risk to the evidence), a narrow back door that makes it one-at-a-time. Ketch hits hard and slow; Bram breaks and runs if Ketch goes down.
 
 **What the fight reveals:** Knock Bram down and he drops a chalk pay tally with a crate mark on it: the first physical link between the Gray Man’s money and Dock Authority “lost” crates. **What it costs:** the noise brings Dock Authority night-men; by morning the Watch has Voss’s name for brawling at Wharf Ladder (**Watch attention +1**). Merrick will not speak to Voss again unless side case 04 wins him back. Any wound carries into Beat 4. **If Voss loses:** he wakes on the quay boards, bruised and short the seal scrap (taken or burned). The Civic Spine lead survives only through the overheard line or the river stones.
 
-**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.grayMan.quay`; `knowledge.muscle.tallowStair` (overheard) or `evidence.payTally.crateMark` (fight won); `combat.e1.outcome` (avoided / won / lost).
+**Evidence / journal payoffs (Act I flags — not M01):** `lillian.lastShift.wharfLadder`; `evidence.sealMark.scrap`; `knowledge.readingRights.scrubbed`; optional `sighting.grayMan.quay`; `knowledge.muscle.tallowStair` (overheard) or `evidence.payTally.crateMark` (fight won); `combat.e1.outcome` (avoided / won / lost); `combat.a1.clockroom.done` (set after the clock room; opens the Merrick conversation).
 
 **Dialogue spine (not full script):**
 
@@ -410,7 +413,7 @@ The room is the weapon: shelves of seals that bite (shove a man into them and he
 
 **Success:** Seal scrap + scrubbed rights + upper-city errand sharpened. Player owns a deduction: Lillian wasn’t drowning bait; she was reading something someone needed unread.
 
-**Tone locks:** E1 can be left unfought. The clock room on the way in cannot, the first night. Each fight is short, ugly, and in one room. Magic = bitten seals and scrubbed rights, not fireballs. The Gray Man is silhouette, not boss fight—he watches from the quay, never enters, and does not speak. Voss does not confess the Pell Street wound here.
+**Tone locks:** E1 can be left unfought. The A1 floor on the way in—gate, lane and clock room—cannot, on the first visit. Each fight is short, ugly, and in one room. Magic = bitten seals and scrubbed rights, not fireballs. The Gray Man is silhouette, not boss fight—he watches from the quay, never enters, and does not speak. Voss does not confess the Pell Street wound here.
 
 **Art / audio notes:** Oil lamps, wet wool, brass seal-presses, raven cage in the corner (empty). Clock tick slightly off. Distant ferry horn. Rain on tin roof harder than on Sable Row glass.
 
@@ -526,7 +529,7 @@ Aligned to the shipped Empty Coat intro graph, except the timing: the graph and 
 - Journal leads (destinations still locked): identify the lock; build Lillian’s timeline from Tuesday night; find or name the Gray Man; re-check the river stones when the city opens.
 
 **Act I beyond M01 (beats 3–7 — design roadmap; non-spoiler)**
-- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights). Cross the night lane; the clock room keeps the alibi. Get out before Ketch and Bram arrive, or deal with them.
+- Wharf Ladder shipping office / manifests Lillian was reading (seal-mark scrap; scrubbed reading-rights). Cross the night gate and the lost-crate lane; the clock room keeps the alibi. Get out before Ketch and Bram arrive, or deal with them.
 - River recovery site + watchman / river-watch soft file; find out who at the river post talks to the Gray Man. Asking about the coat in the open brings the men who placed it.
 - Gray overcoat pressure (threshold / bait / the night sergeant’s one ask); keep Lila and the key out of his hands. The bakery post and, once the key has been seen home, the office stair are part of this beat.
 - Mid-act trust gate: the page they almost burned; partial manifest line; get Lila’s copy to the office without losing it in the lane behind the shops.
@@ -635,10 +638,10 @@ E1–E5 remain the set pieces of §4.3.2. A1–A6 are the floors and pressures a
 
 | ID | Groups | Where | Why these people are here | Quiet route | What the blades buy |
 |---|---|---|---|---|---|
-| A1 gate | 1 | Wharf Ladder night gate | The fast clock needs a door | Paid Merrick walks him past | — |
-| A1 lane | 1 | Lost-crate lane | The alibi’s crates are moving tonight | Tide-gap timing, taught by Merrick or the stones that same visit | A chalk chit with the crate mark |
-| A1 clock | 1 | Clock room | One man is paid to keep the clock three minutes fast | A later visit, once he knows the interval. The first night fights | The night’s chalk (peels the Act II yard) and the interval |
-| E1 | 1 | Shipping-office back room | Ketch and Bram, sent to burn the March folio | Pay or Warm, and the back door; hide and overhear; a bluff that the Watch knows, which works only if it does (side case 03) | Pay tally with the crate mark. Noise brings night-men: attention +1. Losing wakes him on the quay, scrap gone |
+| A1 gate | 1 | Wharf Ladder night gate (2 tally-men) | The fast clock needs a door | Return visits only: paid Merrick walks him past. The first visit fights | — |
+| A1 lane | 1 | Lost-crate lane (2 crate hands) | The alibi’s crates are moving tonight | Return visits only: tide-gap timing, taught by Merrick or the stones. The first visit fights | A chalk chit with the crate mark (first fight only) |
+| A1 clock | 1 | Clock room (the clock-keeper and 2 hands) | One man is paid to keep the clock three minutes fast | Return visits only, once he knows the interval (the minutes the clock-keeper is away; side case 04). The first visit fights | The night’s chalk (peels the Act II yard). A loss still crosses the room: he wakes bruised outside |
+| E1 | 1 | Shipping-office back room (Ketch and Bram) | Ketch and Bram, sent to burn the March folio | Pay or Warm, and the back door; hide and overhear; a bluff that the Watch knows, which works only if Voss told the Watch-house night runner | Pay tally with the crate mark. Noise brings night-men: attention +1. Losing wakes him on the quay, scrap gone |
 | A2 | 1 | River stones | Scroungers paid to arrange the coat | Ask only the watchman | They were told how to fold it. A chalk crew, not a tide |
 | E2 | 1 | Iron stairs at night | Ketch, to warn him off the recovery | By day; spot him and leave; Trade a false key place, which plants E3b | Tally brand on the hook. The river post leaks. Noise: attention +1. A man in the river is an arrest |
 | A3 | 1 | Bakery doorway | The post Lila timed | The long way through Printers’ Quarter. The Gray Man gains the hour | The relief’s pay is Civic scrip |
@@ -650,7 +653,9 @@ E1–E5 remain the set pieces of §4.3.2. A1–A6 are the floors and pressures a
 | A6 clerk | 1 | The second register | He is the man who scrubbed her pull | None | The register: her line, and the line that replaced it. The key’s true shape, not which lock |
 | E5 | 1 | Lila’s threshold, wherever she sleeps that night | The Gray Man comes for the key himself | Shorten only. Name the Civic signature, or offer a fake key | The key kept; his one line; his glove if the threshold holds. Voss injured into Act II; Lila’s injury state; her copy lost if the room falls |
 
-Act I authors **13** groups if every conditional fires and the player fights one of the two E3 rooms. The first night’s clock room, the annex clerk, and E5 have no quiet route. E4 is retired and its ID is not reused.
+**Wharf Ladder order.** The first visit runs gate, lane, clock room, then Merrick, then E1. Each A1 group opens with a short exchange (a bark and one reply), and on the first visit every reply ends in the fight. Head counts: gate 2, lane 2, clock room 3, E1 2.
+
+Act I authors **13** groups if every conditional fires and the player fights one of the two E3 rooms. On the first Wharf Ladder visit the gate, the lane and the clock room have no quiet route; the annex clerk and E5 never have one. E4 is retired and its ID is not reused.
 
 ##### Act II ledger — follow the key
 
@@ -705,11 +710,11 @@ Act IV authors **5** groups. A complete chain and a compelled room is zero.
 
 The tables sum to **58** authored groups (13+16+24+5). That is the campaign if every staffed room is met, including the delay party and the Blue Room.
 
-The quietest path that still reaches Lillian inside the two dawns, and still has a fair chain, fights **21**:
+The quietest path that still reaches Lillian inside the two dawns, and still has a fair chain, fights **23**:
 
-1. The clock room. 2. The annex clerk. 3. E5, shortened. 4–8. The shed: yard slipped with the clock-room chalk, one row pulled by burning the scrap, three row groups and both cage groups remaining. 9. The road. 10. The study, after Lila has walked the kitchen and the hall. 11. The refusal steps. 12–21. Hearth Court with the sergeant on the street door and Lila on one inner door, and without Bram: ten groups, upper landing included.
+1–3. Wharf Ladder’s first visit: the gate, the lane and the clock room. 4. The annex clerk. 5. E5, shortened. 6–10. The shed: yard slipped with the clock-room chalk, one row pulled by burning the scrap, three row groups and both cage groups remaining. 11. The road. 12. The study, after Lila has walked the kitchen and the hall. 13. The refusal steps. 14–23. Hearth Court with the sergeant on the street door and Lila on one inner door, and without Bram: ten groups, upper landing included.
 
-That path is legal and expensive. The sergeant’s one ask went to the night-book margins, so Lila’s stair was not cleared by the sergeant; it was avoided by watching E3b from hiding, which means sleeping away from Sable Row afterward so A4 never sees the key go home. Voss went to Lila by day for the copy, so the lane was never walked. Ashfield was not visited. The upper door bites. Most playthroughs land between these floors: outers they did not prepare, cores they cannot skip, and the rooms they chose to enter. Twenty-one is the floor under the design, so talk cannot shrink the case back to five fights. Fifty-eight is the house with every lamp lit. Side cases (§4.3.8) add up to **6** optional groups outside these tables, so the house with every side case fought is **64**.
+That path is legal and expensive. The sergeant’s one ask went to the night-book margins, so Lila’s stair was not cleared by the sergeant; it was avoided by watching E3b from hiding, which means sleeping away from Sable Row afterward so A4 never sees the key go home. Voss went to Lila by day for the copy, so the lane was never walked. Ashfield was not visited. The upper door bites. Most playthroughs land between these floors: outers they did not prepare, cores they cannot skip, and the rooms they chose to enter. Twenty-three is the floor under the design, so talk cannot shrink the case back to five fights. Fifty-eight is the house with every lamp lit. Side cases (§4.3.8) add up to **6** optional groups outside these tables, so the house with every side case fought is **64**.
 
 ##### Temporary allies
 
@@ -740,7 +745,8 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 
 | Fight | Auto-resolve outcome |
 |---|---|
-| A1 clock (first night) | Won. The night’s chalk and the interval. Voss bruised |
+| A1 gate, A1 lane (first visit) | Won. Knocked out. The lane gives the chalk chit with the crate mark (first fight only) |
+| A1 clock (first visit) | Won. The night’s chalk; not the interval (side case 04). Voss bruised. A played loss still sets `combat.a1.clockroom.done`: Voss wakes bruised outside and can still reach Merrick |
 | E1 | Won. Pay tally with the crate mark. Merrick will not speak again. Watch attention +1 |
 | E2 | Won. Tally brand on the hook. Nobody goes in the river. Watch attention +1 |
 | E3a | Won. “Paid in Civic scrip.” Voss takes a named injury. Lila Hurt unless the threshold was re-seated (side case 02). She moves. Attention +1 |
@@ -802,8 +808,8 @@ Rules:
 |---|---|---|---|---|---|
 | 01 | Day-Old | Act I, after the intro | The bakery doorway across from Lila’s stairs (A3) | Mrs. Pruett (working), the baker, has logged the Gray Man’s habits for bread money: his hours, the cart-noise trick, the gloves that never come off. Peels A3 without the long way; Voss gets the first move at E3a; a lookout’s warning before E5. No money trail, no badge clue | None |
 | 02 | Thresholds That Hold | Act I (finale can slip to early Act II) | Lila’s boarding house → Pye’s stall off Market Cross | The landlady’s threshold came from Pye’s racket (§4.1 seed). Agnes Tully (working), the Printers’ Quarter friend with real locks, re-seats Lila’s ward: at E3a and E5 it holds for the whole fight, so Lila is far less likely to be Hurt and the glove can drop at E5. Agnes can hold Lila’s door at E5. Pye’s one sale is not spent here | Optional: rent-day collectors on a Sable Row stair (1 group) · won; the collectors back off; Voss bruised |
-| 03 | Return to Sender | Act I, first return to the office after Wharf Ladder | Voss’s raven perch → Dock Authority rookery | Wenna Coyle (working) keeps the rookery. A lost raven with a Dock Authority ring; mending the line restores Voss’s ravens to the night sergeant, so the E1 bluff (“the Watch knows I’m here”) can be true and the sergeant’s one ask can be reached the same night. The stray message gives a lost-crate number for side case 06. **Main-case evidence payoff: to be decided** | None |
-| 04 | The Clock That Runs Fast | Act I, after the first Wharf Ladder visit | Silas Teague’s (working) clock shop on Sable Row → the Wharf Ladder clock loft | Teague’s work-orders prove the night clock is set fast on order (shipped canon made evidence). The interval makes a later A1 clock visit quiet. Wins Merrick back as a witness after E1. Whether a Tuesday order is in the book: **open** | Optional: the clock loft (1 group) · won; the work-book, singed; Voss bruised |
+| 03 | Return to Sender | Act I, first return to the office after Wharf Ladder | Voss’s raven perch → Dock Authority rookery | Wenna Coyle (working) keeps the rookery. A lost raven with a Dock Authority ring; mending the line restores Voss’s ravens to the night sergeant, so the sergeant’s one ask can be reached the same night. It does not make the E1 bluff true; only telling the Watch-house night runner does. The stray message gives a lost-crate number for side case 06. **Main-case evidence payoff: to be decided** | None |
+| 04 | The Clock That Runs Fast | Act I, after the first Wharf Ladder visit | Silas Teague’s (working) clock shop on Sable Row → the Wharf Ladder clock loft | Teague’s work-orders prove the night clock is set fast on order (shipped canon made evidence). The interval (the minutes the clock-keeper is away) makes a later A1 clock visit quiet. Wins Merrick back as a witness after E1. Whether a Tuesday order is in the book: **open** | Optional: the clock loft (1 group) · won; the work-book, singed; Voss bruised |
 | 05 | Reading-Rights in Triplicate | Late Act I / Act II | Civic Spine records annex, day counter | Registrar Pim (working). A legal reading-rights token: Wharf Ladder seals stop biting; the A6 porter lets Voss through at Watch attention 1. Confirms the scrub was an act of office (existing canon only) | None (a route around fights) |
 | 06 | Window Three | Act II (early) | Dock Authority lost-cargo office | Fen Aldous (working), an old stevedore claiming a lost chest. Lost crates with seal-marks matching Lillian’s last night (§4.1 seed); a quiet route for the B1 yard in place of the chalk or Bram; a look at the shed register | Optional: the shed watch (1 group) · won; the register; attention +1 if a night-man sees |
 | 07 | Paid Copy | Act II | Printers’ Quarter newsroom | Nell Garrity (working), a reporter who still digs. **The drowning notice was paid copy** (`evidence.paid-notice`); the original slip is on the spike; who paid stays gated. A press ally for the “expose” ending and the epilogue’s press texture (§4.3.7) | None (a fight-avoidance beat in the composing room) |
