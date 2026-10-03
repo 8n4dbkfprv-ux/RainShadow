@@ -36,12 +36,12 @@ struct ItemCatalogTests {
 
     @Test func shippedCatalogPreservesAuthoredPresentation() throws {
         let sword = try ItemCatalogLoader.load().require("lantern-shortsword")
-        #expect(sword.identifiedName == "Lantern Service Shortsword")
+        #expect(sword.identifiedName == "Watch Service Shortsword")
         #expect(sword.category == .weapon)
         // The icon keeps its shipped file name until the sword art is painted.
         #expect(sword.iconArtName == "inventory_item_service_revolver_v01")
-        #expect(sword.note == "Lantern Guard issue · never handed back")
-        #expect(sword.identifiedDescription.hasPrefix("The blade Voss kept from his Lantern years."))
+        #expect(sword.note == "Watch issue · never handed back")
+        #expect(sword.identifiedDescription.hasPrefix("The blade Voss kept from his Watch years."))
         #expect(!sword.flags.contains(.twoHanded))
         #expect(sword.damageLow == 2 && sword.damageHigh == 7)
 

@@ -4,13 +4,13 @@
   "items": [
     {
       "id": "lantern-shortsword",
-      "identifiedName": "Lantern Service Shortsword",
+      "identifiedName": "Watch Service Shortsword",
       "category": "SERVICE WEAPON",
       "weightOunces": 38,
       "valuePence": 1440,
       "iconArtName": "inventory_item_service_revolver_v01",
-      "identifiedDescription": "The blade Voss kept from his Lantern years. Plain steel, one hand, a lamp-brass guard gone dull and an edge he still keeps honest.",
-      "note": "Lantern Guard issue · never handed back",
+      "identifiedDescription": "The blade Voss kept from his Watch years. Plain steel, one hand, a brass guard gone dull and an edge he still keeps honest.",
+      "note": "Watch issue · never handed back",
       "damageLow": 2,
       "damageHigh": 7
     },

@@ -14,12 +14,12 @@
     "areaType" : [
 
     ],
-    "arrivalHint" : "The hall of the Lantern Company.",
+    "arrivalHint" : "The front hall of the City Watch.",
     "containers" : [
 
     ],
     "defaultTerrain" : "stone",
-    "displayName" : "THE LAMPHOUSE",
+    "displayName" : "THE WATCH-HOUSE",
     "doors" : [
 
     ],

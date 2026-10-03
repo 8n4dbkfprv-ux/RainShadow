@@ -68,7 +68,7 @@ struct RebuiltCityAreaTests {
         let notes = EmptyCoatJournalContent.caseSections(inspectedHotspotIDs: ids)
             .flatMap(\.entries).filter { $0.id == "note.riverside.coat-stones" }
         #expect(notes.count == 1)
-        #expect(notes.first?.summary.contains("Lantern custody") == true)
+        #expect(notes.first?.summary.contains("handed Lillian's coat back") == true)
         #expect(!EmptyCoatJournalContent.chronologySections(inspectedHotspotIDs: ids)
             .flatMap(\.entries).contains { $0.id == "log.office" })
     }

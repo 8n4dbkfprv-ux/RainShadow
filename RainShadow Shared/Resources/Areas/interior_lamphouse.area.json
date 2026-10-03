@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "area": {
     "id": "RS0401",
-    "displayName": "THE LAMPHOUSE",
+    "displayName": "THE WATCH-HOUSE",
     "kind": "interior",
     "areaType": [],
-    "arrivalHint": "The hall of the Lantern Company.",
+    "arrivalHint": "The front hall of the City Watch.",
     "worldOrigin": {
       "x": 0,
       "y": 0

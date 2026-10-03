@@ -16,7 +16,7 @@
       "extendedNight",
       "outdoor"
     ],
-    "arrivalHint" : "The Lamphouse watches over the ward.",
+    "arrivalHint" : "The Watch-house keeps its eye on the ward.",
     "containers" : [
 
     ],
@@ -90,7 +90,7 @@
           0.26,
           1
         ],
-        "label" : "THE LAMPHOUSE",
+        "label" : "THE WATCH-HOUSE",
         "point" : {
           "x" : 2065,
           "y" : 1616
@@ -113,7 +113,7 @@
         "cursor" : "travel",
         "id" : "portal.lamphouseEntrance",
         "kind" : "travel",
-        "label" : "THE LAMPHOUSE",
+        "label" : "THE WATCH-HOUSE",
         "polygon" : [
           {
             "x" : 2171.8289,
