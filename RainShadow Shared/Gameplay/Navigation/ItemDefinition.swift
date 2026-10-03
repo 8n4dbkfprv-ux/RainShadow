@@ -1,5 +1,12 @@
 import Foundation
 
+/// The authored attack type, independent of the number of hands needed.
+/// A sling is ranged even though it only needs one hand.
+enum WeaponAttackType: String, Codable, Sendable {
+    case melee
+    case ranged
+}
+
 /// Per-item behaviour bits. The Infinity Engine packs these into the `ITM`
 /// header's flags dword (`itm_v1.htm` offset 0x0018) and into the per-stack flags
 /// on the creature's item entry (`cre_v1.htm` offset 0x0010); RainShadow splits
@@ -93,6 +100,9 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
     /// The quiet second line under the description strip.
     let note: String
     let flags: ItemFlags
+    /// Used for weapons only. Legacy catalogs default to melee, matching the
+    /// shipped shortsword; ranged weapons must explicitly author `ranged`.
+    let weaponAttackType: WeaponAttackType
     /// Defence this item contributes while worn. BG counts armour down from 10;
     /// RainShadow counts protection up, so a coat that turns a glancing blow adds.
     let defenceBonus: Int
@@ -115,6 +125,7 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
         unidentifiedDescription: String? = nil,
         note: String = "",
         flags: ItemFlags = [],
+        weaponAttackType: WeaponAttackType = .melee,
         defenceBonus: Int = 0,
         damageLow: Int? = nil,
         damageHigh: Int? = nil
@@ -133,6 +144,7 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
         self.unidentifiedDescription = unidentifiedDescription
         self.note = note
         self.flags = flags
+        self.weaponAttackType = weaponAttackType
         self.defenceBonus = defenceBonus
         self.damageLow = damageLow
         self.damageHigh = damageHigh
@@ -143,7 +155,7 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
         case id, identifiedName, unidentifiedName, category
         case weightOunces, valuePence, maxStack, loreToIdentify
         case iconArtName, groundArtName
-        case identifiedDescription, unidentifiedDescription, note, flags
+        case identifiedDescription, unidentifiedDescription, note, flags, weaponAttackType
         case defenceBonus, damageLow, damageHigh
     }
 
@@ -166,6 +178,7 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
             ),
             note: try c.decodeIfPresent(String.self, forKey: .note) ?? "",
             flags: try c.decodeIfPresent(ItemFlags.self, forKey: .flags) ?? [],
+            weaponAttackType: try c.decodeIfPresent(WeaponAttackType.self, forKey: .weaponAttackType) ?? .melee,
             defenceBonus: try c.decodeIfPresent(Int.self, forKey: .defenceBonus) ?? 0,
             damageLow: try c.decodeIfPresent(Int.self, forKey: .damageLow),
             damageHigh: try c.decodeIfPresent(Int.self, forKey: .damageHigh)
@@ -174,11 +187,10 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
 
     // MARK: - Derived
 
-    /// Slots this item can be equipped into, from its category. The engine derives
-    /// the same way; authoring a per-item slot list would only create a second
-    /// source of truth to disagree with the first.
+    /// Slots derived from category, attack type and handedness. Uses the same
+    /// rule as equipment moves so presentation cannot offer an illegal slot.
     var equippableSlots: [EquipmentSlot] {
-        EquipmentSlot.allCases.filter { $0.accepts(category) }
+        EquipmentSlot.allCases.filter { $0.accepts(self) }
     }
 
     var isEquippable: Bool { !equippableSlots.isEmpty }

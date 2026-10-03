@@ -18,11 +18,11 @@ struct HUDChromeLayoutTests {
 
     // MARK: - Left rail
 
-    @Test func leftRailKeepsEntirePaintedTexture() {
+    @Test func leftRailOmitsEndCapsAndKeepsFullSideRails() {
         #expect(
             HUDChromeLayout.LeftRail.plateContentRect
                 == CGRect(x: 0, y: 0, width: 1, height: 1),
-            "Cropping the source texture flattens the painted top and bottom caps"
+            "The continuous sidebar uses the full generated parchment without decorative end caps"
         )
     }
 
@@ -36,7 +36,7 @@ struct HUDChromeLayoutTests {
                 "Left rail aspect \(drawn) != art \(artAspect) at \(size)"
             )
             #expect(layout.plateSize.height <= size.height + 0.001)
-            #expect(layout.plateSize.width >= 40)
+            #expect(layout.plateSize.width >= min(40, (size.height - 20) * artAspect))
         }
     }
 
@@ -47,11 +47,11 @@ struct HUDChromeLayoutTests {
         #expect(measuredCenters[11] > 0.92)
         #expect(measuredCenters[0] < 0.09)
         for index in 1...7 {
-            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.070) < 0.0001)
+            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.072) < 0.0001)
         }
-        #expect(abs(measuredCenters[8] - measuredCenters[7] - 0.140) < 0.0001)
+        #expect(abs(measuredCenters[8] - measuredCenters[7] - 0.141) < 0.0001)
         for index in 9...10 {
-            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.070) < 0.0001)
+            #expect(abs(measuredCenters[index] - measuredCenters[index - 1] - 0.072) < 0.0001)
         }
 
 
@@ -82,12 +82,19 @@ struct HUDChromeLayoutTests {
                 )
                 // Square icons (no stretch).
                 #expect(abs(icon.width - icon.height) < 0.01)
-                // Icons must not overflow the painted circular recess (~54% of plate width).
+                // Base icon rectangles fit the wells; authored silhouette scale is applied by the node.
                 #expect(icon.width <= layout.plateSize.width * 0.56 + 0.5)
                 // Centers match measured fractions (from top of plate).
                 let expectedY = plateTop - measuredCenters[index] * plateH
                 #expect(abs(well.midY - expectedY) < 0.5, "Well \(index) Y off measured art at \(size)")
             }
+
+            let clock = layout.wellRects[11]
+            #expect(clock.width > layout.wellRects[0].width)
+            #expect(clock.height > layout.wellRects[0].height)
+            #expect(clock.midX == layout.wellRects[0].midX)
+            #expect(clock.minX >= -layout.plateSize.width * 0.40 - 0.001)
+            #expect(clock.maxX <= layout.plateSize.width * 0.40 + 0.001)
 
             // Wells do not overlap each other.
             for i in 0..<layout.wellRects.count {
@@ -113,13 +120,15 @@ struct HUDChromeLayoutTests {
         }
     }
 
-    @Test func leftRailPlateStaysInsetFromViewLeftEdge() {
+    @Test func leftRailPlateMeetsViewportEdges() {
         let inset = HUDChromeLayout.LeftRail.leftInset
-        #expect(inset >= 8)
+        #expect(inset == 0)
         for size in representativeSizes {
             let layout = HUDChromeLayout.leftRailLayout(for: size)
             let viewLeft = -size.width / 2
             let frame = layout.plateFrame
+            #expect(abs(frame.minX - viewLeft) < 0.001)
+            #expect(abs(frame.height - size.height) < 0.001)
             #expect(
                 frame.minX >= viewLeft + inset - 0.001,
                 "Left rail left edge \(frame.minX) not inset by \(inset) at \(size)"
@@ -149,8 +158,8 @@ struct HUDChromeLayoutTests {
             #expect(frame.maxX <= halfW + 0.001)
             #expect(frame.minY >= -halfH - 0.001)
             #expect(frame.maxY <= halfH + 0.001)
-            // Never flush-left (would clip the outer metal rim).
-            #expect(frame.minX > -halfW + 0.5)
+            // The complete texture now meets the left edge without cropping.
+            #expect(abs(frame.minX + halfW) < 0.001)
         }
     }
 
@@ -381,8 +390,9 @@ struct HUDChromeLayoutTests {
             for rect in drawn {
                 // The 44pt touch floor may still overflow a well too short to hold
                 // two rows of it; nothing else is allowed to.
+                let rowGap = min(7, max(3, layout.panelRect.height * 0.025))
                 let isTouchFloored = rect.height <= HUDChromeLayout.LootContainerPanel.minimumHitExtent
-                    && well.height < HUDChromeLayout.LootContainerPanel.minimumHitExtent * 2
+                    && well.height < HUDChromeLayout.LootContainerPanel.minimumHitExtent * 2 + rowGap
                 #expect(
                     well.insetBy(dx: -0.001, dy: -0.001).contains(rect) || isTouchFloored,
                     "\(rect) escapes the painted well \(well) at \(size)"

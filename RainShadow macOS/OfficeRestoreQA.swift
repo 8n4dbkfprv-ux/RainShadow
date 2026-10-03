@@ -64,6 +64,64 @@ import SpriteKit
             try check(office.area.containers.count == 6 && office.area.animations.count == 3, "Six containers and three fire animations installed")
             office.setZoomStep(CameraZoom.step(forPercent: 75))
             try capture(office, "startup_office")
+            // Exercise the replacement through the real actor, navigation,
+            // animation clock, tint/stencil layers and native world renderer.
+            func findClient(_ node: SKNode) -> ClientActorNode? {
+                if let client = node as? ClientActorNode { return client }
+                return node.children.lazy.compactMap { findClient($0) }.first
+            }
+            let lila = try { () throws -> ClientActorNode in
+                guard let client = findClient(office.depthWorldRoot) else {
+                    throw Failure(message: "Lila actor missing")
+                }
+                return client
+            }()
+            try check(Bundle.main.url(forResource: "avatar-v02", withExtension: "json",
+                                      subdirectory: LilaAnimationSet.character) != nil,
+                      "Current Lila is packaged in the application")
+            try LilaAnimationSet.validate(IEIndexedSprite.load(character: LilaAnimationSet.character, bundle: .main))
+            office.cutsceneSetMode(true, reason: .skipped)
+            office.cutsceneSuppressDialogue()
+            office.cutsceneSetDoor(.officeEntrance, open: true, reason: .skipped)
+            lila.performEntrance(along: OfficeNavigationLayout.clientArrivalRoute(in: office.navigation)) {}
+            var walkingFrames = Set<String>()
+            var capturedWalk = false
+            let lilaDeadline = ProcessInfo.processInfo.systemUptime + 30
+            while lila.isLocomoting {
+                guard ProcessInfo.processInfo.systemUptime < lilaDeadline else {
+                    throw Failure(message: "Lila entrance did not finish")
+                }
+                if let body = lila.children.compactMap({ $0 as? IEAvatarNode }).first,
+                   let frame = body.currentFrame?.id {
+                    guard frame.atlas == LilaAnimationSet.atlas else {
+                        throw Failure(message: "Lila entrance used a retired bundle")
+                    }
+                    walkingFrames.insert(frame.name)
+                }
+                if walkingFrames.count >= 5 && !capturedWalk {
+                    try capture(office, "lila_walking")
+                    capturedWalk = true
+                }
+                try await Task.sleep(for: .milliseconds(80))
+            }
+            try check(walkingFrames.count >= 5, "Lila advances through multiple authored walk phases")
+            try check(true, "Lila entrance uses the replacement bundle")
+            try await Task.sleep(for: .milliseconds(500))
+            let lilaBody = try { () throws -> IEAvatarNode in
+                guard let body = lila.children.compactMap({ $0 as? IEAvatarNode }).first else {
+                    throw Failure(message: "Lila sprite missing")
+                }
+                return body
+            }()
+            try check(lilaBody.currentFrame?.id?.atlas == LilaAnimationSet.atlas
+                      && lilaBody.currentFrame?.id?.name.hasPrefix("idle_ne_") == true
+                      && lilaBody.xScale > 0,
+                      "Lila finishes facing Voss northeast in an authored idle without mirroring")
+            try capture(office, "lila_idle")
+            lila.performExit(along: OfficeNavigationLayout.clientDepartureRoute(in: office.navigation)) {}
+            try await waitUntil { lila.isHidden && !lila.isLocomoting }
+            try check(true, "Lila walks the departure route and completes the exit fade")
+            office.cutsceneSetMode(false, reason: .skipped)
             context.session.markOfficeCaseIntroCompleted()
             context.router.travel(to: HarborpointAreas.sableRow, entrance: "from.office")
             try await waitUntil { (view.scene as? GameAreaScene)?.area.id == HarborpointAreas.sableRow && !context.router.isTransitioning }

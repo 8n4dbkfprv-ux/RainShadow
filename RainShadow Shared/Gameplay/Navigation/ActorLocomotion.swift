@@ -9,7 +9,12 @@ enum ClientDepartureFacing: Equatable, Sendable {
 
     /// Map a path segment heading to the authored departure strip without mirroring.
     static func bin(dx: CGFloat, dy: CGFloat) -> ClientDepartureFacing {
-        switch ActorFacing.orient(dx: dx, dy: dy) {
+        bin(facing: ActorFacing.orient(dx: dx, dy: dy))
+    }
+
+    /// Runtime selection uses Movable's stored node orientation, never look-ahead.
+    static func bin(facing: ActorFacing) -> ClientDepartureFacing {
+        switch facing {
         case .northWest, .northNorthWest, .westNorthWest, .west, .westSouthWest, .north:
             return .northWest
         default:

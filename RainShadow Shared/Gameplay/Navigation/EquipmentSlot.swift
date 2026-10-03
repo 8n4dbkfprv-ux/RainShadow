@@ -12,6 +12,7 @@ import Foundation
 /// identifiers, and the JSON catalog keys off the `CodingKey` names instead.
 enum ItemCategory: String, Codable, Sendable, CaseIterable {
     case weapon = "SERVICE WEAPON"
+    case shield = "SHIELD"
     case evidence = "EVIDENCE"
     case tool = "FIELD TOOL"
     case personal = "PERSONAL EFFECT"
@@ -97,8 +98,8 @@ enum EquipmentSlot: String, Codable, Sendable, CaseIterable, Hashable {
         }
     }
 
-    /// The categories this slot will take. One category, one home — except the
-    /// weapon and quick-item banks, which are interchangeable in the engine too.
+    /// Broad category filter. Use `accepts(_ item:)` for equipment decisions:
+    /// the off-hand also checks the weapon's attack type and handedness.
     var acceptedCategories: Set<ItemCategory> {
         switch self {
         case .fedora: [.headwear]
@@ -109,7 +110,8 @@ enum EquipmentSlot: String, Codable, Sendable, CaseIterable, Hashable {
         case .cloak: [.overcoat]
         case .charm: [.charm]
         case .ringLeft, .ringRight: [.ring]
-        case .holster, .weapon1, .weapon2, .weapon3, .weapon4: [.weapon]
+        case .holster: [.shield, .weapon]
+        case .weapon1, .weapon2, .weapon3, .weapon4: [.weapon]
         case .quiver1, .quiver2, .quiver3: [.ammunition]
         case .quickItem1, .quickItem2, .quickItem3: [.tool, .personal, .document]
         }
@@ -117,6 +119,14 @@ enum EquipmentSlot: String, Codable, Sendable, CaseIterable, Hashable {
 
     func accepts(_ category: ItemCategory) -> Bool {
         acceptedCategories.contains(category)
+    }
+
+    /// BG II / BG:EE's shield slot also takes one-handed melee weapons.
+    /// Category alone cannot distinguish a shortsword from a bow or a sling.
+    func accepts(_ item: ItemDefinition) -> Bool {
+        guard accepts(item.category) else { return false }
+        guard self == .holster, item.category == .weapon else { return true }
+        return item.weaponAttackType == .melee && !item.flags.contains(.twoHanded)
     }
 
     /// The four ready-weapon slots, in bar order.

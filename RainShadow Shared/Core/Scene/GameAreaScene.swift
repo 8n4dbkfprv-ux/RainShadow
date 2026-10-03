@@ -246,7 +246,7 @@ class GameAreaScene: BaseGameScene {
         updateAreaPlatePaging()
         // GlobalTimer::Freeze never executes area scripts. Keep lighting and
         // paging alive while the simulation is frozen.
-        areaTickPending = areaLogicClock.advance(at: currentTime, paused: pause.isPaused || context.router.isTransitioning)
+        areaTickPending = areaLogicClock.advance(at: currentTime, paused: pause.isPaused || cutsceneDirector.freezesWorld || context.router.isTransitioning)
         if areaTickPending && areaLogicClock.pollsScript {
             tickAreaScript(inside: triggerTracker.insideIDs)
         }
@@ -261,7 +261,7 @@ class GameAreaScene: BaseGameScene {
     func finishAreaTick(at point: CGPoint) {
         guard areaTickPending else { return }
         areaTickPending = false
-        guard !pause.isPaused, !context.router.isTransitioning else { return }
+        guard !pause.isPaused, !cutsceneDirector.freezesWorld, !context.router.isTransitioning else { return }
         tickProximityTriggers(at: point)
     }
 

@@ -163,7 +163,7 @@ final class SceneRouter {
     /// An unroutable area is an authoring error rather than a runtime condition;
     /// `AreaCatalogTests` already rejects a travel region pointing at an area
     /// that is not in the catalog.
-    func travel(to areaID: AreaID, entrance: String = AreaEntrance.defaultName) {
+    func travel(to areaID: AreaID, entrance: String = AreaEntrance.defaultName, animated: Bool = true) {
         guard !isTransitioning else { return }
         guard let kind = AreaSceneKind(areaID) else {
             assertionFailure("SceneRouter has no scene for area '\(areaID)'")
@@ -189,6 +189,13 @@ final class SceneRouter {
         #endif
         }
 
+        // Cinematics already author FadeToColor; do not add an independent
+        // SpriteKit crossfade over their engine-timed black transition.
+        guard animated else {
+            present(kind, transition: nil)
+            isTransitioning = false
+            return
+        }
         let duration = kind.transitionDuration
         let transition = SKTransition.crossFade(withDuration: duration)
         transition.pausesOutgoingScene = false

@@ -246,13 +246,17 @@ enum HarborpointItems {
         catalog.definition(for: id)
     }
 
-    /// The six items the case bag starts with, in painted order.
-    static let starterItemIDs = [
-        "lantern-shortsword",
-        "case-notes",
-        "brass-key",
-        "dark-lantern",
-        "coin-purse",
-        "tobacco-tin"
-    ]
+    /// The current starting equipment, carried until the player equips it.
+    static let starterItemIDs = ["lantern-shortsword", "iron-helmet", "splint-mail"]
+
+    static let armorKitItemIDs = ["iron-helmet", "splint-mail"]
+
+    /// One-time addition for existing saves. Items already carried, worn,
+    /// dropped or returned to a container must not be duplicated.
+    static func armorKitGrant(
+        hasReceived: Bool, existingIDs: Set<String>, availableSlots: Int = 16
+    ) -> [String] {
+        guard !hasReceived else { return [] }
+        return Array(armorKitItemIDs.filter { !existingIDs.contains($0) }.prefix(max(0, availableSlots)))
+    }
 }

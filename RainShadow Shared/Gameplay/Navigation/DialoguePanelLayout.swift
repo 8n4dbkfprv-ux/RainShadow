@@ -218,7 +218,7 @@ struct DialoguePanelLayout: Equatable {
     /// The body has its own crop; kept modest so three choices can claim the well.
     static let minBodyViewportHeight: CGFloat = 60
     /// Clear breathing room between Lila's body copy and its compact inline scrollbar.
-    /// Palatino glyphs can overhang their measured advance slightly, so this includes
+    /// Serif glyphs can overhang their measured advance slightly, so this includes
     /// enough safety space to remain visibly separate at large display scales.
     static let inlineBodyScrollbarGap: CGFloat = 24
     /// Extra headroom per choice when estimating multi-line options before measure.

@@ -193,7 +193,7 @@ struct ItemStackLimits: Sendable {
 /// kit; `reservedSlotCount` lets that kit consume real slots without persisting
 /// duplicate copies of those static presentation entries into every save.
 struct CarriedInventoryState: Hashable, Sendable {
-    static let defaultTotalSlotCapacity = 16
+    static let defaultTotalSlotCapacity = 32
 
     let totalSlotCapacity: Int
     let reservedSlotCount: Int

@@ -3,14 +3,12 @@ import Foundation
 /// Fixed-rate logic clock matching the Infinity Engine's game tick.
 ///
 /// BG:EE runs gameplay logic on a fixed 15 Hz tick (GemRB `Interface.h`,
-/// `defaultTicksPerSec = 15`). Both halves of locomotion advance exactly one
-/// step per tick: `Movable::DoStep` emits one displacement, and the creature
-/// animation advances one frame. That coupling is the structural reason the BG
-/// gait never desynchronises from travel — there is no separate animation
-/// timer to drift against.
+/// `defaultTicksPerSec = 15`). `Movable::DoStep` spends these ticks on root
+/// motion. Creature animation has a separate draw-time clock: see
+/// `IEActorAnimation` and GemRB `Actor::AdvanceAnimations`.
 ///
 /// Wall-clock delta accumulates here and is drained in whole ticks so the
-/// render frame rate never leaks into movement or the walk cycle.
+/// render frame rate never leaks into movement.
 struct LogicTickClock {
     /// One Infinity Engine game tick.
     static let ticksPerSecond: TimeInterval = 15

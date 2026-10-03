@@ -106,7 +106,7 @@ struct MovementProfile: Equatable, Sendable {
     /// Haste, as BG applies it: double the rate.
     ///
     /// Worth knowing before using it — because movement and the walk cycle share
-    /// one 15 Hz tick, a rate multiplier makes the feet slide. That is not a bug
+    /// nominal 15 Hz rates on separate clocks, a rate multiplier makes the feet slide. That is not a bug
     /// here; it is what BG does too.
     func hastened(_ multiplier: CGFloat = 2) -> MovementProfile {
         var copy = self

@@ -88,6 +88,12 @@ records the "do not re-bake a city area" rule in the meantime.
 
 ## 3. Search is synchronous, and GemRB stopped being synchronous for a reason
 
+**September 29 update:** the unconditional 0.75-second corrective-repath timer
+mentioned below has been removed. Player replanning now follows the pinned
+`Map::UpdateScripts` collision triggers; see [the source comparison](MovementControlsSep29.md).
+Search remains synchronous, so the crowd-cost concern still applies, but the
+old timer description below is historical.
+
 **What is true.** A district-crossing search is ~23 ms in Release and ~4 s in a
 `-Onone` build. The engine's 15-second wall-clock guard is the only bound. The
 navmap-space line walk that `isWalkableTo` needs samples every cell a Theta\*

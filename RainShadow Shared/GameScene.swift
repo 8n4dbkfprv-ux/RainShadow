@@ -16,7 +16,7 @@ final class GameScene: SKScene {
         scene.scaleMode = .aspectFill
         scene.backgroundColor = .black
         let label = SKLabelNode(text: "RainShadow")
-        label.fontName = "AvenirNext-DemiBold"
+        label.fontName = UITheme.Font.overlayBodyBold
         label.fontSize = 72
         label.position = CGPoint(x: 960, y: 520)
         scene.addChild(label)

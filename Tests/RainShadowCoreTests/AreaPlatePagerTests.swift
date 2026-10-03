@@ -89,11 +89,11 @@ struct AreaPlatePagerTests {
         let world = CGRect(x: 0, y: 0, width: 3_072, height: 1_728)
         let framing = [
             (CutsceneCatalog.OpeningExteriorFraming.streetLevel,
-             CutsceneCatalog.OpeningExteriorFraming.openingScale),
+             CGFloat(1)),
             (CutsceneCatalog.OpeningExteriorFraming.buildingWide,
-             CutsceneCatalog.OpeningExteriorFraming.approachScale),
+             CGFloat(1)),
             (CutsceneCatalog.OpeningExteriorFraming.officeWindow,
-             CutsceneCatalog.OpeningExteriorFraming.arrivalScale)
+             CGFloat(1))
         ]
         for aspect: CGFloat in [4.0 / 3.0, 16.0 / 9.0, 21.0 / 9.0] {
             for (position, scale) in framing {

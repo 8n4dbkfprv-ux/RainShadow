@@ -1,7 +1,6 @@
 import CoreGraphics
 import Foundation
 
-/// One cue addressed to one subject — what the director is being told to do.
 struct CutsceneCommand: Equatable, Sendable {
     let subject: CutsceneSubject
     let cue: CutsceneCue
@@ -12,200 +11,245 @@ struct CutsceneCommand: Equatable, Sendable {
     }
 }
 
-/// The result of advancing the runner: cues to start now, plus the completion
-/// reason on the one step that ends the cutscene.
-///
-/// Carrying the reason *in the step* is what removes the shipped
-/// `cutsceneBreakRequested` / `effectiveReason(_:)` latch. Locomotion could never
-/// know why it stopped, so the scene had to set a flag, snap the actor, and read
-/// the flag back out on the way through the terminal path
-/// (`CinematicSystemRoadmap` §6, "Known seam"). The runner knows, because the
-/// runner is the thing that was asked.
 struct CutsceneStep: Equatable, Sendable {
     let commands: [CutsceneCommand]
-    /// Non-nil exactly once per run, on the step that completed it.
     let completion: CutsceneCompletionReason?
-
     static let none = CutsceneStep(commands: [], completion: nil)
-
     var isEmpty: Bool { commands.isEmpty && completion == nil }
 }
 
-/// Plays a `Cutscene`: parallel tracks, sequential cues, single-fire completion.
-///
-/// Pure — no SpriteKit, no wall clock, no world access. It is advanced in whole
-/// logic ticks and told when open-ended cues finish, which makes an entire
-/// cutscene's timing testable without a render loop. Same split as
-/// `DialogueSession` (pure graph walk) and `DialoguePresenter` (the SpriteKit half).
+/// Action queues modelled on GemRB 1c45c185 GameScript::EvaluateAllBlocks,
+/// ExecuteAction/HandleActionOverride and Scriptable::ProcessActions.
+/// See CinematicParityAuditOct02.md for the quoted upstream comparisons.
 struct CutsceneRunner: Equatable, Sendable {
-
-    /// What a track is waiting on before it may start its next cue.
-    private enum TrackWait: Equatable, Sendable {
-        /// Free to start the next cue on this pump.
-        case ready
-        /// Timed cue in flight; ready once `tick` reaches this deadline.
-        case until(Int)
-        /// Open-ended cue in flight; ready when the director reports completion.
-        case reporting
-        /// Cues exhausted.
-        case done
+    private struct Entry: Equatable, Sendable {
+        let cue: CutsceneCue
+        let overridden: Bool
+    }
+    private enum Wait: Equatable, Sendable {
+        case ready, reporting, until(Int), animation(until: Int)
+    }
+    private struct Queue: Equatable, Sendable {
+        let subject: CutsceneSubject
+        var pending: [Entry] = []
+        var active: Entry?
+        var wait: Wait = .ready
+        var isEmpty: Bool { pending.isEmpty && active == nil }
     }
 
     private(set) var gate = BreakableCutsceneGate()
     private(set) var cutscene: Cutscene?
-
-    /// Next cue index per track.
-    private var cursors: [Int] = []
-    /// Index of the cue currently occupying each track, if any. A skip must
-    /// re-apply it in terminal form — a half-walked path still owes its endpoint.
-    private var inFlight: [Int?] = []
-    private var waits: [TrackWait] = []
+    private var queues: [Queue] = []
     private var tick = 0
+    private var actionTick = 0
+    private(set) var fade = CutsceneFadeTimer()
 
-    init() {}
+    var isPlaying: Bool { gate.isActive }
+    var wasBroken: Bool { gate.wasBroken }
+    var elapsedTicks: Int { tick }
+    var isFading: Bool { fade.isFading }
 
-    // MARK: - Lifecycle
-
-    /// Arms `cutscene` and returns everything that starts on tick zero.
-    ///
-    /// BG's `ClearAllActions()` before `StartCutSceneMode()` is the director's
-    /// job — the runner has no world to clear.
     mutating func begin(_ cutscene: Cutscene, at now: TimeInterval) -> CutsceneStep {
-        assert(
-            Set(cutscene.tracks.map(\.subject)).count == cutscene.tracks.count,
-            "Cutscene \"\(cutscene.id)\" has two tracks for one subject. In BG that "
-                + "serialises them onto a single action list; here it is an authoring error — "
-                + "merge the cues into one track so their order is explicit."
-        )
+        reset()
         self.cutscene = cutscene
-        cursors = Array(repeating: 0, count: cutscene.tracks.count)
-        inFlight = Array(repeating: nil, count: cutscene.tracks.count)
-        waits = Array(repeating: .ready, count: cutscene.tracks.count)
-        tick = 0
-        gate.begin(at: now, graceSeconds: cutscene.graceSeconds, breakable: cutscene.isBreakable)
+        // Repeated CutSceneId blocks append to the same actor queue in script order.
+        for track in cutscene.tracks {
+            let index = queueIndex(for: track.subject)
+            queues[index].pending += track.cues.map { Entry(cue: $0, overridden: false) }
+        }
+        gate.begin(at: now, breakable: cutscene.isBreakable)
         return pump()
     }
 
-    /// Advances the clock by whole logic ticks and starts whatever came due.
     mutating func advance(ticks: Int) -> CutsceneStep {
-        guard gate.isActive, ticks > 0 else { return .none }
-        tick += ticks
-        for index in waits.indices where isDue(waits[index]) {
-            waits[index] = .ready
-            inFlight[index] = nil
+        guard ticks > 0 else { return .none }
+        var commands: [CutsceneCommand] = []
+        var completion: CutsceneCompletionReason?
+        // Never discard intermediate deadlines during a multi-tick render frame.
+        for _ in 0..<ticks {
+            fade.advance()
+            guard isPlaying else { continue }
+            tick += 1
+            if isFading { continue }
+            // GlobalTimer tests IsFading after DoFadeStep; scripts resume on
+            // the update that completes the fade, not one update later.
+            actionTick += 1
+            for index in queues.indices {
+                switch queues[index].wait {
+                case .until(let deadline), .animation(let deadline):
+                    if actionTick >= deadline {
+                        queues[index].active = nil
+                        queues[index].wait = .ready
+                    }
+                default: break
+                }
+            }
+            let step = pump()
+            commands += step.commands
+            completion = step.completion
         }
-        return pump()
+        return CutsceneStep(commands: commands, completion: completion)
     }
 
-    /// Reports that an open-ended cue (locomotion, a camera scroll, standing up)
-    /// finished. BG's `MoveToPoint` blocks the same way.
     mutating func noteCompleted(_ subject: CutsceneSubject) -> CutsceneStep {
-        guard gate.isActive, let index = trackIndex(for: subject), waits[index] == .reporting else {
-            return .none
-        }
-        waits[index] = .ready
-        inFlight[index] = nil
+        guard isPlaying, let index = queues.firstIndex(where: { $0.subject == subject }),
+              queues[index].wait == .reporting else { return .none }
+        queues[index].active = nil
+        queues[index].wait = .ready
         return pump()
     }
 
-    /// BG:EE `SetCutSceneBreakable` + ESC: is a skip allowed right now?
-    func canSkip(at now: TimeInterval) -> Bool {
-        gate.canSkip(at: now)
+    mutating func noteAnimationCompleted(_ subject: CutsceneSubject, sequence: CutsceneSequence) -> CutsceneStep {
+        guard isPlaying, let index = queues.firstIndex(where: { $0.subject == subject }),
+              queues[index].active?.cue == .waitAnimation(sequence) else { return .none }
+        queues[index].active = nil
+        queues[index].wait = .ready
+        return pump()
     }
 
-    /// Breaks the cutscene, emitting every cue that has not finished — the
-    /// in-flight one included — in zero-duration terminal form.
-    ///
-    /// This is the whole safety argument. The skip path is not a second
-    /// implementation of the ending that has to be kept in sync with the first;
-    /// it is the *same cue list*, played at zero duration. A cue added to a
-    /// cutscene is covered by skip the moment it is authored.
+    func canSkip(at now: TimeInterval) -> Bool { gate.canSkip(at: now) }
+
     mutating func skip(at now: TimeInterval) -> CutsceneStep {
         guard let cutscene, gate.canSkip(at: now) else { return .none }
-        var commands: [CutsceneCommand] = []
-        for (index, track) in cutscene.tracks.enumerated() {
-            if let flying = inFlight[index] {
-                commands.append(CutsceneCommand(track.subject, track.cues[flying].terminal))
+        gate.markBroken()
+        // Escape interrupts the current actions; it does not execute their tails.
+        // The area script's CutSceneBroken failsafe is a new set of normal queues.
+        var commands = [CutsceneCommand(.world, .setCutsceneMode(false))]
+        for queue in queues {
+            if case .actor = queue.subject {
+                commands.append(CutsceneCommand(queue.subject, .clearActions))
             }
-            for cue in track.cues[cursors[index]...] {
-                commands.append(CutsceneCommand(track.subject, cue.terminal))
-            }
-            cursors[index] = track.cues.count
-            inFlight[index] = nil
-            waits[index] = .done
         }
-        guard gate.markCompleted(reason: .skipped) else { return .none }
-        return CutsceneStep(commands: commands, completion: .skipped)
+        queues = []
+        for track in cutscene.skipTracks ?? [] {
+            let index = queueIndex(for: track.subject)
+            queues[index].pending += track.cues.map { Entry(cue: $0, overridden: false) }
+        }
+        let recovery = pump()
+        commands += recovery.commands
+        return CutsceneStep(commands: commands, completion: recovery.completion)
     }
 
-    /// Drops all state. A scene torn down mid-cutscene must not leave a gate armed.
     mutating func reset() {
         gate.reset()
         cutscene = nil
-        cursors = []
-        inFlight = []
-        waits = []
+        queues = []
         tick = 0
+        actionTick = 0
+        fade.clear()
     }
 
-    // MARK: - Introspection
-
-    var isPlaying: Bool { gate.isActive }
-    /// BG:EE `CutSceneBroken()`.
-    var wasBroken: Bool { gate.wasBroken }
-    var elapsedTicks: Int { tick }
-
-    // MARK: - Internals
-
-    private func isDue(_ wait: TrackWait) -> Bool {
-        if case .until(let deadline) = wait { return tick >= deadline }
-        return false
+    private mutating func queueIndex(for subject: CutsceneSubject) -> Int {
+        if let index = queues.firstIndex(where: { $0.subject == subject }) { return index }
+        queues.append(Queue(subject: subject))
+        return queues.count - 1
     }
 
-    private func trackIndex(for subject: CutsceneSubject) -> Int? {
-        cutscene?.tracks.firstIndex { $0.subject == subject }
-    }
-
-    /// Starts every cue that can start now, repeating so a run of instant cues
-    /// lands in one step. BG queues them into the same AI update; so do we.
     private mutating func pump() -> CutsceneStep {
-        guard let cutscene, gate.isActive else { return .none }
+        guard isPlaying, !isFading else { return .none }
         var commands: [CutsceneCommand] = []
-
         var progressed = true
-        while progressed {
+        while progressed && !isFading {
             progressed = false
-            for (index, track) in cutscene.tracks.enumerated() where waits[index] == .ready {
-                guard cursors[index] < track.cues.count else {
-                    waits[index] = .done
+            // Index loop admits actors introduced by ActionOverride in this pump.
+            var index = 0
+            while index < queues.count && !isFading {
+                guard queues[index].wait == .ready, !queues[index].pending.isEmpty else {
+                    index += 1
                     continue
                 }
-                let cueIndex = cursors[index]
-                let cue = track.cues[cueIndex]
-                cursors[index] += 1
-                commands.append(CutsceneCommand(track.subject, cue))
+                let entry = queues[index].pending.removeFirst()
+                let subject = queues[index].subject
                 progressed = true
-
-                if cue.isOpenEnded {
-                    inFlight[index] = cueIndex
-                    waits[index] = .reporting
-                } else {
-                    let ticks = cue.duration.ticks
-                    if ticks > 0 {
-                        inFlight[index] = cueIndex
-                        waits[index] = .until(tick + ticks)
-                    } else {
-                        inFlight[index] = nil
-                        waits[index] = .ready
+                if case .actionOverride(let actor, let cue) = entry.cue {
+                    let target = queueIndex(for: .actor(actor))
+                    queues[target].pending.removeAll { !$0.overridden }
+                    if queues[target].active?.overridden != true {
+                        queues[target].active = nil
+                        queues[target].wait = .ready
+                        commands.append(CutsceneCommand(.actor(actor), .clearActions))
                     }
+                    queues[target].pending.append(Entry(cue: cue, overridden: true))
+                    continue
+                }
+                commands.append(CutsceneCommand(subject, entry.cue))
+                if case .setCutsceneBreakable(let enabled) = entry.cue {
+                    gate.isBreakable = enabled
+                }
+                if case .fadeToColor(_, let duration) = entry.cue {
+                    fade.fadeTo(ticks: duration.ticks)
+                } else if case .fadeFromColor(_, let duration) = entry.cue {
+                    fade.fadeFrom(ticks: duration.ticks)
+                } else if case .waitAnimation = entry.cue {
+                    queues[index].active = entry
+                    // WaitAnimation releases once int1Parameter > round_size (90).
+                    queues[index].wait = .animation(until: actionTick + 91)
+                } else if entry.cue.isOpenEnded {
+                    queues[index].active = entry
+                    queues[index].wait = .reporting
+                } else if entry.cue.duration.ticks > 0 {
+                    queues[index].active = entry
+                    queues[index].wait = .until(actionTick + entry.cue.duration.ticks)
                 }
             }
         }
+        let finished = !isFading && queues.allSatisfy(\.isEmpty)
+        let reason: CutsceneCompletionReason = gate.wasBroken ? .skipped : .natural
+        let completion: CutsceneCompletionReason? = finished && gate.markCompleted(reason: reason) ? reason : nil
+        return CutsceneStep(commands: commands, completion: completion)
+    }
+}
 
-        let finished = waits.allSatisfy { $0 == .done }
-        guard finished, gate.markCompleted(reason: .natural) else {
-            return CutsceneStep(commands: commands, completion: nil)
+/// GemRB 1c45c185 GlobalTimer::{SetFadeToColor, SetFadeFromColor, DoFadeStep}.
+/// BG2 gametime.2da: FADE_DEFAULT 20, FADE_RESET 150. All calls advance one tick,
+/// avoiding the upstream multi-tick FadeFrom overshoot. Alpha truncates to a byte.
+struct CutsceneFadeTimer: Equatable, Sendable {
+    private(set) var alpha = 0
+    private(set) var lastDuration = 20
+    private var toCounter = 0
+    private var toMaximum = 0
+    private var fromCounter = 0
+    private var fromMaximum = 0
+    private var fallback = 0
+
+    var isFading: Bool { toCounter != 0 || fromCounter != fromMaximum }
+
+    mutating func fadeTo(ticks: Int) {
+        if ticks > 0 { lastDuration = ticks }
+        toCounter = lastDuration
+        toMaximum = toCounter
+        fallback = 150
+        fromCounter = 0
+        fromMaximum = 0
+    }
+
+    mutating func fadeFrom(ticks: Int) {
+        if ticks > 0 { lastDuration = ticks }
+        fallback = 0
+        fromCounter = 0
+        fromMaximum = lastDuration
+    }
+
+    mutating func advance() {
+        if fallback > 0 {
+            fallback -= 1
+            if fallback == 0 { alpha = 0; return }
         }
-        return CutsceneStep(commands: commands, completion: .natural)
+        if toCounter > 0 {
+            if fallback > 0 { fallback += 1 }
+            toCounter -= 1
+            alpha = Int(255 * (Double(toMaximum - toCounter) / Double(toMaximum)))
+        } else if fromCounter != fromMaximum {
+            fromCounter += fromCounter > fromMaximum ? -1 : 1
+            alpha = Int(255 * (Double(fromMaximum - fromCounter) / Double(fromMaximum)))
+        }
+    }
+
+    /// A scene teardown clears its overlay, but zero-duration fades still reuse
+    /// the last duration when a new sequence starts in the same scene.
+    mutating func clear() {
+        let duration = lastDuration
+        self = Self()
+        lastDuration = duration
     }
 }

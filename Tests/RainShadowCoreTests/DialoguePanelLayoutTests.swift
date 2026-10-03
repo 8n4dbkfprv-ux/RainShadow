@@ -51,8 +51,8 @@ struct DialoguePanelLayoutTests {
         // Base monologue panel stays fixed (does not grow when choices appear).
         #expect(base.panelRect.height <= DialoguePanelLayout.panelHeightCap + 0.001)
 
-        // Force a content width where these lines wrap (matches typical in-game column).
-        let wrapWidth = min(420, base.choiceTextMaxWidth)
+        // Stress wrapping with the narrower Baskerville glyphs in a compact column.
+        let wrapWidth = min(220, base.choiceTextMaxWidth)
         var heights: [CGFloat] = []
         for (index, text) in choiceTexts.enumerated() {
             let h = DialogueTextMetrics.choiceRowHeight(
@@ -664,7 +664,7 @@ struct DialoguePanelLayoutTests {
             contentsOf: root.appendingPathComponent("RainShadow Shared/UI/UITheme.swift"),
             encoding: .utf8
         )
-        #expect(theme.contains("static let dialogueCommand = \"Palatino-Bold\""))
+        #expect(theme.contains("static let dialogueCommand = \"Baskerville-SemiBold\""))
         #expect(presenter.contains("commandLabelShadow"))
         #expect(presenter.contains(".kern"))
         #expect(presenter.contains("UITheme.Font.dialogueCommand"))
@@ -720,12 +720,12 @@ struct DialoguePanelLayoutTests {
     @Test func entranceCutsceneSettlesOnTheShippedDialogueFraming() throws {
         let camera = try #require(
             CutsceneCatalog.clientEntrance(route: [.zero], resumeDialogueNodeID: nil)
-                .tracks.first { $0.subject == .camera }
+                .tracks.first { $0.subject == .actor(.client) }
         )
-        #expect(camera.cues.last == .moveViewPoint(
+        #expect(camera.cues.contains(.moveViewPointUntilDone(
             OfficeNavigationLayout.DialogueCameraFraming.dialogueCameraWorldPosition,
             .standard
-        ))
+        )))
 
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()

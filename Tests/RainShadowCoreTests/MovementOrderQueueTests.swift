@@ -82,20 +82,57 @@ struct MovementOrderQueueTests {
         let queue = Self.queue(map)
         var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
 
-        #expect(queue.order(&walker, to: CGPoint(x: 160, y: 40), ticks: 1) == .refused)
+        #expect(queue.order(&walker, to: CGPoint(x: 160, y: 40), ticks: 1) == .blocked)
         #expect(!walker.isMoving)
     }
 
-    @Test func aRefusedOrderDiscardsTheRouteItReplaced() {
+    @Test func aBlockedClickPreservesTheActiveRoute() {
         let map = Self.room(wall: true)
         let queue = Self.queue(map)
         var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
 
         #expect(queue.order(&walker, to: CGPoint(x: 60, y: 200), ticks: 1) == .walk)
         #expect(walker.isMoving)
-        #expect(queue.order(&walker, to: CGPoint(x: 160, y: 40), ticks: 4) == .refused)
+        #expect(queue.order(&walker, to: CGPoint(x: 100, y: 200), queueWaypoint: true, ticks: 4) == .append)
+        let path = walker.remainingPoints
+        let waypoints = walker.pendingWaypoints
+        let destination = walker.destination
+        #expect(queue.order(&walker, to: CGPoint(x: 160, y: 40), queueWaypoint: true, ticks: 5) == .blocked)
+        #expect(walker.isMoving)
+        #expect(walker.remainingPoints == path)
+        #expect(walker.pendingWaypoints == waypoints)
+        #expect(walker.destination == destination)
+    }
+
+    @Test func replacementOrdersAtTheSamePausedTickUseTheLatestDestination() {
+        let map = Self.room()
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        for target in [CGPoint(x: 200, y: 20), CGPoint(x: 200, y: 200), CGPoint(x: 40, y: 200)] {
+            #expect(queue.order(&walker, to: target, ticks: 100) == .walk)
+            #expect(walker.destination == target)
+        }
+    }
+
+    @Test func unreachableReplacementCannotKeepWalkingThePreviousRoute() {
+        let map = MovableTestSupport.openMap(obstacles: [CGRect(x: 150, y: 0, width: 20, height: 480)])
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        #expect(queue.order(&walker, to: CGPoint(x: 40, y: 200), ticks: 1) == .walk)
+        #expect(queue.order(&walker, to: CGPoint(x: 200, y: 200), ticks: 1) == .refused)
+        #expect(!walker.hasPath)
         #expect(!walker.isMoving)
-        #expect(walker.pendingWaypoints.isEmpty)
+    }
+
+    @Test func shiftClickInTheCurrentCellAppendsAReturnLeg() {
+        let map = Self.room()
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        queue.order(&walker, to: CGPoint(x: 200, y: 20), ticks: 1)
+        #expect(queue.order(&walker, to: CGPoint(x: 21, y: 21), queueWaypoint: true, ticks: 1) == .append)
+        #expect(walker.isMoving)
+        #expect(walker.pendingWaypoints.count == 1)
+        #expect(walker.destination == CGPoint(x: 21, y: 21))
     }
 
     // MARK: - Waypoints
@@ -252,19 +289,63 @@ struct MovementOrderQueueTests {
 
     // MARK: - Corrective repathing
 
-    @Test func repathIsRateLimitedAndDoesNothingWhileStanding() {
+    @Test func emptyFloorNeverReplansAwayQueuedWaypoints() {
         let map = Self.room()
         let queue = Self.queue(map)
         var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        queue.order(&walker, to: CGPoint(x: 200, y: 20), ticks: 1)
+        let firstGoal = walker.remainingPoints.last!
+        queue.order(&walker, to: CGPoint(x: 200, y: 200), queueWaypoint: true, ticks: 4)
+        var visitedFirstGoal = false
+        var arrived = false
+        for tick in 5..<200 {
+            #expect(queue.prepareStep(&walker, ticks: tick, walkScale: MovableTestSupport.humanoidWalkScale) == .advance)
+            let step = walker.doStep(walkScale: MovableTestSupport.humanoidWalkScale, time: tick)
+            visitedFirstGoal = visitedFirstGoal || walker.position == firstGoal
+            if step.arrived { arrived = true; break }
+        }
+        #expect(visitedFirstGoal)
+        #expect(arrived)
+    }
 
-        // Standing still: nothing to replan.
-        #expect(queue.correctiveRepath(&walker, at: 10, ticks: 1) == .keepWalking)
+    @Test func nearbyActorTriggersRepathButSelfAndDistantActorsDoNot() {
+        let map = Self.room()
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        queue.order(&walker, to: CGPoint(x: 200, y: 20), ticks: 1)
+        queue.order(&walker, to: CGPoint(x: 200, y: 200), queueWaypoint: true, ticks: 4)
+        for (id, position) in [("test.actor", walker.position), ("other", CGPoint(x: 300, y: 220))] {
+            map.occupancy.register(OccupyingActor(id: id, kind: .npc, position: position,
+                radius: 10, isBumpable: true, isMoving: false, personalSpaceCells: 2, blocksSearchMap: false))
+        }
+        #expect(queue.prepareStep(&walker, ticks: 10, walkScale: MovableTestSupport.humanoidWalkScale) == .advance)
+        #expect(walker.pendingWaypoints.count == 1)
+        // PersonalDistance subtracts (circleSize - 1) * 16; 18 - 16 == 2,
+        // exactly the humanoid animation-circle radius used by UpdateScripts.
+        map.occupancy.updatePosition(id: "other", to: CGPoint(x: 39, y: 20))
+        #expect(queue.prepareStep(&walker, ticks: 11, walkScale: MovableTestSupport.humanoidWalkScale) == .advance)
+        #expect(walker.pendingWaypoints.count == 1)
+        map.occupancy.updatePosition(id: "other", to: CGPoint(x: 38, y: 20))
+        #expect(queue.prepareStep(&walker, ticks: 12, walkScale: MovableTestSupport.humanoidWalkScale) == .advance)
+        #expect(walker.pendingWaypoints.isEmpty)
+    }
 
-        queue.order(&walker, to: CGPoint(x: 280, y: 200), ticks: 1)
-        // Due (the clock starts at zero), so the first call replans.
-        #expect(queue.correctiveRepath(&walker, at: 10, ticks: 20) == .replanned)
-        // Immediately after, it is not due again.
-        #expect(queue.correctiveRepath(&walker, at: 10.1, ticks: 40) == .keepWalking)
+    @Test func backoffExpiryReplansWithoutTakingAStepEvenOnEmptyFloor() {
+        let map = Self.room()
+        let queue = Self.queue(map)
+        var walker = Self.walker(map, at: CGPoint(x: 20, y: 20))
+        queue.order(&walker, to: CGPoint(x: 200, y: 20), ticks: 1)
+        queue.order(&walker, to: CGPoint(x: 200, y: 200), queueWaypoint: true, ticks: 4)
+        walker.backoff()
+        let ticksToWait = walker.randomBackoff
+        for offset in 0..<ticksToWait {
+            #expect(queue.prepareStep(&walker, ticks: 10 + offset, walkScale: MovableTestSupport.humanoidWalkScale) == .wait)
+            #expect(walker.position == CGPoint(x: 20, y: 20))
+            if offset < ticksToWait - 1 { #expect(walker.pendingWaypoints.count == 1) }
+        }
+        #expect(!walker.isBackingOff)
+        #expect(walker.pendingWaypoints.isEmpty)
+        #expect(queue.prepareStep(&walker, ticks: 10 + ticksToWait, walkScale: MovableTestSupport.humanoidWalkScale) == .advance)
     }
 
     /// `Actor::NewPath` rebuilds to `Destination`, which destroys intermediate
@@ -279,7 +360,7 @@ struct MovementOrderQueueTests {
         queue.order(&walker, to: CGPoint(x: 200, y: 200), queueWaypoint: true, ticks: 4)
         #expect(walker.pendingWaypoints.count == 1)
 
-        #expect(queue.correctiveRepath(&walker, at: 10, ticks: 40) == .replanned)
+        #expect(queue.correctiveRepath(&walker, ticks: 40) == .replanned)
         #expect(walker.pendingWaypoints.isEmpty)
         #expect(walker.destination == CGPoint(x: 200, y: 200))
     }
@@ -310,7 +391,7 @@ struct MovementOrderQueueTests {
         #expect(searchMap.cell(for: walker.position) == searchMap.cell(for: destination))
         #expect(walker.isMoving)
 
-        #expect(queue.correctiveRepath(&walker, at: 10, ticks: tick) == .keepWalking)
+        #expect(queue.correctiveRepath(&walker, ticks: tick) == .keepWalking)
         // The route survived: `DoStep` still has a leg to finish and can still
         // report arrival.
         #expect(walker.isMoving)
@@ -330,7 +411,7 @@ struct MovementOrderQueueTests {
         for _ in 0...(Movable.maxPathTries) { walker.debugCountFailedPathTry() }
         #expect(walker.hasExhaustedPathTries)
 
-        #expect(queue.correctiveRepath(&walker, at: 10, ticks: 40) == .abandon)
+        #expect(queue.correctiveRepath(&walker, ticks: 40) == .abandon)
         #expect(!walker.isMoving)
         #expect(!walker.hasExhaustedPathTries)
     }

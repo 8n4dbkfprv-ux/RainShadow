@@ -7,14 +7,15 @@ import Foundation
 /// The Infinity Engine's authoring model is two rules deep. A cutscene script
 /// runs its blocks *once*, top to bottom, instead of the re-evaluate-from-the-top
 /// loop ordinary BCS uses; and each block opens with `CutSceneId(Object)` naming
-/// whose action list the block queues onto. Blocks with different `CutSceneId`s
+/// whose action list the block queues onto. Repeated subjects append to one queue.
+/// Blocks with different `CutSceneId`s
 /// therefore play **simultaneously**, while the actions inside one block run in
-/// order and block each other. That is the whole concurrency model, and it is
+/// order, yielding only for blocking actions. That is the whole concurrency model, and it is
 /// what lets a BG cutscene say "the door falls *while* she walks in *while* he
 /// gets to his feet" without a single callback.
 ///
 /// `CutsceneTrack` is that block. Nothing here parses or evaluates IE script —
-/// per `CinematicSystemRoadmap` §5.6 the patterns are ported, the language is not.
+/// see `CinematicSystemRoadmap`: action semantics are ported, the language is not.
 struct Cutscene: Equatable, Sendable {
     /// Stable id, used for logging and for the played-once guards scenes own.
     let id: String
@@ -23,20 +24,20 @@ struct Cutscene: Equatable, Sendable {
     /// unskippable sequences. A non-breakable cutscene still single-fires its
     /// completion, it just refuses skip.
     let isBreakable: Bool
-    /// Seconds before a skip is accepted. The shipped exterior uses 1.0.
-    let graceSeconds: TimeInterval
     let tracks: [CutsceneTrack]
+    /// Authored EE-style failsafe. World-dependent recovery must be explicit.
+    let skipTracks: [CutsceneTrack]?
 
     init(
         id: String,
-        isBreakable: Bool = true,
-        graceSeconds: TimeInterval = BreakableCutsceneGate.defaultGraceSeconds,
-        tracks: [CutsceneTrack]
+        isBreakable: Bool = false,
+        tracks: [CutsceneTrack],
+        skipTracks: [CutsceneTrack]? = nil
     ) {
         self.id = id
         self.isBreakable = isBreakable
-        self.graceSeconds = graceSeconds
         self.tracks = tracks
+        self.skipTracks = skipTracks
     }
 }
 
@@ -52,22 +53,9 @@ struct CutsceneTrack: Equatable, Sendable {
     }
 }
 
-/// Who a track is addressing — the `CutSceneId` object.
-///
-/// `.camera`, `.chrome`, and `.world` are not creatures in BG; the engine drives
-/// them through whichever creature happens to hold the `CutSceneId`. Naming them
-/// as their own subjects is the one deliberate divergence: it means a camera rail
-/// and an actor walk cannot accidentally serialise behind each other, which in
-/// BG is a real authoring hazard.
+/// The Scriptable whose action queue receives the CutSceneId block. The
+/// opening uses the world script; office choreography uses the actual actors.
 enum CutsceneSubject: Hashable, Sendable {
-    /// Viewport position.
-    case camera
-    /// Viewport scale. Its own subject because BG has no zoom at all — the
-    /// Infinity Engine camera only ever pans — so a push and a pan share no
-    /// action in the engine and have no reason to serialise here. GDD §5.2
-    /// allows restrained scale changes; this is where they live.
-    case cameraZoom
-    case chrome
     case world
     case actor(CutsceneActorID)
 }
@@ -91,17 +79,16 @@ enum CutsceneBeat: Equatable, Sendable {
     /// BG `SmallWait(n)` — n AI updates.
     case ticks(Int)
     /// BG `Wait(n)` — n seconds.
-    case seconds(TimeInterval)
+    case seconds(Int)
 
-    /// The beat in whole logic ticks. Sub-tick durations round up to one tick so
-    /// an authored beat can never silently become a no-op.
+    /// Wait takes integer seconds; SmallWait takes integer engine updates.
     var ticks: Int {
         switch self {
         case .ticks(let count):
             return max(0, count)
         case .seconds(let seconds):
             guard seconds > 0 else { return 0 }
-            return max(1, Int((seconds * LogicTickClock.ticksPerSecond).rounded()))
+            return seconds * Int(LogicTickClock.ticksPerSecond)
         }
     }
 
@@ -112,15 +99,8 @@ enum CutsceneBeat: Equatable, Sendable {
     static let instant = CutsceneBeat.ticks(0)
 }
 
-/// `scroll.ids` — the engine's closed set of view-scroll speeds.
-///
-/// IESDP documents `MoveViewPoint`'s speed parameter as taking these five values
-/// and notes that **`VERY_FAST` is equivalent to normal walking speed**. That
-/// comparison is the useful part: BG does not let an author pick an arbitrary
-/// camera duration, it picks a *rate*, and the fastest rate is the one the
-/// player's own feet move at. Anchoring `.veryFast` to `ActorLocomotionPacing.walkSpeed`
-/// keeps that relationship true if the sprite is ever rebaked at a different
-/// body height, the same way the walk itself is derived rather than hard-coded.
+/// GemRB Actions.cpp passes `ScrollSpeed << 1` to GlobalTimer: projected
+/// pixels per 15 Hz tick. Camera motion is not a ground-plane actor walk.
 enum ScrollSpeed: Int, Equatable, Sendable, CaseIterable {
     case instant = 0
     case slow = 1
@@ -128,47 +108,25 @@ enum ScrollSpeed: Int, Equatable, Sendable, CaseIterable {
     case fast = 3
     case veryFast = 4
 
-    /// Projected world units per second, or `nil` for an instant cut.
+    var pointsPerTick: CGFloat { CGFloat(rawValue << 1) }
     var pointsPerSecond: CGFloat? {
-        switch self {
-        case .instant: nil
-        case .slow: ActorLocomotionPacing.walkSpeed * 0.35
-        case .standard: ActorLocomotionPacing.walkSpeed * 0.6
-        case .fast: ActorLocomotionPacing.walkSpeed * 0.8
-        case .veryFast: ActorLocomotionPacing.walkSpeed
-        }
+        self == .instant ? nil : pointsPerTick * LogicTickClock.ticksPerSecond
     }
 
-    /// Time to scroll `distance` projected units at this speed.
     func beat(forDistance distance: CGFloat) -> CutsceneBeat {
-        guard let rate = pointsPerSecond, rate > 0, distance > 0 else { return .instant }
-        return .seconds(TimeInterval(distance / rate))
+        guard pointsPerTick > 0, distance > 0 else { return .instant }
+        return .ticks(Int(ceil(distance / pointsPerTick)))
     }
 }
 
-/// Colours a `fadeToColor` cue can reach. BG passes a packed RGB; the shipped
-/// palette is small enough that naming the two in use beats carrying a colour
-/// through a SpriteKit-free module.
+/// The pinned engine's FadeToColor/FadeFromColor actions fade black.
 enum CutsceneColor: Equatable, Sendable {
     case black
-    /// The exterior's additive window bloom — the warm cut into the office.
-    case warmWindowBloom
 }
 
-/// How a scripted walk presents at the threshold.
-///
-/// Not an Infinity Engine concept — BG creatures simply appear and disappear at
-/// area edges. RainShadow fades its client through the office doorway instead,
-/// and the fade is part of the walk rather than a separate cue because a skip
-/// has to land on the same end state: visible and standing for an arrival,
-/// hidden past the door for a departure.
-enum CutsceneWalkStyle: Equatable, Sendable {
-    /// Ordinary locomotion; the actor is visible throughout.
-    case plain
-    /// Fades up crossing the threshold inward.
-    case entering
-    /// Fades out at the door and ends hidden.
-    case leaving
+/// The shipped actor animation used by PlaySequence / WaitAnimation.
+enum CutsceneSequence: Equatable, Sendable {
+    case getUp
 }
 
 /// Doors a `.world` track can operate. Opening one clears its search-map cells,
@@ -179,13 +137,7 @@ enum CutsceneDoorID: String, Equatable, Sendable {
 
 /// A single authored beat.
 ///
-/// Every case maps to a documented Infinity Engine action; the comment names it.
-/// Cues fall into two execution classes, exactly as they do in BG:
-///
-/// - **Timed** — the runner knows the duration up front and retires the cue
-///   itself (`Wait`, `FadeToColor`, `MoveViewPoint`).
-/// - **Open-ended** — completion depends on the world, so the director reports
-///   back (`MoveToPoint` blocks until arrival; so does ours).
+/// IE actions retain engine semantics; project-only choreography is labelled explicitly.
 enum CutsceneCue: Equatable, Sendable {
 
     // MARK: Timing
@@ -197,25 +149,22 @@ enum CutsceneCue: Equatable, Sendable {
 
     /// `MoveViewPoint(P:Target, I:ScrollSpeed*Scroll)`.
     case moveViewPoint(CGPoint, ScrollSpeed)
-    /// `MoveViewObject(O:Target, I:ScrollSpeed*Scroll)` — scroll to follow an actor.
+    /// The distinct blocking IE action, `MoveViewPointUntilDone`.
+    case moveViewPointUntilDone(CGPoint, ScrollSpeed)
+    /// `MoveViewObject(O:Target, I:ScrollSpeed*Scroll)` — scroll to the actor’s position at dispatch.
     case moveViewObject(CutsceneActorID, ScrollSpeed)
     /// Hand the camera back to gameplay follow. BG's `UnlockScroll` neighbour.
     case releaseCamera
-    /// Camera scale, as a multiple of the scene's resolved base zoom. GDD §5.2
-    /// restricts cinematic movement to slow pans, pushes, and restrained scale.
-    case cameraScale(CGFloat, CutsceneBeat)
-
     // MARK: Chrome
 
     /// `FadeToColor([Duration.0], I:Color)`.
     case fadeToColor(CutsceneColor, CutsceneBeat)
     /// `FadeFromColor([Duration.0], I:Color)`.
     case fadeFromColor(CutsceneColor, CutsceneBeat)
-    /// Letterbox bars. Not an IE action — IE hides the whole GUI instead — but it
-    /// is this project's shipped `StartCutSceneMode` tell.
-    case letterbox(Bool)
     /// `StartCutSceneMode` / `EndCutSceneMode`: free-play rails and player input.
     case setCutsceneMode(Bool)
+    /// BG:EE SetCutSceneBreakable: takes effect immediately.
+    case setCutsceneBreakable(Bool)
     /// Hide the dialogue panel without moving the graph (`shouldDeferAdvance`).
     case suppressDialogue
     /// Reopen the panel, advancing the deferred session to `nodeID`.
@@ -225,21 +174,19 @@ enum CutsceneCue: Equatable, Sendable {
 
     /// `MoveToPoint(P:Point)` — routed through `NavigationMap`. Blocks until arrival.
     case moveToPoint(CGPoint)
-    /// Walk an authored polyline. Still `RouteFollower` locomotion, not an
-    /// `SKAction` chain — see `OfficeNavigationLayout.clientArrivalRoute`, which
-    /// deliberately refuses A* because snapping interior anchors onto the nearest
-    /// walkable cell walks the coat through frosted glass beside the real opening.
-    case followPath([CGPoint], CutsceneWalkStyle)
     /// `JumpToPoint(P:Target)` — teleport. BG's restage idiom is `FadeToColor`,
     /// `JumpToPoint` for each actor, `FadeFromColor`.
-    case jumpToPoint(CGPoint, CutsceneWalkStyle)
+    case jumpToPoint(CGPoint)
+    /// HideCreature: change visibility without fading or suspending scripts.
+    case hideCreature(Bool)
     /// `Face(I:Direction*Dir)` — one of the sixteen orientation bins.
     case face(ActorFacing)
-    /// `FaceObject(O:Target)`. Standing creatures turn one bin per tick
-    /// (GemRB `GetNextFace`), which `ActorFacing.stepped(toward:)` already models.
+    /// `FaceObject(O:Target)` snaps; slow dialogue orientation is a separate action.
     case faceObject(CutsceneActorID)
-    /// Rise from the desk chair. Blocks until the stand-up strip finishes.
-    case standUp
+    /// PlaySequence starts an actor stance without blocking its action list.
+    case playSequence(CutsceneSequence)
+    /// WaitAnimation waits until that stance finishes, with the engine round cap.
+    case waitAnimation(CutsceneSequence)
     /// `DisplayStringHead(O:Object, I:StrRef)` — floating text over an actor,
     /// resolved through `DialogueStringTable`. Says something without opening
     /// the dialogue panel.
@@ -257,95 +204,29 @@ enum CutsceneCue: Equatable, Sendable {
 
     // MARK: Cross-actor
 
-    /// `ActionOverride(O:Actor, A:Action)` — run one cue on another actor and
-    /// **block this track until it finishes**.
-    ///
-    /// This is BG's join. Separate `CutSceneId` blocks give you concurrency;
-    /// `ActionOverride` is how a block waits for someone else's work before
-    /// continuing, and it is why the office's letterbox-down and dialogue-resume
-    /// can sit in one readable list instead of a completion callback. The
-    /// engine's own hazard applies unchanged: an override and that actor's own
-    /// track both driving them at once is an authoring error, not a merge.
+    /// Queues work on the target and immediately releases the issuer.
+    /// BG2 clears the target's ordinary actions, preserving previous overrides.
     indirect case actionOverride(CutsceneActorID, CutsceneCue)
 
-    /// Whether the runner must wait for the director to report completion.
-    ///
-    /// This is BG's own split: `Wait` is engine-timed, `MoveToPoint` blocks until
-    /// the creature actually arrives.
+    /// Clear the actor's current movement when an override replaces its queue.
+    case clearActions
+
     var isOpenEnded: Bool {
         switch self {
-        case .moveToPoint, .followPath, .standUp:
-            true
-        case .actionOverride(_, let inner):
-            inner.isOpenEnded
-        case .moveViewPoint(_, let speed), .moveViewObject(_, let speed):
-            // IESDP: the scroll runs *to* the target at the given rate, so the
-            // block waits on it. Only the runner cannot know how long that is —
-            // duration is distance over rate, and the distance depends on where
-            // the camera is standing when the cue starts. The director resolves
-            // it and reports back, which is also what makes `.veryFast` mean the
-            // same thing as a walk regardless of how far the scroll runs.
-            speed != .instant
-        default:
-            false
+        case .moveToPoint, .waitAnimation: true
+        case .moveViewPointUntilDone(_, let speed): speed != .instant
+        default: false
         }
     }
 
-    /// How long a timed cue occupies its track. Open-ended cues report `.instant`
-    /// because their duration is not knowable up front.
+    /// Presentation lifetimes do not block an actor's action list. Fades suspend
+    /// script processing globally in the pinned GemRB timer, handled by the runner.
     var duration: CutsceneBeat {
         switch self {
-        case .wait(let beat),
-             .fadeToColor(_, let beat),
-             .fadeFromColor(_, let beat),
-             .displayStringHead(_, let beat),
-             .cameraScale(_, let beat):
-            beat
-        case .actionOverride(_, let inner):
-            inner.duration
-        default:
-            .instant
+        case .wait(let beat): beat
+        case .face, .faceObject: .ticks(1) // SetOrientation(..., false); SetWait(1)
+        default: .instant
         }
     }
 
-    /// The same cue with every duration collapsed to zero.
-    ///
-    /// This is what makes "skip and natural completion share one terminal state"
-    /// a structural property rather than two hand-maintained code paths. A skipped
-    /// cutscene replays *every remaining cue* in terminal form, so it cannot
-    /// forget to set a flag, open a door, or resume the dialogue graph — the
-    /// class of bug the shipped `finishClientEntrance` has to guard by hand.
-    var terminal: CutsceneCue {
-        switch self {
-        case .wait:
-            .wait(.instant)
-        case .moveViewPoint(let point, _):
-            .moveViewPoint(point, .instant)
-        case .moveViewObject(let actor, _):
-            .moveViewObject(actor, .instant)
-        case .cameraScale(let scale, _):
-            .cameraScale(scale, .instant)
-        case .fadeToColor(let color, _):
-            .fadeToColor(color, .instant)
-        case .fadeFromColor(let color, _):
-            .fadeFromColor(color, .instant)
-        case .displayStringHead:
-            // A line nobody had time to read is a line the skip should drop, not
-            // flash for one frame. Everything else about the cue is presentation.
-            .wait(.instant)
-        case .actionOverride(let actor, let inner):
-            .actionOverride(actor, inner.terminal)
-        case .moveToPoint(let point):
-            .jumpToPoint(point, .plain)
-        case .followPath(let path, let style):
-            // The endpoint alone is not the end state: an arrival must be left
-            // visible and a departure hidden, which is exactly the pair the
-            // shipped `completeEntranceImmediately` / `completeExitImmediately`
-            // draw. Carrying the style through the terminal form is what keeps
-            // a broken walk from leaving the client standing in a closed doorway.
-            path.last.map { CutsceneCue.jumpToPoint($0, style) } ?? .wait(.instant)
-        default:
-            self
-        }
-    }
 }

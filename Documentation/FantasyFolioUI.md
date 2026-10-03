@@ -140,3 +140,180 @@ Installer: `ArtSource/Processing/install_fantasy_sidebar_v02.py`.
 Runtime: `RainShadow Shared/Resources/Art/UI/HUD/hud_action_*_fantasy_v02.png`.
 All twelve are 256×256 RGBA, preloaded and included in both app targets.
 macOS Debug build and all 18 HUD layout tests pass. Live 1440×900 capture reviewed.
+
+### Reference margins and padding
+
+The left rail now meets the viewport's left, top and bottom edges, preserving
+the 264:2550 reference ratio at every viewport size. Slots are rectangular,
+79% of rail width and 5.5% of rail height; equal side margins are 10.5% each.
+The first center is 4.3% from the top, with 7.2% pitch in groups and a 14.4%
+group break. Icons use the full 90% inner-height allowance without the previous
+extra 18% shrink. Artwork remains square, and existing bindings remain intact.
+macOS build and all 18 HUD layout tests pass; live 1440×900 capture reviewed.
+
+### Dedicated sidebar slot
+
+`hud_action_slot_fantasy_v01.png` replaces stretched inventory frames on the
+left rail. The built-in Image Generator used the supplied BG screenshot for
+simple chamfered geometry and the inventory frame only for bronze material.
+Nine-slicing preserves the bevel while fitting the rectangular slot. Icons
+remain undistorted; pointer hit testing now covers the full slot plus padding.
+Masters/prompts are in `ArtSource/Generated/UI/FantasySidebarSlotsV01/`; install
+with `ArtSource/Processing/install_fantasy_sidebar_slots_v01.py`. The asset is
+preloaded and included in both app targets. macOS build and live capture pass.
+
+### Open-ended sidebar — September 29
+
+The rail now samples the central 80% of the generated parchment texture, omitting
+both decorated end caps. Horizontal nine-slicing retains the bronze side edges;
+the paper and side rails continue uninterrupted to the top and bottom screen
+boundaries. Icon slots and their geometry are unchanged. macOS build and all
+18 HUD layout tests pass; live capture visually verified.
+
+### Sidebar reference refinement — September 29
+
+The built-in Image Generator produced three new masters in
+`ArtSource/Generated/UI/FantasySidebarRefinementV01`: a thinner bronze slot,
+a separate clock housing with a ribbed upper-right fitting, and an open-ended
+parchment rail with quieter side edging. `generation.json` records prompts,
+source/master paths, alpha crops and hashes. Package with
+`ArtSource/Processing/install_fantasy_sidebar_refinement_v01.py`; packaging only
+trims transparent padding and downsamples. SpriteKit nine-slicing fits the frames.
+
+The supplied full-screen BG reference informed regular centers at 5.5% through
+55.9% of viewport height (7.2% pitch), utility centers at 70%, 77.2%, 84.4%, and
+clock center at 93.8%. Regular wells are 77% of rail width and 5.4% of viewport
+height; the clock housing is 90% and 7%, shifted slightly outward. Icon artwork
+scales independently of hit wells to compensate for transparent source padding
+and let prominent silhouettes meet or overlap rims. These are reference-based
+proportions, not a pixel-identical reproduction.
+
+Validation: macOS Debug build, 18 HUDChromeLayoutTests, and an in-game office
+capture (`fantasy-sidebar-refined.png`). Existing interactions remain as before.
+
+Clock clearance correction: the last housing is now centered and reduced from
+90% to 80% of rail width, leaving 10% clearance on each side instead of overlapping
+the painted outer edging. Its taller shape and generated artwork are retained.
+The macOS build and all 18 HUD layout tests pass.
+
+### Book typography — September 29
+
+UITheme now uses Baskerville for body copy, Baskerville-SemiBold for headings,
+commands and small labels, and Baskerville-Italic for narration. Dialogue run
+styling and measurement use the same family. Remaining Courier/Avenir labels in
+maps, captions and scene chrome now use shared typography. Inventory headings
+also follow the theme. The built-in macOS font names were verified before use.
+The macOS build passes and the inventory was checked in a runtime capture.
+The multiline layout stress fixture uses a compact 220-point column to exercise
+wrapping with the new narrower glyphs.
+
+### Generated inventory stat badges — September 29
+
+The four right-card stat icons now use a matching built-in Image Generator
+family: a bronze shield for Defence, a heart with laurel for Vitality, an
+etched sun medallion for Resolve, and crossed swords behind a ring for Damage.
+Their transparent centers retain live game-rendered values. Square source
+canvases and alpha are preserved; runtime PNGs are uniformly downsampled to
+256×256 and displayed at the existing 84-point badge size.
+
+Masters and the exact prompt set are saved in
+`ArtSource/Generated/UI/FantasyInventoryStatsV01/generation.json` and `masters/`.
+Reinstall with `ArtSource/Processing/install_fantasy_inventory_stats_v01.py`.
+Runtime filenames are `inventory_stat_badge_{defence,vitality,resolve,damage}_fantasy_v01.png`
+under `RainShadow Shared/Resources/Art/UI/Inventory`. Both app targets include
+the new resources; prior badges remain available.
+
+Validation: macOS Debug build succeeded, and the inventory runtime capture
+`fantasy-inventory-stats.png` confirms that all four assets load, their live
+values remain legible, and badges stay clear of neighboring text and card edges.
+
+### Sword-and-shield equipment placeholder — October 2
+
+The empty paperdoll equipment slot beside the character now shows a combined
+sword-and-shield symbol, following the user's BG inventory reference. The
+built-in Image Generator matched the existing pale parchment-gold silhouettes.
+`InventoryScreenLayout.emptySilhouetteArtName(for:)` maps `.holster` to
+`inventory_slot_silhouette_sword_shield_fantasy_v01`. The existing 62% icon size
+and 0.34 placeholder alpha are retained. Both app targets include the new PNG.
+
+The master and exact prompt are saved in
+`ArtSource/Generated/UI/FantasySwordShieldSlotV01/generation.json` and `masters/`.
+Package with `ArtSource/Processing/install_fantasy_sword_shield_slot_v01.py`;
+packaging only downsamples the square RGBA master to 256 pixels.
+
+Validation: macOS Debug build succeeded using the installed Xcode-beta developer
+directory. Runtime inventory capture `fantasy-sword-shield-slot.png` confirms
+the combined placeholder fits beside the character and matches the other cues.
+
+### Inventory wording and gold coins — October 2
+
+The inventory status reads “Paused” and the “CASE BAG” heading is removed.
+The wallet display omits the pound sign during initial construction and refresh;
+the stored amount and existing denomination formatting are preserved.
+`inventory_coin_stack_gold_fantasy_v01.png` replaces the silver coin illustration.
+The built-in Image Generator produced warm gold stacks with sun embossing and
+transparent surroundings; the runtime preserves alpha and downsamples to a
+256-pixel longest edge. Both app targets include the resource.
+
+The master and exact prompt are in
+`ArtSource/Generated/UI/FantasyGoldCoinsV01/generation.json` and `masters/`.
+Reinstall with `ArtSource/Processing/install_fantasy_gold_coins_v01.py`.
+
+Validation: macOS Debug build succeeded. Runtime capture
+`fantasy-inventory-gold-coins.png` confirms the new status wording, absent bag
+heading, gold coins and wallet amount without a pound sign.
+
+### Two-row bag — October 2
+
+The bag now contains two rows of sixteen slots (32 total). Slots retain their
+70-point size and 84-point pitch. The panel is 218 points tall, centered at
+Y=-386; row centers are Y=20 and -64 locally. The count label sits above the
+first row. Existing generated parchment chrome is nine-sliced to the new size.
+
+`CarriedInventoryState.defaultTotalSlotCapacity` is also 32, so taking loot,
+unequipping and splitting stacks can use the extra row. Existing saves recreate
+the bag at the current default capacity; no stored items or currency are altered.
+Capacity tests now fill the expanded bag before checking overflow refusal.
+
+Validation: macOS Debug build, 81 inventory/layout/transfer/persistence tests,
+and runtime capture `fantasy-inventory-two-rows.png`. A broader name filter also
+selected an unrelated Voss native-scale test which currently fails against its
+old 3.125 baseline; character rendering was not changed for this inventory edit.
+
+### Classic Mac OS 9 parchment scrollbars — October 2
+
+The dialogue body and choices scrollbars use straight rectangular Platinum-style
+chrome with square triangle buttons, a recessed channel, and a proportional thumb
+with three centered grip lines. Shape reference: Apple's
+[Platinum scroll bars, page 40](https://dev.os9.ca/techpubs/mac/pdf/HIGOS8Guidelines.pdf).
+The thumb follows the visible content ratio, with a square minimum pointer target.
+Existing arrow, page, wheel and drag controls use the same offset/callback path.
+Pressing a button or thumb reverses its bevel and slightly offsets its symbol.
+
+The five assets were produced with the built-in Image Generator. Masters, exact
+prompts, alpha crop bounds and hashes are saved in
+`ArtSource/Generated/UI/FantasyScrollbarV01/generation.json` and `masters/`.
+Reinstall with `ArtSource/Processing/install_fantasy_scrollbar_v01.py`.
+The installer crops transparent padding and downsamples without repainting.
+Runtime assets are `dialogue_scroll_{up,down,thumb,track,grip}_fantasy_v01.png`
+under `RainShadow Shared/Resources/Art/UI/Dialogue`; both app targets include them.
+
+The first implementation stretched a rounded painted frame and did not match the
+requested classic shape. The correction renders constant-width rectangular
+bevels in `ScrollbarPlateNode` and uses only the generated thumb asset's central
+paper material. Paper tiles remain 24 points square, with partial tiles cropped;
+the frame, arrows and grip are independent geometry. The paper crop is flattened
+into its own texture before tiling because nested SpriteKit subtextures resolved
+against the original framed image in the runtime capture. The five originals and
+their provenance remain available, but their old framed shapes are no longer drawn.
+
+Validation: all 10 `DialogueScrollbarGeometryTests` pass and the macOS Debug
+build succeeds. Runtime captures `fantasy-scrollbar-v2.png` and
+`fantasy-scrollbar-v2-minimum.png` verify the long and minimum-size thumb with
+consistent grain, square corners, fixed bevel widths and grip size.
+For repeatable visual QA, use the existing DEBUG capture flow with
+`RAINSHADOW_CAPTURE_OVERLAY=dialogue` and `RAINSHADOW_CAPTURE_SCROLLBAR=1`.
+Set `RAINSHADOW_CAPTURE_SCROLLBAR_PARAGRAPHS=100` for the minimum-size thumb;
+the default is 16 paragraphs.
+This supplies repeated sample text through the shipping presenter without
+changing the authored dialogue.

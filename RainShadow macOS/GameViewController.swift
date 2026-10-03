@@ -23,6 +23,13 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await WeaponEquipmentQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] {
             Task { @MainActor in
                 guard let skView = self.view as? SKView else { return }
@@ -154,7 +161,21 @@ class GameViewController: NSViewController {
                let overlay = environment["RAINSHADOW_CAPTURE_OVERLAY"] {
                 switch overlay {
                 case "dialogue":
-                    game.dialoguePresenter.present(graph: OfficeCaseFileMonologue.graph)
+                    if environment["RAINSHADOW_CAPTURE_SCROLLBAR"] == "1",
+                       let sample = OfficeCaseFileMonologue.nodes.first {
+                        // Force genuine text overflow through the shipping presenter,
+                        // so artwork captures exercise the live proportional scrollbar.
+                        let repeats = min(100, max(2, Int(environment["RAINSHADOW_CAPTURE_SCROLLBAR_PARAGRAPHS"] ?? "16") ?? 16))
+                        let node = CaseDialogueNode(
+                            id: "qa.scrollbar", speaker: sample.speaker,
+                            text: Array(repeating: sample.text, count: repeats).joined(separator: "\n\n"),
+                            portraitName: sample.portraitName, endsDialogue: true,
+                            isInteriorMonologue: sample.isInteriorMonologue
+                        )
+                        game.dialoguePresenter.present([node], startingAt: node.id)
+                    } else {
+                        game.dialoguePresenter.present(graph: OfficeCaseFileMonologue.graph)
+                    }
                     game.dialoguePresenter.removeAllActions()
                     game.dialoguePresenter.alpha = 1
                     if let state = environment["RAINSHADOW_CAPTURE_DIALOGUE_BUTTON"] {

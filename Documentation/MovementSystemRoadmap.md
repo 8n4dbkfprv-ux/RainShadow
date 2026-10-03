@@ -119,7 +119,7 @@ Three consequences worth stating plainly:
 | Perspective-foreshortened step: vertical travel at 0.75× horizontal | **Shipped** (`ActorLocomotionPacing.projectedDistance`) |
 | Waypoint following (`Movable::DoStep`, one quantised step per tick) | **Shipped** |
 | New input **replaces** route (not append) for single actor | **Shipped** (plain click / tap) |
-| Cancel route — **Escape only**; right-click / two-finger clear targeting instead | **Shipped** (`handleCancelInput` vs `handleClearTargetingInput`) |
+| Escape / right-click / two-finger tap clear targeting and preserve movement | **Shipped** (September 29 source correction; see `MovementControlsSep29.md`) |
 | Gradual turn-in-place while standing (one 22.5° bin per tick); snap while walking | **Shipped** (`ActorFacing.stepped(toward:)`, `pendingFacing`) |
 | Same-cell click = head turn, not a zero-length walk | **Shipped** (`turnToFace`) |
 | Dialogue participants turn toward each other gradually | **Shipped** (office scene, on entrance completion) |
@@ -140,7 +140,7 @@ Three consequences worth stating plainly:
 | Double-click recentres the viewport on the click (`MoveViewportTo(p, true)`) | **Shipped** |
 | Double-click a portrait to re-attach the viewport to the actor | **Shipped** |
 | Detective rises to meet the client instead of interviewing from his chair | **Shipped** (empty-route seat egress during her walk-in) |
-| Corrective repath while walking (0.75 s, "Enhanced Path Search") | **Shipped** |
+| Corrective repath for nearby actors or expired collision backoff | **Shipped** (`Map::UpdateScripts` player branch; September 29 correction) |
 | Door open/close stamps cells in place, no map rebuild | **Shipped** (`setEntranceDoorBlocking`) |
 | Client NPC (Lila) on pathfinder + `Movable`, not `SKAction` | **Shipped** |
 | Actor state machine (seated → stand → walk → sit) | **Shipped** |
@@ -149,7 +149,7 @@ Three consequences worth stating plainly:
 | Click/tap → hotspot vs walk resolution | **Shipped** |
 | World pause during modal dialogue / overlays | **Shipped** (`WorldPauseController`; `syncWorldNodePause` replaced three duplicated root lists that each passed only their own overlay's flag) |
 | Player-driven tactical pause (queue moves while paused) | **Shipped** — Space (after modal first refusal) and the HUD clock, which is what BG:EE's clock is. Orders issued while frozen wait intact and walk on resume; the tick clock resets so a stale remainder cannot spend a step |
-| Group stop / cancel route affordance (UI + input) | **Partial** — cancel shipped; dedicated IE Stop UI is P1 |
+| Group stop / cancel route affordance (UI + input) | **Partial** — internal cancellation exists; dedicated IE Stop UI is P1 |
 | Multi-select, party portraits as formation order | **UI chrome only** (party rail assets); no multi-actor runtime |
 | Formations / destination facing drag | **Not shipped** |
 | Anisotropic agent footprint (BG stamps `circleSize` in cell space = a 16:12 ellipse) | **Shipped for actor-vs-actor**, with BG's paint(`size−1`)/test(`size−2`) asymmetry, so a body can hug a wall but not another body. Static clearance still collapses half-extents with `max()`; see [Pathfinding](PathfindingSystem.md) |
@@ -189,7 +189,7 @@ P0 before multi-actor: one reliable IE-feeling detective walk is the M01 promise
 ### Ship
 
 - Technical Architecture §11.3 and the pathfinder agree on the heuristic metric (originally projected Euclidean between cell centers; now the weighted Euclidean of `PathFinder` after the search-map rewrite)
-- Explicit **cancel route**: Escape / right-click / two-finger → `cancelMovement()`; cancel also clears the live move-order feedback ring
+- Historical cancel binding superseded September 29: Escape / right-click / two-finger clear targeting and retain the walk. Explicit Stop remains a separate command.
 - Mid-segment **retarget** via `replaceRoute` from the live interpolated position (pure tests cover cancel mid-route, replace discarding old tail, replace-after-cancel, zero-speed hold)
 - Click-destination feedback: painted `ui_move_marker_*` / blocked converging loop (coded teal/red ellipse fallback if art missing)
 

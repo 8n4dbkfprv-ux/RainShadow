@@ -48,14 +48,6 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         gameCamera.position = CGPoint(x: 1_536, y: 760)
         syncHudToCamera()
 
-        let title = SKLabelNode(fontNamed: "AvenirNextCondensed-DemiBold")
-        title.text = "RAINSHADOW"
-        title.fontSize = 54
-        title.fontColor = SKColor(white: 0.78, alpha: 0.8)
-        title.position = CGPoint(x: 0, y: 360)
-        title.alpha = 0
-        hudRoot.addChild(title)
-        title.run(.sequence([.wait(forDuration: 1.2), .fadeIn(withDuration: 1.4), .wait(forDuration: 3.2), .fadeOut(withDuration: 1.2)]))
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -63,16 +55,17 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         if let position = cutsceneDirector.cameraOverride(in: cinematicBounds) {
             gameCamera.position = position
         }
-        // Opening pans/zooms the camera; keep title HUD locked to the view.
+        // Keep overlays aligned with the viewport as the camera pans.
         syncHudToCamera()
     }
 
-    /// A cinematic drives its own camera — position from the cutscene rail,
-    /// scale from `cameraScale` cues. The player's zoom has no say here.
+    /// Cutscene mode accepts no player camera input. Camera scale stays fixed.
     override var allowsPlayerZoom: Bool { false }
 
     /// The camera pans inside the painted plate rather than off its edges —
     /// `clampedCameraPosition` needs the plate, not the world.
+    override var cameraClampBounds: CGRect { cinematicBounds }
+
     private var cinematicBounds: CGRect {
         CGRect(origin: .zero, size: artSize)
     }
@@ -84,13 +77,8 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
         cutsceneDirector.play(CutsceneCatalog.openingExterior, on: self)
     }
 
-    override func handlePointerUp(_ event: GamePointerEvent) {
-        cutsceneDirector.trySkip()
-    }
-
-    override func handleConfirmInput() {
-        cutsceneDirector.trySkip()
-    }
+    override func handlePointerUp(_ event: GamePointerEvent) {}
+    override func handleConfirmInput() {}
 
     /// Escape is the skip key in BG:EE. The office walks already honour it; the
     /// opening used to swallow it, so the one cinematic a player replays most was
@@ -103,7 +91,9 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
 
     /// The opening has no actors, no doors, and no dialogue — it takes the
     /// protocol's defaults for all of it and implements only the ending.
-    func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) {}
+    func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) {
+        hudRoot.isHidden = active
+    }
 
     func cutsceneSetFlag(_ flag: String) {
         guard flag == CutsceneCatalog.CutsceneFlags.openingSeen else { return }
@@ -113,7 +103,7 @@ final class OpeningExteriorScene: BaseGameScene, CutsceneStage {
     }
 
     func cutsceneDidComplete(id: String, reason: CutsceneCompletionReason) {
-        context.router.travel(to: HarborpointAreas.office)
+        context.router.travel(to: HarborpointAreas.office, animated: false)
     }
 
     private func buildFallbackExterior() {

@@ -120,7 +120,7 @@ final class CityDistrictScene: GameAreaScene {
         syncDetectiveEncumbrance()
         guard !hasShownArrivalHint else { return }
         hasShownArrivalHint = true
-        let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
+        let hint = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
         hint.text = area.arrivalHint
         hint.fontSize = 17
         hint.fontColor = SKColor(white: 0.86, alpha: 0.90)
@@ -378,13 +378,11 @@ final class CityDistrictScene: GameAreaScene {
             setInventoryPresented(false)
         } else {
             clearMovementFeedback()
-            clearWaypointPips()
-            detective.cancelMovement()
         }
     }
 
     /// BG:EE right-click / two-finger tap: clear targeting state without stopping
-    /// the walk. Escape remains the only Stop (`handleCancelInput`).
+    /// the walk. Escape also clears targeting without cancelling the route.
 
     override func handleSecondaryPointer(at point: CGPoint) -> Bool {
         guard inventoryIsPresented else { return false }
@@ -448,7 +446,9 @@ final class CityDistrictScene: GameAreaScene {
         detective.footstepSurface = FootstepSurface(
             navigation.searchMap.surface(at: detective.position) ?? .stone
         )
-        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
+        detective.updateLocomotion(
+            at: currentTime, worldIsPaused: worldIsPaused, movementOrders: movement
+        )
         if !worldIsPaused {
             syncWaypointPips()
             navigation.updateActor(
@@ -456,7 +456,6 @@ final class CityDistrictScene: GameAreaScene {
                 position: detective.position,
                 isMoving: detective.movementDestination != nil
             )
-            performCorrectiveRepathIfNeeded(at: currentTime)
         }
         finishAreaTick(at: detective.position)
         portraitBar.setHealth(
@@ -729,7 +728,7 @@ final class CityDistrictScene: GameAreaScene {
     private func showOverlayStatusLine(_ text: String) {
         guard !text.isEmpty else { return }
         overlayStatusLine?.removeFromParent()
-        let label = SKLabelNode(fontNamed: "AvenirNext-Medium")
+        let label = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
         label.text = text
         label.fontSize = 16
         label.fontColor = SKColor(white: 0.88, alpha: 0.94)
@@ -772,13 +771,17 @@ final class CityDistrictScene: GameAreaScene {
 
         switch outcome {
         case .turnInPlace:
+            // WalkTo requests HEAD_TURN, not a change of body orientation.
+            // VossCHMF has no head-turn clip; retain its standing-idle fallback.
             clearWaypointPips()
-            detective.turnToFace(target)
 
         case .alreadyInRange:
             clearWaypointPips()
             detective.turnToFace(target)
             completion?()
+
+        case .blocked:
+            showMovementFeedback(at: target, isValid: false)
 
         case .refused:
             showMovementFeedback(at: target, isValid: false)
@@ -802,7 +805,10 @@ final class CityDistrictScene: GameAreaScene {
 
     /// Retire pips as their goals are walked through — see the office scene.
     private func syncWaypointPips() {
-        guard let destination = detective.movementDestination else { return }
+        guard let destination = detective.movementDestination else {
+            clearWaypointPips()
+            return
+        }
         refreshWaypointPips(destination: destination)
     }
 
@@ -823,25 +829,6 @@ final class CityDistrictScene: GameAreaScene {
     private func finishQueuedMovement(completion: (() -> Void)? = nil) {
         clearWaypointPips()
         completion?()
-    }
-
-    private func performCorrectiveRepathIfNeeded(at currentTime: TimeInterval) {
-        detective.syncMovablePosition()
-        switch movement.correctiveRepath(
-            &detective.movable,
-            at: currentTime,
-            ticks: detective.currentTick
-        ) {
-        case .keepWalking:
-            break
-        case .abandon:
-            clearWaypointPips()
-            detective.cancelMovement()
-        case .replanned:
-            if let destination = detective.movementDestination {
-                refreshWaypointPips(destination: destination)
-            }
-        }
     }
 
     private func addFogOfWar() {

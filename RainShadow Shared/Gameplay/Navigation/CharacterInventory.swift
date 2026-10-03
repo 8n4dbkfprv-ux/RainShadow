@@ -8,6 +8,7 @@ import Foundation
 enum InventoryRefusal: Error, Equatable, Sendable, CustomStringConvertible {
     case unknownItem(id: String)
     case wrongSlot(itemID: String, category: ItemCategory, slot: EquipmentSlot)
+    case invalidOffHandWeapon(itemID: String)
     case offHandBlockedByTwoHandedWeapon(blockedBy: EquipmentSlot)
     case twoHandedBlockedByOffHand(occupied: EquipmentSlot)
     case cursedInPlace(slot: EquipmentSlot)
@@ -22,6 +23,8 @@ enum InventoryRefusal: Error, Equatable, Sendable, CustomStringConvertible {
             "No item definition is authored for '\(id)'"
         case .wrongSlot(let itemID, let category, let slot):
             "'\(itemID)' is \(category.displayName.lowercased()) and does not belong in \(slot.rawValue)"
+        case .invalidOffHandWeapon:
+            "The off-hand accepts a shield or a one-handed melee weapon"
         case .offHandBlockedByTwoHandedWeapon(let blockedBy):
             "The off-hand is blocked while a two-handed weapon is readied in \(blockedBy.rawValue)"
         case .twoHandedBlockedByOffHand(let occupied):
@@ -82,7 +85,8 @@ struct CharacterInventory: Equatable, Sendable {
     }
 
     /// The ready-weapon slot holding a two-handed weapon, if any. BG blocks the
-    /// off-hand whenever one is in the quick-weapon bar, readied or not.
+    /// off-hand whenever one is in the quick-weapon bar, readied or not. This is
+    /// the classic rule; EE 2.x instead allows storage and suppresses its use.
     func twoHandedWeaponSlot(catalog: ItemCatalog) -> EquipmentSlot? {
         EquipmentSlot.weaponSlots.first { slot in
             guard let stack = equipped[slot],
@@ -105,6 +109,9 @@ struct CharacterInventory: Equatable, Sendable {
         }
         guard slot.accepts(definition.category) else {
             return .wrongSlot(itemID: stack.id, category: definition.category, slot: slot)
+        }
+        guard slot.accepts(definition) else {
+            return .invalidOffHandWeapon(itemID: stack.id)
         }
         // Whatever is already there has to be willing to leave.
         if let occupant = equipped[slot],
