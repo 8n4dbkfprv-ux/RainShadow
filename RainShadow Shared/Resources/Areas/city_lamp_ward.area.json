@@ -9,7 +9,7 @@
       "city",
       "extendedNight"
     ],
-    "arrivalHint": "The Lamphouse watches over the ward.",
+    "arrivalHint": "The Watch-house keeps its eye on the ward.",
     "worldOrigin": {
       "x": 0,
       "y": 0
@@ -85,7 +85,7 @@
       {
         "id": "portal.lamphouseEntrance",
         "kind": "travel",
-        "label": "THE LAMPHOUSE",
+        "label": "THE WATCH-HOUSE",
         "cursor": "travel",
         "polygon": [
           {
@@ -55189,7 +55189,7 @@
     ],
     "notes": [
       {
-        "label": "THE LAMPHOUSE",
+        "label": "THE WATCH-HOUSE",
         "point": {
           "x": 2065,
           "y": 1616

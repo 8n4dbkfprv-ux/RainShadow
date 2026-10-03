@@ -57,7 +57,7 @@ enum CityTravelDestination: Equatable {
 }
 
 /// Small enterable landmark interiors. Each record has its own return travel
-/// region; the Lamphouse uses its authored Blender interior. This is the Infinity
+/// region; the Watch-house uses its authored Blender interior. This is the Infinity
 /// Engine split: the door/region owns *where* it goes; the background is only
 /// the pre-rendered picture drawn after arrival.
 enum CityInteriorID: String, CaseIterable, Equatable {
@@ -95,7 +95,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         switch self {
         case .shippingOffice: "WHARF SHIPPING OFFICE"
         case .ironStairs: "RIVERSIDE ROOMS"
-        case .policeStation: "THE LAMPHOUSE"
+        case .policeStation: "THE WATCH-HOUSE"
         case .lilaRooms: "LILA STREET ROOMS"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
@@ -799,7 +799,7 @@ enum CityDistrictCatalog {
                 ),
                 destination: .interior(.ironStairs),
                 requiresCityOpen: false,
-                lockedInspectLine: "Wet iron and staged stones. The coat is already in Lantern custody."
+                lockedInspectLine: "Wet iron and staged stones. The Watch has already given the coat back."
             )
         ],
         pointsOfInterest: [

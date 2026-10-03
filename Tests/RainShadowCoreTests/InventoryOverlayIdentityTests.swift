@@ -89,7 +89,7 @@ struct InventoryOverlayIdentityTests {
                 presentationID: "carried.0.lantern-shortsword"
             )
         )
-        #expect(item.name == "Lantern Service Shortsword")
+        #expect(item.name == "Watch Service Shortsword")
         #expect(item.category == .weapon)
         #expect(item.categoryDisplayName == "SERVICE WEAPON")
         #expect(item.artName == "inventory_item_service_revolver_v01")

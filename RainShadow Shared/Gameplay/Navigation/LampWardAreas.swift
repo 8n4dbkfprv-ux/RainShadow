@@ -32,12 +32,12 @@ enum LampWardAreas {
                 .map { ($0.name, $0.point.cgPoint) }),
             visualSprites: [],
             obstacles: [],
-            portals: [.init(id: portal.id, label: portal.label ?? "THE LAMPHOUSE",
+            portals: [.init(id: portal.id, label: portal.label ?? "THE WATCH-HOUSE",
                             approachPoint: portal.approachPoint!.cgPoint,
                             hitArea: portal.boundingBox,
                             destination: .interior(.policeStation),
                             requiresCityOpen: false, lockedInspectLine: "")],
-            pointsOfInterest: [.init(label: "THE LAMPHOUSE",
+            pointsOfInterest: [.init(label: "THE WATCH-HOUSE",
                                     worldPoint: portal.approachPoint!.cgPoint,
                                     colorRGBA: (0.79, 0.55, 0.26, 1))]
         )
