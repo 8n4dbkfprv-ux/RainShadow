@@ -26,17 +26,20 @@ struct Cutscene: Equatable, Sendable {
     /// Seconds before a skip is accepted. The shipped exterior uses 1.0.
     let graceSeconds: TimeInterval
     let tracks: [CutsceneTrack]
+    let skipTracks: [CutsceneTrack]?
 
     init(
         id: String,
         isBreakable: Bool = true,
         graceSeconds: TimeInterval = BreakableCutsceneGate.defaultGraceSeconds,
-        tracks: [CutsceneTrack]
+        tracks: [CutsceneTrack],
+        skipTracks: [CutsceneTrack]? = nil
     ) {
         self.id = id
         self.isBreakable = isBreakable
         self.graceSeconds = graceSeconds
         self.tracks = tracks
+        self.skipTracks = skipTracks
     }
 }
 
@@ -257,16 +260,11 @@ enum CutsceneCue: Equatable, Sendable {
 
     // MARK: Cross-actor
 
-    /// `ActionOverride(O:Actor, A:Action)` — run one cue on another actor and
-    /// **block this track until it finishes**.
-    ///
-    /// This is BG's join. Separate `CutSceneId` blocks give you concurrency;
-    /// `ActionOverride` is how a block waits for someone else's work before
-    /// continuing, and it is why the office's letterbox-down and dialogue-resume
-    /// can sit in one readable list instead of a completion callback. The
-    /// engine's own hazard applies unchanged: an override and that actor's own
-    /// track both driving them at once is an authoring error, not a merge.
+    /// Queue an action on another actor and release the issuing action.
+    /// BG2 clears ordinary target actions while preserving earlier overrides.
     indirect case actionOverride(CutsceneActorID, CutsceneCue)
+    /// Internal command emitted when an override replaces ordinary movement.
+    case clearActions
 
     /// Whether the runner must wait for the director to report completion.
     ///
@@ -276,8 +274,8 @@ enum CutsceneCue: Equatable, Sendable {
         switch self {
         case .moveToPoint, .followPath, .standUp:
             true
-        case .actionOverride(_, let inner):
-            inner.isOpenEnded
+        case .actionOverride:
+            false
         case .moveViewPoint(_, let speed), .moveViewObject(_, let speed):
             // IESDP: the scroll runs *to* the target at the given rate, so the
             // block waits on it. Only the runner cannot know how long that is —
@@ -301,8 +299,10 @@ enum CutsceneCue: Equatable, Sendable {
              .displayStringHead(_, let beat),
              .cameraScale(_, let beat):
             beat
-        case .actionOverride(_, let inner):
-            inner.duration
+        case .face, .faceObject:
+            .ticks(1)
+        case .actionOverride:
+            .instant
         default:
             .instant
         }

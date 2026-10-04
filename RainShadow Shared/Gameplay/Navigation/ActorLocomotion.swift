@@ -68,3 +68,40 @@ enum ClientDepartureFacing: Equatable, Sendable {
         return Array(textures[start...]) + Array(textures[..<start])
     }
 }
+
+/// GemRB 1c45c185 Animation::NextFrame, looping game-animation branch.
+/// Animation advances independently of DoStep. The returned frame is sampled
+/// before advancing, time is integral milliseconds, and pause gaps are excluded.
+struct ActorAnimationClock: Equatable, Sendable {
+    private var start: Int?
+    private var lastTime = 0
+    private var paused = false
+    private var index = 0
+
+    mutating func reset() { self = Self() }
+
+    mutating func frame(at seconds: TimeInterval, count: Int, fps: Int = 15, frozen: Bool) -> Int {
+        guard count > 0, fps > 0 else { return 0 }
+        let result = index % count
+        let now = Int(max(0, seconds) * 1000)
+        var time = now
+        if frozen {
+            time = lastTime
+            paused = true
+        } else {
+            if paused {
+                paused = false
+                if let origin = start { start = origin + now - lastTime }
+            }
+            lastTime = now
+        }
+        if start == nil { start = time }
+        let duration = max(1, 1000 / fps)
+        let elapsed = max(0, time - (start ?? time))
+        if elapsed >= duration {
+            index = (index + elapsed / duration) % count
+            start = time
+        }
+        return result
+    }
+}

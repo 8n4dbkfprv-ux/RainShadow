@@ -2,7 +2,6 @@ import SpriteKit
 
 @MainActor
 final class ClientActorNode: SKNode, WallStencilledActor {
-    private static let stripHandoffDuration: TimeInterval = 0.16
 
     private let contactShadow: SKSpriteNode
     private let contactShadowKind: ContactShadowKind = .npc
@@ -23,7 +22,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     private let departureNEFrames: [IEAvatarVisualFrame]
     private let departureNWFrames: [IEAvatarVisualFrame]
     /// Wall-clock origin of the current departure walk cycle (for phase-continuous handoff).
-    private var departureWalkPhaseOrigin: TimeInterval = 0
 
     /// The engine's `Movable`. Lila walks the same `DoStep` the detective
     /// does; only the presentation (entrance fade, authored exit strips) differs.
@@ -44,9 +42,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     private var activePath: [CGPoint] = []
     private var locomotionMode: LocomotionMode = .idle
     private var activeDepartureBin: ClientDepartureFacing?
-    private var entranceFadeRemaining: TimeInterval = 0
-    private var exitFadeRemaining: TimeInterval = 0
-    private let lookAheadDistance: CGFloat = 48
+    private var animationClock = ActorAnimationClock()
+    private(set) var scriptedFacing: ActorFacing = .southWest
+    var cutsceneNavigationID: String { movable.identity }
     /// Full-canvas atlas fallback pivot; indexed frames carry their cropped pivot.
     private static let compatibilityAnchor = CGPoint(x: 0.5, y: 39 / 256)
 
@@ -301,10 +299,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         bodyHandoff.position = .zero
         body.alpha = 1
         position = start
-        alpha = 0
+        alpha = 1
         isHidden = false
-        entranceFadeRemaining = 0.22
-        exitFadeRemaining = 0
         locomotionMode = .entrance
         activePath = points
         activeDepartureBin = nil
@@ -336,8 +332,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
         var prior = start
         var t = elapsed
-        // Match fade-in occupying the first 0.22s of the entrance sequence.
-        t -= 0.22
         if t <= 0 {
             position = start
             return
@@ -394,8 +388,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.alpha = 1
         position = start
         alpha = 1
-        entranceFadeRemaining = 0
-        exitFadeRemaining = 0
         locomotionMode = .exit
         activePath = points
         activeDepartureBin = nil
@@ -413,9 +405,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
             assertionFailure("Expected \(expected) NW departure frames, found \(departureNWFrames.count)")
         }
 
-        updateDepartureFacing(fromIndex: 0)
+        animationClock.reset()
         if !movable.isMoving {
-            finishLocomotion()
+            finishDeparture()
         }
     }
 
@@ -431,9 +423,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
-        entranceFadeRemaining = 0
-        exitFadeRemaining = 0
         position = end
+        syncMovablePosition()
         alpha = 1
         isHidden = false
         locomotionMode = .entrance
@@ -450,10 +441,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
-        entranceFadeRemaining = 0
-        exitFadeRemaining = 0
         position = end
-        // Natural exit ends faded out and hidden.
+        syncMovablePosition()
+        // Natural exit disappears at the endpoint.
         isHidden = true
         alpha = 1
         locomotionMode = .exit
@@ -471,7 +461,10 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
-        defer { lastLocomotionUpdateTime = currentTime }
+        defer {
+            lastLocomotionUpdateTime = currentTime
+            applyWalkingFrame(at: currentTime, frozen: worldIsPaused)
+        }
         guard !worldIsPaused, locomotionMode != .idle else { return }
 
         let previousTime = lastLocomotionUpdateTime
@@ -487,31 +480,16 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         }
         guard deltaTime > 0 else { return }
 
-        if entranceFadeRemaining > 0 {
-            entranceFadeRemaining = max(0, entranceFadeRemaining - deltaTime)
-            alpha = max(0, min(1, 1 - CGFloat(entranceFadeRemaining / 0.22)))
-        }
-
-        if exitFadeRemaining > 0 {
-            exitFadeRemaining = max(0, exitFadeRemaining - deltaTime)
-            alpha = max(0, min(1, CGFloat(exitFadeRemaining / 0.2)))
-            if exitFadeRemaining <= 0 {
-                finishExitFade()
-            }
-            return
-        }
-
         guard movable.isMoving else {
             if locomotionMode == .exit {
-                beginExitFade()
+                finishDeparture()
             } else {
                 finishLocomotion()
             }
             return
         }
 
-        // Root motion runs on the engine's fixed logic tick; the fades above stay
-        // on wall-clock delta because they are presentation, not locomotion.
+        // Root motion uses the engine tick; animation has its own elapsed-time clock.
         for _ in 0..<tickClock.drain(deltaTime: deltaTime) {
             currentTick += 1
             syncMovablePosition()
@@ -524,14 +502,11 @@ final class ClientActorNode: SKNode, WallStencilledActor {
                 playFootstepIfDue()
             }
 
-            if locomotionMode == .exit {
-                let fromIndex = max(0, activePath.count - movable.remainingPoints.count - 1)
-                updateDepartureFacing(fromIndex: fromIndex)
-            }
+            scriptedFacing = movable.orientation
 
             if outcome.arrived || outcome.abandoned {
                 if locomotionMode == .exit {
-                    beginExitFade()
+                    finishDeparture()
                 } else {
                     finishLocomotion()
                 }
@@ -543,45 +518,59 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     // MARK: - Private
 
     private func startArrivalWalkCycle() {
-        let walkingFrames = Array(arrivalFrames.prefix(ActorLocomotionPacing.walkFramesPerCycle))
-        guard walkingFrames.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
         body.removeAction(forKey: "clientWalkCycle")
-        body.run(
-            .repeatForever(animateFrames(
-                walkingFrames,
-                timePerFrame: ActorLocomotionPacing.walkCycleSecondsPerFrame
-            )),
-            withKey: "clientWalkCycle"
-        )
+        animationClock.reset()
     }
 
-    private func updateDepartureFacing(fromIndex: Int) {
-        let look = ClientDepartureFacing.lookAheadVector(
-            along: activePath,
-            fromIndex: max(0, min(fromIndex, max(0, activePath.count - 2))),
-            minimumDistance: lookAheadDistance
-        )
-        let bin = ClientDepartureFacing.bin(dx: look.dx, dy: look.dy)
-        if activeDepartureBin != bin {
-            let crossfade = activeDepartureBin != nil
-            startDepartureWalkCycle(departureFrames(for: bin), crossfade: crossfade)
-            activeDepartureBin = bin
-        } else if activeDepartureBin == nil {
-            startDepartureWalkCycle(departureFrames(for: .northEast), crossfade: false)
-            activeDepartureBin = .northEast
+    private func applyWalkingFrame(at time: TimeInterval, frozen: Bool) {
+        guard locomotionMode != .idle, movable.isInMovingStance else { return }
+        let frames: [IEAvatarVisualFrame]
+        if locomotionMode == .exit {
+            // DoStep's current node orientation, without look-ahead or blending.
+            let v = movable.orientation.vector
+            frames = departureFrames(for: ClientDepartureFacing.bin(dx: v.dx, dy: v.dy))
+        } else {
+            frames = Array(arrivalFrames.prefix(ActorLocomotionPacing.walkFramesPerCycle))
         }
+        guard !frames.isEmpty else { return }
+        let index = animationClock.frame(at: time, count: frames.count, frozen: frozen)
+        body.apply(frames[index])
+        body.alpha = 1
     }
 
-    private func beginExitFade() {
-        body.removeAction(forKey: "clientWalkCycle")
-        clearDepartureHandoff()
-        exitFadeRemaining = 0.2
-    }
-
-    private func finishExitFade() {
+    private func finishDeparture() {
         isHidden = true
         alpha = 1
         finishLocomotion()
+    }
+
+    func setScriptedFacing(_ facing: ActorFacing) {
+        movable.setOrientation(facing, slow: false)
+        scriptedFacing = facing
+        // The installed Lila family has one idle facing. Keep its authored pose;
+        // logical orientation must not assert or fabricate an unavailable view.
+    }
+
+    func stopScriptedMovement() {
+        movementCompletion = nil
+        movable.stop()
+        locomotionMode = .idle
+        activePath = []
+        removeAllActions()
+        body.removeAllActions()
+        clearDepartureHandoff()
+        body.position = .zero
+        body.alpha = 1
+        alpha = 1
+        if let idle = arrivalFrames.last { body.apply(idle) }
+    }
+
+    func jumpForCutscene(to point: CGPoint, style: CutsceneWalkStyle) {
+        stopScriptedMovement()
+        position = point.rounded
+        syncMovablePosition()
+        if style == .entering { isHidden = false }
+        if style == .leaving { isHidden = true }
     }
 
     /// BG:EE `Actor::PlayWalkSound`, on the non-party channel. See
@@ -637,50 +626,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         return departureNEFrames.isEmpty ? departureNWFrames : departureNEFrames
     }
 
-    private func startDepartureWalkCycle(_ frames: [IEAvatarVisualFrame], crossfade: Bool) {
-        guard frames.count == ActorLocomotionPacing.walkFramesPerCycle else { return }
-
-        // Keep stride phase across the NW→NE door handoff so the turn does not
-        // hard-restart mid-step (reads as haywire gait even with correct facing).
-        let frameDuration = ActorLocomotionPacing.walkCycleSecondsPerFrame
-        let phase: Int
-        if crossfade, departureWalkPhaseOrigin > 0 {
-            let elapsed = Date.timeIntervalSinceReferenceDate - departureWalkPhaseOrigin
-            phase = Int(elapsed / frameDuration) % frames.count
-        } else {
-            phase = 0
-            departureWalkPhaseOrigin = Date.timeIntervalSinceReferenceDate
-        }
-        let ordered = ClientDepartureFacing.texturesStartingAtPhase(frames, phase: phase)
-
-        if crossfade, let outgoing = body.currentFrame {
-            bodyHandoff.removeAllActions()
-            bodyHandoff.apply(outgoing)
-            bodyHandoff.xScale = abs(OfficeInteriorScale.ActorDisplay.spriteScale)
-            bodyHandoff.yScale = OfficeInteriorScale.ActorDisplay.spriteScale
-            bodyHandoff.position = body.position
-            bodyHandoff.isHidden = false
-            bodyHandoff.alpha = 1
-            body.alpha = 0
-            bodyHandoff.run(.sequence([
-                .fadeOut(withDuration: Self.stripHandoffDuration),
-                .run { [weak self] in self?.clearDepartureHandoff() }
-            ]))
-            body.run(.fadeIn(withDuration: Self.stripHandoffDuration))
-        } else {
-            clearDepartureHandoff()
-            body.alpha = 1
-        }
-
-        body.removeAction(forKey: "clientWalkCycle")
-        body.apply(ordered[0])
-        body.xScale = abs(OfficeInteriorScale.ActorDisplay.spriteScale)
-        body.run(
-            .repeatForever(animateFrames(ordered, timePerFrame: frameDuration)),
-            withKey: "clientWalkCycle"
-        )
-    }
-
     private func clearDepartureHandoff() {
         bodyHandoff.removeAllActions()
         bodyHandoff.alpha = 0
@@ -689,14 +634,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
     private func startIdle() {
         body.removeAction(forKey: "clientIdle")
-        body.run(
-            .repeatForever(.sequence([
-                .moveBy(x: 0, y: 1, duration: 0.85),
-                .moveBy(x: 0, y: -1, duration: 0.9)
-            ])),
-            withKey: "clientIdle"
-        )
+        body.position = .zero
     }
+
 }
 
 extension ClientActorNode: GroundCircleHosting {

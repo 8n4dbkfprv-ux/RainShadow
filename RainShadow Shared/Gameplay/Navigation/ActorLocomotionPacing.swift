@@ -138,9 +138,8 @@ enum ActorLocomotionPacing {
     /// V6 BGEE-density gait: 8 authored frames per cycle for every walking actor.
     static let walkFramesPerCycle = 8
 
-    /// One authored frame per logic tick, as in the engine: creature animations
-    /// advance a frame each time `DoStep` emits a displacement, which is why a
-    /// BG walk cycle cannot drift against the distance travelled.
+    /// Nominal 15 fps. Animation::NextFrame has its own millisecond timer;
+    /// this rate does not imply one frame per successful movement step.
     static let walkCycleSecondsPerFrame: TimeInterval = LogicTickClock.tickDuration
 
     /// Inclusive acceptance band for walk-cycle frame duration.
@@ -149,9 +148,8 @@ enum ActorLocomotionPacing {
     /// Inclusive acceptance band for the full walk-cycle duration (all frames).
     static let walkCycleDurationBand: ClosedRange<TimeInterval> = 0.48...0.60
 
-    /// Stand-up sequence frame hold (12 frames); slightly slower than the old 0.1s
-    /// so egress does not snap relative to the new walk.
-    static let standUpSecondsPerFrame: TimeInterval = 0.13
+    /// Actor stance sequences use the same nominal 15 fps as walk animations.
+    static let standUpSecondsPerFrame: TimeInterval = 1.0 / 15.0
 
     /// Minimum duration for any path segment (avoids zero-length pops). One
     /// logic tick is the shortest interval the engine can express.

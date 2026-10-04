@@ -585,7 +585,20 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         lastLocomotionUpdateTime = nil
     }
 
+    private var walkAnimationClock = ActorAnimationClock()
+    private var wasDisplayingWalk = false
+
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
+        // Actor::UpdateDrawingState calls NextFrame independently of DoStep.
+        let displayingWalk = state == .walking && movable.isInMovingStance
+        if displayingWalk {
+            if !wasDisplayingWalk { walkAnimationClock.reset() }
+            if let frames = walkFrames[facing], !frames.isEmpty {
+                walkFrameIndex = walkAnimationClock.frame(at: currentTime, count: frames.count, frozen: worldIsPaused)
+                applyWalkTexture()
+            }
+        }
+        wasDisplayingWalk = displayingWalk
         defer { lastLocomotionUpdateTime = currentTime }
         guard !worldIsPaused, let previousTime = lastLocomotionUpdateTime else { return }
 
@@ -673,7 +686,6 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         }
         if outcome.moved {
             setWalkFacing(movable.orientation)
-            advanceWalkFrame()
             playFootstepIfDue()
         }
         if outcome.arrived {
@@ -713,6 +725,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// BG:EE `Actor::IdleActions`: on its own 16-tick script pass, a standing
     /// creature has one chance in 25 of glancing around. See `IdleBehaviourClock`.
     private func advanceIdleBehaviourTick() {
+        // Actor::IdleActions: "don't mess with cutscenes".
+        guard (scene as? BaseGameScene)?.cutsceneDirector.isCutsceneMode != true else { return }
         guard idleClock.advanceTickRunsScript() else { return }
         // Don't interrupt a turn the player just asked for.
         guard pendingFacing == nil else { return }
@@ -785,6 +799,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
     /// Map::MoveToNewArea passes the named entrance's facing to LeaveArea.
     func setEntranceFacing(_ orientation: ActorFacing) {
+        removeAction(forKey: "idleHeadTurn")
         movable.setOrientation(orientation, slow: false)
         facing = orientation
         pendingFacing = nil
@@ -1217,15 +1232,6 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         guard let frames = walkFrames[facing], !frames.isEmpty else { return }
         walkFrameIndex %= frames.count
         body.apply(frames[walkFrameIndex])
-    }
-
-    /// Exactly one authored frame per logic tick, as the engine advances a
-    /// creature animation inside `DoStep`. There is deliberately no accumulator:
-    /// sharing the movement tick is what keeps the cycle locked to travel.
-    private func advanceWalkFrame() {
-        guard let frames = walkFrames[facing], !frames.isEmpty else { return }
-        walkFrameIndex = (walkFrameIndex + 1) % frames.count
-        applyWalkTexture()
     }
 
     private func stopWalkAnimation() {

@@ -43,6 +43,8 @@ extension CutsceneStage {
 @MainActor
 protocol CutsceneActorDriving: AnyObject {
     var cutsceneWorldPosition: CGPoint { get }
+    var cutsceneNavigationID: String { get }
+    func cutsceneClearActions()
     /// `MoveToPoint` / authored polyline. Blocks until arrival. `style` carries
     /// the threshold presentation so a skip can land on the same end state.
     func cutsceneFollow(path: [CGPoint], style: CutsceneWalkStyle, completion: @escaping () -> Void)
@@ -53,6 +55,7 @@ protocol CutsceneActorDriving: AnyObject {
     /// `FaceObject` — the slow BG pivot toward a world point.
     func cutsceneFace(toward point: CGPoint)
     /// Rise from a seat. Blocks until the stand-up strip finishes.
+    func cutsceneStandImmediately()
     func cutsceneStandUp(completion: @escaping () -> Void)
 }
 
@@ -69,6 +72,10 @@ final class CutsceneDirector {
     private unowned let scene: BaseGameScene
     private weak var stage: CutsceneStage?
 
+    private var generation = 0
+    private var actorCommandIDs: [CutsceneSubject: Int] = [:]
+    private var pendingSteps: [(Int, CutsceneStep)] = []
+    private var applying = false
     private var clock = LogicTickClock()
     private var lastUpdateTime: TimeInterval?
     private(set) var activeCutsceneID: String?
@@ -106,6 +113,7 @@ final class CutsceneDirector {
     }
 
     var isPlaying: Bool { runner.isPlaying }
+    private(set) var isCutsceneMode = false
 
     // MARK: - Lifecycle
 
@@ -125,6 +133,7 @@ final class CutsceneDirector {
     func trySkip() -> Bool {
         guard runner.canSkip(at: ProcessInfo.processInfo.systemUptime) else { return false }
         completionReason = .skipped
+        generation += 1
         apply(runner.skip(at: ProcessInfo.processInfo.systemUptime))
         return true
     }
@@ -178,6 +187,13 @@ final class CutsceneDirector {
     /// router change mid-cutscene leaves an armed gate, hidden rails, and a
     /// camera nobody owns.
     func tearDown() {
+        isCutsceneMode = false
+        generation += 1
+        actorCommandIDs = [:]
+        pendingSteps = []
+        if runner.isPlaying {
+            for id in CutsceneActorID.allCases { stage?.cutsceneActor(id)?.cutsceneClearActions() }
+        }
         runner.reset()
         activeCutsceneID = nil
         releaseCamera()
@@ -260,22 +276,25 @@ final class CutsceneDirector {
     // MARK: - Dispatch
 
     private func apply(_ step: CutsceneStep) {
-        for command in step.commands {
-            perform(command.subject, command.cue)
+        pendingSteps.append((generation, step))
+        guard !applying else { return }
+        applying = true
+        defer { applying = false }
+        while !pendingSteps.isEmpty {
+            let (issuedGeneration, next) = pendingSteps.removeFirst()
+            guard issuedGeneration == generation else { continue }
+            for command in next.commands {
+                guard issuedGeneration == generation else { break }
+                perform(command.subject, command.cue)
+            }
+            guard issuedGeneration == generation, let reason = next.completion else { continue }
+            let id = activeCutsceneID ?? ""
+            activeCutsceneID = nil
+            stage?.cutsceneDidComplete(id: id, reason: reason)
         }
-        guard let reason = step.completion else { return }
-        let id = activeCutsceneID ?? ""
-        activeCutsceneID = nil
-        stage?.cutsceneDidComplete(id: id, reason: reason)
     }
 
     private func perform(_ subject: CutsceneSubject, _ cue: CutsceneCue) {
-        // `ActionOverride` retargets the cue and reports back on the *issuing*
-        // track — that is what makes it a join rather than a fork.
-        if case .actionOverride(let actor, let inner) = cue {
-            perform(.actor(actor), inner, reportingTo: subject)
-            return
-        }
         perform(subject, cue, reportingTo: subject)
     }
 
@@ -333,6 +352,7 @@ final class CutsceneDirector {
             letterbox.setVisible(visible, animated: reason == .natural)
 
         case .setCutsceneMode(let active):
+            isCutsceneMode = active
             stage?.cutsceneSetMode(active, reason: reason)
 
         case .suppressDialogue:
@@ -342,8 +362,13 @@ final class CutsceneDirector {
             stage?.cutsceneResumeDialogue(nodeID: nodeID)
 
         case .moveToPoint(let point):
-            drive(subject, reporter: reporter) { actor, done in
-                actor.cutsceneFollow(path: [point], style: .plain, completion: done)
+            drive(subject, reporter: reporter) { [self] actor, done in
+                guard let area = scene as? GameAreaScene else { done(); return }
+                let path = area.navigation.pathAvoidingActors(
+                    from: actor.cutsceneWorldPosition, to: point, identity: actor.cutsceneNavigationID
+                )
+                actor.cutsceneFollow(path: [actor.cutsceneWorldPosition] + path.nodes.map(\.point),
+                                     style: .plain, completion: done)
             }
 
         case .followPath(let path, let style):
@@ -362,6 +387,7 @@ final class CutsceneDirector {
             actorNode(subject)?.cutsceneFace(toward: point)
 
         case .standUp:
+            if reason == .skipped { actorNode(subject)?.cutsceneStandImmediately(); break }
             drive(subject, reporter: reporter) { actor, done in
                 actor.cutsceneStandUp(completion: done)
             }
@@ -378,8 +404,11 @@ final class CutsceneDirector {
         case .setFlag(let flag):
             stage?.cutsceneSetFlag(flag)
 
+        case .clearActions:
+            actorCommandIDs[subject, default: 0] += 1
+            actorNode(subject)?.cutsceneClearActions()
         case .actionOverride:
-            assertionFailure("Unwrapped in perform(_:_:)")
+            assertionFailure("Resolved by the runner")
         }
     }
 
@@ -416,7 +445,14 @@ final class CutsceneDirector {
             report(reporter)
             return
         }
-        body(actor) { [weak self] in self?.report(reporter) }
+        actorCommandIDs[subject, default: 0] += 1
+        let commandID = actorCommandIDs[subject]
+        let issuedGeneration = generation
+        body(actor) { [weak self] in
+            guard let self, self.generation == issuedGeneration,
+                  self.actorCommandIDs[subject] == commandID else { return }
+            self.report(reporter)
+        }
     }
 
     private func actorNode(_ subject: CutsceneSubject) -> CutsceneActorDriving? {
