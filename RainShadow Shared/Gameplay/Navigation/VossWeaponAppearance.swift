@@ -46,33 +46,49 @@ enum VossArmorAppearance: String, CaseIterable, Sendable {
     case ironHelmet = "iron-helmet"
     case splintMail = "splint-mail"
 
+    // October 5 promotion of the winged helmet and cupped-shoulder armor.
+    var expectedBlobSHA256: String {
+        self == .ironHelmet ? "4a2c4d7f89b843574d34ee688b44991965a4de8ea49de94aab6a279f704386b6" : "262f53e5c21b5f6d80dd2813a2272a94e8475f32fee5798401bf42ba12ffe21c"
+    }
+
     var slot: EquipmentSlot { self == .ironHelmet ? .fedora : .coat }
     var character: String { self == .ironHelmet ? "VossIronHelmet" : "VossSplintMail" }
     var atlas: String { character + ".atlas" }
     var paperdollArt: String {
         self == .ironHelmet ? "voss_paperdoll_iron_helmet" : "voss_paperdoll_splint_mail"
     }
+    func paperdollArt(wearingMail: Bool) -> String {
+        self == .ironHelmet && !wearingMail ? paperdollArt + "_unarmored" : paperdollArt
+    }
+
     func isEquipped(in inventory: CharacterInventory) -> Bool {
         inventory.equipped[slot]?.id == rawValue
     }
 
-    func frameName(matching body: IEIndexedSprite.FrameID) -> String? {
+    func frameName(matching body: IEIndexedSprite.FrameID, wearingMail: Bool = true) -> String? {
         guard body.atlas == VossAnimationSet.atlas,
               body.name.hasPrefix("idle_") || body.name.hasPrefix("walk_") else { return nil }
-        return body.name
+        return self == .ironHelmet && !wearingMail ? "unarmored_" + body.name : body.name
     }
 
     func validate(_ sprite: IEIndexedSprite) throws {
-        guard sprite.character == character,
+        guard sprite.character == character, sprite.blobSHA256 == expectedBlobSHA256,
+              sprite.paletteLayout == .bgeeMixed,
               sprite.sourceCanvasSize == .init(width: 128, height: 128),
               sprite.compatibilityDisplaySize == .init(x: 140.625, y: 140.625),
-              sprite.frames.count == 1200 else {
+              sprite.frames.count == (self == .ironHelmet ? 2400 : 1200) else {
             throw IEIndexedSpriteError.malformedManifest(reason: "Incomplete or misregistered Voss armor overlay")
         }
         for direction in VossAnimationSet.directions {
             for (clip, count) in [("idle", VossAnimationSet.idleFrames), ("walk", VossAnimationSet.walkFrames)] {
                 for phase in 0..<count {
                     let name = String(format: "%@_%@_%02d.png", clip, direction, phase)
+                    if self == .ironHelmet {
+                        guard let standalone = sprite.frame(atlas: atlas, name: "unarmored_" + name), !standalone.isEmpty else {
+                            throw IEIndexedSpriteError.invalidFrame(atlas: atlas, name: "unarmored_" + name,
+                                reason: "Missing helmet frame without armor occlusion")
+                        }
+                    }
                     guard sprite.frame(atlas: atlas, name: name) != nil else {
                         throw IEIndexedSpriteError.invalidFrame(atlas: atlas, name: name,
                             reason: "Missing synchronized equipment frame")

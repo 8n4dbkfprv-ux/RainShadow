@@ -73,6 +73,19 @@ import SpriteKit
                 throw Failure(message: "Accepted Voss armor on Lila")
             } catch is CharacterAppearanceError { }
             try check(guardActor.definition == previous, "Failed equipment changes leave the displayed actor intact")
+            var helmetOnly = previous
+            helmetOnly.appearance.equipment.removeAll { $0.item == .splintMail }
+            try guardActor.apply(helmetOnly)
+            for facing in ActorFacing.allCases {
+                for phase in 0..<10 {
+                    try guardActor.present(action: .walk, facing: facing, phase: phase)
+                    let frame = try body(guardActor).currentFrame?.id?.name
+                    let helmet = guardActor.childNode(withName: "appearance.iron-helmet") as? IEAvatarNode
+                    try check(helmet?.currentFrame?.id?.name == frame.map { "unarmored_" + $0 },
+                              "Standalone NPC helmet follows \(facing.rawValue)/\(phase)")
+                }
+            }
+            try guardActor.apply(previous)
             var recoloredEquipment = previous
             recoloredEquipment.appearance.equipment[0].colors = .init(metal: 1)
             let helmetName = "appearance.iron-helmet"

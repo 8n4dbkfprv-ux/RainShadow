@@ -86,13 +86,13 @@
     },
     {
       "id": "iron-helmet",
-      "identifiedName": "Iron Helmet",
+      "identifiedName": "Winged Iron Helmet",
       "category": "HEADWEAR",
       "weightOunces": 48,
       "valuePence": 240,
       "iconArtName": "inventory_item_iron_helmet_v01",
-      "identifiedDescription": "A plain iron skullcap with a reinforced brow and a narrow nasal guard. Worn smooth where the straps meet the rim.",
-      "note": "Forged iron · open face",
+      "identifiedDescription": "A riveted iron helmet crowned with swept feathered wings, a narrow nasal guard and a long mail curtain protecting the neck.",
+      "note": "Winged iron · mail neck guard",
       "defenceBonus": 1
     },
     {

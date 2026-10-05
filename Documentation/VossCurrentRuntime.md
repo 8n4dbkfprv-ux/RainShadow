@@ -115,6 +115,11 @@ the hand-repair sources now retain that equipment with corrected body holdouts.
 See [helmet and splint mail](LanternArmorEquipmentOct01.md) for source, grants,
 validation and the chair-pose limitation.
 
+October 5: the [winged helmet and latest cupped armor](WingedEquipmentRuntimeOct05.md)
+are now the equipment runtime authority. Preserve their paired and standalone
+helmet variants and the taller registered portrait layers. VossCHMF and the V8
+sword payload remain unchanged.
+
 ## Palette decoding
 
 CHMF declares `bgee-mixed-v1`. The previous loader ignored `palette.layout`

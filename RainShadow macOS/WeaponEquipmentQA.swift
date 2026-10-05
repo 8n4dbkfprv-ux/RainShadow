@@ -34,7 +34,7 @@ import SpriteKit
             for name in ["inventory_item_lantern_shortsword_v01", "inventory_item_iron_helmet_v01",
                          "inventory_item_splint_mail_v01", "voss_paperdoll_chmf",
                          "voss_paperdoll_lantern_shortsword", "voss_paperdoll_iron_helmet",
-                         "voss_paperdoll_splint_mail"] {
+                         "voss_paperdoll_splint_mail", "voss_paperdoll_iron_helmet_unarmored"] {
                 try check(Bundle.main.url(forResource: name, withExtension: "png") != nil,
                           "Inventory art is packaged: " + name)
             }
@@ -75,8 +75,11 @@ import SpriteKit
                 try check(context.session.equipCarriedItem(at: index, to: armor.slot) == nil,
                           "Equipped " + armor.rawValue + " in its own slot")
                 scene.refreshInventoryOverlay()
-                try check(!node.isHidden && node.currentFrame?.id?.name == body.currentFrame?.id?.name,
-                          armor.rawValue + " matches the idle frame")
+                let expectedName = body.currentFrame?.id.flatMap {
+                    armor.frameName(matching: $0, wearingMail: VossArmorAppearance.splintMail.isEquipped(in: context.session.characterInventory))
+                }
+                try check(!node.isHidden && node.currentFrame?.id?.name == expectedName,
+                          armor.rawValue + " matches the idle frame and wearing variant")
                 try check(node.currentFrame?.native != nil && node.blitShader !== body.blitShader,
                           armor.rawValue + " has native pixels and independent shading")
                 armorNodes.append(node)
@@ -97,6 +100,12 @@ import SpriteKit
                     throw Failure(message: "Missing armor portrait layer")
                 }
                 try check(!layer.isHidden && layer.texture != nil, armor.rawValue + " appears in the portrait")
+            }
+            if let helmet = scene.inventoryOverlay.childNode(withName: "//inventory.paperdoll.iron-helmet") as? SKSpriteNode {
+                try check(helmet.texture?.size() == CGSize(width: 768, height: 1344), "Tall helmet canvas ships without rescaling")
+                try check(abs(helmet.anchorPoint.y - 535.5 / 1344) < 0.0001, "Tall helmet retains its source pivot")
+                try check(abs(helmet.size.height / portrait.size.height - 1344.0 / 1088) < 0.0001,
+                          "Armor and sword retain identical pixels-per-point")
             }
             try capture(scene, "inventory_equipped")
             scene.setInventoryPresented(false)
@@ -126,6 +135,21 @@ import SpriteKit
             scene.gameCamera.position = scene.convert(CGPoint(x: 0,y: 30), from: actor)
             try capture(scene, "walking_equipped")
             actor.cancelMovement()
+            try check(context.session.unequipItem(from: .coat) == nil, "Mail can be removed while keeping helmet equipped")
+            scene.refreshInventoryOverlay()
+            let helmetNode = actor.childNode(withName: "//detective.equipped.iron-helmet") as? IEAvatarNode
+            try check(helmetNode?.currentFrame?.id?.name.hasPrefix("unarmored_") == true,
+                      "Removing mail immediately selects the complete standalone helmet")
+            scene.setInventoryPresented(true)
+            try await Task.sleep(for: .milliseconds(200))
+            try capture(scene, "inventory_helmet_only")
+            guard let mailIndex = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "splint-mail" }) else {
+                throw Failure(message: "Missing unequipped mail")
+            }
+            try check(context.session.equipCarriedItem(at: mailIndex, to: .coat) == nil, "Mail can be re-equipped")
+            scene.refreshInventoryOverlay()
+            try check(helmetNode?.currentFrame?.id?.name == body.currentFrame?.id?.name,
+                      "Re-equipping mail immediately restores paired helmet occlusion")
             try check(context.session.unequipItem(from: .weapon1) == nil, "Unequip succeeds through GameSession")
             scene.refreshInventoryOverlay()
             try check(weapon.currentFrame == nil && weapon.isHidden, "Unequipping clears the world weapon immediately")

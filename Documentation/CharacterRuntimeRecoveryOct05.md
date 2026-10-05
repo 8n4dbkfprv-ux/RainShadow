@@ -34,7 +34,9 @@ Recovered content includes the V8 sword, V7/V8 synchronized splint mail, the
 previously installed iron helmet, their inventory icons and registered
 paperdoll layers. The newer October 3–4 winged-helmet/armor authoring packages
 remain staged; this repair does not silently promote them into the runtime.
-No Blender rendering, mesh edits or palette rebakes were performed.
+No Blender rendering, mesh edits or palette rebakes were performed in the recovery.
+The later [winged equipment promotion](WingedEquipmentRuntimeOct05.md) installs
+the approved helmet and latest cupped armor onto this recovered runtime.
 
 ## Integration boundaries
 

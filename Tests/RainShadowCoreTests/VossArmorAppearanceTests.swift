@@ -54,6 +54,24 @@ struct VossArmorAppearanceTests {
         }
     }
 
+    @Test func helmetHasCompleteIndependentWearingVariants() throws {
+        let body = try IEIndexedSprite.load(character: VossAnimationSet.character)
+        let helmet = try IEIndexedSprite.load(character: VossArmorAppearance.ironHelmet.character)
+        var checked = 0
+        for frame in body.frames {
+            guard let name = VossArmorAppearance.ironHelmet.frameName(matching: frame.id, wearingMail: false) else { continue }
+            #expect(name == "unarmored_" + frame.id.name)
+            let independent = try #require(helmet.frame(atlas: VossArmorAppearance.ironHelmet.atlas, name: name))
+            #expect(!independent.isEmpty)
+            #expect(Double(independent.trimOriginTopLeft.width) + independent.pivotFromCropBottomLeft.x == 64)
+            #expect(Double(128-independent.trimOriginTopLeft.height-independent.size.height) + independent.pivotFromCropBottomLeft.y == 46)
+            checked += 1
+        }
+        #expect(checked == 1200)
+        #expect(VossArmorAppearance.ironHelmet.paperdollArt(wearingMail: false) == "voss_paperdoll_iron_helmet_unarmored")
+        #expect(VossArmorAppearance.splintMail.paperdollArt(wearingMail: false) == "voss_paperdoll_splint_mail")
+    }
+
     @Test func armorGrantIsAdditiveAndOneTime() throws {
         #expect(HarborpointItems.armorKitGrant(hasReceived: false, existingIDs: ["lantern-shortsword"]) == ["iron-helmet", "splint-mail"])
         #expect(HarborpointItems.armorKitGrant(hasReceived: false, existingIDs: ["iron-helmet"]) == ["splint-mail"])

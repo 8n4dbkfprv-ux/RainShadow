@@ -5,6 +5,19 @@ import Testing
 
 struct InventoryScreenLayoutTests {
 
+    @Test func tallHelmetFitsWithoutMovingEquipmentOffTheBody() {
+        let height = InventoryScreenLayout.paperdollBodySize.height
+        let fit = InventoryScreenLayout.equipmentPortraitFit(bodyHeight: height, wearingHelmet: true)
+        let sourcePixel = height / 967
+        let top = (height / 2 + 110 * sourcePixel) * fit.scale + fit.offsetY
+        let bottom = -height / 2 * fit.scale + fit.offsetY
+        #expect(abs(top - height / 2) < 0.0001)
+        #expect(abs(bottom + height / 2) < 0.0001)
+        let bare = InventoryScreenLayout.equipmentPortraitFit(bodyHeight: height, wearingHelmet: false)
+        #expect(bare.scale == 1 && bare.offsetY == 0)
+
+    }
+
     // MARK: - Frame
 
     @Test func theCanvasMatchesThePaintedFrame() {

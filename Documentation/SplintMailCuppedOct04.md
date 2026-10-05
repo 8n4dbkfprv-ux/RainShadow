@@ -65,5 +65,6 @@ three-quarter, rear three-quarter and close side views. It hides the new fastene
 for the before images. Reopen the saved master after rendering; do not save the
 temporary camera/visibility state over it.
 
-These are Blender source changes. Sprite layers have not been regenerated or
-installed, and the runtime remains unchanged.
+These were Blender source changes at the October 4 review. The October 5
+[winged equipment promotion](WingedEquipmentRuntimeOct05.md) regenerates and
+installs their sprite layers with the preserved winged helmet.

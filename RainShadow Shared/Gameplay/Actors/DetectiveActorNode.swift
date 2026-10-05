@@ -51,6 +51,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private let armorNodes: [VossArmorAppearance: IEAvatarNode] = [
         .ironHelmet: IEAvatarNode(frame: nil), .splintMail: IEAvatarNode(frame: nil)
     ]
+    private var wearingSplintMail = false
     private var armorLibraries: [VossArmorAppearance: IEAvatarFrameLibrary] = [:]
     /// Legacy split seated fallback; hidden when the full seated cell is available.
     private let lowerBody: IEAvatarNode
@@ -226,6 +227,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms, weapon] + Array(armorNodes.values) }
 
     func applyEquipment(_ inventory: CharacterInventory, catalog: ItemCatalog) {
+        wearingSplintMail = VossArmorAppearance.splintMail.isEquipped(in: inventory)
         for appearance in VossArmorAppearance.allCases {
             if appearance.isEquipped(in: inventory) {
                 if armorLibraries[appearance] == nil {
@@ -263,7 +265,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         for (appearance, node) in armorNodes {
             if (state == .standingIdle || state == .walking),
                let library = armorLibraries[appearance], let id = body.currentFrame?.id,
-               let name = appearance.frameName(matching: id),
+               let name = appearance.frameName(matching: id, wearingMail: wearingSplintMail),
                let frame = library.frame(atlas: appearance.atlas, name: name) {
                 node.apply(frame)
             } else {

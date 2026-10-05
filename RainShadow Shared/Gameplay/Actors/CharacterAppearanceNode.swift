@@ -50,8 +50,12 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             }
             var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
             for (item, library) in equipment where item.supports(action: action) {
-                guard let overlay = library.frame(atlas: item.atlas, name: name) else {
-                    throw CharacterAppearanceError.missingFrame(item.atlas, name)
+                let equipmentName = item == .ironHelmet
+                    ? VossArmorAppearance.ironHelmet.frameName(matching: .init(atlas: appearance.body.atlas, name: name),
+                        wearingMail: appearance.equipment.contains { $0.item == .splintMail }) ?? name
+                    : name
+                guard let overlay = library.frame(atlas: item.atlas, name: equipmentName) else {
+                    throw CharacterAppearanceError.missingFrame(item.atlas, equipmentName)
                 }
                 overlays[item] = overlay
             }

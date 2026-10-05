@@ -116,6 +116,13 @@ enum InventoryScreenLayout {
         width: 220,
         height: equipTopY - equipBottomY - equipSlotSize.height - 2 * paperdollSlotPadding
     )
+    /// The wing tips extend 110 source pixels above the 967-pixel body crop.
+    /// Fit their union as one figure so armor, body and sword cannot drift apart.
+    static func equipmentPortraitFit(bodyHeight: CGFloat, wearingHelmet: Bool) -> (scale: CGFloat, offsetY: CGFloat) {
+        guard wearingHelmet else { return (1, 0) }
+        return (967 / 1077, -55 * bodyHeight / 1077)
+    }
+
     static let chamberOffset = CGPoint(x: 0, y: (equipTopY + equipBottomY) / 2)
     static let equipSlotSize = CGSize(width: 72, height: 68)
     static let equipIconSize = CGSize(width: 52, height: 48)

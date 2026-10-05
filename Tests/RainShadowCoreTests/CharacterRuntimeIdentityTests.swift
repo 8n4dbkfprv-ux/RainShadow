@@ -6,10 +6,13 @@ import Testing
 struct CharacterRuntimeIdentityTests {
     /// The September package had the same VossCHMF name, frame count and palette
     /// layout. Those checks alone accepted the wrong model after a Git reset.
-    @Test func aValidButDifferentPayloadCannotImpersonateTheCurrentBody() throws {
+    @Test func aValidButDifferentPayloadCannotImpersonateCurrentCharacterArt() throws {
         let tables = try IEGradientTables.load()
-        for body in CharacterBodyCode.allCases {
-            let directory = IEGradientTables.developmentDirectory.appendingPathComponent("Avatars/\(body.character)")
+        let validators: [(String, (IEIndexedSprite) throws -> Void)] =
+            CharacterBodyCode.allCases.map { body in (body.character, { try body.validate($0) }) }
+            + VossArmorAppearance.allCases.map { armor in (armor.character, { try armor.validate($0) }) }
+        for (character, validate) in validators {
+            let directory = IEGradientTables.developmentDirectory.appendingPathComponent("Avatars/\(character)")
             let manifestData = try Data(contentsOf: directory.appendingPathComponent("avatar-v02.json"))
             var manifest = try #require(JSONSerialization.jsonObject(with: manifestData) as? [String: Any])
             var indices = try Data(contentsOf: directory.appendingPathComponent("avatar-v02.indices"))
@@ -25,8 +28,8 @@ struct CharacterRuntimeIdentityTests {
             manifest["blob_sha256"] = hash(indices)
             let stale = try IEIndexedSprite(manifestData: JSONSerialization.data(withJSONObject: manifest),
                                             indicesData: indices, tables: tables)
-            #expect(stale.character == body.character)
-            #expect(throws: IEIndexedSpriteError.self) { try body.validate(stale) }
+            #expect(stale.character == character)
+            #expect(throws: IEIndexedSpriteError.self) { try validate(stale) }
         }
     }
 }
