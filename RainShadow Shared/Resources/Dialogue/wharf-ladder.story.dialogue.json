@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "case.wharf-ladder.story",
+  "startNodeID": "gate.won",
+  "nodes": [
+    {
+      "id": "gate.won",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.gate.won",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "lane.won",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.lane.won",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "clockroom.won",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.clockroom.won",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "gate.crossed",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.gate.crossed",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "lane.crossed",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.lane.crossed",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "clockroom.crossed",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.clockroom.crossed",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "gate.lost",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.gate.lost",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "lane.lost",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.lane.lost",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    },
+    {
+      "id": "clockroom.lost",
+      "speakerKey": "dlg.speaker.harlan_voss",
+      "textKey": "dlg.wharf-ladder.story.clockroom.lost",
+      "isInteriorMonologue": true,
+      "portraitName": "dialogue_portrait_harlan_voss_v01",
+      "endsDialogue": true
+    }
+  ]
+}

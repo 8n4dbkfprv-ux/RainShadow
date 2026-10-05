@@ -400,6 +400,15 @@ class GameAreaScene: BaseGameScene {
         actor.applyFootLight(sample)
     }
 
+    func applyAreaLighting(to actor: CharacterAppearanceNode) {
+        actor.applyFootLight(lightMap?.sample(at: actor.position,
+            origin: navigation.searchMap.origin, cellSize: navigation.searchMap.cellSize))
+        actor.visualHeightOffset = heightMap.map {
+            AreaHeightMap.offset(from: $0, at: actor.position,
+                origin: navigation.searchMap.origin, cellSize: navigation.searchMap.cellSize)
+        } ?? 0
+    }
+
     func applyHeightOffset(to actor: DetectiveActorNode, at point: CGPoint) {
         if actor.isDeskRegistered {
             actor.visualHeightOffset = 0

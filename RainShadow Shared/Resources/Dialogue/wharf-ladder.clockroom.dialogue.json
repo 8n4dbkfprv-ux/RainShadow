@@ -1,0 +1,134 @@
+{
+  "entryNodeIDs": [
+    "clock.interval"
+  ],
+  "id": "case.wharf-ladder.clockroom",
+  "nodes": [
+    {
+      "id": "clock.bark",
+      "nextNodeID": "clock.bark.b",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.text"
+    },
+    {
+      "id": "clock.bark.b",
+      "nextNodeID": "clock.bark.c",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.clock_hand",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.b.text"
+    },
+    {
+      "choices": [
+        {
+          "destinationID": "clock.warm",
+          "intention": "open",
+          "onSelect": [
+            {
+              "id": "combat.a1.clockroom.trigger",
+              "type": "setCaseFlag"
+            },
+            {
+              "id": "combat.a1.clockroom.opening.rattled",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.c.choice.0.text",
+          "tone": "warm"
+        },
+        {
+          "destinationID": "clock.dry",
+          "intention": "observe",
+          "onSelect": [
+            {
+              "id": "combat.a1.clockroom.trigger",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.c.choice.1.text",
+          "tone": "dry"
+        },
+        {
+          "destinationID": "clock.sharp",
+          "intention": "press",
+          "onSelect": [
+            {
+              "id": "combat.a1.clockroom.trigger",
+              "type": "setCaseFlag"
+            },
+            {
+              "id": "combat.a1.clockroom.opening.firstBlow",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.c.choice.2.text",
+          "tone": "sharp"
+        }
+      ],
+      "id": "clock.bark.c",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.bark.c.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "clock.warm",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.warm.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "clock.dry",
+      "portraitName": "dialogue_portrait_chalk_crew_v01",
+      "speakerKey": "dlg.speaker.clock_hand",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.dry.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "clock.sharp",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.sharp.text"
+    },
+    {
+      "choices": [
+        {
+          "destinationID": "clock.interval.b",
+          "intention": "leave",
+          "onSelect": [
+            {
+              "id": "combat.a1.clockroom.letPass",
+              "type": "setCaseFlag"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.clockroom.node.clock.interval.choice.0.text",
+          "tone": "dry"
+        }
+      ],
+      "entryWhen": [
+        {
+          "id": "wharf-ladder.case.visited",
+          "type": "hasFlag"
+        },
+        {
+          "id": "knowledge.nightClock.interval",
+          "type": "hasKnowledge"
+        }
+      ],
+      "id": "clock.interval",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.interval.text"
+    },
+    {
+      "endsDialogue": true,
+      "id": "clock.interval.b",
+      "portraitName": "dialogue_portrait_hobb_v01",
+      "speakerKey": "dlg.speaker.hobb",
+      "textKey": "dlg.wharf-ladder.clockroom.node.clock.interval.b.text"
+    }
+  ],
+  "schemaVersion": 1,
+  "startNodeID": "clock.bark"
+}

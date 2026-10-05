@@ -7,7 +7,20 @@ import AppKit
 /// come from the area bundle; the world map still needs a district id for the
 /// edge-exit graph.
 @MainActor
-final class CityDistrictScene: GameAreaScene {
+final class CityDistrictScene: GameAreaScene, CutsceneStage {
+    private lazy var wharfStory = WharfLadderDirector(scene: self)
+    private var storyOwnsInput: Bool { wharfStory.isActive }
+    override var chromeIsSuppressedByScene: Bool { wharfStory.cinematicMode }
+
+    func cutsceneActor(_ id: CutsceneActorID) -> CutsceneActorDriving? {
+        id == .detective ? detective : nil
+    }
+    func cutsceneSetMode(_ active: Bool, reason: CutsceneCompletionReason) { wharfStory.setCinematicMode(active) }
+    func cutsceneSetFlag(_ flag: String) {
+        if flag == "wharf-ladder.clear-crew" { wharfStory.clearCrew() }
+    }
+    func cutsceneDidComplete(id: String, reason: CutsceneCompletionReason) { wharfStory.cutsceneCompleted() }
+
     private struct EdgeExit {
         let edge: CityMapEdge
         let hitArea: CGRect
@@ -118,9 +131,11 @@ final class CityDistrictScene: GameAreaScene {
         // A save loaded with a heavy bag must walk heavy from the first step, not
         // from the first pickup.
         syncDetectiveEncumbrance()
-        guard !hasShownArrivalHint else { return }
+        if area.id == WharfLadderStory.interior { wharfStory.start() }
+        guard !hasShownArrivalHint, !storyOwnsInput else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
+        hint.name = "city.arrivalHint"
         hint.text = area.arrivalHint
         hint.fontSize = 17
         hint.fontColor = SKColor(white: 0.86, alpha: 0.90)
@@ -137,6 +152,10 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
+        if storyOwnsInput {
+            if dialogueIsActive { _ = dialoguePresenter.handlePointerDown(at: dialoguePanelPoint(for: event.location)) }
+            return
+        }
         removeAction(forKey: "touchEntranceHighlight")
         guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented, !inventoryIsPresented else { return }
         let hudPoint = hudRoot.convert(event.location, from: self)
@@ -146,6 +165,10 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
+        if storyOwnsInput {
+            if dialogueIsActive { _ = dialoguePresenter.handlePointerDragged(at: dialoguePanelPoint(for: event.location)) }
+            return
+        }
         let hudPoint = hudRoot.convert(event.location, from: self)
         actionBar.updatePress(at: actionBar.convert(hudPoint, from: hudRoot))
         portraitBar.updateUtilityPress(at: portraitBar.convert(hudPoint, from: hudRoot))
@@ -158,6 +181,15 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
+        if storyOwnsInput {
+            if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
+            else if dialogueIsActive {
+                if !dialoguePresenter.handlePointerUp(at: dialoguePanelPoint(for: event.location)) {
+                    dialoguePresenter.handlePointer(at: dialoguePanelPoint(for: event.location))
+                }
+            }
+            return
+        }
         let hudPoint = hudRoot.convert(event.location, from: self)
         if journalIsPresented {
             journalOverlay.handlePointer(at: journalOverlay.convert(hudPoint, from: hudRoot))
@@ -262,6 +294,10 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handleDirectionalInput(_ direction: CGVector) -> Bool {
+        if storyOwnsInput {
+            if dialogueIsActive { _ = dialoguePresenter.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1) }
+            return true
+        }
         if mapIsPresented || worldMapIsPresented { return true }
         if journalIsPresented {
             journalOverlay.handleDirectionalInput(direction)
@@ -276,6 +312,11 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
+        if storyOwnsInput {
+            setCameraScroll(.zero)
+            if dialogueIsActive { _ = dialoguePresenter.updatePointer(at: dialoguePanelPoint(for: event.location)) }
+            return
+        }
         #if os(macOS)
         let hudPoint = hudRoot.convert(event.location, from: self)
         // Stop any running edge scroll up front; re-armed below only when the
@@ -359,6 +400,7 @@ final class CityDistrictScene: GameAreaScene {
     #endif
 
     override func handleTacticalPauseInput() {
+        if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         pause.togglePlayerPause()
         actionBar.setClockPaused(pause.isPausedByPlayer)
         overlayPresentationDidChange()
@@ -368,6 +410,7 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handleCancelInput() {
+        if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -394,6 +437,7 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handleClearTargetingInput() {
+        if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -408,12 +452,21 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func handleScrollInput(_ deltaY: CGFloat) -> Bool {
+        if storyOwnsInput {
+            if dialogueIsActive { _ = dialoguePresenter.scrollContent(by: -deltaY) }
+            return true
+        }
         guard journalIsPresented else { return false }
         journalOverlay.moveSelection(deltaY > 0 ? -1 : 1)
         return true
     }
 
     override func handleConfirmInput() {
+        if storyOwnsInput {
+            if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
+            else if dialogueIsActive { dialoguePresenter.activateCommandControl() }
+            return
+        }
         if journalIsPresented {
             setJournalPresented(false)
         } else if worldMapIsPresented {
@@ -425,10 +478,16 @@ final class CityDistrictScene: GameAreaScene {
         }
     }
 
+    override func handleDialogueChoiceDigit(_ digit: Int) {
+        guard dialogueIsActive, !cutsceneDirector.isPlaying else { return }
+        dialoguePresenter.selectChoice(at: digit - 1)
+    }
+
     override func layoutViewport() {
         super.layoutViewport()
         // Same contract as the office: chrome uses post-sync `size` (live view points).
         let hudViewportSize = size
+        dialoguePresenter.layout(for: hudViewportSize)
         inventoryOverlay.layout(for: hudViewportSize)
         areaMapOverlay.layout(for: hudViewportSize)
         worldMapOverlay.layout(for: hudViewportSize)
@@ -439,7 +498,10 @@ final class CityDistrictScene: GameAreaScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        pause.setModal(dialogue: false, overlay: anyOverlayIsPresented)
+        cutsceneDirector.update(currentTime)
+        pause.setModal(dialogue: dialogueIsActive && !wharfStory.cinematicMode, overlay: anyOverlayIsPresented)
+        wharfStory.update(at: currentTime)
+        detective.groundCircleState.isCutscene = wharfStory.cinematicMode
         tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
         let worldIsPaused = pause.isPaused
         // The ground says what it is. This was `.wetStone` unconditionally,
@@ -608,6 +670,17 @@ final class CityDistrictScene: GameAreaScene {
         // InfoPoint::CheckTravel rejects deactivated regions even if a caller
         // already has a reference (hiding its outline is not deactivation).
         guard !region.isDeactivated else { return }
+        if area.id == WharfLadderStory.exterior, region.id == "portal.shippingOffice",
+           !context.session.caseState.hasFlag(WharfLadderStory.activeVisit)
+            || !WharfLadderStory.crossed(.gate, in: context.session.caseState)
+            || !WharfLadderStory.crossed(.lane, in: context.session.caseState) {
+            moveDetective(to: region.approachPoint!.cgPoint,
+                          minDistance: MovementOrderQueue.defaultInteractionDistance) { [weak self] in
+                guard let self else { return }
+                self.wharfStory.start { [weak self] in self?.handleRegion(region) }
+            }
+            return
+        }
         let box = region.boundingBox
         let target = door(matching: region.id)?.walkTarget(
             from: detective.position,
@@ -688,17 +761,17 @@ final class CityDistrictScene: GameAreaScene {
                     if let entry = door.entryPoint {
                         if self.navigation.searchMap.cell(for: self.detective.position)
                             == self.navigation.searchMap.cell(for: entry.cgPoint) {
-                            self.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                            self.travelFromRegion(to: travel.destination, entrance: travel.entrance)
                             return
                         }
                         // Opening the WED tiles and crossing the ARE travel
                         // threshold are separate actions. A replacement order
                         // or Stop cancels this walk's completion as usual.
                         self.moveDetective(to: entry.cgPoint, minDistance: 0) { [weak self] in
-                            self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                            self?.travelFromRegion(to: travel.destination, entrance: travel.entrance)
                         }
                     } else {
-                        self.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                        self.travelFromRegion(to: travel.destination, entrance: travel.entrance)
                     }
                 }
                 return
@@ -707,9 +780,16 @@ final class CityDistrictScene: GameAreaScene {
                 to: target,
                 minDistance: MovementOrderQueue.defaultInteractionDistance
             ) { [weak self] in
-                self?.context.router.travel(to: travel.destination, entrance: travel.entrance)
+                self?.travelFromRegion(to: travel.destination, entrance: travel.entrance)
             }
         }
+    }
+
+    private func travelFromRegion(to destination: AreaID, entrance: String) {
+        if area.id == WharfLadderStory.interior, destination == WharfLadderStory.exterior {
+            context.session.updateWharfStory { state, _ in WharfLadderStory.endVisit(&state) }
+        }
+        context.router.travel(to: destination, entrance: entrance)
     }
 
     /// Bridge until Phase 6 gives areas a real variable namespace. Today the one

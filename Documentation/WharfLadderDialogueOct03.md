@@ -1,10 +1,12 @@
 # RainShadow · Act I Beat 3 · Wharf Ladder shipping office: dialogue script (approved 3 Oct 2026)
 
-Graph `case.wharf-ladder` → `wharf-ladder.dialogue.json` (52 nodes) + `wharf-ladder.strings.en.json` (119 keys).
-Revision 3: Writing Bot's humour pass (strings v2, all 10 lines kept, including "Polite. Wiped their feet, even.") plus Laurens's decisions on every open question (D1 to D10). The v1 originals are in `wharf-ladder.strings.en.v1.json` and `wharf-ladder-script.v1.md`.
+**October 5 runtime update:** These graphs are now registered and playable through Story combat. See [integration, state contracts and validation](WharfLadderStoryCombatOct05.md). The October 3 integration-gap notes below are retained as the original writing hand-off.
+
+Graph `case.wharf-ladder` → `wharf-ladder.dialogue.json` (53 nodes) + `wharf-ladder.strings.en.json` (122 keys).
+Revision 3: Writing Bot's humour pass (strings v2, all 10 lines kept, including "Polite. Wiped their feet, even.") plus Laurens's decisions on every open question (D1 to D10). Revision 4 (3 Oct 2026, branch `grokbot/wharf-ladder-floor`) adds one Warm-path Merrick line, `merrick.tidegap`, which grants `knowledge.wharfLadder.tideGap` for the A1 lane's return-visit slip (see `Documentation/WharfLadderFloorOct03.md`). The v1 originals are in `wharf-ladder.strings.en.v1.json` and `wharf-ladder-script.v1.md`.
 Sources: GDD §4.3.2 Act I beat 3 scene card, §4.2, §4.3.5, §7.5, side cases 03/04 (§4.3.8); design pack combat-02 and sidequest-04.
 
-**Status in the repo (PR #32, branch `grokbot/wharf-ladder-dialogue`):** the graph ships as `RainShadow Shared/Resources/Dialogue/wharf-ladder.dialogue.json`, and its 119 keys are merged into `strings.en.json`. It is **not registered** yet: there's no Swift facade, it isn't in `ShippedDialogueCatalogTests.shippedCatalog()`, it isn't in the Xcode target's resource list, and nothing presents it. The code follow-ups are listed under "Engine and format gaps" below. This script is generated from the JSON by the design-pack tool `render_script.py`, so the two can't drift apart. The `wharf-ladder.strings.en*.json` file names refer to the design pack; in the repo, those keys live in `strings.en.json`.
+**Status in the repo (PR #32, branch `grokbot/wharf-ladder-dialogue`):** the graph ships as `RainShadow Shared/Resources/Dialogue/wharf-ladder.dialogue.json`, and its 122 keys are merged into `strings.en.json`. It is **not registered** yet: there's no Swift facade, it isn't in `ShippedDialogueCatalogTests.shippedCatalog()`, it isn't in the Xcode target's resource list, and nothing presents it. The code follow-ups are listed under "Engine and format gaps" below. This script is generated from the JSON by the design-pack tool `render_script.py`, so the two can't drift apart. The `wharf-ladder.strings.en*.json` file names refer to the design pack; in the repo, those keys live in `strings.en.json`.
 
 **How to read this.** `VOSS (thinking)` = interior monologue page. Lines in *italics* after a number are Voss's reply choices (per §7.5, Voss speaks only through choices). `[tone/intention]` is metadata, never shown to the player. "only if" = the choice is hidden unless the condition holds. "set (this talk only)" = conversation flag, cleared when the talk ends; plain "set" = case flag that persists. **HAND-OFF** flags are where dialogue stops and the E1 fight (or story auto-resolve) takes over.
 
@@ -249,6 +251,12 @@ _Exactly one choice shows, matching the approach from scene 3._
 - 1. *"Then I was never here."* `[leave]` → `warm.backdoor`
     - set E1 avoided; set Wharf Ladder visited
 - 2. *"Ring it. I'll be behind the wax. I want to hear what they're paid to say."* `[observe]` → `warm.hide`
+- 3. *"Next time I'd rather skip the lane."* `[warm/trade]` · only if NOT (knows the tide-gap timing for the lost-crate lane) → `merrick.tidegap`
+    - learn the tide-gap timing for the lost-crate lane
+
+**`merrick.tidegap`** · MERRICK
+> Then come at the tide-gap. One minute when the river drowns the lane and the crate hands curse their wheels. That one's free. Free is a one-time price.
+- 1. *"Noted. Now, the bell."* `[dry/observe]` → `merrick.whisper`
 
 **`warm.hide`** · VOSS (thinking)
 > I folded myself behind a shelf of wax that would have liked me dead. Merrick rang the bell like a man apologising to it. Boots came in. Two pairs. One heavy, one in a hurry.

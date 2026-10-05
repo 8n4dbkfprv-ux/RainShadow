@@ -164,7 +164,17 @@ final class GameSession {
         // After intro, city travel is available whenever free-play is restored.
         if hasCompletedOfficeCaseIntro {
             isCityTravelOpen = true
+            WharfLadderStory.creditRetainer(in: &caseState, wallet: &walletPence)
+            persist()
         }
+    }
+
+    /// One save transaction for encounter state and money. Pending dialogue/fade
+    /// recovery uses the same case flags as a normally completed sequence.
+    func updateWharfStory(_ update: (inout CaseState, inout Int) -> Void) {
+        update(&caseState, &walletPence)
+        caseState.setCounter("wallet.pence", to: walletPence)
+        persist()
     }
 
     /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, counters,
@@ -172,6 +182,8 @@ final class GameSession {
     /// replaces rather than unions — unioning silently discarded every `clearCaseFlag`.
     func mergeCaseStateFromDialogue(_ state: CaseState, wasSeeded: Bool = true) {
         caseState = caseState.applying(state, wasSeeded: wasSeeded)
+        WharfLadderStory.settlePayment(in: &caseState, wallet: &walletPence)
+        caseState.setCounter("wallet.pence", to: walletPence)
         persist()
     }
 
@@ -180,6 +192,7 @@ final class GameSession {
         guard !hasCompletedOfficeCaseIntro else { return }
         hasCompletedOfficeCaseIntro = true
         isCityTravelOpen = true
+        WharfLadderStory.creditRetainer(in: &caseState, wallet: &walletPence)
         persist()
     }
 

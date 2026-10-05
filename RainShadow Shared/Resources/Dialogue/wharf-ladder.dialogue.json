@@ -163,7 +163,14 @@
             }
           ],
           "textKey": "dlg.wharf-ladder.node.merrick.price.choice.0.text",
-          "tone": "warm"
+          "tone": "warm",
+          "conditions": [
+            {
+              "type": "counterAtLeast",
+              "id": "wallet.pence",
+              "value": 600
+            }
+          ]
         },
         {
           "destinationID": "merrick.favour",
@@ -641,12 +648,47 @@
           "destinationID": "warm.hide",
           "intention": "observe",
           "textKey": "dlg.wharf-ladder.node.merrick.whisper.choice.1.text"
+        },
+        {
+          "conditions": [
+            {
+              "condition": {
+                "id": "knowledge.wharfLadder.tideGap",
+                "type": "hasKnowledge"
+              },
+              "type": "not"
+            }
+          ],
+          "destinationID": "merrick.tidegap",
+          "intention": "trade",
+          "onSelect": [
+            {
+              "id": "knowledge.wharfLadder.tideGap",
+              "type": "grantKnowledge"
+            }
+          ],
+          "textKey": "dlg.wharf-ladder.node.merrick.whisper.choice.2.text",
+          "tone": "warm"
         }
       ],
       "id": "merrick.whisper",
       "portraitName": "dialogue_portrait_merrick_v01",
       "speakerKey": "dlg.speaker.merrick",
       "textKey": "dlg.wharf-ladder.node.merrick.whisper.text"
+    },
+    {
+      "choices": [
+        {
+          "destinationID": "merrick.whisper",
+          "intention": "observe",
+          "textKey": "dlg.wharf-ladder.node.merrick.tidegap.choice.0.text",
+          "tone": "dry"
+        }
+      ],
+      "id": "merrick.tidegap",
+      "portraitName": "dialogue_portrait_merrick_v01",
+      "speakerKey": "dlg.speaker.merrick",
+      "textKey": "dlg.wharf-ladder.node.merrick.tidegap.text"
     },
     {
       "id": "warm.hide",

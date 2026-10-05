@@ -605,10 +605,12 @@ class BaseGameScene: SKScene {
         dialoguePresenter.onNodeShown = { [weak self] node in
             self?.dialogueNodeDidShow(node)
         }
+        var dialogueCase = context.session.caseState
+        dialogueCase.setCounter("wallet.pence", to: context.session.walletPence)
         dialoguePresenter.present(
             graph: graph,
             context: DialogueRuntimeContext(
-                caseState: context.session.caseState,
+                caseState: dialogueCase,
                 dialogueState: DialogueState(graphID: graph.id)
             )
         ) { [weak self] in
