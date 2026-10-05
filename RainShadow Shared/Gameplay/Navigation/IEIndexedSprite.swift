@@ -135,6 +135,7 @@ struct IEIndexedSprite: Sendable {
     }
 
     let character: String
+    let blobSHA256: String
     let colors: [UInt32]
     let sourceCanvasSize: PixelSize
     let sourcePivotFromCanvasBottomLeft: PixelVector
@@ -393,6 +394,7 @@ struct IEIndexedSprite: Sendable {
         }
 
         character = manifest.character
+        blobSHA256 = actualBlobHash
         self.colors = colors
         self.sourceCanvasSize = sourceCanvasSize
         self.sourcePivotFromCanvasBottomLeft = sourcePivotFromCanvasBottomLeft

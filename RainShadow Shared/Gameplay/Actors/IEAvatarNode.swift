@@ -42,12 +42,19 @@ struct IEAvatarVisualFrame {
 @MainActor
 final class IEAvatarFrameLibrary {
     let sprite: IEIndexedSprite
+    let colors: [UInt32]
     private var cache: [IEIndexedSprite.FrameID: IEAvatarVisualFrame] = [:]
 
     init(character: String) throws {
         sprite = try AreaLoadTrace.measure("IEIndexedSprite.load", character) {
             try IEIndexedSprite.load(character: character)
         }
+        colors = sprite.colors
+    }
+
+    private init(sprite: IEIndexedSprite, colors: [UInt32]) {
+        self.sprite = sprite
+        self.colors = colors
     }
 
     /// One library per character, for the life of the process.
@@ -72,6 +79,39 @@ final class IEAvatarFrameLibrary {
 
     private static var libraries: [String: IEAvatarFrameLibrary] = [:]
 
+    private struct VariantKey: Hashable {
+        let character: String
+        let colors: [UInt32]
+    }
+    private final class WeakLibrary {
+        weak var value: IEAvatarFrameLibrary?
+        init(_ value: IEAvatarFrameLibrary) { self.value = value }
+    }
+    private static var variants: [VariantKey: WeakLibrary] = [:]
+
+    /// Share the index planes; cache resolved pixels by the complete palette.
+    /// Variant caches live only while actors retain them, rather than retaining
+    /// every NPC palette's textures for the lifetime of the application.
+    static func shared(character: String, colors: [UInt32]) throws -> IEAvatarFrameLibrary {
+        precondition(colors.count == 7 && colors.allSatisfy { $0 <= 255 })
+        let base = try shared(character: character)
+        if colors == base.colors { return base }
+        let key = VariantKey(character: character, colors: colors)
+        if let cached = variants[key]?.value { return cached }
+        variants = variants.filter { $0.value.value != nil }
+        let library = IEAvatarFrameLibrary(sprite: base.sprite, colors: colors)
+        variants[key] = WeakLibrary(library)
+        return library
+    }
+
+    static func shared(appearance: CharacterAppearance) throws -> IEAvatarFrameLibrary {
+        try appearance.validate()
+        let base = try shared(character: appearance.body.character)
+        try appearance.body.validate(base.sprite)
+        return try shared(character: appearance.body.character,
+                          colors: appearance.bodyColors(authored: base.sprite.colors))
+    }
+
     func frame(atlas: String, name: String) -> IEAvatarVisualFrame? {
         guard let indexed = sprite.frame(atlas: atlas, name: name) else { return nil }
         if let cached = cache[indexed.id] { return cached }
@@ -87,8 +127,9 @@ final class IEAvatarFrameLibrary {
             )
         } else if let pivot = indexed.normalizedPivot {
             let texturePixels = sprite.texturePixelSize(for: indexed)
+            let rgba = sprite.rgba(for: indexed, colors: colors)
             guard let texture = Self.makeTexture(
-                rgba: sprite.rgba(for: indexed),
+                rgba: rgba,
                 width: texturePixels.width,
                 height: texturePixels.height
             ) else { return nil }
@@ -104,7 +145,7 @@ final class IEAvatarFrameLibrary {
                 anchorPoint: CGPoint(x: CGFloat(pivot.x), y: CGFloat(pivot.y)),
                 id: indexed.id,
                 isEmpty: false,
-                native: try? IEAvatarNativeFrame(sprite: sprite, frame: indexed)
+                native: try? IEAvatarNativeFrame(sprite: sprite, frame: indexed, rgba: Data(rgba))
             )
         } else {
             return nil
@@ -186,9 +227,9 @@ struct IEAvatarNativeFrame {
     let rgba: Data
     let unitsPerPixel: CGSize
 
-    init(sprite: IEIndexedSprite, frame: IEIndexedSprite.Frame) throws {
+    init(sprite: IEIndexedSprite, frame: IEIndexedSprite.Frame, rgba: Data? = nil) throws {
         self.frame = try sprite.softwareFrame(for: frame)
-        rgba = Data(sprite.resolvedColors(for: frame).flatMap { [$0.r, $0.g, $0.b, $0.a] })
+        self.rgba = rgba ?? Data(sprite.resolvedColors(for: frame).flatMap { [$0.r, $0.g, $0.b, $0.a] })
         unitsPerPixel = CGSize(width: sprite.registeredPixelsPerNativePixel * sprite.displayUnitsPerSourcePixel.x,
                               height: sprite.registeredPixelsPerNativePixel * sprite.displayUnitsPerSourcePixel.y)
     }

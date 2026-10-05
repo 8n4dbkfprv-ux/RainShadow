@@ -1,10 +1,15 @@
 # AGENTS
 
-## Current character runtime — September 28
+## Current character runtime — October 5 recovery
 
-Voss now uses **VossCHMF**, the September 22 reference family plus the September
-23 explicit SW chair poses (1,556 frames). `VossAnimationSet` is the runtime
-authority. Preserve its named bundle and `IECharacterPaletteLayout` support.
+Voss uses **VossCHMF**, the approved Rustic Warrior with the October 1 V8
+walking grip (1,556 frames). Lila uses **LilaSentinel**, the October 2 Desert
+Sentinel (1,056 frames). `VossAnimationSet` and `LilaAnimationSet` are the runtime
+authorities and pin their approved payload hashes. Preserve their named bundles,
+the shared appearance system, compatible equipment and palette-layout support.
+The September 28 Voss bundle has the same name and frame count but is obsolete.
+The October 5 recovery restores character integration lost during a Git reset;
+see `Documentation/CharacterRuntimeRecoveryOct05.md` for scope and validation.
 The V14 character instructions below are historical and superseded. Never
 rewire the actor to `Voss` or its compatibility atlases during an area restore.
 See `Documentation/VossCurrentRuntime.md` for the exact payload and regression checks.

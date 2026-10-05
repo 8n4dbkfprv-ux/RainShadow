@@ -255,4 +255,14 @@ enum HarborpointItems {
         "coin-purse",
         "tobacco-tin"
     ]
+    static let armorKitItemIDs = ["iron-helmet", "splint-mail"]
+
+    /// One-time addition for existing saves. Items already carried, worn,
+    /// dropped or returned to a container must not be duplicated.
+    static func armorKitGrant(
+        hasReceived: Bool, existingIDs: Set<String>, availableSlots: Int = 16
+    ) -> [String] {
+        guard !hasReceived else { return [] }
+        return Array(armorKitItemIDs.filter { !existingIDs.contains($0) }.prefix(max(0, availableSlots)))
+    }
 }

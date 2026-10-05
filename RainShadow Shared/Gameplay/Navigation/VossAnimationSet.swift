@@ -1,8 +1,9 @@
 import Foundation
 
 /// Current character identity, independent of historical atlases and master selectors.
-/// The reviewed September 22 family includes September 23's explicit SW chair.
+/// September 30 Rustic Warrior rig, CHMB1G12-timed idle and explicit SW chair.
 enum VossAnimationSet {
+    static let expectedBlobSHA256 = "619d4042120a1b1215e9033504729c920ec8d44b6fd5deeb0cc68cc9e7b8577f"
     static let character = "VossCHMF"
     static let atlas = "VossCHMF.atlas"
     static let frameCount = 1556
@@ -19,7 +20,7 @@ enum VossAnimationSet {
     /// Missing or stale character art is an installation error, never permission
     /// to substitute the old detective. All poses are validated before display.
     static func validate(_ sprite: IEIndexedSprite) throws {
-        guard sprite.character == character,
+        guard sprite.character == character, sprite.blobSHA256 == expectedBlobSHA256,
               sprite.paletteLayout == .bgeeMixed,
               sprite.frames.count == frameCount else {
             throw IEIndexedSpriteError.malformedManifest(reason: "Expected current VossCHMF with 1556 frames")

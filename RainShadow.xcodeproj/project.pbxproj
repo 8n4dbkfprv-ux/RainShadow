@@ -10,15 +10,27 @@
 		C0DE1EA00000000000000011 /* Lila in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000001 /* Lila */; };
 		C0DE1EA00000000000000012 /* Voss in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000002 /* Voss */; };
 		C0DE1EA00000000000000013 /* VossCHMF in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000004 /* VossCHMF */; };
+		C0DE1EA00000000000000014 /* VossLanternShortsword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000005 /* VossLanternShortsword */; };
+		C0DE1EA00000000000000015 /* VossIronHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000006 /* VossIronHelmet */; };
+		C0DE1EA00000000000000016 /* VossSplintMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000007 /* VossSplintMail */; };
+		C0DE1EA00000000000000017 /* LilaSentinel in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000008 /* LilaSentinel */; };
 		C0DE1EA00000000000000021 /* Lila in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000001 /* Lila */; };
 		C0DE1EA00000000000000022 /* Voss in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000002 /* Voss */; };
 		C0DE1EA00000000000000023 /* VossCHMF in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000004 /* VossCHMF */; };
+		C0DE1EA00000000000000024 /* VossLanternShortsword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000005 /* VossLanternShortsword */; };
+		C0DE1EA00000000000000025 /* VossIronHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000006 /* VossIronHelmet */; };
+		C0DE1EA00000000000000026 /* VossSplintMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000007 /* VossSplintMail */; };
+		C0DE1EA00000000000000027 /* LilaSentinel in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000008 /* LilaSentinel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C0DE1EA00000000000000001 /* Lila */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lila; path = "RainShadow Shared/Resources/Art/IE/Avatars/Lila"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000002 /* Voss */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Voss; path = "RainShadow Shared/Resources/Art/IE/Avatars/Voss"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000004 /* VossCHMF */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossCHMF; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossCHMF"; sourceTree = SOURCE_ROOT; };
+		C0DE1EA00000000000000005 /* VossLanternShortsword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossLanternShortsword; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossLanternShortsword"; sourceTree = SOURCE_ROOT; };
+		C0DE1EA00000000000000006 /* VossIronHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossIronHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossIronHelmet"; sourceTree = SOURCE_ROOT; };
+		C0DE1EA00000000000000007 /* VossSplintMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossSplintMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossSplintMail"; sourceTree = SOURCE_ROOT; };
+		C0DE1EA00000000000000008 /* LilaSentinel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LilaSentinel; path = "RainShadow Shared/Resources/Art/IE/Avatars/LilaSentinel"; sourceTree = SOURCE_ROOT; };
 		DAAF9D22300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAF9D33300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAF9D43300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +65,7 @@
 				Core/Scene/SceneRouter.swift,
 				Core/Scene/WallStencilTexture.swift,
 				Gameplay/Actors/ActorSceneLighting.swift,
+				Gameplay/Actors/CharacterAppearanceNode.swift,
 				Gameplay/Actors/ClientActorNode.swift,
 				Gameplay/Actors/ContactShadowNode.swift,
 				Gameplay/Actors/CutsceneActorAdapters.swift,
@@ -82,6 +95,7 @@
 				Gameplay/Navigation/BreakableCutsceneGate.swift,
 				Gameplay/Navigation/CameraZoom.swift,
 				Gameplay/Navigation/CaseDialogueModels.swift,
+				Gameplay/Navigation/CharacterAppearance.swift,
 				Gameplay/Navigation/CharacterInventory.swift,
 				Gameplay/Navigation/CityBlockGrid.swift,
 				Gameplay/Navigation/CityDistrictAreaAdapter.swift,
@@ -123,6 +137,7 @@
 				Gameplay/Navigation/HighlightGeometry.swift,
 				Gameplay/Navigation/HighlightResolver.swift,
 				Gameplay/Navigation/HUDChromeLayout.swift,
+				Gameplay/Navigation/IEActorAnimation.swift,
 				Gameplay/Navigation/IEBlit.swift,
 				Gameplay/Navigation/IECharacterPaletteLayout.swift,
 				Gameplay/Navigation/IEColorCycle.swift,
@@ -138,6 +153,7 @@
 				Gameplay/Navigation/ItemCatalogLoader.swift,
 				Gameplay/Navigation/ItemDefinition.swift,
 				Gameplay/Navigation/LampWardAreas.swift,
+				Gameplay/Navigation/LilaAnimationSet.swift,
 				Gameplay/Navigation/LogicTickClock.swift,
 				Gameplay/Navigation/LootSystem.swift,
 				Gameplay/Navigation/Movable.swift,
@@ -163,6 +179,7 @@
 				Gameplay/Navigation/SearchMapTerrain.swift,
 				Gameplay/Navigation/SearchMapVisibility.swift,
 				Gameplay/Navigation/VossAnimationSet.swift,
+				Gameplay/Navigation/VossWeaponAppearance.swift,
 				Gameplay/Navigation/WorldCursor.swift,
 				Gameplay/Navigation/WorldPauseController.swift,
 				Gameplay/Weather/RainSystem.swift,
@@ -1081,6 +1098,9 @@
 				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_waypoint_pip.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_hover.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_pressed.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png,
@@ -1088,11 +1108,8 @@
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v06.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_hover.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_pressed.png,
-				Resources/Art/UI/Dialogue/dialogue_frame_fantasy_v01.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_hover.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_pressed.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_frame_fantasy_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v03.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v04.png,
@@ -1208,8 +1225,11 @@
 				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_iron_helmet_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_lantern_shortsword_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_matchbook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_service_revolver_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_splint_mail_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_wallet_v01.png,
 				Resources/Art/UI/Inventory/inventory_outer_frame_v05.png,
 				Resources/Art/UI/Inventory/inventory_outer_frame_v06.png,
@@ -1272,6 +1292,9 @@
 				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_chmf.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_lantern_shortsword.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_splint_mail.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v01.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v02.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v03.png,
@@ -1446,6 +1469,7 @@
 				Core/Scene/SceneRouter.swift,
 				Core/Scene/WallStencilTexture.swift,
 				Gameplay/Actors/ActorSceneLighting.swift,
+				Gameplay/Actors/CharacterAppearanceNode.swift,
 				Gameplay/Actors/ClientActorNode.swift,
 				Gameplay/Actors/ContactShadowNode.swift,
 				Gameplay/Actors/CutsceneActorAdapters.swift,
@@ -1475,6 +1499,7 @@
 				Gameplay/Navigation/BreakableCutsceneGate.swift,
 				Gameplay/Navigation/CameraZoom.swift,
 				Gameplay/Navigation/CaseDialogueModels.swift,
+				Gameplay/Navigation/CharacterAppearance.swift,
 				Gameplay/Navigation/CharacterInventory.swift,
 				Gameplay/Navigation/CityBlockGrid.swift,
 				Gameplay/Navigation/CityDistrictAreaAdapter.swift,
@@ -1516,6 +1541,7 @@
 				Gameplay/Navigation/HighlightGeometry.swift,
 				Gameplay/Navigation/HighlightResolver.swift,
 				Gameplay/Navigation/HUDChromeLayout.swift,
+				Gameplay/Navigation/IEActorAnimation.swift,
 				Gameplay/Navigation/IEBlit.swift,
 				Gameplay/Navigation/IECharacterPaletteLayout.swift,
 				Gameplay/Navigation/IEColorCycle.swift,
@@ -1531,6 +1557,7 @@
 				Gameplay/Navigation/ItemCatalogLoader.swift,
 				Gameplay/Navigation/ItemDefinition.swift,
 				Gameplay/Navigation/LampWardAreas.swift,
+				Gameplay/Navigation/LilaAnimationSet.swift,
 				Gameplay/Navigation/LogicTickClock.swift,
 				Gameplay/Navigation/LootSystem.swift,
 				Gameplay/Navigation/Movable.swift,
@@ -1556,6 +1583,7 @@
 				Gameplay/Navigation/SearchMapTerrain.swift,
 				Gameplay/Navigation/SearchMapVisibility.swift,
 				Gameplay/Navigation/VossAnimationSet.swift,
+				Gameplay/Navigation/VossWeaponAppearance.swift,
 				Gameplay/Navigation/WorldCursor.swift,
 				Gameplay/Navigation/WorldPauseController.swift,
 				Gameplay/Weather/RainSystem.swift,
@@ -2522,6 +2550,9 @@
 				Resources/Art/UI/Common/ui_move_marker_blocked_07.png,
 				Resources/Art/UI/Common/ui_move_marker_blocked.png,
 				Resources/Art/UI/Common/ui_waypoint_pip.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_hover.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_pressed.png,
+				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v03.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v04.png,
@@ -2529,11 +2560,8 @@
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v06.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_hover.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07_pressed.png,
-				Resources/Art/UI/Dialogue/dialogue_frame_fantasy_v01.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_hover.png,
-				Resources/Art/UI/Dialogue/dialogue_button_fantasy_v01_pressed.png,
 				Resources/Art/UI/Dialogue/dialogue_command_button_plate_v07.png,
+				Resources/Art/UI/Dialogue/dialogue_frame_fantasy_v01.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v02.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v03.png,
 				Resources/Art/UI/Dialogue/dialogue_outer_frame_overlay_v04.png,
@@ -2649,8 +2677,11 @@
 				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_iron_helmet_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_lantern_shortsword_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_matchbook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_service_revolver_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_splint_mail_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_wallet_v01.png,
 				Resources/Art/UI/Inventory/inventory_outer_frame_v05.png,
 				Resources/Art/UI/Inventory/inventory_outer_frame_v06.png,
@@ -2713,6 +2744,9 @@
 				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_chmf.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_lantern_shortsword.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_splint_mail.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v01.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v02.png,
 				Resources/Art/UI/Journal/journal_casebook_plate_v03.png,
@@ -2900,6 +2934,17 @@
 			name = "Indexed Avatar Bundles";
 			sourceTree = "<group>";
 		};
+		DA5346E83073D1810026BF45 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C0DE1EA00000000000000008 /* LilaSentinel */,
+				C0DE1EA00000000000000007 /* VossSplintMail */,
+				C0DE1EA00000000000000006 /* VossIronHelmet */,
+				C0DE1EA00000000000000005 /* VossLanternShortsword */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		DAAF9D14300A69330071746D = {
 			isa = PBXGroup;
 			children = (
@@ -2909,6 +2954,7 @@
 				DAAF9D34300A69350071746D /* RainShadow tvOS */,
 				DAAF9D44300A69350071746D /* RainShadow macOS */,
 				DAAF9D23300A69350071746D /* Products */,
+				DA5346E83073D1810026BF45 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3028,6 +3074,10 @@
 				C0DE1EA00000000000000011 /* Lila in Resources */,
 				C0DE1EA00000000000000012 /* Voss in Resources */,
 				C0DE1EA00000000000000013 /* VossCHMF in Resources */,
+				C0DE1EA00000000000000017 /* LilaSentinel in Resources */,
+				C0DE1EA00000000000000016 /* VossSplintMail in Resources */,
+				C0DE1EA00000000000000015 /* VossIronHelmet in Resources */,
+				C0DE1EA00000000000000014 /* VossLanternShortsword in Resources */,
 			);
 		};
 		DAAF9D31300A69350071746D /* Resources */ = {
@@ -3041,6 +3091,10 @@
 				C0DE1EA00000000000000021 /* Lila in Resources */,
 				C0DE1EA00000000000000022 /* Voss in Resources */,
 				C0DE1EA00000000000000023 /* VossCHMF in Resources */,
+				C0DE1EA00000000000000027 /* LilaSentinel in Resources */,
+				C0DE1EA00000000000000026 /* VossSplintMail in Resources */,
+				C0DE1EA00000000000000025 /* VossIronHelmet in Resources */,
+				C0DE1EA00000000000000024 /* VossLanternShortsword in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

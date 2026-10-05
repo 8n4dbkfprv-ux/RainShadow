@@ -1,6 +1,7 @@
 #!/bin/zsh
 set -eu
 cd "$(dirname "$0")"
+source Scripts/select_xcode.sh
 build_dir=/tmp/RainShadowCityRestoreApp
 build_log=/tmp/restored_city_build.log
 echo "Building restored city…"

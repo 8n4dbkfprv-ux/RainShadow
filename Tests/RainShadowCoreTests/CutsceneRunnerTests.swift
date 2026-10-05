@@ -345,7 +345,8 @@ struct CutsceneRunnerTests {
                 state["actor.\(subject).facing"] = "toward.\(target.rawValue)"
             case .standUp:
                 state["actor.\(subject).posture"] = "standing"
-            case .wait, .displayStringHead, .playVoiceOver:
+            // Queue cancellation has no authored terminal position/pose of its own.
+            case .clearActions, .wait, .displayStringHead, .playVoiceOver:
                 continue
             case .actionOverride:
                 preconditionFailure("Unwrapped above")

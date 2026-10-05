@@ -1,6 +1,7 @@
 #!/bin/zsh
 set -eu
 cd "$(dirname "$0")"
+source Scripts/select_xcode.sh
 build_dir=/tmp/RainShadowGameApp
 build_log=/tmp/rainshadow_game_build.log
 echo "Building RainShadow with the restored office and living quarters…"

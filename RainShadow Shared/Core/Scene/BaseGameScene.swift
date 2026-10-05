@@ -1178,6 +1178,7 @@ class BaseGameScene: SKScene {
     /// change.
     func syncDetectiveEncumbrance() {
         detective.movementProfile = context.session.detectiveMovementProfile
+        detective.applyEquipment(context.session.characterInventory, catalog: context.session.itemCatalog)
     }
 
     /// BG:EE Stop. Escape only — right-click no longer cancels movement.

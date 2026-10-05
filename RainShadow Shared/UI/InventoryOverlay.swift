@@ -70,6 +70,10 @@ final class InventoryOverlay: SKNode {
     private let sheet = SKNode()
     private let content = SKNode()
     private let paperdollSlotsRoot = SKNode()
+    private let paperdollWeapon = SKSpriteNode()
+    private let paperdollArmor: [VossArmorAppearance: SKSpriteNode] = [
+        .ironHelmet: SKSpriteNode(), .splintMail: SKSpriteNode()
+    ]
     private let loadoutSlotsRoot = SKNode()
     private let bagSlotsRoot = SKNode()
     private let heldItemRoot = SKNode()
@@ -541,7 +545,8 @@ final class InventoryOverlay: SKNode {
         )
 
         if let detectiveTexture = GameArt.texture(named: "voss_paperdoll_chmf") {
-            detectiveTexture.filteringMode = .nearest
+            // Dedicated high-resolution inventory portrait, fitted below without distortion.
+            detectiveTexture.filteringMode = .linear
             let canvas = detectiveTexture.size()
             let slot = InventoryScreenLayout.paperdollBodySize
             let scale = min(slot.width / canvas.width, slot.height / canvas.height)
@@ -553,6 +558,23 @@ final class InventoryOverlay: SKNode {
             paperdoll.position = InventoryScreenLayout.chamberOffset
             paperdoll.zPosition = 0
             root.addChild(paperdoll)
+            // Full 768x1088 weapon render registered to the original body's
+            // (136,69)-(589,1036) crop. Never fit the weapon's own bounds.
+            paperdollWeapon.size = CGSize(width: paperdoll.size.width * 768 / 453,
+                                         height: paperdoll.size.height * 1088 / 967)
+            paperdollWeapon.anchorPoint = CGPoint(x: 362.5 / 768, y: 535.5 / 1088)
+            paperdollWeapon.position = paperdoll.position
+            paperdollWeapon.name = "inventory.paperdoll.weapon"
+            paperdollWeapon.zPosition = 0.1
+            root.addChild(paperdollWeapon)
+            for (appearance, layer) in paperdollArmor {
+                layer.size = paperdollWeapon.size
+                layer.anchorPoint = paperdollWeapon.anchorPoint
+                layer.position = paperdoll.position
+                layer.name = "inventory.paperdoll." + appearance.rawValue
+                layer.zPosition = appearance == .ironHelmet ? 0.3 : 0.2
+                root.addChild(layer)
+            }
         } else {
             assertionFailure("Missing voss_paperdoll_chmf.png")
         }
@@ -771,6 +793,15 @@ final class InventoryOverlay: SKNode {
     }
 
     private func rebuildEquippedSlots() {
+        let appearance = VossWeaponAppearance.equipped(in: inventory, catalog: catalog)
+        paperdollWeapon.texture = appearance.flatMap { GameArt.texture(named: $0.paperdollArt) }
+        paperdollWeapon.texture?.filteringMode = .linear
+        paperdollWeapon.isHidden = appearance == nil
+        for (armor, layer) in paperdollArmor {
+            layer.texture = armor.isEquipped(in: inventory) ? GameArt.texture(named: armor.paperdollArt) : nil
+            layer.texture?.filteringMode = .linear
+            layer.isHidden = layer.texture == nil
+        }
         paperdollSlotsRoot.removeAllChildren()
         loadoutSlotsRoot.removeAllChildren()
 

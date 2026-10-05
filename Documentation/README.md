@@ -8,6 +8,9 @@ This package defines the creative and technical baseline for RainShadow's first 
 
 ## Documents
 
+- [October 5 character recovery](CharacterRuntimeRecoveryOct05.md) — restored Rustic Voss, Desert Sentinel Lila, equipment and appearance codes, with runtime identity checks.
+- [Shared character appearances](CharacterAppearanceSystem.md) — body and palette codes, compatible equipment and NPC rendering integration.
+
 1. [Game Design Document](GameDesignDocument.md) — game vision, design pillars, core loops, investigation and RPG systems, tone, controls, and the opening-sequence brief.
 2. [Technical Architecture](TechnicalArchitecture.md) — SpriteKit runtime design, scene lifecycle, depth sorting, input, navigation, data, performance, testing, and the first two scenes.
 3. [Initial Asset Manifest](AssetManifest.md) — exact first-pass image, animation, effect, data-mask, audio, naming, sizing, and generation requirements.

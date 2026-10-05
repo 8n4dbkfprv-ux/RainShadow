@@ -1,6 +1,7 @@
 #!/bin/zsh
 set -eu
 cd "$(dirname "$0")"
+source Scripts/select_xcode.sh
 lamp_build_dir=/tmp/RainShadowLampWardApp
 lamp_build_log=/tmp/lamp_ward_build.log
 echo "Building Lamp Ward and the Lamphouse…"

@@ -39,7 +39,7 @@ struct ItemCatalogTests {
         #expect(sword.identifiedName == "Watch Service Shortsword")
         #expect(sword.category == .weapon)
         // The icon keeps its shipped file name until the sword art is painted.
-        #expect(sword.iconArtName == "inventory_item_service_revolver_v01")
+        #expect(sword.iconArtName == "inventory_item_lantern_shortsword_v01")
         #expect(sword.note == "Watch issue · never handed back")
         #expect(sword.identifiedDescription.hasPrefix("The blade Voss kept from his Watch years."))
         #expect(!sword.flags.contains(.twoHanded))

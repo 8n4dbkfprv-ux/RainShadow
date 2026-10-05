@@ -110,8 +110,13 @@ enum InventoryScreenLayout {
         x: contentLeft + loadoutSize.width + sectionGap + paperdollSize.width / 2,
         y: primaryY
     )
-    static let paperdollBodySize = CGSize(width: 220, height: 315)
-    static let chamberOffset = CGPoint(x: 0, y: -8)
+    /// Keep the full portrait clear of the equipment frames above and below it.
+    static let paperdollSlotPadding: CGFloat = 24
+    static let paperdollBodySize = CGSize(
+        width: 220,
+        height: equipTopY - equipBottomY - equipSlotSize.height - 2 * paperdollSlotPadding
+    )
+    static let chamberOffset = CGPoint(x: 0, y: (equipTopY + equipBottomY) / 2)
     static let equipSlotSize = CGSize(width: 72, height: 68)
     static let equipIconSize = CGSize(width: 52, height: 48)
 

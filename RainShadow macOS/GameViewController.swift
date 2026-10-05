@@ -13,6 +13,9 @@ class GameViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let skView = self.view as! SKView
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"] != nil { return }
+        #endif
         GameBootstrap.start(in: skView)
     }
 
@@ -23,6 +26,18 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"],
+           let skView = view as? SKView {
+            CharacterAppearanceQA.run(in: skView, output: URL(fileURLWithPath: output))
+            return
+        }
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await WeaponEquipmentQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] {
             Task { @MainActor in
                 guard let skView = self.view as? SKView else { return }

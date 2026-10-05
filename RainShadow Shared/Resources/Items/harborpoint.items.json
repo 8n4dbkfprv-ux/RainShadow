@@ -8,7 +8,7 @@
       "category": "SERVICE WEAPON",
       "weightOunces": 38,
       "valuePence": 1440,
-      "iconArtName": "inventory_item_service_revolver_v01",
+      "iconArtName": "inventory_item_lantern_shortsword_v01",
       "identifiedDescription": "The blade Voss kept from his Watch years. Plain steel, one hand, a brass guard gone dull and an edge he still keeps honest.",
       "note": "Watch issue · never handed back",
       "damageLow": 2,
@@ -22,7 +22,10 @@
       "iconArtName": "inventory_item_case_notebook_v01",
       "identifiedDescription": "Names, times, and three pages someone tried to tear out.",
       "note": "Active file: The Empty Coat",
-      "flags": ["undroppable", "questCritical"]
+      "flags": [
+        "undroppable",
+        "questCritical"
+      ]
     },
     {
       "id": "brass-key",
@@ -32,7 +35,9 @@
       "iconArtName": "inventory_item_brass_key_v01",
       "identifiedDescription": "Sewn into Lillian's coat lining—old teeth, no inn tag. Faint lamp oil and river fog.",
       "note": "The Empty Coat · in Voss's care",
-      "flags": ["questCritical"]
+      "flags": [
+        "questCritical"
+      ]
     },
     {
       "id": "dark-lantern",
@@ -78,6 +83,28 @@
       "identifiedDescription": "A stamped brass house token, the kind a tavern hands over for a drink or the door. Kept as part of the case record. The reverse carries the house's mark and its street, worn but legible.",
       "unidentifiedDescription": "A brass tavern token, river-dull and greasy at the rim. Something is stamped on the reverse, too worn to read at a glance.",
       "note": "Recovered evidence"
+    },
+    {
+      "id": "iron-helmet",
+      "identifiedName": "Iron Helmet",
+      "category": "HEADWEAR",
+      "weightOunces": 48,
+      "valuePence": 240,
+      "iconArtName": "inventory_item_iron_helmet_v01",
+      "identifiedDescription": "A plain iron skullcap with a reinforced brow and a narrow nasal guard. Worn smooth where the straps meet the rim.",
+      "note": "Forged iron · open face",
+      "defenceBonus": 1
+    },
+    {
+      "id": "splint-mail",
+      "identifiedName": "Splint Mail",
+      "category": "OUTERWEAR",
+      "weightOunces": 320,
+      "valuePence": 1200,
+      "iconArtName": "inventory_item_splint_mail_v01",
+      "identifiedDescription": "Long steel splints riveted over a dark leather backing, with broad shoulder straps and a skirt of overlapping plates. The leather gives where solid plate would bind.",
+      "note": "Steel splints · leather backing",
+      "defenceBonus": 6
     }
   ]
 }

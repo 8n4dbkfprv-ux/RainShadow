@@ -11,8 +11,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// default feedback level she is circled only under the pointer.
     var groundCircleState = GroundCircleState(enmity: .neutral, isPC: false)
     private let body: IEAvatarNode
-    /// Holds the outgoing departure strip during a facing handoff crossfade.
-    private let bodyHandoff: IEAvatarNode
     /// Retains the validated indexed payload and its resolved-texture cache.
     private let avatarLibrary: IEAvatarFrameLibrary?
     /// Scene grade for the neutral bake (office warm / city night cool).
@@ -21,7 +19,12 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     private let arrivalFrames: [IEAvatarVisualFrame]
     private let departureNEFrames: [IEAvatarVisualFrame]
     private let departureNWFrames: [IEAvatarVisualFrame]
-    /// Wall-clock origin of the current departure walk cycle (for phase-continuous handoff).
+    private let directionalWalkFrames: [ActorFacing: [IEAvatarVisualFrame]]
+    private let directionalIdleFrames: [ActorFacing: [IEAvatarVisualFrame]]
+    /// Voss sits northeast of Lila's conversation mark, across the desk.
+    private static let conversationFacing: ActorFacing = .northEast
+    private var idleFacing: ActorFacing = .northEast
+    private var animationPlayback = IEActorAnimationPlayback()
 
     /// The engine's `Movable`. Lila walks the same `DoStep` the detective
     /// does; only the presentation (entrance fade, authored exit strips) differs.
@@ -41,10 +44,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     private var movementCompletion: (() -> Void)?
     private var activePath: [CGPoint] = []
     private var locomotionMode: LocomotionMode = .idle
-    private var activeDepartureBin: ClientDepartureFacing?
-    private var animationClock = ActorAnimationClock()
-    private(set) var scriptedFacing: ActorFacing = .southWest
-    var cutsceneNavigationID: String { movable.identity }
     /// Full-canvas atlas fallback pivot; indexed frames carry their cropped pivot.
     private static let compatibilityAnchor = CGPoint(x: 0.5, y: 39 / 256)
 
@@ -60,10 +59,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// Conversation owner id for talk counting (IE `NumTimesTalkedTo`), and the graph a
     /// click on this actor opens. Both `nil` means "not talkable" — the scene skips it.
     ///
-    /// NPC *facing* on approach is art-blocked, not code-blocked: this atlas is an
-    /// arrival idle plus two `ClientDepartureFacing` bins, so there is no frame for
-    /// "turns to look at you". The PC turns; the NPC does not. Do not fake it by reusing
-    /// a departure frame as an idle.
+    /// The office conversation faces northeast toward Voss across the desk.
+    /// Locomotion uses the complete sixteen-direction Desert Sentinel family.
     var dialogueOwnerID: String?
     var dialogueGraphID: String?
 
@@ -75,24 +72,27 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     override init() {
         let __traceStart = AreaLoadTrace.isEchoing ? CFAbsoluteTimeGetCurrent() : 0
         defer { AreaLoadTrace.note("init.ClientActorNode", milliseconds: (CFAbsoluteTimeGetCurrent() - __traceStart) * 1_000) }
-        let indexedLibrary = try? IEAvatarFrameLibrary.shared(character: "Lila")
+        let indexedLibrary: IEAvatarFrameLibrary
+        do {
+            indexedLibrary = try IEAvatarFrameLibrary.shared(appearance: CharacterDefinition.lila.appearance)
+            try LilaAnimationSet.validate(indexedLibrary.sprite)
+        } catch {
+            fatalError("Current Lila character could not load: \(error)")
+        }
         avatarLibrary = indexedLibrary
-        // 8 authored walk phases + a final standing idle frame (index 08).
-        arrivalFrames = Self.loadFrames(
-            library: indexedLibrary,
-            prefix: "lila_arrival_sw",
-            count: ActorLocomotionPacing.walkFramesPerCycle + 1
-        )
-        departureNEFrames = Self.loadFrames(
-            library: indexedLibrary,
-            prefix: "lila_departure_ne",
-            count: ActorLocomotionPacing.walkFramesPerCycle
-        )
-        departureNWFrames = Self.loadFrames(
-            library: indexedLibrary,
-            prefix: "lila_departure_nw",
-            count: ActorLocomotionPacing.walkFramesPerCycle
-        )
+        let walks = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.map { facing in
+            (facing, Self.loadFrames(library: indexedLibrary,
+                prefix: "walk_" + LilaAnimationSet.direction(facing), count: LilaAnimationSet.walkFrames))
+        })
+        let idles = Dictionary(uniqueKeysWithValues: ActorFacing.allCases.map { facing in
+            (facing, Self.loadFrames(library: indexedLibrary,
+                prefix: "idle_" + LilaAnimationSet.direction(facing), count: LilaAnimationSet.idleFrames))
+        })
+        directionalWalkFrames = walks
+        directionalIdleFrames = idles
+        arrivalFrames = walks[.southWest]! + [idles[Self.conversationFacing]![0]]
+        departureNEFrames = walks[.northEast]!
+        departureNWFrames = walks[.northWest]!
 
         contactShadow = ContactShadowFactory.make(kind: contactShadowKind)
 
@@ -107,47 +107,27 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.xScale = OfficeInteriorScale.ActorDisplay.spriteScale
         body.yScale = OfficeInteriorScale.ActorDisplay.spriteScale
 
-        bodyHandoff = IEAvatarNode(frame: nil)
-        bodyHandoff.xScale = body.xScale
-        bodyHandoff.yScale = body.yScale
-        bodyHandoff.isHidden = true
-        bodyHandoff.alpha = 0
-        bodyHandoff.zPosition = body.zPosition - 0.1
-
         super.init()
         name = "client.lilaMarch"
         addChild(contactShadow)
         addChild(groundCircle)
-        addChild(bodyHandoff)
         addChild(body)
         applySceneLighting(.officeInterior)
         isHidden = true
     }
 
     private static func loadFrames(
-        library: IEAvatarFrameLibrary?,
+        library: IEAvatarFrameLibrary,
         prefix: String,
         count: Int
     ) -> [IEAvatarVisualFrame] {
-        let stems = (0..<count).map { String(format: "%@_%02d", prefix, $0) }
-        return IEAvatarFrames.sequence(
-            library: library,
-            atlas: "LilaArrival.atlas",
-            stems: stems,
-            compatibilityAnchor: compatibilityAnchor
-        ) ?? []
-    }
-
-    private func animateFrames(
-        _ frames: [IEAvatarVisualFrame],
-        timePerFrame: TimeInterval
-    ) -> SKAction {
-        .sequence(frames.map { frame in
-            .sequence([
-                .run { [weak self] in self?.body.apply(frame) },
-                .wait(forDuration: timePerFrame)
-            ])
-        })
+        (0..<count).map { phase in
+            let name = String(format: "%@_%02d.png", prefix, phase)
+            guard let frame = library.frame(atlas: LilaAnimationSet.atlas, name: name) else {
+                fatalError("Current Lila frame could not render: \(name)")
+            }
+            return frame
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -185,7 +165,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
 
-    private var tintedLayers: [IEAvatarNode] { [body, bodyHandoff] }
+    private var tintedLayers: [IEAvatarNode] { [body] }
 
     /// `Map::DrawMap`'s per-actor tint. See
     /// ``DetectiveActorNode/applyBodyTint()`` for the quoted upstream and for
@@ -264,7 +244,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         }
         removeAllActions()
         body.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
         if isHidden {
@@ -279,7 +258,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         tickClock.reset()
         syncMovablePosition()
         movable.adopt(Path(points: Array(path.dropFirst()), from: position))
-        startArrivalWalkCycle()
         if !movable.isMoving {
             finishLocomotion()
         }
@@ -293,23 +271,18 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
         removeAllActions()
         body.removeAllActions()
-        bodyHandoff.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
-        bodyHandoff.position = .zero
         body.alpha = 1
         position = start
         alpha = 1
         isHidden = false
         locomotionMode = .entrance
         activePath = points
-        activeDepartureBin = nil
         movementCompletion = completion
         lastLocomotionUpdateTime = nil
         tickClock.reset()
         syncMovablePosition(start)
         movable.adopt(Path(points: Array(points.dropFirst()), from: start))
-        startArrivalWalkCycle()
         if !movable.isMoving {
             alpha = 1
             finishLocomotion()
@@ -322,7 +295,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         guard let start = points.first else { return }
         removeAllActions()
         body.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
         isHidden = false
@@ -357,7 +329,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
                     x: prior.x + (destination.x - prior.x) * u,
                     y: prior.y + (destination.y - prior.y) * u
                 )
-                let walkingFrames = Array(arrivalFrames.prefix(ActorLocomotionPacing.walkFramesPerCycle))
+                let walkingFrames = Array(arrivalFrames.prefix(LilaAnimationSet.walkFrames))
                 if let frame = walkingFrames.first {
                     body.apply(frame)
                 }
@@ -381,23 +353,19 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
         removeAllActions()
         body.removeAllActions()
-        bodyHandoff.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
-        bodyHandoff.position = .zero
         body.alpha = 1
         position = start
         alpha = 1
         locomotionMode = .exit
         activePath = points
-        activeDepartureBin = nil
         movementCompletion = completion
         lastLocomotionUpdateTime = nil
         tickClock.reset()
         syncMovablePosition(start)
         movable.adopt(Path(points: Array(points.dropFirst()), from: start))
 
-        let expected = ActorLocomotionPacing.walkFramesPerCycle
+        let expected = LilaAnimationSet.walkFrames
         if departureNEFrames.count != expected {
             assertionFailure("Expected \(expected) NE departure frames, found \(departureNEFrames.count)")
         }
@@ -405,10 +373,43 @@ final class ClientActorNode: SKNode, WallStencilledActor {
             assertionFailure("Expected \(expected) NW departure frames, found \(departureNWFrames.count)")
         }
 
-        animationClock.reset()
         if !movable.isMoving {
-            finishDeparture()
+            finishLocomotion()
         }
+    }
+
+    var cutsceneNavigationID: String { movable.identity }
+    var scriptedFacing: ActorFacing { movable.orientation }
+
+    /// Script Face/FaceObject use SetOrientation(..., false), including Lila's
+    /// current sixteen-direction idle family.
+    func setScriptedFacing(_ facing: ActorFacing) {
+        movable.setOrientation(facing, slow: false)
+        idleFacing = facing
+        if let frame = directionalIdleFrames[facing]?.first { body.apply(frame) }
+    }
+
+    func stopScriptedMovement() {
+        idleFacing = movable.orientation
+        movementCompletion = nil
+        movable.stop()
+        activePath = []
+        locomotionMode = .idle
+        removeAllActions()
+        body.removeAllActions()
+        body.position = .zero
+        body.alpha = 1
+        lastLocomotionUpdateTime = nil
+        tickClock.reset()
+    }
+
+    func jumpForCutscene(to point: CGPoint, style: CutsceneWalkStyle) {
+        stopScriptedMovement()
+        position = point.rounded
+        syncMovablePosition()
+        alpha = 1
+        if style == .entering { isHidden = false }
+        if style == .leaving { isHidden = true }
     }
 
     /// Skip-safe snap to the authored entrance end state, then fires the same
@@ -419,8 +420,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         let end = activePath.last ?? position
         removeAllActions()
         body.removeAllActions()
-        bodyHandoff.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
         position = end
@@ -437,13 +436,11 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         let end = activePath.last ?? position
         removeAllActions()
         body.removeAllActions()
-        bodyHandoff.removeAllActions()
-        clearDepartureHandoff()
         body.position = .zero
         body.alpha = 1
         position = end
         syncMovablePosition()
-        // Natural exit disappears at the endpoint.
+        // Natural exit ends faded out and hidden.
         isHidden = true
         alpha = 1
         locomotionMode = .exit
@@ -463,7 +460,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
         defer {
             lastLocomotionUpdateTime = currentTime
-            applyWalkingFrame(at: currentTime, frozen: worldIsPaused)
+            updateMovementAnimation(at: currentTime, paused: worldIsPaused)
         }
         guard !worldIsPaused, locomotionMode != .idle else { return }
 
@@ -489,7 +486,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
             return
         }
 
-        // Root motion uses the engine tick; animation has its own elapsed-time clock.
+        // Root motion runs on the engine's fixed logic tick.
         for _ in 0..<tickClock.drain(deltaTime: deltaTime) {
             currentTick += 1
             syncMovablePosition()
@@ -501,8 +498,6 @@ final class ClientActorNode: SKNode, WallStencilledActor {
             if outcome.moved {
                 playFootstepIfDue()
             }
-
-            scriptedFacing = movable.orientation
 
             if outcome.arrived || outcome.abandoned {
                 if locomotionMode == .exit {
@@ -517,60 +512,23 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
     // MARK: - Private
 
-    private func startArrivalWalkCycle() {
-        body.removeAction(forKey: "clientWalkCycle")
-        animationClock.reset()
-    }
-
-    private func applyWalkingFrame(at time: TimeInterval, frozen: Bool) {
-        guard locomotionMode != .idle, movable.isInMovingStance else { return }
-        let frames: [IEAvatarVisualFrame]
-        if locomotionMode == .exit {
-            // DoStep's current node orientation, without look-ahead or blending.
-            let v = movable.orientation.vector
-            frames = departureFrames(for: ClientDepartureFacing.bin(dx: v.dx, dy: v.dy))
-        } else {
-            frames = Array(arrivalFrames.prefix(ActorLocomotionPacing.walkFramesPerCycle))
-        }
+    /// Authored frames follow DoStep's current orientation and the independent
+    /// engine animation clock, using all ten walking phases without mirroring.
+    private func updateMovementAnimation(at time: TimeInterval, paused: Bool) {
+        let walking = locomotionMode != .idle && movable.isInMovingStance
+        let facing: ActorFacing = walking ? movable.orientation : idleFacing
+        let key = (walking ? "walk." : "idle.") + LilaAnimationSet.direction(facing)
+        let frames = (walking ? directionalWalkFrames : directionalIdleFrames)[facing] ?? []
         guard !frames.isEmpty else { return }
-        let index = animationClock.frame(at: time, count: frames.count, frozen: frozen)
+        let index = animationPlayback.frame(for: key, count: frames.count, at: time, paused: paused)
         body.apply(frames[index])
-        body.alpha = 1
     }
 
     private func finishDeparture() {
+        body.removeAction(forKey: "clientWalkCycle")
         isHidden = true
         alpha = 1
         finishLocomotion()
-    }
-
-    func setScriptedFacing(_ facing: ActorFacing) {
-        movable.setOrientation(facing, slow: false)
-        scriptedFacing = facing
-        // The installed Lila family has one idle facing. Keep its authored pose;
-        // logical orientation must not assert or fabricate an unavailable view.
-    }
-
-    func stopScriptedMovement() {
-        movementCompletion = nil
-        movable.stop()
-        locomotionMode = .idle
-        activePath = []
-        removeAllActions()
-        body.removeAllActions()
-        clearDepartureHandoff()
-        body.position = .zero
-        body.alpha = 1
-        alpha = 1
-        if let idle = arrivalFrames.last { body.apply(idle) }
-    }
-
-    func jumpForCutscene(to point: CGPoint, style: CutsceneWalkStyle) {
-        stopScriptedMovement()
-        position = point.rounded
-        syncMovablePosition()
-        if style == .entering { isHidden = false }
-        if style == .leaving { isHidden = true }
     }
 
     /// BG:EE `Actor::PlayWalkSound`, on the non-party channel. See
@@ -597,10 +555,10 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         locomotionMode = .idle
         activePath = []
         body.removeAction(forKey: "clientWalkCycle")
-        clearDepartureHandoff()
 
         switch mode {
         case .entrance, .bumped:
+            idleFacing = mode == .entrance ? Self.conversationFacing : movable.orientation
             if let idle = arrivalFrames.last {
                 body.apply(idle)
             }
@@ -614,7 +572,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     private func departureFrames(for bin: ClientDepartureFacing) -> [IEAvatarVisualFrame] {
-        let expected = ActorLocomotionPacing.walkFramesPerCycle
+        let expected = LilaAnimationSet.walkFrames
         switch bin {
         case .northWest:
             if departureNWFrames.count == expected { return departureNWFrames }
@@ -626,13 +584,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         return departureNEFrames.isEmpty ? departureNWFrames : departureNEFrames
     }
 
-    private func clearDepartureHandoff() {
-        bodyHandoff.removeAllActions()
-        bodyHandoff.alpha = 0
-        bodyHandoff.clear()
-    }
-
     private func startIdle() {
+        // Sprite cells contain their authored motion. GemRB does not oscillate
+        // the entire actor above its feet to manufacture a breathing cycle.
         body.removeAction(forKey: "clientIdle")
         body.position = .zero
     }

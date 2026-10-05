@@ -45,6 +45,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     var groundCircleState = GroundCircleState(enmity: .pc, isPC: true, isSelected: true)
     /// Standing, transition, and full chairless seated body.
     private let body: IEAvatarNode
+    private let weapon = IEAvatarNode(frame: nil)
+    private var weaponAppearance: VossWeaponAppearance?
+    private var weaponLibrary: IEAvatarFrameLibrary?
+    private let armorNodes: [VossArmorAppearance: IEAvatarNode] = [
+        .ironHelmet: IEAvatarNode(frame: nil), .splintMail: IEAvatarNode(frame: nil)
+    ]
+    private var armorLibraries: [VossArmorAppearance: IEAvatarFrameLibrary] = [:]
     /// Legacy split seated fallback; hidden when the full seated cell is available.
     private let lowerBody: IEAvatarNode
     private let foregroundArms: IEAvatarNode
@@ -95,7 +102,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private var footstepVariant = 0
     private var idleClock = IdleBehaviourClock(phase: 3)
     private var pendingFacing: ActorFacing?
-    private(set) var state: State = .seatedIdle
+    private(set) var state: State = .seatedIdle {
+        didSet { refreshEquipmentFrames() }
+    }
     private var pendingWalk: (path: Path, completion: (() -> Void)?)?
     private var needsSeatEgress = true
     /// The engine's `Movable`: path, orientation, bump and backoff state.
@@ -147,7 +156,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         defer { AreaLoadTrace.note("init.DetectiveActorNode", milliseconds: (CFAbsoluteTimeGetCurrent() - __traceStart) * 1_000) }
         let indexedLibrary: IEAvatarFrameLibrary
         do {
-            indexedLibrary = try IEAvatarFrameLibrary.shared(character: VossAnimationSet.character)
+            indexedLibrary = try IEAvatarFrameLibrary.shared(appearance: CharacterDefinition.voss.appearance)
             try VossAnimationSet.validate(indexedLibrary.sprite)
         } catch {
             fatalError("Current Voss character could not load: \(error)")
@@ -192,6 +201,16 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         addChild(groundCircle)
         addChild(lowerBody)
         addChild(body)
+        // The rendered overlay already masks the fingers and torso. Parenting
+        // to the body shares its foot registration, elevation and seat egress.
+        weapon.name = "detective.equippedWeapon"
+        weapon.zPosition = 0.01
+        body.addChild(weapon)
+        for (appearance, node) in armorNodes {
+            node.name = "detective.equipped." + appearance.rawValue
+            node.zPosition = appearance == .ironHelmet ? 0.03 : 0.02
+            body.addChild(node)
+        }
         addChild(foregroundArms)
         applySeatedPose(animated: false)
         applySceneLighting(.officeInterior)
@@ -204,7 +223,63 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
 
-    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms] }
+    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms, weapon] + Array(armorNodes.values) }
+
+    func applyEquipment(_ inventory: CharacterInventory, catalog: ItemCatalog) {
+        for appearance in VossArmorAppearance.allCases {
+            if appearance.isEquipped(in: inventory) {
+                if armorLibraries[appearance] == nil {
+                    do {
+                        let library = try IEAvatarFrameLibrary.shared(character: appearance.character)
+                        try appearance.validate(library.sprite)
+                        armorLibraries[appearance] = library
+                    } catch {
+                        fatalError("Equipped Voss armor could not load: \(error)")
+                    }
+                }
+            } else {
+                armorLibraries[appearance] = nil
+            }
+        }
+        let appearance = VossWeaponAppearance.equipped(in: inventory, catalog: catalog)
+        if appearance != weaponAppearance {
+            weaponAppearance = appearance
+            weaponLibrary = nil
+            if let appearance {
+                do {
+                    let library = try IEAvatarFrameLibrary.shared(character: appearance.character)
+                    try appearance.validate(library.sprite)
+                    weaponLibrary = library
+                } catch {
+                    fatalError("Equipped Voss weapon could not load: \(error)")
+                }
+            }
+        }
+        refreshEquipmentFrames()
+        applyBodyTint()
+    }
+
+    private func refreshEquipmentFrames() {
+        for (appearance, node) in armorNodes {
+            if (state == .standingIdle || state == .walking),
+               let library = armorLibraries[appearance], let id = body.currentFrame?.id,
+               let name = appearance.frameName(matching: id),
+               let frame = library.frame(atlas: appearance.atlas, name: name) {
+                node.apply(frame)
+            } else {
+                node.clear()
+            }
+        }
+        guard state == .standingIdle || state == .walking,
+              let appearance = weaponAppearance, let library = weaponLibrary,
+              let bodyID = body.currentFrame?.id,
+              let name = appearance.frameName(matching: bodyID),
+              let frame = library.frame(atlas: appearance.atlas, name: name) else {
+            weapon.clear()
+            return
+        }
+        weapon.apply(frame)
+    }
 
     /// `Map::DrawMap`'s per-actor tint, transliterated:
     ///
@@ -322,8 +397,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     ) -> SKAction {
         let steps: [SKAction] = frames.map { frame in
             .sequence([
-                .run { [weak node] in
+                .run { [weak self, weak node] in
                     node?.apply(frame)
+                    self?.refreshEquipmentFrames()
                 },
                 .wait(forDuration: timePerFrame)
             ])
@@ -956,6 +1032,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         // the kneehole apron until seat egress clears the chair offset.
         if let firstSeated = seatedIdleFrames.first {
             body.apply(firstSeated)
+            refreshEquipmentFrames()
         }
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
@@ -1077,6 +1154,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         // displacement already applied by the regular update path.
         body.removeAllActions()
         body.apply(frames[phase])
+        refreshEquipmentFrames()
     }
     #endif
 
@@ -1173,6 +1251,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
             ?? seatedUpperFrames.first
             ?? standingIdleFrames[seatVisualDirection.facing]?.first {
             body.apply(seated)
+            refreshEquipmentFrames()
         }
         body.zPosition = Self.seatedUpperLocalZ
         hideLowerBody()
@@ -1232,6 +1311,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         guard let frames = walkFrames[facing], !frames.isEmpty else { return }
         walkFrameIndex %= frames.count
         body.apply(frames[walkFrameIndex])
+        refreshEquipmentFrames()
     }
 
     private func stopWalkAnimation() {
@@ -1243,6 +1323,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private func applyStandingIdleTexture() {
         if let idleFrame = standingIdleFrames[facing]?.first {
             body.apply(idleFrame)
+            refreshEquipmentFrames()
         }
         applySpriteScale()
     }
