@@ -21,7 +21,8 @@ Under `RainShadow Shared/Gameplay/Navigation/`:
 | RainShadow | GemRB |
 |---|---|
 | `PathFinder.swift` | `gemrb/core/PathFinder.cpp`, `gemrb/core/PathFinder.h`, `gemrb/core/BucketPriorityQueue.h` |
-| `Movable.swift` | `gemrb/core/Scriptable/Movable.cpp`, `gemrb/core/Scriptable/Movable.h` |
+| `Movable.swift` | `gemrb/core/Scriptable/Movable.cpp`, `gemrb/core/Scriptable/Movable.h`, `gemrb/core/Map.cpp` (`UpdateScripts` backoff branch), `gemrb/core/Scriptable/Actor.cpp` (`NewPath`) |
+| `IEActorAnimation.swift`, standing/walking playback in `DetectiveActorNode` and `ClientActorNode` | `gemrb/core/Animation.cpp` (`NextFrame`), `gemrb/core/CharAnimations.cpp` (`GetAnimation` cache), `gemrb/core/Scriptable/Actor.cpp` (`AdvanceAnimations`, `DrawActorSprite`) |
 | `Path.swift` | `gemrb/core/PathFinder.h` (`Path`, `PathNode`) |
 | `Orientation.swift` | `gemrb/core/Orientation.h` |
 | `Geometry.swift` | `gemrb/core/Geometry.cpp`, `gemrb/core/Core.cpp` (`Feet2Pixels`, `PersonalDistance`, `WithinPersonalRange`) |

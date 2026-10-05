@@ -38,7 +38,7 @@ struct CutsceneCatalogTests {
             _ = runner.begin(cutscene, at: 0)
             for _ in 0..<2_000 where runner.isPlaying {
                 _ = runner.advance(ticks: 1)
-                for subject in cutscene.tracks.map(\.subject) {
+                for subject in Set(cutscene.tracks.map(\.subject) + [.actor(.detective), .actor(.client)]) {
                     _ = runner.noteCompleted(subject)
                 }
             }
@@ -102,52 +102,36 @@ struct CutsceneCatalogTests {
 
     // MARK: - Client entrance
 
-    /// The shape the roadmap describes: the master block joins on her walk, and
-    /// only then turns Voss and hands the dialogue back.
-    @Test func entranceMasterBlockJoinsOnTheWalkBeforeResuming() {
-        let cutscene = CutsceneCatalog.clientEntrance(
-            route: OfficeNavigationLayout.clientArrivalPath,
-            resumeDialogueNodeID: "voss.monologue.5"
-        )
-        let chrome = try! #require(cutscene.tracks.first { $0.subject == .chrome })
-        let joinIndex = try! #require(chrome.cues.firstIndex {
-            if case .actionOverride(.client, .followPath) = $0 { return true }
-            return false
+    @Test func entranceActorWalksThenFacesThenResumesDialogue() throws {
+        let cutscene = CutsceneCatalog.clientEntrance(route: OfficeNavigationLayout.clientArrivalPath,
+                                                     resumeDialogueNodeID: "voss.monologue.5")
+        let client = try #require(cutscene.tracks.first { $0.subject == .actor(.client) })
+        let walk = try #require(client.cues.firstIndex {
+            if case .followPath = $0 { return true }; return false
         })
-        let resumeIndex = try! #require(chrome.cues.firstIndex {
-            if case .resumeDialogue = $0 { return true }
-            return false
-        })
-        #expect(joinIndex < resumeIndex, "Dialogue must not return before she is in the room")
-
-        let faceIndex = try! #require(chrome.cues.firstIndex {
-            if case .actionOverride(.detective, .faceObject) = $0 { return true }
-            return false
-        })
-        #expect(joinIndex < faceIndex, "He turns toward where she ended up, not where she started")
-        #expect(faceIndex < resumeIndex)
+        let face = try #require(client.cues.firstIndex(of: .faceObject(.detective)))
+        let resume = try #require(client.cues.firstIndex(of: .resumeDialogue(nodeID: "voss.monologue.5")))
+        #expect(walk < face && face < resume)
+        #expect(cutscene.skipTracks?.contains {
+            $0.subject == .actor(.client) && $0.cues.contains(.faceObject(.detective))
+        } == true)
     }
 
-    /// The door clears its search-map cells on its own track, so it is open
-    /// before her route is walked — BG:EE's ordering.
-    @Test func entranceOpensTheDoorOnItsOwnTrack() {
+    @Test func entranceOpensDoorBeforeWalking() throws {
         let cutscene = CutsceneCatalog.clientEntrance(route: [.zero], resumeDialogueNodeID: nil)
-        let world = try! #require(cutscene.tracks.first { $0.subject == .world })
-        #expect(world.cues == [.setDoor(.officeEntrance, open: true)])
-
-        var runner = CutsceneRunner()
-        let opening = runner.begin(cutscene, at: 0)
-        #expect(
-            opening.commands.contains(CutsceneCommand(.world, .setDoor(.officeEntrance, open: true))),
-            "The door opens on tick zero, before anyone walks through it"
-        )
+        let client = try #require(cutscene.tracks.first { $0.subject == .actor(.client) })
+        let door = try #require(client.cues.firstIndex(of: .setDoor(.officeEntrance, open: true)))
+        let walk = try #require(client.cues.firstIndex(of: .followPath([.zero], .entering)))
+        #expect(door < walk)
     }
 
-    /// Voss rises in parallel with her walk rather than after it.
-    @Test func detectiveStandsOnHisOwnTrackDuringTheWalk() {
+    @Test func detectiveStandIsQueuedInParallelBeforeClientWalk() throws {
         let cutscene = CutsceneCatalog.clientEntrance(route: [.zero], resumeDialogueNodeID: nil)
-        let detective = try! #require(cutscene.tracks.first { $0.subject == .actor(.detective) })
-        #expect(detective.cues == [.wait(.ticks(8)), .standUp])
+        let client = try #require(cutscene.tracks.first { $0.subject == .actor(.client) })
+        let wait = try #require(client.cues.firstIndex(of: .actionOverride(.detective, .wait(.ticks(8)))))
+        let stand = try #require(client.cues.firstIndex(of: .actionOverride(.detective, .standUp)))
+        let walk = try #require(client.cues.firstIndex(of: .followPath([.zero], .entering)))
+        #expect(wait < stand && stand < walk)
     }
 
     /// The camera reaches the aperture before she does.
@@ -180,7 +164,7 @@ struct CutsceneCatalogTests {
         // And she is standing where the walk would have left her.
         let end = try! #require(OfficeNavigationLayout.clientArrivalPath.last)
         #expect(step.commands.contains(
-            CutsceneCommand(.chrome, .actionOverride(.client, .jumpToPoint(end, .entering)))
+            CutsceneCommand(.actor(.client), .jumpToPoint(end, .entering))
         ))
     }
 
@@ -191,23 +175,25 @@ struct CutsceneCatalogTests {
         let camera = try! #require(
             CutsceneCatalog.clientExit(route: [.zero]).tracks.first { $0.subject == .camera }
         )
-        #expect(camera.cues == [
-            .moveViewObject(.client, .veryFast),
-            .wait(.ticks(10)),
-            .releaseCamera
-        ])
+        #expect(camera.cues == [.moveViewObject(.client, .veryFast)])
+        let client = try! #require(CutsceneCatalog.clientExit(route: [.zero]).tracks.first {
+            $0.subject == .actor(.client)
+        })
+        let walk = try! #require(client.cues.firstIndex(of: .followPath([.zero], .leaving)))
+        let release = try! #require(client.cues.firstIndex(of: .releaseCamera))
+        #expect(walk < release)
     }
 
     /// Control comes back only after she has cleared the room, and the visit
     /// flag is set on the way out so the intro cannot replay.
     @Test func exitEndsCutsceneModeAndSetsTheGuardFlag() {
         let chrome = try! #require(
-            CutsceneCatalog.clientExit(route: [.zero]).tracks.first { $0.subject == .chrome }
+            CutsceneCatalog.clientExit(route: [.zero]).tracks.first { $0.subject == .actor(.client) }
         )
         #expect(chrome.cues.last == .setCutsceneMode(false))
         let modeOff = try! #require(chrome.cues.firstIndex(of: .setCutsceneMode(false)))
         let join = try! #require(chrome.cues.firstIndex {
-            if case .actionOverride(.client, .followPath) = $0 { return true }
+            if case .followPath = $0 { return true }
             return false
         })
         #expect(join < modeOff, "Player control must not return while she is still walking")

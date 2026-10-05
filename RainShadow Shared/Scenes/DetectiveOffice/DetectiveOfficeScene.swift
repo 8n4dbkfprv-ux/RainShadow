@@ -1651,11 +1651,11 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
                 client.bumpAway()
             }
         }
-        // A bumped actor reclaims its spot from its own `DoStep`, which only
-        // runs while it is walking — so an idle one needs the tick pumped.
-        if !client.isHidden {
-            client.advanceBumpRecovery()
+        if let blockerID = client.bumpRequest {
+            client.clearBumpRequest()
+            if blockerID == Self.detectiveActorID { detective.bumpAway() }
         }
+        // Each actor recovers a bumped position on its own 15 Hz logic clock.
     }
 
 

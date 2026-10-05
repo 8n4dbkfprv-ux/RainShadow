@@ -205,7 +205,8 @@ struct Movable {
     // MARK: - Backoff
 
     /// `Movable::Backoff` — drop the walk stance and wait a randomised number of
-    /// ticks before retrying the same step. The route is never discarded.
+    /// ticks before Map::UpdateScripts asks NewPath to replan. Backoff itself
+    /// retains the route.
     mutating func backoff() {
         stance = .ready
         randomBackoff = isRunning
@@ -217,6 +218,26 @@ struct Movable {
         randomBackoff -= 1
     }
 
+    /// Map::UpdateScripts decrements backoff instead of stepping, then calls
+    /// Actor::NewPath when it expires. Preserve the port's deliberate omission
+    /// of Actor::WalkTo's unconditional ResetPathTries (see NavigationOpenQuestions).
+    /// Returns true when this update was spent waiting, including the final one.
+    mutating func advanceBackoff(walkScale: CGFloat, ticks: Int) -> Bool {
+        guard isBackingOff else { return false }
+        decreaseBackoff()
+        if !isBackingOff, walkScale > 0, destination != position {
+            if hasExhaustedPathTries {
+                clearPath(resetDestination: true)
+                resetPathTries()
+            } else {
+                let savedDestination = destination
+                walkTo(savedDestination, minDistance: CGFloat(pathfindingDistance),
+                       requestType: .walkToFromNewPath, ticks: ticks)
+            }
+        }
+        return true
+    }
+
     // MARK: - Stepping
 
     /// `Movable::DoStep`. One call per logic tick.
@@ -224,7 +245,7 @@ struct Movable {
     /// `walkScale` is `1500 / IE_MOVEMENTRATE`; larger is slower, as in the
     /// engine. Zero means immobile.
     @discardableResult
-    mutating func doStep(walkScale: CGFloat, time: Int) -> StepOutcome {
+    mutating func doStep(walkScale: CGFloat, time: Int, inCutsceneMode: Bool = false) -> StepOutcome {
         var outcome = StepOutcome()
 
         // Only bump back when not moving. An actor can still be bumped while
@@ -297,7 +318,7 @@ struct Movable {
 
         // Stop if there is a wall in the way.
         let wallProbe = CGPoint(x: position.x + dx, y: position.y + dy)
-        if blocksSearchMap, let searchMap = map?.searchMap,
+        if blocksSearchMap, !inCutsceneMode, let searchMap = map?.searchMap,
            searchMap.blockedTile(at: searchMap.cell(for: wallProbe)).contains(.sidewall) {
             clearPath(resetDestination: true)
             newOrientation = orientation

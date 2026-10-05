@@ -113,6 +113,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// `GameControl` does — the queue is policy, this is the actor.
     var movable = Movable(identity: "detective", position: .zero)
     private var movementCompletion: (() -> Void)?
+    private var releasesScriptedMoveWhenStopped = false
     private var lastLocomotionUpdateTime: TimeInterval?
     private var tickClock = LogicTickClock()
     /// The engine's `Game::Ticks` for this actor. `DoStep` refuses more than one
@@ -427,7 +428,8 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
     /// Adopt a prebuilt route — scripted beats and cutscenes, which resolve
     /// their anchors through `NavigationMap.waypoints(visiting:)`.
-    func walk(path: Path, completion: (() -> Void)? = nil) {
+    func walk(path: Path, completeWhenStopped: Bool = false, completion: (() -> Void)? = nil) {
+        releasesScriptedMoveWhenStopped = completeWhenStopped
         if state == .standingUp || state == .sittingDown {
             pendingWalk = (path, completion)
             return
@@ -554,6 +556,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
         switch outcome {
         case .walk:
+            releasesScriptedMoveWhenStopped = false
             movementCompletion = completion
             if state == .seatedIdle || state == .standingUp || state == .sittingDown {
                 ensureStanding { [weak self] in self?.beginOrderedWalk() }
@@ -663,21 +666,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         lastLocomotionUpdateTime = nil
     }
 
-    private var walkAnimationClock = ActorAnimationClock()
-    private var wasDisplayingWalk = false
+    private var animationPlayback = IEActorAnimationPlayback()
 
     func updateLocomotion(at currentTime: TimeInterval, worldIsPaused: Bool) {
-        // Actor::UpdateDrawingState calls NextFrame independently of DoStep.
-        let displayingWalk = state == .walking && movable.isInMovingStance
-        if displayingWalk {
-            if !wasDisplayingWalk { walkAnimationClock.reset() }
-            if let frames = walkFrames[facing], !frames.isEmpty {
-                walkFrameIndex = walkAnimationClock.frame(at: currentTime, count: frames.count, frozen: worldIsPaused)
-                applyWalkTexture()
-            }
+        defer {
+            lastLocomotionUpdateTime = currentTime
+            updateLocomotionAnimation(at: currentTime, paused: worldIsPaused)
         }
-        wasDisplayingWalk = displayingWalk
-        defer { lastLocomotionUpdateTime = currentTime }
         guard !worldIsPaused, let previousTime = lastLocomotionUpdateTime else { return }
 
         let deltaTime = min(
@@ -708,7 +703,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
                 guard movable.isMoving
                     || movable.isBackingOff
                     || body.action(forKey: "seatEgress") != nil else {
-                    finishWalking()
+                    finishWalking(completing: movable.movementState != .pathSearchFailed && !movable.pathAbandoned)
                     return
                 }
                 advanceWalkTick()
@@ -716,6 +711,11 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
                 // stop spending ticks the moment we are no longer walking.
                 if state != .walking { return }
             case .standingIdle:
+                if movable.isBumped {
+                    syncMovablePosition()
+                    movable.doStep(walkScale: movementProfile.walkScale ?? 0, time: currentTick)
+                    position = movable.position
+                }
                 advanceIdleTurnTick()
                 advanceIdleBehaviourTick()
             case .seatedIdle, .standingUp, .sittingDown:
@@ -748,14 +748,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// across a sector boundary.
     private func advanceWalkTick() {
         syncMovablePosition()
-        if movable.isBackingOff {
-            movable.decreaseBackoff()
-            return
-        }
+        if movable.advanceBackoff(walkScale: movementProfile.walkScale ?? 0, ticks: currentTick) { return }
+        guard movable.isMoving else { return } // Seat-egress completion owns an empty route.
 
         let outcome = movable.doStep(
             walkScale: movementProfile.walkScale ?? 0,
-            time: currentTick
+            time: currentTick,
+            inCutsceneMode: (scene as? BaseGameScene)?.cutsceneDirector.isCutsceneMode == true
         )
         position = movable.position
 
@@ -780,6 +779,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// `BumpAway()` — which is the one place the engine's in-actor call has to
     /// become a message.
     private(set) var bumpRequest: String?
+
+    /// Relay of Movable::DoStep's actorInTheWay->BumpAway().
+    func bumpAway() {
+        syncMovablePosition()
+        movable.bumpAway()
+        position = movable.position
+    }
 
     func clearBumpRequest() {
         bumpRequest = nil
@@ -893,6 +899,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// BG-style Stop/right-click behavior. A cancelled approach never invokes
     /// its interaction or scene-transition completion.
     func cancelMovement() {
+        releasesScriptedMoveWhenStopped = false
         pendingWalk = nil
         movable.stop()
         movable.resetPathTries()
@@ -929,6 +936,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// planted, immediately controllable actor without replaying that office-only
     /// transition or leaving a desk-registered shadow on the pavement.
     func beginOpenWorldStanding() {
+        releasesScriptedMoveWhenStopped = false
         removeAllActions()
         body.removeAllActions()
         lowerBody.removeAllActions()
@@ -1017,7 +1025,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         startStandingIdle()
         let completion = movementCompletion
         movementCompletion = nil
-        if completing { completion?() }
+        let release = completing || releasesScriptedMoveWhenStopped
+        releasesScriptedMoveWhenStopped = false
+        if release { completion?() }
     }
 
     private func ensureStanding(completion: @escaping () -> Void) {
@@ -1292,10 +1302,20 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private func startStandingIdle() {
         body.removeAction(forKey: "standingIdle")
         applyStandingIdleTexture()
-        guard let frames = standingIdleFrames[facing] else { return }
-        let animate = animateFrames(on: body, frames: frames,
-                                    timePerFrame: VossAnimationSet.idleSecondsPerFrame)
-        body.run(.repeatForever(animate), withKey: "standingIdle")
+    }
+
+    /// Actor::AdvanceAnimations advances the cached stance/orientation animation;
+    /// DrawActorSprite then reads CurrentFrame, not NextFrame's earlier return.
+    private func updateLocomotionAnimation(at time: TimeInterval, paused: Bool) {
+        guard state == .walking || state == .standingIdle else { return }
+        let walking = state == .walking && movable.isInMovingStance
+        let key = (walking ? "walk." : "idle.") + String(facing.rawValue)
+        let frames = walking ? walkFrames[facing] : standingIdleFrames[facing]
+        guard let frames, !frames.isEmpty else { return }
+        let phase = animationPlayback.frame(for: key, count: frames.count, at: time, paused: paused)
+        if walking { walkFrameIndex = phase }
+        body.apply(frames[phase])
+        refreshEquipmentFrames()
     }
 
     /// Walking facing, which snaps — `DoStep` assigns the path node's
@@ -1304,6 +1324,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private func setWalkFacing(_ orientation: ActorFacing) {
         facing = orientation
         pendingFacing = nil
+        walkFrameIndex = animationPlayback.currentFrame(for: "walk." + String(facing.rawValue))
         applyWalkTexture()
     }
 
@@ -1323,8 +1344,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func applyStandingIdleTexture() {
-        if let idleFrame = standingIdleFrames[facing]?.first {
-            body.apply(idleFrame)
+        if let frames = standingIdleFrames[facing], !frames.isEmpty {
+            let phase = animationPlayback.currentFrame(for: "idle." + String(facing.rawValue)) % frames.count
+            body.apply(frames[phase])
             refreshEquipmentFrames()
         }
         applySpriteScale()

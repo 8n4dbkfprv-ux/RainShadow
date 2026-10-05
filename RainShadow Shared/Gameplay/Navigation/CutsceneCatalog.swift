@@ -90,6 +90,7 @@ enum CutsceneCatalog {
                 .actionOverride(.detective, .wait(.ticks(8))),
                 .actionOverride(.detective, .standUp),
                 .followPath(route, .entering),
+                .faceObject(.detective),
                 .actionOverride(.detective, .faceObject(.client)),
                 .wait(.ticks(1)), .letterbox(false), .setCutsceneMode(false),
                 .resumeDialogue(nodeID: resumeDialogueNodeID)
@@ -103,6 +104,7 @@ enum CutsceneCatalog {
             CutsceneTrack(.world, [.setDoor(.officeEntrance, open: true)]),
             CutsceneTrack(.actor(.detective), [.standUp]),
             CutsceneTrack(.actor(.client), route.last.map { [.jumpToPoint($0, .entering)] } ?? []),
+            CutsceneTrack(.actor(.client), [.faceObject(.detective)]),
             CutsceneTrack(.actor(.detective), [.faceObject(.client)]),
             CutsceneTrack(.camera, [.moveViewPoint(OfficeCutsceneFraming.dialogueFraming, .instant)]),
             CutsceneTrack(.chrome, [.letterbox(false), .setCutsceneMode(false), .resumeDialogue(nodeID: resumeDialogueNodeID)])

@@ -14,7 +14,8 @@ class GameViewController: NSViewController {
         super.viewDidLoad()
         let skView = self.view as! SKView
         #if DEBUG
-        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"] != nil { return }
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"] != nil
+            || ProcessInfo.processInfo.environment["RAINSHADOW_QA_CINEMATIC_CHARACTERS"] != nil { return }
         #endif
         GameBootstrap.start(in: skView)
     }
@@ -26,6 +27,10 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_CINEMATIC_CHARACTERS"] {
+            CinematicCharacterQA.run(output: URL(fileURLWithPath: output))
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"],
            let skView = view as? SKView {
             CharacterAppearanceQA.run(in: skView, output: URL(fileURLWithPath: output))

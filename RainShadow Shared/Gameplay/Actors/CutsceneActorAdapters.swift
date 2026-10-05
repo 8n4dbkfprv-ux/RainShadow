@@ -18,7 +18,7 @@ extension DetectiveActorNode: CutsceneActorDriving {
     ) {
         // An authored rail is a polyline, not a search result, so the node
         // orientations are computed the way `FindPath` would have stored them.
-        walk(path: Path(points: path, from: position), completion: completion)
+        walk(path: Path(points: path, from: position), completeWhenStopped: true, completion: completion)
     }
 
     func cutsceneJump(to point: CGPoint, style: CutsceneWalkStyle) {

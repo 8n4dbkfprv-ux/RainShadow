@@ -27,8 +27,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     private var animationPlayback = IEActorAnimationPlayback()
 
     /// The engine's `Movable`. Lila walks the same `DoStep` the detective
-    /// does; only the presentation (entrance fade, authored exit strips) differs.
-    private var movable = Movable(identity: "client", position: .zero, blocksSearchMap: false)
+    /// does, including occupancy, bumping and backoff during cutscenes.
+    private var movable = Movable(identity: "client", position: .zero)
     private var currentTick = 0
     private var lastLocomotionUpdateTime: TimeInterval?
     /// See `DetectiveActorNode.movementProfile`. Also `humanoid` — BG gives every
@@ -224,15 +224,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         position = movable.position
     }
 
-    /// Pump the bump-back half of `DoStep` while standing idle. A bumped actor
-    /// that is not walking still needs its tick, or it never reclaims its spot.
-    func advanceBumpRecovery() {
-        guard movable.isBumped, !movable.isMoving else { return }
-        currentTick += 1
-        syncMovablePosition()
-        movable.doStep(walkScale: movementProfile.walkScale ?? 0, time: currentTick)
-        position = movable.position
-    }
+    private(set) var bumpRequest: String?
+    func clearBumpRequest() { bumpRequest = nil }
 
     var isBumped: Bool { movable.isBumped }
 
@@ -247,7 +240,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.position = .zero
         body.alpha = 1
         if isHidden {
-            position = start
+            position = start.rounded
             isHidden = false
             alpha = 1
         }
@@ -273,7 +266,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.removeAllActions()
         body.position = .zero
         body.alpha = 1
-        position = start
+        position = start.rounded
         alpha = 1
         isHidden = false
         locomotionMode = .entrance
@@ -305,7 +298,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         var prior = start
         var t = elapsed
         if t <= 0 {
-            position = start
+            position = start.rounded
             return
         }
         for destination in points.dropFirst() {
@@ -355,7 +348,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.removeAllActions()
         body.position = .zero
         body.alpha = 1
-        position = start
+        position = start.rounded
         alpha = 1
         locomotionMode = .exit
         activePath = points
@@ -391,6 +384,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
     func stopScriptedMovement() {
         idleFacing = movable.orientation
+        bumpRequest = nil
         movementCompletion = nil
         movable.stop()
         activePath = []
@@ -422,7 +416,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.removeAllActions()
         body.position = .zero
         body.alpha = 1
-        position = end
+        position = end.rounded
         syncMovablePosition()
         alpha = 1
         isHidden = false
@@ -438,9 +432,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         body.removeAllActions()
         body.position = .zero
         body.alpha = 1
-        position = end
+        position = end.rounded
         syncMovablePosition()
-        // Natural exit ends faded out and hidden.
+        // Natural exit ends hidden at the departure endpoint.
         isHidden = true
         alpha = 1
         locomotionMode = .exit
@@ -462,7 +456,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
             lastLocomotionUpdateTime = currentTime
             updateMovementAnimation(at: currentTime, paused: worldIsPaused)
         }
-        guard !worldIsPaused, locomotionMode != .idle else { return }
+        guard !worldIsPaused else { return }
 
         let previousTime = lastLocomotionUpdateTime
         let deltaTime: TimeInterval
@@ -477,23 +471,29 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         }
         guard deltaTime > 0 else { return }
 
-        guard movable.isMoving else {
-            if locomotionMode == .exit {
-                finishDeparture()
-            } else {
-                finishLocomotion()
-            }
-            return
-        }
-
         // Root motion runs on the engine's fixed logic tick.
         for _ in 0..<tickClock.drain(deltaTime: deltaTime) {
             currentTick += 1
             syncMovablePosition()
+            movable.blocksSearchMap = !isHidden
+            let walkScale = movementProfile.walkScale ?? 0
+            if movable.advanceBackoff(walkScale: walkScale, ticks: currentTick) { continue }
+            if locomotionMode == .idle {
+                if movable.isBumped {
+                    movable.doStep(walkScale: walkScale, time: currentTick)
+                    position = movable.position
+                }
+                continue
+            }
+            guard movable.isMoving else {
+                if locomotionMode == .exit { finishDeparture() } else { finishLocomotion() }
+                return
+            }
             let outcome = movable.doStep(
-                walkScale: movementProfile.walkScale ?? 0,
-                time: currentTick
+                walkScale: walkScale, time: currentTick,
+                inCutsceneMode: (scene as? BaseGameScene)?.cutsceneDirector.isCutsceneMode == true
             )
+            if let blocker = outcome.bumpedActorID { bumpRequest = blocker }
             position = movable.position
             if outcome.moved {
                 playFootstepIfDue()
@@ -516,7 +516,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// engine animation clock, using all ten walking phases without mirroring.
     private func updateMovementAnimation(at time: TimeInterval, paused: Bool) {
         let walking = locomotionMode != .idle && movable.isInMovingStance
-        let facing: ActorFacing = walking ? movable.orientation : idleFacing
+        let facing: ActorFacing = locomotionMode != .idle ? movable.orientation : idleFacing
         let key = (walking ? "walk." : "idle.") + LilaAnimationSet.direction(facing)
         let frames = (walking ? directionalWalkFrames : directionalIdleFrames)[facing] ?? []
         guard !frames.isEmpty else { return }
@@ -558,8 +558,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
         switch mode {
         case .entrance, .bumped:
-            idleFacing = mode == .entrance ? Self.conversationFacing : movable.orientation
-            if let idle = arrivalFrames.last {
+            idleFacing = movable.orientation
+            if let idle = directionalIdleFrames[idleFacing]?.first {
                 body.apply(idle)
             }
             startIdle()

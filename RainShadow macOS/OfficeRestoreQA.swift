@@ -106,6 +106,8 @@ import SpriteKit
             }
             try check(walkingFrames.count >= 5, "Lila advances through multiple authored walk phases")
             try check(true, "Lila entrance uses the replacement bundle")
+            // FaceObject is an explicit action after movement, as in the catalog.
+            lila.cutsceneFace(.northEast)
             try await Task.sleep(for: .milliseconds(500))
             let lilaBody = try { () throws -> IEAvatarNode in
                 guard let body = lila.children.compactMap({ $0 as? IEAvatarNode }).first else {
@@ -120,7 +122,7 @@ import SpriteKit
             try capture(office, "lila_idle")
             lila.performExit(along: OfficeNavigationLayout.clientDepartureRoute(in: office.navigation)) {}
             try await waitUntil { lila.isHidden && !lila.isLocomoting }
-            try check(true, "Lila walks the departure route and completes the exit fade")
+            try check(true, "Lila walks the departure route and completes the departure")
             office.cutsceneSetMode(false, reason: .skipped)
             context.session.markOfficeCaseIntroCompleted()
             context.router.travel(to: HarborpointAreas.sableRow, entrance: "from.office")
