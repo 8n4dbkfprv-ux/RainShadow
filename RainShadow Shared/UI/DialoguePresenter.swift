@@ -261,7 +261,7 @@ final class DialoguePresenter: SKNode {
         commandPlate.size = usesWideCommandPlate
             ? DialoguePanelLayout.commandPlateSize(in: commandHitRect)
             : commandHitRect.size
-        // Palatino's centered glyph bounds need no legacy condensed-sans baseline offset.
+        // Baskerville's centered glyph bounds need no legacy condensed-sans baseline offset.
         let labelPosition = CGPoint(x: commandHitRect.midX, y: commandY)
         commandLabel.position = labelPosition
         commandLabelShadow.position = CGPoint(
@@ -882,7 +882,7 @@ final class DialoguePresenter: SKNode {
             )
             measuredHeights.append(rowH)
 
-            let label = SKLabelNode(fontNamed: "Palatino-Roman")
+            let label = SKLabelNode(fontNamed: UITheme.Font.dialogueBody)
             label.text = numbered
             label.fontSize = fontSize
             label.fontColor = Palette.response
@@ -1140,21 +1140,21 @@ final class DialoguePresenter: SKNode {
     ) {
         switch kind {
         case .title:
-            label.fontName = "Palatino-Bold"
+            label.fontName = UITheme.Font.dialogueBodyBold
             label.fontSize = DialoguePanelLayout.Typography.caseTitleFontSize
             label.fontColor = Palette.caseTitle
         case .monologue:
             // Interior narration: italics so players can tell Voss is thinking, not speaking aloud.
-            label.fontName = "Palatino-Italic"
+            label.fontName = UITheme.Font.dialogueBodyItalic
             label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
             label.fontColor = Palette.parchment
         case .playerReply:
             // Same ink as the reply row the player just clicked, so the echo reads as theirs.
-            label.fontName = "Palatino-Roman"
+            label.fontName = UITheme.Font.dialogueBody
             label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
             label.fontColor = Palette.response
         case .speech:
-            label.fontName = "Palatino-Roman"
+            label.fontName = UITheme.Font.dialogueBody
             label.fontSize = DialoguePanelLayout.Typography.bodyFontSize
             label.fontColor = Palette.parchment
         }
@@ -1170,7 +1170,7 @@ final class DialoguePresenter: SKNode {
                 label.frame.height,
                 DialogueTextMetrics.height(
                     text: label.text ?? "",
-                    fontName: label.fontName ?? "Palatino-Roman",
+                    fontName: label.fontName ?? UITheme.Font.dialogueBody,
                     fontSize: label.fontSize,
                     maxWidth: label.preferredMaxLayoutWidth
                 )

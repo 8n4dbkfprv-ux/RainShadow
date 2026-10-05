@@ -9,17 +9,10 @@ final class DialogueScrollbarNode: SKNode {
         case thumb
     }
 
-    private let upButton = SKSpriteNode()
-    private let downButton = SKSpriteNode()
-    private let track = SKSpriteNode()
-    private let thumb = SKSpriteNode()
-
-    private var upNormalTexture: SKTexture?
-    private var upPressedTexture: SKTexture?
-    private var downNormalTexture: SKTexture?
-    private var downPressedTexture: SKTexture?
-    private var areaDitherTexture: SKTexture?
-    private var areaSolidTexture: SKTexture?
+    private let upButton = ScrollbarPlateNode(kind: .up)
+    private let downButton = ScrollbarPlateNode(kind: .down)
+    private let track = ScrollbarPlateNode(kind: .track)
+    private let thumb = ScrollbarPlateNode(kind: .thumb)
 
     private var controlBounds = CGRect.zero
     private var upButtonRect = CGRect.zero
@@ -57,31 +50,6 @@ final class DialogueScrollbarNode: SKNode {
     override init() {
         super.init()
         name = "dialogue.scrollbar"
-        upNormalTexture = loadTexture(named: "dialogue_scroll_up_v06", fallback: "dialogue_scroll_up_v05")
-        upPressedTexture = loadTexture(named: "dialogue_scroll_up_pressed_v06", fallback: "dialogue_scroll_up_v05")
-        downNormalTexture = loadTexture(named: "dialogue_scroll_down_v06", fallback: "dialogue_scroll_down_v05")
-        downPressedTexture = loadTexture(
-            named: "dialogue_scroll_down_pressed_v06",
-            fallback: "dialogue_scroll_down_v05"
-        )
-        areaDitherTexture = loadTexture(
-            named: "dialogue_scroll_area_v06",
-            fallback: "dialogue_scroll_track_v05",
-            filtering: .nearest
-        )
-        areaSolidTexture = loadTexture(
-            named: "dialogue_scroll_area_solid_v06",
-            fallback: "dialogue_scroll_track_v05",
-            filtering: .nearest
-        )
-        installTexture(upNormalTexture, on: upButton)
-        installTexture(downNormalTexture, on: downButton)
-        installTexture(areaDitherTexture, on: track)
-        installTexture(
-            loadTexture(named: "dialogue_scroll_box_v06", fallback: "dialogue_scroll_thumb_v07"),
-            on: thumb
-        )
-
         track.zPosition = 0
         upButton.zPosition = 1
         downButton.zPosition = 1
@@ -104,12 +72,11 @@ final class DialogueScrollbarNode: SKNode {
         trackRect = chrome.track
 
         upButton.position = CGPoint(x: upButtonRect.midX, y: upButtonRect.midY)
-        upButton.size = upButtonRect.size
+        upButton.layout(size: upButtonRect.size)
         downButton.position = CGPoint(x: downButtonRect.midX, y: downButtonRect.midY)
-        downButton.size = downButtonRect.size
+        downButton.layout(size: downButtonRect.size)
         track.position = CGPoint(x: trackRect.midX, y: trackRect.midY)
-        track.size = trackRect.size
-        refreshTrackTexture()
+        track.layout(size: trackRect.size)
         refreshThumbGeometry()
     }
 
@@ -123,7 +90,6 @@ final class DialogueScrollbarNode: SKNode {
         self.contentExtent = max(self.viewportExtent, contentExtent)
         self.scrollUnit = max(1, scrollUnit)
         setScrollOffset(scrollOffset, notify: false)
-        refreshTrackTexture()
         refreshThumbGeometry()
         refreshAppearance()
     }
@@ -194,31 +160,10 @@ final class DialogueScrollbarNode: SKNode {
 
     @discardableResult
     func updatePointer(at point: CGPoint) -> Bool {
-        // System 7 has no hover tint; still report hit so the scene can show a hand cursor.
+        // Report hover so the scene can show a hand cursor.
         pointerInside = controlBounds.contains(point)
         refreshAppearance()
         return pointerInside
-    }
-
-    private func loadTexture(
-        named name: String,
-        fallback: String,
-        filtering: SKTextureFilteringMode = .linear
-    ) -> SKTexture? {
-        if let texture = UIPaintedChrome.texture(named: name, filtering: filtering) {
-            return texture
-        }
-        return UIPaintedChrome.texture(named: fallback, filtering: filtering)
-    }
-
-    private func installTexture(_ texture: SKTexture?, on sprite: SKSpriteNode) {
-        guard let texture else {
-            assertionFailure("Missing scrollbar chrome")
-            return
-        }
-        sprite.texture = texture
-        sprite.color = .white
-        sprite.colorBlendFactor = 0
     }
 
     private func part(at point: CGPoint) -> Part {
@@ -255,43 +200,160 @@ final class DialogueScrollbarNode: SKNode {
         thumb.isHidden = !layout.thumbVisible
         if layout.thumbVisible {
             thumb.position = CGPoint(x: thumbRect.midX, y: thumbRect.midY)
-            thumb.size = thumbRect.size
+            thumb.layout(size: thumbRect.size)
         }
-    }
-
-    /// Crop the pixel-exact dither master instead of stretching — same failure mode as the old grip.
-    private func refreshTrackTexture() {
-        let master = isScrollable ? areaDitherTexture : areaSolidTexture
-        guard let master else { return }
-        let masterHeight = max(1, master.size().height)
-        let fraction = min(1, trackRect.height / masterHeight)
-        let cropped = SKTexture(
-            rect: CGRect(x: 0, y: 0, width: 1, height: max(0.001, fraction)),
-            in: master
-        )
-        cropped.filteringMode = .nearest
-        track.texture = cropped
     }
 
     private func refreshAppearance() {
-        // System 7 keeps arrows drawn when disabled; only the gray area goes solid and
-        // the scroll box disappears.
-        upButton.alpha = 1
-        downButton.alpha = 1
-        track.alpha = 1
-        if !thumb.isHidden {
-            thumb.alpha = isScrollable ? 1 : 0
+        upButton.alpha = isScrollable ? 1 : 0.72
+        downButton.alpha = isScrollable ? 1 : 0.72
+        for (part, plate) in [(Part.upButton, upButton), (.downButton, downButton), (.thumb, thumb)] {
+            plate.setPressed(activePart == part)
         }
+    }
+}
 
-        upButton.texture = activePart == .upButton ? upPressedTexture : upNormalTexture
-        downButton.texture = activePart == .downButton ? downPressedTexture : downNormalTexture
-        upButton.color = .white
-        upButton.colorBlendFactor = 0
-        downButton.color = .white
-        downButton.colorBlendFactor = 0
-        track.color = .white
-        track.colorBlendFactor = 0
-        thumb.color = .white
-        thumb.colorBlendFactor = 0
+/// Platinum geometry uses straight edges and shallow, constant-width bevels.
+/// Only the material comes from the generated parchment master: no framed image
+/// is stretched, and each paper tile retains the same points-per-texel ratio.
+@MainActor
+private final class ScrollbarPlateNode: SKNode {
+    enum Kind { case up, down, track, thumb }
+    private let kind: Kind
+    private let materialRoot = SKNode()
+    private let bevelRoot = SKNode()
+    private let symbolRoot = SKNode()
+    private var plateSize = CGSize.zero
+    private var pressed = false
+    private static let tileExtent: CGFloat = 24
+    private static let edge: CGFloat = 1
+    private static let outline = SKColor(red: 0.27, green: 0.19, blue: 0.10, alpha: 1)
+    private static let light = SKColor(red: 0.98, green: 0.89, blue: 0.69, alpha: 1)
+    private static let shadow = SKColor(red: 0.53, green: 0.39, blue: 0.22, alpha: 1)
+
+    private static let paper: SKTexture = {
+        let source = UIPaintedChrome.requireTexture(named: "dialogue_scroll_thumb_fantasy_v01")
+        // Center contains paper only; exclude every part of the old rounded frame.
+        // Flatten this crop before creating partial tiles. Nested SpriteKit
+        // subtextures can resolve UVs against the original framed texture.
+        let image = source.cgImage()
+        let crop = CGRect(x: image.width / 4, y: image.height / 4,
+                          width: image.width / 2, height: image.height / 2)
+        guard let paper = image.cropping(to: crop) else { return source }
+        let texture = SKTexture(cgImage: paper)
+        texture.filteringMode = .linear
+        return texture
+    }()
+
+    init(kind: Kind) {
+        self.kind = kind
+        super.init()
+        addChild(materialRoot)
+        bevelRoot.zPosition = 1
+        addChild(bevelRoot)
+        symbolRoot.zPosition = 2
+        addChild(symbolRoot)
+    }
+
+    required init?(coder: NSCoder) { fatalError("Created programmatically") }
+
+    func layout(size: CGSize) {
+        guard size != plateSize else { return }
+        plateSize = size
+        materialRoot.removeAllChildren()
+        // Tile at a fixed scale, cropping the last row/column instead of stretching.
+        let tile = Self.tileExtent
+        for y in stride(from: CGFloat(0), to: size.height, by: tile) {
+            for x in stride(from: CGFloat(0), to: size.width, by: tile) {
+                let width = min(tile, size.width - x)
+                let height = min(tile, size.height - y)
+                let crop = CGRect(x: 0, y: 0, width: width / tile, height: height / tile)
+                let sprite = SKSpriteNode(texture: SKTexture(rect: crop, in: Self.paper),
+                                          size: CGSize(width: width, height: height))
+                sprite.position = CGPoint(x: x + width / 2 - size.width / 2,
+                                          y: y + height / 2 - size.height / 2)
+                materialRoot.addChild(sprite)
+            }
+        }
+        refreshBevel()
+        refreshSymbol()
+        refreshMaterial()
+    }
+
+    func setPressed(_ value: Bool) {
+        guard pressed != value else { return }
+        pressed = value
+        refreshBevel()
+        refreshMaterial()
+        symbolRoot.position = value ? CGPoint(x: 0.75, y: -0.75) : .zero
+    }
+
+    private func refreshMaterial() {
+        let tint: SKColor
+        let blend: CGFloat
+        if kind == .track {
+            tint = Self.outline; blend = 0.40
+        } else if pressed {
+            tint = Self.shadow; blend = 0.35
+        } else if kind == .thumb {
+            tint = SKColor(red: 0.74, green: 0.52, blue: 0.22, alpha: 1); blend = 0.30
+        } else {
+            tint = .white; blend = 0
+        }
+        for case let sprite as SKSpriteNode in materialRoot.children {
+            sprite.color = tint
+            sprite.colorBlendFactor = blend
+        }
+    }
+
+    private func strip(_ rect: CGRect, color: SKColor, parent: SKNode) {
+        guard rect.width > 0, rect.height > 0 else { return }
+        let sprite = SKSpriteNode(color: color, size: rect.size)
+        sprite.position = CGPoint(x: rect.midX, y: rect.midY)
+        parent.addChild(sprite)
+    }
+
+    private func refreshBevel() {
+        bevelRoot.removeAllChildren()
+        let w = plateSize.width, h = plateSize.height
+        guard w > 0, h > 0 else { return }
+        let e = Self.edge
+        let recessed = kind == .track || pressed
+        // A single dark outline followed by a one-point highlight/shadow pair.
+        // These dimensions are independent of texture resolution and thumb height.
+        for inset in [CGFloat(0), e, e * 2] {
+            let outer = inset == 0
+            let hi = outer ? Self.outline : (recessed ? Self.shadow : Self.light)
+            let lo = outer ? Self.outline : (recessed ? Self.light : Self.shadow)
+            let r = CGRect(x: -w / 2 + inset, y: -h / 2 + inset,
+                           width: w - inset * 2, height: h - inset * 2)
+            strip(CGRect(x: r.minX, y: r.maxY - e, width: r.width, height: e), color: hi, parent: bevelRoot)
+            strip(CGRect(x: r.minX, y: r.minY, width: e, height: r.height), color: hi, parent: bevelRoot)
+            strip(CGRect(x: r.minX, y: r.minY, width: r.width, height: e), color: lo, parent: bevelRoot)
+            strip(CGRect(x: r.maxX - e, y: r.minY, width: e, height: r.height), color: lo, parent: bevelRoot)
+        }
+    }
+
+    private func refreshSymbol() {
+        symbolRoot.removeAllChildren()
+        if kind == .up || kind == .down {
+            let sign: CGFloat = kind == .up ? 1 : -1
+            let path = CGMutablePath()
+            path.move(to: CGPoint(x: -6, y: -3.5 * sign))
+            path.addLine(to: CGPoint(x: 6, y: -3.5 * sign))
+            path.addLine(to: CGPoint(x: 0, y: 4 * sign))
+            path.closeSubpath()
+            let arrow = SKShapeNode(path: path)
+            arrow.fillColor = Self.outline
+            arrow.strokeColor = .clear
+            arrow.lineWidth = 0
+            symbolRoot.addChild(arrow)
+        } else if kind == .thumb {
+            // Fixed-size horizontal grip lines; never part of the resizable surface.
+            for y in [CGFloat(-3), 0, 3] {
+                strip(CGRect(x: -6, y: y - 0.75, width: 12, height: 0.75), color: Self.light, parent: symbolRoot)
+                strip(CGRect(x: -6, y: y, width: 12, height: 0.75), color: Self.shadow, parent: symbolRoot)
+            }
+        }
     }
 }

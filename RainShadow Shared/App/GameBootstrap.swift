@@ -822,7 +822,9 @@ final class GameContext {
     init() {
         #if DEBUG
         let saveStore = SaveStore(key:
-            ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] != nil
+            ProcessInfo.processInfo.environment["RAINSHADOW_UI_REVIEW"] == "1"
+            ? "RainShadow.QA.UIRecovery.Oct05"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] != nil
             ? "RainShadow.QA.Weapon.Bootstrap"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] != nil
             ? "RainShadow.QA.OfficeRestore.Bootstrap"

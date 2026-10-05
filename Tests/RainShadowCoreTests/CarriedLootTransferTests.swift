@@ -4,15 +4,15 @@ import Testing
 @testable import RainShadowPersistence
 
 struct CarriedLootTransferTests {
-    @Test func sixStarterSlotsLeaveTenAcquiredSlotsInTheCaseBag() {
+    @Test func sixStarterSlotsLeaveTwentySixAcquiredSlotsInTheBag() {
         var inventory = CarriedInventoryState(reservedSlotCount: 6)
 
-        #expect(inventory.totalSlotCapacity == 16)
-        #expect(inventory.itemSlotCapacity == 10)
+        #expect(inventory.totalSlotCapacity == 32)
+        #expect(inventory.itemSlotCapacity == 26)
         #expect(inventory.occupiedSlotCount == 6)
-        #expect(inventory.availableSlotCount == 10)
+        #expect(inventory.availableSlotCount == 26)
 
-        for index in 0..<10 {
+        for index in 0..<26 {
             let appended = inventory.append(CarriedItemStack(id: "item-\(index)", quantity: 1))
             #expect(appended)
         }

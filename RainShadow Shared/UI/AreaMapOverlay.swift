@@ -536,7 +536,7 @@ final class AreaMapOverlay: SKNode {
         plate.position = CGPoint(x: 0, y: -20)
         root.addChild(plate)
 
-        let label = Self.label(size: 10, color: Palette.paper, font: "AvenirNext-DemiBold")
+        let label = Self.label(size: 10, color: Palette.paper, font: UITheme.Font.overlayBodyBold)
         label.text = pointOfInterest.label
         label.verticalAlignmentMode = .center
         label.position.y = 1
@@ -562,7 +562,7 @@ final class AreaMapOverlay: SKNode {
         sheet.addChild(band)
 
         let leftX = -bandWidth / 2 + 24
-        let explored = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
+        let explored = Self.label(size: 12, color: Palette.quiet, font: UITheme.Font.overlayBodyBold)
         explored.text = "EXPLORED AREA"
         explored.horizontalAlignmentMode = .left
         explored.verticalAlignmentMode = .center
@@ -578,7 +578,7 @@ final class AreaMapOverlay: SKNode {
         currentDot.zPosition = 31
         sheet.addChild(currentDot)
 
-        let current = Self.label(size: 12, color: Palette.quiet, font: "AvenirNext-DemiBold")
+        let current = Self.label(size: 12, color: Palette.quiet, font: UITheme.Font.overlayBodyBold)
         current.text = "CURRENT POSITION"
         current.horizontalAlignmentMode = .left
         current.verticalAlignmentMode = .center

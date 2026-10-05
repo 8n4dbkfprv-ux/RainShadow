@@ -100,10 +100,10 @@ final class InventoryOverlay: SKNode {
 
         var badgeArt: String {
             switch self {
-            case .defence: "inventory_stat_badge_defence_v05"
-            case .vitality: "inventory_stat_badge_vitality_v05"
-            case .resolve: "inventory_stat_badge_resolve_v05"
-            case .damage: "inventory_stat_badge_damage_v05"
+            case .defence: "inventory_stat_badge_defence_fantasy_v01"
+            case .vitality: "inventory_stat_badge_vitality_fantasy_v01"
+            case .resolve: "inventory_stat_badge_resolve_fantasy_v01"
+            case .damage: "inventory_stat_badge_damage_fantasy_v01"
             }
         }
 
@@ -190,7 +190,7 @@ final class InventoryOverlay: SKNode {
            !carriedItems.contains(where: { $0.id == selected }) {
             selectedPresentationID = nil
         }
-        coinValueLabel.text = CurrencyAmount(pence: self.walletPence).formatted
+        coinValueLabel.text = CurrencyAmount(pence: self.walletPence).formatted.replacingOccurrences(of: "£", with: "")
         rebuildBagSlots()
         rebuildEquippedSlots()
         refreshCounters()
@@ -673,7 +673,7 @@ final class InventoryOverlay: SKNode {
         )
 
         let paused = Self.label(size: 16, color: Palette.quiet, weight: .demibold)
-        paused.text = "CASEWORK PAUSED"
+        paused.text = "Paused"
         paused.horizontalAlignmentMode = .left
         paused.verticalAlignmentMode = .center
         paused.position = InventoryScreenLayout.midPausedOrigin
@@ -730,35 +730,17 @@ final class InventoryOverlay: SKNode {
             parent: bag
         )
 
-        let bagTitle = Self.label(size: 14, color: Palette.paper, weight: .demibold)
-        bagTitle.text = "CASE BAG"
-        bagTitle.horizontalAlignmentMode = .left
-        bagTitle.verticalAlignmentMode = .center
-        bagTitle.position = CGPoint(x: -InventoryScreenLayout.bagSize.width / 2 + 242, y: 68)
-        bagTitle.zPosition = 3
-        bag.addChild(bagTitle)
-
         bagCountLabel.horizontalAlignmentMode = .right
         bagCountLabel.verticalAlignmentMode = .center
-        bagCountLabel.position = CGPoint(x: InventoryScreenLayout.bagSize.width / 2 - 44, y: 68)
+        bagCountLabel.position = CGPoint(x: InventoryScreenLayout.bagSize.width / 2 - 44, y: 86)
         bagCountLabel.zPosition = 3
         bag.addChild(bagCountLabel)
 
-        if let bagTexture = GameArt.texture(named: "inventory_case_bag_v05") {
-            bagTexture.filteringMode = .linear
-            let bagArt = SKSpriteNode(texture: bagTexture, size: CGSize(width: 92, height: 92))
-            bagArt.position = InventoryScreenLayout.bagArtOffset
-            bagArt.zPosition = 1
-            bag.addChild(bagArt)
-        } else {
-            assertionFailure("Missing inventory_case_bag_v05.png")
-        }
-
         let bagArtOffset = InventoryScreenLayout.bagArtOffset
-        bagOccupiedLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y + 55)
+        bagOccupiedLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y + 15)
         bagOccupiedLabel.zPosition = 2
         bag.addChild(bagOccupiedLabel)
-        bagCapacityLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y - 60)
+        bagCapacityLabel.position = CGPoint(x: bagArtOffset.x, y: bagArtOffset.y - 15)
         bagCapacityLabel.zPosition = 2
         bag.addChild(bagCapacityLabel)
 
@@ -974,16 +956,16 @@ final class InventoryOverlay: SKNode {
         root.position = position
         root.zPosition = 2
 
-        if let texture = GameArt.texture(named: "inventory_coin_stack_v05") {
+        if let texture = GameArt.texture(named: "inventory_coin_stack_gold_fantasy_v01") {
             texture.filteringMode = .linear
             let coins = SKSpriteNode(texture: texture, size: CGSize(width: 88, height: 64))
             coins.position = CGPoint(x: -55, y: 4)
             root.addChild(coins)
         } else {
-            assertionFailure("Missing inventory_coin_stack_v05.png")
+            assertionFailure("Missing inventory_coin_stack_gold_fantasy_v01.png")
         }
 
-        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted
+        coinValueLabel.text = CurrencyAmount(pence: walletPence).formatted.replacingOccurrences(of: "£", with: "")
         coinValueLabel.verticalAlignmentMode = .center
         coinValueLabel.horizontalAlignmentMode = .left
         coinValueLabel.position = CGPoint(x: 8, y: 0)
@@ -1165,7 +1147,7 @@ final class InventoryOverlay: SKNode {
         case .demibold:
             fontName = UITheme.Font.overlayBodyBold
         case .display:
-            fontName = "Copperplate-Bold"
+            fontName = UITheme.Font.overlayTitle
         }
         let label = SKLabelNode(fontNamed: fontName)
         label.fontSize = size

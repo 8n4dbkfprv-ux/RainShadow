@@ -166,7 +166,7 @@ enum InventoryScreenLayout {
         case .gloves: "inventory_slot_silhouette_hands_fantasy_v01"
         case .fedora: "inventory_slot_silhouette_helmet_fantasy_v01"
         case .charm: "inventory_slot_silhouette_charm_fantasy_v01"
-        case .holster: "inventory_slot_silhouette_shield_fantasy_v01"
+        case .holster: "inventory_slot_silhouette_sword_shield_fantasy_v01"
         case .ringLeft, .ringRight: "inventory_slot_silhouette_ring_fantasy_v01"
         case .cloak: "inventory_slot_silhouette_cloak_fantasy_v01"
         case .shoes: "inventory_slot_silhouette_feet_fantasy_v01"
@@ -206,21 +206,23 @@ enum InventoryScreenLayout {
 
     // MARK: - Case bag
 
-    static let lowerY: CGFloat = -365
-    static let bagSize = CGSize(width: 1_680, height: 190)
+    static let lowerY: CGFloat = -386
+    static let bagSize = CGSize(width: 1_680, height: 218)
     static let bagOrigin = CGPoint(x: 0, y: lowerY)
-    static let bagSlotCount = 16
+    static let bagColumns = 16
+    static let bagRowCount = 2
+    static let bagSlotCount = bagColumns * bagRowCount
     static let bagSlotSize: CGFloat = 70
     static let bagSlotPitch: CGFloat = 84
     static let bagFirstSlotX: CGFloat = -560
-    static let bagSlotY: CGFloat = -20
+    static let bagSlotY: CGFloat = 20
     static let bagArtOffset = CGPoint(x: -750, y: 0)
 
     /// Slot position within the bag panel's local space.
     static func bagSlotPosition(index: Int) -> CGPoint {
         CGPoint(
-            x: bagFirstSlotX + CGFloat(index) * bagSlotPitch,
-            y: bagSlotY
+            x: bagFirstSlotX + CGFloat(index % bagColumns) * bagSlotPitch,
+            y: bagSlotY - CGFloat(index / bagColumns) * bagSlotPitch
         )
     }
 

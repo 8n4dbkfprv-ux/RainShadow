@@ -198,7 +198,7 @@ struct CharacterInventoryTests {
     }
 
     @Test func unequippingIntoAFullBagIsRefusedRatherThanDroppingTheItem() throws {
-        let filler = (0..<16).map { CarriedItemStack(id: "lead-brick", quantity: 1, charges: $0) }
+        let filler = (0..<CarriedInventoryState.defaultTotalSlotCapacity).map { CarriedItemStack(id: "lead-brick", quantity: 1, charges: $0) }
         var inv = CharacterInventory(backpack: CarriedInventoryState(stacks: filler))
         try inv.equip(Self.stack("oilskin-greatcoat"), in: .coat, catalog: Self.catalog)
         let before = inv
@@ -339,7 +339,7 @@ struct CharacterInventoryTests {
     }
 
     @Test func aBatchThatCannotFitLeavesTheBagExactlyAsItWas() {
-        let filler = (0..<15).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
+        let filler = (0..<(CarriedInventoryState.defaultTotalSlotCapacity - 1)).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
         var bag = CarriedInventoryState(stacks: filler)
         let before = bag
         // Two unmergeable stacks into one free slot: all-or-nothing must refuse.
@@ -378,7 +378,7 @@ struct CharacterInventoryTests {
 
     @Test func splittingNeedsAFreeSlot() {
         var stacks = [Self.stack("bolts", 30)]
-        stacks += (0..<15).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
+        stacks += (0..<(CarriedInventoryState.defaultTotalSlotCapacity - 1)).map { CarriedItemStack(id: "shortsword", quantity: 1, charges: $0) }
         var bag = CarriedInventoryState(stacks: stacks)
         #expect(bag.availableSlotCount == 0)
         let didSplit = bag.split(at: 0, count: 10)

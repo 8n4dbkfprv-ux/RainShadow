@@ -129,11 +129,27 @@ struct InventoryScreenLayoutTests {
 
     // MARK: - Case bag
 
-    @Test func theBagPaintsSixteenSlotsInOneRow() {
-        #expect(InventoryScreenLayout.bagSlotCount == 16)
+    @Test func theBagPaintsThirtyTwoSlotsInTwoRows() {
+        #expect(InventoryScreenLayout.bagSlotCount == 32)
         let first = InventoryScreenLayout.bagSlotPosition(index: 0)
         let last = InventoryScreenLayout.bagSlotPosition(index: 15)
-        #expect(first.y == last.y, "the case bag is a single row")
+        #expect(first.y == last.y, "each bag row has sixteen columns")
+        let secondRow = InventoryScreenLayout.bagSlotPosition(index: 16)
+        #expect(secondRow.x == first.x)
+        #expect(secondRow.y == first.y - InventoryScreenLayout.bagSlotPitch)
+        #expect(InventoryScreenLayout.bagSlotCount == CarriedInventoryState.defaultTotalSlotCapacity)
+        let bagInner = CGRect(
+            x: -InventoryScreenLayout.bagSize.width / 2 + 10,
+            y: -InventoryScreenLayout.bagSize.height / 2 + 10,
+            width: InventoryScreenLayout.bagSize.width - 20,
+            height: InventoryScreenLayout.bagSize.height - 20
+        )
+        for index in 0..<InventoryScreenLayout.bagSlotCount {
+            let point = InventoryScreenLayout.bagSlotPosition(index: index)
+            let side = InventoryScreenLayout.bagSlotSize
+            let rect = CGRect(x: point.x - side / 2, y: point.y - side / 2, width: side, height: side)
+            #expect(bagInner.contains(rect))
+        }
         #expect(first.x == InventoryScreenLayout.bagFirstSlotX)
         #expect(last.x == InventoryScreenLayout.bagFirstSlotX + 15 * InventoryScreenLayout.bagSlotPitch)
     }
@@ -172,6 +188,6 @@ struct InventoryScreenLayoutTests {
     @Test func everySlotNameIsUnique() {
         let names = InventoryScreenLayout.allSlotRects().map(\.name)
         #expect(Set(names).count == names.count)
-        #expect(names.count == 10 + 10 + 16, "ten worn, ten loadout, sixteen bag")
+        #expect(names.count == 10 + 10 + 32, "ten worn, ten loadout, thirty-two bag")
     }
 }

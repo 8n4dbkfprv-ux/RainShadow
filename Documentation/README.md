@@ -8,6 +8,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 
 ## Documents
 
+- [Fantasy UI and October 5 recovery](FantasyFolioUI.md#runtime-recovery--october-5) — restored session artwork, runtime wiring, sidebar geometry, inventory and scrollbars.
 - [October 5 character recovery](CharacterRuntimeRecoveryOct05.md) — restored Rustic Voss, Desert Sentinel Lila, equipment and appearance codes, with runtime identity checks.
 - [Shared character appearances](CharacterAppearanceSystem.md) — body and palette codes, compatible equipment and NPC rendering integration.
 

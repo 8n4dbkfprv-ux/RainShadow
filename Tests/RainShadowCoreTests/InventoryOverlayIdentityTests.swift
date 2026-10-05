@@ -92,7 +92,7 @@ struct InventoryOverlayIdentityTests {
         #expect(item.name == "Watch Service Shortsword")
         #expect(item.category == .weapon)
         #expect(item.categoryDisplayName == "SERVICE WEAPON")
-        #expect(item.artName == "inventory_item_service_revolver_v01")
+        #expect(item.artName == "inventory_item_lantern_shortsword_v01")
         #expect(item.isIdentified)
     }
 
@@ -143,10 +143,9 @@ struct InventoryOverlayIdentityTests {
 
     // MARK: - The window's own contract
 
-    @Test func theBagPaintsSixteenSlots() {
-        // Previously asserted by searching InventoryOverlay.swift for the literal
-        // "static let bagSlotCount = 16".
-        #expect(InventoryScreenLayout.bagSlotCount == 16)
+    @Test func theBagPaintsThirtyTwoSlots() {
+        // The presentation capacity matches the expanded two-row bag.
+        #expect(InventoryScreenLayout.bagSlotCount == 32)
     }
 
     @Test func nothingRefersToTheRetiredNearbyPanel() throws {

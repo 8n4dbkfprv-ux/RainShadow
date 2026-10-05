@@ -11,7 +11,7 @@ struct DialogueScrollbarGeometryTests {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let url = root.appendingPathComponent(
-            "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_scroll_box_v06.png"
+            "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_scroll_thumb_fantasy_v01.png"
         )
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
               let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
@@ -45,53 +45,22 @@ struct DialogueScrollbarGeometryTests {
         #expect(lastVisibleRow >= height - height / 20 - 1)
     }
 
-    /// The gray area must ship at column width with a 2px checker — scaled painted
-    /// dither merges the two gunmetal values into grey mush.
-    @Test func shippedGrayAreaIsPixelExactDither() throws {
+    @Test func shippedTrackUsesWarmFantasyArtwork() throws {
         let root = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let url = root.appendingPathComponent(
-            "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_scroll_area_v06.png"
+            "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_scroll_track_fantasy_v01.png"
         )
-        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
-              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-
-        let width = image.width
-        let height = image.height
-        #expect(width == 30)
-        #expect(height == 1024)
-
-        var pixels = [UInt8](repeating: 0, count: width * height * 4)
-        let context = try #require(CGContext(
-            data: &pixels,
-            width: width,
-            height: height,
-            bitsPerComponent: 8,
-            bytesPerRow: width * 4,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ))
-        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
-
-        // Sample interior (skip the 1px side outlines).
-        var values = Set<UInt8>()
-        for y in 2..<min(64, height) {
-            for x in 2..<(width - 2) {
-                values.insert(pixels[(y * width + x) * 4])
-            }
-        }
-        #expect(values.count == 2)
-
-        // 2×2 checker: pixels in the same cell match; the neighbouring cell differs.
-        let a = pixels[(4 * width + 4) * 4]
-        let sameCell = pixels[(5 * width + 5) * 4]
-        let neighbour = pixels[(4 * width + 6) * 4]
-        #expect(a == sameCell)
-        #expect(a != neighbour)
+        let source = try #require(CGImageSourceCreateWithURL(url as CFURL, nil))
+        let image = try #require(CGImageSourceCreateImageAtIndex(source, 0, nil))
+        #expect(image.height > image.width * 8)
+        var pixel = [UInt8](repeating: 0, count: 4)
+        let context = try #require(CGContext(data: &pixel, width: 1, height: 1,
+            bitsPerComponent: 8, bytesPerRow: 4, space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        context.draw(image, in: CGRect(x: 0, y: 0, width: 1, height: 1))
+        #expect(pixel[0] > pixel[1] && pixel[1] > pixel[2])
+        #expect(pixel[3] > 200)
     }
 
     @Test func nonScrollableHidesThumbInsteadOfStretchingFullTrack() {
@@ -107,7 +76,7 @@ struct DialogueScrollbarGeometryTests {
         #expect(layout.thumbRect == .zero)
     }
 
-    /// System 7 scroll bars share borders: no gap between the arrow buttons and the
+    /// Classic scroll bars share borders: no gap between the arrow buttons and the
     /// track, and the scroll box spans the full channel width.
     @Test func chromeAssemblesFlushAndThumbFillsTrackWidth() {
         let bounds = CGRect(x: -15, y: -150, width: 30, height: 300)
@@ -131,7 +100,7 @@ struct DialogueScrollbarGeometryTests {
         #expect(abs(thumb.thumbRect.width - chrome.track.width) < 0.001)
     }
 
-    @Test func scrollableThumbIsFixedSquareAndStaysInsideTrack() {
+    @Test func scrollableThumbIsProportionalAndStaysInsideTrack() {
         let track = CGRect(x: -15, y: -120, width: 30, height: 240)
         let layout = DialogueScrollbarGeometry.thumbLayout(
             trackRect: track,
@@ -143,11 +112,11 @@ struct DialogueScrollbarGeometryTests {
         #expect(layout.thumbVisible)
         #expect(DialogueScrollbarGeometry.thumbIsInsideTrack(thumb: layout.thumbRect, track: track))
         #expect(abs(layout.thumbRect.width - track.width) < 0.001)
-        #expect(abs(layout.thumbRect.height - track.width) < 0.001)
+        #expect(abs(layout.thumbRect.height - track.height * 120 / 400) < 0.001)
         #expect(abs(layout.thumbRect.maxY - track.maxY) < 0.5)
     }
 
-    @Test func scrollBoxStaysSquareAcrossContentLengths() {
+    @Test func scrollBoxShrinksWithContentAndKeepsAMinimumTarget() {
         let track = CGRect(x: -15, y: -120, width: 30, height: 240)
         let slightOverflow = DialogueScrollbarGeometry.thumbLayout(
             trackRect: track,
@@ -163,9 +132,9 @@ struct DialogueScrollbarGeometryTests {
         )
 
         #expect(slightOverflow.thumbVisible && largeOverflow.thumbVisible)
-        #expect(abs(slightOverflow.thumbRect.height - track.width) < 0.001)
+        #expect(abs(slightOverflow.thumbRect.height - track.height * 200 / 201) < 0.001)
         #expect(abs(largeOverflow.thumbRect.height - track.width) < 0.001)
-        #expect(abs(slightOverflow.thumbRect.height - largeOverflow.thumbRect.height) < 0.001)
+        #expect(slightOverflow.thumbRect.height > largeOverflow.thumbRect.height)
     }
 
     @Test func scrollableThumbTravelsWithOffset() {
@@ -203,7 +172,7 @@ struct DialogueScrollbarGeometryTests {
                     #expect(layout.thumbRect.width > 0)
                     #expect(DialogueScrollbarGeometry.thumbIsInsideTrack(thumb: layout.thumbRect, track: track))
                     #expect(layout.thumbRect.minY <= layout.thumbRect.maxY)
-                    #expect(abs(layout.thumbRect.width - layout.thumbRect.height) < 0.001)
+                    #expect(layout.thumbRect.height >= min(track.width, track.height))
                 }
             }
         }
@@ -223,12 +192,9 @@ struct DialogueScrollbarGeometryTests {
         let source = try String(contentsOf: url, encoding: .utf8)
         #expect(source.contains("DialogueScrollbarGeometry.thumbLayout"))
         #expect(source.contains("thumb.isHidden = !layout.thumbVisible"))
-        #expect(source.contains("dialogue_scroll_box_v06"))
-        #expect(source.contains("dialogue_scroll_area_v06"))
-        #expect(source.contains("SKTexture("))
-        #expect(source.contains("rect:"))
-        #expect(!source.contains("thumbGrip"))
-        #expect(!source.contains("thumb.centerRect"))
-        #expect(!source.contains("dialogue_scroll_thumb_grip_v09"))
+        #expect(source.contains("dialogue_scroll_thumb_fantasy_v01"))
+        #expect(source.contains("thumb.layout(size: thumbRect.size)"))
+        #expect(!source.contains("dialogue_scroll_area_v06"))
+
     }
 }
