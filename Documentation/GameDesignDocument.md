@@ -95,14 +95,35 @@ The player feels this through locked doors, altered reports, witnesses who sudde
 
 #### Districts (playable texture, not open-world tourism)
 
-- **Market Cross** — the heart of Harborpoint and its largest district: the old market square where the harbour road, the civic spine and the dock lanes cross. Stalls under oilcloth, a dry fountain nobody fixes, a posting pillar thick with notices, carters and hawkers who see everything and sell some of it. Lila’s rooms sit on a narrow side street off the square, where it runs into the Printers’ Quarter. Every road in the lower city passes through here, so the Gray Man and his hired men do too. *(Working name; easy to change.)*
-- **Sable Row** — Voss’s block, east of Market Cross. Harbor Street (the office’s street) runs through it, and the quay road runs west from it along the waterfront to Wharf Ladder. Tenements, small shops, pipes that argue. First expansion streets. Wet wool and other people’s dinners; unpaid notices on the door.
-- **Wharf Ladder / the Docks** — cargo, lodging-houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to.
-- **Civic Spine** — magistrate’s hall, the Watch-house, records annex. Marble that stays clean in the rain on purpose.
-- **Printers’ Quarter** — broadsheets, print shops, and houses that keep a lamp on, on the Market Cross fringe. Lila’s orbit (a room in a lodging-house, friends with real locks). Gossip as second currency.
-- **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later case seeds live here (not M01 dumps).
+**Shipped 3×3 world map** (`CityWorldMap` on main) is the travel truth. Column 0 = west, column 2 = east. Row 0 = south, row 2 = north:
 
-**Market Cross footprint (map target).** Market Cross is meant to cover twice the ground of Sable Row, the district the office is in. In the build today every district, Market Cross included, is one 5120×3840 world-unit plate (19,660,800 sq units; 80×60 tiles of 64, 320×320 search/light/height cells). The twice-size target is 39,321,600 sq units, e.g. 10240×3840. On the 3×3 world map Market Cross now takes the centre cell, Sable Row sits east of it, and its stamp is drawn at √2 scale (twice the area). **Travel:** Market Cross is the hub. From Sable Row the player can travel to Market Cross or, by the quay road, straight to Wharf Ladder; Civic Records, Lamp Ward and Riverside are reached through Market Cross (Riverside also borders Wharf Ladder and Lamp Ward on the grid). Travel is always to a neighbouring ward or along a road; `CityWorldMap.roads` holds the one non-grid link. Lamp Ward is the district that holds the Watch-house; its shipped map and door labels predate the Watch rename (§15). The walkable plate stays at the shared size until wider art ships: a doubled plate and page set, 640×320 `.sr`/`.lm`/`.ht` rasters, an extended street plan and obstacle set, and per-district world size in code (see `AssetManifest.md`).
+| | West | Centre | East |
+|---|---|---|---|
+| **North** | *(locked)* | **Civic Records** | *(locked)* |
+| **Middle** | **Wharf Ladder** | **Sable Row** | **Lila’s Street** |
+| **South** | **Riverside** | **Lamp Ward** | *(locked)* |
+
+Playable districts (player-facing names). Code ids in parentheses only where they differ:
+
+- **Sable Row** (`sableRow`) — centre of the middle row; Voss’s block and the office. Harbor Street (the office’s street) runs through it. Tenements, small shops, pipes that argue. Wet wool and other people’s dinners; unpaid notices on the door. Orthogonally adjacent to Wharf Ladder (west), Lila’s Street (east), Civic Records (north) and Lamp Ward (south).
+- **Wharf Ladder** (`wharfLadder`) — west of Sable Row; the docks. Cargo, lodging-houses, warehouses, river mouth where coats arrive arranged. Seals that bite, night crews, shipping-office clocks that run three minutes fast when someone wants an alibi the wards will swear to. Interior: the shipping office. Borders Riverside (south).
+- **Lila’s Street** (`lilaStreet`) — east of Sable Row; **its own ward**, not a vague “Centre”. Lila’s rooms sit here. Prose may note it sits on the Printers’ Quarter fringe (Printers’ Quarter itself is not on the grid yet). Interior: Lila’s rooms. Gossip as second currency.
+- **Riverside** (`riverside`) — southwest. Iron stairs and river stones, where coats are recovered. Borders Wharf Ladder (north) and Lamp Ward (east). Interior: iron stairs / riverside rooms.
+- **Lamp Ward** (`harborpointPD`) — south of Sable Row; holds the Watch-house. Player-facing names are **Lamp Ward** and **the Watch-house**; the code id is not renamed in this sync. Shipped map and door labels still predate the Watch rename (§15). Interior: the Watch-house. Borders Riverside (west); locked SE to the east.
+- **Civic Records** (`civicRecords`) — north of Sable Row; the records annex. Marble that stays clean in the rain on purpose. Interior: the records annex. Locked NW and NE on either side. Together with Lamp Ward, this is the current-play footprint of what design still calls the Civic Spine.
+
+Locked corner wards (NW, NE, SE) are rain-obscured and never travelable; they reveal visually only when adjacent to a visited district.
+
+**Later-act / design names** (not on the grid until art exists; keep for story writing):
+
+- **Market Cross** — the old market square where the harbour road, the civic spine and the dock lanes meet in the story: stalls under oilcloth, a dry fountain nobody fixes, a posting pillar thick with notices. Working name; easy to change. **Not a cell on the shipped 3×3**, and travel does not hub through it.
+- **Printers’ Quarter** — broadsheets, print shops, and houses that keep a lamp on. Lila’s Street sits on its fringe in prose. Not on the grid yet.
+- **Civic Spine** — design umbrella for magistrate’s hall, the Watch-house and the records annex. In current play those functions live in **Civic Records** (annex) and **Lamp Ward** (Watch-house); the umbrella name stays for later-act writing.
+- **Ashfield Yards** — industry, company housing, blacked-out windows. Muscle and smog; later case seeds live here (not M01 dumps). Not on the grid yet.
+
+**Travel (shipped).** Travel is only to an orthogonally neighbouring playable ward. There is no `CityWorldMap.roads` and no non-grid link: the old quay-road shortcut is retired until a road system returns. From Sable Row the player can travel west to Wharf Ladder, east to Lila’s Street, north to Civic Records and south to Lamp Ward. Riverside borders Wharf Ladder and Lamp Ward. Reveal / travelability follows BG Classic rules: a district is travelable if visited, or orthogonally adjacent to a visited one.
+
+**Plate size.** Every shipped district is one 5120×3840 world-unit plate (19,660,800 sq units; 80×60 tiles of 64, 320×320 search/light/height cells). The walkable plate stays at the shared size until wider art ships: a doubled plate and page set, 640×320 `.sr`/`.lm`/`.ht` rasters, an extended street plan and obstacle set, and per-district world size in code (see `AssetManifest.md`). The old “Market Cross twice the area of Sable Row” stamp is retired until Market Cross exists as art.
 
 Immersion comes from **authored density**: specific smells, recurring NPCs who remember what Voss said last visit, broadsheets that react to case commitments, and weather that changes investigation readability (not merely a particle effect).
 
