@@ -57,6 +57,7 @@ struct Combatant: Codable, Equatable {
     var initiativeBonus: Int
     var initiative = 0
     var speed: Double = 240
+    var rangedWeapon: CombatRangedWeapon? = nil
     var defending = false
     var conscious: Bool { hp > 0 }
 }
@@ -197,10 +198,12 @@ struct TacticalCombat: Codable, Equatable {
     }
     /// Ascending defence, natural 1/20 and flat damage bands are the initial
     /// RainShadow brawl rules. TemplePlus supplies action costs, not these stats.
-    mutating func attack(target id: String, clearLine: Bool) -> Strike? {
+    mutating func attack(target id: String, clearLine: Bool, ranged: Bool = false) -> Strike? {
         guard outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
               actors[target].conscious, actors[target].player != current.player,
-              clearLine, CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
+              clearLine,
+              ranged ? BowAttackRules.canShoot(attacker: current, target: actors[target], clearLine: clearLine)
+                  : CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
               budget.spend(2) else { return nil }
         let die = roll(20)
         let bearAttacker = current.player && isBear
@@ -220,7 +223,7 @@ struct TacticalCombat: Codable, Equatable {
         }
         actors[target].hp = max(0, actors[target].hp - injury)
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage, knockedOut: !actors[target].conscious)
-        note("\(current.name): d20 \(die) + \(attackBonus) vs \(defence) — " +
+        note("\(current.name)\(ranged ? " fires" : ""): d20 \(die) + \(attackBonus) vs \(defence) — " +
              (hit ? "\(damage) to \(actors[target].name)." : "miss."))
         if result.knockedOut { note("\(actors[target].name) is out of the fight.") }
         return result
@@ -276,6 +279,27 @@ enum CombatNavigation {
             result.append(node); previous = node.point; spent += step
         }
         return Path(nodes: result)
+    }
+    /// Find a reachable firing lane using only the existing raster authority.
+    /// The lookout holds a clear position; this is not a kiting/retreat policy.
+    static func firingPosition(in map: NavigationMap, actor: Combatant, target: Combatant, limit: Double) -> Path? {
+        let points = [CGFloat(180), 260, 360].flatMap { radius in
+            (0..<16).map { i in
+                let angle = CGFloat(i) * .pi / 8
+                return CGPoint(x: target.position.x + cos(angle) * radius,
+                    y: target.position.y + sin(angle) * radius * 0.75).rounded
+            }
+        }.sorted { distance(actor.position, $0) < distance(actor.position, $1) }
+        for point in points {
+            guard clearLine(in: map, from: point, to: target.position, excluding: [actor.id, target.id]),
+                let path = route(in: map, actor: actor, to: point), !path.isEmpty, let end = path.destination,
+                length(path, from: actor.position) <= limit,
+                distance(end, target.position) > TacticalCombat.meleeReach,
+                distance(end, target.position) <= BowAttackRules.range,
+                clearLine(in: map, from: end, to: target.position, excluding: [actor.id, target.id]) else { continue }
+            return path
+        }
+        return nil
     }
     static func approach(in map: NavigationMap, actor: Combatant, target: Combatant, limit: Double) -> Path? {
         let radius: CGFloat = (map.occupancy.actors[target.id]?.personalSpaceCells ?? 4) > 4 ? 100 : 84

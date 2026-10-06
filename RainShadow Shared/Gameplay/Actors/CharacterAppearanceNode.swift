@@ -28,6 +28,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     private struct Resources {
         let body: IEAvatarFrameLibrary
         let equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let bowShot: IEAvatarFrameLibrary?
 
         init(appearance: CharacterAppearance) throws {
             try appearance.validate()
@@ -40,10 +41,26 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            if appearance.body == .humanMale01 && Set(equipment.keys) == [.elvenCourtBow, .elvenCourtArrow] {
+                let library = try IEAvatarFrameLibrary.shared(character: BowAttackAnimationSet.character,
+                    colors: body.colors)
+                try BowAttackAnimationSet.validate(library.sprite)
+                bowShot = library
+            } else { bowShot = nil }
         }
 
         func frames(appearance: CharacterAppearance, action: CharacterVisualAction,
                     facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+            if action == .shoot {
+                guard let library = bowShot else {
+                    throw CharacterAppearanceError.unsupportedAction(appearance.body, action)
+                }
+                let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: BowAttackAnimationSet.atlas, name: name) else {
+                    throw CharacterAppearanceError.missingFrame(BowAttackAnimationSet.atlas, name)
+                }
+                return (frame, [:])
+            }
             let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
             guard let frame = body.frame(atlas: appearance.body.atlas, name: name) else {
                 throw CharacterAppearanceError.missingFrame(appearance.body.atlas, name)

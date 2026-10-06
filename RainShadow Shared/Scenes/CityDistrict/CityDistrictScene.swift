@@ -542,7 +542,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         }
         finishAreaTick(at: detective.position)
         portraitBar.setHealth(
-            current: combatDirector?.combat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
+            current: combatDirector?.presentedCombat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
             maximum: context.session.maximumHealth
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
@@ -564,7 +564,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
 
     private func buildHud() {
         portraitBar.setHealth(
-            current: combatDirector?.combat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
+            current: combatDirector?.presentedCombat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
             maximum: context.session.maximumHealth,
             animated: false
         )

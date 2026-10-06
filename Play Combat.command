@@ -14,6 +14,7 @@ fi
 echo "Click the shipping-office door, then its opening, and choose a dialogue reply."
 echo "In combat: click ground to move; click a rival to strike; 1 defends; Enter ends turn; 3 yields."
 echo "4 activates Bear Form or reverts. Transformation needs a standard action and open ground."
+echo "The gate lookout shoots from range and switches to a shortsword when engaged."
 echo "Space pauses. All strikes are nonlethal. This launcher uses a separate persistent save."
 exec env RAINSHADOW_START_SCENE=city RAINSHADOW_START_DISTRICT=wharf_ladder \
     RAINSHADOW_START_ENTRANCE=from.portal.shippingOffice RAINSHADOW_COMBAT_PLAYTEST=1 \

@@ -41,6 +41,9 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
                 throw CharacterAppearanceError.unsupportedAction(self, action)
             }
             return action == .seatedIdle ? VossAnimationSet.idleFrames : VossAnimationSet.transitionFrames
+        case .shoot:
+            guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
+            return BowAttackRules.frames
         case .attack, .hit, .die, .revert:
             throw CharacterAppearanceError.unsupportedAction(self, action)
         }
@@ -55,7 +58,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
 }
 
 enum CharacterVisualAction: String, Codable, Sendable {
-    case idle, walk, attack, hit, die
+    case idle, walk, attack, hit, die, shoot
     case seatedIdle = "seated_idle"
     case revert
     case standUp = "stand_up"

@@ -1,0 +1,6388 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "WharfLookoutShot",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "254550ed657112f5a126ccbe6aa73fa2834772755a77153b040af19332e6f6fd",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "super-xbr",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": true,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_00.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 16,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "dbb7fbb3fc89ed10694d01c1453cf438c1efccb22c33c89196b4d64c95041ab1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_01.png",
+      "width": 41,
+      "height": 59,
+      "texture_px": [
+        41,
+        59
+      ],
+      "offset": 2081,
+      "length": 2419,
+      "trim_origin_top_left_px": [
+        58,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "94971cf91976e025738bde227f53d04f812d2065c981299608082114c6862362",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_02.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 4500,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        8
+      ],
+      "sha256": "4e0388698cc49870e2f61f4544b7dd294c9588a1551aa4e749460f6f2c51cb65",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_03.png",
+      "width": 29,
+      "height": 59,
+      "texture_px": [
+        29,
+        59
+      ],
+      "offset": 6860,
+      "length": 1711,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "e6b6354106e2ab877c7dfe6922c05eca5759a0d5b1d3eca6d04e92e81e252db0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_04.png",
+      "width": 28,
+      "height": 59,
+      "texture_px": [
+        28,
+        59
+      ],
+      "offset": 8571,
+      "length": 1652,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "b2c26b8a0b66759251726c4dae565446704e1dc88b935f409cd3238649f3fb82",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_05.png",
+      "width": 30,
+      "height": 59,
+      "texture_px": [
+        30,
+        59
+      ],
+      "offset": 10223,
+      "length": 1770,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "ceaa41f222c59c7b99000c596c1ff806d7db5c9caaa4626dc1d9678e82fa1649",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_06.png",
+      "width": 32,
+      "height": 59,
+      "texture_px": [
+        32,
+        59
+      ],
+      "offset": 11993,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "c8ab362814f3e9b745a27fa1484ecf7a65fb5c6589af200c1aa9b478e92490b9",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_07.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 13881,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "28603b5e1b2dead051be97139d61c650d011ab09afb5e282779a4fbec5609f3d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_08.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 15828,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "af1bb91d8f6744310703b1093a2b677ff6d102f5ca3c652eea0ae6feca19b539",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_09.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 17775,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "af1bb91d8f6744310703b1093a2b677ff6d102f5ca3c652eea0ae6feca19b539",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_10.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 19722,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "44d491aa1eae27cdf81f3f0ea19e66ac8da4b1da310fec9aad45e779d377e52e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_11.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 21669,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "44d491aa1eae27cdf81f3f0ea19e66ac8da4b1da310fec9aad45e779d377e52e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_12.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 23616,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "41bf40feafb1c596c589e080e29256a2c192cccf05ea6c07a0c576662315acc7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_13.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 25563,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "aa92f40a1249d01468ce73ddb9b2d9c0f54ac7b03dd166e2a8d504b3da7f6997",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_14.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 27687,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        8
+      ],
+      "sha256": "204552d6b1e7da5193d15a9de42f51b4c007ba9df6b1c1f89182563ee7d324c5",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_15.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 30283,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        56,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        8
+      ],
+      "sha256": "cf29263bb847dd45498843538fe639b5f2442688a493cea0f5fb456163379c91",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_16.png",
+      "width": 39,
+      "height": 59,
+      "texture_px": [
+        39,
+        59
+      ],
+      "offset": 32879,
+      "length": 2301,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "96a823aac17487d56a9bd393ce8fbbd6cb232088b32137f47657dd608b052a98",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_s_17.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 35180,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "dbb7fbb3fc89ed10694d01c1453cf438c1efccb22c33c89196b4d64c95041ab1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_00.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 37245,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        52,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        10
+      ],
+      "sha256": "7c2663ca5fd23b2db294d6beec8edec909d759686be0c24d49076b2c8c987dbe",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_01.png",
+      "width": 47,
+      "height": 62,
+      "texture_px": [
+        47,
+        62
+      ],
+      "offset": 39973,
+      "length": 2914,
+      "trim_origin_top_left_px": [
+        48,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        10
+      ],
+      "sha256": "619ed4d04035a9d57b738fb41dc03501c8fd688149e5356de6a7ce42d345d444",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_02.png",
+      "width": 45,
+      "height": 62,
+      "texture_px": [
+        45,
+        62
+      ],
+      "offset": 42887,
+      "length": 2790,
+      "trim_origin_top_left_px": [
+        49,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        10
+      ],
+      "sha256": "4d75fc6b8ddda3fa9457d9736fd6351db1a59e9bcbc5d9a555abccc5ebfca1c9",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_03.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 45677,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        10
+      ],
+      "sha256": "ea8b0ab428300180fa55065e4c80aa4d260484919c5d133025c60ae50bc196c6",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_04.png",
+      "width": 31,
+      "height": 62,
+      "texture_px": [
+        31,
+        62
+      ],
+      "offset": 47723,
+      "length": 1922,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "dca35a11d41a68b010548bb3faa4b7712396f74f7c8b035759276ad82a96a44d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_05.png",
+      "width": 31,
+      "height": 62,
+      "texture_px": [
+        31,
+        62
+      ],
+      "offset": 49645,
+      "length": 1922,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "fd546c52ad834ef366da5ff682e2b2a7d0bec40e17b4376c65f10efd9efc8232",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_06.png",
+      "width": 34,
+      "height": 62,
+      "texture_px": [
+        34,
+        62
+      ],
+      "offset": 51567,
+      "length": 2108,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "9e5851f94464e92923647f95b4cd6922aa7e749b6774c706dcaed1c0ce422de4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_07.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 53675,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "f6b1e6c235e255f2b8941f85dde8d784e2bd40b0d5529d8b89552631841445be",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_08.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 55907,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e0dfb34baed5475060a0a15fb8929ac2ef7fb5b562c6fd5383541f759b727ebc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_09.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 58139,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e0dfb34baed5475060a0a15fb8929ac2ef7fb5b562c6fd5383541f759b727ebc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_10.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 60371,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "969efbbc2fba93456e3718b90955ac806b1a9d3a336657a47273eff71f3ac32f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_11.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 62665,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "969efbbc2fba93456e3718b90955ac806b1a9d3a336657a47273eff71f3ac32f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_12.png",
+      "width": 39,
+      "height": 62,
+      "texture_px": [
+        39,
+        62
+      ],
+      "offset": 64959,
+      "length": 2418,
+      "trim_origin_top_left_px": [
+        62,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "fc516470ee70da1cb39f047604562c10eb26dddd92d5bc43980517b1ba6d532f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_13.png",
+      "width": 42,
+      "height": 61,
+      "texture_px": [
+        42,
+        61
+      ],
+      "offset": 67377,
+      "length": 2562,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "cd7af02b7d78dd264bedb290db70ac228beebb3b2f8d9720b7ac4f7fc2893c50",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_14.png",
+      "width": 53,
+      "height": 62,
+      "texture_px": [
+        53,
+        62
+      ],
+      "offset": 69939,
+      "length": 3286,
+      "trim_origin_top_left_px": [
+        49,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        10
+      ],
+      "sha256": "7125a06c489c98f6f544551212dc5bddac466515dc601dd4b6ae4b32c094cf6e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_15.png",
+      "width": 56,
+      "height": 62,
+      "texture_px": [
+        56,
+        62
+      ],
+      "offset": 73225,
+      "length": 3472,
+      "trim_origin_top_left_px": [
+        46,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "961aa59b2b70f6e6ecf4271888d53a9e567d6f0cffe8b81f756d79bb681dd939",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_16.png",
+      "width": 49,
+      "height": 62,
+      "texture_px": [
+        49,
+        62
+      ],
+      "offset": 76697,
+      "length": 3038,
+      "trim_origin_top_left_px": [
+        50,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        10
+      ],
+      "sha256": "0679534d7806c19fd0968243465843cf9e19886742819bb6fee9c7a85084818c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ssw_17.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 79735,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        52,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        10
+      ],
+      "sha256": "7c2663ca5fd23b2db294d6beec8edec909d759686be0c24d49076b2c8c987dbe",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_00.png",
+      "width": 48,
+      "height": 63,
+      "texture_px": [
+        48,
+        63
+      ],
+      "offset": 82463,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        46,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "b000697a72d637677b79af1f22804482170b8c1302b08778181a8b1466a7ffb2",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_01.png",
+      "width": 52,
+      "height": 63,
+      "texture_px": [
+        52,
+        63
+      ],
+      "offset": 85487,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        42,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        10
+      ],
+      "sha256": "5abf6a169ab8f3ad4078a9f85700a708efe166a07e03d3c847a30c744f582bef",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_02.png",
+      "width": 48,
+      "height": 62,
+      "texture_px": [
+        48,
+        62
+      ],
+      "offset": 88763,
+      "length": 2976,
+      "trim_origin_top_left_px": [
+        46,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "701aaa895cef177ffe2fb1a3b349eb2d4f5b089e3eeb43ad1f036a60c70e5adb",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_03.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 91739,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        50,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        10
+      ],
+      "sha256": "8aac49970c0172efa1db63b8c39ecc90683e27bece213e7899823c09d3c9f019",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_04.png",
+      "width": 49,
+      "height": 62,
+      "texture_px": [
+        49,
+        62
+      ],
+      "offset": 94467,
+      "length": 3038,
+      "trim_origin_top_left_px": [
+        45,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        10
+      ],
+      "sha256": "4a7ff725d19cd4428763f65aa8596772a1b3777416c73b659309251d85885078",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_05.png",
+      "width": 46,
+      "height": 62,
+      "texture_px": [
+        46,
+        62
+      ],
+      "offset": 97505,
+      "length": 2852,
+      "trim_origin_top_left_px": [
+        48,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        10
+      ],
+      "sha256": "18bc15dea8be202506313e0b5f20f6f5475aa6ae3563bb57a81b1f803a5a517c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_06.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 100357,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        51,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        10
+      ],
+      "sha256": "0ebd766d33220d91232d98adaedcbb155c4ee3fd66582c6c54c81ced4faa22b0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_07.png",
+      "width": 45,
+      "height": 62,
+      "texture_px": [
+        45,
+        62
+      ],
+      "offset": 103085,
+      "length": 2790,
+      "trim_origin_top_left_px": [
+        53,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        10
+      ],
+      "sha256": "ab784f6a1aa9c528ea568405c1b78b249e0128e85ed668ab004fa7e3cb7b24a0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_08.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 105875,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        55,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10
+      ],
+      "sha256": "38c1c3835aa6e5a8894bc91a16d1ff009518059f51267a81cb2abc796c75fe35",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_09.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 108603,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        55,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10
+      ],
+      "sha256": "38c1c3835aa6e5a8894bc91a16d1ff009518059f51267a81cb2abc796c75fe35",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_10.png",
+      "width": 40,
+      "height": 62,
+      "texture_px": [
+        40,
+        62
+      ],
+      "offset": 111331,
+      "length": 2480,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "de7f518eb01868a082cf1a28aa3aceca68ffc10a72c7b10c9b0bcee281f5648e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_11.png",
+      "width": 40,
+      "height": 62,
+      "texture_px": [
+        40,
+        62
+      ],
+      "offset": 113811,
+      "length": 2480,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "de7f518eb01868a082cf1a28aa3aceca68ffc10a72c7b10c9b0bcee281f5648e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_12.png",
+      "width": 42,
+      "height": 62,
+      "texture_px": [
+        42,
+        62
+      ],
+      "offset": 116291,
+      "length": 2604,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "02837b1b40dd5ae01d94bea9f6e3da5125a2bb5bd362829f1861ab8fd93fcac9",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_13.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 118895,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        56,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        10
+      ],
+      "sha256": "f2cef6ae9dbe084421605a0787953c5d8dfe8e4ed50f5f1f6f49f288d93e4a9a",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_14.png",
+      "width": 54,
+      "height": 62,
+      "texture_px": [
+        54,
+        62
+      ],
+      "offset": 121623,
+      "length": 3348,
+      "trim_origin_top_left_px": [
+        46,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "f88db389057cba0cbc0e068e7ea945429f05c1028f518af6cbafac0400549933",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_15.png",
+      "width": 59,
+      "height": 63,
+      "texture_px": [
+        59,
+        63
+      ],
+      "offset": 124971,
+      "length": 3717,
+      "trim_origin_top_left_px": [
+        41,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        10
+      ],
+      "sha256": "e7bdfd29e1769c3e2c17c471bb0c7440b1c0d4a0bffeff5eb4f6d546696555ba",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_16.png",
+      "width": 54,
+      "height": 63,
+      "texture_px": [
+        54,
+        63
+      ],
+      "offset": 128688,
+      "length": 3402,
+      "trim_origin_top_left_px": [
+        44,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10
+      ],
+      "sha256": "7c8b2002f7d1cfca98fa27ef269a68c2b2b2f17bcf6897411b012081ec11b777",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sw_17.png",
+      "width": 48,
+      "height": 63,
+      "texture_px": [
+        48,
+        63
+      ],
+      "offset": 132090,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        46,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "b000697a72d637677b79af1f22804482170b8c1302b08778181a8b1466a7ffb2",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_00.png",
+      "width": 49,
+      "height": 63,
+      "texture_px": [
+        49,
+        63
+      ],
+      "offset": 135114,
+      "length": 3087,
+      "trim_origin_top_left_px": [
+        45,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        9
+      ],
+      "sha256": "988bffa236e4ae091825a19724c2b0e0e87a927acf12ce5bdd8201058741e712",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_01.png",
+      "width": 52,
+      "height": 62,
+      "texture_px": [
+        52,
+        62
+      ],
+      "offset": 138201,
+      "length": 3224,
+      "trim_origin_top_left_px": [
+        42,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        9
+      ],
+      "sha256": "d1a2d244557e95e8dcc61d684782cf08d9030db0bcb09cb084be409d0f1b49cc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_02.png",
+      "width": 46,
+      "height": 67,
+      "texture_px": [
+        46,
+        67
+      ],
+      "offset": 141425,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        48,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        9
+      ],
+      "sha256": "008d21b9524106a8325a5417f4e274128edad0eacbaf70763bf9753aad519a36",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_03.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 144507,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        37,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        9
+      ],
+      "sha256": "f25f67e6a21cd1bab5ae2a0dba13c464bd929369049999c31c163dfd85d63b47",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_04.png",
+      "width": 62,
+      "height": 61,
+      "texture_px": [
+        62,
+        61
+      ],
+      "offset": 148269,
+      "length": 3782,
+      "trim_origin_top_left_px": [
+        32,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        9
+      ],
+      "sha256": "373ac99299453b1eee30916d16f624e59a0f28c0f0200f60b07a62dc74f03050",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_05.png",
+      "width": 59,
+      "height": 61,
+      "texture_px": [
+        59,
+        61
+      ],
+      "offset": 152051,
+      "length": 3599,
+      "trim_origin_top_left_px": [
+        35,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        9
+      ],
+      "sha256": "14da9bb8812d7592ecb38af82a60ab295baeeba0a4b0cf06e30adb3f7594774a",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_06.png",
+      "width": 55,
+      "height": 61,
+      "texture_px": [
+        55,
+        61
+      ],
+      "offset": 155650,
+      "length": 3355,
+      "trim_origin_top_left_px": [
+        39,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        9
+      ],
+      "sha256": "e9f58f1be1a46a807434afb047db0ccb975c6ebc549321fa3c46c257390875dc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_07.png",
+      "width": 51,
+      "height": 61,
+      "texture_px": [
+        51,
+        61
+      ],
+      "offset": 159005,
+      "length": 3111,
+      "trim_origin_top_left_px": [
+        43,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        9
+      ],
+      "sha256": "76bb015cfe05d33f6b2bb2e37514387b104485b8da9daf6c384e236fe5832d48",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_08.png",
+      "width": 51,
+      "height": 61,
+      "texture_px": [
+        51,
+        61
+      ],
+      "offset": 162116,
+      "length": 3111,
+      "trim_origin_top_left_px": [
+        45,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        9
+      ],
+      "sha256": "55826ba535d5bcd98ad933069ca0a205bac17562b8ab9da7e5c3436c81b3fed1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_09.png",
+      "width": 51,
+      "height": 61,
+      "texture_px": [
+        51,
+        61
+      ],
+      "offset": 165227,
+      "length": 3111,
+      "trim_origin_top_left_px": [
+        45,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        9
+      ],
+      "sha256": "55826ba535d5bcd98ad933069ca0a205bac17562b8ab9da7e5c3436c81b3fed1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_10.png",
+      "width": 44,
+      "height": 61,
+      "texture_px": [
+        44,
+        61
+      ],
+      "offset": 168338,
+      "length": 2684,
+      "trim_origin_top_left_px": [
+        53,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        9
+      ],
+      "sha256": "599833ff8e2adf22fa4ffa91697dd85d4398409848b737416908ae456c52cf41",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_11.png",
+      "width": 44,
+      "height": 61,
+      "texture_px": [
+        44,
+        61
+      ],
+      "offset": 171022,
+      "length": 2684,
+      "trim_origin_top_left_px": [
+        53,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        9
+      ],
+      "sha256": "599833ff8e2adf22fa4ffa91697dd85d4398409848b737416908ae456c52cf41",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_12.png",
+      "width": 43,
+      "height": 64,
+      "texture_px": [
+        43,
+        64
+      ],
+      "offset": 173706,
+      "length": 2752,
+      "trim_origin_top_left_px": [
+        54,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        9
+      ],
+      "sha256": "1f26b404023f01f684093f8d76e830e08c17c83e96a1e209ebc8fbc0d01820fe",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_13.png",
+      "width": 41,
+      "height": 68,
+      "texture_px": [
+        41,
+        68
+      ],
+      "offset": 176458,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        55,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        9
+      ],
+      "sha256": "a1680fc84adff4977e763b0aba55454616fd238d32b267d8f7751e0b1a8fe29b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_14.png",
+      "width": 48,
+      "height": 67,
+      "texture_px": [
+        48,
+        67
+      ],
+      "offset": 179246,
+      "length": 3216,
+      "trim_origin_top_left_px": [
+        48,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        9
+      ],
+      "sha256": "6704e5c31ad2797385178f91f0c4a34b67a8b32a0556fc73a26c2225674d2749",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_15.png",
+      "width": 53,
+      "height": 62,
+      "texture_px": [
+        53,
+        62
+      ],
+      "offset": 182462,
+      "length": 3286,
+      "trim_origin_top_left_px": [
+        43,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        9
+      ],
+      "sha256": "f05d052eda09eabc892a34d7f5bd126229e8a3cd093a52d6bfab9bdcb67f43a3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_16.png",
+      "width": 52,
+      "height": 63,
+      "texture_px": [
+        52,
+        63
+      ],
+      "offset": 185748,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        43,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        9
+      ],
+      "sha256": "57be6d2eaad0c8d7c7a903a664ef5f4c46edb28e2666b972fd9f4e478699d489",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wsw_17.png",
+      "width": 49,
+      "height": 63,
+      "texture_px": [
+        49,
+        63
+      ],
+      "offset": 189024,
+      "length": 3087,
+      "trim_origin_top_left_px": [
+        45,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        9
+      ],
+      "sha256": "988bffa236e4ae091825a19724c2b0e0e87a927acf12ce5bdd8201058741e712",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_00.png",
+      "width": 47,
+      "height": 62,
+      "texture_px": [
+        47,
+        62
+      ],
+      "offset": 192111,
+      "length": 2914,
+      "trim_origin_top_left_px": [
+        49,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        7
+      ],
+      "sha256": "9d9fc16b4c58df026ce4469645c4d098c3ae117de855e1b7e2bff214c73112b0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_01.png",
+      "width": 46,
+      "height": 63,
+      "texture_px": [
+        46,
+        63
+      ],
+      "offset": 195025,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        48,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        7
+      ],
+      "sha256": "2fdb13e8f38457dc24934bea10ea276a0f5acd2f2f4525ed88901182cc9ef65b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_02.png",
+      "width": 46,
+      "height": 74,
+      "texture_px": [
+        46,
+        74
+      ],
+      "offset": 197923,
+      "length": 3404,
+      "trim_origin_top_left_px": [
+        48,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        7
+      ],
+      "sha256": "0dfe3c342500774c3b11e0c379714a26f666794c8decebfcc4a6f22a1c28b5bc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_03.png",
+      "width": 63,
+      "height": 70,
+      "texture_px": [
+        63,
+        70
+      ],
+      "offset": 201327,
+      "length": 4410,
+      "trim_origin_top_left_px": [
+        31,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        7
+      ],
+      "sha256": "8ba376fbb1ee1e39e17e2c3e2ba0136c48b39c7f254aab71d727277d2aeb55bc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_04.png",
+      "width": 68,
+      "height": 65,
+      "texture_px": [
+        68,
+        65
+      ],
+      "offset": 205737,
+      "length": 4420,
+      "trim_origin_top_left_px": [
+        26,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        7
+      ],
+      "sha256": "754145761c1e77e4dbc8d235db26d30d12e0d55fd1200369dc63f307fabe1c5f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_05.png",
+      "width": 64,
+      "height": 64,
+      "texture_px": [
+        64,
+        64
+      ],
+      "offset": 210157,
+      "length": 4096,
+      "trim_origin_top_left_px": [
+        30,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        7
+      ],
+      "sha256": "a4b247dad2a5553e774119beaae5fae906951b7b2b8f7c9abe31837203529044",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_06.png",
+      "width": 59,
+      "height": 63,
+      "texture_px": [
+        59,
+        63
+      ],
+      "offset": 214253,
+      "length": 3717,
+      "trim_origin_top_left_px": [
+        35,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        7
+      ],
+      "sha256": "0f1f19911244897a35a1ac5b480fde3f80aaec8eed85d75ae0ee59c98d31f055",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_07.png",
+      "width": 56,
+      "height": 63,
+      "texture_px": [
+        56,
+        63
+      ],
+      "offset": 217970,
+      "length": 3528,
+      "trim_origin_top_left_px": [
+        38,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        7
+      ],
+      "sha256": "e157b0e9a3c1671ec68ff2e389a181306c0d51fb835dc9d7d77374306cfc29e4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_08.png",
+      "width": 54,
+      "height": 62,
+      "texture_px": [
+        54,
+        62
+      ],
+      "offset": 221498,
+      "length": 3348,
+      "trim_origin_top_left_px": [
+        40,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        7
+      ],
+      "sha256": "9357b3129549aeb193cd44d3aed197e03cd9bcb671a1da0951123970e9a62376",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_09.png",
+      "width": 54,
+      "height": 62,
+      "texture_px": [
+        54,
+        62
+      ],
+      "offset": 224846,
+      "length": 3348,
+      "trim_origin_top_left_px": [
+        40,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        7
+      ],
+      "sha256": "9357b3129549aeb193cd44d3aed197e03cd9bcb671a1da0951123970e9a62376",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_10.png",
+      "width": 45,
+      "height": 65,
+      "texture_px": [
+        45,
+        65
+      ],
+      "offset": 228194,
+      "length": 2925,
+      "trim_origin_top_left_px": [
+        49,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        7
+      ],
+      "sha256": "6c6551e8f95689febd9908027cfee5b1c3fe6520ceca59e935d101ef887af17b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_11.png",
+      "width": 45,
+      "height": 65,
+      "texture_px": [
+        45,
+        65
+      ],
+      "offset": 231119,
+      "length": 2925,
+      "trim_origin_top_left_px": [
+        49,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        7
+      ],
+      "sha256": "6c6551e8f95689febd9908027cfee5b1c3fe6520ceca59e935d101ef887af17b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_12.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 234044,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        50,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        7
+      ],
+      "sha256": "28f7aa995b1a5a5b71836ceeba772195fad37c646d0afcd7306dc8bafac469c6",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_13.png",
+      "width": 39,
+      "height": 73,
+      "texture_px": [
+        39,
+        73
+      ],
+      "offset": 237036,
+      "length": 2847,
+      "trim_origin_top_left_px": [
+        55,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        7
+      ],
+      "sha256": "5c1699dc2bdfce6142621cac216b1a45b210cab58bfe3c6bf4d6c9e5472f85f6",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_14.png",
+      "width": 40,
+      "height": 74,
+      "texture_px": [
+        40,
+        74
+      ],
+      "offset": 239883,
+      "length": 2960,
+      "trim_origin_top_left_px": [
+        54,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        7
+      ],
+      "sha256": "f5b2477959b1914e9e18f1db8de03ffcbf541b9c97cc5d68ecc03eac4326c00c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_15.png",
+      "width": 45,
+      "height": 67,
+      "texture_px": [
+        45,
+        67
+      ],
+      "offset": 242843,
+      "length": 3015,
+      "trim_origin_top_left_px": [
+        49,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        7
+      ],
+      "sha256": "07e2cd7ea28db2fae32d3485e11cde58667d967beea39288ecc64a8b4e438237",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_16.png",
+      "width": 46,
+      "height": 61,
+      "texture_px": [
+        46,
+        61
+      ],
+      "offset": 245858,
+      "length": 2806,
+      "trim_origin_top_left_px": [
+        48,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        7
+      ],
+      "sha256": "f1adff309f608518b8dbd2b6b800189981234e90fb415098745bd0b35508477a",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_w_17.png",
+      "width": 47,
+      "height": 62,
+      "texture_px": [
+        47,
+        62
+      ],
+      "offset": 248664,
+      "length": 2914,
+      "trim_origin_top_left_px": [
+        49,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        7
+      ],
+      "sha256": "9d9fc16b4c58df026ce4469645c4d098c3ae117de855e1b7e2bff214c73112b0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_00.png",
+      "width": 43,
+      "height": 63,
+      "texture_px": [
+        43,
+        63
+      ],
+      "offset": 251578,
+      "length": 2709,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6
+      ],
+      "sha256": "f409cc184849cb75afc11f3011e0a09c240841441d7dda1fb15f70068a0a261e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_01.png",
+      "width": 35,
+      "height": 70,
+      "texture_px": [
+        35,
+        70
+      ],
+      "offset": 254287,
+      "length": 2450,
+      "trim_origin_top_left_px": [
+        59,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "d2c95d1f559e597e19b76bcdebf14caa59c95585a12408b871790db0a0ad8c4e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_02.png",
+      "width": 50,
+      "height": 79,
+      "texture_px": [
+        50,
+        79
+      ],
+      "offset": 256737,
+      "length": 3950,
+      "trim_origin_top_left_px": [
+        44,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        6
+      ],
+      "sha256": "874029dd7cc108241aa20dc6674ac4b210711e52cc684082e8dcb425e5997b0f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_03.png",
+      "width": 63,
+      "height": 75,
+      "texture_px": [
+        63,
+        75
+      ],
+      "offset": 260687,
+      "length": 4725,
+      "trim_origin_top_left_px": [
+        31,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        6
+      ],
+      "sha256": "bb346adfa5b0ab6b57dfc1cb7756a02df40c464ce0c2e6fd909818fdcf101d1e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_04.png",
+      "width": 64,
+      "height": 70,
+      "texture_px": [
+        64,
+        70
+      ],
+      "offset": 265412,
+      "length": 4480,
+      "trim_origin_top_left_px": [
+        30,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        6
+      ],
+      "sha256": "de0167d5bdcf23e46c638f995177de4a3b8b1cd2f4f2aa098eaafd25c5bf8312",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_05.png",
+      "width": 62,
+      "height": 70,
+      "texture_px": [
+        62,
+        70
+      ],
+      "offset": 269892,
+      "length": 4340,
+      "trim_origin_top_left_px": [
+        32,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        6
+      ],
+      "sha256": "6e294b7a3c73b5f5e57a5caaa67200b92c2fcdb3e44a6eca7a14e382d8d6d673",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_06.png",
+      "width": 58,
+      "height": 68,
+      "texture_px": [
+        58,
+        68
+      ],
+      "offset": 274232,
+      "length": 3944,
+      "trim_origin_top_left_px": [
+        36,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        6
+      ],
+      "sha256": "850e384337e1cc54c55c94073b6d83e3ed241cad33e41f3461b3934de1f6cccd",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_07.png",
+      "width": 54,
+      "height": 67,
+      "texture_px": [
+        54,
+        67
+      ],
+      "offset": 278176,
+      "length": 3618,
+      "trim_origin_top_left_px": [
+        40,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        6
+      ],
+      "sha256": "a8e6e070d26cafb16cc4b772e61275b30367692ebd36f66311431ad3d450d009",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_08.png",
+      "width": 52,
+      "height": 66,
+      "texture_px": [
+        52,
+        66
+      ],
+      "offset": 281794,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        42,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        6
+      ],
+      "sha256": "e2d4db1be6cb4a4f3a95eea426aeca1e988d062c81073f877019ec6df8dce14d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_09.png",
+      "width": 52,
+      "height": 66,
+      "texture_px": [
+        52,
+        66
+      ],
+      "offset": 285226,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        42,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        6
+      ],
+      "sha256": "e2d4db1be6cb4a4f3a95eea426aeca1e988d062c81073f877019ec6df8dce14d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_10.png",
+      "width": 45,
+      "height": 71,
+      "texture_px": [
+        45,
+        71
+      ],
+      "offset": 288658,
+      "length": 3195,
+      "trim_origin_top_left_px": [
+        49,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        6
+      ],
+      "sha256": "04ccd58a092bc8139b377381e055335a368c314de879ad3fbf69e04275870106",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_11.png",
+      "width": 45,
+      "height": 71,
+      "texture_px": [
+        45,
+        71
+      ],
+      "offset": 291853,
+      "length": 3195,
+      "trim_origin_top_left_px": [
+        49,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        6
+      ],
+      "sha256": "04ccd58a092bc8139b377381e055335a368c314de879ad3fbf69e04275870106",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_12.png",
+      "width": 43,
+      "height": 73,
+      "texture_px": [
+        43,
+        73
+      ],
+      "offset": 295048,
+      "length": 3139,
+      "trim_origin_top_left_px": [
+        51,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        6
+      ],
+      "sha256": "5199b40d105fab0fa237a799128d6d22a586a858d51840d120d5140505d49e3b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_13.png",
+      "width": 37,
+      "height": 76,
+      "texture_px": [
+        37,
+        76
+      ],
+      "offset": 298187,
+      "length": 2812,
+      "trim_origin_top_left_px": [
+        57,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        6
+      ],
+      "sha256": "069d834032cdc32bc449d82f5c85d80c612fa4c4f165d00775ced8d06dcac4dc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_14.png",
+      "width": 31,
+      "height": 79,
+      "texture_px": [
+        31,
+        79
+      ],
+      "offset": 300999,
+      "length": 2449,
+      "trim_origin_top_left_px": [
+        63,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "37774e6b0df83db04c2712af5622e5b44404594fa952016f4088480f99b50e43",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_15.png",
+      "width": 33,
+      "height": 73,
+      "texture_px": [
+        33,
+        73
+      ],
+      "offset": 303448,
+      "length": 2409,
+      "trim_origin_top_left_px": [
+        61,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "97c0f08c7e4e63d5850e95e3fb98a527c94ac92e3b06058e216be5d6f9b9a8a0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_16.png",
+      "width": 40,
+      "height": 66,
+      "texture_px": [
+        40,
+        66
+      ],
+      "offset": 305857,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        58,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6
+      ],
+      "sha256": "d4ab1190d4d999a60dc773de22f9f9bfe789407ef8d83948ce1cf8a559238a33",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_wnw_17.png",
+      "width": 43,
+      "height": 63,
+      "texture_px": [
+        43,
+        63
+      ],
+      "offset": 308497,
+      "length": 2709,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6
+      ],
+      "sha256": "f409cc184849cb75afc11f3011e0a09c240841441d7dda1fb15f70068a0a261e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_00.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 311206,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "f66b3fc03a537a5a5724115956618f73bbb848ecce5bc79441581409df2b91f4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_01.png",
+      "width": 37,
+      "height": 74,
+      "texture_px": [
+        37,
+        74
+      ],
+      "offset": 313618,
+      "length": 2738,
+      "trim_origin_top_left_px": [
+        59,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "174ddd9b607cc1136ec13767ce741cca41c0bc42f0cb40fc4e9ce729fc79d409",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_02.png",
+      "width": 48,
+      "height": 81,
+      "texture_px": [
+        48,
+        81
+      ],
+      "offset": 316356,
+      "length": 3888,
+      "trim_origin_top_left_px": [
+        46,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        6
+      ],
+      "sha256": "ab5384333fd7268cedfec716a1351dab4d0473998a4915540153d48973e71319",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_03.png",
+      "width": 55,
+      "height": 79,
+      "texture_px": [
+        55,
+        79
+      ],
+      "offset": 320244,
+      "length": 4345,
+      "trim_origin_top_left_px": [
+        39,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        6
+      ],
+      "sha256": "8e0696530ccbea0ed18b944bf776730cf685beabd768653c761eee14f376ad31",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_04.png",
+      "width": 55,
+      "height": 76,
+      "texture_px": [
+        55,
+        76
+      ],
+      "offset": 324589,
+      "length": 4180,
+      "trim_origin_top_left_px": [
+        39,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        6
+      ],
+      "sha256": "5d0f118b5a8e3c3edb052a66e2d59c5dd5dee0279b0a47c287beffd70f16b6d0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_05.png",
+      "width": 53,
+      "height": 75,
+      "texture_px": [
+        53,
+        75
+      ],
+      "offset": 328769,
+      "length": 3975,
+      "trim_origin_top_left_px": [
+        41,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        6
+      ],
+      "sha256": "70c5efd6bae49754d3ba2d753b87e29263b06e52bedc1f5f5e57a4849c5524a2",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_06.png",
+      "width": 50,
+      "height": 73,
+      "texture_px": [
+        50,
+        73
+      ],
+      "offset": 332744,
+      "length": 3650,
+      "trim_origin_top_left_px": [
+        44,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        6
+      ],
+      "sha256": "449d091985d9d9496a85c5246b3345fc65e7cdb58677144c4905c5987eb8944c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_07.png",
+      "width": 47,
+      "height": 71,
+      "texture_px": [
+        47,
+        71
+      ],
+      "offset": 336394,
+      "length": 3337,
+      "trim_origin_top_left_px": [
+        47,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        6
+      ],
+      "sha256": "8d3fb5d4dfc80c503719998c7ea8e420f278c7b9246d017c5b4a09205c8e3eaa",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_08.png",
+      "width": 46,
+      "height": 71,
+      "texture_px": [
+        46,
+        71
+      ],
+      "offset": 339731,
+      "length": 3266,
+      "trim_origin_top_left_px": [
+        48,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        6
+      ],
+      "sha256": "662458ceb019d6b059f9df6680733e37f9133a45a6f77a50bfb74969c58ff9af",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_09.png",
+      "width": 46,
+      "height": 71,
+      "texture_px": [
+        46,
+        71
+      ],
+      "offset": 342997,
+      "length": 3266,
+      "trim_origin_top_left_px": [
+        48,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        6
+      ],
+      "sha256": "662458ceb019d6b059f9df6680733e37f9133a45a6f77a50bfb74969c58ff9af",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_10.png",
+      "width": 40,
+      "height": 76,
+      "texture_px": [
+        40,
+        76
+      ],
+      "offset": 346263,
+      "length": 3040,
+      "trim_origin_top_left_px": [
+        54,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        6
+      ],
+      "sha256": "87636f883bfc3725c02b6d6a2a442f230e7fe46b67b74d5e7276a7f56ae9cb3b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_11.png",
+      "width": 40,
+      "height": 76,
+      "texture_px": [
+        40,
+        76
+      ],
+      "offset": 349303,
+      "length": 3040,
+      "trim_origin_top_left_px": [
+        54,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        6
+      ],
+      "sha256": "87636f883bfc3725c02b6d6a2a442f230e7fe46b67b74d5e7276a7f56ae9cb3b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_12.png",
+      "width": 38,
+      "height": 78,
+      "texture_px": [
+        38,
+        78
+      ],
+      "offset": 352343,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        56,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        6
+      ],
+      "sha256": "059a467a01d84bf89a5efc0ab68e155e4335e8197f36be0f495cc388c19cf818",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_13.png",
+      "width": 32,
+      "height": 80,
+      "texture_px": [
+        32,
+        80
+      ],
+      "offset": 355307,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        62,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        6
+      ],
+      "sha256": "e9cc8395405c4814d57226d7b03d26f64996a7d5115a66827c853afdbe0877a3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_14.png",
+      "width": 27,
+      "height": 81,
+      "texture_px": [
+        27,
+        81
+      ],
+      "offset": 357867,
+      "length": 2187,
+      "trim_origin_top_left_px": [
+        67,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "58ec24e4d1378b5c4fbe0de7c2c74760283593bf0ab657ad474f3b947610e1a5",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_15.png",
+      "width": 27,
+      "height": 77,
+      "texture_px": [
+        27,
+        77
+      ],
+      "offset": 360054,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        67,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "5c21c9ad87e213844299a87e146ddf34fbff08111872b270d7485f9dc260476e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_16.png",
+      "width": 35,
+      "height": 71,
+      "texture_px": [
+        35,
+        71
+      ],
+      "offset": 362133,
+      "length": 2485,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "232f10b6b44d3875f7f54a8fa08600adfccd6a0c26178d063493084c00328dd8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nw_17.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 364618,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "f66b3fc03a537a5a5724115956618f73bbb848ecce5bc79441581409df2b91f4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_00.png",
+      "width": 38,
+      "height": 68,
+      "texture_px": [
+        38,
+        68
+      ],
+      "offset": 367030,
+      "length": 2584,
+      "trim_origin_top_left_px": [
+        64,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "5cdfa8d53787c48e24804cb65ff26da8ab4d4607ae9cadcda2ff79fd11b10043",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_01.png",
+      "width": 42,
+      "height": 74,
+      "texture_px": [
+        42,
+        74
+      ],
+      "offset": 369614,
+      "length": 3108,
+      "trim_origin_top_left_px": [
+        58,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6
+      ],
+      "sha256": "593edfacab96fc4c60f2348ed5dbbb24523070df4e79d937aa27af1fb9c9e4c4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_02.png",
+      "width": 43,
+      "height": 80,
+      "texture_px": [
+        43,
+        80
+      ],
+      "offset": 372722,
+      "length": 3440,
+      "trim_origin_top_left_px": [
+        53,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        6
+      ],
+      "sha256": "6eeae31b4d605e89bca494b78b9aeb06e8788afd3ce32ebfc7a85e5c22c89859",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_03.png",
+      "width": 40,
+      "height": 80,
+      "texture_px": [
+        40,
+        80
+      ],
+      "offset": 376162,
+      "length": 3200,
+      "trim_origin_top_left_px": [
+        54,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        6
+      ],
+      "sha256": "554bf740768f20b8ee64a2fb41b1192d0f03f05db69c3ea942ffa6e91eff6d6d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_04.png",
+      "width": 39,
+      "height": 85,
+      "texture_px": [
+        39,
+        85
+      ],
+      "offset": 379362,
+      "length": 3315,
+      "trim_origin_top_left_px": [
+        55,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        6
+      ],
+      "sha256": "47afbd49c851c3710e3f451a54c56fd6555f860d64ec7663d1fbe6ff3a610e93",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_05.png",
+      "width": 38,
+      "height": 82,
+      "texture_px": [
+        38,
+        82
+      ],
+      "offset": 382677,
+      "length": 3116,
+      "trim_origin_top_left_px": [
+        56,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        6
+      ],
+      "sha256": "3af423a71ca28801d4b30d7e78f151a75fded8ad3c82ca47a8671b0e32b08c91",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_06.png",
+      "width": 36,
+      "height": 79,
+      "texture_px": [
+        36,
+        79
+      ],
+      "offset": 385793,
+      "length": 2844,
+      "trim_origin_top_left_px": [
+        58,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6
+      ],
+      "sha256": "bd7e3cbdf7a5ec391dbc176a785f56cb414ec28126e748b298ffe7f779849b6f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_07.png",
+      "width": 34,
+      "height": 76,
+      "texture_px": [
+        34,
+        76
+      ],
+      "offset": 388637,
+      "length": 2584,
+      "trim_origin_top_left_px": [
+        60,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "13c1b9405acd3ecd6fda51f20c9e8851bc10cec0503923fc3ecf20e64f8c18a1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_08.png",
+      "width": 34,
+      "height": 75,
+      "texture_px": [
+        34,
+        75
+      ],
+      "offset": 391221,
+      "length": 2550,
+      "trim_origin_top_left_px": [
+        60,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "0ed2410e69bfeafe3a37f4807cfecdccb18566d9280d8e23a4aab64f7f1abd5b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_09.png",
+      "width": 34,
+      "height": 75,
+      "texture_px": [
+        34,
+        75
+      ],
+      "offset": 393771,
+      "length": 2550,
+      "trim_origin_top_left_px": [
+        60,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "0ed2410e69bfeafe3a37f4807cfecdccb18566d9280d8e23a4aab64f7f1abd5b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_10.png",
+      "width": 31,
+      "height": 81,
+      "texture_px": [
+        31,
+        81
+      ],
+      "offset": 396321,
+      "length": 2511,
+      "trim_origin_top_left_px": [
+        63,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "579ef86123f2d714dd759b7ea8e3ee2362eb1a650cbd9b3859550d9c81e51c64",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_11.png",
+      "width": 31,
+      "height": 81,
+      "texture_px": [
+        31,
+        81
+      ],
+      "offset": 398832,
+      "length": 2511,
+      "trim_origin_top_left_px": [
+        63,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "579ef86123f2d714dd759b7ea8e3ee2362eb1a650cbd9b3859550d9c81e51c64",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_12.png",
+      "width": 29,
+      "height": 80,
+      "texture_px": [
+        29,
+        80
+      ],
+      "offset": 401343,
+      "length": 2320,
+      "trim_origin_top_left_px": [
+        65,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        6
+      ],
+      "sha256": "16b3fae3ae837305cbf82dc77e4704e7479afe984bc63aa822b0f0499b75d90b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_13.png",
+      "width": 30,
+      "height": 79,
+      "texture_px": [
+        30,
+        79
+      ],
+      "offset": 403663,
+      "length": 2370,
+      "trim_origin_top_left_px": [
+        64,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "91ade3cce4936abf03e41442037b19d5b0a1096fc5e0e209a876699853aa765d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_14.png",
+      "width": 32,
+      "height": 80,
+      "texture_px": [
+        32,
+        80
+      ],
+      "offset": 406033,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        64,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "91cd6cda3f0816de24ae2a29cfffe43045c55d68b411c2a7971323ea37506b92",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_15.png",
+      "width": 35,
+      "height": 77,
+      "texture_px": [
+        35,
+        77
+      ],
+      "offset": 408593,
+      "length": 2695,
+      "trim_origin_top_left_px": [
+        64,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "f4527695d9b4d858e5ea7aaef7a1587ff13392d0f6d4d6912602ac3cbfc8e115",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_16.png",
+      "width": 38,
+      "height": 71,
+      "texture_px": [
+        38,
+        71
+      ],
+      "offset": 411288,
+      "length": 2698,
+      "trim_origin_top_left_px": [
+        61,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "781c6956cb6017434f922f427d8d6c46eb39185e9a7423c3fb727f12a44714d1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nnw_17.png",
+      "width": 38,
+      "height": 68,
+      "texture_px": [
+        38,
+        68
+      ],
+      "offset": 413986,
+      "length": 2584,
+      "trim_origin_top_left_px": [
+        64,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "5cdfa8d53787c48e24804cb65ff26da8ab4d4607ae9cadcda2ff79fd11b10043",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_00.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 416570,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        63,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "e13202a5dea664637e360644d901e8b16b6ec64b06e617a2c08c343087747633",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_01.png",
+      "width": 41,
+      "height": 69,
+      "texture_px": [
+        41,
+        69
+      ],
+      "offset": 418845,
+      "length": 2829,
+      "trim_origin_top_left_px": [
+        61,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "d1c0d7b6808769be02ec2a03b78984a26effca9a09fcab7fad20c8295b9ec1a7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_02.png",
+      "width": 40,
+      "height": 75,
+      "texture_px": [
+        40,
+        75
+      ],
+      "offset": 421674,
+      "length": 3000,
+      "trim_origin_top_left_px": [
+        63,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "6afc5e051a0f06f054c1dade0efeed891c7a3d59f01a2d60b46a708b7157b203",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_03.png",
+      "width": 28,
+      "height": 79,
+      "texture_px": [
+        28,
+        79
+      ],
+      "offset": 424674,
+      "length": 2212,
+      "trim_origin_top_left_px": [
+        67,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "3c7299b1e8255f206bc387c22417222ad90ee44f090db160c0326d08f93f2c99",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_04.png",
+      "width": 27,
+      "height": 90,
+      "texture_px": [
+        27,
+        90
+      ],
+      "offset": 426886,
+      "length": 2430,
+      "trim_origin_top_left_px": [
+        67,
+        16
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "9d35e32894894e627c9efaade1d93ee120d5bef2e280b4ac7237a6348b85c745",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_05.png",
+      "width": 30,
+      "height": 87,
+      "texture_px": [
+        30,
+        87
+      ],
+      "offset": 429316,
+      "length": 2610,
+      "trim_origin_top_left_px": [
+        64,
+        19
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "108d7275324f19e88009e0012a61d35b567e1f5b539db4b280c10df586859b72",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_06.png",
+      "width": 32,
+      "height": 83,
+      "texture_px": [
+        32,
+        83
+      ],
+      "offset": 431926,
+      "length": 2656,
+      "trim_origin_top_left_px": [
+        62,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        6
+      ],
+      "sha256": "18257a9de8198933afe6715ec68a5a859b53e97b53f40dba91a31e8cb303bfcc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_07.png",
+      "width": 33,
+      "height": 80,
+      "texture_px": [
+        33,
+        80
+      ],
+      "offset": 434582,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        61,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "460b219e589ebf7db2b99a7f69d1e07e1b5062d440c668cebb69e789e584db6e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_08.png",
+      "width": 33,
+      "height": 79,
+      "texture_px": [
+        33,
+        79
+      ],
+      "offset": 437222,
+      "length": 2607,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "9c6e7460dd9cda9984a54365ba871b707b46f00b41f0efbc139fc17f16843c4d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_09.png",
+      "width": 33,
+      "height": 79,
+      "texture_px": [
+        33,
+        79
+      ],
+      "offset": 439829,
+      "length": 2607,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "9c6e7460dd9cda9984a54365ba871b707b46f00b41f0efbc139fc17f16843c4d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_10.png",
+      "width": 33,
+      "height": 83,
+      "texture_px": [
+        33,
+        83
+      ],
+      "offset": 442436,
+      "length": 2739,
+      "trim_origin_top_left_px": [
+        61,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "cd2340f2da54aeab05211f2e0a5ec31470d2fa3da5095a77367b417e4b085658",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_11.png",
+      "width": 33,
+      "height": 83,
+      "texture_px": [
+        33,
+        83
+      ],
+      "offset": 445175,
+      "length": 2739,
+      "trim_origin_top_left_px": [
+        61,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "cd2340f2da54aeab05211f2e0a5ec31470d2fa3da5095a77367b417e4b085658",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_12.png",
+      "width": 33,
+      "height": 81,
+      "texture_px": [
+        33,
+        81
+      ],
+      "offset": 447914,
+      "length": 2673,
+      "trim_origin_top_left_px": [
+        61,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "dcb529cb444f2ddc253d9681f8079c9e3f024552ce089f2cc615053ac61ba2c3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_13.png",
+      "width": 36,
+      "height": 77,
+      "texture_px": [
+        36,
+        77
+      ],
+      "offset": 450587,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        60,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "56582a44a77a2015213ab59854b135ada3a74b73ec9defd019e3881ea1e97f21",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_14.png",
+      "width": 44,
+      "height": 75,
+      "texture_px": [
+        44,
+        75
+      ],
+      "offset": 453359,
+      "length": 3300,
+      "trim_origin_top_left_px": [
+        59,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "e4dbaec7e492ae7f4a0c5601714fe3b2bd0d1c2dccbd8501d38a16aa6800e6ee",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_15.png",
+      "width": 44,
+      "height": 71,
+      "texture_px": [
+        44,
+        71
+      ],
+      "offset": 456659,
+      "length": 3124,
+      "trim_origin_top_left_px": [
+        60,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "61a8e314c23037883a73e2dcdf82df1b8d80aa531bfbd853efc03c55bddf211e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_16.png",
+      "width": 39,
+      "height": 68,
+      "texture_px": [
+        39,
+        68
+      ],
+      "offset": 459783,
+      "length": 2652,
+      "trim_origin_top_left_px": [
+        61,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "bb3701caace4516daa97299f70cfc20af82186fd659eb5ee46e8de2482a90eda",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_n_17.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 462435,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        63,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "e13202a5dea664637e360644d901e8b16b6ec64b06e617a2c08c343087747633",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_00.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 464710,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "9adc29efaf82b48fbff221b02d8167f480ba16ac4170e20d8b7973306de34b6c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_01.png",
+      "width": 47,
+      "height": 64,
+      "texture_px": [
+        47,
+        64
+      ],
+      "offset": 467526,
+      "length": 3008,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "2ab042251283c5758af9e3b768db4739d2b8d9da783c172b89a29307e9d338be",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_02.png",
+      "width": 44,
+      "height": 69,
+      "texture_px": [
+        44,
+        69
+      ],
+      "offset": 470534,
+      "length": 3036,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "4e3b097c78efa641ad087ec08d0d225268cfa4b3a34fcb60a40162a7168c7bab",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_03.png",
+      "width": 32,
+      "height": 79,
+      "texture_px": [
+        32,
+        79
+      ],
+      "offset": 473570,
+      "length": 2528,
+      "trim_origin_top_left_px": [
+        67,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "76066f42f18932f08a1fd38d9dd3bbca80ba8aa8e755dd235d19be98980a9c36",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_04.png",
+      "width": 30,
+      "height": 90,
+      "texture_px": [
+        30,
+        90
+      ],
+      "offset": 476098,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        67,
+        18
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "4598c2e81647b3fba5a611d82482d8df402f405c5b52b6f837864079dee279e4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_05.png",
+      "width": 31,
+      "height": 87,
+      "texture_px": [
+        31,
+        87
+      ],
+      "offset": 478798,
+      "length": 2697,
+      "trim_origin_top_left_px": [
+        65,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "f83cf5e7a6cacaaa041413fbe0da7c2bb3f9274e771707cfc6e75032ae49233f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_06.png",
+      "width": 34,
+      "height": 84,
+      "texture_px": [
+        34,
+        84
+      ],
+      "offset": 481495,
+      "length": 2856,
+      "trim_origin_top_left_px": [
+        62,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "f1548e4e034d36146221d6682a917d715fa09348dd9932780526c2251f680c3b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_07.png",
+      "width": 36,
+      "height": 81,
+      "texture_px": [
+        36,
+        81
+      ],
+      "offset": 484351,
+      "length": 2916,
+      "trim_origin_top_left_px": [
+        60,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "9c80846827bdc06b3f4c9b8bd7a8800ace2b8189d6b2d29b61e88f45e05d81ce",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_08.png",
+      "width": 36,
+      "height": 80,
+      "texture_px": [
+        36,
+        80
+      ],
+      "offset": 487267,
+      "length": 2880,
+      "trim_origin_top_left_px": [
+        60,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "0671399bab33406d397008a572b2dcad5001fc0777eb469e68f8baaf43d27893",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_09.png",
+      "width": 36,
+      "height": 80,
+      "texture_px": [
+        36,
+        80
+      ],
+      "offset": 490147,
+      "length": 2880,
+      "trim_origin_top_left_px": [
+        60,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "0671399bab33406d397008a572b2dcad5001fc0777eb469e68f8baaf43d27893",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_10.png",
+      "width": 37,
+      "height": 85,
+      "texture_px": [
+        37,
+        85
+      ],
+      "offset": 493027,
+      "length": 3145,
+      "trim_origin_top_left_px": [
+        59,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        8
+      ],
+      "sha256": "5919358aa47ffabc8db1702b65f9e276bdc6fe9d96f2e6a98d9774dea7fe5af1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_11.png",
+      "width": 37,
+      "height": 85,
+      "texture_px": [
+        37,
+        85
+      ],
+      "offset": 496172,
+      "length": 3145,
+      "trim_origin_top_left_px": [
+        59,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        8
+      ],
+      "sha256": "5919358aa47ffabc8db1702b65f9e276bdc6fe9d96f2e6a98d9774dea7fe5af1",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_12.png",
+      "width": 39,
+      "height": 82,
+      "texture_px": [
+        39,
+        82
+      ],
+      "offset": 499317,
+      "length": 3198,
+      "trim_origin_top_left_px": [
+        59,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        8
+      ],
+      "sha256": "e82ac3e928d178b845086984af12be51ac41ffe857a72d2ab91ef6f4d7c93a88",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_13.png",
+      "width": 42,
+      "height": 75,
+      "texture_px": [
+        42,
+        75
+      ],
+      "offset": 502515,
+      "length": 3150,
+      "trim_origin_top_left_px": [
+        58,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "1908e9ed3ea55202e3c35a5359eeaa1e970177fafa164b220e27f31dc8db6d01",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_14.png",
+      "width": 53,
+      "height": 69,
+      "texture_px": [
+        53,
+        69
+      ],
+      "offset": 505665,
+      "length": 3657,
+      "trim_origin_top_left_px": [
+        58,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "53cfe25f954cc3f3704a806eb979f63835b270c5e8312d8e2caf6ad0c0cabb99",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_15.png",
+      "width": 56,
+      "height": 65,
+      "texture_px": [
+        56,
+        65
+      ],
+      "offset": 509322,
+      "length": 3640,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "4a497c1da1d1a83faf2af24d17b6dc120473baecc6741465ef51369f2792d7bc",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_16.png",
+      "width": 49,
+      "height": 63,
+      "texture_px": [
+        49,
+        63
+      ],
+      "offset": 512962,
+      "length": 3087,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        8
+      ],
+      "sha256": "dcab2dbbff25d33a578f91a9ef6b664430027bb1a53ba85edca6f001ce82d4fa",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_nne_17.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 516049,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "9adc29efaf82b48fbff221b02d8167f480ba16ac4170e20d8b7973306de34b6c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_00.png",
+      "width": 47,
+      "height": 65,
+      "texture_px": [
+        47,
+        65
+      ],
+      "offset": 518865,
+      "length": 3055,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        12
+      ],
+      "sha256": "0feb2d470d4bf20b6a0eea2ce716482994ed098f2c9b158823e6c7057739ee1b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_01.png",
+      "width": 51,
+      "height": 61,
+      "texture_px": [
+        51,
+        61
+      ],
+      "offset": 521920,
+      "length": 3111,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "ef66baf0e6308327e9117d94472bcd51e29d8c0a70b94770208b1372f25dfad8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_02.png",
+      "width": 47,
+      "height": 61,
+      "texture_px": [
+        47,
+        61
+      ],
+      "offset": 525031,
+      "length": 2867,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "78be619df077f20cb3cff61a11d410e39c50693c868bda90dbe466707de88297",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_03.png",
+      "width": 43,
+      "height": 73,
+      "texture_px": [
+        43,
+        73
+      ],
+      "offset": 527898,
+      "length": 3139,
+      "trim_origin_top_left_px": [
+        67,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "7b94c9c133fd7a18b142be2979cb7d7e37152055a076e469057a314ef2f87ec6",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_04.png",
+      "width": 48,
+      "height": 83,
+      "texture_px": [
+        48,
+        83
+      ],
+      "offset": 531037,
+      "length": 3984,
+      "trim_origin_top_left_px": [
+        67,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "90ba80e213faba83d7ae94059ddd16f9e351a84f87e3531ad255c84d512e33d7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_05.png",
+      "width": 46,
+      "height": 81,
+      "texture_px": [
+        46,
+        81
+      ],
+      "offset": 535021,
+      "length": 3726,
+      "trim_origin_top_left_px": [
+        67,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "78fdad855ec0dfce26f587e567ec6f6862465d0b77dbf985d497f2825337b563",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_06.png",
+      "width": 44,
+      "height": 80,
+      "texture_px": [
+        44,
+        80
+      ],
+      "offset": 538747,
+      "length": 3520,
+      "trim_origin_top_left_px": [
+        65,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "e989c813adfb4acc21dc208ca54a1058d73bb85fd283c2af364a4389b7878ead",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_07.png",
+      "width": 44,
+      "height": 78,
+      "texture_px": [
+        44,
+        78
+      ],
+      "offset": 542267,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        62,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "6768e1fa7776e950a0c5d4efa0f2ff81e6294818db11ac04c381cc6fd05c47f3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_08.png",
+      "width": 44,
+      "height": 77,
+      "texture_px": [
+        44,
+        77
+      ],
+      "offset": 545699,
+      "length": 3388,
+      "trim_origin_top_left_px": [
+        61,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        8
+      ],
+      "sha256": "e53f140a627dfd37af3f8d4cfb98c09443726f2c881154b6d8d71159f9811eae",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_09.png",
+      "width": 44,
+      "height": 77,
+      "texture_px": [
+        44,
+        77
+      ],
+      "offset": 549087,
+      "length": 3388,
+      "trim_origin_top_left_px": [
+        61,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        8
+      ],
+      "sha256": "e53f140a627dfd37af3f8d4cfb98c09443726f2c881154b6d8d71159f9811eae",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_10.png",
+      "width": 40,
+      "height": 83,
+      "texture_px": [
+        40,
+        83
+      ],
+      "offset": 552475,
+      "length": 3320,
+      "trim_origin_top_left_px": [
+        60,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "01f6218d056fa5164795ed87befb8e256a04fff896b7cc02f4d4f20be0233807",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_11.png",
+      "width": 40,
+      "height": 83,
+      "texture_px": [
+        40,
+        83
+      ],
+      "offset": 555795,
+      "length": 3320,
+      "trim_origin_top_left_px": [
+        60,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "01f6218d056fa5164795ed87befb8e256a04fff896b7cc02f4d4f20be0233807",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_12.png",
+      "width": 42,
+      "height": 78,
+      "texture_px": [
+        42,
+        78
+      ],
+      "offset": 559115,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        60,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "f1a3d650798dfd39d2e42ffaf65a7c92c01e702c26b06d0a88596b93fa0b5c36",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_13.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 562391,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        60,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "7645bc5cfc3e1def3722932440d195aae9432c5a865d41d82b78343982d5b001",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_14.png",
+      "width": 54,
+      "height": 61,
+      "texture_px": [
+        54,
+        61
+      ],
+      "offset": 565383,
+      "length": 3294,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "03bffcea4f99b2173681c4dc5533959c3aa4f2154f8add5ebea4d364dffe2f57",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_15.png",
+      "width": 59,
+      "height": 61,
+      "texture_px": [
+        59,
+        61
+      ],
+      "offset": 568677,
+      "length": 3599,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "f0d7077f323206bf5a52df5580021adaec3010d36950e9bfc0c124b37d3f5843",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_16.png",
+      "width": 54,
+      "height": 62,
+      "texture_px": [
+        54,
+        62
+      ],
+      "offset": 572276,
+      "length": 3348,
+      "trim_origin_top_left_px": [
+        62,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "7c1e7fff980a362fecfcb2c31c604d91f0ac90743fc05a9c70cff6cf7b4bc778",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ne_17.png",
+      "width": 47,
+      "height": 65,
+      "texture_px": [
+        47,
+        65
+      ],
+      "offset": 575624,
+      "length": 3055,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        12
+      ],
+      "sha256": "0feb2d470d4bf20b6a0eea2ce716482994ed098f2c9b158823e6c7057739ee1b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_00.png",
+      "width": 48,
+      "height": 63,
+      "texture_px": [
+        48,
+        63
+      ],
+      "offset": 578679,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        11
+      ],
+      "sha256": "d7d5986f77152839073abf81614b9530abe0042bca9467dd7e4a48bbb43a88b2",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_01.png",
+      "width": 51,
+      "height": 60,
+      "texture_px": [
+        51,
+        60
+      ],
+      "offset": 581703,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "e2df97c2c16c864d7c565a80601aad24e8a8b705a80920a1f1ca97a77f123fcb",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_02.png",
+      "width": 45,
+      "height": 60,
+      "texture_px": [
+        45,
+        60
+      ],
+      "offset": 584763,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "f4e3a974d80bb48108803128683b7e3b0137cf147cd1fda346ba19ebbe45c496",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_03.png",
+      "width": 55,
+      "height": 67,
+      "texture_px": [
+        55,
+        67
+      ],
+      "offset": 587463,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "fad2a6e3f7cd1a7cc0140deda77ce9713cecc633322805405e98c0a5f19ee3be",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_04.png",
+      "width": 62,
+      "height": 78,
+      "texture_px": [
+        62,
+        78
+      ],
+      "offset": 591148,
+      "length": 4836,
+      "trim_origin_top_left_px": [
+        67,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "e0e68c3f4c5a8bd4a77022ca1b7a90d20ad477f347c19282f46565d605a22a16",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_05.png",
+      "width": 58,
+      "height": 78,
+      "texture_px": [
+        58,
+        78
+      ],
+      "offset": 595984,
+      "length": 4524,
+      "trim_origin_top_left_px": [
+        67,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "bbaeee8404594f4ae9ada7b7635a9fb8e994e8ee041677c96a7d1e77e036c80b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_06.png",
+      "width": 53,
+      "height": 76,
+      "texture_px": [
+        53,
+        76
+      ],
+      "offset": 600508,
+      "length": 4028,
+      "trim_origin_top_left_px": [
+        67,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "4a4af0affe6ff90c689fad63fc6f93accad61b3a0a2008457d9da185a16af129",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_07.png",
+      "width": 51,
+      "height": 75,
+      "texture_px": [
+        51,
+        75
+      ],
+      "offset": 604536,
+      "length": 3825,
+      "trim_origin_top_left_px": [
+        66,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "4176baf258b1aa90b693c26904124ea603eaeb6d46dbacdd8636e6cc593719ba",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_08.png",
+      "width": 50,
+      "height": 74,
+      "texture_px": [
+        50,
+        74
+      ],
+      "offset": 608361,
+      "length": 3700,
+      "trim_origin_top_left_px": [
+        65,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "2d5c412b2d820924717705782382fd2f67f92482447902ba0800f0ef5daf5cb3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_09.png",
+      "width": 50,
+      "height": 74,
+      "texture_px": [
+        50,
+        74
+      ],
+      "offset": 612061,
+      "length": 3700,
+      "trim_origin_top_left_px": [
+        65,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "2d5c412b2d820924717705782382fd2f67f92482447902ba0800f0ef5daf5cb3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_10.png",
+      "width": 44,
+      "height": 78,
+      "texture_px": [
+        44,
+        78
+      ],
+      "offset": 615761,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        63,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8
+      ],
+      "sha256": "25fb28933dafecc957ee6b6b83cd99c03df64eea95311787cc9d1ede68418a27",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_11.png",
+      "width": 44,
+      "height": 78,
+      "texture_px": [
+        44,
+        78
+      ],
+      "offset": 619193,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        63,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8
+      ],
+      "sha256": "25fb28933dafecc957ee6b6b83cd99c03df64eea95311787cc9d1ede68418a27",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_12.png",
+      "width": 43,
+      "height": 73,
+      "texture_px": [
+        43,
+        73
+      ],
+      "offset": 622625,
+      "length": 3139,
+      "trim_origin_top_left_px": [
+        63,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8
+      ],
+      "sha256": "bbff2501464624d1afe81d0e3840bbd67d8e0504b215d699205b35d4e2470743",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_13.png",
+      "width": 41,
+      "height": 62,
+      "texture_px": [
+        41,
+        62
+      ],
+      "offset": 625764,
+      "length": 2542,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "03852248001e4b11c8f4b5821ec55dccdfa2c0cb50dec914b7f403153bd45e55",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_14.png",
+      "width": 48,
+      "height": 62,
+      "texture_px": [
+        48,
+        62
+      ],
+      "offset": 628306,
+      "length": 2976,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "e1fcbfd0f4c445c93c8f0ace3d6756af18a8140ad54cf19cf1b3f55fc4c64c52",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_15.png",
+      "width": 54,
+      "height": 63,
+      "texture_px": [
+        54,
+        63
+      ],
+      "offset": 631282,
+      "length": 3402,
+      "trim_origin_top_left_px": [
+        64,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "aac59bcf1fda4cc9b25cc7f9e5549c6356e2d7c565b92c2178843b9ad91e46f5",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_16.png",
+      "width": 52,
+      "height": 60,
+      "texture_px": [
+        52,
+        60
+      ],
+      "offset": 634684,
+      "length": 3120,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "b355599804122e5cce90c7f4153289aad2e9f33098d1337d8686fc2d8fd7882d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ene_17.png",
+      "width": 48,
+      "height": 63,
+      "texture_px": [
+        48,
+        63
+      ],
+      "offset": 637804,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        11
+      ],
+      "sha256": "d7d5986f77152839073abf81614b9530abe0042bca9467dd7e4a48bbb43a88b2",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_00.png",
+      "width": 46,
+      "height": 59,
+      "texture_px": [
+        46,
+        59
+      ],
+      "offset": 640828,
+      "length": 2714,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "f433d89f97c4b3c7a0e7d10848f20b393f938111a429982cf8ede21485b81c30",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_01.png",
+      "width": 45,
+      "height": 59,
+      "texture_px": [
+        45,
+        59
+      ],
+      "offset": 643542,
+      "length": 2655,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "0ebc5c6247ccacd0472a4ccec28e8154482c81faf80171be6081b731daeed119",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_02.png",
+      "width": 44,
+      "height": 60,
+      "texture_px": [
+        44,
+        60
+      ],
+      "offset": 646197,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "8050a353d81ed54a14983716af8e95cec6545b5fad81e70b3b6c215fd49f046c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_03.png",
+      "width": 62,
+      "height": 62,
+      "texture_px": [
+        62,
+        62
+      ],
+      "offset": 648837,
+      "length": 3844,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "ac6341c1ad6bdcca6fee6fd2acd33bff4dc1ddcf51e76e5832a7ef57ac314ce7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_04.png",
+      "width": 67,
+      "height": 73,
+      "texture_px": [
+        67,
+        73
+      ],
+      "offset": 652681,
+      "length": 4891,
+      "trim_origin_top_left_px": [
+        67,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "5d76bfde722f174febcaf6e0c8e2389a49722e1191b7075fbfadb035425d3def",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_05.png",
+      "width": 63,
+      "height": 72,
+      "texture_px": [
+        63,
+        72
+      ],
+      "offset": 657572,
+      "length": 4536,
+      "trim_origin_top_left_px": [
+        67,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "161580c9027990aa47eb04201e2b2d1fbe8d8e25300c88afdc50ea7b8773307d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_06.png",
+      "width": 58,
+      "height": 71,
+      "texture_px": [
+        58,
+        71
+      ],
+      "offset": 662108,
+      "length": 4118,
+      "trim_origin_top_left_px": [
+        67,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "38726023807ac3ef12785f644e58a544f2d66aebbd021c855256af953f58d150",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_07.png",
+      "width": 54,
+      "height": 70,
+      "texture_px": [
+        54,
+        70
+      ],
+      "offset": 666226,
+      "length": 3780,
+      "trim_origin_top_left_px": [
+        67,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "fb3cf4fce0237fac56872286c517502ce33e398591e5c1a2562ba6885a2de58e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_08.png",
+      "width": 52,
+      "height": 70,
+      "texture_px": [
+        52,
+        70
+      ],
+      "offset": 670006,
+      "length": 3640,
+      "trim_origin_top_left_px": [
+        67,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "5140541079b8079219f245f10ededb7e03ce768714db1bd4de9aeb8290af7a0a",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_09.png",
+      "width": 52,
+      "height": 70,
+      "texture_px": [
+        52,
+        70
+      ],
+      "offset": 673646,
+      "length": 3640,
+      "trim_origin_top_left_px": [
+        67,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "5140541079b8079219f245f10ededb7e03ce768714db1bd4de9aeb8290af7a0a",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_10.png",
+      "width": 44,
+      "height": 73,
+      "texture_px": [
+        44,
+        73
+      ],
+      "offset": 677286,
+      "length": 3212,
+      "trim_origin_top_left_px": [
+        67,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "4a01a9bd58e1d67f663bcf695ff1c5135db2a7e0cf8aa1e1a0134769f928676b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_11.png",
+      "width": 44,
+      "height": 73,
+      "texture_px": [
+        44,
+        73
+      ],
+      "offset": 680498,
+      "length": 3212,
+      "trim_origin_top_left_px": [
+        67,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "4a01a9bd58e1d67f663bcf695ff1c5135db2a7e0cf8aa1e1a0134769f928676b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_12.png",
+      "width": 43,
+      "height": 67,
+      "texture_px": [
+        43,
+        67
+      ],
+      "offset": 683710,
+      "length": 2881,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "6cc3da3efbaf5c9001930743dc8afabd3df61aeac6a39009e81c3d9844ad21ad",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_13.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 686591,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "66649eb40ab89c1511d59df7d30900ca730a0e0b80516be901d468bc0f5630ef",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_14.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 689061,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "cd74bb5a25c8de45d7c7e4725a0983c854fcef8934412a7ac3d39fbe6d7070c7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_15.png",
+      "width": 44,
+      "height": 66,
+      "texture_px": [
+        44,
+        66
+      ],
+      "offset": 691531,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "80dc09d2c23ecffea9672526a80ad99dc4b0167554e05150987abbb6e5493270",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_16.png",
+      "width": 45,
+      "height": 59,
+      "texture_px": [
+        45,
+        59
+      ],
+      "offset": 694435,
+      "length": 2655,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "5a042c1302eb4f4d7083c806d56b60f0ee8e5a1eafd0ce48142ae6d3fd61bdf5",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_e_17.png",
+      "width": 46,
+      "height": 59,
+      "texture_px": [
+        46,
+        59
+      ],
+      "offset": 697090,
+      "length": 2714,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "f433d89f97c4b3c7a0e7d10848f20b393f938111a429982cf8ede21485b81c30",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_00.png",
+      "width": 42,
+      "height": 59,
+      "texture_px": [
+        42,
+        59
+      ],
+      "offset": 699804,
+      "length": 2478,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "30b8543f366a5d4ce664aaa36efab33ec1d0348eb11b7adaa4f6d084de4d7d3c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_01.png",
+      "width": 34,
+      "height": 59,
+      "texture_px": [
+        34,
+        59
+      ],
+      "offset": 702282,
+      "length": 2006,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "f65a4eaba25ef3010ae57b43aa7a2ac2e7bb4a08966fbbcab802d6b47e4552d9",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_02.png",
+      "width": 47,
+      "height": 60,
+      "texture_px": [
+        47,
+        60
+      ],
+      "offset": 704288,
+      "length": 2820,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "3ea849edba584d5c05a3ab8b8233ff63eb63e3708044016c485df6f2c4b28c20",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_03.png",
+      "width": 60,
+      "height": 61,
+      "texture_px": [
+        60,
+        61
+      ],
+      "offset": 707108,
+      "length": 3660,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "85c0b06e76549dec7b2bb2374dd0302fd3a2a71e1db059f02994f036c23d8d46",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_04.png",
+      "width": 65,
+      "height": 67,
+      "texture_px": [
+        65,
+        67
+      ],
+      "offset": 710768,
+      "length": 4355,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "1071e2327267b2801194772fda29024dc846f9869be856ece03f3c2f93d25a3f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_05.png",
+      "width": 61,
+      "height": 67,
+      "texture_px": [
+        61,
+        67
+      ],
+      "offset": 715123,
+      "length": 4087,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "b7cd1ff1ab09c6803e2a5b12f329742f82048ac91b3bfdecb6bd82403d1e5f03",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_06.png",
+      "width": 57,
+      "height": 67,
+      "texture_px": [
+        57,
+        67
+      ],
+      "offset": 719210,
+      "length": 3819,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "ff97072d6b5939c68c546b6e7706458ae7d19558ed0eb7a6e892b8251f81116b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_07.png",
+      "width": 52,
+      "height": 67,
+      "texture_px": [
+        52,
+        67
+      ],
+      "offset": 723029,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "0f489eb74b1f17c76d11836b5802191e1e6ced36cffc70659a545b0298e4cad5",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_08.png",
+      "width": 52,
+      "height": 67,
+      "texture_px": [
+        52,
+        67
+      ],
+      "offset": 726513,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "06c09c2235ec9e887b89af3ef5caddebdbd1a27ef1aedeaa35d3e35f16c808e8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_09.png",
+      "width": 52,
+      "height": 67,
+      "texture_px": [
+        52,
+        67
+      ],
+      "offset": 729997,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "06c09c2235ec9e887b89af3ef5caddebdbd1a27ef1aedeaa35d3e35f16c808e8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_10.png",
+      "width": 44,
+      "height": 67,
+      "texture_px": [
+        44,
+        67
+      ],
+      "offset": 733481,
+      "length": 2948,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "63725a75d3f46d915e165a22c589caeb0705cabd608fcda49e5d0a4a14c3908f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_11.png",
+      "width": 44,
+      "height": 67,
+      "texture_px": [
+        44,
+        67
+      ],
+      "offset": 736429,
+      "length": 2948,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "63725a75d3f46d915e165a22c589caeb0705cabd608fcda49e5d0a4a14c3908f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_12.png",
+      "width": 42,
+      "height": 67,
+      "texture_px": [
+        42,
+        67
+      ],
+      "offset": 739377,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "94d0737f2af9be7e0d50313cbde61c6adc176c5039e8192787a0c704c2f68f0f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_13.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 742191,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "9454b6ac0ad9403e5e7f11a40efb2f8e420708506c7459fd2e570a7c33509511",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_14.png",
+      "width": 30,
+      "height": 67,
+      "texture_px": [
+        30,
+        67
+      ],
+      "offset": 744603,
+      "length": 2010,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "19d200465034224125df6879505eb421eeb8eafbfc969be4f7ef1b2edca8304c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_15.png",
+      "width": 32,
+      "height": 68,
+      "texture_px": [
+        32,
+        68
+      ],
+      "offset": 746613,
+      "length": 2176,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "fdefabeb3a8ae99e8fbd3f3d22f26a133dc3281b90bed8a0dafd37310ed1f85e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_16.png",
+      "width": 39,
+      "height": 61,
+      "texture_px": [
+        39,
+        61
+      ],
+      "offset": 748789,
+      "length": 2379,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "b2c0fecdf7fef54ee066e50672f1722ea79b7b51d47214f5121534036a1e2a40",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_ese_17.png",
+      "width": 42,
+      "height": 59,
+      "texture_px": [
+        42,
+        59
+      ],
+      "offset": 751168,
+      "length": 2478,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "30b8543f366a5d4ce664aaa36efab33ec1d0348eb11b7adaa4f6d084de4d7d3c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_00.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 753646,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        57,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        8
+      ],
+      "sha256": "9be8f7f5e408105449e76477c7045523467cc4b074e53923cbdb04e0d2ab00d0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_01.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 755792,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "5ab442079c21816168a7118c25ffc89a17de0ea3d70e4916a1048e3842fa8611",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_02.png",
+      "width": 46,
+      "height": 58,
+      "texture_px": [
+        46,
+        58
+      ],
+      "offset": 757880,
+      "length": 2668,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "1eb99801cb2bbbafd13e1e6d7a934fe9ce7ef5cc3c11f750536d68d781b35d21",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_03.png",
+      "width": 54,
+      "height": 59,
+      "texture_px": [
+        54,
+        59
+      ],
+      "offset": 760548,
+      "length": 3186,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "5b19cd52dfda74af52ea60e8e8796dc5679d4a07436d8473c7afe6236fdb8445",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_04.png",
+      "width": 55,
+      "height": 60,
+      "texture_px": [
+        55,
+        60
+      ],
+      "offset": 763734,
+      "length": 3300,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "a47e024848bdfd93d73f53848c961c78f437218d96bf9d3db7638f7f602b680b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_05.png",
+      "width": 52,
+      "height": 61,
+      "texture_px": [
+        52,
+        61
+      ],
+      "offset": 767034,
+      "length": 3172,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "d6f579b28dadf10e61653f30d0f11b9edcde8f35ed0867dd9d88e2f45b375bae",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_06.png",
+      "width": 48,
+      "height": 62,
+      "texture_px": [
+        48,
+        62
+      ],
+      "offset": 770206,
+      "length": 2976,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "68f47bd7d67ee52fe292e06ebb3e535f5a05ac3471905824c5c14f186a82e3c0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_07.png",
+      "width": 46,
+      "height": 64,
+      "texture_px": [
+        46,
+        64
+      ],
+      "offset": 773182,
+      "length": 2944,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "93f886abe04b33294332a7606aa0b46ecc1c1f08403c644936b615efd8c5475f",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_08.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 776126,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "47e39b0dbc360172139cad644ab91ef173102a1c9aa1cf3a0c3b75900a46783c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_09.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 778942,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "47e39b0dbc360172139cad644ab91ef173102a1c9aa1cf3a0c3b75900a46783c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_10.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 781758,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "f7bb666bba0af2e1c1ebb91487c2064f6e98b34343b626244546de3ef44453f8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_11.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 784293,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "f7bb666bba0af2e1c1ebb91487c2064f6e98b34343b626244546de3ef44453f8",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_12.png",
+      "width": 36,
+      "height": 65,
+      "texture_px": [
+        36,
+        65
+      ],
+      "offset": 786828,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "050cf719055fe11fa79ce57ac9d25bcceab947837c38b0c74c163be8c18b3671",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_13.png",
+      "width": 31,
+      "height": 65,
+      "texture_px": [
+        31,
+        65
+      ],
+      "offset": 789168,
+      "length": 2015,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "9a0f14ef83f434fac162ef5d849eee4cb4ace626c3521f77e40418021b07240e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_14.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 791183,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        8
+      ],
+      "sha256": "c6f507164167d8703811b1fd38f5a1188f4b56b2125095d28132d812660f8398",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_15.png",
+      "width": 28,
+      "height": 66,
+      "texture_px": [
+        28,
+        66
+      ],
+      "offset": 792938,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        66,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "d2d2c5547553253482eb9d9a763552829607f37ce95d3b6dae4bec16b546002c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_16.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 794786,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        8
+      ],
+      "sha256": "7c9af05358f04f3b3972b71b068602b4146a3e77c3e0cccc3efa92fced53798d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_se_17.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 796851,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        57,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        8
+      ],
+      "sha256": "9be8f7f5e408105449e76477c7045523467cc4b074e53923cbdb04e0d2ab00d0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_00.png",
+      "width": 37,
+      "height": 56,
+      "texture_px": [
+        37,
+        56
+      ],
+      "offset": 798997,
+      "length": 2072,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "8ce66c9e6a01ebd212d7a03e749c9a36fc45cca5f6c3e1379c456f7d01e00ef4",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_01.png",
+      "width": 41,
+      "height": 56,
+      "texture_px": [
+        41,
+        56
+      ],
+      "offset": 801069,
+      "length": 2296,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "8a3712e550fb0e4455e5132a7a7531bf1a9b6510665fb1d7c905e01a4035fc54",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_02.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 803365,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        6
+      ],
+      "sha256": "923aaa381fb6f3f9dd8e471cfb29411e33066d3f5df1fdeb95e3a663e5ed5bb7",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_03.png",
+      "width": 39,
+      "height": 57,
+      "texture_px": [
+        39,
+        57
+      ],
+      "offset": 805717,
+      "length": 2223,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "beaaeb8163383fb962367a057e60b1b8b64eb8f73d50401de791457ddd23df77",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_04.png",
+      "width": 38,
+      "height": 57,
+      "texture_px": [
+        38,
+        57
+      ],
+      "offset": 807940,
+      "length": 2166,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "e490446ee957857c0831cc5594027ee77d2b7bbbdfd8d589d720381710b2597b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_05.png",
+      "width": 37,
+      "height": 57,
+      "texture_px": [
+        37,
+        57
+      ],
+      "offset": 810106,
+      "length": 2109,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "948a5cbc27f53210a09d0f8019e211bc157812b7935cdb8f5e8d0612eb0f49d3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_06.png",
+      "width": 35,
+      "height": 57,
+      "texture_px": [
+        35,
+        57
+      ],
+      "offset": 812215,
+      "length": 1995,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "61511630c4c1b3af24f6f6671861e180de87b7fa3630e477377cf27ffa5d611d",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_07.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 814210,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "ebff0acfd341da7a01fc86b7dbc2fb66501928d1b968a5afcc9ff4b7d14d9389",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_08.png",
+      "width": 33,
+      "height": 60,
+      "texture_px": [
+        33,
+        60
+      ],
+      "offset": 816157,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "52a24054eaf4440692ee82f6a1da85333c974d300065b1bbf3ac33a63a79362e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_09.png",
+      "width": 33,
+      "height": 60,
+      "texture_px": [
+        33,
+        60
+      ],
+      "offset": 818137,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "52a24054eaf4440692ee82f6a1da85333c974d300065b1bbf3ac33a63a79362e",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_10.png",
+      "width": 30,
+      "height": 60,
+      "texture_px": [
+        30,
+        60
+      ],
+      "offset": 820117,
+      "length": 1800,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "fbcde546ab2d3afe0fea8adc9230694a63f6020c98fc6130ddf1f6bf7b55497b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_11.png",
+      "width": 30,
+      "height": 60,
+      "texture_px": [
+        30,
+        60
+      ],
+      "offset": 821917,
+      "length": 1800,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "fbcde546ab2d3afe0fea8adc9230694a63f6020c98fc6130ddf1f6bf7b55497b",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_12.png",
+      "width": 28,
+      "height": 60,
+      "texture_px": [
+        28,
+        60
+      ],
+      "offset": 823717,
+      "length": 1680,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "8be8d029329d349115c39f4f54986eb4f257749090115dda8427324ddc414fa3",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_13.png",
+      "width": 29,
+      "height": 60,
+      "texture_px": [
+        29,
+        60
+      ],
+      "offset": 825397,
+      "length": 1740,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "dc22c71f0424a0482c978e8870787fc1e596dbcc0ed758d46c6dcc07394e3c84",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_14.png",
+      "width": 31,
+      "height": 60,
+      "texture_px": [
+        31,
+        60
+      ],
+      "offset": 827137,
+      "length": 1860,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        6
+      ],
+      "sha256": "4f655fef670ebdecc92e977d596c3e8eb4625736f9d142a30f69b837a07f3d2c",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_15.png",
+      "width": 35,
+      "height": 61,
+      "texture_px": [
+        35,
+        61
+      ],
+      "offset": 828997,
+      "length": 2135,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "4a5ccd49cb8ee0b8a416d7ea52ce0ea68de5be6cd643b07efef7346f52c57bf6",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_16.png",
+      "width": 38,
+      "height": 56,
+      "texture_px": [
+        38,
+        56
+      ],
+      "offset": 831132,
+      "length": 2128,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "24c11c194ab5b0bbea961a2cbf7b86c12adf48739fedd12a1709c29d9e5938e0",
+      "empty": false
+    },
+    {
+      "atlas": "WharfLookoutShot.atlas",
+      "name": "shoot_sse_17.png",
+      "width": 37,
+      "height": 56,
+      "texture_px": [
+        37,
+        56
+      ],
+      "offset": 833260,
+      "length": 2072,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "8ce66c9e6a01ebd212d7a03e749c9a36fc45cca5f6c3e1379c456f7d01e00ef4",
+      "empty": false
+    }
+  ],
+  "source_authority": "WharfLookoutOct06/Wharf_Lookout_Bow_Shot.blend"
+}

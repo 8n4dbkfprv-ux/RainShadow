@@ -26,6 +26,9 @@ final class TacticalCombatDirector {
     private var movementTicks = LogicTickClock()
     private var tick = 0
     private var finished = false
+    var presentedCombat: TacticalCombat { rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat }
+    private(set) var rangedShot: BowShotPresentation?
+    func isShooting(_ id: String) -> Bool { rangedShot?.actor.definition.id == id }
     private(set) var bearNode: CharacterAppearanceNode?
     private var displayingBear = false
     private var formTransition: (toBear: Bool, elapsed: TimeInterval)?
@@ -34,7 +37,7 @@ final class TacticalCombatDirector {
     var transformationCameraOffset: CGPoint { formEffect?.cameraOffset ?? .zero }
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
-    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil }
+    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -120,23 +123,24 @@ final class TacticalCombatDirector {
         message.text = combat.isPlayerTurn
             ? "\(feedback)  |  Strike: \(combat.budget.canAttack ? "ready" : "spent") • Move: \(move) ft"
             : "\(combat.current.name) is taking their turn…"
-        history.text = combat.log.suffix(2).joined(separator: "\n")
+        history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
         (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Revert [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
-        for actor in combat.actors {
+        let shown = presentedCombat
+        for actor in shown.actors {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
             badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.defending ? " +4" : "")"
-            if actor.player, combat.isBear, let form = combat.bearForm {
+            if actor.player, shown.isBear, let form = shown.bearForm {
                 badges[actor.id]?.text = "\(actor.hp)/\(actor.maximumHP) +\(form.temporaryHP) • \(form.turnsRemaining)t"
             }
             badges[actor.id]?.fontColor = actor.player ? .cyan : SKColor(red: 1, green: 0.7, blue: 0.55, alpha: 1)
             rings[actor.id]?.strokeColor = actor.id == combat.current.id ? .yellow : actor.player ? .cyan : .red
         }
     }
-    private func checkpoint() {
+    private func checkpoint(synchronize: Bool = true) {
         scene.context.session.checkpointCombat(combat)
-        synchronizeForm()
+        if synchronize { synchronizeForm() }
         routePreview.path = nil
         refresh()
     }
@@ -246,7 +250,10 @@ final class TacticalCombatDirector {
             bearAction = (.hit, 0)
         }
         checkpoint()
-        // Explicit abstract impact feedback. Approved sprite payloads stay intact.
+        presentImpact(result, target: target)
+    }
+    private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant) {
+        // Impact is immediate for melee and delayed until arrow arrival for bows.
         let effect = SKShapeNode(ellipseOf: CGSize(width: 52, height: 38))
         effect.position = CGPoint(x: target.position.x, y: target.position.y + 45)
         effect.strokeColor = result.damage > 0 ? .orange : .white; effect.lineWidth = 3; effect.zPosition = 20000
@@ -262,9 +269,39 @@ final class TacticalCombatDirector {
             actorNode(target.id)?.isHidden = true
         }
     }
+    private func shoot(_ target: Combatant) {
+        let attacker = combat.current
+        guard let node = actorNode(attacker.id) as? CharacterAppearanceNode else { return }
+        let line = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position, to: target.position,
+            excluding: [attacker.id, target.id])
+        let before = combat
+        guard let result = combat.attack(target: target.id, clearLine: line, ranged: true) else { return }
+        rangedShot = BowShotPresentation(before: before, result: result, target: target, actor: node,
+            parent: scene.depthWorldRoot, targetHeight: (before.isBear ? 30 : 54) + scene.detective.visualHeightOffset)
+        delay = 0.25
+        // Save the accepted outcome, but reveal its damage/form changes at impact.
+        checkpoint(synchronize: false)
+    }
+    private func equipLookout(_ actor: Combatant, bow: Bool) {
+        guard let node = actorNode(actor.id) as? CharacterAppearanceNode else { return }
+        var definition = node.definition
+        definition.appearance.equipment = bow ? [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
+            : [.init(item: .lanternShortsword)]
+        try? node.apply(definition)
+    }
     private func enemyTurn() {
         guard let target = combat.actors.first(where: { $0.player && $0.conscious }) else { return }
         let actor = combat.current
+        let distance = CombatNavigation.distance(actor.position, target.position)
+        if actor.rangedWeapon == .bow {
+            equipLookout(actor, bow: distance > TacticalCombat.meleeReach)
+            if combat.budget.canAttack, BowAttackRules.canShoot(attacker: actor, target: target,
+                clearLine: CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: target.position,
+                    excluding: [actor.id, target.id])) { shoot(target); return }
+            if combat.budget.canAttack, distance > TacticalCombat.meleeReach,
+               let path = CombatNavigation.firingPosition(in: scene.navigation, actor: actor, target: target,
+                   limit: min(actor.speed, combat.budget.availableMovement(speed: actor.speed))), move(path) { return }
+        }
         if combat.budget.canAttack,
            CombatNavigation.distance(actor.position, target.position) <= TacticalCombat.meleeReach,
            CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: target.position, excluding: [actor.id, target.id]) {
@@ -283,6 +320,17 @@ final class TacticalCombatDirector {
         refresh()
         formEffect?.setPaused(scene.pause.isPausedByPlayer)
         guard !scene.pause.isPausedByPlayer else { return }
+        if let shot = rangedShot {
+            shot.advance(delta: delta)
+            if shot.elapsed >= shot.impactTime && !shot.impactPresented {
+                shot.impactPresented = true
+                if shot.before.isBear && combat.isBear && shot.result.damage > 0 { bearAction = (.hit, 0) }
+                presentImpact(shot.result, target: shot.target)
+                synchronizeForm()
+                refresh()
+            }
+            if shot.finished { shot.stop(); rangedShot = nil }
+        }
         updateForm(delta: delta, time: time)
         if var mover = enemyMover, let id = movingID, let node = actorNode(id) as? CharacterAppearanceNode {
             for _ in 0..<movementTicks.drain(deltaTime: delta) {
@@ -302,7 +350,7 @@ final class TacticalCombatDirector {
             enemyMover = mover
             if !mover.isMoving { movementCompleted() }
         }
-        guard movingID == nil, formTransition == nil else { return }
+        guard movingID == nil, formTransition == nil, rangedShot == nil else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
@@ -314,6 +362,7 @@ final class TacticalCombatDirector {
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); routePreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
+        rangedShot?.stop(); rangedShot = nil
         bearNode?.removeFromParent(); formEffect?.stop()
         scene.detective.alpha = 1
         scene.detective.isHidden = false

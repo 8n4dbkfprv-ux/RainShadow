@@ -26,7 +26,9 @@
 		C0DE1EB00000000000000021 /* VossElvenCourtBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EB00000000000000001 /* VossElvenCourtBow */; };
 		C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EC00000000000000001 /* VossElvenCourtArrow */; };
 		C0DE1ED00000000000000011 /* BearGuardian in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1ED00000000000000001 /* BearGuardian */; };
+		C0DE1EE00000000000000011 /* WharfLookoutShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EE00000000000000001 /* WharfLookoutShot */; };
 		C0DE1ED00000000000000021 /* BearGuardian in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1ED00000000000000001 /* BearGuardian */; };
+		C0DE1EE00000000000000021 /* WharfLookoutShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EE00000000000000001 /* WharfLookoutShot */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,7 @@
 		DAAF9D33300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAF9D43300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DE1ED00000000000000001 /* BearGuardian */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BearGuardian; path = "RainShadow Shared/Resources/Art/IE/Avatars/BearGuardian"; sourceTree = SOURCE_ROOT; };
+		C0DE1EE00000000000000001 /* WharfLookoutShot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WharfLookoutShot; path = "RainShadow Shared/Resources/Art/IE/Avatars/WharfLookoutShot"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -194,6 +197,8 @@
 				Gameplay/Navigation/TacticalCombat.swift,
 				Gameplay/Navigation/BearFormRules.swift,
 				Gameplay/Navigation/BearAnimationSet.swift,
+				Gameplay/Navigation/BowAttackAnimationSet.swift,
+				Gameplay/Navigation/BowAttackRules.swift,
 				Gameplay/Navigation/WorldCursor.swift,
 				Gameplay/Navigation/WorldPauseController.swift,
 				Gameplay/Weather/RainSystem.swift,
@@ -1443,6 +1448,7 @@
 				Scenes/CityDistrict/WharfLadderDirector.swift,
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
+				Scenes/CityDistrict/BowShotPresentation.swift,
 				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
 				Scenes/OpeningExterior/OpeningExteriorScene.swift,
 				UI/ActionBarNode.swift,
@@ -1632,6 +1638,8 @@
 				Gameplay/Navigation/TacticalCombat.swift,
 				Gameplay/Navigation/BearFormRules.swift,
 				Gameplay/Navigation/BearAnimationSet.swift,
+				Gameplay/Navigation/BowAttackAnimationSet.swift,
+				Gameplay/Navigation/BowAttackRules.swift,
 				Gameplay/Navigation/WorldCursor.swift,
 				Gameplay/Navigation/WorldPauseController.swift,
 				Gameplay/Weather/RainSystem.swift,
@@ -2929,6 +2937,7 @@
 				Scenes/CityDistrict/WharfLadderDirector.swift,
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
+				Scenes/CityDistrict/BowShotPresentation.swift,
 				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
 				Scenes/OpeningExterior/OpeningExteriorScene.swift,
 				UI/ActionBarNode.swift,
@@ -3008,6 +3017,7 @@
 				C0DE1EA00000000000000002 /* Voss */,
 				C0DE1EA00000000000000004 /* VossCHMF */,
 				C0DE1ED00000000000000001 /* BearGuardian */,
+				C0DE1EE00000000000000001 /* WharfLookoutShot */,
 			);
 			name = "Indexed Avatar Bundles";
 			sourceTree = "<group>";
@@ -3161,6 +3171,7 @@
 				C0DE1EB00000000000000011 /* VossElvenCourtBow in Resources */,
 				C0DE1EC00000000000000011 /* VossElvenCourtArrow in Resources */,
 				C0DE1ED00000000000000011 /* BearGuardian in Resources */,
+				C0DE1EE00000000000000011 /* WharfLookoutShot in Resources */,
 			);
 		};
 		DAAF9D31300A69350071746D /* Resources */ = {
@@ -3181,6 +3192,7 @@
 				C0DE1EB00000000000000021 /* VossElvenCourtBow in Resources */,
 				C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */,
 				C0DE1ED00000000000000021 /* BearGuardian in Resources */,
+				C0DE1EE00000000000000021 /* WharfLookoutShot in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

@@ -6,6 +6,7 @@ import SpriteKit
     struct Failure: Error { let message: String }
     static func run(in view: SKView, output: URL) async {
         var checks: [String] = []
+        var sawBowDraw = false, sawArrowFlight = false, sawArrowImpact = false
         let store = SaveStore(key: "RainShadow.QA.Combat.\(UUID().uuidString)")
         defer { store.reset() }
         func check(_ value: Bool, _ message: String) throws {
@@ -16,6 +17,40 @@ import SpriteKit
             let deadline = ProcessInfo.processInfo.systemUptime + 50
             while !predicate() {
                 if ProcessInfo.processInfo.systemUptime > deadline { throw Failure(message: "Timed out after " + (checks.last ?? "start")) }
+                if let scene = view.scene as? CityDistrictScene, let director = scene.combatDirector, let shot = director.rangedShot {
+                    if !sawBowDraw && shot.elapsed > 0.2 && shot.elapsed < BowAttackRules.releaseTime {
+                        try check(shot.actor.currentAction == .shoot && shot.arrow.isHidden,
+                            "Lookout draws before the arrow release marker")
+                        try capture("bow-draw"); sawBowDraw = true
+                    }
+                    if !sawArrowFlight && !shot.arrow.isHidden {
+                        try capture("arrow-flight")
+                        try check(shot.fire.parent != nil && !shot.fire.isHidden
+                            && shot.fire.children.filter { !$0.isHidden && $0.alpha > 0 }.count > 2,
+                            "Flying arrow carries a burning head and visible flame particles")
+                        try check(director.presentedCombat == shot.before,
+                            "Arrow damage stays hidden until impact")
+                        try check(GameSession(saveStore: store).tacticalCombat == director.combat,
+                            "In-flight save stores the accepted outcome without a replayable action")
+                        scene.handleTacticalPauseInput()
+                        let elapsed = shot.elapsed, position = shot.arrow.position
+                        let flamePositions = shot.fire.children.map(\.position)
+                        let flameAlphas = shot.fire.children.map(\.alpha)
+                        try await Task.sleep(for: .milliseconds(180))
+                        try check(shot.elapsed == elapsed && shot.arrow.position == position,
+                            "Pause freezes both bow animation and arrow flight")
+                        try check(shot.fire.children.map(\.position) == flamePositions
+                            && shot.fire.children.map(\.alpha) == flameAlphas,
+                            "Pause freezes the flame trail and embers")
+                        scene.handleTacticalPauseInput()
+                        sawArrowFlight = true
+                    }
+                    if !sawArrowImpact && shot.impactPresented {
+                        try check(shot.arrow.isHidden && director.presentedCombat == director.combat,
+                            "Arrow arrival reveals damage exactly at impact")
+                        try capture("arrow-impact"); sawArrowImpact = true
+                    }
+                }
                 try await Task.sleep(for: .milliseconds(30))
             }
         }
@@ -194,10 +229,32 @@ import SpriteKit
                        CombatNavigation.clearLine(in: scene.navigation, from: model.current.position, to: target.position, excluding: [model.current.id, target.id]) {
                         click(scene, world: CGPoint(x: target.position.x, y: target.position.y + 60))
                         if !director.combat.budget.canAttack { attacks += 1 }
+                    } else if let target = enemies.min(by: {
+                        CombatNavigation.distance(model.current.position, $0.position) < CombatNavigation.distance(model.current.position, $1.position)
+                    }), CombatNavigation.distance(model.current.position, target.position) > TacticalCombat.meleeReach,
+                        model.budget.availableMovement(speed: model.movementSpeed(for: model.current)) > 0 {
+                        var moved = false
+                        for i in 0..<16 {
+                            let angle = CGFloat(i) * .pi / 8
+                            let goal = CGPoint(x: target.position.x + cos(angle) * 100,
+                                               y: target.position.y + sin(angle) * 75).rounded
+                            guard let route = CombatNavigation.route(in: scene.navigation, actor: model.current, to: goal, bear: model.isBear) else { continue }
+                            let path = CombatNavigation.prefix(route, from: model.current.position,
+                                within: model.budget.availableMovement(speed: model.movementSpeed(for: model.current)))
+                            guard let destination = path.destination, !path.isEmpty else { continue }
+                            click(scene, world: destination)
+                            if director.busy { moved = true; break }
+                        }
+                        if !moved { scene.handleConfirmInput() }
                     } else { scene.handleConfirmInput() }
                 }
                 try await Task.sleep(for: .milliseconds(150))
             }
+            try check(sawBowDraw && sawArrowFlight && sawArrowImpact, "Lookout plays draw, release, arrow flight and impact in the live encounter")
+            try check(scene.depthWorldRoot.childNode(withName: "combat.bow.arrow") == nil,
+                "Combat cleanup removes the arrow projectile")
+            try check(scene.depthWorldRoot.childNode(withName: "combat.bow.fire") == nil,
+                "Combat cleanup removes the arrow fire and embers")
             try check(attacks > 0, "Pointer attacks resolve through real scene input")
             try check(sawEnemyWalkFrame, "Enemy approach plays advancing walk frames")
             try check(sawClawFrame, "Bear strikes play the authored claw animation")

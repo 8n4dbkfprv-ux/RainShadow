@@ -114,6 +114,25 @@ final class WharfLadderDirector {
                       defence: 11, attackBonus: rattled ? 0 : 2, damageMin: 1, damageMax: 3,
                       initiativeBonus: 1)
         }
+        if restored == nil, encounter == .gate, actors.count > 2 {
+            actors[2].rangedWeapon = .bow
+            actors[2].name = "Lookout"
+            if let path = CombatNavigation.firingPosition(in: scene.navigation, actor: actors[2], target: actors[0], limit: 400),
+               let point = path.destination {
+                actors[2].position = point
+                crew[1].position = point
+                scene.navigation.updateActor(id: actors[2].id, position: point, isMoving: false)
+            }
+        }
+        for node in crew {
+            let actor = (restored?.actors ?? actors).first { $0.id == node.definition.id }
+            if actor?.rangedWeapon == .bow {
+                var definition = node.definition
+                definition.appearance.equipment = [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
+                do { try node.apply(definition) }
+                catch { assertionFailure("Lookout artwork: \(error)") }
+            }
+        }
         var seed = UInt64.random(in: 1...UInt64.max)
         #if DEBUG
         if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil { seed = 42 }
@@ -223,7 +242,7 @@ final class WharfLadderDirector {
     func update(at time: TimeInterval) {
         for actor in crew {
             do {
-                if combatDirector?.isWalking(actor.definition.id) != true {
+                if combatDirector?.isWalking(actor.definition.id) != true && combatDirector?.isShooting(actor.definition.id) != true {
                     try actor.advance(action: .idle, facing: actor.currentFacing, at: time, paused: scene.pause.isPaused)
                 }
             }
