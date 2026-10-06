@@ -553,6 +553,12 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             recordExploredFog(fog)
         }
         updateCameraPosition(at: currentTime)
+        // Presentation-only impact offset. The port still owns the final clamp;
+        // freeCameraTarget and saved camera state never accumulate the shake.
+        if let offset = combatDirector?.transformationCameraOffset, offset != .zero {
+            gameCamera.position = clampedCameraPosition(following: CGPoint(
+                x: gameCamera.position.x + offset.x, y: gameCamera.position.y + offset.y), in: cameraClampBounds)
+        }
         updateGroundCircles(at: currentTime)
     }
 

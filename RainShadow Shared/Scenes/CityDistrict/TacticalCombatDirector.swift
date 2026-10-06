@@ -31,6 +31,7 @@ final class TacticalCombatDirector {
     private var formTransition: (toBear: Bool, elapsed: TimeInterval)?
     private var formEffect: BearTransformationEffect?
     private var bearAction: (action: CharacterVisualAction, elapsed: TimeInterval)?
+    var transformationCameraOffset: CGPoint { formEffect?.cameraOffset ?? .zero }
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
     var busy: Bool { movingID != nil || delay > 0 || formTransition != nil }
@@ -280,6 +281,7 @@ final class TacticalCombatDirector {
         guard !finished else { return }
         let delta = min(0.1, max(0, time - (lastTime ?? time)))
         refresh()
+        formEffect?.setPaused(scene.pause.isPausedByPlayer)
         guard !scene.pause.isPausedByPlayer else { return }
         updateForm(delta: delta, time: time)
         if var mover = enemyMover, let id = movingID, let node = actorNode(id) as? CharacterAppearanceNode {
@@ -312,7 +314,8 @@ final class TacticalCombatDirector {
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); routePreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
-        bearNode?.removeFromParent(); formEffect?.removeFromParent()
+        bearNode?.removeFromParent(); formEffect?.stop()
+        scene.detective.alpha = 1
         scene.detective.isHidden = false
         scene.navigation.registerActor(id: TacticalCombat.playerID, kind: .player, at: scene.detective.position, radius: NavigationAgentProfile.detective.radius)
         completion()
@@ -357,6 +360,7 @@ final class TacticalCombatDirector {
         let effect = BearTransformationEffect(reverting: !combat.isBear)
         effect.position = scene.detective.position
         scene.depthWorldRoot.addChild(effect)
+        effect.captureSilhouette(of: displayingBear ? bearNode! : scene.detective)
         formEffect = effect
         delay = max(delay, 0.3)
     }
@@ -365,18 +369,33 @@ final class TacticalCombatDirector {
         if var transition = formTransition {
             transition.elapsed += delta
             formEffect?.advance(to: transition.elapsed)
-            // The visible switch happens at maximum particle coverage.
-            if transition.elapsed >= 0.6, displayingBear != transition.toBear {
-                setDisplayedForm(transition.toBear)
-                bearAction = nil
+            let t = transition.elapsed
+            let reveal = BearTransformationEffect.revealTime
+            // Fade the outgoing actor beneath the rising texture fragments and
+            // mist. At the switch both bodies are invisible; no naked pop.
+            let visible = actorNode(TacticalCombat.playerID)
+            if t < reveal {
+                visible?.alpha = 1 - BearTransformationEffect.ramp(t, 0.30, reveal)
+            } else {
+                if displayingBear != transition.toBear {
+                    scene.detective.alpha = 1; bearNode?.alpha = 1
+                    setDisplayedForm(transition.toBear)
+                    bearAction = nil
+                }
+                actorNode(TacticalCombat.playerID)?.alpha = BearTransformationEffect.ramp(t, reveal, 0.96)
             }
-            if transition.elapsed >= 1.2 {
-                formTransition = nil; formEffect?.removeFromParent(); formEffect = nil
+            if t >= BearTransformationEffect.duration {
+                scene.detective.alpha = 1; bearNode?.alpha = 1
+                formTransition = nil; formEffect?.stop(); formEffect = nil
             } else { formTransition = transition }
         }
         guard displayingBear, let bearNode else { return }
         bearNode.position = scene.detective.position
-        if var action = bearAction {
+        if let transition = formTransition, transition.toBear {
+            // Reverse the authored crouch, retaining every frame's ground pivot.
+            let rise = BearTransformationEffect.ramp(transition.elapsed, BearTransformationEffect.revealTime, 1.30)
+            try? bearNode.present(action: .revert, facing: bearFacing, phase: min(9, max(0, Int((1 - rise) * 9))))
+        } else if var action = bearAction {
             action.elapsed += delta
             let count = (try? BearAnimationSet.frameCount(for: action.action)) ?? 1
             let frame = min(count - 1, Int(action.elapsed * 15))

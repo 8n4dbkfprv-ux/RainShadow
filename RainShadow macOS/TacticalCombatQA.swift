@@ -119,12 +119,26 @@ import SpriteKit
             try await Task.sleep(for: .milliseconds(420))
             try capture("bear-transforming")
             scene.handleTacticalPauseInput()
-            let transformation = scene.depthWorldRoot.childNode(withName: "combat.bear.transformation")
+            let transformation = scene.depthWorldRoot.childNode(withName: "combat.bear.transformation") as? BearTransformationEffect
             let particlePositions = transformation?.children.map(\.position)
             try await Task.sleep(for: .milliseconds(250))
             try check(particlePositions == transformation?.children.map(\.position), "Pause freezes transformation particles")
+            try check(transformation?.soundIsPlaying == false, "Pause freezes transformation audio")
             scene.handleTacticalPauseInput()
+            for (stage, threshold) in [("reveal", 0.76), ("impact", 1.04), ("settle", 1.32)] {
+                try await wait { (transformation?.elapsed ?? 0) >= threshold }
+                try capture("bear-" + stage)
+                if stage == "reveal" {
+                    try check(scene.combatDirector?.bearNode?.currentAction == .revert,
+                        "Emergence reverses the authored bear crouch")
+                }
+            }
             try await wait { scene.combatDirector?.busy == false }
+            try check(scene.detective.alpha == 1 && scene.combatDirector?.bearNode?.alpha == 1
+                && scene.combatDirector?.bearNode?.visualHeightOffset == scene.detective.visualHeightOffset,
+                "Transformation restores opacity and ground registration")
+            try check(transformation?.parent == nil && transformation?.soundIsPlaying == false,
+                "Transformation removes particles and stops its audio")
             try check(scene.detective.isHidden && scene.combatDirector?.bearNode?.isHidden == false,
                       "Transformation displays the bear and hides human equipment layers")
             try check(scene.navigation.occupancy.actors[TacticalCombat.playerID]?.personalSpaceCells == BearFormRules.circleSize,
@@ -261,6 +275,8 @@ import SpriteKit
                           "\(mode) reversion restores human clearance")
                 if mode == "voluntary" {
                     try check(scene.combatDirector?.combat.canTransform == false, "Voluntary reversion cannot grant another use")
+                    try check(scene.detective.alpha == 1 && scene.combatDirector?.transformationCameraOffset == .zero,
+                        "Reversion leaves no opacity or camera offset behind")
                     try capture("bear-reverted")
                     view.window?.setContentSize(CGSize(width: 640, height: 800))
                     try await Task.sleep(for: .milliseconds(300))

@@ -75,12 +75,28 @@ The form uses `personal_space = 5`, a 48-unit proximity radius, and the existing
 SearchMap/PathFinder clearance queries. Human and other-actor map profiles are
 unchanged. No geometry check or ported navigation behavior was added.
 
-The transition has 40 deterministic sprite particles and a ground ring. It
-uses the existing native compositor, with a 1.2-second lifetime and a visible
-form switch at 0.6 seconds. The reversion crouch precedes the switch. The
-combat clock drives particles and pose playback so pause freezes both.
-This avoids sending a finite burst through the weather emitter's 1.5-second
-simulation warm-up. There is no render-port arithmetic change.
+The transformation presentation now lasts 1.6 seconds. Gathering mist and
+spiralling gold-green motes accompany registered strips of the outgoing
+body/equipment textures rising and fading. The form switches under peak
+coverage at 0.68 seconds, then fades in while the bear's authored reversion
+crouch plays backward. A ground ripple, outward dust and a low impact cue
+land at 1.02 seconds; the remaining particles dissipate before input unlocks.
+Reversion uses the forward crouch and a quieter inward swirl.
+
+`BearTransformationEffect` has 65 deterministic sprites plus temporary silhouette
+strips. Coloured radial/cloud/ring textures are baked once in memory and use the
+existing native compositor's direct sprite path. No generated image assets,
+custom actor shaders, or emitter warm-up are needed. The actor's terrain lift
+remains owned by the existing height map. The approved human animation and
+bear payloads are unchanged; this is a choreographed conceal/reveal rather
+than a new anatomical morph or a new human casting animation.
+
+An original synthesized breath/impact/creature rumble uses one `AVAudioPlayer`.
+Its clock follows the combat clock, including pause and slow-frame correction,
+and cleanup stops it. A brief 1.8-world-unit impact shake is applied after the
+ordinary city camera update and bounded by the existing viewport clamp. It
+never changes the stored free-camera target and is disabled by Reduce Motion.
+There is no render-port or navigation-port arithmetic change.
 
 The optional checkpoint field stores remaining turns, temporary endurance and
 whether the activation turn is still current. Keeping its spent state after
@@ -112,4 +128,13 @@ tries nearby candidates until it finds a certified route. This changes the
 combat adapter's enemy policy; the GemRB pathfinder remains untouched.
 
 This first version is scoped to combat. It does not add exploration shapeshift,
-roar/charge actions, bear inventory portraits, or transformation audio.
+roar/charge actions, or bear inventory portraits.
+
+## Transformation presentation follow-up
+
+The upgraded presentation passed **46 core tests** and **46 live macOS checks**
+in `output/bear-transformation-qa-final/report.json`. The new checks cover audio
+pause, reversed crouch emergence, restored opacity and terrain registration,
+particle/audio cleanup, and absence of a leftover reversion camera offset.
+Gather, reveal, impact and settle captures were visually reviewed. macOS Debug
+and iOS Simulator Debug builds passed; iOS remains compile-verified only.
