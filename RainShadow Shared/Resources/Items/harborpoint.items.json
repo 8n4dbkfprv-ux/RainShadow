@@ -28,6 +28,17 @@
       ]
     },
     {
+      "id": "elven-court-arrow",
+      "identifiedName": "Elven Court Arrow",
+      "category": "AMMUNITION",
+      "weightOunces": 2,
+      "valuePence": 24,
+      "maxStack": 20,
+      "iconArtName": "inventory_item_elven_court_arrow_v01",
+      "identifiedDescription": "An ash shaft with a silver leaf-shaped point, ivory and charcoal feathers, and a horn nock. Equip it in an ammunition slot while the Elven Court Bow is readied to carry it in the free hand.",
+      "note": "Bow ammunition · carried in the left hand"
+    },
+    {
       "id": "case-notes",
       "identifiedName": "Case Notebook",
       "category": "EVIDENCE",

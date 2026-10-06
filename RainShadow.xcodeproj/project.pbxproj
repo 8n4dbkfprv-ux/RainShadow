@@ -22,7 +22,9 @@
 		C0DE1EA00000000000000026 /* VossSplintMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000007 /* VossSplintMail */; };
 		C0DE1EA00000000000000027 /* LilaSentinel in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000008 /* LilaSentinel */; };
 		C0DE1EB00000000000000011 /* VossElvenCourtBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EB00000000000000001 /* VossElvenCourtBow */; };
+		C0DE1EC00000000000000011 /* VossElvenCourtArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EC00000000000000001 /* VossElvenCourtArrow */; };
 		C0DE1EB00000000000000021 /* VossElvenCourtBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EB00000000000000001 /* VossElvenCourtBow */; };
+		C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EC00000000000000001 /* VossElvenCourtArrow */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,7 @@
 		C0DE1EA00000000000000007 /* VossSplintMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossSplintMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossSplintMail"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000008 /* LilaSentinel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LilaSentinel; path = "RainShadow Shared/Resources/Art/IE/Avatars/LilaSentinel"; sourceTree = SOURCE_ROOT; };
 		C0DE1EB00000000000000001 /* VossElvenCourtBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossElvenCourtBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossElvenCourtBow"; sourceTree = SOURCE_ROOT; };
+		C0DE1EC00000000000000001 /* VossElvenCourtArrow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossElvenCourtArrow; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossElvenCourtArrow"; sourceTree = SOURCE_ROOT; };
 		DAAF9D22300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAF9D33300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAF9D43300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1240,6 +1243,7 @@
 				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_elven_court_bow_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_elven_court_arrow_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_iron_helmet_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_lantern_shortsword_v01.png,
@@ -1313,6 +1317,7 @@
 				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_chmf.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_elven_court_bow.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_elven_court_arrow.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet_unarmored.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet.png,
@@ -2718,6 +2723,7 @@
 				Resources/Art/UI/Inventory/inventory_item_case_notebook_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_cigarette_case_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_elven_court_bow_v01.png,
+				Resources/Art/UI/Inventory/inventory_item_elven_court_arrow_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_flashlight_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_iron_helmet_v01.png,
 				Resources/Art/UI/Inventory/inventory_item_lantern_shortsword_v01.png,
@@ -2791,6 +2797,7 @@
 				Resources/Art/UI/Inventory/inventory_stat_badge_vitality_v05.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_chmf.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_elven_court_bow.png,
+				Resources/Art/UI/Inventory/voss_paperdoll_elven_court_arrow.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_front_rgba_v01.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet_unarmored.png,
 				Resources/Art/UI/Inventory/voss_paperdoll_iron_helmet.png,
@@ -2997,6 +3004,7 @@
 				C0DE1EA00000000000000006 /* VossIronHelmet */,
 				C0DE1EA00000000000000005 /* VossLanternShortsword */,
 				C0DE1EB00000000000000001 /* VossElvenCourtBow */,
+				C0DE1EC00000000000000001 /* VossElvenCourtArrow */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3135,6 +3143,7 @@
 				C0DE1EA00000000000000015 /* VossIronHelmet in Resources */,
 				C0DE1EA00000000000000014 /* VossLanternShortsword in Resources */,
 				C0DE1EB00000000000000011 /* VossElvenCourtBow in Resources */,
+				C0DE1EC00000000000000011 /* VossElvenCourtArrow in Resources */,
 			);
 		};
 		DAAF9D31300A69350071746D /* Resources */ = {
@@ -3153,6 +3162,7 @@
 				C0DE1EA00000000000000025 /* VossIronHelmet in Resources */,
 				C0DE1EA00000000000000024 /* VossLanternShortsword in Resources */,
 				C0DE1EB00000000000000021 /* VossElvenCourtBow in Resources */,
+				C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

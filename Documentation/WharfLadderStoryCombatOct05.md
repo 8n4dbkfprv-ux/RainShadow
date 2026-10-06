@@ -4,6 +4,10 @@ PR #33's A1 content is integrated with the city scene, existing dialogue present
 shared character appearances, cutscene director, and save store. It remains Story
 combat: no attack simulation or attack/hit animation is added.
 
+October 6: TemplePlus was selected as the source for the future Swift combat
+adaptation. See [the source audit and integration plan](TemplePlusCombatOct06.md).
+The current Story combat runtime remains in place.
+
 ## Playing the sequence
 
 After completing the office introduction, travel to Wharf Ladder. Open the shipping

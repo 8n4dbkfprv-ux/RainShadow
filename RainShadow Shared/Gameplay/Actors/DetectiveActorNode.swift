@@ -48,6 +48,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private let weapon = IEAvatarNode(frame: nil)
     private var weaponAppearance: VossWeaponAppearance?
     private var weaponLibrary: IEAvatarFrameLibrary?
+    private let ammunition = IEAvatarNode(frame: nil)
+    private var ammunitionAppearance: VossAmmunitionAppearance?
+    private var ammunitionLibrary: IEAvatarFrameLibrary?
     private let armorNodes: [VossArmorAppearance: IEAvatarNode] = [
         .ironHelmet: IEAvatarNode(frame: nil), .splintMail: IEAvatarNode(frame: nil)
     ]
@@ -208,6 +211,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         weapon.name = "detective.equippedWeapon"
         weapon.zPosition = 0.01
         body.addChild(weapon)
+        ammunition.name = "detective.equippedAmmunition"
+        ammunition.zPosition = 0.015
+        body.addChild(ammunition)
         for (appearance, node) in armorNodes {
             node.name = "detective.equipped." + appearance.rawValue
             node.zPosition = appearance == .ironHelmet ? 0.03 : 0.02
@@ -225,7 +231,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
 
-    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms, weapon] + Array(armorNodes.values) }
+    private var tintedLayers: [IEAvatarNode] { [body, lowerBody, foregroundArms, weapon, ammunition] + Array(armorNodes.values) }
 
     func applyEquipment(_ inventory: CharacterInventory, catalog: ItemCatalog) {
         wearingSplintMail = VossArmorAppearance.splintMail.isEquipped(in: inventory)
@@ -258,11 +264,33 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
                 }
             }
         }
+        let ammoAppearance = VossAmmunitionAppearance.equipped(in: inventory, catalog: catalog)
+        if ammoAppearance != ammunitionAppearance {
+            ammunitionAppearance = ammoAppearance
+            ammunitionLibrary = nil
+            if let ammoAppearance {
+                do {
+                    let library = try IEAvatarFrameLibrary.shared(character: ammoAppearance.character)
+                    try ammoAppearance.validate(library.sprite)
+                    ammunitionLibrary = library
+                } catch {
+                    fatalError("Equipped Voss ammunition could not load: \(error)")
+                }
+            }
+        }
         refreshEquipmentFrames()
         applyBodyTint()
     }
 
     private func refreshEquipmentFrames() {
+        if (state == .standingIdle || state == .walking),
+           let appearance = ammunitionAppearance, let library = ammunitionLibrary,
+           let id = body.currentFrame?.id, let name = appearance.frameName(matching: id),
+           let frame = library.frame(atlas: appearance.atlas, name: name) {
+            ammunition.apply(frame)
+        } else {
+            ammunition.clear()
+        }
         for (appearance, node) in armorNodes {
             if (state == .standingIdle || state == .walking),
                let library = armorLibraries[appearance], let id = body.currentFrame?.id,

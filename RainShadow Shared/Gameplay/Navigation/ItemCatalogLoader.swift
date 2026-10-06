@@ -257,6 +257,15 @@ enum HarborpointItems {
     ]
     static let armorKitItemIDs = ["iron-helmet", "splint-mail"]
     static let elvenCourtBowID = "elven-court-bow"
+    static let elvenCourtArrowID = "elven-court-arrow"
+
+    static func elvenCourtArrowGrant(
+        hasReceived: Bool, existingIDs: Set<String>, availableSlots: Int = 16
+    ) -> [String] {
+        guard !hasReceived, availableSlots > 0, !existingIDs.contains(elvenCourtArrowID) else { return [] }
+        return [elvenCourtArrowID]
+    }
+
 
     static func elvenCourtBowGrant(
         hasReceived: Bool, existingIDs: Set<String>, availableSlots: Int = 16

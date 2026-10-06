@@ -266,6 +266,7 @@ struct SaveSnapshot: Codable, Equatable {
     var hasSeededStarterKit = false
     var hasReceivedArmorKit = false
     var hasReceivedElvenCourtBow = false
+    var hasReceivedElvenCourtArrow = false
     /// Case flags earned in dialogue (e.g. client retained) — survives area change / relaunch.
     var caseFlags: Set<String> = []
     /// Knowledge ids granted in dialogue. The Infinity Engine persists every GLOBAL in
@@ -311,6 +312,7 @@ struct SaveSnapshot: Codable, Equatable {
         hasSeededStarterKit: Bool = false,
         hasReceivedArmorKit: Bool = false,
         hasReceivedElvenCourtBow: Bool = false,
+        hasReceivedElvenCourtArrow: Bool = false,
         caseFlags: Set<String> = [],
         caseKnowledgeIDs: Set<String> = [],
         caseEvidenceIDs: Set<String> = [],
@@ -335,6 +337,7 @@ struct SaveSnapshot: Codable, Equatable {
         self.hasSeededStarterKit = hasSeededStarterKit
         self.hasReceivedArmorKit = hasReceivedArmorKit
         self.hasReceivedElvenCourtBow = hasReceivedElvenCourtBow
+        self.hasReceivedElvenCourtArrow = hasReceivedElvenCourtArrow
         self.caseFlags = caseFlags
         self.caseKnowledgeIDs = caseKnowledgeIDs
         self.caseEvidenceIDs = caseEvidenceIDs
@@ -380,6 +383,7 @@ struct SaveSnapshot: Codable, Equatable {
             try container.decodeIfPresent(Bool.self, forKey: .hasSeededStarterKit) ?? false
         hasReceivedArmorKit = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedArmorKit) ?? false
         hasReceivedElvenCourtBow = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedElvenCourtBow) ?? false
+        hasReceivedElvenCourtArrow = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedElvenCourtArrow) ?? false
         caseFlags = try container.decodeIfPresent(Set<String>.self, forKey: .caseFlags) ?? []
         caseKnowledgeIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseKnowledgeIDs) ?? []
         caseEvidenceIDs = try container.decodeIfPresent(Set<String>.self, forKey: .caseEvidenceIDs) ?? []

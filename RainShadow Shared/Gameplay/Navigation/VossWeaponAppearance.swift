@@ -111,3 +111,48 @@ enum VossArmorAppearance: String, CaseIterable, Sendable {
         }
     }
 }
+
+/// Ammunition occupies a quiver slot; its held appearance requires the matching
+/// readied bow. It never bypasses the two-handed weapon's off-hand restriction.
+enum VossAmmunitionAppearance: String, Sendable {
+    case elvenCourtArrow = "elven-court-arrow"
+
+    var character: String { "VossElvenCourtArrow" }
+    var atlas: String { character + ".atlas" }
+    var paperdollArt: String { "voss_paperdoll_elven_court_arrow" }
+
+    static func equipped(in inventory: CharacterInventory, catalog: ItemCatalog) -> Self? {
+        guard VossWeaponAppearance.equipped(in: inventory, catalog: catalog) == .elvenCourtBow else { return nil }
+        return EquipmentSlot.quiverSlots.lazy.compactMap { slot -> Self? in
+            guard let stack = inventory.equipped[slot], stack.quantity > 0 else { return nil }
+            return Self(rawValue: stack.id)
+        }.first
+    }
+
+    func frameName(matching body: IEIndexedSprite.FrameID) -> String? {
+        guard body.atlas == VossAnimationSet.atlas,
+              body.name.hasPrefix("idle_") || body.name.hasPrefix("walk_") else { return nil }
+        return body.name
+    }
+
+    func validate(_ sprite: IEIndexedSprite) throws {
+        guard sprite.character == character,
+              sprite.blobSHA256 == "de0853e3f748570352faaf03e458cc1f2f03cab2e82fa2028d5fc533a9059329",
+              sprite.sourceCanvasSize == .init(width: 128, height: 128),
+              sprite.compatibilityDisplaySize == .init(x: 140.625, y: 140.625),
+              sprite.frames.count == 1200 else {
+            throw IEIndexedSpriteError.malformedManifest(reason: "Incomplete or misregistered Voss ammunition overlay")
+        }
+        for direction in VossAnimationSet.directions {
+            for (clip, count) in [("idle", VossAnimationSet.idleFrames), ("walk", VossAnimationSet.walkFrames)] {
+                for phase in 0..<count {
+                    let name = String(format: "%@_%@_%02d.png", clip, direction, phase)
+                    guard sprite.frame(atlas: atlas, name: name) != nil else {
+                        throw IEIndexedSpriteError.invalidFrame(atlas: atlas, name: name,
+                            reason: "Missing synchronized equipment frame")
+                    }
+                }
+            }
+        }
+    }
+}

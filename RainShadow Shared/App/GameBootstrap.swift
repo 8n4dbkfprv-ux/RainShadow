@@ -69,6 +69,7 @@ final class GameSession {
     private(set) var hasSeededStarterKit: Bool
     private(set) var hasReceivedArmorKit: Bool
     private(set) var hasReceivedElvenCourtBow: Bool
+    private(set) var hasReceivedElvenCourtArrow: Bool
 
     /// The case bag. Kept as a passthrough so every existing reader — the loot
     /// panel, both scenes, the inventory window — keeps working unchanged.
@@ -157,6 +158,12 @@ final class GameSession {
         ).map { CarriedItemStack(id: $0, quantity: 1) }
         hasReceivedElvenCourtBow = snapshot.hasReceivedElvenCourtBow
             || existingIDs.union(stacks.map(\.id)).contains(HarborpointItems.elvenCourtBowID)
+        stacks += HarborpointItems.elvenCourtArrowGrant(
+            hasReceived: snapshot.hasReceivedElvenCourtArrow, existingIDs: existingIDs,
+            availableSlots: CarriedInventoryState.defaultTotalSlotCapacity - stacks.count
+        ).map { CarriedItemStack(id: $0, quantity: 1) }
+        hasReceivedElvenCourtArrow = snapshot.hasReceivedElvenCourtArrow
+            || existingIDs.union(stacks.map(\.id)).contains(HarborpointItems.elvenCourtArrowID)
         var inventory = CharacterInventory(
             backpack: CarriedInventoryState(stacks: stacks)
         )
@@ -697,6 +704,7 @@ final class GameSession {
             hasSeededStarterKit: hasSeededStarterKit,
             hasReceivedArmorKit: hasReceivedArmorKit,
             hasReceivedElvenCourtBow: hasReceivedElvenCourtBow,
+            hasReceivedElvenCourtArrow: hasReceivedElvenCourtArrow,
             caseFlags: caseState.flags,
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,

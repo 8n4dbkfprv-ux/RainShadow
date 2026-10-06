@@ -94,6 +94,7 @@ enum CharacterEquipmentCode: String, Codable, CaseIterable, Sendable {
     case splintMail = "splint-mail"
     case lanternShortsword = "lantern-shortsword"
     case elvenCourtBow = "elven-court-bow"
+    case elvenCourtArrow = "elven-court-arrow"
 
     var character: String {
         switch self {
@@ -101,12 +102,13 @@ enum CharacterEquipmentCode: String, Codable, CaseIterable, Sendable {
         case .splintMail: VossArmorAppearance.splintMail.character
         case .lanternShortsword: VossWeaponAppearance.lanternShortsword.character
         case .elvenCourtBow: VossWeaponAppearance.elvenCourtBow.character
+        case .elvenCourtArrow: VossAmmunitionAppearance.elvenCourtArrow.character
         }
     }
     var atlas: String { character + ".atlas" }
     var layerOrder: Int {
         switch self {
-        case .lanternShortsword, .elvenCourtBow: 1
+        case .lanternShortsword, .elvenCourtBow, .elvenCourtArrow: 1
         case .splintMail: 2
         case .ironHelmet: 3
         }
@@ -119,6 +121,7 @@ enum CharacterEquipmentCode: String, Codable, CaseIterable, Sendable {
         case .splintMail: try VossArmorAppearance.splintMail.validate(sprite)
         case .lanternShortsword: try VossWeaponAppearance.lanternShortsword.validate(sprite)
         case .elvenCourtBow: try VossWeaponAppearance.elvenCourtBow.validate(sprite)
+        case .elvenCourtArrow: try VossAmmunitionAppearance.elvenCourtArrow.validate(sprite)
         }
     }
 }

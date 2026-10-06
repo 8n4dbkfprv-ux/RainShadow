@@ -11,6 +11,7 @@ import SpriteKit
     static func run(in view: SKView, output: URL) async {
         var checks: [String] = []
         let weaponID = ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON_ITEM"] ?? "lantern-shortsword"
+        let exerciseArrow = weaponID == "elven-court-bow"
         let otherWeaponID = weaponID == "elven-court-bow" ? "lantern-shortsword" : "elven-court-bow"
         let store = SaveStore(key: "RainShadow.QA.Weapon.\(UUID().uuidString)")
         defer { store.reset(); SaveStore(key: "RainShadow.QA.Weapon.Bootstrap").reset() }
@@ -37,7 +38,7 @@ import SpriteKit
             }
             try check(Bundle.main.url(forResource: "avatar-v02", withExtension: "json",
                 subdirectory: appearance.character) != nil, "Weapon bundle ships in the app")
-            for name in ["inventory_item_elven_court_bow_v01", "voss_paperdoll_elven_court_bow",
+            for name in ["inventory_item_elven_court_arrow_v01", "voss_paperdoll_elven_court_arrow", "inventory_item_elven_court_bow_v01", "voss_paperdoll_elven_court_bow",
                          "inventory_item_lantern_shortsword_v01", "inventory_item_iron_helmet_v01",
                          "inventory_item_splint_mail_v01", "voss_paperdoll_chmf",
                          "voss_paperdoll_lantern_shortsword", "voss_paperdoll_iron_helmet",
@@ -60,6 +61,20 @@ import SpriteKit
             try check(roomForBow.session.characterInventory.quantity(of: "elven-court-bow") == 1
                       && roomForBow.session.hasReceivedElvenCourtBow,
                       "The next load delivers the deferred bow exactly once")
+            try check(!roomForBow.session.hasReceivedElvenCourtArrow, "A full bag defers the arrow after the bow grant")
+            try check(roomForBow.session.dropCarriedItem(at: 0, in: "RS0100", at: .zero) != nil,
+                      "Another bag slot can be freed for the arrow")
+            let roomForArrow = GameContext(saveStore: store)
+            try check(roomForArrow.session.characterInventory.quantity(of: "elven-court-arrow") == 1
+                      && roomForArrow.session.hasReceivedElvenCourtArrow,
+                      "The next load grants the deferred arrow exactly once")
+            store.save(SaveSnapshot(
+                lootContainers: ["qa.chest": [.item(id: "elven-court-arrow", quantity: 1)]],
+                hasSeededStarterKit: true, hasReceivedArmorKit: true, hasReceivedElvenCourtBow: true))
+            let storedArrow = GameContext(saveStore: store)
+            try check(storedArrow.session.characterInventory.quantity(of: "elven-court-arrow") == 0
+                      && storedArrow.session.hasReceivedElvenCourtArrow,
+                      "Migration recognizes an arrow already stored in a container")
             store.save(SaveSnapshot(
                 lootContainers: ["qa.chest": [.item(id: "elven-court-bow", quantity: 1)]],
                 hasSeededStarterKit: true, hasReceivedArmorKit: true))
@@ -71,8 +86,8 @@ import SpriteKit
             store.save(SaveSnapshot(carriedItems: [.init(id: "lantern-shortsword", quantity: 1)],
                                     hasSeededStarterKit: true))
             let context = GameContext(saveStore: store)
-            try check(context.session.carriedInventory.stacks.map(\.id) == ["lantern-shortsword", "iron-helmet", "splint-mail", "elven-court-bow"],
-                      "Existing sword-only save receives armor and one bow")
+            try check(context.session.carriedInventory.stacks.map(\.id) == ["lantern-shortsword", "iron-helmet", "splint-mail", "elven-court-bow", "elven-court-arrow"],
+                      "Existing sword-only save receives armor, one bow and one arrow")
             context.session.markOfficeCaseIntroCompleted()
             let scene = CityDistrictScene(context: context, districtID: .sableRow, entrance: "from.office")
             view.window?.setContentSize(CGSize(width: 1280, height: 800))
@@ -94,6 +109,24 @@ import SpriteKit
                       "Equipping shows the matching idle weapon frame immediately")
             try check(weapon.currentFrame?.native != nil, "Weapon uses the native compositor payload")
             try check(weapon.blitShader !== body.blitShader, "Weapon has its own blit and stencil uniforms")
+            guard let ammunition = actor.childNode(withName: "//detective.equippedAmmunition") as? IEAvatarNode,
+                  let ammoPortrait = scene.inventoryOverlay.childNode(withName: "//inventory.paperdoll.ammunition") as? SKSpriteNode else {
+                throw Failure(message: "Missing ammunition layers")
+            }
+            try check(ammunition.isHidden && ammoPortrait.isHidden, "Carried arrow stays hidden even with a bow readied")
+            if exerciseArrow {
+                guard let arrowIndex = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "elven-court-arrow" }) else {
+                    throw Failure(message: "Missing granted arrow")
+                }
+                try check(context.session.equipCarriedItem(at: arrowIndex, to: .quiver1) == nil, "Arrow equips into an ammunition slot with a two-handed bow")
+                scene.refreshInventoryOverlay()
+                try check(!ammunition.isHidden && ammunition.currentFrame?.id?.name == body.currentFrame?.id?.name,
+                          "Equipped arrow displays the matching body frame")
+                try check(ammunition.blitShader !== body.blitShader && ammunition.blitShader !== weapon.blitShader,
+                          "Arrow has independent tint and stencil uniforms")
+                try check(!ammoPortrait.isHidden && ammoPortrait.texture != nil, "Arrow appears in the other hand in the portrait")
+                try check(store.load().hasReceivedElvenCourtArrow, "One-time arrow grant receipt persists")
+            }
             // Inspect the uncovered hand before armor can obscure grip alignment.
             scene.setInventoryPresented(true)
             try await Task.sleep(for: .milliseconds(200))
@@ -124,7 +157,11 @@ import SpriteKit
             let reloaded = GameContext(saveStore: store)
             try check(reloaded.session.characterInventory.equipped[.weapon1]?.id == weaponID,
                       "Selected weapon survives reload")
-            try check(reloaded.session.carriedInventory.stacks.map(\.id) == [otherWeaponID],
+            if exerciseArrow {
+                try check(reloaded.session.characterInventory.equipped[.quiver1]?.id == "elven-court-arrow",
+                          "Equipped arrow survives reload")
+            }
+            try check(reloaded.session.carriedInventory.stacks.map(\.id) == (exerciseArrow ? [otherWeaponID] : [otherWeaponID, "elven-court-arrow"]),
                       "Reloading equipped armor does not duplicate it in the bag")
             scene.setInventoryPresented(true)
             try await Task.sleep(for: .milliseconds(300))
@@ -165,6 +202,9 @@ import SpriteKit
                     guard armorNodes.allSatisfy({ $0.currentFrame?.id?.name == id.name && !$0.isHidden }) else {
                         throw Failure(message: "Armor drifted from walking body frame")
                     }
+                    if exerciseArrow && ammunition.currentFrame?.id?.name != id.name {
+                        throw Failure(message: "Arrow drifted from walking body frame")
+                    }
                     walkFrames.insert(id.name)
                 }
             }
@@ -187,9 +227,34 @@ import SpriteKit
             scene.refreshInventoryOverlay()
             try check(helmetNode?.currentFrame?.id?.name == body.currentFrame?.id?.name,
                       "Re-equipping mail immediately restores paired helmet occlusion")
+            if exerciseArrow {
+                try check(context.session.unequipItem(from: .quiver1) == nil, "Arrow can be unequipped without removing the bow")
+                scene.refreshInventoryOverlay()
+                try check(ammunition.isHidden && ammoPortrait.isHidden && !weapon.isHidden,
+                          "Unequipping arrow clears both arrow layers and preserves bow")
+                guard let index = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "elven-court-arrow" }) else {
+                    throw Failure(message: "Arrow was lost when unequipping")
+                }
+                try check(context.session.equipCarriedItem(at: index, to: .quiver2) == nil, "Arrow can use another ammunition slot")
+                scene.refreshInventoryOverlay()
+                try check(!ammunition.isHidden && !ammoPortrait.isHidden, "Re-equipping restores the arrow")
+                guard let sword = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "lantern-shortsword" }) else {
+                    throw Failure(message: "Missing sword for swap check")
+                }
+                try check(context.session.equipCarriedItem(at: sword, to: .weapon1) == nil, "Sword can replace the bow while ammunition remains equipped")
+                scene.refreshInventoryOverlay()
+                try check(ammunition.isHidden && ammoPortrait.isHidden, "Readying sword hides the held arrow")
+                guard let bow = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "elven-court-bow" }) else {
+                    throw Failure(message: "Missing bow after swap")
+                }
+                try check(context.session.equipCarriedItem(at: bow, to: .weapon1) == nil, "Bow can be readied again")
+                scene.refreshInventoryOverlay()
+                try check(!ammunition.isHidden && !ammoPortrait.isHidden, "Readying bow restores equipped ammunition")
+            }
             try check(context.session.unequipItem(from: .weapon1) == nil, "Unequip succeeds through GameSession")
             scene.refreshInventoryOverlay()
             try check(weapon.currentFrame == nil && weapon.isHidden, "Unequipping clears the world weapon immediately")
+            try check(ammunition.isHidden && ammoPortrait.isHidden, "Removing the bow clears both held-arrow layers")
             scene.setInventoryPresented(true)
             try await Task.sleep(for: .milliseconds(300))
             try check(portrait.isHidden && portrait.texture == nil, "Unequipping clears the inventory weapon")
@@ -215,6 +280,16 @@ import SpriteKit
                 let afterDrop = GameContext(saveStore: store)
                 try check(!afterDrop.session.carriedInventory.stacks.contains { $0.id == "elven-court-bow" },
                           "Dropped bow is not granted again on reload")
+            }
+            if exerciseArrow {
+                try check(context.session.unequipItem(from: .quiver2) == nil, "Arrow can return to the bag after bow removal")
+                guard let index = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "elven-court-arrow" }) else {
+                    throw Failure(message: "Missing arrow for drop check")
+                }
+                try check(context.session.dropCarriedItem(at: index, in: "RS0100", at: actor.position) != nil, "Arrow can be dropped")
+                let afterDrop = GameContext(saveStore: store)
+                try check(afterDrop.session.characterInventory.quantity(of: "elven-court-arrow") == 0,
+                          "Dropped arrow is not granted again on reload")
             }
             try JSONSerialization.data(withJSONObject: ["passed":true,"checks":checks,"walkingFrames":walkFrames.sorted()],
                 options: [.prettyPrinted]).write(to: output.appendingPathComponent("report.json"))

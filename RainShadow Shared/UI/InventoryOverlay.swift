@@ -71,6 +71,7 @@ final class InventoryOverlay: SKNode {
     private let content = SKNode()
     private let paperdollSlotsRoot = SKNode()
     private let paperdollWeapon = SKSpriteNode()
+    private let paperdollAmmunition = SKSpriteNode()
     private let paperdollFigure = SKNode()
     private var portraitBodyHeight: CGFloat = 0
     private let paperdollArmor: [VossArmorAppearance: SKSpriteNode] = [
@@ -571,6 +572,12 @@ final class InventoryOverlay: SKNode {
             paperdollWeapon.name = "inventory.paperdoll.weapon"
             paperdollWeapon.zPosition = 0.1
             paperdollFigure.addChild(paperdollWeapon)
+            paperdollAmmunition.size = paperdollWeapon.size
+            paperdollAmmunition.anchorPoint = paperdollWeapon.anchorPoint
+            paperdollAmmunition.position = paperdollWeapon.position
+            paperdollAmmunition.name = "inventory.paperdoll.ammunition"
+            paperdollAmmunition.zPosition = 0.15
+            paperdollFigure.addChild(paperdollAmmunition)
             for (appearance, layer) in paperdollArmor {
                 // Armor renders add 256 transparent pixels above the original
                 // 1088 canvas. Keep the original pixels-per-point and bottom pivot.
@@ -786,6 +793,10 @@ final class InventoryOverlay: SKNode {
         paperdollWeapon.texture = appearance.flatMap { GameArt.texture(named: $0.paperdollArt) }
         paperdollWeapon.texture?.filteringMode = .linear
         paperdollWeapon.isHidden = appearance == nil
+        let ammunition = VossAmmunitionAppearance.equipped(in: inventory, catalog: catalog)
+        paperdollAmmunition.texture = ammunition.flatMap { GameArt.texture(named: $0.paperdollArt) }
+        paperdollAmmunition.texture?.filteringMode = .linear
+        paperdollAmmunition.isHidden = ammunition == nil
         let wearingMail = VossArmorAppearance.splintMail.isEquipped(in: inventory)
         let portraitFit = InventoryScreenLayout.equipmentPortraitFit(bodyHeight: portraitBodyHeight,
             wearingHelmet: VossArmorAppearance.ironHelmet.isEquipped(in: inventory))
