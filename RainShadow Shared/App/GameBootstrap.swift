@@ -874,7 +874,9 @@ final class GameContext {
     init() {
         #if DEBUG
         let saveStore = SaveStore(key:
-            ProcessInfo.processInfo.environment["RAINSHADOW_COMBAT_PLAYTEST"] == "1"
+            ProcessInfo.processInfo.environment["RAINSHADOW_BEAR_PLAYTEST"] == "1"
+            ? "RainShadow.Save.BearForm.Oct06"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_COMBAT_PLAYTEST"] == "1"
             ? "RainShadow.Save.TemplePlusCombat.Oct06"
             : ProcessInfo.processInfo.environment["RAINSHADOW_UI_REVIEW"] == "1"
             ? "RainShadow.QA.UIRecovery.Oct05"

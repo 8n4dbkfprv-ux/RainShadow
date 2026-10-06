@@ -1,0 +1,28 @@
+{
+  "directions": [
+    "s",
+    "ssw",
+    "sw",
+    "wsw",
+    "w",
+    "wnw",
+    "nw",
+    "nnw",
+    "n",
+    "nne",
+    "ne",
+    "ene",
+    "e",
+    "ese",
+    "se",
+    "sse"
+  ],
+  "clips": {
+    "idle": 12,
+    "walk": 12,
+    "attack": 12,
+    "hit": 6,
+    "revert": 10
+  },
+  "fps": 15
+}

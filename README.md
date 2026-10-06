@@ -27,6 +27,11 @@ and verification.
 
 ## Verification
 
+Bear Form is available in the Wharf Ladder combat encounters. Open
+`Play Bear Form.command` for an isolated playtest save; press **4** in combat
+to transform on open ground, or to revert. See
+[Bear Form](Documentation/BearFormOct06.md) for rules, art authority and checks.
+
 ```sh
 xcodebuild -project RainShadow.xcodeproj -scheme "RainShadow iOS" -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 xcodebuild -project RainShadow.xcodeproj -scheme "RainShadow macOS" -configuration Debug CODE_SIGNING_ALLOWED=NO build

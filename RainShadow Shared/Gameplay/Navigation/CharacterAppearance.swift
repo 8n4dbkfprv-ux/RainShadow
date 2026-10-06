@@ -5,11 +5,13 @@ import Foundation
 enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
     case humanMale01 = "HUM-M-01"
     case humanFemale01 = "HUM-F-01"
+    case bearGuardian = "BEAR-01"
 
     var character: String {
         switch self {
         case .humanMale01: VossAnimationSet.character
         case .humanFemale01: LilaAnimationSet.character
+        case .bearGuardian: BearAnimationSet.character
         }
     }
 
@@ -17,6 +19,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
         switch self {
         case .humanMale01: VossAnimationSet.atlas
         case .humanFemale01: LilaAnimationSet.atlas
+        case .bearGuardian: BearAnimationSet.atlas
         }
     }
 
@@ -24,10 +27,12 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
         switch self {
         case .humanMale01: try VossAnimationSet.validate(sprite)
         case .humanFemale01: try LilaAnimationSet.validate(sprite)
+        case .bearGuardian: try BearAnimationSet.validate(sprite)
         }
     }
 
     func frameCount(for action: CharacterVisualAction, facing: ActorFacing) throws -> Int {
+        if self == .bearGuardian { return try BearAnimationSet.frameCount(for: action) }
         switch action {
         case .idle: return self == .humanMale01 ? VossAnimationSet.idleFrames : LilaAnimationSet.idleFrames
         case .walk: return self == .humanMale01 ? VossAnimationSet.walkFrames : LilaAnimationSet.walkFrames
@@ -36,7 +41,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
                 throw CharacterAppearanceError.unsupportedAction(self, action)
             }
             return action == .seatedIdle ? VossAnimationSet.idleFrames : VossAnimationSet.transitionFrames
-        case .attack, .hit, .die:
+        case .attack, .hit, .die, .revert:
             throw CharacterAppearanceError.unsupportedAction(self, action)
         }
     }
@@ -44,7 +49,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
     func frameName(action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws -> String {
         let count = try frameCount(for: action, facing: facing)
         guard (0..<count).contains(phase) else { throw CharacterAppearanceError.invalidPhase(phase) }
-        let direction = self == .humanMale01 ? VossAnimationSet.direction(facing) : LilaAnimationSet.direction(facing)
+        let direction = self == .humanFemale01 ? LilaAnimationSet.direction(facing) : VossAnimationSet.direction(facing)
         return String(format: "%@_%@_%02d.png", action.rawValue, direction, phase)
     }
 }
@@ -52,6 +57,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
 enum CharacterVisualAction: String, Codable, Sendable {
     case idle, walk, attack, hit, die
     case seatedIdle = "seated_idle"
+    case revert
     case standUp = "stand_up"
     case sitDown = "sit_down"
 }

@@ -99,7 +99,10 @@ import SpriteKit
                 let angle = CGFloat(i) * .pi / 8
                 let point = CGPoint(x: model.current.position.x + cos(angle) * 150,
                                     y: model.current.position.y + sin(angle) * 150 * 0.75)
-                guard !model.actors.filter({ !$0.player }).contains(where: {
+                var candidate = model.current
+                candidate.position = point
+                guard BearFormRules.canStand(in: scene.navigation, actor: candidate),
+                    !model.actors.filter({ !$0.player }).contains(where: {
                     CGRect(x: $0.position.x - 48, y: $0.position.y - 20, width: 96, height: 110).contains(point)
                 }), let path = CombatNavigation.route(in: scene.navigation, actor: model.current, to: point),
                     CombatNavigation.length(path, from: model.current.position) <= 240 else { continue }
@@ -109,22 +112,64 @@ import SpriteKit
             try check(moved, "Ground click starts a budgeted move")
             try await wait { scene.combatDirector?.busy == false }
             try check(scene.combatDirector!.combat.budget.state == 2, "Walking preserves the standard attack action")
+            let humanEquipment = context.session.characterInventory
+            scene.handleDialogueChoiceDigit(4)
+            try check(scene.combatDirector!.combat.isBear && scene.combatDirector!.combat.budget.state == 0,
+                      "Bear Form input consumes the standard action after walking")
+            try await Task.sleep(for: .milliseconds(420))
+            try capture("bear-transforming")
+            scene.handleTacticalPauseInput()
+            let transformation = scene.depthWorldRoot.childNode(withName: "combat.bear.transformation")
+            let particlePositions = transformation?.children.map(\.position)
+            try await Task.sleep(for: .milliseconds(250))
+            try check(particlePositions == transformation?.children.map(\.position), "Pause freezes transformation particles")
+            scene.handleTacticalPauseInput()
+            try await wait { scene.combatDirector?.busy == false }
+            try check(scene.detective.isHidden && scene.combatDirector?.bearNode?.isHidden == false,
+                      "Transformation displays the bear and hides human equipment layers")
+            try check(scene.navigation.occupancy.actors[TacticalCombat.playerID]?.personalSpaceCells == BearFormRules.circleSize,
+                      "Bear registers its larger occupancy footprint")
+            try capture("bear-ready")
+            let bearBeforeMove = scene.combatDirector!.combat
+            var bearMoved = false
+            for i in 0..<16 {
+                let angle = CGFloat(i) * .pi / 8
+                let point = CGPoint(x: bearBeforeMove.current.position.x + cos(angle) * 44,
+                                    y: bearBeforeMove.current.position.y + sin(angle) * 44 * 0.75)
+                guard let path = CombatNavigation.route(in: scene.navigation, actor: bearBeforeMove.current, to: point, bear: true),
+                      CombatNavigation.length(path, from: bearBeforeMove.current.position) <= bearBeforeMove.budget.movementRemaining else { continue }
+                click(scene, world: point)
+                if scene.combatDirector!.busy { bearMoved = true; break }
+            }
+            try check(bearMoved, "Bear can spend leftover movement after transforming")
+            try await wait { scene.combatDirector?.bearNode?.currentAction == .walk && (scene.combatDirector?.bearNode?.currentPhase ?? 0) > 0 }
+            try capture("bear-walking")
+            try await wait { scene.combatDirector?.busy == false }
+            try check(scene.detective.position == scene.combatDirector?.bearNode?.position,
+                      "Bear movement keeps the player controller at its visible position")
             let checkpoint = scene.combatDirector!.combat
             context = GameContext(saveStore: store)
             context.router.start(in: view)
             try await wait { (view.scene as? CityDistrictScene)?.combatDirector != nil }
             scene = view.scene as! CityDistrictScene
             try check(scene.combatDirector!.combat == checkpoint, "Router resumes combat in the saved area with identical positions, turn and RNG")
+            try check(scene.detective.isHidden && scene.combatDirector?.bearNode?.isHidden == false,
+                      "Reload restores the bear appearance")
             try capture("combat-resumed")
             // Play through the actual scene input. Let enemies approach after the
             // retreat, then attack the closest reachable opponent each turn.
             let deadline = ProcessInfo.processInfo.systemUptime + 150
             var attacks = 0
             var sawEnemyWalkFrame = false
+            var sawClawFrame = false
             while scene.combatDirector != nil {
                 if scene.depthWorldRoot.children.compactMap({ $0 as? CharacterAppearanceNode }).contains(where: {
                     $0.currentAction == .walk && $0.currentPhase > 0
                 }) { sawEnemyWalkFrame = true }
+                if let bear = scene.combatDirector?.bearNode, bear.currentAction == .attack && bear.currentPhase > 0 {
+                    if !sawClawFrame { try capture("bear-claw") }
+                    sawClawFrame = true
+                }
                 guard ProcessInfo.processInfo.systemUptime < deadline else { throw Failure(message: "Fight stalled") }
                 if let director = scene.combatDirector, director.combat.isPlayerTurn, !director.busy {
                     let model = director.combat
@@ -141,9 +186,13 @@ import SpriteKit
             }
             try check(attacks > 0, "Pointer attacks resolve through real scene input")
             try check(sawEnemyWalkFrame, "Enemy approach plays advancing walk frames")
+            try check(sawClawFrame, "Bear strikes play the authored claw animation")
             try check(context.session.caseState.hasFlag("combat.a1.gate.outcome.won"), "Played gate victory enters authored aftermath")
             try check(!context.session.caseState.hasFlag("combat.a1.gate.auto-resolved"), "Played victory is never marked auto-resolved")
             try check(context.session.tacticalCombat == nil, "Outcome clears the checkpoint in the story transaction")
+            try check(!scene.detective.isHidden && scene.depthWorldRoot.childNode(withName: "combat.bear.visual") == nil,
+                      "Encounter completion restores the human actor")
+            try check(context.session.characterInventory == humanEquipment, "Bear Form preserves the complete equipment inventory")
             try capture("combat-aftermath")
             let nextDeadline = ProcessInfo.processInfo.systemUptime + 30
             while scene.combatDirector == nil {
@@ -186,6 +235,39 @@ import SpriteKit
                       "E1 defeat applies Watch attention exactly once")
             try check(!context.session.caseState.hasFlag("combat.e1.auto-resolved"), "E1 uses the played outcome contract")
             try check(GameSession(saveStore: store).caseState == context.session.caseState, "Final case state survives reload")
+            // Reuse a real, certified checkpoint to exercise every live reversion
+            // path without depending on random combat damage or story replay.
+            let formStore = SaveStore(key: "RainShadow.QA.BearReversion.\(UUID().uuidString)")
+            defer { formStore.reset() }
+            for mode in ["voluntary", "expiry", "yield"] {
+                var form = checkpoint
+                repeat { _ = form.endTurn() } while !form.isPlayerTurn
+                if mode == "expiry" {
+                    for _ in 0..<2 { repeat { _ = form.endTurn() } while !form.isPlayerTurn }
+                }
+                formStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(form),
+                    hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+                context = GameContext(saveStore: formStore)
+                context.router.start(in: view)
+                try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                scene = view.scene as! CityDistrictScene
+                try await wait { scene.combatDirector?.busy == false }
+                if mode == "voluntary" { scene.handleDialogueChoiceDigit(4) }
+                else if mode == "expiry" { scene.handleConfirmInput() }
+                else { scene.handleDialogueChoiceDigit(3) }
+                try await wait { !scene.detective.isHidden && scene.depthWorldRoot.childNode(withName: "combat.bear.transformation") == nil }
+                try check(scene.combatDirector?.combat.isBear != true, "\(mode) reversion restores the human presentation")
+                try check(scene.navigation.occupancy.actors[TacticalCombat.playerID]?.personalSpaceCells == ActorLocomotionPacing.personalSpaceCells,
+                          "\(mode) reversion restores human clearance")
+                if mode == "voluntary" {
+                    try check(scene.combatDirector?.combat.canTransform == false, "Voluntary reversion cannot grant another use")
+                    try capture("bear-reverted")
+                    view.window?.setContentSize(CGSize(width: 640, height: 800))
+                    try await Task.sleep(for: .milliseconds(300))
+                    try capture("combat-compact")
+                    view.window?.setContentSize(CGSize(width: 1100, height: 800))
+                }
+            }
             try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
         } catch {
             try? capture("failure")

@@ -75,6 +75,14 @@ struct TacticalCombat: Codable, Equatable {
     private(set) var budget = CombatBudget()
     private(set) var randomState: UInt64
     private(set) var log: [String] = []
+    /// Optional for compatibility with checkpoints made before Bear Form.
+    /// Kept after reversion so reloading cannot grant another use.
+    private(set) var bearForm: BearFormState?
+    var isBear: Bool { (bearForm?.turnsRemaining ?? 0) > 0 }
+    var canTransform: Bool { isPlayerTurn && bearForm == nil && budget.canAttack }
+    func movementSpeed(for actor: Combatant) -> Double {
+        actor.player && isBear ? BearFormRules.speed : actor.speed
+    }
     enum Outcome: String, Codable { case won, lost }
     var outcome: Outcome? {
         if !actors.contains(where: { $0.player && $0.conscious }) { return .lost }
@@ -101,7 +109,7 @@ struct TacticalCombat: Codable, Equatable {
 
     /// Reject incompatible/corrupt checkpoints before indexing the active actor.
     var isValid: Bool {
-        version == 1 && (2...8).contains(actors.count) && actors.indices.contains(turn)
+        version == 1 && (bearForm?.isValid ?? true) && (2...8).contains(actors.count) && actors.indices.contains(turn)
         && actors.filter(\.player).count == 1 && actors.contains { $0.id == Self.playerID && $0.player }
         && Set(actors.map(\.id)).count == actors.count && round > 0
         && CombatBudget.transitions.indices.contains(budget.state)
@@ -122,6 +130,13 @@ struct TacticalCombat: Codable, Equatable {
     }
     @discardableResult mutating func endTurn() -> Bool {
         guard outcome == nil else { return false }
+        if current.player, isBear {
+            if bearForm!.activationTurn { bearForm!.activationTurn = false }
+            else {
+                bearForm!.turnsRemaining -= 1
+                if !isBear { endBearForm() }
+            }
+        }
         repeat {
             turn = (turn + 1) % actors.count
             if turn == 0 { round += 1 }
@@ -141,7 +156,7 @@ struct TacticalCombat: Codable, Equatable {
     @discardableResult mutating func move(along path: Path) -> Bool {
         guard outcome == nil, let end = path.destination, !path.isEmpty else { return false }
         let cost = CombatNavigation.length(path, from: current.position)
-        guard budget.move(distance: cost, speed: current.speed) else { return false }
+        guard budget.move(distance: cost, speed: movementSpeed(for: current)) else { return false }
         actors[turn].position = end
         note("\(current.name) moves.")
         return true
@@ -153,7 +168,25 @@ struct TacticalCombat: Codable, Equatable {
     mutating func yield() {
         guard isPlayerTurn else { return }
         actors[turn].hp = 0
+        if isBear { endBearForm() }
         note("Voss yields. The crew lets him live.")
+    }
+    @discardableResult mutating func transformToBear(hasClearance: Bool) -> Bool {
+        guard canTransform, hasClearance, budget.spend(2) else { return false }
+        bearForm = BearFormState()
+        note("Voss takes Bear Form: 8 temporary endurance, three full turns.")
+        return true
+    }
+    @discardableResult mutating func revertBear() -> Bool {
+        guard isPlayerTurn, isBear, budget.spend(2) else { return false }
+        endBearForm()
+        return true
+    }
+    private mutating func endBearForm() {
+        bearForm?.turnsRemaining = 0
+        bearForm?.temporaryHP = 0
+        bearForm?.activationTurn = false
+        note("Voss returns to human form. Bear Form is spent for this encounter.")
     }
     struct Strike: Equatable {
         let attacker: String
@@ -170,12 +203,24 @@ struct TacticalCombat: Codable, Equatable {
               clearLine, CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
               budget.spend(2) else { return nil }
         let die = roll(20)
-        let defence = actors[target].defence + (actors[target].defending ? 4 : 0)
-        let hit = die == 20 || (die != 1 && die + current.attackBonus >= defence)
-        let damage = hit ? current.damageMin + roll(current.damageMax - current.damageMin + 1) - 1 : 0
-        actors[target].hp = max(0, actors[target].hp - damage)
+        let bearAttacker = current.player && isBear
+        let attackBonus = bearAttacker ? BearFormRules.attackBonus : current.attackBonus
+        let defence = (actors[target].player && isBear ? BearFormRules.defence : actors[target].defence)
+            + (actors[target].defending ? 4 : 0)
+        let hit = die == 20 || (die != 1 && die + attackBonus >= defence)
+        let minimum = bearAttacker ? BearFormRules.damageMin : current.damageMin
+        let maximum = bearAttacker ? BearFormRules.damageMax : current.damageMax
+        let damage = hit ? minimum + roll(maximum - minimum + 1) - 1 : 0
+        var injury = damage
+        if actors[target].player, isBear {
+            let absorbed = min(injury, bearForm!.temporaryHP)
+            bearForm!.temporaryHP -= absorbed
+            injury -= absorbed
+            if bearForm!.temporaryHP == 0 { endBearForm() }
+        }
+        actors[target].hp = max(0, actors[target].hp - injury)
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage, knockedOut: !actors[target].conscious)
-        note("\(current.name): d20 \(die) + \(current.attackBonus) vs \(defence) — " +
+        note("\(current.name): d20 \(die) + \(attackBonus) vs \(defence) — " +
              (hit ? "\(damage) to \(actors[target].name)." : "miss."))
         if result.knockedOut { note("\(actors[target].name) is out of the fight.") }
         return result
@@ -194,8 +239,18 @@ enum CombatNavigation {
             return total + distance(previous, next)
         }
     }
-    static func route(in map: NavigationMap, actor: Combatant, to target: CGPoint) -> Path? {
-        let path = map.pathAvoidingActors(from: actor.position, to: target, identity: actor.id)
+    static func route(in map: NavigationMap, actor: Combatant, to target: CGPoint, bear: Bool = false) -> Path? {
+        // Combat requires this exact goal cell. Reject an occupied/undersized
+        // goal before asking the engine to search for an adjusted destination
+        // that this adapter would then discard, especially around a large bear.
+        let size = bear ? BearFormRules.circleSize : map.circleSize
+        var finder = map.pathFinder
+        finder.identity = actor.id
+        let path = map.occupancy.withStampLifted(id: actor.id) {
+            guard map.searchMap.blockedInRadiusTile(at: target, size: size).contains(.passable) else { return Path() }
+            return finder.findPath(from: actor.position, to: target, circleSize: size,
+                                   flags: [.sight, .actorsAreBlocking])
+        }
         guard let end = path.destination,
               map.searchMap.cell(for: end) == map.searchMap.cell(for: target) else { return nil }
         return path
@@ -223,18 +278,21 @@ enum CombatNavigation {
         return Path(nodes: result)
     }
     static func approach(in map: NavigationMap, actor: Combatant, target: Combatant, limit: Double) -> Path? {
-        var candidates: [Path] = []
-        for i in 0..<16 {
+        let radius: CGFloat = (map.occupancy.actors[target.id]?.personalSpaceCells ?? 4) > 4 ? 100 : 84
+        let points = (0..<16).map { i in
             let angle = CGFloat(i) * .pi / 8
-            let point = CGPoint(x: target.position.x + cos(angle) * 84,
-                                y: target.position.y + sin(angle) * 84 * 0.75).rounded
+            return CGPoint(x: target.position.x + cos(angle) * radius,
+                           y: target.position.y + sin(angle) * radius * 0.75).rounded
+        }.sorted { distance(actor.position, $0) < distance(actor.position, $1) }
+        // Try nearby approaches first and stop at the first certified route.
+        // This is RainShadow enemy policy, outside the unchanged engine port.
+        for point in points {
             guard let path = route(in: map, actor: actor, to: point), let end = path.destination,
                   distance(end, target.position) <= TacticalCombat.meleeReach,
                   clearLine(in: map, from: end, to: target.position, excluding: [actor.id, target.id]) else { continue }
-            candidates.append(path)
+            let result = prefix(path, from: actor.position, within: limit)
+            if !result.isEmpty { return result }
         }
-        guard let best = candidates.min(by: { length($0, from: actor.position) < length($1, from: actor.position) }) else { return nil }
-        let path = prefix(best, from: actor.position, within: limit)
-        return path.isEmpty ? nil : path
+        return nil
     }
 }
