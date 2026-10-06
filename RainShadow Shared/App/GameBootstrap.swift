@@ -68,6 +68,7 @@ final class GameSession {
     /// Whether the painted starter kit has been promoted into real stacks.
     private(set) var hasSeededStarterKit: Bool
     private(set) var hasReceivedArmorKit: Bool
+    private(set) var hasReceivedElvenCourtBow: Bool
 
     /// The case bag. Kept as a passthrough so every existing reader — the loot
     /// panel, both scenes, the inventory window — keeps working unchanged.
@@ -150,6 +151,12 @@ final class GameSession {
         // permanently marking unseen equipment as received.
         hasReceivedArmorKit = snapshot.hasReceivedArmorKit || existingIDs.union(stacks.map(\.id))
             .isSuperset(of: HarborpointItems.armorKitItemIDs)
+        stacks += HarborpointItems.elvenCourtBowGrant(
+            hasReceived: snapshot.hasReceivedElvenCourtBow, existingIDs: existingIDs,
+            availableSlots: CarriedInventoryState.defaultTotalSlotCapacity - stacks.count
+        ).map { CarriedItemStack(id: $0, quantity: 1) }
+        hasReceivedElvenCourtBow = snapshot.hasReceivedElvenCourtBow
+            || existingIDs.union(stacks.map(\.id)).contains(HarborpointItems.elvenCourtBowID)
         var inventory = CharacterInventory(
             backpack: CarriedInventoryState(stacks: stacks)
         )
@@ -689,6 +696,7 @@ final class GameSession {
             groundPiles: groundPiles.pilesByArea.mapValues { $0.map(Self.toPersisted) },
             hasSeededStarterKit: hasSeededStarterKit,
             hasReceivedArmorKit: hasReceivedArmorKit,
+            hasReceivedElvenCourtBow: hasReceivedElvenCourtBow,
             caseFlags: caseState.flags,
             caseKnowledgeIDs: caseState.knowledgeIDs,
             caseEvidenceIDs: caseState.evidenceIDs,

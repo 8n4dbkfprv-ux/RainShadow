@@ -256,6 +256,14 @@ enum HarborpointItems {
         "tobacco-tin"
     ]
     static let armorKitItemIDs = ["iron-helmet", "splint-mail"]
+    static let elvenCourtBowID = "elven-court-bow"
+
+    static func elvenCourtBowGrant(
+        hasReceived: Bool, existingIDs: Set<String>, availableSlots: Int = 16
+    ) -> [String] {
+        guard !hasReceived, availableSlots > 0, !existingIDs.contains(elvenCourtBowID) else { return [] }
+        return [elvenCourtBowID]
+    }
 
     /// One-time addition for existing saves. Items already carried, worn,
     /// dropped or returned to a container must not be duplicated.

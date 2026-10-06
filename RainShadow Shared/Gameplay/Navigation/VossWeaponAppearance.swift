@@ -5,9 +5,21 @@ import Foundation
 enum VossWeaponAppearance: String, Sendable {
     case lanternShortsword = "lantern-shortsword"
 
-    var character: String { "VossLanternShortsword" }
-    var atlas: String { "VossLanternShortsword.atlas" }
-    var paperdollArt: String { "voss_paperdoll_lantern_shortsword" }
+    case elvenCourtBow = "elven-court-bow"
+
+    var character: String {
+        switch self {
+        case .lanternShortsword: "VossLanternShortsword"
+        case .elvenCourtBow: "VossElvenCourtBow"
+        }
+    }
+    var atlas: String { character + ".atlas" }
+    var paperdollArt: String {
+        switch self {
+        case .lanternShortsword: "voss_paperdoll_lantern_shortsword"
+        case .elvenCourtBow: "voss_paperdoll_elven_court_bow"
+        }
+    }
 
     static func equipped(in inventory: CharacterInventory, catalog: ItemCatalog) -> Self? {
         inventory.readiedWeapon(catalog: catalog).flatMap { Self(rawValue: $0.id) }
@@ -21,6 +33,7 @@ enum VossWeaponAppearance: String, Sendable {
 
     func validate(_ sprite: IEIndexedSprite) throws {
         guard sprite.character == character,
+              (self != .elvenCourtBow || sprite.blobSHA256 == "bd630bdbd7230680d52c9c5b117c74303636e7696c30163ca7bd10ab2372a136"),
               sprite.sourceCanvasSize == .init(width: 128, height: 128),
               sprite.compatibilityDisplaySize == .init(x: 140.625, y: 140.625),
               sprite.frames.count == 1200 else {

@@ -103,7 +103,7 @@ struct CharacterInventory: Equatable, Sendable {
         guard let definition = catalog.definition(for: stack.id) else {
             return .unknownItem(id: stack.id)
         }
-        guard slot.accepts(definition.category) else {
+        guard definition.equippableSlots.contains(slot) else {
             return .wrongSlot(itemID: stack.id, category: definition.category, slot: slot)
         }
         // Whatever is already there has to be willing to leave.

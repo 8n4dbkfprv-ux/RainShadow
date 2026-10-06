@@ -4,11 +4,14 @@ import SpriteKit
 
 /// Exercises real equipment state, inventory presentation and live actor playback
 /// with an isolated save. Invoke with RAINSHADOW_QA_WEAPON=<output directory>.
+/// Set RAINSHADOW_QA_WEAPON_ITEM=elven-court-bow to review the bow instead of the sword.
 @MainActor enum WeaponEquipmentQA {
     struct Failure: Error { let message: String }
 
     static func run(in view: SKView, output: URL) async {
         var checks: [String] = []
+        let weaponID = ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON_ITEM"] ?? "lantern-shortsword"
+        let otherWeaponID = weaponID == "elven-court-bow" ? "lantern-shortsword" : "elven-court-bow"
         let store = SaveStore(key: "RainShadow.QA.Weapon.\(UUID().uuidString)")
         defer { store.reset(); SaveStore(key: "RainShadow.QA.Weapon.Bootstrap").reset() }
         func check(_ condition: Bool, _ message: String) throws {
@@ -29,21 +32,47 @@ import SpriteKit
         }
         do {
             try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
+            guard let appearance = VossWeaponAppearance(rawValue: weaponID) else {
+                throw Failure(message: "Unknown QA weapon: " + weaponID)
+            }
             try check(Bundle.main.url(forResource: "avatar-v02", withExtension: "json",
-                subdirectory: "VossLanternShortsword") != nil, "Weapon bundle ships in the app")
-            for name in ["inventory_item_lantern_shortsword_v01", "inventory_item_iron_helmet_v01",
+                subdirectory: appearance.character) != nil, "Weapon bundle ships in the app")
+            for name in ["inventory_item_elven_court_bow_v01", "voss_paperdoll_elven_court_bow",
+                         "inventory_item_lantern_shortsword_v01", "inventory_item_iron_helmet_v01",
                          "inventory_item_splint_mail_v01", "voss_paperdoll_chmf",
                          "voss_paperdoll_lantern_shortsword", "voss_paperdoll_iron_helmet",
                          "voss_paperdoll_splint_mail", "voss_paperdoll_iron_helmet_unarmored"] {
                 try check(Bundle.main.url(forResource: name, withExtension: "png") != nil,
                           "Inventory art is packaged: " + name)
             }
+            // Exercise deferred migration with a genuinely full persisted bag.
+            let bagCapacity = CarriedInventoryState.defaultTotalSlotCapacity
+            store.save(SaveSnapshot(
+                carriedItems: Array(repeating: .init(id: "dark-lantern", quantity: 1), count: bagCapacity),
+                hasSeededStarterKit: true, hasReceivedArmorKit: true))
+            let fullBag = GameContext(saveStore: store)
+            try check(fullBag.session.carriedInventory.stacks.count == bagCapacity
+                      && !fullBag.session.hasReceivedElvenCourtBow,
+                      "A full bag defers the bow without losing carried items")
+            try check(fullBag.session.dropCarriedItem(at: 0, in: "RS0100", at: .zero) != nil,
+                      "A bag slot can be freed before the deferred grant")
+            let roomForBow = GameContext(saveStore: store)
+            try check(roomForBow.session.characterInventory.quantity(of: "elven-court-bow") == 1
+                      && roomForBow.session.hasReceivedElvenCourtBow,
+                      "The next load delivers the deferred bow exactly once")
+            store.save(SaveSnapshot(
+                lootContainers: ["qa.chest": [.item(id: "elven-court-bow", quantity: 1)]],
+                hasSeededStarterKit: true, hasReceivedArmorKit: true))
+            let storedBow = GameContext(saveStore: store)
+            try check(storedBow.session.characterInventory.quantity(of: "elven-court-bow") == 0
+                      && storedBow.session.hasReceivedElvenCourtBow,
+                      "Migration recognizes a bow already stored in a container")
             // Exercise upgrading an existing sword-only save as well as the live visuals.
             store.save(SaveSnapshot(carriedItems: [.init(id: "lantern-shortsword", quantity: 1)],
                                     hasSeededStarterKit: true))
             let context = GameContext(saveStore: store)
-            try check(context.session.carriedInventory.stacks.map(\.id) == ["lantern-shortsword", "iron-helmet", "splint-mail"],
-                      "Existing sword-only save receives helmet and splint mail")
+            try check(context.session.carriedInventory.stacks.map(\.id) == ["lantern-shortsword", "iron-helmet", "splint-mail", "elven-court-bow"],
+                      "Existing sword-only save receives armor and one bow")
             context.session.markOfficeCaseIntroCompleted()
             let scene = CityDistrictScene(context: context, districtID: .sableRow, entrance: "from.office")
             view.window?.setContentSize(CGSize(width: 1280, height: 800))
@@ -55,9 +84,9 @@ import SpriteKit
             actor.setEntranceFacing(.south)
             guard let weapon = actor.childNode(withName: "//detective.equippedWeapon") as? IEAvatarNode,
                   let body = weapon.parent as? IEAvatarNode else { throw Failure(message: "Missing equipment node") }
-            try check(weapon.currentFrame == nil && weapon.isHidden, "Carried sword is not drawn")
-            guard let index = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "lantern-shortsword" }) else {
-                throw Failure(message: "Missing starter sword")
+            try check(weapon.currentFrame == nil && weapon.isHidden, "Carried weapon is not drawn")
+            guard let index = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == weaponID }) else {
+                throw Failure(message: "Missing selected weapon")
             }
             try check(context.session.equipCarriedItem(at: index, to: .weapon1) == nil, "Equip succeeds through GameSession")
             scene.refreshInventoryOverlay()
@@ -65,6 +94,11 @@ import SpriteKit
                       "Equipping shows the matching idle weapon frame immediately")
             try check(weapon.currentFrame?.native != nil, "Weapon uses the native compositor payload")
             try check(weapon.blitShader !== body.blitShader, "Weapon has its own blit and stencil uniforms")
+            // Inspect the uncovered hand before armor can obscure grip alignment.
+            scene.setInventoryPresented(true)
+            try await Task.sleep(for: .milliseconds(200))
+            try capture(scene, "inventory_weapon_only")
+            scene.setInventoryPresented(false)
             var armorNodes: [IEAvatarNode] = []
             for armor in VossArmorAppearance.allCases {
                 guard let node = actor.childNode(withName: "//detective.equipped." + armor.rawValue) as? IEAvatarNode,
@@ -86,15 +120,18 @@ import SpriteKit
             }
             try check(context.session.defenceBonus == 7, "Equipped armor contributes seven defence")
             try check(store.load().hasReceivedArmorKit, "One-time armor grant is persisted")
+            try check(store.load().hasReceivedElvenCourtBow, "One-time bow grant is persisted")
             let reloaded = GameContext(saveStore: store)
-            try check(reloaded.session.carriedInventory.stacks.isEmpty,
+            try check(reloaded.session.characterInventory.equipped[.weapon1]?.id == weaponID,
+                      "Selected weapon survives reload")
+            try check(reloaded.session.carriedInventory.stacks.map(\.id) == [otherWeaponID],
                       "Reloading equipped armor does not duplicate it in the bag")
             scene.setInventoryPresented(true)
             try await Task.sleep(for: .milliseconds(300))
             guard let portrait = scene.inventoryOverlay.childNode(withName: "//inventory.paperdoll.weapon") as? SKSpriteNode else {
                 throw Failure(message: "Missing inventory weapon layer")
             }
-            try check(!portrait.isHidden && portrait.texture != nil, "Inventory portrait displays equipped sword")
+            try check(!portrait.isHidden && portrait.texture != nil, "Inventory portrait displays equipped weapon")
             for armor in VossArmorAppearance.allCases {
                 guard let layer = scene.inventoryOverlay.childNode(withName: "//inventory.paperdoll." + armor.rawValue) as? SKSpriteNode else {
                     throw Failure(message: "Missing armor portrait layer")
@@ -171,6 +208,13 @@ import SpriteKit
                 let afterDrop = GameContext(saveStore: store)
                 try check(!afterDrop.session.carriedInventory.stacks.contains { $0.id == "iron-helmet" },
                           "Dropped helmet is not granted again on reload")
+            }
+            if let bowIndex = context.session.carriedInventory.stacks.firstIndex(where: { $0.id == "elven-court-bow" }) {
+                try check(context.session.dropCarriedItem(at: bowIndex, in: "RS0100", at: actor.position) != nil,
+                          "Unequipped bow can be dropped")
+                let afterDrop = GameContext(saveStore: store)
+                try check(!afterDrop.session.carriedInventory.stacks.contains { $0.id == "elven-court-bow" },
+                          "Dropped bow is not granted again on reload")
             }
             try JSONSerialization.data(withJSONObject: ["passed":true,"checks":checks,"walkingFrames":walkFrames.sorted()],
                 options: [.prettyPrinted]).write(to: output.appendingPathComponent("report.json"))

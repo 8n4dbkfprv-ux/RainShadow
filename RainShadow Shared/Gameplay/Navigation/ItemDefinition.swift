@@ -178,7 +178,9 @@ struct ItemDefinition: Equatable, Codable, Sendable, Identifiable {
     /// the same way; authoring a per-item slot list would only create a second
     /// source of truth to disagree with the first.
     var equippableSlots: [EquipmentSlot] {
-        EquipmentSlot.allCases.filter { $0.accepts(category) }
+        EquipmentSlot.allCases.filter {
+            $0.accepts(category) && !($0 == .holster && flags.contains(.twoHanded))
+        }
     }
 
     var isEquippable: Bool { !equippableSlots.isEmpty }

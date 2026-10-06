@@ -15,6 +15,19 @@
       "damageHigh": 7
     },
     {
+      "id": "elven-court-bow",
+      "identifiedName": "Elven Court Bow",
+      "category": "SERVICE WEAPON",
+      "weightOunces": 40,
+      "valuePence": 1800,
+      "iconArtName": "inventory_item_elven_court_bow_v01",
+      "identifiedDescription": "Silver leaf-shaped plates embrace the dark wooden limbs. A green leather grip sits between swept guards, and a waxed string joins the recurved tips. Built to be drawn with both hands.",
+      "note": "Two-handed bow · silver leafwork",
+      "flags": [
+        "twoHanded"
+      ]
+    },
+    {
       "id": "case-notes",
       "identifiedName": "Case Notebook",
       "category": "EVIDENCE",

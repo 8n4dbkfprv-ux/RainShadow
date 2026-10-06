@@ -1029,8 +1029,8 @@ final class InventoryOverlay: SKNode {
             ]
         )
 
-        if let weapon = inventory.readiedWeapon(catalog: catalog),
-           let band = weapon.damageBand {
+        if let weapon = inventory.readiedWeapon(catalog: catalog) {
+            let band = weapon.damageBand ?? "—"
             setStat(
                 .damage,
                 value: band,
