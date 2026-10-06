@@ -1,14 +1,15 @@
 # TemplePlus combat adaptation
 
 Laurens selected TemplePlus on October 6, 2026 as the source for RainShadow's
-turn-based combat adaptation. The integration will use selected rules ported to
+turn-based combat adaptation. The integration uses selected rules ported to
 Swift above RainShadow's existing navigation, actors and SpriteKit presentation.
 Selecting this source does not automatically adopt every Temple of Elemental Evil
 rule, character statistic or content asset.
 
-Status: source selected and initial dependency audit complete. No combat runtime
-or third-party implementation has been added by this decision record. The first
-encounter scope below is proposed implementation work.
+Status: playable nonlethal combat is integrated into the gate, lane, clock-room
+and E1 encounters. `CombatBudget` ports the pinned transition matrix and lookup;
+`TacticalCombat` implements the explicitly adapted brawl rules. The dependency
+audit below records why this is a selective Swift port.
 
 ## Audited source
 
@@ -30,7 +31,7 @@ does not establish a standalone combat library or a complete extractable ruleset
 | [d20.cpp](https://github.com/GrognardsFromHell/TemplePlus/blob/03d7204510bc8401c67c59b3e4e23b6eefb087d0/TemplePlus/d20.cpp) | Standard attack/movement cost callbacks and separation of validation, performance and animation-frame callbacks. | Full dependency tracing is still needed before porting attack resolution. |
 | [combat.cpp](https://github.com/GrognardsFromHell/TemplePlus/blob/03d7204510bc8401c67c59b3e4e23b6eefb087d0/TemplePlus/combat.cpp) | Encounter and turn lifecycle reference. | Original engine AI, party, UI, time events and scripting. |
 
-The first bounded port should be the action-budget transition logic, verified
+The first bounded port is the action-budget transition logic, verified
 against the pinned table. Upstream distinguishes movement, standard and full-round
 actions; a generic pool of interchangeable action points would be an adaptation,
 not a literal port. Define any changed rules explicitly. The misleadingly named
@@ -52,21 +53,40 @@ not a literal port. Define any changed rules explicitly. The misleadingly named
 - `ItemDefinition` already supplies ascending defence bonuses and weapon damage
   bands. Their mapping to attack rules requires an explicit adapter; do not
   silently reinterpret those values as a complete D20 stat block.
-- `SaveSnapshot` has no tactical encounter snapshot. Persist turn state, budgets,
-  conditions, combatant positions and random state before supporting resumable
-  fights. Saving only the existing story trigger cannot restore a mid-fight turn.
+- `SaveSnapshot.tacticalCombat` stores a versioned encoded checkpoint. Accepted
+  actions persist positions, HP, guard state, order, budget, round and RNG before
+  presentation. Relaunch resumes at the accepted endpoint, including if the app
+  closed during walking or hit feedback. Completion and checkpoint removal share
+  the story transaction. Legacy saves default to no active encounter.
 
-## First playable encounter
+## Playable encounter scope
 
-Proposed scope: one Wharf Ladder crew encounter with initiative, movement,
-basic attack, a defined defensive action, end turn, simple enemy decisions and
-nonlethal victory/defeat feeding the existing aftermath. Party membership and
-Lila's presence need encounter authoring; her available appearance does not by
-itself make her a staged combatant.
+Initial scope: the existing Wharf Ladder crew encounters with initiative, movement,
+nonlethal strike, defend (+4 defence until the actor's next turn), end turn,
+yield, enemy decisions and victory/defeat feeding the existing aftermath. Voss
+is the playable combatant; Lila is not added to a scene that does not stage her.
+Each brawl starts with 12 HP for Voss and 7 for each hand. Equipment contributes
+its existing defence bonus. Strikes use a d20 plus attack bonus against ascending
+defence, natural 1 misses and natural 20 hits, with no critical multiplier.
+Voss's nonlethal damage is 3–5, the crew's 1–3. Weapons, ammunition, spellcasting,
+opportunity attacks and party control are not implemented by this brawl slice.
+A first-blow opening adds 20 initiative; rattled opponents use attack bonus 0
+instead of 2. These are authored RainShadow adaptations, not TemplePlus fidelity
+claims. HP is the current brawl's endurance and resets for the next encounter.
+
+Movement measures the accepted navigation path with y divided by the existing
+0.75 projection scale. The authored combat conversion is 8 world units per foot;
+one normal move grants 240 units (30 feet), and two moves consume the standard
+action as the TemplePlus table specifies. Encumbrance reduces that allowance.
+The initial centre-to-centre melee reach is 105 world units to accommodate the
+existing occupancy footprints. All rules stay separate from the GemRB movement
+implementation.
 
 The current `CharacterBodyCode.frameCount` explicitly rejects attack, hit and
-death, and equipment advertises idle/walk support only. A rules prototype may
-use clearly provisional targeting and text feedback. A finished encounter needs
+death, and equipment advertises idle/walk support only. This playable prototype
+uses facing changes, impact rings, damage/miss labels and a combat log. Knocked-out
+opponents leave the scene and occupancy; it does not pretend to have strike or
+falling animation strips. A finished encounter needs
 approved combat presentation and synchronized equipment support while preserving
 VossCHMF, LilaSentinel and their payload authorities. Do not substitute historical
 atlases to obtain missing poses.
@@ -89,3 +109,35 @@ licensing question remains recorded in `NavigationOpenQuestions.md`.
 
 Related: [Wharf Ladder story combat](WharfLadderStoryCombatOct05.md) and
 [character runtime recovery](CharacterRuntimeRecoveryOct05.md).
+
+
+## Playing and verification
+
+Open `Play Combat.command` for the shipping-office entrance with an isolated,
+persistent playtest save. Open the painted door, click the opening and choose a
+dialogue reply. The same combat is enabled through normal city travel.
+Click ground to move, click an opponent to strike, use Defend or 1, End Turn or
+Enter, and Yield or 3. Space pauses. A cyan/red mouse path preview shows whether
+the requested route fits the remaining allowance. Inventory, travel and dialogue
+choices cannot interrupt an active action. On touch devices, use the visible
+buttons; no keyboard is required.
+
+Core verification uses `TacticalCombatTests`, `WharfLadderStoryTests` and
+`SaveStoreTests`. Live macOS verification uses `RAINSHADOW_QA_COMBAT=<output path>`
+with a disposable save and fixed seed; read its `report.json`. The older
+`RAINSHADOW_QA_WHARF` harness explicitly retains the historical cinematic branch
+in DEBUG builds, so it remains a story-contract regression rather than claiming
+to test the playable battle. Production encounters always use played combat.
+
+Verified October 6, 2026:
+
+- 32 tests passed across `TacticalCombatTests`, `WharfLadderStoryTests` and
+  `SaveStoreTests` using the macOS SwiftPM package.
+- macOS Debug and iOS Simulator Debug builds passed. The complete TemplePlus
+  MIT notice was verified in both built app bundles.
+- The live macOS harness passed all 24 checks, covering actual movement and
+  attack input, advancing enemy walk frames, pause/input gating, identical
+  save/resume state, and all four encounters with their authored aftermath.
+  Report: `output/combat-qa-verified/report.json`; screenshots are beside it.
+- The gate and clock-room screenshots were visually reviewed. The iOS build
+  was compiled but has not been exercised on a simulator or physical device.

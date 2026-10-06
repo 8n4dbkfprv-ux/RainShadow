@@ -9,6 +9,8 @@ final class WharfLadderDirector {
     private var resolving: WharfLadderStory.Encounter?
     private var walkingIntoRoom = false
     private var crew: [CharacterAppearanceNode] = []
+    private(set) var combatDirector: TacticalCombatDirector?
+    var isCombatActive: Bool { combatDirector != nil }
     private(set) var isActive = false
     private(set) var cinematicMode = false
     private var state: CaseState { scene.context.session.caseState }
@@ -24,6 +26,13 @@ final class WharfLadderDirector {
         scene.detective.cancelMovement()
         scene.setCameraScroll(.zero)
         scene.context.session.updateWharfStory { state, _ in WharfLadderStory.beginVisit(&state) }
+        if let saved = scene.context.session.tacticalCombat, saved.areaID == scene.area.id.rawValue,
+           let encounter = WharfLadderStory.Encounter(rawValue: saved.encounterID) {
+            let opponents = saved.actors.filter { !$0.player }.sorted { $0.id < $1.id }
+            stageCrew(count: opponents.count, clerk: false, restoredPoints: opponents.map(\.position))
+            beginCombat(encounter, restored: saved)
+            return
+        }
         if scene.area.id == WharfLadderStory.interior,
            let target = scene.navigation.nearestWalkablePoint(to: CGPoint(x: scene.area.worldBounds.midX, y: scene.area.worldBounds.midY)),
            scene.navigation.occupancy.withStampLifted(id: scene.detective.cutsceneNavigationID, {
@@ -78,8 +87,46 @@ final class WharfLadderDirector {
             showAftermath(encounter)
             return
         }
-        resolving = encounter
-        scene.cutsceneDirector.play(WharfLadderStory.cinematic(for: encounter), on: scene)
+        beginCombat(encounter)
+    }
+
+    private func beginCombat(_ encounter: WharfLadderStory.Encounter, restored: TacticalCombat? = nil) {
+        // Story-only harness remains an explicit debug compatibility mode.
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_WHARF"] != nil {
+            resolving = encounter
+            scene.cutsceneDirector.play(WharfLadderStory.cinematic(for: encounter), on: scene)
+            return
+        }
+        #endif
+        guard !crew.isEmpty else { assertionFailure("Combat has no staged opponents"); return }
+        let openingBonus = state.hasFlag(encounter.prefix + ".opening.firstBlow") ? 20 : 0
+        let rattled = state.hasFlag(encounter.prefix + ".opening.rattled")
+        var actors = [Combatant(id: TacticalCombat.playerID, name: "Voss", player: true,
+            position: scene.detective.position.rounded, hp: 12, maximumHP: 12,
+            defence: 12 + scene.context.session.defenceBonus, attackBonus: 5,
+            damageMin: 3, damageMax: 5, initiativeBonus: 3 + openingBonus,
+            speed: scene.detective.movementProfile.effectiveMoveScale == nil ? 0 :
+                240 * Double((scene.detective.movementProfile.effectiveMoveScale ?? 9) / 9))]
+        actors += crew.enumerated().map { index, node in
+            Combatant(id: node.definition.id, name: "Hand \(index + 1)", player: false,
+                      position: node.position.rounded, hp: 7, maximumHP: 7,
+                      defence: 11, attackBonus: rattled ? 0 : 2, damageMin: 1, damageMax: 3,
+                      initiativeBonus: 1)
+        }
+        var seed = UInt64.random(in: 1...UInt64.max)
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil { seed = 42 }
+        #endif
+        let model = restored ?? TacticalCombat(encounterID: encounter.rawValue, areaID: scene.area.id.rawValue,
+            actors: actors, seed: seed)
+        scene.pause.clearPlayerPause()
+        combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew) { [weak self] in
+            guard let self else { return }
+            self.combatDirector = nil
+            self.showAftermath(encounter)
+        }
+        scene.overlayPresentationDidChange()
     }
 
     func cutsceneCompleted() {
@@ -150,9 +197,9 @@ final class WharfLadderDirector {
         crew.removeAll()
     }
 
-    private func stageCrew(count: Int, clerk: Bool) {
+    private func stageCrew(count: Int, clerk: Bool, restoredPoints: [CGPoint]? = nil) {
         clearCrew()
-        let points = WharfLadderStaging.positions(near: scene.detective.position, count: count, navigation: scene.navigation,
+        let points = restoredPoints ?? WharfLadderStaging.positions(near: scene.detective.position, count: count, navigation: scene.navigation,
                                                    ignoringActorID: scene.detective.cutsceneNavigationID)
         for (index, point) in points.enumerated() {
             var definition = CharacterDefinition.bandit
@@ -175,11 +222,16 @@ final class WharfLadderDirector {
 
     func update(at time: TimeInterval) {
         for actor in crew {
-            do { try actor.advance(action: .idle, facing: actor.currentFacing, at: time, paused: scene.pause.isPaused) }
+            do {
+                if combatDirector?.isWalking(actor.definition.id) != true {
+                    try actor.advance(action: .idle, facing: actor.currentFacing, at: time, paused: scene.pause.isPaused)
+                }
+            }
             catch { assertionFailure("Wharf Ladder crew animation: \(error)") }
             scene.applyAreaLighting(to: actor)
             scene.updateDepth(of: actor)
             scene.applyActorCover(to: actor, at: actor.position)
         }
+        combatDirector?.update(at: time)
     }
 }

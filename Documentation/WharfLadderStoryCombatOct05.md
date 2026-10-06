@@ -6,7 +6,10 @@ combat: no attack simulation or attack/hit animation is added.
 
 October 6: TemplePlus was selected as the source for the future Swift combat
 adaptation. See [the source audit and integration plan](TemplePlusCombatOct06.md).
-The current Story combat runtime remains in place.
+October 6 implementation: normal play now dispatches the tactical encounters
+and commits explicit outcomes. The cinematic-only behavior described below is
+historical and remains available to the `RAINSHADOW_QA_WHARF` DEBUG regression
+harness. See the linked plan for controls, persistence and current limitations.
 
 ## Playing the sequence
 

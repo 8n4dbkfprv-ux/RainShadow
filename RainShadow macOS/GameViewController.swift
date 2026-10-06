@@ -14,7 +14,8 @@ class GameViewController: NSViewController {
         super.viewDidLoad()
         let skView = self.view as! SKView
         #if DEBUG
-        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_WHARF"] != nil
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil
+            || ProcessInfo.processInfo.environment["RAINSHADOW_QA_WHARF"] != nil
             || ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"] != nil
             || ProcessInfo.processInfo.environment["RAINSHADOW_QA_CINEMATIC_CHARACTERS"] != nil { return }
         #endif
@@ -28,6 +29,10 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"], let skView = view as? SKView {
+            Task { @MainActor in await TacticalCombatQA.run(in: skView, output: URL(fileURLWithPath: output)) }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_WHARF"], let skView = view as? SKView {
             Task { @MainActor in await WharfLadderQA.run(in: skView, output: URL(fileURLWithPath: output)) }
             return

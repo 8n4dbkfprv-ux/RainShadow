@@ -18,6 +18,13 @@ Lamp Ward and the Lamphouse are connected to normal city travel. For direct macO
 
 Voss uses the current Baldur’s Gate reference character in every area, including his explicit southwest seated poses. See [the character authority and regression checks](Documentation/VossCurrentRuntime.md).
 
+Playable nonlethal Wharf Ladder combat is available through normal city travel.
+For direct access, open [Play Combat.command](Play%20Combat.command); it uses a
+separate persistent save at the shipping-office entrance. Click the ground to
+move, click an opponent to strike, and use Defend, End Turn or Yield. See the
+[TemplePlus combat integration](Documentation/TemplePlusCombatOct06.md) for scope
+and verification.
+
 ## Verification
 
 ```sh

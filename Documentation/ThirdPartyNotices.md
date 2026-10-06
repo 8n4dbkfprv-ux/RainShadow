@@ -262,3 +262,21 @@ project has not yet chosen a licence of its own.
 Behaviour, algorithms and engine constants are not themselves copyrightable;
 expression is. The files listed above copy expression, which is why they are
 listed.
+
+## TemplePlus combat action budget
+
+`Gameplay/Navigation/TacticalCombat.swift` adapts the action-budget transition
+matrix and lookup from `ActionSequenceSystem` / `GetHourglassTransition`, and the
+copy-before-commit approach of `TurnBasedStatusUpdate`, in
+[TemplePlus action_sequence.cpp](https://github.com/GrognardsFromHell/TemplePlus/blob/03d7204510bc8401c67c59b3e4e23b6eefb087d0/TemplePlus/action_sequence.cpp).
+The pinned upstream revision is `03d7204510bc8401c67c59b3e4e23b6eefb087d0`.
+Copyright (c) 2015 Circle of Eight. Licensed under MIT; the full notice is retained
+in [Licenses/TemplePlus.txt](Licenses/TemplePlus.txt) and bundled as
+`Resources/Licenses/TemplePlus.txt` in both app targets.
+
+The combatant model, deterministic random generator, ascending-defence brawl
+rules, navigation adapter, enemy decisions, persistence and SpriteKit presentation
+are RainShadow adaptations. Initiative follows the d20-plus-modifier structure
+observed in upstream `turn_based.cpp`; stable actor IDs replace the original
+engine's final tie arbitration. No Temple of Elemental Evil binary or game assets
+are included. This addition does not change the existing GemRB provenance above.

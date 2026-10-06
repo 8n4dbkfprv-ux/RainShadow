@@ -108,6 +108,11 @@ final class SceneRouter {
         // RAINSHADOW_START_ENTRANCE=from.city lands at the street door instead of
         // the default start, so an entrance can be reviewed in the real app.
         pendingEntrance = ProcessInfo.processInfo.environment["RAINSHADOW_START_ENTRANCE"]
+        if let combat = context.session.tacticalCombat, let kind = AreaSceneKind(AreaID(combat.areaID)) {
+            if case .district(let district) = kind { context.session.setCurrentCityDistrict(district) }
+            present(kind, transition: nil)
+            return
+        }
         #if DEBUG
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender" {
             isSableBlenderPlaytest = true
@@ -132,7 +137,8 @@ final class SceneRouter {
             context.session.markOpeningSeen()
             context.session.markCityTravelOpen()
             #if DEBUG
-            if ProcessInfo.processInfo.environment["RAINSHADOW_CITY_PLAYTEST"] == "1" {
+            if ProcessInfo.processInfo.environment["RAINSHADOW_CITY_PLAYTEST"] == "1"
+                || ProcessInfo.processInfo.environment["RAINSHADOW_COMBAT_PLAYTEST"] == "1" {
                 context.session.markOfficeCaseIntroCompleted()
             }
             #endif

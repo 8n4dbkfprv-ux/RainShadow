@@ -13,6 +13,7 @@ final class GameSession {
     private(set) var inspectedHotspotIDs: Set<String>
     /// Dialogue/case flags and queued journal fragments (flags persist in save).
     private(set) var caseState: CaseState
+    private(set) var tacticalCombat: TacticalCombat?
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
     /// Area-scoped variables, the way Baldur's Gate keeps them in the `.ARE`.
@@ -87,6 +88,12 @@ final class GameSession {
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
         let snapshot = saveStore.load()
+        if let data = snapshot.tacticalCombat,
+           let combat = try? JSONDecoder().decode(TacticalCombat.self, from: data), combat.isValid,
+           WharfLadderStory.Encounter(rawValue: combat.encounterID) != nil,
+           [WharfLadderStory.exterior.rawValue, WharfLadderStory.interior.rawValue].contains(combat.areaID) {
+            tacticalCombat = combat
+        }
         hasSeenOpening = snapshot.hasSeenOpening
         hasSeenOfficeHint = snapshot.hasSeenOfficeHint
         hasCompletedOfficeCaseIntro = snapshot.hasCompletedOfficeCaseIntro
@@ -188,6 +195,21 @@ final class GameSession {
     func updateWharfStory(_ update: (inout CaseState, inout Int) -> Void) {
         update(&caseState, &walletPence)
         caseState.setCounter("wallet.pence", to: walletPence)
+        persist()
+    }
+
+    func checkpointCombat(_ combat: TacticalCombat) {
+        precondition(combat.isValid)
+        tacticalCombat = combat
+        persist()
+    }
+
+    /// Completion and checkpoint removal share one save transaction.
+    func finishCombat(_ combat: TacticalCombat) {
+        guard let result = combat.outcome,
+              let encounter = WharfLadderStory.Encounter(rawValue: combat.encounterID) else { return }
+        WharfLadderStory.resolve(encounter, outcome: result == .won ? .won : .lost, in: &caseState)
+        tacticalCombat = nil
         persist()
     }
 
@@ -688,6 +710,7 @@ final class GameSession {
         fogPersistTask?.cancel()
         fogPersistTask = nil
         saveStore.save(SaveSnapshot(
+            tacticalCombat: tacticalCombat.flatMap { try? JSONEncoder().encode($0) },
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,
             hasCompletedOfficeCaseIntro: hasCompletedOfficeCaseIntro,
@@ -851,7 +874,9 @@ final class GameContext {
     init() {
         #if DEBUG
         let saveStore = SaveStore(key:
-            ProcessInfo.processInfo.environment["RAINSHADOW_UI_REVIEW"] == "1"
+            ProcessInfo.processInfo.environment["RAINSHADOW_COMBAT_PLAYTEST"] == "1"
+            ? "RainShadow.Save.TemplePlusCombat.Oct06"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_UI_REVIEW"] == "1"
             ? "RainShadow.QA.UIRecovery.Oct05"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_WEAPON"] != nil
             ? "RainShadow.QA.Weapon.Bootstrap"

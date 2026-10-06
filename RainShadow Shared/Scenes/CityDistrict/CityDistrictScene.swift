@@ -9,6 +9,7 @@ import AppKit
 @MainActor
 final class CityDistrictScene: GameAreaScene, CutsceneStage {
     private lazy var wharfStory = WharfLadderDirector(scene: self)
+    var combatDirector: TacticalCombatDirector? { wharfStory.combatDirector }
     private var storyOwnsInput: Bool { wharfStory.isActive }
     override var chromeIsSuppressedByScene: Bool { wharfStory.cinematicMode }
 
@@ -131,7 +132,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         // A save loaded with a heavy bag must walk heavy from the first step, not
         // from the first pickup.
         syncDetectiveEncumbrance()
-        if area.id == WharfLadderStory.interior { wharfStory.start() }
+        if area.id == WharfLadderStory.interior || context.session.tacticalCombat?.areaID == area.id.rawValue { wharfStory.start() }
         guard !hasShownArrivalHint, !storyOwnsInput else { return }
         hasShownArrivalHint = true
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
@@ -152,6 +153,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
+        if combatDirector != nil { return }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.handlePointerDown(at: dialoguePanelPoint(for: event.location)) }
             return
@@ -165,6 +167,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
+        if combatDirector != nil { return }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.handlePointerDragged(at: dialoguePanelPoint(for: event.location)) }
             return
@@ -181,6 +184,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
+        if let combatDirector { combatDirector.pointer(at: event.location); return }
         if storyOwnsInput {
             if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
             else if dialogueIsActive {
@@ -312,6 +316,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
+        if let combatDirector { combatDirector.hover(at: event.location); return }
         if storyOwnsInput {
             setCameraScroll(.zero)
             if dialogueIsActive { _ = dialoguePresenter.updatePointer(at: dialoguePanelPoint(for: event.location)) }
@@ -400,6 +405,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     #endif
 
     override func handleTacticalPauseInput() {
+        if combatDirector != nil { pause.togglePlayerPause(); overlayPresentationDidChange(); return }
         if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         pause.togglePlayerPause()
         actionBar.setClockPaused(pause.isPausedByPlayer)
@@ -462,6 +468,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleConfirmInput() {
+        if let combatDirector { combatDirector.command(2); return }
         if storyOwnsInput {
             if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
             else if dialogueIsActive { dialoguePresenter.activateCommandControl() }
@@ -479,12 +486,14 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleDialogueChoiceDigit(_ digit: Int) {
+        if let combatDirector { combatDirector.command(digit); return }
         guard dialogueIsActive, !cutsceneDirector.isPlaying else { return }
         dialoguePresenter.selectChoice(at: digit - 1)
     }
 
     override func layoutViewport() {
         super.layoutViewport()
+        combatDirector?.layout()
         // Same contract as the office: chrome uses post-sync `size` (live view points).
         let hudViewportSize = size
         dialoguePresenter.layout(for: hudViewportSize)
@@ -497,9 +506,20 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         updateCameraPosition()
     }
 
+    // Combat owns encounter progression until its outcome transaction finishes.
+    override func tickAreaScript(inside: Set<String>) {
+        guard combatDirector == nil else { return }
+        super.tickAreaScript(inside: inside)
+    }
+
+    override func tickProximityTriggers(at point: CGPoint) {
+        guard combatDirector == nil else { return }
+        super.tickProximityTriggers(at: point)
+    }
+
     override func update(_ currentTime: TimeInterval) {
         cutsceneDirector.update(currentTime)
-        pause.setModal(dialogue: dialogueIsActive && !wharfStory.cinematicMode, overlay: anyOverlayIsPresented)
+        pause.setModal(dialogue: dialogueIsActive && !wharfStory.cinematicMode && !wharfStory.isCombatActive, overlay: anyOverlayIsPresented)
         wharfStory.update(at: currentTime)
         detective.groundCircleState.isCutscene = wharfStory.cinematicMode
         tickAreaSystems(listenerAt: detective.position, currentTime: currentTime)
@@ -518,11 +538,11 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
                 position: detective.position,
                 isMoving: detective.movementDestination != nil
             )
-            performCorrectiveRepathIfNeeded(at: currentTime)
+            if !wharfStory.isCombatActive { performCorrectiveRepathIfNeeded(at: currentTime) }
         }
         finishAreaTick(at: detective.position)
         portraitBar.setHealth(
-            current: context.session.currentHealth,
+            current: combatDirector?.combat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
             maximum: context.session.maximumHealth
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
@@ -538,7 +558,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
 
     private func buildHud() {
         portraitBar.setHealth(
-            current: context.session.currentHealth,
+            current: combatDirector?.combat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
             maximum: context.session.maximumHealth,
             animated: false
         )
