@@ -141,3 +141,57 @@ Verified October 6, 2026:
   Report: `output/combat-qa-verified/report.json`; screenshots are beside it.
 - The gate and clock-room screenshots were visually reviewed. The iOS build
   was compiled but has not been exercised on a simulator or physical device.
+
+
+## Sneak Attack — October 7
+
+Voss starts with a configurable 1d6 Sneak Attack ability. It adds damage to a
+successful shortsword or bow attack when the attacker has net advantage, or a
+conscious ally is within the game's melee reach of the target with an unblocked
+line. Net disadvantage prevents it; opposing advantage/disadvantage cancel.
+The roll uses two d20s and keeps the higher/lower result when appropriate.
+Natural twenties roll twice the Sneak Attack dice; the existing base weapon
+flat damage bands remain unchanged. Techniques can also receive the damage
+bonus, after their normal damage adjustment. Ordinary enemies do not get the
+ability; an authored `Combatant.sneakDice` opts them in (0–6 dice).
+
+The bonus is spent only on a hit and refreshes when that actor ends its turn.
+A miss still spends the normal attack action and reveals the attacker. There
+is no extra-attack or opportunity-reaction system in the current combat model.
+The explicit **Sneak attack** button refuses an ineligible target without
+spending actions or rolls. It selects the shortsword at melee distance and the
+bow at range. Explicit Sneak Shots use ordinary arrows; Fire arrow remains
+fiery and can also gain the bonus against creatures. Barrels never receive it.
+Bonus damage is saved atomically with the attack and displayed at its existing
+impact marker, with a purple flash and a separate bonus label.
+
+**Hide** uses one dedicated cunning-action allowance per actor turn, leaving
+the TemplePlus standard/move budget unchanged. This is a RainShadow adaptation:
+we have no rogue class progression, general bonus-action economy, perception
+checks, darkvision or light-dependent stealth. Hide succeeds outside hostile
+120-degree sight cones, or behind opaque terrain. It gives attack advantage
+until attacking, taking damage, transforming or entering enemy sight reveals
+the character. Movement checks the entire certified route for exposure,
+including an enemy moving past a hidden actor. Sight queries use the existing
+SearchMap adapter; no navigation/rendering port was changed. Red sight previews
+are terrain-clipped and appear when Hide or Sneak attack is selected.
+
+Hidden state, the Hide allowance, spent Sneak Attack, last seen position and
+combat facing survive save/load. Older saves default safely. Enemies turn and
+search toward the last seen location, revealing Voss if they regain sight.
+They cannot directly attack a target that remains hidden. Existing weapon and
+character animation bundles are reused without asset changes.
+
+Reference rules: [BG3 Sneak Attack](https://bg3.wiki/wiki/Sneak_Attack_(Melee))
+and [Hide](https://bg3.wiki/wiki/Hide). This is the scoped adaptation above,
+not a claim of complete BG3 or TemplePlus stealth-rule parity.
+
+Verification: 74 combat, bear, barrel, weapon-animation and Sneak Attack core
+tests passed, including 10 Sneak Attack tests. macOS Debug and iOS Simulator
+Debug builds passed. The live macOS Sneak Attack harness passed 40 checks in
+`output/sneak-attack-qa/report.json`, covering both weapons, pointer input,
+ineligible actions, sight-cone traversal, enemy search, impact timing and
+save/reload. Melee impact, bow impact, blocked Hide and movement-exposure
+captures were visually reviewed. iOS was compiled, not interactively exercised.
+The existing player/enemy weapon-technique playtest also passed all 160 checks
+in `output/sneak-technique-regression-qa/report.json` after the change.

@@ -81,3 +81,188 @@ match all four installed hashes on both platforms. iOS was compiled, not played.
 Live reports and captures are in `output/melee-combat-qa` and
 `output/melee-barrel-qa`; the animation preview is
 `output/melee-animation-preview.gif`.
+
+## Sword swing trail
+
+Sword attacks now draw a short pale blade trail during the cut. `SwordSwingPath`
+stores blade-base and blade-tip positions sampled from the accepted Blender
+action (`ArtSource/Blender/MeleeOct07/blade_trail_poses.json`). It projects those
+positions with the same camera and density as the melee sprites in all sixteen
+facings. The leading edge stays on the displayed animation frame; interpolation
+only fills the path behind it.
+
+`MeleeSwingTrail` shows phases 4–7, retains up to 2.2 frames of tapered history,
+then fades over 0.12 seconds. Its cached texture is an independent `IEAvatarNode`
+behind the body and equipment, using the existing actor lighting and per-layer
+wall stencil in both rendering paths. No renderer or shader behavior changes.
+The combat presentation clock controls the trail and its fade, so pausing freezes
+both. Recovery detaches the layer. Sword misses also sweep; unarmed attacks do
+not. The same presentation serves player and enemy sword attacks.
+
+Trail verification: all **3 melee core tests and 103 live checks pass**, including
+pause, impact visibility, equipment selection, fading and removal. macOS Debug
+and iOS Simulator Debug builds pass; iOS was compiled, not played. In-game impact
+captures and the armor close-up were visually inspected. Report and captures:
+`output/swing-combat-qa/`.
+
+## Situational weapon techniques
+
+The combat bar adds four techniques for players and enemies. Select a button
+or its number, then select a rival. The same button, Escape or clear-targeting
+input cancels without spending an action. The description shows the tradeoff
+before targeting; spent techniques stay visible. Buttons reflow on narrow views.
+
+| Key | Technique | Rule |
+| --- | --- | --- |
+| 6 | Power strike | Sword, standard action; −3 to the attack roll, +3 damage on hit. |
+| 7 | Feinting cut | Sword, standard action; half damage, minimum 1 on hit; weakens the survivor for −3 accuracy through the end of their next turn. |
+| 8 | Aimed shot | Bow, full-round action before any movement; +4 to the attack roll, normal damage, no movement left. |
+| 9 | Pinning shot | Bow, standard action; half damage, minimum 1 on hit; halves the survivor's movement allowance through the end of their next turn. |
+
+Each technique has one use per actor per encounter, consumed even on a miss.
+Invalid targets, blocked lines, wrong equipment, insufficient actions and Bear
+Form reject without consuming the use, budget or random state. Ordinary attacks
+remain available on later turns. Sword techniques require the readied sword;
+the existing player bow animation still requires unarmored human form. Techniques
+target combatants, while Fire arrow [5] retains barrel ignition and chain blasts.
+
+Enemy selection uses current hit chance, target health, distance and existing
+conditions. Power strike is reserved for healthy targets with a high hit chance;
+feinting cut weakens a surviving threat. Aimed shot helps against difficult
+targets when the whole turn remains, while pinning shot slows a healthy target
+within closing distance. Enemies avoid repeating an existing condition and use
+ordinary damage for likely finishing blows. Safe barrel opportunities retain
+priority. Approach and firing-position budgets now account for Slowed using the
+existing SearchMap-based navigation adapter.
+
+`TacticalCombat` owns the rules and deterministic selection. Optional actor
+fields preserve old checkpoints; spent uses and conditions are saved atomically
+with damage. Status labels and combat logs reveal the accepted result at the
+existing impact marker. The authored sword/bow clips and sword trail are reused;
+pinning arrows land lower and both bow techniques use ordinary, unlit arrows.
+TemplePlus action transitions and the GemRB navigation/rendering ports are
+unchanged.
+
+Core verification covers technique tradeoffs, natural rolls, failed-action
+atomicity, costs, equipment, misses, condition expiry, save/reload, legacy
+checkpoints and enemy choices, plus existing combat/bear/bow/barrel regressions.
+Run the live controls and AI harness with `RAINSHADOW_QA_MANEUVERS_ONLY=1` and
+`RAINSHADOW_QA_COMBAT=<output-directory>`. Captures and report live in
+`output/weapon-techniques-qa/`.
+
+Final technique verification: **59 core tests and 100 live checks passed**.
+Both macOS Debug and iOS Simulator Debug builds pass. Standard and compact
+targeting layouts and impact captures were visually reviewed; iOS was compiled,
+not played.
+
+## Distinct technique motion
+
+Power Strike and Feinting Cut now use additive, authored body/sword/mail/helmet
+layers in `HumanTechniques*`. Power Strike has 14 frames at 15 fps, with impact
+at phase 8 and a higher wind-up. Feinting Cut has 13 frames at 18 fps: a false
+start, return, then a lower cut, with impact at phase 8. Their blade trails use
+separately sampled blade paths and remain aligned to the displayed frame.
+
+Aimed Shot holds the approved fully drawn bow pose (phase 9) for an extra 0.4
+seconds. Release, flight and recovery all follow that later marker. Pinning
+Shot uses the separate `HumanPinningShot` clip: the approved bow action's upper
+body, bow and arrow tilt together by up to 0.22 radians around the torso. Its
+projectile origin is sampled from the lowered pose, and its destination remains
+at leg height. Existing wrist/hand relationships and bow-string animation are
+preserved; original character and equipment geometry is unchanged.
+
+Surviving targets receive a brief, procedural recoil of their registered visual
+layers around the foot pivot. Power Strike has a stronger, longer stagger.
+These are cosmetic reactions, not movement or a new skeletal hit clip: the
+combat/navigation position, selection ring and health label stay fixed. The
+combat clock samples the reaction, freezes it on pause, clears it at recovery,
+and keeps the turn locked until it settles. Misses and knockouts do not flinch.
+
+Authoring lives in `ArtSource/Blender/TechniquesOct07/`: incremental backup,
+separate melee and pinning `.blend` scenes, retained pose/render recipes,
+`pose_metrics.json`, `blade_paths.json`, renders, review sheets and staged indexed
+bundles. `package_weapon_techniques.py` validates and packages all 16 directions
+with the established density, palette calibration, foot registration and resting
+shadows. It installs only the new bundle names. `WeaponTechniqueAnimationSet`
+pins the resulting hashes; `WeaponTechniqueMotion` owns presentation markers.
+
+Blender rendering must evaluate the owning scene explicitly before every frame.
+A render called with a different active scene can update the body while leaving
+bone-parented equipment transforms stale. The corrected recipe switches to its
+scene and updates its view layer. Geometry stays hidden from viewport evaluation
+during batch renders, as in the original melee pipeline.
+
+The remaining views use temporary evaluated-mesh caches for each pose, keeping
+all armature, corrective-smooth and bevel results. The caches are discarded at
+pose/material changes. A comparison against the uncached helmet pass measured
+1.000 silhouette IoU and 0.35/255 mean absolute channel difference; the small
+shading variation is from Cycles sampling. Rendering a bounded group of views
+per timer callback also avoids repeating expensive Blender UI redraws. No
+source mesh or modifier is removed or simplified.
+
+Pinning's retained recipe sets transparent RGBA output explicitly. Its material
+mask uses the same four coverage samples as the neutral pass, avoiding a
+silhouette mismatch on the thin bow at the lower intermediate resolution.
+The approved bow's procedural arrow visibility is baked into the new scene:
+frames 11–16 hide the nocked arrow after release, then restore its resting
+state. `Pinning_Authored_Final.blend` is the final authority. Packaging rejects
+opaque backgrounds, clipped frames and mismatched neutral/material silhouettes.
+
+Final animation verification: **64 core tests and 160 live checks passed**.
+Both macOS Debug and iOS Simulator Debug builds pass, and both apps contain
+the five exact approved payloads. The live checks cover all four moves for
+player and enemy, pause, release/impact timing, visible recoil, neutral recovery,
+and save/load. In-game captures are in `output/weapon-technique-motion-qa/`;
+the combined animation preview is `output/weapon-technique-motion-preview.gif`.
+iOS was compiled, not played.
+
+| Technique bundle | SHA-256 |
+|---|---|
+| `HumanTechniques` | `36e2bfffb342fbc363ec7562cb9550a00f703fcb9a22ef48defdb850d2f26e96` |
+| `HumanTechniquesSword` | `025842c2c0b42f2baf59b4e41b0eadc643037faa626e19e6864f0f1b763e1e65` |
+| `HumanTechniquesMail` | `75a0a2c533046414efd33c3e4d8213f582f5ed1827441c680a40d6521b062f3a` |
+| `HumanTechniquesHelmet` | `6716748cf6a36564ad5ea39b0446c71487bf0fab0b64db7ccededc2f98eeeb40` |
+| `HumanPinningShot` | `313713687a53ebc2968667e2f3aa3bb055570f00d525232ba938d73e4ebb56dd` |
+
+## Sword motion refinement — October 7
+
+The normal cut, Power Strike and Feinting Cut were re-authored together after
+review of their stiff, mostly vertical arm motion. The normal cut now crosses
+from the weapon-side high guard into an opposite-side follow-through. Power
+Strike uses a higher chamber, a brief load and stronger forward weight transfer.
+Feinting Cut first threatens high, retracts into a low chamber and cuts across;
+it no longer repeats the same wind-up backwards. The free hand stays near the
+chest. Hip rotation leads the torso, with a small pelvis shift and knee flexion;
+the existing foot IK keeps the soles planted. No actor/navigation displacement
+is used to fake the weight shift.
+
+The new arm solver rotates segments toward their goals without switching the
+elbow's roll axis. Forearm pronation is bounded, the hand retains its neutral
+relationship to the forearm, and all 39 authored poses have wrist gaps below
+0.000001 model units. Exact resting-pose keys bookend every clip. Meshes, UVs,
+body proportions, rig structure, gear attachment and material calibration are
+unchanged. Armor and helmet are rendered with the same pose as the body.
+
+The reviewed authority is `ArtSource/Blender/SwordRefinementOct07/`:
+`Sword_Before.blend`, `Sword_Authored.blend`, `Sword_Pose_Source.py`, the retained
+MCP render recipe, pose measurements, blade paths, all-direction reviews and
+staged bundles. `package_sword_refinement.py` packages the eight revised
+`HumanMelee*`/`HumanTechniques*` layers; `PreviousRuntime/` keeps their prior
+installed versions. Approved VossCHMF/LilaSentinel, bow and Pinning Shot bundles
+are preserved. The normal unarmed action shares the body motion as before.
+
+Frame counts, playback rates and damage markers remain compatible with existing
+combat and save behavior. The sword trail is re-sampled from the new actions,
+starts only during the cut, and retains 1.3 frames of history instead of 2.2.
+This keeps it close to the moving blade. Updated hashes in the runtime animation
+sets are the current authority; earlier hash tables above document prior art.
+
+Refinement validation: all 48 clip/direction inventories pass, with exact
+neutral/material silhouette agreement (IoU 1.0). All 74 focused core tests
+pass. macOS Debug and iOS Simulator Debug builds pass, and each contains all
+eight pinned payloads. The normal-melee live harness passes 103 checks in
+`output/sword-refinement-melee-qa/report.json`. Front/side/rear sprite sheets
+and the armored in-game impact were visually reviewed. iOS was compiled,
+not interactively played. Preview: `output/sword-refinement-preview.gif`.
+The player/enemy technique harness also passes all 160 checks in
+`output/sword-refinement-technique-qa/report.json` (263 live checks total).

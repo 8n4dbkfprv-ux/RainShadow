@@ -34,4 +34,22 @@ struct MeleeAttackTests {
         #expect(MeleeAttackAnimationSet.equipment(.elvenCourtArrow) == nil)
         #expect(MeleeAttackAnimationSet.equipment(.lanternShortsword) != nil)
     }
+    @Test func swordTrailUsesTheAuthoredSwingAndTheSameProjectionInEveryFacing() {
+        let density = (1024 / 1.72 * 0.07465790639916813) * (140.625 / 128)
+        let windup = SwordSwingPath.blade(phase: 3, facing: .south)
+        #expect(abs(windup.tip.x - (-0.56518388 * density)) < 0.00001)
+        for facing in ActorFacing.allCases {
+            for step in 0...44 {
+                let phase = Double(step) / 4
+                let blade = SwordSwingPath.blade(phase: phase, facing: facing)
+                #expect(blade.base.x.isFinite && blade.base.y.isFinite && blade.tip.x.isFinite && blade.tip.y.isFinite)
+                #expect(abs(blade.tip.x) < 80 && abs(blade.tip.y) < 105)
+            }
+            let start = SwordSwingPath.blade(phase: 0, facing: facing)
+            let end = SwordSwingPath.blade(phase: 11, facing: facing)
+            #expect(start.base == end.base && start.tip == end.tip)
+        }
+        #expect(SwordSwingPath.endPhase / MeleeAttackAnimationSet.framesPerSecond
+                + SwordSwingPath.fadeDuration < MeleeAttackAnimationSet.recoveryTime)
+    }
 }

@@ -43,6 +43,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// `EA_PC` and selected from the start (GemRB `Game::SelectActor`); there is
     /// no second party member to hand the selection to yet.
     var groundCircleState = GroundCircleState(enmity: .pc, isPC: true, isSelected: true)
+    /// Equipment is parented to the body and inherits this cosmetic lean.
+    func setCombatRecoil(_ angle: CGFloat) { body.zRotation = angle }
+
     /// Standing, transition, and full chairless seated body.
     private let body: IEAvatarNode
     private let weapon = IEAvatarNode(frame: nil)

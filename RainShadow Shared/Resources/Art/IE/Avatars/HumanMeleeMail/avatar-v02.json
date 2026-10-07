@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanMeleeMail",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "50ca546fd80d455736f68d3986dd2c9142338ead322c6259dfcce9db2e076bf0",
+  "blob_sha256": "7c19e91c1ce6229f775089f3dd66d62ff482cfc4e585d331122780d9bcb21e4e",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -43,7 +43,7 @@
   },
   "shadow": {
     "embedded": false,
-    "owner": "body layer owns the contact shadow"
+    "owner": "external ContactShadowNode"
   },
   "fallback": "compatibility RGBA atlas frame",
   "frames": [
@@ -66,51 +66,51 @@
         17,
         -10
       ],
-      "sha256": "54bb61a7806957559ae42e03d578987095fb54ba3cd177f3d48c4aeb3cfa83a3",
+      "sha256": "24e5c48a2ef18e4df8a430dccb963a351346b4e971fb845489e15bb8308c78fe",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_01.png",
       "width": 28,
-      "height": 37,
+      "height": 38,
       "texture_px": [
         28,
-        37
+        38
       ],
       "offset": 1052,
-      "length": 1036,
+      "length": 1064,
       "trim_origin_top_left_px": [
         63,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         -10
       ],
-      "sha256": "2e29a397a36b97229ccebeb011fc296bf10516f871310eaa3b4ece18144c1a89",
+      "sha256": "16061b1b6f386c4f351d837982fc887879d379a41d9c82a9910207d44c121e6d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_02.png",
-      "width": 30,
+      "width": 29,
       "height": 38,
       "texture_px": [
-        30,
+        29,
         38
       ],
-      "offset": 2088,
-      "length": 1140,
+      "offset": 2116,
+      "length": 1102,
       "trim_origin_top_left_px": [
-        62,
+        63,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
+        17,
         -10
       ],
-      "sha256": "37cb8e1249badc442dcc3dd868b91dd41dc131d6b6ec86a3cac826167b4673b5",
+      "sha256": "514d84cf3b40281f6ea7719defbbda6d597055002fb8a03297dd3a2494d7aff4",
       "empty": false
     },
     {
@@ -122,7 +122,7 @@
         29,
         38
       ],
-      "offset": 3228,
+      "offset": 3218,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
@@ -132,51 +132,51 @@
         17,
         -10
       ],
-      "sha256": "189a678ec3496b181b8b009074c1a076e76fd1a176b2a1faa9fd5aa7f834d203",
+      "sha256": "faaa14059eb0af5e8b77d92acec8b293a9a34aa6f35e22e8591511eacf50703c",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_04.png",
-      "width": 30,
+      "width": 29,
       "height": 38,
       "texture_px": [
-        30,
+        29,
         38
       ],
-      "offset": 4330,
-      "length": 1140,
+      "offset": 4320,
+      "length": 1102,
       "trim_origin_top_left_px": [
-        62,
-        52
+        63,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        17,
+        -9
       ],
-      "sha256": "224a5caef57b8d2a21fde884160a2ab7e276a2c2dea9f333a18ad1de057bfa3c",
+      "sha256": "db9603f8129011649dca8fefcea6a2b3d6ccb5eda61e8cfaaff75f475c6e2548",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_05.png",
-      "width": 30,
-      "height": 38,
+      "width": 29,
+      "height": 37,
       "texture_px": [
-        30,
-        38
+        29,
+        37
       ],
-      "offset": 5470,
-      "length": 1140,
+      "offset": 5422,
+      "length": 1073,
       "trim_origin_top_left_px": [
-        62,
-        52
+        63,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        17,
+        -9
       ],
-      "sha256": "2dc4e732c2e992e80e1a2e816b7795ed2f7e61910cfcae7c82e4b40248b8f606",
+      "sha256": "a3560f71b63f30aab2c601c77c60958933f234b70b2886ad4587027c40e9cb63",
       "empty": false
     },
     {
@@ -188,105 +188,105 @@
         29,
         38
       ],
-      "offset": 6610,
+      "offset": 6495,
       "length": 1102,
       "trim_origin_top_left_px": [
-        62,
-        52
+        64,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        16,
+        -8
       ],
-      "sha256": "1b3a359f5f5a8f1ed8e17f04dd596503525d0729035d9024588d1aeb4dd88223",
+      "sha256": "b7cffcd99f22f7bcff32ef8ebbcdac9621910812381c6abe5c11aa294f3bf3a5",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_07.png",
-      "width": 29,
-      "height": 38,
+      "width": 28,
+      "height": 37,
       "texture_px": [
-        29,
-        38
+        28,
+        37
       ],
-      "offset": 7712,
-      "length": 1102,
+      "offset": 7597,
+      "length": 1036,
       "trim_origin_top_left_px": [
-        62,
-        52
+        65,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        15,
+        -9
       ],
-      "sha256": "d8dbeb6b1fecc2f5c057e3abd0bfed271edc61333ff30e0d54cb741c5a66a808",
+      "sha256": "9d5c74fff698dfc4e477ab1d43cec8dfcce25b47078e90281d454db786cf18fd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_08.png",
-      "width": 29,
+      "width": 28,
       "height": 38,
       "texture_px": [
-        29,
+        28,
         38
       ],
-      "offset": 8814,
-      "length": 1102,
+      "offset": 8633,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        62,
-        52
+        64,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        16,
+        -9
       ],
-      "sha256": "b4182e4c51c83ccb4fba1c56d9958523dda3e4d57d4a049bbe87f020f61ab3d1",
+      "sha256": "e0a883d27ef66d7e5ad4a7804da7a943ccc84a59f99c638c65b11808f97606f0",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_09.png",
-      "width": 28,
-      "height": 38,
+      "width": 29,
+      "height": 37,
       "texture_px": [
-        28,
-        38
+        29,
+        37
       ],
-      "offset": 9916,
-      "length": 1064,
+      "offset": 9697,
+      "length": 1073,
       "trim_origin_top_left_px": [
         63,
-        52
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         -10
       ],
-      "sha256": "11fcaa74fd10f9264246c7defbbc48ef5c46ad36759549c3425eb997dd6df66f",
+      "sha256": "72b5ee5822056d9d45651cd69449720d6a1f1e5e1f1efba2150a18681f5f5cd9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_s_10.png",
-      "width": 28,
-      "height": 38,
+      "width": 29,
+      "height": 37,
       "texture_px": [
-        28,
-        38
+        29,
+        37
       ],
-      "offset": 10980,
-      "length": 1064,
+      "offset": 10770,
+      "length": 1073,
       "trim_origin_top_left_px": [
         63,
-        52
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         -10
       ],
-      "sha256": "109ab96ca4eac3e789dc3f263c33d107b7f6e74977f5a7565075c75a6420d1ac",
+      "sha256": "680f30c8bbd4226995891cfd9ebbfc24a0233aee3a79d3bdf2e190c3259c5577",
       "empty": false
     },
     {
@@ -298,7 +298,7 @@
         28,
         37
       ],
-      "offset": 12044,
+      "offset": 11843,
       "length": 1036,
       "trim_origin_top_left_px": [
         63,
@@ -308,7 +308,7 @@
         17,
         -10
       ],
-      "sha256": "54bb61a7806957559ae42e03d578987095fb54ba3cd177f3d48c4aeb3cfa83a3",
+      "sha256": "24e5c48a2ef18e4df8a430dccb963a351346b4e971fb845489e15bb8308c78fe",
       "empty": false
     },
     {
@@ -320,7 +320,7 @@
         27,
         39
       ],
-      "offset": 13080,
+      "offset": 12879,
       "length": 1053,
       "trim_origin_top_left_px": [
         64,
@@ -330,117 +330,117 @@
         16,
         -11
       ],
-      "sha256": "e143c69767b5529ed0347dee782ddc1807c6b8db9a192b4f64df6b3499920d98",
+      "sha256": "48882d141bc237b8c3367b9ed1a5c69f467e3520540e8bbf2b02fd9b7eb2f610",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_01.png",
       "width": 28,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         28,
-        39
+        40
       ],
-      "offset": 14133,
-      "length": 1092,
+      "offset": 13932,
+      "length": 1120,
       "trim_origin_top_left_px": [
         64,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -11
+        -10
       ],
-      "sha256": "8ed550f6795f555c5b924128c8b8cca1eaba7fcdc0d93b781154b98f7cf01bcc",
+      "sha256": "76635f0d0cbc51ff8d7202f539ca46fbbf839a77fe166c1400e51e5f8dd49f07",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_02.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 40,
       "texture_px": [
-        29,
-        39
+        28,
+        40
       ],
-      "offset": 15225,
-      "length": 1131,
+      "offset": 15052,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        63,
+        64,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -11
+        16,
+        -10
       ],
-      "sha256": "6fb5c85fe4bb5ff89e7f149313278e18aed1d0f7f6ac1639b6bd0fdf4ab0cac6",
+      "sha256": "d0d638748e9adc33dfb95a80749f2912fe61c650d0156eeb9eadb3f31540d643",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_03.png",
-      "width": 27,
-      "height": 39,
+      "width": 28,
+      "height": 40,
       "texture_px": [
-        27,
-        39
+        28,
+        40
       ],
-      "offset": 16356,
-      "length": 1053,
+      "offset": 16172,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        65,
+        64,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -11
+        16,
+        -10
       ],
-      "sha256": "54556367fdeca2b350c12808ddda1605976b16a9d77f37518f47f1c640cd67cc",
+      "sha256": "4539d9792960a91f9711cf3d5ef6a0a3ed197eb565be7e2e2dd082d223cd4003",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_04.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 40,
       "texture_px": [
-        29,
-        39
+        28,
+        40
       ],
-      "offset": 17409,
-      "length": 1131,
+      "offset": 17292,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        63,
-        50
+        64,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -11
+        16,
+        -9
       ],
-      "sha256": "9ad42416b63ceba07a83960a63f22ef8bb09a64406b91f5b4375f5b6f6b9a2c7",
+      "sha256": "7d882b0ccc9a238c202cd5634a7f12948598a2a9b6cab7c63284760247e94acd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_05.png",
-      "width": 29,
+      "width": 28,
       "height": 38,
       "texture_px": [
-        29,
+        28,
         38
       ],
-      "offset": 18540,
-      "length": 1102,
+      "offset": 18412,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        63,
-        51
+        64,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -11
+        16,
+        -9
       ],
-      "sha256": "0fdd9c835935729deea064dfb9be85d675d55f5133c41287f1fde6f945b365db",
+      "sha256": "a23b77d12a7d40f587f54068bc199a0d6a7d767930d776311f692508b5ec6e54",
       "empty": false
     },
     {
@@ -452,105 +452,105 @@
         29,
         38
       ],
-      "offset": 19642,
+      "offset": 19476,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
-        51
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -11
+        -8
       ],
-      "sha256": "a3cef9323ce563e9d54b3dbe5094d72b8222057cfe56c6af14ac5b99dfadf9a7",
+      "sha256": "515084b178f0750801db369cb2af3496d5bcac129f1a8dc79a00d066033020f7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_07.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 20578,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "5cc7b348d4c97d64f77c4b6d1624d8920cc9c8350fe5fa76cf1f595b4abc0b23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ssw_08.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 21642,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "f7d85a06ba7ea2864696d81cadd69e33ac589ea68b8d05eed113788d8a57525b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ssw_09.png",
       "width": 29,
-      "height": 37,
+      "height": 38,
       "texture_px": [
         29,
-        37
+        38
       ],
-      "offset": 20744,
-      "length": 1073,
+      "offset": 22706,
+      "length": 1102,
       "trim_origin_top_left_px": [
         63,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -11
+        -10
       ],
-      "sha256": "24d1115009ad05ece44a164a23e0026b274eb3c559190396091a62bbf5720028",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ssw_08.png",
-      "width": 29,
-      "height": 38,
-      "texture_px": [
-        29,
-        38
-      ],
-      "offset": 21817,
-      "length": 1102,
-      "trim_origin_top_left_px": [
-        63,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        -11
-      ],
-      "sha256": "2c79ea87bd170766f091a74a6b68f775e6ec907b1454a682538c87362e28c083",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ssw_09.png",
-      "width": 28,
-      "height": 38,
-      "texture_px": [
-        28,
-        38
-      ],
-      "offset": 22919,
-      "length": 1064,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -11
-      ],
-      "sha256": "a2e5e74cdaa8919752eaba0e3b8154255de227a5f41ecb17c71b15be089c1c4a",
+      "sha256": "e2997c2c9babf5e8fb8768eaee79ccba5d17c95b5c47b2d41ce80f01f18e4bd2",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ssw_10.png",
       "width": 28,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         28,
-        38
+        39
       ],
-      "offset": 23983,
-      "length": 1064,
+      "offset": 23808,
+      "length": 1092,
       "trim_origin_top_left_px": [
         64,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -11
+        -10
       ],
-      "sha256": "b019bcf71fef97c4634894a3287ad5505e19989a1d57858ac6ab81812f01ff7f",
+      "sha256": "efadae9fd2a7bafbc32df429db36c8eb7786709e331e0a4b8e65e3e804fb2bc1",
       "empty": false
     },
     {
@@ -562,7 +562,7 @@
         27,
         39
       ],
-      "offset": 25047,
+      "offset": 24900,
       "length": 1053,
       "trim_origin_top_left_px": [
         64,
@@ -572,7 +572,7 @@
         16,
         -11
       ],
-      "sha256": "e143c69767b5529ed0347dee782ddc1807c6b8db9a192b4f64df6b3499920d98",
+      "sha256": "48882d141bc237b8c3367b9ed1a5c69f467e3520540e8bbf2b02fd9b7eb2f610",
       "empty": false
     },
     {
@@ -584,7 +584,7 @@
         25,
         40
       ],
-      "offset": 26100,
+      "offset": 25953,
       "length": 1000,
       "trim_origin_top_left_px": [
         66,
@@ -594,73 +594,73 @@
         14,
         -11
       ],
-      "sha256": "697b754ac43dbce3fc9ed8206043e27cb2d5e3d0b66daee9e3c03294bde5abe0",
+      "sha256": "142934f108aaa43cd4bdd4e5f49ec2affbc0d9ae1e6470dc8eaff071a0e88061",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_01.png",
       "width": 25,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         25,
-        41
+        40
       ],
-      "offset": 27100,
-      "length": 1025,
+      "offset": 26953,
+      "length": 1000,
       "trim_origin_top_left_px": [
         66,
-        48
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
         -11
       ],
-      "sha256": "273084064349a59624b4909a268fd4c286ddc448b82e82efdc1d2b2153de8aee",
+      "sha256": "fb32d352b090084b50538a462236ca0e2be53ec36cafe3017ba4844760ce0f89",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_02.png",
       "width": 26,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         26,
-        41
+        42
       ],
-      "offset": 28125,
-      "length": 1066,
+      "offset": 27953,
+      "length": 1092,
       "trim_origin_top_left_px": [
         65,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -11
+        -10
       ],
-      "sha256": "9af34bd5819caaf89cbefd25417fc3df6f113daf1e7d24d37d61f4aa987dd8b2",
+      "sha256": "f3d66e463856c3093acb102306b6b223ef944b766a645a3b2666efc6c8a47ed7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_03.png",
-      "width": 24,
+      "width": 26,
       "height": 42,
       "texture_px": [
-        24,
+        26,
         42
       ],
-      "offset": 29191,
-      "length": 1008,
+      "offset": 29045,
+      "length": 1092,
       "trim_origin_top_left_px": [
-        66,
-        47
+        65,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -11
+        15,
+        -10
       ],
-      "sha256": "0ee11bb1119957239ca8bed6611d2bd6e7075fac68f34d9f3522545ca072c681",
+      "sha256": "631152a711a363ee64c0637adf54a6db28b5691cc86dcf6d70fae4ff79122faf",
       "empty": false
     },
     {
@@ -672,17 +672,17 @@
         26,
         41
       ],
-      "offset": 30199,
+      "offset": 30137,
       "length": 1066,
       "trim_origin_top_left_px": [
         65,
-        48
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -11
+        -10
       ],
-      "sha256": "4e440b953d99a1103f778b3b7b81efa3505068303ea98d1d95bad3f98b4199c1",
+      "sha256": "6a5178cb6c7fde1c8c34983c1acbfeac35665d32b7c5ef8171ef37aea68f183f",
       "empty": false
     },
     {
@@ -694,83 +694,83 @@
         27,
         41
       ],
-      "offset": 31265,
+      "offset": 31203,
       "length": 1107,
       "trim_origin_top_left_px": [
-        65,
-        48
+        64,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -11
+        16,
+        -9
       ],
-      "sha256": "c94424e9b50fb2c4a3f53c33bcecdb0ee3635d9de7b3658a0808636369cbddbc",
+      "sha256": "49e031984502df0b7e35f2edbf38bbf5a34624a07834eae9ff79b5370f9bdd21",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_06.png",
       "width": 27,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         27,
-        40
+        39
       ],
-      "offset": 32372,
-      "length": 1080,
+      "offset": 32310,
+      "length": 1053,
       "trim_origin_top_left_px": [
-        65,
-        49
+        64,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -11
+        16,
+        -9
       ],
-      "sha256": "54dba86eefac473d3ba116f4d1b5ec4123c76f7eb21da13ccb11edf0472db4cc",
+      "sha256": "6d6f024200fb624e005ec0123ec9adfa32046c54298177439f6736ba30990f61",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_07.png",
       "width": 28,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         28,
-        39
+        38
       ],
-      "offset": 33452,
-      "length": 1092,
+      "offset": 33363,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        65,
-        50
+        64,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -11
+        16,
+        -9
       ],
-      "sha256": "c796ab0c837d2d9e2a6b3fa701993ba4c02a0d162d889d354abc1a4bb4928f19",
+      "sha256": "e132a8762fb651f6358ff3cb8912ee8333620b647b10571f687e190a2888217b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_08.png",
-      "width": 27,
+      "width": 28,
       "height": 40,
       "texture_px": [
-        27,
+        28,
         40
       ],
-      "offset": 34544,
-      "length": 1080,
+      "offset": 34427,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        66,
-        49
+        64,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -11
+        16,
+        -9
       ],
-      "sha256": "f23daa457a12cbc2de60ab5c968c7ae98d1dbed010b1c575ec255ee64aef3fb2",
+      "sha256": "0c784020edd4370cf278660c83a66876cce1e87beee010a1a0eaef08631db3e8",
       "empty": false
     },
     {
@@ -782,39 +782,39 @@
         27,
         40
       ],
-      "offset": 35624,
+      "offset": 35547,
       "length": 1080,
       "trim_origin_top_left_px": [
         65,
-        49
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -11
+        -10
       ],
-      "sha256": "320f1adbf77952e9aaa1715d4abf9b45007a8391fb0eca4909ae2c2d99a79067",
+      "sha256": "4c24d3b7a28b6acd793380e1d2535171a7c06022d08dd57bb6247b0dbbba5bac",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sw_10.png",
-      "width": 26,
-      "height": 40,
+      "width": 27,
+      "height": 41,
       "texture_px": [
-        26,
-        40
+        27,
+        41
       ],
-      "offset": 36704,
-      "length": 1040,
+      "offset": 36627,
+      "length": 1107,
       "trim_origin_top_left_px": [
         65,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -11
+        -10
       ],
-      "sha256": "0f0c464a9200cee2fee76a189bdc03b5163283f5e2954a018ca57c4e31b1d445",
+      "sha256": "e3131f2531ecf097f22cf276c05fc6dc83004e530209df99c67cf00993708425",
       "empty": false
     },
     {
@@ -826,7 +826,7 @@
         25,
         40
       ],
-      "offset": 37744,
+      "offset": 37734,
       "length": 1000,
       "trim_origin_top_left_px": [
         66,
@@ -836,7 +836,7 @@
         14,
         -11
       ],
-      "sha256": "697b754ac43dbce3fc9ed8206043e27cb2d5e3d0b66daee9e3c03294bde5abe0",
+      "sha256": "142934f108aaa43cd4bdd4e5f49ec2affbc0d9ae1e6470dc8eaff071a0e88061",
       "empty": false
     },
     {
@@ -848,7 +848,7 @@
         21,
         40
       ],
-      "offset": 38744,
+      "offset": 38734,
       "length": 840,
       "trim_origin_top_left_px": [
         68,
@@ -858,95 +858,95 @@
         12,
         -11
       ],
-      "sha256": "37be8ac029b42fdd83d3e555eaed11fc196d845d5261c100939fa2c3f85f2420",
+      "sha256": "5d889d9ed2c166ee7dc26f37fbe823a92f6b3e1bb3ff95eb7dc9a52e5725dcb9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_01.png",
-      "width": 21,
+      "width": 22,
       "height": 41,
       "texture_px": [
-        21,
+        22,
         41
       ],
-      "offset": 39584,
-      "length": 861,
+      "offset": 39574,
+      "length": 902,
       "trim_origin_top_left_px": [
-        68,
+        67,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "8ab75ffa9e5ff086b4104b1984cc5c3d59ca2abb9f59059b28a52d064d660dc7",
+      "sha256": "ddb61b9b7810962accc07738226d117e69200821d818ae878bf463418a534c0d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_02.png",
-      "width": 21,
-      "height": 41,
+      "width": 22,
+      "height": 42,
       "texture_px": [
-        21,
-        41
+        22,
+        42
       ],
-      "offset": 40445,
-      "length": 861,
+      "offset": 40476,
+      "length": 924,
       "trim_origin_top_left_px": [
-        68,
-        48
+        67,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "5e305b926c7c3a97fda71f6b6168f1e2d276d487d22f0af1287f93a688cac164",
+      "sha256": "63f32691b28af59f7041a0ce01cbddc567119912e32e43591fdf0f176f156a05",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_03.png",
-      "width": 21,
-      "height": 41,
+      "width": 22,
+      "height": 42,
       "texture_px": [
-        21,
-        41
+        22,
+        42
       ],
-      "offset": 41306,
-      "length": 861,
+      "offset": 41400,
+      "length": 924,
       "trim_origin_top_left_px": [
-        68,
+        67,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        13,
+        -10
       ],
-      "sha256": "c25f5e72eb8cd2e2f6fc036ee574e16d8fd9dae3ab058067ec43bc0e35c2eb7f",
+      "sha256": "4023ca131a1bd6ea55a421ef2b97a770068cef1ea4aca00f0edb933d1e67b898",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_04.png",
-      "width": 21,
-      "height": 41,
+      "width": 22,
+      "height": 40,
       "texture_px": [
-        21,
-        41
+        22,
+        40
       ],
-      "offset": 42167,
-      "length": 861,
+      "offset": 42324,
+      "length": 880,
       "trim_origin_top_left_px": [
-        68,
-        48
+        67,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        13,
+        -10
       ],
-      "sha256": "59573e93c0c53b750cd91af447bac13b626132101dbb353a04956abe998dbb08",
+      "sha256": "095a092b341dc95538f747f8e1750c800d0c86a089efba60b8597ee301f1b901",
       "empty": false
     },
     {
@@ -958,127 +958,127 @@
         22,
         41
       ],
-      "offset": 43028,
+      "offset": 43204,
       "length": 902,
       "trim_origin_top_left_px": [
-        68,
-        48
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        14,
+        -10
       ],
-      "sha256": "34eadce87358d33cdc6b8a0e60239f9c6f0ecc796c3aba07b7e2eb4b2a212487",
+      "sha256": "617f4afc42435be1e8fec5902db4ba67d84f40d667ede5126d36cb0f99397a80",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_06.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 44106,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "e210f2c740d46ed59f84f0a77ac02366a6d873d0cc927efceee572d81c44682f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_wsw_07.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 45066,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "7a3f28f78bef6d31200e610913050abbc1caef11531908fb066fb5ea8ab443fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_wsw_08.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 46041,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -10
+      ],
+      "sha256": "caf2f48af18822ac473b70c7a4231672248f224e46ea8d18d764d3c402d680c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_wsw_09.png",
       "width": 23,
       "height": 40,
       "texture_px": [
         23,
         40
       ],
-      "offset": 43930,
+      "offset": 46977,
       "length": 920,
       "trim_origin_top_left_px": [
-        68,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
-      ],
-      "sha256": "739a30707a0534bfd40e26e67cd7228c65fa535d03716f5d035bd00baf91ef36",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_wsw_07.png",
-      "width": 23,
-      "height": 39,
-      "texture_px": [
-        23,
-        39
-      ],
-      "offset": 44850,
-      "length": 897,
-      "trim_origin_top_left_px": [
-        68,
+        67,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        13,
+        -10
       ],
-      "sha256": "15cd27b6893d41e8b903e4d06c85ce4d95f590f0d2e8af8b330552feb6f1a807",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_wsw_08.png",
-      "width": 23,
-      "height": 39,
-      "texture_px": [
-        23,
-        39
-      ],
-      "offset": 45747,
-      "length": 897,
-      "trim_origin_top_left_px": [
-        68,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
-      ],
-      "sha256": "3cf10d50fc98e62e799cfdb4357c54f0374b3428265f67211d1709a6579ccd70",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_wsw_09.png",
-      "width": 22,
-      "height": 39,
-      "texture_px": [
-        22,
-        39
-      ],
-      "offset": 46644,
-      "length": 858,
-      "trim_origin_top_left_px": [
-        68,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
-      ],
-      "sha256": "5d94fe3769a022d65dd543ac68d5f1171713b9f7bf49b98d22c724d3f1bc93f5",
+      "sha256": "033391f91ef75869d456918d888f62e20e7ed24977f77cd0b954a818e00069f4",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wsw_10.png",
       "width": 22,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         22,
-        40
+        39
       ],
-      "offset": 47502,
-      "length": 880,
+      "offset": 47897,
+      "length": 858,
       "trim_origin_top_left_px": [
-        68,
-        49
+        67,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "6cb803efe74b37375a3ce901bc7e677082ebe08294588af920b6fcb19c9f7ed1",
+      "sha256": "2e92aaa5eea69fafc9580f256bcbe02db393140da0ff51e5df98a25c5ecc302d",
       "empty": false
     },
     {
@@ -1090,7 +1090,7 @@
         21,
         40
       ],
-      "offset": 48382,
+      "offset": 48755,
       "length": 840,
       "trim_origin_top_left_px": [
         68,
@@ -1100,7 +1100,7 @@
         12,
         -11
       ],
-      "sha256": "37be8ac029b42fdd83d3e555eaed11fc196d845d5261c100939fa2c3f85f2420",
+      "sha256": "5d889d9ed2c166ee7dc26f37fbe823a92f6b3e1bb3ff95eb7dc9a52e5725dcb9",
       "empty": false
     },
     {
@@ -1112,7 +1112,7 @@
         24,
         41
       ],
-      "offset": 49222,
+      "offset": 49595,
       "length": 984,
       "trim_origin_top_left_px": [
         67,
@@ -1122,29 +1122,29 @@
         13,
         -11
       ],
-      "sha256": "bf6129003a4ddeeb208c1c4a86102d630b9682d62026f5b77d8763a3d648525b",
+      "sha256": "ad70efd4dea77f141776fb83859c75eb6921e726050f47fb2be3fc4d95d3b881",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_w_01.png",
       "width": 24,
-      "height": 42,
+      "height": 41,
       "texture_px": [
         24,
-        42
+        41
       ],
-      "offset": 50206,
-      "length": 1008,
+      "offset": 50579,
+      "length": 984,
       "trim_origin_top_left_px": [
         67,
-        47
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         -11
       ],
-      "sha256": "9b21cedd8aa3fdc52a911ebd2b4ad898a5075e7b1c06dbc41470464dca15597c",
+      "sha256": "7ebe19406654be369f5170127b2699ba0ec369a14f08e7aa0ba07ad4547f60d9",
       "empty": false
     },
     {
@@ -1156,17 +1156,17 @@
         24,
         43
       ],
-      "offset": 51214,
+      "offset": 51563,
       "length": 1032,
       "trim_origin_top_left_px": [
         67,
-        46
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -11
+        -10
       ],
-      "sha256": "078672043ce108e0599ae4d9a198072c20e2bb5e75397d033fb7d7809316fc66",
+      "sha256": "b0b31643dd1ff86263f651eba31aff05164424e95f7ba1d212000ad2b648e575",
       "empty": false
     },
     {
@@ -1178,17 +1178,17 @@
         24,
         43
       ],
-      "offset": 52246,
+      "offset": 52595,
       "length": 1032,
       "trim_origin_top_left_px": [
         67,
-        46
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -11
+        -10
       ],
-      "sha256": "6291a9df25c08c7953cfb39029882368b67c1da77105e24db83cca1f56dec5ce",
+      "sha256": "7a7e7368aa5017b829c62294139b45406bbdb6fb559b5c65bf3e67f723b549f5",
       "empty": false
     },
     {
@@ -1200,105 +1200,105 @@
         24,
         43
       ],
-      "offset": 53278,
+      "offset": 53627,
       "length": 1032,
       "trim_origin_top_left_px": [
-        67,
-        46
+        66,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "f0684c9cd023eec8804226ee95abb9dc2191e7e9fda93c44af7c42ac20e67f18",
+      "sha256": "bf916a2f26b5fa54c8bbbc1c670c35fd26449ab8640daf73393273a48e7eb06c",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_w_05.png",
       "width": 24,
-      "height": 43,
+      "height": 42,
       "texture_px": [
         24,
-        43
+        42
       ],
-      "offset": 54310,
-      "length": 1032,
+      "offset": 54659,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        67,
-        46
+        65,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "a01dc2858042b1b4ee5161f7194463f748d68a2d40fc1d47a45051cf978a6799",
+      "sha256": "6a9a9492aba319bf5e26b429fb68767f30583753184389900eb14be91887d802",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_w_06.png",
-      "width": 24,
-      "height": 43,
+      "width": 23,
+      "height": 40,
       "texture_px": [
-        24,
-        43
+        23,
+        40
       ],
-      "offset": 55342,
-      "length": 1032,
+      "offset": 55667,
+      "length": 920,
       "trim_origin_top_left_px": [
-        67,
-        46
+        65,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "99c0462aa086bdb1fd7a45a0ef187e3cc9abc08209067f53a4ebc64fcc7c9b46",
+      "sha256": "4f98ea68f59b611fdb96f8556b8543fc10293e280743912ddce0a03e2c8bf29a",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_w_07.png",
-      "width": 24,
-      "height": 41,
+      "width": 23,
+      "height": 39,
       "texture_px": [
-        24,
-        41
+        23,
+        39
       ],
-      "offset": 56374,
-      "length": 984,
+      "offset": 56587,
+      "length": 897,
       "trim_origin_top_left_px": [
-        67,
-        48
+        65,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "692b8fa54b98c5e147f2e9369b6207a37beb792cba69095b38cf743207d07c28",
+      "sha256": "494c5912a87010fb65525173b3b7ead671203e0e79dfbd7b9474f63e799a9980",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_w_08.png",
       "width": 24,
-      "height": 42,
+      "height": 41,
       "texture_px": [
         24,
-        42
+        41
       ],
-      "offset": 57358,
-      "length": 1008,
+      "offset": 57484,
+      "length": 984,
       "trim_origin_top_left_px": [
-        67,
-        47
+        65,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "aa2d0c6a844d23e3a68b9ab0ed08cdf293c47b3313e022a73de11e7551c6125a",
+      "sha256": "aa7d13837a33a3e2b6de498279e2538f1330b2b20012db58933e87a6bc99b798",
       "empty": false
     },
     {
@@ -1310,17 +1310,17 @@
         24,
         42
       ],
-      "offset": 58366,
+      "offset": 58468,
       "length": 1008,
       "trim_origin_top_left_px": [
-        67,
-        47
+        66,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "c6a643154574e5cf8f26655cbe25354d51c644c9f5ed888823a76e089884101e",
+      "sha256": "6846d334684899c3f4bde671d53f65ecc2f9b424d8c0305c13da31b1568b9159",
       "empty": false
     },
     {
@@ -1332,17 +1332,17 @@
         24,
         41
       ],
-      "offset": 59374,
+      "offset": 59476,
       "length": 984,
       "trim_origin_top_left_px": [
-        67,
+        66,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        14,
         -11
       ],
-      "sha256": "c87aea2723cfb3d808c1694f71d108aff17b3a492409f27653050d2dc56660c4",
+      "sha256": "a8aab721d882012fc17a67970062e6e19674c1bf6b967e1f7153b47a239a3c6d",
       "empty": false
     },
     {
@@ -1354,7 +1354,7 @@
         24,
         41
       ],
-      "offset": 60358,
+      "offset": 60460,
       "length": 984,
       "trim_origin_top_left_px": [
         67,
@@ -1364,7 +1364,7 @@
         13,
         -11
       ],
-      "sha256": "bf6129003a4ddeeb208c1c4a86102d630b9682d62026f5b77d8763a3d648525b",
+      "sha256": "ad70efd4dea77f141776fb83859c75eb6921e726050f47fb2be3fc4d95d3b881",
       "empty": false
     },
     {
@@ -1376,7 +1376,7 @@
         26,
         41
       ],
-      "offset": 61342,
+      "offset": 61444,
       "length": 1066,
       "trim_origin_top_left_px": [
         67,
@@ -1386,7 +1386,7 @@
         13,
         -11
       ],
-      "sha256": "d8b89facb984248d76165c4a77ba1f621c34575ebff448bf1463f6f06c272e91",
+      "sha256": "cd979d8997d3709c4ab26f3e2aa9e37d2dfd6269f7a9fdee0f2a70d03c517ce5",
       "empty": false
     },
     {
@@ -1398,7 +1398,7 @@
         26,
         41
       ],
-      "offset": 62408,
+      "offset": 62510,
       "length": 1066,
       "trim_origin_top_left_px": [
         67,
@@ -1408,51 +1408,51 @@
         13,
         -11
       ],
-      "sha256": "ebc2b8c68f347323a68bb80dd554dc6865ca92dd2f0a9cccded60108197f002e",
+      "sha256": "13534fb1109fa01723ec2cf1a00def61ffd4c2c4e92e38e5bb0f127597260bd5",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_02.png",
-      "width": 26,
-      "height": 42,
+      "width": 28,
+      "height": 41,
       "texture_px": [
-        26,
-        42
+        28,
+        41
       ],
-      "offset": 63474,
-      "length": 1092,
+      "offset": 63576,
+      "length": 1148,
       "trim_origin_top_left_px": [
-        67,
-        47
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "2ed6dd94b138eb4adbc75e5803877a5a19a82a32d3877a25980898b3d9d9a8f2",
+      "sha256": "c027397acdea645c134456cb2fb4682d266f75c922814f720ee30dfdc6c140f9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_03.png",
-      "width": 26,
-      "height": 42,
+      "width": 27,
+      "height": 41,
       "texture_px": [
-        26,
-        42
+        27,
+        41
       ],
-      "offset": 64566,
-      "length": 1092,
+      "offset": 64724,
+      "length": 1107,
       "trim_origin_top_left_px": [
-        67,
-        47
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "05eb2588f7f6b52b2480e373018689994349f594d7a5064bb9d1c69a98ad83ab",
+      "sha256": "462d95566d76919d1983bd6ffad32a5ca5b5606226951c30950ff6d78c1670ae",
       "empty": false
     },
     {
@@ -1464,39 +1464,39 @@
         26,
         42
       ],
-      "offset": 65658,
+      "offset": 65831,
       "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        47
+        66,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "29a9d71914e33a768c888ffc8c68757d47fdc78dd7ee5254a1e2362639b1aa52",
+      "sha256": "c34dd18d4a939469c2e4b3acd3438e8c230097c2ed6fff0abad48e57bf4a5d58",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_05.png",
-      "width": 26,
+      "width": 27,
       "height": 42,
       "texture_px": [
-        26,
+        27,
         42
       ],
-      "offset": 66750,
-      "length": 1092,
+      "offset": 66923,
+      "length": 1134,
       "trim_origin_top_left_px": [
-        67,
-        47
+        65,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "efaf5dac0373c0b8c11d786fc4704108c04d062a1dc8636dba4211bc17b2b8a9",
+      "sha256": "a849068b2a2cb9120812837d8119310146665cd5eba03b74937fa3a698fe5f17",
       "empty": false
     },
     {
@@ -1508,105 +1508,105 @@
         26,
         42
       ],
-      "offset": 67842,
+      "offset": 68057,
       "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        47
+        64,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        16,
+        -10
       ],
-      "sha256": "ae65332de88e1c40a29731ebc0044e07559231fe917c46981c7fe0a20cd4567a",
+      "sha256": "0e786950a0db96c105787b07cd4693479e6a40b4cafc4615fd2fc93d273153c7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_07.png",
       "width": 26,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         26,
-        41
+        40
       ],
-      "offset": 68934,
-      "length": 1066,
+      "offset": 69149,
+      "length": 1040,
       "trim_origin_top_left_px": [
-        67,
-        48
+        65,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "f0da3e637cbe736ca7d91f9b83dd70ccd0a29c47668b171467723a34e458ba8e",
+      "sha256": "5e5a9027efc9b697b5706e7abcccee27f8e789f76dc023413da899d60495dfbe",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_08.png",
-      "width": 26,
-      "height": 41,
+      "width": 27,
+      "height": 42,
       "texture_px": [
-        26,
-        41
+        27,
+        42
       ],
-      "offset": 70000,
-      "length": 1066,
+      "offset": 70189,
+      "length": 1134,
       "trim_origin_top_left_px": [
-        67,
+        65,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        15,
+        -10
       ],
-      "sha256": "127754a9009d8a3c4c779fdac4e0b50761afcc1f9928ecbb4cf370684830cdab",
+      "sha256": "96bf9c41c0f0ed7078c089b54f70c60f7ab4104ab5c28cb4f1c520fa74513c81",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_09.png",
       "width": 26,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         26,
-        41
+        42
       ],
-      "offset": 71066,
-      "length": 1066,
+      "offset": 71323,
+      "length": 1092,
       "trim_origin_top_left_px": [
-        67,
+        66,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "c5cde423622e90ef66db2600c52b059ce840a8fad73776f5d132e7d2c2c100f9",
+      "sha256": "92f09630e6d7c9200f432eae6a5ca20606436fe0c360017df748b902a3fecda9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_wnw_10.png",
-      "width": 26,
+      "width": 27,
       "height": 41,
       "texture_px": [
-        26,
+        27,
         41
       ],
-      "offset": 72132,
-      "length": 1066,
+      "offset": 72415,
+      "length": 1107,
       "trim_origin_top_left_px": [
-        67,
+        66,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        14,
         -11
       ],
-      "sha256": "4f17d1311e0e43df01bbb6237edd166454b1ec2581306015ebdcd8ab35505d0b",
+      "sha256": "e0190a5ed30bfb657a6ce1133feb68a51de8d876c8d8a8606088108884928f6b",
       "empty": false
     },
     {
@@ -1618,7 +1618,7 @@
         26,
         41
       ],
-      "offset": 73198,
+      "offset": 73522,
       "length": 1066,
       "trim_origin_top_left_px": [
         67,
@@ -1628,7 +1628,7 @@
         13,
         -11
       ],
-      "sha256": "d8b89facb984248d76165c4a77ba1f621c34575ebff448bf1463f6f06c272e91",
+      "sha256": "cd979d8997d3709c4ab26f3e2aa9e37d2dfd6269f7a9fdee0f2a70d03c517ce5",
       "empty": false
     },
     {
@@ -1640,7 +1640,7 @@
         28,
         40
       ],
-      "offset": 74264,
+      "offset": 74588,
       "length": 1120,
       "trim_origin_top_left_px": [
         67,
@@ -1650,73 +1650,73 @@
         13,
         -11
       ],
-      "sha256": "233da93f528c347c2c3441bec7df84a51d4e8bd5730950cfbd692b43448a34a0",
+      "sha256": "6e3baf4e2ec802524e0ed3cfa720760521d2a11d760aaa41e982b950c15edb09",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_01.png",
       "width": 29,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         29,
-        40
+        39
       ],
-      "offset": 75384,
-      "length": 1160,
+      "offset": 75708,
+      "length": 1131,
       "trim_origin_top_left_px": [
         67,
-        49
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         -11
       ],
-      "sha256": "b0060427787ccc9111704f6505b5b686dbcbcee48ea95bac3e97cd6ec9f5982e",
+      "sha256": "24256aabc8dbba62e95698eca3d9f3cd27f37a50e42d1b331b17e5c8596d545a",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_02.png",
-      "width": 29,
-      "height": 40,
+      "width": 30,
+      "height": 38,
       "texture_px": [
-        29,
-        40
+        30,
+        38
       ],
-      "offset": 76544,
-      "length": 1160,
+      "offset": 76839,
+      "length": 1140,
       "trim_origin_top_left_px": [
         67,
-        49
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         -11
       ],
-      "sha256": "79cda17f0f113abb09627c6ff0b358dad926319f24e8433468dcb5d92b211134",
+      "sha256": "aa83dac7f57fb0933b059fb8192d386df9a021d4e86c8d2b0dce1919922705fd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_03.png",
-      "width": 29,
-      "height": 40,
+      "width": 30,
+      "height": 39,
       "texture_px": [
-        29,
-        40
+        30,
+        39
       ],
-      "offset": 77704,
-      "length": 1160,
+      "offset": 77979,
+      "length": 1170,
       "trim_origin_top_left_px": [
-        67,
-        49
+        66,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "afc8cca5b4790e25a26e69a763e885066ac41cc50ae12a19b6ecb9ddc026446f",
+      "sha256": "c7b16d35364a7a80e35f222d93358eb3aa43e5495007996d8f6ed7c1511af560",
       "empty": false
     },
     {
@@ -1728,127 +1728,127 @@
         29,
         40
       ],
-      "offset": 78864,
+      "offset": 79149,
       "length": 1160,
       "trim_origin_top_left_px": [
-        67,
-        49
+        66,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
+        14,
+        -10
       ],
-      "sha256": "e7b46472343483d39e9ee2202c847444440b8f3c5f53d0efebf955707700e313",
+      "sha256": "74910be30759161a884d9fd1e539743f743de1d5da68791008eb96db11ab006b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_05.png",
+      "width": 29,
+      "height": 40,
+      "texture_px": [
+        29,
+        40
+      ],
+      "offset": 80309,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "62f5ad039e062ca765be9b740daa687e8e997034dea6a86a604ca8eaf65c7dfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_nw_06.png",
+      "width": 29,
+      "height": 41,
+      "texture_px": [
+        29,
+        41
+      ],
+      "offset": 81469,
+      "length": 1189,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "41b612b0f2698df94c94cd56cb867ba0cdc2c9d5059f68dc8a58486e3ac2723a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_nw_07.png",
       "width": 28,
       "height": 40,
       "texture_px": [
         28,
         40
       ],
-      "offset": 80024,
+      "offset": 82658,
       "length": 1120,
       "trim_origin_top_left_px": [
-        67,
+        65,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        15,
         -11
       ],
-      "sha256": "ae40e911330d39fb85033e6039b656a123f2b6a527d31f726dc55d5220d3edcf",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_nw_06.png",
-      "width": 27,
-      "height": 40,
-      "texture_px": [
-        27,
-        40
-      ],
-      "offset": 81144,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
-      ],
-      "sha256": "ab83ab86e673292afc380c762b70a59d35311454956c4739dc3775f53b0236be",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_nw_07.png",
-      "width": 27,
-      "height": 40,
-      "texture_px": [
-        27,
-        40
-      ],
-      "offset": 82224,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -11
-      ],
-      "sha256": "adc83a6753820b7ed03b1f6324245f24b9f78c86d07a5fd5d568a03041de8ede",
+      "sha256": "ffdbd5c54516e7d5064a1595dbe9072286c8e9bfb5f004b208ec9890431b5106",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_08.png",
-      "width": 27,
+      "width": 29,
       "height": 40,
       "texture_px": [
-        27,
+        29,
         40
       ],
-      "offset": 83304,
-      "length": 1080,
+      "offset": 83778,
+      "length": 1160,
       "trim_origin_top_left_px": [
-        67,
+        65,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        15,
         -11
       ],
-      "sha256": "5da07ed33f6f8008c88eff02a15622ee57d090e105c692718975c2f1ac838d5f",
+      "sha256": "ba4f660d90d2d8b3695513b3c0c21534526047159612c75b25c368fa84da275d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nw_09.png",
-      "width": 27,
+      "width": 28,
       "height": 40,
       "texture_px": [
-        27,
+        28,
         40
       ],
-      "offset": 84384,
-      "length": 1080,
+      "offset": 84938,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        67,
+        66,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        14,
         -11
       ],
-      "sha256": "d78ae9f4c714842ee0c8e59a1a34f4ec934d8f6cd7bf504c98a7b10ad562ddce",
+      "sha256": "39164a4f7a6d448ad2fded8980c42c8af2da2a369cad21a378826d7175458443",
       "empty": false
     },
     {
@@ -1860,7 +1860,7 @@
         28,
         40
       ],
-      "offset": 85464,
+      "offset": 86058,
       "length": 1120,
       "trim_origin_top_left_px": [
         67,
@@ -1870,7 +1870,7 @@
         13,
         -11
       ],
-      "sha256": "68da950034253d71d2d6b1dba5a08c78b0d22996853b288a5106e5a33b7f8456",
+      "sha256": "ec32e284573cf1b46c14abd45c932687b4724fb8c647753481794089e1326944",
       "empty": false
     },
     {
@@ -1882,7 +1882,7 @@
         28,
         40
       ],
-      "offset": 86584,
+      "offset": 87178,
       "length": 1120,
       "trim_origin_top_left_px": [
         67,
@@ -1892,7 +1892,7 @@
         13,
         -11
       ],
-      "sha256": "233da93f528c347c2c3441bec7df84a51d4e8bd5730950cfbd692b43448a34a0",
+      "sha256": "6e3baf4e2ec802524e0ed3cfa720760521d2a11d760aaa41e982b950c15edb09",
       "empty": false
     },
     {
@@ -1904,7 +1904,7 @@
         28,
         39
       ],
-      "offset": 87704,
+      "offset": 88298,
       "length": 1092,
       "trim_origin_top_left_px": [
         69,
@@ -1914,7 +1914,7 @@
         11,
         -11
       ],
-      "sha256": "8a4f9c3343c07b37ce0251869a0fcb6c4d5dcafc0038b370ff8c1a60549c530a",
+      "sha256": "d5cdf174d530309bf84a2237be4746219f3ce10bc91bbee28bf6442207f1f9d9",
       "empty": false
     },
     {
@@ -1926,7 +1926,7 @@
         29,
         38
       ],
-      "offset": 88796,
+      "offset": 89390,
       "length": 1102,
       "trim_origin_top_left_px": [
         68,
@@ -1936,73 +1936,73 @@
         12,
         -11
       ],
-      "sha256": "49ff3d06724138d4d8615abbfc879ef16fae15b70a81d01d43a2a43976415ac3",
+      "sha256": "537685947414d7c8c1f81035973591748ce1879a86d05c08a84c765b413573b6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_02.png",
-      "width": 30,
-      "height": 38,
+      "width": 31,
+      "height": 37,
       "texture_px": [
-        30,
-        38
+        31,
+        37
       ],
-      "offset": 89898,
-      "length": 1140,
+      "offset": 90492,
+      "length": 1147,
       "trim_origin_top_left_px": [
-        68,
-        51
+        67,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "73916379c49a8f1180231e7d91c6fdac621a10e5409d79ee21411c20e40f8cde",
+      "sha256": "0970fd724748ddfa199b07bdc6ab06cb53820538f68fddf5edc191e868ba19c7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_03.png",
       "width": 30,
-      "height": 38,
+      "height": 37,
       "texture_px": [
         30,
-        38
+        37
       ],
-      "offset": 91038,
-      "length": 1140,
+      "offset": 91639,
+      "length": 1110,
       "trim_origin_top_left_px": [
-        68,
-        51
+        67,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "3f56a2564ac8ec9e2f87d253a33b379bb51c201bd58616a268c3297cf5a84277",
+      "sha256": "c2b5035a6c22ed2fa7bc6ec17bb4d1c1848f3a463755c6472089163193c0e3e0",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_04.png",
       "width": 30,
-      "height": 38,
+      "height": 37,
       "texture_px": [
         30,
-        38
+        37
       ],
-      "offset": 92178,
-      "length": 1140,
+      "offset": 92749,
+      "length": 1110,
       "trim_origin_top_left_px": [
-        68,
-        51
+        67,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "f800b8cd4b66e3ce8ec3e815c2521c8418357e4435e318cbe6a67bd83b21764a",
+      "sha256": "764c52f7dd5432b1a6ec6fcf25d9f9663e94cab0101c91760edff3af28676755",
       "empty": false
     },
     {
@@ -2014,61 +2014,61 @@
         30,
         38
       ],
-      "offset": 93318,
+      "offset": 93859,
       "length": 1140,
       "trim_origin_top_left_px": [
-        68,
+        66,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        14,
         -11
       ],
-      "sha256": "e902ed52b4165d6fab3a0a54e45d181e1a2e1e128348e7e834c3d16a195e8385",
+      "sha256": "ec03ddeaa366ec74baa40aebee6d72ed1675a7221e690e6873f2b5bf09f234a1",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_06.png",
       "width": 29,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         29,
-        38
+        39
       ],
-      "offset": 94458,
-      "length": 1102,
+      "offset": 94999,
+      "length": 1131,
       "trim_origin_top_left_px": [
-        68,
-        51
+        65,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        15,
+        -12
       ],
-      "sha256": "5ec88048034648040736c871b30a7914a4eb00068a3f3c4dc705b437b20a294b",
+      "sha256": "ede9f4c48a35de71035043305f7ea162a9a9c8b214c566d436c56e9367dc59c7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_07.png",
       "width": 29,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         29,
-        38
+        39
       ],
-      "offset": 95560,
-      "length": 1102,
+      "offset": 96130,
+      "length": 1131,
       "trim_origin_top_left_px": [
-        68,
-        51
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        14,
+        -12
       ],
-      "sha256": "cfee2194515cd2282ec6b58b5e60b24b4310977a54b2413f53983e3ac442c7d1",
+      "sha256": "a027ce110d6feb39379306fd1508e60c61e47d58b6a1c3b165cf7fe1a6ab0376",
       "empty": false
     },
     {
@@ -2080,17 +2080,17 @@
         29,
         38
       ],
-      "offset": 96662,
+      "offset": 97261,
       "length": 1102,
       "trim_origin_top_left_px": [
-        68,
-        51
+        66,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
+        14,
+        -12
       ],
-      "sha256": "078e75e24cde581f3c75e1cea7ca35000cb429602830eee7d156ea914c4926a2",
+      "sha256": "08dfa006ebcb3747b4ba5b46fec68804d1015729bf40bec30b5691fb5a4d5b69",
       "empty": false
     },
     {
@@ -2102,39 +2102,39 @@
         29,
         39
       ],
-      "offset": 97764,
+      "offset": 98363,
       "length": 1131,
       "trim_origin_top_left_px": [
-        68,
+        67,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "c60144499c7275b8a7efaa6604616fe1ffcd8df4fef5fd846f90808c516f37e3",
+      "sha256": "e614f3108923bac98e4ceac7bef4fe9068563232708c8fad1caba4f6b06fea0d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nnw_10.png",
-      "width": 29,
+      "width": 30,
       "height": 39,
       "texture_px": [
-        29,
+        30,
         39
       ],
-      "offset": 98895,
-      "length": 1131,
+      "offset": 99494,
+      "length": 1170,
       "trim_origin_top_left_px": [
-        68,
+        67,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -11
       ],
-      "sha256": "02dc739e24ee54b24393bcc2f8eeafbbaaac3318c8c2da236256d92f9aedb173",
+      "sha256": "8aae320d9752506b0b224816c941170ae3aeb49b982ccba20ea4eb04f5b2da6b",
       "empty": false
     },
     {
@@ -2146,7 +2146,7 @@
         28,
         39
       ],
-      "offset": 100026,
+      "offset": 100664,
       "length": 1092,
       "trim_origin_top_left_px": [
         69,
@@ -2156,7 +2156,7 @@
         11,
         -11
       ],
-      "sha256": "8a4f9c3343c07b37ce0251869a0fcb6c4d5dcafc0038b370ff8c1a60549c530a",
+      "sha256": "d5cdf174d530309bf84a2237be4746219f3ce10bc91bbee28bf6442207f1f9d9",
       "empty": false
     },
     {
@@ -2168,7 +2168,7 @@
         28,
         37
       ],
-      "offset": 101118,
+      "offset": 101756,
       "length": 1036,
       "trim_origin_top_left_px": [
         69,
@@ -2178,7 +2178,7 @@
         11,
         -11
       ],
-      "sha256": "7426a88e1dd7a506e3c6fb9efe21d0a9185a552eaf2fa0aab5f4e1a7fb8f1ef8",
+      "sha256": "814197ee388ebba202ea702fa4b33c75e56d0456f01266712ee399058dc3021b",
       "empty": false
     },
     {
@@ -2190,7 +2190,7 @@
         28,
         37
       ],
-      "offset": 102154,
+      "offset": 102792,
       "length": 1036,
       "trim_origin_top_left_px": [
         69,
@@ -2200,29 +2200,29 @@
         11,
         -11
       ],
-      "sha256": "4303b365779f91cd28165b65c46dea9d1044a4deccbab286fa34e4be3ef28447",
+      "sha256": "cbdb1b4aae1062f0500e5d176d3b9a39f76215b25eac5ee31532627ead1745ad",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_n_02.png",
-      "width": 30,
+      "width": 29,
       "height": 37,
       "texture_px": [
-        30,
+        29,
         37
       ],
-      "offset": 103190,
-      "length": 1110,
+      "offset": 103828,
+      "length": 1073,
       "trim_origin_top_left_px": [
         68,
-        52
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -11
+        -10
       ],
-      "sha256": "c70fb93e00dfab8c4d65c05aa2c4b2d802188471d6ca2f17b82c02f6227bc3eb",
+      "sha256": "815b8b7d4aed8a3450c6a80cec156e06b5c58d580bd236e0150e8b76d40c0908",
       "empty": false
     },
     {
@@ -2234,7 +2234,51 @@
         29,
         37
       ],
-      "offset": 104300,
+      "offset": 104901,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "6fb946ac73b246ca4a62ad2a004e9047600ab6b97fa983545579a16c50fc3187",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_n_04.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 105974,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "e4cf8d0130fd08f7cc291eccc103a39b2936b8b71a8d20a44d4906f4c7125473",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_n_05.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 107076,
       "length": 1073,
       "trim_origin_top_left_px": [
         68,
@@ -2244,51 +2288,7 @@
         12,
         -11
       ],
-      "sha256": "b1aae3b2bfaaeead9f1109fd80df83edecdfff9a4df0fcbcba6d434818c35504",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_n_04.png",
-      "width": 30,
-      "height": 37,
-      "texture_px": [
-        30,
-        37
-      ],
-      "offset": 105373,
-      "length": 1110,
-      "trim_origin_top_left_px": [
-        68,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
-      ],
-      "sha256": "b123b0f269b0f50f940a8e0b9d0695fa00fc117847b330fbd01acf961c794f34",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_n_05.png",
-      "width": 30,
-      "height": 37,
-      "texture_px": [
-        30,
-        37
-      ],
-      "offset": 106483,
-      "length": 1110,
-      "trim_origin_top_left_px": [
-        68,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -11
-      ],
-      "sha256": "39c2eb45a6f225ace36b3ec1eedfc2f8086669e824fe9765ca7e6b39a7180fe8",
+      "sha256": "3929ad2a7ca91efc5136ebe0a8bb7ea91cfc4097ae6e92c38b53e40cfed4cac6",
       "empty": false
     },
     {
@@ -2300,105 +2300,105 @@
         29,
         37
       ],
-      "offset": 107593,
+      "offset": 108149,
       "length": 1073,
       "trim_origin_top_left_px": [
-        69,
-        52
+        67,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -11
+        13,
+        -12
       ],
-      "sha256": "5b7a84cce05b29491d93c0a3a92e74e14e5aa611724a269747fd5326f3372a3c",
+      "sha256": "4974bc2c90ea9a0a796e98d542c7ebcec86f238432956bc314f49ef340e34939",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_n_07.png",
-      "width": 29,
+      "width": 28,
       "height": 37,
       "texture_px": [
-        29,
+        28,
         37
       ],
-      "offset": 108666,
-      "length": 1073,
+      "offset": 109222,
+      "length": 1036,
       "trim_origin_top_left_px": [
-        69,
-        52
+        67,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -11
+        13,
+        -12
       ],
-      "sha256": "25c9c57cb3a0f6cb09edefc0a74608c0f48bed1c1a012231018480f727a0b4b8",
+      "sha256": "58ad7cf255efa0fab73dc6664ef321537ac99ec44bd18e7c7bd6cbf6e257a607",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_n_08.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 110258,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "a0ab5f9638564f7d2f62b3d8d3256dffde6dd39ad156808e2a3c1cba24278054",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_n_09.png",
       "width": 29,
       "height": 37,
       "texture_px": [
         29,
         37
       ],
-      "offset": 109739,
+      "offset": 111322,
       "length": 1073,
       "trim_origin_top_left_px": [
-        69,
+        68,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        12,
         -11
       ],
-      "sha256": "97cf83fdeb3def2ae56ee5c7891a36707d3c5cdd927e9341ea05ab5342a18cfd",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_n_09.png",
-      "width": 28,
-      "height": 37,
-      "texture_px": [
-        28,
-        37
-      ],
-      "offset": 110812,
-      "length": 1036,
-      "trim_origin_top_left_px": [
-        69,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -11
-      ],
-      "sha256": "de5d05ea3d82fa734f71485c982916aeff5216389949a568d6dc411423c441d1",
+      "sha256": "6ddc8e8be1f0b65d432d7f242202e022590bac3a1ff4946edf59f6c3a5943018",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_n_10.png",
-      "width": 28,
+      "width": 29,
       "height": 37,
       "texture_px": [
-        28,
+        29,
         37
       ],
-      "offset": 111848,
-      "length": 1036,
+      "offset": 112395,
+      "length": 1073,
       "trim_origin_top_left_px": [
-        69,
+        68,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        12,
         -11
       ],
-      "sha256": "b41c13fa40585ef491bc4bb786a8fed41a9f6cbdb92c52306f91979d028809ea",
+      "sha256": "ca62904558324ed7c6c810d2f63db69cb11ea50ce070952a0889f0e67043ea7f",
       "empty": false
     },
     {
@@ -2410,7 +2410,7 @@
         28,
         37
       ],
-      "offset": 112884,
+      "offset": 113468,
       "length": 1036,
       "trim_origin_top_left_px": [
         69,
@@ -2420,7 +2420,7 @@
         11,
         -11
       ],
-      "sha256": "7426a88e1dd7a506e3c6fb9efe21d0a9185a552eaf2fa0aab5f4e1a7fb8f1ef8",
+      "sha256": "814197ee388ebba202ea702fa4b33c75e56d0456f01266712ee399058dc3021b",
       "empty": false
     },
     {
@@ -2432,7 +2432,7 @@
         28,
         39
       ],
-      "offset": 113920,
+      "offset": 114504,
       "length": 1092,
       "trim_origin_top_left_px": [
         68,
@@ -2442,7 +2442,7 @@
         12,
         -9
       ],
-      "sha256": "36360ed9fa62304d5910e162952d7c44745e2072a956407a720e01d5aaff17d7",
+      "sha256": "01ec72a472f2c670b6093017332d797f36ab689ce156b2215f9eb7c716b3d4c3",
       "empty": false
     },
     {
@@ -2454,7 +2454,7 @@
         28,
         39
       ],
-      "offset": 115012,
+      "offset": 115596,
       "length": 1092,
       "trim_origin_top_left_px": [
         68,
@@ -2464,51 +2464,51 @@
         12,
         -9
       ],
-      "sha256": "b7e6c4715fbc8e1b698ea49e4d9ee01c76130138e85ebf86a327ee0af129805f",
+      "sha256": "464f0d775d8975d0e9096d7f2eca0a1f35a7c7a79625315c8c2c7155f003618e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nne_02.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 116688,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "662bd7371fb76282c61505f172eda714dc567ace528c5bdd99eaad5000f2c7f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_nne_03.png",
       "width": 29,
       "height": 39,
       "texture_px": [
         29,
         39
       ],
-      "offset": 116104,
+      "offset": 117752,
       "length": 1131,
       "trim_origin_top_left_px": [
-        68,
-        52
+        67,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -9
+        13,
+        -8
       ],
-      "sha256": "fc61f4c1865c41fe282f41e92ef4c0545b171ba9e4ad391ce31bef82529f3135",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_nne_03.png",
-      "width": 27,
-      "height": 39,
-      "texture_px": [
-        27,
-        39
-      ],
-      "offset": 117235,
-      "length": 1053,
-      "trim_origin_top_left_px": [
-        68,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -9
-      ],
-      "sha256": "58b16b099011aa91d3d44b907d6b0500ac7e3c6345abce4eb1524fbeaa494b1f",
+      "sha256": "936ed9fc757a6c2b7cdaa90d72d65ffe3aa83082fa616b790eb879ae7bd3ff4c",
       "empty": false
     },
     {
@@ -2520,7 +2520,7 @@
         28,
         39
       ],
-      "offset": 118288,
+      "offset": 118883,
       "length": 1092,
       "trim_origin_top_left_px": [
         68,
@@ -2530,117 +2530,117 @@
         12,
         -9
       ],
-      "sha256": "96fdc5bff9070fa1b4f51e15c50bfd2856083ffb2273cb651235b7c3a8deb063",
+      "sha256": "d273bb9d5032c3e2d69df21a6104ba6c82b36545a9073ab563f1d21270a4d675",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nne_05.png",
       "width": 29,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         29,
-        39
+        38
       ],
-      "offset": 119380,
-      "length": 1131,
+      "offset": 119975,
+      "length": 1102,
       "trim_origin_top_left_px": [
-        68,
+        67,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -9
+        13,
+        -10
       ],
-      "sha256": "90a22cc1e7a9b4bc9c61c9d530987c15319e6e17057253e85419175929081bd3",
+      "sha256": "233e08957fbe9deb7b7ae31a6baf0a6b3c678b721f6e98eb9974e79b7ac1c3d3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nne_06.png",
       "width": 29,
-      "height": 39,
-      "texture_px": [
-        29,
-        39
-      ],
-      "offset": 120511,
-      "length": 1131,
-      "trim_origin_top_left_px": [
-        68,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -9
-      ],
-      "sha256": "14f1a77de0d93867817b6734df6d1b18ab68202866dd942b0713f2a123e0d178",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_nne_07.png",
-      "width": 29,
       "height": 38,
       "texture_px": [
         29,
         38
       ],
-      "offset": 121642,
+      "offset": 121077,
       "length": 1102,
       "trim_origin_top_left_px": [
         68,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -9
+        -11
       ],
-      "sha256": "29e0d5464da5aa8684b2e47e39e16ff13955b320d232ce3086ae71bdcf4dda54",
+      "sha256": "c722d6f6b8d64233df92b3047f3c03a07e5d5cf3dbe066bda315922164e988b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_nne_07.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 122179,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "97424b1bc5b4d7f879a2be7020dc19b678ac05353313cbb2bdea173bae7b851d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nne_08.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        29,
-        39
+        28,
+        38
       ],
-      "offset": 122744,
-      "length": 1131,
+      "offset": 123243,
+      "length": 1064,
       "trim_origin_top_left_px": [
         68,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -9
+        -10
       ],
-      "sha256": "ff39cbf575fbeeb5528c500d6b983233f0391158708e4d19f7a89192ccaf2c39",
+      "sha256": "491d1f411dbef40950928642f4dc1d7f2eecf9ee206febb570408dfcaa9b603f",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_nne_09.png",
-      "width": 28,
+      "width": 30,
       "height": 39,
       "texture_px": [
-        28,
+        30,
         39
       ],
-      "offset": 123875,
-      "length": 1092,
+      "offset": 124307,
+      "length": 1170,
       "trim_origin_top_left_px": [
-        68,
+        67,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        13,
         -9
       ],
-      "sha256": "ea580b52cde18cdf6a49c97473c5595fee8163e972ec4a3b04ba952c4602ad08",
+      "sha256": "7561d5615c8da8d21e5d7cb7785a5a93113fe5a10d9600728b572c85a3649c70",
       "empty": false
     },
     {
@@ -2652,7 +2652,7 @@
         28,
         39
       ],
-      "offset": 124967,
+      "offset": 125477,
       "length": 1092,
       "trim_origin_top_left_px": [
         68,
@@ -2662,7 +2662,7 @@
         12,
         -9
       ],
-      "sha256": "eee7027ae5365114cdadb61939370bcc57e579fc6dc1f8f8fd408056cd5d389f",
+      "sha256": "24e7bcbc5a7e06151b94ba46690ab55e2b762454d4676030e33ae23a182ff416",
       "empty": false
     },
     {
@@ -2674,7 +2674,7 @@
         28,
         39
       ],
-      "offset": 126059,
+      "offset": 126569,
       "length": 1092,
       "trim_origin_top_left_px": [
         68,
@@ -2684,7 +2684,7 @@
         12,
         -9
       ],
-      "sha256": "36360ed9fa62304d5910e162952d7c44745e2072a956407a720e01d5aaff17d7",
+      "sha256": "01ec72a472f2c670b6093017332d797f36ab689ce156b2215f9eb7c716b3d4c3",
       "empty": false
     },
     {
@@ -2696,7 +2696,7 @@
         25,
         40
       ],
-      "offset": 127151,
+      "offset": 127661,
       "length": 1000,
       "trim_origin_top_left_px": [
         69,
@@ -2706,7 +2706,7 @@
         11,
         -8
       ],
-      "sha256": "a16fcd5bd539561b66e0173f4631bbf609a8d2838d3e24400efabc5be43b8d39",
+      "sha256": "90441ee3eac073bede9308e201bc26a4a3be2a45f08dfacbc08a6418ae40f134",
       "empty": false
     },
     {
@@ -2718,7 +2718,7 @@
         25,
         40
       ],
-      "offset": 128151,
+      "offset": 128661,
       "length": 1000,
       "trim_origin_top_left_px": [
         69,
@@ -2728,64 +2728,64 @@
         11,
         -8
       ],
-      "sha256": "40dc2ae8cf781f5ee46e558c88b88c574f8d4476c4203da3c3897c6037ed1815",
+      "sha256": "2021d256fc640f0e5914992c89e535e592d85e38be88c9900a8bae5c98171cc5",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ne_02.png",
-      "width": 25,
-      "height": 40,
+      "width": 26,
+      "height": 41,
       "texture_px": [
-        25,
-        40
+        26,
+        41
       ],
-      "offset": 129151,
-      "length": 1000,
+      "offset": 129661,
+      "length": 1066,
       "trim_origin_top_left_px": [
         69,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -8
+        -7
       ],
-      "sha256": "4043b95e890c3b17c8d52a490a511e8531991c6d21135ce28f1eb0c346e2489f",
+      "sha256": "d136426492a62f63f2f85eed6c5c2693fb51eea4becda9ea969ebd323a75921c",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ne_03.png",
-      "width": 24,
-      "height": 40,
+      "width": 26,
+      "height": 41,
       "texture_px": [
-        24,
-        40
+        26,
+        41
       ],
-      "offset": 130151,
-      "length": 960,
+      "offset": 130727,
+      "length": 1066,
       "trim_origin_top_left_px": [
-        70,
+        69,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
+        11,
+        -7
       ],
-      "sha256": "ae559835e2cf76b557a509fcda6be8c4f18008d8a207baea3d67ee4641727413",
+      "sha256": "c9e8ab24047bcd42f558594c696eaa8449bb47508012b6ffc85c0ce16a60c0a3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ne_04.png",
-      "width": 25,
+      "width": 26,
       "height": 40,
       "texture_px": [
-        25,
+        26,
         40
       ],
-      "offset": 131111,
-      "length": 1000,
+      "offset": 131793,
+      "length": 1040,
       "trim_origin_top_left_px": [
         69,
         52
@@ -2794,7 +2794,7 @@
         11,
         -8
       ],
-      "sha256": "2a1f012e217be049ada8ee5968a16bf5528209f56d2d399934c71644250cc40e",
+      "sha256": "322b02142079f93c05d34db573ff152970cfd20093272ae5739f7bbf3f6d1cca",
       "empty": false
     },
     {
@@ -2806,39 +2806,39 @@
         27,
         40
       ],
-      "offset": 132111,
+      "offset": 132833,
       "length": 1080,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "4c4477d803fb1fa93fdd2071555fba8707a933703fa54985cf8f71325fa28cfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ne_06.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 133913,
+      "length": 1092,
       "trim_origin_top_left_px": [
         68,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -8
+        -9
       ],
-      "sha256": "6bfbd955c931d7b27893d1b1e40d8d58a2796bb8e0489c74caeeabac558b5d9b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ne_06.png",
-      "width": 27,
-      "height": 39,
-      "texture_px": [
-        27,
-        39
-      ],
-      "offset": 133191,
-      "length": 1053,
-      "trim_origin_top_left_px": [
-        68,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -8
-      ],
-      "sha256": "1a6c34bf9d0dcdfa10837856367aff0d8553e9066571a4f39a8aa4100e73c1e0",
+      "sha256": "f7da85ca2cc12fd43731ea8dc259457ea634c1d6b6c9e40bb08c0b29d5a5ef29",
       "empty": false
     },
     {
@@ -2850,39 +2850,39 @@
         28,
         39
       ],
-      "offset": 134244,
+      "offset": 135005,
       "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        53
+        68,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -9
       ],
-      "sha256": "6a10ed137a245794f7a1205be7de88693537bea145c2cbf3f61cad312821aa0c",
+      "sha256": "00ef737d9b1c6eb40969727a6f614f443df9e72d239f30dfbcaf53a67549a662",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ne_08.png",
-      "width": 27,
+      "width": 28,
       "height": 39,
       "texture_px": [
-        27,
+        28,
         39
       ],
-      "offset": 135336,
-      "length": 1053,
+      "offset": 136097,
+      "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        53
+        68,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -9
       ],
-      "sha256": "8f57bc9268b8c997c4cbd90ffb365761db1584cba65f76fef238bdf84f5ab8d6",
+      "sha256": "fc013e574f7e666cf5c8bf7aa5cc83437f198f63b472ac501845482f9b4c36d9",
       "empty": false
     },
     {
@@ -2894,7 +2894,7 @@
         27,
         40
       ],
-      "offset": 136389,
+      "offset": 137189,
       "length": 1080,
       "trim_origin_top_left_px": [
         68,
@@ -2904,29 +2904,29 @@
         12,
         -8
       ],
-      "sha256": "b4ac604798a213a1833798cf426982715887d37553f190796e27ac0f94a249ee",
+      "sha256": "fe65204ac82d8a34e3f981a68be96fee38a1c1cc36ea823f34b92cad04f1e761",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ne_10.png",
-      "width": 26,
+      "width": 27,
       "height": 40,
       "texture_px": [
-        26,
+        27,
         40
       ],
-      "offset": 137469,
-      "length": 1040,
+      "offset": 138269,
+      "length": 1080,
       "trim_origin_top_left_px": [
-        69,
+        68,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        12,
         -8
       ],
-      "sha256": "803950e1658b289f9569abd147a86b0d2eceb907f25dd395817472de85fcb263",
+      "sha256": "3ec3da06833125c81334ad2c1a7e0d23629b2a51b3607659b7b248173b850ca5",
       "empty": false
     },
     {
@@ -2938,7 +2938,7 @@
         25,
         40
       ],
-      "offset": 138509,
+      "offset": 139349,
       "length": 1000,
       "trim_origin_top_left_px": [
         69,
@@ -2948,34 +2948,12 @@
         11,
         -8
       ],
-      "sha256": "a16fcd5bd539561b66e0173f4631bbf609a8d2838d3e24400efabc5be43b8d39",
+      "sha256": "90441ee3eac073bede9308e201bc26a4a3be2a45f08dfacbc08a6418ae40f134",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_00.png",
-      "width": 21,
-      "height": 40,
-      "texture_px": [
-        21,
-        40
-      ],
-      "offset": 139509,
-      "length": 840,
-      "trim_origin_top_left_px": [
-        71,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        9,
-        -8
-      ],
-      "sha256": "413767de5c65cff8dd4efb9a84e78cf8b80eca2c313fb2f92229f2463330f13a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ene_01.png",
       "width": 21,
       "height": 40,
       "texture_px": [
@@ -2992,64 +2970,130 @@
         9,
         -8
       ],
-      "sha256": "66e38ab086908b7a4ac7311787cda1abc5b2342bafd987bb48f7709b81155c91",
+      "sha256": "9afb5ac6beae33cbbb337dc389c60f195f3bb456952cab7e6e81770b69001253",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ene_01.png",
+      "width": 22,
+      "height": 41,
+      "texture_px": [
+        22,
+        41
+      ],
+      "offset": 141189,
+      "length": 902,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "438f1cb1ba85a8cb7893c958a97b458d6a227ecdfb62e454eee0a83797b6ce88",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_02.png",
-      "width": 21,
-      "height": 41,
+      "width": 22,
+      "height": 42,
       "texture_px": [
-        21,
-        41
+        22,
+        42
       ],
-      "offset": 141189,
-      "length": 861,
+      "offset": 142091,
+      "length": 924,
       "trim_origin_top_left_px": [
         71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -7
       ],
-      "sha256": "b454aa1c77304bdcab0fe4f869eef334c39512ae10888d81eb4eb214c65d306e",
+      "sha256": "83dff4b2a2d080c5e1220852dde3c08e74b9f556b52af608cdb4929a15e63128",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_03.png",
-      "width": 21,
-      "height": 41,
+      "width": 22,
+      "height": 42,
       "texture_px": [
-        21,
-        41
+        22,
+        42
       ],
-      "offset": 142050,
-      "length": 861,
+      "offset": 143015,
+      "length": 924,
       "trim_origin_top_left_px": [
         71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -7
       ],
-      "sha256": "92a5cfc288997d5130704709a60e0e3cc9884fa5462d448290a01ebb6e689d72",
+      "sha256": "19c61cd6c5d82b77c09bf94687a774a4af3f2cda5f86edf225738f3273aaa71a",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_04.png",
-      "width": 21,
+      "width": 22,
+      "height": 42,
+      "texture_px": [
+        22,
+        42
+      ],
+      "offset": 143939,
+      "length": 924,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "86d77f9f35e5fb052475d7324f8987f61f7321251f72f2a354a6948041c0822f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ene_05.png",
+      "width": 23,
+      "height": 42,
+      "texture_px": [
+        23,
+        42
+      ],
+      "offset": 144863,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "b08427936eea6496f5485ba2fe77d22758168f6ac560514e156637d7075ddc55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ene_06.png",
+      "width": 24,
       "height": 41,
       "texture_px": [
-        21,
+        24,
         41
       ],
-      "offset": 142911,
-      "length": 861,
+      "offset": 145829,
+      "length": 984,
       "trim_origin_top_left_px": [
         71,
         51
@@ -3058,130 +3102,86 @@
         9,
         -8
       ],
-      "sha256": "12c4a45fb268d2607fb8e7094adcbc7740d761030fa2badc725e401fa6981aea",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ene_05.png",
-      "width": 22,
-      "height": 40,
-      "texture_px": [
-        22,
-        40
-      ],
-      "offset": 143772,
-      "length": 880,
-      "trim_origin_top_left_px": [
-        70,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
-      ],
-      "sha256": "b9a08376a377381ad76ae3859c43f95204b70203007f0edf9229e815033d40c3",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ene_06.png",
-      "width": 23,
-      "height": 40,
-      "texture_px": [
-        23,
-        40
-      ],
-      "offset": 144652,
-      "length": 920,
-      "trim_origin_top_left_px": [
-        69,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
-      ],
-      "sha256": "4ae794f3529cc356c41163360b6e79ba9bf2f94c2ccfdd88913a0a0fabd384be",
+      "sha256": "ef0fda0d32c3e5a96e5ac2a334e532bcf2acb3a7708ff5b367fba3b6521275fc",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_07.png",
-      "width": 23,
-      "height": 40,
+      "width": 26,
+      "height": 41,
       "texture_px": [
-        23,
-        40
+        26,
+        41
       ],
-      "offset": 145572,
-      "length": 920,
+      "offset": 146813,
+      "length": 1066,
       "trim_origin_top_left_px": [
         69,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
         -8
       ],
-      "sha256": "bc48fc4fc0dd301f2a2d8c6c4dd0e56444fea39b4c927f4fc7e1a8e05288f7d2",
+      "sha256": "087be44d21906dc0b5fe8fdf149da0de4dce9fd69b3dd6baa29eb15698891a18",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_08.png",
-      "width": 23,
-      "height": 40,
+      "width": 24,
+      "height": 41,
       "texture_px": [
-        23,
-        40
+        24,
+        41
       ],
-      "offset": 146492,
-      "length": 920,
+      "offset": 147879,
+      "length": 984,
       "trim_origin_top_left_px": [
-        69,
-        52
+        70,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        10,
         -8
       ],
-      "sha256": "1f68891a32f2460241acdb0906f936cb6072cadf086e0777a6f88ef6c66e12dc",
+      "sha256": "e62f68c264cf87b791d575cea134931ed6717ba9317ccd6d80e390c9dd6445df",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_09.png",
       "width": 23,
-      "height": 40,
+      "height": 42,
       "texture_px": [
         23,
-        40
+        42
       ],
-      "offset": 147412,
-      "length": 920,
+      "offset": 148863,
+      "length": 966,
       "trim_origin_top_left_px": [
-        69,
-        52
+        70,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        10,
+        -7
       ],
-      "sha256": "16c624b1a76686eac02e3ce84e657aad615b32198b9bda1aed456943d096a6c2",
+      "sha256": "77b02ed2c80d4f279ed6f4f7a5b4a2d371fd5666a3858e04e0aafc4670f9e5df",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ene_10.png",
-      "width": 22,
+      "width": 23,
       "height": 40,
       "texture_px": [
-        22,
+        23,
         40
       ],
-      "offset": 148332,
-      "length": 880,
+      "offset": 149829,
+      "length": 920,
       "trim_origin_top_left_px": [
         70,
         52
@@ -3190,7 +3190,7 @@
         10,
         -8
       ],
-      "sha256": "63b01e3efb08abf9454cb824fa183d5bf08dd8a4e542f765173c8b060a5c3bbb",
+      "sha256": "94050cdfafe7b8120ca8db56037ff34a77daa2466070017df3bafd1a360ecdf2",
       "empty": false
     },
     {
@@ -3202,7 +3202,7 @@
         21,
         40
       ],
-      "offset": 149212,
+      "offset": 150749,
       "length": 840,
       "trim_origin_top_left_px": [
         71,
@@ -3212,7 +3212,7 @@
         9,
         -8
       ],
-      "sha256": "413767de5c65cff8dd4efb9a84e78cf8b80eca2c313fb2f92229f2463330f13a",
+      "sha256": "9afb5ac6beae33cbbb337dc389c60f195f3bb456952cab7e6e81770b69001253",
       "empty": false
     },
     {
@@ -3224,7 +3224,7 @@
         24,
         40
       ],
-      "offset": 150052,
+      "offset": 151589,
       "length": 960,
       "trim_origin_top_left_px": [
         69,
@@ -3234,51 +3234,51 @@
         11,
         -8
       ],
-      "sha256": "b6a04170c744d852f1f94921990103c3fc1b2e0462b76c21cee86b85a9beec4a",
+      "sha256": "bee5cc799b3a191f982b19dbdea3a222b1cef6cec733337a3c652c69dfb1b746",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_01.png",
       "width": 24,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         24,
-        41
+        42
       ],
-      "offset": 151012,
-      "length": 984,
+      "offset": 152549,
+      "length": 1008,
       "trim_origin_top_left_px": [
         69,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -8
+        -7
       ],
-      "sha256": "e4f745cfd466bfcf7804f95ac87daef9c32c44565faeeda83cc91f9158b8ca69",
+      "sha256": "166ac8a6f87faf792446f0933db302439722fb2dfe1589bd3c9191cd545b75a8",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_02.png",
       "width": 24,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         24,
-        41
+        42
       ],
-      "offset": 151996,
-      "length": 984,
+      "offset": 153557,
+      "length": 1008,
       "trim_origin_top_left_px": [
         69,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -8
+        -7
       ],
-      "sha256": "726bd2fd112f8862c40eac9ccda3b47f493251b839f896e35ae0bae350a8182c",
+      "sha256": "d681ec40095acbc5b47d257f4badaef8521765a7e6f109be864253e4af0b7b5a",
       "empty": false
     },
     {
@@ -3290,17 +3290,17 @@
         24,
         42
       ],
-      "offset": 152980,
+      "offset": 154565,
       "length": 1008,
       "trim_origin_top_left_px": [
         69,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -8
+        -7
       ],
-      "sha256": "0cc5b056d02463dc05c3f5cefaeb45a773fbeba3cf155557830a02b832c21fa4",
+      "sha256": "50477620af0c79a2a77e8bdc2930edcad78276a5f15efad47fcf036d705a0756",
       "empty": false
     },
     {
@@ -3312,149 +3312,149 @@
         24,
         42
       ],
-      "offset": 153988,
+      "offset": 155573,
       "length": 1008,
       "trim_origin_top_left_px": [
-        69,
-        50
+        70,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        10,
+        -7
       ],
-      "sha256": "b3889da54e5bd9cc267f091d99d22cb05860b9d8916261bd0f42b7daae8c9743",
+      "sha256": "5c7a4adc464e41aee8b08cd689123cd659625004116b607781f8251d6ed4a098",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_05.png",
       "width": 24,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         24,
-        41
+        42
       ],
-      "offset": 154996,
-      "length": 984,
+      "offset": 156581,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        69,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        9,
+        -7
       ],
-      "sha256": "ccc4f44ed69de4e66c98794eebb0bfde73a2b189c8e219aeb2d718b99120860b",
+      "sha256": "aa18b11a9b6fe40ccb57103b35d31c4bb7594a8f513319ee61052e443991a0d5",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_06.png",
-      "width": 24,
-      "height": 41,
+      "width": 22,
+      "height": 42,
       "texture_px": [
-        24,
-        41
+        22,
+        42
       ],
-      "offset": 155980,
-      "length": 984,
+      "offset": 157589,
+      "length": 924,
       "trim_origin_top_left_px": [
-        69,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        9,
+        -7
       ],
-      "sha256": "50272e1b6735c98135b3b50a3bc577a3ead5d2ef550a6f7f580a188d93031ec4",
+      "sha256": "a024de8f375ebb8fc613e04f34e1264ed162f22d00e442f06c171b55e3436609",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_07.png",
       "width": 24,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         24,
-        41
+        42
       ],
-      "offset": 156964,
-      "length": 984,
+      "offset": 158513,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        69,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        9,
+        -7
       ],
-      "sha256": "eeb6dd15ff132d2c16089652f8dfd3de09f6e5e75ea89bb957b9582867681931",
+      "sha256": "316a0354abafd16d5e698f7a18a499659ecbfaae6b235741a277addeef68593b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_08.png",
-      "width": 24,
-      "height": 41,
+      "width": 23,
+      "height": 42,
       "texture_px": [
-        24,
-        41
+        23,
+        42
       ],
-      "offset": 157948,
-      "length": 984,
+      "offset": 159521,
+      "length": 966,
       "trim_origin_top_left_px": [
-        69,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        9,
+        -7
       ],
-      "sha256": "15abc8305e4917f83edda1a11c58dd169335300a53f6c34d31d4fd442490ac04",
+      "sha256": "b68aeebae16d1be76c9eaaa7a25391174e32048953b9d092712455753052d4bd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_09.png",
       "width": 24,
-      "height": 41,
+      "height": 42,
       "texture_px": [
         24,
-        41
+        42
       ],
-      "offset": 158932,
-      "length": 984,
+      "offset": 160487,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        69,
+        70,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        10,
+        -7
       ],
-      "sha256": "a9d060d5d13aaa77d41e33f010550249e835237901fa50aa0942d02051206b55",
+      "sha256": "a485442d83d59adb54cc4606549895560664f5b6d736bced387c45262897a60e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_e_10.png",
-      "width": 24,
-      "height": 41,
+      "width": 23,
+      "height": 42,
       "texture_px": [
-        24,
-        41
+        23,
+        42
       ],
-      "offset": 159916,
-      "length": 984,
+      "offset": 161495,
+      "length": 966,
       "trim_origin_top_left_px": [
-        69,
+        70,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -8
+        10,
+        -7
       ],
-      "sha256": "3d0f39c48abab7c6c3bec0a0e3f477f2b345951862294aac7aabef0bfccc8c93",
+      "sha256": "63f47a1fbabed1bfb0b2a7af06a3655c80a8916daaf4a5d9a38ecb662ed56967",
       "empty": false
     },
     {
@@ -3466,7 +3466,7 @@
         24,
         40
       ],
-      "offset": 160900,
+      "offset": 162461,
       "length": 960,
       "trim_origin_top_left_px": [
         69,
@@ -3476,7 +3476,7 @@
         11,
         -8
       ],
-      "sha256": "b6a04170c744d852f1f94921990103c3fc1b2e0462b76c21cee86b85a9beec4a",
+      "sha256": "bee5cc799b3a191f982b19dbdea3a222b1cef6cec733337a3c652c69dfb1b746",
       "empty": false
     },
     {
@@ -3488,7 +3488,7 @@
         26,
         39
       ],
-      "offset": 161860,
+      "offset": 163421,
       "length": 1014,
       "trim_origin_top_left_px": [
         67,
@@ -3498,139 +3498,139 @@
         13,
         -8
       ],
-      "sha256": "ab42a93afaccc3e4703d813fd850089fe28f729d18fa561804d11e140ea80981",
+      "sha256": "8a20b4da9b740758f3c572b6580d170cce154a239f4d439ea9fbbda121572961",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_01.png",
       "width": 26,
-      "height": 38,
+      "height": 40,
       "texture_px": [
         26,
-        38
+        40
       ],
-      "offset": 162874,
-      "length": 988,
-      "trim_origin_top_left_px": [
-        67,
-        54
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
-      ],
-      "sha256": "5d9d3b6e5db42069f8c97c7c1e8b2ad822b26618510aac6c92f332dea30ac7da",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_ese_02.png",
-      "width": 26,
-      "height": 39,
-      "texture_px": [
-        26,
-        39
-      ],
-      "offset": 163862,
-      "length": 1014,
+      "offset": 164435,
+      "length": 1040,
       "trim_origin_top_left_px": [
         67,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -8
+        -7
       ],
-      "sha256": "8e88945046ec4eba76db168cbcef4df1d15ccc0566d95188a684b91f5ce32ab4",
+      "sha256": "a9e1f9fdeadf66c20590233a1f38acb0185a37c2d48b3dc2165f519d25ddcfe7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_ese_02.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 165475,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -7
+      ],
+      "sha256": "179b6521a13d8d6bce502492fac051562b5be35b230c731cfed8a6036147cfd2",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_03.png",
-      "width": 26,
-      "height": 40,
+      "width": 27,
+      "height": 41,
       "texture_px": [
-        26,
-        40
+        27,
+        41
       ],
-      "offset": 164876,
-      "length": 1040,
+      "offset": 166623,
+      "length": 1107,
       "trim_origin_top_left_px": [
         67,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -8
+        -7
       ],
-      "sha256": "35ac0ded912b872e9ed35c7e94ba40350ea3e2f75a6a2e195433241f7a1c584c",
+      "sha256": "9526489f767e95e4cc62b7ee2dcd9c22550a49fb178989d9e7f10535b3a0b808",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_04.png",
       "width": 26,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         26,
-        39
+        40
       ],
-      "offset": 165916,
-      "length": 1014,
+      "offset": 167730,
+      "length": 1040,
       "trim_origin_top_left_px": [
-        67,
+        68,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -7
       ],
-      "sha256": "339863a93cfc70cd9c556ca3a28a31cafd51ae34c6a4c46993aedfcdfb8c10de",
+      "sha256": "bab43849f51bc67cd6ff8b396ade915aa32a6d985b8a8574fecef0e023863e9b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_05.png",
-      "width": 26,
-      "height": 39,
+      "width": 27,
+      "height": 40,
       "texture_px": [
-        26,
-        39
+        27,
+        40
       ],
-      "offset": 166930,
-      "length": 1014,
+      "offset": 168770,
+      "length": 1080,
       "trim_origin_top_left_px": [
-        67,
+        68,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -7
       ],
-      "sha256": "7eb934aa6f2ea32bfd6c6e0fcb227eb02a5af03742bffa717c3e85da96d72039",
+      "sha256": "1af27e6f5a0b7ff5ad70e5340491240e5e68b7cf86cb826f386f2fa781d8ae5d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_06.png",
-      "width": 26,
+      "width": 27,
       "height": 42,
       "texture_px": [
-        26,
+        27,
         42
       ],
-      "offset": 167944,
-      "length": 1092,
+      "offset": 169850,
+      "length": 1134,
       "trim_origin_top_left_px": [
-        67,
-        50
+        69,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        11,
+        -7
       ],
-      "sha256": "4268c9b268a1dc0958582da6888313fad31a1ebeb7ba1696a5d3cc849424f5f4",
+      "sha256": "885971b0a690e52f56660625597144bbaacd3132d8d534954d9ad53d4b3321a2",
       "empty": false
     },
     {
@@ -3642,39 +3642,39 @@
         26,
         42
       ],
-      "offset": 169036,
+      "offset": 170984,
       "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        50
+        69,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        11,
+        -7
       ],
-      "sha256": "133d871f8c8212d61b5964c11ed6ae95e59714c23a1a08f55973b6b58413ed96",
+      "sha256": "0a88b559663638d4edd6e8701dc822cc536e060066713d7923b2b83fd1049d69",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_08.png",
-      "width": 26,
+      "width": 27,
       "height": 42,
       "texture_px": [
-        26,
+        27,
         42
       ],
-      "offset": 170128,
-      "length": 1092,
+      "offset": 172076,
+      "length": 1134,
       "trim_origin_top_left_px": [
-        67,
-        50
+        68,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -7
       ],
-      "sha256": "0d0dfbbff16dc74d78f39ce72e0fac6cd5bfa46e2b5ecbdaf804b0850fb0f2f3",
+      "sha256": "09f9eec4b009418d5b26a6de7cb6349b997f0bb101780d969160b58068e8a5f3",
       "empty": false
     },
     {
@@ -3686,39 +3686,39 @@
         26,
         42
       ],
-      "offset": 171220,
+      "offset": 173210,
       "length": 1092,
       "trim_origin_top_left_px": [
-        67,
-        50
+        68,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -8
+        12,
+        -7
       ],
-      "sha256": "c890ab44d27455b618858968ebeecd3a1362cfbcda6870b38ff1c390131e8a85",
+      "sha256": "ed0eea0275c8fcd2599ddcb3fe2956a546303643dd312b30f88ed534f94a1810",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_ese_10.png",
-      "width": 26,
+      "width": 27,
       "height": 40,
       "texture_px": [
-        26,
+        27,
         40
       ],
-      "offset": 172312,
-      "length": 1040,
+      "offset": 174302,
+      "length": 1080,
       "trim_origin_top_left_px": [
         67,
-        52
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -8
+        -7
       ],
-      "sha256": "a2e23f0ff2f8dcca53dcd41dea87cd9c780514ba49632a8ed1f95032ccfa95e5",
+      "sha256": "bd91a7bb9a0ea16a4b97584fb11af77b7b2e0f7ba6f16010eb623196530199ec",
       "empty": false
     },
     {
@@ -3730,7 +3730,7 @@
         26,
         39
       ],
-      "offset": 173352,
+      "offset": 175382,
       "length": 1014,
       "trim_origin_top_left_px": [
         67,
@@ -3740,7 +3740,7 @@
         13,
         -8
       ],
-      "sha256": "ab42a93afaccc3e4703d813fd850089fe28f729d18fa561804d11e140ea80981",
+      "sha256": "8a20b4da9b740758f3c572b6580d170cce154a239f4d439ea9fbbda121572961",
       "empty": false
     },
     {
@@ -3752,7 +3752,7 @@
         28,
         39
       ],
-      "offset": 174366,
+      "offset": 176396,
       "length": 1092,
       "trim_origin_top_left_px": [
         65,
@@ -3762,73 +3762,73 @@
         15,
         -9
       ],
-      "sha256": "0a289be21857194bf1afe4749e107bb854f47c4b9a3403e99171861f28d4ca52",
+      "sha256": "8bc47203870ff92b0f1329dbc8cc2cee644e6dfd8e5ed3f22a88045ec7f9561d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_se_01.png",
-      "width": 28,
-      "height": 40,
-      "texture_px": [
-        28,
-        40
-      ],
-      "offset": 175458,
-      "length": 1120,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
-      ],
-      "sha256": "0be9f4f9b40b9727413c025db05078cb24b15a0186dd1d5a2201315ae93a83b0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_se_02.png",
       "width": 29,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         29,
-        40
+        41
       ],
-      "offset": 176578,
-      "length": 1160,
+      "offset": 177488,
+      "length": 1189,
       "trim_origin_top_left_px": [
         64,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -9
+        -8
       ],
-      "sha256": "8926ff05593700ac2cb6e82fa78f43bba3bf793372af51c0c13d7afdf4f0a8c5",
+      "sha256": "f133721b3fe457bd079f5e06d25c561945a1920023d8f9786e6cdca54643c65f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_se_02.png",
+      "width": 30,
+      "height": 40,
+      "texture_px": [
+        30,
+        40
+      ],
+      "offset": 178677,
+      "length": 1200,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "268232b5a7dd5fc76909ca7d36c65e05f0be223043d173f7e876447b3ce64d85",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_se_03.png",
-      "width": 29,
-      "height": 39,
+      "width": 30,
+      "height": 40,
       "texture_px": [
-        29,
-        39
+        30,
+        40
       ],
-      "offset": 177738,
-      "length": 1131,
+      "offset": 179877,
+      "length": 1200,
       "trim_origin_top_left_px": [
         64,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -9
+        -8
       ],
-      "sha256": "281b524e629f01ae8b224db3d071c37f5a71b5a4628dfb3fb736f0a41a71b370",
+      "sha256": "329e88a251cd209eeae7a76f93d5c4d6bb28aae2147b691eb737192ac19e5651",
       "empty": false
     },
     {
@@ -3840,105 +3840,105 @@
         29,
         40
       ],
-      "offset": 178869,
+      "offset": 181077,
       "length": 1160,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -9
-      ],
-      "sha256": "304bfc7e73dce3d319582099ac64d07edc9478d0388ec56a636abc4b2595cb1b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_se_05.png",
-      "width": 28,
-      "height": 40,
-      "texture_px": [
-        28,
-        40
-      ],
-      "offset": 180029,
-      "length": 1120,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
-      ],
-      "sha256": "2e4cd23b5d5ae1c666e02cda3e7a0b9efb55696e3b68ec2d3faed7e26633973a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_se_06.png",
-      "width": 28,
-      "height": 41,
-      "texture_px": [
-        28,
-        41
-      ],
-      "offset": 181149,
-      "length": 1148,
-      "trim_origin_top_left_px": [
-        65,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
-      ],
-      "sha256": "38eb93a08397188592e528d36b5bd579176828fcf372cfe9e738e1cc3873f14f",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_se_07.png",
-      "width": 28,
-      "height": 39,
-      "texture_px": [
-        28,
-        39
-      ],
-      "offset": 182297,
-      "length": 1092,
       "trim_origin_top_left_px": [
         65,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -9
+        -8
       ],
-      "sha256": "6ab23e9ccabacb85b571b1c92d540f942c3dec314822959eeebb791c0e1e93d4",
+      "sha256": "6c91e74d52ccbc29483fd060a141e3f46969642932de69e22b18833e7fcca691",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
-      "name": "attack_se_08.png",
+      "name": "attack_se_05.png",
+      "width": 29,
+      "height": 41,
+      "texture_px": [
+        29,
+        41
+      ],
+      "offset": 182237,
+      "length": 1189,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -7
+      ],
+      "sha256": "90da089057f8c0a2b46d8b276776febf3bc485d1a34519dbae162b1a4b1afada",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_se_06.png",
+      "width": 29,
+      "height": 40,
+      "texture_px": [
+        29,
+        40
+      ],
+      "offset": 183426,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "8c59f8eeeac747f3fe08f358609c4cd8bed4aa3824fbccfeeb741b69203a7070",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_se_07.png",
       "width": 28,
       "height": 41,
       "texture_px": [
         28,
         41
       ],
-      "offset": 183389,
+      "offset": 184586,
       "length": 1148,
       "trim_origin_top_left_px": [
-        65,
-        50
+        67,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
+        13,
+        -7
       ],
-      "sha256": "4adb78f56212f829df6db77fe8ffa13c0f8a6373d83dd830987a86b79457b3d3",
+      "sha256": "e2599df462f96cfb7d1894738155d321414734f511ccd7a9a0c9ccf40750bc56",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeMail.atlas",
+      "name": "attack_se_08.png",
+      "width": 29,
+      "height": 41,
+      "texture_px": [
+        29,
+        41
+      ],
+      "offset": 185734,
+      "length": 1189,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -7
+      ],
+      "sha256": "b26816432ec87f77d8d4819ffba62bdcd5e67e491aa99b75c9d0d3a6611f668e",
       "empty": false
     },
     {
@@ -3950,39 +3950,39 @@
         28,
         41
       ],
-      "offset": 184537,
+      "offset": 186923,
       "length": 1148,
       "trim_origin_top_left_px": [
-        65,
-        50
+        66,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
+        14,
+        -8
       ],
-      "sha256": "5248686e0102049eb9b7f15c51b2b18deb5011aa07e31c22a65455636e1cc48b",
+      "sha256": "b5b4791af2a50d861e9030a4d42b9eddcd5adca3ca1002432e7178d341eaab20",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_se_10.png",
-      "width": 28,
-      "height": 40,
+      "width": 29,
+      "height": 41,
       "texture_px": [
-        28,
-        40
+        29,
+        41
       ],
-      "offset": 185685,
-      "length": 1120,
+      "offset": 188071,
+      "length": 1189,
       "trim_origin_top_left_px": [
         65,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -9
+        -8
       ],
-      "sha256": "d94d8feffb2a1c310dd4b20b7a404a5bc3fa6e7db653caba68b0163592e2805a",
+      "sha256": "665501bca6f8b6897f79bd64f96a1b2f4ab9644b86f2b1fe995419c91a6597f0",
       "empty": false
     },
     {
@@ -3994,7 +3994,7 @@
         28,
         39
       ],
-      "offset": 186805,
+      "offset": 189260,
       "length": 1092,
       "trim_origin_top_left_px": [
         65,
@@ -4004,7 +4004,7 @@
         15,
         -9
       ],
-      "sha256": "0a289be21857194bf1afe4749e107bb854f47c4b9a3403e99171861f28d4ca52",
+      "sha256": "8bc47203870ff92b0f1329dbc8cc2cee644e6dfd8e5ed3f22a88045ec7f9561d",
       "empty": false
     },
     {
@@ -4016,7 +4016,7 @@
         29,
         38
       ],
-      "offset": 187897,
+      "offset": 190352,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
@@ -4026,7 +4026,7 @@
         17,
         -10
       ],
-      "sha256": "0e0009c3e94deda90e006b0f0a4a266e7761a624f73b329c6d9def6643795852",
+      "sha256": "77e601f055596f7f6ac9ec1474d1b783d14de8e45e078f07d0a4012240e55690",
       "empty": false
     },
     {
@@ -4038,7 +4038,7 @@
         29,
         38
       ],
-      "offset": 188999,
+      "offset": 191454,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
@@ -4048,51 +4048,51 @@
         17,
         -10
       ],
-      "sha256": "53de39144ccf47bc4504b7acc43ef6a7e3ff566271394d157878552c03d48dcf",
+      "sha256": "3cbe1fb6468d333c23a06186ad51b452612fb07b61ff00f0d6bf92113b7336fc",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_02.png",
-      "width": 30,
-      "height": 37,
+      "width": 31,
+      "height": 38,
       "texture_px": [
-        30,
-        37
+        31,
+        38
       ],
-      "offset": 190101,
-      "length": 1110,
+      "offset": 192556,
+      "length": 1178,
       "trim_origin_top_left_px": [
         62,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -10
+        -9
       ],
-      "sha256": "ed02e8c0f81701ef6bb14372851022a40ec2764dbc64aaf80784e5e8a622a9bd",
+      "sha256": "9e71fc778af1f5f62d9cde492adc0315283e452e63020059a177cad9160fa820",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_03.png",
       "width": 30,
-      "height": 37,
+      "height": 38,
       "texture_px": [
         30,
-        37
+        38
       ],
-      "offset": 191211,
-      "length": 1110,
+      "offset": 193734,
+      "length": 1140,
       "trim_origin_top_left_px": [
-        62,
+        63,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        17,
+        -9
       ],
-      "sha256": "8dbd3bbfd32323b7d44f0964cd123833eb7a9dc87b66a5f80f89ce133eed92cd",
+      "sha256": "8bbfd89063fd0269de44550e45d11df2ed1601ad42758e4ef7955718be8701b4",
       "empty": false
     },
     {
@@ -4104,105 +4104,105 @@
         30,
         38
       ],
-      "offset": 192321,
+      "offset": 194874,
       "length": 1140,
       "trim_origin_top_left_px": [
-        62,
-        52
+        63,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        17,
+        -9
       ],
-      "sha256": "da2bc639684b9bdcc9d0f2a5cd68c4bd3f32dcef75ee4339667f0e121f2b3eb4",
+      "sha256": "22d8a15ca0920bc25846ec7c5c72522890406269454bf81128fd1babe6cb94ea",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_05.png",
-      "width": 29,
-      "height": 38,
+      "width": 30,
+      "height": 39,
       "texture_px": [
-        29,
-        38
+        30,
+        39
       ],
-      "offset": 193461,
-      "length": 1102,
+      "offset": 196014,
+      "length": 1170,
       "trim_origin_top_left_px": [
-        63,
-        52
+        64,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -10
+        16,
+        -8
       ],
-      "sha256": "9c0348180a5672dc0a053afb083faec391cfcc16a386a8a4cb1a4926bfba12e7",
+      "sha256": "86e41ad6f741d86b92eafce0bad07be1cdcdec66cda81d0b9f2a4304a56af474",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_06.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 40,
       "texture_px": [
-        29,
-        39
+        28,
+        40
       ],
-      "offset": 194563,
-      "length": 1131,
+      "offset": 197184,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        63,
-        51
+        66,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -10
+        14,
+        -7
       ],
-      "sha256": "ac0b0458d01d5472716b3fbb6eca10e52e9ad044a5e7559e0e90f36d02ddb4c6",
+      "sha256": "9c79cf20ef24a4e2f9c74391cea3ae5427a6e87cfefc1f084fbf1347cdaddbbb",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_07.png",
       "width": 29,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         29,
-        39
+        40
       ],
-      "offset": 195694,
-      "length": 1131,
+      "offset": 198304,
+      "length": 1160,
       "trim_origin_top_left_px": [
-        63,
-        51
+        65,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -10
+        15,
+        -8
       ],
-      "sha256": "962e8beb597466c590094e857485aba49077faaeb98e5d5205de2ff773e07df9",
+      "sha256": "9dafb15f7eaf1a62f2ae688e8e43d34b8a3698be81b7af90ba537e79ca0fc3e5",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_08.png",
       "width": 29,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         29,
-        39
+        40
       ],
-      "offset": 196825,
-      "length": 1131,
+      "offset": 199464,
+      "length": 1160,
       "trim_origin_top_left_px": [
-        63,
-        51
+        65,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -10
+        15,
+        -8
       ],
-      "sha256": "450f13a30e62b12be81791821ac3124659ea341a6b59d9ea21b7a7fea782ec72",
+      "sha256": "adfb08b7f947d5f6ff391848e49dbe3e5610350c838a4d2a469478d63fd4bc75",
       "empty": false
     },
     {
@@ -4214,39 +4214,39 @@
         29,
         39
       ],
-      "offset": 197956,
+      "offset": 200624,
       "length": 1131,
       "trim_origin_top_left_px": [
-        63,
-        51
+        64,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -10
+        16,
+        -9
       ],
-      "sha256": "b11dea73a09bad2c1d80cf87c73cc2cd39dfc47b99141a32258e13259544967c",
+      "sha256": "2538484274ccd2b8c93d9e953d4e3d99947a0b1b4352855a58abe137029232fc",
       "empty": false
     },
     {
       "atlas": "HumanMeleeMail.atlas",
       "name": "attack_sse_10.png",
-      "width": 29,
-      "height": 38,
+      "width": 30,
+      "height": 39,
       "texture_px": [
-        29,
-        38
+        30,
+        39
       ],
-      "offset": 199087,
-      "length": 1102,
+      "offset": 201755,
+      "length": 1170,
       "trim_origin_top_left_px": [
         63,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -10
+        -9
       ],
-      "sha256": "583c8ab93d4323d4556bbae8556874e8c2fea413469937c07d74cbbaec7c79aa",
+      "sha256": "c6e6bc8ffa2d5a54572833b003af8f1535cf967aa3acf262f1b088bfead8c2a1",
       "empty": false
     },
     {
@@ -4258,7 +4258,7 @@
         29,
         38
       ],
-      "offset": 200189,
+      "offset": 202925,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
@@ -4268,9 +4268,9 @@
         17,
         -10
       ],
-      "sha256": "0e0009c3e94deda90e006b0f0a4a266e7761a624f73b329c6d9def6643795852",
+      "sha256": "77e601f055596f7f6ac9ec1474d1b783d14de8e45e078f07d0a4012240e55690",
       "empty": false
     }
   ],
-  "source_authority": "MeleeOct07/Melee_Authored.blend"
+  "source_authority": "SwordRefinementOct07/Sword_Authored.blend"
 }

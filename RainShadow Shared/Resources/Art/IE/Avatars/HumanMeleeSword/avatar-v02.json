@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanMeleeSword",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "8b8a0b56c1e046889114756074fc1d6ee46d692008c4535888712f3b82e4f5d9",
+  "blob_sha256": "e06ae70293a7c174d344168329f848a6d062da06f56ab3f5e6ccd2a49a2f3678",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -43,7 +43,7 @@
   },
   "shadow": {
     "embedded": false,
-    "owner": "body layer owns the contact shadow"
+    "owner": "external ContactShadowNode"
   },
   "fallback": "compatibility RGBA atlas frame",
   "frames": [
@@ -72,221 +72,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_01.png",
-      "width": 8,
-      "height": 7,
+      "width": 6,
+      "height": 19,
       "texture_px": [
-        8,
-        7
+        6,
+        19
       ],
       "offset": 124,
-      "length": 56,
+      "length": 114,
       "trim_origin_top_left_px": [
-        61,
-        74
+        62,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -19
+        18,
+        -8
       ],
-      "sha256": "e7984c09f27e9275ca3cd0a10559ea44b874b71644913c047e314b02d4052d8f",
+      "sha256": "6023b6644324ebcee5222556ab9dde202151b19426f48a7c862547fec220b316",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_02.png",
-      "width": 6,
-      "height": 13,
+      "width": 5,
+      "height": 6,
       "texture_px": [
-        6,
-        13
+        5,
+        6
       ],
-      "offset": 180,
-      "length": 78,
+      "offset": 238,
+      "length": 30,
       "trim_origin_top_left_px": [
-        58,
-        59
+        62,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -28
+        18,
+        -27
       ],
-      "sha256": "c4a0c02db524625a1379101122da75d23a4fa0b61e6475d3cb8b59cf59b81a3d",
+      "sha256": "8120bbf33850883c6cd0ad495aa55d59ad5afde466c04bebe5a39313f03b6bd9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_03.png",
-      "width": 10,
-      "height": 15,
+      "width": 9,
+      "height": 17,
       "texture_px": [
-        10,
-        15
+        9,
+        17
       ],
-      "offset": 258,
-      "length": 150,
+      "offset": 268,
+      "length": 153,
       "trim_origin_top_left_px": [
-        51,
-        56
+        55,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        29,
-        -29
+        25,
+        -35
       ],
-      "sha256": "3b3a7618836f730d3991ee892c5280439bc89d0f372c620bc32b4b7021a314fa",
+      "sha256": "966510c7ac77750863ecbe812c89805dad9f70ac3af53f9b17b7409e9440f3a8",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_04.png",
-      "width": 11,
-      "height": 12,
+      "width": 12,
+      "height": 13,
       "texture_px": [
-        11,
-        12
+        12,
+        13
       ],
-      "offset": 408,
-      "length": 132,
+      "offset": 421,
+      "length": 156,
       "trim_origin_top_left_px": [
-        51,
-        61
+        54,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        29,
-        -27
+        26,
+        -29
       ],
-      "sha256": "5f1bf39c4147a9158403dda06cf309e07df1b6d01356cdd749425ed69bc7e1fe",
+      "sha256": "caf7ff31b5ab918e3d1995c9824f951dc2b8f93b7ec30d4ad7216c711077e4b2",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_05.png",
-      "width": 9,
-      "height": 5,
+      "width": 14,
+      "height": 9,
       "texture_px": [
-        9,
-        5
+        14,
+        9
       ],
-      "offset": 540,
-      "length": 45,
+      "offset": 577,
+      "length": 126,
       "trim_origin_top_left_px": [
-        54,
-        73
+        53,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -22
+        27,
+        -24
       ],
-      "sha256": "41593e463f2c06397712c727eca94d9db5556d9188cc08e300928c18be62f964",
+      "sha256": "afc14f6782a0196f67698992bffd352742eea544e9338fe56c15dadd0a5ed8aa",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_s_06.png",
+      "width": 13,
+      "height": 15,
+      "texture_px": [
+        13,
+        15
+      ],
+      "offset": 703,
+      "length": 195,
+      "trim_origin_top_left_px": [
+        66,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -5
+      ],
+      "sha256": "8dc20bc24aa7abf5ac27abe65303e407ff68bde7b3e9004acae70f4523b65693",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_s_07.png",
+      "width": 2,
+      "height": 16,
+      "texture_px": [
+        2,
+        16
+      ],
+      "offset": 898,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        86,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -6
+      ],
+      "sha256": "ffe06d1a05a1f93a6b96afb1d73f1a4c2e03c03ce0c69b381ef17e782f8e8155",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_s_08.png",
+      "width": 4,
+      "height": 16,
+      "texture_px": [
+        4,
+        16
+      ],
+      "offset": 930,
+      "length": 64,
+      "trim_origin_top_left_px": [
+        75,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -7
+      ],
+      "sha256": "d3b575b7f6f73181b801a5d5577a9b75058e281eb181f3fc89d6c13d27d1d2c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_s_09.png",
+      "width": 3,
+      "height": 7,
+      "texture_px": [
+        3,
+        7
+      ],
+      "offset": 994,
+      "length": 21,
+      "trim_origin_top_left_px": [
+        68,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -18
+      ],
+      "sha256": "da19d29e615530a34872c28cbe698b20bae725271e93321d9b147977a4699b51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_s_10.png",
       "width": 6,
       "height": 16,
       "texture_px": [
         6,
         16
       ],
-      "offset": 585,
+      "offset": 1015,
       "length": 96,
       "trim_origin_top_left_px": [
-        59,
+        64,
         77
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
+        16,
         -7
       ],
-      "sha256": "78b59211db8c98d5d0efb590c5caa1ddab97c89f445fab429ac0ab733117cfab",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_s_07.png",
-      "width": 6,
-      "height": 22,
-      "texture_px": [
-        6,
-        22
-      ],
-      "offset": 681,
-      "length": 132,
-      "trim_origin_top_left_px": [
-        59,
-        77
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        21,
-        -1
-      ],
-      "sha256": "712322ddaec095ca7e4474dcff1d81a1bf3c5354c2951e16444fc7c653485eec",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_s_08.png",
-      "width": 7,
-      "height": 18,
-      "texture_px": [
-        7,
-        18
-      ],
-      "offset": 813,
-      "length": 126,
-      "trim_origin_top_left_px": [
-        60,
-        81
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        -1
-      ],
-      "sha256": "acfb33b6028b55a21cac95e9fa0f7962964647b3f8543159635946df684eb3a5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_s_09.png",
-      "width": 10,
-      "height": 18,
-      "texture_px": [
-        10,
-        18
-      ],
-      "offset": 939,
-      "length": 180,
-      "trim_origin_top_left_px": [
-        62,
-        80
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        18,
-        -2
-      ],
-      "sha256": "28824bdbd274621c8849f7e2b81c193305be6c5546949b59055e501018f629f5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_s_10.png",
-      "width": 7,
-      "height": 18,
-      "texture_px": [
-        7,
-        18
-      ],
-      "offset": 1119,
-      "length": 126,
-      "trim_origin_top_left_px": [
-        61,
-        79
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        19,
-        -3
-      ],
-      "sha256": "d29811655b1b4b19c9a9646b493bb7ad7edef7aa9a7b40441d695c05a85073fc",
+      "sha256": "7f73dfff444b104f8838bb07e652f9d16ecc69bf49ee30a023f7d317e33860ce",
       "empty": false
     },
     {
@@ -298,7 +298,7 @@
         6,
         18
       ],
-      "offset": 1245,
+      "offset": 1111,
       "length": 108,
       "trim_origin_top_left_px": [
         61,
@@ -320,7 +320,7 @@
         15,
         19
       ],
-      "offset": 1353,
+      "offset": 1219,
       "length": 285,
       "trim_origin_top_left_px": [
         53,
@@ -336,221 +336,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_01.png",
-      "width": 7,
-      "height": 7,
+      "width": 12,
+      "height": 17,
       "texture_px": [
-        7,
-        7
+        12,
+        17
       ],
-      "offset": 1638,
-      "length": 49,
+      "offset": 1504,
+      "length": 204,
       "trim_origin_top_left_px": [
-        59,
-        70
+        56,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        -23
+        24,
+        -14
       ],
-      "sha256": "7edf3d20834953a700e0d59a149539f4b953550bd181661f610bef3109ff6f30",
+      "sha256": "77908c1c0e7452b8a34e90fdb23c39e8f9a77bafb19225c96c28a85d30828889",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_02.png",
       "width": 7,
-      "height": 16,
+      "height": 6,
       "texture_px": [
         7,
-        16
+        6
       ],
-      "offset": 1687,
-      "length": 112,
+      "offset": 1708,
+      "length": 42,
       "trim_origin_top_left_px": [
-        54,
-        52
+        59,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
+        21,
         -32
       ],
-      "sha256": "e07c73c813bd8b5f307f04c8ff4a64f69a1f57705f309556a036317d0d61a654",
+      "sha256": "f3d8f9682c3d34cee62b6045c174b60ca90f8d5197dee165c932337792d8cabe",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_03.png",
-      "width": 11,
-      "height": 18,
+      "width": 9,
+      "height": 20,
       "texture_px": [
-        11,
-        18
+        9,
+        20
       ],
-      "offset": 1799,
-      "length": 198,
+      "offset": 1750,
+      "length": 180,
       "trim_origin_top_left_px": [
-        46,
-        47
+        54,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
-        -35
+        26,
+        -40
       ],
-      "sha256": "cc21e0a73eba460480a5e085f7703b86646c47f3b3f8f8583d45bc16c9c00205",
+      "sha256": "eb514a71df4318f87b4837fed1228a8f9e0eb60f2042b80d19d05c6a1571d503",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_04.png",
       "width": 13,
-      "height": 15,
+      "height": 16,
       "texture_px": [
         13,
-        15
+        16
       ],
-      "offset": 1997,
-      "length": 195,
+      "offset": 1930,
+      "length": 208,
       "trim_origin_top_left_px": [
-        45,
-        51
+        49,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -34
+        31,
+        -35
       ],
-      "sha256": "9258a5182d2cf297efc4a3b7c8b4585f6613e0438c9e77df116389c7ecd294af",
+      "sha256": "57d3c5f78b0fd67fdbf8ae5ea741f5cecc21a6cfab7e03a972401bde35e49e0b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_05.png",
-      "width": 15,
-      "height": 6,
+      "width": 19,
+      "height": 13,
       "texture_px": [
-        15,
-        6
+        19,
+        13
       ],
-      "offset": 2192,
-      "length": 90,
+      "offset": 2138,
+      "length": 247,
       "trim_origin_top_left_px": [
-        46,
-        65
+        44,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
+        36,
         -29
       ],
-      "sha256": "efc57fbb5e1766263d0c59e8d372a67563543119bb6ad9bf30598e8f79c32d7a",
+      "sha256": "166a7da33b4d4041776c44a82a649f902d0c306c9d02d2c17ce0a769599b0c31",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_06.png",
-      "width": 14,
-      "height": 14,
+      "width": 21,
+      "height": 11,
       "texture_px": [
-        14,
-        14
+        21,
+        11
       ],
-      "offset": 2282,
-      "length": 196,
+      "offset": 2385,
+      "length": 231,
       "trim_origin_top_left_px": [
-        49,
-        71
+        50,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        31,
-        -15
+        30,
+        -11
       ],
-      "sha256": "0819f53579085b61ba32acd9ba162ed93f5c64f3c5ab6ff8fa1c2c8286096bb0",
+      "sha256": "cc5e243ee1b2a796d77ea09029ad5792a3606a32d5095841fc45079138cf7a3b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_07.png",
       "width": 13,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         13,
-        20
+        21
       ],
-      "offset": 2478,
-      "length": 260,
+      "offset": 2616,
+      "length": 273,
       "trim_origin_top_left_px": [
-        50,
-        72
+        70,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        30,
-        -8
+        10,
+        0
       ],
-      "sha256": "4eb8b6cd7e2811208216e9e43c6f01901083873f3c79a9b690cd9b71299eb01c",
+      "sha256": "07378643393c94b85bf6bb818c78ff55c580a69b27ade423e0ce3c74e58e9b6d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_08.png",
-      "width": 10,
-      "height": 21,
+      "width": 14,
+      "height": 15,
       "texture_px": [
-        10,
-        21
+        14,
+        15
       ],
-      "offset": 2738,
+      "offset": 2889,
       "length": 210,
       "trim_origin_top_left_px": [
-        54,
-        72
+        62,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -7
+        18,
+        -9
       ],
-      "sha256": "ad5801fbaa906949caad4e871f015bf635ca7f54fd5c830680017f4341be62c4",
+      "sha256": "f8c2bf3f0b2ec00c112d53b17c85722b09c9ceabc2cbf35f4f58f0843da868a6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_09.png",
-      "width": 6,
-      "height": 18,
+      "width": 12,
+      "height": 7,
       "texture_px": [
-        6,
-        18
+        12,
+        7
       ],
-      "offset": 2948,
-      "length": 108,
+      "offset": 3099,
+      "length": 84,
       "trim_origin_top_left_px": [
-        60,
-        75
+        57,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
-        -7
+        23,
+        -21
       ],
-      "sha256": "cfe63f48cf7cdb6fd20082d0e834ac9c376b3abb01a749a53c34386a6f006e68",
+      "sha256": "0734a13dc5a1b3585e610a576d13424d7e5c8a37c0698cd13316f621c316e424",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ssw_10.png",
-      "width": 11,
-      "height": 21,
+      "width": 9,
+      "height": 17,
       "texture_px": [
-        11,
-        21
+        9,
+        17
       ],
-      "offset": 3056,
-      "length": 231,
+      "offset": 3183,
+      "length": 153,
       "trim_origin_top_left_px": [
-        56,
-        70
+        59,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        -9
+        21,
+        -12
       ],
-      "sha256": "959b01b77d20dcdab4e0ce9ff50d2811c8c2bf0c9d0c74bbd5b5300fbab7c54f",
+      "sha256": "0b4e96017cba3070a98d51d86256bfd6c798d0b9d789c711d873b2c434bb6c7d",
       "empty": false
     },
     {
@@ -562,7 +562,7 @@
         15,
         19
       ],
-      "offset": 3287,
+      "offset": 3336,
       "length": 285,
       "trim_origin_top_left_px": [
         53,
@@ -584,7 +584,7 @@
         22,
         15
       ],
-      "offset": 3572,
+      "offset": 3621,
       "length": 330,
       "trim_origin_top_left_px": [
         49,
@@ -600,221 +600,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_01.png",
-      "width": 11,
-      "height": 5,
+      "width": 19,
+      "height": 13,
       "texture_px": [
-        11,
-        5
+        19,
+        13
       ],
-      "offset": 3902,
-      "length": 55,
+      "offset": 3951,
+      "length": 247,
       "trim_origin_top_left_px": [
-        55,
+        52,
         65
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
-        -30
+        28,
+        -22
       ],
-      "sha256": "42b397af85bf6fbcfda3178cbedd82c335cc3f41914954eddced159c49b06fda",
+      "sha256": "5065461951cc0dd8ca7a76d994658f0b4b0576fac83e1aff8825c67a897fe5e8",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_02.png",
-      "width": 7,
-      "height": 17,
+      "width": 11,
+      "height": 8,
       "texture_px": [
-        7,
-        17
+        11,
+        8
       ],
-      "offset": 3957,
-      "length": 119,
+      "offset": 4198,
+      "length": 88,
       "trim_origin_top_left_px": [
-        54,
-        45
+        56,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -38
+        24,
+        -37
       ],
-      "sha256": "edd65b4f5c43fe4b02f2c823c0b41d9a816b86c1ea66a029ed720e25de4e0721",
+      "sha256": "a868085eb6a99c61afeb0450c161adb08a3f1896214b24db71b9027713da2a3d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_03.png",
-      "width": 9,
-      "height": 21,
+      "width": 7,
+      "height": 23,
       "texture_px": [
-        9,
-        21
+        7,
+        23
       ],
-      "offset": 4076,
-      "length": 189,
+      "offset": 4286,
+      "length": 161,
       "trim_origin_top_left_px": [
-        47,
-        37
+        57,
+        33
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
-        -42
+        23,
+        -44
       ],
-      "sha256": "3fb0dae2d99dd038608c526bd2f0312e22bddb9831e5d8d45c403ba7dff2ac4b",
+      "sha256": "15808dbcffbeecef4678adcc4d0d6d6bbeae1a65b10127453607a2ec30770fdf",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_04.png",
-      "width": 12,
+      "width": 13,
       "height": 19,
       "texture_px": [
-        12,
+        13,
         19
       ],
-      "offset": 4265,
-      "length": 228,
+      "offset": 4447,
+      "length": 247,
       "trim_origin_top_left_px": [
-        45,
-        41
+        48,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -40
+        32,
+        -41
       ],
-      "sha256": "30af1600516441961dcc1cd14df1fe90a1cbd973296d5aab3dd0e4218541112d",
+      "sha256": "de0b8fbdff8ba171fcc7b661b1ec8778bf5aae9b5b636506b4dd1b3ba6ea4dfc",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_05.png",
-      "width": 18,
-      "height": 10,
+      "width": 17,
+      "height": 17,
       "texture_px": [
-        18,
-        10
+        17,
+        17
       ],
-      "offset": 4493,
-      "length": 180,
+      "offset": 4694,
+      "length": 289,
       "trim_origin_top_left_px": [
-        43,
-        55
+        41,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        37,
-        -35
+        39,
+        -36
       ],
-      "sha256": "24bd4db943a2584fd59857069247d9d62f7567640b7dceed197988c4ec9e49f8",
+      "sha256": "19475002702538dd1cb46aa153c6adb09d2cdcb9924afbdb9a2848b6be0dfeaa",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_06.png",
-      "width": 19,
-      "height": 8,
+      "width": 26,
+      "height": 6,
       "texture_px": [
-        19,
-        8
+        26,
+        6
       ],
-      "offset": 4673,
-      "length": 152,
+      "offset": 4983,
+      "length": 156,
       "trim_origin_top_left_px": [
-        46,
-        66
+        39,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
-        -26
+        41,
+        -21
       ],
-      "sha256": "9555e0f42c8367461f4d79a8898a056e28a66a6ac4c9f676ef424ccbb0f99d92",
+      "sha256": "3ba68ee95b8f920dcd721354fcb5582499257610b4d237fb6b5bf13fc25b19e2",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_07.png",
-      "width": 21,
-      "height": 15,
+      "width": 20,
+      "height": 16,
       "texture_px": [
-        21,
-        15
+        20,
+        16
       ],
-      "offset": 4825,
-      "length": 315,
+      "offset": 5139,
+      "length": 320,
       "trim_origin_top_left_px": [
-        45,
-        67
+        57,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -18
+        23,
+        -5
       ],
-      "sha256": "852b624c079cb7204ea834c22d21f80045982f8f07d4daa31bd74ef9a554e789",
+      "sha256": "7e04c116df0f6720a66a0fa44eb652a10c01622ffcbce1cec103dabe08b96c3d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_08.png",
-      "width": 18,
-      "height": 17,
+      "width": 22,
+      "height": 10,
       "texture_px": [
-        18,
-        17
+        22,
+        10
       ],
-      "offset": 5140,
-      "length": 306,
+      "offset": 5459,
+      "length": 220,
       "trim_origin_top_left_px": [
-        48,
-        67
+        51,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        32,
+        29,
         -16
       ],
-      "sha256": "9b055b95464bea4ddeb6a6b92cd77ab5a3372739625a7b77e7b1482591332cb6",
+      "sha256": "8c3d8ef2b37402a27f96d6e2487035c9767798cc9a5695640fb0596d66fc99cc",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sw_09.png",
-      "width": 14,
-      "height": 20,
+      "width": 18,
+      "height": 5,
       "texture_px": [
-        14,
-        20
+        18,
+        5
       ],
-      "offset": 5446,
-      "length": 280,
+      "offset": 5679,
+      "length": 90,
+      "trim_origin_top_left_px": [
+        51,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -28
+      ],
+      "sha256": "2ef6d2f64367751dc89a7fe26ab2e87150209ab08241a5c79cdec58d3d378edb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_sw_10.png",
+      "width": 17,
+      "height": 13,
+      "texture_px": [
+        17,
+        13
+      ],
+      "offset": 5769,
+      "length": 221,
       "trim_origin_top_left_px": [
         54,
         67
       ],
       "pivot_from_crop_bottom_left_px": [
         26,
-        -13
+        -20
       ],
-      "sha256": "247b16193cce43f712045ab49816bf2a7749775676a13a14efc777987b9d7b64",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_sw_10.png",
-      "width": 19,
-      "height": 17,
-      "texture_px": [
-        19,
-        17
-      ],
-      "offset": 5726,
-      "length": 323,
-      "trim_origin_top_left_px": [
-        51,
-        66
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        29,
-        -17
-      ],
-      "sha256": "444eecf1a19e48710281fc4caf6e90d5cad4e08d74e7dce3f44323c185cdda0e",
+      "sha256": "018469f4abe5f2bebcdccda091b0aef9477878119ceba8023a074fec9f60ad8f",
       "empty": false
     },
     {
@@ -826,7 +826,7 @@
         22,
         15
       ],
-      "offset": 6049,
+      "offset": 5990,
       "length": 330,
       "trim_origin_top_left_px": [
         49,
@@ -848,7 +848,7 @@
         21,
         8
       ],
-      "offset": 6379,
+      "offset": 6320,
       "length": 168,
       "trim_origin_top_left_px": [
         50,
@@ -864,45 +864,45 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_01.png",
-      "width": 18,
-      "height": 3,
+      "width": 21,
+      "height": 6,
       "texture_px": [
-        18,
-        3
+        21,
+        6
       ],
-      "offset": 6547,
-      "length": 54,
+      "offset": 6488,
+      "length": 126,
       "trim_origin_top_left_px": [
-        54,
-        60
+        51,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -37
+        29,
+        -30
       ],
-      "sha256": "8a0049be0c70f342eafff47be090ed47a9dbeb981754ed622e868a9e9a372996",
+      "sha256": "27fb80d0c7158d6af831e0c65958f8aa87f2b1273ef999cb1d7a1a1540c8da9b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_02.png",
-      "width": 7,
-      "height": 18,
+      "width": 14,
+      "height": 11,
       "texture_px": [
-        7,
-        18
+        14,
+        11
       ],
-      "offset": 6601,
-      "length": 126,
+      "offset": 6614,
+      "length": 154,
       "trim_origin_top_left_px": [
         57,
-        38
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         23,
-        -44
+        -40
       ],
-      "sha256": "e07bf8f43d20998e3234e3655ce4e6e17ad6dbf3fc857490c4ebd005f717ef93",
+      "sha256": "1aab6777951f482443befcc7f20ed2ba95da9d5d74da20f0b23c597a42e99b66",
       "empty": false
     },
     {
@@ -914,171 +914,171 @@
         7,
         24
       ],
-      "offset": 6727,
+      "offset": 6768,
       "length": 168,
       "trim_origin_top_left_px": [
-        52,
-        28
+        61,
+        27
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -48
+        19,
+        -49
       ],
-      "sha256": "09bbbfb46a0a49490276f913da71fca0edd4dcb86723ae0f08c004d2b3434480",
+      "sha256": "0c4fbfab4f8feb514408a4393c392314be6cc7ead6f727877c517580ee10a3f3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_04.png",
       "width": 10,
-      "height": 23,
+      "height": 25,
       "texture_px": [
         10,
-        23
+        25
       ],
-      "offset": 6895,
-      "length": 230,
+      "offset": 6936,
+      "length": 250,
       "trim_origin_top_left_px": [
-        50,
+        53,
         31
       ],
       "pivot_from_crop_bottom_left_px": [
-        30,
-        -46
+        27,
+        -44
       ],
-      "sha256": "0d8af262f4e7fd015c97240b4bf9d4454bcf179eecb4b168b481a47be37b5916",
+      "sha256": "d525bd30fcf928be532ec5f3a5bb57ee116738ff206d8d792b103e9ac570c771",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_05.png",
-      "width": 19,
-      "height": 16,
+      "width": 15,
+      "height": 22,
       "texture_px": [
-        19,
-        16
+        15,
+        22
       ],
-      "offset": 7125,
-      "length": 304,
+      "offset": 7186,
+      "length": 330,
       "trim_origin_top_left_px": [
-        45,
-        44
+        44,
+        36
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -40
+        36,
+        -42
       ],
-      "sha256": "2eaef5e1dc77c85612a42710eb53ba561c5ab6742d5a5d62e77091e604f348c2",
+      "sha256": "add39dd67895cdde7e87c72b0badd75bebc2dda05c023bcfa8d1a40bbdcdb39c",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_06.png",
-      "width": 26,
-      "height": 2,
+      "width": 27,
+      "height": 8,
       "texture_px": [
-        26,
-        2
+        27,
+        8
       ],
-      "offset": 7429,
-      "length": 52,
+      "offset": 7516,
+      "length": 216,
       "trim_origin_top_left_px": [
-        43,
-        62
+        34,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        37,
-        -36
+        46,
+        -28
       ],
-      "sha256": "42bb88639be1e90ce84adfa44c165c77cce226aba38c2e257d4fc53b69404c10",
+      "sha256": "2444159fd360645efc90dde3c6c37f73d120ef3e6af816e88688186bf9ba4702",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_07.png",
-      "width": 25,
-      "height": 8,
+      "width": 26,
+      "height": 10,
       "texture_px": [
-        25,
-        8
+        26,
+        10
       ],
-      "offset": 7481,
-      "length": 200,
+      "offset": 7732,
+      "length": 260,
       "trim_origin_top_left_px": [
-        45,
-        63
+        46,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -29
+        34,
+        -13
       ],
-      "sha256": "c9fc88ba81adf2c4d27cfb6821b30bc94a0e1880290e2e04fa61169b89b9f1ed",
+      "sha256": "753aae6c52f635c7d72ca50dd094d847cb8f503bc8995e18afd3e8e68cff7eab",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_08.png",
-      "width": 25,
-      "height": 12,
+      "width": 26,
+      "height": 5,
       "texture_px": [
-        25,
-        12
+        26,
+        5
       ],
-      "offset": 7681,
-      "length": 300,
+      "offset": 7992,
+      "length": 130,
       "trim_origin_top_left_px": [
-        46,
-        63
+        45,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
+        35,
         -25
       ],
-      "sha256": "ec6af905eaf6bcf2f88874724228d4520455d779425ed0a51f24c700f1275cd9",
+      "sha256": "97397039ddac0b17a28517871fc458c4d2a0672b96cc452b71ba613dd6417326",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_09.png",
-      "width": 21,
-      "height": 15,
+      "width": 22,
+      "height": 6,
       "texture_px": [
-        21,
-        15
+        22,
+        6
       ],
-      "offset": 7981,
-      "length": 315,
+      "offset": 8122,
+      "length": 132,
       "trim_origin_top_left_px": [
-        51,
-        64
+        48,
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
-        29,
-        -21
+        32,
+        -33
       ],
-      "sha256": "f2dee0a816b30392760116b78f4be76514424aa797c24ed2a2bc8265fa95dca4",
+      "sha256": "acbc26d22699ba0eefe9c3ac40fcf5490fcba10b554049e9510dd765ce1e8f46",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wsw_10.png",
       "width": 21,
-      "height": 10,
+      "height": 6,
       "texture_px": [
         21,
-        10
+        6
       ],
-      "offset": 8296,
-      "length": 210,
+      "offset": 8254,
+      "length": 126,
       "trim_origin_top_left_px": [
-        50,
-        65
+        51,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        30,
-        -25
+        29,
+        -28
       ],
-      "sha256": "3c2abfd8b222dc1097d2aac2540cc4fc17719b04732802730217d8ef30533413",
+      "sha256": "288f810f96629a6dc44efb3a5a9ea3bda7c842f677a3de12be9efdfe940fca80",
       "empty": false
     },
     {
@@ -1090,7 +1090,7 @@
         21,
         8
       ],
-      "offset": 8506,
+      "offset": 8380,
       "length": 168,
       "trim_origin_top_left_px": [
         50,
@@ -1112,7 +1112,7 @@
         17,
         2
       ],
-      "offset": 8674,
+      "offset": 8548,
       "length": 34,
       "trim_origin_top_left_px": [
         56,
@@ -1128,221 +1128,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_01.png",
-      "width": 18,
-      "height": 6,
+      "width": 15,
+      "height": 2,
       "texture_px": [
-        18,
-        6
+        15,
+        2
       ],
-      "offset": 8708,
-      "length": 108,
+      "offset": 8582,
+      "length": 30,
       "trim_origin_top_left_px": [
-        56,
-        54
+        58,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        -40
+        22,
+        -36
       ],
-      "sha256": "99128f566ddc304f9c581de9b9f0f77b236b5e9ea192e12743c5529c8c038026",
+      "sha256": "5c34111336a2c88824f7201ebfb29392242a441b0b5bc1c1c461f9a5da9ae9e8",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_02.png",
-      "width": 6,
-      "height": 19,
+      "width": 14,
+      "height": 14,
       "texture_px": [
-        6,
-        19
+        14,
+        14
       ],
-      "offset": 8816,
-      "length": 114,
+      "offset": 8612,
+      "length": 196,
       "trim_origin_top_left_px": [
-        63,
-        32
+        62,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -49
+        18,
+        -43
       ],
-      "sha256": "d29d26bee1b0eadedf9c853017735da0d8b33b8454053b045af7f36199a2296a",
+      "sha256": "6029b1dcfaded549ff3d20d48de0a8f27f3aff9d8c1657fd3fe6bda67c73c8de",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_03.png",
-      "width": 5,
+      "width": 6,
       "height": 24,
       "texture_px": [
-        5,
+        6,
         24
       ],
-      "offset": 8930,
-      "length": 120,
+      "offset": 8808,
+      "length": 144,
       "trim_origin_top_left_px": [
-        61,
-        22
+        67,
+        24
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -54
+        13,
+        -52
       ],
-      "sha256": "fd6c44ba380bfef44e366e27c774b8a6cd80d2e62c2457bca625d160bd32dc91",
+      "sha256": "ec3cc48ad4c5a0e25016463b3581c5365c364334a10d639132da456eb1e4743f",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_04.png",
       "width": 7,
-      "height": 24,
+      "height": 26,
       "texture_px": [
         7,
-        24
+        26
       ],
-      "offset": 9050,
-      "length": 168,
+      "offset": 8952,
+      "length": 182,
       "trim_origin_top_left_px": [
-        60,
+        61,
         25
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
-        -51
+        19,
+        -49
       ],
-      "sha256": "4dbca9bc301de096d757fdbedd6ab9fc2dcc9387e8848297be2fdc1903413369",
+      "sha256": "e5c56f5addbaa4e1c9d396bbeafd52b71e040a88f4a3310b25c5f27f9a6796cf",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_05.png",
-      "width": 16,
-      "height": 19,
+      "width": 11,
+      "height": 26,
       "texture_px": [
-        16,
-        19
+        11,
+        26
       ],
-      "offset": 9218,
-      "length": 304,
+      "offset": 9134,
+      "length": 286,
       "trim_origin_top_left_px": [
-        54,
-        36
+        52,
+        27
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -45
+        28,
+        -47
       ],
-      "sha256": "1eef42370ff9fd6a5533b32c5281853a42bea0d5f13fe2f46e5fc55bdfb3066e",
+      "sha256": "427905e0d7bff1a19547a3c7573d027ad2f2279dc30e2c7c20a8fce51c086bb9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_06.png",
-      "width": 22,
-      "height": 7,
+      "width": 25,
+      "height": 14,
       "texture_px": [
-        22,
-        7
+        25,
+        14
       ],
-      "offset": 9522,
-      "length": 154,
+      "offset": 9420,
+      "length": 350,
       "trim_origin_top_left_px": [
-        51,
-        54
+        35,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        29,
-        -39
+        45,
+        -35
       ],
-      "sha256": "9003374d5405efaff538ef7ad00e8ce18ae57a5c5f23010e30c7210915add616",
+      "sha256": "5ce958f0634e3b0d2b6c4f7b670d5f63c268028307c00284ede19c015b61fb02",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_07.png",
-      "width": 23,
-      "height": 4,
+      "width": 28,
+      "height": 6,
       "texture_px": [
-        23,
-        4
+        28,
+        6
       ],
-      "offset": 9676,
-      "length": 92,
+      "offset": 9770,
+      "length": 168,
       "trim_origin_top_left_px": [
-        50,
-        60
+        41,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        30,
-        -36
+        39,
+        -22
       ],
-      "sha256": "207c085566bf85f26343c628ccb3760f61f29a892c074fe660e849bc9411d1f0",
+      "sha256": "fcaacda840958bcfde948248d4e2c352221c73ef5a4ae4870d1f662ac19c57d6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_08.png",
-      "width": 22,
-      "height": 4,
+      "width": 26,
+      "height": 8,
       "texture_px": [
-        22,
-        4
+        26,
+        8
       ],
-      "offset": 9768,
-      "length": 88,
+      "offset": 9938,
+      "length": 208,
       "trim_origin_top_left_px": [
-        50,
-        61
+        44,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        30,
-        -35
+        36,
+        -29
       ],
-      "sha256": "6cbc9d23dcb899e0d0f65a014bde65278245889f48336893c65b836c5a3d2fcd",
+      "sha256": "1cbcd82317d8116c73bd038b213b93ac9bec700be591f32a3b059f913730e0b3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_09.png",
-      "width": 20,
-      "height": 8,
+      "width": 22,
+      "height": 12,
       "texture_px": [
-        20,
-        8
+        22,
+        12
       ],
-      "offset": 9856,
-      "length": 160,
+      "offset": 10146,
+      "length": 264,
       "trim_origin_top_left_px": [
-        53,
-        62
+        51,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        27,
-        -30
+        29,
+        -36
       ],
-      "sha256": "dfbbfb2b5c2321ee4c10dc7680bed04989d3172c5b62c76fc46321c56aece775",
+      "sha256": "d9d0d6341b2e04965aebe97f80eb8d5a9c102dde25fd053474ac8c7a58f75a73",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_w_10.png",
-      "width": 18,
+      "width": 10,
       "height": 2,
       "texture_px": [
-        18,
+        10,
         2
       ],
-      "offset": 10016,
-      "length": 36,
+      "offset": 10410,
+      "length": 20,
       "trim_origin_top_left_px": [
-        55,
-        64
+        63,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
-        -34
+        17,
+        -35
       ],
-      "sha256": "9e5e24172e377d5795237d91524d14f2b90968873ca577cd5c3207e20414f3aa",
+      "sha256": "f2a6caad5305eb38447148a2e8df01be50558a87facbbe8e2a9087612efd4b1c",
       "empty": false
     },
     {
@@ -1354,7 +1354,7 @@
         17,
         2
       ],
-      "offset": 10052,
+      "offset": 10430,
       "length": 34,
       "trim_origin_top_left_px": [
         56,
@@ -1376,7 +1376,7 @@
         24,
         10
       ],
-      "offset": 10086,
+      "offset": 10464,
       "length": 240,
       "trim_origin_top_left_px": [
         64,
@@ -1392,221 +1392,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_01.png",
-      "width": 15,
-      "height": 8,
+      "width": 24,
+      "height": 10,
       "texture_px": [
-        15,
-        8
+        24,
+        10
       ],
-      "offset": 10326,
-      "length": 120,
+      "offset": 10704,
+      "length": 240,
       "trim_origin_top_left_px": [
-        62,
-        48
+        64,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -44
+        16,
+        -34
       ],
-      "sha256": "db1f4eb9f3b9337ed80f6f4a5d5b64e7d16c1dc601d38b086ed8e3bd685413a2",
+      "sha256": "89bf2c09d2a8d8fec75e0bfd2b96901de1397c6aea9798c362d8e8b91d37fd9d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_02.png",
-      "width": 4,
-      "height": 14,
+      "width": 6,
+      "height": 8,
       "texture_px": [
-        4,
-        14
+        6,
+        8
       ],
-      "offset": 10446,
-      "length": 56,
+      "offset": 10944,
+      "length": 48,
       "trim_origin_top_left_px": [
-        72,
-        31
+        68,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        -55
+        12,
+        -54
       ],
-      "sha256": "ee7ed49dbf1e2674c4dfcd740cd6601e5a3b266ecfd881b408a13ca34f296523",
+      "sha256": "45cf59846693c71c91a40e45e2e797ab4369f043712c4cee17ddd018ff3b4bfe",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_03.png",
-      "width": 4,
+      "width": 8,
       "height": 23,
       "texture_px": [
-        4,
+        8,
         23
       ],
-      "offset": 10502,
-      "length": 92,
+      "offset": 10992,
+      "length": 184,
       "trim_origin_top_left_px": [
-        71,
-        19
+        75,
+        23
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -58
+        5,
+        -54
       ],
-      "sha256": "14f8bb13421c984357bf8872f15d3084e23bef9f8551995582f26046c9817462",
+      "sha256": "90de6418a00c0edac081de3377217f4acac95dd9b35c9783635bb7846890a488",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_04.png",
-      "width": 4,
-      "height": 25,
+      "width": 6,
+      "height": 27,
       "texture_px": [
-        4,
-        25
+        6,
+        27
       ],
-      "offset": 10594,
-      "length": 100,
+      "offset": 11176,
+      "length": 162,
       "trim_origin_top_left_px": [
-        71,
+        69,
         21
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -54
+        11,
+        -52
       ],
-      "sha256": "8255d5ac8fcc41dddd06444063a21e315a91229b1c724d438b5c0e65f8fd563e",
+      "sha256": "3596441bc2c0903228d7f81b0a2dbfeebd1d70b68f554a8f4c6d7e9bdfbda412",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_05.png",
-      "width": 8,
-      "height": 16,
+      "width": 5,
+      "height": 28,
       "texture_px": [
-        8,
-        16
+        5,
+        28
       ],
-      "offset": 10694,
-      "length": 128,
+      "offset": 11338,
+      "length": 140,
       "trim_origin_top_left_px": [
-        66,
-        31
+        64,
+        21
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -53
+        16,
+        -51
       ],
-      "sha256": "a2fc1df18c553b644edf268c69180c790c805a026d08d3bccbae016d8dc01065",
+      "sha256": "ca1387c2dcd129501c94dfcfcc915b1cebea1831437fe6d61ef887ad3fa97345",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_06.png",
-      "width": 16,
-      "height": 11,
+      "width": 18,
+      "height": 20,
       "texture_px": [
-        16,
-        11
+        18,
+        20
       ],
-      "offset": 10822,
-      "length": 176,
+      "offset": 11478,
+      "length": 360,
       "trim_origin_top_left_px": [
-        60,
-        46
+        44,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
-        -43
+        36,
+        -41
       ],
-      "sha256": "ba4b7d3c7391c3b76d0c0fb52415796666cd1ad401f96f78a6460792653111cd",
+      "sha256": "6738ce924c3d1f950ba01a5ae3e8d64cf2fd0115262b35559c54e6d72febe151",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_07.png",
-      "width": 16,
-      "height": 6,
+      "width": 25,
+      "height": 8,
       "texture_px": [
-        16,
-        6
+        25,
+        8
       ],
-      "offset": 10998,
-      "length": 96,
+      "offset": 11838,
+      "length": 200,
       "trim_origin_top_left_px": [
-        59,
-        53
+        42,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        -41
+        38,
+        -28
       ],
-      "sha256": "7415d4ba04766ffa8588695ccc1cc6c3c5b68fd4f9768092ad38399075f6d711",
+      "sha256": "5e774640bb5f5cb1332f2c5539398a9d1182c7c10b8304a7381766dab70dd896",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_08.png",
-      "width": 16,
-      "height": 4,
+      "width": 24,
+      "height": 14,
       "texture_px": [
-        16,
-        4
+        24,
+        14
       ],
-      "offset": 11094,
-      "length": 64,
+      "offset": 12038,
+      "length": 336,
       "trim_origin_top_left_px": [
-        58,
-        57
+        48,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -39
+        32,
+        -33
       ],
-      "sha256": "76ed360220e0a744ef0d5ee0e4624289b11b2f2fa454a06051ef9d10fc149369",
+      "sha256": "a0f2083edcf8ee4b58c65514347c4a5b0a4907d5deb0491aa1f430a9607abf87",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_09.png",
-      "width": 15,
-      "height": 2,
+      "width": 16,
+      "height": 14,
       "texture_px": [
-        15,
-        2
+        16,
+        14
       ],
-      "offset": 11158,
-      "length": 30,
+      "offset": 12374,
+      "length": 224,
       "trim_origin_top_left_px": [
-        59,
-        62
+        58,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        -36
+        22,
+        -41
       ],
-      "sha256": "a225586398c9d1990ab1cd2fa71d3b1e91d4072927189a6b16f1d0c5753b040c",
+      "sha256": "569e286c7340cc2fe3dec9bbc7432d784009e101e50a24e4dcba4f1151df86f6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_wnw_10.png",
-      "width": 13,
-      "height": 4,
+      "width": 12,
+      "height": 5,
       "texture_px": [
-        13,
-        4
+        12,
+        5
       ],
-      "offset": 11188,
-      "length": 52,
+      "offset": 12598,
+      "length": 60,
       "trim_origin_top_left_px": [
         61,
-        59
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
-        -37
+        -38
       ],
-      "sha256": "359dda24743095eed6df0eb0a585a7c4760105f93170e06b7562774f7e4df0a3",
+      "sha256": "05103367703496bd69ed65576b43cac26424baacfd2d0261a49fa98c83b15cc9",
       "empty": false
     },
     {
@@ -1618,7 +1618,7 @@
         24,
         10
       ],
-      "offset": 11240,
+      "offset": 12658,
       "length": 240,
       "trim_origin_top_left_px": [
         64,
@@ -1640,7 +1640,7 @@
         18,
         16
       ],
-      "offset": 11480,
+      "offset": 12898,
       "length": 288,
       "trim_origin_top_left_px": [
         75,
@@ -1656,221 +1656,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_01.png",
-      "width": 21,
-      "height": 19,
+      "width": 19,
+      "height": 16,
       "texture_px": [
-        21,
-        19
+        19,
+        16
       ],
-      "offset": 11768,
-      "length": 399,
+      "offset": 13186,
+      "length": 304,
       "trim_origin_top_left_px": [
-        70,
-        43
+        74,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -38
+        6,
+        -31
       ],
-      "sha256": "5fc698857dd07a19ff74165db62f8d78beb9fb0bdd7178105b3dc8d2061b11c5",
+      "sha256": "4f04bd4d678791ee1899bcf9fe94cbbac4c70548a6dec09141a3aa45a1ef42f6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_02.png",
-      "width": 4,
-      "height": 16,
+      "width": 9,
+      "height": 17,
       "texture_px": [
-        4,
-        16
+        9,
+        17
       ],
-      "offset": 12167,
-      "length": 64,
+      "offset": 13490,
+      "length": 153,
       "trim_origin_top_left_px": [
-        82,
-        32
+        77,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
-        -52
+        3,
+        -46
       ],
-      "sha256": "793395b098aad67aa3b18a1ac49bde468fa7d0c86ee494257517bf7426cf25fd",
+      "sha256": "2f18631b6393c4d948686fd17360e50c1923762d412971008a476e447527ed60",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_03.png",
-      "width": 6,
+      "width": 11,
       "height": 20,
       "texture_px": [
-        6,
+        11,
         20
       ],
-      "offset": 12231,
-      "length": 120,
+      "offset": 13643,
+      "length": 220,
       "trim_origin_top_left_px": [
-        81,
-        21
+        82,
+        26
       ],
       "pivot_from_crop_bottom_left_px": [
-        -1,
-        -59
+        -2,
+        -54
       ],
-      "sha256": "782f321e4610ffd2f6182a9bf85047424604b3009c35c865eccf1fd6caef2b53",
+      "sha256": "168fd677a661db0ed19dbfb63074a353454975d8cd35267434e84be0ab79d7a4",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_04.png",
-      "width": 5,
-      "height": 23,
+      "width": 8,
+      "height": 24,
       "texture_px": [
-        5,
-        23
+        8,
+        24
       ],
-      "offset": 12351,
-      "length": 115,
+      "offset": 13863,
+      "length": 192,
       "trim_origin_top_left_px": [
-        81,
-        22
+        78,
+        21
       ],
       "pivot_from_crop_bottom_left_px": [
-        -1,
+        2,
         -55
       ],
-      "sha256": "620ffd52b46ed9f4b0e3f5b68a2b5cf5e3a0b80815c64dce3de12c17ee715ad4",
+      "sha256": "8d1e583dc0a226e729bfda3db60fb11c9215938e77019c3f31248ae2117b4f05",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_05.png",
       "width": 6,
-      "height": 23,
+      "height": 27,
       "texture_px": [
         6,
-        23
+        27
       ],
-      "offset": 12466,
-      "length": 138,
+      "offset": 14055,
+      "length": 162,
       "trim_origin_top_left_px": [
-        79,
-        29
+        74,
+        19
       ],
       "pivot_from_crop_bottom_left_px": [
-        1,
-        -48
+        6,
+        -54
       ],
-      "sha256": "76289516e763b455310276a1a5eb184e2b07ba334c76ed9c454d8140d2c7c885",
+      "sha256": "068849fb51fa1888e91cb7e31c42e05cf79192ce4ce1aabf7a7a75fa45335bbf",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_06.png",
-      "width": 3,
-      "height": 4,
+      "width": 9,
+      "height": 23,
       "texture_px": [
-        3,
-        4
+        9,
+        23
       ],
-      "offset": 12604,
-      "length": 12,
+      "offset": 14217,
+      "length": 207,
       "trim_origin_top_left_px": [
-        72,
-        41
+        59,
+        31
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        -55
+        21,
+        -46
       ],
-      "sha256": "a075bf22de5d758ab728526f3a6709a33bfb8ab5b4a41f1e208becf10818abbb",
+      "sha256": "64ad7e5b79c76b16c554be4018c63628e12b21d17753140a3173c224b4c06098",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_07.png",
       "width": 18,
-      "height": 16,
+      "height": 14,
       "texture_px": [
         18,
-        16
+        14
       ],
-      "offset": 12616,
-      "length": 288,
+      "offset": 14424,
+      "length": 252,
       "trim_origin_top_left_px": [
-        72,
-        49
+        49,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        -35
+        31,
+        -32
       ],
-      "sha256": "d0b35220ed3ec7a148afc5b442121aeec2fc1eea4acef9675500d75e56abf5e0",
+      "sha256": "aaa90e4325fcc3ab41a700a46c4dace521b812ea0fa89a91c342f23625eac75f",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nw_08.png",
-      "width": 22,
-      "height": 13,
+      "width": 15,
+      "height": 18,
       "texture_px": [
-        22,
-        13
+        15,
+        18
       ],
-      "offset": 12904,
-      "length": 286,
+      "offset": 14676,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        58,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -37
+      ],
+      "sha256": "190339eb292fd5383f57d2725b8330b326533cc5bde491e69daca6a076a9a739",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_nw_09.png",
+      "width": 10,
+      "height": 15,
+      "texture_px": [
+        10,
+        15
+      ],
+      "offset": 14946,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -45
+      ],
+      "sha256": "3c6b817192ef6a1e002ebf8f1f59c364a01b3822dfde5877040cc01aa023b96a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_nw_10.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 15096,
+      "length": 336,
       "trim_origin_top_left_px": [
         69,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -35
+        -32
       ],
-      "sha256": "18d55840eddfa50e9134f576e6f4e4329c8b0afea64549591ddc63323411a77a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_nw_09.png",
-      "width": 25,
-      "height": 10,
-      "texture_px": [
-        25,
-        10
-      ],
-      "offset": 13190,
-      "length": 250,
-      "trim_origin_top_left_px": [
-        67,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -33
-      ],
-      "sha256": "42f75add119a78e701b11b9aa0be70dc672e39b3c1c5eb7d0f75c4fa4651657a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_nw_10.png",
-      "width": 22,
-      "height": 14,
-      "texture_px": [
-        22,
-        14
-      ],
-      "offset": 13440,
-      "length": 308,
-      "trim_origin_top_left_px": [
-        71,
-        55
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        9,
-        -31
-      ],
-      "sha256": "4f4ebe00472e3149ddf97c39835f9cb22d0561a27ed022ccb37ef2c56274bd30",
+      "sha256": "e35bba08cc946dafd8951fffdbf639929f6a41fed920e4d3daddfef4d719781c",
       "empty": false
     },
     {
@@ -1882,7 +1882,7 @@
         18,
         16
       ],
-      "offset": 13748,
+      "offset": 15432,
       "length": 288,
       "trim_origin_top_left_px": [
         75,
@@ -1904,7 +1904,7 @@
         6,
         6
       ],
-      "offset": 14036,
+      "offset": 15720,
       "length": 36,
       "trim_origin_top_left_px": [
         90,
@@ -1920,189 +1920,211 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_01.png",
-      "width": 15,
-      "height": 24,
+      "width": 11,
+      "height": 21,
       "texture_px": [
-        15,
-        24
+        11,
+        21
       ],
-      "offset": 14072,
-      "length": 360,
+      "offset": 15756,
+      "length": 231,
       "trim_origin_top_left_px": [
-        80,
-        42
+        85,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        0,
-        -34
+        -5,
+        -26
       ],
-      "sha256": "873fee9084f92a9459e441676956a5ee3c1dec3f96080ec45b32e81b8b04a130",
+      "sha256": "5ee61236b73b421439d748659016f7a2c725beeda01209c0353b3ea689012f8a",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_02.png",
-      "width": 4,
-      "height": 21,
+      "width": 7,
+      "height": 19,
       "texture_px": [
-        4,
-        21
+        7,
+        19
       ],
-      "offset": 14432,
-      "length": 84,
+      "offset": 15987,
+      "length": 133,
       "trim_origin_top_left_px": [
-        90,
-        30
+        86,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -49
+        -6,
+        -44
       ],
-      "sha256": "159c1849ddbb6a482db79a1101b01923ccdec05807338e1e2573ef16fc083792",
+      "sha256": "46afcbaa9405a8746f06be6fed94459ba48ad6d2f9fa1bab00e6eecec81f6acb",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_03.png",
-      "width": 9,
-      "height": 20,
+      "width": 10,
+      "height": 17,
       "texture_px": [
-        9,
-        20
+        10,
+        17
       ],
-      "offset": 14516,
-      "length": 180,
+      "offset": 16120,
+      "length": 170,
       "trim_origin_top_left_px": [
-        90,
-        24
+        89,
+        32
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -56
+        -9,
+        -51
       ],
-      "sha256": "6b135c2cf2c86a6240a40a1d16d5094c3653714d734028b71da41c9184e2123e",
+      "sha256": "5e5e04f2f52b73f4173c7957d748bd89c437f6d8026a5ec9502ddd06caedc31e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_04.png",
-      "width": 8,
-      "height": 19,
+      "width": 11,
+      "height": 20,
       "texture_px": [
-        8,
-        19
+        11,
+        20
       ],
-      "offset": 14696,
-      "length": 152,
+      "offset": 16290,
+      "length": 220,
       "trim_origin_top_left_px": [
-        90,
-        28
+        86,
+        27
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
+        -6,
         -53
       ],
-      "sha256": "87c20a834686a155285b9c98ae0acc050dba4dfeb40f1d26aa0b913b248590fb",
+      "sha256": "1c4792d0c76048c61eb8d52150cac94e76969ba61506515353ef4a66870f98f6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_05.png",
-      "width": 4,
-      "height": 24,
+      "width": 12,
+      "height": 22,
       "texture_px": [
-        4,
-        24
+        12,
+        22
       ],
-      "offset": 14848,
-      "length": 96,
+      "offset": 16510,
+      "length": 264,
       "trim_origin_top_left_px": [
-        90,
-        29
+        82,
+        23
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -47
+        -2,
+        -55
       ],
-      "sha256": "5c997375e2227fbef5be7b58a345f42ce3f802b53a8992c0867a3ad24f3fc74b",
+      "sha256": "0d0eb6954ecf1ae4968fda19031c958324bbab270cf1a3f80914f18a96a9bd93",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_06.png",
-      "width": 9,
-      "height": 25,
+      "width": 3,
+      "height": 22,
       "texture_px": [
-        9,
-        25
+        3,
+        22
       ],
-      "offset": 14944,
-      "length": 225,
+      "offset": 16774,
+      "length": 66,
       "trim_origin_top_left_px": [
-        86,
-        40
+        73,
+        29
       ],
       "pivot_from_crop_bottom_left_px": [
-        -6,
-        -35
+        7,
+        -49
       ],
-      "sha256": "3af5d6c22edac12df5c23b4ab962f173d06187814bd492a17193dcc2b109952f",
+      "sha256": "d60bd66c3ee0852107bcada3b7c66aca611e87633293db535acda274b0105041",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_07.png",
-      "width": 9,
-      "height": 19,
+      "width": 10,
+      "height": 16,
       "texture_px": [
-        9,
-        19
+        10,
+        16
       ],
-      "offset": 15169,
-      "length": 171,
+      "offset": 16840,
+      "length": 160,
       "trim_origin_top_left_px": [
-        86,
-        49
+        60,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        -6,
-        -32
+        20,
+        -37
       ],
-      "sha256": "21f1857da9bb3ec67de37018caea9d98568b51e68894f9f40b669a8bba8cf3e6",
+      "sha256": "5094829f72ef2b8429f2f5fac12844221a52f5613f4a1b0b41224ad84863cc00",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_08.png",
       "width": 6,
-      "height": 6,
+      "height": 15,
       "texture_px": [
         6,
-        6
+        15
       ],
-      "offset": 15340,
-      "length": 36,
+      "offset": 17000,
+      "length": 90,
       "trim_origin_top_left_px": [
-        90,
-        63
+        71,
+        42
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -31
+        9,
+        -43
       ],
-      "sha256": "957fe4b0d860b31dbee5ed9b785cf74d87156d54059386a1a1a9e365ad4f8be7",
+      "sha256": "b66f3f73d2a78b783ead9ac10817c6d47d7e7551d88223278764741ee16d04ad",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nnw_09.png",
-      "width": 7,
+      "width": 2,
       "height": 5,
       "texture_px": [
-        7,
+        2,
         5
       ],
-      "offset": 15376,
+      "offset": 17090,
+      "length": 10,
+      "trim_origin_top_left_px": [
+        80,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -55
+      ],
+      "sha256": "a39455de306a10c6a78e4df923cd242b184de8114365ccac3989a7ca17e245d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMeleeSword.atlas",
+      "name": "attack_nnw_10.png",
+      "width": 5,
+      "height": 7,
+      "texture_px": [
+        5,
+        7
+      ],
+      "offset": 17100,
       "length": 35,
       "trim_origin_top_left_px": [
         89,
@@ -2110,31 +2132,9 @@
       ],
       "pivot_from_crop_bottom_left_px": [
         -9,
-        -30
+        -28
       ],
-      "sha256": "b4b754b5dd73d9fa8553386dbdfdee294eddde90893c53e2e8ac5ba6660db228",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMeleeSword.atlas",
-      "name": "attack_nnw_10.png",
-      "width": 6,
-      "height": 9,
-      "texture_px": [
-        6,
-        9
-      ],
-      "offset": 15411,
-      "length": 54,
-      "trim_origin_top_left_px": [
-        90,
-        64
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -10,
-        -27
-      ],
-      "sha256": "4d828c95b3f7af3fcad63ee3b89f13b4d82703caa56d4c6e2350ba834b3c759c",
+      "sha256": "cb434f753a0b290bccef1c422e31b32464e674508f0f63fbec354db1f4d36641",
       "empty": false
     },
     {
@@ -2146,7 +2146,7 @@
         6,
         6
       ],
-      "offset": 15465,
+      "offset": 17135,
       "length": 36,
       "trim_origin_top_left_px": [
         90,
@@ -2168,7 +2168,7 @@
         5,
         21
       ],
-      "offset": 15501,
+      "offset": 17171,
       "length": 105,
       "trim_origin_top_left_px": [
         94,
@@ -2184,221 +2184,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_01.png",
-      "width": 8,
-      "height": 20,
+      "width": 4,
+      "height": 23,
       "texture_px": [
-        8,
-        20
+        4,
+        23
       ],
-      "offset": 15606,
-      "length": 160,
+      "offset": 17276,
+      "length": 92,
       "trim_origin_top_left_px": [
-        91,
-        44
+        92,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -36
+        -12,
+        -22
       ],
-      "sha256": "366df1987e76c924692810e9a2fcbdcf3d29ea4bb65157d1956b01894e870207",
+      "sha256": "7dcde5dd8bac81b34011cfc25dd71ea558a64c6356d941c0dfd32b9393755284",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_02.png",
-      "width": 6,
+      "width": 5,
       "height": 21,
       "texture_px": [
-        6,
+        5,
         21
       ],
-      "offset": 15766,
-      "length": 126,
+      "offset": 17368,
+      "length": 105,
       "trim_origin_top_left_px": [
-        96,
-        35
+        93,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -44
+        -13,
+        -40
       ],
-      "sha256": "38631561083e833b530b901d36512c5670b7373ad5fa341b1bfe0e3ac6294867",
+      "sha256": "da71ecad7e9a086eaa2dacca3aafb22e6ac2d3ab19c9321599941c08d73b39d7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_03.png",
-      "width": 11,
-      "height": 19,
+      "width": 10,
+      "height": 13,
       "texture_px": [
-        11,
-        19
+        10,
+        13
       ],
-      "offset": 15892,
-      "length": 209,
+      "offset": 17473,
+      "length": 130,
       "trim_origin_top_left_px": [
-        98,
-        29
+        94,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -52
+        -14,
+        -48
       ],
-      "sha256": "ab9c66b74e7a71f1e4803c3f8c9778c49d416e63702e3d0d05e702bbdf1e0204",
+      "sha256": "af73bb8a05509cd98f5fea89ce5323fb21b22b1ec22f2d0b4d4aefea40334572",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_04.png",
-      "width": 12,
-      "height": 21,
+      "width": 13,
+      "height": 17,
       "texture_px": [
-        12,
-        21
+        13,
+        17
       ],
-      "offset": 16101,
-      "length": 252,
+      "offset": 17603,
+      "length": 221,
       "trim_origin_top_left_px": [
-        97,
-        31
+        92,
+        33
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -48
+        -12,
+        -50
       ],
-      "sha256": "78dde69f31f742a77a67f08b0453c71bd7fe2dd925eb1b76b6a56fe75add8215",
+      "sha256": "6af14704362e4bc8639e16462399e822bd659cb3f02ca2ef0dab3bad2708ec9b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_05.png",
-      "width": 9,
-      "height": 25,
+      "width": 15,
+      "height": 18,
       "texture_px": [
-        9,
-        25
+        15,
+        18
       ],
-      "offset": 16353,
-      "length": 225,
+      "offset": 17824,
+      "length": 270,
       "trim_origin_top_left_px": [
-        97,
-        34
+        90,
+        30
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -41
+        -10,
+        -52
       ],
-      "sha256": "d7b9cf9cbd4692683770a8ab3e1ce4ccc030baafa1deb78d3fb600e925c169ec",
+      "sha256": "ceaae2265a829bd90b842d6b9f82cf5321b69df0e00ccc6edda023f57e6b0ff1",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_06.png",
-      "width": 5,
-      "height": 25,
+      "width": 8,
+      "height": 14,
       "texture_px": [
-        5,
-        25
+        8,
+        14
       ],
-      "offset": 16578,
-      "length": 125,
+      "offset": 18094,
+      "length": 112,
       "trim_origin_top_left_px": [
-        96,
-        44
+        85,
+        31
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -31
+        -5,
+        -55
       ],
-      "sha256": "2e116a4061c95869646f5c578a0780b48fced97170fde2fce360429b7fc1401c",
+      "sha256": "58abf738feda7077e60048042d1882cb2e873a8fefb08e11869fa66e6d674349",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_07.png",
-      "width": 7,
-      "height": 21,
+      "width": 1,
+      "height": 6,
       "texture_px": [
-        7,
-        21
+        1,
+        6
       ],
-      "offset": 16703,
-      "length": 147,
+      "offset": 18206,
+      "length": 6,
       "trim_origin_top_left_px": [
-        94,
-        52
+        73,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -27
+        7,
+        -47
       ],
-      "sha256": "28e29832b0478eddbb447a97a49147eb12da141e1ea0584b3e63bc42670ec5a1",
+      "sha256": "6e9e7b69de0b6940a6aaec5c995e3e8570e12b91167a6e671f7373c2b86a2b87",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_08.png",
-      "width": 6,
-      "height": 21,
+      "width": 1,
+      "height": 4,
       "texture_px": [
-        6,
-        21
+        1,
+        4
       ],
-      "offset": 16850,
-      "length": 126,
+      "offset": 18212,
+      "length": 4,
       "trim_origin_top_left_px": [
-        94,
-        53
+        84,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -26
+        -4,
+        -56
       ],
-      "sha256": "14364fb266d3885aa628a17a8bbf8bdeabb130045e6d82ce46372450f3dc50e3",
+      "sha256": "aa3e1d2d229775f3b89f649380a4523be69a38515b1fcb83e1396b3b24600ef1",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_09.png",
-      "width": 6,
-      "height": 6,
+      "width": 2,
+      "height": 25,
       "texture_px": [
-        6,
-        6
+        2,
+        25
       ],
-      "offset": 16976,
-      "length": 36,
+      "offset": 18216,
+      "length": 50,
       "trim_origin_top_left_px": [
-        92,
-        69
+        90,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -25
+        -10,
+        -34
       ],
-      "sha256": "05c547bc5e3516e7d82e99929ce5bdfa35b8257e0caf17966dfaedfdbc40e9b6",
+      "sha256": "0421d9560f0da40a3b7b97dc0047126c407312db6fc8f526726184a0091c556a",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_n_10.png",
-      "width": 7,
-      "height": 20,
+      "width": 5,
+      "height": 23,
       "texture_px": [
-        7,
-        20
+        5,
+        23
       ],
-      "offset": 17012,
-      "length": 140,
+      "offset": 18266,
+      "length": 115,
       "trim_origin_top_left_px": [
-        92,
-        57
+        90,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -23
+        -10,
+        -25
       ],
-      "sha256": "8fb1fe32e80c45b6639cffe6b11967be745990fbf19890a5f150871730ec6034",
+      "sha256": "b73d0bb9ba43d60ab2ea77f84fbfaff695fc3674e331492d8b87293447a68795",
       "empty": false
     },
     {
@@ -2410,7 +2410,7 @@
         5,
         21
       ],
-      "offset": 17152,
+      "offset": 18381,
       "length": 105,
       "trim_origin_top_left_px": [
         94,
@@ -2432,7 +2432,7 @@
         15,
         18
       ],
-      "offset": 17257,
+      "offset": 18486,
       "length": 270,
       "trim_origin_top_left_px": [
         92,
@@ -2448,221 +2448,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_01.png",
-      "width": 5,
+      "width": 12,
       "height": 22,
       "texture_px": [
-        5,
+        12,
         22
       ],
-      "offset": 17527,
-      "length": 110,
+      "offset": 18756,
+      "length": 264,
       "trim_origin_top_left_px": [
-        96,
-        48
+        92,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -30
+        -12,
+        -18
       ],
-      "sha256": "1040c5a06b19f0ba3c7251993ab2dc39b3db3a4e844892a45b45013c2a6e05c7",
+      "sha256": "186cca6a539a0cc6d5cfc297d47942ad2baa4b7b17e41bfe993b9652e09583cd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_02.png",
       "width": 7,
-      "height": 18,
+      "height": 22,
       "texture_px": [
         7,
-        18
+        22
       ],
-      "offset": 17637,
-      "length": 126,
+      "offset": 19020,
+      "length": 154,
       "trim_origin_top_left_px": [
-        99,
-        40
+        94,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        -19,
-        -42
+        -14,
+        -35
       ],
-      "sha256": "9b9aa69bc08f1b03482be233869a9a0360c8a87a96e88cd963bccd4682f04c32",
+      "sha256": "7a9fa20587ca575c20d1f0a91ce0e872c736b7bc866db6ebdfa1ba8474c87182",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_03.png",
-      "width": 11,
-      "height": 17,
+      "width": 9,
+      "height": 12,
       "texture_px": [
-        11,
-        17
+        9,
+        12
       ],
-      "offset": 17763,
-      "length": 187,
+      "offset": 19174,
+      "length": 108,
       "trim_origin_top_left_px": [
-        103,
-        38
+        97,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        -23,
-        -45
+        -17,
+        -43
       ],
-      "sha256": "fafca80a064306528d05cf8ee23280b94a5ba20f1d12ceaf27b40551feb99eb8",
+      "sha256": "87009a2176e28d3961caa1b31c60e3c04a31c7ec2eee96e078992a6bef2033a3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_04.png",
-      "width": 12,
-      "height": 17,
+      "width": 14,
+      "height": 15,
       "texture_px": [
-        12,
-        17
+        14,
+        15
       ],
-      "offset": 17950,
-      "length": 204,
+      "offset": 19282,
+      "length": 210,
       "trim_origin_top_left_px": [
-        102,
-        41
+        97,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        -22,
-        -42
+        -17,
+        -45
       ],
-      "sha256": "218f89e2a0752cf7ef433b694513a729c8140b4d3cb0b24f26f2a90d0160588e",
+      "sha256": "d1f2a86a885a82cdff31cdf2676445df2398a222fb6a2598fe7406554b826307",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_05.png",
-      "width": 15,
-      "height": 23,
+      "width": 19,
+      "height": 15,
       "texture_px": [
-        15,
-        23
+        19,
+        15
       ],
-      "offset": 18154,
-      "length": 345,
+      "offset": 19492,
+      "length": 285,
       "trim_origin_top_left_px": [
-        99,
-        43
+        96,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        -19,
-        -34
+        -16,
+        -48
       ],
-      "sha256": "2cb5390de17b1b89f70397eed6881474f04e9bf5efb9b92c24d27c330593403f",
+      "sha256": "5122c1d8d6a1ed1e5b8c58088a66e973ef845c1d5643ed3091eeb52ea2ee0d12",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_06.png",
-      "width": 14,
-      "height": 23,
+      "width": 20,
+      "height": 16,
       "texture_px": [
-        14,
-        23
+        20,
+        16
       ],
-      "offset": 18499,
-      "length": 322,
+      "offset": 19777,
+      "length": 320,
       "trim_origin_top_left_px": [
-        97,
-        52
+        89,
+        36
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -25
+        -9,
+        -48
       ],
-      "sha256": "cdbce291620c3d075c23833177eb6b21df799d2e39502c283244582e37462225",
+      "sha256": "9b42c823f2d762bba46e86f08ae8b768f1d782ee22a5bd64e1ed4b43a20165aa",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_07.png",
-      "width": 14,
-      "height": 19,
+      "width": 2,
+      "height": 3,
       "texture_px": [
-        14,
-        19
+        2,
+        3
       ],
-      "offset": 18821,
-      "length": 266,
+      "offset": 20097,
+      "length": 6,
       "trim_origin_top_left_px": [
-        96,
-        59
+        87,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -22
+        -7,
+        -53
       ],
-      "sha256": "f52fc592a79f687ab9087f52920689fd92b469e26116b25fc21c2bf3e95e48b1",
+      "sha256": "74425713c43dca0148bc34599b8f0c1a412de2e5f93f45dc6ae8fab24b96368e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_08.png",
-      "width": 10,
-      "height": 20,
+      "width": 9,
+      "height": 14,
       "texture_px": [
-        10,
-        20
+        9,
+        14
       ],
-      "offset": 19087,
-      "length": 200,
+      "offset": 20103,
+      "length": 126,
       "trim_origin_top_left_px": [
-        96,
-        59
+        89,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -21
+        -9,
+        -42
       ],
-      "sha256": "a7466faa216299f773adb12215513e88de8a8fa9b737a83ef0e9d0771dc54963",
+      "sha256": "8e2a15e371ff747d4dd222397a6fde88632dc1782db8c8dce381cb4670e6ab60",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_09.png",
-      "width": 4,
-      "height": 20,
+      "width": 9,
+      "height": 21,
       "texture_px": [
-        4,
-        20
+        9,
+        21
       ],
-      "offset": 19287,
-      "length": 80,
+      "offset": 20229,
+      "length": 189,
       "trim_origin_top_left_px": [
-        96,
-        60
+        94,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -20
+        -14,
+        -35
       ],
-      "sha256": "cc72be46f6e1a5c70bd07a3dca729716f811b51109e3185e2f8403a900f9efa8",
+      "sha256": "824d8c2fa82a807473af68da255e842851ec7ea42107da09505cef85763683dd",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_nne_10.png",
-      "width": 10,
-      "height": 20,
+      "width": 9,
+      "height": 24,
       "texture_px": [
-        10,
-        20
+        9,
+        24
       ],
-      "offset": 19367,
-      "length": 200,
+      "offset": 20418,
+      "length": 216,
       "trim_origin_top_left_px": [
-        93,
-        62
+        92,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -18
+        -12,
+        -20
       ],
-      "sha256": "889ec37b7a6ee2d6f72559663e5c9515d349d7914c43b236c0f93b23f0cf1674",
+      "sha256": "14ce0e30ea94ae73379f551a734f592dadd6894326347f1fd091de6a2b416091",
       "empty": false
     },
     {
@@ -2674,7 +2674,7 @@
         15,
         18
       ],
-      "offset": 19567,
+      "offset": 20634,
       "length": 270,
       "trim_origin_top_left_px": [
         92,
@@ -2696,7 +2696,7 @@
         22,
         13
       ],
-      "offset": 19837,
+      "offset": 20904,
       "length": 286,
       "trim_origin_top_left_px": [
         89,
@@ -2712,221 +2712,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_01.png",
-      "width": 12,
-      "height": 26,
+      "width": 21,
+      "height": 17,
       "texture_px": [
-        12,
-        26
+        21,
+        17
       ],
-      "offset": 20123,
-      "length": 312,
+      "offset": 21190,
+      "length": 357,
       "trim_origin_top_left_px": [
-        94,
-        55
+        88,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -19
+        -8,
+        -15
       ],
-      "sha256": "1a47f6f3ac5f068c7c8d4a3dfb7655bd26439609874bc093824b6395dd0af787",
+      "sha256": "da8702ef8e40f7f6b0251145ed17b1aa96a5feeb598e8f168b8c89e405d6eb26",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_02.png",
-      "width": 7,
-      "height": 16,
+      "width": 11,
+      "height": 20,
       "texture_px": [
-        7,
-        16
+        11,
+        20
       ],
-      "offset": 20435,
-      "length": 112,
+      "offset": 21547,
+      "length": 220,
       "trim_origin_top_left_px": [
-        99,
-        48
+        93,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        -19,
-        -36
+        -13,
+        -30
       ],
-      "sha256": "7a410896c55aa08905450fe3508a58918109d93c4b2e30fbcc661269aaad0486",
+      "sha256": "52cc87c70df7b737a5735cbeeac908512a3d1056e83fac5ef758e8af0075aed9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_03.png",
-      "width": 10,
-      "height": 11,
+      "width": 7,
+      "height": 9,
       "texture_px": [
-        10,
-        11
+        7,
+        9
       ],
-      "offset": 20547,
-      "length": 110,
+      "offset": 21767,
+      "length": 63,
       "trim_origin_top_left_px": [
-        103,
-        48
+        96,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        -23,
-        -41
+        -16,
+        -39
       ],
-      "sha256": "4936cd5d8591d45953f42e24f21989f4872cdd5751c814f9f33a9ed030d022fe",
+      "sha256": "ef0eb03a55a0834c3f2470dfe3347a2e4adeea62a192a09eaebc70520f61c56e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_04.png",
-      "width": 12,
-      "height": 12,
+      "width": 13,
+      "height": 11,
       "texture_px": [
-        12,
-        12
+        13,
+        11
       ],
-      "offset": 20657,
-      "length": 144,
+      "offset": 21830,
+      "length": 143,
       "trim_origin_top_left_px": [
-        103,
-        50
+        98,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        -23,
-        -38
+        -18,
+        -40
       ],
-      "sha256": "752fb00f85c7e7884c8b12af4e9a67433b1ae1b06634df0aeca048f000357a00",
+      "sha256": "fe8fa5ff6e30f8e86bf6706683f74dd265f97f3ffc330ffa3207a8ccdae91b8d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_05.png",
       "width": 17,
-      "height": 16,
+      "height": 10,
       "texture_px": [
         17,
-        16
+        10
       ],
-      "offset": 20801,
-      "length": 272,
+      "offset": 21973,
+      "length": 170,
       "trim_origin_top_left_px": [
-        101,
-        53
+        100,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        -21,
-        -31
+        -20,
+        -42
       ],
-      "sha256": "4921ccb71c03c0a47811de7f5f2de78d048a01b97f04f49fd279dfdc3ae9af41",
+      "sha256": "00ec72b287689c54223d8bb3786fa627a9c4f34ad39b72bde2da719eb4a62f70",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_06.png",
-      "width": 21,
-      "height": 18,
+      "width": 23,
+      "height": 9,
       "texture_px": [
-        21,
-        18
+        23,
+        9
       ],
-      "offset": 21073,
-      "length": 378,
+      "offset": 22143,
+      "length": 207,
       "trim_origin_top_left_px": [
-        96,
-        62
+        95,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -20
+        -15,
+        -44
       ],
-      "sha256": "e9ff75750ffce7f04f84bcd16cf8f5b52d0d5af105bedfdb79e02ce634266dd8",
+      "sha256": "943839382bebf5aaff62796fac6212ac229a895c4c8d9976b0bfe37faaf46d67",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_07.png",
-      "width": 22,
-      "height": 14,
+      "width": 16,
+      "height": 9,
       "texture_px": [
-        22,
-        14
+        16,
+        9
       ],
-      "offset": 21451,
-      "length": 308,
+      "offset": 22350,
+      "length": 144,
       "trim_origin_top_left_px": [
-        94,
-        69
+        87,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -17
+        -7,
+        -43
       ],
-      "sha256": "02ffd3fb8388b6fd3ef0013a3554a33416570942193245fa797adaab27aad32f",
+      "sha256": "d5320dd12ccfa89a72e55e8dcca4312c3f2e584592b27305174d6386024bc89e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_08.png",
-      "width": 18,
-      "height": 17,
+      "width": 17,
+      "height": 14,
       "texture_px": [
-        18,
-        17
+        17,
+        14
       ],
-      "offset": 21759,
-      "length": 306,
+      "offset": 22494,
+      "length": 238,
       "trim_origin_top_left_px": [
-        94,
-        67
+        92,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -16
+        -12,
+        -36
       ],
-      "sha256": "bbd526a92ac15c84c0e7c460a8fa8295c6fe9843a43551bb7cc6d438f61959ee",
+      "sha256": "ea85bc6a33b583c73c01fb5d32e64fcbfb1f8968f1eec7c560fc0c0724f809ed",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_09.png",
-      "width": 14,
-      "height": 19,
+      "width": 16,
+      "height": 18,
       "texture_px": [
-        14,
-        19
+        16,
+        18
       ],
-      "offset": 22065,
-      "length": 266,
+      "offset": 22732,
+      "length": 288,
       "trim_origin_top_left_px": [
-        92,
-        66
+        94,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -15
+        -14,
+        -30
       ],
-      "sha256": "ff01b714f3e76eee3c40786c20fa0aac46366808a61b07c6bc6322951bf09b84",
+      "sha256": "d08e7a6696763bcf7c673e3911a6cb3d75db30ff16b079ca2eed2790a2b247b1",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ne_10.png",
-      "width": 19,
-      "height": 16,
+      "width": 18,
+      "height": 20,
       "texture_px": [
-        19,
-        16
+        18,
+        20
       ],
-      "offset": 22331,
-      "length": 304,
+      "offset": 23020,
+      "length": 360,
       "trim_origin_top_left_px": [
         90,
-        70
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
         -10,
-        -14
+        -17
       ],
-      "sha256": "57ede4fb3cb67cfd4fe1eb571b09b8467d2897fe4386189162eefc92904424b2",
+      "sha256": "fe657b42aa7ee495411390c7afe14801614af4c44b17792ee4b1f1e2d2cbdd3b",
       "empty": false
     },
     {
@@ -2938,7 +2938,7 @@
         22,
         13
       ],
-      "offset": 22635,
+      "offset": 23380,
       "length": 286,
       "trim_origin_top_left_px": [
         89,
@@ -2960,7 +2960,7 @@
         27,
         7
       ],
-      "offset": 22921,
+      "offset": 23666,
       "length": 189,
       "trim_origin_top_left_px": [
         83,
@@ -2976,221 +2976,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_01.png",
-      "width": 18,
-      "height": 21,
+      "width": 26,
+      "height": 10,
       "texture_px": [
-        18,
-        21
+        26,
+        10
       ],
-      "offset": 23110,
-      "length": 378,
+      "offset": 23855,
+      "length": 260,
       "trim_origin_top_left_px": [
-        89,
-        63
+        83,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -16
+        -3,
+        -13
       ],
-      "sha256": "1d1143aa214b85d7e9de5134136326224d2ab2e9cbcc1a1809da2c92ccaa8ca1",
+      "sha256": "269237eab8110ecd91fcc597d52a3541ba5152cdbfb21fb69eab62708b46aee3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_02.png",
-      "width": 7,
-      "height": 16,
+      "width": 14,
+      "height": 18,
       "texture_px": [
-        7,
-        16
+        14,
+        18
       ],
-      "offset": 23488,
-      "length": 112,
+      "offset": 24115,
+      "length": 252,
       "trim_origin_top_left_px": [
-        96,
-        55
+        90,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
-        -29
+        -10,
+        -25
       ],
-      "sha256": "b8832285543d3e73013428aa5020db9d0ad95938781820089bdece12ff982224",
+      "sha256": "94e8b1cfb8849e4f7f203ba9a4e66728891e6e3a9489e014d213068ab9004c69",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_03.png",
       "width": 7,
-      "height": 11,
+      "height": 8,
       "texture_px": [
         7,
-        11
+        8
       ],
-      "offset": 23600,
-      "length": 77,
+      "offset": 24367,
+      "length": 56,
       "trim_origin_top_left_px": [
-        101,
-        57
+        92,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        -21,
-        -32
+        -12,
+        -34
       ],
-      "sha256": "97b6bd127bbdcbc03141a0fe9daf8e91367f66c04e3e5b4534893e431889621e",
+      "sha256": "5bb0e6d14d1d053cfb2485d3fa0a8a17cc70ffa6494f261f5a220826662c0369",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_04.png",
       "width": 10,
-      "height": 10,
+      "height": 6,
       "texture_px": [
         10,
-        10
+        6
       ],
-      "offset": 23677,
-      "length": 100,
+      "offset": 24423,
+      "length": 60,
       "trim_origin_top_left_px": [
-        100,
-        60
+        97,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        -20,
-        -30
+        -17,
+        -36
       ],
-      "sha256": "efbda4d38ff66fb66cdfa66b1be03c908b119b72f02b74311f9fc285b29e61f6",
+      "sha256": "731ce16900c3d0dc489459afd561a8bcdb34915da9d239e3b673bcfd7fbec1a4",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_05.png",
-      "width": 17,
-      "height": 13,
+      "width": 15,
+      "height": 6,
       "texture_px": [
-        17,
-        13
+        15,
+        6
       ],
-      "offset": 23777,
-      "length": 221,
+      "offset": 24483,
+      "length": 90,
       "trim_origin_top_left_px": [
-        98,
-        64
+        100,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -23
+        -20,
+        -36
       ],
-      "sha256": "9c8058b1bfd9b383ed0a44a280ceed737955ce12ba49f013465dcb2d9e891abe",
+      "sha256": "d0cff237794f4ce319de5e71e230034e091dcdf80a54ede043b3e9db49972f85",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_06.png",
       "width": 26,
-      "height": 11,
+      "height": 3,
       "texture_px": [
         26,
-        11
+        3
       ],
-      "offset": 23998,
-      "length": 286,
+      "offset": 24573,
+      "length": 78,
       "trim_origin_top_left_px": [
-        92,
-        73
+        99,
+        59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -16
+        -19,
+        -38
       ],
-      "sha256": "12e324e0e23ff83a901d4ec814cdf6c51190406047b802319aa8b8ac2b5d7558",
+      "sha256": "8e08c5cec98cc6e0ad1b851f1ae6b4bdc3434adc46a2e18000c66463b70835a3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_07.png",
-      "width": 26,
-      "height": 8,
+      "width": 24,
+      "height": 7,
       "texture_px": [
-        26,
-        8
+        24,
+        7
       ],
-      "offset": 24284,
-      "length": 208,
+      "offset": 24651,
+      "length": 168,
       "trim_origin_top_left_px": [
-        90,
-        80
+        89,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -12
+        -9,
+        -37
       ],
-      "sha256": "4bb486ccac9e2a3bf1caaf6dc04f23be833eef3d39446b5af32b5f02d9c60280",
+      "sha256": "54e4f0d6ebaa5b8891ae8ae12c9e098fce75491eba28f53548fff53fc5d9518d",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_08.png",
-      "width": 25,
-      "height": 10,
+      "width": 23,
+      "height": 9,
       "texture_px": [
-        25,
-        10
+        23,
+        9
       ],
-      "offset": 24492,
-      "length": 250,
+      "offset": 24819,
+      "length": 207,
       "trim_origin_top_left_px": [
-        89,
-        77
+        91,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -13
+        -11,
+        -31
       ],
-      "sha256": "dc8d629f6b788e8a960b3137dca8686dca37454d2442a1c55587eabcbeba5363",
+      "sha256": "659cb938c24fd4d74c62b210c67cab6c71555e491633c4e620b99e1d5753fd80",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_09.png",
-      "width": 22,
-      "height": 14,
+      "width": 23,
+      "height": 15,
       "texture_px": [
-        22,
-        14
+        23,
+        15
       ],
-      "offset": 24742,
-      "length": 308,
+      "offset": 25026,
+      "length": 345,
       "trim_origin_top_left_px": [
-        87,
-        74
+        90,
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -12
+        -10,
+        -24
       ],
-      "sha256": "8c0675bca0751ca17da9f1f0e8fc02077ce7753a24f418fcb588c239c72fd157",
+      "sha256": "8cc11b39fa6009bcdff3d6050b0da3353248151e34c46c2dd82041aa6e6c5683",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ene_10.png",
       "width": 25,
-      "height": 10,
+      "height": 14,
       "texture_px": [
         25,
-        10
+        14
       ],
-      "offset": 25050,
-      "length": 250,
+      "offset": 25371,
+      "length": 350,
       "trim_origin_top_left_px": [
         85,
-        78
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
         -5,
-        -12
+        -14
       ],
-      "sha256": "540a7e604f55857f289de8571babbd4d2a7ad5b7243f47fc7c47cbad30be8ace",
+      "sha256": "8ac1ce89f1202900158e042284ef0c22f4963cc2b9dce168b0e51aacfa3f7884",
       "empty": false
     },
     {
@@ -3202,7 +3202,7 @@
         27,
         7
       ],
-      "offset": 25300,
+      "offset": 25721,
       "length": 189,
       "trim_origin_top_left_px": [
         83,
@@ -3224,7 +3224,7 @@
         28,
         7
       ],
-      "offset": 25489,
+      "offset": 25910,
       "length": 196,
       "trim_origin_top_left_px": [
         77,
@@ -3240,221 +3240,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_01.png",
-      "width": 23,
-      "height": 16,
+      "width": 28,
+      "height": 7,
       "texture_px": [
-        23,
-        16
+        28,
+        7
       ],
-      "offset": 25685,
-      "length": 368,
+      "offset": 26106,
+      "length": 196,
       "trim_origin_top_left_px": [
-        82,
-        70
+        77,
+        83
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
-        -14
+        3,
+        -10
       ],
-      "sha256": "6b2aee5e4c99e643a9e3d3104301a2854f15f67049eb66579e0a919eac0fc39e",
+      "sha256": "5ac4405783cd4932c826b97f30c9c0610c02d56212f17186c251e27b2acda5b4",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_02.png",
-      "width": 6,
-      "height": 17,
+      "width": 13,
+      "height": 15,
       "texture_px": [
-        6,
-        17
+        13,
+        15
       ],
-      "offset": 26053,
-      "length": 102,
+      "offset": 26302,
+      "length": 195,
       "trim_origin_top_left_px": [
-        91,
-        60
+        86,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -23
+        -6,
+        -21
       ],
-      "sha256": "91f4e95656154c1352dd828b65ab47c1598c52d11fff355e05d35fb7c3ea81db",
+      "sha256": "741d62da8afd51e2a30cd1438b6c497071711dbc0cbb046e070df70f6b43a9a3",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_03.png",
-      "width": 5,
+      "width": 6,
       "height": 10,
       "texture_px": [
-        5,
+        6,
         10
       ],
-      "offset": 26155,
-      "length": 50,
+      "offset": 26497,
+      "length": 60,
       "trim_origin_top_left_px": [
-        94,
-        64
+        87,
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -26
+        -7,
+        -29
       ],
-      "sha256": "f6037f8cc70c11be4f7af706b0b8274f9cc57371fc7b3c3e3398874f272d550f",
+      "sha256": "a7f73b711a09140c7a3baeadb21c3147ba21d9479d146ce05fa56ded7bdce9f9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_04.png",
       "width": 7,
-      "height": 10,
+      "height": 7,
       "texture_px": [
         7,
-        10
+        7
       ],
-      "offset": 26205,
-      "length": 70,
+      "offset": 26557,
+      "length": 49,
       "trim_origin_top_left_px": [
-        94,
-        67
+        92,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -23
+        -12,
+        -29
       ],
-      "sha256": "68aa056db72a4dfd8a9f237993c630193d69a52f752beae4ce6898fece5b5777",
+      "sha256": "ff5946927fea56e07bcf89ff93b7b2cb511c237407127e776c76455b3952ea3e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_05.png",
-      "width": 14,
-      "height": 9,
+      "width": 10,
+      "height": 4,
       "texture_px": [
-        14,
-        9
+        10,
+        4
       ],
-      "offset": 26275,
-      "length": 126,
+      "offset": 26606,
+      "length": 40,
       "trim_origin_top_left_px": [
-        93,
-        73
+        97,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -18
+        -17,
+        -29
       ],
-      "sha256": "306b5e92a457429911be8ba4c21d16915254d237a8494b428a17d5620d52ac86",
+      "sha256": "101ecfd89301a92591481054d5eb557cb7de4f744ab28a76605b6a6d5a7892f6",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_06.png",
-      "width": 21,
-      "height": 7,
+      "width": 22,
+      "height": 6,
       "texture_px": [
-        21,
-        7
+        22,
+        6
       ],
-      "offset": 26401,
-      "length": 147,
+      "offset": 26646,
+      "length": 132,
       "trim_origin_top_left_px": [
-        91,
-        82
+        100,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -11
+        -20,
+        -28
       ],
-      "sha256": "52de391a1aa693012aa1a747690ff2d3afad3ca67460d68caadbc0ceca9ad25b",
+      "sha256": "d49272da42172b8384e4f31ec94a1dd8cb972719f62f73669957392099156c35",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_07.png",
-      "width": 28,
-      "height": 7,
+      "width": 27,
+      "height": 5,
       "texture_px": [
-        28,
-        7
+        27,
+        5
       ],
-      "offset": 26548,
-      "length": 196,
+      "offset": 26778,
+      "length": 135,
       "trim_origin_top_left_px": [
-        83,
-        85
+        91,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        -3,
-        -8
+        -11,
+        -32
       ],
-      "sha256": "1a56ec5749be36f198abd3a9a1ecf5dbcaa60bef0a3a6431200c7605741e2b45",
+      "sha256": "8d72f31f787fd85262274741391101e30eec82bae2555dc8c4dd8235769ea6c7",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_08.png",
       "width": 27,
-      "height": 6,
+      "height": 5,
       "texture_px": [
         27,
-        6
+        5
       ],
-      "offset": 26744,
-      "length": 162,
+      "offset": 26913,
+      "length": 135,
       "trim_origin_top_left_px": [
-        83,
-        85
+        89,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        -3,
-        -9
+        -9,
+        -26
       ],
-      "sha256": "dda8aae833a238f323d83da65ee40e73298f6ee547d2f101a735edbe64bb29a2",
+      "sha256": "184c91347191138c444b1c124993452853ce753a3282d2f5416af3b5fc15acfe",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_09.png",
-      "width": 27,
-      "height": 8,
+      "width": 20,
+      "height": 10,
       "texture_px": [
-        27,
-        8
+        20,
+        10
       ],
-      "offset": 26906,
-      "length": 216,
+      "offset": 27048,
+      "length": 200,
       "trim_origin_top_left_px": [
-        81,
-        83
+        90,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        -1,
-        -9
+        -10,
+        -20
       ],
-      "sha256": "d1831a118c31cb9447369401a34f4d8f0f417bbf02cceeb35a09c03025b32360",
+      "sha256": "28b06762acdcb14eda39e379b55d00de68c32b722c12ca59ae94946181e408c9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_e_10.png",
       "width": 28,
-      "height": 7,
+      "height": 8,
       "texture_px": [
         28,
-        7
+        8
       ],
-      "offset": 27122,
-      "length": 196,
+      "offset": 27248,
+      "length": 224,
       "trim_origin_top_left_px": [
-        79,
-        84
+        80,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        1,
-        -9
+        0,
+        -12
       ],
-      "sha256": "4ee6b3b89527a7c4e966e0d08c8666f37ddc4389c3b198238fff9855feea7f28",
+      "sha256": "76045bcc9a992e4964321190818d5296775d7467c21712bcaad0d7f2feb31fae",
       "empty": false
     },
     {
@@ -3466,7 +3466,7 @@
         28,
         7
       ],
-      "offset": 27318,
+      "offset": 27472,
       "length": 196,
       "trim_origin_top_left_px": [
         77,
@@ -3488,7 +3488,7 @@
         24,
         12
       ],
-      "offset": 27514,
+      "offset": 27668,
       "length": 288,
       "trim_origin_top_left_px": [
         72,
@@ -3504,221 +3504,221 @@
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_01.png",
-      "width": 18,
-      "height": 10,
+      "width": 21,
+      "height": 9,
       "texture_px": [
-        18,
-        10
+        21,
+        9
       ],
-      "offset": 27802,
-      "length": 180,
+      "offset": 27956,
+      "length": 189,
       "trim_origin_top_left_px": [
-        80,
-        77
+        77,
+        83
       ],
       "pivot_from_crop_bottom_left_px": [
-        0,
-        -13
+        3,
+        -8
       ],
-      "sha256": "d3f56fcb8dde31449a4464c088ee06554fda66738a381ae42627b0f7139abe34",
+      "sha256": "43e003b7b539e74fc8d3c38a42972439f10a6a67c382328b4977ab39e4176917",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_02.png",
-      "width": 4,
-      "height": 15,
+      "width": 13,
+      "height": 13,
       "texture_px": [
-        4,
-        15
+        13,
+        13
       ],
-      "offset": 27982,
-      "length": 60,
+      "offset": 28145,
+      "length": 169,
       "trim_origin_top_left_px": [
-        84,
-        65
+        80,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
-        -20
+        0,
+        -19
       ],
-      "sha256": "e7909bab65c77073cb135fbcb74dad9608ef53be182ee9e16d9c9e931014ba66",
+      "sha256": "021cd209cd3c63ae0497514612f9818173ccc48a8e4f8818558e52da56a4e0c9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_03.png",
-      "width": 3,
-      "height": 8,
+      "width": 7,
+      "height": 10,
       "texture_px": [
-        3,
-        8
+        7,
+        10
       ],
-      "offset": 28042,
-      "length": 24,
+      "offset": 28314,
+      "length": 70,
       "trim_origin_top_left_px": [
-        86,
-        70
+        78,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        -6,
-        -22
+        2,
+        -27
       ],
-      "sha256": "9edee320e21655866ebe2872aac700c316e92560e95f703623c0f583bf03db56",
+      "sha256": "323eda6c10f0b63096149a7e95b79e24ef9b818e02029a04919213b156b77e71",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_04.png",
-      "width": 4,
-      "height": 8,
+      "width": 6,
+      "height": 6,
       "texture_px": [
-        4,
-        8
+        6,
+        6
       ],
-      "offset": 28066,
-      "length": 32,
+      "offset": 28384,
+      "length": 36,
       "trim_origin_top_left_px": [
         85,
-        72
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
         -5,
-        -20
+        -26
       ],
-      "sha256": "c5f965b80dc2757dc84ab2939757fa39f378bc32a8cf67c9cfb0680704c271b1",
+      "sha256": "a21880ad3ec1bcd4c641d85fd9755aacf9b590ced0b6b24623de5732170b0cd9",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_05.png",
-      "width": 10,
-      "height": 7,
+      "width": 5,
+      "height": 5,
       "texture_px": [
-        10,
-        7
+        5,
+        5
       ],
-      "offset": 28098,
-      "length": 70,
+      "offset": 28420,
+      "length": 25,
       "trim_origin_top_left_px": [
-        85,
-        79
+        91,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -14
+        -11,
+        -24
       ],
-      "sha256": "c8d099a13c1ea348a7c231223fced49f23d38324cfeda4b224fc4173932468bb",
+      "sha256": "fd944a05e1bfb820c3e7881e5d9679cc9e6546f222803f23726c98a89938c84f",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_06.png",
-      "width": 19,
-      "height": 8,
+      "width": 18,
+      "height": 13,
       "texture_px": [
-        19,
-        8
+        18,
+        13
       ],
-      "offset": 28168,
-      "length": 152,
+      "offset": 28445,
+      "length": 234,
       "trim_origin_top_left_px": [
-        83,
-        84
+        97,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -3,
-        -8
+        -17,
+        -16
       ],
-      "sha256": "1ba35a40490fe32f647c79352492f33ed108deee93336c0b4e3c5685b94acf1d",
+      "sha256": "0e2b856bfdd5adb1a8e0b003e7ef43eddd7ec5fcf896299ff58eadd2f90752bb",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_07.png",
       "width": 25,
-      "height": 11,
+      "height": 12,
       "texture_px": [
         25,
-        11
+        12
       ],
-      "offset": 28320,
-      "length": 275,
+      "offset": 28679,
+      "length": 300,
       "trim_origin_top_left_px": [
-        76,
-        87
+        93,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -2
+        -13,
+        -21
       ],
-      "sha256": "993e69e285d7ecadcbf2cffd1f3c87fecb8b240d7e8398320d2f39cab9813543",
+      "sha256": "bb15967562f3e19dea48c074dc054731f7955e5d263a018aa667ba88b12d4cc8",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_08.png",
-      "width": 26,
-      "height": 9,
+      "width": 24,
+      "height": 8,
       "texture_px": [
-        26,
-        9
+        24,
+        8
       ],
-      "offset": 28595,
-      "length": 234,
+      "offset": 28979,
+      "length": 192,
       "trim_origin_top_left_px": [
-        76,
-        86
+        88,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -5
+        -8,
+        -19
       ],
-      "sha256": "9164141b52902d204f99da15f367ee77b0c839cbe2ede7c8ef28a0ee2d28b248",
+      "sha256": "7c8500bb679afa13994c6de411df164a70c37bd84923ad9c1a6a5e21b4d1527e",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_09.png",
-      "width": 28,
+      "width": 17,
       "height": 7,
       "texture_px": [
-        28,
+        17,
         7
       ],
-      "offset": 28829,
-      "length": 196,
+      "offset": 29171,
+      "length": 119,
       "trim_origin_top_left_px": [
-        75,
-        85
+        86,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
-        -8
+        -6,
+        -17
       ],
-      "sha256": "ea8a0d50da0ed04e3fe0ebcd3caff4e77325bd1fa3654cc4ffda5e9897373736",
+      "sha256": "79379e3c44d34102bec2c2935c3bd648068b2a77b5402f301267d9d1d362a356",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_ese_10.png",
-      "width": 26,
-      "height": 10,
+      "width": 21,
+      "height": 7,
       "texture_px": [
-        26,
-        10
+        21,
+        7
       ],
-      "offset": 29025,
-      "length": 260,
+      "offset": 29290,
+      "length": 147,
       "trim_origin_top_left_px": [
-        73,
-        85
+        80,
+        82
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -5
+        0,
+        -11
       ],
-      "sha256": "b758260dda2b5c198fe368520bfbb10edff98c46daa097fd3f87b5ac62a15948",
+      "sha256": "fd4d58ddf428d60c51c4afebebc8d515170c3a194aa3f74a37579d202bdc6cb0",
       "empty": false
     },
     {
@@ -3730,7 +3730,7 @@
         24,
         12
       ],
-      "offset": 29285,
+      "offset": 29437,
       "length": 288,
       "trim_origin_top_left_px": [
         72,
@@ -3752,7 +3752,7 @@
         16,
         16
       ],
-      "offset": 29573,
+      "offset": 29725,
       "length": 256,
       "trim_origin_top_left_px": [
         69,
@@ -3769,88 +3769,88 @@
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_01.png",
       "width": 17,
-      "height": 6,
+      "height": 13,
       "texture_px": [
         17,
-        6
+        13
       ],
-      "offset": 29829,
-      "length": 102,
+      "offset": 29981,
+      "length": 221,
       "trim_origin_top_left_px": [
-        73,
-        80
+        70,
+        82
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -14
+        10,
+        -5
       ],
-      "sha256": "b590f7a937571d27985257b59939016427de4d2a628a34b473b4351a0d5a67ac",
+      "sha256": "7f7f3c9f518f79b09b5483e4c575de912d4837c48f3691b1faac0ffcf8ed245c",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_02.png",
-      "width": 3,
-      "height": 12,
+      "width": 10,
+      "height": 10,
       "texture_px": [
-        3,
-        12
+        10,
+        10
       ],
-      "offset": 29931,
-      "length": 36,
+      "offset": 30202,
+      "length": 100,
       "trim_origin_top_left_px": [
-        75,
-        68
+        74,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
+        6,
         -20
       ],
-      "sha256": "a72edb54192b2fe64e540015b42877400d0dbe6665d3607feca4ba4b1318b92f",
+      "sha256": "b01c1e5c6833bb9c6fb9779c0b2756fefdee9b95248abd61dfee4c4ffe1809bb",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_03.png",
-      "width": 6,
-      "height": 12,
+      "width": 7,
+      "height": 11,
       "texture_px": [
-        6,
-        12
+        7,
+        11
       ],
-      "offset": 29967,
-      "length": 72,
+      "offset": 30302,
+      "length": 77,
       "trim_origin_top_left_px": [
-        72,
-        67
+        69,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        -21
+        11,
+        -27
       ],
-      "sha256": "f5aba7f904f8b6b178bf4c3a0f3bcf94e11e0e9548726c94ce7a42e08d46c0b7",
+      "sha256": "3c6393dad3ab99ae71b96bf15a80e61773ec0908e55a7d67c5623d32a62c23ae",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_04.png",
-      "width": 4,
-      "height": 9,
+      "width": 6,
+      "height": 7,
       "texture_px": [
-        4,
-        9
+        6,
+        7
       ],
-      "offset": 30039,
-      "length": 36,
+      "offset": 30379,
+      "length": 42,
       "trim_origin_top_left_px": [
-        74,
-        72
+        75,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -19
+        5,
+        -24
       ],
-      "sha256": "59637768da4315e3a0eae8ff42e21124948cae91a2e131dd2f40197f0009af49",
+      "sha256": "faa0f73824a40c9460abe1cb8328e41d7af3d45639c267e01bd3a0a527b7e4fd",
       "empty": false
     },
     {
@@ -3862,127 +3862,127 @@
         6,
         6
       ],
-      "offset": 30075,
+      "offset": 30421,
       "length": 36,
       "trim_origin_top_left_px": [
-        75,
-        80
+        80,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
-        -14
+        0,
+        -20
       ],
-      "sha256": "fd12786f8831a0fe2613f01bcb510e8b5c13a0c5139e23eb82914d95056b9143",
+      "sha256": "9608ca2dee816924b17e8a250b49bd5630cd07f99b8a908a33427a6a0ec86f97",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_06.png",
-      "width": 15,
-      "height": 12,
+      "width": 9,
+      "height": 16,
       "texture_px": [
-        15,
-        12
+        9,
+        16
       ],
-      "offset": 30111,
-      "length": 180,
+      "offset": 30457,
+      "length": 144,
       "trim_origin_top_left_px": [
-        74,
-        85
+        92,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -3
+        -12,
+        -8
       ],
-      "sha256": "eb80814a94db0f7d034d61f2d38272b6163b5e0c8fdb2d14fce2d76d76c1f33e",
+      "sha256": "a9109f0dedaebe823b58a75ee33bb5704518a028877e9ef93ec68e2c7c7ce840",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_07.png",
-      "width": 17,
-      "height": 16,
+      "width": 19,
+      "height": 18,
       "texture_px": [
-        17,
-        16
+        19,
+        18
       ],
-      "offset": 30291,
-      "length": 272,
+      "offset": 30601,
+      "length": 342,
       "trim_origin_top_left_px": [
-        72,
-        87
+        92,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        3
+        -12,
+        -11
       ],
-      "sha256": "a9cb4e5553e5b0c8b7137d0982d11a55033cbb9b0fa787b489b355452b99c79a",
+      "sha256": "5e09e2b91cf6cf17efe26eae9f6b1ab7540d16e1534925e4b023f44f7d453623",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_08.png",
-      "width": 22,
+      "width": 17,
       "height": 14,
       "texture_px": [
-        22,
+        17,
         14
       ],
-      "offset": 30563,
-      "length": 308,
+      "offset": 30943,
+      "length": 238,
       "trim_origin_top_left_px": [
-        69,
-        86
+        85,
+        75
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        0
+        -5,
+        -11
       ],
-      "sha256": "a489e27c2e363aeea5be5baf54f1dd2da6fa34e885e62fb439e2a33bdad4421e",
+      "sha256": "34d196eeccb5091503d98892b274533b0794779c45e881716738338af0a4f78b",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_09.png",
-      "width": 20,
-      "height": 11,
+      "width": 13,
+      "height": 7,
       "texture_px": [
-        20,
-        11
+        13,
+        7
       ],
-      "offset": 30871,
-      "length": 220,
+      "offset": 31181,
+      "length": 91,
       "trim_origin_top_left_px": [
-        73,
-        85
+        80,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -4
+        0,
+        -15
       ],
-      "sha256": "8ff58fce2a651f24ae5ec5f43eefe13cbe97afd87f1b3fdfde292a5b9ab7dea3",
+      "sha256": "a7f4970eef82af30aa17392ca8ae961f7fa7bbf4aedd2ca5661b6ff2afa341ef",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_se_10.png",
       "width": 19,
-      "height": 15,
+      "height": 11,
       "texture_px": [
         19,
-        15
+        11
       ],
-      "offset": 31091,
-      "length": 285,
+      "offset": 31272,
+      "length": 209,
       "trim_origin_top_left_px": [
-        70,
-        84
+        73,
+        82
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -1
+        7,
+        -7
       ],
-      "sha256": "a2e9506cf0b051353067269b3fe748b04b54b1a8bdf46fb8756baa3a473072fb",
+      "sha256": "ad9f5c1ba1a2e5c217a4fdbbb0757437a2315c9bd88ee3f32b8b116b9cc2262d",
       "empty": false
     },
     {
@@ -3994,7 +3994,7 @@
         16,
         16
       ],
-      "offset": 31376,
+      "offset": 31481,
       "length": 256,
       "trim_origin_top_left_px": [
         69,
@@ -4016,7 +4016,7 @@
         9,
         18
       ],
-      "offset": 31632,
+      "offset": 31737,
       "length": 162,
       "trim_origin_top_left_px": [
         64,
@@ -4026,227 +4026,227 @@
         16,
         0
       ],
-      "sha256": "ac135f01b729665f174867d293f0cdbb274c62eee97faa8aa98013ad844a4dcc",
+      "sha256": "e2b1a72208b397c5fb191592a08b3cbd86cd46327d6126c564ce896d20cef794",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_01.png",
-      "width": 14,
-      "height": 5,
+      "width": 11,
+      "height": 16,
       "texture_px": [
-        14,
-        5
+        11,
+        16
       ],
-      "offset": 31794,
-      "length": 70,
+      "offset": 31899,
+      "length": 176,
       "trim_origin_top_left_px": [
-        66,
-        78
+        65,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -17
+        15,
+        -4
       ],
-      "sha256": "6559ccabe6c77cb214c06cdbfc8a711e90b7533c55b6c95fd797d104d5786b2f",
+      "sha256": "b9a286b05d4a74dc789f19b737f65aa52ebef27b949eb7528b08046c7d284ada",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_02.png",
-      "width": 4,
-      "height": 13,
+      "width": 7,
+      "height": 7,
       "texture_px": [
-        4,
-        13
+        7,
+        7
       ],
-      "offset": 31864,
-      "length": 52,
+      "offset": 32075,
+      "length": 49,
       "trim_origin_top_left_px": [
-        66,
-        64
+        67,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        13,
         -23
       ],
-      "sha256": "82e4b78e706ce1a67f50018c6d747b32d6eeb6000b80329cd673a7062183b392",
+      "sha256": "f83dc8e6d41893a37cfc23b55e3932386ff24cef0bd3affa54f99f6cdb8c2503",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_03.png",
       "width": 9,
-      "height": 13,
+      "height": 15,
       "texture_px": [
         9,
-        13
+        15
       ],
-      "offset": 31916,
-      "length": 117,
+      "offset": 32124,
+      "length": 135,
       "trim_origin_top_left_px": [
         60,
-        63
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
-        -24
+        -30
       ],
-      "sha256": "792173aad1a6471793aa96e455aec7edf6b90fc5af9e7d9f2877c7813d5a49f1",
+      "sha256": "27ad8fb9ee724d25b613bafc97d1ed9439b3f73319b075122b67034ef72dabb4",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_04.png",
-      "width": 7,
-      "height": 11,
+      "width": 9,
+      "height": 10,
       "texture_px": [
-        7,
-        11
+        9,
+        10
       ],
-      "offset": 32033,
-      "length": 77,
+      "offset": 32259,
+      "length": 90,
       "trim_origin_top_left_px": [
-        61,
-        68
+        63,
+        65
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -21
+        17,
+        -25
       ],
-      "sha256": "227a12a811a1b6e0bb84567d3d804a6452902dd6b8ccb530a995484eba3a0357",
+      "sha256": "1b8c822f7553727ee0fb88448659720fca3f98492e22beb3f523ef99b188b677",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_05.png",
-      "width": 3,
+      "width": 11,
       "height": 7,
       "texture_px": [
-        3,
+        11,
         7
       ],
-      "offset": 32110,
-      "length": 21,
+      "offset": 32349,
+      "length": 77,
       "trim_origin_top_left_px": [
-        66,
-        77
+        65,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -16
+        15,
+        -20
       ],
-      "sha256": "b657d8ea698d0bd956ebf52244e557860c01cb7153790c0811bb330db6345caf",
+      "sha256": "d3bef19a7606149dab1189a6b32885eaa8ab5346cbb700bb06132e545beb8f50",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_06.png",
-      "width": 9,
-      "height": 14,
+      "width": 3,
+      "height": 17,
       "texture_px": [
-        9,
-        14
+        3,
+        17
       ],
-      "offset": 32131,
-      "length": 126,
+      "offset": 32426,
+      "length": 51,
       "trim_origin_top_left_px": [
-        65,
-        83
+        84,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -3
+        -4,
+        -4
       ],
-      "sha256": "b5e4ebe84444f0341ab4c0c826e02af7f6aae67d61ef75604905e9f783493c88",
+      "sha256": "d362dda079438c5ad2c73ae1428b9285b82858ad795364d72f46c5b86939c506",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_07.png",
-      "width": 10,
-      "height": 18,
+      "width": 8,
+      "height": 17,
       "texture_px": [
-        10,
-        18
+        8,
+        17
       ],
-      "offset": 32257,
-      "length": 180,
+      "offset": 32477,
+      "length": 136,
       "trim_origin_top_left_px": [
-        64,
-        85
+        90,
+        75
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        3
+        -10,
+        -8
       ],
-      "sha256": "017d8ffc79d9656c3e459ece3ffc0a6df900ca5598db74630ba679f9c95bb8ef",
+      "sha256": "2891e37ec9870e6e3c7f83880866822ad95d23cb8092fce200f4cbfc7f9a01f2",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_08.png",
-      "width": 13,
-      "height": 16,
+      "width": 7,
+      "height": 13,
       "texture_px": [
-        13,
-        16
+        7,
+        13
       ],
-      "offset": 32437,
-      "length": 208,
+      "offset": 32613,
+      "length": 91,
       "trim_origin_top_left_px": [
-        65,
-        85
+        81,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        1
+        -1,
+        -10
       ],
-      "sha256": "198e40f31da7a2c5c5cf18cabfb37b5d5c4f60dd4e8d5fc747e91f775e2dbfaf",
+      "sha256": "8514c043af48d6e81af068bed5d8e0141f1d4e2970ccfde85157c8f3b7c411aa",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_09.png",
-      "width": 17,
-      "height": 16,
+      "width": 6,
+      "height": 9,
       "texture_px": [
-        17,
-        16
+        6,
+        9
       ],
-      "offset": 32645,
-      "length": 272,
+      "offset": 32704,
+      "length": 54,
       "trim_origin_top_left_px": [
-        66,
-        83
+        74,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -1
+        6,
+        -14
       ],
-      "sha256": "543cb5fddb3c5662ef394da4b6bb822244523bf6e2c3295106d885cecdb4d454",
+      "sha256": "8542ae58be18263a2e892c47fbe4479b0a5c58be448d83993c6c178656682128",
       "empty": false
     },
     {
       "atlas": "HumanMeleeSword.atlas",
       "name": "attack_sse_10.png",
       "width": 12,
-      "height": 17,
+      "height": 15,
       "texture_px": [
         12,
-        17
+        15
       ],
-      "offset": 32917,
-      "length": 204,
+      "offset": 32758,
+      "length": 180,
       "trim_origin_top_left_px": [
-        65,
-        82
+        68,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -1
+        12,
+        -5
       ],
-      "sha256": "0835ad7bd714e40cb137a54a761323e3e4e333be55ba56709ceb3df710cbb851",
+      "sha256": "dca1b26336f0ab4fb8f70fe7b43a75224088306b7d05c0bc43a7ba7d4265c59c",
       "empty": false
     },
     {
@@ -4258,7 +4258,7 @@
         9,
         18
       ],
-      "offset": 33121,
+      "offset": 32938,
       "length": 162,
       "trim_origin_top_left_px": [
         64,
@@ -4268,9 +4268,9 @@
         16,
         0
       ],
-      "sha256": "ac135f01b729665f174867d293f0cdbb274c62eee97faa8aa98013ad844a4dcc",
+      "sha256": "e2b1a72208b397c5fb191592a08b3cbd86cd46327d6126c564ce896d20cef794",
       "empty": false
     }
   ],
-  "source_authority": "MeleeOct07/Melee_Authored.blend"
+  "source_authority": "SwordRefinementOct07/Sword_Authored.blend"
 }

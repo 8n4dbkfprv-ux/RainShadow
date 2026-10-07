@@ -8,10 +8,10 @@ enum MeleeAttackAnimationSet {
     static let recoveryTime = Double(frames) / framesPerSecond
     static let body = "HumanMelee"
     static let hashes: [String: String] = [
-        "HumanMelee": "42d01719486b6af5639270e8c197984375568abad8cf2415d2ec38969ab9646d",
-        "HumanMeleeSword": "8b8a0b56c1e046889114756074fc1d6ee46d692008c4535888712f3b82e4f5d9",
-        "HumanMeleeMail": "50ca546fd80d455736f68d3986dd2c9142338ead322c6259dfcce9db2e076bf0",
-        "HumanMeleeHelmet": "2ce11b105795e3e0ab35ed0edc0d44a9a1d1907811a1014511150deb081b9558",
+        "HumanMelee": "8fe80af08a2ce262e02fabeb04f4f0ce18d6c976b391d6aa8da57fe48165a3ea",
+        "HumanMeleeSword": "e06ae70293a7c174d344168329f848a6d062da06f56ab3f5e6ccd2a49a2f3678",
+        "HumanMeleeMail": "7c19e91c1ce6229f775089f3dd66d62ff482cfc4e585d331122780d9bcb21e4e",
+        "HumanMeleeHelmet": "ed27aac932983e212f144b98a6d20509da961fe93a60976f6214a3f19c3e1391",
     ]
 
     static func equipment(_ item: CharacterEquipmentCode) -> String? {

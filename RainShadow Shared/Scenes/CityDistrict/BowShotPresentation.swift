@@ -16,10 +16,12 @@ final class BowShotPresentation {
     let fire = BowArrowFire()
     let origin: CGPoint
     let destination: CGPoint
+    let releaseTime: TimeInterval
     let impactTime: TimeInterval
     private(set) var elapsed: TimeInterval = 0
     var impactPresented = false
-    var finished: Bool { elapsed >= max(BowAttackRules.recoveryTime, impactTime + 0.15) }
+    var dodgePresented = false
+    var finished: Bool { elapsed >= max(WeaponTechniqueMotion.bowDuration(result.maneuver), impactTime + 0.15) }
 
     init(before: TacticalCombat, result: TacticalCombat.Strike, target: Combatant,
          actor: CharacterAppearanceNode, parent: SKNode, targetHeight: CGFloat,
@@ -28,31 +30,33 @@ final class BowShotPresentation {
         self.explosions = explosions; self.displacements = displacements
         self.before = before; self.result = result; self.target = target; self.actor = actor
         facing = .orient(from: actor.position, to: target.position)
-        let offset = BowAttackAnimationSet.muzzleOffset(facing: facing)
+        let offset = result.maneuver == .pinningShot
+            ? WeaponTechniqueAnimationSet.pinningMuzzle(facing: facing) : BowAttackAnimationSet.muzzleOffset(facing: facing)
         origin = CGPoint(x: actor.position.x + offset.x,
                          y: actor.position.y + offset.y + actor.visualHeightOffset)
         destination = CGPoint(x: target.position.x + (result.damage == 0 ? 22 : 0),
-                              y: target.position.y + targetHeight)
-        impactTime = BowAttackRules.releaseTime + BowAttackRules.flightDuration(from: actor.position, to: target.position)
+                              y: target.position.y + (result.maneuver == .pinningShot ? 15 : targetHeight))
+        releaseTime = WeaponTechniqueMotion.bowRelease(result.maneuver)
+        impactTime = releaseTime + BowAttackRules.flightDuration(from: actor.position, to: target.position)
         arrow.name = "combat.bow.arrow"
         arrow.size = CGSize(width: 40, height: 7)
         arrow.anchorPoint = CGPoint(x: 1, y: 0.5)
         arrow.zPosition = 20000
         arrow.isHidden = true
         parent.addChild(arrow)
-        parent.addChild(fire)
-        try? actor.present(action: .shoot, facing: facing, phase: 0)
+        if result.maneuver == nil && !result.requestedSneakAttack { parent.addChild(fire) }
+        try? actor.presentTechnique(result.maneuver, action: .shoot, facing: facing, phase: 0)
     }
     func advance(delta: TimeInterval) {
         elapsed += delta
-        let phase = min(BowAttackRules.frames - 1, Int(elapsed * BowAttackRules.framesPerSecond))
-        try? actor.present(action: .shoot, facing: facing, phase: phase)
-        arrow.isHidden = elapsed < BowAttackRules.releaseTime || elapsed >= impactTime
-        let progress = (elapsed - BowAttackRules.releaseTime) / (impactTime - BowAttackRules.releaseTime)
+        let phase = WeaponTechniqueMotion.bowPhase(elapsed: elapsed, move: result.maneuver)
+        try? actor.presentTechnique(result.maneuver, action: .shoot, facing: facing, phase: phase)
+        arrow.isHidden = elapsed < releaseTime || elapsed >= impactTime
+        let progress = (elapsed - releaseTime) / (impactTime - releaseTime)
         arrow.position = BowAttackRules.arrowPosition(from: origin, to: destination, progress: progress)
         let next = BowAttackRules.arrowPosition(from: origin, to: destination, progress: min(1, progress + 0.01))
         arrow.zRotation = atan2(next.y - arrow.position.y, next.x - arrow.position.x)
-        fire.sample(time: elapsed, release: BowAttackRules.releaseTime, impact: impactTime,
+        fire.sample(time: elapsed, release: releaseTime, impact: impactTime,
                     origin: origin, destination: destination)
     }
     func stop() {

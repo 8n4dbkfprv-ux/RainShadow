@@ -9,10 +9,15 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     private(set) var currentAction: CharacterVisualAction = .idle
     private(set) var currentFacing: ActorFacing = .south
     private(set) var currentPhase = 0
+    private(set) var currentTechnique: CombatManeuver?
+    private(set) var currentReaction: CombatReactionKind?
     private var playback = IEActorAnimationPlayback()
     private let body = IEAvatarNode(frame: nil)
     private var equipmentNodes: [CharacterEquipmentCode: IEAvatarNode] = [:]
     private var resources: Resources
+    private var attackTrail: IEAvatarNode?
+    func setCombatRecoil(_ angle: CGFloat) { layers.forEach { $0.zRotation = angle } }
+
     private let contactShadow = ContactShadowFactory.make(kind: .npc)
     private var sceneLighting: ActorSceneLighting = .neutral
     private var footLight: AreaLightSample?
@@ -23,13 +28,32 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         didSet { layers.forEach { $0.position.y = visualHeightOffset } }
     }
 
-    private var layers: [IEAvatarNode] { [body] + Array(equipmentNodes.values) }
+    private var layers: [IEAvatarNode] { [body] + Array(equipmentNodes.values) + [attackTrail].compactMap { $0 } }
+
+    /// Transient sword motion is a separate layer, sharing actor registration,
+    /// lighting and per-layer stencil handling without changing the sprite art.
+    func setAttackTrail(_ layer: IEAvatarNode?) {
+        attackTrail?.removeFromParent(); attackTrail = layer
+        if let layer {
+            layer.zPosition = -0.01
+            layer.setScale(OfficeInteriorScale.ActorDisplay.spriteScale)
+            layer.position.y = visualHeightOffset
+            addChild(layer)
+        }
+        refreshLighting()
+        if let stencilScene { applyWallStencil(stencil, in: stencilScene) }
+    }
 
     private struct Resources {
         let body: IEAvatarFrameLibrary
         let equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let bowShot: IEAvatarFrameLibrary?
+        let reactionBody: IEAvatarFrameLibrary?
+        let reactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let meleeBody: IEAvatarFrameLibrary?
+        let techniqueBody: IEAvatarFrameLibrary?
+        let pinningShot: IEAvatarFrameLibrary?
+        let techniqueEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let meleeEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
 
         init(appearance: CharacterAppearance) throws {
@@ -43,29 +67,87 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            var reactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var meleeEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var techniqueEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             if appearance.body == .humanMale01 {
+                let reaction = try IEAvatarFrameLibrary.shared(character: CombatReactionAnimationSet.body, colors: body.colors)
+                try CombatReactionAnimationSet.validate(reaction.sprite, character: CombatReactionAnimationSet.body)
+                reactionBody = reaction
+                for (item, base) in equipment {
+                    let character = CombatReactionAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: character, colors: base.colors)
+                    try CombatReactionAnimationSet.validate(layer.sprite, character: character)
+                    reactionEquipment[item] = layer
+                }
                 let library = try IEAvatarFrameLibrary.shared(character: MeleeAttackAnimationSet.body, colors: body.colors)
                 try MeleeAttackAnimationSet.validate(library.sprite, character: MeleeAttackAnimationSet.body)
                 meleeBody = library
+                let technique = try IEAvatarFrameLibrary.shared(character: WeaponTechniqueAnimationSet.body, colors: body.colors)
+                try WeaponTechniqueAnimationSet.validate(technique.sprite, character: WeaponTechniqueAnimationSet.body)
+                techniqueBody = technique
                 for (item, base) in equipment {
                     guard let character = MeleeAttackAnimationSet.equipment(item) else { continue }
                     let layer = try IEAvatarFrameLibrary.shared(character: character, colors: base.colors)
                     try MeleeAttackAnimationSet.validate(layer.sprite, character: character)
                     meleeEquipment[item] = layer
+                    if let character = WeaponTechniqueAnimationSet.equipment(item) {
+                        let technique = try IEAvatarFrameLibrary.shared(character: character, colors: base.colors)
+                        try WeaponTechniqueAnimationSet.validate(technique.sprite, character: character)
+                        techniqueEquipment[item] = technique
+                    }
                 }
-            } else { meleeBody = nil }
+            } else { meleeBody = nil; techniqueBody = nil; reactionBody = nil }
+            self.reactionEquipment = reactionEquipment
+            self.techniqueEquipment = techniqueEquipment
             self.meleeEquipment = meleeEquipment
             if appearance.body == .humanMale01 && Set(equipment.keys) == [.elvenCourtBow, .elvenCourtArrow] {
                 let library = try IEAvatarFrameLibrary.shared(character: BowAttackAnimationSet.character,
                     colors: body.colors)
                 try BowAttackAnimationSet.validate(library.sprite)
                 bowShot = library
-            } else { bowShot = nil }
+                let pin = try IEAvatarFrameLibrary.shared(character: WeaponTechniqueAnimationSet.pinning, colors: body.colors)
+                try WeaponTechniqueAnimationSet.validate(pin.sprite, character: WeaponTechniqueAnimationSet.pinning)
+                pinningShot = pin
+            } else { bowShot = nil; pinningShot = nil }
+        }
+
+        func reactionFrames(_ kind: CombatReactionKind, facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+            let name = try CombatReactionAnimationSet.name(kind, facing: facing, phase: phase)
+            guard let frame = reactionBody?.frame(atlas: CombatReactionAnimationSet.body + ".atlas", name: name) else {
+                throw CharacterAppearanceError.missingFrame(CombatReactionAnimationSet.body, name)
+            }
+            var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+            for (item, library) in reactionEquipment {
+                let atlas = CombatReactionAnimationSet.equipment(item) + ".atlas"
+                guard let overlay = library.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                overlays[item] = overlay
+            }
+            return (frame, overlays)
         }
 
         func frames(appearance: CharacterAppearance, action: CharacterVisualAction,
-                    facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+                    facing: ActorFacing, phase: Int, technique: CombatManeuver? = nil) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+            if let technique, technique != .aimedShot {
+                let isBow = technique == .pinningShot
+                guard action == (isBow ? .shoot : .attack), let library = isBow ? pinningShot : techniqueBody else {
+                    throw CharacterAppearanceError.unsupportedAction(appearance.body, action)
+                }
+                let character = isBow ? WeaponTechniqueAnimationSet.pinning : WeaponTechniqueAnimationSet.body
+                let name = try WeaponTechniqueAnimationSet.name(technique, facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: character + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(character, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                if !isBow {
+                    for (item, layer) in techniqueEquipment {
+                        let atlas = WeaponTechniqueAnimationSet.equipment(item)! + ".atlas"
+                        guard let overlay = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                        overlays[item] = overlay
+                    }
+                }
+                return (frame, overlays)
+            }
             if action == .attack, let library = meleeBody {
                 let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
                 guard let frame = library.frame(atlas: MeleeAttackAnimationSet.body + ".atlas", name: name) else {
@@ -138,7 +220,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let changedBody = definition.appearance.body != self.definition.appearance.body
         let phase = changedBody ? 0 : currentPhase
         let frames = try replacement.frames(appearance: definition.appearance, action: currentAction,
-                                            facing: currentFacing, phase: phase)
+                                            facing: currentFacing, phase: phase, technique: currentTechnique)
         resources = replacement
         self.definition = definition
         name = definition.id
@@ -153,7 +235,23 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     func present(action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
         let frames = try resources.frames(appearance: definition.appearance,
                                            action: action, facing: facing, phase: phase)
+        currentReaction = nil
+        currentTechnique = nil
         currentAction = action; currentFacing = facing; currentPhase = phase
+        install(frames)
+    }
+
+    func presentTechnique(_ technique: CombatManeuver?, action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
+        let frames = try resources.frames(appearance: definition.appearance, action: action, facing: facing, phase: phase, technique: technique)
+        currentReaction = nil
+        currentTechnique = technique; currentAction = action; currentFacing = facing; currentPhase = phase
+        install(frames)
+    }
+
+    func presentReaction(_ kind: CombatReactionKind, facing: ActorFacing, phase: Int) throws {
+        let frames = try resources.reactionFrames(kind, facing: facing, phase: phase)
+        currentReaction = kind; currentTechnique = nil
+        currentAction = .idle; currentFacing = facing; currentPhase = phase
         install(frames)
     }
 

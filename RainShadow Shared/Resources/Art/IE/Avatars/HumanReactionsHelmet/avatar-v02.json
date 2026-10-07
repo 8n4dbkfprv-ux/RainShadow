@@ -1,0 +1,6388 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanReactionsHelmet",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "331f28c58a9b519dcd3f53858cc0116b973c65cf64dfdb7af2e5180a0d2d465d",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_00.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 16,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_01.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 336,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "43319f55aadbd49b28b0a9bcbfbae6b32f0cc14ef429a904ce7030b3d02b4e26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_02.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 636,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -34
+      ],
+      "sha256": "835d70a3370938c6ffc48ab38f3d37bc682d544902e145552210f8a2b49eec55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_03.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1014,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -35
+      ],
+      "sha256": "18143d3eb5dfd472d5cdfb8c20c429b9d2a71e8e467bb4789ddb98c3fbbfc1e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_04.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 1374,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        66,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "f0e691e2e3f75589a36368c6d651d582795d0f308a2bd3a11b1381cbf84c35c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_05.png",
+      "width": 21,
+      "height": 15,
+      "texture_px": [
+        21,
+        15
+      ],
+      "offset": 1694,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -40
+      ],
+      "sha256": "753f412dc56ff65ac019ff1ae26cb8dcde80539e9e8fb8ea2f9275b4b9544cd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_06.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 2009,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "263736cfa25a8f2904729fed3eff82da9c5213d775298bccffd6b606f86613b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_s_07.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 2309,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 2629,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_01.png",
+      "width": 19,
+      "height": 16,
+      "texture_px": [
+        19,
+        16
+      ],
+      "offset": 2990,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -39
+      ],
+      "sha256": "0e473049677094704d6beb56754efaff1703c717c4971afdc0137aff82b42a7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_02.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 3294,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -36
+      ],
+      "sha256": "4fe0e8e0d132355f21b1955b40522341b8fb2937b108ceea7888c81371fc8f5f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_03.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 3617,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -36
+      ],
+      "sha256": "459779e4fd38fbde868bfd90ae06f5e9642cf3495d8225d7d2984d3273f688be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_04.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 3977,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "7d4a4478320114f1263d6594a7f1677de5ba6c9ab1240aa0c454462a28c85456",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_05.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 4319,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "abe831ddd58cf6443f1179a97d42a05c5ed1a83e1db936e48e7749f84f9436a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_06.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 4680,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "a3255fcd9484e8f333c79fe8dbd38c251dcde64f11033b9a2afc9b83f9ad6b9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ssw_07.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5041,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_00.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 5402,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "787b895c8dae67bca17315c113a62d9d49918677837b4db8c5321476270099e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 5738,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "861c2c6ec4c12210201b3516a42205ecbe2e8582a18203fbc38d8a09ca4edc7e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_02.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 6078,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "30f704a19c9bd3ce0027916f41219c4d1896b5c142d98885dc2b8c475b31a869",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_03.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 6401,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "5d24c4b24f375e5ab7736380fcd2819ac4683b9a3d801c6dc8f8ac13996e002d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_04.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 6741,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -40
+      ],
+      "sha256": "b278c3896b0f6fc6ce83847daf994a35ed70e6434d919cc305b25cf5018f03b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_05.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 7045,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "059e7d6df4741c306fb984bae918f23e0859e737d53c00090f08c0dabfa6905f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 7360,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "a6b70fb4795d104cc1d17f72cda1a1d1f417e2e31ec7047a2b089e3ddc1afac9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sw_07.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 7675,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "787b895c8dae67bca17315c113a62d9d49918677837b4db8c5321476270099e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 8011,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f4136ae7a7e16d85cae548cd385235b8015a03606f39f6e16d6e813b7eb619cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_01.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 8368,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -41
+      ],
+      "sha256": "cdfb46d8f251af0d6a46dcc58a2ceefb285220f98f1f91512634ff00e8133704",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_02.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 8710,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "ee86bb7f125498136cac1d83f09b8e5b1d7a1c2418e96540cdfbb9448a82ea56",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_03.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 9109,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "ac6d99fad698b297a84927b6c49d4bdac3f4fa5702f2a54af0b16d56782e6cdc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_04.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 9487,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        69,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -41
+      ],
+      "sha256": "9ab7f7d5470e26bafa11949e74a4dce0abc49342f45b6f33b74c3a09fba2ca92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_05.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 9844,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        69,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -41
+      ],
+      "sha256": "f8cfb6a4c9443642a17a034bae2e7e1706d7c5f0e56d60635be049879239e63d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_06.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 10184,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "067191e38e490011ff20c01f85666bf6332ae48d126a82a3c3f2ac577b361e31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wsw_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 10524,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f4136ae7a7e16d85cae548cd385235b8015a03606f39f6e16d6e813b7eb619cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_00.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 10881,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "5b11c68fe0bcb3f12a3cdae53512f64aae8b4cecdda2adec233e3ea4a48798ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_01.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 11259,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        69,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "fd309873142b85af600c16b75200ffa2029591b7d5662f4e01f56785d1ce194c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_02.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 11637,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        68,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -41
+      ],
+      "sha256": "502987ee9ed180b310e8bd87601b0baffa65031a4dbbeca9ab83c014c5554744",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_03.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 12036,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        68,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -41
+      ],
+      "sha256": "de3d951b280cba56e89239c6fd7b81757648a7d5c4a47dfcaaedf521e78bdd83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 12435,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        69,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "ecdccc7dffc5bf093792fef0cc789c25cef81eec1a0d7fa7a7aa13d007136272",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 12831,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "8365c3850dd4ae5b404a2b1d27e4b253cdc48f1ef04d5a62fe23c3e8a86643ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_06.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 13205,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "173feab87ca566999e93139e30c5664e2132234dc8bed7f493ebd57071895520",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_w_07.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 13579,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "5b11c68fe0bcb3f12a3cdae53512f64aae8b4cecdda2adec233e3ea4a48798ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_00.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 13957,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "05ac95faf74aa7f7674856fdf0916a4df4e77ad98d6262ebaa84e5ab37c09e42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_01.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 14365,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        71,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -41
+      ],
+      "sha256": "d96fc5b7132308a579e8ec5d77f439682fb2e58ec205ba4d752fe962cf1628ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_02.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 14779,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "979f55a85a8e9550919027505f83ef66f02da8e2c86ab5c73cb279301abdea76",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 15175,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "f94ffe3b09908994a570a41a3807987b476beea546875f64315be50a92422ff6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_04.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 15571,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        71,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -41
+      ],
+      "sha256": "570c664facaf4e0a9ae6cc62bc0e0cd0bf3666b0d8a417ca7f136b1086c7c8d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_05.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 15985,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -41
+      ],
+      "sha256": "608a423796dfed7d0d27a5d4cfbf78df3e3cce05791c23f2c1ba4fd11296721d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 16376,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "26aaf493682e2be6181b02d23062ed1d589c0da322b007bcfc4e08352bcf8b57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_wnw_07.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 16767,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "05ac95faf74aa7f7674856fdf0916a4df4e77ad98d6262ebaa84e5ab37c09e42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_00.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 17175,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_01.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 17543,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -39
+      ],
+      "sha256": "0964319503843d6c21ed14002ca03400847b23226c2fdeed2d28cb42ee81a26f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_02.png",
+      "width": 16,
+      "height": 22,
+      "texture_px": [
+        16,
+        22
+      ],
+      "offset": 17951,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        73,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -40
+      ],
+      "sha256": "d5c813c64b0855b81d5971a48d757bcdf8d2887395b8a2ecc66fe61a55e728aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_03.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 18303,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -39
+      ],
+      "sha256": "418aef2a2b65c25c1d12a7a912ef07d5a0de92b9e194bbc7695366be669c7d6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 18694,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "4713383130dee6995073b624de6189ad283dd933841fa6ccbfaa80d36bb4d1ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_05.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 19062,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "ba6e608a670e2db6f94c4c425e3f1b5b929330b64e30e6d564495ea372b8db4a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 19430,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "8fe3e5caba8c5284bc853a6389d79c95a02c5c0b0f62e4015427ef5068d49e79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nw_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 19798,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_00.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 20166,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "dd123cbb32c9e2acc1eadb5290ebb3ee8ab9d0532c64670a344246b4b6135f07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_01.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 20584,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "18e93af5e144f4f5493362e44985abbc4a35e45db679802ba3ec567902499c44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_02.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 20980,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "46348f8fb7fd871333a295dac2ef34b44a95c1669d238a56362d69f53e7b0791",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 21376,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "07496088623150b31b5b78e45c0f4ab1d19b78bc09a5d4b8a0d5c8c35e9e09a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 21772,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "94cfda838967f87f904b12925bf25696a16a65f2f663a64391f0d474c207de49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_05.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 22168,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "0a110859cb239b7029a1923d6060de6251cb77a04f5574fc8e03397093352112",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_06.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 22546,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "c8be729d6ed099714a8d7b9041af14946e3fcbe152b34cd70b857e9bd02304c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nnw_07.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 22964,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "dd123cbb32c9e2acc1eadb5290ebb3ee8ab9d0532c64670a344246b4b6135f07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_00.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 23382,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_01.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 23782,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "7e0f49a3c45062333f54cf076093c08a83cc01d65668d09ce656f9651258ca78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_02.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 24182,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "1c43e9ad0755d7a3f1f016cf32e7e72de929e20abaa02b6f3c547e5d5c69325b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 24582,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "8edc58164df444be3c7e6caa90757f1f06757abcfcc94140af6664aaa4fbbe6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_04.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 24982,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "be942b2aedb830fcc98ad01dd92383a5a7e604bcbf7a797998c46caa99f73bb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_05.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 25382,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "219738c1af4690355fab7ae532e8f5e3e53b0c7cf45a830851b905c34dec16de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_06.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 25782,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "5f0c7d6f9a8d97561c7cedd205fafe562f2cf569a5ff2553d2890b74d39233a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_n_07.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 26182,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 26582,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "9350274232cb402706375f40c36dda9f4a2f2bc2d6e934ded8a73f7ab8cd0f16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_01.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 26981,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -36
+      ],
+      "sha256": "a4ac88a50fda76d2ff979d4b8e6ac404113e3c55558164d7928e293efd86b4bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_02.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 27399,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        76,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -36
+      ],
+      "sha256": "0137d945d0012edac2aeb3016101c1f8f09fb4b28dc5f571bfa53a207fb96907",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_03.png",
+      "width": 20,
+      "height": 22,
+      "texture_px": [
+        20,
+        22
+      ],
+      "offset": 27798,
+      "length": 440,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -36
+      ],
+      "sha256": "057cf6070533bd2a73d0314ad749ed5163185159a1fcb0955592ed2f76d00336",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_04.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 28238,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -36
+      ],
+      "sha256": "a8f1c8ba18fcd62b85e0ef0628e6e69e5c5fd17f593dde86808b38036c8fc0a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_05.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 28637,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "a6e02295e1da366286a95476f88bc5d6514b865e46d28291324133940d64f774",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_06.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 29055,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "93b4cd8cb6dc61cc592bc8a72ea94c476074a1f3885b9ef5c82d4fff76eac6ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_nne_07.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 29433,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "9350274232cb402706375f40c36dda9f4a2f2bc2d6e934ded8a73f7ab8cd0f16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_00.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 29832,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "516e7c4aac5ecfc668dfb56556325dc878fea5b761a674324ad57f2411f9d428",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 30216,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "17ee2a4a99025708d3d54699918fc1eb8e9028f9cb4e06876662c17babf038c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_02.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 30607,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "51104c22a6b08aba7dad591de3373add7ff44f743e0bf44d39d76cbebcf17d58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_03.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 31021,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "6a466b9ecedee34086b8be51eda71fedf86b28d38a076af4b19fb235ec80c855",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 31435,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "c9c7cf1b86bb64f5e5a65580671f2e180b40fa759c0e0209cc1acd930c9b054f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_05.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 31803,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "c204dfe803c4ee366266cdcad49762486028f4557a94fb469a2c2c01cb499dd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_06.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 32187,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "ab72201e4355d309f3e6a1693779c4eb949167b7a73d0ab9e1c53bf06e0d201b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ne_07.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 32571,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "516e7c4aac5ecfc668dfb56556325dc878fea5b761a674324ad57f2411f9d428",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_00.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 32955,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "6bc6cef9b3dbf54f92ad5cefeed4f79920ece810919a7951b78d3ff56d221d14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_01.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 33346,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "9d943198fc54e30df610464edc8e21b15097c5466917b10e4a5fead96d8ca5c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_02.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 33742,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "28ce0b00cc840b08c63e588b16fe6a3aa83ed23a8de8ddf96bc3543d8fe6f70e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_03.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 34156,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "730f48c8ecb7242da49c486fecfacb661537f4cd9582b369f736716b758cb6b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_04.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 34570,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "659e232f5dca683314d5aedb617c86d889ebd9ee1d42d670d2db78a53d5d206e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_05.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 34984,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "22f0374f2fb023fe4d60fac0544d27a66ac8b559d9ac3c2e930cf90bcef61018",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 35398,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "9e4fe98b93a7b4dd744b69afaa353ce867c78ad01f17f8a31e7d0ff223aed3cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ene_07.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 35789,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "6bc6cef9b3dbf54f92ad5cefeed4f79920ece810919a7951b78d3ff56d221d14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 36180,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "57faab32eddda6ed7df5b1b735f975463c792223b8b1d9b37c48b381aefa5ee2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_01.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 36537,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "c941c2f24928835f2d4fabc4f8460d7c1b3954ba2c6fe05e01eb61d68e399c35",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_02.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 36915,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "5206955ba69282d476f2661b913efb94c9017b1cbd871e0da4607eef750e2e44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_03.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 37314,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "6668ff100a45a5f73a5a861cc521bc00b338843aad52dd6f9ee06170fdd40079",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 37713,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "2d04957555991d6fe14512c450a8ed32955f75f6c16936d1c603ac88d2652670",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 38109,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "9f5a0d7153875500916fbcabcd7c0963fa11c0b0da173e9946d38fbd76067ad8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_06.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 38483,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -38
+      ],
+      "sha256": "1845b1d68a23c6cc090875ba95f12ff154f933afe65330eb44b81df5fed3c32a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_e_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 38840,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "57faab32eddda6ed7df5b1b735f975463c792223b8b1d9b37c48b381aefa5ee2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 39197,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_01.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 39554,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        71,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "39b6ab2825ad8834e960fe1f83efa7332a63e1a6eef5a3b727c12ef21282d133",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_02.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 39896,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "47c0646b0c5a757be022490fed823ab00c5b500c23e5bbadcc6de5b872293826",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_03.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 40274,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "9a582a5019356979eaa577f1a4cbae1641ba0f4e2b31aae47ba6b52fece9edd6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_04.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 40652,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        71,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "700a63c961b38c9f21df57ccb028ff82363bea3787aa513500296ce52f762ff0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_05.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 41030,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "3e61b6eeefa71eb2797f80313475fb9b006ebf834baddc0a707c2d3965498062",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_06.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 41336,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "ea9aa0d247d231dba4828691882581d66dd0b54e78e1b68ae3eea0e95e1e9ac8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_ese_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 41710,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_00.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 42067,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 42397,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        70,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "d51f7d5bd68dd650c9be8ca593d9843a3d54f83e9ba6c1599b020d836cd8a54c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 42737,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -34
+      ],
+      "sha256": "6f639d456137e52f9437faf0f56c96d0db51358eb6831da6af7bb438a16e23ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_03.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 43057,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        70,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -35
+      ],
+      "sha256": "f2d55cf05bf40aad1348ff5dadceeeab0f8fdb7d4008707cfe5b58092d5eb5ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_04.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 43397,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "e20498923087a423fe0e9b20a341233631ec9660da06dc7396e3f944bc87de95",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_05.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 43697,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "10e49ea7940dd1dace2ca1a25cbfccb1a2f38de9dd3e1955b93a6b2ecb4e83b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 44017,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "c761b2bcce45a61d3a22a00c736d3c045ef204cafe72d2affc463ec22e1350c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_se_07.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 44332,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 44662,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_01.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 45023,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "9c116ef73f6e449403c3fd7a97d2eb10d6686ac384e27413551a8fb6a5c25f75",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_02.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 45329,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "c03a3f3cbef57059bd6e724a268106705648f58d37609fa642329152f09260cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_03.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 45635,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -35
+      ],
+      "sha256": "5f6d50411f9b7a03eeb8f7b06aafb9e8db600f74c12473fc91c3962bf654e082",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_04.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 45977,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "88f806810ff2f1aa3e0c2c015e6cb088047c378f79f50f72002cbf9789a04cb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_05.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 46319,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "1a8bb48e2fff30bb5346ab4d73fc32125f50aee6bb9e0fb01d08a84fd9aa7712",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_06.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 46643,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "e6c5e0b4d07bf37ff5651ece366b883a967e443e9eec0e215422035ddfcf2db9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "hit_sse_07.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 47004,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_00.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 47365,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_01.png",
+      "width": 21,
+      "height": 19,
+      "texture_px": [
+        21,
+        19
+      ],
+      "offset": 47685,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "f2c7d808dcce7856a9fd4282258430b9a683fdb16bf9d56899ea8e4f9aaa4f6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_02.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 48084,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        78,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -42
+      ],
+      "sha256": "024d1af14d2f2e9e60c125c7f542bf334b84eff78e5338a033c5b04609216269",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_03.png",
+      "width": 21,
+      "height": 20,
+      "texture_px": [
+        21,
+        20
+      ],
+      "offset": 48464,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        80,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -41
+      ],
+      "sha256": "12ca65a22e99977f2f0fc5418f5ec5a5284dfab3a94b5da6734eb4df0320cea0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_04.png",
+      "width": 21,
+      "height": 20,
+      "texture_px": [
+        21,
+        20
+      ],
+      "offset": 48884,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        80,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -41
+      ],
+      "sha256": "12ca65a22e99977f2f0fc5418f5ec5a5284dfab3a94b5da6734eb4df0320cea0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_05.png",
+      "width": 21,
+      "height": 20,
+      "texture_px": [
+        21,
+        20
+      ],
+      "offset": 49304,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        78,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -41
+      ],
+      "sha256": "70179daa2b28311f269549e18ed3fed18c9d2b81aa4895d75446ca2127eca0d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_06.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 49724,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -40
+      ],
+      "sha256": "dda649241d24ad7b49f024905dee740ad4c3c1b85f68c734d502727b904fa50c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_07.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 50124,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "95388d52a1720c5c7dff05224aa6dfa7f2ccbefcf695d7d47ba066b2ed450ad2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_08.png",
+      "width": 20,
+      "height": 17,
+      "texture_px": [
+        20,
+        17
+      ],
+      "offset": 50481,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "462b6bb71dbb1a70607882effa46d7ad389a29f612292cb4ea25a6f9a3e30866",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_s_09.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 50821,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 51141,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_01.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 51502,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -41
+      ],
+      "sha256": "b085ead827be58709a81ba22e2b76872f3be4d80a1d05d168fe8ac2be4ca03f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_02.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 51863,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        80,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -39
+      ],
+      "sha256": "8dfee98c29ac2920e0f206110d72c69bbfb7ed5bea1a59a43bde33f4191a4af2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_03.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 52262,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        83,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -38
+      ],
+      "sha256": "42cd4e47f62a74c3a376e47b4605d98c6d475e000926e99e35f78ddf92509226",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_04.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 52680,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        83,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -38
+      ],
+      "sha256": "42cd4e47f62a74c3a376e47b4605d98c6d475e000926e99e35f78ddf92509226",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_05.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 53098,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        81,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -39
+      ],
+      "sha256": "c4ba3b851518f01d5afb1a2fbf3a5c4920e5ff8bdd9d796797e00e83fb3937fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_06.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 53497,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        77,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -39
+      ],
+      "sha256": "01e470b33df7eadda8b671ebe1db55a448ecb5c8c4e1beb58413e34141a22f9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_07.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 53875,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "e0c5d72ab261c4d0e21baa6b4602c02dbc54e1b644a590c0eba7bb5a1cf3d3b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_08.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 54255,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -41
+      ],
+      "sha256": "af1d3ac11e0508fa65253fb4a651d78c8b3a410c11c7b88fd3d0650c794f6da2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ssw_09.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 54597,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_00.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 54958,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "787b895c8dae67bca17315c113a62d9d49918677837b4db8c5321476270099e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_01.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 55294,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -40
+      ],
+      "sha256": "8441f2fd3dab80b38a7a72ae39c4334f62fbdd2703c38f5d11696eaad93656fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_02.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 55630,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        80,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -36
+      ],
+      "sha256": "d0022111a0f0ec605fc3f3ac1147bc3e67fbf8997e64bac29900479aa0df4283",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 56004,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        82,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -34
+      ],
+      "sha256": "fee9ec63262fd8a8b06ae6722bf58fee64f25d9b0cd7ceca35bfa8e9d36ba1eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 56400,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        82,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -34
+      ],
+      "sha256": "fee9ec63262fd8a8b06ae6722bf58fee64f25d9b0cd7ceca35bfa8e9d36ba1eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_05.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 56796,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        80,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -36
+      ],
+      "sha256": "2570efb7ab81d8c1f045c72b891b74953461d27e9ba472962ea1264113096ed0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_06.png",
+      "width": 16,
+      "height": 22,
+      "texture_px": [
+        16,
+        22
+      ],
+      "offset": 57192,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        77,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -38
+      ],
+      "sha256": "fcd87827a6d53eb9c618bd4b2c00949d0d4018b64d91a08f41891c267128dd16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_07.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 57544,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        73,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -40
+      ],
+      "sha256": "1eb2ab719726e550036a0b1326ab5adf8e20a883787724990973a3a4f38a5923",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_08.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 57880,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "76468c7087421f9cc7f9d2b7b9534417bdce28df4b04944b2ad706eccae19f65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sw_09.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 58210,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "787b895c8dae67bca17315c113a62d9d49918677837b4db8c5321476270099e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 58546,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f4136ae7a7e16d85cae548cd385235b8015a03606f39f6e16d6e813b7eb619cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_01.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 58903,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -39
+      ],
+      "sha256": "b702907a0005f11c4158bd88ebfc67af89ba47596f45267b2324ee3f34c2eb7e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_02.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 59223,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        78,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -34
+      ],
+      "sha256": "6fae7bafe7e72ef98ac8812d2b7b7e77d5f847b8c3cca26a6a39ea2debc20549",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_03.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 59553,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        80,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -31
+      ],
+      "sha256": "e4c5230d5e7f05b2718f5e39ed7de63f7cb0e90b8da6828490d00bad96fd33f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_04.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 59883,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        80,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -31
+      ],
+      "sha256": "e4c5230d5e7f05b2718f5e39ed7de63f7cb0e90b8da6828490d00bad96fd33f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_05.png",
+      "width": 14,
+      "height": 21,
+      "texture_px": [
+        14,
+        21
+      ],
+      "offset": 60213,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        79,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -33
+      ],
+      "sha256": "582e051b5454c1a59e431da6ad2f2579c72cc1fa99ca6ccc57cc8bfa699d48a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 60507,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -37
+      ],
+      "sha256": "bead62fae5218a9c1ffad1aa33dd1f9d2cba9ed854afbede3a0c02278395d1f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_07.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 60822,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        73,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -40
+      ],
+      "sha256": "0014b8165b2a366664d763c567f2ce47f6d7a83d2614c99f09bd10e3bf2301a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_08.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 61158,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "506213973deec3dbb10a267cac86d03bfa5204cd0ed29120a4159de1f9d6519f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wsw_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 61532,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f4136ae7a7e16d85cae548cd385235b8015a03606f39f6e16d6e813b7eb619cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_00.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 61889,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "5b11c68fe0bcb3f12a3cdae53512f64aae8b4cecdda2adec233e3ea4a48798ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_01.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 62267,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -38
+      ],
+      "sha256": "20a90c8e5bdb53c05c06ae8d9aec0e37ab4b02b5dd174d0e90d9e854616502db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 62603,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        76,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -31
+      ],
+      "sha256": "bd7d52a08f94d4702e72a40ee6ff3791e0a3506c0f785c881432e5476bedb55b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_03.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 62923,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        77,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7035d0da07d1dfa74fd4d839b1d3e1c66149e223831f806a8281f5b6b5e980bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_04.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 63243,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        77,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7035d0da07d1dfa74fd4d839b1d3e1c66149e223831f806a8281f5b6b5e980bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_05.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 63563,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        77,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -31
+      ],
+      "sha256": "947fa5be3b75b1dac853b49b288d3f0d595d93779a1c4cac62541e8de9729ac1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_06.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 63863,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        75,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "4e8b2c4c7a7a0fef2e93371b4a2680059ce7cd19b5b04dddb11e3da8e3ba4798",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 64199,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "7bae86f8bc0c5151a2d78814f7a6f5a268d7166d2b11ec51307dfddee231d145",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_08.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 64556,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        71,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -41
+      ],
+      "sha256": "f1156a74b56704562dbf31066827c975d5124e32c4078e7500defa4937f427ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_w_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 64930,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "5b11c68fe0bcb3f12a3cdae53512f64aae8b4cecdda2adec233e3ea4a48798ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_00.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 65308,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "05ac95faf74aa7f7674856fdf0916a4df4e77ad98d6262ebaa84e5ab37c09e42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_01.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 65716,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "02f340ed6dddf06b45cadfe005af349e7f4174e0f1659a7874a65a29f42985ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 66090,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        74,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -29
+      ],
+      "sha256": "c0be2fc4676a5983ccc7c290c1c0f08f11b6f2d6d8f9cbd6236625e648ecc076",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_03.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 66410,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        74,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -27
+      ],
+      "sha256": "07658796ea8ef16a319189582fce8d94ce0b28b64e505fe167f97c172dcd7f62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_04.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 66714,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        74,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -27
+      ],
+      "sha256": "07658796ea8ef16a319189582fce8d94ce0b28b64e505fe167f97c172dcd7f62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_05.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 67018,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        74,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -29
+      ],
+      "sha256": "d977c642973692cb08f7ee510851acca8b49fae768276a5d538190a650b90ece",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_06.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 67338,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "d5d4aa2ac4492d2c7a7d6c59f96630934dfcec8685ea02e4f759e347eccc64d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_07.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 67674,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a3d2a5227c3ff92e87e95b3b125df4f61d6c19206e9642c3b8ba6bbaba14214a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_08.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 68065,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "54c12db8c1146efcfe9af51b1c9f6bd61c10a761d25f4aedbf1faf1d76ea8f84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_wnw_09.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 68456,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "05ac95faf74aa7f7674856fdf0916a4df4e77ad98d6262ebaa84e5ab37c09e42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_00.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 68864,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_01.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 69232,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "a5d207410a6c201469ef1eb5421139b38f047cd62a5a02c536575a1fea9ff140",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_02.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 69547,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -29
+      ],
+      "sha256": "ea20ca02b630272d18f3678d96143f3449a4a79acec24623f82814ad8eab3cdd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_03.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 69853,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        69,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -26
+      ],
+      "sha256": "bccd4f1607739a94bb22a9b30d04f3225703e7db7a4c4b5d3cbe7c2b555ff50b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_04.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 70176,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        69,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -26
+      ],
+      "sha256": "bccd4f1607739a94bb22a9b30d04f3225703e7db7a4c4b5d3cbe7c2b555ff50b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_05.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 70499,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        71,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -28
+      ],
+      "sha256": "2c46f6be96eb27672aa00b34698e9a196ea1ec085f22553eb0e395047b897c4e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_06.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 70803,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        72,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -32
+      ],
+      "sha256": "e6c0063d2731f82672a17cdc1e3464073f272b04a7a93b107631fec023268761",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 71143,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "93762b53b62d8b54653a5b8d6407912feeabb31c66549fda61389effe6b6cc9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_08.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 71511,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "352b608a2a154ffc3033708f47938304d5018a6e0414e57800a549abeac41243",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nw_09.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 71879,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_00.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 72247,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "dd123cbb32c9e2acc1eadb5290ebb3ee8ab9d0532c64670a344246b4b6135f07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_01.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 72665,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        70,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -34
+      ],
+      "sha256": "b8c52f2bdf5ba2b214db915dfded12ead118216665c9d56519b90655fdd33414",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_02.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 73065,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -29
+      ],
+      "sha256": "6c163853b399a5e658904cb91f3466bd173b483972163565d55f617ab706b3e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 73465,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -27
+      ],
+      "sha256": "9b55d0961f4f53d542aa21c8b316f4b86cef0d02dd64a96f5391b1d0261b3245",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_04.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 73865,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -27
+      ],
+      "sha256": "9b55d0961f4f53d542aa21c8b316f4b86cef0d02dd64a96f5391b1d0261b3245",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_05.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 74265,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -29
+      ],
+      "sha256": "29c0db031a7e133de501fc5ea72e2a3a84848507f0aa2241f746938c022be70c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_06.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 74626,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        68,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -32
+      ],
+      "sha256": "3b32bd895e5085953ebd737fa318747f5fc2fe4867ebd495741fbcb5ca264d2d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_07.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 75006,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        71,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -35
+      ],
+      "sha256": "daf0b7fdbdef50d149f91b328991f91dff7b2279efb9b4eeb9ef870a55794c4c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_08.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 75386,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e42a07cf6300f4c6053d79a9fbc2563658dfc4c32779d07f6b97058d932d7474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nnw_09.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 75785,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "dd123cbb32c9e2acc1eadb5290ebb3ee8ab9d0532c64670a344246b4b6135f07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_00.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 76203,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_01.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 76603,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -34
+      ],
+      "sha256": "c6ff79e4c7e92784bdb0468c52d19767feaea8fa25d2e1c19b00d37902c1d70b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_02.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 77044,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -30
+      ],
+      "sha256": "649e92bc7bb087e68745b991c07de5a21b260b4d3d39dbdfc1bd9f5ceedcb6b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 77444,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        59,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -29
+      ],
+      "sha256": "a24e26017a0042bf8a3314172b5e2f29355cf77ab8fb4ea5cd423eae0ec3a41f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_04.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 77844,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        59,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -29
+      ],
+      "sha256": "a24e26017a0042bf8a3314172b5e2f29355cf77ab8fb4ea5cd423eae0ec3a41f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_05.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 78244,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -30
+      ],
+      "sha256": "45df2ff2313ba5881d2dcad86d9508d65102cd936e0a1a34f46614f90f71709e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_06.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 78644,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -32
+      ],
+      "sha256": "5ab4ace071cf42ca9ec6fb60c581051ef15bfb12d2cc984d0d33a77224ba1cd4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_07.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 79085,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        69,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -34
+      ],
+      "sha256": "c5428d0e054b19475507b8b26273d50388de17e9ba18bcb1887af5ed9df5a524",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_08.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 79526,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "ae407dd9a5ecb15316b91b8c36faa796ee60a7206627a8ecd5ff8c97a9f89e2e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_n_09.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 79946,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 80346,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "9350274232cb402706375f40c36dda9f4a2f2bc2d6e934ded8a73f7ab8cd0f16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_01.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 80745,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -34
+      ],
+      "sha256": "43fe25567882eda2ef9b373170d1e93cff0b3b7ff2034324c362b67320ef3d77",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_02.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 81123,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -32
+      ],
+      "sha256": "0d13b49208d1395f1079b13f56ee98d367d117adbdd0787f5e418e69af0d0fae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 81503,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -32
+      ],
+      "sha256": "b5956b843ba1f0b13b88df430a87d0a93a407061502f56faf7af594adecf0cce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_04.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 81903,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -32
+      ],
+      "sha256": "b5956b843ba1f0b13b88df430a87d0a93a407061502f56faf7af594adecf0cce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_05.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 82303,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -32
+      ],
+      "sha256": "36d535e15570458966d42195d468d179cafb325e3cba43d579d342b8c4c99d04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_06.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 82703,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -33
+      ],
+      "sha256": "9251d08790e72346cf15993213f89ff2a3563757047a83a6664462fc640a1263",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_07.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 83063,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        69,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -35
+      ],
+      "sha256": "c9979e8adc0a345a02b597f13279e6ce5d95403cab57c432d1e48e698e42621a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_08.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 83462,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "43ab81b93d1ff0fd5469d4583822d65db85fb98b993f8e66de7b7c02bd11c84e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_nne_09.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 83880,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "9350274232cb402706375f40c36dda9f4a2f2bc2d6e934ded8a73f7ab8cd0f16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_00.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 84279,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "516e7c4aac5ecfc668dfb56556325dc878fea5b761a674324ad57f2411f9d428",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_01.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 84663,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -35
+      ],
+      "sha256": "082ea3339de2587b5cf32eee020c18184ad351523acf509a4a66ac4fc6b96fa6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_02.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 85031,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        63,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -35
+      ],
+      "sha256": "a68749148c23b4ef0f6d840ed26f056067be10a3af1eb0fd7873027a2c854c1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_03.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 85427,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -35
+      ],
+      "sha256": "d5bc7567f78ffa10f5744704b5146dbcf2aa3a4b634317db09acbabcb7fb3692",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_04.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 85826,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -35
+      ],
+      "sha256": "d5bc7567f78ffa10f5744704b5146dbcf2aa3a4b634317db09acbabcb7fb3692",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_05.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 86225,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        62,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -35
+      ],
+      "sha256": "b990f6d0553b866b86992122f7cfa5acd61b1aa5166ba1735d5b2bc002ed3f6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_06.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 86621,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -35
+      ],
+      "sha256": "3681588431872797d8112aef22318285468123e5c0d54ece268bfac51ff4d071",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 86995,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -35
+      ],
+      "sha256": "01e56888e29f5e55bf66ffd8af31389bd923a1031c51d6ecae97b02c95e1eb08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_08.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 87363,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "572f4ed94dea2b0b9600326846b784198e37e22a13d04ad0ca56cd275e4050c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ne_09.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 87747,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "516e7c4aac5ecfc668dfb56556325dc878fea5b761a674324ad57f2411f9d428",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_00.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 88131,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "6bc6cef9b3dbf54f92ad5cefeed4f79920ece810919a7951b78d3ff56d221d14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 88522,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "f946032bf2e14a7561465c28eb7638ffc0c0126c4ca2a892a600a31891a6bec9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_02.png",
+      "width": 14,
+      "height": 23,
+      "texture_px": [
+        14,
+        23
+      ],
+      "offset": 88913,
+      "length": 322,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "fdcb4dbaecac7bdd14db03c968c71c050a703b01cd6909a9a2cb71d23f2d3e27",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_03.png",
+      "width": 13,
+      "height": 22,
+      "texture_px": [
+        13,
+        22
+      ],
+      "offset": 89235,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -39
+      ],
+      "sha256": "f6aba0a57d8265f1f1d38c81c6297ded21c66302b7bfdebf719eca641fff8382",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_04.png",
+      "width": 13,
+      "height": 22,
+      "texture_px": [
+        13,
+        22
+      ],
+      "offset": 89521,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -39
+      ],
+      "sha256": "f6aba0a57d8265f1f1d38c81c6297ded21c66302b7bfdebf719eca641fff8382",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_05.png",
+      "width": 14,
+      "height": 22,
+      "texture_px": [
+        14,
+        22
+      ],
+      "offset": 89807,
+      "length": 308,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "bb900d1d181eec48979b4119d86e9a4db7fc8ec057c280fa1acc2fb07630af2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_06.png",
+      "width": 15,
+      "height": 23,
+      "texture_px": [
+        15,
+        23
+      ],
+      "offset": 90115,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        69,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "9a196c7cc1e78f14b2d799de05c3d88a48e805136dc7d18bec8e25ffc64c7928",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 90460,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "204a32709ec5dabf193abcb8a29d9cbc1d74b9518d5b132e0ca2ac113fa669b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_08.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 90828,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "fc43a67439bc775636fdcdb1a4cf7a7ea4d92a2f472f28354f28a57960e41b84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ene_09.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 91219,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "6bc6cef9b3dbf54f92ad5cefeed4f79920ece810919a7951b78d3ff56d221d14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 91610,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "57faab32eddda6ed7df5b1b735f975463c792223b8b1d9b37c48b381aefa5ee2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_01.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 91967,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "84ee2b213f85890f7f054afe0211be8d8cccad2e9f6b1ebcb1d02fc316eb289c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_02.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 92287,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        69,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "aee52300d51da08afd2f3550b725d8defb60f693816021126f1a940f8cf78134",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_03.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 92617,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        68,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -43
+      ],
+      "sha256": "74275a33e88305ae05708587d2483b8e1c7083df4668e99e29f1dc8834dfa63b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_04.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 92932,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        68,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -43
+      ],
+      "sha256": "74275a33e88305ae05708587d2483b8e1c7083df4668e99e29f1dc8834dfa63b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_05.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 93247,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        68,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "a4550370da7b41b69fb0bb40fe45e52a76cd286f3efdc84c2d1940ef4a91bbdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 93562,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "e89d0a0466dca1f972fc8ae03a18c54e336b1d47f8b7f3c1536f48843685e5c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_07.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 93877,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "a0ef3f27a9d988607c305fd744cf83ed3a8973cb74f19cf6247669656f8fba67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_08.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 94213,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "73d82c6f641c94153008ec3df20cf6a1c62b31b4e9ddead46d7a4d7a65ef18b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_e_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 94570,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "57faab32eddda6ed7df5b1b735f975463c792223b8b1d9b37c48b381aefa5ee2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 94927,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_01.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 95284,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "44eb7b3979982be0a7793709ee0eb540ab27ff3e30f35963e65e1b14fa2a45cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_02.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 95620,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -43
+      ],
+      "sha256": "1d7e72bf40c3b1d07721bb0aff0271c7b68de5fd701f7ebbdb798a1e4a1aab24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_03.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 95950,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -45
+      ],
+      "sha256": "b416a84a59452478ffe7ab0082b8d08487a65bcfce9680a53571ff7e7e365793",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_04.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 96270,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -45
+      ],
+      "sha256": "b416a84a59452478ffe7ab0082b8d08487a65bcfce9680a53571ff7e7e365793",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_05.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 96590,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -44
+      ],
+      "sha256": "8fa53e35ebe4b2129778ed6b529195888a916070e539599ca5f42ef6312beba5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 96926,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -42
+      ],
+      "sha256": "330e723da0951fc0d2f685eb2196d618190306d7a7746fa91742bf8d33e4471d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_07.png",
+      "width": 16,
+      "height": 22,
+      "texture_px": [
+        16,
+        22
+      ],
+      "offset": 97241,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "c93a6160f499b0e069bed94d57438e4fec01deb1cdc1070777ce4b5a2b7ac426",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_08.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 97593,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "18bd951e6d804a8cb8591f4efaa885e3e0ba818ec871243fe429cbb6d966fe37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_ese_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 97967,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_00.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 98324,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_01.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 98654,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "5408d03ac82386bb1e6ce6b29e1e6f3ee4a0573e56f8aa0dcb2c270103425004",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_02.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 98969,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -43
+      ],
+      "sha256": "b156254271ed448f7be2d702884865cf2db551f19f00cba61ea0697301ee03c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_03.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 99309,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        73,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -44
+      ],
+      "sha256": "630fe153407de169d8b4888e897a06431e3d38f0ddfe79ce58baed9d4f14e7f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_04.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 99669,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        73,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -44
+      ],
+      "sha256": "630fe153407de169d8b4888e897a06431e3d38f0ddfe79ce58baed9d4f14e7f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_05.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 100029,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -44
+      ],
+      "sha256": "320961b8711accc502bbb7d9ebf31d89c75821ddec3a8d99b9613607b70438b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_06.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 100389,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -42
+      ],
+      "sha256": "1ff6442a12dae9ac75a886140db47c7b2ef715b4d9d8ff31e228fd25f321b11b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_07.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 100729,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "fd6b91747ef7363e014b8efd122c1d874e4ac4377a064b915297d18f0d69525e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_08.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 101044,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "9a01d53559df0bb71c2a6e5536b5789a55005a92cda95b9da5f8e020fda7d320",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_se_09.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 101364,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 101694,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_01.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 102055,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        70,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "19f24744bcd29f35da890b006a5b61b9303275d8cbb843646c4d612184c663c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_02.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 102435,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        75,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -42
+      ],
+      "sha256": "2896ae116b0f21ee39de6688b6a87964a4860d946f57ac0ece7a7383dba4cfd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_03.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 102815,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        77,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -43
+      ],
+      "sha256": "9f525a913b4f0fdd10a8d6baf5b157b4cc931d8e42046b20fe2d61c765ac1687",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_04.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 103195,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        77,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -43
+      ],
+      "sha256": "9f525a913b4f0fdd10a8d6baf5b157b4cc931d8e42046b20fe2d61c765ac1687",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_05.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 103575,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        76,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -43
+      ],
+      "sha256": "5d51cffe709c9421677755a13e5a08bd09bac4e5109f3f6b1cf7173c93248ba0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_06.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 103917,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -41
+      ],
+      "sha256": "f60b351b1e2bb3f0fd4122b6853d9e5b9d1bc1d69066c05c87785d6a5e61d53f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_07.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 104297,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "9e6ac4386f01e771d37dab39ba8270d11d2b7e9c5bc3b92381c2a2920e3b792c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_08.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 104620,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "21a0c00c1511f048a8e3cfc1383358d25dec48e01d7920ac5259fd1a09726287",
+      "empty": false
+    },
+    {
+      "atlas": "HumanReactionsHelmet.atlas",
+      "name": "dodge_sse_09.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 104962,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    }
+  ],
+  "source_authority": "ReactionsOct07/Reactions_Authored.blend"
+}

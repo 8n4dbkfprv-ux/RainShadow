@@ -1,0 +1,6388 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanPinningShot",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "313713687a53ebc2968667e2f3aa3bb055570f00d525232ba938d73e4ebb56dd",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": true,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_00.png",
+      "width": 36,
+      "height": 60,
+      "texture_px": [
+        36,
+        60
+      ],
+      "offset": 16,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "6e9438ab54a3fd66e76ca67525c8c9d7db37f323d798994cc535b36dbeaa10b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_00.png",
+      "width": 48,
+      "height": 62,
+      "texture_px": [
+        48,
+        62
+      ],
+      "offset": 2176,
+      "length": 2976,
+      "trim_origin_top_left_px": [
+        52,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        10
+      ],
+      "sha256": "d053de12a2e01356e02be50541974704a3427746068e514c220419c43d5a9de7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_00.png",
+      "width": 53,
+      "height": 63,
+      "texture_px": [
+        53,
+        63
+      ],
+      "offset": 5152,
+      "length": 3339,
+      "trim_origin_top_left_px": [
+        46,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "0c3c1e5e888a4fada464c6c5b7d71aab76a5113208108010a18a83971c65d6f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_00.png",
+      "width": 51,
+      "height": 66,
+      "texture_px": [
+        51,
+        66
+      ],
+      "offset": 8491,
+      "length": 3366,
+      "trim_origin_top_left_px": [
+        45,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        12
+      ],
+      "sha256": "984dd6f83fca1d106fd401c84ed1b3790131bc6ac466d2d3f18a38dd698effa2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_00.png",
+      "width": 46,
+      "height": 69,
+      "texture_px": [
+        46,
+        69
+      ],
+      "offset": 11857,
+      "length": 3174,
+      "trim_origin_top_left_px": [
+        49,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        14
+      ],
+      "sha256": "6ab80d46e80b268ef174a80af8230edd08a8d12456b25bacbe16bc3cde443a51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_00.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 15031,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        15
+      ],
+      "sha256": "620822c375d08a9c96e54b7e6dff36fd151db5a69b6c38b3e6f5776c810601f1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_00.png",
+      "width": 38,
+      "height": 75,
+      "texture_px": [
+        38,
+        75
+      ],
+      "offset": 18084,
+      "length": 2850,
+      "trim_origin_top_left_px": [
+        65,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "e6c7b9303cdbce4be9239ef7a31c2ce675a2b20dada735a31e79c78f2c2968bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_00.png",
+      "width": 38,
+      "height": 77,
+      "texture_px": [
+        38,
+        77
+      ],
+      "offset": 20934,
+      "length": 2926,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "562fc89e502b530fca5b0c13e0421f78acdded2876da3ea90029299796130b87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_00.png",
+      "width": 36,
+      "height": 76,
+      "texture_px": [
+        36,
+        76
+      ],
+      "offset": 23860,
+      "length": 2736,
+      "trim_origin_top_left_px": [
+        62,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "41efd81b896807711c96cca992709fbc3c53287e6b89327e4267555226650aec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_00.png",
+      "width": 48,
+      "height": 76,
+      "texture_px": [
+        48,
+        76
+      ],
+      "offset": 26596,
+      "length": 3648,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "cfca05400ff4b02ec7a405817b7da593d3bb017b5f7767fd45328724c11a1a11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_00.png",
+      "width": 53,
+      "height": 78,
+      "texture_px": [
+        53,
+        78
+      ],
+      "offset": 30244,
+      "length": 4134,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "1b0fcdc1922f694a6d87a58f15c689c7035e9ed95ae4b9ae5cb67c6bda7ee3c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_00.png",
+      "width": 51,
+      "height": 73,
+      "texture_px": [
+        51,
+        73
+      ],
+      "offset": 34378,
+      "length": 3723,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "f503ebdd5ca0920640cc1ed473393fa3991ef97162c71be52cfce0f047a4ce88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_00.png",
+      "width": 46,
+      "height": 68,
+      "texture_px": [
+        46,
+        68
+      ],
+      "offset": 38101,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        65,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "36ebf910ba449936a6861fad29acd340eb59d35b6dd4f00ae0da7c83559c5755",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_00.png",
+      "width": 42,
+      "height": 62,
+      "texture_px": [
+        42,
+        62
+      ],
+      "offset": 41229,
+      "length": 2604,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "4710483a7e8720a22ff8873565e31912687310dc2cd8cb607769642343c36d6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_00.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 43833,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "028896d6f9c3155d79490f6b6748865770cf09c1b7f65bb95a6fdd55d1850524",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_00.png",
+      "width": 37,
+      "height": 56,
+      "texture_px": [
+        37,
+        56
+      ],
+      "offset": 45979,
+      "length": 2072,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "796b26c58bbaa3d57e19461a129fdb0b7217631b01b478aefa73dbd37ae378e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_01.png",
+      "width": 41,
+      "height": 59,
+      "texture_px": [
+        41,
+        59
+      ],
+      "offset": 48051,
+      "length": 2419,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        9
+      ],
+      "sha256": "8a755c85d90b3f204816efa7e0953f2f0d882c771cee802d00d285ecbe2e2f5f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_01.png",
+      "width": 52,
+      "height": 61,
+      "texture_px": [
+        52,
+        61
+      ],
+      "offset": 50470,
+      "length": 3172,
+      "trim_origin_top_left_px": [
+        48,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        10
+      ],
+      "sha256": "59f5fd33f78867ffcc3b4a0b7c718f99f1cf32557604214d7a41cd1103097039",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_01.png",
+      "width": 57,
+      "height": 62,
+      "texture_px": [
+        57,
+        62
+      ],
+      "offset": 53642,
+      "length": 3534,
+      "trim_origin_top_left_px": [
+        42,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        10
+      ],
+      "sha256": "ad6c085fbba469712e9568a98186be84ce17addf5639d04f37f8089302768728",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_01.png",
+      "width": 54,
+      "height": 65,
+      "texture_px": [
+        54,
+        65
+      ],
+      "offset": 57176,
+      "length": 3510,
+      "trim_origin_top_left_px": [
+        42,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        12
+      ],
+      "sha256": "c602fb0bf9b8441bb96961e79c538df683f948adfc0a79f6d89bfa32eaf7ef48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_01.png",
+      "width": 45,
+      "height": 69,
+      "texture_px": [
+        45,
+        69
+      ],
+      "offset": 60686,
+      "length": 3105,
+      "trim_origin_top_left_px": [
+        48,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "473d8eea07638484c187cc5c0c6b22cacb9c5a980df2b302af8c4f999df3738c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_01.png",
+      "width": 37,
+      "height": 78,
+      "texture_px": [
+        37,
+        78
+      ],
+      "offset": 63791,
+      "length": 2886,
+      "trim_origin_top_left_px": [
+        59,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "ace575a99e76f69bb55ff53eef8644d907d9f3d8cb504f558ba4730a84697b7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_01.png",
+      "width": 37,
+      "height": 81,
+      "texture_px": [
+        37,
+        81
+      ],
+      "offset": 66677,
+      "length": 2997,
+      "trim_origin_top_left_px": [
+        60,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "107369d1312a05fa43f4d2d5a2cd3b2d19973b2f009fe0dbc632d60bde1dd299",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_01.png",
+      "width": 41,
+      "height": 79,
+      "texture_px": [
+        41,
+        79
+      ],
+      "offset": 69674,
+      "length": 3239,
+      "trim_origin_top_left_px": [
+        59,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "e479c87489facd80df8fb0f740400400e20c680314e46b7629e46cd41029ffef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_01.png",
+      "width": 41,
+      "height": 76,
+      "texture_px": [
+        41,
+        76
+      ],
+      "offset": 72913,
+      "length": 3116,
+      "trim_origin_top_left_px": [
+        61,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "289c5b18a44acf7da86d376671ace4eb011cb15d3276b72046f0168e397b95e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_01.png",
+      "width": 53,
+      "height": 76,
+      "texture_px": [
+        53,
+        76
+      ],
+      "offset": 76029,
+      "length": 4028,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "72d79bc00900833ca532af859994f62e9ac2e0cf355093b5f971b5abf8fbc8d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_01.png",
+      "width": 57,
+      "height": 77,
+      "texture_px": [
+        57,
+        77
+      ],
+      "offset": 80057,
+      "length": 4389,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "6adfc53e6d4dec478528585b339b7872a5bd78f07f3bd5f0e933121ce47cb5ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_01.png",
+      "width": 54,
+      "height": 73,
+      "texture_px": [
+        54,
+        73
+      ],
+      "offset": 84446,
+      "length": 3942,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "3f97122463f76f9f3ddd5de784b12312836bb2011f05251db0b0cf9d1d7c28fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_01.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 88388,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "05b7da401e217a4c0a7bc60a7a569864c77697c35ef10fdfb38876b10c3e3157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_01.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 91380,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "88870ad437e9413d3f2b25ec10660f0f9fec1600ac2ec2a78f6ffa74707e793c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_01.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 93674,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8
+      ],
+      "sha256": "f4b56d6a265beffa361eb464c674f64d145f0a5f451f6e1fcbaff4b985389285",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_01.png",
+      "width": 41,
+      "height": 56,
+      "texture_px": [
+        41,
+        56
+      ],
+      "offset": 95762,
+      "length": 2296,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "9c4a1be3f33ce591837ca08bce12c6a38e6b3d3e79ec4fd68637d957baa26da9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_02.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 98058,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        57,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        9
+      ],
+      "sha256": "c38e4b3f7b9dec0bb89ec4cd7fb51bfced74c5211bf3990c57868f5cbe744f31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_02.png",
+      "width": 52,
+      "height": 60,
+      "texture_px": [
+        52,
+        60
+      ],
+      "offset": 100436,
+      "length": 3120,
+      "trim_origin_top_left_px": [
+        48,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        10
+      ],
+      "sha256": "6328019de84ce3dacc3740b51ef95a2dbddc89568b21502172263a2031556b55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_02.png",
+      "width": 55,
+      "height": 61,
+      "texture_px": [
+        55,
+        61
+      ],
+      "offset": 103556,
+      "length": 3355,
+      "trim_origin_top_left_px": [
+        44,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10
+      ],
+      "sha256": "abd3c968fd8098a5ee8ae2460e3818cde46723878a46d635aa965af47f3f1c4b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_02.png",
+      "width": 50,
+      "height": 67,
+      "texture_px": [
+        50,
+        67
+      ],
+      "offset": 106911,
+      "length": 3350,
+      "trim_origin_top_left_px": [
+        46,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        12
+      ],
+      "sha256": "43799cd06b0202c1f5eaf3ed4eaea5a83c594321125a052a2614944b14e4ed1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_02.png",
+      "width": 42,
+      "height": 79,
+      "texture_px": [
+        42,
+        79
+      ],
+      "offset": 110261,
+      "length": 3318,
+      "trim_origin_top_left_px": [
+        51,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        14
+      ],
+      "sha256": "9c0caf21a11314749c07ee0c63d8c8da5f4c18b520321f6e9e83e146f91a611d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_02.png",
+      "width": 46,
+      "height": 86,
+      "texture_px": [
+        46,
+        86
+      ],
+      "offset": 113579,
+      "length": 3956,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        15
+      ],
+      "sha256": "2fe7df387fed951b6f590340a5235e35c23eab6a0d63b5dfeb5287ae65b95be6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_02.png",
+      "width": 46,
+      "height": 89,
+      "texture_px": [
+        46,
+        89
+      ],
+      "offset": 117535,
+      "length": 4094,
+      "trim_origin_top_left_px": [
+        48,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "620705630c9727046de4cb2dc2a1439c71698400144a9ef7d89cf08b96e9114d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_02.png",
+      "width": 40,
+      "height": 85,
+      "texture_px": [
+        40,
+        85
+      ],
+      "offset": 121629,
+      "length": 3400,
+      "trim_origin_top_left_px": [
+        55,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "b381ea2ef675ca3589a445119fd29a90152cbd0ae6f045863e6e66c5bd57b590",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_02.png",
+      "width": 41,
+      "height": 77,
+      "texture_px": [
+        41,
+        77
+      ],
+      "offset": 125029,
+      "length": 3157,
+      "trim_origin_top_left_px": [
+        62,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "7979306d46cf7ac482c24b68e98a01f1b81d20c7e2f6a4c2571221ceaf6d8464",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_02.png",
+      "width": 52,
+      "height": 76,
+      "texture_px": [
+        52,
+        76
+      ],
+      "offset": 128186,
+      "length": 3952,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "6705de4e8b0c665a30af10e75e9328d14542c4bb557dbf2b0ef7c128fcfa453a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_02.png",
+      "width": 55,
+      "height": 77,
+      "texture_px": [
+        55,
+        77
+      ],
+      "offset": 132138,
+      "length": 4235,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "a0c8c1a2d5f86cc37505abd18aa8bec5be42d3f82aaf7f2a5276b4cddab469c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_02.png",
+      "width": 50,
+      "height": 73,
+      "texture_px": [
+        50,
+        73
+      ],
+      "offset": 136373,
+      "length": 3650,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "9acf237e852465661a2db1d7c84da80bb81437fe750921f7de4055e178578502",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_02.png",
+      "width": 41,
+      "height": 68,
+      "texture_px": [
+        41,
+        68
+      ],
+      "offset": 140023,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "3594b4869e8bf7da5520fcab574f359c52eb730453633d2e3beee8a2a1111221",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_02.png",
+      "width": 45,
+      "height": 62,
+      "texture_px": [
+        45,
+        62
+      ],
+      "offset": 142811,
+      "length": 2790,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "c359da89cfe2e10f1c974f4b17cf3cc2d5a3d65c73c1964f22f1de113748b307",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_02.png",
+      "width": 45,
+      "height": 57,
+      "texture_px": [
+        45,
+        57
+      ],
+      "offset": 145601,
+      "length": 2565,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "2d49c3ae646acf0bdba8ad1df9c9b9518ccaf9ab97fdbcf3029f28ae9992e358",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_02.png",
+      "width": 42,
+      "height": 55,
+      "texture_px": [
+        42,
+        55
+      ],
+      "offset": 148166,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "25b966c9e194d1f7eaf1dba2d4913dc4123419206ef22a72d87889a349d0396d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_03.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 150476,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        9
+      ],
+      "sha256": "500a553f75e7b90b8a7b8594447f62ed2588237ad01be4b9396f632866e0408a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_03.png",
+      "width": 39,
+      "height": 59,
+      "texture_px": [
+        39,
+        59
+      ],
+      "offset": 152390,
+      "length": 2301,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        10
+      ],
+      "sha256": "0f6493f41485ce43accca34c8d426406c269b859d24ac26096d632f128458c84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_03.png",
+      "width": 48,
+      "height": 60,
+      "texture_px": [
+        48,
+        60
+      ],
+      "offset": 154691,
+      "length": 2880,
+      "trim_origin_top_left_px": [
+        51,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        10
+      ],
+      "sha256": "7b7c98dd43727dbdc413623f42cdbb0617dc79adfe411d0886e5157dfce40b15",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_03.png",
+      "width": 58,
+      "height": 65,
+      "texture_px": [
+        58,
+        65
+      ],
+      "offset": 157571,
+      "length": 3770,
+      "trim_origin_top_left_px": [
+        38,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        12
+      ],
+      "sha256": "60843ae46c59bee56243ab33711796bd552cbf4bfd24f208acc978fcc0d6d526",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_03.png",
+      "width": 62,
+      "height": 74,
+      "texture_px": [
+        62,
+        74
+      ],
+      "offset": 161341,
+      "length": 4588,
+      "trim_origin_top_left_px": [
+        31,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        14
+      ],
+      "sha256": "57b03fabcd39253f79d316f1904fa17f7c366f4e889812f700193be03e94cef1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_03.png",
+      "width": 60,
+      "height": 82,
+      "texture_px": [
+        60,
+        82
+      ],
+      "offset": 165929,
+      "length": 4920,
+      "trim_origin_top_left_px": [
+        33,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        15
+      ],
+      "sha256": "32efe302bb6c372f2065bf2290af8a354f30d3127501a1fda5488afff9db4905",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_03.png",
+      "width": 52,
+      "height": 87,
+      "texture_px": [
+        52,
+        87
+      ],
+      "offset": 170849,
+      "length": 4524,
+      "trim_origin_top_left_px": [
+        42,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        14
+      ],
+      "sha256": "9d43082c90b52305d2619429ecf6115d0027f926a9319ec7d467c080c1e40dce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_03.png",
+      "width": 40,
+      "height": 87,
+      "texture_px": [
+        40,
+        87
+      ],
+      "offset": 175373,
+      "length": 3480,
+      "trim_origin_top_left_px": [
+        54,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12
+      ],
+      "sha256": "b4a43b9542d98c5dce7fca432e9313bddf17f8c64a65dd57f7a1d4370d736084",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_03.png",
+      "width": 33,
+      "height": 84,
+      "texture_px": [
+        33,
+        84
+      ],
+      "offset": 178853,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        62,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "6ae2d9fc695b66824de9ddb64763808981207eb9086b1018380d163b5f3c1111",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_03.png",
+      "width": 39,
+      "height": 81,
+      "texture_px": [
+        39,
+        81
+      ],
+      "offset": 181625,
+      "length": 3159,
+      "trim_origin_top_left_px": [
+        60,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "dced8bed6759e866bcef345426574102f667c1180032bf53f1062dc04b7b0b5d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_03.png",
+      "width": 47,
+      "height": 77,
+      "texture_px": [
+        47,
+        77
+      ],
+      "offset": 184784,
+      "length": 3619,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "3b90bd88b34d2279e2fffff13c3b9668f0ca8b3a6de6a0d8291c4da393ae68e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_03.png",
+      "width": 58,
+      "height": 73,
+      "texture_px": [
+        58,
+        73
+      ],
+      "offset": 188403,
+      "length": 4234,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "da51b22ba2be06711280654c3a2213c9c6988c90702ca193fce9feb203d92938",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_03.png",
+      "width": 61,
+      "height": 68,
+      "texture_px": [
+        61,
+        68
+      ],
+      "offset": 192637,
+      "length": 4148,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "92675fadb34559a6edd5930ba3f155481be40b80892653e34fb73480f0147fa5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_03.png",
+      "width": 60,
+      "height": 62,
+      "texture_px": [
+        60,
+        62
+      ],
+      "offset": 196785,
+      "length": 3720,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "5027acfadbb35274b433b1453a39636063b752b8c65d238f0cbbe78af22cb730",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_03.png",
+      "width": 53,
+      "height": 58,
+      "texture_px": [
+        53,
+        58
+      ],
+      "offset": 200505,
+      "length": 3074,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "4bed630cd973b7cd40b87c1b6ad7565a6463999928e9cfa71e5741d3f4dc3491",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_03.png",
+      "width": 40,
+      "height": 55,
+      "texture_px": [
+        40,
+        55
+      ],
+      "offset": 203579,
+      "length": 2200,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "11fc5521045550b99071512ca1c82472a7503ff35fe8d005233d9ace0629923f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_04.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 205779,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "01318a86b70fe43a04d8aafd15109a6aac119042c72924617750ee3e3f539561",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_04.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 207635,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "c6ff98bdd59cbbd54705c180da1fcf9e8d8fd6a03e9721f5e6f02000f04758aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_04.png",
+      "width": 55,
+      "height": 59,
+      "texture_px": [
+        55,
+        59
+      ],
+      "offset": 209781,
+      "length": 3245,
+      "trim_origin_top_left_px": [
+        44,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10
+      ],
+      "sha256": "4d15de997591aa5145bf9405b92a1710eeca28cc911b8dced45e5527e912afe2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_04.png",
+      "width": 65,
+      "height": 63,
+      "texture_px": [
+        65,
+        63
+      ],
+      "offset": 213026,
+      "length": 4095,
+      "trim_origin_top_left_px": [
+        31,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        12
+      ],
+      "sha256": "ddff01c49d8c00f81cc3b28da2c9c5dcc1fa43c85c6b03a00d4e81a86835dbaf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_04.png",
+      "width": 68,
+      "height": 68,
+      "texture_px": [
+        68,
+        68
+      ],
+      "offset": 217121,
+      "length": 4624,
+      "trim_origin_top_left_px": [
+        25,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55,
+        14
+      ],
+      "sha256": "4801a647a806797753c706aab3599caefe7668bde6857ae4ddf741c1153d91b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_04.png",
+      "width": 66,
+      "height": 78,
+      "texture_px": [
+        66,
+        78
+      ],
+      "offset": 221745,
+      "length": 5148,
+      "trim_origin_top_left_px": [
+        27,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        15
+      ],
+      "sha256": "653729c437606761ba510131e5ea686a266f77958f9443b8ac8cb9c5961660e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_04.png",
+      "width": 56,
+      "height": 85,
+      "texture_px": [
+        56,
+        85
+      ],
+      "offset": 226893,
+      "length": 4760,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        14
+      ],
+      "sha256": "e739e6db0eefd908b8f460d4c6d17af396fd2fce020830ef96c286393896069c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_04.png",
+      "width": 39,
+      "height": 88,
+      "texture_px": [
+        39,
+        88
+      ],
+      "offset": 231653,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        55,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "c2c7455cdd0e071b19651f5819afec9ee212b0171979e798bafd0b9623818913",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_04.png",
+      "width": 32,
+      "height": 88,
+      "texture_px": [
+        32,
+        88
+      ],
+      "offset": 235085,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        62,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "496f92d2e54e67504006f6059f2463f59270326d960316575289546495134d26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_04.png",
+      "width": 37,
+      "height": 88,
+      "texture_px": [
+        37,
+        88
+      ],
+      "offset": 237901,
+      "length": 3256,
+      "trim_origin_top_left_px": [
+        60,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "ec41a33872268b556dd1e4a4bd5fc5063e69fae3ebaa15b7ab6f0541d98dc75b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_04.png",
+      "width": 54,
+      "height": 86,
+      "texture_px": [
+        54,
+        86
+      ],
+      "offset": 241157,
+      "length": 4644,
+      "trim_origin_top_left_px": [
+        61,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "f889d95e423e1e9b30671608efc2502e82761adc26902ef33e857a692ac191da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_04.png",
+      "width": 65,
+      "height": 78,
+      "texture_px": [
+        65,
+        78
+      ],
+      "offset": 245801,
+      "length": 5070,
+      "trim_origin_top_left_px": [
+        64,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "fbac575e842cf4cf04169de0129e852a80d8ba3bdf517e44184868e10924f4a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_04.png",
+      "width": 66,
+      "height": 71,
+      "texture_px": [
+        66,
+        71
+      ],
+      "offset": 250871,
+      "length": 4686,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "4a9be4394652f26ba184510a21c061d98e27c375f72106e40f428da006fad588",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_04.png",
+      "width": 65,
+      "height": 62,
+      "texture_px": [
+        65,
+        62
+      ],
+      "offset": 255557,
+      "length": 4030,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "647f665bb14616469c452f48f547bb49b685e42479a72ad411276ffc29ea3aa6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_04.png",
+      "width": 57,
+      "height": 58,
+      "texture_px": [
+        57,
+        58
+      ],
+      "offset": 259587,
+      "length": 3306,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "cf0faf03bc3715ebb0a188625cc1d1ffb7f2efb7c7ed4c7607b84418c3a80dc7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_04.png",
+      "width": 39,
+      "height": 56,
+      "texture_px": [
+        39,
+        56
+      ],
+      "offset": 262893,
+      "length": 2184,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "d346b935d86bb0c9ee50201075d25f189ab4e024b2ecc930cc0b0728b57cd6c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_05.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 265077,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "5c2739d394c9abb10bc182c5edc28cb8ab58b07350cdd72a37170ab04eafa4b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_05.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 266933,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "532ae1337969780099b9944622b664391b33214430af5d9afd82b250bcf27cf8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_05.png",
+      "width": 52,
+      "height": 59,
+      "texture_px": [
+        52,
+        59
+      ],
+      "offset": 269021,
+      "length": 3068,
+      "trim_origin_top_left_px": [
+        47,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        10
+      ],
+      "sha256": "afdf1e219d41eb8d7c53b8547d061c9c508c82468d76302f11820cbf25688c48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_05.png",
+      "width": 62,
+      "height": 63,
+      "texture_px": [
+        62,
+        63
+      ],
+      "offset": 272089,
+      "length": 3906,
+      "trim_origin_top_left_px": [
+        34,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        12
+      ],
+      "sha256": "cb455d50b16f7239ba3a96f1278eb2bdcf6dbb3e7c53d2f716c857e14ab8760a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_05.png",
+      "width": 62,
+      "height": 68,
+      "texture_px": [
+        62,
+        68
+      ],
+      "offset": 275995,
+      "length": 4216,
+      "trim_origin_top_left_px": [
+        31,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        14
+      ],
+      "sha256": "931aebace402a15cccb3344a20d78b2e4b8985293bfa4f8082413136e67ae87c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_05.png",
+      "width": 61,
+      "height": 77,
+      "texture_px": [
+        61,
+        77
+      ],
+      "offset": 280211,
+      "length": 4697,
+      "trim_origin_top_left_px": [
+        32,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        15
+      ],
+      "sha256": "471db591bc12ed68d12e323b26e9f0f692e78052731e022599f03ae944b2a3d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_05.png",
+      "width": 53,
+      "height": 84,
+      "texture_px": [
+        53,
+        84
+      ],
+      "offset": 284908,
+      "length": 4452,
+      "trim_origin_top_left_px": [
+        41,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        14
+      ],
+      "sha256": "7ebe917d8219dd9809e1fb4b4ea1299b8af99ef06006cda1fc70db46c0bc6d6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_05.png",
+      "width": 38,
+      "height": 87,
+      "texture_px": [
+        38,
+        87
+      ],
+      "offset": 289360,
+      "length": 3306,
+      "trim_origin_top_left_px": [
+        56,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "72848a7f2a3ccc764e7e2153ee4deaba26ddb3e4cdb6f8329470d754e5b623db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_05.png",
+      "width": 32,
+      "height": 87,
+      "texture_px": [
+        32,
+        87
+      ],
+      "offset": 292666,
+      "length": 2784,
+      "trim_origin_top_left_px": [
+        62,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "f5f4cd508016e5df0e4b948b42a98f2501615ae15e2ef7d18cef4d94dc204bb9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_05.png",
+      "width": 36,
+      "height": 88,
+      "texture_px": [
+        36,
+        88
+      ],
+      "offset": 295450,
+      "length": 3168,
+      "trim_origin_top_left_px": [
+        60,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "fbe9e6e9da0e4cba5f473e82f59ce2cf9f117c8dc15f49308a0cd9b1b04dcf8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_05.png",
+      "width": 52,
+      "height": 86,
+      "texture_px": [
+        52,
+        86
+      ],
+      "offset": 298618,
+      "length": 4472,
+      "trim_origin_top_left_px": [
+        61,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c16a1e9bc8e2b74f4cdd0e230ccdf05b344e94e0d2b3469dc9758f033c4bcde4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_05.png",
+      "width": 60,
+      "height": 78,
+      "texture_px": [
+        60,
+        78
+      ],
+      "offset": 303090,
+      "length": 4680,
+      "trim_origin_top_left_px": [
+        64,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e58698bc0bfbaee52662aad3f8aa6a031a6d0fd37482a0529d01cdfd51e8a5c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_05.png",
+      "width": 64,
+      "height": 71,
+      "texture_px": [
+        64,
+        71
+      ],
+      "offset": 307770,
+      "length": 4544,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "d5213d46fc3654862bd1775e3dfa910aec3d799a6586e74a1e6b91483c02c569",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_05.png",
+      "width": 62,
+      "height": 62,
+      "texture_px": [
+        62,
+        62
+      ],
+      "offset": 312314,
+      "length": 3844,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "cf72903eb81bff942301c7893e048250317887117533dc31f9f1afb523defc13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_05.png",
+      "width": 54,
+      "height": 58,
+      "texture_px": [
+        54,
+        58
+      ],
+      "offset": 316158,
+      "length": 3132,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "bbe7021140b6e0f54e8a2e9ef32d1c1e252a9e71b0324efd24cc8be6d670592c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_05.png",
+      "width": 38,
+      "height": 56,
+      "texture_px": [
+        38,
+        56
+      ],
+      "offset": 319290,
+      "length": 2128,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "973170fbcbce9d9107ee3b042c8259af69249b48bc2b54485b90c71e84c569b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_06.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 321418,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "4cdaf82ac54cc26bd25f3b5afdc2d31fed69c74a2dc5a72dea45631e68967bf3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_06.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 323274,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "fccd226f1f0aed0a0c1a71d9f403cf5f9369118a6ed83f3a81e93397448371f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_06.png",
+      "width": 49,
+      "height": 59,
+      "texture_px": [
+        49,
+        59
+      ],
+      "offset": 325362,
+      "length": 2891,
+      "trim_origin_top_left_px": [
+        50,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        10
+      ],
+      "sha256": "82e993800be4674f967eef360924e91a29c33c4e8dee58a08afc29cd5b5c1648",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_06.png",
+      "width": 57,
+      "height": 63,
+      "texture_px": [
+        57,
+        63
+      ],
+      "offset": 328253,
+      "length": 3591,
+      "trim_origin_top_left_px": [
+        39,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        12
+      ],
+      "sha256": "96eaf66b1e3b86e1451b1f054848cb6017c712a8fdafa17b86492611800711e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_06.png",
+      "width": 60,
+      "height": 68,
+      "texture_px": [
+        60,
+        68
+      ],
+      "offset": 331844,
+      "length": 4080,
+      "trim_origin_top_left_px": [
+        33,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        14
+      ],
+      "sha256": "c84674f00a6e31615ae3ea1fe9740a6fde710eb76257cb8d4f4de7e7567d71e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_06.png",
+      "width": 55,
+      "height": 76,
+      "texture_px": [
+        55,
+        76
+      ],
+      "offset": 335924,
+      "length": 4180,
+      "trim_origin_top_left_px": [
+        38,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        15
+      ],
+      "sha256": "ac5b4cac8304794691332f05737d8a080c240890d8b9c923adc3bfb4e449e9eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_06.png",
+      "width": 49,
+      "height": 82,
+      "texture_px": [
+        49,
+        82
+      ],
+      "offset": 340104,
+      "length": 4018,
+      "trim_origin_top_left_px": [
+        45,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        14
+      ],
+      "sha256": "ad23931e101b80ea08e1a07a39e10adc36e17b34a570a43681985644f36f9423",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_06.png",
+      "width": 36,
+      "height": 85,
+      "texture_px": [
+        36,
+        85
+      ],
+      "offset": 344122,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        58,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "e85c80d54ae920256986de046be1ffe7fe0f869c3883e8d62347edf50b9c6c59",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_06.png",
+      "width": 32,
+      "height": 85,
+      "texture_px": [
+        32,
+        85
+      ],
+      "offset": 347182,
+      "length": 2720,
+      "trim_origin_top_left_px": [
+        62,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "2dee446343c3be3344f4f4b9b8fdfd92ea4598888f69ff7e08a2747b230c37e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_06.png",
+      "width": 36,
+      "height": 86,
+      "texture_px": [
+        36,
+        86
+      ],
+      "offset": 349902,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        60,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "80687a1b7336f7badbbc9dde76e3010cb78b36f899fcd35ebbd93e87e3df7d0c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_06.png",
+      "width": 49,
+      "height": 84,
+      "texture_px": [
+        49,
+        84
+      ],
+      "offset": 352998,
+      "length": 4116,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "91eaf517396829be90a30a87635b6a1e21bba1732e0cd6533d42b2dca213921d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_06.png",
+      "width": 55,
+      "height": 77,
+      "texture_px": [
+        55,
+        77
+      ],
+      "offset": 357114,
+      "length": 4235,
+      "trim_origin_top_left_px": [
+        64,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "6090b2b160736d8fd8725e06fbcbf141721375e12e327f2047e06e6a8490986d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_06.png",
+      "width": 60,
+      "height": 70,
+      "texture_px": [
+        60,
+        70
+      ],
+      "offset": 361349,
+      "length": 4200,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "4db2dd8fe443b93f430a2163fc0fba1a916ec507c00eadd72ab50fdaa95f0e03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_06.png",
+      "width": 58,
+      "height": 65,
+      "texture_px": [
+        58,
+        65
+      ],
+      "offset": 365549,
+      "length": 3770,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "0f4df9c266436d93015ac6307c5c687b42e5f087b269a5f69bec99aa1a7b8980",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_06.png",
+      "width": 51,
+      "height": 61,
+      "texture_px": [
+        51,
+        61
+      ],
+      "offset": 369319,
+      "length": 3111,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "cc29fdc6358caa968c120c1659eb1c73241bd13e0a5163e035af3d915256a715",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_06.png",
+      "width": 36,
+      "height": 56,
+      "texture_px": [
+        36,
+        56
+      ],
+      "offset": 372430,
+      "length": 2016,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "8af462b92c09f6be15e84f4b87f455767cb2954752c7a855a757bb5742dd019e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_07.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 374446,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "107293ab879cc62d90c950a8dc42ee4d67e312b4d6e5832db6831baed0c38037",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_07.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 376360,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "dbde6fdacdcd93abe12a4ac21a4d7fcc075369e67c32ae2aba6a0351ba0d754f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_07.png",
+      "width": 46,
+      "height": 59,
+      "texture_px": [
+        46,
+        59
+      ],
+      "offset": 378448,
+      "length": 2714,
+      "trim_origin_top_left_px": [
+        53,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        10
+      ],
+      "sha256": "d511d6f5848ddcffc82be88378dfc4d2256efbf9108af4c046a7a74080bd1eb9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_07.png",
+      "width": 54,
+      "height": 63,
+      "texture_px": [
+        54,
+        63
+      ],
+      "offset": 381162,
+      "length": 3402,
+      "trim_origin_top_left_px": [
+        42,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        12
+      ],
+      "sha256": "942481dafbef4454908cbdb53f2b2310973e01857aa151b348328444868a15f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_07.png",
+      "width": 56,
+      "height": 67,
+      "texture_px": [
+        56,
+        67
+      ],
+      "offset": 384564,
+      "length": 3752,
+      "trim_origin_top_left_px": [
+        37,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        14
+      ],
+      "sha256": "f571b5b5ec2ca2a27690e30f4a2cde5439bf1c5ddf855d5b6318eafdc4765fe4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_07.png",
+      "width": 54,
+      "height": 75,
+      "texture_px": [
+        54,
+        75
+      ],
+      "offset": 388316,
+      "length": 4050,
+      "trim_origin_top_left_px": [
+        39,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        15
+      ],
+      "sha256": "3f6a00ae31ee470f67d33ae444a1ba996130d5a55c38dd10dc5b7bc39aa6e4ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_07.png",
+      "width": 48,
+      "height": 80,
+      "texture_px": [
+        48,
+        80
+      ],
+      "offset": 392366,
+      "length": 3840,
+      "trim_origin_top_left_px": [
+        46,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        14
+      ],
+      "sha256": "4f95e38f32d73c879d6fa76f44402319dd0f429ad28454d607384121c24ac4c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_07.png",
+      "width": 35,
+      "height": 83,
+      "texture_px": [
+        35,
+        83
+      ],
+      "offset": 396206,
+      "length": 2905,
+      "trim_origin_top_left_px": [
+        59,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "c2cc7729664549b09e3a8760dd70756b77f7d3944b72101598a513f48b79f60a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_07.png",
+      "width": 33,
+      "height": 83,
+      "texture_px": [
+        33,
+        83
+      ],
+      "offset": 399111,
+      "length": 2739,
+      "trim_origin_top_left_px": [
+        61,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "727f1792999c70ed703fa2e8beeee33fb757dec22fb30e65f9f54a9b26a01911",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_07.png",
+      "width": 36,
+      "height": 83,
+      "texture_px": [
+        36,
+        83
+      ],
+      "offset": 401850,
+      "length": 2988,
+      "trim_origin_top_left_px": [
+        60,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "910a86571ebed095d6da13b8846f42d46bf5a7df2261848960b70fc57d06de6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_07.png",
+      "width": 46,
+      "height": 82,
+      "texture_px": [
+        46,
+        82
+      ],
+      "offset": 404838,
+      "length": 3772,
+      "trim_origin_top_left_px": [
+        61,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "ccb78ac83b5e166950edab66d5523ff168ae6863bf2e56e58d604c742b495289",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_07.png",
+      "width": 54,
+      "height": 76,
+      "texture_px": [
+        54,
+        76
+      ],
+      "offset": 408610,
+      "length": 4104,
+      "trim_origin_top_left_px": [
+        64,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "fb4dbb381fa882207d1e5d7fc3e9199b36bdff395b051e539fd5d01cac6253e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_07.png",
+      "width": 54,
+      "height": 70,
+      "texture_px": [
+        54,
+        70
+      ],
+      "offset": 412714,
+      "length": 3780,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "3dea8938983da74b32a7c3581a7b8c2dda874e8834b50bec8dba68857000f04e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_07.png",
+      "width": 54,
+      "height": 66,
+      "texture_px": [
+        54,
+        66
+      ],
+      "offset": 416494,
+      "length": 3564,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "8fcae64f5a44ee1247fb1fce6de9a718000f8ed421524b4d706ccc8627cedf86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_07.png",
+      "width": 48,
+      "height": 63,
+      "texture_px": [
+        48,
+        63
+      ],
+      "offset": 420058,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "7b4b2f85090fbc934336be9fdadc35ce9a4c65fe332c3f38fca8cd50b3485bba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_07.png",
+      "width": 35,
+      "height": 58,
+      "texture_px": [
+        35,
+        58
+      ],
+      "offset": 423082,
+      "length": 2030,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "ca45b4efa2a352daeffb93bb712daa698c9dd1996ad06a5fbad3931b80b5c97f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_08.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 425112,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "d72cfb4fd9e9d9a726cdeaa815cfd6b996a26a50356e6beb4d500a97dca007a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_08.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 427026,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "12546e4f6a7b4e0252e478708bb75f047e8315eecdd72d34ab652f1c675d5185",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_08.png",
+      "width": 45,
+      "height": 59,
+      "texture_px": [
+        45,
+        59
+      ],
+      "offset": 429114,
+      "length": 2655,
+      "trim_origin_top_left_px": [
+        54,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        10
+      ],
+      "sha256": "0a132f91cb93fec9ec36587351b5667e510135554e47999a497f4a7ed1f50ccb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_08.png",
+      "width": 52,
+      "height": 63,
+      "texture_px": [
+        52,
+        63
+      ],
+      "offset": 431769,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        44,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        12
+      ],
+      "sha256": "eaacf5657bebd4dfcb69fd0351446a96eaf98ccb35474497eeacfeca5a60c1f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_08.png",
+      "width": 54,
+      "height": 66,
+      "texture_px": [
+        54,
+        66
+      ],
+      "offset": 435045,
+      "length": 3564,
+      "trim_origin_top_left_px": [
+        39,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        14
+      ],
+      "sha256": "7afeebd3040ef0450c110aef883d3d503b6d1d14bfd944a75ee334ab3699e4d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_08.png",
+      "width": 53,
+      "height": 74,
+      "texture_px": [
+        53,
+        74
+      ],
+      "offset": 438609,
+      "length": 3922,
+      "trim_origin_top_left_px": [
+        40,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        15
+      ],
+      "sha256": "bddb06ca4ab76b2c3ec705a32738e41391a67cebdbc5a64d2b6162b786233748",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_08.png",
+      "width": 46,
+      "height": 79,
+      "texture_px": [
+        46,
+        79
+      ],
+      "offset": 442531,
+      "length": 3634,
+      "trim_origin_top_left_px": [
+        48,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "ccb6c848750611f8bde5a629568331643e99a0de64a5b4008298413171fdfef3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_08.png",
+      "width": 34,
+      "height": 82,
+      "texture_px": [
+        34,
+        82
+      ],
+      "offset": 446165,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        60,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "52bd61386ed59d28e8f2dee13f6e52a9be2771e65cf8231666a7cd9b9fef465b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_08.png",
+      "width": 33,
+      "height": 82,
+      "texture_px": [
+        33,
+        82
+      ],
+      "offset": 448953,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "a40224914a35b392d61ec25e17627bc0f66e41388c6f1f25ef5913656aea0e51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_08.png",
+      "width": 36,
+      "height": 82,
+      "texture_px": [
+        36,
+        82
+      ],
+      "offset": 451659,
+      "length": 2952,
+      "trim_origin_top_left_px": [
+        60,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "708e05a10d0f554177df36ecc29964d42ba7a4f01032876bdc9114dbe2483b09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_08.png",
+      "width": 45,
+      "height": 81,
+      "texture_px": [
+        45,
+        81
+      ],
+      "offset": 454611,
+      "length": 3645,
+      "trim_origin_top_left_px": [
+        61,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "5d4bf412f43dc0f95eb986f88c62346a213bd123721e9f4281bf41007032dc13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_08.png",
+      "width": 52,
+      "height": 75,
+      "texture_px": [
+        52,
+        75
+      ],
+      "offset": 458256,
+      "length": 3900,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "d0bb4fdb8bcf61c58d2110135e75b4971fa1fa267e10fb0f7fe96d1fa7af38cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_08.png",
+      "width": 54,
+      "height": 69,
+      "texture_px": [
+        54,
+        69
+      ],
+      "offset": 462156,
+      "length": 3726,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "5717f01305f754a3173fe0ae4ca3e9ff50e000d2868c3d4184fb0aa7682ede6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_08.png",
+      "width": 52,
+      "height": 67,
+      "texture_px": [
+        52,
+        67
+      ],
+      "offset": 465882,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "c039fb555c0dfeede1d0e4eced66d5e96c6398117f4012ead5d78fcfe0d64013",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_08.png",
+      "width": 47,
+      "height": 64,
+      "texture_px": [
+        47,
+        64
+      ],
+      "offset": 469366,
+      "length": 3008,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "49a8a1f30e10c77ed988790229492566a9ab482f4101183801f38a8ef21899e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_08.png",
+      "width": 34,
+      "height": 59,
+      "texture_px": [
+        34,
+        59
+      ],
+      "offset": 472374,
+      "length": 2006,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "7bdca6b5c80dcd9d62bf67deb83047ea00fd5810acea419f6cfb9b88a7fea77d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_09.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 474380,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "d72cfb4fd9e9d9a726cdeaa815cfd6b996a26a50356e6beb4d500a97dca007a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_09.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 476294,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "12546e4f6a7b4e0252e478708bb75f047e8315eecdd72d34ab652f1c675d5185",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_09.png",
+      "width": 45,
+      "height": 59,
+      "texture_px": [
+        45,
+        59
+      ],
+      "offset": 478382,
+      "length": 2655,
+      "trim_origin_top_left_px": [
+        54,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        10
+      ],
+      "sha256": "0a132f91cb93fec9ec36587351b5667e510135554e47999a497f4a7ed1f50ccb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_09.png",
+      "width": 52,
+      "height": 63,
+      "texture_px": [
+        52,
+        63
+      ],
+      "offset": 481037,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        44,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        12
+      ],
+      "sha256": "eaacf5657bebd4dfcb69fd0351446a96eaf98ccb35474497eeacfeca5a60c1f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_09.png",
+      "width": 54,
+      "height": 66,
+      "texture_px": [
+        54,
+        66
+      ],
+      "offset": 484313,
+      "length": 3564,
+      "trim_origin_top_left_px": [
+        39,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        14
+      ],
+      "sha256": "7afeebd3040ef0450c110aef883d3d503b6d1d14bfd944a75ee334ab3699e4d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_09.png",
+      "width": 53,
+      "height": 74,
+      "texture_px": [
+        53,
+        74
+      ],
+      "offset": 487877,
+      "length": 3922,
+      "trim_origin_top_left_px": [
+        40,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        15
+      ],
+      "sha256": "bddb06ca4ab76b2c3ec705a32738e41391a67cebdbc5a64d2b6162b786233748",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_09.png",
+      "width": 46,
+      "height": 79,
+      "texture_px": [
+        46,
+        79
+      ],
+      "offset": 491799,
+      "length": 3634,
+      "trim_origin_top_left_px": [
+        48,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "ccb6c848750611f8bde5a629568331643e99a0de64a5b4008298413171fdfef3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_09.png",
+      "width": 34,
+      "height": 82,
+      "texture_px": [
+        34,
+        82
+      ],
+      "offset": 495433,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        60,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "52bd61386ed59d28e8f2dee13f6e52a9be2771e65cf8231666a7cd9b9fef465b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_09.png",
+      "width": 33,
+      "height": 82,
+      "texture_px": [
+        33,
+        82
+      ],
+      "offset": 498221,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "a40224914a35b392d61ec25e17627bc0f66e41388c6f1f25ef5913656aea0e51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_09.png",
+      "width": 36,
+      "height": 82,
+      "texture_px": [
+        36,
+        82
+      ],
+      "offset": 500927,
+      "length": 2952,
+      "trim_origin_top_left_px": [
+        60,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "708e05a10d0f554177df36ecc29964d42ba7a4f01032876bdc9114dbe2483b09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_09.png",
+      "width": 45,
+      "height": 81,
+      "texture_px": [
+        45,
+        81
+      ],
+      "offset": 503879,
+      "length": 3645,
+      "trim_origin_top_left_px": [
+        61,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "5d4bf412f43dc0f95eb986f88c62346a213bd123721e9f4281bf41007032dc13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_09.png",
+      "width": 52,
+      "height": 75,
+      "texture_px": [
+        52,
+        75
+      ],
+      "offset": 507524,
+      "length": 3900,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "d0bb4fdb8bcf61c58d2110135e75b4971fa1fa267e10fb0f7fe96d1fa7af38cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_09.png",
+      "width": 54,
+      "height": 69,
+      "texture_px": [
+        54,
+        69
+      ],
+      "offset": 511424,
+      "length": 3726,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "5717f01305f754a3173fe0ae4ca3e9ff50e000d2868c3d4184fb0aa7682ede6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_09.png",
+      "width": 52,
+      "height": 67,
+      "texture_px": [
+        52,
+        67
+      ],
+      "offset": 515150,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "c039fb555c0dfeede1d0e4eced66d5e96c6398117f4012ead5d78fcfe0d64013",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_09.png",
+      "width": 47,
+      "height": 64,
+      "texture_px": [
+        47,
+        64
+      ],
+      "offset": 518634,
+      "length": 3008,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "49a8a1f30e10c77ed988790229492566a9ab482f4101183801f38a8ef21899e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_09.png",
+      "width": 34,
+      "height": 59,
+      "texture_px": [
+        34,
+        59
+      ],
+      "offset": 521642,
+      "length": 2006,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "7bdca6b5c80dcd9d62bf67deb83047ea00fd5810acea419f6cfb9b88a7fea77d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_10.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 523648,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "4550504c1d4cdd367be02787c072e8a2ac40d5f24a50213caa02af82f2d8b55e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_10.png",
+      "width": 38,
+      "height": 58,
+      "texture_px": [
+        38,
+        58
+      ],
+      "offset": 525595,
+      "length": 2204,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "2003c55b52f364d42d5a9a6a3ce1744d8ac48279101f19f34b7c28143fec7f8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_10.png",
+      "width": 56,
+      "height": 59,
+      "texture_px": [
+        56,
+        59
+      ],
+      "offset": 527799,
+      "length": 3304,
+      "trim_origin_top_left_px": [
+        43,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        10
+      ],
+      "sha256": "827b1cd24011768ef741b49f906e2cf17454688341a10bd42ab892df90123cc3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_10.png",
+      "width": 66,
+      "height": 63,
+      "texture_px": [
+        66,
+        63
+      ],
+      "offset": 531103,
+      "length": 4158,
+      "trim_origin_top_left_px": [
+        30,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        12
+      ],
+      "sha256": "382f7d255c5fbdd6c67faadd16dfebd0e5519afcc590f185c161ffb76a8de83c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_10.png",
+      "width": 69,
+      "height": 68,
+      "texture_px": [
+        69,
+        68
+      ],
+      "offset": 535261,
+      "length": 4692,
+      "trim_origin_top_left_px": [
+        24,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        14
+      ],
+      "sha256": "f6a6f2cfad4f6a9f346ddd8d7d6adebe4ccd6686c3f3fd1852588227f7b3c02f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_10.png",
+      "width": 67,
+      "height": 78,
+      "texture_px": [
+        67,
+        78
+      ],
+      "offset": 539953,
+      "length": 5226,
+      "trim_origin_top_left_px": [
+        26,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        15
+      ],
+      "sha256": "5a70359faacd5aa9ece213e923256dff3ab46d10e72dc3a4a56d84f3f3e422df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_10.png",
+      "width": 57,
+      "height": 85,
+      "texture_px": [
+        57,
+        85
+      ],
+      "offset": 545179,
+      "length": 4845,
+      "trim_origin_top_left_px": [
+        37,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        14
+      ],
+      "sha256": "eff25469ed980a6d30a661de4a3a103f228647ae3fdd5cd4b603a4c42622ca00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_10.png",
+      "width": 40,
+      "height": 89,
+      "texture_px": [
+        40,
+        89
+      ],
+      "offset": 550024,
+      "length": 3560,
+      "trim_origin_top_left_px": [
+        54,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12
+      ],
+      "sha256": "e26342b587a6cbf4dd901e73925789bcca04662cd35ca7d0c40603462dd5b703",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_10.png",
+      "width": 33,
+      "height": 88,
+      "texture_px": [
+        33,
+        88
+      ],
+      "offset": 553584,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        61,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "4911bc0c550138d0aa43439057d3017ac15968db977076daef07322cdb5f3fd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_10.png",
+      "width": 38,
+      "height": 88,
+      "texture_px": [
+        38,
+        88
+      ],
+      "offset": 556488,
+      "length": 3344,
+      "trim_origin_top_left_px": [
+        60,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "f4e1019482e25776b2b0da30bebd17fa047a2ec50d4ecfdd903d020e0db31a5a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_10.png",
+      "width": 56,
+      "height": 86,
+      "texture_px": [
+        56,
+        86
+      ],
+      "offset": 559832,
+      "length": 4816,
+      "trim_origin_top_left_px": [
+        61,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c2f5fc86fc6af4975c18dc28671cccf873d651b93004cb699b76258d986bbb00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_10.png",
+      "width": 67,
+      "height": 78,
+      "texture_px": [
+        67,
+        78
+      ],
+      "offset": 564648,
+      "length": 5226,
+      "trim_origin_top_left_px": [
+        64,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e4b3ece1ce309171b5af665d16e44888a2ef588b705f3df3a1ad794c057d9129",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_10.png",
+      "width": 67,
+      "height": 70,
+      "texture_px": [
+        67,
+        70
+      ],
+      "offset": 569874,
+      "length": 4690,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "02913876eeece8d3de32d524f7d74657da7cdb08495d6ae5ecc722673e71f1c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_10.png",
+      "width": 67,
+      "height": 67,
+      "texture_px": [
+        67,
+        67
+      ],
+      "offset": 574564,
+      "length": 4489,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "a4938d9704242c68f15cd65330398e9f37685257bcc0121b80d67446252310fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_10.png",
+      "width": 57,
+      "height": 65,
+      "texture_px": [
+        57,
+        65
+      ],
+      "offset": 579053,
+      "length": 3705,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "6e780067183e3e320d65349aebb483c2f6d90d11fa85d5a97861bb8be528a25a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_10.png",
+      "width": 40,
+      "height": 60,
+      "texture_px": [
+        40,
+        60
+      ],
+      "offset": 582758,
+      "length": 2400,
+      "trim_origin_top_left_px": [
+        66,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "e956fd2cc712560d11d015650eb01c2f80ca086250e2bc9ee8ec3c9522eab7bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_11.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 585158,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "4550504c1d4cdd367be02787c072e8a2ac40d5f24a50213caa02af82f2d8b55e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_11.png",
+      "width": 38,
+      "height": 58,
+      "texture_px": [
+        38,
+        58
+      ],
+      "offset": 587105,
+      "length": 2204,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "2003c55b52f364d42d5a9a6a3ce1744d8ac48279101f19f34b7c28143fec7f8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_11.png",
+      "width": 56,
+      "height": 59,
+      "texture_px": [
+        56,
+        59
+      ],
+      "offset": 589309,
+      "length": 3304,
+      "trim_origin_top_left_px": [
+        43,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        10
+      ],
+      "sha256": "827b1cd24011768ef741b49f906e2cf17454688341a10bd42ab892df90123cc3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_11.png",
+      "width": 66,
+      "height": 63,
+      "texture_px": [
+        66,
+        63
+      ],
+      "offset": 592613,
+      "length": 4158,
+      "trim_origin_top_left_px": [
+        30,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        12
+      ],
+      "sha256": "382f7d255c5fbdd6c67faadd16dfebd0e5519afcc590f185c161ffb76a8de83c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_11.png",
+      "width": 69,
+      "height": 68,
+      "texture_px": [
+        69,
+        68
+      ],
+      "offset": 596771,
+      "length": 4692,
+      "trim_origin_top_left_px": [
+        24,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        14
+      ],
+      "sha256": "f6a6f2cfad4f6a9f346ddd8d7d6adebe4ccd6686c3f3fd1852588227f7b3c02f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_11.png",
+      "width": 67,
+      "height": 78,
+      "texture_px": [
+        67,
+        78
+      ],
+      "offset": 601463,
+      "length": 5226,
+      "trim_origin_top_left_px": [
+        26,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        15
+      ],
+      "sha256": "5a70359faacd5aa9ece213e923256dff3ab46d10e72dc3a4a56d84f3f3e422df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_11.png",
+      "width": 57,
+      "height": 85,
+      "texture_px": [
+        57,
+        85
+      ],
+      "offset": 606689,
+      "length": 4845,
+      "trim_origin_top_left_px": [
+        37,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        14
+      ],
+      "sha256": "eff25469ed980a6d30a661de4a3a103f228647ae3fdd5cd4b603a4c42622ca00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_11.png",
+      "width": 40,
+      "height": 89,
+      "texture_px": [
+        40,
+        89
+      ],
+      "offset": 611534,
+      "length": 3560,
+      "trim_origin_top_left_px": [
+        54,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12
+      ],
+      "sha256": "e26342b587a6cbf4dd901e73925789bcca04662cd35ca7d0c40603462dd5b703",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_11.png",
+      "width": 33,
+      "height": 88,
+      "texture_px": [
+        33,
+        88
+      ],
+      "offset": 615094,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        61,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "4911bc0c550138d0aa43439057d3017ac15968db977076daef07322cdb5f3fd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_11.png",
+      "width": 38,
+      "height": 88,
+      "texture_px": [
+        38,
+        88
+      ],
+      "offset": 617998,
+      "length": 3344,
+      "trim_origin_top_left_px": [
+        60,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "f4e1019482e25776b2b0da30bebd17fa047a2ec50d4ecfdd903d020e0db31a5a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_11.png",
+      "width": 56,
+      "height": 86,
+      "texture_px": [
+        56,
+        86
+      ],
+      "offset": 621342,
+      "length": 4816,
+      "trim_origin_top_left_px": [
+        61,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c2f5fc86fc6af4975c18dc28671cccf873d651b93004cb699b76258d986bbb00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_11.png",
+      "width": 67,
+      "height": 78,
+      "texture_px": [
+        67,
+        78
+      ],
+      "offset": 626158,
+      "length": 5226,
+      "trim_origin_top_left_px": [
+        64,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e4b3ece1ce309171b5af665d16e44888a2ef588b705f3df3a1ad794c057d9129",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_11.png",
+      "width": 67,
+      "height": 70,
+      "texture_px": [
+        67,
+        70
+      ],
+      "offset": 631384,
+      "length": 4690,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "02913876eeece8d3de32d524f7d74657da7cdb08495d6ae5ecc722673e71f1c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_11.png",
+      "width": 67,
+      "height": 67,
+      "texture_px": [
+        67,
+        67
+      ],
+      "offset": 636074,
+      "length": 4489,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "a4938d9704242c68f15cd65330398e9f37685257bcc0121b80d67446252310fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_11.png",
+      "width": 57,
+      "height": 65,
+      "texture_px": [
+        57,
+        65
+      ],
+      "offset": 640563,
+      "length": 3705,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "6e780067183e3e320d65349aebb483c2f6d90d11fa85d5a97861bb8be528a25a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_11.png",
+      "width": 40,
+      "height": 60,
+      "texture_px": [
+        40,
+        60
+      ],
+      "offset": 644268,
+      "length": 2400,
+      "trim_origin_top_left_px": [
+        66,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "e956fd2cc712560d11d015650eb01c2f80ca086250e2bc9ee8ec3c9522eab7bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_12.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 646668,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "57212128ccaf5d038ee6dd74044ee00ca9f17f35d86bb06053c1464808fd844e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_12.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        38,
+        59
+      ],
+      "offset": 648615,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "0de44b94729e49bd1ffec6b70211d3326522791999573425b6bf540de6d80a7d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_12.png",
+      "width": 53,
+      "height": 60,
+      "texture_px": [
+        53,
+        60
+      ],
+      "offset": 650857,
+      "length": 3180,
+      "trim_origin_top_left_px": [
+        46,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "83100c5a055b23dbfc4763a615a461098392efd7fe75b27d05135dd21cfa02ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_12.png",
+      "width": 63,
+      "height": 63,
+      "texture_px": [
+        63,
+        63
+      ],
+      "offset": 654037,
+      "length": 3969,
+      "trim_origin_top_left_px": [
+        33,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        12
+      ],
+      "sha256": "31289d28a06196b9464c8ea16665d06d4f3be693d72f30babab1c040c4e6f803",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_12.png",
+      "width": 66,
+      "height": 72,
+      "texture_px": [
+        66,
+        72
+      ],
+      "offset": 658006,
+      "length": 4752,
+      "trim_origin_top_left_px": [
+        27,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        14
+      ],
+      "sha256": "b621b63d85d0c9f90db345c8386ef55e1bdab541027360f22ca3fdcdd4d1782b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_12.png",
+      "width": 64,
+      "height": 80,
+      "texture_px": [
+        64,
+        80
+      ],
+      "offset": 662758,
+      "length": 5120,
+      "trim_origin_top_left_px": [
+        29,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        15
+      ],
+      "sha256": "0345bbb8497587e19c80d23a31c93db59c819d59359a65294ab0e4e139c047d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_12.png",
+      "width": 56,
+      "height": 86,
+      "texture_px": [
+        56,
+        86
+      ],
+      "offset": 667878,
+      "length": 4816,
+      "trim_origin_top_left_px": [
+        38,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        14
+      ],
+      "sha256": "39850e84c284ac0733dc08b7c802213b4bade0d3afe975fddd07ecc6ff2edc87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_12.png",
+      "width": 40,
+      "height": 88,
+      "texture_px": [
+        40,
+        88
+      ],
+      "offset": 672694,
+      "length": 3520,
+      "trim_origin_top_left_px": [
+        54,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12
+      ],
+      "sha256": "159a907f54424d2c9077c1e31172839eece1d5fd8b1264ea5d9f017b8b6af328",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_12.png",
+      "width": 33,
+      "height": 86,
+      "texture_px": [
+        33,
+        86
+      ],
+      "offset": 676214,
+      "length": 2838,
+      "trim_origin_top_left_px": [
+        61,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "e42350caeca1ddcb8479ace0020d61932c2ab52ac76eb1d4caa37979397025cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_12.png",
+      "width": 38,
+      "height": 84,
+      "texture_px": [
+        38,
+        84
+      ],
+      "offset": 679052,
+      "length": 3192,
+      "trim_origin_top_left_px": [
+        60,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "ddbf74824509ac8def18d9eead6b56125f731570a965d228274596a428b96b89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_12.png",
+      "width": 52,
+      "height": 81,
+      "texture_px": [
+        52,
+        81
+      ],
+      "offset": 682244,
+      "length": 4212,
+      "trim_origin_top_left_px": [
+        61,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "67b1c5a7788e81e51edc06268a97025d66da28516a3db7fd2a5e7395d6c5361a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_12.png",
+      "width": 62,
+      "height": 74,
+      "texture_px": [
+        62,
+        74
+      ],
+      "offset": 686456,
+      "length": 4588,
+      "trim_origin_top_left_px": [
+        64,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "ef5cbf0447a6aca1e9fa5f55c6f4244b3de969f976404310d4d1e2cdc59a5225",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_12.png",
+      "width": 64,
+      "height": 68,
+      "texture_px": [
+        64,
+        68
+      ],
+      "offset": 691044,
+      "length": 4352,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "0956f880dd6473ccdd6a082779332d45588f46d586c98cc322c0f43a51f5b8b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_12.png",
+      "width": 64,
+      "height": 67,
+      "texture_px": [
+        64,
+        67
+      ],
+      "offset": 695396,
+      "length": 4288,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "2e565015d3f142245753e3884ea8c70e4a2d6c21a69ccf20492622a3330c41ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_12.png",
+      "width": 56,
+      "height": 65,
+      "texture_px": [
+        56,
+        65
+      ],
+      "offset": 699684,
+      "length": 3640,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "c57baf2d29840a9d80cced7e2d8c81b6a91a9a3ed14c85b36080a9c5411dacd2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_12.png",
+      "width": 40,
+      "height": 60,
+      "texture_px": [
+        40,
+        60
+      ],
+      "offset": 703324,
+      "length": 2400,
+      "trim_origin_top_left_px": [
+        66,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "92702efd47fb03a8da8212dcd21833217bd787e0b5843a2cf05cbbc694c14e4f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_13.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 705724,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "30bd3648e9228f196be6015eb1d02236e11a7ad307f1564367dfe9e70d911ba4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_13.png",
+      "width": 43,
+      "height": 59,
+      "texture_px": [
+        43,
+        59
+      ],
+      "offset": 707812,
+      "length": 2537,
+      "trim_origin_top_left_px": [
+        58,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "b8d6f73ad88572f7cedc5f55739ed32723fe7e79ab963556c601832ef8c57ee6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_13.png",
+      "width": 46,
+      "height": 60,
+      "texture_px": [
+        46,
+        60
+      ],
+      "offset": 710349,
+      "length": 2760,
+      "trim_origin_top_left_px": [
+        53,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        10
+      ],
+      "sha256": "25f1d1763a004120c4d0f87eac077f655c2788d36bbf38061b043d0bf6adc774",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_13.png",
+      "width": 52,
+      "height": 68,
+      "texture_px": [
+        52,
+        68
+      ],
+      "offset": 713109,
+      "length": 3536,
+      "trim_origin_top_left_px": [
+        44,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        12
+      ],
+      "sha256": "2d54b96b20918b63e0e12ca6b7f9a0e7203d5f366c018c1bab54cfe5e7edcd0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_13.png",
+      "width": 56,
+      "height": 77,
+      "texture_px": [
+        56,
+        77
+      ],
+      "offset": 716645,
+      "length": 4312,
+      "trim_origin_top_left_px": [
+        37,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        14
+      ],
+      "sha256": "4b3a0a95518de57b766c8c05c293c46d1144c0ccde74f0a751217f1ffbf4d20b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_13.png",
+      "width": 57,
+      "height": 85,
+      "texture_px": [
+        57,
+        85
+      ],
+      "offset": 720957,
+      "length": 4845,
+      "trim_origin_top_left_px": [
+        36,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        15
+      ],
+      "sha256": "0d90284c9fc86b11ee9fb9dae610386bfda44b3ca0681c9a8dba9bee1e8abca6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_13.png",
+      "width": 51,
+      "height": 88,
+      "texture_px": [
+        51,
+        88
+      ],
+      "offset": 725802,
+      "length": 4488,
+      "trim_origin_top_left_px": [
+        43,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        14
+      ],
+      "sha256": "1d7561cde43d80bba5d7d9c22a1a6cdc6e92c0f00fa436f03efc24e27a9b9b01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_13.png",
+      "width": 39,
+      "height": 87,
+      "texture_px": [
+        39,
+        87
+      ],
+      "offset": 730290,
+      "length": 3393,
+      "trim_origin_top_left_px": [
+        55,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "2a6818fefd62c275a83b5a07afffc7c151614f5f5f96b7a03b5a044e5ffe1b6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_13.png",
+      "width": 36,
+      "height": 81,
+      "texture_px": [
+        36,
+        81
+      ],
+      "offset": 733683,
+      "length": 2916,
+      "trim_origin_top_left_px": [
+        60,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "4cfaed57f90bc5c5c98f604ac19a104e85ea2762b8b9ae172e138ecdab5c17eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_13.png",
+      "width": 43,
+      "height": 77,
+      "texture_px": [
+        43,
+        77
+      ],
+      "offset": 736599,
+      "length": 3311,
+      "trim_origin_top_left_px": [
+        59,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "225a865eacd75313ff050c4ac88265c076c28b0cdfbf5d401c0f01f19206920b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_13.png",
+      "width": 46,
+      "height": 77,
+      "texture_px": [
+        46,
+        77
+      ],
+      "offset": 739910,
+      "length": 3542,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "d9947ac548ba1c9074ddef08a73291e295253828229d723eb375307f4456b94b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_13.png",
+      "width": 51,
+      "height": 73,
+      "texture_px": [
+        51,
+        73
+      ],
+      "offset": 743452,
+      "length": 3723,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0d63700187a4cbc9fc59952ec407794cd1c96245137e61bb1c3a405f2a447ae3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_13.png",
+      "width": 55,
+      "height": 68,
+      "texture_px": [
+        55,
+        68
+      ],
+      "offset": 747175,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "fcceeccb7a0c21478e5195df055dac85af7a8a5d6e9dffeb845067eeb4d10401",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_13.png",
+      "width": 56,
+      "height": 67,
+      "texture_px": [
+        56,
+        67
+      ],
+      "offset": 750915,
+      "length": 3752,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "b8352ba1c7ce90c8e2f51e909c9e9529c17ca53a84bf4d66147399ed8b0ae0ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_13.png",
+      "width": 50,
+      "height": 65,
+      "texture_px": [
+        50,
+        65
+      ],
+      "offset": 754667,
+      "length": 3250,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "8aed59c653f3551dce06c3936059b55d66286f83e7514725fa82660f2a09e9f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_13.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 757917,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "834a4d13e5e7f0ef2b62a62fe2e9eb4249e20999f303b7fefc19c67f10e6ebf4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_14.png",
+      "width": 44,
+      "height": 58,
+      "texture_px": [
+        44,
+        58
+      ],
+      "offset": 760277,
+      "length": 2552,
+      "trim_origin_top_left_px": [
+        57,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        9
+      ],
+      "sha256": "80920c10854022ba38e90fb29c03714d98b80f66a54bcd13dd993ae38e4ef043",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_14.png",
+      "width": 53,
+      "height": 60,
+      "texture_px": [
+        53,
+        60
+      ],
+      "offset": 762829,
+      "length": 3180,
+      "trim_origin_top_left_px": [
+        48,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        10
+      ],
+      "sha256": "e8157f34845570e946380abc94930eddcbb69afb2a43c6024fd7585ddcf0ef01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_14.png",
+      "width": 56,
+      "height": 61,
+      "texture_px": [
+        56,
+        61
+      ],
+      "offset": 766009,
+      "length": 3416,
+      "trim_origin_top_left_px": [
+        44,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10
+      ],
+      "sha256": "ae79d29e99457b0a8d4c6bb15fd40b640dfdf255abfe378799ba0d92bd272857",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_14.png",
+      "width": 50,
+      "height": 67,
+      "texture_px": [
+        50,
+        67
+      ],
+      "offset": 769425,
+      "length": 3350,
+      "trim_origin_top_left_px": [
+        46,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        12
+      ],
+      "sha256": "269039205ea0958da15947d87aa307d2b37832dc21e497af24ec5a44db871577",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_14.png",
+      "width": 42,
+      "height": 79,
+      "texture_px": [
+        42,
+        79
+      ],
+      "offset": 772775,
+      "length": 3318,
+      "trim_origin_top_left_px": [
+        51,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        14
+      ],
+      "sha256": "8b4c91077f14493cd70c33af952fec711674fc74ca70b0e0a6d758ef73fa933e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_14.png",
+      "width": 46,
+      "height": 86,
+      "texture_px": [
+        46,
+        86
+      ],
+      "offset": 776093,
+      "length": 3956,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        15
+      ],
+      "sha256": "27020685baff8bc42928ac738ad1c69c03c73e7628f66cfc3140732cf218cf48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_14.png",
+      "width": 46,
+      "height": 89,
+      "texture_px": [
+        46,
+        89
+      ],
+      "offset": 780049,
+      "length": 4094,
+      "trim_origin_top_left_px": [
+        48,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "e271447d15d38a861a4d4b4737659bbfafaf3cd12dc2cb961081e17f56e663b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_14.png",
+      "width": 40,
+      "height": 85,
+      "texture_px": [
+        40,
+        85
+      ],
+      "offset": 784143,
+      "length": 3400,
+      "trim_origin_top_left_px": [
+        55,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "16a02dc50aa0b62c62c3e63cdc75fb9f6f112299358918373d67948e2ec87d4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_14.png",
+      "width": 44,
+      "height": 77,
+      "texture_px": [
+        44,
+        77
+      ],
+      "offset": 787543,
+      "length": 3388,
+      "trim_origin_top_left_px": [
+        59,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "082f7801eb1c6d626910a1590280071d44dc970b633788500c288d916eea1389",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_14.png",
+      "width": 53,
+      "height": 76,
+      "texture_px": [
+        53,
+        76
+      ],
+      "offset": 790931,
+      "length": 4028,
+      "trim_origin_top_left_px": [
+        59,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "541342a7d59a2f2349cb2c9d45b9594775f682b6ac5dcc5a7a62921a105c5c52",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_14.png",
+      "width": 56,
+      "height": 77,
+      "texture_px": [
+        56,
+        77
+      ],
+      "offset": 794959,
+      "length": 4312,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "5df46154aa7e6cc995613ecc723c818cc76b86211f12952167821ed0611e4f5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_14.png",
+      "width": 50,
+      "height": 73,
+      "texture_px": [
+        50,
+        73
+      ],
+      "offset": 799271,
+      "length": 3650,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "8193c964fb675f7a6cf1fae9522f4522cd030cb073b1b243ed474909393339da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_14.png",
+      "width": 41,
+      "height": 68,
+      "texture_px": [
+        41,
+        68
+      ],
+      "offset": 802921,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "94f66e752a2ee626915e6502153351ed76cef72220aed2af43d07859cd142eef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_14.png",
+      "width": 45,
+      "height": 67,
+      "texture_px": [
+        45,
+        67
+      ],
+      "offset": 805709,
+      "length": 3015,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "b1da7d3e55813695c01761be16cd02173ab3402f0050139141bebe952321f77c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_14.png",
+      "width": 45,
+      "height": 65,
+      "texture_px": [
+        45,
+        65
+      ],
+      "offset": 808724,
+      "length": 2925,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "bac9261c6721b1e3d7b25047dc928b56cde1d41e4c54791caf9fc60ad0d3a5da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_14.png",
+      "width": 42,
+      "height": 60,
+      "texture_px": [
+        42,
+        60
+      ],
+      "offset": 811649,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "a815b542a9a485c1fe9b323801779fc15105f8a7bab894bd0a788c9715b98098",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_15.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 814169,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        56,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        9
+      ],
+      "sha256": "e9b648e87467dbfdbcfb718a14945a93c51f76f1eb9944133be04e2663e9f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_15.png",
+      "width": 56,
+      "height": 61,
+      "texture_px": [
+        56,
+        61
+      ],
+      "offset": 816765,
+      "length": 3416,
+      "trim_origin_top_left_px": [
+        46,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "6fce294cf9ee649e988633af99276f1f2d7eebf3c1fc83dffe4f5000d961ab5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_15.png",
+      "width": 59,
+      "height": 62,
+      "texture_px": [
+        59,
+        62
+      ],
+      "offset": 820181,
+      "length": 3658,
+      "trim_origin_top_left_px": [
+        41,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        10
+      ],
+      "sha256": "b5a4f83a20ef3f3023221a0f2a3cb34a1822c700ab65098bcf7fcb95df669625",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_15.png",
+      "width": 54,
+      "height": 65,
+      "texture_px": [
+        54,
+        65
+      ],
+      "offset": 823839,
+      "length": 3510,
+      "trim_origin_top_left_px": [
+        42,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        12
+      ],
+      "sha256": "1071af867ed666486acc3bf152d09feb7d3ae93c8bd3a7ae8e9384e18ac78f5a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_15.png",
+      "width": 44,
+      "height": 73,
+      "texture_px": [
+        44,
+        73
+      ],
+      "offset": 827349,
+      "length": 3212,
+      "trim_origin_top_left_px": [
+        49,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        14
+      ],
+      "sha256": "0d3510a5500d3d8a32f81763a8c12a39a9d2ee46b37e3a755be3cc7011f18840",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_15.png",
+      "width": 34,
+      "height": 82,
+      "texture_px": [
+        34,
+        82
+      ],
+      "offset": 830561,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        59,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "f531b707b9a06ce4ab1bda26484b732d59489ced78f9282fe95cd5c7f1801467",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_15.png",
+      "width": 39,
+      "height": 85,
+      "texture_px": [
+        39,
+        85
+      ],
+      "offset": 833349,
+      "length": 3315,
+      "trim_origin_top_left_px": [
+        56,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "014ee26e9a6cb3d4e30ae9f8a028a49cb333203ccfd72d47d22e18268eae8ba6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_15.png",
+      "width": 42,
+      "height": 81,
+      "texture_px": [
+        42,
+        81
+      ],
+      "offset": 836664,
+      "length": 3402,
+      "trim_origin_top_left_px": [
+        57,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "e0ebe279fc63c1ce536905b57c9bbd0ec70b0388faf9ba5aa92ddb26ed494c24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_15.png",
+      "width": 44,
+      "height": 76,
+      "texture_px": [
+        44,
+        76
+      ],
+      "offset": 840066,
+      "length": 3344,
+      "trim_origin_top_left_px": [
+        60,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "9bf43467cd1212e6c247319c3a7f69826d50e53bd361332c1c522ce658dda9f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_15.png",
+      "width": 55,
+      "height": 76,
+      "texture_px": [
+        55,
+        76
+      ],
+      "offset": 843410,
+      "length": 4180,
+      "trim_origin_top_left_px": [
+        59,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "6e68f8e18bf6e07b5b56128f8c52275469dd03ab4fbffe2575fe572547ccf900",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_15.png",
+      "width": 59,
+      "height": 77,
+      "texture_px": [
+        59,
+        77
+      ],
+      "offset": 847590,
+      "length": 4543,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "e14871e765ea06a544f60f95d19ad7f6505276abaa8d4f0cbd01801abd528677",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_15.png",
+      "width": 54,
+      "height": 73,
+      "texture_px": [
+        54,
+        73
+      ],
+      "offset": 852133,
+      "length": 3942,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0f94662511f92043ef2f12f50c4fab43faa59f61b6306019027c0b19339b00df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_15.png",
+      "width": 45,
+      "height": 68,
+      "texture_px": [
+        45,
+        68
+      ],
+      "offset": 856075,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "6ad03a9629543ee6ad5b9339af7e9d350f587e2986e31ff361f5494d1f2ddfc6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_15.png",
+      "width": 33,
+      "height": 68,
+      "texture_px": [
+        33,
+        68
+      ],
+      "offset": 859135,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "5c5ab10b3caa9ee1ac4dffcbbecdfbee3bd5d7e67ebd252642acb4be4717f41e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_15.png",
+      "width": 37,
+      "height": 66,
+      "texture_px": [
+        37,
+        66
+      ],
+      "offset": 861379,
+      "length": 2442,
+      "trim_origin_top_left_px": [
+        66,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "b4fa064f90fb2f4fc9ae67bfbeab222e069d9ec2c46b833f60e433d620028474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_15.png",
+      "width": 42,
+      "height": 61,
+      "texture_px": [
+        42,
+        61
+      ],
+      "offset": 863821,
+      "length": 2562,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "4b18a879ce3c9b25ad271c7b8729b150a6b7ee427178a67f702b5b140cda3636",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_16.png",
+      "width": 39,
+      "height": 60,
+      "texture_px": [
+        39,
+        60
+      ],
+      "offset": 866383,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "4a0534688da20d70493a5302d364accbd93ae56a22ecb62b1ab450e22138fa01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_16.png",
+      "width": 50,
+      "height": 62,
+      "texture_px": [
+        50,
+        62
+      ],
+      "offset": 868723,
+      "length": 3100,
+      "trim_origin_top_left_px": [
+        50,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        10
+      ],
+      "sha256": "6a80d60b78eed934c46c1bdba2d708fa126f7acdb069218634bb13fef0125e2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_16.png",
+      "width": 55,
+      "height": 62,
+      "texture_px": [
+        55,
+        62
+      ],
+      "offset": 871823,
+      "length": 3410,
+      "trim_origin_top_left_px": [
+        44,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10
+      ],
+      "sha256": "becf971f94aa866b42522f314860389694a5f481599505e506964f25f07768c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_16.png",
+      "width": 53,
+      "height": 65,
+      "texture_px": [
+        53,
+        65
+      ],
+      "offset": 875233,
+      "length": 3445,
+      "trim_origin_top_left_px": [
+        43,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        12
+      ],
+      "sha256": "671dc3f6cc0977d6a952fdc1b2f0c5e06b6dfe373f74961ff9d26dea49fc34b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_16.png",
+      "width": 46,
+      "height": 68,
+      "texture_px": [
+        46,
+        68
+      ],
+      "offset": 878678,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        48,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "028f51a04871f17493e90eec4d77fee13a8d7cdbf3c263457319b59c1ee13f50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_16.png",
+      "width": 40,
+      "height": 75,
+      "texture_px": [
+        40,
+        75
+      ],
+      "offset": 881806,
+      "length": 3000,
+      "trim_origin_top_left_px": [
+        58,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        15
+      ],
+      "sha256": "bbb8dd21bc2a39f3e88ad9f9c756ea94723e82962c1174acdb9afea43306226e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_16.png",
+      "width": 36,
+      "height": 79,
+      "texture_px": [
+        36,
+        79
+      ],
+      "offset": 884806,
+      "length": 2844,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "2b8a4dd92815d2fd53ecbf64d3da7b4f6a048bb94319af063af3cf3aa69ede75",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_16.png",
+      "width": 38,
+      "height": 77,
+      "texture_px": [
+        38,
+        77
+      ],
+      "offset": 887650,
+      "length": 2926,
+      "trim_origin_top_left_px": [
+        61,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "f95200e324dadb3edfc4becf29937bb4d31b986f79cffbae601ed5bbf7447dfa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_16.png",
+      "width": 39,
+      "height": 76,
+      "texture_px": [
+        39,
+        76
+      ],
+      "offset": 890576,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        61,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "63de97b8dd0cf9f33f18d7a8590ffdfa083816808916bd9c8be2a8ddb5ebd14f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_16.png",
+      "width": 51,
+      "height": 76,
+      "texture_px": [
+        51,
+        76
+      ],
+      "offset": 893540,
+      "length": 3876,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "250a5f61e8d7faa186c87418808d6886ca16c90f0492a585211360bab35de3b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_16.png",
+      "width": 56,
+      "height": 77,
+      "texture_px": [
+        56,
+        77
+      ],
+      "offset": 897416,
+      "length": 4312,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "dfe6b94ef4d74078a9daff49247eb89818b9880b5af8c0f69e112c3e603af6cd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_16.png",
+      "width": 53,
+      "height": 73,
+      "texture_px": [
+        53,
+        73
+      ],
+      "offset": 901728,
+      "length": 3869,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "19cfbb0e6d6baf2a802c50a0420a6777d53023bde7e281e6643d271a9d8aac98",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_16.png",
+      "width": 46,
+      "height": 68,
+      "texture_px": [
+        46,
+        68
+      ],
+      "offset": 905597,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        66,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "078566c93d0e039d1f8f6593c13e1430b2c76f117a9913c1261a1ad42d45f2eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_16.png",
+      "width": 40,
+      "height": 62,
+      "texture_px": [
+        40,
+        62
+      ],
+      "offset": 908725,
+      "length": 2480,
+      "trim_origin_top_left_px": [
+        62,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "677c2ffdca6e863fea079c922c4fe776d9f46bdb292e59c02f67ef040d3bfa9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_16.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 911205,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "14395493414b7fcb38ce1acfe014c683645fd672b560a2ffb0896ad77a8065e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_16.png",
+      "width": 37,
+      "height": 56,
+      "texture_px": [
+        37,
+        56
+      ],
+      "offset": 913329,
+      "length": 2072,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        6
+      ],
+      "sha256": "52e21ac737ef386a4e17396dc901e0b49984aaaacd9969ab4c56d593e9d8de14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_s_17.png",
+      "width": 36,
+      "height": 60,
+      "texture_px": [
+        36,
+        60
+      ],
+      "offset": 915401,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "23386e8395b95c77ffd6d953094c77e3851261685e443c648e4ae23cba86929b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ssw_17.png",
+      "width": 48,
+      "height": 62,
+      "texture_px": [
+        48,
+        62
+      ],
+      "offset": 917561,
+      "length": 2976,
+      "trim_origin_top_left_px": [
+        52,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        10
+      ],
+      "sha256": "2b75d74edf81e1376a45c66e1554f4c5deb59b3f8a20d9a8f7e4a60efe67ab10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sw_17.png",
+      "width": 53,
+      "height": 63,
+      "texture_px": [
+        53,
+        63
+      ],
+      "offset": 920537,
+      "length": 3339,
+      "trim_origin_top_left_px": [
+        46,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        10
+      ],
+      "sha256": "06837e53485d00c76d8281485046ee00cf900dd4e97e7c71b2cecef150e5e397",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wsw_17.png",
+      "width": 51,
+      "height": 66,
+      "texture_px": [
+        51,
+        66
+      ],
+      "offset": 923876,
+      "length": 3366,
+      "trim_origin_top_left_px": [
+        45,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        12
+      ],
+      "sha256": "39cb4898be75ad70227e67356571147cefdf24fe91e6d9ce3b3c68774567d083",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_w_17.png",
+      "width": 46,
+      "height": 69,
+      "texture_px": [
+        46,
+        69
+      ],
+      "offset": 927242,
+      "length": 3174,
+      "trim_origin_top_left_px": [
+        49,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        14
+      ],
+      "sha256": "bd890f73d31199c3278cdfb6a7bb08ea51cc783ba93e4210a748491ade11ac42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_wnw_17.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 930416,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        15
+      ],
+      "sha256": "d550f3eff5e7e836dbd0c76cde5d6c99b28f01f7cd029165ef5047b80761a978",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nw_17.png",
+      "width": 38,
+      "height": 75,
+      "texture_px": [
+        38,
+        75
+      ],
+      "offset": 933469,
+      "length": 2850,
+      "trim_origin_top_left_px": [
+        65,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "2a2df581cfdd9df7aa8b280146de13d869b835111b063e68eeba71b7c03e9ff9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nnw_17.png",
+      "width": 38,
+      "height": 77,
+      "texture_px": [
+        38,
+        77
+      ],
+      "offset": 936319,
+      "length": 2926,
+      "trim_origin_top_left_px": [
+        64,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "84bfbdbdafbf76ced04cb076799b0cb6e7226cf8da70ec708c638101c0b805ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_n_17.png",
+      "width": 36,
+      "height": 76,
+      "texture_px": [
+        36,
+        76
+      ],
+      "offset": 939245,
+      "length": 2736,
+      "trim_origin_top_left_px": [
+        62,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "5e77d1f0d3f63176d6bab201ae1e99af6f362612bd5e4026fb361a5c14d6c569",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_nne_17.png",
+      "width": 48,
+      "height": 76,
+      "texture_px": [
+        48,
+        76
+      ],
+      "offset": 941981,
+      "length": 3648,
+      "trim_origin_top_left_px": [
+        60,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "36e6243d0efc5264602adb9806beadfa0154a89878176fd9d34f648fc8c22fbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ne_17.png",
+      "width": 53,
+      "height": 78,
+      "texture_px": [
+        53,
+        78
+      ],
+      "offset": 945629,
+      "length": 4134,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "d769d20ad01cfd73d4a5172e39e484c00552cd801abcdb1275249f8d247bb870",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ene_17.png",
+      "width": 51,
+      "height": 73,
+      "texture_px": [
+        51,
+        73
+      ],
+      "offset": 949763,
+      "length": 3723,
+      "trim_origin_top_left_px": [
+        64,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "a45f146f53975763388867224ab11ef696374789be077073ba5799715dcadaa8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_e_17.png",
+      "width": 46,
+      "height": 68,
+      "texture_px": [
+        46,
+        68
+      ],
+      "offset": 953486,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        65,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "b0a6066f8271fdeeac75080aaf7ccaff82ea0792d4fa8a16259a05d47fffee90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_ese_17.png",
+      "width": 42,
+      "height": 62,
+      "texture_px": [
+        42,
+        62
+      ],
+      "offset": 956614,
+      "length": 2604,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "9c6e1ed54d3d3de21411516a874aae2c28060fd00976063028392e51df1f7034",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_se_17.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 959218,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        8
+      ],
+      "sha256": "92df58ff57e0628cfce62205d0fa1d7301082d633fc2b9ab626254952fe84aa4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanPinningShot.atlas",
+      "name": "pin_sse_17.png",
+      "width": 37,
+      "height": 56,
+      "texture_px": [
+        37,
+        56
+      ],
+      "offset": 961364,
+      "length": 2072,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        6
+      ],
+      "sha256": "11fa8a9cbb521b99542f3c4bfc3557476241de37905b5063635dbb37ae2bec0c",
+      "empty": false
+    }
+  ],
+  "source_authority": "TechniquesOct07/Pinning/Pinning_Authored_Final.blend"
+}

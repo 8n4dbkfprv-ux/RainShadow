@@ -416,6 +416,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleCancelInput() {
+        if let combatDirector { combatDirector.cancelTargeting(); return }
         if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
             setJournalPresented(false)
@@ -443,6 +444,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleClearTargetingInput() {
+        if let combatDirector { combatDirector.cancelTargeting(); return }
         if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
             setJournalPresented(false)
