@@ -18,15 +18,16 @@ struct CombatReactionTests {
         #expect(dodge.finished && dodge.phase == 9)
     }
     @Test func everyReactionHasRegisteredEquipmentAndRestEndpoints() throws {
+        #expect(CombatReactionAnimationSet.hashes.keys.filter { $0.hasPrefix(CombatReactionAnimationSet.knockbackBody) }.count == 6)
         for character in CombatReactionAnimationSet.hashes.keys {
             let sprite = try IEIndexedSprite.load(character: character)
             try CombatReactionAnimationSet.validate(sprite, character: character)
-            for kind in CombatReactionKind.allCases { for facing in ActorFacing.allCases {
+            for kind in CombatReactionAnimationSet.kinds(for: character) { for facing in ActorFacing.allCases {
                 let frames = try (0..<kind.frames).map { phase in
                     try #require(sprite.frame(atlas: character + ".atlas", name: CombatReactionAnimationSet.name(kind, facing: facing, phase: phase)))
                 }
                 #expect(frames.first!.indices == frames.last!.indices)
-                if character == CombatReactionAnimationSet.body { #expect(Set(frames.map { Data($0.indices) }).count >= 6) }
+                if character == CombatReactionAnimationSet.body || character == CombatReactionAnimationSet.knockbackBody { #expect(Set(frames.map { Data($0.indices) }).count >= 6) }
             } }
         }
         try VossAnimationSet.validate(IEIndexedSprite.load(character: VossAnimationSet.character))

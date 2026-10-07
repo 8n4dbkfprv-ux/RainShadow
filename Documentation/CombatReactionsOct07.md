@@ -1,5 +1,9 @@
 # Human combat reactions — October 7
 
+Explosion-specific stumble/fall animations and impulse/friction movement are
+documented in [ExplosionKnockbackOct07.md](ExplosionKnockbackOct07.md); they
+supersede the generic flinch for displaced human blast survivors.
+
 Human combatants now use additive skeletal hit and dodge clips. Each has 16
 facings, with 8 hit frames and 10 dodge frames. The normal flinch lasts 0.4 s;
 Power Strike holds the same motion over 0.64 s and adds a stronger cosmetic

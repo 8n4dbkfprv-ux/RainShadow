@@ -95,6 +95,9 @@ struct Combatant: Codable, Equatable {
     // Optional fields keep checkpoints from before weapon techniques readable.
     var usedManeuvers: [CombatManeuver]? = nil
     var conditions: CombatConditions? = nil
+    /// Remaining end-of-turn burn ticks; absent in older saves. Refreshes, never stacks.
+    var burningTurns: Int? = nil
+    var isBurning: Bool { conscious && (burningTurns ?? 0) > 0 }
     // Optional additions preserve older checkpoints. Voss starts with the
     // level-one ability; NPCs need an explicitly authored positive dice count.
     var sneakDice: Int? = nil
@@ -173,6 +176,7 @@ struct TacticalCombat: Codable, Equatable {
             $0.position.x.isFinite && $0.position.y.isFinite && $0.maximumHP > 0
             && $0.hp >= 0 && $0.hp <= $0.maximumHP && $0.speed.isFinite && $0.speed >= 0
             && Set($0.usedManeuvers ?? []).count == ($0.usedManeuvers ?? []).count
+            && ($0.burningTurns.map { (1...2).contains($0) } ?? true)
             && (0...6).contains($0.sneakDamageDice)
             && ($0.combatFacing.map { (0..<16).contains($0) } ?? true)
             && ($0.lastSeenPosition.map { $0.x.isFinite && $0.y.isFinite } ?? true)
@@ -188,8 +192,24 @@ struct TacticalCombat: Codable, Equatable {
         log.append(text)
         if log.count > 30 { log.removeFirst(log.count - 30) }
     }
-    @discardableResult mutating func endTurn() -> Bool {
+    @discardableResult mutating func endTurn(burningHit: (Strike) -> Void = { _ in }) -> Bool {
         guard outcome == nil else { return false }
+        if current.isBurning {
+            let damage = roll(4)
+            var injury = damage
+            if current.player, isBear {
+                let absorbed = min(injury, bearForm!.temporaryHP)
+                bearForm!.temporaryHP -= absorbed; injury -= absorbed
+                if bearForm!.temporaryHP == 0 { endBearForm() }
+            }
+            actors[turn].hp = max(0, current.hp - injury)
+            let remaining = (current.burningTurns ?? 1) - 1
+            actors[turn].burningTurns = remaining > 0 && current.conscious ? remaining : nil
+            note("Burning: \(damage) to \(current.name).")
+            burningHit(.init(attacker: current.id, target: current.id, roll: 0, damage: damage, knockedOut: !current.conscious))
+            if !current.conscious { note("\(current.name) is out of the fight.") }
+            else if !current.isBurning { note("\(current.name)'s flames go out.") }
+        }
         actors[turn].conditions = nil
         actors[turn].sneakSpent = nil
         if current.player, isBear {
@@ -199,6 +219,7 @@ struct TacticalCombat: Codable, Equatable {
                 if !isBear { endBearForm() }
             }
         }
+        guard outcome == nil else { return true }
         repeat {
             turn = (turn + 1) % actors.count
             if turn == 0 { round += 1 }
@@ -207,6 +228,13 @@ struct TacticalCombat: Codable, Equatable {
         actors[turn].hideUsed = nil
         budget = CombatBudget()
         note("\(current.name)'s turn.")
+        return true
+    }
+    var canExtinguish: Bool { outcome == nil && current.isBurning && budget.canAttack }
+    @discardableResult mutating func extinguish() -> Bool {
+        guard canExtinguish, budget.spend(2) else { return false }
+        actors[turn].burningTurns = nil
+        note("\(current.name) extinguishes the flames (standard action).")
         return true
     }
     @discardableResult mutating func defend() -> Bool {
@@ -264,6 +292,7 @@ struct TacticalCombat: Codable, Equatable {
         var sneakDamage = 0
         var requestedSneakAttack = false
         var attackRolls: [Int] = []
+        var fireArrow = false
     }
     struct BarrelExplosion: Equatable {
         let barrel: CombatBarrel
@@ -387,7 +416,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     var canHide: Bool {
         outcome == nil && current.sneakDamageDice > 0 && current.hideUsed != true
-            && current.hidden != true && !(current.player && isBear)
+            && current.hidden != true && !current.isBurning && !(current.player && isBear)
     }
     @discardableResult mutating func hide(observed: Bool) -> Bool {
         guard canHide, !observed else { return false }
@@ -525,8 +554,14 @@ struct TacticalCombat: Codable, Equatable {
                 actors[target].conditions?.slowed = true
             }
         }
+        let fireArrow = ranged && maneuver == nil && !requireSneakAttack
+        if hit && fireArrow && actors[target].conscious {
+            actors[target].burningTurns = 2
+            note("\(actors[target].name) is Burning: 1–4 damage at the end of each of their next two turns. Extinguish uses a standard action.")
+        }
+        if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,
-                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls)
+                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow)
         note("\(current.name)\(maneuver.map { " — " + $0.title } ?? (ranged ? " fires" : "")): d20 \(die) + \(attackBonus) vs \(defence) — " +
              (hit ? "\(damage) to \(actors[target].name)." : "miss."))
         if sneakDamage > 0 { note("Sneak Attack: +\(sneakDamage) damage\(die == 20 ? " (critical)" : "").") }

@@ -25,8 +25,11 @@ enum WeaponTechniqueMotion {
 }
 
 enum CombatReactionKind: String, CaseIterable {
-    case hit, dodge
-    var frames: Int { self == .hit ? 8 : 10 }
+    case hit, dodge, stumble, fall
+    var frames: Int {
+        switch self { case .hit: 8; case .dodge: 10; case .stumble: 16; case .fall: 24 }
+    }
+    var isKnockback: Bool { self == .stumble || self == .fall }
 }
 
 /// Authored reaction clock; the optional lean adds weight without navigation displacement.
@@ -36,13 +39,13 @@ struct CombatRecoil {
     let direction: Double
     var elapsed = 0.0
     static let dodgeLeadTime = 3.0 / 20
-    var duration: Double { kind == .dodge ? 0.5 : strength > 1 ? 0.64 : 0.4 }
+    var duration: Double { kind.isKnockback ? Double(kind.frames) / 20 : kind == .dodge ? 0.5 : strength > 1 ? 0.64 : 0.4 }
     var phase: Int { min(kind.frames - 1, max(0, Int(elapsed / duration * Double(kind.frames)))) }
     var finished: Bool { elapsed >= duration }
     var angle: Double {
         let t = min(1, max(0, elapsed / duration))
         // Fast impact, one small settling motion, exact return to neutral.
-        return direction * (kind == .dodge ? 0 : strength) * 0.035 * sin(t * .pi) * (1 - 0.3 * t)
+        return direction * (kind == .hit ? strength : 0) * 0.035 * sin(t * .pi) * (1 - 0.3 * t)
     }
     init(from attacker: CGPoint, to target: CGPoint, heavy: Bool, kind: CombatReactionKind = .hit) {
         self.kind = kind

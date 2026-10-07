@@ -23,7 +23,16 @@ final class TacticalCombatDirector {
     private var badges: [String: SKLabelNode] = [:]
     private var rings: [String: SKShapeNode] = [:]
     private(set) var hitReactions: [String: CombatRecoil] = [:]
+    private var reactionFacings: [String: (start: ActorFacing, rest: ActorFacing)] = [:]
     private(set) var reactionNodes: [String: CharacterAppearanceNode] = [:]
+    private(set) var stealthNodes: [String: CharacterAppearanceNode] = [:]
+    private(set) var hideTransitions: [String: TimeInterval] = [:]
+    private var stealthTime: TimeInterval = 0
+    private var stealthTravel: [String: Double] = [:]
+    private var stealthPositions: [String: CGPoint] = [:]
+    private var preSneakMovementProfile: MovementProfile?
+    private(set) var burningNodes: [String: CharacterBurningVisual] = [:]
+    private var fireTime: TimeInterval = 0
     private var lastTime: TimeInterval?
     private var delay: TimeInterval = 0.5
     private var movingID: String?
@@ -56,7 +65,7 @@ final class TacticalCombatDirector {
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
     var debrisMoving: Bool { barrelNodes.values.contains { $0.isSimulating } }
-    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || !hitReactions.isEmpty }
+    var busy: Bool { !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || !hitReactions.isEmpty }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -74,7 +83,7 @@ final class TacticalCombatDirector {
         }
         let commands = [("combat.defend", "Defend [1]"), ("combat.end", "End turn [Enter]"), ("combat.yield", "Yield [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
             + CombatManeuver.allCases.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack")] {
+        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish")] {
             let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
             button.name = name
             button.fillColor = SKColor(white: 0.17, alpha: 1)
@@ -118,6 +127,8 @@ final class TacticalCombatDirector {
                 personalSpaceCells: 3)) }
         }
         layout()
+        updateStealth(delta: 0)
+        updateBurning(delta: 0)
         refresh()
         scene.context.session.checkpointCombat(self.combat)
     }
@@ -178,6 +189,7 @@ final class TacticalCombatDirector {
         buttons[10].alpha = combat.isPlayerTurn && !busy && !combat.isBear && combat.budget.canAttack && combat.current.sneakSpent != true && (playerHasSword || playerBowSupported) ? 1 : 0.35
         buttons[10].strokeColor = selectingSneakAttack ? .cyan : SKColor(white: 0.5, alpha: 1)
         (buttons[10].children.first as? SKLabelNode)?.text = combat.current.sneakSpent == true ? "Sneak · spent" : "Sneak attack +1d6"
+        buttons[11].alpha = combat.isPlayerTurn && !busy && combat.canExtinguish ? 1 : 0.35
         buttons[4].strokeColor = aimingFireArrow ? .cyan : SKColor(white: 0.5, alpha: 1)
         for actor in shown.actors {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
@@ -188,6 +200,7 @@ final class TacticalCombatDirector {
             if let condition = actor.conditions, !condition.label.isEmpty {
                 badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · " + condition.label
             }
+            if actor.isBurning { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Burning \(actor.burningTurns!)t" }
             if actor.hidden == true { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Hidden" }
             badges[actor.id]?.fontColor = actor.player ? .cyan : SKColor(red: 1, green: 0.7, blue: 0.55, alpha: 1)
             rings[actor.id]?.strokeColor = actor.id == shown.current.id ? .yellow : actor.player ? .cyan : .red
@@ -202,13 +215,22 @@ final class TacticalCombatDirector {
     }
     func command(_ digit: Int) {
         guard combat.isPlayerTurn, !busy, !scene.pause.isPausedByPlayer else { return }
+        if digit == 12 {
+            if combat.extinguish() {
+                cancelTargeting(); feedback = "Flames extinguished. Move or end your turn."
+                updateBurning(delta: 0); checkpoint()
+            } else { feedback = combat.current.isBurning ? "Extinguish needs a standard action." : "You are not burning."; refresh() }
+            return
+        }
         if digit == 10 {
             selectingSneakAttack = false; selectedManeuver = nil; aimingFireArrow = false; showingSight = true
             if combat.hide(observed: isObserved(combat.current, at: combat.current.position)) {
+                hideTransitions[combat.current.id] = 0
+                updateStealth(delta: 0)
                 feedback = "Hidden: attack with advantage. Sneak Attack adds +1d6. Red areas show enemy sight."
                 checkpoint()
             } else {
-                feedback = combat.canHide ? "Move outside the red sight cones or behind cover, then Hide." : combat.isBear ? "Hide requires human form." : "Hide is already active or spent this turn."
+                feedback = combat.canHide ? "Move outside the red sight cones or behind cover, then Hide." : combat.current.isBurning ? "Extinguish the flames before hiding." : combat.isBear ? "Hide requires human form." : "Hide is already active or spent this turn."
                 drawSight(); refresh()
             }
             return
@@ -242,7 +264,7 @@ final class TacticalCombatDirector {
             if combat.defend() { feedback = "Guard raised. Move or end your turn."; checkpoint() }
             else { feedback = "No standard action remains."; refresh() }
         case 2:
-            _ = combat.endTurn(); delay = 0.5; feedback = "Click ground to move • Click a rival to strike"; checkpoint()
+            endCombatTurn(); delay = 0.5; feedback = "Click ground to move • Click a rival to strike"; checkpoint()
         case 3:
             combat.yield(); checkpoint(); delay = 0.4
         case 4:
@@ -260,7 +282,7 @@ final class TacticalCombatDirector {
         case 5:
             guard aimingFireArrow || canUsePlayerBow() else { refresh(); return }
             aimingFireArrow.toggle()
-            feedback = aimingFireArrow ? "Fire arrow: click a rival or oil barrel. Blasts hit everyone." : "Click ground to move • Click a rival to strike"
+            feedback = aimingFireArrow ? "Fire arrow: hit a rival to burn them for 2 turns, or ignite a barrel. Blasts hit everyone." : "Click ground to move • Click a rival to strike"
             routePreview.path = nil; refresh()
         default: break
         }
@@ -359,6 +381,10 @@ final class TacticalCombatDirector {
         feedback = "Click ground to move • Click a rival to strike"
         checkpoint()
         if actor.player && !combat.isBear {
+            if combat.current.hidden == true {
+                preSneakMovementProfile = scene.detective.movementProfile
+                scene.detective.movementProfile.rateMultiplier *= 0.5
+            }
             scene.detective.walk(path: path, completeWhenStopped: true) { [weak self] in self?.movementCompleted() }
         } else {
             // The route was certified with actors blocking. Other combatants stay
@@ -375,6 +401,7 @@ final class TacticalCombatDirector {
         // accepted movement budget is still spent, never teleport through a blocker.
         if let point = actorNode(id)?.position { combat.reconcilePosition(id: id, point: point) }
         movingID = nil; enemyMover = nil; delay = 0.35
+        if let profile = preSneakMovementProfile { scene.detective.movementProfile = profile; preSneakMovementProfile = nil }
         revealObservedActors()
         if let actor = combat.actors.first(where: { $0.id == id }) {
             scene.navigation.updateActor(id: id, position: actor.position, isMoving: false)
@@ -452,14 +479,14 @@ final class TacticalCombatDirector {
         return node
     }
     private func beginReaction(_ result: TacticalCombat.Strike, target: Combatant,
-                               kind: CombatReactionKind, elapsed: Double = 0) {
+                               kind: CombatReactionKind, elapsed: Double = 0, source: CGPoint? = nil) {
         guard !result.knockedOut, let attacker = combat.actors.first(where: { $0.id == result.attacker }),
               combat.actors.contains(where: { $0.id == target.id && $0.conscious }) else { return }
         // The bear keeps its existing authored hit animation. Human equipment clips
         // must never be substituted during a transformation.
         guard !(target.player && (displayingBear || formTransition != nil)) else { return }
         var definition: CharacterDefinition
-        let facing: ActorFacing
+        var facing: ActorFacing
         if target.player {
             definition = .voss; facing = scene.detective.currentFacing
             let inventory = scene.context.session.characterInventory
@@ -477,6 +504,8 @@ final class TacticalCombatDirector {
                   actor.definition.appearance.body == .humanMale01 else { return }
             definition = actor.definition; facing = actor.currentFacing
         }
+        let restingFacing = facing
+        if let source, kind.isKnockback { facing = .orient(from: target.position, to: source) }
         do {
             let node: CharacterAppearanceNode
             if let existing = reactionNodes[target.id] { node = existing; try node.present(action: .idle, facing: facing, phase: 0); try node.apply(definition) }
@@ -487,8 +516,9 @@ final class TacticalCombatDirector {
             node.name = "combat.reaction." + target.id
             node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
             try node.presentReaction(kind, facing: facing, phase: 0)
-            var reaction = CombatRecoil(from: attacker.position, to: target.position, heavy: result.maneuver == .powerStrike, kind: kind)
+            var reaction = CombatRecoil(from: source ?? attacker.position, to: target.position, heavy: source != nil || result.maneuver == .powerStrike, kind: kind)
             reaction.elapsed = elapsed; hitReactions[target.id] = reaction
+            reactionFacings[target.id] = (facing, restingFacing)
         } catch { feedback = "Reaction artwork could not load." }
     }
 
@@ -496,7 +526,7 @@ final class TacticalCombatDirector {
         for id in Array(hitReactions.keys) {
             guard let reaction = hitReactions[id], let node = reactionNodes[id], let original = actorNode(id) else { continue }
             if reaction.finished {
-                node.setCombatRecoil(0); node.isHidden = true; hitReactions[id] = nil
+                node.setCombatRecoil(0); node.isHidden = true; hitReactions[id] = nil; reactionFacings[id] = nil
                 original.isHidden = !combat.actors.contains { $0.id == id && $0.conscious }
                 for decoration in [badges[id], rings[id]] as [SKNode?] {
                     decoration?.removeFromParent(); if let decoration { original.addChild(decoration) }
@@ -507,7 +537,10 @@ final class TacticalCombatDirector {
             node.visualHeightOffset = id == TacticalCombat.playerID ? scene.detective.visualHeightOffset : (original as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
             node.isHidden = false; original.isHidden = true
             if id == TacticalCombat.playerID { playerBowNode?.isHidden = true; playerMeleeNode?.isHidden = true }
-            try? node.presentReaction(reaction.kind, facing: node.currentFacing, phase: reaction.phase)
+            let facings = reactionFacings[id] ?? (node.currentFacing, node.currentFacing)
+            let facing = reaction.kind.isKnockback ? ExplosionKnockbackMotion.recoveryFacing(
+                from: facings.0, to: facings.1, phase: reaction.phase, frames: reaction.kind.frames) : facings.0
+            try? node.presentReaction(reaction.kind, facing: facing, phase: reaction.phase)
             node.setCombatRecoil(CGFloat(reaction.angle))
             scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
             for decoration in [badges[id], rings[id]] as [SKNode?] where decoration?.parent !== node {
@@ -516,10 +549,10 @@ final class TacticalCombatDirector {
         }
     }
 
-    private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant) {
-        if result.damage > 0 && !result.knockedOut { beginReaction(result, target: target, kind: .hit) }
+    private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant, reacts: Bool = true) {
+        if reacts && result.damage > 0 && !result.knockedOut { beginReaction(result, target: target, kind: .hit) }
         // Immediate bear attacks have no human wind-up presentation to anticipate.
-        if result.damage == 0 && hitReactions[target.id] == nil { beginReaction(result, target: target, kind: .dodge) }
+        if reacts && result.damage == 0 && hitReactions[target.id] == nil { beginReaction(result, target: target, kind: .dodge) }
         // Accepted damage is revealed by the action presentation at its hit marker.
         let effect = SKShapeNode(ellipseOf: CGSize(width: 52, height: 38))
         effect.position = CGPoint(x: target.position.x, y: target.position.y + 45)
@@ -529,6 +562,7 @@ final class TacticalCombatDirector {
         let number = SKLabelNode(fontNamed: "AvenirNext-Bold")
         number.text = result.damage > 0 ? "−\(result.damage)" : "MISS"
         if result.damage > 0, !result.knockedOut {
+            if result.fireArrow { number.text! += " · Burning" }
             if result.maneuver == .feintingCut { number.text! += " · Weakened" }
             if result.maneuver == .pinningShot { number.text! += " · Slowed" }
         }
@@ -537,7 +571,7 @@ final class TacticalCombatDirector {
         scene.depthWorldRoot.addChild(number)
         number.run(.sequence([.group([.moveBy(x: 0, y: 35, duration: 0.7), .fadeOut(withDuration: 0.8)]), .removeFromParent()]))
         if result.knockedOut {
-            hitReactions[target.id] = nil
+            hitReactions[target.id] = nil; reactionFacings[target.id] = nil
             reactionNodes[target.id]?.setCombatRecoil(0)
             reactionNodes[target.id]?.isHidden = true
             scene.navigation.unregisterActor(id: target.id)
@@ -740,7 +774,111 @@ final class TacticalCombatDirector {
             sightPreview.addChild(node)
         }
     }
+    private func endCombatTurn() {
+        let before = combat
+        var burn: TacticalCombat.Strike?
+        guard combat.endTurn(burningHit: { burn = $0 }) else { return }
+        if let burn { presentImpact(burn, target: before.current, reacts: false) }
+        updateBurning(delta: 0)
+    }
+
+    private func updateStealth(delta: TimeInterval) {
+        stealthTime += delta
+        let hidden = presentedCombat.actors.filter { $0.hidden == true && $0.conscious && !($0.player && displayingBear) }
+        let ids = Set(hidden.map(\.id))
+        for id in Array(stealthNodes.keys) where !ids.contains(id) || isStriking(id) || isShooting(id) || hitReactions[id] != nil {
+            let node = stealthNodes[id]!
+            guard !node.isHidden else { hideTransitions[id] = nil; continue }
+            node.isHidden = true; hideTransitions[id] = nil; stealthPositions[id] = nil; stealthTravel[id] = nil
+            // Never reveal the underlying body during another presentation.
+            if !isStriking(id) && !isShooting(id) && hitReactions[id] == nil {
+                actorNode(id)?.isHidden = !combat.actors.contains { $0.id == id && $0.conscious }
+                for decoration in [badges[id], rings[id]] as [SKNode?] {
+                    decoration?.removeFromParent(); if let decoration { actorNode(id)?.addChild(decoration) }
+                }
+            }
+        }
+        for actor in hidden where !isStriking(actor.id) && !isShooting(actor.id) && hitReactions[actor.id] == nil {
+            guard let original = actorNode(actor.id) else { continue }
+            var definition: CharacterDefinition
+            if actor.player {
+                definition = .voss
+                let inventory = scene.context.session.characterInventory
+                definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+                    $0.isEquipped(in: inventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
+                }
+                if let weapon = VossWeaponAppearance.equipped(in: inventory, catalog: scene.context.session.itemCatalog),
+                   let item = CharacterEquipmentCode(rawValue: weapon.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+                if let arrow = VossAmmunitionAppearance.equipped(in: inventory, catalog: scene.context.session.itemCatalog),
+                   let item = CharacterEquipmentCode(rawValue: arrow.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+            } else if let body = original as? CharacterAppearanceNode { definition = body.definition }
+            else { continue }
+            let facing = actor.player ? scene.detective.currentFacing : (original as? CharacterAppearanceNode)?.currentFacing ?? .south
+            do {
+                let node: CharacterAppearanceNode
+                if let existing = stealthNodes[actor.id] {
+                    node = existing
+                    if node.definition != definition { try node.apply(definition) }
+                } else {
+                    node = try CharacterAppearanceNode(definition: definition)
+                    node.name = "combat.stealth." + actor.id
+                    node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
+                    stealthNodes[actor.id] = node; scene.depthWorldRoot.addChild(node)
+                }
+                let clip: StealthClip, phase: Int
+                if let entered = hideTransitions[actor.id] {
+                    let elapsed = entered + delta
+                    hideTransitions[actor.id] = elapsed >= Double(StealthClip.hide.frames) / StealthAnimationSet.fps ? nil : elapsed
+                    clip = .hide; phase = StealthAnimationSet.phase(.hide, elapsed: elapsed)
+                } else if movingID == actor.id {
+                    let step = stealthPositions[actor.id].map { CombatNavigation.distance($0, original.position) } ?? 0
+                    stealthTravel[actor.id, default: 0] += step
+                    clip = .sneakwalk
+                    // One authored stride spans 0.88 m at the locked body density.
+                    phase = Int(stealthTravel[actor.id, default: 0] / 43 * Double(clip.frames)) % clip.frames
+                } else {
+                    clip = .sneakidle; phase = StealthAnimationSet.phase(.sneakidle, elapsed: stealthTime, looping: true)
+                }
+                stealthPositions[actor.id] = original.position
+                node.position = original.position
+                node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (original as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
+                try node.presentStealth(clip, facing: facing, phase: phase)
+                node.isHidden = false; original.isHidden = true
+                scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
+                for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] where decoration?.parent !== node {
+                    decoration?.removeFromParent(); if let decoration { node.addChild(decoration) }
+                }
+            } catch { hideTransitions[actor.id] = nil; feedback = "Stealth artwork could not load." }
+        }
+    }
+
+    private func updateBurning(delta: TimeInterval) {
+        fireTime += delta
+        let burning = presentedCombat.actors.filter(\.isBurning)
+        let ids = Set(burning.map(\.id))
+        for id in Array(burningNodes.keys) where !ids.contains(id) {
+            burningNodes.removeValue(forKey: id)?.removeFromParent()
+        }
+        for actor in burning {
+            let visual: CharacterBurningVisual
+            if let existing = burningNodes[actor.id] { visual = existing }
+            else { visual = CharacterBurningVisual(); burningNodes[actor.id] = visual }
+            // Follow the visible body through weapon, recoil, form and movement proxies.
+            let candidates: [SKNode?] = [reactionNodes[actor.id], stealthNodes[actor.id],
+                actor.player ? playerBowNode : nil, actor.player ? playerMeleeNode : nil, actorNode(actor.id)]
+            guard let body = candidates.compactMap({ $0 }).first(where: { !$0.isHidden }) else { visual.isHidden = true; continue }
+            if visual.parent !== body { visual.removeFromParent(); body.addChild(visual) }
+            visual.isHidden = false
+            let height = (body as? CharacterAppearanceNode)?.visualHeightOffset ?? (actor.player ? scene.detective.visualHeightOffset : 0)
+            visual.position.y = height
+            visual.sample(time: fireTime, bear: actor.player && displayingBear)
+        }
+    }
+
     private func enemyTurn() {
+        if combat.current.isBurning && combat.current.hp <= 8 && combat.extinguish() {
+            updateBurning(delta: 0); delay = 0.5; checkpoint(); return
+        }
         guard let target = combat.actors.first(where: { $0.player && $0.conscious }) else { return }
         if target.hidden == true {
             let lastSeen = target.lastSeenPosition ?? target.position
@@ -753,7 +891,7 @@ final class TacticalCombatDirector {
                 var searchTarget = target; searchTarget.position = lastSeen
                 if let path = CombatNavigation.approach(in: scene.navigation, actor: combat.current, target: searchTarget,
                     limit: combat.budget.availableMovement(speed: combat.current.speed)), move(path) { return }
-                _ = combat.endTurn(); delay = 0.5; checkpoint(); return
+                endCombatTurn(); delay = 0.5; checkpoint(); return
             }
         }
         let actor = combat.current
@@ -780,7 +918,7 @@ final class TacticalCombatDirector {
         if combat.budget.canAttack,
            let path = CombatNavigation.approach(in: scene.navigation, actor: actor, target: target,
                    limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))), move(path) { return }
-        _ = combat.endTurn(); delay = 0.5; checkpoint()
+        endCombatTurn(); delay = 0.5; checkpoint()
     }
     func update(at time: TimeInterval) {
         defer { lastTime = time }
@@ -848,11 +986,18 @@ final class TacticalCombatDirector {
                         let blast = BarrelBlastVisual(at: explosion.barrel.position)
                         scene.depthWorldRoot.addChild(blast); blasts.append(blast)
                         for hit in explosion.hits {
-                            if let target = shot.before.actors.first(where: { $0.id == hit.target }) { presentImpact(hit, target: target) }
+                            if let target = shot.before.actors.first(where: { $0.id == hit.target }) { presentImpact(hit, target: target, reacts: false) }
                         }
                     }
                 }
-                knockbacks = shot.displacements; knockbackElapsed = 0
+                if !shot.explosions.isEmpty {
+                    knockbacks = shot.displacements
+                    let impactElapsed = max(0, shot.elapsed - shot.impactTime)
+                    // advanceKnockback still runs later this tick. Both clocks
+                    // start at the same amount of time past the impact marker.
+                    knockbackElapsed = impactElapsed - delta
+                    beginExplosionReactions(shot, elapsed: impactElapsed)
+                }
                 synchronizeForm()
                 refresh()
             }
@@ -874,7 +1019,7 @@ final class TacticalCombatDirector {
         if var mover = enemyMover, let id = movingID, let node = actorNode(id) as? CharacterAppearanceNode {
             for _ in 0..<movementTicks.drain(deltaTime: delta) {
                 tick += 1
-                _ = mover.doStep(walkScale: MovementProfile.humanoid.walkScale ?? 0, time: tick)
+                _ = mover.doStep(walkScale: MovementProfile(rateMultiplier: combat.actors.first(where: { $0.id == id })?.hidden == true ? 0.5 : 1).walkScale ?? 0, time: tick)
                 if !mover.isMoving { break }
             }
             node.position = mover.position
@@ -889,20 +1034,35 @@ final class TacticalCombatDirector {
             enemyMover = mover
             if !mover.isMoving { movementCompleted() }
         }
-        guard movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, hitReactions.isEmpty else { return }
+        updateStealth(delta: delta)
+        updateBurning(delta: delta)
+        guard hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, hitReactions.isEmpty else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
         if !combat.isPlayerTurn { enemyTurn() }
     }
+    private func beginExplosionReactions(_ shot: BowShotPresentation, elapsed: TimeInterval) {
+        for target in shot.before.actors {
+            let blasts = shot.explosions.filter { $0.hits.contains { $0.target == target.id && $0.damage > 0 } }
+            guard let first = blasts.first,
+                  let hit = first.hits.first(where: { $0.target == target.id }),
+                  combat.actors.contains(where: { $0.id == target.id && $0.conscious }) else { continue }
+            let move = shot.displacements.first { $0.id == target.id }
+            let kind = ExplosionKnockbackMotion.reaction(
+                distanceFromBlast: CombatNavigation.distance(target.position, first.barrel.position),
+                blasts: blasts.count,
+                travel: move.map { CombatNavigation.distance($0.from, $0.to) } ?? 0)
+            beginReaction(hit, target: target, kind: kind, elapsed: elapsed, source: first.barrel.position)
+        }
+    }
+
     private func advanceKnockback(delta: TimeInterval) {
         guard !knockbacks.isEmpty else { return }
         knockbackElapsed += delta
-        let t = min(1, knockbackElapsed / 0.35)
-        let ease = CGFloat(1 - pow(1 - t, 3))
+        let settled = knockbacks.allSatisfy { knockbackElapsed >= ExplosionKnockbackMotion.stopTime(from: $0.from, to: $0.to) }
         for move in knockbacks {
-            let point = CGPoint(x: move.from.x + (move.to.x - move.from.x) * ease,
-                                y: move.from.y + (move.to.y - move.from.y) * ease).rounded
+            let point = ExplosionKnockbackMotion.position(from: move.from, to: move.to, elapsed: knockbackElapsed)
             var nodes = [actorNode(move.id)].compactMap { $0 }
             if move.id == TacticalCombat.playerID {
                 scene.detective.position = point; scene.detective.syncMovablePosition(point)
@@ -916,15 +1076,18 @@ final class TacticalCombatDirector {
             // Turns remain locked; reserve the accepted endpoint throughout presentation.
             scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false)
         }
-        if t >= 1 { knockbacks.removeAll() }
+        if settled { knockbacks.removeAll() }
     }
     func finish() {
         guard !finished, combat.outcome != nil else { return }
         finished = true
         scene.detective.setCombatRecoil(0)
         crew.forEach { $0.setCombatRecoil(0) }; bearNode?.setCombatRecoil(0)
-        hitReactions.removeAll()
+        hitReactions.removeAll(); reactionFacings.removeAll()
         reactionNodes.values.forEach { $0.removeFromParent() }; reactionNodes.removeAll()
+        if let profile = preSneakMovementProfile { scene.detective.movementProfile = profile; preSneakMovementProfile = nil }
+        stealthNodes.values.forEach { $0.removeFromParent() }; stealthNodes.removeAll(); hideTransitions.removeAll()
+        burningNodes.values.forEach { $0.removeFromParent() }; burningNodes.removeAll()
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }

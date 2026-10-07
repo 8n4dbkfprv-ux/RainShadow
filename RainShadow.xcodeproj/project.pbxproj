@@ -42,6 +42,19 @@
 		C0DE1F120000000000000011 /* HumanReactionsMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F120000000000000001 /* HumanReactionsMail */; };
 		C0DE1F110000000000000011 /* HumanReactionsSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F110000000000000001 /* HumanReactionsSword */; };
 		C0DE1F100000000000000011 /* HumanReactions in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F100000000000000001 /* HumanReactions */; };
+		C0DE1F250000000000000011 /* HumanKnockbackArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F250000000000000001 /* HumanKnockbackArrow */; };
+		C0DE1F240000000000000011 /* HumanKnockbackBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F240000000000000001 /* HumanKnockbackBow */; };
+		C0DE1F230000000000000011 /* HumanKnockbackHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F230000000000000001 /* HumanKnockbackHelmet */; };
+		C0DE1F220000000000000011 /* HumanKnockbackMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F220000000000000001 /* HumanKnockbackMail */; };
+		C0DE1F210000000000000011 /* HumanKnockbackSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F210000000000000001 /* HumanKnockbackSword */; };
+		C0DE1F300000000000000011 /* HumanStealth in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F300000000000000001 /* HumanStealth */; };
+		C0DE1F310000000000000011 /* HumanStealthSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F310000000000000001 /* HumanStealthSword */; };
+		C0DE1F320000000000000011 /* HumanStealthMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F320000000000000001 /* HumanStealthMail */; };
+		C0DE1F330000000000000011 /* HumanStealthHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F330000000000000001 /* HumanStealthHelmet */; };
+		C0DE1F340000000000000011 /* HumanStealthBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F340000000000000001 /* HumanStealthBow */; };
+		C0DE1F350000000000000011 /* HumanStealthArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F350000000000000001 /* HumanStealthArrow */; };
+		C0DE1F360000000000000011 /* HumanSneakShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F360000000000000001 /* HumanSneakShot */; };
+		C0DE1F200000000000000011 /* HumanKnockback in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F200000000000000001 /* HumanKnockback */; };
 		C0DE1ED00000000000000021 /* BearGuardian in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1ED00000000000000001 /* BearGuardian */; };
 		C0DE1EE00000000000000021 /* WharfLookoutShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EE00000000000000001 /* WharfLookoutShot */; };
 		C0DE1EF20000000000000021 /* HumanMelee in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF20000000000000001 /* HumanMelee */; };
@@ -59,6 +72,19 @@
 		C0DE1F120000000000000021 /* HumanReactionsMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F120000000000000001 /* HumanReactionsMail */; };
 		C0DE1F110000000000000021 /* HumanReactionsSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F110000000000000001 /* HumanReactionsSword */; };
 		C0DE1F100000000000000021 /* HumanReactions in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F100000000000000001 /* HumanReactions */; };
+		C0DE1F250000000000000021 /* HumanKnockbackArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F250000000000000001 /* HumanKnockbackArrow */; };
+		C0DE1F240000000000000021 /* HumanKnockbackBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F240000000000000001 /* HumanKnockbackBow */; };
+		C0DE1F230000000000000021 /* HumanKnockbackHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F230000000000000001 /* HumanKnockbackHelmet */; };
+		C0DE1F220000000000000021 /* HumanKnockbackMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F220000000000000001 /* HumanKnockbackMail */; };
+		C0DE1F210000000000000021 /* HumanKnockbackSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F210000000000000001 /* HumanKnockbackSword */; };
+		C0DE1F300000000000000021 /* HumanStealth in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F300000000000000001 /* HumanStealth */; };
+		C0DE1F310000000000000021 /* HumanStealthSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F310000000000000001 /* HumanStealthSword */; };
+		C0DE1F320000000000000021 /* HumanStealthMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F320000000000000001 /* HumanStealthMail */; };
+		C0DE1F330000000000000021 /* HumanStealthHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F330000000000000001 /* HumanStealthHelmet */; };
+		C0DE1F340000000000000021 /* HumanStealthBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F340000000000000001 /* HumanStealthBow */; };
+		C0DE1F350000000000000021 /* HumanStealthArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F350000000000000001 /* HumanStealthArrow */; };
+		C0DE1F360000000000000021 /* HumanSneakShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F360000000000000001 /* HumanSneakShot */; };
+		C0DE1F200000000000000021 /* HumanKnockback in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F200000000000000001 /* HumanKnockback */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +117,19 @@
 		C0DE1F120000000000000001 /* HumanReactionsMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanReactionsMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanReactionsMail"; sourceTree = SOURCE_ROOT; };
 		C0DE1F110000000000000001 /* HumanReactionsSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanReactionsSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanReactionsSword"; sourceTree = SOURCE_ROOT; };
 		C0DE1F100000000000000001 /* HumanReactions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanReactions; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanReactions"; sourceTree = SOURCE_ROOT; };
+		C0DE1F250000000000000001 /* HumanKnockbackArrow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockbackArrow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockbackArrow"; sourceTree = SOURCE_ROOT; };
+		C0DE1F240000000000000001 /* HumanKnockbackBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockbackBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockbackBow"; sourceTree = SOURCE_ROOT; };
+		C0DE1F230000000000000001 /* HumanKnockbackHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockbackHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockbackHelmet"; sourceTree = SOURCE_ROOT; };
+		C0DE1F220000000000000001 /* HumanKnockbackMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockbackMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockbackMail"; sourceTree = SOURCE_ROOT; };
+		C0DE1F210000000000000001 /* HumanKnockbackSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockbackSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockbackSword"; sourceTree = SOURCE_ROOT; };
+		C0DE1F300000000000000001 /* HumanStealth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealth; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealth"; sourceTree = SOURCE_ROOT; };
+		C0DE1F310000000000000001 /* HumanStealthSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthSword"; sourceTree = SOURCE_ROOT; };
+		C0DE1F320000000000000001 /* HumanStealthMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthMail"; sourceTree = SOURCE_ROOT; };
+		C0DE1F330000000000000001 /* HumanStealthHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthHelmet"; sourceTree = SOURCE_ROOT; };
+		C0DE1F340000000000000001 /* HumanStealthBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthBow"; sourceTree = SOURCE_ROOT; };
+		C0DE1F350000000000000001 /* HumanStealthArrow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthArrow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthArrow"; sourceTree = SOURCE_ROOT; };
+		C0DE1F360000000000000001 /* HumanSneakShot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanSneakShot; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanSneakShot"; sourceTree = SOURCE_ROOT; };
+		C0DE1F200000000000000001 /* HumanKnockback */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanKnockback; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanKnockback"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -248,6 +287,8 @@
 				Gameplay/Navigation/WeaponTechniqueMotion.swift,
 				Gameplay/Navigation/WeaponTechniqueAnimationSet.swift,
 				Gameplay/Navigation/CombatReactionAnimationSet.swift,
+				Gameplay/Navigation/ExplosionKnockbackMotion.swift,
+				Gameplay/Navigation/StealthAnimationSet.swift,
 				Gameplay/Navigation/SwordSwingPath.swift,
 				Gameplay/Navigation/BowAttackRules.swift,
 				Resources/Art/Combat/oil_barrel_v01.png,
@@ -1701,6 +1742,8 @@
 				Gameplay/Navigation/WeaponTechniqueMotion.swift,
 				Gameplay/Navigation/WeaponTechniqueAnimationSet.swift,
 				Gameplay/Navigation/CombatReactionAnimationSet.swift,
+				Gameplay/Navigation/ExplosionKnockbackMotion.swift,
+				Gameplay/Navigation/StealthAnimationSet.swift,
 				Gameplay/Navigation/SwordSwingPath.swift,
 				Gameplay/Navigation/BowAttackRules.swift,
 				Resources/Art/Combat/oil_barrel_v01.png,
@@ -3102,6 +3145,19 @@
 				C0DE1F120000000000000001 /* HumanReactionsMail */,
 				C0DE1F110000000000000001 /* HumanReactionsSword */,
 				C0DE1F100000000000000001 /* HumanReactions */,
+				C0DE1F250000000000000001 /* HumanKnockbackArrow */,
+				C0DE1F240000000000000001 /* HumanKnockbackBow */,
+				C0DE1F230000000000000001 /* HumanKnockbackHelmet */,
+				C0DE1F220000000000000001 /* HumanKnockbackMail */,
+				C0DE1F210000000000000001 /* HumanKnockbackSword */,
+				C0DE1F300000000000000001 /* HumanStealth */,
+				C0DE1F310000000000000001 /* HumanStealthSword */,
+				C0DE1F320000000000000001 /* HumanStealthMail */,
+				C0DE1F330000000000000001 /* HumanStealthHelmet */,
+				C0DE1F340000000000000001 /* HumanStealthBow */,
+				C0DE1F350000000000000001 /* HumanStealthArrow */,
+				C0DE1F360000000000000001 /* HumanSneakShot */,
+				C0DE1F200000000000000001 /* HumanKnockback */,
 			);
 			name = "Indexed Avatar Bundles";
 			sourceTree = "<group>";
@@ -3271,6 +3327,19 @@
 				C0DE1F120000000000000011 /* HumanReactionsMail in Resources */,
 				C0DE1F110000000000000011 /* HumanReactionsSword in Resources */,
 				C0DE1F100000000000000011 /* HumanReactions in Resources */,
+				C0DE1F250000000000000011 /* HumanKnockbackArrow in Resources */,
+				C0DE1F240000000000000011 /* HumanKnockbackBow in Resources */,
+				C0DE1F230000000000000011 /* HumanKnockbackHelmet in Resources */,
+				C0DE1F220000000000000011 /* HumanKnockbackMail in Resources */,
+				C0DE1F210000000000000011 /* HumanKnockbackSword in Resources */,
+				C0DE1F300000000000000011 /* HumanStealth in Resources */,
+				C0DE1F310000000000000011 /* HumanStealthSword in Resources */,
+				C0DE1F320000000000000011 /* HumanStealthMail in Resources */,
+				C0DE1F330000000000000011 /* HumanStealthHelmet in Resources */,
+				C0DE1F340000000000000011 /* HumanStealthBow in Resources */,
+				C0DE1F350000000000000011 /* HumanStealthArrow in Resources */,
+				C0DE1F360000000000000011 /* HumanSneakShot in Resources */,
+				C0DE1F200000000000000011 /* HumanKnockback in Resources */,
 			);
 		};
 		DAAF9D31300A69350071746D /* Resources */ = {
@@ -3307,6 +3376,19 @@
 				C0DE1F120000000000000021 /* HumanReactionsMail in Resources */,
 				C0DE1F110000000000000021 /* HumanReactionsSword in Resources */,
 				C0DE1F100000000000000021 /* HumanReactions in Resources */,
+				C0DE1F250000000000000021 /* HumanKnockbackArrow in Resources */,
+				C0DE1F240000000000000021 /* HumanKnockbackBow in Resources */,
+				C0DE1F230000000000000021 /* HumanKnockbackHelmet in Resources */,
+				C0DE1F220000000000000021 /* HumanKnockbackMail in Resources */,
+				C0DE1F210000000000000021 /* HumanKnockbackSword in Resources */,
+				C0DE1F300000000000000021 /* HumanStealth in Resources */,
+				C0DE1F310000000000000021 /* HumanStealthSword in Resources */,
+				C0DE1F320000000000000021 /* HumanStealthMail in Resources */,
+				C0DE1F330000000000000021 /* HumanStealthHelmet in Resources */,
+				C0DE1F340000000000000021 /* HumanStealthBow in Resources */,
+				C0DE1F350000000000000021 /* HumanStealthArrow in Resources */,
+				C0DE1F360000000000000021 /* HumanSneakShot in Resources */,
+				C0DE1F200000000000000021 /* HumanKnockback in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

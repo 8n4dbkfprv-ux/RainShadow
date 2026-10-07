@@ -115,10 +115,14 @@ import SpriteKit
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_SNEAK_ONLY"] == "1" {
                 let sneakStore = SaveStore(key: "RainShadow.QA.Sneak.\(UUID().uuidString)")
                 defer { sneakStore.reset() }
+                var sneakArmor = true
                 func openFight(_ model: TacticalCombat) async throws {
+                    var equipment: [String: PersistedCarriedItemStack] = ["weapon1": .init(id: "lantern-shortsword", quantity: 1)]
+                    if sneakArmor { equipment["coat"] = .init(id: "splint-mail", quantity: 1); equipment["fedora"] = .init(id: "iron-helmet", quantity: 1) }
+                    else { equipment["weapon1"] = .init(id: "elven-court-bow", quantity: 1); equipment["quiver1"] = .init(id: "elven-court-arrow", quantity: 1) }
                     sneakStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(model),
                         hasSeenOpening: true, hasCompletedOfficeCaseIntro: true,
-                        equippedItems: ["weapon1": .init(id: "lantern-shortsword", quantity: 1)],
+                        equippedItems: equipment,
                         hasSeededStarterKit: true, hasReceivedArmorKit: true,
                         hasReceivedElvenCourtBow: true, hasReceivedElvenCourtArrow: true))
                     context = GameContext(saveStore: sneakStore); context.router.start(in: view)
@@ -131,7 +135,9 @@ import SpriteKit
                     let event = GamePointerEvent(location: scene.convert(.zero, from: button), kind: .mouse)
                     scene.handlePointerDown(event); scene.handlePointerUp(event)
                 }
-                for ranged in [false, true] {
+                let jumpOnly = ProcessInfo.processInfo.environment["RAINSHADOW_QA_SNEAK_JUMP_ONLY"] == "1"
+                for ranged in (jumpOnly ? [false] : [false, true]) {
+                    sneakArmor = !ranged
                     let label = ranged ? "bow-sneak" : "melee-sneak"
                     var actors = [beforeChromeClick.actors.first { $0.player }!, beforeChromeClick.actors.first { !$0.player && $0.id.hasSuffix(".0") }!]
                     var site: CGPoint?
@@ -173,10 +179,50 @@ import SpriteKit
                               "\(label): Hide outside sight preserves the standard action")
                     try check(GameSession(saveStore: sneakStore).tacticalCombat == director.combat,
                               "\(label): hiding is checkpointed")
+                    guard let crouch = director.stealthNodes[director.combat.current.id] else { throw Failure(message: "Missing stealth body") }
+                    try check(crouch.currentStealth == .hide && director.busy, "\(label): Hide plays its crouching transition")
+                    scene.handleTacticalPauseInput()
+                    let hidePhase = crouch.currentPhase
+                    try await Task.sleep(for: .milliseconds(180))
+                    try check(crouch.currentPhase == hidePhase, "\(label): pause freezes the crouching transition")
+                    scene.handleTacticalPauseInput()
+                    try await wait { !director.busy && crouch.currentStealth == .sneakidle }
+                    try check(Set(crouch.definition.appearance.equipment.map(\.item)).isSuperset(of: sneakArmor ? [.lanternShortsword, .splintMail, .ironHelmet] : [.elvenCourtBow, .elvenCourtArrow]), "\(label): crouch retains equipped gear")
+                    try check(scene.detective.isHidden && !crouch.isHidden, "\(label): crouched body replaces the standing body")
                     try capture(label + "-hidden")
                     let hidden = director.combat
                     try await openFight(hidden); director = scene.combatDirector!
                     try check(director.combat == hidden, "\(label): reload retains hidden state and enemy facing")
+                    try check(director.stealthNodes[hidden.current.id]?.currentStealth == .sneakidle, "\(label): reload restores crouched idle without replaying Hide")
+                    if !ranged {
+                        var destination: CGPoint?
+                        let mover = hidden.current
+                        for i in 0..<32 {
+                            let angle = Double(i) * .pi / 16
+                            let point = CGPoint(x: mover.position.x + cos(angle) * 90, y: mover.position.y + sin(angle) * 90 * 0.75)
+                            guard let route = CombatNavigation.route(in: scene.navigation, actor: mover, to: point),
+                                  CombatNavigation.length(route, from: mover.position) > 50,
+                                  CombatNavigation.length(route, from: mover.position) < 130,
+                                  let endpoint = route.destination,
+                                  !director.isObserved(mover, at: endpoint) else { continue }
+                            destination = point; break
+                        }
+                        guard let destination else { throw Failure(message: "No hidden movement site") }
+                        click(scene, world: destination)
+                        try await wait { director.stealthNodes[mover.id]?.currentStealth == .sneakwalk }
+                        let walker = director.stealthNodes[mover.id]!
+                        let phase = walker.currentPhase
+                        try await wait { walker.currentPhase != phase }
+                        scene.handleTacticalPauseInput()
+                        let position = walker.position, pausedPhase = walker.currentPhase
+                        try await Task.sleep(for: .milliseconds(180))
+                        try check(walker.position == position && walker.currentPhase == pausedPhase, "Hidden walk pauses its feet and travel together")
+                        try capture("stealth-walk")
+                        scene.handleTacticalPauseInput()
+                        try await wait { !director.busy }
+                        try check(walker.currentStealth == .sneakidle && director.combat.current.hidden == true, "Hidden walk returns to crouched idle")
+                        try await openFight(hidden); director = scene.combatDirector!
+                    }
                     try clickAction("sneak")
                     try check(director.selectingSneakAttack, "\(label): pointer selects Sneak Attack")
                     click(scene, world: site)
@@ -189,6 +235,27 @@ import SpriteKit
                     try check(GameSession(saveStore: sneakStore).tacticalCombat == accepted && accepted.current.sneakSpent == true,
                               "\(label): accepted bonus use is saved before impact")
                     try check(director.presentedCombat == hidden, "\(label): bonus damage waits for the hit marker")
+                    guard let stealthAttack = director.meleeAttack?.actor ?? director.rangedShot?.actor else { throw Failure(message: "Missing stealth attack body") }
+                    try check(stealthAttack.currentStealth == (ranged ? .sneakshoot : .sneakstab), "\(label): attack uses its distinct authored clip")
+                    try await wait { (director.meleeAttack?.elapsed ?? director.rangedShot?.elapsed ?? 0) > 0.2 }
+                    scene.handleTacticalPauseInput()
+                    let attackPhase = stealthAttack.currentPhase
+                    try await Task.sleep(for: .milliseconds(180))
+                    try check(stealthAttack.currentPhase == attackPhase && director.presentedCombat == hidden, "\(label): pause freezes stealth wind-up before damage")
+                    try capture(label + "-windup")
+                    scene.handleTacticalPauseInput()
+                    if let attack = director.meleeAttack {
+                        try check(attack.swingTrail == nil, "\(label): downward stab has no sweeping slash trail")
+                        try await wait { attack.elapsed >= 6.0 / StealthAnimationSet.fps }
+                        scene.handleTacticalPauseInput()
+                        let airbornePhase = attack.actor.currentPhase
+                        try check((6...8).contains(airbornePhase) && !attack.impactPresented,
+                                  "Melee sneak jump reaches its airborne apex before impact")
+                        try capture("melee-sneak-airborne")
+                        try await Task.sleep(for: .milliseconds(180))
+                        try check(attack.actor.currentPhase == airbornePhase, "Pause freezes the airborne jump pose")
+                        scene.handleTacticalPauseInput()
+                    }
                     if let shot = director.rangedShot {
                         try check(shot.fire.parent == nil, "\(label): explicit Sneak Shot uses an unlit arrow")
                         try await wait { shot.elapsed > 0.3 }; try capture(label + "-draw")
@@ -259,6 +326,258 @@ import SpriteKit
                 }
                 let data = try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys])
                 try data.write(to: output.appendingPathComponent("report.json")); NSApp.terminate(nil); return
+            }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BURNING_ONLY"] == "1" {
+                sawBowDraw = true; sawArrowFlight = true; sawArrowImpact = true
+                let fireStore = SaveStore(key: "RainShadow.QA.Burning.\(UUID().uuidString)")
+                defer { fireStore.reset() }
+                let player = beforeChromeClick.actors.first { $0.player }!
+                let enemy = beforeChromeClick.actors.first { !$0.player && $0.id.hasSuffix(".0") }!
+                let ignored = Array(scene.navigation.occupancy.actors.keys)
+                let site = try beforeChromeClick.liveBarrels.first(where: {
+                    CombatNavigation.distance(player.position, $0.position) > TacticalCombat.meleeReach &&
+                    CombatNavigation.clearLine(in: scene.navigation, from: player.position, to: $0.position, excluding: ignored)
+                }).map { $0.position } ?? { throw Failure(message: "No fire-arrow QA firing lane") }()
+                func openFireFight(_ model: TacticalCombat) async throws {
+                    fireStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(model),
+                        hasSeenOpening: true, hasCompletedOfficeCaseIntro: true,
+                        equippedItems: ["weapon1": .init(id: "elven-court-bow", quantity: 1), "quiver1": .init(id: "elven-court-arrow", quantity: 1)],
+                        hasSeededStarterKit: true, hasReceivedArmorKit: true,
+                        hasReceivedElvenCourtBow: true, hasReceivedElvenCourtArrow: true))
+                    context = GameContext(saveStore: fireStore); context.router.start(in: view)
+                    try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                    scene = view.scene as! CityDistrictScene
+                }
+                for playerTarget in [false, true] {
+                    let label = playerTarget ? "player" : "enemy"
+                    var actors = [player, enemy]
+                    actors[0].position = player.position; actors[1].position = site
+                    for i in actors.indices {
+                        actors[i].hp = 50; actors[i].maximumHP = 50; actors[i].conditions = nil; actors[i].burningTurns = nil
+                        actors[i].hidden = nil; actors[i].sneakSpent = nil
+                        actors[i].damageMin = 2; actors[i].damageMax = 2; actors[i].attackBonus = 100
+                        actors[i].rangedWeapon = .bow; actors[i].usedManeuvers = CombatManeuver.allCases
+                        actors[i].initiativeBonus = actors[i].player != playerTarget ? 100 : -100
+                    }
+                    let victim = actors[playerTarget ? 0 : 1]
+                    var fixture: TacticalCombat?
+                    for seed in 1...40 {
+                        let trial = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                            actors: actors, seed: UInt64(seed))
+                        var probe = trial
+                        if probe.attack(target: victim.id, clearLine: true, ranged: true)?.damage == 2 { fixture = trial; break }
+                    }
+                    guard let fixture else { throw Failure(message: "No deterministic hit fixture") }
+                    try await openFireFight(fixture)
+                    var director = scene.combatDirector!
+                    if !playerTarget {
+                        try await wait { !director.busy }; director.command(5)
+                        click(scene, world: CGPoint(x: victim.position.x, y: victim.position.y + 40))
+                    }
+                    try await wait { director.rangedShot != nil }
+                    let shot = director.rangedShot!, accepted = director.combat
+                    try check(accepted.actors.first { $0.id == victim.id }?.burningTurns == 2,
+                        "\(label): a hit accepts two burn turns atomically")
+                    try check(director.burningNodes[victim.id] == nil && director.presentedCombat == shot.before,
+                        "\(label): persistent flames remain hidden before impact")
+                    try check(GameSession(saveStore: fireStore).tacticalCombat == accepted,
+                        "\(label): in-flight checkpoint already contains the burn")
+                    try await wait { shot.impactPresented && (director.hitReactions[victim.id]?.elapsed ?? 0) > 0.1 }
+                    let effect = director.burningNodes[victim.id]!
+                    try check(effect.parent === director.reactionNodes[victim.id] && !effect.isHidden,
+                        "\(label): burning follows the visible hit-reaction body")
+                    try check(shot.fire.children.filter { !$0.isHidden && $0.alpha > 0 }.count > 10,
+                        "\(label): fire impact presents a short flame burst")
+                    scene.handleTacticalPauseInput()
+                    let positions = effect.children.map(\.position), alphas = effect.children.map(\.alpha)
+                    let saved = director.combat
+                    try await Task.sleep(for: .milliseconds(250))
+                    try check(effect.children.map(\.position) == positions && effect.children.map(\.alpha) == alphas && director.combat == saved,
+                        "\(label): pause freezes flames, smoke and burn state")
+                    try capture("burning-" + label + "-impact")
+                    if let body = effect.parent, let texture = view.texture(from: body),
+                       let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
+                        try data.write(to: output.appendingPathComponent("burning-" + label + "-closeup.png"))
+                    }
+                    scene.handleTacticalPauseInput()
+                    try await Task.sleep(for: .milliseconds(35))
+                    try capture("burning-" + label + "-colour")
+                    try await wait { director.rangedShot == nil && director.hitReactions.isEmpty }
+                    try check(effect.parent === (playerTarget ? scene.detective : scene.childNode(withName: "//" + victim.id)),
+                        "\(label): flames return to the resting character after recoil")
+                    // Reopen the accepted hit while its shooter still owns the turn.
+                    // No attack or damage tick is replayed on load.
+                    try await openFireFight(accepted); director = scene.combatDirector!
+                    try check(director.combat == accepted && director.rangedShot == nil && director.burningNodes[victim.id] != nil,
+                        "\(label): reload restores burning without replaying impact or damage")
+                    if playerTarget {
+                        try await wait { director.combat.isPlayerTurn && !director.busy }
+                        try capture("burning-player-idle")
+                        if let body = director.burningNodes[victim.id]?.parent,
+                           let texture = view.texture(from: body),
+                           let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
+                            try data.write(to: output.appendingPathComponent("burning-player-idle-closeup.png"))
+                        }
+                        let hp = director.combat.current.hp
+                        director.command(12)
+                        try check(!director.combat.current.isBurning && director.burningNodes[victim.id] == nil && !director.combat.budget.canAttack,
+                            "Player can extinguish flames for a standard action")
+                        try check(director.combat.current.hp == hp && GameSession(saveStore: fireStore).tacticalCombat == director.combat,
+                            "Extinguishing deals no damage and checkpoints immediately")
+                    }
+                }
+                // Persistent flames follow walking and expire without real-time HP drain.
+                var walkers = [player, enemy]
+                walkers[0].position = player.position; walkers[1].position = site
+                for i in walkers.indices {
+                    walkers[i].hp = 100; walkers[i].maximumHP = 100; walkers[i].burningTurns = i == 0 ? 2 : nil
+                    walkers[i].initiativeBonus = i == 0 ? 100 : -100; walkers[i].rangedWeapon = nil
+                    walkers[i].usedManeuvers = CombatManeuver.allCases; walkers[i].attackBonus = -100
+                }
+                try await openFireFight(TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue, actors: walkers, seed: 1))
+                let walking = scene.combatDirector!
+                try await wait { !walking.busy }
+                var destination: CGPoint?
+                for step in 0..<16 {
+                    let angle = Double(step) * .pi / 8
+                    let point = CGPoint(x: player.position.x + cos(angle) * 65, y: player.position.y + sin(angle) * 65 * 0.75).rounded
+                    if let path = CombatNavigation.route(in: scene.navigation, actor: walking.combat.current, to: point),
+                       CombatNavigation.length(path, from: player.position) < 90,
+                       CombatNavigation.distance(point, site) > 120 { destination = point; break }
+                }
+                guard let destination else { throw Failure(message: "No certified burning walk") }
+                click(scene, world: destination)
+                try await wait { walking.isWalking(player.id) }
+                let flame = walking.burningNodes[player.id]!
+                try await Task.sleep(for: .milliseconds(160))
+                try check(flame.parent === scene.detective && flame.parent!.position != player.position && walking.combat.current.burningTurns == 2,
+                    "Burning particles move with the walking player without consuming a turn")
+                try await wait { !walking.busy }
+                try check(walking.combat.current.hp == 100, "Real-time animation and movement do not tick burn damage")
+                for remaining in [1, 0] {
+                    walking.command(2)
+                    try check((walking.combat.actors.first { $0.player }!.burningTurns ?? 0) == remaining,
+                        "Ending an affected turn leaves \(remaining) burn ticks")
+                    if remaining == 0 {
+                        try check(walking.burningNodes[player.id] == nil && flame.parent == nil,
+                            "Natural expiration removes flame and smoke nodes immediately")
+                    }
+                    try await wait { walking.combat.isPlayerTurn && !walking.busy }
+                }
+                // At-risk enemies spend an action to extinguish instead of taking avoidable burn damage.
+                var actors = [player, enemy]
+                actors[0].position = player.position; actors[1].position = site
+                actors[0].hp = 50; actors[0].maximumHP = 50; actors[0].initiativeBonus = -100
+                actors[1].hp = 4; actors[1].burningTurns = 2; actors[1].initiativeBonus = 100
+                actors[1].usedManeuvers = CombatManeuver.allCases; actors[1].rangedWeapon = .bow
+                try await openFireFight(TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue, actors: actors, seed: 1))
+                let director = scene.combatDirector!
+                try await wait { !director.combat.current.isBurning }
+                try check(!director.combat.budget.canAttack && director.burningNodes[enemy.id] == nil && director.combat.current.hp == 4,
+                    "A badly hurt enemy extinguishes instead of spending its action on an attack")
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_KNOCKBACK_ONLY"] == "1" {
+                let motionStore = SaveStore(key: "RainShadow.QA.Knockback.\(UUID().uuidString)")
+                defer { motionStore.reset() }
+                let player = beforeChromeClick.actors.first { $0.player }!
+                let enemy = beforeChromeClick.actors.first { !$0.player && $0.id.hasSuffix(".0") }!
+                guard let source = beforeChromeClick.liveBarrels.first(where: {
+                    CombatNavigation.clearLine(in: scene.navigation, from: player.position, to: $0.position,
+                        excluding: Array(scene.navigation.occupancy.actors.keys))
+                }) else { throw Failure(message: "No certified knockback firing lane") }
+                let ignored = Array(scene.navigation.occupancy.actors.keys)
+                var sites: [CombatReactionKind: CGPoint] = [:]
+                for kind in [CombatReactionKind.stumble, .fall] {
+                    let distance: Double = kind == .fall ? 70 : 100
+                    let awayFromShooter = atan2((source.position.y - player.position.y) / 0.75, source.position.x - player.position.x)
+                    for step in 0..<64 {
+                        let angle = awayFromShooter + Double(step) * .pi / 32
+                        let proposed = CGPoint(x: source.position.x + cos(angle) * distance,
+                            y: source.position.y + sin(angle) * distance * 0.75).rounded
+                        guard let point = scene.navigation.nearestWalkablePoint(to: proposed),
+                              abs(CombatNavigation.distance(point, source.position) - distance) < 8,
+                              CombatNavigation.clearLine(in: scene.navigation, from: source.position, to: point, excluding: ignored) else { continue }
+                        var victim = enemy; victim.position = point
+                        let end = CombatNavigation.knockbackDestination(in: scene.navigation, actor: victim,
+                            awayFrom: source.position, actors: [player, victim], destroyedBarrels: beforeChromeClick.liveBarrels.map(\.id))
+                        guard CombatNavigation.distance(point, end) >= 60 else { continue }
+                        sites[kind] = point; break
+                    }
+                    try check(sites[kind] != nil, "Certified space exists for \(kind.rawValue) QA")
+                }
+                for playerTarget in [false, true] { for kind in [CombatReactionKind.stumble, .fall] {
+                    let label = "\(playerTarget ? "player" : "enemy")-\(kind.rawValue)"
+                    var actors = [player, enemy]
+                    actors[0].position = playerTarget ? sites[kind]! : player.position
+                    actors[1].position = playerTarget ? player.position : sites[kind]!
+                    for i in actors.indices {
+                        actors[i].hp = 100; actors[i].maximumHP = 100; actors[i].conditions = nil
+                        actors[i].rangedWeapon = .bow; actors[i].usedManeuvers = CombatManeuver.allCases
+                        actors[i].initiativeBonus = actors[i].player != playerTarget ? 100 : -100
+                    }
+                    let victim = actors[playerTarget ? 0 : 1]
+                    let fight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                        actors: actors, seed: 42, barrels: [source])
+                    var equipment: [String: PersistedCarriedItemStack] = ["weapon1": .init(id: playerTarget ? "lantern-shortsword" : "elven-court-bow", quantity: 1)]
+                    if playerTarget { equipment["coat"] = .init(id: "splint-mail", quantity: 1); equipment["fedora"] = .init(id: "iron-helmet", quantity: 1) }
+                    else { equipment["quiver1"] = .init(id: "elven-court-arrow", quantity: 1) }
+                    motionStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(fight), hasSeenOpening: true,
+                        hasCompletedOfficeCaseIntro: true, equippedItems: equipment, hasSeededStarterKit: true,
+                        hasReceivedArmorKit: true, hasReceivedElvenCourtBow: true, hasReceivedElvenCourtArrow: true))
+                    context = GameContext(saveStore: motionStore); context.router.start(in: view)
+                    try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                    scene = view.scene as! CityDistrictScene
+                    let director = scene.combatDirector!
+                    if !playerTarget {
+                        try await wait { !director.busy }
+                        scene.handleDialogueChoiceDigit(5)
+                        click(scene, world: CGPoint(x: source.position.x, y: source.position.y + 30))
+                    }
+                    try await wait { director.rangedShot != nil }
+                    let shot = director.rangedShot!, accepted = director.combat
+                    try await wait { (director.hitReactions[victim.id]?.elapsed ?? 0) >= 0.18 }
+                    let reaction = director.hitReactions[victim.id]!, node = director.reactionNodes[victim.id]!
+                    try check(reaction.kind == kind && node.currentReaction == kind && node.currentPhase > 0,
+                              "\(label): blast selects and plays its authored recovery")
+                    let move = shot.displacements.first { $0.id == victim.id }!
+                    try check(abs(reaction.elapsed - director.knockbackElapsed) < 0.000001,
+                              "\(label): physical shove and pose share the impact clock")
+                    try check(node.position == ExplosionKnockbackMotion.position(from: move.from, to: move.to, elapsed: director.knockbackElapsed),
+                              "\(label): animated body follows physical displacement")
+                    if playerTarget { try check(Set(node.definition.appearance.equipment.map(\.item)) == [.lanternShortsword, .splintMail, .ironHelmet], "\(label): armor and sword follow the fall") }
+                    scene.handleTacticalPauseInput()
+                    let elapsed = reaction.elapsed, phase = node.currentPhase, point = node.position
+                    scene.handleConfirmInput()
+                    try await Task.sleep(for: .milliseconds(200))
+                    try check(director.hitReactions[victim.id]?.elapsed == elapsed && node.currentPhase == phase && node.position == point && director.combat == accepted,
+                              "\(label): pause freezes body, movement and turn state")
+                    try capture("knockback-" + label + "-impact")
+                    scene.handleTacticalPauseInput()
+                    try await wait { director.knockbacks.isEmpty }
+                    try check(director.hitReactions[victim.id] != nil && director.busy && node.position == move.to,
+                              "\(label): character regains balance after movement stops")
+                    try capture("knockback-" + label + "-recovery")
+                    if let texture = view.texture(from: node), let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
+                        try data.write(to: output.appendingPathComponent("closeup-" + label + ".png"))
+                    }
+                    // Inspect the accepted event before the enemy's normal
+                    // post-animation turn progression can advance initiative.
+                    try await wait { director.hitReactions.isEmpty && director.knockbacks.isEmpty && director.rangedShot == nil }
+                    let original: SKNode = playerTarget ? scene.detective : scene.childNode(withName: "//" + victim.id)!
+                    try check(node.isHidden && !original.isHidden && original.position == move.to,
+                              "\(label): recovery restores the original actor at the saved endpoint")
+                    try check(director.combat == accepted && GameSession(saveStore: motionStore).tacticalCombat == accepted,
+                              "\(label): motion adds no damage, conditions or action cost")
+                    context = GameContext(saveStore: motionStore); context.router.start(in: view)
+                    try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                    scene = view.scene as! CityDistrictScene
+                    try check(scene.combatDirector!.combat == accepted && scene.combatDirector!.hitReactions.isEmpty && scene.combatDirector!.knockbacks.isEmpty,
+                              "\(label): reload does not replay the shove or fall")
+                } }
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
             }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_REACTIONS_ONLY"] == "1" {
                 let reactionStore = SaveStore(key: "RainShadow.QA.Reactions.\(UUID().uuidString)")
@@ -925,13 +1244,25 @@ import SpriteKit
             for (id, reaction) in barrelDirector.hitReactions {
                 let node = barrelDirector.reactionNodes[id]!
                 let original: SKNode = id == TacticalCombat.playerID ? scene.detective : scene.childNode(withName: "//" + id)!
-                try check(reaction.kind == .hit && node.position == original.position && !node.isHidden && original.isHidden,
+                try check(node.currentPhase > 0 && node.currentReaction == reaction.kind,
+                          "Blast plays the authored \(reaction.kind.rawValue) animation")
+                try check(reaction.kind != .dodge && node.currentReaction == reaction.kind && node.position == original.position && !node.isHidden && original.isHidden,
                           "Explosion reaction follows its displaced actor without a duplicate body")
+            }
+            let reactionClocks = barrelDirector.hitReactions.mapValues(\.elapsed)
+            let reactionPhases = barrelDirector.reactionNodes.mapValues(\.currentPhase)
+            for move in shot.displacements {
+                let node: SKNode = move.id == TacticalCombat.playerID ? scene.detective : scene.childNode(withName: "//" + move.id)!
+                try check(node.position == ExplosionKnockbackMotion.position(from: move.from, to: move.to, elapsed: barrelDirector.knockbackElapsed),
+                          "Explosion displacement follows the impulse and friction trajectory")
             }
             let pushTime = barrelDirector.knockbackElapsed
             let pushPositions = shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position }
             try check(!barrelDirector.knockbacks.isEmpty, "Knockback is animated during the blast")
             try await Task.sleep(for: .milliseconds(180))
+            try check(barrelDirector.hitReactions.mapValues(\.elapsed) == reactionClocks
+                && barrelDirector.reactionNodes.mapValues(\.currentPhase) == reactionPhases,
+                "Pause freezes the stumble or fall pose with the physical shove")
             try check(barrelDirector.blasts.map(\.elapsed) == blastTimes, "Pause freezes barrel explosion particles")
             try check(barrelDirector.knockbackElapsed == pushTime
                 && shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position } == pushPositions,
@@ -943,7 +1274,16 @@ import SpriteKit
             scene.handleTacticalPauseInput()
             try await wait { barrelDirector.barrelNodes[barrel.id]!.elapsed > 0.5 }
             try capture("barrel-fragments-airborne")
+            try check(barrelDirector.knockbacks.isEmpty && barrelDirector.hitReactions.values.contains { $0.kind.isKnockback },
+                      "Feet recover after the physical shove has stopped")
+            for (id, node) in barrelDirector.reactionNodes where !node.isHidden {
+                if let texture = view.texture(from: node), let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
+                    try data.write(to: output.appendingPathComponent("knockback-recovery-" + id + ".png"))
+                }
+            }
             try await wait { !barrelDirector.busy }
+            try check(barrelDirector.hitReactions.isEmpty && barrelDirector.reactionNodes.values.allSatisfy(\.isHidden),
+                      "All knockback recoveries finish before input is unlocked")
             try check(!scene.detective.isHidden && barrelDirector.blasts.isEmpty,
                 "Player bow recovery restores Voss and removes the blast")
             try check(shot.explosions.allSatisfy { scene.navigation.occupancy.actors[$0.barrel.id] == nil
