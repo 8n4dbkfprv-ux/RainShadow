@@ -1,5 +1,9 @@
 # Wharf Ladder lookout bow — October 6
 
+October 7 follow-up: player fire arrows and explosive barrel interactions are
+implemented in `ExplosiveBarrelsOct07.md`. The NPC-only and visual-fire-only
+scope statements below describe this document's initial October 6 version.
+
 The second gate opponent is a lookout with the Elven Court bow and arrow.
 He holds a clear firing position, seeks a reachable firing lane when blocked,
 and switches to the existing shortsword when engaged within melee reach.

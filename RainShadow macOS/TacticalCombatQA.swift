@@ -108,6 +108,7 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BARRELS_ONLY"] != "1" {
             for point in [HUDChromeLayout.leftRailLayout(for: scene.size).plateCenter,
                           HUDChromeLayout.rightRailLayout(for: scene.size).plateCenter] {
                 let location = scene.convert(point, from: scene.hudRoot)
@@ -341,6 +342,178 @@ import SpriteKit
                     view.window?.setContentSize(CGSize(width: 1100, height: 800))
                 }
             }
+            }
+            // A fresh copy of the actual staged gate tests player environmental
+            // targeting independently of the existing brawl/autoplay strategy.
+            let barrelStore = SaveStore(key: "RainShadow.QA.Barrels.\(UUID().uuidString)")
+            defer { barrelStore.reset() }
+            var barrelActors = beforeChromeClick.actors
+            for i in barrelActors.indices {
+                barrelActors[i].maximumHP = 20
+                barrelActors[i].hp = barrelActors[i].maximumHP
+                barrelActors[i].initiativeBonus = barrelActors[i].player ? 100 : -100
+            }
+            let barrelFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                actors: barrelActors, seed: 42, barrels: beforeChromeClick.barrels ?? [])
+            try check(!barrelFight.liveBarrels.isEmpty, "Gate stages targetable oil barrels on clear ground")
+            barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(barrelFight),
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
+            scene = view.scene as! CityDistrictScene
+            guard let barrelDirector = scene.combatDirector,
+                  let barrel = barrelDirector.combat.liveBarrels.first(where: {
+                      CombatNavigation.clearLine(in: scene.navigation, from: barrelDirector.combat.current.position,
+                          to: $0.position, excluding: [TacticalCombat.playerID, $0.id])
+                  }) else { throw Failure(message: "No player barrel firing lane") }
+            scene.handleDialogueChoiceDigit(5)
+            try check(barrelDirector.aimingFireArrow, "Player can select Fire arrow through scene input")
+            let barrelPoint = CGPoint(x: barrel.position.x, y: barrel.position.y + 30)
+            barrelDirector.hover(at: scene.convert(barrelPoint, from: scene.depthWorldRoot))
+            try capture("barrel-preview")
+            click(scene, world: barrelPoint)
+            guard let shot = barrelDirector.rangedShot else { throw Failure(message: "Player barrel shot was rejected") }
+            try check(!shot.explosions.isEmpty && scene.detective.isHidden,
+                "Player barrel shot plays the authored bow clip")
+            try check(GameSession(saveStore: barrelStore).tacticalCombat == barrelDirector.combat,
+                "Accepted chain explosion is saved before presentation")
+            try check(!shot.displacements.isEmpty, "Surviving blast targets receive accepted knockback endpoints")
+            let acceptedBarrelFight = barrelDirector.combat
+            try check(shot.before.liveBarrels.count > barrelDirector.combat.liveBarrels.count
+                && scene.depthWorldRoot.childNode(withName: barrel.id) != nil,
+                "Barrel stays visible until arrow impact")
+            try await wait { shot.elapsed > BowAttackRules.releaseTime + 0.04 }
+            try capture("player-fire-arrow")
+            try await wait { barrelDirector.blasts.first.map { $0.elapsed > 0.12 } == true }
+            try capture("barrel-explosion")
+            scene.handleTacticalPauseInput()
+            let blastTimes = barrelDirector.blasts.map(\.elapsed)
+            let pushTime = barrelDirector.knockbackElapsed
+            let pushPositions = shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position }
+            try check(!barrelDirector.knockbacks.isEmpty, "Knockback is animated during the blast")
+            try await Task.sleep(for: .milliseconds(180))
+            try check(barrelDirector.blasts.map(\.elapsed) == blastTimes, "Pause freezes barrel explosion particles")
+            try check(barrelDirector.knockbackElapsed == pushTime
+                && shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position } == pushPositions,
+                "Pause freezes knockback without advancing combat")
+            scene.handleTacticalPauseInput()
+            try await wait { !barrelDirector.busy }
+            try check(!scene.detective.isHidden && barrelDirector.blasts.isEmpty,
+                "Player bow recovery restores Voss and removes the blast")
+            try check(shot.explosions.allSatisfy { scene.navigation.occupancy.actors[$0.barrel.id] == nil
+                && scene.depthWorldRoot.childNode(withName: $0.barrel.id) == nil },
+                "Exploded barrels remove intact visuals and raster occupancy")
+            try check(shot.explosions.allSatisfy { scene.depthWorldRoot.childNode(withName: $0.barrel.id + ".remains") != nil },
+                "Explosions leave charred wooden debris on the ground")
+            try check(shot.displacements.allSatisfy { scene.navigation.occupancy.actors[$0.id]?.position == $0.to },
+                "Surviving actors finish at their saved knockback positions")
+            try capture("barrel-aftermath")
+            // Resume exactly the saved in-flight endpoint, with no animation replay.
+            barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(acceptedBarrelFight),
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+            scene = view.scene as! CityDistrictScene
+            try check(scene.combatDirector!.combat == acceptedBarrelFight
+                && scene.combatDirector!.rangedShot == nil
+                && shot.explosions.allSatisfy { scene.depthWorldRoot.childNode(withName: $0.barrel.id) == nil },
+                "Reload cannot rearm a barrel or replay its explosion")
+            try check(shot.explosions.allSatisfy { scene.depthWorldRoot.childNode(withName: $0.barrel.id + ".remains") != nil },
+                "Reload preserves broken barrel remains")
+            // Exercise a physical strike and its persistent, still-flammable spill.
+            let smashPlayer = barrelActors.first { $0.player }!
+            let smashCandidates = (0..<24).map { i in
+                let angle = CGFloat(i) * .pi / 12
+                return CGPoint(x: smashPlayer.position.x + cos(angle) * 85,
+                               y: smashPlayer.position.y + sin(angle) * 85 * 0.75).rounded
+            }
+            guard let smashPoint = smashCandidates.first(where: {
+                scene.navigation.searchMap.blockedInRadiusTile(at: $0, size: 3).contains(.passable)
+                    && CombatNavigation.clearLine(in: scene.navigation, from: smashPlayer.position, to: $0,
+                                                   excluding: [TacticalCombat.playerID])
+            }) else { throw Failure(message: "No close barrel site for physical strike") }
+            let smashFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                actors: barrelActors, seed: 42, barrels: [.init(id: "combat.oil.smash", position: smashPoint)])
+            barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(smashFight),
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
+            scene = view.scene as! CityDistrictScene
+            click(scene, world: CGPoint(x: smashPoint.x, y: smashPoint.y + 30))
+            let smashDirector = scene.combatDirector!
+            try check(smashDirector.combat.liveBarrels.first?.isBroken == true
+                && smashDirector.combat.liveBarrels.first?.exploded == false
+                && scene.navigation.occupancy.actors["combat.oil.smash"] == nil,
+                "Physical strike leaves flammable oil and debris and opens its raster cell")
+            try check(smashDirector.combat.actors == smashFight.actors && !smashDirector.combat.budget.canAttack,
+                "Breaking a barrel costs a standard action without blast damage")
+            try capture("barrel-spill")
+            let savedSpill = smashDirector.combat
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
+            scene = view.scene as! CityDistrictScene
+            try check(scene.combatDirector!.combat == savedSpill
+                && scene.depthWorldRoot.childNode(withName: "combat.oil.smash") != nil
+                && scene.navigation.occupancy.actors["combat.oil.smash"] == nil,
+                "Reload restores the oil spill without restoring a solid barrel")
+            // Start a fresh turn at a certified firing position to test spill ignition.
+            let fireCandidates = (0..<24).map { i in
+                let angle = CGFloat(i) * .pi / 12
+                return CGPoint(x: smashPoint.x + cos(angle) * 200,
+                               y: smashPoint.y + sin(angle) * 200 * 0.75).rounded
+            }
+            guard let firePoint = fireCandidates.first(where: {
+                CombatNavigation.route(in: scene.navigation, actor: smashPlayer, to: $0) != nil
+                    && CombatNavigation.clearLine(in: scene.navigation, from: $0, to: smashPoint,
+                                                   excluding: [TacticalCombat.playerID])
+            }) else { throw Failure(message: "No firing lane to spilled oil") }
+            var spillActors = barrelActors
+            spillActors[spillActors.firstIndex { $0.player }!].position = firePoint
+            let spillFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                actors: spillActors, seed: 42, barrels: savedSpill.barrels ?? [])
+            barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(spillFight),
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
+            scene = view.scene as! CityDistrictScene
+            scene.handleDialogueChoiceDigit(5)
+            click(scene, world: CGPoint(x: smashPoint.x, y: smashPoint.y + 10))
+            let spillDirector = scene.combatDirector!
+            try check(spillDirector.rangedShot?.explosions.count == 1, "Player can ignite spilled oil with a fire arrow")
+            try await wait { !spillDirector.busy }
+            try check(scene.depthWorldRoot.childNode(withName: "combat.oil.smash.remains") != nil,
+                "Ignited spill becomes charred remains")
+            // Swap the lookout and player in the same certified layout: the
+            // barrel that was unsafe for the AI now threatens only its opponent.
+            var aiActors = barrelActors
+            guard let playerIndex = aiActors.firstIndex(where: \.player),
+                  let lookoutIndex = aiActors.firstIndex(where: { !$0.player && $0.rangedWeapon == .bow })
+                else { throw Failure(message: "Missing lookout for barrel AI test") }
+            let oldPlayerPoint = aiActors[playerIndex].position
+            aiActors[playerIndex].position = aiActors[lookoutIndex].position
+            aiActors[lookoutIndex].position = oldPlayerPoint
+            for i in aiActors.indices { aiActors[i].initiativeBonus = i == lookoutIndex ? 200 : -100 }
+            let aiFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
+                actors: aiActors, seed: 42, barrels: barrelFight.barrels ?? [])
+            barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(aiFight),
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+            context = GameContext(saveStore: barrelStore); context.router.start(in: view)
+            try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.rangedShot != nil }
+            scene = view.scene as! CityDistrictScene
+            guard let aiShot = scene.combatDirector?.rangedShot else { throw Failure(message: "Lookout did not shoot") }
+            try check(!aiShot.explosions.isEmpty && aiShot.explosions.flatMap(\.hits).allSatisfy { $0.target == TacticalCombat.playerID },
+                "Lookout chooses a useful barrel shot without hitting its own crew")
+            try await wait { aiShot.elapsed > BowAttackRules.releaseTime + 0.04 }
+            try capture("lookout-barrel-shot")
+            try await wait { aiShot.impactPresented }
+            let playerPush = aiShot.displacements.first { $0.id == TacticalCombat.playerID }
+            try check(playerPush != nil, "Enemy barrel shot also pushes the surviving player")
+            try await wait { scene.combatDirector?.knockbacks.isEmpty == true }
+            try check(scene.detective.position == playerPush?.to
+                && scene.detective.movable.position == playerPush?.to
+                && scene.navigation.occupancy.actors[TacticalCombat.playerID]?.position == playerPush?.to,
+                "Player sprite, movement origin, and raster occupancy agree after knockback")
+            try capture("player-knockback-aftermath")
             try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
         } catch {
             try? capture("failure")

@@ -79,6 +79,9 @@ struct TacticalCombat: Codable, Equatable {
     /// Optional for compatibility with checkpoints made before Bear Form.
     /// Kept after reversion so reloading cannot grant another use.
     private(set) var bearForm: BearFormState?
+    /// Optional so older checkpoints keep their original encounter layout.
+    private(set) var barrels: [CombatBarrel]?
+    var liveBarrels: [CombatBarrel] { (barrels ?? []).filter { !$0.exploded } }
     var isBear: Bool { (bearForm?.turnsRemaining ?? 0) > 0 }
     var canTransform: Bool { isPlayerTurn && bearForm == nil && budget.canAttack }
     func movementSpeed(for actor: Combatant) -> Double {
@@ -93,9 +96,10 @@ struct TacticalCombat: Codable, Equatable {
     var current: Combatant { actors[turn] }
     var isPlayerTurn: Bool { outcome == nil && current.player }
 
-    init(encounterID: String, areaID: String, actors: [Combatant], seed: UInt64) {
+    init(encounterID: String, areaID: String, actors: [Combatant], seed: UInt64, barrels: [CombatBarrel] = []) {
         precondition(!actors.isEmpty && Set(actors.map(\.id)).count == actors.count)
         self.encounterID = encounterID; self.areaID = areaID; self.actors = actors
+        self.barrels = barrels.isEmpty ? nil : barrels
         randomState = seed
         for i in self.actors.indices { self.actors[i].initiative = roll(20) + self.actors[i].initiativeBonus }
         // Explicit adaptation: stable IDs break remaining ties (no engine object registry).
@@ -110,8 +114,12 @@ struct TacticalCombat: Codable, Equatable {
 
     /// Reject incompatible/corrupt checkpoints before indexing the active actor.
     var isValid: Bool {
-        version == 1 && (bearForm?.isValid ?? true) && (2...8).contains(actors.count) && actors.indices.contains(turn)
+        version == 1 && (bearForm?.isValid ?? true) && (barrels ?? []).count <= 8
+        && Set((barrels ?? []).map(\.id)).count == (barrels ?? []).count
+        && (barrels ?? []).allSatisfy { $0.position.x.isFinite && $0.position.y.isFinite && !$0.id.isEmpty }
+        && (2...8).contains(actors.count) && actors.indices.contains(turn)
         && actors.filter(\.player).count == 1 && actors.contains { $0.id == Self.playerID && $0.player }
+        && Set((barrels ?? []).map(\.id)).isDisjoint(with: Set(actors.map(\.id)))
         && Set(actors.map(\.id)).count == actors.count && round > 0
         && CombatBudget.transitions.indices.contains(budget.state)
         && budget.movementRemaining.isFinite && budget.movementRemaining >= 0
@@ -196,12 +204,105 @@ struct TacticalCombat: Codable, Equatable {
         let damage: Int
         let knockedOut: Bool
     }
+    struct BarrelExplosion: Equatable {
+        let barrel: CombatBarrel
+        let hits: [Strike]
+    }
+    struct Displacement: Equatable {
+        let id: String
+        let from: CGPoint
+        let to: CGPoint
+    }
+    /// A physical strike spills the contents without igniting them.
+    mutating func breakBarrel(_ id: String, clearLine: Bool) -> Bool {
+        guard outcome == nil, clearLine,
+              let index = barrels?.firstIndex(where: { $0.id == id && !$0.isBroken }),
+              CombatNavigation.distance(current.position, barrels![index].position) <= Self.meleeReach,
+              budget.spend(2) else { return false }
+        barrels![index].broken = true
+        note("\(current.name) breaks the barrel. The spilled oil can still ignite.")
+        return true
+    }
+    /// Resolve the whole chain's damage first, then push each survivor once.
+    /// The adapter certifies straight-line clearance and reserves prior endpoints.
+    mutating func applyExplosionKnockback(_ explosions: [BarrelExplosion],
+        destination: (Combatant, CGPoint, [Combatant]) -> CGPoint) -> [Displacement] {
+        var result: [Displacement] = []
+        for index in actors.indices.sorted(by: { actors[$0].id < actors[$1].id }) where actors[index].conscious {
+            let actor = actors[index]
+            guard let source = explosions.first(where: { $0.hits.contains { $0.target == actor.id } }) else { continue }
+            let point = destination(actor, source.barrel.position, actors)
+            guard point.x.isFinite, point.y.isFinite,
+                  CombatNavigation.distance(actor.position, point) <= CombatBarrel.pushDistance + 1,
+                  point != actor.position else { continue }
+            actors[index].position = point
+            result.append(Displacement(id: actor.id, from: actor.position, to: point))
+            note("\(actor.name) is pushed back by the blast.")
+        }
+        return result
+    }
+    /// Fire ignites a stationary barrel automatically. The caller certifies the
+    /// shot and every blast/chain line against the shared terrain raster.
+    mutating func igniteBarrel(_ id: String, clearShot: Bool,
+                               visible: (CGPoint, CGPoint) -> Bool) -> [BarrelExplosion]? {
+        guard outcome == nil, !isBear || !current.player,
+              current.rangedWeapon == .bow,
+              let barrel = liveBarrels.first(where: { $0.id == id }), clearShot,
+              CombatNavigation.distance(current.position, barrel.position) <= BowAttackRules.range,
+              CombatNavigation.distance(current.position, barrel.position) > Self.meleeReach,
+              budget.spend(2) else { return nil }
+        let attacker = current.id
+        let chain = explosionChain(startingAt: id, visible: visible)
+        var explosions: [BarrelExplosion] = []
+        for barrel in chain {
+            guard let index = barrels?.firstIndex(where: { $0.id == barrel.id }) else { continue }
+            barrels![index].exploded = true
+            note("\(barrel.name) explodes!")
+            var hits: [Strike] = []
+            for index in actors.indices where actors[index].conscious {
+                guard CombatNavigation.distance(barrel.position, actors[index].position) <= CombatBarrel.blastRadius,
+                      visible(barrel.position, actors[index].position) else { continue }
+                let damage = 2 + roll(3)
+                var injury = damage
+                if actors[index].player, isBear {
+                    let absorbed = min(injury, bearForm!.temporaryHP)
+                    bearForm!.temporaryHP -= absorbed; injury -= absorbed
+                    if bearForm!.temporaryHP == 0 { endBearForm() }
+                }
+                actors[index].hp = max(0, actors[index].hp - injury)
+                hits.append(Strike(attacker: attacker, target: actors[index].id, roll: 0,
+                                   damage: damage, knockedOut: !actors[index].conscious))
+                note("Blast: \(damage) to \(actors[index].name).")
+            }
+            explosions.append(BarrelExplosion(barrel: barrel, hits: hits))
+        }
+        // A blast may knock out its shooter while both sides still have survivors.
+        // Advance to a conscious actor so a saved checkpoint remains valid.
+        if outcome == nil && !current.conscious { _ = endTurn() }
+        return explosions
+    }
+    func explosionChain(startingAt id: String, visible: (CGPoint, CGPoint) -> Bool) -> [CombatBarrel] {
+        guard let first = liveBarrels.first(where: { $0.id == id }) else { return [] }
+        var result = [first]; var visited: Set<String> = [id]; var cursor = 0
+        while cursor < result.count {
+            let source = result[cursor]; cursor += 1
+            for barrel in liveBarrels.sorted(by: { $0.id < $1.id }) where !visited.contains(barrel.id) {
+                if CombatNavigation.distance(source.position, barrel.position) <= CombatBarrel.blastRadius,
+                   visible(source.position, barrel.position) {
+                    visited.insert(barrel.id); result.append(barrel)
+                }
+            }
+        }
+        return result
+    }
+
     /// Ascending defence, natural 1/20 and flat damage bands are the initial
     /// RainShadow brawl rules. TemplePlus supplies action costs, not these stats.
     mutating func attack(target id: String, clearLine: Bool, ranged: Bool = false) -> Strike? {
         guard outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
               actors[target].conscious, actors[target].player != current.player,
               clearLine,
+              !(ranged && current.player && isBear),
               ranged ? BowAttackRules.canShoot(attacker: current, target: actors[target], clearLine: clearLine)
                   : CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
               budget.spend(2) else { return nil }
@@ -269,7 +370,48 @@ enum CombatNavigation {
             participants.forEach { map.occupancy.register($0) }
             map.occupancy.restampAll()
         }
+        // The port's line walker visits no cells when both ends share one cell.
+        // Combat still needs visibility for a character standing in spilled oil.
+        if map.searchMap.cell(for: a) == map.searchMap.cell(for: b) {
+            return map.searchMap.blockedInRadiusTile(at: a, size: 2).contains(.passable)
+        }
         return map.searchMap.blockedInLine(from: a, to: b, size: -1).contains(.passable)
+    }
+    /// Forced movement stays on the shared raster and stops at the first obstruction.
+    /// Temporary endpoint stamps keep chained pushes from overlapping survivors.
+    static func knockbackDestination(in map: NavigationMap, actor: Combatant, awayFrom source: CGPoint,
+        actors: [Combatant], destroyedBarrels: [String], bear: Bool = false) -> CGPoint {
+        let ids = Set(actors.map(\.id) + destroyedBarrels)
+        let originals = ids.compactMap { map.occupancy.actors[$0] }
+        ids.forEach { map.occupancy.unregister(id: $0) }
+        for other in actors where other.conscious && other.id != actor.id {
+            if var record = originals.first(where: { $0.id == other.id }) {
+                record.position = other.position; map.occupancy.register(record)
+            } else {
+                map.registerActor(id: other.id, kind: other.player ? .player : .npc, at: other.position)
+            }
+        }
+        map.occupancy.restampAll()
+        defer {
+            ids.forEach { map.occupancy.unregister(id: $0) }
+            originals.forEach { map.occupancy.register($0) }
+            map.occupancy.restampAll()
+        }
+        let dx = actor.position.x - source.x, dy = (actor.position.y - source.y) / 0.75
+        let distance = hypot(dx, dy)
+        let direction = distance > 0 ? CGPoint(x: dx / distance, y: dy / distance) : CGPoint(x: 1, y: 0)
+        let size = bear ? BearFormRules.circleSize : map.circleSize
+        let startCell = map.searchMap.cell(for: actor.position)
+        var end = actor.position
+        for step in stride(from: 2.0, through: CombatBarrel.pushDistance, by: 2) {
+            let point = CGPoint(x: actor.position.x + direction.x * step,
+                                y: actor.position.y + direction.y * step * 0.75).rounded
+            guard map.searchMap.blockedInRadiusTile(at: point, size: size).contains(.passable),
+                  map.searchMap.cell(for: point) == startCell || map.searchMap.blockedInLine(
+                    from: actor.position, to: point, size: size).contains(.passable) else { break }
+            end = point
+        }
+        return end
     }
     static func prefix(_ path: Path, from origin: CGPoint, within limit: Double) -> Path {
         var result: [PathNode] = [], previous = origin, spent = 0.0
@@ -301,6 +443,29 @@ enum CombatNavigation {
         }
         return nil
     }
+    static func gateBarrels(in map: NavigationMap, actors: [Combatant]) -> [CombatBarrel] {
+        guard let player = actors.first(where: \.player) else { return [] }
+        let candidates = [CGFloat(160), 210, 260].flatMap { radius in
+            (0..<24).map { i in
+                let angle = CGFloat(i) * .pi / 12
+                return CGPoint(x: player.position.x + cos(angle) * radius,
+                               y: player.position.y + sin(angle) * radius * 0.75).rounded
+            }
+        }.filter { point in
+            map.searchMap.blockedInRadiusTile(at: point, size: 2).contains(.passable)
+                && actors.allSatisfy { distance(point, $0.position) >= 65 }
+                && clearLine(in: map, from: player.position, to: point, excluding: [player.id])
+        }.sorted { a, b in
+            let enemies = actors.filter { !$0.player }
+            return enemies.map { distance(a, $0.position) }.min() ?? .infinity
+                < enemies.map { distance(b, $0.position) }.min() ?? .infinity
+        }
+        guard let first = candidates.first else { return [] }
+        var points = [first]
+        if let second = candidates.first(where: { distance(first, $0) >= 70
+            && distance(first, $0) <= 110 && clearLine(in: map, from: first, to: $0) }) { points.append(second) }
+        return points.enumerated().map { CombatBarrel(id: "combat.oil.\($0.offset)", position: $0.element) }
+    }
     static func approach(in map: NavigationMap, actor: Combatant, target: Combatant, limit: Double) -> Path? {
         let radius: CGFloat = (map.occupancy.actors[target.id]?.personalSpaceCells ?? 4) > 4 ? 100 : 84
         let points = (0..<16).map { i in
@@ -319,4 +484,16 @@ enum CombatNavigation {
         }
         return nil
     }
+}
+
+/// Encounter props persist as destroyed entries so a reload cannot re-arm them.
+struct CombatBarrel: Codable, Equatable {
+    static let blastRadius: Double = 120
+    static let pushDistance: Double = 80 // Ten feet, approximately three metres.
+    let id: String
+    var position: CGPoint
+    var exploded = false
+    var broken: Bool? // Optional for saves written before physical barrel strikes.
+    var isBroken: Bool { broken == true || exploded }
+    var name: String { isBroken ? "Oil spill" : "Oil barrel" }
 }

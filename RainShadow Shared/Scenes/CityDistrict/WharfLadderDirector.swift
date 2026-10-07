@@ -114,6 +114,7 @@ final class WharfLadderDirector {
                       defence: 11, attackBonus: rattled ? 0 : 2, damageMin: 1, damageMax: 3,
                       initiativeBonus: 1)
         }
+        actors[0].rangedWeapon = .bow
         if restored == nil, encounter == .gate, actors.count > 2 {
             actors[2].rangedWeapon = .bow
             actors[2].name = "Lookout"
@@ -138,7 +139,8 @@ final class WharfLadderDirector {
         if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil { seed = 42 }
         #endif
         let model = restored ?? TacticalCombat(encounterID: encounter.rawValue, areaID: scene.area.id.rawValue,
-            actors: actors, seed: seed)
+            actors: actors, seed: seed, barrels: encounter == .gate
+                ? CombatNavigation.gateBarrels(in: scene.navigation, actors: actors) : [])
         scene.pause.clearPlayerPause()
         combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew) { [weak self] in
             guard let self else { return }

@@ -14,7 +14,7 @@ enum BowAttackRules {
     static let recoveryTime = Double(frames) / framesPerSecond
     static func canShoot(attacker: Combatant, target: Combatant, clearLine: Bool) -> Bool {
         let distance = CombatNavigation.distance(attacker.position, target.position)
-        return attacker.rangedWeapon == .bow && !attacker.player && clearLine
+        return attacker.rangedWeapon == .bow && clearLine
             && distance > TacticalCombat.meleeReach && distance <= range
     }
     static func flightDuration(from: CGPoint, to: CGPoint) -> Double {

@@ -4,6 +4,8 @@ import SpriteKit
 /// impact markers; neither SKAction timers nor wall time can bypass pause.
 @MainActor
 final class BowShotPresentation {
+    let displacements: [TacticalCombat.Displacement]
+    let explosions: [TacticalCombat.BarrelExplosion]
     let before: TacticalCombat
     let result: TacticalCombat.Strike
     let target: Combatant
@@ -19,7 +21,9 @@ final class BowShotPresentation {
     var finished: Bool { elapsed >= max(BowAttackRules.recoveryTime, impactTime + 0.15) }
 
     init(before: TacticalCombat, result: TacticalCombat.Strike, target: Combatant,
-         actor: CharacterAppearanceNode, parent: SKNode, targetHeight: CGFloat) {
+         actor: CharacterAppearanceNode, parent: SKNode, targetHeight: CGFloat,
+         explosions: [TacticalCombat.BarrelExplosion] = [], displacements: [TacticalCombat.Displacement] = []) {
+        self.explosions = explosions; self.displacements = displacements
         self.before = before; self.result = result; self.target = target; self.actor = actor
         facing = .orient(from: actor.position, to: target.position)
         let offset = BowAttackAnimationSet.muzzleOffset(facing: facing)
@@ -135,7 +139,7 @@ final class BowArrowFire: SKNode {
         }
     }
 
-    private static let softTexture: SKTexture = {
+    static let softTexture: SKTexture = {
         let context = CGContext(data: nil, width: 32, height: 32, bitsPerComponent: 8,
             bytesPerRow: 128, space: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
