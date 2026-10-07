@@ -1,5 +1,10 @@
 # Explosive barrels and player fire arrows — October 7
 
+The destruction visuals now use physical fragments; see
+[BarrelDestructionPhysicsOct07.md](BarrelDestructionPhysicsOct07.md) for the current
+simulation, artwork and persistence behavior. Static debris below records the
+earlier implementation and remains the fallback for older saves.
+
 New Wharf Ladder gate encounters stage two oil barrels where raster clearance,
 actor spacing and firing lanes allow (one if no second clear location exists).
 They have their own occupancy stamps and can be targeted by both sides.

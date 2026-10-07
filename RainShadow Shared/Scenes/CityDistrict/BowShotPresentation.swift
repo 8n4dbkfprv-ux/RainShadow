@@ -4,6 +4,7 @@ import SpriteKit
 /// impact markers; neither SKAction timers nor wall time can bypass pause.
 @MainActor
 final class BowShotPresentation {
+    let destructions: [String: BarrelDestruction]
     let displacements: [TacticalCombat.Displacement]
     let explosions: [TacticalCombat.BarrelExplosion]
     let before: TacticalCombat
@@ -22,7 +23,8 @@ final class BowShotPresentation {
 
     init(before: TacticalCombat, result: TacticalCombat.Strike, target: Combatant,
          actor: CharacterAppearanceNode, parent: SKNode, targetHeight: CGFloat,
-         explosions: [TacticalCombat.BarrelExplosion] = [], displacements: [TacticalCombat.Displacement] = []) {
+         explosions: [TacticalCombat.BarrelExplosion] = [], displacements: [TacticalCombat.Displacement] = [], destructions: [String: BarrelDestruction] = [:]) {
+        self.destructions = destructions
         self.explosions = explosions; self.displacements = displacements
         self.before = before; self.result = result; self.target = target; self.actor = actor
         facing = .orient(from: actor.position, to: target.position)

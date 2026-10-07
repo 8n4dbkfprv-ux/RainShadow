@@ -116,7 +116,8 @@ struct TacticalCombat: Codable, Equatable {
     var isValid: Bool {
         version == 1 && (bearForm?.isValid ?? true) && (barrels ?? []).count <= 8
         && Set((barrels ?? []).map(\.id)).count == (barrels ?? []).count
-        && (barrels ?? []).allSatisfy { $0.position.x.isFinite && $0.position.y.isFinite && !$0.id.isEmpty }
+        && (barrels ?? []).allSatisfy { $0.position.x.isFinite && $0.position.y.isFinite && !$0.id.isEmpty
+            && ($0.debris.map { $0.count == BarrelDebrisPhysics.fragmentCount && $0.allSatisfy(\.isValid) } ?? true) }
         && (2...8).contains(actors.count) && actors.indices.contains(turn)
         && actors.filter(\.player).count == 1 && actors.contains { $0.id == Self.playerID && $0.player }
         && Set((barrels ?? []).map(\.id)).isDisjoint(with: Set(actors.map(\.id)))
@@ -207,6 +208,11 @@ struct TacticalCombat: Codable, Equatable {
     struct BarrelExplosion: Equatable {
         let barrel: CombatBarrel
         let hits: [Strike]
+    }
+    mutating func recordBarrelDebris(_ id: String, poses: [BarrelFragmentPose]) {
+        guard poses.count == BarrelDebrisPhysics.fragmentCount, poses.allSatisfy(\.isValid),
+              let index = barrels?.firstIndex(where: { $0.id == id && $0.isBroken }) else { return }
+        barrels![index].debris = poses
     }
     struct Displacement: Equatable {
         let id: String
@@ -493,6 +499,7 @@ struct CombatBarrel: Codable, Equatable {
     let id: String
     var position: CGPoint
     var exploded = false
+    var debris: [BarrelFragmentPose]? // Settled physics endpoint; absent in older checkpoints.
     var broken: Bool? // Optional for saves written before physical barrel strikes.
     var isBroken: Bool { broken == true || exploded }
     var name: String { isBroken ? "Oil spill" : "Oil barrel" }

@@ -378,6 +378,11 @@ import SpriteKit
             try check(GameSession(saveStore: barrelStore).tacticalCombat == barrelDirector.combat,
                 "Accepted chain explosion is saved before presentation")
             try check(!shot.displacements.isEmpty, "Surviving blast targets receive accepted knockback endpoints")
+            try check(shot.destructions.count == shot.explosions.count
+                && shot.explosions.allSatisfy { event in
+                    barrelDirector.combat.barrels?.first { $0.id == event.barrel.id }?.debris?.count == 14
+                }, "Accepted explosion saves every fragment endpoint before impact")
+            try check(!barrelDirector.debrisMoving, "Intact barrels do not emit fragments before arrow impact")
             let acceptedBarrelFight = barrelDirector.combat
             try check(shot.before.liveBarrels.count > barrelDirector.combat.liveBarrels.count
                 && scene.depthWorldRoot.childNode(withName: barrel.id) != nil,
@@ -386,8 +391,14 @@ import SpriteKit
             try capture("player-fire-arrow")
             try await wait { barrelDirector.blasts.first.map { $0.elapsed > 0.12 } == true }
             try capture("barrel-explosion")
+            try check(barrelDirector.debrisMoving
+                && barrelDirector.barrelNodes.values.contains { $0.fragmentBodies.contains { $0.height > 15 } },
+                "Impact launches separate fragments above their ground shadows")
             scene.handleTacticalPauseInput()
             let blastTimes = barrelDirector.blasts.map(\.elapsed)
+            let fragmentTimes = barrelDirector.barrelNodes.mapValues(\.elapsed)
+            let fragmentBodies = barrelDirector.barrelNodes.mapValues(\.fragmentBodies)
+            let fragmentPositions = barrelDirector.barrelNodes.mapValues { $0.children.map(\.position) }
             let pushTime = barrelDirector.knockbackElapsed
             let pushPositions = shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position }
             try check(!barrelDirector.knockbacks.isEmpty, "Knockback is animated during the blast")
@@ -396,7 +407,13 @@ import SpriteKit
             try check(barrelDirector.knockbackElapsed == pushTime
                 && shot.displacements.map { scene.navigation.occupancy.actors[$0.id]?.position } == pushPositions,
                 "Pause freezes knockback without advancing combat")
+            try check(barrelDirector.barrelNodes.mapValues(\.elapsed) == fragmentTimes
+                && barrelDirector.barrelNodes.mapValues(\.fragmentBodies) == fragmentBodies
+                && barrelDirector.barrelNodes.mapValues { $0.children.map(\.position) } == fragmentPositions,
+                "Pause freezes fragment physics and visible debris positions")
             scene.handleTacticalPauseInput()
+            try await wait { barrelDirector.barrelNodes[barrel.id]!.elapsed > 0.5 }
+            try capture("barrel-fragments-airborne")
             try await wait { !barrelDirector.busy }
             try check(!scene.detective.isHidden && barrelDirector.blasts.isEmpty,
                 "Player bow recovery restores Voss and removes the blast")
@@ -407,6 +424,13 @@ import SpriteKit
                 "Explosions leave charred wooden debris on the ground")
             try check(shot.displacements.allSatisfy { scene.navigation.occupancy.actors[$0.id]?.position == $0.to },
                 "Surviving actors finish at their saved knockback positions")
+            try check(barrelDirector.barrelNodes.values.allSatisfy { !$0.isSimulating
+                && $0.fragmentBodies.allSatisfy { $0.sleeping && $0.height == 0 } },
+                "All pieces bounce and settle before the next action")
+            try check(shot.explosions.allSatisfy { event in
+                barrelDirector.barrelNodes[event.barrel.id]?.fragmentBodies.map(\.pose)
+                    == barrelDirector.combat.barrels?.first { $0.id == event.barrel.id }?.debris
+            }, "Presented debris settles at the accepted saved positions")
             try capture("barrel-aftermath")
             // Resume exactly the saved in-flight endpoint, with no animation replay.
             barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(acceptedBarrelFight),
@@ -420,6 +444,10 @@ import SpriteKit
                 "Reload cannot rearm a barrel or replay its explosion")
             try check(shot.explosions.allSatisfy { scene.depthWorldRoot.childNode(withName: $0.barrel.id + ".remains") != nil },
                 "Reload preserves broken barrel remains")
+            try check(!scene.combatDirector!.debrisMoving && shot.explosions.allSatisfy { event in
+                scene.combatDirector!.barrelNodes[event.barrel.id]?.fragmentBodies.map(\.pose)
+                    == acceptedBarrelFight.barrels?.first { $0.id == event.barrel.id }?.debris
+            }, "In-flight reload restores settled fragments without replaying their launch")
             // Exercise a physical strike and its persistent, still-flammable spill.
             let smashPlayer = barrelActors.first { $0.player }!
             let smashCandidates = (0..<24).map { i in
@@ -447,6 +475,10 @@ import SpriteKit
                 "Physical strike leaves flammable oil and debris and opens its raster cell")
             try check(smashDirector.combat.actors == smashFight.actors && !smashDirector.combat.budget.canAttack,
                 "Breaking a barrel costs a standard action without blast damage")
+            try check(smashDirector.debrisMoving, "A physical strike also launches barrel fragments")
+            try await wait { smashDirector.barrelNodes["combat.oil.smash"]!.elapsed > 0.25 }
+            try capture("barrel-smash-fragments")
+            try await wait { !smashDirector.busy }
             try capture("barrel-spill")
             let savedSpill = smashDirector.combat
             context = GameContext(saveStore: barrelStore); context.router.start(in: view)
@@ -480,6 +512,9 @@ import SpriteKit
             click(scene, world: CGPoint(x: smashPoint.x, y: smashPoint.y + 10))
             let spillDirector = scene.combatDirector!
             try check(spillDirector.rangedShot?.explosions.count == 1, "Player can ignite spilled oil with a fire arrow")
+            try check(spillDirector.rangedShot?.destructions["combat.oil.smash"]?.samples.first?.map(\.pose)
+                == savedSpill.barrels?.first?.debris,
+                "Igniting a spill throws its existing pieces from their resting places")
             try await wait { !spillDirector.busy }
             try check(scene.depthWorldRoot.childNode(withName: "combat.oil.smash.remains") != nil,
                 "Ignited spill becomes charred remains")

@@ -28,7 +28,7 @@ final class TacticalCombatDirector {
     private var finished = false
     private(set) var aimingFireArrow = false
     private var playerBowNode: CharacterAppearanceNode?
-    private var barrelNodes: [String: CombatBarrelVisual] = [:]
+    private(set) var barrelNodes: [String: CombatBarrelVisual] = [:]
     private(set) var knockbacks: [TacticalCombat.Displacement] = []
     private(set) var knockbackElapsed: TimeInterval = 0
     private(set) var blasts: [BarrelBlastVisual] = []
@@ -43,7 +43,8 @@ final class TacticalCombatDirector {
     var transformationCameraOffset: CGPoint { formEffect?.cameraOffset ?? .zero }
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
-    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || !blasts.isEmpty || !knockbacks.isEmpty }
+    var debrisMoving: Bool { barrelNodes.values.contains { $0.isSimulating } }
+    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -89,7 +90,8 @@ final class TacticalCombatDirector {
             catch { assertionFailure("Saved Bear Form cannot load: \(error)") }
         }
         for barrel in combat.barrels ?? [] {
-            let node = CombatBarrelVisual(barrel: barrel)
+            let node = CombatBarrelVisual(barrel: barrel,
+                lighting: scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
             scene.depthWorldRoot.addChild(node); scene.updateDepth(of: node)
             barrelNodes[barrel.id] = node
             if !barrel.isBroken { scene.navigation.occupancy.register(OccupyingActor(id: barrel.id, kind: .npc,
@@ -377,7 +379,12 @@ final class TacticalCombatDirector {
                 : "Move within melee reach to break it, or use Fire arrow [5]."
             refresh(); return
         }
-        if let updated = combat.barrels?.first(where: { $0.id == barrel.id }) { barrelNodes[barrel.id]?.apply(updated) }
+        let destruction = BarrelDestruction(barrel: barrel, explosion: false,
+            impactFrom: combat.current.position, searchMap: scene.navigation.searchMap)
+        combat.recordBarrelDebris(barrel.id, poses: destruction.finalPoses)
+        if let updated = combat.barrels?.first(where: { $0.id == barrel.id }) {
+            barrelNodes[barrel.id]?.apply(updated, destruction: destruction)
+        }
         scene.navigation.unregisterActor(id: barrel.id)
         if combat.isBear { bearFacing = .orient(from: combat.current.position, to: barrel.position); bearAction = (.attack, 0) }
         else { scene.detective.setEntranceFacing(.orient(from: combat.current.position, to: barrel.position)) }
@@ -397,13 +404,20 @@ final class TacticalCombatDirector {
             CombatNavigation.knockbackDestination(in: scene.navigation, actor: actor, awayFrom: source,
                 actors: actors, destroyedBarrels: explosions.map { $0.barrel.id }, bear: actor.player && before.isBear)
         }
+        var destructions: [String: BarrelDestruction] = [:]
+        for explosion in explosions {
+            let destruction = BarrelDestruction(barrel: explosion.barrel, explosion: true,
+                impactFrom: attacker.position, searchMap: scene.navigation.searchMap)
+            combat.recordBarrelDebris(explosion.barrel.id, poses: destruction.finalPoses)
+            destructions[explosion.barrel.id] = destruction
+        }
         beginBowPresentation(attacker)
         let target = Combatant(id: barrel.id, name: barrel.name, player: !attacker.player,
             position: barrel.position, hp: 1, maximumHP: 1, defence: 0, attackBonus: 0,
             damageMin: 1, damageMax: 1, initiativeBonus: 0)
         rangedShot = BowShotPresentation(before: before,
             result: .init(attacker: attacker.id, target: barrel.id, roll: 0, damage: 1, knockedOut: true),
-            target: target, actor: node, parent: scene.depthWorldRoot, targetHeight: barrel.isBroken ? 4 : 32, explosions: explosions, displacements: displacements)
+            target: target, actor: node, parent: scene.depthWorldRoot, targetHeight: barrel.isBroken ? 4 : 32, explosions: explosions, displacements: displacements, destructions: destructions)
         delay = 0.25; checkpoint(synchronize: false)
     }
     private func usefulBarrel(for actor: Combatant) -> CombatBarrel? {
@@ -460,6 +474,7 @@ final class TacticalCombatDirector {
         refresh()
         formEffect?.setPaused(scene.pause.isPausedByPlayer)
         guard !scene.pause.isPausedByPlayer else { return }
+        for node in barrelNodes.values { node.advance(delta: delta) }
         for blast in blasts { blast.advance(delta: delta) }
         blasts.filter(\.finished).forEach { $0.removeFromParent() }
         blasts.removeAll(where: \.finished)
@@ -472,7 +487,7 @@ final class TacticalCombatDirector {
                 else {
                     for explosion in shot.explosions {
                         if let remains = combat.barrels?.first(where: { $0.id == explosion.barrel.id }) {
-                            barrelNodes[remains.id]?.apply(remains)
+                            barrelNodes[remains.id]?.apply(remains, destruction: shot.destructions[remains.id])
                         }
                         scene.navigation.unregisterActor(id: explosion.barrel.id)
                         let blast = BarrelBlastVisual(at: explosion.barrel.position)
@@ -518,7 +533,7 @@ final class TacticalCombatDirector {
             enemyMover = mover
             if !mover.isMoving { movementCompleted() }
         }
-        guard movingID == nil, formTransition == nil, rangedShot == nil, blasts.isEmpty, knockbacks.isEmpty else { return }
+        guard movingID == nil, formTransition == nil, rangedShot == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
