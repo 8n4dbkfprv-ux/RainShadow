@@ -127,12 +127,12 @@ final class WharfLadderDirector {
         }
         for node in crew {
             let actor = (restored?.actors ?? actors).first { $0.id == node.definition.id }
-            if actor?.rangedWeapon == .bow {
-                var definition = node.definition
-                definition.appearance.equipment = [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
-                do { try node.apply(definition) }
-                catch { assertionFailure("Lookout artwork: \(error)") }
-            }
+            var definition = node.definition
+            definition.appearance.equipment = actor?.rangedWeapon == .bow
+                ? [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
+                : [.init(item: .lanternShortsword)]
+            do { try node.apply(definition) }
+            catch { assertionFailure("Combat equipment artwork: \(error)") }
         }
         var seed = UInt64.random(in: 1...UInt64.max)
         #if DEBUG
@@ -244,7 +244,7 @@ final class WharfLadderDirector {
     func update(at time: TimeInterval) {
         for actor in crew {
             do {
-                if combatDirector?.isWalking(actor.definition.id) != true && combatDirector?.isShooting(actor.definition.id) != true {
+                if combatDirector?.isWalking(actor.definition.id) != true && combatDirector?.isShooting(actor.definition.id) != true && combatDirector?.isStriking(actor.definition.id) != true {
                     try actor.advance(action: .idle, facing: actor.currentFacing, at: time, paused: scene.pause.isPaused)
                 }
             }

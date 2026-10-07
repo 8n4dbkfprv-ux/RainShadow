@@ -28,11 +28,17 @@ final class TacticalCombatDirector {
     private var finished = false
     private(set) var aimingFireArrow = false
     private var playerBowNode: CharacterAppearanceNode?
+    private var playerMeleeNode: CharacterAppearanceNode?
     private(set) var barrelNodes: [String: CombatBarrelVisual] = [:]
     private(set) var knockbacks: [TacticalCombat.Displacement] = []
     private(set) var knockbackElapsed: TimeInterval = 0
     private(set) var blasts: [BarrelBlastVisual] = []
-    var presentedCombat: TacticalCombat { rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat }
+    var presentedCombat: TacticalCombat {
+        meleeAttack.flatMap { $0.impactPresented ? nil : $0.before }
+            ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat
+    }
+    private(set) var meleeAttack: MeleeAttackPresentation?
+    func isStriking(_ id: String) -> Bool { meleeAttack?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
     func isShooting(_ id: String) -> Bool { rangedShot?.actor.definition.id == id }
     private(set) var bearNode: CharacterAppearanceNode?
@@ -44,7 +50,7 @@ final class TacticalCombatDirector {
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
     var debrisMoving: Bool { barrelNodes.values.contains { $0.isSimulating } }
-    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving }
+    var busy: Bool { movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -266,6 +272,9 @@ final class TacticalCombatDirector {
     private func strike(_ target: Combatant) {
         let attacker = combat.current
         let wasBear = combat.isBear
+        let before = combat
+        let node = attacker.player && wasBear ? nil : meleeActor(for: attacker)
+        guard attacker.player && wasBear || node != nil else { return }
         let line = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position, to: target.position, excluding: [attacker.id, target.id])
         guard let result = combat.attack(target: target.id, clearLine: line) else {
             feedback = combat.budget.canAttack ? "Move closer with a clear line before striking." : "No standard action remains."
@@ -279,14 +288,54 @@ final class TacticalCombatDirector {
         if attacker.player && wasBear {
             bearFacing = .orient(from: attacker.position, to: target.position)
             bearAction = (.attack, 0)
-        } else if target.player && wasBear && combat.isBear && result.damage > 0 {
+        } else if node == nil && target.player && wasBear && combat.isBear && result.damage > 0 {
             bearAction = (.hit, 0)
         }
-        checkpoint()
-        presentImpact(result, target: target)
+        if let node {
+            beginMeleePresentation(attacker, node: node)
+            meleeAttack = MeleeAttackPresentation(before: before, result: result, target: target, actor: node)
+            delay = 0.15
+            checkpoint(synchronize: false)
+        } else {
+            checkpoint()
+            presentImpact(result, target: target)
+        }
+    }
+    private func beginMeleePresentation(_ actor: Combatant, node: CharacterAppearanceNode) {
+        guard actor.player else { return }
+        scene.detective.isHidden = true; node.isHidden = false
+        for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
+            decoration?.removeFromParent()
+            if let decoration { node.addChild(decoration) }
+        }
+    }
+    private func meleeActor(for actor: Combatant) -> CharacterAppearanceNode? {
+        guard actor.player else { return actorNode(actor.id) as? CharacterAppearanceNode }
+        var definition = CharacterDefinition.voss
+        let inventory = scene.context.session.characterInventory
+        definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+            guard $0.isEquipped(in: inventory), let item = CharacterEquipmentCode(rawValue: $0.rawValue) else { return nil }
+            return .init(item: item)
+        }
+        if VossWeaponAppearance.equipped(in: inventory, catalog: scene.context.session.itemCatalog) == .lanternShortsword {
+            definition.appearance.equipment.append(.init(item: .lanternShortsword))
+        }
+        do {
+            if let playerMeleeNode { try playerMeleeNode.apply(definition) }
+            else {
+                let node = try CharacterAppearanceNode(definition: definition)
+                node.isHidden = true
+                node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
+                scene.depthWorldRoot.addChild(node); playerMeleeNode = node
+            }
+        } catch { feedback = "Melee artwork could not load."; refresh(); return nil }
+        let node = playerMeleeNode!
+        node.position = actor.position; node.visualHeightOffset = scene.detective.visualHeightOffset
+        scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: actor.position)
+        return node
     }
     private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant) {
-        // Impact is immediate for melee and delayed until arrow arrival for bows.
+        // Accepted damage is revealed by the action presentation at its hit marker.
         let effect = SKShapeNode(ellipseOf: CGSize(width: 52, height: 38))
         effect.position = CGPoint(x: target.position.x, y: target.position.y + 45)
         effect.strokeColor = result.damage > 0 ? .orange : .white; effect.lineWidth = 3; effect.zPosition = 20000
@@ -372,6 +421,9 @@ final class TacticalCombatDirector {
         routePreview.path = path; routePreview.strokeColor = .orange
     }
     private func smashBarrel(_ barrel: CombatBarrel) {
+        let before = combat
+        let node = combat.isBear ? nil : meleeActor(for: combat.current)
+        guard combat.isBear || node != nil else { return }
         let clear = CombatNavigation.clearLine(in: scene.navigation, from: combat.current.position,
             to: barrel.position, excluding: [combat.current.id, barrel.id])
         guard combat.breakBarrel(barrel.id, clearLine: clear) else {
@@ -382,14 +434,25 @@ final class TacticalCombatDirector {
         let destruction = BarrelDestruction(barrel: barrel, explosion: false,
             impactFrom: combat.current.position, searchMap: scene.navigation.searchMap)
         combat.recordBarrelDebris(barrel.id, poses: destruction.finalPoses)
-        if let updated = combat.barrels?.first(where: { $0.id == barrel.id }) {
-            barrelNodes[barrel.id]?.apply(updated, destruction: destruction)
+        if let node {
+            let attacker = before.current
+            scene.detective.setEntranceFacing(.orient(from: attacker.position, to: barrel.position))
+            beginMeleePresentation(attacker, node: node)
+            let target = Combatant(id: barrel.id, name: barrel.name, player: false, position: barrel.position,
+                hp: 1, maximumHP: 1, defence: 0, attackBonus: 0, damageMin: 1, damageMax: 1, initiativeBonus: 0)
+            meleeAttack = MeleeAttackPresentation(before: before,
+                result: .init(attacker: attacker.id, target: barrel.id, roll: 0, damage: 1, knockedOut: true),
+                target: target, actor: node, barrelDestruction: destruction)
+            delay = 0.15; checkpoint(synchronize: false)
+        } else {
+            if let updated = combat.barrels?.first(where: { $0.id == barrel.id }) {
+                barrelNodes[barrel.id]?.apply(updated, destruction: destruction)
+            }
+            scene.navigation.unregisterActor(id: barrel.id)
+            bearFacing = .orient(from: combat.current.position, to: barrel.position); bearAction = (.attack, 0)
+            feedback = "Barrel broken. The spilled oil can still ignite."
+            delay = 0.3; checkpoint()
         }
-        scene.navigation.unregisterActor(id: barrel.id)
-        if combat.isBear { bearFacing = .orient(from: combat.current.position, to: barrel.position); bearAction = (.attack, 0) }
-        else { scene.detective.setEntranceFacing(.orient(from: combat.current.position, to: barrel.position)) }
-        feedback = "Barrel broken. The spilled oil can still ignite."
-        delay = 0.3; checkpoint()
     }
     private func shootBarrel(_ barrel: CombatBarrel) {
         let attacker = combat.current
@@ -478,6 +541,33 @@ final class TacticalCombatDirector {
         for blast in blasts { blast.advance(delta: delta) }
         blasts.filter(\.finished).forEach { $0.removeFromParent() }
         blasts.removeAll(where: \.finished)
+        if let attack = meleeAttack {
+            attack.advance(delta: delta)
+            if attack.elapsed >= MeleeAttackAnimationSet.impactTime && !attack.impactPresented {
+                attack.impactPresented = true
+                if attack.target.player && attack.before.isBear && combat.isBear && attack.result.damage > 0 {
+                    bearAction = (.hit, 0)
+                }
+                if let destruction = attack.barrelDestruction {
+                    if let updated = combat.barrels?.first(where: { $0.id == attack.target.id }) {
+                        barrelNodes[updated.id]?.apply(updated, destruction: destruction)
+                    }
+                    scene.navigation.unregisterActor(id: attack.target.id)
+                    feedback = "Barrel broken. The spilled oil can still ignite."
+                } else { presentImpact(attack.result, target: attack.target) }
+                synchronizeForm(); refresh()
+            }
+            if attack.finished {
+                attack.stop(); meleeAttack = nil; playerMeleeNode?.isHidden = true
+                if attack.before.current.player {
+                    for decoration in [badges[TacticalCombat.playerID], rings[TacticalCombat.playerID]] as [SKNode?] {
+                        decoration?.removeFromParent()
+                        if let decoration { actorNode(TacticalCombat.playerID)?.addChild(decoration) }
+                    }
+                    scene.detective.isHidden = displayingBear || !combat.actors.first(where: \.player)!.conscious
+                }
+            }
+        }
         if let shot = rangedShot {
             shot.advance(delta: delta)
             if shot.elapsed >= shot.impactTime && !shot.impactPresented {
@@ -533,7 +623,7 @@ final class TacticalCombatDirector {
             enemyMover = mover
             if !mover.isMoving { movementCompleted() }
         }
-        guard movingID == nil, formTransition == nil, rangedShot == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving else { return }
+        guard movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
@@ -570,6 +660,8 @@ final class TacticalCombatDirector {
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
         rangedShot?.stop(); rangedShot = nil
         playerBowNode?.removeFromParent()
+        meleeAttack?.stop(); meleeAttack = nil
+        playerMeleeNode?.removeFromParent()
         for (id, node) in barrelNodes {
             if combat.barrels?.first(where: { $0.id == id })?.isBroken != true { node.removeFromParent() }
             scene.navigation.unregisterActor(id: id)

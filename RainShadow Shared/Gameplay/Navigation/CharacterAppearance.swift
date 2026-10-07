@@ -44,7 +44,10 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
         case .shoot:
             guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
             return BowAttackRules.frames
-        case .attack, .hit, .die, .revert:
+        case .attack:
+            guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
+            return MeleeAttackAnimationSet.frames
+        case .hit, .die, .revert:
             throw CharacterAppearanceError.unsupportedAction(self, action)
         }
     }

@@ -29,6 +29,8 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let body: IEAvatarFrameLibrary
         let equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let bowShot: IEAvatarFrameLibrary?
+        let meleeBody: IEAvatarFrameLibrary?
+        let meleeEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
 
         init(appearance: CharacterAppearance) throws {
             try appearance.validate()
@@ -41,6 +43,19 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            var meleeEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            if appearance.body == .humanMale01 {
+                let library = try IEAvatarFrameLibrary.shared(character: MeleeAttackAnimationSet.body, colors: body.colors)
+                try MeleeAttackAnimationSet.validate(library.sprite, character: MeleeAttackAnimationSet.body)
+                meleeBody = library
+                for (item, base) in equipment {
+                    guard let character = MeleeAttackAnimationSet.equipment(item) else { continue }
+                    let layer = try IEAvatarFrameLibrary.shared(character: character, colors: base.colors)
+                    try MeleeAttackAnimationSet.validate(layer.sprite, character: character)
+                    meleeEquipment[item] = layer
+                }
+            } else { meleeBody = nil }
+            self.meleeEquipment = meleeEquipment
             if appearance.body == .humanMale01 && Set(equipment.keys) == [.elvenCourtBow, .elvenCourtArrow] {
                 let library = try IEAvatarFrameLibrary.shared(character: BowAttackAnimationSet.character,
                     colors: body.colors)
@@ -51,6 +66,21 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
 
         func frames(appearance: CharacterAppearance, action: CharacterVisualAction,
                     facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+            if action == .attack, let library = meleeBody {
+                let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: MeleeAttackAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(MeleeAttackAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in meleeEquipment {
+                    let atlas = MeleeAttackAnimationSet.equipment(item)! + ".atlas"
+                    guard let overlay = layer.frame(atlas: atlas, name: name) else {
+                        throw CharacterAppearanceError.missingFrame(atlas, name)
+                    }
+                    overlays[item] = overlay
+                }
+                return (frame, overlays)
+            }
             if action == .shoot {
                 guard let library = bowShot else {
                     throw CharacterAppearanceError.unsupportedAction(appearance.body, action)

@@ -96,7 +96,7 @@ struct CharacterAppearanceTests {
 
     @Test func missingAnimationCannotSilentlyFallBackToIdleOrAnotherBody() throws {
         for body in [CharacterBodyCode.humanMale01, .humanFemale01] {
-            for action in [CharacterVisualAction.attack, .hit, .die] {
+            for action in (body == .humanMale01 ? [CharacterVisualAction.hit, .die] : [.attack, .hit, .die]) {
                 #expect(throws: CharacterAppearanceError.unsupportedAction(body, action)) {
                     try body.frameCount(for: action, facing: .south)
                 }

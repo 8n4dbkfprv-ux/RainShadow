@@ -108,6 +108,104 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_MELEE_ONLY"] == "1" {
+                let meleeStore = SaveStore(key: "RainShadow.QA.Melee.\(UUID().uuidString)")
+                defer { meleeStore.reset() }
+                let player = beforeChromeClick.actors.first { $0.player }!
+                var opponent = beforeChromeClick.actors.first { !$0.player && $0.id.hasSuffix(".0") }!
+                let ignored = beforeChromeClick.actors.map(\.id)
+                var site: CGPoint?
+                for i in 0..<32 {
+                    let angle = Double(i) * .pi / 16
+                    let proposed = CGPoint(x: player.position.x + cos(angle) * 85,
+                                           y: player.position.y + sin(angle) * 85 * 0.75).rounded
+                    guard let point = scene.navigation.nearestWalkablePoint(to: proposed),
+                        (65...100).contains(CombatNavigation.distance(player.position, point)),
+                        CombatNavigation.clearLine(in: scene.navigation, from: player.position, to: point, excluding: ignored) else { continue }
+                    site = point; break
+                }
+                guard let site else { throw Failure(message: "No melee QA position") }
+                opponent.position = site; opponent.rangedWeapon = nil
+                for mode in ["sword", "armored", "unarmed", "miss", "knockout", "enemy"] {
+                    var actors = [player, opponent]
+                    for i in actors.indices {
+                        actors[i].hp = 100; actors[i].maximumHP = 100
+                        actors[i].attackBonus = 100; actors[i].defence = 1
+                        actors[i].damageMin = 4; actors[i].damageMax = 4
+                        actors[i].initiativeBonus = actors[i].player == (mode != "enemy") ? 100 : -100
+                    }
+                    if mode == "miss" { actors[1].defence = 1000; actors[0].attackBonus = -100 }
+                    if mode == "knockout" { actors[1].hp = 1 }
+                    var seed: UInt64 = 1
+                    var model: TacticalCombat
+                    while true {
+                        model = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue, actors: actors, seed: seed)
+                        var trial = model
+                        let targetID = mode == "enemy" ? player.id : opponent.id
+                        let result = trial.attack(target: targetID, clearLine: true)!
+                        if (result.damage == 0) == (mode == "miss") { break }
+                        seed += 1
+                    }
+                    var equipment: [String: PersistedCarriedItemStack] = [:]
+                    if mode != "unarmed" { equipment["weapon1"] = .init(id: "lantern-shortsword", quantity: 1) }
+                    if mode == "armored" {
+                        equipment["fedora"] = .init(id: "iron-helmet", quantity: 1)
+                        equipment["coat"] = .init(id: "splint-mail", quantity: 1)
+                    }
+                    meleeStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(model),
+                        hasSeenOpening: true, hasCompletedOfficeCaseIntro: true, equippedItems: equipment,
+                        hasSeededStarterKit: true, hasReceivedArmorKit: true,
+                        hasReceivedElvenCourtBow: true, hasReceivedElvenCourtArrow: true))
+                    context = GameContext(saveStore: meleeStore); context.router.start(in: view)
+                    try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                    scene = view.scene as! CityDistrictScene
+                    guard let director = scene.combatDirector else { throw Failure(message: "No melee director") }
+                    if mode != "enemy" {
+                        try await wait { !director.busy }
+                        click(scene, world: opponent.position)
+                    }
+                    try await wait { director.meleeAttack != nil }
+                    guard let attack = director.meleeAttack else { throw Failure(message: "No melee presentation") }
+                    try check(attack.actor.currentAction == .attack && director.busy, "\(mode): strike plays and locks the turn")
+                    let items = Set(attack.actor.definition.appearance.equipment.map(\.item))
+                    try check(items.contains(.lanternShortsword) == (mode != "unarmed"), "\(mode): readied weapon matches the animated layer")
+                    if mode == "armored" { try check(items.contains(.ironHelmet) && items.contains(.splintMail), "Armor remains equipped throughout the swing") }
+                    try await wait { attack.elapsed >= 0.15 }
+                    try check(!attack.impactPresented && director.presentedCombat == attack.before,
+                              "\(mode): wind-up hides accepted damage")
+                    try check(GameSession(saveStore: meleeStore).tacticalCombat == director.combat,
+                              "\(mode): save already contains the accepted outcome")
+                    let accepted = director.combat
+                    scene.handleConfirmInput(); click(scene, world: opponent.position)
+                    try check(director.combat == accepted, "\(mode): input cannot interrupt or repeat the strike")
+                    scene.handleTacticalPauseInput()
+                    let elapsed = attack.elapsed, phase = attack.actor.currentPhase
+                    try await Task.sleep(for: .milliseconds(180))
+                    try check(attack.elapsed == elapsed && attack.actor.currentPhase == phase,
+                              "\(mode): pause freezes the attack pose and hit marker")
+                    try capture("melee-\(mode)-windup")
+                    scene.handleTacticalPauseInput()
+                    try await wait { attack.impactPresented }
+                    try check(director.presentedCombat == director.combat && director.busy,
+                              "\(mode): damage appears at impact while recovery still locks input")
+                    try check((attack.result.damage == 0) == (mode == "miss"), "\(mode): hit or miss follows the accepted roll")
+                    try capture("melee-\(mode)-impact")
+                    try await wait { director.meleeAttack == nil }
+                    try check(attack.actor.currentAction == .idle, "\(mode): recovery returns to idle")
+                    if mode != "enemy" { try check(!scene.detective.isHidden, "\(mode): player body is restored") }
+                    if mode == "sword" {
+                        let saved = GameSession(saveStore: meleeStore).tacticalCombat!
+                        context = GameContext(saveStore: meleeStore); context.router.start(in: view)
+                        try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector != nil }
+                        scene = view.scene as! CityDistrictScene
+                        try check(scene.combatDirector?.combat == saved && scene.combatDirector?.meleeAttack == nil,
+                                  "Reload does not repeat an accepted sword strike")
+                    }
+                }
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil)
+                return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BARRELS_ONLY"] != "1" {
             for point in [HUDChromeLayout.leftRailLayout(for: scene.size).plateCenter,
                           HUDChromeLayout.rightRailLayout(for: scene.size).plateCenter] {
@@ -469,12 +567,16 @@ import SpriteKit
             scene = view.scene as! CityDistrictScene
             click(scene, world: CGPoint(x: smashPoint.x, y: smashPoint.y + 30))
             let smashDirector = scene.combatDirector!
+            try check(smashDirector.combat.actors == smashFight.actors && !smashDirector.combat.budget.canAttack,
+                "Breaking a barrel costs a standard action without blast damage")
+            try check(smashDirector.meleeAttack != nil && !smashDirector.debrisMoving
+                && scene.navigation.occupancy.actors["combat.oil.smash"] != nil,
+                "Barrel fragments and occupancy wait for the melee hit pose")
+            try await wait { smashDirector.meleeAttack?.impactPresented == true }
             try check(smashDirector.combat.liveBarrels.first?.isBroken == true
                 && smashDirector.combat.liveBarrels.first?.exploded == false
                 && scene.navigation.occupancy.actors["combat.oil.smash"] == nil,
                 "Physical strike leaves flammable oil and debris and opens its raster cell")
-            try check(smashDirector.combat.actors == smashFight.actors && !smashDirector.combat.budget.canAttack,
-                "Breaking a barrel costs a standard action without blast damage")
             try check(smashDirector.debrisMoving, "A physical strike also launches barrel fragments")
             try await wait { smashDirector.barrelNodes["combat.oil.smash"]!.elapsed > 0.25 }
             try capture("barrel-smash-fragments")

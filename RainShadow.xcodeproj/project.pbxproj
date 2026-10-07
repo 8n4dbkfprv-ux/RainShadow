@@ -27,8 +27,16 @@
 		C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EC00000000000000001 /* VossElvenCourtArrow */; };
 		C0DE1ED00000000000000011 /* BearGuardian in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1ED00000000000000001 /* BearGuardian */; };
 		C0DE1EE00000000000000011 /* WharfLookoutShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EE00000000000000001 /* WharfLookoutShot */; };
+		C0DE1EF20000000000000011 /* HumanMelee in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF20000000000000001 /* HumanMelee */; };
+		C0DE1EF30000000000000011 /* HumanMeleeSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF30000000000000001 /* HumanMeleeSword */; };
+		C0DE1EF40000000000000011 /* HumanMeleeMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF40000000000000001 /* HumanMeleeMail */; };
+		C0DE1EF50000000000000011 /* HumanMeleeHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF50000000000000001 /* HumanMeleeHelmet */; };
 		C0DE1ED00000000000000021 /* BearGuardian in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1ED00000000000000001 /* BearGuardian */; };
 		C0DE1EE00000000000000021 /* WharfLookoutShot in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EE00000000000000001 /* WharfLookoutShot */; };
+		C0DE1EF20000000000000021 /* HumanMelee in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF20000000000000001 /* HumanMelee */; };
+		C0DE1EF30000000000000021 /* HumanMeleeSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF30000000000000001 /* HumanMeleeSword */; };
+		C0DE1EF40000000000000021 /* HumanMeleeMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF40000000000000001 /* HumanMeleeMail */; };
+		C0DE1EF50000000000000021 /* HumanMeleeHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EF50000000000000001 /* HumanMeleeHelmet */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +54,10 @@
 		DAAF9D43300A69350071746D /* RainShadow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainShadow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DE1ED00000000000000001 /* BearGuardian */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BearGuardian; path = "RainShadow Shared/Resources/Art/IE/Avatars/BearGuardian"; sourceTree = SOURCE_ROOT; };
 		C0DE1EE00000000000000001 /* WharfLookoutShot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WharfLookoutShot; path = "RainShadow Shared/Resources/Art/IE/Avatars/WharfLookoutShot"; sourceTree = SOURCE_ROOT; };
+		C0DE1EF20000000000000001 /* HumanMelee */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanMelee; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanMelee"; sourceTree = SOURCE_ROOT; };
+		C0DE1EF30000000000000001 /* HumanMeleeSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanMeleeSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanMeleeSword"; sourceTree = SOURCE_ROOT; };
+		C0DE1EF40000000000000001 /* HumanMeleeMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanMeleeMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanMeleeMail"; sourceTree = SOURCE_ROOT; };
+		C0DE1EF50000000000000001 /* HumanMeleeHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanMeleeHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanMeleeHelmet"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -199,6 +211,7 @@
 				Gameplay/Navigation/BearFormRules.swift,
 				Gameplay/Navigation/BearAnimationSet.swift,
 				Gameplay/Navigation/BowAttackAnimationSet.swift,
+				Gameplay/Navigation/MeleeAttackAnimationSet.swift,
 				Gameplay/Navigation/BowAttackRules.swift,
 				Resources/Art/Combat/oil_barrel_v01.png,
 				Resources/Art/Combat/oil_barrel_debris_v01.png,
@@ -1453,6 +1466,7 @@
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
 				Scenes/CityDistrict/BowShotPresentation.swift,
+				Scenes/CityDistrict/MeleeAttackPresentation.swift,
 				Scenes/CityDistrict/CombatBarrelVisual.swift,
 				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
 				Scenes/OpeningExterior/OpeningExteriorScene.swift,
@@ -1645,6 +1659,7 @@
 				Gameplay/Navigation/BearFormRules.swift,
 				Gameplay/Navigation/BearAnimationSet.swift,
 				Gameplay/Navigation/BowAttackAnimationSet.swift,
+				Gameplay/Navigation/MeleeAttackAnimationSet.swift,
 				Gameplay/Navigation/BowAttackRules.swift,
 				Resources/Art/Combat/oil_barrel_v01.png,
 				Resources/Art/Combat/oil_barrel_debris_v01.png,
@@ -2947,6 +2962,7 @@
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
 				Scenes/CityDistrict/BowShotPresentation.swift,
+				Scenes/CityDistrict/MeleeAttackPresentation.swift,
 				Scenes/CityDistrict/CombatBarrelVisual.swift,
 				Scenes/DetectiveOffice/DetectiveOfficeScene.swift,
 				Scenes/OpeningExterior/OpeningExteriorScene.swift,
@@ -3028,6 +3044,10 @@
 				C0DE1EA00000000000000004 /* VossCHMF */,
 				C0DE1ED00000000000000001 /* BearGuardian */,
 				C0DE1EE00000000000000001 /* WharfLookoutShot */,
+				C0DE1EF20000000000000001 /* HumanMelee */,
+				C0DE1EF30000000000000001 /* HumanMeleeSword */,
+				C0DE1EF40000000000000001 /* HumanMeleeMail */,
+				C0DE1EF50000000000000001 /* HumanMeleeHelmet */,
 			);
 			name = "Indexed Avatar Bundles";
 			sourceTree = "<group>";
@@ -3182,6 +3202,10 @@
 				C0DE1EC00000000000000011 /* VossElvenCourtArrow in Resources */,
 				C0DE1ED00000000000000011 /* BearGuardian in Resources */,
 				C0DE1EE00000000000000011 /* WharfLookoutShot in Resources */,
+				C0DE1EF20000000000000011 /* HumanMelee in Resources */,
+				C0DE1EF30000000000000011 /* HumanMeleeSword in Resources */,
+				C0DE1EF40000000000000011 /* HumanMeleeMail in Resources */,
+				C0DE1EF50000000000000011 /* HumanMeleeHelmet in Resources */,
 			);
 		};
 		DAAF9D31300A69350071746D /* Resources */ = {
@@ -3203,6 +3227,10 @@
 				C0DE1EC00000000000000021 /* VossElvenCourtArrow in Resources */,
 				C0DE1ED00000000000000021 /* BearGuardian in Resources */,
 				C0DE1EE00000000000000021 /* WharfLookoutShot in Resources */,
+				C0DE1EF20000000000000021 /* HumanMelee in Resources */,
+				C0DE1EF30000000000000021 /* HumanMeleeSword in Resources */,
+				C0DE1EF40000000000000021 /* HumanMeleeMail in Resources */,
+				C0DE1EF50000000000000021 /* HumanMeleeHelmet in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
