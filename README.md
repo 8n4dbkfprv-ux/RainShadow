@@ -21,7 +21,9 @@ Voss uses the current Baldur’s Gate reference character in every area, includi
 Playable nonlethal Wharf Ladder combat is available through normal city travel.
 For direct access, open [Play Combat.command](Play%20Combat.command); it uses a
 separate persistent save at the shipping-office entrance. Click the ground to
-move, click an opponent to strike, and use Blade Ward, End Turn or Yield. See the
+move, select Melee Attack (or click an opponent directly) to strike, and use
+Blade Ward, End Turn or Flee Combat. Flee requires 60 feet from every conscious
+enemy; escape preserves remaining health and leaves the encounter unresolved. See the
 [TemplePlus combat integration](Documentation/TemplePlusCombatOct06.md) for scope
 and verification.
 

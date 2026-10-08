@@ -136,7 +136,7 @@ import SpriteKit
                 try capture("bear-transform")
                 try await wait { !director.busy }
                 try check(director.bearNode?.isHidden == false && scene.detective.isHidden, "Transformation displays the bear")
-                try check(director.visibleCombatCommands == ["combat.claw", "combat.roar", "combat.bear", "combat.extinguish", "combat.end", "combat.yield"], "Bear form replaces weapon techniques with its own action bar")
+                try check(director.visibleCombatCommands == ["combat.claw", "combat.roar", "combat.bear", "combat.extinguish", "combat.end", "combat.flee"], "Bear form replaces weapon techniques with its own action bar")
                 try capture("bear-actions")
                 try await checkBearInterface(scene, director, captureName: "bear-inventory")
                 continue

@@ -125,6 +125,9 @@ struct Combatant: Codable, Equatable {
 struct TacticalCombat: Codable, Equatable {
     static let playerID = "detective.voss"
     static let meleeReach: Double = 105
+    /// RainShadow escape distance: 60 feet at eight world units per foot.
+    static let fleeDistance: Double = 480
+    private(set) var fled: Bool? = nil
     var version = 1
     var encounterID: String
     var areaID: String
@@ -145,8 +148,9 @@ struct TacticalCombat: Codable, Equatable {
     func movementSpeed(for actor: Combatant) -> Double {
         (actor.player && isBear ? BearFormRules.speed : actor.speed) * (actor.conditions?.slowed == true ? 0.5 : 1)
     }
-    enum Outcome: String, Codable { case won, lost }
+    enum Outcome: String, Codable { case won, lost, fled }
     var outcome: Outcome? {
+        if fled == true { return .fled }
         if !actors.contains(where: { $0.player && $0.conscious }) { return .lost }
         if !actors.contains(where: { !$0.player && $0.conscious }) { return .won }
         return nil
@@ -172,7 +176,7 @@ struct TacticalCombat: Codable, Equatable {
 
     /// Reject incompatible/corrupt checkpoints before indexing the active actor.
     var isValid: Bool {
-        version == 1 && (bearForm?.isValid ?? true) && (barrels ?? []).count <= 8
+        version == 1 && (fled != true || actors.contains { $0.player && $0.conscious }) && (bearForm?.isValid ?? true) && (barrels ?? []).count <= 8
         && Set((barrels ?? []).map(\.id)).count == (barrels ?? []).count
         && (barrels ?? []).allSatisfy { $0.position.x.isFinite && $0.position.y.isFinite && !$0.id.isEmpty
             && ($0.debris.map { $0.count == BarrelDebrisPhysics.fragmentCount && $0.allSatisfy(\.isValid) } ?? true) }
@@ -347,6 +351,29 @@ struct TacticalCombat: Codable, Equatable {
         guard let index = actors.firstIndex(where: { $0.id == id }) else { return }
         actors[index].position = point.rounded
     }
+    var nearestEnemyDistance: Double? {
+        guard let player = actors.first(where: \.player) else { return nil }
+        return actors.filter { !$0.player && $0.conscious }
+            .map { CombatNavigation.distance(player.position, $0.position) }.min()
+    }
+    var fleeUnavailableReason: String? {
+        guard isPlayerTurn else { return "Flee Combat is available on your turn." }
+        guard !current.isProne else { return "Stand up before fleeing." }
+        guard let distance = nearestEnemyDistance else { return "No enemies remain." }
+        guard distance >= Self.fleeDistance else {
+            return "Retreat \(Int(ceil((Self.fleeDistance - distance) / 8))) ft farther from the nearest enemy (60 ft required)."
+        }
+        return nil
+    }
+    @discardableResult mutating func flee() -> Bool {
+        guard fleeUnavailableReason == nil else { return false }
+        fled = true
+        // Form and combat-only effects end with this encounter; human HP is untouched.
+        if isBear { endBearForm() }
+        note("Voss escapes with \(current.hp) health. The encounter remains unresolved.")
+        return true
+    }
+    /// Legacy nonlethal defeat fixture; no longer exposed as a player command.
     mutating func yield() {
         guard isPlayerTurn else { return }
         actors[turn].hp = 0

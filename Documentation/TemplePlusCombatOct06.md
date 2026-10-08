@@ -249,3 +249,41 @@ Report/captures: `output/blade-ward-oct08/`; animation preview:
 `output/blade-ward-oct08/cast-animation.gif`.
 The bear-form regression playtest also passed all 110 checks with its updated
 action bar; report: `output/blade-ward-bear-oct08/report.json`.
+
+## October 8 — explicit melee and retreat
+
+The human action bar now starts with **Melee Attack**. It selects ordinary melee
+without consuming an action until a valid target is clicked, reuses the existing
+sword animation, and shows cyan reachable targets / red unavailable targets.
+Hovering reports a valid strike, out-of-reach target, blocked line, or spent
+standard action. Clicking an out-of-reach enemy is inert. Click the button again
+or Escape to return to movement; direct enemy-click attacks still work. Bear
+form keeps Claw Attack instead of showing the human melee button.
+
+**Flee Combat [3]** replaces Yield in both forms. RainShadow uses a 60-foot
+escape threshold (480 world units, measured by the existing ground-projected
+combat distance). This is an authored map-scale choice, not an exact BG3 rule.
+Every conscious enemy must be at least that far away. A rejected click reports
+how much farther the player must retreat. Flee is available only on the player's
+turn while standing; it needs no standard action after movement and respects
+pause, inventory, and in-flight animation locks.
+
+Escape has a separate saved `fled` outcome. It preserves human health, ends Bear
+Form, removes encounter presentation/occupancy, and returns to exploration at
+the retreat position. It clears the current request without granting crossing,
+loot, injury, victory, or defeat aftermath. The encounter can be requested again
+on a later visit. Enemy state is recreated on the next encounter, as in the
+existing encounter lifecycle. Human health now persists in `SaveSnapshot` and
+is used when starting the next fight; older saves default to 12. The existing
+nonlethal victory/loss recovery remains unchanged. Legacy `yield()` is retained
+only for defeat regression fixtures, with no player UI binding.
+
+QA entry point: `RAINSHADOW_QA_ESCAPE_ONLY=1` with `RAINSHADOW_QA_COMBAT` set to
+an output directory. `CombatEscapeTests` covers distance boundaries, nearest
+conscious enemies, turn/prone restrictions, bear reversion, unchanged HP/action
+budget/random state, old saves, and story retry without rewards.
+
+Verification: 60 focused core/persistence tests passed; the live escape/melee
+harness passed 24 checks and the bear regression passed 110 checks. Final macOS
+and iOS Simulator builds succeeded (iOS build-only). Screenshots and reports are
+in `output/flee-melee-oct08/` and `output/flee-bear-oct08/`.

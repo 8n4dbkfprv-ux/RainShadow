@@ -88,6 +88,7 @@ final class GameSession {
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
         let snapshot = saveStore.load()
+        currentHealth = min(max(0, snapshot.currentHealth), maximumHealth)
         if let data = snapshot.tacticalCombat,
            let combat = try? JSONDecoder().decode(TacticalCombat.self, from: data), combat.isValid,
            WharfLadderStory.Encounter(rawValue: combat.encounterID) != nil,
@@ -208,7 +209,13 @@ final class GameSession {
     func finishCombat(_ combat: TacticalCombat) {
         guard let result = combat.outcome,
               let encounter = WharfLadderStory.Encounter(rawValue: combat.encounterID) else { return }
-        WharfLadderStory.resolve(encounter, outcome: result == .won ? .won : .lost, in: &caseState)
+        if result == .fled {
+            currentHealth = min(maximumHealth, combat.actors.first(where: \.player)!.hp)
+            WharfLadderStory.flee(encounter, in: &caseState)
+        } else {
+            currentHealth = maximumHealth
+            WharfLadderStory.resolve(encounter, outcome: result == .won ? .won : .lost, in: &caseState)
+        }
         tacticalCombat = nil
         persist()
     }
@@ -711,6 +718,7 @@ final class GameSession {
         fogPersistTask = nil
         saveStore.save(SaveSnapshot(
             tacticalCombat: tacticalCombat.flatMap { try? JSONEncoder().encode($0) },
+            currentHealth: currentHealth,
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,
             hasCompletedOfficeCaseIntro: hasCompletedOfficeCaseIntro,

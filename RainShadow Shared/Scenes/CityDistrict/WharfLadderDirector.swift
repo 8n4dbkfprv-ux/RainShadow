@@ -104,7 +104,7 @@ final class WharfLadderDirector {
         let openingBonus = state.hasFlag(encounter.prefix + ".opening.firstBlow") ? 20 : 0
         let rattled = state.hasFlag(encounter.prefix + ".opening.rattled")
         var actors = [Combatant(id: TacticalCombat.playerID, name: "Voss", player: true,
-            position: scene.detective.position.rounded, hp: 12, maximumHP: 12,
+            position: scene.detective.position.rounded, hp: max(1, scene.context.session.currentHealth), maximumHP: 12,
             defence: 12 + scene.context.session.defenceBonus, attackBonus: 5,
             damageMin: 3, damageMax: 5, initiativeBonus: 3 + openingBonus,
             speed: scene.detective.movementProfile.effectiveMoveScale == nil ? 0 :
@@ -146,8 +146,10 @@ final class WharfLadderDirector {
         combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew) { [weak self] in
             guard let self else { return }
             self.fallenBodies += self.combatDirector?.defeatNodes.values.map { $0 } ?? []
+            let escaped = self.combatDirector?.combat.outcome == .fled
             self.combatDirector = nil
-            self.showAftermath(encounter)
+            if escaped { self.finish(resumeInteraction: false) }
+            else { self.showAftermath(encounter) }
         }
         scene.overlayPresentationDidChange()
     }
@@ -203,13 +205,15 @@ final class WharfLadderDirector {
         scene.presentDialogue(graph, onComplete: completion)
     }
 
-    private func finish() {
+    private func finish(resumeInteraction: Bool = true) {
         clearCrew()
         scene.dialogueIsActive = false
         isActive = false
         cinematicMode = false
         scene.overlayPresentationDidChange()
-        let next = completion
+        // Escape cancels the original door approach; resuming it would walk
+        // straight back into the unresolved encounter.
+        let next = resumeInteraction ? completion : nil
         completion = nil
         next?()
     }

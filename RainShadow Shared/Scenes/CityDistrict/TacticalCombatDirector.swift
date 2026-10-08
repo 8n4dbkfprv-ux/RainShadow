@@ -19,11 +19,13 @@ final class TacticalCombatDirector {
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
     private var activeButtons: [SKShapeNode] {
-        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : Array(buttons.prefix(14))
+        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : [buttons[16]] + Array(buttons.prefix(14))
     }
     private let routePreview = SKShapeNode()
     private let sightPreview = SKNode()
     private var showingSight = false
+    private(set) var selectingMelee = false
+    var targetingFeedback: String { feedback }
     private(set) var selectingSneakAttack = false
     private var badges: [String: SKLabelNode] = [:]
     private var rings: [String: SKShapeNode] = [:]
@@ -136,9 +138,9 @@ final class TacticalCombatDirector {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
-        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.yield", "Yield [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
+        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]")] {
+        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack")] {
             let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
             button.name = name
             button.fillColor = SKColor(white: 0.17, alpha: 1)
@@ -240,6 +242,9 @@ final class TacticalCombatDirector {
             : "\(combat.current.name) is taking their turn…"
         history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
+        buttons[2].alpha = combat.isPlayerTurn && !busy && combat.fleeUnavailableReason == nil ? 1 : 0.35
+        buttons[16].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
+        buttons[16].strokeColor = selectingMelee ? .cyan : SKColor(white: 0.5, alpha: 1)
         buttons[0].alpha = combat.isPlayerTurn && !busy && combat.canCastBladeWard ? 1 : 0.35
         (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
@@ -277,7 +282,9 @@ final class TacticalCombatDirector {
             if actor.isBurning { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Burning \(actor.burningTurns!)t" }
             if actor.hidden == true { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Hidden" }
             badges[actor.id]?.fontColor = actor.player ? .cyan : SKColor(red: 1, green: 0.7, blue: 0.55, alpha: 1)
-            rings[actor.id]?.strokeColor = actor.id == shown.current.id ? .yellow : actor.player ? .cyan : .red
+            rings[actor.id]?.strokeColor = selectingMelee && !actor.player && actor.conscious
+                ? (meleeUnavailableReason(actor) == nil ? .cyan : .red)
+                : actor.id == shown.current.id ? .yellow : actor.player ? .cyan : .red
         }
     }
     private func checkpoint(synchronize: Bool = true) {
@@ -299,6 +306,16 @@ final class TacticalCombatDirector {
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
         if combat.isBear && ![1, 2, 3, 4, 12, 15, 16].contains(digit) { return }
+        if digit == 17 {
+            if selectingMelee { cancelTargeting(); return }
+            guard !combat.isBear, combat.budget.canAttack else {
+                feedback = "Melee Attack needs an unspent standard action."; refresh(); return
+            }
+            cancelTargeting(); selectingMelee = true
+            feedback = "Melee Attack: choose a rival. Cyan targets are in reach; red targets are unavailable."
+            refresh(); return
+        }
+        if selectingMelee { cancelTargeting() }
         if digit == 15 {
             guard combat.isBear, combat.budget.canAttack else { return }
             let wasSelected = selectingClaw; cancelTargeting(); selectingClaw = !wasSelected
@@ -366,7 +383,8 @@ final class TacticalCombatDirector {
         case 2:
             endCombatTurn(); delay = 0.5; feedback = "Click ground to move • Click a rival to strike"; checkpoint()
         case 3:
-            combat.yield(); checkpoint(); delay = 0.4
+            if let reason = combat.fleeUnavailableReason { feedback = reason; refresh() }
+            else if combat.flee() { cancelTargeting(); checkpoint(synchronize: false); delay = 0.4 }
         case 4:
             if combat.isBear {
                 if combat.revertBear() { checkpoint() }
@@ -388,6 +406,7 @@ final class TacticalCombatDirector {
         }
     }
     func cancelTargeting() {
+        selectingMelee = false
         selectingClaw = false
         routePreview.zPosition = 10000
         selectingShove = false
@@ -416,6 +435,7 @@ final class TacticalCombatDirector {
             return
         }
         if let barrel = barrel(at: world) {
+            if selectingMelee { smashBarrel(barrel); return }
             if selectedManeuver != nil || selectingSneakAttack { feedback = "Weapon techniques target rivals. Use Fire arrow [5] for barrels."; refresh(); return }
             if aimingFireArrow {
                 guard canUsePlayerBow() else { refresh(); return }
@@ -426,7 +446,10 @@ final class TacticalCombatDirector {
         if let target = combat.actors.filter({ !$0.player && $0.conscious }).min(by: {
             hypot(world.x - $0.position.x, world.y - $0.position.y - 70) < hypot(world.x - $1.position.x, world.y - $1.position.y - 70)
         }), CGRect(x: target.position.x - 48, y: target.position.y - 20, width: 96, height: 110).contains(world) {
-            if selectingSneakAttack {
+            if selectingMelee {
+                if let reason = meleeUnavailableReason(target) { feedback = reason; refresh() }
+                else { strike(target) }
+            } else if selectingSneakAttack {
                 let wasHidden = combat.current.hidden == true
                 revealObservedActors()
                 if wasHidden && combat.current.hidden != true { checkpoint() }
@@ -439,6 +462,8 @@ final class TacticalCombatDirector {
                 if ranged { shoot(target, requireSneakAttack: true) } else { strike(target, requireSneakAttack: true) }
             } else if aimingFireArrow || selectedManeuver?.ranged == true { shoot(target, maneuver: selectedManeuver) }
             else { strike(target, maneuver: selectedManeuver) }
+        } else if selectingMelee {
+            feedback = "Choose a rival for Melee Attack; select Melee Attack again or Escape to move."; refresh()
         } else if selectingClaw {
             feedback = "Choose a nearby rival, or select Claw Attack again to move."; refresh()
         } else if selectingSneakAttack {
@@ -458,6 +483,15 @@ final class TacticalCombatDirector {
         if selectingShove {
             if let target = shoveTarget(at: world) { previewShove(target) } else { routePreview.path = nil }
             return
+        }
+        if selectingMelee {
+            guard let target = meleeTarget(at: world) else { routePreview.path = nil; return }
+            let reason = meleeUnavailableReason(target)
+            routePreview.path = CGPath(ellipseIn: CGRect(x: target.position.x - 36, y: target.position.y - 27,
+                width: 72, height: 54), transform: nil)
+            routePreview.strokeColor = reason == nil ? .cyan : .red
+            feedback = reason ?? "Melee Attack: \(target.name) • standard action • click to strike."
+            refresh(); return
         }
         if selectedManeuver != nil || selectingSneakAttack || selectingClaw { routePreview.path = nil; return }
         if let barrel = barrel(at: world) { preview(barrel); return }
@@ -523,6 +557,31 @@ final class TacticalCombatDirector {
         }
         checkpoint()
     }
+    private func meleeTarget(at point: CGPoint) -> Combatant? {
+        combat.actors.filter { !$0.player && $0.conscious }.min {
+            hypot(point.x - $0.position.x, point.y - $0.position.y - 70)
+                < hypot(point.x - $1.position.x, point.y - $1.position.y - 70)
+        }.flatMap {
+            CGRect(x: $0.position.x - 48, y: $0.position.y - 20, width: 96, height: 110).contains(point) ? $0 : nil
+        }
+    }
+    private func meleeUnavailableReason(_ target: Combatant) -> String? {
+        guard combat.budget.canAttack else { return "No standard action remains." }
+        guard target.hidden != true else { return "That rival is hidden." }
+        guard CombatNavigation.distance(combat.current.position, target.position) <= TacticalCombat.meleeReach else {
+            return "Out of melee reach. Cancel targeting and move closer."
+        }
+        guard CombatNavigation.clearLine(in: scene.navigation, from: combat.current.position, to: target.position,
+            excluding: [combat.current.id, target.id]) else { return "Melee path blocked. Move to a clear position." }
+        return nil
+    }
+    #if DEBUG
+    /// Defeat fixtures retain coverage of authored loss aftermath without a surrender button.
+    func resolveDefeatForQA() {
+        guard ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil else { return }
+        combat.yield(); checkpoint(); delay = 0.4
+    }
+    #endif
     private func strike(_ target: Combatant, maneuver: CombatManeuver? = nil, requireSneakAttack: Bool = false) {
         let attacker = combat.current
         let wasBear = combat.isBear
@@ -540,6 +599,7 @@ final class TacticalCombatDirector {
             feedback = combat.budget.canAttack ? "Move closer with a clear line before striking." : "No standard action remains."
             refresh(); return
         }
+        selectingMelee = false
         selectingSneakAttack = false
         selectingClaw = false
         selectedManeuver = nil
@@ -997,6 +1057,7 @@ final class TacticalCombatDirector {
                 : "Move within melee reach to break it, or use Fire arrow [5]."
             refresh(); return
         }
+        selectingMelee = false
         let destruction = BarrelDestruction(barrel: barrel, explosion: false,
             impactFrom: combat.current.position, searchMap: scene.navigation.searchMap)
         combat.recordBarrelDebris(barrel.id, poses: destruction.finalPoses)

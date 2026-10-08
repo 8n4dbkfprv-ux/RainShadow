@@ -242,6 +242,7 @@ struct SaveSnapshot: Codable, Equatable {
     var officeLayoutRevision = 1
     /// Versioned tactical checkpoint; decoded by the combat core, which depends on persistence.
     var tacticalCombat: Data? = nil
+    var currentHealth: Int = 12
     var schemaVersion = SaveSnapshot.currentSchemaVersion
     var hasSeenOpening = false
     var hasSeenOfficeHint = false
@@ -303,6 +304,7 @@ struct SaveSnapshot: Codable, Equatable {
     init(
         schemaVersion: Int = SaveSnapshot.currentSchemaVersion,
         tacticalCombat: Data? = nil,
+        currentHealth: Int = 12,
         hasSeenOpening: Bool = false,
         hasSeenOfficeHint: Bool = false,
         hasCompletedOfficeCaseIntro: Bool = false,
@@ -329,6 +331,7 @@ struct SaveSnapshot: Codable, Equatable {
     ) {
         self.schemaVersion = schemaVersion
         self.tacticalCombat = tacticalCombat
+        self.currentHealth = currentHealth
         self.hasSeenOpening = hasSeenOpening
         self.hasSeenOfficeHint = hasSeenOfficeHint
         self.hasCompletedOfficeCaseIntro = hasCompletedOfficeCaseIntro
@@ -357,6 +360,7 @@ struct SaveSnapshot: Codable, Equatable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         tacticalCombat = try container.decodeIfPresent(Data.self, forKey: .tacticalCombat)
+        currentHealth = try container.decodeIfPresent(Int.self, forKey: .currentHealth) ?? 12
         cityLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .cityLayoutRevision) ?? 0
         officeLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .officeLayoutRevision) ?? 0
         exploredFog = try container.decodeIfPresent([String: PersistedExploredFog].self, forKey: .exploredFog) ?? [:]

@@ -125,6 +125,11 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_ESCAPE_ONLY"] == "1" {
+                checks += try await CombatEscapeQA.run(in: view, output: output, initial: beforeChromeClick)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BLADE_WARD_ONLY"] == "1" {
                 checks += try await BladeWardQA.run(in: view, output: output, initial: beforeChromeClick)
                 try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
@@ -1585,9 +1590,9 @@ import SpriteKit
                 driveDialogue(scene); try await Task.sleep(for: .milliseconds(300))
             }
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
-            scene.handleDialogueChoiceDigit(3)
+            scene.combatDirector?.resolveDefeatForQA()
             try await wait { scene.combatDirector == nil }
-            try check(context.session.caseState.hasFlag("combat.a1.lane.outcome.lost"), "Yield produces a nonlethal loss and authored aftermath")
+            try check(context.session.caseState.hasFlag("combat.a1.lane.outcome.lost"), "Defeat produces a nonlethal loss and authored aftermath")
             try check(context.session.caseState.hasEvidence("evidence.a1.lane.chit"), "Lane reward follows the existing first-fight contract")
             try check(scene.navigation.occupancy.actors.count == 1, "Combat cleanup removes crew occupancy")
             try check(GameSession(saveStore: store).tacticalCombat == nil, "Completed encounter stays complete after reload")
@@ -1604,7 +1609,7 @@ import SpriteKit
             try check(scene.combatDirector!.combat.actors.count == 4, "Clock room stages Voss and all three opponents")
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("clock-combat")
-            scene.handleDialogueChoiceDigit(3)
+            scene.combatDirector?.resolveDefeatForQA()
             try await wait { scene.combatDirector == nil }
             try check(context.session.caseState.hasFlag("combat.a1.clockroom.outcome.lost"), "Clock-room defeat still allows story progress")
             let e1Deadline = ProcessInfo.processInfo.systemUptime + 60
@@ -1614,7 +1619,7 @@ import SpriteKit
             }
             try check(scene.combatDirector!.combat.encounterID == "e1", "Merrick dialogue dispatches played E1")
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
-            scene.handleDialogueChoiceDigit(3)
+            scene.combatDirector?.resolveDefeatForQA()
             try await wait { scene.combatDirector == nil }
             try check(context.session.caseState.hasFlag("combat.e1.outcome.lost") && context.session.caseState.counter("watch.attention") == 1,
                       "E1 defeat applies Watch attention exactly once")
@@ -1639,7 +1644,7 @@ import SpriteKit
                 try await wait { scene.combatDirector?.busy == false }
                 if mode == "voluntary" { scene.handleDialogueChoiceDigit(4) }
                 else if mode == "expiry" { scene.handleConfirmInput() }
-                else { scene.handleDialogueChoiceDigit(3) }
+                else { scene.combatDirector?.resolveDefeatForQA() }
                 try await wait { !scene.detective.isHidden && scene.depthWorldRoot.childNode(withName: "combat.bear.transformation") == nil }
                 try check(scene.combatDirector?.combat.isBear != true, "\(mode) reversion restores the human presentation")
                 try check(scene.navigation.occupancy.actors[TacticalCombat.playerID]?.personalSpaceCells == ActorLocomotionPacing.personalSpaceCells,

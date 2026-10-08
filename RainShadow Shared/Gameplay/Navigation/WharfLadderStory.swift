@@ -60,6 +60,12 @@ enum WharfLadderStory {
             state.clearFlag(flag)
         }
     }
+    /// Escape does not grant crossing, loot, injuries, or loss narration.
+    static func flee(_ encounter: Encounter, in state: inout CaseState) {
+        clearRequests(encounter, in: &state)
+        state.clearFlag(aftermath + encounter.rawValue)
+        state.setFlag(encounter.prefix + ".outcome.fled")
+    }
     /// Auto-resolve is always nonlethal victory; the explicit loss supports future
     /// played combat without changing the dialogue or progression contract.
     @discardableResult
@@ -83,7 +89,7 @@ enum WharfLadderStory {
             state.setFlag(encounter.prefix + ".last-opening.\(opening)")
         }
         let outcomeID = result == .won ? "won" : result == .lost ? "lost" : "slipped"
-        for old in ["won", "lost", "slipped", "avoided"] { state.clearFlag(encounter.prefix + ".outcome." + old) }
+        for old in ["won", "lost", "slipped", "avoided", "fled"] { state.clearFlag(encounter.prefix + ".outcome." + old) }
         state.setFlag(encounter.prefix + ".outcome." + outcomeID)
         if outcome == nil && result == .won { state.setFlag(encounter.prefix + ".auto-resolved") }
         if encounter == .lane && firstFight && result != .crossed {
