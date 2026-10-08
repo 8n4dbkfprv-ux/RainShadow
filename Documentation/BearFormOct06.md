@@ -274,3 +274,11 @@ checks, including form UI on save/reload, merged equipment refusal, portrait
 layering and all three reversion paths. Bear/human inventory and portrait
 captures were visually reviewed. iOS was compile-verified only.
 Report and captures: `output/bear-ui-oct08/`.
+
+### Bear Health terminology
+
+The inventory, transformation message and overhead bear badge now call the
+separate pool **Bear Health**. The overhead badge shows current/maximum bear
+health rather than human health plus an apparent bonus. Inventory still shows
+stored human health separately. The pool remains 8 HP; damage absorption,
+overflow, reversion and saved-state fields are unchanged.

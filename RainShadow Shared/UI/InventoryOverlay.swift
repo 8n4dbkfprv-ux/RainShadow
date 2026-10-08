@@ -1043,7 +1043,7 @@ final class InventoryOverlay: SKNode {
             setStat(.defence, value: "\(form.defence)",
                     lines: ["Bear defence: \(form.defence)", "Movement: \(form.movementFeet) ft"])
             setStat(.vitality, value: "\(form.endurance)/\(BearFormRules.maximumEndurance)",
-                    lines: ["Bear endurance: \(form.endurance) / \(BearFormRules.maximumEndurance)",
+                    lines: ["Bear Health: \(form.endurance) / \(BearFormRules.maximumEndurance)",
                             "Human health: \(form.humanHealth) / \(form.humanMaximumHealth)"])
             setStat(.resolve, value: "\(GameSession.detectiveLore)",
                     lines: ["Resolve: \(GameSession.detectiveLore)", "\(form.turnsRemaining) turns of Bear Form remain."])

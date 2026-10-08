@@ -258,7 +258,7 @@ final class TacticalCombatDirector {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
             badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.defending ? " +4" : "")"
             if actor.player, shown.isBear, let form = shown.bearForm {
-                badges[actor.id]?.text = "\(actor.hp)/\(actor.maximumHP) +\(form.temporaryHP) • \(form.turnsRemaining)t"
+                badges[actor.id]?.text = "Bear Health: \(form.temporaryHP)/\(BearFormRules.maximumEndurance) • \(form.turnsRemaining)t"
             }
             if let condition = actor.conditions, !condition.label.isEmpty {
                 badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · " + condition.label

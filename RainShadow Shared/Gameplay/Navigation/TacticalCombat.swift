@@ -343,7 +343,7 @@ struct TacticalCombat: Codable, Equatable {
         guard canTransform, hasClearance, budget.spend(2) else { return false }
         reveal(current.id)
         bearForm = BearFormState()
-        note("Voss takes Bear Form: 8 temporary endurance, three full turns.")
+        note("Voss takes Bear Form: \(BearFormRules.maximumEndurance) Bear Health, three full turns.")
         return true
     }
     @discardableResult mutating func revertBear() -> Bool {
